@@ -1,31 +1,20 @@
-﻿using System.Windows.Input;
+﻿using CommunityToolkit.Mvvm.ComponentModel;
+using CommunityToolkit.Mvvm.Input;
+using System.Windows.Input;
 
 namespace YeetMacro2.ViewModels;
 
-public class HomeViewModel : BaseViewModel
+public partial class HomeViewModel : ObservableObject
 {
-    private bool _isProjectionServiceEnabled, _isAccessibilityEnabled, _isAppearing;
+    [ObservableProperty]
+    bool _isProjectionServiceEnabled;
+    [ObservableProperty]
+    bool _isAccessibilityEnabled;
+    [ObservableProperty]
+    bool _isAppearing;
     //private IAccessibilityService _accessibilityService;
     //private IWindowManagerService _windowManagerService;
     //private INodeService<PatternNode, PatternNode> _nodeService;
-    public ICommand ToggleProjectionServiceCommand { get; }
-    public ICommand ToggleAccessibilityPermissionsCommand { get; }
-    public ICommand OnAppearCommand { get; }
-    public ICommand CopyDbCommand { get; }
-    public ICommand DeleteDbCommand { get; }
-    public ICommand SavePatternsToJsonCommand { get; }
-    public ICommand LoadPatternsFromJsonCommand { get; }
-
-    public bool IsProjectionServiceEnabled
-    {
-        get => _isProjectionServiceEnabled;
-        set => SetProperty(ref _isProjectionServiceEnabled, value);
-    }
-    public bool IsAccessibilityEnabled
-    {
-        get => _isAccessibilityEnabled;
-        set => SetProperty(ref _isAccessibilityEnabled, value);
-    }
 
     //public HomeViewModel() { }
 
@@ -33,20 +22,14 @@ public class HomeViewModel : BaseViewModel
     //    INodeService<PatternNode, PatternNode> nodeService)
     public HomeViewModel()
     {
-        Title = "Home";
-
-        ToggleProjectionServiceCommand = new Command(ToggleProjectionService);
-        ToggleAccessibilityPermissionsCommand = new Command(ToggleAccessibilityPermissions);
-        OnAppearCommand = new Command(OnAppear);
-        CopyDbCommand = new Command(CopyDb);
-        DeleteDbCommand = new Command(DeleteDb);
-        SavePatternsToJsonCommand = new Command(SavePatternsToJson);
-        LoadPatternsFromJsonCommand = new Command(LoadPatternsFromJson);
+        //Title = "Home";
+        
         //_accessibilityService = accessibilityService;
         //_windowManagerService = windowManagerService;
         //_nodeService = nodeService;
     }
 
+    [RelayCommand]
     private void SavePatternsToJson()
     {
         //var patternsViewModel = App.GetService<PatternTreeViewViewModel>();
@@ -56,6 +39,7 @@ public class HomeViewModel : BaseViewModel
         //File.WriteAllText(toPath, str);
     }
 
+    [RelayCommand]
     private void LoadPatternsFromJson()
     {
         //var currentAssembly = Assembly.GetExecutingAssembly();
@@ -75,6 +59,7 @@ public class HomeViewModel : BaseViewModel
         //}
     }
 
+    [RelayCommand]
     private async void CopyDb()
     {
         if (await Permissions.RequestAsync<Permissions.StorageWrite>() == PermissionStatus.Granted)
@@ -87,12 +72,14 @@ public class HomeViewModel : BaseViewModel
         }
     }
 
+    [RelayCommand]
     private void DeleteDb()
     {
         var dbPath = Path.Combine(FileSystem.AppDataDirectory, "yeetmacro.db3");
         File.Delete(dbPath);
     }
 
+    [RelayCommand]
     public void ToggleProjectionService()
     {
         //if (IsProjectionServiceEnabled)
@@ -105,9 +92,10 @@ public class HomeViewModel : BaseViewModel
         //}
     }
 
+    [RelayCommand]
     public void ToggleAccessibilityPermissions()
     {
-        if (_isAppearing) return;
+        if (IsAppearing) return;
 
         //if (IsAccessibilityEnabled)
         //{
@@ -119,6 +107,7 @@ public class HomeViewModel : BaseViewModel
         //}
     }
 
+    [RelayCommand]
     private void OnAppear()
     {
         //_isAppearing = true;
