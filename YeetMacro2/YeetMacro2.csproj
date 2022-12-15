@@ -62,4 +62,19 @@
 	  <None Include="C:\Users\dmnt1\Desktop\projects\YeetMacro2\YeetMacro2\.editorconfig" />
 	</ItemGroup>
 
+	<ItemGroup>
+	  <Compile Update="Platforms\iOS\Services\PlatformServiceRegistrationHelper.cs">
+	    <ExcludeFromCurrentConfiguration>false</ExcludeFromCurrentConfiguration>
+	  </Compile>
+	  <Compile Update="Platforms\MacCatalyst\Services\PlatformServiceRegistrationHelper.cs">
+	    <ExcludeFromCurrentConfiguration>false</ExcludeFromCurrentConfiguration>
+	  </Compile>
+	  <Compile Update="Platforms\Tizen\Services\PlatformServiceRegistrationHelper.cs">
+	    <ExcludeFromCurrentConfiguration>false</ExcludeFromCurrentConfiguration>
+	  </Compile>
+	  <Compile Update="Platforms\Windows\Services\PlatformServiceRegistrationHelper.cs">
+	    <ExcludeFromCurrentConfiguration>false</ExcludeFromCurrentConfiguration>
+	  </Compile>
+	</ItemGroup>
+
 </Project>
