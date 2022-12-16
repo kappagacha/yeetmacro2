@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
+             xmlns:vm="clr-namespace:YeetMacro2.ViewModels"
+             BindingContext="{StaticResource HomeViewModel}"
+             vm:ViewModelLocator.ViewModelType="{x:Type vm:HomeViewModel}"
+             x:Class="YeetMacro2.Pages.HomePage"
+             Title="HomePage">
+    <ContentPage.Behaviors>
+        <toolkit:EventToCommandBehavior
+                EventName="Appearing"
+                Command="{Binding AppearCommand}" />
+    </ContentPage.Behaviors>
+    <Grid RowDefinitions="Auto,*">
+        <Label Text="YeetMacro" HorizontalTextAlignment="Center" FontSize="Title" FontAttributes="Bold" />
+        <ScrollView Grid.Row="1">
+            <VerticalStackLayout Padding="30,24,30,24" Spacing="10">
+                <Grid RowDefinitions="Auto,Auto" ColumnDefinitions="Auto,*">
+                    <Switch Grid.Row="0" Grid.Column="0" IsToggled="{Binding IsProjectionServiceEnabled, Mode=TwoWay}">
+                        <Switch.Behaviors>
+                            <toolkit:EventToCommandBehavior
+                                EventName="Toggled"
+                                Command="{Binding ToggleProjectionServiceCommand}" />
+                        </Switch.Behaviors>
+                    </Switch>
+                    <Label Grid.Row="0" Grid.Column="1" VerticalTextAlignment="Center" Text="Projection Service">
+                        <Label.Triggers>
+                            <DataTrigger TargetType="Label" Binding="{Binding IsProjectionServiceEnabled}" Value="True">
+                                <Setter Property="TextColor" Value="Green" />
+                            </DataTrigger>
+                        </Label.Triggers>
+                    </Label>
+                    <Switch Grid.Row="1" Grid.Column="0" IsToggled="{Binding IsAccessibilityEnabled, Mode=TwoWay}">
+                        <Switch.Behaviors>
+                            <toolkit:EventToCommandBehavior
+                                EventName="Toggled"
+                                Command="{Binding ToggleAccessibilityPermissionsCommand}" />
+                        </Switch.Behaviors>
+                    </Switch>
+                    <Label Grid.Row="1" Grid.Column="1" VerticalTextAlignment="Center" Text="Accessibility Service">
+                        <Label.Triggers>
+                            <DataTrigger TargetType="Label" Binding="{Binding IsAccessibilityEnabled}" Value="True">
+                                <Setter Property="TextColor" Value="Green" />
+                            </DataTrigger>
+                        </Label.Triggers>
+                    </Label>
+                </Grid>
+                <Button Text="Copy Database" Command="{Binding CopyDbCommand}" />
+                <Button Text="Delete Database" Command="{Binding DeleteDbCommand}" />
+                <Button Text="Save Patterns" Command="{Binding SavePatternsToJsonCommand}" />
+                <Button Text="Load Patterns" Command="{Binding LoadPatternsFromJsonCommand}" />
+            </VerticalStackLayout>
+        </ScrollView>
+    </Grid>
+</ContentPage>

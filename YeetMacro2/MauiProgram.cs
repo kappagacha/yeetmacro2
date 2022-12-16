@@ -1,6 +1,7 @@
 ﻿using Microsoft.Extensions.Logging;
 using YeetMacro2.Services;
 using YeetMacro2.Platforms;
+using CommunityToolkit.Maui;
 
 namespace YeetMacro2;
 
@@ -21,7 +22,9 @@ public static class MauiProgram
 		builder.Logging.AddDebug();
 #endif
 
-		builder.RegisterViewModels();
+        builder.UseMauiApp<App>();
+        builder.UseMauiCommunityToolkit();
+        builder.RegisterViewModels();
 		builder.RegisterPlatformServices();
 
         return builder.Build();

@@ -1,6 +1,7 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using System.Windows.Input;
+using YeetMacro2.Services;
 
 namespace YeetMacro2.ViewModels;
 
@@ -13,19 +14,19 @@ public partial class HomeViewModel : ObservableObject
     [ObservableProperty]
     bool _isAppearing;
     //private IAccessibilityService _accessibilityService;
-    //private IWindowManagerService _windowManagerService;
+    private IWindowManagerService _windowManagerService;
     //private INodeService<PatternNode, PatternNode> _nodeService;
 
-    //public HomeViewModel() { }
+    public HomeViewModel() { }
 
     //public HomeViewModel(IAccessibilityService accessibilityService, IWindowManagerService windowManagerService,
     //    INodeService<PatternNode, PatternNode> nodeService)
-    public HomeViewModel()
+    public HomeViewModel(IWindowManagerService windowManagerService)
     {
         //Title = "Home";
         
         //_accessibilityService = accessibilityService;
-        //_windowManagerService = windowManagerService;
+        _windowManagerService = windowManagerService;
         //_nodeService = nodeService;
     }
 
@@ -82,6 +83,7 @@ public partial class HomeViewModel : ObservableObject
     [RelayCommand]
     public void ToggleProjectionService()
     {
+        _windowManagerService.Show(WindowView.ActionView);
         //if (IsProjectionServiceEnabled)
         //{
         //    _windowManagerService.StartProjectionService();
@@ -108,7 +110,7 @@ public partial class HomeViewModel : ObservableObject
     }
 
     [RelayCommand]
-    private void OnAppear()
+    public void OnAppear()
     {
         //_isAppearing = true;
         //IsProjectionServiceEnabled = _windowManagerService.ProjectionServiceEnabled;

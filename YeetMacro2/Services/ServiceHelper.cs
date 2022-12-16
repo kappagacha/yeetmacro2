@@ -4,7 +4,7 @@
 public static class ServiceHelper
 {
     public static T GetService<T>() => Current.GetService<T>();
-
+    public static object GetService(Type type) => Current.GetService(type);
     public static IServiceProvider Current =>
 #if WINDOWS10_0_17763_0_OR_GREATER
         MauiWinUIApplication.Current.Services;
@@ -12,6 +12,17 @@ public static class ServiceHelper
     MauiApplication.Current.Services;
 #elif IOS || MACCATALYST
     MauiUIApplicationDelegate.Current.Services;
+#else
+    null;
+#endif 
+
+    public static MauiApplication App =>
+#if WINDOWS10_0_17763_0_OR_GREATER
+        MauiWinUIApplication.Current;
+#elif ANDROID
+    MauiApplication.Current;
+#elif IOS || MACCATALYST
+    MauiUIApplicationDelegate.Current;
 #else
     null;
 #endif 
