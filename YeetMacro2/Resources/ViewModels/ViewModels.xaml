@@ -3,8 +3,9 @@
                     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
                     xmlns:vm="clr-namespace:YeetMacro2.ViewModels;assembly=YeetMacro2">
     <vm:HomeViewModel x:Key="HomeViewModel" />
+    <vm:ActionViewModel x:Key="ActionViewModel" />
+    <vm:LogViewModel x:Key="LogViewModel" />
     <!--<vm:PatternTreeViewViewModel x:Key="PatternTreeViewViewModel" />
     <vm:ActionMenuViewModel x:Key="ActionMenuViewModel" />
-    <vm:ActionViewModel x:Key="ActionViewModel" />
     <vm:PromptStringInputViewModel x:Key="PromptStringInputViewModel" />-->
 </ResourceDictionary>

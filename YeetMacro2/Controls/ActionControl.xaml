@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentView xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:vm="clr-namespace:YeetMacro2.ViewModels"
+             xmlns:conv="clr-namespace:YeetMacro2.Converters"
+             xmlns:cntl="clr-namespace:YeetMacro2.Controls"
+             BindingContext="{StaticResource ActionViewModel}"
+             vm:ViewModelLocator.ViewModelType="{x:Type vm:ActionViewModel}"
+             x:Class="YeetMacro2.Controls.ActionControl">
+    <ContentView.Resources>
+        <x:Double x:Key="ActionHeight">20.0</x:Double>
+        <x:Double x:Key="ActionWidth">20.0</x:Double>
+    </ContentView.Resources>
+    <ContentView.HeightRequest>
+        <Binding Source="{StaticResource ActionHeight}"
+                 Converter="{conv:MultiplyByDensityConverter}" />
+    </ContentView.HeightRequest>
+    <ContentView.WidthRequest>
+        <Binding Source="{StaticResource ActionWidth}"
+                 Converter="{conv:MultiplyByDensityConverter}" />
+    </ContentView.WidthRequest>
+    <cntl:CustomLabel 
+                       Command="{Binding ExecuteCommand}" 
+                       LongPressCommand="{Binding OpenMenuCommand}"
+                       ImageSource="typicons_media_play_outline">
+        <cntl:CustomLabel.Triggers>
+            <DataTrigger TargetType="cntl:CustomLabel" Binding="{Binding State}" Value="{x:Static vm:ActionState.Running}">
+                <Setter Property="ImageSource" Value="typicons_media_stop_outline" />
+            </DataTrigger>
+        </cntl:CustomLabel.Triggers>
+    </cntl:CustomLabel>
+</ContentView>

@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentView xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:xct="clr-namespace:Xamarin.CommunityToolkit.Effects"
+             xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
+             xmlns:conv="clr-namespace:YeetMacro2.Converters"
+             x:Class="YeetMacro2.Controls.CustomLabel"             
+             x:Name="thisControl">
+    <Frame
+        x:Name="frame"
+        BackgroundColor="Transparent"
+        Padding="0"
+        xct:TouchEffect.Command="{Binding Command, Source={Reference thisControl}}"
+        xct:TouchEffect.LongPressCommand="{Binding LongPressCommand, Source={Reference thisControl}}"
+        xct:TouchEffect.CommandParameter="{Binding CommandParameter, Source={Reference thisControl}}"
+        xct:TouchEffect.IsAvailable="{Binding Command, Source={Reference thisControl}, Converter={conv:NullToBoolConverter IsInverse=True}}"
+        xct:TouchEffect.NativeAnimation="{Binding Command, Source={Reference thisControl}, Converter={conv:NullToBoolConverter IsInverse=True}}"
+        xct:TouchEffect.NativeAnimationColor="#80FFFFFF"
+        xct:TouchEffect.ShouldMakeChildrenInputTransparent="False"
+        Visual="Default">
+        <HorizontalStackLayout Margin="0" Padding="0">
+            <Image Source="{Binding ImageSource, Source={Reference thisControl}, StringFormat='{0}.svg'}"
+                   Margin="0" 
+                   x:Name="image" />
+            <Label Text="{Binding Text, Source={Reference thisControl}}" 
+                       IsVisible="{Binding Text, Source={Reference thisControl}, Converter={conv:NullToBoolConverter IsInverse=True}}" />
+        </HorizontalStackLayout>
+    </Frame>
+</ContentView>

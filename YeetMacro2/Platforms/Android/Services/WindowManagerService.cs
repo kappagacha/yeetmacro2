@@ -5,6 +5,7 @@ using Android.Runtime;
 using Android.Provider;
 using System.Collections.Concurrent;
 using YeetMacro2.Platforms.Android.Views;
+using YeetMacro2.Controls;
 
 namespace YeetMacro2.Platforms.Android.Services;
 public class WindowManagerService : IWindowManagerService
@@ -91,8 +92,7 @@ public class WindowManagerService : IWindowManagerService
                 //    _views.TryAdd(view, userDrawView);
                 //    break;
                 case WindowView.ActionView:
-                    //var actionControl = new ActionControl() { Parent = Xamarin.Forms.Application.Current };
-                    var actionControl = new Frame() { WidthRequest=50, HeightRequest=50 };
+                    var actionControl = new ActionControl();
                     var actionView = new MoveView(_context, _windowManager, actionControl);
                     _views.TryAdd(view, actionView);
                     break;
@@ -106,6 +106,11 @@ public class WindowManagerService : IWindowManagerService
                 //    var promptStringInputView = new FormsView(_context, _windowManager, promptStringInput);
                 //    _views.TryAdd(view, promptStringInputView);
                 //    break;
+                case WindowView.LogView:
+                    var logControl = new LogControl();
+                    var logView = new ResizeView(_context, _windowManager, this, logControl);
+                    _views.TryAdd(view, logView);
+                    break;
             }
         }
 

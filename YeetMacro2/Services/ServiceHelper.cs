@@ -15,15 +15,4 @@ public static class ServiceHelper
 #else
     null;
 #endif 
-
-    public static MauiApplication App =>
-#if WINDOWS10_0_17763_0_OR_GREATER
-        MauiWinUIApplication.Current;
-#elif ANDROID
-    MauiApplication.Current;
-#elif IOS || MACCATALYST
-    MauiUIApplicationDelegate.Current;
-#else
-    null;
-#endif 
 }

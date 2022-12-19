@@ -2,6 +2,8 @@
 using YeetMacro2.Services;
 using YeetMacro2.Platforms;
 using CommunityToolkit.Maui;
+using Microsoft.Maui.Controls.Compatibility.Hosting;
+using Xamarin.CommunityToolkit.Effects;
 
 namespace YeetMacro2;
 
@@ -22,10 +24,26 @@ public static class MauiProgram
 		builder.Logging.AddDebug();
 #endif
 
+
         builder.UseMauiApp<App>();
         builder.UseMauiCommunityToolkit();
         builder.RegisterViewModels();
+		builder.RegisterServices();
 		builder.RegisterPlatformServices();
+
+        // https://github.com/xamarin/XamarinCommunityToolkit/issues/1905
+        builder
+        .UseMauiCompatibility()
+		.ConfigureMauiHandlers(handlers =>
+		{
+			handlers.AddCompatibilityRenderers(typeof(Xamarin.CommunityToolkit.Effects.TouchEffect).Assembly);
+		})
+		.ConfigureEffects(effects =>
+		{
+#if ANDROID || IOS
+            effects.Add(typeof(TouchEffect), typeof(PlatformTouchEffect));
+#endif
+        });
 
         return builder.Build();
 	}

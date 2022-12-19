@@ -7,7 +7,8 @@ public enum WindowView
     UserDrawView,
     ActionView,
     ActionMenuView,
-    PromptStringInputView
+    PromptStringInputView,
+    LogView
 }
 
 public interface IWindowManagerService

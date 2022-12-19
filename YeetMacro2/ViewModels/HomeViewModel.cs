@@ -13,6 +13,8 @@ public partial class HomeViewModel : ObservableObject
     bool _isAccessibilityEnabled;
     [ObservableProperty]
     bool _isAppearing;
+    [ObservableProperty]
+    bool _showLogView;
     //private IAccessibilityService _accessibilityService;
     private IWindowManagerService _windowManagerService;
     //private INodeService<PatternNode, PatternNode> _nodeService;
@@ -107,6 +109,15 @@ public partial class HomeViewModel : ObservableObject
         //{
         //    _windowManagerService.RevokeAccessibilityPermissions();
         //}
+    }
+
+    [RelayCommand]
+    public void ToggleLogView()
+    {
+        if (ShowLogView)
+        {
+            _windowManagerService.Show(WindowView.LogView);
+        }
     }
 
     [RelayCommand]

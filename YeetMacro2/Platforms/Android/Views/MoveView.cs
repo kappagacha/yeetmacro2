@@ -40,13 +40,12 @@ public class MoveView : LinearLayout, IShowable
         _windowManager = windowManager;
         _visualElement = visualElement;
 
-        var mauiContext = new MauiContext(ServiceHelper.App.Services, context);
-
+        var mauiContext = new MauiContext(MauiApplication.Current.Services, context);
         var androidView = visualElement.ToPlatform(mauiContext);
         androidView.SetPadding(0, 0, 0, 0);
-        _layoutParams.Width = (int)_visualElement.WidthRequest;
-        _layoutParams.Height = (int)_visualElement.HeightRequest;
         var density = Microsoft.Maui.Devices.DeviceDisplay.MainDisplayInfo.Density;
+        _layoutParams.Width = (int)(_visualElement.WidthRequest * density);
+        _layoutParams.Height = (int)(_visualElement.HeightRequest * density);
         _visualElement.Layout(new Microsoft.Maui.Graphics.Rect(0, 0, _layoutParams.Width / density, _layoutParams.Height / density));
         AddView(androidView, new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MatchParent, ViewGroup.LayoutParams.MatchParent));
     }
@@ -99,11 +98,10 @@ public class MoveView : LinearLayout, IShowable
                 _y = nowY;
                 _layoutParams.X = _layoutParams.X + movedX;
                 _layoutParams.Y = _layoutParams.Y + movedY;
-                //if (movable != null && (movedX != 0 || movedY != 0))
-                if (movedX != 0 || movedY != 0)
+                if (movable != null && (movedX != 0 || movedY != 0))
                 {
                     _isMoving = true;
-                    //movable.IsMoving = _isMoving;
+                    movable.IsMoving = _isMoving;
                     _windowManager.UpdateViewLayout(this, _layoutParams);
                 }
                 break;

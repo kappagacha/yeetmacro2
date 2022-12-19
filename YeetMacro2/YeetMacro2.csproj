@@ -61,6 +61,11 @@
 	</ItemGroup>
 
 	<ItemGroup>
+	  <None Remove="Resources\Images\typicons_media_play_outline.svg" />
+	  <None Remove="Resources\Images\typicons_media_stop_outline.svg" />
+	</ItemGroup>
+
+	<ItemGroup>
 	  <None Include="C:\Users\dmnt1\Desktop\projects\YeetMacro2\YeetMacro2\.editorconfig" />
 	</ItemGroup>
 
@@ -80,6 +85,15 @@
 	</ItemGroup>
 
 	<ItemGroup>
+	  <MauiXaml Update="Controls\ActionControl.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	  <MauiXaml Update="Controls\CustomLabel.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	  <MauiXaml Update="Controls\LogControl.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
 	  <MauiXaml Update="Pages\HomePage.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
