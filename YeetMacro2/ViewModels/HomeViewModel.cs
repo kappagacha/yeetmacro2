@@ -85,15 +85,14 @@ public partial class HomeViewModel : ObservableObject
     [RelayCommand]
     public void ToggleProjectionService()
     {
-        _windowManagerService.Show(WindowView.ActionView);
-        //if (IsProjectionServiceEnabled)
-        //{
-        //    _windowManagerService.StartProjectionService();
-        //}
-        //else
-        //{
-        //    _windowManagerService.StopProjectionService();
-        //}
+        if (IsProjectionServiceEnabled)
+        {
+            _windowManagerService.StartProjectionService();
+        }
+        else
+        {
+            _windowManagerService.StopProjectionService();
+        }
     }
 
     [RelayCommand]

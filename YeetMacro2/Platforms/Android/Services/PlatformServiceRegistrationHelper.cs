@@ -8,6 +8,7 @@ public static class PlatformServiceRegistrationHelper
     public static MauiAppBuilder RegisterPlatformServices(this MauiAppBuilder mauiAppBuilder)
     {
         mauiAppBuilder.Services.AddSingleton<IWindowManagerService, WindowManagerService>();
+        mauiAppBuilder.Services.AddSingleton<IMediaProjectionService, MediaProjectionService>();
 
         return mauiAppBuilder;
     }

@@ -14,22 +14,22 @@ public class WindowManagerService : IWindowManagerService
     private MainActivity _context;
     IWindowManager _windowManager;
     //IAccessibilityService _accessibilityService;
-    //IMediaProjectionService _mediaProjectionService;
+    IMediaProjectionService _mediaProjectionService;
     ConcurrentDictionary<WindowView, IShowable> _views = new ConcurrentDictionary<WindowView, IShowable>();
     //ConcurrentDictionary<string, (int x, int y)> _packageToStatusBarHeight = new ConcurrentDictionary<string, (int x, int y)>();
     //FormsView _windowView;
 
     //public WindowManagerService(IAccessibilityService accessibilityService, IMediaProjectionService mediaProjectionService)
-    public WindowManagerService()
+    public WindowManagerService(IMediaProjectionService mediaProjectionService)
     {
         _context = (MainActivity)Microsoft.Maui.ApplicationModel.Platform.CurrentActivity;
         _windowManager = _context.GetSystemService(Context.WindowService).JavaCast<IWindowManager>();
+        _mediaProjectionService = mediaProjectionService;
         //_accessibilityService = accessibilityService;
-        //_mediaProjectionService = mediaProjectionService;
     }
 
-    //public void ShowOverlayWindow()
-    //{
+    public void ShowOverlayWindow()
+    {
     //    if (_windowView == null)
     //    {
     //        var grid = new Xamarin.Forms.Grid() { InputTransparent = true, CascadeInputTransparent = true };
@@ -39,15 +39,15 @@ public class WindowManagerService : IWindowManagerService
     //        _windowView.DisableTranslucentNavigation();
     //    }
     //    _windowView.Show();
-    //}
+    }
 
-    //public void CloseOverlayWindow()
-    //{
-    //    if (_windowView != null)
-    //    {
-    //        _windowView.Close();
-    //    }
-    //}
+    public void CloseOverlayWindow()
+    {
+        //if (_windowView != null)
+        //{
+        //    _windowView.Close();
+        //}
+    }
 
     public void Show(WindowView view)
     {
@@ -122,15 +122,15 @@ public class WindowManagerService : IWindowManagerService
     //    Close(WindowView.DrawView);
     //}
 
-    //public void Close(WindowView view)
-    //{
-    //    _views[view].Close();
-    //}
+    public void Close(WindowView view)
+    {
+        _views[view].Close();
+    }
 
-    //public void Cancel(WindowView view)
-    //{
-    //    _views[view].CloseCancel();
-    //}
+    public void Cancel(WindowView view)
+    {
+        _views[view].CloseCancel();
+    }
 
     //public async Task<string> PromptInput(string message)
     //{
@@ -233,16 +233,16 @@ public class WindowManagerService : IWindowManagerService
     //    _accessibilityService.Stop();
     //}
 
-    //public void StartProjectionService()
-    //{
-    //    _mediaProjectionService.Start();
-    //    _context.StartForegroundServiceCompat<ForegroundService>();
-    //}
+    public void StartProjectionService()
+    {
+        _mediaProjectionService.Start();
+        _context.StartForegroundServiceCompat<ForegroundService>();
+    }
 
-    //public void StopProjectionService()
-    //{
-    //    _context.StartForegroundServiceCompat<ForegroundService>(ForegroundService.EXIT_ACTION);
-    //}
+    public void StopProjectionService()
+    {
+        _context.StartForegroundServiceCompat<ForegroundService>(ForegroundService.EXIT_ACTION);
+    }
 
     //public async Task<List<Point>> GetMatches(PatternBase template, int limit = 1)
     //{

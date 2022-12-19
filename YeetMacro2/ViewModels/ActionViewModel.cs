@@ -21,7 +21,7 @@ public partial class ActionViewModel : ObservableObject, IMovable
     IWindowManagerService _windowManagerService;
     IToastService _toastService;
     //IAccessibilityService _accessibilityService;
-    //IMediaProjectionService _projectionService;
+    IMediaProjectionService _mediaProjectionService;
     //IMacroService _macroService;
     //IBackgroundWorker _backgroundWorker;
     CancellationTokenSource _cancellationTokenSource;
@@ -32,12 +32,12 @@ public partial class ActionViewModel : ObservableObject, IMovable
     //public ActionViewModel(IWindowManagerService windowManagerService, IAccessibilityService accessibilityService,
     //    IMediaProjectionService mediaProjectionService, IToastService toastService, IMacroService macroService,
     //    IBackgroundWorker backgroundWorker)
-    public ActionViewModel(IWindowManagerService windowManagerService, IToastService toastService)
+    public ActionViewModel(IWindowManagerService windowManagerService, IToastService toastService, IMediaProjectionService mediaProjectionService)
     {
         _windowManagerService = windowManagerService;
         _toastService = toastService;
+        _mediaProjectionService = mediaProjectionService;
         //_accessibilityService = accessibilityService;
-        //_projectionService = mediaProjectionService;
         //_macroService = macroService;
         //_backgroundWorker = backgroundWorker;
     }
@@ -137,10 +137,14 @@ public partial class ActionViewModel : ObservableObject, IMovable
     private void RunScript()
     {
         Console.WriteLine("[*****YeetMacro*****] RunScript");
+        if (_cancellationTokenSource != null)
+        {
+            _cancellationTokenSource.Dispose();
+        }
         _cancellationTokenSource = new CancellationTokenSource();
         var logViewModel = ServiceHelper.GetService<LogViewModel>();
 
-        var work = new Action(() =>
+        var work = new Action(async () =>
         {
             State = ActionState.Running;
             //var patternsModel = App.GetService<PatternTreeViewViewModel>();
@@ -152,6 +156,7 @@ public partial class ActionViewModel : ObservableObject, IMovable
                 {
                     var elapsed = stopWatch.Elapsed.ToString(@"hh\:mm\:ss");
                     var message = $"[*****YeetMacro*****] {elapsed} Doing something: " + Guid.NewGuid();
+                    var imageStream = await _mediaProjectionService.GetCurrentImageStream();
                     logViewModel.Message = message;
                     Console.WriteLine(message);
                     //_toastService.Show(message);
@@ -275,15 +280,27 @@ public partial class ActionViewModel : ObservableObject, IMovable
     {
         Console.WriteLine("[*****YeetMacro*****] StopScript");
         _cancellationTokenSource.Cancel();
-        _cancellationTokenSource.Dispose();
-        _cancellationTokenSource = null;
         State = ActionState.Stopped;
     }
 
 
     [RelayCommand]
-    private void OpenMenu(object o)
+    public async void OpenMenu(object o)
     {
+        if (await Permissions.RequestAsync<Permissions.StorageWrite>() == PermissionStatus.Granted)
+        {
+            var imageStream = await _mediaProjectionService.GetCurrentImageStream();
+
+            var name = "hello.jpeg";
+            var picturesPath = "/storage/emulated/0/Pictures";
+            var filePath = System.IO.Path.Combine(picturesPath, name);
+            using (FileStream fs = new FileStream(filePath, FileMode.OpenOrCreate))
+            {
+                imageStream.CopyTo(fs);
+            }
+        }
+            
+
         if (!IsMoving)
         {
             //_windowManagerService.Show(WindowView.ActionMenuView);
