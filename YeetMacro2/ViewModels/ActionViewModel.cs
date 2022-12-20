@@ -20,8 +20,8 @@ public partial class ActionViewModel : ObservableObject, IMovable
 
     IWindowManagerService _windowManagerService;
     IToastService _toastService;
-    //IAccessibilityService _accessibilityService;
     IMediaProjectionService _mediaProjectionService;
+    IAccessibilityService _accessibilityService;
     //IMacroService _macroService;
     //IBackgroundWorker _backgroundWorker;
     CancellationTokenSource _cancellationTokenSource;
@@ -32,12 +32,13 @@ public partial class ActionViewModel : ObservableObject, IMovable
     //public ActionViewModel(IWindowManagerService windowManagerService, IAccessibilityService accessibilityService,
     //    IMediaProjectionService mediaProjectionService, IToastService toastService, IMacroService macroService,
     //    IBackgroundWorker backgroundWorker)
-    public ActionViewModel(IWindowManagerService windowManagerService, IToastService toastService, IMediaProjectionService mediaProjectionService)
+    public ActionViewModel(IWindowManagerService windowManagerService, IToastService toastService, IMediaProjectionService mediaProjectionService,
+        IAccessibilityService accessibilityService)
     {
         _windowManagerService = windowManagerService;
         _toastService = toastService;
         _mediaProjectionService = mediaProjectionService;
-        //_accessibilityService = accessibilityService;
+        _accessibilityService = accessibilityService;
         //_macroService = macroService;
         //_backgroundWorker = backgroundWorker;
     }
@@ -157,6 +158,7 @@ public partial class ActionViewModel : ObservableObject, IMovable
                     var elapsed = stopWatch.Elapsed.ToString(@"hh\:mm\:ss");
                     var message = $"[*****YeetMacro*****] {elapsed} Doing something: " + Guid.NewGuid();
                     var imageStream = await _mediaProjectionService.GetCurrentImageStream();
+                    _accessibilityService.DoClick(100, 50);
                     logViewModel.Message = message;
                     Console.WriteLine(message);
                     //_toastService.Show(message);

@@ -61,6 +61,7 @@
 	</ItemGroup>
 
 	<ItemGroup>
+	  <None Remove="Platforms\Android\Resources\xml\yeetmacro_config.xml" />
 	  <None Remove="Resources\Images\typicons_media_play_outline.svg" />
 	  <None Remove="Resources\Images\typicons_media_stop_outline.svg" />
 	</ItemGroup>

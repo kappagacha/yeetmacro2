@@ -13,19 +13,18 @@ public class WindowManagerService : IWindowManagerService
     public const int OVERLAY_SERVICE_REQUEST = 0;
     private MainActivity _context;
     IWindowManager _windowManager;
-    //IAccessibilityService _accessibilityService;
     IMediaProjectionService _mediaProjectionService;
+    IAccessibilityService _accessibilityService;
     ConcurrentDictionary<WindowView, IShowable> _views = new ConcurrentDictionary<WindowView, IShowable>();
     //ConcurrentDictionary<string, (int x, int y)> _packageToStatusBarHeight = new ConcurrentDictionary<string, (int x, int y)>();
     //FormsView _windowView;
 
-    //public WindowManagerService(IAccessibilityService accessibilityService, IMediaProjectionService mediaProjectionService)
-    public WindowManagerService(IMediaProjectionService mediaProjectionService)
+    public WindowManagerService(IMediaProjectionService mediaProjectionService, IAccessibilityService accessibilityService)
     {
         _context = (MainActivity)Microsoft.Maui.ApplicationModel.Platform.CurrentActivity;
         _windowManager = _context.GetSystemService(Context.WindowService).JavaCast<IWindowManager>();
         _mediaProjectionService = mediaProjectionService;
-        //_accessibilityService = accessibilityService;
+        _accessibilityService = accessibilityService;
     }
 
     public void ShowOverlayWindow()
@@ -221,17 +220,17 @@ public class WindowManagerService : IWindowManagerService
     //    ServiceHelper.LaunchApp(_context.PackageName);
     //}
 
-    //public bool ProjectionServiceEnabled { get => _mediaProjectionService.Enabled; }
+    public bool ProjectionServiceEnabled { get => _mediaProjectionService.Enabled; }
 
-    //public void RequestAccessibilityPermissions()
-    //{
-    //    _accessibilityService.Start();
-    //}
+    public void RequestAccessibilityPermissions()
+    {
+        _accessibilityService.Start();
+    }
 
-    //public void RevokeAccessibilityPermissions()
-    //{
-    //    _accessibilityService.Stop();
-    //}
+    public void RevokeAccessibilityPermissions()
+    {
+        _accessibilityService.Stop();
+    }
 
     public void StartProjectionService()
     {

@@ -1,6 +1,5 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
-using System.Windows.Input;
 using YeetMacro2.Services;
 
 namespace YeetMacro2.ViewModels;
@@ -15,20 +14,20 @@ public partial class HomeViewModel : ObservableObject
     bool _isAppearing;
     [ObservableProperty]
     bool _showLogView;
-    //private IAccessibilityService _accessibilityService;
     private IWindowManagerService _windowManagerService;
+    private IAccessibilityService _accessibilityService;
     //private INodeService<PatternNode, PatternNode> _nodeService;
 
     public HomeViewModel() { }
 
     //public HomeViewModel(IAccessibilityService accessibilityService, IWindowManagerService windowManagerService,
     //    INodeService<PatternNode, PatternNode> nodeService)
-    public HomeViewModel(IWindowManagerService windowManagerService)
+    public HomeViewModel(IWindowManagerService windowManagerService, IAccessibilityService accessibilityService)
     {
         //Title = "Home";
-        
-        //_accessibilityService = accessibilityService;
+
         _windowManagerService = windowManagerService;
+        _accessibilityService = accessibilityService;
         //_nodeService = nodeService;
     }
 
@@ -100,14 +99,14 @@ public partial class HomeViewModel : ObservableObject
     {
         if (IsAppearing) return;
 
-        //if (IsAccessibilityEnabled)
-        //{
-        //    _windowManagerService.RequestAccessibilityPermissions();
-        //}
-        //else
-        //{
-        //    _windowManagerService.RevokeAccessibilityPermissions();
-        //}
+        if (IsAccessibilityEnabled)
+        {
+            _windowManagerService.RequestAccessibilityPermissions();
+        }
+        else
+        {
+            _windowManagerService.RevokeAccessibilityPermissions();
+        }
     }
 
     [RelayCommand]
@@ -122,10 +121,10 @@ public partial class HomeViewModel : ObservableObject
     [RelayCommand]
     public void OnAppear()
     {
-        //_isAppearing = true;
-        //IsProjectionServiceEnabled = _windowManagerService.ProjectionServiceEnabled;
-        //IsAccessibilityEnabled = _accessibilityService.HasAccessibilityPermissions;
-        //_isAppearing = false;
+        _isAppearing = true;
+        IsProjectionServiceEnabled = _windowManagerService.ProjectionServiceEnabled;
+        IsAccessibilityEnabled = _accessibilityService.HasAccessibilityPermissions;
+        _isAppearing = false;
 
         //IsProjectionServiceEnabled = true;
         //_windowManagerService.Show(WindowView.PatternsTreeView);

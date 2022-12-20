@@ -13,7 +13,7 @@ public enum WindowView
 
 public interface IWindowManagerService
 {
-    //bool ProjectionServiceEnabled { get; }
+    bool ProjectionServiceEnabled { get; }
 
     //void LaunchYeetMacro();
     void Show(WindowView view);
@@ -26,8 +26,8 @@ public interface IWindowManagerService
     //(int x, int y) GetTopLeft();
     void StartProjectionService();
     void StopProjectionService();
-    //void RequestAccessibilityPermissions();
-    //void RevokeAccessibilityPermissions();
+    void RequestAccessibilityPermissions();
+    void RevokeAccessibilityPermissions();
     void ShowOverlayWindow();
     void CloseOverlayWindow();
     //void DrawCircle(int x, int y);
