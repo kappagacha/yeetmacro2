@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentView xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:vm="clr-namespace:YeetMacro2.ViewModels"
+             xmlns:conv="clr-namespace:YeetMacro2.Converters"
+             xmlns:cntl="clr-namespace:YeetMacro2.Controls"
+             BindingContext="{StaticResource PatternTreeViewViewModel}"
+             vm:ViewModelLocator.ViewModelType="{x:Type vm:PatternTreeViewViewModel}"
+             x:Class="YeetMacro2.Controls.PatternControl">
+    <Grid Padding="3">
+        <Image Source="{Binding SelectedImageSource}" />
+        <StackLayout Orientation="Vertical">
+            <StackLayout Margin="0" Padding="0" Orientation="Horizontal">
+                <CheckBox Margin="0" VerticalOptions="Center" IsChecked="{Binding SelectedNode.IsMultiPattern}" />
+                <Label Margin="0" VerticalOptions="Center" Padding="0" Text="MultiPattern" />
+            </StackLayout>
+            <StackLayout IsVisible="{Binding SelectedNode.IsMultiPattern}" 
+                         Orientation="Horizontal" HorizontalOptions="Start" VerticalOptions="Start">
+                <FlexLayout Direction="Column" Margin="0"
+                            BindableLayout.ItemsSource="{Binding SelectedNode.Patterns}" >
+                    <BindableLayout.ItemTemplate>
+                        <DataTemplate>
+                            <SwipeView Margin="0" Padding="0">
+                                <SwipeView.GestureRecognizers>
+                                    <TapGestureRecognizer CommandParameter="{Binding .}" Command="{Binding BindingContext.SelectNodeCommand, Source={RelativeSource AncestorType={x:Type cntl:PatternControl}}}" />
+                                </SwipeView.GestureRecognizers>
+                                <SwipeView.LeftItems>
+                                    <SwipeItems>
+                                        <SwipeItemView>
+                                            <cntl:CustomLabel ImageSource="unicons_focus_target"
+                                                            CommandParameter="{Binding .}"
+                                                            Command="{Binding BindingContext.CapturePatternCommand, Source={RelativeSource AncestorType={x:Type cntl:PatternControl}}}" />
+                                        </SwipeItemView>
+                                    </SwipeItems>
+                                </SwipeView.LeftItems>
+                                <SwipeView.RightItems>
+                                    <SwipeItems>
+                                        <SwipeItemView>
+                                            <cntl:CustomLabel ImageSource="modern_delete" Color="Red"
+                                                            CommandParameter="{Binding .}"
+                                                            Command="{Binding BindingContext.DeletePatternCommand, Source={RelativeSource AncestorType={x:Type cntl:PatternControl}}}" />
+                                        </SwipeItemView>
+                                    </SwipeItems>
+                                </SwipeView.RightItems>
+                                <StackLayout>
+                                    <StackLayout.Triggers>
+                                        <DataTrigger TargetType="StackLayout" Binding="{Binding IsSelected}" Value="True">
+                                            <Setter Property="BackgroundColor" Value="Blue" />
+                                        </DataTrigger>
+                                    </StackLayout.Triggers>
+                                    <StackLayout.GestureRecognizers>
+                                        <TapGestureRecognizer CommandParameter="{Binding .}" Command="{Binding BindingContext.SelectPatternCommand, Source={RelativeSource AncestorType={x:Type cntl:PatternControl}}}" />
+                                    </StackLayout.GestureRecognizers>
+                                    <Label Text="{Binding Name}" />
+                                </StackLayout>
+                            </SwipeView>
+                        </DataTemplate>
+                    </BindableLayout.ItemTemplate>
+                </FlexLayout>
+            </StackLayout>
+        </StackLayout>
+        <StackLayout Orientation="Vertical" VerticalOptions="End" HorizontalOptions="End">
+            <cntl:CustomLabel ImageSource="unicons_focus" Text="{Binding SelectedPattern.Bounds}" VerticalOptions="End" HorizontalOptions="End" />
+            <cntl:CustomLabel ImageSource="unicons_image_check" Text="{Binding CurrentResolution}" VerticalOptions="End" HorizontalOptions="End" />
+            <cntl:CustomLabel ImageSource="unicons_image" Text="{Binding SelectedPattern.Resolution}" VerticalOptions="End" HorizontalOptions="End" />
+            <StackLayout Orientation="Horizontal" VerticalOptions="End" HorizontalOptions="End">
+                <cntl:CustomLabel Command="{Binding CapturePatternCommand}" ImageSource="unicons_capture" />
+                <cntl:CustomLabel Command="{Binding SetPatternBoundsCommand}" ImageSource="unicons_focus" />
+                <cntl:CustomLabel Command="{Binding ClickPatternCommand}" ImageSource="vaadinicons_touch" />
+                <cntl:CustomLabel Command="{Binding TestPatternCommand}" ImageSource="jamicons_eye" />
+                <cntl:CustomLabel Command="{Binding AddPatternCommand}" ImageSource="modern_add" IsVisible="{Binding SelectedNode.IsMultiPattern}" />
+            </StackLayout>
+        </StackLayout>
+    </Grid>
+</ContentView>

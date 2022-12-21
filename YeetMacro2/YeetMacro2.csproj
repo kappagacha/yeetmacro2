@@ -50,9 +50,14 @@
 	</ItemGroup>
 
 	<ItemGroup>
+		<PackageReference Include="AutoMapper" Version="12.0.0" />
+		<PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="12.0.0" />
+		<PackageReference Include="Castle.Core" Version="5.1.0" />
 		<PackageReference Include="CommunityToolkit.Maui" Version="3.1.0" />
 		<PackageReference Include="CommunityToolkit.Maui.Markup" Version="2.1.0" />
 		<PackageReference Include="CommunityToolkit.Mvvm" Version="8.0.0" />
+		<PackageReference Include="Microsoft.EntityFrameworkCore" Version="7.0.1" />
+		<PackageReference Include="Microsoft.EntityFrameworkCore.Sqlite" Version="7.0.1" />
 		<PackageReference Include="Microsoft.Extensions.Logging.Debug" Version="7.0.0" />
 	</ItemGroup>
 
@@ -62,8 +67,21 @@
 
 	<ItemGroup>
 	  <None Remove="Platforms\Android\Resources\xml\yeetmacro_config.xml" />
+	  <None Remove="Resources\Images\fontawesome_angle_down_solid.svg" />
+	  <None Remove="Resources\Images\fontawesome_angle_up_solid.svg" />
+	  <None Remove="Resources\Images\jamicons_eye.svg" />
+	  <None Remove="Resources\Images\modern_add.svg" />
+	  <None Remove="Resources\Images\modern_delete.svg" />
+	  <None Remove="Resources\Images\modern_new_window.svg" />
+	  <None Remove="Resources\Images\radixicons_drag_handle_dots2.svg" />
 	  <None Remove="Resources\Images\typicons_media_play_outline.svg" />
 	  <None Remove="Resources\Images\typicons_media_stop_outline.svg" />
+	  <None Remove="Resources\Images\unicons_capture.svg" />
+	  <None Remove="Resources\Images\unicons_focus.svg" />
+	  <None Remove="Resources\Images\unicons_focus_target.svg" />
+	  <None Remove="Resources\Images\unicons_image.svg" />
+	  <None Remove="Resources\Images\unicons_image_check.svg" />
+	  <None Remove="Resources\Images\vaadinicons_touch.svg" />
 	</ItemGroup>
 
 	<ItemGroup>
@@ -89,10 +107,25 @@
 	  <MauiXaml Update="Controls\ActionControl.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
+	  <MauiXaml Update="Controls\ActionMenu.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
 	  <MauiXaml Update="Controls\CustomLabel.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
 	  <MauiXaml Update="Controls\LogControl.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	  <MauiXaml Update="Controls\PatternControl.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	  <MauiXaml Update="Controls\PatternTreeView.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	  <MauiXaml Update="Controls\PromptStringInput.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	  <MauiXaml Update="Controls\TreeView.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
 	  <MauiXaml Update="Pages\HomePage.xaml">

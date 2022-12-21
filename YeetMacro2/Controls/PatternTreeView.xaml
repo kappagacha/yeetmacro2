@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentView xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="YeetMacro2.Controls.PatternTreeView"
+             xmlns:vm="clr-namespace:YeetMacro2.ViewModels"
+             xmlns:cntl="clr-namespace:YeetMacro2.Controls"
+             BindingContext="{StaticResource PatternTreeViewViewModel}"
+             vm:ViewModelLocator.ViewModelType="{x:Type vm:PatternTreeViewViewModel}"
+             xmlns:mct="http://schemas.microsoft.com/dotnet/2022/maui/toolkit">
+    <!--<ContentView.Behaviors>
+        <mct:EventToCommandBehavior
+                EventName="Loaded"
+                Command="{Binding InitPatternsCommand}"
+                CommandParameter="{x:Reference thisControl}"/>
+    </ContentView.Behaviors>-->
+    <Grid ColumnDefinitions="*,3*">
+        <cntl:TreeView Grid.Column="0" />
+        <cntl:PatternControl Grid.Column="1" />
+    </Grid>
+</ContentView>

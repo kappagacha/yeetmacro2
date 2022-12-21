@@ -6,6 +6,8 @@ using Android.Provider;
 using System.Collections.Concurrent;
 using YeetMacro2.Platforms.Android.Views;
 using YeetMacro2.Controls;
+using YeetMacro2.ViewModels;
+using YeetMacro2.Data.Models;
 
 namespace YeetMacro2.Platforms.Android.Services;
 public class WindowManagerService : IWindowManagerService
@@ -61,55 +63,56 @@ public class WindowManagerService : IWindowManagerService
         {
             switch (view)
             {
-                //case WindowView.PatternsTreeView:
-                //    var patternsTree = new PatternTreeView() { Parent = Xamarin.Forms.Application.Current };
-                //    var patternsTreeView = new ResizeView(_context, _windowManager, this, patternsTree);
-                //    _views.TryAdd(view, patternsTreeView);
-                //    break;
+                case WindowView.LogView:
+                    var logControl = new LogControl();
+                    var logView = new ResizeView(_context, _windowManager, this, logControl);
+                    _views.TryAdd(view, logView);
+                    break;
+                case WindowView.ActionView:
+                    var actionControl = new ActionControl();
+                    var actionView = new MoveView(_context, _windowManager, actionControl);
+                    _views.TryAdd(view, actionView);
+                    break;
+                case WindowView.ActionMenuView:
+                    var actionMenu = new ActionMenu();
+                    var actionMenuView = new FormsView(_context, _windowManager, actionMenu);
+                    _views.TryAdd(view, actionMenuView);
+                    break;
+                case WindowView.PatternsTreeView:
+                    var patternsTree = new PatternTreeView();
+                    var patternsTreeView = new ResizeView(_context, _windowManager, this, patternsTree);
+                    //var patternsTreeView = new FormsView(_context, _windowManager, patternsTree);
+                    _views.TryAdd(view, patternsTreeView);
+                    break;
                 //case WindowView.PatternsView:
                 //    var patternsControl = new PatternControl() { Parent = Xamarin.Forms.Application.Current };
                 //    var patternsView = new ResizeView(_context, _windowManager, this, patternsControl);
                 //    patternsView.Focusable = false;
                 //    _views.TryAdd(view, patternsView);
                 //    break;
-                //case WindowView.DrawView:
-                //    var drawControl = new DrawControl() { Parent = Xamarin.Forms.Application.Current };
-                //    var drawView = new FormsView(_context, _windowManager, drawControl);
-                //    drawControl.InputTransparent = true;
-                //    drawView.SetIsTouchable(false);
-                //    drawView.Click += DrawView_Click;
-                //    drawView.SetBackgroundToTransparent();
-                //    drawView.DisableTranslucentNavigation();
-                //    _views.TryAdd(view, drawView);
-                //    break;
-                //case WindowView.UserDrawView:
-                //    var userdrawControl = new DrawControl() { Parent = Xamarin.Forms.Application.Current };
-                //    var userDrawView = new FormsView(_context, _windowManager, userdrawControl);
-                //    userDrawView.SetBackgroundToTransparent();
-                //    userDrawView.DisableTranslucentNavigation();
-                //    userdrawControl.CloseAfterDraw = true;
-                //    _views.TryAdd(view, userDrawView);
-                //    break;
-                case WindowView.ActionView:
-                    var actionControl = new ActionControl();
-                    var actionView = new MoveView(_context, _windowManager, actionControl);
-                    _views.TryAdd(view, actionView);
+                case WindowView.PromptStringInputView:
+                    var promptStringInput = new PromptStringInput();
+                    var promptStringInputView = new FormsView(_context, _windowManager, promptStringInput);
+                    _views.TryAdd(view, promptStringInputView);
                     break;
-                //case WindowView.ActionMenuView:
-                //    var actionMenu = new ActionMenu() { Parent = Xamarin.Forms.Application.Current };
-                //    var actionMenuView = new FormsView(_context, _windowManager, actionMenu);
-                //    _views.TryAdd(view, actionMenuView);
-                //    break;
-                //case WindowView.PromptStringInputView:
-                //    var promptStringInput = new PromptStringInput() { Parent = Xamarin.Forms.Application.Current };
-                //    var promptStringInputView = new FormsView(_context, _windowManager, promptStringInput);
-                //    _views.TryAdd(view, promptStringInputView);
-                //    break;
-                case WindowView.LogView:
-                    var logControl = new LogControl();
-                    var logView = new ResizeView(_context, _windowManager, this, logControl);
-                    _views.TryAdd(view, logView);
-                    break;
+                    //case WindowView.DrawView:
+                    //    var drawControl = new DrawControl() { Parent = Xamarin.Forms.Application.Current };
+                    //    var drawView = new FormsView(_context, _windowManager, drawControl);
+                    //    drawControl.InputTransparent = true;
+                    //    drawView.SetIsTouchable(false);
+                    //    drawView.Click += DrawView_Click;
+                    //    drawView.SetBackgroundToTransparent();
+                    //    drawView.DisableTranslucentNavigation();
+                    //    _views.TryAdd(view, drawView);
+                    //    break;
+                    //case WindowView.UserDrawView:
+                    //    var userdrawControl = new DrawControl() { Parent = Xamarin.Forms.Application.Current };
+                    //    var userDrawView = new FormsView(_context, _windowManager, userdrawControl);
+                    //    userDrawView.SetBackgroundToTransparent();
+                    //    userDrawView.DisableTranslucentNavigation();
+                    //    userdrawControl.CloseAfterDraw = true;
+                    //    _views.TryAdd(view, userDrawView);
+                    //    break;
             }
         }
 
@@ -131,18 +134,18 @@ public class WindowManagerService : IWindowManagerService
         _views[view].CloseCancel();
     }
 
-    //public async Task<string> PromptInput(string message)
-    //{
-    //    Show(WindowView.PromptStringInputView);
-    //    var viewModel = (PromptStringInputViewModel)_views[WindowView.PromptStringInputView].VisualElement.BindingContext;
-    //    viewModel.Message = message;
-    //    var formsView = (FormsView)_views[WindowView.PromptStringInputView];
-    //    if (await formsView.WaitForClose())
-    //    {
-    //        return viewModel.Input;
-    //    }
-    //    return null;
-    //}
+    public async Task<string> PromptInput(string message)
+    {
+        Show(WindowView.PromptStringInputView);
+        var viewModel = (PromptStringInputViewModel)_views[WindowView.PromptStringInputView].VisualElement.BindingContext;
+        viewModel.Message = message;
+        var formsView = (FormsView)_views[WindowView.PromptStringInputView];
+        if (await formsView.WaitForClose())
+        {
+            return viewModel.Input;
+        }
+        return null;
+    }
 
     //public void DrawClear()
     //{
@@ -215,10 +218,10 @@ public class WindowManagerService : IWindowManagerService
     //    return topLeft;
     //}
 
-    //public void LaunchYeetMacro()
-    //{
-    //    ServiceHelper.LaunchApp(_context.PackageName);
-    //}
+    public void LaunchYeetMacro()
+    {
+        AndroidServiceHelper.LaunchApp(_context.PackageName);
+    }
 
     public bool ProjectionServiceEnabled { get => _mediaProjectionService.Enabled; }
 
@@ -243,6 +246,10 @@ public class WindowManagerService : IWindowManagerService
         _context.StartForegroundServiceCompat<ForegroundService>(ForegroundService.EXIT_ACTION);
     }
 
+    public async Task<List<Point>> GetMatches(PatternBase template, int limit = 1)
+    {
+        return new List<Point>();
+    }
     //public async Task<List<Point>> GetMatches(PatternBase template, int limit = 1)
     //{
     //    try

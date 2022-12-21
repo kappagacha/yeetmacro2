@@ -1,5 +1,7 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
+using YeetMacro2.Data.Models;
+using YeetMacro2.Data.Services;
 using YeetMacro2.Services;
 
 namespace YeetMacro2.ViewModels;
@@ -16,19 +18,16 @@ public partial class HomeViewModel : ObservableObject
     bool _showLogView;
     private IWindowManagerService _windowManagerService;
     private IAccessibilityService _accessibilityService;
-    //private INodeService<PatternNode, PatternNode> _nodeService;
+    private INodeService<PatternNode, PatternNode> _nodeService;
 
     public HomeViewModel() { }
 
-    //public HomeViewModel(IAccessibilityService accessibilityService, IWindowManagerService windowManagerService,
-    //    INodeService<PatternNode, PatternNode> nodeService)
-    public HomeViewModel(IWindowManagerService windowManagerService, IAccessibilityService accessibilityService)
+    public HomeViewModel(IWindowManagerService windowManagerService, IAccessibilityService accessibilityService,
+        INodeService<PatternNode, PatternNode> nodeService)
     {
-        //Title = "Home";
-
         _windowManagerService = windowManagerService;
         _accessibilityService = accessibilityService;
-        //_nodeService = nodeService;
+        _nodeService = nodeService;
     }
 
     [RelayCommand]
@@ -115,6 +114,9 @@ public partial class HomeViewModel : ObservableObject
         if (ShowLogView)
         {
             _windowManagerService.Show(WindowView.LogView);
+        } else
+        {
+            _windowManagerService.Close(WindowView.LogView);
         }
     }
 

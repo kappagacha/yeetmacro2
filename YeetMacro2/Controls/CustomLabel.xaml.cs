@@ -17,9 +17,9 @@ public partial class CustomLabel : ContentView
     public static readonly BindableProperty ColorProperty =
         BindableProperty.Create("Color", typeof(Color), typeof(CustomLabel), null);
     public static readonly BindableProperty ImageWidthProperty =
-        BindableProperty.Create("ImageWidth", typeof(double), typeof(CustomLabel), 25 * DeviceDisplay.MainDisplayInfo.Density);
+        BindableProperty.Create("ImageWidth", typeof(double), typeof(CustomLabel), 20 * DeviceDisplay.MainDisplayInfo.Density);
     public static readonly BindableProperty ImageHeightProperty =
-        BindableProperty.Create("ImageHeight", typeof(double), typeof(CustomLabel), 25 * DeviceDisplay.MainDisplayInfo.Density);
+        BindableProperty.Create("ImageHeight", typeof(double), typeof(CustomLabel), 20 * DeviceDisplay.MainDisplayInfo.Density);
 
     public string ImageSource
     {

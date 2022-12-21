@@ -287,25 +287,25 @@ public partial class ActionViewModel : ObservableObject, IMovable
 
 
     [RelayCommand]
-    public async void OpenMenu(object o)
+    public void OpenMenu(object o)
     {
-        if (await Permissions.RequestAsync<Permissions.StorageWrite>() == PermissionStatus.Granted)
-        {
-            var imageStream = await _mediaProjectionService.GetCurrentImageStream();
+        //if (await Permissions.RequestAsync<Permissions.StorageWrite>() == PermissionStatus.Granted)
+        //{
+        //    var imageStream = await _mediaProjectionService.GetCurrentImageStream();
 
-            var name = "hello.jpeg";
-            var picturesPath = "/storage/emulated/0/Pictures";
-            var filePath = System.IO.Path.Combine(picturesPath, name);
-            using (FileStream fs = new FileStream(filePath, FileMode.OpenOrCreate))
-            {
-                imageStream.CopyTo(fs);
-            }
-        }
+        //    var name = "hello.jpeg";
+        //    var picturesPath = "/storage/emulated/0/Pictures";
+        //    var filePath = System.IO.Path.Combine(picturesPath, name);
+        //    using (FileStream fs = new FileStream(filePath, FileMode.OpenOrCreate))
+        //    {
+        //        imageStream.CopyTo(fs);
+        //    }
+        //}
             
 
         if (!IsMoving)
         {
-            //_windowManagerService.Show(WindowView.ActionMenuView);
+            _windowManagerService.Show(WindowView.ActionMenuView);
         }
     }
 }

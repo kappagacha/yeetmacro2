@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+
+<!-- ####################################################################
+
+This file was generates automatically via the 
+IconPacks.Browser (MIT-License). 
+
+Visit https://github.com/MahApps/MahApps.Metro.IconPacks and 
+https://github.com/MahApps/MahApps.Metro.IconPacks/blob/develop/LICENSE 
+for more information.
+ 
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+ 
+Icon-Name: 			Eye
+Iconpack:			JamIcons
+Iconpack-Homepage: 	https://jam-icons.com/
+Iconpack-License:	https://github.com/michaelampr/jam/blob/master/LICENSE
+
+#####################################################################-->
+
+
+<svg xmlns="http://www.w3.org/2000/svg"
+     width="128"
+     height="128"
+     viewBox="0 0 129 129">
+    <path d="M250 150C250 172.625 203 199.8125 149.9125 200C97.1875 200.1875 50 172.775 50 150C50 127.1875 96.925 99.925 149.9625 100C203.15 100.075 250 127.25 250 150zM150 75C86.975 74.9125 25 108.575 25 150S87.3 225.2125 150 225C212.7 224.7875 275 191.425 275 150S213.025 75.0875 150 75zM150 100A50 50 0 1 0 150 200A50 50 0 0 0 150 100zM150 125A25 25 0 1 1 150 175A25 25 0 0 1 150 125z"
+          style="fill:#0000FF;
+                 stroke-width:0;
+                 stroke-linecap:flat;
+                 stroke-linejoin:miter;"
+          transform="matrix(0.512,0,0,-0.512,-12.8,140.8002109375)" />
+</svg>

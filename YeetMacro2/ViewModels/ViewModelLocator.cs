@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using YeetMacro2.Services;
+﻿using YeetMacro2.Services;
 
 namespace YeetMacro2.ViewModels;
 

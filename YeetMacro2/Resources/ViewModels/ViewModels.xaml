@@ -5,7 +5,7 @@
     <vm:HomeViewModel x:Key="HomeViewModel" />
     <vm:ActionViewModel x:Key="ActionViewModel" />
     <vm:LogViewModel x:Key="LogViewModel" />
-    <!--<vm:PatternTreeViewViewModel x:Key="PatternTreeViewViewModel" />
+    <vm:PromptStringInputViewModel x:Key="PromptStringInputViewModel" />
     <vm:ActionMenuViewModel x:Key="ActionMenuViewModel" />
-    <vm:PromptStringInputViewModel x:Key="PromptStringInputViewModel" />-->
+    <vm:PatternTreeViewViewModel x:Key="PatternTreeViewViewModel" />
 </ResourceDictionary>

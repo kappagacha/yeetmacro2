@@ -20,6 +20,8 @@
         Visual="Default">
         <HorizontalStackLayout Margin="0" Padding="0">
             <Image Source="{Binding ImageSource, Source={Reference thisControl}, StringFormat='{0}.svg'}"
+                   WidthRequest="{Binding ImageWidth, Source={Reference thisControl}}"
+                   HeightRequest="{Binding ImageHeight, Source={Reference thisControl}}"
                    Margin="0" 
                    x:Name="image" />
             <Label Text="{Binding Text, Source={Reference thisControl}}" 
