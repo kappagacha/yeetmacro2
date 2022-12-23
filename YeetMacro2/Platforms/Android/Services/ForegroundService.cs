@@ -11,8 +11,6 @@ public class ForegroundService : Service
 {
     MainActivity _context;
     MediaProjectionManager _mediaProjectionManager;
-    //IWindowManagerService _windowManagerService;
-    //IMediaProjectionService _mediaProjectionService;
     public ForegroundService()
     {
         Console.WriteLine("[*****YeetMacro*****] ForegroundService Constructor Start");
@@ -56,6 +54,7 @@ public class ForegroundService : Service
             case EXIT_ACTION:
                 StopForeground(true);
                 _windowManagerService.Close(WindowView.ActionView);
+                _windowManagerService.Close(WindowView.LogView);
                 _windowManagerService.CloseOverlayWindow();
                 _mediaProjectionService.Stop();
                 Intent exitEvent = new Intent("com.companyname.ForegroundService.EXIT");
@@ -87,12 +86,13 @@ public class ForegroundService : Service
         var pendingIntent = PendingIntent.GetActivity(_context, 0, intent, PendingIntentFlags.UpdateCurrent | PendingIntentFlags.Immutable);
 
         var notifBuilder = new Notification.Builder(_context, FOREGROUND_CHANNEL_ID)
-        .SetContentTitle("Your Title")
-        .SetContentText("Main Text Body")
-        .SetSmallIcon(Resource.Drawable.dotnet_bot)
-        .AddAction(BuildExitAction())
-        .SetOngoing(true)
-        .SetContentIntent(pendingIntent);
+            .SetContentTitle("YeetMacro")
+            .SetPriority((int)Notification.PriorityHigh)
+            //.SetContentText("Main Text Body")
+            .SetSmallIcon(Resource.Drawable.dotnet_bot)
+            .AddAction(BuildExitAction())
+            .SetOngoing(true)
+            .SetContentIntent(pendingIntent);
 
         NotificationChannel notificationChannel = new NotificationChannel(FOREGROUND_CHANNEL_ID, "Title", NotificationImportance.High);
         notificationChannel.Importance = NotificationImportance.Low;
@@ -127,7 +127,6 @@ public class ForegroundService : Service
 
         return builder.Build();
     }
-
 
     public override void OnDestroy()
     {

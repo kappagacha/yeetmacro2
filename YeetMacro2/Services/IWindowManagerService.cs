@@ -1,4 +1,5 @@
 ﻿using YeetMacro2.Data.Models;
+using Point = Microsoft.Maui.Graphics.Point;
 
 namespace YeetMacro2.Services;
 public enum WindowView
@@ -28,7 +29,7 @@ public interface IWindowManagerService
     void RevokeAccessibilityPermissions();
     void ShowOverlayWindow();
     void CloseOverlayWindow();
-    Task<List<global::Android.Graphics.Point>> GetMatches(PatternBase template, int limit = 1);
+    Task<List<Point>> GetMatches(PatternBase template, int limit = 1);
     Task<Bounds> DrawUserRectangle();
     void DrawRectangle(int x, int y, int width, int height);
     void DrawCircle(int x, int y);

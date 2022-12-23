@@ -137,42 +137,8 @@ public class MediaProjectionService : IMediaProjectionService
         plane.Dispose();
         image.Close();
         image.Dispose();
-        
+
         return bitmap;
-    }
-
-    public async Task<Bitmap> GetCurrentImageBitmap()
-    {
-        await EnsureProjectionServiceStarted();
-
-        var bitmap = GetBitmap();
-        if (bitmap == null) return null;
-
-        MemoryStream ms = new MemoryStream();
-        bitmap.Compress(CompressFormat.Jpeg, 100, ms);
-        bitmap.Dispose();
-        ms.Position = 0;
-        var decoded = BitmapFactory.DecodeStream(ms);
-        return decoded;
-    }
-
-    public async Task<Bitmap> GetCurrentImageBitmap(int x, int y, int width, int height)
-    {
-        if (x < 0) x = 0;
-        if (y < 0) y = 0;
-        await EnsureProjectionServiceStarted();
-
-        var bitmap = GetBitmap();
-        if (bitmap == null) return null;
-
-        var newBitmap = Bitmap.CreateBitmap(bitmap, x, y, width, height);
-        bitmap.Dispose();
-        MemoryStream ms = new MemoryStream();
-        newBitmap.Compress(CompressFormat.Jpeg, 100, ms);
-        newBitmap.Dispose();
-        ms.Position = 0;
-        var decoded = BitmapFactory.DecodeStream(ms);
-        return decoded;
     }
 
     public async Task<MemoryStream> GetCurrentImageStream()
@@ -228,5 +194,48 @@ public class MediaProjectionService : IMediaProjectionService
             _virtualDisplay = null;
         }
         Toast.MakeText(_context, "Media projection stopped...", ToastLength.Short).Show();
+    }
+
+    public async Task<TBitmap> GetCurrentImageBitmap<TBitmap>(int x, int y, int width, int height)
+    {
+        if (typeof(TBitmap) != typeof(Bitmap))
+        {
+            throw new Exception("Type not supported");
+        }
+        if (x < 0) x = 0;
+        if (y < 0) y = 0;
+        await EnsureProjectionServiceStarted();
+
+        var bitmap = GetBitmap();
+        if (bitmap == null) return default(TBitmap);
+
+        var newBitmap = Bitmap.CreateBitmap(bitmap, x, y, width, height);
+        bitmap.Dispose();
+        MemoryStream ms = new MemoryStream();
+        newBitmap.Compress(CompressFormat.Jpeg, 100, ms);
+        newBitmap.Dispose();
+        ms.Position = 0;
+        var decoded = BitmapFactory.DecodeStream(ms);
+        return (TBitmap)(Object)decoded;
+    }
+
+    public async Task<TBitmap> GetCurrentImageBitmap<TBitmap>()
+    {
+        if (typeof(TBitmap) != typeof(Bitmap))
+        {
+            throw new Exception("Type not supported");
+        }
+
+        await EnsureProjectionServiceStarted();
+
+        var bitmap = GetBitmap();
+        if (bitmap == null) return default(TBitmap);
+
+        MemoryStream ms = new MemoryStream();
+        bitmap.Compress(CompressFormat.Jpeg, 100, ms);
+        bitmap.Dispose();
+        ms.Position = 0;
+        var decoded = BitmapFactory.DecodeStream(ms);
+        return (TBitmap)(Object)decoded;
     }
 }

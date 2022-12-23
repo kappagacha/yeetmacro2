@@ -4,6 +4,8 @@ using Android.Content;
 using Android.Runtime;
 using YeetMacro2.Platforms.Android.Services;
 using YeetMacro2.Services;
+using Android.OS;
+using OpenCV.Android;
 
 namespace YeetMacro2;
 
@@ -12,6 +14,19 @@ public class MainActivity : MauiAppCompatActivity
 {
 
     EventBroadcastReceiver receiver = new EventBroadcastReceiver();
+
+    protected override void OnCreate(Bundle savedInstanceState)
+    {
+        Console.WriteLine("[*****YeetMacro*****] MainActivity OnCreate");
+        //https://stackoverflow.com/questions/11939192/unsatisfied-link-error-opencv-for-android-non-native
+        if (!OpenCVLoader.InitDebug())
+        {
+            // Handle initialization error
+            Console.WriteLine("[*****YeetMacro*****] OpenCVLoader.InitDebug ERROR");
+        }
+
+        base.OnCreate(savedInstanceState);
+    }
 
     protected override void OnActivityResult(int requestCode, [GeneratedEnum] Result resultCode, Intent data)
     {

@@ -9,8 +9,8 @@ using YeetMacro2.Controls;
 using YeetMacro2.ViewModels;
 using YeetMacro2.Data.Models;
 using Android.Graphics;
-using Point = Android.Graphics.Point;
-using static Android.Icu.Text.DateTimePatternGenerator;
+using Point = Microsoft.Maui.Graphics.Point;
+using YeetMacro2.Platforms.Android.Services.OpenCv;
 
 namespace YeetMacro2.Platforms.Android.Services;
 public class WindowManagerService : IWindowManagerService
@@ -32,6 +32,8 @@ public class WindowManagerService : IWindowManagerService
         _accessibilityService = accessibilityService;
 
         DeviceDisplay.MainDisplayInfoChanged += DeviceDisplay_MainDisplayInfoChanged;
+        _displayWidth = DeviceDisplay.MainDisplayInfo.Width;
+        _displayHeight = DeviceDisplay.MainDisplayInfo.Height;
     }
 
     private void DeviceDisplay_MainDisplayInfoChanged(object sender, DisplayInfoChangedEventArgs e)
@@ -288,12 +290,12 @@ public class WindowManagerService : IWindowManagerService
             {
                 var strokeThickness = 3;
                 imageBitmap = template.Bounds != null ?
-                await _mediaProjectionService.GetCurrentImageBitmap(
+                await _mediaProjectionService.GetCurrentImageBitmap<Bitmap>(
                     (int)template.Bounds.X + strokeThickness - 1,
                     (int)template.Bounds.Y + strokeThickness - 1,
                     (int)template.Bounds.Width - strokeThickness + 1,
                     (int)template.Bounds.Height - strokeThickness - 1) :
-                await _mediaProjectionService.GetCurrentImageBitmap();
+                await _mediaProjectionService.GetCurrentImageBitmap<Bitmap>();
 
                 //var imageStream = template.Bounds != null ?
                 //await _mediaProjectionService.GetCurrentImageStream(
@@ -387,7 +389,8 @@ public class WindowManagerService : IWindowManagerService
 
             if (imageBitmap == null) return new List<Point>();
 
-            var points = BitmapHelper.SearchBitmap(resized, imageBitmap, 0.0);
+            //var points = BitmapHelper.SearchBitmap(resized, imageBitmap, 0.0);
+            var points = OpenCvHelper.GetPointsWithMatchTemplate(resized, imageBitmap);
             resized.Dispose();
             templateBitmap.Dispose();
             imageBitmap.Dispose();

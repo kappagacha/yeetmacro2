@@ -1,6 +1,6 @@
 ﻿using Android.Graphics;
 using Color = Android.Graphics.Color;
-using Point = Android.Graphics.Point;
+using Point = Microsoft.Maui.Graphics.Point;
 
 namespace YeetMacro2.Platforms.Android.Services;
 public static class BitmapHelper

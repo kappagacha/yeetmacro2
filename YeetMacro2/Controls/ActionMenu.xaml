@@ -8,5 +8,6 @@
     <VerticalStackLayout VerticalOptions="Center" Spacing="10">
         <Button Text="Manage Patterns" Command="{Binding ManagePatternsCommand}" />
         <Button Text="Configure" Command="{Binding ConfigureCommand}" />
+        <Button Text="Open Log" Command="{Binding OpenLogCommand}" />
     </VerticalStackLayout>
 </ContentView>

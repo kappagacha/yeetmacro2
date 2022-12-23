@@ -1,6 +1,6 @@
 ﻿using System.Dynamic;
 using YeetMacro2.Data.Models;
-using Point = Android.Graphics.Point;
+using Point = Microsoft.Maui.Graphics.Point;
 
 namespace YeetMacro2.Services;
 

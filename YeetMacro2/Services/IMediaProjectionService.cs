@@ -1,12 +1,10 @@
-﻿using Android.Graphics;
-
-namespace YeetMacro2.Services;
+﻿namespace YeetMacro2.Services;
 public interface IMediaProjectionService
 {
     bool Enabled { get; }
 
-    Task<Bitmap> GetCurrentImageBitmap(int x, int y, int width, int height);
-    Task<Bitmap> GetCurrentImageBitmap();
+    Task<TBitmap> GetCurrentImageBitmap<TBitmap>(int x, int y, int width, int height);
+    Task<TBitmap> GetCurrentImageBitmap<TBitmap>();
     Task<MemoryStream> GetCurrentImageStream();
     Task<MemoryStream> GetCurrentImageStream(int x, int y, int width, int height);
     void Start();

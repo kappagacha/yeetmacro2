@@ -91,6 +91,12 @@
 	</ItemGroup>
 
 	<ItemGroup>
+	  <Reference Include="OpenCV">
+	    <HintPath>Platforms\Android\Services\OpenCv\OpenCV.dll</HintPath>
+	  </Reference>
+	</ItemGroup>
+
+	<ItemGroup>
 	  <Compile Update="Platforms\iOS\Services\PlatformServiceRegistrationHelper.cs">
 	    <ExcludeFromCurrentConfiguration>false</ExcludeFromCurrentConfiguration>
 	  </Compile>

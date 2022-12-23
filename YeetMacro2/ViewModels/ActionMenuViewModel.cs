@@ -33,4 +33,12 @@ public partial class ActionMenuViewModel : ObservableObject
         _windowManagerService.LaunchYeetMacro();
         _windowManagerService.Close(WindowView.ActionMenuView);
     }
+
+    [RelayCommand]
+    public void OpenLog()
+    {
+        _toastService.Show("Opening Log...");
+        _windowManagerService.Show(WindowView.LogView);
+        _windowManagerService.Close(WindowView.ActionMenuView);
+    }
 }
