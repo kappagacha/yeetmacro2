@@ -38,6 +38,7 @@ public class YeetAccessibilityService : AccessibilityService, IAccessibilityServ
     public override void OnCreate()
     {
         Console.WriteLine("[*****YeetMacro*****] YeetAccessibilityService OnCreate");
+        Stop();
         Init();
         _instance = this;
         BroadcastEnabled();
@@ -88,7 +89,7 @@ public class YeetAccessibilityService : AccessibilityService, IAccessibilityServ
     public override bool OnUnbind(Intent intent)
     {
         Console.WriteLine("[*****YeetMacro*****] YeetAccessibilityService OnUnbind");
-        _instance = null;
+        Stop();
         BroadcastEnabled();
         return base.OnUnbind(intent);
     }
@@ -109,6 +110,9 @@ public class YeetAccessibilityService : AccessibilityService, IAccessibilityServ
             GestureDescription.Builder gestureBuilder = new GestureDescription.Builder();
             gestureBuilder.AddStroke(new GestureDescription.StrokeDescription(swipePath, 0, 100));
             _instance.DispatchGesture(gestureBuilder.Build(), null, null);
+            swipePath.Close();
+            swipePath.Dispose();
+
             Console.WriteLine("[*****YeetMacro*****] YeetAccessibilityService DoClick DispatchGesture");
         }
         catch (Exception ex)
@@ -132,9 +136,10 @@ public class YeetAccessibilityService : AccessibilityService, IAccessibilityServ
     {
         try
         {
-
             Console.WriteLine("[*****YeetMacro*****] YeetAccessibilityService Stop");
             _instance?.DisableSelf();
+            _instance?.Dispose();
+            _instance = null;
         }
         catch (Exception ex)
         {

@@ -22,7 +22,7 @@ public partial class ActionViewModel : ObservableObject, IMovable
     IToastService _toastService;
     IMediaProjectionService _mediaProjectionService;
     IAccessibilityService _accessibilityService;
-    //IMacroService _macroService;
+    IMacroService _macroService;
     //IBackgroundWorker _backgroundWorker;
     CancellationTokenSource _cancellationTokenSource;
     public ActionViewModel()
@@ -33,13 +33,13 @@ public partial class ActionViewModel : ObservableObject, IMovable
     //    IMediaProjectionService mediaProjectionService, IToastService toastService, IMacroService macroService,
     //    IBackgroundWorker backgroundWorker)
     public ActionViewModel(IWindowManagerService windowManagerService, IToastService toastService, IMediaProjectionService mediaProjectionService,
-        IAccessibilityService accessibilityService)
+        IAccessibilityService accessibilityService, IMacroService macroService)
     {
         _windowManagerService = windowManagerService;
         _toastService = toastService;
         _mediaProjectionService = mediaProjectionService;
         _accessibilityService = accessibilityService;
-        //_macroService = macroService;
+        _macroService = macroService;
         //_backgroundWorker = backgroundWorker;
     }
 
@@ -144,6 +144,7 @@ public partial class ActionViewModel : ObservableObject, IMovable
         }
         _cancellationTokenSource = new CancellationTokenSource();
         var logViewModel = ServiceHelper.GetService<LogViewModel>();
+        var treeViewViewModel = ServiceHelper.GetService<PatternTreeViewViewModel>();
 
         var work = new Action(async () =>
         {
@@ -157,14 +158,17 @@ public partial class ActionViewModel : ObservableObject, IMovable
                 {
                     var elapsed = stopWatch.Elapsed.ToString(@"hh\:mm\:ss");
                     var message = $"[*****YeetMacro*****] {elapsed} Doing something: " + Guid.NewGuid();
-                    var imageStream = await _mediaProjectionService.GetCurrentImageStream();
-                    _accessibilityService.DoClick(100, 50);
+                    //var imageStream = await _mediaProjectionService.GetCurrentImageStream();
+
+                    await _macroService.ClickPattern(treeViewViewModel.Root.Children.First().Patterns.First());
+                    //_accessibilityService.DoClick(100, 50);
                     logViewModel.Message = message;
                     Console.WriteLine(message);
                     //_toastService.Show(message);
 
                     //_macroService.FindPattern(patternsModel.Root.Nodes.First().Nodes.First().Patterns.First());
-                    Thread.Sleep(1000);
+                    //Thread.Sleep(1000);
+                    await Task.Delay(1000);
                 }
                 catch (Exception ex)
                 {

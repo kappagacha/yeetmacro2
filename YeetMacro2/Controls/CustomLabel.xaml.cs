@@ -14,8 +14,8 @@ public partial class CustomLabel : ContentView
         BindableProperty.Create("LongPressCommand", typeof(ICommand), typeof(CustomLabel), null);
     public static readonly BindableProperty CommandParameterProperty =
         BindableProperty.Create("CommandParameter", typeof(object), typeof(CustomLabel), null);
-    public static readonly BindableProperty ColorProperty =
-        BindableProperty.Create("Color", typeof(Color), typeof(CustomLabel), null);
+    public static readonly BindableProperty ImageColorProperty =
+        BindableProperty.Create("ImageColor", typeof(Color), typeof(CustomLabel), Colors.Blue);
     public static readonly BindableProperty ImageWidthProperty =
         BindableProperty.Create("ImageWidth", typeof(double), typeof(CustomLabel), 20 * DeviceDisplay.MainDisplayInfo.Density);
     public static readonly BindableProperty ImageHeightProperty =
@@ -47,10 +47,10 @@ public partial class CustomLabel : ContentView
         get { return GetValue(CommandParameterProperty); }
         set { SetValue(CommandParameterProperty, value); }
     }
-    public Color Color
+    public Color ImageColor
     {
-        get { return (Color)GetValue(ColorProperty); }
-        set { SetValue(ColorProperty, value); }
+        get { return (Color)GetValue(ImageColorProperty); }
+        set { SetValue(ImageColorProperty, value); }
     }
     public double ImageWidth
     {

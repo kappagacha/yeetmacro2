@@ -1,14 +1,10 @@
 namespace YeetMacro2.Controls;
 
-public partial class PromptStringInput : ContentPage
+public partial class PromptStringInput : ContentView
 {
+	public Entry InputEntry { get => inputEntry; }
 	public PromptStringInput()
 	{
 		InitializeComponent();
 	}
-
-    private void ContentPage_Appearing(object sender, EventArgs e)
-    {
-        inputEntry.Focus();
-    }
 }

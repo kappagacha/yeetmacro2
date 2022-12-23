@@ -4,6 +4,9 @@ using YeetMacro2.Platforms;
 using CommunityToolkit.Maui;
 using Microsoft.Maui.Controls.Compatibility.Hosting;
 using Xamarin.CommunityToolkit.Effects;
+using UraniumUI;
+using SkiaSharp.Views.Maui.Controls.Hosting;
+using SkiaSharp.Views.Maui.Controls;
 
 namespace YeetMacro2;
 
@@ -24,6 +27,17 @@ public static class MauiProgram
 		builder.Logging.AddDebug();
 #endif
 
+		builder
+			.UseUraniumUI()
+			.UseUraniumUIMaterial()
+			.ConfigureMauiHandlers(handlers =>
+			{
+				handlers.AddUraniumUIHandlers();
+			});
+
+
+		builder
+			.UseSkiaSharp();
 
         builder.UseMauiApp<App>();
         builder.UseMauiCommunityToolkit();

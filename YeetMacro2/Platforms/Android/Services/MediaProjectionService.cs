@@ -86,7 +86,6 @@ public class MediaProjectionService : IMediaProjectionService
 
     private void InitVirtualDisplay()
     {
-
         Stop();
         _mediaProjection = _mediaProjectionManager.GetMediaProjection(_resultCode, _resultData);
         //https://stackoverflow.com/questions/38891654/get-current-screen-width-in-xamarin-forms
@@ -133,8 +132,12 @@ public class MediaProjectionService : IMediaProjectionService
         var rowPadding = rowStride - pixelStride * image.Width;
         var bitmap = Bitmap.CreateBitmap(image.Width + rowPadding / pixelStride, image.Height, Bitmap.Config.Argb8888); //Bitmap.Config.ARGB_8888
         bitmap.CopyPixelsFromBuffer(buffer);
-        image.Close();
 
+        buffer.Dispose();
+        plane.Dispose();
+        image.Close();
+        image.Dispose();
+        
         return bitmap;
     }
 
@@ -194,6 +197,7 @@ public class MediaProjectionService : IMediaProjectionService
 
         var bitmap = GetBitmap();
         if (bitmap == null) return null;
+
         var newBitmap = Bitmap.CreateBitmap(bitmap, x, y, width, height);
         bitmap.Dispose();
         MemoryStream ms = new MemoryStream();
@@ -208,16 +212,19 @@ public class MediaProjectionService : IMediaProjectionService
         if (_mediaProjection != null)
         {
             _mediaProjection.Stop();
+            _mediaProjection.Dispose();
             _mediaProjection = null;
         }
         if (_imageReader != null)
         {
             _imageReader.Close();
+            _imageReader.Dispose();
             _imageReader = null;
         }
         if (_virtualDisplay != null)
         {
             _virtualDisplay.Release();
+            _virtualDisplay.Dispose();
             _virtualDisplay = null;
         }
         Toast.MakeText(_context, "Media projection stopped...", ToastLength.Short).Show();

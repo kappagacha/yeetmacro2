@@ -28,11 +28,11 @@ public interface IWindowManagerService
     void RevokeAccessibilityPermissions();
     void ShowOverlayWindow();
     void CloseOverlayWindow();
-    Task<List<Point>> GetMatches(PatternBase template, int limit = 1);
-    //Task<Bounds> DrawUserRectangle();
-    //Bounds TransformBounds(Bounds originalBounds, Resolution originalResolution);
-    //void DrawRectangle(int x, int y, int width, int height);
-    //(int x, int y) GetTopLeft();
-    //void DrawCircle(int x, int y);
-    //void DrawClear();
+    Task<List<global::Android.Graphics.Point>> GetMatches(PatternBase template, int limit = 1);
+    Task<Bounds> DrawUserRectangle();
+    void DrawRectangle(int x, int y, int width, int height);
+    void DrawCircle(int x, int y);
+    void DrawClear();
+    (int x, int y) GetTopLeft();
+    Bounds TransformBounds(Bounds originalBounds, Resolution originalResolution);
 }

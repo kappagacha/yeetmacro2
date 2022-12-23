@@ -1,10 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Dynamic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Dynamic;
 using YeetMacro2.Data.Models;
+using Point = Android.Graphics.Point;
 
 namespace YeetMacro2.Services;
 
@@ -50,12 +46,12 @@ public class MacroService : IMacroService
             Console.WriteLine("[*****YeetMacro*****] FindPattern GetMatches End");
 
             var result = new FindPatternResult();
-            //result.IsSuccess = points.Count > 0;
-            //if (points.Count > 0)
-            //{
-            //    result.Point = new Point(points[0].X, points[0].Y);
-            //    result.Points = points.ToArray();
-            //}
+            result.IsSuccess = points.Count > 0;
+            if (points.Count > 0)
+            {
+                result.Point = new Point(points[0].X, points[0].Y);
+                result.Points = points.ToArray();
+            }
 
             return result;
         }

@@ -1,12 +1,10 @@
 <?xml version="1.0" encoding="utf-8" ?>
-<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+<ContentView xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:vm="clr-namespace:YeetMacro2.ViewModels"
              BindingContext="{StaticResource PromptStringInputViewModel}"
              vm:ViewModelLocator.ViewModelType="{x:Type vm:PromptStringInputViewModel}"
-             x:Class="YeetMacro2.Controls.PromptStringInput"
-             Appearing="ContentPage_Appearing"
-             Title="PromptStringInput">
+             x:Class="YeetMacro2.Controls.PromptStringInput">
     <VerticalStackLayout VerticalOptions="Center" HorizontalOptions="Center">
         <Label Text="{Binding Message}" />
         <Entry x:Name="inputEntry" Text="{Binding Input}" />
@@ -15,4 +13,4 @@
             <Button Command="{Binding OkCommand}" Text="Ok" />
         </HorizontalStackLayout>
     </VerticalStackLayout>
-</ContentPage>
+</ContentView>

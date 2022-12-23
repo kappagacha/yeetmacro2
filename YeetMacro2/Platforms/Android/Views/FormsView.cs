@@ -43,7 +43,7 @@ public class FormsView : RelativeLayout, IShowable
         var mauiContext = new MauiContext(MauiApplication.Current.Services, context);
         var androidView = visualElement.ToPlatform(mauiContext);
         androidView.SetPadding(0, 0, 0, 0);
-        _visualElement.Layout(new Microsoft.Maui.Graphics.Rect(0, 0, _layoutParams.Width / _density, _layoutParams.Height / _density));
+        //_visualElement.Layout(new Microsoft.Maui.Graphics.Rect(0, 0, _layoutParams.Width / _density, _layoutParams.Height / _density));
         AddView(androidView, new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MatchParent, ViewGroup.LayoutParams.MatchParent));
 
         androidView.Clickable = true;
@@ -120,7 +120,7 @@ public class FormsView : RelativeLayout, IShowable
         if (_state == FormState.SHOWING)
         {
             _windowManager.UpdateViewLayout(this, _layoutParams);
-            _visualElement.Layout(new Microsoft.Maui.Graphics.Rect(0, 0, _layoutParams.Width / _density, _layoutParams.Height / _density));
+            //_visualElement.Layout(new Microsoft.Maui.Graphics.Rect(0, 0, _layoutParams.Width / _density, _layoutParams.Height / _density));
         }
     }
 

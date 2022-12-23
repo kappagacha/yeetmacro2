@@ -4,7 +4,7 @@ namespace YeetMacro2.Data.Models;
 public class PatternNode : Node, IParentNode<PatternNode, PatternNode>
 {
     public virtual bool IsMultiPattern { get; set; }
-    public virtual ICollection<PatternNode> Nodes { get; set; } = new List<PatternNode>();
+    public virtual ICollection<PatternNode> Children { get; set; } = new List<PatternNode>();
     public virtual ICollection<Pattern> Patterns { get; set; }
     public virtual ICollection<UserPattern> UserPatterns { get; set; }
     public dynamic BuildDynamicObject(string path = "")
@@ -16,7 +16,7 @@ public class PatternNode : Node, IParentNode<PatternNode, PatternNode>
         ((IDictionary<String, Object>)result)["metadata"] = this;
         ((IDictionary<String, Object>)result)["path"] = resolvedPath;
 
-        foreach (var node in Nodes)
+        foreach (var node in Children)
         {
             ((IDictionary<String, Object>)result)[node.Name] = node.BuildDynamicObject(resolvedPath);
         }

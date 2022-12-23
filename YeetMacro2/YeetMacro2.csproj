@@ -59,6 +59,8 @@
 		<PackageReference Include="Microsoft.EntityFrameworkCore" Version="7.0.1" />
 		<PackageReference Include="Microsoft.EntityFrameworkCore.Sqlite" Version="7.0.1" />
 		<PackageReference Include="Microsoft.Extensions.Logging.Debug" Version="7.0.0" />
+		<PackageReference Include="SkiaSharp.Views.Maui.Controls" Version="2.88.3" />
+		<PackageReference Include="UraniumUI.Material" Version="2.1.2" />
 	</ItemGroup>
 
 	<ItemGroup>
@@ -111,6 +113,9 @@
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
 	  <MauiXaml Update="Controls\CustomLabel.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	  <MauiXaml Update="Controls\DrawControl.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
 	  <MauiXaml Update="Controls\LogControl.xaml">

@@ -1,4 +1,5 @@
-﻿using CommunityToolkit.Mvvm.Input;
+﻿using CommunityToolkit.Mvvm.ComponentModel;
+using CommunityToolkit.Mvvm.Input;
 using System.Collections.ObjectModel;
 using System.Windows.Input;
 using YeetMacro2.Data.Models;
@@ -13,17 +14,8 @@ public partial class PatternTreeViewViewModel : TreeViewViewModel<PatternNode, P
     IMediaProjectionService _projectionService;
     IMacroService _macroService;
     Resolution _currentResolution;
-
-    //public ICommand InitPatternsCommand { get; }
-    public ICommand AddPatternCommand { get; }
-    public ICommand SelectPatternCommand { get; set; }
-    public ICommand DeletePatternCommand { get; set; }
-    public ICommand CapturePatternCommand { get; set; }
-    public ICommand SetPatternBoundsCommand { get; set; }
-    public ICommand TestPatternCommand { get; set; }
-    public ICommand TestBoundsCommand { get; set; }
-    public ICommand ClickPatternCommand { get; set; }
     PatternBase _selectedPattern;
+    [ObservableProperty]
     ImageSource _selectedImageSource;
     public PatternBase SelectedPattern
     {
@@ -36,11 +28,6 @@ public partial class PatternTreeViewViewModel : TreeViewViewModel<PatternNode, P
                 SelectedImageSource = ImageSource.FromStream(() => new MemoryStream(_selectedPattern.ImageData));
             }
         }
-    }
-    public ImageSource SelectedImageSource
-    {
-        get { return _selectedImageSource; }
-        set { SetProperty(ref _selectedImageSource, value); }
     }
     public Resolution CurrentResolution => _currentResolution ?? (_currentResolution = new Resolution()
     {
@@ -61,14 +48,6 @@ public partial class PatternTreeViewViewModel : TreeViewViewModel<PatternNode, P
         IMacroService macroService)
             : base(nodeService, windowManagerService, toastService)
     {
-        // InitPatternsCommand = new Command(InitPatterns);
-        AddPatternCommand = new Command(AddPattern);
-        SelectPatternCommand = new Command<PatternBase>(SelectPattern);
-        DeletePatternCommand = new Command<PatternBase>(DeletePattern);
-        CapturePatternCommand = new Command<PatternBase>(CapturePattern);
-        TestPatternCommand = new Command(TestPattern);
-        ClickPatternCommand = new Command(ClickPattern);
-        SetPatternBoundsCommand = new Command(SetPatternBounds);
         _windowManagerService = windowManagerService;
         _patternRepository = patternRepository;
         _projectionService = projectionService;
@@ -76,7 +55,7 @@ public partial class PatternTreeViewViewModel : TreeViewViewModel<PatternNode, P
 
         PropertyChanged += PatternTreeViewViewModel_PropertyChanged;
 
-        //InitPatternsCommand.Execute(null);
+        InitPatterns();
     }
 
     private void PatternTreeViewViewModel_PropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)
@@ -91,24 +70,26 @@ public partial class PatternTreeViewViewModel : TreeViewViewModel<PatternNode, P
 
     protected override void OnBeforeAddNode(PatternNode newNode)
     {
-        newNode.Nodes = ProxyViewModel.CreateCollection(new ObservableCollection<PatternNode>());
+        newNode.Children = ProxyViewModel.CreateCollection(new ObservableCollection<PatternNode>());
         newNode.Patterns = ProxyViewModel.CreateCollection(new ObservableCollection<Pattern>());
         newNode.UserPatterns = ProxyViewModel.CreateCollection(new ObservableCollection<UserPattern>());
     }
 
-    [RelayCommand]
-    public void InitPatterns(object o)
+    private void InitPatterns()
     {
         Task.Run(() =>
         {
-            Root = ProxyViewModel.Create(_nodeService.GetRoot());
+            var root = ProxyViewModel.Create(_nodeService.GetRoot());
             _patternRepository.DetachAllEntities();
-            Root.Nodes = ProxyViewModel.CreateCollection(Root.Nodes, pn => new { pn.Nodes, pn.Patterns, pn.UserPatterns });
-            _nodeService.ReAttachNodes(Root);
-            if (SelectedNode == null && Root.Nodes.Count > 0)
+            root.Children = ProxyViewModel.CreateCollection(root.Children, pn => new { pn.Children, pn.Patterns, pn.UserPatterns });
+            _nodeService.ReAttachNodes(root);
+            var firstChild = root.Children.First();
+            if (SelectedNode == null && firstChild != null)
             {
-                SelectedNode = Root.Nodes.First();
-
+                root.IsExpanded = true;
+                firstChild.IsSelected = false;
+                SelectNode(firstChild);
+                
                 if (SelectedPattern == null && SelectedNode.Patterns.Count > 0)
                 {
                     var targetPattern = SelectedNode.Patterns.First();
@@ -116,9 +97,11 @@ public partial class PatternTreeViewViewModel : TreeViewViewModel<PatternNode, P
                     SelectPattern(targetPattern);
                 }
             }
+            Root = root;
         });
     }
 
+    [RelayCommand]
     private async void AddPattern(object o)
     {
         if (SelectedNode != null)
@@ -136,6 +119,8 @@ public partial class PatternTreeViewViewModel : TreeViewViewModel<PatternNode, P
             _patternRepository.Save();
         }
     }
+
+    [RelayCommand]
     private void SelectPattern(PatternBase pattern)
     {
         pattern.IsSelected = !pattern.IsSelected;
@@ -155,6 +140,7 @@ public partial class PatternTreeViewViewModel : TreeViewViewModel<PatternNode, P
         }
     }
 
+    [RelayCommand]
     private void DeletePattern(PatternBase pattern)
     {
         SelectedNode.Patterns.Remove((Pattern)pattern);
@@ -162,63 +148,64 @@ public partial class PatternTreeViewViewModel : TreeViewViewModel<PatternNode, P
         _patternRepository.Save();
     }
 
+    [RelayCommand]
     private async void CapturePattern(PatternBase pattern)
     {
-        //if (pattern == null)
-        //{
-        //    pattern = ResolveSelectedPattern();
-        //}
+        if (pattern == null)
+        {
+            pattern = ResolveSelectedPattern();
+        }
 
-        //if (pattern == null)
-        //{
-        //    return;
-        //}
+        if (pattern == null)
+        {
+            return;
+        }
 
-        //var bounds = await _windowManagerService.DrawUserRectangle();
-        //var strokeThickness = 3;
-        //var imageStream = await _projectionService.GetCurrentImageStream(
-        //    (int)bounds.X + strokeThickness - 1,
-        //    (int)bounds.Y + strokeThickness - 1,
-        //    (int)bounds.Width - strokeThickness + 1,
-        //    (int)bounds.Height - strokeThickness - 1);
+        var bounds = await _windowManagerService.DrawUserRectangle();
+        var strokeThickness = 3;
+        var imageStream = await _projectionService.GetCurrentImageStream(
+            (int)bounds.X + strokeThickness - 1,
+            (int)bounds.Y + strokeThickness - 1,
+            (int)bounds.Width - strokeThickness + 1,
+            (int)bounds.Height - strokeThickness - 1);
 
-        //pattern.ImageData = imageStream.ToArray();
-        //pattern.Bounds = ProxyViewModel.Create(new Bounds()
-        //{
-        //    X = bounds.X,
-        //    Y = bounds.Y,
-        //    Width = bounds.Width,
-        //    Height = bounds.Height
-        //});
-        //pattern.Resolution = ProxyViewModel.Create(new Resolution()
-        //{
-        //    Width = DeviceDisplay.MainDisplayInfo.Width,
-        //    Height = DeviceDisplay.MainDisplayInfo.Height
-        //});
-        //_patternRepository.Update(pattern);
-        //_patternRepository.Save();
+        pattern.ImageData = imageStream.ToArray();
+        pattern.Bounds = ProxyViewModel.Create(new Bounds()
+        {
+            X = bounds.X,
+            Y = bounds.Y,
+            Width = bounds.Width,
+            Height = bounds.Height
+        });
+        pattern.Resolution = ProxyViewModel.Create(new Resolution()
+        {
+            Width = DeviceDisplay.MainDisplayInfo.Width,
+            Height = DeviceDisplay.MainDisplayInfo.Height
+        });
+        _patternRepository.Update(pattern);
+        _patternRepository.Save();
 
+        SelectedImageSource = ImageSource.FromStream(() => new MemoryStream(_selectedPattern.ImageData));
         //SelectedImageSource = ImageSource.FromStream(() => imageStream);
-
-
 
         ////await Task.Delay(250);
         ////pattern.IsSelected = false;
         ////SelectPattern(pattern);
     }
 
+    [RelayCommand]
     private async void SetPatternBounds(object obj)
     {
-        //ResolveSelectedPattern();
-        //if (_selectedPattern == null) return;
+        ResolveSelectedPattern();
+        if (_selectedPattern == null) return;
 
-        //var bounds = await _windowManagerService.DrawUserRectangle();
-        //if (bounds != null)
-        //{
-        //    _selectedPattern.Bounds = bounds;
-        //    _patternRepository.Update(_selectedPattern);
-        //    _patternRepository.Save();
-        //}
+        var bounds = await _windowManagerService.DrawUserRectangle();
+        if (bounds != null)
+        {
+            _selectedPattern.Bounds = bounds;
+            _patternRepository.Update(_selectedPattern);
+            _patternRepository.Save();
+        }
     }
 
     private PatternBase ResolveSelectedPattern()
@@ -258,31 +245,33 @@ public partial class PatternTreeViewViewModel : TreeViewViewModel<PatternNode, P
         }
     }
 
+    [RelayCommand]
     private async void TestPattern(object o)
     {
-        //_windowManagerService.DrawClear();
-        //ResolveSelectedPattern();
-        //if (_selectedPattern == null) return;
-        //var result = await _macroService.FindPattern(_selectedPattern);
-        //var points = result.Points;
-        //_toastService.MakeText(points != null && points.Length > 0 ? "Match(es) found" : "No match found");
+        _windowManagerService.DrawClear();
+        ResolveSelectedPattern();
+        if (_selectedPattern == null) return;
+        var result = await _macroService.FindPattern(_selectedPattern);
+        var points = result.Points;
+        _toastService.Show(points != null && points.Length > 0 ? "Match(es) found" : "No match found");
 
-        //if (_selectedPattern.Bounds != null)
-        //{
-        //    var calcBounds = _windowManagerService.TransformBounds(_selectedPattern.Bounds, _selectedPattern.Resolution);
-        //    _windowManagerService.DrawRectangle((int)calcBounds.X, (int)calcBounds.Y, (int)calcBounds.Width, (int)calcBounds.Height);
-        //}
+        if (_selectedPattern.Bounds != null)
+        {
+            var calcBounds = _windowManagerService.TransformBounds(_selectedPattern.Bounds, _selectedPattern.Resolution);
+            _windowManagerService.DrawRectangle((int)calcBounds.X, (int)calcBounds.Y, (int)calcBounds.Width, (int)calcBounds.Height);
+        }
 
-        //if (points != null)
-        //{
-        //    foreach (var point in points)
-        //    {
-        //        _windowManagerService.DrawCircle((int)point.X, (int)point.Y);
-        //    }
-        //}
+        if (points != null)
+        {
+            foreach (var point in points)
+            {
+                _windowManagerService.DrawCircle((int)point.X, (int)point.Y);
+            }
+        }
     }
 
     // For this to work, Android view needs to not be touchable or do a double click
+    [RelayCommand]
     private async void ClickPattern(object o)
     {
         ResolveSelectedPattern();

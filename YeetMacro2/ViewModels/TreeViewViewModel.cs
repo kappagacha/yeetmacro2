@@ -124,15 +124,15 @@ public class TreeViewViewModel<TParent, TChild> : ObservableObject
             if (_draggedTChild.ParentId.HasValue)
             {
                 var currentParent = (TParent)_nodeService.Get(_draggedTChild.ParentId.Value);
-                currentParent.Nodes.Remove(_draggedTChild);
+                currentParent.Children.Remove(_draggedTChild);
             }
             else
             {
-                Root.Nodes.Remove(_draggedTChild);
+                Root.Children.Remove(_draggedTChild);
             }
 
             _draggedTChild.ParentId = node.NodeId;
-            newParent.Nodes.Add(_draggedTChild);
+            newParent.Children.Add(_draggedTChild);
             _nodeService.Update(_draggedTChild);
         }
     }
@@ -159,7 +159,7 @@ public class TreeViewViewModel<TParent, TChild> : ObservableObject
             try
             {
                 newNode.ParentId = SelectedNode.NodeId;
-                parent.Nodes.Add(newNode);
+                parent.Children.Add(newNode);
                 SelectedNode.IsExpanded = true;
             }
             catch (Exception ex)
@@ -170,7 +170,7 @@ public class TreeViewViewModel<TParent, TChild> : ObservableObject
         else
         {
             newNode.ParentId = Root.NodeId;
-            Root.Nodes.Add(newNode);
+            Root.Children.Add(newNode);
 
         }
 
@@ -183,11 +183,11 @@ public class TreeViewViewModel<TParent, TChild> : ObservableObject
         if (node.ParentId.HasValue)
         {
             var parent = (TParent)_nodeService.Get(node.ParentId.Value);
-            parent.Nodes.Remove(node);
+            parent.Children.Remove(node);
         }
         else
         {
-            Root.Nodes.Remove(node);
+            Root.Children.Remove(node);
         }
 
         _nodeService.Delete(node);
@@ -207,17 +207,9 @@ public class TreeViewViewModel<TParent, TChild> : ObservableObject
         _windowManagerService.Show(WindowView.PatternsView);
     }
 
-    private void SelectNode(TChild target)
+    protected void SelectNode(TChild target)
     {
-        if (target is TParent parent && parent.Nodes != null && parent.Nodes.Count > 0)
-        {
-            //IsExpanded gets updated after IsSelected
-            target.IsSelected = !target.IsExpanded;
-        }
-        else
-        {
-            target.IsSelected = !target.IsSelected;
-        }
+        target.IsSelected = !target.IsSelected;
 
         if (SelectedNode != null && SelectedNode != target)
         {

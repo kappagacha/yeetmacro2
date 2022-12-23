@@ -21,12 +21,12 @@ public interface IParentNode<TParent, TChild> : IParentNode
     where TParent : Node, TChild
     where TChild : Node
 {
-    ICollection<TChild> Nodes { get; set; }
+    ICollection<TChild> Children { get; set; }
 }
 
 public class ParentNode : Node, IParentNode<ParentNode, Node>
 {
-    public virtual ICollection<Node> Nodes { get; set; } = new List<Node>();
+    public virtual ICollection<Node> Children { get; set; } = new List<Node>();
 }
 
 public class NodeClosure

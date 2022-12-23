@@ -36,7 +36,7 @@
                                 <SwipeView.RightItems>
                                     <SwipeItems>
                                         <SwipeItemView>
-                                            <cntl:CustomLabel ImageSource="modern_delete" Color="Red"
+                                            <cntl:CustomLabel ImageSource="modern_delete"
                                                             CommandParameter="{Binding .}"
                                                             Command="{Binding BindingContext.DeletePatternCommand, Source={RelativeSource AncestorType={x:Type cntl:PatternControl}}}" />
                                         </SwipeItemView>

@@ -47,9 +47,9 @@ public class NodeService<TParent, TChild> : INodeService<TParent, TChild>
         if (node is TParent parent)
         {
             var directDescendants = closures.Where(c => c.AncestorId == node.NodeId && c.Depth == 1);
-            parent.Nodes = directDescendants.Select(c => c.Descendant).Cast<TChild>().ToList();
+            parent.Children = directDescendants.Select(c => c.Descendant).Cast<TChild>().ToList();
 
-            foreach (var child in parent.Nodes)
+            foreach (var child in parent.Children)
             {
                 LoadNode(child, closures);
             }
@@ -71,8 +71,8 @@ public class NodeService<TParent, TChild> : INodeService<TParent, TChild>
         if (node is TParent parent)
         {
             parent.NodeId = 0;
-            var childern = parent.Nodes;
-            parent.Nodes = null;
+            var childern = parent.Children;
+            parent.Children = null;
             _nodeRepository.Insert(parent);
             _nodeRepository.Save();
             Resolve(node);

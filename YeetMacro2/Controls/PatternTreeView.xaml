@@ -4,17 +4,36 @@
              x:Class="YeetMacro2.Controls.PatternTreeView"
              xmlns:vm="clr-namespace:YeetMacro2.ViewModels"
              xmlns:cntl="clr-namespace:YeetMacro2.Controls"
+             xmlns:conv="clr-namespace:YeetMacro2.Converters"
              BindingContext="{StaticResource PatternTreeViewViewModel}"
              vm:ViewModelLocator.ViewModelType="{x:Type vm:PatternTreeViewViewModel}"
-             xmlns:mct="http://schemas.microsoft.com/dotnet/2022/maui/toolkit">
-    <!--<ContentView.Behaviors>
-        <mct:EventToCommandBehavior
-                EventName="Loaded"
-                Command="{Binding InitPatternsCommand}"
-                CommandParameter="{x:Reference thisControl}"/>
-    </ContentView.Behaviors>-->
+             xmlns:material="http://schemas.enisn-projects.io/dotnet/maui/uraniumui/material"
+             xmlns:mct="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
+             x:Name="thisControl">
     <Grid ColumnDefinitions="*,3*">
-        <cntl:TreeView Grid.Column="0" />
+        <material:TreeView ItemsSource="{Binding Root.Children}">
+            <material:TreeView.ItemTemplate>
+                <DataTemplate>
+                    <Label Text="{Binding Name}" Margin="0" Padding="0" VerticalOptions="Center" BackgroundColor="Transparent">
+                        <Label.Triggers>
+                            <DataTrigger TargetType="{x:Type Label}" Binding="{Binding IsSelected}" Value="True">
+                                <Setter Property="BackgroundColor" Value="Blue" />
+                            </DataTrigger>
+                        </Label.Triggers>
+                        <Label.GestureRecognizers>
+                            <TapGestureRecognizer CommandParameter="{Binding .}" Command="{Binding BindingContext.SelectNodeCommand, Source={RelativeSource AncestorType={x:Type cntl:PatternTreeView}}}" />
+                        </Label.GestureRecognizers>
+                    </Label>
+                </DataTemplate>
+            </material:TreeView.ItemTemplate>
+        </material:TreeView>
+        <HorizontalStackLayout Grid.Column="0" Spacing="5">
+            <cntl:CustomLabel Margin="0" Padding="0" IsVisible="{Binding SelectedNode, Converter={conv:NullToBoolConverter IsInverse=True}}"
+                   Command="{Binding DeleteNodeCommand}" CommandParameter="{Binding SelectedNode}"
+                   ImageSource="modern_delete" VerticalOptions="End" HorizontalOptions="End" />
+            <cntl:CustomLabel Margin="0" Padding="0" Command="{Binding AddNodeCommand}" 
+                   ImageSource="modern_add" VerticalOptions="End" HorizontalOptions="End" />
+        </HorizontalStackLayout>
         <cntl:PatternControl Grid.Column="1" />
     </Grid>
 </ContentView>

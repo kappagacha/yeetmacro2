@@ -46,7 +46,7 @@ public class MoveView : LinearLayout, IShowable
         var density = Microsoft.Maui.Devices.DeviceDisplay.MainDisplayInfo.Density;
         _layoutParams.Width = (int)(_visualElement.WidthRequest * density);
         _layoutParams.Height = (int)(_visualElement.HeightRequest * density);
-        _visualElement.Layout(new Microsoft.Maui.Graphics.Rect(0, 0, _layoutParams.Width / density, _layoutParams.Height / density));
+        //_visualElement.Layout(new Microsoft.Maui.Graphics.Rect(0, 0, _layoutParams.Width / density, _layoutParams.Height / density));
         AddView(androidView, new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MatchParent, ViewGroup.LayoutParams.MatchParent));
     }
 

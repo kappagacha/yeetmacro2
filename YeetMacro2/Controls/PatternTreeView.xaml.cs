@@ -6,9 +6,4 @@ public partial class PatternTreeView : ContentView
 	{
 		InitializeComponent();
 	}
-
-    private void ContentView_Loaded(object sender, EventArgs e)
-    {
-
-    }
 }

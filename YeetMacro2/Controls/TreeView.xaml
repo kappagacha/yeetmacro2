@@ -47,7 +47,7 @@
                             <SwipeView.RightItems>
                                 <SwipeItems>
                                     <SwipeItemView>
-                                        <cntl:CustomLabel ImageSource="modern_delete" Color="Red"
+                                        <cntl:CustomLabel ImageSource="modern_delete" ImageColor="Red"
                                                         CommandParameter="{Binding .}"
                                                         Command="{Binding BindingContext.DeleteNodeCommand, Source={RelativeSource AncestorType={x:Type cntl:TreeView}}}" />
                                     </SwipeItemView>

@@ -93,7 +93,7 @@ public class ResizeView : RelativeLayout, IOnTouchListener, IShowable
         _visualElement = visualElement;
         var mauiContext = new MauiContext(MauiApplication.Current.Services, context);
         var androidView = visualElement.ToPlatform(mauiContext);
-        _visualElement.Layout(new Microsoft.Maui.Graphics.Rect(0, 0, _layoutParams.Width / _density, _layoutParams.Height / _density));
+        //_visualElement.Layout(new Microsoft.Maui.Graphics.Rect(0, 0, _layoutParams.Width / _density, _layoutParams.Height / _density));
         AddView(androidView, new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MatchParent, ViewGroup.LayoutParams.MatchParent));
         AddView(_topLeft, topLeftParams);
         AddView(_bottomRight, bottomRightParams);
@@ -122,7 +122,7 @@ public class ResizeView : RelativeLayout, IOnTouchListener, IShowable
         if (_state == FormState.SHOWING)
         {
             _windowManager.UpdateViewLayout(this, _layoutParams);
-            _visualElement.Layout(new Microsoft.Maui.Graphics.Rect(0, 0, _layoutParams.Width / _density, _layoutParams.Height / _density));
+            //_visualElement.Layout(new Microsoft.Maui.Graphics.Rect(0, 0, _layoutParams.Width / _density, _layoutParams.Height / _density));
         }
     }
 

@@ -3,9 +3,55 @@ using Xamarin.CommunityToolkit.Helpers;
 
 namespace Xamarin.CommunityToolkit.Effects
 {
-	public class TouchEffect : RoutingEffect
+    //public struct TouchTrackingPoint
+    //{
+    //    public TouchTrackingPoint(float x, float y) : this()
+    //    {
+    //        X = x;
+    //        Y = y;
+    //    }
+
+    //    public float X { get; set; }
+    //    public float Y { get; set; }
+    //}
+
+    //public enum TouchActionType
+    //{
+    //    Entered = 0,
+    //    Pressed = 1,
+    //    Moved = 2,
+    //    Released = 3,
+    //    Cancelled = 4,
+    //    Exited = 5
+    //}
+
+
+    //public class TouchActionEventArgs : EventArgs
+    //{
+    //    public TouchActionEventArgs(long id, TouchActionType type, TouchTrackingPoint location, bool isInContact)
+    //    {
+    //        Id = id;
+    //        Type = type;
+    //        Location = location;
+    //        IsInContact = isInContact;
+    //    }
+
+    //    public long Id { private set; get; }
+
+    //    public TouchActionType Type { private set; get; }
+
+    //    public TouchTrackingPoint Location { private set; get; }
+
+    //    public bool IsInContact { private set; get; }
+    //}
+
+    //public delegate void TouchActionEventHandler(object sender, TouchActionEventArgs args);
+
+    public class TouchEffect : RoutingEffect
 	{
-		public const string UnpressedVisualState = "Unpressed";
+        // https://stackoverflow.com/questions/73994251/implementing-touchtracking-in-net-maui
+        // public event TouchActionEventHandler TouchAction;
+        public const string UnpressedVisualState = "Unpressed";
 
 		public const string PressedVisualState = "Pressed";
 
