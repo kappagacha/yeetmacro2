@@ -1,7 +1,6 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using System.Collections.ObjectModel;
-using System.Windows.Input;
 using YeetMacro2.Data.Models;
 using YeetMacro2.Data.Services;
 using YeetMacro2.Services;
@@ -17,6 +16,10 @@ public partial class PatternTreeViewViewModel : TreeViewViewModel<PatternNode, P
     PatternBase _selectedPattern;
     [ObservableProperty]
     ImageSource _selectedImageSource;
+    [ObservableProperty]
+    bool _isInitialized;
+    TaskCompletionSource _initializeCompleted;
+
     public PatternBase SelectedPattern
     {
         get { return _selectedPattern; }
@@ -55,6 +58,7 @@ public partial class PatternTreeViewViewModel : TreeViewViewModel<PatternNode, P
 
         PropertyChanged += PatternTreeViewViewModel_PropertyChanged;
 
+        _initializeCompleted = new TaskCompletionSource();
         InitPatterns();
     }
 
@@ -98,7 +102,14 @@ public partial class PatternTreeViewViewModel : TreeViewViewModel<PatternNode, P
                 }
             }
             Root = root;
+            IsInitialized = true;
+            _initializeCompleted.SetResult();
         });
+    }
+
+    public async Task WaitForInitialization()
+    {
+        await _initializeCompleted.Task;
     }
 
     [RelayCommand]

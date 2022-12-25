@@ -65,9 +65,9 @@
                 <Button Text="Delete Database" Command="{Binding DeleteDbCommand}" />
                 <Button Text="Save Patterns" Command="{Binding SavePatternsToJsonCommand}" />
                 <Button Text="Load Patterns" Command="{Binding LoadPatternsFromJsonCommand}" />
-                <cntl:ActionControl />
+                <!--<cntl:ActionControl />
                 <cntl:LogControl />
-                <cntl:PatternTreeView HeightRequest="300" />
+                <cntl:PatternTreeView HeightRequest="300" />-->
             </VerticalStackLayout>
         </ScrollView>
     </Grid>
