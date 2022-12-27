@@ -7,6 +7,7 @@ public static class EfDataProviderExtensions
     public static void AddYeetMacroData(this IServiceCollection services, Action<DbContextOptionsBuilder> setup = null)
     {
         services.AddDbContext<YeetMacroDbContext>(setup);
+        services.AddTransient<IRepository<MacroSet>, EfRepository<YeetMacroDbContext, MacroSet>>();
         services.AddTransient<IRepository<PatternNode>, EfRepository<YeetMacroDbContext, PatternNode>>();
         services.AddTransient<IRepository<PatternBase>, EfRepository<YeetMacroDbContext, PatternBase>>();
         services.AddTransient<IRepository<Pattern>, EfRepository<YeetMacroDbContext, Pattern>>();

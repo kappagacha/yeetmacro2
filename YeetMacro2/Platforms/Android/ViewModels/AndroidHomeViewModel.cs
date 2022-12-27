@@ -3,10 +3,11 @@ using CommunityToolkit.Mvvm.Input;
 using YeetMacro2.Data.Models;
 using YeetMacro2.Data.Services;
 using YeetMacro2.Services;
+using YeetMacro2.ViewModels;
 
-namespace YeetMacro2.ViewModels;
+namespace YeetMacro2.Platforms.Android.ViewModels;
 
-public partial class HomeViewModel : ObservableObject
+public partial class AndriodHomeViewModel : ObservableObject, IHomeViewModel
 {
     [ObservableProperty]
     bool _isProjectionServiceEnabled;
@@ -20,10 +21,8 @@ public partial class HomeViewModel : ObservableObject
     private IAccessibilityService _accessibilityService;
     private INodeService<PatternNode, PatternNode> _nodeService;
 
-    public HomeViewModel() { }
-
-    public HomeViewModel(IWindowManagerService windowManagerService, IAccessibilityService accessibilityService,
-        INodeService<PatternNode, PatternNode> nodeService)
+    public AndriodHomeViewModel(IWindowManagerService windowManagerService, IAccessibilityService accessibilityService,
+    INodeService<PatternNode, PatternNode> nodeService)
     {
         _windowManagerService = windowManagerService;
         _accessibilityService = accessibilityService;
@@ -114,7 +113,8 @@ public partial class HomeViewModel : ObservableObject
         if (ShowLogView)
         {
             _windowManagerService.Show(WindowView.LogView);
-        } else
+        }
+        else
         {
             _windowManagerService.Close(WindowView.LogView);
         }
@@ -132,3 +132,4 @@ public partial class HomeViewModel : ObservableObject
         //_windowManagerService.Show(WindowView.PatternsTreeView);
     }
 }
+

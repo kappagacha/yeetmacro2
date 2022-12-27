@@ -2,11 +2,9 @@
 using YeetMacro2.Services;
 using YeetMacro2.Platforms;
 using CommunityToolkit.Maui;
-using Microsoft.Maui.Controls.Compatibility.Hosting;
-using Xamarin.CommunityToolkit.Effects;
 using UraniumUI;
 using SkiaSharp.Views.Maui.Controls.Hosting;
-using SkiaSharp.Views.Maui.Controls;
+
 
 namespace YeetMacro2;
 
@@ -35,7 +33,6 @@ public static class MauiProgram
 				handlers.AddUraniumUIHandlers();
 			});
 
-
 		builder
 			.UseSkiaSharp();
 
@@ -44,20 +41,6 @@ public static class MauiProgram
         builder.RegisterViewModels();
 		builder.RegisterServices();
 		builder.RegisterPlatformServices();
-
-        // https://github.com/xamarin/XamarinCommunityToolkit/issues/1905
-        builder
-        .UseMauiCompatibility()
-		.ConfigureMauiHandlers(handlers =>
-		{
-			handlers.AddCompatibilityRenderers(typeof(Xamarin.CommunityToolkit.Effects.TouchEffect).Assembly);
-		})
-		.ConfigureEffects(effects =>
-		{
-#if ANDROID || IOS
-            effects.Add(typeof(TouchEffect), typeof(PlatformTouchEffect));
-#endif
-        });
 
         return builder.Build();
 	}

@@ -2,12 +2,14 @@
 <ContentView xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:vm="clr-namespace:YeetMacro2.ViewModels"
-             BindingContext="{StaticResource ActionMenuViewModel}"
-             vm:ViewModelLocator.ViewModelType="{x:Type vm:ActionMenuViewModel}"
-             x:Class="YeetMacro2.Controls.ActionMenu">
+             xmlns:pvm="clr-namespace:YeetMacro2.Platforms.Android.ViewModels"
+             x:DataType="pvm:ActionMenuViewModel"
+             vm:ViewModelLocator.ViewModelType="{x:Type pvm:ActionMenuViewModel}"
+             x:Class="YeetMacro2.Platforms.Android.Views.ActionMenu">
     <VerticalStackLayout VerticalOptions="Center" Spacing="10">
         <Button Text="Manage Patterns" Command="{Binding ManagePatternsCommand}" />
         <Button Text="Configure" Command="{Binding ConfigureCommand}" />
         <Button Text="Open Log" Command="{Binding OpenLogCommand}" />
+        <Button Text="Exit" Command="{Binding ExitCommand}" />
     </VerticalStackLayout>
 </ContentView>

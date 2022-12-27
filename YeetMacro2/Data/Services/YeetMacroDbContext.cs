@@ -2,9 +2,11 @@
 using YeetMacro2.Data.Models;
 
 namespace YeetMacro2.Data.Services;
+
 //https://docs.microsoft.com/en-us/ef/core/get-started/xamarin
 public class YeetMacroDbContext : DbContext
 {
+    public DbSet<MacroSet> MacroSets { get; set; }
     public DbSet<Node> Nodes { get; set; }
     public DbSet<NodeClosure> Closures { get; set; }
     public DbSet<ParentNode> ParentNodes { get; set; }
@@ -26,6 +28,7 @@ public class YeetMacroDbContext : DbContext
     {
         base.OnModelCreating(modelBuilder);
 
+        modelBuilder.Entity<MacroSet>().HasKey(ms => ms.MacroSetId);
         modelBuilder.Entity<Node>().HasKey(pn => pn.NodeId);
         modelBuilder.Entity<ParentNode>().HasMany(pn => pn.Children).WithOne().HasForeignKey(n => n.ParentId).OnDelete(DeleteBehavior.Cascade);
 

@@ -4,11 +4,9 @@ using Android.Views;
 using YeetMacro2.Services;
 using Android.Content;
 using Android.Graphics;
-using Android.Graphics.Drawables;
 using Android.Graphics.Drawables.Shapes;
 using Color = Android.Graphics.Color;
 using Microsoft.Maui.Platform;
-using Microsoft.Maui;
 
 namespace YeetMacro2.Platforms.Android.Views;
 
@@ -88,7 +86,7 @@ public class ResizeView : RelativeLayout, IOnTouchListener, IShowable
         _state = FormState.CLOSED;
         InitDisplay();
         DeviceDisplay.MainDisplayInfoChanged += DeviceDisplay_MainDisplayInfoChanged;
-        
+
         //https://docs.microsoft.com/en-us/xamarin/xamarin-forms/platform/native-forms
         _visualElement = visualElement;
         var mauiContext = new MauiContext(MauiApplication.Current.Services, context);
@@ -110,7 +108,7 @@ public class ResizeView : RelativeLayout, IOnTouchListener, IShowable
 
     private void InitDisplay()
     {
-        var displayInfo =DeviceDisplay.MainDisplayInfo;
+        var displayInfo = DeviceDisplay.MainDisplayInfo;
         _displayWidth = (int)displayInfo.Width;
         _displayHeight = (int)displayInfo.Height;
         _density = displayInfo.Density;
@@ -153,16 +151,22 @@ public class ResizeView : RelativeLayout, IOnTouchListener, IShowable
 
     public void Close()
     {
-        _windowManager.RemoveView(this);
-        _state = FormState.CLOSED;
-        _closeCompleted.TrySetResult(true);
+        if (_state == FormState.SHOWING)
+        {
+            _windowManager.RemoveView(this);
+            _state = FormState.CLOSED;
+            _closeCompleted.TrySetResult(true);
+        }
     }
 
     public void CloseCancel()
     {
-        _windowManager.RemoveView(this);
-        _state = FormState.CLOSED;
-        _closeCompleted.TrySetResult(false);
+        if (_state == FormState.SHOWING)
+        {
+            _windowManager.RemoveView(this);
+            _state = FormState.CLOSED;
+            _closeCompleted.TrySetResult(false);
+        }
     }
 
     private void EnableKeyboard()

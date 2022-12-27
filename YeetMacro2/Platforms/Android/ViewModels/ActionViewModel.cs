@@ -3,8 +3,9 @@ using CommunityToolkit.Mvvm.Input;
 using System.Diagnostics;
 using YeetMacro2.Services;
 using Jint;
+using YeetMacro2.ViewModels;
 
-namespace YeetMacro2.ViewModels;
+namespace YeetMacro2.Platforms.Android.ViewModels;
 
 public enum ActionState
 {
@@ -24,9 +25,6 @@ public partial class ActionViewModel : ObservableObject, IMovable
     IAccessibilityService _accessibilityService;
     IMacroService _macroService;
     CancellationTokenSource _cancellationTokenSource;
-    public ActionViewModel()
-    {
-    }
 
     public ActionViewModel(IWindowManagerService windowManagerService, IToastService toastService, IMediaProjectionService mediaProjectionService,
         IAccessibilityService accessibilityService, IMacroService macroService)

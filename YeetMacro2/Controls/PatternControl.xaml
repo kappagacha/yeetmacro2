@@ -4,7 +4,8 @@
              xmlns:vm="clr-namespace:YeetMacro2.ViewModels"
              xmlns:conv="clr-namespace:YeetMacro2.Converters"
              xmlns:cntl="clr-namespace:YeetMacro2.Controls"
-             BindingContext="{StaticResource PatternTreeViewViewModel}"
+             xmlns:m="clr-namespace:YeetMacro2.Data.Models"
+             x:DataType="vm:PatternTreeViewViewModel"
              vm:ViewModelLocator.ViewModelType="{x:Type vm:PatternTreeViewViewModel}"
              x:Class="YeetMacro2.Controls.PatternControl">
     <Grid Padding="3">
@@ -19,7 +20,7 @@
                 <FlexLayout Direction="Column" Margin="0"
                             BindableLayout.ItemsSource="{Binding SelectedNode.Patterns}" >
                     <BindableLayout.ItemTemplate>
-                        <DataTemplate>
+                        <DataTemplate x:DataType="m:PatternBase">
                             <SwipeView Margin="0" Padding="0">
                                 <SwipeView.GestureRecognizers>
                                     <TapGestureRecognizer CommandParameter="{Binding .}" Command="{Binding BindingContext.SelectNodeCommand, Source={RelativeSource AncestorType={x:Type cntl:PatternControl}}}" />

@@ -98,6 +98,15 @@
 	</ItemGroup>
 
 	<ItemGroup>
+	  <Compile Update="Platforms\Android\Views\ActionControl.xaml.cs">
+	    <DependentUpon>ActionControl.xaml</DependentUpon>
+	  </Compile>
+	  <Compile Update="Platforms\Android\Views\ActionMenu.xaml.cs">
+	    <DependentUpon>ActionMenu.xaml</DependentUpon>
+	  </Compile>
+	  <Compile Update="Platforms\Android\Views\DrawControl.xaml.cs">
+	    <DependentUpon>DrawControl.xaml</DependentUpon>
+	  </Compile>
 	  <Compile Update="Platforms\iOS\Services\PlatformServiceRegistrationHelper.cs">
 	    <ExcludeFromCurrentConfiguration>false</ExcludeFromCurrentConfiguration>
 	  </Compile>
@@ -111,18 +120,9 @@
 	    <ExcludeFromCurrentConfiguration>false</ExcludeFromCurrentConfiguration>
 	  </Compile>
 	</ItemGroup>
-
+  
 	<ItemGroup>
-	  <MauiXaml Update="Controls\ActionControl.xaml">
-	    <Generator>MSBuild:Compile</Generator>
-	  </MauiXaml>
-	  <MauiXaml Update="Controls\ActionMenu.xaml">
-	    <Generator>MSBuild:Compile</Generator>
-	  </MauiXaml>
 	  <MauiXaml Update="Controls\CustomLabel.xaml">
-	    <Generator>MSBuild:Compile</Generator>
-	  </MauiXaml>
-	  <MauiXaml Update="Controls\DrawControl.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
 	  <MauiXaml Update="Controls\LogControl.xaml">
@@ -140,14 +140,23 @@
 	  <MauiXaml Update="Controls\TreeView.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
-	  <MauiXaml Update="Pages\HomePage.xaml">
+	  <MauiXaml Update="Pages\MacroManagerPage.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
-	  <MauiXaml Update="Resources\ViewModels\ViewModels.xaml">
+	  <MauiXaml Update="Platforms\Android\Views\HomePage.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	  <MauiXaml Update="Platforms\WindowsViews\HomePage.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
 	</ItemGroup>
 
+  <ItemGroup Condition="$(TargetFramework.StartsWith('net7.0-android')) != true">
+    <MauiXaml Remove="**\Android\**\*.xaml" />
+  </ItemGroup>
+  <ItemGroup Condition="$(TargetFramework.StartsWith('-windows')) != true">
+    <MauiXaml Remove="**\WindowsViews\**\*.xaml" />
+  </ItemGroup>
 	<ProjectExtensions><VisualStudio><UserProperties XamarinHotReloadUnhandledDeviceExceptionYeetMacro2HideInfoBar="True" /></VisualStudio></ProjectExtensions>
 
 </Project>

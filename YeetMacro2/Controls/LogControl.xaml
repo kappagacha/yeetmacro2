@@ -2,7 +2,7 @@
 <ContentView xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:vm="clr-namespace:YeetMacro2.ViewModels"
-             BindingContext="{StaticResource LogViewModel}"
+             x:DataType="vm:LogViewModel"
              vm:ViewModelLocator.ViewModelType="{x:Type vm:LogViewModel}"
              x:Class="YeetMacro2.Controls.LogControl">
     <Label Text="{Binding Message}">

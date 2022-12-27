@@ -1,28 +1,33 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="YeetMacro2.Pages.HomePage"
              xmlns:mct="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
              xmlns:vm="clr-namespace:YeetMacro2.ViewModels"
-             BindingContext="{StaticResource HomeViewModel}"
-             vm:ViewModelLocator.ViewModelType="{x:Type vm:HomeViewModel}"
+             xmlns:conv="clr-namespace:YeetMacro2.Converters"
              xmlns:cntl="clr-namespace:YeetMacro2.Controls"
-             x:Class="YeetMacro2.Pages.HomePage"
+             xmlns:pgs="clr-namespace:YeetMacro2.Pages"
+             xmlns:mc="schemas.openxmlformats.org/markup-compatibility/2006"  
+             xmlns:avm="clr-namespace:YeetMacro2.Platforms.Android.ViewModels"
+             x:DataType="avm:AndriodHomeViewModel"
+             vm:ViewModelLocator.ViewModelType="{x:Type vm:IHomeViewModel}"
              Title="HomePage">
     <ContentPage.Behaviors>
         <mct:EventToCommandBehavior
                 EventName="Appearing"
-                Command="{Binding AppearCommand}" />
+                Command="{OnPlatform Android={Binding AppearCommand}}" />
     </ContentPage.Behaviors>
     <Grid RowDefinitions="Auto,*">
-        <Label Text="YeetMacro" HorizontalTextAlignment="Center" FontSize="Title" FontAttributes="Bold" />
+        <Label Grid.Row="0" Text="YeetMacro" HorizontalTextAlignment="Center" FontSize="Title" FontAttributes="Bold" />
         <ScrollView Grid.Row="1">
-            <VerticalStackLayout Padding="30,24,30,24" Spacing="10">
+            <VerticalStackLayout Padding="30,24,30,24" Spacing="10" BindingContext="{Binding BindingContext, Source={RelativeSource AncestorType={x:Type pgs:HomePage}}}"
+                                 >
                 <Grid RowDefinitions="Auto,Auto,Auto" ColumnDefinitions="Auto,*">
                     <Switch Grid.Row="0" Grid.Column="0" IsToggled="{Binding IsProjectionServiceEnabled, Mode=TwoWay}">
                         <Switch.Behaviors>
                             <mct:EventToCommandBehavior
-                                EventName="Toggled"
-                                Command="{Binding ToggleProjectionServiceCommand}" />
+                                    EventName="Toggled"
+                                    Command="{Binding ToggleProjectionServiceCommand}" />
                         </Switch.Behaviors>
                     </Switch>
                     <Label Grid.Row="0" Grid.Column="1" VerticalTextAlignment="Center" Text="Projection Service">
@@ -35,8 +40,8 @@
                     <Switch Grid.Row="1" Grid.Column="0" IsToggled="{Binding IsAccessibilityEnabled, Mode=TwoWay}">
                         <Switch.Behaviors>
                             <mct:EventToCommandBehavior
-                                EventName="Toggled"
-                                Command="{Binding ToggleAccessibilityPermissionsCommand}" />
+                                    EventName="Toggled"
+                                    Command="{Binding ToggleAccessibilityPermissionsCommand}" />
                         </Switch.Behaviors>
                     </Switch>
                     <Label Grid.Row="1" Grid.Column="1" VerticalTextAlignment="Center" Text="Accessibility Service">
@@ -49,8 +54,8 @@
                     <Switch Grid.Row="2" Grid.Column="0" IsToggled="{Binding ShowLogView, Mode=TwoWay}">
                         <Switch.Behaviors>
                             <mct:EventToCommandBehavior
-                                EventName="Toggled"
-                                Command="{Binding ToggleLogViewCommand}" />
+                                    EventName="Toggled"
+                                    Command="{Binding ToggleLogViewCommand}" />
                         </Switch.Behaviors>
                     </Switch>
                     <Label Grid.Row="2" Grid.Column="1" VerticalTextAlignment="Center" Text="LogView">
@@ -66,8 +71,8 @@
                 <Button Text="Save Patterns" Command="{Binding SavePatternsToJsonCommand}" />
                 <Button Text="Load Patterns" Command="{Binding LoadPatternsFromJsonCommand}" />
                 <!--<cntl:ActionControl />
-                <cntl:LogControl />
-                <cntl:PatternTreeView HeightRequest="300" />-->
+                                <cntl:LogControl />
+                                <cntl:PatternTreeView HeightRequest="300" />-->
             </VerticalStackLayout>
         </ScrollView>
     </Grid>

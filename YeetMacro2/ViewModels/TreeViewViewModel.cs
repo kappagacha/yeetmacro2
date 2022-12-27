@@ -171,7 +171,6 @@ public class TreeViewViewModel<TParent, TChild> : ObservableObject
         {
             newNode.ParentId = Root.NodeId;
             Root.Children.Add(newNode);
-
         }
 
         _nodeService.Insert(newNode);

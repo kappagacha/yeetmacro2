@@ -87,13 +87,13 @@ public partial class PatternTreeViewViewModel : TreeViewViewModel<PatternNode, P
             _patternRepository.DetachAllEntities();
             root.Children = ProxyViewModel.CreateCollection(root.Children, pn => new { pn.Children, pn.Patterns, pn.UserPatterns });
             _nodeService.ReAttachNodes(root);
-            var firstChild = root.Children.First();
+            var firstChild = root.Children.FirstOrDefault();
             if (SelectedNode == null && firstChild != null)
             {
                 root.IsExpanded = true;
                 firstChild.IsSelected = false;
                 SelectNode(firstChild);
-                
+
                 if (SelectedPattern == null && SelectedNode.Patterns.Count > 0)
                 {
                     var targetPattern = SelectedNode.Patterns.First();

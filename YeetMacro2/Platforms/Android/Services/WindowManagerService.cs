@@ -138,12 +138,14 @@ public class WindowManagerService : IWindowManagerService
     }
     public void Close(WindowView view)
     {
+        if (!_views.ContainsKey(view)) return;
         _views[view].Close();
     }
 
     public void Cancel(WindowView view)
     {
-        _views[view].CloseCancel();
+        if (!_views.ContainsKey(view)) return;
+        _views[view]?.CloseCancel();
     }
 
     public async Task<string> PromptInput(string message)

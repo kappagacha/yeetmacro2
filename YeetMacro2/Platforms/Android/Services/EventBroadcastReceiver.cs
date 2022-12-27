@@ -1,5 +1,6 @@
 ﻿using Android.App;
 using Android.Content;
+using YeetMacro2.Platforms.Android.ViewModels;
 using YeetMacro2.Services;
 using YeetMacro2.ViewModels;
 
@@ -16,11 +17,12 @@ public class EventBroadcastReceiver : BroadcastReceiver
             switch (intent.Action)
             {
                 case "com.companyname.ForegroundService.EXIT":
-                    ServiceHelper.GetService<HomeViewModel>().IsProjectionServiceEnabled = false;
+                    ServiceHelper.GetService<AndriodHomeViewModel>().IsProjectionServiceEnabled = false;
+                    ServiceHelper.GetService<AndriodHomeViewModel>().ShowLogView = false;
                     break;
                 case "com.companyname.AccessibilityService.CHANGED":
                     bool enabled = intent.GetBooleanExtra("enabled", false);
-                    ServiceHelper.GetService<HomeViewModel>().IsAccessibilityEnabled = enabled;
+                    ServiceHelper.GetService<AndriodHomeViewModel>().IsAccessibilityEnabled = enabled;
                     break;
             }
         }

@@ -2,10 +2,9 @@ using SkiaSharp;
 using SkiaSharp.Views.Maui;
 using System.Collections;
 using System.Collections.Concurrent;
-using System.Collections.Generic;
 using YeetMacro2.Services;
 
-namespace YeetMacro2.Controls;
+namespace YeetMacro2.Platforms.Android.Views;
 
 public partial class DrawControl : ContentView
 {

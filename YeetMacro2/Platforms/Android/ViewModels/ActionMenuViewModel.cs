@@ -2,15 +2,11 @@
 using CommunityToolkit.Mvvm.Input;
 using YeetMacro2.Services;
 
-namespace YeetMacro2.ViewModels;
+namespace YeetMacro2.Platforms.Android.ViewModels;
 public partial class ActionMenuViewModel : ObservableObject
 {
     IToastService _toastService;
     IWindowManagerService _windowManagerService;
-
-    public ActionMenuViewModel()
-    {
-    }
 
     public ActionMenuViewModel(IToastService toastService, IWindowManagerService windowManagerService)
     {
@@ -39,6 +35,14 @@ public partial class ActionMenuViewModel : ObservableObject
     {
         _toastService.Show("Opening Log...");
         _windowManagerService.Show(WindowView.LogView);
+        _windowManagerService.Close(WindowView.ActionMenuView);
+    }
+
+    [RelayCommand]
+    public void Exit()
+    {
+        _toastService.Show("Exiting...");
+        _windowManagerService.StopProjectionService();
         _windowManagerService.Close(WindowView.ActionMenuView);
     }
 }

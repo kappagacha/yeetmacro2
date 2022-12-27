@@ -17,9 +17,9 @@ public partial class CustomLabel : ContentView
     public static readonly BindableProperty ImageColorProperty =
         BindableProperty.Create("ImageColor", typeof(Color), typeof(CustomLabel), Colors.Blue);
     public static readonly BindableProperty ImageWidthProperty =
-        BindableProperty.Create("ImageWidth", typeof(double), typeof(CustomLabel), 20 * DeviceDisplay.MainDisplayInfo.Density);
+        BindableProperty.Create("ImageWidth", typeof(double), typeof(CustomLabel), 20 * (DeviceDisplay.MainDisplayInfo.Density != 0.0 ? DeviceDisplay.MainDisplayInfo.Density : 1));
     public static readonly BindableProperty ImageHeightProperty =
-        BindableProperty.Create("ImageHeight", typeof(double), typeof(CustomLabel), 20 * DeviceDisplay.MainDisplayInfo.Density);
+        BindableProperty.Create("ImageHeight", typeof(double), typeof(CustomLabel), 20 * (DeviceDisplay.MainDisplayInfo.Density != 0.0 ? DeviceDisplay.MainDisplayInfo.Density : 1));
 
     public string ImageSource
     {
@@ -65,6 +65,6 @@ public partial class CustomLabel : ContentView
 
     public CustomLabel()
 	{
-		InitializeComponent();
+        InitializeComponent();
 	}
 }
