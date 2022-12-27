@@ -65,7 +65,7 @@
 	</ItemGroup>
 
 	<ItemGroup>
-	  <EditorConfigFiles Remove="C:\Users\dmnt1\Desktop\projects\YeetMacro2\YeetMacro2\.editorconfig" />
+	  <EditorConfigFiles Remove=".editorconfig" />
 	</ItemGroup>
 
 	<ItemGroup>
@@ -85,11 +85,6 @@
 	  <None Remove="Resources\Images\unicons_image.svg" />
 	  <None Remove="Resources\Images\unicons_image_check.svg" />
 	  <None Remove="Resources\Images\vaadinicons_touch.svg" />
-	</ItemGroup>
-
-	<ItemGroup>
-	  <None Include="C:\Users\dmnt1\Desktop\projects\YeetMacro2\YeetMacro2\.editorconfig" />
-	  <None Include="Pages\HomePage.xaml.cs" />
 	</ItemGroup>
 
 	<ItemGroup>
