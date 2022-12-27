@@ -89,6 +89,7 @@
 
 	<ItemGroup>
 	  <None Include="C:\Users\dmnt1\Desktop\projects\YeetMacro2\YeetMacro2\.editorconfig" />
+	  <None Include="Pages\HomePage.xaml.cs" />
 	</ItemGroup>
 
 	<ItemGroup>
@@ -146,17 +147,20 @@
 	  <MauiXaml Update="Platforms\Android\Views\HomePage.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
-	  <MauiXaml Update="Platforms\WindowsViews\HomePage.xaml">
-	    <Generator>MSBuild:Compile</Generator>
-	  </MauiXaml>
 	</ItemGroup>
 
   <ItemGroup Condition="$(TargetFramework.StartsWith('net7.0-android')) != true">
     <MauiXaml Remove="**\Android\**\*.xaml" />
+    <Compile Remove="**\Android\**\*.xaml.cs" />
+    <None Include="**\Android\**\*.xaml.cs" Exclude="$(DefaultItemExcludes);$(DefaultExcludesInProjectFolder)" />
   </ItemGroup>
-  <ItemGroup Condition="$(TargetFramework.StartsWith('-windows')) != true">
+
+  <ItemGroup Condition="$(TargetFramework.Contains('-windows')) != true">
     <MauiXaml Remove="**\WindowsViews\**\*.xaml" />
+    <Compile Remove="**\WindowsViews\**\*.xaml.cs" />
+    <None Include="**\WindowsViews\**\*.xaml.cs" Exclude="$(DefaultItemExcludes);$(DefaultExcludesInProjectFolder)" />
   </ItemGroup>
+
 	<ProjectExtensions><VisualStudio><UserProperties XamarinHotReloadUnhandledDeviceExceptionYeetMacro2HideInfoBar="True" /></VisualStudio></ProjectExtensions>
 
 </Project>
