@@ -7,6 +7,21 @@ using YeetMacro2.Services;
 
 namespace YeetMacro2.ViewModels;
 
+// https://stackoverflow.com/questions/53884417/net-core-di-ways-of-passing-parameters-to-constructor
+public class PatternTreeViewViewModelFactory
+{
+    IServiceProvider _serviceProvider;
+    public PatternTreeViewViewModelFactory(IServiceProvider serviceProvider)
+    {
+        _serviceProvider= serviceProvider;
+    }
+
+    public PatternTreeViewViewModel Create(int rootId)
+    {
+        return ActivatorUtilities.CreateInstance<PatternTreeViewViewModel>(_serviceProvider, rootId);
+    }
+}
+
 public partial class PatternTreeViewViewModel : TreeViewViewModel<PatternNode, PatternNode>
 {
     IRepository<PatternBase> _patternRepository;
@@ -38,11 +53,8 @@ public partial class PatternTreeViewViewModel : TreeViewViewModel<PatternNode, P
         Height = DeviceDisplay.MainDisplayInfo.Height
     });
 
-    public PatternTreeViewViewModel() : base()
-    {
-    }
-
     public PatternTreeViewViewModel(
+        int rootNodeId,
         INodeService<PatternNode, PatternNode> nodeService,
         IWindowManagerService windowManagerService,
         IToastService toastService,
@@ -59,7 +71,7 @@ public partial class PatternTreeViewViewModel : TreeViewViewModel<PatternNode, P
         PropertyChanged += PatternTreeViewViewModel_PropertyChanged;
 
         _initializeCompleted = new TaskCompletionSource();
-        InitPatterns();
+        InitPatterns(rootNodeId);
     }
 
     private void PatternTreeViewViewModel_PropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)
@@ -79,12 +91,12 @@ public partial class PatternTreeViewViewModel : TreeViewViewModel<PatternNode, P
         newNode.UserPatterns = ProxyViewModel.CreateCollection(new ObservableCollection<UserPattern>());
     }
 
-    private void InitPatterns()
+    private void InitPatterns(int rootNodeId)
     {
         Task.Run(() =>
         {
-            var root = ProxyViewModel.Create(_nodeService.GetRoot());
-            _patternRepository.DetachAllEntities();
+            var root = ProxyViewModel.Create(_nodeService.GetRoot(rootNodeId));
+            //_patternRepository.DetachAllEntities();
             root.Children = ProxyViewModel.CreateCollection(root.Children, pn => new { pn.Children, pn.Patterns, pn.UserPatterns });
             _nodeService.ReAttachNodes(root);
             var firstChild = root.Children.FirstOrDefault();

@@ -7,7 +7,7 @@ public interface INodeService<TParent, TChild>
 {
     void Delete(TChild node);
     TChild Get(int id);
-    TParent GetRoot();
+    TParent GetRoot(int id);
     void Insert(TChild node);
     bool IsDescendant(TParent ancestor, TChild potentialDescendant);
     void ReAttachNodes(TParent root);
@@ -26,9 +26,9 @@ public class NodeService<TParent, TChild> : INodeService<TParent, TChild>
         _closureRepository = closureRepository;
     }
 
-    public TParent GetRoot()
+    public TParent GetRoot(int id)
     {
-        var rootNode = _nodeRepository.Get(n => n.ParentId == null).FirstOrDefault();
+        var rootNode = _nodeRepository.Get(n => n.NodeId == id).FirstOrDefault();
         var root = (TParent)rootNode;
         if (root == null)
         {
@@ -36,22 +36,21 @@ public class NodeService<TParent, TChild> : INodeService<TParent, TChild>
             Insert(root);
         }
 
-        var closures = _closureRepository.Get();
-        LoadNode(root, closures);
+        LoadNode(root);
 
         return root;
     }
 
-    private void LoadNode(TChild node, IEnumerable<NodeClosure> closures)
+    private void LoadNode(TChild node)
     {
         if (node is TParent parent)
         {
-            var directDescendants = closures.Where(c => c.AncestorId == node.NodeId && c.Depth == 1);
+            var directDescendants = _closureRepository.Get(c => c.AncestorId == node.NodeId && c.Depth == 1);
             parent.Children = directDescendants.Select(c => c.Descendant).Cast<TChild>().ToList();
 
             foreach (var child in parent.Children)
             {
-                LoadNode(child, closures);
+                LoadNode(child);
             }
         }
     }
@@ -71,16 +70,17 @@ public class NodeService<TParent, TChild> : INodeService<TParent, TChild>
         if (node is TParent parent)
         {
             parent.NodeId = 0;
-            var childern = parent.Children;
+            var children = parent.Children;
             parent.Children = null;
             _nodeRepository.Insert(parent);
             _nodeRepository.Save();
             Resolve(node);
-            foreach (var child in childern)
+            foreach (var child in children)
             {
                 child.ParentId = parent.NodeId;
                 Insert(child);
             }
+            parent.Children = children;
         }
         else
         {
@@ -148,26 +148,26 @@ public class NodeService<TParent, TChild> : INodeService<TParent, TChild>
         }
         _closureRepository.Save();
     }
-
     public void ReAttachNodes(TParent root)
     {
-        _nodeRepository.DetachAllEntities();
+        var originalRoot = Get(root.NodeId);
+        _nodeRepository.DetachEntities(originalRoot);
         _nodeRepository.AttachEntities(root);
     }
 
-    //private IEnumerable<TChild> GetAllNodes(TChild node)
-    //{
-    //    yield return node;
+    private IEnumerable<TChild> GetAllNodes(TChild node)
+    {
+        yield return node;
 
-    //    if (node is TParent parent)
-    //    {
-    //        foreach (var child in parent.Nodes)
-    //        {
-    //            foreach (var childNodes in GetAllNodes(child))
-    //            {
-    //                yield return childNodes;
-    //            }
-    //        }
-    //    }
-    //}
+        if (node is TParent parent)
+        {
+            foreach (var child in parent.Children)
+            {
+                foreach (var childNodes in GetAllNodes(child))
+                {
+                    yield return childNodes;
+                }
+            }
+        }
+    }
 }

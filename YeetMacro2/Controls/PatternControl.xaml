@@ -5,32 +5,32 @@
              xmlns:conv="clr-namespace:YeetMacro2.Converters"
              xmlns:cntl="clr-namespace:YeetMacro2.Controls"
              xmlns:m="clr-namespace:YeetMacro2.Data.Models"
-             x:DataType="vm:PatternTreeViewViewModel"
-             vm:ViewModelLocator.ViewModelType="{x:Type vm:PatternTreeViewViewModel}"
+             x:DataType="vm:MacroManagerViewModel"
+             vm:ViewModelLocator.ViewModelType="{x:Type vm:MacroManagerViewModel}"
              x:Class="YeetMacro2.Controls.PatternControl">
     <Grid Padding="3">
-        <Image Source="{Binding SelectedImageSource}" />
+        <Image Source="{Binding PatternTree.SelectedImageSource}" />
         <StackLayout Orientation="Vertical">
             <StackLayout Margin="0" Padding="0" Orientation="Horizontal">
-                <CheckBox Margin="0" VerticalOptions="Center" IsChecked="{Binding SelectedNode.IsMultiPattern}" />
+                <CheckBox Margin="0" VerticalOptions="Center" IsChecked="{Binding PatternTree.SelectedNode.IsMultiPattern}" />
                 <Label Margin="0" VerticalOptions="Center" Padding="0" Text="MultiPattern" />
             </StackLayout>
-            <StackLayout IsVisible="{Binding SelectedNode.IsMultiPattern}" 
+            <StackLayout IsVisible="{Binding PatternTree.SelectedNode.IsMultiPattern}" 
                          Orientation="Horizontal" HorizontalOptions="Start" VerticalOptions="Start">
                 <FlexLayout Direction="Column" Margin="0"
-                            BindableLayout.ItemsSource="{Binding SelectedNode.Patterns}" >
+                            BindableLayout.ItemsSource="{Binding PatternTree.SelectedNode.Patterns}" >
                     <BindableLayout.ItemTemplate>
                         <DataTemplate x:DataType="m:PatternBase">
                             <SwipeView Margin="0" Padding="0">
                                 <SwipeView.GestureRecognizers>
-                                    <TapGestureRecognizer CommandParameter="{Binding .}" Command="{Binding BindingContext.SelectNodeCommand, Source={RelativeSource AncestorType={x:Type cntl:PatternControl}}}" />
+                                    <TapGestureRecognizer CommandParameter="{Binding .}" Command="{Binding BindingContext.PatternTree.SelectNodeCommand, Source={RelativeSource AncestorType={x:Type cntl:PatternControl}}}" />
                                 </SwipeView.GestureRecognizers>
                                 <SwipeView.LeftItems>
                                     <SwipeItems>
                                         <SwipeItemView>
                                             <cntl:CustomLabel ImageSource="unicons_focus_target"
                                                             CommandParameter="{Binding .}"
-                                                            Command="{Binding BindingContext.CapturePatternCommand, Source={RelativeSource AncestorType={x:Type cntl:PatternControl}}}" />
+                                                            Command="{Binding BindingContext.PatternTree.CapturePatternCommand, Source={RelativeSource AncestorType={x:Type cntl:PatternControl}}}" />
                                         </SwipeItemView>
                                     </SwipeItems>
                                 </SwipeView.LeftItems>
@@ -39,7 +39,7 @@
                                         <SwipeItemView>
                                             <cntl:CustomLabel ImageSource="modern_delete"
                                                             CommandParameter="{Binding .}"
-                                                            Command="{Binding BindingContext.DeletePatternCommand, Source={RelativeSource AncestorType={x:Type cntl:PatternControl}}}" />
+                                                            Command="{Binding BindingContext.PatternTree.DeletePatternCommand, Source={RelativeSource AncestorType={x:Type cntl:PatternControl}}}" />
                                         </SwipeItemView>
                                     </SwipeItems>
                                 </SwipeView.RightItems>
@@ -50,7 +50,7 @@
                                         </DataTrigger>
                                     </StackLayout.Triggers>
                                     <StackLayout.GestureRecognizers>
-                                        <TapGestureRecognizer CommandParameter="{Binding .}" Command="{Binding BindingContext.SelectPatternCommand, Source={RelativeSource AncestorType={x:Type cntl:PatternControl}}}" />
+                                        <TapGestureRecognizer CommandParameter="{Binding .}" Command="{Binding BindingContext.PatternTree.SelectPatternCommand, Source={RelativeSource AncestorType={x:Type cntl:PatternControl}}}" />
                                     </StackLayout.GestureRecognizers>
                                     <Label Text="{Binding Name}" />
                                 </StackLayout>
@@ -61,15 +61,15 @@
             </StackLayout>
         </StackLayout>
         <StackLayout Orientation="Vertical" VerticalOptions="End" HorizontalOptions="End">
-            <cntl:CustomLabel ImageSource="unicons_focus" Text="{Binding SelectedPattern.Bounds}" VerticalOptions="End" HorizontalOptions="End" />
-            <cntl:CustomLabel ImageSource="unicons_image_check" Text="{Binding CurrentResolution}" VerticalOptions="End" HorizontalOptions="End" />
-            <cntl:CustomLabel ImageSource="unicons_image" Text="{Binding SelectedPattern.Resolution}" VerticalOptions="End" HorizontalOptions="End" />
+            <cntl:CustomLabel ImageSource="unicons_focus" Text="{Binding PatternTree.SelectedPattern.Bounds}" VerticalOptions="End" HorizontalOptions="End" />
+            <cntl:CustomLabel ImageSource="unicons_image_check" Text="{Binding PatternTree.CurrentResolution}" VerticalOptions="End" HorizontalOptions="End" />
+            <cntl:CustomLabel ImageSource="unicons_image" Text="{Binding PatternTree.SelectedPattern.Resolution}" VerticalOptions="End" HorizontalOptions="End" />
             <StackLayout Orientation="Horizontal" VerticalOptions="End" HorizontalOptions="End">
-                <cntl:CustomLabel Command="{Binding CapturePatternCommand}" ImageSource="unicons_capture" />
-                <cntl:CustomLabel Command="{Binding SetPatternBoundsCommand}" ImageSource="unicons_focus" />
-                <cntl:CustomLabel Command="{Binding ClickPatternCommand}" ImageSource="vaadinicons_touch" />
-                <cntl:CustomLabel Command="{Binding TestPatternCommand}" ImageSource="jamicons_eye" />
-                <cntl:CustomLabel Command="{Binding AddPatternCommand}" ImageSource="modern_add" IsVisible="{Binding SelectedNode.IsMultiPattern}" />
+                <cntl:CustomLabel Command="{Binding PatternTree.CapturePatternCommand}" ImageSource="unicons_capture" />
+                <cntl:CustomLabel Command="{Binding PatternTree.SetPatternBoundsCommand}" ImageSource="unicons_focus" />
+                <cntl:CustomLabel Command="{Binding PatternTree.ClickPatternCommand}" ImageSource="vaadinicons_touch" />
+                <cntl:CustomLabel Command="{Binding PatternTree.TestPatternCommand}" ImageSource="jamicons_eye" />
+                <cntl:CustomLabel Command="{Binding PatternTree.AddPatternCommand}" ImageSource="modern_add" IsVisible="{Binding PatternTree.SelectedNode.IsMultiPattern}" />
             </StackLayout>
         </StackLayout>
     </Grid>

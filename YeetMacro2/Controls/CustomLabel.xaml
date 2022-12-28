@@ -9,7 +9,7 @@
         <HorizontalStackLayout.GestureRecognizers>
             <TapGestureRecognizer Command="{Binding Command, Source={Reference thisControl}}" CommandParameter="{Binding CommandParameter, Source={Reference thisControl}}" />
         </HorizontalStackLayout.GestureRecognizers>
-        <Image Source="{Binding ImageSource, Source={Reference thisControl}, StringFormat='{0}.svg'}"
+        <Image Source="{Binding ImageSource, Source={Reference thisControl}, StringFormat='{0}.png'}"
                    WidthRequest="{Binding ImageWidth, Source={Reference thisControl}}"
                    HeightRequest="{Binding ImageHeight, Source={Reference thisControl}}"
                    Margin="0" 

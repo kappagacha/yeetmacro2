@@ -1,5 +1,4 @@
-﻿//using YeetMacro2.Platforms.Windows.Services;
-using YeetMacro2.Services;
+﻿using YeetMacro2.Services;
 using Microsoft.EntityFrameworkCore;
 using YeetMacro2.Data.Services;
 using Microsoft.UI;
@@ -8,6 +7,7 @@ using Windows.Graphics;
 using Microsoft.Maui.LifecycleEvents;
 using YeetMacro2.ViewModels;
 using YeetMacro2.Platforms.Windows.ViewModels;
+using YeetMacro2.Platforms.Windows.Services;
 
 namespace YeetMacro2.Platforms;
 
@@ -16,8 +16,9 @@ public static class PlatformServiceRegistrationHelper
     public static MauiAppBuilder RegisterPlatformServices(this MauiAppBuilder mauiAppBuilder)
     {
         mauiAppBuilder.Services.AddSingleton<IHomeViewModel, WindowsHomeViewModel>();
-
-        //mauiAppBuilder.Services.AddSingleton<IWindowManagerService, WindowManagerService>();
+        mauiAppBuilder.Services.AddSingleton<IWindowManagerService, WindowsWindowMangerService>();
+        mauiAppBuilder.Services.AddSingleton<IMediaProjectionService, WindowsProjectionService>();
+        mauiAppBuilder.Services.AddSingleton<IMacroService, WindowsMacroService>();
         mauiAppBuilder.Services.AddYeetMacroData(setup =>
         {
             string dbPath = Path.Combine(FileSystem.AppDataDirectory, "yeetmacro.db3");

@@ -4,4 +4,7 @@ public class MacroSet
     public int MacroSetId { get; set; }
     public virtual string Name { get; set; }
     public virtual string Source { get; set; }
+
+    public virtual int RootPatternNodeId { get; set; }
+    public virtual PatternNode RootPattern { get; set; }
 }

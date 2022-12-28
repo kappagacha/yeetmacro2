@@ -6,13 +6,17 @@
     xmlns:local="clr-namespace:YeetMacro2"
     xmlns:pages="clr-namespace:YeetMacro2.Pages">
 
-    <ShellContent
+    <!--<ShellContent
         Title="Home"
         ContentTemplate="{DataTemplate pages:HomePage}"
-        Route="Home" />
+        Route="Home" />-->
     <ShellContent
         Title="Macro Manager"
         ContentTemplate="{DataTemplate pages:MacroManagerPage}"
         Route="MacroManager" />
+    <ShellContent
+        Title="Home"
+        ContentTemplate="{DataTemplate pages:HomePage}"
+        Route="Home" />
 
 </Shell>

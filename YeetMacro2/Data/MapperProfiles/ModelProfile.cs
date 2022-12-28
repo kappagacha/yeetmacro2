@@ -6,6 +6,7 @@ public class ModelProfile : Profile
 {
     public ModelProfile()
     {
+        CreateMap<MacroSet, MacroSet>();
         CreateMap<Pattern, Pattern>();
         CreateMap<PatternNode, PatternNode>();
         CreateMap<Resolution, Resolution>();

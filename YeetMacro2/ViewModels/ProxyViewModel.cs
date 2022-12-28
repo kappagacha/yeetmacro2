@@ -46,6 +46,7 @@ public class ProxyViewModel : IProxyNotifyPropertyChanged
 
     public static T Create<T>(T target) where T : class
     {
+        if (target is IProxyNotifyPropertyChanged) return target;
         var options = new ProxyGenerationOptions();
         options.AddMixinInstance(new ProxyViewModel());
         options.AddMixinInstance(target);
