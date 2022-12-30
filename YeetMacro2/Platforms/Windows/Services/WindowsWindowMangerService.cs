@@ -1,4 +1,6 @@
-﻿using YeetMacro2.Data.Models;
+﻿using System.Diagnostics;
+using System.Text.Json;
+using YeetMacro2.Data.Models;
 using YeetMacro2.Services;
 
 namespace YeetMacro2.Platforms.Windows.Services;
@@ -36,9 +38,25 @@ public class WindowsWindowMangerService : IWindowManagerService
         throw new NotImplementedException();
     }
 
-    public Task<Bounds> DrawUserRectangle()
+    public async Task<Bounds> DrawUserRectangle()
     {
-        throw new NotImplementedException();
+        // https://stackoverflow.com/questions/4291912/process-start-how-to-get-the-output
+        var proc = new Process
+        {
+            StartInfo = new ProcessStartInfo
+            {
+                FileName = "Platforms/Windows/Ahk/userRectangle/userRectangle.exe",
+                UseShellExecute = false,
+                RedirectStandardOutput = true,
+                CreateNoWindow = true
+            }
+        };
+
+        proc.Start();        
+        await proc.WaitForExitAsync();
+        var output = await proc.StandardOutput.ReadToEndAsync();
+        var result = JsonSerializer.Deserialize<Bounds>(output);
+        return result;
     }
 
     public Task<List<Point>> GetMatches(PatternBase template, int limit = 1)

@@ -61,7 +61,8 @@
 		<PackageReference Include="Microsoft.EntityFrameworkCore.Sqlite" Version="7.0.1" />
 		<PackageReference Include="Microsoft.Extensions.Logging.Debug" Version="7.0.0" />
 		<PackageReference Include="SkiaSharp.Views.Maui.Controls" Version="2.88.3" />
-		<PackageReference Include="UraniumUI.Material" Version="2.1.2" />
+		<PackageReference Include="System.Drawing.Common" Version="7.0.0" />
+		<PackageReference Include="UraniumUI.Material" Version="2.2.0-pre.1" />
 	</ItemGroup>
 
 	<ItemGroup>
@@ -151,6 +152,12 @@
     <MauiXaml Remove="**\WindowsViews\**\*.xaml" />
     <Compile Remove="**\WindowsViews\**\*.xaml.cs" />
     <None Include="**\WindowsViews\**\*.xaml.cs" Exclude="$(DefaultItemExcludes);$(DefaultExcludesInProjectFolder)" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Update="Platforms\Windows\Ahk\userRectangle\userRectangle.exe">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
   </ItemGroup>
 
 	<ProjectExtensions><VisualStudio><UserProperties XamarinHotReloadUnhandledDeviceExceptionYeetMacro2HideInfoBar="True" /></VisualStudio></ProjectExtensions>

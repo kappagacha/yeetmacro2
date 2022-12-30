@@ -12,7 +12,7 @@
              xmlns:mct="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
              x:Name="thisControl">
     <Grid ColumnDefinitions="*,3*">
-        <material:TreeView ItemsSource="{Binding PatternTree.Root.Children}">
+        <material:TreeView ItemsSource="{Binding PatternTree.Root.Children}" Spacing="0">
             <material:TreeView.ItemTemplate>
                 <DataTemplate x:DataType="m:ParentNode">
                     <Label Text="{Binding Name}" Margin="0" Padding="0" VerticalOptions="Center" BackgroundColor="Transparent">

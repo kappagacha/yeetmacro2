@@ -20,8 +20,7 @@
     <Grid RowDefinitions="Auto,*">
         <Label Grid.Row="0" Text="YeetMacro" HorizontalTextAlignment="Center" FontSize="Title" FontAttributes="Bold" />
         <ScrollView Grid.Row="1">
-            <VerticalStackLayout Padding="30,24,30,24" Spacing="10" BindingContext="{Binding BindingContext, Source={RelativeSource AncestorType={x:Type pgs:HomePage}}}"
-                                 >
+            <VerticalStackLayout Padding="30,24,30,24" Spacing="10" BindingContext="{Binding BindingContext, Source={RelativeSource AncestorType={x:Type pgs:HomePage}}}">
                 <Grid RowDefinitions="Auto,Auto,Auto" ColumnDefinitions="Auto,*">
                     <Switch Grid.Row="0" Grid.Column="0" IsToggled="{Binding IsProjectionServiceEnabled, Mode=TwoWay}">
                         <Switch.Behaviors>

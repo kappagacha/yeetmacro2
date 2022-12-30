@@ -40,11 +40,11 @@ public class Bounds
 {
     public virtual double X { get; set; }
     public virtual double Y { get; set; }
-    public virtual double Width { get; set; }
-    public virtual double Height { get; set; }
+    public virtual double W { get; set; }
+    public virtual double H { get; set; }
     public override string ToString()
     {
-        return $"x{X:F0},y{Y:F0},w{Width:F0},h{Height:F0}";
+        return $"x{X:F0},y{Y:F0},w{W:F0},h{H:F0}";
     }
 }
 

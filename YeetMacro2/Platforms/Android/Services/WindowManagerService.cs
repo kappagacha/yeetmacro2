@@ -168,7 +168,7 @@ public class WindowManagerService : IWindowManagerService
         var formsView = (FormsView)_views[WindowView.UserDrawView];
         if (await formsView.WaitForClose())
         {
-            return new Bounds() { X = drawControl.RectX, Y = drawControl.RectY, Width = drawControl.RectWidth, Height = drawControl.RectHeight };
+            return new Bounds() { X = drawControl.RectX, Y = drawControl.RectY, W = drawControl.RectWidth, H = drawControl.RectHeight };
         }
         return null;
     }
@@ -295,8 +295,8 @@ public class WindowManagerService : IWindowManagerService
                 await _mediaProjectionService.GetCurrentImageBitmap<Bitmap>(
                     (int)template.Bounds.X + strokeThickness - 1,
                     (int)template.Bounds.Y + strokeThickness - 1,
-                    (int)template.Bounds.Width - strokeThickness + 1,
-                    (int)template.Bounds.Height - strokeThickness - 1) :
+                    (int)template.Bounds.W - strokeThickness + 1,
+                    (int)template.Bounds.H - strokeThickness - 1) :
                 await _mediaProjectionService.GetCurrentImageBitmap<Bitmap>();
 
                 //var imageStream = template.Bounds != null ?
@@ -440,8 +440,8 @@ public class WindowManagerService : IWindowManagerService
             var ratio = Math.Min(xRatio, yRatio);
             var x = (int)(originalBounds.X * ratio);
             var y = (int)(originalBounds.Y * ratio);
-            var width = (int)(originalBounds.Width * xRatio);
-            var height = (int)(originalBounds.Height * yRatio);
+            var width = (int)(originalBounds.W * xRatio);
+            var height = (int)(originalBounds.H * yRatio);
             if (xRatio > yRatio)    //assuming content gets centered
             {
                 var leftoverWidth = targetResolutionWidth - templateResolutionWidth - topLeft.x;
@@ -459,7 +459,7 @@ public class WindowManagerService : IWindowManagerService
 
 
             Console.WriteLine("[*****YeetMacro*****] WindowManagerService TransformBounds End");
-            return new Bounds() { X = x, Y = y, Width = width, Height = height };
+            return new Bounds() { X = x, Y = y, W = width, H = height };
         }
         catch (Exception ex)
         {

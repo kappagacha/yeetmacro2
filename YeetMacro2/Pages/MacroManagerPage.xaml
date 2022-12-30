@@ -9,9 +9,10 @@
              x:Class="YeetMacro2.Pages.MacroManagerPage"
              xmlns:uuiv="clr-namespace:UraniumUI.Views;assembly=UraniumUI"
              xmlns:uranium="http://schemas.enisn-projects.io/dotnet/maui/uraniumui"
+             xmlns:mct="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
              Title="MacroManagerPage">
-    <VerticalStackLayout>
-        <HorizontalStackLayout Spacing="5">
+    <mct:DockLayout HorizontalSpacing="5" VerticalSpacing="5">
+        <HorizontalStackLayout Spacing="5" mct:DockLayout.DockPosition="Top">
             <Picker ItemsSource="{Binding MacroSets}" ItemDisplayBinding="{Binding Name}" SelectedItem="{Binding SelectedMacroSet}" />
             <cntl:CustomLabel ImageSource="modern_add" Command="{Binding AddMacroSetCommand}" />
             <cntl:CustomLabel ImageSource="modern_delete" Command="{Binding DeleteMacroSetCommand}" CommandParameter="{Binding SelectedMacroSet}" />
@@ -19,5 +20,5 @@
         <cntl:PatternTreeView>
             
         </cntl:PatternTreeView>
-    </VerticalStackLayout>
+    </mct:DockLayout>
 </ContentPage>

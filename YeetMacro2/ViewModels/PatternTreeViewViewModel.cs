@@ -189,16 +189,16 @@ public partial class PatternTreeViewViewModel : TreeViewViewModel<PatternNode, P
         var imageStream = await _projectionService.GetCurrentImageStream(
             (int)bounds.X + strokeThickness - 1,
             (int)bounds.Y + strokeThickness - 1,
-            (int)bounds.Width - strokeThickness + 1,
-            (int)bounds.Height - strokeThickness - 1);
+            (int)bounds.W - strokeThickness + 1,
+            (int)bounds.H - strokeThickness - 1);
 
         pattern.ImageData = imageStream.ToArray();
         pattern.Bounds = ProxyViewModel.Create(new Bounds()
         {
             X = bounds.X,
             Y = bounds.Y,
-            Width = bounds.Width,
-            Height = bounds.Height
+            W = bounds.W,
+            H = bounds.H
         });
         pattern.Resolution = ProxyViewModel.Create(new Resolution()
         {
@@ -281,7 +281,7 @@ public partial class PatternTreeViewViewModel : TreeViewViewModel<PatternNode, P
         if (_selectedPattern.Bounds != null)
         {
             var calcBounds = _windowManagerService.TransformBounds(_selectedPattern.Bounds, _selectedPattern.Resolution);
-            _windowManagerService.DrawRectangle((int)calcBounds.X, (int)calcBounds.Y, (int)calcBounds.Width, (int)calcBounds.Height);
+            _windowManagerService.DrawRectangle((int)calcBounds.X, (int)calcBounds.Y, (int)calcBounds.W, (int)calcBounds.H);
         }
 
         if (points != null)
