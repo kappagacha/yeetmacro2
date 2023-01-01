@@ -282,29 +282,38 @@ public class WindowManagerService : IWindowManagerService
             var ratio = Math.Min(xRatio, yRatio);
             var targetWidth = (float)(templateBitmap.Width * ratio);
             var targetHeight = (float)(templateBitmap.Height * ratio);
-            var resized = Bitmap.CreateScaledBitmap(templateBitmap, (int)targetWidth, (int)targetHeight, true);
+            var needleBitmap = Bitmap.CreateScaledBitmap(templateBitmap, (int)targetWidth, (int)targetHeight, true);
             Console.WriteLine("[*****YeetMacro*****] WindowManagerService GetMatches TransformBounds Start");
             var calcBounds = TransformBounds(template.Bounds, template.Resolution);
             Console.WriteLine("[*****YeetMacro*****] WindowManagerService GetMatches TransformBounds End");
 
-            Bitmap imageBitmap = null;
+            //template.Bounds = null;
+            Bitmap haystackBitmap = null;
             try
             {
                 var strokeThickness = 3;
-                imageBitmap = template.Bounds != null ?
+                haystackBitmap = template.Bounds != null ?
                 await _mediaProjectionService.GetCurrentImageBitmap<Bitmap>(
-                    (int)template.Bounds.X + strokeThickness - 1,
-                    (int)template.Bounds.Y + strokeThickness - 1,
-                    (int)template.Bounds.W - strokeThickness + 1,
-                    (int)template.Bounds.H - strokeThickness - 1) :
+                    (int)(calcBounds.X - boundsPadding),
+                    (int)(calcBounds.Y - boundsPadding),
+                    (int)(calcBounds.W + boundsPadding),
+                    (int)(calcBounds.H + boundsPadding)) :
                 await _mediaProjectionService.GetCurrentImageBitmap<Bitmap>();
+
+                //imageBitmap = template.Bounds != null ?
+                //await _mediaProjectionService.GetCurrentImageBitmap<Bitmap>(
+                //    (int)template.Bounds.X + strokeThickness - 1,
+                //    (int)template.Bounds.Y + strokeThickness - 1,
+                //    (int)template.Bounds.W - strokeThickness + 1,
+                //    (int)template.Bounds.H - strokeThickness - 1) :
+                //await _mediaProjectionService.GetCurrentImageBitmap<Bitmap>();
 
                 //var imageStream = template.Bounds != null ?
                 //await _mediaProjectionService.GetCurrentImageStream(
                 //    (int)template.Bounds.X + strokeThickness - 1,
                 //    (int)template.Bounds.Y + strokeThickness - 1,
-                //    (int)template.Bounds.Width - strokeThickness + 1,
-                //    (int)template.Bounds.Height - strokeThickness - 1) :
+                //    (int)template.Bounds.W - strokeThickness + 1,
+                //    (int)template.Bounds.H - strokeThickness - 1) :
                 //await _mediaProjectionService.GetCurrentImageStream();
 
                 //imageBitmap = BitmapFactory.DecodeStream(imageStream);
@@ -312,8 +321,8 @@ public class WindowManagerService : IWindowManagerService
                 //await _mediaProjectionService.GetCurrentImageBitmap(
                 //    (int)(calcBounds.X - boundsPadding),
                 //    (int)(calcBounds.Y - boundsPadding),
-                //    (int)(calcBounds.Width + boundsPadding),
-                //    (int)(calcBounds.Height + boundsPadding)) :
+                //    (int)(calcBounds.W + boundsPadding),
+                //    (int)(calcBounds.H + boundsPadding)) :
                 //await _mediaProjectionService.GetCurrentImageBitmap();
             }
             catch (Exception ex)
@@ -323,11 +332,12 @@ public class WindowManagerService : IWindowManagerService
 
             //{
             //    var name = "haystack.png";
-            //    var picturesPath = "/storage/emulated/0/Pictures";
-            //    var filePath = System.IO.Path.Combine(picturesPath, name);
+            //    //var picturesPath = "/storage/emulated/0/Pictures";
+            //    var x = global::Android.App.Application.Context.GetExternalFilesDir(global::Android.OS.Environment.DirectoryPictures);
+            //    var filePath = System.IO.Path.Combine(x.Path, name);
 
             //    MemoryStream ms = new MemoryStream();
-            //    imageBitmap.Compress(CompressFormat.Png, 100, ms);
+            //    imageBitmap.Compress(Bitmap.CompressFormat.Png, 100, ms);
             //    ms.Position = 0;
 
             //    byte[] bArray = new byte[ms.Length];
@@ -389,13 +399,13 @@ public class WindowManagerService : IWindowManagerService
             //return new List<Point>() { new Point(100, 50) };
 
 
-            if (imageBitmap == null) return new List<Point>();
+            if (haystackBitmap == null) return new List<Point>();
 
-            //var points = BitmapHelper.SearchBitmap(resized, imageBitmap, 0.0);
-            var points = OpenCvHelper.GetPointsWithMatchTemplate(resized, imageBitmap);
-            resized.Dispose();
+            //var points = BitmapHelper.SearchBitmap(imageBitmap, resized, 0.0);
+            var points = OpenCvHelper.GetPointsWithMatchTemplate(haystackBitmap, needleBitmap);
+            needleBitmap.Dispose();
             templateBitmap.Dispose();
-            imageBitmap.Dispose();
+            haystackBitmap.Dispose();
 
             //Console.WriteLine("[*****YeetMacro*****] MediaProjectionService GetMatches GetPointsWithMatchTemplate Start");
             //var points = XamarinApp.Droid.OpenCv.Utils.GetPointsWithMatchTemplate(imageBitmap, resized, limit);

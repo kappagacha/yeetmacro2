@@ -32,17 +32,23 @@
         xct:TouchEffect.NativeAnimationColor="#80FFFFFF"
         xct:TouchEffect.ShouldMakeChildrenInputTransparent="False"
         Padding="0">
-        <Image Aspect="Fill">
+        <Image Aspect="Fill" IsVisible="True">
             <Image.Source>
                 <FontImageSource FontFamily="MaterialOutlined" Glyph="{x:Static mi:MaterialOutlined.Play_arrow}" Color="{StaticResource Primary}" />
             </Image.Source>
             <Image.Triggers>
                 <DataTrigger TargetType="Image" Binding="{Binding State}" Value="{x:Static pvm:ActionState.Running}">
-                    <Setter Property="Source">
-                        <Setter.Value>
-                            <FontImageSource FontFamily="MaterialOutlined" Glyph="{x:Static mi:MaterialOutlined.Stop}" Color="{StaticResource Primary}" />
-                        </Setter.Value>
-                    </Setter>
+                    <Setter Property="IsVisible" Value="False" />
+                </DataTrigger>
+            </Image.Triggers>
+        </Image>
+        <Image Aspect="Fill" IsVisible="True">
+            <Image.Source>
+                <FontImageSource FontFamily="MaterialOutlined" Glyph="{x:Static mi:MaterialOutlined.Stop}" Color="{StaticResource Primary}" />
+            </Image.Source>
+            <Image.Triggers>
+                <DataTrigger TargetType="Image" Binding="{Binding State}" Value="{x:Static pvm:ActionState.Stopped}">
+                    <Setter Property="IsVisible" Value="False" />
                 </DataTrigger>
             </Image.Triggers>
         </Image>

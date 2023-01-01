@@ -61,15 +61,14 @@ public partial class ActionViewModel : ObservableObject, IMovable
             }
             _cancellationTokenSource = new CancellationTokenSource();
             var logViewModel = ServiceHelper.GetService<LogViewModel>();
-            var treeViewViewModel = ServiceHelper.GetService<PatternTreeViewViewModel>();
+            var treeViewViewModel = ServiceHelper.GetService<MacroManagerViewModel>().PatternTree;
             State = ActionState.Running;
-            var patternsModel = ServiceHelper.GetService<PatternTreeViewViewModel>();
             var stopWatch = new Stopwatch();
             stopWatch.Start();
 
             await treeViewViewModel.WaitForInitialization();
             var macroService = _macroService.BuildDynamicObject();
-            var patterns = patternsModel.Root.BuildDynamicObject();
+            var patterns = treeViewViewModel.Root.BuildDynamicObject();
 
             Engine engine = new Engine(opt => opt.CancellationToken(_cancellationTokenSource.Token))
                 .SetValue("log", new Action<object>(Console.WriteLine))
@@ -84,11 +83,35 @@ public partial class ActionViewModel : ObservableObject, IMovable
                 .SetValue("macroService", macroService);
 
             var script = @"
-                    while (true) {
-                        logSomething();
-                        macroService.ClickPattern(patterns.test);
-                        sleep(1000);
-                    }
+var loopPatterns = [patterns.titles.home];
+while (true) {
+	logSomething();
+	var result = macroService.FindPattern(loopPatterns);
+	if (result.IsSuccess) {
+		log('[*****YeetMacro*****]' + result.Path);
+		switch(result.Path) {
+			case 'titles.home':
+				log('[*****YeetMacro*****] Click Start');
+				macroService.ClickPattern(patterns.tabs.quest);
+				log('[*****YeetMacro*****] Click End');
+				sleep(1000);
+			break;
+			case 'titles.quest':
+				log('[*****YeetMacro*****] Click Start');
+				macroService.ClickPattern(patterns.quest.events);
+				log('[*****YeetMacro*****] Click End');
+				sleep(1000);
+			break;
+			case 'titles.events':
+				log('[*****YeetMacro*****] Click Start');
+				macroService.ClickPattern(patterns.events.quest);
+				log('[*****YeetMacro*****] Click End');
+				sleep(1000);
+			break;
+		}
+	}	
+    sleep(1000);
+}
                 ";
 
             try
