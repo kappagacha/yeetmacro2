@@ -12,6 +12,7 @@
              xmlns:mct="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
              xmlns:fa="clr-namespace:UraniumUI.Icons.FontAwesome;assembly=UraniumUI.Icons.FontAwesome"
              xmlns:conv="clr-namespace:YeetMacro2.Converters"
+             xmlns:material="http://schemas.enisn-projects.io/dotnet/maui/uraniumui/material"
              Title="MacroManagerPage">
     <mct:DockLayout HorizontalSpacing="5" VerticalSpacing="5">
         <Border Stroke="{StaticResource Primary}" Padding="0">
@@ -47,6 +48,28 @@
                 </Grid>
             </HorizontalStackLayout>
         </Border>
-        <cntl:PatternTreeView />
+        <material:TabView>
+            <material:TabItem Title="Patterns">
+                <material:TabItem.ContentTemplate>
+                    <DataTemplate>
+                        <cntl:PatternTreeView />
+                    </DataTemplate>
+                </material:TabItem.ContentTemplate>
+            </material:TabItem>
+            <material:TabItem Title="Scripts">
+                <material:TabItem.ContentTemplate>
+                    <DataTemplate>
+                        <cntl:ScriptsView />
+                    </DataTemplate>
+                </material:TabItem.ContentTemplate>
+            </material:TabItem>
+            <material:TabItem Title="Options">
+                <material:TabItem.ContentTemplate>
+                    <DataTemplate>
+                        <Label Text="Third Tab" />
+                    </DataTemplate>
+                </material:TabItem.ContentTemplate>
+            </material:TabItem>
+        </material:TabView>
     </mct:DockLayout>
 </ContentPage>

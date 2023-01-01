@@ -22,6 +22,7 @@ public static class ServiceRegistrationHelper
     {
         mauiAppBuilder.Services.AddSingleton<MacroManagerViewModel>();
         mauiAppBuilder.Services.AddSingleton<PatternTreeViewViewModelFactory>();
+        mauiAppBuilder.Services.AddSingleton<ScriptsViewModelFactory>();
         mauiAppBuilder.Services.AddSingleton<LogViewModel>();
         mauiAppBuilder.Services.AddSingleton<PromptStringInputViewModel>();
         mauiAppBuilder.Services.AddSingleton<IMacroService, MacroService>();

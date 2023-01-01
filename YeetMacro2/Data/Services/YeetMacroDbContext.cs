@@ -32,6 +32,7 @@ public class YeetMacroDbContext : DbContext
         //modelBuilder.Entity<MacroSet>().Property(ms => ms.MacroSetId).ValueGeneratedOnAdd();
         modelBuilder.Entity<MacroSet>().HasOne(ms => ms.RootPattern).WithOne()
             .HasPrincipalKey<MacroSet>(ms => ms.RootPatternNodeId).OnDelete(DeleteBehavior.Cascade);
+        modelBuilder.Entity<MacroSet>().HasMany(ms => ms.Scripts).WithOne().HasForeignKey(s => s.MacroSetId).OnDelete(DeleteBehavior.Cascade);
         //modelBuilder.Entity<MacroSet>().HasOne(ms => ms.RootPattern).WithOne()
         //.HasPrincipalKey<MacroSet>(ms => ms.RootPatternNodeId).OnDelete(DeleteBehavior.Cascade);
         //.HasForeignKey<PatternNode>(pn => pn.NodeId);

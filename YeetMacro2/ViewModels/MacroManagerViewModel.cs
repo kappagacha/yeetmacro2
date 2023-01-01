@@ -14,14 +14,15 @@ public partial class MacroManagerViewModel : ObservableObject
 {
     IRepository<MacroSet> _macroSetRepository;
     IToastService _toastService;
-    IRepository<PatternBase> _patternRepository;
     INodeService<PatternNode, PatternNode> _nodeService;
-    PatternTreeViewViewModelFactory _patternTreeViewFacctory;
+    PatternTreeViewViewModelFactory _patternTreeViewFactory;
+    ScriptsViewModelFactory _scriptsViewModelFactory;
     [ObservableProperty]
     ICollection<MacroSet> _macroSets;
-    [ObservableProperty, NotifyPropertyChangedFor(nameof(PatternTree))]
+    [ObservableProperty, NotifyPropertyChangedFor(nameof(PatternTree), nameof(Scripts))]
     MacroSet _selectedMacroSet;
     ConcurrentDictionary<int, PatternTreeViewViewModel> _nodeRootIdToPatternTree;
+    ConcurrentDictionary<int, ScriptsViewModel> _macroSetIdToScripts;
 
     public PatternTreeViewViewModel PatternTree
     {
@@ -31,24 +32,39 @@ public partial class MacroManagerViewModel : ObservableObject
             if (_selectedMacroSet == null) return null;
             if (!_nodeRootIdToPatternTree.ContainsKey(_selectedMacroSet.RootPatternNodeId))
             {
-                var patternTree = _patternTreeViewFacctory.Create(_selectedMacroSet.RootPatternNodeId);
+                var patternTree = _patternTreeViewFactory.Create(_selectedMacroSet.RootPatternNodeId);
                 _nodeRootIdToPatternTree.TryAdd(_selectedMacroSet.RootPatternNodeId, patternTree);
             }
             return _nodeRootIdToPatternTree[_selectedMacroSet.RootPatternNodeId];
         }
     }
 
+    public ScriptsViewModel Scripts
+    {
+        get
+        {
+            // Lazy load Scripts
+            if (_selectedMacroSet == null) return null;
+            if (!_macroSetIdToScripts.ContainsKey(_selectedMacroSet.MacroSetId))
+            {
+                var scripts = _scriptsViewModelFactory.Create(_selectedMacroSet.MacroSetId);
+                _macroSetIdToScripts.TryAdd(_selectedMacroSet.MacroSetId, scripts);
+            }
+            return _macroSetIdToScripts[_selectedMacroSet.MacroSetId];
+        }
+    }
+
     public MacroManagerViewModel(IRepository<MacroSet> macroSetRepository,
         IToastService toastService,
         PatternTreeViewViewModelFactory patternTreeViewFactory,
-        INodeService<PatternNode, PatternNode> nodeService,
-        IRepository<PatternBase> patternRepository)
+        ScriptsViewModelFactory scriptsViewModelFactory,
+        INodeService<PatternNode, PatternNode> nodeService)
     {
         _macroSetRepository = macroSetRepository;
         _toastService = toastService;
-        _patternTreeViewFacctory = patternTreeViewFactory;
+        _patternTreeViewFactory = patternTreeViewFactory;
+        _scriptsViewModelFactory = scriptsViewModelFactory;
         _nodeService = nodeService;
-        _patternRepository = patternRepository;
         _macroSets = ProxyViewModel.CreateCollection(_macroSetRepository.Get());
         if (_macroSets.Count > 0 )
         {
@@ -58,6 +74,7 @@ public partial class MacroManagerViewModel : ObservableObject
         _macroSetRepository.DetachAllEntities();
         _macroSetRepository.AttachEntities(_macroSets.ToArray());
         _nodeRootIdToPatternTree = new ConcurrentDictionary<int, PatternTreeViewViewModel>();
+        _macroSetIdToScripts = new ConcurrentDictionary<int, ScriptsViewModel>();
     }
 
     [RelayCommand]
@@ -78,6 +95,7 @@ public partial class MacroManagerViewModel : ObservableObject
         _macroSetRepository.Insert(macroSet);
         _macroSetRepository.Save();
         SelectedMacroSet = macroSet;
+        _toastService.Show($"Added MacroSet: {macroSet.Name}");
     }
 
     [RelayCommand]
@@ -85,11 +103,11 @@ public partial class MacroManagerViewModel : ObservableObject
     {
         if (!await Application.Current.MainPage.DisplayAlert("Delete Macro Set", "Are you sure?", "Ok", "Cancel")) return;
 
-        _nodeService.Delete(macroSet.RootPattern);
+        _nodeService.Delete(_nodeRootIdToPatternTree[macroSet.RootPatternNodeId].Root);
         _macroSetRepository.Delete(macroSet);
         _macroSetRepository.Save();
         _macroSets.Remove(macroSet);
-        _toastService.Show($"Deleted MacroSet: {macroSet.Name})");
+        _toastService.Show($"Deleted MacroSet: {macroSet.Name}");
     }
 
     [RelayCommand]
@@ -103,7 +121,7 @@ public partial class MacroManagerViewModel : ObservableObject
         var targetDirctory = DeviceInfo.Current.Platform == DevicePlatform.Android ? "/storage/emulated/0/Pictures" : FileSystem.Current.AppDataDirectory;
         var targetFile = Path.Combine(targetDirctory, $"{_selectedMacroSet.Name}_patterns.json");
         File.WriteAllText(targetFile, patternTreeJson);
-        _toastService.Show($"Exported Patterns: {_selectedMacroSet.Name})");
+        _toastService.Show($"Exported Patterns: {_selectedMacroSet.Name}");
     }
 
     [RelayCommand]

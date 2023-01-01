@@ -1,21 +1,23 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <ContentView xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="YeetMacro2.Controls.PatternTreeView"
              xmlns:vm="clr-namespace:YeetMacro2.ViewModels"
-             xmlns:cntl="clr-namespace:YeetMacro2.Controls"
-             xmlns:conv="clr-namespace:YeetMacro2.Converters"
-             xmlns:m="clr-namespace:YeetMacro2.Data.Models"
              x:DataType="vm:MacroManagerViewModel"
              vm:ViewModelLocator.ViewModelType="{x:Type vm:MacroManagerViewModel}"
+             xmlns:conv="clr-namespace:YeetMacro2.Converters"
+             xmlns:cntl="clr-namespace:YeetMacro2.Controls"
+             xmlns:m="clr-namespace:YeetMacro2.Data.Models"
              xmlns:material="http://schemas.enisn-projects.io/dotnet/maui/uraniumui/material"
              xmlns:fa="clr-namespace:UraniumUI.Icons.FontAwesome;assembly=UraniumUI.Icons.FontAwesome"
-             x:Name="thisControl">
+             x:Class="YeetMacro2.Controls.ScriptsView">
     <Grid ColumnDefinitions="*,3*">
         <Border Stroke="{StaticResource Primary}" Grid.Column="0" Padding="3" BackgroundColor="Transparent">
-            <material:TreeView ItemsSource="{Binding PatternTree.Root.Children}" Spacing="0">
-                <material:TreeView.ItemTemplate>
-                    <DataTemplate x:DataType="m:ParentNode">
+            <CollectionView ItemsSource="{Binding Scripts.Scripts}" ItemSizingStrategy="MeasureFirstItem">
+                <CollectionView.ItemsLayout>
+                    <LinearItemsLayout Orientation="Vertical" ItemSpacing="0"  />
+                </CollectionView.ItemsLayout>
+                <CollectionView.ItemTemplate>
+                    <DataTemplate x:DataType="m:Script">
                         <Label Text="{Binding Name}" Margin="0" Padding="0" VerticalOptions="Center" BackgroundColor="Transparent">
                             <Label.Triggers>
                                 <DataTrigger TargetType="{x:Type Label}" Binding="{Binding IsSelected}" Value="True">
@@ -23,12 +25,12 @@
                                 </DataTrigger>
                             </Label.Triggers>
                             <Label.GestureRecognizers>
-                                <TapGestureRecognizer CommandParameter="{Binding .}" Command="{Binding BindingContext.PatternTree.SelectNodeCommand, Source={RelativeSource AncestorType={x:Type cntl:PatternTreeView}}}" />
+                                <TapGestureRecognizer CommandParameter="{Binding .}" Command="{Binding BindingContext.Scripts.SelectScriptCommand, Source={RelativeSource AncestorType={x:Type cntl:ScriptsView}}}" />
                             </Label.GestureRecognizers>
                         </Label>
                     </DataTemplate>
-                </material:TreeView.ItemTemplate>
-            </material:TreeView>
+                </CollectionView.ItemTemplate>
+            </CollectionView>
         </Border>
         <Grid Grid.Column="0" Padding="5" RowSpacing="5" ColumnSpacing="5">
             <HorizontalStackLayout VerticalOptions="Start" HorizontalOptions="End">
@@ -54,13 +56,13 @@
             <HorizontalStackLayout VerticalOptions="End" HorizontalOptions="End">
                 <Grid HeightRequest="{Binding Source={StaticResource IconHeight}, Converter={conv:MultiplyByDensityConverter}}"
                       WidthRequest="{Binding Source={StaticResource IconWidth}, Converter={conv:MultiplyByDensityConverter}}"
-                      IsVisible="{Binding PatternTree.SelectedNode, Converter={conv:NullToBoolConverter IsInverse=True}}">
+                      IsVisible="{Binding Scripts.SelectedScript, Converter={conv:NullToBoolConverter IsInverse=True}}">
                     <Image Aspect="AspectFill">
                         <Image.Source>
                             <FontImageSource FontFamily="FASolid" Glyph="{x:Static fa:Solid.TrashCan}" Color="Red" />
                         </Image.Source>
                     </Image>
-                    <ImageButton Command="{Binding PatternTree.DeleteNodeCommand}" CommandParameter="{Binding PatternTree.SelectedNode}" />
+                    <ImageButton Command="{Binding Scripts.DeleteScriptCommand}" CommandParameter="{Binding Scripts.SelectedScript}" />
                 </Grid>
                 <Grid HeightRequest="{Binding Source={StaticResource IconHeight}, Converter={conv:MultiplyByDensityConverter}}"
                       WidthRequest="{Binding Source={StaticResource IconWidth}, Converter={conv:MultiplyByDensityConverter}}">
@@ -69,13 +71,25 @@
                             <FontImageSource FontFamily="FASolid" Glyph="{x:Static fa:Solid.Plus}" Color="{StaticResource Primary}" />
                         </Image.Source>
                     </Image>
-                    <ImageButton Command="{Binding PatternTree.AddNodeCommand}" />
+                    <ImageButton Command="{Binding Scripts.AddScriptCommand}" />
                 </Grid>
             </HorizontalStackLayout>
         </Grid>
         <Border Grid.Column="1" Stroke="{StaticResource Primary}" BackgroundColor="Transparent" Padding="3"
-                IsVisible="{Binding PatternTree.SelectedNode, Converter={conv:NullToBoolConverter IsInverse=True}}">
-            <cntl:PatternControl />
+                IsVisible="{Binding Scripts.SelectedScript, Converter={conv:NullToBoolConverter IsInverse=True}}">
+            <Grid>
+                <Editor Text="{Binding Scripts.SelectedScript.Text}" IsSpellCheckEnabled="False" />
+                <Grid HeightRequest="{Binding Source={StaticResource IconHeight}, Converter={conv:MultiplyByDensityConverter}}"
+                      WidthRequest="{Binding Source={StaticResource IconWidth}, Converter={conv:MultiplyByDensityConverter}}"
+                      VerticalOptions="End" HorizontalOptions="End">
+                    <Image Aspect="Fill">
+                        <Image.Source>
+                            <FontImageSource FontFamily="FASolid" Glyph="{x:Static fa:Solid.FloppyDisk}" Color="{StaticResource Primary}" />
+                        </Image.Source>
+                    </Image>
+                    <ImageButton Command="{Binding Scripts.UpdateScriptCommand}" CommandParameter="{Binding Scripts.SelectedScript}" />
+                </Grid>
+            </Grid>
         </Border>
     </Grid>
 </ContentView>
