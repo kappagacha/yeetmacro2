@@ -75,7 +75,7 @@
         </Grid>
         <Border Grid.Column="1" Stroke="{StaticResource Primary}" BackgroundColor="Transparent" Padding="3"
                 IsVisible="{Binding PatternTree.SelectedNode, Converter={conv:NullToBoolConverter IsInverse=True}}">
-            <cntl:PatternControl />
+            <cntl:PatternView />
         </Border>
     </Grid>
 </ContentView>

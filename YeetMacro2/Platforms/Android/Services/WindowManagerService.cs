@@ -79,9 +79,8 @@ public class WindowManagerService : IWindowManagerService
             switch (windowView)
             {
                 case WindowView.LogView:
-                    var logControl = new LogControl();
-                    var logView = new ResizeView(_context, _windowManager, this, logControl);
-                    _views.TryAdd(windowView, logView);
+                    var logView = new LogView();
+                    _views.TryAdd(windowView, new ResizeView(_context, _windowManager, this, logView));
                     break;
                 case WindowView.ActionView:
                     var actionControl = new ActionControl();
@@ -100,7 +99,7 @@ public class WindowManagerService : IWindowManagerService
                     _views.TryAdd(windowView, patternsTreeView);
                     break;
                 //case WindowView.PatternsView:
-                //    var patternsControl = new PatternControl() { Parent = Xamarin.Forms.Application.Current };
+                //    var patternsControl = new PatternView() { Parent = Xamarin.Forms.Application.Current };
                 //    var patternsView = new ResizeView(_context, _windowManager, this, patternsControl);
                 //    patternsView.Focusable = false;
                 //    _views.TryAdd(windowView, patternsView);

@@ -87,6 +87,12 @@
 	</ItemGroup>
 
 	<ItemGroup>
+	  <Compile Update="Views\LogView.xaml.cs">
+	    <DependentUpon>LogView.xaml</DependentUpon>
+	  </Compile>
+	  <Compile Update="Views\PatternView.xaml.cs">
+	    <DependentUpon>PatternView.xaml</DependentUpon>
+	  </Compile>
 	  <Compile Update="Platforms\Android\Views\ActionControl.xaml.cs">
 	    <DependentUpon>ActionControl.xaml</DependentUpon>
 	  </Compile>
@@ -111,19 +117,19 @@
 	</ItemGroup>
   
 	<ItemGroup>
-	  <MauiXaml Update="Controls\LogControl.xaml">
+	  <MauiXaml Update="Views\LogView.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
-	  <MauiXaml Update="Controls\PatternControl.xaml">
+	  <MauiXaml Update="Views\PatternView.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
-	  <MauiXaml Update="Controls\PatternTreeView.xaml">
+	  <MauiXaml Update="Views\PatternTreeView.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
-	  <MauiXaml Update="Controls\PromptStringInput.xaml">
+	  <MauiXaml Update="Views\PromptStringInput.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
-	  <MauiXaml Update="Controls\ScriptsView.xaml">
+	  <MauiXaml Update="Views\ScriptsView.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
 	  <MauiXaml Update="Pages\MacroManagerPage.xaml">

@@ -68,7 +68,7 @@
                 <Button Text="Copy Database" Command="{Binding CopyDbCommand}" />
                 <Button Text="Delete Database" Command="{Binding DeleteDbCommand}" />
                 <!--<cntl:ActionControl />
-                                <cntl:LogControl />
+                                <cntl:LogView />
                                 <cntl:PatternTreeView HeightRequest="300" />-->
             </VerticalStackLayout>
         </ScrollView>

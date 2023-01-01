@@ -9,7 +9,7 @@
              vm:ViewModelLocator.ViewModelType="{x:Type vm:MacroManagerViewModel}"
              xmlns:fa="clr-namespace:UraniumUI.Icons.FontAwesome;assembly=UraniumUI.Icons.FontAwesome"
              xmlns:mi="clr-namespace:UraniumUI.Icons.MaterialIcons;assembly=UraniumUI.Icons.MaterialIcons"
-             x:Class="YeetMacro2.Controls.PatternControl">
+             x:Class="YeetMacro2.Controls.PatternView">
     <Grid Padding="3">
         <Image Source="{Binding PatternTree.SelectedImageSource}" />
         <StackLayout Orientation="Vertical">
@@ -29,7 +29,7 @@
                                     </DataTrigger>
                                 </Label.Triggers>
                                 <Label.GestureRecognizers>
-                                    <TapGestureRecognizer CommandParameter="{Binding .}" Command="{Binding BindingContext.PatternTree.SelectPatternCommand, Source={RelativeSource AncestorType={x:Type cntl:PatternControl}}}" />
+                                    <TapGestureRecognizer CommandParameter="{Binding .}" Command="{Binding BindingContext.PatternTree.SelectPatternCommand, Source={RelativeSource AncestorType={x:Type cntl:PatternView}}}" />
                                 </Label.GestureRecognizers>
                             </Label>
                         </DataTemplate>

@@ -40,13 +40,13 @@ public class AppInitializer : IMauiInitializeService
         if (dbContext.MacroSets.Any()) return;
 
         var nodeService = services.GetService<INodeService<PatternNode, PatternNode>>();
-        var kononsubaPatternNode = new PatternNode() { Name = "root" };
+        var konosubaPatternNode = new PatternNode() { Name = "root" };
         var disgaeaPatternNode = new PatternNode() { Name = "root" };
-        nodeService.Insert(kononsubaPatternNode);
+        nodeService.Insert(konosubaPatternNode);
         nodeService.Insert(disgaeaPatternNode);
 
-        var konsobaFdMacroSet = new MacroSet() { Name = "Konosuba FD", RootPattern = kononsubaPatternNode, RootPatternNodeId = kononsubaPatternNode.NodeId };
-        var disgaeaRpgMacroSet = new MacroSet() { Name = "Disgaea RPG", RootPattern = disgaeaPatternNode, RootPatternNodeId = disgaeaPatternNode.NodeId };
+        var konsobaFdMacroSet = new MacroSet() { Name = "Konosuba FD", RootPatternNodeId = konosubaPatternNode.NodeId };
+        var disgaeaRpgMacroSet = new MacroSet() { Name = "Disgaea RPG", RootPatternNodeId = disgaeaPatternNode.NodeId };
         dbContext.MacroSets.AddRange(konsobaFdMacroSet, disgaeaRpgMacroSet);
         dbContext.SaveChanges();
     }
