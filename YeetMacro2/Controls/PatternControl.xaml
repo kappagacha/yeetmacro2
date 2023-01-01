@@ -7,6 +7,8 @@
              xmlns:m="clr-namespace:YeetMacro2.Data.Models"
              x:DataType="vm:MacroManagerViewModel"
              vm:ViewModelLocator.ViewModelType="{x:Type vm:MacroManagerViewModel}"
+             xmlns:fa="clr-namespace:UraniumUI.Icons.FontAwesome;assembly=UraniumUI.Icons.FontAwesome"
+             xmlns:mi="clr-namespace:UraniumUI.Icons.MaterialIcons;assembly=UraniumUI.Icons.MaterialIcons"
              x:Class="YeetMacro2.Controls.PatternControl">
     <Grid Padding="3">
         <Image Source="{Binding PatternTree.SelectedImageSource}" />
@@ -17,59 +19,115 @@
             </StackLayout>
             <StackLayout IsVisible="{Binding PatternTree.SelectedNode.IsMultiPattern}" 
                          Orientation="Horizontal" HorizontalOptions="Start" VerticalOptions="Start">
-                <FlexLayout Direction="Column" Margin="0"
-                            BindableLayout.ItemsSource="{Binding PatternTree.SelectedNode.Patterns}" >
-                    <BindableLayout.ItemTemplate>
+                <CollectionView ItemsSource="{Binding PatternTree.SelectedNode.Patterns}">
+                    <CollectionView.ItemTemplate>
                         <DataTemplate x:DataType="m:PatternBase">
-                            <SwipeView Margin="0" Padding="0">
-                                <SwipeView.GestureRecognizers>
-                                    <TapGestureRecognizer CommandParameter="{Binding .}" Command="{Binding BindingContext.PatternTree.SelectNodeCommand, Source={RelativeSource AncestorType={x:Type cntl:PatternControl}}}" />
-                                </SwipeView.GestureRecognizers>
-                                <SwipeView.LeftItems>
-                                    <SwipeItems>
-                                        <SwipeItemView>
-                                            <cntl:CustomLabel ImageSource="unicons_focus_target"
-                                                            CommandParameter="{Binding .}"
-                                                            Command="{Binding BindingContext.PatternTree.CapturePatternCommand, Source={RelativeSource AncestorType={x:Type cntl:PatternControl}}}" />
-                                        </SwipeItemView>
-                                    </SwipeItems>
-                                </SwipeView.LeftItems>
-                                <SwipeView.RightItems>
-                                    <SwipeItems>
-                                        <SwipeItemView>
-                                            <cntl:CustomLabel ImageSource="modern_delete"
-                                                            CommandParameter="{Binding .}"
-                                                            Command="{Binding BindingContext.PatternTree.DeletePatternCommand, Source={RelativeSource AncestorType={x:Type cntl:PatternControl}}}" />
-                                        </SwipeItemView>
-                                    </SwipeItems>
-                                </SwipeView.RightItems>
-                                <StackLayout>
-                                    <StackLayout.Triggers>
-                                        <DataTrigger TargetType="StackLayout" Binding="{Binding IsSelected}" Value="True">
-                                            <Setter Property="BackgroundColor" Value="Blue" />
-                                        </DataTrigger>
-                                    </StackLayout.Triggers>
-                                    <StackLayout.GestureRecognizers>
-                                        <TapGestureRecognizer CommandParameter="{Binding .}" Command="{Binding BindingContext.PatternTree.SelectPatternCommand, Source={RelativeSource AncestorType={x:Type cntl:PatternControl}}}" />
-                                    </StackLayout.GestureRecognizers>
-                                    <Label Text="{Binding Name}" />
-                                </StackLayout>
-                            </SwipeView>
+                            <Label Text="{Binding Name}" Margin="0" Padding="0" VerticalOptions="Center" BackgroundColor="Transparent">
+                                <Label.Triggers>
+                                    <DataTrigger TargetType="{x:Type Label}" Binding="{Binding IsSelected}" Value="True">
+                                        <Setter Property="BackgroundColor" Value="Blue" />
+                                    </DataTrigger>
+                                </Label.Triggers>
+                                <Label.GestureRecognizers>
+                                    <TapGestureRecognizer CommandParameter="{Binding .}" Command="{Binding BindingContext.PatternTree.SelectPatternCommand, Source={RelativeSource AncestorType={x:Type cntl:PatternControl}}}" />
+                                </Label.GestureRecognizers>
+                            </Label>
                         </DataTemplate>
-                    </BindableLayout.ItemTemplate>
-                </FlexLayout>
+                    </CollectionView.ItemTemplate>
+                </CollectionView>
             </StackLayout>
         </StackLayout>
         <StackLayout Orientation="Vertical" VerticalOptions="End" HorizontalOptions="End">
-            <cntl:CustomLabel ImageSource="unicons_focus" Text="{Binding PatternTree.SelectedPattern.Bounds}" VerticalOptions="End" HorizontalOptions="End" />
-            <cntl:CustomLabel ImageSource="unicons_image_check" Text="{Binding PatternTree.CurrentResolution}" VerticalOptions="End" HorizontalOptions="End" />
-            <cntl:CustomLabel ImageSource="unicons_image" Text="{Binding PatternTree.SelectedPattern.Resolution}" VerticalOptions="End" HorizontalOptions="End" />
+            <HorizontalStackLayout Spacing="5" VerticalOptions="End" HorizontalOptions="End">
+                <Image
+                    HeightRequest="{Binding Source={StaticResource IconHeight}, Converter={conv:MultiplyByDensityConverter}}"
+                    WidthRequest="{Binding Source={StaticResource IconWidth}, Converter={conv:MultiplyByDensityConverter}}"
+                    Aspect="Fill">
+                    <Image.Source>
+                        <FontImageSource FontFamily="MaterialOutlined" Glyph="{x:Static mi:MaterialOutlined.Rectangle}" Color="{StaticResource Primary}" />
+                    </Image.Source>
+                </Image>
+                <Label Text="{Binding PatternTree.SelectedPattern.Bounds}" />
+            </HorizontalStackLayout>
+            <HorizontalStackLayout Spacing="5" VerticalOptions="End" HorizontalOptions="End">
+                <Image
+                    HeightRequest="{Binding Source={StaticResource IconHeight}, Converter={conv:MultiplyByDensityConverter}}"
+                    WidthRequest="{Binding Source={StaticResource IconWidth}, Converter={conv:MultiplyByDensityConverter}}"
+                    Aspect="Fill">
+                    <Image.Source>
+                        <FontImageSource FontFamily="MaterialOutlined" Glyph="{x:Static mi:MaterialOutlined.Image_aspect_ratio}" Color="{StaticResource Primary}" />
+                    </Image.Source>
+                </Image>
+                <Label Text="{Binding PatternTree.CurrentResolution}" />
+            </HorizontalStackLayout>
+            <HorizontalStackLayout Spacing="5" VerticalOptions="End" HorizontalOptions="End">
+                <Image
+                    HeightRequest="{Binding Source={StaticResource IconHeight}, Converter={conv:MultiplyByDensityConverter}}"
+                    WidthRequest="{Binding Source={StaticResource IconWidth}, Converter={conv:MultiplyByDensityConverter}}"
+                    Aspect="Fill">
+                    <Image.Source>
+                        <FontImageSource FontFamily="MaterialOutlined" Glyph="{x:Static mi:MaterialOutlined.Image}" Color="{StaticResource Primary}" />
+                    </Image.Source>
+                </Image>
+                <Label Text="{Binding PatternTree.SelectedPattern.Resolution}" />
+            </HorizontalStackLayout>
             <StackLayout Orientation="Horizontal" VerticalOptions="End" HorizontalOptions="End">
-                <cntl:CustomLabel Command="{Binding PatternTree.CapturePatternCommand}" ImageSource="unicons_capture" />
-                <cntl:CustomLabel Command="{Binding PatternTree.SetPatternBoundsCommand}" ImageSource="unicons_focus" />
-                <cntl:CustomLabel Command="{Binding PatternTree.ClickPatternCommand}" ImageSource="vaadinicons_touch" />
-                <cntl:CustomLabel Command="{Binding PatternTree.TestPatternCommand}" ImageSource="jamicons_eye" />
-                <cntl:CustomLabel Command="{Binding PatternTree.AddPatternCommand}" ImageSource="modern_add" IsVisible="{Binding PatternTree.SelectedNode.IsMultiPattern}" />
+                <Grid HeightRequest="{Binding Source={StaticResource IconHeight}, Converter={conv:MultiplyByDensityConverter}}"
+                      WidthRequest="{Binding Source={StaticResource IconWidth}, Converter={conv:MultiplyByDensityConverter}}">
+                    <Image Aspect="Fill">
+                        <Image.Source>
+                            <FontImageSource FontFamily="MaterialOutlined" Glyph="{x:Static mi:MaterialOutlined.Photo_camera_front}" Color="{StaticResource Primary}" />
+                        </Image.Source>
+                    </Image>
+                    <ImageButton Command="{Binding PatternTree.CapturePatternCommand}" />
+                </Grid>
+                <Grid HeightRequest="{Binding Source={StaticResource IconHeight}, Converter={conv:MultiplyByDensityConverter}}"
+                      WidthRequest="{Binding Source={StaticResource IconWidth}, Converter={conv:MultiplyByDensityConverter}}">
+                    <Image Aspect="Fill">
+                        <Image.Source>
+                            <FontImageSource FontFamily="MaterialRegular" Glyph="{x:Static mi:MaterialRegular.Crop_free}" Color="{StaticResource Primary}" />
+                        </Image.Source>
+                    </Image>
+                    <ImageButton Command="{Binding PatternTree.SetPatternBoundsCommand}" />
+                </Grid>
+                <Grid HeightRequest="{Binding Source={StaticResource IconHeight}, Converter={conv:MultiplyByDensityConverter}}"
+                      WidthRequest="{Binding Source={StaticResource IconWidth}, Converter={conv:MultiplyByDensityConverter}}">
+                    <Image Aspect="Fill">
+                        <Image.Source>
+                            <FontImageSource FontFamily="FASolid" Glyph="{x:Static fa:Solid.HandPointer}" Color="{StaticResource Primary}" />
+                        </Image.Source>
+                    </Image>
+                    <ImageButton Command="{Binding PatternTree.ClickPatternCommand}" />
+                </Grid>
+                <Grid HeightRequest="{Binding Source={StaticResource IconHeight}, Converter={conv:MultiplyByDensityConverter}}"
+                      WidthRequest="{Binding Source={StaticResource IconWidth}, Converter={conv:MultiplyByDensityConverter}}">
+                    <Image Aspect="Fill">
+                        <Image.Source>
+                            <FontImageSource FontFamily="FASolid" Glyph="{x:Static fa:Solid.Eye}" Color="{StaticResource Primary}" />
+                        </Image.Source>
+                    </Image>
+                    <ImageButton Command="{Binding PatternTree.TestPatternCommand}" />
+                </Grid>
+                <Grid HeightRequest="{Binding Source={StaticResource IconHeight}, Converter={conv:MultiplyByDensityConverter}}"
+                      WidthRequest="{Binding Source={StaticResource IconWidth}, Converter={conv:MultiplyByDensityConverter}}"
+                      IsVisible="{Binding PatternTree.SelectedNode.IsMultiPattern}">
+                    <Image Aspect="Fill">
+                        <Image.Source>
+                            <FontImageSource FontFamily="FASolid" Glyph="{x:Static fa:Solid.Plus}" Color="{StaticResource Primary}" />
+                        </Image.Source>
+                    </Image>
+                    <ImageButton Command="{Binding PatternTree.AddPatternCommand}" />
+                </Grid>
+                <Grid HeightRequest="{Binding Source={StaticResource IconHeight}, Converter={conv:MultiplyByDensityConverter}}"
+                      WidthRequest="{Binding Source={StaticResource IconWidth}, Converter={conv:MultiplyByDensityConverter}}"
+                      IsVisible="{Binding PatternTree.SelectedNode.IsMultiPattern}">
+                    <Image Aspect="Fill">
+                        <Image.Source>
+                            <FontImageSource FontFamily="FASolid" Glyph="{x:Static fa:Solid.TrashCan}" Color="Red" />
+                        </Image.Source>
+                    </Image>
+                    <ImageButton Command="{Binding PatternTree.DeletePatternCommand}" CommandParameter="{Binding PatternTree.SelectedPattern}" />
+                </Grid>
             </StackLayout>
         </StackLayout>
     </Grid>

@@ -73,21 +73,6 @@
 
 	<ItemGroup>
 	  <None Remove="Platforms\Android\Resources\xml\yeetmacro_config.xml" />
-	  <None Remove="Resources\Images\fontawesome_angle_down_solid.svg" />
-	  <None Remove="Resources\Images\fontawesome_angle_up_solid.svg" />
-	  <None Remove="Resources\Images\jamicons_eye.svg" />
-	  <None Remove="Resources\Images\modern_add.svg" />
-	  <None Remove="Resources\Images\modern_delete.svg" />
-	  <None Remove="Resources\Images\modern_new_window.svg" />
-	  <None Remove="Resources\Images\radixicons_drag_handle_dots2.svg" />
-	  <None Remove="Resources\Images\typicons_media_play_outline.svg" />
-	  <None Remove="Resources\Images\typicons_media_stop_outline.svg" />
-	  <None Remove="Resources\Images\unicons_capture.svg" />
-	  <None Remove="Resources\Images\unicons_focus.svg" />
-	  <None Remove="Resources\Images\unicons_focus_target.svg" />
-	  <None Remove="Resources\Images\unicons_image.svg" />
-	  <None Remove="Resources\Images\unicons_image_check.svg" />
-	  <None Remove="Resources\Images\vaadinicons_touch.svg" />
 	  <None Remove="Resources\MacroSets\Konosuba FD\Konosuba FD_patterns.json" />
 	</ItemGroup>
 
@@ -126,9 +111,6 @@
 	</ItemGroup>
   
 	<ItemGroup>
-	  <MauiXaml Update="Controls\CustomLabel.xaml">
-	    <Generator>MSBuild:Compile</Generator>
-	  </MauiXaml>
 	  <MauiXaml Update="Controls\LogControl.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>

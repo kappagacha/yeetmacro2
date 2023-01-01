@@ -5,9 +5,11 @@
              xmlns:pvm="clr-namespace:YeetMacro2.Platforms.Android.ViewModels"
              xmlns:conv="clr-namespace:YeetMacro2.Converters"
              xmlns:cntl="clr-namespace:YeetMacro2.Controls"
+             xmlns:av="clr-namespace:YeetMacro2.Platforms.Android.Views"
              x:DataType="pvm:ActionViewModel"
              vm:ViewModelLocator.ViewModelType="{x:Type pvm:ActionViewModel}"
              xmlns:xct="clr-namespace:Xamarin.CommunityToolkit.Effects"
+             xmlns:mi="clr-namespace:UraniumUI.Icons.MaterialIcons;assembly=UraniumUI.Icons.MaterialIcons"
              x:Class="YeetMacro2.Platforms.Android.Views.ActionControl">
     <ContentView.Resources>
         <x:Double x:Key="ActionHeight">20.0</x:Double>
@@ -30,14 +32,19 @@
         xct:TouchEffect.NativeAnimationColor="#80FFFFFF"
         xct:TouchEffect.ShouldMakeChildrenInputTransparent="False"
         Padding="0">
-        <cntl:CustomLabel
-            InputTransparent="True"
-            ImageSource="typicons_media_play_outline">
-            <cntl:CustomLabel.Triggers>
-                <DataTrigger TargetType="cntl:CustomLabel" Binding="{Binding State}" Value="{x:Static pvm:ActionState.Running}">
-                    <Setter Property="ImageSource" Value="typicons_media_stop_outline" />
+        <Image Aspect="Fill">
+            <Image.Source>
+                <FontImageSource FontFamily="MaterialOutlined" Glyph="{x:Static mi:MaterialOutlined.Play_arrow}" Color="{StaticResource Primary}" />
+            </Image.Source>
+            <Image.Triggers>
+                <DataTrigger TargetType="Image" Binding="{Binding State}" Value="{x:Static pvm:ActionState.Running}">
+                    <Setter Property="Source">
+                        <Setter.Value>
+                            <FontImageSource FontFamily="MaterialOutlined" Glyph="{x:Static mi:MaterialOutlined.Stop}" Color="{StaticResource Primary}" />
+                        </Setter.Value>
+                    </Setter>
                 </DataTrigger>
-            </cntl:CustomLabel.Triggers>
-        </cntl:CustomLabel>
+            </Image.Triggers>
+        </Image>
     </Grid>
 </ContentView>
