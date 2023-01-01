@@ -1,10 +1,14 @@
-﻿namespace YeetMacro2.Data.Models;
+﻿using System.Text.Json.Serialization;
+
+namespace YeetMacro2.Data.Models;
 public abstract class Node
 {
     public virtual bool IsSelected { get; set; }
     public virtual bool IsExpanded { get; set; } = true;
     public virtual string Name { get; set; }
+    [JsonIgnore]
     public int NodeId { get; set; }
+    [JsonIgnore]
     public int? ParentId { get; set; }
 }
 

@@ -19,6 +19,10 @@ public static class MauiProgram
 			{
 				fonts.AddFont("OpenSans-Regular.ttf", "OpenSansRegular");
 				fonts.AddFont("OpenSans-Semibold.ttf", "OpenSansSemibold");
+                // https://enisn-projects.io/docs/en/uranium/latest/theming/Icons#fontawesome
+                fonts.AddFontAwesomeIconFonts();
+                // https://enisn-projects.io/docs/en/uranium/latest/theming/Icons#material-icons
+                fonts.AddMaterialIconFonts();
 			});
 
 #if DEBUG

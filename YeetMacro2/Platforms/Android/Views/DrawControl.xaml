@@ -6,9 +6,9 @@
              Margin="0" Padding="0">
     <Grid>
         <Grid>
-            <Frame BorderColor="Red" BackgroundColor="Transparent" Margin="0" Padding="0">
+            <Border Stroke="Red" BackgroundColor="Transparent" Margin="0" Padding="0">
 
-            </Frame>
+            </Border>
         </Grid>
         <skia:SKCanvasView x:Name="canvasView"
                         EnableTouchEvents="True"

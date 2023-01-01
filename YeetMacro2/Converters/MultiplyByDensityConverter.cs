@@ -17,7 +17,7 @@ public class MultiplyByDensityConverter : IMarkupExtension, IValueConverter
     public object Convert(object value, Type targetType, object parameter, System.Globalization.CultureInfo culture)
     {
         double val = System.Convert.ToDouble(value);
-        return val * DeviceDisplay.MainDisplayInfo.Density;
+        return val * (DeviceDisplay.MainDisplayInfo.Density == 0.0 ? 1.0 : DeviceDisplay.MainDisplayInfo.Density);
     }
 
     public object ConvertBack(object value, Type targetType, object parameter, System.Globalization.CultureInfo culture)

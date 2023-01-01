@@ -10,15 +10,43 @@
              xmlns:uuiv="clr-namespace:UraniumUI.Views;assembly=UraniumUI"
              xmlns:uranium="http://schemas.enisn-projects.io/dotnet/maui/uraniumui"
              xmlns:mct="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
+             xmlns:fa="clr-namespace:UraniumUI.Icons.FontAwesome;assembly=UraniumUI.Icons.FontAwesome"
+             xmlns:conv="clr-namespace:YeetMacro2.Converters"
              Title="MacroManagerPage">
     <mct:DockLayout HorizontalSpacing="5" VerticalSpacing="5">
-        <HorizontalStackLayout Spacing="5" mct:DockLayout.DockPosition="Top">
-            <Picker ItemsSource="{Binding MacroSets}" ItemDisplayBinding="{Binding Name}" SelectedItem="{Binding SelectedMacroSet}" />
-            <cntl:CustomLabel ImageSource="modern_add" Command="{Binding AddMacroSetCommand}" />
-            <cntl:CustomLabel ImageSource="modern_delete" Command="{Binding DeleteMacroSetCommand}" CommandParameter="{Binding SelectedMacroSet}" />
-        </HorizontalStackLayout>
-        <cntl:PatternTreeView>
-            
-        </cntl:PatternTreeView>
+        <Border Stroke="{StaticResource Primary}" Padding="0">
+            <HorizontalStackLayout Spacing="5" mct:DockLayout.DockPosition="Top">
+                <Label Text="Macro Set: " Margin="5,0,0,0" FontSize="Body" VerticalOptions="Center" FontAttributes="Bold" />
+                <Picker ItemsSource="{Binding MacroSets}" ItemDisplayBinding="{Binding Name}" SelectedItem="{Binding SelectedMacroSet}" />
+                <Grid HeightRequest="{Binding Source={StaticResource IconHeight}, Converter={conv:MultiplyByDensityConverter}}"
+                  WidthRequest="{Binding Source={StaticResource IconWidth}, Converter={conv:MultiplyByDensityConverter}}">
+                    <Image Aspect="Fill">
+                        <Image.Source>
+                            <FontImageSource FontFamily="FASolid" Glyph="{x:Static fa:Solid.Plus}" Color="{StaticResource Primary}" />
+                        </Image.Source>
+                    </Image>
+                    <ImageButton Command="{Binding AddMacroSetCommand}" />
+                </Grid>
+                <Grid HeightRequest="{Binding Source={StaticResource IconHeight}, Converter={conv:MultiplyByDensityConverter}}"
+                  WidthRequest="{Binding Source={StaticResource IconWidth}, Converter={conv:MultiplyByDensityConverter}}">
+                    <Image Aspect="AspectFill">
+                        <Image.Source>
+                            <FontImageSource FontFamily="FASolid" Glyph="{x:Static fa:Solid.TrashCan}" Color="{StaticResource Primary}" />
+                        </Image.Source>
+                    </Image>
+                    <ImageButton Command="{Binding DeleteMacroSetCommand}" CommandParameter="{Binding SelectedMacroSet}" />
+                </Grid>
+                <Grid HeightRequest="{Binding Source={StaticResource IconHeight}, Converter={conv:MultiplyByDensityConverter}}"
+                  WidthRequest="{Binding Source={StaticResource IconWidth}, Converter={conv:MultiplyByDensityConverter}}">
+                    <Image Aspect="Fill">
+                        <Image.Source>
+                            <FontImageSource FontFamily="FASolid" Glyph="{x:Static fa:Solid.FolderOpen}" Color="{StaticResource Primary}" />
+                        </Image.Source>
+                    </Image>
+                    <ImageButton Command="{Binding OpenAppDirectoryCommand}" />
+                </Grid>
+            </HorizontalStackLayout>
+        </Border>
+        <cntl:PatternTreeView />
     </mct:DockLayout>
 </ContentPage>

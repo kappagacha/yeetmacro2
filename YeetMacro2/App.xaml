@@ -6,6 +6,8 @@
              x:Class="YeetMacro2.App">
     <Application.Resources>
         <ResourceDictionary>
+            <x:Double x:Key="IconHeight">20.0</x:Double>
+            <x:Double x:Key="IconWidth">20.0</x:Double>
             <ResourceDictionary.MergedDictionaries>
                 <ResourceDictionary Source="Resources/Styles/Colors.xaml" />
                 <material:ColorResource />

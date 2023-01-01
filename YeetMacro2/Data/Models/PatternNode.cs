@@ -1,4 +1,5 @@
 ﻿using System.Dynamic;
+using System.Text.Json.Serialization;
 
 namespace YeetMacro2.Data.Models;
 public class PatternNode : Node, IParentNode<PatternNode, PatternNode>
@@ -30,7 +31,9 @@ public abstract class PatternBase
     public virtual Bounds Bounds { get; set; }
     public virtual Resolution Resolution { get; set; }
     public virtual bool IsSelected { get; set; }
+    [JsonIgnore]
     public virtual int PatternId { get; set; }
+    [JsonIgnore]
     public virtual int ParentNodeId { get; set; }
     public virtual string Name { get; set; }
     public byte[] ImageData { get; set; }

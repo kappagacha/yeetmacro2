@@ -10,31 +10,72 @@
              vm:ViewModelLocator.ViewModelType="{x:Type vm:MacroManagerViewModel}"
              xmlns:material="http://schemas.enisn-projects.io/dotnet/maui/uraniumui/material"
              xmlns:mct="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
+             xmlns:fa="clr-namespace:UraniumUI.Icons.FontAwesome;assembly=UraniumUI.Icons.FontAwesome"
              x:Name="thisControl">
     <Grid ColumnDefinitions="*,3*">
-        <material:TreeView ItemsSource="{Binding PatternTree.Root.Children}" Spacing="0">
-            <material:TreeView.ItemTemplate>
-                <DataTemplate x:DataType="m:ParentNode">
-                    <Label Text="{Binding Name}" Margin="0" Padding="0" VerticalOptions="Center" BackgroundColor="Transparent">
-                        <Label.Triggers>
-                            <DataTrigger TargetType="{x:Type Label}" Binding="{Binding IsSelected}" Value="True">
-                                <Setter Property="BackgroundColor" Value="Blue" />
-                            </DataTrigger>
-                        </Label.Triggers>
-                        <Label.GestureRecognizers>
-                            <TapGestureRecognizer CommandParameter="{Binding .}" Command="{Binding BindingContext.PatternTree.SelectNodeCommand, Source={RelativeSource AncestorType={x:Type cntl:PatternTreeView}}}" />
-                        </Label.GestureRecognizers>
-                    </Label>
-                </DataTemplate>
-            </material:TreeView.ItemTemplate>
-        </material:TreeView>
-        <HorizontalStackLayout Grid.Column="0" Spacing="5">
-            <cntl:CustomLabel Margin="0" Padding="0" IsVisible="{Binding PatternTree.SelectedNode, Converter={conv:NullToBoolConverter IsInverse=True}}"
-                   Command="{Binding PatternTree.DeleteNodeCommand}" CommandParameter="{Binding PatternTree.SelectedNode}"
-                   ImageSource="modern_delete" VerticalOptions="End" HorizontalOptions="End" />
-            <cntl:CustomLabel Margin="0" Padding="0" Command="{Binding PatternTree.AddNodeCommand}" 
-                   ImageSource="modern_add" VerticalOptions="End" HorizontalOptions="End" />
-        </HorizontalStackLayout>
-        <cntl:PatternControl Grid.Column="1" />
+        <Border Stroke="{StaticResource Primary}" Grid.Column="0" Padding="3" BackgroundColor="Transparent">
+            <material:TreeView ItemsSource="{Binding PatternTree.Root.Children}" Spacing="0">
+                <material:TreeView.ItemTemplate>
+                    <DataTemplate x:DataType="m:ParentNode">
+                        <Label Text="{Binding Name}" Margin="0" Padding="0" VerticalOptions="Center" BackgroundColor="Transparent">
+                            <Label.Triggers>
+                                <DataTrigger TargetType="{x:Type Label}" Binding="{Binding IsSelected}" Value="True">
+                                    <Setter Property="BackgroundColor" Value="Blue" />
+                                </DataTrigger>
+                            </Label.Triggers>
+                            <Label.GestureRecognizers>
+                                <TapGestureRecognizer CommandParameter="{Binding .}" Command="{Binding BindingContext.PatternTree.SelectNodeCommand, Source={RelativeSource AncestorType={x:Type cntl:PatternTreeView}}}" />
+                            </Label.GestureRecognizers>
+                        </Label>
+                    </DataTemplate>
+                </material:TreeView.ItemTemplate>
+            </material:TreeView>
+        </Border>
+        <Grid Grid.Column="0" Padding="5" RowSpacing="5" ColumnSpacing="5">
+            <HorizontalStackLayout VerticalOptions="Start" HorizontalOptions="End">
+                <Grid HeightRequest="{Binding Source={StaticResource IconHeight}, Converter={conv:MultiplyByDensityConverter}}"
+                      WidthRequest="{Binding Source={StaticResource IconWidth}, Converter={conv:MultiplyByDensityConverter}}">
+                    <Image Aspect="Fill">
+                        <Image.Source>
+                            <FontImageSource FontFamily="FASolid" Glyph="{x:Static fa:Solid.Download}" Color="{StaticResource Primary}" />
+                        </Image.Source>
+                    </Image>
+                    <ImageButton Command="{Binding ImportPatternsCommand}" />
+                </Grid>
+                <Grid HeightRequest="{Binding Source={StaticResource IconHeight}, Converter={conv:MultiplyByDensityConverter}}"
+                      WidthRequest="{Binding Source={StaticResource IconWidth}, Converter={conv:MultiplyByDensityConverter}}">
+                    <Image Aspect="Fill">
+                        <Image.Source>
+                            <FontImageSource FontFamily="FASolid" Glyph="{x:Static fa:Solid.FileExport}" Color="{StaticResource Primary}" />
+                        </Image.Source>
+                    </Image>
+                    <ImageButton Command="{Binding ExportPatternsCommand}" />
+                </Grid>
+            </HorizontalStackLayout>
+            <HorizontalStackLayout VerticalOptions="End" HorizontalOptions="End">
+                <Grid HeightRequest="{Binding Source={StaticResource IconHeight}, Converter={conv:MultiplyByDensityConverter}}"
+                      WidthRequest="{Binding Source={StaticResource IconWidth}, Converter={conv:MultiplyByDensityConverter}}"
+                      IsVisible="{Binding PatternTree.SelectedNode, Converter={conv:NullToBoolConverter IsInverse=True}}">
+                    <Image Aspect="AspectFill">
+                        <Image.Source>
+                            <FontImageSource FontFamily="FASolid" Glyph="{x:Static fa:Solid.TrashCan}" Color="Red" />
+                        </Image.Source>
+                    </Image>
+                    <ImageButton Command="{Binding PatternTree.DeleteNodeCommand}" CommandParameter="{Binding PatternTree.SelectedNode}" />
+                </Grid>
+                <Grid HeightRequest="{Binding Source={StaticResource IconHeight}, Converter={conv:MultiplyByDensityConverter}}"
+                      WidthRequest="{Binding Source={StaticResource IconWidth}, Converter={conv:MultiplyByDensityConverter}}">
+                    <Image Aspect="Fill">
+                        <Image.Source>
+                            <FontImageSource FontFamily="FASolid" Glyph="{x:Static fa:Solid.Plus}" Color="{StaticResource Primary}" />
+                        </Image.Source>
+                    </Image>
+                    <ImageButton Command="{Binding PatternTree.AddNodeCommand}" />
+                </Grid>
+            </HorizontalStackLayout>
+        </Grid>
+        <Border Grid.Column="1" Stroke="{StaticResource Primary}" BackgroundColor="Transparent" Padding="3">
+            <cntl:PatternControl />
+        </Border>
     </Grid>
 </ContentView>

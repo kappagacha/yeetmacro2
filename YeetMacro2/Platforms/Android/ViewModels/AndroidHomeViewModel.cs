@@ -30,36 +30,6 @@ public partial class AndriodHomeViewModel : ObservableObject, IHomeViewModel
     }
 
     [RelayCommand]
-    private void SavePatternsToJson()
-    {
-        //var patternsViewModel = App.GetService<PatternTreeViewViewModel>();
-        //var str = JsonSerializer.Serialize(patternsViewModel.Root, new JsonSerializerOptions { WriteIndented = true });
-        //var picturesPath = "/storage/emulated/0/Pictures";
-        //var toPath = Path.Combine(picturesPath, "patterns.json");
-        //File.WriteAllText(toPath, str);
-    }
-
-    [RelayCommand]
-    private void LoadPatternsFromJson()
-    {
-        //var currentAssembly = Assembly.GetExecutingAssembly();
-        //using (var stream = currentAssembly.GetManifestResourceStream("XamarinApp.Testing.patterns.json"))
-        //using (var reader = new StreamReader(stream))
-        //{
-        //    var json = reader.ReadToEnd();
-        //    var root = ProxyViewModel.Create(JsonSerializer.Deserialize<PatternNode>(json));
-        //    root.Nodes = ProxyViewModel.CreateCollection(root.Nodes, pn => new { pn.Nodes, pn.Patterns, pn.UserPatterns });
-        //    var patternsViewModel = App.GetService<PatternTreeViewViewModel>();
-        //    patternsViewModel.Root = root;
-        //    var persistedRoot = _nodeService.GetRoot();
-        //    foreach (var node in root.Nodes)
-        //    {
-        //        _nodeService.Insert(node);
-        //    }
-        //}
-    }
-
-    [RelayCommand]
     private async void CopyDb()
     {
         if (await Permissions.RequestAsync<Permissions.StorageWrite>() == PermissionStatus.Granted)
