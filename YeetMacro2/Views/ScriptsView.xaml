@@ -5,14 +5,14 @@
              x:DataType="vm:MacroManagerViewModel"
              vm:ViewModelLocator.ViewModelType="{x:Type vm:MacroManagerViewModel}"
              xmlns:conv="clr-namespace:YeetMacro2.Converters"
-             xmlns:cntl="clr-namespace:YeetMacro2.Controls"
+             xmlns:v="clr-namespace:YeetMacro2.Views"
              xmlns:m="clr-namespace:YeetMacro2.Data.Models"
              xmlns:material="http://schemas.enisn-projects.io/dotnet/maui/uraniumui/material"
              xmlns:fa="clr-namespace:UraniumUI.Icons.FontAwesome;assembly=UraniumUI.Icons.FontAwesome"
-             x:Class="YeetMacro2.Controls.ScriptsView">
+             x:Class="YeetMacro2.Views.ScriptsView">
     <Grid ColumnDefinitions="*,3*">
         <Border Stroke="{StaticResource Primary}" Grid.Column="0" Padding="3" BackgroundColor="Transparent">
-            <CollectionView ItemsSource="{Binding Scripts.Scripts}" ItemSizingStrategy="MeasureFirstItem">
+            <CollectionView ItemsSource="{Binding Scripts.Scripts}">
                 <CollectionView.ItemsLayout>
                     <LinearItemsLayout Orientation="Vertical" ItemSpacing="0"  />
                 </CollectionView.ItemsLayout>
@@ -25,7 +25,7 @@
                                 </DataTrigger>
                             </Label.Triggers>
                             <Label.GestureRecognizers>
-                                <TapGestureRecognizer CommandParameter="{Binding .}" Command="{Binding BindingContext.Scripts.SelectScriptCommand, Source={RelativeSource AncestorType={x:Type cntl:ScriptsView}}}" />
+                                <TapGestureRecognizer CommandParameter="{Binding .}" Command="{Binding BindingContext.Scripts.SelectScriptCommand, Source={RelativeSource AncestorType={x:Type v:ScriptsView}}}" />
                             </Label.GestureRecognizers>
                         </Label>
                     </DataTemplate>

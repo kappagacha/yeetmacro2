@@ -1,30 +1,43 @@
-﻿using YeetMacro2.Services;
-using Android.Views;
+﻿using Android.Views;
 using Android.Content;
 using Android.Runtime;
 using Android.Provider;
 using System.Collections.Concurrent;
 using YeetMacro2.Platforms.Android.Views;
-using YeetMacro2.Controls;
-using YeetMacro2.ViewModels;
+using YeetMacro2.Views;
 using YeetMacro2.Data.Models;
 using Android.Graphics;
 using Point = Microsoft.Maui.Graphics.Point;
 using YeetMacro2.Platforms.Android.Services.OpenCv;
+using YeetMacro2.Platforms.Android.ViewModels;
+using YeetMacro2.Services;
 
 namespace YeetMacro2.Platforms.Android.Services;
-public class WindowManagerService : IWindowManagerService
+public enum WindowView
+{
+    PatternsTreeView,
+    PatternsView,
+    DrawView,
+    UserDrawView,
+    ActionView,
+    ActionMenuView,
+    PromptStringInputView,
+    PromptSelectOptionView,
+    LogView
+}
+
+public class AndroidWindowManagerService : IInputService, IScreenService
 {
     public const int OVERLAY_SERVICE_REQUEST = 0;
     private MainActivity _context;
     IWindowManager _windowManager;
-    IMediaProjectionService _mediaProjectionService;
-    IAccessibilityService _accessibilityService;
+    MediaProjectionService _mediaProjectionService;
+    YeetAccessibilityService _accessibilityService;
     ConcurrentDictionary<WindowView, IShowable> _views = new ConcurrentDictionary<WindowView, IShowable>();
     FormsView _windowView;
     ConcurrentDictionary<string, (int x, int y)> _packageToStatusBarHeight = new ConcurrentDictionary<string, (int x, int y)>();
     double _displayWidth, _displayHeight;
-    public WindowManagerService(IMediaProjectionService mediaProjectionService, IAccessibilityService accessibilityService)
+    public AndroidWindowManagerService(MediaProjectionService mediaProjectionService, YeetAccessibilityService accessibilityService)
     {
         _context = (MainActivity)Microsoft.Maui.ApplicationModel.Platform.CurrentActivity;
         _windowManager = _context.GetSystemService(Context.WindowService).JavaCast<IWindowManager>();
@@ -109,6 +122,11 @@ public class WindowManagerService : IWindowManagerService
                     var promptStringInputView = new FormsView(_context, _windowManager, promptStringInput);
                     _views.TryAdd(windowView, promptStringInputView);
                     break;
+                case WindowView.PromptSelectOptionView:
+                    var promptSelectOption = new PromptSelectOption();
+                    var promptSelectOptionView = new FormsView(_context, _windowManager, promptSelectOption);
+                    _views.TryAdd(windowView, promptSelectOptionView);
+                    break;
                 case WindowView.UserDrawView:
                     var userdrawControl = new DrawControl();
                     var userDrawView = new FormsView(_context, _windowManager, userdrawControl);
@@ -160,6 +178,20 @@ public class WindowManagerService : IWindowManagerService
         return null;
     }
 
+    public async Task<string> SelectOption(string message, params string[] options)
+    {
+        Show(WindowView.PromptSelectOptionView);
+        var viewModel = (PromptSelectOptionViewModel)_views[WindowView.PromptSelectOptionView].VisualElement.BindingContext;
+        viewModel.Message = message;
+        viewModel.Options = options;
+        var formsView = (FormsView)_views[WindowView.PromptSelectOptionView];
+        if (await formsView.WaitForClose())
+        {
+            return viewModel.SelectedOption;
+        }
+        return null;
+    }
+
     public async Task<Bounds> DrawUserRectangle()
     {
         Show(WindowView.UserDrawView);
@@ -201,7 +233,7 @@ public class WindowManagerService : IWindowManagerService
     }
 
 
-    ////https://stackoverflow.com/questions/3407256/height-of-status-bar-in-android
+    // https://stackoverflow.com/questions/3407256/height-of-status-bar-in-android
     public (int x, int y) GetTopLeft()
     {
         Console.WriteLine("[*****YeetMacro*****] WindowManagerService GetTopLeft Start");
@@ -476,5 +508,20 @@ public class WindowManagerService : IWindowManagerService
             Console.WriteLine("[*****YeetMacro*****] " + ex.Message);
             return originalBounds;
         }
+    }
+
+    public Task<MemoryStream> GetCurrentImageStream()
+    {
+        return _mediaProjectionService.GetCurrentImageStream();
+    }
+
+    public Task<MemoryStream> GetCurrentImageStream(int x, int y, int width, int height)
+    {
+        return _mediaProjectionService.GetCurrentImageStream(x, y, width, height);
+    }
+
+    public void DoClick(float x, float y)
+    {
+        _accessibilityService.DoClick(x, y);
     }
 }

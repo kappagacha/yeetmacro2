@@ -25,7 +25,7 @@ public class PatternTreeViewViewModelFactory
 public partial class PatternTreeViewViewModel : TreeViewViewModel<PatternNode, PatternNode>
 {
     IRepository<PatternBase> _patternRepository;
-    IMediaProjectionService _projectionService;
+    IScreenService _screenService;
     IMacroService _macroService;
     Resolution _currentResolution;
     PatternBase _selectedPattern;
@@ -56,16 +56,15 @@ public partial class PatternTreeViewViewModel : TreeViewViewModel<PatternNode, P
     public PatternTreeViewViewModel(
         int rootNodeId,
         INodeService<PatternNode, PatternNode> nodeService,
-        IWindowManagerService windowManagerService,
+        IInputService inputService,
         IToastService toastService,
         IRepository<PatternBase> patternRepository,
-        IMediaProjectionService projectionService,
+        IScreenService screenService,
         IMacroService macroService)
-            : base(nodeService, windowManagerService, toastService)
+            : base(nodeService, inputService, toastService)
     {
-        _windowManagerService = windowManagerService;
         _patternRepository = patternRepository;
-        _projectionService = projectionService;
+        _screenService = screenService;
         _macroService = macroService;
 
         PropertyChanged += PatternTreeViewViewModel_PropertyChanged;
@@ -129,7 +128,7 @@ public partial class PatternTreeViewViewModel : TreeViewViewModel<PatternNode, P
     {
         if (SelectedNode != null)
         {
-            var name = await _windowManagerService.PromptInput("Please enter pattern name: ");
+            var name = await _inputService.PromptInput("Please enter pattern name: ");
             if (string.IsNullOrWhiteSpace(name))
             {
                 _toastService.Show("Canceled add pattern");
@@ -184,9 +183,9 @@ public partial class PatternTreeViewViewModel : TreeViewViewModel<PatternNode, P
             return;
         }
 
-        var bounds = await _windowManagerService.DrawUserRectangle();
+        var bounds = await _inputService.DrawUserRectangle();
         var strokeThickness = 3;
-        var imageStream = await _projectionService.GetCurrentImageStream(
+        var imageStream = await _screenService.GetCurrentImageStream(
             (int)bounds.X + strokeThickness - 1,
             (int)bounds.Y + strokeThickness - 1,
             (int)bounds.W - strokeThickness + 1,
@@ -222,7 +221,7 @@ public partial class PatternTreeViewViewModel : TreeViewViewModel<PatternNode, P
         ResolveSelectedPattern();
         if (_selectedPattern == null) return;
 
-        var bounds = await _windowManagerService.DrawUserRectangle();
+        var bounds = await _inputService.DrawUserRectangle();
         if (bounds != null)
         {
             _selectedPattern.Bounds = bounds;
@@ -271,24 +270,25 @@ public partial class PatternTreeViewViewModel : TreeViewViewModel<PatternNode, P
     [RelayCommand]
     private async void TestPattern(object o)
     {
-        _windowManagerService.DrawClear();
         ResolveSelectedPattern();
         if (_selectedPattern == null) return;
+
+        _screenService.DrawClear();
         var result = await _macroService.FindPattern(_selectedPattern);
         var points = result.Points;
         _toastService.Show(points != null && points.Length > 0 ? "Match(es) found" : "No match found");
 
         if (_selectedPattern.Bounds != null)
         {
-            var calcBounds = _windowManagerService.TransformBounds(_selectedPattern.Bounds, _selectedPattern.Resolution);
-            _windowManagerService.DrawRectangle((int)calcBounds.X, (int)calcBounds.Y, (int)calcBounds.W, (int)calcBounds.H);
+            var calcBounds = _screenService.TransformBounds(_selectedPattern.Bounds, _selectedPattern.Resolution);
+            _screenService.DrawRectangle((int)calcBounds.X, (int)calcBounds.Y, (int)calcBounds.W, (int)calcBounds.H);
         }
 
         if (points != null)
         {
             foreach (var point in points)
             {
-                _windowManagerService.DrawCircle((int)point.X, (int)point.Y);
+                _screenService.DrawCircle((int)point.X, (int)point.Y);
             }
         }
     }

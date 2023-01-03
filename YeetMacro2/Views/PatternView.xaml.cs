@@ -1,4 +1,4 @@
-namespace YeetMacro2.Controls;
+namespace YeetMacro2.Views;
 
 public partial class PatternView : ContentView
 {

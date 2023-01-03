@@ -5,7 +5,7 @@
              xmlns:d="clr-namespace:YeetMacro2.Data.Models"
              x:DataType="vm:MacroManagerViewModel"
              vm:ViewModelLocator.ViewModelType="{x:Type vm:MacroManagerViewModel}"
-             xmlns:cntl="clr-namespace:YeetMacro2.Controls"
+             xmlns:v="clr-namespace:YeetMacro2.Views"
              x:Class="YeetMacro2.Pages.MacroManagerPage"
              xmlns:uuiv="clr-namespace:UraniumUI.Views;assembly=UraniumUI"
              xmlns:uranium="http://schemas.enisn-projects.io/dotnet/maui/uraniumui"
@@ -52,14 +52,14 @@
             <material:TabItem Title="Patterns">
                 <material:TabItem.ContentTemplate>
                     <DataTemplate>
-                        <cntl:PatternTreeView />
+                        <v:PatternTreeView />
                     </DataTemplate>
                 </material:TabItem.ContentTemplate>
             </material:TabItem>
             <material:TabItem Title="Scripts">
                 <material:TabItem.ContentTemplate>
                     <DataTemplate>
-                        <cntl:ScriptsView />
+                        <v:ScriptsView />
                     </DataTemplate>
                 </material:TabItem.ContentTemplate>
             </material:TabItem>

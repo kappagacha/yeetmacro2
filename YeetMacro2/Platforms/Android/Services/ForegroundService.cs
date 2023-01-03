@@ -47,8 +47,8 @@ public class ForegroundService : Service
     public const int SERVICE_RUNNING_NOTIFICATION_ID = 10000;
     public override StartCommandResult OnStartCommand(Intent intent, [GeneratedEnum] StartCommandFlags flags, int startId)
     {
-        var _windowManagerService = ServiceHelper.GetService<IWindowManagerService>();
-        var _mediaProjectionService = ServiceHelper.GetService<IMediaProjectionService>();
+        var _windowManagerService = ServiceHelper.GetService<AndroidWindowManagerService>();
+        var _mediaProjectionService = ServiceHelper.GetService<MediaProjectionService>();
         switch (intent.Action)
         {
             case EXIT_ACTION:

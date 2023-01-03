@@ -21,18 +21,13 @@ public interface IMacroService
 
 public class MacroService : IMacroService
 {
-    IWindowManagerService _windowManagerService;
-    IMediaProjectionService _projectionService;
+    IScreenService _screenService;
     IToastService _toastService;
-    IAccessibilityService _accessibilityService;
     public bool InDebugMode { get; set; }
-    public MacroService(IWindowManagerService windowManagerService, IMediaProjectionService projectionService,
-        IToastService toastService, IAccessibilityService accessibilityService)
+    public MacroService(IScreenService screenService, IToastService toastService)
     {
-        _windowManagerService = windowManagerService;
-        _projectionService = projectionService;
+        _screenService = screenService;
         _toastService = toastService;
-        _accessibilityService = accessibilityService;
     }
 
     public async Task<FindPatternResult> FindPattern(PatternBase pattern)
@@ -42,7 +37,7 @@ public class MacroService : IMacroService
             Console.WriteLine("[*****YeetMacro*****] FindPattern");
             var bounds = pattern.Bounds;
             Console.WriteLine("[*****YeetMacro*****] FindPattern GetMatches Start");
-            var points = await _windowManagerService.GetMatches(pattern);
+            var points = await _screenService.GetMatches(pattern);
             Console.WriteLine("[*****YeetMacro*****] FindPattern GetMatches End");
 
             var result = new FindPatternResult();
@@ -71,7 +66,7 @@ public class MacroService : IMacroService
             {
                 foreach (var point in result.Points)
                 {
-                    _accessibilityService.DoClick((float)point.X, (float)point.Y);
+                    _screenService.DoClick((float)point.X, (float)point.Y);
                 }
             }
 
@@ -150,7 +145,7 @@ public class MacroService : IMacroService
                 foreach (var point in result.Points)
                 {
                     Console.WriteLine("[*****YeetMacro*****] BuildDynamicObject DoClick Start");
-                    _accessibilityService.DoClick((float)point.X, (float)point.Y);
+                    _screenService.DoClick((float)point.X, (float)point.Y);
                     Console.WriteLine("[*****YeetMacro*****] BuildDynamicObject DoClick End");
                 }
             }
@@ -161,7 +156,7 @@ public class MacroService : IMacroService
         return dynamicObject;
     }
 
-    // async version (not supporeted yet by Jint)
+    // async version (not supported yet by Jint)
     //private async Task<FindPatternResult> DynamicFindPattern(dynamic p)
     //{
     //    Console.WriteLine("[*****YeetMacro*****] DynamicFindPattern");

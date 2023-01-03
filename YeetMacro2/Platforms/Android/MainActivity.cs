@@ -33,8 +33,7 @@ public class MainActivity : MauiAppCompatActivity
         switch (requestCode)
         {
             case YeetMacro2.Platforms.Android.Services.MediaProjectionService.REQUEST_MEDIA_PROJECTION:
-                var mediaProjectionService = ServiceHelper.GetService<IMediaProjectionService>();
-                ((MediaProjectionService)mediaProjectionService).Start(resultCode, data);
+                ServiceHelper.GetService<MediaProjectionService>().Start(resultCode, data);
                 break;
         }
     }

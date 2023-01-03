@@ -15,15 +15,15 @@ public partial class TreeViewViewModel<TParent, TChild> : ObservableObject
     protected TChild _selectedNode;
     protected INodeService<TParent, TChild> _nodeService;
     protected IToastService _toastService;
-    protected IWindowManagerService _windowManagerService;
+    protected IInputService _inputService;
 
     public TreeViewViewModel(
         INodeService<TParent, TChild> nodeService,
-        IWindowManagerService windowManagerService,
+        IInputService inputService,
         IToastService toastService)
     {
         _nodeService = nodeService;
-        _windowManagerService = windowManagerService;
+        _inputService = inputService;
         _toastService = toastService;
     }
 
@@ -41,7 +41,7 @@ public partial class TreeViewViewModel<TParent, TChild> : ObservableObject
     [RelayCommand]
     public async void AddNode()
     {
-        var name = await _windowManagerService.PromptInput("Please enter node name: ");
+        var name = await _inputService.PromptInput("Please enter node name: ");
 
         if (string.IsNullOrWhiteSpace(name))
         {
@@ -93,14 +93,6 @@ public partial class TreeViewViewModel<TParent, TChild> : ObservableObject
         {
             SelectedNode = null;
         }
-    }
-
-    [RelayCommand]
-    public void ViewNode(TChild node)
-    {
-        node.IsSelected = false;
-        SelectNode(node);
-        _windowManagerService.Show(WindowView.PatternsView);
     }
 
     [RelayCommand]

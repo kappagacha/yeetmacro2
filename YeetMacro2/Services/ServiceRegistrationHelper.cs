@@ -13,6 +13,7 @@ public static class ServiceRegistrationHelper
     {
         mauiAppBuilder.Services.AddTransient<IMauiInitializeService, AppInitializer>();
         mauiAppBuilder.Services.AddSingleton<IToastService, ToastService>();
+        mauiAppBuilder.Services.AddSingleton<IScriptsService, ScriptsService>();
         mauiAppBuilder.Services.AddAutoMapper(typeof(App).GetTypeInfo().Assembly);
 
         return mauiAppBuilder;
@@ -24,7 +25,6 @@ public static class ServiceRegistrationHelper
         mauiAppBuilder.Services.AddSingleton<PatternTreeViewViewModelFactory>();
         mauiAppBuilder.Services.AddSingleton<ScriptsViewModelFactory>();
         mauiAppBuilder.Services.AddSingleton<LogViewModel>();
-        mauiAppBuilder.Services.AddSingleton<PromptStringInputViewModel>();
         mauiAppBuilder.Services.AddSingleton<IMacroService, MacroService>();
 
         return mauiAppBuilder;

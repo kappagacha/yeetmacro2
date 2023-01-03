@@ -1,14 +1,15 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
+using YeetMacro2.Platforms.Android.Services;
 using YeetMacro2.Services;
 
 namespace YeetMacro2.Platforms.Android.ViewModels;
 public partial class ActionMenuViewModel : ObservableObject
 {
     IToastService _toastService;
-    IWindowManagerService _windowManagerService;
+    AndroidWindowManagerService _windowManagerService;
 
-    public ActionMenuViewModel(IToastService toastService, IWindowManagerService windowManagerService)
+    public ActionMenuViewModel(IToastService toastService, AndroidWindowManagerService windowManagerService)
     {
         _toastService = toastService;
         _windowManagerService = windowManagerService;

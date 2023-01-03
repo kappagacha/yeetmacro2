@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <ContentView xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="YeetMacro2.Controls.PatternTreeView"
+             x:Class="YeetMacro2.Views.PatternTreeView"
              xmlns:vm="clr-namespace:YeetMacro2.ViewModels"
-             xmlns:cntl="clr-namespace:YeetMacro2.Controls"
+             xmlns:v="clr-namespace:YeetMacro2.Views"
              xmlns:conv="clr-namespace:YeetMacro2.Converters"
              xmlns:m="clr-namespace:YeetMacro2.Data.Models"
              x:DataType="vm:MacroManagerViewModel"
@@ -23,7 +23,7 @@
                                 </DataTrigger>
                             </Label.Triggers>
                             <Label.GestureRecognizers>
-                                <TapGestureRecognizer CommandParameter="{Binding .}" Command="{Binding BindingContext.PatternTree.SelectNodeCommand, Source={RelativeSource AncestorType={x:Type cntl:PatternTreeView}}}" />
+                                <TapGestureRecognizer CommandParameter="{Binding .}" Command="{Binding BindingContext.PatternTree.SelectNodeCommand, Source={RelativeSource AncestorType={x:Type v:PatternTreeView}}}" />
                             </Label.GestureRecognizers>
                         </Label>
                     </DataTemplate>
@@ -75,7 +75,7 @@
         </Grid>
         <Border Grid.Column="1" Stroke="{StaticResource Primary}" BackgroundColor="Transparent" Padding="3"
                 IsVisible="{Binding PatternTree.SelectedNode, Converter={conv:NullToBoolConverter IsInverse=True}}">
-            <cntl:PatternView />
+            <v:PatternView />
         </Border>
     </Grid>
 </ContentView>

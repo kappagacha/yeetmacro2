@@ -5,12 +5,11 @@
              xmlns:mct="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
              xmlns:vm="clr-namespace:YeetMacro2.ViewModels"
              xmlns:conv="clr-namespace:YeetMacro2.Converters"
-             xmlns:cntl="clr-namespace:YeetMacro2.Controls"
              xmlns:pgs="clr-namespace:YeetMacro2.Pages"
              xmlns:mc="schemas.openxmlformats.org/markup-compatibility/2006"  
              xmlns:avm="clr-namespace:YeetMacro2.Platforms.Android.ViewModels"
              x:DataType="avm:AndriodHomeViewModel"
-             vm:ViewModelLocator.ViewModelType="{x:Type vm:IHomeViewModel}"
+             vm:ViewModelLocator.ViewModelType="{x:Type avm:AndriodHomeViewModel}"
              Title="HomePage">
     <ContentPage.Behaviors>
         <mct:EventToCommandBehavior
@@ -67,9 +66,6 @@
                 </Grid>
                 <Button Text="Copy Database" Command="{Binding CopyDbCommand}" />
                 <Button Text="Delete Database" Command="{Binding DeleteDbCommand}" />
-                <!--<cntl:ActionControl />
-                                <cntl:LogView />
-                                <cntl:PatternTreeView HeightRequest="300" />-->
             </VerticalStackLayout>
         </ScrollView>
     </Grid>

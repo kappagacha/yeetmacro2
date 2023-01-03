@@ -7,6 +7,7 @@ using Android.Graphics;
 using Android.Graphics.Drawables.Shapes;
 using Color = Android.Graphics.Color;
 using Microsoft.Maui.Platform;
+using YeetMacro2.Platforms.Android.Services;
 
 namespace YeetMacro2.Platforms.Android.Views;
 
@@ -14,7 +15,7 @@ public class ResizeView : RelativeLayout, IOnTouchListener, IShowable
 {
     enum FormState { SHOWING, CLOSED };
     private IWindowManager _windowManager;
-    private IWindowManagerService _windowManagerService;
+    private AndroidWindowManagerService _windowManagerService;
     private MainActivity _context;
     private WindowManagerLayoutParams _layoutParams;
     private ImageView _topLeft, _bottomRight, _topRight;
@@ -28,7 +29,7 @@ public class ResizeView : RelativeLayout, IOnTouchListener, IShowable
 
     //https://www.linkedin.com/pulse/6-floating-windows-android-keyboard-input-v%C3%A1clav-hodek/
 
-    public ResizeView(Context context, IWindowManager windowManager, IWindowManagerService windowManagerService, VisualElement visualElement) : base(context)
+    public ResizeView(Context context, IWindowManager windowManager, AndroidWindowManagerService windowManagerService, VisualElement visualElement) : base(context)
     {
         _context = (MainActivity)context;
         _windowManager = windowManager;
@@ -91,7 +92,6 @@ public class ResizeView : RelativeLayout, IOnTouchListener, IShowable
         _visualElement = visualElement;
         var mauiContext = new MauiContext(MauiApplication.Current.Services, context);
         var androidView = visualElement.ToPlatform(mauiContext);
-        //_visualElement.Layout(new Microsoft.Maui.Graphics.Rect(0, 0, _layoutParams.Width / _density, _layoutParams.Height / _density));
         AddView(androidView, new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MatchParent, ViewGroup.LayoutParams.MatchParent));
         AddView(_topLeft, topLeftParams);
         AddView(_bottomRight, bottomRightParams);

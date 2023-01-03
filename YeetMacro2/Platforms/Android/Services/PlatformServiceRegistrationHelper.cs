@@ -5,7 +5,6 @@ using YeetMacro2.Data.Services;
 using YeetMacro2.Platforms.Android.Services;
 using YeetMacro2.Platforms.Android.ViewModels;
 using YeetMacro2.Services;
-using YeetMacro2.ViewModels;
 
 namespace YeetMacro2.Platforms;
 
@@ -21,15 +20,15 @@ public static class PlatformServiceRegistrationHelper
         });
 
         mauiAppBuilder.Services.AddSingleton<AndriodHomeViewModel>();
-        mauiAppBuilder.Services.AddSingleton<IHomeViewModel, AndriodHomeViewModel>((sp) =>
-        {
-            return sp.GetService<AndriodHomeViewModel>();
-        });
         mauiAppBuilder.Services.AddSingleton<ActionViewModel>();
         mauiAppBuilder.Services.AddSingleton<ActionMenuViewModel>();
-        mauiAppBuilder.Services.AddSingleton<IWindowManagerService, WindowManagerService>();
-        mauiAppBuilder.Services.AddSingleton<IMediaProjectionService, MediaProjectionService>();
-        mauiAppBuilder.Services.AddSingleton<IAccessibilityService, YeetAccessibilityService>();
+        mauiAppBuilder.Services.AddSingleton<PromptStringInputViewModel>();
+        mauiAppBuilder.Services.AddSingleton<PromptSelectOptionViewModel>();
+        mauiAppBuilder.Services.AddSingleton<AndroidWindowManagerService>();
+        mauiAppBuilder.Services.AddSingleton<MediaProjectionService>();
+        mauiAppBuilder.Services.AddSingleton<YeetAccessibilityService>();
+        mauiAppBuilder.Services.AddSingleton<IScreenService>(sp => sp.GetRequiredService<AndroidWindowManagerService>());
+        mauiAppBuilder.Services.AddSingleton<IInputService>(sp => sp.GetRequiredService<AndroidWindowManagerService>());
 
         // https://github.com/xamarin/XamarinCommunityToolkit/issues/1905
         mauiAppBuilder

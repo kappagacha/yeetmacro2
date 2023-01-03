@@ -1,13 +1,10 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
-using YeetMacro2.Data.Models;
-using YeetMacro2.Data.Services;
-using YeetMacro2.Services;
-using YeetMacro2.ViewModels;
+using YeetMacro2.Platforms.Android.Services;
 
 namespace YeetMacro2.Platforms.Android.ViewModels;
 
-public partial class AndriodHomeViewModel : ObservableObject, IHomeViewModel
+public partial class AndriodHomeViewModel : ObservableObject
 {
     [ObservableProperty]
     bool _isProjectionServiceEnabled;
@@ -17,16 +14,13 @@ public partial class AndriodHomeViewModel : ObservableObject, IHomeViewModel
     bool _isAppearing;
     [ObservableProperty]
     bool _showLogView;
-    private IWindowManagerService _windowManagerService;
-    private IAccessibilityService _accessibilityService;
-    private INodeService<PatternNode, PatternNode> _nodeService;
+    private AndroidWindowManagerService _windowManagerService;
+    private YeetAccessibilityService _accessibilityService;
 
-    public AndriodHomeViewModel(IWindowManagerService windowManagerService, IAccessibilityService accessibilityService,
-    INodeService<PatternNode, PatternNode> nodeService)
+    public AndriodHomeViewModel(AndroidWindowManagerService windowManagerService, YeetAccessibilityService accessibilityService)
     {
         _windowManagerService = windowManagerService;
         _accessibilityService = accessibilityService;
-        _nodeService = nodeService;
     }
 
     [RelayCommand]

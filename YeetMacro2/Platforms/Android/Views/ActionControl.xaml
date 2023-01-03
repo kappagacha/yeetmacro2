@@ -4,7 +4,6 @@
              xmlns:vm="clr-namespace:YeetMacro2.ViewModels"
              xmlns:pvm="clr-namespace:YeetMacro2.Platforms.Android.ViewModels"
              xmlns:conv="clr-namespace:YeetMacro2.Converters"
-             xmlns:cntl="clr-namespace:YeetMacro2.Controls"
              xmlns:av="clr-namespace:YeetMacro2.Platforms.Android.Views"
              x:DataType="pvm:ActionViewModel"
              vm:ViewModelLocator.ViewModelType="{x:Type pvm:ActionViewModel}"

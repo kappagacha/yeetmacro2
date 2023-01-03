@@ -3,14 +3,13 @@ using Android.App;
 using Android.Content;
 using Android.Provider;
 using Android.Views.Accessibility;
-using YeetMacro2.Services;
 
 namespace YeetMacro2.Platforms.Android.Services;
 //http://www.spikie.be/post/2017/07/01/AndroidFloatingWidgetsInXamarin.html
 [Service(Label = "YeetMacro Service", Exported = true, Permission = global::Android.Manifest.Permission.BindAccessibilityService)]
 [IntentFilter(new string[] { "android.accessibilityservice.AccessibilityService" })]
 [MetaData("android.accessibilityservice", Resource = "@xml/yeetmacro_config")]
-public class YeetAccessibilityService : AccessibilityService, IAccessibilityService
+public class YeetAccessibilityService : AccessibilityService
 {
     MainActivity _context;
     private static string _currentPackage = "unknown";

@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentView xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:pvm="clr-namespace:YeetMacro2.Platforms.Android.ViewModels"
+             xmlns:vm="clr-namespace:YeetMacro2.ViewModels"
+             x:DataType="pvm:PromptSelectOptionViewModel"
+             vm:ViewModelLocator.ViewModelType="{x:Type pvm:PromptSelectOptionViewModel}"
+             xmlns:av="clr-namespace:YeetMacro2.Platforms.Android.Views"
+             x:Class="YeetMacro2.Platforms.Android.Views.PromptSelectOption">
+    <VerticalStackLayout VerticalOptions="Center" HorizontalOptions="Center">
+        <Label Text="{Binding Message}" />
+        <CollectionView ItemsSource="{Binding Options}">
+            <CollectionView.ItemsLayout>
+                <LinearItemsLayout Orientation="Vertical" ItemSpacing="5"  />
+            </CollectionView.ItemsLayout>s
+            <CollectionView.ItemTemplate>
+                <DataTemplate>
+                    <Button Text="{Binding .}" Margin="0" Padding="0" VerticalOptions="Center"
+                            Command="{Binding BindingContext.SelectCommand, Source={RelativeSource AncestorType={x:Type av:PromptSelectOption}}}"
+                            CommandParameter="{Binding .}"/>
+                    <!--<Label Text="{Binding .}" Margin="0" Padding="0" VerticalOptions="Center" BackgroundColor="Transparent">
+                        <Label.GestureRecognizers>
+                            <TapGestureRecognizer CommandParameter="{Binding .}" Command="{Binding BindingContext.SelectCommand, Source={RelativeSource AncestorType={x:Type av:PromptSelectOption}}}" />
+                        </Label.GestureRecognizers>
+                    </Label>-->
+                </DataTemplate>
+            </CollectionView.ItemTemplate>
+        </CollectionView>
+        <HorizontalStackLayout>
+            <Button Command="{Binding CancelCommand}" Text="Cancel" />
+        </HorizontalStackLayout>
+    </VerticalStackLayout>
+</ContentView>

@@ -114,6 +114,9 @@
 	  <Compile Update="Platforms\Windows\Services\PlatformServiceRegistrationHelper.cs">
 	    <ExcludeFromCurrentConfiguration>false</ExcludeFromCurrentConfiguration>
 	  </Compile>
+	  <Compile Update="Platforms\Android\Views\PromptSelectOption.xaml.cs">
+	    <DependentUpon>PromptSelectOption.xaml</DependentUpon>
+	  </Compile>
 	</ItemGroup>
   
 	<ItemGroup>
@@ -126,7 +129,10 @@
 	  <MauiXaml Update="Views\PatternTreeView.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
-	  <MauiXaml Update="Views\PromptStringInput.xaml">
+	  <MauiXaml Update="Platforms\Android\Views\PromptSelectOption.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	  <MauiXaml Update="Platforms\Android\Views\PromptStringInput.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
 	  <MauiXaml Update="Views\ScriptsView.xaml">

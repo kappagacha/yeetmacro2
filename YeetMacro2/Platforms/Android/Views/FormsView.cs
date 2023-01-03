@@ -10,10 +10,8 @@ public class FormsView : RelativeLayout, IShowable
 {
     enum FormState { SHOWING, CLOSED };
     private IWindowManager _windowManager;
-    private MainActivity _context;
     private WindowManagerLayoutParams _layoutParams;
     int _displayWidth, _displayHeight;
-    double _density;
     private VisualElement _visualElement;
     public VisualElement VisualElement => _visualElement;
     private FormState _state;
@@ -23,7 +21,6 @@ public class FormsView : RelativeLayout, IShowable
     //https://www.linkedin.com/pulse/6-floating-windows-android-keyboard-input-v%C3%A1clav-hodek/
     public FormsView(Context context, IWindowManager windowManager, VisualElement visualElement) : base(context)
     {
-        _context = (MainActivity)context;
         _windowManager = windowManager;
 
         _layoutParams = new WindowManagerLayoutParams();
@@ -43,7 +40,6 @@ public class FormsView : RelativeLayout, IShowable
         var mauiContext = new MauiContext(MauiApplication.Current.Services, context);
         var androidView = visualElement.ToPlatform(mauiContext);
         androidView.SetPadding(0, 0, 0, 0);
-        //_visualElement.Layout(new Microsoft.Maui.Graphics.Rect(0, 0, _layoutParams.Width / _density, _layoutParams.Height / _density));
         AddView(androidView, new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MatchParent, ViewGroup.LayoutParams.MatchParent));
 
         androidView.Clickable = true;
@@ -111,7 +107,6 @@ public class FormsView : RelativeLayout, IShowable
         var displayInfo = DeviceDisplay.MainDisplayInfo;
         _displayWidth = (int)displayInfo.Width;
         _displayHeight = (int)displayInfo.Height;
-        _density = displayInfo.Density;
         _layoutParams.Width = _displayWidth;
         _layoutParams.Height = _displayHeight;
         _layoutParams.X = 0;
@@ -120,7 +115,6 @@ public class FormsView : RelativeLayout, IShowable
         if (_state == FormState.SHOWING)
         {
             _windowManager.UpdateViewLayout(this, _layoutParams);
-            //_visualElement.Layout(new Microsoft.Maui.Graphics.Rect(0, 0, _layoutParams.Width / _density, _layoutParams.Height / _density));
         }
     }
 

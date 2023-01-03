@@ -6,13 +6,12 @@ using Android.Media;
 using Android.Views;
 using Android.Widget;
 using static Android.Graphics.Bitmap;
-using YeetMacro2.Services;
 
 namespace YeetMacro2.Platforms.Android.Services;
 //https://github.com/xamarin/monodroid-samples/blob/main/android5.0/ScreenCapture/ScreenCapture/ScreenCaptureFragment.cs
 //https://github.com/Fate-Grand-Automata/FGA/blob/de9c69e10aec990a061c049f0bf3ca3c253d199b/app/src/main/java/com/mathewsachin/fategrandautomata/imaging/MediaProjectionScreenshotService.kt
 //https://medium.com/jamesob-com/recording-your-android-screen-7e0e75aae260
-public class MediaProjectionService : IMediaProjectionService
+public class MediaProjectionService
 {
     MainActivity _context;
     MediaProjectionManager _mediaProjectionManager;

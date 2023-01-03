@@ -1,15 +1,15 @@
-﻿using SkiaSharp;
-using System;
-using System.Diagnostics;
+﻿using System.Diagnostics;
+using System.Runtime.InteropServices;
+using System.Text.Json;
+using YeetMacro2.Data.Models;
+using YeetMacro2.Services;
 using System.Drawing;
 using System.Drawing.Imaging;
-using System.Runtime.InteropServices;
-using YeetMacro2.Services;
 using Point = System.Drawing.Point;
 using Size = System.Drawing.Size;
 
 namespace YeetMacro2.Platforms.Windows.Services;
-public class WindowsProjectionService : IMediaProjectionService
+public class WindowsScreenService : IScreenService
 {
     [DllImport("user32.dll")]
     public static extern bool GetWindowRect(IntPtr hWnd, out RECT lpRect);
@@ -18,15 +18,22 @@ public class WindowsProjectionService : IMediaProjectionService
     [DllImport("user32.dll")]
     private static extern IntPtr FindWindow(string lpClassName, string lpWindowName);
 
-
-    public bool Enabled => throw new NotImplementedException();
-
-    public Task<TBitmap> GetCurrentImageBitmap<TBitmap>(int x, int y, int width, int height)
+    public void DoClick(float x, float y)
     {
         throw new NotImplementedException();
     }
 
-    public Task<TBitmap> GetCurrentImageBitmap<TBitmap>()
+    public void DrawCircle(int x, int y)
+    {
+        throw new NotImplementedException();
+    }
+
+    public void DrawClear()
+    {
+        throw new NotImplementedException();
+    }
+
+    public void DrawRectangle(int x, int y, int width, int height)
     {
         throw new NotImplementedException();
     }
@@ -68,41 +75,21 @@ public class WindowsProjectionService : IMediaProjectionService
         return Task.FromResult(stream);
     }
 
-    public void Start()
+    public Task<List<Microsoft.Maui.Graphics.Point>> GetMatches(PatternBase template, int limit = 1)
     {
         throw new NotImplementedException();
     }
 
-    public void Stop()
+    public Bounds TransformBounds(Bounds originalBounds, Resolution originalResolution)
     {
         throw new NotImplementedException();
     }
 
-    public IntPtr GetHandleWindow(string title)
-    {
-        return FindWindow(null, title);
-    }
-
-    // https://stackoverflow.com/questions/891345/get-a-screenshot-of-a-specific-application
-    public static Bitmap PrintWindow(IntPtr hwnd)
-    {
-        RECT rc;
-        GetWindowRect(hwnd, out rc);
-
-        Bitmap bmp = new Bitmap(rc.Width, rc.Height, PixelFormat.Format32bppArgb);
-        Graphics gfxBmp = Graphics.FromImage(bmp);
-        IntPtr hdcBitmap = gfxBmp.GetHdc();
-
-        PrintWindow(hwnd, hdcBitmap, 0);
-
-        gfxBmp.ReleaseHdc(hdcBitmap);
-        gfxBmp.Dispose();
-
-        return bmp;
-    }
 }
 
-public static class WindowHelper {
+
+public static class WindowHelper
+{
     public static IntPtr WinGetHandle(string processName, string windowName)
     {
         foreach (Process pList in Process.GetProcesses())

@@ -1,22 +1,17 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
-using System.Windows.Input;
-using YeetMacro2.Services;
+using YeetMacro2.Platforms.Android.Services;
 
-namespace YeetMacro2.ViewModels;
+namespace YeetMacro2.Platforms.Android.ViewModels;
 public partial class PromptStringInputViewModel : ObservableObject
 {
-    IWindowManagerService _windowManagerService;
+    AndroidWindowManagerService _windowManagerService;
     [ObservableProperty]
     string _message = "Please input string";
     [ObservableProperty]
     string _input;
 
-    public PromptStringInputViewModel()
-    {
-    }
-
-    public PromptStringInputViewModel(IWindowManagerService windowManagerService)
+    public PromptStringInputViewModel(AndroidWindowManagerService windowManagerService)
     {
         _windowManagerService = windowManagerService;
     }

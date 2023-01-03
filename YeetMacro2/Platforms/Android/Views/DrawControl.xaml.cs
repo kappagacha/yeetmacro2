@@ -2,6 +2,7 @@ using SkiaSharp;
 using SkiaSharp.Views.Maui;
 using System.Collections;
 using System.Collections.Concurrent;
+using YeetMacro2.Platforms.Android.Services;
 using YeetMacro2.Services;
 
 namespace YeetMacro2.Platforms.Android.Views;
@@ -29,7 +30,7 @@ public partial class DrawControl : ContentView
         TextSize = 60,
         Style = SKPaintStyle.Stroke
     };
-    IWindowManagerService _windowManagerService;
+    AndroidWindowManagerService _windowManagerService;
     public int RectX { get; set; }
     public int RectY { get; set; }
     public int RectWidth { get; set; }
@@ -41,7 +42,7 @@ public partial class DrawControl : ContentView
 
         _rectangles.Limit = 1;
         _circles.Limit = 1;
-        _windowManagerService = ServiceHelper.GetService<IWindowManagerService>();
+        _windowManagerService = ServiceHelper.GetService<AndroidWindowManagerService>();
     }
 
     public void SetMaxRectangles(int maxRectangles)
@@ -128,7 +129,6 @@ public partial class DrawControl : ContentView
                 if (CloseAfterDraw)
                 {
                     var topLeft = _windowManagerService.GetTopLeft();
-                    //var topLeft = (x: 0, y: 0);
 
                     RectX = (int)((_canvasBegin.X + topLeft.x));
                     RectY = (int)((_canvasBegin.Y + topLeft.y));
