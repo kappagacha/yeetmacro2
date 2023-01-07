@@ -15,6 +15,7 @@ public partial class MacroManagerViewModel : ObservableObject
     IRepository<MacroSet> _macroSetRepository;
     IToastService _toastService;
     INodeService<PatternNode, PatternNode> _nodeService;
+    IRepository<Script> _scriptRespository;
     PatternTreeViewViewModelFactory _patternTreeViewFactory;
     ScriptsViewModelFactory _scriptsViewModelFactory;
     [ObservableProperty]
@@ -58,7 +59,8 @@ public partial class MacroManagerViewModel : ObservableObject
         IToastService toastService,
         PatternTreeViewViewModelFactory patternTreeViewFactory,
         ScriptsViewModelFactory scriptsViewModelFactory,
-        INodeService<PatternNode, PatternNode> nodeService)
+        INodeService<PatternNode, PatternNode> nodeService,
+        IRepository<Script> scriptRepository)
     {
         _macroSetRepository = macroSetRepository;
         _toastService = toastService;
@@ -66,6 +68,7 @@ public partial class MacroManagerViewModel : ObservableObject
         _scriptsViewModelFactory = scriptsViewModelFactory;
         _nodeService = nodeService;
         _macroSets = ProxyViewModel.CreateCollection(_macroSetRepository.Get());
+        _scriptRespository = scriptRepository;
         if (_macroSets.Count > 0 )
         {
             SelectedMacroSet = _macroSets.First();
@@ -111,14 +114,16 @@ public partial class MacroManagerViewModel : ObservableObject
     }
 
     [RelayCommand]
-    private void ExportPatterns()
+    private async Task ExportPatterns()
     {
         if (PatternTree == null) return;
-        var patternTreeJson = JsonSerializer.Serialize(PatternTree.Root, new JsonSerializerOptions { WriteIndented = true });
-        // https://stackoverflow.com/questions/74047234/net-maui-writing-file-in-android-to-folder-that-then-can-be-accessed-in-windows
-        // var x = Android.App.Application.Context.GetExternalFilesDir(Android.OS.Environment.DirectoryPictures);
+        if (await Permissions.RequestAsync<Permissions.StorageWrite>() != PermissionStatus.Granted) return;
 
-        var targetDirctory = DeviceInfo.Current.Platform == DevicePlatform.Android ? "/storage/emulated/0/Pictures" : FileSystem.Current.AppDataDirectory;
+        var patternTreeJson = JsonSerializer.Serialize(PatternTree.Root, new JsonSerializerOptions { WriteIndented = true });
+        // https://stackoverflow.com/questions/39332085/get-path-to-pictures-directory
+        var targetDirctory = DeviceInfo.Current.Platform == DevicePlatform.Android ? 
+            Android.OS.Environment.GetExternalStoragePublicDirectory(Android.OS.Environment.DirectoryPictures).AbsolutePath :
+            FileSystem.Current.AppDataDirectory;
         var targetFile = Path.Combine(targetDirctory, $"{_selectedMacroSet.Name}_patterns.json");
         File.WriteAllText(targetFile, patternTreeJson);
         _toastService.Show($"Exported Patterns: {_selectedMacroSet.Name}");
@@ -142,16 +147,74 @@ public partial class MacroManagerViewModel : ObservableObject
         {
             var json = reader.ReadToEnd();
             var rootTemp = ProxyViewModel.Create(JsonSerializer.Deserialize<PatternNode>(json));
-            foreach (var currentChild in PatternTree.Root.Children.ToList())
+            var currentChildren = PatternTree.Root.Children.ToList();
+            foreach (var currentChild in currentChildren)
             {
+                PatternTree.Root.Children.Remove(currentChild);
                 _nodeService.Delete(currentChild);
             }
-            
-            foreach (var newChild in rootTemp.Children.ToList())
+
+            var newChildren = rootTemp.Children;
+            foreach (var newChild in newChildren)
             {
+                Console.WriteLine("Before Insert: " + newChild.Name);
                 PatternTree.Root.Children.Add(newChild);
                 _nodeService.Insert(newChild);
+                Console.WriteLine("After Insert: " + newChild.Name);
             }
+        }
+        _toastService.Show($"Imported Patterns: {_selectedMacroSet.Name})");
+    }
+
+    [RelayCommand]
+    private async Task ExportScripts()
+    {
+        if (Scripts == null) return;
+        if (await Permissions.RequestAsync<Permissions.StorageWrite>() != PermissionStatus.Granted) return;
+
+        var patternTreeJson = JsonSerializer.Serialize(Scripts.Scripts, new JsonSerializerOptions { WriteIndented = true });
+        // https://stackoverflow.com/questions/39332085/get-path-to-pictures-directory
+        var targetDirctory = DeviceInfo.Current.Platform == DevicePlatform.Android ?
+            Android.OS.Environment.GetExternalStoragePublicDirectory(Android.OS.Environment.DirectoryPictures).AbsolutePath :
+            FileSystem.Current.AppDataDirectory;
+        var targetFile = Path.Combine(targetDirctory, $"{_selectedMacroSet.Name}_scripts.json");
+        File.WriteAllText(targetFile, patternTreeJson);
+        _toastService.Show($"Exported Scripts: {_selectedMacroSet.Name}");
+    }
+
+    [RelayCommand]
+    private async Task ImportScripts()
+    {
+        if (Scripts == null) return;
+        var currentAssembly = Assembly.GetExecutingAssembly();
+        var resourceNames = currentAssembly.GetManifestResourceNames().Where(rs => rs.StartsWith("YeetMacro2.Resources.MacroSets"));
+        var regex = new Regex(@"YeetMacro2\.Resources\.MacroSets\.(?<macroSet>.+?)\.");
+
+        // https://stackoverflow.com/questions/9436381/c-sharp-regex-string-extraction
+        var macroSetGroups = resourceNames.GroupBy(rn => regex.Match(rn).Groups["macroSet"].Value);
+        var selectedMacroSet = await Application.Current.MainPage.DisplayActionSheet("Import Scripts", "Cancel", null, macroSetGroups.Select(g => g.Key).ToArray());
+        if (selectedMacroSet == null || selectedMacroSet == "Cancel") return;
+
+        using (var stream = currentAssembly.GetManifestResourceStream($"YeetMacro2.Resources.MacroSets.{selectedMacroSet}.{selectedMacroSet.Replace("_", " ")}_scripts.json"))
+        using (var reader = new StreamReader(stream))
+        {
+            var json = reader.ReadToEnd();
+            var newScripts = JsonSerializer.Deserialize<IEnumerable<Script>>(json);
+            var currentScripts = Scripts.Scripts.ToList();
+            foreach (var currentChild in currentScripts)
+            {
+                Scripts.Scripts.Remove(currentChild);
+                _scriptRespository.Delete(currentChild);
+            }
+
+            foreach (var newChild in newScripts)
+            {
+                newChild.MacroSetId = SelectedMacroSet.MacroSetId;
+                var proxy = ProxyViewModel.Create(newChild);
+                Scripts.Scripts.Add(proxy);
+                _scriptRespository.Insert(proxy);
+            }
+            _scriptRespository.Save();
         }
         _toastService.Show($"Imported Patterns: {_selectedMacroSet.Name})");
     }

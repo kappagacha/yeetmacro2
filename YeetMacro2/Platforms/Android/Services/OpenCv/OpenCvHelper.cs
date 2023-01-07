@@ -1,6 +1,5 @@
 ﻿using OpenCV.Core;
 using static OpenCV.Core.Core;
-using Size = OpenCV.Core.Size;
 using Rect = OpenCV.Core.Rect;
 using Point = Microsoft.Maui.Graphics.Point;
 
@@ -14,10 +13,18 @@ public static class OpenCvHelper
             //https://answers.opencv.org/question/52722/what-is-the-correct-way-to-convert-a-mat-to-a-bitmap/
             var haystackMat = new Mat();
             var needleMat = new Mat();
+
             OpenCV.Android.Utils.BitmapToMat(haystackBitmap, haystackMat);
             OpenCV.Android.Utils.BitmapToMat(needleBitmap, needleMat);
-
             return GetPointsWithMatchTemplate(haystackMat, needleMat, limit, threshold);
+
+            //var haystackMatGray = new Mat();
+            //var needleMatGray = new Mat();
+            //OpenCV.ImgProc.Imgproc.CvtColor(haystackMat, haystackMatGray, OpenCV.ImgProc.Imgproc.ColorBgr2gray);
+            //OpenCV.ImgProc.Imgproc.CvtColor(needleMat, needleMatGray, OpenCV.ImgProc.Imgproc.ColorBgr2gray);
+            //haystackMat.Dispose();
+            //needleMat.Dispose();
+            //return GetPointsWithMatchTemplate(haystackMatGray, needleMatGray, limit, threshold);
         }
         catch (Exception ex)
         {

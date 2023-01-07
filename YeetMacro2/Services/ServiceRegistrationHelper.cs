@@ -2,7 +2,6 @@
 using System.Reflection;
 using YeetMacro2.Data.Models;
 using YeetMacro2.Data.Services;
-using YeetMacro2.Platforms;
 using YeetMacro2.ViewModels;
 
 namespace YeetMacro2.Services;
@@ -40,14 +39,14 @@ public class AppInitializer : IMauiInitializeService
         if (dbContext.MacroSets.Any()) return;
 
         var nodeService = services.GetService<INodeService<PatternNode, PatternNode>>();
-        var konosubaPatternNode = new PatternNode() { Name = "root" };
         var disgaeaPatternNode = new PatternNode() { Name = "root" };
-        nodeService.Insert(konosubaPatternNode);
+        var konosubaPatternNode = new PatternNode() { Name = "root" };
         nodeService.Insert(disgaeaPatternNode);
+        nodeService.Insert(konosubaPatternNode);
 
-        var konsobaFdMacroSet = new MacroSet() { Name = "Konosuba FD", RootPatternNodeId = konosubaPatternNode.NodeId };
         var disgaeaRpgMacroSet = new MacroSet() { Name = "Disgaea RPG", RootPatternNodeId = disgaeaPatternNode.NodeId };
-        dbContext.MacroSets.AddRange(konsobaFdMacroSet, disgaeaRpgMacroSet);
+        var konsobaFdMacroSet = new MacroSet() { Name = "Konosuba FD", RootPatternNodeId = konosubaPatternNode.NodeId };
+        dbContext.MacroSets.AddRange(disgaeaRpgMacroSet, konsobaFdMacroSet);
         dbContext.SaveChanges();
     }
 }

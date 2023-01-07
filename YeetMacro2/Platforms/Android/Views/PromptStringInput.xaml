@@ -10,7 +10,7 @@
         <Label Text="{Binding Message}" />
         <Entry x:Name="inputEntry" Text="{Binding Input}" />
         <HorizontalStackLayout>
-            <Button Command="{Binding CancelCommand}" Text="Cancel" />
+            <Button Command="{Binding CancelCommand}" Text="Cancel" BackgroundColor="Red" />
             <Button Command="{Binding OkCommand}" Text="Ok" />
         </HorizontalStackLayout>
     </VerticalStackLayout>

@@ -1,0 +1,7 @@
+[
+  {
+    "Name": "gotoItemWorld",
+    "Text": "var loopPatterns = [patterns.stronghold.gem];\nwhile (true) {\n\tvar result = macroService.findPattern(loopPatterns);\n\tif (result.IsSuccess) {\n\t\tlog(\u0027[*****YeetMacro*****] Loop: \u0027 \u002B result.Path);\n\t\tswitch(result.Path) {\n\t\t\tcase \u0027stronghold.gem\u0027:\n\t\t\t\tlog(\u0027[*****YeetMacro*****] Poll Start\u0027);\n\t\t\t\tmacroService.pollPattern(patterns.tabs.facilities, { predicatePattern: patterns.facilities.itemWorld, doClick: true });\n\t\t\t\tlog(\u0027[*****YeetMacro*****] Poll End\u0027);\n\t\t\t\tsleep(1000);\n\t\t\t\tlog(\u0027[*****YeetMacro*****] Poll Start\u0027);\n\t\t\t\tmacroService.pollPattern(patterns.facilities.itemWorld, { predicatePattern: patterns.titles.itemWorld, doClick: true });\n\t\t\t\tlog(\u0027[*****YeetMacro*****] Poll End\u0027);\n\t\t\tbreak;\n\t\t}\n\t}\n    sleep(1000);\n}",
+    "IsSelected": true
+  }
+]

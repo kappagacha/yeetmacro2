@@ -60,7 +60,7 @@ public class YeetAccessibilityService : AccessibilityService
             if (e.EventType == EventTypes.WindowStateChanged)
             {
                 Console.WriteLine("WindowStateChanged: " + e.PackageName);
-                if (e.PackageName != "com.companyname.xamarinapp")
+                if (e.PackageName != AppInfo.PackageName)
                 {
                     _currentPackage = e.PackageName;
                 }
@@ -97,13 +97,11 @@ public class YeetAccessibilityService : AccessibilityService
     {
         try
         {
-            Console.WriteLine("[*****YeetMacro*****] YeetAccessibilityService DoClick");
             if (_instance == null || x < 0.0f || y < 0.0f)
             {
                 return;
             }
 
-            Console.WriteLine("[*****YeetMacro*****] YeetAccessibilityService DoClick Start");
             global::Android.Graphics.Path swipePath = new global::Android.Graphics.Path();
             swipePath.MoveTo(x, y);
             GestureDescription.Builder gestureBuilder = new GestureDescription.Builder();
@@ -111,8 +109,6 @@ public class YeetAccessibilityService : AccessibilityService
             _instance.DispatchGesture(gestureBuilder.Build(), null, null);
             swipePath.Close();
             swipePath.Dispose();
-
-            Console.WriteLine("[*****YeetMacro*****] YeetAccessibilityService DoClick DispatchGesture");
         }
         catch (Exception ex)
         {

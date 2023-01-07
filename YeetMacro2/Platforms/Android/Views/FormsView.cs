@@ -22,12 +22,13 @@ public class FormsView : RelativeLayout, IShowable
     public FormsView(Context context, IWindowManager windowManager, VisualElement visualElement) : base(context)
     {
         _windowManager = windowManager;
-
         _layoutParams = new WindowManagerLayoutParams();
         _layoutParams.Type = WindowManagerTypes.ApplicationOverlay;
         _layoutParams.Format = Format.Translucent;
         _layoutParams.Flags |= WindowManagerFlags.TranslucentNavigation;
         _layoutParams.Flags |= WindowManagerFlags.LayoutNoLimits;
+        //_layoutParams.Flags |= WindowManagerFlags.Fullscreen;
+        _layoutParams.Flags |= WindowManagerFlags.LayoutInScreen;
         _layoutParams.Gravity = GravityFlags.Top | GravityFlags.Left;
         SetBackgroundColor(Color.Argb(70, 0, 0, 0));
 
@@ -54,7 +55,7 @@ public class FormsView : RelativeLayout, IShowable
     public void DisableTranslucentNavigation()
     {
         _layoutParams.Flags &= ~WindowManagerFlags.TranslucentNavigation;
-        _layoutParams.Flags &= ~WindowManagerFlags.LayoutNoLimits;
+        //_layoutParams.Flags &= ~WindowManagerFlags.LayoutNoLimits;
 
         if (_state == FormState.SHOWING)
         {

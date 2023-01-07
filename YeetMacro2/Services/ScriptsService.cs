@@ -76,7 +76,7 @@ public class ScriptsService : IScriptsService
                 //}))
                 .SetValue("sleep", new Action<int>((ms) => Thread.Sleep(ms)))
                 .SetValue("patterns", patterns)
-                .SetValue("macroService", _macroService.BuildDynamicObject());
+                .SetValue("macroService", _macroService.BuildDynamicObject(_cancellationTokenSource.Token));
 
         foreach (var script in scripts)
         {

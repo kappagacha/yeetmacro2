@@ -14,7 +14,7 @@ public class FindPatternResult
 
 public interface IMacroService
 {
-    dynamic BuildDynamicObject();
+    dynamic BuildDynamicObject(CancellationToken token);
     Task<FindPatternResult> ClickPattern(PatternBase pattern);
     Task<FindPatternResult> FindPattern(PatternBase pattern);
 }
@@ -34,11 +34,8 @@ public class MacroService : IMacroService
     {
         try
         {
-            Console.WriteLine("[*****YeetMacro*****] FindPattern");
             var bounds = pattern.Bounds;
-            Console.WriteLine("[*****YeetMacro*****] FindPattern GetMatches Start");
             var points = await _screenService.GetMatches(pattern);
-            Console.WriteLine("[*****YeetMacro*****] FindPattern GetMatches End");
 
             var result = new FindPatternResult();
             result.IsSuccess = points.Count > 0;
@@ -80,7 +77,6 @@ public class MacroService : IMacroService
 
     private FindPatternResult DynamicFindPattern(dynamic p)
     {
-        Console.WriteLine("[*****YeetMacro*****] DynamicFindPattern");
         FindPatternResult result;
         if (p.metadata.IsMultiPattern)
         {
@@ -104,23 +100,26 @@ public class MacroService : IMacroService
             result = FindPattern(pattern).Result;
         }
 
-        Console.WriteLine("[*****YeetMacro*****] DynamicFindPattern Done");
         result.Path = p.path;
         return result;
     }
 
-    public dynamic BuildDynamicObject()
+    // TODO: pass cancelation token here for polling
+    public dynamic BuildDynamicObject(CancellationToken token)
     {
         dynamic dynamicObject = new ExpandoObject();
 
-        dynamicObject.FindPattern = new Func<dynamic, FindPatternResult>((p) =>
+        dynamicObject.findPattern = new Func<dynamic, FindPatternResult>((p) =>
         {
-            Console.WriteLine("[*****YeetMacro*****] BuildDynamicObject FindPattern");
             if (p is Array)
             {
-                Console.WriteLine("[*****YeetMacro*****] BuildDynamicObject FindPattern Arrays");
                 foreach (var pattern in p)
                 {
+                    if (token.IsCancellationRequested)
+                    {
+                        return null;
+                    }
+
                     var result = DynamicFindPattern(pattern);
                     if (result.IsSuccess)
                     {
@@ -131,22 +130,82 @@ public class MacroService : IMacroService
             }
             else
             {
-                Console.WriteLine("[*****YeetMacro*****] BuildDynamicObject FindPattern");
+                Console.WriteLine("[*****YeetMacro*****] Find pattern: " + p.path);
                 return DynamicFindPattern(p);
             }
         });
 
-        dynamicObject.ClickPattern = new Func<dynamic, FindPatternResult>((p) =>
+        dynamicObject.clickPattern = new Func<dynamic, FindPatternResult>((p) =>
         {
-            Console.WriteLine("[*****YeetMacro*****] BuildDynamicObject ClickPattern");
-            var result = dynamicObject.FindPattern(p);
+            var result = dynamicObject.findPattern(p);
             if (result.IsSuccess)
             {
                 foreach (var point in result.Points)
                 {
-                    Console.WriteLine("[*****YeetMacro*****] BuildDynamicObject DoClick Start");
+                    Console.WriteLine("[*****YeetMacro*****] Click pattern: " + p.path);
                     _screenService.DoClick((float)point.X, (float)point.Y);
-                    Console.WriteLine("[*****YeetMacro*****] BuildDynamicObject DoClick End");
+                }
+            }
+
+            return result;
+        });
+
+        dynamicObject.pollPattern = new Func<dynamic, dynamic, FindPatternResult>((p, o) =>
+        {
+            var patternFound = false;
+            dynamic result = null;
+
+            if (o.predicatePattern != null)
+            {
+                dynamic predicateResult = null;
+
+                var steps = 8;
+                for (int i = 8; ; i++)
+                {
+                    if (token.IsCancellationRequested)
+                    {
+                        return result;
+                    }
+
+                    Console.WriteLine("[*****YeetMacro*****] Find predicate pattern: " + o.predicatePattern.path);
+                    predicateResult = dynamicObject.findPattern(o.predicatePattern);
+                    if (predicateResult.IsSuccess)
+                    {
+                        break;
+                    }
+
+                    if (i % steps == 0)
+                    {
+                        Console.WriteLine("[*****YeetMacro*****] Find pattern: " + p.path);
+                        result = dynamicObject.findPattern(p);
+                        if (o.doClick && result.IsSuccess)
+                        {
+                            dynamicObject.clickPattern(p);
+                        }
+                    }
+
+                    Thread.Sleep(250);
+                }
+            }
+            else
+            {
+                while (!patternFound)
+                {
+                    if (token.IsCancellationRequested)
+                    {
+                        return result;
+                    }
+
+                    Console.WriteLine("[*****YeetMacro*****] Polling pattern: " + p.path);
+                    result = dynamicObject.findPattern(p);
+
+                    patternFound = result.IsSuccess;
+                    if (o.doClick && result.IsSuccess)
+                    {
+                        dynamicObject.clickPattern(p);
+                    }
+
+                    Thread.Sleep(1000);
                 }
             }
 
@@ -155,74 +214,4 @@ public class MacroService : IMacroService
 
         return dynamicObject;
     }
-
-    // async version (not supported yet by Jint)
-    //private async Task<FindPatternResult> DynamicFindPattern(dynamic p)
-    //{
-    //    Console.WriteLine("[*****YeetMacro*****] DynamicFindPattern");
-    //    FindPatternResult result;
-    //    if (p.metadata.IsMultiPattern)
-    //    {
-    //        var points = new List<Point>();
-    //        var multiResult = new FindPatternResult();
-    //        foreach (PatternBase pattern in p.Patterns)
-    //        {
-    //            var singleResult = await FindPattern(pattern);
-    //            if (singleResult.IsSuccess)
-    //            {
-    //                points.AddRange(singleResult.Points);
-    //            }
-    //        }
-    //        multiResult.Points = points.ToArray();
-    //        multiResult.IsSuccess = points.Count > 0;
-    //        result = multiResult;
-    //    }
-    //    else
-    //    {
-    //        PatternBase pattern = (PatternBase)p.patterns[0];
-    //        result = FindPattern(pattern).Result;
-    //    }
-
-    //    Console.WriteLine("[*****YeetMacro*****] DynamicFindPattern Done");
-    //    result.Path = p.path;
-    //    return result;
-    //}
-
-    //dynamicObject.FindPattern = new Func<dynamic, Task<FindPatternResult>>(async (p) => {
-    //    Console.WriteLine("[*****YeetMacro*****] BuildDynamicObject FindPattern");
-    //    if (p is Array)
-    //    {
-    //        Console.WriteLine("[*****YeetMacro*****] BuildDynamicObject FindPattern Arrays");
-    //        foreach (var pattern in p)
-    //        {
-    //            var result = await DynamicFindPattern(pattern);
-    //            if (result.IsSuccess)
-    //            {
-    //                return result;
-    //            }
-    //        }
-    //        return new FindPatternResult() { IsSuccess = false };
-    //    }
-    //    else
-    //    {
-    //        Console.WriteLine("[*****YeetMacro*****] BuildDynamicObject FindPattern");
-    //        return await DynamicFindPattern(p);
-    //    }
-    //});
-
-    //dynamicObject.ClickPattern = new Func<dynamic, Task<FindPatternResult>>(async (p) => {
-    //    Console.WriteLine("[*****YeetMacro*****] BuildDynamicObject ClickPattern");
-    //    var result = await dynamicObject.FindPattern(p);
-    //    if (result.IsSuccess)
-    //    {
-    //        foreach (var point in result.Points)
-    //        {
-    //            Console.WriteLine("[*****YeetMacro*****] BuildDynamicObject DoClick Start");
-    //            _accessibilityService.DoClick((float)point.X, (float)point.Y);
-    //            Console.WriteLine("[*****YeetMacro*****] BuildDynamicObject DoClick End");
-    //        }
-    //    }
-
-    //    return result;
-    //});
 }

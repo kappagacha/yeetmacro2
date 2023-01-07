@@ -42,16 +42,15 @@ public partial class ActionViewModel : ObservableObject, IMovable
             return;
         }
 
-        var script = await _windowManagerService.SelectOption("Run Script", scriptList.ToArray());
-        if (script == null)
-        {
-            _toastService.Show("Run script canceled...");
-            return;
-        };
-
         switch (State)
         {
             case ActionState.Stopped:
+                var script = await _windowManagerService.SelectOption("Run Script", scriptList.ToArray());
+                if (script == null)
+                {
+                    _toastService.Show("Run script canceled...");
+                    return;
+                };
                 State = ActionState.Running;
                 _scriptService.RunScript(script);
                 break;

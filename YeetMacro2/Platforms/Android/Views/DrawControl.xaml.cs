@@ -55,7 +55,7 @@ public partial class DrawControl : ContentView
         //var begin = new SKPoint(x, y);
         //var end = new SKPoint(x + width, y + height);
 
-        var topLeft = _windowManagerService.GetTopLeft();
+        var topLeft = _windowManagerService.GetTopLeftByPackage();
         //var topLeft = (x: 0.0f, y: 0.0f);
         var begin = new SKPoint(x - topLeft.x, y - topLeft.y);
         var end = new SKPoint(x - topLeft.x + width, y - topLeft.y + height);
@@ -72,7 +72,7 @@ public partial class DrawControl : ContentView
 
     public void AddCircle(float x, float y)
     {
-        var topLeft = _windowManagerService.GetTopLeft();
+        var topLeft = _windowManagerService.GetTopLeftByPackage();
         //var topLeft = (x: 0.0f, y: 0.0f);
         _circles.Enqueue((x - topLeft.x, y - topLeft.y, _greenPaint.Clone()));
         canvasView.InvalidateSurface();
@@ -104,6 +104,20 @@ public partial class DrawControl : ContentView
         {
             canvas.DrawCircle(c.x, c.y, 5, c.paint);
         }
+
+        //troubleshoot with a grid
+        //var width = DeviceDisplay.MainDisplayInfo.Width;
+        //var height = DeviceDisplay.MainDisplayInfo.Height;
+
+        //for (int i = 0; i < width; i += 100)
+        //{
+        //    canvas.DrawRect(i, 0, 2, (float)height, i % 200 == 0 ? _greenPaint : _bluePaint);
+        //}
+
+        //for (int i = 0; i < height; i += 100)
+        //{
+        //    canvas.DrawRect(0, i, (float)width, 2, i % 200 == 0 ? _greenPaint : _bluePaint);
+        //}
     }
 
     private void canvasView_Touch(object sender, SKTouchEventArgs e)
@@ -128,7 +142,7 @@ public partial class DrawControl : ContentView
                 canvasView.InvalidateSurface();
                 if (CloseAfterDraw)
                 {
-                    var topLeft = _windowManagerService.GetTopLeft();
+                    var topLeft = _windowManagerService.GetTopLeftByPackage();
 
                     RectX = (int)((_canvasBegin.X + topLeft.x));
                     RectY = (int)((_canvasBegin.Y + topLeft.y));

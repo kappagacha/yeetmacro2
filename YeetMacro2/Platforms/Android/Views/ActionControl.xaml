@@ -11,8 +11,8 @@
              xmlns:mi="clr-namespace:UraniumUI.Icons.MaterialIcons;assembly=UraniumUI.Icons.MaterialIcons"
              x:Class="YeetMacro2.Platforms.Android.Views.ActionControl">
     <ContentView.Resources>
-        <x:Double x:Key="ActionHeight">20.0</x:Double>
-        <x:Double x:Key="ActionWidth">20.0</x:Double>
+        <x:Double x:Key="ActionHeight">40.0</x:Double>
+        <x:Double x:Key="ActionWidth">40.0</x:Double>
     </ContentView.Resources>
     <ContentView.HeightRequest>
         <Binding Source="{StaticResource ActionHeight}"

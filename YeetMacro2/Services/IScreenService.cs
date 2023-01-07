@@ -11,5 +11,4 @@ public interface IScreenService
     void DrawCircle(int x, int y);
     Task<List<Point>> GetMatches(PatternBase template, int limit = 1);
     void DoClick(float x, float y);
-
 }

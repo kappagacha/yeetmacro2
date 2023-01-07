@@ -33,14 +33,14 @@
 
 	<ItemGroup>
 		<!-- App Icon -->
-		<MauiIcon Include="Resources\AppIcon\appicon.svg" ForegroundFile="Resources\AppIcon\appiconfg.svg" Color="#512BD4" />
+		<MauiIcon Include="Resources\AppIcon\appicon.svg" ForegroundScale="0.6" Color="#512BD4" TintColor="White" />
 
 		<!-- Splash Screen -->
-		<MauiSplashScreen Include="Resources\Splash\splash.svg" Color="#512BD4" BaseSize="128,128" />
+    <MauiSplashScreen Include="Resources\Splash\splash.svg" Color="#512BD4" TintColor="White" />
 
-		<!-- Images -->
+    <!-- Images -->
 		<MauiImage Include="Resources\Images\*" />
-		<MauiImage Update="Resources\Images\dotnet_bot.svg" BaseSize="168,208" />
+    <MauiImage Update="Resources\Images\appicon.svg" />
 
 		<!-- Custom Fonts -->
 		<MauiFont Include="Resources\Fonts\*" />
@@ -73,10 +73,16 @@
 
 	<ItemGroup>
 	  <None Remove="Platforms\Android\Resources\xml\yeetmacro_config.xml" />
+	  <None Remove="Resources\Images\appicon.svg" />
+	  <None Remove="Resources\MacroSets\Disgaea RPG\Disgaea RPG_patterns.json" />
+	  <None Remove="Resources\MacroSets\Disgaea RPG\Disgaea RPG_scripts.json" />
 	  <None Remove="Resources\MacroSets\Konosuba FD\Konosuba FD_patterns.json" />
+	  <None Remove="Resources\Splash\splash.svg" />
 	</ItemGroup>
 
 	<ItemGroup>
+	  <EmbeddedResource Include="Resources\MacroSets\Disgaea RPG\Disgaea RPG_patterns.json" />
+	  <EmbeddedResource Include="Resources\MacroSets\Disgaea RPG\Disgaea RPG_scripts.json" />
 	  <EmbeddedResource Include="Resources\MacroSets\Konosuba FD\Konosuba FD_patterns.json" />
 	</ItemGroup>
 

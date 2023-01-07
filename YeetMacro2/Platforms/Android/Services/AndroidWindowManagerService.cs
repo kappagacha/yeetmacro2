@@ -37,6 +37,9 @@ public class AndroidWindowManagerService : IInputService, IScreenService
     FormsView _windowView;
     ConcurrentDictionary<string, (int x, int y)> _packageToStatusBarHeight = new ConcurrentDictionary<string, (int x, int y)>();
     double _displayWidth, _displayHeight;
+    public int OverlayWidth => _windowView == null ? 0 : _windowView.MeasuredWidthAndState;
+    public int OverlayHeight => _windowView == null ? 0 : _windowView.MeasuredHeightAndState;
+    public int DisplayCutoutTop => _windowView == null ? 0 : _windowView.RootWindowInsets.DisplayCutout?.SafeInsetTop ?? 0;
     public AndroidWindowManagerService(MediaProjectionService mediaProjectionService, YeetAccessibilityService accessibilityService)
     {
         _context = (MainActivity)Microsoft.Maui.ApplicationModel.Platform.CurrentActivity;
@@ -67,6 +70,14 @@ public class AndroidWindowManagerService : IInputService, IScreenService
             _windowView.SetBackgroundToTransparent();
             _windowView.DisableTranslucentNavigation();
         }
+
+        //Get overlay permissin if needed
+        if (!Settings.CanDrawOverlays(_context))
+        {
+            _context.StartActivityForResult(new Intent(Settings.ActionManageOverlayPermission, global::Android.Net.Uri.Parse("package:" + _context.PackageName)), OVERLAY_SERVICE_REQUEST);
+            return;
+        }
+
         _windowView.Show();
     }
 
@@ -134,7 +145,6 @@ public class AndroidWindowManagerService : IInputService, IScreenService
                     userDrawView.DisableTranslucentNavigation();
                     userDrawView.SetIsTouchable(true);
                     userdrawControl.CloseAfterDraw = true;
-                    
                     _views.TryAdd(windowView, userDrawView);
                     break;
                 case WindowView.DrawView:
@@ -143,7 +153,7 @@ public class AndroidWindowManagerService : IInputService, IScreenService
                     drawControl.InputTransparent = true;
                     drawView.SetIsTouchable(false);
                     drawView.Click += DrawView_Click;
-                    drawView.SetBackgroundToTransparent();
+                    //drawView.SetBackgroundToTransparent();
                     drawView.DisableTranslucentNavigation();
                     _views.TryAdd(windowView, drawView);
                     break;
@@ -152,6 +162,14 @@ public class AndroidWindowManagerService : IInputService, IScreenService
         }
 
         _views[windowView].Show();
+
+        if (windowView == WindowView.ActionMenuView)
+        {
+            var ve = _views[windowView].VisualElement;
+            var ctx = ve.BindingContext;
+            ve.BindingContext = null;
+            ve.BindingContext = ctx;
+        }
     }
     public void Close(WindowView view)
     {
@@ -234,32 +252,32 @@ public class AndroidWindowManagerService : IInputService, IScreenService
 
 
     // https://stackoverflow.com/questions/3407256/height-of-status-bar-in-android
-    public (int x, int y) GetTopLeft()
+    public (int x, int y) GetTopLeftByPackage()
     {
-        Console.WriteLine("[*****YeetMacro*****] WindowManagerService GetTopLeft Start");
-        Console.WriteLine("[*****YeetMacro*****] WindowManagerService _accessibilityService: " + _accessibilityService);
         var currentPackage = _accessibilityService.CurrentPackage;
-        Console.WriteLine("[*****YeetMacro*****] WindowManagerService _accessibilityService.CurrentPackage: " + _accessibilityService.CurrentPackage);
 
         if (_packageToStatusBarHeight.ContainsKey(currentPackage))
         {
             return _packageToStatusBarHeight[currentPackage];
         }
 
-        var loc = new int[2];
-        Console.WriteLine("[*****YeetMacro*****] WindowManagerService GetLocationOnScreen Start");
-        _windowView.GetLocationOnScreen(loc);
-        Console.WriteLine("[*****YeetMacro*****] WindowManagerService GetLocationOnScreen End");
-        var topLeft = (x: loc[0], y: loc[1]);
-        Console.WriteLine($"[*****YeetMacro*****] x{topLeft.x} y{topLeft.y}");
+        var topLeft = GetTopLeft();
 
         if (currentPackage != "unknown")
         {
             _packageToStatusBarHeight.TryAdd(currentPackage, topLeft);
         }
 
+        return topLeft;
+    }
 
-        Console.WriteLine("[*****YeetMacro*****] WindowManagerService GetTopLeft End");
+    // https://stackoverflow.com/questions/3407256/height-of-status-bar-in-android
+    public (int x, int y) GetTopLeft()
+    {
+        var loc = new int[2];
+        _windowView.GetLocationOnScreen(loc);
+        var topLeft = (x: loc[0], y: loc[1]);
+
         return topLeft;
     }
 
@@ -300,7 +318,6 @@ public class AndroidWindowManagerService : IInputService, IScreenService
     {
         try
         {
-            Console.WriteLine("[*****YeetMacro*****] WindowManagerService GetMatches Start");
             var boundsPadding = 4;
             var templateBitmap = BitmapFactory.DecodeStream(new MemoryStream(template.ImageData));
             var templateResolutionWidth = template.Resolution.Width;
@@ -314,9 +331,7 @@ public class AndroidWindowManagerService : IInputService, IScreenService
             var targetWidth = (float)(templateBitmap.Width * ratio);
             var targetHeight = (float)(templateBitmap.Height * ratio);
             var needleBitmap = Bitmap.CreateScaledBitmap(templateBitmap, (int)targetWidth, (int)targetHeight, true);
-            Console.WriteLine("[*****YeetMacro*****] WindowManagerService GetMatches TransformBounds Start");
             var calcBounds = TransformBounds(template.Bounds, template.Resolution);
-            Console.WriteLine("[*****YeetMacro*****] WindowManagerService GetMatches TransformBounds End");
 
             //template.Bounds = null;
             Bitmap haystackBitmap = null;
@@ -468,16 +483,13 @@ public class AndroidWindowManagerService : IInputService, IScreenService
     {
         try
         {
-            Console.WriteLine("[*****YeetMacro*****] WindowManagerService TransformBounds Start");
             var templateResolutionWidth = originalResolution.Width;
             var templateResolutionHeight = originalResolution.Height;
             var targetResolutionWidth = _displayWidth;
             var targetResolutionHeight = _displayHeight;
             var xRatio = targetResolutionWidth / templateResolutionWidth;
             var yRatio = targetResolutionHeight / templateResolutionHeight;
-            Console.WriteLine("[*****YeetMacro*****] WindowManagerService TransformBounds GetTopLeft Start");
-            var topLeft = GetTopLeft();
-            Console.WriteLine("[*****YeetMacro*****] WindowManagerService TransformBounds GetTopLeft End");
+            var topLeft = GetTopLeftByPackage();
             var ratio = Math.Min(xRatio, yRatio);
             var x = (int)(originalBounds.X * ratio);
             var y = (int)(originalBounds.Y * ratio);
@@ -490,16 +502,26 @@ public class AndroidWindowManagerService : IInputService, IScreenService
                 x += (int)offsetX;
                 //width += (int)offsetX;
             }
-            else if (yRatio > xRatio)    //assuming content gets centered
-            {
-                var leftoverHeigh = targetResolutionHeight - templateResolutionHeight - topLeft.y;
-                var offsetY = leftoverHeigh / 2.0 + topLeft.y;
-                y += (int)offsetY;
-                //height += (int)offsetY;
-            }
+            //else if (yRatio > xRatio)    // ??
+            //{
+            //    //y = (int)(y * yRatio - (y * yRatio) / 2.0 + topLeft.y);
+            //    //height += (int)(y * yRatio);
 
+            //    //x = (int)(x * yRatio - (x * yRatio) / 2.0);
+            //    //width += (int)(x * yRatio);
 
-            Console.WriteLine("[*****YeetMacro*****] WindowManagerService TransformBounds End");
+            //    var leftoverHeight = targetResolutionHeight - templateResolutionHeight - topLeft.y;
+            //    y = (int)(y * yRatio - leftoverHeight / 2.0 + topLeft.y);
+            //    height += (int)(leftoverHeight);
+            //    x = (int)(x / 2 * 2.5);     //divide by original density then multiple by current density
+            //    //x = (int)(x - width * yRatio / 2.0 );
+            //    //width = (int)(width * yRatio);
+
+            //    //var offsetY = leftoverHeigh / 2.0 + topLeft.y;
+            //    //y += (int)leftoverHeigh;
+            //    //height += (int)offsetY;
+            //}
+
             return new Bounds() { X = x, Y = y, W = width, H = height };
         }
         catch (Exception ex)
@@ -524,4 +546,5 @@ public class AndroidWindowManagerService : IInputService, IScreenService
     {
         _accessibilityService.DoClick(x, y);
     }
+
 }

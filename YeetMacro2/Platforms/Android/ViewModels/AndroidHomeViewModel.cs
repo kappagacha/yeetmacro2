@@ -92,8 +92,8 @@ public partial class AndriodHomeViewModel : ObservableObject
         IsAccessibilityEnabled = _accessibilityService.HasAccessibilityPermissions;
         _isAppearing = false;
 
-        //IsProjectionServiceEnabled = true;
-        //_windowManagerService.Show(WindowView.PatternsTreeView);
+        IsProjectionServiceEnabled = true;
+        _windowManagerService.Show(WindowView.PatternsTreeView);
     }
 }
 
