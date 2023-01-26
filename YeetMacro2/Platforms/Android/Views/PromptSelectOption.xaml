@@ -7,8 +7,9 @@
              vm:ViewModelLocator.ViewModelType="{x:Type pvm:PromptSelectOptionViewModel}"
              xmlns:av="clr-namespace:YeetMacro2.Platforms.Android.Views"
              x:Class="YeetMacro2.Platforms.Android.Views.PromptSelectOption">
-    <VerticalStackLayout VerticalOptions="Center" HorizontalOptions="Center">
-        <Label Text="{Binding Message}" />
+    <VerticalStackLayout VerticalOptions="Center" HorizontalOptions="Center"
+                         BackgroundColor="{AppThemeBinding Light={StaticResource Background}, Dark={StaticResource BackgroundDark}}">
+        <Label Text="{Binding Message}" FontSize="Title" FontAttributes="Bold" Margin="5" />
         <CollectionView ItemsSource="{Binding Options}">
             <CollectionView.ItemsLayout>
                 <LinearItemsLayout Orientation="Vertical" ItemSpacing="5"  />

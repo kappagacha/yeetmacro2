@@ -9,6 +9,6 @@ public interface IScreenService
     Bounds TransformBounds(Bounds originalBounds, Resolution originalResolution);
     void DrawRectangle(int x, int y, int width, int height);
     void DrawCircle(int x, int y);
-    Task<List<Point>> GetMatches(PatternBase template, int limit = 1);
+    Task<List<Point>> GetMatches(PatternBase template, FindOptions opts);
     void DoClick(float x, float y);
 }

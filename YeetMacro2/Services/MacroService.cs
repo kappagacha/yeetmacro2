@@ -12,11 +12,17 @@ public class FindPatternResult
     public Point[] Points { get; set; }
 }
 
+public class FindOptions
+{
+    public int Limit { get; set; }
+    public double Threshold { get; set; }
+}
+
 public interface IMacroService
 {
     dynamic BuildDynamicObject(CancellationToken token);
     Task<FindPatternResult> ClickPattern(PatternBase pattern);
-    Task<FindPatternResult> FindPattern(PatternBase pattern);
+    Task<FindPatternResult> FindPattern(PatternBase pattern, FindOptions opts);
 }
 
 public class MacroService : IMacroService
@@ -30,12 +36,12 @@ public class MacroService : IMacroService
         _toastService = toastService;
     }
 
-    public async Task<FindPatternResult> FindPattern(PatternBase pattern)
+    public async Task<FindPatternResult> FindPattern(PatternBase pattern, FindOptions opts = null)
     {
         try
         {
             var bounds = pattern.Bounds;
-            var points = await _screenService.GetMatches(pattern);
+            var points = await _screenService.GetMatches(pattern, opts);
 
             var result = new FindPatternResult();
             result.IsSuccess = points.Count > 0;
@@ -75,16 +81,22 @@ public class MacroService : IMacroService
         }
     }
 
-    private FindPatternResult DynamicFindPattern(dynamic p)
+    private FindPatternResult DynamicFindPattern(dynamic p, dynamic o)
     {
         FindPatternResult result;
+
+        FindOptions opts = new FindOptions() {
+            Limit = DynamicHelper.GetProperty(o, "limit", 1),
+            Threshold = DynamicHelper.GetProperty(o, "threshold", 0.0)
+        };
+
         if (p.metadata.IsMultiPattern)
         {
             var points = new List<Point>();
             var multiResult = new FindPatternResult();
-            foreach (PatternBase pattern in p.Patterns)
+            foreach (PatternBase pattern in p.patterns)
             {
-                var singleResult = FindPattern(pattern).Result;
+                var singleResult = FindPattern(pattern, opts).Result;
                 if (singleResult.IsSuccess)
                 {
                     points.AddRange(singleResult.Points);
@@ -97,19 +109,18 @@ public class MacroService : IMacroService
         else
         {
             PatternBase pattern = (PatternBase)p.patterns[0];
-            result = FindPattern(pattern).Result;
+            result = FindPattern(pattern, opts).Result;
         }
 
         result.Path = p.path;
         return result;
     }
 
-    // TODO: pass cancelation token here for polling
     public dynamic BuildDynamicObject(CancellationToken token)
     {
         dynamic dynamicObject = new ExpandoObject();
 
-        dynamicObject.findPattern = new Func<dynamic, FindPatternResult>((p) =>
+        dynamicObject.findPattern = new Func<dynamic, dynamic, FindPatternResult>((p, o) =>
         {
             if (p is Array)
             {
@@ -120,7 +131,7 @@ public class MacroService : IMacroService
                         return null;
                     }
 
-                    var result = DynamicFindPattern(pattern);
+                    var result = DynamicFindPattern(pattern, o);
                     if (result.IsSuccess)
                     {
                         return result;
@@ -131,60 +142,88 @@ public class MacroService : IMacroService
             else
             {
                 Console.WriteLine("[*****YeetMacro*****] Find pattern: " + p.path);
-                return DynamicFindPattern(p);
+                return DynamicFindPattern(p, o);
             }
         });
 
-        dynamicObject.clickPattern = new Func<dynamic, FindPatternResult>((p) =>
+        dynamicObject.clickPattern = new Func<dynamic, dynamic, FindPatternResult>((p, o) =>
         {
-            var result = dynamicObject.findPattern(p);
+            dynamic clickOffsetX = DynamicHelper.GetProperty<int>(o, "clickOffsetX", 0);
+            dynamic clickOffsetY = DynamicHelper.GetProperty<int>(o, "clickOffsetY", 0);
+
+            var result = dynamicObject.findPattern(p, o);
             if (result.IsSuccess)
             {
                 foreach (var point in result.Points)
                 {
                     Console.WriteLine("[*****YeetMacro*****] Click pattern: " + p.path);
-                    _screenService.DoClick((float)point.X, (float)point.Y);
+                    _screenService.DoClick((float)(point.X + clickOffsetX), (float)(point.Y + clickOffsetY));
                 }
             }
 
             return result;
         });
 
+        dynamicObject.clickPoint = new Action<Point, dynamic>((p, o) =>
+        {
+            _screenService.DoClick((float)p.X, (float)p.Y);
+        });
+
         dynamicObject.pollPattern = new Func<dynamic, dynamic, FindPatternResult>((p, o) =>
         {
             var patternFound = false;
             dynamic result = null;
+            dynamic intervalDelayms = DynamicHelper.GetProperty<int>(o, "intervalDelayms", 1000);
+            dynamic predicatePattern = DynamicHelper.GetProperty(o, "predicatePattern", null);
+            dynamic touchPattern = DynamicHelper.GetProperty(o, "touchPattern", null);
+            dynamic inversePredicatePattern = DynamicHelper.GetProperty(o, "inversePredicatePattern", null);
 
-            if (o.predicatePattern != null)
+            if (predicatePattern != null || inversePredicatePattern != null)
             {
-                dynamic predicateResult = null;
-
-                var steps = 8;
-                for (int i = 8; ; i++)
+                var inversePatternNotFoundChecks = 0;
+                dynamic predicateCheckSteps = DynamicHelper.GetProperty<int>(o, "predicateCheckSteps", 8);
+                dynamic predicateCheckDelayms = DynamicHelper.GetProperty<int>(o, "predicateCheckDelayms", 250);
+                dynamic predicateOpts = new ExpandoObject();
+                predicateOpts.threshold = DynamicHelper.GetProperty(o, "predicateThreshold", 0.0);
+                
+                for (int i = predicateCheckSteps; ; i++)
                 {
                     if (token.IsCancellationRequested)
                     {
                         return result;
                     }
 
-                    Console.WriteLine("[*****YeetMacro*****] Find predicate pattern: " + o.predicatePattern.path);
-                    predicateResult = dynamicObject.findPattern(o.predicatePattern);
-                    if (predicateResult.IsSuccess)
+                    Console.WriteLine("[*****YeetMacro*****] Find predicate pattern");
+
+
+                    if (predicatePattern != null && dynamicObject.findPattern(predicatePattern, predicateOpts).IsSuccess)
                     {
                         break;
                     }
 
-                    if (i % steps == 0)
+                    if (inversePredicatePattern != null && !dynamicObject.findPattern(inversePredicatePattern, predicateOpts).IsSuccess && ++inversePatternNotFoundChecks >= predicateCheckSteps)
                     {
+                        break;
+                    }
+
+                    if (i % predicateCheckSteps == 0)
+                    {
+                        inversePatternNotFoundChecks = 0;
                         Console.WriteLine("[*****YeetMacro*****] Find pattern: " + p.path);
-                        result = dynamicObject.findPattern(p);
+                        result = dynamicObject.findPattern(p, o);
                         if (o.doClick && result.IsSuccess)
                         {
-                            dynamicObject.clickPattern(p);
+                            dynamicObject.clickPattern(p, o);
+                        }
+                        Thread.Sleep(intervalDelayms);
+
+                        if (touchPattern != null)
+                        {
+                            dynamicObject.clickPattern(touchPattern, o);
                         }
                     }
 
-                    Thread.Sleep(250);
+                    Thread.Sleep(predicateCheckDelayms);
                 }
             }
             else
@@ -196,16 +235,21 @@ public class MacroService : IMacroService
                         return result;
                     }
 
+                    if (touchPattern != null)
+                    {
+                        dynamicObject.clickPattern(touchPattern, o);
+                    }
+
                     Console.WriteLine("[*****YeetMacro*****] Polling pattern: " + p.path);
-                    result = dynamicObject.findPattern(p);
+                    result = dynamicObject.findPattern(p, o);
 
                     patternFound = result.IsSuccess;
                     if (o.doClick && result.IsSuccess)
                     {
-                        dynamicObject.clickPattern(p);
+                        dynamicObject.clickPattern(p, o);
                     }
 
-                    Thread.Sleep(1000);
+                    Thread.Sleep(intervalDelayms);
                 }
             }
 
@@ -213,5 +257,27 @@ public class MacroService : IMacroService
         });
 
         return dynamicObject;
+    }
+}
+
+public static class DynamicHelper
+{
+    public static object GetProperty(dynamic item, string propertyName, object defaultValue)
+    {
+        if (item is ExpandoObject eo && (eo as IDictionary<string, object>).ContainsKey(propertyName))
+        {
+            return (eo as IDictionary<string, object>)[propertyName];
+        }
+
+        return defaultValue;
+    }
+
+    public static T GetProperty<T>(dynamic item, string propertyName, T defaultValue)
+    {
+        if (item is ExpandoObject eo && (eo as IDictionary<string, object>).ContainsKey(propertyName)) {
+            return (T)Convert.ChangeType((eo as IDictionary<string, object>)[propertyName], typeof(T));
+        }
+
+        return defaultValue;
     }
 }

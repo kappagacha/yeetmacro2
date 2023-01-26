@@ -34,6 +34,7 @@ public partial class PatternTreeViewViewModel : TreeViewViewModel<PatternNode, P
     [ObservableProperty]
     bool _isInitialized;
     TaskCompletionSource _initializeCompleted;
+    MemoryStream _imageStream;
 
     public PatternBase SelectedPattern
     {
@@ -43,6 +44,8 @@ public partial class PatternTreeViewViewModel : TreeViewViewModel<PatternNode, P
             SetProperty(ref _selectedPattern, value);
             if (_selectedPattern != null && _selectedPattern.ImageData != null)
             {
+                //_imageStream?.Dispose();
+                //_imageStream = new MemoryStream(_selectedPattern.ImageData);
                 SelectedImageSource = ImageSource.FromStream(() => new MemoryStream(_selectedPattern.ImageData));
             }
         }
@@ -216,6 +219,23 @@ public partial class PatternTreeViewViewModel : TreeViewViewModel<PatternNode, P
     }
 
     [RelayCommand]
+    private void SavePattern(PatternBase pattern)
+    {
+        if (pattern == null)
+        {
+            pattern = ResolveSelectedPattern();
+        }
+
+        if (pattern == null)
+        {
+            return;
+        }
+
+        _patternRepository.Update(pattern);
+        _patternRepository.Save();
+    }
+
+    [RelayCommand]
     private async void SetPatternBounds(object obj)
     {
         ResolveSelectedPattern();
@@ -274,7 +294,7 @@ public partial class PatternTreeViewViewModel : TreeViewViewModel<PatternNode, P
         if (_selectedPattern == null) return;
 
         _screenService.DrawClear();
-        var result = await _macroService.FindPattern(_selectedPattern);
+        var result = await _macroService.FindPattern(_selectedPattern, new FindOptions() { Limit = 10 });
         var points = result.Points;
         _toastService.Show(points != null && points.Length > 0 ? "Match(es) found" : "No match found");
 

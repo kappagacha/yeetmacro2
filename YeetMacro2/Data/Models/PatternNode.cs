@@ -37,6 +37,7 @@ public abstract class PatternBase
     public virtual int ParentNodeId { get; set; }
     public virtual string Name { get; set; }
     public byte[] ImageData { get; set; }
+    public virtual double Threshold { get; set; }
 }
 
 public class Bounds

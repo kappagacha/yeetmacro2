@@ -12,13 +12,25 @@
              x:Class="YeetMacro2.Views.PatternView">
     <Grid Padding="3">
         <Image Source="{Binding PatternTree.SelectedImageSource}" />
-        <StackLayout Orientation="Vertical">
+        <StackLayout Orientation="Vertical" HorizontalOptions="Start" VerticalOptions="Start">
             <StackLayout Margin="0" Padding="0" Orientation="Horizontal">
                 <CheckBox Margin="0" VerticalOptions="Center" IsChecked="{Binding PatternTree.SelectedNode.IsMultiPattern}" />
                 <Label Margin="0" VerticalOptions="Center" Padding="0" Text="MultiPattern" />
             </StackLayout>
-            <StackLayout IsVisible="{Binding PatternTree.SelectedNode.IsMultiPattern}" 
-                         Orientation="Horizontal" HorizontalOptions="Start" VerticalOptions="Start">
+            <StackLayout Margin="0" Padding="0" Orientation="Horizontal">
+                <Entry Margin="0" VerticalOptions="Center" Keyboard="Numeric" Text="{Binding PatternTree.SelectedPattern.Threshold}" />
+                <Label Margin="0" VerticalOptions="Center" Padding="0" Text="Threshold" />
+                <Grid HeightRequest="{Binding Source={StaticResource IconHeight}, Converter={conv:MultiplyByDensityConverter}}"
+                      WidthRequest="{Binding Source={StaticResource IconWidth}, Converter={conv:MultiplyByDensityConverter}}">
+                    <Image Aspect="Fill">
+                        <Image.Source>
+                            <FontImageSource FontFamily="MaterialOutlined" Glyph="{x:Static mi:MaterialOutlined.Save}" Color="{StaticResource Primary}" />
+                        </Image.Source>
+                    </Image>
+                    <ImageButton Command="{Binding PatternTree.SavePatternCommand}" CommandParameter="{Binding PatternTree.SelectedPattern}" />
+                </Grid>
+            </StackLayout>
+            <StackLayout IsVisible="{Binding PatternTree.SelectedNode.IsMultiPattern}" Orientation="Horizontal">
                 <CollectionView ItemsSource="{Binding PatternTree.SelectedNode.Patterns}">
                     <CollectionView.ItemTemplate>
                         <DataTemplate x:DataType="m:PatternBase">

@@ -104,7 +104,11 @@ public class AndroidWindowManagerService : IInputService, IScreenService
             {
                 case WindowView.LogView:
                     var logView = new LogView();
-                    _views.TryAdd(windowView, new ResizeView(_context, _windowManager, this, logView));
+                    logView.InputTransparent = true;
+                    var logAndroidView = new FormsView(_context, _windowManager, logView);
+                    logAndroidView.SetIsTouchable(false);
+                    logAndroidView.SetBackgroundToTransparent();
+                    _views.TryAdd(windowView, logAndroidView);
                     break;
                 case WindowView.ActionView:
                     var actionControl = new ActionControl();
@@ -214,6 +218,7 @@ public class AndroidWindowManagerService : IInputService, IScreenService
     {
         Show(WindowView.UserDrawView);
         var drawControl = (DrawControl)_views[WindowView.UserDrawView].VisualElement;
+        drawControl.ClearRectangles();
         var formsView = (FormsView)_views[WindowView.UserDrawView];
         if (await formsView.WaitForClose())
         {
@@ -314,7 +319,7 @@ public class AndroidWindowManagerService : IInputService, IScreenService
         Close(WindowView.DrawView);
     }
 
-    public async Task<List<Point>> GetMatches(PatternBase template, int limit = 1)
+    public async Task<List<Point>> GetMatches(PatternBase template, FindOptions opts)
     {
         try
         {
@@ -448,7 +453,11 @@ public class AndroidWindowManagerService : IInputService, IScreenService
             if (haystackBitmap == null) return new List<Point>();
 
             //var points = BitmapHelper.SearchBitmap(imageBitmap, resized, 0.0);
-            var points = OpenCvHelper.GetPointsWithMatchTemplate(haystackBitmap, needleBitmap);
+            var threshold = 0.8;
+            if (template.Threshold != 0.0) threshold = template.Threshold;
+            if ((opts?.Threshold ?? 0.0) != 0.0) threshold = opts.Threshold;
+
+            var points = OpenCvHelper.GetPointsWithMatchTemplate(haystackBitmap, needleBitmap, opts?.Limit ?? 1, threshold);
             needleBitmap.Dispose();
             templateBitmap.Dispose();
             haystackBitmap.Dispose();

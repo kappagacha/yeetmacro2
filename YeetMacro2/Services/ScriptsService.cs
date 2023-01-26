@@ -29,10 +29,9 @@ public class ScriptsService : IScriptsService
     {
         Task.Run(async () =>
         {
-            var engine = await CreateEngine();
-
             try
             {
+                var engine = await CreateEngine();
                 engine.Execute($"{script}()", "script.js");
                 _toastService.Show("Script started...");
             }

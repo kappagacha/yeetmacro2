@@ -17,7 +17,7 @@ public partial class DrawControl : ContentView
     SKPaint _greenPaint = new SKPaint
     {
         Color = SKColors.Green,
-        StrokeWidth = 3,
+        StrokeWidth = 6,
         StrokeCap = SKStrokeCap.Round,
         TextSize = 60,
         Style = SKPaintStyle.Stroke
@@ -40,8 +40,8 @@ public partial class DrawControl : ContentView
 	{
 		InitializeComponent();
 
-        _rectangles.Limit = 1;
-        _circles.Limit = 1;
+        _rectangles.Limit = 10;
+        _circles.Limit = 10;
         _windowManagerService = ServiceHelper.GetService<AndroidWindowManagerService>();
     }
 
@@ -102,7 +102,7 @@ public partial class DrawControl : ContentView
 
         foreach (var c in _circles)
         {
-            canvas.DrawCircle(c.x, c.y, 5, c.paint);
+            canvas.DrawCircle(c.x, c.y, 10, c.paint);
         }
 
         //troubleshoot with a grid

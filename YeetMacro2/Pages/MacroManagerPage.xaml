@@ -15,7 +15,7 @@
              xmlns:material="http://schemas.enisn-projects.io/dotnet/maui/uraniumui/material"
              Title="MacroManagerPage">
     <mct:DockLayout HorizontalSpacing="5" VerticalSpacing="5">
-        <Border Stroke="{StaticResource Primary}" Padding="0">
+        <Border Stroke="{StaticResource Primary}" Padding="0" BackgroundColor="Transparent">
             <HorizontalStackLayout Spacing="5" mct:DockLayout.DockPosition="Top">
                 <Label Text="Macro Set: " Margin="5,0,0,0" FontSize="Body" VerticalOptions="Center" FontAttributes="Bold" />
                 <Picker ItemsSource="{Binding MacroSets}" ItemDisplayBinding="{Binding Name}" SelectedItem="{Binding SelectedMacroSet}" />

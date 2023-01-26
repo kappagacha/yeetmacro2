@@ -10,26 +10,29 @@
              vm:ViewModelLocator.ViewModelType="{x:Type vm:MacroManagerViewModel}"
              xmlns:material="http://schemas.enisn-projects.io/dotnet/maui/uraniumui/material"
              xmlns:fa="clr-namespace:UraniumUI.Icons.FontAwesome;assembly=UraniumUI.Icons.FontAwesome"
+             BackgroundColor="{AppThemeBinding Light={StaticResource Background}, Dark={StaticResource BackgroundDark}}"
              x:Name="thisControl">
     <Grid ColumnDefinitions="*,3*">
-        <Border Stroke="{StaticResource Primary}" Grid.Column="0" Padding="3" BackgroundColor="Transparent">
-            <material:TreeView ItemsSource="{Binding PatternTree.Root.Children}" Spacing="0">
-                <material:TreeView.ItemTemplate>
-                    <DataTemplate x:DataType="m:ParentNode">
-                        <Label Text="{Binding Name}" Margin="0" Padding="0" VerticalOptions="Center" BackgroundColor="Transparent">
-                            <Label.Triggers>
-                                <DataTrigger TargetType="{x:Type Label}" Binding="{Binding IsSelected}" Value="True">
-                                    <Setter Property="BackgroundColor" Value="Blue" />
-                                </DataTrigger>
-                            </Label.Triggers>
-                            <Label.GestureRecognizers>
-                                <TapGestureRecognizer CommandParameter="{Binding .}" Command="{Binding BindingContext.PatternTree.SelectNodeCommand, Source={RelativeSource AncestorType={x:Type v:PatternTreeView}}}" />
-                            </Label.GestureRecognizers>
-                        </Label>
-                    </DataTemplate>
-                </material:TreeView.ItemTemplate>
-            </material:TreeView>
-        </Border>
+        <ScrollView Grid.Column="0">
+            <Border Stroke="{StaticResource Primary}" Padding="3" BackgroundColor="Transparent">
+                <material:TreeView ItemsSource="{Binding PatternTree.Root.Children}" Spacing="0">
+                    <material:TreeView.ItemTemplate>
+                        <DataTemplate x:DataType="m:ParentNode">
+                            <Label Text="{Binding Name}" TextColor="{StaticResource PrimaryDark}" Margin="0" Padding="0" VerticalOptions="Center" BackgroundColor="Transparent">
+                                <Label.Triggers>
+                                    <DataTrigger TargetType="{x:Type Label}" Binding="{Binding IsSelected}" Value="True">
+                                        <Setter Property="BackgroundColor" Value="Blue" />
+                                    </DataTrigger>
+                                </Label.Triggers>
+                                <Label.GestureRecognizers>
+                                    <TapGestureRecognizer CommandParameter="{Binding .}" Command="{Binding BindingContext.PatternTree.SelectNodeCommand, Source={RelativeSource AncestorType={x:Type v:PatternTreeView}}}" />
+                                </Label.GestureRecognizers>
+                            </Label>
+                        </DataTemplate>
+                    </material:TreeView.ItemTemplate>
+                </material:TreeView>
+            </Border>
+        </ScrollView>
         <Grid Grid.Column="0" Padding="5" RowSpacing="5" ColumnSpacing="5">
             <VerticalStackLayout  VerticalOptions="End" HorizontalOptions="End">
                 <HorizontalStackLayout VerticalOptions="End" HorizontalOptions="End">

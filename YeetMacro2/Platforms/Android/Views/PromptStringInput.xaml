@@ -6,8 +6,9 @@
              x:DataType="pvm:PromptStringInputViewModel"
              vm:ViewModelLocator.ViewModelType="{x:Type pvm:PromptStringInputViewModel}"
              x:Class="YeetMacro2.Platforms.Android.Views.PromptStringInput">
-    <VerticalStackLayout VerticalOptions="Center" HorizontalOptions="Center">
-        <Label Text="{Binding Message}" />
+    <VerticalStackLayout VerticalOptions="Center" HorizontalOptions="Center"
+                         BackgroundColor="{AppThemeBinding Light={StaticResource Background}, Dark={StaticResource BackgroundDark}}">
+        <Label Text="{Binding Message}" FontSize="Title" FontAttributes="Bold" Margin="5" />
         <Entry x:Name="inputEntry" Text="{Binding Input}" />
         <HorizontalStackLayout>
             <Button Command="{Binding CancelCommand}" Text="Cancel" BackgroundColor="Red" />

@@ -12,8 +12,9 @@ namespace YeetMacro2.ViewModels;
 public interface IProxyNotifyPropertyChanged : INotifyPropertyChanged
 {
     void OnPropertyChanged(string propertyChanged);
-    Color Color { get; set; }
-    Color BorderColor { get; set; }
+    //Boolean IsLeaf { get; }
+    //Color Color { get; set; }
+    //Color BorderColor { get; set; }
 }
 
 //https://kozmic.net/2009/08/12/castle-dynamic-proxy-tutorial-part-xiii-mix-in-this-mix/
@@ -24,8 +25,10 @@ public class ProxyViewModel : IProxyNotifyPropertyChanged
     static IMapper _mapper;
     static MethodInfo _createCollectionMethodInfo = typeof(ProxyViewModel).GetMethod(nameof(ProxyViewModel.CreateCollection));
     //https://github.com/xamarin/XamarinCommunityToolkit/issues/420
-    public Color Color { get; set; } = Colors.Transparent;
-    public Color BorderColor { get; set; } = Colors.Transparent;
+    //public Color Color { get; set; } = Colors.Transparent;
+    //public Color BorderColor { get; set; } = Colors.Transparent;
+    //public Boolean IsLeaf { get; } = false;
+
     static ProxyViewModel()
     {
         _mapper = ServiceHelper.GetService<IMapper>();

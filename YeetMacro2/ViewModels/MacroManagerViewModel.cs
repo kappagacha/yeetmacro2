@@ -216,7 +216,7 @@ public partial class MacroManagerViewModel : ObservableObject
             }
             _scriptRespository.Save();
         }
-        _toastService.Show($"Imported Patterns: {_selectedMacroSet.Name})");
+        _toastService.Show($"Imported Patterns: {_selectedMacroSet.Name}");
     }
 
     [RelayCommand]
