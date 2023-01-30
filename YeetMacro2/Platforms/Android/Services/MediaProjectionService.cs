@@ -8,6 +8,7 @@ using Android.Widget;
 using static Android.Graphics.Bitmap;
 
 namespace YeetMacro2.Platforms.Android.Services;
+
 //https://github.com/xamarin/monodroid-samples/blob/main/android5.0/ScreenCapture/ScreenCapture/ScreenCaptureFragment.cs
 //https://github.com/Fate-Grand-Automata/FGA/blob/de9c69e10aec990a061c049f0bf3ca3c253d199b/app/src/main/java/com/mathewsachin/fategrandautomata/imaging/MediaProjectionScreenshotService.kt
 //https://medium.com/jamesob-com/recording-your-android-screen-7e0e75aae260
@@ -39,7 +40,6 @@ public class MediaProjectionService
             Console.WriteLine("[*****YeetMacro*****] MediaProjectionService Init");
             _context = (MainActivity)Platform.CurrentActivity;
             _mediaProjectionManager = (MediaProjectionManager)_context.GetSystemService(Context.MediaProjectionService);
-            DeviceDisplay.MainDisplayInfoChanged += DeviceDisplay_MainDisplayInfoChanged;
         }
         catch (Exception ex)
         {
@@ -81,6 +81,7 @@ public class MediaProjectionService
         InitVirtualDisplay();
         Toast.MakeText(_context, "Media projection started...", ToastLength.Short).Show();
         _startCompleted.SetResult(true);
+        DeviceDisplay.MainDisplayInfoChanged += DeviceDisplay_MainDisplayInfoChanged;
     }
 
     private void InitVirtualDisplay()
@@ -174,6 +175,8 @@ public class MediaProjectionService
 
     public void Stop()
     {
+        DeviceDisplay.MainDisplayInfoChanged -= DeviceDisplay_MainDisplayInfoChanged;
+
         if (_mediaProjection != null)
         {
             _mediaProjection.Stop();
@@ -192,6 +195,7 @@ public class MediaProjectionService
             _virtualDisplay.Dispose();
             _virtualDisplay = null;
         }
+
         Toast.MakeText(_context, "Media projection stopped...", ToastLength.Short).Show();
     }
 
@@ -236,5 +240,23 @@ public class MediaProjectionService
         ms.Position = 0;
         var decoded = BitmapFactory.DecodeStream(ms);
         return (TBitmap)(Object)decoded;
+    }
+
+    public async Task TakeScreenCapture()
+    {
+        var ms = await GetCurrentImageStream();
+        byte[] bArray = new byte[ms.Length];
+
+        var folder = global::Android.OS.Environment.GetExternalStoragePublicDirectory(global::Android.OS.Environment.DirectoryPictures).Path;
+        var file = System.IO.Path.Combine(folder, $"{DateTime.Now.ToString("screencapture_yyyyMMdd_HHmmss")}.mp4");
+        using (FileStream fs = new FileStream(file, FileMode.OpenOrCreate))
+        {
+            using (ms)
+            {
+                ms.Read(bArray, 0, (int)ms.Length);
+            }
+            int length = bArray.Length;
+            fs.Write(bArray, 0, length);
+        }
     }
 }

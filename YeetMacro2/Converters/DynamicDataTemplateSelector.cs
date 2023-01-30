@@ -25,7 +25,6 @@ public class DynamicDataTemplateSelector : DataTemplateSelector, IMarkupExtensio
 
     protected override DataTemplate OnSelectTemplate(object item, BindableObject container)
     {
-        var x = GetResourceSource(container);
         var source = (VisualElement)GetResourceSource(container);
         if (source == null) return null;
 

@@ -12,8 +12,6 @@ public partial class AndriodHomeViewModel : ObservableObject
     bool _isAccessibilityEnabled;
     [ObservableProperty]
     bool _isAppearing;
-    [ObservableProperty]
-    bool _showLogView;
     private AndroidWindowManagerService _windowManagerService;
     private YeetAccessibilityService _accessibilityService;
 
@@ -68,19 +66,6 @@ public partial class AndriodHomeViewModel : ObservableObject
         else
         {
             _windowManagerService.RevokeAccessibilityPermissions();
-        }
-    }
-
-    [RelayCommand]
-    public void ToggleLogView()
-    {
-        if (ShowLogView)
-        {
-            _windowManagerService.Show(WindowView.LogView);
-        }
-        else
-        {
-            _windowManagerService.Close(WindowView.LogView);
         }
     }
 

@@ -33,6 +33,7 @@ public class AndroidWindowManagerService : IInputService, IScreenService
     IWindowManager _windowManager;
     MediaProjectionService _mediaProjectionService;
     YeetAccessibilityService _accessibilityService;
+    RecorderService _screenRecordService;
     ConcurrentDictionary<WindowView, IShowable> _views = new ConcurrentDictionary<WindowView, IShowable>();
     FormsView _windowView;
     ConcurrentDictionary<string, (int x, int y)> _packageToStatusBarHeight = new ConcurrentDictionary<string, (int x, int y)>();
@@ -40,12 +41,13 @@ public class AndroidWindowManagerService : IInputService, IScreenService
     public int OverlayWidth => _windowView == null ? 0 : _windowView.MeasuredWidthAndState;
     public int OverlayHeight => _windowView == null ? 0 : _windowView.MeasuredHeightAndState;
     public int DisplayCutoutTop => _windowView == null ? 0 : _windowView.RootWindowInsets.DisplayCutout?.SafeInsetTop ?? 0;
-    public AndroidWindowManagerService(MediaProjectionService mediaProjectionService, YeetAccessibilityService accessibilityService)
+    public AndroidWindowManagerService(MediaProjectionService mediaProjectionService, YeetAccessibilityService accessibilityService, RecorderService screenRecordService)
     {
         _context = (MainActivity)Microsoft.Maui.ApplicationModel.Platform.CurrentActivity;
         _windowManager = _context.GetSystemService(Context.WindowService).JavaCast<IWindowManager>();
         _mediaProjectionService = mediaProjectionService;
         _accessibilityService = accessibilityService;
+        _screenRecordService = screenRecordService;
 
         DeviceDisplay.MainDisplayInfoChanged += DeviceDisplay_MainDisplayInfoChanged;
         _displayWidth = DeviceDisplay.MainDisplayInfo.Width;
@@ -104,10 +106,12 @@ public class AndroidWindowManagerService : IInputService, IScreenService
             {
                 case WindowView.LogView:
                     var logView = new LogView();
-                    logView.InputTransparent = true;
-                    var logAndroidView = new FormsView(_context, _windowManager, logView);
-                    logAndroidView.SetIsTouchable(false);
-                    logAndroidView.SetBackgroundToTransparent();
+                    var logAndroidView = new StaticView(_context, _windowManager, logView);
+                    logAndroidView.SetUpLayoutParameters(lp =>
+                    {
+                        lp.Gravity = GravityFlags.Bottom;
+                        lp.Width = WindowManagerLayoutParams.MatchParent;
+                    });
                     _views.TryAdd(windowView, logAndroidView);
                     break;
                 case WindowView.ActionView:
@@ -381,70 +385,6 @@ public class AndroidWindowManagerService : IInputService, IScreenService
                 return new List<Point>();
             }
 
-            //{
-            //    var name = "haystack.png";
-            //    //var picturesPath = "/storage/emulated/0/Pictures";
-            //    var x = global::Android.App.Application.Context.GetExternalFilesDir(global::Android.OS.Environment.DirectoryPictures);
-            //    var filePath = System.IO.Path.Combine(x.Path, name);
-
-            //    MemoryStream ms = new MemoryStream();
-            //    imageBitmap.Compress(Bitmap.CompressFormat.Png, 100, ms);
-            //    ms.Position = 0;
-
-            //    byte[] bArray = new byte[ms.Length];
-            //    using (FileStream fs = new FileStream(filePath, FileMode.OpenOrCreate))
-            //    {
-            //        using (ms)
-            //        {
-            //            ms.Read(bArray, 0, (int)ms.Length);
-            //        }
-            //        int length = bArray.Length;
-            //        fs.Write(bArray, 0, length);
-            //    }
-            //}
-
-            //{
-            //    var name = "resized_original.png";
-            //    var picturesPath = "/storage/emulated/0/Pictures";
-            //    var filePath = System.IO.Path.Combine(picturesPath, name);
-
-            //    MemoryStream ms = new MemoryStream();
-            //    templateBitmap.Compress(CompressFormat.Png, 100, ms);
-            //    ms.Position = 0;
-
-            //    byte[] bArray = new byte[ms.Length];
-            //    using (FileStream fs = new FileStream(filePath, FileMode.OpenOrCreate))
-            //    {
-            //        using (ms)
-            //        {
-            //            ms.Read(bArray, 0, (int)ms.Length);
-            //        }
-            //        int length = bArray.Length;
-            //        fs.Write(bArray, 0, length);
-            //    }
-            //}
-
-            //{
-            //    var name = "resized_needle.png";
-            //    var picturesPath = "/storage/emulated/0/Pictures";
-            //    var filePath = System.IO.Path.Combine(picturesPath, name);
-
-            //    MemoryStream ms = new MemoryStream();
-            //    resized.Compress(CompressFormat.Png, 100, ms);
-            //    ms.Position = 0;
-
-            //    byte[] bArray = new byte[ms.Length];
-            //    using (FileStream fs = new FileStream(filePath, FileMode.OpenOrCreate))
-            //    {
-            //        using (ms)
-            //        {
-            //            ms.Read(bArray, 0, (int)ms.Length);
-            //        }
-            //        int length = bArray.Length;
-            //        fs.Write(bArray, 0, length);
-            //    }
-            //}
-
             //imageBitmap.Dispose();
             //resized.Dispose();
             //return new List<Point>() { new Point(100, 50) };
@@ -556,4 +496,18 @@ public class AndroidWindowManagerService : IInputService, IScreenService
         _accessibilityService.DoClick(x, y);
     }
 
+    public async Task ScreenCapture()
+    {
+        await _mediaProjectionService.TakeScreenCapture();
+    }
+
+    public void StartRecording()
+    {
+        _screenRecordService.Start();
+    }
+
+    public void StopRecording()
+    {
+        _screenRecordService.Stop();
+    }
 }

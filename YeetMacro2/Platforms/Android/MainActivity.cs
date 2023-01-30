@@ -35,6 +35,9 @@ public class MainActivity : MauiAppCompatActivity
             case YeetMacro2.Platforms.Android.Services.MediaProjectionService.REQUEST_MEDIA_PROJECTION:
                 ServiceHelper.GetService<MediaProjectionService>().Start(resultCode, data);
                 break;
+            case YeetMacro2.Platforms.Android.Services.RecorderService.REQUEST_SCREEN_RECORD:
+                ServiceHelper.GetService<RecorderService>().Start(resultCode, data);
+                break;
         }
     }
 

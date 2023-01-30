@@ -20,7 +20,7 @@
         <Label Grid.Row="0" Text="YeetMacro" HorizontalTextAlignment="Center" FontSize="Title" FontAttributes="Bold" />
         <ScrollView Grid.Row="1">
             <VerticalStackLayout Padding="30,24,30,24" Spacing="10" BindingContext="{Binding BindingContext, Source={RelativeSource AncestorType={x:Type pgs:HomePage}}}">
-                <Grid RowDefinitions="Auto,Auto,Auto" ColumnDefinitions="Auto,*">
+                <Grid RowDefinitions="Auto,Auto" ColumnDefinitions="Auto,*">
                     <Switch Grid.Row="0" Grid.Column="0" IsToggled="{Binding IsProjectionServiceEnabled, Mode=TwoWay}">
                         <Switch.Behaviors>
                             <mct:EventToCommandBehavior
@@ -45,20 +45,6 @@
                     <Label Grid.Row="1" Grid.Column="1" VerticalTextAlignment="Center" Text="Accessibility Service">
                         <Label.Triggers>
                             <DataTrigger TargetType="Label" Binding="{Binding IsAccessibilityEnabled}" Value="True">
-                                <Setter Property="TextColor" Value="Green" />
-                            </DataTrigger>
-                        </Label.Triggers>
-                    </Label>
-                    <Switch Grid.Row="2" Grid.Column="0" IsToggled="{Binding ShowLogView, Mode=TwoWay}">
-                        <Switch.Behaviors>
-                            <mct:EventToCommandBehavior
-                                    EventName="Toggled"
-                                    Command="{Binding ToggleLogViewCommand}" />
-                        </Switch.Behaviors>
-                    </Switch>
-                    <Label Grid.Row="2" Grid.Column="1" VerticalTextAlignment="Center" Text="LogView">
-                        <Label.Triggers>
-                            <DataTrigger TargetType="Label" Binding="{Binding ShowLogView}" Value="True">
                                 <Setter Property="TextColor" Value="Green" />
                             </DataTrigger>
                         </Label.Triggers>

@@ -1,6 +1,5 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
-using Java.Security;
 using YeetMacro2.Data.Models;
 using YeetMacro2.Platforms.Android.Services;
 using YeetMacro2.Services;
@@ -11,6 +10,8 @@ public partial class ActionMenuViewModel : ObservableObject
     IToastService _toastService;
     AndroidWindowManagerService _windowManagerService;
     YeetAccessibilityService _accessibilityService;
+    [ObservableProperty]
+    bool _showLogView;
 
     public Resolution CurrentResolution => new Resolution()
     {
@@ -69,5 +70,25 @@ public partial class ActionMenuViewModel : ObservableObject
         _toastService.Show("Exiting...");
         _windowManagerService.StopProjectionService();
         _windowManagerService.Close(WindowView.ActionMenuView);
+    }
+
+    [RelayCommand]
+    public async Task ScreenCapture()
+    {
+        _toastService.Show("ScreenCapture...");
+        await _windowManagerService.ScreenCapture();
+    }
+
+    [RelayCommand]
+    public void ToggleLogView()
+    {
+        if (ShowLogView)
+        {
+            _windowManagerService.Show(WindowView.LogView);
+        }
+        else
+        {
+            _windowManagerService.Close(WindowView.LogView);
+        }
     }
 }

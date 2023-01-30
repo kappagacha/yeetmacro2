@@ -3,7 +3,6 @@ using Android.Graphics;
 using Android.Views;
 using Android.Widget;
 using Microsoft.Maui.Platform;
-using YeetMacro2.Services;
 using Color = Android.Graphics.Color;
 
 namespace YeetMacro2.Platforms.Android.Views;
@@ -21,9 +20,6 @@ public class MoveView : LinearLayout, IShowable
     TaskCompletionSource<bool> _closeCompleted;
     enum FormState { SHOWING, CLOSED };
     int _x, _y;
-    public Action OnPlay { get; set; }
-    public Action OnAction { get; set; }
-    public Action OnLongClick { get; set; }
     private VisualElement _visualElement;
     public VisualElement VisualElement => _visualElement;
     bool _isMoving = false;
