@@ -8,7 +8,9 @@ public partial class LogViewModel : ObservableObject
 {
     IRecorderService _recorderService;
     [ObservableProperty]
-    string _message;
+    string _debug;
+    [ObservableProperty]
+    string _info;
     [ObservableProperty]
     bool _isRecording;
 

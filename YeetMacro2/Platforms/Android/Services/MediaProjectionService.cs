@@ -248,7 +248,7 @@ public class MediaProjectionService
         byte[] bArray = new byte[ms.Length];
 
         var folder = global::Android.OS.Environment.GetExternalStoragePublicDirectory(global::Android.OS.Environment.DirectoryPictures).Path;
-        var file = System.IO.Path.Combine(folder, $"{DateTime.Now.ToString("screencapture_yyyyMMdd_HHmmss")}.mp4");
+        var file = System.IO.Path.Combine(folder, $"{DateTime.Now.ToString("screencapture_yyyyMMdd_HHmmss")}.jpeg");
         using (FileStream fs = new FileStream(file, FileMode.OpenOrCreate))
         {
             using (ms)

@@ -1,4 +1,6 @@
-﻿using System.Dynamic;
+﻿
+using Microsoft.Extensions.Logging;
+using System.Dynamic;
 using YeetMacro2.Data.Models;
 using Point = Microsoft.Maui.Graphics.Point;
 
@@ -27,11 +29,13 @@ public interface IMacroService
 
 public class MacroService : IMacroService
 {
+    ILogger _logger;
     IScreenService _screenService;
     IToastService _toastService;
     public bool InDebugMode { get; set; }
-    public MacroService(IScreenService screenService, IToastService toastService)
+    public MacroService(ILogger<MacroService> logger, IScreenService screenService, IToastService toastService)
     {
+        _logger = logger;
         _screenService = screenService;
         _toastService = toastService;
     }
@@ -83,6 +87,7 @@ public class MacroService : IMacroService
 
     private FindPatternResult DynamicFindPattern(dynamic p, dynamic o)
     {
+        _logger.LogDebug($"Find: {p.path}");
         FindPatternResult result;
 
         FindOptions opts = new FindOptions() {

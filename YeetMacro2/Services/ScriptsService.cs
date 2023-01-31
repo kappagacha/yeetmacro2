@@ -1,5 +1,6 @@
 ﻿using Jint;
 using Jint.Runtime;
+using Microsoft.Extensions.Logging;
 using YeetMacro2.ViewModels;
 
 namespace YeetMacro2.Services;
@@ -12,13 +13,16 @@ public interface IScriptsService
 
 public class ScriptsService : IScriptsService
 {
+    ILogger _logger;
     CancellationTokenSource _cancellationTokenSource;
     MacroManagerViewModel _macroManagerViewModel;
     LogViewModel _logViewModel;
     IMacroService _macroService;
     IToastService _toastService;
-    public ScriptsService(MacroManagerViewModel macroManagerViewModel, LogViewModel logViewModel, IMacroService macroService, IToastService toastService)
+    public ScriptsService(ILogger<ScriptsService> logger, MacroManagerViewModel macroManagerViewModel, 
+        LogViewModel logViewModel, IMacroService macroService, IToastService toastService)
     {
+        _logger = logger;
         _macroManagerViewModel = macroManagerViewModel;
         _logViewModel = logViewModel;
         _macroService = macroService;
@@ -66,13 +70,7 @@ public class ScriptsService : IScriptsService
         var patterns = treeViewViewModel.Root.BuildDynamicObject();
         
         var engine = new Engine(opt => opt.CancellationToken(_cancellationTokenSource.Token))
-                .SetValue("log", new Action<object>(Console.WriteLine))
-                //.SetValue("logSomething", new Action<object>((obj) => {
-                //    //var elapsed = stopWatch.Elapsed.ToString(@"hh\:mm\:ss");
-                //    var message = $"[*****YeetMacro*****] {elapsed} Doing something: " + Guid.NewGuid();
-                //    _logViewModel.Message = message;
-                //    Console.WriteLine(message);
-                //}))
+                .SetValue("log", new Action<string>((msg) => _logger.LogInformation(msg)))
                 .SetValue("sleep", new Action<int>((ms) => Thread.Sleep(ms)))
                 .SetValue("patterns", patterns)
                 .SetValue("macroService", _macroService.BuildDynamicObject(_cancellationTokenSource.Token));

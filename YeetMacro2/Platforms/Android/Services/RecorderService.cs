@@ -27,13 +27,21 @@ public class RecorderService : IRecorderService
 
     public RecorderService()
     {
-        _context = (MainActivity)Platform.CurrentActivity;
-        _mediaProjectionManager = (MediaProjectionManager)_context.GetSystemService(Context.MediaProjectionService);
     }
 
     public void Start()
     {
         if (_isRecording) return;
+
+        if (_context == null)
+        {
+            _context = (MainActivity)Platform.CurrentActivity;
+        }
+
+        if (_mediaProjectionManager == null)
+        {
+            _mediaProjectionManager = (MediaProjectionManager)_context.GetSystemService(Context.MediaProjectionService);
+        }
 
         _context.StartActivityForResult(_mediaProjectionManager.CreateScreenCaptureIntent(), YeetMacro2.Platforms.Android.Services.RecorderService.REQUEST_SCREEN_RECORD);
     }
@@ -82,7 +90,7 @@ public class RecorderService : IRecorderService
         _mediaRecorder.SetVideoEncoder(profile.VideoCodec);
         _mediaRecorder.SetVideoEncodingBitRate(profile.VideoBitRate);
         _mediaRecorder.SetVideoFrameRate(profile.VideoFrameRate);
-        _mediaRecorder.SetVideoSize(width, height);
+        _mediaRecorder.SetVideoSize(width, height);     // weird resolutions will fail on prepare. ex: 1080x2350
 
         var folder = global::Android.OS.Environment.GetExternalStoragePublicDirectory(global::Android.OS.Environment.DirectoryPictures).Path;
         var file = System.IO.Path.Combine(folder, $"{DateTime.Now.ToString("recording_yyyyMMdd_HHmmss")}.mp4");

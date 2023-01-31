@@ -1,6 +1,7 @@
 ﻿using YeetMacro2.Data.Models;
 
 namespace YeetMacro2.Converters;
+
 //https://docs.microsoft.com/en-us/xamarin/xamarin-forms/app-fundamentals/templates/data-templates/selector
 //https://codemilltech.com/attached-properties-what-are-they-good-for/
 public class DynamicDataTemplateSelector : DataTemplateSelector, IMarkupExtension

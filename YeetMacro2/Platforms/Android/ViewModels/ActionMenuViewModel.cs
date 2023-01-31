@@ -1,5 +1,6 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
+using Microsoft.Extensions.Logging;
 using YeetMacro2.Data.Models;
 using YeetMacro2.Platforms.Android.Services;
 using YeetMacro2.Services;
@@ -7,6 +8,7 @@ using YeetMacro2.Services;
 namespace YeetMacro2.Platforms.Android.ViewModels;
 public partial class ActionMenuViewModel : ObservableObject
 {
+    ILogger _logger;
     IToastService _toastService;
     AndroidWindowManagerService _windowManagerService;
     YeetAccessibilityService _accessibilityService;
@@ -33,8 +35,9 @@ public partial class ActionMenuViewModel : ObservableObject
     // TODO: Make this depend on current MacroSet
     public bool HasValidResolution => DeviceDisplay.MainDisplayInfo.Width == 1080 && DeviceDisplay.MainDisplayInfo.Height == 1920;
 
-    public ActionMenuViewModel(IToastService toastService, AndroidWindowManagerService windowManagerService, YeetAccessibilityService accessibilityService)
+    public ActionMenuViewModel(ILogger<ActionViewModel> logger, IToastService toastService, AndroidWindowManagerService windowManagerService, YeetAccessibilityService accessibilityService)
     {
+        _logger = logger;
         _toastService = toastService;
         _windowManagerService = windowManagerService;
         _accessibilityService = accessibilityService;
@@ -76,6 +79,7 @@ public partial class ActionMenuViewModel : ObservableObject
     public async Task ScreenCapture()
     {
         _toastService.Show("ScreenCapture...");
+        _logger.LogDebug("ScreenCapture");
         await _windowManagerService.ScreenCapture();
     }
 

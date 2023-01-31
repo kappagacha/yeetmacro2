@@ -9,8 +9,12 @@
              x:Class="YeetMacro2.Views.LogView"
              xmlns:mi="clr-namespace:UraniumUI.Icons.MaterialIcons;assembly=UraniumUI.Icons.MaterialIcons"
              HeightRequest="20">
-    <mct:DockLayout BackgroundColor="Blue">
-        <Grid mct:DockLayout.DockPosition="Right" ColumnDefinitions="Auto,Auto">
+    <Grid BackgroundColor="Blue">
+        <Grid ColumnDefinitions="*,*">
+            <Label Grid.Column="0" Text="{Binding Info}" />
+            <Label Grid.Column="1" Text="{Binding Debug}" />
+        </Grid>
+        <Grid ColumnDefinitions="Auto,Auto" HorizontalOptions="End">
             <Switch Grid.Column="0" IsToggled="{Binding IsRecording, Mode=TwoWay}">
                 <Switch.Behaviors>
                     <mct:EventToCommandBehavior
@@ -35,6 +39,5 @@
                 </Image.Source>
             </Image>
         </Grid>
-        <Label Text="{Binding Message}" />
-    </mct:DockLayout>
+    </Grid>
 </ContentView>
