@@ -49,11 +49,6 @@ public static class OpenCvHelper
         return matches;
     }
 
-    //var resultBitmap = XamarinApp.Droid.OpenCv.Utils.GetBitmapWithMatchTemplate(imageBitmap, templateBitmap);
-    //MemoryStream ms = new MemoryStream();
-    //resultBitmap.Compress(CompressFormat.Jpeg, 100, ms);
-    //ms.Position = 0;
-    //await _fileService.SavePicture("testImage.jpeg", ms);
     public static global::Android.Graphics.Bitmap GetBitmapWithMatchTemplate(global::Android.Graphics.Bitmap haystackBitmap, global::Android.Graphics.Bitmap needleBitmap, int limit = 1, double threshold = 0.8)
     {
         //https://answers.opencv.org/question/52722/what-is-the-correct-way-to-convert-a-mat-to-a-bitmap/

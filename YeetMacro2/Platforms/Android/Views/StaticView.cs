@@ -23,6 +23,9 @@ public class StaticView : RelativeLayout, IShowable
         _layoutParams.Type = WindowManagerTypes.ApplicationOverlay;
         _layoutParams.Format = Format.Translucent;
         _layoutParams.Flags |= WindowManagerFlags.NotFocusable;
+        _layoutParams.Flags |= WindowManagerFlags.TranslucentNavigation;
+        //_layoutParams.Flags |= WindowManagerFlags.LayoutInsetDecor;
+        _layoutParams.Flags |= WindowManagerFlags.LayoutNoLimits;
         _layoutParams.Width = WindowManagerLayoutParams.WrapContent;
         _layoutParams.Height = WindowManagerLayoutParams.WrapContent;
         SetBackgroundColor(Color.Argb(70, 0, 0, 0));

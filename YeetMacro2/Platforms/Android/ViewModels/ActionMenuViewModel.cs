@@ -12,8 +12,9 @@ public partial class ActionMenuViewModel : ObservableObject
     IToastService _toastService;
     AndroidWindowManagerService _windowManagerService;
     YeetAccessibilityService _accessibilityService;
+    IMacroService _macroService;
     [ObservableProperty]
-    bool _showLogView;
+    bool _showLogView, _inDebugMode;
 
     public Resolution CurrentResolution => new Resolution()
     {
@@ -35,12 +36,14 @@ public partial class ActionMenuViewModel : ObservableObject
     // TODO: Make this depend on current MacroSet
     public bool HasValidResolution => DeviceDisplay.MainDisplayInfo.Width == 1080 && DeviceDisplay.MainDisplayInfo.Height == 1920;
 
-    public ActionMenuViewModel(ILogger<ActionViewModel> logger, IToastService toastService, AndroidWindowManagerService windowManagerService, YeetAccessibilityService accessibilityService)
+    public ActionMenuViewModel(ILogger<ActionViewModel> logger, IToastService toastService, AndroidWindowManagerService windowManagerService,
+        YeetAccessibilityService accessibilityService, IMacroService macroService)
     {
         _logger = logger;
         _toastService = toastService;
         _windowManagerService = windowManagerService;
         _accessibilityService = accessibilityService;
+        _macroService = macroService;
     }
 
     [RelayCommand]
@@ -93,6 +96,19 @@ public partial class ActionMenuViewModel : ObservableObject
         else
         {
             _windowManagerService.Close(WindowView.LogView);
+        }
+    }
+
+    [RelayCommand]
+    public void ToggleDebugMode()
+    {
+        _macroService.InDebugMode = InDebugMode;
+        if (!InDebugMode)
+        {
+            _windowManagerService.Close(WindowView.DebugDrawView);
+        } else
+        {
+            _windowManagerService.Show(WindowView.DebugDrawView);
         }
     }
 }

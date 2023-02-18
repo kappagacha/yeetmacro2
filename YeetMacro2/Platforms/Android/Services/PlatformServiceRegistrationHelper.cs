@@ -26,11 +26,10 @@ public static class PlatformServiceRegistrationHelper
         mauiAppBuilder.Services.AddSingleton<PromptSelectOptionViewModel>();
         mauiAppBuilder.Services.AddSingleton<AndroidWindowManagerService>();
         mauiAppBuilder.Services.AddSingleton<MediaProjectionService>();
-        mauiAppBuilder.Services.AddSingleton<RecorderService>();
         mauiAppBuilder.Services.AddSingleton<YeetAccessibilityService>();
         mauiAppBuilder.Services.AddSingleton<IScreenService>(sp => sp.GetRequiredService<AndroidWindowManagerService>());
         mauiAppBuilder.Services.AddSingleton<IInputService>(sp => sp.GetRequiredService<AndroidWindowManagerService>());
-        mauiAppBuilder.Services.AddSingleton<IRecorderService>(sp => sp.GetRequiredService<RecorderService>());
+        mauiAppBuilder.Services.AddSingleton<IRecorderService>(sp => sp.GetRequiredService<MediaProjectionService>());
 
         // https://github.com/xamarin/XamarinCommunityToolkit/issues/1905
         mauiAppBuilder

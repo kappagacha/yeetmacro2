@@ -8,13 +8,37 @@
              xmlns:mct="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
              x:Class="YeetMacro2.Views.LogView"
              xmlns:mi="clr-namespace:UraniumUI.Icons.MaterialIcons;assembly=UraniumUI.Icons.MaterialIcons"
-             HeightRequest="20">
-    <Grid BackgroundColor="Blue">
-        <Grid ColumnDefinitions="*,*">
-            <Label Grid.Column="0" Text="{Binding Info}" />
-            <Label Grid.Column="1" Text="{Binding Debug}" />
+             HeightRequest="10" Padding="0">
+    <Grid BackgroundColor="Blue" Margin="0" Padding="0">
+        <Grid ColumnDefinitions="*,*" Margin="0" Padding="0">
+            <Label Grid.Column="0" FontSize="Micro" Text="{Binding Info}" Padding="0" VerticalTextAlignment="Start" />
+            <Label Grid.Column="1" FontSize="Micro" Text="{Binding Debug}" Padding="0" VerticalTextAlignment="Start" />
         </Grid>
         <Grid ColumnDefinitions="Auto,Auto" HorizontalOptions="End">
+            <Switch Grid.Column="0" IsToggled="{Binding IsRecording, Mode=TwoWay}">
+                <Switch.Behaviors>
+                    <mct:EventToCommandBehavior
+                        EventName="Toggled"
+                        Command="{Binding ToggleRecordingCommand}" />
+                </Switch.Behaviors>
+            </Switch>
+            <Image Grid.Column="1" IsVisible="{Binding IsRecording, Converter={conv:InverseBoolConverter}}"
+                   HeightRequest="{Binding Source={StaticResource IconHeight}, Converter={conv:MultiplyByDensityConverter}}"
+                   WidthRequest="{Binding Source={StaticResource IconWidth}, Converter={conv:MultiplyByDensityConverter}}"
+                   Aspect="Fill">
+                <Image.Source>
+                    <FontImageSource FontFamily="MaterialOutlined" Glyph="{x:Static mi:MaterialOutlined.Radio_button_checked}" Color="Gray" />
+                </Image.Source>
+            </Image>
+            <Image Grid.Column="1" IsVisible="{Binding IsRecording}"
+                   HeightRequest="{Binding Source={StaticResource IconHeight}, Converter={conv:MultiplyByDensityConverter}}"
+                   WidthRequest="{Binding Source={StaticResource IconWidth}, Converter={conv:MultiplyByDensityConverter}}"
+                   Aspect="Fill">
+                <Image.Source>
+                    <FontImageSource  FontFamily="MaterialOutlined" Glyph="{x:Static mi:MaterialOutlined.Radio_button_checked}" Color="Red" />
+                </Image.Source>
+            </Image>
+        </Grid><Grid ColumnDefinitions="Auto,Auto" HorizontalOptions="End">
             <Switch Grid.Column="0" IsToggled="{Binding IsRecording, Mode=TwoWay}">
                 <Switch.Behaviors>
                     <mct:EventToCommandBehavior

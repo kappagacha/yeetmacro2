@@ -19,6 +19,7 @@ public enum WindowView
     PatternsView,
     DrawView,
     UserDrawView,
+    DebugDrawView,
     ActionView,
     ActionMenuView,
     PromptStringInputView,
@@ -33,7 +34,6 @@ public class AndroidWindowManagerService : IInputService, IScreenService
     IWindowManager _windowManager;
     MediaProjectionService _mediaProjectionService;
     YeetAccessibilityService _accessibilityService;
-    RecorderService _screenRecordService;
     ConcurrentDictionary<WindowView, IShowable> _views = new ConcurrentDictionary<WindowView, IShowable>();
     FormsView _windowView;
     ConcurrentDictionary<string, (int x, int y)> _packageToStatusBarHeight = new ConcurrentDictionary<string, (int x, int y)>();
@@ -41,13 +41,12 @@ public class AndroidWindowManagerService : IInputService, IScreenService
     public int OverlayWidth => _windowView == null ? 0 : _windowView.MeasuredWidthAndState;
     public int OverlayHeight => _windowView == null ? 0 : _windowView.MeasuredHeightAndState;
     public int DisplayCutoutTop => _windowView == null ? 0 : _windowView.RootWindowInsets.DisplayCutout?.SafeInsetTop ?? 0;
-    public AndroidWindowManagerService(MediaProjectionService mediaProjectionService, YeetAccessibilityService accessibilityService, RecorderService screenRecordService)
+    public AndroidWindowManagerService(MediaProjectionService mediaProjectionService, YeetAccessibilityService accessibilityService)
     {
         _context = (MainActivity)Microsoft.Maui.ApplicationModel.Platform.CurrentActivity;
         _windowManager = _context.GetSystemService(Context.WindowService).JavaCast<IWindowManager>();
         _mediaProjectionService = mediaProjectionService;
         _accessibilityService = accessibilityService;
-        _screenRecordService = screenRecordService;
 
         DeviceDisplay.MainDisplayInfoChanged += DeviceDisplay_MainDisplayInfoChanged;
         _displayWidth = DeviceDisplay.MainDisplayInfo.Width;
@@ -161,11 +160,18 @@ public class AndroidWindowManagerService : IInputService, IScreenService
                     drawControl.InputTransparent = true;
                     drawView.SetIsTouchable(false);
                     drawView.Click += DrawView_Click;
-                    //drawView.SetBackgroundToTransparent();
+                    drawView.SetBackgroundToTransparent();
                     drawView.DisableTranslucentNavigation();
                     _views.TryAdd(windowView, drawView);
                     break;
-
+                case WindowView.DebugDrawView:
+                    var debugDrawControl = new DrawControl() { InputTransparent = true, CascadeInputTransparent = true };
+                    var debugDrawView = new FormsView(_context, _windowManager, debugDrawControl) { IsModal = false };
+                    debugDrawView.SetIsTouchable(false);
+                    debugDrawView.SetBackgroundToTransparent();
+                    debugDrawView.DisableTranslucentNavigation();
+                    _views.TryAdd(windowView, debugDrawView);
+                    break;
             }
         }
 
@@ -233,12 +239,11 @@ public class AndroidWindowManagerService : IInputService, IScreenService
 
     public void DrawClear()
     {
-        if (_views.ContainsKey(WindowView.DrawView))
-        {
-            var drawControl = (DrawControl)_views[WindowView.DrawView].VisualElement;
-            drawControl.ClearCircles();
-            drawControl.ClearRectangles();
-        }
+        if (!_views.ContainsKey(WindowView.DrawView)) return;
+
+        var drawControl = (DrawControl)_views[WindowView.DrawView].VisualElement;
+        drawControl.ClearCircles();
+        drawControl.ClearRectangles();
     }
 
     public void DrawRectangle(int x, int y, int width, int height)
@@ -259,6 +264,28 @@ public class AndroidWindowManagerService : IInputService, IScreenService
         drawControl.AddCircle(x, y);
     }
 
+    public void DebugRectangle(int x, int y, int width, int height)
+    {
+        Show(WindowView.DebugDrawView);
+        var drawControl = (DrawControl)_views[WindowView.DebugDrawView].VisualElement;
+        drawControl.AddRectangle(x - 2, y - 2, width + 4, height + 4);
+    }
+
+    public void DebugCircle(int x, int y)
+    {
+        Show(WindowView.DebugDrawView);
+        var drawControl = (DrawControl)_views[WindowView.DebugDrawView].VisualElement;
+        drawControl.AddCircle(x, y);
+    }
+
+    public void DebugClear()
+    {
+        if (!_views.ContainsKey(WindowView.DebugDrawView)) return;
+
+        var drawControl = (DrawControl)_views[WindowView.DebugDrawView].VisualElement;
+        drawControl.ClearCircles();
+        drawControl.ClearRectangles();
+    }
 
     // https://stackoverflow.com/questions/3407256/height-of-status-bar-in-android
     public (int x, int y) GetTopLeftByPackage()
@@ -369,9 +396,8 @@ public class AndroidWindowManagerService : IInputService, IScreenService
                 //    (int)template.Bounds.Y + strokeThickness - 1,
                 //    (int)template.Bounds.W - strokeThickness + 1,
                 //    (int)template.Bounds.H - strokeThickness - 1) :
-                //await _mediaProjectionService.GetCurrentImageStream();
 
-                //imageBitmap = BitmapFactory.DecodeStream(imageStream);
+                //haystackBitmap = BitmapFactory.DecodeStream(imageStream);
 
                 //await _mediaProjectionService.GetCurrentImageBitmap(
                 //    (int)(calcBounds.X - boundsPadding),
@@ -392,12 +418,13 @@ public class AndroidWindowManagerService : IInputService, IScreenService
 
             if (haystackBitmap == null) return new List<Point>();
 
-            //var points = BitmapHelper.SearchBitmap(imageBitmap, resized, 0.0);
             var threshold = 0.8;
             if (template.Threshold != 0.0) threshold = template.Threshold;
             if ((opts?.Threshold ?? 0.0) != 0.0) threshold = opts.Threshold;
 
             var points = OpenCvHelper.GetPointsWithMatchTemplate(haystackBitmap, needleBitmap, opts?.Limit ?? 1, threshold);
+            //raw bitmap comparison doesn't seem to work when bounds are changed (searching subbitmap)
+            //var points = BitmapHelper.SearchBitmap(templateBitmap, haystackBitmap, 0.0);
             needleBitmap.Dispose();
             templateBitmap.Dispose();
             haystackBitmap.Dispose();
@@ -503,11 +530,11 @@ public class AndroidWindowManagerService : IInputService, IScreenService
 
     public void StartRecording()
     {
-        _screenRecordService.Start();
+        _mediaProjectionService.StartRecording();
     }
 
     public void StopRecording()
     {
-        _screenRecordService.Stop();
+        _mediaProjectionService.StopRecording();
     }
 }

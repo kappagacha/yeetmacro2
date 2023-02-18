@@ -6,24 +6,25 @@ using Android.Media;
 using Android.Views;
 using Android.Widget;
 using static Android.Graphics.Bitmap;
-
+using YeetMacro2.Services;
 namespace YeetMacro2.Platforms.Android.Services;
 
 //https://github.com/xamarin/monodroid-samples/blob/main/android5.0/ScreenCapture/ScreenCapture/ScreenCaptureFragment.cs
-//https://github.com/Fate-Grand-Automata/FGA/blob/de9c69e10aec990a061c049f0bf3ca3c253d199b/app/src/main/java/com/mathewsachin/fategrandautomata/imaging/MediaProjectionScreenshotService.kt
+//https://github.com/Fate-Grand-Automata/FGA/blob/master/app/src/main/java/com/mathewsachin/fategrandautomata/imaging/MediaProjectionScreenshotService.kt
 //https://medium.com/jamesob-com/recording-your-android-screen-7e0e75aae260
-public class MediaProjectionService
+public class MediaProjectionService : IRecorderService
 {
     MainActivity _context;
     MediaProjectionManager _mediaProjectionManager;
     MediaProjection _mediaProjection;
     ImageReader _imageReader;
-    VirtualDisplay _virtualDisplay;
+    VirtualDisplay _virtualDisplay, _screenVirtualDisplay;
+    MediaRecorder _mediaRecorder;
     Intent _resultData;
     int _resultCode;
     public const int REQUEST_MEDIA_PROJECTION = 1;
     TaskCompletionSource<bool> _startCompleted;
-
+    bool _isRecording;
     public bool Enabled { get => _virtualDisplay != null; }
 
     public MediaProjectionService()
@@ -38,8 +39,6 @@ public class MediaProjectionService
         try
         {
             Console.WriteLine("[*****YeetMacro*****] MediaProjectionService Init");
-            _context = (MainActivity)Platform.CurrentActivity;
-            _mediaProjectionManager = (MediaProjectionManager)_context.GetSystemService(Context.MediaProjectionService);
         }
         catch (Exception ex)
         {
@@ -76,19 +75,15 @@ public class MediaProjectionService
             return;
         }
 
+        _context = (MainActivity)Platform.CurrentActivity;
+        _mediaProjectionManager = (MediaProjectionManager)_context.GetSystemService(Context.MediaProjectionService);
+
         _resultCode = (int)resultCode;
         _resultData = resultData;
         InitVirtualDisplay();
-        Toast.MakeText(_context, "Media projection started...", ToastLength.Short).Show();
         _startCompleted.SetResult(true);
-        DeviceDisplay.MainDisplayInfoChanged += DeviceDisplay_MainDisplayInfoChanged;
-    }
-
-    private void InitVirtualDisplay()
-    {
-        Stop();
         _mediaProjection = _mediaProjectionManager.GetMediaProjection(_resultCode, _resultData);
-        //https://stackoverflow.com/questions/38891654/get-current-screen-width-in-xamarin-forms
+
         var displayInfo = DeviceDisplay.MainDisplayInfo;
         var width = (int)displayInfo.Width;
         var height = (int)displayInfo.Height;
@@ -96,6 +91,16 @@ public class MediaProjectionService
 
         _imageReader = ImageReader.NewInstance(width, height, (ImageFormatType)global::Android.Graphics.Format.Rgba8888, 2);
         _virtualDisplay = _mediaProjection.CreateVirtualDisplay("ScreenCapture", width, height, density, (DisplayFlags)VirtualDisplayFlags.AutoMirror, _imageReader.Surface, null, null);
+
+        Toast.MakeText(_context, "Media projection started...", ToastLength.Short).Show();
+        //DeviceDisplay.MainDisplayInfoChanged += DeviceDisplay_MainDisplayInfoChanged;
+    }
+
+    private void InitVirtualDisplay()
+    {
+        Stop();
+        //https://stackoverflow.com/questions/38891654/get-current-screen-width-in-xamarin-forms
+
     }
 
     //It may be faster if we don't convert to bitmap
@@ -195,8 +200,11 @@ public class MediaProjectionService
             _virtualDisplay.Dispose();
             _virtualDisplay = null;
         }
-
-        Toast.MakeText(_context, "Media projection stopped...", ToastLength.Short).Show();
+        
+        if (_context != null)
+        {
+            Toast.MakeText(_context, "Media projection stopped...", ToastLength.Short).Show();
+        }
     }
 
     public async Task<TBitmap> GetCurrentImageBitmap<TBitmap>(int x, int y, int width, int height)
@@ -245,6 +253,7 @@ public class MediaProjectionService
     public async Task TakeScreenCapture()
     {
         var ms = await GetCurrentImageStream();
+        if (ms == null) return;
         byte[] bArray = new byte[ms.Length];
 
         var folder = global::Android.OS.Environment.GetExternalStoragePublicDirectory(global::Android.OS.Environment.DirectoryPictures).Path;
@@ -258,5 +267,47 @@ public class MediaProjectionService
             int length = bArray.Length;
             fs.Write(bArray, 0, length);
         }
+    }
+
+    // https://github.com/chinmoyp/screenrecorder/blob/master/app/src/main/java/com/confusedbox/screenrecorder/MainActivity.java
+    // https://github.com/android/media-samples/blob/main/ScreenCapture/Application/src/main/java/com/example/android/screencapture/ScreenCaptureFragment.java
+    // https://github.com/Fate-Grand-Automata/FGA/blob/master/app/src/main/java/com/mathewsachin/fategrandautomata/imaging/MediaProjectionRecording.kt
+    // https://github.com/Fate-Grand-Automata/FGA/blob/6d6b5f190817574f2d07f04f124b677c39b09634/app/src/main/java/com/mathewsachin/fategrandautomata/imaging/MediaProjectionScreenshotService.kt
+    public void StartRecording()
+    {
+        if (_isRecording) return;
+
+        var displayInfo = DeviceDisplay.MainDisplayInfo;
+        var width = (int)displayInfo.Width;
+        var height = (int)displayInfo.Height;
+        var density = (int)displayInfo.Density;
+        var profile = CamcorderProfile.Get(CamcorderQuality.High);
+
+        _mediaRecorder = new MediaRecorder();
+        _mediaRecorder.SetVideoSource(VideoSource.Surface);
+        _mediaRecorder.SetOutputFormat(profile.FileFormat);
+        _mediaRecorder.SetVideoEncoder(profile.VideoCodec);
+        _mediaRecorder.SetVideoEncodingBitRate(profile.VideoBitRate);
+        _mediaRecorder.SetVideoFrameRate(profile.VideoFrameRate);
+        _mediaRecorder.SetVideoSize(width, height);     // weird resolutions will fail on prepare. ex: 1080x2350
+        
+        var folder = global::Android.OS.Environment.GetExternalStoragePublicDirectory(global::Android.OS.Environment.DirectoryPictures).Path;
+        var file = System.IO.Path.Combine(folder, $"{DateTime.Now.ToString("yyyyMMdd_HHmmss")}.mp4");
+        _mediaRecorder.SetOutputFile(file);
+        _mediaRecorder.Prepare();
+        _mediaRecorder.Start();
+        _screenVirtualDisplay = _mediaProjection.CreateVirtualDisplay("ScreenRecord", width, height, density, (DisplayFlags)VirtualDisplayFlags.AutoMirror, _mediaRecorder.Surface, null, null);
+        _isRecording = true;
+    }
+    public void StopRecording()
+    {
+        if (!_isRecording) return;
+
+        _mediaRecorder.Stop();
+        _mediaRecorder.Release();
+        _mediaRecorder.Dispose();
+        _screenVirtualDisplay.Release();
+        _screenVirtualDisplay.Dispose();
+        _isRecording = false;
     }
 }

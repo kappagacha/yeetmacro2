@@ -24,11 +24,11 @@ public partial class LogViewModel : ObservableObject
     {
         if (!IsRecording)
         {
-            _recorderService.Stop();
+            _recorderService.StopRecording();
         }
         else
         {
-            _recorderService.Start();
+            _recorderService.StartRecording();
         }
     }
 }

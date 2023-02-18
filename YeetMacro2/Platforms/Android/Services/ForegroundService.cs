@@ -49,7 +49,6 @@ public class ForegroundService : Service
     {
         var _windowManagerService = ServiceHelper.GetService<AndroidWindowManagerService>();
         var _mediaProjectionService = ServiceHelper.GetService<MediaProjectionService>();
-        var _screenRecordService = ServiceHelper.GetService<RecorderService>();
 
         switch (intent.Action)
         {
@@ -59,7 +58,7 @@ public class ForegroundService : Service
                 _windowManagerService.Close(WindowView.LogView);
                 _windowManagerService.CloseOverlayWindow();
                 _mediaProjectionService.Stop();
-                _screenRecordService.Stop();
+                _mediaProjectionService.StopRecording();
                 Intent exitEvent = new Intent("com.companyname.ForegroundService.EXIT");
                 _context.SendBroadcast(exitEvent);
                 break;

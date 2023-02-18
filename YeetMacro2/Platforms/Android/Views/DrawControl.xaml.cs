@@ -10,10 +10,12 @@ namespace YeetMacro2.Platforms.Android.Views;
 public partial class DrawControl : ContentView
 {
     bool _userRectangle;
-    FixedSizedQueue<(SKPoint begin, SKPoint end, SKPaint paint)> _rectangles = new FixedSizedQueue<(SKPoint begin, SKPoint end, SKPaint paint)>();
-    FixedSizedQueue<(float x, float y, SKPaint paint)> _circles = new FixedSizedQueue<(float x, float y, SKPaint paint)>();
+    double _expirationMs = 250.0;
+    ConcurrentQueue<(SKPoint begin, SKPoint end, SKPaint paint, DateTime expiration)> _rectangles = new();
+    ConcurrentQueue<(float x, float y, SKPaint paint, DateTime expiration)> _circles = new();
+    //FixedSizedQueue<(SKPoint begin, SKPoint end, SKPaint paint)> _rectangles = new FixedSizedQueue<(SKPoint begin, SKPoint end, SKPaint paint)>();
+    //FixedSizedQueue<(float x, float y, SKPaint paint)> _circles = new FixedSizedQueue<(float x, float y, SKPaint paint)>();
     SKPoint _canvasBegin = SKPoint.Empty, _canvasEnd = SKPoint.Empty;
-
     SKPaint _greenPaint = new SKPaint
     {
         Color = SKColors.Green,
@@ -25,7 +27,7 @@ public partial class DrawControl : ContentView
     SKPaint _bluePaint = new SKPaint
     {
         Color = SKColors.Blue,
-        StrokeWidth = 3,
+        StrokeWidth = 6,
         StrokeCap = SKStrokeCap.Round,
         TextSize = 60,
         Style = SKPaintStyle.Stroke
@@ -40,14 +42,14 @@ public partial class DrawControl : ContentView
 	{
 		InitializeComponent();
 
-        _rectangles.Limit = 10;
-        _circles.Limit = 10;
+        //_rectangles.Limit = 10;
+        //_circles.Limit = 10;
         _windowManagerService = ServiceHelper.GetService<AndroidWindowManagerService>();
     }
 
     public void SetMaxRectangles(int maxRectangles)
     {
-        _rectangles.Limit = maxRectangles;
+        //_rectangles.Limit = maxRectangles;
     }
 
     public void AddRectangle(float x, float y, float width, float height)
@@ -60,7 +62,8 @@ public partial class DrawControl : ContentView
         var begin = new SKPoint(x - topLeft.x, y - topLeft.y);
         var end = new SKPoint(x - topLeft.x + width, y - topLeft.y + height);
 
-        _rectangles.Enqueue((begin, end, _bluePaint.Clone()));
+        _rectangles.Enqueue((begin, end, _bluePaint.Clone(), DateTime.Now.AddMilliseconds(_expirationMs)));
+        //_rectangles.Enqueue((begin, end, _bluePaint.Clone()));
         canvasView.InvalidateSurface();
     }
 
@@ -74,7 +77,8 @@ public partial class DrawControl : ContentView
     {
         var topLeft = _windowManagerService.GetTopLeftByPackage();
         //var topLeft = (x: 0.0f, y: 0.0f);
-        _circles.Enqueue((x - topLeft.x, y - topLeft.y, _greenPaint.Clone()));
+        _circles.Enqueue((x - topLeft.x, y - topLeft.y, _greenPaint.Clone(), DateTime.Now.AddMilliseconds(_expirationMs)));
+        //_circles.Enqueue((x - topLeft.x, y - topLeft.y, _greenPaint.Clone()));
         canvasView.InvalidateSurface();
     }
 
@@ -95,11 +99,19 @@ public partial class DrawControl : ContentView
             canvas.DrawRect(_canvasBegin.X, _canvasBegin.Y - heightOffset, _canvasEnd.X - _canvasBegin.X, _canvasEnd.Y - _canvasBegin.Y - heightOffset, _bluePaint);
         }
 
+        DateTime now = DateTime.Now;
+        while(_rectangles.TryPeek(out (SKPoint begin, SKPoint end, SKPaint paint, DateTime expiration) r) && r.expiration <= now)
+        {
+            _rectangles.TryDequeue(out (SKPoint begin, SKPoint end, SKPaint paint, DateTime expiration) r0);
+        }
+        while (_circles.TryPeek(out (float x, float y, SKPaint paint, DateTime expiration) c) && c.expiration <= now)
+        {
+            _circles.TryDequeue(out (float x, float y, SKPaint paint, DateTime expiration) c0);
+        }
         foreach (var rect in _rectangles)
         {
             canvas.DrawRect(rect.begin.X, rect.begin.Y, rect.end.X - rect.begin.X, rect.end.Y - rect.begin.Y, rect.paint);
         }
-
         foreach (var c in _circles)
         {
             canvas.DrawCircle(c.x, c.y, 10, c.paint);
@@ -138,7 +150,7 @@ public partial class DrawControl : ContentView
                 break;
             case SKTouchAction.Released:
             case SKTouchAction.Cancelled:
-                _rectangles.Enqueue((new SKPoint(_canvasBegin.X, _canvasBegin.Y), new SKPoint(_canvasEnd.X, _canvasEnd.Y), _greenPaint.Clone()));
+                _rectangles.Enqueue((new SKPoint(_canvasBegin.X, _canvasBegin.Y), new SKPoint(_canvasEnd.X, _canvasEnd.Y), _greenPaint.Clone(), DateTime.Now.AddDays(1)));
                 canvasView.InvalidateSurface();
                 if (CloseAfterDraw)
                 {
@@ -158,39 +170,39 @@ public partial class DrawControl : ContentView
     }
 
     //https://stackoverflow.com/questions/5852863/fixed-size-queue-which-automatically-dequeues-old-values-upon-new-enques
-    public class FixedSizedQueue<T> : IEnumerable<T>
-    {
-        ConcurrentQueue<T> q = new ConcurrentQueue<T>();
-        private object lockObject = new object();
+    //public class FixedSizedQueue<T> : IEnumerable<T>
+    //{
+    //    ConcurrentQueue<T> q = new ConcurrentQueue<T>();
+    //    private object lockObject = new object();
 
-        public int Limit { get; set; }
+    //    public int Limit { get; set; }
 
-        public void Clear()
-        {
-            lock (lockObject)
-            {
-                q.Clear();
-            }
-        }
+    //    public void Clear()
+    //    {
+    //        lock (lockObject)
+    //        {
+    //            q.Clear();
+    //        }
+    //    }
 
-        public void Enqueue(T obj)
-        {
-            q.Enqueue(obj);
-            lock (lockObject)
-            {
-                T overflow;
-                while (q.Count > Limit && q.TryDequeue(out overflow)) ;
-            }
-        }
+    //    public void Enqueue(T obj)
+    //    {
+    //        q.Enqueue(obj);
+    //        lock (lockObject)
+    //        {
+    //            T overflow;
+    //            while (q.Count > Limit && q.TryDequeue(out overflow)) ;
+    //        }
+    //    }
 
-        public IEnumerator<T> GetEnumerator()
-        {
-            return ((IEnumerable<T>)q).GetEnumerator();
-        }
+    //    public IEnumerator<T> GetEnumerator()
+    //    {
+    //        return ((IEnumerable<T>)q).GetEnumerator();
+    //    }
 
-        IEnumerator IEnumerable.GetEnumerator()
-        {
-            return ((IEnumerable)q).GetEnumerator();
-        }
-    }
+    //    IEnumerator IEnumerable.GetEnumerator()
+    //    {
+    //        return ((IEnumerable)q).GetEnumerator();
+    //    }
+    //}
 }

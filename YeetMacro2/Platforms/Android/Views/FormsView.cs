@@ -29,7 +29,7 @@ public class FormsView : RelativeLayout, IShowable
         _layoutParams.Flags |= WindowManagerFlags.LayoutNoLimits;
         //_layoutParams.Flags |= WindowManagerFlags.Fullscreen;
         _layoutParams.Flags |= WindowManagerFlags.LayoutInScreen;
-        _layoutParams.Gravity = GravityFlags.Top | GravityFlags.Left;
+        //_layoutParams.Gravity = GravityFlags.Top | GravityFlags.Left;
         SetBackgroundColor(Color.Argb(70, 0, 0, 0));
 
         _state = FormState.CLOSED;
@@ -80,7 +80,7 @@ public class FormsView : RelativeLayout, IShowable
             _layoutParams.Flags |= WindowManagerFlags.NotFocusable;
             //https://medium.com/androiddevelopers/untrusted-touch-events-2c0e0b9c374c#776e
             //to allow clicking past the window, alpha needs to be 0.8 or below
-            _layoutParams.Alpha = 0.8f;
+            _layoutParams.Alpha = 0.5f;
         }
 
         if (_state == FormState.SHOWING)

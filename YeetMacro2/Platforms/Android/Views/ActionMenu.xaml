@@ -12,7 +12,7 @@
         <Button Text="Configure" Command="{Binding ConfigureCommand}" />
         <Button Text="Open Log" Command="{Binding OpenLogCommand}" />
         <Button Text="Screen Capture" Command="{Binding ScreenCaptureCommand}" />
-        <Grid ColumnDefinitions="Auto,Auto">
+        <Grid ColumnDefinitions="Auto,Auto,Auto,Auto">
             <Switch Grid.Column="0" IsToggled="{Binding ShowLogView, Mode=TwoWay}">
                 <Switch.Behaviors>
                     <mct:EventToCommandBehavior
@@ -23,6 +23,20 @@
             <Label Grid.Column="1" VerticalTextAlignment="Center" Text="LogView">
                 <Label.Triggers>
                     <DataTrigger TargetType="Label" Binding="{Binding ShowLogView}" Value="True">
+                        <Setter Property="TextColor" Value="Green" />
+                    </DataTrigger>
+                </Label.Triggers>
+            </Label>
+            <Switch Grid.Column="2" IsToggled="{Binding InDebugMode, Mode=TwoWay}">
+                <Switch.Behaviors>
+                    <mct:EventToCommandBehavior
+                        EventName="Toggled"
+                        Command="{Binding ToggleDebugModeCommand}" />
+                </Switch.Behaviors>
+            </Switch>
+            <Label Grid.Column="3" VerticalTextAlignment="Center" Text="DebugMode">
+                <Label.Triggers>
+                    <DataTrigger TargetType="Label" Binding="{Binding InDebugMode}" Value="True">
                         <Setter Property="TextColor" Value="Green" />
                     </DataTrigger>
                 </Label.Triggers>

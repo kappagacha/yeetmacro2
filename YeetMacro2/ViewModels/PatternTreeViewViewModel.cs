@@ -195,6 +195,8 @@ public partial class PatternTreeViewViewModel : TreeViewViewModel<PatternNode, P
             (int)bounds.H - strokeThickness - 1);
 
         pattern.ImageData = imageStream.ToArray();
+
+        //Console.WriteLine(pattern.ImageData);
         pattern.Bounds = ProxyViewModel.Create(new Bounds()
         {
             X = bounds.X,
