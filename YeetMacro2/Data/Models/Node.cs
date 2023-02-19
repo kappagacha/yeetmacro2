@@ -18,7 +18,6 @@ public class LeafNode : Node
 
 public interface IParentNode
 {
-
 }
 
 public interface IParentNode<TParent, TChild> : IParentNode

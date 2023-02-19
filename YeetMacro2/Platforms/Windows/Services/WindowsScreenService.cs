@@ -9,7 +9,7 @@ using Point = System.Drawing.Point;
 using Size = System.Drawing.Size;
 
 namespace YeetMacro2.Platforms.Windows.Services;
-public class WindowsScreenService : IScreenService
+public class WindowsScreenService : IScreenService, IRecorderService
 {
     [DllImport("user32.dll")]
     public static extern bool GetWindowRect(IntPtr hWnd, out RECT lpRect);
@@ -17,6 +17,21 @@ public class WindowsScreenService : IScreenService
     public static extern bool PrintWindow(IntPtr hWnd, IntPtr hdcBlt, int nFlags);
     [DllImport("user32.dll")]
     private static extern IntPtr FindWindow(string lpClassName, string lpWindowName);
+
+    public void DebugCircle(int x, int y)
+    {
+        throw new NotImplementedException();
+    }
+
+    public void DebugClear()
+    {
+        throw new NotImplementedException();
+    }
+
+    public void DebugRectangle(int x, int y, int width, int height)
+    {
+        throw new NotImplementedException();
+    }
 
     public void DoClick(float x, float y)
     {
@@ -76,6 +91,21 @@ public class WindowsScreenService : IScreenService
     }
 
     public Task<List<Microsoft.Maui.Graphics.Point>> GetMatches(PatternBase template, int limit = 1)
+    {
+        throw new NotImplementedException();
+    }
+
+    public Task<List<Microsoft.Maui.Graphics.Point>> GetMatches(PatternBase template, FindOptions opts)
+    {
+        throw new NotImplementedException();
+    }
+
+    public void StartRecording()
+    {
+        throw new NotImplementedException();
+    }
+
+    public void StopRecording()
     {
         throw new NotImplementedException();
     }

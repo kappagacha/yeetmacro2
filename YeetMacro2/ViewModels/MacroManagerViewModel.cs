@@ -120,12 +120,17 @@ public partial class MacroManagerViewModel : ObservableObject
         if (await Permissions.RequestAsync<Permissions.StorageWrite>() != PermissionStatus.Granted) return;
 
         var patternTreeJson = JsonSerializer.Serialize(PatternTree.Root, new JsonSerializerOptions { WriteIndented = true });
+#if ANDROID
         // https://stackoverflow.com/questions/39332085/get-path-to-pictures-directory
         var targetDirctory = DeviceInfo.Current.Platform == DevicePlatform.Android ? 
             Android.OS.Environment.GetExternalStoragePublicDirectory(Android.OS.Environment.DirectoryPictures).AbsolutePath :
             FileSystem.Current.AppDataDirectory;
         var targetFile = Path.Combine(targetDirctory, $"{_selectedMacroSet.Name}_patterns.json");
         File.WriteAllText(targetFile, patternTreeJson);
+#elif WINDOWS
+        var targetFile = $"{_selectedMacroSet.Name}_patterns.json";
+        File.WriteAllText(targetFile, patternTreeJson);
+#endif
         _toastService.Show($"Exported Patterns: {_selectedMacroSet.Name}");
     }
 
@@ -173,12 +178,17 @@ public partial class MacroManagerViewModel : ObservableObject
         if (await Permissions.RequestAsync<Permissions.StorageWrite>() != PermissionStatus.Granted) return;
 
         var patternTreeJson = JsonSerializer.Serialize(Scripts.Scripts, new JsonSerializerOptions { WriteIndented = true });
+#if ANDROID
         // https://stackoverflow.com/questions/39332085/get-path-to-pictures-directory
-        var targetDirctory = DeviceInfo.Current.Platform == DevicePlatform.Android ?
+        var targetDirctory = DeviceInfo.Current.Platform == DevicePlatform.Android ? 
             Android.OS.Environment.GetExternalStoragePublicDirectory(Android.OS.Environment.DirectoryPictures).AbsolutePath :
             FileSystem.Current.AppDataDirectory;
-        var targetFile = Path.Combine(targetDirctory, $"{_selectedMacroSet.Name}_scripts.json");
+        var targetFile = Path.Combine(targetDirctory, $"{_selectedMacroSet.Name}_patterns.json");
         File.WriteAllText(targetFile, patternTreeJson);
+#elif WINDOWS
+        var targetFile = $"{_selectedMacroSet.Name}_patterns.json";
+        File.WriteAllText(targetFile, patternTreeJson);
+#endif
         _toastService.Show($"Exported Scripts: {_selectedMacroSet.Name}");
     }
 

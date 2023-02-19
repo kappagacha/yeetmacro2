@@ -15,14 +15,17 @@ public static class PlatformServiceRegistrationHelper
     public static MauiAppBuilder RegisterPlatformServices(this MauiAppBuilder mauiAppBuilder)
     {
         mauiAppBuilder.Services.AddSingleton<WindowsHomeViewModel>();
-        mauiAppBuilder.Services.AddSingleton<IScreenService, WindowsScreenService>();
+        mauiAppBuilder.Services.AddSingleton<WindowsScreenService>();
         mauiAppBuilder.Services.AddSingleton<IInputService, WindowsInputService>();
+        mauiAppBuilder.Services.AddSingleton<IScreenService>(sp => sp.GetRequiredService<WindowsScreenService>());
+        mauiAppBuilder.Services.AddSingleton<IRecorderService>(sp => sp.GetRequiredService<WindowsScreenService>());
 
         mauiAppBuilder.Services.AddYeetMacroData(setup =>
         {
             string dbPath = Path.Combine(FileSystem.AppDataDirectory, "yeetmacro.db3");
             setup.UseSqlite($"Filename={dbPath}");
-        }, ServiceLifetime.Transient);
+        });
+        //}, ServiceLifetime.Transient);
 
         // https://github.com/dotnet/maui/discussions/2370
         mauiAppBuilder.ConfigureLifecycleEvents(events =>

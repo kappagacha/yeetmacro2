@@ -2,21 +2,5 @@
 <Shell
     x:Class="YeetMacro2.AppShell"
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
-    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-    xmlns:local="clr-namespace:YeetMacro2"
-    xmlns:pages="clr-namespace:YeetMacro2.Pages">
-
-    <ShellContent
-        Title="Home"
-        ContentTemplate="{DataTemplate pages:HomePage}"
-        Route="Home" />
-    <ShellContent
-        Title="Macro Manager"
-        ContentTemplate="{DataTemplate pages:MacroManagerPage}"
-        Route="MacroManager" />
-    <!--<ShellContent
-        Title="Home"
-        ContentTemplate="{DataTemplate pages:HomePage}"
-        Route="Home" />-->
-
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml">
 </Shell>

@@ -1,16 +1,16 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="YeetMacro2.Pages.HomePage"
              xmlns:mct="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
              xmlns:vm="clr-namespace:YeetMacro2.ViewModels"
              xmlns:conv="clr-namespace:YeetMacro2.Converters"
              xmlns:pgs="clr-namespace:YeetMacro2.Pages"
              xmlns:mc="schemas.openxmlformats.org/markup-compatibility/2006"  
              xmlns:avm="clr-namespace:YeetMacro2.Platforms.Android.ViewModels"
-             x:DataType="avm:AndriodHomeViewModel"
+             xmlns:av="clr-namespace:YeetMacro2.Platforms.Android.Views"
+             x:Class="YeetMacro2.Platforms.Android.Views.AndroidHomePage"
              vm:ViewModelLocator.ViewModelType="{x:Type avm:AndriodHomeViewModel}"
-             Title="HomePage">
+             Title="AndroidHomePage">
     <ContentPage.Behaviors>
         <mct:EventToCommandBehavior
                 EventName="Appearing"
@@ -19,7 +19,7 @@
     <Grid RowDefinitions="Auto,*">
         <Label Grid.Row="0" Text="YeetMacro" HorizontalTextAlignment="Center" FontSize="Title" FontAttributes="Bold" />
         <ScrollView Grid.Row="1">
-            <VerticalStackLayout Padding="30,24,30,24" Spacing="10" BindingContext="{Binding BindingContext, Source={RelativeSource AncestorType={x:Type pgs:HomePage}}}">
+            <VerticalStackLayout Padding="30,24,30,24" Spacing="10" BindingContext="{Binding BindingContext, Source={RelativeSource AncestorType={x:Type av:AndroidHomePage}}}">
                 <Grid RowDefinitions="Auto,Auto" ColumnDefinitions="Auto,*">
                     <Switch Grid.Row="0" Grid.Column="0" IsToggled="{Binding IsProjectionServiceEnabled, Mode=TwoWay}">
                         <Switch.Behaviors>
