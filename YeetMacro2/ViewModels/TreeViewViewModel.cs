@@ -59,12 +59,14 @@ public partial class TreeViewViewModel<TParent, TChild> : ObservableObject
         if (SelectedNode != null && SelectedNode is TParent parent)
         {
             newNode.ParentId = SelectedNode.NodeId;
+            newNode.RootId = SelectedNode.RootId;
             parent.Children.Add(newNode);
             SelectedNode.IsExpanded = true;
         }
         else
         {
             newNode.ParentId = Root.NodeId;
+            newNode.RootId = Root.NodeId;
             Root.Children.Add(newNode);
         }
 

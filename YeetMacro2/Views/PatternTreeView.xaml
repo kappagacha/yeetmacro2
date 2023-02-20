@@ -17,7 +17,7 @@
             <Border Stroke="{StaticResource Primary}" Padding="3" BackgroundColor="Transparent">
                 <material:TreeView ItemsSource="{Binding PatternTree.Root.Children}" Spacing="0">
                     <material:TreeView.ItemTemplate>
-                        <DataTemplate x:DataType="m:ParentNode">
+                        <DataTemplate x:DataType="m:IParentNode">
                             <Label Text="{Binding Name}" TextColor="{StaticResource PrimaryDark}" Margin="0" Padding="0" VerticalOptions="Center" BackgroundColor="Transparent">
                                 <Label.Triggers>
                                     <DataTrigger TargetType="{x:Type Label}" Binding="{Binding IsSelected}" Value="True">

@@ -10,14 +10,18 @@ public abstract class Node
     public int NodeId { get; set; }
     [JsonIgnore]
     public int? ParentId { get; set; }
+    [JsonIgnore]
+    public int RootId { get; set; }
 }
 
-public class LeafNode : Node
-{
-}
+//public class LeafNode : Node
+//{
+//}
 
 public interface IParentNode
 {
+    string Name { get; set; }
+    bool IsSelected { get; set; }
 }
 
 public interface IParentNode<TParent, TChild> : IParentNode
@@ -27,14 +31,15 @@ public interface IParentNode<TParent, TChild> : IParentNode
     ICollection<TChild> Children { get; set; }
 }
 
-public class ParentNode : Node, IParentNode<ParentNode, Node>
-{
-    public virtual ICollection<Node> Children { get; set; } = new List<Node>();
-}
+//public class ParentNode : Node, IParentNode<ParentNode, Node>
+//{
+//    public virtual ICollection<Node> Children { get; set; } = new List<Node>();
+//}
 
 public class NodeClosure
 {
     public int ClosureId { get; set; }
+    public int NodeRootId { get; set; }
     public string Name { get; set; }
     public Node Ancestor { get; set; }
     public int AncestorId { get; set; }

@@ -47,10 +47,8 @@ public class AppInitializer : IMauiInitializeService
         if (dbContext.MacroSets.Any()) return;
 
         var nodeService = services.GetService<INodeService<PatternNode, PatternNode>>();
-        var disgaeaPatternNode = new PatternNode() { Name = "root" };
-        var konosubaPatternNode = new PatternNode() { Name = "root" };
-        nodeService.Insert(disgaeaPatternNode);
-        nodeService.Insert(konosubaPatternNode);
+        var disgaeaPatternNode = nodeService.GetRoot(-1);
+        var konosubaPatternNode = nodeService.GetRoot(-1);
 
         var disgaeaRpgMacroSet = new MacroSet() { Name = "Disgaea RPG", RootPatternNodeId = disgaeaPatternNode.NodeId };
         var konsobaFdMacroSet = new MacroSet() { Name = "Konosuba FD", RootPatternNodeId = konosubaPatternNode.NodeId };

@@ -34,23 +34,27 @@ public class NodeService<TParent, TChild> : INodeService<TParent, TChild>
         {
             root = new TParent() { Name = "root" };
             Insert(root);
+            root.RootId = root.NodeId;
+            _nodeRepository.Update(root);
+            _nodeRepository.Save();
         }
 
-        LoadNode(root);
+        var closures = _closureRepository.Get(c => c.NodeRootId == root.RootId);
+        LoadNode(root, closures);
 
         return root;
     }
 
-    private void LoadNode(TChild node)
+    private void LoadNode(TChild node, IEnumerable<NodeClosure> closures)
     {
         if (node is TParent parent)
         {
-            var directDescendants = _closureRepository.Get(c => c.AncestorId == node.NodeId && c.Depth == 1);
+            var directDescendants = closures.Where(c => c.AncestorId == node.NodeId && c.Depth == 1);
             parent.Children = directDescendants.Select(c => c.Descendant).Cast<TChild>().ToList();
 
             foreach (var child in parent.Children)
             {
-                LoadNode(child);
+                LoadNode(child, closures);
             }
         }
     }
@@ -78,6 +82,7 @@ public class NodeService<TParent, TChild> : INodeService<TParent, TChild>
             foreach (var child in children)
             {
                 child.ParentId = parent.NodeId;
+                child.RootId = parent.RootId;
                 Insert(child);
             }
             parent.Children = children;
@@ -112,6 +117,7 @@ public class NodeService<TParent, TChild> : INodeService<TParent, TChild>
 
         var selfClosure = new NodeClosure()
         {
+            NodeRootId = node.RootId,
             Name = $"{node.Name} -> {node.Name}",
             AncestorId = node.NodeId,
             AncestorName = node.Name,
@@ -126,6 +132,7 @@ public class NodeService<TParent, TChild> : INodeService<TParent, TChild>
         {
             var ancestorClosure = new NodeClosure()
             {
+                NodeRootId = node.RootId,
                 Name = $"{node.Name} -> {node.Name}",
                 AncestorId = closure.AncestorId,
                 AncestorName = closure.AncestorName,
