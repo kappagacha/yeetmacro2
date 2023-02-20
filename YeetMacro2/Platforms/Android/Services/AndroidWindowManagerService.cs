@@ -147,7 +147,7 @@ public class AndroidWindowManagerService : IInputService, IScreenService
                     break;
                 case WindowView.UserDrawView:
                     var userdrawControl = new DrawControl();
-                    var userDrawView = new FormsView(_context, _windowManager, userdrawControl);
+                    var userDrawView = new FormsView(_context, _windowManager, userdrawControl) { IsModal = false };
                     userDrawView.SetBackgroundToTransparent();
                     userDrawView.DisableTranslucentNavigation();
                     userDrawView.SetIsTouchable(true);

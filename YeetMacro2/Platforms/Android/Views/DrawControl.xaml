@@ -11,7 +11,7 @@
             </Border>
         </Grid>
         <skia:SKCanvasView x:Name="canvasView"
-                        EnableTouchEvents="False"
+                        EnableTouchEvents="True"
                         PaintSurface="OnCanvasViewPaintSurface"
                         Touch="canvasView_Touch" />
     </Grid>
