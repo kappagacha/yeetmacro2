@@ -15,8 +15,8 @@ public static class EfDataProviderExtensions
         services.AddTransient<IRepository<UserPattern>, EfRepository<YeetMacroDbContext, UserPattern>>();
         services.AddTransient<IRepository<Node>, EfRepository<YeetMacroDbContext, Node>>();
         services.AddTransient<IRepository<NodeClosure>, EfRepository<YeetMacroDbContext, NodeClosure>>();
-        services.AddTransient<IRepository<ParentNode>, EfRepository<YeetMacroDbContext, ParentNode>>();
-        services.AddTransient<IRepository<LeafNode>, EfRepository<YeetMacroDbContext, LeafNode>>();
+        //services.AddTransient<IRepository<ParentNode>, EfRepository<YeetMacroDbContext, ParentNode>>();
+        //services.AddTransient<IRepository<LeafNode>, EfRepository<YeetMacroDbContext, LeafNode>>();
         services.AddTransient<INodeService<PatternNode, PatternNode>, NodeService<PatternNode, PatternNode>>();
         services.AddTransient<IRepository<Script>, EfRepository<YeetMacroDbContext, Script>>();
     }
