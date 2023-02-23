@@ -150,6 +150,9 @@
 	  <MauiXaml Update="Pages\MacroManagerPage.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
+	  <MauiXaml Update="Views\TreeView.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
 	</ItemGroup>
 
   <ItemGroup Condition="$(TargetFramework.StartsWith('net7.0-android')) != true">
