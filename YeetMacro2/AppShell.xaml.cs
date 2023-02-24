@@ -1,6 +1,7 @@
 ﻿using YeetMacro2.Pages;
 #if ANDROID
 using YeetMacro2.Platforms.Android.Views;
+using YeetMacro2.Services;
 #elif WINDOWS
 using YeetMacro2.Platforms.Windows.Views;
 #endif
