@@ -78,7 +78,7 @@ public partial class AndriodHomeViewModel : ObservableObject
         _isAppearing = false;
 
         IsProjectionServiceEnabled = true;
-        _windowManagerService.Show(WindowView.PatternsTreeView);
+        //_windowManagerService.Show(WindowView.PatternsTreeView);
     }
 }
 

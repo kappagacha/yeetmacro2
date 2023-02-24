@@ -129,6 +129,9 @@
 	  <MauiXaml Update="Platforms\Android\Views\AndroidHomePage.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
+	  <MauiXaml Update="Views\ImageView.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
 	  <MauiXaml Update="Views\LogView.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>

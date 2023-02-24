@@ -1,8 +1,22 @@
+using System.Windows.Input;
+using UraniumUI.Icons.FontAwesome;
+
 namespace YeetMacro2.Views;
 
 public partial class TreeView : ContentView
 {
-	public TreeView()
+    ICommand _testCommand;
+    public ICommand Command
+    {
+        get
+        {
+            return _testCommand ?? (_testCommand = new Command(() =>
+            {
+                imgView.Glyph = Solid.Gun;
+            }));
+        }
+    }
+    public TreeView()
 	{
 		InitializeComponent();
 	}

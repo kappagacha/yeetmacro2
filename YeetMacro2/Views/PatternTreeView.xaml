@@ -12,7 +12,8 @@
              xmlns:fa="clr-namespace:UraniumUI.Icons.FontAwesome;assembly=UraniumUI.Icons.FontAwesome"
              BackgroundColor="{AppThemeBinding Light={StaticResource Background}, Dark={StaticResource BackgroundDark}}"
              x:Name="thisControl">
-    <Grid ColumnDefinitions="*,3*">
+    <v:TreeView />
+    <!--<Grid ColumnDefinitions="*,3*">
         <ScrollView Grid.Column="0">
             <Border Stroke="{StaticResource Primary}" Padding="3" BackgroundColor="Transparent">
                 <material:TreeView ItemsSource="{Binding PatternTree.Root.Children}" Spacing="0">
@@ -82,5 +83,5 @@
                 IsVisible="{Binding PatternTree.SelectedNode, Converter={conv:NullToBoolConverter IsInverse=True}}">
             <v:PatternView />
         </Border>
-    </Grid>
+    </Grid>-->
 </ContentView>
