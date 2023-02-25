@@ -12,7 +12,7 @@ public partial class TreeView : ContentView
         {
             return _testCommand ?? (_testCommand = new Command(() =>
             {
-                imgView.Glyph = Solid.Gun;
+                imgView.Glyph = Solid.Download;
             }));
         }
     }

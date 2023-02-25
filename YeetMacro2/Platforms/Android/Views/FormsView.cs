@@ -36,7 +36,6 @@ public class FormsView : RelativeLayout, IShowable
         InitDisplay();
         DeviceDisplay.MainDisplayInfoChanged += DeviceDisplay_MainDisplayInfoChanged;
 
-        //https://docs.microsoft.com/en-us/xamarin/xamarin-forms/platform/native-forms
         _visualElement = visualElement;
         var mauiContext = new MauiContext(MauiApplication.Current.Services, context);
         var androidView = visualElement.ToPlatform(mauiContext);
@@ -137,8 +136,6 @@ public class FormsView : RelativeLayout, IShowable
         _windowManager.RemoveView(this);
         _closeCompleted.SetResult(true);
         var loc = new int[2];
-        this.GetLocationOnScreen(loc);
-        //Console.WriteLine($"x{loc[0]} y{loc[1]}");
         _state = FormState.CLOSED;
     }
 
@@ -147,9 +144,6 @@ public class FormsView : RelativeLayout, IShowable
         _windowManager.RemoveView(this);
         _state = FormState.CLOSED;
         _closeCompleted.SetResult(false);
-        var loc = new int[2];
-        this.GetLocationOnScreen(loc);
-        Console.WriteLine($"x{loc[0]} y{loc[1]}");
     }
 
     //https://stackoverflow.com/questions/12745848/how-to-block-until-an-event-is-fired-in-c-sharp

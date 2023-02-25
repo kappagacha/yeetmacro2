@@ -7,5 +7,5 @@
              x:Name="thisView">
     <v:ImageView x:Name="imgView" 
                  Command="{Binding Command, Source={Reference thisView}}"
-                 FontFamily="FASolid" Glyph="{x:Static fa:Solid.Download}" />
+                 FontFamily="FASolid" Glyph="{x:Static fa:Solid.Gun}" />
 </ContentView>
