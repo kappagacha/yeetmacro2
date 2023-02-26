@@ -114,64 +114,6 @@ public partial class MacroManagerViewModel : ObservableObject
     }
 
     [RelayCommand]
-    private async Task ExportPatterns()
-    {
-        if (PatternTree == null) return;
-        if (await Permissions.RequestAsync<Permissions.StorageWrite>() != PermissionStatus.Granted) return;
-
-        var patternTreeJson = JsonSerializer.Serialize(PatternTree.Root, new JsonSerializerOptions { WriteIndented = true });
-#if ANDROID
-        // https://stackoverflow.com/questions/39332085/get-path-to-pictures-directory
-        var targetDirctory = DeviceInfo.Current.Platform == DevicePlatform.Android ? 
-            Android.OS.Environment.GetExternalStoragePublicDirectory(Android.OS.Environment.DirectoryPictures).AbsolutePath :
-            FileSystem.Current.AppDataDirectory;
-        var targetFile = Path.Combine(targetDirctory, $"{_selectedMacroSet.Name}_patterns.json");
-        File.WriteAllText(targetFile, patternTreeJson);
-#elif WINDOWS
-        var targetFile = $"{_selectedMacroSet.Name}_patterns.json";
-        File.WriteAllText(targetFile, patternTreeJson);
-#endif
-        _toastService.Show($"Exported Patterns: {_selectedMacroSet.Name}");
-    }
-
-    [RelayCommand]
-    private async Task ImportPatterns()
-    {
-        if (PatternTree == null) return;
-        var currentAssembly = Assembly.GetExecutingAssembly();
-        var resourceNames = currentAssembly.GetManifestResourceNames().Where(rs => rs.StartsWith("YeetMacro2.Resources.MacroSets"));
-        var regex = new Regex(@"YeetMacro2\.Resources\.MacroSets\.(?<macroSet>.+?)\.");
-
-        // https://stackoverflow.com/questions/9436381/c-sharp-regex-string-extraction
-        var macroSetGroups = resourceNames.GroupBy(rn => regex.Match(rn).Groups["macroSet"].Value);
-        var selectedMacroSet = await Application.Current.MainPage.DisplayActionSheet("Import Patterns", "Cancel", null, macroSetGroups.Select(g => g.Key).ToArray());
-        if (selectedMacroSet == null || selectedMacroSet == "Cancel") return;
-
-        using (var stream = currentAssembly.GetManifestResourceStream($"YeetMacro2.Resources.MacroSets.{selectedMacroSet}.{selectedMacroSet.Replace("_", " ")}_patterns.json"))
-        using (var reader = new StreamReader(stream))
-        {
-            var json = reader.ReadToEnd();
-            var rootTemp = ProxyViewModel.Create(JsonSerializer.Deserialize<PatternNode>(json));
-            var currentChildren = PatternTree.Root.Children.ToList();
-            foreach (var currentChild in currentChildren)
-            {
-                PatternTree.Root.Children.Remove(currentChild);
-                _nodeService.Delete(currentChild);
-            }
-
-            var newChildren = rootTemp.Children;
-            foreach (var newChild in newChildren)
-            {
-                Console.WriteLine("Before Insert: " + newChild.Name);
-                PatternTree.Root.Children.Add(newChild);
-                _nodeService.Insert(newChild);
-                Console.WriteLine("After Insert: " + newChild.Name);
-            }
-        }
-        _toastService.Show($"Imported Patterns: {_selectedMacroSet.Name})");
-    }
-
-    [RelayCommand]
     private async Task ExportScripts()
     {
         if (Scripts == null) return;
@@ -183,10 +125,11 @@ public partial class MacroManagerViewModel : ObservableObject
         var targetDirctory = DeviceInfo.Current.Platform == DevicePlatform.Android ? 
             Android.OS.Environment.GetExternalStoragePublicDirectory(Android.OS.Environment.DirectoryPictures).AbsolutePath :
             FileSystem.Current.AppDataDirectory;
-        var targetFile = Path.Combine(targetDirctory, $"{_selectedMacroSet.Name}_patterns.json");
+        var targetFile = Path.Combine(targetDirctory, $"{_selectedMacroSet.Name}_scripts.json");
         File.WriteAllText(targetFile, patternTreeJson);
 #elif WINDOWS
-        var targetFile = $"{_selectedMacroSet.Name}_patterns.json";
+        var targetDirctory = FileSystem.Current.AppDataDirectory;
+        var targetFile = Path.Combine(targetDirctory, $"{_selectedMacroSet.Name}_scripts.json");
         File.WriteAllText(targetFile, patternTreeJson);
 #endif
         _toastService.Show($"Exported Scripts: {_selectedMacroSet.Name}");

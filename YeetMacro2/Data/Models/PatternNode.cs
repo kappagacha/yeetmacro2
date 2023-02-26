@@ -1,13 +1,24 @@
-﻿using System.Dynamic;
+﻿using System.Collections;
+using System.Dynamic;
+using System.Linq.Expressions;
 using System.Text.Json.Serialization;
+using YeetMacro2.ViewModels;
 
 namespace YeetMacro2.Data.Models;
+
+public class PatternNodeProxyExpressionsProvider : IProxyExpressionsProvider<PatternNode>
+{
+    public Expression<Func<PatternNode, object>> CollectionPropertiesExpression => pn => new { pn.Children, pn.Patterns, pn.UserPatterns };
+    public Expression<Func<PatternNode, object>> ProxyPropertiesExpression => null;
+}
+
+[ProxyViewModel(ExpressionsProvider = typeof(PatternNodeProxyExpressionsProvider))]
 public class PatternNode : Node, IParentNode<PatternNode, PatternNode>
 {
     public virtual bool IsMultiPattern { get; set; }
     public virtual ICollection<PatternNode> Children { get; set; } = new List<PatternNode>();
-    public virtual ICollection<Pattern> Patterns { get; set; }
-    public virtual ICollection<UserPattern> UserPatterns { get; set; }
+    public virtual ICollection<Pattern> Patterns { get; set; } = new List<Pattern>();
+    public virtual ICollection<UserPattern> UserPatterns { get; set; } = new List<UserPattern>();
     public dynamic BuildDynamicObject(string path = "")
     {
         var result = new ExpandoObject();

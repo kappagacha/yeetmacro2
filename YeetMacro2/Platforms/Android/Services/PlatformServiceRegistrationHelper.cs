@@ -1,6 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using Microsoft.Maui.Controls.Compatibility.Hosting;
-using Xamarin.CommunityToolkit.Effects;
+//using Microsoft.Maui.Controls.Compatibility.Hosting;
 using YeetMacro2.Data.Services;
 using YeetMacro2.Platforms.Android.Services;
 using YeetMacro2.Platforms.Android.ViewModels;
@@ -31,17 +30,8 @@ public static class PlatformServiceRegistrationHelper
         mauiAppBuilder.Services.AddSingleton<IInputService>(sp => sp.GetRequiredService<AndroidWindowManagerService>());
         mauiAppBuilder.Services.AddSingleton<IRecorderService>(sp => sp.GetRequiredService<MediaProjectionService>());
 
-        // https://github.com/xamarin/XamarinCommunityToolkit/issues/1905
-        mauiAppBuilder
-        .UseMauiCompatibility()
-        .ConfigureMauiHandlers(handlers =>
-        {
-            handlers.AddCompatibilityRenderers(typeof(Xamarin.CommunityToolkit.Effects.TouchEffect).Assembly);
-        })
-        .ConfigureEffects(effects =>
-        {
-            effects.Add(typeof(TouchEffect), typeof(PlatformTouchEffect));
-        });
+        //mauiAppBuilder
+        //    .UseMauiCompatibility();
 
         return mauiAppBuilder;
     }

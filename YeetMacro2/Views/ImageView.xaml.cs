@@ -4,7 +4,6 @@ using SkiaSharp;
 using System.Collections.Concurrent;
 using Android.Graphics.Drawables;
 using static Android.Graphics.Bitmap;
-#elif WINDOWS
 #endif
 
 namespace YeetMacro2.Views;
@@ -23,7 +22,7 @@ public partial class ImageView : ContentView
 
     private static void ImagePropertyChanged(BindableObject bindable, object oldValue, object newValue)
     {
-        var imgView = (ImageView)bindable;
+        var imgView = bindable as ImageView;
 
         if (!String.IsNullOrWhiteSpace(imgView.FontFamily) && !String.IsNullOrWhiteSpace(imgView.Glyph))
         {
@@ -82,7 +81,7 @@ public partial class ImageView : ContentView
             canvas.Clear();
             canvas.DrawBitmap(skBitmap, info.Rect);
         } 
-        else // if bitmap not found, generate then invalidate canvas
+        else // if bitmap not found in cache, generate then invalidate canvas
         {
             var ctx = new MauiContext(MauiApplication.Current.Services, MauiApplication.Context);
             var fontImageSource = new FontImageSource()

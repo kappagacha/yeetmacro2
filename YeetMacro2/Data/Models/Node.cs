@@ -1,6 +1,7 @@
 ﻿using System.Text.Json.Serialization;
 
 namespace YeetMacro2.Data.Models;
+
 public abstract class Node
 {
     public virtual bool IsSelected { get; set; }

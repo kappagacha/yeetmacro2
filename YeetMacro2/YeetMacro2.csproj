@@ -176,6 +176,4 @@
     </None>
   </ItemGroup>
 
-	<ProjectExtensions><VisualStudio><UserProperties XamarinHotReloadUnhandledDeviceExceptionYeetMacro2HideInfoBar="True" /></VisualStudio></ProjectExtensions>
-
 </Project>

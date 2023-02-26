@@ -86,20 +86,13 @@ public partial class PatternTreeViewViewModel : TreeViewViewModel<PatternNode, P
         }
     }
 
-    protected override void OnBeforeAddNode(PatternNode newNode)
-    {
-        newNode.Children = ProxyViewModel.CreateCollection(new ObservableCollection<PatternNode>());
-        newNode.Patterns = ProxyViewModel.CreateCollection(new ObservableCollection<Pattern>());
-        newNode.UserPatterns = ProxyViewModel.CreateCollection(new ObservableCollection<UserPattern>());
-    }
-
     private void InitPatterns(int rootNodeId)
     {
         Task.Run(() =>
         {
             var root = ProxyViewModel.Create(_nodeService.GetRoot(rootNodeId));
             //_patternRepository.DetachAllEntities();
-            root.Children = ProxyViewModel.CreateCollection(root.Children, pn => new { pn.Children, pn.Patterns, pn.UserPatterns });
+            root.Children = ProxyViewModel.CreateCollection(root.Children);
             _nodeService.ReAttachNodes(root);
             var firstChild = root.Children.FirstOrDefault();
             if (SelectedNode == null && firstChild != null)

@@ -2,10 +2,51 @@
 <ContentView xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:v="clr-namespace:YeetMacro2.Views"
+             xmlns:m="clr-namespace:YeetMacro2.Data.Models"
+             xmlns:vm="clr-namespace:YeetMacro2.ViewModels"
              xmlns:fa="clr-namespace:UraniumUI.Icons.FontAwesome;assembly=UraniumUI.Icons.FontAwesome"
+             xmlns:material="http://schemas.enisn-projects.io/dotnet/maui/uraniumui/material"
+             xmlns:conv="clr-namespace:YeetMacro2.Converters"
              x:Class="YeetMacro2.Views.TreeView"
              x:Name="thisView">
-    <v:ImageView x:Name="imgView" 
-                 Command="{Binding Command, Source={Reference thisView}}"
-                 FontFamily="FASolid" Glyph="{x:Static fa:Solid.Gun}" />
+    <Grid>
+        <ScrollView>
+            <material:TreeView ItemsSource="{Binding ItemsSource.Root.Children, Source={Reference thisView}}" Spacing="0" HorizontalOptions="Fill"  VerticalOptions="Fill">
+                <material:TreeView.ItemTemplate>
+                    <DataTemplate>
+                        <Label Text="{Binding Name}" TextColor="{StaticResource PrimaryDark}" Margin="0" Padding="0" VerticalOptions="Center" BackgroundColor="Transparent">
+                            <Label.Triggers>
+                                <DataTrigger TargetType="{x:Type Label}" Binding="{Binding IsSelected}" Value="True">
+                                    <Setter Property="BackgroundColor" Value="Blue" />
+                                </DataTrigger>
+                            </Label.Triggers>
+                            <Label.GestureRecognizers>
+                                <TapGestureRecognizer CommandParameter="{Binding .}" Command="{Binding ItemsSource.SelectNodeCommand, Source={RelativeSource AncestorType={x:Type v:TreeView}}}" />
+                            </Label.GestureRecognizers>
+                        </Label>
+                    </DataTemplate>
+                </material:TreeView.ItemTemplate>
+            </material:TreeView>
+        </ScrollView>
+        <Grid VerticalOptions="End" HorizontalOptions="End" BindingContext="{Binding ., Source={Reference thisView}}">
+            <VerticalStackLayout>
+                <VerticalStackLayout IsVisible="{Binding IsMenuOpen}">
+                    <ContentView x:Name="extraMenuItemsContentView" />
+                    <v:ImageView FontFamily="FASolid" Glyph="{x:Static fa:Solid.TrashCan}" Color="Red" 
+                                 IsVisible="{Binding ItemsSource.SelectedNode, Converter={conv:NullToBoolConverter IsInverse=True}}"
+                                 Command="{Binding ItemsSource.DeleteNodeCommand}" CommandParameter="{Binding ItemsSource.SelectedNode}" />
+                    <v:ImageView FontFamily="FASolid" Glyph="{x:Static fa:Solid.Plus}" Command="{Binding ItemsSource.AddNodeCommand}" />
+                </VerticalStackLayout>
+                <Border Stroke="{StaticResource Primary}" StrokeThickness="0">
+                    <Border.Triggers>
+                        <DataTrigger TargetType="Border" Binding="{Binding IsMenuOpen}" Value="True">
+                            <Setter Property="StrokeThickness" Value="1" />
+                        </DataTrigger>
+                    </Border.Triggers>
+                    <v:ImageView FontFamily="FASolid" Glyph="{x:Static fa:Solid.Bars}"
+                             Command="{Binding ToggleIsMenuOpenCommand}" />
+                </Border>
+            </VerticalStackLayout>
+        </Grid>
+    </Grid>
 </ContentView>
