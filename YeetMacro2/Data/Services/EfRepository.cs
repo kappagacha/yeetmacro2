@@ -4,6 +4,15 @@ using System.Linq.Expressions;
 using System.Reflection;
 
 namespace YeetMacro2.Data.Services;
+
+public class YeetMacroEfRepository<TEntity> : EfRepository<YeetMacroDbContext, TEntity>
+    where TEntity : class
+{
+    public YeetMacroEfRepository(YeetMacroDbContext context) : base(context)
+    {
+    }
+}
+
 //https://codewithshadman.com/repository-pattern-csharp/
 public class EfRepository<TContext, TEntity> : IRepository<TEntity>
     where TContext : DbContext
