@@ -12,74 +12,136 @@ using YeetMacro2.Services;
 
 namespace YeetMacro2.ViewModels;
 
-[JsonConverter(typeof(TreeViewViewModelValueConverter))]
-public partial class TreeViewViewModel<TParent, TChild> : ObservableObject
-        where TParent : Node, IParentNode<TParent, TChild>, TChild, new()
-        where TChild : Node, new()
+// https://stackoverflow.com/questions/53884417/net-core-di-ways-of-passing-parameters-to-constructor
+public class NodeViewModelFactory
 {
+    IServiceProvider _serviceProvider;
+    public NodeViewModelFactory(IServiceProvider serviceProvider)
+    {
+        _serviceProvider = serviceProvider;
+    }
+
+    public T Create<T>(int rootId) where T : NodeViewModel
+    {
+        return ActivatorUtilities.CreateInstance<T>(_serviceProvider, rootId);
+    }
+}
+
+public abstract class NodeViewModel : ObservableObject
+{
+
+}
+
+[JsonConverter(typeof(NodeViewModelValueConverter))]
+public partial class NodeViewModel<TParent, TChild> : NodeViewModel
+        where TParent : Node, IParentNode<TParent, TChild>, TChild, new()
+        where TChild : Node
+{
+    private int _rootNodeId;
+    private string _nodeTypeName;
     [ObservableProperty]
     protected TParent _root;
     [ObservableProperty]
     protected TChild _selectedNode;
+    [ObservableProperty]
+    bool _isInitialized;
+    TaskCompletionSource _initializeCompleted;
     protected INodeService<TParent, TChild> _nodeService;
     protected IToastService _toastService;
     protected IInputService _inputService;
     static readonly JsonSerializerOptions _defaultJsonSerializerOptions = new JsonSerializerOptions()
     {
         WriteIndented = true,
-        TypeInfoResolver = TreeViewViewModelTypeInfoResolver.Instance,
+        TypeInfoResolver = NodeModelTypeInfoResolver.Instance,
         PropertyNamingPolicy = JsonNamingPolicy.CamelCase
     };
 
-    public TreeViewViewModel(
+    public NodeViewModel(
+        int rootNodeId,
         INodeService<TParent, TChild> nodeService,
         IInputService inputService,
         IToastService toastService)
     {
+        _rootNodeId = rootNodeId;
+        _nodeTypeName = typeof(TChild).Name.Replace("Node", "");
         _nodeService = nodeService;
         _inputService = inputService;
         _toastService = toastService;
+        _initializeCompleted = new TaskCompletionSource();
+        Init();
     }
 
-    //protected virtual void Init()
-    //{
-    //    Root = _nodeService.GetRoot();
-    //    Root = ProxyViewModel.Create(Root);
-    //    _nodeService.ReAttachNodes(Root);
-    //}
+    private void Init()
+    {
+        if (_rootNodeId <= 0) return;       // serialization sends -1 rootNodeId
+
+        Task.Run(() =>
+        {
+            var root = (TParent)ProxyViewModel.Create<TChild>(_nodeService.GetRoot(_rootNodeId));
+            _nodeService.ReAttachNodes(root);
+            var firstChild = root.Nodes.FirstOrDefault();
+            if (SelectedNode == null && firstChild != null)
+            {
+                root.IsExpanded = true;
+                firstChild.IsSelected = false;
+                SelectNode(firstChild);
+            }
+            Root = root;
+            IsInitialized = true;
+            _initializeCompleted.SetResult();
+        });
+    }
+
+    public async Task WaitForInitialization()
+    {
+        await _initializeCompleted.Task;
+    }
 
     [RelayCommand]
     public async void AddNode()
     {
-        var name = await _inputService.PromptInput("Please enter node name: ");
+        var name = await _inputService.PromptInput($"Please enter {_nodeTypeName} name: ");
 
         if (string.IsNullOrWhiteSpace(name))
         {
-            _toastService.Show("Canceled add pattern node");
+            _toastService.Show($"Canceled add {_nodeTypeName}");
             return;
         }
 
-        var newNode = ProxyViewModel.Create(new TParent()
+        TChild newNode = null;
+        var nodeTypes = NodeMetadataHelper.GetNodeTypes<TChild>();
+        if (nodeTypes is not null)
         {
-            Name = name
-        });
+            var selectedTypeName = await _inputService.SelectOption($"Please select {_nodeTypeName} type", nodeTypes.Select(t => t.Name).ToArray());
+            if (String.IsNullOrEmpty(selectedTypeName) || selectedTypeName == "cancel") return;
+            var selectedType = nodeTypes.First(t => t.Name == selectedTypeName);
+            newNode = (TChild)ProxyViewModel.Create(Activator.CreateInstance(selectedType));
+            newNode.Name = name;
+        }
+        else
+        {
+            newNode = ProxyViewModel.Create(new TParent()
+            {
+                Name = name
+            });
+        }
 
         if (SelectedNode != null && SelectedNode is TParent parent)
         {
             newNode.ParentId = SelectedNode.NodeId;
             newNode.RootId = SelectedNode.RootId;
-            parent.Children.Add(newNode);
+            parent.Nodes.Add(newNode);
             SelectedNode.IsExpanded = true;
         }
         else
         {
             newNode.ParentId = Root.NodeId;
             newNode.RootId = Root.NodeId;
-            Root.Children.Add(newNode);
+            Root.Nodes.Add(newNode);
         }
 
         _nodeService.Insert(newNode);
-        _toastService.Show("Created pattern node: " + name);
+        _toastService.Show($"Created {_nodeTypeName}: " + name);
     }
 
     [RelayCommand]
@@ -88,16 +150,16 @@ public partial class TreeViewViewModel<TParent, TChild> : ObservableObject
         if (node.ParentId.HasValue)
         {
             var parent = (TParent)_nodeService.Get(node.ParentId.Value);
-            parent.Children.Remove(node);
+            parent.Nodes.Remove(node);
         }
         else
         {
-            Root.Children.Remove(node);
+            Root.Nodes.Remove(node);
         }
 
         _nodeService.Delete(node);
 
-        _toastService.Show("Deleted pattern node: " + node.Name);
+        _toastService.Show($"Deleted {_nodeTypeName}: " + node.Name);
 
         if (node.IsSelected)
         {
@@ -130,22 +192,20 @@ public partial class TreeViewViewModel<TParent, TChild> : ObservableObject
     {
         if (await Permissions.RequestAsync<Permissions.StorageWrite>() != PermissionStatus.Granted) return;
 
-        var type = typeof(TChild).Name.Replace("Node", "") + "s";
         var json = JsonSerializer.Serialize(this, _defaultJsonSerializerOptions);
-
 #if ANDROID
         // https://stackoverflow.com/questions/39332085/get-path-to-pictures-directory
         var targetDirctory = DeviceInfo.Current.Platform == DevicePlatform.Android ? 
             Android.OS.Environment.GetExternalStoragePublicDirectory(Android.OS.Environment.DirectoryPictures).AbsolutePath :
             FileSystem.Current.AppDataDirectory;
-        var targetFile = Path.Combine(targetDirctory, $"{name}_{type}.json");
+        var targetFile = Path.Combine(targetDirctory, $"{name}_{_nodeTypeName}s.json");
         File.WriteAllText(targetFile, json);
 #elif WINDOWS
         var targetDirctory = FileSystem.Current.AppDataDirectory;
-        var targetFile = Path.Combine(targetDirctory, $"{name}_{type}.json");
+        var targetFile = Path.Combine(targetDirctory, $"{name}_{_nodeTypeName}s.json");
         File.WriteAllText(targetFile, json);
 #endif
-        _toastService.Show($"Exported {type}: {name}");
+        _toastService.Show($"Exported {_nodeTypeName}: {name}");
     }
 
     [RelayCommand]
@@ -157,53 +217,38 @@ public partial class TreeViewViewModel<TParent, TChild> : ObservableObject
 
         // https://stackoverflow.com/questions/9436381/c-sharp-regex-string-extraction
         var macroSetGroups = resourceNames.GroupBy(rn => regex.Match(rn).Groups["macroSet"].Value);
-        var selectedMacroSet = await Application.Current.MainPage.DisplayActionSheet("Import Patterns", "Cancel", null, macroSetGroups.Select(g => g.Key).ToArray());
+        var selectedMacroSet = await Application.Current.MainPage.DisplayActionSheet($"Import {_nodeTypeName}", "Cancel", null, macroSetGroups.Select(g => g.Key).ToArray());
         if (selectedMacroSet == null || selectedMacroSet == "Cancel") return;
 
-        using (var stream = currentAssembly.GetManifestResourceStream($"YeetMacro2.Resources.MacroSets.{selectedMacroSet}.{selectedMacroSet.Replace("_", " ")}_patterns.json"))
+        using (var stream = currentAssembly.GetManifestResourceStream($"YeetMacro2.Resources.MacroSets.{selectedMacroSet}.{selectedMacroSet.Replace("_", " ")}_{_nodeTypeName}s.json"))
         using (var reader = new StreamReader(stream))
         {
             var json = reader.ReadToEnd();
-            //var x = JsonSerializer.Deserialize<TreeViewViewModel<TParent, TChild>>(json, _defaultJsonSerializerOptions);
-            var tempTree = JsonSerializer.Deserialize<TreeViewViewModel<TParent, TChild>>(json, _defaultJsonSerializerOptions);
+            var tempTree = JsonSerializer.Deserialize<NodeViewModel<TParent, TChild>>(json, _defaultJsonSerializerOptions);
             var rootTemp = ProxyViewModel.Create(tempTree.Root);
-            var currentChildren = Root.Children.ToList();
+            var currentChildren = Root.Nodes.ToList();
             foreach (var currentChild in currentChildren)
             {
-                Root.Children.Remove(currentChild);
+                Root.Nodes.Remove(currentChild);
                 _nodeService.Delete(currentChild);
             }
 
-            var newChildren = rootTemp.Children;
+            var newChildren = rootTemp.Nodes;
             foreach (var newChild in newChildren)
             {
-                Console.WriteLine("Before Insert: " + newChild.Name);
                 newChild.RootId = Root.NodeId;
                 newChild.ParentId = Root.NodeId;
-                Root.Children.Add(newChild);
+                Root.Nodes.Add(newChild);
                 _nodeService.Insert(newChild);
-                Console.WriteLine("After Insert: " + newChild.Name);
             }
         }
-        //_toastService.Show($"Imported Patterns: {_selectedMacroSet.Name})");
-    }
-
-    [RelayCommand]
-    public void Test()
-    {
-        //var patterns = _patternRepository.Get();
-
-
-        //SelectedPattern.Pattern.Name = DateTime.Now.ToString();
-
-        //_patternRepository.Insert(SelectedPattern.Pattern);
-        //_patternRepository.Save();
+        _toastService.Show($"Imported {_nodeTypeName}");
     }
 }
 
-public class TreeViewViewModelTypeInfoResolver : DefaultJsonTypeInfoResolver
+public class NodeModelTypeInfoResolver : DefaultJsonTypeInfoResolver
 {
-    public static TreeViewViewModelTypeInfoResolver Instance = new TreeViewViewModelTypeInfoResolver();
+    public static NodeModelTypeInfoResolver Instance = new NodeModelTypeInfoResolver();
     public override JsonTypeInfo GetTypeInfo(Type type, JsonSerializerOptions options)
     {
         JsonTypeInfo typeInfo = base.GetTypeInfo(type, options);
@@ -229,11 +274,11 @@ public class TreeViewViewModelTypeInfoResolver : DefaultJsonTypeInfoResolver
 
 // https://learn.microsoft.com/en-us/dotnet/standard/serialization/system-text-json/converters-how-to?pivots=dotnet-7-0
 // https://devblogs.microsoft.com/dotnet/system-text-json-in-dotnet-7/#contract-customization
-public class TreeViewViewModelValueConverter : JsonConverterFactory
+public class NodeViewModelValueConverter : JsonConverterFactory
 {
     public override bool CanConvert(Type typeToConvert)
     {
-        if (!typeToConvert.IsGenericType || typeToConvert.GetGenericTypeDefinition() != typeof(TreeViewViewModel<,>))
+        if (!typeToConvert.IsGenericType || typeToConvert.GetGenericTypeDefinition() != typeof(NodeViewModel<,>))
         {
             return false;
         }
@@ -247,7 +292,7 @@ public class TreeViewViewModelValueConverter : JsonConverterFactory
         Type childType = typeToConvert.GetGenericArguments()[1];
 
         JsonConverter converter = (JsonConverter)Activator.CreateInstance(
-            typeof(GenericTreeViewViewModelValueConverter<,>).MakeGenericType(
+            typeof(GenericNodeViewModelValueConverter<,>).MakeGenericType(
                 new Type[] { parentType, childType }),
             BindingFlags.Instance | BindingFlags.Public,
             binder: null,
@@ -257,16 +302,16 @@ public class TreeViewViewModelValueConverter : JsonConverterFactory
         return converter;
     }
 
-    private class GenericTreeViewViewModelValueConverter<TParent, TChild> : JsonConverter<TreeViewViewModel<TParent, TChild>>
+    private class GenericNodeViewModelValueConverter<TParent, TChild> : JsonConverter<NodeViewModel<TParent, TChild>>
         where TParent : Node, IParentNode<TParent, TChild>, TChild, new()
-        where TChild : Node, new()
+        where TChild : Node
     {
         private readonly JsonConverter<TChild> _childConverter;
         private readonly JsonConverter<TParent> _parentConverter;
         private readonly Type _parentType;
         private readonly Type _childType;
 
-        public GenericTreeViewViewModelValueConverter(JsonSerializerOptions options)
+        public GenericNodeViewModelValueConverter(JsonSerializerOptions options)
         {
             _childConverter = (JsonConverter<TChild>)(options).GetConverter(typeof(TChild));
             _parentConverter = (JsonConverter<TParent>)(options).GetConverter(typeof(TParent));
@@ -275,7 +320,7 @@ public class TreeViewViewModelValueConverter : JsonConverterFactory
             _childType = typeof(TChild);
         }
 
-        public override TreeViewViewModel<TParent, TChild> Read(
+        public override NodeViewModel<TParent, TChild> Read(
             ref Utf8JsonReader reader,
             Type typeToConvert,
             JsonSerializerOptions options)
@@ -285,9 +330,9 @@ public class TreeViewViewModelValueConverter : JsonConverterFactory
                 throw new JsonException();
             }
 
-            var tree = new TreeViewViewModel<TParent, TChild>(null, null, null);
+            var tree = new NodeViewModel<TParent, TChild>(-1, null, null, null);
             tree.Root = new TParent();
-            tree.Root.Children = new List<TChild>();
+            tree.Root.Nodes = new List<TChild>();
 
             while (reader.Read())
             {
@@ -298,7 +343,7 @@ public class TreeViewViewModelValueConverter : JsonConverterFactory
 
                 if (reader.TokenType == JsonTokenType.StartObject)
                 {
-                    tree.Root.Children.Add(ReadNode(ref reader, typeToConvert, options));
+                    tree.Root.Nodes.Add(ReadNode(ref reader, typeToConvert, options));
                 }
             }
 
@@ -348,7 +393,7 @@ public class TreeViewViewModelValueConverter : JsonConverterFactory
                 else if (reader.TokenType == JsonTokenType.PropertyName)
                 {
                     Debug.WriteLine($"property: {reader.GetString()}");
-                    parent.Children.Add(ReadNode(ref reader, typeToConvert, options));
+                    parent.Nodes.Add(ReadNode(ref reader, typeToConvert, options));
                 }
             }
 
@@ -357,14 +402,14 @@ public class TreeViewViewModelValueConverter : JsonConverterFactory
 
         public override void Write(
             Utf8JsonWriter writer,
-            TreeViewViewModel<TParent, TChild> tree,
+            NodeViewModel<TParent, TChild> tree,
             JsonSerializerOptions options)
         {
             writer.WriteStartObject();
 
             if (tree.Root != null)
             {
-                foreach (var child in tree.Root.Children)
+                foreach (var child in tree.Root.Nodes)
                 {
                     Write(writer, child, options);
                 }
@@ -386,7 +431,7 @@ public class TreeViewViewModelValueConverter : JsonConverterFactory
                 writer.WriteBooleanValue(true);
                 writer.WritePropertyName("properties");
                 _parentConverter.Write(writer, parent, options);
-                foreach (var subChild in parent.Children)
+                foreach (var subChild in parent.Nodes)
                 {
                     Write(writer, subChild, options);
                 }

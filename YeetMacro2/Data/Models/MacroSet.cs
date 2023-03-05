@@ -7,4 +7,6 @@ public class MacroSet
     public virtual int RootPatternNodeId { get; set; }
     public virtual PatternNode RootPattern { get; set; }
     public virtual ICollection<Script> Scripts { get; set; }
+    public virtual int RootSettingNodeId { get; set; }
+    public virtual ParentSetting RootSetting { get; set; }
 }

@@ -1,28 +1,12 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
-using System.Collections.ObjectModel;
 using YeetMacro2.Data.Models;
 using YeetMacro2.Data.Services;
 using YeetMacro2.Services;
 
 namespace YeetMacro2.ViewModels;
 
-// https://stackoverflow.com/questions/53884417/net-core-di-ways-of-passing-parameters-to-constructor
-public class PatternTreeViewViewModelFactory
-{
-    IServiceProvider _serviceProvider;
-    public PatternTreeViewViewModelFactory(IServiceProvider serviceProvider)
-    {
-        _serviceProvider= serviceProvider;
-    }
-
-    public PatternTreeViewViewModel Create(int rootId)
-    {
-        return ActivatorUtilities.CreateInstance<PatternTreeViewViewModel>(_serviceProvider, rootId);
-    }
-}
-
-public partial class PatternTreeViewViewModel : TreeViewViewModel<PatternNode, PatternNode>
+public partial class PatternTreeViewViewModel : NodeViewModel<PatternNode, PatternNode>
 {
     IRepository<PatternBase> _patternRepository;
     IScreenService _screenService;
@@ -31,10 +15,6 @@ public partial class PatternTreeViewViewModel : TreeViewViewModel<PatternNode, P
     PatternBase _selectedPattern;
     [ObservableProperty]
     ImageSource _selectedImageSource;
-    [ObservableProperty]
-    bool _isInitialized;
-    TaskCompletionSource _initializeCompleted;
-    MemoryStream _imageStream;
 
     public PatternBase SelectedPattern
     {
@@ -44,8 +24,6 @@ public partial class PatternTreeViewViewModel : TreeViewViewModel<PatternNode, P
             SetProperty(ref _selectedPattern, value);
             if (_selectedPattern != null && _selectedPattern.ImageData != null)
             {
-                //_imageStream?.Dispose();
-                //_imageStream = new MemoryStream(_selectedPattern.ImageData);
                 SelectedImageSource = ImageSource.FromStream(() => new MemoryStream(_selectedPattern.ImageData));
             }
         }
@@ -64,7 +42,7 @@ public partial class PatternTreeViewViewModel : TreeViewViewModel<PatternNode, P
         IRepository<PatternBase> patternRepository,
         IScreenService screenService,
         IMacroService macroService)
-            : base(nodeService, inputService, toastService)
+            : base(rootNodeId, nodeService, inputService, toastService)
     {
         _patternRepository = patternRepository;
         _screenService = screenService;
@@ -72,8 +50,13 @@ public partial class PatternTreeViewViewModel : TreeViewViewModel<PatternNode, P
 
         PropertyChanged += PatternTreeViewViewModel_PropertyChanged;
 
-        _initializeCompleted = new TaskCompletionSource();
-        InitPatterns(rootNodeId);
+        // TODO: init SelectedPattern
+        //if (SelectedPattern == null && SelectedNode.Patterns.Count > 0)
+        //{
+        //    var targetPattern = SelectedNode.Patterns.First();
+        //    targetPattern.IsSelected = false;
+        //    SelectPattern(targetPattern);
+        //}
     }
 
     private void PatternTreeViewViewModel_PropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)
@@ -84,39 +67,6 @@ public partial class PatternTreeViewViewModel : TreeViewViewModel<PatternNode, P
             targetPattern.IsSelected = false;
             SelectPattern(targetPattern);
         }
-    }
-
-    private void InitPatterns(int rootNodeId)
-    {
-        Task.Run(() =>
-        {
-            var root = ProxyViewModel.Create(_nodeService.GetRoot(rootNodeId));
-            //_patternRepository.DetachAllEntities();
-            root.Children = ProxyViewModel.CreateCollection(root.Children);
-            _nodeService.ReAttachNodes(root);
-            var firstChild = root.Children.FirstOrDefault();
-            if (SelectedNode == null && firstChild != null)
-            {
-                root.IsExpanded = true;
-                firstChild.IsSelected = false;
-                SelectNode(firstChild);
-
-                if (SelectedPattern == null && SelectedNode.Patterns.Count > 0)
-                {
-                    var targetPattern = SelectedNode.Patterns.First();
-                    targetPattern.IsSelected = false;
-                    SelectPattern(targetPattern);
-                }
-            }
-            Root = root;
-            IsInitialized = true;
-            _initializeCompleted.SetResult();
-        });
-    }
-
-    public async Task WaitForInitialization()
-    {
-        await _initializeCompleted.Task;
     }
 
     [RelayCommand]

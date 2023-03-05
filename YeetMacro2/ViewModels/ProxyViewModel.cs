@@ -4,6 +4,7 @@ using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Linq.Expressions;
 using System.Reflection;
+using YeetMacro2.Data.Models;
 using YeetMacro2.Data.Services;
 using YeetMacro2.Services;
 
@@ -11,47 +12,8 @@ namespace YeetMacro2.ViewModels;
 public interface IProxyNotifyPropertyChanged : INotifyPropertyChanged
 {
     void OnPropertyChanged(string propertyChanged);
-    //Boolean IsLeaf { get; }
-    //Color Color { get; set; }
-    //Color BorderColor { get; set; }
-}
-
-// https://learn.microsoft.com/en-us/dotnet/csharp/programming-guide/concepts/attributes/
-// https://code-maze.com/csharp-generic-attributes/
-public interface IProxyExpressionsProvider<TSubject>
-{
-    Expression<Func<TSubject, object>> CollectionPropertiesExpression { get; }
-    Expression<Func<TSubject, object>> ProxyPropertiesExpression { get; }
-}
-
-// generic attribute doesn't work on Android at the moment
-//[System.AttributeUsage(System.AttributeTargets.Class)]
-//public class ProxyCollectionAttribute<TProvider, TSubject> : System.Attribute
-//    where TProvider : class, IProxyExpressionsProvider<TSubject>
-//{ }
-
-[System.AttributeUsage(System.AttributeTargets.Class)]
-public class ProxyViewModelAttribute : System.Attribute
-{
-    public Type ExpressionsProvider { get; set; }
-}
-
-public static class PatternNodeProxyCollectionExpressionsHelper
-{
-    public static IProxyExpressionsProvider<T> GetProvider<T>()
-    {
-        var modelType = typeof(T);
-        //var proxyViewModelAttribute = modelType.GetCustomAttribute(typeof(ProxyCollectionAttribute<,>));
-        var proxyViewModelAttribute = (ProxyViewModelAttribute)modelType.GetCustomAttribute(typeof(ProxyViewModelAttribute));
-        if (proxyViewModelAttribute is not null)
-        {
-            //var expressionProviderType = proxyViewModelAttribute.GetType().GetGenericArguments().First();
-            var expressionProviderType = proxyViewModelAttribute.ExpressionsProvider;
-            return Activator.CreateInstance(expressionProviderType) as IProxyExpressionsProvider<T>;
-
-        }
-        return null;
-    }
+    object IsLeaf { get; set; }     // using this to not get the warnings from UraniumUI treeview
+    object Children { get; set; }   // using this to not get the warnings from UraniumUI treeview
 }
 
 //https://kozmic.net/2009/08/12/castle-dynamic-proxy-tutorial-part-xiii-mix-in-this-mix/
@@ -61,10 +23,8 @@ public class ProxyViewModel : IProxyNotifyPropertyChanged
 {
     static IMapper _mapper;
     static MethodInfo _createCollectionMethodInfo = typeof(ProxyViewModel).GetMethod(nameof(ProxyViewModel.CreateCollection));
-    //https://github.com/xamarin/XamarinCommunityToolkit/issues/420
-    //public Color Color { get; set; } = Colors.Transparent;
-    //public Color BorderColor { get; set; } = Colors.Transparent;
-    //public Boolean IsLeaf { get; } = false;
+    public object IsLeaf { get; set; }
+    public object Children { get; set; }
 
     static ProxyViewModel()
     {
@@ -81,6 +41,11 @@ public class ProxyViewModel : IProxyNotifyPropertyChanged
                 var notifier = (IProxyNotifyPropertyChanged)invocation.Proxy;
                 notifier.OnPropertyChanged(invocation.Method.Name.Substring(4));
             }
+
+            if (invocation.Method.Name.StartsWith("get_Children"))
+            {
+                invocation.ReturnValue = ReflectionHelper.PropertyInfoCollection[invocation.Proxy.GetType()]["Nodes"]?.GetValue(invocation.Proxy);
+            }
         }
     }
 
@@ -91,13 +56,14 @@ public class ProxyViewModel : IProxyNotifyPropertyChanged
         options.AddMixinInstance(new ProxyViewModel());
         options.AddMixinInstance(target);
         var proxyGenerator = new ProxyGenerator();
-        var proxy = proxyGenerator.CreateClassProxy<T>(
+        var proxy = (T)proxyGenerator.CreateClassProxy(
+            target.GetType(),
             options,
             new ProxyViewModelInterceptor());
 
         _mapper.Map(target, proxy);
 
-        var expressionsProvider = PatternNodeProxyCollectionExpressionsHelper.GetProvider<T>();
+        var expressionsProvider = NodeMetadataHelper.GetMetadataProvider<T>();
         if (expressionsProvider?.CollectionPropertiesExpression is not null || expressionsProvider?.ProxyPropertiesExpression is not null)
         {
             ResolveProxyGraph(proxy, expressionsProvider.CollectionPropertiesExpression, expressionsProvider.ProxyPropertiesExpression);
@@ -106,11 +72,11 @@ public class ProxyViewModel : IProxyNotifyPropertyChanged
         return proxy;
     }
 
-    private static void ResolveProxyGraph<T>(T proxy, Expression<Func<T, object>> collectionPropertiesExpression, Expression<Func<T, object>> proxyPropertiesExpression) where T: class
+    private static void ResolveProxyGraph<T>(T proxy, Expression<Func<T, object>> collectionPropertiesExpression, Expression<Func<T, object>> proxyPropertiesExpression) where T : class
     {
         if (collectionPropertiesExpression != null)
         {
-            List<PropertyInfo> collectionProperties = ReflectionHelper.GetMultiPropertyInfo<T, object>(collectionPropertiesExpression);
+            List<PropertyInfo> collectionProperties = ReflectionHelper.GetMultiPropertyInfo<T, object>(collectionPropertiesExpression, proxy.GetType());
             foreach (var collectionProperty in collectionProperties)
             {
                 var childCollection = collectionProperty.GetValue(proxy);
@@ -118,11 +84,11 @@ public class ProxyViewModel : IProxyNotifyPropertyChanged
                 object proxyCollection = null;
                 if (genericArguments[0] == typeof(T))
                 {
-                    proxyCollection = CreateCollection((IEnumerable<T>)childCollection, collectionPropertiesExpression, proxyPropertiesExpression);
+                    proxyCollection = CreateCollection((IEnumerable<T>)childCollection);
                 }
                 else
                 {
-                    proxyCollection = _createCollectionMethodInfo.MakeGenericMethod(genericArguments[0]).Invoke(null, new[] { childCollection, null, null });
+                    proxyCollection = _createCollectionMethodInfo.MakeGenericMethod(genericArguments[0]).Invoke(null, new[] { childCollection });
                 }
 
                 collectionProperty.SetValue(proxy, proxyCollection);
@@ -140,18 +106,8 @@ public class ProxyViewModel : IProxyNotifyPropertyChanged
         }
     }
 
-    public static ICollection<T> CreateCollection<T>(IEnumerable<T> target, Expression<Func<T, object>> collectionPropertiesExpression = null, Expression<Func<T, object>> proxyPropertiesExpression = null) where T : class
+    public static ICollection<T> CreateCollection<T>(IEnumerable<T> target) where T : class
     {
-        if (collectionPropertiesExpression is null)
-        {
-            collectionPropertiesExpression = PatternNodeProxyCollectionExpressionsHelper.GetProvider<T>()?.CollectionPropertiesExpression;
-        }
-
-        if (proxyPropertiesExpression is null)
-        {
-            proxyPropertiesExpression = PatternNodeProxyCollectionExpressionsHelper.GetProvider<T>()?.ProxyPropertiesExpression;
-        }
-
         //https://github.com/castleproject/Core/blob/master/src/Castle.Core/DynamicProxy/ProxyGenerationOptions.cs
         var options = new ProxyGenerationOptions();
         options.AddMixinInstance(new ObservableCollection<T>());

@@ -76,13 +76,15 @@
 	  <None Remove="Resources\Images\appicon.svg" />
 	  <None Remove="Resources\MacroSets\Disgaea RPG\Disgaea RPG_patterns.json" />
 	  <None Remove="Resources\MacroSets\Disgaea RPG\Disgaea RPG_scripts.json" />
+	  <None Remove="Resources\MacroSets\Disgaea RPG\Disgaea RPG_Settings.json" />
 	  <None Remove="Resources\MacroSets\Konosuba FD\Konosuba FD_patterns.json" />
 	  <None Remove="Resources\Splash\splash.svg" />
 	</ItemGroup>
 
 	<ItemGroup>
-	  <EmbeddedResource Include="Resources\MacroSets\Disgaea RPG\Disgaea RPG_patterns.json" />
+	  <EmbeddedResource Include="Resources\MacroSets\Disgaea RPG\Disgaea RPG_Patterns.json" />
 	  <EmbeddedResource Include="Resources\MacroSets\Disgaea RPG\Disgaea RPG_scripts.json" />
+	  <EmbeddedResource Include="Resources\MacroSets\Disgaea RPG\Disgaea RPG_Settings.json" />
 	  <EmbeddedResource Include="Resources\MacroSets\Konosuba FD\Konosuba FD_patterns.json" />
 	</ItemGroup>
 
@@ -151,6 +153,9 @@
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
 	  <MauiXaml Update="Pages\MacroManagerPage.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	  <MauiXaml Update="Views\SettingTreeView.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
 	  <MauiXaml Update="Views\TreeView.xaml">

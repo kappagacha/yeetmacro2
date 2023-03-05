@@ -34,6 +34,6 @@ internal class WindowsInputService : IInputService
 
     public Task<string> SelectOption(string message, params string[] options)
     {
-        throw new NotImplementedException();
+        return Application.Current.MainPage.DisplayActionSheet(message, "cancel", "ok", options);
     }
 }

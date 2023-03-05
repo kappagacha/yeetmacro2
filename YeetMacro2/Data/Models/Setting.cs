@@ -1,4 +1,6 @@
-﻿namespace YeetMacro2.Data.Models;
+﻿using System.Linq.Expressions;
+
+namespace YeetMacro2.Data.Models;
 
 public enum SettingType
 {
@@ -7,12 +9,21 @@ public enum SettingType
     Option
 }
 
+public class SettingNodeMetadataProvider : INodeMetadataProvider<Setting>
+{
+    public Expression<Func<Setting, object>> CollectionPropertiesExpression => s => new { ((ParentSetting)s).Nodes };
+    public Expression<Func<Setting, object>> ProxyPropertiesExpression => null;
+
+    public Type[] NodeTypes => new Type[] { typeof(ParentSetting), typeof(BooleanSetting), typeof(OptionSetting) };
+}
+
 public class ParentSetting : Setting, IParentNode<ParentSetting, Setting>
 {
-    public ICollection<Setting> Children { get; set; } = new List<Setting>();
+    public ICollection<Setting> Nodes { get; set; } = new List<Setting>();
     public override SettingType SettingType => SettingType.Parent;
 }
 
+[NodeMetadata(NodeMetadataProvider = typeof(SettingNodeMetadataProvider))]
 public abstract class Setting : Node
 {
     public abstract SettingType SettingType { get; }

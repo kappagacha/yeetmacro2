@@ -2,7 +2,7 @@
 
 namespace YeetMacro2.Data.Services;
 public interface INodeService<TParent, TChild>
-        where TParent : Node, IParentNode<TParent, TChild>, TChild
+        where TParent : Node, IParentNode<TParent, TChild>, TChild, new()
         where TChild : Node
 {
     void Delete(TChild node);
@@ -50,9 +50,9 @@ public class NodeService<TParent, TChild> : INodeService<TParent, TChild>
         if (node is TParent parent)
         {
             var directDescendants = closures.Where(c => c.AncestorId == node.NodeId && c.Depth == 1);
-            parent.Children = directDescendants.Select(c => c.Descendant).Cast<TChild>().ToList();
+            parent.Nodes = directDescendants.Select(c => c.Descendant).Cast<TChild>().ToList();
 
-            foreach (var child in parent.Children)
+            foreach (var child in parent.Nodes)
             {
                 LoadNode(child, closures);
             }
@@ -74,8 +74,8 @@ public class NodeService<TParent, TChild> : INodeService<TParent, TChild>
         if (node is TParent parent)
         {
             parent.NodeId = 0;
-            var children = parent.Children;
-            parent.Children = null;
+            var children = parent.Nodes;
+            parent.Nodes = null;
             _nodeRepository.Insert(parent);
             _nodeRepository.Save();
             Resolve(node);
@@ -85,7 +85,7 @@ public class NodeService<TParent, TChild> : INodeService<TParent, TChild>
                 child.RootId = parent.RootId;
                 Insert(child);
             }
-            parent.Children = children;
+            parent.Nodes = children;
         }
         else
         {
@@ -168,7 +168,7 @@ public class NodeService<TParent, TChild> : INodeService<TParent, TChild>
 
         if (node is TParent parent)
         {
-            foreach (var child in parent.Children)
+            foreach (var child in parent.Nodes)
             {
                 foreach (var childNodes in GetAllNodes(child))
                 {

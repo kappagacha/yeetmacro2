@@ -53,7 +53,12 @@ public static class ReflectionHelper
         Expression<Func<TSource, TProperty>> propertyLambda)
     {
         Type type = typeof(TSource);
+        return GetMultiPropertyInfo(propertyLambda, type);
+    }
 
+    public static List<PropertyInfo> GetMultiPropertyInfo<TSource, TProperty>(
+        Expression<Func<TSource, TProperty>> propertyLambda, Type targetType)
+    {
         List<PropertyInfo> properties = new List<PropertyInfo>();
         //https://github.com/dotnet/efcore/blob/03c1ba5275b11963ee1d05ad388ded2fda861c1b/src/EFCore/Extensions/Internal/ExpressionExtensions.cs#L73
         //Got clue from the way EF Core does it 
@@ -65,16 +70,16 @@ public static class ReflectionHelper
         }
         else
         {
-            if (!PropertyInfoCollection[type].IsLoaded)
+            if (!PropertyInfoCollection[targetType].IsLoaded)
             {
-                PropertyInfoCollection[type].Load();
+                PropertyInfoCollection[targetType].Load();
             }
 
             foreach (MemberInfo member in exp.Members)
             {
-                if (PropertyInfoCollection[type].ContainsKey(member.Name))
+                if (PropertyInfoCollection[targetType].ContainsKey(member.Name))
                 {
-                    properties.Add(PropertyInfoCollection[type][member.Name]);
+                    properties.Add(PropertyInfoCollection[targetType][member.Name]);
                 }
             }
         }

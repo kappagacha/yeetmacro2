@@ -12,5 +12,9 @@ public class ModelProfile : Profile
         CreateMap<Resolution, Resolution>();
         CreateMap<Bounds, Bounds>();
         CreateMap<Script, Script>();
+        CreateMap<ParentSetting, ParentSetting>();
+        CreateMap<BooleanSetting, BooleanSetting>();
+        CreateMap<OptionSetting, OptionSetting>();
+        //CreateMap<Setting, Setting>();
     }
 }

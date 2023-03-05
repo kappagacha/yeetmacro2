@@ -16,7 +16,7 @@ public partial class MacroManagerViewModel : ObservableObject
     IToastService _toastService;
     INodeService<PatternNode, PatternNode> _nodeService;
     IRepository<Script> _scriptRespository;
-    PatternTreeViewViewModelFactory _patternTreeViewFactory;
+    NodeViewModelFactory _nodeViewModelFactory;
     ScriptsViewModelFactory _scriptsViewModelFactory;
     [ObservableProperty]
     ICollection<MacroSet> _macroSets;
@@ -24,17 +24,17 @@ public partial class MacroManagerViewModel : ObservableObject
     MacroSet _selectedMacroSet;
     ConcurrentDictionary<int, PatternTreeViewViewModel> _nodeRootIdToPatternTree;
     ConcurrentDictionary<int, ScriptsViewModel> _macroSetIdToScripts;
+    ConcurrentDictionary<int, SettingTreeViewViewModel> _nodeRootIdToSettingTree;
 
     public PatternTreeViewViewModel PatternTree
     {
         get
         {
-            // Lazy load PattenTree
             if (_selectedMacroSet == null) return null;
             if (!_nodeRootIdToPatternTree.ContainsKey(_selectedMacroSet.RootPatternNodeId))
             {
-                var patternTree = _patternTreeViewFactory.Create(_selectedMacroSet.RootPatternNodeId);
-                _nodeRootIdToPatternTree.TryAdd(_selectedMacroSet.RootPatternNodeId, patternTree);
+                var tree = _nodeViewModelFactory.Create<PatternTreeViewViewModel>(_selectedMacroSet.RootPatternNodeId);
+                _nodeRootIdToPatternTree.TryAdd(_selectedMacroSet.RootPatternNodeId, tree);
             }
             return _nodeRootIdToPatternTree[_selectedMacroSet.RootPatternNodeId];
         }
@@ -44,7 +44,6 @@ public partial class MacroManagerViewModel : ObservableObject
     {
         get
         {
-            // Lazy load Scripts
             if (_selectedMacroSet == null) return null;
             if (!_macroSetIdToScripts.ContainsKey(_selectedMacroSet.MacroSetId))
             {
@@ -55,19 +54,34 @@ public partial class MacroManagerViewModel : ObservableObject
         }
     }
 
+    public SettingTreeViewViewModel SettingTree
+    {
+        get
+        {
+            if (_selectedMacroSet == null) return null;
+            if (!_nodeRootIdToSettingTree.ContainsKey(_selectedMacroSet.RootSettingNodeId))
+            {
+                var tree = _nodeViewModelFactory.Create<SettingTreeViewViewModel>(_selectedMacroSet.RootSettingNodeId);
+                _nodeRootIdToSettingTree.TryAdd(_selectedMacroSet.RootSettingNodeId, tree);
+            }
+            return _nodeRootIdToSettingTree[_selectedMacroSet.RootSettingNodeId];
+        }
+    }
+
     public MacroManagerViewModel(IRepository<MacroSet> macroSetRepository,
         IToastService toastService,
-        PatternTreeViewViewModelFactory patternTreeViewFactory,
+        NodeViewModelFactory nodeViewModelFactory,
         ScriptsViewModelFactory scriptsViewModelFactory,
         INodeService<PatternNode, PatternNode> nodeService,
         IRepository<Script> scriptRepository)
     {
         _macroSetRepository = macroSetRepository;
         _toastService = toastService;
-        _patternTreeViewFactory = patternTreeViewFactory;
+        _nodeViewModelFactory = nodeViewModelFactory;
         _scriptsViewModelFactory = scriptsViewModelFactory;
         _nodeService = nodeService;
-        _macroSets = ProxyViewModel.CreateCollection(_macroSetRepository.Get());
+        var tempMacroSets = _macroSetRepository.Get();
+        _macroSets = ProxyViewModel.CreateCollection<MacroSet>(tempMacroSets);
         _scriptRespository = scriptRepository;
         if (_macroSets.Count > 0 )
         {
@@ -78,6 +92,7 @@ public partial class MacroManagerViewModel : ObservableObject
         _macroSetRepository.AttachEntities(_macroSets.ToArray());
         _nodeRootIdToPatternTree = new ConcurrentDictionary<int, PatternTreeViewViewModel>();
         _macroSetIdToScripts = new ConcurrentDictionary<int, ScriptsViewModel>();
+        _nodeRootIdToSettingTree = new ConcurrentDictionary<int, SettingTreeViewViewModel>();
     }
 
     [RelayCommand]
@@ -88,9 +103,6 @@ public partial class MacroManagerViewModel : ObservableObject
 
         var macroSet = ProxyViewModel.Create(new MacroSet() { Name = macroSetName });
         var rootPattern = ProxyViewModel.Create(_nodeService.GetRoot(0));
-        rootPattern.Children = ProxyViewModel.CreateCollection(new ObservableCollection<PatternNode>());
-        rootPattern.Patterns = ProxyViewModel.CreateCollection(new ObservableCollection<Pattern>());
-        rootPattern.UserPatterns = ProxyViewModel.CreateCollection(new ObservableCollection<UserPattern>());
         _nodeService.ReAttachNodes(rootPattern);
         macroSet.RootPattern = rootPattern;
         macroSet.RootPatternNodeId = rootPattern.NodeId;

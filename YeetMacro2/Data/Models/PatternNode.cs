@@ -1,22 +1,21 @@
-﻿using System.Collections;
-using System.Dynamic;
+﻿using System.Dynamic;
 using System.Linq.Expressions;
 using System.Text.Json.Serialization;
-using YeetMacro2.ViewModels;
 
 namespace YeetMacro2.Data.Models;
 
-public class PatternNodeProxyExpressionsProvider : IProxyExpressionsProvider<PatternNode>
+public class PatternNodeMetadataProvider : INodeMetadataProvider<PatternNode>
 {
-    public Expression<Func<PatternNode, object>> CollectionPropertiesExpression => pn => new { pn.Children, pn.Patterns, pn.UserPatterns };
+    public Expression<Func<PatternNode, object>> CollectionPropertiesExpression => pn => new { pn.Nodes, pn.Patterns, pn.UserPatterns };
     public Expression<Func<PatternNode, object>> ProxyPropertiesExpression => null;
+    public Type[] NodeTypes => null;
 }
 
-[ProxyViewModel(ExpressionsProvider = typeof(PatternNodeProxyExpressionsProvider))]
+[NodeMetadata(NodeMetadataProvider = typeof(PatternNodeMetadataProvider))]
 public class PatternNode : Node, IParentNode<PatternNode, PatternNode>
 {
     public virtual bool IsMultiPattern { get; set; }
-    public virtual ICollection<PatternNode> Children { get; set; } = new List<PatternNode>();
+    public virtual ICollection<PatternNode> Nodes { get; set; } = new List<PatternNode>();
     public virtual ICollection<Pattern> Patterns { get; set; } = new List<Pattern>();
     public virtual ICollection<UserPattern> UserPatterns { get; set; } = new List<UserPattern>();
     public dynamic BuildDynamicObject(string path = "")
@@ -28,7 +27,7 @@ public class PatternNode : Node, IParentNode<PatternNode, PatternNode>
         ((IDictionary<String, Object>)result)["metadata"] = this;
         ((IDictionary<String, Object>)result)["path"] = resolvedPath;
 
-        foreach (var node in Children)
+        foreach (var node in Nodes)
         {
             ((IDictionary<String, Object>)result)[node.Name] = node.BuildDynamicObject(resolvedPath);
         }

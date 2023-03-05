@@ -35,7 +35,8 @@
                     <v:ImageView FontFamily="FASolid" Glyph="{x:Static fa:Solid.TrashCan}" Color="Red" 
                                  IsVisible="{Binding ItemsSource.SelectedNode, Converter={conv:NullToBoolConverter IsInverse=True}}"
                                  Command="{Binding ItemsSource.DeleteNodeCommand}" CommandParameter="{Binding ItemsSource.SelectedNode}" />
-                    <v:ImageView FontFamily="FASolid" Glyph="{x:Static fa:Solid.Plus}" Command="{Binding ItemsSource.AddNodeCommand}" />
+                    <v:ImageView FontFamily="FASolid" Glyph="{x:Static fa:Solid.Plus}" Command="{Binding ItemsSource.AddNodeCommand}"
+                                 IsVisible="{Binding ItemsSource.SelectedNode.IsParentNode}"/>
                 </VerticalStackLayout>
                 <Border Stroke="{StaticResource Primary}" StrokeThickness="0">
                     <Border.Triggers>

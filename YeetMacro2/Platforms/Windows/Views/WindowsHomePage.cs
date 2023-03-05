@@ -6,7 +6,7 @@ public class WindowsHomePage : ContentPage
 {
     public WindowsHomePage()
     {
-        Content = new PatternTreeView();
+        Content = new SettingTreeView();
         //{
         //    Children = {
         //        new TreeView()

@@ -1,0 +1,9 @@
+{
+  "test": {
+    "isParent": true,
+    "properties": {
+      "settingType": 0,
+      "name": "test"
+    }
+  }
+}

@@ -39,6 +39,9 @@ public class YeetMacroDbContext : DbContext
             .HasPrincipalKey<MacroSet>(ms => ms.RootPatternNodeId).OnDelete(DeleteBehavior.Cascade);
         modelBuilder.Entity<MacroSet>().HasMany(ms => ms.Scripts).WithOne().HasForeignKey(s => s.MacroSetId).OnDelete(DeleteBehavior.Cascade);
 
+        modelBuilder.Entity<MacroSet>().HasOne(ms => ms.RootSetting).WithOne()
+            .HasPrincipalKey<MacroSet>(ms => ms.RootSettingNodeId).OnDelete(DeleteBehavior.Cascade);
+
         modelBuilder.Entity<Node>().HasKey(pn => pn.NodeId);
         modelBuilder.Entity<Node>().UseTptMappingStrategy();
         modelBuilder.Entity<NodeClosure>().HasKey(nc => nc.ClosureId);
@@ -51,14 +54,14 @@ public class YeetMacroDbContext : DbContext
         modelBuilder.Entity<PatternNode>().Navigation(pn => pn.Patterns).AutoInclude();
         modelBuilder.Entity<PatternNode>().Navigation(pn => pn.UserPatterns).AutoInclude();
         //https://www.tektutorialshub.com/entity-framework-core/cascade-delete-in-entity-framework-core/
-        modelBuilder.Entity<PatternNode>().HasMany(pn => pn.Children).WithOne().HasForeignKey($"{nameof(PatternNode)}{nameof(Node.ParentId)}").OnDelete(DeleteBehavior.Cascade);
+        modelBuilder.Entity<PatternNode>().HasMany(pn => pn.Nodes).WithOne().HasForeignKey($"{nameof(PatternNode)}{nameof(Node.ParentId)}").OnDelete(DeleteBehavior.Cascade);
         modelBuilder.Entity<PatternNode>().HasMany(pn => pn.Patterns).WithOne().HasForeignKey(p => p.ParentNodeId).OnDelete(DeleteBehavior.Cascade);
         modelBuilder.Entity<PatternNode>().HasMany(pn => pn.UserPatterns).WithOne().HasForeignKey(p => p.ParentNodeId).OnDelete(DeleteBehavior.Cascade);
         modelBuilder.Entity<PatternBase>().HasKey(p => p.PatternId);
         modelBuilder.Entity<PatternBase>().OwnsOne(p => p.Resolution);
         modelBuilder.Entity<PatternBase>().OwnsOne(p => p.Bounds);
 
-        modelBuilder.Entity<ParentSetting>().HasMany(pn => pn.Children).WithOne().HasForeignKey($"{nameof(Setting)}{nameof(Node.ParentId)}").OnDelete(DeleteBehavior.Cascade);
+        modelBuilder.Entity<ParentSetting>().HasMany(pn => pn.Nodes).WithOne().HasForeignKey($"{nameof(Setting)}{nameof(Node.ParentId)}").OnDelete(DeleteBehavior.Cascade);
         // https://learn.microsoft.com/en-us/ef/core/modeling/value-conversions?tabs=data-annotations
         // https://learn.microsoft.com/en-us/dotnet/standard/serialization/system-text-json/how-to?pivots=dotnet-7-0
         modelBuilder.Entity<OptionSetting>().Property(os => os.Options).HasConversion(
