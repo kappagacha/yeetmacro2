@@ -1,9 +1,68 @@
 {
-  "test": {
+  "p1": {
     "isParent": true,
     "properties": {
-      "settingType": 0,
-      "name": "test"
+      "settingType": "Parent",
+      "isParentNode": true,
+      "name": "p1"
+    },
+    "p1b1": {
+      "isParent": false,
+      "properties": {
+        "$type": "boolean",
+        "settingType": "Boolean",
+        "value": false,
+        "isParentNode": false,
+        "name": "p1b1"
+      }
+    },
+    "p1o1": {
+      "isParent": false,
+      "properties": {
+        "$type": "option",
+        "settingType": "Option",
+        "options": [
+          "x",
+          "y",
+          "z"
+        ],
+        "value": "x",
+        "isParentNode": false,
+        "name": "p1o1"
+      }
+    }
+  },
+  "p2": {
+    "isParent": true,
+    "properties": {
+      "settingType": "Parent",
+      "isParentNode": true,
+      "name": "p2"
+    },
+    "p2b1": {
+      "isParent": false,
+      "properties": {
+        "$type": "boolean",
+        "settingType": "Boolean",
+        "value": false,
+        "isParentNode": false,
+        "name": "p2b1"
+      }
+    },
+    "p2o1": {
+      "isParent": false,
+      "properties": {
+        "$type": "option",
+        "settingType": "Option",
+        "options": [
+          "a",
+          "b",
+          "c"
+        ],
+        "value": "b",
+        "isParentNode": false,
+        "name": "p2o1"
+      }
     }
   }
 }

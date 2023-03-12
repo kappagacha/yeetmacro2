@@ -66,7 +66,7 @@ public class YeetMacroDbContext : DbContext
         // https://learn.microsoft.com/en-us/dotnet/standard/serialization/system-text-json/how-to?pivots=dotnet-7-0
         modelBuilder.Entity<OptionSetting>().Property(os => os.Options).HasConversion(
             opts => JsonSerializer.Serialize(opts, new JsonSerializerOptions()),
-            opts => JsonSerializer.Deserialize<string[]>(opts, new JsonSerializerOptions())
+            opts => JsonSerializer.Deserialize<List<string>>(opts, new JsonSerializerOptions())
         );
     }
 }

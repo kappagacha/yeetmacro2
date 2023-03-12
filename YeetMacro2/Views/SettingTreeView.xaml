@@ -9,11 +9,81 @@
              x:DataType="vm:MacroManagerViewModel"
              vm:ViewModelLocator.ViewModelType="{x:Type vm:MacroManagerViewModel}"
              xmlns:fa="clr-namespace:UraniumUI.Icons.FontAwesome;assembly=UraniumUI.Icons.FontAwesome"
+             xmlns:mi="clr-namespace:UraniumUI.Icons.MaterialIcons;assembly=UraniumUI.Icons.MaterialIcons"
+             xmlns:material="http://schemas.enisn-projects.io/dotnet/maui/uraniumui/material"
              BackgroundColor="{AppThemeBinding Light={StaticResource Background}, Dark={StaticResource BackgroundDark}}"
-             x:Name="thisControl">
+             x:Name="thisView">
+    <ContentView.Resources>
+        <DataTemplate x:Key="ParentSettingTemplate">
+            <VerticalStackLayout>
+                <Label Text="{Binding Name}" />
+            </VerticalStackLayout>
+        </DataTemplate>
+        <DataTemplate x:Key="BooleanSettingTemplate">
+            <HorizontalStackLayout>
+                <Label x:Name="label" Text="{Binding Name}" VerticalOptions="Center" />
+                <CheckBox IsChecked="{Binding Value}" VerticalOptions="Center" HeightRequest="{Binding Height, Source={Reference label}}" />
+            </HorizontalStackLayout>
+        </DataTemplate>
+        <DataTemplate x:Key="OptionSettingTemplate">
+            <HorizontalStackLayout>
+                <Label x:Name="label" Text="{Binding Name, StringFormat='{0}:'}" VerticalOptions="Center" />
+                <Grid Margin="10,0,0,0" Padding="0" VerticalOptions="Center" HeightRequest="{Binding Height, Source={Reference label}}">
+                    <Label Margin="0" Padding="0" Text="{Binding Value}" VerticalOptions="Center" />
+                    <ImageButton Margin="0" Padding="0"
+                        Command="{Binding BindingContext.SettingTree.SelectOptionCommand, Source={RelativeSource AncestorType={x:Type v:SettingTreeView}}}"
+                        CommandParameter="{Binding BindingContext, Source={RelativeSource AncestorType={x:Type v:BindingContextView}}}" />
+                </Grid>
+                <v:ImageView
+                        Grid.Column="1" VerticalOptions="Center" FontFamily="MaterialOutlined" Glyph="{x:Static mi:MaterialOutlined.Add}"
+                        Command="{Binding BindingContext.SettingTree.AddOptionCommand, Source={RelativeSource AncestorType={x:Type v:SettingTreeView}}}"
+                        CommandParameter="{Binding BindingContext, Source={RelativeSource AncestorType={x:Type v:BindingContextView}}}" />
+            </HorizontalStackLayout>
+        </DataTemplate>
+    </ContentView.Resources>
     <Grid ColumnDefinitions="*,3*">
         <Border Grid.Column="0" Stroke="{StaticResource Primary}" BackgroundColor="Transparent" Padding="3">
             <v:TreeView ItemsSource="{Binding SettingTree}">
+                <v:TreeView.ItemTemplate>
+                    <DataTemplate x:DataType="{x:Type m:Setting}">
+                        <Grid ColumnDefinitions="Auto,*,Auto">
+                            <Grid.Triggers>
+                                <DataTrigger TargetType="{x:Type Grid}" Binding="{Binding IsSelected}" Value="True">
+                                    <Setter Property="BackgroundColor" Value="Blue" />
+                                </DataTrigger>
+                            </Grid.Triggers>
+                            <Grid.GestureRecognizers>
+                                <TapGestureRecognizer CommandParameter="{Binding .}" Command="{Binding ItemsSource.SelectNodeCommand, Source={RelativeSource AncestorType={x:Type v:TreeView}}}" />
+                            </Grid.GestureRecognizers>
+                            <v:ImageView Grid.Column="0" ImageWidth="20" ImageHeight="20">
+                                <v:ImageView.Triggers>
+                                    <DataTrigger TargetType="{x:Type v:ImageView}" Binding="{Binding SettingType}" Value="{x:Static m:SettingType.Parent}">
+                                        <Setter Property="IsVisible" Value="False" />
+                                    </DataTrigger>
+                                    <DataTrigger TargetType="{x:Type v:ImageView}" Binding="{Binding SettingType}" Value="{x:Static m:SettingType.Boolean}">
+                                        <Setter Property="FontFamily" Value="MaterialOutlined" />
+                                        <Setter Property="Glyph" Value="{x:Static mi:MaterialOutlined.Rule}" />
+                                    </DataTrigger>
+                                    <DataTrigger TargetType="{x:Type v:ImageView}" Binding="{Binding SettingType}" Value="{x:Static m:SettingType.Option}">
+                                        <Setter Property="FontFamily" Value="MaterialOutlined" />
+                                        <Setter Property="Glyph" Value="{x:Static mi:MaterialOutlined.Ballot}" />
+                                    </DataTrigger>
+                                </v:ImageView.Triggers>
+                            </v:ImageView>
+                            <v:BindingContextView Grid.Column="1" />
+                            <!--<v:ImageView Grid.Column="2" HorizontalOptions="End" VerticalOptions="End" FontFamily="MaterialOutlined" Glyph="{x:Static mi:MaterialOutlined.Save}"
+                                 Command="{Binding BindingContext.SettingTree.SaveOptionCommand, Source={RelativeSource AncestorType={x:Type v:SettingTreeView}}}"
+                                 CommandParameter="{Binding .}">
+                                <v:ImageView.Triggers>
+                                    <DataTrigger TargetType="{x:Type v:ImageView}" Binding="{Binding SettingType}" Value="{x:Static m:SettingType.Parent}">
+                                        <Setter Property="IsVisible" Value="False" />
+                                    </DataTrigger>
+                                </v:ImageView.Triggers>
+                            </v:ImageView>-->
+                            <!--<Label Grid.Column="1" Text="{Binding Name}" TextColor="{StaticResource PrimaryDark}" Margin="0" Padding="0" VerticalOptions="Center" BackgroundColor="Transparent" />-->
+                        </Grid>
+                    </DataTemplate>
+                </v:TreeView.ItemTemplate>
                 <v:TreeView.ExtraMenuItemsDataTemplate>
                     <DataTemplate x:DataType="{x:Null}">
                         <VerticalStackLayout>
@@ -28,9 +98,13 @@
                 </v:TreeView.ExtraMenuItemsDataTemplate>
             </v:TreeView>
         </Border>
-        <Border Grid.Column="1" Stroke="{StaticResource Primary}" BackgroundColor="Transparent" Padding="3"
-                IsVisible="{Binding SettingTree.SelectedNode, Converter={conv:NullToBoolConverter IsInverse=True}}">
-            <Label Text="Placeholder" />
-        </Border>
+        <Grid Grid.Column="0" HorizontalOptions="End" VerticalOptions="Start" BackgroundColor="Transparent" Padding="3">
+            <v:ImageView FontFamily="MaterialOutlined" Glyph="{x:Static mi:MaterialOutlined.Save}"
+                                 Command="{Binding BindingContext.SettingTree.SaveCommand, Source={RelativeSource AncestorType={x:Type v:SettingTreeView}}}" />
+            <!--<v:BindingContextView BindingContext="{Binding SettingTree.SelectedNode}" />
+            <v:ImageView Grid.Column="1" HorizontalOptions="End" VerticalOptions="End" FontFamily="MaterialOutlined" Glyph="{x:Static mi:MaterialOutlined.Save}"
+                         Command="{Binding SettingTree.SaveOptionCommand}"
+                         CommandParameter="{Binding SettingTree.SelectedNode}" />-->
+        </Grid>
     </Grid>
 </ContentView>

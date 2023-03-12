@@ -5,8 +5,8 @@
              xmlns:conv="clr-namespace:YeetMacro2.Converters"
              x:Class="YeetMacro2.Views.ImageView"
              x:Name="thisView">
-    <Grid HeightRequest="{Binding Source={StaticResource IconHeight}}"
-                          WidthRequest="{Binding Source={StaticResource IconWidth}}">
+    <Grid HeightRequest="{Binding ImageHeight, Source={Reference thisView}, TargetNullValue={StaticResource IconHeight}}"
+          WidthRequest="{Binding ImageWidth, Source={Reference thisView}, TargetNullValue={StaticResource IconWidth}}">
         <skia:SKCanvasView x:Name="canvasView" IsVisible="{OnPlatform Android=true, WinUI=false}"
             PaintSurface="OnCanvasViewPaintSurface" />
         <Image x:Name="image" Aspect="Fill" IsVisible="{OnPlatform Android=false, WinUI=true}">

@@ -51,6 +51,9 @@ public partial class NodeViewModel<TParent, TChild> : NodeViewModel
     protected IInputService _inputService;
     static readonly JsonSerializerOptions _defaultJsonSerializerOptions = new JsonSerializerOptions()
     {
+        Converters = {
+            new JsonStringEnumConverter()
+        },
         WriteIndented = true,
         TypeInfoResolver = NodeModelTypeInfoResolver.Instance,
         PropertyNamingPolicy = JsonNamingPolicy.CamelCase
@@ -115,12 +118,12 @@ public partial class NodeViewModel<TParent, TChild> : NodeViewModel
             var selectedTypeName = await _inputService.SelectOption($"Please select {_nodeTypeName} type", nodeTypes.Select(t => t.Name).ToArray());
             if (String.IsNullOrEmpty(selectedTypeName) || selectedTypeName == "cancel") return;
             var selectedType = nodeTypes.First(t => t.Name == selectedTypeName);
-            newNode = (TChild)ProxyViewModel.Create(Activator.CreateInstance(selectedType));
+            newNode = ProxyViewModel.Create((TChild)Activator.CreateInstance(selectedType));
             newNode.Name = name;
         }
         else
         {
-            newNode = ProxyViewModel.Create(new TParent()
+            newNode = ProxyViewModel.Create<TChild>(new TParent()
             {
                 Name = name
             });
@@ -209,7 +212,7 @@ public partial class NodeViewModel<TParent, TChild> : NodeViewModel
     }
 
     [RelayCommand]
-    private async Task Import()
+    public async Task Import()
     {
         var currentAssembly = Assembly.GetExecutingAssembly();
         var resourceNames = currentAssembly.GetManifestResourceNames().Where(rs => rs.StartsWith("YeetMacro2.Resources.MacroSets"));
@@ -225,7 +228,7 @@ public partial class NodeViewModel<TParent, TChild> : NodeViewModel
         {
             var json = reader.ReadToEnd();
             var tempTree = JsonSerializer.Deserialize<NodeViewModel<TParent, TChild>>(json, _defaultJsonSerializerOptions);
-            var rootTemp = ProxyViewModel.Create(tempTree.Root);
+            var rootTemp = (TParent)ProxyViewModel.Create<TChild>(tempTree.Root);
             var currentChildren = Root.Nodes.ToList();
             foreach (var currentChild in currentChildren)
             {
@@ -244,6 +247,12 @@ public partial class NodeViewModel<TParent, TChild> : NodeViewModel
         }
         _toastService.Show($"Imported {_nodeTypeName}");
     }
+
+    [RelayCommand]
+    public void Save()
+    {
+        _nodeService.Save();
+    }
 }
 
 public class NodeModelTypeInfoResolver : DefaultJsonTypeInfoResolver
@@ -259,7 +268,7 @@ public class NodeModelTypeInfoResolver : DefaultJsonTypeInfoResolver
             {
                 switch (property.Name.ToLower())
                 {
-                    case "children":
+                    case "nodes":
                     case "isselected":
                     case "isexpanded":
                         property.ShouldSerialize = (obj, value) => false;
@@ -358,7 +367,7 @@ public class NodeViewModelValueConverter : JsonConverterFactory
             var isParent = false;
             TChild node = null;
             TParent parent = null;
-            ICollection<TChild> children = new List<TChild>();
+            ICollection<TChild> nodes = new List<TChild>();
 
             while (reader.Read())
             {
@@ -389,7 +398,7 @@ public class NodeViewModelValueConverter : JsonConverterFactory
                     }
                     Debug.WriteLine($"nodeName: {node.Name}");
                 }
-                // additional properties are children
+                // additional properties are nodes
                 else if (reader.TokenType == JsonTokenType.PropertyName)
                 {
                     Debug.WriteLine($"property: {reader.GetString()}");

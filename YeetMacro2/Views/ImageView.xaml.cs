@@ -10,6 +10,10 @@ namespace YeetMacro2.Views;
 
 public partial class ImageView : ContentView
 {
+    public static readonly BindableProperty ImageWidthProperty =
+            BindableProperty.Create("ImageWidth", typeof(double?), typeof(ImageView), null);
+    public static readonly BindableProperty ImageHeightProperty =
+            BindableProperty.Create("ImageHeight", typeof(double?), typeof(ImageView), null);
     public static readonly BindableProperty FontFamilyProperty =
             BindableProperty.Create("FontFamily", typeof(string), typeof(ImageView), null, propertyChanged: ImagePropertyChanged);
     public static readonly BindableProperty GlyphProperty =
@@ -58,6 +62,16 @@ public partial class ImageView : ContentView
     {
         get { return (Color)GetValue(ColorProperty); }
         set { SetValue(ColorProperty, value); }
+    }
+    public double? ImageWidth
+    {
+        get { return (double?)GetValue(ImageWidthProperty); }
+        set { SetValue(ImageWidthProperty, value); }
+    }
+    public double? ImageHeight
+    {
+        get { return (double?)GetValue(ImageHeightProperty); }
+        set { SetValue(ImageHeightProperty, value); }
     }
     public ImageView()
 	{

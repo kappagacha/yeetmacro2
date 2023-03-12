@@ -12,6 +12,7 @@ public interface INodeService<TParent, TChild>
     bool IsDescendant(TParent ancestor, TChild potentialDescendant);
     void ReAttachNodes(TParent root);
     void Update(TChild node);
+    void Save();
 }
 
 public class NodeService<TParent, TChild> : INodeService<TParent, TChild>
@@ -176,5 +177,10 @@ public class NodeService<TParent, TChild> : INodeService<TParent, TChild>
                 }
             }
         }
+    }
+
+    public void Save()
+    {
+        _nodeRepository.Save();
     }
 }
