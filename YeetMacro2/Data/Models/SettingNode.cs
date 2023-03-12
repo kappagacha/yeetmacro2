@@ -10,17 +10,17 @@ public enum SettingType
     Option
 }
 
-public class SettingNodeMetadataProvider : INodeMetadataProvider<Setting>
+public class SettingNodeMetadataProvider : INodeMetadataProvider<SettingNode>
 {
-    public Expression<Func<Setting, object>> CollectionPropertiesExpression => s => new { ((ParentSetting)s).Nodes };
-    public Expression<Func<Setting, object>> ProxyPropertiesExpression => null;
+    public Expression<Func<SettingNode, object>> CollectionPropertiesExpression => s => new { ((ParentSetting)s).Nodes };
+    public Expression<Func<SettingNode, object>> ProxyPropertiesExpression => null;
 
     public Type[] NodeTypes => new Type[] { typeof(ParentSetting), typeof(BooleanSetting), typeof(OptionSetting) };
 }
 
-public class ParentSetting : Setting, IParentNode<ParentSetting, Setting>
+public class ParentSetting : SettingNode, IParentNode<ParentSetting, SettingNode>
 {
-    public ICollection<Setting> Nodes { get; set; } = new List<Setting>();
+    public ICollection<SettingNode> Nodes { get; set; } = new List<SettingNode>();
     public override SettingType SettingType => SettingType.Parent;
 }
 
@@ -30,22 +30,22 @@ public class ParentSetting : Setting, IParentNode<ParentSetting, Setting>
 [JsonDerivedType(typeof(OptionSetting), typeDiscriminator: "option")]
 [JsonPolymorphic(UnknownDerivedTypeHandling = JsonUnknownDerivedTypeHandling.FallBackToNearestAncestor)]
 [NodeMetadata(NodeMetadataProvider = typeof(SettingNodeMetadataProvider))]
-public abstract class Setting : Node
+public abstract class SettingNode : Node
 {
     public abstract SettingType SettingType { get; }
 }
 
-public abstract class Setting<T> : Setting
+public abstract class SettingNode<T> : SettingNode
 {
     public virtual T Value { get; set; }
 }
 
-public class BooleanSetting: Setting<Boolean>
+public class BooleanSetting: SettingNode<Boolean>
 {
     public override SettingType SettingType => SettingType.Boolean;
 }
 
-public class OptionSetting : Setting<String>
+public class OptionSetting : SettingNode<String>
 {
     public override SettingType SettingType => SettingType.Option;
     public ICollection<String> Options { get; set; } = new List<string>();

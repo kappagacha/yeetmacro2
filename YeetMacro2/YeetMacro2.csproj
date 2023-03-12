@@ -98,6 +98,9 @@
 	  <Compile Update="Views\LogView.xaml.cs">
 	    <DependentUpon>LogView.xaml</DependentUpon>
 	  </Compile>
+	  <Compile Update="Views\PatternNodeView.xaml.cs">
+	    <DependentUpon>PatternNodeView.xaml</DependentUpon>
+	  </Compile>
 	  <Compile Update="Views\PatternView.xaml.cs">
 	    <DependentUpon>PatternView.xaml</DependentUpon>
 	  </Compile>
@@ -125,6 +128,12 @@
 	  <Compile Update="Platforms\Android\Views\PromptSelectOption.xaml.cs">
 	    <DependentUpon>PromptSelectOption.xaml</DependentUpon>
 	  </Compile>
+	  <Compile Update="Views\NodeView.xaml.cs">
+	    <DependentUpon>NodeView.xaml</DependentUpon>
+	  </Compile>
+	  <Compile Update="Views\SettingNodeView.xaml.cs">
+	    <DependentUpon>SettingNodeView.xaml</DependentUpon>
+	  </Compile>
 	</ItemGroup>
   
 	<ItemGroup>
@@ -140,7 +149,7 @@
 	  <MauiXaml Update="Views\PatternView.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
-	  <MauiXaml Update="Views\PatternTreeView.xaml">
+	  <MauiXaml Update="Views\PatternNodeView.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
 	  <MauiXaml Update="Platforms\Android\Views\PromptSelectOption.xaml">
@@ -155,10 +164,10 @@
 	  <MauiXaml Update="Pages\MacroManagerPage.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
-	  <MauiXaml Update="Views\SettingTreeView.xaml">
+	  <MauiXaml Update="Views\SettingNodeView.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
-	  <MauiXaml Update="Views\TreeView.xaml">
+	  <MauiXaml Update="Views\NodeView.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
 	</ItemGroup>

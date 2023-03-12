@@ -124,7 +124,7 @@ public class AndroidWindowManagerService : IInputService, IScreenService
                     _views.TryAdd(windowView, actionMenuView);
                     break;
                 case WindowView.PatternsTreeView:
-                    var patternsTree = new PatternTreeView();
+                    var patternsTree = new PatternNodeView();
                     var patternsTreeView = new ResizeView(_context, _windowManager, this, patternsTree);
                     //var patternsTreeView = new FormsView(_context, _windowManager, patternsTree);
                     _views.TryAdd(windowView, patternsTreeView);

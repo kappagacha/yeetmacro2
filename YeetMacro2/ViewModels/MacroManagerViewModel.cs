@@ -14,20 +14,20 @@ public partial class MacroManagerViewModel : ObservableObject
     NodeViewModelFactory _nodeViewModelFactory;
     [ObservableProperty]
     ICollection<MacroSet> _macroSets;
-    [ObservableProperty, NotifyPropertyChangedFor(nameof(PatternTree), nameof(Scripts))]
+    [ObservableProperty, NotifyPropertyChangedFor(nameof(Patterns), nameof(Scripts))]
     MacroSet _selectedMacroSet;
-    ConcurrentDictionary<int, PatternTreeViewViewModel> _nodeRootIdToPatternTree;
+    ConcurrentDictionary<int, PatternNodeViewModel> _nodeRootIdToPatternTree;
     ConcurrentDictionary<int, ScriptNodeViewModel> _nodeRootIdToScriptTree;
-    ConcurrentDictionary<int, SettingTreeViewViewModel> _nodeRootIdToSettingTree;
+    ConcurrentDictionary<int, SettingNodeViewModel> _nodeRootIdToSettingTree;
 
-    public PatternTreeViewViewModel PatternTree
+    public PatternNodeViewModel Patterns
     {
         get
         {
             if (_selectedMacroSet == null) return null;
             if (!_nodeRootIdToPatternTree.ContainsKey(_selectedMacroSet.RootPatternNodeId))
             {
-                var tree = _nodeViewModelFactory.Create<PatternTreeViewViewModel>(_selectedMacroSet.RootPatternNodeId);
+                var tree = _nodeViewModelFactory.Create<PatternNodeViewModel>(_selectedMacroSet.RootPatternNodeId);
                 _nodeRootIdToPatternTree.TryAdd(_selectedMacroSet.RootPatternNodeId, tree);
             }
             return _nodeRootIdToPatternTree[_selectedMacroSet.RootPatternNodeId];
@@ -48,14 +48,14 @@ public partial class MacroManagerViewModel : ObservableObject
         }
     }
 
-    public SettingTreeViewViewModel SettingTree
+    public SettingNodeViewModel Settings
     {
         get
         {
             if (_selectedMacroSet == null) return null;
             if (!_nodeRootIdToSettingTree.ContainsKey(_selectedMacroSet.RootSettingNodeId))
             {
-                var tree = _nodeViewModelFactory.Create<SettingTreeViewViewModel>(_selectedMacroSet.RootSettingNodeId);
+                var tree = _nodeViewModelFactory.Create<SettingNodeViewModel>(_selectedMacroSet.RootSettingNodeId);
                 _nodeRootIdToSettingTree.TryAdd(_selectedMacroSet.RootSettingNodeId, tree);
             }
             return _nodeRootIdToSettingTree[_selectedMacroSet.RootSettingNodeId];
@@ -80,9 +80,9 @@ public partial class MacroManagerViewModel : ObservableObject
 
         _macroSetRepository.DetachAllEntities();
         _macroSetRepository.AttachEntities(_macroSets.ToArray());
-        _nodeRootIdToPatternTree = new ConcurrentDictionary<int, PatternTreeViewViewModel>();
+        _nodeRootIdToPatternTree = new ConcurrentDictionary<int, PatternNodeViewModel>();
         _nodeRootIdToScriptTree = new ConcurrentDictionary<int, ScriptNodeViewModel>();
-        _nodeRootIdToSettingTree = new ConcurrentDictionary<int, SettingTreeViewViewModel>();
+        _nodeRootIdToSettingTree = new ConcurrentDictionary<int, SettingNodeViewModel>();
     }
 
     [RelayCommand]

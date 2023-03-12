@@ -12,8 +12,8 @@
              x:Name="thisControl">
     <Grid ColumnDefinitions="*,3*">
         <Border Grid.Column="0" Stroke="{StaticResource Primary}" BackgroundColor="Transparent" Padding="3">
-            <v:TreeView ItemsSource="{Binding Scripts}">
-                <v:TreeView.ExtraMenuItemsDataTemplate>
+            <v:NodeView ItemsSource="{Binding Scripts}">
+                <v:NodeView.ExtraMenuItemsDataTemplate>
                     <DataTemplate x:DataType="{x:Null}">
                         <VerticalStackLayout>
                             <v:ImageView FontFamily="FASolid" Glyph="{x:Static fa:Solid.Download}" 
@@ -24,8 +24,8 @@
                                              CommandParameter="{Binding BindingContext.SelectedMacroSet.Name, Source={RelativeSource AncestorType={x:Type v:ScriptNodeView}}}}" />
                         </VerticalStackLayout>
                     </DataTemplate>
-                </v:TreeView.ExtraMenuItemsDataTemplate>
-            </v:TreeView>
+                </v:NodeView.ExtraMenuItemsDataTemplate>
+            </v:NodeView>
         </Border>
         <Border Grid.Column="1" Stroke="{StaticResource Primary}" BackgroundColor="Transparent" Padding="3"
                 IsVisible="{Binding Scripts.SelectedNode, Converter={conv:NullToBoolConverter IsInverse=True}}">

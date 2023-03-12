@@ -2,24 +2,24 @@ using System.Windows.Input;
 
 namespace YeetMacro2.Views;
 
-public partial class TreeView : ContentView
+public partial class NodeView : ContentView
 {
     ICommand _toggleIsMenuOpenCommand;
     public static readonly BindableProperty IsMenuOpenProperty =
-        BindableProperty.Create("IsMenuOpen", typeof(bool), typeof(TreeView), false);
+        BindableProperty.Create("IsMenuOpen", typeof(bool), typeof(NodeView), false);
     public static readonly BindableProperty ItemTemplateProperty =
-        BindableProperty.Create("ItemTemplate", typeof(DataTemplate), typeof(TreeView), null);
+        BindableProperty.Create("ItemTemplate", typeof(DataTemplate), typeof(NodeView), null);
     // https://stackoverflow.com/questions/58022446/multiple-contentpresenters-in-one-controltemplate
     public static readonly BindableProperty ExtraMenuItemsDataTemplateProperty =
-        BindableProperty.Create("ExtraMenuItemsDataTemplate", typeof(DataTemplate), typeof(TreeView), null, propertyChanged: ExtraMenuItemsDataTemplatePropertyChanged);
+        BindableProperty.Create("ExtraMenuItemsDataTemplate", typeof(DataTemplate), typeof(NodeView), null, propertyChanged: ExtraMenuItemsDataTemplatePropertyChanged);
     public static readonly BindableProperty ItemsSourceProperty =
-        BindableProperty.Create("ItemsSource", typeof(object), typeof(TreeView), null);
+        BindableProperty.Create("ItemsSource", typeof(object), typeof(NodeView), null);
 
     private static void ExtraMenuItemsDataTemplatePropertyChanged(BindableObject bindable, object oldValue, object newValue)
     {
-        var treeView = bindable as TreeView;
+        var nodeView = bindable as NodeView;
         // https://github.com/dotnet/maui/blob/main/src/Controls/src/Core/Shell/ShellContent.cs#L81
-        treeView.extraMenuItemsContentView.Content = (View)treeView.ExtraMenuItemsDataTemplate.CreateContent();
+        nodeView.extraMenuItemsContentView.Content = (View)nodeView.ExtraMenuItemsDataTemplate.CreateContent();
     }
 
     public bool IsMenuOpen
@@ -49,7 +49,7 @@ public partial class TreeView : ContentView
         get => _toggleIsMenuOpenCommand ?? (_toggleIsMenuOpenCommand = new Command(() => IsMenuOpen = !IsMenuOpen));
     }
 
-    public TreeView()
+    public NodeView()
 	{
 		InitializeComponent();
 	}

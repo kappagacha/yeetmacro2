@@ -15,7 +15,7 @@ public class YeetMacroDbContext : DbContext
     //public DbSet<LeafNode> LeafNodes { get; set; }
     public DbSet<PatternBase> Patterns { get; set; }
     public DbSet<PatternNode> PatternNodes { get; set; }
-    public DbSet<Setting> Settings { get; set; }
+    public DbSet<SettingNode> Settings { get; set; }
     public DbSet<ParentSetting> ParentSettings { get; set; }
     public DbSet<BooleanSetting> BooleanSettings { get; set; }
     public DbSet<OptionSetting> OptionSettings { get; set; }
@@ -63,7 +63,7 @@ public class YeetMacroDbContext : DbContext
 
         modelBuilder.Entity<ScriptNode>().HasMany(pn => pn.Nodes).WithOne().HasForeignKey($"{nameof(ScriptNode)}{nameof(Node.ParentId)}").OnDelete(DeleteBehavior.Cascade);
 
-        modelBuilder.Entity<ParentSetting>().HasMany(pn => pn.Nodes).WithOne().HasForeignKey($"{nameof(Setting)}{nameof(Node.ParentId)}").OnDelete(DeleteBehavior.Cascade);
+        modelBuilder.Entity<ParentSetting>().HasMany(pn => pn.Nodes).WithOne().HasForeignKey($"{nameof(SettingNode)}{nameof(Node.ParentId)}").OnDelete(DeleteBehavior.Cascade);
         // https://learn.microsoft.com/en-us/ef/core/modeling/value-conversions?tabs=data-annotations
         // https://learn.microsoft.com/en-us/dotnet/standard/serialization/system-text-json/how-to?pivots=dotnet-7-0
         modelBuilder.Entity<OptionSetting>().Property(os => os.Options).HasConversion(

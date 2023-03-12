@@ -5,13 +5,13 @@ using YeetMacro2.Services;
 
 namespace YeetMacro2.ViewModels;
 
-public partial class SettingTreeViewViewModel : NodeViewModel<ParentSetting, Setting>
+public partial class SettingNodeViewModel : NodeViewModel<ParentSetting, SettingNode>
 {
-    IRepository<Setting> _settingRepository;
-    public SettingTreeViewViewModel(
+    IRepository<SettingNode> _settingRepository;
+    public SettingNodeViewModel(
         int rootNodeId,
-        IRepository<Setting> settingRepository,
-        INodeService<ParentSetting, Setting> nodeService,
+        IRepository<SettingNode> settingRepository,
+        INodeService<ParentSetting, SettingNode> nodeService,
         IInputService inputService,
         IToastService toastService)
             : base(rootNodeId, nodeService, inputService, toastService)

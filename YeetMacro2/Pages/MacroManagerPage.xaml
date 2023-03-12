@@ -52,7 +52,7 @@
             <material:TabItem Title="Patterns">
                 <material:TabItem.ContentTemplate>
                     <DataTemplate>
-                        <v:PatternTreeView />
+                        <v:PatternNodeView />
                     </DataTemplate>
                 </material:TabItem.ContentTemplate>
             </material:TabItem>
@@ -63,10 +63,10 @@
                     </DataTemplate>
                 </material:TabItem.ContentTemplate>
             </material:TabItem>
-            <material:TabItem Title="Options">
+            <material:TabItem Title="Settings">
                 <material:TabItem.ContentTemplate>
                     <DataTemplate>
-                        <v:SettingTreeView />
+                        <v:SettingNodeView />
                     </DataTemplate>
                 </material:TabItem.ContentTemplate>
             </material:TabItem>

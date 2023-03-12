@@ -54,7 +54,7 @@ public class AppInitializer : IMauiInitializeService
         var disgaeaScriptNode = scriptNodeService.GetRoot(-1);
         var konosubaScriptNode = scriptNodeService.GetRoot(-1);
 
-        var settingNodeService = services.GetService<INodeService<ParentSetting, Setting>>();
+        var settingNodeService = services.GetService<INodeService<ParentSetting, SettingNode>>();
         var disgaeaSettingNode = settingNodeService.GetRoot(-1);
         var konosubaSettingNode = settingNodeService.GetRoot(-1);
 

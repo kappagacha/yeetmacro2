@@ -64,7 +64,7 @@ public class ScriptsService : IScriptsService
         }
         _cancellationTokenSource = new CancellationTokenSource();
 
-        var treeViewViewModel = _macroManagerViewModel.PatternTree;
+        var treeViewViewModel = _macroManagerViewModel.Patterns;
         //var scripts = _macroManagerViewModel.Scripts.Scripts;
         await treeViewViewModel.WaitForInitialization();
         var patterns = treeViewViewModel.Root.BuildDynamicObject();

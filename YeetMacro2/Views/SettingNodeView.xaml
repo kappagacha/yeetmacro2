@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <ContentView xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="YeetMacro2.Views.SettingTreeView"
+             x:Class="YeetMacro2.Views.SettingNodeView"
              xmlns:vm="clr-namespace:YeetMacro2.ViewModels"
              xmlns:v="clr-namespace:YeetMacro2.Views"
              xmlns:conv="clr-namespace:YeetMacro2.Converters"
@@ -31,21 +31,21 @@
                 <Grid Margin="10,0,0,0" Padding="0" VerticalOptions="Center" HeightRequest="{Binding Height, Source={Reference label}}">
                     <Label Margin="0" Padding="0" Text="{Binding Value}" VerticalOptions="Center" />
                     <ImageButton Margin="0" Padding="0"
-                        Command="{Binding BindingContext.SettingTree.SelectOptionCommand, Source={RelativeSource AncestorType={x:Type v:SettingTreeView}}}"
+                        Command="{Binding BindingContext.Settings.SelectOptionCommand, Source={RelativeSource AncestorType={x:Type v:SettingNodeView}}}"
                         CommandParameter="{Binding BindingContext, Source={RelativeSource AncestorType={x:Type v:BindingContextView}}}" />
                 </Grid>
                 <v:ImageView
                         Grid.Column="1" VerticalOptions="Center" FontFamily="MaterialOutlined" Glyph="{x:Static mi:MaterialOutlined.Add}"
-                        Command="{Binding BindingContext.SettingTree.AddOptionCommand, Source={RelativeSource AncestorType={x:Type v:SettingTreeView}}}"
+                        Command="{Binding BindingContext.Settings.AddOptionCommand, Source={RelativeSource AncestorType={x:Type v:SettingNodeView}}}"
                         CommandParameter="{Binding BindingContext, Source={RelativeSource AncestorType={x:Type v:BindingContextView}}}" />
             </HorizontalStackLayout>
         </DataTemplate>
     </ContentView.Resources>
     <Grid ColumnDefinitions="*,3*">
         <Border Grid.Column="0" Stroke="{StaticResource Primary}" BackgroundColor="Transparent" Padding="3">
-            <v:TreeView ItemsSource="{Binding SettingTree}">
-                <v:TreeView.ItemTemplate>
-                    <DataTemplate x:DataType="{x:Type m:Setting}">
+            <v:NodeView ItemsSource="{Binding Settings}">
+                <v:NodeView.ItemTemplate>
+                    <DataTemplate x:DataType="{x:Type m:SettingNode}">
                         <Grid ColumnDefinitions="Auto,*,Auto">
                             <Grid.Triggers>
                                 <DataTrigger TargetType="{x:Type Grid}" Binding="{Binding IsSelected}" Value="True">
@@ -53,7 +53,7 @@
                                 </DataTrigger>
                             </Grid.Triggers>
                             <Grid.GestureRecognizers>
-                                <TapGestureRecognizer CommandParameter="{Binding .}" Command="{Binding ItemsSource.SelectNodeCommand, Source={RelativeSource AncestorType={x:Type v:TreeView}}}" />
+                                <TapGestureRecognizer CommandParameter="{Binding .}" Command="{Binding ItemsSource.SelectNodeCommand, Source={RelativeSource AncestorType={x:Type v:NodeView}}}" />
                             </Grid.GestureRecognizers>
                             <v:ImageView Grid.Column="0" ImageWidth="20" ImageHeight="20">
                                 <v:ImageView.Triggers>
@@ -72,7 +72,7 @@
                             </v:ImageView>
                             <v:BindingContextView Grid.Column="1" />
                             <!--<v:ImageView Grid.Column="2" HorizontalOptions="End" VerticalOptions="End" FontFamily="MaterialOutlined" Glyph="{x:Static mi:MaterialOutlined.Save}"
-                                 Command="{Binding BindingContext.SettingTree.SaveOptionCommand, Source={RelativeSource AncestorType={x:Type v:SettingTreeView}}}"
+                                 Command="{Binding BindingContext.Settings.SaveOptionCommand, Source={RelativeSource AncestorType={x:Type v:SettingsView}}}"
                                  CommandParameter="{Binding .}">
                                 <v:ImageView.Triggers>
                                     <DataTrigger TargetType="{x:Type v:ImageView}" Binding="{Binding SettingType}" Value="{x:Static m:SettingType.Parent}">
@@ -83,28 +83,28 @@
                             <!--<Label Grid.Column="1" Text="{Binding Name}" TextColor="{StaticResource PrimaryDark}" Margin="0" Padding="0" VerticalOptions="Center" BackgroundColor="Transparent" />-->
                         </Grid>
                     </DataTemplate>
-                </v:TreeView.ItemTemplate>
-                <v:TreeView.ExtraMenuItemsDataTemplate>
+                </v:NodeView.ItemTemplate>
+                <v:NodeView.ExtraMenuItemsDataTemplate>
                     <DataTemplate x:DataType="{x:Null}">
                         <VerticalStackLayout>
                             <v:ImageView FontFamily="FASolid" Glyph="{x:Static fa:Solid.Download}" 
                                              Command="{Binding ItemsSource.ImportCommand}"
-                                             CommandParameter="{Binding BindingContext.SelectedMacroSet.Name, Source={RelativeSource AncestorType={x:Type v:SettingTreeView}}}}" />
+                                             CommandParameter="{Binding BindingContext.SelectedMacroSet.Name, Source={RelativeSource AncestorType={x:Type v:SettingNodeView}}}}" />
                             <v:ImageView FontFamily="FASolid" Glyph="{x:Static fa:Solid.FileExport}" 
                                              Command="{Binding ItemsSource.ExportCommand}"
-                                             CommandParameter="{Binding BindingContext.SelectedMacroSet.Name, Source={RelativeSource AncestorType={x:Type v:SettingTreeView}}}}" />
+                                             CommandParameter="{Binding BindingContext.SelectedMacroSet.Name, Source={RelativeSource AncestorType={x:Type v:SettingNodeView}}}}" />
                         </VerticalStackLayout>
                     </DataTemplate>
-                </v:TreeView.ExtraMenuItemsDataTemplate>
-            </v:TreeView>
+                </v:NodeView.ExtraMenuItemsDataTemplate>
+            </v:NodeView>
         </Border>
         <Grid Grid.Column="0" HorizontalOptions="End" VerticalOptions="Start" BackgroundColor="Transparent" Padding="3">
             <v:ImageView FontFamily="MaterialOutlined" Glyph="{x:Static mi:MaterialOutlined.Save}"
-                                 Command="{Binding BindingContext.SettingTree.SaveCommand, Source={RelativeSource AncestorType={x:Type v:SettingTreeView}}}" />
-            <!--<v:BindingContextView BindingContext="{Binding SettingTree.SelectedNode}" />
+                                 Command="{Binding BindingContext.Settings.SaveCommand, Source={RelativeSource AncestorType={x:Type v:SettingNodeView}}}" />
+            <!--<v:BindingContextView BindingContext="{Binding Settings.SelectedNode}" />
             <v:ImageView Grid.Column="1" HorizontalOptions="End" VerticalOptions="End" FontFamily="MaterialOutlined" Glyph="{x:Static mi:MaterialOutlined.Save}"
-                         Command="{Binding SettingTree.SaveOptionCommand}"
-                         CommandParameter="{Binding SettingTree.SelectedNode}" />-->
+                         Command="{Binding Settings.SaveOptionCommand}"
+                         CommandParameter="{Binding Settings.SelectedNode}" />-->
         </Grid>
     </Grid>
 </ContentView>

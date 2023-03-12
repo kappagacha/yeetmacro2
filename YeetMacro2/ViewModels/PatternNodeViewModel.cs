@@ -6,7 +6,7 @@ using YeetMacro2.Services;
 
 namespace YeetMacro2.ViewModels;
 
-public partial class PatternTreeViewViewModel : NodeViewModel<PatternNode, PatternNode>
+public partial class PatternNodeViewModel : NodeViewModel<PatternNode, PatternNode>
 {
     IRepository<PatternBase> _patternRepository;
     IScreenService _screenService;
@@ -34,7 +34,7 @@ public partial class PatternTreeViewViewModel : NodeViewModel<PatternNode, Patte
         Height = DeviceDisplay.MainDisplayInfo.Height
     });
 
-    public PatternTreeViewViewModel(
+    public PatternNodeViewModel(
         int rootNodeId,
         INodeService<PatternNode, PatternNode> nodeService,
         IInputService inputService,

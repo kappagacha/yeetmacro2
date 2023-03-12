@@ -7,7 +7,7 @@
              xmlns:fa="clr-namespace:UraniumUI.Icons.FontAwesome;assembly=UraniumUI.Icons.FontAwesome"
              xmlns:material="http://schemas.enisn-projects.io/dotnet/maui/uraniumui/material"
              xmlns:conv="clr-namespace:YeetMacro2.Converters"
-             x:Class="YeetMacro2.Views.TreeView"
+             x:Class="YeetMacro2.Views.NodeView"
              x:Name="thisView">
     <ContentView.Resources>
         <DataTemplate x:Key="DefaultItemTemplate">
@@ -18,7 +18,7 @@
                     </DataTrigger>
                 </Label.Triggers>
                 <Label.GestureRecognizers>
-                    <TapGestureRecognizer CommandParameter="{Binding .}" Command="{Binding ItemsSource.SelectNodeCommand, Source={RelativeSource AncestorType={x:Type v:TreeView}}}" />
+                    <TapGestureRecognizer CommandParameter="{Binding .}" Command="{Binding ItemsSource.SelectNodeCommand, Source={RelativeSource AncestorType={x:Type v:NodeView}}}" />
                 </Label.GestureRecognizers>
             </Label>
         </DataTemplate>
