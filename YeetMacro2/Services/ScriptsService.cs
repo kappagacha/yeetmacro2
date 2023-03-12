@@ -65,7 +65,7 @@ public class ScriptsService : IScriptsService
         _cancellationTokenSource = new CancellationTokenSource();
 
         var treeViewViewModel = _macroManagerViewModel.PatternTree;
-        var scripts = _macroManagerViewModel.Scripts.Scripts;
+        //var scripts = _macroManagerViewModel.Scripts.Scripts;
         await treeViewViewModel.WaitForInitialization();
         var patterns = treeViewViewModel.Root.BuildDynamicObject();
         
@@ -75,15 +75,15 @@ public class ScriptsService : IScriptsService
                 .SetValue("patterns", patterns)
                 .SetValue("macroService", _macroService.BuildDynamicObject(_cancellationTokenSource.Token));
 
-        foreach (var script in scripts)
-        {
-            var func = script.Text.StartsWith("function") ? script.Text : 
-                $@"function {script.Name}() {{
-                    {script.Text}
-                }}";
+        //foreach (var script in scripts)
+        //{
+        //    var func = script.Text.StartsWith("function") ? script.Text : 
+        //        $@"function {script.Name}() {{
+        //            {script.Text}
+        //        }}";
 
-            engine.Execute(func);
-        }
+        //    engine.Execute(func);
+        //}
 
         return engine;
     }

@@ -51,7 +51,7 @@ public abstract class Node
 {
     public virtual bool IsSelected { get; set; }
     public virtual bool IsExpanded { get; set; } = true;
-    public bool IsParentNode { get => this is IParentNode; }
+    public virtual bool IsParentNode { get => this is IParentNode; }
     public virtual string Name { get; set; }
     [JsonIgnore]
     public int NodeId { get; set; }

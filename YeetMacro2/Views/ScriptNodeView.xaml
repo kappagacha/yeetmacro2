@@ -1,35 +1,35 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <ContentView xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="YeetMacro2.Views.PatternTreeView"
-             xmlns:vm="clr-namespace:YeetMacro2.ViewModels"
-             xmlns:v="clr-namespace:YeetMacro2.Views"
              xmlns:conv="clr-namespace:YeetMacro2.Converters"
-             x:DataType="vm:MacroManagerViewModel"
+             xmlns:v="clr-namespace:YeetMacro2.Views"
+             xmlns:vm="clr-namespace:YeetMacro2.ViewModels"
              vm:ViewModelLocator.ViewModelType="{x:Type vm:MacroManagerViewModel}"
              xmlns:fa="clr-namespace:UraniumUI.Icons.FontAwesome;assembly=UraniumUI.Icons.FontAwesome"
              BackgroundColor="{AppThemeBinding Light={StaticResource Background}, Dark={StaticResource BackgroundDark}}"
+             x:DataType="vm:MacroManagerViewModel"
+             x:Class="YeetMacro2.Views.ScriptNodeView"
              x:Name="thisControl">
     <Grid ColumnDefinitions="*,3*">
         <Border Grid.Column="0" Stroke="{StaticResource Primary}" BackgroundColor="Transparent" Padding="3">
-            <v:TreeView ItemsSource="{Binding PatternTree}">
+            <v:TreeView ItemsSource="{Binding Scripts}">
                 <v:TreeView.ExtraMenuItemsDataTemplate>
                     <DataTemplate x:DataType="{x:Null}">
                         <VerticalStackLayout>
                             <v:ImageView FontFamily="FASolid" Glyph="{x:Static fa:Solid.Download}" 
                                              Command="{Binding ItemsSource.ImportCommand}"
-                                             CommandParameter="{Binding BindingContext.SelectedMacroSet.Name, Source={RelativeSource AncestorType={x:Type v:PatternTreeView}}}}" />
+                                             CommandParameter="{Binding BindingContext.SelectedMacroSet.Name, Source={RelativeSource AncestorType={x:Type v:ScriptNodeView}}}}" />
                             <v:ImageView FontFamily="FASolid" Glyph="{x:Static fa:Solid.FileExport}" 
                                              Command="{Binding ItemsSource.ExportCommand}"
-                                             CommandParameter="{Binding BindingContext.SelectedMacroSet.Name, Source={RelativeSource AncestorType={x:Type v:PatternTreeView}}}}" />
+                                             CommandParameter="{Binding BindingContext.SelectedMacroSet.Name, Source={RelativeSource AncestorType={x:Type v:ScriptNodeView}}}}" />
                         </VerticalStackLayout>
                     </DataTemplate>
                 </v:TreeView.ExtraMenuItemsDataTemplate>
             </v:TreeView>
         </Border>
         <Border Grid.Column="1" Stroke="{StaticResource Primary}" BackgroundColor="Transparent" Padding="3"
-                IsVisible="{Binding PatternTree.SelectedNode, Converter={conv:NullToBoolConverter IsInverse=True}}">
-            <v:PatternView />
+                IsVisible="{Binding Scripts.SelectedNode, Converter={conv:NullToBoolConverter IsInverse=True}}">
+            <Editor Text="{Binding Scripts.SelectedNode.Text}" IsSpellCheckEnabled="False" />
         </Border>
     </Grid>
 </ContentView>

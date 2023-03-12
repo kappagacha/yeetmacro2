@@ -11,7 +11,7 @@ public class ModelProfile : Profile
         CreateMap<PatternNode, PatternNode>();
         CreateMap<Resolution, Resolution>();
         CreateMap<Bounds, Bounds>();
-        CreateMap<Script, Script>();
+        CreateMap<ScriptNode, ScriptNode>();
         CreateMap<ParentSetting, ParentSetting>();
         CreateMap<BooleanSetting, BooleanSetting>();
         CreateMap<OptionSetting, OptionSetting>();

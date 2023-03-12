@@ -59,7 +59,7 @@
             <material:TabItem Title="Scripts">
                 <material:TabItem.ContentTemplate>
                     <DataTemplate>
-                        <v:ScriptsView />
+                        <v:ScriptNodeView />
                     </DataTemplate>
                 </material:TabItem.ContentTemplate>
             </material:TabItem>

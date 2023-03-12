@@ -30,7 +30,6 @@ public static class ServiceRegistrationHelper
     {
         mauiAppBuilder.Services.AddSingleton<MacroManagerViewModel>();
         mauiAppBuilder.Services.AddSingleton<NodeViewModelFactory>();
-        mauiAppBuilder.Services.AddSingleton<ScriptsViewModelFactory>();
         mauiAppBuilder.Services.AddSingleton<LogViewModel>();
         mauiAppBuilder.Services.AddSingleton<IMacroService, MacroService>();
 
@@ -50,12 +49,17 @@ public class AppInitializer : IMauiInitializeService
         var disgaeaPatternNode = patternNodeService.GetRoot(-1);
         var konosubaPatternNode = patternNodeService.GetRoot(-1);
 
+
+        var scriptNodeService = services.GetService<INodeService<ScriptNode, ScriptNode>>();
+        var disgaeaScriptNode = scriptNodeService.GetRoot(-1);
+        var konosubaScriptNode = scriptNodeService.GetRoot(-1);
+
         var settingNodeService = services.GetService<INodeService<ParentSetting, Setting>>();
         var disgaeaSettingNode = settingNodeService.GetRoot(-1);
         var konosubaSettingNode = settingNodeService.GetRoot(-1);
 
-        var disgaeaRpgMacroSet = new MacroSet() { Name = "Disgaea RPG", RootPatternNodeId = disgaeaPatternNode.NodeId, RootSettingNodeId = disgaeaSettingNode.NodeId };
-        var konsobaFdMacroSet = new MacroSet() { Name = "Konosuba FD", RootPatternNodeId = konosubaPatternNode.NodeId, RootSettingNodeId = konosubaSettingNode.NodeId };
+        var disgaeaRpgMacroSet = new MacroSet() { Name = "Disgaea RPG", RootPatternNodeId = disgaeaPatternNode.NodeId, RootScriptNodeId = disgaeaScriptNode.NodeId, RootSettingNodeId = disgaeaSettingNode.NodeId };
+        var konsobaFdMacroSet = new MacroSet() { Name = "Konosuba FD", RootPatternNodeId = konosubaPatternNode.NodeId, RootScriptNodeId = konosubaScriptNode.NodeId, RootSettingNodeId = konosubaSettingNode.NodeId };
 
         dbContext.MacroSets.AddRange(disgaeaRpgMacroSet, konsobaFdMacroSet);
         dbContext.SaveChanges();

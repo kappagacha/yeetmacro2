@@ -1,6 +1,5 @@
 ﻿using System.Linq.Expressions;
 using System.Text.Json.Serialization;
-using System.Text.Json;
 
 namespace YeetMacro2.Data.Models;
 
@@ -24,7 +23,6 @@ public class ParentSetting : Setting, IParentNode<ParentSetting, Setting>
     public ICollection<Setting> Nodes { get; set; } = new List<Setting>();
     public override SettingType SettingType => SettingType.Parent;
 }
-
 
 // https://learn.microsoft.com/en-us/dotnet/standard/serialization/system-text-json/polymorphism?pivots=dotnet-7-0
 [JsonDerivedType(typeof(ParentSetting), typeDiscriminator: "parent")]
