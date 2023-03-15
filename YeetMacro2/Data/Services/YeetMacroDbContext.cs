@@ -13,7 +13,7 @@ public class YeetMacroDbContext : DbContext
     public DbSet<NodeClosure> Closures { get; set; }
     //public DbSet<ParentNode> ParentNodes { get; set; }
     //public DbSet<LeafNode> LeafNodes { get; set; }
-    public DbSet<PatternBase> Patterns { get; set; }
+    public DbSet<Pattern> Patterns { get; set; }
     public DbSet<PatternNode> PatternNodes { get; set; }
     public DbSet<SettingNode> Settings { get; set; }
     public DbSet<ParentSetting> ParentSettings { get; set; }
@@ -52,14 +52,12 @@ public class YeetMacroDbContext : DbContext
 
         //https://stackoverflow.com/questions/48017766/what-automatically-causes-ef-core-to-include-collection-properties
         modelBuilder.Entity<PatternNode>().Navigation(pn => pn.Patterns).AutoInclude();
-        modelBuilder.Entity<PatternNode>().Navigation(pn => pn.UserPatterns).AutoInclude();
         //https://www.tektutorialshub.com/entity-framework-core/cascade-delete-in-entity-framework-core/
         modelBuilder.Entity<PatternNode>().HasMany(pn => pn.Nodes).WithOne().HasForeignKey($"{nameof(PatternNode)}{nameof(Node.ParentId)}").OnDelete(DeleteBehavior.Cascade);
         modelBuilder.Entity<PatternNode>().HasMany(pn => pn.Patterns).WithOne().HasForeignKey(p => p.ParentNodeId).OnDelete(DeleteBehavior.Cascade);
-        modelBuilder.Entity<PatternNode>().HasMany(pn => pn.UserPatterns).WithOne().HasForeignKey(p => p.ParentNodeId).OnDelete(DeleteBehavior.Cascade);
-        modelBuilder.Entity<PatternBase>().HasKey(p => p.PatternId);
-        modelBuilder.Entity<PatternBase>().OwnsOne(p => p.Resolution);
-        modelBuilder.Entity<PatternBase>().OwnsOne(p => p.Bounds);
+        modelBuilder.Entity<Pattern>().HasKey(p => p.PatternId);
+        modelBuilder.Entity<Pattern>().OwnsOne(p => p.Resolution);
+        modelBuilder.Entity<Pattern>().OwnsOne(p => p.Bounds);
 
         modelBuilder.Entity<ScriptNode>().HasMany(pn => pn.Nodes).WithOne().HasForeignKey($"{nameof(ScriptNode)}{nameof(Node.ParentId)}").OnDelete(DeleteBehavior.Cascade);
 

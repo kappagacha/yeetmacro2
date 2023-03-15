@@ -6,7 +6,7 @@ namespace YeetMacro2.Data.Models;
 
 public class PatternNodeMetadataProvider : INodeMetadataProvider<PatternNode>
 {
-    public Expression<Func<PatternNode, object>> CollectionPropertiesExpression => pn => new { pn.Nodes, pn.Patterns, pn.UserPatterns };
+    public Expression<Func<PatternNode, object>> CollectionPropertiesExpression => pn => new { pn.Nodes, pn.Patterns };
     public Expression<Func<PatternNode, object>> ProxyPropertiesExpression => null;
     public Type[] NodeTypes => null;
 }
@@ -17,7 +17,6 @@ public class PatternNode : Node, IParentNode<PatternNode, PatternNode>
     public virtual bool IsMultiPattern { get; set; }
     public virtual ICollection<PatternNode> Nodes { get; set; } = new List<PatternNode>();
     public virtual ICollection<Pattern> Patterns { get; set; } = new List<Pattern>();
-    public virtual ICollection<UserPattern> UserPatterns { get; set; } = new List<UserPattern>();
     public dynamic BuildDynamicObject(string path = "")
     {
         var result = new ExpandoObject();
@@ -36,7 +35,7 @@ public class PatternNode : Node, IParentNode<PatternNode, PatternNode>
     }
 }
 
-public abstract class PatternBase
+public class Pattern
 {
     public virtual Bounds Bounds { get; set; }
     public virtual Resolution Resolution { get; set; }
@@ -48,6 +47,7 @@ public abstract class PatternBase
     public virtual string Name { get; set; }
     public byte[] ImageData { get; set; }
     public virtual double Threshold { get; set; }
+    public virtual string ColorThreshold { get; set; }
 }
 
 public class Bounds
@@ -70,14 +70,4 @@ public class Resolution
     {
         return $"{Width:F0}x{Height:F0}";
     }
-}
-
-public class Pattern : PatternBase
-{
-
-}
-
-public class UserPattern : PatternBase
-{
-
 }

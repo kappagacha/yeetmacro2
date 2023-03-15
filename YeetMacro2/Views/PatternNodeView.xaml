@@ -29,7 +29,7 @@
         </Border>
         <Border Grid.Column="1" Stroke="{StaticResource Primary}" BackgroundColor="Transparent" Padding="3"
                 IsVisible="{Binding Patterns.SelectedNode, Converter={conv:NullToBoolConverter IsInverse=True}}">
-            <v:PatternView />
+            <v:PatternView Pattern="{Binding Patterns.SelectedPattern}" />
         </Border>
     </Grid>
 </ContentView>

@@ -350,7 +350,7 @@ public class AndroidWindowManagerService : IInputService, IScreenService
         Close(WindowView.DrawView);
     }
 
-    public async Task<List<Point>> GetMatches(PatternBase template, FindOptions opts)
+    public async Task<List<Point>> GetMatches(Pattern template, FindOptions opts)
     {
         try
         {

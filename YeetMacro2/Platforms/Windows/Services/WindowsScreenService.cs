@@ -90,12 +90,12 @@ public class WindowsScreenService : IScreenService, IRecorderService
         return Task.FromResult(stream);
     }
 
-    public Task<List<Microsoft.Maui.Graphics.Point>> GetMatches(PatternBase template, int limit = 1)
+    public Task<List<Microsoft.Maui.Graphics.Point>> GetMatches(Pattern template, int limit = 1)
     {
         throw new NotImplementedException();
     }
 
-    public Task<List<Microsoft.Maui.Graphics.Point>> GetMatches(PatternBase template, FindOptions opts)
+    public Task<List<Microsoft.Maui.Graphics.Point>> GetMatches(Pattern template, FindOptions opts)
     {
         throw new NotImplementedException();
     }

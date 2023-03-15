@@ -8,26 +8,27 @@ namespace YeetMacro2.ViewModels;
 
 public partial class PatternNodeViewModel : NodeViewModel<PatternNode, PatternNode>
 {
-    IRepository<PatternBase> _patternRepository;
+    IRepository<Pattern> _patternRepository;
     IScreenService _screenService;
     IMacroService _macroService;
     Resolution _currentResolution;
-    PatternBase _selectedPattern;
     [ObservableProperty]
     ImageSource _selectedImageSource;
+    [ObservableProperty]
+    Pattern _selectedPattern;
 
-    public PatternBase SelectedPattern
-    {
-        get { return _selectedPattern; }
-        set
-        {
-            SetProperty(ref _selectedPattern, value);
-            if (_selectedPattern != null && _selectedPattern.ImageData != null)
-            {
-                SelectedImageSource = ImageSource.FromStream(() => new MemoryStream(_selectedPattern.ImageData));
-            }
-        }
-    }
+    //public PatternBase SelectedPattern
+    //{
+    //    get { return _selectedPattern; }
+    //    set
+    //    {
+    //        SetProperty(ref _selectedPattern, value);
+    //        if (_selectedPattern != null && _selectedPattern.ImageData != null)
+    //        {
+    //            SelectedImageSource = ImageSource.FromStream(() => new MemoryStream(_selectedPattern.ImageData));
+    //        }
+    //    }
+    //}
     public Resolution CurrentResolution => _currentResolution ?? (_currentResolution = new Resolution()
     {
         Width = DeviceDisplay.MainDisplayInfo.Width,
@@ -39,7 +40,7 @@ public partial class PatternNodeViewModel : NodeViewModel<PatternNode, PatternNo
         INodeService<PatternNode, PatternNode> nodeService,
         IInputService inputService,
         IToastService toastService,
-        IRepository<PatternBase> patternRepository,
+        IRepository<Pattern> patternRepository,
         IScreenService screenService,
         IMacroService macroService)
             : base(rootNodeId, nodeService, inputService, toastService)
@@ -89,7 +90,7 @@ public partial class PatternNodeViewModel : NodeViewModel<PatternNode, PatternNo
     }
 
     [RelayCommand]
-    private void SelectPattern(PatternBase pattern)
+    private void SelectPattern(Pattern pattern)
     {
         pattern.IsSelected = !pattern.IsSelected;
 
@@ -109,7 +110,7 @@ public partial class PatternNodeViewModel : NodeViewModel<PatternNode, PatternNo
     }
 
     [RelayCommand]
-    private void DeletePattern(PatternBase pattern)
+    private void DeletePattern(Pattern pattern)
     {
         SelectedNode.Patterns.Remove((Pattern)pattern);
         _patternRepository.Delete(pattern);
@@ -117,7 +118,7 @@ public partial class PatternNodeViewModel : NodeViewModel<PatternNode, PatternNo
     }
 
     [RelayCommand]
-    private async void CapturePattern(PatternBase pattern)
+    private async void CapturePattern(Pattern pattern)
     {
         if (pattern == null)
         {
@@ -164,7 +165,7 @@ public partial class PatternNodeViewModel : NodeViewModel<PatternNode, PatternNo
     }
 
     [RelayCommand]
-    private void SavePattern(PatternBase pattern)
+    private void SavePattern(Pattern pattern)
     {
         if (pattern == null)
         {
@@ -195,7 +196,7 @@ public partial class PatternNodeViewModel : NodeViewModel<PatternNode, PatternNo
         }
     }
 
-    private PatternBase ResolveSelectedPattern()
+    private Pattern ResolveSelectedPattern()
     {
         if (SelectedNode.IsMultiPattern && SelectedPattern == null)
         {
@@ -267,5 +268,13 @@ public partial class PatternNodeViewModel : NodeViewModel<PatternNode, PatternNo
         await _macroService.ClickPattern(_selectedPattern);     //one to change focus
         await Task.Delay(300);
         await _macroService.ClickPattern(_selectedPattern);     //one to click
+    }
+
+    [RelayCommand]
+    private void ApplyColorThreshold(string colorThrehold)
+    {
+        //if (string.IsNullOrWhiteSpace(color)) return;
+
+
     }
 }

@@ -71,16 +71,6 @@
                                 </v:ImageView.Triggers>
                             </v:ImageView>
                             <v:BindingContextView Grid.Column="1" />
-                            <!--<v:ImageView Grid.Column="2" HorizontalOptions="End" VerticalOptions="End" FontFamily="MaterialOutlined" Glyph="{x:Static mi:MaterialOutlined.Save}"
-                                 Command="{Binding BindingContext.Settings.SaveOptionCommand, Source={RelativeSource AncestorType={x:Type v:SettingsView}}}"
-                                 CommandParameter="{Binding .}">
-                                <v:ImageView.Triggers>
-                                    <DataTrigger TargetType="{x:Type v:ImageView}" Binding="{Binding SettingType}" Value="{x:Static m:SettingType.Parent}">
-                                        <Setter Property="IsVisible" Value="False" />
-                                    </DataTrigger>
-                                </v:ImageView.Triggers>
-                            </v:ImageView>-->
-                            <!--<Label Grid.Column="1" Text="{Binding Name}" TextColor="{StaticResource PrimaryDark}" Margin="0" Padding="0" VerticalOptions="Center" BackgroundColor="Transparent" />-->
                         </Grid>
                     </DataTemplate>
                 </v:NodeView.ItemTemplate>
@@ -89,10 +79,10 @@
                         <VerticalStackLayout>
                             <v:ImageView FontFamily="FASolid" Glyph="{x:Static fa:Solid.Download}" 
                                              Command="{Binding ItemsSource.ImportCommand}"
-                                             CommandParameter="{Binding BindingContext.SelectedMacroSet.Name, Source={RelativeSource AncestorType={x:Type v:SettingNodeView}}}}" />
+                                             CommandParameter="{Binding BindingContext.SelectedMacroSet.Name, Source={RelativeSource AncestorType={x:Type v:SettingNodeView}}}" />
                             <v:ImageView FontFamily="FASolid" Glyph="{x:Static fa:Solid.FileExport}" 
                                              Command="{Binding ItemsSource.ExportCommand}"
-                                             CommandParameter="{Binding BindingContext.SelectedMacroSet.Name, Source={RelativeSource AncestorType={x:Type v:SettingNodeView}}}}" />
+                                             CommandParameter="{Binding BindingContext.SelectedMacroSet.Name, Source={RelativeSource AncestorType={x:Type v:SettingNodeView}}}" />
                         </VerticalStackLayout>
                     </DataTemplate>
                 </v:NodeView.ExtraMenuItemsDataTemplate>
@@ -101,10 +91,6 @@
         <Grid Grid.Column="0" HorizontalOptions="End" VerticalOptions="Start" BackgroundColor="Transparent" Padding="3">
             <v:ImageView FontFamily="MaterialOutlined" Glyph="{x:Static mi:MaterialOutlined.Save}"
                                  Command="{Binding BindingContext.Settings.SaveCommand, Source={RelativeSource AncestorType={x:Type v:SettingNodeView}}}" />
-            <!--<v:BindingContextView BindingContext="{Binding Settings.SelectedNode}" />
-            <v:ImageView Grid.Column="1" HorizontalOptions="End" VerticalOptions="End" FontFamily="MaterialOutlined" Glyph="{x:Static mi:MaterialOutlined.Save}"
-                         Command="{Binding Settings.SaveOptionCommand}"
-                         CommandParameter="{Binding Settings.SelectedNode}" />-->
         </Grid>
     </Grid>
 </ContentView>

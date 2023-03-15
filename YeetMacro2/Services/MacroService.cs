@@ -23,8 +23,8 @@ public class FindOptions
 public interface IMacroService
 {
     dynamic BuildDynamicObject(CancellationToken token);
-    Task<FindPatternResult> ClickPattern(PatternBase pattern);
-    Task<FindPatternResult> FindPattern(PatternBase pattern, FindOptions opts);
+    Task<FindPatternResult> ClickPattern(Pattern pattern);
+    Task<FindPatternResult> FindPattern(Pattern pattern, FindOptions opts);
     bool InDebugMode { get; set; }
 }
 
@@ -41,7 +41,7 @@ public class MacroService : IMacroService
         _toastService = toastService;
     }
 
-    public async Task<FindPatternResult> FindPattern(PatternBase pattern, FindOptions opts = null)
+    public async Task<FindPatternResult> FindPattern(Pattern pattern, FindOptions opts = null)
     {
         try
         {
@@ -65,7 +65,7 @@ public class MacroService : IMacroService
 
     }
 
-    public async Task<FindPatternResult> ClickPattern(PatternBase pattern)
+    public async Task<FindPatternResult> ClickPattern(Pattern pattern)
     {
         try
         {
@@ -100,7 +100,7 @@ public class MacroService : IMacroService
         {
             var points = new List<Point>();
             var multiResult = new FindPatternResult();
-            foreach (PatternBase pattern in p.patterns)
+            foreach (Pattern pattern in p.patterns)
             {
                 if (InDebugMode && pattern.Bounds != null)
                 {
@@ -121,7 +121,7 @@ public class MacroService : IMacroService
         }
         else
         {
-            PatternBase pattern = (PatternBase)p.patterns[0];
+            Pattern pattern = (Pattern)p.patterns[0];
             if (InDebugMode && pattern.Bounds != null)
             {
                 MainThread.BeginInvokeOnMainThread(() =>

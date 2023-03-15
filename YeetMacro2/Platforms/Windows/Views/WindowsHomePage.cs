@@ -6,8 +6,8 @@ public class WindowsHomePage : ContentPage
 {
     public WindowsHomePage()
     {
-        //Content = new SettingTreeView();
-        Content = new ScriptNodeView();
+        //Content = new ScriptNodeView();
+        Content = new PatternNodeView();
         //{
         //    Children = {
         //        new TreeView()

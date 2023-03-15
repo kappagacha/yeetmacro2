@@ -12,6 +12,6 @@ public interface IScreenService
     void DebugRectangle(int x, int y, int width, int height);
     void DebugCircle(int x, int y);
     void DebugClear();
-    Task<List<Point>> GetMatches(PatternBase template, FindOptions opts);
+    Task<List<Point>> GetMatches(Pattern template, FindOptions opts);
     void DoClick(float x, float y);
 }

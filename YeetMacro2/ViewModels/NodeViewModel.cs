@@ -376,11 +376,10 @@ public class NodeViewModelValueConverter : JsonConverterFactory
                     return node;
                 }
 
-                if (reader.TokenType == JsonTokenType.PropertyName && reader.GetString() == "isParent")
+                if (reader.TokenType == JsonTokenType.PropertyName && reader.GetString() == "$isParent")
                 {
                     reader.Read();
                     isParent = reader.GetBoolean();
-                    Debug.WriteLine($"isParent: {isParent}");
                 }
 
                 // each property named "properties" is the properties of the node
@@ -436,7 +435,7 @@ public class NodeViewModelValueConverter : JsonConverterFactory
             writer.WriteStartObject();
             if (child is TParent parent)
             {
-                writer.WritePropertyName("isParent");
+                writer.WritePropertyName("$isParent");
                 writer.WriteBooleanValue(true);
                 writer.WritePropertyName("properties");
                 _parentConverter.Write(writer, parent, options);
@@ -447,7 +446,7 @@ public class NodeViewModelValueConverter : JsonConverterFactory
             }
             else
             {
-                writer.WritePropertyName("isParent");
+                writer.WritePropertyName("$isParent");
                 writer.WriteBooleanValue(false);
                 writer.WritePropertyName("properties");
                 _childConverter.Write(writer, child, options);
