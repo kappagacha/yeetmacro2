@@ -5,43 +5,53 @@
              xmlns:conv="clr-namespace:YeetMacro2.Converters"
              xmlns:v="clr-namespace:YeetMacro2.Views"
              xmlns:m="clr-namespace:YeetMacro2.Data.Models"
-             x:DataType="vm:MacroManagerViewModel"
-             vm:ViewModelLocator.ViewModelType="{x:Type vm:MacroManagerViewModel}"
              xmlns:fa="clr-namespace:UraniumUI.Icons.FontAwesome;assembly=UraniumUI.Icons.FontAwesome"
              xmlns:mi="clr-namespace:UraniumUI.Icons.MaterialIcons;assembly=UraniumUI.Icons.MaterialIcons"
              xmlns:skia="clr-namespace:SkiaSharp.Views.Maui.Controls;assembly=SkiaSharp.Views.Maui.Controls"
-             x:Class="YeetMacro2.Views.PatternView">
+             xmlns:mct="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
+             x:Class="YeetMacro2.Views.PatternView"
+             x:Name="thisView">
     <Grid Padding="3">
-        <!--<Image VerticalOptions="Start" Source="{Binding Patterns.SelectedImageSource}" />-->
         <skia:SKCanvasView x:Name="canvasView" EnableTouchEvents="True" PaintSurface="OnCanvasViewPaintSurface" Touch="OnCanvasViewTouch" />
         <VerticalStackLayout HorizontalOptions="Start" VerticalOptions="Start">
             <HorizontalStackLayout Margin="0" Padding="0">
-                <CheckBox Margin="0" VerticalOptions="Center" IsChecked="{Binding Patterns.SelectedNode.IsMultiPattern}" />
+                <CheckBox Margin="0" VerticalOptions="Center" IsChecked="{Binding PatternNode.IsMultiPattern, Source={Reference thisView}}" />
                 <Label Margin="0" VerticalOptions="Center" Padding="0" Text="MultiPattern" />
             </HorizontalStackLayout>
             <HorizontalStackLayout Margin="0" Padding="0">
-                <Entry Margin="0" VerticalOptions="Center" Keyboard="Numeric" Text="{Binding Patterns.SelectedPattern.Threshold}" />
-                <Label x:Name="thresholdLabel" Margin="0" VerticalOptions="Center" Padding="0" Text="Threshold" />
-                <v:ImageView FontFamily="MaterialOutlined" Glyph="{x:Static mi:MaterialOutlined.Save}" Color="{StaticResource Primary}" 
-                             Command="{Binding Patterns.SavePatternCommand}" CommandParameter="{Binding Patterns.SelectedPattern}" />
+                <Label Margin="0" VerticalOptions="Center" Padding="0" Text="TextMatch:" />
+                <Entry Margin="5,0,0,0" VerticalOptions="Center" Text="{Binding Pattern.TextMatch, Source={Reference thisView}}" />
+                <Button Text="Test" Command="{Binding TestPatternTextMatchCommand, Source={Reference thisView}}" CommandParameter="{Binding Pattern, Source={Reference thisView}}"/>
+                <Button Text="Apply" Command="{Binding ApplyPatternTextMatchCommand, Source={Reference thisView}}" CommandParameter="{Binding Pattern, Source={Reference thisView}}"/>
             </HorizontalStackLayout>
             <HorizontalStackLayout Margin="0" Padding="0">
-                <Label x:Name="colorValue" Margin="5,0,0,0" VerticalOptions="Center" Padding="0" IsVisible="False"/>
-                <Label x:Name="colorThresholdLabel" Margin="0" VerticalOptions="Center" Padding="0" Text="Color Threshold:" />
-                <Entry x:Name="colorThresholdVariance" Margin="5,0,0,0" VerticalOptions="Center" Keyboard="Numeric" />
-                <skia:SKCanvasView Margin="5,0,0,0" x:Name="colorPickCanvas" PaintSurface="OnColorPickPaintSurface" WidthRequest="20" HeightRequest="20" />
-                <Label x:Name="colorThreshold" VerticalOptions="Center">
-                    <Label.Text>
-                        <MultiBinding StringFormat="{}{0}@{1}">
-                            <Binding Path="Text" Source="{Reference colorThresholdVariance}" />
-                            <Binding Path="Text" Source="{Reference colorValue}" />
-                        </MultiBinding>
-                    </Label.Text>
-                </Label>
-                <Button Text="Apply" Command="{Binding Patterns.ApplyColorThresholdCommand}" CommandParameter="{Binding Text, Source={Reference colorThreshold}}"/>
+                <Entry Margin="0" VerticalOptions="Center" Keyboard="Numeric" Text="{Binding Pattern.VariancePct, Source={Reference thisView}}" />
+                <Label Margin="0" VerticalOptions="Center" Padding="0" Text="VariancePct" />
+                <v:ImageView FontFamily="MaterialOutlined" Glyph="{x:Static mi:MaterialOutlined.Save}" Color="{StaticResource Primary}" 
+                             Command="{Binding SavePatternCommand, Source={Reference thisView}}" CommandParameter="{Binding Pattern, Source={Reference thisView}}" />
             </HorizontalStackLayout>
-            <HorizontalStackLayout IsVisible="{Binding Patterns.SelectedNode.IsMultiPattern}">
-                <CollectionView ItemsSource="{Binding Patterns.SelectedNode.Patterns}">
+            <HorizontalStackLayout Margin="0" Padding="0">
+                <CheckBox IsChecked="{Binding Pattern.ColorThreshold.IsActive, Source={Reference thisView}}" CheckedChanged="colorThresholdIsActive_CheckedChanged" />
+                <Label Margin="0" VerticalOptions="Center" Padding="0" Text="Color Threshold:" />
+                <Entry x:Name="colorThresholdVariancePct" Margin="5,0,0,0" VerticalOptions="Center" Keyboard="Numeric" />
+                <Label Margin="0" VerticalOptions="Center" Padding="0" Text="@" />
+                <Entry x:Name="colorThresholdColor" Margin="0,0,0,0" VerticalOptions="Center" IsReadOnly="True" />
+                <skia:SKCanvasView Margin="5,0,0,0" x:Name="colorPickCanvas" PaintSurface="OnColorPickPaintSurface" WidthRequest="20" HeightRequest="20" />
+                <Button Text="Apply" Command="{Binding ApplyColorThresholdCommand, Source={Reference thisView}}">
+                    <Button.CommandParameter>
+                        <MultiBinding Converter="{conv:PassThroughConverter}">
+                            <Binding Path="Pattern" Source="{Reference thisView}" />
+                            <Binding Path="Text" Source="{Reference colorThresholdVariancePct}" />
+                            <Binding Path="Text" Source="{Reference colorThresholdColor}" />
+                        </MultiBinding>
+                    </Button.CommandParameter>
+                </Button>
+            </HorizontalStackLayout>
+            <!--<HorizontalStackLayout Margin="0" Padding="0">
+                <Label Margin="5,0,0,0" VerticalOptions="Center" Padding="0" Text="{Binding Patterns.SelectedPattern.ColorThreshold}" />
+            </HorizontalStackLayout>-->
+            <HorizontalStackLayout IsVisible="{Binding PatternNode.IsMultiPattern, Source={Reference thisView}}">
+                <CollectionView ItemsSource="{Binding PatternNode.Patterns, Source={Reference thisView}}">
                     <CollectionView.ItemTemplate>
                         <DataTemplate x:DataType="m:Pattern">
                             <Label Text="{Binding Name}" Margin="0" Padding="0" VerticalOptions="Center" BackgroundColor="Transparent">
@@ -51,7 +61,7 @@
                                     </DataTrigger>
                                 </Label.Triggers>
                                 <Label.GestureRecognizers>
-                                    <TapGestureRecognizer CommandParameter="{Binding .}" Command="{Binding BindingContext.Patterns.SelectPatternCommand, Source={RelativeSource AncestorType={x:Type v:PatternView}}}" />
+                                    <TapGestureRecognizer CommandParameter="{Binding .}" Command="{Binding SelectPatternCommand, Source={RelativeSource AncestorType={x:Type v:PatternView}}}" />
                                 </Label.GestureRecognizers>
                             </Label>
                         </DataTemplate>
@@ -62,32 +72,36 @@
         <VerticalStackLayout VerticalOptions="End" HorizontalOptions="End">
             <HorizontalStackLayout Spacing="5" VerticalOptions="End" HorizontalOptions="End">
                 <v:ImageView FontFamily="MaterialOutlined" Glyph="{x:Static mi:MaterialOutlined.Rectangle}" Color="{StaticResource Primary}" />
-                <Label Text="{Binding Patterns.SelectedPattern.Bounds}" />
+                <Label Text="{Binding Pattern.Bounds, Source={Reference thisView}}" />
             </HorizontalStackLayout>
-            <HorizontalStackLayout Spacing="5" VerticalOptions="End" HorizontalOptions="End">
+            <!--<HorizontalStackLayout Spacing="5" VerticalOptions="End" HorizontalOptions="End">
                 <v:ImageView FontFamily="MaterialOutlined" Glyph="{x:Static mi:MaterialOutlined.Image_aspect_ratio}" Color="{StaticResource Primary}" />
                 <Label Text="{Binding Patterns.CurrentResolution}" />
-            </HorizontalStackLayout>
+            </HorizontalStackLayout>-->
             <HorizontalStackLayout Spacing="5" VerticalOptions="End" HorizontalOptions="End">
                 <v:ImageView FontFamily="MaterialOutlined" Glyph="{x:Static mi:MaterialOutlined.Image}" Color="{StaticResource Primary}" />
-                <Label Text="{Binding Patterns.SelectedPattern.Resolution}" />
+                <Label Text="{Binding Pattern.Resolution, Source={Reference thisView}}" />
             </HorizontalStackLayout>
             <HorizontalStackLayout VerticalOptions="End" HorizontalOptions="End">
                 <v:ImageView FontFamily="MaterialOutlined" Glyph="{x:Static mi:MaterialOutlined.Photo_camera_front}" Color="{StaticResource Primary}"
-                             Command="{Binding Patterns.CapturePatternCommand}" />
+                             Command="{Binding CapturePatternCommand, Source={Reference thisView}}"
+                             CommandParameter="{Binding Pattern, Source={Reference thisView}}" />
                 <v:ImageView FontFamily="MaterialRegular" Glyph="{x:Static mi:MaterialRegular.Crop_free}" Color="{StaticResource Primary}"
-                             Command="{Binding Patterns.SetPatternBoundsCommand}" />
+                             Command="{Binding SetPatternBoundsCommand, Source={Reference thisView}}"
+                             CommandParameter="{Binding Pattern, Source={Reference thisView}}" />
                 <v:ImageView FontFamily="FASolid" Glyph="{x:Static fa:Solid.HandPointer}" Color="{StaticResource Primary}"
-                             Command="{Binding Patterns.ClickPatternCommand}" />
+                             Command="{Binding ClickPatternCommand, Source={Reference thisView}}"
+                             CommandParameter="{Binding Pattern, Source={Reference thisView}}" />
                 <v:ImageView FontFamily="FASolid" Glyph="{x:Static fa:Solid.Eye}" Color="{StaticResource Primary}"
-                             Command="{Binding Patterns.TestPatternCommand}" />
+                             Command="{Binding TestPatternCommand, Source={Reference thisView}}"
+                             CommandParameter="{Binding Pattern, Source={Reference thisView}}" />
                 <v:ImageView FontFamily="FASolid" Glyph="{x:Static fa:Solid.Plus}" Color="{StaticResource Primary}"
-                             IsVisible="{Binding Patterns.SelectedNode.IsMultiPattern}"
-                             Command="{Binding Patterns.AddPatternCommand}" />
+                             IsVisible="{Binding PatternNode.IsMultiPattern, Source={Reference thisView}}"
+                             Command="{Binding AddPatternCommand, Source={Reference thisView}}" />
                 <v:ImageView FontFamily="FASolid" Glyph="{x:Static fa:Solid.TrashCan}" Color="Red"
-                             IsVisible="{Binding Patterns.SelectedNode.IsMultiPattern}"
-                             CommandParameter="{Binding Patterns.SelectedPattern}"
-                             Command="{Binding Patterns.DeletePatternCommand}" />
+                             IsVisible="{Binding PatternNode.IsMultiPattern, Source={Reference thisView}}"
+                             Command="{Binding DeletePatternCommand, Source={Reference thisView}}"
+                             CommandParameter="{Binding Pattern, Source={Reference thisView}}" />
             </HorizontalStackLayout>
         </VerticalStackLayout>
     </Grid>

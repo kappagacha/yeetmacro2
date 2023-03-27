@@ -35,7 +35,7 @@ public partial class ActionViewModel : ObservableObject, IMovable
     [RelayCommand]
     public async void Execute()
     {
-        var scriptList = _macroManagerViewModel.Scripts.Scripts.Select(s => s.Name);
+        var scriptList = _macroManagerViewModel.Scripts.Root.Nodes.Select(s => s.Name);
         if (!scriptList.Any())
         {
             _toastService.Show("No script found...");

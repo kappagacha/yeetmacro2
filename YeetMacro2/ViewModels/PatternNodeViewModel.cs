@@ -1,5 +1,6 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
+using System.Text.RegularExpressions;
 using YeetMacro2.Data.Models;
 using YeetMacro2.Data.Services;
 using YeetMacro2.Services;
@@ -67,11 +68,15 @@ public partial class PatternNodeViewModel : NodeViewModel<PatternNode, PatternNo
             var targetPattern = SelectedNode.Patterns.First();
             targetPattern.IsSelected = false;
             SelectPattern(targetPattern);
+        } 
+        else if (e.PropertyName == nameof(SelectedNode))
+        {
+            SelectedPattern = null;
         }
     }
 
     [RelayCommand]
-    private async void AddPattern(object o)
+    private async void AddPattern()
     {
         if (SelectedNode != null)
         {
@@ -122,25 +127,16 @@ public partial class PatternNodeViewModel : NodeViewModel<PatternNode, PatternNo
     {
         if (pattern == null)
         {
-            pattern = ResolveSelectedPattern();
-        }
-
-        if (pattern == null)
-        {
-            return;
+            pattern = ProxyViewModel.Create(new Pattern() { Name = "pattern" });
+            SelectedNode.Patterns.Add(pattern);
+            _patternRepository.Insert(pattern);
+            _patternRepository.Save();
+            SelectPattern(pattern);
         }
 
         var bounds = await _inputService.DrawUserRectangle();
-        var strokeThickness = 3;
-        var imageStream = await _screenService.GetCurrentImageStream(
-            (int)bounds.X + strokeThickness - 1,
-            (int)bounds.Y + strokeThickness - 1,
-            (int)bounds.W - strokeThickness + 1,
-            (int)bounds.H - strokeThickness - 1);
-
-        pattern.ImageData = imageStream.ToArray();
-
-        //Console.WriteLine(pattern.ImageData);
+        pattern.ImageData = await _screenService.GetCurrentImageData(
+            (int)bounds.X, (int)bounds.Y, (int)bounds.W, (int)bounds.H);
         pattern.Bounds = ProxyViewModel.Create(new Bounds()
         {
             X = bounds.X,
@@ -156,7 +152,11 @@ public partial class PatternNodeViewModel : NodeViewModel<PatternNode, PatternNo
         _patternRepository.Update(pattern);
         _patternRepository.Save();
 
-        SelectedImageSource = ImageSource.FromStream(() => new MemoryStream(_selectedPattern.ImageData));
+        // Annoying that OnPropertyChanged(nameof(SelectedPattern)) won't work
+        SelectedPattern = null;
+        SelectedPattern = pattern;
+
+        //SelectedImageSource = ImageSource.FromStream(() => new MemoryStream(_selectedPattern.ImageData));
         //SelectedImageSource = ImageSource.FromStream(() => imageStream);
 
         ////await Task.Delay(250);
@@ -167,87 +167,37 @@ public partial class PatternNodeViewModel : NodeViewModel<PatternNode, PatternNo
     [RelayCommand]
     private void SavePattern(Pattern pattern)
     {
-        if (pattern == null)
-        {
-            pattern = ResolveSelectedPattern();
-        }
-
-        if (pattern == null)
-        {
-            return;
-        }
-
         _patternRepository.Update(pattern);
         _patternRepository.Save();
     }
 
     [RelayCommand]
-    private async void SetPatternBounds(object obj)
+    private async void SetPatternBounds(Pattern pattern)
     {
-        ResolveSelectedPattern();
-        if (_selectedPattern == null) return;
+        if (pattern == null) return;
 
         var bounds = await _inputService.DrawUserRectangle();
         if (bounds != null)
         {
-            _selectedPattern.Bounds = bounds;
-            _patternRepository.Update(_selectedPattern);
+            pattern.Bounds = bounds;
+            _patternRepository.Update(pattern);
             _patternRepository.Save();
-        }
-    }
-
-    private Pattern ResolveSelectedPattern()
-    {
-        if (SelectedNode.IsMultiPattern && SelectedPattern == null)
-        {
-            _toastService.Show("No selected pattern.");
-            return null;
-        }
-        else if (SelectedNode.IsMultiPattern)
-        {
-            _toastService.Show("Case 2");
-            return SelectedPattern;
-        }
-        else if (!SelectedNode.IsMultiPattern && SelectedNode.Patterns.Count > 0)
-        {
-            _toastService.Show("Case 3");
-            var targetPattern = SelectedNode.Patterns.First();
-            targetPattern.IsSelected = false;
-            SelectPattern(targetPattern);
-            return SelectedPattern;
-        }
-        else if (!SelectedNode.IsMultiPattern)
-        {
-            _toastService.Show("Case 4");
-            var newPattern = ProxyViewModel.Create(new Pattern() { Name = "pattern" });
-            SelectedNode.Patterns.Add(newPattern);
-            _patternRepository.Insert(newPattern);
-            _patternRepository.Save();
-            SelectPattern(newPattern);
-            return newPattern;
-        }
-        else
-        {
-            _toastService.Show("Case 5");
-            return null;
         }
     }
 
     [RelayCommand]
-    private async void TestPattern(object o)
+    private async void TestPattern(Pattern pattern)
     {
-        ResolveSelectedPattern();
-        if (_selectedPattern == null) return;
+        if (pattern == null) return;
 
         _screenService.DrawClear();
-        var result = await _macroService.FindPattern(_selectedPattern, new FindOptions() { Limit = 10 });
+        var result = await _macroService.FindPattern(pattern, new FindOptions() { Limit = 10 });
         var points = result.Points;
         _toastService.Show(points != null && points.Length > 0 ? "Match(es) found" : "No match found");
 
-        if (_selectedPattern.Bounds != null)
+        if (pattern.Bounds != null)
         {
-            var calcBounds = _screenService.TransformBounds(_selectedPattern.Bounds, _selectedPattern.Resolution);
-            _screenService.DrawRectangle((int)calcBounds.X, (int)calcBounds.Y, (int)calcBounds.W, (int)calcBounds.H);
+            _screenService.DrawRectangle((int)pattern.Bounds.X, (int)pattern.Bounds.Y, (int)pattern.Bounds.W, (int)pattern.Bounds.H);
         }
 
         if (points != null)
@@ -261,20 +211,62 @@ public partial class PatternNodeViewModel : NodeViewModel<PatternNode, PatternNo
 
     // For this to work, Android view needs to not be touchable or do a double click
     [RelayCommand]
-    private async void ClickPattern(object o)
+    private async void ClickPattern(Pattern pattern)
     {
-        ResolveSelectedPattern();
-        if (_selectedPattern == null) return;
-        await _macroService.ClickPattern(_selectedPattern);     //one to change focus
+        if (pattern == null) return;
+        await _macroService.ClickPattern(pattern);     //one to change focus
         await Task.Delay(300);
-        await _macroService.ClickPattern(_selectedPattern);     //one to click
+        await _macroService.ClickPattern(pattern);     //one to click
     }
 
     [RelayCommand]
-    private void ApplyColorThreshold(string colorThrehold)
+    private void ApplyColorThreshold(Object[] values)
     {
-        //if (string.IsNullOrWhiteSpace(color)) return;
+        if (values.Length != 3) return;
+        
+        if (values[0] is Pattern pattern && 
+            values[1] is string colorThresholdVariancePctString && 
+            double.TryParse(colorThresholdVariancePctString, out double colorThresholdVariancePct) && 
+            values[2] is string colorThresholdColor)
+        {
+            pattern.ColorThreshold.VariancePct = colorThresholdVariancePct;
+            pattern.ColorThreshold.Color = colorThresholdColor;
+            pattern.ColorThreshold.ImageData = _screenService.CalcColorThreshold(pattern, pattern.ColorThreshold);
+            SelectedPattern = null;
+            SelectedPattern = pattern;
+        }
 
+        //OpenCvHelper.CalcColorThreshold(SelectedPattern);
+        //SelectedPattern.ColorThreshold.Variance
+        //SelectedPattern.ColorThreshold.Color
+        ///SelectedPattern.ColorThreshold.ImageData = _screenService.CalcColorThreshold(SelectedPattern);
+        // Generate ColorThreshold ImageData
+    }
 
+    [RelayCommand]
+    private async void TestPatternTextMatch(Pattern pattern)
+    {
+        if (pattern == null) return;
+        if (pattern.Bounds != null)
+        {
+            _screenService.DrawClear();
+            _screenService.DrawRectangle((int)pattern.Bounds.X, (int)pattern.Bounds.Y, (int)pattern.Bounds.W, (int)pattern.Bounds.H);
+        }
+        var result = await _screenService.GetText(pattern);
+        _toastService.Show($"TextMatch: {result}");
+    }
+
+    [RelayCommand]
+    private async void ApplyPatternTextMatch(Pattern pattern)
+    {
+        if (pattern == null) return;
+        if (pattern.Bounds != null)
+        {
+            _screenService.DrawClear();
+            _screenService.DrawRectangle((int)pattern.Bounds.X, (int)pattern.Bounds.Y, (int)pattern.Bounds.W, (int)pattern.Bounds.H);
+        }
+        var result = await _screenService.GetText(pattern);
+        _toastService.Show($"TextMatch Apply: {result}");
+        pattern.TextMatch = result;
     }
 }

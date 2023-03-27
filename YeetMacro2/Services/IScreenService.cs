@@ -3,10 +3,7 @@
 namespace YeetMacro2.Services;
 public interface IScreenService
 {
-    Task<MemoryStream> GetCurrentImageStream();
-    Task<MemoryStream> GetCurrentImageStream(int x, int y, int width, int height);
     void DrawClear();
-    Bounds TransformBounds(Bounds originalBounds, Resolution originalResolution);
     void DrawRectangle(int x, int y, int width, int height);
     void DrawCircle(int x, int y);
     void DebugRectangle(int x, int y, int width, int height);
@@ -14,4 +11,7 @@ public interface IScreenService
     void DebugClear();
     Task<List<Point>> GetMatches(Pattern template, FindOptions opts);
     void DoClick(float x, float y);
+    Byte[] CalcColorThreshold(Pattern pattern, ColorThresholdProperties colorThreshold);
+    Task<byte[]> GetCurrentImageData(int x, int y, int w, int h);
+    Task<string> GetText(Pattern pattern);
 }

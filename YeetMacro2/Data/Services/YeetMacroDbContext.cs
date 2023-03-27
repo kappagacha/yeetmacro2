@@ -1,5 +1,4 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.Diagnostics;
 using System.Text.Json;
 using YeetMacro2.Data.Models;
 
@@ -11,8 +10,6 @@ public class YeetMacroDbContext : DbContext
     public DbSet<MacroSet> MacroSets { get; set; }
     public DbSet<Node> Nodes { get; set; }
     public DbSet<NodeClosure> Closures { get; set; }
-    //public DbSet<ParentNode> ParentNodes { get; set; }
-    //public DbSet<LeafNode> LeafNodes { get; set; }
     public DbSet<Pattern> Patterns { get; set; }
     public DbSet<PatternNode> PatternNodes { get; set; }
     public DbSet<SettingNode> Settings { get; set; }
@@ -58,6 +55,7 @@ public class YeetMacroDbContext : DbContext
         modelBuilder.Entity<Pattern>().HasKey(p => p.PatternId);
         modelBuilder.Entity<Pattern>().OwnsOne(p => p.Resolution);
         modelBuilder.Entity<Pattern>().OwnsOne(p => p.Bounds);
+        modelBuilder.Entity<Pattern>().OwnsOne(p => p.ColorThreshold);
 
         modelBuilder.Entity<ScriptNode>().HasMany(pn => pn.Nodes).WithOne().HasForeignKey($"{nameof(ScriptNode)}{nameof(Node.ParentId)}").OnDelete(DeleteBehavior.Cascade);
 

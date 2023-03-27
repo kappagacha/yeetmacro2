@@ -32,6 +32,14 @@ public partial class DrawControl : ContentView
         TextSize = 60,
         Style = SKPaintStyle.Stroke
     };
+    SKPaint _userStroke = new SKPaint
+    {
+        Color = SKColors.Red,
+        StrokeWidth = 3,
+        StrokeCap = SKStrokeCap.Round,
+        TextSize = 60,
+        Style = SKPaintStyle.Stroke
+    };
     AndroidWindowManagerService _windowManagerService;
     public int RectX { get; set; }
     public int RectY { get; set; }
@@ -96,7 +104,7 @@ public partial class DrawControl : ContentView
         if (_userRectangle)
         {
             var heightOffset = 0.0f;
-            canvas.DrawRect(_canvasBegin.X, _canvasBegin.Y - heightOffset, _canvasEnd.X - _canvasBegin.X, _canvasEnd.Y - _canvasBegin.Y - heightOffset, _bluePaint);
+            canvas.DrawRect(_canvasBegin.X, _canvasBegin.Y - heightOffset, _canvasEnd.X - _canvasBegin.X, _canvasEnd.Y - _canvasBegin.Y - heightOffset, _userStroke);
         }
 
         DateTime now = DateTime.Now;
@@ -156,10 +164,10 @@ public partial class DrawControl : ContentView
                 {
                     var topLeft = _windowManagerService.GetTopLeftByPackage();
 
-                    RectX = (int)((_canvasBegin.X + topLeft.x));
-                    RectY = (int)((_canvasBegin.Y + topLeft.y));
-                    RectWidth = (int)((_canvasEnd.X - _canvasBegin.X));
-                    RectHeight = (int)((_canvasEnd.Y - _canvasBegin.Y));
+                    RectX = (int)((_canvasBegin.X + topLeft.x) + _userStroke.StrokeWidth - 1);
+                    RectY = (int)((_canvasBegin.Y + topLeft.y) + _userStroke.StrokeWidth - 1);
+                    RectWidth = (int)(_canvasEnd.X - _canvasBegin.X - _userStroke.StrokeWidth + 1);
+                    RectHeight = (int)(_canvasEnd.Y - _canvasBegin.Y - _userStroke.StrokeWidth - 1);
 
                     _windowManagerService.Close(WindowView.UserDrawView);
                 }

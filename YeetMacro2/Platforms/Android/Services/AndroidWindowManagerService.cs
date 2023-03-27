@@ -6,11 +6,11 @@ using System.Collections.Concurrent;
 using YeetMacro2.Platforms.Android.Views;
 using YeetMacro2.Views;
 using YeetMacro2.Data.Models;
-using Android.Graphics;
 using Point = Microsoft.Maui.Graphics.Point;
-using YeetMacro2.Platforms.Android.Services.OpenCv;
 using YeetMacro2.Platforms.Android.ViewModels;
 using YeetMacro2.Services;
+using OpenCvHelper = YeetMacro2.Platforms.Android.Services.OpenCv.OpenCvHelper;
+using Tesseract.Droid;
 
 namespace YeetMacro2.Platforms.Android.Services;
 public enum WindowView
@@ -41,6 +41,7 @@ public class AndroidWindowManagerService : IInputService, IScreenService
     public int OverlayWidth => _windowView == null ? 0 : _windowView.MeasuredWidthAndState;
     public int OverlayHeight => _windowView == null ? 0 : _windowView.MeasuredHeightAndState;
     public int DisplayCutoutTop => _windowView == null ? 0 : _windowView.RootWindowInsets.DisplayCutout?.SafeInsetTop ?? 0;
+    TesseractApi _tesseractApi;
     public AndroidWindowManagerService(MediaProjectionService mediaProjectionService, YeetAccessibilityService accessibilityService)
     {
         _context = (MainActivity)Microsoft.Maui.ApplicationModel.Platform.CurrentActivity;
@@ -51,6 +52,11 @@ public class AndroidWindowManagerService : IInputService, IScreenService
         DeviceDisplay.MainDisplayInfoChanged += DeviceDisplay_MainDisplayInfoChanged;
         _displayWidth = DeviceDisplay.MainDisplayInfo.Width;
         _displayHeight = DeviceDisplay.MainDisplayInfo.Height;
+
+        // https://github.com/halkar/Tesseract.Xamarin
+        // https://stackoverflow.com/questions/52157436/q-system-invalidoperationexception-call-init-first-ocr-tesseract-error-in-xa
+        _tesseractApi = new TesseractApi(_context, AssetsDeployment.OncePerVersion);
+        _ = _tesseractApi.Init("eng").Result;
     }
 
     private void DeviceDisplay_MainDisplayInfoChanged(object sender, DisplayInfoChangedEventArgs e)
@@ -350,101 +356,75 @@ public class AndroidWindowManagerService : IInputService, IScreenService
         Close(WindowView.DrawView);
     }
 
-    public async Task<List<Point>> GetMatches(Pattern template, FindOptions opts)
+    //public async Task<string> GetTextMatch(Pattern pattern)
+
+    public async Task<List<Point>> GetMatches(Pattern pattern, FindOptions opts)
     {
         try
         {
             var boundsPadding = 4;
-            var templateBitmap = BitmapFactory.DecodeStream(new MemoryStream(template.ImageData));
-            var templateResolutionWidth = template.Resolution.Width;
-            var templateResolutionHeight = template.Resolution.Height;
-            var targetResolutionWidth = _displayWidth;
-            var targetResolutionHeight = _displayHeight;
-            //https://stackoverflow.com/questions/33750272/how-to-resize-images-in-xamarin-forms
-            var xRatio = targetResolutionWidth / templateResolutionWidth;
-            var yRatio = targetResolutionHeight / templateResolutionHeight;
-            var ratio = Math.Min(xRatio, yRatio);
-            var targetWidth = (float)(templateBitmap.Width * ratio);
-            var targetHeight = (float)(templateBitmap.Height * ratio);
-            var needleBitmap = Bitmap.CreateScaledBitmap(templateBitmap, (int)targetWidth, (int)targetHeight, true);
-            var calcBounds = TransformBounds(template.Bounds, template.Resolution);
+            byte[] needleImageData = pattern.ImageData;
+            byte[] haystackImageData = null;
 
-            //template.Bounds = null;
-            Bitmap haystackBitmap = null;
             try
             {
-                var strokeThickness = 3;
-                haystackBitmap = template.Bounds != null ?
-                await _mediaProjectionService.GetCurrentImageBitmap<Bitmap>(
-                    (int)(calcBounds.X - boundsPadding),
-                    (int)(calcBounds.Y - boundsPadding),
-                    (int)(calcBounds.W + boundsPadding),
-                    (int)(calcBounds.H + boundsPadding)) :
-                await _mediaProjectionService.GetCurrentImageBitmap<Bitmap>();
-
-                //imageBitmap = template.Bounds != null ?
-                //await _mediaProjectionService.GetCurrentImageBitmap<Bitmap>(
-                //    (int)template.Bounds.X + strokeThickness - 1,
-                //    (int)template.Bounds.Y + strokeThickness - 1,
-                //    (int)template.Bounds.W - strokeThickness + 1,
-                //    (int)template.Bounds.H - strokeThickness - 1) :
-                //await _mediaProjectionService.GetCurrentImageBitmap<Bitmap>();
-
-                //var imageStream = template.Bounds != null ?
-                //await _mediaProjectionService.GetCurrentImageStream(
-                //    (int)template.Bounds.X + strokeThickness - 1,
-                //    (int)template.Bounds.Y + strokeThickness - 1,
-                //    (int)template.Bounds.W - strokeThickness + 1,
-                //    (int)template.Bounds.H - strokeThickness - 1) :
-
-                //haystackBitmap = BitmapFactory.DecodeStream(imageStream);
-
-                //await _mediaProjectionService.GetCurrentImageBitmap(
-                //    (int)(calcBounds.X - boundsPadding),
-                //    (int)(calcBounds.Y - boundsPadding),
-                //    (int)(calcBounds.W + boundsPadding),
-                //    (int)(calcBounds.H + boundsPadding)) :
-                //await _mediaProjectionService.GetCurrentImageBitmap();
+                haystackImageData = pattern.Bounds != null ?
+                    await _mediaProjectionService.GetCurrentImageData(
+                        (int)(pattern.Bounds.X - boundsPadding),
+                        (int)(pattern.Bounds.Y - boundsPadding),
+                        (int)(pattern.Bounds.W + boundsPadding),
+                        (int)(pattern.Bounds.H + boundsPadding)) :
+                    await _mediaProjectionService.GetCurrentImageData();
             }
             catch (Exception ex)
             {
                 return new List<Point>();
             }
 
-            //imageBitmap.Dispose();
-            //resized.Dispose();
-            //return new List<Point>() { new Point(100, 50) };
-
-
-            if (haystackBitmap == null) return new List<Point>();
+            if (pattern.ColorThreshold.IsActive)
+            {
+                needleImageData = OpenCvHelper.CalcColorThreshold(pattern.ImageData, pattern.ColorThreshold);
+                haystackImageData = OpenCvHelper.CalcColorThreshold(haystackImageData, pattern.ColorThreshold);
+            }
 
             var threshold = 0.8;
-            if (template.Threshold != 0.0) threshold = template.Threshold;
-            if ((opts?.Threshold ?? 0.0) != 0.0) threshold = opts.Threshold;
+            if (pattern.VariancePct != 0.0) threshold = 1 - pattern.VariancePct / 100;
+            if ((opts?.VariancePct ?? 0.0) != 0.0) threshold = opts.VariancePct;
 
-            var points = OpenCvHelper.GetPointsWithMatchTemplate(haystackBitmap, needleBitmap, opts?.Limit ?? 1, threshold);
-            //raw bitmap comparison doesn't seem to work when bounds are changed (searching subbitmap)
-            //var points = BitmapHelper.SearchBitmap(templateBitmap, haystackBitmap, 0.0);
-            needleBitmap.Dispose();
-            templateBitmap.Dispose();
-            haystackBitmap.Dispose();
 
-            //Console.WriteLine("[*****YeetMacro*****] MediaProjectionService GetMatches GetPointsWithMatchTemplate Start");
-            //var points = XamarinApp.Droid.OpenCv.Utils.GetPointsWithMatchTemplate(imageBitmap, resized, limit);
-            //Console.WriteLine("[*****YeetMacro*****] MediaProjectionService GetMatches GetPointsWithMatchTemplate End");
+            if (!String.IsNullOrEmpty(pattern.TextMatch))
+            {
+                await _tesseractApi.SetImage(haystackImageData);
+                _tesseractApi.SetWhitelist(pattern.TextMatch);
+                var textPoints = new List<Point>();
+                if (_tesseractApi.Text == pattern.TextMatch && pattern.Bounds != null)
+                {
+                    textPoints.Add(new Point(
+                       (int)(pattern.Bounds.X - boundsPadding + pattern.Bounds.W / 2.0),
+                       (int)(pattern.Bounds.Y - boundsPadding + pattern.Bounds.H / 2.0)));
+                }
+                else if (_tesseractApi.Text == pattern.TextMatch)  // TextMatch is not meant to be used on whole screen
+                {
+                    textPoints.Add(new Point(0, 0));
+                }
 
-            if (template.Bounds != null)
+                return textPoints;
+            }
+
+            var points = OpenCvHelper.GetPointsWithMatchTemplate(haystackImageData, needleImageData, opts?.Limit ?? 1, threshold);
+            if (pattern.Bounds != null)
             {
                 var newPoints = new List<Point>();
                 for (int i = 0; i < points.Count; i++)
                 {
                     var point = points[i];
                     newPoints.Add(new Point(
-                        (int)(point.X + (calcBounds.X - boundsPadding)),
-                        (int)(point.Y + (calcBounds.Y - boundsPadding))));
+                        (int)(point.X + (pattern.Bounds.X - boundsPadding)),
+                        (int)(point.Y + (pattern.Bounds.Y - boundsPadding))));
                 }
                 return newPoints;
             }
+
             return points;
         }
         catch (Exception ex)
@@ -455,68 +435,68 @@ public class AndroidWindowManagerService : IInputService, IScreenService
         }
     }
 
-    public Bounds TransformBounds(Bounds originalBounds, Resolution originalResolution)
-    {
-        try
-        {
-            var templateResolutionWidth = originalResolution.Width;
-            var templateResolutionHeight = originalResolution.Height;
-            var targetResolutionWidth = _displayWidth;
-            var targetResolutionHeight = _displayHeight;
-            var xRatio = targetResolutionWidth / templateResolutionWidth;
-            var yRatio = targetResolutionHeight / templateResolutionHeight;
-            var topLeft = GetTopLeftByPackage();
-            var ratio = Math.Min(xRatio, yRatio);
-            var x = (int)(originalBounds.X * ratio);
-            var y = (int)(originalBounds.Y * ratio);
-            var width = (int)(originalBounds.W * xRatio);
-            var height = (int)(originalBounds.H * yRatio);
-            if (xRatio > yRatio)    //assuming content gets centered
-            {
-                var leftoverWidth = targetResolutionWidth - templateResolutionWidth - topLeft.x;
-                var offsetX = leftoverWidth / 2.0 + topLeft.x;
-                x += (int)offsetX;
-                //width += (int)offsetX;
-            }
-            //else if (yRatio > xRatio)    // ??
-            //{
-            //    //y = (int)(y * yRatio - (y * yRatio) / 2.0 + topLeft.y);
-            //    //height += (int)(y * yRatio);
+    //public Bounds TransformBounds(Bounds originalBounds, Resolution originalResolution)
+    //{
+    //    try
+    //    {
+    //        var templateResolutionWidth = originalResolution.Width;
+    //        var templateResolutionHeight = originalResolution.Height;
+    //        var targetResolutionWidth = _displayWidth;
+    //        var targetResolutionHeight = _displayHeight;
+    //        var xRatio = targetResolutionWidth / templateResolutionWidth;
+    //        var yRatio = targetResolutionHeight / templateResolutionHeight;
+    //        var topLeft = GetTopLeftByPackage();
+    //        var ratio = Math.Min(xRatio, yRatio);
+    //        var x = (int)(originalBounds.X * ratio);
+    //        var y = (int)(originalBounds.Y * ratio);
+    //        var width = (int)(originalBounds.W * xRatio);
+    //        var height = (int)(originalBounds.H * yRatio);
+    //        if (xRatio > yRatio)    //assuming content gets centered
+    //        {
+    //            var leftoverWidth = targetResolutionWidth - templateResolutionWidth - topLeft.x;
+    //            var offsetX = leftoverWidth / 2.0 + topLeft.x;
+    //            x += (int)offsetX;
+    //            //width += (int)offsetX;
+    //        }
+    //        //else if (yRatio > xRatio)    // ??
+    //        //{
+    //        //    //y = (int)(y * yRatio - (y * yRatio) / 2.0 + topLeft.y);
+    //        //    //height += (int)(y * yRatio);
 
-            //    //x = (int)(x * yRatio - (x * yRatio) / 2.0);
-            //    //width += (int)(x * yRatio);
+    //        //    //x = (int)(x * yRatio - (x * yRatio) / 2.0);
+    //        //    //width += (int)(x * yRatio);
 
-            //    var leftoverHeight = targetResolutionHeight - templateResolutionHeight - topLeft.y;
-            //    y = (int)(y * yRatio - leftoverHeight / 2.0 + topLeft.y);
-            //    height += (int)(leftoverHeight);
-            //    x = (int)(x / 2 * 2.5);     //divide by original density then multiple by current density
-            //    //x = (int)(x - width * yRatio / 2.0 );
-            //    //width = (int)(width * yRatio);
+    //        //    var leftoverHeight = targetResolutionHeight - templateResolutionHeight - topLeft.y;
+    //        //    y = (int)(y * yRatio - leftoverHeight / 2.0 + topLeft.y);
+    //        //    height += (int)(leftoverHeight);
+    //        //    x = (int)(x / 2 * 2.5);     //divide by original density then multiple by current density
+    //        //    //x = (int)(x - width * yRatio / 2.0 );
+    //        //    //width = (int)(width * yRatio);
 
-            //    //var offsetY = leftoverHeigh / 2.0 + topLeft.y;
-            //    //y += (int)leftoverHeigh;
-            //    //height += (int)offsetY;
-            //}
+    //        //    //var offsetY = leftoverHeigh / 2.0 + topLeft.y;
+    //        //    //y += (int)leftoverHeigh;
+    //        //    //height += (int)offsetY;
+    //        //}
 
-            return new Bounds() { X = x, Y = y, W = width, H = height };
-        }
-        catch (Exception ex)
-        {
-            Console.WriteLine("[*****YeetMacro*****] WindowManagerService TransformBounds Exception");
-            Console.WriteLine("[*****YeetMacro*****] " + ex.Message);
-            return originalBounds;
-        }
-    }
+    //        return new Bounds() { X = x, Y = y, W = width, H = height };
+    //    }
+    //    catch (Exception ex)
+    //    {
+    //        Console.WriteLine("[*****YeetMacro*****] WindowManagerService TransformBounds Exception");
+    //        Console.WriteLine("[*****YeetMacro*****] " + ex.Message);
+    //        return originalBounds;
+    //    }
+    //}
 
-    public Task<MemoryStream> GetCurrentImageStream()
-    {
-        return _mediaProjectionService.GetCurrentImageStream();
-    }
+    //public Task<MemoryStream> GetCurrentImageStream()
+    //{
+    //    return _mediaProjectionService.GetCurrentImageStream();
+    //}
 
-    public Task<MemoryStream> GetCurrentImageStream(int x, int y, int width, int height)
-    {
-        return _mediaProjectionService.GetCurrentImageStream(x, y, width, height);
-    }
+    //public Task<MemoryStream> GetCurrentImageStream(int x, int y, int width, int height)
+    //{
+    //    return _mediaProjectionService.GetCurrentImageStream(x, y, width, height);
+    //}
 
     public void DoClick(float x, float y)
     {
@@ -536,5 +516,32 @@ public class AndroidWindowManagerService : IInputService, IScreenService
     public void StopRecording()
     {
         _mediaProjectionService.StopRecording();
+    }
+
+    public byte[] CalcColorThreshold(Pattern pattern, ColorThresholdProperties colorThreshold)
+    {
+        return OpenCvHelper.CalcColorThreshold(pattern.ImageData, colorThreshold);
+    }
+
+    public async Task<byte[]> GetCurrentImageData(int x, int y, int w, int h)
+    {
+        return await _mediaProjectionService.GetCurrentImageData(x, y, w, h);
+    }
+
+    public async Task<string> GetText(Pattern pattern)
+    {
+        var boundsPadding = 4;
+        var currentImageData = pattern.Bounds != null ?
+            await _mediaProjectionService.GetCurrentImageData(
+                (int)(pattern.Bounds.X - boundsPadding),
+                (int)(pattern.Bounds.Y - boundsPadding),
+                (int)(pattern.Bounds.W + boundsPadding),
+                (int)(pattern.Bounds.H + boundsPadding)) :
+            await _mediaProjectionService.GetCurrentImageData();
+        await _tesseractApi.SetImage(pattern.ColorThreshold.IsActive ?
+            OpenCvHelper.CalcColorThreshold(currentImageData, pattern.ColorThreshold):
+            currentImageData);
+        _tesseractApi.SetWhitelist("");
+        return _tesseractApi.Text;
     }
 }

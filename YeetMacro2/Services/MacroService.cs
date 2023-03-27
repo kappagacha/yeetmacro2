@@ -17,7 +17,7 @@ public class FindPatternResult
 public class FindOptions
 {
     public int Limit { get; set; }
-    public double Threshold { get; set; }
+    public double VariancePct { get; set; }
 }
 
 public interface IMacroService
@@ -93,7 +93,7 @@ public class MacroService : IMacroService
 
         FindOptions opts = new FindOptions() {
             Limit = DynamicHelper.GetProperty(o, "limit", 1),
-            Threshold = DynamicHelper.GetProperty(o, "threshold", 0.0)
+            VariancePct = DynamicHelper.GetProperty(o, "threshold", 0.0)
         };
 
         if (p.metadata.IsMultiPattern)

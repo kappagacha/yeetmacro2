@@ -57,6 +57,7 @@
 		<PackageReference Include="Microsoft.EntityFrameworkCore" Version="7.0.1" />
 		<PackageReference Include="Microsoft.EntityFrameworkCore.Sqlite" Version="7.0.1" />
 		<PackageReference Include="Microsoft.Extensions.Logging.Debug" Version="7.0.0" />
+		<PackageReference Include="OpenCvSharp4.Windows" Version="4.7.0.20230115" />
 		<PackageReference Include="Serilog" Version="2.12.0" />
 		<PackageReference Include="Serilog.Extensions.Logging" Version="3.1.0" />
 		<PackageReference Include="Serilog.Sinks.Console" Version="4.1.0" />
@@ -72,6 +73,7 @@
 	</ItemGroup>
 
 	<ItemGroup>
+	  <None Remove="Platforms\Android\Assets\tessdata\eng.traineddata" />
 	  <None Remove="Platforms\Android\Resources\xml\yeetmacro_config.xml" />
 	  <None Remove="Resources\Images\appicon.svg" />
 	  <None Remove="Resources\MacroSets\Disgaea RPG\Disgaea RPG_patterns.json" />
@@ -86,12 +88,6 @@
 	  <EmbeddedResource Include="Resources\MacroSets\Disgaea RPG\Disgaea RPG_scripts.json" />
 	  <EmbeddedResource Include="Resources\MacroSets\Disgaea RPG\Disgaea RPG_Settings.json" />
 	  <EmbeddedResource Include="Resources\MacroSets\Konosuba FD\Konosuba FD_patterns.json" />
-	</ItemGroup>
-
-	<ItemGroup>
-	  <Reference Include="OpenCV">
-	    <HintPath>Platforms\Android\Services\OpenCv\OpenCV.dll</HintPath>
-	  </Reference>
 	</ItemGroup>
 
 	<ItemGroup>
@@ -177,7 +173,7 @@
     <Compile Remove="**\Android\**\*.xaml.cs" />
     <None Include="**\Android\**\*.xaml.cs" Exclude="$(DefaultItemExcludes);$(DefaultExcludesInProjectFolder)" />
   </ItemGroup>
-
+  
   <!--<ItemGroup Condition="$(TargetFramework.Contains('-windows')) != true">
     <MauiXaml Remove="**\Windows\**\*.xaml" />
     <Compile Remove="**\Windows\**\*.xaml.cs" />
@@ -188,6 +184,21 @@
     <None Update="Platforms\Windows\Ahk\userRectangle\userRectangle.exe">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
+  </ItemGroup>
+
+  <ItemGroup Condition="'$(TargetFramework)' == 'net7.0-android'">
+    <PackageReference Include="Xamarin.OpenCV.Droid">
+      <Version>3.4.2</Version>
+    </PackageReference>
+    <PackageReference Include="Xamarin.Tesseract">
+      <Version>0.3.4</Version>
+    </PackageReference>
+  </ItemGroup>
+
+  <ItemGroup>
+    <AndroidAsset Update="Platforms\Android\Assets\tessdata\eng.traineddata">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </AndroidAsset>
   </ItemGroup>
 
 </Project>

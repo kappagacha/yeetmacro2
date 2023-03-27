@@ -1,6 +1,5 @@
 ﻿using System.Diagnostics;
 using System.Runtime.InteropServices;
-using System.Text.Json;
 using YeetMacro2.Data.Models;
 using YeetMacro2.Services;
 using System.Drawing;
@@ -17,6 +16,16 @@ public class WindowsScreenService : IScreenService, IRecorderService
     public static extern bool PrintWindow(IntPtr hWnd, IntPtr hdcBlt, int nFlags);
     [DllImport("user32.dll")]
     private static extern IntPtr FindWindow(string lpClassName, string lpWindowName);
+
+    public byte[] CalcColorThreshold(Pattern pattern)
+    {
+        return OpenCvHelper.CalcColorThreshold(pattern.ImageData, pattern.ColorThreshold);
+    }
+
+    public byte[] CalcColorThreshold(Pattern pattern, ColorThresholdProperties colorThreshold)
+    {
+        throw new NotImplementedException();
+    }
 
     public void DebugCircle(int x, int y)
     {
@@ -53,18 +62,13 @@ public class WindowsScreenService : IScreenService, IRecorderService
         throw new NotImplementedException();
     }
 
-    public Task<MemoryStream> GetCurrentImageStream()
-    {
-        throw new NotImplementedException();
-    }
-
-    public Task<MemoryStream> GetCurrentImageStream(int x, int y, int width, int height)
+    public Task<byte[]> GetCurrentImageData(int x, int y, int w, int h)
     {
         // https://nishanc.medium.com/c-screenshot-utility-to-capture-a-portion-of-the-screen-489ddceeee49
-        Rectangle rect = new Rectangle(x, y, width, height);
+        Rectangle rect = new Rectangle(x, y, w, h);
         var bmp = new Bitmap(rect.Width, rect.Height, PixelFormat.Format32bppArgb);
         Graphics g = Graphics.FromImage(bmp);
-        var size = new System.Drawing.Size(width, height);
+        var size = new System.Drawing.Size(w, h);
         g.CopyFromScreen(rect.Left, rect.Top, 0, 0, size, CopyPixelOperation.SourceCopy);
 
         //var file = FileSystem.Current.AppDataDirectory + "/test.png";
@@ -86,8 +90,8 @@ public class WindowsScreenService : IScreenService, IRecorderService
         //var bmp = PrintWindow(handle);
 
         var stream = new MemoryStream();
-        bmp.Save(stream, System.Drawing.Imaging.ImageFormat.Png);
-        return Task.FromResult(stream);
+        bmp.Save(stream, System.Drawing.Imaging.ImageFormat.Jpeg);
+        return Task.FromResult(stream.ToArray());
     }
 
     public Task<List<Microsoft.Maui.Graphics.Point>> GetMatches(Pattern template, int limit = 1)
@@ -96,6 +100,11 @@ public class WindowsScreenService : IScreenService, IRecorderService
     }
 
     public Task<List<Microsoft.Maui.Graphics.Point>> GetMatches(Pattern template, FindOptions opts)
+    {
+        throw new NotImplementedException();
+    }
+
+    public Task<string> GetText(Pattern pattern)
     {
         throw new NotImplementedException();
     }
@@ -116,7 +125,6 @@ public class WindowsScreenService : IScreenService, IRecorderService
     }
 
 }
-
 
 public static class WindowHelper
 {

@@ -146,37 +146,37 @@ public class MediaProjectionService : IRecorderService
         return bitmap;
     }
 
-    public async Task<MemoryStream> GetCurrentImageStream()
-    {
-        await EnsureProjectionServiceStarted();
+    //public async Task<MemoryStream> GetCurrentImageStream()
+    //{
+    //    await EnsureProjectionServiceStarted();
 
-        var bitmap = GetBitmap();
-        if (bitmap == null) return null;
+    //    var bitmap = GetBitmap();
+    //    if (bitmap == null) return null;
 
-        MemoryStream ms = new MemoryStream();
-        bitmap.Compress(CompressFormat.Jpeg, 100, ms);
-        bitmap.Dispose();
-        ms.Position = 0;
-        return ms;
-    }
+    //    MemoryStream ms = new MemoryStream();
+    //    bitmap.Compress(CompressFormat.Jpeg, 100, ms);
+    //    bitmap.Dispose();
+    //    ms.Position = 0;
+    //    return ms;
+    //}
 
-    public async Task<MemoryStream> GetCurrentImageStream(int x, int y, int width, int height)
-    {
-        if (x < 0) x = 0;
-        if (y < 0) y = 0;
-        await EnsureProjectionServiceStarted();
+    //public async Task<MemoryStream> GetCurrentImageStream(int x, int y, int width, int height)
+    //{
+    //    if (x < 0) x = 0;
+    //    if (y < 0) y = 0;
+    //    await EnsureProjectionServiceStarted();
 
-        var bitmap = GetBitmap();
-        if (bitmap == null) return null;
+    //    var bitmap = GetBitmap();
+    //    if (bitmap == null) return null;
 
-        var newBitmap = Bitmap.CreateBitmap(bitmap, x, y, width, height);
-        bitmap.Dispose();
-        MemoryStream ms = new MemoryStream();
-        newBitmap.Compress(CompressFormat.Jpeg, 100, ms);
-        newBitmap.Dispose();
-        ms.Position = 0;
-        return ms;
-    }
+    //    var newBitmap = Bitmap.CreateBitmap(bitmap, x, y, width, height);
+    //    bitmap.Dispose();
+    //    MemoryStream ms = new MemoryStream();
+    //    newBitmap.Compress(CompressFormat.Jpeg, 100, ms);
+    //    newBitmap.Dispose();
+    //    ms.Position = 0;
+    //    return ms;
+    //}
 
     public void Stop()
     {
@@ -207,18 +207,28 @@ public class MediaProjectionService : IRecorderService
         }
     }
 
-    public async Task<TBitmap> GetCurrentImageBitmap<TBitmap>(int x, int y, int width, int height)
+    public async Task<byte[]> GetCurrentImageData()
     {
-        if (typeof(TBitmap) != typeof(Bitmap))
-        {
-            throw new Exception("Type not supported");
-        }
+        await EnsureProjectionServiceStarted();
+
+        var bitmap = GetBitmap();
+        if (bitmap == null) return null;
+
+        MemoryStream ms = new MemoryStream();
+        bitmap.Compress(CompressFormat.Jpeg, 100, ms);
+        bitmap.Dispose();
+        ms.Position = 0;
+        return ms.ToArray();
+    }
+
+    public async Task<byte[]> GetCurrentImageData(int x, int y, int width, int height)
+    {
         if (x < 0) x = 0;
         if (y < 0) y = 0;
         await EnsureProjectionServiceStarted();
 
         var bitmap = GetBitmap();
-        if (bitmap == null) return default(TBitmap);
+        if (bitmap == null) return null;
 
         var newBitmap = Bitmap.CreateBitmap(bitmap, x, y, width, height);
         bitmap.Dispose();
@@ -226,46 +236,27 @@ public class MediaProjectionService : IRecorderService
         newBitmap.Compress(CompressFormat.Jpeg, 100, ms);
         newBitmap.Dispose();
         ms.Position = 0;
-        var decoded = BitmapFactory.DecodeStream(ms);
-        return (TBitmap)(Object)decoded;
-    }
-
-    public async Task<TBitmap> GetCurrentImageBitmap<TBitmap>()
-    {
-        if (typeof(TBitmap) != typeof(Bitmap))
-        {
-            throw new Exception("Type not supported");
-        }
-
-        await EnsureProjectionServiceStarted();
-
-        var bitmap = GetBitmap();
-        if (bitmap == null) return default(TBitmap);
-
-        MemoryStream ms = new MemoryStream();
-        bitmap.Compress(CompressFormat.Jpeg, 100, ms);
-        bitmap.Dispose();
-        ms.Position = 0;
-        var decoded = BitmapFactory.DecodeStream(ms);
-        return (TBitmap)(Object)decoded;
+        return ms.ToArray();
     }
 
     public async Task TakeScreenCapture()
     {
-        var ms = await GetCurrentImageStream();
-        if (ms == null) return;
-        byte[] bArray = new byte[ms.Length];
+        //var ms = await GetCurrentImageStream();
+        //if (ms == null) return;
+        //byte[] bArray = new byte[ms.Length];
 
+        var imageData = await GetCurrentImageData();
         var folder = global::Android.OS.Environment.GetExternalStoragePublicDirectory(global::Android.OS.Environment.DirectoryPictures).Path;
         var file = System.IO.Path.Combine(folder, $"{DateTime.Now.ToString("screencapture_yyyyMMdd_HHmmss")}.jpeg");
         using (FileStream fs = new FileStream(file, FileMode.OpenOrCreate))
         {
-            using (ms)
-            {
-                ms.Read(bArray, 0, (int)ms.Length);
-            }
-            int length = bArray.Length;
-            fs.Write(bArray, 0, length);
+            //using (ms)
+            //{
+            //    ms.Read(bArray, 0, (int)ms.Length);
+            //}
+            //int length = bArray.Length;
+            //fs.Write(bArray, 0, length);
+            fs.Write(imageData, 0, imageData.Length);
         }
     }
 

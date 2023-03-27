@@ -5,7 +5,8 @@ using Android.Runtime;
 using YeetMacro2.Platforms.Android.Services;
 using YeetMacro2.Services;
 using Android.OS;
-using OpenCV.Android;
+//using OpenCV.Android;
+using Org.Opencv.Android;
 
 namespace YeetMacro2;
 

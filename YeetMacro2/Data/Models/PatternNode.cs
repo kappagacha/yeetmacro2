@@ -46,9 +46,19 @@ public class Pattern
     public virtual int ParentNodeId { get; set; }
     public virtual string Name { get; set; }
     public byte[] ImageData { get; set; }
-    public virtual double Threshold { get; set; }
-    public virtual string ColorThreshold { get; set; }
+    public virtual string TextMatch { get; set; }
+    public virtual double VariancePct { get; set; } = 20.0;
+    public virtual ColorThresholdProperties ColorThreshold { get; set; } = new ColorThresholdProperties();
 }
+
+public class ColorThresholdProperties
+{
+    public virtual bool IsActive { get; set; }
+    public virtual double VariancePct { get; set; } = 10.0;
+    public virtual string Color { get; set; }
+    public byte[] ImageData { get; set; }
+}
+
 
 public class Bounds
 {
