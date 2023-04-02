@@ -381,6 +381,11 @@ public class AndroidWindowManagerService : IInputService, IScreenService
                 return new List<Point>();
             }
 
+            if (haystackImageData == null)
+            {
+                return new List<Point>();
+            }
+
             if (pattern.ColorThreshold.IsActive)
             {
                 needleImageData = OpenCvHelper.CalcColorThreshold(pattern.ImageData, pattern.ColorThreshold);

@@ -16,7 +16,8 @@ public static class OpenCvHelper
     public static byte[] CalcColorThreshold(byte[] imageData, ColorThresholdProperties colorThreshold)
     {
         // https://stackoverflow.com/questions/21113190/how-to-get-the-mat-object-from-the-byte-in-opencv-android
-        var mat = Org.Opencv.Imgcodecs.Imgcodecs.Imdecode(new MatOfByte(imageData), Org.Opencv.Imgcodecs.Imgcodecs.CvLoadImageColor);
+        var matOfByte = new MatOfByte(imageData);
+        var mat = Org.Opencv.Imgcodecs.Imgcodecs.Imdecode(matOfByte, Org.Opencv.Imgcodecs.Imgcodecs.CvLoadImageColor);
 
         // https://ckyrkou.medium.com/color-thresholding-in-opencv-91049607b06d
         // blue, red, green
@@ -33,6 +34,7 @@ public static class OpenCvHelper
         var result = maskInvertedMatOfByte.ToArray();
 
         mat.Dispose();
+        matOfByte.Dispose();
         lowerBounds.Dispose();
         upperBounds.Dispose();
         mask.Dispose();
@@ -46,8 +48,12 @@ public static class OpenCvHelper
     {
         try
         {
-            var haystackMat = Org.Opencv.Imgcodecs.Imgcodecs.Imdecode(new MatOfByte(haystackImageData), Org.Opencv.Imgcodecs.Imgcodecs.CvLoadImageColor);
-            var needleMat = Org.Opencv.Imgcodecs.Imgcodecs.Imdecode(new MatOfByte(needleImageData), Org.Opencv.Imgcodecs.Imgcodecs.CvLoadImageColor);
+            var haystackMatOfByte = new MatOfByte(haystackImageData);
+            var needleMatOfByte = new MatOfByte(needleImageData);
+            var haystackMat = Org.Opencv.Imgcodecs.Imgcodecs.Imdecode(haystackMatOfByte, Org.Opencv.Imgcodecs.Imgcodecs.CvLoadImageColor);
+            var needleMat = Org.Opencv.Imgcodecs.Imgcodecs.Imdecode(needleMatOfByte, Org.Opencv.Imgcodecs.Imgcodecs.CvLoadImageColor);
+            haystackMatOfByte.Dispose();
+            needleMatOfByte.Dispose();
             return GetPointsWithMatchTemplate(haystackMat, needleMat, limit, threshold);
         }
         catch (Exception ex)

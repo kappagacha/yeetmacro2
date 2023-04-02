@@ -231,16 +231,13 @@ public partial class PatternNodeViewModel : NodeViewModel<PatternNode, PatternNo
         {
             pattern.ColorThreshold.VariancePct = colorThresholdVariancePct;
             pattern.ColorThreshold.Color = colorThresholdColor;
+            pattern.ColorThreshold.IsActive = true;
             pattern.ColorThreshold.ImageData = _screenService.CalcColorThreshold(pattern, pattern.ColorThreshold);
+            _patternRepository.Update(pattern);
+            _patternRepository.Save();
             SelectedPattern = null;
             SelectedPattern = pattern;
         }
-
-        //OpenCvHelper.CalcColorThreshold(SelectedPattern);
-        //SelectedPattern.ColorThreshold.Variance
-        //SelectedPattern.ColorThreshold.Color
-        ///SelectedPattern.ColorThreshold.ImageData = _screenService.CalcColorThreshold(SelectedPattern);
-        // Generate ColorThreshold ImageData
     }
 
     [RelayCommand]
@@ -268,5 +265,7 @@ public partial class PatternNodeViewModel : NodeViewModel<PatternNode, PatternNo
         var result = await _screenService.GetText(pattern);
         _toastService.Show($"TextMatch Apply: {result}");
         pattern.TextMatch = result;
+        _patternRepository.Update(pattern);
+        _patternRepository.Save();
     }
 }

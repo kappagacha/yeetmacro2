@@ -35,24 +35,26 @@ public partial class ActionViewModel : ObservableObject, IMovable
     [RelayCommand]
     public async void Execute()
     {
-        var scriptList = _macroManagerViewModel.Scripts.Root.Nodes.Select(s => s.Name);
-        if (!scriptList.Any())
-        {
-            _toastService.Show("No script found...");
-            return;
-        }
+        await _macroManagerViewModel.Scripts.WaitForInitialization();
+        //var scriptList = _macroManagerViewModel.Scripts.Root.Nodes.Select(s => s.Name);
+        //if (!scriptList.Any())
+        //{
+        //    _toastService.Show("No script found...");
+        //    return;
+        //}
 
         switch (State)
         {
             case ActionState.Stopped:
-                var script = await _windowManagerService.SelectOption("Run Script", scriptList.ToArray());
-                if (script == null)
-                {
-                    _toastService.Show("Run script canceled...");
-                    return;
-                };
+                //var script = await _windowManagerService.SelectOption("Run Script", scriptList.ToArray());
+                //if (script == null)
+                //{
+                //    _toastService.Show("Run script canceled...");
+                //    return;
+                //};
                 State = ActionState.Running;
-                _scriptService.RunScript(script);
+                //_scriptService.RunScript(script);
+                _scriptService.RunScript("test");
                 break;
             case ActionState.Running:
                 _scriptService.Stop();
