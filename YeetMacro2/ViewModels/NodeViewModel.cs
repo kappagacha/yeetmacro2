@@ -1,6 +1,5 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
-using System.Diagnostics;
 using System.Reflection;
 using System.Text.Json;
 using System.Text.Json.Serialization;
@@ -49,15 +48,26 @@ public partial class NodeViewModel<TParent, TChild> : NodeViewModel
     protected INodeService<TParent, TChild> _nodeService;
     protected IToastService _toastService;
     protected IInputService _inputService;
-    static readonly JsonSerializerOptions _defaultJsonSerializerOptions = new JsonSerializerOptions()
+
+    public static readonly JsonSerializerOptions _defaultJsonSerializerOptions = new JsonSerializerOptions()
     {
         Converters = {
             new JsonStringEnumConverter()
         },
         WriteIndented = true,
-        TypeInfoResolver = NodeModelTypeInfoResolver.Instance,
+        TypeInfoResolver = new DefaultJsonTypeInfoResolver(),
         PropertyNamingPolicy = JsonNamingPolicy.CamelCase
     };
+
+    static NodeViewModel()
+    {
+        // https://stackoverflow.com/questions/58331479/how-to-globally-set-default-options-for-system-text-json-jsonserializer/74741382#74741382
+        var copy = new JsonSerializerOptions(_defaultJsonSerializerOptions);
+        _defaultJsonSerializerOptions.Converters.Add(new NodeValueConverter<TParent, TChild>(copy));
+        // setting this internal value to immutable allows dynamic json typeinfo resolving
+        typeof(JsonSerializerOptions).GetRuntimeFields().Single(f => f.Name == "_isImmutable").SetValue(_defaultJsonSerializerOptions, true);
+        typeof(JsonSerializerOptions).GetRuntimeFields().Single(f => f.Name == "_isImmutable").SetValue(copy, true);
+    }
 
     public NodeViewModel(
         int rootNodeId,
@@ -71,6 +81,7 @@ public partial class NodeViewModel<TParent, TChild> : NodeViewModel
         _inputService = inputService;
         _toastService = toastService;
         _initializeCompleted = new TaskCompletionSource();
+
         Init();
     }
 
@@ -190,6 +201,21 @@ public partial class NodeViewModel<TParent, TChild> : NodeViewModel
         }
     }
 
+    public string ToJson()
+    {
+        return JsonSerializer.Serialize(this, _defaultJsonSerializerOptions);
+    }
+
+    public NodeViewModel<TParent, TChild> FromJson(string json)
+    {
+        return JsonSerializer.Deserialize<NodeViewModel<TParent, TChild>>(json, _defaultJsonSerializerOptions);
+    }
+
+    public TChild FromJsonNode(string json)
+    {
+        return JsonSerializer.Deserialize<TChild>(json, _defaultJsonSerializerOptions);
+    }
+
     [RelayCommand]
     public async void Export(string name)
     {
@@ -198,7 +224,7 @@ public partial class NodeViewModel<TParent, TChild> : NodeViewModel
         var json = JsonSerializer.Serialize(this, _defaultJsonSerializerOptions);
 #if ANDROID
         // https://stackoverflow.com/questions/39332085/get-path-to-pictures-directory
-        var targetDirctory = DeviceInfo.Current.Platform == DevicePlatform.Android ? 
+        var targetDirctory = DeviceInfo.Current.Platform == DevicePlatform.Android ?
             Android.OS.Environment.GetExternalStoragePublicDirectory(Android.OS.Environment.DirectoryPictures).AbsolutePath :
             FileSystem.Current.AppDataDirectory;
         var targetFile = Path.Combine(targetDirctory, $"{name}_{_nodeTypeName}s.json");
@@ -255,32 +281,6 @@ public partial class NodeViewModel<TParent, TChild> : NodeViewModel
     }
 }
 
-public class NodeModelTypeInfoResolver : DefaultJsonTypeInfoResolver
-{
-    public static NodeModelTypeInfoResolver Instance = new NodeModelTypeInfoResolver();
-    public override JsonTypeInfo GetTypeInfo(Type type, JsonSerializerOptions options)
-    {
-        JsonTypeInfo typeInfo = base.GetTypeInfo(type, options);
-        
-        if (typeInfo.Kind == JsonTypeInfoKind.Object)
-        {
-            foreach (JsonPropertyInfo property in typeInfo.Properties)
-            {
-                switch (property.Name.ToLower())
-                {
-                    case "nodes":
-                    case "isselected":
-                    case "isexpanded":
-                        property.ShouldSerialize = (obj, value) => false;
-                        break;
-                }
-            }
-        }
-
-        return typeInfo;
-    }
-}
-
 // https://learn.microsoft.com/en-us/dotnet/standard/serialization/system-text-json/converters-how-to?pivots=dotnet-7-0
 // https://devblogs.microsoft.com/dotnet/system-text-json-in-dotnet-7/#contract-customization
 public class NodeViewModelValueConverter : JsonConverterFactory
@@ -316,17 +316,11 @@ public class NodeViewModelValueConverter : JsonConverterFactory
         where TChild : Node
     {
         private readonly JsonConverter<TChild> _childConverter;
-        private readonly JsonConverter<TParent> _parentConverter;
-        private readonly Type _parentType;
-        private readonly Type _childType;
+
 
         public GenericNodeViewModelValueConverter(JsonSerializerOptions options)
         {
-            _childConverter = (JsonConverter<TChild>)(options).GetConverter(typeof(TChild));
-            _parentConverter = (JsonConverter<TParent>)(options).GetConverter(typeof(TParent));
-
-            _parentType = typeof(TParent);
-            _childType = typeof(TChild);
+            _childConverter = (JsonConverter<TChild>)options.GetConverter(typeof(TChild));
         }
 
         public override NodeViewModel<TParent, TChild> Read(
@@ -352,60 +346,12 @@ public class NodeViewModelValueConverter : JsonConverterFactory
 
                 if (reader.TokenType == JsonTokenType.StartObject)
                 {
-                    tree.Root.Nodes.Add(ReadNode(ref reader, typeToConvert, options));
+                    var child = _childConverter.Read(ref reader, typeof(TChild), options);
+                    tree.Root.Nodes.Add(child);
                 }
             }
 
             throw new JsonException();
-        }
-
-        public TChild ReadNode(
-            ref Utf8JsonReader reader,
-            Type typeToConvert,
-            JsonSerializerOptions options)
-        {
-            var isParent = false;
-            TChild node = null;
-            TParent parent = null;
-            ICollection<TChild> nodes = new List<TChild>();
-
-            while (reader.Read())
-            {
-                if (reader.TokenType == JsonTokenType.EndObject)
-                {
-                    return node;
-                }
-
-                if (reader.TokenType == JsonTokenType.PropertyName && reader.GetString() == "$isParent")
-                {
-                    reader.Read();
-                    isParent = reader.GetBoolean();
-                }
-
-                // each property named "properties" is the properties of the node
-                if (reader.TokenType == JsonTokenType.PropertyName && reader.GetString() == "properties")
-                {
-                    reader.Read();
-                    if (isParent)
-                    {
-                        parent = _parentConverter.Read(ref reader, _parentType, options);
-                        node = parent;
-                    }
-                    else
-                    {
-                        node = _childConverter.Read(ref reader, _childType, options);
-                    }
-                    Debug.WriteLine($"nodeName: {node.Name}");
-                }
-                // additional properties are nodes
-                else if (reader.TokenType == JsonTokenType.PropertyName)
-                {
-                    Debug.WriteLine($"property: {reader.GetString()}");
-                    parent.Nodes.Add(ReadNode(ref reader, typeToConvert, options));
-                }
-            }
-
-            return node;
         }
 
         public override void Write(
@@ -419,41 +365,11 @@ public class NodeViewModelValueConverter : JsonConverterFactory
             {
                 foreach (var child in tree.Root.Nodes)
                 {
-                    Write(writer, child, options);
+                    _childConverter.Write(writer, child, options);
                 }
-            }
-
-            writer.WriteEndObject();
-        }
-
-        public void Write(
-            Utf8JsonWriter writer,
-            TChild child,
-            JsonSerializerOptions options)
-        {
-            writer.WritePropertyName(child.Name);
-            writer.WriteStartObject();
-            if (child is TParent parent)
-            {
-                writer.WritePropertyName("$isParent");
-                writer.WriteBooleanValue(true);
-                writer.WritePropertyName("properties");
-                _parentConverter.Write(writer, parent, options);
-                foreach (var subChild in parent.Nodes)
-                {
-                    Write(writer, subChild, options);
-                }
-            }
-            else
-            {
-                writer.WritePropertyName("$isParent");
-                writer.WriteBooleanValue(false);
-                writer.WritePropertyName("properties");
-                _childConverter.Write(writer, child, options);
             }
 
             writer.WriteEndObject();
         }
     }
 }
-

@@ -20,6 +20,7 @@ public class SettingNodeMetadataProvider : INodeMetadataProvider<SettingNode>
 
 public class ParentSetting : SettingNode, IParentNode<ParentSetting, SettingNode>
 {
+    [JsonIgnore]
     public ICollection<SettingNode> Nodes { get; set; } = new List<SettingNode>();
     public override SettingType SettingType => SettingType.Parent;
 }

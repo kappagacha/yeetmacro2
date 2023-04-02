@@ -15,6 +15,7 @@ public class PatternNodeMetadataProvider : INodeMetadataProvider<PatternNode>
 public class PatternNode : Node, IParentNode<PatternNode, PatternNode>
 {
     public virtual bool IsMultiPattern { get; set; }
+    [JsonIgnore]
     public virtual ICollection<PatternNode> Nodes { get; set; } = new List<PatternNode>();
     public virtual ICollection<Pattern> Patterns { get; set; } = new List<Pattern>();
     public dynamic BuildDynamicObject(string path = "")
