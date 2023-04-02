@@ -6,7 +6,10 @@ using Serilog.Core;
 using Serilog.Events;
 using Serilog.Extensions.Logging;
 using Serilog.Filters;
+using System.Diagnostics;
 using System.Reflection;
+using System.Text.Json.Serialization;
+using System.Text.Json;
 using YeetMacro2.Data.Models;
 using YeetMacro2.Data.Services;
 using YeetMacro2.ViewModels;
@@ -58,8 +61,16 @@ public class AppInitializer : IMauiInitializeService
         var disgaeaSettingNode = settingNodeService.GetRoot(-1);
         var konosubaSettingNode = settingNodeService.GetRoot(-1);
 
-        var disgaeaRpgMacroSet = new MacroSet() { Name = "Disgaea RPG", RootPatternNodeId = disgaeaPatternNode.NodeId, RootScriptNodeId = disgaeaScriptNode.NodeId, RootSettingNodeId = disgaeaSettingNode.NodeId };
-        var konsobaFdMacroSet = new MacroSet() { Name = "Konosuba FD", RootPatternNodeId = konosubaPatternNode.NodeId, RootScriptNodeId = konosubaScriptNode.NodeId, RootSettingNodeId = konosubaSettingNode.NodeId };
+        var disgaeaRpgMacroSet = new MacroSet() { 
+            Name = "Disgaea RPG", RootPatternNodeId = disgaeaPatternNode.NodeId, 
+            RootScriptNodeId = disgaeaScriptNode.NodeId, RootSettingNodeId = disgaeaSettingNode.NodeId,
+            Resolution = new Resolution() { Width = 1080, Height = 1920 }
+        };
+        var konsobaFdMacroSet = new MacroSet() { 
+            Name = "Konosuba FD", RootPatternNodeId = konosubaPatternNode.NodeId, 
+            RootScriptNodeId = konosubaScriptNode.NodeId, RootSettingNodeId = konosubaSettingNode.NodeId,
+            Resolution = new Resolution() { Width = 1920, Height = 1080 }
+        };
 
         dbContext.MacroSets.AddRange(disgaeaRpgMacroSet, konsobaFdMacroSet);
         dbContext.SaveChanges();
@@ -83,9 +94,11 @@ public class LogViewModelSink : ILogEventSink
                 _logViewModel.Debug = logEvent.MessageTemplate.Text;
                 break;
             case LogEventLevel.Information:
-                _logViewModel.Info= logEvent.MessageTemplate.Text;
+                _logViewModel.Info = logEvent.MessageTemplate.Text;
                 break;
         }
+
+        Debug.WriteLine("{0} {1}", logEvent.Level, logEvent.MessageTemplate.Text);
     }
 }
 

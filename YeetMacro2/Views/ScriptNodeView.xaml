@@ -19,10 +19,10 @@
                         <VerticalStackLayout>
                             <v:ImageView FontFamily="FASolid" Glyph="{x:Static fa:Solid.Download}" 
                                              Command="{Binding ItemsSource.ImportCommand}"
-                                             CommandParameter="{Binding BindingContext.SelectedMacroSet.Name, Source={RelativeSource AncestorType={x:Type v:ScriptNodeView}}}}" />
+                                             CommandParameter="{Binding BindingContext.SelectedMacroSet.Name, Source={RelativeSource AncestorType={x:Type v:ScriptNodeView}}}" />
                             <v:ImageView FontFamily="FASolid" Glyph="{x:Static fa:Solid.FileExport}" 
                                              Command="{Binding ItemsSource.ExportCommand}"
-                                             CommandParameter="{Binding BindingContext.SelectedMacroSet.Name, Source={RelativeSource AncestorType={x:Type v:ScriptNodeView}}}}" />
+                                             CommandParameter="{Binding BindingContext.SelectedMacroSet.Name, Source={RelativeSource AncestorType={x:Type v:ScriptNodeView}}}" />
                         </VerticalStackLayout>
                     </DataTemplate>
                 </v:NodeView.ExtraMenuItemsDataTemplate>

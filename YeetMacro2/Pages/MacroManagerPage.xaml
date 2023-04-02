@@ -11,44 +11,49 @@
              xmlns:uranium="http://schemas.enisn-projects.io/dotnet/maui/uraniumui"
              xmlns:mct="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
              xmlns:fa="clr-namespace:UraniumUI.Icons.FontAwesome;assembly=UraniumUI.Icons.FontAwesome"
+             xmlns:mi="clr-namespace:UraniumUI.Icons.MaterialIcons;assembly=UraniumUI.Icons.MaterialIcons"
              xmlns:conv="clr-namespace:YeetMacro2.Converters"
              xmlns:material="http://schemas.enisn-projects.io/dotnet/maui/uraniumui/material"
-             Title="MacroManagerPage">
+             Title="MacroManagerPage"
+             x:Name="thisPage">
     <mct:DockLayout HorizontalSpacing="5" VerticalSpacing="5">
         <Border Stroke="{StaticResource Primary}" Padding="0" BackgroundColor="Transparent">
             <HorizontalStackLayout Spacing="5" mct:DockLayout.DockPosition="Top">
                 <Label Text="Macro Set: " Margin="5,0,0,0" FontSize="Body" VerticalOptions="Center" FontAttributes="Bold" />
                 <Picker ItemsSource="{Binding MacroSets}" ItemDisplayBinding="{Binding Name}" SelectedItem="{Binding SelectedMacroSet}" />
-                <Grid HeightRequest="{Binding Source={StaticResource IconHeight}, Converter={conv:MultiplyByDensityConverter}}"
-                  WidthRequest="{Binding Source={StaticResource IconWidth}, Converter={conv:MultiplyByDensityConverter}}">
-                    <Image Aspect="Fill">
-                        <Image.Source>
-                            <FontImageSource FontFamily="FASolid" Glyph="{x:Static fa:Solid.Plus}" Color="{StaticResource Primary}" />
-                        </Image.Source>
-                    </Image>
-                    <ImageButton Command="{Binding AddMacroSetCommand}" />
-                </Grid>
-                <Grid HeightRequest="{Binding Source={StaticResource IconHeight}, Converter={conv:MultiplyByDensityConverter}}"
-                      WidthRequest="{Binding Source={StaticResource IconWidth}, Converter={conv:MultiplyByDensityConverter}}">
-                    <Image Aspect="AspectFill">
-                        <Image.Source>
-                            <FontImageSource FontFamily="FASolid" Glyph="{x:Static fa:Solid.TrashCan}" Color="Red" />
-                        </Image.Source>
-                    </Image>
-                    <ImageButton Command="{Binding DeleteMacroSetCommand}" CommandParameter="{Binding SelectedMacroSet}" />
-                </Grid>
-                <Grid HeightRequest="{Binding Source={StaticResource IconHeight}, Converter={conv:MultiplyByDensityConverter}}"
-                      WidthRequest="{Binding Source={StaticResource IconWidth}, Converter={conv:MultiplyByDensityConverter}}">
-                    <Image Aspect="Fill">
-                        <Image.Source>
-                            <FontImageSource FontFamily="FASolid" Glyph="{x:Static fa:Solid.FolderOpen}" Color="{StaticResource Primary}" />
-                        </Image.Source>
-                    </Image>
-                    <ImageButton Command="{Binding OpenAppDirectoryCommand}" />
-                </Grid>
+                <v:ImageView FontFamily="FASolid" Glyph="{x:Static fa:Solid.Plus}" Color="{StaticResource Primary}" 
+                             Command="{Binding AddMacroSetCommand}" />
+                <v:ImageView FontFamily="FASolid" Glyph="{x:Static fa:Solid.TrashCan}" Color="Red" 
+                             Command="{Binding DeleteMacroSetCommand}" CommandParameter="{Binding SelectedMacroSet}" />
+                <v:ImageView FontFamily="FASolid" Glyph="{x:Static fa:Solid.FolderOpen}" Color="{StaticResource Primary}" 
+                             Command="{Binding OpenAppDirectoryCommand}" />
             </HorizontalStackLayout>
         </Border>
         <material:TabView>
+            <material:TabItem Title="Macro">
+                <Grid Padding="4">
+                    <VerticalStackLayout>
+                        <HorizontalStackLayout Margin="0" Padding="0">
+                            <Label Margin="0" VerticalOptions="Center" Padding="0" Text="Name:" />
+                            <Entry Margin="5,0,0,0" VerticalOptions="Center" Text="{Binding SelectedMacroSet.Name}" />
+                        </HorizontalStackLayout>
+                        <HorizontalStackLayout Margin="0" Padding="0">
+                            <Label Margin="0" VerticalOptions="Center" Padding="0" Text="Resolution Width:" />
+                            <Entry Margin="5,0,0,0" VerticalOptions="Center" Text="{Binding SelectedMacroSet.Resolution.Width}" />
+                        </HorizontalStackLayout>
+                        <HorizontalStackLayout Margin="0" Padding="0">
+                            <Label Margin="0" VerticalOptions="Center" Padding="0" Text="Resolution Height:" />
+                            <Entry Margin="5,0,0,0" VerticalOptions="Center" Text="{Binding SelectedMacroSet.Resolution.Height}" />
+                        </HorizontalStackLayout>
+                        <HorizontalStackLayout Margin="0" Padding="0">
+                            <Label Margin="0" VerticalOptions="Center" Padding="0" Text="Package:" />
+                            <Entry Margin="5,0,0,0" VerticalOptions="Center" Text="{Binding SelectedMacroSet.Package}" />
+                        </HorizontalStackLayout>
+                    </VerticalStackLayout>
+                    <v:ImageView HorizontalOptions="End" VerticalOptions="End" FontFamily="MaterialOutlined" Glyph="{x:Static mi:MaterialOutlined.Save}"
+                                 Command="{Binding SaveCommand}" CommandParameter="{Binding SelectedMacroSet}" />
+                </Grid>
+            </material:TabItem>
             <material:TabItem Title="Patterns">
                 <material:TabItem.ContentTemplate>
                     <DataTemplate>

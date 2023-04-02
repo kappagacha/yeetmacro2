@@ -73,7 +73,12 @@ public partial class MacroManagerViewModel : ObservableObject
         _nodeService = nodeService;
         var tempMacroSets = _macroSetRepository.Get();
         _macroSets = ProxyViewModel.CreateCollection<MacroSet>(tempMacroSets);
-        if (_macroSets.Count > 0 )
+
+        if (Preferences.Default.ContainsKey(nameof(SelectedMacroSet)) && _macroSets.Any(ms => ms.Name == Preferences.Default.Get<string>(nameof(SelectedMacroSet), null)))
+        {
+            SelectedMacroSet = _macroSets.First(ms => ms.Name == Preferences.Default.Get<string>(nameof(SelectedMacroSet), null));
+        } 
+        else if (_macroSets.Count > 0 )
         {
             SelectedMacroSet = _macroSets.First();
         }
@@ -120,5 +125,17 @@ public partial class MacroManagerViewModel : ObservableObject
     {
         //Only for Windows
         System.Diagnostics.Process.Start("explorer.exe", FileSystem.Current.AppDataDirectory);
+    }
+
+    [RelayCommand]
+    public void Save(MacroSet macroSet)
+    {
+        _macroSetRepository.Update(macroSet);
+        _macroSetRepository.Save();
+    }
+
+    partial void OnSelectedMacroSetChanged(MacroSet value)
+    {
+        Preferences.Default.Set(nameof(SelectedMacroSet), value.Name);
     }
 }

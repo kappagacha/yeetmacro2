@@ -38,6 +38,7 @@ public class YeetMacroDbContext : DbContext
             .HasPrincipalKey<MacroSet>(ms => ms.RootScriptNodeId).OnDelete(DeleteBehavior.Cascade);
         modelBuilder.Entity<MacroSet>().HasOne(ms => ms.RootSetting).WithOne()
             .HasPrincipalKey<MacroSet>(ms => ms.RootSettingNodeId).OnDelete(DeleteBehavior.Cascade);
+        modelBuilder.Entity<MacroSet>().OwnsOne(ms => ms.Resolution);
 
         modelBuilder.Entity<Node>().HasKey(pn => pn.NodeId);
         modelBuilder.Entity<Node>().UseTptMappingStrategy();
