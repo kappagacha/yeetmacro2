@@ -169,15 +169,8 @@ public class NodeValueConverter<TParent, TChild> : JsonConverter<TChild>
             writer.WritePropertyName("$isParent");
             writer.WriteBooleanValue(true);
             writer.WritePropertyName("properties");
-            try
-            {
-
-                _parentConverter.Write(writer, parent, _options);
-            }
-            catch (Exception ex)
-            {
-
-            }
+            _parentConverter.Write(writer, parent, _options);
+            
             foreach (var subChild in parent.Nodes)
             {
                 Write(writer, subChild, _options);

@@ -8,8 +8,6 @@ using Serilog.Extensions.Logging;
 using Serilog.Filters;
 using System.Diagnostics;
 using System.Reflection;
-using System.Text.Json.Serialization;
-using System.Text.Json;
 using YeetMacro2.Data.Models;
 using YeetMacro2.Data.Services;
 using YeetMacro2.ViewModels;
@@ -34,7 +32,6 @@ public static class ServiceRegistrationHelper
         mauiAppBuilder.Services.AddSingleton<MacroManagerViewModel>();
         mauiAppBuilder.Services.AddSingleton<NodeViewModelFactory>();
         mauiAppBuilder.Services.AddSingleton<LogViewModel>();
-        mauiAppBuilder.Services.AddSingleton<IMacroService, MacroService>();
 
         return mauiAppBuilder;
     }

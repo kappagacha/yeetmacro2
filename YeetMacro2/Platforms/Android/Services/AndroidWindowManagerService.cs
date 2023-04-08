@@ -274,7 +274,7 @@ public class AndroidWindowManagerService : IInputService, IScreenService
     {
         Show(WindowView.DebugDrawView);
         var drawControl = (DrawControl)_views[WindowView.DebugDrawView].VisualElement;
-        drawControl.AddRectangle(x - 2, y - 2, width + 4, height + 4);
+        drawControl.AddRectangle(x - 13, y - 13, width + 26, height + 26);
     }
 
     public void DebugCircle(int x, int y)
@@ -355,8 +355,6 @@ public class AndroidWindowManagerService : IInputService, IScreenService
     {
         Close(WindowView.DrawView);
     }
-
-    //public async Task<string> GetTextMatch(Pattern pattern)
 
     public async Task<List<Point>> GetMatches(Pattern pattern, FindOptions opts)
     {
@@ -440,69 +438,6 @@ public class AndroidWindowManagerService : IInputService, IScreenService
         }
     }
 
-    //public Bounds TransformBounds(Bounds originalBounds, Resolution originalResolution)
-    //{
-    //    try
-    //    {
-    //        var templateResolutionWidth = originalResolution.Width;
-    //        var templateResolutionHeight = originalResolution.Height;
-    //        var targetResolutionWidth = _displayWidth;
-    //        var targetResolutionHeight = _displayHeight;
-    //        var xRatio = targetResolutionWidth / templateResolutionWidth;
-    //        var yRatio = targetResolutionHeight / templateResolutionHeight;
-    //        var topLeft = GetTopLeftByPackage();
-    //        var ratio = Math.Min(xRatio, yRatio);
-    //        var x = (int)(originalBounds.X * ratio);
-    //        var y = (int)(originalBounds.Y * ratio);
-    //        var width = (int)(originalBounds.W * xRatio);
-    //        var height = (int)(originalBounds.H * yRatio);
-    //        if (xRatio > yRatio)    //assuming content gets centered
-    //        {
-    //            var leftoverWidth = targetResolutionWidth - templateResolutionWidth - topLeft.x;
-    //            var offsetX = leftoverWidth / 2.0 + topLeft.x;
-    //            x += (int)offsetX;
-    //            //width += (int)offsetX;
-    //        }
-    //        //else if (yRatio > xRatio)    // ??
-    //        //{
-    //        //    //y = (int)(y * yRatio - (y * yRatio) / 2.0 + topLeft.y);
-    //        //    //height += (int)(y * yRatio);
-
-    //        //    //x = (int)(x * yRatio - (x * yRatio) / 2.0);
-    //        //    //width += (int)(x * yRatio);
-
-    //        //    var leftoverHeight = targetResolutionHeight - templateResolutionHeight - topLeft.y;
-    //        //    y = (int)(y * yRatio - leftoverHeight / 2.0 + topLeft.y);
-    //        //    height += (int)(leftoverHeight);
-    //        //    x = (int)(x / 2 * 2.5);     //divide by original density then multiple by current density
-    //        //    //x = (int)(x - width * yRatio / 2.0 );
-    //        //    //width = (int)(width * yRatio);
-
-    //        //    //var offsetY = leftoverHeigh / 2.0 + topLeft.y;
-    //        //    //y += (int)leftoverHeigh;
-    //        //    //height += (int)offsetY;
-    //        //}
-
-    //        return new Bounds() { X = x, Y = y, W = width, H = height };
-    //    }
-    //    catch (Exception ex)
-    //    {
-    //        Console.WriteLine("[*****YeetMacro*****] WindowManagerService TransformBounds Exception");
-    //        Console.WriteLine("[*****YeetMacro*****] " + ex.Message);
-    //        return originalBounds;
-    //    }
-    //}
-
-    //public Task<MemoryStream> GetCurrentImageStream()
-    //{
-    //    return _mediaProjectionService.GetCurrentImageStream();
-    //}
-
-    //public Task<MemoryStream> GetCurrentImageStream(int x, int y, int width, int height)
-    //{
-    //    return _mediaProjectionService.GetCurrentImageStream(x, y, width, height);
-    //}
-
     public void DoClick(float x, float y)
     {
         _accessibilityService.DoClick(x, y);
@@ -548,5 +483,35 @@ public class AndroidWindowManagerService : IInputService, IScreenService
             currentImageData);
         _tesseractApi.SetWhitelist("");
         return _tesseractApi.Text;
+    }
+
+    public async Task<FindPatternResult> FindPattern(Pattern pattern, FindOptions opts = null)
+    {
+        var bounds = pattern.Bounds;
+        var points = await GetMatches(pattern, opts);
+
+        var result = new FindPatternResult();
+        result.IsSuccess = points.Count > 0;
+        if (points.Count > 0)
+        {
+            result.Point = new Point(points[0].X, points[0].Y);
+            result.Points = points.ToArray();
+        }
+
+        return result;
+    }
+
+    public async Task<FindPatternResult> ClickPattern(Pattern pattern)
+    {
+        var result = await FindPattern(pattern);
+        if (result.IsSuccess)
+        {
+            foreach (var point in result.Points)
+            {
+                DoClick((float)point.X, (float)point.Y);
+            }
+        }
+
+        return result;
     }
 }

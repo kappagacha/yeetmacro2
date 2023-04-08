@@ -80,6 +80,7 @@
 	  <None Remove="Resources\MacroSets\Disgaea RPG\Disgaea RPG_scripts.json" />
 	  <None Remove="Resources\MacroSets\Disgaea RPG\Disgaea RPG_Settings.json" />
 	  <None Remove="Resources\MacroSets\Konosuba FD\Konosuba FD_patterns.json" />
+	  <None Remove="Resources\Raw\initJavaScriptContext.js" />
 	  <None Remove="Resources\Splash\splash.svg" />
 	</ItemGroup>
 

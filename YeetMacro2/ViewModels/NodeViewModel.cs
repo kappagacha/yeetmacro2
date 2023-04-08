@@ -49,7 +49,7 @@ public partial class NodeViewModel<TParent, TChild> : NodeViewModel
     protected IToastService _toastService;
     protected IInputService _inputService;
 
-    public static readonly JsonSerializerOptions _defaultJsonSerializerOptions = new JsonSerializerOptions()
+    private static readonly JsonSerializerOptions _defaultJsonSerializerOptions = new JsonSerializerOptions()
     {
         Converters = {
             new JsonStringEnumConverter()
@@ -211,7 +211,7 @@ public partial class NodeViewModel<TParent, TChild> : NodeViewModel
         return JsonSerializer.Deserialize<NodeViewModel<TParent, TChild>>(json, _defaultJsonSerializerOptions);
     }
 
-    public TChild FromJsonNode(string json)
+    public static TChild FromJsonNode(string json)
     {
         return JsonSerializer.Deserialize<TChild>(json, _defaultJsonSerializerOptions);
     }

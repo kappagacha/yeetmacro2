@@ -43,6 +43,17 @@ public partial class ActionViewModel : ObservableObject, IMovable
         //    return;
         //}
 
+        var script = @"
+const loopPatterns = [patterns.titles.home, patterns.titles.quest];
+while(state.isRunning) {
+    const result = await macroService.pollPattern(loopPatterns);
+    if (result.isSuccess) {
+        logger.info(result.path);
+        await macroService.clickPattern(patterns.titles.home);
+    }
+    await sleep(1_000);
+}";
+
         switch (State)
         {
             case ActionState.Stopped:
@@ -54,7 +65,9 @@ public partial class ActionViewModel : ObservableObject, IMovable
                 //};
                 State = ActionState.Running;
                 //_scriptService.RunScript(script);
-                _scriptService.RunScript("test");
+                await _macroManagerViewModel.Patterns.WaitForInitialization();
+                await _macroManagerViewModel.Settings.WaitForInitialization();
+                _scriptService.RunScript(script, _macroManagerViewModel.Patterns.ToJson(), _macroManagerViewModel.Settings.ToJson());
                 break;
             case ActionState.Running:
                 _scriptService.Stop();

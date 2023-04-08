@@ -27,6 +27,11 @@ public class WindowsScreenService : IScreenService, IRecorderService
         throw new NotImplementedException();
     }
 
+    public Task<FindPatternResult> ClickPattern(Pattern pattern)
+    {
+        throw new NotImplementedException();
+    }
+
     public void DebugCircle(int x, int y)
     {
         throw new NotImplementedException();
@@ -58,6 +63,11 @@ public class WindowsScreenService : IScreenService, IRecorderService
     }
 
     public void DrawRectangle(int x, int y, int width, int height)
+    {
+        throw new NotImplementedException();
+    }
+
+    public Task<FindPatternResult> FindPattern(Pattern pattern, FindOptions opts)
     {
         throw new NotImplementedException();
     }

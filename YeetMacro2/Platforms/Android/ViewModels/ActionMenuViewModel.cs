@@ -13,7 +13,6 @@ public partial class ActionMenuViewModel : ObservableObject
     IScriptsService _scriptsService;
     AndroidWindowManagerService _windowManagerService;
     YeetAccessibilityService _accessibilityService;
-    IMacroService _macroService;
     [ObservableProperty]
     bool _showLogView, _inDebugMode;
 
@@ -38,13 +37,12 @@ public partial class ActionMenuViewModel : ObservableObject
     public bool HasValidResolution => DeviceDisplay.MainDisplayInfo.Width == 1080 && DeviceDisplay.MainDisplayInfo.Height == 1920;
 
     public ActionMenuViewModel(ILogger<ActionViewModel> logger, IToastService toastService, AndroidWindowManagerService windowManagerService,
-        YeetAccessibilityService accessibilityService, IMacroService macroService, IScriptsService scriptsService)
+        YeetAccessibilityService accessibilityService, IScriptsService scriptsService)
     {
         _logger = logger;
         _toastService = toastService;
         _windowManagerService = windowManagerService;
         _accessibilityService = accessibilityService;
-        _macroService = macroService;
         _scriptsService = scriptsService;
     }
 
@@ -104,7 +102,6 @@ public partial class ActionMenuViewModel : ObservableObject
     [RelayCommand]
     public void ToggleDebugMode()
     {
-        _macroService.InDebugMode = InDebugMode;
         _scriptsService.InDebugMode = InDebugMode;
         if (!InDebugMode)
         {

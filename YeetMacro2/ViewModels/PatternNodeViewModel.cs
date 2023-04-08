@@ -11,7 +11,6 @@ public partial class PatternNodeViewModel : NodeViewModel<PatternNode, PatternNo
 {
     IRepository<Pattern> _patternRepository;
     IScreenService _screenService;
-    IMacroService _macroService;
     Resolution _currentResolution;
     [ObservableProperty]
     ImageSource _selectedImageSource;
@@ -42,13 +41,11 @@ public partial class PatternNodeViewModel : NodeViewModel<PatternNode, PatternNo
         IInputService inputService,
         IToastService toastService,
         IRepository<Pattern> patternRepository,
-        IScreenService screenService,
-        IMacroService macroService)
+        IScreenService screenService)
             : base(rootNodeId, nodeService, inputService, toastService)
     {
         _patternRepository = patternRepository;
         _screenService = screenService;
-        _macroService = macroService;
 
         PropertyChanged += PatternTreeViewViewModel_PropertyChanged;
 
@@ -191,7 +188,7 @@ public partial class PatternNodeViewModel : NodeViewModel<PatternNode, PatternNo
         if (pattern == null) return;
 
         _screenService.DrawClear();
-        var result = await _macroService.FindPattern(pattern, new FindOptions() { Limit = 10 });
+        var result = await _screenService.FindPattern(pattern, new FindOptions() { Limit = 10 });
         var points = result.Points;
         _toastService.Show(points != null && points.Length > 0 ? "Match(es) found" : "No match found");
 
@@ -214,9 +211,9 @@ public partial class PatternNodeViewModel : NodeViewModel<PatternNode, PatternNo
     private async void ClickPattern(Pattern pattern)
     {
         if (pattern == null) return;
-        await _macroService.ClickPattern(pattern);     //one to change focus
+        await _screenService.ClickPattern(pattern);     //one to change focus
         await Task.Delay(300);
-        await _macroService.ClickPattern(pattern);     //one to click
+        await _screenService.ClickPattern(pattern);     //one to click
     }
 
     [RelayCommand]
