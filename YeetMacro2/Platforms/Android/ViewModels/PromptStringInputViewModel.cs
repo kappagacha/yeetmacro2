@@ -19,12 +19,12 @@ public partial class PromptStringInputViewModel : ObservableObject
     [RelayCommand]
     private void Ok()
     {
-        _windowManagerService.Close(WindowView.PromptStringInputView);
+        _windowManagerService.Close(AndroidWindowView.PromptStringInputView);
     }
 
     [RelayCommand]
     private void Cancel()
     {
-        _windowManagerService.Cancel(WindowView.PromptStringInputView);
+        _windowManagerService.Cancel(AndroidWindowView.PromptStringInputView);
     }
 }

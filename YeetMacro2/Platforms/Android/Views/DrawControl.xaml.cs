@@ -169,7 +169,7 @@ public partial class DrawControl : ContentView
                     RectWidth = (int)(_canvasEnd.X - _canvasBegin.X - _userStroke.StrokeWidth + 1);
                     RectHeight = (int)(_canvasEnd.Y - _canvasBegin.Y - _userStroke.StrokeWidth - 1);
 
-                    _windowManagerService.Close(WindowView.UserDrawView);
+                    _windowManagerService.Close(AndroidWindowView.UserDrawView);
                 }
                 break;
         }

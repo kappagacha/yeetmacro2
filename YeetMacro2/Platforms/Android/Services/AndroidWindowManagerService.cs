@@ -13,9 +13,10 @@ using OpenCvHelper = YeetMacro2.Platforms.Android.Services.OpenCv.OpenCvHelper;
 using Tesseract.Droid;
 
 namespace YeetMacro2.Platforms.Android.Services;
-public enum WindowView
+public enum AndroidWindowView
 {
-    PatternsTreeView,
+    PatternsNodeView,
+    ScriptsNodeView,
     PatternsView,
     DrawView,
     UserDrawView,
@@ -34,7 +35,7 @@ public class AndroidWindowManagerService : IInputService, IScreenService
     IWindowManager _windowManager;
     MediaProjectionService _mediaProjectionService;
     YeetAccessibilityService _accessibilityService;
-    ConcurrentDictionary<WindowView, IShowable> _views = new ConcurrentDictionary<WindowView, IShowable>();
+    ConcurrentDictionary<AndroidWindowView, IShowable> _views = new ConcurrentDictionary<AndroidWindowView, IShowable>();
     FormsView _windowView;
     ConcurrentDictionary<string, (int x, int y)> _packageToStatusBarHeight = new ConcurrentDictionary<string, (int x, int y)>();
     double _displayWidth, _displayHeight;
@@ -96,7 +97,7 @@ public class AndroidWindowManagerService : IInputService, IScreenService
         }
     }
 
-    public void Show(WindowView windowView)
+    public void Show(AndroidWindowView windowView)
     {
         //Get overlay permissin if needed
         if (!Settings.CanDrawOverlays(_context))
@@ -109,9 +110,8 @@ public class AndroidWindowManagerService : IInputService, IScreenService
         {
             switch (windowView)
             {
-                case WindowView.LogView:
-                    var logView = new LogView();
-                    var logAndroidView = new StaticView(_context, _windowManager, logView);
+                case AndroidWindowView.LogView:
+                    var logAndroidView = new StaticView(_context, _windowManager, new LogView());
                     logAndroidView.SetUpLayoutParameters(lp =>
                     {
                         lp.Gravity = GravityFlags.Bottom;
@@ -119,39 +119,31 @@ public class AndroidWindowManagerService : IInputService, IScreenService
                     });
                     _views.TryAdd(windowView, logAndroidView);
                     break;
-                case WindowView.ActionView:
-                    var actionControl = new ActionControl();
-                    var actionView = new MoveView(_context, _windowManager, actionControl);
+                case AndroidWindowView.ActionView:
+                    var actionView = new MoveView(_context, _windowManager, new ActionControl());
                     _views.TryAdd(windowView, actionView);
                     break;
-                case WindowView.ActionMenuView:
-                    var actionMenu = new ActionMenu();
-                    var actionMenuView = new FormsView(_context, _windowManager, actionMenu);
+                case AndroidWindowView.ActionMenuView:
+                    var actionMenuView = new FormsView(_context, _windowManager, new ActionMenu());
                     _views.TryAdd(windowView, actionMenuView);
                     break;
-                case WindowView.PatternsTreeView:
-                    var patternsTree = new PatternNodeView();
-                    var patternsTreeView = new ResizeView(_context, _windowManager, this, patternsTree);
-                    //var patternsTreeView = new FormsView(_context, _windowManager, patternsTree);
-                    _views.TryAdd(windowView, patternsTreeView);
+                case AndroidWindowView.PatternsNodeView:
+                    var patternsNodeView = new ResizeView(_context, _windowManager, this, new PatternNodeView());
+                    _views.TryAdd(windowView, patternsNodeView);
                     break;
-                //case WindowView.PatternsView:
-                //    var patternsControl = new PatternView() { Parent = Xamarin.Forms.Application.Current };
-                //    var patternsView = new ResizeView(_context, _windowManager, this, patternsControl);
-                //    patternsView.Focusable = false;
-                //    _views.TryAdd(windowView, patternsView);
-                //    break;
-                case WindowView.PromptStringInputView:
-                    var promptStringInput = new PromptStringInput();
-                    var promptStringInputView = new FormsView(_context, _windowManager, promptStringInput);
+                case AndroidWindowView.ScriptsNodeView:
+                    var scriptsNodeView = new ResizeView(_context, _windowManager, this, new ScriptNodeView() { ShowExecuteButton = true });
+                    _views.TryAdd(windowView, scriptsNodeView);
+                    break;
+                case AndroidWindowView.PromptStringInputView:
+                    var promptStringInputView = new FormsView(_context, _windowManager, new PromptStringInput());
                     _views.TryAdd(windowView, promptStringInputView);
                     break;
-                case WindowView.PromptSelectOptionView:
-                    var promptSelectOption = new PromptSelectOption();
-                    var promptSelectOptionView = new FormsView(_context, _windowManager, promptSelectOption);
+                case AndroidWindowView.PromptSelectOptionView:
+                    var promptSelectOptionView = new FormsView(_context, _windowManager, new PromptSelectOption());
                     _views.TryAdd(windowView, promptSelectOptionView);
                     break;
-                case WindowView.UserDrawView:
+                case AndroidWindowView.UserDrawView:
                     var userdrawControl = new DrawControl();
                     var userDrawView = new FormsView(_context, _windowManager, userdrawControl) { IsModal = false };
                     userDrawView.SetBackgroundToTransparent();
@@ -160,7 +152,7 @@ public class AndroidWindowManagerService : IInputService, IScreenService
                     userdrawControl.CloseAfterDraw = true;
                     _views.TryAdd(windowView, userDrawView);
                     break;
-                case WindowView.DrawView:
+                case AndroidWindowView.DrawView:
                     var drawControl = new DrawControl();
                     var drawView = new FormsView(_context, _windowManager, drawControl);
                     drawControl.InputTransparent = true;
@@ -170,7 +162,7 @@ public class AndroidWindowManagerService : IInputService, IScreenService
                     drawView.DisableTranslucentNavigation();
                     _views.TryAdd(windowView, drawView);
                     break;
-                case WindowView.DebugDrawView:
+                case AndroidWindowView.DebugDrawView:
                     var debugDrawControl = new DrawControl() { InputTransparent = true, CascadeInputTransparent = true };
                     var debugDrawView = new FormsView(_context, _windowManager, debugDrawControl) { IsModal = false };
                     debugDrawView.SetIsTouchable(false);
@@ -183,7 +175,7 @@ public class AndroidWindowManagerService : IInputService, IScreenService
 
         _views[windowView].Show();
 
-        if (windowView == WindowView.ActionMenuView)
+        if (windowView == AndroidWindowView.ActionMenuView)
         {
             var ve = _views[windowView].VisualElement;
             var ctx = ve.BindingContext;
@@ -191,13 +183,13 @@ public class AndroidWindowManagerService : IInputService, IScreenService
             ve.BindingContext = ctx;
         }
     }
-    public void Close(WindowView view)
+    public void Close(AndroidWindowView view)
     {
         if (!_views.ContainsKey(view)) return;
         _views[view].Close();
     }
 
-    public void Cancel(WindowView view)
+    public void Cancel(AndroidWindowView view)
     {
         if (!_views.ContainsKey(view)) return;
         _views[view]?.CloseCancel();
@@ -205,10 +197,10 @@ public class AndroidWindowManagerService : IInputService, IScreenService
 
     public async Task<string> PromptInput(string message)
     {
-        Show(WindowView.PromptStringInputView);
-        var viewModel = (PromptStringInputViewModel)_views[WindowView.PromptStringInputView].VisualElement.BindingContext;
+        Show(AndroidWindowView.PromptStringInputView);
+        var viewModel = (PromptStringInputViewModel)_views[AndroidWindowView.PromptStringInputView].VisualElement.BindingContext;
         viewModel.Message = message;
-        var formsView = (FormsView)_views[WindowView.PromptStringInputView];
+        var formsView = (FormsView)_views[AndroidWindowView.PromptStringInputView];
         if (await formsView.WaitForClose())
         {
             return viewModel.Input;
@@ -218,11 +210,11 @@ public class AndroidWindowManagerService : IInputService, IScreenService
 
     public async Task<string> SelectOption(string message, params string[] options)
     {
-        Show(WindowView.PromptSelectOptionView);
-        var viewModel = (PromptSelectOptionViewModel)_views[WindowView.PromptSelectOptionView].VisualElement.BindingContext;
+        Show(AndroidWindowView.PromptSelectOptionView);
+        var viewModel = (PromptSelectOptionViewModel)_views[AndroidWindowView.PromptSelectOptionView].VisualElement.BindingContext;
         viewModel.Message = message;
         viewModel.Options = options;
-        var formsView = (FormsView)_views[WindowView.PromptSelectOptionView];
+        var formsView = (FormsView)_views[AndroidWindowView.PromptSelectOptionView];
         if (await formsView.WaitForClose())
         {
             return viewModel.SelectedOption;
@@ -232,10 +224,10 @@ public class AndroidWindowManagerService : IInputService, IScreenService
 
     public async Task<Bounds> DrawUserRectangle()
     {
-        Show(WindowView.UserDrawView);
-        var drawControl = (DrawControl)_views[WindowView.UserDrawView].VisualElement;
+        Show(AndroidWindowView.UserDrawView);
+        var drawControl = (DrawControl)_views[AndroidWindowView.UserDrawView].VisualElement;
         drawControl.ClearRectangles();
-        var formsView = (FormsView)_views[WindowView.UserDrawView];
+        var formsView = (FormsView)_views[AndroidWindowView.UserDrawView];
         if (await formsView.WaitForClose())
         {
             return new Bounds() { X = drawControl.RectX, Y = drawControl.RectY, W = drawControl.RectWidth, H = drawControl.RectHeight };
@@ -245,50 +237,50 @@ public class AndroidWindowManagerService : IInputService, IScreenService
 
     public void DrawClear()
     {
-        if (!_views.ContainsKey(WindowView.DrawView)) return;
+        if (!_views.ContainsKey(AndroidWindowView.DrawView)) return;
 
-        var drawControl = (DrawControl)_views[WindowView.DrawView].VisualElement;
+        var drawControl = (DrawControl)_views[AndroidWindowView.DrawView].VisualElement;
         drawControl.ClearCircles();
         drawControl.ClearRectangles();
     }
 
     public void DrawRectangle(int x, int y, int width, int height)
     {
-        Show(WindowView.DrawView);
-        var drawControl = (DrawControl)_views[WindowView.DrawView].VisualElement;
-        var drawView = (FormsView)_views[WindowView.DrawView];
+        Show(AndroidWindowView.DrawView);
+        var drawControl = (DrawControl)_views[AndroidWindowView.DrawView].VisualElement;
+        var drawView = (FormsView)_views[AndroidWindowView.DrawView];
         drawView.SetIsTouchable(true);
         drawControl.AddRectangle(x, y, width, height);
     }
 
     public void DrawCircle(int x, int y)
     {
-        Show(WindowView.DrawView);
-        var drawControl = (DrawControl)_views[WindowView.DrawView].VisualElement;
-        var drawView = (FormsView)_views[WindowView.DrawView];
+        Show(AndroidWindowView.DrawView);
+        var drawControl = (DrawControl)_views[AndroidWindowView.DrawView].VisualElement;
+        var drawView = (FormsView)_views[AndroidWindowView.DrawView];
         drawView.SetIsTouchable(true);
         drawControl.AddCircle(x, y);
     }
 
     public void DebugRectangle(int x, int y, int width, int height)
     {
-        Show(WindowView.DebugDrawView);
-        var drawControl = (DrawControl)_views[WindowView.DebugDrawView].VisualElement;
+        Show(AndroidWindowView.DebugDrawView);
+        var drawControl = (DrawControl)_views[AndroidWindowView.DebugDrawView].VisualElement;
         drawControl.AddRectangle(x - 13, y - 13, width + 26, height + 26);
     }
 
     public void DebugCircle(int x, int y)
     {
-        Show(WindowView.DebugDrawView);
-        var drawControl = (DrawControl)_views[WindowView.DebugDrawView].VisualElement;
+        Show(AndroidWindowView.DebugDrawView);
+        var drawControl = (DrawControl)_views[AndroidWindowView.DebugDrawView].VisualElement;
         drawControl.AddCircle(x, y);
     }
 
     public void DebugClear()
     {
-        if (!_views.ContainsKey(WindowView.DebugDrawView)) return;
+        if (!_views.ContainsKey(AndroidWindowView.DebugDrawView)) return;
 
-        var drawControl = (DrawControl)_views[WindowView.DebugDrawView].VisualElement;
+        var drawControl = (DrawControl)_views[AndroidWindowView.DebugDrawView].VisualElement;
         drawControl.ClearCircles();
         drawControl.ClearRectangles();
     }
@@ -353,7 +345,7 @@ public class AndroidWindowManagerService : IInputService, IScreenService
 
     private void DrawView_Click(object sender, System.EventArgs e)
     {
-        Close(WindowView.DrawView);
+        Close(AndroidWindowView.DrawView);
     }
 
     public async Task<List<Point>> GetMatches(Pattern pattern, FindOptions opts)

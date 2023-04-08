@@ -57,17 +57,18 @@ while(state.isRunning) {
         switch (State)
         {
             case ActionState.Stopped:
+                _windowManagerService.Show(AndroidWindowView.ScriptsNodeView);
                 //var script = await _windowManagerService.SelectOption("Run Script", scriptList.ToArray());
                 //if (script == null)
                 //{
                 //    _toastService.Show("Run script canceled...");
                 //    return;
                 //};
-                State = ActionState.Running;
-                //_scriptService.RunScript(script);
-                await _macroManagerViewModel.Patterns.WaitForInitialization();
-                await _macroManagerViewModel.Settings.WaitForInitialization();
-                _scriptService.RunScript(script, _macroManagerViewModel.Patterns.ToJson(), _macroManagerViewModel.Settings.ToJson());
+                //State = ActionState.Running;
+                ////_scriptService.RunScript(script);
+                //await _macroManagerViewModel.Patterns.WaitForInitialization();
+                //await _macroManagerViewModel.Settings.WaitForInitialization();
+                //_scriptService.RunScript(script, _macroManagerViewModel.Patterns.ToJson(), _macroManagerViewModel.Settings.ToJson());
                 break;
             case ActionState.Running:
                 _scriptService.Stop();
@@ -81,7 +82,7 @@ while(state.isRunning) {
     {
         if (!IsMoving)
         {
-            _windowManagerService.Show(WindowView.ActionMenuView);
+            _windowManagerService.Show(AndroidWindowView.ActionMenuView);
         }
     }
 }

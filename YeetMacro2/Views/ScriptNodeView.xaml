@@ -33,8 +33,12 @@
                 IsVisible="{Binding Scripts.SelectedNode, Converter={conv:NullToBoolConverter IsInverse=True}}">
                 <Editor Text="{Binding Scripts.SelectedNode.Text}" IsSpellCheckEnabled="False" />
             </Border>
-            <v:ImageView HorizontalOptions="End" VerticalOptions="End" FontFamily="MaterialOutlined" Glyph="{x:Static mi:MaterialOutlined.Save}"
-                                 Command="{Binding BindingContext.Scripts.SaveCommand, Source={RelativeSource AncestorType={x:Type v:ScriptNodeView}}}" />
+            <VerticalStackLayout HorizontalOptions="End" VerticalOptions="End">
+                <v:ImageView IsVisible="{Binding ShowExecuteButton, Source={x:Reference thisControl}}" FontFamily="MaterialOutlined" Glyph="{x:Static mi:MaterialOutlined.Play_arrow}"
+                             Command="{Binding BindingContext.Scripts.SaveCommand, Source={RelativeSource AncestorType={x:Type v:ScriptNodeView}}}" />
+                <v:ImageView FontFamily="MaterialOutlined" Glyph="{x:Static mi:MaterialOutlined.Save}"
+                             Command="{Binding BindingContext.Scripts.SaveCommand, Source={RelativeSource AncestorType={x:Type v:ScriptNodeView}}}" />
+            </VerticalStackLayout>
         </Grid>
     </Grid>
 </ContentView>

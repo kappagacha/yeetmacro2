@@ -54,8 +54,8 @@ public class ForegroundService : Service
         {
             case EXIT_ACTION:
                 StopForeground(true);
-                _windowManagerService.Close(WindowView.ActionView);
-                _windowManagerService.Close(WindowView.LogView);
+                _windowManagerService.Close(AndroidWindowView.ActionView);
+                _windowManagerService.Close(AndroidWindowView.LogView);
                 _windowManagerService.CloseOverlayWindow();
                 _mediaProjectionService.Stop();
                 _mediaProjectionService.StopRecording();
@@ -65,7 +65,7 @@ public class ForegroundService : Service
             default:
                 StartForeground(SERVICE_RUNNING_NOTIFICATION_ID, GenerateNotification());
                 _windowManagerService.ShowOverlayWindow();
-                _windowManagerService.Show(WindowView.ActionView);
+                _windowManagerService.Show(AndroidWindowView.ActionView);
                 break;
         }
 

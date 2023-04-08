@@ -39,7 +39,7 @@
                     <v:ImageView FontFamily="FASolid" Glyph="{x:Static fa:Solid.Plus}" Command="{Binding ItemsSource.AddNodeCommand}"
                                  IsVisible="{Binding ItemsSource.SelectedNode.IsParentNode}"/>
                 </VerticalStackLayout>
-                <Border Stroke="{StaticResource Primary}" StrokeThickness="0">
+                <Border Stroke="{StaticResource Primary}" StrokeThickness="0" BackgroundColor="Transparent">
                     <Border.Triggers>
                         <DataTrigger TargetType="Border" Binding="{Binding IsMenuOpen}" Value="True">
                             <Setter Property="StrokeThickness" Value="1" />

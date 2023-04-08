@@ -50,8 +50,8 @@ public partial class ActionMenuViewModel : ObservableObject
     public void ManagePatterns()
     {
         _toastService.Show("Manage Patterns");
-        _windowManagerService.Show(WindowView.PatternsTreeView);
-        _windowManagerService.Close(WindowView.ActionMenuView);
+        _windowManagerService.Show(AndroidWindowView.PatternsNodeView);
+        _windowManagerService.Close(AndroidWindowView.ActionMenuView);
     }
 
     [RelayCommand]
@@ -59,15 +59,15 @@ public partial class ActionMenuViewModel : ObservableObject
     {
         _toastService.Show("Redirecting to YeetMacro...");
         _windowManagerService.LaunchYeetMacro();
-        _windowManagerService.Close(WindowView.ActionMenuView);
+        _windowManagerService.Close(AndroidWindowView.ActionMenuView);
     }
 
     [RelayCommand]
     public void OpenLog()
     {
         _toastService.Show("Opening Log...");
-        _windowManagerService.Show(WindowView.LogView);
-        _windowManagerService.Close(WindowView.ActionMenuView);
+        _windowManagerService.Show(AndroidWindowView.LogView);
+        _windowManagerService.Close(AndroidWindowView.ActionMenuView);
     }
 
     [RelayCommand]
@@ -75,7 +75,7 @@ public partial class ActionMenuViewModel : ObservableObject
     {
         _toastService.Show("Exiting...");
         _windowManagerService.StopProjectionService();
-        _windowManagerService.Close(WindowView.ActionMenuView);
+        _windowManagerService.Close(AndroidWindowView.ActionMenuView);
     }
 
     [RelayCommand]
@@ -91,11 +91,11 @@ public partial class ActionMenuViewModel : ObservableObject
     {
         if (ShowLogView)
         {
-            _windowManagerService.Show(WindowView.LogView);
+            _windowManagerService.Show(AndroidWindowView.LogView);
         }
         else
         {
-            _windowManagerService.Close(WindowView.LogView);
+            _windowManagerService.Close(AndroidWindowView.LogView);
         }
     }
 
@@ -105,10 +105,10 @@ public partial class ActionMenuViewModel : ObservableObject
         _scriptsService.InDebugMode = InDebugMode;
         if (!InDebugMode)
         {
-            _windowManagerService.Close(WindowView.DebugDrawView);
+            _windowManagerService.Close(AndroidWindowView.DebugDrawView);
         } else
         {
-            _windowManagerService.Show(WindowView.DebugDrawView);
+            _windowManagerService.Show(AndroidWindowView.DebugDrawView);
         }
     }
 }

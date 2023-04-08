@@ -22,12 +22,12 @@ public partial class PromptSelectOptionViewModel : ObservableObject
     private void Select(string option)
     {
         SelectedOption = option;
-        _windowManagerService.Close(WindowView.PromptSelectOptionView);
+        _windowManagerService.Close(AndroidWindowView.PromptSelectOptionView);
     }
 
     [RelayCommand]
     private void Cancel()
     {
-        _windowManagerService.Cancel(WindowView.PromptSelectOptionView);
+        _windowManagerService.Cancel(AndroidWindowView.PromptSelectOptionView);
     }
 }
