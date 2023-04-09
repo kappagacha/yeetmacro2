@@ -34,7 +34,7 @@ public partial class ActionViewModel : ObservableObject, IMovable
         {
             _windowManagerService.Close(AndroidWindowView.ScriptsNodeView);
             State = ActionState.Running;
-        }); 
+        });
     }
 
     private void _macroManagerViewModel_PropertyChanged(object sender, PropertyChangedEventArgs e)
