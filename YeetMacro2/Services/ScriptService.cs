@@ -5,14 +5,14 @@ using YeetMacro2.Data.Models;
 
 namespace YeetMacro2.Services;
 
-public interface IScriptsService
+public interface IScriptService
 {
     bool InDebugMode { get; set; }
     void RunScript(string script, string jsonPatterns, string jsonOptions);
     void Stop();
 }
 
-public class ScriptsService : IScriptsService
+public class ScriptService : IScriptService
 {
     ILogger _logger;
     IScreenService _screenService;
@@ -22,7 +22,7 @@ public class ScriptsService : IScriptsService
     Dictionary<object, PatternNode> _jsonValueToPatternNode;
     public bool InDebugMode { get; set; }
 
-    public ScriptsService(ILogger<ScriptsService> logger, IScreenService screenService, IToastService toastService)
+    public ScriptService(ILogger<ScriptService> logger, IScreenService screenService, IToastService toastService)
     {
         _logger = logger;
         _screenService = screenService;

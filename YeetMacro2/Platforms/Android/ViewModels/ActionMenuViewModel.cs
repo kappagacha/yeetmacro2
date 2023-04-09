@@ -1,20 +1,20 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using Microsoft.Extensions.Logging;
+using System.ComponentModel;
 using YeetMacro2.Data.Models;
 using YeetMacro2.Platforms.Android.Services;
 using YeetMacro2.Services;
+using YeetMacro2.ViewModels;
 
 namespace YeetMacro2.Platforms.Android.ViewModels;
 public partial class ActionMenuViewModel : ObservableObject
 {
     ILogger _logger;
     IToastService _toastService;
-    IScriptsService _scriptsService;
     AndroidWindowManagerService _windowManagerService;
     YeetAccessibilityService _accessibilityService;
-    [ObservableProperty]
-    bool _showLogView, _inDebugMode;
+    ScriptNodeViewModel _scriptNodeViewmodel;
 
     public Resolution CurrentResolution => new Resolution()
     {
@@ -37,13 +37,12 @@ public partial class ActionMenuViewModel : ObservableObject
     public bool HasValidResolution => DeviceDisplay.MainDisplayInfo.Width == 1080 && DeviceDisplay.MainDisplayInfo.Height == 1920;
 
     public ActionMenuViewModel(ILogger<ActionViewModel> logger, IToastService toastService, AndroidWindowManagerService windowManagerService,
-        YeetAccessibilityService accessibilityService, IScriptsService scriptsService)
+        YeetAccessibilityService accessibilityService)
     {
         _logger = logger;
         _toastService = toastService;
         _windowManagerService = windowManagerService;
         _accessibilityService = accessibilityService;
-        _scriptsService = scriptsService;
     }
 
     [RelayCommand]
@@ -84,31 +83,5 @@ public partial class ActionMenuViewModel : ObservableObject
         _toastService.Show("ScreenCapture...");
         _logger.LogDebug("ScreenCapture");
         await _windowManagerService.ScreenCapture();
-    }
-
-    [RelayCommand]
-    public void ToggleLogView()
-    {
-        if (ShowLogView)
-        {
-            _windowManagerService.Show(AndroidWindowView.LogView);
-        }
-        else
-        {
-            _windowManagerService.Close(AndroidWindowView.LogView);
-        }
-    }
-
-    [RelayCommand]
-    public void ToggleDebugMode()
-    {
-        _scriptsService.InDebugMode = InDebugMode;
-        if (!InDebugMode)
-        {
-            _windowManagerService.Close(AndroidWindowView.DebugDrawView);
-        } else
-        {
-            _windowManagerService.Show(AndroidWindowView.DebugDrawView);
-        }
     }
 }

@@ -60,7 +60,6 @@ macroService.pollPattern = async function (pattern, opts = {}) {
             await sleep(predicateCheckDelayMs);
         }
     } else {
-        logger.info('normal');
         while (!patternFound) {
             screenService.debugClear();
             if (!state.isRunning) return result;

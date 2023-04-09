@@ -4,6 +4,7 @@ using YeetMacro2.Services;
 using YeetMacro2.Platforms.Android.Views;
 using YeetMacro2.Platforms.Android.Services;
 using YeetMacro2.ViewModels;
+using System.ComponentModel;
 
 namespace YeetMacro2.Platforms.Android.ViewModels;
 
@@ -20,55 +21,57 @@ public partial class ActionViewModel : ObservableObject, IMovable
     public bool IsMoving { get; set; }
 
     AndroidWindowManagerService _windowManagerService;
-    IScriptsService _scriptService;
+    IScriptService _scriptService;
     MacroManagerViewModel _macroManagerViewModel;
-    IToastService _toastService;
-    public ActionViewModel(AndroidWindowManagerService windowManagerService, IScriptsService scriptService, MacroManagerViewModel macroManagerViewModel,
-        IToastService toastService)
+    public ActionViewModel(AndroidWindowManagerService windowManagerService, IScriptService scriptService, MacroManagerViewModel macroManagerViewModel)
     {
         _windowManagerService = windowManagerService;
         _scriptService = scriptService;
         _macroManagerViewModel = macroManagerViewModel;
-        _toastService = toastService;
+
+        _macroManagerViewModel.PropertyChanged += _macroManagerViewModel_PropertyChanged;
+        _macroManagerViewModel.OnScriptExecuted = _macroManagerViewModel.OnScriptExecuted ?? new Command(() =>
+        {
+            _windowManagerService.Close(AndroidWindowView.ScriptsNodeView);
+            State = ActionState.Running;
+        }); 
+    }
+
+    private void _macroManagerViewModel_PropertyChanged(object sender, PropertyChangedEventArgs e)
+    {
+        if (e.PropertyName == nameof(MacroManagerViewModel.InDebugMode))
+        {
+            if (_macroManagerViewModel.InDebugMode)
+            {
+                _windowManagerService.Show(AndroidWindowView.DebugDrawView);
+            }
+            else
+            {
+                _windowManagerService.Close(AndroidWindowView.DebugDrawView);
+            }
+        }
+        else if (e.PropertyName == nameof(MacroManagerViewModel.ShowLogView))
+        {
+            if (_macroManagerViewModel.ShowLogView)
+            {
+                _windowManagerService.Show(AndroidWindowView.LogView);
+            }
+            else
+            {
+                _windowManagerService.Close(AndroidWindowView.LogView);
+            }
+        }
     }
 
     [RelayCommand]
     public async void Execute()
     {
         await _macroManagerViewModel.Scripts.WaitForInitialization();
-        //var scriptList = _macroManagerViewModel.Scripts.Root.Nodes.Select(s => s.Name);
-        //if (!scriptList.Any())
-        //{
-        //    _toastService.Show("No script found...");
-        //    return;
-        //}
-
-        var script = @"
-const loopPatterns = [patterns.titles.home, patterns.titles.quest];
-while(state.isRunning) {
-    const result = await macroService.pollPattern(loopPatterns);
-    if (result.isSuccess) {
-        logger.info(result.path);
-        await macroService.clickPattern(patterns.titles.home);
-    }
-    await sleep(1_000);
-}";
 
         switch (State)
         {
             case ActionState.Stopped:
                 _windowManagerService.Show(AndroidWindowView.ScriptsNodeView);
-                //var script = await _windowManagerService.SelectOption("Run Script", scriptList.ToArray());
-                //if (script == null)
-                //{
-                //    _toastService.Show("Run script canceled...");
-                //    return;
-                //};
-                //State = ActionState.Running;
-                ////_scriptService.RunScript(script);
-                //await _macroManagerViewModel.Patterns.WaitForInitialization();
-                //await _macroManagerViewModel.Settings.WaitForInitialization();
-                //_scriptService.RunScript(script, _macroManagerViewModel.Patterns.ToJson(), _macroManagerViewModel.Settings.ToJson());
                 break;
             case ActionState.Running:
                 _scriptService.Stop();

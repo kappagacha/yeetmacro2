@@ -18,7 +18,8 @@ public class EventBroadcastReceiver : BroadcastReceiver
             {
                 case "com.companyname.ForegroundService.EXIT":
                     ServiceHelper.GetService<AndriodHomeViewModel>().IsProjectionServiceEnabled = false;
-                    ServiceHelper.GetService<ActionMenuViewModel>().ShowLogView = false;
+                    ServiceHelper.GetService<MacroManagerViewModel>().ShowLogView = false;
+                    ServiceHelper.GetService<MacroManagerViewModel>().InDebugMode = false;
                     break;
                 case "com.companyname.AccessibilityService.CHANGED":
                     bool enabled = intent.GetBooleanExtra("enabled", false);

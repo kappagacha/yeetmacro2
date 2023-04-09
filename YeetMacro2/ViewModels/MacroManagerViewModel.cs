@@ -1,6 +1,7 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using System.Collections.Concurrent;
+using System.Windows.Input;
 using YeetMacro2.Data.Models;
 using YeetMacro2.Data.Services;
 using YeetMacro2.Services;
@@ -19,7 +20,9 @@ public partial class MacroManagerViewModel : ObservableObject
     ConcurrentDictionary<int, PatternNodeViewModel> _nodeRootIdToPatternTree;
     ConcurrentDictionary<int, ScriptNodeViewModel> _nodeRootIdToScriptTree;
     ConcurrentDictionary<int, SettingNodeViewModel> _nodeRootIdToSettingTree;
-
+    IScriptService _scriptService;
+    [ObservableProperty]
+    bool _inDebugMode, _showLogView;
     public PatternNodeViewModel Patterns
     {
         get
@@ -62,10 +65,13 @@ public partial class MacroManagerViewModel : ObservableObject
         }
     }
 
+    public ICommand OnScriptExecuted { get; set; }
+
     public MacroManagerViewModel(IRepository<MacroSet> macroSetRepository,
         IToastService toastService,
         NodeViewModelFactory nodeViewModelFactory,
-        INodeService<PatternNode, PatternNode> nodeService)
+        INodeService<PatternNode, PatternNode> nodeService,
+        IScriptService scriptService)
     {
         _macroSetRepository = macroSetRepository;
         _toastService = toastService;
@@ -88,6 +94,7 @@ public partial class MacroManagerViewModel : ObservableObject
         _nodeRootIdToPatternTree = new ConcurrentDictionary<int, PatternNodeViewModel>();
         _nodeRootIdToScriptTree = new ConcurrentDictionary<int, ScriptNodeViewModel>();
         _nodeRootIdToSettingTree = new ConcurrentDictionary<int, SettingNodeViewModel>();
+        _scriptService = scriptService;
     }
 
     [RelayCommand]
@@ -128,10 +135,21 @@ public partial class MacroManagerViewModel : ObservableObject
     }
 
     [RelayCommand]
-    public void Save(MacroSet macroSet)
+    private void Save(MacroSet macroSet)
     {
         _macroSetRepository.Update(macroSet);
         _macroSetRepository.Save();
+    }
+
+    [RelayCommand]
+    private async Task ExecuteScript(ScriptNode scriptNode)
+    {
+        _scriptService.InDebugMode = InDebugMode;
+        await Patterns.WaitForInitialization();
+        await Settings.WaitForInitialization();
+        _scriptService.RunScript(scriptNode.Text, Patterns.ToJson(), Settings.ToJson());
+
+        OnScriptExecuted?.Execute(null);
     }
 
     partial void OnSelectedMacroSetChanged(MacroSet value)

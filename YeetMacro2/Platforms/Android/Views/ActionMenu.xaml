@@ -5,43 +5,12 @@
              xmlns:pvm="clr-namespace:YeetMacro2.Platforms.Android.ViewModels"
              x:DataType="pvm:ActionMenuViewModel"
              vm:ViewModelLocator.ViewModelType="{x:Type pvm:ActionMenuViewModel}"
-             xmlns:mct="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
              x:Class="YeetMacro2.Platforms.Android.Views.ActionMenu">
     <VerticalStackLayout VerticalOptions="Center" Spacing="10">
         <Button Text="Manage Patterns" Command="{Binding ManagePatternsCommand}" />
         <Button Text="Configure" Command="{Binding ConfigureCommand}" />
         <Button Text="Open Log" Command="{Binding OpenLogCommand}" />
         <Button Text="Screen Capture" Command="{Binding ScreenCaptureCommand}" />
-        <Grid ColumnDefinitions="Auto,Auto,Auto,Auto">
-            <Switch Grid.Column="0" IsToggled="{Binding ShowLogView, Mode=TwoWay}">
-                <Switch.Behaviors>
-                    <mct:EventToCommandBehavior
-                        EventName="Toggled"
-                        Command="{Binding ToggleLogViewCommand}" />
-                </Switch.Behaviors>
-            </Switch>
-            <Label Grid.Column="1" VerticalTextAlignment="Center" Text="LogView">
-                <Label.Triggers>
-                    <DataTrigger TargetType="Label" Binding="{Binding ShowLogView}" Value="True">
-                        <Setter Property="TextColor" Value="Green" />
-                    </DataTrigger>
-                </Label.Triggers>
-            </Label>
-            <Switch Grid.Column="2" IsToggled="{Binding InDebugMode, Mode=TwoWay}">
-                <Switch.Behaviors>
-                    <mct:EventToCommandBehavior
-                        EventName="Toggled"
-                        Command="{Binding ToggleDebugModeCommand}" />
-                </Switch.Behaviors>
-            </Switch>
-            <Label Grid.Column="3" VerticalTextAlignment="Center" Text="DebugMode">
-                <Label.Triggers>
-                    <DataTrigger TargetType="Label" Binding="{Binding InDebugMode}" Value="True">
-                        <Setter Property="TextColor" Value="Green" />
-                    </DataTrigger>
-                </Label.Triggers>
-            </Label>
-        </Grid>
         <Button Text="Exit" Command="{Binding ExitCommand}" BackgroundColor="Red" />
         <Label Text="{Binding CurrentResolution, StringFormat='Current Resolution: {0}'}" TextColor="{StaticResource Primary}">
             <Label.Triggers>
