@@ -3,6 +3,7 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:vm="clr-namespace:YeetMacro2.ViewModels"
              xmlns:conv="clr-namespace:YeetMacro2.Converters"
+             xmlns:v="clr-namespace:YeetMacro2.Views"
              x:DataType="vm:LogViewModel"
              vm:ViewModelLocator.ViewModelType="{x:Type vm:LogViewModel}"
              xmlns:mct="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
@@ -22,23 +23,11 @@
                         Command="{Binding ToggleRecordingCommand}" />
                 </Switch.Behaviors>
             </Switch>
-            <Image Grid.Column="1" IsVisible="{Binding IsRecording, Converter={conv:InverseBoolConverter}}"
-                   HeightRequest="{Binding Source={StaticResource IconHeight}, Converter={conv:MultiplyByDensityConverter}}"
-                   WidthRequest="{Binding Source={StaticResource IconWidth}, Converter={conv:MultiplyByDensityConverter}}"
-                   Aspect="Fill">
-                <Image.Source>
-                    <FontImageSource FontFamily="MaterialOutlined" Glyph="{x:Static mi:MaterialOutlined.Radio_button_checked}" Color="Gray" />
-                </Image.Source>
-            </Image>
-            <Image Grid.Column="1" IsVisible="{Binding IsRecording}"
-                   HeightRequest="{Binding Source={StaticResource IconHeight}, Converter={conv:MultiplyByDensityConverter}}"
-                   WidthRequest="{Binding Source={StaticResource IconWidth}, Converter={conv:MultiplyByDensityConverter}}"
-                   Aspect="Fill">
-                <Image.Source>
-                    <FontImageSource  FontFamily="MaterialOutlined" Glyph="{x:Static mi:MaterialOutlined.Radio_button_checked}" Color="Red" />
-                </Image.Source>
-            </Image>
-        </Grid><Grid ColumnDefinitions="Auto,Auto" HorizontalOptions="End">
+            <v:ImageView Grid.Column="1" FontFamily="MaterialOutlined" Glyph="{x:Static mi:MaterialOutlined.Radio_button_checked}" Color="Gray" />
+            <v:ImageView Grid.Column="1" FontFamily="MaterialOutlined" Glyph="{x:Static mi:MaterialOutlined.Radio_button_checked}" Color="Red"
+                         IsVisible="{Binding IsRecording}" />
+        </Grid>
+        <Grid ColumnDefinitions="Auto,Auto" HorizontalOptions="End">
             <Switch Grid.Column="0" IsToggled="{Binding IsRecording, Mode=TwoWay}">
                 <Switch.Behaviors>
                     <mct:EventToCommandBehavior
@@ -46,22 +35,10 @@
                         Command="{Binding ToggleRecordingCommand}" />
                 </Switch.Behaviors>
             </Switch>
-            <Image Grid.Column="1" IsVisible="{Binding IsRecording, Converter={conv:InverseBoolConverter}}"
-                   HeightRequest="{Binding Source={StaticResource IconHeight}, Converter={conv:MultiplyByDensityConverter}}"
-                   WidthRequest="{Binding Source={StaticResource IconWidth}, Converter={conv:MultiplyByDensityConverter}}"
-                   Aspect="Fill">
-                <Image.Source>
-                    <FontImageSource FontFamily="MaterialOutlined" Glyph="{x:Static mi:MaterialOutlined.Radio_button_checked}" Color="Gray" />
-                </Image.Source>
-            </Image>
-            <Image Grid.Column="1" IsVisible="{Binding IsRecording}"
-                   HeightRequest="{Binding Source={StaticResource IconHeight}, Converter={conv:MultiplyByDensityConverter}}"
-                   WidthRequest="{Binding Source={StaticResource IconWidth}, Converter={conv:MultiplyByDensityConverter}}"
-                   Aspect="Fill">
-                <Image.Source>
-                    <FontImageSource  FontFamily="MaterialOutlined" Glyph="{x:Static mi:MaterialOutlined.Radio_button_checked}" Color="Red" />
-                </Image.Source>
-            </Image>
+            <v:ImageView Grid.Column="1" FontFamily="MaterialOutlined" Glyph="{x:Static mi:MaterialOutlined.Radio_button_checked}" Color="Gray"
+                         IsVisible="{Binding IsRecording, Converter={conv:InverseBoolConverter}}" />
+            <v:ImageView Grid.Column="1" FontFamily="MaterialOutlined" Glyph="{x:Static mi:MaterialOutlined.Radio_button_checked}" Color="Red"
+                         IsVisible="{Binding IsRecording}" />
         </Grid>
     </Grid>
 </ContentView>
