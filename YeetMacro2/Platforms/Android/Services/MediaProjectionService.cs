@@ -7,6 +7,8 @@ using Android.Views;
 using Android.Widget;
 using static Android.Graphics.Bitmap;
 using YeetMacro2.Services;
+using Point = Microsoft.Maui.Graphics.Point;
+
 namespace YeetMacro2.Platforms.Android.Services;
 
 //https://github.com/xamarin/monodroid-samples/blob/main/android5.0/ScreenCapture/ScreenCapture/ScreenCaptureFragment.cs
@@ -221,16 +223,18 @@ public class MediaProjectionService : IRecorderService
         return ms.ToArray();
     }
 
-    public async Task<byte[]> GetCurrentImageData(int x, int y, int width, int height)
+    public async Task<byte[]> GetCurrentImageData(Point start, Point end)
     {
-        if (x < 0) x = 0;
-        if (y < 0) y = 0;
+        if (start.X < 0) start.X = 0;
+        if (start.Y < 0) start.Y = 0;
+        var width = end.X - start.X;
+        var height = end.Y - start.Y;
         await EnsureProjectionServiceStarted();
 
         var bitmap = GetBitmap();
         if (bitmap == null) return null;
 
-        var newBitmap = Bitmap.CreateBitmap(bitmap, x, y, width, height);
+        var newBitmap = Bitmap.CreateBitmap(bitmap, (int)start.X, (int)start.Y, (int)width, (int)height);
         bitmap.Dispose();
         MemoryStream ms = new MemoryStream();
         newBitmap.Compress(CompressFormat.Jpeg, 100, ms);

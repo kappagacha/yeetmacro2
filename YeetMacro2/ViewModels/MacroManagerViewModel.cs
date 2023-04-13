@@ -152,6 +152,18 @@ public partial class MacroManagerViewModel : ObservableObject
         OnScriptExecuted?.Execute(null);
     }
 
+    [RelayCommand]
+    private void ToggleShowLogView()
+    {
+        ShowLogView = !ShowLogView;
+    }
+
+    [RelayCommand]
+    private void ToggleInDebugMode()
+    {
+        InDebugMode = !InDebugMode;
+    }
+
     partial void OnSelectedMacroSetChanged(MacroSet value)
     {
         Preferences.Default.Set(nameof(SelectedMacroSet), value.Name);

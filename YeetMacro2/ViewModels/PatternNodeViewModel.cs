@@ -120,15 +120,8 @@ public partial class PatternNodeViewModel : NodeViewModel<PatternNode, PatternNo
         }
 
         var bounds = await _inputService.DrawUserRectangle();
-        pattern.ImageData = await _screenService.GetCurrentImageData(
-            (int)bounds.X, (int)bounds.Y, (int)bounds.W, (int)bounds.H);
-        pattern.Bounds = ProxyViewModel.Create(new Bounds()
-        {
-            X = bounds.X,
-            Y = bounds.Y,
-            W = bounds.W,
-            H = bounds.H
-        });
+        pattern.ImageData = await _screenService.GetCurrentImageData(bounds.start, bounds.end);
+        pattern.Bounds = ProxyViewModel.Create(new Bounds() { Start = bounds.start, End= bounds.end });
         pattern.Resolution = ProxyViewModel.Create(new Resolution()
         {
             Width = DeviceDisplay.MainDisplayInfo.Width,
@@ -155,9 +148,9 @@ public partial class PatternNodeViewModel : NodeViewModel<PatternNode, PatternNo
         if (pattern == null) return;
 
         var bounds = await _inputService.DrawUserRectangle();
-        if (bounds != null)
+        if (bounds.start != Point.Zero && bounds.end != Point.Zero)
         {
-            pattern.Bounds = bounds;
+            pattern.Bounds = new Bounds() { Start = bounds.start, End = bounds.end };
             _patternRepository.Update(pattern);
             _patternRepository.Save();
         }
@@ -175,14 +168,14 @@ public partial class PatternNodeViewModel : NodeViewModel<PatternNode, PatternNo
 
         if (pattern.Bounds != null)
         {
-            _screenService.DrawRectangle((int)pattern.Bounds.X, (int)pattern.Bounds.Y, (int)pattern.Bounds.W, (int)pattern.Bounds.H);
+            _screenService.DrawRectangle(pattern.Bounds.Start, pattern.Bounds.End);
         }
 
         if (points != null)
         {
             foreach (var point in points)
             {
-                _screenService.DrawCircle((int)point.X, (int)point.Y);
+                _screenService.DrawCircle(point);
             }
         }
     }
@@ -225,7 +218,7 @@ public partial class PatternNodeViewModel : NodeViewModel<PatternNode, PatternNo
         if (pattern.Bounds != null)
         {
             _screenService.DrawClear();
-            _screenService.DrawRectangle((int)pattern.Bounds.X, (int)pattern.Bounds.Y, (int)pattern.Bounds.W, (int)pattern.Bounds.H);
+            _screenService.DrawRectangle(pattern.Bounds.Start, pattern.Bounds.End);
         }
         var result = await _screenService.GetText(pattern);
         _toastService.Show($"TextMatch: {result}");
@@ -238,7 +231,7 @@ public partial class PatternNodeViewModel : NodeViewModel<PatternNode, PatternNo
         if (pattern.Bounds != null)
         {
             _screenService.DrawClear();
-            _screenService.DrawRectangle((int)pattern.Bounds.X, (int)pattern.Bounds.Y, (int)pattern.Bounds.W, (int)pattern.Bounds.H);
+            _screenService.DrawRectangle(pattern.Bounds.Start, pattern.Bounds.End);
         }
         var result = await _screenService.GetText(pattern);
         _toastService.Show($"TextMatch Apply: {result}");

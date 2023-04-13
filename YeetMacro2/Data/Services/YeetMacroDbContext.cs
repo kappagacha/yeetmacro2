@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using System.Text.Json;
 using YeetMacro2.Data.Models;
 
@@ -31,6 +32,11 @@ public class YeetMacroDbContext : DbContext
     {
         base.OnModelCreating(modelBuilder);
 
+        // https://learn.microsoft.com/en-us/ef/core/modeling/value-conversions?tabs=data-annotations#the-valueconverter-class
+        var pointConverter = new ValueConverter<Point, string>(
+            p => JsonSerializer.Serialize(p, new JsonSerializerOptions()),
+            p => JsonSerializer.Deserialize<Point>(p, new JsonSerializerOptions()));
+
         modelBuilder.Entity<MacroSet>().HasKey(ms => ms.MacroSetId);
         modelBuilder.Entity<MacroSet>().HasOne(ms => ms.RootPattern).WithOne()
             .HasPrincipalKey<MacroSet>(ms => ms.RootPatternNodeId).OnDelete(DeleteBehavior.Cascade);
@@ -56,7 +62,11 @@ public class YeetMacroDbContext : DbContext
         modelBuilder.Entity<PatternNode>().HasMany(pn => pn.Patterns).WithOne().HasForeignKey(p => p.ParentNodeId).OnDelete(DeleteBehavior.Cascade);
         modelBuilder.Entity<Pattern>().HasKey(p => p.PatternId);
         modelBuilder.Entity<Pattern>().OwnsOne(p => p.Resolution);
-        modelBuilder.Entity<Pattern>().OwnsOne(p => p.Bounds);
+        modelBuilder.Entity<Pattern>().OwnsOne(p => p.Bounds, b0 =>
+        {
+            b0.Property(b => b.Start).HasConversion(pointConverter);
+            b0.Property(b => b.End).HasConversion(pointConverter);
+        });
         modelBuilder.Entity<Pattern>().OwnsOne(p => p.ColorThreshold);
 
         modelBuilder.Entity<ScriptNode>().HasMany(pn => pn.Nodes).WithOne().HasForeignKey($"{nameof(ScriptNode)}{nameof(Node.ParentId)}").OnDelete(DeleteBehavior.Cascade);

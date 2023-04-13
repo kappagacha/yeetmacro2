@@ -4,8 +4,8 @@ using YeetMacro2.Data.Models;
 using YeetMacro2.Services;
 using System.Drawing;
 using System.Drawing.Imaging;
-using Point = System.Drawing.Point;
 using Size = System.Drawing.Size;
+using Point = Microsoft.Maui.Graphics.Point;
 
 namespace YeetMacro2.Platforms.Windows.Services;
 public class WindowsScreenService : IScreenService, IRecorderService
@@ -32,7 +32,7 @@ public class WindowsScreenService : IScreenService, IRecorderService
         throw new NotImplementedException();
     }
 
-    public void DebugCircle(int x, int y)
+    public void DebugCircle(Point point)
     {
         throw new NotImplementedException();
     }
@@ -42,22 +42,22 @@ public class WindowsScreenService : IScreenService, IRecorderService
         throw new NotImplementedException();
     }
 
-    public void DebugRectangle(int x, int y, int width, int height)
+    public void DebugRectangle(Point start, Point end)
     {
         throw new NotImplementedException();
     }
 
-    public void DoClick(float x, float y)
+    public void DoClick(Point point)
     {
         throw new NotImplementedException();
     }
 
-    public void DoSwipe(Microsoft.Maui.Graphics.Point start, Microsoft.Maui.Graphics.Point end)
+    public void DoSwipe(Point start, Point end)
     {
         throw new NotImplementedException();
     }
 
-    public void DrawCircle(int x, int y)
+    public void DrawCircle(Point point)
     {
         throw new NotImplementedException();
     }
@@ -67,7 +67,7 @@ public class WindowsScreenService : IScreenService, IRecorderService
         throw new NotImplementedException();
     }
 
-    public void DrawRectangle(int x, int y, int width, int height)
+    public void DrawRectangle(Point start, Point end)
     {
         throw new NotImplementedException();
     }
@@ -77,13 +77,15 @@ public class WindowsScreenService : IScreenService, IRecorderService
         throw new NotImplementedException();
     }
 
-    public Task<byte[]> GetCurrentImageData(int x, int y, int w, int h)
+    public Task<byte[]> GetCurrentImageData(Point start, Point end)
     {
+        var width = end.X - start.X;
+        var height = end.Y - start.Y;
         // https://nishanc.medium.com/c-screenshot-utility-to-capture-a-portion-of-the-screen-489ddceeee49
-        Rectangle rect = new Rectangle(x, y, w, h);
+        Rectangle rect = new Rectangle((int)start.X, (int)start.Y, (int)width, (int)height);
         var bmp = new Bitmap(rect.Width, rect.Height, PixelFormat.Format32bppArgb);
         Graphics g = Graphics.FromImage(bmp);
-        var size = new System.Drawing.Size(w, h);
+        var size = new System.Drawing.Size((int)width, (int)height);
         g.CopyFromScreen(rect.Left, rect.Top, 0, 0, size, CopyPixelOperation.SourceCopy);
 
         //var file = FileSystem.Current.AppDataDirectory + "/test.png";
@@ -212,9 +214,9 @@ public struct RECT
         get { return _Right - _Left; }
         set { _Right = value + _Left; }
     }
-    public Point Location
+    public System.Drawing.Point Location
     {
-        get { return new Point(Left, Top); }
+        get { return new System.Drawing.Point(Left, Top); }
         set
         {
             _Left = value.X;

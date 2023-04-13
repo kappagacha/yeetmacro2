@@ -222,7 +222,7 @@ public class AndroidWindowManagerService : IInputService, IScreenService
         return null;
     }
 
-    public async Task<Bounds> DrawUserRectangle()
+    public async Task<(Point start, Point end)> DrawUserRectangle()
     {
         Show(AndroidWindowView.UserDrawView);
         var drawControl = (DrawControl)_views[AndroidWindowView.UserDrawView].VisualElement;
@@ -230,9 +230,9 @@ public class AndroidWindowManagerService : IInputService, IScreenService
         var formsView = (FormsView)_views[AndroidWindowView.UserDrawView];
         if (await formsView.WaitForClose())
         {
-            return new Bounds() { X = drawControl.RectX, Y = drawControl.RectY, W = drawControl.RectWidth, H = drawControl.RectHeight };
+            return (drawControl.Start, drawControl.End);
         }
-        return null;
+        return (Point.Zero, Point.Zero);
     }
 
     public void DrawClear()
@@ -244,36 +244,39 @@ public class AndroidWindowManagerService : IInputService, IScreenService
         drawControl.ClearRectangles();
     }
 
-    public void DrawRectangle(int x, int y, int width, int height)
+    public void DrawRectangle(Point start, Point end)
     {
         Show(AndroidWindowView.DrawView);
         var drawControl = (DrawControl)_views[AndroidWindowView.DrawView].VisualElement;
         var drawView = (FormsView)_views[AndroidWindowView.DrawView];
         drawView.SetIsTouchable(true);
-        drawControl.AddRectangle(x, y, width, height);
+        drawControl.AddRectangle(start, end);
     }
 
-    public void DrawCircle(int x, int y)
+    public void DrawCircle(Point point)
     {
         Show(AndroidWindowView.DrawView);
         var drawControl = (DrawControl)_views[AndroidWindowView.DrawView].VisualElement;
         var drawView = (FormsView)_views[AndroidWindowView.DrawView];
         drawView.SetIsTouchable(true);
-        drawControl.AddCircle(x, y);
+        drawControl.AddCircle(point);
     }
 
-    public void DebugRectangle(int x, int y, int width, int height)
+    public void DebugRectangle(Point start, Point end)
+    {
+        var width = end.X - start.X;
+        var height = end.Y - start.Y;
+        Show(AndroidWindowView.DebugDrawView);
+        var drawControl = (DrawControl)_views[AndroidWindowView.DebugDrawView].VisualElement;
+        var thickness = 10;
+        drawControl.AddRectangle(new Point(start.X - thickness, start.Y - thickness), new Point(end.X + thickness * 2, end.Y + thickness * 2));
+    }
+
+    public void DebugCircle(Point point)
     {
         Show(AndroidWindowView.DebugDrawView);
         var drawControl = (DrawControl)_views[AndroidWindowView.DebugDrawView].VisualElement;
-        drawControl.AddRectangle(x - 13, y - 13, width + 26, height + 26);
-    }
-
-    public void DebugCircle(int x, int y)
-    {
-        Show(AndroidWindowView.DebugDrawView);
-        var drawControl = (DrawControl)_views[AndroidWindowView.DebugDrawView].VisualElement;
-        drawControl.AddCircle(x, y);
+        drawControl.AddCircle(point);
     }
 
     public void DebugClear()
@@ -359,11 +362,7 @@ public class AndroidWindowManagerService : IInputService, IScreenService
             try
             {
                 haystackImageData = pattern.Bounds != null ?
-                    await _mediaProjectionService.GetCurrentImageData(
-                        (int)(pattern.Bounds.X - boundsPadding),
-                        (int)(pattern.Bounds.Y - boundsPadding),
-                        (int)(pattern.Bounds.W + boundsPadding),
-                        (int)(pattern.Bounds.H + boundsPadding)) :
+                    await _mediaProjectionService.GetCurrentImageData(pattern.Bounds.Start, pattern.Bounds.End) :
                     await _mediaProjectionService.GetCurrentImageData();
             }
             catch (Exception ex)
@@ -395,8 +394,8 @@ public class AndroidWindowManagerService : IInputService, IScreenService
                 if (_tesseractApi.Text == pattern.TextMatch && pattern.Bounds != null)
                 {
                     textPoints.Add(new Point(
-                       (int)(pattern.Bounds.X - boundsPadding + pattern.Bounds.W / 2.0),
-                       (int)(pattern.Bounds.Y - boundsPadding + pattern.Bounds.H / 2.0)));
+                       (int)((pattern.Bounds.Start.X + pattern.Bounds.End.X - boundsPadding) / 2.0),
+                       (int)((pattern.Bounds.Start.Y + pattern.Bounds.End.Y - boundsPadding) / 2.0)));
                 }
                 else if (_tesseractApi.Text == pattern.TextMatch)  // TextMatch is not meant to be used on whole screen
                 {
@@ -414,8 +413,8 @@ public class AndroidWindowManagerService : IInputService, IScreenService
                 {
                     var point = points[i];
                     newPoints.Add(new Point(
-                        (int)(point.X + (pattern.Bounds.X - boundsPadding)),
-                        (int)(point.Y + (pattern.Bounds.Y - boundsPadding))));
+                        (int)(point.X + (pattern.Bounds.Start.X - boundsPadding)),
+                        (int)(point.Y + (pattern.Bounds.Start.Y - boundsPadding))));
                 }
                 return newPoints;
             }
@@ -430,9 +429,9 @@ public class AndroidWindowManagerService : IInputService, IScreenService
         }
     }
 
-    public void DoClick(float x, float y)
+    public void DoClick(Point point)
     {
-        _accessibilityService.DoClick(x, y);
+        _accessibilityService.DoClick(point);
     }
 
     public void DoSwipe(Point start, Point end)
@@ -460,9 +459,9 @@ public class AndroidWindowManagerService : IInputService, IScreenService
         return OpenCvHelper.CalcColorThreshold(pattern.ImageData, colorThreshold);
     }
 
-    public async Task<byte[]> GetCurrentImageData(int x, int y, int w, int h)
+    public async Task<byte[]> GetCurrentImageData(Point start, Point end)
     {
-        return await _mediaProjectionService.GetCurrentImageData(x, y, w, h);
+        return await _mediaProjectionService.GetCurrentImageData(start, end);
     }
 
     public async Task<string> GetText(Pattern pattern)
@@ -470,10 +469,8 @@ public class AndroidWindowManagerService : IInputService, IScreenService
         var boundsPadding = 4;
         var currentImageData = pattern.Bounds != null ?
             await _mediaProjectionService.GetCurrentImageData(
-                (int)(pattern.Bounds.X - boundsPadding),
-                (int)(pattern.Bounds.Y - boundsPadding),
-                (int)(pattern.Bounds.W + boundsPadding),
-                (int)(pattern.Bounds.H + boundsPadding)) :
+                new Point(pattern.Bounds.Start.X - boundsPadding, pattern.Bounds.Start.Y - boundsPadding),
+                new Point(pattern.Bounds.End.X + boundsPadding, pattern.Bounds.End.Y + boundsPadding)) :
             await _mediaProjectionService.GetCurrentImageData();
         await _tesseractApi.SetImage(pattern.ColorThreshold.IsActive ?
             OpenCvHelper.CalcColorThreshold(currentImageData, pattern.ColorThreshold):
@@ -505,7 +502,7 @@ public class AndroidWindowManagerService : IInputService, IScreenService
         {
             foreach (var point in result.Points)
             {
-                DoClick((float)point.X, (float)point.Y);
+                DoClick(point);
             }
         }
 

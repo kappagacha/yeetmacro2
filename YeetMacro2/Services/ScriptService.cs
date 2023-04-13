@@ -97,7 +97,7 @@ public class ScriptService : IScriptService
                 var jsPoint = a[0];
                 var x = jsPoint["x"].DoubleValue;
                 var y = jsPoint["y"].DoubleValue;
-                _screenService.DoClick((float)x, (float)y);
+                _screenService.DoClick(new Point(x, y));
                 return JSNull.Value;
             }), JSPropertyAttributes.ReadonlyValue),
             new JSProperty("doSwipe", new JSFunction((in Arguments a) =>
@@ -177,7 +177,7 @@ public class ScriptService : IScriptService
                                 {
                                     MainThread.BeginInvokeOnMainThread(() =>
                                     {
-                                        _screenService.DebugRectangle((int)pattern.Bounds.X, (int)pattern.Bounds.Y, (int)pattern.Bounds.W, (int)pattern.Bounds.H);
+                                        _screenService.DebugRectangle(pattern.Bounds.Start, pattern.Bounds.End);
                                     });
                                 }
                                 var singleResult = await _screenService.FindPattern(pattern, opts);
@@ -197,7 +197,7 @@ public class ScriptService : IScriptService
                             {
                                 MainThread.BeginInvokeOnMainThread(() =>
                                 {
-                                    _screenService.DebugRectangle((int)pattern.Bounds.X, (int)pattern.Bounds.Y, (int)pattern.Bounds.W, (int)pattern.Bounds.H);
+                                    _screenService.DebugRectangle(pattern.Bounds.Start, pattern.Bounds.End);
                                 });
                             }
                             result = await _screenService.FindPattern(pattern, opts);
@@ -209,7 +209,7 @@ public class ScriptService : IScriptService
                             {
                                 foreach (var point in result.Points)
                                 {
-                                    _screenService.DebugCircle((int)point.X, (int)point.Y);
+                                    _screenService.DebugCircle(point);
                                 }
                             });
                         }

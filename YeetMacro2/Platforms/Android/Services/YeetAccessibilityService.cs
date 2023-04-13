@@ -1,10 +1,8 @@
 ﻿using Android.AccessibilityServices;
 using Android.App;
 using Android.Content;
-using Android.Gestures;
 using Android.Provider;
 using Android.Views.Accessibility;
-using Google.Android.Material.Shape;
 
 namespace YeetMacro2.Platforms.Android.Services;
 //http://www.spikie.be/post/2017/07/01/AndroidFloatingWidgetsInXamarin.html
@@ -95,17 +93,17 @@ public class YeetAccessibilityService : AccessibilityService
         return base.OnUnbind(intent);
     }
 
-    public void DoClick(float x, float y)
+    public void DoClick(Point point)
     {
         try
         {
-            if (_instance == null || x < 0.0f || y < 0.0f)
+            if (_instance == null || point.X < 0.0 || point.Y < 0.0)
             {
                 return;
             }
 
             global::Android.Graphics.Path swipePath = new global::Android.Graphics.Path();
-            swipePath.MoveTo(x, y);
+            swipePath.MoveTo((float)point.X, (float)point.Y);
             GestureDescription.Builder gestureBuilder = new GestureDescription.Builder();
             gestureBuilder.AddStroke(new GestureDescription.StrokeDescription(swipePath, 0, 100));
             _instance.DispatchGesture(gestureBuilder.Build(), null, null);

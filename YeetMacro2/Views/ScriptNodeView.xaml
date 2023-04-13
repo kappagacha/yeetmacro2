@@ -13,40 +13,36 @@
              x:Name="thisControl">
     <Grid ColumnDefinitions="*,3*">
         <Border Grid.Column="0" Stroke="{StaticResource Primary}" BackgroundColor="Transparent" Padding="3">
-            <Grid>
-                <v:NodeView ItemsSource="{Binding Scripts}">
-                    <v:NodeView.ExtraMenuItemsDataTemplate>
-                        <DataTemplate x:DataType="{x:Null}">
-                            <VerticalStackLayout>
-                                <v:ImageView FontFamily="FASolid" Glyph="{x:Static fa:Solid.Download}" 
+            <v:NodeView ItemsSource="{Binding Scripts}">
+                <v:NodeView.ExtraMenuItemsDataTemplate>
+                    <DataTemplate x:DataType="{x:Null}">
+                        <VerticalStackLayout>
+                            <v:ImageView FontFamily="FASolid" Glyph="{x:Static fa:Solid.Terminal}" Color="LightGray"
+                                             Command="{Binding BindingContext.ToggleShowLogViewCommand}">
+                                <v:ImageView.Triggers>
+                                    <DataTrigger TargetType="{x:Type v:ImageView}" Binding="{Binding BindingContext.ShowLogView, Source={RelativeSource AncestorType={x:Type v:ScriptNodeView}}}" Value="True">
+                                        <Setter Property="Color" Value="Green" />
+                                    </DataTrigger>
+                                </v:ImageView.Triggers>
+                            </v:ImageView>
+                            <v:ImageView FontFamily="MaterialOutlined" Glyph="{x:Static mi:MaterialOutlined.Filter_center_focus}"  Color="LightGray"
+                                             Command="{Binding BindingContext.ToggleInDebugModeCommand}">
+                                <v:ImageView.Triggers>
+                                    <DataTrigger TargetType="{x:Type v:ImageView}" Binding="{Binding BindingContext.InDebugMode, Source={RelativeSource AncestorType={x:Type v:ScriptNodeView}}}" Value="True">
+                                        <Setter Property="Color" Value="Green" />
+                                    </DataTrigger>
+                                </v:ImageView.Triggers>
+                            </v:ImageView>
+                            <v:ImageView FontFamily="FASolid" Glyph="{x:Static fa:Solid.Download}" 
                                                 Command="{Binding ItemsSource.ImportCommand}"
                                                 CommandParameter="{Binding BindingContext.SelectedMacroSet.Name, Source={RelativeSource AncestorType={x:Type v:ScriptNodeView}}}" />
-                                <v:ImageView FontFamily="FASolid" Glyph="{x:Static fa:Solid.FileExport}" 
+                            <v:ImageView FontFamily="FASolid" Glyph="{x:Static fa:Solid.FileExport}" 
                                                 Command="{Binding ItemsSource.ExportCommand}"
                                                 CommandParameter="{Binding BindingContext.SelectedMacroSet.Name, Source={RelativeSource AncestorType={x:Type v:ScriptNodeView}}}" />
-                            </VerticalStackLayout>
-                        </DataTemplate>
-                    </v:NodeView.ExtraMenuItemsDataTemplate>
-                </v:NodeView>
-                <Grid HorizontalOptions="Start" VerticalOptions="End" RowDefinitions="Auto,Auto" ColumnDefinitions="Auto,Auto">
-                    <Switch Grid.Row="0" Grid.Column="0" IsToggled="{Binding ShowLogView, Mode=TwoWay}" />
-                    <Label Grid.Row="0" Grid.Column="1" VerticalTextAlignment="Center" Text="LogView">
-                        <Label.Triggers>
-                            <DataTrigger TargetType="Label" Binding="{Binding ShowLogView}" Value="True">
-                                <Setter Property="TextColor" Value="Green" />
-                            </DataTrigger>
-                        </Label.Triggers>
-                    </Label>
-                    <Switch Grid.Row="1" Grid.Column="0" IsToggled="{Binding InDebugMode, Mode=TwoWay}" />
-                    <Label Grid.Row="1" Grid.Column="1" VerticalTextAlignment="Center" Text="DebugMode">
-                        <Label.Triggers>
-                            <DataTrigger TargetType="Label" Binding="{Binding InDebugMode}" Value="True">
-                                <Setter Property="TextColor" Value="Green" />
-                            </DataTrigger>
-                        </Label.Triggers>
-                    </Label>
-                </Grid>
-            </Grid>
+                        </VerticalStackLayout>
+                    </DataTemplate>
+                </v:NodeView.ExtraMenuItemsDataTemplate>
+            </v:NodeView>
         </Border>
         <Grid Grid.Column="1"  BackgroundColor="Transparent" Padding="3">
             <Border Stroke="{StaticResource Primary}" BackgroundColor="Transparent" Padding="3"

@@ -63,13 +63,11 @@ public class ColorThresholdProperties
 
 public class Bounds
 {
-    public virtual double X { get; set; }
-    public virtual double Y { get; set; }
-    public virtual double W { get; set; }
-    public virtual double H { get; set; }
+    public virtual Point Start { get; set; }
+    public virtual Point End { get; set; }
     public override string ToString()
     {
-        return $"x{X:F0},y{Y:F0},w{W:F0},h{H:F0}";
+        return $"({Start.X:F2}, {Start.Y:F2}),({End.X:F2}, {End.Y:F2})";
     }
 }
 

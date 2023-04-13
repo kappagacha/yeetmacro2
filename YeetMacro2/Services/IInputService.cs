@@ -5,5 +5,5 @@ public interface IInputService
 {
     Task<string> PromptInput(string message);
     Task<string> SelectOption(string message, params string[] options);
-    Task<Bounds> DrawUserRectangle();
+    Task<(Point start, Point end)> DrawUserRectangle();
 }
