@@ -92,12 +92,21 @@ public class ScriptService : IScriptService
                 _screenService.DebugClear();
                 return JSNull.Value;
             }), JSPropertyAttributes.ReadonlyValue),
-            new JSProperty("clickPoint", new JSFunction((in Arguments a) =>
+            new JSProperty("doClick", new JSFunction((in Arguments a) =>
             {
                 var jsPoint = a[0];
                 var x = jsPoint["x"].DoubleValue;
                 var y = jsPoint["y"].DoubleValue;
                 _screenService.DoClick((float)x, (float)y);
+                return JSNull.Value;
+            }), JSPropertyAttributes.ReadonlyValue),
+            new JSProperty("doSwipe", new JSFunction((in Arguments a) =>
+            {
+                var jsPointStart = a[0];
+                var jsPointEnd = a[1];
+                _screenService.DoSwipe(
+                    new Point(jsPointStart["x"].DoubleValue, jsPointStart["y"].DoubleValue),
+                    new Point(jsPointEnd["x"].DoubleValue, jsPointEnd["y"].DoubleValue));
                 return JSNull.Value;
             }), JSPropertyAttributes.ReadonlyValue)
         });
@@ -239,36 +248,4 @@ public class ScriptService : IScriptService
         var initScript = reader.ReadToEnd();
         await _jsContext.ExecuteAsync(initScript);
     }
-
-    //public async Task<Engine> CreateEngine()
-    //{
-    //    if (_cancellationTokenSource != null)
-    //    {
-    //        _cancellationTokenSource.Dispose();
-    //    }
-    //    _cancellationTokenSource = new CancellationTokenSource();
-
-    //    var treeViewViewModel = _macroManagerViewModel.Patterns;
-    //    //var scripts = _macroManagerViewModel.Scripts.Scripts;
-    //    await treeViewViewModel.WaitForInitialization();
-    //    var patterns = treeViewViewModel.Root.BuildDynamicObject();
-
-    //    var engine = new Engine(opt => opt.CancellationToken(_cancellationTokenSource.Token))
-    //            .SetValue("log", new Action<string>((msg) => _logger.LogInformation(msg)))
-    //            .SetValue("sleep", new Action<int>((ms) => Thread.Sleep(ms)))
-    //            .SetValue("patterns", patterns)
-    //            .SetValue("macroService", _macroService.BuildDynamicObject(_cancellationTokenSource.Token));
-
-    //    //foreach (var script in scripts)
-    //    //{
-    //    //    var func = script.Text.StartsWith("function") ? script.Text : 
-    //    //        $@"function {script.Name}() {{
-    //    //            {script.Text}
-    //    //        }}";
-
-    //    //    engine.Execute(func);
-    //    //}
-
-    //    return engine;
-    //}
 }

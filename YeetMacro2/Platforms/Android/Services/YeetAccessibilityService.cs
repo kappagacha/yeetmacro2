@@ -1,8 +1,10 @@
 ﻿using Android.AccessibilityServices;
 using Android.App;
 using Android.Content;
+using Android.Gestures;
 using Android.Provider;
 using Android.Views.Accessibility;
+using Google.Android.Material.Shape;
 
 namespace YeetMacro2.Platforms.Android.Services;
 //http://www.spikie.be/post/2017/07/01/AndroidFloatingWidgetsInXamarin.html
@@ -115,6 +117,65 @@ public class YeetAccessibilityService : AccessibilityService
             Console.WriteLine("[*****YeetMacro*****] YeetAccessibilityService OnAccessibilityEvent Exception");
             Console.WriteLine("[*****YeetMacro*****] " + ex.Message);
         }
+    }
+
+    // https://github.com/Fate-Grand-Automata/FGA/blob/de9c69e10aec990a061c049f0bf3ca3c253d199b/app/src/main/java/com/mathewsachin/fategrandautomata/accessibility/AccessibilityGestures.kt#L61
+    public void DoSwipe(Point start, Point end)
+    {
+        if (_instance == null)
+        {
+            return;
+        }
+
+        var xDiff = (end.X - start.X);
+        var yDiff = (end.Y - start.Y);
+        var direction = Math.Atan2(xDiff, yDiff);
+        var distanceLeft = Math.Sqrt(Math.Pow(xDiff, 2) + Math.Pow(yDiff, 2));
+
+        var swipeDelay = 1L;
+        var swipeDuration = 1L;
+        var defaultSwipeDuration = 300;     // milliseconds
+
+        var timesToSwipe = defaultSwipeDuration / (swipeDelay + swipeDuration);
+        var thresholdDistance = distanceLeft / timesToSwipe;
+
+        var from = start;
+        var mouseDownPath = new global::Android.Graphics.Path();
+        mouseDownPath.MoveTo((float)start.X, (float)start.Y);
+
+        var lastStroke = new GestureDescription.StrokeDescription(mouseDownPath, 0, 200, true);
+        PerformGesture(lastStroke);
+
+        while (distanceLeft > 0)
+        {
+            var distanceToScroll = Math.Min(thresholdDistance, distanceLeft);
+
+            var x = from.X + distanceToScroll * Math.Sin(direction);
+            var y = from.Y + distanceToScroll * Math.Cos(direction);
+            var to = new Point(x, y);
+
+            var swipePath = new global::Android.Graphics.Path();
+            swipePath.MoveTo((float)from.X, (float)from.Y);
+            swipePath.LineTo((float)to.X, (float)to.Y);
+
+            lastStroke = lastStroke.ContinueStroke(swipePath, swipeDelay, swipeDuration, true);
+            PerformGesture(lastStroke);
+
+            from = to;
+            distanceLeft -= distanceToScroll;
+        }
+
+        var mouseUpPath = new global::Android.Graphics.Path();
+        mouseUpPath.MoveTo((float)from.X, (float)from.Y);
+
+        lastStroke = lastStroke.ContinueStroke(mouseUpPath, 1, 400L, false);
+        PerformGesture(lastStroke);
+    }
+
+    private void PerformGesture(GestureDescription.StrokeDescription strokeDescription)
+    {
+        var gestureDescription = new GestureDescription.Builder().AddStroke(strokeDescription).Build();
+        _instance.DispatchGesture(gestureDescription, null, null);
     }
 
     public void Start()

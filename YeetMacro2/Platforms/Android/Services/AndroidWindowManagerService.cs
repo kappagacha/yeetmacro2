@@ -435,6 +435,11 @@ public class AndroidWindowManagerService : IInputService, IScreenService
         _accessibilityService.DoClick(x, y);
     }
 
+    public void DoSwipe(Point start, Point end)
+    {
+        _accessibilityService.DoSwipe(start, end);
+    }
+
     public async Task ScreenCapture()
     {
         await _mediaProjectionService.TakeScreenCapture();

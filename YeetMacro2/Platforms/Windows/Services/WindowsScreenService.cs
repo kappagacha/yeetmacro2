@@ -52,6 +52,11 @@ public class WindowsScreenService : IScreenService, IRecorderService
         throw new NotImplementedException();
     }
 
+    public void DoSwipe(Microsoft.Maui.Graphics.Point start, Microsoft.Maui.Graphics.Point end)
+    {
+        throw new NotImplementedException();
+    }
+
     public void DrawCircle(int x, int y)
     {
         throw new NotImplementedException();

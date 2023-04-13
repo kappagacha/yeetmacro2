@@ -26,6 +26,7 @@ public interface IScreenService
     void DebugClear();
     Task<List<Point>> GetMatches(Pattern template, FindOptions opts);
     void DoClick(float x, float y);
+    void DoSwipe(Point start, Point end);
     Byte[] CalcColorThreshold(Pattern pattern, ColorThresholdProperties colorThreshold);
     Task<byte[]> GetCurrentImageData(int x, int y, int w, int h);
     Task<string> GetText(Pattern pattern);
