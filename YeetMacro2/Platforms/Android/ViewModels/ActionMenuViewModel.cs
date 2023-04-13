@@ -1,7 +1,6 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using Microsoft.Extensions.Logging;
-using System.ComponentModel;
 using YeetMacro2.Data.Models;
 using YeetMacro2.Platforms.Android.Services;
 using YeetMacro2.Services;
@@ -14,8 +13,7 @@ public partial class ActionMenuViewModel : ObservableObject
     IToastService _toastService;
     AndroidWindowManagerService _windowManagerService;
     YeetAccessibilityService _accessibilityService;
-    ScriptNodeViewModel _scriptNodeViewmodel;
-
+    MacroManagerViewModel _macroManagerViewModel;
     public Resolution CurrentResolution => new Resolution()
     {
         Width = DeviceDisplay.MainDisplayInfo.Width,
@@ -33,16 +31,17 @@ public partial class ActionMenuViewModel : ObservableObject
     public string CurrentPackage => _accessibilityService.CurrentPackage;
     public string DisplayCutoutTop => _windowManagerService.DisplayCutoutTop.ToString();
     public bool HasCutoutTop => _windowManagerService.DisplayCutoutTop > 0;
-    // TODO: Make this depend on current MacroSet
-    public bool HasValidResolution => DeviceDisplay.MainDisplayInfo.Width == 1080 && DeviceDisplay.MainDisplayInfo.Height == 1920;
+    public bool HasValidResolution => DeviceDisplay.MainDisplayInfo.Width == _macroManagerViewModel.SelectedMacroSet.Resolution.Width &&
+        DeviceDisplay.MainDisplayInfo.Height == _macroManagerViewModel.SelectedMacroSet.Resolution.Height;
 
     public ActionMenuViewModel(ILogger<ActionViewModel> logger, IToastService toastService, AndroidWindowManagerService windowManagerService,
-        YeetAccessibilityService accessibilityService)
+        YeetAccessibilityService accessibilityService, MacroManagerViewModel macroManagerViewModel)
     {
         _logger = logger;
         _toastService = toastService;
         _windowManagerService = windowManagerService;
         _accessibilityService = accessibilityService;
+        _macroManagerViewModel = macroManagerViewModel;
     }
 
     [RelayCommand]

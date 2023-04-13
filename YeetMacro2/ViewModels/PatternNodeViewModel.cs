@@ -17,18 +17,6 @@ public partial class PatternNodeViewModel : NodeViewModel<PatternNode, PatternNo
     [ObservableProperty]
     Pattern _selectedPattern;
 
-    //public PatternBase SelectedPattern
-    //{
-    //    get { return _selectedPattern; }
-    //    set
-    //    {
-    //        SetProperty(ref _selectedPattern, value);
-    //        if (_selectedPattern != null && _selectedPattern.ImageData != null)
-    //        {
-    //            SelectedImageSource = ImageSource.FromStream(() => new MemoryStream(_selectedPattern.ImageData));
-    //        }
-    //    }
-    //}
     public Resolution CurrentResolution => _currentResolution ?? (_currentResolution = new Resolution()
     {
         Width = DeviceDisplay.MainDisplayInfo.Width,
@@ -152,13 +140,6 @@ public partial class PatternNodeViewModel : NodeViewModel<PatternNode, PatternNo
         // Annoying that OnPropertyChanged(nameof(SelectedPattern)) won't work
         SelectedPattern = null;
         SelectedPattern = pattern;
-
-        //SelectedImageSource = ImageSource.FromStream(() => new MemoryStream(_selectedPattern.ImageData));
-        //SelectedImageSource = ImageSource.FromStream(() => imageStream);
-
-        ////await Task.Delay(250);
-        ////pattern.IsSelected = false;
-        ////SelectPattern(pattern);
     }
 
     [RelayCommand]
