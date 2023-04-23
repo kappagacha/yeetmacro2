@@ -8,6 +8,8 @@ public class ModelProfile : Profile
     {
         CreateMap<MacroSet, MacroSet>();
         CreateMap<Pattern, Pattern>();
+        CreateMap<TextMatchProperties, TextMatchProperties>();
+        CreateMap<ColorThresholdProperties, ColorThresholdProperties>();
         CreateMap<PatternNode, PatternNode>();
         CreateMap<Resolution, Resolution>();
         CreateMap<Bounds, Bounds>();

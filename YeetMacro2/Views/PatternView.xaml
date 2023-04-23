@@ -19,8 +19,11 @@
                 <Label Margin="0" VerticalOptions="Center" Padding="0" Text="MultiPattern" />
             </HorizontalStackLayout>
             <HorizontalStackLayout Margin="0" Padding="0">
+                <CheckBox IsChecked="{Binding Pattern.TextMatch.IsActive, Source={Reference thisView}}" />
                 <Label Margin="0" VerticalOptions="Center" Padding="0" Text="TextMatch:" />
-                <Entry Margin="5,0,0,0" VerticalOptions="Center" Text="{Binding Pattern.TextMatch, Source={Reference thisView}}" />
+                <Entry Margin="5,0,0,0" VerticalOptions="Center" Text="{Binding Pattern.TextMatch.Text, Source={Reference thisView}}" />
+                <Label Margin="0" VerticalOptions="Center" Padding="0" Text="Whitelist:" />
+                <Entry Margin="5,0,0,0" VerticalOptions="Center" Text="{Binding Pattern.TextMatch.WhiteList, Source={Reference thisView}}" />
                 <Button Text="Test" Command="{Binding TestPatternTextMatchCommand, Source={Reference thisView}}" CommandParameter="{Binding Pattern, Source={Reference thisView}}"/>
                 <Button Text="Apply" Command="{Binding ApplyPatternTextMatchCommand, Source={Reference thisView}}" CommandParameter="{Binding Pattern, Source={Reference thisView}}"/>
             </HorizontalStackLayout>

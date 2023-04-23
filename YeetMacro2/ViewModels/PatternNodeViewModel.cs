@@ -1,6 +1,5 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
-using System.Text.RegularExpressions;
 using YeetMacro2.Data.Models;
 using YeetMacro2.Data.Services;
 using YeetMacro2.Services;
@@ -235,7 +234,8 @@ public partial class PatternNodeViewModel : NodeViewModel<PatternNode, PatternNo
         }
         var result = await _screenService.GetText(pattern);
         _toastService.Show($"TextMatch Apply: {result}");
-        pattern.TextMatch = result;
+        pattern.TextMatch.Text = result;
+
         _patternRepository.Update(pattern);
         _patternRepository.Save();
     }

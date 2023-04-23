@@ -386,22 +386,25 @@ public class AndroidWindowManagerService : IInputService, IScreenService
             if ((opts?.VariancePct ?? 0.0) != 0.0) threshold = opts.VariancePct;
 
 
-            if (!String.IsNullOrEmpty(pattern.TextMatch))
+            if (pattern.TextMatch.IsActive && !String.IsNullOrEmpty(pattern.TextMatch.Text))
             {
+                if (!String.IsNullOrWhiteSpace(pattern.TextMatch.WhiteList)) _tesseractApi.SetWhitelist(pattern.TextMatch.WhiteList);
                 await _tesseractApi.SetImage(haystackImageData);
-                _tesseractApi.SetWhitelist(pattern.TextMatch);
+
                 var textPoints = new List<Point>();
-                if (_tesseractApi.Text == pattern.TextMatch && pattern.Bounds != null)
+                if (_tesseractApi.Text == pattern.TextMatch.Text && pattern.Bounds != null)
                 {
                     textPoints.Add(new Point(
                        (int)((pattern.Bounds.Start.X + pattern.Bounds.End.X - boundsPadding) / 2.0),
                        (int)((pattern.Bounds.Start.Y + pattern.Bounds.End.Y - boundsPadding) / 2.0)));
                 }
-                else if (_tesseractApi.Text == pattern.TextMatch)  // TextMatch is not meant to be used on whole screen
+                else if (_tesseractApi.Text == pattern.TextMatch.Text)  // TextMatch is not meant to be used on whole screen
                 {
+                    // TODO: Throw exception instead?
                     textPoints.Add(new Point(0, 0));
                 }
 
+                _tesseractApi.SetWhitelist("");
                 return textPoints;
             }
 
@@ -472,16 +475,17 @@ public class AndroidWindowManagerService : IInputService, IScreenService
                 new Point(pattern.Bounds.Start.X - boundsPadding, pattern.Bounds.Start.Y - boundsPadding),
                 new Point(pattern.Bounds.End.X + boundsPadding, pattern.Bounds.End.Y + boundsPadding)) :
             await _mediaProjectionService.GetCurrentImageData();
+        if (!String.IsNullOrWhiteSpace(pattern.TextMatch.WhiteList)) _tesseractApi.SetWhitelist(pattern.TextMatch.WhiteList);
         await _tesseractApi.SetImage(pattern.ColorThreshold.IsActive ?
             OpenCvHelper.CalcColorThreshold(currentImageData, pattern.ColorThreshold):
             currentImageData);
         _tesseractApi.SetWhitelist("");
+
         return _tesseractApi.Text;
     }
 
     public async Task<FindPatternResult> FindPattern(Pattern pattern, FindOptions opts = null)
     {
-        var bounds = pattern.Bounds;
         var points = await GetMatches(pattern, opts);
 
         var result = new FindPatternResult();

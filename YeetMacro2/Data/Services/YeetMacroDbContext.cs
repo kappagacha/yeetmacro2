@@ -67,6 +67,7 @@ public class YeetMacroDbContext : DbContext
             b0.Property(b => b.Start).HasConversion(pointConverter);
             b0.Property(b => b.End).HasConversion(pointConverter);
         });
+        modelBuilder.Entity<Pattern>().OwnsOne(p => p.TextMatch);
         modelBuilder.Entity<Pattern>().OwnsOne(p => p.ColorThreshold);
 
         modelBuilder.Entity<ScriptNode>().HasMany(pn => pn.Nodes).WithOne().HasForeignKey($"{nameof(ScriptNode)}{nameof(Node.ParentId)}").OnDelete(DeleteBehavior.Cascade);
