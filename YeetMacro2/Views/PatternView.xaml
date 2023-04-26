@@ -46,6 +46,7 @@
                             <Binding Path="Pattern" Source="{Reference thisView}" />
                             <Binding Path="Text" Source="{Reference colorThresholdVariancePct}" />
                             <Binding Path="Text" Source="{Reference colorThresholdColor}" />
+                            <Binding Path="SelectPatternCommand" Source="{Reference thisView}" />
                         </MultiBinding>
                     </Button.CommandParameter>
                 </Button>
@@ -87,8 +88,15 @@
             </HorizontalStackLayout>
             <HorizontalStackLayout VerticalOptions="End" HorizontalOptions="End">
                 <v:ImageView FontFamily="MaterialOutlined" Glyph="{x:Static mi:MaterialOutlined.Photo_camera_front}" Color="{StaticResource Primary}"
-                             Command="{Binding CapturePatternCommand, Source={Reference thisView}}"
-                             CommandParameter="{Binding Pattern, Source={Reference thisView}}" />
+                             Command="{Binding CapturePatternCommand, Source={Reference thisView}}">
+                    <v:ImageView.CommandParameter>
+                        <MultiBinding Converter="{conv:PassThroughConverter}">
+                            <Binding Path="Pattern" Source="{Reference thisView}" />
+                            <Binding Path="PatternNode" Source="{Reference thisView}" />
+                            <Binding Path="SelectPatternCommand" Source="{Reference thisView}" />
+                        </MultiBinding>
+                    </v:ImageView.CommandParameter>
+                </v:ImageView>
                 <v:ImageView FontFamily="MaterialRegular" Glyph="{x:Static mi:MaterialRegular.Crop_free}" Color="{StaticResource Primary}"
                              Command="{Binding SetPatternBoundsCommand, Source={Reference thisView}}"
                              CommandParameter="{Binding Pattern, Source={Reference thisView}}" />
@@ -100,11 +108,18 @@
                              CommandParameter="{Binding Pattern, Source={Reference thisView}}" />
                 <v:ImageView FontFamily="FASolid" Glyph="{x:Static fa:Solid.Plus}" Color="{StaticResource Primary}"
                              IsVisible="{Binding PatternNode.IsMultiPattern, Source={Reference thisView}}"
-                             Command="{Binding AddPatternCommand, Source={Reference thisView}}" />
+                             Command="{Binding AddPatternCommand, Source={Reference thisView}}" 
+                             CommandParameter="{Binding PatternNode, Source={Reference thisView}}" />
                 <v:ImageView FontFamily="FASolid" Glyph="{x:Static fa:Solid.TrashCan}" Color="Red"
                              IsVisible="{Binding PatternNode.IsMultiPattern, Source={Reference thisView}}"
-                             Command="{Binding DeletePatternCommand, Source={Reference thisView}}"
-                             CommandParameter="{Binding Pattern, Source={Reference thisView}}" />
+                             Command="{Binding DeletePatternCommand, Source={Reference thisView}}">
+                    <v:ImageView.CommandParameter>
+                        <MultiBinding Converter="{conv:PassThroughConverter}">
+                            <Binding Path="Pattern" Source="{Reference thisView}" />
+                            <Binding Path="PatternNode" Source="{Reference thisView}" />
+                        </MultiBinding>
+                    </v:ImageView.CommandParameter>
+                </v:ImageView>
             </HorizontalStackLayout>
         </VerticalStackLayout>
     </Grid>

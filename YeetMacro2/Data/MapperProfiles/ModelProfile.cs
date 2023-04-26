@@ -17,6 +17,8 @@ public class ModelProfile : Profile
         CreateMap<ParentSetting, ParentSetting>();
         CreateMap<BooleanSetting, BooleanSetting>();
         CreateMap<OptionSetting, OptionSetting>();
+        CreateMap<StringSetting, StringSetting>();
+        CreateMap<PatternSetting, PatternSetting>();
         //CreateMap<Setting, Setting>();
     }
 }

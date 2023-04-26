@@ -17,6 +17,8 @@ public class YeetMacroDbContext : DbContext
     public DbSet<ParentSetting> ParentSettings { get; set; }
     public DbSet<BooleanSetting> BooleanSettings { get; set; }
     public DbSet<OptionSetting> OptionSettings { get; set; }
+    public DbSet<StringSetting> StringSettings { get; set; }
+    public DbSet<PatternSetting> PatternSettings { get; set; }
 
     public YeetMacroDbContext()
     {
@@ -79,5 +81,10 @@ public class YeetMacroDbContext : DbContext
             opts => JsonSerializer.Serialize(opts, new JsonSerializerOptions()),
             opts => JsonSerializer.Deserialize<List<string>>(opts, new JsonSerializerOptions())
         );
+
+        modelBuilder.Entity<PatternSetting>().HasOne(ps => ps.Value).WithOne()
+            .HasPrincipalKey<PatternSetting>(ps => ps.NodeId)
+            .OnDelete(DeleteBehavior.Cascade);
+        modelBuilder.Entity<PatternSetting>().Navigation(ps => ps.Value).AutoInclude();
     }
 }

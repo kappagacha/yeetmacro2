@@ -13,6 +13,7 @@ public interface INodeService<TParent, TChild>
     void ReAttachNodes(TParent root);
     void Update(TChild node);
     void Save();
+    IEnumerable<TTarget> GetDescendants<TTarget>(TChild root) where TTarget : TChild;
 }
 
 public class NodeService<TParent, TChild> : INodeService<TParent, TChild>
@@ -163,21 +164,37 @@ public class NodeService<TParent, TChild> : INodeService<TParent, TChild>
         _nodeRepository.AttachEntities(root);
     }
 
-    private IEnumerable<TChild> GetAllNodes(TChild node)
+    public IEnumerable<TTarget> GetDescendants<TTarget>(TChild node) where TTarget: TChild
     {
-        yield return node;
+        if (node is TTarget) yield return (TTarget)node;
 
         if (node is TParent parent)
         {
             foreach (var child in parent.Nodes)
             {
-                foreach (var childNodes in GetAllNodes(child))
+                foreach (var childNodes in GetDescendants<TTarget>(child))
                 {
                     yield return childNodes;
                 }
             }
         }
     }
+
+    //private IEnumerable<TChild> GetAllNodes(TChild node)
+    //{
+    //    yield return node;
+
+    //    if (node is TParent parent)
+    //    {
+    //        foreach (var child in parent.Nodes)
+    //        {
+    //            foreach (var childNodes in GetAllNodes(child))
+    //            {
+    //                yield return childNodes;
+    //            }
+    //        }
+    //    }
+    //}
 
     public void Save()
     {

@@ -40,6 +40,17 @@
                         CommandParameter="{Binding BindingContext, Source={RelativeSource AncestorType={x:Type v:BindingContextView}}}" />
             </HorizontalStackLayout>
         </DataTemplate>
+        <DataTemplate x:Key="StringSettingTemplate">
+            <HorizontalStackLayout>
+                <Label Text="{Binding Name}" />
+                <Entry Margin="5,0,0,0" VerticalOptions="Center" Text="{Binding Value}" />
+            </HorizontalStackLayout>
+        </DataTemplate>
+        <DataTemplate x:Key="PatternSettingTemplate">
+            <VerticalStackLayout>
+                <Label Text="{Binding Name}" />
+            </VerticalStackLayout>
+        </DataTemplate>
     </ContentView.Resources>
     <Grid ColumnDefinitions="*,3*">
         <Border Grid.Column="0" Stroke="{StaticResource Primary}" BackgroundColor="Transparent" Padding="3">
@@ -92,5 +103,22 @@
             <v:ImageView FontFamily="MaterialOutlined" Glyph="{x:Static mi:MaterialOutlined.Save}"
                                  Command="{Binding BindingContext.Settings.SaveCommand, Source={RelativeSource AncestorType={x:Type v:SettingNodeView}}}" />
         </Grid>
+        <Border Grid.Column="1" Stroke="{StaticResource Primary}" BackgroundColor="Transparent" Padding="3"
+                IsVisible="{Binding Settings.SelectedPatternNode, Converter={conv:NullToBoolConverter IsInverse=True}}">
+            <v:PatternView 
+                PatternNode="{Binding Settings.SelectedPatternNode}"
+                Pattern="{Binding Settings.SelectedPattern}"
+                SavePatternCommand="{Binding Patterns.SavePatternCommand}"
+                SelectPatternCommand="{Binding Settings.SelectPatternCommand}"
+                CapturePatternCommand="{Binding Patterns.CapturePatternCommand}"
+                SetPatternBoundsCommand="{Binding Patterns.SetPatternBoundsCommand}"
+                ClickPatternCommand="{Binding Patterns.ClickPatternCommand}"
+                TestPatternCommand="{Binding Patterns.TestPatternCommand}"
+                AddPatternCommand="{Binding Patterns.AddPatternCommand}"
+                DeletePatternCommand="{Binding Patterns.DeletePatternCommand}"
+                ApplyColorThresholdCommand="{Binding Patterns.ApplyColorThresholdCommand}"
+                TestPatternTextMatchCommand="{Binding Patterns.TestPatternTextMatchCommand}"
+                ApplyPatternTextMatchCommand="{Binding Patterns.ApplyPatternTextMatchCommand}" />
+        </Border>
     </Grid>
 </ContentView>

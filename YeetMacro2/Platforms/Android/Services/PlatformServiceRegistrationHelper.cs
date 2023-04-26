@@ -16,7 +16,7 @@ public static class PlatformServiceRegistrationHelper
             SQLitePCL.Batteries_V2.Init();
             string dbPath = Path.Combine(FileSystem.AppDataDirectory, "yeetmacro.db3");
             setup.UseSqlite($"Filename={dbPath}");
-        });
+        }, ServiceLifetime.Transient);
 
         mauiAppBuilder.Services.AddSingleton<AndriodHomeViewModel>();
         mauiAppBuilder.Services.AddSingleton<ActionViewModel>();

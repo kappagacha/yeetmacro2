@@ -7,7 +7,9 @@ public enum SettingType
 {
     Parent,
     Boolean,
-    Option
+    Option,
+    String,
+    Pattern
 }
 
 public class SettingNodeMetadataProvider : INodeMetadataProvider<SettingNode>
@@ -15,7 +17,7 @@ public class SettingNodeMetadataProvider : INodeMetadataProvider<SettingNode>
     public Expression<Func<SettingNode, object>> CollectionPropertiesExpression => s => new { ((ParentSetting)s).Nodes };
     public Expression<Func<SettingNode, object>> ProxyPropertiesExpression => null;
 
-    public Type[] NodeTypes => new Type[] { typeof(ParentSetting), typeof(BooleanSetting), typeof(OptionSetting) };
+    public Type[] NodeTypes => new Type[] { typeof(ParentSetting), typeof(BooleanSetting), typeof(OptionSetting), typeof(StringSetting), typeof(PatternSetting) };
 }
 
 public class ParentSetting : SettingNode, IParentNode<ParentSetting, SettingNode>
@@ -29,6 +31,8 @@ public class ParentSetting : SettingNode, IParentNode<ParentSetting, SettingNode
 [JsonDerivedType(typeof(ParentSetting), typeDiscriminator: "parent")]
 [JsonDerivedType(typeof(BooleanSetting), typeDiscriminator: "boolean")]
 [JsonDerivedType(typeof(OptionSetting), typeDiscriminator: "option")]
+[JsonDerivedType(typeof(StringSetting), typeDiscriminator: "string")]
+[JsonDerivedType(typeof(PatternSetting), typeDiscriminator: "pattern")]
 [JsonPolymorphic(UnknownDerivedTypeHandling = JsonUnknownDerivedTypeHandling.FallBackToNearestAncestor)]
 [NodeMetadata(NodeMetadataProvider = typeof(SettingNodeMetadataProvider))]
 public abstract class SettingNode : Node
@@ -50,4 +54,19 @@ public class OptionSetting : SettingNode<String>
 {
     public override SettingType SettingType => SettingType.Option;
     public ICollection<String> Options { get; set; } = new List<string>();
+}
+
+public class StringSetting : SettingNode<string>
+{
+    public override SettingType SettingType => SettingType.String;
+}
+
+public class PatternSetting : SettingNode<PatternNode>
+{
+    public override SettingType SettingType => SettingType.Pattern;
+
+    public PatternSetting()
+    {
+        Value = new PatternNode();
+    }
 }

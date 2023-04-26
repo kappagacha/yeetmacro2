@@ -103,7 +103,12 @@ public partial class NodeViewModel<TParent, TChild> : NodeViewModel
             Root = root;
             IsInitialized = true;
             _initializeCompleted.SetResult();
+            OnInitialized();
         });
+    }
+
+    protected virtual void OnInitialized()
+    {
     }
 
     public async Task WaitForInitialization()

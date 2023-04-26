@@ -1,5 +1,6 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
+using System.Windows.Input;
 using YeetMacro2.Data.Models;
 using YeetMacro2.Data.Services;
 using YeetMacro2.Services;
@@ -11,8 +12,6 @@ public partial class PatternNodeViewModel : NodeViewModel<PatternNode, PatternNo
     IRepository<Pattern> _patternRepository;
     IScreenService _screenService;
     Resolution _currentResolution;
-    [ObservableProperty]
-    ImageSource _selectedImageSource;
     [ObservableProperty]
     Pattern _selectedPattern;
 
@@ -60,7 +59,7 @@ public partial class PatternNodeViewModel : NodeViewModel<PatternNode, PatternNo
     }
 
     [RelayCommand]
-    private async void AddPattern()
+    private async void AddPattern(PatternNode patternNode)
     {
         if (SelectedNode != null)
         {
@@ -72,7 +71,7 @@ public partial class PatternNodeViewModel : NodeViewModel<PatternNode, PatternNo
             }
 
             var newPattern = ProxyViewModel.Create(new Pattern() { Name = name });
-            SelectedNode.Patterns.Add(newPattern);
+            patternNode.Patterns.Add(newPattern);
             _patternRepository.Insert(newPattern);
             _patternRepository.Save();
         }
@@ -81,12 +80,18 @@ public partial class PatternNodeViewModel : NodeViewModel<PatternNode, PatternNo
     [RelayCommand]
     private void SelectPattern(Pattern pattern)
     {
-        pattern.IsSelected = !pattern.IsSelected;
-
         if (SelectedPattern != null && SelectedPattern != pattern)
         {
             SelectedPattern.IsSelected = false;
         }
+
+        if (pattern == null)
+        {
+            SelectedPattern = null;
+            return;
+        }
+
+        pattern.IsSelected = !pattern.IsSelected;
 
         if (pattern.IsSelected && SelectedPattern != pattern)
         {
@@ -99,39 +104,49 @@ public partial class PatternNodeViewModel : NodeViewModel<PatternNode, PatternNo
     }
 
     [RelayCommand]
-    private void DeletePattern(Pattern pattern)
+    private void DeletePattern(Object[] values)
     {
-        SelectedNode.Patterns.Remove((Pattern)pattern);
-        _patternRepository.Delete(pattern);
-        _patternRepository.Save();
+        if (values.Length == 2 && values[0] is Pattern pattern && values[1] is PatternNode patternNode)
+        {
+            patternNode.Patterns.Remove(pattern);
+            _patternRepository.Delete(pattern);
+            _patternRepository.Save();
+        }
     }
 
     [RelayCommand]
-    private async void CapturePattern(Pattern pattern)
+    private async void CapturePattern(Object[] values)
     {
-        if (pattern == null)
+        if (values.Length > 1 && values[1] is PatternNode patternNode)
         {
-            pattern = ProxyViewModel.Create(new Pattern() { Name = "pattern" });
-            SelectedNode.Patterns.Add(pattern);
-            _patternRepository.Insert(pattern);
+            var pattern = values[0] as Pattern;
+            if (pattern == null)
+            {
+                pattern = ProxyViewModel.Create(new Pattern() { Name = "pattern" });
+                patternNode.Patterns.Add(pattern);
+                _patternRepository.Insert(pattern);
+                _patternRepository.Save();
+                SelectPattern(pattern);
+            }
+
+            var bounds = await _inputService.DrawUserRectangle();
+            pattern.ImageData = await _screenService.GetCurrentImageData(bounds.start, bounds.end);
+            pattern.Bounds = ProxyViewModel.Create(new Bounds() { Start = bounds.start, End = bounds.end });
+            pattern.Resolution = ProxyViewModel.Create(new Resolution()
+            {
+                Width = DeviceDisplay.MainDisplayInfo.Width,
+                Height = DeviceDisplay.MainDisplayInfo.Height
+            });
+            _patternRepository.Update(pattern);
             _patternRepository.Save();
-            SelectPattern(pattern);
+
+            if (values.Length > 2 && values[2] is ICommand selectCommand)
+            {
+                // Annoying that OnPropertyChanged(nameof(SelectedPattern)) won't work because the value hasn't changed
+                selectCommand.Execute(null);
+                selectCommand.Execute(pattern);
+            }
         }
-
-        var bounds = await _inputService.DrawUserRectangle();
-        pattern.ImageData = await _screenService.GetCurrentImageData(bounds.start, bounds.end);
-        pattern.Bounds = ProxyViewModel.Create(new Bounds() { Start = bounds.start, End= bounds.end });
-        pattern.Resolution = ProxyViewModel.Create(new Resolution()
-        {
-            Width = DeviceDisplay.MainDisplayInfo.Width,
-            Height = DeviceDisplay.MainDisplayInfo.Height
-        });
-        _patternRepository.Update(pattern);
-        _patternRepository.Save();
-
-        // Annoying that OnPropertyChanged(nameof(SelectedPattern)) won't work
-        SelectedPattern = null;
-        SelectedPattern = pattern;
     }
 
     [RelayCommand]
@@ -192,12 +207,13 @@ public partial class PatternNodeViewModel : NodeViewModel<PatternNode, PatternNo
     [RelayCommand]
     private void ApplyColorThreshold(Object[] values)
     {
-        if (values.Length != 3) return;
+        if (values.Length != 4) return;
         
         if (values[0] is Pattern pattern && 
             values[1] is string colorThresholdVariancePctString && 
             double.TryParse(colorThresholdVariancePctString, out double colorThresholdVariancePct) && 
-            values[2] is string colorThresholdColor)
+            values[2] is string colorThresholdColor &&
+            values[3] is ICommand selectCommand)
         {
             pattern.ColorThreshold.VariancePct = colorThresholdVariancePct;
             pattern.ColorThreshold.Color = colorThresholdColor;
@@ -205,8 +221,8 @@ public partial class PatternNodeViewModel : NodeViewModel<PatternNode, PatternNo
             pattern.ColorThreshold.ImageData = _screenService.CalcColorThreshold(pattern, pattern.ColorThreshold);
             _patternRepository.Update(pattern);
             _patternRepository.Save();
-            SelectedPattern = null;
-            SelectedPattern = pattern;
+            selectCommand.Execute(null);
+            selectCommand.Execute(pattern);
         }
     }
 

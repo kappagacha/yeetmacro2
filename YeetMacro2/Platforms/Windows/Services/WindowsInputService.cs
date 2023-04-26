@@ -6,7 +6,17 @@ using YeetMacro2.Services;
 namespace YeetMacro2.Platforms.Windows.Services;
 internal class WindowsInputService : IInputService
 {
-    public async Task<Bounds> DrawUserRectangle()
+    public Task<string> PromptInput(string message)
+    {
+        return Application.Current.MainPage.DisplayPromptAsync("", message);
+    }
+
+    public Task<string> SelectOption(string message, params string[] options)
+    {
+        return Application.Current.MainPage.DisplayActionSheet(message, "cancel", "ok", options);
+    }
+
+    public async Task<(Point start, Point end)> DrawUserRectangle()
     {
         // https://stackoverflow.com/questions/4291912/process-start-how-to-get-the-output
         var proc = new Process
@@ -24,16 +34,7 @@ internal class WindowsInputService : IInputService
         await proc.WaitForExitAsync();
         var output = await proc.StandardOutput.ReadToEndAsync();
         var result = JsonSerializer.Deserialize<Bounds>(output);
-        return result;
-    }
 
-    public Task<string> PromptInput(string message)
-    {
-        return Application.Current.MainPage.DisplayPromptAsync("", message);
-    }
-
-    public Task<string> SelectOption(string message, params string[] options)
-    {
-        return Application.Current.MainPage.DisplayActionSheet(message, "cancel", "ok", options);
+        return (result.Start, result.End);
     }
 }
