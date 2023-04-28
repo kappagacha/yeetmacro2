@@ -10,7 +10,6 @@ namespace YeetMacro2.ViewModels;
 public partial class SettingNodeViewModel : NodeViewModel<ParentSetting, SettingNode>
 {
     IRepository<SettingNode> _settingRepository;
-    IRepository<PatternNode> _patternNodeRepository;
     [ObservableProperty]
     PatternNode _selectedPatternNode;
     [ObservableProperty]
@@ -19,27 +18,13 @@ public partial class SettingNodeViewModel : NodeViewModel<ParentSetting, Setting
     public SettingNodeViewModel(
         int rootNodeId,
         IRepository<SettingNode> settingRepository,
-        IRepository<PatternNode> patternNodeRepository,
         INodeService<ParentSetting, SettingNode> nodeService,
         IInputService inputService,
         IToastService toastService)
             : base(rootNodeId, nodeService, inputService, toastService)
     {
         _settingRepository = settingRepository;
-        _patternNodeRepository = patternNodeRepository;
         PropertyChanged += SettingNodeViewModel_PropertyChanged; ;
-    }
-
-    protected override void OnInitialized()
-    {
-        var patternSettings = _nodeService.GetDescendants<PatternSetting>(Root).ToList();
-        foreach (var patternSetting in patternSettings)
-        {
-            var proxy = ProxyViewModel.Create(patternSetting.Value);
-            _patternNodeRepository.DetachEntities(patternSetting.Value);
-            patternSetting.Value = proxy;
-            _patternNodeRepository.AttachEntities(patternSetting.Value);
-        }
     }
 
     private void SettingNodeViewModel_PropertyChanged(object sender, PropertyChangedEventArgs e)

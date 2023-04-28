@@ -61,7 +61,7 @@ public class YeetMacroDbContext : DbContext
         modelBuilder.Entity<PatternNode>().Navigation(pn => pn.Patterns).AutoInclude();
         //https://www.tektutorialshub.com/entity-framework-core/cascade-delete-in-entity-framework-core/
         modelBuilder.Entity<PatternNode>().HasMany(pn => pn.Nodes).WithOne().HasForeignKey($"{nameof(PatternNode)}{nameof(Node.ParentId)}").OnDelete(DeleteBehavior.Cascade);
-        modelBuilder.Entity<PatternNode>().HasMany(pn => pn.Patterns).WithOne().HasForeignKey(p => p.ParentNodeId).OnDelete(DeleteBehavior.Cascade);
+        modelBuilder.Entity<PatternNode>().HasMany(pn => pn.Patterns).WithOne().HasForeignKey(p => p.PatternNodeId).OnDelete(DeleteBehavior.Cascade);
         modelBuilder.Entity<Pattern>().HasKey(p => p.PatternId);
         modelBuilder.Entity<Pattern>().OwnsOne(p => p.Resolution);
         modelBuilder.Entity<Pattern>().OwnsOne(p => p.Bounds, b0 =>

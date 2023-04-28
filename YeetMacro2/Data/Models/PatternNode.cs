@@ -51,7 +51,7 @@ public class Pattern
     [JsonIgnore]
     public virtual int PatternId { get; set; }
     [JsonIgnore]
-    public virtual int ParentNodeId { get; set; }
+    public virtual int PatternNodeId { get; set; }
     public virtual string Name { get; set; }
     public byte[] ImageData { get; set; }
     public virtual double VariancePct { get; set; } = 20.0;

@@ -15,7 +15,7 @@ public enum SettingType
 public class SettingNodeMetadataProvider : INodeMetadataProvider<SettingNode>
 {
     public Expression<Func<SettingNode, object>> CollectionPropertiesExpression => s => new { ((ParentSetting)s).Nodes };
-    public Expression<Func<SettingNode, object>> ProxyPropertiesExpression => null;
+    public Expression<Func<SettingNode, object>> ProxyPropertiesExpression => s => new { ((PatternSetting)s).Value };
 
     public Type[] NodeTypes => new Type[] { typeof(ParentSetting), typeof(BooleanSetting), typeof(OptionSetting), typeof(StringSetting), typeof(PatternSetting) };
 }
@@ -43,6 +43,7 @@ public abstract class SettingNode : Node
 public abstract class SettingNode<T> : SettingNode
 {
     public virtual T Value { get; set; }
+    public virtual T DefaultValue { get; set; }
 }
 
 public class BooleanSetting: SettingNode<Boolean>

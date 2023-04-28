@@ -123,10 +123,10 @@ public partial class PatternNodeViewModel : NodeViewModel<PatternNode, PatternNo
             if (pattern == null)
             {
                 pattern = ProxyViewModel.Create(new Pattern() { Name = "pattern" });
+                pattern.PatternNodeId = patternNode.NodeId;
                 patternNode.Patterns.Add(pattern);
                 _patternRepository.Insert(pattern);
                 _patternRepository.Save();
-                SelectPattern(pattern);
             }
 
             var bounds = await _inputService.DrawUserRectangle();
