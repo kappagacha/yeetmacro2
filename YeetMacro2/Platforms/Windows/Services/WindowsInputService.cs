@@ -1,6 +1,5 @@
 ﻿using System.Diagnostics;
 using System.Text.Json;
-using YeetMacro2.Data.Models;
 using YeetMacro2.Services;
 
 namespace YeetMacro2.Platforms.Windows.Services;
@@ -16,7 +15,7 @@ internal class WindowsInputService : IInputService
         return Application.Current.MainPage.DisplayActionSheet(message, "cancel", "ok", options);
     }
 
-    public async Task<(Point start, Point end)> DrawUserRectangle()
+    public async Task<Rect> DrawUserRectangle()
     {
         // https://stackoverflow.com/questions/4291912/process-start-how-to-get-the-output
         var proc = new Process
@@ -32,9 +31,10 @@ internal class WindowsInputService : IInputService
 
         proc.Start();
         await proc.WaitForExitAsync();
-        var output = await proc.StandardOutput.ReadToEndAsync();
-        var result = JsonSerializer.Deserialize<Bounds>(output);
 
-        return (result.Start, result.End);
+        var output = await proc.StandardOutput.ReadToEndAsync();
+        var result = JsonSerializer.Deserialize<Rect>(output);
+
+        return result;
     }
 }

@@ -10,7 +10,7 @@ public partial class DrawControl : ContentView
 {
     bool _userRectangle;
     double _expirationMs = 250.0;
-    ConcurrentQueue<(SKPoint begin, SKPoint end, SKPaint paint, DateTime expiration)> _rectangles = new();
+    ConcurrentQueue<(SKRect rect, SKPaint paint, DateTime expiration)> _rectangles = new();
     ConcurrentQueue<(SKPoint center, SKPaint paint, DateTime expiration)> _circles = new();
     SKPoint _canvasBegin = SKPoint.Empty, _canvasEnd = SKPoint.Empty;
     SKPaint _greenPaint = new SKPaint
@@ -38,8 +38,7 @@ public partial class DrawControl : ContentView
         Style = SKPaintStyle.Stroke
     };
     AndroidWindowManagerService _windowManagerService;
-    public Point Start { get; set; }
-    public Point End { get; set; }
+    public Rect Rect { get; set; }
     public bool CloseAfterDraw { get; set; } = false;
     public DrawControl()
 	{
@@ -47,14 +46,14 @@ public partial class DrawControl : ContentView
         _windowManagerService = ServiceHelper.GetService<AndroidWindowManagerService>();
     }
 
-    public void AddRectangle(Point start, Point end)
+    public void AddRectangle(Rect rect)
     {
         var topLeft = _windowManagerService.GetTopLeftByPackage();
         //var topLeft = (x: 0.0f, y: 0.0f);
-        var skStart = new SKPoint((float)(start.X - topLeft.x), (float)(start.Y - topLeft.y));
-        var skEnd = new SKPoint((float)(end.X - topLeft.x), (float)(end.Y - topLeft.y));
-
-        _rectangles.Enqueue((skStart, skEnd, _bluePaint.Clone(), DateTime.Now.AddMilliseconds(_expirationMs)));
+        var location = new SKPoint((float)(rect.X - topLeft.x), (float)(rect.Y - topLeft.y));
+        var size = new SKSize((float)rect.Width, (float)rect.Height);
+        var skRect = SKRect.Create(location, size);
+        _rectangles.Enqueue((skRect, _bluePaint.Clone(), DateTime.Now.AddMilliseconds(_expirationMs)));
         canvasView.InvalidateSurface();
     }
 
@@ -90,21 +89,21 @@ public partial class DrawControl : ContentView
         }
 
         DateTime now = DateTime.Now;
-        while(_rectangles.TryPeek(out (SKPoint begin, SKPoint end, SKPaint paint, DateTime expiration) r) && r.expiration <= now)
+        while(_rectangles.TryPeek(out (SKRect rect, SKPaint paint, DateTime expiration) r) && r.expiration <= now)
         {
-            _rectangles.TryDequeue(out (SKPoint begin, SKPoint end, SKPaint paint, DateTime expiration) r0);
+            _rectangles.TryDequeue(out (SKRect rect, SKPaint paint, DateTime expiration) r0);
         }
         while (_circles.TryPeek(out (SKPoint center, SKPaint paint, DateTime expiration) c) && c.expiration <= now)
         {
             _circles.TryDequeue(out (SKPoint center, SKPaint paint, DateTime expiration) c0);
         }
-        foreach (var rect in _rectangles)
+        foreach (var r in _rectangles)
         {
-            canvas.DrawRect(rect.begin.X, rect.begin.Y, rect.end.X - rect.begin.X, rect.end.Y - rect.begin.Y, rect.paint);
+            canvas.DrawRect(r.rect, r.paint);
         }
         foreach (var c in _circles)
         {
-            canvas.DrawCircle(c.center.X, c.center.Y, 10, c.paint);
+            canvas.DrawCircle(c.center, 10, c.paint);
         }
 
         //troubleshoot with a grid
@@ -140,13 +139,15 @@ public partial class DrawControl : ContentView
                 break;
             case SKTouchAction.Released:
             case SKTouchAction.Cancelled:
-                _rectangles.Enqueue((new SKPoint(_canvasBegin.X, _canvasBegin.Y), new SKPoint(_canvasEnd.X, _canvasEnd.Y), _greenPaint.Clone(), DateTime.Now.AddDays(1)));
+                var size = new SKSize(_canvasEnd.X - _canvasBegin.X, _canvasEnd.Y - _canvasBegin.Y);
+                var skRect = SKRect.Create(_canvasBegin, size);
+                _rectangles.Enqueue((skRect, _bluePaint.Clone(), DateTime.Now.AddDays(1)));
                 canvasView.InvalidateSurface();
                 if (CloseAfterDraw)
                 {
                     var topLeft = _windowManagerService.GetTopLeftByPackage();
-                    Start = new Point(_canvasBegin.X + topLeft.x + _userStroke.StrokeWidth - 1, _canvasBegin.Y + topLeft.y + _userStroke.StrokeWidth - 1);
-                    End = new Point(_canvasEnd.X - _userStroke.StrokeWidth + 1, _canvasEnd.Y - _userStroke.StrokeWidth - 1);
+                    Rect = new Rect(new Point(_canvasBegin.X + topLeft.x + _userStroke.StrokeWidth - 1, _canvasBegin.Y + topLeft.y + _userStroke.StrokeWidth - 1),
+                                     new Size(_canvasEnd.X - _canvasBegin.X - _userStroke.StrokeWidth + 1, _canvasEnd.Y - _canvasBegin.Y - _userStroke.StrokeWidth - 1));
                     _windowManagerService.Close(AndroidWindowView.UserDrawView);
                 }
                 break;

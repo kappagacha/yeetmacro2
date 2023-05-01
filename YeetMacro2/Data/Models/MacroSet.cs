@@ -9,7 +9,7 @@ public class MacroSet
     public virtual ScriptNode RootScript { get; set; }
     public virtual int RootSettingNodeId { get; set; }
     public virtual ParentSetting RootSetting { get; set; }
-    public virtual Resolution Resolution { get; set; }
+    public virtual Size Resolution { get; set; }
     public virtual string Package { get; set; }
     public virtual MacroSetSource Source { get; set; }
 }

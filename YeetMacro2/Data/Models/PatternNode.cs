@@ -1,5 +1,4 @@
-﻿using System.Dynamic;
-using System.Linq.Expressions;
+﻿using System.Linq.Expressions;
 using System.Text.Json.Serialization;
 
 namespace YeetMacro2.Data.Models;
@@ -18,23 +17,8 @@ public class PatternNode : Node, IParentNode<PatternNode, PatternNode>
     [JsonIgnore]
     public virtual ICollection<PatternNode> Nodes { get; set; } = new List<PatternNode>();
     public virtual ICollection<Pattern> Patterns { get; set; } = new List<Pattern>();
-    public dynamic BuildDynamicObject(string path = "")
-    {
-        var result = new ExpandoObject();
-        var resolvedPath = path + (String.IsNullOrEmpty(path) ? "" : ".") + Name;
-        if (resolvedPath == "root") { resolvedPath = ""; }
-        ((IDictionary<String, Object>)result)["patterns"] = Patterns;
-        ((IDictionary<String, Object>)result)["metadata"] = this;
-        ((IDictionary<String, Object>)result)["path"] = resolvedPath;
-
-        foreach (var node in Nodes)
-        {
-            ((IDictionary<String, Object>)result)[node.Name] = node.BuildDynamicObject(resolvedPath);
-        }
-
-        return result;
-    }
 }
+
 public class PatterneMetadataProvider : INodeMetadataProvider<Pattern>
 {
     public Expression<Func<Pattern, object>> CollectionPropertiesExpression => null;
@@ -45,8 +29,8 @@ public class PatterneMetadataProvider : INodeMetadataProvider<Pattern>
 [NodeMetadata(NodeMetadataProvider = typeof(PatterneMetadataProvider))]
 public class Pattern
 {
-    public virtual Bounds Bounds { get; set; }
-    public virtual Resolution Resolution { get; set; }
+    public virtual Rect Rect { get; set; }
+    public virtual Size Resolution { get; set; }
     public virtual bool IsSelected { get; set; }
     [JsonIgnore]
     public virtual int PatternId { get; set; }
@@ -72,24 +56,4 @@ public class ColorThresholdProperties
     public virtual double VariancePct { get; set; } = 10.0;
     public virtual string Color { get; set; }
     public byte[] ImageData { get; set; }
-}
-
-public class Bounds
-{
-    public virtual Point Start { get; set; }
-    public virtual Point End { get; set; }
-    public override string ToString()
-    {
-        return $"({Start.X:F2}, {Start.Y:F2}),({End.X:F2}, {End.Y:F2})";
-    }
-}
-
-public class Resolution
-{
-    public virtual double Width { get; set; }
-    public virtual double Height { get; set; }
-    public override string ToString()
-    {
-        return $"{Width:F0}x{Height:F0}";
-    }
 }

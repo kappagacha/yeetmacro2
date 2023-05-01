@@ -7,7 +7,7 @@ using Android.Views;
 using Android.Widget;
 using static Android.Graphics.Bitmap;
 using YeetMacro2.Services;
-using Point = Microsoft.Maui.Graphics.Point;
+using Rect = Microsoft.Maui.Graphics.Rect;
 
 namespace YeetMacro2.Platforms.Android.Services;
 
@@ -223,18 +223,16 @@ public class MediaProjectionService : IRecorderService
         return ms.ToArray();
     }
 
-    public async Task<byte[]> GetCurrentImageData(Point start, Point end)
+    public async Task<byte[]> GetCurrentImageData(Rect rect)
     {
-        if (start.X < 0) start.X = 0;
-        if (start.Y < 0) start.Y = 0;
-        var width = end.X - start.X;
-        var height = end.Y - start.Y;
+        if (rect.X < 0) rect.X = 0;
+        if (rect.Y < 0) rect.Y = 0;
         await EnsureProjectionServiceStarted();
 
         var bitmap = GetBitmap();
         if (bitmap == null) return null;
 
-        var newBitmap = Bitmap.CreateBitmap(bitmap, (int)start.X, (int)start.Y, (int)width, (int)height);
+        var newBitmap = Bitmap.CreateBitmap(bitmap, (int)rect.X, (int)rect.Y, (int)rect.Width, (int)rect.Height);
         bitmap.Dispose();
         MemoryStream ms = new MemoryStream();
         newBitmap.Compress(CompressFormat.Jpeg, 100, ms);

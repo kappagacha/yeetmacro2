@@ -19,16 +19,16 @@ public class FindOptions
 public interface IScreenService
 {
     void DrawClear();
-    void DrawRectangle(Point start, Point end);
+    void DrawRectangle(Rect rect);
     void DrawCircle(Point point);
-    void DebugRectangle(Point start, Point end);
+    void DebugRectangle(Rect rect);
     void DebugCircle(Point point);
     void DebugClear();
     Task<List<Point>> GetMatches(Pattern template, FindOptions opts);
     void DoClick(Point point);
     void DoSwipe(Point start, Point end);
     Byte[] CalcColorThreshold(Pattern pattern, ColorThresholdProperties colorThreshold);
-    Task<byte[]> GetCurrentImageData(Point start, Point end);
+    Task<byte[]> GetCurrentImageData(Rect rect);
     Task<string> GetText(Pattern pattern);
     Task<FindPatternResult> ClickPattern(Pattern pattern);
     Task<FindPatternResult> FindPattern(Pattern pattern, FindOptions opts);

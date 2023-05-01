@@ -35,9 +35,12 @@ public class YeetMacroDbContext : DbContext
         base.OnModelCreating(modelBuilder);
 
         // https://learn.microsoft.com/en-us/ef/core/modeling/value-conversions?tabs=data-annotations#the-valueconverter-class
-        var pointConverter = new ValueConverter<Point, string>(
-            p => JsonSerializer.Serialize(p, new JsonSerializerOptions()),
-            p => JsonSerializer.Deserialize<Point>(p, new JsonSerializerOptions()));
+        var rectConverter = new ValueConverter<Rect, string>(
+            r => JsonSerializer.Serialize(r, new JsonSerializerOptions()),
+            r => JsonSerializer.Deserialize<Rect>(r, new JsonSerializerOptions()));
+        var sizeConverter = new ValueConverter<Size, string>(
+            r => JsonSerializer.Serialize(r, new JsonSerializerOptions()),
+            r => JsonSerializer.Deserialize<Size>(r, new JsonSerializerOptions()));
 
         modelBuilder.Entity<MacroSet>().HasKey(ms => ms.MacroSetId);
         modelBuilder.Entity<MacroSet>().HasOne(ms => ms.RootPattern).WithOne()
@@ -46,7 +49,8 @@ public class YeetMacroDbContext : DbContext
             .HasPrincipalKey<MacroSet>(ms => ms.RootScriptNodeId).OnDelete(DeleteBehavior.Cascade);
         modelBuilder.Entity<MacroSet>().HasOne(ms => ms.RootSetting).WithOne()
             .HasPrincipalKey<MacroSet>(ms => ms.RootSettingNodeId).OnDelete(DeleteBehavior.Cascade);
-        modelBuilder.Entity<MacroSet>().OwnsOne(ms => ms.Resolution);
+        //modelBuilder.Entity<MacroSet>().OwnsOne(ms => ms.Resolution);
+        modelBuilder.Entity<MacroSet>().Property(ms => ms.Resolution).HasConversion(sizeConverter);
         modelBuilder.Entity<MacroSet>().OwnsOne(ms => ms.Source);
 
         modelBuilder.Entity<Node>().HasKey(pn => pn.NodeId);
@@ -63,12 +67,8 @@ public class YeetMacroDbContext : DbContext
         modelBuilder.Entity<PatternNode>().HasMany(pn => pn.Nodes).WithOne().HasForeignKey($"{nameof(PatternNode)}{nameof(Node.ParentId)}").OnDelete(DeleteBehavior.Cascade);
         modelBuilder.Entity<PatternNode>().HasMany(pn => pn.Patterns).WithOne().HasForeignKey(p => p.PatternNodeId).OnDelete(DeleteBehavior.Cascade);
         modelBuilder.Entity<Pattern>().HasKey(p => p.PatternId);
-        modelBuilder.Entity<Pattern>().OwnsOne(p => p.Resolution);
-        modelBuilder.Entity<Pattern>().OwnsOne(p => p.Bounds, b0 =>
-        {
-            b0.Property(b => b.Start).HasConversion(pointConverter);
-            b0.Property(b => b.End).HasConversion(pointConverter);
-        });
+        modelBuilder.Entity<Pattern>().Property(p => p.Resolution).HasConversion(sizeConverter);
+        modelBuilder.Entity<Pattern>().Property(p => p.Rect).HasConversion(rectConverter);
         modelBuilder.Entity<Pattern>().OwnsOne(p => p.TextMatch);
         modelBuilder.Entity<Pattern>().OwnsOne(p => p.ColorThreshold);
 

@@ -11,8 +11,6 @@ public class ModelProfile : Profile
         CreateMap<TextMatchProperties, TextMatchProperties>();
         CreateMap<ColorThresholdProperties, ColorThresholdProperties>();
         CreateMap<PatternNode, PatternNode>();
-        CreateMap<Resolution, Resolution>();
-        CreateMap<Bounds, Bounds>();
         CreateMap<ScriptNode, ScriptNode>();
         CreateMap<ParentSetting, ParentSetting>();
         CreateMap<BooleanSetting, BooleanSetting>();

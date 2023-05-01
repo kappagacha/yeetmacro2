@@ -42,7 +42,7 @@ public class WindowsScreenService : IScreenService, IRecorderService
         throw new NotImplementedException();
     }
 
-    public void DebugRectangle(Point start, Point end)
+    public void DebugRectangle(Rect rect)
     {
         throw new NotImplementedException();
     }
@@ -67,7 +67,7 @@ public class WindowsScreenService : IScreenService, IRecorderService
         throw new NotImplementedException();
     }
 
-    public void DrawRectangle(Point start, Point end)
+    public void DrawRectangle(Rect rect)
     {
         throw new NotImplementedException();
     }
@@ -77,16 +77,14 @@ public class WindowsScreenService : IScreenService, IRecorderService
         throw new NotImplementedException();
     }
 
-    public Task<byte[]> GetCurrentImageData(Point start, Point end)
+    public Task<byte[]> GetCurrentImageData(Rect rect)
     {
-        var width = end.X - start.X;
-        var height = end.Y - start.Y;
         // https://nishanc.medium.com/c-screenshot-utility-to-capture-a-portion-of-the-screen-489ddceeee49
-        Rectangle rect = new Rectangle((int)start.X, (int)start.Y, (int)width, (int)height);
-        var bmp = new Bitmap(rect.Width, rect.Height, PixelFormat.Format32bppArgb);
+        //Rectangle rect = new Rectangle((int)start.X, (int)start.Y, (int)width, (int)height);
+        var bmp = new Bitmap((int)rect.Width, (int)rect.Height, PixelFormat.Format32bppArgb);
         Graphics g = Graphics.FromImage(bmp);
-        var size = new System.Drawing.Size((int)width, (int)height);
-        g.CopyFromScreen(rect.Left, rect.Top, 0, 0, size, CopyPixelOperation.SourceCopy);
+        var size = new System.Drawing.Size((int)rect.Width, (int)rect.Height);
+        g.CopyFromScreen((int)rect.Left, (int)rect.Top, 0, 0, size, CopyPixelOperation.SourceCopy);
 
         //var file = FileSystem.Current.AppDataDirectory + "/test.png";
         //bmp.Save(file, System.Drawing.Imaging.ImageFormat.Png);
@@ -135,12 +133,6 @@ public class WindowsScreenService : IScreenService, IRecorderService
     {
         throw new NotImplementedException();
     }
-
-    public Bounds TransformBounds(Bounds originalBounds, Resolution originalResolution)
-    {
-        throw new NotImplementedException();
-    }
-
 }
 
 public static class WindowHelper

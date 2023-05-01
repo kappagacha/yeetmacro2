@@ -222,7 +222,7 @@ public class AndroidWindowManagerService : IInputService, IScreenService
         return null;
     }
 
-    public async Task<(Point start, Point end)> DrawUserRectangle()
+    public async Task<Rect> DrawUserRectangle()
     {
         Show(AndroidWindowView.UserDrawView);
         var drawControl = (DrawControl)_views[AndroidWindowView.UserDrawView].VisualElement;
@@ -230,9 +230,9 @@ public class AndroidWindowManagerService : IInputService, IScreenService
         var formsView = (FormsView)_views[AndroidWindowView.UserDrawView];
         if (await formsView.WaitForClose())
         {
-            return (drawControl.Start, drawControl.End);
+            return drawControl.Rect;
         }
-        return (Point.Zero, Point.Zero);
+        return Rect.Zero;
     }
 
     public void DrawClear()
@@ -244,13 +244,13 @@ public class AndroidWindowManagerService : IInputService, IScreenService
         drawControl.ClearRectangles();
     }
 
-    public void DrawRectangle(Point start, Point end)
+    public void DrawRectangle(Rect rect)
     {
         Show(AndroidWindowView.DrawView);
         var drawControl = (DrawControl)_views[AndroidWindowView.DrawView].VisualElement;
         var drawView = (FormsView)_views[AndroidWindowView.DrawView];
         drawView.SetIsTouchable(true);
-        drawControl.AddRectangle(start, end);
+        drawControl.AddRectangle(rect);
     }
 
     public void DrawCircle(Point point)
@@ -262,14 +262,15 @@ public class AndroidWindowManagerService : IInputService, IScreenService
         drawControl.AddCircle(point);
     }
 
-    public void DebugRectangle(Point start, Point end)
+    public void DebugRectangle(Rect rect)
     {
-        var width = end.X - start.X;
-        var height = end.Y - start.Y;
         Show(AndroidWindowView.DebugDrawView);
         var drawControl = (DrawControl)_views[AndroidWindowView.DebugDrawView].VisualElement;
         var thickness = 10;
-        drawControl.AddRectangle(new Point(start.X - thickness, start.Y - thickness), new Point(end.X + thickness * 2, end.Y + thickness * 2));
+        var loc = new Point(rect.X - thickness, rect.Y - thickness);
+        var size = new Size(rect.X + thickness * 2, rect.Y + thickness * 2);
+        
+        drawControl.AddRectangle(new Rect(loc, size));
     }
 
     public void DebugCircle(Point point)
@@ -361,8 +362,8 @@ public class AndroidWindowManagerService : IInputService, IScreenService
 
             try
             {
-                haystackImageData = pattern.Bounds != null ?
-                    await _mediaProjectionService.GetCurrentImageData(pattern.Bounds.Start, pattern.Bounds.End) :
+                haystackImageData = pattern.Rect != Rect.Zero ?
+                    await _mediaProjectionService.GetCurrentImageData(pattern.Rect) :
                     await _mediaProjectionService.GetCurrentImageData();
             }
             catch (Exception ex)
@@ -392,11 +393,9 @@ public class AndroidWindowManagerService : IInputService, IScreenService
                 await _tesseractApi.SetImage(haystackImageData);
 
                 var textPoints = new List<Point>();
-                if (_tesseractApi.Text == pattern.TextMatch.Text && pattern.Bounds != null)
+                if (_tesseractApi.Text == pattern.TextMatch.Text && pattern.Rect != Rect.Zero)
                 {
-                    textPoints.Add(new Point(
-                       (int)((pattern.Bounds.Start.X + pattern.Bounds.End.X - boundsPadding) / 2.0),
-                       (int)((pattern.Bounds.Start.Y + pattern.Bounds.End.Y - boundsPadding) / 2.0)));
+                    textPoints.Add(pattern.Rect.Center.Offset(-boundsPadding, -boundsPadding));
                 }
                 else if (_tesseractApi.Text == pattern.TextMatch.Text)  // TextMatch is not meant to be used on whole screen
                 {
@@ -409,15 +408,13 @@ public class AndroidWindowManagerService : IInputService, IScreenService
             }
 
             var points = OpenCvHelper.GetPointsWithMatchTemplate(haystackImageData, needleImageData, opts?.Limit ?? 1, threshold);
-            if (pattern.Bounds != null)
+            if (pattern.Rect != Rect.Zero)
             {
                 var newPoints = new List<Point>();
                 for (int i = 0; i < points.Count; i++)
                 {
                     var point = points[i];
-                    newPoints.Add(new Point(
-                        (int)(point.X + (pattern.Bounds.Start.X - boundsPadding)),
-                        (int)(point.Y + (pattern.Bounds.Start.Y - boundsPadding))));
+                    newPoints.Add(point.Offset(pattern.Rect.X, pattern.Rect.Y));
                 }
                 return newPoints;
             }
@@ -462,18 +459,18 @@ public class AndroidWindowManagerService : IInputService, IScreenService
         return OpenCvHelper.CalcColorThreshold(pattern.ImageData, colorThreshold);
     }
 
-    public async Task<byte[]> GetCurrentImageData(Point start, Point end)
+    public async Task<byte[]> GetCurrentImageData(Rect rect)
     {
-        return await _mediaProjectionService.GetCurrentImageData(start, end);
+        return await _mediaProjectionService.GetCurrentImageData(rect);
     }
 
     public async Task<string> GetText(Pattern pattern)
     {
         var boundsPadding = 4;
-        var currentImageData = pattern.Bounds != null ?
+        var currentImageData = pattern.Rect != Rect.Zero ?
             await _mediaProjectionService.GetCurrentImageData(
-                new Point(pattern.Bounds.Start.X - boundsPadding, pattern.Bounds.Start.Y - boundsPadding),
-                new Point(pattern.Bounds.End.X + boundsPadding, pattern.Bounds.End.Y + boundsPadding)) :
+                new Rect(pattern.Rect.Location.Offset(-boundsPadding, -boundsPadding), 
+                          pattern.Rect.Size + new Size(boundsPadding, boundsPadding))) :
             await _mediaProjectionService.GetCurrentImageData();
         if (!String.IsNullOrWhiteSpace(pattern.TextMatch.WhiteList)) _tesseractApi.SetWhitelist(pattern.TextMatch.WhiteList);
         await _tesseractApi.SetImage(pattern.ColorThreshold.IsActive ?

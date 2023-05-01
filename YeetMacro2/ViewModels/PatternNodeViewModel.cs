@@ -11,15 +11,12 @@ public partial class PatternNodeViewModel : NodeViewModel<PatternNode, PatternNo
 {
     IRepository<Pattern> _patternRepository;
     IScreenService _screenService;
-    Resolution _currentResolution;
+    Size _currentResolution;
     [ObservableProperty]
     Pattern _selectedPattern;
 
-    public Resolution CurrentResolution => _currentResolution ?? (_currentResolution = new Resolution()
-    {
-        Width = DeviceDisplay.MainDisplayInfo.Width,
-        Height = DeviceDisplay.MainDisplayInfo.Height
-    });
+    public Size CurrentResolution => _currentResolution == Size.Zero ? (_currentResolution =
+        new Size(DeviceDisplay.MainDisplayInfo.Width, DeviceDisplay.MainDisplayInfo.Height)) : _currentResolution;
 
     public PatternNodeViewModel(
         int rootNodeId,
@@ -129,14 +126,11 @@ public partial class PatternNodeViewModel : NodeViewModel<PatternNode, PatternNo
                 _patternRepository.Save();
             }
 
-            var bounds = await _inputService.DrawUserRectangle();
-            pattern.ImageData = await _screenService.GetCurrentImageData(bounds.start, bounds.end);
-            pattern.Bounds = ProxyViewModel.Create(new Bounds() { Start = bounds.start, End = bounds.end });
-            pattern.Resolution = ProxyViewModel.Create(new Resolution()
-            {
-                Width = DeviceDisplay.MainDisplayInfo.Width,
-                Height = DeviceDisplay.MainDisplayInfo.Height
-            });
+            var rect = await _inputService.DrawUserRectangle();
+            pattern.ImageData = await _screenService.GetCurrentImageData(rect);
+            pattern.Rect = rect;
+            pattern.Resolution = new Size(DeviceDisplay.MainDisplayInfo.Width, DeviceDisplay.MainDisplayInfo.Height);
+
             _patternRepository.Update(pattern);
             _patternRepository.Save();
 
@@ -161,10 +155,10 @@ public partial class PatternNodeViewModel : NodeViewModel<PatternNode, PatternNo
     {
         if (pattern == null) return;
 
-        var bounds = await _inputService.DrawUserRectangle();
-        if (bounds.start != Point.Zero && bounds.end != Point.Zero)
+        var rect = await _inputService.DrawUserRectangle();
+        if (rect != Rect.Zero)
         {
-            pattern.Bounds = new Bounds() { Start = bounds.start, End = bounds.end };
+            pattern.Rect = rect;
             _patternRepository.Update(pattern);
             _patternRepository.Save();
         }
@@ -180,9 +174,9 @@ public partial class PatternNodeViewModel : NodeViewModel<PatternNode, PatternNo
         var points = result.Points;
         _toastService.Show(points != null && points.Length > 0 ? "Match(es) found" : "No match found");
 
-        if (pattern.Bounds != null)
+        if (pattern.Rect != Rect.Zero)
         {
-            _screenService.DrawRectangle(pattern.Bounds.Start, pattern.Bounds.End);
+            _screenService.DrawRectangle(pattern.Rect);
         }
 
         if (points != null)
@@ -230,10 +224,10 @@ public partial class PatternNodeViewModel : NodeViewModel<PatternNode, PatternNo
     private async void TestPatternTextMatch(Pattern pattern)
     {
         if (pattern == null) return;
-        if (pattern.Bounds != null)
+        if (pattern.Rect != Rect.Zero)
         {
             _screenService.DrawClear();
-            _screenService.DrawRectangle(pattern.Bounds.Start, pattern.Bounds.End);
+            _screenService.DrawRectangle(pattern.Rect);
         }
         var result = await _screenService.GetText(pattern);
         _toastService.Show($"TextMatch: {result}");
@@ -243,10 +237,10 @@ public partial class PatternNodeViewModel : NodeViewModel<PatternNode, PatternNo
     private async void ApplyPatternTextMatch(Pattern pattern)
     {
         if (pattern == null) return;
-        if (pattern.Bounds != null)
+        if (pattern.Rect != Rect.Zero)
         {
             _screenService.DrawClear();
-            _screenService.DrawRectangle(pattern.Bounds.Start, pattern.Bounds.End);
+            _screenService.DrawRectangle(pattern.Rect);
         }
         var result = await _screenService.GetText(pattern);
         _toastService.Show($"TextMatch Apply: {result}");

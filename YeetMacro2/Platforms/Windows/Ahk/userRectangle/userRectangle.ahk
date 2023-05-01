@@ -1,5 +1,6 @@
 result := LetUserSelectRect()
-message := "{""Start"" :{""X"": " . result.x1 . ",""Y"": " . result.y1 . " },""End"":{""X"": " . result.x2 . ",""Y"": " . result.y2 . "}}"
+;message := "{""Start"" :{""X"": " . result.x1 . ",""Y"": " . result.y1 . " },""End"":{""X"": " . result.x2 . ",""Y"": " . result.y2 . "}}"
+message := "{""X"": " . result.x1 . ", ""Y"": " . result.y1 . ", ""Width"": " . result.x2 - result.x1 . ", ""Height"": " . result.y2 - result.y1 . "}"
 stdout := FileOpen("*", 0x1)	; https://www.reddit.com/r/AutoHotkey/comments/rf9krl/stdout_to_console/
 stdout.Write(message)
 ; FileAppend message

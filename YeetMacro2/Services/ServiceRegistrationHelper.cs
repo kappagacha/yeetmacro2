@@ -61,13 +61,13 @@ public class AppInitializer : IMauiInitializeService
         var disgaeaRpgMacroSet = new MacroSet() { 
             Name = "Disgaea RPG", RootPatternNodeId = disgaeaPatternNode.NodeId, 
             RootScriptNodeId = disgaeaScriptNode.NodeId, RootSettingNodeId = disgaeaSettingNode.NodeId,
-            Resolution = new Resolution() { Width = 1080, Height = 1920 },
+            //Resolution = new Resolution() { Width = 1080, Height = 1920 },
             Source = new MacroSetSource() { Type = MacroSetSourceType.LOCAL_ASSET, Link = "disgaeaRpg" }
         };
         var konsobaFdMacroSet = new MacroSet() { 
             Name = "Konosuba FD", RootPatternNodeId = konosubaPatternNode.NodeId, 
             RootScriptNodeId = konosubaScriptNode.NodeId, RootSettingNodeId = konosubaSettingNode.NodeId,
-            Resolution = new Resolution() { Width = 1920, Height = 1080 },
+            //Resolution = new Resolution() { Width = 1920, Height = 1080 },
             Source = new MacroSetSource() { Type = MacroSetSourceType.LOCAL_ASSET, Link = "kinosubFd" }
         };
 

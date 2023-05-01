@@ -14,11 +14,7 @@ public partial class ActionMenuViewModel : ObservableObject
     AndroidWindowManagerService _windowManagerService;
     YeetAccessibilityService _accessibilityService;
     MacroManagerViewModel _macroManagerViewModel;
-    public Resolution CurrentResolution => new Resolution()
-    {
-        Width = DeviceDisplay.MainDisplayInfo.Width,
-        Height = DeviceDisplay.MainDisplayInfo.Height
-    };
+    public Size CurrentResolution => new Size(DeviceDisplay.MainDisplayInfo.Width, DeviceDisplay.MainDisplayInfo.Height);
 
     public string OverlayArea
     {

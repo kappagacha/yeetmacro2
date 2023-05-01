@@ -173,11 +173,11 @@ public class ScriptService : IScriptService
                             var multiResult = new FindPatternResult();
                             foreach (var pattern in patternNode.Patterns)
                             {
-                                if (InDebugMode && pattern.Bounds != null)
+                                if (InDebugMode && pattern.Rect != Rect.Zero)
                                 {
                                     MainThread.BeginInvokeOnMainThread(() =>
                                     {
-                                        _screenService.DebugRectangle(pattern.Bounds.Start, pattern.Bounds.End);
+                                        _screenService.DebugRectangle(pattern.Rect);
                                     });
                                 }
                                 var singleResult = await _screenService.FindPattern(pattern, opts);
@@ -193,11 +193,11 @@ public class ScriptService : IScriptService
                         else
                         {
                             var pattern = patternNode.Patterns.First();
-                            if (InDebugMode && pattern.Bounds != null)
+                            if (InDebugMode && pattern.Rect != Rect.Zero)
                             {
                                 MainThread.BeginInvokeOnMainThread(() =>
                                 {
-                                    _screenService.DebugRectangle(pattern.Bounds.Start, pattern.Bounds.End);
+                                    _screenService.DebugRectangle(pattern.Rect);
                                 });
                             }
                             result = await _screenService.FindPattern(pattern, opts);
