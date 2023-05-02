@@ -1,7 +1,9 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using System.Text.Json;
+using System.Text.Json.Serialization.Metadata;
 using YeetMacro2.Data.Models;
+using YeetMacro2.Data.Serialization;
 
 namespace YeetMacro2.Data.Services;
 
@@ -34,13 +36,19 @@ public class YeetMacroDbContext : DbContext
     {
         base.OnModelCreating(modelBuilder);
 
+        var serializationOptions = new JsonSerializerOptions()
+        {
+            PropertyNamingPolicy = JsonNamingPolicy.CamelCase,
+            TypeInfoResolver = CombinedPropertiesResolver.Combine(RectPropertiesResolver.Instance, SizePropertiesResolver.Instance)
+        };
+
         // https://learn.microsoft.com/en-us/ef/core/modeling/value-conversions?tabs=data-annotations#the-valueconverter-class
         var rectConverter = new ValueConverter<Rect, string>(
-            r => JsonSerializer.Serialize(r, new JsonSerializerOptions()),
-            r => JsonSerializer.Deserialize<Rect>(r, new JsonSerializerOptions()));
+            r => JsonSerializer.Serialize(r, serializationOptions),
+            r => JsonSerializer.Deserialize<Rect>(r, serializationOptions));
         var sizeConverter = new ValueConverter<Size, string>(
-            r => JsonSerializer.Serialize(r, new JsonSerializerOptions()),
-            r => JsonSerializer.Deserialize<Size>(r, new JsonSerializerOptions()));
+            r => JsonSerializer.Serialize(r, serializationOptions),
+            r => JsonSerializer.Deserialize<Size>(r, serializationOptions));
 
         modelBuilder.Entity<MacroSet>().HasKey(ms => ms.MacroSetId);
         modelBuilder.Entity<MacroSet>().HasOne(ms => ms.RootPattern).WithOne()
@@ -49,7 +57,6 @@ public class YeetMacroDbContext : DbContext
             .HasPrincipalKey<MacroSet>(ms => ms.RootScriptNodeId).OnDelete(DeleteBehavior.Cascade);
         modelBuilder.Entity<MacroSet>().HasOne(ms => ms.RootSetting).WithOne()
             .HasPrincipalKey<MacroSet>(ms => ms.RootSettingNodeId).OnDelete(DeleteBehavior.Cascade);
-        //modelBuilder.Entity<MacroSet>().OwnsOne(ms => ms.Resolution);
         modelBuilder.Entity<MacroSet>().Property(ms => ms.Resolution).HasConversion(sizeConverter);
         modelBuilder.Entity<MacroSet>().OwnsOne(ms => ms.Source);
 
@@ -78,8 +85,8 @@ public class YeetMacroDbContext : DbContext
         // https://learn.microsoft.com/en-us/ef/core/modeling/value-conversions?tabs=data-annotations
         // https://learn.microsoft.com/en-us/dotnet/standard/serialization/system-text-json/how-to?pivots=dotnet-7-0
         modelBuilder.Entity<OptionSetting>().Property(os => os.Options).HasConversion(
-            opts => JsonSerializer.Serialize(opts, new JsonSerializerOptions()),
-            opts => JsonSerializer.Deserialize<List<string>>(opts, new JsonSerializerOptions())
+            opts => JsonSerializer.Serialize(opts, serializationOptions),
+            opts => JsonSerializer.Deserialize<List<string>>(opts, serializationOptions)
         );
 
         modelBuilder.Entity<PatternSetting>().HasOne(ps => ps.Value).WithOne()

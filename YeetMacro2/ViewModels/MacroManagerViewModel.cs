@@ -1,8 +1,11 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using System.Collections.Concurrent;
+using System.Text.Json;
+using System.Text.Json.Serialization.Metadata;
 using System.Windows.Input;
 using YeetMacro2.Data.Models;
+using YeetMacro2.Data.Serialization;
 using YeetMacro2.Data.Services;
 using YeetMacro2.Services;
 
@@ -23,6 +26,13 @@ public partial class MacroManagerViewModel : ObservableObject
     IScriptService _scriptService;
     [ObservableProperty]
     bool _inDebugMode, _showLogView;
+    [ObservableProperty]
+    double _resolutionWidth, _resolutionHeight;
+    [ObservableProperty]
+    MacroSetSourceType _macroSetSourceType;
+    [ObservableProperty]
+    string _macroSetSourceLink;
+
     public PatternNodeViewModel Patterns
     {
         get
@@ -78,7 +88,7 @@ public partial class MacroManagerViewModel : ObservableObject
         _nodeViewModelFactory = nodeViewModelFactory;
         _nodeService = nodeService;
         var tempMacroSets = _macroSetRepository.Get();
-        _macroSets = ProxyViewModel.CreateCollection<MacroSet>(tempMacroSets);
+        _macroSets = ProxyViewModel.CreateCollection(tempMacroSets);
 
         if (Preferences.Default.ContainsKey(nameof(SelectedMacroSet)) && _macroSets.Any(ms => ms.Name == Preferences.Default.Get<string>(nameof(SelectedMacroSet), null)))
         {
@@ -137,8 +147,11 @@ public partial class MacroManagerViewModel : ObservableObject
     [RelayCommand]
     private void Save(MacroSet macroSet)
     {
+        macroSet.Resolution = new Size(ResolutionWidth, ResolutionHeight);
+        macroSet.Source.Link = MacroSetSourceLink;
         _macroSetRepository.Update(macroSet);
         _macroSetRepository.Save();
+        _toastService.Show($"Saved MacroSet: {macroSet.Name}");
     }
 
     [RelayCommand]
@@ -164,8 +177,25 @@ public partial class MacroManagerViewModel : ObservableObject
         InDebugMode = !InDebugMode;
     }
 
+    [RelayCommand]
+    private async Task ExportMacroSet(MacroSet macroSet)
+    {
+        var json = JsonSerializer.Serialize(macroSet, new JsonSerializerOptions()
+        {
+            WriteIndented = true,
+            PropertyNamingPolicy = JsonNamingPolicy.CamelCase,
+            TypeInfoResolver = SizePropertiesResolver.Instance
+        });
+        await Application.Current.MainPage.DisplayAlert("MacroSet", json, "cancel");
+        _toastService.Show($"Exported MacroSet: {macroSet.Name}");
+    }
+
     partial void OnSelectedMacroSetChanged(MacroSet value)
     {
+        ResolutionWidth = value.Resolution.Width;
+        ResolutionHeight = value.Resolution.Height;
+        MacroSetSourceType = value.Source.Type;
+        MacroSetSourceLink = value.Source.Link;
         Preferences.Default.Set(nameof(SelectedMacroSet), value.Name);
     }
 }

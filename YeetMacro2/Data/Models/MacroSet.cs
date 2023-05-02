@@ -1,4 +1,5 @@
 ﻿namespace YeetMacro2.Data.Models;
+
 public class MacroSet
 {
     public int MacroSetId { get; set; }
@@ -25,6 +26,6 @@ public class MacroSetSource
     public virtual string Link { get; set; }
     public override string ToString()
     {
-        return $"{Type}: {Type}";
+        return $"{Type}: {Link}";
     }
 }

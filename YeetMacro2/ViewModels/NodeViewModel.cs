@@ -6,6 +6,7 @@ using System.Text.Json.Serialization;
 using System.Text.Json.Serialization.Metadata;
 using System.Text.RegularExpressions;
 using YeetMacro2.Data.Models;
+using YeetMacro2.Data.Serialization;
 using YeetMacro2.Data.Services;
 using YeetMacro2.Services;
 
@@ -55,7 +56,7 @@ public partial class NodeViewModel<TParent, TChild> : NodeViewModel
             new JsonStringEnumConverter()
         },
         WriteIndented = true,
-        TypeInfoResolver = new DefaultJsonTypeInfoResolver(),
+        TypeInfoResolver  = CombinedPropertiesResolver.Combine(RectPropertiesResolver.Instance, SizePropertiesResolver.Instance),
         PropertyNamingPolicy = JsonNamingPolicy.CamelCase
     };
 
@@ -64,6 +65,7 @@ public partial class NodeViewModel<TParent, TChild> : NodeViewModel
         // https://stackoverflow.com/questions/58331479/how-to-globally-set-default-options-for-system-text-json-jsonserializer/74741382#74741382
         var copy = new JsonSerializerOptions(_defaultJsonSerializerOptions);
         _defaultJsonSerializerOptions.Converters.Add(new NodeValueConverter<TParent, TChild>(copy));
+
         // setting this internal value to immutable allows dynamic json typeinfo resolving
         typeof(JsonSerializerOptions).GetRuntimeFields().Single(f => f.Name == "_isImmutable").SetValue(_defaultJsonSerializerOptions, true);
         typeof(JsonSerializerOptions).GetRuntimeFields().Single(f => f.Name == "_isImmutable").SetValue(copy, true);
