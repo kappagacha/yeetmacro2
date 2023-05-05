@@ -44,11 +44,13 @@ public partial class NodeViewModel<TParent, TChild> : NodeViewModel
     [ObservableProperty]
     protected TChild _selectedNode;
     [ObservableProperty]
-    bool _isInitialized;
+    bool _isInitialized, _showExport;
     TaskCompletionSource _initializeCompleted;
     protected INodeService<TParent, TChild> _nodeService;
     protected IToastService _toastService;
     protected IInputService _inputService;
+    [ObservableProperty]
+    string _exportValue;
 
     private static readonly JsonSerializerOptions _defaultJsonSerializerOptions = new JsonSerializerOptions()
     {
@@ -219,24 +221,31 @@ public partial class NodeViewModel<TParent, TChild> : NodeViewModel
     }
 
     [RelayCommand]
-    public async void Export(string name)
+    public void Export(string name)
     {
-        if (await Permissions.RequestAsync<Permissions.StorageWrite>() != PermissionStatus.Granted) return;
-
+        //        if (await Permissions.RequestAsync<Permissions.StorageWrite>() != PermissionStatus.Granted) return;
         var json = JsonSerializer.Serialize(this, _defaultJsonSerializerOptions);
-#if ANDROID
-        // https://stackoverflow.com/questions/39332085/get-path-to-pictures-directory
-        var targetDirctory = DeviceInfo.Current.Platform == DevicePlatform.Android ?
-            Android.OS.Environment.GetExternalStoragePublicDirectory(Android.OS.Environment.DirectoryPictures).AbsolutePath :
-            FileSystem.Current.AppDataDirectory;
-        var targetFile = Path.Combine(targetDirctory, $"{name}_{_nodeTypeName}s.json");
-        File.WriteAllText(targetFile, json);
-#elif WINDOWS
-        var targetDirctory = FileSystem.Current.AppDataDirectory;
-        var targetFile = Path.Combine(targetDirctory, $"{name}_{_nodeTypeName}s.json");
-        File.WriteAllText(targetFile, json);
-#endif
+        //#if ANDROID
+        //        // https://stackoverflow.com/questions/39332085/get-path-to-pictures-directory
+        //        var targetDirctory = DeviceInfo.Current.Platform == DevicePlatform.Android ?
+        //            Android.OS.Environment.GetExternalStoragePublicDirectory(Android.OS.Environment.DirectoryPictures).AbsolutePath :
+        //            FileSystem.Current.AppDataDirectory;
+        //        var targetFile = Path.Combine(targetDirctory, $"{name}_{_nodeTypeName}s.json");
+        //        File.WriteAllText(targetFile, json);
+        //#elif WINDOWS
+        //        var targetDirctory = FileSystem.Current.AppDataDirectory;
+        //        var targetFile = Path.Combine(targetDirctory, $"{name}_{_nodeTypeName}s.json");
+        //        File.WriteAllText(targetFile, json);
+        //#endif
+        ExportValue = json;
+        ShowExport = true;
         _toastService.Show($"Exported {_nodeTypeName}: {name}");
+    }
+
+    [RelayCommand]
+    private void CloseExport()
+    {
+        ShowExport = false;
     }
 
     [RelayCommand]

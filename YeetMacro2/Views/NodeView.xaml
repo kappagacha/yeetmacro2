@@ -6,6 +6,7 @@
              xmlns:vm="clr-namespace:YeetMacro2.ViewModels"
              xmlns:fa="clr-namespace:UraniumUI.Icons.FontAwesome;assembly=UraniumUI.Icons.FontAwesome"
              xmlns:material="http://schemas.enisn-projects.io/dotnet/maui/uraniumui/material"
+             xmlns:mi="clr-namespace:UraniumUI.Icons.MaterialIcons;assembly=UraniumUI.Icons.MaterialIcons"
              xmlns:conv="clr-namespace:YeetMacro2.Converters"
              x:Class="YeetMacro2.Views.NodeView"
              x:Name="thisView">
@@ -24,31 +25,46 @@
         </DataTemplate>
     </ContentView.Resources>
     <Grid>
-        <ScrollView>
-            <material:TreeView ItemsSource="{Binding ItemsSource.Root.Children, Source={Reference thisView}}"
+        <Grid IsVisible="{Binding ItemsSource.ShowExport, Converter={conv:InverseBoolConverter}, Source={Reference thisView}}">
+            <ScrollView>
+                <material:TreeView ItemsSource="{Binding ItemsSource.Root.Children, Source={Reference thisView}}"
                                ItemTemplate="{Binding ItemTemplate, Source={Reference thisView}, TargetNullValue={StaticResource DefaultItemTemplate}}"
                                Spacing="0" HorizontalOptions="Fill"  VerticalOptions="Fill" />
-        </ScrollView>
-        <Grid VerticalOptions="End" HorizontalOptions="End" BindingContext="{Binding ., Source={Reference thisView}}">
-            <VerticalStackLayout>
-                <VerticalStackLayout IsVisible="{Binding IsMenuOpen}">
-                    <ContentView x:Name="extraMenuItemsContentView" />
-                    <v:ImageView FontFamily="FASolid" Glyph="{x:Static fa:Solid.TrashCan}" Color="Red" 
+            </ScrollView>
+            <Grid VerticalOptions="End" HorizontalOptions="End" BindingContext="{Binding ., Source={Reference thisView}}">
+                <VerticalStackLayout>
+                    <VerticalStackLayout IsVisible="{Binding IsMenuOpen}">
+                        <ContentView x:Name="extraMenuItemsContentView" />
+                        <v:ImageView FontFamily="FASolid" Glyph="{x:Static fa:Solid.TrashCan}" Color="Red" 
                                  IsVisible="{Binding ItemsSource.SelectedNode, Converter={conv:NullToBoolConverter IsInverse=True}}"
                                  Command="{Binding ItemsSource.DeleteNodeCommand}" CommandParameter="{Binding ItemsSource.SelectedNode}" />
-                    <v:ImageView FontFamily="FASolid" Glyph="{x:Static fa:Solid.Plus}" Command="{Binding ItemsSource.AddNodeCommand}"
+                        <v:ImageView FontFamily="FASolid" Glyph="{x:Static fa:Solid.Plus}" Command="{Binding ItemsSource.AddNodeCommand}"
                                  IsVisible="{Binding ItemsSource.SelectedNode.IsParentNode}"/>
-                </VerticalStackLayout>
-                <Border Stroke="{StaticResource Primary}" StrokeThickness="0" BackgroundColor="Transparent">
-                    <Border.Triggers>
-                        <DataTrigger TargetType="Border" Binding="{Binding IsMenuOpen}" Value="True">
-                            <Setter Property="StrokeThickness" Value="1" />
-                        </DataTrigger>
-                    </Border.Triggers>
-                    <v:ImageView FontFamily="FASolid" Glyph="{x:Static fa:Solid.Bars}"
+                    </VerticalStackLayout>
+                    <Border Stroke="{StaticResource Primary}" StrokeThickness="0" BackgroundColor="Transparent">
+                        <Border.Triggers>
+                            <DataTrigger TargetType="Border" Binding="{Binding IsMenuOpen}" Value="True">
+                                <Setter Property="StrokeThickness" Value="1" />
+                            </DataTrigger>
+                        </Border.Triggers>
+                        <v:ImageView FontFamily="FASolid" Glyph="{x:Static fa:Solid.Bars}"
                              Command="{Binding ToggleIsMenuOpenCommand}" />
-                </Border>
-            </VerticalStackLayout>
+                    </Border>
+                </VerticalStackLayout>
+            </Grid>
+
+        </Grid>
+        <Grid IsVisible="{Binding ItemsSource.ShowExport, Source={Reference thisView}}">
+            <Editor x:Name="exportEditor" Text="{Binding ItemsSource.ExportValue, Source={Reference thisView}}" />
+            <HorizontalStackLayout HorizontalOptions="End" VerticalOptions="Start">
+                <v:ImageView FontFamily="MaterialOutlined" Glyph="{x:Static mi:MaterialOutlined.Select_all}">
+                    <v:ImageView.GestureRecognizers>
+                        <TapGestureRecognizer Tapped="ExportEditor_SelectAll" />
+                    </v:ImageView.GestureRecognizers>
+                </v:ImageView>
+                <v:ImageView FontFamily="MaterialOutlined" Glyph="{x:Static mi:MaterialOutlined.Close}" Color="Red"
+                             Command="{Binding ItemsSource.CloseExportCommand, Source={Reference thisView}}" />
+            </HorizontalStackLayout>
         </Grid>
     </Grid>
 </ContentView>

@@ -1,7 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using System.Text.Json;
-using System.Text.Json.Serialization.Metadata;
 using YeetMacro2.Data.Models;
 using YeetMacro2.Data.Serialization;
 

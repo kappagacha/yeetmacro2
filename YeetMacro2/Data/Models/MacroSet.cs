@@ -1,14 +1,23 @@
-﻿namespace YeetMacro2.Data.Models;
+﻿using System.Text.Json.Serialization;
+
+namespace YeetMacro2.Data.Models;
 
 public class MacroSet
 {
+    [JsonIgnore]
     public int MacroSetId { get; set; }
     public virtual string Name { get; set; }
+    [JsonIgnore]
     public virtual int RootPatternNodeId { get; set; }
+    [JsonIgnore]
     public virtual PatternNode RootPattern { get; set; }
+    [JsonIgnore]
     public virtual int RootScriptNodeId { get; set; }
+    [JsonIgnore]
     public virtual ScriptNode RootScript { get; set; }
+    [JsonIgnore]
     public virtual int RootSettingNodeId { get; set; }
+    [JsonIgnore]
     public virtual ParentSetting RootSetting { get; set; }
     public virtual Size Resolution { get; set; }
     public virtual string Package { get; set; }

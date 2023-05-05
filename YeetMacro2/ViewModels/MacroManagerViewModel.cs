@@ -2,6 +2,7 @@
 using CommunityToolkit.Mvvm.Input;
 using System.Collections.Concurrent;
 using System.Text.Json;
+using System.Text.Json.Serialization;
 using System.Text.Json.Serialization.Metadata;
 using System.Windows.Input;
 using YeetMacro2.Data.Models;
@@ -25,13 +26,15 @@ public partial class MacroManagerViewModel : ObservableObject
     ConcurrentDictionary<int, SettingNodeViewModel> _nodeRootIdToSettingTree;
     IScriptService _scriptService;
     [ObservableProperty]
-    bool _inDebugMode, _showLogView;
+    bool _inDebugMode, _showLogView, _showExport;
     [ObservableProperty]
     double _resolutionWidth, _resolutionHeight;
     [ObservableProperty]
     MacroSetSourceType _macroSetSourceType;
     [ObservableProperty]
     string _macroSetSourceLink;
+    [ObservableProperty]
+    string _exportValue;
 
     public PatternNodeViewModel Patterns
     {
@@ -178,16 +181,26 @@ public partial class MacroManagerViewModel : ObservableObject
     }
 
     [RelayCommand]
-    private async Task ExportMacroSet(MacroSet macroSet)
+    private void ExportMacroSet(MacroSet macroSet)
     {
         var json = JsonSerializer.Serialize(macroSet, new JsonSerializerOptions()
         {
+            Converters = {
+                new JsonStringEnumConverter()
+            },
             WriteIndented = true,
             PropertyNamingPolicy = JsonNamingPolicy.CamelCase,
             TypeInfoResolver = SizePropertiesResolver.Instance
         });
-        await Application.Current.MainPage.DisplayAlert("MacroSet", json, "cancel");
         _toastService.Show($"Exported MacroSet: {macroSet.Name}");
+        ExportValue = json;
+        ShowExport = true;
+    }
+
+    [RelayCommand]
+    private void CloseExport()
+    {
+        ShowExport = false;
     }
 
     partial void OnSelectedMacroSetChanged(MacroSet value)

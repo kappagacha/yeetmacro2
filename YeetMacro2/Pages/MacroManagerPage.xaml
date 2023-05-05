@@ -26,7 +26,7 @@
                 <v:ImageView FontFamily="FASolid" Glyph="{x:Static fa:Solid.TrashCan}" Color="Red" 
                              Command="{Binding DeleteMacroSetCommand}" CommandParameter="{Binding SelectedMacroSet}" />
                 <v:ImageView FontFamily="FASolid" Glyph="{x:Static fa:Solid.FileExport}" Color="{StaticResource Primary}" 
-                             Command="{Binding ExportMacroSetCommand}" CommandParameter="{Binding SelectedMacroSet}"/>
+                             Command="{Binding ExportMacroSetCommand}" CommandParameter="{Binding SelectedMacroSet}" />
                 <v:ImageView FontFamily="FASolid" Glyph="{x:Static fa:Solid.FolderOpen}" Color="{StaticResource Primary}" 
                              Command="{Binding OpenAppDirectoryCommand}" />
             </HorizontalStackLayout>
@@ -34,29 +34,43 @@
         <material:TabView>
             <material:TabItem Title="Macro">
                 <Grid Padding="4">
-                    <VerticalStackLayout>
-                        <HorizontalStackLayout Margin="0" Padding="0">
-                            <Label Margin="0" VerticalOptions="Center" Padding="0" Text="Name:" />
-                            <Entry Margin="5,0,0,0" VerticalOptions="Center" Text="{Binding SelectedMacroSet.Name}" />
-                        </HorizontalStackLayout>
-                        <HorizontalStackLayout Margin="0" Padding="0">
-                            <Label Margin="0" VerticalOptions="Center" Padding="0" Text="Resolution Width:" />
-                            <Entry Margin="5,0,0,0" VerticalOptions="Center" Text="{Binding ResolutionWidth}" />
-                        </HorizontalStackLayout>
-                        <HorizontalStackLayout Margin="0" Padding="0">
-                            <Label Margin="0" VerticalOptions="Center" Padding="0" Text="Resolution Height:" />
-                            <Entry Margin="5,0,0,0" VerticalOptions="Center" Text="{Binding ResolutionHeight}" />
-                        </HorizontalStackLayout>
-                        <HorizontalStackLayout Margin="0" Padding="0">
-                            <Label Margin="0" VerticalOptions="Center" Padding="0" Text="Package:" />
-                            <Entry Margin="5,0,0,0" VerticalOptions="Center" Text="{Binding SelectedMacroSet.Package}" />
-                        </HorizontalStackLayout>
-                        <HorizontalStackLayout Margin="0" Padding="0">
-                            <Label Margin="0" VerticalOptions="Center" Padding="0" Text="Source:" />
-                            <Label Margin="5,0,0,0" VerticalOptions="Center" Text="{Binding MacroSetSourceType}" />
-                            <Entry Margin="5,0,0,0" VerticalOptions="Center" Text="{Binding MacroSetSourceLink}" />
-                        </HorizontalStackLayout>
-                    </VerticalStackLayout>
+                    <Grid ColumnDefinitions="Auto,*" ColumnSpacing="4">
+                        <VerticalStackLayout Grid.Column="0">
+                            <HorizontalStackLayout Margin="0" Padding="0">
+                                <Label Margin="0" VerticalOptions="Center" Padding="0" Text="Name:" />
+                                <Entry Margin="5,0,0,0" VerticalOptions="Center" Text="{Binding SelectedMacroSet.Name}" />
+                            </HorizontalStackLayout>
+                            <HorizontalStackLayout Margin="0" Padding="0">
+                                <Label Margin="0" VerticalOptions="Center" Padding="0" Text="Resolution Width:" />
+                                <Entry Margin="5,0,0,0" VerticalOptions="Center" Text="{Binding ResolutionWidth}" />
+                            </HorizontalStackLayout>
+                            <HorizontalStackLayout Margin="0" Padding="0">
+                                <Label Margin="0" VerticalOptions="Center" Padding="0" Text="Resolution Height:" />
+                                <Entry Margin="5,0,0,0" VerticalOptions="Center" Text="{Binding ResolutionHeight}" />
+                            </HorizontalStackLayout>
+                            <HorizontalStackLayout Margin="0" Padding="0">
+                                <Label Margin="0" VerticalOptions="Center" Padding="0" Text="Package:" />
+                                <Entry Margin="5,0,0,0" VerticalOptions="Center" Text="{Binding SelectedMacroSet.Package}" />
+                            </HorizontalStackLayout>
+                            <HorizontalStackLayout Margin="0" Padding="0">
+                                <Label Margin="0" VerticalOptions="Center" Padding="0" Text="Source:" />
+                                <Label Margin="5,0,0,0" VerticalOptions="Center" Text="{Binding MacroSetSourceType}" />
+                                <Entry Margin="5,0,0,0" VerticalOptions="Center" Text="{Binding MacroSetSourceLink}" />
+                            </HorizontalStackLayout>
+                        </VerticalStackLayout>
+                        <Grid Grid.Column="1" IsVisible="{Binding ShowExport}">
+                            <Editor x:Name="exportEditor" Text="{Binding ExportValue}" />
+                            <HorizontalStackLayout HorizontalOptions="End" VerticalOptions="Start">
+                                <v:ImageView FontFamily="MaterialOutlined" Glyph="{x:Static mi:MaterialOutlined.Select_all}">
+                                    <v:ImageView.GestureRecognizers>
+                                        <TapGestureRecognizer Tapped="ExportEditor_SelectAll" />
+                                    </v:ImageView.GestureRecognizers>
+                                </v:ImageView>
+                                <v:ImageView FontFamily="MaterialOutlined" Glyph="{x:Static mi:MaterialOutlined.Close}" Color="Red"
+                                    Command="{Binding CloseExportCommand}" />
+                            </HorizontalStackLayout>
+                        </Grid>
+                    </Grid>
                     <v:ImageView HorizontalOptions="End" VerticalOptions="End" FontFamily="MaterialOutlined" Glyph="{x:Static mi:MaterialOutlined.Save}"
                                  Command="{Binding SaveCommand}" CommandParameter="{Binding SelectedMacroSet}" />
                 </Grid>
