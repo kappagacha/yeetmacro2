@@ -35,11 +35,6 @@ public static class MauiProgram
 			.ConfigureMauiHandlers(handlers =>
 			{
 				handlers.AddUraniumUIHandlers();
-                // https://github.com/xamarin/XamarinCommunityToolkit/issues/1905
-                // https://github.com/enisn/UraniumUI/issues/171
-				// 
-				// remove this if PR gets approved
-                handlers.AddHandler(typeof(StatefulContentView), typeof(Handlers.StatefulContentViewHandler));
             });
 
 		builder
