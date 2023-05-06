@@ -38,3 +38,11 @@ public class MacroSetSource
         return $"{Type}: {Link}";
     }
 }
+
+public class MacroSetHash
+{
+    public string MacroSet { get; set; }
+    public string Patterns { get; set; }
+    public string Scripts { get; set; }
+    public string Settings { get; set; }
+}

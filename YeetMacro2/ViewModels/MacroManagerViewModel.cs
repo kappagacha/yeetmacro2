@@ -2,8 +2,8 @@
 using CommunityToolkit.Mvvm.Input;
 using System.Collections.Concurrent;
 using System.Text.Json;
+using System.Text.Json.Nodes;
 using System.Text.Json.Serialization;
-using System.Text.Json.Serialization.Metadata;
 using System.Windows.Input;
 using YeetMacro2.Data.Models;
 using YeetMacro2.Data.Serialization;
@@ -35,6 +35,15 @@ public partial class MacroManagerViewModel : ObservableObject
     string _macroSetSourceLink;
     [ObservableProperty]
     string _exportValue;
+    JsonSerializerOptions _jsonSerializerOptions = new JsonSerializerOptions()
+    {
+        Converters = {
+                new JsonStringEnumConverter()
+            },
+        WriteIndented = true,
+        PropertyNamingPolicy = JsonNamingPolicy.CamelCase,
+        TypeInfoResolver = SizePropertiesResolver.Instance
+    };
 
     public PatternNodeViewModel Patterns
     {
@@ -183,17 +192,38 @@ public partial class MacroManagerViewModel : ObservableObject
     [RelayCommand]
     private void ExportMacroSet(MacroSet macroSet)
     {
-        var json = JsonSerializer.Serialize(macroSet, new JsonSerializerOptions()
-        {
-            Converters = {
-                new JsonStringEnumConverter()
-            },
-            WriteIndented = true,
-            PropertyNamingPolicy = JsonNamingPolicy.CamelCase,
-            TypeInfoResolver = SizePropertiesResolver.Instance
-        });
+        var json = JsonSerializer.Serialize(macroSet, _jsonSerializerOptions);
         _toastService.Show($"Exported MacroSet: {macroSet.Name}");
         ExportValue = json;
+        ShowExport = true;
+    }
+
+    [RelayCommand]
+    private void CalculateHash(MacroSet macroSet)
+    {
+        var macroSetJson = JsonSerializer.Serialize(macroSet, _jsonSerializerOptions);
+        var patternsJson = Patterns.ToJson();
+        var scriptsJson = Patterns.ToJson();
+        var settingsJson = Patterns.ToJson();
+        var hash = new MacroSetHash()
+        {
+            MacroSet = ContentHasher.Create(macroSetJson),
+            Patterns = ContentHasher.Create(patternsJson),
+            Scripts = ContentHasher.Create(scriptsJson),
+            Settings = ContentHasher.Create(settingsJson),
+        };
+        // https://stackoverflow.com/questions/65620060/equivalent-of-jobject-in-system-text-json
+        //var hashJson = new JsonObject()
+        //{
+        //    ["macroSet"] = ContentHasher.Create(macroSetJson),
+        //    ["patterns"] = ContentHasher.Create(patternsJson),
+        //    ["scripts"] = ContentHasher.Create(scriptsJson),
+        //    ["settings"] = ContentHasher.Create(settingsJson)
+        //};
+
+        _toastService.Show($"Hash calculated for MacroSet: {macroSet.Name}");
+        //ExportValue = hashJson.ToJsonString(_jsonSerializerOptions);
+        ExportValue = JsonSerializer.Serialize(hash, _jsonSerializerOptions);
         ShowExport = true;
     }
 

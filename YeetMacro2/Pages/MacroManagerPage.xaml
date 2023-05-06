@@ -27,6 +27,8 @@
                              Command="{Binding DeleteMacroSetCommand}" CommandParameter="{Binding SelectedMacroSet}" />
                 <v:ImageView FontFamily="FASolid" Glyph="{x:Static fa:Solid.FileExport}" Color="{StaticResource Primary}" 
                              Command="{Binding ExportMacroSetCommand}" CommandParameter="{Binding SelectedMacroSet}" />
+                <v:ImageView FontFamily="FASolid" Glyph="{x:Static fa:Solid.Hashtag}" Color="{StaticResource Primary}" 
+                             Command="{Binding CalculateHashCommand}" CommandParameter="{Binding SelectedMacroSet}" />
                 <v:ImageView FontFamily="FASolid" Glyph="{x:Static fa:Solid.FolderOpen}" Color="{StaticResource Primary}" 
                              Command="{Binding OpenAppDirectoryCommand}" />
             </HorizontalStackLayout>
