@@ -210,7 +210,7 @@ public partial class NodeViewModel<TParent, TChild> : NodeViewModel
         return JsonSerializer.Serialize(this, _defaultJsonSerializerOptions);
     }
 
-    public NodeViewModel<TParent, TChild> FromJson(string json)
+    public static NodeViewModel<TParent, TChild> FromJson(string json)
     {
         return JsonSerializer.Deserialize<NodeViewModel<TParent, TChild>>(json, _defaultJsonSerializerOptions);
     }

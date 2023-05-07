@@ -57,7 +57,10 @@ public class AndroidWindowManagerService : IInputService, IScreenService
         // https://github.com/halkar/Tesseract.Xamarin
         // https://stackoverflow.com/questions/52157436/q-system-invalidoperationexception-call-init-first-ocr-tesseract-error-in-xa
         _tesseractApi = new TesseractApi(_context, AssetsDeployment.OncePerVersion);
-        _ = _tesseractApi.Init("eng").Result;
+        Task.Run(async () =>
+        {
+            await _tesseractApi.Init("eng");
+        });
     }
 
     private void DeviceDisplay_MainDisplayInfoChanged(object sender, DisplayInfoChangedEventArgs e)
@@ -65,6 +68,7 @@ public class AndroidWindowManagerService : IInputService, IScreenService
         Console.WriteLine("[*****YeetMacro*****] WindowManagerService DeviceDisplay_MainDisplayInfoChanged Start");
         _displayWidth = e.DisplayInfo.Width;
         _displayHeight = e.DisplayInfo.Height;
+        _packageToStatusBarHeight.Clear();
         Console.WriteLine("[*****YeetMacro*****] WindowManagerService DeviceDisplay_MainDisplayInfoChanged End");
     }
 
@@ -268,7 +272,7 @@ public class AndroidWindowManagerService : IInputService, IScreenService
         var drawControl = (DrawControl)_views[AndroidWindowView.DebugDrawView].VisualElement;
         var thickness = 10;
         var loc = new Point(rect.X - thickness, rect.Y - thickness);
-        var size = new Size(rect.X + thickness * 2, rect.Y + thickness * 2);
+        var size = new Size(rect.Width + thickness * 2, rect.Height + thickness * 2);
         
         drawControl.AddRectangle(new Rect(loc, size));
     }
@@ -292,19 +296,19 @@ public class AndroidWindowManagerService : IInputService, IScreenService
     // https://stackoverflow.com/questions/3407256/height-of-status-bar-in-android
     public (int x, int y) GetTopLeftByPackage()
     {
-        var currentPackage = _accessibilityService.CurrentPackage;
+        //var currentPackage = _accessibilityService.CurrentPackage;
 
-        if (_packageToStatusBarHeight.ContainsKey(currentPackage))
-        {
-            return _packageToStatusBarHeight[currentPackage];
-        }
+        //if (_packageToStatusBarHeight.ContainsKey(currentPackage))
+        //{
+        //    return _packageToStatusBarHeight[currentPackage];
+        //}
 
         var topLeft = GetTopLeft();
 
-        if (currentPackage != "unknown")
-        {
-            _packageToStatusBarHeight.TryAdd(currentPackage, topLeft);
-        }
+        //if (currentPackage != "unknown")
+        //{
+        //    _packageToStatusBarHeight.TryAdd(currentPackage, topLeft);
+        //}
 
         return topLeft;
     }
@@ -356,12 +360,18 @@ public class AndroidWindowManagerService : IInputService, IScreenService
     {
         try
         {
+            var watch = new System.Diagnostics.Stopwatch();
             var boundsPadding = 4;
             byte[] needleImageData = pattern.ImageData;
             byte[] haystackImageData = null;
-
+            watch.Start();
             try
             {
+                //var topLeft = GetTopLeftByPackage();
+                //haystackImageData = pattern.Rect != Rect.Zero ?
+                //    await _mediaProjectionService.GetCurrentImageData(pattern.Rect.Offset(-topLeft.x, -topLeft.y)) :
+                //    await _mediaProjectionService.GetCurrentImageData();
+
                 haystackImageData = pattern.Rect != Rect.Zero ?
                     await _mediaProjectionService.GetCurrentImageData(pattern.Rect) :
                     await _mediaProjectionService.GetCurrentImageData();
@@ -404,6 +414,9 @@ public class AndroidWindowManagerService : IInputService, IScreenService
                 }
 
                 _tesseractApi.SetWhitelist("");
+
+                watch.Stop();
+                Console.WriteLine($"GetMatches TextMatch: {watch.ElapsedMilliseconds} ms");
                 return textPoints;
             }
 
@@ -416,6 +429,9 @@ public class AndroidWindowManagerService : IInputService, IScreenService
                     var point = points[i];
                     newPoints.Add(point.Offset(pattern.Rect.X, pattern.Rect.Y));
                 }
+
+                watch.Stop();
+                Console.WriteLine($"GetMatches: {watch.ElapsedMilliseconds} ms");
                 return newPoints;
             }
 

@@ -6,7 +6,7 @@ macroService.clickPattern = async function (pattern, opts = {}) {
     const result = await this.findPattern(pattern, opts);
     if (result.isSuccess) {
         for (const point of result.points) {
-            screenService.clickPoint({ x: point.x + clickOffsetX, y: point.y + clickOffsetY });
+            screenService.doClick({ x: point.x + clickOffsetX, y: point.y + clickOffsetY });
         }
     }
     return result;
@@ -21,7 +21,6 @@ macroService.pollPattern = async function (pattern, opts = {}) {
     const inversePredicatePattern = opts.inversePredicatePattern;
 
     if (predicatePattern || inversePredicatePattern) {
-        logger.info('predicatePattern');
         let inversePatternNotFoundChecks = 0;
         const predicateCheckSteps = opts.predicateCheckSteps ?? 8;
         const inversePredicateCheckSteps = opts.inversePredicateCheckSteps ?? 4;
@@ -39,7 +38,6 @@ macroService.pollPattern = async function (pattern, opts = {}) {
                 if (predicateResult.isSuccess) break;
                 screenService.debugClear();
             }
-
 
             if (inversePredicatePattern) {
                 const inversePredicateResult = await this.findPattern(inversePredicatePattern, predicateOpts);

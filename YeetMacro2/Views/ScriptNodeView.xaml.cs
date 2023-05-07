@@ -13,4 +13,12 @@ public partial class ScriptNodeView : ContentView
 	{
 		InitializeComponent();
 	}
+
+    private void ScriptEditor_SelectAll(object sender, TappedEventArgs e)
+    {
+        if (scriptEditor.Text == null) return;
+        scriptEditor.Focus();
+        scriptEditor.CursorPosition = 0;
+        scriptEditor.SelectionLength = scriptEditor.Text.Length;
+    }
 }

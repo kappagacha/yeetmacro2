@@ -47,9 +47,14 @@
         <Grid Grid.Column="1"  BackgroundColor="Transparent" Padding="3">
             <Border Stroke="{StaticResource Primary}" BackgroundColor="Transparent" Padding="3"
                 IsVisible="{Binding Scripts.SelectedNode, Converter={conv:NullToBoolConverter IsInverse=True}}">
-                <Editor Text="{Binding Scripts.SelectedNode.Text}" IsSpellCheckEnabled="False" />
+                <Editor x:Name="scriptEditor" Text="{Binding Scripts.SelectedNode.Text}" IsSpellCheckEnabled="False" />
             </Border>
             <HorizontalStackLayout HorizontalOptions="End" VerticalOptions="End">
+                <v:ImageView FontFamily="MaterialOutlined" Glyph="{x:Static mi:MaterialOutlined.Select_all}">
+                    <v:ImageView.GestureRecognizers>
+                        <TapGestureRecognizer Tapped="ScriptEditor_SelectAll" />
+                    </v:ImageView.GestureRecognizers>
+                </v:ImageView>
                 <v:ImageView FontFamily="MaterialOutlined" Glyph="{x:Static mi:MaterialOutlined.Save}"
                              Command="{Binding Scripts.SaveCommand}" />
                 <Grid IsVisible="{Binding Scripts.SelectedNode, Converter={conv:NullToBoolConverter IsInverse=True}}">

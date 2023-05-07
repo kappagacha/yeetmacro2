@@ -15,7 +15,9 @@ public partial class MacroManagerViewModel : ObservableObject
 {
     IRepository<MacroSet> _macroSetRepository;
     IToastService _toastService;
-    INodeService<PatternNode, PatternNode> _nodeService;
+    INodeService<PatternNode, PatternNode> _patternNodeService;
+    INodeService<ScriptNode, ScriptNode> _scriptNodeService;
+    INodeService<ParentSetting, SettingNode> _settingNodeService;
     NodeViewModelFactory _nodeViewModelFactory;
     [ObservableProperty]
     ICollection<MacroSet> _macroSets;
@@ -88,17 +90,26 @@ public partial class MacroManagerViewModel : ObservableObject
     }
 
     public ICommand OnScriptExecuted { get; set; }
+    public ICommand OnScriptFinished { get; set; }
 
     public MacroManagerViewModel(IRepository<MacroSet> macroSetRepository,
         IToastService toastService,
         NodeViewModelFactory nodeViewModelFactory,
-        INodeService<PatternNode, PatternNode> nodeService,
+        INodeService<PatternNode, PatternNode> patternNodeService,
+        INodeService<ScriptNode, ScriptNode> scriptNodeService,
+        INodeService<ParentSetting, SettingNode> settingNodeService,
         IScriptService scriptService)
     {
         _macroSetRepository = macroSetRepository;
         _toastService = toastService;
         _nodeViewModelFactory = nodeViewModelFactory;
-        _nodeService = nodeService;
+        _patternNodeService = patternNodeService;
+        _scriptNodeService = scriptNodeService;
+        _settingNodeService = settingNodeService;
+
+        // manually instantiating in ServiceRegistrationHelper.AppInitializer to pre initialize MacroSets
+        if (_macroSetRepository == null) return;  
+
         var tempMacroSets = _macroSetRepository.Get();
         _macroSets = ProxyViewModel.CreateCollection(tempMacroSets);
 
@@ -126,26 +137,47 @@ public partial class MacroManagerViewModel : ObservableObject
         if (string.IsNullOrEmpty(macroSetName)) return;
 
         var macroSet = ProxyViewModel.Create(new MacroSet() { Name = macroSetName });
-        var rootPattern = ProxyViewModel.Create(_nodeService.GetRoot(0));
-        _nodeService.ReAttachNodes(rootPattern);
-        macroSet.RootPattern = rootPattern;
+        var rootPattern = ProxyViewModel.Create(_patternNodeService.GetRoot(0));
+        _patternNodeService.ReAttachNodes(rootPattern);
         macroSet.RootPatternNodeId = rootPattern.NodeId;
-        _macroSets.Add(macroSet);
+
+        var rootScript = ProxyViewModel.Create(_scriptNodeService.GetRoot(0));
+        _scriptNodeService.ReAttachNodes(rootScript);
+        macroSet.RootScriptNodeId = rootScript.NodeId;
+
+        var rootSetting = ProxyViewModel.Create(_settingNodeService.GetRoot(0));
+        _settingNodeService.ReAttachNodes(rootSetting);
+        macroSet.RootSettingNodeId = rootSetting.NodeId;
+
+        MacroSets.Add(macroSet);
         _macroSetRepository.Insert(macroSet);
         _macroSetRepository.Save();
         SelectedMacroSet = macroSet;
         _toastService.Show($"Added MacroSet: {macroSet.Name}");
     }
 
+    //public async Task AddLocalAssetMacroSet(string uri)
+    //{
+    //    var macroSetJson = await ServiceHelper.GetAssetContent(Path.Combine("MacroSets", uri, "macroSet.json"));
+    //    var macroSet = ProxyViewModel.Create(JsonSerializer.Deserialize<MacroSet>(macroSetJson, _jsonSerializerOptions));
+
+    //}
+
+
     [RelayCommand]
     public async Task DeleteMacroSet(MacroSet macroSet)
     {
         if (!await Application.Current.MainPage.DisplayAlert("Delete Macro Set", "Are you sure?", "Ok", "Cancel")) return;
 
-        _nodeService.Delete(_nodeRootIdToPatternTree[macroSet.RootPatternNodeId].Root);
+        await Patterns.WaitForInitialization();
+        await Scripts.WaitForInitialization();
+        await Settings.WaitForInitialization();
+        _patternNodeService.Delete(_nodeRootIdToPatternTree[macroSet.RootPatternNodeId].Root);
+        _scriptNodeService.Delete(_nodeRootIdToScriptTree[macroSet.RootScriptNodeId].Root);
+        _settingNodeService.Delete(_nodeRootIdToSettingTree[macroSet.RootSettingNodeId].Root);
         _macroSetRepository.Delete(macroSet);
         _macroSetRepository.Save();
-        _macroSets.Remove(macroSet);
+        MacroSets.Remove(macroSet);
         _toastService.Show($"Deleted MacroSet: {macroSet.Name}");
     }
 
@@ -160,7 +192,7 @@ public partial class MacroManagerViewModel : ObservableObject
     private void Save(MacroSet macroSet)
     {
         macroSet.Resolution = new Size(ResolutionWidth, ResolutionHeight);
-        macroSet.Source.Link = MacroSetSourceLink;
+        macroSet.Source.Uri = MacroSetSourceLink;
         _macroSetRepository.Update(macroSet);
         _macroSetRepository.Save();
         _toastService.Show($"Saved MacroSet: {macroSet.Name}");
@@ -172,7 +204,10 @@ public partial class MacroManagerViewModel : ObservableObject
         _scriptService.InDebugMode = InDebugMode;
         await Patterns.WaitForInitialization();
         await Settings.WaitForInitialization();
-        _scriptService.RunScript(scriptNode.Text, Patterns.ToJson(), Settings.ToJson());
+        _scriptService.RunScript(scriptNode.Text, Patterns.ToJson(), Settings.ToJson(), () =>
+        {
+            OnScriptFinished?.Execute(null);
+        });
 
         OnScriptExecuted?.Execute(null);
     }
@@ -199,12 +234,16 @@ public partial class MacroManagerViewModel : ObservableObject
     }
 
     [RelayCommand]
-    private void CalculateHash(MacroSet macroSet)
+    private async void CalculateHash(MacroSet macroSet)
     {
         var macroSetJson = JsonSerializer.Serialize(macroSet, _jsonSerializerOptions);
+        await Patterns.WaitForInitialization();
         var patternsJson = Patterns.ToJson();
-        var scriptsJson = Patterns.ToJson();
-        var settingsJson = Patterns.ToJson();
+        await Scripts.WaitForInitialization();
+        var scriptsJson = Scripts.ToJson();
+        await Settings.WaitForInitialization();
+        var settingsJson = Settings.ToJson();
+
         var hash = new MacroSetHash()
         {
             MacroSet = ContentHasher.Create(macroSetJson),
@@ -235,10 +274,18 @@ public partial class MacroManagerViewModel : ObservableObject
 
     partial void OnSelectedMacroSetChanged(MacroSet value)
     {
+        if (value == null)
+        {
+            Preferences.Default.Remove(nameof(SelectedMacroSet));
+            return;
+        }
         ResolutionWidth = value.Resolution.Width;
         ResolutionHeight = value.Resolution.Height;
-        MacroSetSourceType = value.Source.Type;
-        MacroSetSourceLink = value.Source.Link;
+        if (value.Source != null)
+        {
+            MacroSetSourceType = value.Source.Type;
+            MacroSetSourceLink = value.Source.Uri;
+        }
         Preferences.Default.Set(nameof(SelectedMacroSet), value.Name);
     }
 }

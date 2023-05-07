@@ -1,0 +1,12 @@
+{
+  "name": "Konosuba FD",
+  "resolution": {
+    "width": 1920,
+    "height": 1080
+  },
+  "package": null,
+  "source": {
+    "type": "LOCAL_ASSET",
+    "link": "konosubaFD"
+  }
+}

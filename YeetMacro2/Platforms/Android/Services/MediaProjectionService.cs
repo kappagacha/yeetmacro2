@@ -31,15 +31,22 @@ public class MediaProjectionService : IRecorderService
 
     public MediaProjectionService()
     {
-        Console.WriteLine("[*****YeetMacro*****] MediaProjectionService Constructor Start");
-        Init();
-        Console.WriteLine("[*****YeetMacro*****] MediaProjectionService Constructor End");
+        
     }
 
     private void Init()
     {
         try
         {
+            ResetImageReaderAndVirtualDisplay();
+
+            var displayInfo = DeviceDisplay.MainDisplayInfo;
+            var width = (int)displayInfo.Width;
+            var height = (int)displayInfo.Height;
+            var density = (int)displayInfo.Density;
+
+            _imageReader = ImageReader.NewInstance(width, height, (ImageFormatType)global::Android.Graphics.Format.Rgba8888, 2);
+            _virtualDisplay = _mediaProjection.CreateVirtualDisplay("ScreenCapture", width, height, density, (DisplayFlags)VirtualDisplayFlags.AutoMirror, _imageReader.Surface, null, null);
             Console.WriteLine("[*****YeetMacro*****] MediaProjectionService Init");
         }
         catch (Exception ex)
@@ -49,12 +56,28 @@ public class MediaProjectionService : IRecorderService
         }
     }
 
+    private void ResetImageReaderAndVirtualDisplay()
+    {
+        if (_imageReader != null)
+        {
+            _imageReader.Close();
+            _imageReader.Dispose();
+            _imageReader = null;
+        }
+        if (_virtualDisplay != null)
+        {
+            _virtualDisplay.Release();
+            _virtualDisplay.Dispose();
+            _virtualDisplay = null;
+        }
+    }
+
     private void DeviceDisplay_MainDisplayInfoChanged(object sender, DisplayInfoChangedEventArgs e)
     {
         try
         {
             Console.WriteLine("[*****YeetMacro*****] MediaProjectionService DeviceDisplay_MainDisplayInfoChanged");
-            InitVirtualDisplay();
+            Init();
         }
         catch (Exception ex)
         {
@@ -78,31 +101,16 @@ public class MediaProjectionService : IRecorderService
         }
 
         _context = (MainActivity)Platform.CurrentActivity;
-        _mediaProjectionManager = (MediaProjectionManager)_context.GetSystemService(Context.MediaProjectionService);
-
         _resultCode = (int)resultCode;
         _resultData = resultData;
-        InitVirtualDisplay();
-        _startCompleted.SetResult(true);
+        _mediaProjectionManager = (MediaProjectionManager)_context.GetSystemService(Context.MediaProjectionService);
         _mediaProjection = _mediaProjectionManager.GetMediaProjection(_resultCode, _resultData);
+        _startCompleted.SetResult(true);
 
-        var displayInfo = DeviceDisplay.MainDisplayInfo;
-        var width = (int)displayInfo.Width;
-        var height = (int)displayInfo.Height;
-        var density = (int)displayInfo.Density;
-
-        _imageReader = ImageReader.NewInstance(width, height, (ImageFormatType)global::Android.Graphics.Format.Rgba8888, 2);
-        _virtualDisplay = _mediaProjection.CreateVirtualDisplay("ScreenCapture", width, height, density, (DisplayFlags)VirtualDisplayFlags.AutoMirror, _imageReader.Surface, null, null);
+        Init();
 
         Toast.MakeText(_context, "Media projection started...", ToastLength.Short).Show();
-        //DeviceDisplay.MainDisplayInfoChanged += DeviceDisplay_MainDisplayInfoChanged;
-    }
-
-    private void InitVirtualDisplay()
-    {
-        Stop();
-        //https://stackoverflow.com/questions/38891654/get-current-screen-width-in-xamarin-forms
-
+        DeviceDisplay.MainDisplayInfoChanged += DeviceDisplay_MainDisplayInfoChanged;
     }
 
     //It may be faster if we don't convert to bitmap
@@ -148,61 +156,17 @@ public class MediaProjectionService : IRecorderService
         return bitmap;
     }
 
-    //public async Task<MemoryStream> GetCurrentImageStream()
-    //{
-    //    await EnsureProjectionServiceStarted();
-
-    //    var bitmap = GetBitmap();
-    //    if (bitmap == null) return null;
-
-    //    MemoryStream ms = new MemoryStream();
-    //    bitmap.Compress(CompressFormat.Jpeg, 100, ms);
-    //    bitmap.Dispose();
-    //    ms.Position = 0;
-    //    return ms;
-    //}
-
-    //public async Task<MemoryStream> GetCurrentImageStream(int x, int y, int width, int height)
-    //{
-    //    if (x < 0) x = 0;
-    //    if (y < 0) y = 0;
-    //    await EnsureProjectionServiceStarted();
-
-    //    var bitmap = GetBitmap();
-    //    if (bitmap == null) return null;
-
-    //    var newBitmap = Bitmap.CreateBitmap(bitmap, x, y, width, height);
-    //    bitmap.Dispose();
-    //    MemoryStream ms = new MemoryStream();
-    //    newBitmap.Compress(CompressFormat.Jpeg, 100, ms);
-    //    newBitmap.Dispose();
-    //    ms.Position = 0;
-    //    return ms;
-    //}
-
     public void Stop()
     {
         DeviceDisplay.MainDisplayInfoChanged -= DeviceDisplay_MainDisplayInfoChanged;
-
+        ResetImageReaderAndVirtualDisplay();
         if (_mediaProjection != null)
         {
             _mediaProjection.Stop();
             _mediaProjection.Dispose();
             _mediaProjection = null;
         }
-        if (_imageReader != null)
-        {
-            _imageReader.Close();
-            _imageReader.Dispose();
-            _imageReader = null;
-        }
-        if (_virtualDisplay != null)
-        {
-            _virtualDisplay.Release();
-            _virtualDisplay.Dispose();
-            _virtualDisplay = null;
-        }
-        
+
         if (_context != null)
         {
             Toast.MakeText(_context, "Media projection stopped...", ToastLength.Short).Show();

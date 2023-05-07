@@ -99,7 +99,8 @@
                 </v:NodeView.ExtraMenuItemsDataTemplate>
             </v:NodeView>
         </Border>
-        <Grid Grid.Column="0" HorizontalOptions="End" VerticalOptions="Start" BackgroundColor="Transparent" Padding="3">
+        <Grid Grid.Column="0" HorizontalOptions="End" VerticalOptions="Start" BackgroundColor="Transparent" Padding="3"
+              IsVisible="{Binding Settings.ShowExport, Converter={conv:InverseBoolConverter}}">
             <v:ImageView FontFamily="MaterialOutlined" Glyph="{x:Static mi:MaterialOutlined.Save}"
                                  Command="{Binding BindingContext.Settings.SaveCommand, Source={RelativeSource AncestorType={x:Type v:SettingNodeView}}}" />
         </Grid>

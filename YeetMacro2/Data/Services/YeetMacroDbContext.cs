@@ -50,12 +50,6 @@ public class YeetMacroDbContext : DbContext
             r => JsonSerializer.Deserialize<Size>(r, serializationOptions));
 
         modelBuilder.Entity<MacroSet>().HasKey(ms => ms.MacroSetId);
-        modelBuilder.Entity<MacroSet>().HasOne(ms => ms.RootPattern).WithOne()
-            .HasPrincipalKey<MacroSet>(ms => ms.RootPatternNodeId).OnDelete(DeleteBehavior.Cascade);
-        modelBuilder.Entity<MacroSet>().HasOne(ms => ms.RootScript).WithOne()
-            .HasPrincipalKey<MacroSet>(ms => ms.RootScriptNodeId).OnDelete(DeleteBehavior.Cascade);
-        modelBuilder.Entity<MacroSet>().HasOne(ms => ms.RootSetting).WithOne()
-            .HasPrincipalKey<MacroSet>(ms => ms.RootSettingNodeId).OnDelete(DeleteBehavior.Cascade);
         modelBuilder.Entity<MacroSet>().Property(ms => ms.Resolution).HasConversion(sizeConverter);
         modelBuilder.Entity<MacroSet>().OwnsOne(ms => ms.Source);
 

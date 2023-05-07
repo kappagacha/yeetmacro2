@@ -8,6 +8,8 @@ using Serilog.Extensions.Logging;
 using Serilog.Filters;
 using System.Diagnostics;
 using System.Reflection;
+using System.Text.Json;
+using System.Text.Json.Serialization;
 using YeetMacro2.Data.Models;
 using YeetMacro2.Data.Services;
 using YeetMacro2.ViewModels;
@@ -45,34 +47,70 @@ public class AppInitializer : IMauiInitializeService
 
         if (dbContext.MacroSets.Any()) return;
 
-        var patternNodeService = services.GetService<INodeService<PatternNode, PatternNode>>();
-        var disgaeaPatternNode = patternNodeService.GetRoot(-1);
-        var konosubaPatternNode = patternNodeService.GetRoot(-1);
-
-
-        var scriptNodeService = services.GetService<INodeService<ScriptNode, ScriptNode>>();
-        var disgaeaScriptNode = scriptNodeService.GetRoot(-1);
-        var konosubaScriptNode = scriptNodeService.GetRoot(-1);
-
-        var settingNodeService = services.GetService<INodeService<ParentSetting, SettingNode>>();
-        var disgaeaSettingNode = settingNodeService.GetRoot(-1);
-        var konosubaSettingNode = settingNodeService.GetRoot(-1);
-
-        var disgaeaRpgMacroSet = new MacroSet() { 
-            Name = "Disgaea RPG", RootPatternNodeId = disgaeaPatternNode.NodeId, 
-            RootScriptNodeId = disgaeaScriptNode.NodeId, RootSettingNodeId = disgaeaSettingNode.NodeId,
-            //Resolution = new Resolution() { Width = 1080, Height = 1920 },
-            Source = new MacroSetSource() { Type = MacroSetSourceType.LOCAL_ASSET, Link = "disgaeaRpg" }
-        };
-        var konsobaFdMacroSet = new MacroSet() { 
-            Name = "Konosuba FD", RootPatternNodeId = konosubaPatternNode.NodeId, 
-            RootScriptNodeId = konosubaScriptNode.NodeId, RootSettingNodeId = konosubaSettingNode.NodeId,
-            //Resolution = new Resolution() { Width = 1920, Height = 1080 },
-            Source = new MacroSetSource() { Type = MacroSetSourceType.LOCAL_ASSET, Link = "kinosubFd" }
+        var macroSetRepository = services.GetRequiredService<IRepository<MacroSet>>();
+        var patternNodeService = services.GetRequiredService<INodeService<PatternNode, PatternNode>>();
+        var scriptNodeService = services.GetRequiredService<INodeService<ScriptNode, ScriptNode>>();
+        var settingNodeService = services.GetRequiredService<INodeService<ParentSetting, SettingNode>>();
+        var jsonSerializerOptions = new JsonSerializerOptions()
+        {
+            Converters = {
+                new JsonStringEnumConverter()
+            },
+            PropertyNamingPolicy = JsonNamingPolicy.CamelCase
         };
 
-        dbContext.MacroSets.AddRange(disgaeaRpgMacroSet, konsobaFdMacroSet);
-        dbContext.SaveChanges();
+        var macroSets = ServiceHelper.ListAssets("MacroSets");
+        foreach (var folder in macroSets)
+        {
+            var macroSetJson = ServiceHelper.GetAssetContent(Path.Combine("MacroSets", folder, "macroSet.json"));
+            var macroSet = JsonSerializer.Deserialize<MacroSet>(macroSetJson, jsonSerializerOptions);
+
+            var pattternJson = ServiceHelper.GetAssetContent(Path.Combine("MacroSets", folder, "patterns.json"));
+            var rootPattern = patternNodeService.GetRoot(0);
+            var tempPatternTree = PatternNodeViewModel.FromJson(pattternJson);
+            foreach (var pattern in tempPatternTree.Root.Nodes)
+            {
+                pattern.RootId = rootPattern.NodeId;
+                pattern.ParentId = rootPattern.NodeId;
+                rootPattern.Nodes.Add(pattern);
+                patternNodeService.Insert(pattern);
+            }
+            macroSet.RootPatternNodeId = rootPattern.NodeId;
+
+            var scripts = ServiceHelper.ListAssets(Path.Combine("MacroSets", folder, "scripts"));
+            var rootScripts = scriptNodeService.GetRoot(0);
+            foreach (var scriptFile in scripts)
+            {
+                var scriptText = ServiceHelper.GetAssetContent(Path.Combine("MacroSets", folder, "scripts", scriptFile));
+                var script = new ScriptNode()
+                {
+                    Name = Path.GetFileNameWithoutExtension(scriptFile),
+                    Text = scriptText,
+                    RootId = rootScripts.NodeId,
+                    ParentId = rootScripts.NodeId
+                };
+
+                rootScripts.Nodes.Add(script);
+                scriptNodeService.Insert(script);
+            }
+
+            macroSet.RootScriptNodeId = rootScripts.NodeId;
+
+            var settingJson = ServiceHelper.GetAssetContent(Path.Combine("MacroSets", folder, "settings.json"));
+            var rootSetting = settingNodeService.GetRoot(0);
+            var tempSettingTree = SettingNodeViewModel.FromJson(settingJson);
+            foreach (var setting in tempSettingTree.Root.Nodes)
+            {
+                setting.RootId = rootSetting.NodeId;
+                setting.ParentId = rootSetting.NodeId;
+                rootSetting.Nodes.Add(setting);
+                settingNodeService.Insert(setting);
+            }
+            macroSet.RootSettingNodeId = rootSetting.NodeId;
+
+            macroSetRepository.Insert(macroSet);
+            macroSetRepository.Save();
+        }
     }
 }
 

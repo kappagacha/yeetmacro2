@@ -8,7 +8,7 @@ namespace YeetMacro2.Services;
 public interface IScriptService
 {
     bool InDebugMode { get; set; }
-    void RunScript(string script, string jsonPatterns, string jsonOptions);
+    void RunScript(string script, string jsonPatterns, string jsonOptions, Action onScriptFinished);
     void Stop();
 }
 
@@ -34,7 +34,7 @@ public class ScriptService : IScriptService
         Task.Run(InitJSContext);
     }
 
-    public void RunScript(string script, string jsonPatterns, string jsonSettings)
+    public void RunScript(string script, string jsonPatterns, string jsonSettings, Action onScriptFinished)
     {
         if (_isRunning) return;
 
@@ -45,9 +45,10 @@ public class ScriptService : IScriptService
             {
                 await _jsContext.ExecuteAsync($"patterns = {jsonPatterns}; settings = {jsonSettings}; resolvePath({{ $isParent: true, ...patterns }});");
                 await _jsContext.ExecuteAsync(script);
+                _toastService.Show(_isRunning ? "Script finished..." : "Script stopped...");
                 _isRunning = false;
                 _jsonValueToPatternNode.Clear();
-                //_toastService.Show("Script finished...");
+                onScriptFinished?.Invoke();
             }
             catch (Exception ex)
             {
@@ -60,7 +61,6 @@ public class ScriptService : IScriptService
     public void Stop()
     {
         _isRunning = false;
-        _toastService.Show("Script stopped...");
     }
 
     public async Task InitJSContext()
@@ -242,10 +242,7 @@ public class ScriptService : IScriptService
             }), JSPropertyAttributes.ReadonlyValue)
         });
 
-
-        using var stream = FileSystem.OpenAppPackageFileAsync("initJavaScriptContext.js").Result;
-        using var reader = new StreamReader(stream);
-        var initScript = reader.ReadToEnd();
+        var initScript = ServiceHelper.GetAssetContent("initJavaScriptContext.js");
         await _jsContext.ExecuteAsync(initScript);
     }
 }

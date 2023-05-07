@@ -178,7 +178,7 @@ public static class OpenCvHelper
         mask.Dispose();
 
         watch.Stop();
-        Console.WriteLine($"Execution Time: {watch.ElapsedMilliseconds} ms");
+        Console.WriteLine($"MatchTemplate: {watch.ElapsedMilliseconds} ms");
     }
 }
 

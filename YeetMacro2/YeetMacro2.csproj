@@ -76,19 +76,12 @@
 	  <None Remove="Platforms\Android\Assets\tessdata\eng.traineddata" />
 	  <None Remove="Platforms\Android\Resources\xml\yeetmacro_config.xml" />
 	  <None Remove="Resources\Images\appicon.svg" />
-	  <None Remove="Resources\MacroSets\Disgaea RPG\Disgaea RPG_patterns.json" />
-	  <None Remove="Resources\MacroSets\Disgaea RPG\Disgaea RPG_scripts.json" />
-	  <None Remove="Resources\MacroSets\Disgaea RPG\Disgaea RPG_Settings.json" />
-	  <None Remove="Resources\MacroSets\Konosuba FD\Konosuba FD_patterns.json" />
 	  <None Remove="Resources\Raw\initJavaScriptContext.js" />
+	  <None Remove="Resources\Raw\MacroSets\konosubaFD\macroSet.json" />
+	  <None Remove="Resources\Raw\MacroSets\konosubaFD\patterns.json" />
+	  <None Remove="Resources\Raw\MacroSets\konosubaFD\scripts\hash.json" />
+	  <None Remove="Resources\Raw\MacroSets\konosubaFD\settings.json" />
 	  <None Remove="Resources\Splash\splash.svg" />
-	</ItemGroup>
-
-	<ItemGroup>
-	  <EmbeddedResource Include="Resources\MacroSets\Disgaea RPG\Disgaea RPG_Patterns.json" />
-	  <EmbeddedResource Include="Resources\MacroSets\Disgaea RPG\Disgaea RPG_scripts.json" />
-	  <EmbeddedResource Include="Resources\MacroSets\Disgaea RPG\Disgaea RPG_Settings.json" />
-	  <EmbeddedResource Include="Resources\MacroSets\Konosuba FD\Konosuba FD_Patterns.json" />
 	</ItemGroup>
 
 	<ItemGroup>
@@ -203,7 +196,18 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Resources\Raw\MacroSets\" />
+    <MauiAsset Update="Resources\Raw\MacroSets\konosubaFD\macroSet.json">
+      <LogicalName>%(RecursiveDir)%(Filename)%(Extension)</LogicalName>
+    </MauiAsset>
+    <MauiAsset Update="Resources\Raw\MacroSets\konosubaFD\scripts\test.js">
+      <LogicalName>%(RecursiveDir)%(Filename)%(Extension)</LogicalName>
+    </MauiAsset>
+    <MauiAsset Update="Resources\Raw\MacroSets\konosubaFD\settings.json">
+      <LogicalName>%(RecursiveDir)%(Filename)%(Extension)</LogicalName>
+    </MauiAsset>
+    <MauiAsset Update="Resources\Raw\MacroSets\konosubaFD\patterns.json">
+      <LogicalName>%(RecursiveDir)%(Filename)%(Extension)</LogicalName>
+    </MauiAsset>
   </ItemGroup>
 
 </Project>
