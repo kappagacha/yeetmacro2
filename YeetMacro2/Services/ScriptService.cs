@@ -154,6 +154,11 @@ public class ScriptService : IScriptService
                 {
                     foreach (var patternNodeKvp in pathToPatternNode)
                     {
+                        if (InDebugMode)
+                        {
+                            MainThread.BeginInvokeOnMainThread(_screenService.DebugClear);
+                        }
+
                         if (!_isRunning)
                         {
                             result = new FindPatternResult()
@@ -177,6 +182,7 @@ public class ScriptService : IScriptService
                                 {
                                     MainThread.BeginInvokeOnMainThread(() =>
                                     {
+                                        _screenService.DebugClear();
                                         _screenService.DebugRectangle(pattern.Rect);
                                     });
                                 }

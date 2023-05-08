@@ -60,5 +60,7 @@ public partial class NodeView : ContentView
         exportEditor.Focus();
         exportEditor.CursorPosition = 0;
         exportEditor.SelectionLength = exportEditor.Text.Length;
+
+        Task.Run(async () => await Clipboard.SetTextAsync(exportEditor.Text));
     }
 }
