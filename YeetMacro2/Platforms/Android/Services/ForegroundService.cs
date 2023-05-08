@@ -110,7 +110,6 @@ public class ForegroundService : Service
             notifManager.CreateNotificationChannel(notificationChannel);
         }
         
-
         return notifBuilder.Build();
     }
 

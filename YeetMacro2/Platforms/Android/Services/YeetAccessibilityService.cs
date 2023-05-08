@@ -192,7 +192,6 @@ public class YeetAccessibilityService : AccessibilityService
         {
             Console.WriteLine("[*****YeetMacro*****] YeetAccessibilityService Stop");
             _instance?.DisableSelf();
-            _instance?.Dispose();
             _instance = null;
         }
         catch (Exception ex)

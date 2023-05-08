@@ -31,15 +31,18 @@ public class MediaProjectionService : IRecorderService
 
     public MediaProjectionService()
     {
-        
+        _startCompleted = new TaskCompletionSource<bool>();
     }
 
-    private void Init()
+    public void Start()
     {
+        _startCompleted = new TaskCompletionSource<bool>();
+        if (_mediaProjectionManager == null) return;
+
         try
         {
-            ResetImageReaderAndVirtualDisplay();
-
+            _mediaProjection = _mediaProjectionManager.GetMediaProjection(_resultCode, _resultData);
+            
             var displayInfo = DeviceDisplay.MainDisplayInfo;
             var width = (int)displayInfo.Width;
             var height = (int)displayInfo.Height;
@@ -56,39 +59,19 @@ public class MediaProjectionService : IRecorderService
         }
     }
 
-    private void ResetImageReaderAndVirtualDisplay()
-    {
-        if (_imageReader != null)
-        {
-            _imageReader.Close();
-            _imageReader.Dispose();
-            _imageReader = null;
-        }
-        if (_virtualDisplay != null)
-        {
-            _virtualDisplay.Release();
-            _virtualDisplay.Dispose();
-            _virtualDisplay = null;
-        }
-    }
-
     private void DeviceDisplay_MainDisplayInfoChanged(object sender, DisplayInfoChangedEventArgs e)
     {
         try
         {
             Console.WriteLine("[*****YeetMacro*****] MediaProjectionService DeviceDisplay_MainDisplayInfoChanged");
-            Init();
+            Stop();
+            Start();
         }
         catch (Exception ex)
         {
             Console.WriteLine("[*****YeetMacro*****] MediaProjectionService DeviceDisplay_MainDisplayInfoChanged Exception");
             Console.WriteLine("[*****YeetMacro*****] " + ex.Message);
         }
-    }
-
-    public void Start()
-    {
-        _startCompleted = new TaskCompletionSource<bool>();
     }
 
     public void Start(global::Android.App.Result resultCode, Intent resultData)
@@ -104,11 +87,9 @@ public class MediaProjectionService : IRecorderService
         _resultCode = (int)resultCode;
         _resultData = resultData;
         _mediaProjectionManager = (MediaProjectionManager)_context.GetSystemService(Context.MediaProjectionService);
-        _mediaProjection = _mediaProjectionManager.GetMediaProjection(_resultCode, _resultData);
         _startCompleted.SetResult(true);
 
-        Init();
-
+        Start();
         Toast.MakeText(_context, "Media projection started...", ToastLength.Short).Show();
         DeviceDisplay.MainDisplayInfoChanged += DeviceDisplay_MainDisplayInfoChanged;
     }
@@ -129,7 +110,6 @@ public class MediaProjectionService : IRecorderService
     {
         if (_resultCode == 0)
         {
-            Start();
             await _startCompleted.Task;
             await Task.Delay(500);      //give projection service time to start
         }
@@ -159,7 +139,18 @@ public class MediaProjectionService : IRecorderService
     public void Stop()
     {
         DeviceDisplay.MainDisplayInfoChanged -= DeviceDisplay_MainDisplayInfoChanged;
-        ResetImageReaderAndVirtualDisplay();
+        if (_imageReader != null)
+        {
+            _imageReader.Close();
+            _imageReader.Dispose();
+            _imageReader = null;
+        }
+        if (_virtualDisplay != null)
+        {
+            _virtualDisplay.Release();
+            _virtualDisplay.Dispose();
+            _virtualDisplay = null;
+        }
         if (_mediaProjection != null)
         {
             _mediaProjection.Stop();

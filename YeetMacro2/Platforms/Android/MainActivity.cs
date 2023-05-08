@@ -26,6 +26,9 @@ public class MainActivity : MauiAppCompatActivity
             Console.WriteLine("[*****YeetMacro*****] OpenCVLoader.InitDebug ERROR");
         }
 
+        RegisterReceiver(receiver, new IntentFilter("com.companyname.ForegroundService.EXIT"));
+        RegisterReceiver(receiver, new IntentFilter("com.companyname.AccessibilityService.CHANGED"));
+
         base.OnCreate(savedInstanceState);
     }
 
@@ -43,14 +46,11 @@ public class MainActivity : MauiAppCompatActivity
     {
         Console.WriteLine("[*****YeetMacro*****] MainActivity OnResume");
         base.OnResume();
-        RegisterReceiver(receiver, new IntentFilter("com.companyname.ForegroundService.EXIT"));
-        RegisterReceiver(receiver, new IntentFilter("com.companyname.AccessibilityService.CHANGED"));
     }
 
     protected override void OnPause()
     {
         Console.WriteLine("[*****YeetMacro*****] MainActivity OnPause");
-        UnregisterReceiver(receiver);
         base.OnPause();
     }
 

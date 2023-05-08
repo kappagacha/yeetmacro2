@@ -2,7 +2,6 @@
 using CommunityToolkit.Mvvm.Input;
 using System.Collections.Concurrent;
 using System.Text.Json;
-using System.Text.Json.Nodes;
 using System.Text.Json.Serialization;
 using System.Windows.Input;
 using YeetMacro2.Data.Models;
@@ -51,13 +50,13 @@ public partial class MacroManagerViewModel : ObservableObject
     {
         get
         {
-            if (_selectedMacroSet == null) return null;
-            if (!_nodeRootIdToPatternTree.ContainsKey(_selectedMacroSet.RootPatternNodeId))
+            if (SelectedMacroSet == null) return null;
+            if (!_nodeRootIdToPatternTree.ContainsKey(SelectedMacroSet.RootPatternNodeId))
             {
-                var tree = _nodeViewModelFactory.Create<PatternNodeViewModel>(_selectedMacroSet.RootPatternNodeId);
-                _nodeRootIdToPatternTree.TryAdd(_selectedMacroSet.RootPatternNodeId, tree);
+                var tree = _nodeViewModelFactory.Create<PatternNodeViewModel>(SelectedMacroSet.RootPatternNodeId);
+                _nodeRootIdToPatternTree.TryAdd(SelectedMacroSet.RootPatternNodeId, tree);
             }
-            return _nodeRootIdToPatternTree[_selectedMacroSet.RootPatternNodeId];
+            return _nodeRootIdToPatternTree[SelectedMacroSet.RootPatternNodeId];
         }
     }
 
@@ -65,13 +64,13 @@ public partial class MacroManagerViewModel : ObservableObject
     {
         get
         {
-            if (_selectedMacroSet == null) return null;
-            if (!_nodeRootIdToScriptTree.ContainsKey(_selectedMacroSet.RootScriptNodeId))
+            if (SelectedMacroSet == null) return null;
+            if (!_nodeRootIdToScriptTree.ContainsKey(SelectedMacroSet.RootScriptNodeId))
             {
-                var tree = _nodeViewModelFactory.Create<ScriptNodeViewModel>(_selectedMacroSet.RootScriptNodeId);
-                _nodeRootIdToScriptTree.TryAdd(_selectedMacroSet.RootScriptNodeId, tree);
+                var tree = _nodeViewModelFactory.Create<ScriptNodeViewModel>(SelectedMacroSet.RootScriptNodeId);
+                _nodeRootIdToScriptTree.TryAdd(SelectedMacroSet.RootScriptNodeId, tree);
             }
-            return _nodeRootIdToScriptTree[_selectedMacroSet.RootScriptNodeId];
+            return _nodeRootIdToScriptTree[SelectedMacroSet.RootScriptNodeId];
         }
     }
 
@@ -79,13 +78,13 @@ public partial class MacroManagerViewModel : ObservableObject
     {
         get
         {
-            if (_selectedMacroSet == null) return null;
-            if (!_nodeRootIdToSettingTree.ContainsKey(_selectedMacroSet.RootSettingNodeId))
+            if (SelectedMacroSet == null) return null;
+            if (!_nodeRootIdToSettingTree.ContainsKey(SelectedMacroSet.RootSettingNodeId))
             {
-                var tree = _nodeViewModelFactory.Create<SettingNodeViewModel>(_selectedMacroSet.RootSettingNodeId);
-                _nodeRootIdToSettingTree.TryAdd(_selectedMacroSet.RootSettingNodeId, tree);
+                var tree = _nodeViewModelFactory.Create<SettingNodeViewModel>(SelectedMacroSet.RootSettingNodeId);
+                _nodeRootIdToSettingTree.TryAdd(SelectedMacroSet.RootSettingNodeId, tree);
             }
-            return _nodeRootIdToSettingTree[_selectedMacroSet.RootSettingNodeId];
+            return _nodeRootIdToSettingTree[SelectedMacroSet.RootSettingNodeId];
         }
     }
 

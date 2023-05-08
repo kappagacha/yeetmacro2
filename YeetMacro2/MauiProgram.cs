@@ -4,7 +4,6 @@ using YeetMacro2.Platforms;
 using CommunityToolkit.Maui;
 using UraniumUI;
 using SkiaSharp.Views.Maui.Controls.Hosting;
-using UraniumUI.Views;
 
 namespace YeetMacro2;
 
