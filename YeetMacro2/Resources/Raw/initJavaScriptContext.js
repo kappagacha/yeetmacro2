@@ -90,13 +90,13 @@ macroService.pollPattern = async function (pattern, opts = {}) {
 
 function resolvePath(node, path = '') {
     let currentPath = path;
-    if (node.properties) {
-        currentPath = `${path ? path + '.' : ''}` + node.properties.name;
-        node.properties.path = currentPath;
+    if (node.props) {
+        currentPath = `${path ? path + '.' : ''}` + node.props.name;
+        node.props.path = currentPath;
     }
     if (node.$isParent) {
         for (const [key, value] of Object.entries(node)) {
-            if (['properties', '$isParent'].includes(key)) continue;
+            if (['props', '$isParent'].includes(key)) continue;
             resolvePath(value, currentPath);
         }
     }

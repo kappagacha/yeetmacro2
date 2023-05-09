@@ -52,7 +52,12 @@
             </VerticalStackLayout>
         </DataTemplate>
     </ContentView.Resources>
-    <Grid ColumnDefinitions="*,3*">
+    <Grid ColumnDefinitions="*">
+        <Grid.Triggers>
+            <DataTrigger TargetType="Grid" Binding="{Binding Settings.SelectedPatternNode, Converter={conv:NullToBoolConverter IsInverse=True}}" Value="True">
+                <Setter Property="ColumnDefinitions" Value="*,3*" />
+            </DataTrigger>
+        </Grid.Triggers>
         <Border Grid.Column="0" Stroke="{StaticResource Primary}" BackgroundColor="Transparent" Padding="3">
             <v:NodeView ItemsSource="{Binding Settings}">
                 <v:NodeView.ItemTemplate>

@@ -11,58 +11,69 @@
              x:DataType="vm:MacroManagerViewModel"
              x:Class="YeetMacro2.Views.ScriptNodeView"
              x:Name="thisControl">
-    <Grid ColumnDefinitions="*,3*">
-        <Border Grid.Column="0" Stroke="{StaticResource Primary}" BackgroundColor="Transparent" Padding="3">
-            <v:NodeView ItemsSource="{Binding Scripts}">
-                <v:NodeView.ExtraMenuItemsDataTemplate>
-                    <DataTemplate x:DataType="{x:Null}">
-                        <VerticalStackLayout>
-                            <v:ImageView FontFamily="FASolid" Glyph="{x:Static fa:Solid.Terminal}" Color="LightGray"
-                                             Command="{Binding BindingContext.ToggleShowLogViewCommand}">
-                                <v:ImageView.Triggers>
-                                    <DataTrigger TargetType="{x:Type v:ImageView}" Binding="{Binding BindingContext.ShowLogView, Source={RelativeSource AncestorType={x:Type v:ScriptNodeView}}}" Value="True">
-                                        <Setter Property="Color" Value="Green" />
-                                    </DataTrigger>
-                                </v:ImageView.Triggers>
-                            </v:ImageView>
-                            <v:ImageView FontFamily="MaterialOutlined" Glyph="{x:Static mi:MaterialOutlined.Filter_center_focus}"  Color="LightGray"
-                                             Command="{Binding BindingContext.ToggleInDebugModeCommand}">
-                                <v:ImageView.Triggers>
-                                    <DataTrigger TargetType="{x:Type v:ImageView}" Binding="{Binding BindingContext.InDebugMode, Source={RelativeSource AncestorType={x:Type v:ScriptNodeView}}}" Value="True">
-                                        <Setter Property="Color" Value="Green" />
-                                    </DataTrigger>
-                                </v:ImageView.Triggers>
-                            </v:ImageView>
-                            <v:ImageView FontFamily="FASolid" Glyph="{x:Static fa:Solid.Download}" 
-                                                Command="{Binding ItemsSource.ImportCommand}"
-                                                CommandParameter="{Binding BindingContext.SelectedMacroSet.Name, Source={RelativeSource AncestorType={x:Type v:ScriptNodeView}}}" />
-                            <v:ImageView FontFamily="FASolid" Glyph="{x:Static fa:Solid.FileExport}" 
-                                                Command="{Binding ItemsSource.ExportCommand}"
-                                                CommandParameter="{Binding BindingContext.SelectedMacroSet.Name, Source={RelativeSource AncestorType={x:Type v:ScriptNodeView}}}" />
-                        </VerticalStackLayout>
-                    </DataTemplate>
-                </v:NodeView.ExtraMenuItemsDataTemplate>
-            </v:NodeView>
-        </Border>
-        <Grid Grid.Column="1"  BackgroundColor="Transparent" Padding="3">
-            <Border Stroke="{StaticResource Primary}" BackgroundColor="Transparent" Padding="3"
-                IsVisible="{Binding Scripts.SelectedNode, Converter={conv:NullToBoolConverter IsInverse=True}}">
-                <Editor x:Name="scriptEditor" Text="{Binding Scripts.SelectedNode.Text}" IsSpellCheckEnabled="False" />
+    <Grid>
+        <v:SettingNodeView IsVisible="{Binding ShowSettings}" />
+        <Grid IsVisible="{Binding ShowSettings, Converter={conv:InverseBoolConverter}}" ColumnDefinitions="*,3*">
+            <Border Grid.Column="0" Stroke="{StaticResource Primary}" BackgroundColor="Transparent" Padding="3">
+                <v:NodeView ItemsSource="{Binding Scripts}">
+                    <v:NodeView.ExtraMenuItemsDataTemplate>
+                        <DataTemplate x:DataType="{x:Null}">
+                            <VerticalStackLayout>
+                                <v:ImageView FontFamily="FASolid" Glyph="{x:Static fa:Solid.Terminal}" Color="LightGray"
+                                                 Command="{Binding BindingContext.ToggleShowLogViewCommand}">
+                                    <v:ImageView.Triggers>
+                                        <DataTrigger TargetType="{x:Type v:ImageView}" Binding="{Binding BindingContext.ShowLogView, Source={RelativeSource AncestorType={x:Type v:ScriptNodeView}}}" Value="True">
+                                            <Setter Property="Color" Value="Green" />
+                                        </DataTrigger>
+                                    </v:ImageView.Triggers>
+                                </v:ImageView>
+                                <v:ImageView FontFamily="MaterialOutlined" Glyph="{x:Static mi:MaterialOutlined.Filter_center_focus}"  Color="LightGray"
+                                                 Command="{Binding BindingContext.ToggleInDebugModeCommand}">
+                                    <v:ImageView.Triggers>
+                                        <DataTrigger TargetType="{x:Type v:ImageView}" Binding="{Binding BindingContext.InDebugMode, Source={RelativeSource AncestorType={x:Type v:ScriptNodeView}}}" Value="True">
+                                            <Setter Property="Color" Value="Green" />
+                                        </DataTrigger>
+                                    </v:ImageView.Triggers>
+                                </v:ImageView>
+                                <!--<v:ImageView FontFamily="FASolid" Glyph="{x:Static fa:Solid.Download}" 
+                                                    Command="{Binding ItemsSource.ImportCommand}"
+                                                    CommandParameter="{Binding BindingContext.SelectedMacroSet.Name, Source={RelativeSource AncestorType={x:Type v:ScriptNodeView}}}" />-->
+                                <v:ImageView FontFamily="FASolid" Glyph="{x:Static fa:Solid.FileExport}" 
+                                                    Command="{Binding ItemsSource.ExportCommand}"
+                                                    CommandParameter="{Binding BindingContext.SelectedMacroSet.Name, Source={RelativeSource AncestorType={x:Type v:ScriptNodeView}}}" />
+                            </VerticalStackLayout>
+                        </DataTemplate>
+                    </v:NodeView.ExtraMenuItemsDataTemplate>
+                </v:NodeView>
             </Border>
-            <HorizontalStackLayout HorizontalOptions="End" VerticalOptions="End">
-                <v:ImageView FontFamily="MaterialOutlined" Glyph="{x:Static mi:MaterialOutlined.Select_all}">
-                    <v:ImageView.GestureRecognizers>
-                        <TapGestureRecognizer Tapped="ScriptEditor_SelectAll" />
-                    </v:ImageView.GestureRecognizers>
-                </v:ImageView>
-                <v:ImageView FontFamily="MaterialOutlined" Glyph="{x:Static mi:MaterialOutlined.Save}"
-                             Command="{Binding Scripts.SaveCommand}" />
-                <Grid IsVisible="{Binding Scripts.SelectedNode, Converter={conv:NullToBoolConverter IsInverse=True}}">
-                    <v:ImageView IsVisible="{Binding ShowExecuteButton, Source={x:Reference thisControl}}" FontFamily="MaterialOutlined" Glyph="{x:Static mi:MaterialOutlined.Play_arrow}"
-                             Command="{Binding ExecuteScriptCommand}"
-                             CommandParameter="{Binding Scripts.SelectedNode}" />
-                </Grid>
-            </HorizontalStackLayout>
+            <Grid Grid.Column="1"  BackgroundColor="Transparent" Padding="3">
+                <Border Stroke="{StaticResource Primary}" BackgroundColor="Transparent" Padding="3"
+                    IsVisible="{Binding Scripts.SelectedNode, Converter={conv:NullToBoolConverter IsInverse=True}}">
+                    <Editor x:Name="scriptEditor" Text="{Binding Scripts.SelectedNode.Text}" IsSpellCheckEnabled="False" />
+                </Border>
+                <HorizontalStackLayout HorizontalOptions="End" VerticalOptions="End">
+                    <v:ImageView FontFamily="MaterialOutlined" Glyph="{x:Static mi:MaterialOutlined.Select_all}">
+                        <v:ImageView.GestureRecognizers>
+                            <TapGestureRecognizer Tapped="ScriptEditor_SelectAll" />
+                        </v:ImageView.GestureRecognizers>
+                    </v:ImageView>
+                    <v:ImageView FontFamily="MaterialOutlined" Glyph="{x:Static mi:MaterialOutlined.Save}"
+                                 Command="{Binding Scripts.SaveCommand}" />
+                    <Grid IsVisible="{Binding Scripts.SelectedNode, Converter={conv:NullToBoolConverter IsInverse=True}}">
+                        <v:ImageView IsVisible="{Binding ShowExecuteButton, Source={x:Reference thisControl}}" FontFamily="MaterialOutlined" Glyph="{x:Static mi:MaterialOutlined.Play_arrow}"
+                                 Command="{Binding ExecuteScriptCommand}"
+                                 CommandParameter="{Binding Scripts.SelectedNode}" />
+                    </Grid>
+                </HorizontalStackLayout>
+            </Grid>
         </Grid>
+        <v:ImageView HorizontalOptions="Start" VerticalOptions="End" FontFamily="MaterialOutlined" Glyph="{x:Static mi:MaterialOutlined.Settings}" Color="Gray"
+                                 Command="{Binding ToggleShowSettingsCommand}">
+            <v:ImageView.Triggers>
+                <DataTrigger TargetType="{x:Type v:ImageView}" Binding="{Binding ShowSettings}" Value="True">
+                    <Setter Property="Color" Value="{StaticResource Primary}" />
+                </DataTrigger>
+            </v:ImageView.Triggers>
+        </v:ImageView>
     </Grid>
 </ContentView>

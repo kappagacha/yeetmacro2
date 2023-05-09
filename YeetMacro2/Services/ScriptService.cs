@@ -128,7 +128,7 @@ public class ScriptService : IScriptService
                         {
                             _jsonValueToPatternNode.Add(elem, PatternNodeViewModel.FromJsonNode(JSJSON.Stringify(elem.value)));
                         }
-                        var path = elem.value["properties"]["path"].ToString();
+                        var path = elem.value["props"]["path"].ToString();
                         pathToPatternNode.Add(path, _jsonValueToPatternNode[elem]);
                     }
                 }
@@ -138,7 +138,7 @@ public class ScriptService : IScriptService
                     {
                         _jsonValueToPatternNode.Add(jsPattern, PatternNodeViewModel.FromJsonNode(JSJSON.Stringify(jsPattern)));
                     }
-                    var path = jsPattern["properties"]["path"].ToString();
+                    var path = jsPattern["props"]["path"].ToString();
                     pathToPatternNode.Add(path, _jsonValueToPatternNode[jsPattern]);
                 }
 

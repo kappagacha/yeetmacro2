@@ -26,7 +26,7 @@ public class MediaProjectionService : IRecorderService
     int _resultCode;
     public const int REQUEST_MEDIA_PROJECTION = 1;
     TaskCompletionSource<bool> _startCompleted;
-    bool _isRecording;
+    bool _isRecording, _isInitialized;
     public bool Enabled { get => _virtualDisplay != null; }
 
     public MediaProjectionService()
@@ -36,20 +36,22 @@ public class MediaProjectionService : IRecorderService
 
     public void Start()
     {
-        _startCompleted = new TaskCompletionSource<bool>();
-        if (_mediaProjectionManager == null) return;
+        if (!_isInitialized) return;
 
         try
         {
-            _mediaProjection = _mediaProjectionManager.GetMediaProjection(_resultCode, _resultData);
-            
             var displayInfo = DeviceDisplay.MainDisplayInfo;
             var width = (int)displayInfo.Width;
             var height = (int)displayInfo.Height;
             var density = (int)displayInfo.Density;
 
+            // https://github.com/Fate-Grand-Automata/FGA/blob/master/app/src/main/java/com/mathewsachin/fategrandautomata/runner/ScreenshotServiceHolder.kt#L47
+
+            _mediaProjection = _mediaProjectionManager.GetMediaProjection(_resultCode, _resultData);
             _imageReader = ImageReader.NewInstance(width, height, (ImageFormatType)global::Android.Graphics.Format.Rgba8888, 2);
             _virtualDisplay = _mediaProjection.CreateVirtualDisplay("ScreenCapture", width, height, density, (DisplayFlags)VirtualDisplayFlags.AutoMirror, _imageReader.Surface, null, null);
+
+            DeviceDisplay.MainDisplayInfoChanged += DeviceDisplay_MainDisplayInfoChanged;
             Console.WriteLine("[*****YeetMacro*****] MediaProjectionService Init");
         }
         catch (Exception ex)
@@ -64,7 +66,7 @@ public class MediaProjectionService : IRecorderService
         try
         {
             Console.WriteLine("[*****YeetMacro*****] MediaProjectionService DeviceDisplay_MainDisplayInfoChanged");
-            Stop();
+            Stop(false);
             Start();
         }
         catch (Exception ex)
@@ -88,10 +90,10 @@ public class MediaProjectionService : IRecorderService
         _resultData = resultData;
         _mediaProjectionManager = (MediaProjectionManager)_context.GetSystemService(Context.MediaProjectionService);
         _startCompleted.SetResult(true);
+        _isInitialized = true;
 
         Start();
         Toast.MakeText(_context, "Media projection started...", ToastLength.Short).Show();
-        DeviceDisplay.MainDisplayInfoChanged += DeviceDisplay_MainDisplayInfoChanged;
     }
 
     //It may be faster if we don't convert to bitmap
@@ -136,7 +138,7 @@ public class MediaProjectionService : IRecorderService
         return bitmap;
     }
 
-    public void Stop()
+    public void Stop(bool doNotify = true)
     {
         DeviceDisplay.MainDisplayInfoChanged -= DeviceDisplay_MainDisplayInfoChanged;
         if (_imageReader != null)
@@ -151,6 +153,7 @@ public class MediaProjectionService : IRecorderService
             _virtualDisplay.Dispose();
             _virtualDisplay = null;
         }
+
         if (_mediaProjection != null)
         {
             _mediaProjection.Stop();
@@ -158,7 +161,7 @@ public class MediaProjectionService : IRecorderService
             _mediaProjection = null;
         }
 
-        if (_context != null)
+        if (doNotify && _context != null)
         {
             Toast.MakeText(_context, "Media projection stopped...", ToastLength.Short).Show();
         }

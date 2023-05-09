@@ -1,2 +1,22 @@
 {
+  "farmEvent": {
+    "$isParent": true,
+    "props": {
+      "settingType": "Parent",
+      "isParentNode": true,
+      "name": "farmEvent"
+    },
+    "targetLevel": {
+      "$isParent": false,
+      "props": {
+        "$type": "option",
+        "settingType": "Option",
+        "options": [ "12", "11" ],
+        "value": "12",
+        "defaultValue": null,
+        "isParentNode": false,
+        "name": "targetLevel"
+      }
+    }
+  }
 }

@@ -132,8 +132,8 @@ public class NodeValueConverter<TParent, TChild> : JsonConverter<TChild>
                 isParent = reader.GetBoolean();
             }
 
-            // each property named "properties" is the properties of the node
-            if (reader.TokenType == JsonTokenType.PropertyName && reader.GetString() == "properties")
+            // each property named "props" is the properties of the node
+            if (reader.TokenType == JsonTokenType.PropertyName && reader.GetString() == "props")
             {
                 reader.Read();
                 if (isParent)
@@ -168,7 +168,7 @@ public class NodeValueConverter<TParent, TChild> : JsonConverter<TChild>
         {
             writer.WritePropertyName("$isParent");
             writer.WriteBooleanValue(true);
-            writer.WritePropertyName("properties");
+            writer.WritePropertyName("props");
             _parentConverter.Write(writer, parent, _options);
             
             foreach (var subChild in parent.Nodes)
@@ -180,7 +180,7 @@ public class NodeValueConverter<TParent, TChild> : JsonConverter<TChild>
         {
             writer.WritePropertyName("$isParent");
             writer.WriteBooleanValue(false);
-            writer.WritePropertyName("properties");
+            writer.WritePropertyName("props");
             _childConverter.Write(writer, child, _options);
         }
 

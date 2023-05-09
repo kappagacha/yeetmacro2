@@ -27,7 +27,7 @@ public partial class MacroManagerViewModel : ObservableObject
     ConcurrentDictionary<int, SettingNodeViewModel> _nodeRootIdToSettingTree;
     IScriptService _scriptService;
     [ObservableProperty]
-    bool _inDebugMode, _showLogView, _showExport;
+    bool _inDebugMode, _showLogView, _showExport, _showSettings;
     [ObservableProperty]
     double _resolutionWidth, _resolutionHeight;
     [ObservableProperty]
@@ -221,6 +221,12 @@ public partial class MacroManagerViewModel : ObservableObject
     private void ToggleInDebugMode()
     {
         InDebugMode = !InDebugMode;
+    }
+
+    [RelayCommand]
+    private void ToggleShowSettings()
+    {
+        ShowSettings = !ShowSettings;
     }
 
     [RelayCommand]

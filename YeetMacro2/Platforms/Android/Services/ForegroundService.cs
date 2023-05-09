@@ -66,6 +66,7 @@ public class ForegroundService : Service
                 StartForeground(SERVICE_RUNNING_NOTIFICATION_ID, GenerateNotification());
                 _windowManagerService.ShowOverlayWindow();
                 _windowManagerService.Show(AndroidWindowView.ActionView);
+                _mediaProjectionService.Start();
                 break;
         }
 

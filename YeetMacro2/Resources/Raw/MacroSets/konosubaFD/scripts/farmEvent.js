@@ -9,8 +9,9 @@ while (state.isRunning) {
 			await macroService.clickPattern(patterns.quest.events);
 			break;
 		case 'titles.events':
+			const targetFarmLevel = settings.farmEvent.targetLevel.props.value ?? 12;
 			await macroService.pollPattern(patterns.quest.events.quest, { doClick: true, predicatePattern: patterns.titles.quest });
-			await macroService.pollPattern(patterns.quest.events.quest.normal[11], { doClick: true, predicatePattern: patterns.titles.events });
+			await macroService.pollPattern(patterns.quest.events.quest.normal[targetFarmLevel], { doClick: true, predicatePattern: patterns.titles.events });
 			await macroService.pollPattern(patterns.battle.prepare, { doClick: true, predicatePattern: patterns.titles.party });
 			await macroService.pollPattern(patterns.battle.begin, { doClick: true, predicatePattern: patterns.battle.report });
 			break;

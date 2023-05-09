@@ -58,6 +58,7 @@ public partial class SettingNodeViewModel : NodeViewModel<ParentSetting, Setting
 
             optionSetting.Options.Add(newOption);
             _settingRepository.Update(optionSetting);
+            _settingRepository.Save();
         }
     }
 
@@ -71,6 +72,7 @@ public partial class SettingNodeViewModel : NodeViewModel<ParentSetting, Setting
 
             optionSetting.Value = selectedOption;
             _settingRepository.Update(optionSetting);
+            _settingRepository.Save();
         }
     }
 

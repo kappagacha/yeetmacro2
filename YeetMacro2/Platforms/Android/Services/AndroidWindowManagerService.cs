@@ -342,7 +342,6 @@ public class AndroidWindowManagerService : IInputService, IScreenService
 
     public void StartProjectionService()
     {
-        _mediaProjectionService.Start();
         _context.StartForegroundServiceCompat<ForegroundService>();
     }
 
