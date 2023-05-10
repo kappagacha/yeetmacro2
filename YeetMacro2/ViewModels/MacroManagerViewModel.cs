@@ -1,4 +1,6 @@
-﻿using CommunityToolkit.Mvvm.ComponentModel;
+﻿using AutoMapper;
+using CommunityToolkit.Maui.Core.Primitives;
+using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using System.Collections.Concurrent;
 using System.Text.Json;
@@ -33,7 +35,7 @@ public partial class MacroManagerViewModel : ObservableObject
     [ObservableProperty]
     MacroSetSourceType _macroSetSourceType;
     [ObservableProperty]
-    string _macroSetSourceLink;
+    string _macroSetSourceUri;
     [ObservableProperty]
     string _exportValue;
     JsonSerializerOptions _jsonSerializerOptions = new JsonSerializerOptions()
@@ -135,7 +137,7 @@ public partial class MacroManagerViewModel : ObservableObject
         var macroSetName = await Application.Current.MainPage.DisplayPromptAsync("Macro Set", "Enter name...");
         if (string.IsNullOrEmpty(macroSetName)) return;
 
-        var macroSet = ProxyViewModel.Create(new MacroSet() { Name = macroSetName });
+        var macroSet = ProxyViewModel.Create(new MacroSet() { Name = macroSetName, Source = new MacroSetSource() });
         var rootPattern = ProxyViewModel.Create(_patternNodeService.GetRoot(0));
         _patternNodeService.ReAttachNodes(rootPattern);
         macroSet.RootPatternNodeId = rootPattern.NodeId;
@@ -191,7 +193,7 @@ public partial class MacroManagerViewModel : ObservableObject
     private void Save(MacroSet macroSet)
     {
         macroSet.Resolution = new Size(ResolutionWidth, ResolutionHeight);
-        macroSet.Source.Uri = MacroSetSourceLink;
+        macroSet.Source.Uri = MacroSetSourceUri;
         _macroSetRepository.Update(macroSet);
         _macroSetRepository.Save();
         _toastService.Show($"Saved MacroSet: {macroSet.Name}");
@@ -239,34 +241,73 @@ public partial class MacroManagerViewModel : ObservableObject
     }
 
     [RelayCommand]
+    private async Task UpdateMacroSet(MacroSet macroSet)
+    {
+        var localMacroSets = ServiceHelper.ListAssets("MacroSets").ToList();
+        if (!localMacroSets.Contains(macroSet.Source.Uri))
+        {
+            _toastService.Show($"Did not find local MacroSet: {macroSet.Name}");
+        }
+
+        var hash = await GetHash();
+        var macroSetFolder = macroSet.Source.Uri;
+        var hashJson = ServiceHelper.GetAssetContent(Path.Combine("MacroSets", macroSetFolder, "hash.json"));
+        var localHash = JsonSerializer.Deserialize<MacroSetHash>(hashJson, _jsonSerializerOptions);
+
+        if (hash.MacroSet != localHash.MacroSet)
+        {
+            var json = ServiceHelper.GetAssetContent(Path.Combine("MacroSets", macroSetFolder, "macroSet.json"));
+            var localMacroSet = JsonSerializer.Deserialize<MacroSet>(json, _jsonSerializerOptions);
+
+            macroSet.Resolution = localMacroSet.Resolution;
+            _macroSetRepository.Update(macroSet);
+            _macroSetRepository.Save();
+        }
+
+        if (hash.Patterns != localHash.Patterns)
+        {
+            var pattternJson = ServiceHelper.GetAssetContent(Path.Combine("MacroSets", macroSetFolder, "patterns.json"));
+            var patterns = PatternNodeViewModel.FromJson(pattternJson);
+            Patterns.Import(patterns);
+        }
+
+        if (hash.Scripts != localHash.Scripts)
+        {
+            var scriptList = ServiceHelper.ListAssets(Path.Combine("MacroSets", macroSetFolder, "scripts"));
+            var scripts = new ScriptNodeViewModel(-1, null, null, null) { Root = new ScriptNode() { Nodes = new List<ScriptNode>() } };
+            foreach (var scriptFile in scriptList)
+            {
+                var scriptText = ServiceHelper.GetAssetContent(Path.Combine("MacroSets", macroSetFolder, "scripts", scriptFile));
+                var script = new ScriptNode()
+                {
+                    Name = Path.GetFileNameWithoutExtension(scriptFile),
+                    Text = scriptText,
+                    RootId = Scripts.Root.NodeId,
+                    ParentId = Scripts.Root.NodeId
+                };
+
+                scripts.Root.Nodes.Add(script);
+            }
+
+            Scripts.Import(scripts);
+        }
+
+        if (hash.Settings != localHash.Settings)
+        {
+            var json = ServiceHelper.GetAssetContent(Path.Combine("MacroSets", macroSetFolder, "settings.json"));
+            var settings = SettingNodeViewModel.FromJson(json);
+            Settings.Import(settings);
+        }
+
+        _toastService.Show($"Updated MacroSet: {macroSet.Name}");
+    }
+
+    [RelayCommand]
     private async void CalculateHash(MacroSet macroSet)
     {
-        var macroSetJson = JsonSerializer.Serialize(macroSet, _jsonSerializerOptions);
-        await Patterns.WaitForInitialization();
-        var patternsJson = Patterns.ToJson();
-        await Scripts.WaitForInitialization();
-        var scriptsJson = Scripts.ToJson();
-        await Settings.WaitForInitialization();
-        var settingsJson = Settings.ToJson();
-
-        var hash = new MacroSetHash()
-        {
-            MacroSet = ContentHasher.Create(macroSetJson),
-            Patterns = ContentHasher.Create(patternsJson),
-            Scripts = ContentHasher.Create(scriptsJson),
-            Settings = ContentHasher.Create(settingsJson),
-        };
-        // https://stackoverflow.com/questions/65620060/equivalent-of-jobject-in-system-text-json
-        //var hashJson = new JsonObject()
-        //{
-        //    ["macroSet"] = ContentHasher.Create(macroSetJson),
-        //    ["patterns"] = ContentHasher.Create(patternsJson),
-        //    ["scripts"] = ContentHasher.Create(scriptsJson),
-        //    ["settings"] = ContentHasher.Create(settingsJson)
-        //};
+        var hash = await GetHash();
 
         _toastService.Show($"Hash calculated for MacroSet: {macroSet.Name}");
-        //ExportValue = hashJson.ToJsonString(_jsonSerializerOptions);
         ExportValue = JsonSerializer.Serialize(hash, _jsonSerializerOptions);
         ShowExport = true;
     }
@@ -275,6 +316,25 @@ public partial class MacroManagerViewModel : ObservableObject
     private void CloseExport()
     {
         ShowExport = false;
+    }
+
+    private async Task<MacroSetHash> GetHash()
+    {
+        var macroSetJson = JsonSerializer.Serialize(SelectedMacroSet, _jsonSerializerOptions);
+        await Patterns.WaitForInitialization();
+        var patternsJson = Patterns.ToJson();
+        await Scripts.WaitForInitialization();
+        var scriptsJson = Scripts.ToJson();
+        await Settings.WaitForInitialization();
+        var settingsJson = Settings.ToJson();
+
+        return new MacroSetHash()
+        {
+            MacroSet = ContentHasher.Create(macroSetJson),
+            Patterns = ContentHasher.Create(patternsJson),
+            Scripts = ContentHasher.Create(scriptsJson),
+            Settings = ContentHasher.Create(settingsJson),
+        };
     }
 
     partial void OnSelectedMacroSetChanged(MacroSet value)
@@ -289,7 +349,7 @@ public partial class MacroManagerViewModel : ObservableObject
         if (value.Source != null)
         {
             MacroSetSourceType = value.Source.Type;
-            MacroSetSourceLink = value.Source.Uri;
+            MacroSetSourceUri = value.Source.Uri;
         }
         Preferences.Default.Set(nameof(SelectedMacroSet), value.Name);
     }

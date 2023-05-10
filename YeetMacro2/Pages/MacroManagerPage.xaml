@@ -27,6 +27,8 @@
                              Command="{Binding DeleteMacroSetCommand}" CommandParameter="{Binding SelectedMacroSet}" />
                 <v:ImageView FontFamily="FASolid" Glyph="{x:Static fa:Solid.FileExport}" Color="{StaticResource Primary}" 
                              Command="{Binding ExportMacroSetCommand}" CommandParameter="{Binding SelectedMacroSet}" />
+                <v:ImageView FontFamily="FASolid" Glyph="{x:Static fa:Solid.Rotate}" Color="{StaticResource Primary}" 
+                             Command="{Binding UpdateMacroSetCommand}" CommandParameter="{Binding SelectedMacroSet}" />
                 <v:ImageView FontFamily="FASolid" Glyph="{x:Static fa:Solid.Hashtag}" Color="{StaticResource Primary}" 
                              Command="{Binding CalculateHashCommand}" CommandParameter="{Binding SelectedMacroSet}" />
                 <v:ImageView FontFamily="FASolid" Glyph="{x:Static fa:Solid.FolderOpen}" Color="{StaticResource Primary}" 
@@ -57,7 +59,7 @@
                             <HorizontalStackLayout Margin="0" Padding="0">
                                 <Label Margin="0" VerticalOptions="Center" Padding="0" Text="Source:" />
                                 <Label Margin="5,0,0,0" VerticalOptions="Center" Text="{Binding MacroSetSourceType}" />
-                                <Entry Margin="5,0,0,0" VerticalOptions="Center" Text="{Binding MacroSetSourceLink}" />
+                                <Entry Margin="5,0,0,0" VerticalOptions="Center" Text="{Binding MacroSetSourceUri}" />
                             </HorizontalStackLayout>
                         </VerticalStackLayout>
                         <Grid Grid.Column="1" IsVisible="{Binding ShowExport}">

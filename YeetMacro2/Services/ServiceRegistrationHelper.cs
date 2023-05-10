@@ -64,7 +64,6 @@ public class AppInitializer : IMauiInitializeService
         {
             var macroSetJson = ServiceHelper.GetAssetContent(Path.Combine("MacroSets", folder, "macroSet.json"));
             var macroSet = JsonSerializer.Deserialize<MacroSet>(macroSetJson, jsonSerializerOptions);
-
             var pattternJson = ServiceHelper.GetAssetContent(Path.Combine("MacroSets", folder, "patterns.json"));
             var rootPattern = patternNodeService.GetRoot(0);
             var tempPatternTree = PatternNodeViewModel.FromJson(pattternJson);
@@ -77,9 +76,9 @@ public class AppInitializer : IMauiInitializeService
             }
             macroSet.RootPatternNodeId = rootPattern.NodeId;
 
-            var scripts = ServiceHelper.ListAssets(Path.Combine("MacroSets", folder, "scripts"));
+            var scriptList = ServiceHelper.ListAssets(Path.Combine("MacroSets", folder, "scripts"));
             var rootScripts = scriptNodeService.GetRoot(0);
-            foreach (var scriptFile in scripts)
+            foreach (var scriptFile in scriptList)
             {
                 var scriptText = ServiceHelper.GetAssetContent(Path.Combine("MacroSets", folder, "scripts", scriptFile));
                 var script = new ScriptNode()

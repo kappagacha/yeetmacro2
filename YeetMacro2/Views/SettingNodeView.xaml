@@ -93,9 +93,9 @@
                 <v:NodeView.ExtraMenuItemsDataTemplate>
                     <DataTemplate x:DataType="{x:Null}">
                         <VerticalStackLayout>
-                            <v:ImageView FontFamily="FASolid" Glyph="{x:Static fa:Solid.Download}" 
+                            <!--<v:ImageView FontFamily="FASolid" Glyph="{x:Static fa:Solid.Download}" 
                                              Command="{Binding ItemsSource.ImportCommand}"
-                                             CommandParameter="{Binding BindingContext.SelectedMacroSet.Name, Source={RelativeSource AncestorType={x:Type v:SettingNodeView}}}" />
+                                             CommandParameter="{Binding BindingContext.SelectedMacroSet.Name, Source={RelativeSource AncestorType={x:Type v:SettingNodeView}}}" />-->
                             <v:ImageView FontFamily="FASolid" Glyph="{x:Static fa:Solid.FileExport}" 
                                              Command="{Binding ItemsSource.ExportCommand}"
                                              CommandParameter="{Binding BindingContext.SelectedMacroSet.Name, Source={RelativeSource AncestorType={x:Type v:SettingNodeView}}}" />

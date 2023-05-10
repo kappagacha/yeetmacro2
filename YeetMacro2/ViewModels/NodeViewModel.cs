@@ -250,40 +250,24 @@ public partial class NodeViewModel<TParent, TChild> : NodeViewModel
     }
 
     [RelayCommand]
-    public async Task Import()
+    public void Import(NodeViewModel<TParent, TChild> nodeViewModel)
     {
-        var currentAssembly = Assembly.GetExecutingAssembly();
-        var resourceNames = currentAssembly.GetManifestResourceNames().Where(rs => rs.StartsWith("YeetMacro2.Resources.MacroSets"));
-        var regex = new Regex(@"YeetMacro2\.Resources\.MacroSets\.(?<macroSet>.+?)\.");
-
-        // https://stackoverflow.com/questions/9436381/c-sharp-regex-string-extraction
-        var macroSetGroups = resourceNames.GroupBy(rn => regex.Match(rn).Groups["macroSet"].Value);
-        var selectedMacroSet = await Application.Current.MainPage.DisplayActionSheet($"Import {_nodeTypeName}", "Cancel", null, macroSetGroups.Select(g => g.Key).ToArray());
-        if (selectedMacroSet == null || selectedMacroSet == "Cancel") return;
-
-        using (var stream = currentAssembly.GetManifestResourceStream($"YeetMacro2.Resources.MacroSets.{selectedMacroSet}.{selectedMacroSet.Replace("_", " ")}_{_nodeTypeName}s.json"))
-        using (var reader = new StreamReader(stream))
+        var rootTemp = (TParent)ProxyViewModel.Create<TChild>(nodeViewModel.Root);
+        var currentChildren = Root.Nodes.ToList();
+        foreach (var currentChild in currentChildren)
         {
-            var json = reader.ReadToEnd();
-            var tempTree = JsonSerializer.Deserialize<NodeViewModel<TParent, TChild>>(json, _defaultJsonSerializerOptions);
-            var rootTemp = (TParent)ProxyViewModel.Create<TChild>(tempTree.Root);
-            var currentChildren = Root.Nodes.ToList();
-            foreach (var currentChild in currentChildren)
-            {
-                Root.Nodes.Remove(currentChild);
-                _nodeService.Delete(currentChild);
-            }
-
-            var newChildren = rootTemp.Nodes;
-            foreach (var newChild in newChildren)
-            {
-                newChild.RootId = Root.NodeId;
-                newChild.ParentId = Root.NodeId;
-                Root.Nodes.Add(newChild);
-                _nodeService.Insert(newChild);
-            }
+            Root.Nodes.Remove(currentChild);
+            _nodeService.Delete(currentChild);
         }
-        _toastService.Show($"Imported {_nodeTypeName}");
+
+        var newChildren = rootTemp.Nodes;
+        foreach (var newChild in newChildren)
+        {
+            newChild.RootId = Root.NodeId;
+            newChild.ParentId = Root.NodeId;
+            Root.Nodes.Add(newChild);
+            _nodeService.Insert(newChild);
+        }
     }
 
     [RelayCommand]
