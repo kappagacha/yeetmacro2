@@ -79,7 +79,13 @@
 	  <None Remove="Resources\Raw\initJavaScriptContext.js" />
 	  <None Remove="Resources\Raw\MacroSets\konosubaFD\macroSet.json" />
 	  <None Remove="Resources\Raw\MacroSets\konosubaFD\patterns.json" />
+	  <None Remove="Resources\Raw\MacroSets\konosubaFD\scripts\claimJobs.js" />
+	  <None Remove="Resources\Raw\MacroSets\konosubaFD\scripts\doEventStory.js" />
+	  <None Remove="Resources\Raw\MacroSets\konosubaFD\scripts\doFreeQuests.js" />
+	  <None Remove="Resources\Raw\MacroSets\konosubaFD\scripts\farmMats.js" />
 	  <None Remove="Resources\Raw\MacroSets\konosubaFD\scripts\hash.json" />
+	  <None Remove="Resources\Raw\MacroSets\konosubaFD\scripts\watchAdQuartz.js" />
+	  <None Remove="Resources\Raw\MacroSets\konosubaFD\scripts\watchAdStamina.js" />
 	  <None Remove="Resources\Raw\MacroSets\konosubaFD\settings.json" />
 	  <None Remove="Resources\Splash\splash.svg" />
 	</ItemGroup>
@@ -199,7 +205,25 @@
     <MauiAsset Update="Resources\Raw\MacroSets\konosubaFD\macroSet.json">
       <LogicalName>%(RecursiveDir)%(Filename)%(Extension)</LogicalName>
     </MauiAsset>
-    <MauiAsset Update="Resources\Raw\MacroSets\konosubaFD\scripts\farmEvent.js">
+    <MauiAsset Update="Resources\Raw\MacroSets\konosubaFD\scripts\doFreeQuests.js">
+      <LogicalName>%(RecursiveDir)%(Filename)%(Extension)</LogicalName>
+    </MauiAsset>
+    <MauiAsset Update="Resources\Raw\MacroSets\konosubaFD\scripts\doEventStory.js">
+      <LogicalName>%(RecursiveDir)%(Filename)%(Extension)</LogicalName>
+    </MauiAsset>
+    <MauiAsset Update="Resources\Raw\MacroSets\konosubaFD\scripts\farmMats.js">
+      <LogicalName>%(RecursiveDir)%(Filename)%(Extension)</LogicalName>
+    </MauiAsset>
+    <MauiAsset Update="Resources\Raw\MacroSets\konosubaFD\scripts\watchAdQuartz.js">
+      <LogicalName>%(RecursiveDir)%(Filename)%(Extension)</LogicalName>
+    </MauiAsset>
+    <MauiAsset Update="Resources\Raw\MacroSets\konosubaFD\scripts\watchAdStamina.js">
+      <LogicalName>%(RecursiveDir)%(Filename)%(Extension)</LogicalName>
+    </MauiAsset>
+    <MauiAsset Update="Resources\Raw\MacroSets\konosubaFD\scripts\claimJobs.js">
+      <LogicalName>%(RecursiveDir)%(Filename)%(Extension)</LogicalName>
+    </MauiAsset>
+    <MauiAsset Update="Resources\Raw\MacroSets\konosubaFD\scripts\farmEventLoop.js">
       <LogicalName>%(RecursiveDir)%(Filename)%(Extension)</LogicalName>
     </MauiAsset>
     <MauiAsset Update="Resources\Raw\MacroSets\konosubaFD\settings.json">

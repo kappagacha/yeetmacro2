@@ -18,7 +18,7 @@ macroService.pollPattern = async function (pattern, opts = {}) {
     let patternFound = false;
     const intervalDelayMs = opts.intervalDelayMs ?? 1000;
     const predicatePattern = opts.predicatePattern;
-    const touchPattern = opts.touchPattern;
+    const clickPattern = opts.clickPattern;
     const inversePredicatePattern = opts.inversePredicatePattern;
 
     if (predicatePattern || inversePredicatePattern) {
@@ -42,7 +42,10 @@ macroService.pollPattern = async function (pattern, opts = {}) {
             if (predicatePattern) {
                 const predicateResult = await this.findPattern(predicatePattern, predicateOpts);
                 //logger.debug('predicateResult.isSuccess: ' + predicateResult.isSuccess);
-                if (predicateResult.isSuccess) break;
+                if (predicateResult.isSuccess) {
+                    result.predicatePath = predicateResult.path;
+                    break;
+                }
                 //screenService.debugClear();
             }
 
@@ -61,7 +64,7 @@ macroService.pollPattern = async function (pattern, opts = {}) {
                 if (opts.doClick && result.isSuccess) screenService.doClick(result.point);
                 await sleep(intervalDelayMs);
                 //screenService.debugClear();
-                if (touchPattern) await this.clickPattern(touchPattern, opts);
+                if (clickPattern) await this.clickPattern(clickPattern, opts);
             }
 
             await sleep(predicateCheckDelayMs);
@@ -72,7 +75,7 @@ macroService.pollPattern = async function (pattern, opts = {}) {
             //screenService.debugClear();
             if (!state.isRunning) return result;
 
-            if (touchPattern) await this.clickPattern(touchPattern, opts);
+            if (clickPattern) await this.clickPattern(clickPattern, opts);
             //screenService.debugClear();
 
             result = await this.findPattern(pattern, opts);

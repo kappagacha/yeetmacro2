@@ -12,7 +12,7 @@
              HeightRequest="10" Padding="0">
     <Grid BackgroundColor="Blue" Margin="0" Padding="0">
         <Grid ColumnDefinitions="*,*" Margin="0" Padding="0">
-            <Label Grid.Column="0" FontSize="Micro" Text="{Binding Info}" Padding="0" VerticalTextAlignment="Start" />
+            <Label Grid.Column="0" Margin="20,0,0,0" FontSize="Micro" Text="{Binding Info}" Padding="0" VerticalTextAlignment="Start" />
             <Label Grid.Column="1" FontSize="Micro" Text="{Binding Debug}" Padding="0" VerticalTextAlignment="Start" />
         </Grid>
         <Grid ColumnDefinitions="Auto,Auto" HorizontalOptions="End">
@@ -36,7 +36,7 @@
                 </Switch.Behaviors>
             </Switch>
             <v:ImageView Grid.Column="1" FontFamily="MaterialOutlined" Glyph="{x:Static mi:MaterialOutlined.Radio_button_checked}" Color="Gray"
-                         IsVisible="{Binding IsRecording, Converter={conv:InverseBoolConverter}}" />
+                         IsVisible="{Binding IsRecording, Converter={conv:InverseBoolConverter}}" Margin="5,0,0,0" />
             <v:ImageView Grid.Column="1" FontFamily="MaterialOutlined" Glyph="{x:Static mi:MaterialOutlined.Radio_button_checked}" Color="Red"
                          IsVisible="{Binding IsRecording}" />
         </Grid>

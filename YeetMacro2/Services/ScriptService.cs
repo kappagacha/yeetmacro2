@@ -78,20 +78,38 @@ public class ScriptService : IScriptService
             {
                 _logger.LogInformation(a[0].ToString());
                 return JSNull.Value;
-            }), JSPropertyAttributes.ReadonlyValue),
+            }), JSPropertyAttributes.EnumerableReadonlyValue),
             new JSProperty("debug", new JSFunction((in Arguments a) =>
             {
                 _logger.LogDebug(a[0].ToString());
                 return JSNull.Value;
-            }), JSPropertyAttributes.ReadonlyValue)
+            }), JSPropertyAttributes.EnumerableReadonlyValue)
         });
         _jsContext["screenService"] = new JSObject(new List<JSProperty>()
         {
+            new JSProperty("debugRectangle", new JSFunction((in Arguments a) =>
+            {
+                var jsRect = a[0];
+                var x = jsRect["x"].DoubleValue;
+                var y = jsRect["y"].DoubleValue;
+                var width = jsRect["width"].DoubleValue;
+                var height = jsRect["height"].DoubleValue;
+                var rect = new Rect(x, y, width, height);
+                MainThread.BeginInvokeOnMainThread(() =>
+                {
+                    _screenService.DebugRectangle(rect);
+                });
+                return JSNull.Value;
+            }), JSPropertyAttributes.EnumerableReadonlyValue),
             new JSProperty("debugClear", new JSFunction((in Arguments a) =>
             {
-                _screenService.DebugClear();
+                MainThread.BeginInvokeOnMainThread(() =>
+                {
+                    _screenService.DebugClear();
+                });
+                
                 return JSNull.Value;
-            }), JSPropertyAttributes.ReadonlyValue),
+            }), JSPropertyAttributes.EnumerableReadonlyValue),
             new JSProperty("doClick", new JSFunction((in Arguments a) =>
             {
                 var jsPoint = a[0];
@@ -99,7 +117,7 @@ public class ScriptService : IScriptService
                 var y = jsPoint["y"].DoubleValue;
                 _screenService.DoClick(new Point(x, y));
                 return JSNull.Value;
-            }), JSPropertyAttributes.ReadonlyValue),
+            }), JSPropertyAttributes.EnumerableReadonlyValue),
             new JSProperty("doSwipe", new JSFunction((in Arguments a) =>
             {
                 var jsPointStart = a[0];
@@ -108,7 +126,22 @@ public class ScriptService : IScriptService
                     new Point(jsPointStart["x"].DoubleValue, jsPointStart["y"].DoubleValue),
                     new Point(jsPointEnd["x"].DoubleValue, jsPointEnd["y"].DoubleValue));
                 return JSNull.Value;
-            }), JSPropertyAttributes.ReadonlyValue)
+            }), JSPropertyAttributes.EnumerableReadonlyValue),
+            new JSProperty("getText", new JSFunction((in Arguments a) =>
+            {
+                var jsPattern = a[0];
+                var patternNode = ResolvePatterns(jsPattern).Values.First();
+
+                if (patternNode?.Patterns?.FirstOrDefault() == null) return JSNull.Value;
+
+                var task = Task.Run<JSValue>(async () =>
+                {
+                    var text = await _screenService.GetText(patternNode.Patterns.First());
+                    return new JSString(text);
+                });
+
+                return new JSPromise(task);
+            }), JSPropertyAttributes.EnumerableReadonlyValue)
         });
         _jsContext["macroService"] = new JSObject(new List<JSProperty>()
         {
@@ -118,32 +151,9 @@ public class ScriptService : IScriptService
 
                 var jsPattern = a[0];
                 var jsOptions = a[1];
-                var pathToPatternNode = new Dictionary<string, PatternNode>();
-                if (jsPattern is JSArray jsArray)
-                {
-                    var elements = jsArray.GetArrayElements().ToArray();
-                    foreach (var elem in elements)
-                    {
-                        if (!_jsonValueToPatternNode.ContainsKey(elem))
-                        {
-                            _jsonValueToPatternNode.Add(elem, PatternNodeViewModel.FromJsonNode(JSJSON.Stringify(elem.value)));
-                        }
-                        var path = elem.value["props"]["path"].ToString();
-                        pathToPatternNode.Add(path, _jsonValueToPatternNode[elem]);
-                    }
-                }
-                else
-                {
-                    if (!_jsonValueToPatternNode.ContainsKey(jsPattern))
-                    {
-                        _jsonValueToPatternNode.Add(jsPattern, PatternNodeViewModel.FromJsonNode(JSJSON.Stringify(jsPattern)));
-                    }
-                    var path = jsPattern["props"]["path"].ToString();
-                    pathToPatternNode.Add(path, _jsonValueToPatternNode[jsPattern]);
-                }
-
-                var limit = jsOptions["limit"].IsUndefined ? 1 : jsOptions["limit"].IntValue;
-                var variancePct = jsOptions["variancePct"].IsUndefined ? 0.0 : jsOptions["variancePct"].DoubleValue;
+                var pathToPatternNode = ResolvePatterns(jsPattern);
+                var limit = jsOptions == null || jsOptions["limit"].IsUndefined ? 1 : jsOptions["limit"].IntValue;
+                var variancePct = jsOptions == null || jsOptions["variancePct"].IsUndefined ? 0.0 : jsOptions["variancePct"].DoubleValue;
                 FindPatternResult result = null;
                 var opts = new FindOptions() {
                     Limit = limit,
@@ -190,6 +200,10 @@ public class ScriptService : IScriptService
                                 if (singleResult.IsSuccess)
                                 {
                                     points.AddRange(singleResult.Points);
+                                    if (opts.Limit == 1)
+                                    {
+                                        multiResult.Point = points[0];
+                                    }
                                 }
                             }
                             multiResult.Points = points.ToArray();
@@ -229,26 +243,55 @@ public class ScriptService : IScriptService
 
                     return new JSObject(new List<JSProperty>()
                     {
-                        new JSProperty("path", new JSString(result.Path), JSPropertyAttributes.ReadonlyValue),
-                        new JSProperty("isSuccess", result.IsSuccess ? JSBoolean.True : JSBoolean.False, JSPropertyAttributes.ReadonlyValue),
+                        new JSProperty("path", new JSString(result.Path), JSPropertyAttributes.EnumerableReadonlyValue),
+                        new JSProperty("isSuccess", result.IsSuccess ? JSBoolean.True : JSBoolean.False, JSPropertyAttributes.EnumerableReadonlyValue),
                         new JSProperty("point", new JSObject(new List<JSProperty>()
                         {
-                            new JSProperty("x", new JSNumber(result.Point.X), JSPropertyAttributes.ReadonlyValue),
-                            new JSProperty("y", new JSNumber(result.Point.Y), JSPropertyAttributes.ReadonlyValue)
-                        }), JSPropertyAttributes.ReadonlyValue),
+                            new JSProperty("x", new JSNumber(result.Point.X), JSPropertyAttributes.EnumerableReadonlyValue),
+                            new JSProperty("y", new JSNumber(result.Point.Y), JSPropertyAttributes.EnumerableReadonlyValue)
+                        }), JSPropertyAttributes.EnumerableReadonlyValue),
                         new JSProperty("points", result.Points == null ? JSNull.Value : new JSArray(result.Points.Select(p => new JSObject(new List<JSProperty>()
                         {
-                            new JSProperty("x", new JSNumber(result.Point.X), JSPropertyAttributes.ReadonlyValue),
-                            new JSProperty("y", new JSNumber(result.Point.Y), JSPropertyAttributes.ReadonlyValue)
-                        }))), JSPropertyAttributes.ReadonlyValue)
+                            new JSProperty("x", new JSNumber(p.X), JSPropertyAttributes.EnumerableReadonlyValue),
+                            new JSProperty("y", new JSNumber(p.Y), JSPropertyAttributes.EnumerableReadonlyValue)
+                        }))), JSPropertyAttributes.EnumerableReadonlyValue)
                     });
                 });
 
                 return new JSPromise(task);
-            }), JSPropertyAttributes.ReadonlyValue)
+            }), JSPropertyAttributes.EnumerableReadonlyValue)
         });
 
         var initScript = ServiceHelper.GetAssetContent("initJavaScriptContext.js");
         await _jsContext.ExecuteAsync(initScript);
+    }
+
+    private Dictionary<string, PatternNode> ResolvePatterns(JSValue jsPattern)
+    {
+        var pathToPatternNode = new Dictionary<string, PatternNode>();
+        if (jsPattern is JSArray jsArray)
+        {
+            var elements = jsArray.GetArrayElements().ToArray();
+            foreach (var elem in elements)
+            {
+                if (!_jsonValueToPatternNode.ContainsKey(elem))
+                {
+                    _jsonValueToPatternNode.Add(elem, PatternNodeViewModel.FromJsonNode(JSJSON.Stringify(elem.value)));
+                }
+                var path = elem.value["props"]["path"].ToString();
+                pathToPatternNode.Add(path, _jsonValueToPatternNode[elem]);
+            }
+        }
+        else
+        {
+            if (!_jsonValueToPatternNode.ContainsKey(jsPattern))
+            {
+                _jsonValueToPatternNode.Add(jsPattern, PatternNodeViewModel.FromJsonNode(JSJSON.Stringify(jsPattern)));
+            }
+            var path = jsPattern["props"]["path"].ToString();
+            pathToPatternNode.Add(path, _jsonValueToPatternNode[jsPattern]);
+        }
+
+        return pathToPatternNode;
     }
 }

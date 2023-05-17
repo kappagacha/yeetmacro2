@@ -67,7 +67,7 @@ public partial class PatternNodeViewModel : NodeViewModel<PatternNode, PatternNo
                 return;
             }
 
-            var newPattern = ProxyViewModel.Create(new Pattern() { Name = name });
+            var newPattern = ProxyViewModel.Create(new Pattern() { Name = name, PatternNodeId = patternNode.NodeId });
             patternNode.Patterns.Add(newPattern);
             _patternRepository.Insert(newPattern);
             _patternRepository.Save();
@@ -119,8 +119,7 @@ public partial class PatternNodeViewModel : NodeViewModel<PatternNode, PatternNo
             var pattern = values[0] as Pattern;
             if (pattern == null)
             {
-                pattern = ProxyViewModel.Create(new Pattern() { Name = "pattern" });
-                pattern.PatternNodeId = patternNode.NodeId;
+                pattern = ProxyViewModel.Create(new Pattern() { Name = "pattern", PatternNodeId = patternNode.NodeId });
                 patternNode.Patterns.Add(pattern);
                 _patternRepository.Insert(pattern);
                 _patternRepository.Save();

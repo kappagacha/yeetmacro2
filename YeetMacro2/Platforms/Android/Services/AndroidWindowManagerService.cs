@@ -498,6 +498,16 @@ public class AndroidWindowManagerService : IInputService, IScreenService
 
     public async Task<FindPatternResult> FindPattern(Pattern pattern, FindOptions opts = null)
     {
+        if (pattern.IsBoundsPattern)
+        {
+            return new FindPatternResult()
+            {
+                IsSuccess = true,
+                Point = pattern.Rect.Center,
+                Points = new Point[] { pattern.Rect.Center }
+            };
+        }
+
         var points = await GetMatches(pattern, opts);
 
         var result = new FindPatternResult();
