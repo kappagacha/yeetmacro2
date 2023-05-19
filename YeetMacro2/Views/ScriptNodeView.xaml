@@ -19,22 +19,6 @@
                     <v:NodeView.ExtraMenuItemsDataTemplate>
                         <DataTemplate x:DataType="{x:Null}">
                             <VerticalStackLayout>
-                                <v:ImageView FontFamily="FASolid" Glyph="{x:Static fa:Solid.Terminal}" Color="LightGray"
-                                                 Command="{Binding BindingContext.ToggleShowLogViewCommand}">
-                                    <v:ImageView.Triggers>
-                                        <DataTrigger TargetType="{x:Type v:ImageView}" Binding="{Binding BindingContext.ShowLogView, Source={RelativeSource AncestorType={x:Type v:ScriptNodeView}}}" Value="True">
-                                            <Setter Property="Color" Value="Green" />
-                                        </DataTrigger>
-                                    </v:ImageView.Triggers>
-                                </v:ImageView>
-                                <v:ImageView FontFamily="MaterialOutlined" Glyph="{x:Static mi:MaterialOutlined.Filter_center_focus}"  Color="LightGray"
-                                                 Command="{Binding BindingContext.ToggleInDebugModeCommand}">
-                                    <v:ImageView.Triggers>
-                                        <DataTrigger TargetType="{x:Type v:ImageView}" Binding="{Binding BindingContext.InDebugMode, Source={RelativeSource AncestorType={x:Type v:ScriptNodeView}}}" Value="True">
-                                            <Setter Property="Color" Value="Green" />
-                                        </DataTrigger>
-                                    </v:ImageView.Triggers>
-                                </v:ImageView>
                                 <!--<v:ImageView FontFamily="FASolid" Glyph="{x:Static fa:Solid.Download}" 
                                                     Command="{Binding ItemsSource.ImportCommand}"
                                                     CommandParameter="{Binding BindingContext.SelectedMacroSet.Name, Source={RelativeSource AncestorType={x:Type v:ScriptNodeView}}}" />-->

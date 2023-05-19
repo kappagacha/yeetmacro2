@@ -50,5 +50,7 @@
             </HorizontalStackLayout>
             <Label Text="{Binding CurrentPackage, StringFormat='Current Package: {0}'}" TextColor="{StaticResource Primary}" />
         </VerticalStackLayout>
+        <v:ImageView HorizontalOptions="End" VerticalOptions="Start" FontFamily="FASolid" Glyph="{x:Static fa:Solid.x}" Color="Red"
+                                                 Command="{Binding CloseMacroOverlayCommand}" />
     </Grid>
 </ContentView>

@@ -74,6 +74,12 @@ public partial class AndriodHomeViewModel : ObservableObject
     }
 
     [RelayCommand]
+    public void CloseMacroOverlay()
+    {
+        _windowManagerService.Close(AndroidWindowView.MacroOverlayView);
+    }
+
+    [RelayCommand]
     public void OnAppear()
     {
         IsAppearing = true;
