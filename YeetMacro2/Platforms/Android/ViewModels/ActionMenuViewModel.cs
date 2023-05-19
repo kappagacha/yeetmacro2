@@ -1,7 +1,6 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using Microsoft.Extensions.Logging;
-using YeetMacro2.Data.Models;
 using YeetMacro2.Platforms.Android.Services;
 using YeetMacro2.Services;
 using YeetMacro2.ViewModels;

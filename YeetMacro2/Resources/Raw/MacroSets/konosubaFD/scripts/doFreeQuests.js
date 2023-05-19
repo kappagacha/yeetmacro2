@@ -24,7 +24,8 @@ while (state.isRunning && !done) {
 				numTickets = (await screenService.getText(patterns.tickets.numTickets)).split('x')[1];
 				logger.info('numTickets: ' + numTickets);
 			}
-			await macroService.pollPattern(patterns.tickets.use, { doClick: true, clickPattern: patterns.tickets.prompt.ok, predicatePattern: patterns.titles.freeQuests });
+			await macroService.pollPattern(patterns.tickets.use, { doClick: true, predicatePattern: patterns.tickets.prompt.ok });
+			await macroService.pollPattern(patterns.tickets.prompt.ok, { doClick: true, predicatePattern: patterns.titles.freeQuests });
 
 			logger.info('doFreeQuests: skip all');
 			await macroService.pollPattern(patterns.freeQuests.eris, { doClick: true, predicatePattern: patterns.skipAll.skipQuest });
@@ -44,6 +45,12 @@ while (state.isRunning && !done) {
 				await sleep(500);
 			}
 
+			let maxNumSkips = await screenService.getText(patterns.skipAll.maxNumSkips);
+			while (maxNumSkips < 2) {
+				await macroService.clickPattern(patterns.skipAll.addMaxSkips);
+				await sleep(500);
+				maxNumSkips = await screenService.getText(patterns.skipAll.maxNumSkips);
+			}
 			await macroService.pollPattern(patterns.skipAll.button, { doClick: true, predicatePattern: patterns.skipAll.prompt.ok });
 			await macroService.pollPattern(patterns.skipAll.prompt.ok, { doClick: true, clickPattern: [patterns.skipAll.prompt.ok, patterns.skipAll.skipComplete], predicatePattern: patterns.skipAll.title });
 			done = true;

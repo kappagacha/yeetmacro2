@@ -91,6 +91,9 @@
 	</ItemGroup>
 
 	<ItemGroup>
+	  <Compile Update="Platforms\Android\Views\MacroOverlayView.xaml.cs">
+	    <DependentUpon>MacroOverlayView.xaml</DependentUpon>
+	  </Compile>
 	  <Compile Update="Views\LogView.xaml.cs">
 	    <DependentUpon>LogView.xaml</DependentUpon>
 	  </Compile>
@@ -133,6 +136,9 @@
 	</ItemGroup>
   
 	<ItemGroup>
+	  <MauiXaml Update="Platforms\Android\Views\MacroOverlayView.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
 	  <MauiXaml Update="Platforms\Android\Views\AndroidHomePage.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>

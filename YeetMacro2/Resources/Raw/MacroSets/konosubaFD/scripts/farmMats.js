@@ -1,7 +1,7 @@
 ﻿let done = false;
 const loopPatterns = [patterns.titles.home, patterns.titles.smithy, patterns.titles.craft, patterns.skipAll.title];
 
-const farmMat = async (targetMats, staminaCost) => {
+const farmMat = async (targetMats, staminaCost, numSkips) => {
 	await macroService.pollPattern(patterns.skipAll.material, { doClick: true, predicatePattern: patterns.skipAll.search });
 	await sleep(500);
 	const filterOffResult = await macroService.findPattern(patterns.skipAll.search.filter.off);
@@ -33,7 +33,7 @@ const farmMat = async (targetMats, staminaCost) => {
 							x: matResult.point.x - 110.0,
 							y: matResult.point.y - 100.0,
 							width: 100.0,
-							height: 80.0
+							height: 75.0
 						},
 					})),
 				}
@@ -57,6 +57,13 @@ const farmMat = async (targetMats, staminaCost) => {
 			targetStamina = await screenService.getText(patterns.stamina.target);
 		}
 		await macroService.pollPattern(patterns.stamina.prompt.ok, { doClick: true, predicatePattern: patterns.skipAll.title });
+	}
+
+	let maxNumSkips = await screenService.getText(patterns.skipAll.maxNumSkips);
+	while (maxNumSkips < numSkips) {
+		await macroService.clickPattern(patterns.skipAll.addMaxSkips);
+		await sleep(500);
+		maxNumSkips = await screenService.getText(patterns.skipAll.maxNumSkips);
 	}
 
 	await macroService.pollPattern(patterns.skipAll.button, { doClick: true, predicatePattern: patterns.skipAll.prompt.ok });
@@ -83,15 +90,9 @@ while (state.isRunning && !done) {
 			await sleep(500);
 			break;
 		case 'skipAll.title':
-			await farmMat([patterns.skipAll.search.select.mithrilOre, patterns.skipAll.search.select.yggdrasilBranch, patterns.skipAll.search.select.platinumOre], 500);
-			await sleep(1_1000);
-			let maxNumSkips = await screenService.getText(patterns.skipAll.maxNumSkips);
-			while (maxNumSkips < 3) {
-				await macroService.clickPattern(patterns.skipAll.addMaxSkips);
-				await sleep(500);
-				maxNumSkips = await screenService.getText(patterns.skipAll.maxNumSkips);
-			}
-			await farmMat([patterns.skipAll.search.select.skyDragonScale], 400);
+			await farmMat([patterns.skipAll.search.select.mithrilOre, patterns.skipAll.search.select.yggdrasilBranch, patterns.skipAll.search.select.platinumOre], 500, 1);
+			await sleep(1_000);
+			await farmMat([patterns.skipAll.search.select.skyDragonScale], 400, 3);
 			done = true;
 			break;
 	}

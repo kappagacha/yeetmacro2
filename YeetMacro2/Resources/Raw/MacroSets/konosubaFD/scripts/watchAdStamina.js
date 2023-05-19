@@ -24,10 +24,22 @@ while (state.isRunning && !done) {
 				}
 			}
 
+			const errorResult = await macroService.findPattern(patterns.ad.prompt.error);
+			if (errorResult.isSuccess) {
+				await macroService.pollPattern(patterns.ad.prompt.ok, { doClick: true, predicatePattern: patterns.stamina.add });
+			}
+
 			logger.info('watchAdStamina: watching ad');
 			logger.info('watchAdStamina: poll stamina.adNotification');
-			await macroService.pollPattern(patterns.stamina.adNotification, { doClick: true, predicatePattern: patterns.ad.prompt.ok });
+			const pollAdNotificationResult = await macroService.pollPattern(patterns.stamina.adNotification, { doClick: true, predicatePattern: [patterns.ad.prompt.ok, patterns.ad.prompt.error] });
+			if (pollAdNotificationResult.predicatePath === 'ad.prompt.error') {
+				logger.info('watchAdStamina: handle error');
+				await macroService.pollPattern(patterns.ad.prompt.ok, { doClick: true, predicatePattern: patterns.stamina.adNotification });
+				sleep(500);
+				await macroService.pollPattern(patterns.stamina.adNotification, { doClick: true, predicatePattern: patterns.ad.prompt.ok });
+			}
 			await sleep(1_000);
+
 			logger.info('watchAdStamina: poll ad.prompt.ok 1');
 			await macroService.pollPattern(patterns.ad.prompt.ok, { doClick: true, predicatePattern: patterns.ad.done });
 			await sleep(1_000);

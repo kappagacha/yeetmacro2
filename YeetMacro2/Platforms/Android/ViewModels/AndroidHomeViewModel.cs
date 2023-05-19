@@ -1,24 +1,26 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using YeetMacro2.Platforms.Android.Services;
+using YeetMacro2.ViewModels;
 
 namespace YeetMacro2.Platforms.Android.ViewModels;
 
 public partial class AndriodHomeViewModel : ObservableObject
 {
     [ObservableProperty]
-    bool _isProjectionServiceEnabled;
-    [ObservableProperty]
-    bool _isAccessibilityEnabled;
-    [ObservableProperty]
-    bool _isAppearing;
+    bool _isProjectionServiceEnabled, _isAccessibilityEnabled, _isAppearing;
     private AndroidWindowManagerService _windowManagerService;
     private YeetAccessibilityService _accessibilityService;
+    private MacroManagerViewModel _macroManagerViewModel;
+    public string CurrentPackage => _accessibilityService.CurrentPackage;
+    public MacroManagerViewModel MacroManagerViewModel => _macroManagerViewModel;
 
-    public AndriodHomeViewModel(AndroidWindowManagerService windowManagerService, YeetAccessibilityService accessibilityService)
+    public AndriodHomeViewModel(AndroidWindowManagerService windowManagerService, YeetAccessibilityService accessibilityService, 
+        MacroManagerViewModel macroManagerViewModel)
     {
         _windowManagerService = windowManagerService;
         _accessibilityService = accessibilityService;
+        _macroManagerViewModel = macroManagerViewModel;
     }
 
     [RelayCommand]
@@ -44,6 +46,7 @@ public partial class AndriodHomeViewModel : ObservableObject
     [RelayCommand]
     public void ToggleProjectionService()
     {
+        IsProjectionServiceEnabled = !IsProjectionServiceEnabled;
         if (IsProjectionServiceEnabled)
         {
             _windowManagerService.StartProjectionService();
@@ -59,6 +62,7 @@ public partial class AndriodHomeViewModel : ObservableObject
     {
         if (IsAppearing) return;
 
+        IsAccessibilityEnabled = !IsAccessibilityEnabled;
         if (IsAccessibilityEnabled)
         {
             _windowManagerService.RequestAccessibilityPermissions();
@@ -72,12 +76,12 @@ public partial class AndriodHomeViewModel : ObservableObject
     [RelayCommand]
     public void OnAppear()
     {
-        _isAppearing = true;
+        IsAppearing = true;
         IsProjectionServiceEnabled = _windowManagerService.ProjectionServiceEnabled;
         IsAccessibilityEnabled = _accessibilityService.HasAccessibilityPermissions;
-        _isAppearing = false;
+        IsAppearing = false;
 
-        IsProjectionServiceEnabled = true;
+        ToggleProjectionService();
         //_windowManagerService.Show(WindowView.PatternsTreeView);
     }
 }

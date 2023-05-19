@@ -25,7 +25,8 @@ public enum AndroidWindowView
     ActionMenuView,
     PromptStringInputView,
     PromptSelectOptionView,
-    LogView
+    LogView,
+    MacroOverlayView
 }
 
 public class AndroidWindowManagerService : IInputService, IScreenService
@@ -123,6 +124,15 @@ public class AndroidWindowManagerService : IInputService, IScreenService
                     });
                     _views.TryAdd(windowView, logAndroidView);
                     break;
+                case AndroidWindowView.MacroOverlayView:
+                    var macroOverlayView = new StaticView(_context, _windowManager, new MacroOverlayView());
+                    macroOverlayView.SetUpLayoutParameters(lp =>
+                    {
+                        lp.Gravity = GravityFlags.Top;
+                        lp.Width = WindowManagerLayoutParams.MatchParent;
+                    });
+                    _views.TryAdd(windowView, macroOverlayView);
+                    break;
                 case AndroidWindowView.ActionView:
                     var actionView = new MoveView(_context, _windowManager, new ActionControl());
                     _views.TryAdd(windowView, actionView);
@@ -134,10 +144,14 @@ public class AndroidWindowManagerService : IInputService, IScreenService
                 case AndroidWindowView.PatternsNodeView:
                     var patternsNodeView = new ResizeView(_context, _windowManager, this, new PatternNodeView());
                     _views.TryAdd(windowView, patternsNodeView);
+                    patternsNodeView.OnShow = () => Show(AndroidWindowView.MacroOverlayView);
+                    patternsNodeView.OnClose = () => Close(AndroidWindowView.MacroOverlayView);
                     break;
                 case AndroidWindowView.ScriptsNodeView:
                     var scriptsNodeView = new ResizeView(_context, _windowManager, this, new ScriptNodeView() { ShowExecuteButton = true });
                     _views.TryAdd(windowView, scriptsNodeView);
+                    scriptsNodeView.OnShow = () => Show(AndroidWindowView.MacroOverlayView);
+                    scriptsNodeView.OnClose = () => Close(AndroidWindowView.MacroOverlayView);
                     break;
                 case AndroidWindowView.PromptStringInputView:
                     var promptStringInputView = new FormsView(_context, _windowManager, new PromptStringInput());

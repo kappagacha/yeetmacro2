@@ -1,7 +1,6 @@
 ﻿using Android.Widget;
 using static Android.Views.View;
 using Android.Views;
-using YeetMacro2.Services;
 using Android.Content;
 using Android.Graphics;
 using Android.Graphics.Drawables.Shapes;
@@ -26,6 +25,8 @@ public class ResizeView : RelativeLayout, IOnTouchListener, IShowable
     private FormState _state;
     public VisualElement VisualElement => _visualElement;
     TaskCompletionSource<bool> _closeCompleted;
+    public Action OnShow { get; set; }
+    public Action OnClose { get; set; }
 
     //https://www.linkedin.com/pulse/6-floating-windows-android-keyboard-input-v%C3%A1clav-hodek/
 
@@ -92,10 +93,12 @@ public class ResizeView : RelativeLayout, IOnTouchListener, IShowable
         _visualElement = visualElement;
         var mauiContext = new MauiContext(MauiApplication.Current.Services, context);
         var androidView = visualElement.ToContainerView(mauiContext);
+
         AddView(androidView, new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MatchParent, ViewGroup.LayoutParams.MatchParent));
         AddView(_topLeft, topLeftParams);
         AddView(_bottomRight, bottomRightParams);
         AddView(_topRight, topRightParams);
+
 
         androidView.Clickable = true;
         Clickable = true;
@@ -145,6 +148,7 @@ public class ResizeView : RelativeLayout, IOnTouchListener, IShowable
             _state = FormState.SHOWING;
             _windowManager.AddView(this, _layoutParams);
             _closeCompleted = new TaskCompletionSource<bool>();
+            OnShow?.Invoke();
         }
     }
 
@@ -155,6 +159,7 @@ public class ResizeView : RelativeLayout, IOnTouchListener, IShowable
             _windowManager.RemoveView(this);
             _state = FormState.CLOSED;
             _closeCompleted.TrySetResult(true);
+            OnClose?.Invoke();
         }
     }
 
@@ -165,6 +170,7 @@ public class ResizeView : RelativeLayout, IOnTouchListener, IShowable
             _windowManager.RemoveView(this);
             _state = FormState.CLOSED;
             _closeCompleted.TrySetResult(false);
+            OnClose?.Invoke();
         }
     }
 
