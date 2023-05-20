@@ -11,6 +11,8 @@ using YeetMacro2.Platforms.Android.ViewModels;
 using YeetMacro2.Services;
 using OpenCvHelper = YeetMacro2.Platforms.Android.Services.OpenCv.OpenCvHelper;
 using Tesseract.Droid;
+using CommunityToolkit.Mvvm.ComponentModel;
+using YeetMacro2.ViewModels;
 
 namespace YeetMacro2.Platforms.Android.Services;
 public enum AndroidWindowView
@@ -50,7 +52,6 @@ public class AndroidWindowManagerService : IInputService, IScreenService
         _windowManager = _context.GetSystemService(Context.WindowService).JavaCast<IWindowManager>();
         _mediaProjectionService = mediaProjectionService;
         _accessibilityService = accessibilityService;
-
         DeviceDisplay.MainDisplayInfoChanged += DeviceDisplay_MainDisplayInfoChanged;
         _displayWidth = DeviceDisplay.MainDisplayInfo.Width;
         _displayHeight = DeviceDisplay.MainDisplayInfo.Height;
@@ -193,7 +194,7 @@ public class AndroidWindowManagerService : IInputService, IScreenService
 
         _views[windowView].Show();
 
-        if (windowView == AndroidWindowView.ActionMenuView)
+        if (windowView == AndroidWindowView.ActionMenuView || windowView == AndroidWindowView.MacroOverlayView)
         {
             var ve = _views[windowView].VisualElement;
             var ctx = ve.BindingContext;

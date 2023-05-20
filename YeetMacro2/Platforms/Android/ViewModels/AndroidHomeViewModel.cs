@@ -8,11 +8,28 @@ namespace YeetMacro2.Platforms.Android.ViewModels;
 public partial class AndriodHomeViewModel : ObservableObject
 {
     [ObservableProperty]
-    bool _isProjectionServiceEnabled, _isAccessibilityEnabled, _isAppearing;
+    bool _isProjectionServiceEnabled, _isAccessibilityEnabled, _isAppearing, _showMacroOverlay;
     private AndroidWindowManagerService _windowManagerService;
     private YeetAccessibilityService _accessibilityService;
     private MacroManagerViewModel _macroManagerViewModel;
-    public string CurrentPackage => _accessibilityService.CurrentPackage;
+    public string CurrentPackage 
+    { 
+        get
+        {
+            var currentPackage = _accessibilityService.CurrentPackage;
+            if (_macroManagerViewModel.SelectedMacroSet?.Package != currentPackage)
+            {
+                var matchingMacroSet = _macroManagerViewModel.MacroSets.FirstOrDefault(ms => ms.Package == currentPackage);
+                if (matchingMacroSet != null)
+                {
+                    _macroManagerViewModel.SelectedMacroSet = matchingMacroSet;
+                }
+            }
+
+            return currentPackage;
+        } 
+    }
+    public bool IsCurrentPackageValid => _accessibilityService.CurrentPackage == _macroManagerViewModel.SelectedMacroSet?.Package;
     public MacroManagerViewModel MacroManagerViewModel => _macroManagerViewModel;
 
     public AndriodHomeViewModel(AndroidWindowManagerService windowManagerService, YeetAccessibilityService accessibilityService, 
@@ -74,6 +91,20 @@ public partial class AndriodHomeViewModel : ObservableObject
     }
 
     [RelayCommand]
+    public void ToggleShowMacroOverlay()
+    {
+        ShowMacroOverlay = !ShowMacroOverlay;
+        if (ShowMacroOverlay)
+        {
+            _windowManagerService.Show(AndroidWindowView.MacroOverlayView);
+        }
+        else
+        {
+            CloseMacroOverlay();
+        }
+    }
+
+    [RelayCommand]
     public void CloseMacroOverlay()
     {
         _windowManagerService.Close(AndroidWindowView.MacroOverlayView);
@@ -87,7 +118,11 @@ public partial class AndriodHomeViewModel : ObservableObject
         IsAccessibilityEnabled = _accessibilityService.HasAccessibilityPermissions;
         IsAppearing = false;
 
-        ToggleProjectionService();
+        if (!IsProjectionServiceEnabled)
+        {
+            ToggleProjectionService();
+        }
+        //ToggleProjectionService();
         //_windowManagerService.Show(WindowView.PatternsTreeView);
     }
 }

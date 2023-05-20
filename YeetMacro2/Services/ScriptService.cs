@@ -195,7 +195,9 @@ public class ScriptService : IScriptService
                                         _screenService.DebugClear();
                                         _screenService.DebugRectangle(pattern.Rect);
                                     });
+                                    await Task.Delay(50);
                                 }
+
                                 var singleResult = await _screenService.FindPattern(pattern, opts);
                                 if (singleResult.IsSuccess)
                                 {
