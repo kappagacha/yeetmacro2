@@ -24,7 +24,7 @@ public static class ServiceRegistrationHelper
         mauiAppBuilder.Services.AddSingleton<IToastService, ToastService>();
         mauiAppBuilder.Services.AddSingleton<IScriptService, ScriptService>();
         mauiAppBuilder.Services.AddAutoMapper(typeof(App).GetTypeInfo().Assembly);
-        mauiAppBuilder.Logging.AddLogViewModelSink();
+        mauiAppBuilder.Logging.AddStatusPanelViewModelSink();
 
         return mauiAppBuilder;
     }
@@ -33,7 +33,7 @@ public static class ServiceRegistrationHelper
     {
         mauiAppBuilder.Services.AddSingleton<MacroManagerViewModel>();
         mauiAppBuilder.Services.AddSingleton<NodeViewModelFactory>();
-        mauiAppBuilder.Services.AddSingleton<LogViewModel>();
+        mauiAppBuilder.Services.AddSingleton<StatusPanelViewModel>();
 
         return mauiAppBuilder;
     }
@@ -116,10 +116,10 @@ public class AppInitializer : IMauiInitializeService
 //https://github.com/serilog/serilog/wiki/Developing-a-sink
 public class LogViewModelSink : ILogEventSink
 {
-    LogViewModel _logViewModel;
-    public LogViewModelSink(LogViewModel logViewModel)
+    StatusPanelViewModel _statusPanelViewModel;
+    public LogViewModelSink(StatusPanelViewModel statusPanelViewModel)
     {
-        _logViewModel = logViewModel;
+        _statusPanelViewModel = statusPanelViewModel;
     }
 
     public void Emit(LogEvent logEvent)
@@ -127,10 +127,10 @@ public class LogViewModelSink : ILogEventSink
         switch (logEvent.Level)
         {
             case LogEventLevel.Debug:
-                _logViewModel.Debug = logEvent.MessageTemplate.Text;
+                _statusPanelViewModel.Debug = logEvent.MessageTemplate.Text;
                 break;
             case LogEventLevel.Information:
-                _logViewModel.Info = logEvent.MessageTemplate.Text;
+                _statusPanelViewModel.Info = logEvent.MessageTemplate.Text;
                 break;
         }
 
@@ -140,15 +140,15 @@ public class LogViewModelSink : ILogEventSink
 
 // https://github.com/adiamante/yeetoverflow/blob/main/YeetOverFlow.Logging/YeetLoggerServiceCollectionExtensions.cs
 // https://github.com/serilog/serilog-extensions-logging/blob/dev/src/Serilog.Extensions.Logging/SerilogLoggingBuilderExtensions.cs
-public static class LogViewModelSinkExtensions
+public static class StatusPanelModelSinkExtensions
 {
-    public static ILoggingBuilder AddLogViewModelSink(this ILoggingBuilder builder, Action<LoggerConfiguration> setupAction = null)
+    public static ILoggingBuilder AddStatusPanelViewModelSink(this ILoggingBuilder builder, Action<LoggerConfiguration> setupAction = null)
     {
         if (builder == null) throw new ArgumentNullException(nameof(builder));
 
         builder.Services.AddSingleton<ILoggerProvider, SerilogLoggerProvider>(sp =>
         {
-            var logViewModel = sp.GetRequiredService<LogViewModel>();
+            var statusPanelViewModel = sp.GetRequiredService<StatusPanelViewModel>();
 
             // https://improveandrepeat.com/2014/08/structured-logging-with-serilog/
             // https://github.com/serilog/serilog/wiki/Formatting-Output
@@ -156,7 +156,7 @@ public static class LogViewModelSinkExtensions
             var configuration = new LoggerConfiguration()
                 .MinimumLevel.Debug()
                 .WriteTo.Console()
-                .WriteTo.LogViewModelSink(logViewModel)
+                .WriteTo.StatusPanelViewModelSink(statusPanelViewModel)
                 // https://github.com/serilog/serilog/wiki/Configuration-Basics#filters
                 .Filter.ByExcluding(Matching.WithProperty<string>("SourceContext", sctx => sctx.StartsWith("Microsoft.")));
 
@@ -172,10 +172,10 @@ public static class LogViewModelSinkExtensions
         return builder;
     }
 
-    public static LoggerConfiguration LogViewModelSink(
+    public static LoggerConfiguration StatusPanelViewModelSink(
               this LoggerSinkConfiguration loggerConfiguration,
-              LogViewModel logViewModel)
+              StatusPanelViewModel statusPanelViewModel)
     {
-        return loggerConfiguration.Sink(new LogViewModelSink(logViewModel));
+        return loggerConfiguration.Sink(new LogViewModelSink(statusPanelViewModel));
     }
 }

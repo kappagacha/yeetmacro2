@@ -55,7 +55,7 @@ public class ForegroundService : Service
             case EXIT_ACTION:
                 StopForeground(true);
                 _windowManagerService.Close(AndroidWindowView.ActionView);
-                _windowManagerService.Close(AndroidWindowView.LogView);
+                _windowManagerService.Close(AndroidWindowView.StatusPanelView);
                 _windowManagerService.CloseOverlayWindow();
                 _mediaProjectionService.Stop();
                 _mediaProjectionService.StopRecording();

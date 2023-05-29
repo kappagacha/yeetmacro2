@@ -19,14 +19,14 @@ public class PatternNode : Node, IParentNode<PatternNode, PatternNode>
     public virtual ICollection<Pattern> Patterns { get; set; } = new List<Pattern>();
 }
 
-public class PatterneMetadataProvider : INodeMetadataProvider<Pattern>
+public class PatternMetadataProvider : INodeMetadataProvider<Pattern>
 {
     public Expression<Func<Pattern, object>> CollectionPropertiesExpression => null;
     public Expression<Func<Pattern, object>> ProxyPropertiesExpression => p => new { p.TextMatch, p.ColorThreshold };
     public Type[] NodeTypes => null;
 }
 
-[NodeMetadata(NodeMetadataProvider = typeof(PatterneMetadataProvider))]
+[NodeMetadata(NodeMetadataProvider = typeof(PatternMetadataProvider))]
 public class Pattern
 {
     public virtual Rect Rect { get; set; }
@@ -40,8 +40,8 @@ public class Pattern
     public virtual string Name { get; set; }
     public byte[] ImageData { get; set; }
     public virtual double VariancePct { get; set; } = 20.0;
-    public virtual TextMatchProperties TextMatch { get; set; } = new TextMatchProperties();
-    public virtual ColorThresholdProperties ColorThreshold { get; set; } = new ColorThresholdProperties();
+    public virtual TextMatchProperties TextMatch { get; set; }
+    public virtual ColorThresholdProperties ColorThreshold { get; set; }
 }
 
 public class TextMatchProperties

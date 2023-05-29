@@ -10,114 +10,168 @@
              xmlns:avm="clr-namespace:YeetMacro2.Platforms.Android.ViewModels"
              xmlns:av="clr-namespace:YeetMacro2.Platforms.Android.Views"
              x:Class="YeetMacro2.Platforms.Android.Views.AndroidHomePage"
+             x:DataType="{x:Type avm:AndriodHomeViewModel}"
+             vm:ViewModelLocator.ViewModelType="{x:Type avm:AndriodHomeViewModel}"
              xmlns:fa="clr-namespace:UraniumUI.Icons.FontAwesome;assembly=UraniumUI.Icons.FontAwesome"
              xmlns:mi="clr-namespace:UraniumUI.Icons.MaterialIcons;assembly=UraniumUI.Icons.MaterialIcons"
-             vm:ViewModelLocator.ViewModelType="{x:Type avm:AndriodHomeViewModel}"
-             Title="AndroidHomePage">
+             Title="Home">
     <ContentPage.Behaviors>
         <mct:EventToCommandBehavior
                 EventName="Appearing"
                 Command="{OnPlatform Android={Binding AppearCommand}}" />
     </ContentPage.Behaviors>
-    <Grid RowDefinitions="Auto,*">
-        <Label Grid.Row="0" Text="YeetMacro" HorizontalTextAlignment="Center" FontSize="Title" FontAttributes="Bold" />
-        <ScrollView Grid.Row="1">
-            <VerticalStackLayout Padding="30,24,30,24" Spacing="10" BindingContext="{Binding BindingContext, Source={RelativeSource AncestorType={x:Type av:AndroidHomePage}}}">
-                <Grid RowDefinitions="Auto,Auto,Auto,Auto,Auto" ColumnDefinitions="Auto,Auto">
-                    <v:ImageView Grid.Row="0" Grid.Column="0"  FontFamily="MaterialOutlined" Glyph="{x:Static mi:MaterialOutlined.Branding_watermark}" Color="LightGray"
-                                                 Command="{Binding ToggleProjectionServiceCommand}">
-                        <v:ImageView.Triggers>
-                            <DataTrigger TargetType="{x:Type v:ImageView}" Binding="{Binding IsProjectionServiceEnabled}" Value="True">
-                                <Setter Property="Color" Value="Green" />
-                            </DataTrigger>
-                        </v:ImageView.Triggers>
-                    </v:ImageView>
-                    <Label Grid.Row="0" Grid.Column="1" VerticalTextAlignment="Center" Text="Projection Service">
-                        <Label.GestureRecognizers>
-                            <TapGestureRecognizer Command="{Binding ToggleProjectionServiceCommand}" />
-                        </Label.GestureRecognizers>
-                        <Label.Triggers>
-                            <DataTrigger TargetType="Label" Binding="{Binding IsProjectionServiceEnabled}" Value="True">
-                                <Setter Property="TextColor" Value="Green" />
-                            </DataTrigger>
-                        </Label.Triggers>
-                    </Label>
-                    <v:ImageView Grid.Row="1" Grid.Column="0"  FontFamily="MaterialOutlined" Glyph="{x:Static mi:MaterialOutlined.Touch_app}" Color="LightGray"
-                                                 Command="{Binding ToggleAccessibilityPermissionsCommand}">
-                        <v:ImageView.Triggers>
-                            <DataTrigger TargetType="{x:Type v:ImageView}" Binding="{Binding IsAccessibilityEnabled}" Value="True">
-                                <Setter Property="Color" Value="Green" />
-                            </DataTrigger>
-                        </v:ImageView.Triggers>
-                    </v:ImageView>
-                    <Label Grid.Row="1" Grid.Column="1" VerticalTextAlignment="Center" Text="Accessibility Service">
-                        <Label.GestureRecognizers>
-                            <TapGestureRecognizer Command="{Binding ToggleAccessibilityPermissionsCommand}" />
-                        </Label.GestureRecognizers>
-                        <Label.Triggers>
-                            <DataTrigger TargetType="Label" Binding="{Binding IsAccessibilityEnabled}" Value="True">
-                                <Setter Property="TextColor" Value="Green" />
-                            </DataTrigger>
-                        </Label.Triggers>
-                    </Label>
-                    <v:ImageView Grid.Row="2" Grid.Column="0" FontFamily="MaterialOutlined" Glyph="{x:Static mi:MaterialOutlined.Dashboard_customize}" Color="LightGray"
-                                                 Command="{Binding ToggleShowMacroOverlayCommand}">
-                        <v:ImageView.Triggers>
-                            <DataTrigger TargetType="{x:Type v:ImageView}" Binding="{Binding ShowMacroOverlay}" Value="True">
-                                <Setter Property="Color" Value="Green" />
-                            </DataTrigger>
-                        </v:ImageView.Triggers>
-                    </v:ImageView>
-                    <Label Grid.Row="2" Grid.Column="1" VerticalTextAlignment="Center" Text="Show Macro Overlay">
-                        <Label.GestureRecognizers>
-                            <TapGestureRecognizer Command="{Binding ToggleShowMacroOverlayCommand}" />
-                        </Label.GestureRecognizers>
-                        <Label.Triggers>
-                            <DataTrigger TargetType="Label" Binding="{Binding ShowMacroOverlay}" Value="True">
-                                <Setter Property="TextColor" Value="Green" />
-                            </DataTrigger>
-                        </Label.Triggers>
-                    </Label>
-                    <v:ImageView Grid.Row="3" Grid.Column="0" FontFamily="FASolid" Glyph="{x:Static fa:Solid.Terminal}" Color="LightGray"
-                                                 Command="{Binding MacroManagerViewModel.ToggleShowLogViewCommand}">
-                        <v:ImageView.Triggers>
-                            <DataTrigger TargetType="{x:Type v:ImageView}" Binding="{Binding MacroManagerViewModel.ShowLogView}" Value="True">
-                                <Setter Property="Color" Value="Green" />
-                            </DataTrigger>
-                        </v:ImageView.Triggers>
-                    </v:ImageView>
-                    <Label Grid.Row="3" Grid.Column="1" VerticalTextAlignment="Center" Text="Show Status Panel">
-                        <Label.GestureRecognizers>
-                            <TapGestureRecognizer Command="{Binding MacroManagerViewModel.ToggleShowLogViewCommand}" />
-                        </Label.GestureRecognizers>
-                        <Label.Triggers>
-                            <DataTrigger TargetType="Label" Binding="{Binding MacroManagerViewModel.ShowLogView}" Value="True">
-                                <Setter Property="TextColor" Value="Green" />
-                            </DataTrigger>
-                        </Label.Triggers>
-                    </Label>
-                    <v:ImageView Grid.Row="4" Grid.Column="0" FontFamily="MaterialOutlined" Glyph="{x:Static mi:MaterialOutlined.Filter_center_focus}"  Color="LightGray"
-                                                 Command="{Binding MacroManagerViewModel.ToggleInDebugModeCommand}">
-                        <v:ImageView.Triggers>
-                            <DataTrigger TargetType="{x:Type v:ImageView}" Binding="{Binding MacroManagerViewModel.InDebugMode}" Value="True">
-                                <Setter Property="Color" Value="Green" />
-                            </DataTrigger>
-                        </v:ImageView.Triggers>
-                    </v:ImageView>
-                    <Label Grid.Row="4" Grid.Column="1" VerticalTextAlignment="Center" Text="Debug Mode">
-                        <Label.GestureRecognizers>
-                            <TapGestureRecognizer Command="{Binding MacroManagerViewModel.ToggleInDebugModeCommand}" />
-                        </Label.GestureRecognizers>
-                        <Label.Triggers>
-                            <DataTrigger TargetType="Label" Binding="{Binding MacroManagerViewModel.InDebugMode}" Value="True">
-                                <Setter Property="TextColor" Value="Green" />
-                            </DataTrigger>
-                        </Label.Triggers>
-                    </Label>
-                </Grid>
-                <Button Text="Copy Database" Command="{Binding CopyDbCommand}" />
-                <Button Text="Delete Database" Command="{Binding DeleteDbCommand}" />
-            </VerticalStackLayout>
-        </ScrollView>
+    <Grid>
+        <VerticalStackLayout Spacing="10">
+            <Label Text="YeetMacro" HorizontalTextAlignment="Center" FontSize="Title" FontAttributes="Bold" />
+            <HorizontalStackLayout HorizontalOptions="Center">
+                <v:ImageView FontFamily="MaterialOutlined" Glyph="{x:Static mi:MaterialOutlined.Branding_watermark}" Color="LightGray"
+                                                     Command="{Binding ToggleProjectionServiceCommand}">
+                    <v:ImageView.Triggers>
+                        <DataTrigger TargetType="{x:Type v:ImageView}" Binding="{Binding IsProjectionServiceEnabled}" Value="True">
+                            <Setter Property="Color" Value="Green" />
+                        </DataTrigger>
+                    </v:ImageView.Triggers>
+                </v:ImageView>
+                <Label VerticalTextAlignment="Center" Text="Projection Service">
+                    <Label.GestureRecognizers>
+                        <TapGestureRecognizer Command="{Binding ToggleProjectionServiceCommand}" />
+                    </Label.GestureRecognizers>
+                    <Label.Triggers>
+                        <DataTrigger TargetType="Label" Binding="{Binding IsProjectionServiceEnabled}" Value="True">
+                            <Setter Property="TextColor" Value="Green" />
+                        </DataTrigger>
+                    </Label.Triggers>
+                </Label>
+            </HorizontalStackLayout>
+            <HorizontalStackLayout HorizontalOptions="Center">
+                <v:ImageView FontFamily="MaterialOutlined" Glyph="{x:Static mi:MaterialOutlined.Touch_app}" Color="LightGray"
+                                                     Command="{Binding ToggleAccessibilityPermissionsCommand}">
+                    <v:ImageView.Triggers>
+                        <DataTrigger TargetType="{x:Type v:ImageView}" Binding="{Binding IsAccessibilityEnabled}" Value="True">
+                            <Setter Property="Color" Value="Green" />
+                        </DataTrigger>
+                    </v:ImageView.Triggers>
+                </v:ImageView>
+                <Label VerticalTextAlignment="Center" Text="Accessibility Service">
+                    <Label.GestureRecognizers>
+                        <TapGestureRecognizer Command="{Binding ToggleAccessibilityPermissionsCommand}" />
+                    </Label.GestureRecognizers>
+                    <Label.Triggers>
+                        <DataTrigger TargetType="Label" Binding="{Binding IsAccessibilityEnabled}" Value="True">
+                            <Setter Property="TextColor" Value="Green" />
+                        </DataTrigger>
+                    </Label.Triggers>
+                </Label>
+            </HorizontalStackLayout>
+            <HorizontalStackLayout HorizontalOptions="Center">
+                <v:ImageView FontFamily="MaterialOutlined" Glyph="{x:Static mi:MaterialOutlined.Credit_card}" Color="LightGray"
+                                                     Command="{Binding ToggleShowMacroOverlayCommand}">
+                    <v:ImageView.Triggers>
+                        <DataTrigger TargetType="{x:Type v:ImageView}" Binding="{Binding ShowMacroOverlay}" Value="True">
+                            <Setter Property="Color" Value="Green" />
+                        </DataTrigger>
+                    </v:ImageView.Triggers>
+                </v:ImageView>
+                <Label VerticalTextAlignment="Center" Text="Show Macro Overlay">
+                    <Label.GestureRecognizers>
+                        <TapGestureRecognizer Command="{Binding ToggleShowMacroOverlayCommand}" />
+                    </Label.GestureRecognizers>
+                    <Label.Triggers>
+                        <DataTrigger TargetType="Label" Binding="{Binding ShowMacroOverlay}" Value="True">
+                            <Setter Property="TextColor" Value="Green" />
+                        </DataTrigger>
+                    </Label.Triggers>
+                </Label>
+            </HorizontalStackLayout>
+            <HorizontalStackLayout HorizontalOptions="Center">
+                <v:ImageView FontFamily="MaterialOutlined" Glyph="{x:Static mi:MaterialOutlined.Call_to_action}" Color="LightGray"
+                                                     Command="{Binding MacroManagerViewModel.ToggleShowStatusPanelCommand}">
+                    <v:ImageView.Triggers>
+                        <DataTrigger TargetType="{x:Type v:ImageView}" Binding="{Binding MacroManagerViewModel.ShowStatusPanel}" Value="True">
+                            <Setter Property="Color" Value="Green" />
+                        </DataTrigger>
+                    </v:ImageView.Triggers>
+                </v:ImageView>
+                <Label VerticalTextAlignment="Center" Text="Show Status Panel">
+                    <Label.GestureRecognizers>
+                        <TapGestureRecognizer Command="{Binding MacroManagerViewModel.ToggleShowStatusPanelCommand}" />
+                    </Label.GestureRecognizers>
+                    <Label.Triggers>
+                        <DataTrigger TargetType="Label" Binding="{Binding MacroManagerViewModel.ShowStatusPanel}" Value="True">
+                            <Setter Property="TextColor" Value="Green" />
+                        </DataTrigger>
+                    </Label.Triggers>
+                </Label>
+            </HorizontalStackLayout>
+            <HorizontalStackLayout HorizontalOptions="Center">
+                <v:ImageView FontFamily="MaterialOutlined" Glyph="{x:Static mi:MaterialOutlined.Filter_center_focus}"  Color="LightGray"
+                                                     Command="{Binding MacroManagerViewModel.ToggleInDebugModeCommand}">
+                    <v:ImageView.Triggers>
+                        <DataTrigger TargetType="{x:Type v:ImageView}" Binding="{Binding MacroManagerViewModel.InDebugMode}" Value="True">
+                            <Setter Property="Color" Value="Green" />
+                        </DataTrigger>
+                    </v:ImageView.Triggers>
+                </v:ImageView>
+                <Label VerticalTextAlignment="Center" Text="Debug Mode">
+                    <Label.GestureRecognizers>
+                        <TapGestureRecognizer Command="{Binding MacroManagerViewModel.ToggleInDebugModeCommand}" />
+                    </Label.GestureRecognizers>
+                    <Label.Triggers>
+                        <DataTrigger TargetType="Label" Binding="{Binding MacroManagerViewModel.InDebugMode}" Value="True">
+                            <Setter Property="TextColor" Value="Green" />
+                        </DataTrigger>
+                    </Label.Triggers>
+                </Label>
+            </HorizontalStackLayout>
+            <HorizontalStackLayout HorizontalOptions="Center">
+                <v:ImageView FontFamily="MaterialOutlined" Glyph="{x:Static mi:MaterialOutlined.Format_align_justify}"  Color="LightGray"
+                                                     Command="{Binding MacroManagerViewModel.ToggleShowScriptLogCommand}">
+                    <v:ImageView.Triggers>
+                        <DataTrigger TargetType="{x:Type v:ImageView}" Binding="{Binding MacroManagerViewModel.ShowScriptLog}" Value="True">
+                            <Setter Property="Color" Value="Green" />
+                        </DataTrigger>
+                    </v:ImageView.Triggers>
+                </v:ImageView>
+                <Label VerticalTextAlignment="Center" Text="Show Script Log">
+                    <Label.GestureRecognizers>
+                        <TapGestureRecognizer Command="{Binding MacroManagerViewModel.ToggleShowScriptLogCommand}" />
+                    </Label.GestureRecognizers>
+                    <Label.Triggers>
+                        <DataTrigger TargetType="Label" Binding="{Binding MacroManagerViewModel.ShowScriptLog}" Value="True">
+                            <Setter Property="TextColor" Value="Green" />
+                        </DataTrigger>
+                    </Label.Triggers>
+                </Label>
+            </HorizontalStackLayout>
+        </VerticalStackLayout>
+        <Border Margin="10" HorizontalOptions="End" VerticalOptions="End" BackgroundColor="Transparent" 
+                StrokeShape="RoundRectangle 40" Stroke="Green">
+            <Border.Triggers>
+                <DataTrigger TargetType="{x:Type Border}" Binding="{Binding IsMacroReady}" Value="True">
+                    <Setter Property="Stroke" Value="Red" />
+                </DataTrigger>
+            </Border.Triggers>
+            <HorizontalStackLayout  Spacing="4" Margin="10">
+                <HorizontalStackLayout.GestureRecognizers>
+                    <TapGestureRecognizer Command="{Binding ToggleIsMacroReadyCommand}" />
+                </HorizontalStackLayout.GestureRecognizers>
+                <v:ImageView FontFamily="MaterialOutlined" Glyph="{x:Static mi:MaterialOutlined.Play_arrow}" Color="Green">
+                    <v:ImageView.Triggers>
+                        <DataTrigger TargetType="{x:Type v:ImageView}" Binding="{Binding IsMacroReady}" Value="True">
+                            <Setter Property="Color" Value="Red" />
+                            <Setter Property="Glyph" Value="{x:Static mi:MaterialOutlined.Stop_circle}" />
+                        </DataTrigger>
+                    </v:ImageView.Triggers>
+                </v:ImageView>
+                <Label FontSize="Large" Text="Start" TextColor="Green">
+                    <Label.Triggers>
+                        <DataTrigger TargetType="{x:Type Label}" Binding="{Binding IsMacroReady}" Value="True">
+                            <Setter Property="TextColor" Value="Red" />
+                            <Setter Property="Text" Value="Stop" />
+                        </DataTrigger>
+                    </Label.Triggers>
+                </Label>
+            </HorizontalStackLayout>
+        </Border>
     </Grid>
 </ContentPage>

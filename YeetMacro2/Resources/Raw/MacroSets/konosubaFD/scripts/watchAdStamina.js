@@ -24,24 +24,9 @@ while (state.isRunning && !done) {
 				}
 			}
 
-			const errorResult = await macroService.findPattern(patterns.ad.prompt.error);
-			if (errorResult.isSuccess) {
-				await macroService.pollPattern(patterns.ad.prompt.ok, { doClick: true, predicatePattern: patterns.stamina.add });
-			}
-
 			logger.info('watchAdStamina: watching ad');
 			logger.info('watchAdStamina: poll stamina.adNotification');
-			const pollAdNotificationResult = await macroService.pollPattern(patterns.stamina.adNotification, { doClick: true, predicatePattern: [patterns.ad.prompt.ok, patterns.ad.prompt.error] });
-			if (pollAdNotificationResult.predicatePath === 'ad.prompt.error') {
-				logger.info('watchAdStamina: handle error');
-				await macroService.pollPattern(patterns.ad.prompt.ok, { doClick: true, predicatePattern: patterns.stamina.adNotification });
-				sleep(500);
-				await macroService.pollPattern(patterns.stamina.adNotification, { doClick: true, predicatePattern: patterns.ad.prompt.ok });
-			}
-			await sleep(1_000);
-
-			logger.info('watchAdStamina: poll ad.prompt.ok 1');
-			await macroService.pollPattern(patterns.ad.prompt.ok, { doClick: true, predicatePattern: patterns.ad.done });
+			await macroService.pollPattern(patterns.stamina.adNotification, { doClick: true, clickPattern: patterns.ad.prompt.ok, predicatePattern: patterns.ad.done });
 			await sleep(1_000);
 			logger.info('watchAdStamina: poll ad.done');
 			await macroService.pollPattern(patterns.ad.done, { doClick: true, predicatePattern: patterns.ad.prompt.ok });

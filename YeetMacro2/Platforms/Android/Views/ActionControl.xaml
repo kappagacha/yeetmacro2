@@ -10,19 +10,30 @@
              vm:ViewModelLocator.ViewModelType="{x:Type pvm:ActionViewModel}"
              xmlns:mi="clr-namespace:UraniumUI.Icons.MaterialIcons;assembly=UraniumUI.Icons.MaterialIcons"
              xmlns:uuiv="clr-namespace:UraniumUI.Views;assembly=UraniumUI"
-             HeightRequest="40"
-             WidthRequest="40"
+             HeightRequest="50"
+             WidthRequest="50"
              x:Class="YeetMacro2.Platforms.Android.Views.ActionControl">
-    <uuiv:StatefulContentView
-        TappedCommand="{Binding ExecuteCommand}"
-        LongPressCommand="{Binding OpenMenuCommand}">
-        <v:ImageView FontFamily="MaterialOutlined" Glyph="{x:Static mi:MaterialOutlined.Play_arrow}" Color="{StaticResource Primary}">
-            <v:ImageView.Triggers>
-                <DataTrigger TargetType="{x:Type v:ImageView}" Binding="{Binding State}" Value="{x:Static pvm:ActionState.Running}">
-                    <Setter Property="Color" Value="Red" />
-                    <Setter Property="Glyph" Value="{x:Static mi:MaterialOutlined.Stop}" />
-                </DataTrigger>
-            </v:ImageView.Triggers>
-        </v:ImageView>
-    </uuiv:StatefulContentView>
+    <Border StrokeShape="RoundRectangle 10" Stroke="Green" BackgroundColor="{StaticResource BackgroundDark}">
+        <Border.Triggers>
+            <DataTrigger TargetType="{x:Type Border}" Binding="{Binding State}" Value="{x:Static pvm:ActionState.Running}">
+                <Setter Property="Stroke" Value="Red" />
+            </DataTrigger>
+        </Border.Triggers>
+        <Grid>
+            <uuiv:StatefulContentView
+            TappedCommand="{Binding ExecuteCommand}"
+            LongPressCommand="{Binding OpenMenuCommand}">
+                <v:ImageView FontFamily="MaterialOutlined" Glyph="{x:Static mi:MaterialOutlined.Play_arrow}" Color="Green">
+                    <v:ImageView.Triggers>
+                        <DataTrigger TargetType="{x:Type v:ImageView}" Binding="{Binding State}" Value="{x:Static pvm:ActionState.Running}">
+                            <Setter Property="Color" Value="Red" />
+                            <Setter Property="Glyph" Value="{x:Static mi:MaterialOutlined.Stop}" />
+                        </DataTrigger>
+                    </v:ImageView.Triggers>
+                </v:ImageView>
+            </uuiv:StatefulContentView>
+            <ActivityIndicator IsRunning="{Binding IsBusy}" />
+        </Grid>
+        
+    </Border>
 </ContentView>

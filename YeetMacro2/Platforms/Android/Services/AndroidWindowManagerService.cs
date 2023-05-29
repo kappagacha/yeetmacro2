@@ -27,8 +27,9 @@ public enum AndroidWindowView
     ActionMenuView,
     PromptStringInputView,
     PromptSelectOptionView,
-    LogView,
-    MacroOverlayView
+    StatusPanelView,
+    MacroOverlayView,
+    LogView
 }
 
 public class AndroidWindowManagerService : IInputService, IScreenService
@@ -116,14 +117,14 @@ public class AndroidWindowManagerService : IInputService, IScreenService
         {
             switch (windowView)
             {
-                case AndroidWindowView.LogView:
-                    var logAndroidView = new StaticView(_context, _windowManager, new LogView());
-                    logAndroidView.SetUpLayoutParameters(lp =>
+                case AndroidWindowView.StatusPanelView:
+                    var statusPanelView = new StaticView(_context, _windowManager, new StatusPanelView());
+                    statusPanelView.SetUpLayoutParameters(lp =>
                     {
                         lp.Gravity = GravityFlags.Bottom;
                         lp.Width = WindowManagerLayoutParams.MatchParent;
                     });
-                    _views.TryAdd(windowView, logAndroidView);
+                    _views.TryAdd(windowView, statusPanelView);
                     break;
                 case AndroidWindowView.MacroOverlayView:
                     var macroOverlayView = new StaticView(_context, _windowManager, new MacroOverlayView());
@@ -188,6 +189,10 @@ public class AndroidWindowManagerService : IInputService, IScreenService
                     debugDrawView.SetBackgroundToTransparent();
                     debugDrawView.DisableTranslucentNavigation();
                     _views.TryAdd(windowView, debugDrawView);
+                    break;
+                case AndroidWindowView.LogView:
+                    var logView = new ResizeView(_context, _windowManager, this, new LogView());
+                    _views.TryAdd(windowView, logView);
                     break;
             }
         }
@@ -283,20 +288,35 @@ public class AndroidWindowManagerService : IInputService, IScreenService
 
     public void DebugRectangle(Rect rect)
     {
-        Show(AndroidWindowView.DebugDrawView);
-        var drawControl = (DrawControl)_views[AndroidWindowView.DebugDrawView].VisualElement;
-        var thickness = 10;
-        var loc = new Point(rect.X - thickness, rect.Y - thickness);
-        var size = new Size(rect.Width + thickness * 2, rect.Height + thickness * 2);
-        
-        drawControl.AddRectangle(new Rect(loc, size));
+        try
+        {
+            Show(AndroidWindowView.DebugDrawView);
+            var drawControl = (DrawControl)_views[AndroidWindowView.DebugDrawView].VisualElement;
+            var thickness = 10;
+            var loc = new Point(rect.X - thickness, rect.Y - thickness);
+            var size = new Size(rect.Width + thickness * 2, rect.Height + thickness * 2);
+
+            drawControl.AddRectangle(new Rect(loc, size));
+        } 
+        catch(Exception ex)
+        {
+
+        }
     }
 
     public void DebugCircle(Point point)
     {
-        Show(AndroidWindowView.DebugDrawView);
-        var drawControl = (DrawControl)_views[AndroidWindowView.DebugDrawView].VisualElement;
-        drawControl.AddCircle(point);
+        try
+        {
+
+            Show(AndroidWindowView.DebugDrawView);
+            var drawControl = (DrawControl)_views[AndroidWindowView.DebugDrawView].VisualElement;
+            drawControl.AddCircle(point);
+        }
+        catch (Exception ex)
+        {
+
+        }
     }
 
     public void DebugClear()
@@ -404,6 +424,11 @@ public class AndroidWindowManagerService : IInputService, IScreenService
             {
                 needleImageData = OpenCvHelper.CalcColorThreshold(pattern.ImageData, pattern.ColorThreshold);
                 haystackImageData = OpenCvHelper.CalcColorThreshold(haystackImageData, pattern.ColorThreshold);
+
+                if (needleImageData.Length == 0 || haystackImageData.Length == 0)
+                {
+                    return new List<Point>();
+                }
             }
 
             var threshold = 0.8;

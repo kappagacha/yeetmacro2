@@ -13,20 +13,21 @@ while (state.isRunning && !done) {
 			break;
 		case 'titles.freeQuests':
 			logger.info('doFreeQuests: target upgrade stone');
-			await macroService.pollPattern(patterns.freeQuests.upgradeStone, { doClick: true, predicatePattern: patterns.freeQuests.upgradeStone.intermediate });
-			await macroService.pollPattern(patterns.freeQuests.upgradeStone.intermediate, { doClick: true, predicatePattern: patterns.tickets.add });
-			// sample text capture: "25 x1" (it catches some of the words)
-			let numTickets = (await screenService.getText(patterns.tickets.numTickets)).split('x')[1];
-			logger.info('numTickets: ' + numTickets);
-			while (numTickets < 2) {
-				await macroService.clickPattern(patterns.tickets.add);
-				await sleep(500);
-				numTickets = (await screenService.getText(patterns.tickets.numTickets)).split('x')[1];
-				logger.info('numTickets: ' + numTickets);
+			const upgradeStoneTargetLevel = settings.freeQuests.upgradeStone.targetLevel.props.value || 'intermediate';
+			if (upgradeStoneTargetLevel !== 'extreme') {
+				await macroService.pollPattern(patterns.freeQuests.upgradeStone, { doClick: true, predicatePattern: patterns.freeQuests.upgradeStone[upgradeStoneTargetLevel] });
+				await macroService.pollPattern(patterns.freeQuests.upgradeStone[upgradeStoneTargetLevel], { doClick: true, predicatePattern: patterns.tickets.add });
+				// sample text capture: "25 x1" (it catches some of the words)
+				let numTickets = (await screenService.getText(patterns.tickets.numTickets)).split('x')[1];
+				while (numTickets < 2) {
+					await macroService.clickPattern(patterns.tickets.add);
+					await sleep(500);
+					numTickets = (await screenService.getText(patterns.tickets.numTickets)).split('x')[1];
+				}
+				await macroService.pollPattern(patterns.tickets.use, { doClick: true, predicatePattern: patterns.tickets.prompt.ok });
+				await macroService.pollPattern(patterns.tickets.prompt.ok, { doClick: true, predicatePattern: patterns.titles.freeQuests });
 			}
-			await macroService.pollPattern(patterns.tickets.use, { doClick: true, predicatePattern: patterns.tickets.prompt.ok });
-			await macroService.pollPattern(patterns.tickets.prompt.ok, { doClick: true, predicatePattern: patterns.titles.freeQuests });
-
+			
 			logger.info('doFreeQuests: skip all');
 			await macroService.pollPattern(patterns.freeQuests.eris, { doClick: true, predicatePattern: patterns.skipAll.skipQuest });
 			await macroService.pollPattern(patterns.skipAll.skipQuest, { doClick: true, predicatePattern: patterns.skipAll.button });

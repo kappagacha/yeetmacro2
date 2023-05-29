@@ -18,12 +18,15 @@ public class EventBroadcastReceiver : BroadcastReceiver
             {
                 case "com.companyname.ForegroundService.EXIT":
                     ServiceHelper.GetService<AndriodHomeViewModel>().IsProjectionServiceEnabled = false;
-                    ServiceHelper.GetService<MacroManagerViewModel>().ShowLogView = false;
+                    ServiceHelper.GetService<AndriodHomeViewModel>().IsMacroReady = false;
+                    ServiceHelper.GetService<MacroManagerViewModel>().ShowStatusPanel = false;
                     ServiceHelper.GetService<MacroManagerViewModel>().InDebugMode = false;
                     break;
                 case "com.companyname.AccessibilityService.CHANGED":
                     bool enabled = intent.GetBooleanExtra("enabled", false);
-                    ServiceHelper.GetService<AndriodHomeViewModel>().IsAccessibilityEnabled = enabled;
+                    var homeViewModel = ServiceHelper.GetService<AndriodHomeViewModel>();
+                    homeViewModel.IsAccessibilityEnabled = enabled;
+                    homeViewModel.IsMacroReady = enabled && homeViewModel.IsProjectionServiceEnabled;
                     break;
             }
         }

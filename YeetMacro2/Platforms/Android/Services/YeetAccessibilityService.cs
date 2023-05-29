@@ -61,7 +61,8 @@ public class YeetAccessibilityService : AccessibilityService
             {
                 Console.WriteLine("WindowStateChanged: " + e.PackageName);
 
-                if (e.PackageName != AppInfo.PackageName && e.PackageName != "com.google.android.gms")
+                if (e.PackageName != AppInfo.PackageName && e.PackageName != "com.google.android.gms" &&
+                    !e.PackageName.StartsWith("com.android"))
                 {
                     _currentPackage = e.PackageName;
                 }

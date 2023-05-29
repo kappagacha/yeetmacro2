@@ -30,12 +30,21 @@ public class ScriptService : IScriptService
         _jsonValueToPatternNode = new Dictionary<object, PatternNode>();
         var synchronizationContext = new SynchronizationContext();
         _jsContext = new JSContext(synchronizationContext);
-
+        _jsContext.Error += _jsContext_Error;
         Task.Run(InitJSContext);
+    }
+
+    private void _jsContext_Error(JSContext context, Exception error)
+    {
+        Console.WriteLine($"[*****YeetMacro*****] JSContext Error: {error.Message}");
     }
 
     public void RunScript(string script, string jsonPatterns, string jsonSettings, Action onScriptFinished)
     {
+        //Console.WriteLine($"[*****YeetMacro*****] ScriptService script: {script}");
+        //Console.WriteLine($"[*****YeetMacro*****] ScriptService jsonPatterns: {jsonPatterns}");
+        //Console.WriteLine($"[*****YeetMacro*****] ScriptService jsonSettings: {jsonSettings}");
+
         if (_isRunning) return;
 
         Task.Run(async () =>
@@ -46,13 +55,15 @@ public class ScriptService : IScriptService
                 await _jsContext.ExecuteAsync($"patterns = {jsonPatterns}; settings = {jsonSettings}; resolvePath({{ $isParent: true, ...patterns }});");
                 await _jsContext.ExecuteAsync(script);
                 _toastService.Show(_isRunning ? "Script finished..." : "Script stopped...");
+                
                 _isRunning = false;
                 _jsonValueToPatternNode.Clear();
                 onScriptFinished?.Invoke();
             }
             catch (Exception ex)
             {
-                Console.WriteLine(ex.Message);
+                //Console.WriteLine(ex.Message);
+                Console.WriteLine($"[*****YeetMacro*****] JSContext Error: {ex.Message}");
                 _toastService.Show("Error: " + ex.Message);
             }
         });
@@ -107,7 +118,7 @@ public class ScriptService : IScriptService
                 {
                     _screenService.DebugClear();
                 });
-                
+
                 return JSNull.Value;
             }), JSPropertyAttributes.EnumerableReadonlyValue),
             new JSProperty("doClick", new JSFunction((in Arguments a) =>

@@ -34,8 +34,6 @@
             <HorizontalStackLayout Margin="0" Padding="0">
                 <Entry Margin="0" VerticalOptions="Center" Keyboard="Numeric" Text="{Binding Pattern.VariancePct, Source={Reference thisView}}" />
                 <Label Margin="0" VerticalOptions="Center" Padding="0" Text="VariancePct" />
-                <v:ImageView FontFamily="MaterialOutlined" Glyph="{x:Static mi:MaterialOutlined.Save}" Color="{StaticResource Primary}" 
-                             Command="{Binding SavePatternCommand, Source={Reference thisView}}" CommandParameter="{Binding Pattern, Source={Reference thisView}}" />
             </HorizontalStackLayout>
             <HorizontalStackLayout Margin="0" Padding="0">
                 <CheckBox IsChecked="{Binding Pattern.ColorThreshold.IsActive, Source={Reference thisView}}" CheckedChanged="colorThresholdIsActive_CheckedChanged" />
@@ -117,6 +115,15 @@
                 <v:ImageView FontFamily="FASolid" Glyph="{x:Static fa:Solid.TrashCan}" Color="Red"
                              IsVisible="{Binding PatternNode.IsMultiPattern, Source={Reference thisView}}"
                              Command="{Binding DeletePatternCommand, Source={Reference thisView}}">
+                    <v:ImageView.CommandParameter>
+                        <MultiBinding Converter="{conv:PassThroughConverter}">
+                            <Binding Path="Pattern" Source="{Reference thisView}" />
+                            <Binding Path="PatternNode" Source="{Reference thisView}" />
+                        </MultiBinding>
+                    </v:ImageView.CommandParameter>
+                </v:ImageView>
+                <v:ImageView FontFamily="MaterialOutlined" Glyph="{x:Static mi:MaterialOutlined.Save}" Color="{StaticResource Primary}" 
+                             Command="{Binding SavePatternCommand, Source={Reference thisView}}">
                     <v:ImageView.CommandParameter>
                         <MultiBinding Converter="{conv:PassThroughConverter}">
                             <Binding Path="Pattern" Source="{Reference thisView}" />

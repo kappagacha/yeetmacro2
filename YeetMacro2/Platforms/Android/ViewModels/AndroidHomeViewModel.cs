@@ -8,7 +8,7 @@ namespace YeetMacro2.Platforms.Android.ViewModels;
 public partial class AndriodHomeViewModel : ObservableObject
 {
     [ObservableProperty]
-    bool _isProjectionServiceEnabled, _isAccessibilityEnabled, _isAppearing, _showMacroOverlay;
+    bool _isProjectionServiceEnabled, _isAccessibilityEnabled, _isAppearing, _showMacroOverlay, _isMacroReady;
     private AndroidWindowManagerService _windowManagerService;
     private YeetAccessibilityService _accessibilityService;
     private MacroManagerViewModel _macroManagerViewModel;
@@ -30,6 +30,9 @@ public partial class AndriodHomeViewModel : ObservableObject
         } 
     }
     public bool IsCurrentPackageValid => _accessibilityService.CurrentPackage == _macroManagerViewModel.SelectedMacroSet?.Package;
+    public Size CurrentResolution => new Size(DeviceDisplay.MainDisplayInfo.Width, DeviceDisplay.MainDisplayInfo.Height);
+    public bool HasValidResolution => DeviceDisplay.MainDisplayInfo.Width == _macroManagerViewModel.SelectedMacroSet.Resolution.Width &&
+        DeviceDisplay.MainDisplayInfo.Height == _macroManagerViewModel.SelectedMacroSet.Resolution.Height;
     public MacroManagerViewModel MacroManagerViewModel => _macroManagerViewModel;
 
     public AndriodHomeViewModel(AndroidWindowManagerService windowManagerService, YeetAccessibilityService accessibilityService, 
@@ -111,11 +114,37 @@ public partial class AndriodHomeViewModel : ObservableObject
     }
 
     [RelayCommand]
+    public void ToggleIsMacroReady()
+    {
+        if (IsMacroReady)
+        {
+            IsMacroReady = false;
+            if (IsProjectionServiceEnabled)
+            {
+                ToggleProjectionService();
+            }
+        }
+        else
+        {
+            IsMacroReady = true;
+            if (!IsProjectionServiceEnabled)
+            {
+                ToggleProjectionService();
+            }
+            if (!IsAccessibilityEnabled)
+            {
+                ToggleAccessibilityPermissions();
+            }
+        }
+    }
+
+    [RelayCommand]
     public void OnAppear()
     {
         IsAppearing = true;
         IsProjectionServiceEnabled = _windowManagerService.ProjectionServiceEnabled;
         IsAccessibilityEnabled = _accessibilityService.HasAccessibilityPermissions;
+        IsMacroReady = IsProjectionServiceEnabled && IsAccessibilityEnabled;
         IsAppearing = false;
 
         if (!IsProjectionServiceEnabled)

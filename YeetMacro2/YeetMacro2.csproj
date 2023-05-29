@@ -77,25 +77,21 @@
 	  <None Remove="Platforms\Android\Resources\xml\yeetmacro_config.xml" />
 	  <None Remove="Resources\Images\appicon.svg" />
 	  <None Remove="Resources\Raw\initJavaScriptContext.js" />
-	  <None Remove="Resources\Raw\MacroSets\konosubaFD\macroSet.json" />
-	  <None Remove="Resources\Raw\MacroSets\konosubaFD\patterns.json" />
-	  <None Remove="Resources\Raw\MacroSets\konosubaFD\scripts\claimJobs.js" />
-	  <None Remove="Resources\Raw\MacroSets\konosubaFD\scripts\doEventStory.js" />
-	  <None Remove="Resources\Raw\MacroSets\konosubaFD\scripts\doFreeQuests.js" />
-	  <None Remove="Resources\Raw\MacroSets\konosubaFD\scripts\farmMats.js" />
-	  <None Remove="Resources\Raw\MacroSets\konosubaFD\scripts\hash.json" />
-	  <None Remove="Resources\Raw\MacroSets\konosubaFD\scripts\watchAdQuartz.js" />
-	  <None Remove="Resources\Raw\MacroSets\konosubaFD\scripts\watchAdStamina.js" />
-	  <None Remove="Resources\Raw\MacroSets\konosubaFD\settings.json" />
 	  <None Remove="Resources\Splash\splash.svg" />
 	</ItemGroup>
 
 	<ItemGroup>
+	  <Compile Update="Platforms\Android\Views\AndroidDeveloperPage.xaml.cs">
+	    <DependentUpon>AndroidDeveloperPage.xaml</DependentUpon>
+	  </Compile>
 	  <Compile Update="Platforms\Android\Views\MacroOverlayView.xaml.cs">
 	    <DependentUpon>MacroOverlayView.xaml</DependentUpon>
 	  </Compile>
 	  <Compile Update="Views\LogView.xaml.cs">
 	    <DependentUpon>LogView.xaml</DependentUpon>
+	  </Compile>
+	  <Compile Update="Views\StatusPanelView.xaml.cs">
+	    <DependentUpon>StatusPanelView.xaml</DependentUpon>
 	  </Compile>
 	  <Compile Update="Views\PatternNodeView.xaml.cs">
 	    <DependentUpon>PatternNodeView.xaml</DependentUpon>
@@ -136,6 +132,9 @@
 	</ItemGroup>
   
 	<ItemGroup>
+	  <MauiXaml Update="Platforms\Android\Views\AndroidDeveloperPage.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
 	  <MauiXaml Update="Platforms\Android\Views\MacroOverlayView.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
@@ -146,6 +145,9 @@
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
 	  <MauiXaml Update="Views\LogView.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	  <MauiXaml Update="Views\StatusPanelView.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
 	  <MauiXaml Update="Views\PatternView.xaml">
@@ -208,6 +210,27 @@
   </ItemGroup>
 
   <ItemGroup>
+    <MauiAsset Update="Resources\Raw\MacroSets\eversoul\hash.json">
+      <LogicalName>%(RecursiveDir)%(Filename)%(Extension)</LogicalName>
+    </MauiAsset>
+    <MauiAsset Update="Resources\Raw\MacroSets\eversoul\macroSet.json">
+      <LogicalName>%(RecursiveDir)%(Filename)%(Extension)</LogicalName>
+    </MauiAsset>
+    <MauiAsset Update="Resources\Raw\MacroSets\eversoul\patterns.json">
+      <LogicalName>%(RecursiveDir)%(Filename)%(Extension)</LogicalName>
+    </MauiAsset>
+    <MauiAsset Update="Resources\Raw\MacroSets\eversoul\scripts\doOutings.js">
+      <LogicalName>%(RecursiveDir)%(Filename)%(Extension)</LogicalName>
+    </MauiAsset>
+    <MauiAsset Update="Resources\Raw\MacroSets\eversoul\scripts\doChampsArena.js">
+      <LogicalName>%(RecursiveDir)%(Filename)%(Extension)</LogicalName>
+    </MauiAsset>
+    <MauiAsset Update="Resources\Raw\MacroSets\eversoul\scripts\doArena.js">
+      <LogicalName>%(RecursiveDir)%(Filename)%(Extension)</LogicalName>
+    </MauiAsset>
+    <MauiAsset Update="Resources\Raw\MacroSets\eversoul\settings.json">
+      <LogicalName>%(RecursiveDir)%(Filename)%(Extension)</LogicalName>
+    </MauiAsset>
     <MauiAsset Update="Resources\Raw\MacroSets\konosubaFD\macroSet.json">
       <LogicalName>%(RecursiveDir)%(Filename)%(Extension)</LogicalName>
     </MauiAsset>
@@ -215,6 +238,9 @@
       <LogicalName>%(RecursiveDir)%(Filename)%(Extension)</LogicalName>
     </MauiAsset>
     <MauiAsset Update="Resources\Raw\MacroSets\konosubaFD\scripts\doEventStory.js">
+      <LogicalName>%(RecursiveDir)%(Filename)%(Extension)</LogicalName>
+    </MauiAsset>
+    <MauiAsset Update="Resources\Raw\MacroSets\konosubaFD\scripts\farmEventBossLoop.js">
       <LogicalName>%(RecursiveDir)%(Filename)%(Extension)</LogicalName>
     </MauiAsset>
     <MauiAsset Update="Resources\Raw\MacroSets\konosubaFD\scripts\farmMats.js">

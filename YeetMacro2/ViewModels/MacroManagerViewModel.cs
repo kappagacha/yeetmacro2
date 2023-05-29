@@ -1,6 +1,4 @@
-﻿using AutoMapper;
-using CommunityToolkit.Maui.Core.Primitives;
-using CommunityToolkit.Mvvm.ComponentModel;
+﻿using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using System.Collections.Concurrent;
 using System.Text.Json;
@@ -29,7 +27,7 @@ public partial class MacroManagerViewModel : ObservableObject
     ConcurrentDictionary<int, SettingNodeViewModel> _nodeRootIdToSettingTree;
     IScriptService _scriptService;
     [ObservableProperty]
-    bool _inDebugMode, _showLogView, _showExport, _showSettings;
+    bool _inDebugMode, _showStatusPanel, _showExport, _showSettings, _isBusy, _showScriptLog;
     [ObservableProperty]
     double _resolutionWidth, _resolutionHeight;
     [ObservableProperty]
@@ -47,6 +45,7 @@ public partial class MacroManagerViewModel : ObservableObject
         PropertyNamingPolicy = JsonNamingPolicy.CamelCase,
         TypeInfoResolver = SizePropertiesResolver.Instance
     };
+    StatusPanelViewModel _statusPanelViewModel;
 
     public PatternNodeViewModel Patterns
     {
@@ -99,7 +98,8 @@ public partial class MacroManagerViewModel : ObservableObject
         INodeService<PatternNode, PatternNode> patternNodeService,
         INodeService<ScriptNode, ScriptNode> scriptNodeService,
         INodeService<ParentSetting, SettingNode> settingNodeService,
-        IScriptService scriptService)
+        IScriptService scriptService,
+        StatusPanelViewModel statusPanelViewModel)
     {
         _macroSetRepository = macroSetRepository;
         _toastService = toastService;
@@ -107,6 +107,7 @@ public partial class MacroManagerViewModel : ObservableObject
         _patternNodeService = patternNodeService;
         _scriptNodeService = scriptNodeService;
         _settingNodeService = settingNodeService;
+        _statusPanelViewModel= statusPanelViewModel;
 
         // manually instantiating in ServiceRegistrationHelper.AppInitializer to pre initialize MacroSets
         if (_macroSetRepository == null) return;  
@@ -202,21 +203,32 @@ public partial class MacroManagerViewModel : ObservableObject
     [RelayCommand]
     private async Task ExecuteScript(ScriptNode scriptNode)
     {
+        Console.WriteLine($"[*****YeetMacro*****] MacroManagerViewModel ExecuteScript");
         _scriptService.InDebugMode = InDebugMode;
         await Patterns.WaitForInitialization();
+        Console.WriteLine($"[*****YeetMacro*****] MacroManagerViewModel Patterns Initialized");
         await Settings.WaitForInitialization();
+        Console.WriteLine($"[*****YeetMacro*****] MacroManagerViewModel Settings Initialized");
+        if (ShowScriptLog)
+        {
+            _statusPanelViewModel.IsSavingLog = true;
+        }
         _scriptService.RunScript(scriptNode.Text, Patterns.ToJson(), Settings.ToJson(), () =>
         {
             OnScriptFinished?.Execute(null);
+            if (ShowScriptLog)
+            {
+                _statusPanelViewModel.IsSavingLog = false;
+            }
         });
 
         OnScriptExecuted?.Execute(null);
     }
 
     [RelayCommand]
-    private void ToggleShowLogView()
+    private void ToggleShowStatusPanel()
     {
-        ShowLogView = !ShowLogView;
+        ShowStatusPanel = !ShowStatusPanel;
     }
 
     [RelayCommand]
@@ -232,17 +244,49 @@ public partial class MacroManagerViewModel : ObservableObject
     }
 
     [RelayCommand]
-    private void ExportMacroSet(MacroSet macroSet)
+    private void ToggleShowScriptLog()
     {
-        var json = JsonSerializer.Serialize(macroSet, _jsonSerializerOptions);
-        _toastService.Show($"Exported MacroSet: {macroSet.Name}");
-        ExportValue = json;
+        ShowScriptLog = !ShowScriptLog;
+    }
+
+    [RelayCommand]
+    private async Task ExportMacroSet(MacroSet macroSet)
+    {
+        IsBusy = true;
+        var macroSetJson = JsonSerializer.Serialize(macroSet, _jsonSerializerOptions);
+
+        var hashJson = JsonSerializer.Serialize(await GetHash(), _jsonSerializerOptions);
+        var targetDirectory = "";
+#if ANDROID
+        // https://stackoverflow.com/questions/39332085/get-path-to-pictures-directory
+        targetDirectory = DeviceInfo.Current.Platform == DevicePlatform.Android ?
+            Android.OS.Environment.GetExternalStoragePublicDirectory(Android.OS.Environment.DirectoryPictures).AbsolutePath :
+            FileSystem.Current.AppDataDirectory;
+#elif WINDOWS
+        targetDirectory = FileSystem.Current.AppDataDirectory;
+#endif
+
+        targetDirectory = Path.Combine(targetDirectory, $"{macroSet.Source.Uri}");
+        if (!Directory.Exists(targetDirectory))
+        {
+            Directory.CreateDirectory(targetDirectory);
+        }
+
+        File.WriteAllText(Path.Combine(targetDirectory, $"hash.json"), hashJson);
+        File.WriteAllText(Path.Combine(targetDirectory, $"macroSet.json"), macroSetJson);
+        File.WriteAllText(Path.Combine(targetDirectory, $"patterns.json"), Patterns.ToJson());
+        File.WriteAllText(Path.Combine(targetDirectory, $"settings.json"), Settings.ToJson());
+
+        ExportValue = macroSetJson;
         ShowExport = true;
+        IsBusy = false;
+        _toastService.Show($"Exported MacroSet: {macroSet.Name}");
     }
 
     [RelayCommand]
     private async Task UpdateMacroSet(MacroSet macroSet)
     {
+        IsBusy = true;
         var localMacroSets = ServiceHelper.ListAssets("MacroSets").ToList();
         if (!localMacroSets.Contains(macroSet.Source.Uri))
         {
@@ -300,6 +344,7 @@ public partial class MacroManagerViewModel : ObservableObject
         }
 
         _toastService.Show($"Updated MacroSet: {macroSet.Name}");
+        IsBusy = false;
     }
 
     [RelayCommand]
@@ -352,5 +397,8 @@ public partial class MacroManagerViewModel : ObservableObject
             MacroSetSourceUri = value.Source.Uri;
         }
         Preferences.Default.Set(nameof(SelectedMacroSet), value.Name);
+        OnPropertyChanged(nameof(Patterns));
+        OnPropertyChanged(nameof(Scripts));
+        OnPropertyChanged(nameof(Settings));
     }
 }

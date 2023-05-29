@@ -23,7 +23,7 @@ while (state.isRunning) {
 			break;
 		case 'battle.report':
 			logger.info('farmEventLoop: replay battle');
-			await macroService.pollPattern(patterns.battle.replay, { doClick: true, clickPattern: patterns.battle.next, predicatePattern: patterns.battle.replay.prompt });
+			await macroService.pollPattern(patterns.battle.replay, { doClick: true, clickPattern: [patterns.battle.next, patterns.battle.affinityLevelUp], predicatePattern: patterns.battle.replay.prompt });
 			await sleep(500);
 			await macroService.pollPattern(patterns.battle.replay.ok, { doClick: true, predicatePattern: patterns.battle.report });
 			break;

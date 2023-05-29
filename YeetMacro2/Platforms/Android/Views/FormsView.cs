@@ -28,6 +28,7 @@ public class FormsView : RelativeLayout, IShowable
         _layoutParams.Flags |= WindowManagerFlags.TranslucentNavigation;
         _layoutParams.Flags |= WindowManagerFlags.LayoutNoLimits;
         //_layoutParams.Flags |= WindowManagerFlags.Fullscreen;
+        _layoutParams.Flags |= WindowManagerFlags.TranslucentNavigation;
         _layoutParams.Flags |= WindowManagerFlags.LayoutInScreen;
         //_layoutParams.Gravity = GravityFlags.Top | GravityFlags.Left;
         SetBackgroundColor(Color.Argb(70, 0, 0, 0));

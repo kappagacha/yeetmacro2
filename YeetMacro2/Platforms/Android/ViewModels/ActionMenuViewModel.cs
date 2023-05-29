@@ -59,7 +59,7 @@ public partial class ActionMenuViewModel : ObservableObject
     public void OpenLog()
     {
         _toastService.Show("Opening Log...");
-        _windowManagerService.Show(AndroidWindowView.LogView);
+        _windowManagerService.Show(AndroidWindowView.StatusPanelView);
         _windowManagerService.Close(AndroidWindowView.ActionMenuView);
     }
 

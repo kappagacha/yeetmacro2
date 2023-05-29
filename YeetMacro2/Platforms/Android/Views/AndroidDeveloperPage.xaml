@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="YeetMacro2.Platforms.Android.Views.AndroidDeveloperPage"
+             xmlns:vm="clr-namespace:YeetMacro2.ViewModels"
+             xmlns:avm="clr-namespace:YeetMacro2.Platforms.Android.ViewModels"
+             x:DataType="{x:Type avm:AndriodHomeViewModel}"
+             vm:ViewModelLocator.ViewModelType="{x:Type avm:AndriodHomeViewModel}"
+             Title="Developer">
+    <VerticalStackLayout Spacing="5">
+        <Button Text="Copy Database" Command="{Binding CopyDbCommand}" />
+        <Button Text="Delete Database" Command="{Binding DeleteDbCommand}" />
+    </VerticalStackLayout>
+</ContentPage>

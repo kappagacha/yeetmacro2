@@ -105,9 +105,15 @@ public partial class NodeViewModel<TParent, TChild> : NodeViewModel
                 SelectNode(firstChild);
             }
             Root = root;
+            CustomInit();
             IsInitialized = true;
             _initializeCompleted.SetResult();
         });
+    }
+
+    protected virtual void CustomInit()
+    {
+
     }
 
     public async Task WaitForInitialization()
@@ -227,14 +233,14 @@ public partial class NodeViewModel<TParent, TChild> : NodeViewModel
         var json = JsonSerializer.Serialize(this, _defaultJsonSerializerOptions);
 #if ANDROID
         // https://stackoverflow.com/questions/39332085/get-path-to-pictures-directory
-        var targetDirctory = DeviceInfo.Current.Platform == DevicePlatform.Android ?
+        var targetDirectory = DeviceInfo.Current.Platform == DevicePlatform.Android ?
             Android.OS.Environment.GetExternalStoragePublicDirectory(Android.OS.Environment.DirectoryPictures).AbsolutePath :
             FileSystem.Current.AppDataDirectory;
-        var targetFile = Path.Combine(targetDirctory, $"{name}_{_nodeTypeName}s.json");
+        var targetFile = Path.Combine(targetDirectory, $"{name}_{_nodeTypeName}s.json");
         File.WriteAllText(targetFile, json);
 #elif WINDOWS
-        var targetDirctory = FileSystem.Current.AppDataDirectory;
-        var targetFile = Path.Combine(targetDirctory, $"{name}_{_nodeTypeName}s.json");
+        var targetDirectory = FileSystem.Current.AppDataDirectory;
+        var targetFile = Path.Combine(targetDirectory, $"{name}_{_nodeTypeName}s.json");
         File.WriteAllText(targetFile, json);
 #endif
         // Clipboard seems to have a character limit in Android

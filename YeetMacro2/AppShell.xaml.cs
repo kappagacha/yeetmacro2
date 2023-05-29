@@ -37,5 +37,14 @@ public partial class AppShell : Shell
             Route = "MacroManager",
             ContentTemplate = new DataTemplate(typeof(MacroManagerPage))
         });
+
+#if ANDROID
+        this.Items.Add(new ShellContent()
+        {
+            Title = "Developer",
+            Route = "Developer",
+            ContentTemplate = new DataTemplate(typeof(AndroidDeveloperPage))
+        });
+#endif
     }
 }

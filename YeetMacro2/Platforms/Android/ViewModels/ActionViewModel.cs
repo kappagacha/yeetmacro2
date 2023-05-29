@@ -19,6 +19,8 @@ public partial class ActionViewModel : ObservableObject, IMovable
     [ObservableProperty]
     ActionState _state;
     public bool IsMoving { get; set; }
+    [ObservableProperty]
+    bool _isBusy;
 
     AndroidWindowManagerService _windowManagerService;
     IScriptService _scriptService;
@@ -38,6 +40,13 @@ public partial class ActionViewModel : ObservableObject, IMovable
         _macroManagerViewModel.OnScriptFinished = _macroManagerViewModel.OnScriptFinished ?? new Command(() =>
         {
             State = ActionState.Stopped;
+            if (_macroManagerViewModel.ShowScriptLog)
+            {
+                MainThread.BeginInvokeOnMainThread(() =>
+                {
+                    _windowManagerService.Show(AndroidWindowView.LogView);
+                });
+            }
         });
     }
 
@@ -54,15 +63,15 @@ public partial class ActionViewModel : ObservableObject, IMovable
                 _windowManagerService.Close(AndroidWindowView.DebugDrawView);
             }
         }
-        else if (e.PropertyName == nameof(MacroManagerViewModel.ShowLogView))
+        else if (e.PropertyName == nameof(MacroManagerViewModel.ShowStatusPanel))
         {
-            if (_macroManagerViewModel.ShowLogView)
+            if (_macroManagerViewModel.ShowStatusPanel)
             {
-                _windowManagerService.Show(AndroidWindowView.LogView);
+                _windowManagerService.Show(AndroidWindowView.StatusPanelView);
             }
             else
             {
-                _windowManagerService.Close(AndroidWindowView.LogView);
+                _windowManagerService.Close(AndroidWindowView.StatusPanelView);
             }
         }
     }
@@ -70,7 +79,9 @@ public partial class ActionViewModel : ObservableObject, IMovable
     [RelayCommand]
     public async void Execute()
     {
+        IsBusy = true;
         await _macroManagerViewModel.Scripts.WaitForInitialization();
+        IsBusy = false;
 
         switch (State)
         {
@@ -91,5 +102,11 @@ public partial class ActionViewModel : ObservableObject, IMovable
         {
             _windowManagerService.Show(AndroidWindowView.ActionMenuView);
         }
+    }
+
+    [RelayCommand]
+    public async Task ScreenCapture()
+    {
+        await _windowManagerService.ScreenCapture();
     }
 }

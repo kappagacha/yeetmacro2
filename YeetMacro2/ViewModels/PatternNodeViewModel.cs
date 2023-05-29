@@ -32,6 +32,7 @@ public partial class PatternNodeViewModel : NodeViewModel<PatternNode, PatternNo
 
         PropertyChanged += PatternTreeViewViewModel_PropertyChanged;
 
+        
         // TODO: init SelectedPattern
         //if (SelectedPattern == null && SelectedNode.Patterns.Count > 0)
         //{
@@ -39,6 +40,14 @@ public partial class PatternNodeViewModel : NodeViewModel<PatternNode, PatternNo
         //    targetPattern.IsSelected = false;
         //    SelectPattern(targetPattern);
         //}
+    }
+
+    protected override void CustomInit()
+    {
+        foreach (var patternNode in _nodeService.GetDescendants<PatternNode>(Root).ToList())
+        {
+            _patternRepository.AttachEntities(patternNode.Patterns.ToArray());
+        }
     }
 
     private void PatternTreeViewViewModel_PropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)
@@ -67,7 +76,7 @@ public partial class PatternNodeViewModel : NodeViewModel<PatternNode, PatternNo
                 return;
             }
 
-            var newPattern = ProxyViewModel.Create(new Pattern() { Name = name, PatternNodeId = patternNode.NodeId });
+            var newPattern = ProxyViewModel.Create(new Pattern() { Name = name, PatternNodeId = patternNode.NodeId, ColorThreshold = new ColorThresholdProperties(), TextMatch = new TextMatchProperties() });
             patternNode.Patterns.Add(newPattern);
             _patternRepository.Insert(newPattern);
             _patternRepository.Save();
@@ -119,7 +128,7 @@ public partial class PatternNodeViewModel : NodeViewModel<PatternNode, PatternNo
             var pattern = values[0] as Pattern;
             if (pattern == null)
             {
-                pattern = ProxyViewModel.Create(new Pattern() { Name = "pattern", PatternNodeId = patternNode.NodeId });
+                pattern = ProxyViewModel.Create(new Pattern() { Name = "pattern", PatternNodeId = patternNode.NodeId, ColorThreshold = new ColorThresholdProperties(), TextMatch = new TextMatchProperties() });
                 patternNode.Patterns.Add(pattern);
                 _patternRepository.Insert(pattern);
                 _patternRepository.Save();
@@ -143,10 +152,15 @@ public partial class PatternNodeViewModel : NodeViewModel<PatternNode, PatternNo
     }
 
     [RelayCommand]
-    private void SavePattern(Pattern pattern)
+    private void SavePattern(Object[] values)
     {
-        _patternRepository.Update(pattern);
-        _patternRepository.Save();
+        if (values.Length > 1 && values[0] is Pattern pattern && values[1] is PatternNode patternNode)
+        {
+            _patternRepository.Update(pattern);
+            _patternRepository.Save();
+            _nodeService.Update(patternNode);
+            _nodeService.Save();
+        }
     }
 
     [RelayCommand]

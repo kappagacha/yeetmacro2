@@ -15,33 +15,44 @@ public static class OpenCvHelper
 {
     public static byte[] CalcColorThreshold(byte[] imageData, ColorThresholdProperties colorThreshold)
     {
-        // https://stackoverflow.com/questions/21113190/how-to-get-the-mat-object-from-the-byte-in-opencv-android
-        var matOfByte = new MatOfByte(imageData);
-        var mat = Org.Opencv.Imgcodecs.Imgcodecs.Imdecode(matOfByte, Org.Opencv.Imgcodecs.Imgcodecs.CvLoadImageColor);
+        try
+        {
+            // https://stackoverflow.com/questions/21113190/how-to-get-the-mat-object-from-the-byte-in-opencv-android
+            var matOfByte = new MatOfByte(imageData);
+            if (matOfByte.Empty() || !matOfByte.IsContinuous)
+            {
+                return new byte[0];
+            }
+            var mat = Org.Opencv.Imgcodecs.Imgcodecs.Imdecode(matOfByte, Org.Opencv.Imgcodecs.Imgcodecs.CvLoadImageColor);
 
-        // https://ckyrkou.medium.com/color-thresholding-in-opencv-91049607b06d
-        // blue, red, green
-        var skColorTarget = SKColor.Parse(colorThreshold.Color);
-        var variance = 255 * colorThreshold.VariancePct / 100.0;
-        var lowerBounds = new Scalar(skColorTarget.Blue - variance, skColorTarget.Green - variance, skColorTarget.Red - variance);
-        var upperBounds = new Scalar(skColorTarget.Blue + variance, skColorTarget.Green + variance, skColorTarget.Red + variance);
-        var mask = new Mat();
-        Core.InRange(mat, lowerBounds, upperBounds, mask);
-        var maskInverted = new Mat();
-        Core.Bitwise_not(mask, maskInverted);
-        var maskInvertedMatOfByte = new MatOfByte();
-        Org.Opencv.Imgcodecs.Imgcodecs.Imencode(".jpeg", maskInverted, maskInvertedMatOfByte);
-        var result = maskInvertedMatOfByte.ToArray();
+            // https://ckyrkou.medium.com/color-thresholding-in-opencv-91049607b06d
+            // blue, red, green
+            var skColorTarget = SKColor.Parse(colorThreshold.Color);
+            var variance = 255 * colorThreshold.VariancePct / 100.0;
+            var lowerBounds = new Scalar(skColorTarget.Blue - variance, skColorTarget.Green - variance, skColorTarget.Red - variance);
+            var upperBounds = new Scalar(skColorTarget.Blue + variance, skColorTarget.Green + variance, skColorTarget.Red + variance);
+            var mask = new Mat();
+            Core.InRange(mat, lowerBounds, upperBounds, mask);
+            var maskInverted = new Mat();
+            Core.Bitwise_not(mask, maskInverted);
+            var maskInvertedMatOfByte = new MatOfByte();
+            Org.Opencv.Imgcodecs.Imgcodecs.Imencode(".jpeg", maskInverted, maskInvertedMatOfByte);
+            var result = maskInvertedMatOfByte.ToArray();
 
-        mat.Dispose();
-        matOfByte.Dispose();
-        lowerBounds.Dispose();
-        upperBounds.Dispose();
-        mask.Dispose();
-        maskInverted.Dispose();
-        maskInvertedMatOfByte.Dispose();
+            mat.Dispose();
+            matOfByte.Dispose();
+            lowerBounds.Dispose();
+            upperBounds.Dispose();
+            mask.Dispose();
+            maskInverted.Dispose();
+            maskInvertedMatOfByte.Dispose();
 
-        return result;
+            return result;
+        }
+        catch (Exception ex)
+        {
+            return new byte[0];
+        }
     }
 
     public static List<Point> GetPointsWithMatchTemplate(byte[] haystackImageData, byte[] needleImageData, int limit = 1, double threshold = 0.8)
@@ -50,6 +61,12 @@ public static class OpenCvHelper
         {
             var haystackMatOfByte = new MatOfByte(haystackImageData);
             var needleMatOfByte = new MatOfByte(needleImageData);
+
+            if (haystackMatOfByte.Empty() || !haystackMatOfByte.IsContinuous || needleMatOfByte.Empty() || !needleMatOfByte.IsContinuous)
+            {
+                return new List<Point>();
+            }
+
             var haystackMat = Org.Opencv.Imgcodecs.Imgcodecs.Imdecode(haystackMatOfByte, Org.Opencv.Imgcodecs.Imgcodecs.CvLoadImageColor);
             var needleMat = Org.Opencv.Imgcodecs.Imgcodecs.Imdecode(needleMatOfByte, Org.Opencv.Imgcodecs.Imgcodecs.CvLoadImageColor);
             haystackMatOfByte.Dispose();

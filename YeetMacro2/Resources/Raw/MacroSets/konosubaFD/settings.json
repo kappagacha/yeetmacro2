@@ -11,11 +11,47 @@
       "props": {
         "$type": "option",
         "settingType": "Option",
-        "options": [ "12", "11" ],
+        "options": [
+          "12",
+          "11"
+        ],
         "value": "12",
         "defaultValue": null,
         "isParentNode": false,
         "name": "targetLevel"
+      }
+    }
+  },
+  "freeQuests": {
+    "$isParent": true,
+    "props": {
+      "settingType": "Parent",
+      "isParentNode": true,
+      "name": "freeQuests"
+    },
+    "upgradeStone": {
+      "$isParent": true,
+      "props": {
+        "settingType": "Parent",
+        "isParentNode": true,
+        "name": "upgradeStone"
+      },
+      "targetLevel": {
+        "$isParent": false,
+        "props": {
+          "$type": "option",
+          "settingType": "Option",
+          "options": [
+            "extreme",
+            "ultimate",
+            "advanced",
+            "intermediate"
+          ],
+          "value": "intermediate",
+          "defaultValue": null,
+          "isParentNode": false,
+          "name": "targetLevel"
+        }
       }
     }
   }

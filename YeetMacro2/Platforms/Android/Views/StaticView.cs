@@ -28,7 +28,7 @@ public class StaticView : RelativeLayout, IShowable
         _layoutParams.Flags |= WindowManagerFlags.LayoutNoLimits;
         _layoutParams.Width = WindowManagerLayoutParams.WrapContent;
         _layoutParams.Height = WindowManagerLayoutParams.WrapContent;
-        SetBackgroundColor(Color.Argb(70, 0, 0, 0));
+        SetBackgroundColor(Color.Argb(90, 0, 0, 0));
 
         //https://docs.microsoft.com/en-us/xamarin/xamarin-forms/platform/native-forms
         _visualElement = visualElement;

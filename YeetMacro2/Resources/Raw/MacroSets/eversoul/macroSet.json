@@ -1,12 +1,12 @@
 {
-  "name": "Konosuba FD",
+  "name": "Eversoul",
   "resolution": {
     "width": 1920,
     "height": 1080
   },
-  "package": "com.nexon.konosuba",
+  "package": "com.kakaogames.eversoul",
   "source": {
     "type": "LOCAL_ASSET",
-    "uri": "konosubaFD"
+    "uri": "eversoul"
   }
 }

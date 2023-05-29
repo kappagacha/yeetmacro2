@@ -33,11 +33,12 @@ public class MoveView : LinearLayout, IShowable
         _layoutParams.Type = WindowManagerTypes.ApplicationOverlay;
         _layoutParams.Format = Format.Translucent;
         _layoutParams.Flags |= WindowManagerFlags.NotFocusable;
+        _layoutParams.Flags |= WindowManagerFlags.TranslucentNavigation;
         _layoutParams.Width = WindowManagerLayoutParams.WrapContent;
         _layoutParams.Height = WindowManagerLayoutParams.WrapContent;
         _layoutParams.Gravity = GravityFlags.Top;
 
-        SetBackgroundColor(Color.Argb(70, 40, 40, 40));
+        //SetBackgroundColor(Color.Argb(70, 40, 40, 40));
         _windowManager = windowManager;
         _visualElement = visualElement;
 
