@@ -37,7 +37,7 @@ public partial class ActionViewModel : ObservableObject, IMovable
             _windowManagerService.Close(AndroidWindowView.ScriptsNodeView);
             State = ActionState.Running;
         });
-        _macroManagerViewModel.OnScriptFinished = _macroManagerViewModel.OnScriptFinished ?? new Command(() =>
+        _macroManagerViewModel.OnScriptFinished = _macroManagerViewModel.OnScriptFinished ?? new Command<string>((result) =>
         {
             State = ActionState.Stopped;
             if (_macroManagerViewModel.ShowScriptLog)
@@ -45,6 +45,14 @@ public partial class ActionViewModel : ObservableObject, IMovable
                 MainThread.BeginInvokeOnMainThread(() =>
                 {
                     _windowManagerService.Show(AndroidWindowView.LogView);
+                });
+            }
+
+            if (!String.IsNullOrWhiteSpace(result))
+            {
+                MainThread.BeginInvokeOnMainThread(() =>
+                {
+                    _windowManagerService.ShowMessage(result);
                 });
             }
         });

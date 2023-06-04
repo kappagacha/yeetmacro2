@@ -35,7 +35,7 @@ public partial class MacroManagerViewModel : ObservableObject
     [ObservableProperty]
     string _macroSetSourceUri;
     [ObservableProperty]
-    string _exportValue;
+    string _exportValue, _message;
     JsonSerializerOptions _jsonSerializerOptions = new JsonSerializerOptions()
     {
         Converters = {
@@ -156,7 +156,7 @@ public partial class MacroManagerViewModel : ObservableObject
         _macroSetRepository.Save();
         SelectedMacroSet = macroSet;
         _toastService.Show($"Added MacroSet: {macroSet.Name}");
-    }
+    } 
 
     //public async Task AddLocalAssetMacroSet(string uri)
     //{
@@ -203,6 +203,9 @@ public partial class MacroManagerViewModel : ObservableObject
     [RelayCommand]
     private async Task ExecuteScript(ScriptNode scriptNode)
     {
+        if (IsBusy) return;
+
+        IsBusy = true;
         Console.WriteLine($"[*****YeetMacro*****] MacroManagerViewModel ExecuteScript");
         _scriptService.InDebugMode = InDebugMode;
         await Patterns.WaitForInitialization();
@@ -213,13 +216,14 @@ public partial class MacroManagerViewModel : ObservableObject
         {
             _statusPanelViewModel.IsSavingLog = true;
         }
-        _scriptService.RunScript(scriptNode.Text, Patterns.ToJson(), Settings.ToJson(), () =>
+        _scriptService.RunScript(scriptNode.Text, Patterns.ToJson(), Settings.ToJson(), (result) =>
         {
-            OnScriptFinished?.Execute(null);
+            OnScriptFinished?.Execute(result);
             if (ShowScriptLog)
             {
                 _statusPanelViewModel.IsSavingLog = false;
             }
+            IsBusy = false;
         });
 
         OnScriptExecuted?.Execute(null);
@@ -332,7 +336,6 @@ public partial class MacroManagerViewModel : ObservableObject
 
                 scripts.Root.Nodes.Add(script);
             }
-
             Scripts.Import(scripts);
         }
 
@@ -340,6 +343,7 @@ public partial class MacroManagerViewModel : ObservableObject
         {
             var json = ServiceHelper.GetAssetContent(Path.Combine("MacroSets", macroSetFolder, "settings.json"));
             var settings = SettingNodeViewModel.FromJson(json);
+            MergeSettings(Settings.Root, settings.Root);
             Settings.Import(settings);
         }
 
@@ -400,5 +404,36 @@ public partial class MacroManagerViewModel : ObservableObject
         OnPropertyChanged(nameof(Patterns));
         OnPropertyChanged(nameof(Scripts));
         OnPropertyChanged(nameof(Settings));
+    }
+
+    private void MergeSettings(SettingNode source, SettingNode dest)
+    {
+        if (source is ParentSetting parentSource && dest is ParentSetting parentDest)
+        {
+            foreach (var childSource in parentSource.Nodes)
+            {
+                // Not supporting duplicate names
+                var childDest = parentDest.Nodes.FirstOrDefault(sn => sn.Name == childSource.Name);
+                if (childDest is not null)
+                {
+                    MergeSettings(childSource, childDest);
+                }
+            }
+        } 
+        else
+        {
+            switch (source.SettingType)
+            {
+                case SettingType.Boolean when dest.SettingType == SettingType.Boolean:
+                    ((SettingNode<bool>)dest).Value = ((SettingNode<bool>)source).Value;
+                    break;
+                case SettingType.String when dest.SettingType == SettingType.String:
+                    ((SettingNode<string>)dest).Value = ((SettingNode<string>)source).Value;
+                    break;
+                case SettingType.Pattern when dest.SettingType == SettingType.Pattern:
+                    ((SettingNode<PatternNode>)dest).Value = ((SettingNode<PatternNode>)source).Value;
+                    break;
+            }
+        }
     }
 }

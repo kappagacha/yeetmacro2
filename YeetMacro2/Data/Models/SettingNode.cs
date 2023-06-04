@@ -54,10 +54,10 @@ public class BooleanSetting: SettingNode<Boolean>
 public class OptionSetting : SettingNode<String>
 {
     public override SettingType SettingType => SettingType.Option;
-    public ICollection<String> Options { get; set; } = new List<string>();
+    public ICollection<String> Options { get; set; } = new List<String>();
 }
 
-public class StringSetting : SettingNode<string>
+public class StringSetting : SettingNode<String>
 {
     public override SettingType SettingType => SettingType.String;
 }

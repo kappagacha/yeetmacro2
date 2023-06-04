@@ -136,7 +136,6 @@ public class FormsView : RelativeLayout, IShowable
 
         _windowManager.RemoveView(this);
         _closeCompleted.SetResult(true);
-        var loc = new int[2];
         _state = FormState.CLOSED;
     }
 

@@ -78,37 +78,30 @@ public partial class DrawControl : ContentView
     //https://www.c-sharpcorner.com/article/getting-started-with-skiasharp-with-xamarin-forms/
     private void OnCanvasViewPaintSurface(object sender, SKPaintSurfaceEventArgs e)
     {
-        try
+        var canvas = e.Surface.Canvas;
+        canvas.Clear();
+        if (_userRectangle)
         {
-            var canvas = e.Surface.Canvas;
-            canvas.Clear();
-            if (_userRectangle)
-            {
-                var heightOffset = 0.0f;
-                canvas.DrawRect(_canvasBegin.X, _canvasBegin.Y - heightOffset, _canvasEnd.X - _canvasBegin.X, _canvasEnd.Y - _canvasBegin.Y - heightOffset, _userStroke);
-            }
-
-            DateTime now = DateTime.Now;
-            while (_rectangles.TryPeek(out (SKRect rect, SKPaint paint, DateTime expiration) r) && r.expiration <= now)
-            {
-                _rectangles.TryDequeue(out (SKRect rect, SKPaint paint, DateTime expiration) r0);
-            }
-            while (_circles.TryPeek(out (SKPoint center, SKPaint paint, DateTime expiration) c) && c.expiration <= now)
-            {
-                _circles.TryDequeue(out (SKPoint center, SKPaint paint, DateTime expiration) c0);
-            }
-            foreach (var r in _rectangles)
-            {
-                canvas.DrawRect(r.rect, r.paint);
-            }
-            foreach (var c in _circles)
-            {
-                canvas.DrawCircle(c.center, 10, c.paint);
-            }
+            var heightOffset = 0.0f;
+            canvas.DrawRect(_canvasBegin.X, _canvasBegin.Y - heightOffset, _canvasEnd.X - _canvasBegin.X, _canvasEnd.Y - _canvasBegin.Y - heightOffset, _userStroke);
         }
-        catch (Exception ex)
-        {
 
+        DateTime now = DateTime.Now;
+        while (_rectangles.TryPeek(out (SKRect rect, SKPaint paint, DateTime expiration) r) && r.expiration <= now)
+        {
+            _rectangles.TryDequeue(out (SKRect rect, SKPaint paint, DateTime expiration) r0);
+        }
+        while (_circles.TryPeek(out (SKPoint center, SKPaint paint, DateTime expiration) c) && c.expiration <= now)
+        {
+            _circles.TryDequeue(out (SKPoint center, SKPaint paint, DateTime expiration) c0);
+        }
+        foreach (var r in _rectangles)
+        {
+            canvas.DrawRect(r.rect, r.paint);
+        }
+        foreach (var c in _circles)
+        {
+            canvas.DrawCircle(c.center, 10, c.paint);
         }
 
         // TODO: maybe make this a toggle?

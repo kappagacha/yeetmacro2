@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentView xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:pvm="clr-namespace:YeetMacro2.Platforms.Android.ViewModels"
+             xmlns:vm="clr-namespace:YeetMacro2.ViewModels"
+             x:DataType="pvm:MessageViewModel"
+             vm:ViewModelLocator.ViewModelType="{x:Type pvm:MessageViewModel}"
+             xmlns:av="clr-namespace:YeetMacro2.Platforms.Android.Views"
+             x:Class="YeetMacro2.Platforms.Android.Views.MessageView">
+    <Label Text="{Binding Message}" />
+</ContentView>

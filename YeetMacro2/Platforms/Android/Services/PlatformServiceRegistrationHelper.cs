@@ -1,5 +1,4 @@
 ﻿using Microsoft.EntityFrameworkCore;
-//using Microsoft.Maui.Controls.Compatibility.Hosting;
 using YeetMacro2.Data.Services;
 using YeetMacro2.Platforms.Android.Services;
 using YeetMacro2.Platforms.Android.ViewModels;
@@ -23,15 +22,13 @@ public static class PlatformServiceRegistrationHelper
         mauiAppBuilder.Services.AddSingleton<ActionMenuViewModel>();
         mauiAppBuilder.Services.AddSingleton<PromptStringInputViewModel>();
         mauiAppBuilder.Services.AddSingleton<PromptSelectOptionViewModel>();
+        mauiAppBuilder.Services.AddSingleton<MessageViewModel>();
         mauiAppBuilder.Services.AddSingleton<AndroidWindowManagerService>();
         mauiAppBuilder.Services.AddSingleton<MediaProjectionService>();
         mauiAppBuilder.Services.AddSingleton<YeetAccessibilityService>();
         mauiAppBuilder.Services.AddSingleton<IScreenService>(sp => sp.GetRequiredService<AndroidWindowManagerService>());
         mauiAppBuilder.Services.AddSingleton<IInputService>(sp => sp.GetRequiredService<AndroidWindowManagerService>());
         mauiAppBuilder.Services.AddSingleton<IRecorderService>(sp => sp.GetRequiredService<MediaProjectionService>());
-
-        //mauiAppBuilder
-        //    .UseMauiCompatibility();
 
         return mauiAppBuilder;
     }

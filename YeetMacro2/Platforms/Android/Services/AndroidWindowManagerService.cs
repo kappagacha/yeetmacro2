@@ -29,7 +29,8 @@ public enum AndroidWindowView
     PromptSelectOptionView,
     StatusPanelView,
     MacroOverlayView,
-    LogView
+    LogView,
+    MessageView
 }
 
 public class AndroidWindowManagerService : IInputService, IScreenService
@@ -194,6 +195,10 @@ public class AndroidWindowManagerService : IInputService, IScreenService
                     var logView = new ResizeView(_context, _windowManager, this, new LogView());
                     _views.TryAdd(windowView, logView);
                     break;
+                case AndroidWindowView.MessageView:
+                    var messageView = new ResizeView(_context, _windowManager, this, new MessageView());
+                    _views.TryAdd(windowView, messageView);
+                    break;
             }
         }
 
@@ -246,6 +251,13 @@ public class AndroidWindowManagerService : IInputService, IScreenService
         return null;
     }
 
+    public void ShowMessage(string message)
+    {
+        Show(AndroidWindowView.MessageView);
+        var viewModel = (MessageViewModel)_views[AndroidWindowView.MessageView].VisualElement.BindingContext;
+        viewModel.Message = message;
+    }
+
     public async Task<Rect> DrawUserRectangle()
     {
         Show(AndroidWindowView.UserDrawView);
@@ -288,35 +300,20 @@ public class AndroidWindowManagerService : IInputService, IScreenService
 
     public void DebugRectangle(Rect rect)
     {
-        try
-        {
-            Show(AndroidWindowView.DebugDrawView);
-            var drawControl = (DrawControl)_views[AndroidWindowView.DebugDrawView].VisualElement;
-            var thickness = 10;
-            var loc = new Point(rect.X - thickness, rect.Y - thickness);
-            var size = new Size(rect.Width + thickness * 2, rect.Height + thickness * 2);
+        Show(AndroidWindowView.DebugDrawView);
+        var drawControl = (DrawControl)_views[AndroidWindowView.DebugDrawView].VisualElement;
+        var thickness = 10;
+        var loc = new Point(rect.X - thickness, rect.Y - thickness);
+        var size = new Size(rect.Width + thickness * 2, rect.Height + thickness * 2);
 
-            drawControl.AddRectangle(new Rect(loc, size));
-        } 
-        catch(Exception ex)
-        {
-
-        }
+        drawControl.AddRectangle(new Rect(loc, size));
     }
 
     public void DebugCircle(Point point)
     {
-        try
-        {
-
-            Show(AndroidWindowView.DebugDrawView);
-            var drawControl = (DrawControl)_views[AndroidWindowView.DebugDrawView].VisualElement;
-            drawControl.AddCircle(point);
-        }
-        catch (Exception ex)
-        {
-
-        }
+        Show(AndroidWindowView.DebugDrawView);
+        var drawControl = (DrawControl)_views[AndroidWindowView.DebugDrawView].VisualElement;
+        drawControl.AddCircle(point);
     }
 
     public void DebugClear()

@@ -56,7 +56,7 @@ const farmMat = async (targetMats, staminaCost, numSkips) => {
 			await sleep(500);
 			targetStamina = await screenService.getText(patterns.stamina.target);
 		}
-		await macroService.pollPattern(patterns.stamina.prompt.ok, { doClick: true, inversePredicatePattern: patterns.stamina.prompt.recoverStamina });
+		await macroService.pollPattern(patterns.stamina.prompt.ok, { doClick: true, predicatePattern: patterns.skipAll.addMaxSkips });
 	}
 
 	let maxNumSkips = await screenService.getText(patterns.skipAll.maxNumSkips);
@@ -68,7 +68,8 @@ const farmMat = async (targetMats, staminaCost, numSkips) => {
 
 	await macroService.pollPattern(patterns.skipAll.button, { doClick: true, predicatePattern: patterns.skipAll.prompt.ok });
 	await sleep(1_000);
-	await macroService.pollPattern(patterns.skipAll.prompt.ok, { doClick: true, clickPattern: [patterns.skipAll.prompt.ok, patterns.skipAll.skipComplete], predicatePattern: patterns.skipAll.title });
+	await macroService.pollPattern(patterns.skipAll.prompt.ok, { doClick: true, predicatePattern: patterns.skipAll.skipComplete });
+	await macroService.pollPattern(patterns.skipAll.skipComplete, { doClick: true, clickPattern: patterns.skipAll.prompt.ok, predicatePattern: patterns.skipAll.title });
 };
 
 while (state.isRunning && !done) {
@@ -91,8 +92,10 @@ while (state.isRunning && !done) {
 			await sleep(500);
 			break;
 		case 'skipAll.title':
+			logger.info('farmMats: farm extreme levels');
 			await farmMat([patterns.skipAll.search.select.mithrilOre, patterns.skipAll.search.select.yggdrasilBranch, patterns.skipAll.search.select.platinumOre], 500, 1);
 			await sleep(1_000);
+			logger.info('farmMats: farm skyDragonScale');
 			await farmMat([patterns.skipAll.search.select.skyDragonScale], 500, 3);
 			done = true;
 			break;

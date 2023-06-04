@@ -8,7 +8,7 @@ namespace YeetMacro2.Services;
 public interface IScriptService
 {
     bool InDebugMode { get; set; }
-    void RunScript(string script, string jsonPatterns, string jsonOptions, Action onScriptFinished);
+    void RunScript(string script, string jsonPatterns, string jsonOptions, Action<string> onScriptFinished);
     void Stop();
 }
 
@@ -39,7 +39,7 @@ public class ScriptService : IScriptService
         Console.WriteLine($"[*****YeetMacro*****] JSContext Error: {error.Message}");
     }
 
-    public void RunScript(string script, string jsonPatterns, string jsonSettings, Action onScriptFinished)
+    public void RunScript(string script, string jsonPatterns, string jsonSettings, Action<string> onScriptFinished)
     {
         //Console.WriteLine($"[*****YeetMacro*****] ScriptService script: {script}");
         //Console.WriteLine($"[*****YeetMacro*****] ScriptService jsonPatterns: {jsonPatterns}");
@@ -52,13 +52,23 @@ public class ScriptService : IScriptService
             _isRunning = true;
             try
             {
+                _jsContext["result"] = JSNull.Value;
                 await _jsContext.ExecuteAsync($"patterns = {jsonPatterns}; settings = {jsonSettings}; resolvePath({{ $isParent: true, ...patterns }});");
                 await _jsContext.ExecuteAsync(script);
                 _toastService.Show(_isRunning ? "Script finished..." : "Script stopped...");
                 
                 _isRunning = false;
                 _jsonValueToPatternNode.Clear();
-                onScriptFinished?.Invoke();
+                var r = _jsContext["result"];
+                dynamic ctx = _jsContext;
+                var result = "";
+                if (_jsContext["result"] != JSNull.Value)
+                {
+                    result = ctx.JSON.stringify(r, null, 2).ToString();
+                }
+                
+                //var result = JSJSON.Stringify(new Arguments(r, JSUndefined.Value, JSNumber.Two));
+                onScriptFinished?.Invoke(result);
             }
             catch (Exception ex)
             {

@@ -62,5 +62,6 @@
                 </DataTrigger>
             </v:ImageView.Triggers>
         </v:ImageView>
+        <ActivityIndicator IsRunning="{Binding IsBusy}" />
     </Grid>
 </ContentView>

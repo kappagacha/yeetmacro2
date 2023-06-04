@@ -115,10 +115,10 @@ public class ResizeView : RelativeLayout, IOnTouchListener, IShowable
         _displayWidth = (int)displayInfo.Width;
         _displayHeight = (int)displayInfo.Height;
         _density = displayInfo.Density;
-        _layoutParams.Width = _displayWidth / 2;
-        _layoutParams.Height = _displayHeight / 2;
-        _layoutParams.X = _displayWidth / 4;
-        _layoutParams.Y = _displayHeight / 4;
+        _layoutParams.Width = (int)(_displayWidth * 0.75);
+        _layoutParams.Height = (int)(_displayHeight * 0.75);
+        _layoutParams.X = (int)(_displayWidth * 0.25);
+        _layoutParams.Y = (int)(_displayHeight * 0.25);
 
         if (_state == FormState.SHOWING)
         {

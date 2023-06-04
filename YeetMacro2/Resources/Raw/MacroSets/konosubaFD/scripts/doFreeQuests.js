@@ -53,7 +53,9 @@ while (state.isRunning && !done) {
 				maxNumSkips = await screenService.getText(patterns.skipAll.maxNumSkips);
 			}
 			await macroService.pollPattern(patterns.skipAll.button, { doClick: true, predicatePattern: patterns.skipAll.prompt.ok });
-			await macroService.pollPattern(patterns.skipAll.prompt.ok, { doClick: true, clickPattern: [patterns.skipAll.prompt.ok, patterns.skipAll.skipComplete], predicatePattern: patterns.skipAll.title });
+			await sleep(1_000);
+			await macroService.pollPattern(patterns.skipAll.prompt.ok, { doClick: true, predicatePattern: patterns.skipAll.skipComplete });
+			await macroService.pollPattern(patterns.skipAll.skipComplete, { doClick: true, clickPattern: patterns.skipAll.prompt.ok, predicatePattern: patterns.skipAll.title });
 			done = true;
 			break;
 	}
