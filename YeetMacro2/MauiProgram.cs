@@ -4,6 +4,7 @@ using YeetMacro2.Platforms;
 using CommunityToolkit.Maui;
 using UraniumUI;
 using SkiaSharp.Views.Maui.Controls.Hosting;
+using CommunityToolkit.Maui.Markup;
 
 namespace YeetMacro2;
 
@@ -39,8 +40,8 @@ public static class MauiProgram
 		builder
 			.UseSkiaSharp();
 
-        builder.UseMauiApp<App>();
         builder.UseMauiCommunityToolkit();
+        builder.UseMauiCommunityToolkitMarkup();
         builder.RegisterViewModels();
 		builder.RegisterServices();
 		builder.RegisterPlatformServices();
