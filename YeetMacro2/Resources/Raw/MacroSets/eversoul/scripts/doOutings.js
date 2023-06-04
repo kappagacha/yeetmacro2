@@ -44,7 +44,7 @@ while (state.isRunning && !done) {
 			logger.debug('outingNumber: ' + outingNumber);
 
 			await macroService.pollPattern(patterns.town.outings['outing' + outingNumber], { doClick: true, predicatePattern: patterns.prompt.confirm });
-			await macroService.pollPattern(patterns.prompt.confirm, { doClick: true, clickPattern: [patterns.prompt.next, patterns.prompt.middleTap], predicatePattern: patterns.town.outings.keywordSelectionOpportunity });
+			await macroService.pollPattern(patterns.prompt.confirm, { doClick: true, clickPattern: patterns.prompt.next, predicatePattern: patterns.town.outings.keywordSelectionOpportunity });
 			await macroService.pollPattern(patterns.prompt.next, { doClick: true, clickPattern: patterns.prompt.middleTap, predicatePattern: patterns.town.outings.selectAKeyword });
 			break;
 		case 'town.outings.selectAKeyword':
