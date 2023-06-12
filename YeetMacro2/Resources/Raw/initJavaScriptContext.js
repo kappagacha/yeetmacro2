@@ -19,6 +19,8 @@ macroService.pollPattern = async function (pattern, opts = {}) {
     const predicatePattern = opts.predicatePattern;
     const clickPattern = opts.clickPattern;
     const inversePredicatePattern = opts.inversePredicatePattern;
+    const clickOffsetX = opts.clickOffsetX ?? 0;
+    const clickOffsetY = opts.clickOffsetY ?? 0;
 
     if (inversePredicatePattern) {
         const inversePredicateChecks = opts.inversePredicateChecks ?? 5;
@@ -40,7 +42,8 @@ macroService.pollPattern = async function (pattern, opts = {}) {
             }
             result = await this.findPattern(pattern, opts);
             if (opts.doClick && result.isSuccess) {
-                screenService.doClick(result.point);
+                const point = result.point;
+                screenService.doClick({ x: point.x + clickOffsetX, y: point.y + clickOffsetY });
                 await sleep(500);
             }
             if (clickPattern) await this.clickPattern(clickPattern, opts);
@@ -58,7 +61,8 @@ macroService.pollPattern = async function (pattern, opts = {}) {
             }
             result = await this.findPattern(pattern, opts);
             if (opts.doClick && result.isSuccess) {
-                screenService.doClick(result.point);
+                const point = result.point;
+                screenService.doClick({ x: point.x + clickOffsetX, y: point.y + clickOffsetY });
                 await sleep(500);
             }
             if (clickPattern) await this.clickPattern(clickPattern, opts);
@@ -68,7 +72,8 @@ macroService.pollPattern = async function (pattern, opts = {}) {
         while (state.isRunning) {
             result = await this.findPattern(pattern, opts);
             if (opts.doClick && result.isSuccess) {
-                screenService.doClick(result.point);
+                const point = result.point;
+                screenService.doClick({ x: point.x + clickOffsetX, y: point.y + clickOffsetY });
                 await sleep(500);
             }
             if (result.isSuccess) break;

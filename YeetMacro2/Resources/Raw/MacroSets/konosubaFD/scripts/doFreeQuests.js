@@ -1,8 +1,8 @@
 ﻿let done = false;
 const loopPatterns = [patterns.titles.home, patterns.titles.quest, patterns.titles.freeQuests];
 while (state.isRunning && !done) {
-	const result = await macroService.pollPattern(loopPatterns);
-	switch (result.path) {
+	const loopResult = await macroService.pollPattern(loopPatterns);
+	switch (loopResult.path) {
 		case 'titles.home':
 			logger.info('doFreeQuests: click tab quest');
 			await macroService.clickPattern(patterns.tabs.quest);
