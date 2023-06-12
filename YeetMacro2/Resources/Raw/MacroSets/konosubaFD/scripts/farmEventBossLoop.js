@@ -1,7 +1,7 @@
-﻿const loopPatterns = [patterns.titles.home, patterns.titles.quest, patterns.titles.events, patterns.battle.report, patterns.titles.bossMulti];
+﻿const loopPatterns = [patterns.titles.home, patterns.titles.quest, patterns.titles.events, patterns.battle.report, patterns.titles.bossMulti, patterns.titles.party];
 while (state.isRunning) {
-	const result = await macroService.pollPattern(loopPatterns);
-	switch (result.path) {
+	const loopResult = await macroService.pollPattern(loopPatterns);
+	switch (loopResult.path) {
 		case 'titles.home':
 			logger.info('farmEventBossLoop: click tab quest');
 			await macroService.clickPattern(patterns.tabs.quest);
@@ -18,6 +18,7 @@ while (state.isRunning) {
 			}
 			break;
 		case 'titles.bossMulti':
+			logger.info('farmEventBossLoop: max cost');
 			await macroService.pollPattern(patterns.quest.events.bossBattle.extreme, { doClick: true, predicatePattern: patterns.battle.prepare });
 			let currentCost = await screenService.getText(patterns.quest.events.bossBattle.cost);
 			while (currentCost < 3) {
@@ -26,6 +27,21 @@ while (state.isRunning) {
 				currentCost = await screenService.getText(patterns.quest.events.bossBattle.cost);
 			}
 			await macroService.pollPattern(patterns.battle.prepare, { doClick: true, predicatePattern: patterns.titles.party });
+			break;
+		case 'titles.party':
+			logger.info('farmEventBossLoop: select party');
+			const targetPartyName = settings.party.eventBoss.props.value;
+			logger.debug(`targetPartyName: ${targetPartyName}`);
+			if (targetPartyName === 'recommendedElement') {
+				await selectPartyByRecommendedElement(-425);	// Recommended Element icons are shifter by 425 to the left of expected location
+			}
+			else {
+				if (!(await selectParty(targetPartyName))) {
+					result = `targetPartyName not found: ${targetPartyName}`;
+					done = true;
+					break;
+				}
+			}
 			await sleep(500);
 			await macroService.pollPattern(patterns.battle.joinRoom, { doClick: true, predicatePattern: patterns.battle.report });
 			break;

@@ -10,11 +10,12 @@ while (state.isRunning && !done) {
 		case 'titles.adventure':
 			logger.info('doChampsArena: click champs arena');
 			await macroService.pollPattern(patterns.adventure.tabs.arena, { doClick: true, predicatePattern: patterns.adventure.champsArena });
+			await sleep(500);
 			await macroService.pollPattern(patterns.adventure.champsArena, { doClick: true, predicatePattern: patterns.titles.champsArena });
 			break;
 		case 'adventure.arena.freeChallenge':
 			logger.info('doChampsArena: free challenges');
-			await macroService.pollPattern(patterns.adventure.arena.freeChallenge, { doClick: true, predicatePattern: patterns.adventure.arena.startMatch });
+			await macroService.pollPattern(patterns.adventure.arena.freeChallenge, { doClick: true, predicatePattern: patterns.adventure.arena.startMatch, intervalDelayMs: 1_000 });
 			break;
 		case 'adventure.arena.startMatch':
 			logger.info('doChampsArena: start match');
@@ -33,7 +34,8 @@ while (state.isRunning && !done) {
 			logger.info('minCP: ' + minCP);
 			logger.info('cpThreshold: ' + cpThreshold);
 			if (minCP <= cpThreshold) {
-				await macroService.pollPattern(patterns.adventure.arena['match' + (minIdx + 1)].challenge, { doClick: true, clickPattern: patterns.adventure.champsArena.nextTeam, predicatePattern: patterns.battle.start });
+				await macroService.pollPattern(patterns.adventure.arena['match' + (minIdx + 1)].challenge, { doClick: true, clickPattern: patterns.adventure.champsArena.nextTeam, predicatePattern: patterns.battle.start, intervalDelayMs: 1_000 });
+				await sleep(500);
 				await macroService.pollPattern(patterns.battle.start, { doClick: true, clickPattern: patterns.battle.skip, predicatePattern: [patterns.adventure.arena.freeChallenge, patterns.adventure.champsArena.buyTicket] });
 			}
 			else {

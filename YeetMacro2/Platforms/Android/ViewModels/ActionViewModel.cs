@@ -113,8 +113,8 @@ public partial class ActionViewModel : ObservableObject, IMovable
     }
 
     [RelayCommand]
-    public async Task ScreenCapture()
+    public void ScreenCapture()
     {
-        await _windowManagerService.ScreenCapture();
+        _windowManagerService.ScreenCapture();
     }
 }

@@ -6,6 +6,7 @@ while (state.isRunning && !done) {
 		case 'lobby.everstone':
 			logger.info('doOutings: click town');
 			await macroService.pollPattern(patterns.lobby.town, { doClick: true, predicatePattern: patterns.town.enter });
+			await sleep(500);
 			await macroService.pollPattern(patterns.town.enter, { doClick: true, predicatePattern: patterns.town.evertalk });
 			break;
 		case 'town.evertalk':
@@ -34,9 +35,12 @@ while (state.isRunning && !done) {
 			await sleep(500);
 			await macroService.clickPattern(targetSoul);
 			await macroService.pollPattern(targetSoul, { doClick: true, predicatePattern: patterns.town.outings.call });
+			await sleep(500);
 			await macroService.pollPattern(patterns.town.outings.call, { doClick: true, predicatePattern: patterns.prompt.confirm });
+			await sleep(500);
 			await macroService.pollPattern(patterns.prompt.confirm, { doClick: true, predicatePattern: patterns.town.outings.goOnOuting });
-			await macroService.pollPattern(patterns.town.outings.goOnOuting, { doClick: true, clickPattern: [patterns.prompt.next, patterns.prompt.middleTap], predicatePattern: patterns.titles.outingGo });
+			await sleep(500);
+			await macroService.pollPattern(patterns.town.outings.goOnOuting, { doClick: true, clickPattern: patterns.prompt.next, predicatePattern: patterns.titles.outingGo });
 			break;
 		case 'titles.outingGo':
 			logger.info('doOutings: select outing');
@@ -44,7 +48,9 @@ while (state.isRunning && !done) {
 			logger.debug('outingNumber: ' + outingNumber);
 
 			await macroService.pollPattern(patterns.town.outings['outing' + outingNumber], { doClick: true, predicatePattern: patterns.prompt.confirm });
+			await sleep(500);
 			await macroService.pollPattern(patterns.prompt.confirm, { doClick: true, clickPattern: patterns.prompt.next, predicatePattern: patterns.town.outings.keywordSelectionOpportunity });
+			await sleep(500);
 			await macroService.pollPattern(patterns.prompt.next, { doClick: true, clickPattern: patterns.prompt.middleTap, predicatePattern: patterns.town.outings.selectAKeyword });
 			break;
 		case 'town.outings.selectAKeyword':
@@ -59,6 +65,7 @@ while (state.isRunning && !done) {
 			const maxIdx = keywordPoints.reduce((maxIdx, val, idx, arr) => val > arr[maxIdx] ? idx : maxIdx, 0);
 			logger.debug('keywordTarget: ' + (maxIdx + 1));
 			await macroService.pollPattern(patterns.town.outings['keywordPoints' + (maxIdx + 1)], { doClick: true, predicatePattern: patterns.prompt.next });
+			await sleep(500);
 			await macroService.pollPattern(patterns.prompt.next, { doClick: true, clickPattern: [patterns.prompt.next, patterns.prompt.tapTheScreen, patterns.prompt.middleTap], predicatePattern: [patterns.town.outings.selectAKeyword, patterns.town.outings] });
 			break;
 		case 'town.outings.outingsCompleted':

@@ -8,82 +8,71 @@ macroService.clickPattern = async function (pattern, opts = {}) {
         for (const point of result.points) {
             screenService.doClick({ x: point.x + clickOffsetX, y: point.y + clickOffsetY });
         }
+        await sleep(500);
     }
     return result;
 }
 
 macroService.pollPattern = async function (pattern, opts = {}) {
-    //logger.debug('pollPattern');
     let result = { isSuccess: false };
-    let patternFound = false;
-    const intervalDelayMs = opts.intervalDelayMs ?? 1000;
+    const intervalDelayMs = opts.intervalDelayMs ?? 500;
     const predicatePattern = opts.predicatePattern;
     const clickPattern = opts.clickPattern;
     const inversePredicatePattern = opts.inversePredicatePattern;
 
-    if (predicatePattern || inversePredicatePattern) {
-        //logger.debug('predicatePattern');
-        let inversePatternNotFoundChecks = 0;
-        const predicateCheckSteps = opts.predicateCheckSteps ?? 8;
-        const inversePredicateCheckSteps = opts.inversePredicateCheckSteps ?? 4;
-        const predicateCheckDelayMs = opts.predicateCheckDelayMs ?? 250;
+    if (inversePredicatePattern) {
+        const inversePredicateChecks = opts.inversePredicateChecks ?? 5;
+        const inversePredicateCheckDelayMs = opts.inversePredicateCheckDelayMs ?? 100;
         const predicateOpts = {
             threshold: opts.predicateThreshold ?? 0.0
         };
-
-        //logger.debug('predicateCheckSteps: ' + predicateCheckSteps);
-        //logger.debug('inversePredicateCheckSteps: ' + inversePredicateCheckSteps);
-        //logger.debug('predicateCheckDelayMs: ' + predicateCheckDelayMs);
-        for (const i = predicateCheckSteps; ; i++) {
-            //logger.debug('i: ' + i);
-            //screenService.debugClear();
-            if (!state.isRunning) return result;
-
-            if (predicatePattern) {
-                const predicateResult = await this.findPattern(predicatePattern, predicateOpts);
-                //logger.debug('predicateResult.isSuccess: ' + predicateResult.isSuccess);
-                if (predicateResult.isSuccess) {
-                    result.predicatePath = predicateResult.path;
-                    break;
-                }
-                //screenService.debugClear();
+        while (state.isRunning) {
+            let numChecks = 1;
+            let inversePredicateResult = await this.findPattern(inversePredicatePattern, predicateOpts);
+            while (!inversePredicateResult.isSuccess && numChecks < inversePredicateChecks) {
+                inversePredicateResult = await this.findPattern(inversePredicatePattern, predicateOpts);
+                numChecks++;
+                await sleep(inversePredicateCheckDelayMs);
             }
-
-            if (inversePredicatePattern) {
-                const inversePredicateResult = await this.findPattern(inversePredicatePattern, predicateOpts);
-                //logger.debug('inversePredicateResult.isSuccess: ' + inversePredicateResult.isSuccess);
-                if (!inversePredicateResult.isSuccess && ++inversePatternNotFoundChecks >= inversePredicateCheckSteps) {
-                    break;
-                }
-                //screenService.debugClear();
+            if (!inversePredicateResult.isSuccess) {
+                result.inversePredicatePath = inversePredicateResult.path;
+                break;
             }
-
-            if (i % predicateCheckSteps === 0) {
-                //logger.debug('3 % predicateCheckSteps: === 0');
-                result = await this.findPattern(pattern, opts);
-                if (opts.doClick && result.isSuccess) screenService.doClick(result.point);
-                await sleep(intervalDelayMs);
-                //screenService.debugClear();
-                if (clickPattern) await this.clickPattern(clickPattern, opts);
-            }
-
-            await sleep(predicateCheckDelayMs);
-        }
-        //logger.debug('predicatePattern end');
-    } else {
-        while (!patternFound) {
-            //screenService.debugClear();
-            if (!state.isRunning) return result;
-
-            if (clickPattern) await this.clickPattern(clickPattern, opts);
-            //screenService.debugClear();
-
             result = await this.findPattern(pattern, opts);
-            //screenService.debugClear();
-
-            patternFound = result.isSuccess;
-            if (opts.doClick && result.isSuccess) await screenService.doClick(result.point);
-
+            if (opts.doClick && result.isSuccess) {
+                screenService.doClick(result.point);
+                await sleep(500);
+            }
+            if (clickPattern) await this.clickPattern(clickPattern, opts);
+            await sleep(intervalDelayMs);
+        }
+    } else if (predicatePattern) {
+        const predicateOpts = {
+            threshold: opts.predicateThreshold ?? 0.0
+        };
+        while (state.isRunning) {
+            const predicateResult = await this.findPattern(predicatePattern, predicateOpts);
+            if (predicateResult.isSuccess) {
+                result.predicatePath = predicateResult.path;
+                break;
+            }
+            result = await this.findPattern(pattern, opts);
+            if (opts.doClick && result.isSuccess) {
+                screenService.doClick(result.point);
+                await sleep(500);
+            }
+            if (clickPattern) await this.clickPattern(clickPattern, opts);
+            await sleep(intervalDelayMs);
+        }
+    } else {
+        while (state.isRunning) {
+            result = await this.findPattern(pattern, opts);
+            if (opts.doClick && result.isSuccess) {
+                screenService.doClick(result.point);
+                await sleep(500);
+            }
+            if (result.isSuccess) break;
+            if (clickPattern) await this.clickPattern(clickPattern, opts);
             await sleep(intervalDelayMs);
         }
     }

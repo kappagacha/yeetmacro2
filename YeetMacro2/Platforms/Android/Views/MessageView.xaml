@@ -6,6 +6,8 @@
              x:DataType="pvm:MessageViewModel"
              vm:ViewModelLocator.ViewModelType="{x:Type pvm:MessageViewModel}"
              xmlns:av="clr-namespace:YeetMacro2.Platforms.Android.Views"
-             x:Class="YeetMacro2.Platforms.Android.Views.MessageView">
+             x:Class="YeetMacro2.Platforms.Android.Views.MessageView"
+             BackgroundColor="{AppThemeBinding Light={StaticResource Background}, Dark={StaticResource BackgroundDark}}"
+             Padding="10">
     <Label Text="{Binding Message}" />
 </ContentView>

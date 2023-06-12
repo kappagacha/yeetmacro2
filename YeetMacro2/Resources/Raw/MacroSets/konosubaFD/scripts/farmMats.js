@@ -22,7 +22,7 @@ const farmMat = async (targetMats, staminaCost, numSkips) => {
 	for (const mat of targetMats) {
 		const matResult = await macroService.findPattern(mat);
 		if (matResult.isSuccess) {
-			const mythrilCheckPattern = {
+			const matCheckPattern = {
 				...patterns.skipAll.search.select.check,
 				props: {
 					...patterns.skipAll.search.select.check.props,
@@ -38,8 +38,8 @@ const farmMat = async (targetMats, staminaCost, numSkips) => {
 					})),
 				}
 			};
-			logger.debug(JSON.stringify(mythrilCheckPattern, null, 2));
-			await macroService.pollPattern(mat, { doClick: true, predicatePattern: mythrilCheckPattern });
+			logger.debug(JSON.stringify(matCheckPattern, null, 2));
+			await macroService.pollPattern(mat, { doClick: true, predicatePattern: matCheckPattern });
 		}
 	}
 	await sleep(500);
@@ -51,16 +51,16 @@ const farmMat = async (targetMats, staminaCost, numSkips) => {
 		await macroService.pollPattern(patterns.skipAll.addStamina, { doClick: true, predicatePattern: patterns.stamina.prompt.recoverStamina });
 		await macroService.pollPattern(patterns.stamina.meat, { doClick: true, predicatePattern: patterns.stamina.prompt.recoverStamina2 });
 		let targetStamina = await screenService.getText(patterns.stamina.target);
-		while (targetStamina < staminaCost) {
+		while (state.isRunning && targetStamina < staminaCost) {
 			await macroService.clickPattern(patterns.stamina.plusOne);
 			await sleep(500);
 			targetStamina = await screenService.getText(patterns.stamina.target);
 		}
-		await macroService.pollPattern(patterns.stamina.prompt.ok, { doClick: true, predicatePattern: patterns.skipAll.addMaxSkips });
+		await macroService.pollPattern(patterns.stamina.prompt.recover, { doClick: true, clickPattern: patterns.stamina.prompt.ok, predicatePattern: patterns.skipAll.addMaxSkips, intervalDelayMs: 1_000 });
 	}
 
 	let maxNumSkips = await screenService.getText(patterns.skipAll.maxNumSkips);
-	while (maxNumSkips < numSkips) {
+	while (state.isRunning && maxNumSkips < numSkips) {
 		await macroService.clickPattern(patterns.skipAll.addMaxSkips);
 		await sleep(500);
 		maxNumSkips = await screenService.getText(patterns.skipAll.maxNumSkips);

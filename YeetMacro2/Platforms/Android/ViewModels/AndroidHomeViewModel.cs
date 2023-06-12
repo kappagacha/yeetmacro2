@@ -64,12 +64,12 @@ public partial class AndriodHomeViewModel : ObservableObject
     }
 
     [RelayCommand]
-    public void ToggleProjectionService()
+    public async Task ToggleProjectionService()
     {
         IsProjectionServiceEnabled = !IsProjectionServiceEnabled;
         if (IsProjectionServiceEnabled)
         {
-            _windowManagerService.StartProjectionService();
+            await _windowManagerService.StartProjectionService();
         }
         else
         {
@@ -114,14 +114,14 @@ public partial class AndriodHomeViewModel : ObservableObject
     }
 
     [RelayCommand]
-    public void ToggleIsMacroReady()
+    public async Task ToggleIsMacroReady()
     {
         if (IsMacroReady)
         {
             IsMacroReady = false;
             if (IsProjectionServiceEnabled)
             {
-                ToggleProjectionService();
+                await ToggleProjectionService();
             }
         }
         else
@@ -129,7 +129,7 @@ public partial class AndriodHomeViewModel : ObservableObject
             IsMacroReady = true;
             if (!IsProjectionServiceEnabled)
             {
-                ToggleProjectionService();
+                await ToggleProjectionService();
             }
             if (!IsAccessibilityEnabled)
             {
@@ -147,12 +147,10 @@ public partial class AndriodHomeViewModel : ObservableObject
         IsMacroReady = IsProjectionServiceEnabled && IsAccessibilityEnabled;
         IsAppearing = false;
 
-        if (!IsProjectionServiceEnabled)
-        {
-            ToggleProjectionService();
-        }
-        //ToggleProjectionService();
-        //_windowManagerService.Show(WindowView.PatternsTreeView);
+        //if (!IsProjectionServiceEnabled)
+        //{
+        //    ToggleProjectionService();
+        //}
     }
 }
 

@@ -17,6 +17,7 @@ public class FormsView : RelativeLayout, IShowable
     private FormState _state;
     public bool IsModal { get; set; } = true;
     TaskCompletionSource<bool> _closeCompleted;
+    public bool IsShowing { get => _state == FormState.SHOWING; }
 
     //https://www.linkedin.com/pulse/6-floating-windows-android-keyboard-input-v%C3%A1clav-hodek/
     public FormsView(Context context, IWindowManager windowManager, VisualElement visualElement) : base(context)

@@ -2,13 +2,14 @@
 using YeetMacro2.ViewModels;
 using YantraJS.Core;
 using YeetMacro2.Data.Models;
+using System.Text.Json;
 
 namespace YeetMacro2.Services;
 
 public interface IScriptService
 {
     bool InDebugMode { get; set; }
-    void RunScript(string script, string jsonPatterns, string jsonOptions, Action<string> onScriptFinished);
+    void RunScript(string scriptToRun, IEnumerable<ScriptNode> scripts, string jsonPatterns, string jsonOptions, Action<string> onScriptFinished);
     void Stop();
 }
 
@@ -39,12 +40,8 @@ public class ScriptService : IScriptService
         Console.WriteLine($"[*****YeetMacro*****] JSContext Error: {error.Message}");
     }
 
-    public void RunScript(string script, string jsonPatterns, string jsonSettings, Action<string> onScriptFinished)
+    public void RunScript(string scriptToRun, IEnumerable<ScriptNode> scripts, string jsonPatterns, string jsonSettings, Action<string> onScriptFinished)
     {
-        //Console.WriteLine($"[*****YeetMacro*****] ScriptService script: {script}");
-        //Console.WriteLine($"[*****YeetMacro*****] ScriptService jsonPatterns: {jsonPatterns}");
-        //Console.WriteLine($"[*****YeetMacro*****] ScriptService jsonSettings: {jsonSettings}");
-
         if (_isRunning) return;
 
         Task.Run(async () =>
@@ -52,29 +49,41 @@ public class ScriptService : IScriptService
             _isRunning = true;
             try
             {
+                foreach (var script in scripts)
+                {
+                    if (script.Text.StartsWith("async function") || script.Text.StartsWith("function"))
+                    {
+                        await _jsContext.ExecuteAsync(script.Text);
+                    } 
+                    else
+                    {
+                        await _jsContext.ExecuteAsync($"async function {script.Name}() {{ {script.Text} }}");
+                    }
+                }
                 _jsContext["result"] = JSNull.Value;
                 await _jsContext.ExecuteAsync($"patterns = {jsonPatterns}; settings = {jsonSettings}; resolvePath({{ $isParent: true, ...patterns }});");
-                await _jsContext.ExecuteAsync(script);
+                await _jsContext.ExecuteAsync(scriptToRun);
                 _toastService.Show(_isRunning ? "Script finished..." : "Script stopped...");
-                
-                _isRunning = false;
-                _jsonValueToPatternNode.Clear();
-                var r = _jsContext["result"];
-                dynamic ctx = _jsContext;
-                var result = "";
-                if (_jsContext["result"] != JSNull.Value)
-                {
-                    result = ctx.JSON.stringify(r, null, 2).ToString();
-                }
-                
-                //var result = JSJSON.Stringify(new Arguments(r, JSUndefined.Value, JSNumber.Two));
-                onScriptFinished?.Invoke(result);
             }
             catch (Exception ex)
             {
                 //Console.WriteLine(ex.Message);
-                Console.WriteLine($"[*****YeetMacro*****] JSContext Error: {ex.Message}");
+                Console.WriteLine($"RunScript Error: {ex.Message}");
                 _toastService.Show("Error: " + ex.Message);
+                _logger.LogDebug($"RunScript Error: {ex.Message}");
+                _jsContext["result"] = new JSString($"{ex.Message}: \n\t{ex.StackTrace}");
+            }
+            finally
+            {
+                var result = "";
+                if (_jsContext["result"] != JSNull.Value)
+                {
+                    dynamic ctx = _jsContext;
+                    result = ctx.JSON.stringify(_jsContext["result"], null, 2).ToString();
+                }
+                onScriptFinished?.Invoke(result);
+                _isRunning = false;
+                _jsonValueToPatternNode.Clear();
             }
         });
     }
@@ -110,55 +119,101 @@ public class ScriptService : IScriptService
         {
             new JSProperty("debugRectangle", new JSFunction((in Arguments a) =>
             {
-                var jsRect = a[0];
-                var x = jsRect["x"].DoubleValue;
-                var y = jsRect["y"].DoubleValue;
-                var width = jsRect["width"].DoubleValue;
-                var height = jsRect["height"].DoubleValue;
-                var rect = new Rect(x, y, width, height);
-                MainThread.BeginInvokeOnMainThread(() =>
+                try
                 {
-                    _screenService.DebugRectangle(rect);
-                });
-                return JSNull.Value;
+                    var jsRect = a[0];
+                    var x = jsRect["x"].DoubleValue;
+                    var y = jsRect["y"].DoubleValue;
+                    var width = jsRect["width"].DoubleValue;
+                    var height = jsRect["height"].DoubleValue;
+                    var rect = new Rect(x, y, width, height);
+                    MainThread.BeginInvokeOnMainThread(() =>
+                    {
+                        _screenService.DebugRectangle(rect);
+                    });
+                    return JSNull.Value;
+                }
+                catch (Exception ex)
+                {
+                    _logger.LogDebug($"debugRectangle failed: {ex.Message}");
+                    throw;
+                }
             }), JSPropertyAttributes.EnumerableReadonlyValue),
             new JSProperty("debugClear", new JSFunction((in Arguments a) =>
             {
-                MainThread.BeginInvokeOnMainThread(() =>
+                try
                 {
-                    _screenService.DebugClear();
-                });
-
-                return JSNull.Value;
+                    MainThread.BeginInvokeOnMainThread(() =>
+                    {
+                        _screenService.DebugClear();
+                    });
+                    return JSNull.Value;
+                }
+                catch (Exception ex)
+                {
+                    _logger.LogDebug($"debugClear failed: {ex.Message}");
+                    throw;
+                }
             }), JSPropertyAttributes.EnumerableReadonlyValue),
             new JSProperty("doClick", new JSFunction((in Arguments a) =>
             {
-                var jsPoint = a[0];
-                var x = jsPoint["x"].DoubleValue;
-                var y = jsPoint["y"].DoubleValue;
-                _screenService.DoClick(new Point(x, y));
-                return JSNull.Value;
+                try
+                {
+                    var jsPoint = a[0];
+                    var x = jsPoint["x"].DoubleValue;
+                    var y = jsPoint["y"].DoubleValue;
+                    _screenService.DoClick(new Point(x, y));
+                    return JSNull.Value;
+                }
+                catch (Exception ex)
+                {
+                    _logger.LogDebug($"doClick failed: {ex.Message}");
+                    throw;
+                }
             }), JSPropertyAttributes.EnumerableReadonlyValue),
             new JSProperty("doSwipe", new JSFunction((in Arguments a) =>
             {
-                var jsPointStart = a[0];
-                var jsPointEnd = a[1];
-                _screenService.DoSwipe(
-                    new Point(jsPointStart["x"].DoubleValue, jsPointStart["y"].DoubleValue),
-                    new Point(jsPointEnd["x"].DoubleValue, jsPointEnd["y"].DoubleValue));
-                return JSNull.Value;
+                try
+                {
+                    var jsPointStart = a[0];
+                    var jsPointEnd = a[1];
+                    _screenService.DoSwipe(
+                        new Point(jsPointStart["x"].DoubleValue, jsPointStart["y"].DoubleValue),
+                        new Point(jsPointEnd["x"].DoubleValue, jsPointEnd["y"].DoubleValue));
+                    return JSNull.Value;
+                }
+                catch (Exception ex)
+                {
+                    _logger.LogDebug($"doClick failed: {ex.Message}");
+                    throw;
+                }
             }), JSPropertyAttributes.EnumerableReadonlyValue),
             new JSProperty("getText", new JSFunction((in Arguments a) =>
             {
                 var jsPattern = a[0];
+                var whiteList = a.Length > 1 ?  a[1].ToString() : null;
                 var patternNode = ResolvePatterns(jsPattern).Values.First();
-
+                var maxTry = 10;
                 if (patternNode?.Patterns?.FirstOrDefault() == null) return JSNull.Value;
 
                 var task = Task.Run<JSValue>(async () =>
                 {
-                    var text = await _screenService.GetText(patternNode.Patterns.First());
-                    return new JSString(text);
+                    var currentTry = 0;
+                    while (currentTry < maxTry)
+                    {
+                        try
+                        {
+                            var text = await _screenService.GetText(patternNode.Patterns.First(), whiteList);
+                            return new JSString(text);
+                        }
+                        catch
+                        {
+                            await Task.Delay(200);
+                            currentTry++;
+                        }
+                    }
+                    _logger.LogDebug($"getText failed {maxTry} times...");
+                    return JSNull.Value;
                 });
 
                 return new JSPromise(task);
@@ -175,6 +230,9 @@ public class ScriptService : IScriptService
                 var pathToPatternNode = ResolvePatterns(jsPattern);
                 var limit = jsOptions == null || jsOptions["limit"].IsUndefined ? 1 : jsOptions["limit"].IntValue;
                 var variancePct = jsOptions == null || jsOptions["variancePct"].IsUndefined ? 0.0 : jsOptions["variancePct"].DoubleValue;
+                //var x = JSJSON.Stringify(jsOptions["overrideRect"]);
+                //var z = JsonSerializer.Deserialize<Rect>(JSJSON.Stringify(jsOptions["overrideRect"]));
+                //var overrideRect = jsOptions == null || jsOptions["overrideRect"].IsUndefined ? Rect.Zero : JsonSerializer.Deserialize<Rect>(JSJSON.Stringify(jsOptions["overrideRect"]));
                 FindPatternResult result = null;
                 var opts = new FindOptions() {
                     Limit = limit,
@@ -183,102 +241,111 @@ public class ScriptService : IScriptService
 
                 var task = Task.Run<JSValue>(async () =>
                 {
-                    foreach (var patternNodeKvp in pathToPatternNode)
+                    try
                     {
-                        if (InDebugMode)
+                        foreach (var patternNodeKvp in pathToPatternNode)
                         {
-                            MainThread.BeginInvokeOnMainThread(_screenService.DebugClear);
-                        }
-
-                        if (!_isRunning)
-                        {
-                            result = new FindPatternResult()
+                            if (InDebugMode)
                             {
-                                IsSuccess = false
-                            };
-                            break;
-                        }
+                                MainThread.BeginInvokeOnMainThread(_screenService.DebugClear);
+                                await Task.Delay(50);
+                            }
 
-                        var path = patternNodeKvp.Key;
-                        var patternNode = patternNodeKvp.Value;
-
-                        _logger.LogDebug($"Find: {path}");
-                        if (patternNode.IsMultiPattern)
-                        {
-                            var points = new List<Point>();
-                            var multiResult = new FindPatternResult();
-                            foreach (var pattern in patternNode.Patterns)
+                            if (!_isRunning)
                             {
+                                result = new FindPatternResult()
+                                {
+                                    IsSuccess = false
+                                };
+                                break;
+                            }
+
+                            var path = patternNodeKvp.Key;
+                            var patternNode = patternNodeKvp.Value;
+
+                            _logger.LogDebug($"Find: {path}");
+                            if (patternNode.IsMultiPattern)
+                            {
+                                var points = new List<Point>();
+                                var multiResult = new FindPatternResult();
+                                foreach (var pattern in patternNode.Patterns)
+                                {
+                                    if (InDebugMode && pattern.Rect != Rect.Zero)
+                                    {
+                                        MainThread.BeginInvokeOnMainThread(() =>
+                                        {
+                                            _screenService.DebugClear();
+                                            _screenService.DebugRectangle(pattern.Rect);
+                                        });
+                                        await Task.Delay(50);
+                                    }
+
+                                    var singleResult = await _screenService.FindPattern(pattern, opts);
+                                    if (singleResult.IsSuccess)
+                                    {
+                                        points.AddRange(singleResult.Points);
+                                        if (opts.Limit == 1)
+                                        {
+                                            multiResult.Point = points[0];
+                                        }
+                                    }
+                                }
+                                multiResult.Points = points.ToArray();
+                                multiResult.IsSuccess = points.Count > 0;
+                                result = multiResult;
+                            }
+                            else
+                            {
+                                var pattern = patternNode.Patterns.First();
                                 if (InDebugMode && pattern.Rect != Rect.Zero)
                                 {
                                     MainThread.BeginInvokeOnMainThread(() =>
                                     {
-                                        _screenService.DebugClear();
                                         _screenService.DebugRectangle(pattern.Rect);
                                     });
-                                    await Task.Delay(50);
                                 }
-
-                                var singleResult = await _screenService.FindPattern(pattern, opts);
-                                if (singleResult.IsSuccess)
-                                {
-                                    points.AddRange(singleResult.Points);
-                                    if (opts.Limit == 1)
-                                    {
-                                        multiResult.Point = points[0];
-                                    }
-                                }
+                                result = await _screenService.FindPattern(pattern, opts);
                             }
-                            multiResult.Points = points.ToArray();
-                            multiResult.IsSuccess = points.Count > 0;
-                            result = multiResult;
-                        }
-                        else
-                        {
-                            var pattern = patternNode.Patterns.First();
-                            if (InDebugMode && pattern.Rect != Rect.Zero)
+
+                            if (InDebugMode && result.IsSuccess)
                             {
                                 MainThread.BeginInvokeOnMainThread(() =>
                                 {
-                                    _screenService.DebugRectangle(pattern.Rect);
+                                    foreach (var point in result.Points)
+                                    {
+                                        _screenService.DebugCircle(point);
+                                    }
                                 });
                             }
-                            result = await _screenService.FindPattern(pattern, opts);
-                        }
 
-                        if (InDebugMode && result.IsSuccess)
-                        {
-                            MainThread.BeginInvokeOnMainThread(() =>
+                            if (result.IsSuccess)
                             {
-                                foreach (var point in result.Points)
-                                {
-                                    _screenService.DebugCircle(point);
-                                }
-                            });
+                                result.Path = path;
+                                break;
+                            }
                         }
 
-                        if (result.IsSuccess)
+                        return new JSObject(new List<JSProperty>()
                         {
-                            result.Path = path;
-                            break;
-                        }
+                            new JSProperty("path", new JSString(result.Path), JSPropertyAttributes.EnumerableReadonlyValue),
+                            new JSProperty("isSuccess", result.IsSuccess ? JSBoolean.True : JSBoolean.False, JSPropertyAttributes.EnumerableReadonlyValue),
+                            new JSProperty("point", new JSObject(new List<JSProperty>()
+                            {
+                                new JSProperty("x", new JSNumber(result.Point.X), JSPropertyAttributes.EnumerableReadonlyValue),
+                                new JSProperty("y", new JSNumber(result.Point.Y), JSPropertyAttributes.EnumerableReadonlyValue)
+                            }), JSPropertyAttributes.EnumerableReadonlyValue),
+                            new JSProperty("points", result.Points == null ? JSNull.Value : new JSArray(result.Points.Select(p => new JSObject(new List<JSProperty>()
+                            {
+                                new JSProperty("x", new JSNumber(p.X), JSPropertyAttributes.EnumerableReadonlyValue),
+                                new JSProperty("y", new JSNumber(p.Y), JSPropertyAttributes.EnumerableReadonlyValue)
+                            }))), JSPropertyAttributes.EnumerableReadonlyValue)
+                        });
                     }
-
-                    return new JSObject(new List<JSProperty>()
+                    catch (Exception ex)
                     {
-                        new JSProperty("path", new JSString(result.Path), JSPropertyAttributes.EnumerableReadonlyValue),
-                        new JSProperty("isSuccess", result.IsSuccess ? JSBoolean.True : JSBoolean.False, JSPropertyAttributes.EnumerableReadonlyValue),
-                        new JSProperty("point", new JSObject(new List<JSProperty>()
-                        {
-                            new JSProperty("x", new JSNumber(result.Point.X), JSPropertyAttributes.EnumerableReadonlyValue),
-                            new JSProperty("y", new JSNumber(result.Point.Y), JSPropertyAttributes.EnumerableReadonlyValue)
-                        }), JSPropertyAttributes.EnumerableReadonlyValue),
-                        new JSProperty("points", result.Points == null ? JSNull.Value : new JSArray(result.Points.Select(p => new JSObject(new List<JSProperty>()
-                        {
-                            new JSProperty("x", new JSNumber(p.X), JSPropertyAttributes.EnumerableReadonlyValue),
-                            new JSProperty("y", new JSNumber(p.Y), JSPropertyAttributes.EnumerableReadonlyValue)
-                        }))), JSPropertyAttributes.EnumerableReadonlyValue)
-                    });
+                        _logger.LogDebug($"findPattern failed: {ex.Message}");
+                        throw;
+                    }
                 });
 
                 return new JSPromise(task);

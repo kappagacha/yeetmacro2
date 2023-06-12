@@ -8,6 +8,7 @@
              xmlns:m="clr-namespace:YeetMacro2.Data.Models"
              x:DataType="vm:MacroManagerViewModel"
              vm:ViewModelLocator.ViewModelType="{x:Type vm:MacroManagerViewModel}"
+             xmlns:mct="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
              xmlns:fa="clr-namespace:UraniumUI.Icons.FontAwesome;assembly=UraniumUI.Icons.FontAwesome"
              xmlns:mi="clr-namespace:UraniumUI.Icons.MaterialIcons;assembly=UraniumUI.Icons.MaterialIcons"
              xmlns:material="http://schemas.enisn-projects.io/dotnet/maui/uraniumui/material"
@@ -22,7 +23,14 @@
         <DataTemplate x:Key="BooleanSettingTemplate">
             <HorizontalStackLayout>
                 <Label x:Name="label" Text="{Binding Name}" VerticalOptions="Center" />
-                <CheckBox IsChecked="{Binding Value}" VerticalOptions="Center" HeightRequest="{Binding Height, Source={Reference label}}" />
+                <CheckBox x:Name="booleanSettingCheckbox" IsChecked="{Binding Value}" VerticalOptions="Center" HeightRequest="{Binding Height, Source={Reference label}}">
+                    <CheckBox.Behaviors>
+                        <mct:EventToCommandBehavior
+                            EventName="CheckedChanged"
+                            Command="{Binding BindingContext.Settings.SaveSettingCommand, Source={x:Reference thisView}}"
+                            CommandParameter="{Binding BindingContext, Source={x:Reference booleanSettingCheckbox}}"/>
+                    </CheckBox.Behaviors>
+                </CheckBox>
             </HorizontalStackLayout>
         </DataTemplate>
         <DataTemplate x:Key="OptionSettingTemplate">
@@ -43,7 +51,14 @@
         <DataTemplate x:Key="StringSettingTemplate">
             <HorizontalStackLayout>
                 <Label Text="{Binding Name}" />
-                <Entry Margin="5,0,0,0" VerticalOptions="Center" Text="{Binding Value}" />
+                <Entry x:Name="stringSettingEntry" Margin="5,0,0,0" VerticalOptions="Center" Text="{Binding Value}">
+                    <Entry.Behaviors>
+                        <mct:EventToCommandBehavior
+                            EventName="TextChanged"
+                            Command="{Binding BindingContext.Settings.SaveSettingCommand, Source={x:Reference thisView}}"
+                            CommandParameter="{Binding BindingContext, Source={x:Reference stringSettingEntry}}"/>
+                    </Entry.Behaviors>
+                </Entry>
             </HorizontalStackLayout>
         </DataTemplate>
         <DataTemplate x:Key="PatternSettingTemplate">
@@ -93,11 +108,11 @@
                 <v:NodeView.ExtraMenuItemsDataTemplate>
                     <DataTemplate x:DataType="{x:Null}">
                         <VerticalStackLayout>
-                            <Grid BackgroundColor="Transparent" Padding="3"
+                            <!--<Grid BackgroundColor="Transparent" Padding="3"
                                   IsVisible="{Binding Settings.ShowExport, Converter={conv:InverseBoolConverter}}">
                                 <v:ImageView FontFamily="MaterialOutlined" Glyph="{x:Static mi:MaterialOutlined.Save}"
                                  Command="{Binding BindingContext.Settings.SaveCommand, Source={RelativeSource AncestorType={x:Type v:SettingNodeView}}}" />
-                            </Grid>
+                            </Grid>-->
                             <!--<v:ImageView FontFamily="FASolid" Glyph="{x:Static fa:Solid.Download}" 
                                              Command="{Binding ItemsSource.ImportCommand}"
                                              CommandParameter="{Binding BindingContext.SelectedMacroSet.Name, Source={RelativeSource AncestorType={x:Type v:SettingNodeView}}}" />-->

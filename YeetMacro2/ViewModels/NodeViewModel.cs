@@ -167,7 +167,7 @@ public partial class NodeViewModel<TParent, TChild> : NodeViewModel
     }
 
     [RelayCommand]
-    private void DeleteNode(TChild node)
+    protected virtual void DeleteNode(TChild node)
     {
         if (node.ParentId.HasValue)
         {
@@ -180,7 +180,6 @@ public partial class NodeViewModel<TParent, TChild> : NodeViewModel
         }
 
         _nodeService.Delete(node);
-
         _toastService.Show($"Deleted {_nodeTypeName}: " + node.Name);
 
         if (node.IsSelected)

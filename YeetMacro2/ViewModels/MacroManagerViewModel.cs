@@ -27,6 +27,8 @@ public partial class MacroManagerViewModel : ObservableObject
     ConcurrentDictionary<int, SettingNodeViewModel> _nodeRootIdToSettingTree;
     IScriptService _scriptService;
     [ObservableProperty]
+    bool _isExportEnabled, _isOpenAppDirectoryEnabled;
+    [ObservableProperty]
     bool _inDebugMode, _showStatusPanel, _showExport, _showSettings, _isBusy, _showScriptLog;
     [ObservableProperty]
     double _resolutionWidth, _resolutionHeight;
@@ -130,6 +132,14 @@ public partial class MacroManagerViewModel : ObservableObject
         _nodeRootIdToScriptTree = new ConcurrentDictionary<int, ScriptNodeViewModel>();
         _nodeRootIdToSettingTree = new ConcurrentDictionary<int, SettingNodeViewModel>();
         _scriptService = scriptService;
+
+#if DEBUG
+        IsExportEnabled = true;
+#endif
+
+#if WINDOWS
+        IsOpenAppDirectoryEnabled = true;
+#endif
     }
 
     [RelayCommand]
@@ -216,7 +226,7 @@ public partial class MacroManagerViewModel : ObservableObject
         {
             _statusPanelViewModel.IsSavingLog = true;
         }
-        _scriptService.RunScript(scriptNode.Text, Patterns.ToJson(), Settings.ToJson(), (result) =>
+        _scriptService.RunScript(scriptNode.Text, Scripts.Root.Nodes, Patterns.ToJson(), Settings.ToJson(), (result) =>
         {
             OnScriptFinished?.Execute(result);
             if (ShowScriptLog)
@@ -319,8 +329,8 @@ public partial class MacroManagerViewModel : ObservableObject
             Patterns.Import(patterns);
         }
 
-        if (hash.Scripts != localHash.Scripts)
-        {
+        //if (hash.Scripts != localHash.Scripts)
+        //{
             var scriptList = ServiceHelper.ListAssets(Path.Combine("MacroSets", macroSetFolder, "scripts"));
             var scripts = new ScriptNodeViewModel(-1, null, null, null) { Root = new ScriptNode() { Nodes = new List<ScriptNode>() } };
             foreach (var scriptFile in scriptList)
@@ -337,7 +347,7 @@ public partial class MacroManagerViewModel : ObservableObject
                 scripts.Root.Nodes.Add(script);
             }
             Scripts.Import(scripts);
-        }
+        //}
 
         if (hash.Settings != localHash.Settings)
         {

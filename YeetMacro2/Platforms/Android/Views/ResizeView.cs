@@ -27,6 +27,7 @@ public class ResizeView : RelativeLayout, IOnTouchListener, IShowable
     TaskCompletionSource<bool> _closeCompleted;
     public Action OnShow { get; set; }
     public Action OnClose { get; set; }
+    public bool IsShowing { get => _state == FormState.SHOWING; }
 
     //https://www.linkedin.com/pulse/6-floating-windows-android-keyboard-input-v%C3%A1clav-hodek/
 
@@ -117,7 +118,7 @@ public class ResizeView : RelativeLayout, IOnTouchListener, IShowable
         _density = displayInfo.Density;
         _layoutParams.Width = (int)(_displayWidth * 0.75);
         _layoutParams.Height = (int)(_displayHeight * 0.75);
-        _layoutParams.X = (int)(_displayWidth * 0.25);
+        _layoutParams.X = (int)(_displayWidth * 0.20);
         _layoutParams.Y = (int)(_displayHeight * 0.25);
 
         if (_state == FormState.SHOWING)

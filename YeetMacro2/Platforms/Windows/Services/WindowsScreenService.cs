@@ -119,7 +119,7 @@ public class WindowsScreenService : IScreenService, IRecorderService
         throw new NotImplementedException();
     }
 
-    public Task<string> GetText(Pattern pattern)
+    public Task<string> GetText(Pattern pattern, String whitelist = null)
     {
         throw new NotImplementedException();
     }

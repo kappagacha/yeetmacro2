@@ -109,6 +109,16 @@ public partial class PatternNodeViewModel : NodeViewModel<PatternNode, PatternNo
         }
     }
 
+    protected override void DeleteNode(PatternNode node)
+    {
+        foreach (var pattern in node.Patterns)
+        {
+            _patternRepository.Delete(pattern);
+        }
+        _patternRepository.Save();
+        base.DeleteNode(node);
+    }
+
     [RelayCommand]
     private void DeletePattern(Object[] values)
     {
@@ -135,7 +145,7 @@ public partial class PatternNodeViewModel : NodeViewModel<PatternNode, PatternNo
             }
 
             var rect = await _inputService.DrawUserRectangle();
-            pattern.ImageData = await _screenService.GetCurrentImageData(rect);
+            pattern.ImageData = _screenService.GetCurrentImageData(rect);
             pattern.Rect = rect;
             pattern.Resolution = new Size(DeviceDisplay.MainDisplayInfo.Width, DeviceDisplay.MainDisplayInfo.Height);
 
@@ -244,6 +254,7 @@ public partial class PatternNodeViewModel : NodeViewModel<PatternNode, PatternNo
         }
         var result = await _screenService.GetText(pattern);
         _toastService.Show($"TextMatch: {result}");
+        Console.WriteLine($"TextMatch: {result}");
     }
 
     [RelayCommand]

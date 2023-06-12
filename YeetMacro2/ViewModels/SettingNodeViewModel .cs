@@ -101,4 +101,12 @@ public partial class SettingNodeViewModel : NodeViewModel<ParentSetting, Setting
             SelectedPattern = null;
         }
     }
+
+    [RelayCommand]
+    public void SaveSetting(SettingNode setting)
+    {
+        if (setting is null) return;
+        _settingRepository.Update(setting);
+        _settingRepository.Save();
+    }
 }

@@ -27,13 +27,14 @@
                     <v:ImageView FontFamily="FASolid" Glyph="{x:Static fa:Solid.TrashCan}" Color="Red" 
                              Command="{Binding DeleteMacroSetCommand}" CommandParameter="{Binding SelectedMacroSet}" />
                     <v:ImageView FontFamily="FASolid" Glyph="{x:Static fa:Solid.FileExport}" Color="{StaticResource Primary}" 
-                             Command="{Binding ExportMacroSetCommand}" CommandParameter="{Binding SelectedMacroSet}" />
+                             Command="{Binding ExportMacroSetCommand}" CommandParameter="{Binding SelectedMacroSet}" 
+                             IsVisible="{Binding IsExportEnabled}"/>
                     <v:ImageView FontFamily="FASolid" Glyph="{x:Static fa:Solid.Rotate}" Color="{StaticResource Primary}" 
                              Command="{Binding UpdateMacroSetCommand}" CommandParameter="{Binding SelectedMacroSet}" />
                     <v:ImageView FontFamily="FASolid" Glyph="{x:Static fa:Solid.Hashtag}" Color="{StaticResource Primary}" 
                              Command="{Binding CalculateHashCommand}" CommandParameter="{Binding SelectedMacroSet}" />
                     <v:ImageView FontFamily="FASolid" Glyph="{x:Static fa:Solid.FolderOpen}" Color="{StaticResource Primary}" 
-                             Command="{Binding OpenAppDirectoryCommand}" />
+                             Command="{Binding OpenAppDirectoryCommand}" IsVisible="{Binding IsOpenAppDirectoryEnabled}" />
                 </HorizontalStackLayout>
             </Border>
             <material:TabView>

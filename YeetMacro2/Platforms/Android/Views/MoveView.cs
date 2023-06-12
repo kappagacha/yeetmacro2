@@ -24,6 +24,7 @@ public class MoveView : LinearLayout, IShowable
     public VisualElement VisualElement => _visualElement;
     bool _isMoving = false;
     FormState _state;
+    public bool IsShowing { get => _state == FormState.SHOWING; }
 
     public MoveView(Context context, IWindowManager windowManager, VisualElement visualElement) : base(context)
     {

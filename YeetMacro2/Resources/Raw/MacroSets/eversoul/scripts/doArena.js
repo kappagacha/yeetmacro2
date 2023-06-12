@@ -10,6 +10,7 @@ while (state.isRunning && !done) {
 		case 'titles.adventure':
 			logger.info('doArena: click arena');
 			await macroService.pollPattern(patterns.adventure.tabs.arena, { doClick: true, predicatePattern: patterns.adventure.arena });
+			await sleep(500);
 			await macroService.pollPattern(patterns.adventure.arena, { doClick: true, predicatePattern: patterns.titles.arena });
 			break;
 		case 'adventure.arena.freeChallenge':
@@ -21,20 +22,21 @@ while (state.isRunning && !done) {
 			const match2CP = (await screenService.getText(patterns.adventure.arena.match2.cp)).replace(/[, ]/g, '');
 			const match3CP = (await screenService.getText(patterns.adventure.arena.match3.cp)).replace(/[, ]/g, '');
 
-			logger.info('match1CP: ' + match1CP);
-			logger.info('match2CP: ' + match2CP);
-			logger.info('match3CP: ' + match3CP);
+			logger.debug('match1CP: ' + match1CP);
+			logger.debug('match2CP: ' + match2CP);
+			logger.debug('match3CP: ' + match3CP);
 
 			const matches = [Number(match1CP), Number(match2CP), Number(match3CP)];
 			const minIdx = matches.reduce((minIdx, val, idx, arr) => val < arr[minIdx] ? idx : minIdx, 0);
 			const minCP = matches[minIdx];
 			const cpThreshold = Number(settings.arena.cpThreshold.props.value);
 
-			logger.info('minIdx: ' + minIdx);
-			logger.info('minCP: ' + minCP);
-			logger.info('cpThreshold: ' + cpThreshold);
+			logger.debug('minIdx: ' + minIdx);
+			logger.debug('minCP: ' + minCP);
+			logger.debug('cpThreshold: ' + cpThreshold);
 			if (minCP <= cpThreshold) {
 				await macroService.pollPattern(patterns.adventure.arena['match' + (minIdx + 1)].challenge, { doClick: true, predicatePattern: patterns.battle.start });
+				await sleep(500);
 				await macroService.pollPattern(patterns.battle.start, { doClick: true, clickPattern: patterns.battle.skip, predicatePattern: [patterns.adventure.arena.freeChallenge, patterns.adventure.arena.ticket] });
 			}
 			else {

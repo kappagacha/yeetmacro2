@@ -54,5 +54,150 @@
         }
       }
     }
+  },
+  "party": {
+    "$isParent": true,
+    "props": {
+      "settingType": "Parent",
+      "isParentNode": true,
+      "name": "party"
+    },
+    "recommendedElement": {
+      "$isParent": true,
+      "props": {
+        "settingType": "Parent",
+        "isParentNode": true,
+        "name": "recommendedElement"
+      },
+      "none": {
+        "$isParent": false,
+        "props": {
+          "$type": "string",
+          "settingType": "String",
+          "value": "Main",
+          "defaultValue": null,
+          "isParentNode": false,
+          "name": "none"
+        }
+      },
+      "fire": {
+        "$isParent": false,
+        "props": {
+          "$type": "string",
+          "settingType": "String",
+          "value": "Fire",
+          "defaultValue": null,
+          "isParentNode": false,
+          "name": "fire"
+        }
+      },
+      "water": {
+        "$isParent": false,
+        "props": {
+          "$type": "string",
+          "settingType": "String",
+          "value": "Water",
+          "defaultValue": null,
+          "isParentNode": false,
+          "name": "water"
+        }
+      },
+      "lightning": {
+        "$isParent": false,
+        "props": {
+          "$type": "string",
+          "settingType": "String",
+          "value": "Ltng",
+          "defaultValue": null,
+          "isParentNode": false,
+          "name": "lightning"
+        }
+      },
+      "earth": {
+        "$isParent": false,
+        "props": {
+          "$type": "string",
+          "settingType": "String",
+          "value": "Earth",
+          "defaultValue": null,
+          "isParentNode": false,
+          "name": "earth"
+        }
+      },
+      "wind": {
+        "$isParent": false,
+        "props": {
+          "$type": "string",
+          "settingType": "String",
+          "value": "Wind",
+          "defaultValue": null,
+          "isParentNode": false,
+          "name": "wind"
+        }
+      },
+      "light": {
+        "$isParent": false,
+        "props": {
+          "$type": "string",
+          "settingType": "String",
+          "value": "Light",
+          "defaultValue": null,
+          "isParentNode": false,
+          "name": "light"
+        }
+      },
+      "dark": {
+        "$isParent": false,
+        "props": {
+          "$type": "string",
+          "settingType": "String",
+          "value": "Dark",
+          "defaultValue": null,
+          "isParentNode": false,
+          "name": "dark"
+        }
+      }
+    },
+    "arenaEX": {
+      "$isParent": true,
+      "props": {
+        "settingType": "Parent",
+        "isParentNode": true,
+        "name": "arenaEX"
+      },
+      "physicalDamage": {
+        "$isParent": false,
+        "props": {
+          "$type": "string",
+          "settingType": "String",
+          "value": "Phys",
+          "defaultValue": null,
+          "isParentNode": false,
+          "name": "physicalDamage"
+        }
+      }
+    },
+    "eventBoss": {
+      "$isParent": false,
+      "props": {
+        "$type": "string",
+        "settingType": "String",
+        "value": "recommendedElement",
+        "defaultValue": null,
+        "isParentNode": false,
+        "name": "eventBoss"
+      }
+    },
+    "battleArena": {
+      "$isParent": false,
+      "props": {
+        "$type": "string",
+        "settingType": "String",
+        "value": "recommendedElement",
+        "defaultValue": null,
+        "isParentNode": false,
+        "name": "battleArena"
+      }
+    }
   }
 }

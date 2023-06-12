@@ -108,7 +108,7 @@ public class MediaProjectionService : IRecorderService
     //    return bytes;
     //}
 
-    private async Task EnsureProjectionServiceStarted()
+    public async Task EnsureProjectionServiceStarted()
     {
         if (_resultCode == 0)
         {
@@ -167,10 +167,8 @@ public class MediaProjectionService : IRecorderService
         }
     }
 
-    public async Task<byte[]> GetCurrentImageData()
+    public byte[] GetCurrentImageData()
     {
-        await EnsureProjectionServiceStarted();
-
         var bitmap = GetBitmap();
         if (bitmap == null) return null;
 
@@ -181,11 +179,10 @@ public class MediaProjectionService : IRecorderService
         return ms.ToArray();
     }
 
-    public async Task<byte[]> GetCurrentImageData(Rect rect)
+    public byte[] GetCurrentImageData(Rect rect)
     {
         if (rect.X < 0) rect.X = 0;
         if (rect.Y < 0) rect.Y = 0;
-        await EnsureProjectionServiceStarted();
 
         var bitmap = GetBitmap();
         if (bitmap == null) return null;
@@ -199,13 +196,13 @@ public class MediaProjectionService : IRecorderService
         return ms.ToArray();
     }
 
-    public async Task TakeScreenCapture()
+    public void TakeScreenCapture()
     {
         //var ms = await GetCurrentImageStream();
         //if (ms == null) return;
         //byte[] bArray = new byte[ms.Length];
 
-        var imageData = await GetCurrentImageData();
+        var imageData = GetCurrentImageData();
         var folder = global::Android.OS.Environment.GetExternalStoragePublicDirectory(global::Android.OS.Environment.DirectoryPictures).Path;
         var file = System.IO.Path.Combine(folder, $"{DateTime.Now.ToString("screencapture_yyyyMMdd_HHmmss")}.jpeg");
         using (FileStream fs = new FileStream(file, FileMode.OpenOrCreate))

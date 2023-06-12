@@ -14,6 +14,7 @@ public class StaticView : RelativeLayout, IShowable
     private VisualElement _visualElement;
     public VisualElement VisualElement => _visualElement;
     private FormState _state;
+    public bool IsShowing { get => _state == FormState.SHOWING; }
 
     //https://www.linkedin.com/pulse/6-floating-windows-android-keyboard-input-v%C3%A1clav-hodek/
     public StaticView(Context context, IWindowManager windowManager, VisualElement visualElement) : base(context)

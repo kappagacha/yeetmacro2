@@ -11,8 +11,6 @@ using YeetMacro2.Platforms.Android.ViewModels;
 using YeetMacro2.Services;
 using OpenCvHelper = YeetMacro2.Platforms.Android.Services.OpenCv.OpenCvHelper;
 using Tesseract.Droid;
-using CommunityToolkit.Mvvm.ComponentModel;
-using YeetMacro2.ViewModels;
 
 namespace YeetMacro2.Platforms.Android.Services;
 public enum AndroidWindowView
@@ -212,6 +210,7 @@ public class AndroidWindowManagerService : IInputService, IScreenService
             ve.BindingContext = ctx;
         }
     }
+
     public void Close(AndroidWindowView view)
     {
         if (!_views.ContainsKey(view)) return;
@@ -260,12 +259,22 @@ public class AndroidWindowManagerService : IInputService, IScreenService
 
     public async Task<Rect> DrawUserRectangle()
     {
+        var patternsViewIsShowing = _views.TryGetValue(AndroidWindowView.PatternsNodeView, out IShowable patternsView) && patternsView.IsShowing;
+        var macroOverlayViewIsShowing = _views.TryGetValue(AndroidWindowView.MacroOverlayView, out IShowable macroOverlayView) && macroOverlayView.IsShowing;
+        var scriptsViewIsShowing = _views.TryGetValue(AndroidWindowView.ScriptsNodeView, out IShowable scriptsView) && scriptsView.IsShowing;
+        if (patternsViewIsShowing) _views[AndroidWindowView.PatternsNodeView].Close();
+        if (macroOverlayViewIsShowing) _views[AndroidWindowView.MacroOverlayView].Close();
+        if (scriptsViewIsShowing) _views[AndroidWindowView.ScriptsNodeView].Close();
+
         Show(AndroidWindowView.UserDrawView);
         var drawControl = (DrawControl)_views[AndroidWindowView.UserDrawView].VisualElement;
         drawControl.ClearRectangles();
         var formsView = (FormsView)_views[AndroidWindowView.UserDrawView];
         if (await formsView.WaitForClose())
         {
+            if (patternsViewIsShowing) _views[AndroidWindowView.PatternsNodeView].Show();
+            if (macroOverlayViewIsShowing) _views[AndroidWindowView.MacroOverlayView].Show();
+            if (scriptsViewIsShowing) _views[AndroidWindowView.ScriptsNodeView].Show();
             return drawControl.Rect;
         }
         return Rect.Zero;
@@ -372,9 +381,10 @@ public class AndroidWindowManagerService : IInputService, IScreenService
         _accessibilityService.Stop();
     }
 
-    public void StartProjectionService()
+    public async Task StartProjectionService()
     {
         _context.StartForegroundServiceCompat<ForegroundService>();
+        await _mediaProjectionService.EnsureProjectionServiceStarted();
     }
 
     public void StopProjectionService()
@@ -395,6 +405,7 @@ public class AndroidWindowManagerService : IInputService, IScreenService
             var boundsPadding = 4;
             byte[] needleImageData = pattern.ImageData;
             byte[] haystackImageData = null;
+            //var rect = opts.OverrideRect != Rect.Zero ? opts.OverrideRect : pattern.Rect;
             watch.Start();
             try
             {
@@ -404,8 +415,8 @@ public class AndroidWindowManagerService : IInputService, IScreenService
                 //    await _mediaProjectionService.GetCurrentImageData();
 
                 haystackImageData = pattern.Rect != Rect.Zero ?
-                    await _mediaProjectionService.GetCurrentImageData(pattern.Rect) :
-                    await _mediaProjectionService.GetCurrentImageData();
+                    _mediaProjectionService.GetCurrentImageData(pattern.Rect) :
+                    _mediaProjectionService.GetCurrentImageData();
             }
             catch (Exception ex)
             {
@@ -491,9 +502,9 @@ public class AndroidWindowManagerService : IInputService, IScreenService
         _accessibilityService.DoSwipe(start, end);
     }
 
-    public async Task ScreenCapture()
+    public void ScreenCapture()
     {
-        await _mediaProjectionService.TakeScreenCapture();
+        _mediaProjectionService.TakeScreenCapture();
     }
 
     public void StartRecording()
@@ -511,20 +522,21 @@ public class AndroidWindowManagerService : IInputService, IScreenService
         return OpenCvHelper.CalcColorThreshold(pattern.ImageData, colorThreshold);
     }
 
-    public async Task<byte[]> GetCurrentImageData(Rect rect)
+    public byte[] GetCurrentImageData(Rect rect)
     {
-        return await _mediaProjectionService.GetCurrentImageData(rect);
+        return _mediaProjectionService.GetCurrentImageData(rect);
     }
 
-    public async Task<string> GetText(Pattern pattern)
+    public async Task<string> GetText(Pattern pattern, String whiteList = null)
     {
         var boundsPadding = 4;
         var currentImageData = pattern.Rect != Rect.Zero ?
-            await _mediaProjectionService.GetCurrentImageData(
+            _mediaProjectionService.GetCurrentImageData(
                 new Rect(pattern.Rect.Location.Offset(-boundsPadding, -boundsPadding), 
                           pattern.Rect.Size + new Size(boundsPadding, boundsPadding))) :
-            await _mediaProjectionService.GetCurrentImageData();
+            _mediaProjectionService.GetCurrentImageData();
         if (!String.IsNullOrWhiteSpace(pattern.TextMatch.WhiteList)) _tesseractApi.SetWhitelist(pattern.TextMatch.WhiteList);
+        if (!String.IsNullOrWhiteSpace(whiteList)) _tesseractApi.SetWhitelist(whiteList);
         await _tesseractApi.SetImage(pattern.ColorThreshold.IsActive ?
             OpenCvHelper.CalcColorThreshold(currentImageData, pattern.ColorThreshold):
             currentImageData);

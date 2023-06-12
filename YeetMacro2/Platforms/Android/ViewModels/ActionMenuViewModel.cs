@@ -72,10 +72,10 @@ public partial class ActionMenuViewModel : ObservableObject
     }
 
     [RelayCommand]
-    public async Task ScreenCapture()
+    public void ScreenCapture()
     {
         _toastService.Show("ScreenCapture...");
         _logger.LogDebug("ScreenCapture");
-        await _windowManagerService.ScreenCapture();
+        _windowManagerService.ScreenCapture();
     }
 }
