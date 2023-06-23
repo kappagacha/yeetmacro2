@@ -34,7 +34,16 @@ public partial class AndriodHomeViewModel : ObservableObject
     public bool HasValidResolution => DeviceDisplay.MainDisplayInfo.Width == _macroManagerViewModel.SelectedMacroSet.Resolution.Width &&
         DeviceDisplay.MainDisplayInfo.Height == _macroManagerViewModel.SelectedMacroSet.Resolution.Height;
     public MacroManagerViewModel MacroManagerViewModel => _macroManagerViewModel;
-
+    public string OverlayArea
+    {
+        get
+        {
+            var topLeft = _windowManagerService.GetTopLeftByPackage();
+            return $"x{topLeft.x}y{topLeft.y} w{_windowManagerService.OverlayWidth}h{_windowManagerService.OverlayHeight}";
+        }
+    }
+    public string DisplayCutoutTop => _windowManagerService.DisplayCutoutTop.ToString();
+    public bool HasCutoutTop => _windowManagerService.DisplayCutoutTop > 0;
     public AndriodHomeViewModel(AndroidWindowManagerService windowManagerService, YeetAccessibilityService accessibilityService, 
         MacroManagerViewModel macroManagerViewModel)
     {

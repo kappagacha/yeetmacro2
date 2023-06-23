@@ -51,7 +51,6 @@ public class YeetMacroDbContext : DbContext
 
         modelBuilder.Entity<MacroSet>().HasKey(ms => ms.MacroSetId);
         modelBuilder.Entity<MacroSet>().Property(ms => ms.Resolution).HasConversion(sizeConverter);
-        modelBuilder.Entity<MacroSet>().OwnsOne(ms => ms.Source);
 
         modelBuilder.Entity<Node>().HasKey(pn => pn.NodeId);
         modelBuilder.Entity<Node>().UseTptMappingStrategy();

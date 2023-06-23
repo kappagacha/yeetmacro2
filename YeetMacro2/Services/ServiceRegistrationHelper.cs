@@ -20,7 +20,7 @@ public static class ServiceRegistrationHelper
 {
     public static MauiAppBuilder RegisterServices(this MauiAppBuilder mauiAppBuilder)
     {
-        mauiAppBuilder.Services.AddTransient<IMauiInitializeService, AppInitializer>();
+        //mauiAppBuilder.Services.AddTransient<IMauiInitializeService, AppInitializer>();
         mauiAppBuilder.Services.AddSingleton<IToastService, ToastService>();
         mauiAppBuilder.Services.AddSingleton<IScriptService, ScriptService>();
         mauiAppBuilder.Services.AddAutoMapper(typeof(App).GetTypeInfo().Assembly);

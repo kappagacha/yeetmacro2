@@ -39,15 +39,30 @@ while (state.isRunning && !done) {
 			break;
 		case 'battle.report':
 			logger.info('doBattleArena: restart');
-			await macroService.pollPattern(patterns.battle.next, { doClick: true, clickPattern: [patterns.battleArena.newHighScore, patterns.battleArena.rank, patterns.battle.next3], predicatePattern: patterns.battleArena.prompt.ok });
+			// 1st battle => battle.next (middle) => battle.next3 (right) => battleArena.prompt.ok => battle.replay => battle.replay.ok
+			// OR         => battle.next (middle) => battle.replay => battle.replay.ok
+			// 2nd battle => battle.next (middle) => battle.next3 (right) => battleArena.prompt.ok => battle.replay => battle.replay.ok
+			// OR         => battle.next (middle) => battle.replay => battle.replay.ok
+			// 3rd battle => battle.next (middle) => battle.next3 (right) => battleArena.prompt.ok => battle.replay.disabled
+			// OR         => battle.next (middle) => battle.replay.disabled
+
+			await macroService.pollPattern(patterns.battle.next, { doClick: true, clickPattern: [patterns.battleArena.newHighScore, patterns.battleArena.rank], predicatePattern: [patterns.battle.replay, patterns.battle.next3] });
 			await sleep(500);
-			const replayResult = await macroService.pollPattern(patterns.battleArena.prompt.ok, { doClick: true, clickPattern: patterns.battle.replay, predicatePattern: [patterns.battle.replay.prompt, patterns.battle.replay.disabled] });
-			if (replayResult.predicatePath === 'battle.replay.disabled') {
-				done = true;
-				break;
+			const replayResult = await macroService.findPattern(patterns.battle.replay);
+			if (replayResult.isSuccess) {
+				logger.debug('doBattleArena: found replay');
+				await macroService.pollPattern(patterns.battle.replay, { doClick: true, predicatePattern: patterns.battle.replay.ok });
+				await macroService.pollPattern(patterns.battle.replay.ok, { doClick: true, predicatePattern: patterns.battle.report });
+			} else {
+				logger.debug('doBattleArena: found next3');
+				const next3Result = await macroService.pollPattern(patterns.battle.next3, { doClick: true, clickPattern: patterns.battleArena.prompt.ok, predicatePattern: [patterns.titles.battleArena, patterns.battle.replay] });
+				if (next3Result.predicatePath === 'titles.battleArena') {
+					done = true;
+					break;
+				}
+				await macroService.pollPattern(patterns.battle.replay, { doClick: true, predicatePattern: patterns.battle.replay.ok });
+				await macroService.pollPattern(patterns.battle.replay.ok, { doClick: true, predicatePattern: patterns.battle.report });
 			}
-			await sleep(500);
-			await macroService.pollPattern(patterns.battle.replay.ok, { doClick: true, predicatePattern: patterns.battle.report });
 			break;
 	}
 

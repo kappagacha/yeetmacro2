@@ -23,7 +23,7 @@ while (state.isRunning && !done) {
 			break;
 		case 'titles.party':
 			logger.info('doBattleArenaEx: select party');
-			const scoreBonusPatterns = ['physicalDamage'].map(sb => patterns.battleArena.exScoreBonus[sb]);
+			const scoreBonusPatterns = ['physicalDamage', 'lowRarity'].map(sb => patterns.battleArena.exScoreBonus[sb]);
 			const scoreBonusResult = await macroService.pollPattern(scoreBonusPatterns);
 			const scoreBonus = scoreBonusResult.path?.split('.').pop();
 			logger.debug(`scoreBonus: ${scoreBonus}`);
@@ -53,17 +53,24 @@ while (state.isRunning && !done) {
 			// 1st battle => battle.next (middle) => patterns.battle.replay => patterns.battle.replay.ok
 			// 2nd battle => battle.next (middle) => patterns.battle.replay => patterns.battle.replay.ok
 			// 3rd battle => battle.next (middle) => patterns.battle.replay.disabled
-			const nextResult = await macroService.pollPattern(patterns.battle.next, { doClick: true, clickPattern: [patterns.battleArena.newHighScore, patterns.battleArena.rank], predicatePattern: [patterns.battle.replay, patterns.battle.replay.disabled] });
+
+			await macroService.pollPattern(patterns.battle.next, { doClick: true, clickPattern: [patterns.battleArena.newHighScore, patterns.battleArena.rank], predicatePattern: [patterns.battle.replay, patterns.battle.next3] });
 			await sleep(500);
-			logger.debug('nextResult.predicatePath ' + nextResult.predicatePath);
-			if (nextResult.predicatePath === 'battle.replay.disabled') {
-				logger.info('found battle.replay.disabled');
-				done = true;
-				break;
+			const replayResult = await macroService.findPattern(patterns.battle.replay);
+			if (replayResult.isSuccess) {
+				logger.debug('doBattleArenaEx: found replay');
+				await macroService.pollPattern(patterns.battle.replay, { doClick: true, predicatePattern: patterns.battle.replay.ok });
+				await macroService.pollPattern(patterns.battle.replay.ok, { doClick: true, predicatePattern: patterns.battle.report });
+			} else {
+				logger.debug('doBattleArenaEx: found next3');
+				const next3Result = await macroService.pollPattern(patterns.battle.next3, { doClick: true, clickPattern: patterns.battleArena.prompt.ok, predicatePattern: [patterns.titles.battleArena, patterns.battle.replay] });
+				if (next3Result.predicatePath === 'titles.battleArena') {
+					done = true;
+					break;
+				}
+				await macroService.pollPattern(patterns.battle.replay, { doClick: true, predicatePattern: patterns.battle.replay.ok });
+				await macroService.pollPattern(patterns.battle.replay.ok, { doClick: true, predicatePattern: patterns.battle.report });
 			}
-			await sleep(500);
-			await macroService.pollPattern(patterns.battle.replay, { doClick: true, predicatePattern: patterns.battle.replay.ok });
-			await macroService.pollPattern(patterns.battle.replay.ok, { doClick: true, predicatePattern: patterns.battle.report });
 			break;
 	}
 

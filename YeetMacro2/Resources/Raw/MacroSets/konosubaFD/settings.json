@@ -175,6 +175,17 @@
           "isParentNode": false,
           "name": "physicalDamage"
         }
+      },
+      "lowRarity": {
+        "$isParent": false,
+        "props": {
+          "$type": "string",
+          "settingType": "String",
+          "value": "Low",
+          "defaultValue": null,
+          "isParentNode": false,
+          "name": "lowRarity"
+        }
       }
     },
     "eventBoss": {

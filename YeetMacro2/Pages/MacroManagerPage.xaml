@@ -29,10 +29,6 @@
                     <v:ImageView FontFamily="FASolid" Glyph="{x:Static fa:Solid.FileExport}" Color="{StaticResource Primary}" 
                              Command="{Binding ExportMacroSetCommand}" CommandParameter="{Binding SelectedMacroSet}" 
                              IsVisible="{Binding IsExportEnabled}"/>
-                    <v:ImageView FontFamily="FASolid" Glyph="{x:Static fa:Solid.Rotate}" Color="{StaticResource Primary}" 
-                             Command="{Binding UpdateMacroSetCommand}" CommandParameter="{Binding SelectedMacroSet}" />
-                    <v:ImageView FontFamily="FASolid" Glyph="{x:Static fa:Solid.Hashtag}" Color="{StaticResource Primary}" 
-                             Command="{Binding CalculateHashCommand}" CommandParameter="{Binding SelectedMacroSet}" />
                     <v:ImageView FontFamily="FASolid" Glyph="{x:Static fa:Solid.FolderOpen}" Color="{StaticResource Primary}" 
                              Command="{Binding OpenAppDirectoryCommand}" IsVisible="{Binding IsOpenAppDirectoryEnabled}" />
                 </HorizontalStackLayout>
@@ -60,8 +56,33 @@
                                 </HorizontalStackLayout>
                                 <HorizontalStackLayout Margin="0" Padding="0">
                                     <Label Margin="0" VerticalOptions="Center" Padding="0" Text="Source:" />
-                                    <Label Margin="5,0,0,0" VerticalOptions="Center" Text="{Binding MacroSetSourceType}" />
-                                    <Entry Margin="5,0,0,0" VerticalOptions="Center" Text="{Binding MacroSetSourceUri}" />
+                                    <Entry Margin="5,0,0,0" VerticalOptions="Center" Text="{Binding SelectedMacroSet.Source}" />
+                                    <v:ImageView FontFamily="FASolid" Glyph="{x:Static fa:Solid.Rotate}" Color="{StaticResource Primary}" 
+                                        Command="{Binding UpdateMacroSetCommand}" CommandParameter="{Binding SelectedMacroSet}" />
+                                </HorizontalStackLayout>
+                                <HorizontalStackLayout Margin="0" Padding="0">
+                                    <Label Margin="0" VerticalOptions="Center" Padding="0" Text="MacroSet LastUpdated:" />
+                                    <Label Margin="5,0,0,0" VerticalOptions="Center" Text="{Binding SelectedMacroSet.MacroSetLastUpdated}" />
+                                    <v:ImageView FontFamily="MaterialOutlined" Glyph="{x:Static mi:MaterialOutlined.Backspace}" Color="Red" 
+                                        Command="{Binding ClearMacroSetLastUpdatedCommand}" CommandParameter="{Binding SelectedMacroSet}" />
+                                </HorizontalStackLayout>
+                                <HorizontalStackLayout Margin="0" Padding="0">
+                                    <Label Margin="0" VerticalOptions="Center" Padding="0" Text="Patterns LastUpdated:" />
+                                    <Label Margin="5,0,0,0" VerticalOptions="Center" Text="{Binding SelectedMacroSet.PatternsLastUpdated}" />
+                                    <v:ImageView FontFamily="MaterialOutlined" Glyph="{x:Static mi:MaterialOutlined.Backspace}" Color="Red" 
+                                        Command="{Binding ClearPatternsLastUpdatedCommand}" CommandParameter="{Binding SelectedMacroSet}" />
+                                </HorizontalStackLayout>
+                                <HorizontalStackLayout Margin="0" Padding="0">
+                                    <Label Margin="0" VerticalOptions="Center" Padding="0" Text="Scripts LastUpdated:" />
+                                    <Label Margin="5,0,0,0" VerticalOptions="Center" Text="{Binding SelectedMacroSet.ScriptsLastUpdated}" />
+                                    <v:ImageView FontFamily="MaterialOutlined" Glyph="{x:Static mi:MaterialOutlined.Backspace}" Color="Red" 
+                                        Command="{Binding ClearScriptsLastUpdatedCommand}" CommandParameter="{Binding SelectedMacroSet}" />
+                                </HorizontalStackLayout>
+                                <HorizontalStackLayout Margin="0" Padding="0">
+                                    <Label Margin="0" VerticalOptions="Center" Padding="0" Text="Settings LastUpdated:" />
+                                    <Label Margin="5,0,0,0" VerticalOptions="Center" Text="{Binding SelectedMacroSet.SettingsLastUpdated}" />
+                                    <v:ImageView FontFamily="MaterialOutlined" Glyph="{x:Static mi:MaterialOutlined.Backspace}" Color="Red" 
+                                        Command="{Binding ClearSettingsLastUpdatedCommand}" CommandParameter="{Binding SelectedMacroSet}" />
                                 </HorizontalStackLayout>
                             </VerticalStackLayout>
                             <Grid Grid.Column="1" IsVisible="{Binding ShowExport}">
