@@ -27,7 +27,28 @@ jobs:
         run: dotnet build -f net7.0-android -c Release
 
       - name: Upload APK as Release Asset
-        uses: actions/upload-artifact@v2
+        uses: actions/upload-artifact@v1
         with:
           name: app-release
           path: YeetMacro2/bin/Release/net7.0-android/*.apk
+      
+      - name: Attach Asset to Release
+        uses: actions/github-script@v5
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          script: |
+            const { owner, repo } = context.repo;
+            const releaseId = ${{ steps.create_release.outputs.id }};
+            const artifactPath = ${{ github.workspace }}/YeetMacro2/bin/Release/net7.0-android/*.apk;
+            const artifactName = 'yeetmacro.apk';
+
+            const { data: uploadUrl } = await github.repos.createReleaseAsset({
+              owner,
+              repo,
+              release_id: releaseId,
+              name: artifactName,
+              data: artifactPath
+            });
+
+            console.log(`Uploaded ${artifactName} to release ${releaseId}`);
