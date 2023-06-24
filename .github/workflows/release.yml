@@ -30,7 +30,7 @@ jobs:
         uses: actions/upload-artifact@v1
         with:
           name: app-release
-          path: YeetMacro2/bin/Release/net7.0-android/*.apk
+          path: YeetMacro2/bin/Release/net7.0-android/com.companyname.yeetmacro2-Signed.apk
       
       - name: Attach Asset to Release
         uses: actions/github-script@v5
@@ -40,7 +40,7 @@ jobs:
           script: |
             const { owner, repo } = context.repo;
             const releaseId = ${{ steps.create_release.outputs.id }};
-            const artifactPath = ${{ github.workspace }}/YeetMacro2/bin/Release/net7.0-android/*.apk;
+            const artifactPath = ${{ github.workspace }}/YeetMacro2/bin/Release/net7.0-android/com.companyname.yeetmacro2-Signed.apk;
             const artifactName = 'yeetmacro.apk';
 
             const { data: uploadUrl } = await github.repos.createReleaseAsset({
