@@ -30,4 +30,4 @@ jobs:
         uses: actions/upload-artifact@v2
         with:
           name: app-release
-          path: YeetMacro2/bin/Release/net7.0/android/bin/*.apk
+          path: YeetMacro2/bin/Release/net7.0-android/*.apk
