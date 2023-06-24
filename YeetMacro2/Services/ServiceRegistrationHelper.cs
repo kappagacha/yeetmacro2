@@ -23,6 +23,8 @@ public static class ServiceRegistrationHelper
         //mauiAppBuilder.Services.AddTransient<IMauiInitializeService, AppInitializer>();
         mauiAppBuilder.Services.AddSingleton<IToastService, ToastService>();
         mauiAppBuilder.Services.AddSingleton<IScriptService, ScriptService>();
+        mauiAppBuilder.Services.AddHttpClient();
+        mauiAppBuilder.Services.AddSingleton<IHttpService, HttpService>();
         mauiAppBuilder.Services.AddAutoMapper(typeof(App).GetTypeInfo().Assembly);
         mauiAppBuilder.Logging.AddStatusPanelViewModelSink();
 
