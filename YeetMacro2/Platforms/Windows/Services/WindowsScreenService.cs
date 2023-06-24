@@ -77,7 +77,7 @@ public class WindowsScreenService : IScreenService, IRecorderService
         throw new NotImplementedException();
     }
 
-    public Task<byte[]> GetCurrentImageData(Rect rect)
+    public byte[] GetCurrentImageData(Rect rect)
     {
         // https://nishanc.medium.com/c-screenshot-utility-to-capture-a-portion-of-the-screen-489ddceeee49
         //Rectangle rect = new Rectangle((int)start.X, (int)start.Y, (int)width, (int)height);
@@ -106,7 +106,7 @@ public class WindowsScreenService : IScreenService, IRecorderService
 
         var stream = new MemoryStream();
         bmp.Save(stream, System.Drawing.Imaging.ImageFormat.Jpeg);
-        return Task.FromResult(stream.ToArray());
+        return stream.ToArray();
     }
 
     public Task<List<Microsoft.Maui.Graphics.Point>> GetMatches(Pattern template, int limit = 1)

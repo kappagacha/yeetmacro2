@@ -22,8 +22,14 @@
                 <HorizontalStackLayout Spacing="5" mct:DockLayout.DockPosition="Top">
                     <Label Text="Macro Set: " Margin="5,0,0,0" FontSize="Body" VerticalOptions="Center" FontAttributes="Bold" />
                     <Picker ItemsSource="{Binding MacroSets}" ItemDisplayBinding="{Binding Name}" SelectedItem="{Binding SelectedMacroSet}" />
-                    <v:ImageView FontFamily="FASolid" Glyph="{x:Static fa:Solid.Plus}" Color="{StaticResource Primary}" 
-                             Command="{Binding AddMacroSetCommand}" />
+                    <v:ImageView FontFamily="FASolid" Glyph="{x:Static fa:Solid.FileCirclePlus}" Color="{StaticResource Primary}" 
+                             Command="{Binding AddLocalMacroSetCommand}" />
+                    <Grid>
+                        <v:ImageView FontFamily="FASolid" Glyph="{x:Static fa:Solid.Globe}" Color="{StaticResource Primary}" 
+                             Command="{Binding AddOnlineMacroSetCommand}" />
+                        <v:ImageView Scale=".5" TranslationX="7" TranslationY="9" FontFamily="FASolid" Glyph="{x:Static fa:Solid.CirclePlus}" Color="{AppThemeBinding Light={StaticResource Background}, Dark={StaticResource BackgroundDark}}" 
+                             Command="{Binding AddOnlineMacroSetCommand}" />
+                    </Grid>
                     <v:ImageView FontFamily="FASolid" Glyph="{x:Static fa:Solid.TrashCan}" Color="Red" 
                              Command="{Binding DeleteMacroSetCommand}" CommandParameter="{Binding SelectedMacroSet}" />
                     <v:ImageView FontFamily="FASolid" Glyph="{x:Static fa:Solid.FileExport}" Color="{StaticResource Primary}" 

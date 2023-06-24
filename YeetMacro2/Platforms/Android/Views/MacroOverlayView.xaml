@@ -4,8 +4,6 @@
              xmlns:v="clr-namespace:YeetMacro2.Views"
              xmlns:vm="clr-namespace:YeetMacro2.ViewModels"
              xmlns:pvm="clr-namespace:YeetMacro2.Platforms.Android.ViewModels"
-             xmlns:conv="clr-namespace:YeetMacro2.Converters"
-             xmlns:av="clr-namespace:YeetMacro2.Platforms.Android.Views"
              x:DataType="pvm:AndriodHomeViewModel"
              vm:ViewModelLocator.ViewModelType="{x:Type pvm:AndriodHomeViewModel}"
              xmlns:fa="clr-namespace:UraniumUI.Icons.FontAwesome;assembly=UraniumUI.Icons.FontAwesome"

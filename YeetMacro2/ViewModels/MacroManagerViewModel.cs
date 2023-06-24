@@ -142,11 +142,25 @@ public partial class MacroManagerViewModel : ObservableObject
     }
 
     [RelayCommand]
-    public async Task AddMacroSet()
+    public async Task AddLocalMacroSet()
     {
         var localMacroSets = ServiceHelper.ListAssets("MacroSets");
-        var sources = localMacroSets.SelectMany(ms => new string[] { $"localAsset:{ms}", $"https://github.com/???/{ms}" }).Order();
-        var source = await Application.Current.MainPage.DisplayActionSheet("Source", "cancel", "ok", sources.ToArray());
+        var sources = localMacroSets.Select(ms => $"localAsset:{ms}").ToArray();
+        await AddMacroSet(sources);
+    }
+
+    [RelayCommand]
+    public async Task AddOnlineMacroSet()
+    {
+        var localMacroSets = ServiceHelper.ListAssets("MacroSets");
+        var sources = localMacroSets.Select(ms => $"https://github.com/???/{ms}").ToArray();
+        await AddMacroSet(sources);
+    }
+
+    public async Task AddMacroSet(string[] sources)
+    {
+        
+        var source = await Application.Current.MainPage.DisplayActionSheet("Source", "cancel", "ok", sources);
         if (string.IsNullOrEmpty(source) || source == "cancel") return;
         IsBusy = true;
         string macroSetName = source;
