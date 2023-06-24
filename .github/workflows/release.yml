@@ -33,7 +33,7 @@ jobs:
           path: YeetMacro2/bin/Release/net7.0-android/com.companyname.yeetmacro2-Signed.apk
       
       - name: Attach Asset to Release
-        uses: actions/github-script@v5
+        uses: actions/github-script@v6
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
