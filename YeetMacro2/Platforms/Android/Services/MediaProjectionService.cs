@@ -8,6 +8,7 @@ using Android.Widget;
 using static Android.Graphics.Bitmap;
 using YeetMacro2.Services;
 using Rect = Microsoft.Maui.Graphics.Rect;
+using static Android.Provider.CalendarContract;
 
 namespace YeetMacro2.Platforms.Android.Services;
 
@@ -52,6 +53,9 @@ public class MediaProjectionService : IRecorderService
             _virtualDisplay = _mediaProjection.CreateVirtualDisplay("ScreenCapture", width, height, density, (DisplayFlags)VirtualDisplayFlags.AutoMirror, _imageReader.Surface, null, null);
 
             DeviceDisplay.MainDisplayInfoChanged += DeviceDisplay_MainDisplayInfoChanged;
+            var projectionServiceStarted = new Intent("com.companyname.MediaProjectionService.STARTED");
+            _context.SendBroadcast(projectionServiceStarted);
+
             Console.WriteLine("[*****YeetMacro*****] MediaProjectionService Init");
         }
         catch (Exception ex)
@@ -93,6 +97,7 @@ public class MediaProjectionService : IRecorderService
         _isInitialized = true;
 
         Start();
+
         Toast.MakeText(_context, "Media projection started...", ToastLength.Short).Show();
     }
 

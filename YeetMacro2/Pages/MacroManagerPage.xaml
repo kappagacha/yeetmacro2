@@ -27,7 +27,8 @@
                                  Command="{Binding UpdateMacroSetCommand}" CommandParameter="{Binding SelectedMacroSet}" 
                                  IsVisible="{Binding SelectedMacroSet, Converter={conv:NullToBoolConverter IsInverse=True}}" />
                         <v:ImageView FontFamily="FASolid" Glyph="{x:Static fa:Solid.FileCirclePlus}" Color="{StaticResource Primary}" 
-                             Command="{Binding AddLocalMacroSetCommand}" />
+                             Command="{Binding AddLocalMacroSetCommand}" 
+                             IsVisible="{Binding IsExportEnabled}" />
                         <Grid>
                             <v:ImageView FontFamily="FASolid" Glyph="{x:Static fa:Solid.Globe}" Color="{StaticResource Primary}" 
                              Command="{Binding AddOnlineMacroSetCommand}" />
@@ -37,7 +38,7 @@
                         <Grid IsVisible="{Binding SelectedMacroSet, Converter={conv:NullToBoolConverter IsInverse=True}}">
                             <v:ImageView FontFamily="FASolid" Glyph="{x:Static fa:Solid.FileExport}" Color="{StaticResource Primary}" 
                              Command="{Binding ExportMacroSetCommand}" CommandParameter="{Binding SelectedMacroSet}" 
-                             IsVisible="{Binding IsExportEnabled}"/>
+                             IsVisible="{Binding IsExportEnabled}" />
                         </Grid>
                     </HorizontalStackLayout>
                     <HorizontalStackLayout Spacing="10" HorizontalOptions="End">

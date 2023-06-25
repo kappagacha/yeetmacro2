@@ -173,5 +173,6 @@
                 </Label>
             </HorizontalStackLayout>
         </Border>
+        <Label Text="{Binding MacroManagerViewModel.AppVersion, StringFormat='AppVersion: {0}'}" VerticalOptions="End" HorizontalOptions="Start" />
     </Grid>
 </ContentPage>

@@ -1,4 +1,5 @@
-﻿async function selectPartyByRecommendedElement(xOffset) {
+﻿// @raw-script
+async function selectPartyByRecommendedElement(xOffset) {
     let elementPatterns = ['none', 'fire', 'water', 'lightning', 'earth', 'wind', 'light', 'dark'].map(e => patterns.party.recommendedElement[e]);
     if (xOffset) {
         elementPatterns = elementPatterns.map(el => ({

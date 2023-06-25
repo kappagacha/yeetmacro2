@@ -28,6 +28,7 @@ public class MainActivity : MauiAppCompatActivity
 
         RegisterReceiver(receiver, new IntentFilter("com.companyname.ForegroundService.EXIT"));
         RegisterReceiver(receiver, new IntentFilter("com.companyname.AccessibilityService.CHANGED"));
+        RegisterReceiver(receiver, new IntentFilter("com.companyname.MediaProjectionService.STARTED"));
 
         base.OnCreate(savedInstanceState);
     }

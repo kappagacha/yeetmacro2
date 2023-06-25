@@ -335,120 +335,132 @@ public partial class MacroManagerViewModel : ObservableObject
     {
         IsBusy = true;
 
-        MacroSet targetMacroSet;
-        string macroSetJson = null, pattternJson = null, settingJson = null;
-        Dictionary<string, string> nameToScript = new Dictionary<string, string>();
-        if (macroSet.Source.StartsWith("localAsset:"))
+        try
         {
-            var macroSetName = macroSet.Source.Substring(11);
-            var localMacroSets = ServiceHelper.ListAssets("MacroSets").ToList();
-            if (!localMacroSets.Contains(macroSetName))
-            {
-                _toastService.Show($"Did not find local MacroSet: {macroSet.Source}");
-                return;
-            }
 
-            macroSetJson = ServiceHelper.GetAssetContent(Path.Combine("MacroSets", macroSetName, "macroSet.json"));
-            targetMacroSet = JsonSerializer.Deserialize<MacroSet>(macroSetJson, _jsonSerializerOptions);
-            if (!macroSet.PatternsLastUpdated.HasValue || macroSet.PatternsLastUpdated < targetMacroSet.PatternsLastUpdated)
-            {
-                pattternJson = ServiceHelper.GetAssetContent(Path.Combine("MacroSets", macroSetName, "patterns.json"));
-            }
 
-            if (!macroSet.ScriptsLastUpdated.HasValue || macroSet.ScriptsLastUpdated < targetMacroSet.ScriptsLastUpdated)
+            MacroSet targetMacroSet;
+            string macroSetJson = null, pattternJson = null, settingJson = null;
+            Dictionary<string, string> nameToScript = new Dictionary<string, string>();
+            if (macroSet.Source.StartsWith("localAsset:"))
             {
-                var scriptList = ServiceHelper.ListAssets(Path.Combine("MacroSets", macroSetName, "scripts"));
-                foreach (var scriptFile in scriptList)
+                var macroSetName = macroSet.Source.Substring(11);
+                var localMacroSets = ServiceHelper.ListAssets("MacroSets").ToList();
+                if (!localMacroSets.Contains(macroSetName))
                 {
-                    var scriptText = ServiceHelper.GetAssetContent(Path.Combine("MacroSets", macroSetName, "scripts", scriptFile));
-                    nameToScript.Add(Path.GetFileNameWithoutExtension(scriptFile), scriptText);
+                    _toastService.Show($"Did not find local MacroSet: {macroSet.Source}");
+                    return;
+                }
+
+                macroSetJson = ServiceHelper.GetAssetContent(Path.Combine("MacroSets", macroSetName, "macroSet.json"));
+                targetMacroSet = JsonSerializer.Deserialize<MacroSet>(macroSetJson, _jsonSerializerOptions);
+                if (!macroSet.PatternsLastUpdated.HasValue || macroSet.PatternsLastUpdated < targetMacroSet.PatternsLastUpdated)
+                {
+                    pattternJson = ServiceHelper.GetAssetContent(Path.Combine("MacroSets", macroSetName, "patterns.json"));
+                }
+
+                if (!macroSet.ScriptsLastUpdated.HasValue || macroSet.ScriptsLastUpdated < targetMacroSet.ScriptsLastUpdated)
+                {
+                    var scriptList = ServiceHelper.ListAssets(Path.Combine("MacroSets", macroSetName, "scripts"));
+                    foreach (var scriptFile in scriptList)
+                    {
+                        var scriptText = ServiceHelper.GetAssetContent(Path.Combine("MacroSets", macroSetName, "scripts", scriptFile));
+                        nameToScript.Add(Path.GetFileNameWithoutExtension(scriptFile), scriptText);
+                    }
+                }
+
+                if (!macroSet.SettingsLastUpdated.HasValue || macroSet.SettingsLastUpdated < targetMacroSet.SettingsLastUpdated)
+                {
+                    settingJson = ServiceHelper.GetAssetContent(Path.Combine("MacroSets", macroSetName, "settings.json"));
+                }
+            }
+            else // online from public github
+            {
+                var rawUrl = macroSet.Source.Replace("github.com", "raw.githubusercontent.com").Replace("/tree-commit-info", "");
+                macroSetJson = await _httpService.GetAsync(Path.Combine(rawUrl, "macroSet.json"), new Dictionary<string, string>() { { "Accept", "application/json" } });
+                targetMacroSet = JsonSerializer.Deserialize<MacroSet>(macroSetJson, _jsonSerializerOptions);
+                if (!macroSet.PatternsLastUpdated.HasValue || macroSet.PatternsLastUpdated < targetMacroSet.PatternsLastUpdated)
+                {
+                    pattternJson = await _httpService.GetAsync(Path.Combine(rawUrl, "patterns.json"), new Dictionary<string, string>() { { "Accept", "application/json" } });
+                }
+
+                if (!macroSet.ScriptsLastUpdated.HasValue || macroSet.ScriptsLastUpdated < targetMacroSet.ScriptsLastUpdated)
+                {
+                    var strScripts = await _httpService.GetAsync(Path.Combine(macroSet.Source, "scripts"), new Dictionary<string, string>() { { "Accept", "application/json" } });
+                    var jsonScripts = JsonSerializer.Deserialize<JsonObject>(strScripts);
+                    foreach (var script in jsonScripts)
+                    {
+                        var scriptText = await _httpService.GetAsync(Path.Combine(rawUrl, "scripts", script.Key), new Dictionary<string, string>() { { "Accept", "application/json" } });
+                        nameToScript.Add(Path.GetFileNameWithoutExtension(script.Key), scriptText);
+                    }
+                }
+
+                if (!macroSet.SettingsLastUpdated.HasValue || macroSet.SettingsLastUpdated < targetMacroSet.SettingsLastUpdated)
+                {
+                    settingJson = await _httpService.GetAsync(Path.Combine(rawUrl, "settings.json"), new Dictionary<string, string>() { { "Accept", "application/json" } });
                 }
             }
 
-            if (!macroSet.SettingsLastUpdated.HasValue || macroSet.SettingsLastUpdated < targetMacroSet.SettingsLastUpdated)
+            await Patterns.WaitForInitialization();
+            await Scripts.WaitForInitialization();
+            await Settings.WaitForInitialization();
+
+            if (pattternJson is not null)
             {
-                settingJson = ServiceHelper.GetAssetContent(Path.Combine("MacroSets", macroSetName, "settings.json"));
-            }
-        }
-        else // online from public github
-        {
-            var rawUrl = macroSet.Source.Replace("github.com", "raw.githubusercontent.com").Replace("/tree-commit-info", "");
-            macroSetJson = await _httpService.GetAsync(Path.Combine(rawUrl, "macroSet.json"), new Dictionary<string, string>() { { "Accept", "application/json" } });
-            targetMacroSet = JsonSerializer.Deserialize<MacroSet>(macroSetJson, _jsonSerializerOptions);
-            if (!macroSet.PatternsLastUpdated.HasValue || macroSet.PatternsLastUpdated < targetMacroSet.PatternsLastUpdated)
-            {
-                pattternJson = await _httpService.GetAsync(Path.Combine(rawUrl, "patterns.json"), new Dictionary<string, string>() { { "Accept", "application/json" } });
+                var patterns = PatternNodeViewModel.FromJson(pattternJson);
+                Patterns.Import(patterns);
             }
 
-            if (!macroSet.ScriptsLastUpdated.HasValue || macroSet.ScriptsLastUpdated < targetMacroSet.ScriptsLastUpdated)
+            if (nameToScript.Count > 0)
             {
-                var strScripts = await _httpService.GetAsync(Path.Combine(macroSet.Source, "scripts"), new Dictionary<string, string>() { { "Accept", "application/json" } });
-                var jsonScripts = JsonSerializer.Deserialize<JsonObject>(strScripts);
-                foreach (var script in jsonScripts)
+                var scripts = new ScriptNodeViewModel(-1, null, null, null) { Root = new ScriptNode() { Nodes = new List<ScriptNode>() } };
+                foreach (var scriptKvp in nameToScript)
                 {
-                    var scriptText = await _httpService.GetAsync(Path.Combine(rawUrl, "scripts", script.Key), new Dictionary<string, string>() { { "Accept", "application/json" } });
-                    nameToScript.Add(Path.GetFileNameWithoutExtension(script.Key), scriptText);
+                    var script = new ScriptNode()
+                    {
+                        Name = scriptKvp.Key,
+                        Text = scriptKvp.Value,
+                        RootId = Scripts.Root.NodeId,
+                        ParentId = Scripts.Root.NodeId
+                    };
+
+                    scripts.Root.Nodes.Add(script);
                 }
+                Scripts.Import(scripts);
             }
 
-            if (!macroSet.SettingsLastUpdated.HasValue || macroSet.SettingsLastUpdated < targetMacroSet.SettingsLastUpdated)
+            if (settingJson is not null)
             {
-                settingJson = await _httpService.GetAsync(Path.Combine(rawUrl, "settings.json"), new Dictionary<string, string>() { { "Accept", "application/json" } });
+                var settings = SettingNodeViewModel.FromJson(settingJson);
+                MergeSettings(Settings.Root, settings.Root);
+                Settings.Import(settings);
             }
-        }
 
-        await Patterns.WaitForInitialization();
-        await Scripts.WaitForInitialization();
-        await Settings.WaitForInitialization();
-
-        if (pattternJson is not null)
-        {
-            var patterns = PatternNodeViewModel.FromJson(pattternJson);
-            Patterns.Import(patterns);
-        }
-
-        if (nameToScript.Count > 0)
-        {
-            var scripts = new ScriptNodeViewModel(-1, null, null, null) { Root = new ScriptNode() { Nodes = new List<ScriptNode>() } };
-            foreach (var scriptKvp in nameToScript)
+            _mapper.Map(targetMacroSet, macroSet, opt =>
             {
-                var script = new ScriptNode()
+                opt.BeforeMap((src, dst) =>     // prevent db id from getting wiped out
                 {
-                    Name = scriptKvp.Key,
-                    Text = scriptKvp.Value,
-                    RootId = Scripts.Root.NodeId,
-                    ParentId = Scripts.Root.NodeId
-                };
-
-                scripts.Root.Nodes.Add(script);
-            }
-            Scripts.Import(scripts);
-        }
-
-        if (settingJson is not null)
-        {
-            var settings = SettingNodeViewModel.FromJson(settingJson);
-            MergeSettings(Settings.Root, settings.Root);
-            Settings.Import(settings);
-        }
-
-        _mapper.Map(targetMacroSet, macroSet, opt =>
-        {
-            opt.BeforeMap((src, dst) =>     // prevent db id from getting wiped out
-            {
-                src.MacroSetId = dst.MacroSetId;
-                src.RootScriptNodeId = dst.RootScriptNodeId;
-                src.RootPatternNodeId = dst.RootPatternNodeId;
-                src.RootSettingNodeId = dst.RootSettingNodeId;
-                src.Source = dst.Source;
+                    src.MacroSetId = dst.MacroSetId;
+                    src.RootScriptNodeId = dst.RootScriptNodeId;
+                    src.RootPatternNodeId = dst.RootPatternNodeId;
+                    src.RootSettingNodeId = dst.RootSettingNodeId;
+                    src.Source = dst.Source;
+                });
             });
-        });
 
-        _macroSetRepository.Update(macroSet);
-        _macroSetRepository.Save();
-        OnSelectedMacroSetChanged(macroSet);
-        _toastService.Show($"Updated MacroSet: {macroSet.Name}");
-        IsBusy = false;
+            _macroSetRepository.Update(macroSet);
+            _macroSetRepository.Save();
+            OnSelectedMacroSetChanged(macroSet);
+            _toastService.Show($"Updated MacroSet: {macroSet.Name}");
+        }
+        catch (Exception ex)
+        {
+            _toastService.Show($"Error Updating MacroSet: {ex.Message}");
+        }
+        finally
+        {
+            IsBusy = false;
+        }
     }
 
     [RelayCommand]
