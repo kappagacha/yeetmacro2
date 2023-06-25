@@ -93,7 +93,7 @@ public partial class MacroManagerViewModel : ObservableObject
 
     public ICommand OnScriptExecuted { get; set; }
     public ICommand OnScriptFinished { get; set; }
-
+    public string AppVersion { get { return AppInfo.Current.VersionString; } }
     public MacroManagerViewModel(IRepository<MacroSet> macroSetRepository,
         IToastService toastService,
         NodeViewModelFactory nodeViewModelFactory,

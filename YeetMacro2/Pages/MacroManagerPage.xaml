@@ -19,25 +19,36 @@
     <Grid>
         <mct:DockLayout HorizontalSpacing="5" VerticalSpacing="5">
             <Border Stroke="{StaticResource Primary}" Padding="0" BackgroundColor="Transparent">
-                <HorizontalStackLayout Spacing="5" mct:DockLayout.DockPosition="Top">
-                    <Label Text="Macro Set: " Margin="5,0,0,0" FontSize="Body" VerticalOptions="Center" FontAttributes="Bold" />
-                    <Picker ItemsSource="{Binding MacroSets}" ItemDisplayBinding="{Binding Name}" SelectedItem="{Binding SelectedMacroSet}" />
-                    <v:ImageView FontFamily="FASolid" Glyph="{x:Static fa:Solid.FileCirclePlus}" Color="{StaticResource Primary}" 
+                <Grid mct:DockLayout.DockPosition="Top">
+                    <HorizontalStackLayout Spacing="10">
+                        <Label Text="Macro Set: " Margin="5,0,0,0" FontSize="Body" VerticalOptions="Center" FontAttributes="Bold" />
+                        <Picker ItemsSource="{Binding MacroSets}" ItemDisplayBinding="{Binding Name}" SelectedItem="{Binding SelectedMacroSet}" />
+                        <v:ImageView FontFamily="FASolid" Glyph="{x:Static fa:Solid.Rotate}" Color="{StaticResource Primary}" 
+                                 Command="{Binding UpdateMacroSetCommand}" CommandParameter="{Binding SelectedMacroSet}" 
+                                 IsVisible="{Binding SelectedMacroSet, Converter={conv:NullToBoolConverter IsInverse=True}}" />
+                        <v:ImageView FontFamily="FASolid" Glyph="{x:Static fa:Solid.FileCirclePlus}" Color="{StaticResource Primary}" 
                              Command="{Binding AddLocalMacroSetCommand}" />
-                    <Grid>
-                        <v:ImageView FontFamily="FASolid" Glyph="{x:Static fa:Solid.Globe}" Color="{StaticResource Primary}" 
+                        <Grid>
+                            <v:ImageView FontFamily="FASolid" Glyph="{x:Static fa:Solid.Globe}" Color="{StaticResource Primary}" 
                              Command="{Binding AddOnlineMacroSetCommand}" />
-                        <v:ImageView Scale=".5" TranslationX="7" TranslationY="9" FontFamily="FASolid" Glyph="{x:Static fa:Solid.CirclePlus}" Color="{AppThemeBinding Light={StaticResource Background}, Dark={StaticResource BackgroundDark}}" 
+                            <v:ImageView Scale=".5" TranslationX="7" TranslationY="9" FontFamily="FASolid" Glyph="{x:Static fa:Solid.CirclePlus}" Color="{AppThemeBinding Light={StaticResource Background}, Dark={StaticResource BackgroundDark}}" 
                              Command="{Binding AddOnlineMacroSetCommand}" />
-                    </Grid>
-                    <v:ImageView FontFamily="FASolid" Glyph="{x:Static fa:Solid.TrashCan}" Color="Red" 
-                             Command="{Binding DeleteMacroSetCommand}" CommandParameter="{Binding SelectedMacroSet}" />
-                    <v:ImageView FontFamily="FASolid" Glyph="{x:Static fa:Solid.FileExport}" Color="{StaticResource Primary}" 
+                        </Grid>
+                        <Grid IsVisible="{Binding SelectedMacroSet, Converter={conv:NullToBoolConverter IsInverse=True}}">
+                            <v:ImageView FontFamily="FASolid" Glyph="{x:Static fa:Solid.FileExport}" Color="{StaticResource Primary}" 
                              Command="{Binding ExportMacroSetCommand}" CommandParameter="{Binding SelectedMacroSet}" 
                              IsVisible="{Binding IsExportEnabled}"/>
-                    <v:ImageView FontFamily="FASolid" Glyph="{x:Static fa:Solid.FolderOpen}" Color="{StaticResource Primary}" 
+                        </Grid>
+                    </HorizontalStackLayout>
+                    <HorizontalStackLayout Spacing="10" HorizontalOptions="End">
+                        <v:ImageView FontFamily="FASolid" Glyph="{x:Static fa:Solid.TrashCan}" Color="Red" 
+                             Command="{Binding DeleteMacroSetCommand}" CommandParameter="{Binding SelectedMacroSet}" 
+                             IsVisible="{Binding SelectedMacroSet, Converter={conv:NullToBoolConverter IsInverse=True}}" />
+                        <v:ImageView FontFamily="FASolid" Glyph="{x:Static fa:Solid.FolderOpen}" Color="{StaticResource Primary}" 
                              Command="{Binding OpenAppDirectoryCommand}" IsVisible="{Binding IsOpenAppDirectoryEnabled}" />
-                </HorizontalStackLayout>
+                    </HorizontalStackLayout>
+                </Grid>
+                
             </Border>
             <material:TabView>
                 <material:TabItem Title="Macro">
@@ -63,8 +74,6 @@
                                 <HorizontalStackLayout Margin="0" Padding="0">
                                     <Label Margin="0" VerticalOptions="Center" Padding="0" Text="Source:" />
                                     <Entry Margin="5,0,0,0" VerticalOptions="Center" Text="{Binding SelectedMacroSet.Source}" />
-                                    <v:ImageView FontFamily="FASolid" Glyph="{x:Static fa:Solid.Rotate}" Color="{StaticResource Primary}" 
-                                        Command="{Binding UpdateMacroSetCommand}" CommandParameter="{Binding SelectedMacroSet}" />
                                 </HorizontalStackLayout>
                                 <HorizontalStackLayout Margin="0" Padding="0">
                                     <Label Margin="0" VerticalOptions="Center" Padding="0" Text="MacroSet LastUpdated:" />
@@ -139,6 +148,7 @@
             </material:TabView>
         </mct:DockLayout>
         <ActivityIndicator IsRunning="{Binding IsBusy}" />
+        <Label Text="{Binding AppVersion, StringFormat='AppVersion: {0}'}" VerticalOptions="End" HorizontalOptions="Start" />
     </Grid>
     
 </ContentPage>
