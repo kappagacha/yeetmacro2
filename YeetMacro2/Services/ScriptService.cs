@@ -45,7 +45,7 @@ public class ScriptService : IScriptService
             {
                 foreach (var script in scripts)
                 {
-                    if (script.Text.StartsWith("async function") || script.Text.StartsWith("function"))
+                    if (script.Text.StartsWith("// @raw-script"))
                     {
                         await _jsContext.ExecuteAsync(script.Text);
                     } 
