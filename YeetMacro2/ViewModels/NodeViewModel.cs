@@ -191,21 +191,41 @@ public partial class NodeViewModel<TParent, TChild> : NodeViewModel
     [RelayCommand]
     public void SelectNode(TChild target)
     {
-        target.IsSelected = !target.IsSelected;
-
-        if (SelectedNode != null && SelectedNode != target)
+        if (target == SelectedNode)
         {
-            SelectedNode.IsSelected = false;
+            target.IsSelected = !target.IsSelected;
         }
-
-        if (target.IsSelected && SelectedNode != target)
+        else
         {
+            if (SelectedNode is not null)
+            {
+                SelectedNode.IsSelected = false;
+            }
+
+            target.IsSelected = true;
             SelectedNode = target;
         }
-        else if (!target.IsSelected)
+
+        if (SelectedNode is not null && SelectedNode.IsSelected == false)
         {
             SelectedNode = null;
         }
+
+        //target.IsSelected = !target.IsSelected;
+
+        //if (SelectedNode != null && SelectedNode != target)
+        //{
+        //    SelectedNode.IsSelected = false;
+        //}
+
+        //if (target.IsSelected && SelectedNode != target)
+        //{
+        //    SelectedNode = target;
+        //}
+        //else if (!target.IsSelected)
+        //{
+        //    SelectedNode = null;
+        //}
     }
 
     public string ToJson()
