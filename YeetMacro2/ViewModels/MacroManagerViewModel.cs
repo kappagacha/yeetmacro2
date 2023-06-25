@@ -440,6 +440,7 @@ public partial class MacroManagerViewModel : ObservableObject
                 src.RootScriptNodeId = dst.RootScriptNodeId;
                 src.RootPatternNodeId = dst.RootPatternNodeId;
                 src.RootSettingNodeId = dst.RootSettingNodeId;
+                src.Source = dst.Source;
             });
         });
 

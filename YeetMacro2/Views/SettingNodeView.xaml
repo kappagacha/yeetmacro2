@@ -80,7 +80,7 @@
                         <Grid ColumnDefinitions="Auto,*,Auto">
                             <Grid.Triggers>
                                 <DataTrigger TargetType="{x:Type Grid}" Binding="{Binding IsSelected}" Value="True">
-                                    <Setter Property="BackgroundColor" Value="Blue" />
+                                    <Setter Property="Background" Value="Blue" />
                                 </DataTrigger>
                             </Grid.Triggers>
                             <Grid.GestureRecognizers>
