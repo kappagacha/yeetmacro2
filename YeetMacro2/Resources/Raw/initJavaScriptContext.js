@@ -6,7 +6,7 @@ macroService.clickPattern = async function (pattern, opts = {}) {
     const result = await this.findPattern(pattern, opts);
     if (result.isSuccess) {
         for (const point of result.points) {
-            screenService.doClick({ x: point.x + clickOffsetX, y: point.y + clickOffsetY });
+            doClick({ x: point.x + clickOffsetX, y: point.y + clickOffsetY });
         }
         await sleep(500);
     }
@@ -43,7 +43,7 @@ macroService.pollPattern = async function (pattern, opts = {}) {
             result = await this.findPattern(pattern, opts);
             if (opts.doClick && result.isSuccess) {
                 const point = result.point;
-                screenService.doClick({ x: point.x + clickOffsetX, y: point.y + clickOffsetY });
+                doClick({ x: point.x + clickOffsetX, y: point.y + clickOffsetY });
                 await sleep(500);
             }
             if (clickPattern) await this.clickPattern(clickPattern, opts);
@@ -62,7 +62,7 @@ macroService.pollPattern = async function (pattern, opts = {}) {
             result = await this.findPattern(pattern, opts);
             if (opts.doClick && result.isSuccess) {
                 const point = result.point;
-                screenService.doClick({ x: point.x + clickOffsetX, y: point.y + clickOffsetY });
+                doClick({ x: point.x + clickOffsetX, y: point.y + clickOffsetY });
                 await sleep(500);
             }
             if (clickPattern) await this.clickPattern(clickPattern, opts);
@@ -73,7 +73,7 @@ macroService.pollPattern = async function (pattern, opts = {}) {
             result = await this.findPattern(pattern, opts);
             if (opts.doClick && result.isSuccess) {
                 const point = result.point;
-                screenService.doClick({ x: point.x + clickOffsetX, y: point.y + clickOffsetY });
+                doClick({ x: point.x + clickOffsetX, y: point.y + clickOffsetY });
                 await sleep(500);
             }
             if (result.isSuccess) break;
@@ -83,6 +83,17 @@ macroService.pollPattern = async function (pattern, opts = {}) {
     }
 
     return result;
+}
+
+function doClick(point) {
+    const variance = 3;
+    const xSign = Math.random() < 0.5 ? -1 : 1;
+    const ySign = Math.random() < 0.5 ? -1 : 1;
+    const xVariance = Math.floor(Math.random() * variance) * xSign;
+    const yVariance = Math.floor(Math.random() * variance) * ySign;
+    point.x += xVariance;
+    point.y += yVariance;
+    screenService.doClick(point);
 }
 
 function resolvePath(node, path = '') {

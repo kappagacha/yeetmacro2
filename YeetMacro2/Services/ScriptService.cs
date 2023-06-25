@@ -31,13 +31,7 @@ public class ScriptService : IScriptService
         _jsonValueToPatternNode = new Dictionary<object, PatternNode>();
         var synchronizationContext = new SynchronizationContext();
         _jsContext = new JSContext(synchronizationContext);
-        _jsContext.Error += _jsContext_Error;
         Task.Run(InitJSContext);
-    }
-
-    private void _jsContext_Error(JSContext context, Exception error)
-    {
-        Console.WriteLine($"[*****YeetMacro*****] JSContext Error: {error.Message}");
     }
 
     public void RunScript(string scriptToRun, IEnumerable<ScriptNode> scripts, string jsonPatterns, string jsonSettings, Action<string> onScriptFinished)
