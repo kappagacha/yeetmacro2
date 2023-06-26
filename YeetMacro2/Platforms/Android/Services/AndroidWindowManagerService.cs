@@ -44,7 +44,7 @@ public class AndroidWindowManagerService : IInputService, IScreenService
     double _displayWidth, _displayHeight;
     public int OverlayWidth => _windowView == null ? 0 : _windowView.MeasuredWidthAndState;
     public int OverlayHeight => _windowView == null ? 0 : _windowView.MeasuredHeightAndState;
-    public int DisplayCutoutTop => _windowView == null ? 0 : _windowView.RootWindowInsets.DisplayCutout?.SafeInsetTop ?? 0;
+    //public int DisplayCutoutTop => _windowView == null ? 0 : _windowView.RootWindowInsets.DisplayCutout?.SafeInsetTop ?? 0;
     TesseractApi _tesseractApi;
     public AndroidWindowManagerService(MediaProjectionService mediaProjectionService, YeetAccessibilityService accessibilityService)
     {
@@ -358,7 +358,7 @@ public class AndroidWindowManagerService : IInputService, IScreenService
     public (int x, int y) GetTopLeft()
     {
         var loc = new int[2];
-        _windowView.GetLocationOnScreen(loc);
+        _windowView?.GetLocationOnScreen(loc);
         var topLeft = (x: loc[0], y: loc[1]);
 
         return topLeft;

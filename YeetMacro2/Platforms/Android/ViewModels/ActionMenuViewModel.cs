@@ -24,8 +24,8 @@ public partial class ActionMenuViewModel : ObservableObject
     }
 
     public string CurrentPackage => _accessibilityService.CurrentPackage;
-    public string DisplayCutoutTop => _windowManagerService.DisplayCutoutTop.ToString();
-    public bool HasCutoutTop => _windowManagerService.DisplayCutoutTop > 0;
+    //public string DisplayCutoutTop => _windowManagerService.DisplayCutoutTop.ToString();
+    //public bool HasCutoutTop => _windowManagerService.DisplayCutoutTop > 0;
     public bool HasValidResolution => DeviceDisplay.MainDisplayInfo.Width == _macroManagerViewModel.SelectedMacroSet.Resolution.Width &&
         DeviceDisplay.MainDisplayInfo.Height == _macroManagerViewModel.SelectedMacroSet.Resolution.Height;
 

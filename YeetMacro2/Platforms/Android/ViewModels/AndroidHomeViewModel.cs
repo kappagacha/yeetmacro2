@@ -42,8 +42,8 @@ public partial class AndriodHomeViewModel : ObservableObject
             return $"x{topLeft.x}y{topLeft.y} w{_windowManagerService.OverlayWidth}h{_windowManagerService.OverlayHeight}";
         }
     }
-    public string DisplayCutoutTop => _windowManagerService.DisplayCutoutTop.ToString();
-    public bool HasCutoutTop => _windowManagerService.DisplayCutoutTop > 0;
+    //public string DisplayCutoutTop => _windowManagerService.DisplayCutoutTop.ToString();
+    //public bool HasCutoutTop => _windowManagerService.DisplayCutoutTop > 0;
     public AndriodHomeViewModel(AndroidWindowManagerService windowManagerService, YeetAccessibilityService accessibilityService, 
         MacroManagerViewModel macroManagerViewModel)
     {
