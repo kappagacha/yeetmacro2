@@ -159,23 +159,18 @@ public partial class MacroManagerViewModel : ObservableObject
         var macroSetsUrl = "https://github.com/kappagacha/yeetmacro2/tree-commit-info/main/YeetMacro2/Resources/Raw/MacroSets";
         var strMacroSets = await _httpService.GetAsync(macroSetsUrl, new Dictionary<string, string>() { { "Accept", "application/json" } });
         var jsonMacroSets = JsonSerializer.Deserialize<JsonObject>(strMacroSets);
-        var sources = jsonMacroSets.Select(ms => $"https://github.com/kappagacha/yeetmacro2/tree-commit-info/main/YeetMacro2/Resources/Raw/MacroSets/{ms.Key}").ToArray();
+        var sources = jsonMacroSets.Select(ms => $"online:{ms.Key}").ToArray();
         await AddMacroSet(sources);
     }
 
     public async Task AddMacroSet(string[] sources)
     {
-        
         var source = await Application.Current.MainPage.DisplayActionSheet("Source", "cancel", "ok", sources);
         if (string.IsNullOrEmpty(source) || source == "cancel") return;
         IsBusy = true;
         string macroSetName = source;
         if (source.StartsWith("localAsset:")) macroSetName = source.Substring(11);
-        else // online public github
-        {
-            Uri uri = new Uri(source);
-            macroSetName = uri.Segments[uri.Segments.Length - 1];
-        }
+        else if (source.StartsWith("online:")) macroSetName = source.Substring(7);
 
         var macroSet = ProxyViewModel.Create(new MacroSet() { Name = macroSetName, Source = source });
 
@@ -337,8 +332,6 @@ public partial class MacroManagerViewModel : ObservableObject
 
         try
         {
-
-
             MacroSet targetMacroSet;
             string macroSetJson = null, pattternJson = null, settingJson = null;
             Dictionary<string, string> nameToScript = new Dictionary<string, string>();
@@ -376,7 +369,9 @@ public partial class MacroManagerViewModel : ObservableObject
             }
             else // online from public github
             {
-                var rawUrl = macroSet.Source.Replace("github.com", "raw.githubusercontent.com").Replace("/tree-commit-info", "");
+                var macroSetName = macroSet.Source.Substring(7);
+                var commitInfoUrl = $"https://github.com/kappagacha/yeetmacro2/tree-commit-info/main/YeetMacro2/Resources/Raw/MacroSets/{macroSetName}";
+                var rawUrl = $"https://raw.githubusercontent.com/kappagacha/yeetmacro2/main/YeetMacro2/Resources/Raw/MacroSets/{macroSetName}";
                 macroSetJson = await _httpService.GetAsync(Path.Combine(rawUrl, "macroSet.json"), new Dictionary<string, string>() { { "Accept", "application/json" } });
                 targetMacroSet = JsonSerializer.Deserialize<MacroSet>(macroSetJson, _jsonSerializerOptions);
                 if (!macroSet.PatternsLastUpdated.HasValue || macroSet.PatternsLastUpdated < targetMacroSet.PatternsLastUpdated)
@@ -386,7 +381,7 @@ public partial class MacroManagerViewModel : ObservableObject
 
                 if (!macroSet.ScriptsLastUpdated.HasValue || macroSet.ScriptsLastUpdated < targetMacroSet.ScriptsLastUpdated)
                 {
-                    var strScripts = await _httpService.GetAsync(Path.Combine(macroSet.Source, "scripts"), new Dictionary<string, string>() { { "Accept", "application/json" } });
+                    var strScripts = await _httpService.GetAsync(Path.Combine(commitInfoUrl, "scripts"), new Dictionary<string, string>() { { "Accept", "application/json" } });
                     var jsonScripts = JsonSerializer.Deserialize<JsonObject>(strScripts);
                     foreach (var script in jsonScripts)
                     {
