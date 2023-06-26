@@ -3,6 +3,7 @@ using Android.Content;
 using Android.Media.Projection;
 using Android.OS;
 using Android.Runtime;
+using AndroidX.Core.App;
 using YeetMacro2.Services;
 
 namespace YeetMacro2.Platforms.Android.Services;
@@ -75,54 +76,51 @@ public class ForegroundService : Service
     //https://stackoverflow.com/questions/61079610/how-to-create-a-xamarin-foreground-service
     public Notification GenerateNotification()
     {
-        if (global::Android.OS.Build.VERSION.SdkInt < BuildVersionCodes.O)
-        {
-            return null;
-        }
-
-        // Building channel if API verion is 26 or above
         var intent = new Intent(_context, typeof(MainActivity));
         intent.AddFlags(ActivityFlags.SingleTop);
         intent.PutExtra("Title", "Message");
 
         var pendingIntent = PendingIntent.GetActivity(_context, 0, intent, PendingIntentFlags.UpdateCurrent | PendingIntentFlags.Immutable);
 
-        var notifBuilder = new Notification.Builder(_context, FOREGROUND_CHANNEL_ID)
+        var notifBuilder = new NotificationCompat.Builder(_context, FOREGROUND_CHANNEL_ID)
             .SetContentTitle("YeetMacro")
-            .SetPriority((int)Notification.PriorityHigh)
+            .SetPriority((int)NotificationCompat.PriorityHigh)
             //.SetContentText("Main Text Body")
             .SetSmallIcon(Resource.Drawable.appicon)
             .AddAction(BuildExitAction())
             .SetOngoing(true)
             .SetContentIntent(pendingIntent);
 
-        NotificationChannel notificationChannel = new NotificationChannel(FOREGROUND_CHANNEL_ID, "Title", NotificationImportance.High);
-        notificationChannel.Importance = NotificationImportance.Low;
-        notificationChannel.EnableLights(true);
-        notificationChannel.EnableVibration(true);
-        notificationChannel.SetShowBadge(true);
-        notificationChannel.SetVibrationPattern(new long[] { 100, 200, 300, 400, 500, 400, 300, 200, 400 });
-
-        var notifManager = _context.GetSystemService(Context.NotificationService) as NotificationManager;
-        if (notifManager != null)
+        // Building channel if API verion is 26 or above
+        if (global::Android.OS.Build.VERSION.SdkInt >= BuildVersionCodes.O)
         {
-            notifBuilder.SetChannelId(FOREGROUND_CHANNEL_ID);
-            notifManager.CreateNotificationChannel(notificationChannel);
+            NotificationChannel notificationChannel = new NotificationChannel(FOREGROUND_CHANNEL_ID, "Title", NotificationImportance.High);
+            notificationChannel.Importance = NotificationImportance.Low;
+            notificationChannel.EnableLights(true);
+            notificationChannel.EnableVibration(true);
+            notificationChannel.SetShowBadge(true);
+            notificationChannel.SetVibrationPattern(new long[] { 100, 200, 300, 400, 500, 400, 300, 200, 400 });
+
+            var notifManager = _context.GetSystemService(Context.NotificationService) as NotificationManager;
+            if (notifManager != null)
+            {
+                notifBuilder.SetChannelId(FOREGROUND_CHANNEL_ID);
+                notifManager.CreateNotificationChannel(notificationChannel);
+            }
         }
-        
         return notifBuilder.Build();
     }
 
     //https://stackoverflow.com/questions/46862583/android-notification-button-addaction-to-make-a-toast-message-when-pressed
     //https://docs.microsoft.com/en-us/xamarin/android/app-fundamentals/services/foreground-services
     //https://docs.microsoft.com/en-us/samples/xamarin/monodroid-samples/applicationfundamentals-servicesamples-foregroundservicedemo/
-    public Notification.Action BuildExitAction()
+    public NotificationCompat.Action BuildExitAction()
     {
         var exitIntent = new Intent(this, typeof(ForegroundService));
         exitIntent.SetAction(EXIT_ACTION);
         var exitPendingIntent = PendingIntent.GetService(this, 0, exitIntent, PendingIntentFlags.Immutable);
 
-        var builder = new Notification.Action.Builder(Resource.Drawable.appicon,
+        var builder = new NotificationCompat.Action.Builder(Resource.Drawable.appicon,
                                           "Exit",
                                           exitPendingIntent);
 
