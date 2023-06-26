@@ -7,6 +7,7 @@ using Android.Graphics.Drawables.Shapes;
 using Color = Android.Graphics.Color;
 using Microsoft.Maui.Platform;
 using YeetMacro2.Platforms.Android.Services;
+using Android.OS;
 
 namespace YeetMacro2.Platforms.Android.Views;
 
@@ -37,7 +38,8 @@ public class ResizeView : RelativeLayout, IOnTouchListener, IShowable
         _windowManager = windowManager;
         _windowManagerService = windowManagerService;
         _layoutParams = new WindowManagerLayoutParams();
-        _layoutParams.Type = WindowManagerTypes.ApplicationOverlay;
+        //_layoutParams.Type = WindowManagerTypes.ApplicationOverlay;
+        _layoutParams.Type = global::Android.OS.Build.VERSION.SdkInt >= BuildVersionCodes.O ? WindowManagerTypes.ApplicationOverlay : WindowManagerTypes.Phone;
         _layoutParams.Format = Format.Translucent;
         _layoutParams.Flags |= WindowManagerFlags.NotFocusable;
         _layoutParams.Flags |= WindowManagerFlags.TranslucentNavigation;

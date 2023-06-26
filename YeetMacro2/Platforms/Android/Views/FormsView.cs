@@ -4,6 +4,7 @@ using Android.Widget;
 using Android.Graphics;
 using Color = Android.Graphics.Color;
 using Microsoft.Maui.Platform;
+using Android.OS;
 
 namespace YeetMacro2.Platforms.Android.Views;
 public class FormsView : RelativeLayout, IShowable
@@ -24,7 +25,8 @@ public class FormsView : RelativeLayout, IShowable
     {
         _windowManager = windowManager;
         _layoutParams = new WindowManagerLayoutParams();
-        _layoutParams.Type = WindowManagerTypes.ApplicationOverlay;
+        //_layoutParams.Type = WindowManagerTypes.ApplicationOverlay;
+        _layoutParams.Type = global::Android.OS.Build.VERSION.SdkInt >= BuildVersionCodes.O ? WindowManagerTypes.ApplicationOverlay : WindowManagerTypes.Phone;
         _layoutParams.Format = Format.Translucent;
         _layoutParams.Flags |= WindowManagerFlags.TranslucentNavigation;
         _layoutParams.Flags |= WindowManagerFlags.LayoutNoLimits;

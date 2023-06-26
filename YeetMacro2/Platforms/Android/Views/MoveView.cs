@@ -1,9 +1,9 @@
 ﻿using Android.Content;
 using Android.Graphics;
+using Android.OS;
 using Android.Views;
 using Android.Widget;
 using Microsoft.Maui.Platform;
-using Color = Android.Graphics.Color;
 
 namespace YeetMacro2.Platforms.Android.Views;
 
@@ -31,10 +31,12 @@ public class MoveView : LinearLayout, IShowable
         _state = FormState.CLOSED;
         _context = (MainActivity)context;
         _layoutParams = new WindowManagerLayoutParams();
-        _layoutParams.Type = WindowManagerTypes.ApplicationOverlay;
+        //_layoutParams.Type = WindowManagerTypes.ApplicationOverlay;
+        _layoutParams.Type = global::Android.OS.Build.VERSION.SdkInt >= BuildVersionCodes.O ? WindowManagerTypes.ApplicationOverlay : WindowManagerTypes.Phone;
         _layoutParams.Format = Format.Translucent;
         _layoutParams.Flags |= WindowManagerFlags.NotFocusable;
         _layoutParams.Flags |= WindowManagerFlags.TranslucentNavigation;
+        _layoutParams.Flags |= WindowManagerFlags.LayoutNoLimits;
         _layoutParams.Width = WindowManagerLayoutParams.WrapContent;
         _layoutParams.Height = WindowManagerLayoutParams.WrapContent;
         _layoutParams.Gravity = GravityFlags.Top;

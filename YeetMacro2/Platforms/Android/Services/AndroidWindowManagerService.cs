@@ -86,7 +86,7 @@ public class AndroidWindowManagerService : IInputService, IScreenService
         }
 
         //Get overlay permissin if needed
-        if (!Settings.CanDrawOverlays(_context))
+        if (global::Android.OS.Build.VERSION.SdkInt >= global::Android.OS.BuildVersionCodes.M && !Settings.CanDrawOverlays(_context))
         {
             _context.StartActivityForResult(new Intent(Settings.ActionManageOverlayPermission, global::Android.Net.Uri.Parse("package:" + _context.PackageName)), OVERLAY_SERVICE_REQUEST);
             return;
@@ -106,7 +106,7 @@ public class AndroidWindowManagerService : IInputService, IScreenService
     public void Show(AndroidWindowView windowView)
     {
         //Get overlay permissin if needed
-        if (!Settings.CanDrawOverlays(_context))
+        if (global::Android.OS.Build.VERSION.SdkInt >= global::Android.OS.BuildVersionCodes.M && !Settings.CanDrawOverlays(_context))
         {
             _context.StartActivityForResult(new Intent(Settings.ActionManageOverlayPermission, global::Android.Net.Uri.Parse("package:" + _context.PackageName)), OVERLAY_SERVICE_REQUEST);
             return;

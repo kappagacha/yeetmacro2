@@ -13,7 +13,7 @@ public class EventBroadcastReceiver : BroadcastReceiver
     {
         try
         {
-            Console.WriteLine("[*****YeetMacro*****] EventBroadcastReceiver");
+            Console.WriteLine($"[*****YeetMacro*****] EventBroadcastReceiver: {intent.Action}");
             switch (intent.Action)
             {
                 case "com.companyname.ForegroundService.EXIT":
