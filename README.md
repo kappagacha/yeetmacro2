@@ -11,13 +11,14 @@ Current target games are:
 This project is heavily influenced by [Fate Grand Automata (FGA)](https://github.com/Fate-Grand-Automata/FGA) and would not have been possible without it.
 
 ## ❗ Warning
+Please do not use without knowing the risks. The app does randomize tap locations (see [initJavaScriptContext.js](https://github.com/kappagacha/yeetmacro2/blob/a3112d2af60784a2b3cdf58005dd1db0e2bb8223/YeetMacro2/Resources/Raw/initJavaScriptContext.js#L88)) but that does not guarantee that you will not get banned. If you have spent a lot of money on your account, it is recommended that you do not risk it.
 
 ## 📓 Setup
 ### 💻 Emulator
 * Set resolution to 1920x1080 (or 1080x1920 depending on the game)
 * Sideload apk file from [latest release](https://github.com/kappagacha/yeetmacro2/releases/tag/latest)
 
-### 📱 Physical Android Device (Recommended since games crash often on emulators)
+### 📱 Physical Android Device (recommended since games crash often on emulators)
 * Set resolution to 1920x1080 (or 1080x1920 depending on the game) using [Resolution Changer - Uses ADB](https://play.google.com/store/apps/details?id=com.draco.resolutionchanger&hl=en_US&gl=US&pli=1)
     * Requires a computer with adb installed and enabling developer mode on the phone
     * Follow the direction of the app
