@@ -23,7 +23,7 @@ while (state.isRunning && !done) {
 			break;
 		case 'titles.party':
 			logger.info('doBattleArenaEx: select party');
-			const scoreBonusPatterns = ['physicalDamage', 'lowRarity'].map(sb => patterns.battleArena.exScoreBonus[sb]);
+			const scoreBonusPatterns = ['physicalDamage', 'lowRarity', 'magicDamage'].map(sb => patterns.battleArena.exScoreBonus[sb]);
 			const scoreBonusResult = await macroService.pollPattern(scoreBonusPatterns);
 			const scoreBonus = scoreBonusResult.path?.split('.').pop();
 			logger.debug(`scoreBonus: ${scoreBonus}`);

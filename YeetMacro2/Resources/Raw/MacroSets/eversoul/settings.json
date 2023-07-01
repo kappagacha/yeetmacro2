@@ -11,7 +11,7 @@
       "props": {
         "$type": "string",
         "settingType": "String",
-        "value": "220000",
+        "value": "270000",
         "defaultValue": null,
         "isParentNode": false,
         "name": "cpThreshold"

@@ -186,6 +186,17 @@
           "isParentNode": false,
           "name": "lowRarity"
         }
+      },
+      "magicDamage": {
+        "$isParent": false,
+        "props": {
+          "$type": "string",
+          "settingType": "String",
+          "value": "Magic",
+          "defaultValue": null,
+          "isParentNode": false,
+          "name": "magicDamage"
+        }
       }
     },
     "eventBoss": {

@@ -37,7 +37,10 @@ while (state.isRunning && !done) {
 			if (minCP <= cpThreshold) {
 				await macroService.pollPattern(patterns.adventure.arena['match' + (minIdx + 1)].challenge, { doClick: true, predicatePattern: patterns.battle.start });
 				await sleep(500);
-				await macroService.pollPattern(patterns.battle.start, { doClick: true, clickPattern: patterns.battle.skip, predicatePattern: [patterns.adventure.arena.freeChallenge, patterns.adventure.arena.ticket] });
+				await macroService.pollPattern(patterns.battle.skip.disabled, { doClick: true, predicatePattern: patterns.battle.skip.enabled });
+				await macroService.pollPattern(patterns.battle.start, { doClick: true, predicatePattern: patterns.prompt.confirm2 });
+				await macroService.pollPattern(patterns.prompt.confirm2, { doClick: true, predicatePattern: [patterns.adventure.arena.freeChallenge, patterns.adventure.arena.ticket] });
+				//await macroService.pollPattern(patterns.battle.start, { doClick: true, clickPattern: patterns.battle.skip, predicatePattern: [patterns.adventure.arena.freeChallenge, patterns.adventure.arena.ticket] });
 			}
 			else {
 				await macroService.pollPattern(patterns.battle.rematch, { doClick: true, inversePredicatePattern: patterns.battle.rematch });
