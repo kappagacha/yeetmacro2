@@ -41,6 +41,7 @@ public class AndroidWindowManagerService : IInputService, IScreenService
     IWindowManager _windowManager;
     MediaProjectionService _mediaProjectionService;
     YeetAccessibilityService _accessibilityService;
+    IToastService _toastService;
     ConcurrentDictionary<AndroidWindowView, IShowable> _views = new ConcurrentDictionary<AndroidWindowView, IShowable>();
     FormsView _windowView;
     ConcurrentDictionary<string, (int x, int y)> _packageToStatusBarHeight = new ConcurrentDictionary<string, (int x, int y)>();
@@ -54,12 +55,13 @@ public class AndroidWindowManagerService : IInputService, IScreenService
         PropertyNamingPolicy = JsonNamingPolicy.CamelCase,
         TypeInfoResolver = PointPropertiesResolver.Instance
     };
-    public AndroidWindowManagerService(MediaProjectionService mediaProjectionService, YeetAccessibilityService accessibilityService)
+    public AndroidWindowManagerService(MediaProjectionService mediaProjectionService, YeetAccessibilityService accessibilityService, IToastService toastService)
     {
         _context = (MainActivity)Microsoft.Maui.ApplicationModel.Platform.CurrentActivity;
         _windowManager = _context.GetSystemService(Context.WindowService).JavaCast<IWindowManager>();
         _mediaProjectionService = mediaProjectionService;
         _accessibilityService = accessibilityService;
+        _toastService = toastService;
         DeviceDisplay.MainDisplayInfoChanged += DeviceDisplay_MainDisplayInfoChanged;
         _displayWidth = DeviceDisplay.MainDisplayInfo.Width;
         _displayHeight = DeviceDisplay.MainDisplayInfo.Height;
@@ -222,6 +224,10 @@ public class AndroidWindowManagerService : IInputService, IScreenService
                 {
                     var targetLocation = JsonSerializer.Deserialize<Microsoft.Maui.Graphics.Point>(strTargetLocation, _serializationOptions);
                     ctx.Location = targetLocation;
+                }
+                else
+                {
+                    ctx.Location = Point.Zero;
                 }
             }
         }
@@ -416,6 +422,23 @@ public class AndroidWindowManagerService : IInputService, IScreenService
     public void StopProjectionService()
     {
         _context.StartForegroundServiceCompat<ForegroundService>(ForegroundService.EXIT_ACTION);
+    }
+
+    public void ResetActionViewLocation()
+    {
+        var selectedMacroSetName = Preferences.Default.Get<string>(nameof(MacroManagerViewModel.SelectedMacroSet), null);
+        if (selectedMacroSetName is not null)
+        {
+            Preferences.Default.Remove($"{selectedMacroSetName}_location_Landscape");
+            Preferences.Default.Remove($"{selectedMacroSetName}_location_Portrait");
+            _toastService.Show($"Reset Action Button Location for MacroSet {selectedMacroSetName}");
+
+            if (_views.ContainsKey(AndroidWindowView.ActionView) && _views[AndroidWindowView.ActionView].IsShowing)
+            {
+                Close(AndroidWindowView.ActionView);
+                Show(AndroidWindowView.ActionView);
+            }
+        }
     }
 
     private void DrawView_Click(object sender, System.EventArgs e)

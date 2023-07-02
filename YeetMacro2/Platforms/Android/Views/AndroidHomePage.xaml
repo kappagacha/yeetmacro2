@@ -132,7 +132,7 @@
                         </DataTrigger>
                     </v:ImageView.Triggers>
                 </v:ImageView>
-                <Label VerticalTextAlignment="Center" Text="Show Script Log">
+                <Label VerticalTextAlignment="Center" Text="Show Script Log (After Script Completion)">
                     <Label.GestureRecognizers>
                         <TapGestureRecognizer Command="{Binding MacroManagerViewModel.ToggleShowScriptLogCommand}" />
                     </Label.GestureRecognizers>
@@ -141,6 +141,15 @@
                             <Setter Property="TextColor" Value="Green" />
                         </DataTrigger>
                     </Label.Triggers>
+                </Label>
+            </HorizontalStackLayout>
+            <HorizontalStackLayout HorizontalOptions="Center">
+                <v:ImageView FontFamily="MaterialOutlined" Glyph="{x:Static mi:MaterialOutlined.Play_circle}"
+                                                     Command="{Binding ResetActionViewLocationCommand}" />
+                <Label VerticalTextAlignment="Center" Text="Reset Action Button Location">
+                    <Label.GestureRecognizers>
+                        <TapGestureRecognizer Command="{Binding ResetActionViewLocationCommand}" />
+                    </Label.GestureRecognizers>
                 </Label>
             </HorizontalStackLayout>
         </VerticalStackLayout>

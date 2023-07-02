@@ -28,17 +28,19 @@ public partial class ActionViewModel : ObservableObject, IMovable
     AndroidWindowManagerService _windowManagerService;
     IScriptService _scriptService;
     MacroManagerViewModel _macroManagerViewModel;
+    IToastService _toastService;
     JsonSerializerOptions _serializationOptions = new JsonSerializerOptions()
     {
         PropertyNamingPolicy = JsonNamingPolicy.CamelCase,
         TypeInfoResolver = PointPropertiesResolver.Instance
     };
 
-    public ActionViewModel(AndroidWindowManagerService windowManagerService, IScriptService scriptService, MacroManagerViewModel macroManagerViewModel)
+    public ActionViewModel(AndroidWindowManagerService windowManagerService, IScriptService scriptService, MacroManagerViewModel macroManagerViewModel, IToastService toastService)
     {
         _windowManagerService = windowManagerService;
         _scriptService = scriptService;
         _macroManagerViewModel = macroManagerViewModel;
+        _toastService = toastService;
 
         _macroManagerViewModel.PropertyChanged += _macroManagerViewModel_PropertyChanged;
         _macroManagerViewModel.OnScriptExecuted = _macroManagerViewModel.OnScriptExecuted ?? new Command(() =>
@@ -96,6 +98,12 @@ public partial class ActionViewModel : ObservableObject, IMovable
     [RelayCommand]
     public async void Execute()
     {
+        if (_macroManagerViewModel.SelectedMacroSet is null)
+        {
+            _toastService.Show("No MacroSet selected...");
+            return;
+        }
+
         var selectedMacroSetName = Preferences.Default.Get<string>(nameof(MacroManagerViewModel.SelectedMacroSet), null);
         if (selectedMacroSetName is not null)
         {

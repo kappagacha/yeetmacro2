@@ -1,6 +1,7 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using YeetMacro2.Platforms.Android.Services;
+using YeetMacro2.Platforms.Android.Views;
 using YeetMacro2.ViewModels;
 
 namespace YeetMacro2.Platforms.Android.ViewModels;
@@ -12,6 +13,7 @@ public partial class AndriodHomeViewModel : ObservableObject
     private AndroidWindowManagerService _windowManagerService;
     private YeetAccessibilityService _accessibilityService;
     private MacroManagerViewModel _macroManagerViewModel;
+
     public string CurrentPackage 
     { 
         get
@@ -145,6 +147,12 @@ public partial class AndriodHomeViewModel : ObservableObject
                 ToggleAccessibilityPermissions();
             }
         }
+    }
+
+    [RelayCommand]
+    public void ResetActionViewLocation()
+    {
+        _windowManagerService.ResetActionViewLocation();
     }
 
     [RelayCommand]

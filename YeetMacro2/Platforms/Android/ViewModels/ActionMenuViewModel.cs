@@ -26,8 +26,8 @@ public partial class ActionMenuViewModel : ObservableObject
     public string CurrentPackage => _accessibilityService.CurrentPackage;
     //public string DisplayCutoutTop => _windowManagerService.DisplayCutoutTop.ToString();
     //public bool HasCutoutTop => _windowManagerService.DisplayCutoutTop > 0;
-    public bool HasValidResolution => DeviceDisplay.MainDisplayInfo.Width == _macroManagerViewModel.SelectedMacroSet.Resolution.Width &&
-        DeviceDisplay.MainDisplayInfo.Height == _macroManagerViewModel.SelectedMacroSet.Resolution.Height;
+    public bool HasValidResolution => DeviceDisplay.MainDisplayInfo.Width == (_macroManagerViewModel.SelectedMacroSet?.Resolution.Width ?? -1.0) &&
+        DeviceDisplay.MainDisplayInfo.Height == (_macroManagerViewModel.SelectedMacroSet?.Resolution.Height ?? -1.0);
 
     public ActionMenuViewModel(ILogger<ActionViewModel> logger, IToastService toastService, AndroidWindowManagerService windowManagerService,
         YeetAccessibilityService accessibilityService, MacroManagerViewModel macroManagerViewModel)
