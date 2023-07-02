@@ -26,21 +26,14 @@ jobs:
       - name: Restore NuGet Packages
         run: dotnet restore
 
-      # https://medium.com/@henningmosand/change-applicationversion-for-a-net-maui-in-github-action-1ee188a32671
-      - name: Bump ApplicationVersion (build version)
-        env:
-          CSPROJ_FILE: YeetMacro2/YeetMacro2.csproj
-          NEW_VERSION: ${{ github.run_number }}
-        run: |
-          echo 'Setting ApplicationVersion (build version) to ${{ env.NEW_VERSION }}'
-          sed -rn 's|(<ApplicationVersion>)(.*)(</ApplicationVersion>)|Old: \1\2\3|p' ${{ env.CSPROJ_FILE }}
-          sed -rE -i 'notneeded.bak' 's|(<ApplicationVersion>)(.*)(</ApplicationVersion>)|<ApplicationVersion>${{ env.NEW_VERSION }}</ApplicationVersion>|g' ${{ env.CSPROJ_FILE }}
-          sed -rn 's|(<ApplicationVersion>)(.*)(</ApplicationVersion>)|New: \1\2\3|p' ${{ env.CSPROJ_FILE }}
-          sed -rn 's|(<ApplicationDisplayVersion>)(.*)(</ApplicationDisplayVersion>)|Old: \1\2\3|p' ${{ env.CSPROJ_FILE }}
-          sed -rE -i 'notneeded2.bak' 's|(<ApplicationDisplayVersion>)(.*)(</ApplicationDisplayVersion>)|<ApplicationDisplayVersion>${{ env.NEW_VERSION }}</ApplicationDisplayVersion>|g' ${{ env.CSPROJ_FILE }}
-          sed -rn 's|(<ApplicationDisplayVersion>)(.*)(</ApplicationDisplayVersion>)|New: \1\2\3|p' ${{ env.CSPROJ_FILE }}
+      # https://stackoverflow.com/questions/74242135/net-maui-set-version-in-azure-pipelines
       - name: Build APK
-        run: dotnet build -f net7.0-android -c Release
+        env:
+            CSPROJ_FILE: YeetMacro2/YeetMacro2.csproj
+            NEW_VERSION: ${{ github.run_number }}
+        run: |
+          echo 'Target Version: ${{ env.NEW_VERSION }}'
+          dotnet build -f net7.0-android -c Release /p:ApplicationDisplayVersion=${{ env.NEW_VERSION }} /p:ApplicationVersion=${{ env.NEW_VERSION }}
 
      #- name: Upload APK as Release Asset
      #  uses: actions/upload-artifact@v1
