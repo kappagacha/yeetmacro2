@@ -10,6 +10,7 @@ namespace YeetMacro2.Platforms.Android.Views;
 public interface IMovable
 {
     bool IsMoving { get; set; }
+    Microsoft.Maui.Graphics.Point Location { get; set; }
 }
 
 public class MoveView : LinearLayout, IShowable
@@ -59,6 +60,9 @@ public class MoveView : LinearLayout, IShowable
     {
         if (_state == FormState.CLOSED)
         {
+            var movable = (IMovable)_visualElement.BindingContext;
+            _layoutParams.X = (int)movable.Location.X;
+            _layoutParams.Y = (int)movable.Location.Y;
             _windowManager.AddView(this, _layoutParams);
             _state = FormState.SHOWING;
             _closeCompleted = new TaskCompletionSource<bool>();
@@ -114,7 +118,11 @@ public class MoveView : LinearLayout, IShowable
                 if (_isMoving)
                 {
                     _isMoving = false;
-                    if (movable != null) { movable.IsMoving = _isMoving; }
+                    if (movable != null) 
+                    { 
+                        movable.IsMoving = _isMoving;
+                        movable.Location = new Microsoft.Maui.Graphics.Point(_layoutParams.X, _layoutParams.Y);
+                    }
                     return true;
                 }
                 break;

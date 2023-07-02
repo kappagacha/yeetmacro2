@@ -6,11 +6,14 @@ using System.Collections.Concurrent;
 using YeetMacro2.Platforms.Android.Views;
 using YeetMacro2.Views;
 using YeetMacro2.Data.Models;
-using Point = Microsoft.Maui.Graphics.Point;
 using YeetMacro2.Platforms.Android.ViewModels;
 using YeetMacro2.Services;
 using OpenCvHelper = YeetMacro2.Platforms.Android.Services.OpenCv.OpenCvHelper;
 using Tesseract.Droid;
+using System.Text.Json;
+using YeetMacro2.ViewModels;
+using YeetMacro2.Data.Serialization;
+using Microsoft.Maui.Graphics;
 
 namespace YeetMacro2.Platforms.Android.Services;
 public enum AndroidWindowView
@@ -46,6 +49,11 @@ public class AndroidWindowManagerService : IInputService, IScreenService
     public int OverlayHeight => _windowView == null ? 0 : _windowView.MeasuredHeightAndState;
     //public int DisplayCutoutTop => _windowView == null ? 0 : _windowView.RootWindowInsets.DisplayCutout?.SafeInsetTop ?? 0;
     TesseractApi _tesseractApi;
+    JsonSerializerOptions _serializationOptions = new JsonSerializerOptions()
+    {
+        PropertyNamingPolicy = JsonNamingPolicy.CamelCase,
+        TypeInfoResolver = PointPropertiesResolver.Instance
+    };
     public AndroidWindowManagerService(MediaProjectionService mediaProjectionService, YeetAccessibilityService accessibilityService)
     {
         _context = (MainActivity)Microsoft.Maui.ApplicationModel.Platform.CurrentActivity;
@@ -197,6 +205,24 @@ public class AndroidWindowManagerService : IInputService, IScreenService
                     var messageView = new ResizeView(_context, _windowManager, this, new MessageView());
                     _views.TryAdd(windowView, messageView);
                     break;
+            }
+        }
+
+        if (windowView == AndroidWindowView.ActionView)
+        {
+            var selectedMacroSetName = Preferences.Default.Get<string>(nameof(MacroManagerViewModel.SelectedMacroSet), null);
+            if (selectedMacroSetName is not null)
+            {
+                var ve = _views[windowView].VisualElement;
+                var ctx = (IMovable)ve.BindingContext;
+                var orientation = DeviceDisplay.Current.MainDisplayInfo.Orientation;
+                var preferenceKey = $"{selectedMacroSetName}_location_{orientation}";
+                var strTargetLocation = Preferences.Default.Get<string>(preferenceKey, null);
+                if (strTargetLocation is not null)
+                {
+                    var targetLocation = JsonSerializer.Deserialize<Microsoft.Maui.Graphics.Point>(strTargetLocation, _serializationOptions);
+                    ctx.Location = targetLocation;
+                }
             }
         }
 

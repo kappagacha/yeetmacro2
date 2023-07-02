@@ -5,6 +5,8 @@ using YeetMacro2.Platforms.Android.Views;
 using YeetMacro2.Platforms.Android.Services;
 using YeetMacro2.ViewModels;
 using System.ComponentModel;
+using System.Text.Json;
+using YeetMacro2.Data.Serialization;
 
 namespace YeetMacro2.Platforms.Android.ViewModels;
 
@@ -19,12 +21,19 @@ public partial class ActionViewModel : ObservableObject, IMovable
     [ObservableProperty]
     ActionState _state;
     public bool IsMoving { get; set; }
+    public Point Location { get; set; }
     [ObservableProperty]
     bool _isBusy;
 
     AndroidWindowManagerService _windowManagerService;
     IScriptService _scriptService;
     MacroManagerViewModel _macroManagerViewModel;
+    JsonSerializerOptions _serializationOptions = new JsonSerializerOptions()
+    {
+        PropertyNamingPolicy = JsonNamingPolicy.CamelCase,
+        TypeInfoResolver = PointPropertiesResolver.Instance
+    };
+
     public ActionViewModel(AndroidWindowManagerService windowManagerService, IScriptService scriptService, MacroManagerViewModel macroManagerViewModel)
     {
         _windowManagerService = windowManagerService;
@@ -87,6 +96,14 @@ public partial class ActionViewModel : ObservableObject, IMovable
     [RelayCommand]
     public async void Execute()
     {
+        var selectedMacroSetName = Preferences.Default.Get<string>(nameof(MacroManagerViewModel.SelectedMacroSet), null);
+        if (selectedMacroSetName is not null)
+        {
+            var orientation = DeviceDisplay.Current.MainDisplayInfo.Orientation;
+            var preferenceKey = $"{selectedMacroSetName}_location_{orientation}";
+            Preferences.Default.Set(preferenceKey, JsonSerializer.Serialize(Location, _serializationOptions));
+        }
+
         IsBusy = true;
         await _macroManagerViewModel.Scripts.WaitForInitialization();
         IsBusy = false;

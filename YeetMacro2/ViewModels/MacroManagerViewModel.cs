@@ -284,7 +284,9 @@ public partial class MacroManagerViewModel : ObservableObject
     [RelayCommand]
     private async Task ExportMacroSet(MacroSet macroSet)
     {
+        if (await Permissions.RequestAsync<Permissions.StorageWrite>() != PermissionStatus.Granted) return;
         IsBusy = true;
+
         macroSet.MacroSetLastUpdated = DateTimeOffset.Now;
         macroSet.PatternsLastUpdated = DateTimeOffset.Now;
         macroSet.ScriptsLastUpdated = DateTimeOffset.Now;
@@ -306,6 +308,10 @@ public partial class MacroManagerViewModel : ObservableObject
         if (macroSet.Source.StartsWith("localAsset:"))
         {
             targetDirectory = Path.Combine(targetDirectory, $"{macroSet.Source.Substring(11)}");
+        }
+        else
+        {
+            targetDirectory = Path.Combine(targetDirectory, $"{macroSet.Source.Substring(7)}");
         }
 
         if (!Directory.Exists(targetDirectory))

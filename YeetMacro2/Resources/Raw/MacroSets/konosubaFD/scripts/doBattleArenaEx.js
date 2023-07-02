@@ -1,7 +1,7 @@
 ﻿const loopPatterns = [patterns.titles.home, patterns.titles.quest, patterns.titles.battleArena, patterns.titles.party, patterns.battle.report];
 let done = false;
 while (state.isRunning && !done) {
-	const loopResult = await macroService.pollPattern(loopPatterns);
+	const loopResult = await macroService.pollPattern(loopPatterns, { clickpattern: patterns.battleArena.newHighScore });
 	switch (loopResult.path) {
 		case 'titles.home':
 			logger.info('doBattleArenaEx: click tab quest');
