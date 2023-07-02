@@ -37,7 +37,7 @@ public class MoveView : LinearLayout, IShowable
         _layoutParams.Format = Format.Translucent;
         _layoutParams.Flags |= WindowManagerFlags.NotFocusable;
         _layoutParams.Flags |= WindowManagerFlags.TranslucentNavigation;
-        _layoutParams.Flags |= WindowManagerFlags.LayoutNoLimits;
+        //_layoutParams.Flags |= WindowManagerFlags.LayoutNoLimits;
         _layoutParams.Width = WindowManagerLayoutParams.WrapContent;
         _layoutParams.Height = WindowManagerLayoutParams.WrapContent;
         _layoutParams.Gravity = GravityFlags.Top;
