@@ -45,7 +45,7 @@ public class AndroidWindowManagerService : IInputService, IScreenService
     ConcurrentDictionary<AndroidWindowView, IShowable> _views = new ConcurrentDictionary<AndroidWindowView, IShowable>();
     FormsView _windowView;
     ConcurrentDictionary<string, (int x, int y)> _packageToStatusBarHeight = new ConcurrentDictionary<string, (int x, int y)>();
-    double _displayWidth, _displayHeight;
+    //double _displayWidth, _displayHeight;
     public int OverlayWidth => _windowView == null ? 0 : _windowView.MeasuredWidthAndState;
     public int OverlayHeight => _windowView == null ? 0 : _windowView.MeasuredHeightAndState;
     //public int DisplayCutoutTop => _windowView == null ? 0 : _windowView.RootWindowInsets.DisplayCutout?.SafeInsetTop ?? 0;
@@ -63,8 +63,8 @@ public class AndroidWindowManagerService : IInputService, IScreenService
         _accessibilityService = accessibilityService;
         _toastService = toastService;
         DeviceDisplay.MainDisplayInfoChanged += DeviceDisplay_MainDisplayInfoChanged;
-        _displayWidth = DeviceDisplay.MainDisplayInfo.Width;
-        _displayHeight = DeviceDisplay.MainDisplayInfo.Height;
+        //_displayWidth = DeviceDisplay.MainDisplayInfo.Width;
+        //_displayHeight = DeviceDisplay.MainDisplayInfo.Height;
 
         // https://github.com/halkar/Tesseract.Xamarin
         // https://stackoverflow.com/questions/52157436/q-system-invalidoperationexception-call-init-first-ocr-tesseract-error-in-xa
@@ -78,9 +78,14 @@ public class AndroidWindowManagerService : IInputService, IScreenService
     private void DeviceDisplay_MainDisplayInfoChanged(object sender, DisplayInfoChangedEventArgs e)
     {
         Console.WriteLine("[*****YeetMacro*****] WindowManagerService DeviceDisplay_MainDisplayInfoChanged Start");
-        _displayWidth = e.DisplayInfo.Width;
-        _displayHeight = e.DisplayInfo.Height;
+        //_displayWidth = e.DisplayInfo.Width;
+        //_displayHeight = e.DisplayInfo.Height;
         _packageToStatusBarHeight.Clear();
+        if (_views.ContainsKey(AndroidWindowView.ActionView) && _views[AndroidWindowView.ActionView].IsShowing)
+        {
+            Close(AndroidWindowView.ActionView);
+            Show(AndroidWindowView.ActionView);
+        }
         Console.WriteLine("[*****YeetMacro*****] WindowManagerService DeviceDisplay_MainDisplayInfoChanged End");
     }
 
