@@ -101,10 +101,10 @@ while (state.isRunning && !done) {
 			break;
 		case 'battle.report':
 			logger.info('farmEventBossLoop: leave room');
-			const endResult = await macroService.findPattern([patterns.battle.leaveRoom, patterns.battle.replay, patterns.battle.next3]);
+			const endResult = await macroService.findPattern([patterns.battle.next, patterns.battle.replay, patterns.battle.next3]);
 			logger.debug('endResult.path: ' + endResult.path);
 			switch (endResult.path) {
-				case 'battle.leaveRoom':
+				case 'battle.next':
 					await macroService.pollPattern(patterns.battle.leaveRoom, { doClick: true, clickPattern: patterns.battle.next, predicatePattern: patterns.titles.bossMulti });
 					break;
 				case 'battle.replay':
