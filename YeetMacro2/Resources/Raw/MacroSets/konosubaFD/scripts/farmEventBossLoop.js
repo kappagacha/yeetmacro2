@@ -1,4 +1,4 @@
-﻿const loopPatterns = [patterns.titles.home, patterns.titles.quest, patterns.titles.events, patterns.battle.report, patterns.titles.bossBattle, patterns.titles.bossMulti, patterns.titles.party];
+﻿const loopPatterns = [patterns.titles.home, patterns.titles.quest, patterns.titles.events, patterns.battle.report, patterns.titles.bossBattle, patterns.titles.bossMulti, patterns.titles.party, patterns.quest.events.bossBattle.prompt.notEnoughBossTickets];
 let done = false, isBossMulti = false;
 result = { numBattles: 0 };
 while (state.isRunning && !done) {
@@ -117,7 +117,10 @@ while (state.isRunning && !done) {
 					await macroService.pollPattern(patterns.battle.next3, { doClick: true, predicatePattern: patterns.titles.bossBattle });
 					break;
 			}
-			
+			break;
+		case 'quest.events.bossBattle.prompt.notEnoughBossTickets':
+			result.message = 'Not enough boss tickets...';
+			done = true;
 			break;
 	}
 
