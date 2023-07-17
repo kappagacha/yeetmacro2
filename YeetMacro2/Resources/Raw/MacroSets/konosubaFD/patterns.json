@@ -5495,6 +5495,44 @@
           "isParentNode": true,
           "name": "magicDamage"
         }
+      },
+      "defence": {
+        "$isParent": true,
+        "props": {
+          "isMultiPattern": false,
+          "patterns": [
+            {
+              "rect": {
+                "x": 344.8214416503906,
+                "y": 1007.0693969726562,
+                "width": 29.98333740234375,
+                "height": 25.97222900390625
+              },
+              "resolution": {
+                "width": 1920,
+                "height": 1080
+              },
+              "isSelected": true,
+              "isBoundsPattern": false,
+              "name": "pattern",
+              "imageData": "/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDAAEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQH/2wBDAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQH/wAARCAAZAB0DASIAAhEBAxEB/8QAGAAAAwEBAAAAAAAAAAAAAAAABwkLCgX/xAAxEAABBAIBAgQDBgcAAAAAAAAEAgMFBgEHCAkRABMUFQoSIhYXOXV2tSMzNjdCs7f/xAAXAQEBAQEAAAAAAAAAAAAAAAADAgYH/8QAIREBAQACAwACAgMAAAAAAAAAAQIDEQQSIRMiFEExUWH/2gAMAwEAAhEDEQA/AHwwOweH3T3M4+9PSrSjmvFXMWNjqMebX5LA259jyEyHVZeet1wjAXohi42GweiW59oSoyKGHJigIwlgFEXGiqs+IB5P8iOMF001pjTu710iKvFGkLncx6GpUDsQaTi7Q8BF5ItYpuZuNqsgwzhuLYjGYMmTMiZ73MuTBdZjo/nfEYa2VKaX497hZZzl2lbNsVBLJb/m4Y2LWsWAZT+U/XllknWq0tOr+hl83KEqS4XjDmSsw02RKdNkTTJAx7CMOlHEvFkrw0jDbaVvvrW6pLbaUtowpecIQlKE9kpxjxzfi48fImeVlKvLXby6LmGbQIGfAPt6r3aoTYG/5WTLgquNKREk6Y3NWVEL3R9exR5o66NeLW+Hpc8ibnu/p2SPKLkPtapzMlrGY2Ozfp1qNCgy4Km6/DBkMyNxTFPZEds7cTkmddyDERHukIdD5HjiZXzCpcuV+u9O7qs0ivbn2XrJndEPR5GyUGh7EmIa4UqclowQwV6XDz/HrVhlK/HyiVeyqnmOwhhM56IIJwqQePnhMHHDDmBjnGsByHk+uDZKeaEM9Or52MlDoWlojLK+62svJX5as5Uj5c57+KC/TF1p91HAjjDWVj+nJlNaR+wDEqTjDyidpGnbIz6n/PD7LNqZFU252cHQOgZSUeThCT5RPBDNx9zeS5lg0YWeqq4wN1FB0RAGjTs0vEquW/DmJuIjs1XuRSoJN1sZ1toR2zKIj2I/OPjBTebvF+0a1r9ri3K/syCg9iaX2MA7iRr+ZBpLFipM+wSL53rYGQbd9pl1jNuFKgpQ50Jv1KxHPE/LeGi9q8cdjTuq9yU6Tpdwgn1IWKe3lQMsDlxxA03XpRvGQZ2BkEt5cBlo14gR/Hzt5Wghp9lve90pvwouGv5XfP8ApN88J9+I6/t9xs/V10/aonxPGtwc++GbrFkWp26cb1b80aRDqif0iO+0Z5M/FOVXmXFEw69MklzP2/ZW62J/oj5pJPAHp/7U5xbPjo2JjJOA03ASgjmztovDKaiomLbW2+XA18l9pQ8vdZQXuPFxYySUx6iGpWaSNFtqccoW0LWQQ9bi4mJdBrtbr0dHV6vDkP4ZYxHw4bQTAYfnLytxqOEaDYyvurH1JTlalpX2Wh0n/wAPrjV+iyP3yV8ADrr/ANMcKvyjeH+zUHg2/wA3l5MeQ1jwFEwNfZKJaXZpdLo8BDTpVJPxMGOsfuTkfHV2/o6dyZNOg3r+dr6+aD//2Q==",
+              "variancePct": 20,
+              "textMatch": {
+                "isActive": false,
+                "text": null,
+                "whiteList": null
+              },
+              "colorThreshold": {
+                "isActive": true,
+                "variancePct": 10,
+                "color": "#ff3c3228",
+                "imageData": "/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDAAIBAQEBAQIBAQECAgICAgQDAgICAgUEBAMEBgUGBgYFBgYGBwkIBgcJBwYGCAsICQoKCgoKBggLDAsKDAkKCgr/wAALCAAZAB0BAREA/8QAHwAAAQUBAQEBAQEAAAAAAAAAAAECAwQFBgcICQoL/8QAtRAAAgEDAwIEAwUFBAQAAAF9AQIDAAQRBRIhMUEGE1FhByJxFDKBkaEII0KxwRVS0fAkM2JyggkKFhcYGRolJicoKSo0NTY3ODk6Q0RFRkdISUpTVFVWV1hZWmNkZWZnaGlqc3R1dnd4eXqDhIWGh4iJipKTlJWWl5iZmqKjpKWmp6ipqrKztLW2t7i5usLDxMXGx8jJytLT1NXW19jZ2uHi4+Tl5ufo6erx8vP09fb3+Pn6/9oACAEBAAA/AP1t+H3jn9gz/glZ4V+AX/BNyX4k6f4Ol8TafJ4b+E+n6tYiFvEV1ZJAbl5ri3t47RL64muo5GMnktd3V4RGryyba+AP+Dv7/gor+1x+xh8GvhB8Gf2WvixqHgaL4n6hrdx4m8S+G7qWz1lY9LOmvBbW15E6vaxSPeM0pjxI4hSPesTTRy/X/wDwRN/4KK6j+2p/wSW8G/tjftOfFjwePEWkafq1v8Utdtrq3srXTJNNuZ1a5v1D+XYyvYx217MD5UYW581EiheNR6h4Psf+Ccf/AAVy+BPg79pf/hUXw/8AjT4Juf7Q/wCEK1vx18Oo7ryNt01reeRDqtqJrfdNZ7G+RN/kIfmUKa/PD/g9P+AOneOf+Cenw+/aD074e6hqet+APihHZTa7ZJcSR6No2pWc63TTqh8pIpby10mMTSrlZDFGjKZir/zY/FL4sfFP44+O774pfGv4l+IPGHifVPK/tPxH4p1mfUL+78uJIY/NuJ3eSTZFHHGu5jtVFUYAAo8O/Fj4p+EPAniP4W+E/iX4g0vwx4w+x/8ACW+HNO1meCw1v7JKZrX7Zbo4jufJlYyR+YreWxLLgnNf2m/8EfvgDp37MX/BLn4C/Bmz+HuoeFLuw+F+k3viHw/qyXCXVnrN7At9qazR3JMkMpvrm6ZoWwImYxqqKoRdD9vX9k34Wf8ABVv/AIJ9+K/2aLb4vfZPDHxP8P2N5oPjfwtJBfw/u7i31GwvYsMY7u2aWCB2VHXzoWYJLGXWVf44v26f2Fv2jv8AgnR+0drP7L/7UHgz+yvEGlYmsr21ZpLDWrB2YQ6hYzFV8+2l2NhsKyMkkUiRyxSRp9H/APBDj/ghx8Zf+CvXxlfVNUl1Dwr8F/CuoInjzx5FCBJPJhZP7K03zFKS3zoylnIaO1jkWWUMXgguP7Da8A/4JO/8osv2af8As3/wb/6Y7OvgD/g9W/5RZeAf+zgNK/8ATHrlff8A/wAEnf8AlFl+zT/2b/4N/wDTHZ17/X//2Q=="
+              }
+            }
+          ],
+          "isParentNode": true,
+          "name": "defence"
+        }
       }
     }
   },

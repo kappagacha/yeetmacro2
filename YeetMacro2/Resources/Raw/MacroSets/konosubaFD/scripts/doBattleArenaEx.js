@@ -23,7 +23,7 @@ while (state.isRunning && !done) {
 			break;
 		case 'titles.party':
 			logger.info('doBattleArenaEx: select party');
-			const scoreBonusPatterns = ['physicalDamage', 'lowRarity', 'magicDamage'].map(sb => patterns.battleArena.exScoreBonus[sb]);
+			const scoreBonusPatterns = ['physicalDamage', 'lowRarity', 'magicDamage', 'defence'].map(sb => patterns.battleArena.exScoreBonus[sb]);
 			const scoreBonusResult = await macroService.pollPattern(scoreBonusPatterns);
 			const scoreBonus = scoreBonusResult.path?.split('.').pop();
 			logger.debug(`scoreBonus: ${scoreBonus}`);
@@ -59,7 +59,7 @@ while (state.isRunning && !done) {
 			const replayResult = await macroService.findPattern(patterns.battle.replay);
 			if (replayResult.isSuccess) {
 				logger.debug('doBattleArenaEx: found replay');
-				await macroService.pollPattern(patterns.battle.replay, { doClick: true, predicatePattern: patterns.battle.replay.ok });
+				await macroService.pollPattern(patterns.battle.replay, { doClick: true, clickPattern: [patterns.branchEvent.availableNow, patterns.branchEvent.playLater], predicatePattern: patterns.battle.replay.ok });
 				await macroService.pollPattern(patterns.battle.replay.ok, { doClick: true, predicatePattern: patterns.battle.report });
 			} else {
 				logger.debug('doBattleArenaEx: found next3');
@@ -68,7 +68,7 @@ while (state.isRunning && !done) {
 					done = true;
 					break;
 				}
-				await macroService.pollPattern(patterns.battle.replay, { doClick: true, predicatePattern: patterns.battle.replay.ok });
+				await macroService.pollPattern(patterns.battle.replay, { doClick: true, clickPattern: [patterns.branchEvent.availableNow, patterns.branchEvent.playLater], predicatePattern: patterns.battle.replay.ok });
 				await macroService.pollPattern(patterns.battle.replay.ok, { doClick: true, predicatePattern: patterns.battle.report });
 			}
 			break;

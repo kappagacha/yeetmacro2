@@ -197,6 +197,17 @@
           "isParentNode": false,
           "name": "magicDamage"
         }
+      },
+      "defence": {
+        "$isParent": false,
+        "props": {
+          "$type": "string",
+          "settingType": "String",
+          "value": "Def",
+          "defaultValue": null,
+          "isParentNode": false,
+          "name": "defence"
+        }
       }
     },
     "eventBoss": {
