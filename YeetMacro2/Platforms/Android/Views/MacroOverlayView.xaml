@@ -9,7 +9,7 @@
              xmlns:fa="clr-namespace:UraniumUI.Icons.FontAwesome;assembly=UraniumUI.Icons.FontAwesome"
              xmlns:mi="clr-namespace:UraniumUI.Icons.MaterialIcons;assembly=UraniumUI.Icons.MaterialIcons"
              x:Class="YeetMacro2.Platforms.Android.Views.MacroOverlayView"
-             HeightRequest="100">
+             HeightRequest="150">
     <Grid Padding="0,30,0,0">
         <VerticalStackLayout>
             <HorizontalStackLayout Spacing="5">
