@@ -10,5 +10,6 @@
     <VerticalStackLayout Spacing="5">
         <Button Text="Copy Database" Command="{Binding CopyDbCommand}" />
         <Button Text="Delete Database" Command="{Binding DeleteDbCommand}" />
+        <Button Text="Exit" Command="{Binding ExitCommand}" />
     </VerticalStackLayout>
 </ContentPage>

@@ -30,6 +30,16 @@ public class MainActivity : MauiAppCompatActivity
         RegisterReceiver(receiver, new IntentFilter("com.companyname.AccessibilityService.CHANGED"));
         RegisterReceiver(receiver, new IntentFilter("com.companyname.MediaProjectionService.STARTED"));
 
+        AppDomain.CurrentDomain.UnhandledException += (sender, args) =>
+        {
+            // TODO: Persist the error somehow so we can try to handle.
+            Console.WriteLine("[*****YeetMacro*****] UnhandledException: " + args.ExceptionObject.ToString());
+            if (args.IsTerminating)
+            {
+                ServiceHelper.GetService<YeetAccessibilityService>().Stop();
+            }
+        };
+
         base.OnCreate(savedInstanceState);
     }
 

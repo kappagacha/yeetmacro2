@@ -156,6 +156,12 @@ public partial class AndriodHomeViewModel : ObservableObject
     }
 
     [RelayCommand]
+    public void Exit()
+    {
+        Application.Current.Quit();
+    }
+
+    [RelayCommand]
     public void OnAppear()
     {
         IsAppearing = true;
