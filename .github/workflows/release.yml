@@ -45,5 +45,6 @@ jobs:
       - name: Attach Asset to Release
         uses: softprops/action-gh-release@v1
         with:
+          body: Version ${{ github.run_number }}
           tag_name: "latest"
           files: YeetMacro2/bin/Release/net7.0-android/com.companyname.yeetmacro2-Signed.apk
