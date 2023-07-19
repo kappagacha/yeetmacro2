@@ -16,7 +16,7 @@ public class StaticView : RelativeLayout, IShowable
     public VisualElement VisualElement => _visualElement;
     private FormState _state;
     public bool IsShowing { get => _state == FormState.SHOWING; }
-
+    private global::Android.Views.View _androidView;
     //https://www.linkedin.com/pulse/6-floating-windows-android-keyboard-input-v%C3%A1clav-hodek/
     public StaticView(Context context, IWindowManager windowManager, VisualElement visualElement) : base(context)
     {
@@ -38,16 +38,17 @@ public class StaticView : RelativeLayout, IShowable
         _windowManager = windowManager;
 
         var mauiContext = new MauiContext(MauiApplication.Current.Services, context);
-        var androidView = visualElement.ToPlatform(mauiContext);
-        androidView.SetPadding(0, 0, 0, 0);
-        _layoutParams.Width = (int)_visualElement.WidthRequest;
-        _layoutParams.Height = (int)_visualElement.HeightRequest;
-        AddView(androidView, new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MatchParent, ViewGroup.LayoutParams.MatchParent));
+        _androidView = visualElement.ToPlatform(mauiContext);
+        _androidView.SetPadding(0, 0, 0, 0);
+        AddView(_androidView, new ViewGroup.LayoutParams(_layoutParams.Width, _layoutParams.Height));
     }
 
     public void SetUpLayoutParameters(Action<WindowManagerLayoutParams> setup)
     {
         setup(_layoutParams);
+        RemoveView(_androidView);
+        AddView(_androidView, new ViewGroup.LayoutParams(_layoutParams.Width, _layoutParams.Height));
+
         if (_state == FormState.SHOWING)
         {
             Close();
