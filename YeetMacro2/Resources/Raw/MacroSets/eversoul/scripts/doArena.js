@@ -11,7 +11,7 @@ while (state.isRunning && !done) {
 			logger.info('doArena: click arena');
 			await macroService.pollPattern(patterns.adventure.tabs.arena, { doClick: true, predicatePattern: patterns.adventure.arena });
 			await sleep(500);
-			await macroService.pollPattern(patterns.adventure.arena, { doClick: true, predicatePattern: patterns.titles.arena });
+			await macroService.pollPattern(patterns.adventure.arena, { doClick: true, predicatePattern: patterns.adventure.arena.info });
 			break;
 		case 'adventure.arena.freeChallenge':
 			logger.info('doArena: free challenges');
