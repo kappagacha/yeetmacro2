@@ -279,8 +279,9 @@ public class AndroidWindowManagerService : IInputService, IScreenService
         Show(AndroidWindowView.PromptSelectOptionView);
         var viewModel = (PromptSelectOptionViewModel)_views[AndroidWindowView.PromptSelectOptionView].VisualElement.BindingContext;
         viewModel.Message = message;
-        // Needs to be observable collection - https://github.com/dotnet/maui/issues/4650
-        viewModel.Options = new ObservableCollection<string>(options);
+        // Needs x:DataType="{x:Type x:String}" in DataTemplate
+        // https://stackoverflow.com/questions/75283345/collectionview-working-in-debug-but-not-in-release-in-net-maui
+        viewModel.Options = options;
         var formsView = (FormsView)_views[AndroidWindowView.PromptSelectOptionView];
         if (await formsView.WaitForClose())
         {
