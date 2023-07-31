@@ -14,6 +14,7 @@ using System.Text.Json;
 using YeetMacro2.ViewModels;
 using YeetMacro2.Data.Serialization;
 using Microsoft.Maui.Graphics;
+using System.Collections.ObjectModel;
 
 namespace YeetMacro2.Platforms.Android.Services;
 public enum AndroidWindowView
@@ -278,7 +279,8 @@ public class AndroidWindowManagerService : IInputService, IScreenService
         Show(AndroidWindowView.PromptSelectOptionView);
         var viewModel = (PromptSelectOptionViewModel)_views[AndroidWindowView.PromptSelectOptionView].VisualElement.BindingContext;
         viewModel.Message = message;
-        viewModel.Options = options;
+        // Needs to be observable collection - https://github.com/dotnet/maui/issues/4650
+        viewModel.Options = new ObservableCollection<string>(options);
         var formsView = (FormsView)_views[AndroidWindowView.PromptSelectOptionView];
         if (await formsView.WaitForClose())
         {
