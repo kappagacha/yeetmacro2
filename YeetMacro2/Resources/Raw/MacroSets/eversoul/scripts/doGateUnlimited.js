@@ -1,8 +1,8 @@
 ﻿let done = false;
-const loopPatterns = [patterns.lobby.everstone, patterns.titles.adventure, patterns.titles.gateBreakthrough, patterns.gateBreakthrough.challenge, patterns.gateBreakthrough.nextStage];
+const loopPatterns = [patterns.lobby.everstone, patterns.titles.adventure, patterns.titles.gateBreakthrough, patterns.gateBreakthrough.challenge, patterns.gateBreakthrough.nextStage, patterns.gateBreakthrough.retry];
 while (state.isRunning && !done) {
-	const result = await macroService.pollPattern(loopPatterns);
-	switch (result.path) {
+	const loopResult = await macroService.pollPattern(loopPatterns);
+	switch (loopResult.path) {
 		case 'lobby.everstone':
 			logger.info('doGateBreakthrough unlimited: click adventure');
 			await macroService.clickPattern(patterns.lobby.adventure);
@@ -22,7 +22,7 @@ while (state.isRunning && !done) {
 			logger.info('doGateBreakthrough unlimited: click challenge');
 			await macroService.pollPattern(patterns.gateBreakthrough.challenge, { doClick: true, predicatePattern: patterns.battle.start });
 			await sleep(500);
-			await macroService.pollPattern(patterns.battle.start, { doClick: true, clickPattern: patterns.prompt.close, predicatePattern: patterns.gateBreakthrough.nextStage });
+			await macroService.pollPattern(patterns.battle.start, { doClick: true, clickPattern: patterns.prompt.close, predicatePattern: [patterns.gateBreakthrough.nextStage, patterns.gateBreakthrough.retry] });
 			await sleep(500);
 			break;
 		case 'gateBreakthrough.nextStage':
@@ -31,6 +31,11 @@ while (state.isRunning && !done) {
 			await sleep(500);
 			await macroService.pollPattern(patterns.battle.start, { doClick: true, clickPattern: patterns.prompt.close, predicatePattern: patterns.gateBreakthrough.nextStage });
 			await sleep(500);
+			break;
+		case 'gateBreakthrough.retry':
+			logger.info('doGateBreakthrough unlimited: retry');
+			done = true;
+			result = 'Party defeated';
 			break;
 	}
 

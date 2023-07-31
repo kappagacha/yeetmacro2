@@ -78,6 +78,10 @@
 	  <None Remove="Platforms\Android\Resources\xml\yeetmacro_config.xml" />
 	  <None Remove="Resources\Images\appicon.svg" />
 	  <None Remove="Resources\Raw\initJavaScriptContext.js" />
+	  <None Remove="Resources\Raw\MacroSets\eversoul\scripts\doGateBeast.js" />
+	  <None Remove="Resources\Raw\MacroSets\eversoul\scripts\doGateFairy.js" />
+	  <None Remove="Resources\Raw\MacroSets\eversoul\scripts\doGateHumanlike.js" />
+	  <None Remove="Resources\Raw\MacroSets\eversoul\scripts\doGateUndead.js" />
 	  <None Remove="Resources\Splash\splash.svg" />
 	</ItemGroup>
 
@@ -217,16 +221,25 @@
   </ItemGroup>
 
   <ItemGroup>
-    <MauiAsset Update="Resources\Raw\MacroSets\eversoul\hash.json">
-      <LogicalName>%(RecursiveDir)%(Filename)%(Extension)</LogicalName>
-    </MauiAsset>
     <MauiAsset Update="Resources\Raw\MacroSets\eversoul\macroSet.json">
       <LogicalName>%(RecursiveDir)%(Filename)%(Extension)</LogicalName>
     </MauiAsset>
     <MauiAsset Update="Resources\Raw\MacroSets\eversoul\patterns.json">
       <LogicalName>%(RecursiveDir)%(Filename)%(Extension)</LogicalName>
     </MauiAsset>
-    <MauiAsset Update="Resources\Raw\MacroSets\eversoul\scripts\doGateBreakthroughUnlimited.js">
+    <MauiAsset Update="Resources\Raw\MacroSets\eversoul\scripts\doGateFairy.js">
+      <LogicalName>%(RecursiveDir)%(Filename)%(Extension)</LogicalName>
+    </MauiAsset>
+    <MauiAsset Update="Resources\Raw\MacroSets\eversoul\scripts\doGateHumanlike.js">
+      <LogicalName>%(RecursiveDir)%(Filename)%(Extension)</LogicalName>
+    </MauiAsset>
+    <MauiAsset Update="Resources\Raw\MacroSets\eversoul\scripts\doGateBeast.js">
+      <LogicalName>%(RecursiveDir)%(Filename)%(Extension)</LogicalName>
+    </MauiAsset>
+    <MauiAsset Update="Resources\Raw\MacroSets\eversoul\scripts\doGateUndead.js">
+      <LogicalName>%(RecursiveDir)%(Filename)%(Extension)</LogicalName>
+    </MauiAsset>
+    <MauiAsset Update="Resources\Raw\MacroSets\eversoul\scripts\doGateUnlimited.js">
       <LogicalName>%(RecursiveDir)%(Filename)%(Extension)</LogicalName>
     </MauiAsset>
     <MauiAsset Update="Resources\Raw\MacroSets\eversoul\scripts\doOutings.js">
