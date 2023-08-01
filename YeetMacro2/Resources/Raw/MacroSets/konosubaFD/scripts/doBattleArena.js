@@ -51,7 +51,7 @@ while (state.isRunning && !done) {
 			const replayResult = await macroService.findPattern(patterns.battle.replay);
 			if (replayResult.isSuccess) {
 				logger.debug('doBattleArena: found replay');
-				await macroService.pollPattern(patterns.battle.replay, { doClick: true, predicatePattern: patterns.battle.replay.ok });
+				await macroService.pollPattern(patterns.battle.replay, { doClick: true, clickPattern: [patterns.branchEvent.availableNow, patterns.branchEvent.playLater], predicatePattern: patterns.battle.replay.ok });
 				await macroService.pollPattern(patterns.battle.replay.ok, { doClick: true, predicatePattern: patterns.battle.report });
 			} else {
 				logger.debug('doBattleArena: found next3');
@@ -60,7 +60,7 @@ while (state.isRunning && !done) {
 					done = true;
 					break;
 				}
-				await macroService.pollPattern(patterns.battle.replay, { doClick: true, predicatePattern: patterns.battle.replay.ok });
+				await macroService.pollPattern(patterns.battle.replay, { doClick: true, clickPattern: [patterns.branchEvent.availableNow, patterns.branchEvent.playLater], predicatePattern: patterns.battle.replay.ok });
 				await macroService.pollPattern(patterns.battle.replay.ok, { doClick: true, predicatePattern: patterns.battle.report });
 			}
 			break;
