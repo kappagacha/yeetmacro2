@@ -5,9 +5,9 @@
     "height": 1080
   },
   "package": "com.kakaogames.eversoul",
-  "source": "online:eversoul",
-  "macroSetLastUpdated": "2023-07-29T18:02:37.5716071-05:00",
-  "patternsLastUpdated": "2023-07-29T18:02:37.5719671-05:00",
-  "scriptsLastUpdated": "2023-07-29T18:02:37.5722194-05:00",
-  "settingsLastUpdated": "2023-07-29T18:02:37.5724555-05:00"
+  "source": "localAsset:eversoul",
+  "macroSetLastUpdated": "2023-08-06T19:05:28.0188183-05:00",
+  "patternsLastUpdated": "2023-08-06T19:05:28.0192536-05:00",
+  "scriptsLastUpdated": "2023-08-06T19:05:28.0194538-05:00",
+  "settingsLastUpdated": "2023-08-06T19:05:28.0196264-05:00"
 }

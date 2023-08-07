@@ -27,7 +27,7 @@ public class WindowsScreenService : IScreenService, IRecorderService
         throw new NotImplementedException();
     }
 
-    public Task<FindPatternResult> ClickPattern(Pattern pattern)
+    public Task<FindPatternResult> ClickPattern(Pattern pattern, FindOptions opts)
     {
         throw new NotImplementedException();
     }
@@ -119,7 +119,7 @@ public class WindowsScreenService : IScreenService, IRecorderService
         throw new NotImplementedException();
     }
 
-    public Task<string> GetText(Pattern pattern, String whitelist = null)
+    public Task<string> GetText(Pattern pattern, TextFindOptions opts)
     {
         throw new NotImplementedException();
     }

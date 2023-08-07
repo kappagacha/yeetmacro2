@@ -1,6 +1,9 @@
 using SkiaSharp;
+using System.Collections;
+using System.Linq;
 using System.Windows.Input;
 using YeetMacro2.Data.Models;
+using YeetMacro2.Services;
 
 namespace YeetMacro2.Views;
 
@@ -205,5 +208,13 @@ public partial class PatternView : ContentView
     private void colorThresholdIsActive_CheckedChanged(object sender, CheckedChangedEventArgs e)
     {
         UpdateCanvas(Pattern);
+    }
+
+    private async void offsetCalcType_Tapped(object sender, TappedEventArgs e)
+    {
+        var pattern = ((ImageButton)sender).BindingContext as Pattern;
+        var options = ((IEnumerable<OffsetCalcType>)e.Parameter).Select(oct => oct.ToString()).ToArray();
+        var selectedOption = await ServiceHelper.GetService<IInputService>().SelectOption("Select option", options);
+        if (!String.IsNullOrEmpty(selectedOption) && selectedOption != "cancel" && selectedOption != "ok") pattern.OffsetCalcType = Enum.Parse<OffsetCalcType>(selectedOption);
     }
 }

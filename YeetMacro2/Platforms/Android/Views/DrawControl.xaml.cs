@@ -9,7 +9,7 @@ namespace YeetMacro2.Platforms.Android.Views;
 public partial class DrawControl : ContentView
 {
     bool _userRectangle;
-    double _expirationMs = 500.0;
+    double _expirationMs = 2000.0;
     ConcurrentQueue<(SKRect rect, SKPaint paint, DateTime expiration)> _rectangles = new();
     ConcurrentQueue<(SKPoint center, SKPaint paint, DateTime expiration)> _circles = new();
     SKPoint _canvasBegin = SKPoint.Empty, _canvasEnd = SKPoint.Empty;

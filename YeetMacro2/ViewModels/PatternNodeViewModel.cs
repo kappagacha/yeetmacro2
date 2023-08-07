@@ -187,38 +187,91 @@ public partial class PatternNodeViewModel : NodeViewModel<PatternNode, PatternNo
         }
     }
 
-    [RelayCommand]
-    private async void TestPattern(Pattern pattern)
+    public static Point CalcOffset(Pattern pattern)
     {
-        if (pattern == null) return;
+        var currentResolution = new Size(DeviceDisplay.MainDisplayInfo.Width, DeviceDisplay.MainDisplayInfo.Height);
 
-        _screenService.DrawClear();
-        var result = await _screenService.FindPattern(pattern, new FindOptions() { Limit = 10 });
-        var points = result.Points;
-        _toastService.Show(points != null && points.Length > 0 ? "Match(es) found" : "No match found");
+        if (currentResolution == pattern.Resolution) return Point.Zero;
 
-        if (pattern.Rect != Rect.Zero)
+        var xOffset = 0;
+        var yOffset = 0;
+        switch (pattern.OffsetCalcType)
         {
-            _screenService.DrawRectangle(pattern.Rect);
+            case OffsetCalcType.Default:
+            case OffsetCalcType.Center:
+                // horizontal center handling
+                var deltaX = currentResolution.Width - pattern.Resolution.Width;
+                xOffset = (int)(deltaX / 2);
+                //Console.WriteLine($"deltaX: {deltaX}, xOffset: {xOffset}");
+                break;
+            case OffsetCalcType.DockRight:
+                // horizontal dock right handling (dock left does not need handling)
+                var right = pattern.Resolution.Width - pattern.Rect.X;
+                var targetX = currentResolution.Width - right;
+                xOffset = (int)(targetX - pattern.Rect.X);
+                //Console.WriteLine($"right: {right}, targetX: {targetX}, xOffset: {xOffset}");
+                break;
         }
+        return new Point(xOffset, yOffset);
+    }
 
-        if (points != null)
+    [RelayCommand]
+    private async void TestPattern(Object[] values)
+    {
+        if (values.Length != 4) return;
+
+        if (values[0] is Pattern pattern &&
+            pattern != null &&
+            values[1] is string strXOffset &&
+            values[2] is string strYOffset &&
+            values[3] is bool doTestCalc)
         {
-            foreach (var point in points)
+            var opts = new FindOptions() { Limit = 10 };
+            if (Int32.TryParse(strXOffset, out int xOffset)) opts.Offset = opts.Offset.Offset(xOffset, 0);
+            if (Int32.TryParse(strYOffset, out int yOffset)) opts.Offset = opts.Offset.Offset(0, yOffset);
+            if (doTestCalc) opts.Offset = CalcOffset(pattern);
+
+            _screenService.DrawClear();
+            var result = await _screenService.FindPattern(pattern, opts);
+            var points = result.Points;
+            _toastService.Show(points != null && points.Length > 0 ? "Match(es) found" : "No match found");
+
+            if (pattern.Rect != Rect.Zero)
             {
-                _screenService.DrawCircle(point);
+                _screenService.DrawRectangle(pattern.Rect.Offset(opts.Offset));
+            }
+
+            if (points != null)
+            {
+                foreach (var point in points)
+                {
+                    _screenService.DrawCircle(point);
+                }
             }
         }
     }
 
     // For this to work, Android view needs to not be touchable or do a double click
     [RelayCommand]
-    private async void ClickPattern(Pattern pattern)
+    private async void ClickPattern(Object[] values)
     {
-        if (pattern == null) return;
-        await _screenService.ClickPattern(pattern);     //one to change focus
-        await Task.Delay(300);
-        await _screenService.ClickPattern(pattern);     //one to click
+        if (values.Length != 4) return;
+
+        if (values[0] is Pattern pattern &&
+            pattern != null &&
+            values[1] is string strXOffset &&
+            values[2] is string strYOffset &&
+            values[3] is bool doTestCalc)
+        {
+            var opts = new FindOptions() { Limit = 10 };
+            if (Int32.TryParse(strXOffset, out int xOffset)) opts.Offset = opts.Offset.Offset(xOffset, 0);
+            if (Int32.TryParse(strYOffset, out int yOffset)) opts.Offset = opts.Offset.Offset(0, yOffset);
+            if (doTestCalc) opts.Offset = CalcOffset(pattern);
+
+            await _screenService.ClickPattern(pattern, opts);     //one to change focus
+            await Task.Delay(300);
+            await _screenService.ClickPattern(pattern, opts);     //one to click
+        }
     }
 
     [RelayCommand]
@@ -244,33 +297,53 @@ public partial class PatternNodeViewModel : NodeViewModel<PatternNode, PatternNo
     }
 
     [RelayCommand]
-    private async void TestPatternTextMatch(Pattern pattern)
+    private async void TestPatternTextMatch(Object[] values)
     {
-        if (pattern == null) return;
-        if (pattern.Rect != Rect.Zero)
+        if (values.Length != 4) return;
+
+        if (values[0] is Pattern pattern &&
+            pattern != null &&
+            values[1] is string strXOffset &&
+            values[2] is string strYOffset &&
+            values[3] is bool doTestCalc)
         {
+            var opts = new TextFindOptions();
+            if (Int32.TryParse(strXOffset, out int xOffset)) opts.Offset = opts.Offset.Offset(xOffset, 0);
+            if (Int32.TryParse(strYOffset, out int yOffset)) opts.Offset = opts.Offset.Offset(0, yOffset);
+            if (doTestCalc) opts.Offset = CalcOffset(pattern);
+
             _screenService.DrawClear();
-            _screenService.DrawRectangle(pattern.Rect);
+            _screenService.DrawRectangle(pattern.Rect.Offset(opts.Offset));
+            var result = await _screenService.GetText(pattern, opts);
+            _toastService.Show($"TextMatch: {result}");
+            Console.WriteLine($"TextMatch: {result}");
         }
-        var result = await _screenService.GetText(pattern);
-        _toastService.Show($"TextMatch: {result}");
-        Console.WriteLine($"TextMatch: {result}");
     }
 
     [RelayCommand]
-    private async void ApplyPatternTextMatch(Pattern pattern)
+    private async void ApplyPatternTextMatch(Object[] values)
     {
-        if (pattern == null) return;
-        if (pattern.Rect != Rect.Zero)
-        {
-            _screenService.DrawClear();
-            _screenService.DrawRectangle(pattern.Rect);
-        }
-        var result = await _screenService.GetText(pattern);
-        _toastService.Show($"TextMatch Apply: {result}");
-        pattern.TextMatch.Text = result;
+        if (values.Length != 4) return;
 
-        _patternRepository.Update(pattern);
-        _patternRepository.Save();
+        if (values[0] is Pattern pattern &&
+            pattern != null &&
+            values[1] is string strXOffset &&
+            values[2] is string strYOffset &&
+            values[3] is bool doTestCalc)
+        {
+            var opts = new TextFindOptions();
+            if (Int32.TryParse(strXOffset, out int xOffset)) opts.Offset = opts.Offset.Offset(xOffset, 0);
+            if (Int32.TryParse(strYOffset, out int yOffset)) opts.Offset = opts.Offset.Offset(0, yOffset);
+            if (doTestCalc) opts.Offset = CalcOffset(pattern);
+
+            _screenService.DrawClear();
+            _screenService.DrawRectangle(pattern.Rect.Offset(opts.Offset));
+            var result = await _screenService.GetText(pattern, opts);
+            _toastService.Show($"TextMatch Apply: {result}");
+            pattern.TextMatch.Text = result;
+
+            _patternRepository.Update(pattern);
+            _patternRepository.Save();
+        }
     }
 }

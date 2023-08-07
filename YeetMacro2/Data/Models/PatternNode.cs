@@ -42,6 +42,7 @@ public class Pattern
     public virtual double VariancePct { get; set; } = 20.0;
     public virtual TextMatchProperties TextMatch { get; set; }
     public virtual ColorThresholdProperties ColorThreshold { get; set; }
+    public virtual OffsetCalcType OffsetCalcType { get; set; } = OffsetCalcType.Default;
 }
 
 public class TextMatchProperties
@@ -57,4 +58,12 @@ public class ColorThresholdProperties
     public virtual double VariancePct { get; set; } = 10.0;
     public virtual string Color { get; set; }
     public byte[] ImageData { get; set; }
+}
+
+public enum OffsetCalcType
+{
+    Default,
+    Center,
+    DockLeft,
+    DockRight
 }

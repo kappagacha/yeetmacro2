@@ -197,7 +197,7 @@ public class ScriptService : IScriptService
                     {
                         try
                         {
-                            var text = await _screenService.GetText(patternNode.Patterns.First(), whiteList);
+                            var text = await _screenService.GetText(patternNode.Patterns.First(), new TextFindOptions() { Whitelist = whiteList });
                             return new JSString(text);
                         }
                         catch
@@ -360,7 +360,13 @@ public class ScriptService : IScriptService
             {
                 if (!_jsonValueToPatternNode.ContainsKey(elem))
                 {
-                    _jsonValueToPatternNode.Add(elem, PatternNodeViewModel.FromJsonNode(JSJSON.Stringify(elem.value)));
+                    var patternNode = PatternNodeViewModel.FromJsonNode(JSJSON.Stringify(elem.value));
+                    foreach (var pattern in patternNode.Patterns)
+                    {
+                        var offset = PatternNodeViewModel.CalcOffset(pattern);
+                        if (offset != Point.Zero) pattern.Rect = pattern.Rect.Offset(offset);
+                    }
+                    _jsonValueToPatternNode.Add(elem, patternNode);
                 }
                 var path = elem.value["props"]["path"].ToString();
                 pathToPatternNode.Add(path, _jsonValueToPatternNode[elem]);
@@ -370,7 +376,13 @@ public class ScriptService : IScriptService
         {
             if (!_jsonValueToPatternNode.ContainsKey(jsPattern))
             {
-                _jsonValueToPatternNode.Add(jsPattern, PatternNodeViewModel.FromJsonNode(JSJSON.Stringify(jsPattern)));
+                var patternNode = PatternNodeViewModel.FromJsonNode(JSJSON.Stringify(jsPattern));
+                foreach (var pattern in patternNode.Patterns)
+                {
+                    var offset = PatternNodeViewModel.CalcOffset(pattern);
+                    if (offset != Point.Zero) pattern.Rect = pattern.Rect.Offset(offset);
+                }
+                _jsonValueToPatternNode.Add(jsPattern, patternNode);
             }
             var path = jsPattern["props"]["path"].ToString();
             pathToPatternNode.Add(path, _jsonValueToPatternNode[jsPattern]);

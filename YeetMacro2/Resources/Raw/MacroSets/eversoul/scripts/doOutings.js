@@ -10,8 +10,8 @@ while (state.isRunning && !done) {
 			await macroService.pollPattern(patterns.town.enter, { doClick: true, predicatePattern: patterns.town.evertalk });
 			break;
 		case 'town.evertalk':
-			logger.info('doOutings: click pick up');
-			await macroService.pollPattern(patterns.town.pickUp, { doClick: true, predicatePattern: patterns.town.outings });
+			logger.info('doOutings: click info with offset');
+			await macroService.pollPattern(patterns.town.info, { doClick: true, clickOffsetX: -60, predicatePattern: patterns.town.outings });
 			break;
 		case 'town.outings':
 			logger.info('doOutings: click outing target');
@@ -25,7 +25,8 @@ while (state.isRunning && !done) {
 						rect: {
 							x: 275.85736083984375,
 							y: 82.9250717163086,
-							width: 1005.4752807617188,
+							//width: 1005.4752807617188,
+							width: 1500.4752807617188,		// should calculate using resolution comparisons
 							height: 857.20263671875
 						},
 					})),

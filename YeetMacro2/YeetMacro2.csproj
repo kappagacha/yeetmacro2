@@ -78,10 +78,6 @@
 	  <None Remove="Platforms\Android\Resources\xml\yeetmacro_config.xml" />
 	  <None Remove="Resources\Images\appicon.svg" />
 	  <None Remove="Resources\Raw\initJavaScriptContext.js" />
-	  <None Remove="Resources\Raw\MacroSets\eversoul\scripts\doGateBeast.js" />
-	  <None Remove="Resources\Raw\MacroSets\eversoul\scripts\doGateFairy.js" />
-	  <None Remove="Resources\Raw\MacroSets\eversoul\scripts\doGateHumanlike.js" />
-	  <None Remove="Resources\Raw\MacroSets\eversoul\scripts\doGateUndead.js" />
 	  <None Remove="Resources\Splash\splash.svg" />
 	</ItemGroup>
 

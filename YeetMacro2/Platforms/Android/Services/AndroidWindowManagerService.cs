@@ -462,7 +462,9 @@ public class AndroidWindowManagerService : IInputService, IScreenService
             var boundsPadding = 4;
             byte[] needleImageData = pattern.ImageData;
             byte[] haystackImageData = null;
+            var rect = pattern.Rect.Offset(opts.Offset);
             //var rect = opts.OverrideRect != Rect.Zero ? opts.OverrideRect : pattern.Rect;
+
             watch.Start();
             try
             {
@@ -472,7 +474,7 @@ public class AndroidWindowManagerService : IInputService, IScreenService
                 //    await _mediaProjectionService.GetCurrentImageData();
 
                 haystackImageData = pattern.Rect != Rect.Zero ?
-                    _mediaProjectionService.GetCurrentImageData(pattern.Rect) :
+                    _mediaProjectionService.GetCurrentImageData(rect) :
                     _mediaProjectionService.GetCurrentImageData();
             }
             catch (Exception ex)
@@ -509,7 +511,7 @@ public class AndroidWindowManagerService : IInputService, IScreenService
                 var textPoints = new List<Point>();
                 if (_tesseractApi.Text == pattern.TextMatch.Text && pattern.Rect != Rect.Zero)
                 {
-                    textPoints.Add(pattern.Rect.Center.Offset(-boundsPadding, -boundsPadding));
+                    textPoints.Add(rect.Center.Offset(-boundsPadding, -boundsPadding));
                 }
                 else if (_tesseractApi.Text == pattern.TextMatch.Text)  // TextMatch is not meant to be used on whole screen
                 {
@@ -531,7 +533,7 @@ public class AndroidWindowManagerService : IInputService, IScreenService
                 for (int i = 0; i < points.Count; i++)
                 {
                     var point = points[i];
-                    newPoints.Add(point.Offset(pattern.Rect.X, pattern.Rect.Y));
+                    newPoints.Add(point.Offset(rect.X, rect.Y));
                 }
 
                 watch.Stop();
@@ -584,16 +586,16 @@ public class AndroidWindowManagerService : IInputService, IScreenService
         return _mediaProjectionService.GetCurrentImageData(rect);
     }
 
-    public async Task<string> GetText(Pattern pattern, String whiteList = null)
+    public async Task<string> GetText(Pattern pattern, TextFindOptions opts)
     {
         var boundsPadding = 4;
         var currentImageData = pattern.Rect != Rect.Zero ?
             _mediaProjectionService.GetCurrentImageData(
-                new Rect(pattern.Rect.Location.Offset(-boundsPadding, -boundsPadding), 
+                new Rect(pattern.Rect.Location.Offset(opts.Offset.X, opts.Offset.Y).Offset(-boundsPadding, -boundsPadding), 
                           pattern.Rect.Size + new Size(boundsPadding, boundsPadding))) :
             _mediaProjectionService.GetCurrentImageData();
         if (!String.IsNullOrWhiteSpace(pattern.TextMatch.WhiteList)) _tesseractApi.SetWhitelist(pattern.TextMatch.WhiteList);
-        if (!String.IsNullOrWhiteSpace(whiteList)) _tesseractApi.SetWhitelist(whiteList);
+        if (!String.IsNullOrWhiteSpace(opts.Whitelist)) _tesseractApi.SetWhitelist(opts.Whitelist);
         await _tesseractApi.SetImage(pattern.ColorThreshold.IsActive ?
             OpenCvHelper.CalcColorThreshold(currentImageData, pattern.ColorThreshold):
             currentImageData);
@@ -602,15 +604,15 @@ public class AndroidWindowManagerService : IInputService, IScreenService
         return _tesseractApi.Text;
     }
 
-    public async Task<FindPatternResult> FindPattern(Pattern pattern, FindOptions opts = null)
+    public async Task<FindPatternResult> FindPattern(Pattern pattern, FindOptions opts)
     {
         if (pattern.IsBoundsPattern)
         {
             return new FindPatternResult()
             {
                 IsSuccess = true,
-                Point = pattern.Rect.Center,
-                Points = new Point[] { pattern.Rect.Center }
+                Point = pattern.Rect.Offset(opts.Offset).Center,
+                Points = new Point[] { pattern.Rect.Offset(opts.Offset).Center }
             };
         }
 
@@ -627,9 +629,9 @@ public class AndroidWindowManagerService : IInputService, IScreenService
         return result;
     }
 
-    public async Task<FindPatternResult> ClickPattern(Pattern pattern)
+    public async Task<FindPatternResult> ClickPattern(Pattern pattern, FindOptions opts = null)
     {
-        var result = await FindPattern(pattern);
+        var result = await FindPattern(pattern, opts);
         if (result.IsSuccess)
         {
             foreach (var point in result.Points)

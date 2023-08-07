@@ -14,7 +14,15 @@ public class FindOptions
 {
     public int Limit { get; set; }
     public double VariancePct { get; set; }
+    public Point Offset { get; set; } = Point.Zero;
     //public Rect OverrideRect { get; set; }
+}
+
+public class TextFindOptions
+{
+    public Point Offset { get; set; } = Point.Zero;
+
+    public String Whitelist { get; set; }
 }
 
 public interface IScreenService
@@ -30,7 +38,7 @@ public interface IScreenService
     void DoSwipe(Point start, Point end);
     Byte[] CalcColorThreshold(Pattern pattern, ColorThresholdProperties colorThreshold);
     byte[] GetCurrentImageData(Rect rect);
-    Task<string> GetText(Pattern pattern, String whitelist = null);
-    Task<FindPatternResult> ClickPattern(Pattern pattern);
+    Task<string> GetText(Pattern pattern, TextFindOptions opts);
+    Task<FindPatternResult> ClickPattern(Pattern pattern, FindOptions opts);
     Task<FindPatternResult> FindPattern(Pattern pattern, FindOptions opts);
 }
