@@ -12,8 +12,8 @@
              HeightRequest="20" Padding="0">
     <Grid BackgroundColor="Blue" Margin="0" Padding="0" HeightRequest="10">
         <Grid ColumnDefinitions="*,*" Margin="0" Padding="0">
-            <Label Grid.Column="0" Margin="20,0,0,0" FontSize="Micro" Text="{Binding Info}" Padding="0" VerticalTextAlignment="Start" />
-            <Label Grid.Column="1" FontSize="Micro" Text="{Binding Debug}" Padding="0" VerticalTextAlignment="Start" />
+            <Label Grid.Column="0" Margin="20,0,0,0" FontSize="Micro" Text="{Binding LogViewModel.Info}" Padding="0" VerticalTextAlignment="Start" />
+            <Label Grid.Column="1" FontSize="Micro" Text="{Binding LogViewModel.Debug}" Padding="0" VerticalTextAlignment="Start" />
         </Grid>
         <Grid ColumnDefinitions="Auto,Auto" HorizontalOptions="End">
             <Switch Grid.Column="0" IsToggled="{Binding IsRecording, Mode=TwoWay}">

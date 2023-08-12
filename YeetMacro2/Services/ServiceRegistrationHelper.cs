@@ -36,6 +36,7 @@ public static class ServiceRegistrationHelper
         mauiAppBuilder.Services.AddSingleton<MacroManagerViewModel>();
         mauiAppBuilder.Services.AddSingleton<NodeViewModelFactory>();
         mauiAppBuilder.Services.AddSingleton<StatusPanelViewModel>();
+        mauiAppBuilder.Services.AddSingleton<LogViewModel>();
 
         return mauiAppBuilder;
     }
@@ -118,10 +119,10 @@ public class AppInitializer : IMauiInitializeService
 //https://github.com/serilog/serilog/wiki/Developing-a-sink
 public class LogViewModelSink : ILogEventSink
 {
-    StatusPanelViewModel _statusPanelViewModel;
-    public LogViewModelSink(StatusPanelViewModel statusPanelViewModel)
+    LogViewModel _logViewModel;
+    public LogViewModelSink(LogViewModel logViewModel)
     {
-        _statusPanelViewModel = statusPanelViewModel;
+        _logViewModel = logViewModel;
     }
 
     public void Emit(LogEvent logEvent)
@@ -129,10 +130,10 @@ public class LogViewModelSink : ILogEventSink
         switch (logEvent.Level)
         {
             case LogEventLevel.Debug:
-                _statusPanelViewModel.Debug = logEvent.MessageTemplate.Text;
+                _logViewModel.Debug = logEvent.MessageTemplate.Text;
                 break;
             case LogEventLevel.Information:
-                _statusPanelViewModel.Info = logEvent.MessageTemplate.Text;
+                _logViewModel.Info = logEvent.MessageTemplate.Text;
                 break;
         }
 

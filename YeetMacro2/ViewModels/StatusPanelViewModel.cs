@@ -15,10 +15,12 @@ public partial class StatusPanelViewModel : ObservableObject
     bool _isRecording, _isSavingLog;
     [ObservableProperty]
     SortedObservableCollection<LogRecord> _savedLogs = new SortedObservableCollection<LogRecord>((a, b) => (int)(b.TimeStamp - a.TimeStamp));
-
-    public StatusPanelViewModel(IRecorderService recorderService)
+    [ObservableProperty]
+    LogViewModel _logViewModel;
+    public StatusPanelViewModel(IRecorderService recorderService, LogViewModel logViewModel)
     {
         _recorderService = recorderService;
+        _logViewModel = logViewModel;
     }
 
     partial void OnIsSavingLogChanged(bool value)
