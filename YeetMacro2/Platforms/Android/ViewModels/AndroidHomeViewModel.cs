@@ -162,6 +162,12 @@ public partial class AndriodHomeViewModel : ObservableObject
     }
 
     [RelayCommand]
+    public void ThrowException()
+    {
+        throw new Exception("Test Exception from AndroidHomeViewModel", new Exception("This is an inner exception"));
+    }
+
+    [RelayCommand]
     public void OnAppear()
     {
         IsAppearing = true;

@@ -6,7 +6,6 @@ using YeetMacro2.Services;
 using YeetMacro2.Platforms.Windows.Views;
 #endif
 
-
 namespace YeetMacro2;
 
 public partial class AppShell : Shell
@@ -37,6 +36,16 @@ public partial class AppShell : Shell
             Route = "MacroManager",
             ContentTemplate = new DataTemplate(typeof(MacroManagerPage))
         });
+
+        this.Items.Add(new ShellContent()
+        {
+            Title = "Log Groups",
+            Route = "LogGroups",
+            ContentTemplate = new DataTemplate(typeof(LogGroupsPage))
+        });
+
+        Routing.RegisterRoute("LogGroupItem", typeof(LogGroupItemPage));
+        Routing.RegisterRoute("Log", typeof(LogPage));
 
 #if ANDROID
         this.Items.Add(new ShellContent()

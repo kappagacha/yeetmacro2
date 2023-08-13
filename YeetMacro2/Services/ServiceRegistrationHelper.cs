@@ -1,4 +1,5 @@
 ﻿using CommunityToolkit.Maui;
+using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Serilog;
 using Serilog.Configuration;
@@ -26,7 +27,7 @@ public static class ServiceRegistrationHelper
         mauiAppBuilder.Services.AddHttpClient();
         mauiAppBuilder.Services.AddSingleton<IHttpService, HttpService>();
         mauiAppBuilder.Services.AddAutoMapper(typeof(App).GetTypeInfo().Assembly);
-        mauiAppBuilder.Logging.AddStatusPanelViewModelSink();
+        mauiAppBuilder.Logging.AddLogViewModelSink();
 
         return mauiAppBuilder;
     }
@@ -119,14 +120,19 @@ public class AppInitializer : IMauiInitializeService
 //https://github.com/serilog/serilog/wiki/Developing-a-sink
 public class LogViewModelSink : ILogEventSink
 {
+    IServiceProvider _serviceProvider;
     LogViewModel _logViewModel;
-    public LogViewModelSink(LogViewModel logViewModel)
+    public LogViewModelSink(IServiceProvider serviceProvider)
     {
-        _logViewModel = logViewModel;
+        _serviceProvider = serviceProvider;
     }
 
     public void Emit(LogEvent logEvent)
     {
+        // Couldn't pass LogViewModel as a dependency because its' dependency graph
+        // depends on ILogger somewhere we can't control. Probably DBContext
+        if (_logViewModel == null) _logViewModel = _serviceProvider.GetService<LogViewModel>();
+
         switch (logEvent.Level)
         {
             case LogEventLevel.Debug:
@@ -145,21 +151,19 @@ public class LogViewModelSink : ILogEventSink
 // https://github.com/serilog/serilog-extensions-logging/blob/dev/src/Serilog.Extensions.Logging/SerilogLoggingBuilderExtensions.cs
 public static class StatusPanelModelSinkExtensions
 {
-    public static ILoggingBuilder AddStatusPanelViewModelSink(this ILoggingBuilder builder, Action<LoggerConfiguration> setupAction = null)
+    public static ILoggingBuilder AddLogViewModelSink(this ILoggingBuilder builder, Action<LoggerConfiguration> setupAction = null)
     {
         if (builder == null) throw new ArgumentNullException(nameof(builder));
 
         builder.Services.AddSingleton<ILoggerProvider, SerilogLoggerProvider>(sp =>
         {
-            var statusPanelViewModel = sp.GetRequiredService<StatusPanelViewModel>();
-
             // https://improveandrepeat.com/2014/08/structured-logging-with-serilog/
             // https://github.com/serilog/serilog/wiki/Formatting-Output
             // https://github.com/serilog/serilog-formatting-compact
             var configuration = new LoggerConfiguration()
                 .MinimumLevel.Debug()
                 .WriteTo.Console()
-                .WriteTo.StatusPanelViewModelSink(statusPanelViewModel)
+                .WriteTo.LogViewModelSink(sp)
                 // https://github.com/serilog/serilog/wiki/Configuration-Basics#filters
                 .Filter.ByExcluding(Matching.WithProperty<string>("SourceContext", sctx => sctx.StartsWith("Microsoft.")));
 
@@ -175,10 +179,10 @@ public static class StatusPanelModelSinkExtensions
         return builder;
     }
 
-    public static LoggerConfiguration StatusPanelViewModelSink(
+    public static LoggerConfiguration LogViewModelSink(
               this LoggerSinkConfiguration loggerConfiguration,
-              StatusPanelViewModel statusPanelViewModel)
+              IServiceProvider serviceProvider)
     {
-        return loggerConfiguration.Sink(new LogViewModelSink(statusPanelViewModel));
+        return loggerConfiguration.Sink(new LogViewModelSink(serviceProvider));
     }
 }

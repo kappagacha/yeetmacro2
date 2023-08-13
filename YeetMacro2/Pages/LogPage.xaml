@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:vm="clr-namespace:YeetMacro2.ViewModels"
+             xmlns:m="clr-namespace:YeetMacro2.Data.Models"
+             xmlns:conv="clr-namespace:YeetMacro2.Converters"
+             xmlns:v="clr-namespace:YeetMacro2.Views"
+             x:DataType="vm:LogViewModel"
+             vm:ViewModelLocator.ViewModelType="{x:Type vm:LogViewModel}"
+             xmlns:mct="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
+             x:Class="YeetMacro2.Pages.LogPage"
+             xmlns:mi="clr-namespace:UraniumUI.Icons.MaterialIcons;assembly=UraniumUI.Icons.MaterialIcons"
+             BackgroundColor="{AppThemeBinding Light={StaticResource Background}, Dark={StaticResource BackgroundDark}}"
+             Padding="0">
+    <mct:DockLayout BindingContext="{Binding SelectedLog}">
+        <Label mct:DockLayout.DockPosition="Top" x:DataType="{x:Type m:Log}" Text="{Binding Timestamp, StringFormat='{}Timestamp: {0}'}" />
+        <Label mct:DockLayout.DockPosition="Top" x:DataType="{x:Type m:Log}" Text="{Binding Message, StringFormat='{}Message: {0}'}" />
+        <Label x:DataType="{x:Type m:Log}" Text="{Binding Stack, StringFormat='{}Stack: {0}'}" />
+    </mct:DockLayout>
+</ContentPage>

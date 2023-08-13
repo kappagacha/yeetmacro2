@@ -8,13 +8,7 @@ public partial class StatusPanelViewModel : ObservableObject
 {
     IRecorderService _recorderService;
     [ObservableProperty]
-    string _debug;
-    [ObservableProperty]
-    string _info;
-    [ObservableProperty]
-    bool _isRecording, _isSavingLog;
-    [ObservableProperty]
-    SortedObservableCollection<LogRecord> _savedLogs = new SortedObservableCollection<LogRecord>((a, b) => (int)(b.TimeStamp - a.TimeStamp));
+    bool _isRecording;
     [ObservableProperty]
     LogViewModel _logViewModel;
     public StatusPanelViewModel(IRecorderService recorderService, LogViewModel logViewModel)
@@ -23,29 +17,6 @@ public partial class StatusPanelViewModel : ObservableObject
         _logViewModel = logViewModel;
     }
 
-    partial void OnIsSavingLogChanged(bool value)
-    {
-        if (value)
-        {
-            SavedLogs.Clear();
-        }
-    }
-
-    partial void OnDebugChanged(string value)
-    {
-        if (IsSavingLog)
-        {
-            SavedLogs.Add(new LogRecord(DateTime.Now.Ticks, $"[{Info}] {value}"));
-        }
-    }
-
-    partial void OnInfoChanged(string value)
-    {
-        if (IsSavingLog)
-        {
-            SavedLogs.Add(new LogRecord(DateTime.Now.Ticks, $"[{value}]"));
-        }
-    }
 
     [RelayCommand]
     public void ToggleRecording()
@@ -57,17 +28,6 @@ public partial class StatusPanelViewModel : ObservableObject
         else
         {
             _recorderService.StartRecording();
-        }
-    }
-
-    public class LogRecord
-    {
-        public long TimeStamp { get; set; }
-        public string Log { get; set; }
-        public LogRecord(long timeStamp, string log)
-        {
-            TimeStamp = timeStamp;
-            Log = log;
         }
     }
 }

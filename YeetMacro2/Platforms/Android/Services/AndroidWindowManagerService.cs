@@ -13,8 +13,6 @@ using Tesseract.Droid;
 using System.Text.Json;
 using YeetMacro2.ViewModels;
 using YeetMacro2.Data.Serialization;
-using Microsoft.Maui.Graphics;
-using System.Collections.ObjectModel;
 
 namespace YeetMacro2.Platforms.Android.Services;
 public enum AndroidWindowView
@@ -31,7 +29,6 @@ public enum AndroidWindowView
     PromptSelectOptionView,
     StatusPanelView,
     MacroOverlayView,
-    LogView,
     MessageView
 }
 
@@ -204,10 +201,6 @@ public class AndroidWindowManagerService : IInputService, IScreenService
                     debugDrawView.SetBackgroundToTransparent();
                     debugDrawView.DisableTranslucentNavigation();
                     _views.TryAdd(windowView, debugDrawView);
-                    break;
-                case AndroidWindowView.LogView:
-                    var logView = new ResizeView(_context, _windowManager, this, new LogView());
-                    _views.TryAdd(windowView, logView);
                     break;
                 case AndroidWindowView.MessageView:
                     var messageView = new ResizeView(_context, _windowManager, this, new MessageView());

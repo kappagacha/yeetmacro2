@@ -20,6 +20,8 @@ public class YeetMacroDbContext : DbContext
     public DbSet<OptionSetting> OptionSettings { get; set; }
     public DbSet<StringSetting> StringSettings { get; set; }
     public DbSet<PatternSetting> PatternSettings { get; set; }
+    public DbSet<LogGroup> LogGroups { get; set; }
+    public DbSet<Log> Logs { get; set; }
 
     public YeetMacroDbContext()
     {
@@ -86,5 +88,10 @@ public class YeetMacroDbContext : DbContext
             .HasPrincipalKey<PatternSetting>(ps => ps.NodeId)
             .OnDelete(DeleteBehavior.Cascade);
         modelBuilder.Entity<PatternSetting>().Navigation(ps => ps.Value).AutoInclude();
+
+        modelBuilder.Entity<LogGroup>().OwnsMany(lg => lg.Logs, (l) =>
+        {
+            l.HasKey(l => l.LogId);
+        });
     }
 }

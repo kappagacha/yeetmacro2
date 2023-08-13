@@ -33,7 +33,7 @@ public partial class MacroManagerViewModel : ObservableObject
     [ObservableProperty]
     bool _isExportEnabled, _isOpenAppDirectoryEnabled;
     [ObservableProperty]
-    bool _inDebugMode, _showStatusPanel, _showExport, _showSettings, _isBusy, _showScriptLog;
+    bool _inDebugMode, _showStatusPanel, _showExport, _showSettings, _isBusy;
     [ObservableProperty]
     double _resolutionWidth, _resolutionHeight;
     [ObservableProperty]
@@ -47,7 +47,7 @@ public partial class MacroManagerViewModel : ObservableObject
         PropertyNamingPolicy = JsonNamingPolicy.CamelCase,
         TypeInfoResolver = SizePropertiesResolver.Instance
     };
-    StatusPanelViewModel _statusPanelViewModel;
+    LogViewModel _logViewModel;
 
     public PatternNodeViewModel Patterns
     {
@@ -101,7 +101,7 @@ public partial class MacroManagerViewModel : ObservableObject
         INodeService<ScriptNode, ScriptNode> scriptNodeService,
         INodeService<ParentSetting, SettingNode> settingNodeService,
         IScriptService scriptService,
-        StatusPanelViewModel statusPanelViewModel,
+        LogViewModel logViewModel,
         IMapper mapper,
         IHttpService httpService)
     {
@@ -111,7 +111,7 @@ public partial class MacroManagerViewModel : ObservableObject
         _patternNodeService = patternNodeService;
         _scriptNodeService = scriptNodeService;
         _settingNodeService = settingNodeService;
-        _statusPanelViewModel= statusPanelViewModel;
+        _logViewModel = logViewModel;
         _mapper = mapper;
         _httpService = httpService;
         // manually instantiating in ServiceRegistrationHelper.AppInitializer to pre initialize MacroSets
@@ -240,17 +240,13 @@ public partial class MacroManagerViewModel : ObservableObject
         Console.WriteLine($"[*****YeetMacro*****] MacroManagerViewModel Patterns Initialized");
         await Settings.WaitForInitialization();
         Console.WriteLine($"[*****YeetMacro*****] MacroManagerViewModel Settings Initialized");
-        if (ShowScriptLog)
-        {
-            _statusPanelViewModel.IsSavingLog = true;
-        }
+
+        _logViewModel.CurrentMacroSet = SelectedMacroSet?.Name ?? string.Empty;
+        _logViewModel.CurrentScript = scriptNode.Name;
         _scriptService.RunScript(scriptNode.Text, Scripts.Root.Nodes, Patterns.ToJson(), Settings.ToJson(), (result) =>
         {
             OnScriptFinished?.Execute(result);
-            if (ShowScriptLog)
-            {
-                _statusPanelViewModel.IsSavingLog = false;
-            }
+            _logViewModel.CurrentMacroSet = _logViewModel.CurrentScript = string.Empty;
             IsBusy = false;
         });
 
@@ -273,12 +269,6 @@ public partial class MacroManagerViewModel : ObservableObject
     private void ToggleShowSettings()
     {
         ShowSettings = !ShowSettings;
-    }
-
-    [RelayCommand]
-    private void ToggleShowScriptLog()
-    {
-        ShowScriptLog = !ShowScriptLog;
     }
 
     [RelayCommand]

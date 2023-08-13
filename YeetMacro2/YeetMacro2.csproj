@@ -82,6 +82,9 @@
 	</ItemGroup>
 
 	<ItemGroup>
+	  <Compile Update="Pages\LogPage.xaml.cs">
+	    <DependentUpon>LogPage.xaml</DependentUpon>
+	  </Compile>
 	  <Compile Update="Platforms\Android\Views\AndroidDeveloperPage.xaml.cs">
 	    <DependentUpon>AndroidDeveloperPage.xaml</DependentUpon>
 	  </Compile>
@@ -91,8 +94,11 @@
 	  <Compile Update="Platforms\Android\Views\MessageView.xaml.cs">
 	    <DependentUpon>MessageView.xaml</DependentUpon>
 	  </Compile>
-	  <Compile Update="Views\LogView.xaml.cs">
-	    <DependentUpon>LogView.xaml</DependentUpon>
+	  <Compile Update="Pages\LogGroupsPage.xaml.cs">
+	    <DependentUpon>LogGroupsPage.xaml</DependentUpon>
+	  </Compile>
+	  <Compile Update="Pages\LogGroupItemPage.xaml.cs">
+	    <DependentUpon>LogGroupItemPage.xaml</DependentUpon>
 	  </Compile>
 	  <Compile Update="Views\StatusPanelView.xaml.cs">
 	    <DependentUpon>StatusPanelView.xaml</DependentUpon>
@@ -136,6 +142,9 @@
 	</ItemGroup>
   
 	<ItemGroup>
+	  <MauiXaml Update="Pages\LogPage.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
 	  <MauiXaml Update="Platforms\Android\Views\AndroidDeveloperPage.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
@@ -151,7 +160,10 @@
 	  <MauiXaml Update="Views\ImageView.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
-	  <MauiXaml Update="Views\LogView.xaml">
+	  <MauiXaml Update="Pages\LogGroupsPage.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	  <MauiXaml Update="Pages\LogGroupItemPage.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
 	  <MauiXaml Update="Views\StatusPanelView.xaml">

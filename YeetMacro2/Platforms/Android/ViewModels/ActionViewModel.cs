@@ -51,13 +51,6 @@ public partial class ActionViewModel : ObservableObject, IMovable
         _macroManagerViewModel.OnScriptFinished = _macroManagerViewModel.OnScriptFinished ?? new Command<string>((result) =>
         {
             State = ActionState.Stopped;
-            if (_macroManagerViewModel.ShowScriptLog)
-            {
-                MainThread.BeginInvokeOnMainThread(() =>
-                {
-                    _windowManagerService.Show(AndroidWindowView.LogView);
-                });
-            }
 
             if (!String.IsNullOrWhiteSpace(result))
             {

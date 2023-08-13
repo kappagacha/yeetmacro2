@@ -7,6 +7,7 @@ using YeetMacro2.Services;
 using Android.OS;
 //using OpenCV.Android;
 using Org.Opencv.Android;
+using YeetMacro2.ViewModels;
 
 namespace YeetMacro2;
 
@@ -32,12 +33,12 @@ public class MainActivity : MauiAppCompatActivity
 
         AppDomain.CurrentDomain.UnhandledException += (sender, args) =>
         {
-            // TODO: Persist the error somehow so we can try to handle.
             Console.WriteLine("[*****YeetMacro*****] UnhandledException: " + args.ExceptionObject.ToString());
             if (args.IsTerminating)
             {
                 ServiceHelper.GetService<YeetAccessibilityService>().Stop();
             }
+            ServiceHelper.GetService<LogViewModel>().LogException(args.ExceptionObject as Exception);
         };
 
         base.OnCreate(savedInstanceState);

@@ -139,13 +139,6 @@
                         </DataTemplate>
                     </material:TabItem.ContentTemplate>
                 </material:TabItem>
-                <material:TabItem Title="Log">
-                    <material:TabItem.ContentTemplate>
-                        <DataTemplate>
-                            <v:LogView />
-                        </DataTemplate>
-                    </material:TabItem.ContentTemplate>
-                </material:TabItem>
             </material:TabView>
         </mct:DockLayout>
         <ActivityIndicator IsRunning="{Binding IsBusy}" />

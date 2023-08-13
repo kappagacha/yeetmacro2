@@ -124,26 +124,6 @@
                 </Label>
             </HorizontalStackLayout>
             <HorizontalStackLayout HorizontalOptions="Center">
-                <v:ImageView FontFamily="MaterialOutlined" Glyph="{x:Static mi:MaterialOutlined.Format_align_justify}"  Color="LightGray"
-                                                     Command="{Binding MacroManagerViewModel.ToggleShowScriptLogCommand}">
-                    <v:ImageView.Triggers>
-                        <DataTrigger TargetType="{x:Type v:ImageView}" Binding="{Binding MacroManagerViewModel.ShowScriptLog}" Value="True">
-                            <Setter Property="Color" Value="Green" />
-                        </DataTrigger>
-                    </v:ImageView.Triggers>
-                </v:ImageView>
-                <Label VerticalTextAlignment="Center" Text="Show Script Log (After Script Completion)">
-                    <Label.GestureRecognizers>
-                        <TapGestureRecognizer Command="{Binding MacroManagerViewModel.ToggleShowScriptLogCommand}" />
-                    </Label.GestureRecognizers>
-                    <Label.Triggers>
-                        <DataTrigger TargetType="Label" Binding="{Binding MacroManagerViewModel.ShowScriptLog}" Value="True">
-                            <Setter Property="TextColor" Value="Green" />
-                        </DataTrigger>
-                    </Label.Triggers>
-                </Label>
-            </HorizontalStackLayout>
-            <HorizontalStackLayout HorizontalOptions="Center">
                 <v:ImageView FontFamily="MaterialOutlined" Glyph="{x:Static mi:MaterialOutlined.Play_circle}"
                                                      Command="{Binding ResetActionViewLocationCommand}" />
                 <Label VerticalTextAlignment="Center" Text="Reset Action Button Location">
