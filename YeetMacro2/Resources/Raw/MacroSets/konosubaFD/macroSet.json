@@ -4,6 +4,8 @@
     "width": 1920,
     "height": 1080
   },
+  "supportsGreaterWidth": true,
+  "supportsGreaterHeight": false,
   "package": "com.nexon.konosuba",
   "source": "localAsset:konosubaFD",
   "macroSetLastUpdated": "2023-08-13T23:05:42.2980597-05:00",

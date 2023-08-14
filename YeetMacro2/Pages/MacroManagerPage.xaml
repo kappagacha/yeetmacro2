@@ -63,10 +63,14 @@
                                 <HorizontalStackLayout Margin="0" Padding="0">
                                     <Label Margin="0" VerticalOptions="Center" Padding="0" Text="Resolution Width:" />
                                     <Entry Margin="5,0,0,0" VerticalOptions="Center" Text="{Binding ResolutionWidth}" />
+                                    <Label Margin="0" VerticalOptions="Center" Padding="0" Text="Supports Greater Width" />
+                                    <CheckBox Margin="5,0,0,0" VerticalOptions="Center" IsChecked="{Binding SelectedMacroSet.SupportsGreaterWidth}" />
                                 </HorizontalStackLayout>
                                 <HorizontalStackLayout Margin="0" Padding="0">
                                     <Label Margin="0" VerticalOptions="Center" Padding="0" Text="Resolution Height:" />
                                     <Entry Margin="5,0,0,0" VerticalOptions="Center" Text="{Binding ResolutionHeight}" />
+                                    <Label Margin="0" VerticalOptions="Center" Padding="0" Text="Supports Greater Height" />
+                                    <CheckBox Margin="5,0,0,0" VerticalOptions="Center" IsChecked="{Binding SelectedMacroSet.SupportsGreaterHeight}" />
                                 </HorizontalStackLayout>
                                 <HorizontalStackLayout Margin="0" Padding="0">
                                     <Label Margin="0" VerticalOptions="Center" Padding="0" Text="Package:" />

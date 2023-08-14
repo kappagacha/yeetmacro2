@@ -55,6 +55,9 @@
                         <DataTrigger TargetType="Label" Binding="{Binding WidthStatus}" Value="Valid">
                             <Setter Property="TextColor" Value="{StaticResource Primary}" />
                         </DataTrigger>
+                        <DataTrigger TargetType="Label" Binding="{Binding WidthStatus}" Value="Acceptable">
+                            <Setter Property="TextColor" Value="Orange" />
+                        </DataTrigger>
                     </Label.Triggers>
                 </Label>
                 <Label Text="x" />
@@ -62,6 +65,9 @@
                     <Label.Triggers>
                         <DataTrigger TargetType="Label" Binding="{Binding HeightStatus}" Value="Valid">
                             <Setter Property="TextColor" Value="{StaticResource Primary}" />
+                        </DataTrigger>
+                        <DataTrigger TargetType="Label" Binding="{Binding HeightStatus}" Value="Acceptable">
+                            <Setter Property="TextColor" Value="Orange" />
                         </DataTrigger>
                     </Label.Triggers>
                 </Label>

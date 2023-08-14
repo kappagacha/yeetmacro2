@@ -13,8 +13,8 @@ public partial class AndriodHomeViewModel : ObservableObject
     private YeetAccessibilityService _accessibilityService;
     private MacroManagerViewModel _macroManagerViewModel;
 
-    public string CurrentPackage 
-    { 
+    public string CurrentPackage
+    {
         get
         {
             var currentPackage = _accessibilityService.CurrentPackage;
@@ -28,12 +28,26 @@ public partial class AndriodHomeViewModel : ObservableObject
             }
 
             return currentPackage;
-        } 
+        }
     }
     public bool IsCurrentPackageValid => _accessibilityService.CurrentPackage == _macroManagerViewModel.SelectedMacroSet?.Package;
     public Size CurrentResolution => new Size(DeviceDisplay.MainDisplayInfo.Width, DeviceDisplay.MainDisplayInfo.Height);
-    public string WidthStatus => DeviceDisplay.MainDisplayInfo.Width == _macroManagerViewModel.SelectedMacroSet.Resolution.Width ? "Valid" : "Invalid";
-    public string HeightStatus => DeviceDisplay.MainDisplayInfo.Height == _macroManagerViewModel.SelectedMacroSet.Resolution.Height ? "Valid" : "Invalid";
+    public string WidthStatus
+    {
+        get
+        {
+            if (_macroManagerViewModel.SelectedMacroSet.SupportsGreaterWidth && DeviceDisplay.MainDisplayInfo.Width > _macroManagerViewModel.SelectedMacroSet.Resolution.Width) return "Acceptable";
+            return DeviceDisplay.MainDisplayInfo.Width == _macroManagerViewModel.SelectedMacroSet.Resolution.Width ? "Valid" : "Invalid";
+        }
+    }
+    public string HeightStatus
+    {
+        get
+        {
+            if (_macroManagerViewModel.SelectedMacroSet.SupportsGreaterHeight && DeviceDisplay.MainDisplayInfo.Height > _macroManagerViewModel.SelectedMacroSet.Resolution.Height) return "Acceptable";
+            return DeviceDisplay.MainDisplayInfo.Height == _macroManagerViewModel.SelectedMacroSet.Resolution.Height ? "Valid" : "Invalid";
+        }
+    }
     public MacroManagerViewModel MacroManagerViewModel => _macroManagerViewModel;
     public string OverlayArea
     {
@@ -45,7 +59,7 @@ public partial class AndriodHomeViewModel : ObservableObject
     }
     //public string DisplayCutoutTop => _windowManagerService.DisplayCutoutTop.ToString();
     //public bool HasCutoutTop => _windowManagerService.DisplayCutoutTop > 0;
-    public AndriodHomeViewModel(AndroidWindowManagerService windowManagerService, YeetAccessibilityService accessibilityService, 
+    public AndriodHomeViewModel(AndroidWindowManagerService windowManagerService, YeetAccessibilityService accessibilityService,
         MacroManagerViewModel macroManagerViewModel)
     {
         _windowManagerService = windowManagerService;

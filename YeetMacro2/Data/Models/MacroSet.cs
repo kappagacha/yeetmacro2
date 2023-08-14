@@ -14,6 +14,8 @@ public class MacroSet
     [JsonIgnore]
     public virtual int RootSettingNodeId { get; set; }
     public virtual Size Resolution { get; set; }
+    public virtual bool SupportsGreaterWidth { get; set; }
+    public virtual bool SupportsGreaterHeight { get; set; }
     public virtual string Package { get; set; }
     public virtual string Source { get; set; }
     public virtual DateTimeOffset? MacroSetLastUpdated { get; set; }
