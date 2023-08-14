@@ -208,6 +208,17 @@
           "isParentNode": false,
           "name": "defence"
         }
+      },
+      "characterBonus": {
+        "$isParent": false,
+        "props": {
+          "$type": "string",
+          "settingType": "String",
+          "value": "Cbns",
+          "defaultValue": null,
+          "isParentNode": false,
+          "name": "characterBonus"
+        }
       }
     },
     "eventBoss": {
@@ -230,6 +241,28 @@
         "defaultValue": null,
         "isParentNode": false,
         "name": "battleArena"
+      }
+    },
+    "farmEventLoop": {
+      "$isParent": false,
+      "props": {
+        "$type": "string",
+        "settingType": "String",
+        "value": "FEL",
+        "defaultValue": null,
+        "isParentNode": false,
+        "name": "farmEventLoop"
+      }
+    },
+    "cabbageHunting": {
+      "$isParent": false,
+      "props": {
+        "$type": "string",
+        "settingType": "String",
+        "value": "CabH",
+        "defaultValue": null,
+        "isParentNode": false,
+        "name": "cabbageHunting"
       }
     }
   }

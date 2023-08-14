@@ -32,7 +32,7 @@ while (state.isRunning && !done) {
 					break;
 				}
 				let currentCost = await screenService.getText(patterns.quest.events.bossBattle.cost);
-				while (state.isRunning && currentCost < 3) {
+				for (let i = 0; state.isRunning && i < 2; i++) {
 					const addCostDisabledResult = await macroService.findPattern(patterns.quest.events.bossBattle.addCost.disabled);
 					if (addCostDisabledResult.isSuccess) {
 						break;
@@ -41,6 +41,7 @@ while (state.isRunning && !done) {
 					await sleep(500);
 					currentCost = await screenService.getText(patterns.quest.events.bossBattle.cost);
 				}
+				logger.debug(`currentCost: ${currentCost}`);
 				if (currentCost == 1) {
 					result.message = 'Not enough boss tickets...';
 					done = true;
@@ -60,7 +61,7 @@ while (state.isRunning && !done) {
 			isBossMulti = true;
 			await macroService.pollPattern(patterns.quest.events.bossBattle.extreme, { doClick: true, predicatePattern: patterns.battle.prepare });
 			let currentCost = await screenService.getText(patterns.quest.events.bossBattle.cost);
-			while (state.isRunning && currentCost < 3) {
+			for (let i = 0; state.isRunning && i < 2; i++) {
 				const addCostDisabledResult = await macroService.findPattern(patterns.quest.events.bossBattle.addCost.disabled);
 				if (addCostDisabledResult.isSuccess) {
 					break;
@@ -69,6 +70,7 @@ while (state.isRunning && !done) {
 				await sleep(500);
 				currentCost = await screenService.getText(patterns.quest.events.bossBattle.cost);
 			}
+			logger.debug(`currentCost: ${currentCost}`);
 			if (currentCost == 1) {
 				result.message = 'Not enough boss tickets...';
 				done = true;
@@ -88,13 +90,11 @@ while (state.isRunning && !done) {
 			if (targetPartyName === 'recommendedElement') {
 				await selectPartyByRecommendedElement(isBossMulti ? -425: 0);	// Recommended Element icons are shifted by 425 to the left of expected location
 			}
-			else {
-				if (!(await selectParty(targetPartyName))) {
-					result = `targetPartyName not found: ${targetPartyName}`;
-					done = true;
-					break;
-				}
-			}
+			//else if (!(await selectParty(targetPartyName))) {
+			//	result = `targetPartyName not found: ${targetPartyName}`;
+			//	done = true;
+			//	break;
+			//}
 			await sleep(500);
 			await macroService.pollPattern([patterns.battle.joinRoom, patterns.battle.begin], { doClick: true, predicatePattern: patterns.battle.report });
 			result.numBattles++;

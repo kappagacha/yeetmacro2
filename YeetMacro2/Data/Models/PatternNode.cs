@@ -63,6 +63,7 @@ public class ColorThresholdProperties
 public enum OffsetCalcType
 {
     Default,
+    None,
     Center,
     DockLeft,
     DockRight

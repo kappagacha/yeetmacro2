@@ -215,6 +215,28 @@ public class ScriptService : IScriptService
         });
         _jsContext["macroService"] = new JSObject(new List<JSProperty>()
         {
+            new JSProperty("calcOffset", new JSFunction((in Arguments a) =>
+            {
+                if (a.Length < 1) throw new ArgumentException("macroService.calcOffset requires one argument");
+
+                var jsPattern = a[0];
+                var patternNode = PatternNodeViewModel.FromJsonNode(JSJSON.Stringify(jsPattern));
+                foreach (var pattern in patternNode.Patterns)
+                {
+                    var offset = PatternNodeViewModel.CalcOffset(pattern);
+                    return new JSObject(new List<JSProperty>()
+                    {
+                        new JSProperty("x", new JSNumber(offset.X), JSPropertyAttributes.EnumerableReadonlyValue),
+                        new JSProperty("y", new JSNumber(offset.Y), JSPropertyAttributes.EnumerableReadonlyValue)
+                    });
+                }
+                
+                return new JSObject(new List<JSProperty>()
+                {
+                    new JSProperty("x", new JSNumber(0), JSPropertyAttributes.EnumerableReadonlyValue),
+                    new JSProperty("y", new JSNumber(0), JSPropertyAttributes.EnumerableReadonlyValue)
+                });
+            }), JSPropertyAttributes.EnumerableReadonlyValue),
             new JSProperty("findPattern", new JSFunction((in Arguments a) =>
             {
                 if (a.Length < 1) throw new ArgumentException("macroService.findPattern requires at least one argument");

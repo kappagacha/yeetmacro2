@@ -31,7 +31,7 @@ macroService.pollPattern = async function (pattern, opts = {}) {
         while (state.isRunning) {
             let numChecks = 1;
             let inversePredicateResult = await this.findPattern(inversePredicatePattern, predicateOpts);
-            while (!inversePredicateResult.isSuccess && numChecks < inversePredicateChecks) {
+            while (state.isRunning && !inversePredicateResult.isSuccess && numChecks < inversePredicateChecks) {
                 inversePredicateResult = await this.findPattern(inversePredicatePattern, predicateOpts);
                 numChecks++;
                 await sleep(inversePredicateCheckDelayMs);

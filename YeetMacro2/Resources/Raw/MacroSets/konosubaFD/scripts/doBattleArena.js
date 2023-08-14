@@ -35,7 +35,7 @@ while (state.isRunning && !done) {
 				}
 			}
 			await sleep(500);
-			await macroService.pollPattern(patterns.battle.begin, { doClick: true, predicatePattern: patterns.battle.report });
+			await macroService.pollPattern(patterns.battle.begin, { doClick: true, clickPattern: [patterns.branchEvent.availableNow, patterns.branchEvent.playLater], predicatePattern: patterns.battle.report });
 			break;
 		case 'battle.report':
 			logger.info('doBattleArena: restart');

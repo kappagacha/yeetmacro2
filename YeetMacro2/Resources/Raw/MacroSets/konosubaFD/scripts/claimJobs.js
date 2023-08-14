@@ -2,8 +2,8 @@
 let done = false;
 const loopPatterns = [patterns.titles.home, patterns.titles.job];
 while (state.isRunning && !done) {
-	const result = await macroService.pollPattern(loopPatterns);
-	switch (result.path) {
+	const loopResult = await macroService.pollPattern(loopPatterns);
+	switch (loopResult.path) {
 		case 'titles.home':
 			logger.info('farmEventLoop: click jobs');
 			await macroService.clickPattern(patterns.jobs);

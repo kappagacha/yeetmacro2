@@ -129,6 +129,9 @@ public partial class MacroManagerViewModel : ObservableObject
             SelectedMacroSet = _macroSets.First();
         }
 
+        InDebugMode = Preferences.Default.Get(nameof(InDebugMode), false);
+        ShowStatusPanel = Preferences.Default.Get(nameof(ShowStatusPanel), false);
+
         _macroSetRepository.DetachAllEntities();
         _macroSetRepository.AttachEntities(_macroSets.ToArray());
         _nodeRootIdToPatternTree = new ConcurrentDictionary<int, PatternNodeViewModel>();
@@ -257,12 +260,15 @@ public partial class MacroManagerViewModel : ObservableObject
     private void ToggleShowStatusPanel()
     {
         ShowStatusPanel = !ShowStatusPanel;
+        Preferences.Default.Set(nameof(ShowStatusPanel), ShowStatusPanel);
+
     }
 
     [RelayCommand]
     private void ToggleInDebugMode()
     {
         InDebugMode = !InDebugMode;
+        Preferences.Default.Set(nameof(InDebugMode), InDebugMode);
     }
 
     [RelayCommand]

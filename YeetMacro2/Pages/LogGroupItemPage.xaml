@@ -20,8 +20,8 @@
                     <Button Command="{Binding BindingContext.SelectLogCommand, Source={RelativeSource AncestorType={x:Type p:LogGroupItemPage}}}"
                             CommandParameter="{Binding .}">
                         <Button.Text>
-                            <MultiBinding StringFormat="{}{0} - {1}">
-                                <Binding Path="Timestamp" />
+                            <MultiBinding StringFormat="{}[{0}] {1}">
+                                <Binding Path="Type" />
                                 <Binding Path="Message" />
                             </MultiBinding>
                         </Button.Text>

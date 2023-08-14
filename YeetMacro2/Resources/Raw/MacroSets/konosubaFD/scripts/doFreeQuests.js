@@ -1,5 +1,7 @@
 ﻿let done = false;
 const loopPatterns = [patterns.titles.home, patterns.titles.quest, patterns.titles.freeQuests];
+const offset = macroService.calcOffset(patterns.titles.home);
+
 while (state.isRunning && !done) {
 	const loopResult = await macroService.pollPattern(loopPatterns);
 	switch (loopResult.path) {
@@ -19,7 +21,7 @@ while (state.isRunning && !done) {
 				await macroService.pollPattern(patterns.freeQuests.upgradeStone[upgradeStoneTargetLevel], { doClick: true, predicatePattern: patterns.tickets.add });
 				// sample text capture: "25 x1" (it catches some of the words)
 				let numTickets = (await screenService.getText(patterns.tickets.numTickets)).split('x')[1];
-				while (numTickets < 2) {
+				while (state.isRunning && numTickets < 2) {
 					await macroService.clickPattern(patterns.tickets.add);
 					await sleep(500);
 					numTickets = (await screenService.getText(patterns.tickets.numTickets)).split('x')[1];
@@ -38,7 +40,7 @@ while (state.isRunning && !done) {
 				const checkResult = await macroService.findPattern(patterns.skipAll.search.filter.check, { limit: 5 });
 				for (let point of checkResult.points) {
 					logger.debug(JSON.stringify(point));
-					if (point.x < 300.0) continue;		// skip 4 stars
+					if (point.x < offset.x + 300.0) continue;		// skip 4 stars
 					screenService.doClick(point);
 					await sleep(250);
 				}
@@ -47,7 +49,7 @@ while (state.isRunning && !done) {
 			}
 
 			let maxNumSkips = await screenService.getText(patterns.skipAll.maxNumSkips);
-			while (maxNumSkips < 2) {
+			while (state.isRunning && maxNumSkips < 2) {
 				await macroService.clickPattern(patterns.skipAll.addMaxSkips);
 				await sleep(500);
 				maxNumSkips = await screenService.getText(patterns.skipAll.maxNumSkips);

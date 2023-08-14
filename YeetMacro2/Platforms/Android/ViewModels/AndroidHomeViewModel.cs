@@ -1,7 +1,6 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using YeetMacro2.Platforms.Android.Services;
-using YeetMacro2.Platforms.Android.Views;
 using YeetMacro2.ViewModels;
 
 namespace YeetMacro2.Platforms.Android.ViewModels;
@@ -33,8 +32,8 @@ public partial class AndriodHomeViewModel : ObservableObject
     }
     public bool IsCurrentPackageValid => _accessibilityService.CurrentPackage == _macroManagerViewModel.SelectedMacroSet?.Package;
     public Size CurrentResolution => new Size(DeviceDisplay.MainDisplayInfo.Width, DeviceDisplay.MainDisplayInfo.Height);
-    public bool HasValidResolution => DeviceDisplay.MainDisplayInfo.Width == _macroManagerViewModel.SelectedMacroSet.Resolution.Width &&
-        DeviceDisplay.MainDisplayInfo.Height == _macroManagerViewModel.SelectedMacroSet.Resolution.Height;
+    public string WidthStatus => DeviceDisplay.MainDisplayInfo.Width == _macroManagerViewModel.SelectedMacroSet.Resolution.Width ? "Valid" : "Invalid";
+    public string HeightStatus => DeviceDisplay.MainDisplayInfo.Height == _macroManagerViewModel.SelectedMacroSet.Resolution.Height ? "Valid" : "Invalid";
     public MacroManagerViewModel MacroManagerViewModel => _macroManagerViewModel;
     public string OverlayArea
     {
@@ -81,6 +80,8 @@ public partial class AndriodHomeViewModel : ObservableObject
         if (IsProjectionServiceEnabled)
         {
             await _windowManagerService.StartProjectionService();
+            if (_macroManagerViewModel.InDebugMode) _windowManagerService.Show(AndroidWindowView.DebugDrawView);
+            if (_macroManagerViewModel.ShowStatusPanel) _windowManagerService.Show(AndroidWindowView.StatusPanelView);
         }
         else
         {
@@ -168,18 +169,15 @@ public partial class AndriodHomeViewModel : ObservableObject
     }
 
     [RelayCommand]
-    public void OnAppear()
+    public async void OnAppear()
     {
         IsAppearing = true;
         IsProjectionServiceEnabled = _windowManagerService.ProjectionServiceEnabled;
         IsAccessibilityEnabled = _accessibilityService.HasAccessibilityPermissions;
         IsMacroReady = IsProjectionServiceEnabled && IsAccessibilityEnabled;
-        IsAppearing = false;
+        if (!IsProjectionServiceEnabled) await ToggleProjectionService();
 
-        //if (!IsProjectionServiceEnabled)
-        //{
-        //    ToggleProjectionService();
-        //}
+        IsAppearing = false;
     }
 }
 

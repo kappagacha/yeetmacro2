@@ -1,5 +1,6 @@
 ﻿let done = false;
 const loopPatterns = [patterns.titles.home, patterns.titles.smithy, patterns.titles.craft, patterns.skipAll.title];
+const offset = macroService.calcOffset(patterns.titles.home);
 
 const farmMat = async (targetMats, staminaCost, numSkips) => {
 	await macroService.pollPattern(patterns.skipAll.material, { doClick: true, predicatePattern: patterns.skipAll.search });
@@ -10,7 +11,7 @@ const farmMat = async (targetMats, staminaCost, numSkips) => {
 		await sleep(500);
 		const checkResult = await macroService.findPattern(patterns.skipAll.search.filter.check, { limit: 4 });
 		for (let point of checkResult.points) {
-			if (point.x < 400.0) continue;		// skip 4 stars
+			if (point.x < offset.x + 400.0) continue;		// skip 4 stars
 			screenService.doClick(point);
 			await sleep(250);
 		}
@@ -35,6 +36,7 @@ const farmMat = async (targetMats, staminaCost, numSkips) => {
 							width: 100.0,
 							height: 75.0
 						},
+						offsetCalcType: "None"
 					})),
 				}
 			};
