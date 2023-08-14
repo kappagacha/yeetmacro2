@@ -183,13 +183,13 @@ public partial class AndriodHomeViewModel : ObservableObject
     }
 
     [RelayCommand]
-    public async void OnAppear()
+    public void OnAppear()
     {
         IsAppearing = true;
         IsProjectionServiceEnabled = _windowManagerService.ProjectionServiceEnabled;
         IsAccessibilityEnabled = _accessibilityService.HasAccessibilityPermissions;
         IsMacroReady = IsProjectionServiceEnabled && IsAccessibilityEnabled;
-        if (!IsProjectionServiceEnabled) await ToggleProjectionService();
+        //if (!IsProjectionServiceEnabled) await ToggleProjectionService();
 
         IsAppearing = false;
     }
