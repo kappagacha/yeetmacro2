@@ -33,12 +33,25 @@ public class MainActivity : MauiAppCompatActivity
 
         AppDomain.CurrentDomain.UnhandledException += (sender, args) =>
         {
-            Console.WriteLine("[*****YeetMacro*****] UnhandledException: " + args.ExceptionObject.ToString());
+            Console.WriteLine("[*****YeetMacro*****] CurrentDomain UnhandledException: " + args.ExceptionObject.ToString());
             if (args.IsTerminating)
             {
                 ServiceHelper.GetService<YeetAccessibilityService>().Stop();
             }
             ServiceHelper.GetService<LogViewModel>().LogException(args.ExceptionObject as Exception);
+        };
+
+        // https://gist.github.com/mattjohnsonpint/7b385b7a2da7059c4a16562bc5ddb3b7
+        Android.Runtime.AndroidEnvironment.UnhandledExceptionRaiser += (sender, args) =>
+        {
+            Console.WriteLine("[*****YeetMacro*****] UnhandledExceptionRaiser UnhandledException: " + args.Exception.Message);
+            ServiceHelper.GetService<LogViewModel>().LogException(args.Exception );
+        };
+
+        TaskScheduler.UnobservedTaskException += (sender, args) =>
+        {
+            Console.WriteLine("[*****YeetMacro*****] TaskScheduler UnobservedTaskException: " + args.Exception.Message);
+            ServiceHelper.GetService<LogViewModel>().LogException(args.Exception);
         };
 
         base.OnCreate(savedInstanceState);
