@@ -59,16 +59,16 @@ while (state.isRunning && !done) {
 			const replayResult = await macroService.findPattern(patterns.battle.replay);
 			if (replayResult.isSuccess) {
 				logger.debug('doBattleArenaEx: found replay');
-				await macroService.pollPattern(patterns.battle.replay, { doClick: true, clickPattern: [patterns.branchEvent.availableNow, patterns.branchEvent.playLater], predicatePattern: patterns.battle.replay.ok });
+				await macroService.pollPattern(patterns.battle.replay, { doClick: true, clickPattern: [patterns.branchEvent.availableNow, patterns.branchEvent.playLater, patterns.prompt.playerRankUp], predicatePattern: patterns.battle.replay.ok });
 				await macroService.pollPattern(patterns.battle.replay.ok, { doClick: true, predicatePattern: patterns.battle.report });
 			} else {
 				logger.debug('doBattleArenaEx: found next3');
-				const next3Result = await macroService.pollPattern(patterns.battle.next3, { doClick: true, clickPattern: [patterns.battleArena.prompt.ok, patterns.branchEvent.availableNow, patterns.branchEvent.playLater], predicatePattern: [patterns.titles.battleArena, patterns.battle.replay] });
+				const next3Result = await macroService.pollPattern(patterns.battle.next3, { doClick: true, clickPattern: [patterns.battleArena.prompt.ok, patterns.branchEvent.availableNow, patterns.branchEvent.playLater, patterns.prompt.playerRankUp], predicatePattern: [patterns.titles.battleArena, patterns.battle.replay] });
 				if (next3Result.predicatePath === 'titles.battleArena') {
 					done = true;
 					break;
 				}
-				await macroService.pollPattern(patterns.battle.replay, { doClick: true, clickPattern: [patterns.branchEvent.availableNow, patterns.branchEvent.playLater], predicatePattern: patterns.battle.replay.ok });
+				await macroService.pollPattern(patterns.battle.replay, { doClick: true, clickPattern: [patterns.branchEvent.availableNow, patterns.branchEvent.playLater, patterns.prompt.playerRankUp], predicatePattern: patterns.battle.replay.ok });
 				await macroService.pollPattern(patterns.battle.replay.ok, { doClick: true, predicatePattern: patterns.battle.report });
 			}
 			break;

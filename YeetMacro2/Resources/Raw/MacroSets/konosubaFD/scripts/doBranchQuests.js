@@ -30,8 +30,7 @@ while (state.isRunning && !done) {
 			const optionNumber = 1 + Math.floor(Math.random() * 4);
 			logger.debug('option ' + optionNumber);
 			await macroService.pollPattern(patterns.branchEvent.explosionWalk['option' + optionNumber], { doClick: true, predicatePattern: patterns.branchEvent.explosionWalk.chant.enabled });
-			// TODO: need pattern for patterns.branchEvent.explosionWalk.skip
-			await macroService.pollPattern(patterns.branchEvent.explosionWalk.chant.enabled, { doClick: true, clickPattern: [patterns.battle.next], predicatePattern: patterns.titles.home });
+			await macroService.pollPattern(patterns.branchEvent.explosionWalk.chant.enabled, { doClick: true, clickPattern: [patterns.battle.next, patterns.branchEvent.skip], predicatePattern: patterns.titles.home });
 			break;
 		case 'titles.party':
 			logger.info('doBranchQuests: select party');
@@ -48,8 +47,8 @@ while (state.isRunning && !done) {
 				}
 			}
 			await sleep(500);
-			await macroService.pollPattern(patterns.battle.begin, { doClick: true, clickPattern: [patterns.battleArena.newHighScore, patterns.battleArena.rank], predicatePattern: patterns.battle.report });
-			await macroService.pollPattern(patterns.battle.next, { doClick: true, predicatePattern: patterns.titles.home });
+			await macroService.pollPattern(patterns.battle.begin, { doClick: true, predicatePattern: patterns.battle.report });
+			await macroService.pollPattern(patterns.battle.next, { doClick: true, clickPattern: [patterns.battleArena.newHighScore, patterns.battleArena.rank], predicatePattern: patterns.titles.home });
 			break;
 	}
 
