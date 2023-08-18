@@ -17,11 +17,11 @@
             <Grid BackgroundColor="{AppThemeBinding Light={StaticResource Background}, Dark={StaticResource BackgroundDark}}" Opacity="0.8" />
             <VerticalStackLayout>
                 <HorizontalStackLayout Margin="0" Padding="0">
+                    <CheckBox VerticalOptions="Center" IsChecked="{Binding PatternNode.IsMultiPattern, Source={Reference thisView}}" />
                     <Label Margin="0" VerticalOptions="Center" Padding="0" Text="MultiPattern" />
-                    <CheckBox Margin="5,0,0,0" VerticalOptions="Center" IsChecked="{Binding PatternNode.IsMultiPattern, Source={Reference thisView}}" />
-                    <Label Margin="0" VerticalOptions="Center" Padding="0" Text="BoundsPattern" />
                     <CheckBox Margin="0" VerticalOptions="Center" IsChecked="{Binding Pattern.IsBoundsPattern, Source={Reference thisView}}" />
-                    <Label Margin="0" VerticalOptions="Center" Padding="0" Text="VariancePct" />
+                    <Label Margin="0" VerticalOptions="Center" Padding="0" Text="BoundsPattern" />
+                    <Label Margin="7,0,0,0" VerticalOptions="Center" Padding="0" Text="VariancePct" />
                     <Entry Margin="5,0,0,0" VerticalOptions="Center" Keyboard="Numeric" Text="{Binding Pattern.VariancePct, Source={Reference thisView}}" />
                 </HorizontalStackLayout>
                 <HorizontalStackLayout Margin="0" Padding="0">
@@ -83,8 +83,8 @@
                             </ImageButton>
                         </Grid>
                     </HorizontalStackLayout>
-                    <Label Margin="5,0,0,0" VerticalOptions="Center" Padding="0" Text="TestCalc" />
                     <CheckBox x:Name="doTestCalc" Margin="5,0,0,0" VerticalOptions="Center" />
+                    <Label Margin="5,0,0,0" VerticalOptions="Center" Padding="0" Text="TestCalc" />
                 </HorizontalStackLayout>
                 <!--<HorizontalStackLayout Margin="0" Padding="0">
                 <Label Margin="5,0,0,0" VerticalOptions="Center" Padding="0" Text="{Binding Patterns.SelectedPattern.ColorThreshold}" />
