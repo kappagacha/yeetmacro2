@@ -35,11 +35,15 @@
                 <VerticalStackLayout>
                     <VerticalStackLayout IsVisible="{Binding IsMenuOpen}">
                         <ContentView x:Name="extraMenuItemsContentView" />
+                        <v:ImageView FontFamily="MaterialOutlined" Glyph="{x:Static mi:MaterialOutlined.Unfold_more_double}" Command="{Binding ItemsSource.ExpandAllCommand}" 
+                                     IsVisible="{Binding ItemsSource.IsList, Converter={conv:InverseBoolConverter}}" />
                         <v:ImageView FontFamily="FASolid" Glyph="{x:Static fa:Solid.TrashCan}" Color="Red" 
                                  IsVisible="{Binding ItemsSource.SelectedNode, Converter={conv:NullToBoolConverter IsInverse=True}}"
                                  Command="{Binding ItemsSource.DeleteNodeCommand}" CommandParameter="{Binding ItemsSource.SelectedNode}" />
                         <v:ImageView FontFamily="FASolid" Glyph="{x:Static fa:Solid.Plus}" Command="{Binding ItemsSource.AddNodeCommand}"
                                  IsVisible="{Binding ItemsSource.SelectedNode.IsParentNode}"/>
+                        <v:ImageView FontFamily="MaterialOutlined" Glyph="{x:Static mi:MaterialOutlined.Unfold_less_double}" Command="{Binding ItemsSource.CollapseAllCommand}" 
+                                     IsVisible="{Binding ItemsSource.IsList, Converter={conv:InverseBoolConverter}}" />
                     </VerticalStackLayout>
                     <Border Stroke="{StaticResource Primary}" StrokeThickness="0" BackgroundColor="Transparent">
                         <Border.Triggers>

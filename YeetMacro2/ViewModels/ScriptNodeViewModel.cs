@@ -13,5 +13,6 @@ public partial class ScriptNodeViewModel : NodeViewModel<ScriptNode, ScriptNode>
         IToastService toastService)
             : base(rootNodeId, nodeService, inputService, toastService)
     {
+        IsList = true;
     }
 }

@@ -42,7 +42,7 @@ public partial class NodeViewModel<TParent, TChild> : NodeViewModel
     [ObservableProperty]
     protected TChild _selectedNode;
     [ObservableProperty]
-    bool _isInitialized, _showExport;
+    bool _isInitialized, _showExport, _isList;
     TaskCompletionSource _initializeCompleted;
     protected INodeService<TParent, TChild> _nodeService;
     protected IToastService _toastService;
@@ -226,6 +226,30 @@ public partial class NodeViewModel<TParent, TChild> : NodeViewModel
         //{
         //    SelectedNode = null;
         //}
+    }
+
+    [RelayCommand]
+    public void CollapseAll()
+    {
+        Traverse(Root, (node) => node.IsExpanded = false);
+    }
+
+    [RelayCommand]
+    public void ExpandAll()
+    {
+        Traverse(Root, (node) => node.IsExpanded = true);
+    }
+
+    private void Traverse(TChild node, Action<TChild> callback)
+    {
+        callback(node);
+        if (node is TParent parent)
+        {
+            foreach (var child in parent.Nodes)
+            {
+                Traverse(child, callback);
+            }
+        }
     }
 
     public string ToJson()
