@@ -24,6 +24,7 @@ while (state.isRunning && !done) {
 		case 'titles.branchEvent':
 			logger.info('doBranchQuests: start');
 			await macroService.pollPattern([patterns.branchEvent.prepare, patterns.branchEvent.start], { doClick: true, predicatePattern: [patterns.branchEvent.explosionWalk.chant.disabled, patterns.titles.party] });
+			await sleep(1000);
 			break;
 		case 'titles.branchEvent.explosionWalk.chant.disabled':
 			logger.info('doBranchQuests: explosion walk');
