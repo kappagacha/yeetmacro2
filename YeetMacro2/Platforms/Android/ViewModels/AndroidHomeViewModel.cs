@@ -36,6 +36,7 @@ public partial class AndriodHomeViewModel : ObservableObject
     {
         get
         {
+            if (_macroManagerViewModel.SelectedMacroSet is null) return "Invalid";
             if (_macroManagerViewModel.SelectedMacroSet.SupportsGreaterWidth && DeviceDisplay.MainDisplayInfo.Width > _macroManagerViewModel.SelectedMacroSet.Resolution.Width) return "Acceptable";
             return DeviceDisplay.MainDisplayInfo.Width == _macroManagerViewModel.SelectedMacroSet.Resolution.Width ? "Valid" : "Invalid";
         }
@@ -44,6 +45,7 @@ public partial class AndriodHomeViewModel : ObservableObject
     {
         get
         {
+            if (_macroManagerViewModel.SelectedMacroSet is null) return "Invalid";
             if (_macroManagerViewModel.SelectedMacroSet.SupportsGreaterHeight && DeviceDisplay.MainDisplayInfo.Height > _macroManagerViewModel.SelectedMacroSet.Resolution.Height) return "Acceptable";
             return DeviceDisplay.MainDisplayInfo.Height == _macroManagerViewModel.SelectedMacroSet.Resolution.Height ? "Valid" : "Invalid";
         }

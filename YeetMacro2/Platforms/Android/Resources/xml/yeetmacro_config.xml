@@ -4,5 +4,5 @@
    android:accessibilityFlags="flagDefault"
    android:canPerformGestures="true"
    android:canRetrieveWindowContent="true"
-   android:accessibilityEventTypes="typeAllMask"
+   android:accessibilityEventTypes="typeWindowStateChanged"
    android:notificationTimeout="100"/>

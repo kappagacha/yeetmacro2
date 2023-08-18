@@ -106,10 +106,13 @@ public class YeetAccessibilityService : AccessibilityService
 
             global::Android.Graphics.Path swipePath = new global::Android.Graphics.Path();
             swipePath.MoveTo((float)point.X, (float)point.Y);
-            GestureDescription.Builder gestureBuilder = new GestureDescription.Builder();
-            gestureBuilder.AddStroke(new GestureDescription.StrokeDescription(swipePath, 0, 100));
-            _instance.DispatchGesture(gestureBuilder.Build(), null, null);
             swipePath.Close();
+            GestureDescription.Builder gestureBuilder = new GestureDescription.Builder();
+            var gestureDescription = new GestureDescription.StrokeDescription(swipePath, 0, 100);
+            gestureBuilder.AddStroke(gestureDescription);
+            _instance.DispatchGesture(gestureBuilder.Build(), null, null);
+            gestureBuilder.Dispose();
+            gestureDescription.Dispose();
             swipePath.Dispose();
         }
         catch (Exception ex)
@@ -142,8 +145,8 @@ public class YeetAccessibilityService : AccessibilityService
         var from = start;
         var mouseDownPath = new global::Android.Graphics.Path();
         mouseDownPath.MoveTo((float)start.X, (float)start.Y);
-
         var lastStroke = new GestureDescription.StrokeDescription(mouseDownPath, 0, 200, true);
+        mouseDownPath.Dispose();
         PerformGesture(lastStroke);
 
         while (distanceLeft > 0)
@@ -160,7 +163,7 @@ public class YeetAccessibilityService : AccessibilityService
 
             lastStroke = lastStroke.ContinueStroke(swipePath, swipeDelay, swipeDuration, true);
             PerformGesture(lastStroke);
-
+            swipePath.Dispose();
             from = to;
             distanceLeft -= distanceToScroll;
         }
@@ -170,12 +173,17 @@ public class YeetAccessibilityService : AccessibilityService
 
         lastStroke = lastStroke.ContinueStroke(mouseUpPath, 1, 400L, false);
         PerformGesture(lastStroke);
+        mouseUpPath.Dispose();
+        lastStroke.Dispose();
     }
 
     private void PerformGesture(GestureDescription.StrokeDescription strokeDescription)
     {
-        var gestureDescription = new GestureDescription.Builder().AddStroke(strokeDescription).Build();
+        var gestureBuilder = new GestureDescription.Builder();
+        var gestureDescription = gestureBuilder.AddStroke(strokeDescription).Build();
         _instance.DispatchGesture(gestureDescription, null, null);
+        gestureDescription.Dispose();
+        gestureBuilder.Dispose();
     }
 
     public void Start()

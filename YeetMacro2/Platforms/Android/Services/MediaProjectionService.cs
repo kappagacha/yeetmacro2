@@ -8,7 +8,6 @@ using Android.Widget;
 using static Android.Graphics.Bitmap;
 using YeetMacro2.Services;
 using Rect = Microsoft.Maui.Graphics.Rect;
-using static Android.Provider.CalendarContract;
 
 namespace YeetMacro2.Platforms.Android.Services;
 
@@ -181,7 +180,10 @@ public class MediaProjectionService : IRecorderService
         bitmap.Compress(CompressFormat.Jpeg, 100, ms);
         bitmap.Dispose();
         ms.Position = 0;
-        return ms.ToArray();
+        var array = ms.ToArray();
+        ms.Close();
+        ms.Dispose();
+        return array;
     }
 
     public byte[] GetCurrentImageData(Rect rect)
@@ -198,7 +200,10 @@ public class MediaProjectionService : IRecorderService
         newBitmap.Compress(CompressFormat.Jpeg, 100, ms);
         newBitmap.Dispose();
         ms.Position = 0;
-        return ms.ToArray();
+        var array = ms.ToArray();
+        ms.Close();
+        ms.Dispose();
+        return array;
     }
 
     public void TakeScreenCapture()

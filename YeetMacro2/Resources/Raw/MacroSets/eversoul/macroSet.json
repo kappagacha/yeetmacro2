@@ -4,12 +4,12 @@
     "width": 1920,
     "height": 1080
   },
-  "supportsGreaterWidth": false,
+  "supportsGreaterWidth": true,
   "supportsGreaterHeight": false,
   "package": "com.kakaogames.eversoul",
   "source": "localAsset:eversoul",
-  "macroSetLastUpdated": "2023-08-14T20:43:05.8243178-05:00",
-  "patternsLastUpdated": "2023-08-14T20:43:05.8249864-05:00",
-  "scriptsLastUpdated": "2023-08-14T20:43:05.8252328-05:00",
-  "settingsLastUpdated": "2023-08-14T20:43:05.8254233-05:00"
+  "macroSetLastUpdated": "2023-08-17T23:50:33.2145793-05:00",
+  "patternsLastUpdated": "2023-08-17T23:50:33.2150565-05:00",
+  "scriptsLastUpdated": "2023-08-17T23:50:33.2154541-05:00",
+  "settingsLastUpdated": "2023-08-17T23:50:33.2157407-05:00"
 }
