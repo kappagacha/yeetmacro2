@@ -108,12 +108,15 @@ public class YeetAccessibilityService : AccessibilityService
             swipePath.MoveTo((float)point.X, (float)point.Y);
             swipePath.Close();
             GestureDescription.Builder gestureBuilder = new GestureDescription.Builder();
-            var gestureDescription = new GestureDescription.StrokeDescription(swipePath, 0, 100);
-            gestureBuilder.AddStroke(gestureDescription);
-            _instance.DispatchGesture(gestureBuilder.Build(), null, null);
-            gestureBuilder.Dispose();
-            gestureDescription.Dispose();
-            swipePath.Dispose();
+            var strokeDescription = new GestureDescription.StrokeDescription(swipePath, 0, 100);
+            gestureBuilder.AddStroke(strokeDescription);
+            var gesture = gestureBuilder.Build();
+            _instance.DispatchGesture(gesture, null, null);
+
+            //gesture.Dispose();
+            //gestureBuilder.Dispose();
+            //strokeDescription.Dispose();
+            //swipePath.Dispose();
         }
         catch (Exception ex)
         {

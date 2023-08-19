@@ -110,10 +110,7 @@ public class AndroidWindowManagerService : IInputService, IScreenService
 
     public void CloseOverlayWindow()
     {
-        if (_windowView != null)
-        {
-            _windowView.Close();
-        }
+        _windowView?.Close();
     }
 
     public void Show(AndroidWindowView windowView)
@@ -221,7 +218,7 @@ public class AndroidWindowManagerService : IInputService, IScreenService
                 var strTargetLocation = Preferences.Default.Get<string>(preferenceKey, null);
                 if (strTargetLocation is not null)
                 {
-                    var targetLocation = JsonSerializer.Deserialize<Microsoft.Maui.Graphics.Point>(strTargetLocation, _serializationOptions);
+                    var targetLocation = JsonSerializer.Deserialize<Point>(strTargetLocation, _serializationOptions);
                     ctx.Location = targetLocation;
                 }
                 else
