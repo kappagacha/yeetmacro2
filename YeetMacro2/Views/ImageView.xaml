@@ -7,9 +7,9 @@
              x:Name="thisView">
     <Grid HeightRequest="{Binding ImageHeight, Source={Reference thisView}, TargetNullValue={StaticResource IconHeight}}"
           WidthRequest="{Binding ImageWidth, Source={Reference thisView}, TargetNullValue={StaticResource IconWidth}}">
-        <skia:SKCanvasView x:Name="canvasView" IsVisible="{OnPlatform Android=true, WinUI=false}"
-            PaintSurface="OnCanvasViewPaintSurface" />
-        <Image x:Name="image" Aspect="Fill" IsVisible="{OnPlatform Android=false, WinUI=true}">
+        <Image Aspect="Fill" IsVisible="{OnPlatform Android=true, WinUI=false}"
+               Source="{Binding ImageSource, Source={Reference thisView}}" />
+        <Image Aspect="Fill" IsVisible="{OnPlatform Android=false, WinUI=true}">
             <Image.Source>
                 <FontImageSource FontFamily="{Binding FontFamily, Source={Reference thisView}}"
                                  Glyph="{Binding Glyph, Source={Reference thisView}}" 

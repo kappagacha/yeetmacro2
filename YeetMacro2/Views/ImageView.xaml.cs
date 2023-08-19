@@ -1,5 +1,4 @@
 using System.Windows.Input;
-using SkiaSharp;
 #if ANDROID
 using System.Collections.Concurrent;
 using Android.Graphics.Drawables;
@@ -20,18 +19,48 @@ public partial class ImageView : ContentView
             BindableProperty.Create("Glyph", typeof(string), typeof(ImageView), null, propertyChanged: ImagePropertyChanged);
     public static readonly BindableProperty ColorProperty =
             BindableProperty.Create("Color", typeof(Color), typeof(ImageView), null, propertyChanged: ImagePropertyChanged);
+    public static readonly BindableProperty ImageSourceProperty =
+            BindableProperty.Create("ImageSource", typeof(ImageSource), typeof(ImageView), null);
 #if ANDROID
-    static ConcurrentDictionary<string, SKBitmap> _keyToBitmap = new();
+    static ConcurrentDictionary<string, byte[]> _keyToImageBytes = new();
 #endif
 
     private static void ImagePropertyChanged(BindableObject bindable, object oldValue, object newValue)
     {
-        var imgView = bindable as ImageView;
+#if ANDROID
 
-        if (!String.IsNullOrWhiteSpace(imgView.FontFamily) && !String.IsNullOrWhiteSpace(imgView.Glyph))
+        // This android workaround exists for the overlay windows not properly loading FontImageSource
+        // unless spawned while YeetMacro app is active
+        Task.Run(async () =>
         {
-            imgView.canvasView.InvalidateSurface();
-        }
+            var imgView = bindable as ImageView;
+            if (String.IsNullOrWhiteSpace(imgView.FontFamily) || String.IsNullOrWhiteSpace(imgView.Glyph)) return;
+
+            var compositeKey = $"{imgView.FontFamily}-{imgView.Glyph}-{imgView.Color}";
+            Console.WriteLine("compositeKey: " + compositeKey);
+            if (!_keyToImageBytes.ContainsKey(compositeKey))
+            {
+                var ctx = new MauiContext(MauiApplication.Current.Services, MauiApplication.Context);
+                var fontImageSource = new FontImageSource()
+                {
+                    FontFamily = imgView.FontFamily,
+                    Glyph = imgView.Glyph,
+                    Color = imgView.Color
+                };
+
+                MemoryStream ms = new MemoryStream();
+                var drawable = await fontImageSource.GetPlatformImageAsync(ctx);
+                var bitmap = ((BitmapDrawable)drawable.Value).Bitmap;
+                bitmap.Compress(CompressFormat.Png, 100, ms);
+                bitmap.Dispose();
+                ms.Position = 0;
+                var imageBytes = ms.ToArray();
+                _keyToImageBytes.TryAdd(compositeKey, imageBytes);
+            }
+
+            imgView.ImageSource = ImageSource.FromStream(() => new MemoryStream(_keyToImageBytes[compositeKey]));
+        });
+#endif
     }
 
     public static readonly BindableProperty CommandProperty =
@@ -73,46 +102,13 @@ public partial class ImageView : ContentView
         get { return (double?)GetValue(ImageHeightProperty); }
         set { SetValue(ImageHeightProperty, value); }
     }
+    public ImageSource ImageSource
+    {
+        get { return (ImageSource)GetValue(ImageSourceProperty); }
+        set { SetValue(ImageSourceProperty, value); }
+    }
     public ImageView()
 	{
 		InitializeComponent();
 	}
-
-    // This android workaround exists for the overlay windows not properly loading FontImageSource
-    // unless spawned while YeetMacro app is active
-    private async void OnCanvasViewPaintSurface(object sender, SkiaSharp.Views.Maui.SKPaintSurfaceEventArgs e)
-    {
-        if (String.IsNullOrWhiteSpace(FontFamily) || String.IsNullOrWhiteSpace(Glyph)) return;
-
-#if ANDROID
-        var compositeKey = $"{FontFamily}-{Glyph}-{Color}";
-
-        if (_keyToBitmap.ContainsKey(compositeKey))
-        {
-            var info = e.Info;
-            var canvas = e.Surface.Canvas;
-            var skBitmap = _keyToBitmap[compositeKey];
-            canvas.Clear();
-            canvas.DrawBitmap(skBitmap, info.Rect);
-        } 
-        else // if bitmap not found in cache, generate then invalidate canvas
-        {
-            var ctx = new MauiContext(MauiApplication.Current.Services, MauiApplication.Context);
-            var fontImageSource = new FontImageSource()
-            {
-                FontFamily = FontFamily,
-                Glyph = Glyph,
-                Color = Color
-            };
-            var drawable = await fontImageSource.GetPlatformImageAsync(ctx);
-            var bitmap = ((BitmapDrawable)drawable.Value).Bitmap;
-            MemoryStream ms = new MemoryStream();
-            bitmap.Compress(CompressFormat.Png, 100, ms);
-            bitmap.Dispose();
-            ms.Position = 0;
-            _keyToBitmap.TryAdd(compositeKey, SKBitmap.Decode(ms));
-            canvasView.InvalidateSurface();
-        }
-#endif
-    }
 }
