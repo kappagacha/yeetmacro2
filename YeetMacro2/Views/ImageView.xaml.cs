@@ -68,7 +68,11 @@ public partial class ImageView : ContentView
             //}
         }
 
+
         imgView.contentView.ControlTemplate = _keyToControlTemplate[compositeKey];
+        //imgView.contentView.IsVisible = false;
+        //imgView.contentView.IsVisible = true;
+
         //var imageSource = ImageSource.FromStream(() => new MemoryStream(_keyToImageBytes[compositeKey]));
         //imgView.image.Source = imageSource;
 
