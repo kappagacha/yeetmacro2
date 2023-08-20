@@ -25,41 +25,37 @@ public partial class ImageView : ContentView
     static ConcurrentDictionary<string, byte[]> _keyToImageBytes = new();
 #endif
 
-    private static void ImagePropertyChanged(BindableObject bindable, object oldValue, object newValue)
+    private async static void ImagePropertyChanged(BindableObject bindable, object oldValue, object newValue)
     {
 #if ANDROID
-
         // This android workaround exists for the overlay windows not properly loading FontImageSource
         // unless spawned while YeetMacro app is active
-        Task.Run(async () =>
+        var imgView = bindable as ImageView;
+        if (String.IsNullOrWhiteSpace(imgView.FontFamily) || String.IsNullOrWhiteSpace(imgView.Glyph)) return;
+
+        var compositeKey = $"{imgView.FontFamily}-{imgView.Glyph}-{imgView.Color}";
+        Console.WriteLine("compositeKey: " + compositeKey);
+        if (!_keyToImageBytes.ContainsKey(compositeKey))
         {
-            var imgView = bindable as ImageView;
-            if (String.IsNullOrWhiteSpace(imgView.FontFamily) || String.IsNullOrWhiteSpace(imgView.Glyph)) return;
-
-            var compositeKey = $"{imgView.FontFamily}-{imgView.Glyph}-{imgView.Color}";
-            Console.WriteLine("compositeKey: " + compositeKey);
-            if (!_keyToImageBytes.ContainsKey(compositeKey))
+            var ctx = new MauiContext(MauiApplication.Current.Services, MauiApplication.Context);
+            var fontImageSource = new FontImageSource()
             {
-                var ctx = new MauiContext(MauiApplication.Current.Services, MauiApplication.Context);
-                var fontImageSource = new FontImageSource()
-                {
-                    FontFamily = imgView.FontFamily,
-                    Glyph = imgView.Glyph,
-                    Color = imgView.Color
-                };
+                FontFamily = imgView.FontFamily,
+                Glyph = imgView.Glyph,
+                Color = imgView.Color
+            };
 
-                MemoryStream ms = new MemoryStream();
-                var drawable = await fontImageSource.GetPlatformImageAsync(ctx);
-                var bitmap = ((BitmapDrawable)drawable.Value).Bitmap;
-                bitmap.Compress(CompressFormat.Png, 100, ms);
-                bitmap.Dispose();
-                ms.Position = 0;
-                var imageBytes = ms.ToArray();
-                _keyToImageBytes.TryAdd(compositeKey, imageBytes);
-            }
+            MemoryStream ms = new MemoryStream();
+            var drawable = await fontImageSource.GetPlatformImageAsync(ctx);
+            var bitmap = ((BitmapDrawable)drawable.Value).Bitmap;
+            bitmap.Compress(CompressFormat.Png, 100, ms);
+            bitmap.Dispose();
+            ms.Position = 0;
+            var imageBytes = ms.ToArray();
+            _keyToImageBytes.TryAdd(compositeKey, imageBytes);
+        }
 
-            imgView.ImageSource = ImageSource.FromStream(() => new MemoryStream(_keyToImageBytes[compositeKey]));
-        });
+        imgView.ImageSource = ImageSource.FromStream(() => new MemoryStream(_keyToImageBytes[compositeKey]));
 #endif
     }
 
