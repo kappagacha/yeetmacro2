@@ -29,6 +29,10 @@
                             <Setter Property="Color" Value="Red" />
                             <Setter Property="Glyph" Value="{x:Static mi:MaterialOutlined.Stop}" />
                         </DataTrigger>
+                        <DataTrigger TargetType="{x:Type v:ImageView}" Binding="{Binding State}" Value="{x:Static pvm:ActionState.Stopped}">
+                            <Setter Property="Color" Value="Green" />
+                            <Setter Property="Glyph" Value="{x:Static mi:MaterialOutlined.Play_arrow}" />
+                        </DataTrigger>
                     </v:ImageView.Triggers>
                 </v:ImageView>
             </uuiv:StatefulContentView>

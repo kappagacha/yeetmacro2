@@ -1,4 +1,5 @@
 using System.Windows.Input;
+
 #if ANDROID
 using System.Collections.Concurrent;
 using Android.Graphics.Drawables;
@@ -21,8 +22,10 @@ public partial class ImageView : ContentView
             BindableProperty.Create("Color", typeof(Color), typeof(ImageView), null, propertyChanged: ImagePropertyChanged);
     public static readonly BindableProperty ImageSourceProperty =
             BindableProperty.Create("ImageSource", typeof(ImageSource), typeof(ImageView), null);
+
 #if ANDROID
     static ConcurrentDictionary<string, byte[]> _keyToImageBytes = new();
+    static ConcurrentDictionary<string, ControlTemplate> _keyToControlTemplate = new();
 #endif
 
     private async static void ImagePropertyChanged(BindableObject bindable, object oldValue, object newValue)
@@ -32,8 +35,8 @@ public partial class ImageView : ContentView
         // unless spawned while YeetMacro app is active
         var imgView = bindable as ImageView;
         if (String.IsNullOrWhiteSpace(imgView.FontFamily) || String.IsNullOrWhiteSpace(imgView.Glyph)) return;
-
-        var compositeKey = $"{imgView.FontFamily}-{imgView.Glyph}-{imgView.Color}";
+        
+        var compositeKey = $"{imgView.FontFamily}-{(int)imgView.Glyph[0]}-{imgView.Color}";
         Console.WriteLine("compositeKey: " + compositeKey);
         if (!_keyToImageBytes.ContainsKey(compositeKey))
         {
@@ -51,11 +54,54 @@ public partial class ImageView : ContentView
             bitmap.Compress(CompressFormat.Png, 100, ms);
             bitmap.Dispose();
             ms.Position = 0;
+
+            //_keyToDrawable.TryAdd(compositeKey, drawable.Value);
+
             var imageBytes = ms.ToArray();
-            _keyToImageBytes.TryAdd(compositeKey, imageBytes);
+            //_keyToImageBytes.TryAdd(compositeKey, imageBytes);
+            var imageSource = ImageSource.FromStream(() => new MemoryStream(imageBytes));
+            var template = new ControlTemplate(() => new Image() { Aspect = Aspect.Fill, Source = imageSource });
+            _keyToControlTemplate.TryAdd(compositeKey, template);
+            //if (!_keyToImageBytes.TryAdd(compositeKey, imageBytes))
+            //{
+            //    Console.WriteLine("Fail: " + compositeKey);
+            //}
         }
 
-        imgView.ImageSource = ImageSource.FromStream(() => new MemoryStream(_keyToImageBytes[compositeKey]));
+        imgView.contentView.ControlTemplate = _keyToControlTemplate[compositeKey];
+        //var imageSource = ImageSource.FromStream(() => new MemoryStream(_keyToImageBytes[compositeKey]));
+        //imgView.image.Source = imageSource;
+
+
+        //var skImageView = new SkiaImageView.SKImageView() { Source = _keyToBitmap[compositeKey] };
+        //imgView.contentView.Content = skImageView;
+
+
+        // imageSource needs to be instantiated each time
+        //var imageSource = ImageSource.FromStream(() => new MemoryStream(_keyToImageBytes[compositeKey]));
+        //var image = new Image() { Aspect = Aspect.Fill, Source = imageSource };
+        //imgView.contentView.Content = image;
+
+        //var d = new Drawable();
+        //imgView.contentView.Content = new GraphicsView() { Drawable = PlatformImage.FromStream( _keyToDrawable[compositeKey] };
+
+        //_keyToImage.TryAdd(compositeKey, new Image() { Aspect = Aspect.Fill, Source = imageSource });
+
+        //if (!_keyToControlTemplate.TryAdd(compositeKey, template))
+        //{
+        //    Console.WriteLine("Fail: " + compositeKey);
+        //}
+
+        //imgView.contentView.Content = _keyToImage[compositeKey];
+        //imgView.contentView.Content = (View)_keyToControlTemplate[compositeKey].CreateContent();
+        //imgView.contentView.ControlTemplate = _keyToControlTemplate[compositeKey];
+
+        //imgView.contentView.Content = new Image() { Aspect = Aspect.Fill, Source = imageSource };
+
+        //imgView.ImageSource = null;
+        //imgView.ImageSource = imageSource;
+        //imgView.ImageSource = null;
+        //imgView.ImageSource = imageSource;
 #endif
     }
 
@@ -101,8 +147,13 @@ public partial class ImageView : ContentView
     public ImageSource ImageSource
     {
         get { return (ImageSource)GetValue(ImageSourceProperty); }
-        set { SetValue(ImageSourceProperty, value); }
+        set 
+        {
+            SetValue(ImageSourceProperty, value);
+            OnPropertyChanged();
+        }
     }
+
     public ImageView()
 	{
 		InitializeComponent();
