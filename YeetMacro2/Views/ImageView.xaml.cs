@@ -4,6 +4,7 @@ using System.Windows.Input;
 using System.Collections.Concurrent;
 using Android.Graphics.Drawables;
 using static Android.Graphics.Bitmap;
+using Microsoft.Maui.Graphics.Platform;
 #endif
 
 namespace YeetMacro2.Views;
@@ -49,25 +50,28 @@ public partial class ImageView : ContentView
             };
 
             MemoryStream ms = new MemoryStream();
-            var drawable = await fontImageSource.GetPlatformImageAsync(ctx);
-            var bitmap = ((BitmapDrawable)drawable.Value).Bitmap;
+            var imageSourceResult = await fontImageSource.GetPlatformImageAsync(ctx);
+            var bitmap = ((BitmapDrawable)imageSourceResult.Value).Bitmap;
             bitmap.Compress(CompressFormat.Png, 100, ms);
             bitmap.Dispose();
             ms.Position = 0;
 
-            //_keyToDrawable.TryAdd(compositeKey, drawable.Value);
-
-            var imageBytes = ms.ToArray();
+            //var imageBytes = ms.ToArray();
             //_keyToImageBytes.TryAdd(compositeKey, imageBytes);
-            var imageSource = ImageSource.FromStream(() => new MemoryStream(imageBytes));
-            var template = new ControlTemplate(() => new Image() { Aspect = Aspect.Fill, Source = imageSource });
+            //var imageSource = ImageSource.FromStream(() => new MemoryStream(imageBytes));
+            //var template = new ControlTemplate(() => new Image() { Aspect = Aspect.Fill, Source = imageSource });
+            var drawable = PlatformImage.FromStream(ms);
+            var template = new ControlTemplate(() => new GraphicsView()
+            {
+                Drawable = drawable,
+                InputTransparent = true
+            });
             _keyToControlTemplate.TryAdd(compositeKey, template);
             //if (!_keyToImageBytes.TryAdd(compositeKey, imageBytes))
             //{
             //    Console.WriteLine("Fail: " + compositeKey);
             //}
         }
-
 
         imgView.contentView.ControlTemplate = _keyToControlTemplate[compositeKey];
         //imgView.contentView.IsVisible = false;
