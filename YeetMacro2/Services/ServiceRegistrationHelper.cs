@@ -1,5 +1,4 @@
 ﻿using CommunityToolkit.Maui;
-using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Serilog;
 using Serilog.Configuration;
@@ -27,6 +26,7 @@ public static class ServiceRegistrationHelper
         mauiAppBuilder.Services.AddHttpClient();
         mauiAppBuilder.Services.AddSingleton<IHttpService, HttpService>();
         mauiAppBuilder.Services.AddAutoMapper(typeof(App).GetTypeInfo().Assembly);
+        mauiAppBuilder.Services.AddLazyResolution();
         mauiAppBuilder.Logging.AddLogViewModelSink();
 
         return mauiAppBuilder;
@@ -117,29 +117,44 @@ public class AppInitializer : IMauiInitializeService
     }
 }
 
+// https://stackoverflow.com/questions/62217815/interface-a-circular-dependency-was-detected-for-the-service-of-type/62254531#62254531
+public static class LazyResolutionMiddlewareExtensions
+{
+    public static IServiceCollection AddLazyResolution(this IServiceCollection services)
+    {
+        return services.AddTransient(
+            typeof(Lazy<>),
+            typeof(LazilyResolved<>));
+    }
+}
+
+public class LazilyResolved<T> : Lazy<T>
+{
+    public LazilyResolved(IServiceProvider serviceProvider)
+        : base(serviceProvider.GetRequiredService<T>)
+    {
+    }
+}
+
 //https://github.com/serilog/serilog/wiki/Developing-a-sink
 public class LogViewModelSink : ILogEventSink
 {
-    IServiceProvider _serviceProvider;
-    LogViewModel _logViewModel;
+    Lazy<LogViewModel> _logViewModel;
     public LogViewModelSink(IServiceProvider serviceProvider)
     {
-        _serviceProvider = serviceProvider;
+        // Using Lazy to resolve later because of circular dependency
+        _logViewModel = serviceProvider.GetService<Lazy<LogViewModel>>();
     }
 
     public void Emit(LogEvent logEvent)
     {
-        // Couldn't pass LogViewModel as a dependency because its' dependency graph
-        // depends on ILogger somewhere we can't control. Probably DBContext
-        if (_logViewModel == null) _logViewModel = _serviceProvider.GetService<LogViewModel>();
-
         switch (logEvent.Level)
         {
             case LogEventLevel.Debug:
-                _logViewModel.Debug = logEvent.MessageTemplate.Text;
+                _logViewModel.Value.Debug = logEvent.MessageTemplate.Text;
                 break;
             case LogEventLevel.Information:
-                _logViewModel.Info = logEvent.MessageTemplate.Text;
+                _logViewModel.Value.Info = logEvent.MessageTemplate.Text;
                 break;
         }
 
