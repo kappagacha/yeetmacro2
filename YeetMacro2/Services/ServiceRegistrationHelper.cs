@@ -2,11 +2,8 @@
 using Microsoft.Extensions.Logging;
 using Serilog;
 using Serilog.Configuration;
-using Serilog.Core;
-using Serilog.Events;
 using Serilog.Extensions.Logging;
 using Serilog.Filters;
-using System.Diagnostics;
 using System.Reflection;
 using System.Text.Json;
 using System.Text.Json.Serialization;
@@ -136,32 +133,6 @@ public class LazilyResolved<T> : Lazy<T>
     }
 }
 
-//https://github.com/serilog/serilog/wiki/Developing-a-sink
-public class LogViewModelSink : ILogEventSink
-{
-    Lazy<LogViewModel> _logViewModel;
-    public LogViewModelSink(IServiceProvider serviceProvider)
-    {
-        // Using Lazy to resolve later because of circular dependency
-        _logViewModel = serviceProvider.GetService<Lazy<LogViewModel>>();
-    }
-
-    public void Emit(LogEvent logEvent)
-    {
-        switch (logEvent.Level)
-        {
-            case LogEventLevel.Debug:
-                _logViewModel.Value.Debug = logEvent.MessageTemplate.Text;
-                break;
-            case LogEventLevel.Information:
-                _logViewModel.Value.Info = logEvent.MessageTemplate.Text;
-                break;
-        }
-
-        Debug.WriteLine("{0} {1}", logEvent.Level, logEvent.MessageTemplate.Text);
-    }
-}
-
 // https://github.com/adiamante/yeetoverflow/blob/main/YeetOverFlow.Logging/YeetLoggerServiceCollectionExtensions.cs
 // https://github.com/serilog/serilog-extensions-logging/blob/dev/src/Serilog.Extensions.Logging/SerilogLoggingBuilderExtensions.cs
 public static class StatusPanelModelSinkExtensions
@@ -172,13 +143,14 @@ public static class StatusPanelModelSinkExtensions
 
         builder.Services.AddSingleton<ILoggerProvider, SerilogLoggerProvider>(sp =>
         {
+            var logViewModel = sp.GetService<LogViewModel>();
             // https://improveandrepeat.com/2014/08/structured-logging-with-serilog/
             // https://github.com/serilog/serilog/wiki/Formatting-Output
             // https://github.com/serilog/serilog-formatting-compact
             var configuration = new LoggerConfiguration()
                 .MinimumLevel.Debug()
                 .WriteTo.Console()
-                .WriteTo.LogViewModelSink(sp)
+                .WriteTo.LogViewModelSink(logViewModel)
                 // https://github.com/serilog/serilog/wiki/Configuration-Basics#filters
                 .Filter.ByExcluding(Matching.WithProperty<string>("SourceContext", sctx => sctx.StartsWith("Microsoft.")));
 
@@ -196,8 +168,8 @@ public static class StatusPanelModelSinkExtensions
 
     public static LoggerConfiguration LogViewModelSink(
               this LoggerSinkConfiguration loggerConfiguration,
-              IServiceProvider serviceProvider)
+              LogViewModel logViewModel)
     {
-        return loggerConfiguration.Sink(new LogViewModelSink(serviceProvider));
+        return loggerConfiguration.Sink(logViewModel);
     }
 }

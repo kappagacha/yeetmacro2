@@ -70,7 +70,7 @@ public partial class AndriodHomeViewModel : ObservableObject
     }
 
     [RelayCommand]
-    private async void CopyDb()
+    private async Task CopyDb()
     {
         if (await Permissions.RequestAsync<Permissions.StorageWrite>() == PermissionStatus.Granted)
         {

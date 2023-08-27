@@ -19,7 +19,7 @@ public partial class WindowsHomeViewModel : ObservableObject
     [RelayCommand]
     public void Test()
     {
-        _logViewModel.LogException(new Exception("Test exception"));
-        //_logger.LogInformation((count++).ToString());
+        //_logViewModel.LogException(new Exception("Test exception"));
+        _logger.LogInformation((count++).ToString());
     }
 }

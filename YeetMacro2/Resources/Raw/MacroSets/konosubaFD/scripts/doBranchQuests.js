@@ -18,15 +18,24 @@ while (state.isRunning && !done) {
 			break;
 		case 'titles.branch':
 			logger.info('doBranchQuests: pick quest');
-			const eventResult = await macroService.pollPattern([patterns.branchEvent.cabbageHunting, patterns.branchEvent.explosionWalk], { doClick: true, predicatePattern: patterns.titles.branchEvent });
-			//event = eventResult.path;
+			const eventResult = await macroService.pollPattern([patterns.branchEvent.cabbageHunting, patterns.branchEvent.explosionWalk, patterns.branchEvent.pitAPatBox], { doClick: true, predicatePattern: patterns.titles.branchEvent });
+			event = eventResult.path;
 			break;
 		case 'titles.branchEvent':
 			logger.info('doBranchQuests: start');
-			await macroService.pollPattern([patterns.branchEvent.prepare, patterns.branchEvent.start], { doClick: true, predicatePattern: [patterns.branchEvent.explosionWalk.chant.disabled, patterns.titles.party] });
+			await macroService.pollPattern([patterns.branchEvent.prepare, patterns.branchEvent.start], { doClick: true, clickPattern: patterns.branchEvent.pitAPatBox.noVoices, predicatePattern: [patterns.branchEvent.explosionWalk.chant.disabled, patterns.titles.party, patterns.branchEvent.pitAPatBox.skip] });
 			await sleep(1000);
+			
+			//if (event === 'branchEvent.pitAPatBox') {
+			//	// TODO: need starting point anchor pattern
+			// const boxes = ['simpleWoodenBox', 'veryHeavyBox', 'woodenBox', 'clothPouch'].map(option => patterns.branchEvent.pitAPatBox[option]);
+			// await macroService.pollPattern(patterns.branchEvent.pitAPatBox.skip, { doClick: true, predicatePattern: boxes });
+			// await macroService.pollPattern(boxes,
+			//		{ doClick: true, clickPattern: [patterns.branchEvent.pitAPatBox.rewardGained, patterns.branchEvent.pitAPatBox.noVoices, patterns.branchEvent.pitAPatBox.skip, patterns.branchEvent.prompt.ok], predicatePattern: patterns.titles.home });
+			// done = true;
+			//}
 			break;
-		case 'titles.branchEvent.explosionWalk.chant.disabled':
+		case 'branchEvent.explosionWalk.chant.disabled':
 			logger.info('doBranchQuests: explosion walk');
 			const optionNumber = 1 + Math.floor(Math.random() * 4);
 			logger.debug('option ' + optionNumber);

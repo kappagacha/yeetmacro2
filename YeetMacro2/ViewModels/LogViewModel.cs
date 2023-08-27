@@ -1,12 +1,15 @@
 ﻿
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
+using Serilog.Core;
+using Serilog.Events;
 using YeetMacro2.Data.Models;
 using YeetMacro2.Data.Services;
 
 namespace YeetMacro2.ViewModels;
 
-public partial class LogViewModel : ObservableObject
+// https://github.com/serilog/serilog/wiki/Developing-a-sink
+public partial class LogViewModel : ObservableObject, ILogEventSink
 {
     const string PERSIST_LOGS_KEY = "global_persist_logs";
     [ObservableProperty]
@@ -14,35 +17,48 @@ public partial class LogViewModel : ObservableObject
     [ObservableProperty]
     bool _persistLogs;
     LogGroup _currentLogGroup;
-    IRepository<LogGroup> _logGroupRepository;
-    [ObservableProperty]
-    SortedObservableCollection<LogGroup> _logGroups = new SortedObservableCollection<LogGroup>((a, b) => (int)(b.Timestamp - a.Timestamp));
+    Lazy<IRepository<LogGroup>> _logGroupRepository;
+    SortedObservableCollection<LogGroup> _logGroups;
     [ObservableProperty]
     LogGroup _selectedLogGroup;
     [ObservableProperty]
     Log _selectedLog;
-    public LogViewModel(IRepository<LogGroup> logGroupRepository)
+
+    public SortedObservableCollection<LogGroup> LogGroups
+    {
+        get 
+        { 
+            if (_logGroups == null)
+            {
+                _logGroups = new SortedObservableCollection<LogGroup>((a, b) => (int)(b.Timestamp - a.Timestamp));
+                var logGroups = _logGroupRepository.Value.Get();
+                foreach (var logGroup in logGroups)
+                {
+                    _logGroups.Add(logGroup);
+                }
+            }
+            return _logGroups; 
+        }
+    }
+
+    // Using Lazy to resolve later because of circular dependency
+    public LogViewModel(Lazy<IRepository<LogGroup>> logGroupRepository)
     {
         _logGroupRepository = logGroupRepository;
         CurrentMacroSet = "???";
         CurrentScript = "???";
         PersistLogs = Preferences.Default.Get(PERSIST_LOGS_KEY, false);
-        var logGroups = _logGroupRepository.Get();
-        foreach (var logGroup in logGroups)
-        {
-            LogGroups.Add(logGroup);
-        }
     }
 
     [RelayCommand]
-    public async void SelectLogGroup(Object logGroup)
+    public async Task SelectLogGroup(Object logGroup)
     {
         SelectedLogGroup = logGroup as LogGroup;
         await Shell.Current.GoToAsync("LogGroupItem");
     }
 
     [RelayCommand]
-    public async void SelectLog(Object log)
+    public async Task SelectLog(Object log)
     {
         SelectedLog = log as Log;
         await Shell.Current.GoToAsync("Log");
@@ -53,29 +69,16 @@ public partial class LogViewModel : ObservableObject
     {
         foreach (var logGroup in LogGroups)
         {
-            _logGroupRepository.Delete(logGroup);
+            _logGroupRepository.Value.Delete(logGroup);
         }
         LogGroups.Clear();
-        _logGroupRepository.Save();
+        _logGroupRepository.Value.Save();
+        _currentLogGroup = null;
     }
 
     partial void OnPersistLogsChanged(bool value)
     {
         Preferences.Default.Set(PERSIST_LOGS_KEY, value);
-    }
-
-    partial void OnDebugChanged(string value)
-    {
-        if (!PersistLogs) return;
-        ResolveCurrentLogGroup();
-        Log(LogType.Debug, $"[{Info}] {value}");
-    }
-
-    partial void OnInfoChanged(string value)
-    {
-        if (!PersistLogs) return;
-        ResolveCurrentLogGroup();
-        Log(LogType.Info, $"[{value}]");
     }
 
     // Always persists on exception
@@ -96,12 +99,13 @@ public partial class LogViewModel : ObservableObject
             ex = ex.InnerException;
         }
 
-        _logGroupRepository.Update(_currentLogGroup);
-        _logGroupRepository.Save();
+        _logGroupRepository.Value.Update(_currentLogGroup);
+        _logGroupRepository.Value.Save();
     }
 
     private void Log(LogType logType, String message)
     {
+        ResolveCurrentLogGroup();
         var log = new Log()
         {
             Timestamp = DateTime.Now.Ticks,
@@ -110,8 +114,8 @@ public partial class LogViewModel : ObservableObject
         };
 
         _currentLogGroup.Logs.Add(log);
-        _logGroupRepository.Update(_currentLogGroup);
-        _logGroupRepository.Save();
+        _logGroupRepository.Value.Update(_currentLogGroup);
+        _logGroupRepository.Value.Save();
     }
 
     private void ResolveCurrentLogGroup()
@@ -120,8 +124,25 @@ public partial class LogViewModel : ObservableObject
 
         _currentLogGroup = new LogGroup() { Timestamp = DateTime.Now.Ticks, MacroSet = CurrentMacroSet, Script = CurrentScript };
         _currentLogGroup.Logs = new SortedObservableCollection<Log>((a, b) => (int)(b.Timestamp - a.Timestamp));
-        _logGroupRepository.Insert(_currentLogGroup);
-        _logGroupRepository.Save();
+        _logGroupRepository.Value.Insert(_currentLogGroup);
+        _logGroupRepository.Value.Save();
         LogGroups.Add(_currentLogGroup);
+    }
+
+    public void Emit(LogEvent logEvent)
+    {
+        switch (logEvent.Level)
+        {
+            case LogEventLevel.Debug:
+                Debug = logEvent.MessageTemplate.Text;
+                if (PersistLogs) Log(LogType.Debug, $"[{Info}] {Debug}");
+                break;
+            case LogEventLevel.Information:
+                Info = logEvent.MessageTemplate.Text;
+                if (PersistLogs) Log(LogType.Info, $"[{Info}]");
+                break;
+        }
+
+        //Debug.WriteLine("{0} {1}", logEvent.Level, logEvent.MessageTemplate.Text);
     }
 }

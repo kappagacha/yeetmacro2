@@ -25,7 +25,6 @@ public partial class ImageView : ContentView
             BindableProperty.Create("ImageSource", typeof(ImageSource), typeof(ImageView), null);
 
 #if ANDROID
-    static ConcurrentDictionary<string, byte[]> _keyToImageBytes = new();
     static ConcurrentDictionary<string, ControlTemplate> _keyToControlTemplate = new();
 #endif
 
@@ -38,8 +37,7 @@ public partial class ImageView : ContentView
         if (String.IsNullOrWhiteSpace(imgView.FontFamily) || String.IsNullOrWhiteSpace(imgView.Glyph)) return;
         
         var compositeKey = $"{imgView.FontFamily}-{(int)imgView.Glyph[0]}-{imgView.Color}";
-        Console.WriteLine("compositeKey: " + compositeKey);
-        if (!_keyToImageBytes.ContainsKey(compositeKey))
+        if (!_keyToControlTemplate.ContainsKey(compositeKey))
         {
             var ctx = new MauiContext(MauiApplication.Current.Services, MauiApplication.Context);
             var fontImageSource = new FontImageSource()
@@ -56,10 +54,6 @@ public partial class ImageView : ContentView
             bitmap.Dispose();
             ms.Position = 0;
 
-            //var imageBytes = ms.ToArray();
-            //_keyToImageBytes.TryAdd(compositeKey, imageBytes);
-            //var imageSource = ImageSource.FromStream(() => new MemoryStream(imageBytes));
-            //var template = new ControlTemplate(() => new Image() { Aspect = Aspect.Fill, Source = imageSource });
             var drawable = PlatformImage.FromStream(ms);
             var template = new ControlTemplate(() => new GraphicsView()
             {
@@ -67,49 +61,9 @@ public partial class ImageView : ContentView
                 InputTransparent = true
             });
             _keyToControlTemplate.TryAdd(compositeKey, template);
-            //if (!_keyToImageBytes.TryAdd(compositeKey, imageBytes))
-            //{
-            //    Console.WriteLine("Fail: " + compositeKey);
-            //}
         }
 
         imgView.contentView.ControlTemplate = _keyToControlTemplate[compositeKey];
-        //imgView.contentView.IsVisible = false;
-        //imgView.contentView.IsVisible = true;
-
-        //var imageSource = ImageSource.FromStream(() => new MemoryStream(_keyToImageBytes[compositeKey]));
-        //imgView.image.Source = imageSource;
-
-
-        //var skImageView = new SkiaImageView.SKImageView() { Source = _keyToBitmap[compositeKey] };
-        //imgView.contentView.Content = skImageView;
-
-
-        // imageSource needs to be instantiated each time
-        //var imageSource = ImageSource.FromStream(() => new MemoryStream(_keyToImageBytes[compositeKey]));
-        //var image = new Image() { Aspect = Aspect.Fill, Source = imageSource };
-        //imgView.contentView.Content = image;
-
-        //var d = new Drawable();
-        //imgView.contentView.Content = new GraphicsView() { Drawable = PlatformImage.FromStream( _keyToDrawable[compositeKey] };
-
-        //_keyToImage.TryAdd(compositeKey, new Image() { Aspect = Aspect.Fill, Source = imageSource });
-
-        //if (!_keyToControlTemplate.TryAdd(compositeKey, template))
-        //{
-        //    Console.WriteLine("Fail: " + compositeKey);
-        //}
-
-        //imgView.contentView.Content = _keyToImage[compositeKey];
-        //imgView.contentView.Content = (View)_keyToControlTemplate[compositeKey].CreateContent();
-        //imgView.contentView.ControlTemplate = _keyToControlTemplate[compositeKey];
-
-        //imgView.contentView.Content = new Image() { Aspect = Aspect.Fill, Source = imageSource };
-
-        //imgView.ImageSource = null;
-        //imgView.ImageSource = imageSource;
-        //imgView.ImageSource = null;
-        //imgView.ImageSource = imageSource;
 #endif
     }
 
