@@ -8,7 +8,7 @@ namespace YeetMacro2.Platforms.Android.ViewModels;
 public partial class AndriodHomeViewModel : ObservableObject
 {
     [ObservableProperty]
-    bool _isProjectionServiceEnabled, _isAccessibilityEnabled, _isAppearing, _showMacroOverlay, _isMacroReady;
+    bool _isProjectionServiceEnabled, _isAccessibilityEnabled, _isAppearing, _showMacroOverlay, _isMacroReady, _showTestView;
     private AndroidWindowManagerService _windowManagerService;
     private YeetAccessibilityService _accessibilityService;
     private MacroManagerViewModel _macroManagerViewModel;
@@ -170,6 +170,20 @@ public partial class AndriodHomeViewModel : ObservableObject
     public void ResetActionViewLocation()
     {
         _windowManagerService.ResetActionViewLocation();
+    }
+
+    [RelayCommand]
+    public void ToggleShowTestView()
+    {
+        ShowTestView = !ShowTestView;
+        if (ShowTestView)
+        {
+            _windowManagerService.Show(AndroidWindowView.TestView);
+        }
+        else
+        {
+            _windowManagerService.Close(AndroidWindowView.TestView);
+        }
     }
 
     [RelayCommand]

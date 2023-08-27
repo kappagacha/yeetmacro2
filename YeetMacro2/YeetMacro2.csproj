@@ -88,6 +88,9 @@
 	  <Compile Update="Platforms\Android\Views\AndroidDeveloperPage.xaml.cs">
 	    <DependentUpon>AndroidDeveloperPage.xaml</DependentUpon>
 	  </Compile>
+	  <Compile Update="Platforms\Android\Views\TestView.xaml.cs">
+	    <DependentUpon>TestView.xaml</DependentUpon>
+	  </Compile>
 	  <Compile Update="Platforms\Android\Views\MacroOverlayView.xaml.cs">
 	    <DependentUpon>MacroOverlayView.xaml</DependentUpon>
 	  </Compile>
@@ -146,6 +149,9 @@
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
 	  <MauiXaml Update="Platforms\Android\Views\AndroidDeveloperPage.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	  <MauiXaml Update="Platforms\Android\Views\TestView.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
 	  <MauiXaml Update="Platforms\Android\Views\MacroOverlayView.xaml">

@@ -132,6 +132,26 @@
                     </Label.GestureRecognizers>
                 </Label>
             </HorizontalStackLayout>
+            <HorizontalStackLayout HorizontalOptions="Center">
+                <v:ImageView FontFamily="MaterialOutlined" Glyph="{x:Static mi:MaterialOutlined.Science}" Color="LightGray"
+                                                     Command="{Binding ToggleShowTestViewCommand}">
+                    <v:ImageView.Triggers>
+                        <DataTrigger TargetType="{x:Type v:ImageView}" Binding="{Binding ShowTestView}" Value="True">
+                            <Setter Property="Color" Value="Green" />
+                        </DataTrigger>
+                    </v:ImageView.Triggers>
+                </v:ImageView>
+                <Label VerticalTextAlignment="Center" Text="Show Test Panel">
+                    <Label.GestureRecognizers>
+                        <TapGestureRecognizer Command="{Binding ToggleShowTestViewCommand}" />
+                    </Label.GestureRecognizers>
+                    <Label.Triggers>
+                        <DataTrigger TargetType="Label" Binding="{Binding ShowTestView}" Value="True">
+                            <Setter Property="TextColor" Value="Green" />
+                        </DataTrigger>
+                    </Label.Triggers>
+                </Label>
+            </HorizontalStackLayout>
         </VerticalStackLayout>
         <Border Margin="10" HorizontalOptions="End" VerticalOptions="End" BackgroundColor="Transparent" 
                 StrokeShape="RoundRectangle 40" Stroke="Green">

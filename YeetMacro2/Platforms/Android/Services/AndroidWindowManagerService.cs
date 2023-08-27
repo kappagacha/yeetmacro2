@@ -29,7 +29,8 @@ public enum AndroidWindowView
     PromptSelectOptionView,
     StatusPanelView,
     MacroOverlayView,
-    MessageView
+    MessageView,
+    TestView
 }
 
 public class AndroidWindowManagerService : IInputService, IScreenService
@@ -202,6 +203,10 @@ public class AndroidWindowManagerService : IInputService, IScreenService
                 case AndroidWindowView.MessageView:
                     var messageView = new ResizeView(_context, _windowManager, this, new MessageView());
                     _views.TryAdd(windowView, messageView);
+                    break;
+                case AndroidWindowView.TestView:
+                    var testView = new ResizeView(_context, _windowManager, this, new TestView());
+                    _views.TryAdd(windowView, testView);
                     break;
             }
         }
