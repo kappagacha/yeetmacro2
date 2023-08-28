@@ -599,6 +599,12 @@ public class AndroidWindowManagerService : IInputService, IScreenService
         return _tesseractApi.Text;
     }
 
+    public async Task<string> GetText(byte[] currentImage)
+    {
+        await _tesseractApi.SetImage(currentImage);
+        return _tesseractApi.Text;
+    }
+
     public async Task<FindPatternResult> FindPattern(Pattern pattern, FindOptions opts)
     {
         if (pattern.IsBoundsPattern)

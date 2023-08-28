@@ -170,16 +170,16 @@ public static class OpenCvHelper
 
     //https://stackoverflow.com/questions/32737420/multiple-results-in-opencvsharp3-matchtemplate
     //https://github.com/Fate-Grand-Automata/FGA/blob/master/app/src/main/java/com/mathewsachin/fategrandautomata/imaging/DroidCvPattern.kt
-    private static void MatchTemplate(Mat image, Mat template, int limit, double threshold, Action<MinMaxLocResult> resultAction)
+    private static void MatchTemplate(Mat haystack, Mat needle, int limit, double threshold, Action<MinMaxLocResult> resultAction)
     {
         var watch = new System.Diagnostics.Stopwatch();
         var mask = new Mat();
 
-        using (var result = new Mat(image.Rows() - template.Rows() + 1, image.Cols() - template.Cols() + 1, MatType.CV_32FC1))
+        using (var result = new Mat(haystack.Rows() - needle.Rows() + 1, haystack.Cols() - needle.Cols() + 1, MatType.CV_32FC1))
         {
             watch.Start();
 
-            Org.Opencv.Imgproc.Imgproc.MatchTemplate(image, template, result, Org.Opencv.Imgproc.Imgproc.TmCcoeffNormed);
+            Org.Opencv.Imgproc.Imgproc.MatchTemplate(haystack, needle, result, Org.Opencv.Imgproc.Imgproc.TmCcoeffNormed);
             Org.Opencv.Imgproc.Imgproc.Threshold(result, result, 0.8, 1.0, Org.Opencv.Imgproc.Imgproc.ThreshTozero);
             //OpenCV.ImgProc.Imgproc.MatchTemplate(image, template, result, (int)TemplateMatchModes.CCoeffNormed);
             //OpenCV.ImgProc.Imgproc.Threshold(result, result, 0.8, 1.0, (int)ThresholdTypes.Tozero);

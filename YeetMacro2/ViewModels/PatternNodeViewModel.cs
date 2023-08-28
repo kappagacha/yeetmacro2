@@ -65,7 +65,7 @@ public partial class PatternNodeViewModel : NodeViewModel<PatternNode, PatternNo
     }
 
     [RelayCommand]
-    private async void AddPattern(PatternNode patternNode)
+    private async Task AddPattern(PatternNode patternNode)
     {
         if (SelectedNode != null)
         {
@@ -131,7 +131,7 @@ public partial class PatternNodeViewModel : NodeViewModel<PatternNode, PatternNo
     }
 
     [RelayCommand]
-    private async void CapturePattern(Object[] values)
+    private async Task CapturePattern(Object[] values)
     {
         if (values.Length > 1 && values[1] is PatternNode patternNode)
         {
@@ -174,7 +174,7 @@ public partial class PatternNodeViewModel : NodeViewModel<PatternNode, PatternNo
     }
 
     [RelayCommand]
-    private async void SetPatternBounds(Pattern pattern)
+    private async Task SetPatternBounds(Pattern pattern)
     {
         if (pattern == null) return;
 
@@ -216,7 +216,7 @@ public partial class PatternNodeViewModel : NodeViewModel<PatternNode, PatternNo
     }
 
     [RelayCommand]
-    private async void TestPattern(Object[] values)
+    private async Task TestPattern(Object[] values)
     {
         if (values.Length != 4) return;
 
@@ -253,7 +253,7 @@ public partial class PatternNodeViewModel : NodeViewModel<PatternNode, PatternNo
 
     // For this to work, Android view needs to not be touchable or do a double click
     [RelayCommand]
-    private async void ClickPattern(Object[] values)
+    private async Task ClickPattern(Object[] values)
     {
         if (values.Length != 4) return;
 
@@ -297,7 +297,7 @@ public partial class PatternNodeViewModel : NodeViewModel<PatternNode, PatternNo
     }
 
     [RelayCommand]
-    private async void TestPatternTextMatch(Object[] values)
+    private async Task TestPatternTextMatch(Object[] values)
     {
         if (values.Length != 4) return;
 
@@ -321,7 +321,7 @@ public partial class PatternNodeViewModel : NodeViewModel<PatternNode, PatternNo
     }
 
     [RelayCommand]
-    private async void ApplyPatternTextMatch(Object[] values)
+    private async Task ApplyPatternTextMatch(Object[] values)
     {
         if (values.Length != 4) return;
 

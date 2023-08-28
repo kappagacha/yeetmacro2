@@ -1,6 +1,6 @@
 ﻿let done = false;
 const loopPatterns = [patterns.titles.home, patterns.titles.branchEvent, patterns.titles.branch, patterns.branchEvent.explosionWalk.chant.disabled, patterns.titles.party];
-//let event; // use this is more events have the prepare button
+let event;
 
 while (state.isRunning && !done) {
 	const loopResult = await macroService.pollPattern(loopPatterns);
@@ -26,14 +26,13 @@ while (state.isRunning && !done) {
 			await macroService.pollPattern([patterns.branchEvent.prepare, patterns.branchEvent.start], { doClick: true, clickPattern: patterns.branchEvent.pitAPatBox.noVoices, predicatePattern: [patterns.branchEvent.explosionWalk.chant.disabled, patterns.titles.party, patterns.branchEvent.pitAPatBox.skip] });
 			await sleep(1000);
 			
-			//if (event === 'branchEvent.pitAPatBox') {
-			//	// TODO: need starting point anchor pattern
-			// const boxes = ['simpleWoodenBox', 'veryHeavyBox', 'woodenBox', 'clothPouch'].map(option => patterns.branchEvent.pitAPatBox[option]);
-			// await macroService.pollPattern(patterns.branchEvent.pitAPatBox.skip, { doClick: true, predicatePattern: boxes });
-			// await macroService.pollPattern(boxes,
-			//		{ doClick: true, clickPattern: [patterns.branchEvent.pitAPatBox.rewardGained, patterns.branchEvent.pitAPatBox.noVoices, patterns.branchEvent.pitAPatBox.skip, patterns.branchEvent.prompt.ok], predicatePattern: patterns.titles.home });
-			// done = true;
-			//}
+			if (event === 'branchEvent.pitAPatBox') {
+			 const boxes = ['simpleWoodenBox', 'veryHeavyBox', 'woodenBox', 'clothPouch'].map(option => patterns.branchEvent.pitAPatBox[option]);
+			 await macroService.pollPattern(patterns.branchEvent.pitAPatBox.skip, { doClick: true, predicatePattern: boxes });
+			 await macroService.pollPattern(boxes,
+					{ doClick: true, clickPattern: [patterns.branchEvent.pitAPatBox.rewardGained, patterns.branchEvent.pitAPatBox.noVoices, patterns.branchEvent.pitAPatBox.skip, patterns.branchEvent.prompt.ok], predicatePattern: patterns.titles.home });
+			 done = true;
+			}
 			break;
 		case 'branchEvent.explosionWalk.chant.disabled':
 			logger.info('doBranchQuests: explosion walk');

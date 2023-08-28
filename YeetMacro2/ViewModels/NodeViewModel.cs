@@ -120,7 +120,7 @@ public partial class NodeViewModel<TParent, TChild> : NodeViewModel
     }
 
     [RelayCommand]
-    public async void AddNode()
+    public async Task AddNode()
     {
         var name = await _inputService.PromptInput($"Please enter {_nodeTypeName} name: ");
 
