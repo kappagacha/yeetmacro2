@@ -13,6 +13,7 @@ using Tesseract.Droid;
 using System.Text.Json;
 using YeetMacro2.ViewModels;
 using YeetMacro2.Data.Serialization;
+using Microsoft.Extensions.Logging;
 
 namespace YeetMacro2.Platforms.Android.Services;
 public enum AndroidWindowView
@@ -35,6 +36,7 @@ public enum AndroidWindowView
 
 public class AndroidWindowManagerService : IInputService, IScreenService
 {
+    ILogger _logger;
     public const int OVERLAY_SERVICE_REQUEST = 0;
     private MainActivity _context;
     IWindowManager _windowManager;
@@ -54,8 +56,10 @@ public class AndroidWindowManagerService : IInputService, IScreenService
         PropertyNamingPolicy = JsonNamingPolicy.CamelCase,
         TypeInfoResolver = PointPropertiesResolver.Instance
     };
-    public AndroidWindowManagerService(MediaProjectionService mediaProjectionService, YeetAccessibilityService accessibilityService, IToastService toastService)
+    public AndroidWindowManagerService(ILogger<AndroidWindowManagerService> logger, MediaProjectionService mediaProjectionService, 
+        YeetAccessibilityService accessibilityService, IToastService toastService)
     {
+        _logger = logger;
         _context = (MainActivity)Microsoft.Maui.ApplicationModel.Platform.CurrentActivity;
         _windowManager = _context.GetSystemService(Context.WindowService).JavaCast<IWindowManager>();
         _mediaProjectionService = mediaProjectionService;
@@ -497,7 +501,6 @@ public class AndroidWindowManagerService : IInputService, IScreenService
             if (pattern.VariancePct != 0.0) threshold = 1 - pattern.VariancePct / 100;
             if ((opts?.VariancePct ?? 0.0) != 0.0) threshold = opts.VariancePct;
 
-
             if (pattern.TextMatch.IsActive && !String.IsNullOrEmpty(pattern.TextMatch.Text))
             {
                 if (!String.IsNullOrWhiteSpace(pattern.TextMatch.WhiteList)) _tesseractApi.SetWhitelist(pattern.TextMatch.WhiteList);
@@ -601,6 +604,7 @@ public class AndroidWindowManagerService : IInputService, IScreenService
 
     public async Task<string> GetText(byte[] currentImage)
     {
+        _logger.LogTrace("AndroidWindowManagerService GetText");
         await _tesseractApi.SetImage(currentImage);
         return _tesseractApi.Text;
     }

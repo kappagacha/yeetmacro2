@@ -25,5 +25,6 @@ public enum LogType
 {
     Info,
     Debug,
+    Verbose,
     Error
 }

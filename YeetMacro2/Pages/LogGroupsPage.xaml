@@ -16,8 +16,6 @@
              x:Name="thisPage">
     <mct:DockLayout>
         <HorizontalStackLayout mct:DockLayout.DockPosition="Top">
-            <Label VerticalOptions="Center" Text="Persist Logs" />
-            <CheckBox IsChecked="{Binding PersistLogs}" />
             <Button Command="{Binding ClearAllCommand}" Text="Clear All Logs" TextColor="Red" />
         </HorizontalStackLayout>
         <ListView ItemsSource="{Binding LogGroups}">

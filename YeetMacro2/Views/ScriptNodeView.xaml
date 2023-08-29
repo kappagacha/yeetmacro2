@@ -52,6 +52,10 @@
                                      CommandParameter="{Binding Scripts.SelectedNode}" />
                     </Grid>
                 </HorizontalStackLayout>
+                <HorizontalStackLayout HorizontalOptions="End" VerticalOptions="Start">
+                    <CheckBox IsChecked="{Binding PersistLogs}" />
+                    <Label VerticalOptions="Center" Text="Persist Logs" />
+                </HorizontalStackLayout>
             </Grid>
         </Grid>
         <v:ImageView HorizontalOptions="Start" VerticalOptions="End" FontFamily="MaterialOutlined" Glyph="{x:Static mi:MaterialOutlined.Settings}" Color="Gray"

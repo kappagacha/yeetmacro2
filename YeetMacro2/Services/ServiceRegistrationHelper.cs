@@ -4,6 +4,7 @@ using Serilog;
 using Serilog.Configuration;
 using Serilog.Extensions.Logging;
 using Serilog.Filters;
+using System.Diagnostics;
 using System.Reflection;
 using System.Text.Json;
 using System.Text.Json.Serialization;
@@ -140,7 +141,7 @@ public static class StatusPanelModelSinkExtensions
     public static ILoggingBuilder AddLogViewModelSink(this ILoggingBuilder builder, Action<LoggerConfiguration> setupAction = null)
     {
         if (builder == null) throw new ArgumentNullException(nameof(builder));
-
+        
         builder.Services.AddSingleton<ILoggerProvider, SerilogLoggerProvider>(sp =>
         {
             var logViewModel = sp.GetService<LogViewModel>();
@@ -148,20 +149,18 @@ public static class StatusPanelModelSinkExtensions
             // https://github.com/serilog/serilog/wiki/Formatting-Output
             // https://github.com/serilog/serilog-formatting-compact
             var configuration = new LoggerConfiguration()
-                .MinimumLevel.Debug()
+                .MinimumLevel.Verbose()
                 .WriteTo.Console()
                 .WriteTo.LogViewModelSink(logViewModel)
                 // https://github.com/serilog/serilog/wiki/Configuration-Basics#filters
                 .Filter.ByExcluding(Matching.WithProperty<string>("SourceContext", sctx => sctx.StartsWith("Microsoft.")));
-
+                
             setupAction?.Invoke(configuration);
             var logger = configuration.CreateLogger();
-
             return new SerilogLoggerProvider(logger, true);
         });
 
-
-        builder.AddFilter<SerilogLoggerProvider>(null, LogLevel.Debug);
+        builder.AddFilter<SerilogLoggerProvider>(null, LogLevel.Trace);
 
         return builder;
     }

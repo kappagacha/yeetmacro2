@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
+using Microsoft.Extensions.Logging;
 using System.Collections.Concurrent;
 using System.Text.Json;
 using System.Text.Json.Nodes;
@@ -14,6 +15,7 @@ using YeetMacro2.Services;
 namespace YeetMacro2.ViewModels;
 public partial class MacroManagerViewModel : ObservableObject
 {
+    ILogger _logger;
     IRepository<MacroSet> _macroSetRepository;
     IToastService _toastService;
     INodeService<PatternNode, PatternNode> _patternNodeService;
@@ -31,9 +33,8 @@ public partial class MacroManagerViewModel : ObservableObject
     ConcurrentDictionary<int, SettingNodeViewModel> _nodeRootIdToSettingTree;
     IScriptService _scriptService;
     [ObservableProperty]
-    bool _isExportEnabled, _isOpenAppDirectoryEnabled;
-    [ObservableProperty]
-    bool _inDebugMode, _showStatusPanel, _showExport, _showSettings, _isBusy;
+    bool _isExportEnabled, _isOpenAppDirectoryEnabled, _inDebugMode, _showStatusPanel, 
+        _showExport, _showSettings, _isBusy, _persistLogs;
     [ObservableProperty]
     double _resolutionWidth, _resolutionHeight;
     [ObservableProperty]
@@ -94,7 +95,8 @@ public partial class MacroManagerViewModel : ObservableObject
     public ICommand OnScriptExecuted { get; set; }
     public ICommand OnScriptFinished { get; set; }
     public string AppVersion { get { return AppInfo.Current.VersionString; } }
-    public MacroManagerViewModel(IRepository<MacroSet> macroSetRepository,
+    public MacroManagerViewModel(ILogger<MacroManagerViewModel> logger,
+        IRepository<MacroSet> macroSetRepository,
         IToastService toastService,
         NodeViewModelFactory nodeViewModelFactory,
         INodeService<PatternNode, PatternNode> patternNodeService,
@@ -105,6 +107,7 @@ public partial class MacroManagerViewModel : ObservableObject
         IMapper mapper,
         IHttpService httpService)
     {
+        _logger = logger;
         _macroSetRepository = macroSetRepository;
         _toastService = toastService;
         _nodeViewModelFactory = nodeViewModelFactory;
@@ -237,19 +240,17 @@ public partial class MacroManagerViewModel : ObservableObject
         if (IsBusy) return;
 
         IsBusy = true;
+        if (PersistLogs) _logger.LogInformation("{persistLogs}", true);
         Console.WriteLine($"[*****YeetMacro*****] MacroManagerViewModel ExecuteScript");
         _scriptService.InDebugMode = InDebugMode;
         await Patterns.WaitForInitialization();
-        Console.WriteLine($"[*****YeetMacro*****] MacroManagerViewModel Patterns Initialized");
         await Settings.WaitForInitialization();
-        Console.WriteLine($"[*****YeetMacro*****] MacroManagerViewModel Settings Initialized");
 
-        _logViewModel.CurrentMacroSet = SelectedMacroSet?.Name ?? string.Empty;
-        _logViewModel.CurrentScript = scriptNode.Name;
+        _logger.LogInformation("{macroSet} {script}", SelectedMacroSet?.Name ?? string.Empty, scriptNode.Name);
         _scriptService.RunScript(scriptNode.Text, Scripts.Root.Nodes, Patterns.ToJson(), Settings.ToJson(), (result) =>
         {
             OnScriptFinished?.Execute(result);
-            _logViewModel.CurrentMacroSet = _logViewModel.CurrentScript = string.Empty;
+            if (PersistLogs) _logger.LogInformation("{persistLogs}", false);
             IsBusy = false;
         });
 

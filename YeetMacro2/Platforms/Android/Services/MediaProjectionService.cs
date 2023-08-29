@@ -8,6 +8,7 @@ using Android.Widget;
 using static Android.Graphics.Bitmap;
 using YeetMacro2.Services;
 using Rect = Microsoft.Maui.Graphics.Rect;
+using Microsoft.Extensions.Logging;
 
 namespace YeetMacro2.Platforms.Android.Services;
 
@@ -16,6 +17,7 @@ namespace YeetMacro2.Platforms.Android.Services;
 //https://medium.com/jamesob-com/recording-your-android-screen-7e0e75aae260
 public class MediaProjectionService : IRecorderService
 {
+    ILogger _logger;
     MainActivity _context;
     MediaProjectionManager _mediaProjectionManager;
     MediaProjection _mediaProjection;
@@ -32,6 +34,7 @@ public class MediaProjectionService : IRecorderService
     public MediaProjectionService()
     {
         _startCompleted = new TaskCompletionSource<bool>();
+        _logger = ServiceHelper.GetService<ILogger<MediaProjectionService>>();
     }
 
     public void Start()
@@ -40,6 +43,7 @@ public class MediaProjectionService : IRecorderService
 
         try
         {
+            _logger.LogTrace("MediaProjectionService Start");
             var displayInfo = DeviceDisplay.MainDisplayInfo;
             var width = (int)displayInfo.Width;
             var height = (int)displayInfo.Height;
@@ -54,13 +58,10 @@ public class MediaProjectionService : IRecorderService
             DeviceDisplay.MainDisplayInfoChanged += DeviceDisplay_MainDisplayInfoChanged;
             var projectionServiceStarted = new Intent("com.companyname.MediaProjectionService.STARTED");
             _context.SendBroadcast(projectionServiceStarted);
-
-            Console.WriteLine("[*****YeetMacro*****] MediaProjectionService Init");
         }
         catch (Exception ex)
         {
-            Console.WriteLine("[*****YeetMacro*****] MediaProjectionService Init Exception");
-            Console.WriteLine("[*****YeetMacro*****] " + ex.Message);
+            _logger.LogError(ex, "MediaProjectionService Init Exception");
         }
     }
 
@@ -68,14 +69,13 @@ public class MediaProjectionService : IRecorderService
     {
         try
         {
-            Console.WriteLine("[*****YeetMacro*****] MediaProjectionService DeviceDisplay_MainDisplayInfoChanged");
+            _logger.LogTrace("DeviceDisplay_MainDisplayInfoChanged");
             Stop(false);
             Start();
         }
         catch (Exception ex)
         {
-            Console.WriteLine("[*****YeetMacro*****] MediaProjectionService DeviceDisplay_MainDisplayInfoChanged Exception");
-            Console.WriteLine("[*****YeetMacro*****] " + ex.Message);
+            _logger.LogError(ex, "DeviceDisplay_MainDisplayInfoChanged Exception");
         }
     }
 
@@ -123,6 +123,7 @@ public class MediaProjectionService : IRecorderService
 
     private Bitmap GetBitmap()
     {
+        _logger.LogTrace("GetBitmap");
         //https://www.tabnine.com/code/java/classes/android.media.Image?snippet=5ce69622e594670004ac3235
         var image = _imageReader.AcquireLatestImage();
         if (image == null) return null;

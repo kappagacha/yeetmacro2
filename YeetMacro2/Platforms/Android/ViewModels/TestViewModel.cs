@@ -37,6 +37,7 @@ public partial class TestViewModel : ObservableObject
         if (IsImageViewTestRunning)
         {
             IsImageViewTestRunning = IsBusy = false;
+            _logger.LogInformation("{persistLogs}", false);
             return;
         }
 
@@ -45,6 +46,8 @@ public partial class TestViewModel : ObservableObject
         IsImageViewTestRunning = IsBusy = true;
         Task.Run(async () =>
         {
+            _logger.LogInformation("{persistLogs}", true);
+            _logger.LogInformation("{macroSet} {script}", "None", "ImageView Test");
             _logger.LogInformation("ImageView Test");
             ImageViewTestCount = 0;
             while (IsImageViewTestRunning)
@@ -63,6 +66,7 @@ public partial class TestViewModel : ObservableObject
         if (IsOpenCVMatchTemplateTestRunning)
         {
             IsOpenCVMatchTemplateTestRunning = IsBusy = false;
+            _logger.LogInformation("{persistLogs}", false);
             return;
         }
 
@@ -71,6 +75,8 @@ public partial class TestViewModel : ObservableObject
         IsOpenCVMatchTemplateTestRunning = IsBusy = true;
         Task.Run(async () =>
         {
+            _logger.LogInformation("{persistLogs}", true);
+            _logger.LogInformation("{macroSet} {script}", "None", "OpenCV MatchTemplate Test");
             _logger.LogInformation("OpenCV MatchTemplate Test");
             OpenCVMatchTemplateTestCount = 0;
             while (IsOpenCVMatchTemplateTestRunning)
@@ -89,6 +95,7 @@ public partial class TestViewModel : ObservableObject
         if (IsOpenCVCalcColorThresholdTestRunning)
         {
             IsOpenCVCalcColorThresholdTestRunning = IsBusy = false;
+            _logger.LogInformation("{persistLogs}", false);
             return;
         }
 
@@ -97,6 +104,8 @@ public partial class TestViewModel : ObservableObject
         IsOpenCVCalcColorThresholdTestRunning = IsBusy = true;
         Task.Run(async () =>
         {
+            _logger.LogInformation("{persistLogs}", true);
+            _logger.LogInformation("{macroSet} {script}", "None", "OpenCV CalcColorThreshold Test");
             _logger.LogInformation("OpenCV CalcColorThreshold Test");
             OpenCVCalcColorThresholdTestCount = 0;
             while (IsOpenCVCalcColorThresholdTestRunning)
@@ -118,6 +127,7 @@ public partial class TestViewModel : ObservableObject
         if (IsMediaProjectionGetCurrentImageTestRunning)
         {
             IsMediaProjectionGetCurrentImageTestRunning = IsBusy = false;
+            _logger.LogInformation("{persistLogs}", false);
             return;
         }
 
@@ -126,6 +136,8 @@ public partial class TestViewModel : ObservableObject
         IsMediaProjectionGetCurrentImageTestRunning = IsBusy = true;
         Task.Run(async () =>
         {
+            _logger.LogInformation("{persistLogs}", true);
+            _logger.LogInformation("{macroSet} {script}", "None", "MediaProjection GetCurrentImage Test");
             _logger.LogInformation("MediaProjection GetCurrentImage Test");
             MediaProjectionGetCurrentImageTestCount = 0;
             while (IsMediaProjectionGetCurrentImageTestRunning)
@@ -151,6 +163,7 @@ public partial class TestViewModel : ObservableObject
         if (IsAccessibilityServiceDoClickTestRunning)
         {
             IsAccessibilityServiceDoClickTestRunning = IsBusy = false;
+            _logger.LogInformation("{persistLogs}", false);
             return;
         }
 
@@ -159,6 +172,8 @@ public partial class TestViewModel : ObservableObject
         IsAccessibilityServiceDoClickTestRunning = IsBusy = true;
         Task.Run(async () =>
         {
+            _logger.LogInformation("{persistLogs}", true);
+            _logger.LogInformation("{macroSet} {script}", "None", "Accessibility Service DoClick Test");
             _logger.LogInformation("Accessibility Service DoClick Test");
             AccessibilityServiceDoClickTestCount = 0;
             while (IsAccessibilityServiceDoClickTestRunning)
@@ -184,6 +199,7 @@ public partial class TestViewModel : ObservableObject
         if (IsGetTextTestRunning)
         {
             IsGetTextTestRunning = IsBusy = false;
+            _logger.LogInformation("{persistLogs}", false);
             return;
         }
 
@@ -192,6 +208,8 @@ public partial class TestViewModel : ObservableObject
         IsGetTextTestRunning = IsBusy = true;
         Task.Run(async () =>
         {
+            _logger.LogInformation("{persistLogs}", true);
+            _logger.LogInformation("{macroSet} {script}", "None", "Get Text Test");
             _logger.LogInformation("Get Text Test");
             GetTextTestCount = 0;
             while (IsGetTextTestRunning)

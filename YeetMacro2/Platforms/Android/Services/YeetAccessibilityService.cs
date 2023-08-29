@@ -3,6 +3,8 @@ using Android.App;
 using Android.Content;
 using Android.Provider;
 using Android.Views.Accessibility;
+using Microsoft.Extensions.Logging;
+using YeetMacro2.Services;
 
 namespace YeetMacro2.Platforms.Android.Services;
 //http://www.spikie.be/post/2017/07/01/AndroidFloatingWidgetsInXamarin.html
@@ -11,32 +13,32 @@ namespace YeetMacro2.Platforms.Android.Services;
 [MetaData("android.accessibilityservice", Resource = "@xml/yeetmacro_config")]
 public class YeetAccessibilityService : AccessibilityService
 {
+    ILogger _logger;
     MainActivity _context;
     private static string _currentPackage = "unknown";
     private static YeetAccessibilityService _instance;  //https://stackoverflow.com/questions/600207/how-to-check-if-a-service-is-running-on-android
     public YeetAccessibilityService()
     {
-        Console.WriteLine("[*****YeetMacro*****] YeetAccessibilityService Constructor Start");
-        Console.WriteLine("[*****YeetMacro*****] YeetAccessibilityService Constructor End");
+        _logger = ServiceHelper.GetService<ILogger<MediaProjectionService>>();
+        _logger.LogTrace("YeetAccessibilityService Constructor");
     }
 
     private void Init()
     {
         try
         {
-            Console.WriteLine("[*****YeetMacro*****] YeetAccessibilityService Init");
+            _logger.LogTrace("YeetAccessibilityService Init");
             _context = (MainActivity)Platform.CurrentActivity;
         }
         catch (Exception ex)
         {
-            Console.WriteLine("[*****YeetMacro*****] YeetAccessibilityService Init Exception");
-            Console.WriteLine("[*****YeetMacro*****] " + ex.Message);
+            _logger.LogError(ex, "YeetAccessibilityService Init Exception");
         }
     }
 
     public override void OnCreate()
     {
-        Console.WriteLine("[*****YeetMacro*****] YeetAccessibilityService OnCreate");
+        _logger.LogTrace("YeetAccessibilityService OnCreate");
         Stop();
         Init();
         _instance = this;
@@ -59,8 +61,7 @@ public class YeetAccessibilityService : AccessibilityService
         {
             if (e.EventType == EventTypes.WindowStateChanged)
             {
-                Console.WriteLine("WindowStateChanged: " + e.PackageName);
-
+                _logger.LogTrace($"YeetAccessibilityService WindowStateChanged: {e.PackageName}");
                 if (e.PackageName != AppInfo.PackageName && e.PackageName != "com.google.android.gms" &&
                     !e.PackageName.StartsWith("com.android"))
                 {
@@ -70,26 +71,24 @@ public class YeetAccessibilityService : AccessibilityService
         }
         catch (Exception ex)
         {
-            Console.WriteLine("[*****YeetMacro*****] YeetAccessibilityService OnAccessibilityEvent Exception");
-            Console.WriteLine("[*****YeetMacro*****] " + ex.Message);
+            _logger.LogError(ex, "YeetAccessibilityService OnAccessibilityEvent Exception");
         }
-
     }
 
     public override void OnInterrupt()
     {
-        Console.WriteLine("[*****YeetMacro*****] YeetAccessibilityService OnInterrupt");
+        _logger.LogTrace("YeetAccessibilityService OnInterrupt");
     }
 
     public override void OnRebind(Intent intent)
     {
-        Console.WriteLine("[*****YeetMacro*****] YeetAccessibilityService OnRebind");
+        _logger.LogTrace("YeetAccessibilityService OnRebind");
         base.OnRebind(intent);
     }
 
     public override bool OnUnbind(Intent intent)
     {
-        Console.WriteLine("[*****YeetMacro*****] YeetAccessibilityService OnUnbind");
+        _logger.LogTrace("YeetAccessibilityService OnUnbind");
         Stop();
         BroadcastEnabled();
         return base.OnUnbind(intent);
@@ -99,6 +98,7 @@ public class YeetAccessibilityService : AccessibilityService
     {
         if (_instance == null || point.X < 0.0 || point.Y < 0.0) return;
 
+        _logger.LogTrace("YeetAccessibilityService DoClick");
         GestureDescription.Builder gestureBuilder = new GestureDescription.Builder();
         try
         {
@@ -116,8 +116,7 @@ public class YeetAccessibilityService : AccessibilityService
         }
         catch (Exception ex)
         {
-            Console.WriteLine("[*****YeetMacro*****] YeetAccessibilityService OnAccessibilityEvent Exception");
-            Console.WriteLine("[*****YeetMacro*****] " + ex.Message);
+            _logger.LogError(ex, "YeetAccessibilityService DoClick Exception");
         }
         finally
         {
@@ -191,7 +190,7 @@ public class YeetAccessibilityService : AccessibilityService
 
     public void Start()
     {
-        Console.WriteLine("[*****YeetMacro*****] YeetAccessibilityService Start");
+        _logger.LogTrace("YeetAccessibilityService Start");
         if (_instance == null)
         {
             Init();
@@ -203,14 +202,13 @@ public class YeetAccessibilityService : AccessibilityService
     {
         try
         {
-            Console.WriteLine("[*****YeetMacro*****] YeetAccessibilityService Stop");
+            _logger.LogTrace("YeetAccessibilityService Stop");
             _instance?.DisableSelf();
             _instance = null;
         }
         catch (Exception ex)
         {
-            Console.WriteLine("[*****YeetMacro*****] YeetAccessibilityService Stop Exception");
-            Console.WriteLine("[*****YeetMacro*****] " + ex.Message);
+            _logger.LogError(ex, "YeetAccessibilityService Stop Exception");
         }
     }
 
@@ -218,15 +216,14 @@ public class YeetAccessibilityService : AccessibilityService
     {
         try
         {
-            Console.WriteLine("[*****YeetMacro*****] YeetAccessibilityService BroadcastEnabled");
+            _logger.LogTrace("YeetAccessibilityService BroadcastEnabled");
             Intent enabledChanged = new Intent("com.companyname.AccessibilityService.CHANGED");
             enabledChanged.PutExtra("enabled", _instance != null ? true : false);
             _context?.SendBroadcast(enabledChanged);
         }
         catch (Exception ex)
         {
-            Console.WriteLine("[*****YeetMacro*****] YeetAccessibilityService BroadcastEnabled Exception");
-            Console.WriteLine("[*****YeetMacro*****] " + ex.Message);
+            _logger.LogError(ex, "YeetAccessibilityService BroadcastEnabled Exception");
         }
     }
 }

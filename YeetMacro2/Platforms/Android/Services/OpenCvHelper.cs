@@ -9,20 +9,29 @@ using YeetMacro2.Data.Models;
 using SkiaSharp;
 using Scalar = Org.Opencv.Core.Scalar;
 using Mat = Org.Opencv.Core.Mat;
+using Microsoft.Extensions.Logging;
+using YeetMacro2.Services;
 
 namespace YeetMacro2.Platforms.Android.Services.OpenCv;
+
 public static class OpenCvHelper
 {
+    static Lazy<ILogger<Mat>> _logger;
+    static OpenCvHelper()
+    {
+        _logger = ServiceHelper.GetService<Lazy<ILogger<Mat>>>();
+    }
+
     public static byte[] CalcColorThreshold(byte[] imageData, ColorThresholdProperties colorThreshold)
     {
         try
         {
-            Console.WriteLine($"[*****YeetMacro*****] CalcColorThreshold");
+            _logger.Value.LogTrace("CalcColorThreshold");
             // https://stackoverflow.com/questions/21113190/how-to-get-the-mat-object-from-the-byte-in-opencv-android
             var matOfByte = new MatOfByte(imageData);
             if (matOfByte.Empty() || !matOfByte.IsContinuous)
             {
-                Console.WriteLine($"[*****YeetMacro*****] CalcColorThreshold: Empty matOfByte");
+                _logger.Value.LogTrace("Empty matOfByte");
                 matOfByte.Dispose();
                 return new byte[0];
             }
@@ -54,7 +63,7 @@ public static class OpenCvHelper
         }
         catch (Exception ex)
         {
-            Console.WriteLine($"[*****YeetMacro*****] CalcColorThreshold Exception: {ex.Message}");
+            _logger.Value.LogError(ex, "CalcColorThreshold Exception");
             return new byte[0];
         }
     }
@@ -63,13 +72,13 @@ public static class OpenCvHelper
     {
         try
         {
-            Console.WriteLine($"[*****YeetMacro*****] GetPointsWithMatchTemplate byte arrays");
+            _logger.Value.LogTrace("GetPointsWithMatchTemplate");
             var haystackMatOfByte = new MatOfByte(haystackImageData);
             var needleMatOfByte = new MatOfByte(needleImageData);
 
             if (haystackMatOfByte.Empty() || !haystackMatOfByte.IsContinuous || needleMatOfByte.Empty() || !needleMatOfByte.IsContinuous)
             {
-                Console.WriteLine($"[*****YeetMacro*****] GetPointsWithMatchTemplate: Empty matOfByte");
+                _logger.Value.LogTrace("Empty matOfByte");
                 haystackMatOfByte.Dispose();
                 needleMatOfByte.Dispose();
                 return new List<Point>();
@@ -86,7 +95,7 @@ public static class OpenCvHelper
         }
         catch (Exception ex)
         {
-            Console.WriteLine($"[*****YeetMacro*****] GetPointsWithMatchTemplate Exception: {ex.Message}");
+            _logger.Value.LogError(ex, "GetPointsWithMatchTemplate Exception");
             return new List<Point>();
         }
     }
