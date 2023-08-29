@@ -29,6 +29,7 @@ public partial class TestViewModel : ObservableObject
         _mediaProjectionService = mediaProjectionService;
         _accessibilityService = accessibilityService;
         _androidWindowManagerService = androidWindowManagerService;
+        DeviceDisplay.Current.KeepScreenOn = true;
     }
 
     [RelayCommand]
