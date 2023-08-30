@@ -47,7 +47,7 @@ public class ScriptService : IScriptService
                     if (script.Text.StartsWith("// @raw-script"))
                     {
                         await _jsContext.ExecuteAsync(script.Text);
-                    } 
+                    }
                     else
                     {
                         await _jsContext.ExecuteAsync($"async function {script.Name}() {{ {script.Text} }}");
@@ -88,6 +88,11 @@ public class ScriptService : IScriptService
 
     public async Task InitJSContext()
     {
+        _jsContext["sleep"] = new JSFunction((in Arguments a) =>
+        {
+            Thread.Sleep(a[0].IntValue);
+            return JSNull.Value;
+        });
         _jsContext["state"] = new JSObject(new List<JSProperty>()
         {
             new JSProperty("isRunning", new JSFunction((in Arguments a) =>
@@ -189,27 +194,22 @@ public class ScriptService : IScriptService
                 var maxTry = 10;
                 if (patternNode?.Patterns?.FirstOrDefault() == null) return JSNull.Value;
 
-                var task = Task.Run<JSValue>(async () =>
+                var currentTry = 0;
+                while (currentTry < maxTry)
                 {
-                    var currentTry = 0;
-                    while (currentTry < maxTry)
+                    try
                     {
-                        try
-                        {
-                            var text = await _screenService.GetText(patternNode.Patterns.First(), new TextFindOptions() { Whitelist = whiteList });
-                            return new JSString(text);
-                        }
-                        catch
-                        {
-                            await Task.Delay(200);
-                            currentTry++;
-                        }
+                        var text = _screenService.GetText(patternNode.Patterns.First(), new TextFindOptions() { Whitelist = whiteList }).Result;
+                        return new JSString(text);
                     }
-                    _logger.LogDebug($"getText failed {maxTry} times...");
-                    return JSNull.Value;
-                });
-
-                return new JSPromise(task);
+                    catch
+                    {
+                        Thread.Sleep(200);
+                        currentTry++;
+                    }
+                }
+                _logger.LogDebug($"getText failed {maxTry} times...");
+                return JSNull.Value;
             }), JSPropertyAttributes.EnumerableReadonlyValue)
         });
         _jsContext["macroService"] = new JSObject(new List<JSProperty>()
@@ -229,7 +229,7 @@ public class ScriptService : IScriptService
                         new JSProperty("y", new JSNumber(offset.Y), JSPropertyAttributes.EnumerableReadonlyValue)
                     });
                 }
-                
+
                 return new JSObject(new List<JSProperty>()
                 {
                     new JSProperty("x", new JSNumber(0), JSPropertyAttributes.EnumerableReadonlyValue),
@@ -254,116 +254,111 @@ public class ScriptService : IScriptService
                     VariancePct = variancePct
                 };
 
-                var task = Task.Run<JSValue>(async () =>
+                try
                 {
-                    try
+                    foreach (var patternNodeKvp in pathToPatternNode)
                     {
-                        foreach (var patternNodeKvp in pathToPatternNode)
+                        if (InDebugMode)
                         {
-                            if (InDebugMode)
-                            {
-                                MainThread.BeginInvokeOnMainThread(_screenService.DebugClear);
-                                await Task.Delay(50);
-                            }
+                            MainThread.BeginInvokeOnMainThread(_screenService.DebugClear);
+                            Thread.Sleep(50);
+                        }
 
-                            if (!_isRunning)
+                        if (!_isRunning)
+                        {
+                            result = new FindPatternResult()
                             {
-                                result = new FindPatternResult()
-                                {
-                                    IsSuccess = false
-                                };
-                                break;
-                            }
+                                IsSuccess = false
+                            };
+                            break;
+                        }
 
-                            var path = patternNodeKvp.Key;
-                            var patternNode = patternNodeKvp.Value;
+                        var path = patternNodeKvp.Key;
+                        var patternNode = patternNodeKvp.Value;
 
-                            _logger.LogDebug($"Find: {path}");
-                            if (patternNode.IsMultiPattern)
+                        _logger.LogDebug($"Find: {path}");
+                        if (patternNode.IsMultiPattern)
+                        {
+                            var points = new List<Point>();
+                            var multiResult = new FindPatternResult();
+                            foreach (var pattern in patternNode.Patterns)
                             {
-                                var points = new List<Point>();
-                                var multiResult = new FindPatternResult();
-                                foreach (var pattern in patternNode.Patterns)
-                                {
-                                    if (InDebugMode && pattern.Rect != Rect.Zero)
-                                    {
-                                        MainThread.BeginInvokeOnMainThread(() =>
-                                        {
-                                            _screenService.DebugClear();
-                                            _screenService.DebugRectangle(pattern.Rect);
-                                        });
-                                        await Task.Delay(50);
-                                    }
-
-                                    var singleResult = await _screenService.FindPattern(pattern, opts);
-                                    if (singleResult.IsSuccess)
-                                    {
-                                        points.AddRange(singleResult.Points);
-                                        if (opts.Limit == 1)
-                                        {
-                                            multiResult.Point = points[0];
-                                        }
-                                    }
-                                }
-                                multiResult.Points = points.ToArray();
-                                multiResult.IsSuccess = points.Count > 0;
-                                result = multiResult;
-                            }
-                            else
-                            {
-                                var pattern = patternNode.Patterns.First();
                                 if (InDebugMode && pattern.Rect != Rect.Zero)
                                 {
                                     MainThread.BeginInvokeOnMainThread(() =>
                                     {
+                                        _screenService.DebugClear();
                                         _screenService.DebugRectangle(pattern.Rect);
                                     });
+                                    Thread.Sleep(50);
                                 }
-                                result = await _screenService.FindPattern(pattern, opts);
-                            }
 
-                            if (InDebugMode && result.IsSuccess)
+                                var singleResult = _screenService.FindPattern(pattern, opts).Result;
+                                if (singleResult.IsSuccess)
+                                {
+                                    points.AddRange(singleResult.Points);
+                                    if (opts.Limit == 1)
+                                    {
+                                        multiResult.Point = points[0];
+                                    }
+                                }
+                            }
+                            multiResult.Points = points.ToArray();
+                            multiResult.IsSuccess = points.Count > 0;
+                            result = multiResult;
+                        }
+                        else
+                        {
+                            var pattern = patternNode.Patterns.First();
+                            if (InDebugMode && pattern.Rect != Rect.Zero)
                             {
                                 MainThread.BeginInvokeOnMainThread(() =>
                                 {
-                                    foreach (var point in result.Points)
-                                    {
-                                        _screenService.DebugCircle(point);
-                                    }
+                                    _screenService.DebugRectangle(pattern.Rect);
                                 });
                             }
-
-                            if (result.IsSuccess)
-                            {
-                                result.Path = path;
-                                break;
-                            }
+                            result = _screenService.FindPattern(pattern, opts).Result;
                         }
 
-                        return new JSObject(new List<JSProperty>()
+                        if (InDebugMode && result.IsSuccess)
                         {
-                            new JSProperty("path", new JSString(result.Path), JSPropertyAttributes.EnumerableReadonlyValue),
-                            new JSProperty("isSuccess", result.IsSuccess ? JSBoolean.True : JSBoolean.False, JSPropertyAttributes.EnumerableReadonlyValue),
-                            new JSProperty("point", new JSObject(new List<JSProperty>()
+                            MainThread.BeginInvokeOnMainThread(() =>
                             {
-                                new JSProperty("x", new JSNumber(result.Point.X), JSPropertyAttributes.EnumerableReadonlyValue),
-                                new JSProperty("y", new JSNumber(result.Point.Y), JSPropertyAttributes.EnumerableReadonlyValue)
-                            }), JSPropertyAttributes.EnumerableReadonlyValue),
-                            new JSProperty("points", result.Points == null ? JSNull.Value : new JSArray(result.Points.Select(p => new JSObject(new List<JSProperty>()
-                            {
-                                new JSProperty("x", new JSNumber(p.X), JSPropertyAttributes.EnumerableReadonlyValue),
-                                new JSProperty("y", new JSNumber(p.Y), JSPropertyAttributes.EnumerableReadonlyValue)
-                            }))), JSPropertyAttributes.EnumerableReadonlyValue)
-                        });
-                    }
-                    catch (Exception ex)
-                    {
-                        _logger.LogDebug($"findPattern failed: {ex.Message}");
-                        throw;
-                    }
-                });
+                                foreach (var point in result.Points)
+                                {
+                                    _screenService.DebugCircle(point);
+                                }
+                            });
+                        }
 
-                return new JSPromise(task);
+                        if (result.IsSuccess)
+                        {
+                            result.Path = path;
+                            break;
+                        }
+                    }
+
+                    return new JSObject(new List<JSProperty>()
+                    {
+                        new JSProperty("path", new JSString(result.Path), JSPropertyAttributes.EnumerableReadonlyValue),
+                        new JSProperty("isSuccess", result.IsSuccess ? JSBoolean.True : JSBoolean.False, JSPropertyAttributes.EnumerableReadonlyValue),
+                        new JSProperty("point", new JSObject(new List<JSProperty>()
+                        {
+                            new JSProperty("x", new JSNumber(result.Point.X), JSPropertyAttributes.EnumerableReadonlyValue),
+                            new JSProperty("y", new JSNumber(result.Point.Y), JSPropertyAttributes.EnumerableReadonlyValue)
+                        }), JSPropertyAttributes.EnumerableReadonlyValue),
+                        new JSProperty("points", result.Points == null ? JSNull.Value : new JSArray(result.Points.Select(p => new JSObject(new List<JSProperty>()
+                        {
+                            new JSProperty("x", new JSNumber(p.X), JSPropertyAttributes.EnumerableReadonlyValue),
+                            new JSProperty("y", new JSNumber(p.Y), JSPropertyAttributes.EnumerableReadonlyValue)
+                        }))), JSPropertyAttributes.EnumerableReadonlyValue)
+                    });
+                }
+                catch (Exception ex)
+                {
+                    _logger.LogDebug($"findPattern failed: {ex.Message}");
+                    throw;
+                }
             }), JSPropertyAttributes.EnumerableReadonlyValue)
         });
 

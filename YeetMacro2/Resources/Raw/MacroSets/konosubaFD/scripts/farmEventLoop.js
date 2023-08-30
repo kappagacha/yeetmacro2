@@ -2,43 +2,43 @@
 let done = false;
 result = { numBattles: 0 };
 while (state.isRunning && !done) {
-	const loopResult = await macroService.pollPattern(loopPatterns);
+	const loopResult = macroService.pollPattern(loopPatterns);
 	switch (loopResult.path) {
 		case 'titles.home':
 			logger.info('farmEventLoop: click tab quest');
-			await macroService.clickPattern(patterns.tabs.quest);
+			macroService.clickPattern(patterns.tabs.quest);
 			break;
 		case 'titles.quest':
 			logger.info('farmEventLoop: click quest events');
-			await macroService.clickPattern(patterns.quest.events);
+			macroService.clickPattern(patterns.quest.events);
 			break;
 		case 'titles.events':
 			logger.info('farmEventLoop: start farm');
 			const targetFarmLevel = settings.farmEvent.targetLevel.props.value ?? 12;
-			await macroService.pollPattern(patterns.quest.events.quest, { doClick: true, predicatePattern: patterns.titles.quest });
-			await sleep(500);
-			await macroService.pollPattern(patterns.quest.events.quest.normal[targetFarmLevel], { doClick: true, predicatePattern: patterns.titles.events });
-			await sleep(500);
-			await macroService.pollPattern(patterns.battle.prepare, { doClick: true, predicatePattern: patterns.titles.party });
-			await sleep(500);
+			macroService.pollPattern(patterns.quest.events.quest, { doClick: true, predicatePattern: patterns.titles.quest });
+			sleep(500);
+			macroService.pollPattern(patterns.quest.events.quest.normal[targetFarmLevel], { doClick: true, predicatePattern: patterns.titles.events });
+			sleep(500);
+			macroService.pollPattern(patterns.battle.prepare, { doClick: true, predicatePattern: patterns.titles.party });
+			sleep(500);
 			break;
 		case 'titles.party':
 			logger.info('farmEventLoop: select party');
 			const targetPartyName = settings.party.farmEventLoop.props.value;
 			logger.debug(`targetPartyName: ${targetPartyName}`);
 			if (targetPartyName === 'recommendedElement') {
-				await selectPartyByRecommendedElement();
+				selectPartyByRecommendedElement();
 			}
 			else if (targetPartyName) {
-				if (!(await selectParty(targetPartyName))) {
+				if (!(selectParty(targetPartyName))) {
 					result = `targetPartyName not found: ${targetPartyName}`;
 					done = true;
 					break;
 				}
 			}
 
-			await sleep(500);
-			const beginResult = await macroService.pollPattern(patterns.battle.begin, { doClick: true, clickPattern: [patterns.branchEvent.availableNow, patterns.branchEvent.playLater, patterns.prompt.playerRankUp], predicatePattern: [patterns.battle.report, patterns.stamina.prompt.recoverStamina] });
+			sleep(500);
+			const beginResult = macroService.pollPattern(patterns.battle.begin, { doClick: true, clickPattern: [patterns.branchEvent.availableNow, patterns.branchEvent.playLater, patterns.prompt.playerRankUp], predicatePattern: [patterns.battle.report, patterns.stamina.prompt.recoverStamina] });
 			if (beginResult.predicatePath === 'stamina.prompt.recoverStamina') {
 				result.message = 'Out of stamina...';
 				done = true;
@@ -47,9 +47,9 @@ while (state.isRunning && !done) {
 			break;
 		case 'battle.report':
 			logger.info('farmEventLoop: replay battle');
-			await macroService.pollPattern(patterns.battle.replay, { doClick: true, clickPattern: [patterns.battle.next, patterns.battle.affinityLevelUp, patterns.branchEvent.availableNow, patterns.branchEvent.playLater, patterns.prompt.playerRankUp], predicatePattern: patterns.battle.replay.prompt });
-			await sleep(500);
-			const replayResult = await macroService.pollPattern(patterns.battle.replay.ok, { doClick: true, predicatePattern: [patterns.battle.report, patterns.stamina.prompt.recoverStamina] });
+			macroService.pollPattern(patterns.battle.replay, { doClick: true, clickPattern: [patterns.battle.next, patterns.battle.affinityLevelUp, patterns.branchEvent.availableNow, patterns.branchEvent.playLater, patterns.prompt.playerRankUp], predicatePattern: patterns.battle.replay.prompt });
+			sleep(500);
+			const replayResult = macroService.pollPattern(patterns.battle.replay.ok, { doClick: true, predicatePattern: [patterns.battle.report, patterns.stamina.prompt.recoverStamina] });
 			if (replayResult.predicatePath === 'stamina.prompt.recoverStamina') {
 				result.message = 'Out of stamina...';
 				done = true;
@@ -59,6 +59,6 @@ while (state.isRunning && !done) {
 			break;
 	}
 
-	await sleep(1_000);
+	sleep(1_000);
 }
 logger.info('Done...');

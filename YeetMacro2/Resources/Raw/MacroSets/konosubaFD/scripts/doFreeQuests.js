@@ -3,65 +3,65 @@ const loopPatterns = [patterns.titles.home, patterns.titles.quest, patterns.titl
 const offset = macroService.calcOffset(patterns.titles.home);
 
 while (state.isRunning && !done) {
-	const loopResult = await macroService.pollPattern(loopPatterns);
+	const loopResult = macroService.pollPattern(loopPatterns);
 	switch (loopResult.path) {
 		case 'titles.home':
 			logger.info('doFreeQuests: click tab quest');
-			await macroService.clickPattern(patterns.tabs.quest);
+			macroService.clickPattern(patterns.tabs.quest);
 			break;
 		case 'titles.quest':
 			logger.info('doFreeQuests: click quest free quests');
-			await macroService.clickPattern(patterns.quest.freeQuests);
+			macroService.clickPattern(patterns.quest.freeQuests);
 			break;
 		case 'titles.freeQuests':
 			logger.info('doFreeQuests: target upgrade stone');
 			const upgradeStoneTargetLevel = settings.freeQuests.upgradeStone.targetLevel.props.value || 'intermediate';
 			if (upgradeStoneTargetLevel !== 'extreme') {
-				await macroService.pollPattern(patterns.freeQuests.upgradeStone, { doClick: true, predicatePattern: patterns.freeQuests.upgradeStone[upgradeStoneTargetLevel] });
-				await macroService.pollPattern(patterns.freeQuests.upgradeStone[upgradeStoneTargetLevel], { doClick: true, predicatePattern: patterns.tickets.add });
+				macroService.pollPattern(patterns.freeQuests.upgradeStone, { doClick: true, predicatePattern: patterns.freeQuests.upgradeStone[upgradeStoneTargetLevel] });
+				macroService.pollPattern(patterns.freeQuests.upgradeStone[upgradeStoneTargetLevel], { doClick: true, predicatePattern: patterns.tickets.add });
 				// sample text capture: "25 x1" (it catches some of the words)
-				let numTickets = (await screenService.getText(patterns.tickets.numTickets)).split('x')[1];
+				let numTickets = (screenService.getText(patterns.tickets.numTickets)).split('x')[1];
 				while (state.isRunning && numTickets < 2) {
-					await macroService.clickPattern(patterns.tickets.add);
-					await sleep(500);
-					numTickets = (await screenService.getText(patterns.tickets.numTickets)).split('x')[1];
+					macroService.clickPattern(patterns.tickets.add);
+					sleep(500);
+					numTickets = (screenService.getText(patterns.tickets.numTickets)).split('x')[1];
 				}
-				await macroService.pollPattern(patterns.tickets.use, { doClick: true, clickPattern: [patterns.branchEvent.availableNow, patterns.branchEvent.playLater, patterns.prompt.playerRankUp], predicatePattern: patterns.tickets.prompt.ok });
-				await macroService.pollPattern(patterns.tickets.prompt.ok, { doClick: true, predicatePattern: patterns.titles.freeQuests });
+				macroService.pollPattern(patterns.tickets.use, { doClick: true, clickPattern: [patterns.branchEvent.availableNow, patterns.branchEvent.playLater, patterns.prompt.playerRankUp], predicatePattern: patterns.tickets.prompt.ok });
+				macroService.pollPattern(patterns.tickets.prompt.ok, { doClick: true, predicatePattern: patterns.titles.freeQuests });
 			}
 			
 			logger.info('doFreeQuests: skip all');
-			await macroService.pollPattern(patterns.freeQuests.eris, { doClick: true, predicatePattern: patterns.skipAll.skipQuest });
-			await macroService.pollPattern(patterns.skipAll.skipQuest, { doClick: true, predicatePattern: patterns.skipAll.button });
-			const filterOffResult = await macroService.findPattern(patterns.skipAll.search.filter.off);
+			macroService.pollPattern(patterns.freeQuests.eris, { doClick: true, predicatePattern: patterns.skipAll.skipQuest });
+			macroService.pollPattern(patterns.skipAll.skipQuest, { doClick: true, predicatePattern: patterns.skipAll.button });
+			const filterOffResult = macroService.findPattern(patterns.skipAll.search.filter.off);
 			if (filterOffResult.isSuccess) {
-				await macroService.pollPattern(patterns.skipAll.search.filter.off, { doClick: true, predicatePattern: patterns.skipAll.search.filter });
-				await sleep(500);
-				const checkResult = await macroService.findPattern(patterns.skipAll.search.filter.check, { limit: 5 });
+				macroService.pollPattern(patterns.skipAll.search.filter.off, { doClick: true, predicatePattern: patterns.skipAll.search.filter });
+				sleep(500);
+				const checkResult = macroService.findPattern(patterns.skipAll.search.filter.check, { limit: 5 });
 				for (let point of checkResult.points) {
 					logger.debug(JSON.stringify(point));
 					if (point.x < offset.x + 300.0) continue;		// skip 4 stars
 					screenService.doClick(point);
-					await sleep(250);
+					sleep(250);
 				}
-				await macroService.pollPattern(patterns.skipAll.search.filter.close, { doClick: true, predicatePattern: patterns.skipAll.title });
-				await sleep(500);
+				macroService.pollPattern(patterns.skipAll.search.filter.close, { doClick: true, predicatePattern: patterns.skipAll.title });
+				sleep(500);
 			}
 
-			let maxNumSkips = await screenService.getText(patterns.skipAll.maxNumSkips);
+			let maxNumSkips = screenService.getText(patterns.skipAll.maxNumSkips);
 			while (state.isRunning && maxNumSkips < 2) {
-				await macroService.clickPattern(patterns.skipAll.addMaxSkips);
-				await sleep(500);
-				maxNumSkips = await screenService.getText(patterns.skipAll.maxNumSkips);
+				macroService.clickPattern(patterns.skipAll.addMaxSkips);
+				sleep(500);
+				maxNumSkips = screenService.getText(patterns.skipAll.maxNumSkips);
 			}
-			await macroService.pollPattern(patterns.skipAll.button, { doClick: true, predicatePattern: patterns.skipAll.prompt.ok });
-			await sleep(1_000);
-			await macroService.pollPattern(patterns.skipAll.prompt.ok, { doClick: true, predicatePattern: patterns.skipAll.skipComplete });
-			await macroService.pollPattern(patterns.skipAll.skipComplete, { doClick: true, clickPattern: [patterns.skipAll.prompt.ok, patterns.branchEvent.availableNow, patterns.branchEvent.playLater, patterns.prompt.playerRankUp], predicatePattern: patterns.skipAll.title });
+			macroService.pollPattern(patterns.skipAll.button, { doClick: true, predicatePattern: patterns.skipAll.prompt.ok });
+			sleep(1_000);
+			macroService.pollPattern(patterns.skipAll.prompt.ok, { doClick: true, predicatePattern: patterns.skipAll.skipComplete });
+			macroService.pollPattern(patterns.skipAll.skipComplete, { doClick: true, clickPattern: [patterns.skipAll.prompt.ok, patterns.branchEvent.availableNow, patterns.branchEvent.playLater, patterns.prompt.playerRankUp], predicatePattern: patterns.skipAll.title });
 			done = true;
 			break;
 	}
 
-	await sleep(1_000);
+	sleep(1_000);
 }
 logger.info('Done...');

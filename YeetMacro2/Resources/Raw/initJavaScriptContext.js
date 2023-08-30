@@ -1,19 +1,19 @@
 ﻿let patterns, settings;
 
-macroService.clickPattern = async function (pattern, opts = {}) {
+macroService.clickPattern = function (pattern, opts = {}) {
     const clickOffsetX = opts.clickOffsetX ?? 0;
     const clickOffsetY = opts.clickOffsetY ?? 0;
-    const result = await this.findPattern(pattern, opts);
+    const result = this.findPattern(pattern, opts);
     if (result.isSuccess) {
         for (const point of result.points) {
             doClick({ x: point.x + clickOffsetX, y: point.y + clickOffsetY });
         }
-        await sleep(500);
+        sleep(500);
     }
     return result;
 }
 
-macroService.pollPattern = async function (pattern, opts = {}) {
+macroService.pollPattern = function (pattern, opts = {}) {
     let result = { isSuccess: false };
     const intervalDelayMs = opts.intervalDelayMs ?? 500;
     const predicatePattern = opts.predicatePattern;
@@ -30,55 +30,55 @@ macroService.pollPattern = async function (pattern, opts = {}) {
         };
         while (state.isRunning) {
             let numChecks = 1;
-            let inversePredicateResult = await this.findPattern(inversePredicatePattern, predicateOpts);
+            let inversePredicateResult = this.findPattern(inversePredicatePattern, predicateOpts);
             while (state.isRunning && !inversePredicateResult.isSuccess && numChecks < inversePredicateChecks) {
-                inversePredicateResult = await this.findPattern(inversePredicatePattern, predicateOpts);
+                inversePredicateResult = this.findPattern(inversePredicatePattern, predicateOpts);
                 numChecks++;
-                await sleep(inversePredicateCheckDelayMs);
+                sleep(inversePredicateCheckDelayMs);
             }
             if (!inversePredicateResult.isSuccess) {
                 result.inversePredicatePath = inversePredicateResult.path;
                 break;
             }
-            result = await this.findPattern(pattern, opts);
+            result = this.findPattern(pattern, opts);
             if (opts.doClick && result.isSuccess) {
                 const point = result.point;
                 doClick({ x: point.x + clickOffsetX, y: point.y + clickOffsetY });
-                await sleep(500);
+                sleep(500);
             }
-            if (clickPattern) await this.clickPattern(clickPattern, opts);
-            await sleep(intervalDelayMs);
+            if (clickPattern) this.clickPattern(clickPattern, opts);
+            sleep(intervalDelayMs);
         }
     } else if (predicatePattern) {
         const predicateOpts = {
             threshold: opts.predicateThreshold ?? 0.0
         };
         while (state.isRunning) {
-            const predicateResult = await this.findPattern(predicatePattern, predicateOpts);
+            const predicateResult = this.findPattern(predicatePattern, predicateOpts);
             if (predicateResult.isSuccess) {
                 result.predicatePath = predicateResult.path;
                 break;
             }
-            result = await this.findPattern(pattern, opts);
+            result = this.findPattern(pattern, opts);
             if (opts.doClick && result.isSuccess) {
                 const point = result.point;
                 doClick({ x: point.x + clickOffsetX, y: point.y + clickOffsetY });
-                await sleep(500);
+                sleep(500);
             }
-            if (clickPattern) await this.clickPattern(clickPattern, opts);
-            await sleep(intervalDelayMs);
+            if (clickPattern) this.clickPattern(clickPattern, opts);
+            sleep(intervalDelayMs);
         }
     } else {
         while (state.isRunning) {
-            result = await this.findPattern(pattern, opts);
+            result = this.findPattern(pattern, opts);
             if (opts.doClick && result.isSuccess) {
                 const point = result.point;
                 doClick({ x: point.x + clickOffsetX, y: point.y + clickOffsetY });
-                await sleep(500);
+                sleep(500);
             }
             if (result.isSuccess) break;
-            if (clickPattern) await this.clickPattern(clickPattern, opts);
-            await sleep(intervalDelayMs);
+            if (clickPattern) this.clickPattern(clickPattern, opts);
+            sleep(intervalDelayMs);
         }
     }
 
@@ -110,6 +110,6 @@ function resolvePath(node, path = '') {
     }
 }
 
-function sleep(ms) {
-    return new Promise(r => setTimeout(r, ms));
-}
+//function sleep(ms) {
+//    return new Promise(r => setTimeout(r, ms));
+//}

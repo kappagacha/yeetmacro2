@@ -3,14 +3,14 @@ const loopPatterns = [patterns.titles.home, patterns.titles.branchEvent, pattern
 let event;
 
 while (state.isRunning && !done) {
-	const loopResult = await macroService.pollPattern(loopPatterns);
+	const loopResult = macroService.pollPattern(loopPatterns);
 	switch (loopResult.path) {
 		case 'titles.home':
 			logger.info('doBranchQuests: check others notification');
-			const othersNotificationResult = await macroService.findPattern(patterns.others.notification);
+			const othersNotificationResult = macroService.findPattern(patterns.others.notification);
 			if (othersNotificationResult.isSuccess) {
-				await macroService.pollPattern(patterns.others.notification, { doClick: true, predicatePattern: patterns.titles.branch });
-				//await macroService.pollPattern(patterns.others.branch.notification, { doClick: true, predicatePattern: patterns.titles.branch });
+				macroService.pollPattern(patterns.others.notification, { doClick: true, predicatePattern: patterns.titles.branch });
+				//macroService.pollPattern(patterns.others.branch.notification, { doClick: true, predicatePattern: patterns.titles.branch });
 			}
 			else {
 				done = true;
@@ -18,19 +18,19 @@ while (state.isRunning && !done) {
 			break;
 		case 'titles.branch':
 			logger.info('doBranchQuests: pick quest');
-			const eventResult = await macroService.pollPattern([patterns.branchEvent.cabbageHunting, patterns.branchEvent.explosionWalk, patterns.branchEvent.pitAPatBox], { doClick: true, predicatePattern: patterns.titles.branchEvent });
+			const eventResult = macroService.pollPattern([patterns.branchEvent.cabbageHunting, patterns.branchEvent.explosionWalk, patterns.branchEvent.pitAPatBox], { doClick: true, predicatePattern: patterns.titles.branchEvent });
 			event = eventResult.path;
 			logger.debug('event: ' + event);
 			break;
 		case 'titles.branchEvent':
 			logger.info('doBranchQuests: start');
-			await macroService.pollPattern([patterns.branchEvent.prepare, patterns.branchEvent.start], { doClick: true, clickPattern: patterns.branchEvent.pitAPatBox.noVoices, predicatePattern: [patterns.branchEvent.explosionWalk.chant.disabled, patterns.titles.party, patterns.branchEvent.pitAPatBox.skip] });
-			await sleep(1000);
+			macroService.pollPattern([patterns.branchEvent.prepare, patterns.branchEvent.start], { doClick: true, clickPattern: patterns.branchEvent.pitAPatBox.noVoices, predicatePattern: [patterns.branchEvent.explosionWalk.chant.disabled, patterns.titles.party, patterns.branchEvent.pitAPatBox.skip] });
+			sleep(1000);
 			
 			if (event === 'branchEvent.pitAPatBox') {
 			 const boxes = ['simpleWoodenBox', 'veryHeavyBox', 'woodenBox', 'clothPouch'].map(option => patterns.branchEvent.pitAPatBox[option]);
-			 await macroService.pollPattern(patterns.branchEvent.pitAPatBox.skip, { doClick: true, predicatePattern: boxes });
-			 await macroService.pollPattern(boxes,
+			 macroService.pollPattern(patterns.branchEvent.pitAPatBox.skip, { doClick: true, predicatePattern: boxes });
+			 macroService.pollPattern(boxes,
 					{ doClick: true, clickPattern: [patterns.branchEvent.pitAPatBox.rewardGained, patterns.branchEvent.pitAPatBox.noVoices, patterns.branchEvent.pitAPatBox.skip, patterns.branchEvent.prompt.ok], predicatePattern: patterns.titles.home });
 			 done = true;
 			}
@@ -39,29 +39,29 @@ while (state.isRunning && !done) {
 			logger.info('doBranchQuests: explosion walk');
 			const optionNumber = 1 + Math.floor(Math.random() * 4);
 			logger.debug('option ' + optionNumber);
-			await macroService.pollPattern(patterns.branchEvent.explosionWalk['option' + optionNumber], { doClick: true, predicatePattern: patterns.branchEvent.explosionWalk.chant.enabled });
-			await macroService.pollPattern(patterns.branchEvent.explosionWalk.chant.enabled, { doClick: true, clickPattern: [patterns.battle.next, patterns.branchEvent.skip], predicatePattern: patterns.titles.home });
+			macroService.pollPattern(patterns.branchEvent.explosionWalk['option' + optionNumber], { doClick: true, predicatePattern: patterns.branchEvent.explosionWalk.chant.enabled });
+			macroService.pollPattern(patterns.branchEvent.explosionWalk.chant.enabled, { doClick: true, clickPattern: [patterns.battle.next, patterns.branchEvent.skip], predicatePattern: patterns.titles.home });
 			break;
 		case 'titles.party':
 			logger.info('doBranchQuests: select party');
 			const targetPartyName = settings.party.cabbageHunting.props.value;
 			logger.debug(`targetPartyName: ${targetPartyName}`);
 			if (targetPartyName === 'recommendedElement') {
-				await selectPartyByRecommendedElement(isBossMulti ? -425 : 0);	// Recommended Element icons are shifted by 425 to the left of expected location
+				selectPartyByRecommendedElement(isBossMulti ? -425 : 0);	// Recommended Element icons are shifted by 425 to the left of expected location
 			}
 			else {
-				if (!(await selectParty(targetPartyName))) {
+				if (!(selectParty(targetPartyName))) {
 					result = `targetPartyName not found: ${targetPartyName}`;
 					done = true;
 					break;
 				}
 			}
-			await sleep(500);
-			await macroService.pollPattern(patterns.battle.begin, { doClick: true, predicatePattern: patterns.battle.report });
-			await macroService.pollPattern(patterns.battle.next, { doClick: true, clickPattern: [patterns.battleArena.newHighScore, patterns.battleArena.rank], predicatePattern: patterns.titles.home });
+			sleep(500);
+			macroService.pollPattern(patterns.battle.begin, { doClick: true, predicatePattern: patterns.battle.report });
+			macroService.pollPattern(patterns.battle.next, { doClick: true, clickPattern: [patterns.battleArena.newHighScore, patterns.battleArena.rank], predicatePattern: patterns.titles.home });
 			break;
 	}
 
-	await sleep(1_000);
+	sleep(1_000);
 }
 logger.info('Done...');
