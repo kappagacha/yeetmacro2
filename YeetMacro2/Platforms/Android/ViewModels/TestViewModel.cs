@@ -29,7 +29,6 @@ public partial class TestViewModel : ObservableObject
         _mediaProjectionService = mediaProjectionService;
         _accessibilityService = accessibilityService;
         _androidWindowManagerService = androidWindowManagerService;
-        DeviceDisplay.Current.KeepScreenOn = true;
     }
 
     [RelayCommand]
@@ -45,6 +44,7 @@ public partial class TestViewModel : ObservableObject
         if (IsBusy) return;
 
         IsImageViewTestRunning = IsBusy = true;
+        DeviceDisplay.Current.KeepScreenOn = true;
         Task.Run(async () =>
         {
             _logger.LogInformation("{persistLogs}", true);
@@ -103,6 +103,7 @@ public partial class TestViewModel : ObservableObject
         if (IsBusy) return;
 
         IsOpenCVCalcColorThresholdTestRunning = IsBusy = true;
+        DeviceDisplay.Current.KeepScreenOn = true;
         Task.Run(async () =>
         {
             _logger.LogInformation("{persistLogs}", true);
@@ -135,6 +136,7 @@ public partial class TestViewModel : ObservableObject
         if (IsBusy) return;
 
         IsMediaProjectionGetCurrentImageTestRunning = IsBusy = true;
+        DeviceDisplay.Current.KeepScreenOn = true;
         Task.Run(async () =>
         {
             _logger.LogInformation("{persistLogs}", true);
@@ -171,6 +173,7 @@ public partial class TestViewModel : ObservableObject
         if (IsBusy) return;
 
         IsAccessibilityServiceDoClickTestRunning = IsBusy = true;
+        DeviceDisplay.Current.KeepScreenOn = true;
         Task.Run(async () =>
         {
             _logger.LogInformation("{persistLogs}", true);
@@ -207,6 +210,7 @@ public partial class TestViewModel : ObservableObject
         if (IsBusy) return;
 
         IsGetTextTestRunning = IsBusy = true;
+        DeviceDisplay.Current.KeepScreenOn = true;
         Task.Run(async () =>
         {
             _logger.LogInformation("{persistLogs}", true);

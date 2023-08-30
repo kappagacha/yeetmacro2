@@ -9,8 +9,8 @@ while (state.isRunning && !done) {
 			logger.info('doBranchQuests: check others notification');
 			const othersNotificationResult = await macroService.findPattern(patterns.others.notification);
 			if (othersNotificationResult.isSuccess) {
-				await macroService.pollPattern(patterns.others.notification, { doClick: true, predicatePattern: patterns.others.branch.notification });
-				await macroService.pollPattern(patterns.others.branch.notification, { doClick: true, predicatePattern: patterns.titles.branch });
+				await macroService.pollPattern(patterns.others.notification, { doClick: true, predicatePattern: patterns.titles.branch });
+				//await macroService.pollPattern(patterns.others.branch.notification, { doClick: true, predicatePattern: patterns.titles.branch });
 			}
 			else {
 				done = true;
@@ -20,6 +20,7 @@ while (state.isRunning && !done) {
 			logger.info('doBranchQuests: pick quest');
 			const eventResult = await macroService.pollPattern([patterns.branchEvent.cabbageHunting, patterns.branchEvent.explosionWalk, patterns.branchEvent.pitAPatBox], { doClick: true, predicatePattern: patterns.titles.branchEvent });
 			event = eventResult.path;
+			logger.debug('event: ' + event);
 			break;
 		case 'titles.branchEvent':
 			logger.info('doBranchQuests: start');
