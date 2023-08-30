@@ -49,7 +49,7 @@ public partial class MacroManagerViewModel : ObservableObject
         TypeInfoResolver = SizePropertiesResolver.Instance
     };
     LogViewModel _logViewModel;
-
+    string _targetBranch = "feature/remove-script-await-calls"; //"main";
     public PatternNodeViewModel Patterns
     {
         get
@@ -162,7 +162,7 @@ public partial class MacroManagerViewModel : ObservableObject
     [RelayCommand]
     public async Task AddOnlineMacroSet()
     {
-        var macroSetsUrl = "https://github.com/kappagacha/yeetmacro2/tree-commit-info/main/YeetMacro2/Resources/Raw/MacroSets";
+        var macroSetsUrl = $"https://github.com/kappagacha/yeetmacro2/tree-commit-info/{_targetBranch}/YeetMacro2/Resources/Raw/MacroSets";
         var strMacroSets = await _httpService.GetAsync(macroSetsUrl, new Dictionary<string, string>() { { "Accept", "application/json" } });
         var jsonMacroSets = JsonSerializer.Deserialize<JsonObject>(strMacroSets);
         var sources = jsonMacroSets.Select(ms => $"online:{ms.Key}").ToArray();
@@ -373,8 +373,9 @@ public partial class MacroManagerViewModel : ObservableObject
             else // online from public github
             {
                 var macroSetName = macroSet.Source.Substring(7);
-                var commitInfoUrl = $"https://github.com/kappagacha/yeetmacro2/tree-commit-info/main/YeetMacro2/Resources/Raw/MacroSets/{macroSetName}";
-                var rawUrl = $"https://raw.githubusercontent.com/kappagacha/yeetmacro2/main/YeetMacro2/Resources/Raw/MacroSets/{macroSetName}";
+
+                var commitInfoUrl = $"https://github.com/kappagacha/yeetmacro2/tree-commit-info/{_targetBranch}/YeetMacro2/Resources/Raw/MacroSets/{macroSetName}";
+                var rawUrl = $"https://raw.githubusercontent.com/kappagacha/yeetmacro2/{_targetBranch}/YeetMacro2/Resources/Raw/MacroSets/{macroSetName}";
                 macroSetJson = await _httpService.GetAsync(Path.Combine(rawUrl, "macroSet.json"), new Dictionary<string, string>() { { "Accept", "application/json" } });
                 targetMacroSet = JsonSerializer.Deserialize<MacroSet>(macroSetJson, _jsonSerializerOptions);
                 if (!macroSet.PatternsLastUpdated.HasValue || macroSet.PatternsLastUpdated < targetMacroSet.PatternsLastUpdated)
