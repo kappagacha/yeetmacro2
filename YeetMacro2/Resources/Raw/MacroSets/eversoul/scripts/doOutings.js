@@ -1,6 +1,6 @@
 ﻿let done = false;
 const loopPatterns = [patterns.lobby.everstone, patterns.town.evertalk, patterns.town.outings.outingsCompleted, patterns.town.outings, patterns.titles.outingGo, patterns.town.outings.selectAKeyword];
-while (state.isRunning && !done) {
+while (state.isRunning() && !done) {
 	const result = macroService.pollPattern(loopPatterns);
 	switch (result.path) {
 		case 'lobby.everstone':

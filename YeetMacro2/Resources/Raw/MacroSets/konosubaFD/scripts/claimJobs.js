@@ -1,7 +1,7 @@
 ﻿// patterns.jobs.notification
 let done = false;
 const loopPatterns = [patterns.titles.home, patterns.titles.job];
-while (state.isRunning && !done) {
+while (state.isRunning() && !done) {
 	const loopResult = macroService.pollPattern(loopPatterns);
 	switch (loopResult.path) {
 		case 'titles.home':

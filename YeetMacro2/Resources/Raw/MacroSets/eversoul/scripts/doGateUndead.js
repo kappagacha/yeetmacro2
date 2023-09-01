@@ -1,6 +1,6 @@
 ﻿let done = false;
 const loopPatterns = [patterns.lobby.everstone, patterns.titles.adventure, patterns.titles.gateBreakthrough, patterns.gateBreakthrough.challenge, patterns.gateBreakthrough.nextStage, patterns.gateBreakthrough.retry];
-while (state.isRunning && !done) {
+while (state.isRunning() && !done) {
 	const loopResult = macroService.pollPattern(loopPatterns);
 	switch (loopResult.path) {
 		case 'lobby.everstone':

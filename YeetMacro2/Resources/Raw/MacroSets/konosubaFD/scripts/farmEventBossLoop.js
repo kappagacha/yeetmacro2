@@ -1,7 +1,7 @@
 ﻿const loopPatterns = [patterns.titles.home, patterns.titles.quest, patterns.titles.events, patterns.battle.report, patterns.titles.bossBattle, patterns.titles.bossMulti, patterns.titles.party, patterns.quest.events.bossBattle.prompt.notEnoughBossTickets];
 let done = false, isBossMulti = false;
 result = { numBattles: 0 };
-while (state.isRunning && !done) {
+while (state.isRunning() && !done) {
 	const loopResult = macroService.pollPattern(loopPatterns);
 	switch (loopResult.path) {
 		case 'titles.home':
@@ -32,7 +32,7 @@ while (state.isRunning && !done) {
 					break;
 				}
 				let currentCost = screenService.getText(patterns.quest.events.bossBattle.cost);
-				for (let i = 0; state.isRunning && i < 2; i++) {
+				for (let i = 0; state.isRunning() && i < 2; i++) {
 					const addCostDisabledResult = macroService.findPattern(patterns.quest.events.bossBattle.addCost.disabled);
 					if (addCostDisabledResult.isSuccess) {
 						break;
@@ -61,7 +61,7 @@ while (state.isRunning && !done) {
 			isBossMulti = true;
 			macroService.pollPattern(patterns.quest.events.bossBattle.extreme, { doClick: true, predicatePattern: patterns.battle.prepare });
 			let currentCost = screenService.getText(patterns.quest.events.bossBattle.cost);
-			for (let i = 0; state.isRunning && i < 2; i++) {
+			for (let i = 0; state.isRunning() && i < 2; i++) {
 				const addCostDisabledResult = macroService.findPattern(patterns.quest.events.bossBattle.addCost.disabled);
 				if (addCostDisabledResult.isSuccess) {
 					break;

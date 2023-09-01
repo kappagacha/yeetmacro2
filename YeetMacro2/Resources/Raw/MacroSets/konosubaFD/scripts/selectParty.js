@@ -39,7 +39,7 @@ async function selectParty(targetPartyName) {
     logger.info(`selectParty: ${targetPartyName}`);
     let currentParty = screenService.getText(patterns.party.name, targetPartyName);
     let numScrolls = 0;
-    while (state.isRunning && currentParty != targetPartyName && numScrolls < 20) {
+    while (state.isRunning() && currentParty != targetPartyName && numScrolls < 20) {
         scrollRight();
         numScrolls++;
         logger.debug(`numScrolls: ${numScrolls}`);
@@ -54,11 +54,11 @@ async function selectParty(targetPartyName) {
 async function scrollRight() {
     let currentX = Math.floor((macroService.findPattern(patterns.party.slot)).point.x);
     let prevX = currentX;
-    while (state.isRunning && currentX === 0) {
+    while (state.isRunning() && currentX === 0) {
         currentX = Math.floor((macroService.findPattern(patterns.party.slot)).point.x);
         sleep(500);
     }
-    while (state.isRunning && (currentX === 0 || currentX === prevX)) {
+    while (state.isRunning() && (currentX === 0 || currentX === prevX)) {
         logger.debug(`currentX: ${currentX}, prevX: ${prevX}`);
         macroService.clickPattern(patterns.party.scrollRight);
         sleep(500);

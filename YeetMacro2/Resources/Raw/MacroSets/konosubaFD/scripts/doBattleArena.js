@@ -1,6 +1,6 @@
 ﻿const loopPatterns = [patterns.titles.home, patterns.titles.quest, patterns.titles.battleArena, patterns.titles.party, patterns.battle.report];
 let done = false;
-while (state.isRunning && !done) {
+while (state.isRunning() && !done) {
 	const loopResult = macroService.pollPattern(loopPatterns);
 	switch (loopResult.path) {
 		case 'titles.home':

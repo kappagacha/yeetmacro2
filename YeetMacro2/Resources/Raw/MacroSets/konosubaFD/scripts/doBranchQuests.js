@@ -2,7 +2,7 @@
 const loopPatterns = [patterns.titles.home, patterns.titles.branchEvent, patterns.titles.branch, patterns.branchEvent.explosionWalk.chant.disabled, patterns.titles.party];
 let event;
 
-while (state.isRunning && !done) {
+while (state.isRunning() && !done) {
 	const loopResult = macroService.pollPattern(loopPatterns);
 	switch (loopResult.path) {
 		case 'titles.home':

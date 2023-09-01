@@ -1,5 +1,5 @@
 ﻿const loopPatterns = [patterns.titles.home, patterns.titles.quest, patterns.titles.events, patterns.battle.report];
-while (state.isRunning) {
+while (state.isRunning()) {
 	const result = macroService.pollPattern(loopPatterns);
 	switch (result.path) {
 		case 'titles.home':

@@ -1,6 +1,6 @@
 ﻿let done = false;
 const loopPatterns = [patterns.lobby.everstone, patterns.titles.adventure, patterns.adventure.arena.freeChallenge, patterns.adventure.arena.startMatch, patterns.adventure.arena.ticket];
-while (state.isRunning && !done) {
+while (state.isRunning() && !done) {
 	const result = macroService.pollPattern(loopPatterns);
 	switch (result.path) {
 		case 'lobby.everstone':

@@ -1,7 +1,7 @@
 ﻿// patterns.ad.quartz.notification
 let done = false;
 const loopPatterns = [patterns.titles.home];
-while (state.isRunning && !done) {
+while (state.isRunning() && !done) {
 	const result = macroService.pollPattern(loopPatterns);
 	switch (result.path) {
 		case 'titles.home':

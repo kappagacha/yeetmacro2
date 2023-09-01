@@ -2,7 +2,7 @@
 const loopPatterns = [patterns.titles.home, patterns.titles.quest, patterns.titles.freeQuests];
 const offset = macroService.calcOffset(patterns.titles.home);
 
-while (state.isRunning && !done) {
+while (state.isRunning() && !done) {
 	const loopResult = macroService.pollPattern(loopPatterns);
 	switch (loopResult.path) {
 		case 'titles.home':
@@ -21,7 +21,7 @@ while (state.isRunning && !done) {
 				macroService.pollPattern(patterns.freeQuests.upgradeStone[upgradeStoneTargetLevel], { doClick: true, predicatePattern: patterns.tickets.add });
 				// sample text capture: "25 x1" (it catches some of the words)
 				let numTickets = (screenService.getText(patterns.tickets.numTickets)).split('x')[1];
-				while (state.isRunning && numTickets < 2) {
+				while (state.isRunning() && numTickets < 2) {
 					macroService.clickPattern(patterns.tickets.add);
 					sleep(500);
 					numTickets = (screenService.getText(patterns.tickets.numTickets)).split('x')[1];
@@ -49,7 +49,7 @@ while (state.isRunning && !done) {
 			}
 
 			let maxNumSkips = screenService.getText(patterns.skipAll.maxNumSkips);
-			while (state.isRunning && maxNumSkips < 2) {
+			while (state.isRunning() && maxNumSkips < 2) {
 				macroService.clickPattern(patterns.skipAll.addMaxSkips);
 				sleep(500);
 				maxNumSkips = screenService.getText(patterns.skipAll.maxNumSkips);

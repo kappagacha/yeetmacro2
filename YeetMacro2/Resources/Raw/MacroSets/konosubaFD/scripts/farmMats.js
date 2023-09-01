@@ -53,7 +53,7 @@ const farmMat = async (targetMats, staminaCost, numSkips) => {
 		macroService.pollPattern(patterns.skipAll.addStamina, { doClick: true, predicatePattern: patterns.stamina.prompt.recoverStamina });
 		macroService.pollPattern(patterns.stamina.meat, { doClick: true, predicatePattern: patterns.stamina.prompt.recoverStamina2 });
 		let targetStamina = screenService.getText(patterns.stamina.target);
-		while (state.isRunning && targetStamina < staminaCost) {
+		while (state.isRunning() && targetStamina < staminaCost) {
 			macroService.clickPattern(patterns.stamina.plusOne);
 			sleep(500);
 			targetStamina = screenService.getText(patterns.stamina.target);
@@ -62,7 +62,7 @@ const farmMat = async (targetMats, staminaCost, numSkips) => {
 	}
 
 	let maxNumSkips = screenService.getText(patterns.skipAll.maxNumSkips);
-	while (state.isRunning && maxNumSkips < numSkips) {
+	while (state.isRunning() && maxNumSkips < numSkips) {
 		macroService.clickPattern(patterns.skipAll.addMaxSkips);
 		sleep(500);
 		maxNumSkips = screenService.getText(patterns.skipAll.maxNumSkips);
@@ -74,7 +74,7 @@ const farmMat = async (targetMats, staminaCost, numSkips) => {
 	macroService.pollPattern(patterns.skipAll.skipComplete, { doClick: true, clickPattern: [patterns.skipAll.prompt.ok, patterns.branchEvent.availableNow, patterns.branchEvent.playLater, patterns.prompt.playerRankUp], predicatePattern: patterns.skipAll.title });
 };
 
-while (state.isRunning && !done) {
+while (state.isRunning() && !done) {
 	const result = macroService.pollPattern(loopPatterns);
 	switch (result.path) {
 		case 'titles.home':
