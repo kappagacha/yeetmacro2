@@ -70,10 +70,8 @@ public class ScriptService : IScriptService
             }
             catch (Exception ex)
             {
-                //Console.WriteLine(ex.Message);
-                Console.WriteLine($"RunScript Error: {ex.Message}");
                 _toastService.Show("Error: " + ex.Message);
-                _logger.LogDebug($"RunScript Error: {ex.Message}");
+                _logger.LogError(ex, $"Script Error: {ex.Message}");
                 _engine.SetValue("result", $"{ex.Message}: \n\t{ex.StackTrace}");
             }
             finally
@@ -369,7 +367,7 @@ public class ScriptService : IScriptService
         {
             dynamic result = new ExpandoObject();
             result.isSuccess = false;
-            var intervalDelayMs = GetValue(jsOptions, "intervalDelayMs", 500);
+            var intervalDelayMs = GetValue(jsOptions, "intervalDelayMs", 250);
             var predicatePattern = GetValue(jsOptions, "predicatePattern", null);
             var clickPattern = GetValue(jsOptions, "clickPattern", null);
             var inversePredicatePattern = GetValue(jsOptions, "inversePredicatePattern", null);
@@ -389,7 +387,7 @@ public class ScriptService : IScriptService
                     {
                         inversePredicateResult = macroService.findPattern(inversePredicatePattern, predicateOpts);
                         numChecks++;
-                        Thread.Sleep(inversePredicateCheckDelayMs);
+                        Thread.Sleep((int)inversePredicateCheckDelayMs);
                     }
                     if (!inversePredicateResult.isSuccess)
                     {
@@ -404,7 +402,7 @@ public class ScriptService : IScriptService
                         Thread.Sleep(500);
                     }
                     if (clickPattern is not null) macroService.clickPattern(clickPattern, jsOptions);
-                    Thread.Sleep(intervalDelayMs);
+                    Thread.Sleep((int)intervalDelayMs);
                 }
             }
             else if (predicatePattern is not null)
@@ -415,7 +413,7 @@ public class ScriptService : IScriptService
                     var predicateResult = macroService.findPattern(predicatePattern, predicateOpts);
                     if (predicateResult.isSuccess)
                     {
-                        result.inversePredicatePath = predicateResult.path;
+                        result.predicatePath = predicateResult.path;
                         break;
                     }
                     result = macroService.findPattern(jsPattern, jsOptions);
@@ -426,7 +424,7 @@ public class ScriptService : IScriptService
                         Thread.Sleep(500);
                     }
                     if (clickPattern is not null) macroService.clickPattern(clickPattern, jsOptions);
-                    Thread.Sleep(intervalDelayMs);
+                    Thread.Sleep((int)intervalDelayMs);
                 }
             }
             else
@@ -442,7 +440,7 @@ public class ScriptService : IScriptService
                     }
                     if (result.isSuccess) break;
                     if (clickPattern is not null) macroService.clickPattern(clickPattern, jsOptions);
-                    Thread.Sleep(intervalDelayMs);
+                    Thread.Sleep((int)intervalDelayMs);
                 }
             }
 
