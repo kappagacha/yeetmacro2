@@ -4,6 +4,7 @@
     "props": {
       "isMultiPattern": false,
       "patterns": [],
+      "path": null,
       "isParentNode": true,
       "name": "lobby"
     },
@@ -42,6 +43,7 @@
             "offsetCalcType": "Default"
           }
         ],
+        "path": null,
         "isParentNode": true,
         "name": "adventure"
       }
@@ -81,6 +83,7 @@
             "offsetCalcType": "Default"
           }
         ],
+        "path": null,
         "isParentNode": true,
         "name": "town"
       }
@@ -120,6 +123,7 @@
             "offsetCalcType": "DockRight"
           }
         ],
+        "path": null,
         "isParentNode": true,
         "name": "everstone"
       }
@@ -130,6 +134,7 @@
     "props": {
       "isMultiPattern": false,
       "patterns": [],
+      "path": null,
       "isParentNode": true,
       "name": "titles"
     },
@@ -168,6 +173,7 @@
             "offsetCalcType": "Default"
           }
         ],
+        "path": null,
         "isParentNode": true,
         "name": "champsArena"
       }
@@ -207,6 +213,7 @@
             "offsetCalcType": "DockLeft"
           }
         ],
+        "path": null,
         "isParentNode": true,
         "name": "outingGo"
       }
@@ -246,6 +253,7 @@
             "offsetCalcType": "DockLeft"
           }
         ],
+        "path": null,
         "isParentNode": true,
         "name": "adventure"
       }
@@ -285,6 +293,7 @@
             "offsetCalcType": "DockLeft"
           }
         ],
+        "path": null,
         "isParentNode": true,
         "name": "gateBreakthrough"
       }
@@ -295,6 +304,7 @@
     "props": {
       "isMultiPattern": false,
       "patterns": [],
+      "path": null,
       "isParentNode": true,
       "name": "adventure"
     },
@@ -303,6 +313,7 @@
       "props": {
         "isMultiPattern": false,
         "patterns": [],
+        "path": null,
         "isParentNode": true,
         "name": "tabs"
       },
@@ -341,6 +352,7 @@
               "offsetCalcType": "DockLeft"
             }
           ],
+          "path": null,
           "isParentNode": true,
           "name": "arena"
         }
@@ -381,6 +393,7 @@
             "offsetCalcType": "Default"
           }
         ],
+        "path": null,
         "isParentNode": true,
         "name": "champsArena"
       },
@@ -419,6 +432,7 @@
               "offsetCalcType": "Default"
             }
           ],
+          "path": null,
           "isParentNode": true,
           "name": "nextTeam"
         }
@@ -458,6 +472,7 @@
               "offsetCalcType": "Default"
             }
           ],
+          "path": null,
           "isParentNode": true,
           "name": "buyTicket"
         }
@@ -498,6 +513,7 @@
             "offsetCalcType": "DockRight"
           }
         ],
+        "path": null,
         "isParentNode": true,
         "name": "arena"
       },
@@ -536,6 +552,7 @@
               "offsetCalcType": "Default"
             }
           ],
+          "path": null,
           "isParentNode": true,
           "name": "startMatch"
         }
@@ -545,6 +562,7 @@
         "props": {
           "isMultiPattern": false,
           "patterns": [],
+          "path": null,
           "isParentNode": true,
           "name": "match1"
         },
@@ -583,6 +601,7 @@
                 "offsetCalcType": "Default"
               }
             ],
+            "path": null,
             "isParentNode": true,
             "name": "cp"
           }
@@ -622,6 +641,7 @@
                 "offsetCalcType": "Default"
               }
             ],
+            "path": null,
             "isParentNode": true,
             "name": "challenge"
           }
@@ -632,6 +652,7 @@
         "props": {
           "isMultiPattern": false,
           "patterns": [],
+          "path": null,
           "isParentNode": true,
           "name": "match2"
         },
@@ -670,6 +691,7 @@
                 "offsetCalcType": "Default"
               }
             ],
+            "path": null,
             "isParentNode": true,
             "name": "cp"
           }
@@ -709,6 +731,7 @@
                 "offsetCalcType": "Default"
               }
             ],
+            "path": null,
             "isParentNode": true,
             "name": "challenge"
           }
@@ -719,6 +742,7 @@
         "props": {
           "isMultiPattern": false,
           "patterns": [],
+          "path": null,
           "isParentNode": true,
           "name": "match3"
         },
@@ -757,6 +781,7 @@
                 "offsetCalcType": "Default"
               }
             ],
+            "path": null,
             "isParentNode": true,
             "name": "cp"
           }
@@ -796,6 +821,7 @@
                 "offsetCalcType": "Default"
               }
             ],
+            "path": null,
             "isParentNode": true,
             "name": "challenge"
           }
@@ -836,6 +862,7 @@
               "offsetCalcType": "DockLeft"
             }
           ],
+          "path": null,
           "isParentNode": true,
           "name": "info"
         }
@@ -933,6 +960,7 @@
               "offsetCalcType": "DockRight"
             }
           ],
+          "path": null,
           "isParentNode": true,
           "name": "freeChallenge"
         }
@@ -972,6 +1000,7 @@
               "offsetCalcType": "DockRight"
             }
           ],
+          "path": null,
           "isParentNode": true,
           "name": "ticket"
         }
@@ -983,6 +1012,7 @@
     "props": {
       "isMultiPattern": false,
       "patterns": [],
+      "path": null,
       "isParentNode": true,
       "name": "battle"
     },
@@ -1021,6 +1051,7 @@
             "offsetCalcType": "Default"
           }
         ],
+        "path": null,
         "isParentNode": true,
         "name": "skip"
       },
@@ -1059,6 +1090,7 @@
               "offsetCalcType": "DockRight"
             }
           ],
+          "path": null,
           "isParentNode": true,
           "name": "enabled"
         }
@@ -1098,6 +1130,7 @@
               "offsetCalcType": "DockRight"
             }
           ],
+          "path": null,
           "isParentNode": true,
           "name": "disabled"
         }
@@ -1138,6 +1171,7 @@
             "offsetCalcType": "Default"
           }
         ],
+        "path": null,
         "isParentNode": true,
         "name": "rematch"
       }
@@ -1177,6 +1211,7 @@
             "offsetCalcType": "DockRight"
           }
         ],
+        "path": null,
         "isParentNode": true,
         "name": "start"
       }
@@ -1187,6 +1222,7 @@
     "props": {
       "isMultiPattern": false,
       "patterns": [],
+      "path": null,
       "isParentNode": true,
       "name": "town"
     },
@@ -1225,6 +1261,7 @@
             "offsetCalcType": "Default"
           }
         ],
+        "path": null,
         "isParentNode": true,
         "name": "enter"
       }
@@ -1264,6 +1301,7 @@
             "offsetCalcType": "DockLeft"
           }
         ],
+        "path": null,
         "isParentNode": true,
         "name": "outings"
       },
@@ -1302,6 +1340,7 @@
               "offsetCalcType": "DockRight"
             }
           ],
+          "path": null,
           "isParentNode": true,
           "name": "call"
         }
@@ -1341,6 +1380,7 @@
               "offsetCalcType": "Default"
             }
           ],
+          "path": null,
           "isParentNode": true,
           "name": "outing1"
         }
@@ -1380,6 +1420,7 @@
               "offsetCalcType": "Default"
             }
           ],
+          "path": null,
           "isParentNode": true,
           "name": "outing2"
         }
@@ -1419,6 +1460,7 @@
               "offsetCalcType": "Default"
             }
           ],
+          "path": null,
           "isParentNode": true,
           "name": "outing3"
         }
@@ -1458,6 +1500,7 @@
               "offsetCalcType": "Default"
             }
           ],
+          "path": null,
           "isParentNode": true,
           "name": "outing4"
         }
@@ -1497,6 +1540,7 @@
               "offsetCalcType": "DockRight"
             }
           ],
+          "path": null,
           "isParentNode": true,
           "name": "goOnOuting"
         }
@@ -1508,19 +1552,19 @@
           "patterns": [
             {
               "rect": {
-                "x": 1683.1243896484375,
-                "y": 46.9583740234375,
-                "width": 75.9593505859375,
-                "height": 16.980575561523438
+                "x": 1673.129638671875,
+                "y": 43.96114730834961,
+                "width": 90.9515380859375,
+                "height": 25.972248077392578
               },
               "resolution": {
                 "width": 1920,
                 "height": 1080
               },
-              "isSelected": false,
+              "isSelected": true,
               "isBoundsPattern": false,
               "name": "pattern",
-              "imageData": "/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDAAEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQH/2wBDAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQH/wAARCAAQAEsDASIAAhEBAxEB/8QAGgABAAIDAQAAAAAAAAAAAAAACggJAQYHBP/EACkQAAEEAwEAAQMDBQEAAAAAAAUDBAYHAQIICRMRFDEKFiUAFSEiQUL/xAAZAQADAAMAAAAAAAAAAAAAAAACAwUEBgf/xAAmEQACAgICAQMEAwAAAAAAAAACAwEEBRIGERMHFSEAFCIjFyQz/9oADAMBAAIRAxEAPwDNV+MME7V8/wDzIP1JCIxV0qnEifSTq292DhXeWb1k3ZzjR5o0HEiLlIzIjJccCDR1BuM3HCiS6BAlhsIbu9F4A9j8/wBB9cd4wLhbyXoqMtEqfCSGCzi0kJK8Ui89PgF2O0ynMolLzcw4XiVd7s9gSk23WIOphIiL5rGBZNF3FdpBcWJ9DJ15yePfldY8QiQ2VCZjPQMXtMe70wsVVqYYRsKQzUVEtFFmrNnLjDdg1bBTJBdRiNUTV0WYr/eaumEpKeqPnvnf1tjXalbSqFNaG9Ruapkzr08iVGixTvosjLKntIixCoPFWjlTS94iIIzxHKiWXiliCJEGdaIkpCAGb9sq8v5Lx7IZPL3bGTtJru5cviAOsOZjyy67/ivFfV5BJ81KTGHWS4vEuFdIWLZgo0V2DxGWq1aCFVFMcvBnndFiFqKBVvJWGscDMK89kAFzVfmW8y05D4k+Fgfp0vQCvCVbtHst5dkYqwZ6Orx5KY1YdibgK/LmUnSQV9ONjdRhS6Ic0dRaRIcvGREmIbSgwHHvBbJF7q70irVvkl1zbvZt28LR3FWhLgoCPupTP5HLJDLWNXpgt/2orHHYuRCYKaOuVJqwmYIrFGjyLD3j8Uo9evEByQwh9sm70ntbp7ibiToY5WfDfG/LsKd3ZDZIOntN3vs+kUhsl3YUQKRu69KlB8l1cBKTR0UicXeGiMpnyMkaJhNMbbGkhbBxnZu5esKXh3mRcHpxUCGkZuj0H5oovnwHjUxs0eNpORbWSyw0HOBaX12sWpgU+tp6/KauVsP81QCYaraMgyHy2sb6xepTaqdvbr05lxYXEWlVanacxL8e6G2RQ1y+gp2mh4C1j8QaYjqcnMucC4gtzJj7qt7escjfSbrHTKHjshoqWgsvyegC8kbddGsZ6kdThDfEDtd52Ob4hwSoxOyY9RbHoV5OlZTYidRuYATk+kMH6sJFtVuJKsdeSnUiGbDVYa3TWXBHl03e7IW5da8qrPyY7Vt6qLUtKCwuKkVan6W25SK145KSJjP5BZ7KZRmByF3Gmq8VxFtobE5BJ0U5RJ5DK481DtQ8jcOEv4V3phkI3vupIH56Ul6lS0ZGyU3suvuTaktWTJ6MdXuiTi5WMOtwOLwm/ZLOEK5kMyuWXNgzRfRRZUDlYgxTQZuE23v6y6RoXiTpvzmpp0+DwSJ9D9TdKXLOZJuRCiY+0Ky6trPY/wB7mSqaDfXdtMrs6Bi6o82VXQZN9Aj0i9IuMgNVEUR65epQsKoNWoVpUsrTE0RLezhlFYzUQIa7EQQESAT+gflc7FE/Tv444hqLyc+EH42x/aIelX2ArHzMn3AxvtAkUfsP4nqImPou1zfp5vQuk6jltuuXHP8AZjaFAnElOwCqptPjNj4ED2uX5fcSJkdXxQGdfCR6a7pyKGSFcm/+DZvHmhx2s2br69QPg52j0ZRlbdGQ6e8sxyrrMr/exRr2dWHYwgqEDYU2+FrImoyozbBk/Vaprv8AZRoTICGzRutl4WbOPibrIc5144tnz47j9JfRrqHoaF68t2cEsGTC0v3CWdyCQjT84YzmHISsYWbDRTQ1VkcZuargYcI+IuZEvINBkWQFMXKQpzS/6NlTTHwl8hY3s6f5ClWg9/Io8k9cNhpx3HYMYVG6lUEd/jdYZbPiGGuy2iv2yrpRdLXCmNdsU8d6tc9ylmjiaWcx1kr2QxyhzS8HEABW8a65bx32zjWtjaTUisSgwIxPtsr21XhW+EcWoosXrGMtpGtWtGWPPIlJENe2pCbflXuYrsAyTKJgoGYmFifXZdA81vCrtBC1OTOtbUa0NEqyGTGG2nI6mnJ2Wv7TcQz/AARRYkIkjWxmGtjJAcu2eIgzEubOmW6mGprUMSQWbIVD+0IxkC9QOvhQIcPDims/B/ajhbNsPYt/nr+HuV/gaNEkW6PzOVll1fjT1+RZVRXf6777bZYXe/GtvdsejPnV6N0Tc9fyDk+s4HHj67JSTm8FGn8zLJKUJwYcIFugxZSzBMgj0SkWHpIU+YftVdmey4asx4xIfvtw3L7+qHY2zZrsohmfx7498fT/AG+lcQrG35U1/wDWNsfjH4/7+f6HhXL8rybnB5fL3Yv3D4hYQ2pQpHW9pkM/XkaDA77caw6YdghEpJ8LmCgYMz5DhKOH42NGjWmrWHPKYDrNgGzd3xp92hKZiAE57WC4mf8AHfqJIhH/2Q==",
+              "imageData": "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",
               "variancePct": 20,
               "textMatch": {
                 "isActive": false,
@@ -1530,12 +1574,13 @@
               "colorThreshold": {
                 "isActive": true,
                 "variancePct": 10,
-                "color": "#ffeae9e9",
-                "imageData": "/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDAAIBAQEBAQIBAQECAgICAgQDAgICAgUEBAMEBgUGBgYFBgYGBwkIBgcJBwYGCAsICQoKCgoKBggLDAsKDAkKCgr/wAALCAAQAEsBAREA/8QAHwAAAQUBAQEBAQEAAAAAAAAAAAECAwQFBgcICQoL/8QAtRAAAgEDAwIEAwUFBAQAAAF9AQIDAAQRBRIhMUEGE1FhByJxFDKBkaEII0KxwRVS0fAkM2JyggkKFhcYGRolJicoKSo0NTY3ODk6Q0RFRkdISUpTVFVWV1hZWmNkZWZnaGlqc3R1dnd4eXqDhIWGh4iJipKTlJWWl5iZmqKjpKWmp6ipqrKztLW2t7i5usLDxMXGx8jJytLT1NXW19jZ2uHi4+Tl5ufo6erx8vP09fb3+Pn6/9oACAEBAAA/APo39pr/AIOJfCv/AATh/b9/bI+EX7V3jvUPEtp4K0/wS/7PPwr0zQUhkvrq60NbjU4jqMVqRDEbi5tZZJbuR2jj3/Z45WXyG+oP2T/2p/j7+yZ/wTRu/wBu3/gtf8dtP0u71vUIfFGq2GmfD+6s4/h9pmqyWkGn+HjawQNeTywSzIsjTRvPHJcPFJJKsH2h/L/2VP8Ag6U/4JlftbaP8RrnwnafEDw3q/w7+H+p+MB4Y8YaRp9tf+JrDTrOe8vYtL8q+lhuLmKG3LmCSSJirF13RxTvF7h+1T/wWl/YM/ZS/YM8O/8ABRzVviBqHjP4b+M9QtLDwZP4D04Xd1rV1OJm+zokzwpbyxJbXbTJcvC0TWksTAThYW8/1n/g4p/4J6aF/wAE0dJ/4KjX0njB/ButeMG8K2fhCy02zufEUesrJNmyngiu2t7WX7LA98BNcIDbNEwJeaKN/YPid/wVn/YM+EPxl0/4K+NPjrp6Xep/A/Uvi1Z6zYkXWnXPhezHmG4tpYix1CWW3ivbqKGzWd2t9OuZWCKIvN+f/wBkP/g57/4Jc/tn/tcQfsffDvxD4w0LVdW1Cew8IeKfGWiW9ho3iW6SURwW9rJ9paeOW5GXgS6hgaQ7YiFnkjhfoP2yf+DiL9gz9iv9ofWP2QfGPhX4oeLvixpPjDStAh+HfgDwWL/UdTbUNNtb61urRnmigmiY3cVqIhKLo3GQtu0eJT8//wDBXT/g57/YM+CHhX40/sRfCPxD8UNR+KUXg/xH4XtfFvgrRBZWvhjxQEvLBY3urq5tbhZba6jSU3FrHKgUo0UjsCq/f/8AwTJ8WeKvHv8AwTb/AGfPHXjrxNqGta3rXwP8J3+s6zq169zdX91No9rJLcTSyEvLK7szs7EszMSSSa/LH4hf8EdPgT/wVg/4Lr/t8/8AC9NY8n/hEvh/4P0jwd/o9039la7q/hi0+ya5/o93b+f9j/s+T/Q5d0U/2n5inljd83/tVt+1x+1p/wAG7HiD9iH4zfDjUNK+NH7BPxQ0UfE/wpe6fK97L4RTT9QtNMvoBZ2n2d4orW65kWWRGstIlv3nYTx+Z6B/wQ9/Z2/Yl/bQ/wCCl3hf4zeNP+CrnxQ/au8ZaL8D9dvNR8HfFH4ZXdtHo+nXMcOlz6Tqtzq1/fJeRFNfvVFpZ+bbtIs0jXAQKl1z/wCwF+yt+0/4v/4LM+Ef+CK3xK+Iuoad8F/2Ivihr/xW8G6XPq8K6nqWmG+srzQzcvaRNaXsrTX1nc5kiinig1XVIhLETFBF4hqH/BJn9o742/8ABWH4w/8ABB34WeN/7K+EXgbxB4u+J3hrw3pfiZo9K0Oa+0KD/hH7q9luoZLq88trjQLCcbLmaJJr0wH97NcPn/sE/sv/ALaH/BW/9iX9q74/2L6heXfgH9nDwb8LPhz4ai0XUbiy1W10O70jVJbHTZA05+3C38Oo7WUKFZr3X1kP2ZZhu9v/AGxP+Cin7M//AAWO/wCCZX7Jv/BIb9ib4V+d8Ztb8QeG9KvfDNxoetLpvw4/svT5LCa7S4FxPJPbCJ5HSRzqHl6at1LciK6jjZf0v/4J8+E/Ct5/wcA/8FCfHV54Z0+XW9O0/wCFlhp+syWSNdWtrc+G2kuLeOUjekUr2tq7opCu1tCWBMa4/MD9mj9vv9nj/gkp/wAEof2xf+CMv7YPhfUPDXxystQ8V6FpFtoPh7UpbfxrJq+mJp1tqaTXbBIokRYpt7R2ccun/ZJYIri4km3/ALn/APBJ3/lFl+zT/wBm/wDg3/0x2df/2Q=="
+                "color": "#ffebe7e4",
+                "imageData": "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"
               },
               "offsetCalcType": "DockRight"
             }
           ],
+          "path": null,
           "isParentNode": true,
           "name": "keywordSelectionOpportunity"
         }
@@ -1575,6 +1620,7 @@
               "offsetCalcType": "DockRight"
             }
           ],
+          "path": null,
           "isParentNode": true,
           "name": "selectAKeyword"
         }
@@ -1614,6 +1660,7 @@
               "offsetCalcType": "DockRight"
             }
           ],
+          "path": null,
           "isParentNode": true,
           "name": "keywordPoints1"
         }
@@ -1653,6 +1700,7 @@
               "offsetCalcType": "DockRight"
             }
           ],
+          "path": null,
           "isParentNode": true,
           "name": "keywordPoints2"
         }
@@ -1692,6 +1740,7 @@
               "offsetCalcType": "DockRight"
             }
           ],
+          "path": null,
           "isParentNode": true,
           "name": "keywordPoints3"
         }
@@ -1731,6 +1780,7 @@
               "offsetCalcType": "DockLeft"
             }
           ],
+          "path": null,
           "isParentNode": true,
           "name": "outingsCompleted"
         }
@@ -1771,6 +1821,7 @@
             "offsetCalcType": "DockLeft"
           }
         ],
+        "path": null,
         "isParentNode": true,
         "name": "evertalk"
       }
@@ -1810,6 +1861,7 @@
             "offsetCalcType": "Default"
           }
         ],
+        "path": null,
         "isParentNode": true,
         "name": "info"
       }
@@ -1820,6 +1872,7 @@
     "props": {
       "isMultiPattern": false,
       "patterns": [],
+      "path": null,
       "isParentNode": true,
       "name": "prompt"
     },
@@ -1858,6 +1911,7 @@
             "offsetCalcType": "Default"
           }
         ],
+        "path": null,
         "isParentNode": true,
         "name": "confirm"
       }
@@ -1897,6 +1951,7 @@
             "offsetCalcType": "DockRight"
           }
         ],
+        "path": null,
         "isParentNode": true,
         "name": "next"
       }
@@ -1936,6 +1991,7 @@
             "offsetCalcType": "Default"
           }
         ],
+        "path": null,
         "isParentNode": true,
         "name": "tapTheScreen"
       }
@@ -1975,6 +2031,7 @@
             "offsetCalcType": "Default"
           }
         ],
+        "path": null,
         "isParentNode": true,
         "name": "middleTap"
       }
@@ -2014,6 +2071,7 @@
             "offsetCalcType": "Default"
           }
         ],
+        "path": null,
         "isParentNode": true,
         "name": "close"
       }
@@ -2053,6 +2111,7 @@
             "offsetCalcType": "Default"
           }
         ],
+        "path": null,
         "isParentNode": true,
         "name": "confirm2"
       }
@@ -2093,6 +2152,7 @@
           "offsetCalcType": "DockRight"
         }
       ],
+      "path": null,
       "isParentNode": true,
       "name": "gateBreakthrough"
     },
@@ -2131,6 +2191,7 @@
             "offsetCalcType": "DockRight"
           }
         ],
+        "path": null,
         "isParentNode": true,
         "name": "challenge"
       }
@@ -2140,6 +2201,7 @@
       "props": {
         "isMultiPattern": false,
         "patterns": [],
+        "path": null,
         "isParentNode": true,
         "name": "gates"
       },
@@ -2178,6 +2240,7 @@
               "offsetCalcType": "Default"
             }
           ],
+          "path": null,
           "isParentNode": true,
           "name": "unlimited"
         }
@@ -2217,6 +2280,7 @@
               "offsetCalcType": "Default"
             }
           ],
+          "path": null,
           "isParentNode": true,
           "name": "humanlike"
         }
@@ -2256,6 +2320,7 @@
               "offsetCalcType": "Default"
             }
           ],
+          "path": null,
           "isParentNode": true,
           "name": "beast"
         }
@@ -2295,6 +2360,7 @@
               "offsetCalcType": "Default"
             }
           ],
+          "path": null,
           "isParentNode": true,
           "name": "fairy"
         }
@@ -2334,6 +2400,7 @@
               "offsetCalcType": "Default"
             }
           ],
+          "path": null,
           "isParentNode": true,
           "name": "undead"
         }
@@ -2374,6 +2441,7 @@
             "offsetCalcType": "Default"
           }
         ],
+        "path": null,
         "isParentNode": true,
         "name": "nextStage"
       }
@@ -2413,6 +2481,7 @@
             "offsetCalcType": "DockRight"
           }
         ],
+        "path": null,
         "isParentNode": true,
         "name": "retry"
       }

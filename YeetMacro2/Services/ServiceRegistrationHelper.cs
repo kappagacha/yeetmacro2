@@ -36,6 +36,7 @@ public static class ServiceRegistrationHelper
         mauiAppBuilder.Services.AddSingleton<NodeViewModelFactory>();
         mauiAppBuilder.Services.AddSingleton<StatusPanelViewModel>();
         mauiAppBuilder.Services.AddSingleton<LogViewModel>();
+        mauiAppBuilder.Services.AddSingleton<MacroService>();
 
         return mauiAppBuilder;
     }

@@ -1,35 +1,35 @@
 ﻿let done = false;
 const loopPatterns = [patterns.lobby.everstone, patterns.titles.adventure, patterns.titles.gateBreakthrough, patterns.gateBreakthrough.challenge, patterns.gateBreakthrough.nextStage, patterns.gateBreakthrough.retry];
-while (state.isRunning() && !done) {
-	const loopResult = macroService.pollPattern(loopPatterns);
-	switch (loopResult.path) {
+while (macroService.IsRunning && !done) {
+	const loopResult = macroService.PollPattern(loopPatterns);
+	switch (loopResult.Path) {
 		case 'lobby.everstone':
 			logger.info('doGateBreakthrough unlimited: click adventure');
-			macroService.clickPattern(patterns.lobby.adventure);
+			macroService.ClickPattern(patterns.lobby.adventure);
 			sleep(500);
 			break;
 		case 'titles.adventure':
 			logger.info('doGateBreakthrough unlimited: click gate breakthrough');
-			macroService.pollPattern(patterns.gateBreakthrough, { doClick: true, clickOffsetY: -60, predicatePattern: patterns.titles.gateBreakthrough });
+			macroService.PollPattern(patterns.gateBreakthrough, { DoClick: true, Offset: { Y: -60 }, PredicatePattern: patterns.titles.gateBreakthrough });
 			sleep(500);
 			break;
 		case 'titles.gateBreakthrough':
 			logger.info('doGateBreakthrough unlimited: click unlimited gate');
-			macroService.pollPattern(patterns.gateBreakthrough.gates.unlimited, { doClick: true, predicatePattern: patterns.gateBreakthrough.challenge });
+			macroService.PollPattern(patterns.gateBreakthrough.gates.unlimited, { DoClick: true, PredicatePattern: patterns.gateBreakthrough.challenge });
 			sleep(500);
 			break;
 		case 'gateBreakthrough.challenge':
 			logger.info('doGateBreakthrough unlimited: click challenge');
-			macroService.pollPattern(patterns.gateBreakthrough.challenge, { doClick: true, predicatePattern: patterns.battle.start });
+			macroService.PollPattern(patterns.gateBreakthrough.challenge, { DoClick: true, PredicatePattern: patterns.battle.start });
 			sleep(500);
-			macroService.pollPattern(patterns.battle.start, { doClick: true, clickPattern: patterns.prompt.close, predicatePattern: [patterns.gateBreakthrough.nextStage, patterns.gateBreakthrough.retry] });
+			macroService.PollPattern(patterns.battle.start, { DoClick: true, ClickPattern: patterns.prompt.close, PredicatePattern: [patterns.gateBreakthrough.nextStage, patterns.gateBreakthrough.retry] });
 			sleep(500);
 			break;
 		case 'gateBreakthrough.nextStage':
 			logger.info('doGateBreakthrough unlimited: click next stage');
-			macroService.pollPattern(patterns.gateBreakthrough.nextStage, { doClick: true, predicatePattern: patterns.battle.start });
+			macroService.PollPattern(patterns.gateBreakthrough.nextStage, { DoClick: true, PredicatePattern: patterns.battle.start });
 			sleep(500);
-			macroService.pollPattern(patterns.battle.start, { doClick: true, clickPattern: patterns.prompt.close, predicatePattern: patterns.gateBreakthrough.nextStage });
+			macroService.PollPattern(patterns.battle.start, { DoClick: true, ClickPattern: patterns.prompt.close, PredicatePattern: patterns.gateBreakthrough.nextStage });
 			sleep(500);
 			break;
 		case 'gateBreakthrough.retry':

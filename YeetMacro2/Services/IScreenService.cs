@@ -6,13 +6,15 @@ public class FindPatternResult
 {
     public bool IsSuccess { get; set; }
     public string Path { get; set; }
+    public string PredicatePath { get; set; }
+    public string InversePredicatePath { get; set; }
     public Point Point { get; set; }
     public Point[] Points { get; set; }
 }
 
 public class FindOptions
 {
-    public int Limit { get; set; }
+    public int Limit { get; set; } = 1;
     public double VariancePct { get; set; }
     public Point Offset { get; set; } = Point.Zero;
     //public Rect OverrideRect { get; set; }

@@ -1,96 +1,96 @@
 ﻿let done = false;
 const loopPatterns = [patterns.titles.home, patterns.titles.smithy, patterns.titles.craft, patterns.skipAll.title];
-const offset = macroService.calcOffset(patterns.titles.home);
+const offset = macroService.CalcOffset(patterns.titles.home);
 
 const farmMat = async (targetMats, staminaCost, numSkips) => {
-	macroService.pollPattern(patterns.skipAll.material, { doClick: true, predicatePattern: patterns.skipAll.search });
+	macroService.PollPattern(patterns.skipAll.material, { DoClick: true, PredicatePattern: patterns.skipAll.search });
 	sleep(500);
-	const filterOffResult = macroService.findPattern(patterns.skipAll.search.filter.off);
-	if (filterOffResult.isSuccess) {
-		macroService.pollPattern(patterns.skipAll.search.filter.off, { doClick: true, predicatePattern: patterns.skipAll.search.filter });
+	const filterOffResult = macroService.FindPattern(patterns.skipAll.search.filter.off);
+	if (filterOffResult.IsSuccess) {
+		macroService.PollPattern(patterns.skipAll.search.filter.off, { DoClick: true, PredicatePattern: patterns.skipAll.search.filter });
 		sleep(500);
-		const checkResult = macroService.findPattern(patterns.skipAll.search.filter.check, { limit: 4 });
-		for (let point of checkResult.points) {
-			if (point.x < offset.x + 400.0) continue;		// skip 4 stars
-			screenService.doClick(point);
+		const checkResult = macroService.FindPattern(patterns.skipAll.search.filter.check, { Limit: 4 });
+		for (let point of checkResult.Points) {
+			if (point.X < offset.X + 400.0) continue;		// skip 4 stars
+			macroService.DoClick(point);
 			sleep(250);
 		}
-		macroService.pollPattern(patterns.skipAll.search.filter.close, { doClick: true, predicatePattern: patterns.skipAll.search });
+		macroService.PollPattern(patterns.skipAll.search.filter.close, { DoClick: true, PredicatePattern: patterns.skipAll.search });
 		sleep(500);
 	}
 
-	macroService.pollPattern(patterns.skipAll.search.select.check, { doClick: true, inversePredicatePattern: patterns.skipAll.search.select.check });
+	macroService.PollPattern(patterns.skipAll.search.select.check, { DoClick: true, InversePredicatePattern: patterns.skipAll.search.select.check });
 	for (const mat of targetMats) {
-		const matResult = macroService.findPattern(mat);
-		if (matResult.isSuccess) {
+		const matResult = macroService.FindPattern(mat);
+		if (matResult.IsSuccess) {
 			const matCheckPattern = {
 				...patterns.skipAll.search.select.check,
 				props: {
 					...patterns.skipAll.search.select.check.props,
-					path: patterns.skipAll.search.select.check.props.path + '_' + mat.props.path,
+					path: patterns.skipAll.search.select.check.props.Path + '_' + mat.props.Path,
 					patterns: patterns.skipAll.search.select.check.props.patterns.map(p => ({
 						...p,
 						rect: {
-							x: matResult.point.x - 110.0,
-							y: matResult.point.y - 100.0,
+							x: matResult.Point.X - 110.0,
+							y: matResult.Point.X - 100.0,
 							width: 100.0,
 							height: 75.0
 						},
-						offsetCalcType: "None"
+						OffsetCalcType: "None"
 					})),
 				}
 			};
 			logger.debug(JSON.stringify(matCheckPattern, null, 2));
-			macroService.pollPattern(mat, { doClick: true, predicatePattern: matCheckPattern });
+			macroService.PollPattern(mat, { DoClick: true, PredicatePattern: matCheckPattern });
 		}
 	}
 	sleep(500);
-	macroService.pollPattern(patterns.skipAll.search.button, { doClick: true, predicatePattern: patterns.skipAll.title });
+	macroService.PollPattern(patterns.skipAll.search.button, { DoClick: true, PredicatePattern: patterns.skipAll.title });
 	sleep(2000);
 
-	const currentStaminaCost = screenService.getText(patterns.skipAll.totalCost);
+	const currentStaminaCost = macroService.GetText(patterns.skipAll.totalCost);
 	if (currentStaminaCost < staminaCost) {
-		macroService.pollPattern(patterns.skipAll.addStamina, { doClick: true, predicatePattern: patterns.stamina.prompt.recoverStamina });
-		macroService.pollPattern(patterns.stamina.meat, { doClick: true, predicatePattern: patterns.stamina.prompt.recoverStamina2 });
-		let targetStamina = screenService.getText(patterns.stamina.target);
-		while (state.isRunning() && targetStamina < staminaCost) {
-			macroService.clickPattern(patterns.stamina.plusOne);
+		macroService.PollPattern(patterns.skipAll.addStamina, { DoClick: true, PredicatePattern: patterns.stamina.prompt.recoverStamina });
+		macroService.PollPattern(patterns.stamina.meat, { DoClick: true, PredicatePattern: patterns.stamina.prompt.recoverStamina2 });
+		let targetStamina = macroService.GetText(patterns.stamina.target);
+		while (macroService.IsRunning && targetStamina < staminaCost) {
+			macroService.ClickPattern(patterns.stamina.plusOne);
 			sleep(500);
-			targetStamina = screenService.getText(patterns.stamina.target);
+			targetStamina = macroService.GetText(patterns.stamina.target);
 		}
-		macroService.pollPattern(patterns.stamina.prompt.recover, { doClick: true, clickPattern: patterns.stamina.prompt.ok, predicatePattern: patterns.skipAll.addMaxSkips, intervalDelayMs: 1_000 });
+		macroService.PollPattern(patterns.stamina.prompt.recover, { DoClick: true, ClickPattern: patterns.stamina.prompt.ok, PredicatePattern: patterns.skipAll.addMaxSkips, IntervalDelayMs: 1_000 });
 	}
 
-	let maxNumSkips = screenService.getText(patterns.skipAll.maxNumSkips);
-	while (state.isRunning() && maxNumSkips < numSkips) {
-		macroService.clickPattern(patterns.skipAll.addMaxSkips);
+	let maxNumSkips = macroService.GetText(patterns.skipAll.maxNumSkips);
+	while (macroService.IsRunning && maxNumSkips < numSkips) {
+		macroService.ClickPattern(patterns.skipAll.addMaxSkips);
 		sleep(500);
-		maxNumSkips = screenService.getText(patterns.skipAll.maxNumSkips);
+		maxNumSkips = macroService.GetText(patterns.skipAll.maxNumSkips);
 	}
 
-	macroService.pollPattern(patterns.skipAll.button, { doClick: true, predicatePattern: patterns.skipAll.prompt.ok });
+	macroService.PollPattern(patterns.skipAll.button, { DoClick: true, PredicatePattern: patterns.skipAll.prompt.ok });
 	sleep(1_000);
-	macroService.pollPattern(patterns.skipAll.prompt.ok, { doClick: true, predicatePattern: patterns.skipAll.skipComplete });
-	macroService.pollPattern(patterns.skipAll.skipComplete, { doClick: true, clickPattern: [patterns.skipAll.prompt.ok, patterns.branchEvent.availableNow, patterns.branchEvent.playLater, patterns.prompt.playerRankUp], predicatePattern: patterns.skipAll.title });
+	macroService.PollPattern(patterns.skipAll.prompt.ok, { DoClick: true, PredicatePattern: patterns.skipAll.skipComplete });
+	macroService.PollPattern(patterns.skipAll.skipComplete, { DoClick: true, ClickPattern: [patterns.skipAll.prompt.ok, patterns.branchEvent.availableNow, patterns.branchEvent.playLater, patterns.prompt.playerRankUp], PredicatePattern: patterns.skipAll.title });
 };
 
-while (state.isRunning() && !done) {
-	const result = macroService.pollPattern(loopPatterns);
-	switch (result.path) {
+while (macroService.IsRunning && !done) {
+	const result = macroService.PollPattern(loopPatterns);
+	switch (result.Path) {
 		case 'titles.home':
 			logger.info('farmMats: click smithy tab');
-			macroService.clickPattern(patterns.tabs.smithy);
+			macroService.ClickPattern(patterns.tabs.smithy);
 			break;
 		case 'titles.smithy':
 			logger.info('farmMats: click craft');
-			macroService.clickPattern(patterns.smithy.craft);
+			macroService.ClickPattern(patterns.smithy.craft);
 			break;
 		case 'titles.craft':
-			macroService.pollPattern(patterns.smithy.craft.jewelry, { doClick: true, predicatePattern: patterns.smithy.craft.jewelry.list });
+			macroService.PollPattern(patterns.smithy.craft.jewelry, { DoClick: true, PredicatePattern: patterns.smithy.craft.jewelry.list });
 			sleep(500);
-			macroService.pollPattern(patterns.smithy.craft.materials.archAngelFeather, { doClick: true, predicatePattern: patterns.smithy.prompt.howToAcquire });
+			macroService.PollPattern(patterns.smithy.craft.materials.archAngelFeather, { DoClick: true, PredicatePattern: patterns.smithy.prompt.howToAcquire });
 			sleep(1_000);
-			macroService.pollPattern(patterns.smithy.prompt.skipAll, { doClick: true, predicatePattern: patterns.skipAll.title });
+			macroService.PollPattern(patterns.smithy.prompt.skipAll, { DoClick: true, PredicatePattern: patterns.skipAll.title });
 			sleep(500);
 			break;
 		case 'skipAll.title':

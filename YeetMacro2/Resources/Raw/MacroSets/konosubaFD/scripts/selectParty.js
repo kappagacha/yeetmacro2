@@ -6,7 +6,7 @@ async function selectPartyByRecommendedElement(xOffset) {
             ...el,
             props: {
                 ...el.props,
-                path: el.props.path + '_xOffset' + xOffset,
+                path: el.props.Path + '_xOffset' + xOffset,
                 patterns: el.props.patterns.map(p => ({
                     ...p,
                     rect: {
@@ -17,10 +17,10 @@ async function selectPartyByRecommendedElement(xOffset) {
             }
         }));
     }
-    const elementResult = macroService.pollPattern(elementPatterns);
-    logger.info(`selectPartyByRecommendedElement: ${elementResult.path}`);
-    if (!elementResult.isSuccess) return false;
-    let targetElement = elementResult.path.split('.').pop();
+    const elementResult = macroService.PollPattern(elementPatterns);
+    logger.info(`selectPartyByRecommendedElement: ${elementResult.Path}`);
+    if (!elementResult.IsSuccess) return false;
+    let targetElement = elementResult.Path.split('.').pop();
     logger.debug(`targetElement: ${targetElement}`);
     if (xOffset) {
         targetElement = targetElement.split('_')[0];
@@ -37,13 +37,13 @@ async function selectPartyByRecommendedElement(xOffset) {
 
 async function selectParty(targetPartyName) {
     logger.info(`selectParty: ${targetPartyName}`);
-    let currentParty = screenService.getText(patterns.party.name, targetPartyName);
+    let currentParty = macroService.GetText(patterns.party.name, targetPartyName);
     let numScrolls = 0;
-    while (state.isRunning() && currentParty != targetPartyName && numScrolls < 20) {
+    while (macroService.IsRunning && currentParty != targetPartyName && numScrolls < 20) {
         scrollRight();
         numScrolls++;
         logger.debug(`numScrolls: ${numScrolls}`);
-        currentParty = screenService.getText(patterns.party.name, targetPartyName);
+        currentParty = macroService.GetText(patterns.party.name, targetPartyName);
         logger.debug(`currentParty: ${currentParty}`);
         sleep(500);
     }
@@ -52,16 +52,16 @@ async function selectParty(targetPartyName) {
 }
 
 async function scrollRight() {
-    let currentX = Math.floor((macroService.findPattern(patterns.party.slot)).point.x);
+    let currentX = Math.floor((macroService.FindPattern(patterns.party.slot)).Point.X);
     let prevX = currentX;
-    while (state.isRunning() && currentX === 0) {
-        currentX = Math.floor((macroService.findPattern(patterns.party.slot)).point.x);
+    while (macroService.IsRunning && currentX === 0) {
+        currentX = Math.floor((macroService.FindPattern(patterns.party.slot)).Point.X);
         sleep(500);
     }
-    while (state.isRunning() && (currentX === 0 || currentX === prevX)) {
+    while (macroService.IsRunning && (currentX === 0 || currentX === prevX)) {
         logger.debug(`currentX: ${currentX}, prevX: ${prevX}`);
-        macroService.clickPattern(patterns.party.scrollRight);
+        macroService.ClickPattern(patterns.party.scrollRight);
         sleep(500);
-        currentX = Math.floor((macroService.findPattern(patterns.party.slot)).point.x);
+        currentX = Math.floor((macroService.FindPattern(patterns.party.slot)).Point.X);
     }
 }

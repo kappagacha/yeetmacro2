@@ -50,7 +50,7 @@ public partial class NodeViewModel<TParent, TChild> : NodeViewModel
     [ObservableProperty]
     string _exportValue;
 
-    private static readonly JsonSerializerOptions _defaultJsonSerializerOptions = new JsonSerializerOptions()
+    public static readonly JsonSerializerOptions _defaultJsonSerializerOptions = new JsonSerializerOptions()
     {
         Converters = {
             new JsonStringEnumConverter()

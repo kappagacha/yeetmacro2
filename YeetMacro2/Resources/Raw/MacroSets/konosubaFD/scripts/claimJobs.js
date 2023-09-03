@@ -1,21 +1,21 @@
 ﻿// patterns.jobs.notification
 let done = false;
 const loopPatterns = [patterns.titles.home, patterns.titles.job];
-while (state.isRunning() && !done) {
-	const loopResult = macroService.pollPattern(loopPatterns);
-	switch (loopResult.path) {
+while (macroService.IsRunning && !done) {
+	const loopResult = macroService.PollPattern(loopPatterns);
+	switch (loopResult.Path) {
 		case 'titles.home':
 			logger.info('farmEventLoop: click jobs');
-			macroService.clickPattern(patterns.jobs);
+			macroService.ClickPattern(patterns.jobs);
 			break;
 		case 'titles.job':
 			logger.info('farmEventLoop: click acceptAll');
-			const acceptAllResult = macroService.findPattern([patterns.jobs.acceptAll.enabled, patterns.jobs.acceptAll.disabled]);
-			if (acceptAllResult.isSuccess && acceptAllResult.path === 'jobs.acceptAll.enabled') {
+			const acceptAllResult = macroService.FindPattern([patterns.jobs.acceptAll.enabled, patterns.jobs.acceptAll.disabled]);
+			if (acceptAllResult.IsSuccess && acceptAllResult.Path === 'jobs.acceptAll.enabled') {
 				logger.info('farmEventLoop: jobs.acceptAll.enabled');
-				macroService.pollPattern(patterns.jobs.acceptAll.enabled, { doClick: true, clickPattern: [patterns.branchEvent.availableNow, patterns.branchEvent.playLater, patterns.prompt.playerRankUp], predicatePattern: patterns.jobs.prompt.ok });
-				macroService.pollPattern(patterns.jobs.prompt.ok, { doClick: true, clickPattern: [patterns.branchEvent.availableNow, patterns.branchEvent.playLater, patterns.prompt.playerRankUp], predicatePattern: patterns.titles.job });
-			} else if (acceptAllResult.isSuccess) {		// jobs.acceptAll.disabled
+				macroService.PollPattern(patterns.jobs.acceptAll.enabled, { DoClick: true, ClickPattern: [patterns.branchEvent.availableNow, patterns.branchEvent.playLater, patterns.prompt.playerRankUp], PredicatePattern: patterns.jobs.prompt.ok });
+				macroService.PollPattern(patterns.jobs.prompt.ok, { DoClick: true, ClickPattern: [patterns.branchEvent.availableNow, patterns.branchEvent.playLater, patterns.prompt.playerRankUp], PredicatePattern: patterns.titles.job });
+			} else if (acceptAllResult.IsSuccess) {		// jobs.acceptAll.disabled
 				logger.info('farmEventLoop: jobs.acceptAll.disabled');
 				done = true;
 			}

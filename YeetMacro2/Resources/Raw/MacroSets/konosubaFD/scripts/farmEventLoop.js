@@ -1,25 +1,25 @@
 ﻿const loopPatterns = [patterns.titles.home, patterns.titles.quest, patterns.titles.party, patterns.titles.events, patterns.battle.report];
 let done = false;
 result = { numBattles: 0 };
-while (state.isRunning() && !done) {
-	const loopResult = macroService.pollPattern(loopPatterns);
-	switch (loopResult.path) {
+while (macroService.IsRunning && !done) {
+	const loopResult = macroService.PollPattern(loopPatterns);
+	switch (loopResult.Path) {
 		case 'titles.home':
 			logger.info('farmEventLoop: click tab quest');
-			macroService.clickPattern(patterns.tabs.quest);
+			macroService.ClickPattern(patterns.tabs.quest);
 			break;
 		case 'titles.quest':
 			logger.info('farmEventLoop: click quest events');
-			macroService.clickPattern(patterns.quest.events);
+			macroService.ClickPattern(patterns.quest.events);
 			break;
 		case 'titles.events':
 			logger.info('farmEventLoop: start farm');
 			const targetFarmLevel = settings.farmEvent.targetLevel.props.value ?? 12;
-			macroService.pollPattern(patterns.quest.events.quest, { doClick: true, predicatePattern: patterns.titles.quest });
+			macroService.PollPattern(patterns.quest.events.quest, { DoClick: true, PredicatePattern: patterns.titles.quest });
 			sleep(500);
-			macroService.pollPattern(patterns.quest.events.quest.normal[targetFarmLevel], { doClick: true, predicatePattern: patterns.titles.events });
+			macroService.PollPattern(patterns.quest.events.quest.normal[targetFarmLevel], { DoClick: true, PredicatePattern: patterns.titles.events });
 			sleep(500);
-			macroService.pollPattern(patterns.battle.prepare, { doClick: true, predicatePattern: patterns.titles.party });
+			macroService.PollPattern(patterns.battle.prepare, { DoClick: true, PredicatePattern: patterns.titles.party });
 			sleep(500);
 			break;
 		case 'titles.party':
@@ -38,8 +38,8 @@ while (state.isRunning() && !done) {
 			}
 
 			sleep(500);
-			const beginResult = macroService.pollPattern(patterns.battle.begin, { doClick: true, clickPattern: [patterns.branchEvent.availableNow, patterns.branchEvent.playLater, patterns.prompt.playerRankUp], predicatePattern: [patterns.battle.report, patterns.stamina.prompt.recoverStamina] });
-			if (beginResult.predicatePath === 'stamina.prompt.recoverStamina') {
+			const beginResult = macroService.PollPattern(patterns.battle.begin, { DoClick: true, ClickPattern: [patterns.branchEvent.availableNow, patterns.branchEvent.playLater, patterns.prompt.playerRankUp], PredicatePattern: [patterns.battle.report, patterns.stamina.prompt.recoverStamina] });
+			if (beginResult.PredicatePath === 'stamina.prompt.recoverStamina') {
 				result.message = 'Out of stamina...';
 				done = true;
 			}
@@ -47,10 +47,10 @@ while (state.isRunning() && !done) {
 			break;
 		case 'battle.report':
 			logger.info('farmEventLoop: replay battle');
-			macroService.pollPattern(patterns.battle.replay, { doClick: true, clickPattern: [patterns.battle.next, patterns.battle.affinityLevelUp, patterns.branchEvent.availableNow, patterns.branchEvent.playLater, patterns.prompt.playerRankUp], predicatePattern: patterns.battle.replay.prompt });
+			macroService.PollPattern(patterns.battle.replay, { DoClick: true, ClickPattern: [patterns.battle.next, patterns.battle.affinityLevelUp, patterns.branchEvent.availableNow, patterns.branchEvent.playLater, patterns.prompt.playerRankUp], PredicatePattern: patterns.battle.replay.prompt });
 			sleep(500);
-			const replayResult = macroService.pollPattern(patterns.battle.replay.ok, { doClick: true, predicatePattern: [patterns.battle.report, patterns.stamina.prompt.recoverStamina] });
-			if (replayResult.predicatePath === 'stamina.prompt.recoverStamina') {
+			const replayResult = macroService.PollPattern(patterns.battle.replay.ok, { DoClick: true, PredicatePattern: [patterns.battle.report, patterns.stamina.prompt.recoverStamina] });
+			if (replayResult.PredicatePath === 'stamina.prompt.recoverStamina') {
 				result.message = 'Out of stamina...';
 				done = true;
 				break;

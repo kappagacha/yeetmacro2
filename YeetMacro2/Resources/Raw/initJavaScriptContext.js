@@ -1,91 +1,91 @@
 ﻿let patterns, settings;
 
-//macroService.clickPattern = function (pattern, opts = {}) {
-//    const clickOffsetX = opts.clickOffsetX ?? 0;
+//macroService.ClickPattern = function (pattern, opts = {}) {
+//    const ClickOffsetX = opts.ClickOffsetX ?? 0;
 //    const clickOffsetY = opts.clickOffsetY ?? 0;
 //    const result = this.findPattern(pattern, opts);
-//    if (result.isSuccess) {
-//        for (const point of result.points) {
-//            doClick({ x: point.x + clickOffsetX, y: point.y + clickOffsetY });
+//    if (result.IsSuccess) {
+//        for (const point of result.Points) {
+//            DoClick({ x: point.x + ClickOffsetX, y: point.y + clickOffsetY });
 //        }
 //        sleep(500);
 //    }
 //    return result;
 //}
 
-//macroService.pollPattern = function (pattern, opts = {}) {
-//    let result = { isSuccess: false };
-//    const intervalDelayMs = opts.intervalDelayMs ?? 500;
-//    const predicatePattern = opts.predicatePattern;
-//    const clickPattern = opts.clickPattern;
-//    const inversePredicatePattern = opts.inversePredicatePattern;
-//    const clickOffsetX = opts.clickOffsetX ?? 0;
+//macroService.PollPattern = function (pattern, opts = {}) {
+//    let result = { IsSuccess: false };
+//    const IntervalDelayMs = opts.IntervalDelayMs ?? 500;
+//    const PredicatePattern = opts.PredicatePattern;
+//    const ClickPattern = opts.ClickPattern;
+//    const InversePredicatePattern = opts.InversePredicatePattern;
+//    const ClickOffsetX = opts.ClickOffsetX ?? 0;
 //    const clickOffsetY = opts.clickOffsetY ?? 0;
 
-//    if (inversePredicatePattern) {
-//        const inversePredicateChecks = opts.inversePredicateChecks ?? 5;
-//        const inversePredicateCheckDelayMs = opts.inversePredicateCheckDelayMs ?? 100;
+//    if (InversePredicatePattern) {
+//        const InversePredicateChecks = opts.InversePredicateChecks ?? 5;
+//        const InversePredicateCheckDelayMs = opts.InversePredicateCheckDelayMs ?? 100;
 //        const predicateOpts = {
-//            threshold: opts.predicateThreshold ?? 0.0
+//            threshold: opts.PredicateThreshold ?? 0.0
 //        };
-//        while (state.isRunning()) {
+//        while (macroService.IsRunning) {
 //            let numChecks = 1;
-//            let inversePredicateResult = this.findPattern(inversePredicatePattern, predicateOpts);
-//            while (state.isRunning() && !inversePredicateResult.isSuccess && numChecks < inversePredicateChecks) {
-//                inversePredicateResult = this.findPattern(inversePredicatePattern, predicateOpts);
+//            let inversePredicateResult = this.findPattern(InversePredicatePattern, predicateOpts);
+//            while (macroService.IsRunning && !inversePredicateResult.IsSuccess && numChecks < InversePredicateChecks) {
+//                inversePredicateResult = this.findPattern(InversePredicatePattern, predicateOpts);
 //                numChecks++;
-//                sleep(inversePredicateCheckDelayMs);
+//                sleep(InversePredicateCheckDelayMs);
 //            }
-//            if (!inversePredicateResult.isSuccess) {
-//                result.inversePredicatePath = inversePredicateResult.path;
+//            if (!inversePredicateResult.IsSuccess) {
+//                result.InversePredicatePath = inversePredicateResult.Path;
 //                break;
 //            }
 //            result = this.findPattern(pattern, opts);
-//            if (opts.doClick && result.isSuccess) {
-//                const point = result.point;
-//                doClick({ x: point.x + clickOffsetX, y: point.y + clickOffsetY });
+//            if (opts.DoClick && result.IsSuccess) {
+//                const point = result.Point;
+//                DoClick({ x: point.x + ClickOffsetX, y: point.y + clickOffsetY });
 //                sleep(500);
 //            }
-//            if (clickPattern) this.clickPattern(clickPattern, opts);
-//            sleep(intervalDelayMs);
+//            if (ClickPattern) this.ClickPattern(ClickPattern, opts);
+//            sleep(IntervalDelayMs);
 //        }
-//    } else if (predicatePattern) {
+//    } else if (PredicatePattern) {
 //        const predicateOpts = {
-//            threshold: opts.predicateThreshold ?? 0.0
+//            threshold: opts.PredicateThreshold ?? 0.0
 //        };
-//        while (state.isRunning()) {
-//            const predicateResult = this.findPattern(predicatePattern, predicateOpts);
-//            if (predicateResult.isSuccess) {
-//                result.predicatePath = predicateResult.path;
+//        while (macroService.IsRunning) {
+//            const predicateResult = this.findPattern(PredicatePattern, predicateOpts);
+//            if (predicateResult.IsSuccess) {
+//                result.PredicatePath = predicateResult.Path;
 //                break;
 //            }
 //            result = this.findPattern(pattern, opts);
-//            if (opts.doClick && result.isSuccess) {
-//                const point = result.point;
-//                doClick({ x: point.x + clickOffsetX, y: point.y + clickOffsetY });
+//            if (opts.DoClick && result.IsSuccess) {
+//                const point = result.Point;
+//                DoClick({ x: point.x + ClickOffsetX, y: point.y + clickOffsetY });
 //                sleep(500);
 //            }
-//            if (clickPattern) this.clickPattern(clickPattern, opts);
-//            sleep(intervalDelayMs);
+//            if (ClickPattern) this.ClickPattern(ClickPattern, opts);
+//            sleep(IntervalDelayMs);
 //        }
 //    } else {
-//        while (state.isRunning()) {
+//        while (macroService.IsRunning) {
 //            result = this.findPattern(pattern, opts);
-//            if (opts.doClick && result.isSuccess) {
-//                const point = result.point;
-//                doClick({ x: point.x + clickOffsetX, y: point.y + clickOffsetY });
+//            if (opts.DoClick && result.IsSuccess) {
+//                const point = result.Point;
+//                DoClick({ x: point.x + ClickOffsetX, y: point.y + clickOffsetY });
 //                sleep(500);
 //            }
-//            if (result.isSuccess) break;
-//            if (clickPattern) this.clickPattern(clickPattern, opts);
-//            sleep(intervalDelayMs);
+//            if (result.IsSuccess) break;
+//            if (ClickPattern) this.ClickPattern(ClickPattern, opts);
+//            sleep(IntervalDelayMs);
 //        }
 //    }
 
 //    return result;
 //}
 
-//function doClick(point) {
+//function DoClick(point) {
 //    const variance = 3;
 //    const xSign = Math.random() < 0.5 ? -1 : 1;
 //    const ySign = Math.random() < 0.5 ? -1 : 1;
@@ -93,7 +93,7 @@
 //    const yVariance = Math.floor(Math.random() * variance) * ySign;
 //    point.x += xVariance;
 //    point.y += yVariance;
-//    screenService.doClick(point);
+//    macroService.DoClick(point);
 //}
 
 function resolvePath(node, path = '') {
