@@ -45,20 +45,22 @@ public partial class ActionViewModel : ObservableObject, IMovable
         _macroManagerViewModel.PropertyChanged += _macroManagerViewModel_PropertyChanged;
         _macroManagerViewModel.OnScriptExecuted = _macroManagerViewModel.OnScriptExecuted ?? new Command(() =>
         {
-            _windowManagerService.Close(AndroidWindowView.ScriptsNodeView);
-            State = ActionState.Running;
+            MainThread.BeginInvokeOnMainThread(() =>
+            {
+                _windowManagerService.Close(AndroidWindowView.ScriptsNodeView);
+                State = ActionState.Running;
+            });
         });
         _macroManagerViewModel.OnScriptFinished = _macroManagerViewModel.OnScriptFinished ?? new Command<string>((result) =>
         {
-            State = ActionState.Stopped;
-
-            if (!String.IsNullOrWhiteSpace(result))
+            MainThread.BeginInvokeOnMainThread(() =>
             {
-                MainThread.BeginInvokeOnMainThread(() =>
+                _windowManagerService.ShowMessage(result);
+                if (!String.IsNullOrWhiteSpace(result))
                 {
                     _windowManagerService.ShowMessage(result);
-                });
-            }
+                }
+            });
         });
     }
 
@@ -89,7 +91,7 @@ public partial class ActionViewModel : ObservableObject, IMovable
     }
 
     [RelayCommand]
-    public async void Execute()
+    public async Task Execute()
     {
         if (_macroManagerViewModel.SelectedMacroSet is null)
         {

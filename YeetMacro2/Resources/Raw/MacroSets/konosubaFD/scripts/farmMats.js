@@ -27,12 +27,12 @@ const farmMat = async (targetMats, staminaCost, numSkips) => {
 				...patterns.skipAll.search.select.check,
 				props: {
 					...patterns.skipAll.search.select.check.props,
-					path: patterns.skipAll.search.select.check.props.Path + '_' + mat.props.Path,
+					path: patterns.skipAll.search.select.check.props.path + '_' + mat.props.path,
 					patterns: patterns.skipAll.search.select.check.props.patterns.map(p => ({
 						...p,
 						rect: {
 							x: matResult.Point.X - 110.0,
-							y: matResult.Point.X - 100.0,
+							y: matResult.Point.Y - 100.0,
 							width: 100.0,
 							height: 75.0
 						},
@@ -40,7 +40,7 @@ const farmMat = async (targetMats, staminaCost, numSkips) => {
 					})),
 				}
 			};
-			logger.debug(JSON.stringify(matCheckPattern, null, 2));
+			//logger.debug(JSON.stringify(matCheckPattern, null, 2));
 			macroService.PollPattern(mat, { DoClick: true, PredicatePattern: matCheckPattern, IntervalDelayMs: 1_000 });
 		}
 	}

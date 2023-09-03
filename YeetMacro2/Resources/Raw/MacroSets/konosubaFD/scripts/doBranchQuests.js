@@ -21,6 +21,7 @@ while (macroService.IsRunning && !done) {
 			const eventResult = macroService.PollPattern([patterns.branchEvent.cabbageHunting, patterns.branchEvent.explosionWalk, patterns.branchEvent.pitAPatBox], { DoClick: true, PredicatePattern: patterns.titles.branchEvent });
 			event = eventResult.Path;
 			logger.debug('event: ' + event);
+			result = event;
 			break;
 		case 'titles.branchEvent':
 			logger.info('doBranchQuests: start');
@@ -28,11 +29,9 @@ while (macroService.IsRunning && !done) {
 			sleep(1000);
 			
 			if (event === 'branchEvent.pitAPatBox') {
-			 const boxes = ['simpleWoodenBox', 'veryHeavyBox', 'woodenBox', 'clothPouch'].map(option => patterns.branchEvent.pitAPatBox[option]);
-			 macroService.PollPattern(patterns.branchEvent.pitAPatBox.skip, { DoClick: true, PredicatePattern: boxes });
-			 macroService.PollPattern(boxes,
-					{ DoClick: true, ClickPattern: [patterns.branchEvent.pitAPatBox.rewardGained, patterns.branchEvent.pitAPatBox.noVoices, patterns.branchEvent.pitAPatBox.skip, patterns.branchEvent.prompt.ok], PredicatePattern: patterns.titles.home });
-			 done = true;
+				const boxes = ['simpleWoodenBox', 'veryHeavyBox', 'woodenBox', 'clothPouch'].map(option => patterns.branchEvent.pitAPatBox[option]);
+				macroService.PollPattern(patterns.branchEvent.pitAPatBox.skip, { DoClick: true, PredicatePattern: boxes });
+				macroService.PollPattern(boxes, { DoClick: true, ClickPattern: [patterns.branchEvent.pitAPatBox.rewardGained, patterns.branchEvent.pitAPatBox.noVoices, patterns.branchEvent.pitAPatBox.skip, patterns.branchEvent.prompt.ok], PredicatePattern: patterns.titles.home });
 			}
 			break;
 		case 'branchEvent.explosionWalk.chant.disabled':

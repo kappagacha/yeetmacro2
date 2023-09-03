@@ -84,6 +84,13 @@ public class ScriptService : IScriptService
                 {
                     result = _engine.Evaluate("JSON.stringify(result, null, 2)").AsString();
                 }
+                else if (jsResult is IObjectWrapper objectWrapper)
+                {
+                    result = JsonSerializer.Serialize(objectWrapper.Target, new JsonSerializerOptions()
+                    {
+                        WriteIndented = true
+                    });
+                }
                 else if (jsResult != Jint.Native.JsValue.Null && jsResult != Jint.Native.JsValue.Undefined)
                 {
                     result = jsResult.ToString();
