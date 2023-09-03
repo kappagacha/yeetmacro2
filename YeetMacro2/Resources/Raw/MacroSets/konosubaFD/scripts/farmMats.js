@@ -41,7 +41,7 @@ const farmMat = async (targetMats, staminaCost, numSkips) => {
 				}
 			};
 			logger.debug(JSON.stringify(matCheckPattern, null, 2));
-			macroService.PollPattern(mat, { DoClick: true, PredicatePattern: matCheckPattern });
+			macroService.PollPattern(mat, { DoClick: true, PredicatePattern: matCheckPattern, IntervalDelayMs: 1_000 });
 		}
 	}
 	sleep(500);
