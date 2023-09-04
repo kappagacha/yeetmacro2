@@ -21,7 +21,6 @@ while (macroService.IsRunning && !done) {
 			const eventResult = macroService.PollPattern([patterns.branchEvent.cabbageHunting, patterns.branchEvent.explosionWalk, patterns.branchEvent.pitAPatBox], { DoClick: true, PredicatePattern: patterns.titles.branchEvent });
 			event = eventResult.Path;
 			logger.debug('event: ' + event);
-			result = event;
 			break;
 		case 'titles.branchEvent':
 			logger.info('doBranchQuests: start');

@@ -8,7 +8,7 @@ namespace YeetMacro2.Services;
 
 public class PollPatternFindOptions : FindOptions
 {
-    public int IntervalDelayMs { get; set; } = 250;
+    public int IntervalDelayMs { get; set; } = 1_000;
     [JsonIgnore]
     public OneOf<PatternNode, PatternNode[]>? PredicatePattern { get; set; }
     [JsonIgnore]
