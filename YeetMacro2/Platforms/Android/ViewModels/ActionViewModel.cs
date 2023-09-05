@@ -45,22 +45,16 @@ public partial class ActionViewModel : ObservableObject, IMovable
         _macroManagerViewModel.PropertyChanged += _macroManagerViewModel_PropertyChanged;
         _macroManagerViewModel.OnScriptExecuted = _macroManagerViewModel.OnScriptExecuted ?? new Command(() =>
         {
-            MainThread.BeginInvokeOnMainThread(() =>
-            {
-                _windowManagerService.Close(AndroidWindowView.ScriptsNodeView);
-                State = ActionState.Running;
-            });
+            _windowManagerService.Close(AndroidWindowView.ScriptsNodeView);
+            State = ActionState.Running;
         });
         _macroManagerViewModel.OnScriptFinished = _macroManagerViewModel.OnScriptFinished ?? new Command<string>((result) =>
         {
-            MainThread.BeginInvokeOnMainThread(() =>
+            State = ActionState.Stopped;
+            if (!String.IsNullOrWhiteSpace(result))
             {
-                _windowManagerService.ShowMessage(result);
-                if (!String.IsNullOrWhiteSpace(result))
-                {
-                    _windowManagerService.ShowMessage(result);
-                }
-            });
+                MainThread.BeginInvokeOnMainThread(() => _windowManagerService.ShowMessage(result));
+            }
         });
     }
 
