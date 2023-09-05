@@ -15,7 +15,7 @@ public class YeetAccessibilityService : AccessibilityService
 {
     ILogger _logger;
     MainActivity _context;
-    private static string _currentPackage = "unknown";
+    private string _currentPackage = "unknown";
     private static YeetAccessibilityService _instance;  //https://stackoverflow.com/questions/600207/how-to-check-if-a-service-is-running-on-android
     public YeetAccessibilityService()
     {
@@ -51,8 +51,7 @@ public class YeetAccessibilityService : AccessibilityService
         get { return _instance != null; }
     }
 
-    public string CurrentPackage => _currentPackage;
-    //public string CurrentPackage => "temp";
+    public string CurrentPackage => _instance?._currentPackage;
 
     //https://stackoverflow.com/questions/23504217/how-do-i-get-active-window-that-is-on-foreground
     public override void OnAccessibilityEvent(AccessibilityEvent e)
@@ -96,7 +95,7 @@ public class YeetAccessibilityService : AccessibilityService
 
     public void DoClick(Point point)
     {
-        if (_instance == null || point.X < 0.0 || point.Y < 0.0) return;
+        if (_instance is null || point.X < 0.0 || point.Y < 0.0) return;
 
         _logger.LogTrace("YeetAccessibilityService DoClick");
         GestureDescription.Builder gestureBuilder = new GestureDescription.Builder();
@@ -109,10 +108,7 @@ public class YeetAccessibilityService : AccessibilityService
             gestureBuilder.AddStroke(strokeDescription);
             var gesture = gestureBuilder.Build();
             _instance.DispatchGesture(gesture, null, null);
-
-            //gesture.Dispose();
-            //strokeDescription.Dispose();
-            //swipePath.Dispose();
+            gestureBuilder.Dispose();
         }
         catch (Exception ex)
         {
@@ -127,10 +123,7 @@ public class YeetAccessibilityService : AccessibilityService
     // https://github.com/Fate-Grand-Automata/FGA/blob/de9c69e10aec990a061c049f0bf3ca3c253d199b/app/src/main/java/com/mathewsachin/fategrandautomata/accessibility/AccessibilityGestures.kt#L61
     public void DoSwipe(Point start, Point end)
     {
-        if (_instance == null)
-        {
-            return;
-        }
+        if (_instance is null) return;
 
         var xDiff = (end.X - start.X);
         var yDiff = (end.Y - start.Y);
@@ -191,7 +184,7 @@ public class YeetAccessibilityService : AccessibilityService
     public void Start()
     {
         _logger.LogTrace("YeetAccessibilityService Start");
-        if (_instance == null)
+        if (_instance is null)
         {
             Init();
             _context.StartActivity(new Intent(Settings.ActionAccessibilitySettings));

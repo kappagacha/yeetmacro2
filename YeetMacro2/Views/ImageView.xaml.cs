@@ -75,8 +75,8 @@ public partial class ImageView : ContentView
         var imgView = bindable as ImageView;
         if (String.IsNullOrWhiteSpace(imgView.FontFamily) || String.IsNullOrWhiteSpace(imgView.Glyph)) return;
 
-        await ResolveDrawable(imgView.FontFamily, imgView.Glyph, imgView.Color);
         imgView._imageUpdatedDelayTimer.Stop();
+        await ResolveDrawable(imgView.FontFamily, imgView.Glyph, imgView.Color);
         imgView._imageUpdatedDelayTimer.Start();
 #endif
     }
