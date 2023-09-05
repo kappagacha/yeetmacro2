@@ -36,7 +36,7 @@ const farmMat = async (targetMats, staminaCost, numSkips) => {
 							width: 100.0,
 							height: 75.0
 						},
-						OffsetCalcType: "Default"
+						offsetCalcType: "None"
 					})),
 				}
 			};

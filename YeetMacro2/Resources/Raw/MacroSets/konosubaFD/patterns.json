@@ -4,6 +4,7 @@
     "props": {
       "isMultiPattern": false,
       "patterns": [],
+      "path": null,
       "isParentNode": true,
       "name": "titles"
     },
@@ -42,6 +43,7 @@
             "offsetCalcType": "Default"
           }
         ],
+        "path": null,
         "isParentNode": true,
         "name": "home"
       }
@@ -81,6 +83,7 @@
             "offsetCalcType": "Default"
           }
         ],
+        "path": null,
         "isParentNode": true,
         "name": "quest"
       }
@@ -120,6 +123,7 @@
             "offsetCalcType": "Default"
           }
         ],
+        "path": null,
         "isParentNode": true,
         "name": "mainQuests"
       }
@@ -159,6 +163,7 @@
             "offsetCalcType": "Default"
           }
         ],
+        "path": null,
         "isParentNode": true,
         "name": "job"
       }
@@ -198,6 +203,7 @@
             "offsetCalcType": "Default"
           }
         ],
+        "path": null,
         "isParentNode": true,
         "name": "smithy"
       }
@@ -237,6 +243,7 @@
             "offsetCalcType": "Default"
           }
         ],
+        "path": null,
         "isParentNode": true,
         "name": "craft"
       }
@@ -276,6 +283,7 @@
             "offsetCalcType": "Default"
           }
         ],
+        "path": null,
         "isParentNode": true,
         "name": "freeQuests"
       }
@@ -315,6 +323,7 @@
             "offsetCalcType": "Default"
           }
         ],
+        "path": null,
         "isParentNode": true,
         "name": "bossMulti"
       }
@@ -383,6 +392,7 @@
             "offsetCalcType": "Default"
           }
         ],
+        "path": null,
         "isParentNode": true,
         "name": "party"
       }
@@ -422,6 +432,7 @@
             "offsetCalcType": "Default"
           }
         ],
+        "path": null,
         "isParentNode": true,
         "name": "events"
       }
@@ -461,6 +472,7 @@
             "offsetCalcType": "Default"
           }
         ],
+        "path": null,
         "isParentNode": true,
         "name": "battleArena"
       }
@@ -500,6 +512,7 @@
             "offsetCalcType": "Default"
           }
         ],
+        "path": null,
         "isParentNode": true,
         "name": "battleArenaEX"
       }
@@ -539,6 +552,7 @@
             "offsetCalcType": "Default"
           }
         ],
+        "path": null,
         "isParentNode": true,
         "name": "bossBattle"
       }
@@ -578,6 +592,7 @@
             "offsetCalcType": "Default"
           }
         ],
+        "path": null,
         "isParentNode": true,
         "name": "branch"
       }
@@ -617,6 +632,7 @@
             "offsetCalcType": "Default"
           }
         ],
+        "path": null,
         "isParentNode": true,
         "name": "branchEvent"
       }
@@ -627,6 +643,7 @@
     "props": {
       "isMultiPattern": false,
       "patterns": [],
+      "path": null,
       "isParentNode": true,
       "name": "tabs"
     },
@@ -665,6 +682,7 @@
             "offsetCalcType": "Default"
           }
         ],
+        "path": null,
         "isParentNode": true,
         "name": "quest"
       }
@@ -704,6 +722,7 @@
             "offsetCalcType": "Default"
           }
         ],
+        "path": null,
         "isParentNode": true,
         "name": "smithy"
       }
@@ -714,6 +733,7 @@
     "props": {
       "isMultiPattern": false,
       "patterns": [],
+      "path": null,
       "isParentNode": true,
       "name": "quest"
     },
@@ -752,6 +772,7 @@
             "offsetCalcType": "Default"
           }
         ],
+        "path": null,
         "isParentNode": true,
         "name": "mainQuests"
       }
@@ -791,6 +812,7 @@
             "offsetCalcType": "Default"
           }
         ],
+        "path": null,
         "isParentNode": true,
         "name": "events"
       },
@@ -829,6 +851,7 @@
               "offsetCalcType": "Default"
             }
           ],
+          "path": null,
           "isParentNode": true,
           "name": "new"
         }
@@ -897,6 +920,7 @@
               "offsetCalcType": "Default"
             }
           ],
+          "path": null,
           "isParentNode": true,
           "name": "bossBattle"
         },
@@ -905,6 +929,7 @@
           "props": {
             "isMultiPattern": false,
             "patterns": [],
+            "path": null,
             "isParentNode": true,
             "name": "prompt"
           },
@@ -943,6 +968,7 @@
                   "offsetCalcType": "Default"
                 }
               ],
+              "path": null,
               "isParentNode": true,
               "name": "chooseBattleStyle"
             }
@@ -982,6 +1008,7 @@
                   "offsetCalcType": "Default"
                 }
               ],
+              "path": null,
               "isParentNode": true,
               "name": "notEnoughBossTickets"
             }
@@ -1022,6 +1049,7 @@
                 "offsetCalcType": "Default"
               }
             ],
+            "path": null,
             "isParentNode": true,
             "name": "multi"
           }
@@ -1061,6 +1089,7 @@
                 "offsetCalcType": "Default"
               }
             ],
+            "path": null,
             "isParentNode": true,
             "name": "extreme"
           }
@@ -1100,6 +1129,7 @@
                 "offsetCalcType": "Default"
               }
             ],
+            "path": null,
             "isParentNode": true,
             "name": "cost"
           }
@@ -1139,6 +1169,7 @@
                 "offsetCalcType": "Default"
               }
             ],
+            "path": null,
             "isParentNode": true,
             "name": "addCost"
           },
@@ -1177,6 +1208,7 @@
                   "offsetCalcType": "Default"
                 }
               ],
+              "path": null,
               "isParentNode": true,
               "name": "disabled"
             }
@@ -1217,6 +1249,7 @@
                 "offsetCalcType": "Default"
               }
             ],
+            "path": null,
             "isParentNode": true,
             "name": "dailyAttempt"
           }
@@ -1256,6 +1289,7 @@
                 "offsetCalcType": "Default"
               }
             ],
+            "path": null,
             "isParentNode": true,
             "name": "hard"
           }
@@ -1295,6 +1329,7 @@
                 "offsetCalcType": "Default"
               }
             ],
+            "path": null,
             "isParentNode": true,
             "name": "expert"
           }
@@ -1334,6 +1369,7 @@
                 "offsetCalcType": "Default"
               }
             ],
+            "path": null,
             "isParentNode": true,
             "name": "notEnoughTickets"
           }
@@ -1403,6 +1439,7 @@
               "offsetCalcType": "Default"
             }
           ],
+          "path": null,
           "isParentNode": true,
           "name": "quest"
         },
@@ -1411,6 +1448,7 @@
           "props": {
             "isMultiPattern": false,
             "patterns": [],
+            "path": null,
             "isParentNode": true,
             "name": "normal"
           },
@@ -1449,6 +1487,7 @@
                   "offsetCalcType": "Default"
                 }
               ],
+              "path": null,
               "isParentNode": true,
               "name": "11"
             }
@@ -1488,6 +1527,7 @@
                   "offsetCalcType": "Default"
                 }
               ],
+              "path": null,
               "isParentNode": true,
               "name": "12"
             }
@@ -1530,6 +1570,7 @@
             "offsetCalcType": "Default"
           }
         ],
+        "path": null,
         "isParentNode": true,
         "name": "freeQuests"
       }
@@ -1569,6 +1610,7 @@
             "offsetCalcType": "Default"
           }
         ],
+        "path": null,
         "isParentNode": true,
         "name": "battleArena"
       }
@@ -1579,6 +1621,7 @@
     "props": {
       "isMultiPattern": false,
       "patterns": [],
+      "path": null,
       "isParentNode": true,
       "name": "battle"
     },
@@ -1617,6 +1660,7 @@
             "offsetCalcType": "Default"
           }
         ],
+        "path": null,
         "isParentNode": true,
         "name": "begin"
       }
@@ -1656,6 +1700,7 @@
             "offsetCalcType": "Default"
           }
         ],
+        "path": null,
         "isParentNode": true,
         "name": "next"
       }
@@ -1695,6 +1740,7 @@
             "offsetCalcType": "DockRight"
           }
         ],
+        "path": null,
         "isParentNode": true,
         "name": "report"
       }
@@ -1734,6 +1780,7 @@
             "offsetCalcType": "Default"
           }
         ],
+        "path": null,
         "isParentNode": true,
         "name": "next2"
       }
@@ -1773,6 +1820,7 @@
             "offsetCalcType": "Default"
           }
         ],
+        "path": null,
         "isParentNode": true,
         "name": "joinRoom"
       }
@@ -1812,6 +1860,7 @@
             "offsetCalcType": "Default"
           }
         ],
+        "path": null,
         "isParentNode": true,
         "name": "leaveRoom"
       }
@@ -1851,6 +1900,7 @@
             "offsetCalcType": "Default"
           }
         ],
+        "path": null,
         "isParentNode": true,
         "name": "affinityLevelUp"
       }
@@ -1890,6 +1940,7 @@
             "offsetCalcType": "Default"
           }
         ],
+        "path": null,
         "isParentNode": true,
         "name": "prepare"
       }
@@ -1929,6 +1980,7 @@
             "offsetCalcType": "Default"
           }
         ],
+        "path": null,
         "isParentNode": true,
         "name": "next3"
       }
@@ -1997,6 +2049,7 @@
             "offsetCalcType": "Default"
           }
         ],
+        "path": null,
         "isParentNode": true,
         "name": "replay"
       },
@@ -2035,6 +2088,7 @@
               "offsetCalcType": "Default"
             }
           ],
+          "path": null,
           "isParentNode": true,
           "name": "prompt"
         }
@@ -2074,6 +2128,7 @@
               "offsetCalcType": "Default"
             }
           ],
+          "path": null,
           "isParentNode": true,
           "name": "ok"
         }
@@ -2113,6 +2168,7 @@
               "offsetCalcType": "Default"
             }
           ],
+          "path": null,
           "isParentNode": true,
           "name": "disabled"
         }
@@ -2124,6 +2180,7 @@
     "props": {
       "isMultiPattern": false,
       "patterns": [],
+      "path": null,
       "isParentNode": true,
       "name": "prompt"
     },
@@ -2162,6 +2219,7 @@
             "offsetCalcType": "Default"
           }
         ],
+        "path": null,
         "isParentNode": true,
         "name": "dailyRewardLimit"
       }
@@ -2201,6 +2259,7 @@
             "offsetCalcType": "Default"
           }
         ],
+        "path": null,
         "isParentNode": true,
         "name": "close"
       }
@@ -2240,6 +2299,7 @@
             "offsetCalcType": "Default"
           }
         ],
+        "path": null,
         "isParentNode": true,
         "name": "watchLater"
       }
@@ -2279,6 +2339,7 @@
             "offsetCalcType": "Default"
           }
         ],
+        "path": null,
         "isParentNode": true,
         "name": "playerRankUp"
       }
@@ -2319,6 +2380,7 @@
           "offsetCalcType": "Default"
         }
       ],
+      "path": null,
       "isParentNode": true,
       "name": "jobs"
     },
@@ -2357,6 +2419,7 @@
             "offsetCalcType": "Default"
           }
         ],
+        "path": null,
         "isParentNode": true,
         "name": "notification"
       }
@@ -2366,6 +2429,7 @@
       "props": {
         "isMultiPattern": false,
         "patterns": [],
+        "path": null,
         "isParentNode": true,
         "name": "acceptAll"
       },
@@ -2404,6 +2468,7 @@
               "offsetCalcType": "Default"
             }
           ],
+          "path": null,
           "isParentNode": true,
           "name": "enabled"
         }
@@ -2443,6 +2508,7 @@
               "offsetCalcType": "Default"
             }
           ],
+          "path": null,
           "isParentNode": true,
           "name": "disabled"
         }
@@ -2453,6 +2519,7 @@
       "props": {
         "isMultiPattern": false,
         "patterns": [],
+        "path": null,
         "isParentNode": true,
         "name": "prompt"
       },
@@ -2491,6 +2558,7 @@
               "offsetCalcType": "Default"
             }
           ],
+          "path": null,
           "isParentNode": true,
           "name": "ok"
         }
@@ -2502,6 +2570,7 @@
     "props": {
       "isMultiPattern": false,
       "patterns": [],
+      "path": null,
       "isParentNode": true,
       "name": "stamina"
     },
@@ -2540,6 +2609,7 @@
             "offsetCalcType": "Default"
           }
         ],
+        "path": null,
         "isParentNode": true,
         "name": "add"
       }
@@ -2579,6 +2649,7 @@
             "offsetCalcType": "Default"
           }
         ],
+        "path": null,
         "isParentNode": true,
         "name": "watchAd"
       }
@@ -2588,6 +2659,7 @@
       "props": {
         "isMultiPattern": false,
         "patterns": [],
+        "path": null,
         "isParentNode": true,
         "name": "prompt"
       },
@@ -2626,6 +2698,7 @@
               "offsetCalcType": "Default"
             }
           ],
+          "path": null,
           "isParentNode": true,
           "name": "recoverStamina"
         }
@@ -2665,6 +2738,7 @@
               "offsetCalcType": "Default"
             }
           ],
+          "path": null,
           "isParentNode": true,
           "name": "recoverStamina2"
         }
@@ -2704,6 +2778,7 @@
               "offsetCalcType": "Default"
             }
           ],
+          "path": null,
           "isParentNode": true,
           "name": "recover"
         }
@@ -2743,6 +2818,7 @@
               "offsetCalcType": "Default"
             }
           ],
+          "path": null,
           "isParentNode": true,
           "name": "ok"
         }
@@ -2783,6 +2859,7 @@
             "offsetCalcType": "Default"
           }
         ],
+        "path": null,
         "isParentNode": true,
         "name": "meat"
       }
@@ -2822,6 +2899,7 @@
             "offsetCalcType": "Default"
           }
         ],
+        "path": null,
         "isParentNode": true,
         "name": "target"
       }
@@ -2861,6 +2939,7 @@
             "offsetCalcType": "Default"
           }
         ],
+        "path": null,
         "isParentNode": true,
         "name": "plusOne"
       }
@@ -2929,6 +3008,7 @@
             "offsetCalcType": "Default"
           }
         ],
+        "path": null,
         "isParentNode": true,
         "name": "adNotification"
       }
@@ -2939,6 +3019,7 @@
     "props": {
       "isMultiPattern": false,
       "patterns": [],
+      "path": null,
       "isParentNode": true,
       "name": "ad"
     },
@@ -3093,6 +3174,7 @@
             "offsetCalcType": "Default"
           }
         ],
+        "path": null,
         "isParentNode": true,
         "name": "done"
       }
@@ -3102,6 +3184,7 @@
       "props": {
         "isMultiPattern": false,
         "patterns": [],
+        "path": null,
         "isParentNode": true,
         "name": "quartz"
       },
@@ -3140,6 +3223,7 @@
               "offsetCalcType": "Default"
             }
           ],
+          "path": null,
           "isParentNode": true,
           "name": "notification"
         }
@@ -3150,6 +3234,7 @@
       "props": {
         "isMultiPattern": false,
         "patterns": [],
+        "path": null,
         "isParentNode": true,
         "name": "prompt"
       },
@@ -3188,6 +3273,7 @@
               "offsetCalcType": "Default"
             }
           ],
+          "path": null,
           "isParentNode": true,
           "name": "youGot"
         }
@@ -3227,6 +3313,7 @@
               "offsetCalcType": "Default"
             }
           ],
+          "path": null,
           "isParentNode": true,
           "name": "error"
         }
@@ -3324,6 +3411,7 @@
               "offsetCalcType": "Default"
             }
           ],
+          "path": null,
           "isParentNode": true,
           "name": "ok"
         }
@@ -3335,6 +3423,7 @@
     "props": {
       "isMultiPattern": false,
       "patterns": [],
+      "path": null,
       "isParentNode": true,
       "name": "smithy"
     },
@@ -3373,6 +3462,7 @@
             "offsetCalcType": "Default"
           }
         ],
+        "path": null,
         "isParentNode": true,
         "name": "craft"
       },
@@ -3411,6 +3501,7 @@
               "offsetCalcType": "Default"
             }
           ],
+          "path": null,
           "isParentNode": true,
           "name": "jewelry"
         },
@@ -3449,6 +3540,7 @@
                 "offsetCalcType": "Default"
               }
             ],
+            "path": null,
             "isParentNode": true,
             "name": "list"
           }
@@ -3459,6 +3551,7 @@
         "props": {
           "isMultiPattern": false,
           "patterns": [],
+          "path": null,
           "isParentNode": true,
           "name": "materials"
         },
@@ -3497,6 +3590,7 @@
                 "offsetCalcType": "Default"
               }
             ],
+            "path": null,
             "isParentNode": true,
             "name": "archAngelFeather"
           }
@@ -3508,6 +3602,7 @@
       "props": {
         "isMultiPattern": false,
         "patterns": [],
+        "path": null,
         "isParentNode": true,
         "name": "prompt"
       },
@@ -3546,6 +3641,7 @@
               "offsetCalcType": "Default"
             }
           ],
+          "path": null,
           "isParentNode": true,
           "name": "howToAcquire"
         }
@@ -3585,6 +3681,7 @@
               "offsetCalcType": "Default"
             }
           ],
+          "path": null,
           "isParentNode": true,
           "name": "skipAll"
         }
@@ -3596,6 +3693,7 @@
     "props": {
       "isMultiPattern": false,
       "patterns": [],
+      "path": null,
       "isParentNode": true,
       "name": "skipAll"
     },
@@ -3634,6 +3732,7 @@
             "offsetCalcType": "Default"
           }
         ],
+        "path": null,
         "isParentNode": true,
         "name": "title"
       }
@@ -3673,6 +3772,7 @@
             "offsetCalcType": "Default"
           }
         ],
+        "path": null,
         "isParentNode": true,
         "name": "material"
       }
@@ -3712,6 +3812,7 @@
             "offsetCalcType": "Default"
           }
         ],
+        "path": null,
         "isParentNode": true,
         "name": "search"
       },
@@ -3750,6 +3851,7 @@
               "offsetCalcType": "Default"
             }
           ],
+          "path": null,
           "isParentNode": true,
           "name": "filter"
         },
@@ -3788,6 +3890,7 @@
                 "offsetCalcType": "Default"
               }
             ],
+            "path": null,
             "isParentNode": true,
             "name": "off"
           }
@@ -3827,6 +3930,7 @@
                 "offsetCalcType": "Default"
               }
             ],
+            "path": null,
             "isParentNode": true,
             "name": "check"
           }
@@ -3866,6 +3970,7 @@
                 "offsetCalcType": "Default"
               }
             ],
+            "path": null,
             "isParentNode": true,
             "name": "close"
           }
@@ -3876,6 +3981,7 @@
         "props": {
           "isMultiPattern": false,
           "patterns": [],
+          "path": null,
           "isParentNode": true,
           "name": "select"
         },
@@ -3914,6 +4020,7 @@
                 "offsetCalcType": "Default"
               }
             ],
+            "path": null,
             "isParentNode": true,
             "name": "check"
           }
@@ -3953,6 +4060,7 @@
                 "offsetCalcType": "Default"
               }
             ],
+            "path": null,
             "isParentNode": true,
             "name": "mithrilOre"
           }
@@ -3992,6 +4100,7 @@
                 "offsetCalcType": "Default"
               }
             ],
+            "path": null,
             "isParentNode": true,
             "name": "yggdrasilBranch"
           }
@@ -4031,6 +4140,7 @@
                 "offsetCalcType": "Default"
               }
             ],
+            "path": null,
             "isParentNode": true,
             "name": "platinumOre"
           }
@@ -4070,6 +4180,7 @@
                 "offsetCalcType": "Default"
               }
             ],
+            "path": null,
             "isParentNode": true,
             "name": "skyDragonScale"
           }
@@ -4110,6 +4221,7 @@
               "offsetCalcType": "Default"
             }
           ],
+          "path": null,
           "isParentNode": true,
           "name": "button"
         }
@@ -4150,6 +4262,7 @@
             "offsetCalcType": "Default"
           }
         ],
+        "path": null,
         "isParentNode": true,
         "name": "button"
       }
@@ -4189,6 +4302,7 @@
             "offsetCalcType": "Default"
           }
         ],
+        "path": null,
         "isParentNode": true,
         "name": "totalCost"
       }
@@ -4228,6 +4342,7 @@
             "offsetCalcType": "Default"
           }
         ],
+        "path": null,
         "isParentNode": true,
         "name": "addStamina"
       }
@@ -4237,6 +4352,7 @@
       "props": {
         "isMultiPattern": false,
         "patterns": [],
+        "path": null,
         "isParentNode": true,
         "name": "prompt"
       },
@@ -4333,6 +4449,7 @@
               "offsetCalcType": "Default"
             }
           ],
+          "path": null,
           "isParentNode": true,
           "name": "ok"
         }
@@ -4373,6 +4490,7 @@
             "offsetCalcType": "Default"
           }
         ],
+        "path": null,
         "isParentNode": true,
         "name": "skipComplete"
       }
@@ -4412,6 +4530,7 @@
             "offsetCalcType": "Default"
           }
         ],
+        "path": null,
         "isParentNode": true,
         "name": "skipQuest"
       }
@@ -4451,6 +4570,7 @@
             "offsetCalcType": "Default"
           }
         ],
+        "path": null,
         "isParentNode": true,
         "name": "maxNumSkips"
       }
@@ -4490,6 +4610,7 @@
             "offsetCalcType": "Default"
           }
         ],
+        "path": null,
         "isParentNode": true,
         "name": "addMaxSkips"
       }
@@ -4500,6 +4621,7 @@
     "props": {
       "isMultiPattern": false,
       "patterns": [],
+      "path": null,
       "isParentNode": true,
       "name": "freeQuests"
     },
@@ -4538,6 +4660,7 @@
             "offsetCalcType": "Default"
           }
         ],
+        "path": null,
         "isParentNode": true,
         "name": "eris"
       }
@@ -4577,6 +4700,7 @@
             "offsetCalcType": "Default"
           }
         ],
+        "path": null,
         "isParentNode": true,
         "name": "upgradeStone"
       },
@@ -4615,6 +4739,7 @@
               "offsetCalcType": "Default"
             }
           ],
+          "path": null,
           "isParentNode": true,
           "name": "extreme"
         }
@@ -4654,6 +4779,7 @@
               "offsetCalcType": "Default"
             }
           ],
+          "path": null,
           "isParentNode": true,
           "name": "ultimate"
         }
@@ -4693,6 +4819,7 @@
               "offsetCalcType": "Default"
             }
           ],
+          "path": null,
           "isParentNode": true,
           "name": "advanced"
         }
@@ -4732,6 +4859,7 @@
               "offsetCalcType": "Default"
             }
           ],
+          "path": null,
           "isParentNode": true,
           "name": "intermediate"
         }
@@ -4743,6 +4871,7 @@
     "props": {
       "isMultiPattern": false,
       "patterns": [],
+      "path": null,
       "isParentNode": true,
       "name": "tickets"
     },
@@ -4781,6 +4910,7 @@
             "offsetCalcType": "Default"
           }
         ],
+        "path": null,
         "isParentNode": true,
         "name": "add"
       }
@@ -4820,6 +4950,7 @@
             "offsetCalcType": "Default"
           }
         ],
+        "path": null,
         "isParentNode": true,
         "name": "numTickets"
       }
@@ -4859,6 +4990,7 @@
             "offsetCalcType": "Default"
           }
         ],
+        "path": null,
         "isParentNode": true,
         "name": "use"
       }
@@ -4868,6 +5000,7 @@
       "props": {
         "isMultiPattern": false,
         "patterns": [],
+        "path": null,
         "isParentNode": true,
         "name": "prompt"
       },
@@ -4935,6 +5068,7 @@
               "offsetCalcType": "Default"
             }
           ],
+          "path": null,
           "isParentNode": true,
           "name": "ok"
         }
@@ -4946,6 +5080,7 @@
     "props": {
       "isMultiPattern": false,
       "patterns": [],
+      "path": null,
       "isParentNode": true,
       "name": "party"
     },
@@ -4984,6 +5119,7 @@
             "offsetCalcType": "Default"
           }
         ],
+        "path": null,
         "isParentNode": true,
         "name": "name"
       }
@@ -4993,6 +5129,7 @@
       "props": {
         "isMultiPattern": false,
         "patterns": [],
+        "path": null,
         "isParentNode": true,
         "name": "recommendedElement"
       },
@@ -5031,6 +5168,7 @@
               "offsetCalcType": "Default"
             }
           ],
+          "path": null,
           "isParentNode": true,
           "name": "fire"
         }
@@ -5070,6 +5208,7 @@
               "offsetCalcType": "Default"
             }
           ],
+          "path": null,
           "isParentNode": true,
           "name": "water"
         }
@@ -5109,6 +5248,7 @@
               "offsetCalcType": "Default"
             }
           ],
+          "path": null,
           "isParentNode": true,
           "name": "lightning"
         }
@@ -5148,6 +5288,7 @@
               "offsetCalcType": "Default"
             }
           ],
+          "path": null,
           "isParentNode": true,
           "name": "earth"
         }
@@ -5187,6 +5328,7 @@
               "offsetCalcType": "Default"
             }
           ],
+          "path": null,
           "isParentNode": true,
           "name": "wind"
         }
@@ -5226,6 +5368,7 @@
               "offsetCalcType": "Default"
             }
           ],
+          "path": null,
           "isParentNode": true,
           "name": "light"
         }
@@ -5265,6 +5408,7 @@
               "offsetCalcType": "Default"
             }
           ],
+          "path": null,
           "isParentNode": true,
           "name": "dark"
         }
@@ -5304,6 +5448,7 @@
               "offsetCalcType": "Default"
             }
           ],
+          "path": null,
           "isParentNode": true,
           "name": "none"
         }
@@ -5344,6 +5489,7 @@
             "offsetCalcType": "Default"
           }
         ],
+        "path": null,
         "isParentNode": true,
         "name": "scrollRight"
       }
@@ -5383,6 +5529,7 @@
             "offsetCalcType": "Default"
           }
         ],
+        "path": null,
         "isParentNode": true,
         "name": "slot"
       }
@@ -5393,6 +5540,7 @@
     "props": {
       "isMultiPattern": false,
       "patterns": [],
+      "path": null,
       "isParentNode": true,
       "name": "battleArena"
     },
@@ -5431,6 +5579,7 @@
             "offsetCalcType": "Default"
           }
         ],
+        "path": null,
         "isParentNode": true,
         "name": "begin"
       }
@@ -5470,6 +5619,7 @@
             "offsetCalcType": "Default"
           }
         ],
+        "path": null,
         "isParentNode": true,
         "name": "advanced"
       }
@@ -5509,6 +5659,7 @@
             "offsetCalcType": "Default"
           }
         ],
+        "path": null,
         "isParentNode": true,
         "name": "newHighScore"
       }
@@ -5548,6 +5699,7 @@
             "offsetCalcType": "Default"
           }
         ],
+        "path": null,
         "isParentNode": true,
         "name": "rank"
       }
@@ -5557,6 +5709,7 @@
       "props": {
         "isMultiPattern": false,
         "patterns": [],
+        "path": null,
         "isParentNode": true,
         "name": "prompt"
       },
@@ -5595,6 +5748,7 @@
               "offsetCalcType": "Default"
             }
           ],
+          "path": null,
           "isParentNode": true,
           "name": "ok"
         }
@@ -5605,6 +5759,7 @@
       "props": {
         "isMultiPattern": false,
         "patterns": [],
+        "path": null,
         "isParentNode": true,
         "name": "tabs"
       },
@@ -5643,6 +5798,7 @@
               "offsetCalcType": "Default"
             }
           ],
+          "path": null,
           "isParentNode": true,
           "name": "arenaEX"
         }
@@ -5683,6 +5839,7 @@
             "offsetCalcType": "Default"
           }
         ],
+        "path": null,
         "isParentNode": true,
         "name": "exRank"
       }
@@ -5692,6 +5849,7 @@
       "props": {
         "isMultiPattern": false,
         "patterns": [],
+        "path": null,
         "isParentNode": true,
         "name": "exScoreBonus"
       },
@@ -5730,6 +5888,7 @@
               "offsetCalcType": "Default"
             }
           ],
+          "path": null,
           "isParentNode": true,
           "name": "physicalDamage"
         }
@@ -5769,6 +5928,7 @@
               "offsetCalcType": "Default"
             }
           ],
+          "path": null,
           "isParentNode": true,
           "name": "lowRarity"
         }
@@ -5808,6 +5968,7 @@
               "offsetCalcType": "Default"
             }
           ],
+          "path": null,
           "isParentNode": true,
           "name": "magicDamage"
         }
@@ -5847,6 +6008,7 @@
               "offsetCalcType": "Default"
             }
           ],
+          "path": null,
           "isParentNode": true,
           "name": "defence"
         }
@@ -5886,6 +6048,7 @@
               "offsetCalcType": "Default"
             }
           ],
+          "path": null,
           "isParentNode": true,
           "name": "characterBonus"
         }
@@ -5897,6 +6060,7 @@
     "props": {
       "isMultiPattern": false,
       "patterns": [],
+      "path": null,
       "isParentNode": true,
       "name": "branchEvent"
     },
@@ -5935,6 +6099,7 @@
             "offsetCalcType": "Default"
           }
         ],
+        "path": null,
         "isParentNode": true,
         "name": "availableNow"
       }
@@ -5974,6 +6139,7 @@
             "offsetCalcType": "Default"
           }
         ],
+        "path": null,
         "isParentNode": true,
         "name": "playLater"
       }
@@ -6013,6 +6179,7 @@
             "offsetCalcType": "Default"
           }
         ],
+        "path": null,
         "isParentNode": true,
         "name": "cabbageHunting"
       }
@@ -6052,6 +6219,7 @@
             "offsetCalcType": "Default"
           }
         ],
+        "path": null,
         "isParentNode": true,
         "name": "explosionWalk"
       },
@@ -6060,6 +6228,7 @@
         "props": {
           "isMultiPattern": false,
           "patterns": [],
+          "path": null,
           "isParentNode": true,
           "name": "chant"
         },
@@ -6098,6 +6267,7 @@
                 "offsetCalcType": "Default"
               }
             ],
+            "path": null,
             "isParentNode": true,
             "name": "disabled"
           }
@@ -6137,6 +6307,7 @@
                 "offsetCalcType": "Default"
               }
             ],
+            "path": null,
             "isParentNode": true,
             "name": "enabled"
           }
@@ -6177,6 +6348,7 @@
               "offsetCalcType": "Default"
             }
           ],
+          "path": null,
           "isParentNode": true,
           "name": "option1"
         }
@@ -6216,6 +6388,7 @@
               "offsetCalcType": "Default"
             }
           ],
+          "path": null,
           "isParentNode": true,
           "name": "option2"
         }
@@ -6255,6 +6428,7 @@
               "offsetCalcType": "Default"
             }
           ],
+          "path": null,
           "isParentNode": true,
           "name": "option3"
         }
@@ -6294,6 +6468,7 @@
               "offsetCalcType": "Default"
             }
           ],
+          "path": null,
           "isParentNode": true,
           "name": "option4"
         }
@@ -6334,6 +6509,7 @@
             "offsetCalcType": "Default"
           }
         ],
+        "path": null,
         "isParentNode": true,
         "name": "prepare"
       }
@@ -6373,6 +6549,7 @@
             "offsetCalcType": "Default"
           }
         ],
+        "path": null,
         "isParentNode": true,
         "name": "start"
       }
@@ -6409,9 +6586,10 @@
               "color": "#ff3c3228",
               "imageData": "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"
             },
-            "offsetCalcType": "Default"
+            "offsetCalcType": "DockRight"
           }
         ],
+        "path": null,
         "isParentNode": true,
         "name": "skip"
       }
@@ -6451,6 +6629,7 @@
             "offsetCalcType": "Default"
           }
         ],
+        "path": null,
         "isParentNode": true,
         "name": "pitAPatBox"
       },
@@ -6489,6 +6668,7 @@
               "offsetCalcType": "Default"
             }
           ],
+          "path": null,
           "isParentNode": true,
           "name": "rewardGained"
         }
@@ -6509,7 +6689,7 @@
                 "width": 1920,
                 "height": 1080
               },
-              "isSelected": false,
+              "isSelected": true,
               "isBoundsPattern": false,
               "name": "pattern",
               "imageData": "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",
@@ -6525,9 +6705,10 @@
                 "color": "#ff5a4d41",
                 "imageData": "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"
               },
-              "offsetCalcType": "Default"
+              "offsetCalcType": "DockLeft"
             }
           ],
+          "path": null,
           "isParentNode": true,
           "name": "skip"
         }
@@ -6596,6 +6777,7 @@
               "offsetCalcType": "Default"
             }
           ],
+          "path": null,
           "isParentNode": true,
           "name": "clothPouch"
         }
@@ -6635,6 +6817,7 @@
               "offsetCalcType": "Default"
             }
           ],
+          "path": null,
           "isParentNode": true,
           "name": "noVoices"
         }
@@ -6703,6 +6886,7 @@
               "offsetCalcType": "Default"
             }
           ],
+          "path": null,
           "isParentNode": true,
           "name": "woodenBox"
         }
@@ -6771,6 +6955,7 @@
               "offsetCalcType": "Default"
             }
           ],
+          "path": null,
           "isParentNode": true,
           "name": "simpleWoodenBox"
         }
@@ -6839,6 +7024,7 @@
               "offsetCalcType": "Default"
             }
           ],
+          "path": null,
           "isParentNode": true,
           "name": "veryHeavyBox"
         }
@@ -6849,6 +7035,7 @@
       "props": {
         "isMultiPattern": false,
         "patterns": [],
+        "path": null,
         "isParentNode": true,
         "name": "prompt"
       },
@@ -6887,6 +7074,7 @@
               "offsetCalcType": "Default"
             }
           ],
+          "path": null,
           "isParentNode": true,
           "name": "ok"
         }
@@ -6898,6 +7086,7 @@
     "props": {
       "isMultiPattern": false,
       "patterns": [],
+      "path": null,
       "isParentNode": true,
       "name": "others"
     },
@@ -6906,6 +7095,7 @@
       "props": {
         "isMultiPattern": false,
         "patterns": [],
+        "path": null,
         "isParentNode": true,
         "name": "branch"
       },
@@ -6973,6 +7163,7 @@
               "offsetCalcType": "Default"
             }
           ],
+          "path": null,
           "isParentNode": true,
           "name": "notification"
         }
@@ -7042,6 +7233,7 @@
             "offsetCalcType": "Default"
           }
         ],
+        "path": null,
         "isParentNode": true,
         "name": "notification"
       }

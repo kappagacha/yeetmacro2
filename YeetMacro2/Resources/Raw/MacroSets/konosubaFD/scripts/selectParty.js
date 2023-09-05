@@ -6,7 +6,7 @@ async function selectPartyByRecommendedElement(xOffset) {
             ...el,
             props: {
                 ...el.props,
-                path: el.props.Path + '_xOffset' + xOffset,
+                path: el.props.path + '_xOffset' + xOffset,
                 patterns: el.props.patterns.map(p => ({
                     ...p,
                     rect: {
