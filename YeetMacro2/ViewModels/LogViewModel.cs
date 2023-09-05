@@ -75,7 +75,7 @@ public partial class LogViewModel : ObservableObject, ILogEventSink
     // Always persists on exception
     public void LogException(Exception ex, string message = null)
     {
-        if (_currentLogGroup == null) InitLogGroup();
+        if (_currentLogGroup is null) InitLogGroup();
 
         if (message is not null)
         {
@@ -160,8 +160,8 @@ public partial class LogViewModel : ObservableObject, ILogEventSink
     {
         _currentLogGroup = new LogGroup() { Timestamp = DateTime.Now.Ticks, MacroSet = _currentMacroSet, Script = _currentScript };
         _currentLogGroup.Logs = new SortedObservableCollection<Log>((a, b) => (int)(b.Timestamp - a.Timestamp));
+        LogGroups.Add(_currentLogGroup);
         _logGroupRepository.Value.Insert(_currentLogGroup);
         _logGroupRepository.Value.Save();
-        LogGroups.Add(_currentLogGroup);
     }
 }

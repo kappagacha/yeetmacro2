@@ -21,11 +21,10 @@ public partial class ImageView : ContentView
             BindableProperty.Create("Glyph", typeof(string), typeof(ImageView), null, propertyChanged: ImagePropertyChanged);
     public static readonly BindableProperty ColorProperty =
             BindableProperty.Create("Color", typeof(Color), typeof(ImageView), null, propertyChanged: ImagePropertyChanged);
-    public static readonly BindableProperty ImageSourceProperty =
-            BindableProperty.Create("ImageSource", typeof(ImageSource), typeof(ImageView), null);
 
 #if ANDROID
-    static ConcurrentDictionary<string, ControlTemplate> _keyToControlTemplate = new();
+    //static ConcurrentDictionary<string, ControlTemplate> _keyToControlTemplate = new();
+    static ConcurrentDictionary<string, IDrawable> _keyToDrawable = new();
 #endif
 
     private async static void ImagePropertyChanged(BindableObject bindable, object oldValue, object newValue)
@@ -37,7 +36,8 @@ public partial class ImageView : ContentView
         if (String.IsNullOrWhiteSpace(imgView.FontFamily) || String.IsNullOrWhiteSpace(imgView.Glyph)) return;
         
         var compositeKey = $"{imgView.FontFamily}-{(int)imgView.Glyph[0]}-{imgView.Color}";
-        if (!_keyToControlTemplate.ContainsKey(compositeKey))
+        //if (!_keyToControlTemplate.ContainsKey(compositeKey))
+        if (!_keyToDrawable.ContainsKey(compositeKey))
         {
             var ctx = new MauiContext(MauiApplication.Current.Services, MauiApplication.Context);
             var fontImageSource = new FontImageSource()
@@ -55,15 +55,18 @@ public partial class ImageView : ContentView
             ms.Position = 0;
 
             var drawable = PlatformImage.FromStream(ms);
-            var template = new ControlTemplate(() => new GraphicsView()
-            {
-                Drawable = drawable,
-                InputTransparent = true
-            });
-            _keyToControlTemplate.TryAdd(compositeKey, template);
+            _keyToDrawable.TryAdd(compositeKey, drawable);
+            //var template = new ControlTemplate(() => new GraphicsView()
+            //{
+            //    Drawable = drawable,
+            //    InputTransparent = true
+            //});
+            //_keyToControlTemplate.TryAdd(compositeKey, template);
         }
 
-        imgView.contentView.ControlTemplate = _keyToControlTemplate[compositeKey];
+        imgView.graphicsView.Drawable = _keyToDrawable[compositeKey];
+        imgView.graphicsView.Invalidate();
+        //imgView.contentView.ControlTemplate = _keyToControlTemplate[compositeKey];
 #endif
     }
 
@@ -105,15 +108,6 @@ public partial class ImageView : ContentView
     {
         get { return (double?)GetValue(ImageHeightProperty); }
         set { SetValue(ImageHeightProperty, value); }
-    }
-    public ImageSource ImageSource
-    {
-        get { return (ImageSource)GetValue(ImageSourceProperty); }
-        set 
-        {
-            SetValue(ImageSourceProperty, value);
-            OnPropertyChanged();
-        }
     }
 
     public ImageView()
