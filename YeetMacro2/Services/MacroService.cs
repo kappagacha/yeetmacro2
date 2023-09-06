@@ -2,7 +2,7 @@
 using OneOf;
 using System.Text.Json.Serialization;
 using YeetMacro2.Data.Models;
-using YeetMacro2.ViewModels;
+using YeetMacro2.ViewModels.NodeViewModels;
 
 namespace YeetMacro2.Services;
 
@@ -42,7 +42,7 @@ public class MacroService
     {
         foreach (var pattern in patternNode.Patterns)
         {
-            return PatternNodeViewModel.CalcOffset(pattern);
+            return PatternNodeManagerViewModel.CalcOffset(pattern);
         }
 
         return Point.Zero;
@@ -343,7 +343,7 @@ public class MacroService
                 {
                     foreach (var pattern in patternNode.Patterns)
                     {
-                        var offset = PatternNodeViewModel.CalcOffset(pattern);
+                        var offset = PatternNodeManagerViewModel.CalcOffset(pattern);
                         if (offset != Point.Zero) pattern.Rect = pattern.Rect.Offset(offset);
                     }
                     _jsonValueToPatternNode.Add(patternNode.Path, patternNode);
@@ -358,7 +358,7 @@ public class MacroService
             {
                 foreach (var pattern in patternNode.Patterns)
                 {
-                    var offset = PatternNodeViewModel.CalcOffset(pattern);
+                    var offset = PatternNodeManagerViewModel.CalcOffset(pattern);
                     if (offset != Point.Zero) pattern.Rect = pattern.Rect.Offset(offset);
                 }
                 _jsonValueToPatternNode.Add(patternNode.Path, patternNode);

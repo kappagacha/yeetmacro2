@@ -3,6 +3,7 @@ using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using Microsoft.Extensions.Logging;
 using System.Collections.Concurrent;
+using System.Collections.ObjectModel;
 using System.Text.Json;
 using System.Text.Json.Nodes;
 using System.Text.Json.Serialization;
@@ -11,6 +12,7 @@ using YeetMacro2.Data.Models;
 using YeetMacro2.Data.Serialization;
 using YeetMacro2.Data.Services;
 using YeetMacro2.Services;
+using YeetMacro2.ViewModels.NodeViewModels;
 
 namespace YeetMacro2.ViewModels;
 public partial class MacroManagerViewModel : ObservableObject
@@ -21,16 +23,16 @@ public partial class MacroManagerViewModel : ObservableObject
     INodeService<PatternNode, PatternNode> _patternNodeService;
     INodeService<ScriptNode, ScriptNode> _scriptNodeService;
     INodeService<ParentSetting, SettingNode> _settingNodeService;
-    NodeViewModelFactory _nodeViewModelFactory;
+    NodeManagerViewModelFactory _nodeViewModelManagerFactory;
     IMapper _mapper;
     IHttpService _httpService;
     [ObservableProperty]
     ICollection<MacroSet> _macroSets;
     [ObservableProperty, NotifyPropertyChangedFor(nameof(Patterns), nameof(Scripts))]
     MacroSet _selectedMacroSet;
-    ConcurrentDictionary<int, PatternNodeViewModel> _nodeRootIdToPatternTree;
-    ConcurrentDictionary<int, ScriptNodeViewModel> _nodeRootIdToScriptTree;
-    ConcurrentDictionary<int, SettingNodeViewModel> _nodeRootIdToSettingTree;
+    ConcurrentDictionary<int, PatternNodeManagerViewModel> _nodeRootIdToPatternTree;
+    ConcurrentDictionary<int, ScriptNodeManagerViewModel> _nodeRootIdToScriptTree;
+    ConcurrentDictionary<int, SettingNodeManagerViewModel> _nodeRootIdToSettingTree;
     IScriptService _scriptService;
     [ObservableProperty]
     bool _isExportEnabled, _isOpenAppDirectoryEnabled, _inDebugMode, _showStatusPanel, 
@@ -48,44 +50,43 @@ public partial class MacroManagerViewModel : ObservableObject
         PropertyNamingPolicy = JsonNamingPolicy.CamelCase,
         TypeInfoResolver = SizePropertiesResolver.Instance
     };
-    LogViewModel _logViewModel;
     string _targetBranch = "feature/remove-script-await-calls"; //"main";
-    public PatternNodeViewModel Patterns
+    public PatternNodeManagerViewModel Patterns
     {
         get
         {
             if (SelectedMacroSet == null) return null;
             if (!_nodeRootIdToPatternTree.ContainsKey(SelectedMacroSet.RootPatternNodeId))
             {
-                var tree = _nodeViewModelFactory.Create<PatternNodeViewModel>(SelectedMacroSet.RootPatternNodeId);
+                var tree = _nodeViewModelManagerFactory.Create<PatternNodeManagerViewModel>(SelectedMacroSet.RootPatternNodeId);
                 _nodeRootIdToPatternTree.TryAdd(SelectedMacroSet.RootPatternNodeId, tree);
             }
             return _nodeRootIdToPatternTree[SelectedMacroSet.RootPatternNodeId];
         }
     }
 
-    public ScriptNodeViewModel Scripts
+    public ScriptNodeManagerViewModel Scripts
     {
         get
         {
             if (SelectedMacroSet == null) return null;
             if (!_nodeRootIdToScriptTree.ContainsKey(SelectedMacroSet.RootScriptNodeId))
             {
-                var tree = _nodeViewModelFactory.Create<ScriptNodeViewModel>(SelectedMacroSet.RootScriptNodeId);
+                var tree = _nodeViewModelManagerFactory.Create<ScriptNodeManagerViewModel>(SelectedMacroSet.RootScriptNodeId);
                 _nodeRootIdToScriptTree.TryAdd(SelectedMacroSet.RootScriptNodeId, tree);
             }
             return _nodeRootIdToScriptTree[SelectedMacroSet.RootScriptNodeId];
         }
     }
 
-    public SettingNodeViewModel Settings
+    public SettingNodeManagerViewModel Settings
     {
         get
         {
             if (SelectedMacroSet == null) return null;
             if (!_nodeRootIdToSettingTree.ContainsKey(SelectedMacroSet.RootSettingNodeId))
             {
-                var tree = _nodeViewModelFactory.Create<SettingNodeViewModel>(SelectedMacroSet.RootSettingNodeId);
+                var tree = _nodeViewModelManagerFactory.Create<SettingNodeManagerViewModel>(SelectedMacroSet.RootSettingNodeId);
                 _nodeRootIdToSettingTree.TryAdd(SelectedMacroSet.RootSettingNodeId, tree);
             }
             return _nodeRootIdToSettingTree[SelectedMacroSet.RootSettingNodeId];
@@ -98,30 +99,28 @@ public partial class MacroManagerViewModel : ObservableObject
     public MacroManagerViewModel(ILogger<MacroManagerViewModel> logger,
         IRepository<MacroSet> macroSetRepository,
         IToastService toastService,
-        NodeViewModelFactory nodeViewModelFactory,
+        NodeManagerViewModelFactory nodeViewModelFactory,
         INodeService<PatternNode, PatternNode> patternNodeService,
         INodeService<ScriptNode, ScriptNode> scriptNodeService,
         INodeService<ParentSetting, SettingNode> settingNodeService,
         IScriptService scriptService,
-        LogViewModel logViewModel,
         IMapper mapper,
         IHttpService httpService)
     {
         _logger = logger;
         _macroSetRepository = macroSetRepository;
         _toastService = toastService;
-        _nodeViewModelFactory = nodeViewModelFactory;
+        _nodeViewModelManagerFactory = nodeViewModelFactory;
         _patternNodeService = patternNodeService;
         _scriptNodeService = scriptNodeService;
         _settingNodeService = settingNodeService;
-        _logViewModel = logViewModel;
         _mapper = mapper;
         _httpService = httpService;
         // manually instantiating in ServiceRegistrationHelper.AppInitializer to pre initialize MacroSets
         if (_macroSetRepository == null) return;  
 
         var tempMacroSets = _macroSetRepository.Get();
-        _macroSets = ProxyViewModel.CreateCollection(tempMacroSets);
+        _macroSets = new ObservableCollection<MacroSet>(tempMacroSets.Select(ms => (MacroSet)_mapper.Map<MacroSetViewModel>(ms)));
 
         if (Preferences.Default.ContainsKey(nameof(SelectedMacroSet)) && _macroSets.Any(ms => ms.Name == Preferences.Default.Get<string>(nameof(SelectedMacroSet), null)))
         {
@@ -137,9 +136,9 @@ public partial class MacroManagerViewModel : ObservableObject
 
         _macroSetRepository.DetachAllEntities();
         _macroSetRepository.AttachEntities(_macroSets.ToArray());
-        _nodeRootIdToPatternTree = new ConcurrentDictionary<int, PatternNodeViewModel>();
-        _nodeRootIdToScriptTree = new ConcurrentDictionary<int, ScriptNodeViewModel>();
-        _nodeRootIdToSettingTree = new ConcurrentDictionary<int, SettingNodeViewModel>();
+        _nodeRootIdToPatternTree = new ConcurrentDictionary<int, PatternNodeManagerViewModel>();
+        _nodeRootIdToScriptTree = new ConcurrentDictionary<int, ScriptNodeManagerViewModel>();
+        _nodeRootIdToSettingTree = new ConcurrentDictionary<int, SettingNodeManagerViewModel>();
         _scriptService = scriptService;
 
 #if DEBUG
@@ -178,17 +177,17 @@ public partial class MacroManagerViewModel : ObservableObject
         if (source.StartsWith("localAsset:")) macroSetName = source.Substring(11);
         else if (source.StartsWith("online:")) macroSetName = source.Substring(7);
 
-        var macroSet = ProxyViewModel.Create(new MacroSet() { Name = macroSetName, Source = source });
+        var macroSet = new MacroSetViewModel() { Name = macroSetName, Source = source };
 
-        var rootPattern = ProxyViewModel.Create(_patternNodeService.GetRoot(0));
+        var rootPattern = _mapper.Map<PatternNodeViewModel>(_patternNodeService.GetRoot(0));
         _patternNodeService.ReAttachNodes(rootPattern);
         macroSet.RootPatternNodeId = rootPattern.NodeId;
 
-        var rootScript = ProxyViewModel.Create(_scriptNodeService.GetRoot(0));
+        var rootScript = _mapper.Map<ScriptNodeViewModel>(_scriptNodeService.GetRoot(0));
         _scriptNodeService.ReAttachNodes(rootScript);
         macroSet.RootScriptNodeId = rootScript.NodeId;
 
-        var rootSetting = ProxyViewModel.Create(_settingNodeService.GetRoot(0));
+        var rootSetting = _mapper.Map<ParentSettingViewModel>(_settingNodeService.GetRoot(0));
         _settingNodeService.ReAttachNodes(rootSetting);
         macroSet.RootSettingNodeId = rootSetting.NodeId;
 
@@ -406,13 +405,13 @@ public partial class MacroManagerViewModel : ObservableObject
 
             if (pattternJson is not null)
             {
-                var patterns = PatternNodeViewModel.FromJson(pattternJson);
+                var patterns = PatternNodeManagerViewModel.FromJson(pattternJson);
                 Patterns.Import(patterns);
             }
 
             if (nameToScript.Count > 0)
             {
-                var scripts = new ScriptNodeViewModel(-1, null, null, null) { Root = new ScriptNode() { Nodes = new List<ScriptNode>() } };
+                var scripts = new ScriptNodeManagerViewModel(-1, null, null, null) { Root = new ScriptNode() { Nodes = new List<ScriptNode>() } };
                 foreach (var scriptKvp in nameToScript)
                 {
                     var script = new ScriptNode()
@@ -430,7 +429,7 @@ public partial class MacroManagerViewModel : ObservableObject
 
             if (settingJson is not null)
             {
-                var settings = SettingNodeViewModel.FromJson(settingJson);
+                var settings = SettingNodeManagerViewModel.FromJson(settingJson);
                 MergeSettings(Settings.Root, settings.Root);
                 Settings.Import(settings);
             }

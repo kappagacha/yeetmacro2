@@ -1,5 +1,7 @@
-﻿using CommunityToolkit.Mvvm.ComponentModel;
+﻿using AutoMapper;
+using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
+using System.Diagnostics;
 using System.Reflection;
 using System.Text.Json;
 using System.Text.Json.Serialization;
@@ -8,33 +10,35 @@ using YeetMacro2.Data.Serialization;
 using YeetMacro2.Data.Services;
 using YeetMacro2.Services;
 
-namespace YeetMacro2.ViewModels;
+namespace YeetMacro2.ViewModels.NodeViewModels;
 
 // https://stackoverflow.com/questions/53884417/net-core-di-ways-of-passing-parameters-to-constructor
-public class NodeViewModelFactory
+public class NodeManagerViewModelFactory
 {
     IServiceProvider _serviceProvider;
-    public NodeViewModelFactory(IServiceProvider serviceProvider)
+    public NodeManagerViewModelFactory(IServiceProvider serviceProvider)
     {
         _serviceProvider = serviceProvider;
     }
 
-    public T Create<T>(int rootId) where T : NodeViewModel
+    public T Create<T>(int rootId) where T : NodeManagerViewModel
     {
         return ActivatorUtilities.CreateInstance<T>(_serviceProvider, rootId);
     }
 }
 
-public abstract class NodeViewModel : ObservableObject
+public abstract class NodeManagerViewModel : ObservableObject
 {
 
 }
 
 [JsonConverter(typeof(NodeViewModelValueConverter))]
-public partial class NodeViewModel<TParent, TChild> : NodeViewModel
+public partial class NodeManagerViewModel<TViewModel, TParent, TChild> : NodeManagerViewModel
+        where TViewModel : TParent, new()
         where TParent : Node, IParentNode<TParent, TChild>, TChild, new()
         where TChild : Node
 {
+    static IMapper _mapper;
     private int _rootNodeId;
     private string _nodeTypeName;
     [ObservableProperty]
@@ -56,12 +60,14 @@ public partial class NodeViewModel<TParent, TChild> : NodeViewModel
             new JsonStringEnumConverter()
         },
         WriteIndented = true,
-        TypeInfoResolver  = CombinedPropertiesResolver.Combine(RectPropertiesResolver.Instance, SizePropertiesResolver.Instance),
+        TypeInfoResolver = CombinedPropertiesResolver.Combine(RectPropertiesResolver.Instance, SizePropertiesResolver.Instance),
         PropertyNamingPolicy = JsonNamingPolicy.CamelCase
     };
 
-    static NodeViewModel()
+    static NodeManagerViewModel()
     {
+        _mapper = ServiceHelper.GetService<IMapper>();
+
         // https://stackoverflow.com/questions/58331479/how-to-globally-set-default-options-for-system-text-json-jsonserializer/74741382#74741382
         var copy = new JsonSerializerOptions(_defaultJsonSerializerOptions);
         _defaultJsonSerializerOptions.Converters.Add(new NodeValueConverter<TParent, TChild>(copy));
@@ -71,7 +77,7 @@ public partial class NodeViewModel<TParent, TChild> : NodeViewModel
         typeof(JsonSerializerOptions).GetRuntimeFields().Single(f => f.Name == "_isImmutable").SetValue(copy, true);
     }
 
-    public NodeViewModel(
+    public NodeManagerViewModel(
         int rootNodeId,
         INodeService<TParent, TChild> nodeService,
         IInputService inputService,
@@ -93,7 +99,10 @@ public partial class NodeViewModel<TParent, TChild> : NodeViewModel
 
         Task.Run(() =>
         {
-            var root = (TParent)ProxyViewModel.Create<TChild>(_nodeService.GetRoot(_rootNodeId));
+            var sw = new Stopwatch();
+            sw.Start();
+            var _mapper = ServiceHelper.GetService<IMapper>();
+            var root = _mapper.Map<TViewModel>(_nodeService.GetRoot(_rootNodeId));
             _nodeService.ReAttachNodes(root);
             var firstChild = root.Nodes.FirstOrDefault();
             if (SelectedNode == null && firstChild != null)
@@ -106,6 +115,8 @@ public partial class NodeViewModel<TParent, TChild> : NodeViewModel
             CustomInit();
             IsInitialized = true;
             _initializeCompleted.SetResult();
+            sw.Stop();
+            Debug.WriteLine($"Loaded {typeof(TParent).Name}: {sw.ElapsedMilliseconds} ms");
         });
     }
 
@@ -131,21 +142,19 @@ public partial class NodeViewModel<TParent, TChild> : NodeViewModel
         }
 
         TChild newNode = null;
-        var nodeTypes = NodeMetadataHelper.GetNodeTypes<TChild>();
+        var x = typeof(TViewModel).Name;
+        var nodeTypes = NodeMetadataHelper.GetNodeTypes<TViewModel>();
         if (nodeTypes is not null)
         {
-            var selectedTypeName = await _inputService.SelectOption($"Please select {_nodeTypeName} type", nodeTypes.Select(t => t.Name).ToArray());
-            if (String.IsNullOrEmpty(selectedTypeName) || selectedTypeName == "cancel") return;
-            var selectedType = nodeTypes.First(t => t.Name == selectedTypeName);
-            newNode = ProxyViewModel.Create((TChild)Activator.CreateInstance(selectedType));
+            var selectedTypeName = await _inputService.SelectOption($"Please select {_nodeTypeName} type", nodeTypes.Select(t => t.Name.Replace("ViewModel", "")).ToArray());
+            if (string.IsNullOrEmpty(selectedTypeName) || selectedTypeName == "cancel") return;
+            var selectedType = nodeTypes.First(t => t.Name.Replace("ViewModel", "") == selectedTypeName);
+            newNode = (TChild)Activator.CreateInstance(selectedType);
             newNode.Name = name;
         }
         else
         {
-            newNode = ProxyViewModel.Create<TChild>(new TParent()
-            {
-                Name = name
-            });
+            newNode = new TViewModel() { Name = name };
         }
 
         if (SelectedNode != null && SelectedNode is TParent parent)
@@ -257,9 +266,9 @@ public partial class NodeViewModel<TParent, TChild> : NodeViewModel
         return JsonSerializer.Serialize(this, _defaultJsonSerializerOptions);
     }
 
-    public static NodeViewModel<TParent, TChild> FromJson(string json)
+    public static NodeManagerViewModel<TViewModel, TParent, TChild> FromJson(string json)
     {
-        return JsonSerializer.Deserialize<NodeViewModel<TParent, TChild>>(json, _defaultJsonSerializerOptions);
+        return JsonSerializer.Deserialize<NodeManagerViewModel<TViewModel, TParent, TChild>>(json, _defaultJsonSerializerOptions);
     }
 
     public static TChild FromJsonNode(string json)
@@ -297,9 +306,9 @@ public partial class NodeViewModel<TParent, TChild> : NodeViewModel
     }
 
     [RelayCommand]
-    public void Import(NodeViewModel<TParent, TChild> nodeViewModel)
+    public void Import(NodeManagerViewModel<TViewModel, TParent, TChild> nodeViewModel)
     {
-        var rootTemp = (TParent)ProxyViewModel.Create<TChild>(nodeViewModel.Root);
+        var rootTemp = _mapper.Map<TViewModel>(nodeViewModel.Root);
         var currentChildren = Root.Nodes.ToList();
         foreach (var currentChild in currentChildren)
         {
@@ -330,7 +339,7 @@ public class NodeViewModelValueConverter : JsonConverterFactory
 {
     public override bool CanConvert(Type typeToConvert)
     {
-        if (!typeToConvert.IsGenericType || typeToConvert.GetGenericTypeDefinition() != typeof(NodeViewModel<,>))
+        if (!typeToConvert.IsGenericType || typeToConvert.GetGenericTypeDefinition() != typeof(NodeManagerViewModel<,,>))
         {
             return false;
         }
@@ -340,12 +349,13 @@ public class NodeViewModelValueConverter : JsonConverterFactory
 
     public override JsonConverter CreateConverter(Type typeToConvert, JsonSerializerOptions options)
     {
-        Type parentType = typeToConvert.GetGenericArguments()[0];
-        Type childType = typeToConvert.GetGenericArguments()[1];
+        Type viewModelType = typeToConvert.GetGenericArguments()[0];
+        Type parentType = typeToConvert.GetGenericArguments()[1];
+        Type childType = typeToConvert.GetGenericArguments()[2];
 
         JsonConverter converter = (JsonConverter)Activator.CreateInstance(
-            typeof(GenericNodeViewModelValueConverter<,>).MakeGenericType(
-                new Type[] { parentType, childType }),
+            typeof(GenericNodeViewModelValueConverter<,,>).MakeGenericType(
+                new Type[] { viewModelType, parentType, childType }),
             BindingFlags.Instance | BindingFlags.Public,
             binder: null,
             args: new object[] { options },
@@ -354,19 +364,19 @@ public class NodeViewModelValueConverter : JsonConverterFactory
         return converter;
     }
 
-    private class GenericNodeViewModelValueConverter<TParent, TChild> : JsonConverter<NodeViewModel<TParent, TChild>>
+    private class GenericNodeViewModelValueConverter<TViewModel, TParent, TChild> : JsonConverter<NodeManagerViewModel<TViewModel, TParent, TChild>>
+        where TViewModel : TParent, new()
         where TParent : Node, IParentNode<TParent, TChild>, TChild, new()
         where TChild : Node
     {
         private readonly JsonConverter<TChild> _childConverter;
-
 
         public GenericNodeViewModelValueConverter(JsonSerializerOptions options)
         {
             _childConverter = (JsonConverter<TChild>)options.GetConverter(typeof(TChild));
         }
 
-        public override NodeViewModel<TParent, TChild> Read(
+        public override NodeManagerViewModel<TViewModel, TParent, TChild> Read(
             ref Utf8JsonReader reader,
             Type typeToConvert,
             JsonSerializerOptions options)
@@ -376,7 +386,7 @@ public class NodeViewModelValueConverter : JsonConverterFactory
                 throw new JsonException();
             }
 
-            var tree = new NodeViewModel<TParent, TChild>(-1, null, null, null);
+            var tree = new NodeManagerViewModel<TViewModel, TParent, TChild>(-1, null, null, null);
             tree.Root = new TParent();
             tree.Root.Nodes = new List<TChild>();
 
@@ -399,7 +409,7 @@ public class NodeViewModelValueConverter : JsonConverterFactory
 
         public override void Write(
             Utf8JsonWriter writer,
-            NodeViewModel<TParent, TChild> tree,
+            NodeManagerViewModel<TViewModel, TParent, TChild> tree,
             JsonSerializerOptions options)
         {
             writer.WriteStartObject();

@@ -5,9 +5,9 @@ using YeetMacro2.Data.Models;
 using YeetMacro2.Data.Services;
 using YeetMacro2.Services;
 
-namespace YeetMacro2.ViewModels;
+namespace YeetMacro2.ViewModels.NodeViewModels;
 
-public partial class PatternNodeViewModel : NodeViewModel<PatternNode, PatternNode>
+public partial class PatternNodeManagerViewModel : NodeManagerViewModel<PatternNodeViewModel, PatternNode, PatternNode>
 {
     IRepository<Pattern> _patternRepository;
     IScreenService _screenService;
@@ -18,7 +18,7 @@ public partial class PatternNodeViewModel : NodeViewModel<PatternNode, PatternNo
     public Size CurrentResolution => _currentResolution == Size.Zero ? (_currentResolution =
         new Size(DeviceDisplay.MainDisplayInfo.Width, DeviceDisplay.MainDisplayInfo.Height)) : _currentResolution;
 
-    public PatternNodeViewModel(
+    public PatternNodeManagerViewModel(
         int rootNodeId,
         INodeService<PatternNode, PatternNode> nodeService,
         IInputService inputService,
@@ -32,7 +32,7 @@ public partial class PatternNodeViewModel : NodeViewModel<PatternNode, PatternNo
 
         PropertyChanged += PatternTreeViewViewModel_PropertyChanged;
 
-        
+
         // TODO: init SelectedPattern
         //if (SelectedPattern == null && SelectedNode.Patterns.Count > 0)
         //{
@@ -57,7 +57,7 @@ public partial class PatternNodeViewModel : NodeViewModel<PatternNode, PatternNo
             var targetPattern = SelectedNode.Patterns.First();
             targetPattern.IsSelected = false;
             SelectPattern(targetPattern);
-        } 
+        }
         else if (e.PropertyName == nameof(SelectedNode))
         {
             SelectedPattern = null;
@@ -76,7 +76,7 @@ public partial class PatternNodeViewModel : NodeViewModel<PatternNode, PatternNo
                 return;
             }
 
-            var newPattern = ProxyViewModel.Create(new Pattern() { Name = name, PatternNodeId = patternNode.NodeId, ColorThreshold = new ColorThresholdProperties(), TextMatch = new TextMatchProperties() });
+            var newPattern = new PatternViewModel() { Name = name, PatternNodeId = patternNode.NodeId, ColorThreshold = new ColorThresholdPropertiesViewModel(), TextMatch = new TextMatchPropertiesViewModel() };
             patternNode.Patterns.Add(newPattern);
             _patternRepository.Insert(newPattern);
             _patternRepository.Save();
@@ -120,7 +120,7 @@ public partial class PatternNodeViewModel : NodeViewModel<PatternNode, PatternNo
     }
 
     [RelayCommand]
-    private void DeletePattern(Object[] values)
+    private void DeletePattern(object[] values)
     {
         if (values.Length == 2 && values[0] is Pattern pattern && values[1] is PatternNode patternNode)
         {
@@ -131,14 +131,14 @@ public partial class PatternNodeViewModel : NodeViewModel<PatternNode, PatternNo
     }
 
     [RelayCommand]
-    private async Task CapturePattern(Object[] values)
+    private async Task CapturePattern(object[] values)
     {
         if (values.Length > 1 && values[1] is PatternNode patternNode)
         {
             var pattern = values[0] as Pattern;
             if (pattern == null)
             {
-                pattern = ProxyViewModel.Create(new Pattern() { Name = "pattern", PatternNodeId = patternNode.NodeId, ColorThreshold = new ColorThresholdProperties(), TextMatch = new TextMatchProperties() });
+                pattern = new PatternViewModel() { Name = "pattern", PatternNodeId = patternNode.NodeId, ColorThreshold = new ColorThresholdPropertiesViewModel(), TextMatch = new TextMatchPropertiesViewModel() };
                 patternNode.Patterns.Add(pattern);
                 _patternRepository.Insert(pattern);
                 _patternRepository.Save();
@@ -162,7 +162,7 @@ public partial class PatternNodeViewModel : NodeViewModel<PatternNode, PatternNo
     }
 
     [RelayCommand]
-    private void SavePattern(Object[] values)
+    private void SavePattern(object[] values)
     {
         if (values.Length > 1 && values[0] is Pattern pattern && values[1] is PatternNode patternNode)
         {
@@ -216,7 +216,7 @@ public partial class PatternNodeViewModel : NodeViewModel<PatternNode, PatternNo
     }
 
     [RelayCommand]
-    private async Task TestPattern(Object[] values)
+    private async Task TestPattern(object[] values)
     {
         if (values.Length != 4) return;
 
@@ -227,8 +227,8 @@ public partial class PatternNodeViewModel : NodeViewModel<PatternNode, PatternNo
             values[3] is bool doTestCalc)
         {
             var opts = new FindOptions() { Limit = 10 };
-            if (Int32.TryParse(strXOffset, out int xOffset)) opts.Offset = opts.Offset.Offset(xOffset, 0);
-            if (Int32.TryParse(strYOffset, out int yOffset)) opts.Offset = opts.Offset.Offset(0, yOffset);
+            if (int.TryParse(strXOffset, out int xOffset)) opts.Offset = opts.Offset.Offset(xOffset, 0);
+            if (int.TryParse(strYOffset, out int yOffset)) opts.Offset = opts.Offset.Offset(0, yOffset);
             if (doTestCalc) opts.Offset = CalcOffset(pattern);
 
             _screenService.DrawClear();
@@ -253,7 +253,7 @@ public partial class PatternNodeViewModel : NodeViewModel<PatternNode, PatternNo
 
     // For this to work, Android view needs to not be touchable or do a double click
     [RelayCommand]
-    private async Task ClickPattern(Object[] values)
+    private async Task ClickPattern(object[] values)
     {
         if (values.Length != 4) return;
 
@@ -264,8 +264,8 @@ public partial class PatternNodeViewModel : NodeViewModel<PatternNode, PatternNo
             values[3] is bool doTestCalc)
         {
             var opts = new FindOptions() { Limit = 10 };
-            if (Int32.TryParse(strXOffset, out int xOffset)) opts.Offset = opts.Offset.Offset(xOffset, 0);
-            if (Int32.TryParse(strYOffset, out int yOffset)) opts.Offset = opts.Offset.Offset(0, yOffset);
+            if (int.TryParse(strXOffset, out int xOffset)) opts.Offset = opts.Offset.Offset(xOffset, 0);
+            if (int.TryParse(strYOffset, out int yOffset)) opts.Offset = opts.Offset.Offset(0, yOffset);
             if (doTestCalc) opts.Offset = CalcOffset(pattern);
 
             await _screenService.ClickPattern(pattern, opts);     //one to change focus
@@ -275,13 +275,13 @@ public partial class PatternNodeViewModel : NodeViewModel<PatternNode, PatternNo
     }
 
     [RelayCommand]
-    private void ApplyColorThreshold(Object[] values)
+    private void ApplyColorThreshold(object[] values)
     {
         if (values.Length != 4) return;
-        
-        if (values[0] is Pattern pattern && 
-            values[1] is string colorThresholdVariancePctString && 
-            double.TryParse(colorThresholdVariancePctString, out double colorThresholdVariancePct) && 
+
+        if (values[0] is Pattern pattern &&
+            values[1] is string colorThresholdVariancePctString &&
+            double.TryParse(colorThresholdVariancePctString, out double colorThresholdVariancePct) &&
             values[2] is string colorThresholdColor &&
             values[3] is ICommand selectCommand)
         {
@@ -297,7 +297,7 @@ public partial class PatternNodeViewModel : NodeViewModel<PatternNode, PatternNo
     }
 
     [RelayCommand]
-    private async Task TestPatternTextMatch(Object[] values)
+    private async Task TestPatternTextMatch(object[] values)
     {
         if (values.Length != 4) return;
 
@@ -308,8 +308,8 @@ public partial class PatternNodeViewModel : NodeViewModel<PatternNode, PatternNo
             values[3] is bool doTestCalc)
         {
             var opts = new TextFindOptions();
-            if (Int32.TryParse(strXOffset, out int xOffset)) opts.Offset = opts.Offset.Offset(xOffset, 0);
-            if (Int32.TryParse(strYOffset, out int yOffset)) opts.Offset = opts.Offset.Offset(0, yOffset);
+            if (int.TryParse(strXOffset, out int xOffset)) opts.Offset = opts.Offset.Offset(xOffset, 0);
+            if (int.TryParse(strYOffset, out int yOffset)) opts.Offset = opts.Offset.Offset(0, yOffset);
             if (doTestCalc) opts.Offset = CalcOffset(pattern);
 
             _screenService.DrawClear();
@@ -321,7 +321,7 @@ public partial class PatternNodeViewModel : NodeViewModel<PatternNode, PatternNo
     }
 
     [RelayCommand]
-    private async Task ApplyPatternTextMatch(Object[] values)
+    private async Task ApplyPatternTextMatch(object[] values)
     {
         if (values.Length != 4) return;
 
@@ -332,8 +332,8 @@ public partial class PatternNodeViewModel : NodeViewModel<PatternNode, PatternNo
             values[3] is bool doTestCalc)
         {
             var opts = new TextFindOptions();
-            if (Int32.TryParse(strXOffset, out int xOffset)) opts.Offset = opts.Offset.Offset(xOffset, 0);
-            if (Int32.TryParse(strYOffset, out int yOffset)) opts.Offset = opts.Offset.Offset(0, yOffset);
+            if (int.TryParse(strXOffset, out int xOffset)) opts.Offset = opts.Offset.Offset(xOffset, 0);
+            if (int.TryParse(strYOffset, out int yOffset)) opts.Offset = opts.Offset.Offset(0, yOffset);
             if (doTestCalc) opts.Offset = CalcOffset(pattern);
 
             _screenService.DrawClear();

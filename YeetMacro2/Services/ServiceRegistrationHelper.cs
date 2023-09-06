@@ -11,6 +11,7 @@ using System.Text.Json.Serialization;
 using YeetMacro2.Data.Models;
 using YeetMacro2.Data.Services;
 using YeetMacro2.ViewModels;
+using YeetMacro2.ViewModels.NodeViewModels;
 
 namespace YeetMacro2.Services;
 
@@ -33,7 +34,7 @@ public static class ServiceRegistrationHelper
     public static MauiAppBuilder RegisterViewModels(this MauiAppBuilder mauiAppBuilder)
     {
         mauiAppBuilder.Services.AddSingleton<MacroManagerViewModel>();
-        mauiAppBuilder.Services.AddSingleton<NodeViewModelFactory>();
+        mauiAppBuilder.Services.AddSingleton<NodeManagerViewModelFactory>();
         mauiAppBuilder.Services.AddSingleton<StatusPanelViewModel>();
         mauiAppBuilder.Services.AddSingleton<LogViewModel>();
         mauiAppBuilder.Services.AddSingleton<MacroService>();
@@ -69,7 +70,7 @@ public class AppInitializer : IMauiInitializeService
             var macroSet = JsonSerializer.Deserialize<MacroSet>(macroSetJson, jsonSerializerOptions);
             var pattternJson = ServiceHelper.GetAssetContent(Path.Combine("MacroSets", folder, "patterns.json"));
             var rootPattern = patternNodeService.GetRoot(0);
-            var tempPatternTree = PatternNodeViewModel.FromJson(pattternJson);
+            var tempPatternTree = PatternNodeManagerViewModel.FromJson(pattternJson);
             foreach (var pattern in tempPatternTree.Root.Nodes)
             {
                 pattern.RootId = rootPattern.NodeId;
@@ -100,7 +101,7 @@ public class AppInitializer : IMauiInitializeService
 
             var settingJson = ServiceHelper.GetAssetContent(Path.Combine("MacroSets", folder, "settings.json"));
             var rootSetting = settingNodeService.GetRoot(0);
-            var tempSettingTree = SettingNodeViewModel.FromJson(settingJson);
+            var tempSettingTree = SettingNodeManagerViewModel.FromJson(settingJson);
             foreach (var setting in tempSettingTree.Root.Nodes)
             {
                 setting.RootId = rootSetting.NodeId;

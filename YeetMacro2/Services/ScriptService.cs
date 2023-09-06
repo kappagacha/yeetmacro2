@@ -1,11 +1,11 @@
 ﻿using Microsoft.Extensions.Logging;
-using YeetMacro2.ViewModels;
 using YeetMacro2.Data.Models;
 using Jint;
 using System.Dynamic;
 using Jint.Runtime.Interop;
 using OneOf;
 using System.Text.Json;
+using YeetMacro2.ViewModels.NodeViewModels;
 
 namespace YeetMacro2.Services;
 
@@ -133,7 +133,7 @@ public class CustomJintTypeConverter : DefaultTypeConverter
     {
         if (type == typeof(PatternNode))
         {
-            converted = PatternNodeViewModel.FromJsonNode(System.Text.Json.JsonSerializer.Serialize(value));
+            converted = PatternNodeManagerViewModel.FromJsonNode(System.Text.Json.JsonSerializer.Serialize(value));
             return true;
         }
         else if (type == typeof(OneOf<PatternNode, PatternNode[]>))
@@ -163,13 +163,13 @@ public class CustomJintTypeConverter : DefaultTypeConverter
             var patternNodes = new PatternNode[arr.Length];
             for (int i = 0; i < arr.Length; i++)
             {
-                patternNodes[i] = PatternNodeViewModel.FromJsonNode(System.Text.Json.JsonSerializer.Serialize(arr[i]));
+                patternNodes[i] = PatternNodeManagerViewModel.FromJsonNode(System.Text.Json.JsonSerializer.Serialize(arr[i]));
             }
             return OneOf<PatternNode, PatternNode[]>.FromT1(patternNodes);
         }
         else
         {
-            return OneOf<PatternNode, PatternNode[]>.FromT0(PatternNodeViewModel.FromJsonNode(System.Text.Json.JsonSerializer.Serialize(value)));
+            return OneOf<PatternNode, PatternNode[]>.FromT0(PatternNodeManagerViewModel.FromJsonNode(System.Text.Json.JsonSerializer.Serialize(value)));
         }
     }
 }

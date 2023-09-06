@@ -107,6 +107,13 @@ public class NodeService<TParent, TChild> : INodeService<TParent, TChild>
 
     public void Delete(TChild node)
     {
+        if (node is TParent parent)
+        {
+            foreach (var child in parent.Nodes)
+            {
+                Delete(child);
+            }
+        }
         DeleteClosures(node);
         _nodeRepository.Delete(node);
         _nodeRepository.Save();
@@ -135,7 +142,7 @@ public class NodeService<TParent, TChild> : INodeService<TParent, TChild>
             var ancestorClosure = new NodeClosure()
             {
                 NodeRootId = node.RootId,
-                Name = $"{node.Name} -> {node.Name}",
+                Name = $"{closure.Name} -> {node.Name}",
                 AncestorId = closure.AncestorId,
                 AncestorName = closure.AncestorName,
                 DescendantId = node.NodeId,
@@ -160,8 +167,10 @@ public class NodeService<TParent, TChild> : INodeService<TParent, TChild>
     public void ReAttachNodes(TParent root)
     {
         var originalRoot = Get(root.NodeId);
-        _nodeRepository.DetachEntities(originalRoot);
-        _nodeRepository.AttachEntities(root);
+        var originalDescendants = GetDescendants<TChild>(originalRoot).ToArray();
+        _nodeRepository.DetachEntities(originalDescendants);
+        var newDescendants = GetDescendants<TChild>(root).ToArray();
+        _nodeRepository.AttachEntities(newDescendants);
     }
 
     public IEnumerable<TTarget> GetDescendants<TTarget>(TChild node) where TTarget: TChild
@@ -179,22 +188,6 @@ public class NodeService<TParent, TChild> : INodeService<TParent, TChild>
             }
         }
     }
-
-    //private IEnumerable<TChild> GetAllNodes(TChild node)
-    //{
-    //    yield return node;
-
-    //    if (node is TParent parent)
-    //    {
-    //        foreach (var child in parent.Nodes)
-    //        {
-    //            foreach (var childNodes in GetAllNodes(child))
-    //            {
-    //                yield return childNodes;
-    //            }
-    //        }
-    //    }
-    //}
 
     public void Save()
     {

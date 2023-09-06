@@ -4,10 +4,11 @@ using System.ComponentModel;
 using YeetMacro2.Data.Models;
 using YeetMacro2.Data.Services;
 using YeetMacro2.Services;
+using YeetMacro2.ViewModels.NodeViewModels;
 
 namespace YeetMacro2.ViewModels;
 
-public partial class SettingNodeViewModel : NodeViewModel<ParentSetting, SettingNode>
+public partial class SettingNodeManagerViewModel : NodeManagerViewModel<ParentSettingViewModel, ParentSetting, SettingNode>
 {
     IRepository<SettingNode> _settingRepository;
     [ObservableProperty]
@@ -15,7 +16,7 @@ public partial class SettingNodeViewModel : NodeViewModel<ParentSetting, Setting
     [ObservableProperty]
     Pattern _selectedPattern;
 
-    public SettingNodeViewModel(
+    public SettingNodeManagerViewModel(
         int rootNodeId,
         IRepository<SettingNode> settingRepository,
         INodeService<ParentSetting, SettingNode> nodeService,
@@ -24,12 +25,12 @@ public partial class SettingNodeViewModel : NodeViewModel<ParentSetting, Setting
             : base(rootNodeId, nodeService, inputService, toastService)
     {
         _settingRepository = settingRepository;
-        PropertyChanged += SettingNodeViewModel_PropertyChanged; ;
+        PropertyChanged += SettingNodeManagerViewModel_PropertyChanged; ;
     }
 
-    private void SettingNodeViewModel_PropertyChanged(object sender, PropertyChangedEventArgs e)
+    private void SettingNodeManagerViewModel_PropertyChanged(object sender, PropertyChangedEventArgs e)
     {
-        if (e.PropertyName == nameof(SettingNodeViewModel.SelectedNode) && this.SelectedNode is PatternSetting patternSetting)
+        if (e.PropertyName == nameof(SettingNodeManagerViewModel.SelectedNode) && this.SelectedNode is PatternSetting patternSetting)
         {
             this.SelectedPatternNode = patternSetting.Value;
             if (patternSetting.Value.Patterns.Count > 0)
@@ -41,7 +42,7 @@ public partial class SettingNodeViewModel : NodeViewModel<ParentSetting, Setting
                 this.SelectedPattern = null;
             }
         } 
-        else if (e.PropertyName == nameof(SettingNodeViewModel.SelectedNode))
+        else if (e.PropertyName == nameof(SettingNodeManagerViewModel.SelectedNode))
         {
             this.SelectedPatternNode = null;
             this.SelectedPattern = null;

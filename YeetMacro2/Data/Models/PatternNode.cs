@@ -51,8 +51,8 @@ public class TextMatchProperties
     public virtual bool IsActive { get; set; }
     public virtual string Text { get; set; }
     public virtual string WhiteList { get; set; }
-
 }
+
 public class ColorThresholdProperties
 {
     public virtual bool IsActive { get; set; }

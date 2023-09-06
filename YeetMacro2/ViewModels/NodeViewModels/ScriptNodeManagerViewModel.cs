@@ -2,11 +2,11 @@
 using YeetMacro2.Data.Services;
 using YeetMacro2.Services;
 
-namespace YeetMacro2.ViewModels;
+namespace YeetMacro2.ViewModels.NodeViewModels;
 
-public partial class ScriptNodeViewModel : NodeViewModel<ScriptNode, ScriptNode>
+public partial class ScriptNodeManagerViewModel : NodeManagerViewModel<ScriptNodeViewModel, ScriptNode, ScriptNode>
 {
-    public ScriptNodeViewModel(
+    public ScriptNodeManagerViewModel(
         int rootNodeId,
         INodeService<ScriptNode, ScriptNode> nodeService,
         IInputService inputService,

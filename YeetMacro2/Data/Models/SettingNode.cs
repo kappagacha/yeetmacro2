@@ -23,7 +23,7 @@ public class SettingNodeMetadataProvider : INodeMetadataProvider<SettingNode>
 public class ParentSetting : SettingNode, IParentNode<ParentSetting, SettingNode>
 {
     [JsonIgnore]
-    public ICollection<SettingNode> Nodes { get; set; } = new List<SettingNode>();
+    public virtual ICollection<SettingNode> Nodes { get; set; } = new List<SettingNode>();
     public override SettingType SettingType => SettingType.Parent;
 }
 
@@ -54,7 +54,7 @@ public class BooleanSetting: SettingNode<Boolean>
 public class OptionSetting : SettingNode<String>
 {
     public override SettingType SettingType => SettingType.Option;
-    public ICollection<String> Options { get; set; } = new List<String>();
+    public virtual ICollection<String> Options { get; set; } = new List<String>();
 }
 
 public class StringSetting : SettingNode<String>
