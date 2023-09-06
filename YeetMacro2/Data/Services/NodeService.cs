@@ -76,18 +76,18 @@ public class NodeService<TParent, TChild> : INodeService<TParent, TChild>
         if (node is TParent parent)
         {
             parent.NodeId = 0;
-            var children = parent.Nodes;
-            parent.Nodes = null;
             _nodeRepository.Insert(parent);
             _nodeRepository.Save();
             Resolve(node);
+
+            var children = parent.Nodes.ToList();
             foreach (var child in children)
             {
                 child.ParentId = parent.NodeId;
                 child.RootId = parent.RootId;
                 Insert(child);
             }
-            parent.Nodes = children;
+            _nodeRepository.Save();
         }
         else
         {
@@ -109,7 +109,8 @@ public class NodeService<TParent, TChild> : INodeService<TParent, TChild>
     {
         if (node is TParent parent)
         {
-            foreach (var child in parent.Nodes)
+            var children = parent.Nodes.ToList();
+            foreach (var child in children)
             {
                 Delete(child);
             }

@@ -312,8 +312,8 @@ public partial class NodeManagerViewModel<TViewModel, TParent, TChild> : NodeMan
         var currentChildren = Root.Nodes.ToList();
         foreach (var currentChild in currentChildren)
         {
-            Root.Nodes.Remove(currentChild);
             _nodeService.Delete(currentChild);
+            Root.Nodes.Remove(currentChild);
         }
 
         var newChildren = rootTemp.Nodes;
@@ -321,8 +321,8 @@ public partial class NodeManagerViewModel<TViewModel, TParent, TChild> : NodeMan
         {
             newChild.RootId = Root.NodeId;
             newChild.ParentId = Root.NodeId;
-            Root.Nodes.Add(newChild);
             _nodeService.Insert(newChild);
+            Root.Nodes.Add(newChild);
         }
     }
 

@@ -120,15 +120,15 @@ public partial class MacroManagerViewModel : ObservableObject
         if (_macroSetRepository == null) return;  
 
         var tempMacroSets = _macroSetRepository.Get();
-        _macroSets = new ObservableCollection<MacroSet>(tempMacroSets.Select(ms => (MacroSet)_mapper.Map<MacroSetViewModel>(ms)));
+        MacroSets = new ObservableCollection<MacroSet>(tempMacroSets.Select(ms => (MacroSet)_mapper.Map<MacroSetViewModel>(ms)));
 
-        if (Preferences.Default.ContainsKey(nameof(SelectedMacroSet)) && _macroSets.Any(ms => ms.Name == Preferences.Default.Get<string>(nameof(SelectedMacroSet), null)))
+        if (Preferences.Default.ContainsKey(nameof(SelectedMacroSet)) && MacroSets.Any(ms => ms.Name == Preferences.Default.Get<string>(nameof(SelectedMacroSet), null)))
         {
-            SelectedMacroSet = _macroSets.First(ms => ms.Name == Preferences.Default.Get<string>(nameof(SelectedMacroSet), null));
+            SelectedMacroSet = MacroSets.First(ms => ms.Name == Preferences.Default.Get<string>(nameof(SelectedMacroSet), null));
         } 
-        else if (_macroSets.Count > 0 )
+        else if (MacroSets.Count > 0 )
         {
-            SelectedMacroSet = _macroSets.First();
+            SelectedMacroSet = MacroSets.First();
         }
 
         InDebugMode = Preferences.Default.Get(nameof(InDebugMode), false);
