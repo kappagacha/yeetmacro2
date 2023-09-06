@@ -4,6 +4,7 @@ using Android.Content;
 using Android.Provider;
 using Android.Views.Accessibility;
 using Microsoft.Extensions.Logging;
+using YeetMacro2.Platforms.Android.ViewModels;
 using YeetMacro2.Services;
 
 namespace YeetMacro2.Platforms.Android.Services;
@@ -15,11 +16,13 @@ public class YeetAccessibilityService : AccessibilityService
 {
     ILogger _logger;
     MainActivity _context;
+    ActionViewModel _actionViewModel;
     private string _currentPackage = "unknown";
     private static YeetAccessibilityService _instance;  //https://stackoverflow.com/questions/600207/how-to-check-if-a-service-is-running-on-android
     public YeetAccessibilityService()
     {
         _logger = ServiceHelper.GetService<ILogger<MediaProjectionService>>();
+        _actionViewModel = ServiceHelper.GetService<ActionViewModel>();
         _logger.LogTrace("YeetAccessibilityService Constructor");
     }
 
@@ -58,14 +61,12 @@ public class YeetAccessibilityService : AccessibilityService
     {
         try
         {
-            if (e.EventType == EventTypes.WindowStateChanged)
+            if (_actionViewModel.State == ActionState.Running || e.EventType != EventTypes.WindowStateChanged) return;
+            _logger.LogTrace($"YeetAccessibilityService WindowStateChanged: {e.PackageName}");
+            if (e.PackageName != AppInfo.PackageName && e.PackageName != "com.google.android.gms" &&
+                !e.PackageName.StartsWith("com.android"))
             {
-                _logger.LogTrace($"YeetAccessibilityService WindowStateChanged: {e.PackageName}");
-                if (e.PackageName != AppInfo.PackageName && e.PackageName != "com.google.android.gms" &&
-                    !e.PackageName.StartsWith("com.android"))
-                {
-                    _currentPackage = e.PackageName;
-                }
+                _currentPackage = e.PackageName;
             }
         }
         catch (Exception ex)
