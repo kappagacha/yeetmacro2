@@ -8,14 +8,11 @@ namespace YeetMacro2.ViewModels.NodeViewModels;
 [ObservableObject]
 public partial class PatternNodeViewModel : PatternNode
 {
-    NodeObservableCollection<PatternNodeViewModel, PatternNode> _nodes;
-    NodeObservableCollection<PatternViewModel, Pattern> _patterns;
-
     public override ICollection<PatternNode> Nodes
     {
-        get => _nodes;
+        get => base.Nodes;
         set {
-            _nodes = new NodeObservableCollection<PatternNodeViewModel, PatternNode>(value);
+            base.Nodes = new NodeObservableCollection<PatternNodeViewModel, PatternNode>(value);
             OnPropertyChanged();
             OnPropertyChanged(nameof(IsLeaf));
         }
@@ -23,10 +20,10 @@ public partial class PatternNodeViewModel : PatternNode
 
     public override ICollection<Pattern> Patterns
     {
-        get => _patterns;
+        get => base.Patterns;
         set
         {
-            _patterns = new NodeObservableCollection<PatternViewModel, Pattern>(value);
+            base.Patterns = new NodeObservableCollection<PatternViewModel, Pattern>(value);
             OnPropertyChanged();
         }
     }
@@ -63,18 +60,18 @@ public partial class PatternNodeViewModel : PatternNode
 
     public bool IsLeaf
     {
-        get => _nodes.Count == 0;
+        get => base.Nodes.Count == 0;
     }
 
-    public NodeObservableCollection<PatternNodeViewModel, PatternNode> Children
+    public ICollection<PatternNode> Children
     {
-        get => _nodes;
+        get => base.Nodes;
     }
 
     public PatternNodeViewModel()
     {
-        _nodes = new NodeObservableCollection<PatternNodeViewModel, PatternNode>();
-        _patterns = new NodeObservableCollection<PatternViewModel, Pattern>();
+        base.Nodes = new NodeObservableCollection<PatternNodeViewModel, PatternNode>();
+        base.Patterns = new NodeObservableCollection<PatternViewModel, Pattern>();
     }
 }
 

@@ -1,20 +1,17 @@
-﻿using AutoMapper;
-using CommunityToolkit.Mvvm.ComponentModel;
+﻿using CommunityToolkit.Mvvm.ComponentModel;
 using YeetMacro2.Data.Models;
-using YeetMacro2.Services;
 
 namespace YeetMacro2.ViewModels.NodeViewModels;
 
 [ObservableObject]
 public partial class ScriptNodeViewModel : ScriptNode
 {
-    NodeObservableCollection<ScriptNodeViewModel, ScriptNode> _nodes;
 
     public override ICollection<ScriptNode> Nodes
     {
-        get => _nodes;
+        get => base.Nodes;
         set {
-            _nodes = new NodeObservableCollection<ScriptNodeViewModel, ScriptNode>(value);
+            base.Nodes = new NodeObservableCollection<ScriptNodeViewModel, ScriptNode>(value);
             OnPropertyChanged();
             OnPropertyChanged(nameof(IsLeaf));
         }
@@ -55,13 +52,13 @@ public partial class ScriptNodeViewModel : ScriptNode
         get => true;
     }
 
-    public NodeObservableCollection<ScriptNodeViewModel, ScriptNode> Children
+    public ICollection<ScriptNode> Children
     {
-        get => _nodes;
+        get => base.Nodes;
     }
 
     public ScriptNodeViewModel()
     {
-        _nodes = new NodeObservableCollection<ScriptNodeViewModel, ScriptNode>();
+        base.Nodes = new NodeObservableCollection<ScriptNodeViewModel, ScriptNode>();
     }
 }

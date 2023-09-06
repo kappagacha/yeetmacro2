@@ -20,41 +20,40 @@ public class SettingNodeViewModelMetadataProvider : INodeMetadataProvider<Parent
 public partial class ParentSettingViewModel : ParentSetting
 {
     static IMapper _mapper;
-    ObservableCollection<SettingNode> _nodes;
 
     public override ICollection<SettingNode> Nodes
     {
-        get => _nodes;
+        get => base.Nodes;
         set {
             if (value is null)
             {
-                _nodes = new ObservableCollection<SettingNode>();
+                base.Nodes = new ObservableCollection<SettingNode>();
                 OnPropertyChanged();
                 OnPropertyChanged(nameof(IsLeaf));
                 return;
             }
-            _nodes = new ObservableCollection<SettingNode>();
+            base.Nodes = new ObservableCollection<SettingNode>();
             foreach (var val in value)
             {
                 if (val is ParentSetting)
                 {
-                    _nodes.Add(_mapper.Map<ParentSettingViewModel>(val));
+                    base.Nodes.Add(_mapper.Map<ParentSettingViewModel>(val));
                 }
                 else if (val is BooleanSetting)
                 {
-                    _nodes.Add(_mapper.Map<BooleanSettingViewModel>(val));
+                    base.Nodes.Add(_mapper.Map<BooleanSettingViewModel>(val));
                 }
                 else if (val is OptionSetting)
                 {
-                    _nodes.Add(_mapper.Map<OptionSettingViewModel>(val));
+                    base.Nodes.Add(_mapper.Map<OptionSettingViewModel>(val));
                 }
                 else if (val is StringSetting)
                 {
-                    _nodes.Add(_mapper.Map<StringSettingViewModel>(val));
+                    base.Nodes.Add(_mapper.Map<StringSettingViewModel>(val));
                 }
                 else if (val is PatternSetting)
                 {
-                    _nodes.Add(_mapper.Map<PatternSettingViewModel>(val));
+                    base.Nodes.Add(_mapper.Map<PatternSettingViewModel>(val));
                 }
                 else
                 {
@@ -88,12 +87,12 @@ public partial class ParentSettingViewModel : ParentSetting
 
     public bool IsLeaf
     {
-        get => _nodes.Count == 0;
+        get => base.Nodes.Count == 0;
     }
 
-    public ObservableCollection<SettingNode> Children
+    public ICollection<SettingNode> Children
     {
-        get => _nodes;
+        get => base.Nodes;
     }
 
     static ParentSettingViewModel()
@@ -103,7 +102,7 @@ public partial class ParentSettingViewModel : ParentSetting
 
     public ParentSettingViewModel()
     {
-        _nodes= new ObservableCollection<SettingNode>();
+        base.Nodes = new ObservableCollection<SettingNode>();
     }
 }
 
