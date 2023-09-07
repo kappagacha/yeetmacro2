@@ -16,13 +16,13 @@ public class YeetAccessibilityService : AccessibilityService
 {
     ILogger _logger;
     MainActivity _context;
-    ActionViewModel _actionViewModel;
+    Lazy<ActionViewModel> _actionViewModel;
     private string _currentPackage = "unknown";
     private static YeetAccessibilityService _instance;  //https://stackoverflow.com/questions/600207/how-to-check-if-a-service-is-running-on-android
     public YeetAccessibilityService()
     {
         _logger = ServiceHelper.GetService<ILogger<MediaProjectionService>>();
-        _actionViewModel = ServiceHelper.GetService<ActionViewModel>();
+        _actionViewModel = ServiceHelper.GetService<Lazy<ActionViewModel>>();
         _logger.LogTrace("YeetAccessibilityService Constructor");
     }
 
@@ -61,7 +61,7 @@ public class YeetAccessibilityService : AccessibilityService
     {
         try
         {
-            if (_actionViewModel.State == ActionState.Running || e.EventType != EventTypes.WindowStateChanged) return;
+            if (_actionViewModel.Value.State == ActionState.Running || e.EventType != EventTypes.WindowStateChanged) return;
             _logger.LogTrace($"YeetAccessibilityService WindowStateChanged: {e.PackageName}");
             if (e.PackageName != AppInfo.PackageName && e.PackageName != "com.google.android.gms" &&
                 !e.PackageName.StartsWith("com.android"))
