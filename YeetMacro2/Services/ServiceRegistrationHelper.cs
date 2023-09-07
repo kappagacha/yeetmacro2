@@ -4,7 +4,6 @@ using Serilog;
 using Serilog.Configuration;
 using Serilog.Extensions.Logging;
 using Serilog.Filters;
-using System.Diagnostics;
 using System.Reflection;
 using System.Text.Json;
 using System.Text.Json.Serialization;

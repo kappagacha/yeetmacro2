@@ -8,6 +8,7 @@ public class LogGroup
     public long Timestamp { get; set; }
     public string MacroSet { get; set; }
     public string Script { get; set; }
+    public string Stack { get; set; }
     public ICollection<Log> Logs { get; set; }
 }
 

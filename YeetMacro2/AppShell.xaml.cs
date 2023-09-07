@@ -22,12 +22,12 @@ public partial class AppShell : Shell
             ContentTemplate = new DataTemplate(typeof(AndroidHomePage))
         });
 #elif WINDOWS
-        //this.Items.Add(new ShellContent()
-        //{
-        //    Title = "Home",
-        //    Route = "Home",
-        //    ContentTemplate = new DataTemplate(typeof(WindowsHomePage))
-        //});
+        this.Items.Add(new ShellContent()
+        {
+            Title = "Home",
+            Route = "Home",
+            ContentTemplate = new DataTemplate(typeof(WindowsHomePage))
+        });
 #endif
 
         this.Items.Add(new ShellContent()
