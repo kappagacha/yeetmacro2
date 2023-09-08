@@ -17,17 +17,16 @@ public class ForegroundService : Service
 
     public ForegroundService()
     {
-        Console.WriteLine("[*****YeetMacro*****] ForegroundService Constructor Start");
-        _context = (MainActivity)Platform.CurrentActivity;
-        _windowManagerService = ServiceHelper.GetService<Lazy<AndroidWindowManagerService>>();
-        _mediaProjectionService = ServiceHelper.GetService<Lazy<MediaProjectionService>>();
-        _mediaProjectionManager = (MediaProjectionManager)_context.GetSystemService(Context.MediaProjectionService);
-        Console.WriteLine("[*****YeetMacro*****] ForegroundService Constructor End");
+        Console.WriteLine("[*****YeetMacro*****] ForegroundService Constructor");
     }
 
     public override void OnCreate()
     {
         Console.WriteLine("[*****YeetMacro*****] ForegroundService OnCreate");
+        _context = (MainActivity)Platform.CurrentActivity;
+        _windowManagerService = ServiceHelper.GetService<Lazy<AndroidWindowManagerService>>();
+        _mediaProjectionService = ServiceHelper.GetService<Lazy<MediaProjectionService>>();
+        _mediaProjectionManager = (MediaProjectionManager)_context.GetSystemService(Context.MediaProjectionService);
         _context.StartActivityForResult(_mediaProjectionManager.CreateScreenCaptureIntent(), YeetMacro2.Platforms.Android.Services.MediaProjectionService.REQUEST_MEDIA_PROJECTION);
         base.OnCreate();
     }
