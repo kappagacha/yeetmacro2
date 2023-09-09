@@ -54,7 +54,7 @@ public partial class ImageView : ContentView
         var imageSourceResult = await fontImageSource.GetPlatformImageAsync(ctx);
         var bitmap = ((BitmapDrawable)imageSourceResult.Value).Bitmap;
         bitmap.Compress(CompressFormat.Png, 100, ms);
-        bitmap.Dispose();
+        //bitmap.Dispose();
         ms.Position = 0;
 
         var drawable = PlatformImage.FromStream(ms);

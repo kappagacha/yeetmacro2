@@ -93,7 +93,7 @@ public class YeetAccessibilityService : AccessibilityService
             gestureBuilder.AddStroke(strokeDescription);
             var gesture = gestureBuilder.Build();
             DispatchGesture(gesture, null, null);
-            gestureBuilder.Dispose();
+            //gestureBuilder.Dispose();
         }
         catch (Exception ex)
         {
@@ -101,7 +101,7 @@ public class YeetAccessibilityService : AccessibilityService
         }
         finally
         {
-            gestureBuilder.Dispose();
+            //gestureBuilder.Dispose();
         }
     }
 
@@ -124,7 +124,7 @@ public class YeetAccessibilityService : AccessibilityService
         var mouseDownPath = new global::Android.Graphics.Path();
         mouseDownPath.MoveTo((float)start.X, (float)start.Y);
         var lastStroke = new GestureDescription.StrokeDescription(mouseDownPath, 0, 200, true);
-        mouseDownPath.Dispose();
+        //mouseDownPath.Dispose();
         PerformGesture(lastStroke);
 
         while (distanceLeft > 0)
@@ -141,7 +141,7 @@ public class YeetAccessibilityService : AccessibilityService
 
             lastStroke = lastStroke.ContinueStroke(swipePath, swipeDelay, swipeDuration, true);
             PerformGesture(lastStroke);
-            swipePath.Dispose();
+            //swipePath.Dispose();
             from = to;
             distanceLeft -= distanceToScroll;
         }
@@ -151,8 +151,8 @@ public class YeetAccessibilityService : AccessibilityService
 
         lastStroke = lastStroke.ContinueStroke(mouseUpPath, 1, 400L, false);
         PerformGesture(lastStroke);
-        mouseUpPath.Dispose();
-        lastStroke.Dispose();
+        //mouseUpPath.Dispose();
+        //lastStroke.Dispose();
     }
 
     private void PerformGesture(GestureDescription.StrokeDescription strokeDescription)
@@ -160,8 +160,8 @@ public class YeetAccessibilityService : AccessibilityService
         var gestureBuilder = new GestureDescription.Builder();
         var gestureDescription = gestureBuilder.AddStroke(strokeDescription).Build();
         DispatchGesture(gestureDescription, null, null);
-        gestureDescription.Dispose();
-        gestureBuilder.Dispose();
+        //gestureDescription.Dispose();
+        //gestureBuilder.Dispose();
     }
 
     public void Start()

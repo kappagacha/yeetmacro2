@@ -135,10 +135,10 @@ public class MediaProjectionService : IRecorderService
         var bitmap = Bitmap.CreateBitmap(image.Width + rowPadding / pixelStride, image.Height, Bitmap.Config.Argb8888); //Bitmap.Config.ARGB_8888
         bitmap.CopyPixelsFromBuffer(buffer);
 
-        buffer.Dispose();
-        plane.Dispose();
+        //buffer.Dispose();
+        //plane.Dispose();
         image.Close();
-        image.Dispose();
+        //image.Dispose();
 
         return bitmap;
     }
@@ -149,20 +149,20 @@ public class MediaProjectionService : IRecorderService
         if (_imageReader != null)
         {
             _imageReader.Close();
-            _imageReader.Dispose();
+            //_imageReader.Dispose();
             _imageReader = null;
         }
         if (_virtualDisplay != null)
         {
             _virtualDisplay.Release();
-            _virtualDisplay.Dispose();
+            //_virtualDisplay.Dispose();
             _virtualDisplay = null;
         }
 
         if (_mediaProjection != null)
         {
             _mediaProjection.Stop();
-            _mediaProjection.Dispose();
+            //_mediaProjection.Dispose();
             _mediaProjection = null;
         }
 
@@ -179,11 +179,11 @@ public class MediaProjectionService : IRecorderService
 
         MemoryStream ms = new MemoryStream();
         bitmap.Compress(CompressFormat.Jpeg, 100, ms);
-        bitmap.Dispose();
+        //bitmap.Dispose();
         ms.Position = 0;
         var array = ms.ToArray();
-        ms.Close();
-        ms.Dispose();
+        //ms.Close();
+        //ms.Dispose();
         return array;
     }
 
@@ -196,14 +196,14 @@ public class MediaProjectionService : IRecorderService
         if (bitmap == null) return null;
 
         var newBitmap = Bitmap.CreateBitmap(bitmap, (int)rect.X, (int)rect.Y, (int)rect.Width, (int)rect.Height);
-        bitmap.Dispose();
+        //bitmap.Dispose();
         MemoryStream ms = new MemoryStream();
         newBitmap.Compress(CompressFormat.Jpeg, 100, ms);
-        newBitmap.Dispose();
+        //newBitmap.Dispose();
         ms.Position = 0;
         var array = ms.ToArray();
-        ms.Close();
-        ms.Dispose();
+        //ms.Close();
+        //ms.Dispose();
         return array;
     }
 
@@ -263,10 +263,10 @@ public class MediaProjectionService : IRecorderService
         if (!_isRecording) return;
 
         _mediaRecorder.Stop();
-        _mediaRecorder.Release();
-        _mediaRecorder.Dispose();
-        _screenVirtualDisplay.Release();
-        _screenVirtualDisplay.Dispose();
+        //_mediaRecorder.Release();
+        //_mediaRecorder.Dispose();
+        //_screenVirtualDisplay.Release();
+        //_screenVirtualDisplay.Dispose();
         _isRecording = false;
     }
 }

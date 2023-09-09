@@ -32,7 +32,7 @@ public static class OpenCvHelper
             if (matOfByte.Empty() || !matOfByte.IsContinuous)
             {
                 _logger.Value.LogTrace("Empty matOfByte");
-                matOfByte.Dispose();
+                //matOfByte.Dispose();
                 return new byte[0];
             }
             var mat = Org.Opencv.Imgcodecs.Imgcodecs.Imdecode(matOfByte, Org.Opencv.Imgcodecs.Imgcodecs.CvLoadImageColor);
@@ -51,13 +51,13 @@ public static class OpenCvHelper
             Org.Opencv.Imgcodecs.Imgcodecs.Imencode(".jpeg", maskInverted, maskInvertedMatOfByte);
             var result = maskInvertedMatOfByte.ToArray();
 
-            mat.Dispose();
-            matOfByte.Dispose();
-            lowerBounds.Dispose();
-            upperBounds.Dispose();
-            mask.Dispose();
-            maskInverted.Dispose();
-            maskInvertedMatOfByte.Dispose();
+            //mat.Dispose();
+            //matOfByte.Dispose();
+            //lowerBounds.Dispose();
+            //upperBounds.Dispose();
+            //mask.Dispose();
+            //maskInverted.Dispose();
+            //maskInvertedMatOfByte.Dispose();
 
             return result;
         }
@@ -79,18 +79,18 @@ public static class OpenCvHelper
             if (haystackMatOfByte.Empty() || !haystackMatOfByte.IsContinuous || needleMatOfByte.Empty() || !needleMatOfByte.IsContinuous)
             {
                 _logger.Value.LogTrace("Empty matOfByte");
-                haystackMatOfByte.Dispose();
-                needleMatOfByte.Dispose();
+                //haystackMatOfByte.Dispose();
+                //needleMatOfByte.Dispose();
                 return new List<Point>();
             }
 
             var haystackMat = Org.Opencv.Imgcodecs.Imgcodecs.Imdecode(haystackMatOfByte, Org.Opencv.Imgcodecs.Imgcodecs.CvLoadImageColor);
             var needleMat = Org.Opencv.Imgcodecs.Imgcodecs.Imdecode(needleMatOfByte, Org.Opencv.Imgcodecs.Imgcodecs.CvLoadImageColor);
-            haystackMatOfByte.Dispose();
-            needleMatOfByte.Dispose();
+            //haystackMatOfByte.Dispose();
+            //needleMatOfByte.Dispose();
             var points = GetPointsWithMatchTemplate(haystackMat, needleMat, limit, threshold);
-            haystackMat.Dispose();
-            needleMat.Dispose();
+            //haystackMat.Dispose();
+            //needleMat.Dispose();
             return points;
         }
         catch (Exception ex)
@@ -200,7 +200,7 @@ public static class OpenCvHelper
 
                 if (location.MaxVal < threshold)
                 {
-                    location.Dispose();
+                    //location.Dispose();
                     break;
                 }
                     
@@ -215,15 +215,15 @@ public static class OpenCvHelper
                 var upperDiff = new Scalar(floodFillDiff);
                 Org.Opencv.Imgproc.Imgproc.FloodFill(result, mask, location.MaxLoc, newVal, outRect, lowerDiff, upperDiff, Org.Opencv.Imgproc.Imgproc.FloodfillFixedRange);
                 //OpenCV.ImgProc.Imgproc.FloodFill(result, mask, location.MaxLoc, new Scalar(0, 0, 0), outRect, new Scalar(floodFillDiff), new Scalar(floodFillDiff));
-                newVal.Dispose();
-                lowerDiff.Dispose();
-                upperDiff.Dispose();
-                outRect.Dispose();
-                location.Dispose();
+                //newVal.Dispose();
+                //lowerDiff.Dispose();
+                //upperDiff.Dispose();
+                //outRect.Dispose();
+                //location.Dispose();
             }
         }
 
-        mask.Dispose();
+        //mask.Dispose();
 
         watch.Stop();
         Console.WriteLine($"MatchTemplate: {watch.ElapsedMilliseconds} ms");
