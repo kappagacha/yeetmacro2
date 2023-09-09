@@ -34,11 +34,9 @@ public static class AndroidServiceHelper
 
             if (IsAppInstalled(packageName))
             {
-
                 Intent intent = pm.GetLaunchIntentForPackage(packageName);
                 if (intent != null)
                 {
-
                     intent.SetFlags(ActivityFlags.NewTask);
                     global::Android.App.Application.Context.StartActivity(intent);
                 }

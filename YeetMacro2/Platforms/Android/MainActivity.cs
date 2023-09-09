@@ -8,6 +8,7 @@ using Android.OS;
 //using OpenCV.Android;
 using Org.Opencv.Android;
 using YeetMacro2.ViewModels;
+using YeetMacro2.Platforms.Android.ViewModels;
 
 namespace YeetMacro2;
 
@@ -63,6 +64,9 @@ public class MainActivity : MauiAppCompatActivity
         {
             case YeetMacro2.Platforms.Android.Services.MediaProjectionService.REQUEST_MEDIA_PROJECTION:
                 ServiceHelper.GetService<MediaProjectionService>().Start(resultCode, data);
+                break;
+            case YeetMacro2.Platforms.Android.Services.AndroidWindowManagerService.REQUEST_IGNORE_BATTERY_OPTIMIZATIONS:
+                ServiceHelper.GetService<AndriodHomeViewModel>().IsIgnoringBatteryOptimization = resultCode == Result.Ok;
                 break;
         }
     }

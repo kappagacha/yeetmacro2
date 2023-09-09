@@ -38,6 +38,7 @@ public class AndroidWindowManagerService : IInputService, IScreenService
 {
     ILogger _logger;
     public const int OVERLAY_SERVICE_REQUEST = 0;
+    public const int REQUEST_IGNORE_BATTERY_OPTIMIZATIONS = 2;
     private MainActivity _context;
     IWindowManager _windowManager;
     MediaProjectionService _mediaProjectionService;
@@ -55,7 +56,7 @@ public class AndroidWindowManagerService : IInputService, IScreenService
         PropertyNamingPolicy = JsonNamingPolicy.CamelCase,
         TypeInfoResolver = PointPropertiesResolver.Instance
     };
-    public AndroidWindowManagerService(ILogger<AndroidWindowManagerService> logger, MediaProjectionService mediaProjectionService, 
+    public AndroidWindowManagerService(ILogger<AndroidWindowManagerService> logger, MediaProjectionService mediaProjectionService,
         IToastService toastService)
     {
         _logger = logger;
@@ -408,6 +409,15 @@ public class AndroidWindowManagerService : IInputService, IScreenService
 
     public bool ProjectionServiceEnabled { get => _mediaProjectionService.Enabled; }
 
+    public bool IsIgnoringBatteryOptimizations
+    {
+        get
+        {
+            var pm = (global::Android.OS.PowerManager)_context.GetSystemService(Context.PowerService);
+            return pm.IsIgnoringBatteryOptimizations(AppInfo.PackageName);
+        }
+    }
+
     public void RequestAccessibilityPermissions()
     {
         AndroidServiceHelper.StartAccessibilityService();
@@ -416,6 +426,14 @@ public class AndroidWindowManagerService : IInputService, IScreenService
     public void RevokeAccessibilityPermissions()
     {
         AndroidServiceHelper.AccessibilityService?.Stop();
+    }
+
+    // https://stackoverflow.com/questions/39256501/check-if-battery-optimization-is-enabled-or-not-for-an-app
+    public void RequestIgnoreBatteryOptimizations()
+    {
+        if (IsIgnoringBatteryOptimizations) return;
+        var intent = new Intent(Settings.ActionRequestIgnoreBatteryOptimizations, global::Android.Net.Uri.Parse($"package:{AppInfo.PackageName}"));
+        _context.StartActivityForResult(intent, REQUEST_IGNORE_BATTERY_OPTIMIZATIONS);
     }
 
     public async Task StartProjectionService()
@@ -587,13 +605,13 @@ public class AndroidWindowManagerService : IInputService, IScreenService
         var boundsPadding = 4;
         var currentImageData = pattern.Rect != Rect.Zero ?
             _mediaProjectionService.GetCurrentImageData(
-                new Rect(pattern.Rect.Location.Offset(opts.Offset.X, opts.Offset.Y).Offset(-boundsPadding, -boundsPadding), 
+                new Rect(pattern.Rect.Location.Offset(opts.Offset.X, opts.Offset.Y).Offset(-boundsPadding, -boundsPadding),
                           pattern.Rect.Size + new Size(boundsPadding, boundsPadding))) :
             _mediaProjectionService.GetCurrentImageData();
         if (!String.IsNullOrWhiteSpace(pattern.TextMatch.WhiteList)) _tesseractApi.SetWhitelist(pattern.TextMatch.WhiteList);
         if (!String.IsNullOrWhiteSpace(opts.Whitelist)) _tesseractApi.SetWhitelist(opts.Whitelist);
         await _tesseractApi.SetImage(pattern.ColorThreshold.IsActive ?
-            OpenCvHelper.CalcColorThreshold(currentImageData, pattern.ColorThreshold):
+            OpenCvHelper.CalcColorThreshold(currentImageData, pattern.ColorThreshold) :
             currentImageData);
         _tesseractApi.SetWhitelist("");
 

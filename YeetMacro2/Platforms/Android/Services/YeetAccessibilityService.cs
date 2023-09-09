@@ -78,6 +78,14 @@ public class YeetAccessibilityService : AccessibilityService
         return base.OnUnbind(intent);
     }
 
+    public override void OnDestroy()
+    {
+        _logger.LogTrace("YeetAccessibilityService OnDestroy");
+        Stop();
+        BroadcastEnabled(false);
+        base.OnDestroy();
+    }
+
     public void DoClick(Point point)
     {
         if (point.X < 0.0 || point.Y < 0.0) return;

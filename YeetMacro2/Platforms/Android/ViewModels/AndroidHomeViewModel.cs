@@ -8,7 +8,7 @@ namespace YeetMacro2.Platforms.Android.ViewModels;
 public partial class AndriodHomeViewModel : ObservableObject
 {
     [ObservableProperty]
-    bool _isProjectionServiceEnabled, _isAccessibilityEnabled, _isAppearing, _showMacroOverlay, _isMacroReady, _showTestView;
+    bool _isProjectionServiceEnabled, _isAccessibilityEnabled, _isAppearing, _showMacroOverlay, _isMacroReady, _showTestView, _isIgnoringBatteryOptimization;
     private AndroidWindowManagerService _windowManagerService;
     private MacroManagerViewModel _macroManagerViewModel;
 
@@ -196,6 +196,12 @@ public partial class AndriodHomeViewModel : ObservableObject
     }
 
     [RelayCommand]
+    public void RequestIgnoreBatteryOptimizations()
+    {
+        _windowManagerService.RequestIgnoreBatteryOptimizations();
+    }
+
+    [RelayCommand]
     public void OnAppear()
     {
         IsAppearing = true;
@@ -203,7 +209,7 @@ public partial class AndriodHomeViewModel : ObservableObject
         IsAccessibilityEnabled = AndroidServiceHelper.AccessibilityService?.HasAccessibilityPermissions ?? false;
         IsMacroReady = IsProjectionServiceEnabled && IsAccessibilityEnabled;
         //if (!IsProjectionServiceEnabled) await ToggleProjectionService();
-
+        IsIgnoringBatteryOptimization = _windowManagerService.IsIgnoringBatteryOptimizations;
         IsAppearing = false;
     }
 }
