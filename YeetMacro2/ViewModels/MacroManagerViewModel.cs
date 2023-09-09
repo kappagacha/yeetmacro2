@@ -11,6 +11,7 @@ using System.Windows.Input;
 using YeetMacro2.Data.Models;
 using YeetMacro2.Data.Serialization;
 using YeetMacro2.Data.Services;
+using YeetMacro2.Platforms.Android.Services;
 using YeetMacro2.Services;
 using YeetMacro2.ViewModels.NodeViewModels;
 
@@ -238,22 +239,27 @@ public partial class MacroManagerViewModel : ObservableObject
     {
         if (IsBusy) return;
 
-        IsBusy = true;
-        if (PersistLogs) _logger.LogInformation("{persistLogs}", true);
-        Console.WriteLine($"[*****YeetMacro*****] MacroManagerViewModel ExecuteScript");
-        _scriptService.InDebugMode = InDebugMode;
         await Patterns.WaitForInitialization();
         await Settings.WaitForInitialization();
 
-        _logger.LogInformation("{macroSet} {script}", SelectedMacroSet?.Name ?? string.Empty, scriptNode.Name);
-        _scriptService.RunScript(scriptNode.Text, Scripts.Root.Nodes, Patterns.ToJson(), Settings.ToJson(), (result) =>
+#if ANDROID
+        AndroidServiceHelper.ForegroundService?.Execute(() =>
         {
-            OnScriptFinished?.Execute(result);
-            if (PersistLogs) _logger.LogInformation("{persistLogs}", false);
-            IsBusy = false;
-        });
+            IsBusy = true;
+            if (PersistLogs) _logger.LogInformation("{persistLogs}", true);
+            Console.WriteLine($"[*****YeetMacro*****] MacroManagerViewModel ExecuteScript");
+            _scriptService.InDebugMode = InDebugMode;
+            _logger.LogInformation("{macroSet} {script}", SelectedMacroSet?.Name ?? string.Empty, scriptNode.Name);
+            _scriptService.RunScript(scriptNode.Text, Scripts.Root.Nodes, Patterns.ToJson(), Settings.ToJson(), (result) =>
+            {
+                OnScriptFinished?.Execute(result);
+                if (PersistLogs) _logger.LogInformation("{persistLogs}", false);
+                IsBusy = false;
+            });
 
-        OnScriptExecuted?.Execute(null);
+            OnScriptExecuted?.Execute(null);
+        });
+#endif
     }
 
     [RelayCommand]

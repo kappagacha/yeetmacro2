@@ -5,11 +5,16 @@ using Android.OS;
 using Android.Runtime;
 using AndroidX.Core.App;
 using YeetMacro2.Services;
+using static System.Net.Mime.MediaTypeNames;
 
 namespace YeetMacro2.Platforms.Android.Services;
+
 [Service(Enabled = true, Exported = true, Name = "com.companyname.ForegroundService", ForegroundServiceType = global::Android.Content.PM.ForegroundService.TypeMediaProjection)]
 public class ForegroundService : Service
 {
+    public const string FOREGROUND_CHANNEL_ID = "9001";
+    public const string EXIT_ACTION = "EXIT";
+    public const int SERVICE_RUNNING_NOTIFICATION_ID = 10000;
     MainActivity _context;
     MediaProjectionManager _mediaProjectionManager;
     AndroidWindowManagerService _windowManagerService;
@@ -28,12 +33,10 @@ public class ForegroundService : Service
         _mediaProjectionService = ServiceHelper.GetService<MediaProjectionService>();
         _mediaProjectionManager = (MediaProjectionManager)_context.GetSystemService(Context.MediaProjectionService);
         _context.StartActivityForResult(_mediaProjectionManager.CreateScreenCaptureIntent(), YeetMacro2.Platforms.Android.Services.MediaProjectionService.REQUEST_MEDIA_PROJECTION);
+        AndroidServiceHelper.AttachForegroundService(this);
         base.OnCreate();
     }
 
-    public const string FOREGROUND_CHANNEL_ID = "9001";
-    public const string EXIT_ACTION = "EXIT";
-    public const int SERVICE_RUNNING_NOTIFICATION_ID = 10000;
     public override StartCommandResult OnStartCommand(Intent intent, [GeneratedEnum] StartCommandFlags flags, int startId)
     {
         switch (intent.Action)
@@ -115,18 +118,29 @@ public class ForegroundService : Service
     public override void OnRebind(Intent intent)
     {
         Console.WriteLine("[*****YeetMacro*****] ForegroundService OnRebind");
+        AndroidServiceHelper.AttachForegroundService(this);
         base.OnRebind(intent);
     }
 
     public override void OnDestroy()
     {
         Console.WriteLine("[*****YeetMacro*****] ForegroundService OnDestroy");
+        AndroidServiceHelper.DetachForegroundService();
         base.OnDestroy();
     }
 
     public override IBinder OnBind(Intent intent)
     {
         Console.WriteLine("[*****YeetMacro*****] ForegroundService OnBind");
+        AndroidServiceHelper.AttachForegroundService(this);
         return null;
+    }
+
+    public void Execute(Action action)
+    {
+        MainThread.BeginInvokeOnMainThread(() =>
+        {
+            action();
+        });
     }
 }
