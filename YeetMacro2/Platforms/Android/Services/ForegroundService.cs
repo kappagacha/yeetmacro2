@@ -12,8 +12,8 @@ public class ForegroundService : Service
 {
     MainActivity _context;
     MediaProjectionManager _mediaProjectionManager;
-    Lazy<AndroidWindowManagerService> _windowManagerService;
-    Lazy<MediaProjectionService> _mediaProjectionService;
+    AndroidWindowManagerService _windowManagerService;
+    MediaProjectionService _mediaProjectionService;
 
     public ForegroundService()
     {
@@ -24,8 +24,8 @@ public class ForegroundService : Service
     {
         Console.WriteLine("[*****YeetMacro*****] ForegroundService OnCreate");
         _context = (MainActivity)Platform.CurrentActivity;
-        _windowManagerService = ServiceHelper.GetService<Lazy<AndroidWindowManagerService>>();
-        _mediaProjectionService = ServiceHelper.GetService<Lazy<MediaProjectionService>>();
+        _windowManagerService = ServiceHelper.GetService<AndroidWindowManagerService>();
+        _mediaProjectionService = ServiceHelper.GetService<MediaProjectionService>();
         _mediaProjectionManager = (MediaProjectionManager)_context.GetSystemService(Context.MediaProjectionService);
         _context.StartActivityForResult(_mediaProjectionManager.CreateScreenCaptureIntent(), YeetMacro2.Platforms.Android.Services.MediaProjectionService.REQUEST_MEDIA_PROJECTION);
         base.OnCreate();
@@ -40,18 +40,18 @@ public class ForegroundService : Service
         {
             case EXIT_ACTION:
                 StopForeground(true);
-                _windowManagerService.Value.Close(AndroidWindowView.ActionView);
-                _windowManagerService.Value.Close(AndroidWindowView.StatusPanelView);
-                _windowManagerService.Value.CloseOverlayWindow();
-                _mediaProjectionService.Value.Stop();
-                _mediaProjectionService.Value.StopRecording();
+                _windowManagerService?.Close(AndroidWindowView.ActionView);
+                _windowManagerService?.Close(AndroidWindowView.StatusPanelView);
+                _windowManagerService?.CloseOverlayWindow();
+                _mediaProjectionService?.Stop();
+                _mediaProjectionService?.StopRecording();
                 Intent exitEvent = new Intent("com.companyname.ForegroundService.EXIT");
                 _context.SendBroadcast(exitEvent);
                 break;
             default:
                 StartForeground(SERVICE_RUNNING_NOTIFICATION_ID, GenerateNotification());
-                _mediaProjectionService.Value.Start();
-                _windowManagerService.Value.ShowOverlayWindow();
+                _mediaProjectionService?.Start();
+                _windowManagerService?.ShowOverlayWindow();
                 break;
         }
 
