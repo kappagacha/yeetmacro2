@@ -41,7 +41,6 @@ public class AndroidWindowManagerService : IInputService, IScreenService
     private MainActivity _context;
     IWindowManager _windowManager;
     MediaProjectionService _mediaProjectionService;
-    YeetAccessibilityService _accessibilityService;
     IToastService _toastService;
     ConcurrentDictionary<AndroidWindowView, IShowable> _views = new ConcurrentDictionary<AndroidWindowView, IShowable>();
     FormsView _windowView;
@@ -57,13 +56,12 @@ public class AndroidWindowManagerService : IInputService, IScreenService
         TypeInfoResolver = PointPropertiesResolver.Instance
     };
     public AndroidWindowManagerService(ILogger<AndroidWindowManagerService> logger, MediaProjectionService mediaProjectionService, 
-        YeetAccessibilityService accessibilityService, IToastService toastService)
+        IToastService toastService)
     {
         _logger = logger;
         _context = (MainActivity)Microsoft.Maui.ApplicationModel.Platform.CurrentActivity;
         _windowManager = _context.GetSystemService(Context.WindowService).JavaCast<IWindowManager>();
         _mediaProjectionService = mediaProjectionService;
-        _accessibilityService = accessibilityService;
         _toastService = toastService;
         DeviceDisplay.MainDisplayInfoChanged += DeviceDisplay_MainDisplayInfoChanged;
         //_displayWidth = DeviceDisplay.MainDisplayInfo.Width;
@@ -412,12 +410,12 @@ public class AndroidWindowManagerService : IInputService, IScreenService
 
     public void RequestAccessibilityPermissions()
     {
-        _accessibilityService.Start();
+        AndroidServiceHelper.StartAccessibilityService();
     }
 
     public void RevokeAccessibilityPermissions()
     {
-        _accessibilityService.Stop();
+        AndroidServiceHelper.AccessibilityService?.Stop();
     }
 
     public async Task StartProjectionService()
@@ -551,12 +549,12 @@ public class AndroidWindowManagerService : IInputService, IScreenService
 
     public void DoClick(Point point)
     {
-        _accessibilityService.DoClick(point);
+        AndroidServiceHelper.AccessibilityService?.DoClick(point);
     }
 
     public void DoSwipe(Point start, Point end)
     {
-        _accessibilityService.DoSwipe(start, end);
+        AndroidServiceHelper.AccessibilityService?.DoSwipe(start, end);
     }
 
     public void ScreenCapture()

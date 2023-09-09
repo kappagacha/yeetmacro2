@@ -153,6 +153,11 @@ public partial class LogViewModel : ObservableObject, ILogEventSink
                 if (_persistLogs) Log(LogType.Verbose, logEvent.MessageTemplate.Text);
                 break;
         }
+
+        if (logEvent.Level == LogEventLevel.Verbose)
+        {
+            Console.WriteLine($"[{logEvent.Level}] {logEvent.MessageTemplate.Text}");
+        }
     }
 
     private void InitLogGroup(Exception ex = null)

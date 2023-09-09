@@ -11,7 +11,6 @@ public partial class ActionMenuViewModel : ObservableObject
     ILogger _logger;
     IToastService _toastService;
     AndroidWindowManagerService _windowManagerService;
-    YeetAccessibilityService _accessibilityService;
     MacroManagerViewModel _macroManagerViewModel;
     public Size CurrentResolution => new Size(DeviceDisplay.MainDisplayInfo.Width, DeviceDisplay.MainDisplayInfo.Height);
 
@@ -23,19 +22,18 @@ public partial class ActionMenuViewModel : ObservableObject
         }
     }
 
-    public string CurrentPackage => _accessibilityService.CurrentPackage;
+    public string CurrentPackage => AndroidServiceHelper.AccessibilityService?.CurrentPackage;
     //public string DisplayCutoutTop => _windowManagerService.DisplayCutoutTop.ToString();
     //public bool HasCutoutTop => _windowManagerService.DisplayCutoutTop > 0;
     public bool HasValidResolution => DeviceDisplay.MainDisplayInfo.Width == (_macroManagerViewModel.SelectedMacroSet?.Resolution.Width ?? -1.0) &&
         DeviceDisplay.MainDisplayInfo.Height == (_macroManagerViewModel.SelectedMacroSet?.Resolution.Height ?? -1.0);
 
     public ActionMenuViewModel(ILogger<ActionViewModel> logger, IToastService toastService, AndroidWindowManagerService windowManagerService,
-        YeetAccessibilityService accessibilityService, MacroManagerViewModel macroManagerViewModel)
+         MacroManagerViewModel macroManagerViewModel)
     {
         _logger = logger;
         _toastService = toastService;
         _windowManagerService = windowManagerService;
-        _accessibilityService = accessibilityService;
         _macroManagerViewModel = macroManagerViewModel;
     }
 

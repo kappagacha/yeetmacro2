@@ -2,10 +2,27 @@
 using Android.Content;
 using Android.Content.PM;
 using Android.OS;
+using Android.Provider;
 
 namespace YeetMacro2.Platforms.Android.Services;
 public static class AndroidServiceHelper
 {
+    static YeetAccessibilityService _accessibilityService;
+    public static YeetAccessibilityService AccessibilityService { get => _accessibilityService; }
+    public static void StartAccessibilityService()
+    {
+        Platform.CurrentActivity.StartActivity(new Intent(Settings.ActionAccessibilitySettings));
+    }
+    public static void AttachAccessibilityService(YeetAccessibilityService accessibilityService)
+    {
+        _accessibilityService = accessibilityService;
+    }
+    public static void DetachAccessibilityService()
+    {
+        _accessibilityService = null;
+    }
+
+
     //https://stackoverflow.com/questions/63594273/xamarin-forms-how-to-open-an-app-from-another-app
     public static Task<bool> LaunchApp(string packageName)
     {
