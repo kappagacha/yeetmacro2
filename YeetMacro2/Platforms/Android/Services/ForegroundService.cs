@@ -5,7 +5,6 @@ using Android.OS;
 using Android.Runtime;
 using AndroidX.Core.App;
 using YeetMacro2.Services;
-using static System.Net.Mime.MediaTypeNames;
 
 namespace YeetMacro2.Platforms.Android.Services;
 
@@ -29,9 +28,13 @@ public class ForegroundService : Service
     {
         Console.WriteLine("[*****YeetMacro*****] ForegroundService OnCreate");
         _context = (MainActivity)Platform.CurrentActivity;
+        Console.WriteLine("[*****YeetMacro*****] ForegroundService set _windowManagerService");
         _windowManagerService = ServiceHelper.GetService<AndroidWindowManagerService>();
+        Console.WriteLine("[*****YeetMacro*****] ForegroundService set _mediaProjectionService");
         _mediaProjectionService = ServiceHelper.GetService<MediaProjectionService>();
+        Console.WriteLine("[*****YeetMacro*****] ForegroundService set _mediaProjectionManager");
         _mediaProjectionManager = (MediaProjectionManager)_context.GetSystemService(Context.MediaProjectionService);
+        Console.WriteLine("[*****YeetMacro*****] ForegroundService start screen capture");
         _context.StartActivityForResult(_mediaProjectionManager.CreateScreenCaptureIntent(), YeetMacro2.Platforms.Android.Services.MediaProjectionService.REQUEST_MEDIA_PROJECTION);
         AndroidServiceHelper.AttachForegroundService(this);
         base.OnCreate();

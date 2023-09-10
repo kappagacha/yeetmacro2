@@ -59,22 +59,36 @@ public class AndroidWindowManagerService : IInputService, IScreenService
     public AndroidWindowManagerService(ILogger<AndroidWindowManagerService> logger, MediaProjectionService mediaProjectionService,
         IToastService toastService)
     {
-        _logger = logger;
-        _context = (MainActivity)Microsoft.Maui.ApplicationModel.Platform.CurrentActivity;
-        _windowManager = _context.GetSystemService(Context.WindowService).JavaCast<IWindowManager>();
-        _mediaProjectionService = mediaProjectionService;
-        _toastService = toastService;
-        DeviceDisplay.MainDisplayInfoChanged += DeviceDisplay_MainDisplayInfoChanged;
-        //_displayWidth = DeviceDisplay.MainDisplayInfo.Width;
-        //_displayHeight = DeviceDisplay.MainDisplayInfo.Height;
-
-        // https://github.com/halkar/Tesseract.Xamarin
-        // https://stackoverflow.com/questions/52157436/q-system-invalidoperationexception-call-init-first-ocr-tesseract-error-in-xa
-        _tesseractApi = new TesseractApi(_context, AssetsDeployment.OncePerVersion);
-        Task.Run(async () =>
+        try
         {
-            await _tesseractApi.Init("eng");
-        });
+            Console.WriteLine("[*****YeetMacro*****] Setting _logger");
+            _logger = logger;
+            Console.WriteLine("[*****YeetMacro*****] Setting _context");
+            _context = (MainActivity)Microsoft.Maui.ApplicationModel.Platform.CurrentActivity;
+            Console.WriteLine("[*****YeetMacro*****] Setting _windowManager");
+            _windowManager = _context.GetSystemService(Context.WindowService).JavaCast<IWindowManager>();
+            Console.WriteLine("[*****YeetMacro*****] Setting _mediaProjectionService");
+            _mediaProjectionService = mediaProjectionService;
+            Console.WriteLine("[*****YeetMacro*****] Setting _toastService");
+            _toastService = toastService;
+            DeviceDisplay.MainDisplayInfoChanged += DeviceDisplay_MainDisplayInfoChanged;
+            //_displayWidth = DeviceDisplay.MainDisplayInfo.Width;
+            //_displayHeight = DeviceDisplay.MainDisplayInfo.Height;
+
+            Console.WriteLine("[*****YeetMacro*****] Setting _tesseractApi");
+            // https://github.com/halkar/Tesseract.Xamarin
+            // https://stackoverflow.com/questions/52157436/q-system-invalidoperationexception-call-init-first-ocr-tesseract-error-in-xa
+            _tesseractApi = new TesseractApi(_context, AssetsDeployment.OncePerVersion);
+            Task.Run(async () =>
+            {
+                await _tesseractApi.Init("eng");
+            });
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine($"AndroidWindowManagerService {ex.Message}");
+            Console.WriteLine($"AndroidWindowManagerService {ex.StackTrace}");
+        }
     }
 
     private void DeviceDisplay_MainDisplayInfoChanged(object sender, DisplayInfoChangedEventArgs e)
