@@ -83,6 +83,12 @@ public class MainActivity : MauiAppCompatActivity
         base.OnPause();
     }
 
+    protected override void OnDestroy()
+    {
+        Console.WriteLine("[*****YeetMacro*****] MainActivity OnDestroy");
+        base.OnDestroy();
+    }
+
     public override void OnRequestPermissionsResult(int requestCode, string[] permissions, [GeneratedEnum] Android.Content.PM.Permission[] grantResults)
     {
         Platform.OnRequestPermissionsResult(requestCode, permissions, grantResults);

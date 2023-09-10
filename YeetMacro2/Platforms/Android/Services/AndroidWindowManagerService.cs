@@ -616,6 +616,7 @@ public class AndroidWindowManagerService : IInputService, IScreenService
 
     public async Task<string> GetText(Pattern pattern, TextFindOptions opts)
     {
+        _logger.LogTrace("AndroidWindowManagerService GetText");
         var boundsPadding = 4;
         var currentImageData = pattern.Rect != Rect.Zero ?
             _mediaProjectionService.GetCurrentImageData(
