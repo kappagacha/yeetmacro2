@@ -16,6 +16,7 @@ while (macroService.IsRunning && !done) {
 		case 'adventure.arena.freeChallenge':
 			logger.info('doArena: free challenges');
 			macroService.PollPattern(patterns.adventure.arena.freeChallenge, { DoClick: true, PredicatePattern: patterns.adventure.arena.startMatch });
+			break;
 		case 'adventure.arena.startMatch':
 			logger.info('doArena: start match');
 			const match1CP = (macroService.GetText(patterns.adventure.arena.match1.cp)).replace(/[, ]/g, '');

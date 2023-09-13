@@ -6,13 +6,14 @@ using Jint.Runtime.Interop;
 using OneOf;
 using System.Text.Json;
 using YeetMacro2.ViewModels.NodeViewModels;
+using YeetMacro2.ViewModels;
 
 namespace YeetMacro2.Services;
 
 public interface IScriptService
 {
     bool InDebugMode { get; set; }
-    void RunScript(string scriptToRun, IEnumerable<ScriptNode> scripts, string jsonPatterns, string jsonOptions, Action<string> onScriptFinished);
+    void RunScript(ScriptNode targetScript, ScriptNodeManagerViewModel scriptNodeManger, MacroSet macroSet, PatternNodeManagerViewModel patternNodeManager, SettingNodeManagerViewModel settingNodeManager, Action<string> onScriptFinished);
     void Stop();
 }
 
@@ -42,7 +43,7 @@ public class ScriptService : IScriptService
         Task.Run(InitJSContext);
     }
 
-    public void RunScript(string scriptToRun, IEnumerable<ScriptNode> scripts, string jsonPatterns, string jsonSettings, Action<string> onScriptFinished)
+    public void RunScript(ScriptNode targetScript, ScriptNodeManagerViewModel scriptNodeManger, MacroSet macroSet, PatternNodeManagerViewModel patternNodeManager, SettingNodeManagerViewModel settingNodeManager, Action<string> onScriptFinished)
     {
         if (_macroService.IsRunning) return;
 
@@ -53,7 +54,7 @@ public class ScriptService : IScriptService
             _macroService.InDebugMode = InDebugMode;
             try
             {
-                foreach (var script in scripts)
+                foreach (var script in scriptNodeManger.Root.Nodes)
                 {
                     if (script.Text.StartsWith("// @raw-script"))
                     {
@@ -65,8 +66,8 @@ public class ScriptService : IScriptService
                     }
                 }
                 _engine.Execute("result = undefined");
-                _engine.Execute($"patterns = {jsonPatterns}; settings = {jsonSettings}; resolvePath({{ $isParent: true, ...patterns }});");
-                _engine.Execute($"{{\n{scriptToRun}\n}}");
+                _engine.Execute($"patterns = {patternNodeManager.ToJson()}; settings = {settingNodeManager.ToJson()}; resolvePath({{ $isParent: true, ...patterns }});");
+                _engine.Execute($"{{\n{targetScript.Text}\n}}");
 
                 _toastService.Show(_macroService.IsRunning ? "Script finished..." : "Script stopped...");
             }

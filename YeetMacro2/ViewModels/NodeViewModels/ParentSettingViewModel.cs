@@ -20,6 +20,7 @@ public class SettingNodeViewModelMetadataProvider : INodeMetadataProvider<Parent
 public partial class ParentSettingViewModel : ParentSetting
 {
     static IMapper _mapper;
+    Dictionary<string, SettingNode> _nodeCache;
 
     public override ICollection<SettingNode> Nodes
     {
@@ -103,6 +104,23 @@ public partial class ParentSettingViewModel : ParentSetting
     public ParentSettingViewModel()
     {
         base.Nodes = new ObservableCollection<SettingNode>();
+        _nodeCache = new Dictionary<string, SettingNode>();
+    }
+
+    public override SettingNode this[string key]
+    {
+        get
+        {
+            // Note: cache does not automatically invalidate
+            if (!_nodeCache.ContainsKey(key))
+            {
+                var child = base.Nodes.FirstOrDefault(n => n.Name == key);
+                if (child is null) throw new ArgumentException($"Invalid key: {key}");
+                _nodeCache.Add(key, child as SettingNode);
+            }
+
+            return _nodeCache[key];
+        }
     }
 }
 

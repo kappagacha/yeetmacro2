@@ -276,6 +276,12 @@ public partial class NodeManagerViewModel<TViewModel, TParent, TChild> : NodeMan
         return JsonSerializer.Deserialize<TChild>(json, _defaultJsonSerializerOptions);
     }
 
+    public static TChild CloneNode(TChild node)
+    {
+        var json = JsonSerializer.Serialize(node);
+        return JsonSerializer.Deserialize<TChild>(json);
+    }
+
     [RelayCommand]
     public void Export(string name)
     {

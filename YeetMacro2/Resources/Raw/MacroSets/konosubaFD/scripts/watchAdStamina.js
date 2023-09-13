@@ -10,7 +10,7 @@ while (macroService.IsRunning && !done) {
 			break;
 		case 'stamina.prompt.recoverStamina':
 			logger.info('watchAdStamina: check for stamina adNotification');
-			logger.info(JSON.stringify(patterns.stamina.adNotification));
+			//logger.info(JSON.stringify(patterns.stamina.adNotification));
 			let staminaAdNotificationResult = macroService.FindPattern(patterns.stamina.adNotification);
 			logger.info('staminaAdNotificationResult.IsSuccess: ' + staminaAdNotificationResult.IsSuccess);
 			if (!staminaAdNotificationResult.IsSuccess) {

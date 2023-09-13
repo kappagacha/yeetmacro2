@@ -309,6 +309,11 @@ public class MacroService
         _jsonValueToPatternNode.Clear();
     }
 
+    public int Random(int min, int max)
+    {
+        return _random.Next(min, max);
+    }
+
     public string GetText(OneOf<PatternNode, PatternNode[]> oneOfPattern, string whiteList = "")
     {
         var patternNode = ResolvePatterns(oneOfPattern).Values.First();

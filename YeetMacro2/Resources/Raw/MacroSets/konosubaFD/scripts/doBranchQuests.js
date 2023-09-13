@@ -46,7 +46,7 @@ while (macroService.IsRunning && !done) {
 			const targetPartyName = settings.party.cabbageHunting.props.value;
 			logger.debug(`targetPartyName: ${targetPartyName}`);
 			if (targetPartyName === 'recommendedElement') {
-				selectPartyByRecommendedElement(isBossMulti ? -425 : 0);	// Recommended Element icons are shifted by 425 to the left of expected location
+				selectPartyByRecommendedElement();
 			}
 			else {
 				if (!(selectParty(targetPartyName))) {

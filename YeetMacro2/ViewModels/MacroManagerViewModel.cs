@@ -11,9 +11,12 @@ using System.Windows.Input;
 using YeetMacro2.Data.Models;
 using YeetMacro2.Data.Serialization;
 using YeetMacro2.Data.Services;
-using YeetMacro2.Platforms.Android.Services;
 using YeetMacro2.Services;
 using YeetMacro2.ViewModels.NodeViewModels;
+#if ANDROID
+using Android.Content;
+using YeetMacro2.Platforms.Android.Services;
+#endif
 
 namespace YeetMacro2.ViewModels;
 public partial class MacroManagerViewModel : ObservableObject
@@ -243,22 +246,27 @@ public partial class MacroManagerViewModel : ObservableObject
         await Settings.WaitForInitialization();
 
 #if ANDROID
-        AndroidServiceHelper.ForegroundService?.Execute(() =>
-        {
-            IsBusy = true;
-            if (PersistLogs) _logger.LogInformation("{persistLogs}", true);
-            Console.WriteLine($"[*****YeetMacro*****] MacroManagerViewModel ExecuteScript");
-            _scriptService.InDebugMode = InDebugMode;
-            _logger.LogInformation("{macroSet} {script}", SelectedMacroSet?.Name ?? string.Empty, scriptNode.Name);
-            _scriptService.RunScript(scriptNode.Text, Scripts.Root.Nodes, Patterns.ToJson(), Settings.ToJson(), (result) =>
-            {
-                OnScriptFinished?.Execute(result);
-                if (PersistLogs) _logger.LogInformation("{persistLogs}", false);
-                IsBusy = false;
-            });
+        _scriptService.InDebugMode = InDebugMode;
+        //var intent = new Intent(ForegroundService.START_SCRIPT_ACTION, null, Platform.CurrentActivity, typeof(ForegroundService));
+        //intent.SetAction();
+        //var pendingIntent = Android.App.PendingIntent.GetService(Platform.CurrentActivity, 0, intent, Android.App.PendingIntentFlags.Immutable);
+        Platform.CurrentActivity.StartForegroundServiceCompat<ForegroundService>(ForegroundService.START_SCRIPT_ACTION);
+        //AndroidServiceHelper.ForegroundService?.Execute(() =>
+        //{
+        //    IsBusy = true;
+        //    if (PersistLogs) _logger.LogInformation("{persistLogs}", true);
+        //    Console.WriteLine($"[*****YeetMacro*****] MacroManagerViewModel ExecuteScript");
+        //    _scriptService.InDebugMode = InDebugMode;
+        //    _logger.LogInformation("{macroSet} {script}", SelectedMacroSet?.Name ?? string.Empty, scriptNode.Name);
 
-            OnScriptExecuted?.Execute(null);
-        });
+        //    OnScriptExecuted?.Execute(null);
+        //    _scriptService.RunScript(scriptNode, Scripts, SelectedMacroSet, Patterns, Settings, (result) =>
+        //    {
+        //        OnScriptFinished?.Execute(result);
+        //        if (PersistLogs) _logger.LogInformation("{persistLogs}", false);
+        //        IsBusy = false;
+        //    });
+        //});
 #endif
     }
 
