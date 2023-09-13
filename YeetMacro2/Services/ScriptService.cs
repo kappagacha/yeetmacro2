@@ -48,59 +48,57 @@ public class ScriptService : IScriptService
         if (_macroService.IsRunning) return;
 
         // https://github.com/sebastienros/jint
-        Task.Run(() =>
+        _macroService.IsRunning = true;
+        _macroService.InDebugMode = InDebugMode;
+        try
         {
-            _macroService.IsRunning = true;
-            _macroService.InDebugMode = InDebugMode;
-            try
+            foreach (var script in scriptNodeManger.Root.Nodes)
             {
-                foreach (var script in scriptNodeManger.Root.Nodes)
+                if (script.Text.StartsWith("// @raw-script"))
                 {
-                    if (script.Text.StartsWith("// @raw-script"))
-                    {
-                        _engine.Execute(script.Text);
-                    }
-                    else
-                    {
-                        _engine.Execute($"function {script.Name}() {{ {script.Text} }}");
-                    }
+                    _engine.Execute(script.Text);
                 }
-                _engine.Execute("result = undefined");
-                _engine.Execute($"patterns = {patternNodeManager.ToJson()}; settings = {settingNodeManager.ToJson()}; resolvePath({{ $isParent: true, ...patterns }});");
-                _engine.Execute($"{{\n{targetScript.Text}\n}}");
+                else
+                {
+                    _engine.Execute($"function {script.Name}() {{ {script.Text} }}");
+                }
+            }
+            _engine.Execute("result = undefined");
+            _engine.Execute($"patterns = {patternNodeManager.ToJson()}; settings = {settingNodeManager.ToJson()}; resolvePath({{ $isParent: true, ...patterns }});");
+            _engine.Execute($"{{\n{targetScript.Text}\n}}");
 
-                _toastService.Show(_macroService.IsRunning ? "Script finished..." : "Script stopped...");
-            }
-            catch (Exception ex)
+            _toastService.Show(_macroService.IsRunning ? "Script finished..." : "Script stopped...");
+        }
+        catch (Exception ex)
+        {
+            _toastService.Show("Error: " + ex.Message);
+            _logger.LogError(ex, $"Script Error: {ex.Message}");
+            _engine.SetValue("result", $"{ex.Message}: \n\t{ex.StackTrace}");
+        }
+        finally
+        {
+            string result = String.Empty;
+            var jsResult = _engine.GetValue("result");
+            if (jsResult is Jint.Native.JsObject jsObjectResult)
             {
-                _toastService.Show("Error: " + ex.Message);
-                _logger.LogError(ex, $"Script Error: {ex.Message}");
-                _engine.SetValue("result", $"{ex.Message}: \n\t{ex.StackTrace}");
+                result = _engine.Evaluate("JSON.stringify(result, null, 2)").AsString();
             }
-            finally
+            else if (jsResult is IObjectWrapper objectWrapper)
             {
-                string result = String.Empty;
-                var jsResult = _engine.GetValue("result");
-                if (jsResult is Jint.Native.JsObject jsObjectResult)
+                result = JsonSerializer.Serialize(objectWrapper.Target, new JsonSerializerOptions()
                 {
-                    result = _engine.Evaluate("JSON.stringify(result, null, 2)").AsString();
-                }
-                else if (jsResult is IObjectWrapper objectWrapper)
-                {
-                    result = JsonSerializer.Serialize(objectWrapper.Target, new JsonSerializerOptions()
-                    {
-                        WriteIndented = true
-                    });
-                }
-                else if (jsResult != Jint.Native.JsValue.Null && jsResult != Jint.Native.JsValue.Undefined)
-                {
-                    result = jsResult.ToString();
-                }
-                onScriptFinished?.Invoke(result);
-                _macroService.IsRunning = false;
-                _macroService.Reset();
+                    WriteIndented = true
+                });
             }
-        });
+            else if (jsResult != Jint.Native.JsValue.Null && jsResult != Jint.Native.JsValue.Undefined)
+            {
+                result = jsResult.ToString();
+            }
+            onScriptFinished?.Invoke(result);
+            _macroService.IsRunning = false;
+            _macroService.Reset();
+        }
+
     }
 
     public void Stop()
