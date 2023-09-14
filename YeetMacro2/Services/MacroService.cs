@@ -91,10 +91,12 @@ public class MacroService
                 {
                     var points = new List<Point>();
                     var multiResult = new FindPatternResult();
+
                     foreach (var pattern in patternNode.Patterns)
                     {
                         var offset = PatternNodeManagerViewModel.CalcOffset(pattern);
-                        opts.Offset = offset;
+                        var optsWithOffset = new FindOptions() { Offset = opts.Offset.Offset(offset.X, offset.Y) };
+
                         if (InDebugMode && pattern.Rect != Rect.Zero)
                         {
                             MainThread.BeginInvokeOnMainThread(() =>
@@ -104,7 +106,7 @@ public class MacroService
                             });
                             Thread.Sleep(50);
                         }
-                        var singleResult = _screenService.FindPattern(pattern, opts).Result;
+                        var singleResult = _screenService.FindPattern(pattern, optsWithOffset).Result;
                         if (singleResult.IsSuccess)
                         {
                             points.AddRange(singleResult.Points);
@@ -122,7 +124,8 @@ public class MacroService
                 {
                     var pattern = patternNode.Patterns.First();
                     var offset = PatternNodeManagerViewModel.CalcOffset(pattern);
-                    opts.Offset = offset;
+                    var optsWithOffset = new FindOptions() { Offset = opts.Offset.Offset(offset.X, offset.Y) };
+
                     if (InDebugMode && pattern.Rect != Rect.Zero)
                     {
                         MainThread.BeginInvokeOnMainThread(() =>
@@ -130,7 +133,7 @@ public class MacroService
                             _screenService.DebugRectangle(pattern.Rect.Offset(offset));
                         });
                     }
-                    result = _screenService.FindPattern(pattern, opts).Result;
+                    result = _screenService.FindPattern(pattern, optsWithOffset).Result;
                 }
 
                 if (InDebugMode && result.IsSuccess)
