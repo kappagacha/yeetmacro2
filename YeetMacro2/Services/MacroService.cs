@@ -52,12 +52,22 @@ public class MacroService
     {
         if (opts is null) opts = new FindOptions();
 
-        var pathToPatternNode = ResolvePatterns(oneOfPattern);
         FindPatternResult result = null;
+
+        PatternNode[] patternNodes;
+
+        if (oneOfPattern.Value is PatternNode[])
+        {
+            patternNodes = oneOfPattern.AsT1;
+        }
+        else
+        {
+            patternNodes = new PatternNode[] { oneOfPattern.AsT0 };
+        }
 
         try
         {
-            foreach (var patternNodeKvp in pathToPatternNode)
+            foreach (var patternNode in patternNodes)
             {
                 if (InDebugMode)
                 {
@@ -74,26 +84,26 @@ public class MacroService
                     break;
                 }
 
-                var path = patternNodeKvp.Key;
-                var patternNode = patternNodeKvp.Value;
-
+                var path = patternNode.Path;
                 _logger.LogDebug($"Find: {path}");
+
                 if (patternNode.IsMultiPattern)
                 {
                     var points = new List<Point>();
                     var multiResult = new FindPatternResult();
                     foreach (var pattern in patternNode.Patterns)
                     {
+                        var offset = PatternNodeManagerViewModel.CalcOffset(pattern);
+                        opts.Offset = offset;
                         if (InDebugMode && pattern.Rect != Rect.Zero)
                         {
                             MainThread.BeginInvokeOnMainThread(() =>
                             {
                                 _screenService.DebugClear();
-                                _screenService.DebugRectangle(pattern.Rect);
+                                _screenService.DebugRectangle(pattern.Rect.Offset(offset));
                             });
                             Thread.Sleep(50);
                         }
-
                         var singleResult = _screenService.FindPattern(pattern, opts).Result;
                         if (singleResult.IsSuccess)
                         {
@@ -111,11 +121,13 @@ public class MacroService
                 else
                 {
                     var pattern = patternNode.Patterns.First();
+                    var offset = PatternNodeManagerViewModel.CalcOffset(pattern);
+                    opts.Offset = offset;
                     if (InDebugMode && pattern.Rect != Rect.Zero)
                     {
                         MainThread.BeginInvokeOnMainThread(() =>
                         {
-                            _screenService.DebugRectangle(pattern.Rect);
+                            _screenService.DebugRectangle(pattern.Rect.Offset(offset));
                         });
                     }
                     result = _screenService.FindPattern(pattern, opts).Result;
@@ -316,16 +328,26 @@ public class MacroService
 
     public string GetText(OneOf<PatternNode, PatternNode[]> oneOfPattern, string whiteList = "")
     {
-        var patternNode = ResolvePatterns(oneOfPattern).Values.First();
+        PatternNode patternNode;
+        if (oneOfPattern.Value is PatternNode[] patternNodes)
+        {
+            patternNode = patternNodes[0];
+        }
+        else
+        {
+            patternNode = oneOfPattern.AsT0;
+        }
+
         var maxTry = 10;
         if (patternNode?.Patterns.FirstOrDefault() == null) return string.Empty;
 
+        var offset = CalcOffset(patternNode);
         var currentTry = 0;
         while (currentTry < maxTry)
         {
             try
             {
-                return _screenService.GetText(patternNode.Patterns.First(), new TextFindOptions() { Whitelist = whiteList }).Result;
+                return _screenService.GetText(patternNode.Patterns.First(), new TextFindOptions() { Whitelist = whiteList, Offset = offset }).Result;
             }
             catch
             {
@@ -337,40 +359,40 @@ public class MacroService
         return String.Empty;
     }
 
-    private Dictionary<string, PatternNode> ResolvePatterns(OneOf<PatternNode, PatternNode[]> oneOfPattern)
-    {
-        var pathToPatternNode = new Dictionary<string, PatternNode>();
-        if (oneOfPattern.Value is PatternNode[] patternNodes)
-        {
-            foreach (var patternNode in patternNodes)
-            {
-                if (!_jsonValueToPatternNode.ContainsKey(patternNode.Path))
-                {
-                    foreach (var pattern in patternNode.Patterns)
-                    {
-                        var offset = PatternNodeManagerViewModel.CalcOffset(pattern);
-                        if (offset != Point.Zero) pattern.Rect = pattern.Rect.Offset(offset);
-                    }
-                    _jsonValueToPatternNode.Add(patternNode.Path, patternNode);
-                }
-                pathToPatternNode.Add(patternNode.Path, _jsonValueToPatternNode[patternNode.Path]);
-            }
-        }
-        else
-        {
-            var patternNode = oneOfPattern.Value as PatternNode;
-            if (!_jsonValueToPatternNode.ContainsKey(patternNode.Path))
-            {
-                foreach (var pattern in patternNode.Patterns)
-                {
-                    var offset = PatternNodeManagerViewModel.CalcOffset(pattern);
-                    if (offset != Point.Zero) pattern.Rect = pattern.Rect.Offset(offset);
-                }
-                _jsonValueToPatternNode.Add(patternNode.Path, patternNode);
-            }
-            pathToPatternNode.Add(patternNode.Path, _jsonValueToPatternNode[patternNode.Path]);
-        }
+    //private Dictionary<string, PatternNode> ResolvePatterns(OneOf<PatternNode, PatternNode[]> oneOfPattern)
+    //{
+    //    var pathToPatternNode = new Dictionary<string, PatternNode>();
+    //    if (oneOfPattern.Value is PatternNode[] patternNodes)
+    //    {
+    //        foreach (var patternNode in patternNodes)
+    //        {
+    //            if (!_jsonValueToPatternNode.ContainsKey(patternNode.Path))
+    //            {
+    //                //foreach (var pattern in patternNode.Patterns)
+    //                //{
+    //                //    var offset = PatternNodeManagerViewModel.CalcOffset(pattern);
+    //                //    if (offset != Point.Zero) pattern.Rect = pattern.Rect.Offset(offset);
+    //                //}
+    //                _jsonValueToPatternNode.Add(patternNode.Path, patternNode);
+    //            }
+    //            pathToPatternNode.Add(patternNode.Path, _jsonValueToPatternNode[patternNode.Path]);
+    //        }
+    //    }
+    //    else
+    //    {
+    //        var patternNode = oneOfPattern.Value as PatternNode;
+    //        if (!_jsonValueToPatternNode.ContainsKey(patternNode.Path))
+    //        {
+    //            //foreach (var pattern in patternNode.Patterns)
+    //            //{
+    //            //    var offset = PatternNodeManagerViewModel.CalcOffset(pattern);
+    //            //    if (offset != Point.Zero) pattern.Rect = pattern.Rect.Offset(offset);
+    //            //}
+    //            _jsonValueToPatternNode.Add(patternNode.Path, patternNode);
+    //        }
+    //        pathToPatternNode.Add(patternNode.Path, _jsonValueToPatternNode[patternNode.Path]);
+    //    }
 
-        return pathToPatternNode;
-    }
+    //    return pathToPatternNode;
+    //}
 }

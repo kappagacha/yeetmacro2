@@ -19,6 +19,7 @@ public abstract class Node
     public int? ParentId { get; set; }
     [JsonIgnore]
     public int RootId { get; set; }
+    public string Path { get; set; }
 }
 
 public interface IParentNode

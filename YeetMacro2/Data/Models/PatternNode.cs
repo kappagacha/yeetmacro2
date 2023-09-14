@@ -17,7 +17,6 @@ public class PatternNode : Node, IParentNode<PatternNode, PatternNode>
     [JsonIgnore]
     public virtual ICollection<PatternNode> Nodes { get; set; } = new List<PatternNode>();
     public virtual ICollection<Pattern> Patterns { get; set; } = new List<Pattern>();
-    public string Path { get; set; }
 }
 
 public class PatternMetadataProvider : INodeMetadataProvider<Pattern>

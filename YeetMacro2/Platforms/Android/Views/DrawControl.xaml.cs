@@ -58,6 +58,7 @@ public partial class DrawControl : ContentView
 
     public void ClearRectangles()
     {
+        _canvasBegin = _canvasEnd = SKPoint.Empty;
         _rectangles.Clear();
         canvasView.InvalidateSurface();
     }

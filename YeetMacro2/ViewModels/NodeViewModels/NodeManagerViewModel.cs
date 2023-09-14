@@ -112,12 +112,37 @@ public partial class NodeManagerViewModel<TViewModel, TParent, TChild> : NodeMan
                 SelectNode(firstChild);
             }
             Root = root;
+            ResolvePath(root);
             CustomInit();
             IsInitialized = true;
             _initializeCompleted.SetResult();
             sw.Stop();
             Debug.WriteLine($"Loaded {typeof(TParent).Name}: {sw.ElapsedMilliseconds} ms");
         });
+    }
+
+    public void ResolvePath(Node node, string path = "")
+    {
+        if (node.Name == "root")
+        {
+            node.Path = "";
+        }
+        else if (string.IsNullOrWhiteSpace(path))
+        {
+            node.Path = node.Name;
+        }
+        else
+        {
+            node.Path = $"{path}.{node.Name}";
+        }
+
+        if (node is IParentNode<TParent, TChild> parent)
+        {
+            foreach (var child in parent.Nodes)
+            {
+                ResolvePath(child, node.Path);
+            }
+        }
     }
 
     protected virtual void CustomInit()
@@ -330,6 +355,8 @@ public partial class NodeManagerViewModel<TViewModel, TParent, TChild> : NodeMan
             _nodeService.Insert(newChild);
             Root.Nodes.Add(newChild);
         }
+
+        ResolvePath(Root);
     }
 
     [RelayCommand]
