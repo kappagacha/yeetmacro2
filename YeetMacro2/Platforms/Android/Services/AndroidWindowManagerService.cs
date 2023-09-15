@@ -75,7 +75,15 @@ public class AndroidWindowManagerService : IInputService, IScreenService
             //_displayWidth = DeviceDisplay.MainDisplayInfo.Width;
             //_displayHeight = DeviceDisplay.MainDisplayInfo.Height;
             Console.WriteLine("[*****YeetMacro*****] Setting tesseract");
-            _tessEngine = new TessEngine("eng", Path.Combine(FileSystem.Current.CacheDirectory, "tessdata"));
+
+            var tranineddataPath = Path.Combine(FileSystem.Current.CacheDirectory, "eng.traineddata");
+            if (!File.Exists(tranineddataPath)) {
+                var traineddata = ServiceHelper.GetAssetStream("eng.traineddata");
+                FileStream fileStream = File.Create(tranineddataPath);
+                traineddata.CopyTo(fileStream);
+            }
+            
+            _tessEngine = new TessEngine("eng", FileSystem.Current.CacheDirectory);
         }
         catch (Exception ex)
         {

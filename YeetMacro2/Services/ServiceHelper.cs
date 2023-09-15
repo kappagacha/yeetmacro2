@@ -34,4 +34,9 @@ public static class ServiceHelper
         using var reader = new StreamReader(stream);
         return reader.ReadToEnd();
     }
+
+    public static Stream GetAssetStream(string path)
+    {
+        return FileSystem.OpenAppPackageFileAsync(path).Result;
+    }
 }
