@@ -106,7 +106,7 @@ public class MacroService
                             });
                             Thread.Sleep(50);
                         }
-                        var singleResult = _screenService.FindPattern(pattern, optsWithOffset).Result;
+                        var singleResult = _screenService.FindPattern(pattern, optsWithOffset);
                         if (singleResult.IsSuccess)
                         {
                             points.AddRange(singleResult.Points);
@@ -133,7 +133,7 @@ public class MacroService
                             _screenService.DebugRectangle(pattern.Rect.Offset(offset));
                         });
                     }
-                    result = _screenService.FindPattern(pattern, optsWithOffset).Result;
+                    result = _screenService.FindPattern(pattern, optsWithOffset);
                 }
 
                 if (InDebugMode && result.IsSuccess)
@@ -350,7 +350,7 @@ public class MacroService
         {
             try
             {
-                return _screenService.GetText(patternNode.Patterns.First(), new TextFindOptions() { Whitelist = whiteList, Offset = offset }).Result;
+                return _screenService.GetText(patternNode.Patterns.First(), new TextFindOptions() { Whitelist = whiteList, Offset = offset });
             }
             catch
             {

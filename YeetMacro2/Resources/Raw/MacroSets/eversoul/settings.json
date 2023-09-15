@@ -4,7 +4,8 @@
     "props": {
       "settingType": "Parent",
       "isParentNode": true,
-      "name": "arena"
+      "name": "arena",
+      "path": "arena"
     },
     "cpThreshold": {
       "$isParent": false,
@@ -14,7 +15,8 @@
         "value": "370000",
         "defaultValue": null,
         "isParentNode": false,
-        "name": "cpThreshold"
+        "name": "cpThreshold",
+        "path": "arena.cpThreshold"
       }
     }
   },
@@ -23,7 +25,8 @@
     "props": {
       "settingType": "Parent",
       "isParentNode": true,
-      "name": "champsArena"
+      "name": "champsArena",
+      "path": "champsArena"
     },
     "cpThreshold": {
       "$isParent": false,
@@ -33,7 +36,8 @@
         "value": "750000",
         "defaultValue": null,
         "isParentNode": false,
-        "name": "cpThreshold"
+        "name": "cpThreshold",
+        "path": "champsArena.cpThreshold"
       }
     }
   },
@@ -42,7 +46,8 @@
     "props": {
       "settingType": "Parent",
       "isParentNode": true,
-      "name": "outings"
+      "name": "outings",
+      "path": "outings"
     },
     "target": {
       "$isParent": false,
@@ -82,13 +87,14 @@
               "offsetCalcType": "Default"
             }
           ],
-          "path": null,
           "isParentNode": true,
-          "name": null
+          "name": null,
+          "path": null
         },
         "defaultValue": null,
         "isParentNode": false,
-        "name": "target"
+        "name": "target",
+        "path": "outings.target"
       }
     }
   }

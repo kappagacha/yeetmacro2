@@ -65,6 +65,7 @@
 		<PackageReference Include="Serilog.Sinks.Console" Version="4.1.0" />
 		<PackageReference Include="SkiaSharp.Views.Maui.Controls" Version="2.88.3" />
 		<PackageReference Include="System.Drawing.Common" Version="7.0.0" />
+		<PackageReference Include="TesseractOcrMaui" Version="1.0.7" />
 		<PackageReference Include="UraniumUI.Icons.FontAwesome" Version="2.5.5" />
 		<PackageReference Include="UraniumUI.Icons.MaterialIcons" Version="2.5.5" />
 		<PackageReference Include="UraniumUI.Material" Version="2.5.5" />
@@ -78,6 +79,7 @@
 	  <None Remove="Platforms\Android\Assets\tessdata\eng.traineddata" />
 	  <None Remove="Platforms\Android\Resources\xml\yeetmacro_config.xml" />
 	  <None Remove="Resources\Images\appicon.svg" />
+	  <None Remove="Resources\Raw\eng.traineddata" />
 	  <None Remove="Resources\Raw\initJavaScriptContext.js" />
 	  <None Remove="Resources\Splash\splash.svg" />
 	</ItemGroup>
@@ -224,9 +226,6 @@
     <PackageReference Include="Xamarin.OpenCV.Droid">
       <Version>3.4.2</Version>
     </PackageReference>
-    <PackageReference Include="Xamarin.Tesseract">
-      <Version>0.3.4</Version>
-    </PackageReference>
   </ItemGroup>
 
   <ItemGroup>
@@ -236,6 +235,9 @@
   </ItemGroup>
 
   <ItemGroup>
+    <MauiAsset Update="Resources\Raw\eng.traineddata">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </MauiAsset>
     <MauiAsset Update="Resources\Raw\MacroSets\eversoul\macroSet.json">
       <LogicalName>%(RecursiveDir)%(Filename)%(Extension)</LogicalName>
     </MauiAsset>

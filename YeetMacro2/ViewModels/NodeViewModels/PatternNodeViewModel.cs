@@ -236,10 +236,6 @@ public partial class TextMatchPropertiesViewModel: TextMatchProperties
 [ObservableObject]
 public partial class ColorThresholdPropertiesViewModel : ColorThresholdProperties
 {
-    bool _isActive;
-    double _variancePct;
-    string _color;
-
     public override bool IsActive
     {
         get => base.IsActive;

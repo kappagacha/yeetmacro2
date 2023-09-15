@@ -35,12 +35,12 @@ public interface IScreenService
     void DebugRectangle(Rect rect);
     void DebugCircle(Point point);
     void DebugClear();
-    Task<List<Point>> GetMatches(Pattern template, FindOptions opts);
+    List<Point> GetMatches(Pattern template, FindOptions opts);
     void DoClick(Point point);
     void DoSwipe(Point start, Point end);
     Byte[] CalcColorThreshold(Pattern pattern, ColorThresholdProperties colorThreshold);
     byte[] GetCurrentImageData(Rect rect);
-    Task<string> GetText(Pattern pattern, TextFindOptions opts);
-    Task<FindPatternResult> ClickPattern(Pattern pattern, FindOptions opts);
-    Task<FindPatternResult> FindPattern(Pattern pattern, FindOptions opts);
+    string GetText(Pattern pattern, TextFindOptions opts);
+    FindPatternResult ClickPattern(Pattern pattern, FindOptions opts);
+    FindPatternResult FindPattern(Pattern pattern, FindOptions opts);
 }

@@ -218,7 +218,7 @@ public partial class TestViewModel : ObservableObject
             {
                 GetTextTestCount++;
                 _logger.LogDebug(GetTextTestCount.ToString());
-                var text = await _androidWindowManagerService.GetText(_textImage);
+                var text = _androidWindowManagerService.GetText(_textImage);
                 await Task.Delay(100);
             }
         });

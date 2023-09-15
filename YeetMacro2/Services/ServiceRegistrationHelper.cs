@@ -7,6 +7,7 @@ using Serilog.Filters;
 using System.Reflection;
 using System.Text.Json;
 using System.Text.Json.Serialization;
+using TesseractOcrMaui;
 using YeetMacro2.Data.Models;
 using YeetMacro2.Data.Services;
 using YeetMacro2.ViewModels;
@@ -27,6 +28,8 @@ public static class ServiceRegistrationHelper
         mauiAppBuilder.Services.AddAutoMapper(typeof(App).GetTypeInfo().Assembly);
         mauiAppBuilder.Services.AddLazyResolution();
         mauiAppBuilder.Logging.AddLogViewModelSink();
+
+        mauiAppBuilder.Services.AddTesseractOcr(files => files.AddFile("eng.traineddata"));
 
         return mauiAppBuilder;
     }

@@ -9,11 +9,11 @@ using YeetMacro2.Data.Models;
 using YeetMacro2.Platforms.Android.ViewModels;
 using YeetMacro2.Services;
 using OpenCvHelper = YeetMacro2.Platforms.Android.Services.OpenCv.OpenCvHelper;
-using Tesseract.Droid;
 using System.Text.Json;
 using YeetMacro2.ViewModels;
 using YeetMacro2.Data.Serialization;
 using Microsoft.Extensions.Logging;
+using TesseractOcrMaui;
 
 namespace YeetMacro2.Platforms.Android.Services;
 public enum AndroidWindowView
@@ -50,7 +50,7 @@ public class AndroidWindowManagerService : IInputService, IScreenService
     public int OverlayWidth => _windowView == null ? 0 : _windowView.MeasuredWidthAndState;
     public int OverlayHeight => _windowView == null ? 0 : _windowView.MeasuredHeightAndState;
     //public int DisplayCutoutTop => _windowView == null ? 0 : _windowView.RootWindowInsets.DisplayCutout?.SafeInsetTop ?? 0;
-    TesseractApi _tesseractApi;
+    TessEngine _tessEngine;
     JsonSerializerOptions _serializationOptions = new JsonSerializerOptions()
     {
         PropertyNamingPolicy = JsonNamingPolicy.CamelCase,
@@ -74,15 +74,8 @@ public class AndroidWindowManagerService : IInputService, IScreenService
             DeviceDisplay.MainDisplayInfoChanged += DeviceDisplay_MainDisplayInfoChanged;
             //_displayWidth = DeviceDisplay.MainDisplayInfo.Width;
             //_displayHeight = DeviceDisplay.MainDisplayInfo.Height;
-
-            Console.WriteLine("[*****YeetMacro*****] Setting _tesseractApi");
-            // https://github.com/halkar/Tesseract.Xamarin
-            // https://stackoverflow.com/questions/52157436/q-system-invalidoperationexception-call-init-first-ocr-tesseract-error-in-xa
-            _tesseractApi = new TesseractApi(_context, AssetsDeployment.OncePerVersion);
-            Task.Run(async () =>
-            {
-                await _tesseractApi.Init("eng");
-            });
+            Console.WriteLine("[*****YeetMacro*****] Setting tesseract");
+            _tessEngine = new TessEngine("eng", Path.Combine(FileSystem.Current.CacheDirectory, "tessdata"));
         }
         catch (Exception ex)
         {
@@ -483,7 +476,7 @@ public class AndroidWindowManagerService : IInputService, IScreenService
         Close(AndroidWindowView.DrawView);
     }
 
-    public async Task<List<Point>> GetMatches(Pattern pattern, FindOptions opts)
+    public List<Point> GetMatches(Pattern pattern, FindOptions opts)
     {
         try
         {
@@ -533,21 +526,23 @@ public class AndroidWindowManagerService : IInputService, IScreenService
 
             if (pattern.TextMatch.IsActive && !String.IsNullOrEmpty(pattern.TextMatch.Text))
             {
-                if (!String.IsNullOrWhiteSpace(pattern.TextMatch.WhiteList)) _tesseractApi.SetWhitelist(pattern.TextMatch.WhiteList);
-                await _tesseractApi.SetImage(haystackImageData);
-
+                if (!String.IsNullOrWhiteSpace(pattern.TextMatch.WhiteList)) _tessEngine.SetVariable("tessedit_char_whitelist", pattern.TextMatch.WhiteList);
+                var page = _tessEngine.ProcessImage(Pix.LoadFromMemory(haystackImageData));
+                var text = page.GetText();
+                page.Dispose();
                 var textPoints = new List<Point>();
-                if (_tesseractApi.Text == pattern.TextMatch.Text && pattern.Rect != Rect.Zero)
+
+                if (text == pattern.TextMatch.Text && pattern.Rect != Rect.Zero)
                 {
                     textPoints.Add(rect.Center.Offset(-boundsPadding, -boundsPadding));
                 }
-                else if (_tesseractApi.Text == pattern.TextMatch.Text)  // TextMatch is not meant to be used on whole screen
+                else if (text == pattern.TextMatch.Text)  // TextMatch is not meant to be used on whole screen
                 {
                     // TODO: Throw exception instead?
                     textPoints.Add(new Point(0, 0));
                 }
 
-                _tesseractApi.SetWhitelist("");
+                _tessEngine.SetVariable("tessedit_char_whitelist", "");
 
                 watch.Stop();
                 Console.WriteLine($"GetMatches TextMatch: {watch.ElapsedMilliseconds} ms");
@@ -614,7 +609,7 @@ public class AndroidWindowManagerService : IInputService, IScreenService
         return _mediaProjectionService.GetCurrentImageData(rect);
     }
 
-    public async Task<string> GetText(Pattern pattern, TextFindOptions opts)
+    public string GetText(Pattern pattern, TextFindOptions opts)
     {
         _logger.LogTrace("AndroidWindowManagerService GetText");
         var boundsPadding = 4;
@@ -623,24 +618,29 @@ public class AndroidWindowManagerService : IInputService, IScreenService
                 new Rect(pattern.Rect.Location.Offset(opts.Offset.X, opts.Offset.Y).Offset(-boundsPadding, -boundsPadding),
                           pattern.Rect.Size + new Size(boundsPadding, boundsPadding))) :
             _mediaProjectionService.GetCurrentImageData();
-        if (!String.IsNullOrWhiteSpace(pattern.TextMatch.WhiteList)) _tesseractApi.SetWhitelist(pattern.TextMatch.WhiteList);
-        if (!String.IsNullOrWhiteSpace(opts.Whitelist)) _tesseractApi.SetWhitelist(opts.Whitelist);
-        await _tesseractApi.SetImage(pattern.ColorThreshold.IsActive ?
+        //if (!String.IsNullOrWhiteSpace(pattern.TextMatch.WhiteList)) _tessEngine.SetVariable("tessedit_char_whitelist", pattern.TextMatch.WhiteList);
+        //var text = _tessEngine.ProcessImage(Pix.LoadFromMemory(haystackImageData)).GetText();
+        if (!String.IsNullOrWhiteSpace(pattern.TextMatch.WhiteList)) _tessEngine.SetVariable("tessedit_char_whitelist", pattern.TextMatch.WhiteList);
+        if (!String.IsNullOrWhiteSpace(opts.Whitelist)) _tessEngine.SetVariable("tessedit_char_whitelist", opts.Whitelist);
+        var page = _tessEngine.ProcessImage(Pix.LoadFromMemory(pattern.ColorThreshold.IsActive ?
             OpenCvHelper.CalcColorThreshold(currentImageData, pattern.ColorThreshold) :
-            currentImageData);
-        _tesseractApi.SetWhitelist("");
-
-        return _tesseractApi.Text;
+            currentImageData));
+        var text = page.GetText();
+        _tessEngine.SetVariable("tessedit_char_whitelist", "");
+        page.Dispose();
+        return text;
     }
 
-    public async Task<string> GetText(byte[] currentImage)
+    public string GetText(byte[] currentImage)
     {
         _logger.LogTrace("AndroidWindowManagerService GetText");
-        await _tesseractApi.SetImage(currentImage);
-        return _tesseractApi.Text;
+        var page = _tessEngine.ProcessImage(Pix.LoadFromMemory(currentImage));
+        var text = page.GetText();
+        page.Dispose();
+        return text;
     }
 
-    public async Task<FindPatternResult> FindPattern(Pattern pattern, FindOptions opts)
+    public FindPatternResult FindPattern(Pattern pattern, FindOptions opts)
     {
         if (pattern.IsBoundsPattern)
         {
@@ -652,7 +652,7 @@ public class AndroidWindowManagerService : IInputService, IScreenService
             };
         }
 
-        var points = await GetMatches(pattern, opts);
+        var points = GetMatches(pattern, opts);
 
         var result = new FindPatternResult();
         result.IsSuccess = points.Count > 0;
@@ -665,9 +665,9 @@ public class AndroidWindowManagerService : IInputService, IScreenService
         return result;
     }
 
-    public async Task<FindPatternResult> ClickPattern(Pattern pattern, FindOptions opts = null)
+    public FindPatternResult ClickPattern(Pattern pattern, FindOptions opts = null)
     {
-        var result = await FindPattern(pattern, opts);
+        var result = FindPattern(pattern, opts);
         if (result.IsSuccess)
         {
             foreach (var point in result.Points)

@@ -217,7 +217,7 @@ public partial class PatternNodeManagerViewModel : NodeManagerViewModel<PatternN
     }
 
     [RelayCommand]
-    private async Task TestPattern(object[] values)
+    private void TestPattern(object[] values)
     {
         if (values.Length != 4) return;
 
@@ -233,7 +233,7 @@ public partial class PatternNodeManagerViewModel : NodeManagerViewModel<PatternN
             if (doTestCalc) opts.Offset = CalcOffset(pattern);
 
             _screenService.DrawClear();
-            var result = await _screenService.FindPattern(pattern, opts);
+            var result = _screenService.FindPattern(pattern, opts);
             var points = result.Points;
             _toastService.Show(points != null && points.Length > 0 ? "Match(es) found" : "No match found");
 
@@ -269,9 +269,9 @@ public partial class PatternNodeManagerViewModel : NodeManagerViewModel<PatternN
             if (int.TryParse(strYOffset, out int yOffset)) opts.Offset = opts.Offset.Offset(0, yOffset);
             if (doTestCalc) opts.Offset = CalcOffset(pattern);
 
-            await _screenService.ClickPattern(pattern, opts);     //one to change focus
+            _screenService.ClickPattern(pattern, opts);     //one to change focus
             await Task.Delay(300);
-            await _screenService.ClickPattern(pattern, opts);     //one to click
+            _screenService.ClickPattern(pattern, opts);     //one to click
         }
     }
 
@@ -298,7 +298,7 @@ public partial class PatternNodeManagerViewModel : NodeManagerViewModel<PatternN
     }
 
     [RelayCommand]
-    private async Task TestPatternTextMatch(object[] values)
+    private void TestPatternTextMatch(object[] values)
     {
         if (values.Length != 4) return;
 
@@ -315,14 +315,14 @@ public partial class PatternNodeManagerViewModel : NodeManagerViewModel<PatternN
 
             _screenService.DrawClear();
             _screenService.DrawRectangle(pattern.Rect.Offset(opts.Offset));
-            var result = await _screenService.GetText(pattern, opts);
+            var result = _screenService.GetText(pattern, opts);
             _toastService.Show($"TextMatch: {result}");
             Console.WriteLine($"TextMatch: {result}");
         }
     }
 
     [RelayCommand]
-    private async Task ApplyPatternTextMatch(object[] values)
+    private void ApplyPatternTextMatch(object[] values)
     {
         if (values.Length != 4) return;
 
@@ -339,7 +339,7 @@ public partial class PatternNodeManagerViewModel : NodeManagerViewModel<PatternN
 
             _screenService.DrawClear();
             _screenService.DrawRectangle(pattern.Rect.Offset(opts.Offset));
-            var result = await _screenService.GetText(pattern, opts);
+            var result = _screenService.GetText(pattern, opts);
             _toastService.Show($"TextMatch Apply: {result}");
             pattern.TextMatch.Text = result;
 
