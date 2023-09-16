@@ -25,6 +25,7 @@ public static class ServiceRegistrationHelper
         mauiAppBuilder.Services.AddSingleton<IScriptService, ScriptServiceDeluxe>();
         mauiAppBuilder.Services.AddHttpClient();
         mauiAppBuilder.Services.AddSingleton<IHttpService, HttpService>();
+        //mauiAppBuilder.Services.AddSingleton<IOcrService, OcrService>();
         mauiAppBuilder.Services.AddAutoMapper(typeof(App).GetTypeInfo().Assembly);
         mauiAppBuilder.Services.AddLazyResolution();
         mauiAppBuilder.Logging.AddLogViewModelSink();

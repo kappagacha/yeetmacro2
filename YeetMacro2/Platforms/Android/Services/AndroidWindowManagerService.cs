@@ -43,6 +43,7 @@ public class AndroidWindowManagerService : IInputService, IScreenService
     IWindowManager _windowManager;
     MediaProjectionService _mediaProjectionService;
     IToastService _toastService;
+    IOcrService _ocrService;
     ConcurrentDictionary<AndroidWindowView, IShowable> _views = new ConcurrentDictionary<AndroidWindowView, IShowable>();
     FormsView _windowView;
     ConcurrentDictionary<string, (int x, int y)> _packageToStatusBarHeight = new ConcurrentDictionary<string, (int x, int y)>();
@@ -50,14 +51,13 @@ public class AndroidWindowManagerService : IInputService, IScreenService
     public int OverlayWidth => _windowView == null ? 0 : _windowView.MeasuredWidthAndState;
     public int OverlayHeight => _windowView == null ? 0 : _windowView.MeasuredHeightAndState;
     //public int DisplayCutoutTop => _windowView == null ? 0 : _windowView.RootWindowInsets.DisplayCutout?.SafeInsetTop ?? 0;
-    TessEngine _tessEngine;
     JsonSerializerOptions _serializationOptions = new JsonSerializerOptions()
     {
         PropertyNamingPolicy = JsonNamingPolicy.CamelCase,
         TypeInfoResolver = PointPropertiesResolver.Instance
     };
     public AndroidWindowManagerService(ILogger<AndroidWindowManagerService> logger, MediaProjectionService mediaProjectionService,
-        IToastService toastService)
+        IToastService toastService, IOcrService ocrService)
     {
         try
         {
@@ -74,16 +74,8 @@ public class AndroidWindowManagerService : IInputService, IScreenService
             DeviceDisplay.MainDisplayInfoChanged += DeviceDisplay_MainDisplayInfoChanged;
             //_displayWidth = DeviceDisplay.MainDisplayInfo.Width;
             //_displayHeight = DeviceDisplay.MainDisplayInfo.Height;
-            Console.WriteLine("[*****YeetMacro*****] Setting tesseract");
-
-            var tranineddataPath = Path.Combine(FileSystem.Current.CacheDirectory, "eng.traineddata");
-            if (!File.Exists(tranineddataPath)) {
-                var traineddata = ServiceHelper.GetAssetStream("eng.traineddata");
-                FileStream fileStream = File.Create(tranineddataPath);
-                traineddata.CopyTo(fileStream);
-            }
-            
-            _tessEngine = new TessEngine("eng", FileSystem.Current.CacheDirectory);
+            Console.WriteLine("[*****YeetMacro*****] Setting _ocrService");
+            _ocrService = ocrService;
         }
         catch (Exception ex)
         {
@@ -534,10 +526,7 @@ public class AndroidWindowManagerService : IInputService, IScreenService
 
             if (pattern.TextMatch.IsActive && !String.IsNullOrEmpty(pattern.TextMatch.Text))
             {
-                if (!String.IsNullOrWhiteSpace(pattern.TextMatch.WhiteList)) _tessEngine.SetVariable("tessedit_char_whitelist", pattern.TextMatch.WhiteList);
-                var page = _tessEngine.ProcessImage(Pix.LoadFromMemory(haystackImageData));
-                var text = page.GetText();
-                page.Dispose();
+                var text = _ocrService.GetText(haystackImageData, pattern.TextMatch.WhiteList);
                 var textPoints = new List<Point>();
 
                 if (text == pattern.TextMatch.Text && pattern.Rect != Rect.Zero)
@@ -549,8 +538,6 @@ public class AndroidWindowManagerService : IInputService, IScreenService
                     // TODO: Throw exception instead?
                     textPoints.Add(new Point(0, 0));
                 }
-
-                _tessEngine.SetVariable("tessedit_char_whitelist", "");
 
                 watch.Stop();
                 Console.WriteLine($"GetMatches TextMatch: {watch.ElapsedMilliseconds} ms");
@@ -626,26 +613,17 @@ public class AndroidWindowManagerService : IInputService, IScreenService
                 new Rect(pattern.Rect.Location.Offset(opts.Offset.X, opts.Offset.Y).Offset(-boundsPadding, -boundsPadding),
                           pattern.Rect.Size + new Size(boundsPadding, boundsPadding))) :
             _mediaProjectionService.GetCurrentImageData();
-        //if (!String.IsNullOrWhiteSpace(pattern.TextMatch.WhiteList)) _tessEngine.SetVariable("tessedit_char_whitelist", pattern.TextMatch.WhiteList);
-        //var text = _tessEngine.ProcessImage(Pix.LoadFromMemory(haystackImageData)).GetText();
-        if (!String.IsNullOrWhiteSpace(pattern.TextMatch.WhiteList)) _tessEngine.SetVariable("tessedit_char_whitelist", pattern.TextMatch.WhiteList);
-        if (!String.IsNullOrWhiteSpace(opts.Whitelist)) _tessEngine.SetVariable("tessedit_char_whitelist", opts.Whitelist);
-        var page = _tessEngine.ProcessImage(Pix.LoadFromMemory(pattern.ColorThreshold.IsActive ?
+        var imageData = pattern.ColorThreshold.IsActive ?
             OpenCvHelper.CalcColorThreshold(currentImageData, pattern.ColorThreshold) :
-            currentImageData));
-        var text = page.GetText();
-        _tessEngine.SetVariable("tessedit_char_whitelist", "");
-        page.Dispose();
-        return text;
+            currentImageData;
+ 
+        return _ocrService.GetText(imageData, pattern.TextMatch.WhiteList ?? opts.Whitelist);
     }
 
     public string GetText(byte[] currentImage)
     {
         _logger.LogTrace("AndroidWindowManagerService GetText");
-        var page = _tessEngine.ProcessImage(Pix.LoadFromMemory(currentImage));
-        var text = page.GetText();
-        page.Dispose();
-        return text;
+        return _ocrService.GetText(currentImage);
     }
 
     public FindPatternResult FindPattern(Pattern pattern, FindOptions opts)

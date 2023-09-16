@@ -62,14 +62,19 @@ public class ForegroundService : Service
                 //if (macroManagerViewModel.PersistLogs) _logger.LogInformation("{persistLogs}", true);
                 Console.WriteLine($"[*****YeetMacro*****] MacroManagerViewModel ExecuteScript");
                 //_logger.LogInformation("{macroSet} {script}", SelectedMacroSet?.Name ?? string.Empty, scriptNode.Name);
-                macroManagerViewModel.OnScriptExecuted?.Execute(null);
-                Task.Run(() =>
+                var action = new Action(() =>
                 {
                     scriptService.RunScript(macroManagerViewModel.Scripts.SelectedNode, macroManagerViewModel.Scripts,
-                    macroManagerViewModel.SelectedMacroSet, macroManagerViewModel.Patterns, macroManagerViewModel.Settings, (result) => {
+                    macroManagerViewModel.SelectedMacroSet, macroManagerViewModel.Patterns, macroManagerViewModel.Settings, (result) =>
+                    {
                         macroManagerViewModel.OnScriptFinished?.Execute(result);
                     });
                 });
+                macroManagerViewModel.OnScriptExecuted?.Execute(null);
+                // https://medium.com/@Codeible/understanding-and-using-services-in-android-background-foreground-services-8130f6bbf2a5
+                var runnable = new Java.Lang.Runnable(action);
+                new Java.Lang.Thread(runnable).Start();
+                //Task.Run();
                 //if (macroManagerViewModel.PersistLogs) _logger.LogInformation("{persistLogs}", false);
                 break;
             default:
