@@ -494,10 +494,18 @@ public class AndroidWindowManagerService : IInputService, IScreenService
                 //haystackImageData = pattern.Rect != Rect.Zero ?
                 //    await _mediaProjectionService.GetCurrentImageData(pattern.Rect.Offset(-topLeft.x, -topLeft.y)) :
                 //    await _mediaProjectionService.GetCurrentImageData();
-
-                haystackImageData = pattern.Rect != Rect.Zero ?
-                    _mediaProjectionService.GetCurrentImageData(rect) :
-                    _mediaProjectionService.GetCurrentImageData();
+                if (pattern.TextMatch.IsActive && !String.IsNullOrEmpty(pattern.TextMatch.Text))
+                {
+                    haystackImageData = _mediaProjectionService.GetCurrentImageData(
+                        new Rect(rect.Location.Offset(-boundsPadding, -boundsPadding),
+                        pattern.Rect.Size + new Size(boundsPadding, boundsPadding)));
+                }
+                else
+                {
+                    haystackImageData = pattern.Rect != Rect.Zero ?
+                       _mediaProjectionService.GetCurrentImageData(rect) :
+                       _mediaProjectionService.GetCurrentImageData();
+                }
             }
             catch (Exception ex)
             {
@@ -511,7 +519,7 @@ public class AndroidWindowManagerService : IInputService, IScreenService
 
             if (pattern.ColorThreshold.IsActive)
             {
-                needleImageData = OpenCvHelper.CalcColorThreshold(pattern.ImageData, pattern.ColorThreshold);
+                needleImageData = pattern.ColorThreshold.ImageData; // OpenCvHelper.CalcColorThreshold(pattern.ImageData, pattern.ColorThreshold);
                 haystackImageData = OpenCvHelper.CalcColorThreshold(haystackImageData, pattern.ColorThreshold);
 
                 if (needleImageData.Length == 0 || haystackImageData.Length == 0)

@@ -38,6 +38,6 @@ public class OcrService : IOcrService
         if (!String.IsNullOrWhiteSpace(whiteList)) _tessEngine.SetVariable("tessedit_char_whitelist", "");
         page.Dispose();
 
-        return text;
+        return text.TrimEnd('\n');
     }
 }

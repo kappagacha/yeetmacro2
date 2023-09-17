@@ -145,21 +145,23 @@ public partial class PatternNodeManagerViewModel : NodeManagerViewModel<PatternN
             }
 
             var rect = await _inputService.DrawUserRectangle();
-            _screenService.DebugClear();
-            await Task.Delay(250);
-            pattern.ImageData = _screenService.GetCurrentImageData(rect);
-            pattern.Rect = rect;
-            pattern.Resolution = new Size(DeviceDisplay.MainDisplayInfo.Width, DeviceDisplay.MainDisplayInfo.Height);
-
-            _patternRepository.Update(pattern);
-            _patternRepository.Save();
-
-            if (values.Length > 2 && values[2] is ICommand selectCommand)
+            MainThread.BeginInvokeOnMainThread(() =>
             {
-                // Annoying that OnPropertyChanged(nameof(SelectedPattern)) won't work because the value hasn't changed
-                selectCommand.Execute(null);
-                selectCommand.Execute(pattern);
-            }
+                _screenService.DebugClear();
+                pattern.ImageData = _screenService.GetCurrentImageData(rect);
+                pattern.Rect = rect;
+                pattern.Resolution = new Size(DeviceDisplay.MainDisplayInfo.Width, DeviceDisplay.MainDisplayInfo.Height);
+
+                _patternRepository.Update(pattern);
+                _patternRepository.Save();
+
+                if (values.Length > 2 && values[2] is ICommand selectCommand)
+                {
+                    // Annoying that OnPropertyChanged(nameof(SelectedPattern)) won't work because the value hasn't changed
+                    selectCommand.Execute(null);
+                    selectCommand.Execute(pattern);
+                }
+            });
         }
     }
 
@@ -172,6 +174,7 @@ public partial class PatternNodeManagerViewModel : NodeManagerViewModel<PatternN
             _patternRepository.Save();
             _nodeService.Update(patternNode);
             _nodeService.Save();
+            _toastService.Show($"PatternNode saved: {patternNode.Name}");
         }
     }
 
