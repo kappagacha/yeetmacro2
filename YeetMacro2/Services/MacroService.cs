@@ -352,8 +352,9 @@ public class MacroService
             {
                 return _screenService.GetText(patternNode.Patterns.First(), new TextFindOptions() { Whitelist = whiteList, Offset = offset });
             }
-            catch
+            catch (Exception ex)
             {
+                _logger.LogError(ex, "GetText Error");
                 Thread.Sleep(200);
                 currentTry++;
             }
