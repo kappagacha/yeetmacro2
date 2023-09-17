@@ -78,7 +78,7 @@ public partial class KonosubaFDScripts
                 matCheckPattern.Path += $"_{mat.Path}";
                 foreach (var p in matCheckPattern.Patterns)
                 {
-                    p.Rect = new Rect(matResult.Point.X - 110.0, matResult.Point.Y - 100.0, 100.0, 75.0);
+                    p.Rect = new Rect(matResult.Point.X - 115.0, matResult.Point.Y - 105.0, 110.0, 85.0);
                     p.OffsetCalcType = OffsetCalcType.None;
                 }
                 macroService.PollPattern(mat, new PollPatternFindOptions() { DoClick = true, PredicatePattern = matCheckPattern, IntervalDelayMs = 1_000 });

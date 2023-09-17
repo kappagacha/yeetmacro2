@@ -31,10 +31,10 @@ const farmMat = async (targetMats, staminaCost, numSkips) => {
 					patterns: patterns.skipAll.search.select.check.props.patterns.map(p => ({
 						...p,
 						rect: {
-							x: matResult.Point.X - 110.0,
-							y: matResult.Point.Y - 100.0,
-							width: 100.0,
-							height: 75.0
+							x: matResult.Point.X - 115.0,
+							y: matResult.Point.Y - 105.0,
+							width: 110.0,
+							height: 85.0
 						},
 						offsetCalcType: "None"
 					})),
