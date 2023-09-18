@@ -22,6 +22,7 @@ public class OcrService : IOcrService
         }
 
         _tessEngine = new TessEngine("eng", FileSystem.Current.CacheDirectory);
+        _tessEngine.DefaultSegmentationMode = TesseractOcrMaui.Enums.PageSegmentationMode.SingleLine;
     }
 
     public string GetText(byte[] imageData, string whiteList = null)

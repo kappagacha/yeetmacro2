@@ -20,9 +20,9 @@ public partial class KonosubaFDScripts
                     var othersNotificationResult = macroService.FindPattern(patterns["others"]["notification"]);
                     if (othersNotificationResult.IsSuccess)
                     {
-                        //macroService.PollPattern(patterns["others"]["notification"], new PollPatternFindOptions() { DoClick = true, PredicatePattern = patterns["titles"]["branch"] });
-                        macroService.PollPattern(patterns["others"]["notification"], new PollPatternFindOptions() { DoClick = true, PredicatePattern = patterns["others"]["branch"]["notification"] });
-                        macroService.PollPattern(patterns["others"]["branch"]["notification"], new PollPatternFindOptions() { DoClick = true, PredicatePattern = patterns["titles"]["branch"] });
+                        macroService.PollPattern(patterns["others"]["notification"], new PollPatternFindOptions() { DoClick = true, PredicatePattern = patterns["titles"]["branch"] });
+                        //macroService.PollPattern(patterns["others"]["notification"], new PollPatternFindOptions() { DoClick = true, PredicatePattern = patterns["others"]["branch"]["notification"] });
+                        //macroService.PollPattern(patterns["others"]["branch"]["notification"], new PollPatternFindOptions() { DoClick = true, PredicatePattern = patterns["titles"]["branch"] });
                     }
                     else
                     {

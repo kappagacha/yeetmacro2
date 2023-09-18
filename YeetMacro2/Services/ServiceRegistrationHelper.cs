@@ -6,10 +6,8 @@ using Serilog.Extensions.Logging;
 using Serilog.Filters;
 using System.Reflection;
 using TesseractOcrMaui;
-using UraniumUI;
 using YeetMacro2.ViewModels;
 using YeetMacro2.ViewModels.NodeViewModels;
-using System.Text.RegularExpressions;
 
 namespace YeetMacro2.Services;
 

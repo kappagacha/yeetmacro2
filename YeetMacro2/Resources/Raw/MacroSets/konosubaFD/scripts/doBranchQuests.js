@@ -9,9 +9,9 @@ while (macroService.IsRunning && !done) {
 			logger.info('doBranchQuests: check others notification');
 			const othersNotificationResult = macroService.FindPattern(patterns.others.notification);
 			if (othersNotificationResult.IsSuccess) {
-				//macroService.PollPattern(patterns.others.notification, { DoClick: true, PredicatePattern: patterns.titles.branch });
-				macroService.PollPattern(patterns.others.notification, { DoClick: true, PredicatePattern: patterns.others.branch.notification });
-				macroService.PollPattern(patterns.others.branch.notification, { DoClick: true, PredicatePattern: patterns.titles.branch });
+				macroService.PollPattern(patterns.others.notification, { DoClick: true, PredicatePattern: patterns.titles.branch });
+				//macroService.PollPattern(patterns.others.notification, { DoClick: true, PredicatePattern: patterns.others.branch.notification });
+				//macroService.PollPattern(patterns.others.branch.notification, { DoClick: true, PredicatePattern: patterns.titles.branch });
 			}
 			else {
 				done = true;

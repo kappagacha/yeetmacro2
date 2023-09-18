@@ -26,8 +26,8 @@ public static class PlatformServiceRegistrationHelper
         mauiAppBuilder.Services.AddSingleton<AndroidWindowManagerService>();
         mauiAppBuilder.Services.AddSingleton<MediaProjectionService>();
         mauiAppBuilder.Services.AddSingleton<TestViewModel>();
-        mauiAppBuilder.Services.AddSingleton<IOcrService, AndroidOcrService>();
-        //mauiAppBuilder.Services.AddSingleton<IOcrService, OcrService>();
+        //mauiAppBuilder.Services.AddSingleton<IOcrService, AndroidOcrService>();
+        mauiAppBuilder.Services.AddSingleton<IOcrService, OcrService>();
         mauiAppBuilder.Services.AddSingleton<IScreenService>(sp => sp.GetRequiredService<AndroidWindowManagerService>());
         mauiAppBuilder.Services.AddSingleton<IInputService>(sp => sp.GetRequiredService<AndroidWindowManagerService>());
         mauiAppBuilder.Services.AddSingleton<IRecorderService>(sp => sp.GetRequiredService<MediaProjectionService>());
