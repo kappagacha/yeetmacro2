@@ -26,7 +26,7 @@ public partial class EversoulScripts
                 case "lobby.everstone":
                     logger.LogInformation("doOutings: click town");
                     macroService.PollPattern(patterns["lobby"]["town"], new PollPatternFindOptions() { DoClick = true, PredicatePattern = patterns["town"]["enter"] });
-                    Thread.Sleep(500);
+                    new System.Threading.ManualResetEvent(false).WaitOne(500);
                     macroService.PollPattern(patterns["town"]["enter"], new PollPatternFindOptions() { DoClick = true, PredicatePattern = patterns["town"]["evertalk"] });
                     break;
                 case "town.evertalk":
@@ -35,14 +35,14 @@ public partial class EversoulScripts
                     break;
                 case "town.outings":
                     logger.LogInformation("doOutings: click outing target");
-                    Thread.Sleep(500);
+                    new System.Threading.ManualResetEvent(false).WaitOne(500);
                     macroService.ClickPattern(targetSoul);
                     macroService.PollPattern(targetSoul, new PollPatternFindOptions() { DoClick = true, PredicatePattern = patterns["town"]["outings"]["call"] });
-                    Thread.Sleep(500);
+                    new System.Threading.ManualResetEvent(false).WaitOne(500);
                     macroService.PollPattern(patterns["town"]["outings"]["call"], new PollPatternFindOptions() { DoClick = true, PredicatePattern = patterns["prompt"]["confirm"] });
-                    Thread.Sleep(500);
+                    new System.Threading.ManualResetEvent(false).WaitOne(500);
                     macroService.PollPattern(patterns["prompt"]["confirm"], new PollPatternFindOptions() { DoClick = true, PredicatePattern = patterns["town"]["outings"]["goOnOuting"] });
-                    Thread.Sleep(500);
+                    new System.Threading.ManualResetEvent(false).WaitOne(500);
                     macroService.PollPattern(patterns["town"]["outings"]["goOnOuting"], new PollPatternFindOptions() { DoClick = true, ClickPattern = patterns["prompt"]["next"], PredicatePattern = patterns["titles"]["outingGo"] });
                     break;
                 case "titles.outingGo":
@@ -51,9 +51,9 @@ public partial class EversoulScripts
                     logger.LogDebug("outingNumber: " + outingNumber);
 
                     macroService.PollPattern(patterns["town"]["outings"]["outing" + outingNumber], new PollPatternFindOptions() { DoClick = true, PredicatePattern = patterns["prompt"]["confirm"] });
-                    Thread.Sleep(500);
+                    new System.Threading.ManualResetEvent(false).WaitOne(500);
                     macroService.PollPattern(patterns["prompt"]["confirm"], new PollPatternFindOptions() { DoClick = true, ClickPattern = patterns["prompt"]["next"], PredicatePattern = patterns["town"]["outings"]["keywordSelectionOpportunity"] });
-                    Thread.Sleep(500);
+                    new System.Threading.ManualResetEvent(false).WaitOne(500);
                     macroService.PollPattern(patterns["prompt"]["next"], new PollPatternFindOptions() { DoClick = true, ClickPattern = patterns["prompt"]["middleTap"], PredicatePattern = patterns["town"]["outings"]["selectAKeyword"] });
                     break;
                 case "town.outings.selectAKeyword":
@@ -72,7 +72,7 @@ public partial class EversoulScripts
                         .Index;
                     logger.LogDebug("keywordTarget: " + (maxIdx + 1));
                     macroService.PollPattern(patterns["town"]["outings"]["keywordPoints" + (maxIdx + 1)], new PollPatternFindOptions() { DoClick = true, PredicatePattern = patterns["prompt"]["next"] });
-                    Thread.Sleep(500);
+                    new System.Threading.ManualResetEvent(false).WaitOne(500);
                     macroService.PollPattern(patterns["prompt"]["next"], new PollPatternFindOptions() { DoClick = true, ClickPattern = new PatternNode[] { patterns["prompt"]["next"], patterns["prompt"]["tapTheScreen"], patterns["prompt"]["middleTap"] }, PredicatePattern = new PatternNode[] { patterns["town"]["outings"]["selectAKeyword"], patterns["town"]["outings"] } });
                     break;
                 case "town.outings.outingsCompleted":
@@ -80,7 +80,7 @@ public partial class EversoulScripts
                 break;
             }
 
-            Thread.Sleep(1_000);
+            new System.Threading.ManualResetEvent(false).WaitOne(1_000);
         }
         logger.LogInformation("Done...");
         return String.Empty;

@@ -25,23 +25,23 @@ public partial class KonosubaFDScripts
                     break;
                 case "titles.craft":
                     macroService.PollPattern(patterns["smithy"]["craft"]["jewelry"], new PollPatternFindOptions() { DoClick = true, PredicatePattern = patterns["smithy"]["craft"]["jewelry"]["list"] });
-                    Thread.Sleep(500);
+                    new System.Threading.ManualResetEvent(false).WaitOne(500);
                     macroService.PollPattern(patterns["smithy"]["craft"]["materials"]["archAngelFeather"], new PollPatternFindOptions() { DoClick = true, PredicatePattern = patterns["smithy"]["prompt"]["howToAcquire"] });
-                    Thread.Sleep(1_000);
+                    new System.Threading.ManualResetEvent(false).WaitOne(1_000);
                     macroService.PollPattern(patterns["smithy"]["prompt"]["skipAll"], new PollPatternFindOptions() { DoClick = true, PredicatePattern = patterns["skipAll"]["title"] });
-                    Thread.Sleep(500);
+                    new System.Threading.ManualResetEvent(false).WaitOne(500);
                     break;
                 case "skipAll.title":
                     logger.LogInformation("farmMats: farm extreme levels");
                     farmMat(new PatternNode[] { patterns["skipAll"]["search"]["select"]["mithrilOre"], patterns["skipAll"]["search"]["select"]["yggdrasilBranch"], patterns["skipAll"]["search"]["select"]["platinumOre"] }, 500, 1);
-                    Thread.Sleep(1_000);
+                    new System.Threading.ManualResetEvent(false).WaitOne(1_000);
                     logger.LogInformation("farmMats: farm skyDragonScale");
                     farmMat(new PatternNode[] { patterns["skipAll"]["search"]["select"]["skyDragonScale"] }, 500, 3);
                     done = true;
                     break;
             }
 
-            Thread.Sleep(1_000);
+            new System.Threading.ManualResetEvent(false).WaitOne(1_000);
         }
         logger.LogInformation("Done...");
         return String.Empty;
@@ -51,21 +51,21 @@ public partial class KonosubaFDScripts
     {
         var offset = macroService.CalcOffset(patterns["titles"]["home"]);
         macroService.PollPattern(patterns["skipAll"]["material"], new PollPatternFindOptions() { DoClick = true, PredicatePattern = patterns["skipAll"]["search"] });
-        Thread.Sleep(500);
+        new System.Threading.ManualResetEvent(false).WaitOne(500);
         var filterOffResult = macroService.FindPattern(patterns["skipAll"]["search"]["filter"]["off"]);
         if (filterOffResult.IsSuccess)
         {
             macroService.PollPattern(patterns["skipAll"]["search"]["filter"]["off"], new PollPatternFindOptions() { DoClick = true, PredicatePattern = patterns["skipAll"]["search"]["filter"] });
-            Thread.Sleep(500);
+            new System.Threading.ManualResetEvent(false).WaitOne(500);
             var checkResult = macroService.FindPattern(patterns["skipAll"]["search"]["filter"]["check"], new FindOptions() { Limit = 4 });
             foreach (var point in checkResult.Points)
             {
                 if (point.X < offset.X + 400.0) continue;       // skip 4 stars
                 macroService.DoClick(point);
-                Thread.Sleep(250);
+                new System.Threading.ManualResetEvent(false).WaitOne(250);
             }
             macroService.PollPattern(patterns["skipAll"]["search"]["filter"]["close"], new PollPatternFindOptions() { DoClick = true, PredicatePattern = patterns["skipAll"]["search"] });
-            Thread.Sleep(500);
+            new System.Threading.ManualResetEvent(false).WaitOne(500);
         }
 
         macroService.PollPattern(patterns["skipAll"]["search"]["select"]["check"], new PollPatternFindOptions() { DoClick = true, InversePredicatePattern = patterns["skipAll"]["search"]["select"]["check"] });
@@ -85,9 +85,9 @@ public partial class KonosubaFDScripts
             }
         }
 
-        Thread.Sleep(500);
+        new System.Threading.ManualResetEvent(false).WaitOne(500);
         macroService.PollPattern(patterns["skipAll"]["search"]["button"], new PollPatternFindOptions() { DoClick = true, PredicatePattern = patterns["skipAll"]["title"] });
-        Thread.Sleep(2000);
+        new System.Threading.ManualResetEvent(false).WaitOne(2000);
 
         var currentStaminaCost = int.Parse(macroService.GetText(patterns["skipAll"]["totalCost"]));
         if (currentStaminaCost < staminaCost)
@@ -98,7 +98,7 @@ public partial class KonosubaFDScripts
             while (macroService.IsRunning && targetStamina < staminaCost)
             {
                 macroService.ClickPattern(patterns["stamina"]["plusOne"]);
-                Thread.Sleep(500);
+                new System.Threading.ManualResetEvent(false).WaitOne(500);
                 targetStamina = int.Parse(macroService.GetText(patterns["stamina"]["target"]));
             }
             macroService.PollPattern(patterns["stamina"]["prompt"]["recover"], new PollPatternFindOptions() { DoClick = true, ClickPattern = patterns["stamina"]["prompt"]["ok"], PredicatePattern = patterns["skipAll"]["addMaxSkips"], IntervalDelayMs = 1_000 });
@@ -108,12 +108,12 @@ public partial class KonosubaFDScripts
         while (macroService.IsRunning && maxNumSkips < numSkips)
         {
             macroService.ClickPattern(patterns["skipAll"]["addMaxSkips"]);
-            Thread.Sleep(500);
+            new System.Threading.ManualResetEvent(false).WaitOne(500);
             maxNumSkips = int.Parse(macroService.GetText(patterns["skipAll"]["maxNumSkips"]));
         }
 
         macroService.PollPattern(patterns["skipAll"]["button"], new PollPatternFindOptions() { DoClick = true, PredicatePattern = patterns["skipAll"]["prompt"]["ok"] });
-        Thread.Sleep(1_000);
+        new System.Threading.ManualResetEvent(false).WaitOne(1_000);
         macroService.PollPattern(patterns["skipAll"]["prompt"]["ok"], new PollPatternFindOptions() { DoClick = true, PredicatePattern = patterns["skipAll"]["skipComplete"] });
         macroService.PollPattern(patterns["skipAll"]["skipComplete"], new PollPatternFindOptions() { DoClick = true, ClickPattern = new PatternNode[] { patterns["skipAll"]["prompt"]["ok"], patterns["branchEvent"]["availableNow"], patterns["branchEvent"]["playLater"], patterns["prompt"]["playerRankUp"] }, PredicatePattern = patterns["skipAll"]["title"] });
     }

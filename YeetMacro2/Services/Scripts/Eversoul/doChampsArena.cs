@@ -21,7 +21,7 @@ public partial class EversoulScripts
                 case "titles.adventure":
                     logger.LogInformation("doChampsArena: click champs arena");
                     macroService.PollPattern(patterns["adventure"]["tabs"]["arena"], new PollPatternFindOptions() { DoClick = true, PredicatePattern = patterns["adventure"]["champsArena"] });
-                    Thread.Sleep(500);
+                    new System.Threading.ManualResetEvent(false).WaitOne(500);
                     macroService.PollPattern(patterns["adventure"]["champsArena"], new PollPatternFindOptions() { DoClick = true, PredicatePattern = patterns["titles"]["champsArena"] });
                     break;
                 case "adventure.arena.freeChallenge":
@@ -51,7 +51,7 @@ public partial class EversoulScripts
                     if (minCP <= cpThreshold)
                     {
                         macroService.PollPattern(patterns["adventure"]["arena"]["match" + (minIdx + 1)]["challenge"], new PollPatternFindOptions() { DoClick = true, ClickPattern = patterns["adventure"]["champsArena"]["nextTeam"], PredicatePattern = patterns["battle"]["start"], IntervalDelayMs = 1_000 });
-                        Thread.Sleep(500);
+                        new System.Threading.ManualResetEvent(false).WaitOne(500);
                         macroService.PollPattern(patterns["battle"]["start"], new PollPatternFindOptions() { DoClick = true, ClickPattern = patterns["battle"]["skip"], PredicatePattern = new PatternNode[] { patterns["adventure"]["arena"]["freeChallenge"], patterns["adventure"]["champsArena"]["buyTicket"] } });
                     }
                     else
@@ -63,7 +63,7 @@ public partial class EversoulScripts
                     return String.Empty;
             }
 
-            Thread.Sleep(1_000);
+            new System.Threading.ManualResetEvent(false).WaitOne(1_000);
         }
         logger.LogInformation("Done...");
 

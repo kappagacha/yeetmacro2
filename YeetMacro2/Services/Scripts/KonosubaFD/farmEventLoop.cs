@@ -26,11 +26,11 @@ public partial class KonosubaFDScripts
                     logger.LogInformation("farmEventLoop: start farm");
                     var targetFarmLevel = settings["farmEvent"]["targetLevel"].GetValue<string>() ?? "12";
                     macroService.PollPattern(patterns["quest"]["events"]["quest"], new PollPatternFindOptions() { DoClick = true, PredicatePattern = patterns["titles"]["quest"] });
-                    Thread.Sleep(500);
+                    new System.Threading.ManualResetEvent(false).WaitOne(500);
                     macroService.PollPattern(patterns["quest"]["events"]["quest"]["normal"][targetFarmLevel], new PollPatternFindOptions() { DoClick = true, PredicatePattern = patterns["titles"]["events"] });
-                    Thread.Sleep(500);
+                    new System.Threading.ManualResetEvent(false).WaitOne(500);
                     macroService.PollPattern(patterns["battle"]["prepare"], new PollPatternFindOptions() { DoClick = true, PredicatePattern = patterns["titles"]["party"] });
-                    Thread.Sleep(500);
+                    new System.Threading.ManualResetEvent(false).WaitOne(500);
                     break;
                 case "titles.party":
                     logger.LogInformation("farmEventLoop: select party");
@@ -48,7 +48,7 @@ public partial class KonosubaFDScripts
                         }
                     }
 
-                    Thread.Sleep(500);
+                    new System.Threading.ManualResetEvent(false).WaitOne(500);
                     var beginResult = macroService.PollPattern(patterns["battle"]["begin"], new PollPatternFindOptions() { DoClick = true, ClickPattern = new PatternNode[] { patterns["branchEvent"]["availableNow"], patterns["branchEvent"]["playLater"], patterns["prompt"]["playerRankUp"] }, PredicatePattern = new PatternNode[] { patterns["battle"]["report"], patterns["stamina"]["prompt"]["recoverStamina"] } });
                     if (beginResult.PredicatePath == "stamina.prompt.recoverStamina")
                     {
@@ -59,7 +59,7 @@ public partial class KonosubaFDScripts
                 case "battle.report":
                     logger.LogInformation("farmEventLoop: replay battle");
                     macroService.PollPattern(patterns["battle"]["replay"], new PollPatternFindOptions() { DoClick = true, ClickPattern = new PatternNode[] { patterns["battle"]["next"], patterns["battle"]["affinityLevelUp"], patterns["branchEvent"]["availableNow"], patterns["branchEvent"]["playLater"], patterns["prompt"]["playerRankUp"] }, PredicatePattern = patterns["battle"]["replay"]["prompt"] });
-                    Thread.Sleep(500);
+                    new System.Threading.ManualResetEvent(false).WaitOne(500);
                     var replayResult = macroService.PollPattern(patterns["battle"]["replay"]["ok"], new PollPatternFindOptions() { DoClick = true, PredicatePattern = new PatternNode[] { patterns["battle"]["report"], patterns["stamina"]["prompt"]["recoverStamina"] } });
                     if (replayResult.PredicatePath == "stamina.prompt.recoverStamina")
                     {
@@ -69,7 +69,7 @@ public partial class KonosubaFDScripts
                     break;
             }
 
-            Thread.Sleep(1_000);
+            new System.Threading.ManualResetEvent(false).WaitOne(1_000);
         }
         logger.LogInformation("Done...");
 

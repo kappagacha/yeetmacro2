@@ -34,7 +34,7 @@ public partial class KonosubaFDScripts
                     break;
             }
 
-            Thread.Sleep(1_000);
+            new System.Threading.ManualResetEvent(false).WaitOne(1_000);
         }
         logger.LogInformation("Done...");
         return String.Empty;

@@ -72,7 +72,7 @@ public class MacroService
                 if (InDebugMode)
                 {
                     MainThread.BeginInvokeOnMainThread(_screenService.DebugClear);
-                    Thread.Sleep(50);
+                    new System.Threading.ManualResetEvent(false).WaitOne(50);
                 }
 
                 if (!IsRunning)
@@ -104,7 +104,7 @@ public class MacroService
                                 _screenService.DebugClear();
                                 _screenService.DebugRectangle(pattern.Rect.Offset(offset));
                             });
-                            Thread.Sleep(50);
+                            new System.Threading.ManualResetEvent(false).WaitOne(50);
                         }
                         var singleResult = _screenService.FindPattern(pattern, optsWithOffset);
                         if (singleResult.IsSuccess)
@@ -184,7 +184,8 @@ public class MacroService
             }
         }
 
-        Thread.Sleep(500);
+        // https://stackoverflow.com/questions/5424667/alternatives-to-thread-sleep
+        new System.Threading.ManualResetEvent(false).WaitOne(500);
         return result;
     }
 
@@ -214,7 +215,7 @@ public class MacroService
                 {
                     inversePredicateResult = this.FindPattern(inversePredicatePattern.Value, predicateOpts);
                     numChecks++;
-                    Thread.Sleep(inversePredicateCheckDelayMs);
+                    new System.Threading.ManualResetEvent(false).WaitOne(inversePredicateCheckDelayMs);
                 }
                 if (!inversePredicateResult.IsSuccess)
                 {
@@ -226,10 +227,10 @@ public class MacroService
                 {
                     var point = result.Point;
                     this.DoClick(point.Offset(clickOffsetX, clickOffsetY));
-                    Thread.Sleep(500);
+                    new System.Threading.ManualResetEvent(false).WaitOne(500);
                 }
                 if (clickPattern is not null) this.ClickPattern(clickPattern.Value, opts);
-                Thread.Sleep(intervalDelayMs);
+                new System.Threading.ManualResetEvent(false).WaitOne(intervalDelayMs);
             }
         }
         else if (predicatePattern is not null)
@@ -248,10 +249,10 @@ public class MacroService
                 {
                     var point = result.Point;
                     this.DoClick(point.Offset(clickOffsetX, clickOffsetY));
-                    Thread.Sleep(500);
+                    new System.Threading.ManualResetEvent(false).WaitOne(500);
                 }
                 if (clickPattern is not null) this.ClickPattern(clickPattern.Value, opts);
-                Thread.Sleep(intervalDelayMs);
+                new System.Threading.ManualResetEvent(false).WaitOne(intervalDelayMs);
             }
         }
         else
@@ -263,11 +264,11 @@ public class MacroService
                 {
                     var point = result.Point;
                     this.DoClick(point.Offset(clickOffsetX, clickOffsetY));
-                    Thread.Sleep(500);
+                    new System.Threading.ManualResetEvent(false).WaitOne(500);
                 }
                 if (result.IsSuccess) break;
                 if (clickPattern is not null) this.ClickPattern(clickPattern.Value, opts);
-                Thread.Sleep(intervalDelayMs);
+                new System.Threading.ManualResetEvent(false).WaitOne(intervalDelayMs);
             }
         }
 
@@ -355,7 +356,7 @@ public class MacroService
             catch (Exception ex)
             {
                 _logger.LogError(ex, "GetText Error");
-                Thread.Sleep(200);
+                new System.Threading.ManualResetEvent(false).WaitOne(200);
                 currentTry++;
             }
         }

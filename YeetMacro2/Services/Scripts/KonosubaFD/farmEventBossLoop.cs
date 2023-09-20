@@ -54,7 +54,7 @@ public partial class KonosubaFDScripts
                                 break;
                             }
                             macroService.ClickPattern(patterns["quest"]["events"]["bossBattle"]["addCost"]);
-                            Thread.Sleep(500);
+                            new System.Threading.ManualResetEvent(false).WaitOne(500);
                             currentCost = int.Parse(macroService.GetText(patterns["quest"]["events"]["bossBattle"]["cost"]));
                         }
                         logger.LogDebug($"currentCost: {currentCost}");
@@ -84,7 +84,7 @@ public partial class KonosubaFDScripts
                                 break;
                             }
                             macroService.ClickPattern(patterns["quest"]["events"]["bossBattle"]["addCost"]);
-                            Thread.Sleep(500);
+                            new System.Threading.ManualResetEvent(false).WaitOne(500);
                             currentCost = int.Parse(macroService.GetText(patterns["quest"]["events"]["bossBattle"]["cost"]));
                         }
                         logger.LogDebug($"currentCost: {currentCost}");
@@ -112,7 +112,7 @@ public partial class KonosubaFDScripts
                     //	done = true;
                     //	break;
                     //}
-                    Thread.Sleep(500);
+                    new System.Threading.ManualResetEvent(false).WaitOne(500);
                     macroService.PollPattern(new PatternNode[] { patterns["battle"]["joinRoom"], patterns["battle"]["begin"] }, new PollPatternFindOptions() { DoClick = true, PredicatePattern = patterns["battle"]["report"] });
                     numBattles++;
                     break;
@@ -127,7 +127,7 @@ public partial class KonosubaFDScripts
                             break;
                         case "battle.replay":
                             macroService.PollPattern(patterns["battle"]["replay"], new PollPatternFindOptions() { DoClick = true, ClickPattern = new PatternNode[] { patterns["battle"]["next"], patterns["battle"]["affinityLevelUp"] }, PredicatePattern = patterns["battle"]["replay"]["prompt"] });
-                            Thread.Sleep(500);
+                            new System.Threading.ManualResetEvent(false).WaitOne(500);
                             macroService.PollPattern(patterns["battle"]["replay"]["ok"], new PollPatternFindOptions() { DoClick = true, PredicatePattern = new PatternNode[] { patterns["battle"]["report"] } });
                             numBattles++;
                             break;
@@ -140,7 +140,7 @@ public partial class KonosubaFDScripts
                     return JsonSerializer.Serialize(new { numBattles = numBattles, message = "Not enough boss tickets..." }, new JsonSerializerOptions() { WriteIndented = true });
             }
 
-            Thread.Sleep(1_000);
+            new System.Threading.ManualResetEvent(false).WaitOne(1_000);
         }
         logger.LogInformation("Done...");
         return JsonSerializer.Serialize(new { numBattles = numBattles }, new JsonSerializerOptions() { WriteIndented = true} );

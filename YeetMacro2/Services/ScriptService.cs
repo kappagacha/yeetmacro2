@@ -108,7 +108,7 @@ public class ScriptService : IScriptService
 
     public void InitJSContext()
     {
-        _engine.SetValue("sleep", new Action<int>((ms) => Thread.Sleep(ms)));
+        _engine.SetValue("sleep", new Action<int>((ms) => new System.Threading.ManualResetEvent(false).WaitOne(ms)));
         dynamic logger = new ExpandoObject();
         logger.info = new Action<string>((msg) => _logger.LogInformation(msg));
         logger.debug = new Action<string>((msg) => _logger.LogDebug(msg));
