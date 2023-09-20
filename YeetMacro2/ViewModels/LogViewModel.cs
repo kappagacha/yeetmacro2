@@ -121,7 +121,7 @@ public partial class LogViewModel : ObservableObject, ILogEventSink
 
     public void Emit(LogEvent logEvent)
     {
-        //return;
+        return;
 
         if (logEvent.Properties.Count > 1 && logEvent.Properties.ContainsKey("macroSet"))
         {
