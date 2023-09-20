@@ -145,9 +145,10 @@ public partial class PatternNodeManagerViewModel : NodeManagerViewModel<PatternN
             }
 
             var rect = await _inputService.DrawUserRectangle();
-            MainThread.BeginInvokeOnMainThread(() =>
+            MainThread.BeginInvokeOnMainThread(async () =>
             {
                 _screenService.DebugClear();
+                await Task.Delay(50);
                 pattern.ImageData = _screenService.GetCurrentImageData(rect);
                 pattern.Rect = rect;
                 pattern.Resolution = new Size(DeviceDisplay.MainDisplayInfo.Width, DeviceDisplay.MainDisplayInfo.Height);

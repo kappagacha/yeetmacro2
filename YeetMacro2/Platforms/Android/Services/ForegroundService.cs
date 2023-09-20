@@ -47,7 +47,7 @@ public class ForegroundService : Service
         switch (intent.Action)
         {
             case EXIT_ACTION:
-                StopForeground(true);
+                StopForeground(StopForegroundFlags.Remove);
                 _windowManagerService.Value.Close(AndroidWindowView.ActionView);
                 _windowManagerService.Value.Close(AndroidWindowView.StatusPanelView);
                 _windowManagerService.Value.CloseOverlayWindow();
