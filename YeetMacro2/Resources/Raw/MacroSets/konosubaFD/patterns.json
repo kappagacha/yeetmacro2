@@ -4,9 +4,9 @@
     "props": {
       "isMultiPattern": false,
       "patterns": [],
-      "path": null,
       "isParentNode": true,
-      "name": "titles"
+      "name": "titles",
+      "path": "titles"
     },
     "home": {
       "$isParent": true,
@@ -43,9 +43,9 @@
             "offsetCalcType": "Default"
           }
         ],
-        "path": null,
         "isParentNode": true,
-        "name": "home"
+        "name": "home",
+        "path": "titles.home"
       }
     },
     "quest": {
@@ -83,9 +83,9 @@
             "offsetCalcType": "Default"
           }
         ],
-        "path": null,
         "isParentNode": true,
-        "name": "quest"
+        "name": "quest",
+        "path": "titles.quest"
       }
     },
     "mainQuests": {
@@ -123,9 +123,9 @@
             "offsetCalcType": "Default"
           }
         ],
-        "path": null,
         "isParentNode": true,
-        "name": "mainQuests"
+        "name": "mainQuests",
+        "path": "titles.mainQuests"
       }
     },
     "job": {
@@ -163,9 +163,9 @@
             "offsetCalcType": "Default"
           }
         ],
-        "path": null,
         "isParentNode": true,
-        "name": "job"
+        "name": "job",
+        "path": "titles.job"
       }
     },
     "smithy": {
@@ -203,9 +203,9 @@
             "offsetCalcType": "Default"
           }
         ],
-        "path": null,
         "isParentNode": true,
-        "name": "smithy"
+        "name": "smithy",
+        "path": "titles.smithy"
       }
     },
     "craft": {
@@ -243,9 +243,9 @@
             "offsetCalcType": "Default"
           }
         ],
-        "path": null,
         "isParentNode": true,
-        "name": "craft"
+        "name": "craft",
+        "path": "titles.craft"
       }
     },
     "freeQuests": {
@@ -283,9 +283,9 @@
             "offsetCalcType": "Default"
           }
         ],
-        "path": null,
         "isParentNode": true,
-        "name": "freeQuests"
+        "name": "freeQuests",
+        "path": "titles.freeQuests"
       }
     },
     "bossMulti": {
@@ -323,9 +323,9 @@
             "offsetCalcType": "Default"
           }
         ],
-        "path": null,
         "isParentNode": true,
-        "name": "bossMulti"
+        "name": "bossMulti",
+        "path": "titles.bossMulti"
       }
     },
     "party": {
@@ -392,9 +392,9 @@
             "offsetCalcType": "Default"
           }
         ],
-        "path": null,
         "isParentNode": true,
-        "name": "party"
+        "name": "party",
+        "path": "titles.party"
       }
     },
     "events": {
@@ -432,9 +432,9 @@
             "offsetCalcType": "Default"
           }
         ],
-        "path": null,
         "isParentNode": true,
-        "name": "events"
+        "name": "events",
+        "path": "titles.events"
       }
     },
     "battleArena": {
@@ -472,9 +472,9 @@
             "offsetCalcType": "Default"
           }
         ],
-        "path": null,
         "isParentNode": true,
-        "name": "battleArena"
+        "name": "battleArena",
+        "path": "titles.battleArena"
       }
     },
     "battleArenaEX": {
@@ -512,9 +512,9 @@
             "offsetCalcType": "Default"
           }
         ],
-        "path": null,
         "isParentNode": true,
-        "name": "battleArenaEX"
+        "name": "battleArenaEX",
+        "path": "titles.battleArenaEX"
       }
     },
     "bossBattle": {
@@ -552,9 +552,9 @@
             "offsetCalcType": "Default"
           }
         ],
-        "path": null,
         "isParentNode": true,
-        "name": "bossBattle"
+        "name": "bossBattle",
+        "path": "titles.bossBattle"
       }
     },
     "branch": {
@@ -592,9 +592,9 @@
             "offsetCalcType": "Default"
           }
         ],
-        "path": null,
         "isParentNode": true,
-        "name": "branch"
+        "name": "branch",
+        "path": "titles.branch"
       }
     },
     "branchEvent": {
@@ -632,9 +632,9 @@
             "offsetCalcType": "Default"
           }
         ],
-        "path": null,
         "isParentNode": true,
-        "name": "branchEvent"
+        "name": "branchEvent",
+        "path": "titles.branchEvent"
       }
     }
   },
@@ -643,9 +643,9 @@
     "props": {
       "isMultiPattern": false,
       "patterns": [],
-      "path": null,
       "isParentNode": true,
-      "name": "tabs"
+      "name": "tabs",
+      "path": "tabs"
     },
     "quest": {
       "$isParent": true,
@@ -682,9 +682,9 @@
             "offsetCalcType": "Default"
           }
         ],
-        "path": null,
         "isParentNode": true,
-        "name": "quest"
+        "name": "quest",
+        "path": "tabs.quest"
       }
     },
     "smithy": {
@@ -722,9 +722,9 @@
             "offsetCalcType": "Default"
           }
         ],
-        "path": null,
         "isParentNode": true,
-        "name": "smithy"
+        "name": "smithy",
+        "path": "tabs.smithy"
       }
     }
   },
@@ -733,9 +733,9 @@
     "props": {
       "isMultiPattern": false,
       "patterns": [],
-      "path": null,
       "isParentNode": true,
-      "name": "quest"
+      "name": "quest",
+      "path": "quest"
     },
     "mainQuests": {
       "$isParent": true,
@@ -772,9 +772,9 @@
             "offsetCalcType": "Default"
           }
         ],
-        "path": null,
         "isParentNode": true,
-        "name": "mainQuests"
+        "name": "mainQuests",
+        "path": "quest.mainQuests"
       }
     },
     "events": {
@@ -812,9 +812,9 @@
             "offsetCalcType": "Default"
           }
         ],
-        "path": null,
         "isParentNode": true,
-        "name": "events"
+        "name": "events",
+        "path": "quest.events"
       },
       "new": {
         "$isParent": true,
@@ -851,9 +851,9 @@
               "offsetCalcType": "Default"
             }
           ],
-          "path": null,
           "isParentNode": true,
-          "name": "new"
+          "name": "new",
+          "path": "quest.events.new"
         }
       },
       "bossBattle": {
@@ -920,18 +920,18 @@
               "offsetCalcType": "Default"
             }
           ],
-          "path": null,
           "isParentNode": true,
-          "name": "bossBattle"
+          "name": "bossBattle",
+          "path": "quest.events.bossBattle"
         },
         "prompt": {
           "$isParent": true,
           "props": {
             "isMultiPattern": false,
             "patterns": [],
-            "path": null,
             "isParentNode": true,
-            "name": "prompt"
+            "name": "prompt",
+            "path": "quest.events.bossBattle.prompt"
           },
           "chooseBattleStyle": {
             "$isParent": true,
@@ -968,9 +968,9 @@
                   "offsetCalcType": "Default"
                 }
               ],
-              "path": null,
               "isParentNode": true,
-              "name": "chooseBattleStyle"
+              "name": "chooseBattleStyle",
+              "path": "quest.events.bossBattle.prompt.chooseBattleStyle"
             }
           },
           "notEnoughBossTickets": {
@@ -1008,9 +1008,9 @@
                   "offsetCalcType": "Default"
                 }
               ],
-              "path": null,
               "isParentNode": true,
-              "name": "notEnoughBossTickets"
+              "name": "notEnoughBossTickets",
+              "path": "quest.events.bossBattle.prompt.notEnoughBossTickets"
             }
           }
         },
@@ -1049,9 +1049,9 @@
                 "offsetCalcType": "Default"
               }
             ],
-            "path": null,
             "isParentNode": true,
-            "name": "multi"
+            "name": "multi",
+            "path": "quest.events.bossBattle.multi"
           }
         },
         "extreme": {
@@ -1089,9 +1089,9 @@
                 "offsetCalcType": "Default"
               }
             ],
-            "path": null,
             "isParentNode": true,
-            "name": "extreme"
+            "name": "extreme",
+            "path": "quest.events.bossBattle.extreme"
           }
         },
         "cost": {
@@ -1129,9 +1129,9 @@
                 "offsetCalcType": "Default"
               }
             ],
-            "path": null,
             "isParentNode": true,
-            "name": "cost"
+            "name": "cost",
+            "path": "quest.events.bossBattle.cost"
           }
         },
         "addCost": {
@@ -1169,9 +1169,9 @@
                 "offsetCalcType": "Default"
               }
             ],
-            "path": null,
             "isParentNode": true,
-            "name": "addCost"
+            "name": "addCost",
+            "path": "quest.events.bossBattle.addCost"
           },
           "disabled": {
             "$isParent": true,
@@ -1208,9 +1208,9 @@
                   "offsetCalcType": "Default"
                 }
               ],
-              "path": null,
               "isParentNode": true,
-              "name": "disabled"
+              "name": "disabled",
+              "path": "quest.events.bossBattle.addCost.disabled"
             }
           }
         },
@@ -1249,9 +1249,9 @@
                 "offsetCalcType": "Default"
               }
             ],
-            "path": null,
             "isParentNode": true,
-            "name": "dailyAttempt"
+            "name": "dailyAttempt",
+            "path": "quest.events.bossBattle.dailyAttempt"
           }
         },
         "hard": {
@@ -1289,9 +1289,9 @@
                 "offsetCalcType": "Default"
               }
             ],
-            "path": null,
             "isParentNode": true,
-            "name": "hard"
+            "name": "hard",
+            "path": "quest.events.bossBattle.hard"
           }
         },
         "expert": {
@@ -1329,9 +1329,9 @@
                 "offsetCalcType": "Default"
               }
             ],
-            "path": null,
             "isParentNode": true,
-            "name": "expert"
+            "name": "expert",
+            "path": "quest.events.bossBattle.expert"
           }
         },
         "notEnoughTickets": {
@@ -1369,9 +1369,9 @@
                 "offsetCalcType": "Default"
               }
             ],
-            "path": null,
             "isParentNode": true,
-            "name": "notEnoughTickets"
+            "name": "notEnoughTickets",
+            "path": "quest.events.bossBattle.notEnoughTickets"
           }
         }
       },
@@ -1439,18 +1439,18 @@
               "offsetCalcType": "Default"
             }
           ],
-          "path": null,
           "isParentNode": true,
-          "name": "quest"
+          "name": "quest",
+          "path": "quest.events.quest"
         },
         "normal": {
           "$isParent": true,
           "props": {
             "isMultiPattern": false,
             "patterns": [],
-            "path": null,
             "isParentNode": true,
-            "name": "normal"
+            "name": "normal",
+            "path": "quest.events.quest.normal"
           },
           "11": {
             "$isParent": true,
@@ -1487,9 +1487,9 @@
                   "offsetCalcType": "Default"
                 }
               ],
-              "path": null,
               "isParentNode": true,
-              "name": "11"
+              "name": "11",
+              "path": "quest.events.quest.normal.11"
             }
           },
           "12": {
@@ -1527,9 +1527,9 @@
                   "offsetCalcType": "Default"
                 }
               ],
-              "path": null,
               "isParentNode": true,
-              "name": "12"
+              "name": "12",
+              "path": "quest.events.quest.normal.12"
             }
           }
         }
@@ -1570,9 +1570,9 @@
             "offsetCalcType": "Default"
           }
         ],
-        "path": null,
         "isParentNode": true,
-        "name": "freeQuests"
+        "name": "freeQuests",
+        "path": "quest.freeQuests"
       }
     },
     "battleArena": {
@@ -1610,9 +1610,9 @@
             "offsetCalcType": "Default"
           }
         ],
-        "path": null,
         "isParentNode": true,
-        "name": "battleArena"
+        "name": "battleArena",
+        "path": "quest.battleArena"
       }
     }
   },
@@ -1621,9 +1621,9 @@
     "props": {
       "isMultiPattern": false,
       "patterns": [],
-      "path": null,
       "isParentNode": true,
-      "name": "battle"
+      "name": "battle",
+      "path": "battle"
     },
     "begin": {
       "$isParent": true,
@@ -1660,9 +1660,9 @@
             "offsetCalcType": "Default"
           }
         ],
-        "path": null,
         "isParentNode": true,
-        "name": "begin"
+        "name": "begin",
+        "path": "battle.begin"
       }
     },
     "next": {
@@ -1700,9 +1700,9 @@
             "offsetCalcType": "Default"
           }
         ],
-        "path": null,
         "isParentNode": true,
-        "name": "next"
+        "name": "next",
+        "path": "battle.next"
       }
     },
     "report": {
@@ -1740,9 +1740,9 @@
             "offsetCalcType": "DockRight"
           }
         ],
-        "path": null,
         "isParentNode": true,
-        "name": "report"
+        "name": "report",
+        "path": "battle.report"
       }
     },
     "next2": {
@@ -1780,9 +1780,9 @@
             "offsetCalcType": "Default"
           }
         ],
-        "path": null,
         "isParentNode": true,
-        "name": "next2"
+        "name": "next2",
+        "path": "battle.next2"
       }
     },
     "joinRoom": {
@@ -1820,9 +1820,9 @@
             "offsetCalcType": "Default"
           }
         ],
-        "path": null,
         "isParentNode": true,
-        "name": "joinRoom"
+        "name": "joinRoom",
+        "path": "battle.joinRoom"
       }
     },
     "leaveRoom": {
@@ -1860,9 +1860,9 @@
             "offsetCalcType": "Default"
           }
         ],
-        "path": null,
         "isParentNode": true,
-        "name": "leaveRoom"
+        "name": "leaveRoom",
+        "path": "battle.leaveRoom"
       }
     },
     "affinityLevelUp": {
@@ -1900,9 +1900,9 @@
             "offsetCalcType": "Default"
           }
         ],
-        "path": null,
         "isParentNode": true,
-        "name": "affinityLevelUp"
+        "name": "affinityLevelUp",
+        "path": "battle.affinityLevelUp"
       }
     },
     "prepare": {
@@ -1940,9 +1940,9 @@
             "offsetCalcType": "Default"
           }
         ],
-        "path": null,
         "isParentNode": true,
-        "name": "prepare"
+        "name": "prepare",
+        "path": "battle.prepare"
       }
     },
     "next3": {
@@ -1980,9 +1980,9 @@
             "offsetCalcType": "Default"
           }
         ],
-        "path": null,
         "isParentNode": true,
-        "name": "next3"
+        "name": "next3",
+        "path": "battle.next3"
       }
     },
     "replay": {
@@ -2049,9 +2049,9 @@
             "offsetCalcType": "Default"
           }
         ],
-        "path": null,
         "isParentNode": true,
-        "name": "replay"
+        "name": "replay",
+        "path": "battle.replay"
       },
       "prompt": {
         "$isParent": true,
@@ -2088,9 +2088,9 @@
               "offsetCalcType": "Default"
             }
           ],
-          "path": null,
           "isParentNode": true,
-          "name": "prompt"
+          "name": "prompt",
+          "path": "battle.replay.prompt"
         }
       },
       "ok": {
@@ -2128,9 +2128,9 @@
               "offsetCalcType": "Default"
             }
           ],
-          "path": null,
           "isParentNode": true,
-          "name": "ok"
+          "name": "ok",
+          "path": "battle.replay.ok"
         }
       },
       "disabled": {
@@ -2168,9 +2168,9 @@
               "offsetCalcType": "Default"
             }
           ],
-          "path": null,
           "isParentNode": true,
-          "name": "disabled"
+          "name": "disabled",
+          "path": "battle.replay.disabled"
         }
       }
     }
@@ -2180,9 +2180,9 @@
     "props": {
       "isMultiPattern": false,
       "patterns": [],
-      "path": null,
       "isParentNode": true,
-      "name": "prompt"
+      "name": "prompt",
+      "path": "prompt"
     },
     "dailyRewardLimit": {
       "$isParent": true,
@@ -2219,9 +2219,9 @@
             "offsetCalcType": "Default"
           }
         ],
-        "path": null,
         "isParentNode": true,
-        "name": "dailyRewardLimit"
+        "name": "dailyRewardLimit",
+        "path": "prompt.dailyRewardLimit"
       }
     },
     "close": {
@@ -2259,9 +2259,9 @@
             "offsetCalcType": "Default"
           }
         ],
-        "path": null,
         "isParentNode": true,
-        "name": "close"
+        "name": "close",
+        "path": "prompt.close"
       }
     },
     "watchLater": {
@@ -2299,9 +2299,9 @@
             "offsetCalcType": "Default"
           }
         ],
-        "path": null,
         "isParentNode": true,
-        "name": "watchLater"
+        "name": "watchLater",
+        "path": "prompt.watchLater"
       }
     },
     "playerRankUp": {
@@ -2339,9 +2339,9 @@
             "offsetCalcType": "Default"
           }
         ],
-        "path": null,
         "isParentNode": true,
-        "name": "playerRankUp"
+        "name": "playerRankUp",
+        "path": "prompt.playerRankUp"
       }
     }
   },
@@ -2380,9 +2380,9 @@
           "offsetCalcType": "Default"
         }
       ],
-      "path": null,
       "isParentNode": true,
-      "name": "jobs"
+      "name": "jobs",
+      "path": "jobs"
     },
     "notification": {
       "$isParent": true,
@@ -2419,9 +2419,9 @@
             "offsetCalcType": "Default"
           }
         ],
-        "path": null,
         "isParentNode": true,
-        "name": "notification"
+        "name": "notification",
+        "path": "jobs.notification"
       }
     },
     "acceptAll": {
@@ -2429,9 +2429,9 @@
       "props": {
         "isMultiPattern": false,
         "patterns": [],
-        "path": null,
         "isParentNode": true,
-        "name": "acceptAll"
+        "name": "acceptAll",
+        "path": "jobs.acceptAll"
       },
       "enabled": {
         "$isParent": true,
@@ -2468,9 +2468,9 @@
               "offsetCalcType": "Default"
             }
           ],
-          "path": null,
           "isParentNode": true,
-          "name": "enabled"
+          "name": "enabled",
+          "path": "jobs.acceptAll.enabled"
         }
       },
       "disabled": {
@@ -2508,9 +2508,9 @@
               "offsetCalcType": "Default"
             }
           ],
-          "path": null,
           "isParentNode": true,
-          "name": "disabled"
+          "name": "disabled",
+          "path": "jobs.acceptAll.disabled"
         }
       }
     },
@@ -2519,9 +2519,9 @@
       "props": {
         "isMultiPattern": false,
         "patterns": [],
-        "path": null,
         "isParentNode": true,
-        "name": "prompt"
+        "name": "prompt",
+        "path": "jobs.prompt"
       },
       "ok": {
         "$isParent": true,
@@ -2558,9 +2558,9 @@
               "offsetCalcType": "Default"
             }
           ],
-          "path": null,
           "isParentNode": true,
-          "name": "ok"
+          "name": "ok",
+          "path": "jobs.prompt.ok"
         }
       }
     }
@@ -2570,9 +2570,9 @@
     "props": {
       "isMultiPattern": false,
       "patterns": [],
-      "path": null,
       "isParentNode": true,
-      "name": "stamina"
+      "name": "stamina",
+      "path": "stamina"
     },
     "add": {
       "$isParent": true,
@@ -2609,9 +2609,9 @@
             "offsetCalcType": "Default"
           }
         ],
-        "path": null,
         "isParentNode": true,
-        "name": "add"
+        "name": "add",
+        "path": "stamina.add"
       }
     },
     "watchAd": {
@@ -2630,7 +2630,7 @@
               "width": 1920,
               "height": 1080
             },
-            "isSelected": true,
+            "isSelected": false,
             "isBoundsPattern": false,
             "name": "pattern",
             "imageData": "/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDAAEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQH/2wBDAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQH/wAARCAAOABYDASIAAhEBAxEB/8QAGQAAAgMBAAAAAAAAAAAAAAAAAAUEBgkK/8QAJRAAAgICAQIHAQEAAAAAAAAAAgMBBAUGBxEhAAgJEhMVIhQW/8QAFAEBAAAAAAAAAAAAAAAAAAAABf/EACIRAQABAwQCAwEAAAAAAAAAAAECAxEhABMxQRJhYnGB8P/aAAwDAQACEQMRAD8A5vvUQt3sf5nTv4+5ZoXqen6i+ncp2HVbdR6ovGt1awggchqz/YMUYmBfoZie/hlwv6ifK+ggjD8joDlDXVBCwv3XRS3KguI6CY5gVynOCuZJrFZpB5C2UCv7yquImKp6hd8rvmKuP+MVx/jtXAR6yUwIru9yLtEzMzM9oiIjpHfp1mb5b/JoXMGCob3te1rxen2nuUrFYJZt2G8VVnxWFPt3qw4/ELmZiVvUrMm0fcMprF0ZAbXpg1GSQXCDdFxYC+fYe9LRhU3NsDzLCNscYXhDu1++ca1T4w5+4+52oPyemZ88hcoKqnl8Lfr/AF+awv8ARDIQq9QmSVAkS2QNmg63QYyD+O2wimZPDDjzivQeK8V9Pout0MHWMVjasJCXZLIEqOgMyWTfLL14x/RD/Q8wWRnKgD3lEngeqwlUkw82K43G8v17/udL0yUYRJECQFymJAfiOfv3ewGNf//Z",
@@ -2649,9 +2649,9 @@
             "offsetCalcType": "Default"
           }
         ],
-        "path": null,
         "isParentNode": true,
-        "name": "watchAd"
+        "name": "watchAd",
+        "path": "stamina.watchAd"
       }
     },
     "prompt": {
@@ -2659,9 +2659,9 @@
       "props": {
         "isMultiPattern": false,
         "patterns": [],
-        "path": null,
         "isParentNode": true,
-        "name": "prompt"
+        "name": "prompt",
+        "path": "stamina.prompt"
       },
       "recoverStamina": {
         "$isParent": true,
@@ -2698,9 +2698,9 @@
               "offsetCalcType": "Default"
             }
           ],
-          "path": null,
           "isParentNode": true,
-          "name": "recoverStamina"
+          "name": "recoverStamina",
+          "path": "stamina.prompt.recoverStamina"
         }
       },
       "recoverStamina2": {
@@ -2738,9 +2738,9 @@
               "offsetCalcType": "Default"
             }
           ],
-          "path": null,
           "isParentNode": true,
-          "name": "recoverStamina2"
+          "name": "recoverStamina2",
+          "path": "stamina.prompt.recoverStamina2"
         }
       },
       "recover": {
@@ -2778,9 +2778,9 @@
               "offsetCalcType": "Default"
             }
           ],
-          "path": null,
           "isParentNode": true,
-          "name": "recover"
+          "name": "recover",
+          "path": "stamina.prompt.recover"
         }
       },
       "ok": {
@@ -2818,9 +2818,9 @@
               "offsetCalcType": "Default"
             }
           ],
-          "path": null,
           "isParentNode": true,
-          "name": "ok"
+          "name": "ok",
+          "path": "stamina.prompt.ok"
         }
       }
     },
@@ -2859,49 +2859,9 @@
             "offsetCalcType": "Default"
           }
         ],
-        "path": null,
         "isParentNode": true,
-        "name": "meat"
-      }
-    },
-    "target": {
-      "$isParent": true,
-      "props": {
-        "isMultiPattern": false,
-        "patterns": [
-          {
-            "rect": {
-              "x": 1275.3367919921875,
-              "y": 689.363525390625,
-              "width": 64.965087890625,
-              "height": 31.96673583984375
-            },
-            "resolution": {
-              "width": 1920,
-              "height": 1080
-            },
-            "isSelected": true,
-            "isBoundsPattern": false,
-            "name": "pattern",
-            "imageData": "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",
-            "variancePct": 20,
-            "textMatch": {
-              "isActive": false,
-              "text": null,
-              "whiteList": "1234567890"
-            },
-            "colorThreshold": {
-              "isActive": true,
-              "variancePct": 10,
-              "color": "#ffe1026c",
-              "imageData": "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"
-            },
-            "offsetCalcType": "Default"
-          }
-        ],
-        "path": null,
-        "isParentNode": true,
-        "name": "target"
+        "name": "meat",
+        "path": "stamina.meat"
       }
     },
     "plusOne": {
@@ -2920,7 +2880,7 @@
               "width": 1920,
               "height": 1080
             },
-            "isSelected": true,
+            "isSelected": false,
             "isBoundsPattern": false,
             "name": "pattern",
             "imageData": "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",
@@ -2939,9 +2899,9 @@
             "offsetCalcType": "Default"
           }
         ],
-        "path": null,
         "isParentNode": true,
-        "name": "plusOne"
+        "name": "plusOne",
+        "path": "stamina.plusOne"
       }
     },
     "adNotification": {
@@ -3008,9 +2968,49 @@
             "offsetCalcType": "Default"
           }
         ],
-        "path": null,
         "isParentNode": true,
-        "name": "adNotification"
+        "name": "adNotification",
+        "path": "stamina.adNotification"
+      }
+    },
+    "target": {
+      "$isParent": true,
+      "props": {
+        "isMultiPattern": false,
+        "patterns": [
+          {
+            "rect": {
+              "x": 1278.335205078125,
+              "y": 691.3616943359375,
+              "width": 56.96923828125,
+              "height": 26.9713134765625
+            },
+            "resolution": {
+              "width": 1920,
+              "height": 1080
+            },
+            "isSelected": false,
+            "isBoundsPattern": false,
+            "name": "pattern",
+            "imageData": "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",
+            "variancePct": 20,
+            "textMatch": {
+              "isActive": false,
+              "text": null,
+              "whiteList": "1234567890"
+            },
+            "colorThreshold": {
+              "isActive": true,
+              "variancePct": 10,
+              "color": "#ffd50967",
+              "imageData": "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"
+            },
+            "offsetCalcType": "Default"
+          }
+        ],
+        "isParentNode": true,
+        "name": "target",
+        "path": "stamina.target"
       }
     }
   },
@@ -3019,9 +3019,9 @@
     "props": {
       "isMultiPattern": false,
       "patterns": [],
-      "path": null,
       "isParentNode": true,
-      "name": "ad"
+      "name": "ad",
+      "path": "ad"
     },
     "done": {
       "$isParent": true,
@@ -3174,9 +3174,9 @@
             "offsetCalcType": "Default"
           }
         ],
-        "path": null,
         "isParentNode": true,
-        "name": "done"
+        "name": "done",
+        "path": "ad.done"
       }
     },
     "quartz": {
@@ -3184,9 +3184,9 @@
       "props": {
         "isMultiPattern": false,
         "patterns": [],
-        "path": null,
         "isParentNode": true,
-        "name": "quartz"
+        "name": "quartz",
+        "path": "ad.quartz"
       },
       "notification": {
         "$isParent": true,
@@ -3223,9 +3223,9 @@
               "offsetCalcType": "Default"
             }
           ],
-          "path": null,
           "isParentNode": true,
-          "name": "notification"
+          "name": "notification",
+          "path": "ad.quartz.notification"
         }
       }
     },
@@ -3234,9 +3234,9 @@
       "props": {
         "isMultiPattern": false,
         "patterns": [],
-        "path": null,
         "isParentNode": true,
-        "name": "prompt"
+        "name": "prompt",
+        "path": "ad.prompt"
       },
       "youGot": {
         "$isParent": true,
@@ -3273,9 +3273,9 @@
               "offsetCalcType": "Default"
             }
           ],
-          "path": null,
           "isParentNode": true,
-          "name": "youGot"
+          "name": "youGot",
+          "path": "ad.prompt.youGot"
         }
       },
       "error": {
@@ -3313,9 +3313,9 @@
               "offsetCalcType": "Default"
             }
           ],
-          "path": null,
           "isParentNode": true,
-          "name": "error"
+          "name": "error",
+          "path": "ad.prompt.error"
         }
       },
       "ok": {
@@ -3411,9 +3411,9 @@
               "offsetCalcType": "Default"
             }
           ],
-          "path": null,
           "isParentNode": true,
-          "name": "ok"
+          "name": "ok",
+          "path": "ad.prompt.ok"
         }
       }
     }
@@ -3423,9 +3423,9 @@
     "props": {
       "isMultiPattern": false,
       "patterns": [],
-      "path": null,
       "isParentNode": true,
-      "name": "smithy"
+      "name": "smithy",
+      "path": "smithy"
     },
     "craft": {
       "$isParent": true,
@@ -3462,9 +3462,9 @@
             "offsetCalcType": "Default"
           }
         ],
-        "path": null,
         "isParentNode": true,
-        "name": "craft"
+        "name": "craft",
+        "path": "smithy.craft"
       },
       "jewelry": {
         "$isParent": true,
@@ -3501,9 +3501,9 @@
               "offsetCalcType": "Default"
             }
           ],
-          "path": null,
           "isParentNode": true,
-          "name": "jewelry"
+          "name": "jewelry",
+          "path": "smithy.craft.jewelry"
         },
         "list": {
           "$isParent": true,
@@ -3540,9 +3540,9 @@
                 "offsetCalcType": "Default"
               }
             ],
-            "path": null,
             "isParentNode": true,
-            "name": "list"
+            "name": "list",
+            "path": "smithy.craft.jewelry.list"
           }
         }
       },
@@ -3551,9 +3551,9 @@
         "props": {
           "isMultiPattern": false,
           "patterns": [],
-          "path": null,
           "isParentNode": true,
-          "name": "materials"
+          "name": "materials",
+          "path": "smithy.craft.materials"
         },
         "archAngelFeather": {
           "$isParent": true,
@@ -3590,9 +3590,9 @@
                 "offsetCalcType": "Default"
               }
             ],
-            "path": null,
             "isParentNode": true,
-            "name": "archAngelFeather"
+            "name": "archAngelFeather",
+            "path": "smithy.craft.materials.archAngelFeather"
           }
         }
       }
@@ -3602,9 +3602,9 @@
       "props": {
         "isMultiPattern": false,
         "patterns": [],
-        "path": null,
         "isParentNode": true,
-        "name": "prompt"
+        "name": "prompt",
+        "path": "smithy.prompt"
       },
       "howToAcquire": {
         "$isParent": true,
@@ -3641,9 +3641,9 @@
               "offsetCalcType": "Default"
             }
           ],
-          "path": null,
           "isParentNode": true,
-          "name": "howToAcquire"
+          "name": "howToAcquire",
+          "path": "smithy.prompt.howToAcquire"
         }
       },
       "skipAll": {
@@ -3681,9 +3681,9 @@
               "offsetCalcType": "Default"
             }
           ],
-          "path": null,
           "isParentNode": true,
-          "name": "skipAll"
+          "name": "skipAll",
+          "path": "smithy.prompt.skipAll"
         }
       }
     }
@@ -3693,9 +3693,9 @@
     "props": {
       "isMultiPattern": false,
       "patterns": [],
-      "path": null,
       "isParentNode": true,
-      "name": "skipAll"
+      "name": "skipAll",
+      "path": "skipAll"
     },
     "title": {
       "$isParent": true,
@@ -3732,9 +3732,9 @@
             "offsetCalcType": "Default"
           }
         ],
-        "path": null,
         "isParentNode": true,
-        "name": "title"
+        "name": "title",
+        "path": "skipAll.title"
       }
     },
     "material": {
@@ -3772,9 +3772,9 @@
             "offsetCalcType": "Default"
           }
         ],
-        "path": null,
         "isParentNode": true,
-        "name": "material"
+        "name": "material",
+        "path": "skipAll.material"
       }
     },
     "search": {
@@ -3812,9 +3812,9 @@
             "offsetCalcType": "Default"
           }
         ],
-        "path": null,
         "isParentNode": true,
-        "name": "search"
+        "name": "search",
+        "path": "skipAll.search"
       },
       "filter": {
         "$isParent": true,
@@ -3851,9 +3851,9 @@
               "offsetCalcType": "Default"
             }
           ],
-          "path": null,
           "isParentNode": true,
-          "name": "filter"
+          "name": "filter",
+          "path": "skipAll.search.filter"
         },
         "off": {
           "$isParent": true,
@@ -3890,9 +3890,9 @@
                 "offsetCalcType": "Default"
               }
             ],
-            "path": null,
             "isParentNode": true,
-            "name": "off"
+            "name": "off",
+            "path": "skipAll.search.filter.off"
           }
         },
         "check": {
@@ -3930,9 +3930,9 @@
                 "offsetCalcType": "Default"
               }
             ],
-            "path": null,
             "isParentNode": true,
-            "name": "check"
+            "name": "check",
+            "path": "skipAll.search.filter.check"
           }
         },
         "close": {
@@ -3970,9 +3970,9 @@
                 "offsetCalcType": "Default"
               }
             ],
-            "path": null,
             "isParentNode": true,
-            "name": "close"
+            "name": "close",
+            "path": "skipAll.search.filter.close"
           }
         }
       },
@@ -3981,9 +3981,9 @@
         "props": {
           "isMultiPattern": false,
           "patterns": [],
-          "path": null,
           "isParentNode": true,
-          "name": "select"
+          "name": "select",
+          "path": "skipAll.search.select"
         },
         "check": {
           "$isParent": true,
@@ -4020,9 +4020,9 @@
                 "offsetCalcType": "Default"
               }
             ],
-            "path": null,
             "isParentNode": true,
-            "name": "check"
+            "name": "check",
+            "path": "skipAll.search.select.check"
           }
         },
         "mithrilOre": {
@@ -4060,9 +4060,9 @@
                 "offsetCalcType": "Default"
               }
             ],
-            "path": null,
             "isParentNode": true,
-            "name": "mithrilOre"
+            "name": "mithrilOre",
+            "path": "skipAll.search.select.mithrilOre"
           }
         },
         "yggdrasilBranch": {
@@ -4100,9 +4100,9 @@
                 "offsetCalcType": "Default"
               }
             ],
-            "path": null,
             "isParentNode": true,
-            "name": "yggdrasilBranch"
+            "name": "yggdrasilBranch",
+            "path": "skipAll.search.select.yggdrasilBranch"
           }
         },
         "platinumOre": {
@@ -4140,9 +4140,9 @@
                 "offsetCalcType": "Default"
               }
             ],
-            "path": null,
             "isParentNode": true,
-            "name": "platinumOre"
+            "name": "platinumOre",
+            "path": "skipAll.search.select.platinumOre"
           }
         },
         "skyDragonScale": {
@@ -4180,9 +4180,9 @@
                 "offsetCalcType": "Default"
               }
             ],
-            "path": null,
             "isParentNode": true,
-            "name": "skyDragonScale"
+            "name": "skyDragonScale",
+            "path": "skipAll.search.select.skyDragonScale"
           }
         }
       },
@@ -4221,9 +4221,9 @@
               "offsetCalcType": "Default"
             }
           ],
-          "path": null,
           "isParentNode": true,
-          "name": "button"
+          "name": "button",
+          "path": "skipAll.search.button"
         }
       }
     },
@@ -4262,49 +4262,9 @@
             "offsetCalcType": "Default"
           }
         ],
-        "path": null,
         "isParentNode": true,
-        "name": "button"
-      }
-    },
-    "totalCost": {
-      "$isParent": true,
-      "props": {
-        "isMultiPattern": false,
-        "patterns": [
-          {
-            "rect": {
-              "x": 1545.1961669921875,
-              "y": 813.2488403320312,
-              "width": 66.964111328125,
-              "height": 29.96856689453125
-            },
-            "resolution": {
-              "width": 1920,
-              "height": 1080
-            },
-            "isSelected": false,
-            "isBoundsPattern": false,
-            "name": "pattern",
-            "imageData": "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",
-            "variancePct": 20,
-            "textMatch": {
-              "isActive": false,
-              "text": null,
-              "whiteList": "1234567890"
-            },
-            "colorThreshold": {
-              "isActive": false,
-              "variancePct": 10,
-              "color": null,
-              "imageData": ""
-            },
-            "offsetCalcType": "Default"
-          }
-        ],
-        "path": null,
-        "isParentNode": true,
-        "name": "totalCost"
+        "name": "button",
+        "path": "skipAll.button"
       }
     },
     "addStamina": {
@@ -4342,9 +4302,9 @@
             "offsetCalcType": "Default"
           }
         ],
-        "path": null,
         "isParentNode": true,
-        "name": "addStamina"
+        "name": "addStamina",
+        "path": "skipAll.addStamina"
       }
     },
     "prompt": {
@@ -4352,9 +4312,9 @@
       "props": {
         "isMultiPattern": false,
         "patterns": [],
-        "path": null,
         "isParentNode": true,
-        "name": "prompt"
+        "name": "prompt",
+        "path": "skipAll.prompt"
       },
       "ok": {
         "$isParent": true,
@@ -4449,9 +4409,9 @@
               "offsetCalcType": "Default"
             }
           ],
-          "path": null,
           "isParentNode": true,
-          "name": "ok"
+          "name": "ok",
+          "path": "skipAll.prompt.ok"
         }
       }
     },
@@ -4471,7 +4431,7 @@
               "width": 1920,
               "height": 1080
             },
-            "isSelected": true,
+            "isSelected": false,
             "isBoundsPattern": false,
             "name": "pattern",
             "imageData": "/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDAAEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQH/2wBDAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQH/wAARCAAmASEDASIAAhEBAxEB/8QAHgAAAgMBAAMBAQAAAAAAAAAAAAoHCAkGAQMFBAv/xABFEAABBAIBAwIDAwcIBwkAAAAEAgMFBgEHCAkREgATChQhFRZTIjFBkpPR0hcjMlJVkaPUGBlRVIGhwSQnNkdIV2dxwv/EABoBAAMBAQEBAAAAAAAAAAAAAAACAwEEBQb/xAA2EQABAwEGBAUDAgUFAAAAAAABAhEhAwASMUFRYSJxgfATUpGhsQQy0SNCQ2LB4fEUM3KS4v/aAAwDAQACEQMRAD8AdtuV2j9e1KzXy7S8BWadTYGWtFpsUsU6NGQdfggX5KXlT31d8NCggjPkvKxhSvBvOEJUrOE5U45A/FGSQtxka9xY45wllrARrocZeNtS06wZaUtuKaSaBQawoAyHCJUnD0fiRtJEoQK63k+JiC/dCa2R64odtkOltyrHp2TFSKIPX5kk0D7nzblUjdt0KRuWE5bzjOBWquLLEyvl3bXDsSDbmMoXn0sL0D9j8Vq/d9nUPc9/pGoNpXEqAXry93oYQYSdiGRjhpCkw9rknwYmtyTh7rJigT5eMzaVFhChNypsYyKz8Sklw6yBrj7DH/Owt9UKYAJKQTAAfVs9s+RMva7Wh/ieNsT1/rdF2/xBgp160WCIrQbenbPNRFrRJzRw0eALG1K7YlhJ6QMLJaHEjiLVW0OuvtYVIIxjPnur1edk7L1X04OT1/17ap3XlzgqvT1Qlupc9KV22QL8psykQ5L0RORBQx0cS6FIlBPEgmNuYHIfS27nC/r19g4QU212KiWuUapV2fqdlrtrrtgmKyD94ayZEyQspH2CnTneUIAlgnGWzY46PNjlpdShbb3bP5URdb/Of9Vjy2x3znH3b19j65zn/wA49dfnznOc5/8AvP19Ci32rJHJtNX5QddbAQCQbgSxDy74GOX560O+Gt2ptPafHTkfO7Gvlv2TYG98AoVYNh22w26a9l7X9dXgdMnPHSJ3s4dS49lvL/hl11a/HyUrOWRfelvwQf2j37vStvwxM9C1XiNyss1lmI6v12v7lZmp6dmTh42IhoeL1pDGyUrKSBbjIgMeAGy8UYYS62wOO04864htClY+avrtcp+TnNNzjt0+NVaGndVuSaYuP2hvuI2EnvCRD/tWjbFiMgdjUgGp0JOHELgIY2KMtEi1iOHwldlsQdVAwFWROwjaMNvc2FU3JIAn+3fQ6zoZ1x+QHMPj3xChrZxQck4OwS20IWvX64U+GasVrqtHfgLIe4XFhlgSWI1g+cj4iOkbGyE4RFMPoHZdDXJJMYkTo17u5Yb54RVa98rGijNg4udshIGxWWHarlottBjcRa6/YLFEhhRrTZ6zCpiKFPVGAvzcLFRU6Rg56SXLSPE9ZTk/sjiRwjqG4KoLrq6X7Oz9e1M0ubhbEzTJBU/WLUVNysHBxd2algByyYhJESEXbJ35EB3LJBso83g/MkdHXkVb+U/CCo7mvcRVIO0z932HHSYNMGmAoTtX7A5DhPNizk7YT2iXI8QX5jyklNLUlLjTLWF5xln4fuVejRmGfXOLHhw1xLQbzzlHSXkg/OoXvS34IP7R793o96W/BB/aPfu9KD8zuvvzXoHLLcfFzjppHU0gRrvadv1nAEFVbYWytgWx+rSZkck2OiIK0wYCSjGw3THIxmvyyx0JUhJDiWlurgwT4gHqkaFnYiR5M8Zam7TpAxDb0XcNR7M0xLSbOM+88LWbWbJPRgx+WG3UodMrVkbZTha3AXVN57K6vMfbJtvXmdbZ4Ww9eXZ66y7X70t+CD+0e/d6PelvwQf2j37vVPuDPOHT3PnR0burURBoOGjV1+8UebcH+8+v7gKMOSZATCRXFsFDujksSEHNi9g5qKIYJS2Gc3IRkfcjvn/bn+/PovK8x9tttvc62PC2Hbd9DrPx5id+70TKT8+dAwkFBxxsvNTMtIJjoqIiY0Z02Rk5OQMWyIDHgBsvFGGFPNDijNOPvOIbQpWFgeWvxN+tNd2iWpPFTUTO7PscskAnaVympCp0I4kV1TSnqpXwgiLNZ4h3OOzUtJGU73MoU4GEeE8Oa50/xMXLOzas0DqrjFS5QqKK5Dy1hmthmAEujlOa516uD9usPKaW2vAFvs08C+ZhGcpKBqZ0WUlQUkQy9CHRP6XNUktHVXkhdapXpi+bEaXPwlht8Y1MC0mrPOuJr4dSjCmnWPt6Xjks2CTnm0jFMhywsQyaO0yQmR1JJMqIAxJD6DACf7m2imkYpclgA/Jy+2fXF7QPTfineQYMsy5sXizp6wwSloU6HTbTdqVLfLqV9VMyU67fA1Lwj6oyqKwhxWO3dGM90tdcQOTbXMDjnrPkbW6PP0GC2ZFyMlHVq7fJonBG4uclK++T5RRhwxUTIGRJJsDIKUI9KQj4Ek5Hg/N4HREGwODNavtffgbR9ydgxb7K2na/eqSCfCvJUnxUhTRzs8ynCsfTGfks5T2xnGcZxjOLQ6focDo7TlLoAaI2uVjXVREihxUEpHg61BQwmctAMEEuJZFh4GPaSI0864hpoMPDzq8Y8151RYcKyejHLny9eZy4D/DCS+rjLp/gs7m0pe9L/hAfrv8Ao96X/CA/Xf8ASinLX4jLb1l27I6b6dmoIi8R4MoZCx2xLNV7RfbRsMmPWvBElr7XdaNjFRsEtQ7zscbO4sEjLxSmzyISuvZyO3GWoviJuaGi9lw9P568eAXqlIuiuyy4yh2fUW2YaJJeSw7YIeIskgutWoIRCHXmYlUXAfabyFMItQSfHKFdXmV68u+vJjwth23xn1xeXOfdl/0tg/rPZ/649Huy34YP9738XrjtZ7LpW4dfU3aetrCFaqHf67F2mqWCPWpQsnDS4qChHvbdSh8YhCV5YNBLaZNjzWiAThxzB3mW0yrf8RV1Etl7Fn6Bx44+alURHSU0zHwlc17szbV8ej4k9Ybhr+I61DBkMIThnJDw9QHbaceThTmMLbTgvKiT7Thtt7nWx4Ww7bv11l2bLsv+hsD/AI5ez/8ArHrx7sv/AFAP8f8Aj9JYa9+Iv506J2IFXOanG+vSNeLHSWdBs0e3aT2iIG/l1oaVhvvMfIwclH4dQvORTK0ziQyzlpifAylxavRauvz1S9q5kdgcf+KFfrmn49wklg0LUO0tttDgDLcy/ix7DGLiK8XkZLasEkxcBXEM4bdU42nxUpOOrzK9e+ydmPC2HrybvOdZdW92X/qAf4/8fo92X/qAf4/8fpfvpC9bQvntdJXQG86RWNf7zDrhtqqkzRnJNmkbEiobLOJ+OHhJ0+Ylq7aIgR5uYSLicmgJqKZmS2VQyodIZ809ZXqc7Q6blL0rJ6r17Q7zYNvTF7jFE7Ben3Ievt00GrlNupiK5JQZsqo9djylzGZyOSOkRPj7uX+7Q6vMr177J2Y8LYdt30Os7N+7L/1AP8f+P1492Z/Dj/73/wCL0kAH1yes9OQw+yobjrWjdfFDYlRpeJ4x7WPopUXnHngtixospbj0Z4JV/wBuZsGW+2c9yu/jnGvvS067VR5vXgHQG8qVC6c33LDFPU02uyJhGuNlkx47x0jDQ7E28RN1K0MgsvlAQMlK2IaaGCNUJPNSXysMTrq8yvXl315MeFsPXl366z1PxDW5tzaV4KViyao2Rc9U2GZ5D0WrnWPWdtsVMsJcCfRtoSJ0I9MwEhHSP2UaREgvmBpJwyS4GNh5C0o7YkzoNXS93npraksdssUrcJ8y5bhTIWK3TctPz8itvZtlw2s2VkyizifaayhhrL77mUNtpQnOEYTjFb/iblZz0+aF3z/6qNdf7P8A223J6nL4evOf9V3p765/8bbk/T/8mWL0OdTzfvHOzeHwgMPuB6Nmcedtq/dmfw4/+9/+L0e7M/obj/1n8f8AXPpe3qo9dCO4Z7Cf43ccaPB7e5BhNR+LdJ2V2UKoWvJGZZYJiKy7DV0yPnbnciwihTC4gGYgwYRs6NafPlJR0+FjsqkdePqxcf5avW/kpxxqpGt7Aa0jEXbNR3jVSz2Fp+Zci63cUSTjMRO5FadcYRPQ9leYY9x9+GISlK0Dq8yvXl315MvhCISOpmBz0nrkbOze9NfhR365HrH3XvWh0xtTnsjp/wBL1lstWxAtkbe1dYLvYRqzEUkKxaah7zJWMiISDaZuemIs0miHgxhBkXBkOYKHKfEZQlTWb3cPOWesObGgaXyC1M+a3XrS2UHKQMrllM9TrXEu4FsFSn2h3HWUSMUVlKmn2V5Gk4smOmQsqBkRlqQEuO+NucZusfyO3joqlxmxNrUbmFy+dqlOma9ZrXGzTk/bNtVaYSVAU6Wg7JIYCr85LSTeI2VEUO8G2WVl4Ickd0dXmUevfZ5W0UhLpG0nGMWOET11n+kf701+FHfrkej3pr8KO/XI9LN9Obq39RflLy91jpDf3F+ia21Xbgr4/YrjCab3pUZKLermvrPZoRsefumxJ+uB4kJyIjo55J0WQspkpwUTLBjzD7enPU16nOrem9rCGnbBDvbC21sByQE1fqwGUbiXJf7LQxmWs1ml1DnLgahCLLDYILZAOkZWSMEi4sJSPtSShx1eZXry768mwUx5U5Zn+XfudRbSv3pr8KO/XI9HvTX4Ud+uR6SGd66XWJl4QjesJx+pDGlh/dksEjaE2Kfr5MKMvOXSyLU7bFTRMWyhtTUhOi2AWPbe9/s8EpKWWWD+lP1XKZ1IaRZgJCsj613xrUePJvtDFkXZKElYWRdWIFdqSaUlqQegnzmshSsUch8+ryBAIRchJjyMZKHjq8yvXl315MFAAe6k64ljGM7e51trV701+FHfrkej17fdX/t/55/f6PWOrzK9e+ydmW6nyj32329zraHtgVOs3+l2KnSUoU8HPRzgbrZrbxYbivJDzSDBXRVNkhrdaQgsdacpfGU60rGcLz6Um5b9CDXJsxMTunLRK6XnDSSCWqvOxZdm1YeS4pa/ar8iI2PNVoR9xSnlNNvWQcFvKBQoKPYQgdpinqH8ng+DfE/Y3IgcOPuE/Wn6zDVOpm/MDhWCx2exxsKMIaWC+p8MIMImQmCyE5Sr5aMdaZ8yXWGXcZKN8S3xNnK80jb/AB+31WZx4dKZGHpAut9l11Tvh3dbalbNdtZGEMqXjOG/frzee2ceeMdsq9ctKrVIJTRpKS7QpQkNn4h26DIW71JpEzUWDyy5XRp862xE1jyq6hPR93BB0KatE1La4adYkndUTVkkLJpy/wBSyXlg8qikFJW7TpF7La0oloEODnY09sJNkhjo/K4g1p7qlbYo+9OjFuXcdGk5V+ubS1Jpq9wA0gtfzQ4Fn2RrKXaj5NtCFMNSUakpQUiwl5SR5AV9nC1Zb+qnnUm5nV/qPbw1hDcddL22r12tsS8DTa3IoCkLzcLNczIlcmU5B14mVjIMXDMFEjAQgEvMMC5ZkpJ2QaaNyICyly704fpH4fOb1vOyYxNhpOgdKRM60MtD7GJzO0ddPTDIZOH1ZICHkSSWgiMNpw+I0y7hprC/BDrWxpEpQFLWAQoyAT+1lSRGN7ARZA3Em8SAkkEAyYxiAemeE2TbgOSe76dxetnG6ryclW9L7O2b98b6TGMnCZvU3BQMAJH1GUl0qSKTCwSGQp8mvsZxks86LOlkPNBROG3N+idxW4rwnHGtbV1XaWbw1Z1Du3iyuioFs81fYpltchXrTFN4MerEXTXzFMRFQeJfbfZIRO5IkxZnMxOZO9HjhpSuYvAzlFULoK1JhDblEwwG2yxidjDE0CFeCtFSPczlYVjhXVOLHb9p1mTEcLjCmihCiY2QqvxG5D7Z6MvOCa1btI2QltEWuVjI/ZYMcw8RG2OinPvs1Xc1OjsuuYxYa4yt94qPYdceMZHsdIMe+0GRD41ysstNMIUsM6VHkTgpJBYiTGXJQEum8VAYx/VwQRqAeYOBYB+JJXHq6e9fwKeYS5jkdrf+afW8pvCMVLZPdWMONIT5Yz44x2z37Zz2x279pC+Hpcjk9NSiYIkDR3f5Tdtd2mFvpbxj70r8c4w2ytPdWPrn8rOe/wCft6iL4icuvz3Tbottq9jjLLXrLvfU03AS8S8wVHS8JM0bYcjFy0eYwQ80UAeC+OUKQ15NPsPtuoXlKsd5Y+HsimS+mrRXlntDqzs3bKfbWhGc4wm0LxjPfL7efr+f+j/xz6h4v6N+7Shd1nN2JxvveH/LDK1QEXzxKa6C7FyYx4cG2nWy9lChIyzfEMWmCPMNYi5XmjvMZ80VeEnJHW5fle60t1h7GHleOMeTg7nbyzlTefzemtuXnC3VeyuOm3qk7My8uBIUKyOPR1kQMc22SDFFHAS0c+zEhfJS8GaOPMRRCm3coPCYxhTXl7iU0ts79j+KPWk3RvySrpV0i9W8wNwzB8BHSDESbLAv2K0wpWATSBzRmiWWJJZg7bzeWSXWECuECoeyUzrfzA+Ip0psHjzfNecbdYbljtnbGqMxTXLHs6LpNdr9GCssc/EzE3FLq98ukjYZwIIovEGwQFBhMnLDlDCH0CPQxViqqLlxCFAhJUVExqAyw4bY8zZAmmUm8pQLlmcOGgnhx2jlaAfhhtgS0dyf5DavckzxanadCtX08Ud0jA67FQthVGvQpCm28Lbw8mN2RYG8Ly35qRnKfPCUeOXXPdh/7Xkv2pX+X9Kg/DY8SLVU8bb5MXcJ+ttX2nRlK1+LJDZHOMqjk4FOyViWw+pp1uLsUhEx7UGtftqMHgipFtt6PNjSnmt/sEb+1mP2bf8AmvUKtYJWQBSUzSpRd2BaFpGmVnQE3ZUsFzABbL+U/Oo1smb8UJFvI3lxanWXjioc/VF1iRnyfdUziSiLeKZINNLcbb/nUizkWt5OO/ZC2c/p9MndMWcpM309eG51dlyPkm+PetIk5IbruWWrHXq4FXraN3ZZWn3A7RFy4jqcrU424wpt3PuIVjFN+t5wUP5ZcdII+kFAE7M1hMHzVNQQsYREq6aFhBtUeOfLwPHsWMcdbY5hSmhEWAOvJOJEBUS+hcTpzdXLa3TbYn+OO7tX2G7apjbHImIqBBCqxsbU9gOf96wMwTE2NkM+HlSvOSLqsmqJaTMEkzUdMhrkJNmTdKzUpAoTTUoGUOWDGCGWCCzGTrm1l4Qsgld1hxNORzTIcEQLP3e7D/2vJftSv8v6zR6xWwTNcdNHlnY6nNyzU0VRIWmYWy+WhzEVsm+1HXVhxhaW2soSuvWqUQtWHE+KFKz+VjHjnK+4/Ez8XwoJ9/X/AB931ZLNhhWRoq4va9pMEsnxz4tvz8LbNgSDTHl2wp5utPOePfOGO/09X6grhD9WfpM2+zLZjqVM7lodwgZuusLekhKTeKLcSEDOJJf9sk8II+uRFnHXgdLxEaQwnKWSFKQ0t6ogpK6VJCSpIvOYcjD9QyAIcHARZz4bFlrJuk4HIZ8Lz+Zmcdvhw+NtK2FVN/7Zni3Y6XCtkDr/ABJBMtrmGYRiFZsLkbFkuClJBHljpBsiWXltaSFQkShTDmWUOMW56+/FnX0ZwnO2lFSJstJ62vVMIhX5ltpyXjlWqcDqsoINIMghYXFSYkmgg4Lwbwo2IiSHPmVDtKGxb6bfPS09I7de4dN8j9ZXA+hW8yJRc4SuNxzlvq1mrP2gxD3GnizUjCwNpgrBEyTzBKftuMGmI9EFMxcxluPUDKSv1WervCdQan0rjHxe1zssSmylzh56xGXCIih7xfbGCkkSsVGAqdUnLc03DMyB+ZV152VflZeVGiGmY6LYjn8ytiurfACEGmW43Lswc/eA74Q2EEPabUyh7yr2LZYjCMCJM622o+G+v8jbenxL1+yTMpgXWHIPYlIqrSXiVMC106tUDYbgrH828lGE2S92IhTTfghHzSVYT5OKznBDoX1CFu/UotEDOnyUfGu633ESomKcbaMy4NYa+tpCVvCGoSlec58/IdX0x9Mpz9fTR/Rs4lynF3hBUKTbTBQ7raLRYdiXMVjLJDIk/YRocFcal9t/DRDsHGwsdXyyWVvjEmxJD4j7grjPZZr4f0RBnVCsjK30jp/ku3Ur3VpxnH5M7Xu2O2Vox3z3/rf3+kFX/fKRT4GIIOMF7/E2WV3PPAN0inKpxjAOnDhmOdrv/Eh6JptE0/x1vFfkZGWLxsyxVVt6YS05IAhy9VdlzR0GMggodFMIrwDuGctJU04JlWcue53RpT0h9P1LY/Tf4zWyyWy0jzZ1UtMY20E4OkIEas7EuVXjGfacjCXCG2gIYROEpLY7IxhrGUZT5eqofE7xjQPFfj04gxsnK+QDyMoQhKcpx/J1bVeXfDzme3fGMdu2PrnH1/R60I6IsOyV0ueKb65BphTkNs3OWlNpzlHju3Zacd85fRnPfCcK/o4+mf0/nzhrqFJNRqblV1iTdZjgb+MeY5xpoSi+Q6rrOC0vENddscQLK/cP4QPTvxAEfUoMjMbFQHKnftRYzGpUO0xFS0Js2EeCFaQ33bDSLIrEZZ9vPgNhCe3dOFetHvik1BqqPDD5Q0ovOLHvTzwSp1WG8ZjNVeOUe40328vr5du/9HHft9O+f+rBEK+IxlA/fThH+m3uJr5jKcePZLl47L8fPt2V2+mPc7fXH5Xq/wB8UjHtg1LhhlstBXu2PemM+CEp8PCM1V27+Lrnfy8s9u/b+jn8/wChr/6lJLIdaCSXN4QSyRewjMHnEZw+GqVPeDBoIdMnhg6yOQtqh019CUCz8AOJ84fZ7YDLymkqeS82K+KqPGeyD4YQ2MqGW8ppOEYzlPz3krPfs4nH0wqh1VaS1wv6oIdt1c8mLmIw3Ve949+FbXHtotrE04W5IiDs4ZWORNH1tuZkmUqzlyUk5Hu67h3K1aUcG+vvxj4/cUNU6Q2nqTembnqSjx9NELoQFCs1atCYdtxkSRckbBeKTJwSzcZaWUF9iTCAcZd9k2QUhtL2Zlef2j1jupgzswmovV6jyNvpb8+EhxySh9f6pqTgIEJVyplY47JtjtDIDgreGx2syVkmpWUGjhoUMtADJXUvK8RCEoD8Tl8Q37yJGMDSDFhQQEpKVKKmDjIROQl8GfOzDHxLCwFcAqJgWQMKc/0ote5y2Qt5SMI/k53B3XjDjLafLGfHGM+XfsrP0zjvnE3/AA/rkcnpj6hwRImju/fTcPkyyt9Laf8AvJsPjlOG2Vp7qT2znsrP1znv2z9PXB/ETatnrX09MydaQ7N51/uyh3meFBHy8SPXBa9ea7ISXssuvOrGjXbKKae4hvKBI9ks4hTYor7qKffDq83KbZaABwJkqrbAr9UVbH2XBXMAWHNpBNKLmAJWRbsJJE4DNRM6NP2LMcA0HCy0eeO+Gp44B9K2lyFQmiVhNMsqQ5uAACXvu4j93Sz8AqHiUxGLS8Q13+llw9K8krFDc0Z/lBO6pl9+XaRumw9huVViRkAj/vPbZGSIdsayRq7bSEuwTkwQ8D5xTiQT/kC2n2HQmO+j3KXqU3Hkfoy9acN4DbKrI9uh8CYsUvfLHbGYOSDIYkYiwMROdG1vCzIqTEGMQlMqIhxDS2Mraw6pzFc920va3Sk5+yt8Bq7s3r9y424iquKy6DAXWgWEspM3SftpoUpqMslbbJSE5hwZ94CUjIifVFGwxgrJusQfW24ELrrJx9V5ZDWbIyckV8TX+pTY5s7KMZUyxYHtygLfAS5nxSc5DClqRjLmYpKuzWb3iwKQ4IEgjMjfTp6TIBJEkg8jt/eOzNHwxxNrh9S8rKNcRLVWoaJ2Jri1QAklHysWw/JWqt2KJsBAiCRUJddyNS662UptPdKUC4XnPdGMZY8X65F2/wCIXvlekTzQ4uT5g84UuniZx88hscLfpjLiMusu91uuDtIdytnOcpcX9Eq+qWy+m1sej8lOM1Z5F016Tr0Xs6Qswy6nYnY0uYrj9Fulqp2GTyo95kVwiUYjWZvDbTfgMNIjDpeJy3khxPjkNcLL05etXft9T9VOn4OM5E7F21HjDqQHi4a/26XaGrIuvGv4UGuQEj7fYYln3V/Lsz8YoYpxtlKnfUk1SpdRKQh0gtLqKgAGUysAQ0AYY52chICJUZLwQAHliRi25s87TdIUWlWIGxgWy0FFAJLS2yUtvDC8Fhvhr88sxrbn5Lb6lJ8V4/Lwnv3T3xlHTr3bAkLf1SrjXJdiUtld1ZWNK0yv175oth+RhJWnwOx5SHj3kjkujPy85e5oZJIwLzqXnkZSOQtlCFMR8euu1xF5NcgtPcfNdUreULM7ZnC4D70bEr1Drtfr0gmvS8rFjLTBbGtx8oVLS0cJANttjBDtPSbRaS30sqGcyD+IV4o7Bo3J6N5h6+YMkq9LQNHRbpeGGy+VTbTThhYqt2eQS1h72IeRGjQItiRcw4IDKwiBjn2Vy0Yy8IqLNQJqopoJSSljxFyIlaoM5O/uKCAngUo8UuCwjF7o2zz1Nvyg9YC+AVdiuDdOjZI7YkY1Ehsi7IsA0CIAOPgMaPYryePamm4tgRDYyQEmpThhGGm3W2uyMQp0KHbnWeqTAHs0W463pWxqxu6ElIxUXNsAQVder8neYaukSb8WC2+PHTNXr4bDzwo+SCBB14GZcWlCLQ6U63XFU+ixWOQVJ33V9kigsszmNWVagXWmSxrDaW35CKKsmxaNMxSZB1OSkQ5kac3Gpd+U+3ZH2cFPazdLbl9o/nRsTcJ2qgNhUwbSQdMfHRsoarBy9uD2EzdY94lERW52cEiW4B2ttJIxielMkuS4nb5fDSvdeospQoqSGAxJADlgMxDnUNhBk4lKXDKLkh2BJywgzGhGxz3E92G/tuV/ak/5X0evyfYQn9rj/qN/5r0euLxz5aPr/wC9h6WrcR56uX7eTfw9h2bcLs7VI+xaTNU12SZaEm2WxzmpGLHkwDg0OoedjzRHXEocFLy2ht/yS6nLXmhTLqFKRnGzYPST4rvTjrth0Xppw51z3Vu16FJrg7y158suOiQIcKLlxzOfJ3OR15WvKsqUvOcqyej14v0tRaeFKikEuQCz/aJIm1KkkEyWZzoG/rPO1j+O/TX0trR5ExSKRrnXwb2PZNNptYEbtcmLhWFOAFWAkBmSSKv9HvHnIRnKspGwrPn6vVt7RNX2pqex6pl4Ws2GuTsdFxrlauMKBM1MoWKko6QDHkoo4GUFKYEcjh3xUPAk4aKHGeThDjSXUHo9JWqVDVSSokpKSknEF3fm4zttP7SMjB5MItwHGPijSeN1YsVbp1P1xRBLBPNzZYWsKpD1iMOIbjxgElSQ0XCQTZJyGmMMofdYfWkdKG8PYTjCExNvzp9ap3ZcxLdOa501dn2B1YaxtGg1y1vRZDpOSS2olcxWLDhmNPf8SywcZZYWYp5amnEO4S2ej1iatQV7wWbymCi8kMMfQW0h0JBwF1hpItI+0uH+utl6LqmkztZ6bcqdXLgjIzXx9Hr5Gr4B2GCkBGvuzV3K0RFxaBcSBKI1AsIJkQcolhC0JcXl3vePvHmraG1rH66q0BTqbEgyUtIohNe1+Nr1aaflTFFPkMRsdGQwyCiFKwst3AKFuu/lLW5n8r0ej0qlq8MpvG74qi2TsJ5ybaCXSrMoZ9hd73zsjzE0CO2P19tga7lBYuSjbNzD3zClBz0ePJRBjLi793Zko8hkkcoR3LeEvNOMPIynPfLS+3jllOs9JrjiBdMGxWkdCx82IVkhJuKYESIG83lTnzMdGEQSo4Z9nOMrGyOIJlpxLamls5QhSD0evX+qqLQKIQopH+mpmC08WOuAtzoAJL+c/ItrLr7UMJr2CRDxxr5Dzq8PyB6xmWXDCMIw2nxaStWGBmG8YbGGSteGUeWcrcdcdcX3X3eZ/wB7e/Zt/v8AR6PXhklRJJcmSTbqBIAALAYe34+dTb58rSoqbjjImUyoyPPYWOUO40jxcbX2/MpKkrbWhWEuNOtqS406lDra0uISrGbHILpt6d2ZhcndqdrrYoAqUshk3mrAkWeLGy4tSAgZ5iPJPSwlSlKV8sZHIcypXmPnPfKj0eq0Ki0LAQopcy3ccxZKkhzJGHqO+c42rLQ+klxXbmGHIHRWmEmIeyttywQZFhGbWlXl5pDnQpkXKkZ/Kax8vjCFYT4ZR2xnGx+sdSB67ocJRmywnI+FGfDEEjIgWNigwHnnXkRogLecspEGw8tlrCWmUZZ8UYHbTjCfR6PVfqatRV1KlqUMZLsRgQTIxystOC4gzhtda1H+SvTt03thvJ9vptCvUKItagQ7vXRTZavYId9xwaAnEBlSIwjjnfKm2CgFe3hLb6y84yvPB8demXozXcl94aDQdb6/+uRy5qtVxgi4vDOJT7wA85Ih5PEEJb/JdTiScY8/5xwF/OPqej0ya9bwT+opg4Z4xGWB5mXmykC+zZj3Z7aoRdMi4aPDio1axgAB2hRWENo8W2Wk4SnGVZV5LXntlTji8qW4tSnFqUtSlZpNoHgPq7RW0DNlVfV+jqfMFRc3GZntf0CvQFoUzMlDEEDuScdVYcrIpWR0qNa+fUh5xDeVtu+OFJPR6hTUoJqgE8SeKcZz1xNqqJdO2G0pHx+cbSpyb4q0nkhVa/WLhT9c3sOBsP28IBs6rRNmigicxpsfkyPFlIWdaHkMtFrZyQ2Oy5kZx5vL3irKFSBpPSNe01q+qa0rsRWatDVdiSZCgaRDAwlXj0yM1JTLyYqLBBihRUPkyLxRWGgB8OnPkvrw446p1w9HoKleChDm7fJbJ2M+59bAJvkvJDPsAhu887VriuA2rozkY7yBZ1do4e1O3OZuObmLQK61sVUlLpOw/KqsSKq3I5myVGuKMOzNZIey6/lZTuVq88Kfiko9ANS4YZQ6tz3bHvTGfJOE9vCM1V27ds579/L/AJej0euz6NalfW/TXiSyGD5DwllrTqRTqAYFQJ5ko/Fpv4i9N/RW5eGXFDZF71RqC0y9n0zSzFTEvWB27E+v5FLfty8iJF4JkkNKb7NZMNLx7ecpw23jKkZ2P45cLte6NAA+70LU6wAF3Kh6xRa7HwdeCKfZQ2uVIaFDj8HSi2sJTl90RLiXE4fdfJfw04yej0n1VarxJvqu+JUSzwwUY26WKYDpLBwlJHNkzaxewNVRd/q0jWjjnWUF4Q4wQoVkhDBLWc5Qp0dakofYcQpwcllWU+4O86lKkLylaaY8cuBuq9A7rn9iVOhayp9plqhLQUjO0CthQEhLRspMQUkQHIthREYO4OUbGBSJmM+647IBCvLW6pHu4PR65qa1inVQFEJKZGRnOzqJvIOeDwSzi0tb74e0jdYcg3LAVubHlUt5m6zdK/Gz9Vm3GE4SyUUAaEeyyW2nH5TuQSkuqwlzCGn8uvO5qx3SP4s/b6Uj6H0lk/L2O2C4BZUX5+Wc47xpMYRH+33792/kMozjsnKM4xjGD0er/T1qoQUhagAwABaG2x0nKLKtnBYOSSYGLg/Itr5pfSURqDXFf17CiwEHGQODkhxVQhQISADbMPJPy0FHiBBMNJSslWFKQKxhecd/DHqtXKXgrrLfeHZS51ejXcDCvmyIi+10CVQAdlpoZ2SgDXI44mMLLaaaQVkT5N1eUuLyWtLuWUno9QprWmteCiFKUXIgly/zZlEmmAcgloGw+LQlxk6bWi9Q7Dhdh0DVGn6tKVw3JCJqPq4pdlGw408wvERJSEQ6VHuKS4rOHRjxspUlCvFeUJxjQXaGioHZ0TgM81Y57DRDIpjgQxbDg5SPAoCQEXhCTACU/RbSlpU2rOVIzlC32Xz0emr1KhqhRWoqSkAEkktpuOe+ptiPtIhiZDDID8C2SF16S3GN6xkETejdIPyTr2HXH4utYhxX3HE4X7z4EVFxwSnXMZ838qFcy49lS1qcXnLitA+KHD6jcbomeHo9U11R46zNRS3AtfVaMhFEZjsnKbelSRomMeOezg5ePIn5leM48svZznt6PR6rWq1FUmUtSgbrgqJGRw5gHnaKVFNQswYRwp0SNNNbW7+7qf8AfXv2TP7vR6PR64W5+p7y+dTa3jVPMP8Aqn8bfOpt/9k=",
@@ -4490,9 +4450,9 @@
             "offsetCalcType": "Default"
           }
         ],
-        "path": null,
         "isParentNode": true,
-        "name": "skipComplete"
+        "name": "skipComplete",
+        "path": "skipAll.skipComplete"
       }
     },
     "skipQuest": {
@@ -4530,49 +4490,9 @@
             "offsetCalcType": "Default"
           }
         ],
-        "path": null,
         "isParentNode": true,
-        "name": "skipQuest"
-      }
-    },
-    "maxNumSkips": {
-      "$isParent": true,
-      "props": {
-        "isMultiPattern": false,
-        "patterns": [
-          {
-            "rect": {
-              "x": 990.4851684570312,
-              "y": 793.267333984375,
-              "width": 47.97393798828125,
-              "height": 45.9537353515625
-            },
-            "resolution": {
-              "width": 1920,
-              "height": 1080
-            },
-            "isSelected": true,
-            "isBoundsPattern": false,
-            "name": "pattern",
-            "imageData": "/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDAAEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQH/2wBDAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQH/wAARCAAtAC8DASIAAhEBAxEB/8QAGgABAAMBAQEAAAAAAAAAAAAAAAgJCgcFBv/EACcQAAEEAgMAAQMFAQAAAAAAAAUCAwQGAQcACAkRChITFBolV5bX/8QAFQEBAQAAAAAAAAAAAAAAAAAAAAb/xAAUEQEAAAAAAAAAAAAAAAAAAAAA/9oADAMBAAIRAxEAPwDM/wA6Bq/VGy92XUPrjUdEtOx70fdy0Jq1PDTThiVhHwp+TmLCadzGgQ285fIEpWWB46KlyXPkx4zbjqef8so8zPSC5+b2073fK/Rg2yK/sOhzqtYamTlNhpDhcciSSpBmFZGhxAkOjirAtKDg2OnMQ0Dmz23GcFogIiMh1glvWPpy/SewV9k0Sr+nKZOeYS9mrWfacR6wM5UnCsMPOVMPaK6h/Hz8KSmwKQlXzhTmM4zysvtZ0n7M9KLcOp3Y3WBSiyjrMqTWDjcsceqFsiwltIlu1y1gpZAIQfh4kRVkRf6to0JRMhZLDYOZkbDs7j3vt6dGdjYvsPd4SuDGyCZMbWgTWtCzrxgel7Dqwa4pcEVtE6E8jCmHJ5G1S7EhpxWYpuM4hlxrS57FZBdh/FR3eOxa5Ard1xSetO8K4NkoVh+m32+m9fjDQOBmV983DuAd+s9ZWypeXctvflk/dmOpSQwFccccBxxy0/x36RhO9Pc6r6/vUd6TqXXoEhtja0Jp16Mo7Wq4QEjR1RTMYU06wm1Wc2EGEsxn489Ncyfkjn2JkVp9oJ2eLvjWV7OGK52o7Ng3g3WiukEF6ZTTDC4svehIU/lxD8ll/wDGqNqofMY/liLmPi3uR3gY3ChuSpGN6XvX6mVfs4fG9R+vBuOX0dq+x4L3+7h3UZDbL2EHakjhwutPx84bIUOkIkzsMEkKWNtFjfSTGsvCq9XzRW2X2vvHew1UBHS/ov1m3MvVU2oDYu1NlavoJZsHNrTkTEERpiiTQsZmINrcYQwzi6qFpbRLhPwaYw5HGM2YeSyTWXzc7702uH7fauou+a/V6qEK2SyHiuvTsQYEAg4L5MwXJS3YyWosAaPiyJkyQ4rDbMdlxxecJTnPAhNxxxwHJ5dCPQ7dHnZeLzf9KVbVlpNbAqkSnmGNpg7WbHxBcQvHNIdFN1O7UiWxMclxmkPLlTZsdbGPtxFS7hLqYG8cDR1+5878f1F1B/wO5/8Av/PgdrfUb93dwau2TqSzat6rQa3tKg3HXNgmgqRtyMbhhLvXSNZKyg8khvEnAjlY8AnIeHvzRpCI1LQy5Jgy2UrjuUB8cBxxxwP/2Q==",
-            "variancePct": 20,
-            "textMatch": {
-              "isActive": false,
-              "text": null,
-              "whiteList": "1234567890"
-            },
-            "colorThreshold": {
-              "isActive": true,
-              "variancePct": 10,
-              "color": "#fffaf0e6",
-              "imageData": "/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDAAIBAQEBAQIBAQECAgICAgQDAgICAgUEBAMEBgUGBgYFBgYGBwkIBgcJBwYGCAsICQoKCgoKBggLDAsKDAkKCgr/wAALCAAtAC8BAREA/8QAHwAAAQUBAQEBAQEAAAAAAAAAAAECAwQFBgcICQoL/8QAtRAAAgEDAwIEAwUFBAQAAAF9AQIDAAQRBRIhMUEGE1FhByJxFDKBkaEII0KxwRVS0fAkM2JyggkKFhcYGRolJicoKSo0NTY3ODk6Q0RFRkdISUpTVFVWV1hZWmNkZWZnaGlqc3R1dnd4eXqDhIWGh4iJipKTlJWWl5iZmqKjpKWmp6ipqrKztLW2t7i5usLDxMXGx8jJytLT1NXW19jZ2uHi4+Tl5ufo6erx8vP09fb3+Pn6/9oACAEBAAA/AP38rn/il8WPhZ8DvAl98UvjX8S/D/g/wxpflf2n4j8U6zBp9haeZKkMfm3E7pHHvlkjjXcw3M6qMkgV8Qf8RR3/AAQo/wCj5v8AzGXif/5WV9P/ALHX7fn7G3/BQDwJN8Rf2PP2hPD/AI50+02/2nb6dM8N/pm+WeKP7ZYzrHdWfmNbTGPz4k81Yy6bkIY+wUUV8wf8FZv+CW3ws/4K4fs46H+zf8W/iR4g8LafonxA0zxPHqPhxIGml+zrNbz25EyMo8y0u7pEf/llM0MrLKkbwS+f/Dr/AINyf+CNvw//AGcX/Zouv2K/D/iLT7v7PJq3ivxHNNN4kvbmJbcGcarG0d1Z+Y1sjvBZvb25MkwWFUmkRvxw/wCDfvxZ4q/YL/4OSvHX7AHwZ8TahefD3XfGHjbwPqtrr168klza6H/aV1p986wGKB75Dp/l+c0RVY7y7VETzsr/AE3UUUV+WH/Bwz/wcM+Ff+CaPhW8/ZX/AGV9X0/Wvj/rWnqZ52RLm18B2syBkvLpGBSW+dGD29o4KhWW4nUxGGG75/8A4NY/+CLXir9gf4Nal+2V+1L8P9Q0D4xfEXT2sNM0O+1F1k0Dwu5trhLe5tNiiC+nuIVmlSRpHijito8W8v2qI/rfRRXyB/wXR/4KL/8ADsb/AIJx+M/j74c1HyPG2s7fDHw0/c7tuu3kcvlXHzW88J+ywxXN7snURTfY/JLBpVz+QH/BuD+zd/wTK0nWIP8Agqz/AMFMP+Chnwf1X4rar4gvdS8HeCviD8UtPjv9Ev0vJVk13VY7+dZp9SlmR5rfeGWJXS63STyxNafud4T/AOCm3/BNvx74q0zwL4F/4KDfA/Wtb1rUIbDRtG0n4saPc3V/dTOI4reGKO5Lyyu7KiooLMzAAEmvcKKK+cP+CoH/AAS/+AX/AAVm+AWkfs5/tGeL/GGi6JovjC38SWt14K1C1trp7qG1u7VUdrq2uEMRS8lJAQNuVDuABB+EP+IKn/gll/0Xz9oD/wAKnQ//AJT11/7PX/Bop/wTb/Zr+Pvgf9ozwL8bfjhd634A8YaZ4k0a11bxJo8lrNdWN1HdRJMselI7RF4lDBXRipIDKeR+p9FFFFFFFf/Z"
-            },
-            "offsetCalcType": "Default"
-          }
-        ],
-        "path": null,
-        "isParentNode": true,
-        "name": "maxNumSkips"
+        "name": "skipQuest",
+        "path": "skipAll.skipQuest"
       }
     },
     "addMaxSkips": {
@@ -4591,7 +4511,7 @@
               "width": 1920,
               "height": 1080
             },
-            "isSelected": true,
+            "isSelected": false,
             "isBoundsPattern": false,
             "name": "pattern",
             "imageData": "/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDAAEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQH/2wBDAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQH/wAARCAAgACIDASIAAhEBAxEB/8QAGgAAAwADAQAAAAAAAAAAAAAAAAkKBAYHCP/EADMQAAEEAQIDBwIDCQAAAAAAAAQCAwUGAQcIAAkREhMUFSExQVFhClWEFyVCRYGUsdHh/8QAGQEAAgMBAAAAAAAAAAAAAAAAAAIBBAYF/8QAMREAAQIDBgQBDQAAAAAAAAAAAQIRAAMhMUFRYXGRBBIi0RMUIzJCYmOBkqOx4fDx/9oADAMBAAIRAxEAPwC5DupTrn94N56+2PCN+n1+euft19se/X348O8yjX3Uva1sb3E68aaycWPfaHT49dVNkogSREjJiyWqv1AaXzHmYeBOfh/P1SYQh7BUeQaIOyeIWGt8Z3B1s5ouwXbrqFMaU6x7lqXUdQq7gTz+rojbfZDoR00Rg4USWdqdbnQ449YRIxWY4slk9pghhx0dtDreVKY5rnNT2AbgOX3uO0f0f3HV27akXSDpgtYq4VV1FjypYiM1NpM6c20ZNU6MjGcjxUWeYrJZw6VoHU23lby2214cE2uquKla4xqhLdiyWobLto6pyCN+O5ve5pfr+JuJvgd7sOktwpLcBbV1iswMyVD3mLshDsTKDVaKg4clmKMrDj0cZ5Y2etEkQMWUSyMGligLDUrjr1kW8/pGsdPv7+/06+n1xniH/wDD175tqezutbqAdyesMRpaVfpzSEqosykHb5jM0PXANRGppxnNXr04hjADkzGJXg1QynMlpyxh3CHct0hR/Op5XskcLHj7vKQ0+aSyMw4fWdSooFDjy0toWXJylJDjQB0qV1dLPLGFHR2nH3m20qVgc4q+ZXeJMsElgkDT8Qz3uZb8yb/s2v8AfBxjjHsHDjnAFjmgmMtFBGCOskiliENpeHJGIZytp8d9laHWXmlrbdbWlaFKSrGcnDhCiAeY19tXeDw8kbDtl98TEwG9nk1aFbhdzGp2s6/28VA6/wAuPMygFJVBydZNkvLQhCpkBcxV500V+VcGybJB+avDMSDxCBWA2eyOlW+8nk66SbbNtGqmt1fsWvpcxQoyFOBGt4VZZrjzknaoKAWmTcCp8aUlvupZzLHcnMKUXhhOVKTlTa7nvBV78wf+P40fP6X1+/T2+eFhc5uAYleWRuxFr6T5aTbqFTkUhCtqJdyDD6nUeXlystNDYX3EdEAnSJTmM4SyKK885nDbas45yONSShHNIqUpoa1IFLnw10i0ZaQCfO0BNUqyNSbrHOecR38sjl6UHfFDawSVzmNVYx7TmTpgICNNxoUhp1uzC2R99Uv5rXpxSHEqhG8BdyoZKk5J7aXcpTlDVY/kC6DJOEURYN0R7CSGVOheFqQ2C20rTlQ6iG6D3jCHsYy2t1vKXEIUpSFoVjC09M/C6QSsafbwZuVZNDiZC4aOx0XI5aU2GedEw2oREsKO+thxt5+OZl4lwpttXaYRIDZcxjDyOtVmAq9n+YP/ANVJx/kXH/Pnh5vGCUtSHk9LekeqoBrvsdhMsKAU0y31UqId2tFDdTGNcp0RTKrUKrWIuukREZXK3BwMdFNFPktRgEPGCx4ce0Q/JOvPthDjtjIeeccddS1hbi1rVlWTjYPBwXxKlYx8Y6NZ6Y+MeoWc+n3z14OK3lEm9Uh7+lHZ/wC6M3Ir331cv346N//Z",
@@ -4610,9 +4530,89 @@
             "offsetCalcType": "Default"
           }
         ],
-        "path": null,
         "isParentNode": true,
-        "name": "addMaxSkips"
+        "name": "addMaxSkips",
+        "path": "skipAll.addMaxSkips"
+      }
+    },
+    "maxNumSkips": {
+      "$isParent": true,
+      "props": {
+        "isMultiPattern": false,
+        "patterns": [
+          {
+            "rect": {
+              "x": 995.4825439453125,
+              "y": 794.2664184570312,
+              "width": 37.9791259765625,
+              "height": 41.95745849609375
+            },
+            "resolution": {
+              "width": 1920,
+              "height": 1080
+            },
+            "isSelected": false,
+            "isBoundsPattern": false,
+            "name": "pattern",
+            "imageData": "/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDAAEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQH/2wBDAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQH/wAARCAApACUDASIAAhEBAxEB/8QAGAABAQADAAAAAAAAAAAAAAAAAAoFCAn/xAAmEAABBAICAgEEAwAAAAAAAAAEAgMFBgABBwgJExYROXW0EhUX/8QAFQEBAQAAAAAAAAAAAAAAAAAAAAb/xAAUEQEAAAAAAAAAAAAAAAAAAAAA/9oADAMBAAIRAxEAPwCZ/MxX69P2yciaxVoSXstkn5AWJgq/AxxkvNzMoc8gcKNiouPZIOkDy31oZGEEYdIfdWltptS1a1vD5Wj0Z7w+H7x8dReLOa65RHrh3QtdFdHu1bADMuHK4tzj3zq5YGvmdhYZqPElHsBwW5YMCEJCljqhJxhL0JbjB3Fuw6wcnezHhi7X9SeqgfazmqZ4sgoZwioByvGIU9Y5LkyuH3M5AMfHTLDNUTTknALcbVMNAW89sRW1sMvFPtLRrkhl+vnetir54iHrysFMWu5zfXu2KjEk7MTHKsUlFzCgUl7YG2UkTZmx9E7GH2/pv27Ya2r1pgKwGMYwGMYwLxvM79kum/i+q369eyDnLxvM79kum/i+q369eyDnAYxjAYxjA3x5n8m3d/sJwkH1z5f5t+X8NR7VVZDp3+bcRwHpapKR0VhPyGr0GFtTn9YkQfX8nZxajfX9ZDZe1r2rQ7GMBjGMD//Z",
+            "variancePct": 20,
+            "textMatch": {
+              "isActive": false,
+              "text": null,
+              "whiteList": ""
+            },
+            "colorThreshold": {
+              "isActive": true,
+              "variancePct": 10,
+              "color": "#fffaf0e6",
+              "imageData": "/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDAAIBAQEBAQIBAQECAgICAgQDAgICAgUEBAMEBgUGBgYFBgYGBwkIBgcJBwYGCAsICQoKCgoKBggLDAsKDAkKCgr/wAALCAApACUBAREA/8QAHwAAAQUBAQEBAQEAAAAAAAAAAAECAwQFBgcICQoL/8QAtRAAAgEDAwIEAwUFBAQAAAF9AQIDAAQRBRIhMUEGE1FhByJxFDKBkaEII0KxwRVS0fAkM2JyggkKFhcYGRolJicoKSo0NTY3ODk6Q0RFRkdISUpTVFVWV1hZWmNkZWZnaGlqc3R1dnd4eXqDhIWGh4iJipKTlJWWl5iZmqKjpKWmp6ipqrKztLW2t7i5usLDxMXGx8jJytLT1NXW19jZ2uHi4+Tl5ufo6erx8vP09fb3+Pn6/9oACAEBAAA/AP38or5A/Y9/4LffsO/t4/txeOP2FP2X9U8QeJdX8CeH7nV73xza2VsfDepw29zZ2swsbkXBmuNs14qCTyRDIIpHjkkjMbyfX9FFfjj/AMFYP+CeX/Bff/gqx+1x4j/Y+vvi14P8BfslQ6hp17Z+I7KKC1j1y3SWKcrPZxXVzqF9fW5unUQzPaafcSaTFOFtZGiavk//AINWvgX/AMMv/wDBfT9on9mj/hKf7c/4V38P/F3hj+2/sP2b+0PsHinSbX7R5O+TyvM8rfs3vt3Y3NjJ/o+ooor8Af8AggX/AMrTX7an/dR//U306v3+ooor8Af+CBf/ACtNftqf91H/APU306v3+ooorwD4Bf8ABLj9hP8AZf8A2p/Gv7a3wL+Bn9h/E34if2l/wmPib/hJtUuf7Q+330d/d/6PcXMlvF5lzFHJ+6jTbt2rtUlT7/RRRRRRX//Z"
+            },
+            "offsetCalcType": "Default"
+          }
+        ],
+        "isParentNode": true,
+        "name": "maxNumSkips",
+        "path": "skipAll.maxNumSkips"
+      }
+    },
+    "totalCost": {
+      "$isParent": true,
+      "props": {
+        "isMultiPattern": false,
+        "patterns": [
+          {
+            "rect": {
+              "x": 1545.1961669921875,
+              "y": 813.2488403320312,
+              "width": 66.964111328125,
+              "height": 29.96856689453125
+            },
+            "resolution": {
+              "width": 1920,
+              "height": 1080
+            },
+            "isSelected": false,
+            "isBoundsPattern": false,
+            "name": "pattern",
+            "imageData": "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",
+            "variancePct": 20,
+            "textMatch": {
+              "isActive": false,
+              "text": null,
+              "whiteList": "1234567890"
+            },
+            "colorThreshold": {
+              "isActive": true,
+              "variancePct": 10,
+              "color": "#ff3c3226",
+              "imageData": "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"
+            },
+            "offsetCalcType": "Default"
+          }
+        ],
+        "isParentNode": true,
+        "name": "totalCost",
+        "path": "skipAll.totalCost"
       }
     }
   },
@@ -4621,9 +4621,9 @@
     "props": {
       "isMultiPattern": false,
       "patterns": [],
-      "path": null,
       "isParentNode": true,
-      "name": "freeQuests"
+      "name": "freeQuests",
+      "path": "freeQuests"
     },
     "eris": {
       "$isParent": true,
@@ -4660,9 +4660,9 @@
             "offsetCalcType": "Default"
           }
         ],
-        "path": null,
         "isParentNode": true,
-        "name": "eris"
+        "name": "eris",
+        "path": "freeQuests.eris"
       }
     },
     "upgradeStone": {
@@ -4700,9 +4700,9 @@
             "offsetCalcType": "Default"
           }
         ],
-        "path": null,
         "isParentNode": true,
-        "name": "upgradeStone"
+        "name": "upgradeStone",
+        "path": "freeQuests.upgradeStone"
       },
       "extreme": {
         "$isParent": true,
@@ -4739,9 +4739,9 @@
               "offsetCalcType": "Default"
             }
           ],
-          "path": null,
           "isParentNode": true,
-          "name": "extreme"
+          "name": "extreme",
+          "path": "freeQuests.upgradeStone.extreme"
         }
       },
       "ultimate": {
@@ -4779,9 +4779,9 @@
               "offsetCalcType": "Default"
             }
           ],
-          "path": null,
           "isParentNode": true,
-          "name": "ultimate"
+          "name": "ultimate",
+          "path": "freeQuests.upgradeStone.ultimate"
         }
       },
       "advanced": {
@@ -4819,9 +4819,9 @@
               "offsetCalcType": "Default"
             }
           ],
-          "path": null,
           "isParentNode": true,
-          "name": "advanced"
+          "name": "advanced",
+          "path": "freeQuests.upgradeStone.advanced"
         }
       },
       "intermediate": {
@@ -4859,9 +4859,9 @@
               "offsetCalcType": "Default"
             }
           ],
-          "path": null,
           "isParentNode": true,
-          "name": "intermediate"
+          "name": "intermediate",
+          "path": "freeQuests.upgradeStone.intermediate"
         }
       }
     }
@@ -4871,9 +4871,9 @@
     "props": {
       "isMultiPattern": false,
       "patterns": [],
-      "path": null,
       "isParentNode": true,
-      "name": "tickets"
+      "name": "tickets",
+      "path": "tickets"
     },
     "add": {
       "$isParent": true,
@@ -4910,49 +4910,9 @@
             "offsetCalcType": "Default"
           }
         ],
-        "path": null,
         "isParentNode": true,
-        "name": "add"
-      }
-    },
-    "numTickets": {
-      "$isParent": true,
-      "props": {
-        "isMultiPattern": false,
-        "patterns": [
-          {
-            "rect": {
-              "x": 1130.4122314453125,
-              "y": 815.2470092773438,
-              "width": 87.953125,
-              "height": 42.95648193359375
-            },
-            "resolution": {
-              "width": 1920,
-              "height": 1080
-            },
-            "isSelected": false,
-            "isBoundsPattern": false,
-            "name": "pattern",
-            "imageData": "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",
-            "variancePct": 20,
-            "textMatch": {
-              "isActive": false,
-              "text": null,
-              "whiteList": "x1234567890"
-            },
-            "colorThreshold": {
-              "isActive": true,
-              "variancePct": 10,
-              "color": "#fffceee3",
-              "imageData": "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"
-            },
-            "offsetCalcType": "Default"
-          }
-        ],
-        "path": null,
-        "isParentNode": true,
-        "name": "numTickets"
+        "name": "add",
+        "path": "tickets.add"
       }
     },
     "use": {
@@ -4990,9 +4950,9 @@
             "offsetCalcType": "Default"
           }
         ],
-        "path": null,
         "isParentNode": true,
-        "name": "use"
+        "name": "use",
+        "path": "tickets.use"
       }
     },
     "prompt": {
@@ -5000,9 +4960,9 @@
       "props": {
         "isMultiPattern": false,
         "patterns": [],
-        "path": null,
         "isParentNode": true,
-        "name": "prompt"
+        "name": "prompt",
+        "path": "tickets.prompt"
       },
       "ok": {
         "$isParent": true,
@@ -5068,10 +5028,50 @@
               "offsetCalcType": "Default"
             }
           ],
-          "path": null,
           "isParentNode": true,
-          "name": "ok"
+          "name": "ok",
+          "path": "tickets.prompt.ok"
         }
+      }
+    },
+    "numTickets": {
+      "$isParent": true,
+      "props": {
+        "isMultiPattern": false,
+        "patterns": [
+          {
+            "rect": {
+              "x": 1132.4112548828125,
+              "y": 818.2442016601562,
+              "width": 80.956787109375,
+              "height": 41.95745849609375
+            },
+            "resolution": {
+              "width": 1920,
+              "height": 1080
+            },
+            "isSelected": true,
+            "isBoundsPattern": false,
+            "name": "pattern",
+            "imageData": "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",
+            "variancePct": 20,
+            "textMatch": {
+              "isActive": false,
+              "text": null,
+              "whiteList": "x1234567890"
+            },
+            "colorThreshold": {
+              "isActive": true,
+              "variancePct": 10,
+              "color": "#fffff1e6",
+              "imageData": "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"
+            },
+            "offsetCalcType": "Default"
+          }
+        ],
+        "isParentNode": true,
+        "name": "numTickets",
+        "path": "tickets.numTickets"
       }
     }
   },
@@ -5080,9 +5080,9 @@
     "props": {
       "isMultiPattern": false,
       "patterns": [],
-      "path": null,
       "isParentNode": true,
-      "name": "party"
+      "name": "party",
+      "path": "party"
     },
     "name": {
       "$isParent": true,
@@ -5119,9 +5119,9 @@
             "offsetCalcType": "Default"
           }
         ],
-        "path": null,
         "isParentNode": true,
-        "name": "name"
+        "name": "name",
+        "path": "party.name"
       }
     },
     "recommendedElement": {
@@ -5129,9 +5129,9 @@
       "props": {
         "isMultiPattern": false,
         "patterns": [],
-        "path": null,
         "isParentNode": true,
-        "name": "recommendedElement"
+        "name": "recommendedElement",
+        "path": "party.recommendedElement"
       },
       "fire": {
         "$isParent": true,
@@ -5168,9 +5168,9 @@
               "offsetCalcType": "Default"
             }
           ],
-          "path": null,
           "isParentNode": true,
-          "name": "fire"
+          "name": "fire",
+          "path": "party.recommendedElement.fire"
         }
       },
       "water": {
@@ -5208,9 +5208,9 @@
               "offsetCalcType": "Default"
             }
           ],
-          "path": null,
           "isParentNode": true,
-          "name": "water"
+          "name": "water",
+          "path": "party.recommendedElement.water"
         }
       },
       "lightning": {
@@ -5248,9 +5248,9 @@
               "offsetCalcType": "Default"
             }
           ],
-          "path": null,
           "isParentNode": true,
-          "name": "lightning"
+          "name": "lightning",
+          "path": "party.recommendedElement.lightning"
         }
       },
       "earth": {
@@ -5288,9 +5288,9 @@
               "offsetCalcType": "Default"
             }
           ],
-          "path": null,
           "isParentNode": true,
-          "name": "earth"
+          "name": "earth",
+          "path": "party.recommendedElement.earth"
         }
       },
       "wind": {
@@ -5328,9 +5328,9 @@
               "offsetCalcType": "Default"
             }
           ],
-          "path": null,
           "isParentNode": true,
-          "name": "wind"
+          "name": "wind",
+          "path": "party.recommendedElement.wind"
         }
       },
       "light": {
@@ -5368,9 +5368,9 @@
               "offsetCalcType": "Default"
             }
           ],
-          "path": null,
           "isParentNode": true,
-          "name": "light"
+          "name": "light",
+          "path": "party.recommendedElement.light"
         }
       },
       "dark": {
@@ -5408,9 +5408,9 @@
               "offsetCalcType": "Default"
             }
           ],
-          "path": null,
           "isParentNode": true,
-          "name": "dark"
+          "name": "dark",
+          "path": "party.recommendedElement.dark"
         }
       },
       "none": {
@@ -5448,9 +5448,9 @@
               "offsetCalcType": "Default"
             }
           ],
-          "path": null,
           "isParentNode": true,
-          "name": "none"
+          "name": "none",
+          "path": "party.recommendedElement.none"
         }
       }
     },
@@ -5489,9 +5489,9 @@
             "offsetCalcType": "Default"
           }
         ],
-        "path": null,
         "isParentNode": true,
-        "name": "scrollRight"
+        "name": "scrollRight",
+        "path": "party.scrollRight"
       }
     },
     "slot": {
@@ -5529,9 +5529,9 @@
             "offsetCalcType": "Default"
           }
         ],
-        "path": null,
         "isParentNode": true,
-        "name": "slot"
+        "name": "slot",
+        "path": "party.slot"
       }
     }
   },
@@ -5540,9 +5540,9 @@
     "props": {
       "isMultiPattern": false,
       "patterns": [],
-      "path": null,
       "isParentNode": true,
-      "name": "battleArena"
+      "name": "battleArena",
+      "path": "battleArena"
     },
     "begin": {
       "$isParent": true,
@@ -5579,9 +5579,9 @@
             "offsetCalcType": "Default"
           }
         ],
-        "path": null,
         "isParentNode": true,
-        "name": "begin"
+        "name": "begin",
+        "path": "battleArena.begin"
       }
     },
     "advanced": {
@@ -5619,9 +5619,9 @@
             "offsetCalcType": "Default"
           }
         ],
-        "path": null,
         "isParentNode": true,
-        "name": "advanced"
+        "name": "advanced",
+        "path": "battleArena.advanced"
       }
     },
     "newHighScore": {
@@ -5659,9 +5659,9 @@
             "offsetCalcType": "Default"
           }
         ],
-        "path": null,
         "isParentNode": true,
-        "name": "newHighScore"
+        "name": "newHighScore",
+        "path": "battleArena.newHighScore"
       }
     },
     "rank": {
@@ -5699,9 +5699,9 @@
             "offsetCalcType": "Default"
           }
         ],
-        "path": null,
         "isParentNode": true,
-        "name": "rank"
+        "name": "rank",
+        "path": "battleArena.rank"
       }
     },
     "prompt": {
@@ -5709,9 +5709,9 @@
       "props": {
         "isMultiPattern": false,
         "patterns": [],
-        "path": null,
         "isParentNode": true,
-        "name": "prompt"
+        "name": "prompt",
+        "path": "battleArena.prompt"
       },
       "ok": {
         "$isParent": true,
@@ -5748,9 +5748,9 @@
               "offsetCalcType": "Default"
             }
           ],
-          "path": null,
           "isParentNode": true,
-          "name": "ok"
+          "name": "ok",
+          "path": "battleArena.prompt.ok"
         }
       }
     },
@@ -5759,9 +5759,9 @@
       "props": {
         "isMultiPattern": false,
         "patterns": [],
-        "path": null,
         "isParentNode": true,
-        "name": "tabs"
+        "name": "tabs",
+        "path": "battleArena.tabs"
       },
       "arenaEX": {
         "$isParent": true,
@@ -5798,9 +5798,9 @@
               "offsetCalcType": "Default"
             }
           ],
-          "path": null,
           "isParentNode": true,
-          "name": "arenaEX"
+          "name": "arenaEX",
+          "path": "battleArena.tabs.arenaEX"
         }
       }
     },
@@ -5839,9 +5839,9 @@
             "offsetCalcType": "Default"
           }
         ],
-        "path": null,
         "isParentNode": true,
-        "name": "exRank"
+        "name": "exRank",
+        "path": "battleArena.exRank"
       }
     },
     "exScoreBonus": {
@@ -5849,9 +5849,9 @@
       "props": {
         "isMultiPattern": false,
         "patterns": [],
-        "path": null,
         "isParentNode": true,
-        "name": "exScoreBonus"
+        "name": "exScoreBonus",
+        "path": "battleArena.exScoreBonus"
       },
       "physicalDamage": {
         "$isParent": true,
@@ -5888,9 +5888,9 @@
               "offsetCalcType": "Default"
             }
           ],
-          "path": null,
           "isParentNode": true,
-          "name": "physicalDamage"
+          "name": "physicalDamage",
+          "path": "battleArena.exScoreBonus.physicalDamage"
         }
       },
       "lowRarity": {
@@ -5928,9 +5928,9 @@
               "offsetCalcType": "Default"
             }
           ],
-          "path": null,
           "isParentNode": true,
-          "name": "lowRarity"
+          "name": "lowRarity",
+          "path": "battleArena.exScoreBonus.lowRarity"
         }
       },
       "magicDamage": {
@@ -5968,9 +5968,9 @@
               "offsetCalcType": "Default"
             }
           ],
-          "path": null,
           "isParentNode": true,
-          "name": "magicDamage"
+          "name": "magicDamage",
+          "path": "battleArena.exScoreBonus.magicDamage"
         }
       },
       "defence": {
@@ -6008,9 +6008,9 @@
               "offsetCalcType": "Default"
             }
           ],
-          "path": null,
           "isParentNode": true,
-          "name": "defence"
+          "name": "defence",
+          "path": "battleArena.exScoreBonus.defence"
         }
       },
       "characterBonus": {
@@ -6048,9 +6048,9 @@
               "offsetCalcType": "Default"
             }
           ],
-          "path": null,
           "isParentNode": true,
-          "name": "characterBonus"
+          "name": "characterBonus",
+          "path": "battleArena.exScoreBonus.characterBonus"
         }
       }
     }
@@ -6060,9 +6060,9 @@
     "props": {
       "isMultiPattern": false,
       "patterns": [],
-      "path": null,
       "isParentNode": true,
-      "name": "branchEvent"
+      "name": "branchEvent",
+      "path": "branchEvent"
     },
     "availableNow": {
       "$isParent": true,
@@ -6099,9 +6099,9 @@
             "offsetCalcType": "Default"
           }
         ],
-        "path": null,
         "isParentNode": true,
-        "name": "availableNow"
+        "name": "availableNow",
+        "path": "branchEvent.availableNow"
       }
     },
     "playLater": {
@@ -6139,9 +6139,9 @@
             "offsetCalcType": "Default"
           }
         ],
-        "path": null,
         "isParentNode": true,
-        "name": "playLater"
+        "name": "playLater",
+        "path": "branchEvent.playLater"
       }
     },
     "cabbageHunting": {
@@ -6179,9 +6179,9 @@
             "offsetCalcType": "Default"
           }
         ],
-        "path": null,
         "isParentNode": true,
-        "name": "cabbageHunting"
+        "name": "cabbageHunting",
+        "path": "branchEvent.cabbageHunting"
       }
     },
     "explosionWalk": {
@@ -6219,18 +6219,18 @@
             "offsetCalcType": "Default"
           }
         ],
-        "path": null,
         "isParentNode": true,
-        "name": "explosionWalk"
+        "name": "explosionWalk",
+        "path": "branchEvent.explosionWalk"
       },
       "chant": {
         "$isParent": true,
         "props": {
           "isMultiPattern": false,
           "patterns": [],
-          "path": null,
           "isParentNode": true,
-          "name": "chant"
+          "name": "chant",
+          "path": "branchEvent.explosionWalk.chant"
         },
         "disabled": {
           "$isParent": true,
@@ -6267,9 +6267,9 @@
                 "offsetCalcType": "Default"
               }
             ],
-            "path": null,
             "isParentNode": true,
-            "name": "disabled"
+            "name": "disabled",
+            "path": "branchEvent.explosionWalk.chant.disabled"
           }
         },
         "enabled": {
@@ -6307,9 +6307,9 @@
                 "offsetCalcType": "Default"
               }
             ],
-            "path": null,
             "isParentNode": true,
-            "name": "enabled"
+            "name": "enabled",
+            "path": "branchEvent.explosionWalk.chant.enabled"
           }
         }
       },
@@ -6348,9 +6348,9 @@
               "offsetCalcType": "Default"
             }
           ],
-          "path": null,
           "isParentNode": true,
-          "name": "option1"
+          "name": "option1",
+          "path": "branchEvent.explosionWalk.option1"
         }
       },
       "option2": {
@@ -6388,9 +6388,9 @@
               "offsetCalcType": "Default"
             }
           ],
-          "path": null,
           "isParentNode": true,
-          "name": "option2"
+          "name": "option2",
+          "path": "branchEvent.explosionWalk.option2"
         }
       },
       "option3": {
@@ -6428,9 +6428,9 @@
               "offsetCalcType": "Default"
             }
           ],
-          "path": null,
           "isParentNode": true,
-          "name": "option3"
+          "name": "option3",
+          "path": "branchEvent.explosionWalk.option3"
         }
       },
       "option4": {
@@ -6468,9 +6468,9 @@
               "offsetCalcType": "Default"
             }
           ],
-          "path": null,
           "isParentNode": true,
-          "name": "option4"
+          "name": "option4",
+          "path": "branchEvent.explosionWalk.option4"
         }
       }
     },
@@ -6509,9 +6509,9 @@
             "offsetCalcType": "Default"
           }
         ],
-        "path": null,
         "isParentNode": true,
-        "name": "prepare"
+        "name": "prepare",
+        "path": "branchEvent.prepare"
       }
     },
     "start": {
@@ -6549,9 +6549,9 @@
             "offsetCalcType": "Default"
           }
         ],
-        "path": null,
         "isParentNode": true,
-        "name": "start"
+        "name": "start",
+        "path": "branchEvent.start"
       }
     },
     "skip": {
@@ -6589,9 +6589,9 @@
             "offsetCalcType": "DockRight"
           }
         ],
-        "path": null,
         "isParentNode": true,
-        "name": "skip"
+        "name": "skip",
+        "path": "branchEvent.skip"
       }
     },
     "pitAPatBox": {
@@ -6629,9 +6629,9 @@
             "offsetCalcType": "Default"
           }
         ],
-        "path": null,
         "isParentNode": true,
-        "name": "pitAPatBox"
+        "name": "pitAPatBox",
+        "path": "branchEvent.pitAPatBox"
       },
       "rewardGained": {
         "$isParent": true,
@@ -6668,9 +6668,9 @@
               "offsetCalcType": "Default"
             }
           ],
-          "path": null,
           "isParentNode": true,
-          "name": "rewardGained"
+          "name": "rewardGained",
+          "path": "branchEvent.pitAPatBox.rewardGained"
         }
       },
       "skip": {
@@ -6708,9 +6708,9 @@
               "offsetCalcType": "DockLeft"
             }
           ],
-          "path": null,
           "isParentNode": true,
-          "name": "skip"
+          "name": "skip",
+          "path": "branchEvent.pitAPatBox.skip"
         }
       },
       "clothPouch": {
@@ -6777,9 +6777,9 @@
               "offsetCalcType": "Default"
             }
           ],
-          "path": null,
           "isParentNode": true,
-          "name": "clothPouch"
+          "name": "clothPouch",
+          "path": "branchEvent.pitAPatBox.clothPouch"
         }
       },
       "noVoices": {
@@ -6817,9 +6817,9 @@
               "offsetCalcType": "Default"
             }
           ],
-          "path": null,
           "isParentNode": true,
-          "name": "noVoices"
+          "name": "noVoices",
+          "path": "branchEvent.pitAPatBox.noVoices"
         }
       },
       "woodenBox": {
@@ -6886,9 +6886,9 @@
               "offsetCalcType": "Default"
             }
           ],
-          "path": null,
           "isParentNode": true,
-          "name": "woodenBox"
+          "name": "woodenBox",
+          "path": "branchEvent.pitAPatBox.woodenBox"
         }
       },
       "simpleWoodenBox": {
@@ -6955,9 +6955,9 @@
               "offsetCalcType": "Default"
             }
           ],
-          "path": null,
           "isParentNode": true,
-          "name": "simpleWoodenBox"
+          "name": "simpleWoodenBox",
+          "path": "branchEvent.pitAPatBox.simpleWoodenBox"
         }
       },
       "veryHeavyBox": {
@@ -7024,9 +7024,9 @@
               "offsetCalcType": "Default"
             }
           ],
-          "path": null,
           "isParentNode": true,
-          "name": "veryHeavyBox"
+          "name": "veryHeavyBox",
+          "path": "branchEvent.pitAPatBox.veryHeavyBox"
         }
       }
     },
@@ -7035,9 +7035,9 @@
       "props": {
         "isMultiPattern": false,
         "patterns": [],
-        "path": null,
         "isParentNode": true,
-        "name": "prompt"
+        "name": "prompt",
+        "path": "branchEvent.prompt"
       },
       "ok": {
         "$isParent": true,
@@ -7074,9 +7074,9 @@
               "offsetCalcType": "Default"
             }
           ],
-          "path": null,
           "isParentNode": true,
-          "name": "ok"
+          "name": "ok",
+          "path": "branchEvent.prompt.ok"
         }
       }
     }
@@ -7086,18 +7086,18 @@
     "props": {
       "isMultiPattern": false,
       "patterns": [],
-      "path": null,
       "isParentNode": true,
-      "name": "others"
+      "name": "others",
+      "path": "others"
     },
     "branch": {
       "$isParent": true,
       "props": {
         "isMultiPattern": false,
         "patterns": [],
-        "path": null,
         "isParentNode": true,
-        "name": "branch"
+        "name": "branch",
+        "path": "others.branch"
       },
       "notification": {
         "$isParent": true,
@@ -7163,9 +7163,9 @@
               "offsetCalcType": "Default"
             }
           ],
-          "path": null,
           "isParentNode": true,
-          "name": "notification"
+          "name": "notification",
+          "path": "others.branch.notification"
         }
       }
     },
@@ -7233,9 +7233,9 @@
             "offsetCalcType": "Default"
           }
         ],
-        "path": null,
         "isParentNode": true,
-        "name": "notification"
+        "name": "notification",
+        "path": "others.notification"
       }
     }
   }

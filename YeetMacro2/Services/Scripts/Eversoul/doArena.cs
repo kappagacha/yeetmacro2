@@ -64,8 +64,10 @@ public partial class EversoulScripts
                     }
                     break;
                 case "adventure.arena.ticket":
-                    logger.LogInformation("doArena: done");
-                    return String.Empty;
+                    //logger.LogInformation("doArena: done");
+                    //return String.Empty;
+                    macroService.ClickPattern(patterns["adventure"]["arena"]["lobby"]);
+                    break;
             }
 
             Thread.Sleep(1_000);

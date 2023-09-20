@@ -4,7 +4,8 @@
     "props": {
       "settingType": "Parent",
       "isParentNode": true,
-      "name": "farmEvent"
+      "name": "farmEvent",
+      "path": "farmEvent"
     },
     "targetLevel": {
       "$isParent": false,
@@ -18,7 +19,8 @@
         "value": "11",
         "defaultValue": null,
         "isParentNode": false,
-        "name": "targetLevel"
+        "name": "targetLevel",
+        "path": "farmEvent.targetLevel"
       }
     }
   },
@@ -27,14 +29,16 @@
     "props": {
       "settingType": "Parent",
       "isParentNode": true,
-      "name": "freeQuests"
+      "name": "freeQuests",
+      "path": "freeQuests"
     },
     "upgradeStone": {
       "$isParent": true,
       "props": {
         "settingType": "Parent",
         "isParentNode": true,
-        "name": "upgradeStone"
+        "name": "upgradeStone",
+        "path": "freeQuests.upgradeStone"
       },
       "targetLevel": {
         "$isParent": false,
@@ -50,7 +54,8 @@
           "value": "intermediate",
           "defaultValue": null,
           "isParentNode": false,
-          "name": "targetLevel"
+          "name": "targetLevel",
+          "path": "freeQuests.upgradeStone.targetLevel"
         }
       }
     }
@@ -60,14 +65,16 @@
     "props": {
       "settingType": "Parent",
       "isParentNode": true,
-      "name": "party"
+      "name": "party",
+      "path": "party"
     },
     "recommendedElement": {
       "$isParent": true,
       "props": {
         "settingType": "Parent",
         "isParentNode": true,
-        "name": "recommendedElement"
+        "name": "recommendedElement",
+        "path": "party.recommendedElement"
       },
       "none": {
         "$isParent": false,
@@ -77,7 +84,8 @@
           "value": "Main",
           "defaultValue": null,
           "isParentNode": false,
-          "name": "none"
+          "name": "none",
+          "path": "party.recommendedElement.none"
         }
       },
       "fire": {
@@ -88,7 +96,8 @@
           "value": "Fire",
           "defaultValue": null,
           "isParentNode": false,
-          "name": "fire"
+          "name": "fire",
+          "path": "party.recommendedElement.fire"
         }
       },
       "water": {
@@ -99,7 +108,8 @@
           "value": "Water",
           "defaultValue": null,
           "isParentNode": false,
-          "name": "water"
+          "name": "water",
+          "path": "party.recommendedElement.water"
         }
       },
       "lightning": {
@@ -110,7 +120,8 @@
           "value": "Ltng",
           "defaultValue": null,
           "isParentNode": false,
-          "name": "lightning"
+          "name": "lightning",
+          "path": "party.recommendedElement.lightning"
         }
       },
       "earth": {
@@ -121,7 +132,8 @@
           "value": "Earth",
           "defaultValue": null,
           "isParentNode": false,
-          "name": "earth"
+          "name": "earth",
+          "path": "party.recommendedElement.earth"
         }
       },
       "wind": {
@@ -132,7 +144,8 @@
           "value": "Wind",
           "defaultValue": null,
           "isParentNode": false,
-          "name": "wind"
+          "name": "wind",
+          "path": "party.recommendedElement.wind"
         }
       },
       "light": {
@@ -143,7 +156,8 @@
           "value": "Light",
           "defaultValue": null,
           "isParentNode": false,
-          "name": "light"
+          "name": "light",
+          "path": "party.recommendedElement.light"
         }
       },
       "dark": {
@@ -154,7 +168,8 @@
           "value": "Dark",
           "defaultValue": null,
           "isParentNode": false,
-          "name": "dark"
+          "name": "dark",
+          "path": "party.recommendedElement.dark"
         }
       }
     },
@@ -163,7 +178,8 @@
       "props": {
         "settingType": "Parent",
         "isParentNode": true,
-        "name": "arenaEX"
+        "name": "arenaEX",
+        "path": "party.arenaEX"
       },
       "physicalDamage": {
         "$isParent": false,
@@ -173,7 +189,8 @@
           "value": "Phys",
           "defaultValue": null,
           "isParentNode": false,
-          "name": "physicalDamage"
+          "name": "physicalDamage",
+          "path": "party.arenaEX.physicalDamage"
         }
       },
       "lowRarity": {
@@ -184,7 +201,8 @@
           "value": "Low",
           "defaultValue": null,
           "isParentNode": false,
-          "name": "lowRarity"
+          "name": "lowRarity",
+          "path": "party.arenaEX.lowRarity"
         }
       },
       "magicDamage": {
@@ -195,7 +213,8 @@
           "value": "Magic",
           "defaultValue": null,
           "isParentNode": false,
-          "name": "magicDamage"
+          "name": "magicDamage",
+          "path": "party.arenaEX.magicDamage"
         }
       },
       "defence": {
@@ -206,7 +225,8 @@
           "value": "Def",
           "defaultValue": null,
           "isParentNode": false,
-          "name": "defence"
+          "name": "defence",
+          "path": "party.arenaEX.defence"
         }
       },
       "characterBonus": {
@@ -217,7 +237,8 @@
           "value": "Cbns",
           "defaultValue": null,
           "isParentNode": false,
-          "name": "characterBonus"
+          "name": "characterBonus",
+          "path": "party.arenaEX.characterBonus"
         }
       }
     },
@@ -229,7 +250,8 @@
         "value": "recommendedElement",
         "defaultValue": null,
         "isParentNode": false,
-        "name": "eventBoss"
+        "name": "eventBoss",
+        "path": "party.eventBoss"
       }
     },
     "battleArena": {
@@ -240,7 +262,8 @@
         "value": "recommendedElement",
         "defaultValue": null,
         "isParentNode": false,
-        "name": "battleArena"
+        "name": "battleArena",
+        "path": "party.battleArena"
       }
     },
     "farmEventLoop": {
@@ -251,7 +274,8 @@
         "value": "FEL",
         "defaultValue": null,
         "isParentNode": false,
-        "name": "farmEventLoop"
+        "name": "farmEventLoop",
+        "path": "party.farmEventLoop"
       }
     },
     "cabbageHunting": {
@@ -262,7 +286,8 @@
         "value": "CabH",
         "defaultValue": null,
         "isParentNode": false,
-        "name": "cabbageHunting"
+        "name": "cabbageHunting",
+        "path": "party.cabbageHunting"
       }
     }
   }

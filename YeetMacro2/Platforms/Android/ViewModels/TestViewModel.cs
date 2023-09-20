@@ -21,11 +21,41 @@ public partial class TestViewModel : ObservableObject
     ILogger _logger;
     MediaProjectionService _mediaProjectionService;
     AndroidWindowManagerService _androidWindowManagerService;
+
+    Java.Lang.Reflect.Method dumpGREFTableMethod = Java.Lang.Class.ForName("dalvik.system.VMDebug").GetDeclaredMethod("dumpReferenceTables");
+    Java.Lang.Object[] args = new Java.Lang.Object[0];
+
     public TestViewModel(ILogger<TestViewModel> logger, MediaProjectionService mediaProjectionService, AndroidWindowManagerService androidWindowManagerService)
     {
         _logger = logger;
         _mediaProjectionService = mediaProjectionService;
         _androidWindowManagerService = androidWindowManagerService;
+    }
+
+    // https://stackoverflow.com/questions/46232314/trying-to-track-down-gref-leak
+    [RelayCommand]
+    public void DumpGlobalRefTable()
+    {
+        var grefFile = Path.Combine("/data/data", AppInfo.PackageName, "files/.__override__", "grefs.txt");
+        // https://stackoverflow.com/questions/39332085/get-path-to-pictures-directory
+        var targetDirectory = DeviceInfo.Current.Platform == DevicePlatform.Android ?
+            global::Android.OS.Environment.GetExternalStoragePublicDirectory(global::Android.OS.Environment.DirectoryPictures).AbsolutePath :
+            FileSystem.Current.AppDataDirectory;
+        var fileDestination = Path.Combine(targetDirectory, "grefs.txt");
+        if (File.Exists(grefFile))
+        {
+            File.Copy(grefFile, fileDestination, true);
+        }
+
+        //#if ANDROID
+        // https://stackoverflow.com/questions/39332085/get-path-to-pictures-directory
+        //var targetDirectory = DeviceInfo.Current.Platform == DevicePlatform.Android ?
+        //    global::Android.OS.Environment.GetExternalStoragePublicDirectory(global::Android.OS.Environment.DirectoryPictures).AbsolutePath :
+        //    FileSystem.Current.AppDataDirectory;
+        //File.WriteAllText(Path.Combine(targetDirectory, "temp.txt"), "Hello therer");
+        //#endif
+
+        dumpGREFTableMethod.Invoke(null, args);
     }
 
     [RelayCommand]
