@@ -18,8 +18,8 @@ public class ForegroundService : Service
     public const int SERVICE_RUNNING_NOTIFICATION_ID = 10000;
     MainActivity _context;
     MediaProjectionManager _mediaProjectionManager;
-    AndroidWindowManagerService _windowManagerService;
-    MediaProjectionService _mediaProjectionService;
+    Lazy<AndroidWindowManagerService> _windowManagerService;
+    Lazy<MediaProjectionService> _mediaProjectionService;
 
     public ForegroundService()
     {
@@ -31,9 +31,9 @@ public class ForegroundService : Service
         Console.WriteLine("[*****YeetMacro*****] ForegroundService OnCreate");
         _context = (MainActivity)Platform.CurrentActivity;
         Console.WriteLine("[*****YeetMacro*****] ForegroundService set _windowManagerService");
-        _windowManagerService = ServiceHelper.GetService<AndroidWindowManagerService>();
+        _windowManagerService = ServiceHelper.GetService<Lazy<AndroidWindowManagerService>>();
         Console.WriteLine("[*****YeetMacro*****] ForegroundService set _mediaProjectionService");
-        _mediaProjectionService = ServiceHelper.GetService<MediaProjectionService>();
+        _mediaProjectionService = ServiceHelper.GetService<Lazy<MediaProjectionService>>();
         Console.WriteLine("[*****YeetMacro*****] ForegroundService set _mediaProjectionManager");
         _mediaProjectionManager = (MediaProjectionManager)_context.GetSystemService(Context.MediaProjectionService);
         Console.WriteLine("[*****YeetMacro*****] ForegroundService start screen capture");
@@ -48,11 +48,11 @@ public class ForegroundService : Service
         {
             case EXIT_ACTION:
                 StopForeground(true);
-                _windowManagerService?.Close(AndroidWindowView.ActionView);
-                _windowManagerService?.Close(AndroidWindowView.StatusPanelView);
-                _windowManagerService?.CloseOverlayWindow();
-                _mediaProjectionService?.Stop();
-                _mediaProjectionService?.StopRecording();
+                _windowManagerService.Value.Close(AndroidWindowView.ActionView);
+                _windowManagerService.Value.Close(AndroidWindowView.StatusPanelView);
+                _windowManagerService.Value.CloseOverlayWindow();
+                _mediaProjectionService.Value.Stop();
+                _mediaProjectionService.Value.StopRecording();
                 Intent exitEvent = new Intent("com.companyname.ForegroundService.EXIT");
                 _context.SendBroadcast(exitEvent);
                 break;
@@ -79,8 +79,8 @@ public class ForegroundService : Service
                 break;
             default:
                 StartForeground(SERVICE_RUNNING_NOTIFICATION_ID, GenerateNotification());
-                _mediaProjectionService?.Start();
-                _windowManagerService?.ShowOverlayWindow();
+                _mediaProjectionService.Value.Start();
+                _windowManagerService.Value.ShowOverlayWindow();
                 break;
         }
 
