@@ -121,8 +121,6 @@ public partial class LogViewModel : ObservableObject, ILogEventSink
 
     public void Emit(LogEvent logEvent)
     {
-        return;
-
         if (logEvent.Properties.Count > 1 && logEvent.Properties.ContainsKey("macroSet"))
         {
             _currentMacroSet = logEvent.Properties["macroSet"].ToString();
