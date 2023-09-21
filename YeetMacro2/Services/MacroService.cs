@@ -38,6 +38,11 @@ public class MacroService
         _random = new Random();
     }
 
+    public void Sleep(int ms)
+    {
+        new System.Threading.ManualResetEvent(false).WaitOne(ms);
+    }
+
     public Point CalcOffset(PatternNode patternNode)
     {
         foreach (var pattern in patternNode.Patterns)
@@ -72,7 +77,7 @@ public class MacroService
                 if (InDebugMode)
                 {
                     MainThread.BeginInvokeOnMainThread(_screenService.DebugClear);
-                    new System.Threading.ManualResetEvent(false).WaitOne(50);
+                    Sleep(50);
                 }
 
                 if (!IsRunning)
@@ -104,7 +109,7 @@ public class MacroService
                                 _screenService.DebugClear();
                                 _screenService.DebugRectangle(pattern.Rect.Offset(offset));
                             });
-                            new System.Threading.ManualResetEvent(false).WaitOne(50);
+                            Sleep(50);
                         }
                         var singleResult = _screenService.FindPattern(pattern, optsWithOffset);
                         if (singleResult.IsSuccess)
@@ -185,7 +190,7 @@ public class MacroService
         }
 
         // https://stackoverflow.com/questions/5424667/alternatives-to-thread-sleep
-        new System.Threading.ManualResetEvent(false).WaitOne(500);
+        Sleep(500);
         return result;
     }
 
@@ -215,7 +220,7 @@ public class MacroService
                 {
                     inversePredicateResult = this.FindPattern(inversePredicatePattern.Value, predicateOpts);
                     numChecks++;
-                    new System.Threading.ManualResetEvent(false).WaitOne(inversePredicateCheckDelayMs);
+                    Sleep(inversePredicateCheckDelayMs);
                 }
                 if (!inversePredicateResult.IsSuccess)
                 {
@@ -227,10 +232,10 @@ public class MacroService
                 {
                     var point = result.Point;
                     this.DoClick(point.Offset(clickOffsetX, clickOffsetY));
-                    new System.Threading.ManualResetEvent(false).WaitOne(500);
+                    Sleep(500);
                 }
                 if (clickPattern is not null) this.ClickPattern(clickPattern.Value, opts);
-                new System.Threading.ManualResetEvent(false).WaitOne(intervalDelayMs);
+                Sleep(intervalDelayMs);
             }
         }
         else if (predicatePattern is not null)
@@ -249,10 +254,10 @@ public class MacroService
                 {
                     var point = result.Point;
                     this.DoClick(point.Offset(clickOffsetX, clickOffsetY));
-                    new System.Threading.ManualResetEvent(false).WaitOne(500);
+                    Sleep(500);
                 }
                 if (clickPattern is not null) this.ClickPattern(clickPattern.Value, opts);
-                new System.Threading.ManualResetEvent(false).WaitOne(intervalDelayMs);
+                Sleep(intervalDelayMs);
             }
         }
         else
@@ -264,11 +269,11 @@ public class MacroService
                 {
                     var point = result.Point;
                     this.DoClick(point.Offset(clickOffsetX, clickOffsetY));
-                    new System.Threading.ManualResetEvent(false).WaitOne(500);
+                    Sleep(500);
                 }
                 if (result.IsSuccess) break;
                 if (clickPattern is not null) this.ClickPattern(clickPattern.Value, opts);
-                new System.Threading.ManualResetEvent(false).WaitOne(intervalDelayMs);
+                Sleep(intervalDelayMs);
             }
         }
 
@@ -356,7 +361,7 @@ public class MacroService
             catch (Exception ex)
             {
                 _logger.LogError(ex, "GetText Error");
-                new System.Threading.ManualResetEvent(false).WaitOne(200);
+                Sleep(200);
                 currentTry++;
             }
         }

@@ -54,7 +54,7 @@ public partial class KonosubaFDScripts
             logger.LogDebug($"numScrolls: {numScrolls}");
             currentParty = macroService.GetText(patterns["party"]["name"], targetPartyName);
             logger.LogDebug($"currentParty: {currentParty}");
-            new System.Threading.ManualResetEvent(false).WaitOne(500);
+            Sleep(500);
         }
 
         return numScrolls == 20 ? false : true;
@@ -67,13 +67,13 @@ public partial class KonosubaFDScripts
         while (macroService.IsRunning && currentX == 0)
         {
             currentX = Math.Floor(macroService.FindPattern(patterns["party"]["slot"]).Point.X);
-            new System.Threading.ManualResetEvent(false).WaitOne(500);
+            Sleep(500);
         }
         while (macroService.IsRunning && (currentX == 0 || currentX == prevX))
         {
             logger.LogDebug($"currentX: {currentX}, prevX: {prevX}");
             macroService.ClickPattern(patterns["party"]["scrollRight"]);
-            new System.Threading.ManualResetEvent(false).WaitOne(500);
+            Sleep(500);
             currentX = Math.Floor(macroService.FindPattern(patterns["party"]["slot"]).Point.X);
         }
     }

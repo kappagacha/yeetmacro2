@@ -23,26 +23,26 @@ public partial class KonosubaFDScripts
                 case "titles.events":
                     logger.LogInformation("doEventStory: find NEW");
                     macroService.PollPattern(patterns["quest"]["events"]["quest"], new PollPatternFindOptions() { DoClick = true, PredicatePattern = patterns["titles"]["quest"] });
-                    new System.Threading.ManualResetEvent(false).WaitOne(500);
+                    Sleep(500);
                     macroService.PollPattern(patterns["quest"]["events"]["new"], new PollPatternFindOptions() { DoClick = true, ClickPattern = patterns["prompt"]["watchLater"], PredicatePattern = patterns["battle"]["prepare"] });
-                    new System.Threading.ManualResetEvent(false).WaitOne(500);
+                    Sleep(500);
                     macroService.PollPattern(patterns["battle"]["prepare"], new PollPatternFindOptions() { DoClick = true, PredicatePattern = patterns["titles"]["party"] });
-                    new System.Threading.ManualResetEvent(false).WaitOne(500);
+                    Sleep(500);
                     macroService.PollPattern(patterns["battle"]["begin"], new PollPatternFindOptions() { DoClick = true, PredicatePattern = patterns["battle"]["report"] });
                     break;
                 case "battle.report":
                     logger.LogInformation("doEventStory: battle report");
                     macroService.PollPattern(patterns["battle"]["next"], new PollPatternFindOptions() { DoClick = true, ClickPattern = patterns["battle"]["next2"], PredicatePattern = patterns["titles"]["events"] });
-                    new System.Threading.ManualResetEvent(false).WaitOne(500);
+                    Sleep(500);
                     macroService.PollPattern(patterns["quest"]["events"]["new"], new PollPatternFindOptions() { DoClick = true, ClickPattern = patterns["prompt"]["watchLater"], PredicatePattern = patterns["battle"]["prepare"] });
-                    new System.Threading.ManualResetEvent(false).WaitOne(500);
+                    Sleep(500);
                     macroService.PollPattern(patterns["battle"]["prepare"], new PollPatternFindOptions() { DoClick = true, PredicatePattern = patterns["titles"]["party"] });
-                    new System.Threading.ManualResetEvent(false).WaitOne(500);
+                    Sleep(500);
                     macroService.PollPattern(patterns["battle"]["begin"], new PollPatternFindOptions() { DoClick = true, PredicatePattern = patterns["battle"]["report"] });
                     break;
             }
 
-            new System.Threading.ManualResetEvent(false).WaitOne(1_000);
+            Sleep(1_000);
         }
         logger.LogInformation("Done...");
 

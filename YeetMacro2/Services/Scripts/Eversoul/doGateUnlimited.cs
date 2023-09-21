@@ -16,38 +16,38 @@ public partial class EversoulScripts
                 case "lobby.everstone":
                     logger.LogInformation("doGateBreakthrough unlimited: click adventure");
                     macroService.ClickPattern(patterns["lobby"]["adventure"]);
-                    new System.Threading.ManualResetEvent(false).WaitOne(500);
+                    Sleep(500);
                     break;
                 case "titles.adventure":
                     logger.LogInformation("doGateBreakthrough unlimited: click gate breakthrough");
                     macroService.PollPattern(patterns["gateBreakthrough"], new PollPatternFindOptions() { DoClick = true, Offset = new Point(0, -60), PredicatePattern = patterns["titles"]["gateBreakthrough"] });
-                    new System.Threading.ManualResetEvent(false).WaitOne(500);
+                    Sleep(500);
                     break;
                 case "titles.gateBreakthrough":
                     logger.LogInformation("doGateBreakthrough unlimited: click unlimited gate");
                     macroService.PollPattern(patterns["gateBreakthrough"]["gates"]["unlimited"], new PollPatternFindOptions() { DoClick = true, PredicatePattern = patterns["gateBreakthrough"]["challenge"] });
-                    new System.Threading.ManualResetEvent(false).WaitOne(500);
+                    Sleep(500);
                     break;
                 case "gateBreakthrough.challenge":
                     logger.LogInformation("doGateBreakthrough unlimited: click challenge");
                     macroService.PollPattern(patterns["gateBreakthrough"]["challenge"], new PollPatternFindOptions() { DoClick = true, PredicatePattern = patterns["battle"]["start"] });
-                    new System.Threading.ManualResetEvent(false).WaitOne(500);
+                    Sleep(500);
                     macroService.PollPattern(patterns["battle"]["start"], new PollPatternFindOptions() { DoClick = true, ClickPattern = patterns["prompt"]["close"], PredicatePattern = new PatternNode[] { patterns["gateBreakthrough"]["nextStage"], patterns["gateBreakthrough"]["retry"] } });
-                    new System.Threading.ManualResetEvent(false).WaitOne(500);
+                    Sleep(500);
                     break;
                 case "gateBreakthrough.nextStage":
                     logger.LogInformation("doGateBreakthrough unlimited: click next stage");
                     macroService.PollPattern(patterns["gateBreakthrough"]["nextStage"], new PollPatternFindOptions() { DoClick = true, PredicatePattern = patterns["battle"]["start"] });
-                    new System.Threading.ManualResetEvent(false).WaitOne(500);
+                    Sleep(500);
                     macroService.PollPattern(patterns["battle"]["start"], new PollPatternFindOptions() { DoClick = true, ClickPattern = patterns["prompt"]["close"], PredicatePattern = patterns["gateBreakthrough"]["nextStage"] });
-                    new System.Threading.ManualResetEvent(false).WaitOne(500);
+                    Sleep(500);
                     break;
                 case "gateBreakthrough.retry":
                     logger.LogInformation("doGateBreakthrough unlimited: retry");
                     return "Party defeated";
             }
 
-            new System.Threading.ManualResetEvent(false).WaitOne(1_000);
+            Sleep(1_000);
         }
         logger.LogInformation("Done...");
         return String.Empty;

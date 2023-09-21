@@ -37,10 +37,10 @@ public partial class KonosubaFDScripts
         //    logger.LogInformation("watchAdStamina: watching ad");
         //    logger.LogInformation("watchAdStamina: poll stamina.adNotification");
         //    macroService.PollPattern(patterns["stamina"]["adNotification"], new PollPatternFindOptions() { DoClick = true, ClickPattern = patterns["ad"]["prompt"]["ok"], PredicatePattern = patterns["ad"]["done"] });
-        //    new System.Threading.ManualResetEvent(false).WaitOne(1_000);
+        //    Sleep(1_000);
         //    logger.LogInformation("watchAdStamina: poll ad.done");
         //    macroService.PollPattern(patterns["ad"]["done"], new PollPatternFindOptions() { DoClick = true, PredicatePattern = patterns["ad"]["prompt"]["ok"] });
-        //    new System.Threading.ManualResetEvent(false).WaitOne(1_000);
+        //    Sleep(1_000);
         //    logger.LogInformation("watchAdStamina: poll ad.prompt.ok 2");
         //    macroService.PollPattern(patterns["ad"]["prompt"]["ok"], new PollPatternFindOptions() { DoClick = true, PredicatePattern = patterns["stamina"]["add"] });
 
@@ -48,7 +48,7 @@ public partial class KonosubaFDScripts
         //    break;
         //}
 
-        //new System.Threading.ManualResetEvent(false).WaitOne(1_000);
+        //Sleep(1_000);
         //}
         //logger.LogInformation("Done...");
         return String.Empty;

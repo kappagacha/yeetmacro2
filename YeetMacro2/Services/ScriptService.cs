@@ -43,6 +43,11 @@ public class ScriptService : IScriptService
         Task.Run(InitJSContext);
     }
 
+    public void Sleep(int ms)
+    {
+        new System.Threading.ManualResetEvent(false).WaitOne(ms);
+    }
+
     public void RunScript(ScriptNode targetScript, ScriptNodeManagerViewModel scriptNodeManger, MacroSet macroSet, PatternNodeManagerViewModel patternNodeManager, SettingNodeManagerViewModel settingNodeManager, Action<string> onScriptFinished)
     {
         if (_macroService.IsRunning) return;
@@ -108,7 +113,7 @@ public class ScriptService : IScriptService
 
     public void InitJSContext()
     {
-        _engine.SetValue("sleep", new Action<int>((ms) => new System.Threading.ManualResetEvent(false).WaitOne(ms)));
+        _engine.SetValue("sleep", new Action<int>((ms) => Sleep(ms)));
         dynamic logger = new ExpandoObject();
         logger.info = new Action<string>((msg) => _logger.LogInformation(msg));
         logger.debug = new Action<string>((msg) => _logger.LogDebug(msg));

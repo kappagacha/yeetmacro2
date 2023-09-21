@@ -38,7 +38,7 @@ public partial class KonosubaFDScripts
                 case "titles.branchEvent":
                     logger.LogInformation("doBranchQuests: start");
                     macroService.PollPattern(new PatternNode[] { patterns["branchEvent"]["prepare"], patterns["branchEvent"]["start"] }, new PollPatternFindOptions() { DoClick = true, ClickPattern = patterns["branchEvent"]["pitAPatBox"]["noVoices"], PredicatePattern = new PatternNode[] { patterns["branchEvent"]["explosionWalk"]["chant"]["disabled"], patterns["titles"]["party"], patterns["branchEvent"]["pitAPatBox"]["skip"] } });
-                    new System.Threading.ManualResetEvent(false).WaitOne(1000);
+                    Sleep(1000);
 
                     if (eventName == "branchEvent.pitAPatBox")
                     {
@@ -69,13 +69,13 @@ public partial class KonosubaFDScripts
                             return $"targetPartyName not found: {targetPartyName}";
                         }
                     }
-                    new System.Threading.ManualResetEvent(false).WaitOne(500);
+                    Sleep(500);
                     macroService.PollPattern(patterns["battle"]["begin"], new PollPatternFindOptions() { DoClick = true, PredicatePattern = patterns["battle"]["report"] });
                     macroService.PollPattern(patterns["battle"]["next"], new PollPatternFindOptions() { DoClick = true, ClickPattern = new PatternNode[] { patterns["battleArena"]["newHighScore"], patterns["battleArena"]["rank"] }, PredicatePattern = patterns["titles"]["home"] });
                     break;
             }
 
-            new System.Threading.ManualResetEvent(false).WaitOne(1_000);
+            Sleep(1_000);
         }
         logger.LogInformation("Done...");
         return String.Empty;

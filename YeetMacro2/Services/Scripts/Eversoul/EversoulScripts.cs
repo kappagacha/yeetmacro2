@@ -17,4 +17,9 @@ public partial class EversoulScripts
         this.patterns = patterns;
         this.settings = settings;
     }
+
+    public void Sleep(int ms)
+    {
+        new System.Threading.ManualResetEvent(false).WaitOne(ms);
+    }
 }

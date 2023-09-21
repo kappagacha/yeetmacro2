@@ -21,7 +21,7 @@ public partial class EversoulScripts
                 case "titles.adventure":
                     logger.LogInformation("doArena: click arena");
                     macroService.PollPattern(patterns["adventure"]["tabs"]["arena"], new PollPatternFindOptions() { DoClick = true, PredicatePattern = patterns["adventure"]["arena"] });
-                    new System.Threading.ManualResetEvent(false).WaitOne(500);
+                    Sleep(500);
                     macroService.PollPattern(patterns["adventure"]["arena"], new PollPatternFindOptions() { DoClick = true, PredicatePattern = patterns["adventure"]["arena"]["info"] });
                     break;
                 case "adventure.arena.freeChallenge":
@@ -52,7 +52,7 @@ public partial class EversoulScripts
                     if (minCP <= cpThreshold)
                     {
                         macroService.PollPattern(patterns["adventure"]["arena"]["match" + (minIdx + 1)]["challenge"], new PollPatternFindOptions() { DoClick = true, PredicatePattern = patterns["battle"]["start"] });
-                        new System.Threading.ManualResetEvent(false).WaitOne(500);
+                        Sleep(500);
                         macroService.PollPattern(patterns["battle"]["skip"]["disabled"], new PollPatternFindOptions() { DoClick = true, PredicatePattern = patterns["battle"]["skip"]["enabled"] });
                         macroService.PollPattern(patterns["battle"]["start"], new PollPatternFindOptions() { DoClick = true, PredicatePattern = patterns["prompt"]["confirm2"] });
                         macroService.PollPattern(patterns["prompt"]["confirm2"], new PollPatternFindOptions() { DoClick = true, PredicatePattern = new PatternNode[] { patterns["adventure"]["arena"]["freeChallenge"], patterns["adventure"]["arena"]["ticket"] } });
@@ -70,7 +70,7 @@ public partial class EversoulScripts
                     break;
             }
 
-            new System.Threading.ManualResetEvent(false).WaitOne(1_000);
+            Sleep(1_000);
         }
         logger.LogInformation("Done...");
 

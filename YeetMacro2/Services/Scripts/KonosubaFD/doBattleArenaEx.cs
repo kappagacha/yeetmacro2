@@ -23,11 +23,11 @@ public partial class KonosubaFDScripts
                 case "titles.battleArena":
                     logger.LogInformation("doBattleArena: start arena");
                     macroService.PollPattern(patterns["battleArena"]["tabs"]["arenaEX"], new PollPatternFindOptions() { DoClick = true, PredicatePattern = patterns["titles"]["battleArenaEX"] });
-                    new System.Threading.ManualResetEvent(false).WaitOne(500);
+                    Sleep(500);
                     macroService.PollPattern(patterns["battleArena"]["begin"], new PollPatternFindOptions() { DoClick = true, PredicatePattern = patterns["battleArena"]["exRank"] });
-                    new System.Threading.ManualResetEvent(false).WaitOne(500);
+                    Sleep(500);
                     macroService.PollPattern(patterns["battleArena"]["exRank"], new PollPatternFindOptions() { DoClick = true, PredicatePattern = patterns["battle"]["prepare"] });
-                    new System.Threading.ManualResetEvent(false).WaitOne(500);
+                    Sleep(500);
                     macroService.PollPattern(patterns["battle"]["prepare"], new PollPatternFindOptions() { DoClick = true, PredicatePattern = patterns["titles"]["party"] });
                     break;
                 case "titles.party":
@@ -51,7 +51,7 @@ public partial class KonosubaFDScripts
                     {
                         return $"scoreBonusPartyName not found: {scoreBonusPartyName}";
                     }
-                    new System.Threading.ManualResetEvent(false).WaitOne(500);
+                    Sleep(500);
                     macroService.PollPattern(patterns["battle"]["begin"], new PollPatternFindOptions() { DoClick = true, ClickPattern = new PatternNode[] { patterns["battleArena"]["newHighScore"], patterns["battleArena"]["rank"] }, PredicatePattern = patterns["battle"]["report"] });
                     break;
                 case "battle.report":
@@ -61,7 +61,7 @@ public partial class KonosubaFDScripts
                     // 3rd battle => battle.next (middle) => patterns["battle"]["replay"]["disabled"]
 
                     macroService.PollPattern(patterns["battle"]["next"], new PollPatternFindOptions() { DoClick = true, ClickPattern = new PatternNode[] { patterns["battleArena"]["newHighScore"], patterns["battleArena"]["rank"] }, PredicatePattern = new PatternNode[] { patterns["battle"]["replay"], patterns["battle"]["next3"] } });
-                    new System.Threading.ManualResetEvent(false).WaitOne(500);
+                    Sleep(500);
                     var replayResult = macroService.FindPattern(patterns["battle"]["replay"]);
                     if (replayResult.IsSuccess)
                     {
@@ -83,7 +83,7 @@ public partial class KonosubaFDScripts
                     break;
             }
 
-            new System.Threading.ManualResetEvent(false).WaitOne(1_000);
+            Sleep(1_000);
         }
         logger.LogInformation("Done...");
         return String.Empty;
