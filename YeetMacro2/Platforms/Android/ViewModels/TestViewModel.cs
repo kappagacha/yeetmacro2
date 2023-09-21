@@ -36,15 +36,22 @@ public partial class TestViewModel : ObservableObject
     [RelayCommand]
     public void DumpGlobalRefTable()
     {
+        if (Permissions.RequestAsync<Permissions.StorageWrite>().Result != PermissionStatus.Granted) return;
         var grefFile = Path.Combine("/data/data", AppInfo.PackageName, "files/.__override__", "grefs.txt");
         // https://stackoverflow.com/questions/39332085/get-path-to-pictures-directory
-        var targetDirectory = DeviceInfo.Current.Platform == DevicePlatform.Android ?
-            global::Android.OS.Environment.GetExternalStoragePublicDirectory(global::Android.OS.Environment.DirectoryPictures).AbsolutePath :
-            FileSystem.Current.AppDataDirectory;
-        var fileDestination = Path.Combine(targetDirectory, "grefs.txt");
+        //var targetDirectory = DeviceInfo.Current.Platform == DevicePlatform.Android ?
+        //    global::Android.OS.Environment.GetExternalStoragePublicDirectory(global::Android.OS.Environment.DirectoryPictures).AbsolutePath :
+        //    FileSystem.Current.AppDataDirectory;
+        var targetDirectory = global::Android.OS.Environment.GetExternalStoragePublicDirectory(global::Android.OS.Environment.DirectoryPictures).Path;
+        var fileDestination = Path.Combine(targetDirectory, "mygrefs.txt");
         if (File.Exists(grefFile))
         {
-            File.Copy(grefFile, fileDestination, true);
+            var data = File.ReadAllBytes(grefFile);
+            using (FileStream fs = new FileStream(fileDestination, FileMode.Create))
+            {
+                fs.Write(data, 0, data.Length);
+            }
+            //File.Copy(grefFile, fileDestination, true);
         }
 
         //#if ANDROID
@@ -56,6 +63,11 @@ public partial class TestViewModel : ObservableObject
         //#endif
 
         dumpGREFTableMethod.Invoke(null, args);
+    }
+
+    public void ToggleTest()
+    {
+
     }
 
     [RelayCommand]
@@ -72,7 +84,7 @@ public partial class TestViewModel : ObservableObject
 
         IsImageViewTestRunning = IsBusy = true;
         DeviceDisplay.Current.KeepScreenOn = true;
-        Task.Run(async () =>
+        Task.Run(() =>
         {
             _logger.LogInformation("{persistLogs}", true);
             _logger.LogInformation("{macroSet} {script}", "None", "ImageView Test");
@@ -83,7 +95,8 @@ public partial class TestViewModel : ObservableObject
                 _logger.LogDebug(ImageViewTestCount.ToString());
                 ImageViewTestCount++;
                 IsImageViewWinking = !IsImageViewWinking;
-                await Task.Delay(500);
+                //await Task.Delay(500);
+                new System.Threading.ManualResetEvent(false).WaitOne(500);
             }
         });
     }
