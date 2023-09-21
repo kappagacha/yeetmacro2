@@ -96,7 +96,7 @@ public partial class TestViewModel : ObservableObject
                 ImageViewTestCount++;
                 IsImageViewWinking = !IsImageViewWinking;
                 //await Task.Delay(500);
-                new System.Threading.ManualResetEvent(false).WaitOne(500);
+                new System.Threading.ManualResetEvent(false).WaitOne(100);
             }
         });
     }
