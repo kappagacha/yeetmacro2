@@ -8,7 +8,14 @@ public partial class EversoulScripts
 {
     public string doArena()
     {
-        var loopPatterns = new PatternNode[] { patterns["lobby"]["everstone"], patterns["titles"]["adventure"], patterns["adventure"]["arena"]["freeChallenge"], patterns["adventure"]["arena"]["startMatch"], patterns["adventure"]["arena"]["ticket"] };
+        //var loopPatterns = new PatternNode[] { patterns["lobby"]["everstone"], patterns["titles"]["adventure"], patterns["adventure"]["arena"]["freeChallenge"], patterns["adventure"]["arena"]["startMatch"], patterns["adventure"]["arena"]["ticket"] };
+        var loopPatterns = new PatternNode[] { 
+                patterns["lobby"]["everstone"], 
+                patterns["titles"]["adventure"], 
+                patterns["adventure"]["arena"]["freeChallenge"]
+                //patterns["adventure"]["arena"]["startMatch"],
+                //patterns["adventure"]["arena"]["ticket"] 
+        };
         while (macroService.IsRunning)
         {
             var result = macroService.PollPattern(loopPatterns);
