@@ -12,7 +12,7 @@ public partial class EversoulScripts
         var loopPatterns = new PatternNode[] { 
                 patterns["lobby"]["everstone"], 
                 patterns["titles"]["adventure"], 
-                patterns["adventure"]["arena"]["freeChallenge"]
+                //patterns["adventure"]["arena"]["freeChallenge"]
                 //patterns["adventure"]["arena"]["startMatch"],
                 //patterns["adventure"]["arena"]["ticket"] 
         };
