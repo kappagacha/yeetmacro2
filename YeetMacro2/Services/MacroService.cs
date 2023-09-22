@@ -40,7 +40,7 @@ public class MacroService
 
     public void Sleep(int ms)
     {
-        new System.Threading.ManualResetEvent(false).WaitOne(ms);
+        Thread.Sleep(ms);
     }
 
     public Point CalcOffset(PatternNode patternNode)
@@ -61,17 +61,13 @@ public class MacroService
 
         PatternNode[] patternNodes;
 
-        if (oneOfPattern.Value is PatternNode[] oneOfPatternNodes)
+        if (oneOfPattern.IsT1)
         {
-            patternNodes = oneOfPatternNodes;
-        }
-        else if (oneOfPattern.Value is PatternNode oneOfPatternNode)
-        {
-            patternNodes = new PatternNode[] { oneOfPatternNode };
+            patternNodes = oneOfPattern.AsT1;
         }
         else
         {
-            throw new Exception("Unexpected oneOfPattern.Value type");
+            patternNodes = new PatternNode[] { oneOfPattern.AsT0 };
         }
 
         try
@@ -342,9 +338,9 @@ public class MacroService
     public string GetText(OneOf<PatternNode, PatternNode[]> oneOfPattern, string whiteList = "")
     {
         PatternNode patternNode;
-        if (oneOfPattern.Value is PatternNode[] patternNodes)
+        if (oneOfPattern.IsT1)
         {
-            patternNode = patternNodes[0];
+            patternNode = oneOfPattern.AsT1[0];
         }
         else
         {
@@ -372,41 +368,4 @@ public class MacroService
         _logger.LogDebug($"getText failed {maxTry} times...");
         return String.Empty;
     }
-
-    //private Dictionary<string, PatternNode> ResolvePatterns(OneOf<PatternNode, PatternNode[]> oneOfPattern)
-    //{
-    //    var pathToPatternNode = new Dictionary<string, PatternNode>();
-    //    if (oneOfPattern.Value is PatternNode[] patternNodes)
-    //    {
-    //        foreach (var patternNode in patternNodes)
-    //        {
-    //            if (!_jsonValueToPatternNode.ContainsKey(patternNode.Path))
-    //            {
-    //                //foreach (var pattern in patternNode.Patterns)
-    //                //{
-    //                //    var offset = PatternNodeManagerViewModel.CalcOffset(pattern);
-    //                //    if (offset != Point.Zero) pattern.Rect = pattern.Rect.Offset(offset);
-    //                //}
-    //                _jsonValueToPatternNode.Add(patternNode.Path, patternNode);
-    //            }
-    //            pathToPatternNode.Add(patternNode.Path, _jsonValueToPatternNode[patternNode.Path]);
-    //        }
-    //    }
-    //    else
-    //    {
-    //        var patternNode = oneOfPattern.Value as PatternNode;
-    //        if (!_jsonValueToPatternNode.ContainsKey(patternNode.Path))
-    //        {
-    //            //foreach (var pattern in patternNode.Patterns)
-    //            //{
-    //            //    var offset = PatternNodeManagerViewModel.CalcOffset(pattern);
-    //            //    if (offset != Point.Zero) pattern.Rect = pattern.Rect.Offset(offset);
-    //            //}
-    //            _jsonValueToPatternNode.Add(patternNode.Path, patternNode);
-    //        }
-    //        pathToPatternNode.Add(patternNode.Path, _jsonValueToPatternNode[patternNode.Path]);
-    //    }
-
-    //    return pathToPatternNode;
-    //}
 }
