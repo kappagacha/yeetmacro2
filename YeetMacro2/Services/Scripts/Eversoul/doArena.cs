@@ -14,16 +14,16 @@ public partial class EversoulScripts
             var result = macroService.PollPattern(loopPatterns);
             switch (result.Path)
             {
-                case "lobby.everstone":
-                    logger.LogInformation("doArena: click adventure");
-                    macroService.ClickPattern(patterns["lobby"]["adventure"]);
-                    break;
-                case "titles.adventure":
-                    logger.LogInformation("doArena: click arena");
-                    macroService.PollPattern(patterns["adventure"]["tabs"]["arena"], new PollPatternFindOptions() { DoClick = true, PredicatePattern = patterns["adventure"]["arena"] });
-                    Sleep(500);
-                    macroService.PollPattern(patterns["adventure"]["arena"], new PollPatternFindOptions() { DoClick = true, PredicatePattern = patterns["adventure"]["arena"]["info"] });
-                    break;
+                //case "lobby.everstone":
+                //    logger.LogInformation("doArena: click adventure");
+                //    macroService.ClickPattern(patterns["lobby"]["adventure"]);
+                //    break;
+                //case "titles.adventure":
+                //    logger.LogInformation("doArena: click arena");
+                //    macroService.PollPattern(patterns["adventure"]["tabs"]["arena"], new PollPatternFindOptions() { DoClick = true, PredicatePattern = patterns["adventure"]["arena"] });
+                //    Sleep(500);
+                //    macroService.PollPattern(patterns["adventure"]["arena"], new PollPatternFindOptions() { DoClick = true, PredicatePattern = patterns["adventure"]["arena"]["info"] });
+                //    break;
                 //case "adventure.arena.freeChallenge":
                 //    logger.LogInformation("doArena: free challenges");
                 //    macroService.PollPattern(patterns["adventure"]["arena"]["freeChallenge"], new PollPatternFindOptions() { DoClick = true, PredicatePattern = patterns["adventure"]["arena"]["startMatch"] });
@@ -63,11 +63,11 @@ public partial class EversoulScripts
                 //        macroService.PollPattern(patterns["battle"]["rematch"], new PollPatternFindOptions() { DoClick = true, InversePredicatePattern = patterns["battle"]["rematch"] });
                 //    }
                 //    break;
-                case "adventure.arena.ticket":
-                    //logger.LogInformation("doArena: done");
-                    //return String.Empty;
-                    macroService.ClickPattern(patterns["adventure"]["arena"]["lobby"]);
-                    break;
+                //case "adventure.arena.ticket":
+                //    //logger.LogInformation("doArena: done");
+                //    //return String.Empty;
+                //    macroService.ClickPattern(patterns["adventure"]["arena"]["lobby"]);
+                //    break;
             }
 
             Sleep(1_000);
