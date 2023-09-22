@@ -61,13 +61,17 @@ public class MacroService
 
         PatternNode[] patternNodes;
 
-        if (oneOfPattern.Value is PatternNode[])
+        if (oneOfPattern.Value is PatternNode[] oneOfPatternNodes)
         {
-            patternNodes = oneOfPattern.AsT1;
+            patternNodes = oneOfPatternNodes;
+        }
+        else if (oneOfPattern.Value is PatternNode oneOfPatternNode)
+        {
+            patternNodes = new PatternNode[] { oneOfPatternNode };
         }
         else
         {
-            patternNodes = new PatternNode[] { oneOfPattern.AsT0 };
+            throw new Exception("Unexpected oneOfPattern.Value type");
         }
 
         try
