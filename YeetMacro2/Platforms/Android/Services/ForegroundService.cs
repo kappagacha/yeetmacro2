@@ -5,7 +5,6 @@ using Android.OS;
 using Android.Runtime;
 using AndroidX.Core.App;
 using YeetMacro2.Services;
-using YeetMacro2.ViewModels;
 
 namespace YeetMacro2.Platforms.Android.Services;
 
@@ -14,7 +13,6 @@ public class ForegroundService : Service
 {
     public const string FOREGROUND_CHANNEL_ID = "9001";
     public const string EXIT_ACTION = "EXIT";
-    public const string START_SCRIPT_ACTION = "START_SCRIPT";
     public const int SERVICE_RUNNING_NOTIFICATION_ID = 10000;
     MainActivity _context;
     MediaProjectionManager _mediaProjectionManager;
@@ -55,27 +53,6 @@ public class ForegroundService : Service
                 _mediaProjectionService.Value.StopRecording();
                 Intent exitEvent = new Intent("com.companyname.ForegroundService.EXIT");
                 _context.SendBroadcast(exitEvent);
-                break;
-            case START_SCRIPT_ACTION:
-                var macroManagerViewModel = ServiceHelper.GetService<MacroManagerViewModel>();
-                var scriptService = ServiceHelper.GetService<IScriptService>();
-                //if (macroManagerViewModel.PersistLogs) _logger.LogInformation("{persistLogs}", true);
-                Console.WriteLine($"[*****YeetMacro*****] MacroManagerViewModel ExecuteScript");
-                //_logger.LogInformation("{macroSet} {script}", SelectedMacroSet?.Name ?? string.Empty, scriptNode.Name);
-                var action = new Action(() =>
-                {
-                    scriptService.RunScript(macroManagerViewModel.Scripts.SelectedNode, macroManagerViewModel.Scripts,
-                    macroManagerViewModel.SelectedMacroSet, macroManagerViewModel.Patterns, macroManagerViewModel.Settings, (result) =>
-                    {
-                        macroManagerViewModel.OnScriptFinished?.Execute(result);
-                    });
-                });
-                macroManagerViewModel.OnScriptExecuted?.Execute(null);
-                // https://medium.com/@Codeible/understanding-and-using-services-in-android-background-foreground-services-8130f6bbf2a5
-                var runnable = new Java.Lang.Runnable(action);
-                new Java.Lang.Thread(runnable).Start();
-                //Task.Run();
-                //if (macroManagerViewModel.PersistLogs) _logger.LogInformation("{persistLogs}", false);
                 break;
             default:
                 StartForeground(SERVICE_RUNNING_NOTIFICATION_ID, GenerateNotification());

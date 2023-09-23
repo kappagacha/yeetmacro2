@@ -247,26 +247,23 @@ public partial class MacroManagerViewModel : ObservableObject
 
 #if ANDROID
         _scriptService.InDebugMode = InDebugMode;
-        //var intent = new Intent(ForegroundService.START_SCRIPT_ACTION, null, Platform.CurrentActivity, typeof(ForegroundService));
-        //intent.SetAction();
-        //var pendingIntent = Android.App.PendingIntent.GetService(Platform.CurrentActivity, 0, intent, Android.App.PendingIntentFlags.Immutable);
-        Platform.CurrentActivity.StartForegroundServiceCompat<ForegroundService>(ForegroundService.START_SCRIPT_ACTION);
-        //AndroidServiceHelper.ForegroundService?.Execute(() =>
-        //{
-        //    IsBusy = true;
-        //    if (PersistLogs) _logger.LogInformation("{persistLogs}", true);
-        //    Console.WriteLine($"[*****YeetMacro*****] MacroManagerViewModel ExecuteScript");
-        //    _scriptService.InDebugMode = InDebugMode;
-        //    _logger.LogInformation("{macroSet} {script}", SelectedMacroSet?.Name ?? string.Empty, scriptNode.Name);
 
-        //    OnScriptExecuted?.Execute(null);
-        //    _scriptService.RunScript(scriptNode, Scripts, SelectedMacroSet, Patterns, Settings, (result) =>
-        //    {
-        //        OnScriptFinished?.Execute(result);
-        //        if (PersistLogs) _logger.LogInformation("{persistLogs}", false);
-        //        IsBusy = false;
-        //    });
-        //});
+        await Task.Run(() =>
+        {
+            IsBusy = true;
+            if (PersistLogs) _logger.LogInformation("{persistLogs}", true);
+            Console.WriteLine($"[*****YeetMacro*****] MacroManagerViewModel ExecuteScript");
+            _scriptService.InDebugMode = InDebugMode;
+            _logger.LogInformation("{macroSet} {script}", SelectedMacroSet?.Name ?? string.Empty, scriptNode.Name);
+
+            OnScriptExecuted?.Execute(null);
+            _scriptService.RunScript(scriptNode, Scripts, SelectedMacroSet, Patterns, Settings, (result) =>
+            {
+                OnScriptFinished?.Execute(result);
+                if (PersistLogs) _logger.LogInformation("{persistLogs}", false);
+                IsBusy = false;
+            });
+        });
 #endif
     }
 
