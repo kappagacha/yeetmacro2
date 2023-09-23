@@ -9,11 +9,11 @@ using YeetMacro2.Data.Models;
 using YeetMacro2.Platforms.Android.ViewModels;
 using YeetMacro2.Services;
 using OpenCvHelper = YeetMacro2.Platforms.Android.Services.OpenCv.OpenCvHelper;
-using Tesseract.Droid;
 using System.Text.Json;
 using YeetMacro2.ViewModels;
 using YeetMacro2.Data.Serialization;
 using Microsoft.Extensions.Logging;
+using TesseractOcrMaui;
 
 namespace YeetMacro2.Platforms.Android.Services;
 public enum AndroidWindowView
@@ -38,11 +38,12 @@ public class AndroidWindowManagerService : IInputService, IScreenService
 {
     ILogger _logger;
     public const int OVERLAY_SERVICE_REQUEST = 0;
+    public const int REQUEST_IGNORE_BATTERY_OPTIMIZATIONS = 2;
     private MainActivity _context;
     IWindowManager _windowManager;
     MediaProjectionService _mediaProjectionService;
-    YeetAccessibilityService _accessibilityService;
     IToastService _toastService;
+    IOcrService _ocrService;
     ConcurrentDictionary<AndroidWindowView, IShowable> _views = new ConcurrentDictionary<AndroidWindowView, IShowable>();
     FormsView _windowView;
     ConcurrentDictionary<string, (int x, int y)> _packageToStatusBarHeight = new ConcurrentDictionary<string, (int x, int y)>();
@@ -50,32 +51,37 @@ public class AndroidWindowManagerService : IInputService, IScreenService
     public int OverlayWidth => _windowView == null ? 0 : _windowView.MeasuredWidthAndState;
     public int OverlayHeight => _windowView == null ? 0 : _windowView.MeasuredHeightAndState;
     //public int DisplayCutoutTop => _windowView == null ? 0 : _windowView.RootWindowInsets.DisplayCutout?.SafeInsetTop ?? 0;
-    TesseractApi _tesseractApi;
     JsonSerializerOptions _serializationOptions = new JsonSerializerOptions()
     {
         PropertyNamingPolicy = JsonNamingPolicy.CamelCase,
         TypeInfoResolver = PointPropertiesResolver.Instance
     };
-    public AndroidWindowManagerService(ILogger<AndroidWindowManagerService> logger, MediaProjectionService mediaProjectionService, 
-        YeetAccessibilityService accessibilityService, IToastService toastService)
+    public AndroidWindowManagerService(ILogger<AndroidWindowManagerService> logger, MediaProjectionService mediaProjectionService,
+        IToastService toastService, IOcrService ocrService)
     {
-        _logger = logger;
-        _context = (MainActivity)Microsoft.Maui.ApplicationModel.Platform.CurrentActivity;
-        _windowManager = _context.GetSystemService(Context.WindowService).JavaCast<IWindowManager>();
-        _mediaProjectionService = mediaProjectionService;
-        _accessibilityService = accessibilityService;
-        _toastService = toastService;
-        DeviceDisplay.MainDisplayInfoChanged += DeviceDisplay_MainDisplayInfoChanged;
-        //_displayWidth = DeviceDisplay.MainDisplayInfo.Width;
-        //_displayHeight = DeviceDisplay.MainDisplayInfo.Height;
-
-        // https://github.com/halkar/Tesseract.Xamarin
-        // https://stackoverflow.com/questions/52157436/q-system-invalidoperationexception-call-init-first-ocr-tesseract-error-in-xa
-        _tesseractApi = new TesseractApi(_context, AssetsDeployment.OncePerVersion);
-        Task.Run(async () =>
+        try
         {
-            await _tesseractApi.Init("eng");
-        });
+            Console.WriteLine("[*****YeetMacro*****] Setting _logger");
+            _logger = logger;
+            Console.WriteLine("[*****YeetMacro*****] Setting _context");
+            _context = (MainActivity)Microsoft.Maui.ApplicationModel.Platform.CurrentActivity;
+            Console.WriteLine("[*****YeetMacro*****] Setting _windowManager");
+            _windowManager = _context.GetSystemService(Context.WindowService).JavaCast<IWindowManager>();
+            Console.WriteLine("[*****YeetMacro*****] Setting _mediaProjectionService");
+            _mediaProjectionService = mediaProjectionService;
+            Console.WriteLine("[*****YeetMacro*****] Setting _toastService");
+            _toastService = toastService;
+            DeviceDisplay.MainDisplayInfoChanged += DeviceDisplay_MainDisplayInfoChanged;
+            //_displayWidth = DeviceDisplay.MainDisplayInfo.Width;
+            //_displayHeight = DeviceDisplay.MainDisplayInfo.Height;
+            Console.WriteLine("[*****YeetMacro*****] Setting _ocrService");
+            _ocrService = ocrService;
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine($"AndroidWindowManagerService {ex.Message}");
+            Console.WriteLine($"AndroidWindowManagerService {ex.StackTrace}");
+        }
     }
 
     private void DeviceDisplay_MainDisplayInfoChanged(object sender, DisplayInfoChangedEventArgs e)
@@ -410,14 +416,31 @@ public class AndroidWindowManagerService : IInputService, IScreenService
 
     public bool ProjectionServiceEnabled { get => _mediaProjectionService.Enabled; }
 
+    public bool IsIgnoringBatteryOptimizations
+    {
+        get
+        {
+            var pm = (global::Android.OS.PowerManager)_context.GetSystemService(Context.PowerService);
+            return pm.IsIgnoringBatteryOptimizations(AppInfo.PackageName);
+        }
+    }
+
     public void RequestAccessibilityPermissions()
     {
-        _accessibilityService.Start();
+        AndroidServiceHelper.StartAccessibilityService();
     }
 
     public void RevokeAccessibilityPermissions()
     {
-        _accessibilityService.Stop();
+        AndroidServiceHelper.AccessibilityService?.Stop();
+    }
+
+    // https://stackoverflow.com/questions/39256501/check-if-battery-optimization-is-enabled-or-not-for-an-app
+    public void RequestIgnoreBatteryOptimizations()
+    {
+        if (IsIgnoringBatteryOptimizations) return;
+        var intent = new Intent(Settings.ActionRequestIgnoreBatteryOptimizations, global::Android.Net.Uri.Parse($"package:{AppInfo.PackageName}"));
+        _context.StartActivityForResult(intent, REQUEST_IGNORE_BATTERY_OPTIMIZATIONS);
     }
 
     public async Task StartProjectionService()
@@ -453,7 +476,7 @@ public class AndroidWindowManagerService : IInputService, IScreenService
         Close(AndroidWindowView.DrawView);
     }
 
-    public async Task<List<Point>> GetMatches(Pattern pattern, FindOptions opts)
+    public List<Point> GetMatches(Pattern pattern, FindOptions opts)
     {
         try
         {
@@ -471,10 +494,18 @@ public class AndroidWindowManagerService : IInputService, IScreenService
                 //haystackImageData = pattern.Rect != Rect.Zero ?
                 //    await _mediaProjectionService.GetCurrentImageData(pattern.Rect.Offset(-topLeft.x, -topLeft.y)) :
                 //    await _mediaProjectionService.GetCurrentImageData();
-
-                haystackImageData = pattern.Rect != Rect.Zero ?
-                    _mediaProjectionService.GetCurrentImageData(rect) :
-                    _mediaProjectionService.GetCurrentImageData();
+                if (pattern.TextMatch.IsActive && !String.IsNullOrEmpty(pattern.TextMatch.Text))
+                {
+                    haystackImageData = _mediaProjectionService.GetCurrentImageData(
+                        new Rect(rect.Location.Offset(-boundsPadding, -boundsPadding),
+                        pattern.Rect.Size + new Size(boundsPadding, boundsPadding)));
+                }
+                else
+                {
+                    haystackImageData = pattern.Rect != Rect.Zero ?
+                       _mediaProjectionService.GetCurrentImageData(rect) :
+                       _mediaProjectionService.GetCurrentImageData();
+                }
             }
             catch (Exception ex)
             {
@@ -488,7 +519,7 @@ public class AndroidWindowManagerService : IInputService, IScreenService
 
             if (pattern.ColorThreshold.IsActive)
             {
-                needleImageData = OpenCvHelper.CalcColorThreshold(pattern.ImageData, pattern.ColorThreshold);
+                needleImageData = pattern.ColorThreshold.ImageData; // OpenCvHelper.CalcColorThreshold(pattern.ImageData, pattern.ColorThreshold);
                 haystackImageData = OpenCvHelper.CalcColorThreshold(haystackImageData, pattern.ColorThreshold);
 
                 if (needleImageData.Length == 0 || haystackImageData.Length == 0)
@@ -503,21 +534,18 @@ public class AndroidWindowManagerService : IInputService, IScreenService
 
             if (pattern.TextMatch.IsActive && !String.IsNullOrEmpty(pattern.TextMatch.Text))
             {
-                if (!String.IsNullOrWhiteSpace(pattern.TextMatch.WhiteList)) _tesseractApi.SetWhitelist(pattern.TextMatch.WhiteList);
-                await _tesseractApi.SetImage(haystackImageData);
-
+                var text = _ocrService.GetText(haystackImageData, pattern.TextMatch.WhiteList);
                 var textPoints = new List<Point>();
-                if (_tesseractApi.Text == pattern.TextMatch.Text && pattern.Rect != Rect.Zero)
+
+                if (text == pattern.TextMatch.Text && pattern.Rect != Rect.Zero)
                 {
                     textPoints.Add(rect.Center.Offset(-boundsPadding, -boundsPadding));
                 }
-                else if (_tesseractApi.Text == pattern.TextMatch.Text)  // TextMatch is not meant to be used on whole screen
+                else if (text == pattern.TextMatch.Text)  // TextMatch is not meant to be used on whole screen
                 {
                     // TODO: Throw exception instead?
                     textPoints.Add(new Point(0, 0));
                 }
-
-                _tesseractApi.SetWhitelist("");
 
                 watch.Stop();
                 Console.WriteLine($"GetMatches TextMatch: {watch.ElapsedMilliseconds} ms");
@@ -551,12 +579,12 @@ public class AndroidWindowManagerService : IInputService, IScreenService
 
     public void DoClick(Point point)
     {
-        _accessibilityService.DoClick(point);
+        AndroidServiceHelper.AccessibilityService?.DoClick(point);
     }
 
     public void DoSwipe(Point start, Point end)
     {
-        _accessibilityService.DoSwipe(start, end);
+        AndroidServiceHelper.AccessibilityService?.DoSwipe(start, end);
     }
 
     public void ScreenCapture()
@@ -584,32 +612,29 @@ public class AndroidWindowManagerService : IInputService, IScreenService
         return _mediaProjectionService.GetCurrentImageData(rect);
     }
 
-    public async Task<string> GetText(Pattern pattern, TextFindOptions opts)
+    public string GetText(Pattern pattern, TextFindOptions opts)
     {
+        _logger.LogTrace("AndroidWindowManagerService GetText");
         var boundsPadding = 4;
         var currentImageData = pattern.Rect != Rect.Zero ?
             _mediaProjectionService.GetCurrentImageData(
-                new Rect(pattern.Rect.Location.Offset(opts.Offset.X, opts.Offset.Y).Offset(-boundsPadding, -boundsPadding), 
+                new Rect(pattern.Rect.Location.Offset(opts.Offset.X, opts.Offset.Y).Offset(-boundsPadding, -boundsPadding),
                           pattern.Rect.Size + new Size(boundsPadding, boundsPadding))) :
             _mediaProjectionService.GetCurrentImageData();
-        if (!String.IsNullOrWhiteSpace(pattern.TextMatch.WhiteList)) _tesseractApi.SetWhitelist(pattern.TextMatch.WhiteList);
-        if (!String.IsNullOrWhiteSpace(opts.Whitelist)) _tesseractApi.SetWhitelist(opts.Whitelist);
-        await _tesseractApi.SetImage(pattern.ColorThreshold.IsActive ?
-            OpenCvHelper.CalcColorThreshold(currentImageData, pattern.ColorThreshold):
-            currentImageData);
-        _tesseractApi.SetWhitelist("");
-
-        return _tesseractApi.Text;
+        var imageData = pattern.ColorThreshold.IsActive ?
+            OpenCvHelper.CalcColorThreshold(currentImageData, pattern.ColorThreshold) :
+            currentImageData;
+ 
+        return _ocrService.GetText(imageData, pattern.TextMatch.WhiteList ?? opts.Whitelist);
     }
 
-    public async Task<string> GetText(byte[] currentImage)
+    public string GetText(byte[] currentImage)
     {
         _logger.LogTrace("AndroidWindowManagerService GetText");
-        await _tesseractApi.SetImage(currentImage);
-        return _tesseractApi.Text;
+        return _ocrService.GetText(currentImage);
     }
 
-    public async Task<FindPatternResult> FindPattern(Pattern pattern, FindOptions opts)
+    public FindPatternResult FindPattern(Pattern pattern, FindOptions opts)
     {
         if (pattern.IsBoundsPattern)
         {
@@ -621,7 +646,7 @@ public class AndroidWindowManagerService : IInputService, IScreenService
             };
         }
 
-        var points = await GetMatches(pattern, opts);
+        var points = GetMatches(pattern, opts);
 
         var result = new FindPatternResult();
         result.IsSuccess = points.Count > 0;
@@ -634,9 +659,9 @@ public class AndroidWindowManagerService : IInputService, IScreenService
         return result;
     }
 
-    public async Task<FindPatternResult> ClickPattern(Pattern pattern, FindOptions opts = null)
+    public FindPatternResult ClickPattern(Pattern pattern, FindOptions opts = null)
     {
-        var result = await FindPattern(pattern, opts);
+        var result = FindPattern(pattern, opts);
         if (result.IsSuccess)
         {
             foreach (var point in result.Points)

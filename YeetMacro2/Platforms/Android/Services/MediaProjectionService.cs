@@ -49,9 +49,8 @@ public class MediaProjectionService : IRecorderService
             var height = (int)displayInfo.Height;
             var density = (int)displayInfo.Density;
 
-            // https://github.com/Fate-Grand-Automata/FGA/blob/master/app/src/main/java/com/mathewsachin/fategrandautomata/runner/ScreenshotServiceHolder.kt#L47
-
-            _mediaProjection = _mediaProjectionManager.GetMediaProjection(_resultCode, _resultData);
+            // https://github.com/Fate-Grand-Automata/FGA/blob/2a62ab7a456a9913cf0355db81b5a15f13906f27/app/src/main/java/io/github/fate_grand_automata/runner/ScreenshotServiceHolder.kt#L53
+            _mediaProjection = _mediaProjectionManager.GetMediaProjection(_resultCode, (Intent)_resultData.Clone());
             _imageReader = ImageReader.NewInstance(width, height, (ImageFormatType)global::Android.Graphics.Format.Rgba8888, 2);
             _virtualDisplay = _mediaProjection.CreateVirtualDisplay("ScreenCapture", width, height, density, (DisplayFlags)VirtualDisplayFlags.AutoMirror, _imageReader.Surface, null, null);
 
@@ -263,10 +262,10 @@ public class MediaProjectionService : IRecorderService
         if (!_isRecording) return;
 
         _mediaRecorder.Stop();
-        _mediaRecorder.Release();
-        _mediaRecorder.Dispose();
-        _screenVirtualDisplay.Release();
-        _screenVirtualDisplay.Dispose();
+        //_mediaRecorder.Release();
+        //_mediaRecorder.Dispose();
+        //_screenVirtualDisplay.Release();
+        //_screenVirtualDisplay.Dispose();
         _isRecording = false;
     }
 }

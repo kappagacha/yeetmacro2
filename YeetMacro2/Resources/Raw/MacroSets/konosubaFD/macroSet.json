@@ -7,9 +7,9 @@
   "supportsGreaterWidth": true,
   "supportsGreaterHeight": false,
   "package": "com.nexon.konosuba",
-  "source": "localAsset:konosubaFD",
-  "macroSetLastUpdated": "2023-08-30T09:28:17.4537468-05:00",
-  "patternsLastUpdated": "2023-08-30T09:28:17.4543046-05:00",
-  "scriptsLastUpdated": "2023-08-30T09:28:17.4545962-05:00",
-  "settingsLastUpdated": "2023-08-30T09:28:17.4548328-05:00"
+  "source": "online:konosubaFD",
+  "macroSetLastUpdated": "2023-09-19T19:40:23.1404476-05:00",
+  "patternsLastUpdated": "2023-09-19T19:40:23.143866-05:00",
+  "scriptsLastUpdated": "2023-09-19T19:40:23.1469776-05:00",
+  "settingsLastUpdated": "2023-09-19T19:40:23.1500503-05:00"
 }

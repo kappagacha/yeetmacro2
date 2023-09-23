@@ -51,13 +51,9 @@ public partial class ActionViewModel : ObservableObject, IMovable
         _macroManagerViewModel.OnScriptFinished = _macroManagerViewModel.OnScriptFinished ?? new Command<string>((result) =>
         {
             State = ActionState.Stopped;
-
             if (!String.IsNullOrWhiteSpace(result))
             {
-                MainThread.BeginInvokeOnMainThread(() =>
-                {
-                    _windowManagerService.ShowMessage(result);
-                });
+                MainThread.BeginInvokeOnMainThread(() => _windowManagerService.ShowMessage(result));
             }
         });
     }
@@ -89,7 +85,7 @@ public partial class ActionViewModel : ObservableObject, IMovable
     }
 
     [RelayCommand]
-    public async void Execute()
+    public async Task Execute()
     {
         if (_macroManagerViewModel.SelectedMacroSet is null)
         {

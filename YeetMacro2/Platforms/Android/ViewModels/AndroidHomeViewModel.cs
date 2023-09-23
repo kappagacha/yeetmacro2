@@ -8,17 +8,16 @@ namespace YeetMacro2.Platforms.Android.ViewModels;
 public partial class AndriodHomeViewModel : ObservableObject
 {
     [ObservableProperty]
-    bool _isProjectionServiceEnabled, _isAccessibilityEnabled, _isAppearing, _showMacroOverlay, _isMacroReady, _showTestView;
+    bool _isProjectionServiceEnabled, _isAccessibilityEnabled, _isAppearing, _showMacroOverlay, _isMacroReady, _showTestView, _isIgnoringBatteryOptimization;
     private AndroidWindowManagerService _windowManagerService;
-    private YeetAccessibilityService _accessibilityService;
     private MacroManagerViewModel _macroManagerViewModel;
 
     public string CurrentPackage
     {
         get
         {
-            var currentPackage = _accessibilityService.CurrentPackage;
-            if (_macroManagerViewModel.SelectedMacroSet?.Package != currentPackage)
+            var currentPackage = AndroidServiceHelper.AccessibilityService?.CurrentPackage;
+            if (currentPackage is not null && _macroManagerViewModel.SelectedMacroSet?.Package != currentPackage)
             {
                 var matchingMacroSet = _macroManagerViewModel.MacroSets.FirstOrDefault(ms => ms.Package == currentPackage);
                 if (matchingMacroSet != null)
@@ -30,7 +29,7 @@ public partial class AndriodHomeViewModel : ObservableObject
             return currentPackage;
         }
     }
-    public bool IsCurrentPackageValid => _accessibilityService.CurrentPackage == _macroManagerViewModel.SelectedMacroSet?.Package;
+    public bool IsCurrentPackageValid => AndroidServiceHelper.AccessibilityService?.CurrentPackage == _macroManagerViewModel.SelectedMacroSet?.Package;
     public Size CurrentResolution => new Size(DeviceDisplay.MainDisplayInfo.Width, DeviceDisplay.MainDisplayInfo.Height);
     public string WidthStatus
     {
@@ -61,11 +60,9 @@ public partial class AndriodHomeViewModel : ObservableObject
     }
     //public string DisplayCutoutTop => _windowManagerService.DisplayCutoutTop.ToString();
     //public bool HasCutoutTop => _windowManagerService.DisplayCutoutTop > 0;
-    public AndriodHomeViewModel(AndroidWindowManagerService windowManagerService, YeetAccessibilityService accessibilityService,
-        MacroManagerViewModel macroManagerViewModel)
+    public AndriodHomeViewModel(AndroidWindowManagerService windowManagerService, MacroManagerViewModel macroManagerViewModel)
     {
         _windowManagerService = windowManagerService;
-        _accessibilityService = accessibilityService;
         _macroManagerViewModel = macroManagerViewModel;
     }
 
@@ -199,14 +196,20 @@ public partial class AndriodHomeViewModel : ObservableObject
     }
 
     [RelayCommand]
+    public void RequestIgnoreBatteryOptimizations()
+    {
+        _windowManagerService.RequestIgnoreBatteryOptimizations();
+    }
+
+    [RelayCommand]
     public void OnAppear()
     {
         IsAppearing = true;
         IsProjectionServiceEnabled = _windowManagerService.ProjectionServiceEnabled;
-        IsAccessibilityEnabled = _accessibilityService.HasAccessibilityPermissions;
+        IsAccessibilityEnabled = AndroidServiceHelper.AccessibilityService?.HasAccessibilityPermissions ?? false;
         IsMacroReady = IsProjectionServiceEnabled && IsAccessibilityEnabled;
         //if (!IsProjectionServiceEnabled) await ToggleProjectionService();
-
+        IsIgnoringBatteryOptimization = _windowManagerService.IsIgnoringBatteryOptimizations;
         IsAppearing = false;
     }
 }

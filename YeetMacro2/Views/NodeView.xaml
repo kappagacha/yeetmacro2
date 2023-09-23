@@ -70,5 +70,6 @@
                              Command="{Binding ItemsSource.CloseExportCommand, Source={Reference thisView}}" />
             </HorizontalStackLayout>
         </Grid>
+        <ActivityIndicator IsRunning="{Binding ItemsSource.IsInitialized, Converter={conv:InverseBoolConverter}, Source={Reference thisView}}" />
     </Grid>
 </ContentView>

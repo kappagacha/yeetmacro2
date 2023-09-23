@@ -24,8 +24,7 @@ public static class PlatformServiceRegistrationHelper
         {
             string dbPath = Path.Combine(FileSystem.AppDataDirectory, "yeetmacro.db3");
             setup.UseSqlite($"Filename={dbPath}");
-        });
-        //}, ServiceLifetime.Transient);
+        }, ServiceLifetime.Transient);
 
         // https://github.com/dotnet/maui/discussions/2370
         mauiAppBuilder.ConfigureLifecycleEvents(events =>

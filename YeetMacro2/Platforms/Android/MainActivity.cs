@@ -8,6 +8,7 @@ using Android.OS;
 //using OpenCV.Android;
 using Org.Opencv.Android;
 using YeetMacro2.ViewModels;
+using YeetMacro2.Platforms.Android.ViewModels;
 
 namespace YeetMacro2;
 
@@ -36,7 +37,7 @@ public class MainActivity : MauiAppCompatActivity
             Console.WriteLine("[*****YeetMacro*****] CurrentDomain UnhandledException: " + args.ExceptionObject.ToString());
             if (args.IsTerminating)
             {
-                ServiceHelper.GetService<YeetAccessibilityService>().Stop();
+                AndroidServiceHelper.AccessibilityService?.Stop();
             }
             ServiceHelper.GetService<LogViewModel>().LogException(args.ExceptionObject as Exception);
         };
@@ -64,6 +65,9 @@ public class MainActivity : MauiAppCompatActivity
             case YeetMacro2.Platforms.Android.Services.MediaProjectionService.REQUEST_MEDIA_PROJECTION:
                 ServiceHelper.GetService<MediaProjectionService>().Start(resultCode, data);
                 break;
+            case YeetMacro2.Platforms.Android.Services.AndroidWindowManagerService.REQUEST_IGNORE_BATTERY_OPTIMIZATIONS:
+                ServiceHelper.GetService<AndriodHomeViewModel>().IsIgnoringBatteryOptimization = resultCode == Result.Ok;
+                break;
         }
     }
 
@@ -77,6 +81,12 @@ public class MainActivity : MauiAppCompatActivity
     {
         Console.WriteLine("[*****YeetMacro*****] MainActivity OnPause");
         base.OnPause();
+    }
+
+    protected override void OnDestroy()
+    {
+        Console.WriteLine("[*****YeetMacro*****] MainActivity OnDestroy");
+        base.OnDestroy();
     }
 
     public override void OnRequestPermissionsResult(int requestCode, string[] permissions, [GeneratedEnum] Android.Content.PM.Permission[] grantResults)

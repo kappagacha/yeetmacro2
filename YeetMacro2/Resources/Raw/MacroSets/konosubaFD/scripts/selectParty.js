@@ -17,10 +17,10 @@ async function selectPartyByRecommendedElement(xOffset) {
             }
         }));
     }
-    const elementResult = await macroService.pollPattern(elementPatterns);
-    logger.info(`selectPartyByRecommendedElement: ${elementResult.path}`);
-    if (!elementResult.isSuccess) return false;
-    let targetElement = elementResult.path.split('.').pop();
+    const elementResult = macroService.PollPattern(elementPatterns);
+    logger.info(`selectPartyByRecommendedElement: ${elementResult.Path}`);
+    if (!elementResult.IsSuccess) return false;
+    let targetElement = elementResult.Path.split('.').pop();
     logger.debug(`targetElement: ${targetElement}`);
     if (xOffset) {
         targetElement = targetElement.split('_')[0];
@@ -37,31 +37,31 @@ async function selectPartyByRecommendedElement(xOffset) {
 
 async function selectParty(targetPartyName) {
     logger.info(`selectParty: ${targetPartyName}`);
-    let currentParty = await screenService.getText(patterns.party.name, targetPartyName);
+    let currentParty = macroService.GetText(patterns.party.name, targetPartyName);
     let numScrolls = 0;
-    while (state.isRunning && currentParty != targetPartyName && numScrolls < 20) {
-        await scrollRight();
+    while (macroService.IsRunning && currentParty != targetPartyName && numScrolls < 20) {
+        scrollRight();
         numScrolls++;
         logger.debug(`numScrolls: ${numScrolls}`);
-        currentParty = await screenService.getText(patterns.party.name, targetPartyName);
+        currentParty = macroService.GetText(patterns.party.name, targetPartyName);
         logger.debug(`currentParty: ${currentParty}`);
-        await sleep(500);
+        sleep(500);
     }
 
     return numScrolls === 20 ? false : true;
 }
 
 async function scrollRight() {
-    let currentX = Math.floor((await macroService.findPattern(patterns.party.slot)).point.x);
+    let currentX = Math.floor((macroService.FindPattern(patterns.party.slot)).Point.X);
     let prevX = currentX;
-    while (state.isRunning && currentX === 0) {
-        currentX = Math.floor((await macroService.findPattern(patterns.party.slot)).point.x);
-        await sleep(500);
+    while (macroService.IsRunning && currentX === 0) {
+        currentX = Math.floor((macroService.FindPattern(patterns.party.slot)).Point.X);
+        sleep(500);
     }
-    while (state.isRunning && (currentX === 0 || currentX === prevX)) {
+    while (macroService.IsRunning && (currentX === 0 || currentX === prevX)) {
         logger.debug(`currentX: ${currentX}, prevX: ${prevX}`);
-        await macroService.clickPattern(patterns.party.scrollRight);
-        await sleep(500);
-        currentX = Math.floor((await macroService.findPattern(patterns.party.slot)).point.x);
+        macroService.ClickPattern(patterns.party.scrollRight);
+        sleep(500);
+        currentX = Math.floor((macroService.FindPattern(patterns.party.slot)).Point.X);
     }
 }

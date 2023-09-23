@@ -76,18 +76,18 @@ public class NodeService<TParent, TChild> : INodeService<TParent, TChild>
         if (node is TParent parent)
         {
             parent.NodeId = 0;
-            var children = parent.Nodes;
-            parent.Nodes = null;
             _nodeRepository.Insert(parent);
             _nodeRepository.Save();
             Resolve(node);
+
+            var children = parent.Nodes.ToList();
             foreach (var child in children)
             {
                 child.ParentId = parent.NodeId;
                 child.RootId = parent.RootId;
                 Insert(child);
             }
-            parent.Nodes = children;
+            _nodeRepository.Save();
         }
         else
         {
@@ -107,6 +107,14 @@ public class NodeService<TParent, TChild> : INodeService<TParent, TChild>
 
     public void Delete(TChild node)
     {
+        if (node is TParent parent)
+        {
+            var children = parent.Nodes.ToList();
+            foreach (var child in children)
+            {
+                Delete(child);
+            }
+        }
         DeleteClosures(node);
         _nodeRepository.Delete(node);
         _nodeRepository.Save();
@@ -135,7 +143,7 @@ public class NodeService<TParent, TChild> : INodeService<TParent, TChild>
             var ancestorClosure = new NodeClosure()
             {
                 NodeRootId = node.RootId,
-                Name = $"{node.Name} -> {node.Name}",
+                Name = $"{closure.Name} -> {node.Name}",
                 AncestorId = closure.AncestorId,
                 AncestorName = closure.AncestorName,
                 DescendantId = node.NodeId,
@@ -160,8 +168,10 @@ public class NodeService<TParent, TChild> : INodeService<TParent, TChild>
     public void ReAttachNodes(TParent root)
     {
         var originalRoot = Get(root.NodeId);
-        _nodeRepository.DetachEntities(originalRoot);
-        _nodeRepository.AttachEntities(root);
+        var originalDescendants = GetDescendants<TChild>(originalRoot).ToArray();
+        _nodeRepository.DetachEntities(originalDescendants);
+        var newDescendants = GetDescendants<TChild>(root).ToArray();
+        _nodeRepository.AttachEntities(newDescendants);
     }
 
     public IEnumerable<TTarget> GetDescendants<TTarget>(TChild node) where TTarget: TChild
@@ -179,22 +189,6 @@ public class NodeService<TParent, TChild> : INodeService<TParent, TChild>
             }
         }
     }
-
-    //private IEnumerable<TChild> GetAllNodes(TChild node)
-    //{
-    //    yield return node;
-
-    //    if (node is TParent parent)
-    //    {
-    //        foreach (var child in parent.Nodes)
-    //        {
-    //            foreach (var childNodes in GetAllNodes(child))
-    //            {
-    //                yield return childNodes;
-    //            }
-    //        }
-    //    }
-    //}
 
     public void Save()
     {

@@ -4,13 +4,10 @@ using Serilog;
 using Serilog.Configuration;
 using Serilog.Extensions.Logging;
 using Serilog.Filters;
-using System.Diagnostics;
 using System.Reflection;
-using System.Text.Json;
-using System.Text.Json.Serialization;
-using YeetMacro2.Data.Models;
-using YeetMacro2.Data.Services;
+using TesseractOcrMaui;
 using YeetMacro2.ViewModels;
+using YeetMacro2.ViewModels.NodeViewModels;
 
 namespace YeetMacro2.Services;
 
@@ -18,14 +15,18 @@ public static class ServiceRegistrationHelper
 {
     public static MauiAppBuilder RegisterServices(this MauiAppBuilder mauiAppBuilder)
     {
-        //mauiAppBuilder.Services.AddTransient<IMauiInitializeService, AppInitializer>();
+        mauiAppBuilder.Services.AddTransient<IMauiInitializeService, AppInitializer>();
         mauiAppBuilder.Services.AddSingleton<IToastService, ToastService>();
-        mauiAppBuilder.Services.AddSingleton<IScriptService, ScriptService>();
+        //mauiAppBuilder.Services.AddSingleton<IScriptService, ScriptService>();
+        mauiAppBuilder.Services.AddSingleton<IScriptService, ScriptServiceDeluxe>();
         mauiAppBuilder.Services.AddHttpClient();
         mauiAppBuilder.Services.AddSingleton<IHttpService, HttpService>();
+        //mauiAppBuilder.Services.AddSingleton<IOcrService, OcrService>();
         mauiAppBuilder.Services.AddAutoMapper(typeof(App).GetTypeInfo().Assembly);
         mauiAppBuilder.Services.AddLazyResolution();
         mauiAppBuilder.Logging.AddLogViewModelSink();
+
+        mauiAppBuilder.Services.AddTesseractOcr(files => files.AddFile("eng.traineddata"));
 
         return mauiAppBuilder;
     }
@@ -33,9 +34,10 @@ public static class ServiceRegistrationHelper
     public static MauiAppBuilder RegisterViewModels(this MauiAppBuilder mauiAppBuilder)
     {
         mauiAppBuilder.Services.AddSingleton<MacroManagerViewModel>();
-        mauiAppBuilder.Services.AddSingleton<NodeViewModelFactory>();
+        mauiAppBuilder.Services.AddSingleton<NodeManagerViewModelFactory>();
         mauiAppBuilder.Services.AddSingleton<StatusPanelViewModel>();
         mauiAppBuilder.Services.AddSingleton<LogViewModel>();
+        mauiAppBuilder.Services.AddSingleton<MacroService>();
 
         return mauiAppBuilder;
     }
@@ -45,73 +47,40 @@ public class AppInitializer : IMauiInitializeService
 {
     public void Initialize(IServiceProvider services)
     {
-        var dbContext = services.GetRequiredService<YeetMacroDbContext>();
+#if ANDROID
+        //try
+        //{
 
-        if (dbContext.MacroSets.Any()) return;
+        //    var assets = MauiApplication.Current.Assets;
+        //    //var x = Android.Graphics.Typeface.CreateFromAsset(assets, "/data/user/0/com.companyname.yeetmacro2/cache/MaterialIconsOutlined-Regular.otf");
+        //    var x = Android.Graphics.Typeface.CreateFromAsset(assets, "MaterialOutlined");
+        //} 
+        //catch (Exception ex)
+        //{
 
-        var macroSetRepository = services.GetRequiredService<IRepository<MacroSet>>();
-        var patternNodeService = services.GetRequiredService<INodeService<PatternNode, PatternNode>>();
-        var scriptNodeService = services.GetRequiredService<INodeService<ScriptNode, ScriptNode>>();
-        var settingNodeService = services.GetRequiredService<INodeService<ParentSetting, SettingNode>>();
-        var jsonSerializerOptions = new JsonSerializerOptions()
-        {
-            Converters = {
-                new JsonStringEnumConverter()
-            },
-            PropertyNamingPolicy = JsonNamingPolicy.CamelCase
-        };
+        //}
 
-        var macroSets = ServiceHelper.ListAssets("MacroSets");
-        foreach (var folder in macroSets)
-        {
-            var macroSetJson = ServiceHelper.GetAssetContent(Path.Combine("MacroSets", folder, "macroSet.json"));
-            var macroSet = JsonSerializer.Deserialize<MacroSet>(macroSetJson, jsonSerializerOptions);
-            var pattternJson = ServiceHelper.GetAssetContent(Path.Combine("MacroSets", folder, "patterns.json"));
-            var rootPattern = patternNodeService.GetRoot(0);
-            var tempPatternTree = PatternNodeViewModel.FromJson(pattternJson);
-            foreach (var pattern in tempPatternTree.Root.Nodes)
-            {
-                pattern.RootId = rootPattern.NodeId;
-                pattern.ParentId = rootPattern.NodeId;
-                rootPattern.Nodes.Add(pattern);
-                patternNodeService.Insert(pattern);
-            }
-            macroSet.RootPatternNodeId = rootPattern.NodeId;
-
-            var scriptList = ServiceHelper.ListAssets(Path.Combine("MacroSets", folder, "scripts"));
-            var rootScripts = scriptNodeService.GetRoot(0);
-            foreach (var scriptFile in scriptList)
-            {
-                var scriptText = ServiceHelper.GetAssetContent(Path.Combine("MacroSets", folder, "scripts", scriptFile));
-                var script = new ScriptNode()
-                {
-                    Name = Path.GetFileNameWithoutExtension(scriptFile),
-                    Text = scriptText,
-                    RootId = rootScripts.NodeId,
-                    ParentId = rootScripts.NodeId
-                };
-
-                rootScripts.Nodes.Add(script);
-                scriptNodeService.Insert(script);
-            }
-
-            macroSet.RootScriptNodeId = rootScripts.NodeId;
-
-            var settingJson = ServiceHelper.GetAssetContent(Path.Combine("MacroSets", folder, "settings.json"));
-            var rootSetting = settingNodeService.GetRoot(0);
-            var tempSettingTree = SettingNodeViewModel.FromJson(settingJson);
-            foreach (var setting in tempSettingTree.Root.Nodes)
-            {
-                setting.RootId = rootSetting.NodeId;
-                setting.ParentId = rootSetting.NodeId;
-                rootSetting.Nodes.Add(setting);
-                settingNodeService.Insert(setting);
-            }
-            macroSet.RootSettingNodeId = rootSetting.NodeId;
-
-            macroSetRepository.Insert(macroSet);
-            macroSetRepository.Save();
-        }
+#endif
+        //var assemblies = new Assembly[] { typeof(MaterialIconsConfigurationExtensions).Assembly, typeof(FontAwesomeConfigurationExtensions).Assembly };
+        //foreach (var assembly in assemblies)
+        //{
+        //    string[] fontFiles = assembly.GetManifestResourceNames();
+        //    var regex = new Regex(@"([^\.]+)\.(otf|ttf)$");
+        //    foreach (var fontFile in fontFiles)
+        //    {
+        //        var match = regex.Match(fontFile);
+        //        if (match.Success)
+        //        {
+        //            var fontData = assembly.GetManifestResourceStream(fontFile);
+        //            var targetPath = Path.Combine(FileSystem.Current.CacheDirectory, $"{match.Groups[1].Value}.{match.Groups[2].Value}");
+        //            Console.WriteLine("***********");
+        //            Console.WriteLine(targetPath);
+        //            if (File.Exists(targetPath)) continue;
+        //            var fileStream = File.Create(targetPath);
+        //            fontData.CopyTo(fileStream);
+        //        }
+        //    }
+        //}
     }
 }
 

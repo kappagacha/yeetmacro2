@@ -22,7 +22,7 @@ public class BindingContextView : ContentView
         if (BindingContext == null || Parent == null) return;
 
         var view = (VisualElement)this;
-        string typeKey = BindingContext.GetType().Name.Replace("Proxy", "") + "Template";
+        string typeKey = BindingContext.GetType().Name.Replace("Proxy", "").Replace("ViewModel", "") + "Template";
 
         if (!_typeKeyToDataTemplate.ContainsKey(typeKey))
         {

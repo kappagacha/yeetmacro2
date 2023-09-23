@@ -1,24 +1,24 @@
 ﻿// patterns.stamina.adNotification
 let done = false;
 const loopPatterns = [patterns.titles.home, patterns.stamina.prompt.recoverStamina];
-while (state.isRunning && !done) {
-	const result = await macroService.pollPattern(loopPatterns);
-	switch (result.path) {
+while (macroService.IsRunning && !done) {
+	const result = macroService.PollPattern(loopPatterns);
+	switch (result.Path) {
 		case 'titles.home':
 			logger.info('watchAdStamina: stamina ad');
-			await macroService.clickPattern(patterns.stamina.add);
+			macroService.ClickPattern(patterns.stamina.add);
 			break;
 		case 'stamina.prompt.recoverStamina':
 			logger.info('watchAdStamina: check for stamina adNotification');
-			logger.info(JSON.stringify(patterns.stamina.adNotification));
-			let staminaAdNotificationResult = await macroService.findPattern(patterns.stamina.adNotification);
-			logger.info('staminaAdNotificationResult.isSuccess: ' + staminaAdNotificationResult.isSuccess);
-			if (!staminaAdNotificationResult.isSuccess) {
+			//logger.info(JSON.stringify(patterns.stamina.adNotification));
+			let staminaAdNotificationResult = macroService.FindPattern(patterns.stamina.adNotification);
+			logger.info('staminaAdNotificationResult.IsSuccess: ' + staminaAdNotificationResult.IsSuccess);
+			if (!staminaAdNotificationResult.IsSuccess) {
 				logger.info('watchAdStamina: stamina ad notification not detected');
-				const watchAdResult = await macroService.pollPattern(patterns.stamina.watchAd, { doClick: true, intervalDelayMs: 1000, predicatePattern: [patterns.prompt.dailyRewardLimit, patterns.stamina.adNotification] });
-				if (watchAdResult.predicatePath === 'prompt.dailyRewardLimit') {
+				const watchAdResult = macroService.PollPattern(patterns.stamina.watchAd, { DoClick: true, IntervalDelayMs: 1000, PredicatePattern: [patterns.prompt.dailyRewardLimit, patterns.stamina.adNotification] });
+				if (watchAdResult.PredicatePath === 'prompt.dailyRewardLimit') {
 					logger.info('watchAdStamina: daily reward limit');
-					await macroService.pollPattern(patterns.ad.prompt.ok, { doClick: true, predicatePattern: patterns.stamina.prompt.recoverStamina });
+					macroService.PollPattern(patterns.ad.prompt.ok, { DoClick: true, PredicatePattern: patterns.stamina.prompt.recoverStamina });
 					done = true;
 					break;
 				}
@@ -26,18 +26,18 @@ while (state.isRunning && !done) {
 
 			logger.info('watchAdStamina: watching ad');
 			logger.info('watchAdStamina: poll stamina.adNotification');
-			await macroService.pollPattern(patterns.stamina.adNotification, { doClick: true, clickPattern: patterns.ad.prompt.ok, predicatePattern: patterns.ad.done });
-			await sleep(1_000);
+			macroService.PollPattern(patterns.stamina.adNotification, { DoClick: true, ClickPattern: patterns.ad.prompt.ok, PredicatePattern: patterns.ad.done });
+			sleep(1_000);
 			logger.info('watchAdStamina: poll ad.done');
-			await macroService.pollPattern(patterns.ad.done, { doClick: true, predicatePattern: patterns.ad.prompt.ok });
-			await sleep(1_000);
+			macroService.PollPattern(patterns.ad.done, { DoClick: true, PredicatePattern: patterns.ad.prompt.ok });
+			sleep(1_000);
 			logger.info('watchAdStamina: poll ad.prompt.ok 2');
-			await macroService.pollPattern(patterns.ad.prompt.ok, { doClick: true, predicatePattern: patterns.stamina.add });
+			macroService.PollPattern(patterns.ad.prompt.ok, { DoClick: true, PredicatePattern: patterns.stamina.add });
 
 			done = true;
 			break;
 	}
 
-	await sleep(1_000);
+	sleep(1_000);
 }
 logger.info('Done...');

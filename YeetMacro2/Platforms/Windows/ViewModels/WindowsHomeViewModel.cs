@@ -19,9 +19,9 @@ public partial class WindowsHomeViewModel : ObservableObject
     [RelayCommand]
     public void Test()
     {
-        //_logViewModel.LogException(new Exception("Test exception"));
-        _logger.LogInformation("{persistLogs}", true);
-        _logger.LogInformation("{macroSet} {script}", "something", "something2");
-        _logger.LogTrace((count++).ToString());
+        _logViewModel.LogException(new Exception("Test exception"));
+        //_logger.LogInformation("{persistLogs}", true);
+        //_logger.LogInformation("{macroSet} {script}", "something", "something2");
+        //_logger.LogTrace((count++).ToString());
     }
 }

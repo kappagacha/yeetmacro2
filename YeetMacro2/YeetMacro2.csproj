@@ -23,7 +23,7 @@
 		<ApplicationDisplayVersion>1</ApplicationDisplayVersion>
 		<ApplicationVersion>1</ApplicationVersion>
 
-		<SupportedOSPlatformVersion Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'android'">21.0</SupportedOSPlatformVersion>
+		<SupportedOSPlatformVersion Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'android'">26.0</SupportedOSPlatformVersion>
 		<SupportedOSPlatformVersion Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'windows'">10.0.17763.0</SupportedOSPlatformVersion>
 		<TargetPlatformMinVersion Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'windows'">10.0.17763.0</TargetPlatformMinVersion>
 	</PropertyGroup>
@@ -53,20 +53,22 @@
 		<PackageReference Include="CommunityToolkit.Maui" Version="5.3.0" />
 		<PackageReference Include="CommunityToolkit.Maui.Markup" Version="3.2.0" />
 		<PackageReference Include="CommunityToolkit.Mvvm" Version="8.2.1" />
+		<PackageReference Include="Jint" Version="3.0.0-beta-2051" />
 		<PackageReference Include="Microsoft.EntityFrameworkCore" Version="7.0.10" />
 		<PackageReference Include="Microsoft.EntityFrameworkCore.Sqlite" Version="7.0.10" />
 		<PackageReference Include="Microsoft.Extensions.Http" Version="7.0.0" />
 		<PackageReference Include="Microsoft.Extensions.Logging.Debug" Version="7.0.0" />
+		<PackageReference Include="OneOf" Version="3.0.255" />
 		<PackageReference Include="OpenCvSharp4.Windows" Version="4.8.0.20230708" />
 		<PackageReference Include="Serilog" Version="3.0.1" />
 		<PackageReference Include="Serilog.Extensions.Logging" Version="7.0.0" />
 		<PackageReference Include="Serilog.Sinks.Console" Version="4.1.0" />
 		<PackageReference Include="SkiaSharp.Views.Maui.Controls" Version="2.88.3" />
 		<PackageReference Include="System.Drawing.Common" Version="7.0.0" />
+		<PackageReference Include="TesseractOcrMaui" Version="1.0.7" />
 		<PackageReference Include="UraniumUI.Icons.FontAwesome" Version="2.5.5" />
 		<PackageReference Include="UraniumUI.Icons.MaterialIcons" Version="2.5.5" />
 		<PackageReference Include="UraniumUI.Material" Version="2.5.5" />
-		<PackageReference Include="YantraJS.Core" Version="1.2.179" />
 	</ItemGroup>
 
 	<ItemGroup>
@@ -76,9 +78,20 @@
 	<ItemGroup>
 	  <None Remove="Platforms\Android\Assets\tessdata\eng.traineddata" />
 	  <None Remove="Platforms\Android\Resources\xml\yeetmacro_config.xml" />
+	  <None Remove="Resources\Fonts\MaterialIcons-Regular.ttf" />
+	  <None Remove="Resources\Fonts\MaterialIconsOutlined-Regular.otf" />
+	  <None Remove="Resources\Fonts\OpenSans-Medium.ttf" />
 	  <None Remove="Resources\Images\appicon.svg" />
+	  <None Remove="Resources\Raw\eng.traineddata" />
 	  <None Remove="Resources\Raw\initJavaScriptContext.js" />
 	  <None Remove="Resources\Splash\splash.svg" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <AndroidAsset Update="Platforms\Android\Assets\tessdata\eng.traineddata">
+	    <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+	    <LogicalName>%(RecursiveDir)%(Filename)%(Extension)</LogicalName>
+	  </AndroidAsset>
 	</ItemGroup>
 
 	<ItemGroup>
@@ -229,12 +242,9 @@
   </ItemGroup>
 
   <ItemGroup>
-    <AndroidAsset Update="Platforms\Android\Assets\tessdata\eng.traineddata">
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
-    </AndroidAsset>
-  </ItemGroup>
-
-  <ItemGroup>
+    <MauiAsset Update="Resources\Raw\eng.traineddata">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </MauiAsset>
     <MauiAsset Update="Resources\Raw\MacroSets\eversoul\macroSet.json">
       <LogicalName>%(RecursiveDir)%(Filename)%(Extension)</LogicalName>
     </MauiAsset>

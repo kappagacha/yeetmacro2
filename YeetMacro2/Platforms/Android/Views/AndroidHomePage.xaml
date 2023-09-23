@@ -24,7 +24,7 @@
         <VerticalStackLayout Spacing="10">
             <Label Text="YeetMacro" HorizontalTextAlignment="Center" FontSize="Title" FontAttributes="Bold" />
             <HorizontalStackLayout HorizontalOptions="Center">
-                <v:ImageView FontFamily="MaterialOutlined" Glyph="{x:Static mi:MaterialOutlined.Branding_watermark}" Color="LightGray"
+                <v:ImageView FontFamily="MaterialOutlined" Glyph="{x:Static mi:MaterialOutlined.Branding_watermark}" Color="Red"
                                                      Command="{Binding ToggleProjectionServiceCommand}">
                     <v:ImageView.Triggers>
                         <DataTrigger TargetType="{x:Type v:ImageView}" Binding="{Binding IsProjectionServiceEnabled}" Value="True">
@@ -44,7 +44,7 @@
                 </Label>
             </HorizontalStackLayout>
             <HorizontalStackLayout HorizontalOptions="Center">
-                <v:ImageView FontFamily="MaterialOutlined" Glyph="{x:Static mi:MaterialOutlined.Touch_app}" Color="LightGray"
+                <v:ImageView FontFamily="MaterialOutlined" Glyph="{x:Static mi:MaterialOutlined.Touch_app}" Color="Red"
                                                      Command="{Binding ToggleAccessibilityPermissionsCommand}">
                     <v:ImageView.Triggers>
                         <DataTrigger TargetType="{x:Type v:ImageView}" Binding="{Binding IsAccessibilityEnabled}" Value="True">
@@ -63,6 +63,26 @@
                     </Label.Triggers>
                 </Label>
             </HorizontalStackLayout>
+            <!--<HorizontalStackLayout HorizontalOptions="Center">
+                <v:ImageView FontFamily="MaterialOutlined" Glyph="{x:Static mi:MaterialOutlined.Battery_saver}" Color="Red"
+                                                     Command="{Binding RequestIgnoreBatteryOptimizationsCommand}">
+                    <v:ImageView.Triggers>
+                        <DataTrigger TargetType="{x:Type v:ImageView}" Binding="{Binding IsIgnoringBatteryOptimization}" Value="True">
+                            <Setter Property="Color" Value="Green" />
+                        </DataTrigger>
+                    </v:ImageView.Triggers>
+                </v:ImageView>
+                <Label VerticalTextAlignment="Center" Text="Disable Battery Optimization">
+                    <Label.GestureRecognizers>
+                        <TapGestureRecognizer Command="{Binding RequestIgnoreBatteryOptimizationsCommand}" />
+                    </Label.GestureRecognizers>
+                    <Label.Triggers>
+                        <DataTrigger TargetType="Label" Binding="{Binding IsIgnoringBatteryOptimization}" Value="True">
+                            <Setter Property="TextColor" Value="Green" />
+                        </DataTrigger>
+                    </Label.Triggers>
+                </Label>
+            </HorizontalStackLayout>-->
             <HorizontalStackLayout HorizontalOptions="Center">
                 <v:ImageView FontFamily="MaterialOutlined" Glyph="{x:Static mi:MaterialOutlined.Credit_card}" Color="LightGray"
                                                      Command="{Binding ToggleShowMacroOverlayCommand}">

@@ -1,26 +1,27 @@
 ﻿let done = false;
 const loopPatterns = [patterns.lobby.everstone, patterns.titles.adventure, patterns.adventure.arena.freeChallenge, patterns.adventure.arena.startMatch, patterns.adventure.arena.ticket];
-while (state.isRunning && !done) {
-	const result = await macroService.pollPattern(loopPatterns);
-	switch (result.path) {
+while (macroService.IsRunning && !done) {
+	const result = macroService.PollPattern(loopPatterns);
+	switch (result.Path) {
 		case 'lobby.everstone':
 			logger.info('doArena: click adventure');
-			await macroService.clickPattern(patterns.lobby.adventure);
+			macroService.ClickPattern(patterns.lobby.adventure);
 			break;
 		case 'titles.adventure':
 			logger.info('doArena: click arena');
-			await macroService.pollPattern(patterns.adventure.tabs.arena, { doClick: true, predicatePattern: patterns.adventure.arena });
-			await sleep(500);
-			await macroService.pollPattern(patterns.adventure.arena, { doClick: true, predicatePattern: patterns.adventure.arena.info });
+			macroService.PollPattern(patterns.adventure.tabs.arena, { DoClick: true, PredicatePattern: patterns.adventure.arena });
+			sleep(500);
+			macroService.PollPattern(patterns.adventure.arena, { DoClick: true, PredicatePattern: patterns.adventure.arena.info });
 			break;
 		case 'adventure.arena.freeChallenge':
 			logger.info('doArena: free challenges');
-			await macroService.pollPattern(patterns.adventure.arena.freeChallenge, { doClick: true, predicatePattern: patterns.adventure.arena.startMatch });
+			macroService.PollPattern(patterns.adventure.arena.freeChallenge, { DoClick: true, PredicatePattern: patterns.adventure.arena.startMatch });
+			break;
 		case 'adventure.arena.startMatch':
 			logger.info('doArena: start match');
-			const match1CP = (await screenService.getText(patterns.adventure.arena.match1.cp)).replace(/[, ]/g, '');
-			const match2CP = (await screenService.getText(patterns.adventure.arena.match2.cp)).replace(/[, ]/g, '');
-			const match3CP = (await screenService.getText(patterns.adventure.arena.match3.cp)).replace(/[, ]/g, '');
+			const match1CP = (macroService.GetText(patterns.adventure.arena.match1.cp)).replace(/[, ]/g, '');
+			const match2CP = (macroService.GetText(patterns.adventure.arena.match2.cp)).replace(/[, ]/g, '');
+			const match3CP = (macroService.GetText(patterns.adventure.arena.match3.cp)).replace(/[, ]/g, '');
 
 			logger.debug('match1CP: ' + match1CP);
 			logger.debug('match2CP: ' + match2CP);
@@ -35,15 +36,15 @@ while (state.isRunning && !done) {
 			logger.debug('minCP: ' + minCP);
 			logger.debug('cpThreshold: ' + cpThreshold);
 			if (minCP <= cpThreshold) {
-				await macroService.pollPattern(patterns.adventure.arena['match' + (minIdx + 1)].challenge, { doClick: true, predicatePattern: patterns.battle.start });
-				await sleep(500);
-				await macroService.pollPattern(patterns.battle.skip.disabled, { doClick: true, predicatePattern: patterns.battle.skip.enabled });
-				await macroService.pollPattern(patterns.battle.start, { doClick: true, predicatePattern: patterns.prompt.confirm2 });
-				await macroService.pollPattern(patterns.prompt.confirm2, { doClick: true, predicatePattern: [patterns.adventure.arena.freeChallenge, patterns.adventure.arena.ticket] });
-				//await macroService.pollPattern(patterns.battle.start, { doClick: true, clickPattern: patterns.battle.skip, predicatePattern: [patterns.adventure.arena.freeChallenge, patterns.adventure.arena.ticket] });
+				macroService.PollPattern(patterns.adventure.arena['match' + (minIdx + 1)].challenge, { DoClick: true, PredicatePattern: patterns.battle.start });
+				sleep(500);
+				macroService.PollPattern(patterns.battle.skip.disabled, { DoClick: true, PredicatePattern: patterns.battle.skip.enabled });
+				macroService.PollPattern(patterns.battle.start, { DoClick: true, PredicatePattern: patterns.prompt.confirm2 });
+				macroService.PollPattern(patterns.prompt.confirm2, { DoClick: true, PredicatePattern: [patterns.adventure.arena.freeChallenge, patterns.adventure.arena.ticket] });
+				//macroService.PollPattern(patterns.battle.start, { DoClick: true, ClickPattern: patterns.battle.skip, PredicatePattern: [patterns.adventure.arena.freeChallenge, patterns.adventure.arena.ticket] });
 			}
 			else {
-				await macroService.pollPattern(patterns.battle.rematch, { doClick: true, inversePredicatePattern: patterns.battle.rematch });
+				macroService.PollPattern(patterns.battle.rematch, { DoClick: true, InversePredicatePattern: patterns.battle.rematch });
 			}
 			break;
 		case 'adventure.arena.ticket':
@@ -52,6 +53,6 @@ while (state.isRunning && !done) {
 			break;
 	}
 
-	await sleep(1_000);
+	sleep(1_000);
 }
 logger.info('Done...');

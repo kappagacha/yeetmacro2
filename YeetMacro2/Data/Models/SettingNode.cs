@@ -23,8 +23,12 @@ public class SettingNodeMetadataProvider : INodeMetadataProvider<SettingNode>
 public class ParentSetting : SettingNode, IParentNode<ParentSetting, SettingNode>
 {
     [JsonIgnore]
-    public ICollection<SettingNode> Nodes { get; set; } = new List<SettingNode>();
+    public virtual ICollection<SettingNode> Nodes { get; set; } = new List<SettingNode>();
     public override SettingType SettingType => SettingType.Parent;
+    public override TTarget GetValue<TTarget>()
+    {
+        throw new InvalidOperationException("ParentSetting does not have a value.");
+    }
 }
 
 // https://learn.microsoft.com/en-us/dotnet/standard/serialization/system-text-json/polymorphism?pivots=dotnet-7-0
@@ -38,12 +42,24 @@ public class ParentSetting : SettingNode, IParentNode<ParentSetting, SettingNode
 public abstract class SettingNode : Node
 {
     public abstract SettingType SettingType { get; }
+    public abstract T GetValue<T>();
+    public virtual SettingNode this[string key]
+    {
+        get
+        {
+            throw new InvalidOperationException($"Not implemented for type: {this.GetType()}");
+        }
+    }
 }
 
 public abstract class SettingNode<T> : SettingNode
 {
     public virtual T Value { get; set; }
     public virtual T DefaultValue { get; set; }
+    public override TTarget GetValue<TTarget>()
+    {
+        return (TTarget)(object)Value;
+    }
 }
 
 public class BooleanSetting: SettingNode<Boolean>
@@ -54,7 +70,7 @@ public class BooleanSetting: SettingNode<Boolean>
 public class OptionSetting : SettingNode<String>
 {
     public override SettingType SettingType => SettingType.Option;
-    public ICollection<String> Options { get; set; } = new List<String>();
+    public virtual ICollection<String> Options { get; set; } = new List<String>();
 }
 
 public class StringSetting : SettingNode<String>

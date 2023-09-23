@@ -1,5 +1,4 @@
-﻿
-using CommunityToolkit.Mvvm.ComponentModel;
+﻿using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using Serilog.Core;
 using Serilog.Events;
@@ -75,7 +74,7 @@ public partial class LogViewModel : ObservableObject, ILogEventSink
     // Always persists on exception
     public void LogException(Exception ex, string message = null)
     {
-        if (_currentLogGroup == null) InitLogGroup();
+        if (_currentLogGroup is null) InitLogGroup(ex);
 
         if (message is not null)
         {
@@ -154,14 +153,19 @@ public partial class LogViewModel : ObservableObject, ILogEventSink
                 if (_persistLogs) Log(LogType.Verbose, logEvent.MessageTemplate.Text);
                 break;
         }
+
+        if (logEvent.Level == LogEventLevel.Verbose)
+        {
+            Console.WriteLine($"[{logEvent.Level}] {logEvent.MessageTemplate.Text}");
+        }
     }
 
-    private void InitLogGroup()
+    private void InitLogGroup(Exception ex = null)
     {
-        _currentLogGroup = new LogGroup() { Timestamp = DateTime.Now.Ticks, MacroSet = _currentMacroSet, Script = _currentScript };
+        _currentLogGroup = new LogGroup() { Timestamp = DateTime.Now.Ticks, MacroSet = _currentMacroSet, Script = ex?.Message ?? _currentScript, Stack = (ex is not null ? ex.StackTrace ?? Environment.StackTrace : null) };
         _currentLogGroup.Logs = new SortedObservableCollection<Log>((a, b) => (int)(b.Timestamp - a.Timestamp));
+        LogGroups.Add(_currentLogGroup);
         _logGroupRepository.Value.Insert(_currentLogGroup);
         _logGroupRepository.Value.Save();
-        LogGroups.Add(_currentLogGroup);
     }
 }

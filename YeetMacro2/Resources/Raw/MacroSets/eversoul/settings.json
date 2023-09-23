@@ -4,7 +4,8 @@
     "props": {
       "settingType": "Parent",
       "isParentNode": true,
-      "name": "arena"
+      "name": "arena",
+      "path": "arena"
     },
     "cpThreshold": {
       "$isParent": false,
@@ -14,7 +15,8 @@
         "value": "370000",
         "defaultValue": null,
         "isParentNode": false,
-        "name": "cpThreshold"
+        "name": "cpThreshold",
+        "path": "arena.cpThreshold"
       }
     }
   },
@@ -23,7 +25,8 @@
     "props": {
       "settingType": "Parent",
       "isParentNode": true,
-      "name": "champsArena"
+      "name": "champsArena",
+      "path": "champsArena"
     },
     "cpThreshold": {
       "$isParent": false,
@@ -33,7 +36,8 @@
         "value": "750000",
         "defaultValue": null,
         "isParentNode": false,
-        "name": "cpThreshold"
+        "name": "cpThreshold",
+        "path": "champsArena.cpThreshold"
       }
     }
   },
@@ -42,7 +46,8 @@
     "props": {
       "settingType": "Parent",
       "isParentNode": true,
-      "name": "outings"
+      "name": "outings",
+      "path": "outings"
     },
     "target": {
       "$isParent": false,
@@ -54,10 +59,10 @@
           "patterns": [
             {
               "rect": {
-                "x": 1233.48681640625,
-                "y": 657.3931884765625,
-                "width": 26.9879150390625,
-                "height": 29.968505859375
+                "x": 1417.41015625,
+                "y": 869.197021484375,
+                "width": 41.981689453125,
+                "height": 26.97137451171875
               },
               "resolution": {
                 "width": 2400,
@@ -66,7 +71,7 @@
               "isSelected": true,
               "isBoundsPattern": false,
               "name": "pattern",
-              "imageData": "/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDAAEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQH/2wBDAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQH/wAARCAAdABoDASIAAhEBAxEB/8QAGAAAAwEBAAAAAAAAAAAAAAAABggKCQf/xAAqEAABBQACAAUDBAMAAAAAAAAEAQIDBQYHEQgSExQhAAkVFjFBUQomQv/EABgBAAIDAAAAAAAAAAAAAAAAAAUGAwcI/8QAKBEAAgIBAwIEBwAAAAAAAAAAAQIDEQQFEiEAMQYHEyIUI0FRgZHx/9oADAMBAAIRAxEAPwCt/wAZnjLyPhDyWZs7TLbjkXZ8gaMTH8ecc8bUMWk2Gq0Vgrmiig1k1hWQrGnle980xbI40jklcjmRSMWerS/5GBGR5RtMPq/C34iKW3ptOTmbamI5A46/WlddQFsDWpbx83i51dOcyZWxx1n6n9SeZ7YYz5HSoQrV/c/queOTeYctquNmaQGXijWVuV440dBaj1BnH09lBYA8k8k1ckhQDIbgcJCc5DbRzlnuFsHhQhOjRIC8l+Cfti7LmfxncUglHHkBUvJNHyXyDr5iyidEMLlLmHd6A8y4kQksi2spxQh/cWk0xk9nohSiJPUJkmRZiiLALTKzEEcHlCFG4fWibIP6sc9aPwvL2F/Cs+vZuVhAR6Y+pOrTSB4HRfXWJj7YmdcdkDwKskhyHVASaVqlvAR9w7hvxxcRl8m4uzgq7jITFJyBh7SZg+uxfsZyXDy6KnYkiRNsARUsYDaSe8zs7J/bV18cWMaMKe5OlCnyuZnItqEaebP00s4xNpDEQPNJXDPkgniexHxzRPV0csbkRzHtc1yIqL9Suc1+DnkjjP7oOt2nBGZ5Obx1oQJW8tWfCOoJyL6DV3CTVm2sqUQW8y4uqppnsHsb/NTHF0Zd+deBWg5ZghlSuvLdJ9vodrYL7GTH3sCJDdHa6tih1ZttEnksS9PDa3kVpFoSTGzTXUdlFEfHZPJaZGwhJGod07EjhErktIsnpbAtnbtLCSzxfIH5B4HPSXpOJA0c0ryrC7tB8lVZ5VUqZAzoGUIjCSkbs+1q7EDRzlDjrW68q5yUKUIeO1RKXMe5qk/3LMGtsPyVpSWGeMb7K0hsnJN+I1NZZjGDe9WvPphnAi6As5wuZxPhzxJlLxxQuudhqSo6wUqwUNl3sNCaMRKBXGWD3zfjKAZkB1zczSEFzV9UHf3r2nWDXpOZTzP9ZWdr15l66/j4Vf6X9+ul+f5+kqn5d0xXiGmADaMLPT3g3FOaIKatiNnoL0zOEa3UiVzkHHJ0V+CbBURzlulhqgK4eMWN6EWSHANIlyNSyRCtIYccuXViCY42RdpLEgBt/u2rdXXc3Nq/x8OjnTl1DKlwHnOU2BJMwx2kMce1pAoDyLEcaErG7sqbDIiGULb+ZvDAZWrmkihHN0Nkx9jobhkb4ZLi3kjb6jY2+Z0gtZA1jQqaqiVBayuhECgjYxiudyyXi61LlkKkq8wkhL3kPQgcaWdHzOWRyTSrF3JKjnL6ki/L3+Zy/K/TFySO9N/9saqIq9Kq/HXbukRFX47XpERV/wCUT4+hAm/UcieD2qP9GaWLzesrfN6b3M83l9Jeu/L312vXfXa/v9NCBgAFAFDsOAOf5fVUxTZTO7rIzO1F2Z2s1wObHYcD7AACgOv/2Q==",
+              "imageData": "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",
               "variancePct": 20,
               "textMatch": {
                 "isActive": false,
@@ -83,11 +88,13 @@
             }
           ],
           "isParentNode": true,
-          "name": null
+          "name": null,
+          "path": null
         },
         "defaultValue": null,
         "isParentNode": false,
-        "name": "target"
+        "name": "target",
+        "path": "outings.target"
       }
     }
   }

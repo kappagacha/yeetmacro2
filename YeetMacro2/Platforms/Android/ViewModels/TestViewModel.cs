@@ -20,15 +20,54 @@ public partial class TestViewModel : ObservableObject
            _textImage = Convert.FromBase64String("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");
     ILogger _logger;
     MediaProjectionService _mediaProjectionService;
-    YeetAccessibilityService _accessibilityService;
     AndroidWindowManagerService _androidWindowManagerService;
-    public TestViewModel(ILogger<TestViewModel> logger, MediaProjectionService mediaProjectionService, YeetAccessibilityService accessibilityService,
-        AndroidWindowManagerService androidWindowManagerService)
+
+    Java.Lang.Reflect.Method dumpGREFTableMethod = Java.Lang.Class.ForName("dalvik.system.VMDebug").GetDeclaredMethod("dumpReferenceTables");
+    Java.Lang.Object[] args = new Java.Lang.Object[0];
+
+    public TestViewModel(ILogger<TestViewModel> logger, MediaProjectionService mediaProjectionService, AndroidWindowManagerService androidWindowManagerService)
     {
         _logger = logger;
         _mediaProjectionService = mediaProjectionService;
-        _accessibilityService = accessibilityService;
         _androidWindowManagerService = androidWindowManagerService;
+    }
+
+    // https://stackoverflow.com/questions/46232314/trying-to-track-down-gref-leak
+    [RelayCommand]
+    public void DumpGlobalRefTable()
+    {
+        if (Permissions.RequestAsync<Permissions.StorageWrite>().Result != PermissionStatus.Granted) return;
+        var grefFile = Path.Combine("/data/data", AppInfo.PackageName, "files/.__override__", "grefs.txt");
+        // https://stackoverflow.com/questions/39332085/get-path-to-pictures-directory
+        //var targetDirectory = DeviceInfo.Current.Platform == DevicePlatform.Android ?
+        //    global::Android.OS.Environment.GetExternalStoragePublicDirectory(global::Android.OS.Environment.DirectoryPictures).AbsolutePath :
+        //    FileSystem.Current.AppDataDirectory;
+        var targetDirectory = global::Android.OS.Environment.GetExternalStoragePublicDirectory(global::Android.OS.Environment.DirectoryPictures).Path;
+        var fileDestination = Path.Combine(targetDirectory, "mygrefs.txt");
+        if (File.Exists(grefFile))
+        {
+            var data = File.ReadAllBytes(grefFile);
+            using (FileStream fs = new FileStream(fileDestination, FileMode.Create))
+            {
+                fs.Write(data, 0, data.Length);
+            }
+            //File.Copy(grefFile, fileDestination, true);
+        }
+
+        //#if ANDROID
+        // https://stackoverflow.com/questions/39332085/get-path-to-pictures-directory
+        //var targetDirectory = DeviceInfo.Current.Platform == DevicePlatform.Android ?
+        //    global::Android.OS.Environment.GetExternalStoragePublicDirectory(global::Android.OS.Environment.DirectoryPictures).AbsolutePath :
+        //    FileSystem.Current.AppDataDirectory;
+        //File.WriteAllText(Path.Combine(targetDirectory, "temp.txt"), "Hello therer");
+        //#endif
+
+        dumpGREFTableMethod.Invoke(null, args);
+    }
+
+    public void ToggleTest()
+    {
+
     }
 
     [RelayCommand]
@@ -45,7 +84,7 @@ public partial class TestViewModel : ObservableObject
 
         IsImageViewTestRunning = IsBusy = true;
         DeviceDisplay.Current.KeepScreenOn = true;
-        Task.Run(async () =>
+        Task.Run(() =>
         {
             _logger.LogInformation("{persistLogs}", true);
             _logger.LogInformation("{macroSet} {script}", "None", "ImageView Test");
@@ -56,7 +95,8 @@ public partial class TestViewModel : ObservableObject
                 _logger.LogDebug(ImageViewTestCount.ToString());
                 ImageViewTestCount++;
                 IsImageViewWinking = !IsImageViewWinking;
-                await Task.Delay(500);
+                //await Task.Delay(500);
+                new System.Threading.ManualResetEvent(false).WaitOne(100);
             }
         });
     }
@@ -186,7 +226,7 @@ public partial class TestViewModel : ObservableObject
                 {
                     AccessibilityServiceDoClickTestCount++;
                     _logger.LogDebug(AccessibilityServiceDoClickTestCount.ToString());
-                    _accessibilityService.DoClick(new Point() { X = 100, Y = 100 });
+                    AndroidServiceHelper.AccessibilityService?.DoClick(new Point() { X = 100, Y = 100 });
                 }
                 catch (Exception ex)
                 {
@@ -221,7 +261,7 @@ public partial class TestViewModel : ObservableObject
             {
                 GetTextTestCount++;
                 _logger.LogDebug(GetTextTestCount.ToString());
-                var text = await _androidWindowManagerService.GetText(_textImage);
+                var text = _androidWindowManagerService.GetText(_textImage);
                 await Task.Delay(100);
             }
         });

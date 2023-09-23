@@ -6,13 +6,15 @@ public class FindPatternResult
 {
     public bool IsSuccess { get; set; }
     public string Path { get; set; }
+    public string PredicatePath { get; set; }
+    public string InversePredicatePath { get; set; }
     public Point Point { get; set; }
     public Point[] Points { get; set; }
 }
 
 public class FindOptions
 {
-    public int Limit { get; set; }
+    public int Limit { get; set; } = 1;
     public double VariancePct { get; set; }
     public Point Offset { get; set; } = Point.Zero;
     //public Rect OverrideRect { get; set; }
@@ -33,12 +35,12 @@ public interface IScreenService
     void DebugRectangle(Rect rect);
     void DebugCircle(Point point);
     void DebugClear();
-    Task<List<Point>> GetMatches(Pattern template, FindOptions opts);
+    List<Point> GetMatches(Pattern template, FindOptions opts);
     void DoClick(Point point);
     void DoSwipe(Point start, Point end);
     Byte[] CalcColorThreshold(Pattern pattern, ColorThresholdProperties colorThreshold);
     byte[] GetCurrentImageData(Rect rect);
-    Task<string> GetText(Pattern pattern, TextFindOptions opts);
-    Task<FindPatternResult> ClickPattern(Pattern pattern, FindOptions opts);
-    Task<FindPatternResult> FindPattern(Pattern pattern, FindOptions opts);
+    string GetText(Pattern pattern, TextFindOptions opts);
+    FindPatternResult ClickPattern(Pattern pattern, FindOptions opts);
+    FindPatternResult FindPattern(Pattern pattern, FindOptions opts);
 }

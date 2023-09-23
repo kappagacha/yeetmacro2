@@ -1,5 +1,6 @@
 ﻿using System.Diagnostics;
 using System.Text.Json;
+using System.Text.Json.Nodes;
 using YeetMacro2.Services;
 
 namespace YeetMacro2.Platforms.Windows.Services;
@@ -33,7 +34,14 @@ internal class WindowsInputService : IInputService
         await proc.WaitForExitAsync();
 
         var output = await proc.StandardOutput.ReadToEndAsync();
-        var result = JsonSerializer.Deserialize<Rect>(output);
+        var json = JsonSerializer.Deserialize<JsonObject>(output);
+        var x1 = (double)json["Start"]["X"];
+        var y1 = (double)json["Start"]["Y"];
+        var x2 = (double)json["End"]["X"];
+        var y2 = (double)json["End"]["Y"];
+        var location = new Point(x1, y1);
+        var size = new Size(x2 - x1, y2 - y1);
+        var result = new Rect(location, size);
 
         return result;
     }
