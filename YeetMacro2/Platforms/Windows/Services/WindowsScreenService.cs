@@ -109,17 +109,12 @@ public class WindowsScreenService : IScreenService, IRecorderService
         return stream.ToArray();
     }
 
-    public Task<List<Microsoft.Maui.Graphics.Point>> GetMatches(Pattern template, int limit = 1)
+    public List<Point> GetMatches(Pattern template, FindOptions opts)
     {
         throw new NotImplementedException();
     }
 
-    public Task<List<Microsoft.Maui.Graphics.Point>> GetMatches(Pattern template, FindOptions opts)
-    {
-        throw new NotImplementedException();
-    }
-
-    public Task<string> GetText(Pattern pattern, TextFindOptions opts)
+    public string GetText(Pattern pattern, TextFindOptions opts)
     {
         throw new NotImplementedException();
     }
@@ -130,6 +125,16 @@ public class WindowsScreenService : IScreenService, IRecorderService
     }
 
     public void StopRecording()
+    {
+        throw new NotImplementedException();
+    }
+
+    FindPatternResult IScreenService.ClickPattern(Pattern pattern, FindOptions opts)
+    {
+        throw new NotImplementedException();
+    }
+
+    FindPatternResult IScreenService.FindPattern(Pattern pattern, FindOptions opts)
     {
         throw new NotImplementedException();
     }

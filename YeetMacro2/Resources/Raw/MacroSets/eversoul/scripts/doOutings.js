@@ -1,8 +1,21 @@
 ﻿let done = false;
 const loopPatterns = [patterns.lobby.everstone, patterns.town.evertalk, patterns.town.outings.outingsCompleted, patterns.town.outings, patterns.titles.outingGo, patterns.town.outings.selectAKeyword];
+const targetSoul = macroService.ClonePattern(settings.outings.target.Value);
+for (const pattern of targetSoul.Patterns) {
+	pattern.Rect = {
+		X: 275.85736083984375,
+		Y: 82.9250717163086,
+		//Width: 1005.4752807617188,
+		Width: 1500.4752807617188,		// should calculate using resolution comparisons
+		Height: 857.20263671875
+	}
+}
+targetSoul.Path = 'settings.outings.target';
+const loopResult = macroService.PollPattern(loopPatterns, {});
+
 while (macroService.IsRunning && !done) {
-	const result = macroService.PollPattern(loopPatterns);
-	switch (result.Path) {
+	const loopResult = macroService.PollPattern(loopPatterns);
+	switch (loopResult.Path) {
 		case 'lobby.everstone':
 			logger.info('doOutings: click town');
 			macroService.PollPattern(patterns.lobby.town, { DoClick: true, PredicatePattern: patterns.town.enter });
@@ -15,24 +28,6 @@ while (macroService.IsRunning && !done) {
 			break;
 		case 'town.outings':
 			logger.info('doOutings: click outing target');
-			logger.debug(JSON.stringify(settings.outings.target, null, 2));
-			const targetSoul = {
-				props: {
-					...settings.outings.target.props.value,
-					path: 'settings.outings.target',
-					patterns: settings.outings.target.props.value.patterns.map(p => ({
-						...p,
-						rect: {
-							x: 275.85736083984375,
-							y: 82.9250717163086,
-							//width: 1005.4752807617188,
-							width: 1500.4752807617188,		// should calculate using resolution comparisons
-							height: 857.20263671875
-						},
-					})),
-				}
-			};
-
 			sleep(500);
 			macroService.ClickPattern(targetSoul);
 			macroService.PollPattern(targetSoul, { DoClick: true, PredicatePattern: patterns.town.outings.call });
@@ -47,7 +42,6 @@ while (macroService.IsRunning && !done) {
 			logger.info('doOutings: select outing');
 			const outingNumber = 1 + Math.floor(Math.random() * 4);
 			logger.debug('outingNumber: ' + outingNumber);
-
 			macroService.PollPattern(patterns.town.outings['outing' + outingNumber], { DoClick: true, PredicatePattern: patterns.prompt.confirm });
 			sleep(500);
 			macroService.PollPattern(patterns.prompt.confirm, { DoClick: true, ClickPattern: patterns.prompt.next, PredicatePattern: patterns.town.outings.keywordSelectionOpportunity });

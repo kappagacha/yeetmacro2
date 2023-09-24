@@ -3,21 +3,22 @@ using YeetMacro2.Data.Models;
 using Jint;
 using System.Dynamic;
 using Jint.Runtime.Interop;
-using OneOf;
 using System.Text.Json;
 using YeetMacro2.ViewModels.NodeViewModels;
 using YeetMacro2.ViewModels;
+using OneOf;
+using Jint.Native;
 
 namespace YeetMacro2.Services;
 
 public interface IScriptService
 {
     bool InDebugMode { get; set; }
-    void RunScript(ScriptNode targetScript, ScriptNodeManagerViewModel scriptNodeManger, MacroSet macroSet, PatternNodeManagerViewModel patternNodeManager, SettingNodeManagerViewModel settingNodeManager, Action<string> onScriptFinished);
+    void RunScript(ScriptNode targetScript, ScriptNodeManagerViewModel scriptNodeManager, MacroSet macroSet, PatternNodeManagerViewModel patternNodeManager, SettingNodeManagerViewModel settingNodeManager, Action<string> onScriptFinished);
     void Stop();
 }
 
-public class ScriptService : IScriptService
+public class ScriptService: IScriptService
 {
     ILogger _logger;
     IScreenService _screenService;
@@ -37,15 +38,20 @@ public class ScriptService : IScriptService
         _jsonValueToPatternNode = new Dictionary<string, PatternNode>();
         _macroService = macroService;
         _engine = new Engine(options => options
-            .SetTypeConverter(e => new CustomJintTypeConverter(e))
+            .SetTypeConverter(e => new JsToDotNetConverter(e))
+            .AddObjectConverter(new DotNetToJsConverter())
         );
-
-        Task.Run(InitJSContext);
+        _engine.SetValue("sleep", new Action<int>((ms) => Sleep(ms)));
+        dynamic engineLogger = new ExpandoObject();
+        engineLogger.info = new Action<string>((msg) => _logger.LogInformation(msg));
+        engineLogger.debug = new Action<string>((msg) => _logger.LogDebug(msg));
+        _engine.SetValue("logger", engineLogger);
+        _engine.SetValue("macroService", _macroService);
     }
 
     public void Sleep(int ms)
     {
-        new System.Threading.ManualResetEvent(false).WaitOne(ms);
+        Thread.Sleep(ms);
     }
 
     public void RunScript(ScriptNode targetScript, ScriptNodeManagerViewModel scriptNodeManger, MacroSet macroSet, PatternNodeManagerViewModel patternNodeManager, SettingNodeManagerViewModel settingNodeManager, Action<string> onScriptFinished)
@@ -69,7 +75,8 @@ public class ScriptService : IScriptService
                 }
             }
             _engine.Execute("result = undefined");
-            _engine.Execute($"patterns = {patternNodeManager.ToJson()}; settings = {settingNodeManager.ToJson()}; resolvePath({{ $isParent: true, ...patterns }});");
+            _engine.SetValue("patterns", patternNodeManager.Root);
+            _engine.SetValue("settings", settingNodeManager.Root);
             _engine.Execute($"{{\n{targetScript.Text}\n}}");
 
             _toastService.Show(_macroService.IsRunning ? "Script finished..." : "Script stopped...");
@@ -110,44 +117,44 @@ public class ScriptService : IScriptService
     {
         _macroService.IsRunning = false;
     }
-
-    public void InitJSContext()
-    {
-        _engine.SetValue("sleep", new Action<int>((ms) => Sleep(ms)));
-        dynamic logger = new ExpandoObject();
-        logger.info = new Action<string>((msg) => _logger.LogInformation(msg));
-        logger.debug = new Action<string>((msg) => _logger.LogDebug(msg));
-        _engine.SetValue("logger", logger);
-        _engine.SetValue("macroService", _macroService);
-
-        var initScript = ServiceHelper.GetAssetContent("initJavaScriptContext.js");
-        _engine.Execute(initScript);
-    }
 }
 
 // https://github.com/sebastienros/jint/blob/d48ebd50ba5af240f484a3763227d2a53999a365/Jint.Tests/Runtime/EngineTests.cs#L3079
-public class CustomJintTypeConverter : DefaultTypeConverter
+public class JsToDotNetConverter : DefaultTypeConverter
 {
-    public CustomJintTypeConverter(Engine engine) : base(engine)
+    public JsToDotNetConverter(Engine engine) : base(engine)
     {
 
+    }
+
+    public override object Convert(object value, Type type, IFormatProvider formatProvider)
+    {
+        if (type == typeof(Rect))
+        {
+            return JsonSerializer.Deserialize<Rect>(JsonSerializer.Serialize(value));
+        }
+
+        return base.Convert(value, type, formatProvider);
     }
 
     public override bool TryConvert(object value, Type type, IFormatProvider formatProvider, out object converted)
     {
-        if (type == typeof(PatternNode))
+        if (type == typeof(OneOf<PatternNode, PatternNode[]>))
         {
-            converted = PatternNodeManagerViewModel.FromJsonNode(System.Text.Json.JsonSerializer.Serialize(value));
-            return true;
-        }
-        else if (type == typeof(OneOf<PatternNode, PatternNode[]>))
-        {
-            converted = ToOneOfPatternNode(value);
-            return true;
+            if (value is object[] arr)
+            {
+                converted = OneOf<PatternNode, PatternNode[]>.FromT1(arr.Cast<PatternNode>().ToArray());
+                return true;
+            }
+            else
+            {
+                converted = OneOf<PatternNode, PatternNode[]>.FromT0(value as PatternNode);
+                return true;
+            }
         }
         else if (type == typeof(PollPatternFindOptions))
         {
-            var opts = JsonSerializer.Deserialize<PollPatternFindOptions>(System.Text.Json.JsonSerializer.Serialize(value));
+            var opts = JsonSerializer.Deserialize<PollPatternFindOptions>(JsonSerializer.Serialize(value));
             var dict = value as IDictionary<string, object>;
             opts.PredicatePattern = dict.ContainsKey("PredicatePattern") ? (OneOf<PatternNode, PatternNode[]>?)ToOneOfPatternNode(dict["PredicatePattern"]) : null;
             opts.ClickPattern = dict.ContainsKey("ClickPattern") ? (OneOf<PatternNode, PatternNode[]>?)ToOneOfPatternNode(dict["ClickPattern"]) : null;
@@ -160,20 +167,34 @@ public class CustomJintTypeConverter : DefaultTypeConverter
         return base.TryConvert(value, type, formatProvider, out converted);
     }
 
-    private OneOf<PatternNode, PatternNode[]> ToOneOfPatternNode(object value)
+    public OneOf<PatternNode, PatternNode[]> ToOneOfPatternNode(dynamic value)
     {
-        if (value is dynamic[] arr)
+        if (value is object[] arr)
         {
-            var patternNodes = new PatternNode[arr.Length];
-            for (int i = 0; i < arr.Length; i++)
-            {
-                patternNodes[i] = PatternNodeManagerViewModel.FromJsonNode(System.Text.Json.JsonSerializer.Serialize(arr[i]));
-            }
-            return OneOf<PatternNode, PatternNode[]>.FromT1(patternNodes);
+            return arr.Cast<PatternNode>().ToArray();
         }
         else
         {
-            return OneOf<PatternNode, PatternNode[]>.FromT0(PatternNodeManagerViewModel.FromJsonNode(System.Text.Json.JsonSerializer.Serialize(value)));
+            return value as PatternNode;
         }
+    }
+}
+
+// https://github.com/sebastienros/jint/discussions/1154
+// https://www.appsloveworld.com/csharp/100/315/how-to-enumerate-a-dictionary-in-jint?expand_article=1
+// Wrapping ObjectWrapper was considered when I thought I need to customize it
+public class DotNetToJsConverter : Jint.Runtime.Interop.IObjectConverter
+{
+    public bool TryConvert(Engine engine, object value, out JsValue result)
+    {
+        // for some reasone PatternSettingViewModel isn't getting wrapped automatically
+        if (value is PatternSettingViewModel || value is StringSettingViewModel)
+        {
+            result = new ObjectWrapper(engine, value);
+            return true;
+        }
+
+        result = JsValue.Null;
+        return false;
     }
 }

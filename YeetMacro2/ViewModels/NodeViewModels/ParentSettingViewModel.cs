@@ -116,7 +116,7 @@ public partial class ParentSettingViewModel : ParentSetting
             {
                 var child = base.Nodes.FirstOrDefault(n => n.Name == key);
                 if (child is null) throw new ArgumentException($"Invalid key: {key}");
-                _nodeCache.Add(key, child as SettingNode);
+                _nodeCache.Add(key, child);
             }
 
             return _nodeCache[key];
@@ -236,3 +236,4 @@ public partial class PatternSettingViewModel : PatternSetting
         _mapper = ServiceHelper.GetService<IMapper>();
     }
 }
+

@@ -54,7 +54,7 @@ public partial class MacroManagerViewModel : ObservableObject
         PropertyNamingPolicy = JsonNamingPolicy.CamelCase,
         TypeInfoResolver = SizePropertiesResolver.Instance
     };
-    string _targetBranch = "feature/remove-script-await-calls"; //"main";
+    string _targetBranch = "main";
     public PatternNodeManagerViewModel Patterns
     {
         get

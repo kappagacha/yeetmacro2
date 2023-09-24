@@ -53,6 +53,11 @@ public class MacroService
         return Point.Zero;
     }
 
+    public PatternNode ClonePattern(PatternNode patternNode)
+    {
+        return PatternNodeManagerViewModel.CloneNode(patternNode);
+    }
+
     public FindPatternResult FindPattern(OneOf<PatternNode, PatternNode[]> oneOfPattern, FindOptions opts = null)
     {
         if (opts is null) opts = new FindOptions();

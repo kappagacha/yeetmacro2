@@ -30,7 +30,7 @@ while (macroService.IsRunning && !done) {
 			const matches = [Number(match1CP), Number(match2CP), Number(match3CP)];
 			const minIdx = matches.reduce((minIdx, val, idx, arr) => val < arr[minIdx] ? idx : minIdx, 0);
 			const minCP = matches[minIdx];
-			const cpThreshold = Number(settings.arena.cpThreshold.props.value);
+			const cpThreshold = Number(settings.arena.cpThreshold.Value);
 
 			logger.debug('minIdx: ' + minIdx);
 			logger.debug('minCP: ' + minCP);

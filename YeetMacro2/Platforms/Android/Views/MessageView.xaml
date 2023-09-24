@@ -9,7 +9,9 @@
              x:Class="YeetMacro2.Platforms.Android.Views.MessageView"
              BackgroundColor="{AppThemeBinding Light={StaticResource Background}, Dark={StaticResource BackgroundDark}}"
              Padding="10">
-    <Border Grid.Column="0" Stroke="{StaticResource Primary}" BackgroundColor="Transparent" Padding="3">
-        <Label Text="{Binding Message}" />
-    </Border>
+    <ScrollView>
+        <Border Grid.Column="0" Stroke="{StaticResource Primary}" BackgroundColor="Transparent" Padding="3">
+            <Label Text="{Binding Message}" />
+        </Border>
+    </ScrollView>
 </ContentView>
