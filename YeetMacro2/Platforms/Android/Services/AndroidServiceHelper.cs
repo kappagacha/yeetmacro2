@@ -7,17 +7,6 @@ using Android.Provider;
 namespace YeetMacro2.Platforms.Android.Services;
 public static class AndroidServiceHelper
 {
-    static ForegroundService _foregroundService;
-    public static ForegroundService ForegroundService { get => _foregroundService; }
-    public static void AttachForegroundService(ForegroundService foregroundService)
-    {
-        _foregroundService = foregroundService;
-    }
-    public static void DetachForegroundService()
-    {
-        _foregroundService = null;
-    }
-
     //https://stackoverflow.com/questions/63594273/xamarin-forms-how-to-open-an-app-from-another-app
     public static Task<bool> LaunchApp(string packageName)
     {

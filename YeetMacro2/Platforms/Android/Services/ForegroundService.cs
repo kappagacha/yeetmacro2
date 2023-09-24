@@ -36,7 +36,6 @@ public class ForegroundService : Service
         _mediaProjectionManager = (MediaProjectionManager)_context.GetSystemService(Context.MediaProjectionService);
         Console.WriteLine("[*****YeetMacro*****] ForegroundService start screen capture");
         _context.StartActivityForResult(_mediaProjectionManager.CreateScreenCaptureIntent(), YeetMacro2.Platforms.Android.Services.MediaProjectionService.REQUEST_MEDIA_PROJECTION);
-        AndroidServiceHelper.AttachForegroundService(this);
         base.OnCreate();
     }
 
@@ -121,21 +120,18 @@ public class ForegroundService : Service
     public override void OnRebind(Intent intent)
     {
         Console.WriteLine("[*****YeetMacro*****] ForegroundService OnRebind");
-        AndroidServiceHelper.AttachForegroundService(this);
         base.OnRebind(intent);
     }
 
     public override void OnDestroy()
     {
         Console.WriteLine("[*****YeetMacro*****] ForegroundService OnDestroy");
-        AndroidServiceHelper.DetachForegroundService();
         base.OnDestroy();
     }
 
     public override IBinder OnBind(Intent intent)
     {
         Console.WriteLine("[*****YeetMacro*****] ForegroundService OnBind");
-        AndroidServiceHelper.AttachForegroundService(this);
         return null;
     }
 }
