@@ -37,7 +37,7 @@ public class MainActivity : MauiAppCompatActivity
             Console.WriteLine("[*****YeetMacro*****] CurrentDomain UnhandledException: " + args.ExceptionObject.ToString());
             if (args.IsTerminating)
             {
-                AndroidServiceHelper.AccessibilityService?.Stop();
+                ServiceHelper.GetService<YeetAccessibilityService>().Stop();
             }
             ServiceHelper.GetService<LogViewModel>().LogException(args.ExceptionObject as Exception);
         };

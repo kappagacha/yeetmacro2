@@ -7,22 +7,8 @@ using Android.Provider;
 namespace YeetMacro2.Platforms.Android.Services;
 public static class AndroidServiceHelper
 {
-    static YeetAccessibilityService _accessibilityService;
     static ForegroundService _foregroundService;
-    public static YeetAccessibilityService AccessibilityService { get => _accessibilityService; }
     public static ForegroundService ForegroundService { get => _foregroundService; }
-    public static void StartAccessibilityService()
-    {
-        Platform.CurrentActivity.StartActivity(new Intent(Settings.ActionAccessibilitySettings));
-    }
-    public static void AttachAccessibilityService(YeetAccessibilityService accessibilityService)
-    {
-        _accessibilityService = accessibilityService;
-    }
-    public static void DetachAccessibilityService()
-    {
-        _accessibilityService = null;
-    }
     public static void AttachForegroundService(ForegroundService foregroundService)
     {
         _foregroundService = foregroundService;

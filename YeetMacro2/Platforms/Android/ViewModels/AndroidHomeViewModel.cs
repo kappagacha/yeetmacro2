@@ -11,13 +11,14 @@ public partial class AndriodHomeViewModel : ObservableObject
     bool _isProjectionServiceEnabled, _isAccessibilityEnabled, _isAppearing, _showMacroOverlay, _isMacroReady, _showTestView, _isIgnoringBatteryOptimization;
     private AndroidWindowManagerService _windowManagerService;
     private MacroManagerViewModel _macroManagerViewModel;
+    private YeetAccessibilityService _accessibilityService;
 
     public string CurrentPackage
     {
         get
         {
-            var currentPackage = AndroidServiceHelper.AccessibilityService?.CurrentPackage;
-            if (currentPackage is not null && _macroManagerViewModel.SelectedMacroSet?.Package != currentPackage)
+            var currentPackage = _accessibilityService.CurrentPackage;
+            if (_macroManagerViewModel.SelectedMacroSet?.Package != currentPackage)
             {
                 var matchingMacroSet = _macroManagerViewModel.MacroSets.FirstOrDefault(ms => ms.Package == currentPackage);
                 if (matchingMacroSet != null)
@@ -29,7 +30,7 @@ public partial class AndriodHomeViewModel : ObservableObject
             return currentPackage;
         }
     }
-    public bool IsCurrentPackageValid => AndroidServiceHelper.AccessibilityService?.CurrentPackage == _macroManagerViewModel.SelectedMacroSet?.Package;
+    public bool IsCurrentPackageValid => _accessibilityService.CurrentPackage == _macroManagerViewModel.SelectedMacroSet?.Package;
     public Size CurrentResolution => new Size(DeviceDisplay.MainDisplayInfo.Width, DeviceDisplay.MainDisplayInfo.Height);
     public string WidthStatus
     {
@@ -60,9 +61,11 @@ public partial class AndriodHomeViewModel : ObservableObject
     }
     //public string DisplayCutoutTop => _windowManagerService.DisplayCutoutTop.ToString();
     //public bool HasCutoutTop => _windowManagerService.DisplayCutoutTop > 0;
-    public AndriodHomeViewModel(AndroidWindowManagerService windowManagerService, MacroManagerViewModel macroManagerViewModel)
+    public AndriodHomeViewModel(AndroidWindowManagerService windowManagerService, YeetAccessibilityService accessibilityService, 
+        MacroManagerViewModel macroManagerViewModel)
     {
         _windowManagerService = windowManagerService;
+        _accessibilityService = accessibilityService;
         _macroManagerViewModel = macroManagerViewModel;
     }
 
@@ -206,7 +209,7 @@ public partial class AndriodHomeViewModel : ObservableObject
     {
         IsAppearing = true;
         IsProjectionServiceEnabled = _windowManagerService.ProjectionServiceEnabled;
-        IsAccessibilityEnabled = AndroidServiceHelper.AccessibilityService?.HasAccessibilityPermissions ?? false;
+        IsAccessibilityEnabled = _accessibilityService.HasAccessibilityPermissions;
         IsMacroReady = IsProjectionServiceEnabled && IsAccessibilityEnabled;
         //if (!IsProjectionServiceEnabled) await ToggleProjectionService();
         IsIgnoringBatteryOptimization = _windowManagerService.IsIgnoringBatteryOptimizations;

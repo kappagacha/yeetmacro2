@@ -25,6 +25,7 @@ public static class PlatformServiceRegistrationHelper
         mauiAppBuilder.Services.AddSingleton<MessageViewModel>();
         mauiAppBuilder.Services.AddSingleton<AndroidWindowManagerService>();
         mauiAppBuilder.Services.AddSingleton<MediaProjectionService>();
+        mauiAppBuilder.Services.AddSingleton<YeetAccessibilityService>();
         mauiAppBuilder.Services.AddSingleton<TestViewModel>();
         //mauiAppBuilder.Services.AddSingleton<IOcrService, AndroidOcrService>();
         mauiAppBuilder.Services.AddSingleton<IOcrService, OcrService>();

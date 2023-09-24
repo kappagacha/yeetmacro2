@@ -14,6 +14,7 @@ using YeetMacro2.ViewModels;
 using YeetMacro2.Data.Serialization;
 using Microsoft.Extensions.Logging;
 using TesseractOcrMaui;
+using Android.AccessibilityServices;
 
 namespace YeetMacro2.Platforms.Android.Services;
 public enum AndroidWindowView
@@ -42,12 +43,12 @@ public class AndroidWindowManagerService : IInputService, IScreenService
     private MainActivity _context;
     IWindowManager _windowManager;
     MediaProjectionService _mediaProjectionService;
+    YeetAccessibilityService _accessibilityService;
     IToastService _toastService;
     IOcrService _ocrService;
     ConcurrentDictionary<AndroidWindowView, IShowable> _views = new ConcurrentDictionary<AndroidWindowView, IShowable>();
     FormsView _windowView;
     ConcurrentDictionary<string, (int x, int y)> _packageToStatusBarHeight = new ConcurrentDictionary<string, (int x, int y)>();
-    //double _displayWidth, _displayHeight;
     public int OverlayWidth => _windowView == null ? 0 : _windowView.MeasuredWidthAndState;
     public int OverlayHeight => _windowView == null ? 0 : _windowView.MeasuredHeightAndState;
     //public int DisplayCutoutTop => _windowView == null ? 0 : _windowView.RootWindowInsets.DisplayCutout?.SafeInsetTop ?? 0;
@@ -57,23 +58,17 @@ public class AndroidWindowManagerService : IInputService, IScreenService
         TypeInfoResolver = PointPropertiesResolver.Instance
     };
     public AndroidWindowManagerService(ILogger<AndroidWindowManagerService> logger, MediaProjectionService mediaProjectionService,
-        IToastService toastService, IOcrService ocrService)
+        YeetAccessibilityService accessibilityService, IToastService toastService, IOcrService ocrService)
     {
         try
         {
-            Console.WriteLine("[*****YeetMacro*****] Setting _logger");
             _logger = logger;
-            Console.WriteLine("[*****YeetMacro*****] Setting _context");
-            _context = (MainActivity)Microsoft.Maui.ApplicationModel.Platform.CurrentActivity;
-            Console.WriteLine("[*****YeetMacro*****] Setting _windowManager");
+            _context = (MainActivity)Platform.CurrentActivity;
             _windowManager = _context.GetSystemService(Context.WindowService).JavaCast<IWindowManager>();
-            Console.WriteLine("[*****YeetMacro*****] Setting _mediaProjectionService");
             _mediaProjectionService = mediaProjectionService;
-            Console.WriteLine("[*****YeetMacro*****] Setting _toastService");
+            _accessibilityService = accessibilityService;
             _toastService = toastService;
             DeviceDisplay.MainDisplayInfoChanged += DeviceDisplay_MainDisplayInfoChanged;
-            //_displayWidth = DeviceDisplay.MainDisplayInfo.Width;
-            //_displayHeight = DeviceDisplay.MainDisplayInfo.Height;
             Console.WriteLine("[*****YeetMacro*****] Setting _ocrService");
             _ocrService = ocrService;
         }
@@ -87,8 +82,6 @@ public class AndroidWindowManagerService : IInputService, IScreenService
     private void DeviceDisplay_MainDisplayInfoChanged(object sender, DisplayInfoChangedEventArgs e)
     {
         Console.WriteLine("[*****YeetMacro*****] WindowManagerService DeviceDisplay_MainDisplayInfoChanged Start");
-        //_displayWidth = e.DisplayInfo.Width;
-        //_displayHeight = e.DisplayInfo.Height;
         _packageToStatusBarHeight.Clear();
         if (_views.ContainsKey(AndroidWindowView.ActionView) && _views[AndroidWindowView.ActionView].IsShowing)
         {
@@ -427,12 +420,12 @@ public class AndroidWindowManagerService : IInputService, IScreenService
 
     public void RequestAccessibilityPermissions()
     {
-        AndroidServiceHelper.StartAccessibilityService();
+        _accessibilityService.Start();
     }
 
     public void RevokeAccessibilityPermissions()
     {
-        AndroidServiceHelper.AccessibilityService?.Stop();
+        _accessibilityService.Stop();
     }
 
     // https://stackoverflow.com/questions/39256501/check-if-battery-optimization-is-enabled-or-not-for-an-app
@@ -579,12 +572,12 @@ public class AndroidWindowManagerService : IInputService, IScreenService
 
     public void DoClick(Point point)
     {
-        AndroidServiceHelper.AccessibilityService?.DoClick(point);
+        _accessibilityService.DoClick(point);
     }
 
     public void DoSwipe(Point start, Point end)
     {
-        AndroidServiceHelper.AccessibilityService?.DoSwipe(start, end);
+        _accessibilityService.DoSwipe(start, end);
     }
 
     public void ScreenCapture()
