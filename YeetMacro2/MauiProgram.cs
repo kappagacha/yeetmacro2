@@ -24,12 +24,7 @@ public static class MauiProgram
                 // https://enisn-projects.io/docs/en/uranium/latest/theming/Icons#fontawesome
                 fonts.AddFontAwesomeIconFonts();
                 // https://enisn-projects.io/docs/en/uranium/latest/theming/Icons#material-icons
-                //fonts.AddMaterialIconFonts();
-                fonts.AddFont("MaterialIconsOutlined-Regular.otf", "MaterialOutlined");
-                fonts.AddFont("MaterialIcons-Regular.ttf", "MaterialRegular");
-                //fonts.AddEmbeddedResourceFont(thisAssembly, "MaterialIconsRound-Regular.otf", "MaterialRound");
-                //fonts.AddEmbeddedResourceFont(thisAssembly, "MaterialIconsSharp-Regular.otf", "MaterialSharp");
-                //fonts.AddEmbeddedResourceFont(thisAssembly, "MaterialIconsTwoTone-Regular.otf", "MaterialTwoTone");
+                fonts.AddMaterialIconFonts();
             });
 
 #if DEBUG
