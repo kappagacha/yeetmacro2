@@ -85,10 +85,10 @@ while (macroService.IsRunning && !done) {
 			break;
 		case 'titles.party':
 			logger.info('farmEventBossLoop: select party');
-			const targetPartyName = settings.party.eventBoss.props.value;
+			const targetPartyName = settings.party.eventBoss.Value;
 			logger.debug(`targetPartyName: ${targetPartyName}`);
 			if (targetPartyName === 'recommendedElement') {
-				selectPartyByRecommendedElement(isBossMulti ? -425: 0);	// Recommended Element icons are shifted by 425 to the left of expected location
+				selectPartyByRecommendedElement(isBossMulti ? -424: 0);	// Recommended Element icons are shifted by 425 to the left of expected location
 			}
 			//else if (!(selectParty(targetPartyName))) {
 			//	result = `targetPartyName not found: ${targetPartyName}`;

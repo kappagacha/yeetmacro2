@@ -1,6 +1,7 @@
 ﻿let done = false;
 const loopPatterns = [patterns.lobby.everstone, patterns.town.evertalk, patterns.town.outings.outingsCompleted, patterns.town.outings, patterns.titles.outingGo, patterns.town.outings.selectAKeyword];
 const targetSoul = macroService.ClonePattern(settings.outings.target.Value);
+targetSoul.Path = 'settings.outings.target';
 for (const pattern of targetSoul.Patterns) {
 	pattern.Rect = {
 		X: 275.85736083984375,
@@ -8,9 +9,8 @@ for (const pattern of targetSoul.Patterns) {
 		//Width: 1005.4752807617188,
 		Width: 1500.4752807617188,		// should calculate using resolution comparisons
 		Height: 857.20263671875
-	}
+	};
 }
-targetSoul.Path = 'settings.outings.target';
 const loopResult = macroService.PollPattern(loopPatterns, {});
 
 while (macroService.IsRunning && !done) {

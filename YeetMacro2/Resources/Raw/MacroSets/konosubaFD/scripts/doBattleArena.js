@@ -13,7 +13,7 @@ while (macroService.IsRunning && !done) {
 			break;
 		case 'titles.battleArena':
 			logger.info('doBattleArena: start arena');
-			macroService.PollPattern(patterns.battleArena.begin, { DoClick: true, PredicatePattern: patterns.battleArena.advanced });
+			macroService.PollPattern(patterns.battleArena.begin, { DoClick: true, ClickPattern: patterns.battleArena.prompt.noteOk, PredicatePattern: patterns.battleArena.advanced });
 			sleep(500);
 			macroService.PollPattern(patterns.battleArena.advanced, { DoClick: true, PredicatePattern: patterns.battle.prepare });
 			sleep(500);
@@ -22,7 +22,7 @@ while (macroService.IsRunning && !done) {
 			break;
 		case 'titles.party':
 			logger.info('doBattleArena: select party');
-			const targetPartyName = settings.party.battleArena.props.value;
+			const targetPartyName = settings.party.battleArena.Value;
 			logger.debug(`targetPartyName: ${targetPartyName}`);
 			if (targetPartyName === 'recommendedElement') {
 				selectPartyByRecommendedElement();

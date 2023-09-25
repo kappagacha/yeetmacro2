@@ -13,7 +13,7 @@ while (macroService.IsRunning && !done) {
 			break;
 		case 'titles.battleArena':
 			logger.info('doBattleArena: start arena');
-			macroService.PollPattern(patterns.battleArena.tabs.arenaEX, { DoClick: true, PredicatePattern: patterns.titles.battleArenaEX });
+			macroService.PollPattern(patterns.battleArena.tabs.arenaEX, { DoClick: true, ClickPattern: patterns.battleArena.prompt.noteOk, PredicatePattern: patterns.titles.battleArenaEX });
 			sleep(500);
 			macroService.PollPattern(patterns.battleArena.begin, { DoClick: true, PredicatePattern: patterns.battleArena.exRank });
 			sleep(500);
@@ -32,7 +32,7 @@ while (macroService.IsRunning && !done) {
 				done = true;
 				break;
 			}
-			const scoreBonusPartyName = settings.party.arenaEX[scoreBonus]?.props.value;
+			const scoreBonusPartyName = settings.party.arenaEX[scoreBonus]?.Value;
 			if (!scoreBonusPartyName) {
 				result = `Could not find scoreBonusPartyName for ${scoreBonusPartyName} in settings...`;
 				done = true;

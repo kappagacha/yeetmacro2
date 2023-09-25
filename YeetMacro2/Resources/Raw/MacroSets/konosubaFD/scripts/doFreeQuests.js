@@ -15,7 +15,7 @@ while (macroService.IsRunning && !done) {
 			break;
 		case 'titles.freeQuests':
 			logger.info('doFreeQuests: target upgrade stone');
-			const upgradeStoneTargetLevel = settings.freeQuests.upgradeStone.targetLevel.props.value || 'intermediate';
+			const upgradeStoneTargetLevel = settings.freeQuests.upgradeStone.targetLevel.Value || 'intermediate';
 			if (upgradeStoneTargetLevel !== 'extreme') {
 				macroService.PollPattern(patterns.freeQuests.upgradeStone, { DoClick: true, PredicatePattern: patterns.freeQuests.upgradeStone[upgradeStoneTargetLevel] });
 				macroService.PollPattern(patterns.freeQuests.upgradeStone[upgradeStoneTargetLevel], { DoClick: true, PredicatePattern: patterns.tickets.add });

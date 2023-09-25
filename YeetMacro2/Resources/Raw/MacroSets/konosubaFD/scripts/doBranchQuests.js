@@ -9,9 +9,7 @@ while (macroService.IsRunning && !done) {
 			logger.info('doBranchQuests: check others notification');
 			const othersNotificationResult = macroService.FindPattern(patterns.others.notification);
 			if (othersNotificationResult.IsSuccess) {
-				macroService.PollPattern(patterns.others.notification, { DoClick: true, PredicatePattern: patterns.titles.branch });
-				//macroService.PollPattern(patterns.others.notification, { DoClick: true, PredicatePattern: patterns.others.branch.notification });
-				//macroService.PollPattern(patterns.others.branch.notification, { DoClick: true, PredicatePattern: patterns.titles.branch });
+				macroService.PollPattern(patterns.others.notification, { DoClick: true, ClickPattern: patterns.others.branch.notification, PredicatePattern: patterns.titles.branch });
 			}
 			else {
 				done = true;
@@ -43,7 +41,7 @@ while (macroService.IsRunning && !done) {
 			break;
 		case 'titles.party':
 			logger.info('doBranchQuests: select party');
-			const targetPartyName = settings.party.cabbageHunting.props.value;
+			const targetPartyName = settings.party.cabbageHunting.Value;
 			logger.debug(`targetPartyName: ${targetPartyName}`);
 			if (targetPartyName === 'recommendedElement') {
 				selectPartyByRecommendedElement();

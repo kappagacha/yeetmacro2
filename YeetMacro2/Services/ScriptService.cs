@@ -133,6 +133,10 @@ public class JsToDotNetConverter : DefaultTypeConverter
         {
             return JsonSerializer.Deserialize<Rect>(JsonSerializer.Serialize(value));
         }
+        else if (type.IsEnum)
+        {
+            return Enum.Parse(type, value.ToString());
+        }
 
         return base.Convert(value, type, formatProvider);
     }
@@ -187,8 +191,8 @@ public class DotNetToJsConverter : Jint.Runtime.Interop.IObjectConverter
 {
     public bool TryConvert(Engine engine, object value, out JsValue result)
     {
-        // for some reasone PatternSettingViewModel isn't getting wrapped automatically
-        if (value is PatternSettingViewModel || value is StringSettingViewModel)
+        // for some reasone SettingViewModels aren't getting wrapped automatically
+        if (value is SettingNode)
         {
             result = new ObjectWrapper(engine, value);
             return true;

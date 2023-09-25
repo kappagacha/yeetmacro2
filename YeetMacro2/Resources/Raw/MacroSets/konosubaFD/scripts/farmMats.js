@@ -2,7 +2,7 @@
 const loopPatterns = [patterns.titles.home, patterns.titles.smithy, patterns.titles.craft, patterns.skipAll.title];
 const offset = macroService.CalcOffset(patterns.titles.home);
 
-const farmMat = async (targetMats, staminaCost, numSkips) => {
+const farmMat = (targetMats, staminaCost, numSkips) => {
 	macroService.PollPattern(patterns.skipAll.material, { DoClick: true, PredicatePattern: patterns.skipAll.search });
 	sleep(500);
 	const filterOffResult = macroService.FindPattern(patterns.skipAll.search.filter.off);
@@ -23,24 +23,17 @@ const farmMat = async (targetMats, staminaCost, numSkips) => {
 	for (const mat of targetMats) {
 		const matResult = macroService.FindPattern(mat);
 		if (matResult.IsSuccess) {
-			const matCheckPattern = {
-				...patterns.skipAll.search.select.check,
-				props: {
-					...patterns.skipAll.search.select.check.props,
-					path: patterns.skipAll.search.select.check.props.path + '_' + mat.props.path,
-					patterns: patterns.skipAll.search.select.check.props.patterns.map(p => ({
-						...p,
-						rect: {
-							x: matResult.Point.X - 115.0,
-							y: matResult.Point.Y - 105.0,
-							width: 110.0,
-							height: 85.0
-						},
-						offsetCalcType: "None"
-					})),
-				}
-			};
-			//logger.debug(JSON.stringify(matCheckPattern, null, 2));
+			const matCheckPattern = macroService.ClonePattern(patterns.skipAll.search.select.check);
+			matCheckPattern.Path += `_${mat.Path}`;
+			for (const pattern of matCheckPattern.Patterns) {
+				pattern.Rect = {
+					X: matResult.Point.X - 115.0,
+					Y: matResult.Point.Y - 105.0,
+					Width: 110.0,
+					Height: 85.0
+				};
+				pattern.OffsetCalcType = "None";
+			}
 			macroService.PollPattern(mat, { DoClick: true, PredicatePattern: matCheckPattern, IntervalDelayMs: 1_000 });
 		}
 	}
@@ -95,7 +88,7 @@ while (macroService.IsRunning && !done) {
 			break;
 		case 'skipAll.title':
 			logger.info('farmMats: farm extreme levels');
-			farmMat([patterns.skipAll.search.select.mithrilOre, patterns.skipAll.search.select.yggdrasilBranch, patterns.skipAll.search.select.platinumOre], 500, 1);
+			farmMat([patterns.skipAll.search.select.mithrilOre, patterns.skipAll.search.select.yggdrasilBranch, patterns.skipAll.search.select.platinumOre], 700, 1);
 			sleep(1_000);
 			logger.info('farmMats: farm skyDragonScale');
 			farmMat([patterns.skipAll.search.select.skyDragonScale], 500, 3);
