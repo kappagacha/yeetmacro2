@@ -4,9 +4,11 @@ using YeetMacro2.Services;
 using YeetMacro2.Platforms.Android.Views;
 using YeetMacro2.Platforms.Android.Services;
 using YeetMacro2.ViewModels;
-using System.ComponentModel;
 using System.Text.Json;
 using YeetMacro2.Data.Serialization;
+using CommunityToolkit.Mvvm.Messaging;
+using YeetMacro2.Data.Messaging;
+using CommunityToolkit.Mvvm.Messaging.Messages;
 
 namespace YeetMacro2.Platforms.Android.ViewModels;
 
@@ -42,46 +44,46 @@ public partial class ActionViewModel : ObservableObject, IMovable
         _macroManagerViewModel = macroManagerViewModel;
         _toastService = toastService;
 
-        _macroManagerViewModel.PropertyChanged += _macroManagerViewModel_PropertyChanged;
-        _macroManagerViewModel.OnScriptExecuted = _macroManagerViewModel.OnScriptExecuted ?? new Command(() =>
+        WeakReferenceMessenger.Default.Register<ScriptEventMessage>(this, (r, scriptEventMessage) =>
         {
-            _windowManagerService.Close(AndroidWindowView.ScriptsNodeView);
-            State = ActionState.Running;
-        });
-        _macroManagerViewModel.OnScriptFinished = _macroManagerViewModel.OnScriptFinished ?? new Command<string>((result) =>
-        {
-            State = ActionState.Stopped;
-            if (!String.IsNullOrWhiteSpace(result))
+            if (scriptEventMessage.Value.Type == ScriptEventType.Started)
             {
-                MainThread.BeginInvokeOnMainThread(() => _windowManagerService.ShowMessage(result));
+                _windowManagerService.Close(AndroidWindowView.ScriptsNodeView);
+                State = ActionState.Running;
+            }
+            else
+            {
+                State = ActionState.Stopped;
+                if (!String.IsNullOrWhiteSpace(scriptEventMessage.Value.Result))
+                {
+                    MainThread.BeginInvokeOnMainThread(() => _windowManagerService.ShowMessage(scriptEventMessage.Value.Result));
+                }
             }
         });
-    }
 
-    private void _macroManagerViewModel_PropertyChanged(object sender, PropertyChangedEventArgs e)
-    {
-        if (e.PropertyName == nameof(MacroManagerViewModel.InDebugMode))
-        {
-            if (_macroManagerViewModel.InDebugMode)
+        WeakReferenceMessenger.Default.Register<PropertyChangedMessage<bool>, string>(this, nameof(MacroManagerViewModel), (r, propertyChangedMessage) => {
+            AndroidWindowView windowView;
+            switch (propertyChangedMessage.PropertyName)
             {
-                _windowManagerService.Show(AndroidWindowView.DebugDrawView);
+                case nameof(MacroManagerViewModel.InDebugMode):
+                    windowView = AndroidWindowView.DebugDrawView;
+                    break;
+                case nameof(MacroManagerViewModel.ShowStatusPanel):
+                    windowView = AndroidWindowView.StatusPanelView;
+                    break;
+                default:
+                    return;
+            }
+
+            if (propertyChangedMessage.NewValue)
+            {
+                _windowManagerService.Show(windowView);
             }
             else
             {
-                _windowManagerService.Close(AndroidWindowView.DebugDrawView);
+                _windowManagerService.Close(windowView);
             }
-        }
-        else if (e.PropertyName == nameof(MacroManagerViewModel.ShowStatusPanel))
-        {
-            if (_macroManagerViewModel.ShowStatusPanel)
-            {
-                _windowManagerService.Show(AndroidWindowView.StatusPanelView);
-            }
-            else
-            {
-                _windowManagerService.Close(AndroidWindowView.StatusPanelView);
-            }
-        }
+        });
     }
 
     [RelayCommand]

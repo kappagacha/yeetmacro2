@@ -7,18 +7,17 @@ using System.Collections.ObjectModel;
 using System.Text.Json;
 using System.Text.Json.Nodes;
 using System.Text.Json.Serialization;
-using System.Windows.Input;
 using YeetMacro2.Data.Models;
 using YeetMacro2.Data.Serialization;
 using YeetMacro2.Data.Services;
 using YeetMacro2.Services;
 using YeetMacro2.ViewModels.NodeViewModels;
-#if ANDROID
-using Android.Content;
-using YeetMacro2.Platforms.Android.Services;
-#endif
+using CommunityToolkit.Mvvm.Messaging;
+using YeetMacro2.Data.Messaging;
+using CommunityToolkit.Mvvm.Messaging.Messages;
 
 namespace YeetMacro2.ViewModels;
+
 public partial class MacroManagerViewModel : ObservableObject
 {
     ILogger _logger;
@@ -96,9 +95,6 @@ public partial class MacroManagerViewModel : ObservableObject
             return _nodeRootIdToSettingTree[SelectedMacroSet.RootSettingNodeId];
         }
     }
-
-    public ICommand OnScriptExecuted { get; set; }
-    public ICommand OnScriptFinished { get; set; }
     public string AppVersion { get { return AppInfo.Current.VersionString; } }
     public MacroManagerViewModel(ILogger<MacroManagerViewModel> logger,
         IRepository<MacroSet> macroSetRepository,
@@ -245,7 +241,6 @@ public partial class MacroManagerViewModel : ObservableObject
         await Patterns.WaitForInitialization();
         await Settings.WaitForInitialization();
 
-#if ANDROID
         _scriptService.InDebugMode = InDebugMode;
 
         await Task.Run(() =>
@@ -256,15 +251,12 @@ public partial class MacroManagerViewModel : ObservableObject
             _scriptService.InDebugMode = InDebugMode;
             _logger.LogInformation("{macroSet} {script}", SelectedMacroSet?.Name ?? string.Empty, scriptNode.Name);
 
-            OnScriptExecuted?.Execute(null);
-            _scriptService.RunScript(scriptNode, Scripts, SelectedMacroSet, Patterns, Settings, (result) =>
-            {
-                OnScriptFinished?.Execute(result);
-                if (PersistLogs) _logger.LogInformation("{persistLogs}", false);
-                IsBusy = false;
-            });
+            WeakReferenceMessenger.Default.Send(new ScriptEventMessage(new ScriptEvent() {  Type = ScriptEventType.Started }));
+            var result = _scriptService.RunScript(scriptNode, Scripts, SelectedMacroSet, Patterns, Settings);
+            WeakReferenceMessenger.Default.Send(new ScriptEventMessage(new ScriptEvent() { Type = ScriptEventType.Finished, Result = result }));
+            if (PersistLogs) _logger.LogInformation("{persistLogs}", false);
+            IsBusy = false;
         });
-#endif
     }
 
     [RelayCommand]
@@ -554,5 +546,15 @@ public partial class MacroManagerViewModel : ObservableObject
         macroSet.SettingsLastUpdated = null;
         _macroSetRepository.Update(macroSet);
         _macroSetRepository.Save();
+    }
+
+    partial void OnInDebugModeChanged(bool oldValue, bool newValue)
+    {
+        WeakReferenceMessenger.Default.Send(new PropertyChangedMessage<bool>(this, nameof(InDebugMode), oldValue, newValue), nameof(MacroManagerViewModel));
+    }
+
+    partial void OnShowStatusPanelChanged(bool oldValue, bool newValue)
+    {
+        WeakReferenceMessenger.Default.Send(new PropertyChangedMessage<bool>(this, nameof(ShowStatusPanel), oldValue, newValue), nameof(MacroManagerViewModel));
     }
 }

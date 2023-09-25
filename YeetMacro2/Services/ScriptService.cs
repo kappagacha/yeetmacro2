@@ -14,7 +14,7 @@ namespace YeetMacro2.Services;
 public interface IScriptService
 {
     bool InDebugMode { get; set; }
-    void RunScript(ScriptNode targetScript, ScriptNodeManagerViewModel scriptNodeManager, MacroSet macroSet, PatternNodeManagerViewModel patternNodeManager, SettingNodeManagerViewModel settingNodeManager, Action<string> onScriptFinished);
+    string RunScript(ScriptNode targetScript, ScriptNodeManagerViewModel scriptNodeManager, MacroSet macroSet, PatternNodeManagerViewModel patternNodeManager, SettingNodeManagerViewModel settingNodeManager);
     void Stop();
 }
 
@@ -54,9 +54,10 @@ public class ScriptService: IScriptService
         Thread.Sleep(ms);
     }
 
-    public void RunScript(ScriptNode targetScript, ScriptNodeManagerViewModel scriptNodeManger, MacroSet macroSet, PatternNodeManagerViewModel patternNodeManager, SettingNodeManagerViewModel settingNodeManager, Action<string> onScriptFinished)
+    public string RunScript(ScriptNode targetScript, ScriptNodeManagerViewModel scriptNodeManger, MacroSet macroSet, PatternNodeManagerViewModel patternNodeManager, SettingNodeManagerViewModel settingNodeManager)
     {
-        if (_macroService.IsRunning) return;
+        string result = String.Empty;
+        if (_macroService.IsRunning) return result;
 
         // https://github.com/sebastienros/jint
         _macroService.IsRunning = true;
@@ -89,7 +90,6 @@ public class ScriptService: IScriptService
         }
         finally
         {
-            string result = String.Empty;
             var jsResult = _engine.GetValue("result");
             if (jsResult is Jint.Native.JsObject jsObjectResult)
             {
@@ -106,11 +106,11 @@ public class ScriptService: IScriptService
             {
                 result = jsResult.ToString();
             }
-            onScriptFinished?.Invoke(result);
             _macroService.IsRunning = false;
             _macroService.Reset();
         }
 
+        return result;
     }
 
     public void Stop()

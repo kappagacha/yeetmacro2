@@ -100,19 +100,16 @@ public class YeetAccessibilityService : AccessibilityService
 
         _logger.LogTrace("YeetAccessibilityService DoClick");
         GestureDescription.Builder gestureBuilder = new GestureDescription.Builder();
+        global::Android.Graphics.Path swipePath = new global::Android.Graphics.Path();
+        swipePath.MoveTo((float)point.X, (float)point.Y);
+        swipePath.Close();
+        var strokeDescription = new GestureDescription.StrokeDescription(swipePath, 0, 100);
+        gestureBuilder.AddStroke(strokeDescription);
+        var gesture = gestureBuilder.Build();
+
         try
         {
-            global::Android.Graphics.Path swipePath = new global::Android.Graphics.Path();
-            swipePath.MoveTo((float)point.X, (float)point.Y);
-            swipePath.Close();
-            var strokeDescription = new GestureDescription.StrokeDescription(swipePath, 0, 100);
-            gestureBuilder.AddStroke(strokeDescription);
-            var gesture = gestureBuilder.Build();
             _instance.DispatchGesture(gesture, null, null);
-
-            //gesture.Dispose();
-            //strokeDescription.Dispose();
-            //swipePath.Dispose();
         }
         catch (Exception ex)
         {
@@ -120,7 +117,9 @@ public class YeetAccessibilityService : AccessibilityService
         }
         finally
         {
-            gestureBuilder.Dispose();
+            gesture.Dispose();
+            strokeDescription.Dispose();
+            swipePath.Dispose();
         }
     }
 
