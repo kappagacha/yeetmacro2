@@ -49,12 +49,8 @@ public class AndroidWindowManagerService : IInputService, IScreenService
     ConcurrentDictionary<string, (int x, int y)> _packageToStatusBarHeight = new ConcurrentDictionary<string, (int x, int y)>();
     public int OverlayWidth => _windowView == null ? 0 : _windowView.MeasuredWidthAndState;
     public int OverlayHeight => _windowView == null ? 0 : _windowView.MeasuredHeightAndState;
-    public float UserDrawViewX => _views.ContainsKey(AndroidWindowView.UserDrawView) ? ((FormsView)_views[AndroidWindowView.UserDrawView]).GetX() : -1.0f;
-
-    public float UserDrawViewY => _views.ContainsKey(AndroidWindowView.UserDrawView) ? ((FormsView)_views[AndroidWindowView.UserDrawView]).GetY() : -1.0f;
     public int UserDrawViewWidth => _views.ContainsKey(AndroidWindowView.UserDrawView) ? ((FormsView)_views[AndroidWindowView.UserDrawView]).MeasuredHeightAndState: -1;
-
-    public int UserDrawViewHeight => _views.ContainsKey(AndroidWindowView.UserDrawView) ? ((FormsView)_views[AndroidWindowView.UserDrawView]).MeasuredHeightAndState : -1;
+    public int UserDrawViewHeight => _views.ContainsKey(AndroidWindowView.UserDrawView) ? ((FormsView)_views[AndroidWindowView.UserDrawView]).MeasuredWidthAndState : -1;
     //public int DisplayCutoutTop => _windowView == null ? 0 : _windowView.RootWindowInsets.DisplayCutout?.SafeInsetTop ?? 0;
     JsonSerializerOptions _serializationOptions = new JsonSerializerOptions()
     {
@@ -401,6 +397,17 @@ public class AndroidWindowManagerService : IInputService, IScreenService
     {
         var loc = new int[2];
         _windowView?.GetLocationOnScreen(loc);
+
+        return new Point(loc[0], loc[1]);
+    }
+
+    public Point GetUserDrawViewTopLeft()
+    {
+        var loc = new int[2];
+        if (_views.ContainsKey(AndroidWindowView.UserDrawView))
+        {
+            ((FormsView)_views[AndroidWindowView.UserDrawView]).GetLocationOnScreen(loc);
+        }
 
         return new Point(loc[0], loc[1]);
     }

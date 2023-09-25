@@ -144,8 +144,10 @@ public partial class DrawControl : ContentView
                 // debugging pattern capture
                 var windowManagerService = ServiceHelper.GetService<YeetMacro2.Platforms.Android.Services.AndroidWindowManagerService>();
                 var topLeftx = windowManagerService.GetTopLeft();
+                var userDrawViewTopLeft = windowManagerService.GetTopLeft();
                 ServiceHelper.GetService<Microsoft.Extensions.Logging.ILogger<DrawControl>>().LogDebug($"x{topLeftx.X}y{topLeftx.Y} w{windowManagerService.OverlayWidth}h{windowManagerService.OverlayHeight}" +
-                                 $"----x{windowManagerService.UserDrawViewX}y{windowManagerService.UserDrawViewY} w{windowManagerService.UserDrawViewWidth}h{windowManagerService.UserDrawViewHeight}");
+                                 $"----x{userDrawViewTopLeft.X}y{userDrawViewTopLeft.Y} w{windowManagerService.UserDrawViewWidth}h{windowManagerService.UserDrawViewHeight}" +
+                                 $"----d{DeviceDisplay.Current.MainDisplayInfo.Density}");
 
                 var size = new SKSize(_canvasEnd.X - _canvasBegin.X, _canvasEnd.Y - _canvasBegin.Y);
                 var skRect = SKRect.Create(_canvasBegin, size);
@@ -153,9 +155,12 @@ public partial class DrawControl : ContentView
                 canvasView.InvalidateSurface();
                 if (CloseAfterDraw)
                 {
+                    var density = DeviceDisplay.Current.MainDisplayInfo.Density;
                     var topLeft = _windowManagerService.GetTopLeft();
-                    Rect = new Rect(new Point(_canvasBegin.X + topLeft.X + _userStroke.StrokeWidth - 1, _canvasBegin.Y + topLeft.Y + _userStroke.StrokeWidth - 1),
-                                     new Size(_canvasEnd.X - _canvasBegin.X - _userStroke.StrokeWidth + 1, _canvasEnd.Y - _canvasBegin.Y - _userStroke.StrokeWidth - 1));
+                    //Rect = new Rect(new Point(_canvasBegin.X + topLeft.X + _userStroke.StrokeWidth - 1, _canvasBegin.Y + topLeft.Y + _userStroke.StrokeWidth - 1),
+                    //                 new Size(_canvasEnd.X - _canvasBegin.X - _userStroke.StrokeWidth + 1, _canvasEnd.Y - _canvasBegin.Y - _userStroke.StrokeWidth - 1));
+                    Rect = new Rect(new Point(_canvasBegin.X + topLeft.X + _userStroke.StrokeWidth * density - 1, _canvasBegin.Y + topLeft.Y + _userStroke.StrokeWidth * density - 1),
+                                     new Size(_canvasEnd.X - _canvasBegin.X - _userStroke.StrokeWidth * density + 1, _canvasEnd.Y - _canvasBegin.Y - _userStroke.StrokeWidth * density - 1));
                     _windowManagerService.Close(AndroidWindowView.UserDrawView);
                 }
                 break;
