@@ -14,7 +14,7 @@ while (macroService.IsRunning && !done) {
 			break;
 		case 'titles.events':
 			logger.info('farmEventLoop: start farm');
-			const targetFarmLevel = settings.farmEvent.targetLevel.props.value ?? 12;
+			const targetFarmLevel = settings.farmEvent.targetLevel.Value ?? 12;
 			macroService.PollPattern(patterns.quest.events.quest, { DoClick: true, PredicatePattern: patterns.titles.quest });
 			sleep(500);
 			macroService.PollPattern(patterns.quest.events.quest.normal[targetFarmLevel], { DoClick: true, PredicatePattern: patterns.titles.events });
@@ -24,7 +24,7 @@ while (macroService.IsRunning && !done) {
 			break;
 		case 'titles.party':
 			logger.info('farmEventLoop: select party');
-			const targetPartyName = settings.party.farmEventLoop.props.value;
+			const targetPartyName = settings.party.farmEventLoop.Value;
 			logger.debug(`targetPartyName: ${targetPartyName}`);
 			if (targetPartyName === 'recommendedElement') {
 				selectPartyByRecommendedElement();
