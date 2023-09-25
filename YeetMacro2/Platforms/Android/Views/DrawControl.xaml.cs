@@ -155,12 +155,12 @@ public partial class DrawControl : ContentView
                 if (CloseAfterDraw)
                 {
                     var density = DeviceDisplay.Current.MainDisplayInfo.Density;
-                    var topLeft = _windowManagerService.GetTopLeft();
+                    var topLeft = _windowManagerService.GetUserDrawViewTopLeft();
                     //Rect = new Rect(new Point(_canvasBegin.X + topLeft.X + _userStroke.StrokeWidth - 1, _canvasBegin.Y + topLeft.Y + _userStroke.StrokeWidth - 1),
                     //                 new Size(_canvasEnd.X - _canvasBegin.X - _userStroke.StrokeWidth + 1, _canvasEnd.Y - _canvasBegin.Y - _userStroke.StrokeWidth - 1));
                     //Rect = new Rect(new Point(_canvasBegin.X + topLeft.X + _userStroke.StrokeWidth * density / 2.0, _canvasBegin.Y + topLeft.Y + _userStroke.StrokeWidth * density / 2.0),
                     //                 new Size(_canvasEnd.X - _canvasBegin.X - _userStroke.StrokeWidth * density + 1, _canvasEnd.Y - _canvasBegin.Y - _userStroke.StrokeWidth * density - 1));
-                    var padding = 1.0;
+                    var padding = 1.5;
                     Rect = new Rect(new Point(_canvasBegin.X + topLeft.X + _userStroke.StrokeWidth - padding / 2, _canvasBegin.Y + topLeft.Y + _userStroke.StrokeWidth - padding / 2),
                                      new Size(_canvasEnd.X - _canvasBegin.X - _userStroke.StrokeWidth - padding, _canvasEnd.Y - _canvasBegin.Y - _userStroke.StrokeWidth - padding));
                     _windowManagerService.Close(AndroidWindowView.UserDrawView);
