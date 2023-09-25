@@ -117,16 +117,6 @@ public partial class PatternNodeManagerViewModel : NodeManagerViewModel<PatternN
         }
     }
 
-    protected override void DeleteNode(PatternNode node)
-    {
-        foreach (var pattern in node.Patterns)
-        {
-            _patternRepository.Delete(pattern);
-        }
-        _patternRepository.Save();
-        base.DeleteNode(node);
-    }
-
     [RelayCommand]
     private void DeletePattern(object[] values)
     {
