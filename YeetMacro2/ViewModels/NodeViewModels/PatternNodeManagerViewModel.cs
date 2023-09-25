@@ -1,5 +1,7 @@
-﻿using CommunityToolkit.Mvvm.ComponentModel;
+﻿using Castle.Core.Logging;
+using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
+using Microsoft.Extensions.Logging;
 using System.Windows.Input;
 using YeetMacro2.Data.Models;
 using YeetMacro2.Data.Services;
@@ -9,6 +11,7 @@ namespace YeetMacro2.ViewModels.NodeViewModels;
 
 public partial class PatternNodeManagerViewModel : NodeManagerViewModel<PatternNodeViewModel, PatternNode, PatternNode>
 {
+    ILogger<PatternNodeManagerViewModel> _logger;
     IRepository<Pattern> _patternRepository;
     IScreenService _screenService;
     static Size _currentResolution;
@@ -28,6 +31,7 @@ public partial class PatternNodeManagerViewModel : NodeManagerViewModel<PatternN
 
     public PatternNodeManagerViewModel(
         int rootNodeId,
+        ILogger<PatternNodeManagerViewModel> logger,
         INodeService<PatternNode, PatternNode> nodeService,
         IInputService inputService,
         IToastService toastService,
@@ -35,6 +39,7 @@ public partial class PatternNodeManagerViewModel : NodeManagerViewModel<PatternN
         IScreenService screenService)
             : base(rootNodeId, nodeService, inputService, toastService)
     {
+        _logger = logger;
         _patternRepository = patternRepository;
         _screenService = screenService;
 
@@ -143,24 +148,27 @@ public partial class PatternNodeManagerViewModel : NodeManagerViewModel<PatternN
             }
 
             var rect = await _inputService.DrawUserRectangle();
-            MainThread.BeginInvokeOnMainThread(async () =>
+            _screenService.DebugClear();
+            await Task.Delay(50);
+            pattern.ImageData = _screenService.GetCurrentImageData(rect);
+            pattern.Rect = rect;
+            pattern.Resolution = new Size(DeviceDisplay.MainDisplayInfo.Width, DeviceDisplay.MainDisplayInfo.Height);
+
+#if ANDROID
+            var windowManagerService = ServiceHelper.GetService<YeetMacro2.Platforms.Android.Services.AndroidWindowManagerService>();
+            var topLeft = windowManagerService.GetTopLeft();
+            _logger.LogDebug($"x{topLeft.X}y{topLeft.Y} w{windowManagerService.OverlayWidth}h{windowManagerService.OverlayHeight}");
+#endif
+
+            _patternRepository.Update(pattern);
+            _patternRepository.Save();
+
+            if (values.Length > 2 && values[2] is ICommand selectCommand)
             {
-                _screenService.DebugClear();
-                await Task.Delay(50);
-                pattern.ImageData = _screenService.GetCurrentImageData(rect);
-                pattern.Rect = rect;
-                pattern.Resolution = new Size(DeviceDisplay.MainDisplayInfo.Width, DeviceDisplay.MainDisplayInfo.Height);
-
-                _patternRepository.Update(pattern);
-                _patternRepository.Save();
-
-                if (values.Length > 2 && values[2] is ICommand selectCommand)
-                {
-                    // Annoying that OnPropertyChanged(nameof(SelectedPattern)) won't work because the value hasn't changed
-                    selectCommand.Execute(null);
-                    selectCommand.Execute(pattern);
-                }
-            });
+                // Annoying that OnPropertyChanged(nameof(SelectedPattern)) won't work because the value hasn't changed
+                selectCommand.Execute(null);
+                selectCommand.Execute(pattern);
+            }
         }
     }
 

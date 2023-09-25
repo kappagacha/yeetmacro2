@@ -13,8 +13,6 @@ using System.Text.Json;
 using YeetMacro2.ViewModels;
 using YeetMacro2.Data.Serialization;
 using Microsoft.Extensions.Logging;
-using TesseractOcrMaui;
-using Android.AccessibilityServices;
 
 namespace YeetMacro2.Platforms.Android.Services;
 public enum AndroidWindowView
@@ -373,7 +371,7 @@ public class AndroidWindowManagerService : IInputService, IScreenService
     }
 
     // https://stackoverflow.com/questions/3407256/height-of-status-bar-in-android
-    public (int x, int y) GetTopLeftByPackage()
+    public Point GetTopLeftByPackage()
     {
         //var currentPackage = _accessibilityService.CurrentPackage;
 
@@ -393,13 +391,12 @@ public class AndroidWindowManagerService : IInputService, IScreenService
     }
 
     // https://stackoverflow.com/questions/3407256/height-of-status-bar-in-android
-    public (int x, int y) GetTopLeft()
+    public Point GetTopLeft()
     {
         var loc = new int[2];
         _windowView?.GetLocationOnScreen(loc);
-        var topLeft = (x: loc[0], y: loc[1]);
 
-        return topLeft;
+        return new Point(loc[0], loc[1]);
     }
 
     public void LaunchYeetMacro()

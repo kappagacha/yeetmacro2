@@ -20,7 +20,7 @@ public partial class ActionMenuViewModel : ObservableObject
     {
         get {
             var topLeft = _windowManagerService.GetTopLeftByPackage();
-            return $"x{topLeft.x}y{topLeft.y} w{_windowManagerService.OverlayWidth}h{_windowManagerService.OverlayHeight}";
+            return $"x{topLeft.X}y{topLeft.Y} w{_windowManagerService.OverlayWidth}h{_windowManagerService.OverlayHeight}";
         }
     }
 

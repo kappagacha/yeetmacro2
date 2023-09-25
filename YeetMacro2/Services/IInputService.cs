@@ -1,6 +1,4 @@
-﻿using YeetMacro2.Data.Models;
-
-namespace YeetMacro2.Services;
+﻿namespace YeetMacro2.Services;
 public interface IInputService
 {
     Task<string> PromptInput(string message);

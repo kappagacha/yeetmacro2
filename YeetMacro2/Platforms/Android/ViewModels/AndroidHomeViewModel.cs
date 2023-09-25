@@ -56,7 +56,7 @@ public partial class AndriodHomeViewModel : ObservableObject
         get
         {
             var topLeft = _windowManagerService.GetTopLeftByPackage();
-            return $"x{topLeft.x}y{topLeft.y} w{_windowManagerService.OverlayWidth}h{_windowManagerService.OverlayHeight}";
+            return $"x{topLeft.X}y{topLeft.Y} w{_windowManagerService.OverlayWidth}h{_windowManagerService.OverlayHeight}";
         }
     }
     //public string DisplayCutoutTop => _windowManagerService.DisplayCutoutTop.ToString();

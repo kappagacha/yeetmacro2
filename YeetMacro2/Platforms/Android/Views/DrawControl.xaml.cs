@@ -49,7 +49,7 @@ public partial class DrawControl : ContentView
     public void AddRectangle(Rect rect)
     {
         var topLeft = _windowManagerService.GetTopLeft();
-        var location = new SKPoint((float)(rect.X - topLeft.x), (float)(rect.Y - topLeft.y));
+        var location = new SKPoint((float)(rect.X - topLeft.X), (float)(rect.Y - topLeft.Y));
         var size = new SKSize((float)rect.Width, (float)rect.Height);
         var skRect = SKRect.Create(location, size);
         _rectangles.Enqueue((skRect, _bluePaint.Clone(), DateTime.Now.AddMilliseconds(_expirationMs)));
@@ -66,7 +66,7 @@ public partial class DrawControl : ContentView
     public void AddCircle(Point point)
     {
         var topLeft = _windowManagerService.GetTopLeft();
-        _circles.Enqueue((new SKPoint((float)point.X - topLeft.x, (float)point.Y - topLeft.y), _greenPaint.Clone(), DateTime.Now.AddMilliseconds(_expirationMs)));
+        _circles.Enqueue((new SKPoint((float)(point.X - topLeft.X), (float)(point.Y - topLeft.Y)), _greenPaint.Clone(), DateTime.Now.AddMilliseconds(_expirationMs)));
         canvasView.InvalidateSurface();
     }
 
@@ -146,7 +146,7 @@ public partial class DrawControl : ContentView
                 if (CloseAfterDraw)
                 {
                     var topLeft = _windowManagerService.GetTopLeft();
-                    Rect = new Rect(new Point(_canvasBegin.X + topLeft.x + _userStroke.StrokeWidth - 1, _canvasBegin.Y + topLeft.y + _userStroke.StrokeWidth - 1),
+                    Rect = new Rect(new Point(_canvasBegin.X + topLeft.X + _userStroke.StrokeWidth - 1, _canvasBegin.Y + topLeft.Y + _userStroke.StrokeWidth - 1),
                                      new Size(_canvasEnd.X - _canvasBegin.X - _userStroke.StrokeWidth + 1, _canvasEnd.Y - _canvasBegin.Y - _userStroke.StrokeWidth - 1));
                     _windowManagerService.Close(AndroidWindowView.UserDrawView);
                 }
