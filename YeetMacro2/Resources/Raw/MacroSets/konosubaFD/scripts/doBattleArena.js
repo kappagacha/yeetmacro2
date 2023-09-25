@@ -1,7 +1,7 @@
 ﻿const loopPatterns = [patterns.titles.home, patterns.titles.quest, patterns.titles.battleArena, patterns.titles.party, patterns.battle.report];
 let done = false;
 while (macroService.IsRunning && !done) {
-	const loopResult = macroService.PollPattern(loopPatterns, { ClickPattern: [patterns.battleArena.newHighScore, patterns.battleArena.rank] });
+	const loopResult = macroService.PollPattern(loopPatterns, { ClickPattern: [patterns.battleArena.newHighScore, patterns.battleArena.rank, patterns.battleArena.prompt.noteOk] });
 	switch (loopResult.Path) {
 		case 'titles.home':
 			logger.info('doBattleArena: click tab quest');
@@ -13,7 +13,7 @@ while (macroService.IsRunning && !done) {
 			break;
 		case 'titles.battleArena':
 			logger.info('doBattleArena: start arena');
-			macroService.PollPattern(patterns.battleArena.begin, { DoClick: true, ClickPattern: patterns.battleArena.prompt.noteOk, PredicatePattern: patterns.battleArena.advanced });
+			macroService.PollPattern(patterns.battleArena.begin, { DoClick: true, PredicatePattern: patterns.battleArena.advanced });
 			sleep(500);
 			macroService.PollPattern(patterns.battleArena.advanced, { DoClick: true, PredicatePattern: patterns.battle.prepare });
 			sleep(500);
