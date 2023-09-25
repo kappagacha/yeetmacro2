@@ -154,12 +154,6 @@ public partial class PatternNodeManagerViewModel : NodeManagerViewModel<PatternN
             pattern.Rect = rect;
             pattern.Resolution = new Size(DeviceDisplay.MainDisplayInfo.Width, DeviceDisplay.MainDisplayInfo.Height);
 
-#if ANDROID
-            var windowManagerService = ServiceHelper.GetService<YeetMacro2.Platforms.Android.Services.AndroidWindowManagerService>();
-            var topLeft = windowManagerService.GetTopLeft();
-            _logger.LogDebug($"x{topLeft.X}y{topLeft.Y} w{windowManagerService.OverlayWidth}h{windowManagerService.OverlayHeight}");
-#endif
-
             _patternRepository.Update(pattern);
             _patternRepository.Save();
 

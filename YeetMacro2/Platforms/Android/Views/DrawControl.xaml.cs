@@ -1,3 +1,4 @@
+using Microsoft.Extensions.Logging;
 using SkiaSharp;
 using SkiaSharp.Views.Maui;
 using System.Collections.Concurrent;
@@ -139,6 +140,13 @@ public partial class DrawControl : ContentView
                 break;
             case SKTouchAction.Released:
             case SKTouchAction.Cancelled:
+
+                // debugging pattern capture
+                var windowManagerService = ServiceHelper.GetService<YeetMacro2.Platforms.Android.Services.AndroidWindowManagerService>();
+                var topLeftx = windowManagerService.GetTopLeft();
+                ServiceHelper.GetService<Microsoft.Extensions.Logging.ILogger<DrawControl>>().LogDebug($"x{topLeftx.X}y{topLeftx.Y} w{windowManagerService.OverlayWidth}h{windowManagerService.OverlayHeight}" +
+                                 $"----x{windowManagerService.UserDrawViewX}y{windowManagerService.UserDrawViewY} w{windowManagerService.UserDrawViewWidth}h{windowManagerService.UserDrawViewHeight}");
+
                 var size = new SKSize(_canvasEnd.X - _canvasBegin.X, _canvasEnd.Y - _canvasBegin.Y);
                 var skRect = SKRect.Create(_canvasBegin, size);
                 _rectangles.Enqueue((skRect, _bluePaint.Clone(), DateTime.Now.AddDays(1)));
