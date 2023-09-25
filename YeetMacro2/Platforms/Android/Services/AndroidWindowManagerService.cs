@@ -406,7 +406,8 @@ public class AndroidWindowManagerService : IInputService, IScreenService
         var loc = new int[2];
         if (_views.ContainsKey(AndroidWindowView.UserDrawView))
         {
-            ((FormsView)_views[AndroidWindowView.UserDrawView]).GetLocationOnScreen(loc);
+            var view = (FormsView)_views[AndroidWindowView.UserDrawView];
+            view.GetLocationInWindow(loc);
         }
 
         return new Point(loc[0], loc[1]);

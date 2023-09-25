@@ -142,11 +142,10 @@ public partial class DrawControl : ContentView
             case SKTouchAction.Cancelled:
 
                 // debugging pattern capture
-                var windowManagerService = ServiceHelper.GetService<YeetMacro2.Platforms.Android.Services.AndroidWindowManagerService>();
-                var topLeftx = windowManagerService.GetTopLeft();
-                var userDrawViewTopLeft = windowManagerService.GetTopLeft();
-                ServiceHelper.GetService<Microsoft.Extensions.Logging.ILogger<DrawControl>>().LogDebug($"x{topLeftx.X}y{topLeftx.Y} w{windowManagerService.OverlayWidth}h{windowManagerService.OverlayHeight}" +
-                                 $"----x{userDrawViewTopLeft.X}y{userDrawViewTopLeft.Y} w{windowManagerService.UserDrawViewWidth}h{windowManagerService.UserDrawViewHeight}" +
+                var topLeftx = _windowManagerService.GetTopLeft();
+                var userDrawViewTopLeft = _windowManagerService.GetUserDrawViewTopLeft();
+                ServiceHelper.GetService<Microsoft.Extensions.Logging.ILogger<DrawControl>>().LogDebug($"x{topLeftx.X}y{topLeftx.Y} w{_windowManagerService.OverlayWidth}h{_windowManagerService.OverlayHeight}" +
+                                 $"----x{userDrawViewTopLeft.X}y{userDrawViewTopLeft.Y} w{_windowManagerService.UserDrawViewWidth}h{_windowManagerService.UserDrawViewHeight}" +
                                  $"----d{DeviceDisplay.Current.MainDisplayInfo.Density}");
 
                 var size = new SKSize(_canvasEnd.X - _canvasBegin.X, _canvasEnd.Y - _canvasBegin.Y);
@@ -159,8 +158,11 @@ public partial class DrawControl : ContentView
                     var topLeft = _windowManagerService.GetTopLeft();
                     //Rect = new Rect(new Point(_canvasBegin.X + topLeft.X + _userStroke.StrokeWidth - 1, _canvasBegin.Y + topLeft.Y + _userStroke.StrokeWidth - 1),
                     //                 new Size(_canvasEnd.X - _canvasBegin.X - _userStroke.StrokeWidth + 1, _canvasEnd.Y - _canvasBegin.Y - _userStroke.StrokeWidth - 1));
-                    Rect = new Rect(new Point(_canvasBegin.X + topLeft.X + _userStroke.StrokeWidth * density - 1, _canvasBegin.Y + topLeft.Y + _userStroke.StrokeWidth * density - 1),
-                                     new Size(_canvasEnd.X - _canvasBegin.X - _userStroke.StrokeWidth * density + 1, _canvasEnd.Y - _canvasBegin.Y - _userStroke.StrokeWidth * density - 1));
+                    //Rect = new Rect(new Point(_canvasBegin.X + topLeft.X + _userStroke.StrokeWidth * density / 2.0, _canvasBegin.Y + topLeft.Y + _userStroke.StrokeWidth * density / 2.0),
+                    //                 new Size(_canvasEnd.X - _canvasBegin.X - _userStroke.StrokeWidth * density + 1, _canvasEnd.Y - _canvasBegin.Y - _userStroke.StrokeWidth * density - 1));
+                    var padding = 1.0;
+                    Rect = new Rect(new Point(_canvasBegin.X + topLeft.X + _userStroke.StrokeWidth - padding / 2, _canvasBegin.Y + topLeft.Y + _userStroke.StrokeWidth - padding / 2),
+                                     new Size(_canvasEnd.X - _canvasBegin.X - _userStroke.StrokeWidth - padding, _canvasEnd.Y - _canvasBegin.Y - _userStroke.StrokeWidth - padding));
                     _windowManagerService.Close(AndroidWindowView.UserDrawView);
                 }
                 break;
