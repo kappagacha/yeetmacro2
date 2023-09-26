@@ -82,8 +82,9 @@ public class MacroService
                 if (InDebugMode)
                 {
                     MainThread.BeginInvokeOnMainThread(_screenService.DebugClear);
-                    Sleep(50);
+                    //Sleep(50);
                 }
+                Sleep(50);
 
                 if (!IsRunning)
                 {
@@ -114,8 +115,9 @@ public class MacroService
                                 _screenService.DebugClear();
                                 _screenService.DebugRectangle(pattern.Rect.Offset(offset));
                             });
-                            Sleep(50);
+                            //Sleep(50);
                         }
+                        Sleep(50);
                         var singleResult = _screenService.FindPattern(pattern, optsWithOffset);
                         if (singleResult.IsSuccess)
                         {
