@@ -88,7 +88,7 @@ while (macroService.IsRunning && !done) {
 			const targetPartyName = settings.party.eventBoss.Value;
 			logger.debug(`targetPartyName: ${targetPartyName}`);
 			if (targetPartyName === 'recommendedElement') {
-				selectPartyByRecommendedElement(isBossMulti ? -424: 0);	// Recommended Element icons are shifted by 425 to the left of expected location
+				selectPartyByRecommendedElement(isBossMulti ? -424 : 0);	// Recommended Element icons are shifted by 425 to the left of expected location
 			}
 			//else if (!(selectParty(targetPartyName))) {
 			//	result = `targetPartyName not found: ${targetPartyName}`;

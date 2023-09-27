@@ -7,7 +7,6 @@ async function selectPartyByRecommendedElement(xOffset) {
             clone.Path += `_xOffset${xOffset}`;
             for (const pattern of clone.Patterns) {
                 pattern.Rect = pattern.Rect.Offset(xOffset, 0);
-                pattern.OffsetCalcType = "None";
             }
             return clone;
         });
