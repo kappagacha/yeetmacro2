@@ -215,6 +215,7 @@ public class MacroService
             var inversePredicateChecks = opts.InversePredicateChecks;
             var inversePredicateCheckDelayMs = opts.InversePredicateCheckDelayMs;
             var predicateOpts = new FindOptions() { VariancePct = opts.PredicateThreshold };
+            FindPatternResult successResult = new FindPatternResult() { IsSuccess = false };
 
             while (IsRunning)
             {
@@ -234,6 +235,7 @@ public class MacroService
                 result = this.FindPattern(oneOfPattern, opts);
                 if (opts.DoClick && result.IsSuccess)
                 {
+                    successResult = result;
                     var point = result.Point;
                     this.DoClick(point.Offset(clickOffsetX, clickOffsetY));
                     Sleep(500);
@@ -241,10 +243,15 @@ public class MacroService
                 if (clickPattern is not null) this.ClickPattern(clickPattern.Value, opts);
                 Sleep(intervalDelayMs);
             }
+            if (successResult.IsSuccess && !result.IsSuccess)
+            {
+                result = successResult;
+            }
         }
         else if (predicatePattern is not null)
         {
             var predicateOpts = new FindOptions() { VariancePct = opts.PredicateThreshold };
+            FindPatternResult successResult = new FindPatternResult() { IsSuccess = false };
             while (IsRunning)
             {
                 FindPatternResult predicateResult = this.FindPattern(predicatePattern.Value, predicateOpts);
@@ -256,12 +263,17 @@ public class MacroService
                 result = this.FindPattern(oneOfPattern, opts);
                 if (opts.DoClick && result.IsSuccess)
                 {
+                    successResult = result;
                     var point = result.Point;
                     this.DoClick(point.Offset(clickOffsetX, clickOffsetY));
                     Sleep(500);
                 }
                 if (clickPattern is not null) this.ClickPattern(clickPattern.Value, opts);
                 Sleep(intervalDelayMs);
+            }
+            if (successResult.IsSuccess && !result.IsSuccess)
+            {
+                result = successResult;
             }
         }
         else

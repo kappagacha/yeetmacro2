@@ -1,4 +1,3 @@
-using Microsoft.Extensions.Logging;
 using SkiaSharp;
 using SkiaSharp.Views.Maui;
 using System.Collections.Concurrent;
