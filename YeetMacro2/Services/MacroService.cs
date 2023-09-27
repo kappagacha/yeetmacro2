@@ -82,7 +82,6 @@ public class MacroService
                 if (InDebugMode)
                 {
                     MainThread.BeginInvokeOnMainThread(_screenService.DebugClear);
-                    //Sleep(50);
                 }
                 Sleep(50);
 
@@ -115,7 +114,6 @@ public class MacroService
                                 _screenService.DebugClear();
                                 _screenService.DebugRectangle(pattern.Rect.Offset(offset));
                             });
-                            //Sleep(50);
                         }
                         Sleep(50);
                         var singleResult = _screenService.FindPattern(pattern, optsWithOffset);
@@ -196,7 +194,6 @@ public class MacroService
             }
         }
 
-        // https://stackoverflow.com/questions/5424667/alternatives-to-thread-sleep
         Sleep(500);
         return result;
     }

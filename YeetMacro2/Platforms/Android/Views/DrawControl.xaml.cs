@@ -140,26 +140,13 @@ public partial class DrawControl : ContentView
                 break;
             case SKTouchAction.Released:
             case SKTouchAction.Cancelled:
-
-                // debugging pattern capture
-                var topLeftx = _windowManagerService.GetTopLeft();
-                var userDrawViewTopLeft = _windowManagerService.GetUserDrawViewTopLeft();
-                ServiceHelper.GetService<Microsoft.Extensions.Logging.ILogger<DrawControl>>().LogDebug($"x{topLeftx.X}y{topLeftx.Y} w{_windowManagerService.OverlayWidth}h{_windowManagerService.OverlayHeight}" +
-                                 $"----x{userDrawViewTopLeft.X}y{userDrawViewTopLeft.Y} w{_windowManagerService.UserDrawViewWidth}h{_windowManagerService.UserDrawViewHeight}" +
-                                 $"----d{DeviceDisplay.Current.MainDisplayInfo.Density}");
-
                 var size = new SKSize(_canvasEnd.X - _canvasBegin.X, _canvasEnd.Y - _canvasBegin.Y);
                 var skRect = SKRect.Create(_canvasBegin, size);
                 _rectangles.Enqueue((skRect, _bluePaint.Clone(), DateTime.Now.AddDays(1)));
                 canvasView.InvalidateSurface();
                 if (CloseAfterDraw)
                 {
-                    var density = DeviceDisplay.Current.MainDisplayInfo.Density;
                     var topLeft = _windowManagerService.GetUserDrawViewTopLeft();
-                    //Rect = new Rect(new Point(_canvasBegin.X + topLeft.X + _userStroke.StrokeWidth - 1, _canvasBegin.Y + topLeft.Y + _userStroke.StrokeWidth - 1),
-                    //                 new Size(_canvasEnd.X - _canvasBegin.X - _userStroke.StrokeWidth + 1, _canvasEnd.Y - _canvasBegin.Y - _userStroke.StrokeWidth - 1));
-                    //Rect = new Rect(new Point(_canvasBegin.X + topLeft.X + _userStroke.StrokeWidth * density / 2.0, _canvasBegin.Y + topLeft.Y + _userStroke.StrokeWidth * density / 2.0),
-                    //                 new Size(_canvasEnd.X - _canvasBegin.X - _userStroke.StrokeWidth * density + 1, _canvasEnd.Y - _canvasBegin.Y - _userStroke.StrokeWidth * density - 1));
                     var padding = 1.5;
                     Rect = new Rect(new Point(_canvasBegin.X + topLeft.X + _userStroke.StrokeWidth - padding / 2, _canvasBegin.Y + topLeft.Y + _userStroke.StrokeWidth - padding / 2),
                                      new Size(_canvasEnd.X - _canvasBegin.X - _userStroke.StrokeWidth - padding, _canvasEnd.Y - _canvasBegin.Y - _userStroke.StrokeWidth - padding));

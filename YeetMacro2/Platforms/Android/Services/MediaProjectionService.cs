@@ -208,21 +208,11 @@ public class MediaProjectionService : IRecorderService
 
     public void TakeScreenCapture()
     {
-        //var ms = await GetCurrentImageStream();
-        //if (ms == null) return;
-        //byte[] bArray = new byte[ms.Length];
-
         var imageData = GetCurrentImageData();
         var folder = global::Android.OS.Environment.GetExternalStoragePublicDirectory(global::Android.OS.Environment.DirectoryPictures).Path;
         var file = System.IO.Path.Combine(folder, $"{DateTime.Now.ToString("screencapture_yyyyMMdd_HHmmss")}.jpeg");
         using (FileStream fs = new FileStream(file, FileMode.OpenOrCreate))
         {
-            //using (ms)
-            //{
-            //    ms.Read(bArray, 0, (int)ms.Length);
-            //}
-            //int length = bArray.Length;
-            //fs.Write(bArray, 0, length);
             fs.Write(imageData, 0, imageData.Length);
         }
     }
@@ -262,10 +252,10 @@ public class MediaProjectionService : IRecorderService
         if (!_isRecording) return;
 
         _mediaRecorder.Stop();
-        //_mediaRecorder.Release();
-        //_mediaRecorder.Dispose();
-        //_screenVirtualDisplay.Release();
-        //_screenVirtualDisplay.Dispose();
+        _mediaRecorder.Release();
+        _mediaRecorder.Dispose();
+        _screenVirtualDisplay.Release();
+        _screenVirtualDisplay.Dispose();
         _isRecording = false;
     }
 }
