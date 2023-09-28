@@ -245,6 +245,7 @@ public class MacroService
             }
             if (successResult.IsSuccess && !result.IsSuccess)
             {
+                successResult.InversePredicatePath = result.InversePredicatePath;
                 result = successResult;
             }
         }
@@ -273,6 +274,7 @@ public class MacroService
             }
             if (successResult.IsSuccess && !result.IsSuccess)
             {
+                successResult.PredicatePath = result.PredicatePath;
                 result = successResult;
             }
         }

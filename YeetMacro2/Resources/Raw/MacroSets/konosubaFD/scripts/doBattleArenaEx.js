@@ -15,7 +15,7 @@ while (macroService.IsRunning && !done) {
 			logger.info('doBattleArena: start arena');
 			macroService.PollPattern(patterns.battleArena.tabs.arenaEX, { DoClick: true, ClickPattern: patterns.battleArena.prompt.noteOk, PredicatePattern: patterns.titles.battleArenaEX });
 			sleep(500);
-			macroService.PollPattern(patterns.battleArena.begin, { DoClick: true, PredicatePattern: patterns.battleArena.exRank });
+			macroService.PollPattern(patterns.battleArena.begin, { DoClick: true, ClickPattern: patterns.battleArena.prompt.noteOk, PredicatePattern: patterns.battleArena.exRank });
 			sleep(500);
 			macroService.PollPattern(patterns.battleArena.exRank, { DoClick: true, PredicatePattern: patterns.battle.prepare });
 			sleep(500);
