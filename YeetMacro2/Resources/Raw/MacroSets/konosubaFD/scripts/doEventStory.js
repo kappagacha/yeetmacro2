@@ -16,7 +16,7 @@ while (macroService.IsRunning) {
 			sleep(500);
 			macroService.PollPattern(patterns.quest.events.new, { DoClick: true, ClickPattern: patterns.prompt.watchLater, PredicatePattern: patterns.battle.prepare });
 			sleep(500);
-			macroService.PollPattern(patterns.battle.prepare, { DoClick: true, PredicatePattern: patterns.titles.party });
+			macroService.PollPattern(patterns.battle.prepare, { DoClick: true, ClickPattern: patterns.prompt.watchLater, PredicatePattern: patterns.titles.party });
 			sleep(500);
 			macroService.PollPattern(patterns.battle.begin, { DoClick: true, PredicatePattern: patterns.battle.report });
 			break;
@@ -26,7 +26,7 @@ while (macroService.IsRunning) {
 			sleep(500);
 			macroService.PollPattern(patterns.quest.events.new, { DoClick: true, ClickPattern: patterns.prompt.watchLater, PredicatePattern: patterns.battle.prepare });
 			sleep(500);
-			macroService.PollPattern(patterns.battle.prepare, { DoClick: true, PredicatePattern: patterns.titles.party });
+			macroService.PollPattern(patterns.battle.prepare, { DoClick: true, ClickPattern: patterns.prompt.watchLater, PredicatePattern: patterns.titles.party });
 			sleep(500);
 			macroService.PollPattern(patterns.battle.begin, { DoClick: true, PredicatePattern: patterns.battle.report });
 			break;
