@@ -39,7 +39,21 @@
                                      IsVisible="{Binding ItemsSource.IsList, Converter={conv:InverseBoolConverter}}" />
                         <v:ImageView FontFamily="FASolid" Glyph="{x:Static fa:Solid.Pencil}"
                                      IsVisible="{Binding ItemsSource.SelectedNode, Converter={conv:NullToBoolConverter IsInverse=True}}"
-                                     Command="{Binding ItemsSource.RenameNodeCommand}" CommandParameter="{Binding ItemsSource.SelectedNode}" /> 
+                                     Command="{Binding ItemsSource.RenameNodeCommand}" CommandParameter="{Binding ItemsSource.SelectedNode}" />
+                        <Grid IsVisible="{Binding ItemsSource.HasCopyClipboard, Converter={conv:InverseBoolConverter}}">
+                            <v:ImageView FontFamily="MaterialOutlined" Glyph="{x:Static mi:MaterialOutlined.Content_copy}"
+                                 IsVisible="{Binding ItemsSource.SelectedNode, Converter={conv:NullToBoolConverter IsInverse=True}}"
+                                 Command="{Binding ItemsSource.CopyNodeCommand}" CommandParameter="{Binding ItemsSource.SelectedNode}" />
+                        </Grid>
+                        <Grid IsVisible="{Binding ItemsSource.HasCopyClipboard}">
+                            <v:ImageView FontFamily="MaterialOutlined" Glyph="{x:Static mi:MaterialOutlined.Content_paste}" Command="{Binding ItemsSource.PasteNodeCommand}"
+                                IsVisible="{Binding ItemsSource.SelectedNode.IsParentNode}"/>
+                            <v:ImageView FontFamily="MaterialOutlined" Glyph="{x:Static mi:MaterialOutlined.Content_paste}" Command="{Binding ItemsSource.PasteNodeCommand}"
+                                IsVisible="{Binding ItemsSource.SelectedNode, Converter={conv:NullToBoolConverter IsInverse=True}}"/>
+                        </Grid>
+                        <v:ImageView FontFamily="MaterialOutlined" Glyph="{x:Static mi:MaterialOutlined.Content_paste_off}"
+                                     IsVisible="{Binding ItemsSource.HasCopyClipboard}"
+                                     Command="{Binding ItemsSource.ClearCopyNodeCommand}" /> 
                         <v:ImageView FontFamily="FASolid" Glyph="{x:Static fa:Solid.TrashCan}" Color="Red" 
                                  IsVisible="{Binding ItemsSource.SelectedNode, Converter={conv:NullToBoolConverter IsInverse=True}}"
                                  Command="{Binding ItemsSource.DeleteNodeCommand}" CommandParameter="{Binding ItemsSource.SelectedNode}" />

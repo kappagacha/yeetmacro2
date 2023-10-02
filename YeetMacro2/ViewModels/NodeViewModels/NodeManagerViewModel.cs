@@ -53,6 +53,10 @@ public partial class NodeManagerViewModel<TViewModel, TParent, TChild> : NodeMan
     protected IInputService _inputService;
     [ObservableProperty]
     string _exportValue;
+    [ObservableProperty, NotifyPropertyChangedFor(nameof(HasCopyClipboard))]
+    TViewModel _copyClipboard;
+
+    public bool HasCopyClipboard => CopyClipboard != null;
 
     public static readonly JsonSerializerOptions _defaultJsonSerializerOptions = new JsonSerializerOptions()
     {
@@ -372,6 +376,40 @@ public partial class NodeManagerViewModel<TViewModel, TParent, TChild> : NodeMan
         }
 
         ResolvePath(Root);
+    }
+
+    [RelayCommand]
+    public void CopyNode(TChild node)
+    {
+        CopyClipboard = (TViewModel)node;
+    }
+
+    [RelayCommand]
+    public void ClearCopyNode()
+    {
+        CopyClipboard = null;
+    }
+
+    [RelayCommand]
+    public void PasteNode()
+    {
+        var newNode = CloneNode(CopyClipboard);
+        if (SelectedNode != null && SelectedNode is TParent parent)
+        {
+            newNode.ParentId = SelectedNode.NodeId;
+            newNode.RootId = SelectedNode.RootId;
+            parent.Nodes.Add(newNode);
+            SelectedNode.IsExpanded = true;
+        }
+        else
+        {
+            newNode.ParentId = Root.NodeId;
+            newNode.RootId = Root.NodeId;
+            Root.Nodes.Add(newNode);
+        }
+
+        _nodeService.Insert(newNode);
+        _toastService.Show($"Copied {_nodeTypeName}: " + newNode.Name);
     }
 
     [RelayCommand]
