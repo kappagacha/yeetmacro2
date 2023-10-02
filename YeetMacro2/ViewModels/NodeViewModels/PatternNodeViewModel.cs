@@ -29,6 +29,16 @@ public partial class PatternNodeViewModel : PatternNode
         }
     }
 
+    public override string Name
+    {
+        get => base.Name;
+        set
+        {
+            base.Name = value;
+            OnPropertyChanged();
+        }
+    }
+
     public override bool IsMultiPattern
     {
         get => base.IsMultiPattern;

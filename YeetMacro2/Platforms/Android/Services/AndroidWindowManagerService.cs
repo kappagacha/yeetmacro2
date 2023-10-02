@@ -259,11 +259,12 @@ public class AndroidWindowManagerService : IInputService, IScreenService
         _views[view]?.CloseCancel();
     }
 
-    public async Task<string> PromptInput(string message)
+    public async Task<string> PromptInput(string message, string placeholderInput = "")
     {
         Show(AndroidWindowView.PromptStringInputView);
         var viewModel = (PromptStringInputViewModel)_views[AndroidWindowView.PromptStringInputView].VisualElement.BindingContext;
         viewModel.Message = message;
+        if (!string.IsNullOrWhiteSpace(placeholderInput)) viewModel.Input = placeholderInput;
         var formsView = (FormsView)_views[AndroidWindowView.PromptStringInputView];
         if (await formsView.WaitForClose())
         {

@@ -167,7 +167,6 @@ public partial class NodeManagerViewModel<TViewModel, TParent, TChild> : NodeMan
         }
 
         TChild newNode = null;
-        var x = typeof(TViewModel).Name;
         var nodeTypes = NodeMetadataHelper.GetNodeTypes<TViewModel>();
         if (nodeTypes is not null)
         {
@@ -198,6 +197,22 @@ public partial class NodeManagerViewModel<TViewModel, TParent, TChild> : NodeMan
 
         _nodeService.Insert(newNode);
         _toastService.Show($"Created {_nodeTypeName}: " + name);
+    }
+
+    [RelayCommand]
+    public async Task RenameNode(TChild node)
+    {
+        var name = await _inputService.PromptInput($"Please enter {_nodeTypeName} new name: ");
+
+        if (string.IsNullOrWhiteSpace(name))
+        {
+            _toastService.Show($"Canceled rename {_nodeTypeName}");
+            return;
+        }
+
+        ((TViewModel)node).Name = name;
+        _nodeService.Update(node);
+        _toastService.Show($"Renamed {_nodeTypeName}: " + name);
     }
 
     [RelayCommand]

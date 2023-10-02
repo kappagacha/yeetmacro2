@@ -6,9 +6,9 @@ using YeetMacro2.Services;
 namespace YeetMacro2.Platforms.Windows.Services;
 internal class WindowsInputService : IInputService
 {
-    public Task<string> PromptInput(string message)
+    public Task<string> PromptInput(string message, string placeholderInput = "")
     {
-        return Application.Current.MainPage.DisplayPromptAsync("", message);
+        return Application.Current.MainPage.DisplayPromptAsync("", message, placeholder: placeholderInput);
     }
 
     public Task<string> SelectOption(string message, params string[] options)

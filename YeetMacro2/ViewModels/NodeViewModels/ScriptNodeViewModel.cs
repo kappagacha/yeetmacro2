@@ -17,6 +17,16 @@ public partial class ScriptNodeViewModel : ScriptNode
         }
     }
 
+    public override string Name
+    {
+        get => base.Name;
+        set
+        {
+            base.Name = value;
+            OnPropertyChanged();
+        }
+    }
+
     public override bool IsSelected
     {
         get => base.IsSelected;
@@ -47,10 +57,7 @@ public partial class ScriptNodeViewModel : ScriptNode
         }
     }
 
-    public bool IsLeaf
-    {
-        get => true;
-    }
+    public bool IsLeaf => true;
 
     public ICollection<ScriptNode> Children
     {

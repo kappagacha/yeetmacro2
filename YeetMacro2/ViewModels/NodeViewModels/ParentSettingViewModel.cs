@@ -66,6 +66,16 @@ public partial class ParentSettingViewModel : ParentSetting
         }
     }
 
+    public override string Name
+    {
+        get => base.Name;
+        set
+        {
+            base.Name = value;
+            OnPropertyChanged();
+        }
+    }
+
     public override bool IsSelected
     {
         get => base.IsSelected;
@@ -127,6 +137,16 @@ public partial class ParentSettingViewModel : ParentSetting
 [ObservableObject]
 public partial class BooleanSettingViewModel : BooleanSetting
 {
+    public override string Name
+    {
+        get => base.Name;
+        set
+        {
+            base.Name = value;
+            OnPropertyChanged();
+        }
+    }
+
     public override bool IsSelected
     {
         get => base.IsSelected;
@@ -136,6 +156,8 @@ public partial class BooleanSettingViewModel : BooleanSetting
             OnPropertyChanged();
         }
     }
+
+    public bool IsLeaf => true;
 
     public override bool Value
     {
@@ -151,6 +173,16 @@ public partial class BooleanSettingViewModel : BooleanSetting
 [ObservableObject]
 public partial class OptionSettingViewModel : OptionSetting
 {
+    public override string Name
+    {
+        get => base.Name;
+        set
+        {
+            base.Name = value;
+            OnPropertyChanged();
+        }
+    }
+
     public override bool IsSelected
     {
         get => base.IsSelected;
@@ -160,6 +192,8 @@ public partial class OptionSettingViewModel : OptionSetting
             OnPropertyChanged();
         }
     }
+
+    public bool IsLeaf => true;
 
     public override string Value
     {
@@ -185,6 +219,16 @@ public partial class OptionSettingViewModel : OptionSetting
 [ObservableObject]
 public partial class StringSettingViewModel : StringSetting
 {
+    public override string Name
+    {
+        get => base.Name;
+        set
+        {
+            base.Name = value;
+            OnPropertyChanged();
+        }
+    }
+
     public override bool IsSelected
     {
         get => base.IsSelected;
@@ -194,6 +238,9 @@ public partial class StringSettingViewModel : StringSetting
             OnPropertyChanged();
         }
     }
+
+    public bool IsLeaf => true;
+
 
     public override string Value
     {
@@ -211,6 +258,16 @@ public partial class PatternSettingViewModel : PatternSetting
 {
     static IMapper _mapper;
 
+    public override string Name
+    {
+        get => base.Name;
+        set
+        {
+            base.Name = value;
+            OnPropertyChanged();
+        }
+    }
+
     public override bool IsSelected
     {
         get => base.IsSelected;
@@ -220,6 +277,8 @@ public partial class PatternSettingViewModel : PatternSetting
             OnPropertyChanged();
         }
     }
+
+    public bool IsLeaf => true;
 
     public override PatternNode Value
     {
