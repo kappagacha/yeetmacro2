@@ -206,7 +206,7 @@ public partial class NodeManagerViewModel<TViewModel, TParent, TChild> : NodeMan
     [RelayCommand]
     public async Task RenameNode(TChild node)
     {
-        var name = await _inputService.PromptInput($"Please enter {_nodeTypeName} new name: ");
+        var name = await _inputService.PromptInput($"Please enter {_nodeTypeName} new name: ", node.Name);
 
         if (string.IsNullOrWhiteSpace(name))
         {
