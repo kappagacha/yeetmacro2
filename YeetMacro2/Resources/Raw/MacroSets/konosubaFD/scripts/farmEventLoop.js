@@ -2,7 +2,7 @@
 let done = false;
 result = { numBattles: 0 };
 while (macroService.IsRunning && !done) {
-	const loopResult = macroService.PollPattern(loopPatterns);
+	const loopResult = macroService.PollPattern(loopPatterns, { ClickPattern: [patterns.battle.next, patterns.battle.affinityLevelUp, patterns.branchEvent.availableNow, patterns.branchEvent.playLater, patterns.prompt.playerRankUp] });
 	switch (loopResult.Path) {
 		case 'titles.home':
 			logger.info('farmEventLoop: click tab quest');
