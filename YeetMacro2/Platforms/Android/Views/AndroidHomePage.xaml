@@ -63,7 +63,7 @@
                     </Label.Triggers>
                 </Label>
             </HorizontalStackLayout>
-            <!--<HorizontalStackLayout HorizontalOptions="Center">
+            <HorizontalStackLayout HorizontalOptions="Center">
                 <v:ImageView FontFamily="MaterialOutlined" Glyph="{x:Static mi:MaterialOutlined.Battery_saver}" Color="Red"
                                                      Command="{Binding RequestIgnoreBatteryOptimizationsCommand}">
                     <v:ImageView.Triggers>
@@ -82,7 +82,7 @@
                         </DataTrigger>
                     </Label.Triggers>
                 </Label>
-            </HorizontalStackLayout>-->
+            </HorizontalStackLayout>
             <HorizontalStackLayout HorizontalOptions="Center">
                 <v:ImageView FontFamily="MaterialOutlined" Glyph="{x:Static mi:MaterialOutlined.Credit_card}" Color="LightGray"
                                                      Command="{Binding ToggleShowMacroOverlayCommand}">
