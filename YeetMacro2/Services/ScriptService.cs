@@ -8,6 +8,7 @@ using YeetMacro2.ViewModels.NodeViewModels;
 using YeetMacro2.ViewModels;
 using OneOf;
 using Jint.Native;
+using Jint.Runtime;
 
 namespace YeetMacro2.Services;
 
@@ -75,42 +76,49 @@ public class ScriptService: IScriptService
                     _engine.Execute($"function {script.Name}() {{ {script.Text} }}");
                 }
             }
-            _engine.Execute("result = undefined");
             _engine.SetValue("patterns", patternNodeManager.Root);
             _engine.SetValue("settings", settingNodeManager.Root);
-            _engine.Execute($"{{\n{targetScript.Text}\n}}");
+            var jsResult = _engine.Evaluate($"{{\n{targetScript.Text}\n}}");
 
             _toastService.Show(_macroService.IsRunning ? "Script finished..." : "Script stopped...");
+
+            if (jsResult is JsObject jsObjectResult)
+            {
+                _engine.SetValue("result", jsResult);
+                return _engine.Evaluate("JSON.stringify(result, null, 2)").AsString();
+            }
+            else if (jsResult is IObjectWrapper objectWrapper)
+            {
+                return JsonSerializer.Serialize(objectWrapper.Target, new JsonSerializerOptions()
+                {
+                    WriteIndented = true
+                });
+            }
+            else if (jsResult != JsValue.Null && jsResult != JsValue.Undefined)
+            {
+                return jsResult.ToString();
+            }
+            else
+            {
+                return String.Empty;
+            }
+        }
+        catch (JavaScriptException jex)
+        {
+            _engine.SetValue("error", jex.Error);
+            return _engine.Evaluate("JSON.stringify({ ...error, message: error.message }, null, 2)").AsString();
         }
         catch (Exception ex)
         {
             _toastService.Show("Error: " + ex.Message);
             _logger.LogError(ex, $"Script Error: {ex.Message}");
-            _engine.SetValue("result", $"{ex.Message}: \n\t{ex.StackTrace}");
+            return $"{ex.Message}: \n\t{ex.StackTrace}";
         }
         finally
         {
-            var jsResult = _engine.GetValue("result");
-            if (jsResult is Jint.Native.JsObject jsObjectResult)
-            {
-                result = _engine.Evaluate("JSON.stringify(result, null, 2)").AsString();
-            }
-            else if (jsResult is IObjectWrapper objectWrapper)
-            {
-                result = JsonSerializer.Serialize(objectWrapper.Target, new JsonSerializerOptions()
-                {
-                    WriteIndented = true
-                });
-            }
-            else if (jsResult != Jint.Native.JsValue.Null && jsResult != Jint.Native.JsValue.Undefined)
-            {
-                result = jsResult.ToString();
-            }
             _macroService.IsRunning = false;
             _macroService.Reset();
         }
-
-        return result;
     }
 
     public void Stop()
