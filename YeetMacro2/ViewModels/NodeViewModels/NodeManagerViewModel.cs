@@ -293,7 +293,7 @@ public partial class NodeManagerViewModel<TViewModel, TParent, TChild> : NodeMan
         Traverse(Root, (node) => node.IsExpanded = true);
     }
 
-    private void Traverse(TChild node, Action<TChild> callback)
+    public void Traverse(TChild node, Action<TChild> callback)
     {
         callback(node);
         if (node is TParent parent)

@@ -322,6 +322,17 @@ public partial class MacroManagerViewModel : ObservableObject
         await Settings.WaitForInitialization();
         File.WriteAllText(Path.Combine(targetDirectory, $"macroSet.json"), macroSetJson);
         File.WriteAllText(Path.Combine(targetDirectory, $"patterns.json"), Patterns.ToJson());
+        Settings.Traverse(Settings.Root, s =>
+        {
+            if (s is SettingNode<String> stringSetting)
+            {
+                stringSetting.DefaultValue = stringSetting.Value;
+            }
+            else if (s is SettingNode<Boolean> boolSetting)
+            {
+                boolSetting.DefaultValue = boolSetting.Value;
+            }
+        });
         File.WriteAllText(Path.Combine(targetDirectory, $"settings.json"), Settings.ToJson());
 
         ExportValue = macroSetJson;

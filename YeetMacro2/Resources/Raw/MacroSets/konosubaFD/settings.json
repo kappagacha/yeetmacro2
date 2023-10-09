@@ -17,7 +17,7 @@
           "11"
         ],
         "value": "11",
-        "defaultValue": null,
+        "defaultValue": "11",
         "isParentNode": false,
         "name": "targetLevel",
         "path": "farmEvent.targetLevel"
@@ -52,7 +52,7 @@
             "intermediate"
           ],
           "value": "intermediate",
-          "defaultValue": null,
+          "defaultValue": "intermediate",
           "isParentNode": false,
           "name": "targetLevel",
           "path": "freeQuests.upgradeStone.targetLevel"
@@ -82,7 +82,7 @@
           "$type": "string",
           "settingType": "String",
           "value": "Main",
-          "defaultValue": null,
+          "defaultValue": "Main",
           "isParentNode": false,
           "name": "none",
           "path": "party.recommendedElement.none"
@@ -94,7 +94,7 @@
           "$type": "string",
           "settingType": "String",
           "value": "Fire",
-          "defaultValue": null,
+          "defaultValue": "Fire",
           "isParentNode": false,
           "name": "fire",
           "path": "party.recommendedElement.fire"
@@ -106,7 +106,7 @@
           "$type": "string",
           "settingType": "String",
           "value": "Water",
-          "defaultValue": null,
+          "defaultValue": "Water",
           "isParentNode": false,
           "name": "water",
           "path": "party.recommendedElement.water"
@@ -118,7 +118,7 @@
           "$type": "string",
           "settingType": "String",
           "value": "Ltng",
-          "defaultValue": null,
+          "defaultValue": "Ltng",
           "isParentNode": false,
           "name": "lightning",
           "path": "party.recommendedElement.lightning"
@@ -130,7 +130,7 @@
           "$type": "string",
           "settingType": "String",
           "value": "Earth",
-          "defaultValue": null,
+          "defaultValue": "Earth",
           "isParentNode": false,
           "name": "earth",
           "path": "party.recommendedElement.earth"
@@ -142,7 +142,7 @@
           "$type": "string",
           "settingType": "String",
           "value": "Wind",
-          "defaultValue": null,
+          "defaultValue": "Wind",
           "isParentNode": false,
           "name": "wind",
           "path": "party.recommendedElement.wind"
@@ -154,7 +154,7 @@
           "$type": "string",
           "settingType": "String",
           "value": "Light",
-          "defaultValue": null,
+          "defaultValue": "Light",
           "isParentNode": false,
           "name": "light",
           "path": "party.recommendedElement.light"
@@ -166,7 +166,7 @@
           "$type": "string",
           "settingType": "String",
           "value": "Dark",
-          "defaultValue": null,
+          "defaultValue": "Dark",
           "isParentNode": false,
           "name": "dark",
           "path": "party.recommendedElement.dark"
@@ -187,7 +187,7 @@
           "$type": "string",
           "settingType": "String",
           "value": "Phys",
-          "defaultValue": null,
+          "defaultValue": "Phys",
           "isParentNode": false,
           "name": "physicalDamage",
           "path": "party.arenaEX.physicalDamage"
@@ -199,7 +199,7 @@
           "$type": "string",
           "settingType": "String",
           "value": "Low",
-          "defaultValue": null,
+          "defaultValue": "Low",
           "isParentNode": false,
           "name": "lowRarity",
           "path": "party.arenaEX.lowRarity"
@@ -211,7 +211,7 @@
           "$type": "string",
           "settingType": "String",
           "value": "Magic",
-          "defaultValue": null,
+          "defaultValue": "Magic",
           "isParentNode": false,
           "name": "magicDamage",
           "path": "party.arenaEX.magicDamage"
@@ -223,7 +223,7 @@
           "$type": "string",
           "settingType": "String",
           "value": "Def",
-          "defaultValue": null,
+          "defaultValue": "Def",
           "isParentNode": false,
           "name": "defence",
           "path": "party.arenaEX.defence"
@@ -235,7 +235,7 @@
           "$type": "string",
           "settingType": "String",
           "value": "Cbns",
-          "defaultValue": null,
+          "defaultValue": "Cbns",
           "isParentNode": false,
           "name": "characterBonus",
           "path": "party.arenaEX.characterBonus"
@@ -248,7 +248,7 @@
         "$type": "string",
         "settingType": "String",
         "value": "recommendedElement",
-        "defaultValue": null,
+        "defaultValue": "recommendedElement",
         "isParentNode": false,
         "name": "eventBoss",
         "path": "party.eventBoss"
@@ -260,7 +260,7 @@
         "$type": "string",
         "settingType": "String",
         "value": "recommendedElement",
-        "defaultValue": null,
+        "defaultValue": "recommendedElement",
         "isParentNode": false,
         "name": "battleArena",
         "path": "party.battleArena"
@@ -272,7 +272,7 @@
         "$type": "string",
         "settingType": "String",
         "value": "FEL",
-        "defaultValue": null,
+        "defaultValue": "FEL",
         "isParentNode": false,
         "name": "farmEventLoop",
         "path": "party.farmEventLoop"
@@ -284,7 +284,7 @@
         "$type": "string",
         "settingType": "String",
         "value": "CabH",
-        "defaultValue": null,
+        "defaultValue": "CabH",
         "isParentNode": false,
         "name": "cabbageHunting",
         "path": "party.cabbageHunting"
