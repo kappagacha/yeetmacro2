@@ -31,6 +31,10 @@
                             CommandParameter="{Binding BindingContext, Source={x:Reference booleanSettingCheckbox}}"/>
                     </CheckBox.Behaviors>
                 </CheckBox>
+                <v:ImageView
+                    VerticalOptions="Center" FontFamily="MaterialOutlined" Glyph="{x:Static mi:MaterialOutlined.Refresh}"
+                    Command="{Binding BindingContext.Settings.ResetSettingCommand, Source={RelativeSource AncestorType={x:Type v:SettingNodeView}}}"
+                    CommandParameter="{Binding BindingContext, Source={RelativeSource AncestorType={x:Type v:BindingContextView}}}" />
             </HorizontalStackLayout>
         </DataTemplate>
         <DataTemplate x:Key="OptionSettingTemplate">
@@ -43,8 +47,12 @@
                         CommandParameter="{Binding BindingContext, Source={RelativeSource AncestorType={x:Type v:BindingContextView}}}" />
                 </Grid>
                 <v:ImageView
-                        Grid.Column="1" VerticalOptions="Center" FontFamily="MaterialOutlined" Glyph="{x:Static mi:MaterialOutlined.Add}"
+                        VerticalOptions="Center" FontFamily="MaterialOutlined" Glyph="{x:Static mi:MaterialOutlined.Add}"
                         Command="{Binding BindingContext.Settings.AddOptionCommand, Source={RelativeSource AncestorType={x:Type v:SettingNodeView}}}"
+                        CommandParameter="{Binding BindingContext, Source={RelativeSource AncestorType={x:Type v:BindingContextView}}}" />
+                <v:ImageView
+                        VerticalOptions="Center" FontFamily="MaterialOutlined" Glyph="{x:Static mi:MaterialOutlined.Refresh}"
+                        Command="{Binding BindingContext.Settings.ResetSettingCommand, Source={RelativeSource AncestorType={x:Type v:SettingNodeView}}}"
                         CommandParameter="{Binding BindingContext, Source={RelativeSource AncestorType={x:Type v:BindingContextView}}}" />
             </HorizontalStackLayout>
         </DataTemplate>
@@ -59,6 +67,10 @@
                             CommandParameter="{Binding BindingContext, Source={x:Reference stringSettingEntry}}"/>
                     </Entry.Behaviors>
                 </Entry>
+                <v:ImageView
+                    VerticalOptions="Center" FontFamily="MaterialOutlined" Glyph="{x:Static mi:MaterialOutlined.Refresh}"
+                    Command="{Binding BindingContext.Settings.ResetSettingCommand, Source={RelativeSource AncestorType={x:Type v:SettingNodeView}}}"
+                    CommandParameter="{Binding BindingContext, Source={RelativeSource AncestorType={x:Type v:BindingContextView}}}" />
             </HorizontalStackLayout>
         </DataTemplate>
         <DataTemplate x:Key="PatternSettingTemplate">

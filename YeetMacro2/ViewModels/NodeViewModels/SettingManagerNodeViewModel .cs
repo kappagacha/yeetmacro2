@@ -110,4 +110,30 @@ public partial class SettingNodeManagerViewModel : NodeManagerViewModel<ParentSe
         _settingRepository.Update(setting);
         _settingRepository.Save();
     }
+
+
+    [RelayCommand]
+    public void ResetSetting(SettingNode setting)
+    {
+        if (setting is null) return;
+        
+        if (setting is OptionSettingViewModel optionSetting)
+        {
+            optionSetting.Value = optionSetting.DefaultValue;
+            _settingRepository.Update(optionSetting);
+            _settingRepository.Save();
+        }
+        else if (setting is StringSettingViewModel stringSetting)
+        {
+            stringSetting.Value = stringSetting.DefaultValue;
+            _settingRepository.Update(stringSetting);
+            _settingRepository.Save();
+        }
+        else if (setting is BooleanSettingViewModel boolSetting)
+        {
+            boolSetting.Value = boolSetting.DefaultValue;
+            _settingRepository.Update(boolSetting);
+            _settingRepository.Save();
+        }
+    }
 }
