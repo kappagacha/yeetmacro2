@@ -1,7 +1,6 @@
 ﻿// patterns.ad.quartz.notification
-let done = false;
 const loopPatterns = [patterns.titles.home];
-while (macroService.IsRunning && !done) {
+while (macroService.IsRunning) {
 	const result = macroService.PollPattern(loopPatterns);
 	switch (result.Path) {
 		case 'titles.home':
@@ -18,10 +17,8 @@ while (macroService.IsRunning && !done) {
 				logger.info('watchAdQuartz: poll ad.done');
 				macroService.PollPattern(patterns.ad.done, { DoClick: true, ClickPattern: patterns.ad.prompt.youGot, PredicatePattern: patterns.titles.home });
 			}
-			done = true;
-			break;
+			return;
 	}
 
 	sleep(1_000);
 }
-logger.info('Done...');

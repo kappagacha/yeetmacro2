@@ -1,5 +1,4 @@
-﻿let done = false;
-const loopPatterns = [patterns.titles.home, patterns.titles.smithy, patterns.titles.craft, patterns.skipAll.title];
+﻿const loopPatterns = [patterns.titles.home, patterns.titles.smithy, patterns.titles.craft, patterns.skipAll.title];
 const offset = macroService.CalcOffset(patterns.titles.home);
 
 const farmMat = (targetMats, staminaCost, numSkips) => {
@@ -67,7 +66,7 @@ const farmMat = (targetMats, staminaCost, numSkips) => {
 	macroService.PollPattern(patterns.skipAll.skipComplete, { DoClick: true, ClickPattern: [patterns.skipAll.prompt.ok, patterns.branchEvent.availableNow, patterns.branchEvent.playLater, patterns.prompt.playerRankUp], PredicatePattern: patterns.skipAll.title });
 };
 
-while (macroService.IsRunning && !done) {
+while (macroService.IsRunning) {
 	const result = macroService.PollPattern(loopPatterns);
 	switch (result.Path) {
 		case 'titles.home':
@@ -92,10 +91,8 @@ while (macroService.IsRunning && !done) {
 			sleep(1_000);
 			logger.info('farmMats: farm skyDragonScale');
 			farmMat([patterns.skipAll.search.select.skyDragonScale], 500, 3);
-			done = true;
-			break;
+			return;
 	}
 
 	sleep(1_000);
 }
-logger.info('Done...');

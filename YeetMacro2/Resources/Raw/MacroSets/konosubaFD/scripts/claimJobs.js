@@ -1,7 +1,6 @@
 ﻿// patterns.jobs.notification
-let done = false;
 const loopPatterns = [patterns.titles.home, patterns.titles.job];
-while (macroService.IsRunning && !done) {
+while (macroService.IsRunning) {
 	const loopResult = macroService.PollPattern(loopPatterns);
 	switch (loopResult.Path) {
 		case 'titles.home':
@@ -17,11 +16,10 @@ while (macroService.IsRunning && !done) {
 				macroService.PollPattern(patterns.jobs.prompt.ok, { DoClick: true, ClickPattern: [patterns.branchEvent.availableNow, patterns.branchEvent.playLater, patterns.prompt.playerRankUp], PredicatePattern: patterns.titles.job });
 			} else if (acceptAllResult.IsSuccess) {		// jobs.acceptAll.disabled
 				logger.info('farmEventLoop: jobs.acceptAll.disabled');
-				done = true;
+				return;
 			}
 			break;
 	}
 
 	sleep(1_000);
 }
-logger.info('Done...');

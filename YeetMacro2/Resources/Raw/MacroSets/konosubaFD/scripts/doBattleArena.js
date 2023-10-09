@@ -1,6 +1,5 @@
 ﻿const loopPatterns = [patterns.titles.home, patterns.titles.quest, patterns.titles.battleArena, patterns.titles.party, patterns.battle.report];
-let done = false;
-while (macroService.IsRunning && !done) {
+while (macroService.IsRunning) {
 	const loopResult = macroService.PollPattern(loopPatterns, { ClickPattern: [patterns.battleArena.newHighScore, patterns.battleArena.rank, patterns.battleArena.prompt.noteOk] });
 	switch (loopResult.Path) {
 		case 'titles.home':
@@ -28,9 +27,7 @@ while (macroService.IsRunning && !done) {
 			}
 			else {
 				if (!(selectParty(targetPartyName))) {
-					result = `targetPartyName not found: ${targetPartyName}`;
-					done = true;
-					break;
+					return `targetPartyName not found: ${targetPartyName}`;
 				}
 			}
 			sleep(500);
@@ -56,8 +53,7 @@ while (macroService.IsRunning && !done) {
 				logger.debug('doBattleArena: found next3');
 				const next3Result = macroService.PollPattern(patterns.battle.next3, { DoClick: true, ClickPattern: [patterns.battleArena.prompt.ok, patterns.branchEvent.availableNow, patterns.branchEvent.playLater, patterns.prompt.playerRankUp], PredicatePattern: [patterns.titles.battleArena, patterns.battle.replay] });
 				if (next3Result.PredicatePath === 'titles.battleArena') {
-					done = true;
-					break;
+					return;
 				}
 				macroService.PollPattern(patterns.battle.replay, { DoClick: true, ClickPattern: [patterns.branchEvent.availableNow, patterns.branchEvent.playLater, patterns.prompt.playerRankUp], PredicatePattern: patterns.battle.replay.ok });
 				macroService.PollPattern(patterns.battle.replay.ok, { DoClick: true, PredicatePattern: patterns.battle.report });
@@ -67,4 +63,3 @@ while (macroService.IsRunning && !done) {
 
 	sleep(1_000);
 }
-logger.info('Done...');

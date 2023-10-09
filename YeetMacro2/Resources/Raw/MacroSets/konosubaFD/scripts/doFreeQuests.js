@@ -1,8 +1,7 @@
-﻿let done = false;
-const loopPatterns = [patterns.titles.home, patterns.titles.quest, patterns.titles.freeQuests];
+﻿const loopPatterns = [patterns.titles.home, patterns.titles.quest, patterns.titles.freeQuests];
 const offset = macroService.CalcOffset(patterns.titles.home);
 
-while (macroService.IsRunning && !done) {
+while (macroService.IsRunning) {
 	const loopResult = macroService.PollPattern(loopPatterns);
 	switch (loopResult.Path) {
 		case 'titles.home':
@@ -58,10 +57,8 @@ while (macroService.IsRunning && !done) {
 			sleep(1_000);
 			macroService.PollPattern(patterns.skipAll.prompt.ok, { DoClick: true, PredicatePattern: patterns.skipAll.skipComplete });
 			macroService.PollPattern(patterns.skipAll.skipComplete, { DoClick: true, ClickPattern: [patterns.skipAll.prompt.ok, patterns.branchEvent.availableNow, patterns.branchEvent.playLater, patterns.prompt.playerRankUp], PredicatePattern: patterns.skipAll.title });
-			done = true;
-			break;
+			return;
 	}
 
 	sleep(1_000);
 }
-logger.info('Done...');

@@ -1,7 +1,7 @@
 ﻿const loopPatterns = [patterns.titles.home, patterns.titles.quest, patterns.titles.events, patterns.battle.report, patterns.titles.bossBattle, patterns.titles.bossMulti, patterns.titles.party, patterns.quest.events.bossBattle.prompt.notEnoughBossTickets];
-let done = false, isBossMulti = false;
-result = { numBattles: 0 };
-while (macroService.IsRunning && !done) {
+let isBossMulti = false;
+const result = { numBattles: 0 };
+while (macroService.IsRunning) {
 	const loopResult = macroService.PollPattern(loopPatterns);
 	switch (loopResult.Path) {
 		case 'titles.home':
@@ -28,8 +28,7 @@ while (macroService.IsRunning && !done) {
 				const hardResult = macroService.PollPattern(patterns.quest.events.bossBattle.hard, { DoClick: true, PredicatePattern: [patterns.battle.prepare, patterns.quest.events.bossBattle.notEnoughTickets] });
 				if (hardResult.PredicatePath === 'quest.events.bossBattle.notEnoughTickets') {
 					result.message = 'Not enough boss tickets...';
-					done = true;
-					break;
+					return result;
 				}
 				let currentCost = macroService.GetText(patterns.quest.events.bossBattle.cost);
 				for (let i = 0; macroService.IsRunning && i < 2; i++) {
@@ -44,14 +43,12 @@ while (macroService.IsRunning && !done) {
 				logger.debug(`currentCost: ${currentCost}`);
 				if (currentCost == 1) {
 					result.message = 'Not enough boss tickets...';
-					done = true;
-					break;
+					return result;
 				}
 				const prepareResult = macroService.PollPattern(patterns.battle.prepare, { DoClick: true, PredicatePattern: [patterns.titles.party, patterns.quest.events.bossBattle.prompt.notEnoughBossTickets] });
 				if (prepareResult.PredicatePath === 'events.bossBattle.prompt.notEnoughBossTickets') {
 					result.message = 'Not enough boss tickets...';
-					done = true;
-					break;
+					return result;
 				}
 				macroService.PollPattern(patterns.battle.prepare, { DoClick: true, PredicatePattern: patterns.titles.party });
 			}
@@ -73,14 +70,12 @@ while (macroService.IsRunning && !done) {
 			logger.debug(`currentCost: ${currentCost}`);
 			if (currentCost == 1) {
 				result.message = 'Not enough boss tickets...';
-				done = true;
-				break;
+				return result;
 			}
 			const prepareResult = macroService.PollPattern(patterns.battle.prepare, { DoClick: true, PredicatePattern: [patterns.titles.party, patterns.quest.events.bossBattle.prompt.notEnoughBossTickets] });
 			if (prepareResult.PredicatePath === 'events.bossBattle.prompt.notEnoughBossTickets') {
 				result.message = 'Not enough boss tickets...';
-				done = true;
-				break;
+				return result;
 			}
 			break;
 		case 'titles.party':
@@ -90,11 +85,10 @@ while (macroService.IsRunning && !done) {
 			if (targetPartyName === 'recommendedElement') {
 				selectPartyByRecommendedElement(isBossMulti ? -424 : 0);	// Recommended Element icons are shifted by 425 to the left of expected location
 			}
-			//else if (!(selectParty(targetPartyName))) {
-			//	result = `targetPartyName not found: ${targetPartyName}`;
-			//	done = true;
-			//	break;
-			//}
+			else if (!(selectParty(targetPartyName))) {
+				return `targetPartyName not found: ${targetPartyName}`;
+			}
+
 			sleep(500);
 			macroService.PollPattern([patterns.battle.joinRoom, patterns.battle.begin], { DoClick: true, PredicatePattern: patterns.battle.report });
 			result.numBattles++;
@@ -120,10 +114,8 @@ while (macroService.IsRunning && !done) {
 			break;
 		case 'quest.events.bossBattle.prompt.notEnoughBossTickets':
 			result.message = 'Not enough boss tickets...';
-			done = true;
-			break;
+			return result;
 	}
 
 	sleep(1_000);
 }
-logger.info('Done...');

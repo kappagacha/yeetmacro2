@@ -1,8 +1,7 @@
-﻿let done = false;
-const loopPatterns = [patterns.titles.home, patterns.titles.branchEvent, patterns.titles.branch, patterns.branchEvent.explosionWalk.chant.disabled, patterns.titles.party];
+﻿const loopPatterns = [patterns.titles.home, patterns.titles.branchEvent, patterns.titles.branch, patterns.branchEvent.explosionWalk.chant.disabled, patterns.titles.party];
 let evnt;
 
-while (macroService.IsRunning && !done) {
+while (macroService.IsRunning) {
 	const loopResult = macroService.PollPattern(loopPatterns, { ClickPattern: patterns.branchEvent.rewardGained });
 	switch (loopResult.Path) {
 		case 'titles.home':
@@ -10,9 +9,8 @@ while (macroService.IsRunning && !done) {
 			const othersNotificationResult = macroService.FindPattern(patterns.others.notification);
 			if (othersNotificationResult.IsSuccess) {
 				macroService.PollPattern(patterns.others.notification, { DoClick: true, ClickPattern: patterns.others.branch.notification, PredicatePattern: patterns.titles.branch });
-			}
-			else {
-				done = true;
+			} else {
+				return;
 			}
 			break;
 		case 'titles.branch':
@@ -52,9 +50,7 @@ while (macroService.IsRunning && !done) {
 			}
 			else {
 				if (!(selectParty(targetPartyName))) {
-					result = `targetPartyName not found: ${targetPartyName}`;
-					done = true;
-					break;
+					return `targetPartyName not found: ${targetPartyName}`;
 				}
 			}
 			sleep(500);
@@ -65,4 +61,3 @@ while (macroService.IsRunning && !done) {
 
 	sleep(1_000);
 }
-logger.info('Done...');

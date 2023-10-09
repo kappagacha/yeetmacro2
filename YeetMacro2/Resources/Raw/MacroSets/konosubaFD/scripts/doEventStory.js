@@ -34,4 +34,3 @@ while (macroService.IsRunning) {
 
 	sleep(1_000);
 }
-logger.info('Done...');

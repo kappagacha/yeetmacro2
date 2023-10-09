@@ -1,7 +1,6 @@
 ﻿// patterns.stamina.adNotification
-let done = false;
 const loopPatterns = [patterns.titles.home, patterns.stamina.prompt.recoverStamina];
-while (macroService.IsRunning && !done) {
+while (macroService.IsRunning) {
 	const result = macroService.PollPattern(loopPatterns);
 	switch (result.Path) {
 		case 'titles.home':
@@ -19,8 +18,7 @@ while (macroService.IsRunning && !done) {
 				if (watchAdResult.PredicatePath === 'prompt.dailyRewardLimit') {
 					logger.info('watchAdStamina: daily reward limit');
 					macroService.PollPattern(patterns.ad.prompt.ok, { DoClick: true, PredicatePattern: patterns.stamina.prompt.recoverStamina });
-					done = true;
-					break;
+					return;
 				}
 			}
 
@@ -33,11 +31,8 @@ while (macroService.IsRunning && !done) {
 			sleep(1_000);
 			logger.info('watchAdStamina: poll ad.prompt.ok 2');
 			macroService.PollPattern(patterns.ad.prompt.ok, { DoClick: true, PredicatePattern: patterns.stamina.add });
-
-			done = true;
-			break;
+			return;
 	}
 
 	sleep(1_000);
 }
-logger.info('Done...');

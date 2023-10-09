@@ -1,7 +1,6 @@
 ﻿const loopPatterns = [patterns.titles.home, patterns.titles.quest, patterns.titles.party, patterns.titles.events, patterns.battle.report];
-let done = false;
-result = { numBattles: 0 };
-while (macroService.IsRunning && !done) {
+const result = { numBattles: 0 };
+while (macroService.IsRunning) {
 	const loopResult = macroService.PollPattern(loopPatterns, { ClickPattern: [patterns.battle.next, patterns.battle.affinityLevelUp, patterns.branchEvent.availableNow, patterns.branchEvent.playLater, patterns.prompt.playerRankUp] });
 	switch (loopResult.Path) {
 		case 'titles.home':
@@ -31,34 +30,30 @@ while (macroService.IsRunning && !done) {
 			}
 			else if (targetPartyName) {
 				if (!(selectParty(targetPartyName))) {
-					result = `targetPartyName not found: ${targetPartyName}`;
-					done = true;
-					break;
+					return `targetPartyName not found: ${targetPartyName}`;
 				}
 			}
 
 			sleep(500);
 			const beginResult = macroService.PollPattern(patterns.battle.begin, { DoClick: true, ClickPattern: [patterns.branchEvent.availableNow, patterns.branchEvent.playLater, patterns.prompt.playerRankUp], PredicatePattern: [patterns.battle.report, patterns.stamina.prompt.recoverStamina] });
+			result.numBattles++;
 			if (beginResult.PredicatePath === 'stamina.prompt.recoverStamina') {
 				result.message = 'Out of stamina...';
-				done = true;
+				return result;
 			}
-			result.numBattles++;
 			break;
 		case 'battle.report':
 			logger.info('farmEventLoop: replay battle');
 			macroService.PollPattern(patterns.battle.replay, { DoClick: true, ClickPattern: [patterns.battle.next, patterns.battle.affinityLevelUp, patterns.branchEvent.availableNow, patterns.branchEvent.playLater, patterns.prompt.playerRankUp], PredicatePattern: patterns.battle.replay.prompt });
 			sleep(500);
 			const replayResult = macroService.PollPattern(patterns.battle.replay.ok, { DoClick: true, PredicatePattern: [patterns.battle.report, patterns.stamina.prompt.recoverStamina] });
+			result.numBattles++;
 			if (replayResult.PredicatePath === 'stamina.prompt.recoverStamina') {
 				result.message = 'Out of stamina...';
-				done = true;
-				break;
+				return result;
 			}
-			result.numBattles++;
 			break;
 	}
 
 	sleep(1_000);
 }
-logger.info('Done...');
