@@ -27,11 +27,8 @@ while (macroService.IsRunning) {
 			logger.debug(`targetPartyName: ${targetPartyName}`);
 			if (targetPartyName === 'recommendedElement') {
 				selectPartyByRecommendedElement();
-			}
-			else if (targetPartyName) {
-				if (!(selectParty(targetPartyName))) {
-					return `targetPartyName not found: ${targetPartyName}`;
-				}
+			} else {
+				selectParty(targetPartyName);
 			}
 
 			sleep(500);

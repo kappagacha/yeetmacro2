@@ -84,9 +84,8 @@ while (macroService.IsRunning) {
 			logger.debug(`targetPartyName: ${targetPartyName}`);
 			if (targetPartyName === 'recommendedElement') {
 				selectPartyByRecommendedElement(isBossMulti ? -424 : 0);	// Recommended Element icons are shifted by 425 to the left of expected location
-			}
-			else if (!(selectParty(targetPartyName))) {
-				return `targetPartyName not found: ${targetPartyName}`;
+			} else {
+				selectParty(targetPartyName);
 			}
 
 			sleep(500);

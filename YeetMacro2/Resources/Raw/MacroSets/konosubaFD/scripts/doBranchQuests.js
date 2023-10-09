@@ -47,11 +47,8 @@ while (macroService.IsRunning) {
 			logger.debug(`targetPartyName: ${targetPartyName}`);
 			if (targetPartyName === 'recommendedElement') {
 				selectPartyByRecommendedElement();
-			}
-			else {
-				if (!(selectParty(targetPartyName))) {
-					return `targetPartyName not found: ${targetPartyName}`;
-				}
+			} else {
+				selectParty(targetPartyName);
 			}
 			sleep(500);
 			macroService.PollPattern(patterns.battle.begin, { DoClick: true, PredicatePattern: patterns.battle.report });

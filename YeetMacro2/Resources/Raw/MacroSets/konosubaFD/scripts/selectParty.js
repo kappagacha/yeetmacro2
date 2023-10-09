@@ -1,5 +1,5 @@
 ﻿// @raw-script
-async function selectPartyByRecommendedElement(xOffset) {
+function selectPartyByRecommendedElement(xOffset) {
     let elementPatterns = ['none', 'fire', 'water', 'lightning', 'earth', 'wind', 'light', 'dark'].map(e => patterns.party.recommendedElement[e]);
     if (xOffset) {
         elementPatterns = elementPatterns.map(el => {
@@ -13,7 +13,6 @@ async function selectPartyByRecommendedElement(xOffset) {
     }
     const elementResult = macroService.PollPattern(elementPatterns);
     logger.info(`selectPartyByRecommendedElement: ${elementResult.Path}`);
-    if (!elementResult.IsSuccess) return false;
     let targetElement = elementResult.Path.split('.').pop();
     logger.debug(`targetElement: ${targetElement}`);
     if (xOffset) {
@@ -23,13 +22,12 @@ async function selectPartyByRecommendedElement(xOffset) {
     const targetElementName = settings.party.recommendedElement[targetElement]?.Value;
     logger.debug(`targetElementName: ${targetElementName}`);
     if (!targetElementName) {
-        logger.debug(`Could not find targetElementName for ${targetElement} in settings...`);
-        return false;
+        throw new Error(`Could not find targetElementName for ${targetElement} in settings...`);
     }
-    return selectParty(targetElementName);
+    selectParty(targetElementName);
 }
 
-async function selectParty(targetPartyName) {
+function selectParty(targetPartyName) {
     logger.info(`selectParty: ${targetPartyName}`);
     let currentParty = macroService.GetText(patterns.party.partyName, targetPartyName);
     let numScrolls = 0;
@@ -42,10 +40,12 @@ async function selectParty(targetPartyName) {
         sleep(500);
     }
 
-    return numScrolls === 20 ? false : true;
+    if (numScrolls === 20) {
+        throw new Error(`targetPartyName not found: ${targetPartyName}`);
+    }
 }
 
-async function scrollRight() {
+function scrollRight() {
     let currentX = Math.floor((macroService.FindPattern(patterns.party.slot)).Point.X);
     let prevX = currentX;
     while (macroService.IsRunning && currentX === 0) {

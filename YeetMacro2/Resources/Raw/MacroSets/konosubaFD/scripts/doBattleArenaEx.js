@@ -35,9 +35,7 @@ while (macroService.IsRunning) {
 			}
 
 			logger.debug(`scoreBonusPartyName: ${scoreBonusPartyName}`);
-			if (!(selectParty(scoreBonusPartyName))) {
-				return `scoreBonusPartyName not found: ${scoreBonusPartyName}`;
-			}
+			selectParty(scoreBonusPartyName);
 			sleep(500);
 			macroService.PollPattern(patterns.battle.begin, { DoClick: true, ClickPattern: [patterns.battleArena.newHighScore, patterns.battleArena.rank], PredicatePattern: patterns.battle.report });
 			break;
