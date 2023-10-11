@@ -1,7 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
 	<PropertyGroup>
-		<TargetFrameworks>net7.0-android;</TargetFrameworks>
+		<TargetFrameworks>net7.0-android</TargetFrameworks>
     <LangVersion>10</LangVersion>
 		<TargetFrameworks Condition="$([MSBuild]::IsOSPlatform('windows'))">$(TargetFrameworks);net7.0-windows10.0.19041.0</TargetFrameworks>
 		<!-- Uncomment to also build the tizen app. You will need to install tizen by following this: https://github.com/Samsung/Tizen.NET -->
@@ -49,13 +49,12 @@
 	<ItemGroup>
 		<PackageReference Include="AutoMapper" Version="12.0.1" />
 		<PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="12.0.1" />
-		<PackageReference Include="Castle.Core" Version="5.1.1" />
 		<PackageReference Include="CommunityToolkit.Maui" Version="6.0.0" />
 		<PackageReference Include="CommunityToolkit.Maui.Markup" Version="3.3.0" />
 		<PackageReference Include="CommunityToolkit.Mvvm" Version="8.2.1" />
 		<PackageReference Include="Jint" Version="3.0.0-beta-2051" />
-		<PackageReference Include="Microsoft.EntityFrameworkCore" Version="7.0.11" />
-		<PackageReference Include="Microsoft.EntityFrameworkCore.Sqlite" Version="7.0.11" />
+		<PackageReference Include="Microsoft.EntityFrameworkCore" Version="7.0.12" />
+		<PackageReference Include="Microsoft.EntityFrameworkCore.Sqlite" Version="7.0.12" />
 		<PackageReference Include="Microsoft.Extensions.Http" Version="7.0.0" />
 		<PackageReference Include="Microsoft.Extensions.Logging.Debug" Version="7.0.0" />
 		<PackageReference Include="OneOf" Version="3.0.263" />
@@ -130,15 +129,6 @@
 	  </Compile>
 	  <Compile Update="Platforms\Android\Views\DrawControl.xaml.cs">
 	    <DependentUpon>DrawControl.xaml</DependentUpon>
-	  </Compile>
-	  <Compile Update="Platforms\iOS\Services\PlatformServiceRegistrationHelper.cs">
-	    <ExcludeFromCurrentConfiguration>false</ExcludeFromCurrentConfiguration>
-	  </Compile>
-	  <Compile Update="Platforms\MacCatalyst\Services\PlatformServiceRegistrationHelper.cs">
-	    <ExcludeFromCurrentConfiguration>false</ExcludeFromCurrentConfiguration>
-	  </Compile>
-	  <Compile Update="Platforms\Tizen\Services\PlatformServiceRegistrationHelper.cs">
-	    <ExcludeFromCurrentConfiguration>false</ExcludeFromCurrentConfiguration>
 	  </Compile>
 	  <Compile Update="Platforms\Windows\Services\PlatformServiceRegistrationHelper.cs">
 	    <ExcludeFromCurrentConfiguration>false</ExcludeFromCurrentConfiguration>
