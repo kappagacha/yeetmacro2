@@ -8,6 +8,8 @@ using Color = Android.Graphics.Color;
 using Microsoft.Maui.Platform;
 using YeetMacro2.Platforms.Android.Services;
 using Android.OS;
+using CommunityToolkit.Mvvm.Messaging.Messages;
+using CommunityToolkit.Mvvm.Messaging;
 
 namespace YeetMacro2.Platforms.Android.Views;
 
@@ -87,10 +89,7 @@ public class ResizeView : RelativeLayout, IOnTouchListener, IShowable
         _topRight.SetOnTouchListener(this);
 
         SetBackgroundColor(global::Android.Graphics.Color.Argb(70, 0, 0, 0));
-
         _state = FormState.CLOSED;
-        InitDisplay();
-        DeviceDisplay.MainDisplayInfoChanged += DeviceDisplay_MainDisplayInfoChanged;
 
         // https://www.andreasnesheim.no/embedding-net-maui-pages-into-your-net-android-ios-application/
         _visualElement = visualElement;
@@ -102,19 +101,17 @@ public class ResizeView : RelativeLayout, IOnTouchListener, IShowable
         AddView(_bottomRight, bottomRightParams);
         AddView(_topRight, topRightParams);
 
-
         androidView.Clickable = true;
         Clickable = true;
+
+        InitDisplay(DeviceDisplay.MainDisplayInfo);
+        WeakReferenceMessenger.Default.Register<PropertyChangedMessage<DisplayInfo>, string>(this, nameof(DisplayInfo), (r, propertyChangedMessage) => {
+            InitDisplay(propertyChangedMessage.NewValue);
+        });
     }
 
-    private void DeviceDisplay_MainDisplayInfoChanged(object sender, DisplayInfoChangedEventArgs e)
+    private void InitDisplay(DisplayInfo displayInfo)
     {
-        InitDisplay();
-    }
-
-    private void InitDisplay()
-    {
-        var displayInfo = DeviceDisplay.MainDisplayInfo;
         _displayWidth = (int)displayInfo.Width;
         _displayHeight = (int)displayInfo.Height;
         _density = displayInfo.Density;
