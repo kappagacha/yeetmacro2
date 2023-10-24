@@ -1,6 +1,5 @@
-﻿let done = false;
-const loopPatterns = [patterns.lobby.everstone, patterns.titles.adventure, patterns.titles.gateBreakthrough, patterns.gateBreakthrough.challenge, patterns.gateBreakthrough.nextStage, patterns.gateBreakthrough.retry];
-while (macroService.IsRunning && !done) {
+﻿const loopPatterns = [patterns.lobby.everstone, patterns.titles.adventure, patterns.titles.gateBreakthrough, patterns.gateBreakthrough.challenge, patterns.gateBreakthrough.nextStage, patterns.gateBreakthrough.retry];
+while (macroService.IsRunning) {
 	const loopResult = macroService.PollPattern(loopPatterns);
 	switch (loopResult.Path) {
 		case 'lobby.everstone':
@@ -34,9 +33,7 @@ while (macroService.IsRunning && !done) {
 			break;
 		case 'gateBreakthrough.retry':
 			logger.info('doGateBreakthrough unlimited: retry');
-			done = true;
-			result = 'Party defeated';
-			break;
+			return 'Party defeated';
 	}
 
 	sleep(1_000);

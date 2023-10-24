@@ -1,8 +1,7 @@
-﻿let done = false;
-const loopPatterns = [patterns.lobby.everstone, patterns.titles.adventure, patterns.adventure.arena.freeChallenge, patterns.adventure.arena.startMatch, patterns.adventure.arena.ticket];
-while (macroService.IsRunning && !done) {
-	const result = macroService.PollPattern(loopPatterns);
-	switch (result.Path) {
+﻿const loopPatterns = [patterns.lobby.everstone, patterns.titles.adventure, patterns.adventure.arena.freeChallenge, patterns.adventure.arena.startMatch, patterns.adventure.arena.ticket];
+while (macroService.IsRunning) {
+	const loopResult = macroService.PollPattern(loopPatterns);
+	switch (loopResult.Path) {
 		case 'lobby.everstone':
 			logger.info('doArena: click adventure');
 			macroService.ClickPattern(patterns.lobby.adventure);
@@ -42,17 +41,14 @@ while (macroService.IsRunning && !done) {
 				macroService.PollPattern(patterns.battle.start, { DoClick: true, PredicatePattern: patterns.prompt.confirm2 });
 				macroService.PollPattern(patterns.prompt.confirm2, { DoClick: true, PredicatePattern: [patterns.adventure.arena.freeChallenge, patterns.adventure.arena.ticket] });
 				//macroService.PollPattern(patterns.battle.start, { DoClick: true, ClickPattern: patterns.battle.skip, PredicatePattern: [patterns.adventure.arena.freeChallenge, patterns.adventure.arena.ticket] });
-			}
-			else {
+			} else {
 				macroService.PollPattern(patterns.battle.rematch, { DoClick: true, InversePredicatePattern: patterns.battle.rematch });
 			}
 			break;
 		case 'adventure.arena.ticket':
 			logger.info('doArena: done');
-			done = true;
-			break;
+			return;
 	}
 
 	sleep(1_000);
 }
-logger.info('Done...');

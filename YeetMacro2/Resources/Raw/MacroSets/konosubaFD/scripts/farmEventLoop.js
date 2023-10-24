@@ -54,3 +54,5 @@ while (macroService.IsRunning) {
 
 	sleep(1_000);
 }
+
+return result;

@@ -1,5 +1,4 @@
-﻿let done = false;
-const loopPatterns = [patterns.lobby.everstone, patterns.town.evertalk, patterns.town.outings.outingsCompleted, patterns.town.outings, patterns.titles.outingGo, patterns.town.outings.selectAKeyword];
+﻿const loopPatterns = [patterns.lobby.everstone, patterns.town.evertalk, patterns.town.outings.outingsCompleted, patterns.town.outings, patterns.titles.outingGo, patterns.town.outings.selectAKeyword];
 const targetSoul = macroService.ClonePattern(settings.outings.target.Value);
 targetSoul.Path = 'settings.outings.target';
 for (const pattern of targetSoul.Patterns) {
@@ -13,7 +12,7 @@ for (const pattern of targetSoul.Patterns) {
 }
 const loopResult = macroService.PollPattern(loopPatterns, {});
 
-while (macroService.IsRunning && !done) {
+while (macroService.IsRunning) {
 	const loopResult = macroService.PollPattern(loopPatterns);
 	switch (loopResult.Path) {
 		case 'lobby.everstone':
@@ -64,10 +63,8 @@ while (macroService.IsRunning && !done) {
 			macroService.PollPattern(patterns.prompt.next, { DoClick: true, ClickPattern: [patterns.prompt.next, patterns.prompt.tapTheScreen, patterns.prompt.middleTap], PredicatePattern: [patterns.town.outings.selectAKeyword, patterns.town.outings] });
 			break;
 		case 'town.outings.outingsCompleted':
-			done = true;
-			break;
+			return;
 	}
 
 	sleep(1_000);
 }
-logger.info('Done...');

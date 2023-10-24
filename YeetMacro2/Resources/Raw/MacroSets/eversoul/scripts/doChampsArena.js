@@ -1,8 +1,7 @@
-﻿let done = false;
-const loopPatterns = [patterns.lobby.everstone, patterns.titles.adventure, patterns.adventure.arena.freeChallenge, patterns.adventure.arena.startMatch, patterns.adventure.champsArena.buyTicket];
-while (macroService.IsRunning && !done) {
-	const result = macroService.PollPattern(loopPatterns);
-	switch (result.Path) {
+﻿const loopPatterns = [patterns.lobby.everstone, patterns.titles.adventure, patterns.adventure.arena.freeChallenge, patterns.adventure.arena.startMatch, patterns.adventure.champsArena.buyTicket];
+while (macroService.IsRunning) {
+	const loopResult = macroService.PollPattern(loopPatterns);
+	switch (loopResult.Path) {
 		case 'lobby.everstone':
 			logger.info('doChampsArena: click adventure');
 			macroService.ClickPattern(patterns.lobby.adventure);
@@ -43,8 +42,7 @@ while (macroService.IsRunning && !done) {
 			}
 			break;
 		case 'adventure.champsArena.buyTicket':
-			done = true;
-			break;
+			return;
 	}
 
 	sleep(1_000);
