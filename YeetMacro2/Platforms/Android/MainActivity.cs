@@ -83,6 +83,7 @@ public class MainActivity : MauiAppCompatActivity
     protected override void OnResume()
     {
         Console.WriteLine("[*****YeetMacro*****] MainActivity OnResume");
+        DeviceDisplay.MainDisplayInfoChanged += DeviceDisplay_MainDisplayInfoChanged;
         base.OnResume();
     }
 
