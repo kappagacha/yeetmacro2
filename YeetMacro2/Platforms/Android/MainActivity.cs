@@ -5,7 +5,6 @@ using Android.Runtime;
 using YeetMacro2.Platforms.Android.Services;
 using YeetMacro2.Services;
 using Android.OS;
-//using OpenCV.Android;
 using Org.Opencv.Android;
 using YeetMacro2.ViewModels;
 using YeetMacro2.Platforms.Android.ViewModels;
