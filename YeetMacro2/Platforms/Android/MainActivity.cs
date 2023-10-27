@@ -56,8 +56,6 @@ public class MainActivity : MauiAppCompatActivity
             ServiceHelper.GetService<LogViewModel>().LogException(args.Exception);
         };
 
-        DeviceDisplay.MainDisplayInfoChanged += DeviceDisplay_MainDisplayInfoChanged;
-
         base.OnCreate(savedInstanceState);
     }
 
@@ -65,6 +63,8 @@ public class MainActivity : MauiAppCompatActivity
     {
         WeakReferenceMessenger.Default.Send(new PropertyChangedMessage<DisplayInfo>(this, nameof(DisplayInfo), e.DisplayInfo, e.DisplayInfo), nameof(DisplayInfo));
     }
+
+
 
     protected override void OnActivityResult(int requestCode, [GeneratedEnum] Result resultCode, Intent data)
     {
@@ -79,10 +79,16 @@ public class MainActivity : MauiAppCompatActivity
         }
     }
 
+    protected override void OnStart()
+    {
+        Console.WriteLine("[*****YeetMacro*****] MainActivity OnStart");
+        DeviceDisplay.MainDisplayInfoChanged += DeviceDisplay_MainDisplayInfoChanged;
+        base.OnStart();
+    }
+
     protected override void OnResume()
     {
         Console.WriteLine("[*****YeetMacro*****] MainActivity OnResume");
-        DeviceDisplay.MainDisplayInfoChanged += DeviceDisplay_MainDisplayInfoChanged;
         base.OnResume();
     }
 
