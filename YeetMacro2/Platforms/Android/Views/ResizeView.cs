@@ -8,8 +8,6 @@ using Color = Android.Graphics.Color;
 using Microsoft.Maui.Platform;
 using YeetMacro2.Platforms.Android.Services;
 using Android.OS;
-using CommunityToolkit.Mvvm.Messaging.Messages;
-using CommunityToolkit.Mvvm.Messaging;
 
 namespace YeetMacro2.Platforms.Android.Views;
 
