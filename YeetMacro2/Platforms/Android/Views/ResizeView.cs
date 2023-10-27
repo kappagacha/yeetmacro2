@@ -105,9 +105,6 @@ public class ResizeView : RelativeLayout, IOnTouchListener, IShowable
         Clickable = true;
 
         InitDisplay(DeviceDisplay.MainDisplayInfo);
-        WeakReferenceMessenger.Default.Register<PropertyChangedMessage<DisplayInfo>, string>(this, nameof(DisplayInfo), (r, propertyChangedMessage) => {
-            InitDisplay(propertyChangedMessage.NewValue);
-        });
     }
 
     private void InitDisplay(DisplayInfo displayInfo)
@@ -119,11 +116,6 @@ public class ResizeView : RelativeLayout, IOnTouchListener, IShowable
         _layoutParams.Height = (int)(_displayHeight * 0.75);
         _layoutParams.X = (int)(_displayWidth * 0.20);
         _layoutParams.Y = (int)(_displayHeight * 0.25);
-
-        if (_state == FormState.SHOWING)
-        {
-            _windowManager.UpdateViewLayout(this, _layoutParams);
-        }
     }
 
     //https://developer.android.com/training/gestures/viewgroup
@@ -145,10 +137,11 @@ public class ResizeView : RelativeLayout, IOnTouchListener, IShowable
     {
         if (_state != FormState.SHOWING)
         {
-            _state = FormState.SHOWING;
+            InitDisplay(DeviceDisplay.MainDisplayInfo);
             _windowManager.AddView(this, _layoutParams);
             _closeCompleted = new TaskCompletionSource<bool>();
             OnShow?.Invoke();
+            _state = FormState.SHOWING;
         }
     }
 

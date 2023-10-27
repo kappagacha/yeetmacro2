@@ -8,8 +8,6 @@ using Android.OS;
 using Org.Opencv.Android;
 using YeetMacro2.ViewModels;
 using YeetMacro2.Platforms.Android.ViewModels;
-using CommunityToolkit.Mvvm.Messaging.Messages;
-using CommunityToolkit.Mvvm.Messaging;
 
 namespace YeetMacro2;
 
@@ -59,13 +57,6 @@ public class MainActivity : MauiAppCompatActivity
         base.OnCreate(savedInstanceState);
     }
 
-    private void DeviceDisplay_MainDisplayInfoChanged(object sender, DisplayInfoChangedEventArgs e)
-    {
-        WeakReferenceMessenger.Default.Send(new PropertyChangedMessage<DisplayInfo>(this, nameof(DisplayInfo), e.DisplayInfo, e.DisplayInfo), nameof(DisplayInfo));
-    }
-
-
-
     protected override void OnActivityResult(int requestCode, [GeneratedEnum] Result resultCode, Intent data)
     {
         switch (requestCode)
@@ -82,7 +73,6 @@ public class MainActivity : MauiAppCompatActivity
     protected override void OnStart()
     {
         Console.WriteLine("[*****YeetMacro*****] MainActivity OnStart");
-        DeviceDisplay.MainDisplayInfoChanged += DeviceDisplay_MainDisplayInfoChanged;
         base.OnStart();
     }
 
