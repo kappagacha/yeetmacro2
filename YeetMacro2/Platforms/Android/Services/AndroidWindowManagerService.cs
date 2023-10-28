@@ -8,7 +8,6 @@ using YeetMacro2.Views;
 using YeetMacro2.Data.Models;
 using YeetMacro2.Platforms.Android.ViewModels;
 using YeetMacro2.Services;
-using OpenCvHelper = YeetMacro2.Platforms.Android.Services.OpenCv.OpenCvHelper;
 using System.Text.Json;
 using YeetMacro2.ViewModels;
 using YeetMacro2.Data.Serialization;
@@ -44,6 +43,7 @@ public class AndroidWindowManagerService : IInputService, IScreenService
     YeetAccessibilityService _accessibilityService;
     IToastService _toastService;
     IOcrService _ocrService;
+    OpenCvService _openCvService;
     ConcurrentDictionary<AndroidWindowView, IShowable> _views = new ConcurrentDictionary<AndroidWindowView, IShowable>();
     FormsView _windowView;
     ConcurrentDictionary<string, (int x, int y)> _packageToStatusBarHeight = new ConcurrentDictionary<string, (int x, int y)>();
@@ -58,7 +58,7 @@ public class AndroidWindowManagerService : IInputService, IScreenService
         TypeInfoResolver = PointPropertiesResolver.Instance
     };
     public AndroidWindowManagerService(ILogger<AndroidWindowManagerService> logger, MediaProjectionService mediaProjectionService,
-        YeetAccessibilityService accessibilityService, IToastService toastService, IOcrService ocrService)
+        YeetAccessibilityService accessibilityService, IToastService toastService, IOcrService ocrService, OpenCvService openCvService)
     {
         try
         {
@@ -68,9 +68,9 @@ public class AndroidWindowManagerService : IInputService, IScreenService
             _mediaProjectionService = mediaProjectionService;
             _accessibilityService = accessibilityService;
             _toastService = toastService;
-            DeviceDisplay.MainDisplayInfoChanged += DeviceDisplay_MainDisplayInfoChanged;
-            Console.WriteLine("[*****YeetMacro*****] Setting _ocrService");
+            //DeviceDisplay.MainDisplayInfoChanged += DeviceDisplay_MainDisplayInfoChanged;
             _ocrService = ocrService;
+            _openCvService = openCvService;
         }
         catch (Exception ex)
         {
@@ -79,17 +79,17 @@ public class AndroidWindowManagerService : IInputService, IScreenService
         }
     }
 
-    private void DeviceDisplay_MainDisplayInfoChanged(object sender, DisplayInfoChangedEventArgs e)
-    {
-        Console.WriteLine("[*****YeetMacro*****] WindowManagerService DeviceDisplay_MainDisplayInfoChanged Start");
-        _packageToStatusBarHeight.Clear();
-        if (_views.ContainsKey(AndroidWindowView.ActionView) && _views[AndroidWindowView.ActionView].IsShowing)
-        {
-            Close(AndroidWindowView.ActionView);
-            Show(AndroidWindowView.ActionView);
-        }
-        Console.WriteLine("[*****YeetMacro*****] WindowManagerService DeviceDisplay_MainDisplayInfoChanged End");
-    }
+    //private void DeviceDisplay_MainDisplayInfoChanged(object sender, DisplayInfoChangedEventArgs e)
+    //{
+    //    Console.WriteLine("[*****YeetMacro*****] WindowManagerService DeviceDisplay_MainDisplayInfoChanged Start");
+    //    _packageToStatusBarHeight.Clear();
+    //    if (_views.ContainsKey(AndroidWindowView.ActionView) && _views[AndroidWindowView.ActionView].IsShowing)
+    //    {
+    //        Close(AndroidWindowView.ActionView);
+    //        Show(AndroidWindowView.ActionView);
+    //    }
+    //    Console.WriteLine("[*****YeetMacro*****] WindowManagerService DeviceDisplay_MainDisplayInfoChanged End");
+    //}
 
     public void ShowOverlayWindow()
     {
@@ -525,7 +525,7 @@ public class AndroidWindowManagerService : IInputService, IScreenService
             if (pattern.ColorThreshold.IsActive)
             {
                 needleImageData = pattern.ColorThreshold.ImageData; // OpenCvHelper.CalcColorThreshold(pattern.ImageData, pattern.ColorThreshold);
-                haystackImageData = OpenCvHelper.CalcColorThreshold(haystackImageData, pattern.ColorThreshold);
+                haystackImageData = _openCvService.CalcColorThreshold(haystackImageData, pattern.ColorThreshold);
 
                 if (needleImageData.Length == 0 || haystackImageData.Length == 0)
                 {
@@ -557,7 +557,7 @@ public class AndroidWindowManagerService : IInputService, IScreenService
                 return textPoints;
             }
 
-            var points = OpenCvHelper.GetPointsWithMatchTemplate(haystackImageData, needleImageData, opts?.Limit ?? 1, threshold);
+            var points = _openCvService.GetPointsWithMatchTemplate(haystackImageData, needleImageData, opts?.Limit ?? 1, threshold);
             if (pattern.Rect != Rect.Zero)
             {
                 var newPoints = new List<Point>();
@@ -609,7 +609,7 @@ public class AndroidWindowManagerService : IInputService, IScreenService
 
     public byte[] CalcColorThreshold(Pattern pattern, ColorThresholdProperties colorThreshold)
     {
-        return OpenCvHelper.CalcColorThreshold(pattern.ImageData, colorThreshold);
+        return _openCvService.CalcColorThreshold(pattern.ImageData, colorThreshold);
     }
 
     public byte[] GetCurrentImageData(Rect rect)
@@ -627,7 +627,7 @@ public class AndroidWindowManagerService : IInputService, IScreenService
                           pattern.Rect.Size + new Size(boundsPadding, boundsPadding))) :
             _mediaProjectionService.GetCurrentImageData();
         var imageData = pattern.ColorThreshold.IsActive ?
-            OpenCvHelper.CalcColorThreshold(currentImageData, pattern.ColorThreshold) :
+            _openCvService.CalcColorThreshold(currentImageData, pattern.ColorThreshold) :
             currentImageData;
  
         return _ocrService.GetText(imageData, pattern.TextMatch.WhiteList ?? opts.Whitelist);

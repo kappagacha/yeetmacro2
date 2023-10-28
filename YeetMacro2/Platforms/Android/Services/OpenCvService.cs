@@ -7,28 +7,27 @@ using SkiaSharp;
 using Scalar = Org.Opencv.Core.Scalar;
 using Mat = Org.Opencv.Core.Mat;
 using Microsoft.Extensions.Logging;
-using YeetMacro2.Services;
 
-namespace YeetMacro2.Platforms.Android.Services.OpenCv;
+namespace YeetMacro2.Platforms.Android.Services;
 
-public static class OpenCvHelper
+public class OpenCvService
 {
-    static Lazy<ILogger<Mat>> _logger;
-    static OpenCvHelper()
+    ILogger _logger;
+    OpenCvService(ILogger<OpenCvService> logger)
     {
-        _logger = ServiceHelper.GetService<Lazy<ILogger<Mat>>>();
+        _logger = logger;
     }
 
-    public static byte[] CalcColorThreshold(byte[] imageData, ColorThresholdProperties colorThreshold)
+    public byte[] CalcColorThreshold(byte[] imageData, ColorThresholdProperties colorThreshold)
     {
         try
         {
-            _logger.Value.LogTrace("CalcColorThreshold");
+            _logger.LogTrace("CalcColorThreshold");
             // https://stackoverflow.com/questions/21113190/how-to-get-the-mat-object-from-the-byte-in-opencv-android
             var matOfByte = new MatOfByte(imageData);
             if (matOfByte.Empty() || !matOfByte.IsContinuous)
             {
-                _logger.Value.LogTrace("Empty matOfByte");
+                _logger.LogTrace("Empty matOfByte");
                 matOfByte.Dispose();
                 return new byte[0];
             }
@@ -60,22 +59,22 @@ public static class OpenCvHelper
         }
         catch (Exception ex)
         {
-            _logger.Value.LogError(ex, "CalcColorThreshold Exception");
+            _logger.LogError(ex, "CalcColorThreshold Exception");
             return new byte[0];
         }
     }
 
-    public static List<Point> GetPointsWithMatchTemplate(byte[] haystackImageData, byte[] needleImageData, int limit = 1, double threshold = 0.8)
+    public List<Point> GetPointsWithMatchTemplate(byte[] haystackImageData, byte[] needleImageData, int limit = 1, double threshold = 0.8)
     {
         try
         {
-            _logger.Value.LogTrace("GetPointsWithMatchTemplate");
+            _logger.LogTrace("GetPointsWithMatchTemplate");
             var haystackMatOfByte = new MatOfByte(haystackImageData);
             var needleMatOfByte = new MatOfByte(needleImageData);
 
             if (haystackMatOfByte.Empty() || !haystackMatOfByte.IsContinuous || needleMatOfByte.Empty() || !needleMatOfByte.IsContinuous)
             {
-                _logger.Value.LogTrace("Empty matOfByte");
+                _logger.LogTrace("Empty matOfByte");
                 haystackMatOfByte.Dispose();
                 needleMatOfByte.Dispose();
                 return new List<Point>();
@@ -92,12 +91,12 @@ public static class OpenCvHelper
         }
         catch (Exception ex)
         {
-            _logger.Value.LogError(ex, "GetPointsWithMatchTemplate Exception");
+            _logger.LogError(ex, "GetPointsWithMatchTemplate Exception");
             return new List<Point>();
         }
     }
 
-    private static List<Point> GetPointsWithMatchTemplate(Mat haystackMat, Mat needleMat, int limit, double threshold)
+    private List<Point> GetPointsWithMatchTemplate(Mat haystackMat, Mat needleMat, int limit, double threshold)
     {
         var matches = new List<Point>();
 
@@ -111,7 +110,7 @@ public static class OpenCvHelper
 
     //https://stackoverflow.com/questions/32737420/multiple-results-in-opencvsharp3-matchtemplate
     //https://github.com/Fate-Grand-Automata/FGA/blob/master/app/src/main/java/com/mathewsachin/fategrandautomata/imaging/DroidCvPattern.kt
-    private static void MatchTemplate(Mat haystack, Mat needle, int limit, double threshold, Action<MinMaxLocResult> resultAction)
+    private void MatchTemplate(Mat haystack, Mat needle, int limit, double threshold, Action<MinMaxLocResult> resultAction)
     {
         var watch = new System.Diagnostics.Stopwatch();
         var mask = new Mat();

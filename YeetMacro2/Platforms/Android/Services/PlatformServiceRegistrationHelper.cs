@@ -18,6 +18,7 @@ public static class PlatformServiceRegistrationHelper
         }, ServiceLifetime.Transient);
 
         mauiAppBuilder.Services.AddSingleton<AndriodHomeViewModel>();
+        mauiAppBuilder.Services.AddSingleton<OpenCvService>();
         mauiAppBuilder.Services.AddSingleton<ActionViewModel>();
         mauiAppBuilder.Services.AddSingleton<ActionMenuViewModel>();
         mauiAppBuilder.Services.AddSingleton<PromptStringInputViewModel>();

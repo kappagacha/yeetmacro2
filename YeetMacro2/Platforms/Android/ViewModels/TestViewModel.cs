@@ -3,7 +3,6 @@ using CommunityToolkit.Mvvm.Input;
 using Microsoft.Extensions.Logging;
 using YeetMacro2.Data.Models;
 using YeetMacro2.Platforms.Android.Services;
-using YeetMacro2.Platforms.Android.Services.OpenCv;
 
 namespace YeetMacro2.Platforms.Android.ViewModels;
 
@@ -22,17 +21,19 @@ public partial class TestViewModel : ObservableObject
     MediaProjectionService _mediaProjectionService;
     YeetAccessibilityService _accessibilityService;
     AndroidWindowManagerService _androidWindowManagerService;
+    OpenCvService _openCvService;
 
     Java.Lang.Reflect.Method dumpGREFTableMethod = Java.Lang.Class.ForName("dalvik.system.VMDebug").GetDeclaredMethod("dumpReferenceTables");
     Java.Lang.Object[] args = new Java.Lang.Object[0];
 
     public TestViewModel(ILogger<TestViewModel> logger, MediaProjectionService mediaProjectionService, YeetAccessibilityService accessibilityService,
-        AndroidWindowManagerService androidWindowManagerService)
+        AndroidWindowManagerService androidWindowManagerService, OpenCvService openCvService)
     {
         _logger = logger;
         _mediaProjectionService = mediaProjectionService;
         _accessibilityService = accessibilityService;
         _androidWindowManagerService = androidWindowManagerService;
+        _openCvService = openCvService;
     }
 
     // https://stackoverflow.com/questions/46232314/trying-to-track-down-gref-leak
@@ -127,7 +128,7 @@ public partial class TestViewModel : ObservableObject
             {
                 OpenCVMatchTemplateTestCount++;
                 _logger.LogDebug(OpenCVMatchTemplateTestCount.ToString());
-                var points = OpenCvHelper.GetPointsWithMatchTemplate(_haystackImage, _needleImage);
+                var points = _openCvService.GetPointsWithMatchTemplate(_haystackImage, _needleImage);
                 await Task.Delay(100);
             }
         });
@@ -157,7 +158,7 @@ public partial class TestViewModel : ObservableObject
             {
                 OpenCVCalcColorThresholdTestCount++;
                 _logger.LogDebug(OpenCVCalcColorThresholdTestCount.ToString());
-                var output = OpenCvHelper.CalcColorThreshold(_haystackImage, new ColorThresholdProperties()
+                var output = _openCvService.CalcColorThreshold(_haystackImage, new ColorThresholdProperties()
                 {
                     Color = "#fffaf0e5"
                 });
