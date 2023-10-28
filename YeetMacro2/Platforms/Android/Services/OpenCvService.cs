@@ -13,7 +13,7 @@ namespace YeetMacro2.Platforms.Android.Services;
 public class OpenCvService
 {
     ILogger _logger;
-    OpenCvService(ILogger<OpenCvService> logger)
+    public OpenCvService(ILogger<OpenCvService> logger)
     {
         _logger = logger;
     }
