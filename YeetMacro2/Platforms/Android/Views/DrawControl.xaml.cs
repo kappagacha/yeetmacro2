@@ -147,8 +147,15 @@ public partial class DrawControl : ContentView
                 {
                     var topLeft = _windowManagerService.GetUserDrawViewTopLeft();
                     var padding = 1.5;
-                    Rect = new Rect(new Point(_canvasBegin.X + topLeft.X + _userStroke.StrokeWidth - padding / 2, _canvasBegin.Y + topLeft.Y + _userStroke.StrokeWidth - padding / 2),
-                                     new Size(_canvasEnd.X - _canvasBegin.X - _userStroke.StrokeWidth - padding, _canvasEnd.Y - _canvasBegin.Y - _userStroke.StrokeWidth - padding));
+                    var calcBeginX = Math.Min(_canvasBegin.X, _canvasEnd.X);
+                    var calcBeginY = Math.Min(_canvasBegin.Y, _canvasEnd.Y);
+                    var calcEndX = Math.Max(_canvasBegin.X, _canvasEnd.X);
+                    var calcEndY = Math.Max(_canvasBegin.Y, _canvasEnd.Y);
+                    var calcWidth = calcEndX - calcBeginX - _userStroke.StrokeWidth - padding;
+                    var calcHeight = calcEndY - calcBeginY - _userStroke.StrokeWidth - padding;
+
+                    Rect = new Rect(new Point(calcBeginX + topLeft.X + _userStroke.StrokeWidth - padding / 2, calcBeginY + topLeft.Y + _userStroke.StrokeWidth - padding / 2),
+                                     new Size(calcWidth <= 0 ? 1: calcWidth, calcHeight <= 0 ? 1 : calcHeight));
                     _windowManagerService.Close(AndroidWindowView.UserDrawView);
                 }
                 break;
