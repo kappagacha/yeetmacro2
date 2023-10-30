@@ -67,7 +67,7 @@
                 <v:ImageView FontFamily="MaterialOutlined" Glyph="{x:Static mi:MaterialOutlined.Battery_saver}" Color="Red"
                                                      Command="{Binding RequestIgnoreBatteryOptimizationsCommand}">
                     <v:ImageView.Triggers>
-                        <DataTrigger TargetType="{x:Type v:ImageView}" Binding="{Binding IsIgnoringBatteryOptimization}" Value="True">
+                        <DataTrigger TargetType="{x:Type v:ImageView}" Binding="{Binding IsIgnoringBatteryOptimizations}" Value="True">
                             <Setter Property="Color" Value="Green" />
                         </DataTrigger>
                     </v:ImageView.Triggers>
@@ -77,7 +77,7 @@
                         <TapGestureRecognizer Command="{Binding RequestIgnoreBatteryOptimizationsCommand}" />
                     </Label.GestureRecognizers>
                     <Label.Triggers>
-                        <DataTrigger TargetType="Label" Binding="{Binding IsIgnoringBatteryOptimization}" Value="True">
+                        <DataTrigger TargetType="Label" Binding="{Binding IsIgnoringBatteryOptimizations}" Value="True">
                             <Setter Property="TextColor" Value="Green" />
                         </DataTrigger>
                     </Label.Triggers>
