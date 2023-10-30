@@ -8,6 +8,8 @@ using Color = Android.Graphics.Color;
 using Microsoft.Maui.Platform;
 using YeetMacro2.Platforms.Android.Services;
 using Android.OS;
+using CommunityToolkit.Mvvm.Messaging.Messages;
+using CommunityToolkit.Mvvm.Messaging;
 
 namespace YeetMacro2.Platforms.Android.Views;
 
@@ -102,18 +104,24 @@ public class ResizeView : RelativeLayout, IOnTouchListener, IShowable
         androidView.Clickable = true;
         Clickable = true;
 
-        InitDisplay(DeviceDisplay.MainDisplayInfo);
+        WeakReferenceMessenger.Default.Register<PropertyChangedMessage<Size>, string>(this, nameof(DisplayInfo), (r, propertyChangedMessage) => {
+            InitDisplay(propertyChangedMessage.NewValue);
+        });
     }
 
-    private void InitDisplay(DisplayInfo displayInfo)
+    private void InitDisplay(Size size)
     {
-        _displayWidth = (int)displayInfo.Width;
-        _displayHeight = (int)displayInfo.Height;
-        _density = displayInfo.Density;
+        _displayWidth = (int)size.Width;
+        _displayHeight = (int)size.Height;
         _layoutParams.Width = (int)(_displayWidth * 0.75);
         _layoutParams.Height = (int)(_displayHeight * 0.75);
         _layoutParams.X = (int)(_displayWidth * 0.20);
         _layoutParams.Y = (int)(_displayHeight * 0.25);
+
+        if (_state == FormState.SHOWING)
+        {
+            _windowManager.UpdateViewLayout(this, _layoutParams);
+        }
     }
 
     //https://developer.android.com/training/gestures/viewgroup
@@ -135,7 +143,7 @@ public class ResizeView : RelativeLayout, IOnTouchListener, IShowable
     {
         if (_state != FormState.SHOWING)
         {
-            InitDisplay(DeviceDisplay.MainDisplayInfo);
+            InitDisplay(_context.GetScreenResolution());
             _windowManager.AddView(this, _layoutParams);
             _closeCompleted = new TaskCompletionSource<bool>();
             OnShow?.Invoke();

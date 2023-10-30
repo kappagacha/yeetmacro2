@@ -8,6 +8,9 @@ using Android.OS;
 using Org.Opencv.Android;
 using YeetMacro2.ViewModels;
 using YeetMacro2.Platforms.Android.ViewModels;
+using CommunityToolkit.Mvvm.Messaging.Messages;
+using CommunityToolkit.Mvvm.Messaging;
+using Android.Views;
 
 namespace YeetMacro2;
 
@@ -98,5 +101,30 @@ public class MainActivity : MauiAppCompatActivity
     {
         Platform.OnRequestPermissionsResult(requestCode, permissions, grantResults);
         base.OnRequestPermissionsResult(requestCode, permissions, grantResults);
+    }
+
+    private void DeviceDisplay_MainDisplayInfoChanged(object sender, DisplayInfoChangedEventArgs e)
+    {
+        var size = GetScreenResolution();
+        WeakReferenceMessenger.Default.Send(new PropertyChangedMessage<Size>(this, nameof(DisplayInfo), size, size), nameof(DisplayInfo));
+    }
+
+    // https://stackoverflow.com/questions/11252067/how-do-i-get-the-screensize-programmatically-in-android
+    // https://stackoverflow.com/questions/63719160/getsize-deprecated-in-api-level-30
+    public Size GetScreenResolution()
+    {
+        var windowManager = this.GetSystemService(Context.WindowService).JavaCast<IWindowManager>();
+        if (global::Android.OS.Build.VERSION.SdkInt >= global::Android.OS.BuildVersionCodes.R)
+        {
+            var rect = windowManager.CurrentWindowMetrics.Bounds;
+            return new Size(rect.Width(), rect.Height());
+        }
+        else
+        {
+            Display display = windowManager.DefaultDisplay;
+            var point = new global::Android.Graphics.Point();
+            display.GetSize(point);
+            return new Size(point.X, point.Y);
+        }
     }
 }
