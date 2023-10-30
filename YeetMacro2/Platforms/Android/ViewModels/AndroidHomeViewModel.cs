@@ -58,7 +58,8 @@ public partial class AndriodHomeViewModel : ObservableObject
         get
         {
             var topLeft = _screenService.GetTopLeft();
-            return $"x{topLeft.X}y{topLeft.Y} w{_screenService.OverlayWidth}h{_screenService.OverlayHeight}";
+            var currentResolution = _screenService.CurrentResolution;
+            return $"x{topLeft.X}y{topLeft.Y} w{currentResolution.Width}h{currentResolution.Height}";
         }
     }
     //public string DisplayCutoutTop => _windowManagerService.DisplayCutoutTop.ToString();

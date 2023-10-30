@@ -47,8 +47,6 @@ public class AndroidScreenService : IScreenService
     YeetAccessibilityService _accessibilityService;
     IToastService _toastService;
     public IReadOnlyDictionary<AndroidWindowView, IShowable> Views => _views;
-    public int OverlayWidth => _overlayWindow == null ? 0 : _overlayWindow.MeasuredWidthAndState;
-    public int OverlayHeight => _overlayWindow == null ? 0 : _overlayWindow.MeasuredHeightAndState;
     public int UserDrawViewWidth => _views.ContainsKey(AndroidWindowView.UserDrawView) ? ((FormsView)_views[AndroidWindowView.UserDrawView]).MeasuredHeightAndState : -1;
     public int UserDrawViewHeight => _views.ContainsKey(AndroidWindowView.UserDrawView) ? ((FormsView)_views[AndroidWindowView.UserDrawView]).MeasuredWidthAndState : -1;
     public Size CurrentResolution => new Size(_overlayWindow?.MeasuredWidthAndState ?? 0, _overlayWindow?.MeasuredHeightAndState ?? 0);
