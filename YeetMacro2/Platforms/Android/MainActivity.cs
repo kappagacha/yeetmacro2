@@ -67,6 +67,9 @@ public class MainActivity : MauiAppCompatActivity
             case AndriodHomeViewModel.REQUEST_IGNORE_BATTERY_OPTIMIZATIONS:
                 ServiceHelper.GetService<AndriodHomeViewModel>().InvokeOnPropertyChanged(nameof(AndriodHomeViewModel.IsIgnoringBatteryOptimizations));
                 break;
+            case AndroidScreenService.OVERLAY_SERVICE_REQUEST:
+                ServiceHelper.GetService<AndroidScreenService>().ShowOverlayWindow();
+                break;
         }
     }
 
