@@ -93,9 +93,21 @@
                 <BoxView WidthRequest="1" Color="{StaticResource Primary}"/>
                 <Label Text="{Binding MacroManagerViewModel.SelectedMacroSet.Name, StringFormat='Selected MacroSet: {0}'}" TextColor="{StaticResource Primary}" />
             </HorizontalStackLayout>
-            
         </VerticalStackLayout>
-        <v:ImageView HorizontalOptions="End" VerticalOptions="Start" FontFamily="FASolid" Glyph="{x:Static fa:Solid.x}" Color="Red"
-                                                 Command="{Binding CloseMacroOverlayCommand}" />
+        <VerticalStackLayout HorizontalOptions="End" VerticalOptions="Start">
+            <HorizontalStackLayout>
+                <v:ImageView FontFamily="MaterialOutlined" Glyph="{x:Static mi:MaterialOutlined.Science}"  Color="LightGray"
+                     Command="{Binding ToggleShowTestViewCommand}">
+                    <v:ImageView.Triggers>
+                        <DataTrigger TargetType="{x:Type v:ImageView}" Binding="{Binding ShowTestView}" Value="True">
+                            <Setter Property="Color" Value="Green" />
+                        </DataTrigger>
+                    </v:ImageView.Triggers>
+                </v:ImageView>
+                <BoxView WidthRequest="1" Color="{StaticResource Primary}"/>
+                <v:ImageView FontFamily="FASolid" Glyph="{x:Static fa:Solid.x}" Color="Red"
+                                     Command="{Binding CloseMacroOverlayCommand}" />
+            </HorizontalStackLayout>
+        </VerticalStackLayout>
     </Grid>
 </ContentView>

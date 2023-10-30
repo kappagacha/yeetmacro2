@@ -8,8 +8,6 @@ using Color = Android.Graphics.Color;
 using Microsoft.Maui.Platform;
 using YeetMacro2.Platforms.Android.Services;
 using Android.OS;
-using CommunityToolkit.Mvvm.Messaging.Messages;
-using CommunityToolkit.Mvvm.Messaging;
 
 namespace YeetMacro2.Platforms.Android.Views;
 
@@ -103,10 +101,6 @@ public class ResizeView : RelativeLayout, IOnTouchListener, IShowable
 
         androidView.Clickable = true;
         Clickable = true;
-
-        WeakReferenceMessenger.Default.Register<PropertyChangedMessage<Size>, string>(this, nameof(DisplayInfo), (r, propertyChangedMessage) => {
-            InitDisplay(propertyChangedMessage.NewValue);
-        });
     }
 
     private void InitDisplay(Size size)
@@ -143,7 +137,7 @@ public class ResizeView : RelativeLayout, IOnTouchListener, IShowable
     {
         if (_state != FormState.SHOWING)
         {
-            InitDisplay(_context.GetScreenResolution());
+            InitDisplay(_screenService.CurrentResolution);
             _windowManager.AddView(this, _layoutParams);
             _closeCompleted = new TaskCompletionSource<bool>();
             OnShow?.Invoke();
