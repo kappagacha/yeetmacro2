@@ -37,18 +37,18 @@ public partial class DrawControl : ContentView
         TextSize = 60,
         Style = SKPaintStyle.Stroke
     };
-    AndroidWindowManagerService _windowManagerService;
+    AndroidScreenService _androidScreenService;
     public Rect Rect { get; set; }
     public bool CloseAfterDraw { get; set; } = false;
     public DrawControl()
 	{
 		InitializeComponent();
-        _windowManagerService = ServiceHelper.GetService<AndroidWindowManagerService>();
+        _androidScreenService = ServiceHelper.GetService<AndroidScreenService>();
     }
 
     public void AddRectangle(Rect rect)
     {
-        var topLeft = _windowManagerService.GetTopLeft();
+        var topLeft = _androidScreenService.GetTopLeft();
         var location = new SKPoint((float)(rect.X - topLeft.X), (float)(rect.Y - topLeft.Y));
         var size = new SKSize((float)rect.Width, (float)rect.Height);
         var skRect = SKRect.Create(location, size);
@@ -65,7 +65,7 @@ public partial class DrawControl : ContentView
 
     public void AddCircle(Point point)
     {
-        var topLeft = _windowManagerService.GetTopLeft();
+        var topLeft = _androidScreenService.GetTopLeft();
         _circles.Enqueue((new SKPoint((float)(point.X - topLeft.X), (float)(point.Y - topLeft.Y)), _greenPaint.Clone(), DateTime.Now.AddMilliseconds(_expirationMs)));
         canvasView.InvalidateSurface();
     }
@@ -145,7 +145,7 @@ public partial class DrawControl : ContentView
                 canvasView.InvalidateSurface();
                 if (CloseAfterDraw)
                 {
-                    var topLeft = _windowManagerService.GetUserDrawViewTopLeft();
+                    var topLeft = _androidScreenService.GetUserDrawViewTopLeft();
                     var padding = 1.5;
                     var calcBeginX = Math.Min(_canvasBegin.X, _canvasEnd.X);
                     var calcBeginY = Math.Min(_canvasBegin.Y, _canvasEnd.Y);
@@ -156,7 +156,7 @@ public partial class DrawControl : ContentView
 
                     Rect = new Rect(new Point(calcBeginX + topLeft.X + _userStroke.StrokeWidth - padding / 2, calcBeginY + topLeft.Y + _userStroke.StrokeWidth - padding / 2),
                                      new Size(calcWidth <= 0 ? 1: calcWidth, calcHeight <= 0 ? 1 : calcHeight));
-                    _windowManagerService.Close(AndroidWindowView.UserDrawView);
+                    _androidScreenService.Close(AndroidWindowView.UserDrawView);
                 }
                 break;
         }

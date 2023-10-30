@@ -16,7 +16,7 @@ public class ForegroundService : Service
     public const int SERVICE_RUNNING_NOTIFICATION_ID = 10000;
     MainActivity _context;
     MediaProjectionManager _mediaProjectionManager;
-    Lazy<AndroidWindowManagerService> _windowManagerService;
+    Lazy<AndroidScreenService> _screenService;
     Lazy<MediaProjectionService> _mediaProjectionService;
 
     public ForegroundService()
@@ -29,7 +29,7 @@ public class ForegroundService : Service
         Console.WriteLine("[*****YeetMacro*****] ForegroundService OnCreate");
         _context = (MainActivity)Platform.CurrentActivity;
         Console.WriteLine("[*****YeetMacro*****] ForegroundService set _windowManagerService");
-        _windowManagerService = ServiceHelper.GetService<Lazy<AndroidWindowManagerService>>();
+        _screenService = ServiceHelper.GetService<Lazy<AndroidScreenService>>();
         Console.WriteLine("[*****YeetMacro*****] ForegroundService set _mediaProjectionService");
         _mediaProjectionService = ServiceHelper.GetService<Lazy<MediaProjectionService>>();
         Console.WriteLine("[*****YeetMacro*****] ForegroundService set _mediaProjectionManager");
@@ -45,9 +45,9 @@ public class ForegroundService : Service
         {
             case EXIT_ACTION:
                 StopForeground(StopForegroundFlags.Remove);
-                _windowManagerService.Value.Close(AndroidWindowView.ActionView);
-                _windowManagerService.Value.Close(AndroidWindowView.StatusPanelView);
-                _windowManagerService.Value.CloseOverlayWindow();
+                _screenService.Value.Close(AndroidWindowView.ActionView);
+                _screenService.Value.Close(AndroidWindowView.StatusPanelView);
+                _screenService.Value.CloseOverlayWindow();
                 _mediaProjectionService.Value.Stop();
                 _mediaProjectionService.Value.StopRecording();
                 Intent exitEvent = new Intent("com.companyname.ForegroundService.EXIT");
@@ -56,7 +56,7 @@ public class ForegroundService : Service
             default:
                 StartForeground(SERVICE_RUNNING_NOTIFICATION_ID, GenerateNotification());
                 _mediaProjectionService.Value.Start();
-                _windowManagerService.Value.ShowOverlayWindow();
+                _screenService.Value.ShowOverlayWindow();
                 break;
         }
 

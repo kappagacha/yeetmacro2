@@ -29,7 +29,7 @@ public class EventBroadcastReceiver : BroadcastReceiver
                     homeViewModel.IsMacroReady = enabled && homeViewModel.IsProjectionServiceEnabled;
                     break;
                 case "com.companyname.MediaProjectionService.STARTED":
-                    ServiceHelper.GetService<AndroidWindowManagerService>().Show(AndroidWindowView.ActionView);
+                    ServiceHelper.GetService<AndroidScreenService>().Show(AndroidWindowView.ActionView);
                     break;
             }
         }

@@ -10,7 +10,7 @@ public partial class ActionMenuViewModel : ObservableObject
 {
     ILogger _logger;
     IToastService _toastService;
-    AndroidWindowManagerService _windowManagerService;
+    AndroidScreenService _screenService;
     YeetAccessibilityService _accessibilityService;
     MacroManagerViewModel _macroManagerViewModel;
     public Size CurrentResolution => new Size(DeviceDisplay.MainDisplayInfo.Width, DeviceDisplay.MainDisplayInfo.Height);
@@ -18,8 +18,8 @@ public partial class ActionMenuViewModel : ObservableObject
     public string OverlayArea
     {
         get {
-            var topLeft = _windowManagerService.GetTopLeftByPackage();
-            return $"x{topLeft.X}y{topLeft.Y} w{_windowManagerService.OverlayWidth}h{_windowManagerService.OverlayHeight}";
+            var topLeft = _screenService.GetTopLeft();
+            return $"x{topLeft.X}y{topLeft.Y} w{_screenService.OverlayWidth}h{_screenService.OverlayHeight}";
         }
     }
 
@@ -29,12 +29,12 @@ public partial class ActionMenuViewModel : ObservableObject
     public bool HasValidResolution => DeviceDisplay.MainDisplayInfo.Width == (_macroManagerViewModel.SelectedMacroSet?.Resolution.Width ?? -1.0) &&
         DeviceDisplay.MainDisplayInfo.Height == (_macroManagerViewModel.SelectedMacroSet?.Resolution.Height ?? -1.0);
 
-    public ActionMenuViewModel(ILogger<ActionViewModel> logger, IToastService toastService, AndroidWindowManagerService windowManagerService,
+    public ActionMenuViewModel(ILogger<ActionViewModel> logger, IToastService toastService, AndroidScreenService screenService,
          YeetAccessibilityService accessibilityService, MacroManagerViewModel macroManagerViewModel)
     {
         _logger = logger;
         _toastService = toastService;
-        _windowManagerService = windowManagerService;
+        _screenService = screenService;
         _accessibilityService = accessibilityService;
         _macroManagerViewModel = macroManagerViewModel;
     }
@@ -43,32 +43,32 @@ public partial class ActionMenuViewModel : ObservableObject
     public void ManagePatterns()
     {
         _toastService.Show("Manage Patterns");
-        _windowManagerService.Show(AndroidWindowView.PatternsNodeView);
-        _windowManagerService.Close(AndroidWindowView.ActionMenuView);
+        _screenService.Show(AndroidWindowView.PatternsNodeView);
+        _screenService.Close(AndroidWindowView.ActionMenuView);
     }
 
     [RelayCommand]
     public void Configure()
     {
         _toastService.Show("Redirecting to YeetMacro...");
-        _windowManagerService.LaunchYeetMacro();
-        _windowManagerService.Close(AndroidWindowView.ActionMenuView);
+        AndroidServiceHelper.LaunchApp(Platform.CurrentActivity.PackageName);
+        _screenService.Close(AndroidWindowView.ActionMenuView);
     }
 
     [RelayCommand]
     public void OpenLog()
     {
         _toastService.Show("Opening Log...");
-        _windowManagerService.Show(AndroidWindowView.StatusPanelView);
-        _windowManagerService.Close(AndroidWindowView.ActionMenuView);
+        _screenService.Show(AndroidWindowView.StatusPanelView);
+        _screenService.Close(AndroidWindowView.ActionMenuView);
     }
 
     [RelayCommand]
     public void Exit()
     {
         _toastService.Show("Exiting...");
-        _windowManagerService.StopProjectionService();
-        _windowManagerService.Close(AndroidWindowView.ActionMenuView);
+        _screenService.StopProjectionService();
+        _screenService.Close(AndroidWindowView.ActionMenuView);
     }
 
     [RelayCommand]
@@ -76,6 +76,6 @@ public partial class ActionMenuViewModel : ObservableObject
     {
         _toastService.Show("ScreenCapture...");
         _logger.LogDebug("ScreenCapture");
-        _windowManagerService.ScreenCapture();
+        _screenService.ScreenCapture();
     }
 }

@@ -15,7 +15,7 @@ public class ResizeView : RelativeLayout, IOnTouchListener, IShowable
 {
     enum FormState { SHOWING, CLOSED };
     private IWindowManager _windowManager;
-    private AndroidWindowManagerService _windowManagerService;
+    private AndroidScreenService _screenService;
     private MainActivity _context;
     private WindowManagerLayoutParams _layoutParams;
     private ImageView _topLeft, _bottomRight, _topRight;
@@ -32,11 +32,11 @@ public class ResizeView : RelativeLayout, IOnTouchListener, IShowable
 
     //https://www.linkedin.com/pulse/6-floating-windows-android-keyboard-input-v%C3%A1clav-hodek/
 
-    public ResizeView(Context context, IWindowManager windowManager, AndroidWindowManagerService windowManagerService, VisualElement visualElement) : base(context)
+    public ResizeView(Context context, IWindowManager windowManager, AndroidScreenService screenService, VisualElement visualElement) : base(context)
     {
         _context = (MainActivity)context;
         _windowManager = windowManager;
-        _windowManagerService = windowManagerService;
+        _screenService = screenService;
         _layoutParams = new WindowManagerLayoutParams();
         //_layoutParams.Type = WindowManagerTypes.ApplicationOverlay;
         _layoutParams.Type = global::Android.OS.Build.VERSION.SdkInt >= BuildVersionCodes.O ? WindowManagerTypes.ApplicationOverlay : WindowManagerTypes.Phone;

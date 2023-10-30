@@ -27,7 +27,7 @@ public partial class ActionViewModel : ObservableObject, IMovable
     [ObservableProperty]
     bool _isBusy;
 
-    AndroidWindowManagerService _windowManagerService;
+    AndroidScreenService _screenService;
     IScriptService _scriptService;
     MacroManagerViewModel _macroManagerViewModel;
     IToastService _toastService;
@@ -37,9 +37,10 @@ public partial class ActionViewModel : ObservableObject, IMovable
         TypeInfoResolver = PointPropertiesResolver.Instance
     };
 
-    public ActionViewModel(AndroidWindowManagerService windowManagerService, IScriptService scriptService, MacroManagerViewModel macroManagerViewModel, IToastService toastService)
+    public ActionViewModel(AndroidScreenService screenService, IScriptService scriptService, 
+        MacroManagerViewModel macroManagerViewModel, IToastService toastService)
     {
-        _windowManagerService = windowManagerService;
+        _screenService = screenService;
         _scriptService = scriptService;
         _macroManagerViewModel = macroManagerViewModel;
         _toastService = toastService;
@@ -48,7 +49,7 @@ public partial class ActionViewModel : ObservableObject, IMovable
         {
             if (scriptEventMessage.Value.Type == ScriptEventType.Started)
             {
-                _windowManagerService.Close(AndroidWindowView.ScriptsNodeView);
+                _screenService.Close(AndroidWindowView.ScriptsNodeView);
                 State = ActionState.Running;
             }
             else
@@ -56,7 +57,7 @@ public partial class ActionViewModel : ObservableObject, IMovable
                 State = ActionState.Stopped;
                 if (!String.IsNullOrWhiteSpace(scriptEventMessage.Value.Result))
                 {
-                    MainThread.BeginInvokeOnMainThread(() => _windowManagerService.ShowMessage(scriptEventMessage.Value.Result));
+                    MainThread.BeginInvokeOnMainThread(() => _screenService.ShowMessage(scriptEventMessage.Value.Result));
                 }
             }
         });
@@ -77,11 +78,11 @@ public partial class ActionViewModel : ObservableObject, IMovable
 
             if (propertyChangedMessage.NewValue)
             {
-                _windowManagerService.Show(windowView);
+                _screenService.Show(windowView);
             }
             else
             {
-                _windowManagerService.Close(windowView);
+                _screenService.Close(windowView);
             }
         });
     }
@@ -110,7 +111,7 @@ public partial class ActionViewModel : ObservableObject, IMovable
         switch (State)
         {
             case ActionState.Stopped:
-                _windowManagerService.Show(AndroidWindowView.ScriptsNodeView);
+                _screenService.Show(AndroidWindowView.ScriptsNodeView);
                 break;
             case ActionState.Running:
                 _scriptService.Stop();
@@ -124,13 +125,13 @@ public partial class ActionViewModel : ObservableObject, IMovable
     {
         if (!IsMoving)
         {
-            _windowManagerService.Show(AndroidWindowView.ActionMenuView);
+            _screenService.Show(AndroidWindowView.ActionMenuView);
         }
     }
 
     [RelayCommand]
     public void ScreenCapture()
     {
-        _windowManagerService.ScreenCapture();
+        _screenService.ScreenCapture();
     }
 }

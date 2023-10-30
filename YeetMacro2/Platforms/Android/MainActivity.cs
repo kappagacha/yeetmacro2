@@ -61,11 +61,11 @@ public class MainActivity : MauiAppCompatActivity
     {
         switch (requestCode)
         {
-            case YeetMacro2.Platforms.Android.Services.MediaProjectionService.REQUEST_MEDIA_PROJECTION:
+            case Platforms.Android.Services.MediaProjectionService.REQUEST_MEDIA_PROJECTION:
                 ServiceHelper.GetService<MediaProjectionService>().Start(resultCode, data);
                 break;
-            case YeetMacro2.Platforms.Android.Services.AndroidWindowManagerService.REQUEST_IGNORE_BATTERY_OPTIMIZATIONS:
-                ServiceHelper.GetService<AndriodHomeViewModel>().IsIgnoringBatteryOptimization = resultCode == Result.Ok;
+            case AndriodHomeViewModel.REQUEST_IGNORE_BATTERY_OPTIMIZATIONS:
+                ServiceHelper.GetService<AndriodHomeViewModel>().InvokeOnPropertyChanged(nameof(AndriodHomeViewModel.IsIgnoringBatteryOptimizations));
                 break;
         }
     }

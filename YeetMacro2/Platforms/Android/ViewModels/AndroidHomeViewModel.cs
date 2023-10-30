@@ -1,4 +1,5 @@
-﻿using CommunityToolkit.Mvvm.ComponentModel;
+﻿using Android.Content;
+using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using YeetMacro2.Platforms.Android.Services;
 using YeetMacro2.ViewModels;
@@ -7,9 +8,10 @@ namespace YeetMacro2.Platforms.Android.ViewModels;
 
 public partial class AndriodHomeViewModel : ObservableObject
 {
+    public const int REQUEST_IGNORE_BATTERY_OPTIMIZATIONS = 2;
     [ObservableProperty]
-    bool _isProjectionServiceEnabled, _isAccessibilityEnabled, _isAppearing, _showMacroOverlay, _isMacroReady, _showTestView, _isIgnoringBatteryOptimization;
-    private AndroidWindowManagerService _windowManagerService;
+    bool _isProjectionServiceEnabled, _isAccessibilityEnabled, _isAppearing, _showMacroOverlay, _isMacroReady, _showTestView;
+    private AndroidScreenService _screenService;
     private MacroManagerViewModel _macroManagerViewModel;
     private YeetAccessibilityService _accessibilityService;
 
@@ -55,18 +57,31 @@ public partial class AndriodHomeViewModel : ObservableObject
     {
         get
         {
-            var topLeft = _windowManagerService.GetTopLeftByPackage();
-            return $"x{topLeft.X}y{topLeft.Y} w{_windowManagerService.OverlayWidth}h{_windowManagerService.OverlayHeight}";
+            var topLeft = _screenService.GetTopLeft();
+            return $"x{topLeft.X}y{topLeft.Y} w{_screenService.OverlayWidth}h{_screenService.OverlayHeight}";
         }
     }
     //public string DisplayCutoutTop => _windowManagerService.DisplayCutoutTop.ToString();
     //public bool HasCutoutTop => _windowManagerService.DisplayCutoutTop > 0;
-    public AndriodHomeViewModel(AndroidWindowManagerService windowManagerService, YeetAccessibilityService accessibilityService, 
+    public bool IsIgnoringBatteryOptimizations
+    {
+        get
+        {
+            var pm = (global::Android.OS.PowerManager)Platform.CurrentActivity.GetSystemService(Context.PowerService);
+            return pm.IsIgnoringBatteryOptimizations(AppInfo.PackageName);
+        }
+    }
+    public AndriodHomeViewModel(AndroidScreenService screenService, YeetAccessibilityService accessibilityService, 
         MacroManagerViewModel macroManagerViewModel)
     {
-        _windowManagerService = windowManagerService;
+        _screenService = screenService;
         _accessibilityService = accessibilityService;
         _macroManagerViewModel = macroManagerViewModel;
+    }
+
+    public void InvokeOnPropertyChanged(string propertyName)
+    {
+        OnPropertyChanged(propertyName);
     }
 
     [RelayCommand]
@@ -95,13 +110,13 @@ public partial class AndriodHomeViewModel : ObservableObject
         IsProjectionServiceEnabled = !IsProjectionServiceEnabled;
         if (IsProjectionServiceEnabled)
         {
-            await _windowManagerService.StartProjectionService();
-            if (_macroManagerViewModel.InDebugMode) _windowManagerService.Show(AndroidWindowView.DebugDrawView);
-            if (_macroManagerViewModel.ShowStatusPanel) _windowManagerService.Show(AndroidWindowView.StatusPanelView);
+            await _screenService.StartProjectionService();
+            if (_macroManagerViewModel.InDebugMode) _screenService.Show(AndroidWindowView.DebugDrawView);
+            if (_macroManagerViewModel.ShowStatusPanel) _screenService.Show(AndroidWindowView.StatusPanelView);
         }
         else
         {
-            _windowManagerService.StopProjectionService();
+            _screenService.StopProjectionService();
         }
     }
 
@@ -113,11 +128,11 @@ public partial class AndriodHomeViewModel : ObservableObject
         IsAccessibilityEnabled = !IsAccessibilityEnabled;
         if (IsAccessibilityEnabled)
         {
-            _windowManagerService.RequestAccessibilityPermissions();
+            _accessibilityService.Start();
         }
         else
         {
-            _windowManagerService.RevokeAccessibilityPermissions();
+            _accessibilityService.Stop();
         }
     }
 
@@ -127,7 +142,7 @@ public partial class AndriodHomeViewModel : ObservableObject
         ShowMacroOverlay = !ShowMacroOverlay;
         if (ShowMacroOverlay)
         {
-            _windowManagerService.Show(AndroidWindowView.MacroOverlayView);
+            _screenService.Show(AndroidWindowView.MacroOverlayView);
         }
         else
         {
@@ -138,7 +153,7 @@ public partial class AndriodHomeViewModel : ObservableObject
     [RelayCommand]
     public void CloseMacroOverlay()
     {
-        _windowManagerService.Close(AndroidWindowView.MacroOverlayView);
+        _screenService.Close(AndroidWindowView.MacroOverlayView);
     }
 
     [RelayCommand]
@@ -169,7 +184,7 @@ public partial class AndriodHomeViewModel : ObservableObject
     [RelayCommand]
     public void ResetActionViewLocation()
     {
-        _windowManagerService.ResetActionViewLocation();
+        _screenService.ResetActionViewLocation();
     }
 
     [RelayCommand]
@@ -178,11 +193,11 @@ public partial class AndriodHomeViewModel : ObservableObject
         ShowTestView = !ShowTestView;
         if (ShowTestView)
         {
-            _windowManagerService.Show(AndroidWindowView.TestView);
+            _screenService.Show(AndroidWindowView.TestView);
         }
         else
         {
-            _windowManagerService.Close(AndroidWindowView.TestView);
+            _screenService.Close(AndroidWindowView.TestView);
         }
     }
 
@@ -199,20 +214,21 @@ public partial class AndriodHomeViewModel : ObservableObject
     }
 
     [RelayCommand]
+    // https://stackoverflow.com/questions/39256501/check-if-battery-optimization-is-enabled-or-not-for-an-app
     public void RequestIgnoreBatteryOptimizations()
     {
-        _windowManagerService.RequestIgnoreBatteryOptimizations();
+        if (IsIgnoringBatteryOptimizations) return;
+        var intent = new Intent(global::Android.Provider.Settings.ActionRequestIgnoreBatteryOptimizations, global::Android.Net.Uri.Parse($"package:{AppInfo.PackageName}"));
+        Platform.CurrentActivity.StartActivityForResult(intent, REQUEST_IGNORE_BATTERY_OPTIMIZATIONS);
     }
 
     [RelayCommand]
     public void OnAppear()
     {
         IsAppearing = true;
-        IsProjectionServiceEnabled = _windowManagerService.ProjectionServiceEnabled;
         IsAccessibilityEnabled = _accessibilityService.HasAccessibilityPermissions;
         IsMacroReady = IsProjectionServiceEnabled && IsAccessibilityEnabled;
         //if (!IsProjectionServiceEnabled) await ToggleProjectionService();
-        IsIgnoringBatteryOptimization = _windowManagerService.IsIgnoringBatteryOptimizations;
         IsAppearing = false;
     }
 }

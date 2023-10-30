@@ -5,26 +5,26 @@ using YeetMacro2.Platforms.Android.Services;
 namespace YeetMacro2.Platforms.Android.ViewModels;
 public partial class PromptStringInputViewModel : ObservableObject
 {
-    AndroidWindowManagerService _windowManagerService;
+    AndroidScreenService _screenService;
     [ObservableProperty]
     string _message = "Please input string";
     [ObservableProperty]
     string _input;
 
-    public PromptStringInputViewModel(AndroidWindowManagerService windowManagerService)
+    public PromptStringInputViewModel(AndroidScreenService screenService)
     {
-        _windowManagerService = windowManagerService;
+        _screenService = screenService;
     }
 
     [RelayCommand]
     private void Ok()
     {
-        _windowManagerService.Close(AndroidWindowView.PromptStringInputView);
+        _screenService.Close(AndroidWindowView.PromptStringInputView);
     }
 
     [RelayCommand]
     private void Cancel()
     {
-        _windowManagerService.Cancel(AndroidWindowView.PromptStringInputView);
+        _screenService.Cancel(AndroidWindowView.PromptStringInputView);
     }
 }

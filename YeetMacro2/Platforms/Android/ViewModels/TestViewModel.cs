@@ -3,6 +3,7 @@ using CommunityToolkit.Mvvm.Input;
 using Microsoft.Extensions.Logging;
 using YeetMacro2.Data.Models;
 using YeetMacro2.Platforms.Android.Services;
+using YeetMacro2.Services;
 
 namespace YeetMacro2.Platforms.Android.ViewModels;
 
@@ -20,20 +21,20 @@ public partial class TestViewModel : ObservableObject
     ILogger _logger;
     MediaProjectionService _mediaProjectionService;
     YeetAccessibilityService _accessibilityService;
-    AndroidWindowManagerService _androidWindowManagerService;
     OpenCvService _openCvService;
+    IScreenService _screenService;
 
     Java.Lang.Reflect.Method dumpGREFTableMethod = Java.Lang.Class.ForName("dalvik.system.VMDebug").GetDeclaredMethod("dumpReferenceTables");
     Java.Lang.Object[] args = new Java.Lang.Object[0];
 
     public TestViewModel(ILogger<TestViewModel> logger, MediaProjectionService mediaProjectionService, YeetAccessibilityService accessibilityService,
-        AndroidWindowManagerService androidWindowManagerService, OpenCvService openCvService)
+        OpenCvService openCvService, IScreenService screenService)
     {
         _logger = logger;
         _mediaProjectionService = mediaProjectionService;
         _accessibilityService = accessibilityService;
-        _androidWindowManagerService = androidWindowManagerService;
         _openCvService = openCvService;
+        _screenService = screenService;
     }
 
     // https://stackoverflow.com/questions/46232314/trying-to-track-down-gref-leak
@@ -265,7 +266,7 @@ public partial class TestViewModel : ObservableObject
             {
                 GetTextTestCount++;
                 _logger.LogDebug(GetTextTestCount.ToString());
-                var text = _androidWindowManagerService.GetText(_textImage);
+                var text = _screenService.GetText(_textImage);
                 await Task.Delay(100);
             }
         });

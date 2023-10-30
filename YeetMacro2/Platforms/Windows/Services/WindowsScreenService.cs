@@ -119,6 +119,16 @@ public class WindowsScreenService : IScreenService, IRecorderService
         throw new NotImplementedException();
     }
 
+    public string GetText(byte[] currentImage)
+    {
+        throw new NotImplementedException();
+    }
+
+    public void ShowMessage(string message)
+    {
+        throw new NotImplementedException();
+    }
+
     public void StartRecording()
     {
         throw new NotImplementedException();

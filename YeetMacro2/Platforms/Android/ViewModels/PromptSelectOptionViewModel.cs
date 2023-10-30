@@ -5,7 +5,7 @@ using YeetMacro2.Platforms.Android.Services;
 namespace YeetMacro2.Platforms.Android.ViewModels;
 public partial class PromptSelectOptionViewModel : ObservableObject
 {
-    AndroidWindowManagerService _windowManagerService;
+    AndroidScreenService _screenService;
     [ObservableProperty]
     string _message = "Please select option";
     [ObservableProperty]
@@ -13,21 +13,21 @@ public partial class PromptSelectOptionViewModel : ObservableObject
     [ObservableProperty]
     string _selectedOption;
 
-    public PromptSelectOptionViewModel(AndroidWindowManagerService windowManagerService)
+    public PromptSelectOptionViewModel(AndroidScreenService screenService)
     {
-        _windowManagerService = windowManagerService;
+        _screenService = screenService;
     }
 
     [RelayCommand]
     private void Select(string option)
     {
         SelectedOption = option;
-        _windowManagerService.Close(AndroidWindowView.PromptSelectOptionView);
+        _screenService.Close(AndroidWindowView.PromptSelectOptionView);
     }
 
     [RelayCommand]
     private void Cancel()
     {
-        _windowManagerService.Cancel(AndroidWindowView.PromptSelectOptionView);
+        _screenService.Cancel(AndroidWindowView.PromptSelectOptionView);
     }
 }
