@@ -361,15 +361,18 @@ public class AndroidScreenService : IScreenService
 
     public void ShowOverlayWindow()
     {
-        if (_overlayWindow == null)
+        if (_overlayWindow != null)
         {
-            var grid = new Grid() { InputTransparent = true, CascadeInputTransparent = true };
-            _overlayWindow = new FormsView(_context, _windowManager, grid) { IsModal = false };
-            _overlayWindow.SetIsTouchable(false);
-            _overlayWindow.SetBackgroundToTransparent();
-            _overlayWindow.DisableTranslucentNavigation();
+            _overlayWindow.Close();
+            _overlayWindow.Dispose();
         }
 
+        var grid = new Grid() { InputTransparent = true, CascadeInputTransparent = true };
+        _overlayWindow = new FormsView(_context, _windowManager, grid) { IsModal = false };
+        _overlayWindow.SetIsTouchable(false);
+        _overlayWindow.SetBackgroundToTransparent();
+        _overlayWindow.DisableTranslucentNavigation();
+        
         //Get overlay permissin if needed
         if (global::Android.OS.Build.VERSION.SdkInt >= global::Android.OS.BuildVersionCodes.M && !Settings.CanDrawOverlays(_context))
         {
