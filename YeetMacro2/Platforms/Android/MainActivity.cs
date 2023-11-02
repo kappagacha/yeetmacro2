@@ -53,6 +53,14 @@ public class MainActivity : MauiAppCompatActivity
             ServiceHelper.GetService<LogViewModel>().LogException(args.Exception);
         };
 
+        DeviceDisplay.MainDisplayInfoChanged += (sender, args) =>
+        {
+            var displayInfo = args.DisplayInfo;
+            var logger = ServiceHelper.GetService<LogViewModel>();
+            logger.InitLogGroup();
+            logger.Log(Data.Models.LogType.Info, $"MainDisplayInfoChanged: W${displayInfo.Width} H${displayInfo.Height} O${displayInfo.Orientation}");
+        };
+
         base.OnCreate(savedInstanceState);
     }
 

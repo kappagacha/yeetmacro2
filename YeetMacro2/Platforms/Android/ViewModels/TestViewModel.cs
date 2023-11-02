@@ -1,4 +1,8 @@
-﻿using CommunityToolkit.Mvvm.ComponentModel;
+﻿using Android.Content;
+using Android.Runtime;
+using Android.Util;
+using Android.Views;
+using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using Microsoft.Extensions.Logging;
 using YeetMacro2.Data.Models;
@@ -295,6 +299,10 @@ public partial class TestViewModel : ObservableObject
             return;
         }
 
-        CustomResolution = _screenService.CurrentResolution.ToString();
+        var windowManager = Platform.CurrentActivity.GetSystemService(Context.WindowService).JavaCast<IWindowManager>();
+        var dm = new DisplayMetrics();
+        windowManager.DefaultDisplay.GetRealMetrics(dm);
+        CustomResolution = dm.ToString();
+        //CustomResolution = _screenService.CurrentResolution.ToString();
     }
 }

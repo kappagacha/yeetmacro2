@@ -105,7 +105,7 @@ public partial class LogViewModel : ObservableObject, ILogEventSink
         _logGroupRepository.Value.Save();
     }
 
-    private void Log(LogType logType, String message)
+    public void Log(LogType logType, String message)
     {
         var log = new Log()
         {
@@ -160,7 +160,7 @@ public partial class LogViewModel : ObservableObject, ILogEventSink
         }
     }
 
-    private void InitLogGroup(Exception ex = null)
+    public void InitLogGroup(Exception ex = null)
     {
         _currentLogGroup = new LogGroup() { Timestamp = DateTime.Now.Ticks, MacroSet = _currentMacroSet, Script = ex?.Message ?? _currentScript, Stack = (ex is not null ? ex.StackTrace ?? Environment.StackTrace : null) };
         _currentLogGroup.Logs = new SortedObservableCollection<Log>((a, b) => (int)(b.Timestamp - a.Timestamp));

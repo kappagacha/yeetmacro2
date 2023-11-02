@@ -44,6 +44,7 @@ public class MediaProjectionService : IRecorderService
         try
         {
             _logger.LogTrace("MediaProjectionService Start");
+            
             var displayInfo = DeviceDisplay.MainDisplayInfo;
             var width = (int)displayInfo.Width;
             var height = (int)displayInfo.Height;

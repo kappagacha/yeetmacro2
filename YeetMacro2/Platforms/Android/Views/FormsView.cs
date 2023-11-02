@@ -34,17 +34,19 @@ public class FormsView : RelativeLayout, IShowable
         _layoutParams.Flags |= WindowManagerFlags.TranslucentNavigation;
         _layoutParams.Flags |= WindowManagerFlags.LayoutInScreen;
         //_layoutParams.Gravity = GravityFlags.Top | GravityFlags.Left;
+        _layoutParams.Width = WindowManagerLayoutParams.MatchParent;
+        _layoutParams.Height = WindowManagerLayoutParams.MatchParent;
         SetBackgroundColor(Color.Argb(70, 0, 0, 0));
 
         _state = FormState.CLOSED;
-        InitDisplay();
-        DeviceDisplay.MainDisplayInfoChanged += DeviceDisplay_MainDisplayInfoChanged;
+        //InitDisplay();
+        //DeviceDisplay.MainDisplayInfoChanged += DeviceDisplay_MainDisplayInfoChanged;
 
         _visualElement = visualElement;
         var mauiContext = new MauiContext(MauiApplication.Current.Services, context);
         var androidView = visualElement.ToPlatform(mauiContext);
         androidView.SetPadding(0, 0, 0, 0);
-        AddView(androidView, new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MatchParent, ViewGroup.LayoutParams.MatchParent));
+        AddView(androidView, new ViewGroup.LayoutParams(_layoutParams.Width, _layoutParams.Height));
 
         androidView.Clickable = true;
         androidView.Click += FormsView_Click;
@@ -82,7 +84,7 @@ public class FormsView : RelativeLayout, IShowable
             _layoutParams.Flags |= WindowManagerFlags.NotTouchModal;
             _layoutParams.Flags |= WindowManagerFlags.NotFocusable;
             //https://medium.com/androiddevelopers/untrusted-touch-events-2c0e0b9c374c#776e
-            //to allow clicking past the window, alpha needs to be 0.8 or below
+            //to allow clicking through the window, alpha needs to be 0.8 or below
             _layoutParams.Alpha = 0.5f;
         }
 
@@ -101,26 +103,26 @@ public class FormsView : RelativeLayout, IShowable
         }
     }
 
-    private void DeviceDisplay_MainDisplayInfoChanged(object sender, DisplayInfoChangedEventArgs e)
-    {
-        InitDisplay();
-    }
+    //private void DeviceDisplay_MainDisplayInfoChanged(object sender, DisplayInfoChangedEventArgs e)
+    //{
+    //    InitDisplay();
+    //}
 
-    private void InitDisplay()
-    {
-        var displayInfo = DeviceDisplay.MainDisplayInfo;
-        _displayWidth = (int)displayInfo.Width;
-        _displayHeight = (int)displayInfo.Height;
-        _layoutParams.Width = _displayWidth;
-        _layoutParams.Height = _displayHeight;
-        _layoutParams.X = 0;
-        _layoutParams.Y = 0;
+    //private void InitDisplay()
+    //{
+    //    var displayInfo = DeviceDisplay.MainDisplayInfo;
+    //    _displayWidth = (int)displayInfo.Width;
+    //    _displayHeight = (int)displayInfo.Height;
+    //    _layoutParams.Width = _displayWidth;
+    //    _layoutParams.Height = _displayHeight;
+    //    _layoutParams.X = 0;
+    //    _layoutParams.Y = 0;
 
-        if (_state == FormState.SHOWING)
-        {
-            _windowManager.UpdateViewLayout(this, _layoutParams);
-        }
-    }
+    //    if (_state == FormState.SHOWING)
+    //    {
+    //        _windowManager.UpdateViewLayout(this, _layoutParams);
+    //    }
+    //}
 
     public void Show()
     {
@@ -129,7 +131,7 @@ public class FormsView : RelativeLayout, IShowable
             _state = FormState.SHOWING;
             _windowManager.AddView(this, _layoutParams);
             _closeCompleted = new TaskCompletionSource<bool>();
-            InitDisplay();
+            //InitDisplay();
         }
     }
 
