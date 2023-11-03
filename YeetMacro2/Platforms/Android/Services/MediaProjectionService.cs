@@ -54,10 +54,6 @@ public class MediaProjectionService : IRecorderService
             _mediaProjection = _mediaProjectionManager.GetMediaProjection(_resultCode, (Intent)_resultData.Clone());
             _imageReader = ImageReader.NewInstance(width, height, (ImageFormatType)global::Android.Graphics.Format.Rgba8888, 2);
             _virtualDisplay = _mediaProjection.CreateVirtualDisplay("ScreenCapture", width, height, density, (DisplayFlags)VirtualDisplayFlags.AutoMirror, _imageReader.Surface, null, null);
-
-            DeviceDisplay.MainDisplayInfoChanged += DeviceDisplay_MainDisplayInfoChanged;
-            var projectionServiceStarted = new Intent("com.companyname.MediaProjectionService.STARTED");
-            _context.SendBroadcast(projectionServiceStarted);
         }
         catch (Exception ex)
         {
@@ -65,21 +61,7 @@ public class MediaProjectionService : IRecorderService
         }
     }
 
-    private void DeviceDisplay_MainDisplayInfoChanged(object sender, DisplayInfoChangedEventArgs e)
-    {
-        try
-        {
-            _logger.LogTrace("DeviceDisplay_MainDisplayInfoChanged");
-            Stop(false);
-            Start();
-        }
-        catch (Exception ex)
-        {
-            _logger.LogError(ex, "DeviceDisplay_MainDisplayInfoChanged Exception");
-        }
-    }
-
-    public void Start(global::Android.App.Result resultCode, Intent resultData)
+    public void Init(global::Android.App.Result resultCode, Intent resultData)
     {
         if (resultCode != global::Android.App.Result.Ok)
         {
@@ -95,22 +77,10 @@ public class MediaProjectionService : IRecorderService
         _startCompleted.SetResult(true);
         _isInitialized = true;
 
-        Start();
-
-        Toast.MakeText(_context, "Media projection started...", ToastLength.Short).Show();
+        var projectionServiceStarted = new Intent("com.companyname.MediaProjectionService.STARTED");
+        _context.SendBroadcast(projectionServiceStarted);
+        Toast.MakeText(_context, "Media projection initialized...", ToastLength.Short).Show();
     }
-
-    //It may be faster if we don't convert to bitmap
-    //public byte[] GetCurrentImageByteArray()
-    //{
-    //    var image = _imageReader.AcquireLatestImage();
-    //    var plane = image.GetPlanes()[0];
-    //    var buffer = plane.Buffer;
-    //    byte[] bytes = new byte[buffer.Capacity()];
-    //    buffer.Get(bytes);
-
-    //    return bytes;
-    //}
 
     public async Task EnsureProjectionServiceStarted()
     {
@@ -143,9 +113,9 @@ public class MediaProjectionService : IRecorderService
         return bitmap;
     }
 
-    public void Stop(bool doNotify = true)
+    public void Stop()
     {
-        DeviceDisplay.MainDisplayInfoChanged -= DeviceDisplay_MainDisplayInfoChanged;
+        //DeviceDisplay.MainDisplayInfoChanged -= DeviceDisplay_MainDisplayInfoChanged;
         if (_imageReader != null)
         {
             _imageReader.Close();
@@ -164,11 +134,6 @@ public class MediaProjectionService : IRecorderService
             _mediaProjection.Stop();
             _mediaProjection.Dispose();
             _mediaProjection = null;
-        }
-
-        if (doNotify && _context != null)
-        {
-            Toast.MakeText(_context, "Media projection stopped...", ToastLength.Short).Show();
         }
     }
 

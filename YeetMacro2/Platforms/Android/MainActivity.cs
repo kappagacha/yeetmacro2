@@ -69,7 +69,7 @@ public class MainActivity : MauiAppCompatActivity
         switch (requestCode)
         {
             case Platforms.Android.Services.MediaProjectionService.REQUEST_MEDIA_PROJECTION:
-                ServiceHelper.GetService<MediaProjectionService>().Start(resultCode, data);
+                ServiceHelper.GetService<MediaProjectionService>().Init(resultCode, data);
                 break;
             case AndriodHomeViewModel.REQUEST_IGNORE_BATTERY_OPTIMIZATIONS:
                 ServiceHelper.GetService<AndriodHomeViewModel>().InvokeOnPropertyChanged(nameof(AndriodHomeViewModel.IsIgnoringBatteryOptimizations));

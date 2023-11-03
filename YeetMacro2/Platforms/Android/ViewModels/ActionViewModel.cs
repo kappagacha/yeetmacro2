@@ -31,29 +31,33 @@ public partial class ActionViewModel : ObservableObject, IMovable
     IScriptService _scriptService;
     MacroManagerViewModel _macroManagerViewModel;
     IToastService _toastService;
+    MediaProjectionService _mediaProjectionService;
     JsonSerializerOptions _serializationOptions = new JsonSerializerOptions()
     {
         PropertyNamingPolicy = JsonNamingPolicy.CamelCase,
         TypeInfoResolver = PointPropertiesResolver.Instance
     };
 
-    public ActionViewModel(AndroidScreenService screenService, IScriptService scriptService, 
-        MacroManagerViewModel macroManagerViewModel, IToastService toastService)
+    public ActionViewModel(AndroidScreenService screenService, IScriptService scriptService, MacroManagerViewModel macroManagerViewModel, 
+        IToastService toastService, MediaProjectionService mediaProjectionService)
     {
         _screenService = screenService;
         _scriptService = scriptService;
         _macroManagerViewModel = macroManagerViewModel;
         _toastService = toastService;
+        _mediaProjectionService = mediaProjectionService;
 
         WeakReferenceMessenger.Default.Register<ScriptEventMessage>(this, (r, scriptEventMessage) =>
         {
             if (scriptEventMessage.Value.Type == ScriptEventType.Started)
             {
+                _mediaProjectionService.Start();
                 _screenService.Close(AndroidWindowView.ScriptsNodeView);
                 State = ActionState.Running;
             }
             else
             {
+                _mediaProjectionService.Stop();
                 State = ActionState.Stopped;
                 if (!String.IsNullOrWhiteSpace(scriptEventMessage.Value.Result))
                 {
@@ -62,7 +66,8 @@ public partial class ActionViewModel : ObservableObject, IMovable
             }
         });
 
-        WeakReferenceMessenger.Default.Register<PropertyChangedMessage<bool>, string>(this, nameof(MacroManagerViewModel), (r, propertyChangedMessage) => {
+        WeakReferenceMessenger.Default.Register<PropertyChangedMessage<bool>, string>(this, nameof(MacroManagerViewModel), (r, propertyChangedMessage) =>
+        {
             AndroidWindowView windowView;
             switch (propertyChangedMessage.PropertyName)
             {

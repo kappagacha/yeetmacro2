@@ -55,7 +55,6 @@ public class ForegroundService : Service
                 break;
             default:
                 StartForeground(SERVICE_RUNNING_NOTIFICATION_ID, GenerateNotification());
-                _mediaProjectionService.Value.Start();
                 _screenService.Value.ShowOverlayWindow();
                 break;
         }
