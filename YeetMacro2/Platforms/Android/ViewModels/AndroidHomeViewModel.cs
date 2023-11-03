@@ -112,6 +112,7 @@ public partial class AndriodHomeViewModel : ObservableObject
         if (IsProjectionServiceEnabled)
         {
             await _screenService.StartProjectionService();
+            _screenService.Show(AndroidWindowView.ActionView);
             if (_macroManagerViewModel.InDebugMode) _screenService.Show(AndroidWindowView.DebugDrawView);
             if (_macroManagerViewModel.ShowStatusPanel) _screenService.Show(AndroidWindowView.StatusPanelView);
         }

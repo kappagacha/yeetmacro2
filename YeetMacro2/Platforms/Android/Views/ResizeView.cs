@@ -105,6 +105,7 @@ public class ResizeView : RelativeLayout, IOnTouchListener, IShowable
 
     private void InitDisplay(Size size)
     {
+        _density = DeviceDisplay.MainDisplayInfo.Density;
         _displayWidth = (int)size.Width;
         _displayHeight = (int)size.Height;
         _layoutParams.Width = (int)(_displayWidth * 0.75);
