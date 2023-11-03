@@ -192,10 +192,12 @@ public class MediaProjectionService : IRecorderService
     {
         if (_isRecording) return;
 
-        var displayInfo = DeviceDisplay.MainDisplayInfo;
-        var width = (int)displayInfo.Width;
-        var height = (int)displayInfo.Height;
-        var density = (int)displayInfo.Density;
+        Start();
+        var screenService = ServiceHelper.GetService<AndroidScreenService>();
+        var currentResolution = screenService.CurrentResolution;
+        var width = (int)(currentResolution.Width > currentResolution.Height ? Math.Max(DeviceDisplay.MainDisplayInfo.Width, DeviceDisplay.MainDisplayInfo.Height) : Math.Min(DeviceDisplay.MainDisplayInfo.Width, DeviceDisplay.MainDisplayInfo.Height));
+        var height = (int)(currentResolution.Height > currentResolution.Width ? Math.Max(DeviceDisplay.MainDisplayInfo.Width, DeviceDisplay.MainDisplayInfo.Height) : Math.Min(DeviceDisplay.MainDisplayInfo.Width, DeviceDisplay.MainDisplayInfo.Height));
+        var density = (int)DeviceDisplay.MainDisplayInfo.Density;
         var profile = CamcorderProfile.Get(CamcorderQuality.High);
 
         _mediaRecorder = new MediaRecorder();
@@ -218,11 +220,12 @@ public class MediaProjectionService : IRecorderService
     {
         if (!_isRecording) return;
 
+        _isRecording = false;
+        _screenVirtualDisplay.Release();
+        _screenVirtualDisplay.Dispose();
         _mediaRecorder.Stop();
         _mediaRecorder.Release();
         _mediaRecorder.Dispose();
-        _screenVirtualDisplay.Release();
-        _screenVirtualDisplay.Dispose();
-        _isRecording = false;
+        Stop();
     }
 }
