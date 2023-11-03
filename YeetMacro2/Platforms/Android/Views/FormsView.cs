@@ -12,7 +12,6 @@ public class FormsView : RelativeLayout, IShowable
     enum FormState { SHOWING, CLOSED };
     private IWindowManager _windowManager;
     private WindowManagerLayoutParams _layoutParams;
-    int _displayWidth, _displayHeight;
     private VisualElement _visualElement;
     public VisualElement VisualElement => _visualElement;
     private FormState _state;
@@ -39,8 +38,6 @@ public class FormsView : RelativeLayout, IShowable
         SetBackgroundColor(Color.Argb(70, 0, 0, 0));
 
         _state = FormState.CLOSED;
-        //InitDisplay();
-        //DeviceDisplay.MainDisplayInfoChanged += DeviceDisplay_MainDisplayInfoChanged;
 
         _visualElement = visualElement;
         var mauiContext = new MauiContext(MauiApplication.Current.Services, context);
@@ -103,27 +100,6 @@ public class FormsView : RelativeLayout, IShowable
         }
     }
 
-    //private void DeviceDisplay_MainDisplayInfoChanged(object sender, DisplayInfoChangedEventArgs e)
-    //{
-    //    InitDisplay();
-    //}
-
-    //private void InitDisplay()
-    //{
-    //    var displayInfo = DeviceDisplay.MainDisplayInfo;
-    //    _displayWidth = (int)displayInfo.Width;
-    //    _displayHeight = (int)displayInfo.Height;
-    //    _layoutParams.Width = _displayWidth;
-    //    _layoutParams.Height = _displayHeight;
-    //    _layoutParams.X = 0;
-    //    _layoutParams.Y = 0;
-
-    //    if (_state == FormState.SHOWING)
-    //    {
-    //        _windowManager.UpdateViewLayout(this, _layoutParams);
-    //    }
-    //}
-
     public void Show()
     {
         if (_state != FormState.SHOWING)
@@ -131,7 +107,6 @@ public class FormsView : RelativeLayout, IShowable
             _state = FormState.SHOWING;
             _windowManager.AddView(this, _layoutParams);
             _closeCompleted = new TaskCompletionSource<bool>();
-            //InitDisplay();
         }
     }
 

@@ -44,11 +44,11 @@ public class MediaProjectionService : IRecorderService
         try
         {
             _logger.LogTrace("MediaProjectionService Start");
-            
-            var displayInfo = DeviceDisplay.MainDisplayInfo;
-            var width = (int)displayInfo.Width;
-            var height = (int)displayInfo.Height;
-            var density = (int)displayInfo.Density;
+
+            var currentResolution = ServiceHelper.GetService<AndroidScreenService>().CurrentResolution;
+            var width = (int)currentResolution.Width;
+            var height = (int)currentResolution.Height;
+            var density = (int)DeviceDisplay.MainDisplayInfo.Density;
 
             // https://github.com/Fate-Grand-Automata/FGA/blob/2a62ab7a456a9913cf0355db81b5a15f13906f27/app/src/main/java/io/github/fate_grand_automata/runner/ScreenshotServiceHolder.kt#L53
             _mediaProjection = _mediaProjectionManager.GetMediaProjection(_resultCode, (Intent)_resultData.Clone());
