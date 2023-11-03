@@ -68,7 +68,7 @@ public class AndroidScreenService : IScreenService
         _accessibilityService = accessibilityService;
         _toastService = toastService;
         _windowManager = _context.GetSystemService(Context.WindowService).JavaCast<IWindowManager>();
-        //DeviceDisplay.MainDisplayInfoChanged += DeviceDisplay_MainDisplayInfoChanged;
+        DeviceDisplay.MainDisplayInfoChanged += DeviceDisplay_MainDisplayInfoChanged;
     }
 
     public byte[] CalcColorThreshold(Pattern pattern, ColorThresholdProperties colorThreshold)
@@ -349,17 +349,14 @@ public class AndroidScreenService : IScreenService
         }
     }
 
-    //private void DeviceDisplay_MainDisplayInfoChanged(object sender, DisplayInfoChangedEventArgs e)
-    //{
-    //    Console.WriteLine("[*****YeetMacro*****] WindowManagerService DeviceDisplay_MainDisplayInfoChanged Start");
-    //    _packageToStatusBarHeight.Clear();
-    //    if (_views.ContainsKey(AndroidWindowView.ActionView) && _views[AndroidWindowView.ActionView].IsShowing)
-    //    {
-    //        Close(AndroidWindowView.ActionView);
-    //        Show(AndroidWindowView.ActionView);
-    //    }
-    //    Console.WriteLine("[*****YeetMacro*****] WindowManagerService DeviceDisplay_MainDisplayInfoChanged End");
-    //}
+    private void DeviceDisplay_MainDisplayInfoChanged(object sender, DisplayInfoChangedEventArgs e)
+    {
+        if (_views.ContainsKey(AndroidWindowView.ActionView) && _views[AndroidWindowView.ActionView].IsShowing)
+        {
+            Close(AndroidWindowView.ActionView);
+            Show(AndroidWindowView.ActionView);
+        }
+    }
 
     public void ShowOverlayWindow()
     {
@@ -534,7 +531,6 @@ public class AndroidScreenService : IScreenService
     {
         var loc = new int[2];
         _overlayWindow?.GetLocationOnScreen(loc);
-
         return new Point(loc[0], loc[1]);
     }
 

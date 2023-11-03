@@ -51,8 +51,8 @@ public partial class ActionViewModel : ObservableObject, IMovable
         {
             if (scriptEventMessage.Value.Type == ScriptEventType.Started)
             {
-                _mediaProjectionService.Start();
                 _screenService.Close(AndroidWindowView.ScriptsNodeView);
+                _mediaProjectionService.Start();
                 State = ActionState.Running;
             }
             else
