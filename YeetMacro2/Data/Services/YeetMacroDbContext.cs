@@ -54,8 +54,10 @@ public class YeetMacroDbContext : DbContext
         modelBuilder.Entity<MacroSet>().HasKey(ms => ms.MacroSetId);
         modelBuilder.Entity<MacroSet>().Property(ms => ms.Resolution).HasConversion(sizeConverter);
 
-        modelBuilder.Entity<Node>().HasKey(pn => pn.NodeId);
+        modelBuilder.Entity<Node>().HasKey(n => n.NodeId);
         modelBuilder.Entity<Node>().UseTptMappingStrategy();
+        modelBuilder.Entity<Node>().Ignore(n => n.IsSelected);
+        modelBuilder.Entity<Node>().Ignore(n => n.IsExpanded);
         modelBuilder.Entity<NodeClosure>().HasKey(nc => nc.ClosureId);
         modelBuilder.Entity<NodeClosure>().HasOne(nc => nc.Ancestor).WithMany().HasForeignKey(n => n.AncestorId);
         modelBuilder.Entity<NodeClosure>().HasOne(nc => nc.Descendant).WithMany().HasForeignKey(n => n.DescendantId);
@@ -68,6 +70,7 @@ public class YeetMacroDbContext : DbContext
         modelBuilder.Entity<PatternNode>().HasMany(pn => pn.Nodes).WithOne().HasForeignKey($"{nameof(PatternNode)}{nameof(Node.ParentId)}").OnDelete(DeleteBehavior.Cascade);
         modelBuilder.Entity<PatternNode>().HasMany(pn => pn.Patterns).WithOne().HasForeignKey(p => p.PatternNodeId).OnDelete(DeleteBehavior.Cascade);
         modelBuilder.Entity<Pattern>().HasKey(p => p.PatternId);
+        modelBuilder.Entity<Pattern>().Ignore(p => p.IsSelected);
         modelBuilder.Entity<Pattern>().Property(p => p.Resolution).HasConversion(sizeConverter);
         modelBuilder.Entity<Pattern>().Property(p => p.Rect).HasConversion(rectConverter);
         modelBuilder.Entity<Pattern>().OwnsOne(p => p.TextMatch);

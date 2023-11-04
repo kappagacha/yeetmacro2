@@ -31,6 +31,7 @@ public class Pattern
 {
     public virtual Rect Rect { get; set; }
     public virtual Size Resolution { get; set; }
+    [JsonIgnore]
     public virtual bool IsSelected { get; set; }
     public virtual bool IsBoundsPattern { get; set; }
     [JsonIgnore]
