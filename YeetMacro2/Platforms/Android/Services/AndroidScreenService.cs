@@ -12,6 +12,8 @@ using YeetMacro2.Platforms.Android.Views;
 using YeetMacro2.Services;
 using YeetMacro2.ViewModels;
 using YeetMacro2.Views;
+using CommunityToolkit.Mvvm.Messaging.Messages;
+using CommunityToolkit.Mvvm.Messaging;
 
 namespace YeetMacro2.Platforms.Android.Services;
 
@@ -69,6 +71,23 @@ public class AndroidScreenService : IScreenService
         _toastService = toastService;
         _windowManager = _context.GetSystemService(Context.WindowService).JavaCast<IWindowManager>();
         DeviceDisplay.MainDisplayInfoChanged += DeviceDisplay_MainDisplayInfoChanged;
+
+        WeakReferenceMessenger.Default.Register<PropertyChangedMessage<bool>, string>(this, nameof(ForegroundService), (r, propertyChangedMessage) =>
+        {
+            if (propertyChangedMessage.NewValue)    // true means ForegroundService was started
+            {
+                ShowOverlayWindow();
+            }
+            else // Foreground Service Exit action
+            {
+                Close(AndroidWindowView.ActionView);
+                Close(AndroidWindowView.StatusPanelView);
+                Close(AndroidWindowView.MacroOverlayView);
+                Close(AndroidWindowView.TestView);
+                Close(AndroidWindowView.DebugDrawView);
+                CloseOverlayWindow();
+            }
+        });
     }
 
     public byte[] CalcColorThreshold(Pattern pattern, ColorThresholdProperties colorThreshold)
@@ -476,6 +495,7 @@ public class AndroidScreenService : IScreenService
                     break;
                 case AndroidWindowView.TestView:
                     var testView = new ResizeView(_context, _windowManager, this, new TestView());
+                    testView.OnClose = () => ServiceHelper.GetService<AndriodHomeViewModel>().ShowTestView = false;
                     _views.TryAdd(windowView, testView);
                     break;
             }

@@ -1,6 +1,8 @@
 ﻿using Android.Content;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
+using CommunityToolkit.Mvvm.Messaging.Messages;
+using CommunityToolkit.Mvvm.Messaging;
 using YeetMacro2.Platforms.Android.Services;
 using YeetMacro2.ViewModels;
 
@@ -78,6 +80,15 @@ public partial class AndriodHomeViewModel : ObservableObject
         _screenService = screenService;
         _accessibilityService = accessibilityService;
         _macroManagerViewModel = macroManagerViewModel;
+
+        WeakReferenceMessenger.Default.Register<PropertyChangedMessage<bool>, string>(this, nameof(ForegroundService), (r, propertyChangedMessage) =>
+        {
+            if (!propertyChangedMessage.NewValue)
+            {
+                IsProjectionServiceEnabled = IsMacroReady = false;
+                _macroManagerViewModel.ShowStatusPanel = _macroManagerViewModel.InDebugMode = false;
+            }
+        });
     }
 
     public void InvokeOnPropertyChanged(string propertyName)
@@ -108,6 +119,8 @@ public partial class AndriodHomeViewModel : ObservableObject
     [RelayCommand]
     public async Task ToggleProjectionService()
     {
+        if (IsAppearing) return;
+
         IsProjectionServiceEnabled = !IsProjectionServiceEnabled;
         if (IsProjectionServiceEnabled)
         {
@@ -141,6 +154,8 @@ public partial class AndriodHomeViewModel : ObservableObject
     [RelayCommand]
     public void ToggleShowMacroOverlay()
     {
+        if (IsAppearing) return;
+
         ShowMacroOverlay = !ShowMacroOverlay;
         if (ShowMacroOverlay)
         {
@@ -193,14 +208,6 @@ public partial class AndriodHomeViewModel : ObservableObject
     public void ToggleShowTestView()
     {
         ShowTestView = !ShowTestView;
-        if (ShowTestView)
-        {
-            _screenService.Show(AndroidWindowView.TestView);
-        }
-        else
-        {
-            _screenService.Close(AndroidWindowView.TestView);
-        }
     }
 
     [RelayCommand]
@@ -224,14 +231,24 @@ public partial class AndriodHomeViewModel : ObservableObject
         Platform.CurrentActivity.StartActivityForResult(intent, REQUEST_IGNORE_BATTERY_OPTIMIZATIONS);
     }
 
+    partial void OnShowTestViewChanged(bool oldValue, bool newValue)
+    {
+        if (newValue)
+        {
+            _screenService.Show(AndroidWindowView.TestView);
+        }
+        else
+        {
+            _screenService.Close(AndroidWindowView.TestView);
+        }
+    }
+
     [RelayCommand]
     public void OnAppear()
     {
         IsAppearing = true;
         IsAccessibilityEnabled = _accessibilityService.HasAccessibilityPermissions;
         IsMacroReady = IsProjectionServiceEnabled && IsAccessibilityEnabled;
-        //if (!IsProjectionServiceEnabled) await ToggleProjectionService();
         IsAppearing = false;
     }
 }
-

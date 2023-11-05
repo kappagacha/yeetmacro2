@@ -4,7 +4,8 @@ using Android.Media.Projection;
 using Android.OS;
 using Android.Runtime;
 using AndroidX.Core.App;
-using YeetMacro2.Services;
+using CommunityToolkit.Mvvm.Messaging.Messages;
+using CommunityToolkit.Mvvm.Messaging;
 
 namespace YeetMacro2.Platforms.Android.Services;
 
@@ -15,9 +16,6 @@ public class ForegroundService : Service
     public const string EXIT_ACTION = "EXIT";
     public const int SERVICE_RUNNING_NOTIFICATION_ID = 10000;
     MainActivity _context;
-    MediaProjectionManager _mediaProjectionManager;
-    Lazy<AndroidScreenService> _screenService;
-    Lazy<MediaProjectionService> _mediaProjectionService;
 
     public ForegroundService()
     {
@@ -26,16 +24,9 @@ public class ForegroundService : Service
 
     public override void OnCreate()
     {
-        Console.WriteLine("[*****YeetMacro*****] ForegroundService OnCreate");
         _context = (MainActivity)Platform.CurrentActivity;
-        Console.WriteLine("[*****YeetMacro*****] ForegroundService set _windowManagerService");
-        _screenService = ServiceHelper.GetService<Lazy<AndroidScreenService>>();
-        Console.WriteLine("[*****YeetMacro*****] ForegroundService set _mediaProjectionService");
-        _mediaProjectionService = ServiceHelper.GetService<Lazy<MediaProjectionService>>();
-        Console.WriteLine("[*****YeetMacro*****] ForegroundService set _mediaProjectionManager");
-        _mediaProjectionManager = (MediaProjectionManager)_context.GetSystemService(Context.MediaProjectionService);
-        Console.WriteLine("[*****YeetMacro*****] ForegroundService start screen capture");
-        _context.StartActivityForResult(_mediaProjectionManager.CreateScreenCaptureIntent(), YeetMacro2.Platforms.Android.Services.MediaProjectionService.REQUEST_MEDIA_PROJECTION);
+        var mediaProjectionManager = (MediaProjectionManager)_context.GetSystemService(Context.MediaProjectionService);
+        _context.StartActivityForResult(mediaProjectionManager.CreateScreenCaptureIntent(), Services.MediaProjectionService.REQUEST_MEDIA_PROJECTION);
         base.OnCreate();
     }
 
@@ -45,17 +36,11 @@ public class ForegroundService : Service
         {
             case EXIT_ACTION:
                 StopForeground(StopForegroundFlags.Remove);
-                _screenService.Value.Close(AndroidWindowView.ActionView);
-                _screenService.Value.Close(AndroidWindowView.StatusPanelView);
-                _screenService.Value.CloseOverlayWindow();
-                _mediaProjectionService.Value.Stop();
-                _mediaProjectionService.Value.StopRecording();
-                Intent exitEvent = new Intent("com.companyname.ForegroundService.EXIT");
-                _context.SendBroadcast(exitEvent);
+                WeakReferenceMessenger.Default.Send(new PropertyChangedMessage<bool>(this, nameof(OnStartCommand), true, false), nameof(ForegroundService));
                 break;
             default:
                 StartForeground(SERVICE_RUNNING_NOTIFICATION_ID, GenerateNotification());
-                _screenService.Value.ShowOverlayWindow();
+                WeakReferenceMessenger.Default.Send(new PropertyChangedMessage<bool>(this, nameof(OnStartCommand), false, true), nameof(ForegroundService));
                 break;
         }
 

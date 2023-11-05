@@ -6,7 +6,7 @@ using YeetMacro2.ViewModels;
 
 namespace YeetMacro2.Platforms.Android.Services;
 [BroadcastReceiver(Enabled = true, Exported = false)]
-[IntentFilter(new[] { "com.companyname.ForegroundService.EXIT", "com.companyname.AccessibilityService.CHANGED", "com.companyname.MediaProjectionService.STARTED" })]
+[IntentFilter(new[] { "com.companyname.AccessibilityService.CHANGED", "com.companyname.MediaProjectionService.STARTED" })]
 public class EventBroadcastReceiver : BroadcastReceiver
 {
     public override void OnReceive(Context context, Intent intent)
@@ -16,12 +16,6 @@ public class EventBroadcastReceiver : BroadcastReceiver
             Console.WriteLine($"[*****YeetMacro*****] EventBroadcastReceiver: {intent.Action}");
             switch (intent.Action)
             {
-                case "com.companyname.ForegroundService.EXIT":
-                    ServiceHelper.GetService<AndriodHomeViewModel>().IsProjectionServiceEnabled = false;
-                    ServiceHelper.GetService<AndriodHomeViewModel>().IsMacroReady = false;
-                    ServiceHelper.GetService<MacroManagerViewModel>().ShowStatusPanel = false;
-                    ServiceHelper.GetService<MacroManagerViewModel>().InDebugMode = false;
-                    break;
                 case "com.companyname.AccessibilityService.CHANGED":
                     bool enabled = intent.GetBooleanExtra("enabled", false);
                     var homeViewModel = ServiceHelper.GetService<AndriodHomeViewModel>();

@@ -9,6 +9,8 @@ using static Android.Graphics.Bitmap;
 using YeetMacro2.Services;
 using Rect = Microsoft.Maui.Graphics.Rect;
 using Microsoft.Extensions.Logging;
+using CommunityToolkit.Mvvm.Messaging.Messages;
+using CommunityToolkit.Mvvm.Messaging;
 
 namespace YeetMacro2.Platforms.Android.Services;
 
@@ -35,6 +37,15 @@ public class MediaProjectionService : IRecorderService
     {
         _startCompleted = new TaskCompletionSource<bool>();
         _logger = ServiceHelper.GetService<ILogger<MediaProjectionService>>();
+
+        WeakReferenceMessenger.Default.Register<PropertyChangedMessage<bool>, string>(this, nameof(ForegroundService), (r, propertyChangedMessage) =>
+        {
+            if (!propertyChangedMessage.NewValue)
+            {
+                Stop();
+                StopRecording();
+            }
+        });
     }
 
     public void Start()
