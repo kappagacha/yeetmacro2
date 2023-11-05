@@ -14,7 +14,6 @@ namespace YeetMacro2.Services;
 
 public interface IScriptService
 {
-    bool InDebugMode { get; set; }
     string RunScript(ScriptNode targetScript, ScriptNodeManagerViewModel scriptNodeManager, MacroSet macroSet, PatternNodeManagerViewModel patternNodeManager, SettingNodeManagerViewModel settingNodeManager);
     void Stop();
 }
@@ -27,7 +26,6 @@ public class ScriptService: IScriptService
     Engine _engine;
     Random _random;
     Dictionary<string, PatternNode> _jsonValueToPatternNode;
-    public bool InDebugMode { get; set; }
     MacroService _macroService;
 
     public ScriptService(ILogger<ScriptService> logger, IScreenService screenService, IToastService toastService, MacroService macroService)
@@ -62,7 +60,6 @@ public class ScriptService: IScriptService
 
         // https://github.com/sebastienros/jint
         _macroService.IsRunning = true;
-        _macroService.InDebugMode = InDebugMode;
         try
         {
             foreach (var script in scriptNodeManger.Root.Nodes)

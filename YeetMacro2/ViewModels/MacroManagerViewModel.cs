@@ -241,15 +241,15 @@ public partial class MacroManagerViewModel : ObservableObject
         await Patterns.WaitForInitialization();
         await Settings.WaitForInitialization();
 
-        _scriptService.InDebugMode = InDebugMode;
-
         await Task.Run(() =>
         {
             IsBusy = true;
-            if (PersistLogs) _logger.LogInformation("{persistLogs}", true);
+            if (PersistLogs) 
+            { 
+                _logger.LogInformation("{persistLogs}", true);
+                _logger.LogInformation("{macroSet} {script}", SelectedMacroSet?.Name ?? string.Empty, scriptNode.Name);
+            };
             Console.WriteLine($"[*****YeetMacro*****] MacroManagerViewModel ExecuteScript");
-            _scriptService.InDebugMode = InDebugMode;
-            _logger.LogInformation("{macroSet} {script}", SelectedMacroSet?.Name ?? string.Empty, scriptNode.Name);
 
             WeakReferenceMessenger.Default.Send(new ScriptEventMessage(new ScriptEvent() {  Type = ScriptEventType.Started }));
             var result = _scriptService.RunScript(scriptNode, Scripts, SelectedMacroSet, Patterns, Settings);

@@ -1,8 +1,11 @@
-﻿using Microsoft.Extensions.Logging;
+﻿using CommunityToolkit.Mvvm.Messaging.Messages;
+using CommunityToolkit.Mvvm.Messaging;
+using Microsoft.Extensions.Logging;
 using OneOf;
 using System.Text.Json.Serialization;
 using YeetMacro2.Data.Models;
 using YeetMacro2.ViewModels.NodeViewModels;
+using YeetMacro2.ViewModels;
 
 namespace YeetMacro2.Services;
 
@@ -36,6 +39,14 @@ public class MacroService
         _screenService = screenService;
         _jsonValueToPatternNode = new Dictionary<string, PatternNode>();
         _random = new Random();
+
+        WeakReferenceMessenger.Default.Register<PropertyChangedMessage<bool>, string>(this, nameof(MacroManagerViewModel), (r, propertyChangedMessage) =>
+        {
+            if (propertyChangedMessage.PropertyName == nameof(MacroManagerViewModel.InDebugMode))
+            {
+                InDebugMode = propertyChangedMessage.NewValue;
+            }
+        });
     }
 
     public void Sleep(int ms)
