@@ -10,7 +10,8 @@ for (const pattern of targetSoul.Patterns) {
 		Height: 857.20263671875
 	};
 }
-const loopResult = macroService.PollPattern(loopPatterns, {});
+const maxSwipes = 5;
+let swipeCount = 0;
 
 while (macroService.IsRunning) {
 	const loopResult = macroService.PollPattern(loopPatterns);
@@ -28,6 +29,18 @@ while (macroService.IsRunning) {
 		case 'town.outings':
 			logger.info('doOutings: click outing target');
 			sleep(500);
+			swipeCount = 0;
+			let result = macroService.PollPattern(targetSoul, { TimoutMs: 2000 });
+			while (macroService.IsRunning && !result.IsSuccess && swipeCount < maxSwipes) {
+				macroService.DoSwipe({ X: 1080, Y: 800 }, { X: 1080, Y: 250 });
+				sleep(500);
+				result = macroService.PollPattern(targetSoul, { TimoutMs: 2000 });
+				swipeCount++;
+			}
+
+			if (!result.IsSuccess) {
+				return 'Unable to find target soul';
+			} 
 			macroService.ClickPattern(targetSoul);
 			macroService.PollPattern(targetSoul, { DoClick: true, PredicatePattern: patterns.town.outings.call });
 			sleep(500);

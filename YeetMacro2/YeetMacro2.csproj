@@ -80,7 +80,6 @@
 	  <None Remove="Resources\Fonts\OpenSans-Medium.ttf" />
 	  <None Remove="Resources\Images\appicon.svg" />
 	  <None Remove="Resources\Raw\eng.traineddata" />
-	  <None Remove="Resources\Raw\MacroSets\eversoul\scripts\doGate.js" />
 	  <None Remove="Resources\Splash\splash.svg" />
 	</ItemGroup>
 
