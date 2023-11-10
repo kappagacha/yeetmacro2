@@ -22,6 +22,7 @@ public class PollPatternFindOptions : FindOptions
     public int InversePredicateCheckDelayMs { get; set; } = 100;
     public double PredicateThreshold { get; set; } = 0.0;
     public bool DoClick { get; set; }
+    public double TimoutMs { get; set; } = 0.0;
 }
 
 public class MacroService
@@ -220,7 +221,9 @@ public class MacroService
         var inversePredicatePattern = opts.InversePredicatePattern;
         var clickOffsetX = opts.Offset.X;
         var clickOffsetY = opts.Offset.Y;
-
+        var hasTimeout = opts.TimoutMs > 0;
+        var timeout = hasTimeout ? DateTime.Now.AddMilliseconds(opts.TimoutMs) : DateTime.MaxValue;
+        
         if (inversePredicatePattern is not null)
         {
             var inversePredicateChecks = opts.InversePredicateChecks;
@@ -230,6 +233,8 @@ public class MacroService
 
             while (IsRunning)
             {
+                if (hasTimeout && DateTime.Now > timeout) break;
+
                 var numChecks = 1;
                 FindPatternResult inversePredicateResult = this.FindPattern(inversePredicatePattern.Value, predicateOpts);
                 while (IsRunning && !inversePredicateResult.IsSuccess && numChecks < inversePredicateChecks)
@@ -254,6 +259,7 @@ public class MacroService
                 if (clickPattern is not null) this.ClickPattern(clickPattern.Value, opts);
                 Sleep(intervalDelayMs);
             }
+
             if (successResult.IsSuccess && !result.IsSuccess)
             {
                 successResult.InversePredicatePath = result.InversePredicatePath;
@@ -266,6 +272,8 @@ public class MacroService
             FindPatternResult successResult = new FindPatternResult() { IsSuccess = false };
             while (IsRunning)
             {
+                if (hasTimeout && DateTime.Now > timeout) break;
+
                 FindPatternResult predicateResult = this.FindPattern(predicatePattern.Value, predicateOpts);
                 if (predicateResult.IsSuccess)
                 {
@@ -293,6 +301,8 @@ public class MacroService
         {
             while (IsRunning)
             {
+                if (hasTimeout && DateTime.Now > timeout) break;
+
                 result = this.FindPattern(oneOfPattern, opts);
                 if (opts.DoClick && result.IsSuccess)
                 {

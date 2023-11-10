@@ -172,6 +172,11 @@ public class JsToDotNetConverter : DefaultTypeConverter
             converted = opts;
             return true;
         }
+        else if (type == typeof(Point))
+        {
+            converted = JsonSerializer.Deserialize<Point>(JsonSerializer.Serialize(value));
+            return true;
+        }
 
         return base.TryConvert(value, type, formatProvider, out converted);
     }
