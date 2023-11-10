@@ -146,16 +146,9 @@ public partial class PatternNodeManagerViewModel : NodeManagerViewModel<PatternN
                 _patternRepository.Save();
             }
 
-#if ANDROID
-            ServiceHelper.GetService<Platforms.Android.Services.MediaProjectionService>().Start();
-            await Task.Delay(50);
-#endif
             var rect = await _inputService.DrawUserRectangle();
             pattern.ImageData = _screenService.GetCurrentImageData(rect);
 
-#if ANDROID
-            ServiceHelper.GetService<Platforms.Android.Services.MediaProjectionService>().Stop();
-#endif
             pattern.Rect = rect;
             pattern.Resolution = new Size(DeviceDisplay.MainDisplayInfo.Width, DeviceDisplay.MainDisplayInfo.Height);
 

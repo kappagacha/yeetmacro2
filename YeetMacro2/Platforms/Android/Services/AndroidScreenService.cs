@@ -49,6 +49,7 @@ public class AndroidScreenService : IScreenService
     YeetAccessibilityService _accessibilityService;
     IToastService _toastService;
     public IReadOnlyDictionary<AndroidWindowView, IShowable> Views => _views;
+    public bool IsDrawing { get; set; }
     public int UserDrawViewWidth => _views.ContainsKey(AndroidWindowView.UserDrawView) ? ((FormsView)_views[AndroidWindowView.UserDrawView]).MeasuredHeightAndState : -1;
     public int UserDrawViewHeight => _views.ContainsKey(AndroidWindowView.UserDrawView) ? ((FormsView)_views[AndroidWindowView.UserDrawView]).MeasuredWidthAndState : -1;
     public Size CurrentResolution => new Size(_overlayWindow?.MeasuredWidthAndState ?? 0, _overlayWindow?.MeasuredHeightAndState ?? 0);
@@ -445,14 +446,14 @@ public class AndroidScreenService : IScreenService
                 case AndroidWindowView.PatternsNodeView:
                     var patternsNodeView = new ResizeView(_context, _windowManager, this, new PatternNodeView());
                     _views.TryAdd(windowView, patternsNodeView);
-                    patternsNodeView.OnShow = () => Show(AndroidWindowView.MacroOverlayView);
-                    patternsNodeView.OnClose = () => Close(AndroidWindowView.MacroOverlayView);
+                    patternsNodeView.OnShow = () => { Show(AndroidWindowView.MacroOverlayView); if (!IsDrawing) _mediaProjectionService.Start(); };
+                    patternsNodeView.OnClose = () => { Close(AndroidWindowView.MacroOverlayView); if (!IsDrawing) _mediaProjectionService.Stop(); };
                     break;
                 case AndroidWindowView.ScriptsNodeView:
                     var scriptsNodeView = new ResizeView(_context, _windowManager, this, new ScriptNodeView() { ShowExecuteButton = true });
                     _views.TryAdd(windowView, scriptsNodeView);
-                    scriptsNodeView.OnShow = () => Show(AndroidWindowView.MacroOverlayView);
-                    scriptsNodeView.OnClose = () => Close(AndroidWindowView.MacroOverlayView);
+                    scriptsNodeView.OnShow = () => { Show(AndroidWindowView.MacroOverlayView); if (!IsDrawing) _mediaProjectionService.Start(); };
+                    scriptsNodeView.OnClose = () => { Close(AndroidWindowView.MacroOverlayView); if (!IsDrawing) _mediaProjectionService.Stop(); };
                     break;
                 case AndroidWindowView.PromptStringInputView:
                     var promptStringInputView = new FormsView(_context, _windowManager, new PromptStringInput());
