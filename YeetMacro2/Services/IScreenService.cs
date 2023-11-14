@@ -45,4 +45,5 @@ public interface IScreenService
     FindPatternResult ClickPattern(Pattern pattern, FindOptions opts);
     FindPatternResult FindPattern(Pattern pattern, FindOptions opts);
     void ShowMessage(string message);
+    Size CurrentResolution { get; }
 }

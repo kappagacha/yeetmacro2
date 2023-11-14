@@ -13,19 +13,10 @@ public partial class PatternNodeManagerViewModel : NodeManagerViewModel<PatternN
     ILogger<PatternNodeManagerViewModel> _logger;
     IRepository<Pattern> _patternRepository;
     IScreenService _screenService;
-    static Size _currentResolution;
     [ObservableProperty]
     Pattern _selectedPattern;
-    public Size CurrentResolution => _currentResolution == Size.Zero ? (_currentResolution =
-        new Size(DeviceDisplay.MainDisplayInfo.Width, DeviceDisplay.MainDisplayInfo.Height)) : _currentResolution;
     static PatternNodeManagerViewModel()
     {
-        DeviceDisplay.MainDisplayInfoChanged += DeviceDisplay_MainDisplayInfoChanged;
-    }
-
-    private static void DeviceDisplay_MainDisplayInfoChanged(object sender, DisplayInfoChangedEventArgs e)
-    {
-        _currentResolution = new Size(e.DisplayInfo.Width, e.DisplayInfo.Height);
     }
 
     public PatternNodeManagerViewModel(
@@ -44,7 +35,6 @@ public partial class PatternNodeManagerViewModel : NodeManagerViewModel<PatternN
 
         PropertyChanged += PatternTreeViewViewModel_PropertyChanged;
 
-        _currentResolution = new Size(DeviceDisplay.MainDisplayInfo.Width, DeviceDisplay.MainDisplayInfo.Height);
         // TODO: init SelectedPattern
         //if (SelectedPattern == null && SelectedNode.Patterns.Count > 0)
         //{
@@ -191,9 +181,9 @@ public partial class PatternNodeManagerViewModel : NodeManagerViewModel<PatternN
         }
     }
 
-    public static Point CalcOffset(Pattern pattern)
+    public static Point CalcOffset(Pattern pattern, Size currentResolution)
     {
-        if (_currentResolution == pattern.Resolution) return Point.Zero;
+        if (currentResolution == pattern.Resolution) return Point.Zero;
 
         var xOffset = 0;
         var yOffset = 0;
@@ -202,14 +192,14 @@ public partial class PatternNodeManagerViewModel : NodeManagerViewModel<PatternN
             case OffsetCalcType.Default:
             case OffsetCalcType.Center:
                 // horizontal center handling
-                var deltaX = _currentResolution.Width - pattern.Resolution.Width;
+                var deltaX = currentResolution.Width - pattern.Resolution.Width;
                 xOffset = (int)(deltaX / 2);
                 //Console.WriteLine($"deltaX: {deltaX}, xOffset: {xOffset}");
                 break;
             case OffsetCalcType.DockRight:
                 // horizontal dock right handling (dock left does not need handling)
                 var right = pattern.Resolution.Width - pattern.Rect.X;
-                var targetX = _currentResolution.Width - right;
+                var targetX = currentResolution.Width - right;
                 xOffset = (int)(targetX - pattern.Rect.X);
                 //Console.WriteLine($"right: {right}, targetX: {targetX}, xOffset: {xOffset}");
                 break;

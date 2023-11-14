@@ -29,7 +29,7 @@ public class MacroService
 {
     ILogger _logger;
     IScreenService _screenService;
-    Dictionary<string, PatternNode> _jsonValueToPatternNode;
+    Dictionary<string, Point> _pathToOffset;
     Random _random;
     public bool InDebugMode { get; set; }
     public bool IsRunning { get; set; }
@@ -38,7 +38,7 @@ public class MacroService
     {
         _logger = logger;
         _screenService = screenService;
-        _jsonValueToPatternNode = new Dictionary<string, PatternNode>();
+        _pathToOffset = new Dictionary<string, Point>();
         _random = new Random();
 
         WeakReferenceMessenger.Default.Register<PropertyChangedMessage<bool>, string>(this, nameof(MacroManagerViewModel), (r, propertyChangedMessage) =>
@@ -57,12 +57,14 @@ public class MacroService
 
     public Point CalcOffset(PatternNode patternNode)
     {
-        foreach (var pattern in patternNode.Patterns)
+        if (patternNode.Patterns.Count == 0) return Point.Zero;
+        
+        if (!_pathToOffset.ContainsKey(patternNode.Path))
         {
-            return PatternNodeManagerViewModel.CalcOffset(pattern);
+            _pathToOffset[patternNode.Path] = PatternNodeManagerViewModel.CalcOffset(patternNode.Patterns.First(), _screenService.CurrentResolution);
         }
 
-        return Point.Zero;
+        return _pathToOffset[patternNode.Path];
     }
 
     public PatternNode ClonePattern(PatternNode patternNode)
@@ -366,7 +368,7 @@ public class MacroService
 
     public void Reset()
     {
-        _jsonValueToPatternNode.Clear();
+        _pathToOffset.Clear();
     }
 
     public int Random(int min, int max)
