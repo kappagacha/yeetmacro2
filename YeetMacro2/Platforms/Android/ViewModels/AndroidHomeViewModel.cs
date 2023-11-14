@@ -89,6 +89,17 @@ public partial class AndriodHomeViewModel : ObservableObject
                 _macroManagerViewModel.ShowStatusPanel = _macroManagerViewModel.InDebugMode = false;
             }
         });
+
+        WeakReferenceMessenger.Default.Register<PropertyChangedMessage<bool>, string>(this, nameof(MediaProjectionService), (r, propertyChangedMessage) =>
+        {
+            IsProjectionServiceEnabled = propertyChangedMessage.NewValue;
+            if (propertyChangedMessage.NewValue)
+            {
+                _screenService.Show(AndroidWindowView.ActionView);
+                if (_macroManagerViewModel.InDebugMode) _screenService.Show(AndroidWindowView.DebugDrawView);
+                if (_macroManagerViewModel.ShowStatusPanel) _screenService.Show(AndroidWindowView.StatusPanelView);
+            }
+        });
     }
 
     public void InvokeOnPropertyChanged(string propertyName)

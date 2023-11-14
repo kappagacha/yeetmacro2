@@ -89,8 +89,7 @@ public class MediaProjectionService : IRecorderService
         _startCompleted.SetResult(true);
         _isInitialized = true;
 
-        var projectionServiceStarted = new Intent("com.companyname.MediaProjectionService.STARTED");
-        _context.SendBroadcast(projectionServiceStarted);
+        WeakReferenceMessenger.Default.Send(new PropertyChangedMessage<bool>(this, nameof(Init), false, true), nameof(MediaProjectionService));
         Toast.MakeText(_context, "Media projection initialized...", ToastLength.Short).Show();
     }
 
