@@ -116,9 +116,9 @@ public class MacroService
                     var points = new List<Point>();
                     var multiResult = new FindPatternResult();
 
+                    var offset = CalcOffset(patternNode);
                     foreach (var pattern in patternNode.Patterns)
                     {
-                        var offset = PatternNodeManagerViewModel.CalcOffset(pattern);
                         var optsWithOffset = new FindOptions() { Offset = opts.Offset.Offset(offset.X, offset.Y) };
 
                         if (InDebugMode && pattern.Rect != Rect.Zero)
@@ -147,7 +147,7 @@ public class MacroService
                 else
                 {
                     var pattern = patternNode.Patterns.First();
-                    var offset = PatternNodeManagerViewModel.CalcOffset(pattern);
+                    var offset = CalcOffset(patternNode);
                     var optsWithOffset = new FindOptions() { Offset = opts.Offset.Offset(offset.X, offset.Y) };
 
                     if (InDebugMode && pattern.Rect != Rect.Zero)

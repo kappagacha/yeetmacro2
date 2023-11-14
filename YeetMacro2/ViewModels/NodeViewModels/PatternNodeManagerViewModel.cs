@@ -221,7 +221,7 @@ public partial class PatternNodeManagerViewModel : NodeManagerViewModel<PatternN
             var opts = new FindOptions() { Limit = 10 };
             if (int.TryParse(strXOffset, out int xOffset)) opts.Offset = opts.Offset.Offset(xOffset, 0);
             if (int.TryParse(strYOffset, out int yOffset)) opts.Offset = opts.Offset.Offset(0, yOffset);
-            if (doTestCalc) opts.Offset = CalcOffset(pattern);
+            if (doTestCalc) opts.Offset = CalcOffset(pattern, _screenService.CurrentResolution);
 
             _screenService.DrawClear();
             var result = _screenService.FindPattern(pattern, opts);
@@ -258,7 +258,7 @@ public partial class PatternNodeManagerViewModel : NodeManagerViewModel<PatternN
             var opts = new FindOptions() { Limit = 10 };
             if (int.TryParse(strXOffset, out int xOffset)) opts.Offset = opts.Offset.Offset(xOffset, 0);
             if (int.TryParse(strYOffset, out int yOffset)) opts.Offset = opts.Offset.Offset(0, yOffset);
-            if (doTestCalc) opts.Offset = CalcOffset(pattern);
+            if (doTestCalc) opts.Offset = CalcOffset(pattern, _screenService.CurrentResolution);
 
             _screenService.ClickPattern(pattern, opts);     //one to change focus
             await Task.Delay(300);
@@ -302,7 +302,7 @@ public partial class PatternNodeManagerViewModel : NodeManagerViewModel<PatternN
             var opts = new TextFindOptions();
             if (int.TryParse(strXOffset, out int xOffset)) opts.Offset = opts.Offset.Offset(xOffset, 0);
             if (int.TryParse(strYOffset, out int yOffset)) opts.Offset = opts.Offset.Offset(0, yOffset);
-            if (doTestCalc) opts.Offset = CalcOffset(pattern);
+            if (doTestCalc) opts.Offset = CalcOffset(pattern, _screenService.CurrentResolution);
 
             _screenService.DrawClear();
             _screenService.DrawRectangle(pattern.Rect.Offset(opts.Offset));
@@ -326,7 +326,7 @@ public partial class PatternNodeManagerViewModel : NodeManagerViewModel<PatternN
             var opts = new TextFindOptions();
             if (int.TryParse(strXOffset, out int xOffset)) opts.Offset = opts.Offset.Offset(xOffset, 0);
             if (int.TryParse(strYOffset, out int yOffset)) opts.Offset = opts.Offset.Offset(0, yOffset);
-            if (doTestCalc) opts.Offset = CalcOffset(pattern);
+            if (doTestCalc) opts.Offset = CalcOffset(pattern, _screenService.CurrentResolution);
 
             _screenService.DrawClear();
             _screenService.DrawRectangle(pattern.Rect.Offset(opts.Offset));
