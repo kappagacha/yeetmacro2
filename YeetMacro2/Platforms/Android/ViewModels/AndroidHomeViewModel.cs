@@ -83,6 +83,8 @@ public partial class AndriodHomeViewModel : ObservableObject
 
         WeakReferenceMessenger.Default.Register<PropertyChangedMessage<bool>, string>(this, nameof(ForegroundService), (r, propertyChangedMessage) =>
         {
+            if (IsAppearing) return;
+
             if (!propertyChangedMessage.NewValue)
             {
                 IsProjectionServiceEnabled = IsMacroReady = false;
@@ -92,6 +94,8 @@ public partial class AndriodHomeViewModel : ObservableObject
 
         WeakReferenceMessenger.Default.Register<PropertyChangedMessage<bool>, string>(this, nameof(MediaProjectionService), (r, propertyChangedMessage) =>
         {
+            if (IsAppearing) return;
+
             IsProjectionServiceEnabled = propertyChangedMessage.NewValue;
             if (propertyChangedMessage.NewValue)
             {
@@ -255,7 +259,7 @@ public partial class AndriodHomeViewModel : ObservableObject
     }
 
     [RelayCommand]
-    public void OnAppear()
+    public void Appear()
     {
         IsAppearing = true;
         IsAccessibilityEnabled = _accessibilityService.HasAccessibilityPermissions;
