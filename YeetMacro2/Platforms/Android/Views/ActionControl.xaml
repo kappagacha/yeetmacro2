@@ -21,8 +21,7 @@
         </Border.Triggers>
         <Grid>
             <uuiv:StatefulContentView
-            TappedCommand="{Binding ExecuteCommand}"
-            LongPressCommand="{Binding OpenMenuCommand}">
+                TappedCommand="{Binding ExecuteCommand}">
                 <v:ImageView FontFamily="MaterialOutlined" Glyph="{x:Static mi:MaterialOutlined.Play_arrow}" Color="Green">
                     <v:ImageView.Triggers>
                         <DataTrigger TargetType="{x:Type v:ImageView}" Binding="{Binding State}" Value="{x:Static pvm:ActionState.Running}">

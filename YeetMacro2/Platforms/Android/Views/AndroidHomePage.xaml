@@ -104,6 +104,26 @@
                 </Label>
             </HorizontalStackLayout>
             <HorizontalStackLayout HorizontalOptions="Center">
+                <v:ImageView FontFamily="MaterialOutlined" Glyph="{x:Static mi:MaterialOutlined.Image_search}" Color="LightGray"
+                             Command="{Binding ToggleShowPatternsNodeViewCommand}">
+                    <v:ImageView.Triggers>
+                        <DataTrigger TargetType="{x:Type v:ImageView}" Binding="{Binding ShowPatternsNodeView}" Value="True">
+                            <Setter Property="Color" Value="Green" />
+                        </DataTrigger>
+                    </v:ImageView.Triggers>
+                </v:ImageView>
+                <Label VerticalTextAlignment="Center" Text="Show Patterns">
+                    <Label.GestureRecognizers>
+                        <TapGestureRecognizer Command="{Binding ToggleShowPatternsNodeViewCommand}" />
+                    </Label.GestureRecognizers>
+                    <Label.Triggers>
+                        <DataTrigger TargetType="Label" Binding="{Binding ShowPatternsNodeView}" Value="True">
+                            <Setter Property="TextColor" Value="Green" />
+                        </DataTrigger>
+                    </Label.Triggers>
+                </Label>
+            </HorizontalStackLayout>
+            <HorizontalStackLayout HorizontalOptions="Center">
                 <v:ImageView FontFamily="MaterialOutlined" Glyph="{x:Static mi:MaterialOutlined.Call_to_action}" Color="LightGray"
                                                      Command="{Binding MacroManagerViewModel.ToggleShowStatusPanelCommand}">
                     <v:ImageView.Triggers>

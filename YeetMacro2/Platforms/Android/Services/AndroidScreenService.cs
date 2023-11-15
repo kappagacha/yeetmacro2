@@ -26,7 +26,6 @@ public enum AndroidWindowView
     UserDrawView,
     DebugDrawView,
     ActionView,
-    ActionMenuView,
     PromptStringInputView,
     PromptSelectOptionView,
     StatusPanelView,
@@ -450,15 +449,28 @@ public class AndroidScreenService : IScreenService
                     var actionView = new MoveView(_context, _windowManager, new ActionControl());
                     _views.TryAdd(windowView, actionView);
                     break;
-                case AndroidWindowView.ActionMenuView:
-                    var actionMenuView = new FormsView(_context, _windowManager, new ActionMenu());
-                    _views.TryAdd(windowView, actionMenuView);
-                    break;
                 case AndroidWindowView.PatternsNodeView:
                     var patternsNodeView = new ResizeView(_context, _windowManager, this, new PatternNodeView());
                     _views.TryAdd(windowView, patternsNodeView);
-                    patternsNodeView.OnShow = () => { Show(AndroidWindowView.MacroOverlayView); if (!IsDrawing) _mediaProjectionService.Start(); };
-                    patternsNodeView.OnClose = () => { Close(AndroidWindowView.MacroOverlayView); if (!IsDrawing) _mediaProjectionService.Stop(); };
+                    patternsNodeView.OnShow = () => {
+                        if (_views.ContainsKey(AndroidWindowView.ScriptsNodeView) && _views[AndroidWindowView.ScriptsNodeView].IsShowing)
+                        {
+                            IsDrawing = true;
+                            Close(AndroidWindowView.ScriptsNodeView);
+                            IsDrawing = false;
+                        }
+                        else if (!IsDrawing)
+                        {
+                            _mediaProjectionService.Start();
+                        }
+                        Show(AndroidWindowView.MacroOverlayView);
+                        ServiceHelper.GetService<AndriodHomeViewModel>().ShowPatternsNodeView = true;
+                    };
+                    patternsNodeView.OnClose = () => { 
+                        Close(AndroidWindowView.MacroOverlayView); 
+                        if (!IsDrawing) _mediaProjectionService.Stop();
+                        ServiceHelper.GetService<AndriodHomeViewModel>().ShowPatternsNodeView = false;
+                    };
                     break;
                 case AndroidWindowView.ScriptsNodeView:
                     var scriptsNodeView = new ResizeView(_context, _windowManager, this, new ScriptNodeView() { ShowExecuteButton = true });
@@ -537,7 +549,7 @@ public class AndroidScreenService : IScreenService
 
         _views[windowView].Show();
 
-        if (windowView == AndroidWindowView.ActionMenuView || windowView == AndroidWindowView.MacroOverlayView)
+        if (windowView == AndroidWindowView.MacroOverlayView)
         {
             var ve = _views[windowView].VisualElement;
             var ctx = ve.BindingContext;

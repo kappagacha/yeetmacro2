@@ -12,7 +12,8 @@ public partial class AndriodHomeViewModel : ObservableObject
 {
     public const int REQUEST_IGNORE_BATTERY_OPTIMIZATIONS = 2;
     [ObservableProperty]
-    bool _isProjectionServiceEnabled, _isAccessibilityEnabled, _isAppearing, _showMacroOverlay, _isMacroReady, _showTestView;
+    bool _isProjectionServiceEnabled, _isAccessibilityEnabled, _isAppearing, _showMacroOverlay,
+         _showPatternsNodeView, _isMacroReady, _showTestView;
     private AndroidScreenService _screenService;
     private MacroManagerViewModel _macroManagerViewModel;
     private YeetAccessibilityService _accessibilityService;
@@ -179,6 +180,22 @@ public partial class AndriodHomeViewModel : ObservableObject
         else
         {
             CloseMacroOverlay();
+        }
+    }
+
+    [RelayCommand]
+    public void ToggleShowPatternsNodeView()
+    {
+        if (IsAppearing) return;
+
+        ShowPatternsNodeView = !ShowPatternsNodeView;
+        if (ShowPatternsNodeView)
+        {
+            _screenService.Show(AndroidWindowView.PatternsNodeView);
+        }
+        else
+        {
+            _screenService.Close(AndroidWindowView.PatternsNodeView);
         }
     }
 

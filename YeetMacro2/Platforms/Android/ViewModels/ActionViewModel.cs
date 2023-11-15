@@ -127,15 +127,6 @@ public partial class ActionViewModel : ObservableObject, IMovable
     }
 
     [RelayCommand]
-    public void OpenMenu(object o)
-    {
-        if (!IsMoving)
-        {
-            _screenService.Show(AndroidWindowView.ActionMenuView);
-        }
-    }
-
-    [RelayCommand]
     public void ScreenCapture()
     {
         _screenService.ScreenCapture();

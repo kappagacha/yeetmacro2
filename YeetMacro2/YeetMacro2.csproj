@@ -124,9 +124,6 @@
 	  <Compile Update="Platforms\Android\Views\ActionControl.xaml.cs">
 	    <DependentUpon>ActionControl.xaml</DependentUpon>
 	  </Compile>
-	  <Compile Update="Platforms\Android\Views\ActionMenu.xaml.cs">
-	    <DependentUpon>ActionMenu.xaml</DependentUpon>
-	  </Compile>
 	  <Compile Update="Platforms\Android\Views\DrawControl.xaml.cs">
 	    <DependentUpon>DrawControl.xaml</DependentUpon>
 	  </Compile>

@@ -45,7 +45,6 @@ public partial class ActionMenuViewModel : ObservableObject
     {
         _toastService.Show("Manage Patterns");
         _screenService.Show(AndroidWindowView.PatternsNodeView);
-        _screenService.Close(AndroidWindowView.ActionMenuView);
     }
 
     [RelayCommand]
@@ -53,7 +52,6 @@ public partial class ActionMenuViewModel : ObservableObject
     {
         _toastService.Show("Redirecting to YeetMacro...");
         AndroidServiceHelper.LaunchApp(Platform.CurrentActivity.PackageName);
-        _screenService.Close(AndroidWindowView.ActionMenuView);
     }
 
     [RelayCommand]
@@ -61,7 +59,6 @@ public partial class ActionMenuViewModel : ObservableObject
     {
         _toastService.Show("Opening Log...");
         _screenService.Show(AndroidWindowView.StatusPanelView);
-        _screenService.Close(AndroidWindowView.ActionMenuView);
     }
 
     [RelayCommand]
@@ -69,7 +66,6 @@ public partial class ActionMenuViewModel : ObservableObject
     {
         _toastService.Show("Exiting...");
         _screenService.StopProjectionService();
-        _screenService.Close(AndroidWindowView.ActionMenuView);
     }
 
     [RelayCommand]
