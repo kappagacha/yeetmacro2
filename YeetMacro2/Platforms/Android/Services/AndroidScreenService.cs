@@ -48,6 +48,7 @@ public class AndroidScreenService : IScreenService
     IOcrService _ocrService;
     YeetAccessibilityService _accessibilityService;
     IToastService _toastService;
+    Size _initialResolution;
     public IReadOnlyDictionary<AndroidWindowView, IShowable> Views => _views;
     public bool IsDrawing { get; set; }
     public int UserDrawViewWidth => _views.ContainsKey(AndroidWindowView.UserDrawView) ? ((FormsView)_views[AndroidWindowView.UserDrawView]).MeasuredHeightAndState : -1;
@@ -58,9 +59,8 @@ public class AndroidScreenService : IScreenService
         {
             var overlayWidth = _overlayWindow?.MeasuredWidthAndState ?? 0;
             var overlayHeight = _overlayWindow?.MeasuredHeightAndState ?? 0;
-
-            var width = (int)(overlayWidth > overlayHeight ? Math.Max(DeviceDisplay.MainDisplayInfo.Width, DeviceDisplay.MainDisplayInfo.Height) : Math.Min(DeviceDisplay.MainDisplayInfo.Width, DeviceDisplay.MainDisplayInfo.Height));
-            var height = (int)(overlayHeight > overlayWidth ? Math.Max(DeviceDisplay.MainDisplayInfo.Width, DeviceDisplay.MainDisplayInfo.Height) : Math.Min(DeviceDisplay.MainDisplayInfo.Width, DeviceDisplay.MainDisplayInfo.Height));
+            var width = overlayWidth > overlayHeight ? Math.Max(_initialResolution.Width, _initialResolution.Height) : Math.Min(_initialResolution.Width, _initialResolution.Height);
+            var height = overlayHeight > overlayWidth ? Math.Max(_initialResolution.Width, _initialResolution.Height) : Math.Min(_initialResolution.Width, _initialResolution.Height);
             return new Size(width, height);
         }
     }
@@ -83,7 +83,7 @@ public class AndroidScreenService : IScreenService
         _toastService = toastService;
         _windowManager = _context.GetSystemService(Context.WindowService).JavaCast<IWindowManager>();
         DeviceDisplay.MainDisplayInfoChanged += DeviceDisplay_MainDisplayInfoChanged;
-
+        _initialResolution = new Size(DeviceDisplay.MainDisplayInfo.Width, DeviceDisplay.MainDisplayInfo.Height);
         WeakReferenceMessenger.Default.Register<PropertyChangedMessage<bool>, string>(this, nameof(ForegroundService), (r, propertyChangedMessage) =>
         {
             if (propertyChangedMessage.NewValue)    // true means ForegroundService was started

@@ -55,15 +55,15 @@ public partial class AndriodHomeViewModel : ObservableObject
         }
     }
     public MacroManagerViewModel MacroManagerViewModel => _macroManagerViewModel;
-    public string OverlayArea
-    {
-        get
-        {
-            var topLeft = _screenService.GetTopLeft();
-            var currentResolution = _screenService.CurrentResolution;
-            return $"x{topLeft.X}y{topLeft.Y} w{currentResolution.Width}h{currentResolution.Height}";
-        }
-    }
+    //public string OverlayArea
+    //{
+    //    get
+    //    {
+    //        var topLeft = _screenService.GetTopLeft();
+    //        var currentResolution = _screenService.CurrentResolution;
+    //        return $"x{topLeft.X}y{topLeft.Y} w{currentResolution.Width}h{currentResolution.Height}";
+    //    }
+    //}
     //public string DisplayCutoutTop => _windowManagerService.DisplayCutoutTop.ToString();
     //public bool HasCutoutTop => _windowManagerService.DisplayCutoutTop > 0;
     public bool IsIgnoringBatteryOptimizations
