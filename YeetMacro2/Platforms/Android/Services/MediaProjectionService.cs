@@ -58,8 +58,8 @@ public class MediaProjectionService : IRecorderService
 
             var screenService = ServiceHelper.GetService<AndroidScreenService>();
             var currentResolution = screenService.CurrentResolution;
-            var width = (int)(currentResolution.Width > currentResolution.Height ? Math.Max(DeviceDisplay.MainDisplayInfo.Width, DeviceDisplay.MainDisplayInfo.Height) : Math.Min(DeviceDisplay.MainDisplayInfo.Width, DeviceDisplay.MainDisplayInfo.Height));
-            var height = (int)(currentResolution.Height > currentResolution.Width ? Math.Max(DeviceDisplay.MainDisplayInfo.Width, DeviceDisplay.MainDisplayInfo.Height) : Math.Min(DeviceDisplay.MainDisplayInfo.Width, DeviceDisplay.MainDisplayInfo.Height));
+            var width = (int)screenService.CurrentResolution.Width;
+            var height = (int)screenService.CurrentResolution.Height;
             var density = (int)DeviceDisplay.MainDisplayInfo.Density;
 
             // https://github.com/Fate-Grand-Automata/FGA/blob/2a62ab7a456a9913cf0355db81b5a15f13906f27/app/src/main/java/io/github/fate_grand_automata/runner/ScreenshotServiceHolder.kt#L53
@@ -204,9 +204,8 @@ public class MediaProjectionService : IRecorderService
 
         Start();
         var screenService = ServiceHelper.GetService<AndroidScreenService>();
-        var currentResolution = screenService.CurrentResolution;
-        var width = (int)(currentResolution.Width > currentResolution.Height ? Math.Max(DeviceDisplay.MainDisplayInfo.Width, DeviceDisplay.MainDisplayInfo.Height) : Math.Min(DeviceDisplay.MainDisplayInfo.Width, DeviceDisplay.MainDisplayInfo.Height));
-        var height = (int)(currentResolution.Height > currentResolution.Width ? Math.Max(DeviceDisplay.MainDisplayInfo.Width, DeviceDisplay.MainDisplayInfo.Height) : Math.Min(DeviceDisplay.MainDisplayInfo.Width, DeviceDisplay.MainDisplayInfo.Height));
+        var width = (int)screenService.CurrentResolution.Width;
+        var height = (int)screenService.CurrentResolution.Height;
         var density = (int)DeviceDisplay.MainDisplayInfo.Density;
         var profile = CamcorderProfile.Get(CamcorderQuality.High);
 

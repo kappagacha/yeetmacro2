@@ -52,7 +52,18 @@ public class AndroidScreenService : IScreenService
     public bool IsDrawing { get; set; }
     public int UserDrawViewWidth => _views.ContainsKey(AndroidWindowView.UserDrawView) ? ((FormsView)_views[AndroidWindowView.UserDrawView]).MeasuredHeightAndState : -1;
     public int UserDrawViewHeight => _views.ContainsKey(AndroidWindowView.UserDrawView) ? ((FormsView)_views[AndroidWindowView.UserDrawView]).MeasuredWidthAndState : -1;
-    public Size CurrentResolution => new Size(_overlayWindow?.MeasuredWidthAndState ?? 0, _overlayWindow?.MeasuredHeightAndState ?? 0);
+    public Size CurrentResolution
+    {
+        get
+        {
+            var overlayWidth = _overlayWindow?.MeasuredWidthAndState ?? 0;
+            var overlayHeight = _overlayWindow?.MeasuredHeightAndState ?? 0;
+
+            var width = (int)(overlayWidth > overlayHeight ? Math.Max(DeviceDisplay.MainDisplayInfo.Width, DeviceDisplay.MainDisplayInfo.Height) : Math.Min(DeviceDisplay.MainDisplayInfo.Width, DeviceDisplay.MainDisplayInfo.Height));
+            var height = (int)(overlayHeight > overlayWidth ? Math.Max(DeviceDisplay.MainDisplayInfo.Width, DeviceDisplay.MainDisplayInfo.Height) : Math.Min(DeviceDisplay.MainDisplayInfo.Width, DeviceDisplay.MainDisplayInfo.Height));
+            return new Size(width, height);
+        }
+    }
     //public int DisplayCutoutTop => _androidWindowManagerService.OverlayWindow == null ? 0 : _androidWindowManagerService.OverlayWindow.RootWindowInsets.DisplayCutout?.SafeInsetTop ?? 0;
     JsonSerializerOptions _serializationOptions = new JsonSerializerOptions()
     {
