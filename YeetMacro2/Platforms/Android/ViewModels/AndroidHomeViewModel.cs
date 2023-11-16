@@ -13,7 +13,7 @@ public partial class AndriodHomeViewModel : ObservableObject
     public const int REQUEST_IGNORE_BATTERY_OPTIMIZATIONS = 2;
     [ObservableProperty]
     bool _isProjectionServiceEnabled, _isAccessibilityEnabled, _isAppearing, _showMacroOverlay,
-         _showPatternsNodeView, _isMacroReady, _showTestView;
+         _showPatternsNodeView, _isMacroReady, _showTestView, _inDeveloperMode;
     private AndroidScreenService _screenService;
     private MacroManagerViewModel _macroManagerViewModel;
     private YeetAccessibilityService _accessibilityService;
@@ -81,6 +81,8 @@ public partial class AndriodHomeViewModel : ObservableObject
         _screenService = screenService;
         _accessibilityService = accessibilityService;
         _macroManagerViewModel = macroManagerViewModel;
+
+        InDeveloperMode = Preferences.Default.Get(nameof(InDeveloperMode), false);
 
         WeakReferenceMessenger.Default.Register<PropertyChangedMessage<bool>, string>(this, nameof(ForegroundService), (r, propertyChangedMessage) =>
         {
@@ -273,6 +275,11 @@ public partial class AndriodHomeViewModel : ObservableObject
         {
             _screenService.Close(AndroidWindowView.TestView);
         }
+    }
+
+    partial void OnInDeveloperModeChanged(bool value)
+    {
+        Preferences.Default.Set(nameof(InDeveloperMode), InDeveloperMode);
     }
 
     [RelayCommand]
