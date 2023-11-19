@@ -9,6 +9,7 @@ for (const pattern of targetSoul.Patterns) {
 		Width: 1500.4752807617188,		// should calculate using resolution comparisons
 		Height: 857.20263671875
 	};
+	pattern.OffsetCalcType = "None";
 }
 const maxSwipes = 5;
 let swipeCount = 0;
