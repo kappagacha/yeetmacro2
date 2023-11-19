@@ -1,12 +1,12 @@
-﻿const loopPatterns = [patterns.lobby.everstone, patterns.town.evertalk, patterns.town.outings.outingsCompleted, patterns.town.outings, patterns.titles.outingGo, patterns.town.outings.selectAKeyword];
+﻿const offset = macroService.CalcOffset(patterns.titles.home);
+const loopPatterns = [patterns.lobby.everstone, patterns.town.evertalk, patterns.town.outings.outingsCompleted, patterns.town.outings, patterns.titles.outingGo, patterns.town.outings.selectAKeyword];
 const targetSoul = macroService.ClonePattern(settings.outings.target.Value);
 targetSoul.Path = 'settings.outings.target';
 for (const pattern of targetSoul.Patterns) {
 	pattern.Rect = {
 		X: 275.85736083984375,
 		Y: 82.9250717163086,
-		//Width: 1005.4752807617188,
-		Width: 1500.4752807617188,		// should calculate using resolution comparisons
+		Width: 1005.4752807617188 + (offset.X * 2.0),
 		Height: 857.20263671875
 	};
 	pattern.OffsetCalcType = "None";
