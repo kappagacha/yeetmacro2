@@ -1,4 +1,4 @@
-﻿const offset = macroService.CalcOffset(patterns.titles.home);
+﻿const offset = macroService.CalcOffset(patterns.lobby.everstone);
 const loopPatterns = [patterns.lobby.everstone, patterns.town.evertalk, patterns.town.outings.outingsCompleted, patterns.town.outings, patterns.titles.outingGo, patterns.town.outings.selectAKeyword];
 const targetSoul = macroService.ClonePattern(settings.outings.target.Value);
 targetSoul.Path = 'settings.outings.target';
