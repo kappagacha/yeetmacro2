@@ -6,7 +6,6 @@ namespace YeetMacro2.ViewModels.NodeViewModels;
 [ObservableObject]
 public partial class ScriptNodeViewModel : ScriptNode
 {
-
     public override ICollection<ScriptNode> Nodes
     {
         get => base.Nodes;

@@ -36,14 +36,14 @@ public partial class AndriodHomeViewModel : ObservableObject
         }
     }
     public bool IsCurrentPackageValid => _accessibilityService.CurrentPackage == _macroManagerViewModel.SelectedMacroSet?.Package;
-    public Size CurrentResolution => _screenService.CurrentResolution;
+    public Size CurrentResolution => _screenService.CalcResolution;
     public string WidthStatus
     {
         get
         {
             if (_macroManagerViewModel.SelectedMacroSet is null) return "Invalid";
-            if (_macroManagerViewModel.SelectedMacroSet.SupportsGreaterWidth && _screenService.CurrentResolution.Width > _macroManagerViewModel.SelectedMacroSet.Resolution.Width) return "Acceptable";
-            return _screenService.CurrentResolution.Width == _macroManagerViewModel.SelectedMacroSet.Resolution.Width ? "Valid" : "Invalid";
+            if (_macroManagerViewModel.SelectedMacroSet.SupportsGreaterWidth && _screenService.CalcResolution.Width > _macroManagerViewModel.SelectedMacroSet.Resolution.Width) return "Acceptable";
+            return _screenService.CalcResolution.Width == _macroManagerViewModel.SelectedMacroSet.Resolution.Width ? "Valid" : "Invalid";
         }
     }
     public string HeightStatus
@@ -51,8 +51,8 @@ public partial class AndriodHomeViewModel : ObservableObject
         get
         {
             if (_macroManagerViewModel.SelectedMacroSet is null) return "Invalid";
-            if (_macroManagerViewModel.SelectedMacroSet.SupportsGreaterHeight && _screenService.CurrentResolution.Height > _macroManagerViewModel.SelectedMacroSet.Resolution.Height) return "Acceptable";
-            return _screenService.CurrentResolution.Height == _macroManagerViewModel.SelectedMacroSet.Resolution.Height ? "Valid" : "Invalid";
+            if (_macroManagerViewModel.SelectedMacroSet.SupportsGreaterHeight && _screenService.CalcResolution.Height > _macroManagerViewModel.SelectedMacroSet.Resolution.Height) return "Acceptable";
+            return _screenService.CalcResolution.Height == _macroManagerViewModel.SelectedMacroSet.Resolution.Height ? "Valid" : "Invalid";
         }
     }
     public MacroManagerViewModel MacroManagerViewModel => _macroManagerViewModel;

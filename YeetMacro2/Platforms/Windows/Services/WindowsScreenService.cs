@@ -10,6 +10,10 @@ using Point = Microsoft.Maui.Graphics.Point;
 namespace YeetMacro2.Platforms.Windows.Services;
 public class WindowsScreenService : IScreenService, IRecorderService
 {
+    public Microsoft.Maui.Graphics.Size CalcResolution => throw new NotImplementedException();
+
+    public Microsoft.Maui.Graphics.Size Resolution => throw new NotImplementedException();
+
     [DllImport("user32.dll")]
     public static extern bool GetWindowRect(IntPtr hWnd, out RECT lpRect);
     [DllImport("user32.dll")]

@@ -19,7 +19,7 @@ public partial class ActionMenuViewModel : ObservableObject
     {
         get {
             var topLeft = _screenService.GetTopLeft();
-            var currentResolution = _screenService.CurrentResolution;
+            var currentResolution = _screenService.CalcResolution;
             return $"x{topLeft.X}y{topLeft.Y} w{currentResolution.Width}h{currentResolution.Height}";
         }
     }

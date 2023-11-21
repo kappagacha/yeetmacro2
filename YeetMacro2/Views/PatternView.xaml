@@ -21,6 +21,10 @@
                     <Label Margin="0" VerticalOptions="Center" Padding="0" Text="MultiPattern" />
                     <CheckBox Margin="0" VerticalOptions="Center" IsChecked="{Binding Pattern.IsBoundsPattern, Source={Reference thisView}}" />
                     <Label Margin="0" VerticalOptions="Center" Padding="0" Text="BoundsPattern" />
+                    <CheckBox Margin="0" VerticalOptions="Center" IsChecked="{Binding Pattern.IsNotCachingOffset, Source={Reference thisView}}" />
+                    <Label Margin="0" VerticalOptions="Center" Padding="0" Text="Don't Cache Offset" />
+                    <CheckBox Margin="0" VerticalOptions="Center" IsChecked="{Binding Pattern.IsNotUsingCalcResolution, Source={Reference thisView}}" />
+                    <Label Margin="0" VerticalOptions="Center" Padding="0" Text="Don't Use Calc Resolution" />
                     <Label Margin="7,0,0,0" VerticalOptions="Center" Padding="0" Text="VariancePct" />
                     <Entry Margin="5,0,0,0" VerticalOptions="Center" Keyboard="Numeric" Text="{Binding Pattern.VariancePct, Source={Reference thisView}}" />
                 </HorizontalStackLayout>

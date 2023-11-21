@@ -57,9 +57,9 @@ public class MediaProjectionService : IRecorderService
             _logger.LogTrace("MediaProjectionService Start");
 
             var screenService = ServiceHelper.GetService<AndroidScreenService>();
-            var currentResolution = screenService.CurrentResolution;
-            var width = (int)screenService.CurrentResolution.Width;
-            var height = (int)screenService.CurrentResolution.Height;
+            var currentResolution = screenService.CalcResolution;
+            var width = (int)screenService.CalcResolution.Width;
+            var height = (int)screenService.CalcResolution.Height;
             var density = (int)DeviceDisplay.MainDisplayInfo.Density;
 
             // https://github.com/Fate-Grand-Automata/FGA/blob/2a62ab7a456a9913cf0355db81b5a15f13906f27/app/src/main/java/io/github/fate_grand_automata/runner/ScreenshotServiceHolder.kt#L53
@@ -204,8 +204,8 @@ public class MediaProjectionService : IRecorderService
 
         Start();
         var screenService = ServiceHelper.GetService<AndroidScreenService>();
-        var width = (int)screenService.CurrentResolution.Width;
-        var height = (int)screenService.CurrentResolution.Height;
+        var width = (int)screenService.CalcResolution.Width;
+        var height = (int)screenService.CalcResolution.Height;
         var density = (int)DeviceDisplay.MainDisplayInfo.Density;
         var profile = CamcorderProfile.Get(CamcorderQuality.High);
 

@@ -34,6 +34,8 @@ public class Pattern
     [JsonIgnore]
     public virtual bool IsSelected { get; set; }
     public virtual bool IsBoundsPattern { get; set; }
+    public virtual bool IsNotCachingOffset { get; set; }
+    public virtual bool IsNotUsingCalcResolution { get; set; }
     [JsonIgnore]
     public virtual int PatternId { get; set; }
     [JsonIgnore]
