@@ -19,6 +19,7 @@ public class YeetMacroDbContext : DbContext
     public DbSet<BooleanSetting> BooleanSettings { get; set; }
     public DbSet<OptionSetting> OptionSettings { get; set; }
     public DbSet<StringSetting> StringSettings { get; set; }
+    public DbSet<IntegerSetting> IntegerSettings { get; set; }
     public DbSet<PatternSetting> PatternSettings { get; set; }
     public DbSet<LogGroup> LogGroups { get; set; }
     public DbSet<Log> Logs { get; set; }

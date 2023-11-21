@@ -15,13 +15,10 @@
         <v:SettingNodeView IsVisible="{Binding ShowSettings}" />
         <Grid IsVisible="{Binding ShowSettings, Converter={conv:InverseBoolConverter}}" ColumnDefinitions="*,3*">
             <Border Grid.Column="0" Stroke="{StaticResource Primary}" BackgroundColor="Transparent" Padding="3">
-                <v:NodeView ItemsSource="{Binding Scripts}">
+                <v:NodeView NodeManager="{Binding Scripts}">
                     <v:NodeView.ExtraMenuItemsDataTemplate>
                         <DataTemplate x:DataType="{x:Null}">
                             <VerticalStackLayout>
-                                <!--<v:ImageView FontFamily="FASolid" Glyph="{x:Static fa:Solid.Download}" 
-                                                    Command="{Binding ItemsSource.ImportCommand}"
-                                                    CommandParameter="{Binding BindingContext.SelectedMacroSet.Name, Source={RelativeSource AncestorType={x:Type v:ScriptNodeView}}}" />-->
                                 <v:ImageView FontFamily="FASolid" Glyph="{x:Static fa:Solid.FileExport}" 
                                                     Command="{Binding ItemsSource.ExportCommand}"
                                                     CommandParameter="{Binding BindingContext.SelectedMacroSet.Name, Source={RelativeSource AncestorType={x:Type v:ScriptNodeView}}}" />
@@ -30,7 +27,7 @@
                     </v:NodeView.ExtraMenuItemsDataTemplate>
                 </v:NodeView>
             </Border>
-            <Grid Grid.Column="1"  BackgroundColor="Transparent" Padding="3">
+            <Grid Grid.Column="1"  BackgroundColor="Transparent" Padding="3" IsVisible="{Binding Scripts.ShowEditor}">
                 <Border Stroke="{StaticResource Primary}" BackgroundColor="Transparent" Padding="3"
                     IsVisible="{Binding Scripts.SelectedNode, Converter={conv:NullToBoolConverter IsInverse=True}}">
                     <Editor x:Name="scriptEditor" Text="{Binding Scripts.SelectedNode.Text}" IsSpellCheckEnabled="False" />
@@ -57,9 +54,18 @@
                     <Label VerticalOptions="Center" Text="Persist Logs" />
                 </HorizontalStackLayout>
             </Grid>
+            <v:SettingNodeView Grid.Column="1" IsSubView="True" IsVisible="{Binding Scripts.ShowEditor, Converter={conv:InverseBoolConverter}}" />
         </Grid>
+        <v:ImageView HorizontalOptions="End" VerticalOptions="Start" FontFamily="MaterialOutlined" Glyph="{x:Static mi:MaterialOutlined.Edit}" Color="Gray"
+                Command="{Binding Scripts.ToggleShowEditorCommand}">
+            <v:ImageView.Triggers>
+                <DataTrigger TargetType="{x:Type v:ImageView}" Binding="{Binding Scripts.ShowEditor}" Value="True">
+                    <Setter Property="Color" Value="{StaticResource Primary}" />
+                </DataTrigger>
+            </v:ImageView.Triggers>
+        </v:ImageView>
         <v:ImageView HorizontalOptions="Start" VerticalOptions="End" FontFamily="MaterialOutlined" Glyph="{x:Static mi:MaterialOutlined.Settings}" Color="Gray"
-                                 Command="{Binding ToggleShowSettingsCommand}">
+                     Command="{Binding ToggleShowSettingsCommand}">
             <v:ImageView.Triggers>
                 <DataTrigger TargetType="{x:Type v:ImageView}" Binding="{Binding ShowSettings}" Value="True">
                     <Setter Property="Color" Value="{StaticResource Primary}" />

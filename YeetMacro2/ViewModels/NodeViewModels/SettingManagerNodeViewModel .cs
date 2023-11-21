@@ -1,5 +1,7 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
+using CommunityToolkit.Mvvm.Messaging.Messages;
+using CommunityToolkit.Mvvm.Messaging;
 using System.ComponentModel;
 using YeetMacro2.Data.Models;
 using YeetMacro2.Data.Services;
@@ -10,11 +12,15 @@ namespace YeetMacro2.ViewModels;
 
 public partial class SettingNodeManagerViewModel : NodeManagerViewModel<ParentSettingViewModel, ParentSetting, SettingNode>
 {
+    object _lock = new object();
+    ParentSetting _emptyParentSetting = new ParentSettingViewModel();
     IRepository<SettingNode> _settingRepository;
     [ObservableProperty]
     PatternNode _selectedPatternNode;
     [ObservableProperty]
     Pattern _selectedPattern;
+    [ObservableProperty]
+    ParentSetting _currentSubViewModel;
 
     public SettingNodeManagerViewModel(
         int rootNodeId,
@@ -25,7 +31,18 @@ public partial class SettingNodeManagerViewModel : NodeManagerViewModel<ParentSe
             : base(rootNodeId, nodeService, inputService, toastService)
     {
         _settingRepository = settingRepository;
-        PropertyChanged += SettingNodeManagerViewModel_PropertyChanged; ;
+        PropertyChanged += SettingNodeManagerViewModel_PropertyChanged;
+        _currentSubViewModel = _emptyParentSetting;
+
+        WeakReferenceMessenger.Default.Register<PropertyChangedMessage<ScriptNode>, string>(this, nameof(ScriptNodeManagerViewModel), async (r, propertyChangedMessage) =>
+        {
+            if (Root is null) await this.WaitForInitialization();
+            if (propertyChangedMessage.PropertyName != nameof(ScriptNodeManagerViewModel.SelectedNode) || propertyChangedMessage.NewValue is null) return;
+
+            var targetSettingName = propertyChangedMessage.NewValue.Name.Replace("do", "");
+            var targetSetting = (ParentSetting)Root.Nodes.FirstOrDefault(sn => sn.Name.ToLower() == targetSettingName.ToLower());
+            CurrentSubViewModel = targetSetting ?? _emptyParentSetting;
+        });
     }
 
     private void SettingNodeManagerViewModel_PropertyChanged(object sender, PropertyChangedEventArgs e)
@@ -104,13 +121,37 @@ public partial class SettingNodeManagerViewModel : NodeManagerViewModel<ParentSe
     }
 
     [RelayCommand]
+    public void Increment(object setting)
+    {
+        if (setting is IntegerSetting integerSetting)
+        {
+            integerSetting.Value += integerSetting.Increment;
+            _settingRepository.Update(integerSetting);
+            _settingRepository.Save();
+        }
+    }
+
+    [RelayCommand]
+    public void Decrement(object setting)
+    {
+        if (setting is IntegerSetting integerSetting)
+        {
+            integerSetting.Value -= integerSetting.Increment;
+            _settingRepository.Update(integerSetting);
+            _settingRepository.Save();
+        }
+    }
+
+    [RelayCommand]
     public void SaveSetting(SettingNode setting)
     {
         if (setting is null) return;
-        _settingRepository.Update(setting);
-        _settingRepository.Save();
+        lock (_lock)    // invoked concurrently by UserStoppedTypingBehavior
+        {
+            _settingRepository.Update(setting);
+            _settingRepository.Save();
+        }
     }
-
 
     [RelayCommand]
     public void ResetSetting(SettingNode setting)
@@ -133,6 +174,12 @@ public partial class SettingNodeManagerViewModel : NodeManagerViewModel<ParentSe
         {
             boolSetting.Value = boolSetting.DefaultValue;
             _settingRepository.Update(boolSetting);
+            _settingRepository.Save();
+        }
+        else if (setting is IntegerSettingViewModel integerSetting)
+        {
+            integerSetting.Value = integerSetting.DefaultValue;
+            _settingRepository.Update(integerSetting);
             _settingRepository.Save();
         }
     }

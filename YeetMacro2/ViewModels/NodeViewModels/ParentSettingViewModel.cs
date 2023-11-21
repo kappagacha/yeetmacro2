@@ -12,7 +12,7 @@ public class SettingNodeViewModelMetadataProvider : INodeMetadataProvider<Parent
     public Expression<Func<ParentSettingViewModel, object>> CollectionPropertiesExpression => null;
     public Expression<Func<ParentSettingViewModel, object>> ProxyPropertiesExpression => null;
 
-    public Type[] NodeTypes => new Type[] { typeof(ParentSettingViewModel), typeof(BooleanSettingViewModel), typeof(OptionSettingViewModel), typeof(StringSettingViewModel), typeof(PatternSettingViewModel) };
+    public Type[] NodeTypes => new Type[] { typeof(ParentSettingViewModel), typeof(BooleanSettingViewModel), typeof(OptionSettingViewModel), typeof(StringSettingViewModel), typeof(IntegerSettingViewModel), typeof(PatternSettingViewModel) };
 }
 
 [ObservableObject]
@@ -51,6 +51,10 @@ public partial class ParentSettingViewModel : ParentSetting
                 else if (val is StringSetting)
                 {
                     base.Nodes.Add(_mapper.Map<StringSettingViewModel>(val));
+                }
+                else if (val is IntegerSetting)
+                {
+                    base.Nodes.Add(_mapper.Map<IntegerSettingViewModel>(val));
                 }
                 else if (val is PatternSetting)
                 {
@@ -241,13 +245,58 @@ public partial class StringSettingViewModel : StringSetting
 
     public bool IsLeaf => true;
 
-
     public override string Value
     {
         get => base.Value;
         set
         {
             base.Value = value;
+            OnPropertyChanged();
+        }
+    }
+}
+
+[ObservableObject]
+public partial class IntegerSettingViewModel : IntegerSetting
+{
+    public override string Name
+    {
+        get => base.Name;
+        set
+        {
+            base.Name = value;
+            OnPropertyChanged();
+        }
+    }
+
+    public override bool IsSelected
+    {
+        get => base.IsSelected;
+        set
+        {
+            base.IsSelected = value;
+            OnPropertyChanged();
+        }
+    }
+
+    public bool IsLeaf => true;
+
+    public override int Value
+    {
+        get => base.Value;
+        set
+        {
+            base.Value = value;
+            OnPropertyChanged();
+        }
+    }
+
+    public override int Increment
+    {
+        get => base.Increment;
+        set
+        {
+            base.Increment = value;
             OnPropertyChanged();
         }
     }

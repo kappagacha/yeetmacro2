@@ -19,48 +19,57 @@
                     </DataTrigger>
                 </Label.Triggers>
                 <Label.GestureRecognizers>
-                    <TapGestureRecognizer CommandParameter="{Binding .}" Command="{Binding ItemsSource.SelectNodeCommand, Source={RelativeSource AncestorType={x:Type v:NodeView}}}" />
+                    <TapGestureRecognizer CommandParameter="{Binding .}" Command="{Binding NodeManager.SelectNodeCommand, Source={RelativeSource AncestorType={x:Type v:NodeView}}}" />
                 </Label.GestureRecognizers>
             </Label>
         </DataTemplate>
     </ContentView.Resources>
     <Grid>
-        <Grid IsVisible="{Binding ItemsSource.ShowExport, Converter={conv:InverseBoolConverter}, Source={Reference thisView}}">
+        <Grid IsVisible="{Binding NodeManager.ShowExport, Converter={conv:InverseBoolConverter}, Source={Reference thisView}}">
             <ScrollView>
-                <material:TreeView ItemsSource="{Binding ItemsSource.Root.Children, Source={Reference thisView}}"
-                               ItemTemplate="{Binding ItemTemplate, Source={Reference thisView}, TargetNullValue={StaticResource DefaultItemTemplate}}"
-                               Spacing="0" HorizontalOptions="Fill"  VerticalOptions="Fill" />
+                <material:TreeView ItemTemplate="{Binding ItemTemplate, Source={Reference thisView}, TargetNullValue={StaticResource DefaultItemTemplate}}"
+                                   Spacing="0" HorizontalOptions="Fill"  VerticalOptions="Fill">
+                    <material:TreeView.Triggers>
+                        <DataTrigger TargetType="{x:Type material:TreeView}" Binding="{Binding ItemsSource, Source={Reference thisView}, Converter={conv:NullToBoolConverter}}" Value="True">
+                            <Setter Property="ItemsSource" Value="{Binding NodeManager.Root.Children, Source={Reference thisView}}" />
+                        </DataTrigger>
+                        <DataTrigger TargetType="{x:Type material:TreeView}" Binding="{Binding ItemsSource, Source={Reference thisView}, Converter={conv:NullToBoolConverter}}" Value="False">
+                            <Setter Property="ItemsSource" Value="{Binding ItemsSource, Source={Reference thisView}}" />
+                        </DataTrigger>
+                    </material:TreeView.Triggers>
+                </material:TreeView>
             </ScrollView>
-            <Grid VerticalOptions="End" HorizontalOptions="End" BindingContext="{Binding ., Source={Reference thisView}}">
+            <Grid VerticalOptions="End" HorizontalOptions="End" BindingContext="{Binding ., Source={Reference thisView}}"
+                  IsVisible="{Binding IsMenuVisible, Source={Reference thisView}}">
                 <VerticalStackLayout>
                     <VerticalStackLayout IsVisible="{Binding IsMenuOpen}">
                         <ContentView x:Name="extraMenuItemsContentView" />
-                        <v:ImageView FontFamily="MaterialOutlined" Glyph="{x:Static mi:MaterialOutlined.Unfold_more_double}" Command="{Binding ItemsSource.ExpandAllCommand}" 
-                                     IsVisible="{Binding ItemsSource.IsList, Converter={conv:InverseBoolConverter}}" />
+                        <v:ImageView FontFamily="MaterialOutlined" Glyph="{x:Static mi:MaterialOutlined.Unfold_more_double}" Command="{Binding NodeManager.ExpandAllCommand}" 
+                                     IsVisible="{Binding NodeManager.IsList, Converter={conv:InverseBoolConverter}}" />
                         <v:ImageView FontFamily="FASolid" Glyph="{x:Static fa:Solid.Pencil}"
-                                     IsVisible="{Binding ItemsSource.SelectedNode, Converter={conv:NullToBoolConverter IsInverse=True}}"
-                                     Command="{Binding ItemsSource.RenameNodeCommand}" CommandParameter="{Binding ItemsSource.SelectedNode}" />
-                        <Grid IsVisible="{Binding ItemsSource.HasCopyClipboard, Converter={conv:InverseBoolConverter}}">
+                                     IsVisible="{Binding NodeManager.SelectedNode, Converter={conv:NullToBoolConverter IsInverse=True}}"
+                                     Command="{Binding NodeManager.RenameNodeCommand}" CommandParameter="{Binding NodeManager.SelectedNode}" />
+                        <Grid IsVisible="{Binding NodeManager.HasCopyClipboard, Converter={conv:InverseBoolConverter}}">
                             <v:ImageView FontFamily="MaterialOutlined" Glyph="{x:Static mi:MaterialOutlined.Content_copy}"
-                                 IsVisible="{Binding ItemsSource.SelectedNode, Converter={conv:NullToBoolConverter IsInverse=True}}"
-                                 Command="{Binding ItemsSource.CopyNodeCommand}" CommandParameter="{Binding ItemsSource.SelectedNode}" />
+                                 IsVisible="{Binding NodeManager.SelectedNode, Converter={conv:NullToBoolConverter IsInverse=True}}"
+                                 Command="{Binding NodeManager.CopyNodeCommand}" CommandParameter="{Binding NodeManager.SelectedNode}" />
                         </Grid>
-                        <Grid IsVisible="{Binding ItemsSource.HasCopyClipboard}">
-                            <v:ImageView FontFamily="MaterialOutlined" Glyph="{x:Static mi:MaterialOutlined.Content_paste}" Command="{Binding ItemsSource.PasteNodeCommand}"
-                                IsVisible="{Binding ItemsSource.SelectedNode.IsParentNode}"/>
-                            <v:ImageView FontFamily="MaterialOutlined" Glyph="{x:Static mi:MaterialOutlined.Content_paste}" Command="{Binding ItemsSource.PasteNodeCommand}"
-                                IsVisible="{Binding ItemsSource.SelectedNode, Converter={conv:NullToBoolConverter IsInverse=True}}"/>
+                        <Grid IsVisible="{Binding NodeManager.HasCopyClipboard}">
+                            <v:ImageView FontFamily="MaterialOutlined" Glyph="{x:Static mi:MaterialOutlined.Content_paste}" Command="{Binding NodeManager.PasteNodeCommand}"
+                                IsVisible="{Binding NodeManager.SelectedNode.IsParentNode}"/>
+                            <v:ImageView FontFamily="MaterialOutlined" Glyph="{x:Static mi:MaterialOutlined.Content_paste}" Command="{Binding NodeManager.PasteNodeCommand}"
+                                IsVisible="{Binding NodeManager.SelectedNode, Converter={conv:NullToBoolConverter IsInverse=True}}"/>
                         </Grid>
                         <v:ImageView FontFamily="MaterialOutlined" Glyph="{x:Static mi:MaterialOutlined.Content_paste_off}"
-                                     IsVisible="{Binding ItemsSource.HasCopyClipboard}"
-                                     Command="{Binding ItemsSource.ClearCopyNodeCommand}" /> 
+                                     IsVisible="{Binding NodeManager.HasCopyClipboard}"
+                                     Command="{Binding NodeManager.ClearCopyNodeCommand}" />
                         <v:ImageView FontFamily="FASolid" Glyph="{x:Static fa:Solid.TrashCan}" Color="Red" 
-                                 IsVisible="{Binding ItemsSource.SelectedNode, Converter={conv:NullToBoolConverter IsInverse=True}}"
-                                 Command="{Binding ItemsSource.DeleteNodeCommand}" CommandParameter="{Binding ItemsSource.SelectedNode}" />
-                        <v:ImageView FontFamily="FASolid" Glyph="{x:Static fa:Solid.Plus}" Command="{Binding ItemsSource.AddNodeCommand}"
-                                 IsVisible="{Binding ItemsSource.SelectedNode.IsParentNode}"/>
-                        <v:ImageView FontFamily="MaterialOutlined" Glyph="{x:Static mi:MaterialOutlined.Unfold_less_double}" Command="{Binding ItemsSource.CollapseAllCommand}" 
-                                     IsVisible="{Binding ItemsSource.IsList, Converter={conv:InverseBoolConverter}}" />
+                                 IsVisible="{Binding NodeManager.SelectedNode, Converter={conv:NullToBoolConverter IsInverse=True}}"
+                                 Command="{Binding NodeManager.DeleteNodeCommand}" CommandParameter="{Binding NodeManager.SelectedNode}" />
+                        <v:ImageView FontFamily="FASolid" Glyph="{x:Static fa:Solid.Plus}" Command="{Binding NodeManager.AddNodeCommand}"
+                                 IsVisible="{Binding NodeManager.SelectedNode.IsParentNode}"/>
+                        <v:ImageView FontFamily="MaterialOutlined" Glyph="{x:Static mi:MaterialOutlined.Unfold_less_double}" Command="{Binding NodeManager.CollapseAllCommand}" 
+                                     IsVisible="{Binding NodeManager.IsList, Converter={conv:InverseBoolConverter}}" />
                     </VerticalStackLayout>
                     <Border Stroke="{StaticResource Primary}" StrokeThickness="0" BackgroundColor="Transparent">
                         <Border.Triggers>
@@ -73,10 +82,9 @@
                     </Border>
                 </VerticalStackLayout>
             </Grid>
-
         </Grid>
-        <Grid IsVisible="{Binding ItemsSource.ShowExport, Source={Reference thisView}}">
-            <Editor x:Name="exportEditor" Text="{Binding ItemsSource.ExportValue, Source={Reference thisView}}" />
+        <Grid IsVisible="{Binding NodeManager.ShowExport, Source={Reference thisView}}">
+            <Editor x:Name="exportEditor" Text="{Binding NodeManager.ExportValue, Source={Reference thisView}}" />
             <HorizontalStackLayout HorizontalOptions="End" VerticalOptions="Start">
                 <v:ImageView FontFamily="MaterialOutlined" Glyph="{x:Static mi:MaterialOutlined.Select_all}">
                     <v:ImageView.GestureRecognizers>
@@ -84,9 +92,9 @@
                     </v:ImageView.GestureRecognizers>
                 </v:ImageView>
                 <v:ImageView FontFamily="MaterialOutlined" Glyph="{x:Static mi:MaterialOutlined.Close}" Color="Red"
-                             Command="{Binding ItemsSource.CloseExportCommand, Source={Reference thisView}}" />
+                             Command="{Binding NodeManager.CloseExportCommand, Source={Reference thisView}}" />
             </HorizontalStackLayout>
         </Grid>
-        <ActivityIndicator IsRunning="{Binding ItemsSource.IsInitialized, Converter={conv:InverseBoolConverter}, Source={Reference thisView}}" />
+        <ActivityIndicator IsRunning="{Binding NodeManager.IsInitialized, Converter={conv:InverseBoolConverter}, Source={Reference thisView}}" />
     </Grid>
 </ContentView>

@@ -331,6 +331,10 @@ public partial class MacroManagerViewModel : ObservableObject
             {
                 boolSetting.DefaultValue = boolSetting.Value;
             }
+            else if (s is SettingNode<int> integerSetting)
+            {
+                integerSetting.DefaultValue = integerSetting.Value;
+            }
         });
         File.WriteAllText(Path.Combine(targetDirectory, $"settings.json"), Settings.ToJson());
 
@@ -446,6 +450,7 @@ public partial class MacroManagerViewModel : ObservableObject
             if (settingJson is not null)
             {
                 var settings = SettingNodeManagerViewModel.FromJson(settingJson);
+                Settings.SelectedNode = null;
                 MergeSettings(Settings.Root, settings.Root);
                 Settings.Import(settings);
             }

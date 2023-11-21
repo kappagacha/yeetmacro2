@@ -1,4 +1,5 @@
 using System.Windows.Input;
+using YeetMacro2.ViewModels.NodeViewModels;
 
 namespace YeetMacro2.Views;
 
@@ -7,11 +8,15 @@ public partial class NodeView : ContentView
     ICommand _toggleIsMenuOpenCommand;
     public static readonly BindableProperty IsMenuOpenProperty =
         BindableProperty.Create("IsMenuOpen", typeof(bool), typeof(NodeView), false);
+    public static readonly BindableProperty IsMenuVisibleProperty =
+        BindableProperty.Create("IsMenuVisible", typeof(bool), typeof(NodeView), true);
     public static readonly BindableProperty ItemTemplateProperty =
         BindableProperty.Create("ItemTemplate", typeof(DataTemplate), typeof(NodeView), null);
     // https://stackoverflow.com/questions/58022446/multiple-contentpresenters-in-one-controltemplate
     public static readonly BindableProperty ExtraMenuItemsDataTemplateProperty =
         BindableProperty.Create("ExtraMenuItemsDataTemplate", typeof(DataTemplate), typeof(NodeView), null, propertyChanged: ExtraMenuItemsDataTemplatePropertyChanged);
+    public static readonly BindableProperty NodeManagerProperty =
+        BindableProperty.Create("NodeManager", typeof(NodeManagerViewModel), typeof(NodeView), null);
     public static readonly BindableProperty ItemsSourceProperty =
         BindableProperty.Create("ItemsSource", typeof(object), typeof(NodeView), null);
 
@@ -27,6 +32,11 @@ public partial class NodeView : ContentView
         get { return (bool)GetValue(IsMenuOpenProperty); }
         set { SetValue(IsMenuOpenProperty, value); }
     }
+    public bool IsMenuVisible
+    {
+        get { return (bool)GetValue(IsMenuVisibleProperty); }
+        set { SetValue(IsMenuVisibleProperty, value); }
+    }
     public DataTemplate ExtraMenuItemsDataTemplate
     {
         get { return (DataTemplate)GetValue(ExtraMenuItemsDataTemplateProperty); }
@@ -38,12 +48,18 @@ public partial class NodeView : ContentView
         get { return (DataTemplate)GetValue(ItemTemplateProperty); }
         set { SetValue(ItemTemplateProperty, value); }
     }
+    public NodeManagerViewModel NodeManager
+    {
+        get { return (NodeManagerViewModel)GetValue(NodeManagerProperty); }
+        set { SetValue(NodeManagerProperty, value); }
+    }
 
     public object ItemsSource
     {
         get { return GetValue(ItemsSourceProperty); }
         set { SetValue(ItemsSourceProperty, value); }
     }
+
     public ICommand ToggleIsMenuOpenCommand
     {
         get => _toggleIsMenuOpenCommand ?? (_toggleIsMenuOpenCommand = new Command(() => IsMenuOpen = !IsMenuOpen));
