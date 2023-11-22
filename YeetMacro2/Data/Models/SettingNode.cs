@@ -83,6 +83,7 @@ public class StringSetting : SettingNode<String>
 public class IntegerSetting : SettingNode<int>
 {
     public override SettingType SettingType => SettingType.Integer;
+    public virtual bool IsActive { get; set; }
     public virtual int Increment { get; set; } = 1;
 }
 

@@ -291,6 +291,16 @@ public partial class IntegerSettingViewModel : IntegerSetting
         }
     }
 
+    public override bool IsActive
+    {
+        get => base.IsActive;
+        set
+        {
+            base.IsActive = value;
+            OnPropertyChanged();
+        }
+    }
+
     public override int Increment
     {
         get => base.Increment;

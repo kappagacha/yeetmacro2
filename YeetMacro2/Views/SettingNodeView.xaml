@@ -76,7 +76,15 @@
         </DataTemplate>
         <DataTemplate x:Key="IntegerSettingTemplate">
             <HorizontalStackLayout>
-                <Label VerticalOptions="Center" Text="{Binding Name}" />
+                <CheckBox x:Name="integerSettingIsActiveCheckbox" IsChecked="{Binding IsActive}" VerticalOptions="Center" HeightRequest="{Binding Height, Source={Reference label}}">
+                    <CheckBox.Behaviors>
+                        <mct:EventToCommandBehavior
+                            EventName="CheckedChanged"
+                            Command="{Binding BindingContext.Settings.SaveSettingCommand, Source={x:Reference thisView}}"
+                            CommandParameter="{Binding BindingContext, Source={x:Reference integerSettingIsActiveCheckbox}}"/>
+                    </CheckBox.Behaviors>
+                </CheckBox>
+                <Label x:Name="label" VerticalOptions="Center" Text="{Binding Name}" />
                 <v:ImageView
                     VerticalOptions="Center" FontFamily="MaterialOutlined" Glyph="{x:Static mi:MaterialOutlined.Remove}"
                     Command="{Binding BindingContext.Settings.DecrementCommand, Source={RelativeSource AncestorType={x:Type v:SettingNodeView}}}"
