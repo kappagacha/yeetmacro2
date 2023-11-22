@@ -60,16 +60,15 @@ public class MacroService
         if (patternNode.Patterns.Count == 0) return Point.Zero;
 
         var pattern = patternNode.Patterns.First();
-        var resolution = pattern.IsNotUsingCalcResolution ? _screenService.Resolution : _screenService.CalcResolution;
 
-        if (pattern.IsNotCachingOffset)
+        if (pattern.IsLocationDynamic)
         {
-            return PatternNodeManagerViewModel.CalcOffset(pattern, resolution);
+            return PatternNodeManagerViewModel.CalcOffset(pattern, _screenService.Resolution);
         }
 
         if (!_pathToOffset.ContainsKey(patternNode.Path))
         {
-            _pathToOffset[patternNode.Path] = PatternNodeManagerViewModel.CalcOffset(pattern, resolution);
+            _pathToOffset[patternNode.Path] = PatternNodeManagerViewModel.CalcOffset(pattern, _screenService.CalcResolution);
         }
 
         return _pathToOffset[patternNode.Path];
