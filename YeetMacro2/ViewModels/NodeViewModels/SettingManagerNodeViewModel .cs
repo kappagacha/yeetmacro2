@@ -182,5 +182,11 @@ public partial class SettingNodeManagerViewModel : NodeManagerViewModel<ParentSe
             _settingRepository.Update(integerSetting);
             _settingRepository.Save();
         }
+        else if (setting is EnabledIntegerSettingViewModel enabledIntegerSetting)
+        {
+            enabledIntegerSetting.Value = enabledIntegerSetting.DefaultValue;
+            _settingRepository.Update(enabledIntegerSetting);
+            _settingRepository.Save();
+        }
     }
 }

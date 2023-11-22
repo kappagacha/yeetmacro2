@@ -10,6 +10,7 @@ public enum SettingType
     Option,
     String,
     Integer,
+    EnabledInteger,
     Pattern
 }
 
@@ -18,7 +19,11 @@ public class SettingNodeMetadataProvider : INodeMetadataProvider<SettingNode>
     public Expression<Func<SettingNode, object>> CollectionPropertiesExpression => s => new { ((ParentSetting)s).Nodes };
     public Expression<Func<SettingNode, object>> ProxyPropertiesExpression => s => new { ((PatternSetting)s).Value };
 
-    public Type[] NodeTypes => new Type[] { typeof(ParentSetting), typeof(BooleanSetting), typeof(OptionSetting), typeof(StringSetting), typeof(IntegerSetting), typeof(PatternSetting) };
+    public Type[] NodeTypes => new Type[] { 
+        typeof(ParentSetting), typeof(BooleanSetting), typeof(OptionSetting), 
+        typeof(StringSetting), typeof(IntegerSetting), typeof(EnabledIntegerSetting), 
+        typeof(PatternSetting) 
+    };
 }
 
 public class ParentSetting : SettingNode, IParentNode<ParentSetting, SettingNode>
@@ -38,6 +43,7 @@ public class ParentSetting : SettingNode, IParentNode<ParentSetting, SettingNode
 [JsonDerivedType(typeof(OptionSetting), typeDiscriminator: "option")]
 [JsonDerivedType(typeof(StringSetting), typeDiscriminator: "string")]
 [JsonDerivedType(typeof(IntegerSetting), typeDiscriminator: "integer")]
+[JsonDerivedType(typeof(EnabledIntegerSetting), typeDiscriminator: "enabledInteger")]
 [JsonDerivedType(typeof(PatternSetting), typeDiscriminator: "pattern")]
 [JsonPolymorphic(UnknownDerivedTypeHandling = JsonUnknownDerivedTypeHandling.FallBackToNearestAncestor)]
 [NodeMetadata(NodeMetadataProvider = typeof(SettingNodeMetadataProvider))]
@@ -83,8 +89,13 @@ public class StringSetting : SettingNode<String>
 public class IntegerSetting : SettingNode<int>
 {
     public override SettingType SettingType => SettingType.Integer;
-    public virtual bool IsActive { get; set; }
     public virtual int Increment { get; set; } = 1;
+}
+
+public class EnabledIntegerSetting : IntegerSetting
+{
+    public override SettingType SettingType => SettingType.EnabledInteger;
+    public virtual bool IsEnabled { get; set; }
 }
 
 public class PatternSetting : SettingNode<PatternNode>

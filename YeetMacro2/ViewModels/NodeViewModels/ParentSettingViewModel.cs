@@ -12,7 +12,11 @@ public class SettingNodeViewModelMetadataProvider : INodeMetadataProvider<Parent
     public Expression<Func<ParentSettingViewModel, object>> CollectionPropertiesExpression => null;
     public Expression<Func<ParentSettingViewModel, object>> ProxyPropertiesExpression => null;
 
-    public Type[] NodeTypes => new Type[] { typeof(ParentSettingViewModel), typeof(BooleanSettingViewModel), typeof(OptionSettingViewModel), typeof(StringSettingViewModel), typeof(IntegerSettingViewModel), typeof(PatternSettingViewModel) };
+    public Type[] NodeTypes => new Type[] { 
+        typeof(ParentSettingViewModel), typeof(BooleanSettingViewModel), typeof(OptionSettingViewModel), 
+        typeof(StringSettingViewModel), typeof(IntegerSettingViewModel), typeof(EnabledIntegerSettingViewModel), 
+        typeof(PatternSettingViewModel) 
+    };
 }
 
 [ObservableObject]
@@ -51,6 +55,10 @@ public partial class ParentSettingViewModel : ParentSetting
                 else if (val is StringSetting)
                 {
                     base.Nodes.Add(_mapper.Map<StringSettingViewModel>(val));
+                }
+                else if (val is EnabledIntegerSetting)
+                {
+                    base.Nodes.Add(_mapper.Map<EnabledIntegerSettingViewModel>(val));
                 }
                 else if (val is IntegerSetting)
                 {
@@ -291,12 +299,58 @@ public partial class IntegerSettingViewModel : IntegerSetting
         }
     }
 
-    public override bool IsActive
+    public override int Increment
     {
-        get => base.IsActive;
+        get => base.Increment;
         set
         {
-            base.IsActive = value;
+            base.Increment = value;
+            OnPropertyChanged();
+        }
+    }
+}
+
+[ObservableObject]
+public partial class EnabledIntegerSettingViewModel : EnabledIntegerSetting
+{
+    public override string Name
+    {
+        get => base.Name;
+        set
+        {
+            base.Name = value;
+            OnPropertyChanged();
+        }
+    }
+
+    public override bool IsSelected
+    {
+        get => base.IsSelected;
+        set
+        {
+            base.IsSelected = value;
+            OnPropertyChanged();
+        }
+    }
+
+    public bool IsLeaf => true;
+
+    public override int Value
+    {
+        get => base.Value;
+        set
+        {
+            base.Value = value;
+            OnPropertyChanged();
+        }
+    }
+
+    public override bool IsExpanded
+    {
+        get => base.IsExpanded;
+        set
+        {
+            base.IsExpanded = value;
             OnPropertyChanged();
         }
     }
@@ -307,6 +361,16 @@ public partial class IntegerSettingViewModel : IntegerSetting
         set
         {
             base.Increment = value;
+            OnPropertyChanged();
+        }
+    }
+
+    public override bool IsEnabled
+    {
+        get => base.IsEnabled;
+        set
+        {
+            base.IsEnabled = value;
             OnPropertyChanged();
         }
     }

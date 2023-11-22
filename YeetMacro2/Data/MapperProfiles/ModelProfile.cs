@@ -22,6 +22,7 @@ public class ModelProfile : Profile
         CreateMap<OptionSetting, OptionSettingViewModel>().ReverseMap();
         CreateMap<StringSetting, StringSettingViewModel>().ReverseMap();
         CreateMap<IntegerSetting, IntegerSettingViewModel>().ReverseMap();
+        CreateMap<EnabledIntegerSetting, EnabledIntegerSettingViewModel>().ReverseMap();
         CreateMap<PatternSetting, PatternSettingViewModel>().ReverseMap();
     }
 }
