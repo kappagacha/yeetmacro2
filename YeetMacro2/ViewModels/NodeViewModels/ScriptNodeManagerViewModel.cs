@@ -12,7 +12,7 @@ namespace YeetMacro2.ViewModels.NodeViewModels;
 public partial class ScriptNodeManagerViewModel : NodeManagerViewModel<ScriptNodeViewModel, ScriptNode, ScriptNode>
 {
     [ObservableProperty]
-    bool _showScriptEditor, _showDescriptionEditor;
+    bool _showScriptEditor;
 
     public ScriptNodeManagerViewModel(
         int rootNodeId,
@@ -37,19 +37,5 @@ public partial class ScriptNodeManagerViewModel : NodeManagerViewModel<ScriptNod
     public void ToggleShowScriptEditor()
     {
         ShowScriptEditor = !ShowScriptEditor;
-        if (ShowScriptEditor)
-        {
-            ShowDescriptionEditor = false;
-        }
-    }
-
-    [RelayCommand]
-    public void ToggleShowDescriptionEditor()
-    {
-        ShowDescriptionEditor = !ShowDescriptionEditor;
-        if (ShowDescriptionEditor)
-        {
-            ShowScriptEditor = false;
-        }
     }
 }

@@ -79,7 +79,8 @@ public class YeetMacroDbContext : DbContext
         modelBuilder.Entity<Pattern>().OwnsOne(p => p.ColorThreshold);
         modelBuilder.Entity<Pattern>().Property(p => p.OffsetCalcType).HasConversion(new EnumToStringConverter<OffsetCalcType>());
 
-        modelBuilder.Entity<ScriptNode>().HasMany(pn => pn.Nodes).WithOne().HasForeignKey($"{nameof(ScriptNode)}{nameof(Node.ParentId)}").OnDelete(DeleteBehavior.Cascade);
+        modelBuilder.Entity<ScriptNode>().HasMany(sn => sn.Nodes).WithOne().HasForeignKey($"{nameof(ScriptNode)}{nameof(Node.ParentId)}").OnDelete(DeleteBehavior.Cascade);
+        modelBuilder.Entity<ScriptNode>().Ignore(sn => sn.Description);
 
         modelBuilder.Entity<ParentSetting>().HasMany(pn => pn.Nodes).WithOne().HasForeignKey($"{nameof(SettingNode)}{nameof(Node.ParentId)}").OnDelete(DeleteBehavior.Cascade);
         // https://learn.microsoft.com/en-us/ef/core/modeling/value-conversions?tabs=data-annotations

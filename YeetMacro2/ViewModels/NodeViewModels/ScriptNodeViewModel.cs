@@ -1,4 +1,5 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
+using System.Text.RegularExpressions;
 using YeetMacro2.Data.Models;
 
 namespace YeetMacro2.ViewModels.NodeViewModels;
@@ -53,16 +54,31 @@ public partial class ScriptNodeViewModel : ScriptNode
         {
             base.Text = value;
             OnPropertyChanged();
+            OnPropertyChanged(nameof(Description));
         }
     }
 
     public override string Description
     {
-        get => base.Description;
-        set
-        {
-            base.Description = value;
-            OnPropertyChanged();
+        get {
+            var lines = Text.Split('\n');
+            var description = "";
+            foreach (var line in lines)
+            {
+                if (line.StartsWith("//") && line.Contains("raw-script"))
+                {
+                    continue;
+                }
+                else if (line.StartsWith("//"))
+                {
+                    description += Regex.Replace(line, "^//\\s+", "") + "\n";
+                }
+                else
+                {
+                    break;
+                }
+            }
+            return description;
         }
     }
 

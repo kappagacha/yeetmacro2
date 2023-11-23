@@ -43,34 +43,14 @@
                                  Command="{Binding Scripts.SaveCommand}" />
                 </HorizontalStackLayout>
             </Grid>
-            <Grid Grid.Column="1"  BackgroundColor="Transparent" Padding="3" IsVisible="{Binding Scripts.ShowDescriptionEditor}">
-                <Border Stroke="{StaticResource Primary}" BackgroundColor="Transparent" Padding="3"
-                        IsVisible="{Binding Scripts.SelectedNode, Converter={conv:NullToBoolConverter IsInverse=True}}">
-                    <Editor Text="{Binding Scripts.SelectedNode.Description}" IsSpellCheckEnabled="False" />
-                </Border>
-                <HorizontalStackLayout HorizontalOptions="End" VerticalOptions="End">
-                    <v:ImageView FontFamily="MaterialOutlined" Glyph="{x:Static mi:MaterialOutlined.Save}"
-                        Command="{Binding Scripts.SaveCommand}" />
-                    <Grid IsVisible="{Binding Scripts.SelectedNode, Converter={conv:NullToBoolConverter IsInverse=True}}">
-                        <v:ImageView IsVisible="{Binding ShowExecuteButton, Source={x:Reference thisControl}}"
-                         ImageHeight="60"
-                         ImageWidth="60"
-                         FontFamily="MaterialOutlined" Glyph="{x:Static mi:MaterialOutlined.Play_arrow}"
-                         Command="{Binding ExecuteScriptCommand}"
-                         CommandParameter="{Binding Scripts.SelectedNode}" />
-                    </Grid>
-                </HorizontalStackLayout>
-            </Grid>
-            <Grid Grid.Column="1" IsVisible="{Binding Scripts.ShowScriptEditor, Converter={conv:InverseBoolConverter}}">
-                <mct:DockLayout IsVisible="{Binding Scripts.ShowDescriptionEditor, Converter={conv:InverseBoolConverter}}">
-                    <Border mct:DockLayout.DockPosition="Top" Stroke="{StaticResource Primary}" 
+            <mct:DockLayout Grid.Column="1" IsVisible="{Binding Scripts.ShowScriptEditor, Converter={conv:InverseBoolConverter}}">
+                <Border mct:DockLayout.DockPosition="Top" Stroke="{StaticResource Primary}" 
                             BackgroundColor="Transparent" Padding="3"
                             IsVisible="{Binding Scripts.SelectedNode, Converter={conv:NullToBoolConverter IsInverse=True}}">
-                        <Label Text="{Binding Scripts.SelectedNode.Description}" />
-                    </Border>
-                    <v:SettingNodeView IsSubView="True"  />
-                </mct:DockLayout>
-            </Grid>
+                    <Label Text="{Binding Scripts.SelectedNode.Description}" />
+                </Border>
+                <v:SettingNodeView IsSubView="True"  />
+            </mct:DockLayout>
         </Grid>
         <Grid HorizontalOptions="End" VerticalOptions="End" IsVisible="{Binding Scripts.SelectedNode, Converter={conv:NullToBoolConverter IsInverse=True}}">
             <v:ImageView IsVisible="{Binding ShowExecuteButton, Source={x:Reference thisControl}}"
@@ -89,14 +69,6 @@
                          Command="{Binding Scripts.ToggleShowScriptEditorCommand}">
                 <v:ImageView.Triggers>
                     <DataTrigger TargetType="{x:Type v:ImageView}" Binding="{Binding Scripts.ShowScriptEditor}" Value="True">
-                        <Setter Property="Color" Value="{StaticResource Primary}" />
-                    </DataTrigger>
-                </v:ImageView.Triggers>
-            </v:ImageView>
-            <v:ImageView FontFamily="MaterialOutlined" Glyph="{x:Static mi:MaterialOutlined.Info}" Color="Gray"
-                         Command="{Binding Scripts.ToggleShowDescriptionEditorCommand}">
-                <v:ImageView.Triggers>
-                    <DataTrigger TargetType="{x:Type v:ImageView}" Binding="{Binding Scripts.ShowDescriptionEditor}" Value="True">
                         <Setter Property="Color" Value="{StaticResource Primary}" />
                     </DataTrigger>
                 </v:ImageView.Triggers>
