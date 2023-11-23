@@ -56,6 +56,16 @@ public partial class ScriptNodeViewModel : ScriptNode
         }
     }
 
+    public override string Description
+    {
+        get => base.Description;
+        set
+        {
+            base.Description = value;
+            OnPropertyChanged();
+        }
+    }
+
     public bool IsLeaf => true;
 
     public ICollection<ScriptNode> Children

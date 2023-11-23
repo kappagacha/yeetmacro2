@@ -16,4 +16,5 @@ public class ScriptNode : Node, IParentNode<ScriptNode, ScriptNode>
     [JsonIgnore]
     public virtual ICollection<ScriptNode> Nodes { get; set; } = new List<ScriptNode>();
     public virtual string Text { get; set; }
+    public virtual string Description { get; set; }
 }

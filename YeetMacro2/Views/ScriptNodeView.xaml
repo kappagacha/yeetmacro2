@@ -5,6 +5,7 @@
              xmlns:v="clr-namespace:YeetMacro2.Views"
              xmlns:vm="clr-namespace:YeetMacro2.ViewModels"
              vm:ViewModelLocator.ViewModelType="{x:Type vm:MacroManagerViewModel}"
+             xmlns:mct="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
              xmlns:fa="clr-namespace:UraniumUI.Icons.FontAwesome;assembly=UraniumUI.Icons.FontAwesome"
              xmlns:mi="clr-namespace:UraniumUI.Icons.MaterialIcons;assembly=UraniumUI.Icons.MaterialIcons"
              BackgroundColor="{AppThemeBinding Light={StaticResource Background}, Dark={StaticResource BackgroundDark}}"
@@ -27,12 +28,12 @@
                     </v:NodeView.ExtraMenuItemsDataTemplate>
                 </v:NodeView>
             </Border>
-            <Grid Grid.Column="1"  BackgroundColor="Transparent" Padding="3" IsVisible="{Binding Scripts.ShowEditor}">
+            <Grid Grid.Column="1"  BackgroundColor="Transparent" Padding="3" IsVisible="{Binding Scripts.ShowScriptEditor}">
                 <Border Stroke="{StaticResource Primary}" BackgroundColor="Transparent" Padding="3"
                     IsVisible="{Binding Scripts.SelectedNode, Converter={conv:NullToBoolConverter IsInverse=True}}">
                     <Editor x:Name="scriptEditor" Text="{Binding Scripts.SelectedNode.Text}" IsSpellCheckEnabled="False" />
                 </Border>
-                <HorizontalStackLayout HorizontalOptions="End" VerticalOptions="End">
+                <HorizontalStackLayout HorizontalOptions="End" VerticalOptions="End" Margin="0,0,55,0">
                     <v:ImageView FontFamily="MaterialOutlined" Glyph="{x:Static mi:MaterialOutlined.Select_all}">
                         <v:ImageView.GestureRecognizers>
                             <TapGestureRecognizer Tapped="ScriptEditor_SelectAll" />
@@ -40,30 +41,67 @@
                     </v:ImageView>
                     <v:ImageView FontFamily="MaterialOutlined" Glyph="{x:Static mi:MaterialOutlined.Save}"
                                  Command="{Binding Scripts.SaveCommand}" />
-                    <Grid IsVisible="{Binding Scripts.SelectedNode, Converter={conv:NullToBoolConverter IsInverse=True}}">
-                        <v:ImageView IsVisible="{Binding ShowExecuteButton, Source={x:Reference thisControl}}"
-                                     ImageHeight="60"
-                                     ImageWidth="60"
-                                     FontFamily="MaterialOutlined" Glyph="{x:Static mi:MaterialOutlined.Play_arrow}"
-                                     Command="{Binding ExecuteScriptCommand}"
-                                     CommandParameter="{Binding Scripts.SelectedNode}" />
-                    </Grid>
-                </HorizontalStackLayout>
-                <HorizontalStackLayout HorizontalOptions="End" VerticalOptions="Start">
-                    <CheckBox IsChecked="{Binding PersistLogs}" />
-                    <Label VerticalOptions="Center" Text="Persist Logs" />
                 </HorizontalStackLayout>
             </Grid>
-            <v:SettingNodeView Grid.Column="1" IsSubView="True" IsVisible="{Binding Scripts.ShowEditor, Converter={conv:InverseBoolConverter}}" />
+            <Grid Grid.Column="1"  BackgroundColor="Transparent" Padding="3" IsVisible="{Binding Scripts.ShowDescriptionEditor}">
+                <Border Stroke="{StaticResource Primary}" BackgroundColor="Transparent" Padding="3"
+                        IsVisible="{Binding Scripts.SelectedNode, Converter={conv:NullToBoolConverter IsInverse=True}}">
+                    <Editor Text="{Binding Scripts.SelectedNode.Description}" IsSpellCheckEnabled="False" />
+                </Border>
+                <HorizontalStackLayout HorizontalOptions="End" VerticalOptions="End">
+                    <v:ImageView FontFamily="MaterialOutlined" Glyph="{x:Static mi:MaterialOutlined.Save}"
+                        Command="{Binding Scripts.SaveCommand}" />
+                    <Grid IsVisible="{Binding Scripts.SelectedNode, Converter={conv:NullToBoolConverter IsInverse=True}}">
+                        <v:ImageView IsVisible="{Binding ShowExecuteButton, Source={x:Reference thisControl}}"
+                         ImageHeight="60"
+                         ImageWidth="60"
+                         FontFamily="MaterialOutlined" Glyph="{x:Static mi:MaterialOutlined.Play_arrow}"
+                         Command="{Binding ExecuteScriptCommand}"
+                         CommandParameter="{Binding Scripts.SelectedNode}" />
+                    </Grid>
+                </HorizontalStackLayout>
+            </Grid>
+            <Grid Grid.Column="1" IsVisible="{Binding Scripts.ShowScriptEditor, Converter={conv:InverseBoolConverter}}">
+                <mct:DockLayout IsVisible="{Binding Scripts.ShowDescriptionEditor, Converter={conv:InverseBoolConverter}}">
+                    <Border mct:DockLayout.DockPosition="Top" Stroke="{StaticResource Primary}" 
+                            BackgroundColor="Transparent" Padding="3"
+                            IsVisible="{Binding Scripts.SelectedNode, Converter={conv:NullToBoolConverter IsInverse=True}}">
+                        <Label Text="{Binding Scripts.SelectedNode.Description}" />
+                    </Border>
+                    <v:SettingNodeView IsSubView="True"  />
+                </mct:DockLayout>
+            </Grid>
         </Grid>
-        <v:ImageView HorizontalOptions="End" VerticalOptions="Start" FontFamily="MaterialOutlined" Glyph="{x:Static mi:MaterialOutlined.Edit}" Color="Gray"
-                Command="{Binding Scripts.ToggleShowEditorCommand}">
-            <v:ImageView.Triggers>
-                <DataTrigger TargetType="{x:Type v:ImageView}" Binding="{Binding Scripts.ShowEditor}" Value="True">
-                    <Setter Property="Color" Value="{StaticResource Primary}" />
-                </DataTrigger>
-            </v:ImageView.Triggers>
-        </v:ImageView>
+        <Grid HorizontalOptions="End" VerticalOptions="End" IsVisible="{Binding Scripts.SelectedNode, Converter={conv:NullToBoolConverter IsInverse=True}}">
+            <v:ImageView IsVisible="{Binding ShowExecuteButton, Source={x:Reference thisControl}}"
+                 ImageHeight="60"
+                 ImageWidth="60"
+                 FontFamily="MaterialOutlined" Glyph="{x:Static mi:MaterialOutlined.Play_arrow}"
+                 Command="{Binding ExecuteScriptCommand}"
+                 CommandParameter="{Binding Scripts.SelectedNode}" />
+        </Grid>
+        <HorizontalStackLayout HorizontalOptions="End" VerticalOptions="Start" Margin="0,0,40,0">
+            <HorizontalStackLayout HorizontalOptions="End" VerticalOptions="Start">
+                <CheckBox IsChecked="{Binding PersistLogs}" />
+                <Label VerticalOptions="Center" Text="Persist Logs" />
+            </HorizontalStackLayout>
+            <v:ImageView FontFamily="MaterialOutlined" Glyph="{x:Static mi:MaterialOutlined.Edit}" Color="Gray"
+                         Command="{Binding Scripts.ToggleShowScriptEditorCommand}">
+                <v:ImageView.Triggers>
+                    <DataTrigger TargetType="{x:Type v:ImageView}" Binding="{Binding Scripts.ShowScriptEditor}" Value="True">
+                        <Setter Property="Color" Value="{StaticResource Primary}" />
+                    </DataTrigger>
+                </v:ImageView.Triggers>
+            </v:ImageView>
+            <v:ImageView FontFamily="MaterialOutlined" Glyph="{x:Static mi:MaterialOutlined.Info}" Color="Gray"
+                         Command="{Binding Scripts.ToggleShowDescriptionEditorCommand}">
+                <v:ImageView.Triggers>
+                    <DataTrigger TargetType="{x:Type v:ImageView}" Binding="{Binding Scripts.ShowDescriptionEditor}" Value="True">
+                        <Setter Property="Color" Value="{StaticResource Primary}" />
+                    </DataTrigger>
+                </v:ImageView.Triggers>
+            </v:ImageView>
+        </HorizontalStackLayout>
         <v:ImageView HorizontalOptions="Start" VerticalOptions="End" FontFamily="MaterialOutlined" Glyph="{x:Static mi:MaterialOutlined.Settings}" Color="Gray"
                      Command="{Binding ToggleShowSettingsCommand}">
             <v:ImageView.Triggers>
