@@ -79,7 +79,7 @@ public partial class ScriptNodeViewModel : ScriptNode
                     break;
                 }
             }
-            return description;
+            return description.TrimEnd();
         }
     }
 

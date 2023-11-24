@@ -47,7 +47,9 @@
                 <Border mct:DockLayout.DockPosition="Top" Stroke="{StaticResource Primary}" 
                             BackgroundColor="Transparent" Padding="3"
                             IsVisible="{Binding Scripts.SelectedNode, Converter={conv:NullToBoolConverter IsInverse=True}}">
-                    <Label Text="{Binding Scripts.SelectedNode.Description}" />
+                    <Grid BindingContext="{Binding Scripts.SelectedNode}">
+                        <Label x:DataType="{x:Null}" Text="{Binding Description}" />
+                    </Grid>
                 </Border>
                 <v:SettingNodeView IsSubView="True"  />
             </mct:DockLayout>
