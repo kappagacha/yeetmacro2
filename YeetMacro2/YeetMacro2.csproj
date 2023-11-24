@@ -80,6 +80,10 @@
 	  <None Remove="Resources\Fonts\OpenSans-Medium.ttf" />
 	  <None Remove="Resources\Images\appicon.svg" />
 	  <None Remove="Resources\Raw\eng.traineddata" />
+	  <None Remove="Resources\Raw\MacroSets\outerplane\macroSet.json" />
+	  <None Remove="Resources\Raw\MacroSets\outerplane\patterns.json" />
+	  <None Remove="Resources\Raw\MacroSets\outerplane\scripts\_watchAds.js" />
+	  <None Remove="Resources\Raw\MacroSets\outerplane\settings.json" />
 	  <None Remove="Resources\Splash\splash.svg" />
 	</ItemGroup>
 

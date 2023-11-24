@@ -1,0 +1,15 @@
+{
+  "name": "Outerplane",
+  "resolution": {
+    "width": 1920,
+    "height": 1080
+  },
+  "supportsGreaterWidth": true,
+  "supportsGreaterHeight": false,
+  "package": "com.smilegate.outerplane.stove.google",
+  "source": "online:outerplane",
+  "macroSetLastUpdated": "2023-11-23T15:40:29.4378875-06:00",
+  "patternsLastUpdated": "2023-11-23T15:40:29.4382328-06:00",
+  "scriptsLastUpdated": "2023-11-23T15:40:29.4384616-06:00",
+  "settingsLastUpdated": "2023-11-23T15:40:29.438681-06:00"
+}

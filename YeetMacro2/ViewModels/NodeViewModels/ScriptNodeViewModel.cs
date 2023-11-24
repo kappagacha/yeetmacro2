@@ -60,7 +60,8 @@ public partial class ScriptNodeViewModel : ScriptNode
 
     public override string Description
     {
-        get {
+        get 
+        {
             var lines = Text.Split('\n');
             var description = "";
             foreach (var line in lines)

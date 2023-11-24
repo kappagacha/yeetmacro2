@@ -199,6 +199,7 @@ public partial class NodeManagerViewModel<TViewModel, TParent, TChild> : NodeMan
             Root.Nodes.Add(newNode);
         }
 
+        ResolvePath(Root);
         _nodeService.Insert(newNode);
         _toastService.Show($"Created {_nodeTypeName}: " + name);
     }
@@ -215,6 +216,7 @@ public partial class NodeManagerViewModel<TViewModel, TParent, TChild> : NodeMan
         }
 
         ((TViewModel)node).Name = name;
+        ResolvePath(Root);
         _nodeService.Update(node);
         _toastService.Show($"Renamed {_nodeTypeName}: " + name);
     }
