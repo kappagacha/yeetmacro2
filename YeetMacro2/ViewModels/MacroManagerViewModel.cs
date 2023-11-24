@@ -39,7 +39,7 @@ public partial class MacroManagerViewModel : ObservableObject
     IScriptService _scriptService;
     [ObservableProperty]
     bool _isExportEnabled, _isOpenAppDirectoryEnabled, _inDebugMode, _showStatusPanel, 
-        _showExport, _showSettings, _isBusy, _persistLogs;
+        _showExport, _showSettings, _isBusy, _persistLogs, _showMacroSetDescriptionEditor;
     [ObservableProperty]
     double _resolutionWidth, _resolutionHeight;
     [ObservableProperty]
@@ -277,6 +277,12 @@ public partial class MacroManagerViewModel : ObservableObject
     private void ToggleShowSettings()
     {
         ShowSettings = !ShowSettings;
+    }
+
+    [RelayCommand]
+    private void ToggleShowMacroSetDescriptionEditor()
+    {
+        ShowMacroSetDescriptionEditor = !ShowMacroSetDescriptionEditor;
     }
 
     [RelayCommand]

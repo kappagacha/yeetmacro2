@@ -104,18 +104,34 @@
                                         Command="{Binding ClearSettingsLastUpdatedCommand}" CommandParameter="{Binding SelectedMacroSet}" />
                                 </HorizontalStackLayout>
                             </VerticalStackLayout>
+                            <Grid Grid.Column="1" IsVisible="{Binding ShowMacroSetDescriptionEditor}">
+                                <Editor Text="{Binding SelectedMacroSet.Description}" />
+                            </Grid>
+                            <Grid Grid.Column="1" IsVisible="{Binding ShowMacroSetDescriptionEditor, Converter={conv:InverseBoolConverter}}">
+                                <Label Text="{Binding SelectedMacroSet.Description}" />
+                            </Grid>
                             <Grid Grid.Column="1" IsVisible="{Binding ShowExport}">
                                 <Editor x:Name="exportEditor" Text="{Binding ExportValue}" />
-                                <HorizontalStackLayout HorizontalOptions="End" VerticalOptions="Start">
-                                    <v:ImageView FontFamily="MaterialOutlined" Glyph="{x:Static mi:MaterialOutlined.Select_all}">
-                                        <v:ImageView.GestureRecognizers>
-                                            <TapGestureRecognizer Tapped="ExportEditor_SelectAll" />
-                                        </v:ImageView.GestureRecognizers>
-                                    </v:ImageView>
-                                    <v:ImageView FontFamily="MaterialOutlined" Glyph="{x:Static mi:MaterialOutlined.Close}" Color="Red"
-                                    Command="{Binding CloseExportCommand}" />
-                                </HorizontalStackLayout>
                             </Grid>
+                            <HorizontalStackLayout Grid.Column="1" HorizontalOptions="End" VerticalOptions="Start">
+                                <v:ImageView FontFamily="MaterialOutlined" Glyph="{x:Static mi:MaterialOutlined.Edit}" Color="Gray"
+                                    Command="{Binding ToggleShowMacroSetDescriptionEditorCommand}">
+                                    <v:ImageView.Triggers>
+                                        <DataTrigger TargetType="{x:Type v:ImageView}" Binding="{Binding ShowMacroSetDescriptionEditor}" Value="True">
+                                            <Setter Property="Color" Value="{StaticResource Primary}" />
+                                        </DataTrigger>
+                                    </v:ImageView.Triggers>
+                                </v:ImageView>
+                                <v:ImageView FontFamily="MaterialOutlined" Glyph="{x:Static mi:MaterialOutlined.Select_all}"
+                                             IsVisible="{Binding ShowExport}">
+                                    <v:ImageView.GestureRecognizers>
+                                        <TapGestureRecognizer Tapped="ExportEditor_SelectAll" />
+                                    </v:ImageView.GestureRecognizers>
+                                </v:ImageView>
+                                <v:ImageView FontFamily="MaterialOutlined" Glyph="{x:Static mi:MaterialOutlined.Close}" Color="Red"
+                                             IsVisible="{Binding ShowExport}" Command="{Binding CloseExportCommand}" />
+                            </HorizontalStackLayout>
+                            
                         </Grid>
                         <v:ImageView HorizontalOptions="End" VerticalOptions="End" FontFamily="MaterialOutlined" Glyph="{x:Static mi:MaterialOutlined.Save}"
                                  Command="{Binding SaveCommand}" CommandParameter="{Binding SelectedMacroSet}" />
@@ -147,5 +163,4 @@
         <ActivityIndicator IsRunning="{Binding IsBusy}" />
         <Label Text="{Binding AppVersion, StringFormat='AppVersion: {0}'}" VerticalOptions="End" HorizontalOptions="Start" />
     </Grid>
-    
 </ContentPage>

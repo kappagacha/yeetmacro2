@@ -22,4 +22,5 @@ public class MacroSet
     public virtual DateTimeOffset? PatternsLastUpdated { get; set; }
     public virtual DateTimeOffset? ScriptsLastUpdated { get; set; }
     public virtual DateTimeOffset? SettingsLastUpdated { get; set; }
+    public virtual string Description { get; set; }
 }
