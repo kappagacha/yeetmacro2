@@ -131,7 +131,6 @@
                                 <v:ImageView FontFamily="MaterialOutlined" Glyph="{x:Static mi:MaterialOutlined.Close}" Color="Red"
                                              IsVisible="{Binding ShowExport}" Command="{Binding CloseExportCommand}" />
                             </HorizontalStackLayout>
-                            
                         </Grid>
                         <v:ImageView HorizontalOptions="End" VerticalOptions="End" FontFamily="MaterialOutlined" Glyph="{x:Static mi:MaterialOutlined.Save}"
                                  Command="{Binding SaveCommand}" CommandParameter="{Binding SelectedMacroSet}" />
@@ -155,6 +154,17 @@
                     <material:TabItem.ContentTemplate>
                         <DataTemplate>
                             <v:SettingNodeView />
+                        </DataTemplate>
+                    </material:TabItem.ContentTemplate>
+                </material:TabItem>
+                <material:TabItem Title="Dailies">
+                    <material:TabItem.ContentTemplate>
+                        <DataTemplate>
+                            <v:DailyNodeView />
+                            <!--<mct:DockLayout>
+                                <Label mct:DockLayout.DockPosition="Top" FontSize="Title" Text="Template" />
+                                <Editor />
+                            </mct:DockLayout>-->
                         </DataTemplate>
                     </material:TabItem.ContentTemplate>
                 </material:TabItem>

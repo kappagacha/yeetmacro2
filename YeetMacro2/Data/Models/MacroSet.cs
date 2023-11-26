@@ -13,6 +13,8 @@ public class MacroSet
     public virtual int RootScriptNodeId { get; set; }
     [JsonIgnore]
     public virtual int RootSettingNodeId { get; set; }
+    [JsonIgnore]
+    public virtual int RootDailyNodeId { get; set; }
     public virtual Size Resolution { get; set; }
     public virtual bool SupportsGreaterWidth { get; set; }
     public virtual bool SupportsGreaterHeight { get; set; }
@@ -23,4 +25,5 @@ public class MacroSet
     public virtual DateTimeOffset? ScriptsLastUpdated { get; set; }
     public virtual DateTimeOffset? SettingsLastUpdated { get; set; }
     public virtual string Description { get; set; }
+    public virtual int DailyResetUtcHour { get; set; }
 }

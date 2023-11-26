@@ -1,6 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using System.Text.Json;
+using System.Text.Json.Nodes;
 using YeetMacro2.Data.Models;
 using YeetMacro2.Data.Serialization;
 
@@ -24,6 +25,7 @@ public class YeetMacroDbContext : DbContext
     public DbSet<PatternSetting> PatternSettings { get; set; }
     public DbSet<LogGroup> LogGroups { get; set; }
     public DbSet<Log> Logs { get; set; }
+    public DbSet<DailyNode> DailyNodes { get; set; }
 
     public YeetMacroDbContext()
     {
@@ -99,5 +101,10 @@ public class YeetMacroDbContext : DbContext
         {
             l.HasKey(l => l.LogId);
         });
+
+        modelBuilder.Entity<DailyNode>().Property(d => d.Data).HasConversion(
+            d => d.ToJsonString(null),
+            d => (JsonObject)JsonObject.Parse(d, null, default(JsonDocumentOptions))
+        );
     }
 }

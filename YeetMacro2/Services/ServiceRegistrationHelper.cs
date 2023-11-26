@@ -24,6 +24,7 @@ public static class ServiceRegistrationHelper
         mauiAppBuilder.Services.AddAutoMapper(typeof(App).GetTypeInfo().Assembly);
         mauiAppBuilder.Services.AddLazyResolution();
         mauiAppBuilder.Logging.AddLogViewModelSink();
+        mauiAppBuilder.Services.AddSingleton<MacroService>();
 
         mauiAppBuilder.Services.AddTesseractOcr(files => files.AddFile("eng.traineddata"));
 
@@ -36,7 +37,6 @@ public static class ServiceRegistrationHelper
         mauiAppBuilder.Services.AddSingleton<NodeManagerViewModelFactory>();
         mauiAppBuilder.Services.AddSingleton<StatusPanelViewModel>();
         mauiAppBuilder.Services.AddSingleton<LogViewModel>();
-        mauiAppBuilder.Services.AddSingleton<MacroService>();
 
         return mauiAppBuilder;
     }

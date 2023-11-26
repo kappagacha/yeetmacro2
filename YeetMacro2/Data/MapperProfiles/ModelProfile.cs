@@ -24,5 +24,6 @@ public class ModelProfile : Profile
         CreateMap<IntegerSetting, IntegerSettingViewModel>().ReverseMap();
         CreateMap<EnabledIntegerSetting, EnabledIntegerSettingViewModel>().ReverseMap();
         CreateMap<PatternSetting, PatternSettingViewModel>().ReverseMap();
+        CreateMap<DailyNode, DailyNodeViewModel>().ReverseMap();
     }
 }

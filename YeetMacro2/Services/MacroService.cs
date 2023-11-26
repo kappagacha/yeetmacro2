@@ -6,6 +6,7 @@ using System.Text.Json.Serialization;
 using YeetMacro2.Data.Models;
 using YeetMacro2.ViewModels.NodeViewModels;
 using YeetMacro2.ViewModels;
+using System.Text.Json.Nodes;
 
 namespace YeetMacro2.Services;
 
@@ -415,5 +416,29 @@ public class MacroService
         }
         _logger.LogDebug($"getText failed {maxTry} times...");
         return String.Empty;
+    }
+
+    public JsonObject GetDaily(int offSet = 0)
+    {
+        var daily = new JsonObject()
+        {
+            ["daily1"] = 1,
+            ["daily2"] = true,
+            ["daily3"] = new JsonObject()
+            {
+                ["subDaily"] = 10
+            }
+        };
+
+        foreach (var elem in daily)
+        {
+
+        }
+        return daily;
+    }
+
+    public void UpdateDaily(JsonObject daily, int offSet = 0)
+    {
+        var subDaily = daily["daily3"]["subDaily"].GetValue<double>();
     }
 }

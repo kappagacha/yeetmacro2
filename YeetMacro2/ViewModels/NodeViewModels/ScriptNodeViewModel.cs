@@ -7,6 +7,7 @@ namespace YeetMacro2.ViewModels.NodeViewModels;
 [ObservableObject]
 public partial class ScriptNodeViewModel : ScriptNode
 {
+    public bool IsLeaf => true;
     public override ICollection<ScriptNode> Nodes
     {
         get => base.Nodes;
@@ -84,8 +85,6 @@ public partial class ScriptNodeViewModel : ScriptNode
             return description.TrimEnd();
         }
     }
-
-    public bool IsLeaf => true;
 
     public ICollection<ScriptNode> Children
     {

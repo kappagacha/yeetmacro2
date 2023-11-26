@@ -9,6 +9,8 @@ using YeetMacro2.ViewModels;
 using OneOf;
 using Jint.Native;
 using Jint.Runtime;
+using System.Text.Json.Nodes;
+using System.Runtime.Serialization.Formatters;
 
 namespace YeetMacro2.Services;
 
@@ -177,6 +179,11 @@ public class JsToDotNetConverter : DefaultTypeConverter
             converted = JsonSerializer.Deserialize<Point>(JsonSerializer.Serialize(value));
             return true;
         }
+        else if (type == typeof(JsonObject))
+        {
+            converted = JsonObject.Parse(JsonSerializer.Serialize(value));
+            return true;
+        }
 
         return base.TryConvert(value, type, formatProvider, out converted);
     }
@@ -207,8 +214,14 @@ public class DotNetToJsConverter : Jint.Runtime.Interop.IObjectConverter
             result = new ObjectWrapper(engine, value);
             return true;
         }
+        else if (value is JsonObject jsonObject)
+        {
+            result = engine.Evaluate($"return {jsonObject.ToJsonString()}");
+            return true;
+        }
 
         result = JsValue.Null;
         return false;
     }
 }
+

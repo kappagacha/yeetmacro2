@@ -26,6 +26,7 @@ public partial class MacroManagerViewModel : ObservableObject
     INodeService<PatternNode, PatternNode> _patternNodeService;
     INodeService<ScriptNode, ScriptNode> _scriptNodeService;
     INodeService<ParentSetting, SettingNode> _settingNodeService;
+    INodeService<DailyNode, DailyNode> _dailyNodeService;
     NodeManagerViewModelFactory _nodeViewModelManagerFactory;
     IMapper _mapper;
     IHttpService _httpService;
@@ -34,8 +35,9 @@ public partial class MacroManagerViewModel : ObservableObject
     [ObservableProperty, NotifyPropertyChangedFor(nameof(Patterns), nameof(Scripts))]
     MacroSet _selectedMacroSet;
     ConcurrentDictionary<int, PatternNodeManagerViewModel> _nodeRootIdToPatternTree;
-    ConcurrentDictionary<int, ScriptNodeManagerViewModel> _nodeRootIdToScriptTree;
+    ConcurrentDictionary<int, ScriptNodeManagerViewModel> _nodeRootIdToScriptList;
     ConcurrentDictionary<int, SettingNodeManagerViewModel> _nodeRootIdToSettingTree;
+    ConcurrentDictionary<int, DailyNodeManagerViewModel> _nodeRootIdToDailyList;
     IScriptService _scriptService;
     [ObservableProperty]
     bool _isExportEnabled, _isOpenAppDirectoryEnabled, _inDebugMode, _showStatusPanel, 
@@ -73,12 +75,12 @@ public partial class MacroManagerViewModel : ObservableObject
         get
         {
             if (SelectedMacroSet == null) return null;
-            if (!_nodeRootIdToScriptTree.ContainsKey(SelectedMacroSet.RootScriptNodeId))
+            if (!_nodeRootIdToScriptList.ContainsKey(SelectedMacroSet.RootScriptNodeId))
             {
                 var tree = _nodeViewModelManagerFactory.Create<ScriptNodeManagerViewModel>(SelectedMacroSet.RootScriptNodeId);
-                _nodeRootIdToScriptTree.TryAdd(SelectedMacroSet.RootScriptNodeId, tree);
+                _nodeRootIdToScriptList.TryAdd(SelectedMacroSet.RootScriptNodeId, tree);
             }
-            return _nodeRootIdToScriptTree[SelectedMacroSet.RootScriptNodeId];
+            return _nodeRootIdToScriptList[SelectedMacroSet.RootScriptNodeId];
         }
     }
 
@@ -95,6 +97,21 @@ public partial class MacroManagerViewModel : ObservableObject
             return _nodeRootIdToSettingTree[SelectedMacroSet.RootSettingNodeId];
         }
     }
+
+    public DailyNodeManagerViewModel Dailies
+    {
+        get
+        {
+            if (SelectedMacroSet == null) return null;
+            if (!_nodeRootIdToDailyList.ContainsKey(SelectedMacroSet.RootDailyNodeId))
+            {
+                var tree = _nodeViewModelManagerFactory.Create<DailyNodeManagerViewModel>(SelectedMacroSet.RootDailyNodeId);
+                _nodeRootIdToDailyList.TryAdd(SelectedMacroSet.RootDailyNodeId, tree);
+            }
+            return _nodeRootIdToDailyList[SelectedMacroSet.RootDailyNodeId];
+        }
+    }
+
     public string AppVersion { get { return AppInfo.Current.VersionString; } }
     public MacroManagerViewModel(ILogger<MacroManagerViewModel> logger,
         IRepository<MacroSet> macroSetRepository,
@@ -103,6 +120,7 @@ public partial class MacroManagerViewModel : ObservableObject
         INodeService<PatternNode, PatternNode> patternNodeService,
         INodeService<ScriptNode, ScriptNode> scriptNodeService,
         INodeService<ParentSetting, SettingNode> settingNodeService,
+        INodeService<DailyNode, DailyNode> dailyNodeService,
         IScriptService scriptService,
         IMapper mapper,
         IHttpService httpService)
@@ -114,6 +132,7 @@ public partial class MacroManagerViewModel : ObservableObject
         _patternNodeService = patternNodeService;
         _scriptNodeService = scriptNodeService;
         _settingNodeService = settingNodeService;
+        _dailyNodeService = dailyNodeService;
         _mapper = mapper;
         _httpService = httpService;
         // manually instantiating in ServiceRegistrationHelper.AppInitializer to pre initialize MacroSets
@@ -137,8 +156,9 @@ public partial class MacroManagerViewModel : ObservableObject
         _macroSetRepository.DetachAllEntities();
         _macroSetRepository.AttachEntities(_macroSets.ToArray());
         _nodeRootIdToPatternTree = new ConcurrentDictionary<int, PatternNodeManagerViewModel>();
-        _nodeRootIdToScriptTree = new ConcurrentDictionary<int, ScriptNodeManagerViewModel>();
+        _nodeRootIdToScriptList = new ConcurrentDictionary<int, ScriptNodeManagerViewModel>();
         _nodeRootIdToSettingTree = new ConcurrentDictionary<int, SettingNodeManagerViewModel>();
+        _nodeRootIdToDailyList = new ConcurrentDictionary<int, DailyNodeManagerViewModel>();
         _scriptService = scriptService;
 
 #if DEBUG
@@ -191,6 +211,10 @@ public partial class MacroManagerViewModel : ObservableObject
         _settingNodeService.ReAttachNodes(rootSetting);
         macroSet.RootSettingNodeId = rootSetting.NodeId;
 
+        var rootDaily = _mapper.Map<DailyNodeViewModel>(_dailyNodeService.GetRoot(0));
+        _dailyNodeService.ReAttachNodes(rootDaily);
+        macroSet.RootDailyNodeId = rootDaily.NodeId;
+
         MacroSets.Add(macroSet);
         _macroSetRepository.Insert(macroSet);
         _macroSetRepository.Save();
@@ -209,8 +233,9 @@ public partial class MacroManagerViewModel : ObservableObject
         await Scripts.WaitForInitialization();
         await Settings.WaitForInitialization();
         _patternNodeService.Delete(_nodeRootIdToPatternTree[macroSet.RootPatternNodeId].Root);
-        _scriptNodeService.Delete(_nodeRootIdToScriptTree[macroSet.RootScriptNodeId].Root);
+        _scriptNodeService.Delete(_nodeRootIdToScriptList[macroSet.RootScriptNodeId].Root);
         _settingNodeService.Delete(_nodeRootIdToSettingTree[macroSet.RootSettingNodeId].Root);
+        _dailyNodeService.Delete(_nodeRootIdToDailyList[macroSet.RootDailyNodeId].Root);
         _macroSetRepository.Delete(macroSet);
         _macroSetRepository.Save();
         MacroSets.Remove(macroSet);
@@ -469,6 +494,7 @@ public partial class MacroManagerViewModel : ObservableObject
                     src.RootScriptNodeId = dst.RootScriptNodeId;
                     src.RootPatternNodeId = dst.RootPatternNodeId;
                     src.RootSettingNodeId = dst.RootSettingNodeId;
+                    src.RootDailyNodeId = dst.RootDailyNodeId;
                     src.Source = dst.Source;
                 });
             });
