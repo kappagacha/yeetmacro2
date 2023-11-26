@@ -261,26 +261,10 @@ public partial class NodeManagerViewModel<TViewModel, TParent, TChild> : NodeMan
             SelectedNode = target;
         }
 
-        if (SelectedNode is not null && SelectedNode.IsSelected == false)
+        if (SelectedNode is not null && !SelectedNode.IsSelected)
         {
             SelectedNode = null;
         }
-
-        //target.IsSelected = !target.IsSelected;
-
-        //if (SelectedNode != null && SelectedNode != target)
-        //{
-        //    SelectedNode.IsSelected = false;
-        //}
-
-        //if (target.IsSelected && SelectedNode != target)
-        //{
-        //    SelectedNode = target;
-        //}
-        //else if (!target.IsSelected)
-        //{
-        //    SelectedNode = null;
-        //}
     }
 
     [RelayCommand]
