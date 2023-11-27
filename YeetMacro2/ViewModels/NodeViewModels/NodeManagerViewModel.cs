@@ -185,7 +185,12 @@ public partial class NodeManagerViewModel<TViewModel, TParent, TChild> : NodeMan
             newNode = new TViewModel() { Name = name };
         }
 
-        if (SelectedNode != null && SelectedNode is TParent parent)
+        AddNode(newNode);
+    }
+
+    protected void AddNode(TChild newNode)
+    {
+        if (!IsList && SelectedNode != null && SelectedNode is TParent parent)
         {
             newNode.ParentId = SelectedNode.NodeId;
             newNode.RootId = SelectedNode.RootId;
@@ -201,7 +206,7 @@ public partial class NodeManagerViewModel<TViewModel, TParent, TChild> : NodeMan
 
         ResolvePath(Root);
         _nodeService.Insert(newNode);
-        _toastService.Show($"Created {_nodeTypeName}: " + name);
+        _toastService.Show($"Created {_nodeTypeName}: " + newNode.Name);
     }
 
     [RelayCommand]

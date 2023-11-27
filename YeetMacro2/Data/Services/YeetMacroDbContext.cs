@@ -102,6 +102,7 @@ public class YeetMacroDbContext : DbContext
             l.HasKey(l => l.LogId);
         });
 
+        modelBuilder.Entity<DailyNode>().Ignore(d => d.DataText);
         modelBuilder.Entity<DailyNode>().Property(d => d.Data).HasConversion(
             d => d.ToJsonString(null),
             d => (JsonObject)JsonObject.Parse(d, null, default(JsonDocumentOptions))

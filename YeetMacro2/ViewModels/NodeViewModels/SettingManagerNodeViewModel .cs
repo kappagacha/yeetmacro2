@@ -40,7 +40,7 @@ public partial class SettingNodeManagerViewModel : NodeManagerViewModel<ParentSe
             if (propertyChangedMessage.PropertyName != nameof(ScriptNodeManagerViewModel.SelectedNode) || propertyChangedMessage.NewValue is null) return;
 
             var targetSettingName = propertyChangedMessage.NewValue.Name.Replace("do", "");
-            var targetSetting = (ParentSetting)Root.Nodes.FirstOrDefault(sn => sn.Name.ToLower() == targetSettingName.ToLower());
+            var targetSetting = Root.Nodes.FirstOrDefault(sn => sn.Name.ToLower() == targetSettingName.ToLower()) as ParentSetting;
             CurrentSubViewModel = targetSetting ?? _emptyParentSetting;
         });
     }

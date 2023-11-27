@@ -1,4 +1,6 @@
 ﻿using AutoMapper;
+using System.Text.Json;
+using System.Text.Json.Nodes;
 using YeetMacro2.Data.Models;
 using YeetMacro2.ViewModels;
 using YeetMacro2.ViewModels.NodeViewModels;
@@ -24,6 +26,11 @@ public class ModelProfile : Profile
         CreateMap<IntegerSetting, IntegerSettingViewModel>().ReverseMap();
         CreateMap<EnabledIntegerSetting, EnabledIntegerSettingViewModel>().ReverseMap();
         CreateMap<PatternSetting, PatternSettingViewModel>().ReverseMap();
-        CreateMap<DailyNode, DailyNodeViewModel>().ReverseMap();
+        CreateMap<DailyNode, DailyNodeViewModel>();
+        //https://stackoverflow.com/questions/75877586/automapper-exception-when-mapping-jsonobject-in-net6-the-node-already-has-a
+        CreateMap<JsonObject, JsonObject>()
+          .ConvertUsing(src => src == null ? null : JsonNode.Parse(src.ToJsonString(JsonSerializerOptions.Default), null, default)
+          .AsObject());
+
     }
 }

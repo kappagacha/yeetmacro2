@@ -9,11 +9,98 @@
              xmlns:fa="clr-namespace:UraniumUI.Icons.FontAwesome;assembly=UraniumUI.Icons.FontAwesome"
              xmlns:mi="clr-namespace:UraniumUI.Icons.MaterialIcons;assembly=UraniumUI.Icons.MaterialIcons"
              BackgroundColor="{AppThemeBinding Light={StaticResource Background}, Dark={StaticResource BackgroundDark}}"
+             xmlns:material="http://schemas.enisn-projects.io/dotnet/maui/uraniumui/material"
              x:DataType="vm:MacroManagerViewModel"
              x:Class="YeetMacro2.Views.DailyNodeView"
-             x:Name="thisControl">
-    <Grid>
-        <v:NodeView NodeManager="{Binding Dailies}" />
-        <ActivityIndicator IsRunning="{Binding IsBusy}" />
+             x:Name="thisView">
+    <ContentView.Resources>
+        <DataTemplate x:Key="DailyJsonParentTemplate">
+            <VerticalStackLayout>
+                <Label Text="{Binding Key}" VerticalOptions="Center" />
+            </VerticalStackLayout>
+        </DataTemplate>
+        <DataTemplate x:Key="DailyJsonBooleanTemplate">
+            <HorizontalStackLayout Spacing="4">
+                <Label Text="{Binding Key}" VerticalOptions="Center" />
+                <CheckBox IsChecked="{Binding IsChecked}" VerticalOptions="Center">
+                    <CheckBox.Behaviors>
+                        <mct:EventToCommandBehavior
+                            EventName="CheckedChanged"
+                            Command="{Binding BindingContext.Dailies.SaveDailyCommand, Source={x:Reference thisView}}">
+                            <mct:EventToCommandBehavior.CommandParameter>
+                                <MultiBinding Converter="{conv:PassThroughConverter}">
+                                    <Binding Path="BindingContext.Dailies.SelectedNode" Source="{x:Reference thisView}" />
+                                    <Binding Path="BindingContext.Dailies.SelectedNode.JsonViewModel" Source="{x:Reference thisView}" />
+                                </MultiBinding>
+                            </mct:EventToCommandBehavior.CommandParameter>
+                        </mct:EventToCommandBehavior>
+                    </CheckBox.Behaviors>
+                </CheckBox>
+            </HorizontalStackLayout>
+        </DataTemplate>
+        <DataTemplate x:Key="DailyJsonCountTemplate">
+            <HorizontalStackLayout>
+                <Label Text="{Binding Key}" VerticalOptions="Center" />
+                <v:ImageView
+                    VerticalOptions="Center" FontFamily="MaterialOutlined" Glyph="{x:Static mi:MaterialOutlined.Remove}"
+                    Command="{Binding BindingContext.Dailies.DecrementCommand, Source={x:Reference thisView}}"
+                    CommandParameter="{Binding BindingContext, Source={RelativeSource AncestorType={x:Type v:BindingContextView}}}" />
+                <Entry Margin="5,0,0,0" VerticalOptions="Center" Text="{Binding Count}" Keyboard="Numeric">
+                    <Entry.Behaviors>
+                        <mct:NumericValidationBehavior MaximumDecimalPlaces="0"
+                                                       Flags="ValidateOnValueChanged">
+                            <mct:NumericValidationBehavior.InvalidStyle>
+                                <Style TargetType="Entry">
+                                    <Setter Property="BackgroundColor" Value="Red" />
+                                </Style>
+                            </mct:NumericValidationBehavior.InvalidStyle>
+                        </mct:NumericValidationBehavior>
+                    </Entry.Behaviors>
+                </Entry>
+                <v:ImageView
+                    VerticalOptions="Center" FontFamily="MaterialOutlined" Glyph="{x:Static mi:MaterialOutlined.Add}"
+                    Command="{Binding BindingContext.Dailies.IncrementCommand, Source={RelativeSource AncestorType={x:Type v:DailyNodeView}}}"
+                    CommandParameter="{Binding BindingContext, Source={RelativeSource AncestorType={x:Type v:BindingContextView}}}" />
+            </HorizontalStackLayout>
+        </DataTemplate>
+    </ContentView.Resources>
+    <Grid ColumnDefinitions="*,3*">
+        <v:NodeView Grid.Column="0" NodeManager="{Binding Dailies}" />
+        <mct:DockLayout Grid.Column="1">
+            <DatePicker Date="{Binding Dailies.SelectedNode.Date, Converter={conv:DateOnlyConverter}}" />
+            <Grid>
+                <material:TreeView IsVisible="{Binding Dailies.ShowJsonEditor, Converter={conv:InverseBoolConverter}}"
+                        x:DataType="{x:Null}" ItemsSource="{Binding Dailies.SelectedNode.JsonViewModel.Root.Children}"
+                        Spacing="0" HorizontalOptions="Fill"  VerticalOptions="Fill">
+                    <material:TreeView.ItemTemplate>
+                        <DataTemplate>
+                            <v:BindingContextView />
+                        </DataTemplate>
+                    </material:TreeView.ItemTemplate>
+                </material:TreeView>
+                <Grid IsVisible="{Binding Dailies.ShowJsonEditor}">
+                    <Editor x:Name="dataEditor" Text="{Binding Dailies.SelectedNode.DataText}" AutoSize="TextChanges" />
+                    <v:ImageView HorizontalOptions="End" VerticalOptions="End" FontFamily="MaterialOutlined" Glyph="{x:Static mi:MaterialOutlined.Save}" Color="{StaticResource Primary}" 
+                                 Command="{Binding Dailies.SaveDailyCommand}" >
+                        <v:ImageView.CommandParameter>
+                            <MultiBinding Converter="{conv:PassThroughConverter}">
+                                <Binding Path="Dailies.SelectedNode" />
+                                <Binding Path="Text" Source="{Reference dataEditor}" />
+                            </MultiBinding>
+                        </v:ImageView.CommandParameter>
+                    </v:ImageView>
+                </Grid>
+            </Grid>
+        </mct:DockLayout>
+        <HorizontalStackLayout Grid.ColumnSpan="2"  HorizontalOptions="End" VerticalOptions="Start">
+            <v:ImageView FontFamily="MaterialOutlined" Glyph="{x:Static mi:MaterialOutlined.Edit}" Color="Gray"
+                Command="{Binding Dailies.ToggleShowJsonEditorCommand}">
+                <v:ImageView.Triggers>
+                    <DataTrigger TargetType="{x:Type v:ImageView}" Binding="{Binding Dailies.ShowJsonEditor}" Value="True">
+                        <Setter Property="Color" Value="{StaticResource Primary}" />
+                    </DataTrigger>
+                </v:ImageView.Triggers>
+            </v:ImageView>
+        </HorizontalStackLayout>
     </Grid>
 </ContentView>

@@ -1,95 +1,85 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
+using CommunityToolkit.Mvvm.Input;
 using System.Text.Json.Nodes;
 using YeetMacro2.Data.Models;
 using YeetMacro2.Data.Services;
 using YeetMacro2.Services;
 
 namespace YeetMacro2.ViewModels.NodeViewModels;
-public class DailyNodeManagerViewModel : NodeManagerViewModel<DailyNodeViewModel, DailyNode, DailyNode>
+public partial class DailyNodeManagerViewModel : NodeManagerViewModel<DailyNodeViewModel, DailyNode, DailyNode>
 {
+    [ObservableProperty]
+    bool _showJsonEditor;
+
+    IRepository<DailyNode> _dailyRespository;
     public DailyNodeManagerViewModel(
         int rootNodeId,
+        IRepository<DailyNode> dailyRespository,
         INodeService<DailyNode, DailyNode> nodeService,
         IInputService inputService,
         IToastService toastService)
         : base(rootNodeId, nodeService, inputService, toastService)
     {
+        _dailyRespository = dailyRespository;
         IsList = true;
     }
-}
 
-[ObservableObject]
-public partial class DailyNodeViewModel: DailyNode
-{
-    public bool IsLeaf => true;
-    public override ICollection<DailyNode> Nodes
+    [RelayCommand]
+    public void SaveDaily(object[] values)
     {
-        get => base.Nodes;
-        set
+        if (values[0] is DailyNodeViewModel daily)
         {
-            base.Nodes = new NodeObservableCollection<DailyNodeViewModel, DailyNode>(value);
-            OnPropertyChanged();
-            OnPropertyChanged(nameof(IsLeaf));
+            try
+            {
+                var jsonString = string.Empty;
+                if (values[1] is string stringValue)
+                {
+                    jsonString = stringValue;
+                    daily.Data = (JsonObject)JsonObject.Parse(jsonString);
+                    daily.JsonViewModel = new DailyJsonViewModel(daily.Data);
+                }
+                else if (values[1] is DailyJsonViewModel jsonViewModel)
+                {
+                    daily.Data = (JsonObject)JsonObject.Parse(jsonViewModel.Root.JsonString);
+                }
+
+                _dailyRespository.Update(daily);
+                _dailyRespository.Save();
+            }
+            catch (Exception ex)
+            {
+                _toastService.Show($"Error saving daily: {ex.Message}");
+            }
         }
     }
 
-    public override string Name
+    [RelayCommand]
+    public void Increment(object dailyValue)
     {
-        get => base.Name;
-        set
+        if (dailyValue is DailyJsonCountViewModel dailyJsonCount)
         {
-            base.Name = value;
-            OnPropertyChanged();
+            dailyJsonCount.Count++;
         }
+
+        var dailyViewModel = (DailyNodeViewModel)SelectedNode;
+        SaveDaily(new object[] { dailyViewModel, dailyViewModel.JsonViewModel });
     }
 
-    public override bool IsSelected
+    [RelayCommand]
+    public void Decrement(object dailyValue)
     {
-        get => base.IsSelected;
-        set
+        if (dailyValue is DailyJsonCountViewModel dailyJsonCount)
         {
-            base.IsSelected = value;
-            OnPropertyChanged();
+            dailyJsonCount.Count--;
         }
+
+        var dailyViewModel = (DailyNodeViewModel)SelectedNode;
+        SaveDaily(new object[] { dailyViewModel, dailyViewModel.JsonViewModel });
     }
 
-    public override bool IsExpanded
+    [RelayCommand]
+    public void ToggleShowJsonEditor()
     {
-        get => base.IsExpanded;
-        set
-        {
-            base.IsExpanded = value;
-            OnPropertyChanged();
-        }
-    }
-
-    public override DateOnly Date
-    {
-        get => base.Date;
-        set
-        {
-            base.Date = value;
-            OnPropertyChanged();
-        }
-    }
-
-    public override JsonObject Data
-    {
-        get => base.Data;
-        set
-        {
-            base.Data = value;
-            OnPropertyChanged();
-        }
-    }
-
-    public ICollection<DailyNode> Children
-    {
-        get => base.Nodes;
-    }
-
-    public DailyNodeViewModel()
-    {
-        base.Nodes = new NodeObservableCollection<DailyNodeViewModel, DailyNode>();
+        ShowJsonEditor = !ShowJsonEditor;
     }
 }
