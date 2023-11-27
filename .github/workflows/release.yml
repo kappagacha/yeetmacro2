@@ -17,7 +17,7 @@ jobs:
       - name: Set up .NET
         uses: actions/setup-dotnet@v1
         with:
-          dotnet-version: '7.0.x'
+          dotnet-version: '8.0.x'
 
       # https://blog.taranissoftware.com/build-net-maui-apps-with-github-actions
       - name: Install MAUI Workload
@@ -33,7 +33,7 @@ jobs:
             NEW_VERSION: ${{ github.run_number }}
         run: |
           echo 'Target Version: ${{ env.NEW_VERSION }}'
-          dotnet build -f net7.0-android -c Release /p:ApplicationDisplayVersion=${{ env.NEW_VERSION }} /p:ApplicationVersion=${{ env.NEW_VERSION }}
+          dotnet build -f net8.0-android -c Release /p:ApplicationDisplayVersion=${{ env.NEW_VERSION }} /p:ApplicationVersion=${{ env.NEW_VERSION }}
 
      #- name: Upload APK as Release Asset
      #  uses: actions/upload-artifact@v1
@@ -47,4 +47,4 @@ jobs:
         with:
           body: Version ${{ github.run_number }}
           tag_name: "latest"
-          files: YeetMacro2/bin/Release/net7.0-android/com.companyname.yeetmacro2-Signed.apk
+          files: YeetMacro2/bin/Release/net8.0-android/com.companyname.yeetmacro2-Signed.apk
