@@ -60,7 +60,7 @@ public class ForegroundService : Service
             .SetContentTitle("YeetMacro")
             .SetPriority((int)NotificationCompat.PriorityHigh)
             //.SetContentText("Main Text Body")
-            .SetSmallIcon(Resource.Drawable.appicon)
+            .SetSmallIcon(Resource.Drawable.appicon2)
             .AddAction(BuildExitAction())
             .SetOngoing(true)
             .SetContentIntent(pendingIntent);
@@ -94,7 +94,7 @@ public class ForegroundService : Service
         exitIntent.SetAction(EXIT_ACTION);
         var exitPendingIntent = PendingIntent.GetService(this, 0, exitIntent, PendingIntentFlags.Immutable);
 
-        var builder = new NotificationCompat.Action.Builder(Resource.Drawable.appicon,
+        var builder = new NotificationCompat.Action.Builder(Resource.Drawable.appicon2,
                                           "Exit",
                                           exitPendingIntent);
 

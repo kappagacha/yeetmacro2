@@ -77,8 +77,8 @@ public partial class NodeManagerViewModel<TViewModel, TParent, TChild> : NodeMan
         _defaultJsonSerializerOptions.Converters.Add(new NodeValueConverter<TParent, TChild>(copy));
 
         // setting this internal value to immutable allows dynamic json typeinfo resolving
-        typeof(JsonSerializerOptions).GetRuntimeFields().Single(f => f.Name == "_isImmutable").SetValue(_defaultJsonSerializerOptions, true);
-        typeof(JsonSerializerOptions).GetRuntimeFields().Single(f => f.Name == "_isImmutable").SetValue(copy, true);
+        typeof(JsonSerializerOptions).GetRuntimeFields().Single(f => f.Name == "_isReadOnly").SetValue(_defaultJsonSerializerOptions, true);
+        typeof(JsonSerializerOptions).GetRuntimeFields().Single(f => f.Name == "_isReadOnly").SetValue(copy, true);
     }
 
     public NodeManagerViewModel(

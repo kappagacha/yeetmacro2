@@ -12,16 +12,17 @@
              x:Name="thisView">
     <ContentView.Resources>
         <DataTemplate x:Key="DefaultItemTemplate">
-            <Label Text="{Binding Name}" TextColor="{StaticResource PrimaryDark}" Margin="0" Padding="0" VerticalOptions="Center" BackgroundColor="Transparent">
-                <Label.Triggers>
-                    <DataTrigger TargetType="{x:Type Label}" Binding="{Binding IsSelected}" Value="True">
-                        <Setter Property="Background" Value="Blue" />
-                    </DataTrigger>
-                </Label.Triggers>
-                <Label.GestureRecognizers>
-                    <TapGestureRecognizer CommandParameter="{Binding .}" Command="{Binding NodeManager.SelectNodeCommand, Source={RelativeSource AncestorType={x:Type v:NodeView}}}" />
-                </Label.GestureRecognizers>
-            </Label>
+            <Grid HeightRequest="20">
+                <Label Text="{Binding Name}" TextColor="{StaticResource PrimaryDark}" Margin="0" Padding="0" VerticalOptions="Center" BackgroundColor="Transparent">
+                    <Label.Triggers>
+                        <DataTrigger TargetType="{x:Type Label}" Binding="{Binding IsSelected}" Value="True">
+                            <Setter Property="Background" Value="Blue" />
+                        </DataTrigger>
+                    </Label.Triggers>
+                </Label>
+                <ImageButton Margin="0" Padding="0" CommandParameter="{Binding .}" 
+                             Command="{Binding NodeManager.SelectNodeCommand, Source={RelativeSource AncestorType={x:Type v:NodeView}}}" />
+            </Grid>
         </DataTemplate>
     </ContentView.Resources>
     <Grid>

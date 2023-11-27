@@ -1,11 +1,9 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
 	<PropertyGroup>
-		<TargetFrameworks>net7.0-android</TargetFrameworks>
+		<TargetFrameworks>net8.0-android</TargetFrameworks>
     <LangVersion>10</LangVersion>
-		<TargetFrameworks Condition="$([MSBuild]::IsOSPlatform('windows'))">$(TargetFrameworks);net7.0-windows10.0.19041.0</TargetFrameworks>
-		<!-- Uncomment to also build the tizen app. You will need to install tizen by following this: https://github.com/Samsung/Tizen.NET -->
-		<!-- <TargetFrameworks>$(TargetFrameworks);net7.0-tizen</TargetFrameworks> -->
+		<TargetFrameworks Condition="$([MSBuild]::IsOSPlatform('windows'))">$(TargetFrameworks);net8.0-windows10.0.19041.0</TargetFrameworks>
 		<OutputType>Exe</OutputType>
 		<RootNamespace>YeetMacro2</RootNamespace>
 		<UseMaui>true</UseMaui>
@@ -78,7 +76,7 @@
 	  <None Remove="Platforms\Android\Assets\tessdata\eng.traineddata" />
 	  <None Remove="Platforms\Android\Resources\xml\yeetmacro_config.xml" />
 	  <None Remove="Resources\Fonts\OpenSans-Medium.ttf" />
-	  <None Remove="Resources\Images\appicon.svg" />
+	  <None Remove="Resources\Images\appicon2.svg" />
 	  <None Remove="Resources\Raw\eng.traineddata" />
 	  <None Remove="Resources\Raw\MacroSets\outerplane\macroSet.json" />
 	  <None Remove="Resources\Raw\MacroSets\outerplane\patterns.json" />
@@ -208,7 +206,7 @@
 	  </MauiXaml>
 	</ItemGroup>
 
-  <ItemGroup Condition="$(TargetFramework.StartsWith('net7.0-android')) != true">
+  <ItemGroup Condition="$(TargetFramework.StartsWith('net8.0-android')) != true">
     <MauiXaml Remove="**\Android\**\*.xaml" />
     <Compile Remove="**\Android\**\*.xaml.cs" />
     <None Include="**\Android\**\*.xaml.cs" Exclude="$(DefaultItemExcludes);$(DefaultExcludesInProjectFolder)" />
@@ -226,7 +224,7 @@
     </None>
   </ItemGroup>
 
-  <ItemGroup Condition="'$(TargetFramework)' == 'net7.0-android'">
+  <ItemGroup Condition="'$(TargetFramework)' == 'net8.0-android'">
     <PackageReference Include="Xamarin.OpenCV.Droid">
       <Version>3.4.2</Version>
     </PackageReference>

@@ -38,12 +38,6 @@ public static class PlatformServiceRegistrationHelper
                     AppWindow winuiAppWindow = AppWindow.GetFromWindowId(win32WindowsId);
 
                     // https://stackoverflow.com/questions/71806578/maui-how-to-remove-the-title-bar-and-fix-the-window-size
-                    if (winuiAppWindow.Presenter is OverlappedPresenter p)
-                    {
-                        p.SetBorderAndTitleBar(false, false);
-                        
-                    }
-
                     const int width = 1024;
                     const int height = 768;
                     winuiAppWindow.MoveAndResize(new RectInt32(1920 / 2 - width / 2, 1080 / 2 - height / 2, width, height));
