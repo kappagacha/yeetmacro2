@@ -3,18 +3,8 @@
 // https://stackoverflow.com/questions/72939282/net-maui-dependency-injection-in-platform-specific-code
 public static class ServiceHelper
 {
-    public static T GetService<T>() => Current.GetService<T>();
-    public static object GetService(Type type) => Current.GetService(type);
-    public static IServiceProvider Current =>
-#if WINDOWS10_0_17763_0_OR_GREATER
-        MauiWinUIApplication.Current.Services;
-#elif ANDROID
-        MauiApplication.Current.Services;
-#elif IOS || MACCATALYST
-        MauiUIApplicationDelegate.Current.Services;
-#else
-    null;
-#endif
+    public static T GetService<T>() => (T)IPlatformApplication.Current.Services.GetService(typeof(T));
+    public static object GetService(Type type) => IPlatformApplication.Current.Services.GetService(type);
 
     public static string[] ListAssets(string folder) => 
 #if WINDOWS10_0_17763_0_OR_GREATER

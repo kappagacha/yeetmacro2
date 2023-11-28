@@ -91,7 +91,7 @@ public class ResizeView : RelativeLayout, IOnTouchListener, IShowable
 
         // https://www.andreasnesheim.no/embedding-net-maui-pages-into-your-net-android-ios-application/
         _visualElement = visualElement;
-        var mauiContext = new MauiContext(MauiApplication.Current.Services, context);
+        var mauiContext = new MauiContext(IPlatformApplication.Current.Services, context);
         var androidView = visualElement.ToContainerView(mauiContext);
 
         AddView(androidView, new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MatchParent, ViewGroup.LayoutParams.MatchParent));

@@ -51,7 +51,7 @@ public class OcrService : IOcrService
 
             return text.TrimEnd('\n');
         }
-        catch(Exception _ex)
+        catch (Exception)
         {
             return String.Empty;
         }

@@ -37,7 +37,7 @@ public class StaticView : RelativeLayout, IShowable
         _visualElement = visualElement;
         _windowManager = windowManager;
 
-        var mauiContext = new MauiContext(MauiApplication.Current.Services, context);
+        var mauiContext = new MauiContext(IPlatformApplication.Current.Services, context);
         _androidView = visualElement.ToPlatform(mauiContext);
         _androidView.SetPadding(0, 0, 0, 0);
         AddView(_androidView, new ViewGroup.LayoutParams(_layoutParams.Width, _layoutParams.Height));

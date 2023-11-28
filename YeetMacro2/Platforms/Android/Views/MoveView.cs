@@ -46,7 +46,7 @@ public class MoveView : LinearLayout, IShowable
         _windowManager = windowManager;
         _visualElement = visualElement;
 
-        var mauiContext = new MauiContext(MauiApplication.Current.Services, context);
+        var mauiContext = new MauiContext(IPlatformApplication.Current.Services, context);
         var androidView = visualElement.ToPlatform(mauiContext);
         androidView.SetPadding(0, 0, 0, 0);
         var density = DeviceDisplay.MainDisplayInfo.Density;
