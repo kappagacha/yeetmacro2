@@ -6,19 +6,12 @@
              x:Name="thisView">
     <Grid HeightRequest="{Binding ImageHeight, Source={Reference thisView}, TargetNullValue={StaticResource IconHeight}}"
           WidthRequest="{Binding ImageWidth, Source={Reference thisView}, TargetNullValue={StaticResource IconWidth}}">
-        <!--<ContentView x:Name="contentView" IsVisible="{OnPlatform Android=true, WinUI=false}" />-->
-        <!--<Image Aspect="Fill" IsVisible="{OnPlatform Android=false, WinUI=true}">
+        <ContentView x:Name="contentView" IsVisible="{OnPlatform Android=true, WinUI=false}" />
+        <Image Aspect="Fill" IsVisible="{OnPlatform Android=false, WinUI=true}">
             <Image.Source>
                 <FontImageSource FontFamily="{Binding FontFamily, Source={Reference thisView}}"
                                  Glyph="{Binding Glyph, Source={Reference thisView}}" 
                                  Color="{Binding Color, Source={Reference thisView}}" />
-            </Image.Source>
-        </Image>-->
-        <Image Aspect="Fill">
-            <Image.Source>
-                <FontImageSource FontFamily="{Binding FontFamily, Source={Reference thisView}}"
-                         Glyph="{Binding Glyph, Source={Reference thisView}}" 
-                         Color="{Binding Color, Source={Reference thisView}}" />
             </Image.Source>
         </Image>
         <ImageButton Command="{Binding Command, Source={Reference thisView}}"
