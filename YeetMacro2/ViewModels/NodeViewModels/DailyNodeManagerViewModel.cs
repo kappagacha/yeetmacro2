@@ -82,4 +82,14 @@ public partial class DailyNodeManagerViewModel : NodeManagerViewModel<DailyNodeV
     {
         ShowJsonEditor = !ShowJsonEditor;
     }
+
+    protected override Task AddNode()
+    {
+        var newNode = new DailyNodeViewModel()
+        {
+            Date = DateOnly.FromDateTime(DateTime.Now)
+        };
+        base.AddNode(newNode);
+        return Task.CompletedTask;
+    }
 }

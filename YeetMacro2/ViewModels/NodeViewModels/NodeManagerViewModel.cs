@@ -160,7 +160,7 @@ public partial class NodeManagerViewModel<TViewModel, TParent, TChild> : NodeMan
     }
 
     [RelayCommand]
-    public async Task AddNode()
+    protected virtual async Task AddNode()
     {
         var name = await _inputService.PromptInput($"Please enter {_nodeTypeName} name: ");
 
