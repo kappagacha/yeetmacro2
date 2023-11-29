@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentView xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:conv="clr-namespace:YeetMacro2.Converters"
+             x:Class="YeetMacro2.Views.ToggleImageView"
+             xmlns:v="clr-namespace:YeetMacro2.Views"
+             x:Name="thisView">
+    <Grid>
+        <v:ImageView 
+                ImageWidth="{Binding ImageWidth, Source={Reference thisView}}"
+                ImageHeight="{Binding ImageHeight, Source={Reference thisView}}"
+                FontFamily="{Binding FontFamily, Source={Reference thisView}}"
+                Glyph="{Binding Glyph, Source={Reference thisView}}"
+                Color="{Binding Color, Source={Reference thisView}}">
+            <v:ImageView.Triggers>
+                <MultiTrigger TargetType="v:ImageView">
+                    <MultiTrigger.Conditions>
+                        <BindingCondition Binding="{Binding IsToggled, Source={Reference thisView}}" Value="True" />
+                        <BindingCondition Binding="{Binding ToggledFontFamily, Source={Reference thisView}, Converter={conv:NullToBoolConverter IsInverse=True}}" Value="False" />
+                    </MultiTrigger.Conditions>
+                    <MultiTrigger.Setters>
+                        <Setter Property="FontFamily" Value="{Binding FontFamily, Source={Reference thisView}}" />
+                    </MultiTrigger.Setters>
+                </MultiTrigger>
+                <MultiTrigger TargetType="v:ImageView">
+                    <MultiTrigger.Conditions>
+                        <BindingCondition Binding="{Binding IsToggled, Source={Reference thisView}}" Value="False" />
+                        <BindingCondition Binding="{Binding UntoggledFontFamily, Source={Reference thisView}, Converter={conv:NullToBoolConverter IsInverse=True}}" Value="False" />
+                    </MultiTrigger.Conditions>
+                    <MultiTrigger.Setters>
+                        <Setter Property="FontFamily" Value="{Binding FontFamily, Source={Reference thisView}}" />
+                    </MultiTrigger.Setters>
+                </MultiTrigger>
+                <MultiTrigger TargetType="v:ImageView">
+                    <MultiTrigger.Conditions>
+                        <BindingCondition Binding="{Binding IsToggled, Source={Reference thisView}}" Value="True" />
+                        <BindingCondition Binding="{Binding ToggledGlyph, Source={Reference thisView}, Converter={conv:NullToBoolConverter IsInverse=True}}" Value="False" />
+                    </MultiTrigger.Conditions>
+                    <MultiTrigger.Setters>
+                        <Setter Property="Glyph" Value="{Binding Glyph, Source={Reference thisView}}" />
+                    </MultiTrigger.Setters>
+                </MultiTrigger>
+                <MultiTrigger TargetType="v:ImageView">
+                    <MultiTrigger.Conditions>
+                        <BindingCondition Binding="{Binding IsToggled, Source={Reference thisView}}" Value="False" />
+                        <BindingCondition Binding="{Binding UntoggledGlyph, Source={Reference thisView}, Converter={conv:NullToBoolConverter IsInverse=True}}" Value="False" />
+                    </MultiTrigger.Conditions>
+                    <MultiTrigger.Setters>
+                        <Setter Property="Glyph" Value="{Binding Glyph, Source={Reference thisView}}" />
+                    </MultiTrigger.Setters>
+                </MultiTrigger>
+                <MultiTrigger TargetType="v:ImageView">
+                    <MultiTrigger.Conditions>
+                        <BindingCondition Binding="{Binding IsToggled, Source={Reference thisView}}" Value="True" />
+                        <BindingCondition Binding="{Binding ToggledColor, Source={Reference thisView}, Converter={conv:NullToBoolConverter IsInverse=True}}" Value="False" />
+                    </MultiTrigger.Conditions>
+                    <MultiTrigger.Setters>
+                        <Setter Property="Color" Value="{Binding Color, Source={Reference thisView}}" />
+                    </MultiTrigger.Setters>
+                </MultiTrigger>
+                <MultiTrigger TargetType="v:ImageView">
+                    <MultiTrigger.Conditions>
+                        <BindingCondition Binding="{Binding IsToggled, Source={Reference thisView}}" Value="False" />
+                        <BindingCondition Binding="{Binding UntoggledColor, Source={Reference thisView}, Converter={conv:NullToBoolConverter IsInverse=True}}" Value="False" />
+                    </MultiTrigger.Conditions>
+                    <MultiTrigger.Setters>
+                        <Setter Property="Color" Value="{Binding Color, Source={Reference thisView}}" />
+                    </MultiTrigger.Setters>
+                </MultiTrigger>
+                <MultiTrigger TargetType="v:ImageView">
+                    <MultiTrigger.Conditions>
+                        <BindingCondition Binding="{Binding IsToggled, Source={Reference thisView}}" Value="True" />
+                        <BindingCondition Binding="{Binding ToggledFontFamily, Source={Reference thisView}, Converter={conv:NullToBoolConverter IsInverse=True}}" Value="True" />
+                    </MultiTrigger.Conditions>
+                    <MultiTrigger.Setters>
+                        <Setter Property="FontFamily" Value="{Binding ToggledFontFamily, Source={Reference thisView}}" />
+                    </MultiTrigger.Setters>
+                </MultiTrigger>
+                <MultiTrigger TargetType="v:ImageView">
+                    <MultiTrigger.Conditions>
+                        <BindingCondition Binding="{Binding IsToggled, Source={Reference thisView}}" Value="False" />
+                        <BindingCondition Binding="{Binding UntoggledFontFamily, Source={Reference thisView}, Converter={conv:NullToBoolConverter IsInverse=True}}" Value="True" />
+                    </MultiTrigger.Conditions>
+                    <MultiTrigger.Setters>
+                        <Setter Property="FontFamily" Value="{Binding UntoggledFontFamily, Source={Reference thisView}}" />
+                    </MultiTrigger.Setters>
+                </MultiTrigger>
+                <MultiTrigger TargetType="v:ImageView">
+                    <MultiTrigger.Conditions>
+                        <BindingCondition Binding="{Binding IsToggled, Source={Reference thisView}}" Value="True" />
+                        <BindingCondition Binding="{Binding ToggledGlyph, Source={Reference thisView}, Converter={conv:NullToBoolConverter IsInverse=True}}" Value="True" />
+                    </MultiTrigger.Conditions>
+                    <MultiTrigger.Setters>
+                        <Setter Property="Glyph" Value="{Binding ToggledGlyph, Source={Reference thisView}}" />
+                    </MultiTrigger.Setters>
+                </MultiTrigger>
+                <MultiTrigger TargetType="v:ImageView">
+                    <MultiTrigger.Conditions>
+                        <BindingCondition Binding="{Binding IsToggled, Source={Reference thisView}}" Value="False" />
+                        <BindingCondition Binding="{Binding UntoggledGlyph, Source={Reference thisView}, Converter={conv:NullToBoolConverter IsInverse=True}}" Value="True" />
+                    </MultiTrigger.Conditions>
+                    <MultiTrigger.Setters>
+                        <Setter Property="Glyph" Value="{Binding UntoggledGlyph, Source={Reference thisView}}" />
+                    </MultiTrigger.Setters>
+                </MultiTrigger>
+                <MultiTrigger TargetType="v:ImageView">
+                    <MultiTrigger.Conditions>
+                        <BindingCondition Binding="{Binding IsToggled, Source={Reference thisView}}" Value="True" />
+                        <BindingCondition Binding="{Binding ToggledColor, Source={Reference thisView}, Converter={conv:NullToBoolConverter IsInverse=True}}" Value="True" />
+                    </MultiTrigger.Conditions>
+                    <MultiTrigger.Setters>
+                        <Setter Property="Color" Value="{Binding ToggledColor, Source={Reference thisView}}" />
+                    </MultiTrigger.Setters>
+                </MultiTrigger>
+                <MultiTrigger TargetType="v:ImageView">
+                    <MultiTrigger.Conditions>
+                        <BindingCondition Binding="{Binding IsToggled, Source={Reference thisView}}" Value="False" />
+                        <BindingCondition Binding="{Binding UntoggledColor, Source={Reference thisView}, Converter={conv:NullToBoolConverter IsInverse=True}}" Value="True" />
+                    </MultiTrigger.Conditions>
+                    <MultiTrigger.Setters>
+                        <Setter Property="Color" Value="{Binding UntoggledColor, Source={Reference thisView}}" />
+                    </MultiTrigger.Setters>
+                </MultiTrigger>
+            </v:ImageView.Triggers>
+        </v:ImageView>
+        <ImageButton Clicked="ImageButton_Clicked" />
+    </Grid>
+</ContentView>
