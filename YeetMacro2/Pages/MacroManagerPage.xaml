@@ -103,6 +103,20 @@
                                     <v:ImageView FontFamily="MaterialOutlined" Glyph="{x:Static mi:MaterialOutlined.Backspace}" Color="Red" 
                                         Command="{Binding ClearSettingsLastUpdatedCommand}" CommandParameter="{Binding SelectedMacroSet}" />
                                 </HorizontalStackLayout>
+                                <HorizontalStackLayout Margin="0" Padding="0">
+                                    <Label Margin="0" VerticalOptions="Center" Padding="0" Text="Daily Reset UTC Hour:" />
+                                    <Entry Margin="5,0,0,0" VerticalOptions="Center" Text="{Binding SelectedMacroSet.DailyResetUtcHour}" Keyboard="Numeric">
+                                        <Entry.Behaviors>
+                                            <mct:NumericValidationBehavior MaximumDecimalPlaces="0" Flags="ValidateOnValueChanged">
+                                                <mct:NumericValidationBehavior.InvalidStyle>
+                                                    <Style TargetType="Entry">
+                                                        <Setter Property="BackgroundColor" Value="Red" />
+                                                    </Style>
+                                                </mct:NumericValidationBehavior.InvalidStyle>
+                                            </mct:NumericValidationBehavior>
+                                        </Entry.Behaviors>
+                                    </Entry>
+                                </HorizontalStackLayout>
                             </VerticalStackLayout>
                             <Grid Grid.Column="1" IsVisible="{Binding ShowMacroSetDescriptionEditor}">
                                 <Editor Text="{Binding SelectedMacroSet.Description}" />

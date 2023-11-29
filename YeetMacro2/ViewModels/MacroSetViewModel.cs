@@ -106,6 +106,16 @@ public partial class MacroSetViewModel : MacroSet
         }
     }
 
+    public override int DailyResetUtcHour
+    {
+        get => base.DailyResetUtcHour;
+        set
+        {
+            base.DailyResetUtcHour = value;
+            OnPropertyChanged();
+        }
+    }
+
     public bool IsLeaf
     {
         get => true;
