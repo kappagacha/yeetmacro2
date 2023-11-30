@@ -25,5 +25,6 @@ public class MacroSet
     public virtual DateTimeOffset? ScriptsLastUpdated { get; set; }
     public virtual DateTimeOffset? SettingsLastUpdated { get; set; }
     public virtual string Description { get; set; }
+    public virtual string DailyTemplate { get; set; }
     public virtual int DailyResetUtcHour { get; set; }
 }

@@ -106,6 +106,26 @@ public partial class MacroSetViewModel : MacroSet
         }
     }
 
+    public override string Description
+    {
+        get => base.Description;
+        set
+        {
+            base.Description = value;
+            OnPropertyChanged();
+        }
+    }
+
+    public override string DailyTemplate
+    {
+        get => base.DailyTemplate;
+        set
+        {
+            base.DailyTemplate = value;
+            OnPropertyChanged();
+        }
+    }
+
     public override int DailyResetUtcHour
     {
         get => base.DailyResetUtcHour;

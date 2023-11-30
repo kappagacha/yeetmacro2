@@ -66,8 +66,9 @@
     </ContentView.Resources>
     <Grid ColumnDefinitions="*,3*">
         <v:NodeView Grid.Column="0" NodeManager="{Binding Dailies}" />
-        <mct:DockLayout Grid.Column="1">
-            <DatePicker Date="{Binding Dailies.SelectedNode.Date, Converter={conv:DateOnlyConverter}}" />
+        <mct:DockLayout Grid.Column="1" IsVisible="{Binding IsToggled, Source={Reference templateToggle}, Converter={conv:InverseBoolConverter}}">
+            <DatePicker IsVisible="{Binding Dailies.SelectedNode, Converter={conv:NullToBoolConverter IsInverse=True}}" 
+                        Date="{Binding Dailies.SelectedNode.Date, Converter={conv:DateOnlyConverter}}" />
             <Grid>
                 <material:TreeView IsVisible="{Binding Dailies.ShowJsonEditor, Converter={conv:InverseBoolConverter}}"
                         x:DataType="{x:Null}" ItemsSource="{Binding Dailies.SelectedNode.JsonViewModel.Root.Children}"
@@ -92,8 +93,14 @@
                 </Grid>
             </Grid>
         </mct:DockLayout>
-        <HorizontalStackLayout Grid.ColumnSpan="2"  HorizontalOptions="End" VerticalOptions="Start">
-            <v:ImageView FontFamily="MaterialOutlined" Glyph="{x:Static mi:MaterialOutlined.Edit}" Color="Gray"
+        <Grid Grid.Column="1" IsVisible="{Binding IsToggled, Source={Reference templateToggle}}">
+            <Editor Text="{Binding SelectedMacroSet.DailyTemplate}" />
+            <v:ImageView HorizontalOptions="End" VerticalOptions="End" FontFamily="MaterialOutlined" Glyph="{x:Static mi:MaterialOutlined.Save}"
+                Command="{Binding SaveCommand}" CommandParameter="{Binding SelectedMacroSet}" />
+        </Grid>
+        <HorizontalStackLayout Grid.ColumnSpan="2"  HorizontalOptions="End" VerticalOptions="Start" IsVisible="{Binding IsToggled, Source={Reference templateToggle}, Converter={conv:InverseBoolConverter}}">
+            <v:ImageView IsVisible="{Binding Dailies.SelectedNode, Converter={conv:NullToBoolConverter IsInverse=True}}"
+                FontFamily="MaterialOutlined" Glyph="{x:Static mi:MaterialOutlined.Edit}" Color="Gray"
                 Command="{Binding Dailies.ToggleShowJsonEditorCommand}">
                 <v:ImageView.Triggers>
                     <DataTrigger TargetType="{x:Type v:ImageView}" Binding="{Binding Dailies.ShowJsonEditor}" Value="True">
@@ -101,6 +108,10 @@
                     </DataTrigger>
                 </v:ImageView.Triggers>
             </v:ImageView>
+        </HorizontalStackLayout>
+        <HorizontalStackLayout Grid.ColumnSpan="2"  HorizontalOptions="Start" VerticalOptions="End">
+            <v:ToggleImageView x:Name="templateToggle" FontFamily="MaterialOutlined" Glyph="{x:Static mi:MaterialOutlined.Data_object}"
+                               ToggledColor="Green" Text="Template" />
         </HorizontalStackLayout>
     </Grid>
 </ContentView>

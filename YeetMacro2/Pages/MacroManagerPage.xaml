@@ -175,10 +175,6 @@
                     <material:TabItem.ContentTemplate>
                         <DataTemplate>
                             <v:DailyNodeView />
-                            <!--<mct:DockLayout>
-                                <Label mct:DockLayout.DockPosition="Top" FontSize="Title" Text="Template" />
-                                <Editor />
-                            </mct:DockLayout>-->
                         </DataTemplate>
                     </material:TabItem.ContentTemplate>
                 </material:TabItem>

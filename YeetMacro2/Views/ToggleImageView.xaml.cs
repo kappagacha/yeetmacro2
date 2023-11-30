@@ -8,6 +8,8 @@ public partial class ToggleImageView : ContentView
             BindableProperty.Create("ImageWidth", typeof(double?), typeof(ImageView), null);
     public static readonly BindableProperty ImageHeightProperty =
             BindableProperty.Create("ImageHeight", typeof(double?), typeof(ImageView), null);
+    public static readonly BindableProperty TextProperty =
+            BindableProperty.Create("Text", typeof(string), typeof(ImageView), null);
     public static readonly BindableProperty FontFamilyProperty =
             BindableProperty.Create("FontFamily", typeof(string), typeof(ImageView), null);
     public static readonly BindableProperty GlyphProperty =
@@ -36,7 +38,11 @@ public partial class ToggleImageView : ContentView
         get { return (double?)GetValue(ImageHeightProperty); }
         set { SetValue(ImageHeightProperty, value); }
     }
-
+    public string Text
+    {
+        get { return (string)GetValue(TextProperty); }
+        set { SetValue(TextProperty, value); }
+    }
     public bool IsToggled
     {
         get { return (bool)GetValue(IsToggledProperty); }

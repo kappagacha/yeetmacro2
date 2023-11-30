@@ -5,7 +5,12 @@
              x:Class="YeetMacro2.Views.ToggleImageView"
              xmlns:v="clr-namespace:YeetMacro2.Views"
              x:Name="thisView">
-    <Grid>
+    <Grid ColumnSpacing="5">
+        <Grid.Triggers>
+            <DataTrigger TargetType="Grid" Binding="{Binding Text, Source={Reference thisView}, Converter={conv:NullToBoolConverter IsInverse=True}}" Value="True">
+                <Setter Property="ColumnDefinitions" Value="Auto,*" />
+            </DataTrigger>
+        </Grid.Triggers>
         <v:ImageView 
                 ImageWidth="{Binding ImageWidth, Source={Reference thisView}}"
                 ImageHeight="{Binding ImageHeight, Source={Reference thisView}}"
@@ -123,6 +128,49 @@
                 </MultiTrigger>
             </v:ImageView.Triggers>
         </v:ImageView>
-        <ImageButton Clicked="ImageButton_Clicked" />
+        <Label Grid.Column="1" IsVisible="{Binding Text, Source={Reference thisView}, Converter={conv:NullToBoolConverter IsInverse=True}}" 
+               Padding="0" Margin="0"
+               HeightRequest="{Binding ImageHeight, Source={Reference thisView}, TargetNullValue={StaticResource IconHeight}}"
+               VerticalTextAlignment="Center" Text="{Binding Text, Source={Reference thisView}}">
+            <Label.Triggers>
+                <MultiTrigger TargetType="Label">
+                    <MultiTrigger.Conditions>
+                        <BindingCondition Binding="{Binding IsToggled, Source={Reference thisView}}" Value="True" />
+                        <BindingCondition Binding="{Binding ToggledColor, Source={Reference thisView}, Converter={conv:NullToBoolConverter IsInverse=True}}" Value="False" />
+                    </MultiTrigger.Conditions>
+                    <MultiTrigger.Setters>
+                        <Setter Property="TextColor" Value="{Binding Color, Source={Reference thisView}}" />
+                    </MultiTrigger.Setters>
+                </MultiTrigger>
+                <MultiTrigger TargetType="Label">
+                    <MultiTrigger.Conditions>
+                        <BindingCondition Binding="{Binding IsToggled, Source={Reference thisView}}" Value="False" />
+                        <BindingCondition Binding="{Binding UntoggledColor, Source={Reference thisView}, Converter={conv:NullToBoolConverter IsInverse=True}}" Value="False" />
+                    </MultiTrigger.Conditions>
+                    <MultiTrigger.Setters>
+                        <Setter Property="TextColor" Value="{Binding Color, Source={Reference thisView}}" />
+                    </MultiTrigger.Setters>
+                </MultiTrigger>
+                <MultiTrigger TargetType="Label">
+                    <MultiTrigger.Conditions>
+                        <BindingCondition Binding="{Binding IsToggled, Source={Reference thisView}}" Value="True" />
+                        <BindingCondition Binding="{Binding ToggledColor, Source={Reference thisView}, Converter={conv:NullToBoolConverter IsInverse=True}}" Value="True" />
+                    </MultiTrigger.Conditions>
+                    <MultiTrigger.Setters>
+                        <Setter Property="TextColor" Value="{Binding ToggledColor, Source={Reference thisView}}" />
+                    </MultiTrigger.Setters>
+                </MultiTrigger>
+                <MultiTrigger TargetType="Label">
+                    <MultiTrigger.Conditions>
+                        <BindingCondition Binding="{Binding IsToggled, Source={Reference thisView}}" Value="False" />
+                        <BindingCondition Binding="{Binding UntoggledColor, Source={Reference thisView}, Converter={conv:NullToBoolConverter IsInverse=True}}" Value="True" />
+                    </MultiTrigger.Conditions>
+                    <MultiTrigger.Setters>
+                        <Setter Property="TextColor" Value="{Binding UntoggledColor, Source={Reference thisView}}" />
+                    </MultiTrigger.Setters>
+                </MultiTrigger>
+            </Label.Triggers>
+        </Label>
+        <ImageButton Padding="0" Margin="0" Grid.ColumnSpan="2" Clicked="ImageButton_Clicked" />
     </Grid>
 </ContentView>
