@@ -32,16 +32,16 @@ public partial class SettingNodeManagerViewModel : NodeManagerViewModel<ParentSe
     {
         _settingRepository = settingRepository;
         PropertyChanged += SettingNodeManagerViewModel_PropertyChanged;
-        _currentSubViewModel = _emptyParentSetting;
+        CurrentSubViewModel = _emptyParentSetting;
 
         WeakReferenceMessenger.Default.Register<PropertyChangedMessage<ScriptNode>, string>(this, nameof(ScriptNodeManagerViewModel), async (r, propertyChangedMessage) =>
         {
             if (Root is null) await this.WaitForInitialization();
             if (propertyChangedMessage.PropertyName != nameof(ScriptNodeManagerViewModel.SelectedNode) || propertyChangedMessage.NewValue is null) return;
 
-            var targetSettingName = propertyChangedMessage.NewValue.Name.Replace("do", "");
-            var targetSetting = Root.Nodes.FirstOrDefault(sn => sn.Name.ToLower() == targetSettingName.ToLower()) as ParentSetting;
-            CurrentSubViewModel = targetSetting ?? _emptyParentSetting;
+            var targetName = propertyChangedMessage.NewValue.Name.Replace("do", "");
+            var targetNode = Root.Nodes.FirstOrDefault(sn => sn.Name.ToLower() == targetName.ToLower()) as ParentSetting;
+            CurrentSubViewModel = targetNode ?? _emptyParentSetting;
         });
     }
 

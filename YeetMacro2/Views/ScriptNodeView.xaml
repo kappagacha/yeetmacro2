@@ -12,9 +12,23 @@
              x:DataType="vm:MacroManagerViewModel"
              x:Class="YeetMacro2.Views.ScriptNodeView"
              x:Name="thisControl">
+    <ContentView.Resources>
+        <ResourceDictionary>
+            <mct:VariableMultiValueConverter 
+                x:Key="contentCondition"
+                ConditionType="All" />
+        </ResourceDictionary>
+    </ContentView.Resources>
     <Grid>
-        <v:SettingNodeView IsVisible="{Binding ShowSettings}" />
-        <Grid IsVisible="{Binding ShowSettings, Converter={conv:InverseBoolConverter}}" ColumnDefinitions="*,3*">
+        <v:SettingNodeView IsVisible="{Binding IsToggled, Source={Reference settingsToggle}}" />
+        <v:DailyNodeView IsVisible="{Binding IsToggled, Source={Reference dailiesToggle}}" />
+        <Grid ColumnDefinitions="*,3*">
+            <Grid.IsVisible>
+                <MultiBinding Converter="{StaticResource contentCondition}">
+                    <Binding Path="IsToggled" Source="{Reference settingsToggle}" Converter="{conv:InverseBoolConverter}" />
+                    <Binding Path="IsToggled" Source="{Reference dailiesToggle}" Converter="{conv:InverseBoolConverter}" />
+                </MultiBinding>
+            </Grid.IsVisible>
             <Border Grid.Column="0" Stroke="{StaticResource Primary}" BackgroundColor="Transparent" Padding="3">
                 <v:NodeView NodeManager="{Binding Scripts}">
                     <v:NodeView.ExtraMenuItemsDataTemplate>
@@ -34,25 +48,36 @@
                     <Editor x:Name="scriptEditor" Text="{Binding Scripts.SelectedNode.Text}" IsSpellCheckEnabled="False" />
                 </Border>
                 <HorizontalStackLayout HorizontalOptions="End" VerticalOptions="End" Margin="0,0,55,0">
-                    <v:ImageView FontFamily="MaterialOutlined" Glyph="{x:Static mi:MaterialOutlined.Select_all}">
-                        <v:ImageView.GestureRecognizers>
-                            <TapGestureRecognizer Tapped="ScriptEditor_SelectAll" />
-                        </v:ImageView.GestureRecognizers>
-                    </v:ImageView>
+                    <Grid>
+                        <v:ImageView FontFamily="MaterialOutlined" Glyph="{x:Static mi:MaterialOutlined.Select_all}" />
+                        <ImageButton Clicked="ScriptEditor_SelectAll" />
+                    </Grid>
                     <v:ImageView FontFamily="MaterialOutlined" Glyph="{x:Static mi:MaterialOutlined.Save}"
                                  Command="{Binding Scripts.SaveCommand}" />
                 </HorizontalStackLayout>
             </Grid>
-            <mct:DockLayout Grid.Column="1" IsVisible="{Binding Scripts.ShowScriptEditor, Converter={conv:InverseBoolConverter}}">
-                <Border mct:DockLayout.DockPosition="Top" Stroke="{StaticResource Primary}" 
+            <Grid Grid.Column="1" RowDefinitions="Auto,*,*" IsVisible="{Binding Scripts.ShowScriptEditor, Converter={conv:InverseBoolConverter}}">
+                <Border Grid.Row="0" Stroke="{StaticResource Primary}" 
                             BackgroundColor="Transparent" Padding="3"
                             IsVisible="{Binding Scripts.SelectedNode, Converter={conv:NullToBoolConverter IsInverse=True}}">
-                    <Grid BindingContext="{Binding Scripts.SelectedNode}">
+                    <mct:DockLayout BindingContext="{Binding Scripts.SelectedNode}">
+                        <v:ImageView mct:DockLayout.DockPosition="Left" FontFamily="MaterialOutlined" Glyph="{x:Static mi:MaterialOutlined.Info}" />
                         <Label x:DataType="{x:Null}" Text="{Binding Description}" />
-                    </Grid>
+                    </mct:DockLayout>
                 </Border>
-                <v:SettingNodeView IsSubView="True"  />
-            </mct:DockLayout>
+                <Border  Grid.Row="1" mct:DockLayout.DockPosition="Top" Stroke="{StaticResource Primary}">
+                    <mct:DockLayout BindingContext="{Binding Scripts.SelectedNode}">
+                        <v:ImageView mct:DockLayout.DockPosition="Left" FontFamily="MaterialOutlined" Glyph="{x:Static mi:MaterialRegular.Settings}" />
+                        <v:SettingNodeView IsSubView="True"  />
+                    </mct:DockLayout>
+                </Border>
+                <Border  Grid.Row="2" Stroke="{StaticResource Primary}">
+                    <mct:DockLayout BindingContext="{Binding Scripts.SelectedNode}">
+                        <v:ImageView mct:DockLayout.DockPosition="Left" FontFamily="FARegular" Glyph="{x:Static fa:Regular.CalendarCheck}" />
+                        <v:DailyNodeView IsSubView="True"  />
+                    </mct:DockLayout>
+                </Border>
+            </Grid>
         </Grid>
         <Grid HorizontalOptions="End" VerticalOptions="End" IsVisible="{Binding Scripts.SelectedNode, Converter={conv:NullToBoolConverter IsInverse=True}}">
             <v:ImageView IsVisible="{Binding ShowExecuteButton, Source={x:Reference thisControl}}"
@@ -76,14 +101,10 @@
                 </v:ImageView.Triggers>
             </v:ImageView>
         </HorizontalStackLayout>
-        <v:ImageView HorizontalOptions="Start" VerticalOptions="End" FontFamily="MaterialOutlined" Glyph="{x:Static mi:MaterialOutlined.Settings}" Color="Gray"
-                     Command="{Binding ToggleShowSettingsCommand}">
-            <v:ImageView.Triggers>
-                <DataTrigger TargetType="{x:Type v:ImageView}" Binding="{Binding ShowSettings}" Value="True">
-                    <Setter Property="Color" Value="{StaticResource Primary}" />
-                </DataTrigger>
-            </v:ImageView.Triggers>
-        </v:ImageView>
+        <HorizontalStackLayout HorizontalOptions="Start" VerticalOptions="End" Margin="10">
+            <v:ToggleImageView x:Name="settingsToggle" FontFamily="MaterialOutlined" Glyph="{x:Static mi:MaterialRegular.Settings}" UntoggledColor="Gray" ToggledColor="{StaticResource Primary}" />
+            <v:ToggleImageView x:Name="dailiesToggle" FontFamily="FARegular" Glyph="{x:Static fa:Regular.CalendarCheck}" UntoggledColor="Gray" ToggledColor="{StaticResource Primary}" />
+        </HorizontalStackLayout>
         <ActivityIndicator IsRunning="{Binding IsBusy}" />
     </Grid>
 </ContentView>

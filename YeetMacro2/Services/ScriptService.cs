@@ -16,7 +16,9 @@ namespace YeetMacro2.Services;
 
 public interface IScriptService
 {
-    string RunScript(ScriptNode targetScript, ScriptNodeManagerViewModel scriptNodeManager, MacroSet macroSet, PatternNodeManagerViewModel patternNodeManager, SettingNodeManagerViewModel settingNodeManager);
+    string RunScript(ScriptNode targetScript, ScriptNodeManagerViewModel scriptNodeManager, 
+        MacroSet macroSet, PatternNodeManagerViewModel patternNodeManager, 
+        SettingNodeManagerViewModel settingNodeManager, DailyNodeManagerViewModel dailyNodeManager);
     void Stop();
 }
 
@@ -55,7 +57,9 @@ public class ScriptService: IScriptService
         Thread.Sleep(ms);
     }
 
-    public string RunScript(ScriptNode targetScript, ScriptNodeManagerViewModel scriptNodeManger, MacroSet macroSet, PatternNodeManagerViewModel patternNodeManager, SettingNodeManagerViewModel settingNodeManager)
+    public string RunScript(ScriptNode targetScript, ScriptNodeManagerViewModel scriptNodeManger, 
+        MacroSet macroSet, PatternNodeManagerViewModel patternNodeManager, 
+        SettingNodeManagerViewModel settingNodeManager, DailyNodeManagerViewModel dailyNodeManager)
     {
         string result = String.Empty;
         if (_macroService.IsRunning) return result;
@@ -77,6 +81,7 @@ public class ScriptService: IScriptService
             }
             _engine.SetValue("patterns", patternNodeManager.Root);
             _engine.SetValue("settings", settingNodeManager.Root);
+            _engine.SetValue("dailyManager", dailyNodeManager);
             var jsResult = _engine.Evaluate($"{{\n{targetScript.Text}\n}}");
 
             _toastService.Show(_macroService.IsRunning ? "Script finished..." : "Script stopped...");

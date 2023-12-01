@@ -14,7 +14,7 @@ public partial class ScriptNodeView : ContentView
 		InitializeComponent();
 	}
 
-    private void ScriptEditor_SelectAll(object sender, TappedEventArgs e)
+    private void ScriptEditor_SelectAll(object sender, EventArgs e)
     {
         if (scriptEditor.Text == null) return;
         scriptEditor.Focus();

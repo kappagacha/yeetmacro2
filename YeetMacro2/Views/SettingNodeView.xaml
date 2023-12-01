@@ -15,7 +15,7 @@
              BackgroundColor="{AppThemeBinding Light={StaticResource Background}, Dark={StaticResource BackgroundDark}}"
              x:Name="thisView">
     <ContentView.Resources>
-        <DataTemplate x:Key="ParentSettingTemplate">
+        <DataTemplate x:Key="ParentSettingTemplate" x:DataType="{x:Type vm:MacroSetViewModel}">
             <VerticalStackLayout>
                 <Label Text="{Binding Name}" VerticalOptions="Center" />
             </VerticalStackLayout>
@@ -245,7 +245,7 @@
                                     </DataTrigger>
                                 </v:ImageView.Triggers>
                             </v:ImageView>
-                            <v:BindingContextView Grid.Column="1" />
+                            <v:BindingContextView Grid.Column="1" TargetParent="{Reference thisView}" />
                         </Grid>
                     </DataTemplate>
                 </v:NodeView.ItemTemplate>

@@ -1,5 +1,7 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
+using CommunityToolkit.Mvvm.Messaging.Messages;
+using CommunityToolkit.Mvvm.Messaging;
 using System.Text.Json.Nodes;
 using YeetMacro2.Data.Models;
 using YeetMacro2.Data.Services;
@@ -10,6 +12,10 @@ public partial class DailyNodeManagerViewModel : NodeManagerViewModel<DailyNodeV
 {
     [ObservableProperty]
     bool _showJsonEditor;
+    [ObservableProperty]
+    DailyJsonParentViewModel _currentSubViewModel;
+    public MacroSetViewModel MacroSet { get; set; }
+    string _targetSubViewName;
 
     IRepository<DailyNode> _dailyRespository;
     public DailyNodeManagerViewModel(
@@ -22,6 +28,30 @@ public partial class DailyNodeManagerViewModel : NodeManagerViewModel<DailyNodeV
     {
         _dailyRespository = dailyRespository;
         IsList = true;
+
+        WeakReferenceMessenger.Default.Register<PropertyChangedMessage<ScriptNode>, string>(this, nameof(ScriptNodeManagerViewModel), async (r, propertyChangedMessage) =>
+        {
+            if (Root is null) await this.WaitForInitialization();
+            if (propertyChangedMessage.PropertyName != nameof(ScriptNodeManagerViewModel.SelectedNode)) return;
+            if (propertyChangedMessage.NewValue is null)
+            {
+                _targetSubViewName = null;
+                return;
+            }
+            _targetSubViewName = propertyChangedMessage.NewValue.Name.Replace("do", "");
+            ResolveCurrentSubViewModel();
+        });
+    }
+
+    private void ResolveCurrentSubViewModel()
+    {
+        if (string.IsNullOrEmpty(_targetSubViewName)) return;
+        var targetDate = ResolveTargetDate(0);
+        var existingDaily = Root.Nodes.FirstOrDefault(dn => dn.Date == targetDate);
+        if (existingDaily is null) return;
+        SelectedNode = existingDaily;
+        var targetJsonViewModel = ((DailyNodeViewModel)existingDaily).JsonViewModel;
+        CurrentSubViewModel = (DailyJsonParentViewModel)targetJsonViewModel.Root.Children.FirstOrDefault(c => c.Key == _targetSubViewName);
     }
 
     [RelayCommand]
@@ -45,6 +75,8 @@ public partial class DailyNodeManagerViewModel : NodeManagerViewModel<DailyNodeV
 
                 _dailyRespository.Update(daily);
                 _dailyRespository.Save();
+
+                ResolveCurrentSubViewModel();
             }
             catch (Exception ex)
             {
@@ -87,9 +119,45 @@ public partial class DailyNodeManagerViewModel : NodeManagerViewModel<DailyNodeV
     {
         var newNode = new DailyNodeViewModel()
         {
-            Date = DateOnly.FromDateTime(DateTime.Now)
+            Date = ResolveTargetDate(0),
+            Data = (JsonObject)JsonObject.Parse(MacroSet.DailyTemplate)
         };
         base.AddNode(newNode);
         return Task.CompletedTask;
+    }
+
+    public JsonObject GetDaily(int offset = 0)
+    {
+        var targetDate = ResolveTargetDate(offset);
+        var existingDaily = Root.Nodes.FirstOrDefault(dn => dn.Date == targetDate);
+        if (existingDaily is not null) return existingDaily.Data;
+
+        var newDaily = new DailyNodeViewModel()
+        {
+            Date = targetDate,
+            Data = (JsonObject)JsonObject.Parse(MacroSet.DailyTemplate)
+        };
+        this.AddNode(newDaily);
+
+        return newDaily.Data;
+    }
+
+    public void UpdateDaily(JsonObject dailyJson, int offset = 0)
+    {
+        var targetDate = ResolveTargetDate(offset);
+        var daily = Root.Nodes.First(dn => dn.Date == targetDate);
+        daily.Data = dailyJson;
+        _nodeService.Update(daily);
+    }
+
+    private DateOnly ResolveTargetDate(int offset)
+    {
+        var utcNow = DateTime.UtcNow;
+        var targetDate = DateOnly.FromDateTime(utcNow).AddDays(offset);
+        if (utcNow.Hour < MacroSet.DailyResetUtcHour)
+        {
+            targetDate = targetDate.AddDays(-1);
+        }
+        return targetDate;
     }
 }

@@ -3,7 +3,7 @@ namespace YeetMacro2.Views;
 public partial class ToggleImageView : ContentView
 {
     public static readonly BindableProperty IsToggledProperty =
-            BindableProperty.Create("IsToggled", typeof(bool), typeof(ImageView), null);
+            BindableProperty.Create("IsToggled", typeof(bool), typeof(ImageView), false);
     public static readonly BindableProperty ImageWidthProperty =
             BindableProperty.Create("ImageWidth", typeof(double?), typeof(ImageView), null);
     public static readonly BindableProperty ImageHeightProperty =

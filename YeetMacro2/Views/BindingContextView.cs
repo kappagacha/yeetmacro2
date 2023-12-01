@@ -5,11 +5,19 @@ namespace YeetMacro2.Views;
 
 public class BindingContextView : ContentView
 {
+    public static readonly BindableProperty TargetParentProperty =
+        BindableProperty.Create("TargetParent", typeof(VisualElement), typeof(BindingContextView), null);
     static ConcurrentDictionary<string, DataTemplate> _typeKeyToDataTemplate = new();
     protected override void OnParentSet()
     {
         base.OnParentSet();
         ResolveContent();
+    }
+
+    public VisualElement TargetParent
+    {
+        get { return (VisualElement)GetValue(TargetParentProperty); }
+        set { SetValue(TargetParentProperty, value); }
     }
 
     protected override void OnBindingContextChanged()
@@ -27,6 +35,9 @@ public class BindingContextView : ContentView
         if (!_typeKeyToDataTemplate.ContainsKey(typeKey))
         {
             object typeTemplate = null;
+
+            TargetParent?.Resources.TryGetValue(typeKey, out typeTemplate);
+
             while (view != null && typeTemplate == null)
             {
                 view.Resources.TryGetValue(typeKey, out typeTemplate);

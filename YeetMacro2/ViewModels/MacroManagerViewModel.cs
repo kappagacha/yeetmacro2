@@ -77,8 +77,8 @@ public partial class MacroManagerViewModel : ObservableObject
             if (SelectedMacroSet == null) return null;
             if (!_nodeRootIdToScriptList.ContainsKey(SelectedMacroSet.RootScriptNodeId))
             {
-                var tree = _nodeViewModelManagerFactory.Create<ScriptNodeManagerViewModel>(SelectedMacroSet.RootScriptNodeId);
-                _nodeRootIdToScriptList.TryAdd(SelectedMacroSet.RootScriptNodeId, tree);
+                var list = _nodeViewModelManagerFactory.Create<ScriptNodeManagerViewModel>(SelectedMacroSet.RootScriptNodeId);
+                _nodeRootIdToScriptList.TryAdd(SelectedMacroSet.RootScriptNodeId, list);
             }
             return _nodeRootIdToScriptList[SelectedMacroSet.RootScriptNodeId];
         }
@@ -105,8 +105,9 @@ public partial class MacroManagerViewModel : ObservableObject
             if (SelectedMacroSet == null) return null;
             if (!_nodeRootIdToDailyList.ContainsKey(SelectedMacroSet.RootDailyNodeId))
             {
-                var tree = _nodeViewModelManagerFactory.Create<DailyNodeManagerViewModel>(SelectedMacroSet.RootDailyNodeId);
-                _nodeRootIdToDailyList.TryAdd(SelectedMacroSet.RootDailyNodeId, tree);
+                var list = _nodeViewModelManagerFactory.Create<DailyNodeManagerViewModel>(SelectedMacroSet.RootDailyNodeId);
+                _nodeRootIdToDailyList.TryAdd(SelectedMacroSet.RootDailyNodeId, list);
+                list.MacroSet = (MacroSetViewModel)SelectedMacroSet;
             }
             return _nodeRootIdToDailyList[SelectedMacroSet.RootDailyNodeId];
         }
@@ -265,6 +266,7 @@ public partial class MacroManagerViewModel : ObservableObject
 
         await Patterns.WaitForInitialization();
         await Settings.WaitForInitialization();
+        await Dailies.WaitForInitialization();
 
         await Task.Run(() =>
         {
@@ -277,7 +279,7 @@ public partial class MacroManagerViewModel : ObservableObject
             Console.WriteLine($"[*****YeetMacro*****] MacroManagerViewModel ExecuteScript");
 
             WeakReferenceMessenger.Default.Send(new ScriptEventMessage(new ScriptEvent() {  Type = ScriptEventType.Started }));
-            var result = _scriptService.RunScript(scriptNode, Scripts, SelectedMacroSet, Patterns, Settings);
+            var result = _scriptService.RunScript(scriptNode, Scripts, SelectedMacroSet, Patterns, Settings, Dailies);
             WeakReferenceMessenger.Default.Send(new ScriptEventMessage(new ScriptEvent() { Type = ScriptEventType.Finished, Result = result }));
             if (PersistLogs) _logger.LogInformation("{persistLogs}", false);
             IsBusy = false;

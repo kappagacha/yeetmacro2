@@ -418,27 +418,4 @@ public class MacroService
         return String.Empty;
     }
 
-    public JsonObject GetDaily(int offSet = 0)
-    {
-        var daily = new JsonObject()
-        {
-            ["daily1"] = 1,
-            ["daily2"] = true,
-            ["daily3"] = new JsonObject()
-            {
-                ["subDaily"] = 10
-            }
-        };
-
-        foreach (var elem in daily)
-        {
-
-        }
-        return daily;
-    }
-
-    public void UpdateDaily(JsonObject daily, int offSet = 0)
-    {
-        var subDaily = daily["daily3"]["subDaily"].GetValue<double>();
-    }
 }

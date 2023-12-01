@@ -64,54 +64,68 @@
             </HorizontalStackLayout>
         </DataTemplate>
     </ContentView.Resources>
-    <Grid ColumnDefinitions="*,3*">
-        <v:NodeView Grid.Column="0" NodeManager="{Binding Dailies}" />
-        <mct:DockLayout Grid.Column="1" IsVisible="{Binding IsToggled, Source={Reference templateToggle}, Converter={conv:InverseBoolConverter}}">
-            <DatePicker IsVisible="{Binding Dailies.SelectedNode, Converter={conv:NullToBoolConverter IsInverse=True}}" 
+    <Grid>
+        <Grid IsVisible="{Binding IsSubView, Source={Reference thisView}}">
+            <material:TreeView
+                    x:DataType="{x:Null}" ItemsSource="{Binding Dailies.CurrentSubViewModel.Children}"
+                    Spacing="0" HorizontalOptions="Fill"  VerticalOptions="Fill">
+                <material:TreeView.ItemTemplate>
+                    <DataTemplate>
+                        <v:BindingContextView TargetParent="{Reference thisView}" />
+                    </DataTemplate>
+                </material:TreeView.ItemTemplate>
+            </material:TreeView>
+        </Grid>
+        <Grid ColumnDefinitions="*,3*" IsVisible="{Binding IsSubView, Converter={conv:InverseBoolConverter}, Source={Reference thisView}}">
+            <v:NodeView Grid.Column="0" NodeManager="{Binding Dailies}" />
+            <mct:DockLayout Grid.Column="1" IsVisible="{Binding IsToggled, Source={Reference templateToggle}, Converter={conv:InverseBoolConverter}}">
+                <DatePicker IsVisible="{Binding Dailies.SelectedNode, Converter={conv:NullToBoolConverter IsInverse=True}}" 
                         Date="{Binding Dailies.SelectedNode.Date, Converter={conv:DateOnlyConverter}}" />
-            <Grid>
-                <material:TreeView IsVisible="{Binding Dailies.ShowJsonEditor, Converter={conv:InverseBoolConverter}}"
+                <Grid>
+                    <material:TreeView IsVisible="{Binding Dailies.ShowJsonEditor, Converter={conv:InverseBoolConverter}}"
                         x:DataType="{x:Null}" ItemsSource="{Binding Dailies.SelectedNode.JsonViewModel.Root.Children}"
                         Spacing="0" HorizontalOptions="Fill"  VerticalOptions="Fill">
-                    <material:TreeView.ItemTemplate>
-                        <DataTemplate>
-                            <v:BindingContextView />
-                        </DataTemplate>
-                    </material:TreeView.ItemTemplate>
-                </material:TreeView>
-                <Grid IsVisible="{Binding Dailies.ShowJsonEditor}">
-                    <Editor x:Name="dataEditor" Text="{Binding Dailies.SelectedNode.DataText}" AutoSize="TextChanges" />
-                    <v:ImageView HorizontalOptions="End" VerticalOptions="End" FontFamily="MaterialOutlined" Glyph="{x:Static mi:MaterialOutlined.Save}" Color="{StaticResource Primary}" 
-                                 Command="{Binding Dailies.SaveDailyCommand}" >
-                        <v:ImageView.CommandParameter>
-                            <MultiBinding Converter="{conv:PassThroughConverter}">
-                                <Binding Path="Dailies.SelectedNode" />
-                                <Binding Path="Text" Source="{Reference dataEditor}" />
-                            </MultiBinding>
-                        </v:ImageView.CommandParameter>
-                    </v:ImageView>
+                        <material:TreeView.ItemTemplate>
+                            <DataTemplate>
+                                <v:BindingContextView TargetParent="{Reference thisView}" />
+                            </DataTemplate>
+                        </material:TreeView.ItemTemplate>
+                    </material:TreeView>
+                    <Grid IsVisible="{Binding Dailies.ShowJsonEditor}">
+                        <Editor x:Name="dataEditor" Text="{Binding Dailies.SelectedNode.DataText}" AutoSize="TextChanges" />
+                        <v:ImageView HorizontalOptions="End" VerticalOptions="End" FontFamily="MaterialOutlined" Glyph="{x:Static mi:MaterialOutlined.Save}" Color="{StaticResource Primary}" 
+                                 Command="{Binding Dailies.SaveDailyCommand}">
+                            <v:ImageView.CommandParameter>
+                                <MultiBinding Converter="{conv:PassThroughConverter}">
+                                    <Binding Path="Dailies.SelectedNode" />
+                                    <Binding Path="Text" Source="{Reference dataEditor}" />
+                                </MultiBinding>
+                            </v:ImageView.CommandParameter>
+                        </v:ImageView>
+                    </Grid>
                 </Grid>
-            </Grid>
-        </mct:DockLayout>
-        <Grid Grid.Column="1" IsVisible="{Binding IsToggled, Source={Reference templateToggle}}">
-            <Editor Text="{Binding SelectedMacroSet.DailyTemplate}" />
-            <v:ImageView HorizontalOptions="End" VerticalOptions="End" FontFamily="MaterialOutlined" Glyph="{x:Static mi:MaterialOutlined.Save}"
+            </mct:DockLayout>
+            <Grid Grid.Column="1" IsVisible="{Binding IsToggled, Source={Reference templateToggle}}">
+                <Editor Text="{Binding SelectedMacroSet.DailyTemplate}" />
+                <v:ImageView HorizontalOptions="End" VerticalOptions="End" FontFamily="MaterialOutlined" Glyph="{x:Static mi:MaterialOutlined.Save}"
                 Command="{Binding SaveCommand}" CommandParameter="{Binding SelectedMacroSet}" />
-        </Grid>
-        <HorizontalStackLayout Grid.ColumnSpan="2"  HorizontalOptions="End" VerticalOptions="Start" IsVisible="{Binding IsToggled, Source={Reference templateToggle}, Converter={conv:InverseBoolConverter}}">
-            <v:ImageView IsVisible="{Binding Dailies.SelectedNode, Converter={conv:NullToBoolConverter IsInverse=True}}"
+            </Grid>
+            <HorizontalStackLayout Grid.ColumnSpan="2"  HorizontalOptions="End" VerticalOptions="Start" IsVisible="{Binding IsToggled, Source={Reference templateToggle}, Converter={conv:InverseBoolConverter}}">
+                <v:ImageView IsVisible="{Binding Dailies.SelectedNode, Converter={conv:NullToBoolConverter IsInverse=True}}"
                 FontFamily="MaterialOutlined" Glyph="{x:Static mi:MaterialOutlined.Edit}" Color="Gray"
                 Command="{Binding Dailies.ToggleShowJsonEditorCommand}">
-                <v:ImageView.Triggers>
-                    <DataTrigger TargetType="{x:Type v:ImageView}" Binding="{Binding Dailies.ShowJsonEditor}" Value="True">
-                        <Setter Property="Color" Value="{StaticResource Primary}" />
-                    </DataTrigger>
-                </v:ImageView.Triggers>
-            </v:ImageView>
-        </HorizontalStackLayout>
-        <HorizontalStackLayout Grid.ColumnSpan="2"  HorizontalOptions="Start" VerticalOptions="End">
-            <v:ToggleImageView x:Name="templateToggle" FontFamily="MaterialOutlined" Glyph="{x:Static mi:MaterialOutlined.Data_object}"
+                    <v:ImageView.Triggers>
+                        <DataTrigger TargetType="{x:Type v:ImageView}" Binding="{Binding Dailies.ShowJsonEditor}" Value="True">
+                            <Setter Property="Color" Value="{StaticResource Primary}" />
+                        </DataTrigger>
+                    </v:ImageView.Triggers>
+                </v:ImageView>
+            </HorizontalStackLayout>
+            <HorizontalStackLayout Grid.ColumnSpan="2"  HorizontalOptions="Start" VerticalOptions="End">
+                <v:ToggleImageView x:Name="templateToggle" FontFamily="MaterialOutlined" Glyph="{x:Static mi:MaterialOutlined.Data_object}"
                                ToggledColor="Green" Text="Template" />
-        </HorizontalStackLayout>
+            </HorizontalStackLayout>
+        </Grid>
     </Grid>
+
 </ContentView>
