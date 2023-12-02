@@ -38,7 +38,7 @@ public partial class DailyNodeManagerViewModel : NodeManagerViewModel<DailyNodeV
                 _targetSubViewName = null;
                 return;
             }
-            _targetSubViewName = propertyChangedMessage.NewValue.Name.Replace("do", "");
+            _targetSubViewName = propertyChangedMessage.NewValue.Name;
             ResolveCurrentSubViewModel();
         });
     }
