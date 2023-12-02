@@ -101,7 +101,7 @@
                 </v:ImageView.Triggers>
             </v:ImageView>
         </HorizontalStackLayout>
-        <HorizontalStackLayout HorizontalOptions="Start" VerticalOptions="End" Margin="10">
+        <HorizontalStackLayout HorizontalOptions="Start" VerticalOptions="End">
             <v:ToggleImageView x:Name="settingsToggle" FontFamily="MaterialOutlined" Glyph="{x:Static mi:MaterialRegular.Settings}" UntoggledColor="Gray" ToggledColor="{StaticResource Primary}" />
             <v:ToggleImageView x:Name="dailiesToggle" FontFamily="FARegular" Glyph="{x:Static fa:Regular.CalendarCheck}" UntoggledColor="Gray" ToggledColor="{StaticResource Primary}" />
         </HorizontalStackLayout>

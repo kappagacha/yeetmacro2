@@ -43,12 +43,26 @@ public partial class DailyNodeManagerViewModel : NodeManagerViewModel<DailyNodeV
         });
     }
 
+    protected override void CustomInit()
+    {
+        // This invokes ScriptNodeManagerViewModel SelectedNode PropertyChangedMessage
+        WeakReferenceMessenger.Default.Send(new PropertyChangedMessage<string>(this, nameof(CustomInit), null, null), nameof(DailyNodeManagerViewModel));
+    }
+
     private void ResolveCurrentSubViewModel()
     {
         if (string.IsNullOrEmpty(_targetSubViewName)) return;
         var targetDate = ResolveTargetDate(0);
         var existingDaily = Root.Nodes.FirstOrDefault(dn => dn.Date == targetDate);
-        if (existingDaily is null) return;
+        if (existingDaily is null)
+        {
+            existingDaily = new DailyNodeViewModel()
+            {
+                Date = targetDate,
+                Data = (JsonObject)JsonObject.Parse(MacroSet.DailyTemplate)
+            };
+            this.AddNode(existingDaily);
+        }
         SelectedNode = existingDaily;
         var targetJsonViewModel = ((DailyNodeViewModel)existingDaily).JsonViewModel;
         CurrentSubViewModel = (DailyJsonParentViewModel)targetJsonViewModel.Root.Children.FirstOrDefault(c => c.Key == _targetSubViewName);
@@ -146,8 +160,7 @@ public partial class DailyNodeManagerViewModel : NodeManagerViewModel<DailyNodeV
     {
         var targetDate = ResolveTargetDate(offset);
         var daily = Root.Nodes.First(dn => dn.Date == targetDate);
-        daily.Data = dailyJson;
-        _nodeService.Update(daily);
+        SaveDaily(new object[] { (DailyNodeViewModel)daily, dailyJson.ToJsonString() });
     }
 
     private DateOnly ResolveTargetDate(int offset)

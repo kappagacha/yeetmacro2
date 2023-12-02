@@ -23,6 +23,14 @@ public partial class ScriptNodeManagerViewModel : NodeManagerViewModel<ScriptNod
     {
         IsList = true;
         PropertyChanged += ScriptNodeManagerViewModel_PropertyChanged;
+
+        // DailyNodeManagerViewModel requests SelectedNode message
+        WeakReferenceMessenger.Default.Register<PropertyChangedMessage<string>, string>(this, nameof(DailyNodeManagerViewModel), (r, propertyChangedMessage) =>
+        {
+            if (SelectedNode is null || propertyChangedMessage.PropertyName != nameof(CustomInit)) return;
+
+            WeakReferenceMessenger.Default.Send(new PropertyChangedMessage<ScriptNode>(this, nameof(SelectedNode), null, SelectedNode), nameof(ScriptNodeManagerViewModel));
+        });
     }
 
     private void ScriptNodeManagerViewModel_PropertyChanged(object sender, PropertyChangedEventArgs e)

@@ -8,8 +8,11 @@
   "supportsGreaterHeight": false,
   "package": "com.smilegate.outerplane.stove.google",
   "source": "online:outerplane",
-  "macroSetLastUpdated": "2023-11-23T15:40:29.4378875-06:00",
-  "patternsLastUpdated": "2023-11-23T15:40:29.4382328-06:00",
-  "scriptsLastUpdated": "2023-11-23T15:40:29.4384616-06:00",
-  "settingsLastUpdated": "2023-11-23T15:40:29.438681-06:00"
+  "macroSetLastUpdated": "2023-12-01T23:51:22.5176245-06:00",
+  "patternsLastUpdated": "2023-12-01T23:51:22.5176508-06:00",
+  "scriptsLastUpdated": "2023-12-01T23:51:22.5176627-06:00",
+  "settingsLastUpdated": "2023-12-01T23:51:22.5176742-06:00",
+  "description": null,
+  "dailyTemplate": "{\n\t\u0022_watchAds\u0022 : { \u0022count\u0022: 0 },\n\u0022doArena\u0022: { \u0022count\u0022: 0 }\n}",
+  "dailyResetUtcHour": 0
 }
