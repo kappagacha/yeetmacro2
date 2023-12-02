@@ -191,17 +191,31 @@ public partial class PatternNodeManagerViewModel : NodeManagerViewModel<PatternN
         {
             case OffsetCalcType.Default:
             case OffsetCalcType.Center:
-                // horizontal center handling
-                var deltaX = currentResolution.Width - pattern.Resolution.Width;
-                xOffset = (int)(deltaX / 2);
-                //Console.WriteLine($"deltaX: {deltaX}, xOffset: {xOffset}");
+                {   // horizontal center handling
+                    var deltaX = currentResolution.Width - pattern.Resolution.Width;
+                    xOffset = (int)(deltaX / 2);
+                }
                 break;
             case OffsetCalcType.DockRight:
-                // horizontal dock right handling (dock left does not need handling)
-                var right = pattern.Resolution.Width - pattern.Rect.X;
-                var targetX = currentResolution.Width - right;
-                xOffset = (int)(targetX - pattern.Rect.X);
-                //Console.WriteLine($"right: {right}, targetX: {targetX}, xOffset: {xOffset}");
+                {   // horizontal dock right handling (dock left does not need handling)
+                    var right = pattern.Resolution.Width - pattern.Rect.X;
+                    var targetX = currentResolution.Width - right;
+                    xOffset = (int)(targetX - pattern.Rect.X);
+                }
+                break;
+            case OffsetCalcType.HorizontalStretchOffset:
+                {
+                    // HorizontalStretchMultiplier = targetXOffset / deltaX
+                    var deltaX = currentResolution.Width - pattern.Resolution.Width;
+                    xOffset = (int)(deltaX * pattern.HorizontalStretchMultiplier);
+                }
+                break;
+            case OffsetCalcType.VerticalStretchOffset:
+                {
+                    // HorizontalStretchMultiplier = targetYOffset / deltaY
+                    var deltaY = currentResolution.Height - pattern.Resolution.Height;
+                    yOffset = (int)(deltaY * pattern.VerticalStretchMultiplier);
+                }
                 break;
         }
         return new Point(xOffset, yOffset);

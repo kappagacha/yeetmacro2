@@ -73,8 +73,6 @@
                 </HorizontalStackLayout>
                 <HorizontalStackLayout Margin="0" Padding="0">
                     <Label  VerticalOptions="Center" Padding="0" Text="OffsetCalcType" />
-                    <!--<Picker Margin="5,0,0,0" SelectedItem="{Binding Pattern.OffsetCalcType, Source={Reference thisView}}"
-                            ItemsSource="{conv:EnumBindingSource EnumType={x:Type m:OffsetCalcType}}"/>-->
                     <HorizontalStackLayout>
                         <Grid Margin="10,0,0,0" Padding="0" VerticalOptions="Center">
                             <Label Margin="0" Padding="0" Text="{Binding Pattern.OffsetCalcType, Source={Reference thisView}}" VerticalOptions="Center" />
@@ -84,9 +82,12 @@
                     <CheckBox x:Name="doTestCalc" Margin="5,0,0,0" VerticalOptions="Center" />
                     <Label Margin="5,0,0,0" VerticalOptions="Center" Padding="0" Text="TestCalc" />
                 </HorizontalStackLayout>
-                <!--<HorizontalStackLayout Margin="0" Padding="0">
-                <Label Margin="5,0,0,0" VerticalOptions="Center" Padding="0" Text="{Binding Patterns.SelectedPattern.ColorThreshold}" />
-            </HorizontalStackLayout>-->
+                <HorizontalStackLayout Margin="0" Padding="0" Spacing="5">
+                    <Label Margin="0" VerticalOptions="Center" Padding="0" Text="Horizontal Stretch Multiplier:" />
+                    <Entry Margin="0" VerticalOptions="Center" Keyboard="Numeric" Text="{Binding Pattern.HorizontalStretchMultiplier, Source={Reference thisView}}" />
+                    <Label Margin="0" VerticalOptions="Center" Padding="0" Text="Vertical Stretch Multiplier:" />
+                    <Entry Margin="0" VerticalOptions="Center" Keyboard="Numeric" Text="{Binding Pattern.VerticalStretchMultiplier, Source={Reference thisView}}" />
+                </HorizontalStackLayout>
                 <HorizontalStackLayout IsVisible="{Binding PatternNode.IsMultiPattern, Source={Reference thisView}}">
                     <CollectionView ItemsSource="{Binding PatternNode.Patterns, Source={Reference thisView}}">
                         <CollectionView.ItemTemplate>

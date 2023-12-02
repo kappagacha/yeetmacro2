@@ -42,6 +42,8 @@ public class Pattern
     public virtual string Name { get; set; }
     public byte[] ImageData { get; set; }
     public virtual double VariancePct { get; set; } = 20.0;
+    public virtual double HorizontalStretchMultiplier { get; set; }
+    public virtual double VerticalStretchMultiplier { get; set; }
     public virtual TextMatchProperties TextMatch { get; set; }
     public virtual ColorThresholdProperties ColorThreshold { get; set; }
     public virtual OffsetCalcType OffsetCalcType { get; set; } = OffsetCalcType.Default;
@@ -68,5 +70,7 @@ public enum OffsetCalcType
     None,
     Center,
     DockLeft,
-    DockRight
+    DockRight,
+    HorizontalStretchOffset,
+    VerticalStretchOffset
 }
