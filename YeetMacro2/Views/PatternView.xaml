@@ -78,11 +78,7 @@
                     <HorizontalStackLayout>
                         <Grid Margin="10,0,0,0" Padding="0" VerticalOptions="Center">
                             <Label Margin="0" Padding="0" Text="{Binding Pattern.OffsetCalcType, Source={Reference thisView}}" VerticalOptions="Center" />
-                            <ImageButton Margin="0" Padding="0" BindingContext="{Binding Pattern, Source={Reference thisView}}">
-                                <ImageButton.GestureRecognizers>
-                                    <TapGestureRecognizer Tapped="offsetCalcType_Tapped" CommandParameter="{conv:EnumBindingSource EnumType={x:Type m:OffsetCalcType}}" />
-                                </ImageButton.GestureRecognizers>
-                            </ImageButton>
+                            <ImageButton Margin="0" Padding="0" BindingContext="{Binding Pattern, Source={Reference thisView}}" Clicked="offsetCalcType_Clicked" />
                         </Grid>
                     </HorizontalStackLayout>
                     <CheckBox x:Name="doTestCalc" Margin="5,0,0,0" VerticalOptions="Center" />

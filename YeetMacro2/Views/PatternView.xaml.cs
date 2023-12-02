@@ -210,10 +210,10 @@ public partial class PatternView : ContentView
         UpdateCanvas(Pattern);
     }
 
-    private async void offsetCalcType_Tapped(object sender, TappedEventArgs e)
+    private async void offsetCalcType_Clicked(object sender, EventArgs e)
     {
         var pattern = ((ImageButton)sender).BindingContext as Pattern;
-        var options = ((IEnumerable<OffsetCalcType>)e.Parameter).Select(oct => oct.ToString()).ToArray();
+        var options = Enum.GetValues<OffsetCalcType>().Select(oct => oct.ToString()).ToArray();
         var selectedOption = await ServiceHelper.GetService<IInputService>().SelectOption("Select option", options);
         if (!String.IsNullOrEmpty(selectedOption) && selectedOption != "cancel" && selectedOption != "ok") pattern.OffsetCalcType = Enum.Parse<OffsetCalcType>(selectedOption);
     }
