@@ -59,7 +59,7 @@ public partial class DailyNodeManagerViewModel : NodeManagerViewModel<DailyNodeV
             existingDaily = new DailyNodeViewModel()
             {
                 Date = targetDate,
-                Data = (JsonObject)JsonObject.Parse(MacroSet.DailyTemplate)
+                Data = GetJsonFromTemplate()
             };
             this.AddNode(existingDaily);
         }
@@ -128,7 +128,7 @@ public partial class DailyNodeManagerViewModel : NodeManagerViewModel<DailyNodeV
         var newNode = new DailyNodeViewModel()
         {
             Date = ResolveTargetDate(0),
-            Data = (JsonObject)JsonObject.Parse(MacroSet.DailyTemplate)
+            Data = GetJsonFromTemplate()
         };
         base.AddNode(newNode);
         return Task.CompletedTask;
@@ -143,7 +143,7 @@ public partial class DailyNodeManagerViewModel : NodeManagerViewModel<DailyNodeV
         var newDaily = new DailyNodeViewModel()
         {
             Date = targetDate,
-            Data = (JsonObject)JsonObject.Parse(MacroSet.DailyTemplate)
+            Data = GetJsonFromTemplate()
         };
         this.AddNode(newDaily);
 
@@ -166,5 +166,12 @@ public partial class DailyNodeManagerViewModel : NodeManagerViewModel<DailyNodeV
             targetDate = targetDate.AddDays(-1);
         }
         return targetDate;
+    }
+
+    private JsonObject GetJsonFromTemplate()
+    {
+        if (string.IsNullOrWhiteSpace(MacroSet.DailyTemplate)) return new JsonObject();
+
+        return GetJsonFromTemplate();
     }
 }
