@@ -213,16 +213,13 @@
                 </v:NodeView.Triggers>
                 <v:NodeView.ItemTemplate>
                     <DataTemplate x:DataType="{x:Type m:SettingNode}">
-                        <Grid ColumnDefinitions="Auto,*,Auto">
+                        <Grid ColumnDefinitions="Auto,*">
                             <Grid.Triggers>
                                 <DataTrigger TargetType="{x:Type Grid}" Binding="{Binding IsSelected}" Value="True">
                                     <Setter Property="Background" Value="Blue" />
                                 </DataTrigger>
                             </Grid.Triggers>
-                            <Grid.GestureRecognizers>
-                                <TapGestureRecognizer CommandParameter="{Binding .}" Command="{Binding NodeManager.SelectNodeCommand, Source={RelativeSource AncestorType={x:Type v:NodeView}}}" />
-                            </Grid.GestureRecognizers>
-                            <v:ImageView Grid.Column="0" ImageWidth="20" ImageHeight="20">
+                            <v:ImageView x:Name="imageView" Grid.Column="0" ImageWidth="20" ImageHeight="20">
                                 <v:ImageView.Triggers>
                                     <DataTrigger TargetType="{x:Type v:ImageView}" Binding="{Binding SettingType}" Value="{x:Static m:SettingType.Parent}">
                                         <Setter Property="IsVisible" Value="False" />
@@ -246,6 +243,7 @@
                                 </v:ImageView.Triggers>
                             </v:ImageView>
                             <v:BindingContextView Grid.Column="1" TargetParent="{Reference thisView}" />
+                            <ImageButton HeightRequest="{Binding Height, Source={Reference imageView}}" Margin="0" Padding="0" CommandParameter="{Binding .}" Command="{Binding NodeManager.SelectNodeCommand, Source={RelativeSource AncestorType={x:Type v:NodeView}}}" />
                         </Grid>
                     </DataTemplate>
                 </v:NodeView.ItemTemplate>
