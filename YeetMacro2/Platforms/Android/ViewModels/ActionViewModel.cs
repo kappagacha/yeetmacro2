@@ -8,7 +8,6 @@ using System.Text.Json;
 using YeetMacro2.Data.Serialization;
 using CommunityToolkit.Mvvm.Messaging;
 using YeetMacro2.Data.Messaging;
-using CommunityToolkit.Mvvm.Messaging.Messages;
 
 namespace YeetMacro2.Platforms.Android.ViewModels;
 
@@ -64,31 +63,6 @@ public partial class ActionViewModel : ObservableObject, IMovable
                 {
                     MainThread.BeginInvokeOnMainThread(() => _screenService.ShowMessage(scriptEventMessage.Value.Result));
                 }
-            }
-        });
-
-        WeakReferenceMessenger.Default.Register<PropertyChangedMessage<bool>, string>(this, nameof(MacroManagerViewModel), (r, propertyChangedMessage) =>
-        {
-            AndroidWindowView windowView;
-            switch (propertyChangedMessage.PropertyName)
-            {
-                case nameof(MacroManagerViewModel.InDebugMode):
-                    windowView = AndroidWindowView.DebugDrawView;
-                    break;
-                case nameof(MacroManagerViewModel.ShowStatusPanel):
-                    windowView = AndroidWindowView.StatusPanelView;
-                    break;
-                default:
-                    return;
-            }
-
-            if (propertyChangedMessage.NewValue)
-            {
-                _screenService.Show(windowView);
-            }
-            else
-            {
-                _screenService.Close(windowView);
             }
         });
     }

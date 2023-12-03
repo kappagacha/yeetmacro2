@@ -5,13 +5,13 @@
              x:Class="YeetMacro2.Views.ToggleImageView"
              xmlns:v="clr-namespace:YeetMacro2.Views"
              x:Name="thisView">
-    <Grid ColumnSpacing="5">
+    <Grid ColumnSpacing="5" HeightRequest="{Binding ImageHeight, Source={Reference thisView}, TargetNullValue={StaticResource IconHeight}}">
         <Grid.Triggers>
             <DataTrigger TargetType="Grid" Binding="{Binding Text, Source={Reference thisView}, Converter={conv:NullToBoolConverter IsInverse=True}}" Value="True">
                 <Setter Property="ColumnDefinitions" Value="Auto,*" />
             </DataTrigger>
         </Grid.Triggers>
-        <v:ImageView 
+        <v:ImageView x:Name="imageView" Margin="0" Padding="0"
                 ImageWidth="{Binding ImageWidth, Source={Reference thisView}}"
                 ImageHeight="{Binding ImageHeight, Source={Reference thisView}}"
                 FontFamily="{Binding FontFamily, Source={Reference thisView}}"
@@ -128,49 +128,15 @@
                 </MultiTrigger>
             </v:ImageView.Triggers>
         </v:ImageView>
-        <Label Grid.Column="1" IsVisible="{Binding Text, Source={Reference thisView}, Converter={conv:NullToBoolConverter IsInverse=True}}" 
-               Padding="0" Margin="0"
-               HeightRequest="{Binding ImageHeight, Source={Reference thisView}, TargetNullValue={StaticResource IconHeight}}"
-               VerticalTextAlignment="Center" Text="{Binding Text, Source={Reference thisView}}">
-            <Label.Triggers>
-                <MultiTrigger TargetType="Label">
-                    <MultiTrigger.Conditions>
-                        <BindingCondition Binding="{Binding IsToggled, Source={Reference thisView}}" Value="True" />
-                        <BindingCondition Binding="{Binding ToggledColor, Source={Reference thisView}, Converter={conv:NullToBoolConverter IsInverse=True}}" Value="False" />
-                    </MultiTrigger.Conditions>
-                    <MultiTrigger.Setters>
-                        <Setter Property="TextColor" Value="{Binding Color, Source={Reference thisView}}" />
-                    </MultiTrigger.Setters>
-                </MultiTrigger>
-                <MultiTrigger TargetType="Label">
-                    <MultiTrigger.Conditions>
-                        <BindingCondition Binding="{Binding IsToggled, Source={Reference thisView}}" Value="False" />
-                        <BindingCondition Binding="{Binding UntoggledColor, Source={Reference thisView}, Converter={conv:NullToBoolConverter IsInverse=True}}" Value="False" />
-                    </MultiTrigger.Conditions>
-                    <MultiTrigger.Setters>
-                        <Setter Property="TextColor" Value="{Binding Color, Source={Reference thisView}}" />
-                    </MultiTrigger.Setters>
-                </MultiTrigger>
-                <MultiTrigger TargetType="Label">
-                    <MultiTrigger.Conditions>
-                        <BindingCondition Binding="{Binding IsToggled, Source={Reference thisView}}" Value="True" />
-                        <BindingCondition Binding="{Binding ToggledColor, Source={Reference thisView}, Converter={conv:NullToBoolConverter IsInverse=True}}" Value="True" />
-                    </MultiTrigger.Conditions>
-                    <MultiTrigger.Setters>
-                        <Setter Property="TextColor" Value="{Binding ToggledColor, Source={Reference thisView}}" />
-                    </MultiTrigger.Setters>
-                </MultiTrigger>
-                <MultiTrigger TargetType="Label">
-                    <MultiTrigger.Conditions>
-                        <BindingCondition Binding="{Binding IsToggled, Source={Reference thisView}}" Value="False" />
-                        <BindingCondition Binding="{Binding UntoggledColor, Source={Reference thisView}, Converter={conv:NullToBoolConverter IsInverse=True}}" Value="True" />
-                    </MultiTrigger.Conditions>
-                    <MultiTrigger.Setters>
-                        <Setter Property="TextColor" Value="{Binding UntoggledColor, Source={Reference thisView}}" />
-                    </MultiTrigger.Setters>
-                </MultiTrigger>
-            </Label.Triggers>
-        </Label>
-        <ImageButton Padding="0" Margin="0" Grid.ColumnSpan="2" Clicked="ImageButton_Clicked" />
+        <Label Grid.Column="1" x:Name="label"
+               IsVisible="{Binding Text, Source={Reference thisView}, Converter={conv:NullToBoolConverter IsInverse=True}}" 
+               VerticalTextAlignment="Center"
+               FontSize="{Binding FontSize, Source={Reference thisView}}"
+               Text="{Binding Text, Source={Reference thisView}}" />
+        <ImageButton Padding="0" Margin="0" Grid.ColumnSpan="2" Clicked="ImageButton_Clicked" 
+                     IsVisible="{Binding Command, Source={Reference thisView}, Converter={conv:NullToBoolConverter}}" />
+        <ImageButton Padding="0" Margin="0" Grid.ColumnSpan="2" Command="{Binding Command, Source={Reference thisView}}"
+                     CommandParameter="{Binding CommandParameter, Source={Reference thisView}}"
+                     IsVisible="{Binding Command, Source={Reference thisView}, Converter={conv:NullToBoolConverter IsInverse=True}}" />
     </Grid>
 </ContentView>

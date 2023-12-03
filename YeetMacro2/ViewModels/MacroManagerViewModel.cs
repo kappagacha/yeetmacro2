@@ -40,8 +40,8 @@ public partial class MacroManagerViewModel : ObservableObject
     ConcurrentDictionary<int, DailyNodeManagerViewModel> _nodeRootIdToDailyList;
     IScriptService _scriptService;
     [ObservableProperty]
-    bool _isExportEnabled, _isOpenAppDirectoryEnabled, _inDebugMode, _showStatusPanel, 
-        _showExport, _showSettings, _isBusy, _persistLogs, _showMacroSetDescriptionEditor;
+    bool _isExportEnabled, _isOpenAppDirectoryEnabled, _inDebugMode, 
+        _showExport, _isBusy, _persistLogs, _showMacroSetDescriptionEditor;
     [ObservableProperty]
     double _resolutionWidth, _resolutionHeight;
     [ObservableProperty]
@@ -150,9 +150,6 @@ public partial class MacroManagerViewModel : ObservableObject
         {
             SelectedMacroSet = MacroSets.First();
         }
-
-        InDebugMode = Preferences.Default.Get(nameof(InDebugMode), false);
-        ShowStatusPanel = Preferences.Default.Get(nameof(ShowStatusPanel), false);
 
         _macroSetRepository.DetachAllEntities();
         _macroSetRepository.AttachEntities(_macroSets.ToArray());
@@ -284,32 +281,6 @@ public partial class MacroManagerViewModel : ObservableObject
             if (PersistLogs) _logger.LogInformation("{persistLogs}", false);
             IsBusy = false;
         });
-    }
-
-    [RelayCommand]
-    private void ToggleShowStatusPanel()
-    {
-        ShowStatusPanel = !ShowStatusPanel;
-        Preferences.Default.Set(nameof(ShowStatusPanel), ShowStatusPanel);
-    }
-
-    [RelayCommand]
-    private void ToggleInDebugMode()
-    {
-        InDebugMode = !InDebugMode;
-        Preferences.Default.Set(nameof(InDebugMode), InDebugMode);
-    }
-
-    [RelayCommand]
-    private void ToggleShowSettings()
-    {
-        ShowSettings = !ShowSettings;
-    }
-
-    [RelayCommand]
-    private void ToggleShowMacroSetDescriptionEditor()
-    {
-        ShowMacroSetDescriptionEditor = !ShowMacroSetDescriptionEditor;
     }
 
     [RelayCommand]
@@ -603,10 +574,5 @@ public partial class MacroManagerViewModel : ObservableObject
     partial void OnInDebugModeChanged(bool oldValue, bool newValue)
     {
         WeakReferenceMessenger.Default.Send(new PropertyChangedMessage<bool>(this, nameof(InDebugMode), oldValue, newValue), nameof(MacroManagerViewModel));
-    }
-
-    partial void OnShowStatusPanelChanged(bool oldValue, bool newValue)
-    {
-        WeakReferenceMessenger.Default.Send(new PropertyChangedMessage<bool>(this, nameof(ShowStatusPanel), oldValue, newValue), nameof(MacroManagerViewModel));
     }
 }

@@ -13,7 +13,7 @@ public partial class AndriodHomeViewModel : ObservableObject
     public const int REQUEST_IGNORE_BATTERY_OPTIMIZATIONS = 2;
     [ObservableProperty]
     bool _isProjectionServiceEnabled, _isAccessibilityEnabled, _isAppearing, _showMacroOverlay,
-         _showPatternsNodeView, _isMacroReady, _showTestView, _inDeveloperMode;
+         _showPatternsNodeView, _showStatusPanel, _isMacroReady, _showTestView, _inDeveloperMode;
     private AndroidScreenService _screenService;
     private MacroManagerViewModel _macroManagerViewModel;
     private YeetAccessibilityService _accessibilityService;
@@ -90,8 +90,8 @@ public partial class AndriodHomeViewModel : ObservableObject
 
             if (!propertyChangedMessage.NewValue)
             {
-                IsProjectionServiceEnabled = IsMacroReady = false;
-                _macroManagerViewModel.ShowStatusPanel = _macroManagerViewModel.InDebugMode = false;
+                IsProjectionServiceEnabled = IsMacroReady = ShowStatusPanel = false;
+                _macroManagerViewModel.InDebugMode = false;
             }
         });
 
@@ -104,7 +104,21 @@ public partial class AndriodHomeViewModel : ObservableObject
             {
                 _screenService.Show(AndroidWindowView.ActionView);
                 if (_macroManagerViewModel.InDebugMode) _screenService.Show(AndroidWindowView.DebugDrawView);
-                if (_macroManagerViewModel.ShowStatusPanel) _screenService.Show(AndroidWindowView.StatusPanelView);
+                if (ShowStatusPanel) _screenService.Show(AndroidWindowView.StatusPanelView);
+            }
+        });
+
+        WeakReferenceMessenger.Default.Register<PropertyChangedMessage<bool>, string>(this, nameof(MacroManagerViewModel), (r, propertyChangedMessage) =>
+        {
+            if (propertyChangedMessage.PropertyName != nameof(MacroManagerViewModel.InDebugMode)) return;
+
+            if (propertyChangedMessage.NewValue)
+            {
+                _screenService.Show(AndroidWindowView.DebugDrawView);
+            }
+            else
+            {
+                _screenService.Close(AndroidWindowView.DebugDrawView);
             }
         });
     }
@@ -134,18 +148,14 @@ public partial class AndriodHomeViewModel : ObservableObject
         File.Delete(dbPath);
     }
 
-    [RelayCommand]
-    public async Task ToggleProjectionService()
+    async partial void OnIsProjectionServiceEnabledChanged(bool value)
     {
-        if (IsAppearing) return;
-
-        IsProjectionServiceEnabled = !IsProjectionServiceEnabled;
-        if (IsProjectionServiceEnabled)
+        if (value)
         {
             await _screenService.StartProjectionService();
             _screenService.Show(AndroidWindowView.ActionView);
             if (_macroManagerViewModel.InDebugMode) _screenService.Show(AndroidWindowView.DebugDrawView);
-            if (_macroManagerViewModel.ShowStatusPanel) _screenService.Show(AndroidWindowView.StatusPanelView);
+            if (ShowStatusPanel) _screenService.Show(AndroidWindowView.StatusPanelView);
         }
         else
         {
@@ -153,13 +163,9 @@ public partial class AndriodHomeViewModel : ObservableObject
         }
     }
 
-    [RelayCommand]
-    public void ToggleAccessibilityPermissions()
+    partial void OnIsAccessibilityEnabledChanged(bool value)
     {
-        if (IsAppearing) return;
-
-        IsAccessibilityEnabled = !IsAccessibilityEnabled;
-        if (IsAccessibilityEnabled)
+        if (value)
         {
             _accessibilityService.Start();
         }
@@ -169,13 +175,9 @@ public partial class AndriodHomeViewModel : ObservableObject
         }
     }
 
-    [RelayCommand]
-    public void ToggleShowMacroOverlay()
+    partial void OnShowMacroOverlayChanged(bool value)
     {
-        if (IsAppearing) return;
-
-        ShowMacroOverlay = !ShowMacroOverlay;
-        if (ShowMacroOverlay)
+        if (value)
         {
             _screenService.Show(AndroidWindowView.MacroOverlayView);
         }
@@ -186,12 +188,14 @@ public partial class AndriodHomeViewModel : ObservableObject
     }
 
     [RelayCommand]
-    public void ToggleShowPatternsNodeView()
+    public void CloseMacroOverlay()
     {
-        if (IsAppearing) return;
+        _screenService.Close(AndroidWindowView.MacroOverlayView);
+    }
 
-        ShowPatternsNodeView = !ShowPatternsNodeView;
-        if (ShowPatternsNodeView)
+    partial void OnShowPatternsNodeViewChanged(bool value)
+    {
+        if (value)
         {
             _screenService.Show(AndroidWindowView.PatternsNodeView);
         }
@@ -201,21 +205,27 @@ public partial class AndriodHomeViewModel : ObservableObject
         }
     }
 
-    [RelayCommand]
-    public void CloseMacroOverlay()
+    partial void OnShowStatusPanelChanged(bool value)
     {
-        _screenService.Close(AndroidWindowView.MacroOverlayView);
+        if (value)
+        {
+            _screenService.Show(AndroidWindowView.StatusPanelView);
+        }
+        else
+        {
+            _screenService.Close(AndroidWindowView.StatusPanelView);
+        }
     }
 
     [RelayCommand]
-    public async Task ToggleIsMacroReady()
+    public void ToggleIsMacroReady()
     {
         if (IsMacroReady)
         {
             IsMacroReady = false;
             if (IsProjectionServiceEnabled)
             {
-                await ToggleProjectionService();
+                OnIsProjectionServiceEnabledChanged(true);
             }
         }
         else
@@ -223,11 +233,11 @@ public partial class AndriodHomeViewModel : ObservableObject
             IsMacroReady = true;
             if (!IsProjectionServiceEnabled)
             {
-                await ToggleProjectionService();
+                IsProjectionServiceEnabled = true;
             }
             if (!IsAccessibilityEnabled)
             {
-                ToggleAccessibilityPermissions();
+                IsAccessibilityEnabled = true;
             }
         }
     }
@@ -236,12 +246,6 @@ public partial class AndriodHomeViewModel : ObservableObject
     public void ResetActionViewLocation()
     {
         _screenService.ResetActionViewLocation();
-    }
-
-    [RelayCommand]
-    public void ToggleShowTestView()
-    {
-        ShowTestView = !ShowTestView;
     }
 
     [RelayCommand]

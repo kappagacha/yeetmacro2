@@ -14,9 +14,7 @@
              x:Name="thisControl">
     <ContentView.Resources>
         <ResourceDictionary>
-            <mct:VariableMultiValueConverter 
-                x:Key="contentCondition"
-                ConditionType="All" />
+            <mct:VariableMultiValueConverter x:Key="allTrueMultiValueConverter" ConditionType="All" />
         </ResourceDictionary>
     </ContentView.Resources>
     <Grid>
@@ -24,7 +22,7 @@
         <v:DailyNodeView IsVisible="{Binding IsToggled, Source={Reference dailiesToggle}}" />
         <Grid ColumnDefinitions="*,3*">
             <Grid.IsVisible>
-                <MultiBinding Converter="{StaticResource contentCondition}">
+                <MultiBinding Converter="{StaticResource allTrueMultiValueConverter}">
                     <Binding Path="IsToggled" Source="{Reference settingsToggle}" Converter="{conv:InverseBoolConverter}" />
                     <Binding Path="IsToggled" Source="{Reference dailiesToggle}" Converter="{conv:InverseBoolConverter}" />
                 </MultiBinding>
@@ -92,14 +90,8 @@
                 <CheckBox IsChecked="{Binding PersistLogs}" />
                 <Label VerticalOptions="Center" Text="Persist Logs" />
             </HorizontalStackLayout>
-            <v:ImageView FontFamily="MaterialOutlined" Glyph="{x:Static mi:MaterialOutlined.Edit}" Color="Gray"
-                         Command="{Binding Scripts.ToggleShowScriptEditorCommand}">
-                <v:ImageView.Triggers>
-                    <DataTrigger TargetType="{x:Type v:ImageView}" Binding="{Binding Scripts.ShowScriptEditor}" Value="True">
-                        <Setter Property="Color" Value="{StaticResource Primary}" />
-                    </DataTrigger>
-                </v:ImageView.Triggers>
-            </v:ImageView>
+            <v:ToggleImageView IsToggled="{Binding Scripts.ShowScriptEditor}" ToggledColor="Green"
+                               FontFamily="MaterialOutlined" Glyph="{x:Static mi:MaterialOutlined.Edit}" />
         </HorizontalStackLayout>
         <HorizontalStackLayout HorizontalOptions="Start" VerticalOptions="End">
             <v:ToggleImageView x:Name="settingsToggle" FontFamily="MaterialOutlined" Glyph="{x:Static mi:MaterialRegular.Settings}" UntoggledColor="Gray" ToggledColor="{StaticResource Primary}" />

@@ -40,10 +40,4 @@ public partial class ScriptNodeManagerViewModel : NodeManagerViewModel<ScriptNod
             WeakReferenceMessenger.Default.Send(new PropertyChangedMessage<ScriptNode>(this, nameof(SelectedNode), null, SelectedNode), nameof(ScriptNodeManagerViewModel));
         }
     }
-
-    [RelayCommand]
-    public void ToggleShowScriptEditor()
-    {
-        ShowScriptEditor = !ShowScriptEditor;
-    }
 }

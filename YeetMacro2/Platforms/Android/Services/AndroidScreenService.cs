@@ -465,7 +465,6 @@ public class AndroidScreenService : IScreenService
                             _mediaProjectionService.Start();
                         }
                         Show(AndroidWindowView.MacroOverlayView);
-                        ServiceHelper.GetService<AndriodHomeViewModel>().ShowPatternsNodeView = true;
                     };
                     patternsNodeView.OnClose = () => { 
                         Close(AndroidWindowView.MacroOverlayView); 

@@ -111,15 +111,9 @@
                 Command="{Binding SaveCommand}" CommandParameter="{Binding SelectedMacroSet}" />
             </Grid>
             <HorizontalStackLayout Grid.ColumnSpan="2"  HorizontalOptions="End" VerticalOptions="Start" IsVisible="{Binding IsToggled, Source={Reference templateToggle}, Converter={conv:InverseBoolConverter}}">
-                <v:ImageView IsVisible="{Binding Dailies.SelectedNode, Converter={conv:NullToBoolConverter IsInverse=True}}"
-                FontFamily="MaterialOutlined" Glyph="{x:Static mi:MaterialOutlined.Edit}" Color="Gray"
-                Command="{Binding Dailies.ToggleShowJsonEditorCommand}">
-                    <v:ImageView.Triggers>
-                        <DataTrigger TargetType="{x:Type v:ImageView}" Binding="{Binding Dailies.ShowJsonEditor}" Value="True">
-                            <Setter Property="Color" Value="{StaticResource Primary}" />
-                        </DataTrigger>
-                    </v:ImageView.Triggers>
-                </v:ImageView>
+                <v:ToggleImageView IsVisible="{Binding Dailies.SelectedNode, Converter={conv:NullToBoolConverter IsInverse=True}}"
+                                   IsToggled="{Binding Dailies.ShowJsonEditor}" ToggledColor="Green"
+                                   FontFamily="MaterialOutlined" Glyph="{x:Static mi:MaterialOutlined.Edit}" />
             </HorizontalStackLayout>
             <HorizontalStackLayout Grid.ColumnSpan="2"  HorizontalOptions="Start" VerticalOptions="End">
                 <v:ToggleImageView x:Name="templateToggle" FontFamily="MaterialOutlined" Glyph="{x:Static mi:MaterialOutlined.Data_object}"

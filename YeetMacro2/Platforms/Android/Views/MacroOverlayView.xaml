@@ -13,41 +13,21 @@
     <Grid Padding="0,30,0,0">
         <VerticalStackLayout>
             <HorizontalStackLayout Spacing="5">
-                <v:ImageView FontFamily="MaterialOutlined" Glyph="{x:Static mi:MaterialOutlined.Branding_watermark}" Color="LightGray"
-                                                 Command="{Binding ToggleProjectionServiceCommand}">
-                    <v:ImageView.Triggers>
-                        <DataTrigger TargetType="{x:Type v:ImageView}" Binding="{Binding IsProjectionServiceEnabled}" Value="True">
-                            <Setter Property="Color" Value="Green" />
-                        </DataTrigger>
-                    </v:ImageView.Triggers>
-                </v:ImageView>
+                <v:ToggleImageView IsToggled="{Binding IsProjectionServiceEnabled}"
+                   FontFamily="MaterialOutlined" Glyph="{x:Static mi:MaterialOutlined.Branding_watermark}" 
+                   HorizontalOptions="Center" ToggledColor="Green" UntoggledColor="Red" />
                 <BoxView WidthRequest="1" Color="{StaticResource Primary}"/>
-                <v:ImageView FontFamily="MaterialOutlined" Glyph="{x:Static mi:MaterialOutlined.Touch_app}" Color="LightGray"
-                                                 Command="{Binding ToggleAccessibilityPermissionsCommand}">
-                    <v:ImageView.Triggers>
-                        <DataTrigger TargetType="{x:Type v:ImageView}" Binding="{Binding IsAccessibilityEnabled}" Value="True">
-                            <Setter Property="Color" Value="Green" />
-                        </DataTrigger>
-                    </v:ImageView.Triggers>
-                </v:ImageView>
+                <v:ToggleImageView IsToggled="{Binding IsAccessibilityEnabled}"
+                   FontFamily="MaterialOutlined" Glyph="{x:Static mi:MaterialOutlined.Touch_app}"
+                   HorizontalOptions="Center" ToggledColor="Green" UntoggledColor="Red" />
                 <BoxView WidthRequest="1" Color="{StaticResource Primary}"/>
-                <v:ImageView FontFamily="MaterialOutlined" Glyph="{x:Static mi:MaterialOutlined.Call_to_action}" Color="LightGray"
-                                                 Command="{Binding MacroManagerViewModel.ToggleShowStatusPanelCommand}">
-                    <v:ImageView.Triggers>
-                        <DataTrigger TargetType="{x:Type v:ImageView}" Binding="{Binding MacroManagerViewModel.ShowStatusPanel}" Value="True">
-                            <Setter Property="Color" Value="Green" />
-                        </DataTrigger>
-                    </v:ImageView.Triggers>
-                </v:ImageView>
+                <v:ToggleImageView IsToggled="{Binding ShowStatusPanel}"
+                               FontFamily="MaterialOutlined" Glyph="{x:Static mi:MaterialOutlined.Call_to_action}"
+                               HorizontalOptions="Center" ToggledColor="Green" UntoggledColor="LightGray" />
                 <BoxView WidthRequest="1" Color="{StaticResource Primary}"/>
-                <v:ImageView FontFamily="MaterialOutlined" Glyph="{x:Static mi:MaterialOutlined.Filter_center_focus}"  Color="LightGray"
-                                                 Command="{Binding MacroManagerViewModel.ToggleInDebugModeCommand}">
-                    <v:ImageView.Triggers>
-                        <DataTrigger TargetType="{x:Type v:ImageView}" Binding="{Binding MacroManagerViewModel.InDebugMode}" Value="True">
-                            <Setter Property="Color" Value="Green" />
-                        </DataTrigger>
-                    </v:ImageView.Triggers>
-                </v:ImageView>
+                <v:ToggleImageView IsToggled="{Binding MacroManagerViewModel.InDebugMode}"
+                   FontFamily="MaterialOutlined" Glyph="{x:Static mi:MaterialOutlined.Filter_center_focus}"
+                   HorizontalOptions="Center" ToggledColor="Green" UntoggledColor="LightGray" />
                 <BoxView WidthRequest="1" Color="{StaticResource Primary}"/>
                 <Label Text="Current Resolution: " />
                 <Label Text="{Binding CurrentResolution.Width}" TextColor="Red">
@@ -96,23 +76,13 @@
         </VerticalStackLayout>
         <VerticalStackLayout HorizontalOptions="End" VerticalOptions="Start">
             <HorizontalStackLayout>
-                <v:ImageView FontFamily="MaterialOutlined" Glyph="{x:Static mi:MaterialOutlined.Image_search}"  Color="LightGray"
-                    Command="{Binding ToggleShowPatternsNodeViewCommand}">
-                    <v:ImageView.Triggers>
-                        <DataTrigger TargetType="{x:Type v:ImageView}" Binding="{Binding ShowPatternsNodeView}" Value="True">
-                            <Setter Property="Color" Value="Green" />
-                        </DataTrigger>
-                    </v:ImageView.Triggers>
-                </v:ImageView>
+                <v:ToggleImageView IsToggled="{Binding ShowPatternsNodeView}"
+                                   FontFamily="MaterialOutlined" Glyph="{x:Static mi:MaterialOutlined.Image_search}"
+                                   HorizontalOptions="Center" ToggledColor="Green" UntoggledColor="LightGray" />
                 <BoxView WidthRequest="1" Color="{StaticResource Primary}"/>
-                <v:ImageView FontFamily="MaterialOutlined" Glyph="{x:Static mi:MaterialOutlined.Science}"  Color="LightGray"
-                     Command="{Binding ToggleShowTestViewCommand}">
-                    <v:ImageView.Triggers>
-                        <DataTrigger TargetType="{x:Type v:ImageView}" Binding="{Binding ShowTestView}" Value="True">
-                            <Setter Property="Color" Value="Green" />
-                        </DataTrigger>
-                    </v:ImageView.Triggers>
-                </v:ImageView>
+                <v:ToggleImageView IsToggled="{Binding ShowTestView}"
+                                   FontFamily="MaterialOutlined" Glyph="{x:Static mi:MaterialOutlined.Science}"
+                                   HorizontalOptions="Center" ToggledColor="Green" UntoggledColor="LightGray" />
                 <BoxView WidthRequest="1" Color="{StaticResource Primary}"/>
                 <v:ImageView FontFamily="FASolid" Glyph="{x:Static fa:Solid.x}" Color="Red"
                                      Command="{Binding CloseMacroOverlayCommand}" />

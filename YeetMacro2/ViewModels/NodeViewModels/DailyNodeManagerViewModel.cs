@@ -123,12 +123,6 @@ public partial class DailyNodeManagerViewModel : NodeManagerViewModel<DailyNodeV
         SaveDaily(new object[] { dailyViewModel, dailyViewModel.JsonViewModel });
     }
 
-    [RelayCommand]
-    public void ToggleShowJsonEditor()
-    {
-        ShowJsonEditor = !ShowJsonEditor;
-    }
-
     protected override Task AddNode()
     {
         var newNode = new DailyNodeViewModel()

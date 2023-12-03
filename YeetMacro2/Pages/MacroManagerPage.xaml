@@ -128,14 +128,8 @@
                                 <Editor x:Name="exportEditor" Text="{Binding ExportValue}" />
                             </Grid>
                             <HorizontalStackLayout Grid.Column="1" HorizontalOptions="End" VerticalOptions="Start">
-                                <v:ImageView FontFamily="MaterialOutlined" Glyph="{x:Static mi:MaterialOutlined.Edit}" Color="Gray"
-                                    Command="{Binding ToggleShowMacroSetDescriptionEditorCommand}">
-                                    <v:ImageView.Triggers>
-                                        <DataTrigger TargetType="{x:Type v:ImageView}" Binding="{Binding ShowMacroSetDescriptionEditor}" Value="True">
-                                            <Setter Property="Color" Value="{StaticResource Primary}" />
-                                        </DataTrigger>
-                                    </v:ImageView.Triggers>
-                                </v:ImageView>
+                                <v:ToggleImageView IsToggled="{Binding ShowMacroSetDescriptionEditor}" ToggledColor="Green"
+                                                   FontFamily="MaterialOutlined" Glyph="{x:Static mi:MaterialOutlined.Edit}" />
                                 <v:ImageView FontFamily="MaterialOutlined" Glyph="{x:Static mi:MaterialOutlined.Select_all}"
                                              IsVisible="{Binding ShowExport}">
                                     <v:ImageView.GestureRecognizers>

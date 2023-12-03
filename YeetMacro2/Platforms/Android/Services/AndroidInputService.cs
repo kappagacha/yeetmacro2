@@ -27,7 +27,7 @@ public class AndroidInputService : IInputService
         var formsView = (FormsView)_screenService.Views[AndroidWindowView.UserDrawView];
         if (await formsView.WaitForClose())
         {
-            if (patternsViewIsShowing) _screenService.Views[AndroidWindowView.PatternsNodeView].Show();
+            if (patternsViewIsShowing) ServiceHelper.GetService<AndriodHomeViewModel>().ShowPatternsNodeView = true;
             if (macroOverlayViewIsShowing) _screenService.Views[AndroidWindowView.MacroOverlayView].Show();
             if (scriptsViewIsShowing) _screenService.Views[AndroidWindowView.ScriptsNodeView].Show();
 
