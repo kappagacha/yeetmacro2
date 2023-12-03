@@ -3,7 +3,7 @@
 const loopPatterns = [patterns.lobby.message, patterns.titles.adventure, patterns.titles.arena];
 const daily = dailyManager.GetDaily();
 while (macroService.IsRunning) {
-	const loopResult = macroService.PollPattern(loopPatterns);
+	const loopResult = macroService.PollPattern(loopPatterns, { ClickPattern: patterns.arena.defendReport.close });
 	switch (loopResult.Path) {
 		case 'lobby.message':
 			logger.info('doArena: click adventure tab');
