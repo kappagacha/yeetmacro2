@@ -246,10 +246,14 @@
                                         <Setter Property="FontFamily" Value="FASolid" />
                                         <Setter Property="Glyph" Value="{x:Static fa:Solid.n}" />
                                     </DataTrigger>
+                                    <DataTrigger TargetType="{x:Type v:ImageView}" Binding="{Binding SettingType}" Value="{x:Static m:SettingType.Boolean}">
+                                        <Setter Property="FontFamily" Value="FASolid" />
+                                        <Setter Property="Glyph" Value="{x:Static fa:Solid.s}" />
+                                    </DataTrigger>
                                 </v:ImageView.Triggers>
                             </v:ImageView>
                             <v:BindingContextView Grid.Column="1" TargetParent="{Reference thisView}" />
-                            <ImageButton Grid.ColumnSpan="2" Margin="0" Padding="0" CommandParameter="{Binding .}" Command="{Binding NodeManager.SelectNodeCommand, Source={RelativeSource AncestorType={x:Type v:NodeView}}}" />
+                            <ImageButton Margin="0" Padding="0" CommandParameter="{Binding .}" Command="{Binding NodeManager.SelectNodeCommand, Source={RelativeSource AncestorType={x:Type v:NodeView}}}" />
                         </Grid>
                     </DataTemplate>
                 </v:NodeView.ItemTemplate>

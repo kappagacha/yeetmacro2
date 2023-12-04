@@ -108,7 +108,8 @@
                 </HorizontalStackLayout>
             </VerticalStackLayout>
         </Grid>
-        <VerticalStackLayout VerticalOptions="End" HorizontalOptions="End">
+        <VerticalStackLayout BackgroundColor="{AppThemeBinding Light={StaticResource Background}, Dark={StaticResource BackgroundDark}}" Opacity="0.8"
+                             VerticalOptions="End" HorizontalOptions="End">
             <HorizontalStackLayout Spacing="5" VerticalOptions="End" HorizontalOptions="End">
                 <v:ImageView FontFamily="MaterialOutlined" Glyph="{x:Static mi:MaterialOutlined.Rectangle}" Color="{StaticResource Primary}" />
                 <Label Text="{Binding Pattern.Rect, Source={Reference thisView}}" />

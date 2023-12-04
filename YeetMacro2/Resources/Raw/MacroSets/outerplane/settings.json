@@ -1,1 +1,31 @@
-{}
+{
+  "doArena": {
+    "$isParent": true,
+    "props": {
+      "settingType": "Parent",
+      "isParentNode": true,
+      "name": "doArena",
+      "path": "doArena"
+    },
+    "teamSlot": {
+      "$isParent": false,
+      "props": {
+        "$type": "option",
+        "settingType": "Option",
+        "options": [
+          "1",
+          "2",
+          "3",
+          "4",
+          "5",
+          "7",
+          "Current"
+        ],
+        "value": "Current",
+        "isParentNode": false,
+        "name": "teamSlot",
+        "path": "doArena.teamSlot"
+      }
+    }
+  }
+}

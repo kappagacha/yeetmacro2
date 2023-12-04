@@ -39,7 +39,7 @@ public partial class SettingNodeManagerViewModel : NodeManagerViewModel<ParentSe
             if (Root is null) await this.WaitForInitialization();
             if (propertyChangedMessage.PropertyName != nameof(ScriptNodeManagerViewModel.SelectedNode) || propertyChangedMessage.NewValue is null) return;
 
-            var targetName = propertyChangedMessage.NewValue.Name.Replace("do", "");
+            var targetName = propertyChangedMessage.NewValue.Name;
             var targetNode = Root.Nodes.FirstOrDefault(sn => sn.Name.ToLower() == targetName.ToLower()) as ParentSetting;
             CurrentSubViewModel = targetNode ?? _emptyParentSetting;
         });
