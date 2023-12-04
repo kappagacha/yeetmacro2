@@ -88,8 +88,6 @@ public class MediaProjectionService : IRecorderService
         _mediaProjectionManager = (MediaProjectionManager)_context.GetSystemService(Context.MediaProjectionService);
         _startCompleted.SetResult(true);
         _isInitialized = true;
-
-        WeakReferenceMessenger.Default.Send(new PropertyChangedMessage<bool>(this, nameof(Init), false, true), nameof(MediaProjectionService));
         Toast.MakeText(_context, "Media projection initialized...", ToastLength.Short).Show();
     }
 
@@ -126,7 +124,6 @@ public class MediaProjectionService : IRecorderService
 
     public void Stop()
     {
-        //DeviceDisplay.MainDisplayInfoChanged -= DeviceDisplay_MainDisplayInfoChanged;
         if (_imageReader != null)
         {
             _imageReader.Close();

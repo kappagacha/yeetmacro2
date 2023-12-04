@@ -15,11 +15,13 @@
             <HorizontalStackLayout Spacing="5">
                 <v:ToggleImageView IsToggled="{Binding IsProjectionServiceEnabled}"
                    FontFamily="MaterialOutlined" Glyph="{x:Static mi:MaterialOutlined.Branding_watermark}" 
-                   HorizontalOptions="Center" ToggledColor="Green" UntoggledColor="Red" />
+                   HorizontalOptions="Center" ToggledColor="Green" UntoggledColor="Red"
+                   Command="{Binding ToggleIsProjectionServiceEnabledCommand}" />
                 <BoxView WidthRequest="1" Color="{StaticResource Primary}"/>
                 <v:ToggleImageView IsToggled="{Binding IsAccessibilityEnabled}"
                    FontFamily="MaterialOutlined" Glyph="{x:Static mi:MaterialOutlined.Touch_app}"
-                   HorizontalOptions="Center" ToggledColor="Green" UntoggledColor="Red" />
+                   HorizontalOptions="Center" ToggledColor="Green" UntoggledColor="Red"
+                   Command="{Binding ToggleIsAccessibilityEnabledCommand}" />
                 <BoxView WidthRequest="1" Color="{StaticResource Primary}"/>
                 <v:ToggleImageView IsToggled="{Binding ShowStatusPanel}"
                                FontFamily="MaterialOutlined" Glyph="{x:Static mi:MaterialOutlined.Call_to_action}"

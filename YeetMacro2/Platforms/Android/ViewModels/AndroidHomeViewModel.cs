@@ -88,24 +88,19 @@ public partial class AndriodHomeViewModel : ObservableObject
         {
             if (IsAppearing) return;
 
-            if (!propertyChangedMessage.NewValue)
-            {
-                IsProjectionServiceEnabled = IsMacroReady = ShowStatusPanel = false;
-                _macroManagerViewModel.InDebugMode = false;
-            }
-        });
-
-        WeakReferenceMessenger.Default.Register<PropertyChangedMessage<bool>, string>(this, nameof(MediaProjectionService), (r, propertyChangedMessage) =>
-        {
-            if (IsAppearing) return;
-
-            IsProjectionServiceEnabled = propertyChangedMessage.NewValue;
             if (propertyChangedMessage.NewValue)
             {
+                IsProjectionServiceEnabled = true;
                 _screenService.Show(AndroidWindowView.ActionView);
                 if (_macroManagerViewModel.InDebugMode) _screenService.Show(AndroidWindowView.DebugDrawView);
                 if (ShowStatusPanel) _screenService.Show(AndroidWindowView.StatusPanelView);
             }
+            else
+            {
+                IsProjectionServiceEnabled = IsMacroReady = ShowStatusPanel = false;
+                _macroManagerViewModel.InDebugMode = false;
+            }
+            
         });
 
         WeakReferenceMessenger.Default.Register<PropertyChangedMessage<bool>, string>(this, nameof(MacroManagerViewModel), (r, propertyChangedMessage) =>
@@ -148,14 +143,12 @@ public partial class AndriodHomeViewModel : ObservableObject
         File.Delete(dbPath);
     }
 
-    async partial void OnIsProjectionServiceEnabledChanged(bool value)
+    [RelayCommand]
+    private async Task ToggleIsProjectionServiceEnabled()
     {
-        if (value)
+        if (!IsProjectionServiceEnabled)
         {
             await _screenService.StartProjectionService();
-            _screenService.Show(AndroidWindowView.ActionView);
-            if (_macroManagerViewModel.InDebugMode) _screenService.Show(AndroidWindowView.DebugDrawView);
-            if (ShowStatusPanel) _screenService.Show(AndroidWindowView.StatusPanelView);
         }
         else
         {
@@ -163,9 +156,10 @@ public partial class AndriodHomeViewModel : ObservableObject
         }
     }
 
-    partial void OnIsAccessibilityEnabledChanged(bool value)
+    [RelayCommand]
+    private void ToggleIsAccessibilityEnabled()
     {
-        if (value)
+        if (!IsAccessibilityEnabled)
         {
             _accessibilityService.Start();
         }
@@ -218,28 +212,28 @@ public partial class AndriodHomeViewModel : ObservableObject
     }
 
     [RelayCommand]
-    public void ToggleIsMacroReady()
+    public async Task ToggleIsMacroReady()
     {
         if (IsMacroReady)
         {
-            IsMacroReady = false;
             if (IsProjectionServiceEnabled)
             {
-                OnIsProjectionServiceEnabledChanged(true);
+                await ToggleIsProjectionServiceEnabled();
             }
         }
         else
         {
-            IsMacroReady = true;
             if (!IsProjectionServiceEnabled)
             {
-                IsProjectionServiceEnabled = true;
+                await ToggleIsProjectionServiceEnabled();
             }
             if (!IsAccessibilityEnabled)
             {
-                IsAccessibilityEnabled = true;
+                ToggleIsAccessibilityEnabled();
             }
         }
+
+        IsMacroReady = !IsMacroReady;
     }
 
     [RelayCommand]

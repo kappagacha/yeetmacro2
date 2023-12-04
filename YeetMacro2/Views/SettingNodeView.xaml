@@ -194,7 +194,7 @@
         </DataTemplate>
         <DataTemplate x:Key="PatternSettingTemplate">
             <VerticalStackLayout>
-                <Label Text="{Binding Name}" />
+                <Label Text="{Binding Name}" VerticalOptions="Center" />
             </VerticalStackLayout>
         </DataTemplate>
     </ContentView.Resources>
@@ -217,6 +217,12 @@
                             <Grid.Triggers>
                                 <DataTrigger TargetType="{x:Type Grid}" Binding="{Binding IsSelected}" Value="True">
                                     <Setter Property="Background" Value="Blue" />
+                                </DataTrigger>
+                                <DataTrigger TargetType="{x:Type Grid}" Binding="{Binding SettingType}" Value="{x:Static m:SettingType.Parent}">
+                                    <Setter Property="HeightRequest" Value="{StaticResource IconHeight}" />
+                                </DataTrigger>
+                                <DataTrigger TargetType="{x:Type Grid}" Binding="{Binding SettingType}" Value="{x:Static m:SettingType.Pattern}">
+                                    <Setter Property="HeightRequest" Value="{StaticResource IconHeight}" />
                                 </DataTrigger>
                             </Grid.Triggers>
                             <v:ImageView x:Name="imageView" Grid.Column="0" ImageWidth="20" ImageHeight="20">
@@ -243,7 +249,7 @@
                                 </v:ImageView.Triggers>
                             </v:ImageView>
                             <v:BindingContextView Grid.Column="1" TargetParent="{Reference thisView}" />
-                            <ImageButton HeightRequest="{Binding Height, Source={Reference imageView}}" Margin="0" Padding="0" CommandParameter="{Binding .}" Command="{Binding NodeManager.SelectNodeCommand, Source={RelativeSource AncestorType={x:Type v:NodeView}}}" />
+                            <ImageButton Grid.ColumnSpan="2" Margin="0" Padding="0" CommandParameter="{Binding .}" Command="{Binding NodeManager.SelectNodeCommand, Source={RelativeSource AncestorType={x:Type v:NodeView}}}" />
                         </Grid>
                     </DataTemplate>
                 </v:NodeView.ItemTemplate>
