@@ -172,6 +172,6 @@ public partial class DailyNodeManagerViewModel : NodeManagerViewModel<DailyNodeV
     {
         if (string.IsNullOrWhiteSpace(MacroSet.DailyTemplate)) return new JsonObject();
 
-        return GetJsonFromTemplate();
+        return (JsonObject)JsonObject.Parse(MacroSet.DailyTemplate);
     }
 }
