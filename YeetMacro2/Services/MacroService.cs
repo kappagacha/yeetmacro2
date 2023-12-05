@@ -6,7 +6,6 @@ using System.Text.Json.Serialization;
 using YeetMacro2.Data.Models;
 using YeetMacro2.ViewModels.NodeViewModels;
 using YeetMacro2.ViewModels;
-using System.Text.Json.Nodes;
 
 namespace YeetMacro2.Services;
 
@@ -24,6 +23,15 @@ public class PollPatternFindOptions : FindOptions
     public double PredicateThreshold { get; set; } = 0.0;
     public bool DoClick { get; set; }
     public double TimoutMs { get; set; } = 0.0;
+}
+
+public class SwipePollPatternFindOptions : FindOptions
+{
+    public int PollTimoutMs { get; set; } = 2_000;
+    public int SwipeDelayMs { get; set; } = 5_00;
+    public int MaxSwipes { get; set; } = 5;
+    public Point Start { get; set; }
+    public Point End { get; set; }
 }
 
 public class MacroService
@@ -85,7 +93,6 @@ public class MacroService
         if (opts is null) opts = new FindOptions();
 
         FindPatternResult result = null;
-
         PatternNode[] patternNodes;
 
         if (oneOfPattern.IsT1)
@@ -224,7 +231,7 @@ public class MacroService
     {
         if (opts is null) opts = new PollPatternFindOptions();
 
-        FindPatternResult result = new FindPatternResult() { IsSuccess = false };
+        var result = new FindPatternResult() { IsSuccess = false };
         var intervalDelayMs = opts.IntervalDelayMs;
         var predicatePattern = opts.PredicatePattern;
         var clickPattern = opts.ClickPattern;
@@ -233,7 +240,7 @@ public class MacroService
         var clickOffsetY = opts.Offset.Y;
         var hasTimeout = opts.TimoutMs > 0;
         var timeout = hasTimeout ? DateTime.Now.AddMilliseconds(opts.TimoutMs) : DateTime.MaxValue;
-        
+
         if (inversePredicatePattern is not null)
         {
             var inversePredicateChecks = opts.InversePredicateChecks;
@@ -326,6 +333,21 @@ public class MacroService
             }
         }
 
+        return result;
+    }
+
+    public FindPatternResult SwipePollPattern(OneOf<PatternNode, PatternNode[]> oneOfPattern, SwipePollPatternFindOptions opts)
+    {
+        var pollOpts = new PollPatternFindOptions() { TimoutMs = opts.PollTimoutMs };
+        var swipeCount = 0;
+        var result = PollPattern(oneOfPattern, pollOpts);
+        while (IsRunning && !result.IsSuccess && swipeCount < opts.MaxSwipes)
+        {
+            DoSwipe(opts.Start, opts.End);
+            Sleep(opts.SwipeDelayMs);
+            result = PollPattern(oneOfPattern, pollOpts);
+            swipeCount++;
+        }
         return result;
     }
 

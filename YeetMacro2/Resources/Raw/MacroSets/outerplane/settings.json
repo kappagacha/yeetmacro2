@@ -13,15 +13,15 @@
         "$type": "option",
         "settingType": "Option",
         "options": [
+          "Current",
           "1",
           "2",
           "3",
           "4",
           "5",
-          "7",
-          "Current"
+          "7"
         ],
-        "value": "Current",
+        "value": "1",
         "isParentNode": false,
         "name": "teamSlot",
         "path": "doArena.teamSlot"

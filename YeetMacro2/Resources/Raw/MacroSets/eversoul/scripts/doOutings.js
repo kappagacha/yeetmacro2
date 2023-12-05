@@ -38,7 +38,6 @@ while (macroService.IsRunning) {
 				result = macroService.PollPattern(targetSoul, { TimoutMs: 2_000 });
 				swipeCount++;
 			}
-
 			if (!result.IsSuccess) {
 				return 'Unable to find target soul';
 			} 

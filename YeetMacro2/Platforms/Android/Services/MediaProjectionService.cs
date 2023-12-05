@@ -31,7 +31,6 @@ public class MediaProjectionService : IRecorderService
     public const int REQUEST_MEDIA_PROJECTION = 1;
     TaskCompletionSource<bool> _startCompleted;
     bool _isRecording, _isInitialized;
-    public bool Enabled { get => _virtualDisplay != null; }
 
     public MediaProjectionService()
     {
@@ -88,6 +87,8 @@ public class MediaProjectionService : IRecorderService
         _mediaProjectionManager = (MediaProjectionManager)_context.GetSystemService(Context.MediaProjectionService);
         _startCompleted.SetResult(true);
         _isInitialized = true;
+        // ForegroundService can start before Media projection approval so we send this message to invoke showing ActionView
+        WeakReferenceMessenger.Default.Send(new PropertyChangedMessage<bool>(this, nameof(ForegroundService.OnStartCommand), false, true), nameof(ForegroundService));
         Toast.MakeText(_context, "Media projection initialized...", ToastLength.Short).Show();
     }
 

@@ -179,6 +179,12 @@ public class JsToDotNetConverter : DefaultTypeConverter
             converted = opts;
             return true;
         }
+        else if (type == typeof(SwipePollPatternFindOptions))
+        {
+            var opts = JsonSerializer.Deserialize<SwipePollPatternFindOptions>(JsonSerializer.Serialize(value));
+            converted = opts;
+            return true;
+        }
         else if (type == typeof(Point))
         {
             converted = JsonSerializer.Deserialize<Point>(JsonSerializer.Serialize(value));
