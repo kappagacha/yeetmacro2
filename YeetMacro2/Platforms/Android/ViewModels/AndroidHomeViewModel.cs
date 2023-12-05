@@ -233,7 +233,7 @@ public partial class AndriodHomeViewModel : ObservableObject
             }
         }
 
-        IsMacroReady = !IsMacroReady;
+        IsMacroReady = IsProjectionServiceEnabled && IsAccessibilityEnabled;
     }
 
     [RelayCommand]

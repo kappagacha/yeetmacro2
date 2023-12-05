@@ -8,11 +8,11 @@
   "supportsGreaterHeight": false,
   "package": "com.smilegate.outerplane.stove.google",
   "source": "online:outerplane",
-  "macroSetLastUpdated": "2023-12-04T20:41:09.2825845-06:00",
-  "patternsLastUpdated": "2023-12-04T20:41:09.2825994-06:00",
-  "scriptsLastUpdated": "2023-12-04T20:41:09.2826031-06:00",
-  "settingsLastUpdated": "2023-12-04T20:41:09.2826066-06:00",
+  "macroSetLastUpdated": "2023-12-04T22:32:47.962435-06:00",
+  "patternsLastUpdated": "2023-12-04T22:32:47.9627634-06:00",
+  "scriptsLastUpdated": "2023-12-04T22:32:47.9629113-06:00",
+  "settingsLastUpdated": "2023-12-04T22:32:47.9630406-06:00",
   "description": null,
-  "dailyTemplate": "{\n  \u0022watchAds\u0022: {\n    \u0022count\u0022: 0\n  },\n  \u0022doArena\u0022: {\n    \u0022count\u0022: 0\n  },\n  \u0022claimFreeShop\u0022: {\n    \u0022done\u0022: false\n  },\n  \u0022claimFreeRecruit\u0022: {\n    \u0022done\u0022: false\n  }\n}",
+  "dailyTemplate": "{\n  \u0022watchAds\u0022: {\n    \u0022count\u0022: 0\n  },\n  \u0022doArena\u0022: {\n    \u0022count\u0022: 0\n  },\n  \u0022claimFreeShop\u0022: {\n    \u0022done\u0022: false\n  },\n  \u0022claimFreeRecruit\u0022: {\n    \u0022done\u0022: false\n  },\n  \u0022doSpecialRequests\u0022: {\n    \u0022ecologyStudy\u0022: {\n      \u0022done\u0022: false,\n      \u0022masterlessGuardian\u0022: false,\n      \u0022tyrantToddler\u0022: false,\n      \u0022unidentifiedChimera\u0022: false,\n      \u0022sacreedGuardian\u0022: false,\n      \u0022grandClamari\u0022: false\n    },\n    \u0022identification\u0022: {\n      \u0022done\u0022: false,\n      \u0022dekRilAndMekRil\u0022: false,\n      \u0022glicys\u0022: false,\n      \u0022blazingKnightMeteos\u0022: false,\n      \u0022arsNova\u0022: false,\n      \u0022amadeus\u0022: false\n    }\n  }\n}",
   "dailyResetUtcHour": 0
 }

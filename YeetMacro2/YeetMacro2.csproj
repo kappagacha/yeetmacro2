@@ -327,6 +327,12 @@
     <MauiAsset Update="Resources\Raw\MacroSets\outerplane\scripts\claimFreeShop.js">
       <LogicalName>%(RecursiveDir)%(Filename)%(Extension)</LogicalName>
     </MauiAsset>
+    <MauiAsset Update="Resources\Raw\MacroSets\outerplane\scripts\selectTeam.js">
+      <LogicalName>%(RecursiveDir)%(Filename)%(Extension)</LogicalName>
+    </MauiAsset>
+    <MauiAsset Update="Resources\Raw\MacroSets\outerplane\scripts\doSpecialRequests.js">
+      <LogicalName>%(RecursiveDir)%(Filename)%(Extension)</LogicalName>
+    </MauiAsset>
     <MauiAsset Update="Resources\Raw\MacroSets\outerplane\scripts\doArena.js">
       <LogicalName>%(RecursiveDir)%(Filename)%(Extension)</LogicalName>
     </MauiAsset>

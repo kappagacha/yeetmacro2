@@ -101,6 +101,7 @@ public class ResizeView : RelativeLayout, IOnTouchListener, IShowable
 
         androidView.Clickable = true;
         Clickable = true;
+        InitDisplay(_screenService.CalcResolution);
     }
 
     private void InitDisplay(Size size)
@@ -138,7 +139,6 @@ public class ResizeView : RelativeLayout, IOnTouchListener, IShowable
     {
         if (_state != FormState.SHOWING)
         {
-            InitDisplay(_screenService.CalcResolution);
             _windowManager.AddView(this, _layoutParams);
             _closeCompleted = new TaskCompletionSource<bool>();
             OnShow?.Invoke();
