@@ -71,6 +71,7 @@ public partial class DailyNodeManagerViewModel : NodeManagerViewModel<DailyNodeV
     [RelayCommand]
     public void SaveDaily(object[] values)
     {
+        if (values[2] is null) return;  // Control binding is not complete
         if (values[0] is DailyNodeViewModel daily)
         {
             try
@@ -108,7 +109,7 @@ public partial class DailyNodeManagerViewModel : NodeManagerViewModel<DailyNodeV
         }
 
         var dailyViewModel = (DailyNodeViewModel)SelectedNode;
-        SaveDaily(new object[] { dailyViewModel, dailyViewModel.JsonViewModel });
+        SaveDaily(new object[] { dailyViewModel, dailyViewModel.JsonViewModel, 1 });
     }
 
     [RelayCommand]
@@ -120,7 +121,7 @@ public partial class DailyNodeManagerViewModel : NodeManagerViewModel<DailyNodeV
         }
 
         var dailyViewModel = (DailyNodeViewModel)SelectedNode;
-        SaveDaily(new object[] { dailyViewModel, dailyViewModel.JsonViewModel });
+        SaveDaily(new object[] { dailyViewModel, dailyViewModel.JsonViewModel, 1 });
     }
 
     protected override Task AddNode()
@@ -152,9 +153,12 @@ public partial class DailyNodeManagerViewModel : NodeManagerViewModel<DailyNodeV
 
     public void UpdateDaily(JsonObject dailyJson, int offset = 0)
     {
-        var targetDate = ResolveTargetDate(offset);
-        var daily = Root.Nodes.First(dn => dn.Date == targetDate);
-        SaveDaily(new object[] { (DailyNodeViewModel)daily, dailyJson.ToJsonString() });
+        Task.Run(() =>
+        {
+            var targetDate = ResolveTargetDate(offset);
+            var daily = Root.Nodes.First(dn => dn.Date == targetDate);
+            SaveDaily(new object[] { (DailyNodeViewModel)daily, dailyJson.ToJsonString(), 1 });
+        });
     }
 
     private DateOnly ResolveTargetDate(int offset)

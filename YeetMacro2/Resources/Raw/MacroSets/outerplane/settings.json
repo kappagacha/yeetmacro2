@@ -27,5 +27,35 @@
         "path": "doArena.teamSlot"
       }
     }
+  },
+  "doSpecialRequests": {
+    "$isParent": true,
+    "props": {
+      "settingType": "Parent",
+      "isParentNode": true,
+      "name": "doSpecialRequests",
+      "path": "doSpecialRequests"
+    },
+    "teamSlot": {
+      "$isParent": false,
+      "props": {
+        "$type": "option",
+        "settingType": "Option",
+        "options": [
+          "Current",
+          "1",
+          "2",
+          "3",
+          "4",
+          "5",
+          "6",
+          "7"
+        ],
+        "value": "2",
+        "isParentNode": false,
+        "name": "teamSlot",
+        "path": "doSpecialRequests.teamSlot"
+      }
+    }
   }
 }

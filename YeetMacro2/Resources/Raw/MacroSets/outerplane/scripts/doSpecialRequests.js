@@ -1,5 +1,5 @@
 // Skip all special requests once
-const loopPatterns = [patterns.lobby.message, patterns.titles.adventure, patterns.titles.challenge];
+const loopPatterns = [patterns.titles.adventure, patterns.titles.challenge, patterns.lobby.message];
 const daily = dailyManager.GetDaily();
 
 while (macroService.IsRunning) {
@@ -16,45 +16,88 @@ while (macroService.IsRunning) {
 			sleep(500);
 			break;
 		case 'titles.challenge':
-			if (!doSpecialRequests.ecologyStudy.done) {
+			if (!daily.doSpecialRequests.ecologyStudy.done) {
 				doEcologyStudy();
 			}
-			if (!doSpecialRequests.identification.done) {
+			if (!daily.doSpecialRequests.identification.done) {
 				doIdentification();
 			}
-			//const numArenaTickets = macroService.GetText(patterns.arena.numTickets);
-			//if (numArenaTickets.trim() === '0') {
-			//	return;
-			//}
-			//const memorialMatchNotificationResult = macroService.PollPattern(patterns.arena.memorialMatch.notification, { TimoutMs: 1_500 });
-			//if (memorialMatchNotificationResult.IsSuccess) {
-			//	macroService.PollPattern(patterns.arena.memorialMatch.notification, { DoClick: true, PredicatePattern: patterns.arena.memorialMatch.selected });
-			//	macroService.PollPattern(patterns.arena.challenge1, { DoClick: true, PredicatePattern: patterns.arena.enter });
-			//	selectTeam(settings.doArena.teamSlot.Value);
-			//	macroService.PollPattern(patterns.arena.enter, { DoClick: true, PredicatePattern: patterns.arena.auto.disabled });
-			//	macroService.PollPattern(patterns.arena.auto.disabled, { DoClick: true, PredicatePattern: patterns.arena.matchResult });
-			//	daily.doArena.count++;
-			//	dailyManager.UpdateDaily(daily);
-			//	macroService.PollPattern(patterns.prompt.ok, { DoClick: true, PredicatePattern: patterns.titles.arena });
-			//} else {
-			//	macroService.PollPattern(patterns.arena.matchOpponent, { DoClick: true, PredicatePattern: patterns.arena.matchOpponent.selected });
-			//	macroService.PollPattern(patterns.arena.challenge3, { DoClick: true, PredicatePattern: patterns.arena.enter });
-			//	selectTeam(settings.doArena.teamSlot.Value);
-			//	macroService.PollPattern(patterns.arena.enter, { DoClick: true, PredicatePattern: patterns.arena.auto.disabled });
-			//	macroService.PollPattern(patterns.arena.auto.disabled, { DoClick: true, PredicatePattern: patterns.arena.matchResult });
-			//	daily.doArena.count++;
-			//	dailyManager.UpdateDaily(daily);
-			//	macroService.PollPattern(patterns.prompt.ok, { DoClick: true, PredicatePattern: patterns.titles.arena });
-			//}
-			//break;
+
+			if (macroService.IsRunning) {
+				daily.doSpecialRequests.done = true;
+				dailyManager.UpdateDaily(daily);
+			}
+			return;
 	}
 	sleep(1_000);
 }
 
 function doEcologyStudy() {
+	logger.info('doSpecialRequests: doEcologyStudy');
 	macroService.PollPattern(patterns.challenge.ecologyStudy, { DoClick: true, PredicatePattern: patterns.titles.ecologyStudy });
+	const ecologyStudyTypes = ['masterlessGuardian', 'tyrantToddler', 'unidentifiedChimera', 'sacreedGuardian', 'grandCalamari'];
+	for (const ecologyStudy of ecologyStudyTypes) {
+		logger.info(`doSpecialRequests: ${ecologyStudy}`);
+		if (!daily.doSpecialRequests.ecologyStudy[ecologyStudy]) {
+			macroService.PollPattern(patterns.challenge.ecologyStudy[ecologyStudy].stars, { DoClick: true, PredicatePattern: patterns.challenge.ecologyStudy[ecologyStudy] });
+			macroService.PollPattern(patterns.challenge.enter, { DoClick: true, PredicatePattern: patterns.challenge.threeStars });
+			clickBottomThreeStars();
+			macroService.PollPattern(patterns.challenge.teamsSetup, { DoClick: true, PredicatePattern: patterns.battle.enter });
+			selectTeam(settings.doSpecialRequests.teamSlot.Value);
+
+			macroService.PollPattern(patterns.battle.setup.auto, { DoClick: true, PredicatePattern: patterns.battle.setup.repeatBattle });
+			macroService.PollPattern(patterns.battle.setup.repeatBattle.minSlider, { DoClick: true, PredicatePattern: patterns.battle.setup.repeatBattle.value1 });
+			macroService.PollPattern(patterns.battle.setup.repeatBattle.sweep, { DoClick: true, PredicatePattern: patterns.battle.setup.repeatBattle.sweep.ok });
+			macroService.PollPattern(patterns.battle.setup.repeatBattle.sweep.ok, { DoClick: true, ClickPattern: patterns.general.back, PredicatePattern: patterns.challenge.ecologyStudy[ecologyStudy].stars });
+
+			if (macroService.IsRunning) {
+				daily.doSpecialRequests.ecologyStudy[ecologyStudy] = true;
+				dailyManager.UpdateDaily(daily);
+			}
+		}
+	}
+	if (macroService.IsRunning) {
+		daily.doSpecialRequests.ecologyStudy.done = true;
+		dailyManager.UpdateDaily(daily);
+	}
 }
 
 function doIdentification() {
+	logger.info('doSpecialRequests: doIdentification');
+	macroService.PollPattern(patterns.challenge.identification, { DoClick: true, PredicatePattern: patterns.titles.identification });
+	const identificationTypes = ['dekRilAndMekRil', 'glicys', 'blazingKnightMeteos', 'arsNova', 'amadeus'];
+	for (const identification of identificationTypes) {
+		logger.info(`doSpecialRequests: ${identification}`);
+		if (!daily.doSpecialRequests.identification[identification]) {
+			macroService.PollPattern(patterns.challenge.identification[identification].stars, { DoClick: true, PredicatePattern: patterns.challenge.identification[identification] });
+			macroService.PollPattern(patterns.challenge.enter, { DoClick: true, PredicatePattern: patterns.challenge.threeStars });
+			clickBottomThreeStars();
+			macroService.PollPattern(patterns.challenge.teamsSetup, { DoClick: true, PredicatePattern: patterns.battle.enter });
+			selectTeam(settings.doSpecialRequests.teamSlot.Value);
 
+			macroService.PollPattern(patterns.battle.setup.auto, { DoClick: true, PredicatePattern: patterns.battle.setup.repeatBattle });
+			macroService.PollPattern(patterns.battle.setup.repeatBattle.minSlider, { DoClick: true, PredicatePattern: patterns.battle.setup.repeatBattle.value1 });
+			macroService.PollPattern(patterns.battle.setup.repeatBattle.sweep, { DoClick: true, PredicatePattern: patterns.battle.setup.repeatBattle.sweep.ok });
+			macroService.PollPattern(patterns.battle.setup.repeatBattle.sweep.ok, { DoClick: true, ClickPattern: patterns.general.back, PredicatePattern: patterns.challenge.identification[identification].stars });
+
+			if (macroService.IsRunning) {
+				daily.doSpecialRequests.identification[identification] = true;
+				dailyManager.UpdateDaily(daily);
+			}
+		}
+	}
+	if (macroService.IsRunning) {
+		daily.doSpecialRequests.ecologyStudy.done = true;
+		dailyManager.UpdateDaily(daily);
+	}
+}
+
+function clickBottomThreeStars() {
+	if (!macroService.IsRunning) return;
+
+	const threeStarsResult = macroService.FindPattern(patterns.challenge.threeStars, { Limit: 10 });
+	const maxY = threeStarsResult.Points.Max(p => p.Y);
+	const bottomThreeStars = macroService.ClonePattern(patterns.challenge.threeStars, { CenterY: maxY, Height: 60.0 });
+	const threeStarsSelected = macroService.ClonePattern(patterns.challenge.threeStars.selected, { CenterY: maxY });
+	macroService.PollPattern(bottomThreeStars, { DoClick: true, PredicatePattern: threeStarsSelected });
 }

@@ -27,8 +27,11 @@ while (macroService.IsRunning) {
 			macroService.PollPattern(patterns.recruit.normal, { DoClick: true, PredicatePattern: patterns.recruit.normal.ticket });
 			macroService.PollPattern(patterns.recruit.normal.free, { DoClick: true, PredicatePattern: patterns.recruit.prompt.ok });
 			macroService.PollPattern(patterns.recruit.prompt.ok, { DoClick: true, ClickPattern: patterns.recruit.skip, PredicatePattern: patterns.titles.recruit });
-			daily.claimFreeRecruit.done = true;
-			dailyManager.UpdateDaily(daily);
+
+			if (macroService.IsRunning) {
+				daily.claimFreeRecruit.done = true;
+				dailyManager.UpdateDaily(daily);
+			}
 			return;
 	}
 	sleep(1_000);

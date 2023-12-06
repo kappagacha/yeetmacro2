@@ -31,29 +31,22 @@ while (macroService.IsRunning) {
 			if (!swipeResult.IsSuccess) {
 				throw new Error('Unable to find resource shop');
 			}
-			const selectedResourcePattern = macroService.ClonePattern(patterns.shop.resource.selected);
-			selectedResourcePattern.Path = `selectedResourceTab_${swipeResult.Y}`;
-			for (const pattern of selectedResourcePattern.Patterns) {
-				pattern.Rect = {
-					X: pattern.Rect.X,
-					Y: swipeResult.Point.Y - pattern.Rect.Height / 2.0 - 10.0,
-					Width: pattern.Rect.Width,
-					Height: pattern.Rect.Height + 20
-				};
-				pattern.OffsetCalcType = "None";
-			}
+			const selectedResourcePattern = macroService.ClonePattern(patterns.shop.resource.selected, { CenterY: swipeResult.Point.Y, Padding: 10 });
 			macroService.PollPattern(patterns.shop.resource, { DoClick: true, PredicatePattern: selectedResourcePattern });
 
 			let resourceFreeResult = macroService.FindPattern(patterns.shop.resource.free);
 			while (resourceFreeResult.IsSuccess) {
 				macroService.PollPattern(patterns.shop.resource.free, { DoClick: true, PredicatePattern: patterns.shop.resource.free.confirm });
 				macroService.PollPattern(patterns.shop.resource.free.confirm, { DoClick: true, PredicatePattern: patterns.shop.purchaseComplete });
-				macroService.PollPattern(patterns.shop.purchaseComplete, { DoClick: true, PredicatePattern: patterns.prompt.tapEmptySpace });
+				macroService.PollPattern(patterns.shop.purchaseComplete, { DoClick: true, ClickPattern: patterns.prompt.tapEmptySpace, PredicatePattern: patterns.titles.shop });
 				sleep(500);
 				resourceFreeResult = macroService.FindPattern(patterns.shop.resource.free);
 			}
-			daily.claimFreeShop.done = true;
-			dailyManager.UpdateDaily(daily);
+
+			if (macroService.IsRunning) {
+				daily.claimFreeShop.done = true;
+				dailyManager.UpdateDaily(daily);
+			}
 			return;
 	}
 	sleep(1_000);

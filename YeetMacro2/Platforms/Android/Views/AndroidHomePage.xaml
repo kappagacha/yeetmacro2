@@ -37,7 +37,7 @@
                                Command="{Binding ToggleIsAccessibilityEnabledCommand}" />
             <v:ToggleImageView IsToggled="{Binding IsIgnoringBatteryOptimizations}"
                                FontFamily="MaterialOutlined" Glyph="{x:Static mi:MaterialOutlined.Battery_saver}"
-                               HorizontalOptions="Center" Text="Disable Battery Optimization" ToggledColor="Green" UntoggledColor="Red" 
+                               HorizontalOptions="Center" Text="Disable Battery Optimization" ToggledColor="Green" UntoggledColor="LightGray" 
                                Command="{Binding RequestIgnoreBatteryOptimizationsCommand}" />
             <v:ToggleImageView IsToggled="{Binding ShowMacroOverlay}"
                                FontFamily="MaterialOutlined" Glyph="{x:Static mi:MaterialOutlined.Credit_card}"

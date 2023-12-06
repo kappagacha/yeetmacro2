@@ -43,6 +43,7 @@ public class ScriptService: IScriptService
         _engine = new Engine(options => options
             .SetTypeConverter(e => new JsToDotNetConverter(e))
             .AddObjectConverter(new DotNetToJsConverter())
+            .AddExtensionMethods(typeof(System.Linq.Enumerable))
         );
         _engine.SetValue("sleep", new Action<int>((ms) => Sleep(ms)));
         dynamic engineLogger = new ExpandoObject();
@@ -182,6 +183,18 @@ public class JsToDotNetConverter : DefaultTypeConverter
         else if (type == typeof(SwipePollPatternFindOptions))
         {
             var opts = JsonSerializer.Deserialize<SwipePollPatternFindOptions>(JsonSerializer.Serialize(value));
+            converted = opts;
+            return true;
+        }
+        else if (type == typeof(FindOptions))
+        {
+            var opts = JsonSerializer.Deserialize<FindOptions>(JsonSerializer.Serialize(value));
+            converted = opts;
+            return true;
+        }
+        else if (type == typeof(CloneOptions))
+        {
+            var opts = JsonSerializer.Deserialize<CloneOptions>(JsonSerializer.Serialize(value));
             converted = opts;
             return true;
         }

@@ -96,6 +96,7 @@ public abstract partial class DailyJsonElementViewModel : ObservableObject
 {
     [ObservableProperty]
     string _key;
+
     public abstract string JsonString
     {
         get;

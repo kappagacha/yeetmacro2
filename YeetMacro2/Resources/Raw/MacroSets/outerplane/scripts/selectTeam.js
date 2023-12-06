@@ -3,20 +3,10 @@ function selectTeam(target) {
 	if (!target || target === 'Current' || target < 1) return;
 
 	const spacing = 90;
-	const targetTeamSlot = macroService.ClonePattern(patterns.battle.teamSlot);
-	targetTeamSlot.Path = 'battles.teamSlot' + target;
-	for (const pattern of targetTeamSlot.Patterns) {
-		pattern.Rect = { X: pattern.Rect.X, Y: pattern.Rect.Y + (spacing * (target - 1)), Width: pattern.Rect.Width, Height: pattern.Rect.Height };
-		pattern.OffsetCalcType = "None";
-		pattern.IsBoundsPattern = true;
-	}
-
-	const targetTeamSlotSelected = macroService.ClonePattern(patterns.battle.teamSlot.selected);
-	targetTeamSlotSelected.Path = 'battles.teamSlot.selected' + target;
-	for (const pattern of targetTeamSlotSelected.Patterns) {
-		pattern.Rect = { X: pattern.Rect.X, Y: pattern.Rect.Y + (spacing * (target - 1)), Width: pattern.Rect.Width, Height: pattern.Rect.Height };
-		pattern.OffsetCalcType = "None";
-	}
+	const teamSlotStartY = patterns.battle.teamSlot.Pattern.Rect.Center.Y;
+	const targetTeamSlot = macroService.ClonePattern(patterns.battle.teamSlot, { CenterY: teamSlotStartY + (spacing * (target - 1)) });
+	const selectedTeamSlotStartY = patterns.battle.teamSlot.selected.Pattern.Rect.Center.Y;
+	const targetTeamSlotSelected = macroService.ClonePattern(patterns.battle.teamSlot.selected, { CenterY: selectedTeamSlotStartY + (spacing * (target - 1)) });
 
 	macroService.pollPattern(targetTeamSlot, { DoClick: true, PredicatePattern: targetTeamSlotSelected });
 }

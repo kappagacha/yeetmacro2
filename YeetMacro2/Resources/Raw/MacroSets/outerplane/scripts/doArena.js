@@ -27,8 +27,10 @@ while (macroService.IsRunning) {
 				selectTeam(settings.doArena.teamSlot.Value);
 				macroService.PollPattern(patterns.arena.enter, { DoClick: true, PredicatePattern: patterns.arena.auto.disabled });
 				macroService.PollPattern(patterns.arena.auto.disabled, { DoClick: true, PredicatePattern: patterns.arena.matchResult });
-				daily.doArena.count++;
-				dailyManager.UpdateDaily(daily);
+				if (macroService.IsRunning) {
+					daily.doArena.count++;
+					dailyManager.UpdateDaily(daily);
+				}
 				macroService.PollPattern(patterns.prompt.ok, { DoClick: true, PredicatePattern: patterns.titles.arena });
 			} else {
 				macroService.PollPattern(patterns.arena.matchOpponent, { DoClick: true, PredicatePattern: patterns.arena.matchOpponent.selected });
@@ -36,8 +38,10 @@ while (macroService.IsRunning) {
 				selectTeam(settings.doArena.teamSlot.Value);
 				macroService.PollPattern(patterns.arena.enter, { DoClick: true, PredicatePattern: patterns.arena.auto.disabled });
 				macroService.PollPattern(patterns.arena.auto.disabled, { DoClick: true, PredicatePattern: patterns.arena.matchResult });
-				daily.doArena.count++;
-				dailyManager.UpdateDaily(daily);
+				if (macroService.IsRunning) {
+					daily.doArena.count++;
+					dailyManager.UpdateDaily(daily);
+				}
 				macroService.PollPattern(patterns.prompt.ok, { DoClick: true, PredicatePattern: patterns.titles.arena });
 			}
 			break;

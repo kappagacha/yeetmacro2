@@ -34,6 +34,15 @@ public class SwipePollPatternFindOptions : FindOptions
     public Point End { get; set; }
 }
 
+public class CloneOptions
+{
+    public double CenterX { get; set; }
+    public double CenterY { get; set; }
+    public double Width { get; set; }
+    public double Height { get; set; }
+    public double Padding { get; set; }
+}
+
 public class MacroService
 {
     ILogger _logger;
@@ -83,9 +92,25 @@ public class MacroService
         return _pathToOffset[patternNode.Path];
     }
 
-    public PatternNode ClonePattern(PatternNode patternNode)
+    public PatternNode ClonePattern(PatternNode patternNode, CloneOptions opts)
     {
-        return PatternNodeManagerViewModel.CloneNode(patternNode);
+        var clone =  PatternNodeManagerViewModel.CloneNode(patternNode);
+        foreach (var pattern in clone.Patterns)
+        {
+            var rect = pattern.Rect;
+            var size = new Size(
+                (opts.Width == 0 ? rect.Width : opts.Width) + opts.Padding,
+                (opts.Height == 0 ? rect.Height : opts.Height) + opts.Padding
+            );
+            var location = new Point(
+                (opts.CenterX == 0 ? rect.Center.X : opts.CenterX) - (size.Width / 2.0),
+                (opts.CenterY == 0 ? rect.Center.Y : opts.CenterY) - (size.Height / 2.0)
+            );
+
+            pattern.Rect = new Rect(location, size);
+        }
+        
+        return clone;
     }
 
     public FindPatternResult FindPattern(OneOf<PatternNode, PatternNode[]> oneOfPattern, FindOptions opts = null)
@@ -130,11 +155,15 @@ public class MacroService
                 {
                     var points = new List<Point>();
                     var multiResult = new FindPatternResult();
-
                     var offset = CalcOffset(patternNode);
+
                     foreach (var pattern in patternNode.Patterns)
                     {
-                        var optsWithOffset = new FindOptions() { Offset = opts.Offset.Offset(offset.X, offset.Y) };
+                        var optsWithOffset = new FindOptions() {
+                            Limit = opts.Limit,
+                            VariancePct = opts.VariancePct,
+                            Offset = opts.Offset.Offset(offset.X, offset.Y) 
+                        };
 
                         if (InDebugMode && pattern.Rect != Rect.Zero)
                         {
@@ -163,7 +192,11 @@ public class MacroService
                 {
                     var pattern = patternNode.Patterns.First();
                     var offset = CalcOffset(patternNode);
-                    var optsWithOffset = new FindOptions() { Offset = opts.Offset.Offset(offset.X, offset.Y) };
+                    var optsWithOffset = new FindOptions() {
+                        Limit = opts.Limit,
+                        VariancePct = opts.VariancePct,
+                        Offset = opts.Offset.Offset(offset.X, offset.Y) 
+                    };
 
                     if (InDebugMode && pattern.Rect != Rect.Zero)
                     {

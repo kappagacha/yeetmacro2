@@ -31,6 +31,7 @@
                                 <MultiBinding Converter="{conv:PassThroughConverter}">
                                     <Binding Path="BindingContext.Dailies.SelectedNode" Source="{x:Reference thisView}" />
                                     <Binding Path="BindingContext.Dailies.SelectedNode.JsonViewModel" Source="{x:Reference thisView}" />
+                                    <Binding Path="." />
                                 </MultiBinding>
                             </mct:EventToCommandBehavior.CommandParameter>
                         </mct:EventToCommandBehavior>
@@ -66,15 +67,17 @@
     </ContentView.Resources>
     <Grid>
         <Grid IsVisible="{Binding IsSubView, Source={Reference thisView}}">
-            <material:TreeView
+            <ScrollView>
+                <material:TreeView
                     x:DataType="{x:Null}" ItemsSource="{Binding Dailies.CurrentSubViewModel.Children}"
                     Spacing="0" HorizontalOptions="Fill"  VerticalOptions="Fill">
-                <material:TreeView.ItemTemplate>
-                    <DataTemplate>
-                        <v:BindingContextView TargetParent="{Reference thisView}" />
-                    </DataTemplate>
-                </material:TreeView.ItemTemplate>
-            </material:TreeView>
+                    <material:TreeView.ItemTemplate>
+                        <DataTemplate>
+                            <v:BindingContextView TargetParent="{Reference thisView}" />
+                        </DataTemplate>
+                    </material:TreeView.ItemTemplate>
+                </material:TreeView>
+            </ScrollView>
         </Grid>
         <Grid ColumnDefinitions="*,3*" IsVisible="{Binding IsSubView, Converter={conv:InverseBoolConverter}, Source={Reference thisView}}">
             <v:NodeView Grid.Column="0" NodeManager="{Binding Dailies}" />
@@ -82,15 +85,17 @@
                 <DatePicker IsVisible="{Binding Dailies.SelectedNode, Converter={conv:NullToBoolConverter IsInverse=True}}" 
                         Date="{Binding Dailies.SelectedNode.Date, Converter={conv:DateOnlyConverter}}" />
                 <Grid>
-                    <material:TreeView IsVisible="{Binding Dailies.ShowJsonEditor, Converter={conv:InverseBoolConverter}}"
-                        x:DataType="{x:Null}" ItemsSource="{Binding Dailies.SelectedNode.JsonViewModel.Root.Children}"
-                        Spacing="0" HorizontalOptions="Fill"  VerticalOptions="Fill">
-                        <material:TreeView.ItemTemplate>
-                            <DataTemplate>
-                                <v:BindingContextView TargetParent="{Reference thisView}" />
-                            </DataTemplate>
-                        </material:TreeView.ItemTemplate>
-                    </material:TreeView>
+                    <ScrollView>
+                        <material:TreeView IsVisible="{Binding Dailies.ShowJsonEditor, Converter={conv:InverseBoolConverter}}"
+                            x:DataType="{x:Null}" ItemsSource="{Binding Dailies.SelectedNode.JsonViewModel.Root.Children}"
+                            Spacing="0" HorizontalOptions="Fill"  VerticalOptions="Fill">
+                            <material:TreeView.ItemTemplate>
+                                <DataTemplate>
+                                    <v:BindingContextView TargetParent="{Reference thisView}" />
+                                </DataTemplate>
+                            </material:TreeView.ItemTemplate>
+                        </material:TreeView>
+                    </ScrollView>
                     <Grid IsVisible="{Binding Dailies.ShowJsonEditor}">
                         <Editor x:Name="dataEditor" Text="{Binding Dailies.SelectedNode.DataText}" AutoSize="TextChanges" />
                         <v:ImageView HorizontalOptions="End" VerticalOptions="End" FontFamily="MaterialOutlined" Glyph="{x:Static mi:MaterialOutlined.Save}" Color="{StaticResource Primary}" 
