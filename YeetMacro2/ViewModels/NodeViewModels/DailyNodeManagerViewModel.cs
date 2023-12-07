@@ -41,6 +41,10 @@ public partial class DailyNodeManagerViewModel : NodeManagerViewModel<DailyNodeV
             _targetSubViewName = propertyChangedMessage.NewValue.Name;
             ResolveCurrentSubViewModel();
         });
+
+        WeakReferenceMessenger.Default.Register<DailyNodeViewModel>(this, (r, dailyNode) => {
+            SaveDaily(dailyNode);
+        });
     }
 
     protected override void CustomInit()
@@ -65,33 +69,19 @@ public partial class DailyNodeManagerViewModel : NodeManagerViewModel<DailyNodeV
         }
         SelectedNode = existingDaily;
         var targetJsonViewModel = ((DailyNodeViewModel)existingDaily).JsonViewModel;
-        CurrentSubViewModel = (DailyJsonParentViewModel)targetJsonViewModel.Root.Children.FirstOrDefault(c => c.Key == _targetSubViewName);
+        CurrentSubViewModel = (DailyJsonParentViewModel)targetJsonViewModel.Children.FirstOrDefault(c => c.Key == _targetSubViewName);
     }
 
     [RelayCommand]
     public void SaveDaily(object[] values)
     {
-        if (values[2] is null) return;  // Control binding is not complete
-        if (values[0] is DailyNodeViewModel daily)
+        if (values[0] is DailyNodeViewModel daily && values[1] is string stringValue)
         {
             try
             {
-                var jsonString = string.Empty;
-                if (values[1] is string stringValue)
-                {
-                    jsonString = stringValue;
-                    daily.Data = (JsonObject)JsonObject.Parse(jsonString);
-                    daily.JsonViewModel = new DailyJsonViewModel(daily.Data);
-                }
-                else if (values[1] is DailyJsonViewModel jsonViewModel)
-                {
-                    daily.Data = (JsonObject)JsonObject.Parse(jsonViewModel.Root.JsonString);
-                }
-
-                _dailyRespository.Update(daily);
-                _dailyRespository.Save();
-
+                daily.Data = (JsonObject)JsonObject.Parse(stringValue);
                 ResolveCurrentSubViewModel();
+                SaveDaily(daily);
             }
             catch (Exception ex)
             {
@@ -100,28 +90,22 @@ public partial class DailyNodeManagerViewModel : NodeManagerViewModel<DailyNodeV
         }
     }
 
-    [RelayCommand]
-    public void Increment(object dailyValue)
+    public void SaveDaily(DailyNodeViewModel daily)
     {
-        if (dailyValue is DailyJsonCountViewModel dailyJsonCount)
-        {
-            dailyJsonCount.Count++;
-        }
-
-        var dailyViewModel = (DailyNodeViewModel)SelectedNode;
-        SaveDaily(new object[] { dailyViewModel, dailyViewModel.JsonViewModel, 1 });
+        _dailyRespository.Update(daily);
+        _dailyRespository.Save();
     }
 
     [RelayCommand]
-    public void Decrement(object dailyValue)
+    public void Increment(DailyJsonCountViewModel dailyJsonCount)
     {
-        if (dailyValue is DailyJsonCountViewModel dailyJsonCount)
-        {
-            dailyJsonCount.Count--;
-        }
+        dailyJsonCount.Count++;
+    }
 
-        var dailyViewModel = (DailyNodeViewModel)SelectedNode;
-        SaveDaily(new object[] { dailyViewModel, dailyViewModel.JsonViewModel, 1 });
+    [RelayCommand]
+    public void Decrement(DailyJsonCountViewModel dailyJsonCount)
+    {
+        dailyJsonCount.Count--;
     }
 
     protected override Task AddNode()
@@ -135,11 +119,11 @@ public partial class DailyNodeManagerViewModel : NodeManagerViewModel<DailyNodeV
         return Task.CompletedTask;
     }
 
-    public JsonObject GetDaily(int offset = 0)
+    public DailyJsonParentViewModel GetDaily(int offset = 0)
     {
         var targetDate = ResolveTargetDate(offset);
         var existingDaily = Root.Nodes.FirstOrDefault(dn => dn.Date == targetDate);
-        if (existingDaily is not null) return existingDaily.Data;
+        if (existingDaily is not null) return ((DailyNodeViewModel)existingDaily).JsonViewModel;
 
         var newDaily = new DailyNodeViewModel()
         {
@@ -148,17 +132,7 @@ public partial class DailyNodeManagerViewModel : NodeManagerViewModel<DailyNodeV
         };
         this.AddNode(newDaily);
 
-        return newDaily.Data;
-    }
-
-    public void UpdateDaily(JsonObject dailyJson, int offset = 0)
-    {
-        Task.Run(() =>
-        {
-            var targetDate = ResolveTargetDate(offset);
-            var daily = Root.Nodes.First(dn => dn.Date == targetDate);
-            SaveDaily(new object[] { (DailyNodeViewModel)daily, dailyJson.ToJsonString(), 1 });
-        });
+        return newDaily.JsonViewModel;
     }
 
     private DateOnly ResolveTargetDate(int offset)

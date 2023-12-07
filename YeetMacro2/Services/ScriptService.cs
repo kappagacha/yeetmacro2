@@ -232,8 +232,8 @@ public class DotNetToJsConverter : Jint.Runtime.Interop.IObjectConverter
 {
     public bool TryConvert(Engine engine, object value, out JsValue result)
     {
-        // for some reasone SettingViewModels aren't getting wrapped automatically
-        if (value is SettingNode)
+        // for some reason some viewModels aren't getting wrapped automatically
+        if (value is SettingNode || value is DailyJsonElementViewModel)
         {
             result = new ObjectWrapper(engine, value);
             return true;

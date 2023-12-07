@@ -22,21 +22,7 @@
         <DataTemplate x:Key="DailyJsonBooleanTemplate">
             <HorizontalStackLayout Spacing="4">
                 <Label Text="{Binding Key}" VerticalOptions="Center" />
-                <CheckBox IsChecked="{Binding IsChecked}" VerticalOptions="Center">
-                    <CheckBox.Behaviors>
-                        <mct:EventToCommandBehavior
-                            EventName="CheckedChanged"
-                            Command="{Binding BindingContext.Dailies.SaveDailyCommand, Source={x:Reference thisView}}">
-                            <mct:EventToCommandBehavior.CommandParameter>
-                                <MultiBinding Converter="{conv:PassThroughConverter}">
-                                    <Binding Path="BindingContext.Dailies.SelectedNode" Source="{x:Reference thisView}" />
-                                    <Binding Path="BindingContext.Dailies.SelectedNode.JsonViewModel" Source="{x:Reference thisView}" />
-                                    <Binding Path="." />
-                                </MultiBinding>
-                            </mct:EventToCommandBehavior.CommandParameter>
-                        </mct:EventToCommandBehavior>
-                    </CheckBox.Behaviors>
-                </CheckBox>
+                <CheckBox IsChecked="{Binding IsChecked}" VerticalOptions="Center" />
             </HorizontalStackLayout>
         </DataTemplate>
         <DataTemplate x:Key="DailyJsonCountTemplate">
@@ -87,7 +73,7 @@
                 <Grid>
                     <ScrollView>
                         <material:TreeView IsVisible="{Binding Dailies.ShowJsonEditor, Converter={conv:InverseBoolConverter}}"
-                            x:DataType="{x:Null}" ItemsSource="{Binding Dailies.SelectedNode.JsonViewModel.Root.Children}"
+                            x:DataType="{x:Null}" ItemsSource="{Binding Dailies.SelectedNode.JsonViewModel.Children}"
                             Spacing="0" HorizontalOptions="Fill"  VerticalOptions="Fill">
                             <material:TreeView.ItemTemplate>
                                 <DataTemplate>

@@ -1,6 +1,7 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
+using CommunityToolkit.Mvvm.Messaging.Messages;
+using CommunityToolkit.Mvvm.Messaging;
 using System.Collections.ObjectModel;
-using System.Text;
 using System.Text.Json;
 using System.Text.Json.Nodes;
 using YeetMacro2.Data.Models;
@@ -11,7 +12,7 @@ namespace YeetMacro2.ViewModels.NodeViewModels;
 public partial class DailyNodeViewModel: DailyNode
 {
     [ObservableProperty]
-    DailyJsonViewModel _jsonViewModel;
+    DailyJsonParentViewModel _jsonViewModel;
     public bool IsLeaf => true;
     public override ICollection<DailyNode> Nodes
     {
@@ -74,9 +75,9 @@ public partial class DailyNodeViewModel: DailyNode
             OnPropertyChanged();
             OnPropertyChanged(nameof(DataText));
 
-            if (Data is not null && JsonViewModel is null)
+            if (Data is not null)
             {
-                JsonViewModel = new DailyJsonViewModel(Data);
+                JsonViewModel = DailyJsonParentViewModel.Load(Data, this);
             }
         }
     }
@@ -94,38 +95,22 @@ public partial class DailyNodeViewModel: DailyNode
 
 public abstract partial class DailyJsonElementViewModel : ObservableObject
 {
+    public DailyNodeViewModel Node { get; set; }
+    public JsonObject Parent { get; set; }
     [ObservableProperty]
     string _key;
-
-    public abstract string JsonString
-    {
-        get;
-    }
 }
 
 public partial class DailyJsonParentViewModel : DailyJsonElementViewModel
 {
     [ObservableProperty]
     ObservableCollection<DailyJsonElementViewModel> _children = new ObservableCollection<DailyJsonElementViewModel>();
+    Dictionary<string, DailyJsonElementViewModel> _dict = new Dictionary<string, DailyJsonElementViewModel>();
+
     public bool IsLeaf => false;
     public bool IsExpanded => true;
-    public override string JsonString 
-    {  
-        get 
-        {
-            var sb = new StringBuilder();
-            sb.Append("{");
-            foreach (var child in Children)
-            {
-                sb.Append($"\"{child.Key}\": {child.JsonString},");
-            }
-            sb.Length--;        //remove final comma
-            sb.Append("}");
-            return sb.ToString();
-        } 
-    }
 
-    public static DailyJsonParentViewModel Load(JsonObject jsonObject)
+    public static DailyJsonParentViewModel Load(JsonObject jsonObject, DailyNodeViewModel node)
     {
         var parent = new DailyJsonParentViewModel();
 
@@ -136,29 +121,54 @@ public partial class DailyJsonParentViewModel : DailyJsonElementViewModel
             {
                 case JsonValueKind.Object:
                     var childObject = (JsonObject)item.Value;
-                    var subParent = Load(childObject);
+                    var subParent = Load(childObject, node);
                     subParent.Key = item.Key;
+                    subParent.Parent = jsonObject;
+                    subParent.Node = node;
                     parent.Children.Add(subParent);
                     break;
                 case JsonValueKind.Number:
-                    parent.Children.Add(new DailyJsonCountViewModel() { 
-                        Count = (int)item.Value.GetValue<double>(), 
-                        Key = item.Key
-                    });
+                    var count = new DailyJsonCountViewModel()
+                    {
+                        Count = (int)item.Value.GetValue<double>(),
+                        Parent = jsonObject,
+                        Key = item.Key,
+                        Node = node
+                    };
+                    parent.Children.Add(count);
                     break;
                 case JsonValueKind.True:
                 case JsonValueKind.False:
-                    parent.Children.Add(new DailyJsonBooleanViewModel()
+                    var boolean = new DailyJsonBooleanViewModel()
                     {
                         IsChecked = item.Value.GetValue<bool>(),
-                        Key = item.Key
-                    });
+                        Parent = jsonObject,
+                        Key = item.Key,
+                        Node = node
+                    };
+                    parent.Children.Add(boolean);
                     break;
             }
 
         }
 
         return parent;
+    }
+
+    public DailyJsonElementViewModel this[string key]
+    {
+        get
+        {
+            // Note: cache does not automatically invalidate
+            if (!_dict.ContainsKey(key))
+            {
+                var child = Children.FirstOrDefault(n => n.Key == key);
+                if (child is null) throw new ArgumentException($"Invalid key: {key}");
+                _dict.Add(key, child);
+            }
+
+            return _dict[key];
+        }
     }
 }
 
@@ -168,7 +178,13 @@ public partial class DailyJsonBooleanViewModel: DailyJsonElementViewModel
     [ObservableProperty]
     bool _isChecked;
 
-    public override string JsonString => IsChecked.ToString().ToLower();
+    partial void OnIsCheckedChanged(bool oldValue, bool newValue)
+    {
+        if (Parent is null || Key is null) return;
+
+        Parent[Key] = newValue;
+        WeakReferenceMessenger.Default.Send(Node);
+    }
 }
 
 public partial class DailyJsonCountViewModel : DailyJsonElementViewModel
@@ -177,16 +193,11 @@ public partial class DailyJsonCountViewModel : DailyJsonElementViewModel
     [ObservableProperty]
     int _count;
 
-    public override string JsonString => Count.ToString();
-}
-
-public partial class DailyJsonViewModel: ObservableObject
-{
-    [ObservableProperty]
-    DailyJsonParentViewModel _root;
-
-    public DailyJsonViewModel(JsonObject jsonObject)
+    partial void OnCountChanged(int value)
     {
-        Root = DailyJsonParentViewModel.Load(jsonObject);
+        if (Parent is null || Key is null) return;
+
+        Parent[Key] = value;
+        WeakReferenceMessenger.Default.Send(Node);
     }
 }

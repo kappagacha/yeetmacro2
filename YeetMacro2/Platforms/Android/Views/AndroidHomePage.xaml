@@ -89,6 +89,7 @@
                             </DataTrigger.Binding>
                             <Setter Property="Color" Value="Red" />
                             <Setter Property="Glyph" Value="{x:Static mi:MaterialOutlined.Stop_circle}" />
+                            <Setter Property="Text" Value="Stop" />
                         </DataTrigger>
                     </v:ToggleImageView.Triggers>
                 </v:ToggleImageView>
