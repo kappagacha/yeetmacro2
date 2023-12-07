@@ -1,14 +1,14 @@
 // Claim free shop items
-const loopPatterns = [patterns.lobby.message, patterns.titles.shop];
+const loopPatterns = [patterns.lobby.level, patterns.titles.shop];
 const daily = dailyManager.GetDaily();
-if (daily.claimFreeShop.done) {
+if (daily.claimFreeShop.done.IsChecked) {
 	return;
 }
 
 while (macroService.IsRunning) {
 	const loopResult = macroService.PollPattern(loopPatterns, { ClickPattern: patterns.arena.defendReport.close });
 	switch (loopResult.Path) {
-		case 'lobby.message':
+		case 'lobby.level':
 			logger.info('claimFreeShop: click shop tab');
 			const shopNotificationResult = macroService.PollPattern(patterns.tabs.shop.notification, { TimoutMs: 1_000 });
 			if (shopNotificationResult.IsSuccess) {
@@ -44,8 +44,7 @@ while (macroService.IsRunning) {
 			}
 
 			if (macroService.IsRunning) {
-				daily.claimFreeShop.done = true;
-				dailyManager.UpdateDaily(daily);
+				daily.claimFreeShop.done.IsChecked = true;
 			}
 			return;
 	}

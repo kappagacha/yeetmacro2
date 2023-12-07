@@ -1,14 +1,14 @@
 // Claim daily recruit
-const loopPatterns = [patterns.lobby.message, patterns.titles.recruit];
+const loopPatterns = [patterns.lobby.level, patterns.titles.recruit];
 const daily = dailyManager.GetDaily();
-if (daily.claimFreeRecruit.done) {
+if (daily.claimFreeRecruit.done.IsChecked) {
 	return;
 }
 
 while (macroService.IsRunning) {
 	const loopResult = macroService.PollPattern(loopPatterns, { ClickPattern: patterns.arena.defendReport.close });
 	switch (loopResult.Path) {
-		case 'lobby.message':
+		case 'lobby.level':
 			logger.info('claimFreeRecruit: click recruit tab');
 			const recruitshopNotificationResult = macroService.PollPattern(patterns.tabs.recruit.notification, { TimoutMs: 1_000 });
 			if (recruitshopNotificationResult.IsSuccess) {
@@ -29,8 +29,7 @@ while (macroService.IsRunning) {
 			macroService.PollPattern(patterns.recruit.prompt.ok, { DoClick: true, ClickPattern: patterns.recruit.skip, PredicatePattern: patterns.titles.recruit });
 
 			if (macroService.IsRunning) {
-				daily.claimFreeRecruit.done = true;
-				dailyManager.UpdateDaily(daily);
+				daily.claimFreeRecruit.done.IsChecked = true;
 			}
 			return;
 	}

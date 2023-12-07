@@ -1,11 +1,11 @@
 // Skip all special requests once
-const loopPatterns = [patterns.titles.adventure, patterns.titles.challenge, patterns.lobby.message];
+const loopPatterns = [patterns.lobby.level, patterns.titles.adventure, patterns.titles.challenge];
 const daily = dailyManager.GetDaily();
 
 while (macroService.IsRunning) {
 	const loopResult = macroService.PollPattern(loopPatterns, { ClickPattern: patterns.arena.defendReport.close });
 	switch (loopResult.Path) {
-		case 'lobby.message':
+		case 'lobby.level':
 			logger.info('doSpecialRequests: click adventure tab');
 			macroService.ClickPattern(patterns.tabs.adventure);
 			sleep(500);
@@ -16,16 +16,17 @@ while (macroService.IsRunning) {
 			sleep(500);
 			break;
 		case 'titles.challenge':
-			if (!daily.doSpecialRequests.ecologyStudy.done) {
+			if (!daily.doSpecialRequests.ecologyStudy.done.IsChecked) {
 				doEcologyStudy();
+				macroService.PollPattern(patterns.general.back, { DoClick: true, PredicatePattern: patterns.titles.challenge });
 			}
-			if (!daily.doSpecialRequests.identification.done) {
+			
+			if (!daily.doSpecialRequests.identification.done.IsChecked) {
 				doIdentification();
 			}
 
 			if (macroService.IsRunning) {
-				daily.doSpecialRequests.done = true;
-				dailyManager.UpdateDaily(daily);
+				daily.doSpecialRequests.done.IsChecked = true;
 			}
 			return;
 	}
@@ -51,8 +52,7 @@ function doEcologyStudy() {
 			macroService.PollPattern(patterns.battle.setup.repeatBattle.sweep.ok, { DoClick: true, ClickPattern: patterns.general.back, PredicatePattern: patterns.challenge.ecologyStudy[ecologyStudy].stars });
 
 			if (macroService.IsRunning) {
-				daily.doSpecialRequests.ecologyStudy[ecologyStudy] = true;
-				dailyManager.UpdateDaily(daily);
+				daily.doSpecialRequests.ecologyStudy[ecologyStudy].IsChecked = true;
 			}
 		}
 	}
@@ -81,14 +81,12 @@ function doIdentification() {
 			macroService.PollPattern(patterns.battle.setup.repeatBattle.sweep.ok, { DoClick: true, ClickPattern: patterns.general.back, PredicatePattern: patterns.challenge.identification[identification].stars });
 
 			if (macroService.IsRunning) {
-				daily.doSpecialRequests.identification[identification] = true;
-				dailyManager.UpdateDaily(daily);
+				daily.doSpecialRequests.identification[identification].IsChecked = true;
 			}
 		}
 	}
 	if (macroService.IsRunning) {
-		daily.doSpecialRequests.ecologyStudy.done = true;
-		dailyManager.UpdateDaily(daily);
+		daily.doSpecialRequests.ecologyStudy.done.IsChecked = true;
 	}
 }
 

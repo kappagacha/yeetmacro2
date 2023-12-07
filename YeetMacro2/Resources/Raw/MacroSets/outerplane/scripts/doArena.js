@@ -1,11 +1,11 @@
 // Battle in arena until out of arena tickets
 // Will prioritize Memorial Match
-const loopPatterns = [patterns.lobby.message, patterns.titles.adventure, patterns.titles.arena];
+const loopPatterns = [patterns.lobby.level, patterns.titles.adventure, patterns.titles.arena];
 const daily = dailyManager.GetDaily();
 while (macroService.IsRunning) {
 	const loopResult = macroService.PollPattern(loopPatterns, { ClickPattern: patterns.arena.defendReport.close });
 	switch (loopResult.Path) {
-		case 'lobby.message':
+		case 'lobby.level':
 			logger.info('doArena: click adventure tab');
 			macroService.ClickPattern(patterns.tabs.adventure);
 			sleep(500);
@@ -28,8 +28,7 @@ while (macroService.IsRunning) {
 				macroService.PollPattern(patterns.arena.enter, { DoClick: true, PredicatePattern: patterns.arena.auto.disabled });
 				macroService.PollPattern(patterns.arena.auto.disabled, { DoClick: true, PredicatePattern: patterns.arena.matchResult });
 				if (macroService.IsRunning) {
-					daily.doArena.count++;
-					dailyManager.UpdateDaily(daily);
+					daily.doArena.count.Count++;
 				}
 				macroService.PollPattern(patterns.prompt.ok, { DoClick: true, PredicatePattern: patterns.titles.arena });
 			} else {
@@ -39,8 +38,7 @@ while (macroService.IsRunning) {
 				macroService.PollPattern(patterns.arena.enter, { DoClick: true, PredicatePattern: patterns.arena.auto.disabled });
 				macroService.PollPattern(patterns.arena.auto.disabled, { DoClick: true, PredicatePattern: patterns.arena.matchResult });
 				if (macroService.IsRunning) {
-					daily.doArena.count++;
-					dailyManager.UpdateDaily(daily);
+					daily.doArena.count.Count++;
 				}
 				macroService.PollPattern(patterns.prompt.ok, { DoClick: true, PredicatePattern: patterns.titles.arena });
 			}
