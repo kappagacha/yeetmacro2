@@ -1,4 +1,8 @@
 ﻿const loopPatterns = [patterns.lobby.everstone, patterns.titles.adventure, patterns.adventure.arena.freeChallenge, patterns.adventure.arena.startMatch, patterns.adventure.arena.ticket];
+const daily = dailyManager.GetDaily();
+if (daily.doArena.done.IsChecked) {
+	return;
+}
 while (macroService.IsRunning) {
 	const loopResult = macroService.PollPattern(loopPatterns);
 	switch (loopResult.Path) {
@@ -29,7 +33,7 @@ while (macroService.IsRunning) {
 			const matches = [Number(match1CP), Number(match2CP), Number(match3CP)];
 			const minIdx = matches.reduce((minIdx, val, idx, arr) => val < arr[minIdx] ? idx : minIdx, 0);
 			const minCP = matches[minIdx];
-			const cpThreshold = Number(settings.arena.cpThreshold.Value);
+			const cpThreshold = Number(settings.doArena.cpThreshold.Value);
 
 			logger.debug('minIdx: ' + minIdx);
 			logger.debug('minCP: ' + minCP);
@@ -40,13 +44,18 @@ while (macroService.IsRunning) {
 				macroService.PollPattern(patterns.battle.skip.disabled, { DoClick: true, PredicatePattern: patterns.battle.skip.enabled });
 				macroService.PollPattern(patterns.battle.start, { DoClick: true, PredicatePattern: patterns.prompt.confirm2 });
 				macroService.PollPattern(patterns.prompt.confirm2, { DoClick: true, PredicatePattern: [patterns.adventure.arena.freeChallenge, patterns.adventure.arena.ticket] });
-				//macroService.PollPattern(patterns.battle.start, { DoClick: true, ClickPattern: patterns.battle.skip, PredicatePattern: [patterns.adventure.arena.freeChallenge, patterns.adventure.arena.ticket] });
+				if (macroService.IsRunning) {
+					daily.doArena.count.Count++;
+				}
 			} else {
 				macroService.PollPattern(patterns.battle.rematch, { DoClick: true, InversePredicatePattern: patterns.battle.rematch });
 			}
 			break;
 		case 'adventure.arena.ticket':
 			logger.info('doArena: done');
+			if (macroService.IsRunning) {
+				daily.doArena.done.IsChecked = true;
+			}
 			return;
 	}
 

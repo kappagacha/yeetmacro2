@@ -8,8 +8,11 @@
   "supportsGreaterHeight": false,
   "package": "com.kakaogames.eversoul",
   "source": "online:eversoul",
-  "macroSetLastUpdated": "2023-11-10T22:16:26.7179552-06:00",
-  "patternsLastUpdated": "2023-11-10T22:16:26.7183278-06:00",
-  "scriptsLastUpdated": "2023-11-10T22:16:26.7185567-06:00",
-  "settingsLastUpdated": "2023-11-10T22:16:26.7188526-06:00"
+  "macroSetLastUpdated": "2023-12-07T22:11:28.8118405-06:00",
+  "patternsLastUpdated": "2023-12-07T22:11:28.8118816-06:00",
+  "scriptsLastUpdated": "2023-12-07T22:11:28.8118864-06:00",
+  "settingsLastUpdated": "2023-12-07T22:11:28.8118904-06:00",
+  "description": null,
+  "dailyTemplate": "{\n  \u0022doArena\u0022: {\n    \u0022done\u0022: false,\n    \u0022count\u0022: 0\n  },\n  \u0022doChampsArena\u0022: {\n    \u0022done\u0022: false,\n    \u0022count\u0022: 0\n  },\n  \u0022doOutings\u0022: {\n    \u0022done\u0022: false,\n    \u0022count\u0022: 0\n  }\n}",
+  "dailyResetUtcHour": 0
 }

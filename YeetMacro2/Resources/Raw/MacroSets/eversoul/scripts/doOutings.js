@@ -1,16 +1,16 @@
 ﻿const offset = macroService.CalcOffset(patterns.lobby.everstone);
 const loopPatterns = [patterns.lobby.everstone, patterns.town.evertalk, patterns.town.outings.outingsCompleted, patterns.town.outings, patterns.titles.outingGo, patterns.town.outings.selectAKeyword];
-const targetSoul = macroService.ClonePattern(settings.outings.target.Value);
-targetSoul.Path = 'settings.outings.target';
-for (const pattern of targetSoul.Patterns) {
-	pattern.Rect = {
-		X: 275.85736083984375,
-		Y: 82.9250717163086,
-		Width: 1005.4752807617188 + (offset.X * 2.0),
-		Height: 857.20263671875
-	};
-	pattern.OffsetCalcType = "None";
+const daily = dailyManager.GetDaily();
+if (daily.doOutings.done.IsChecked) {
+	return;
 }
+const targetSoul = macroService.ClonePattern(settings.doOutings.target.Value, {
+	X: 275.85736083984375,
+	Y: 82.9250717163086,
+	Width: 1005.4752807617188 + (offset.X * 2.0),
+	Height: 857.20263671875,
+	Path: 'settings.outings.target'
+});
 const maxSwipes = 5;
 let swipeCount = 0;
 
@@ -73,9 +73,15 @@ while (macroService.IsRunning) {
 			logger.debug('keywordTarget: ' + (maxIdx + 1));
 			macroService.PollPattern(patterns.town.outings['keywordPoints' + (maxIdx + 1)], { DoClick: true, PredicatePattern: patterns.prompt.next });
 			sleep(500);
-			macroService.PollPattern(patterns.prompt.next, { DoClick: true, ClickPattern: [patterns.prompt.next, patterns.prompt.tapTheScreen, patterns.prompt.middleTap], PredicatePattern: [patterns.town.outings.selectAKeyword, patterns.town.outings] });
+			const promptNextResult = macroService.PollPattern(patterns.prompt.next, { DoClick: true, ClickPattern: [patterns.prompt.next, patterns.prompt.tapTheScreen, patterns.prompt.middleTap], PredicatePattern: [patterns.town.outings.selectAKeyword, patterns.town.outings] });
+			if (macroService.IsRunning && promptNextResult.PredicatePath === 'town.outings') {
+				daily.doOutings.count.Count++;
+			}
 			break;
 		case 'town.outings.outingsCompleted':
+			if (macroService.IsRunning) {
+				daily.doOutings.done.IsChecked = true;
+			}
 			return;
 	}
 
