@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using CommunityToolkit.Mvvm.ComponentModel;
+using CommunityToolkit.Mvvm.Messaging;
 using System.Collections.ObjectModel;
 using System.Linq.Expressions;
 using YeetMacro2.Data.Models;
@@ -176,8 +177,10 @@ public partial class BooleanSettingViewModel : BooleanSetting
         get => base.Value;
         set
         {
+            var doSave = base.Value != value;
             base.Value = value;
             OnPropertyChanged();
+            if (doSave) WeakReferenceMessenger.Default.Send<SettingNode>(this);
         }
     }
 }
@@ -212,8 +215,10 @@ public partial class OptionSettingViewModel : OptionSetting
         get => base.Value;
         set
         {
+            var doSave = base.Value != value;
             base.Value = value;
             OnPropertyChanged();
+            if (doSave) WeakReferenceMessenger.Default.Send<SettingNode>(this);
         }
     }
 
@@ -258,8 +263,10 @@ public partial class StringSettingViewModel : StringSetting
         get => base.Value;
         set
         {
+            var doSave = base.Value != value;
             base.Value = value;
             OnPropertyChanged();
+            if (doSave) WeakReferenceMessenger.Default.Send<SettingNode>(this);
         }
     }
 }
@@ -294,8 +301,10 @@ public partial class IntegerSettingViewModel : IntegerSetting
         get => base.Value;
         set
         {
+            var doSave = base.Value != value;
             base.Value = value;
             OnPropertyChanged();
+            if (doSave) WeakReferenceMessenger.Default.Send<SettingNode>(this);
         }
     }
 
@@ -340,8 +349,10 @@ public partial class EnabledIntegerSettingViewModel : EnabledIntegerSetting
         get => base.Value;
         set
         {
+            var doSave = base.Value != value;
             base.Value = value;
             OnPropertyChanged();
+            if (doSave) WeakReferenceMessenger.Default.Send<SettingNode>(this);
         }
     }
 
@@ -370,8 +381,10 @@ public partial class EnabledIntegerSettingViewModel : EnabledIntegerSetting
         get => base.IsEnabled;
         set
         {
+            var doSave = base.IsEnabled != value;
             base.IsEnabled = value;
             OnPropertyChanged();
+            if (doSave) WeakReferenceMessenger.Default.Send<SettingNode>(this);
         }
     }
 }

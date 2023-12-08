@@ -1,7 +1,5 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
-using CommunityToolkit.Mvvm.Messaging.Messages;
-using CommunityToolkit.Mvvm.Messaging;
 using System.ComponentModel;
 using YeetMacro2.Data.Models;
 using YeetMacro2.Data.Services;
@@ -12,7 +10,6 @@ namespace YeetMacro2.ViewModels;
 
 public partial class SettingNodeManagerViewModel : NodeManagerViewModel<ParentSettingViewModel, ParentSetting, SettingNode>
 {
-    object _lock = new object();
     ParentSetting _emptyParentSetting = new ParentSettingViewModel();
     IRepository<SettingNode> _settingRepository;
     [ObservableProperty]
@@ -33,16 +30,19 @@ public partial class SettingNodeManagerViewModel : NodeManagerViewModel<ParentSe
         _settingRepository = settingRepository;
         PropertyChanged += SettingNodeManagerViewModel_PropertyChanged;
         CurrentSubViewModel = _emptyParentSetting;
+    }
 
-        WeakReferenceMessenger.Default.Register<PropertyChangedMessage<ScriptNode>, string>(this, nameof(ScriptNodeManagerViewModel), async (r, propertyChangedMessage) =>
+    public async Task OnScriptNodeSelected(ScriptNode scriptNode)
+    {
+        if (Root is null) await this.WaitForInitialization();
+        if (scriptNode is null)
         {
-            if (Root is null) await this.WaitForInitialization();
-            if (propertyChangedMessage.PropertyName != nameof(ScriptNodeManagerViewModel.SelectedNode) || propertyChangedMessage.NewValue is null) return;
-
-            var targetName = propertyChangedMessage.NewValue.Name;
-            var targetNode = Root.Nodes.FirstOrDefault(sn => sn.Name.ToLower() == targetName.ToLower()) as ParentSetting;
-            CurrentSubViewModel = targetNode ?? _emptyParentSetting;
-        });
+            CurrentSubViewModel = _emptyParentSetting;
+            return;
+        }
+        var targetName = scriptNode.Name;
+        var targetNode = Root.Nodes.FirstOrDefault(sn => sn.Name.ToLower() == targetName.ToLower()) as ParentSetting;
+        CurrentSubViewModel = targetNode ?? _emptyParentSetting;
     }
 
     private void SettingNodeManagerViewModel_PropertyChanged(object sender, PropertyChangedEventArgs e)
@@ -145,12 +145,8 @@ public partial class SettingNodeManagerViewModel : NodeManagerViewModel<ParentSe
     [RelayCommand]
     public void SaveSetting(SettingNode setting)
     {
-        if (setting is null) return;
-        lock (_lock)    // invoked concurrently by UserStoppedTypingBehavior
-        {
-            _settingRepository.Update(setting);
-            _settingRepository.Save();
-        }
+        _settingRepository.Update(setting);
+        _settingRepository.Save();
     }
 
     [RelayCommand]

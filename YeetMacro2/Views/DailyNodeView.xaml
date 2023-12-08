@@ -54,9 +54,8 @@
     <Grid>
         <Grid IsVisible="{Binding IsSubView, Source={Reference thisView}}">
             <ScrollView>
-                <material:TreeView
-                    x:DataType="{x:Null}" ItemsSource="{Binding Dailies.CurrentSubViewModel.Children}"
-                    Spacing="0" HorizontalOptions="Fill"  VerticalOptions="Fill">
+                <material:TreeView ItemsSource="{Binding Dailies.CurrentSubViewModel.Children}"
+                                   Spacing="0" HorizontalOptions="Fill"  VerticalOptions="Fill">
                     <material:TreeView.ItemTemplate>
                         <DataTemplate>
                             <v:BindingContextView TargetParent="{Reference thisView}" />

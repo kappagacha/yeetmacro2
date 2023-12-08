@@ -36,11 +36,14 @@ public class SwipePollPatternFindOptions : FindOptions
 
 public class CloneOptions
 {
+    public double X { get; set; }
+    public double Y { get; set; }
     public double CenterX { get; set; }
     public double CenterY { get; set; }
     public double Width { get; set; }
     public double Height { get; set; }
     public double Padding { get; set; }
+    public string Path { get; set; }
 }
 
 public class MacroService
@@ -95,6 +98,8 @@ public class MacroService
     public PatternNode ClonePattern(PatternNode patternNode, CloneOptions opts)
     {
         var clone =  PatternNodeManagerViewModel.CloneNode(patternNode);
+        if (!string.IsNullOrEmpty(opts.Path)) clone.Path = opts.Path;
+
         foreach (var pattern in clone.Patterns)
         {
             var rect = pattern.Rect;
@@ -102,14 +107,20 @@ public class MacroService
                 (opts.Width == 0 ? rect.Width : opts.Width) + opts.Padding,
                 (opts.Height == 0 ? rect.Height : opts.Height) + opts.Padding
             );
-            var location = new Point(
-                (opts.CenterX == 0 ? rect.Center.X : opts.CenterX) - (size.Width / 2.0),
-                (opts.CenterY == 0 ? rect.Center.Y : opts.CenterY) - (size.Height / 2.0)
-            );
+
+            var calcX = rect.X;
+            if (opts.CenterX != 0) calcX = opts.CenterX - (size.Width / 2.0);
+            if (opts.X != 0) calcX = opts.X;
+
+            var calcY = rect.Y;
+            if (opts.CenterY != 0) calcY = opts.CenterY - (size.Height / 2.0);
+            if (opts.Y != 0) calcY = opts.Y;
+
+            var location = new Point(calcX, calcY);
 
             pattern.Rect = new Rect(location, size);
         }
-        
+
         return clone;
     }
 

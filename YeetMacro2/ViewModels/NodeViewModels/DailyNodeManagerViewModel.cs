@@ -10,6 +10,7 @@ using YeetMacro2.Services;
 namespace YeetMacro2.ViewModels.NodeViewModels;
 public partial class DailyNodeManagerViewModel : NodeManagerViewModel<DailyNodeViewModel, DailyNode, DailyNode>
 {
+    DailyJsonParentViewModel _emptySubView = new DailyJsonParentViewModel();
     [ObservableProperty]
     bool _showJsonEditor;
     [ObservableProperty]
@@ -28,23 +29,7 @@ public partial class DailyNodeManagerViewModel : NodeManagerViewModel<DailyNodeV
     {
         _dailyRespository = dailyRespository;
         IsList = true;
-
-        WeakReferenceMessenger.Default.Register<PropertyChangedMessage<ScriptNode>, string>(this, nameof(ScriptNodeManagerViewModel), async (r, propertyChangedMessage) =>
-        {
-            if (Root is null) await this.WaitForInitialization();
-            if (propertyChangedMessage.PropertyName != nameof(ScriptNodeManagerViewModel.SelectedNode)) return;
-            if (propertyChangedMessage.NewValue is null)
-            {
-                _targetSubViewName = null;
-                return;
-            }
-            _targetSubViewName = propertyChangedMessage.NewValue.Name;
-            ResolveCurrentSubViewModel();
-        });
-
-        WeakReferenceMessenger.Default.Register<DailyNodeViewModel>(this, (r, dailyNode) => {
-            SaveDaily(dailyNode);
-        });
+        CurrentSubViewModel = _emptySubView;
     }
 
     protected override void CustomInit()
@@ -53,9 +38,20 @@ public partial class DailyNodeManagerViewModel : NodeManagerViewModel<DailyNodeV
         WeakReferenceMessenger.Default.Send(new PropertyChangedMessage<string>(this, nameof(CustomInit), null, null), nameof(DailyNodeManagerViewModel));
     }
 
+    public async Task OnScriptNodeSelected(ScriptNode scriptNode)
+    {
+        if (Root is null) await this.WaitForInitialization();
+        _targetSubViewName = scriptNode?.Name;
+        ResolveCurrentSubViewModel();
+    }
+
     private void ResolveCurrentSubViewModel()
     {
-        if (string.IsNullOrEmpty(_targetSubViewName)) return;
+        if (string.IsNullOrEmpty(_targetSubViewName))
+        {
+            CurrentSubViewModel = _emptySubView;
+            return;
+        };
         var targetDate = ResolveTargetDate(0);
         var existingDaily = Root.Nodes.FirstOrDefault(dn => dn.Date == targetDate);
         if (existingDaily is null)
@@ -69,7 +65,7 @@ public partial class DailyNodeManagerViewModel : NodeManagerViewModel<DailyNodeV
         }
         SelectedNode = existingDaily;
         var targetJsonViewModel = ((DailyNodeViewModel)existingDaily).JsonViewModel;
-        CurrentSubViewModel = (DailyJsonParentViewModel)targetJsonViewModel.Children.FirstOrDefault(c => c.Key == _targetSubViewName);
+        CurrentSubViewModel = ((DailyJsonParentViewModel)targetJsonViewModel.Children.FirstOrDefault(c => c.Key == _targetSubViewName)) ?? _emptySubView;
     }
 
     [RelayCommand]

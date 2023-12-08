@@ -65,7 +65,7 @@ public partial class ScriptNodeViewModel : ScriptNode
         { 
             if (Text is null) return String.Empty;
 
-            var lines = Text.Split('\n');
+            var lines = Text.Split(new char[] { '\n', '\r' });
             var description = "";
             foreach (var line in lines)
             {

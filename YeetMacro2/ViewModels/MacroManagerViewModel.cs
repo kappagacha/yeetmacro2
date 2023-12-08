@@ -166,6 +166,22 @@ public partial class MacroManagerViewModel : ObservableObject
 #if WINDOWS
         IsOpenAppDirectoryEnabled = true;
 #endif
+
+        WeakReferenceMessenger.Default.Register<SettingNode>(this, (r, settingNode) => {
+            if (Settings?.IsInitialized ?? false)
+            {
+                Settings?.SaveSetting(settingNode);
+            }
+        });
+
+        WeakReferenceMessenger.Default.Register<Lazy<ScriptNode>>(this, async (r, scriptNode) => {
+            await Settings?.OnScriptNodeSelected(scriptNode.Value);
+            await Dailies?.OnScriptNodeSelected(scriptNode.Value);
+        });
+
+        WeakReferenceMessenger.Default.Register<DailyNodeViewModel>(this, (r, dailyNode) => {
+            Dailies?.SaveDaily(dailyNode);
+        });
     }
 
     [RelayCommand]
@@ -506,6 +522,7 @@ public partial class MacroManagerViewModel : ObservableObject
         OnPropertyChanged(nameof(Patterns));
         OnPropertyChanged(nameof(Scripts));
         OnPropertyChanged(nameof(Settings));
+        OnPropertyChanged(nameof(Dailies));
     }
 
     private void MergeSettings(SettingNode source, SettingNode dest)
