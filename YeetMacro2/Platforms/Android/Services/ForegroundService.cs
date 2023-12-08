@@ -32,6 +32,8 @@ public class ForegroundService : Service
 
     public override StartCommandResult OnStartCommand(Intent intent, [GeneratedEnum] StartCommandFlags flags, int startId)
     {
+        if (_context == null) return StartCommandResult.RedeliverIntent;
+
         switch (intent.Action)
         {
             case EXIT_ACTION:
