@@ -168,10 +168,9 @@ public partial class MacroManagerViewModel : ObservableObject
 #endif
 
         WeakReferenceMessenger.Default.Register<SettingNode>(this, (r, settingNode) => {
-            if (Settings?.IsInitialized ?? false)
-            {
-                Settings?.SaveSetting(settingNode);
-            }
+            if (IsBusy || !(Settings?.IsInitialized ?? false)) return;
+
+            Settings?.SaveSetting(settingNode);
         });
 
         WeakReferenceMessenger.Default.Register<Lazy<ScriptNode>>(this, async (r, scriptNode) => {
@@ -243,9 +242,12 @@ public partial class MacroManagerViewModel : ObservableObject
     {
         if (!await Application.Current.MainPage.DisplayAlert("Delete Macro Set", "Are you sure?", "Ok", "Cancel")) return;
 
+        IsBusy = true;
         await Patterns.WaitForInitialization();
         await Scripts.WaitForInitialization();
         await Settings.WaitForInitialization();
+        await Dailies.WaitForInitialization();
+        SelectedMacroSet = null;
         _patternNodeService.Delete(_nodeRootIdToPatternTree[macroSet.RootPatternNodeId].Root);
         _scriptNodeService.Delete(_nodeRootIdToScriptList[macroSet.RootScriptNodeId].Root);
         _settingNodeService.Delete(_nodeRootIdToSettingTree[macroSet.RootSettingNodeId].Root);
@@ -253,7 +255,10 @@ public partial class MacroManagerViewModel : ObservableObject
         _macroSetRepository.Delete(macroSet);
         _macroSetRepository.Save();
         MacroSets.Remove(macroSet);
+
+        IsBusy = false;
         _toastService.Show($"Deleted MacroSet: {macroSet.Name}");
+
     }
 
     [RelayCommand]
@@ -514,11 +519,13 @@ public partial class MacroManagerViewModel : ObservableObject
         if (value == null)
         {
             Preferences.Default.Remove(nameof(SelectedMacroSet));
-            return;
         }
-        ResolutionWidth = value.Resolution.Width;
-        ResolutionHeight = value.Resolution.Height;
-        Preferences.Default.Set(nameof(SelectedMacroSet), value.Name);
+        else
+        {
+            ResolutionWidth = value.Resolution.Width;
+            ResolutionHeight = value.Resolution.Height;
+            Preferences.Default.Set(nameof(SelectedMacroSet), value.Name);
+        }
         OnPropertyChanged(nameof(Patterns));
         OnPropertyChanged(nameof(Scripts));
         OnPropertyChanged(nameof(Settings));
