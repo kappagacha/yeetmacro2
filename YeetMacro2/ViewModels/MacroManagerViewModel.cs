@@ -168,7 +168,10 @@ public partial class MacroManagerViewModel : ObservableObject
 #endif
 
         WeakReferenceMessenger.Default.Register<SettingNode>(this, (r, settingNode) => {
-            if (IsBusy || !(Settings?.IsInitialized ?? false)) return;
+            if (IsBusy ||                                   // importing MacroSet   (MacroManagerViewModel)
+                !(Settings?.IsInitialized ?? false) ||      // loading settings     (NodeManagerViewModel)
+                settingNode.NodeId == 0)                    // json desirialization (NodeManagerViewModel)
+                return;
 
             Settings?.SaveSetting(settingNode);
         });
