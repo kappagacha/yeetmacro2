@@ -15,9 +15,7 @@
              x:Name="thisView">
     <ContentView.Resources>
         <DataTemplate x:Key="DailyJsonParentTemplate">
-            <VerticalStackLayout>
-                <Label Text="{Binding Key}" VerticalOptions="Center" />
-            </VerticalStackLayout>
+            <Label Text="{Binding Key}" VerticalOptions="Center" />
         </DataTemplate>
         <DataTemplate x:Key="DailyJsonBooleanTemplate">
             <HorizontalStackLayout Spacing="4">
@@ -31,7 +29,7 @@
                 <v:ImageView
                     VerticalOptions="Center" FontFamily="MaterialOutlined" Glyph="{x:Static mi:MaterialOutlined.Remove}"
                     Command="{Binding BindingContext.Dailies.DecrementCommand, Source={x:Reference thisView}}"
-                    CommandParameter="{Binding BindingContext, Source={RelativeSource AncestorType={x:Type v:BindingContextView}}}" />
+                    CommandParameter="{Binding .}" />
                 <Entry Margin="5,0,0,0" VerticalOptions="Center" Text="{Binding Count}" Keyboard="Numeric">
                     <Entry.Behaviors>
                         <mct:NumericValidationBehavior MaximumDecimalPlaces="0"
@@ -47,7 +45,7 @@
                 <v:ImageView
                     VerticalOptions="Center" FontFamily="MaterialOutlined" Glyph="{x:Static mi:MaterialOutlined.Add}"
                     Command="{Binding BindingContext.Dailies.IncrementCommand, Source={RelativeSource AncestorType={x:Type v:DailyNodeView}}}"
-                    CommandParameter="{Binding BindingContext, Source={RelativeSource AncestorType={x:Type v:BindingContextView}}}" />
+                    CommandParameter="{Binding .}" />
             </HorizontalStackLayout>
         </DataTemplate>
     </ContentView.Resources>
@@ -55,13 +53,8 @@
         <Grid IsVisible="{Binding IsSubView, Source={Reference thisView}}">
             <ScrollView>
                 <material:TreeView ItemsSource="{Binding Dailies.CurrentSubViewModel.Children}"
-                                   Spacing="0" HorizontalOptions="Fill"  VerticalOptions="Fill">
-                    <material:TreeView.ItemTemplate>
-                        <DataTemplate>
-                            <v:BindingContextView TargetParent="{Reference thisView}" />
-                        </DataTemplate>
-                    </material:TreeView.ItemTemplate>
-                </material:TreeView>
+                                   Spacing="0" HorizontalOptions="Fill"  VerticalOptions="Fill"
+                                   ItemTemplate="{conv:DynamicTemplateSelector}"/> 
             </ScrollView>
         </Grid>
         <Grid ColumnDefinitions="*,3*" IsVisible="{Binding IsSubView, Converter={conv:InverseBoolConverter}, Source={Reference thisView}}">
@@ -73,13 +66,7 @@
                     <ScrollView>
                         <material:TreeView IsVisible="{Binding Dailies.ShowJsonEditor, Converter={conv:InverseBoolConverter}}"
                             x:DataType="{x:Null}" ItemsSource="{Binding Dailies.SelectedNode.JsonViewModel.Children}"
-                            Spacing="0" HorizontalOptions="Fill"  VerticalOptions="Fill">
-                            <material:TreeView.ItemTemplate>
-                                <DataTemplate>
-                                    <v:BindingContextView TargetParent="{Reference thisView}" />
-                                </DataTemplate>
-                            </material:TreeView.ItemTemplate>
-                        </material:TreeView>
+                            Spacing="0" HorizontalOptions="Fill"  VerticalOptions="Fill" ItemTemplate="{conv:DynamicTemplateSelector}" />
                     </ScrollView>
                     <Grid IsVisible="{Binding Dailies.ShowJsonEditor}">
                         <Editor x:Name="dataEditor" Text="{Binding Dailies.SelectedNode.DataText}" AutoSize="TextChanges" />

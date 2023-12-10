@@ -27,7 +27,7 @@
                 <v:ImageView
                     VerticalOptions="Center" FontFamily="MaterialOutlined" Glyph="{x:Static mi:MaterialOutlined.Refresh}"
                     Command="{Binding BindingContext.Settings.ResetSettingCommand, Source={RelativeSource AncestorType={x:Type v:SettingNodeView}}}"
-                    CommandParameter="{Binding BindingContext, Source={RelativeSource AncestorType={x:Type v:BindingContextView}}}" />
+                    CommandParameter="{Binding .}" />
             </HorizontalStackLayout>
         </DataTemplate>
         <DataTemplate x:Key="OptionSettingTemplate">
@@ -37,16 +37,16 @@
                     <Label Margin="0" Padding="0" Text="{Binding Value}" VerticalOptions="Center" />
                     <ImageButton Margin="0" Padding="0"
                         Command="{Binding BindingContext.Settings.SelectOptionCommand, Source={RelativeSource AncestorType={x:Type v:SettingNodeView}}}"
-                        CommandParameter="{Binding BindingContext, Source={RelativeSource AncestorType={x:Type v:BindingContextView}}}" />
+                        CommandParameter="{Binding .}" />
                 </Grid>
                 <v:ImageView
                         VerticalOptions="Center" FontFamily="MaterialOutlined" Glyph="{x:Static mi:MaterialOutlined.Add}"
                         Command="{Binding BindingContext.Settings.AddOptionCommand, Source={RelativeSource AncestorType={x:Type v:SettingNodeView}}}"
-                        CommandParameter="{Binding BindingContext, Source={RelativeSource AncestorType={x:Type v:BindingContextView}}}" />
+                        CommandParameter="{Binding .}" />
                 <v:ImageView
                         VerticalOptions="Center" FontFamily="MaterialOutlined" Glyph="{x:Static mi:MaterialOutlined.Refresh}"
                         Command="{Binding BindingContext.Settings.ResetSettingCommand, Source={RelativeSource AncestorType={x:Type v:SettingNodeView}}}"
-                        CommandParameter="{Binding BindingContext, Source={RelativeSource AncestorType={x:Type v:BindingContextView}}}" />
+                        CommandParameter="{Binding .}" />
             </HorizontalStackLayout>
         </DataTemplate>
         <DataTemplate x:Key="StringSettingTemplate">
@@ -56,7 +56,7 @@
                 <v:ImageView
                     VerticalOptions="Center" FontFamily="MaterialOutlined" Glyph="{x:Static mi:MaterialOutlined.Refresh}"
                     Command="{Binding BindingContext.Settings.ResetSettingCommand, Source={RelativeSource AncestorType={x:Type v:SettingNodeView}}}"
-                    CommandParameter="{Binding BindingContext, Source={RelativeSource AncestorType={x:Type v:BindingContextView}}}" />
+                    CommandParameter="{Binding .}" />
             </HorizontalStackLayout>
         </DataTemplate>
         <DataTemplate x:Key="IntegerSettingTemplate">
@@ -65,7 +65,7 @@
                 <v:ImageView
                     VerticalOptions="Center" FontFamily="MaterialOutlined" Glyph="{x:Static mi:MaterialOutlined.Remove}"
                     Command="{Binding BindingContext.Settings.DecrementCommand, Source={RelativeSource AncestorType={x:Type v:SettingNodeView}}}"
-                    CommandParameter="{Binding BindingContext, Source={RelativeSource AncestorType={x:Type v:BindingContextView}}}" />
+                    CommandParameter="{Binding .}" />
                 <Entry x:Name="integerSettingEntry" Margin="5,0,0,0" VerticalOptions="Center" Text="{Binding Value}" Keyboard="Numeric">
                     <Entry.Behaviors>
                         <mct:NumericValidationBehavior MaximumDecimalPlaces="0"
@@ -81,11 +81,11 @@
                 <v:ImageView
                     VerticalOptions="Center" FontFamily="MaterialOutlined" Glyph="{x:Static mi:MaterialOutlined.Add}"
                     Command="{Binding BindingContext.Settings.IncrementCommand, Source={RelativeSource AncestorType={x:Type v:SettingNodeView}}}"
-                    CommandParameter="{Binding BindingContext, Source={RelativeSource AncestorType={x:Type v:BindingContextView}}}" />
+                    CommandParameter="{Binding .}" />
                 <v:ImageView
                     VerticalOptions="Center" FontFamily="MaterialOutlined" Glyph="{x:Static mi:MaterialOutlined.Refresh}"
                     Command="{Binding BindingContext.Settings.ResetSettingCommand, Source={RelativeSource AncestorType={x:Type v:SettingNodeView}}}"
-                    CommandParameter="{Binding BindingContext, Source={RelativeSource AncestorType={x:Type v:BindingContextView}}}" />
+                    CommandParameter="{Binding .}" />
                 <Entry x:Name="integerIncrementSettingEntry" Margin="5,0,0,0" VerticalOptions="Center" Text="{Binding Increment}" Keyboard="Numeric">
                     <Entry.Behaviors>
                         <mct:NumericValidationBehavior MaximumDecimalPlaces="0"
@@ -109,7 +109,7 @@
                     IsEnabled="{Binding IsEnabled}"
                     VerticalOptions="Center" FontFamily="MaterialOutlined" Glyph="{x:Static mi:MaterialOutlined.Remove}"
                     Command="{Binding BindingContext.Settings.DecrementCommand, Source={RelativeSource AncestorType={x:Type v:SettingNodeView}}}"
-                    CommandParameter="{Binding BindingContext, Source={RelativeSource AncestorType={x:Type v:BindingContextView}}}" />
+                    CommandParameter="{Binding .}" />
                 <Entry x:Name="integerSettingEntry" Margin="5,0,0,0" VerticalOptions="Center" Text="{Binding Value}" Keyboard="Numeric" 
                        IsEnabled="{Binding IsEnabled}">
                     <Entry.Behaviors>
@@ -127,12 +127,12 @@
                     IsEnabled="{Binding IsEnabled}"
                     VerticalOptions="Center" FontFamily="MaterialOutlined" Glyph="{x:Static mi:MaterialOutlined.Add}"
                     Command="{Binding BindingContext.Settings.IncrementCommand, Source={RelativeSource AncestorType={x:Type v:SettingNodeView}}}"
-                    CommandParameter="{Binding BindingContext, Source={RelativeSource AncestorType={x:Type v:BindingContextView}}}" />
+                    CommandParameter="{Binding .}" />
                 <v:ImageView
                     IsEnabled="{Binding IsEnabled}"
                     VerticalOptions="Center" FontFamily="MaterialOutlined" Glyph="{x:Static mi:MaterialOutlined.Refresh}"
                     Command="{Binding BindingContext.Settings.ResetSettingCommand, Source={RelativeSource AncestorType={x:Type v:SettingNodeView}}}"
-                    CommandParameter="{Binding BindingContext, Source={RelativeSource AncestorType={x:Type v:BindingContextView}}}" />
+                    CommandParameter="{Binding .}" />
                 <Entry x:Name="integerIncrementSettingEntry" Margin="5,0,0,0" VerticalOptions="Center" 
                        Text="{Binding Increment}" Keyboard="Numeric" IsEnabled="{Binding IsEnabled}">
                     <Entry.Behaviors>
@@ -204,13 +204,20 @@
                                         <Setter Property="FontFamily" Value="FASolid" />
                                         <Setter Property="Glyph" Value="{x:Static fa:Solid.n}" />
                                     </DataTrigger>
-                                    <DataTrigger TargetType="{x:Type v:ImageView}" Binding="{Binding SettingType}" Value="{x:Static m:SettingType.Boolean}">
+                                    <DataTrigger TargetType="{x:Type v:ImageView}" Binding="{Binding SettingType}" Value="{x:Static m:SettingType.String}">
                                         <Setter Property="FontFamily" Value="FASolid" />
                                         <Setter Property="Glyph" Value="{x:Static fa:Solid.s}" />
                                     </DataTrigger>
                                 </v:ImageView.Triggers>
                             </v:ImageView>
-                            <v:BindingContextView Grid.Column="1" TargetParent="{Reference thisView}" />
+                            <CollectionView Grid.Column="1"  SelectionMode="None"
+                                            ItemTemplate="{conv:DynamicTemplateSelector}">
+                                <CollectionView.ItemsSource>
+                                    <MultiBinding Converter="{conv:PassThroughConverter}">
+                                        <Binding Path="." />
+                                    </MultiBinding>
+                                </CollectionView.ItemsSource>
+                            </CollectionView>        
                             <ImageButton Margin="0" Padding="0" CommandParameter="{Binding .}" Command="{Binding NodeManager.SelectNodeCommand, Source={RelativeSource AncestorType={x:Type v:NodeView}}}" />
                         </Grid>
                     </DataTemplate>
