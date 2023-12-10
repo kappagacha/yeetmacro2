@@ -5,6 +5,7 @@ using System.Diagnostics;
 using System.Reflection;
 using System.Text.Json;
 using System.Text.Json.Serialization;
+using System.Xml.Linq;
 using YeetMacro2.Data.Models;
 using YeetMacro2.Data.Serialization;
 using YeetMacro2.Data.Services;
@@ -54,7 +55,7 @@ public partial class NodeManagerViewModel<TViewModel, TParent, TChild> : NodeMan
     [ObservableProperty]
     string _exportValue;
     [ObservableProperty, NotifyPropertyChangedFor(nameof(HasCopyClipboard))]
-    TViewModel _copyClipboard;
+    TChild _copyClipboard;
 
     public bool HasCopyClipboard => CopyClipboard != null;
 
@@ -220,7 +221,7 @@ public partial class NodeManagerViewModel<TViewModel, TParent, TChild> : NodeMan
             return;
         }
 
-        ((TViewModel)node).Name = name;
+        ReflectionHelper.PropertyInfoCollection[node.GetType()]["Name"].SetValue(node, name);
         ResolvePath(Root);
         _nodeService.Update(node);
         _toastService.Show($"Renamed {_nodeTypeName}: " + name);
@@ -314,7 +315,7 @@ public partial class NodeManagerViewModel<TViewModel, TParent, TChild> : NodeMan
     public static TChild CloneNode(TChild node)
     {
         var json = JsonSerializer.Serialize(node);
-        return JsonSerializer.Deserialize<TChild>(json);
+        return (TChild)JsonSerializer.Deserialize(json, node.GetType());
     }
 
     [RelayCommand]
@@ -372,7 +373,7 @@ public partial class NodeManagerViewModel<TViewModel, TParent, TChild> : NodeMan
     [RelayCommand]
     public void CopyNode(TChild node)
     {
-        CopyClipboard = (TViewModel)node;
+        CopyClipboard = node;
     }
 
     [RelayCommand]
