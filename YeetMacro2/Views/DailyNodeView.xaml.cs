@@ -14,4 +14,12 @@ public partial class DailyNodeView : ContentView
 	{
 		InitializeComponent();
 	}
+
+    private void DailyTemplateEditor_SelectAll(object sender, EventArgs e)
+    {
+        if (dailyTemplateEditor.Text == null) return;
+        dailyTemplateEditor.Focus();
+        dailyTemplateEditor.CursorPosition = 0;
+        dailyTemplateEditor.SelectionLength = dailyTemplateEditor.Text.Length;
+    }
 }

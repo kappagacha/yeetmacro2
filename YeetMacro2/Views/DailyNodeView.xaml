@@ -96,9 +96,15 @@
                 </Grid>
             </mct:DockLayout>
             <Grid Grid.Column="1" IsVisible="{Binding IsToggled, Source={Reference templateToggle}}">
-                <Editor Text="{Binding SelectedMacroSet.DailyTemplate}" />
-                <v:ImageView HorizontalOptions="End" VerticalOptions="End" FontFamily="MaterialOutlined" Glyph="{x:Static mi:MaterialOutlined.Save}"
-                Command="{Binding SaveCommand}" CommandParameter="{Binding SelectedMacroSet}" />
+                <Editor x:Name="dailyTemplateEditor" Text="{Binding SelectedMacroSet.DailyTemplate}" />
+                <HorizontalStackLayout HorizontalOptions="End" VerticalOptions="End" Margin="0,0,55,0">
+                    <Grid>
+                        <v:ImageView FontFamily="MaterialOutlined" Glyph="{x:Static mi:MaterialOutlined.Select_all}" />
+                        <ImageButton Clicked="DailyTemplateEditor_SelectAll" />
+                    </Grid>
+                    <v:ImageView FontFamily="MaterialOutlined" Glyph="{x:Static mi:MaterialOutlined.Save}"
+                                 Command="{Binding SaveCommand}" CommandParameter="{Binding SelectedMacroSet}" />
+                </HorizontalStackLayout>
             </Grid>
             <HorizontalStackLayout Grid.ColumnSpan="2"  HorizontalOptions="End" VerticalOptions="Start" IsVisible="{Binding IsToggled, Source={Reference templateToggle}, Converter={conv:InverseBoolConverter}}">
                 <v:ToggleImageView IsVisible="{Binding Dailies.SelectedNode, Converter={conv:NullToBoolConverter IsInverse=True}}"
