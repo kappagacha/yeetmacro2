@@ -12,7 +12,7 @@
       "props": {
         "$type": "string",
         "settingType": "String",
-        "value": "5",
+        "value": "350000",
         "isParentNode": false,
         "name": "cpThreshold",
         "path": "doArena.cpThreshold"
