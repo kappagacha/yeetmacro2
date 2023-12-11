@@ -23,6 +23,7 @@ public class PollPatternFindOptions : FindOptions
     public double PredicateThreshold { get; set; } = 0.0;
     public bool DoClick { get; set; }
     public double TimoutMs { get; set; } = 0.0;
+    public Point ClickOffset { get; set; } = Point.Zero;
 }
 
 public class SwipePollPatternFindOptions : FindOptions
@@ -280,8 +281,8 @@ public class MacroService
         var predicatePattern = opts.PredicatePattern;
         var clickPattern = opts.ClickPattern;
         var inversePredicatePattern = opts.InversePredicatePattern;
-        var clickOffsetX = opts.Offset.X;
-        var clickOffsetY = opts.Offset.Y;
+        var clickOffsetX = opts.ClickOffset.X;
+        var clickOffsetY = opts.ClickOffset.Y;
         var hasTimeout = opts.TimoutMs > 0;
         var timeout = hasTimeout ? DateTime.Now.AddMilliseconds(opts.TimoutMs) : DateTime.MaxValue;
 

@@ -11,7 +11,7 @@ function doGate(type) {
 				break;
 			case 'titles.adventure':
 				logger.info(`doGateBreakthrough ${type}: click gate breakthrough`);
-				macroService.PollPattern(patterns.gateBreakthrough, { DoClick: true, Offset: { Y: -60 }, PredicatePattern: patterns.titles.gateBreakthrough });
+				macroService.PollPattern(patterns.gateBreakthrough, { DoClick: true, ClickOffset: { Y: -60 }, PredicatePattern: patterns.titles.gateBreakthrough });
 				sleep(500);
 				break;
 			case 'titles.gateBreakthrough':
