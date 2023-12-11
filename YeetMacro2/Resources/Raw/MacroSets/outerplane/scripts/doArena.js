@@ -2,6 +2,8 @@
 // Will prioritize Memorial Match
 const loopPatterns = [patterns.lobby.level, patterns.titles.adventure, patterns.titles.arena];
 const daily = dailyManager.GetDaily();
+const teamSlot = settings.doArena.teamSlot.Value;
+
 while (macroService.IsRunning) {
 	const loopResult = macroService.PollPattern(loopPatterns, { ClickPattern: patterns.arena.defendReport.close });
 	switch (loopResult.Path) {
@@ -24,7 +26,7 @@ while (macroService.IsRunning) {
 			if (memorialMatchNotificationResult.IsSuccess) {
 				macroService.PollPattern(patterns.arena.memorialMatch.notification, { DoClick: true, PredicatePattern: patterns.arena.memorialMatch.selected });
 				macroService.PollPattern(patterns.arena.challenge1, { DoClick: true, PredicatePattern: patterns.arena.enter });
-				selectTeam(settings.doArena.teamSlot.Value);
+				selectTeam(teamSlot);
 				macroService.PollPattern(patterns.arena.enter, { DoClick: true, PredicatePattern: patterns.arena.auto.disabled });
 				macroService.PollPattern(patterns.arena.auto.disabled, { DoClick: true, PredicatePattern: patterns.arena.matchResult });
 				if (macroService.IsRunning) {
@@ -34,7 +36,7 @@ while (macroService.IsRunning) {
 			} else {
 				macroService.PollPattern(patterns.arena.matchOpponent, { DoClick: true, PredicatePattern: patterns.arena.matchOpponent.selected });
 				macroService.PollPattern(patterns.arena.challenge3, { DoClick: true, PredicatePattern: patterns.arena.enter });
-				selectTeam(settings.doArena.teamSlot.Value);
+				selectTeam(teamSlot);
 				macroService.PollPattern(patterns.arena.enter, { DoClick: true, PredicatePattern: patterns.arena.auto.disabled });
 				macroService.PollPattern(patterns.arena.auto.disabled, { DoClick: true, PredicatePattern: patterns.arena.matchResult });
 				if (macroService.IsRunning) {

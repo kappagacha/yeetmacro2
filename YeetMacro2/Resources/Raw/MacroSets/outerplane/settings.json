@@ -57,5 +57,294 @@
         "path": "doSpecialRequests.teamSlot"
       }
     }
+  },
+  "doSideStory1": {
+    "$isParent": true,
+    "props": {
+      "settingType": "Parent",
+      "isParentNode": true,
+      "name": "doSideStory1",
+      "path": "doSideStory1"
+    },
+    "teamSlot": {
+      "$isParent": false,
+      "props": {
+        "$type": "option",
+        "settingType": "Option",
+        "options": [
+          "Current",
+          "1",
+          "2",
+          "3",
+          "4",
+          "5",
+          "6",
+          "7"
+        ],
+        "value": "1",
+        "isParentNode": false,
+        "name": "teamSlot",
+        "path": "doSideStory1.teamSlot"
+      }
+    },
+    "targetCharacter": {
+      "$isParent": false,
+      "props": {
+        "$type": "option",
+        "settingType": "Option",
+        "options": [
+          "noa",
+          "veronica"
+        ],
+        "value": "noa",
+        "isParentNode": false,
+        "name": "targetCharacter",
+        "path": "doSideStory1.targetCharacter"
+      }
+    },
+    "sweepBattle": {
+      "$isParent": false,
+      "props": {
+        "$type": "boolean",
+        "settingType": "Boolean",
+        "value": false,
+        "isParentNode": false,
+        "name": "sweepBattle",
+        "path": "doSideStory1.sweepBattle"
+      }
+    }
+  },
+  "doBountyHunter": {
+    "$isParent": true,
+    "props": {
+      "settingType": "Parent",
+      "isParentNode": true,
+      "name": "doBountyHunter",
+      "path": "doBountyHunter"
+    },
+    "teamSlot": {
+      "$isParent": false,
+      "props": {
+        "$type": "option",
+        "settingType": "Option",
+        "options": [
+          "Current",
+          "1",
+          "2",
+          "3",
+          "4",
+          "5",
+          "6",
+          "7"
+        ],
+        "value": "2",
+        "isParentNode": false,
+        "name": "teamSlot",
+        "path": "doBountyHunter.teamSlot"
+      }
+    },
+    "sweepBattle": {
+      "$isParent": false,
+      "props": {
+        "$type": "boolean",
+        "settingType": "Boolean",
+        "value": true,
+        "isParentNode": false,
+        "name": "sweepBattle",
+        "path": "doBountyHunter.sweepBattle"
+      }
+    }
+  },
+  "doUpgradeStoneRetrieval": {
+    "$isParent": true,
+    "props": {
+      "settingType": "Parent",
+      "isParentNode": true,
+      "name": "doUpgradeStoneRetrieval",
+      "path": "doUpgradeStoneRetrieval"
+    },
+    "teamSlot": {
+      "$isParent": false,
+      "props": {
+        "$type": "option",
+        "settingType": "Option",
+        "options": [
+          "Current",
+          "1",
+          "2",
+          "3",
+          "4",
+          "5",
+          "6",
+          "7"
+        ],
+        "value": "2",
+        "isParentNode": false,
+        "name": "teamSlot",
+        "path": "doUpgradeStoneRetrieval.teamSlot"
+      }
+    },
+    "sweepBattle": {
+      "$isParent": false,
+      "props": {
+        "$type": "boolean",
+        "settingType": "Boolean",
+        "value": true,
+        "isParentNode": false,
+        "name": "sweepBattle",
+        "path": "doUpgradeStoneRetrieval.sweepBattle"
+      }
+    },
+    "elementTypeTarget1": {
+      "$isParent": false,
+      "props": {
+        "$type": "option",
+        "settingType": "Option",
+        "options": [
+          "earth",
+          "water",
+          "fire",
+          "light",
+          "dark"
+        ],
+        "value": "water",
+        "isParentNode": false,
+        "name": "elementTypeTarget1",
+        "path": "doUpgradeStoneRetrieval.elementTypeTarget1"
+      }
+    },
+    "elementTypeTarget2": {
+      "$isParent": false,
+      "props": {
+        "$type": "option",
+        "settingType": "Option",
+        "options": [
+          "earth",
+          "water",
+          "fire",
+          "light",
+          "dark"
+        ],
+        "value": "fire",
+        "isParentNode": false,
+        "name": "elementTypeTarget2",
+        "path": "doUpgradeStoneRetrieval.elementTypeTarget2"
+      }
+    },
+    "elementTypeTarget3": {
+      "$isParent": false,
+      "props": {
+        "$type": "option",
+        "settingType": "Option",
+        "options": [
+          "earth",
+          "water",
+          "fire",
+          "light",
+          "dark"
+        ],
+        "value": "dark",
+        "isParentNode": false,
+        "name": "elementTypeTarget3",
+        "path": "doUpgradeStoneRetrieval.elementTypeTarget3"
+      }
+    }
+  },
+  "doBanditChase": {
+    "$isParent": true,
+    "props": {
+      "settingType": "Parent",
+      "isParentNode": true,
+      "name": "doBanditChase",
+      "path": "doBanditChase"
+    },
+    "teamSlot": {
+      "$isParent": false,
+      "props": {
+        "$type": "option",
+        "settingType": "Option",
+        "options": [
+          "Current",
+          "1",
+          "2",
+          "3",
+          "4",
+          "5",
+          "6",
+          "7"
+        ],
+        "value": "1",
+        "isParentNode": false,
+        "name": "teamSlot",
+        "path": "doBanditChase.teamSlot"
+      }
+    },
+    "sweepBattle": {
+      "$isParent": false,
+      "props": {
+        "$type": "boolean",
+        "settingType": "Boolean",
+        "value": false,
+        "isParentNode": false,
+        "name": "sweepBattle",
+        "path": "doBanditChase.sweepBattle"
+      }
+    }
+  },
+  "doSideStory2": {
+    "$isParent": true,
+    "props": {
+      "settingType": "Parent",
+      "isParentNode": true,
+      "name": "doSideStory2",
+      "path": "doSideStory2"
+    },
+    "teamSlot": {
+      "$isParent": false,
+      "props": {
+        "$type": "option",
+        "settingType": "Option",
+        "options": [
+          "Current",
+          "1",
+          "2",
+          "3",
+          "4",
+          "5",
+          "6",
+          "7"
+        ],
+        "value": "2",
+        "isParentNode": false,
+        "name": "teamSlot",
+        "path": "doSideStory2.teamSlot"
+      }
+    },
+    "targetCharacter": {
+      "$isParent": false,
+      "props": {
+        "$type": "option",
+        "settingType": "Option",
+        "options": [
+          "noa",
+          "veronica"
+        ],
+        "value": "veronica",
+        "isParentNode": false,
+        "name": "targetCharacter",
+        "path": "doSideStory2.targetCharacter"
+      }
+    },
+    "sweepBattle": {
+      "$isParent": false,
+      "props": {
+        "$type": "boolean",
+        "settingType": "Boolean",
+        "value": true,
+        "isParentNode": false,
+        "name": "sweepBattle",
+        "path": "doSideStory2.sweepBattle"
+      }
+    }
   }
 }

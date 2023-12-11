@@ -20,7 +20,7 @@ while (macroService.IsRunning) {
 			break;
 		case 'titles.recruit':
 			logger.info('claimFreeRecruit: claim Normal');
-			const swipeResult = macroService.SwipePollPattern(patterns.recruit.normal, { Start: { X: 650, Y: 950 }, End: { X: 250, Y: 950 } });
+			const swipeResult = macroService.SwipePollPattern(patterns.recruit.normal, { Start: { X: 850, Y: 950 }, End: { X: 250, Y: 950 } });
 			if (!swipeResult.IsSuccess) {
 				throw new Error('Unable to find normal recruit');
 			}

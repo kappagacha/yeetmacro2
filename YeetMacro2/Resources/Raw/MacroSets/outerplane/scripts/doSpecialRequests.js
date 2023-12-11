@@ -1,6 +1,7 @@
 // Skip all special requests once
 const loopPatterns = [patterns.lobby.level, patterns.titles.adventure, patterns.titles.challenge];
 const daily = dailyManager.GetDaily();
+const teamSlot = settings.doSpecialRequests.teamSlot.Value;
 
 while (macroService.IsRunning) {
 	const loopResult = macroService.PollPattern(loopPatterns, { ClickPattern: patterns.arena.defendReport.close });
@@ -39,12 +40,12 @@ function doEcologyStudy() {
 	const ecologyStudyTypes = ['masterlessGuardian', 'tyrantToddler', 'unidentifiedChimera', 'sacreedGuardian', 'grandCalamari'];
 	for (const ecologyStudy of ecologyStudyTypes) {
 		logger.info(`doSpecialRequests: ${ecologyStudy}`);
-		if (!daily.doSpecialRequests.ecologyStudy[ecologyStudy]) {
+		if (!daily.doSpecialRequests.ecologyStudy[ecologyStudy].IsChecked) {
 			macroService.PollPattern(patterns.challenge.ecologyStudy[ecologyStudy].stars, { DoClick: true, PredicatePattern: patterns.challenge.ecologyStudy[ecologyStudy] });
 			macroService.PollPattern(patterns.challenge.enter, { DoClick: true, PredicatePattern: patterns.challenge.threeStars });
 			clickBottomThreeStars();
 			macroService.PollPattern(patterns.challenge.teamsSetup, { DoClick: true, PredicatePattern: patterns.battle.enter });
-			selectTeam(settings.doSpecialRequests.teamSlot.Value);
+			selectTeam(teamSlot);
 
 			macroService.PollPattern(patterns.battle.setup.auto, { DoClick: true, PredicatePattern: patterns.battle.setup.repeatBattle });
 			macroService.PollPattern(patterns.battle.setup.repeatBattle.minSlider, { DoClick: true, PredicatePattern: patterns.battle.setup.repeatBattle.value1 });
@@ -57,8 +58,7 @@ function doEcologyStudy() {
 		}
 	}
 	if (macroService.IsRunning) {
-		daily.doSpecialRequests.ecologyStudy.done = true;
-		dailyManager.UpdateDaily(daily);
+		daily.doSpecialRequests.ecologyStudy.done.IsChecked = true;
 	}
 }
 
@@ -68,12 +68,12 @@ function doIdentification() {
 	const identificationTypes = ['dekRilAndMekRil', 'glicys', 'blazingKnightMeteos', 'arsNova', 'amadeus'];
 	for (const identification of identificationTypes) {
 		logger.info(`doSpecialRequests: ${identification}`);
-		if (!daily.doSpecialRequests.identification[identification]) {
+		if (!daily.doSpecialRequests.identification[identification].IsChecked) {
 			macroService.PollPattern(patterns.challenge.identification[identification].stars, { DoClick: true, PredicatePattern: patterns.challenge.identification[identification] });
 			macroService.PollPattern(patterns.challenge.enter, { DoClick: true, PredicatePattern: patterns.challenge.threeStars });
 			clickBottomThreeStars();
 			macroService.PollPattern(patterns.challenge.teamsSetup, { DoClick: true, PredicatePattern: patterns.battle.enter });
-			selectTeam(settings.doSpecialRequests.teamSlot.Value);
+			selectTeam(teamSlot);
 
 			macroService.PollPattern(patterns.battle.setup.auto, { DoClick: true, PredicatePattern: patterns.battle.setup.repeatBattle });
 			macroService.PollPattern(patterns.battle.setup.repeatBattle.minSlider, { DoClick: true, PredicatePattern: patterns.battle.setup.repeatBattle.value1 });
@@ -86,7 +86,7 @@ function doIdentification() {
 		}
 	}
 	if (macroService.IsRunning) {
-		daily.doSpecialRequests.ecologyStudy.done.IsChecked = true;
+		daily.doSpecialRequests.identification.done.IsChecked = true;
 	}
 }
 
