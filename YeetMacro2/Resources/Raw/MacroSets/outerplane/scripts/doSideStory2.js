@@ -31,7 +31,10 @@ while (macroService.IsRunning) {
 					const targetCharacterResult = macroService.PollPattern(patterns.sideStory.theOtherSideOfTheWorld[targetCharacter], { DoClick: true, PredicatePattern: [patterns.battle.selectTeam, patterns.battle.enter] });
 					if (targetCharacterResult.PredicatePath === 'battle.enter') {
 						const threeStarsResult = macroService.FindPattern(patterns.sideStory.threeStars, { Limit: 10 });
-						const maxY = threeStarsResult.Points.Max(p => p.Y);
+						const maxY = threeStarsResult?.Points?.Max(p => p.Y);
+						if (!maxY) {
+							throw new Error('Could not find bottom three stars');
+						}
 						const bottomThreeStars = macroService.ClonePattern(patterns.sideStory.threeStars, { CenterY: maxY, Height: 60, Path: `sideStory.threeStars_${maxY}` });
 						macroService.PollPattern(bottomThreeStars, { DoClick: true, ClickOffset: { X: -100 }, PredicatePattern: patterns.battle.selectTeam });
 					}

@@ -28,7 +28,7 @@ while (macroService.IsRunning) {
 			const targetElementTypes = [elementTypeTarget1, elementTypeTarget2, elementTypeTarget3].map(ett => patterns.challenge.upgradeStoneRetrieval[ett]);
 			const elementTypeResult = macroService.FindPattern(targetElementTypes);
 			if (!elementTypeResult.IsSuccess) {
-				throw Error(`Unable to find target element type: ${elementTypeTarget1}, ${elementTypeTarget1}, ${elementTypeTarget3}`)
+				throw Error(`Unable to find target element type: ${elementTypeTarget1}, ${elementTypeTarget2}, ${elementTypeTarget3}`)
 			}
 
 			const elementType = elementTypeResult.Path.split('.').pop();

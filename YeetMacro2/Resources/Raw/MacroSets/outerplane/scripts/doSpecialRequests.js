@@ -36,7 +36,7 @@ while (macroService.IsRunning) {
 
 function doEcologyStudy() {
 	logger.info('doSpecialRequests: doEcologyStudy');
-	macroService.PollPattern(patterns.challenge.ecologyStudy, { DoClick: true, PredicatePattern: patterns.titles.ecologyStudy });
+	macroService.PollPattern(patterns.challenge.ecologyStudy, { DoClick: true, PredicatePattern: patterns.challenge.enter });
 	const ecologyStudyTypes = ['masterlessGuardian', 'tyrantToddler', 'unidentifiedChimera', 'sacreedGuardian', 'grandCalamari'];
 	for (const ecologyStudy of ecologyStudyTypes) {
 		logger.info(`doSpecialRequests: ${ecologyStudy}`);
@@ -64,7 +64,7 @@ function doEcologyStudy() {
 
 function doIdentification() {
 	logger.info('doSpecialRequests: doIdentification');
-	macroService.PollPattern(patterns.challenge.identification, { DoClick: true, PredicatePattern: patterns.titles.identification });
+	macroService.PollPattern(patterns.challenge.identification, { DoClick: true, PredicatePattern: patterns.challenge.enter });
 	const identificationTypes = ['dekRilAndMekRil', 'glicys', 'blazingKnightMeteos', 'arsNova', 'amadeus'];
 	for (const identification of identificationTypes) {
 		logger.info(`doSpecialRequests: ${identification}`);

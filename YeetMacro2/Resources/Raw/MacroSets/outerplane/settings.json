@@ -207,7 +207,7 @@
           "light",
           "dark"
         ],
-        "value": "water",
+        "value": "earth",
         "isParentNode": false,
         "name": "elementTypeTarget1",
         "path": "doUpgradeStoneRetrieval.elementTypeTarget1"
@@ -225,7 +225,7 @@
           "light",
           "dark"
         ],
-        "value": "fire",
+        "value": "water",
         "isParentNode": false,
         "name": "elementTypeTarget2",
         "path": "doUpgradeStoneRetrieval.elementTypeTarget2"

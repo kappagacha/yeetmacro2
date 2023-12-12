@@ -6,6 +6,7 @@ using Android.Runtime;
 using AndroidX.Core.App;
 using CommunityToolkit.Mvvm.Messaging.Messages;
 using CommunityToolkit.Mvvm.Messaging;
+using YeetMacro2.Platforms.Android.Views;
 
 namespace YeetMacro2.Platforms.Android.Services;
 
@@ -99,7 +100,7 @@ public class ForegroundService : Service
         var builder = new NotificationCompat.Action.Builder(Resource.Drawable.appicon2,
                                           "Exit",
                                           exitPendingIntent);
-
+        
         return builder.Build();
     }
 
