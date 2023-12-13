@@ -324,7 +324,7 @@
     <MauiAsset Update="Resources\Raw\MacroSets\outerplane\scripts\doUpgradeStoneRetrieval.js">
       <LogicalName>%(RecursiveDir)%(Filename)%(Extension)</LogicalName>
     </MauiAsset>
-    <MauiAsset Update="Resources\Raw\MacroSets\outerplane\scripts\doBountyChase.js">
+    <MauiAsset Update="Resources\Raw\MacroSets\outerplane\scripts\doBanditChase.js">
       <LogicalName>%(RecursiveDir)%(Filename)%(Extension)</LogicalName>
     </MauiAsset>
     <MauiAsset Update="Resources\Raw\MacroSets\outerplane\scripts\doBountyHunter.js">

@@ -94,7 +94,7 @@ function clickBottomThreeStars() {
 	if (!macroService.IsRunning) return;
 
 	const threeStarsResult = macroService.FindPattern(patterns.challenge.threeStars, { Limit: 10 });
-	const maxY = threeStarsResult.Points.Max(p => p.Y);
+	const maxY = threeStarsResult.Points.reduce((maxY, p) => (maxY = maxY > p.Y ? maxY : p.Y), 0);
 	const bottomThreeStars = macroService.ClonePattern(patterns.challenge.threeStars, { CenterY: maxY, Height: 60.0 });
 	const threeStarsSelected = macroService.ClonePattern(patterns.challenge.threeStars.selected, { CenterY: maxY });
 	macroService.PollPattern(bottomThreeStars, { DoClick: true, PredicatePattern: threeStarsSelected });

@@ -31,7 +31,7 @@ while (macroService.IsRunning) {
 					const targetCharacterResult = macroService.PollPattern(patterns.sideStory.theOtherSideOfTheWorld[targetCharacter], { DoClick: true, PredicatePattern: [patterns.battle.selectTeam, patterns.battle.enter] });
 					if (targetCharacterResult.PredicatePath === 'battle.enter') {
 						const threeStarsResult = macroService.FindPattern(patterns.sideStory.threeStars, { Limit: 10 });
-						const maxY = threeStarsResult?.Points?.Max(p => p.Y);
+						const maxY = threeStarsResult.Points.reduce((maxY, p) => (maxY = maxY > p.Y ? maxY : p.Y), 0);
 						if (!maxY) {
 							throw new Error('Could not find bottom three stars');
 						}
