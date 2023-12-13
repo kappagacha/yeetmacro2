@@ -8,6 +8,25 @@ public class DynamicTemplateSelector : DataTemplateSelector, IMarkupExtension
     static DynamicTemplateSelector _instance = new DynamicTemplateSelector();
     static ConcurrentDictionary<string, DataTemplate> _keyToDataTemplate = new ConcurrentDictionary<string, DataTemplate>();
     static ConcurrentBag<Type> _processedViewType = new ConcurrentBag<Type>();
+    public object Root
+    {
+        set
+        {
+            var rootObject = (VisualElement)((Binding)value).Source;
+            if (!_processedViewType.Contains(rootObject.GetType()))
+            {
+                foreach (var resource in rootObject.Resources)
+                {
+                    if (resource.Value is DataTemplate dataTemplate)
+                    {
+                        _keyToDataTemplate.TryAdd(resource.Key, dataTemplate);
+                    }
+                }
+
+                _processedViewType.Add(rootObject.GetType());
+            }
+        }
+    }
     protected override DataTemplate OnSelectTemplate(object item, BindableObject container)
     {
         string typeKey = item.GetType().Name.Replace("Proxy", "").Replace("ViewModel", "") + "Template";
@@ -19,20 +38,21 @@ public class DynamicTemplateSelector : DataTemplateSelector, IMarkupExtension
 
     public object ProvideValue(IServiceProvider serviceProvider)
     {
-        var rootObjectProvider = serviceProvider.GetService<IRootObjectProvider>();
-        var rootObject = (VisualElement)rootObjectProvider.RootObject;
-        if (!_processedViewType.Contains(rootObject.GetType())) 
-        {
-            foreach (var resource in rootObject.Resources)
-            {
-                if (resource.Value is DataTemplate dataTemplate)
-                {
-                    _keyToDataTemplate.TryAdd(resource.Key, dataTemplate);
-                }
-            }
+        // https://github.com/dotnet/maui/issues/16881
+        //var rootObjectProvider = serviceProvider.GetService<IRootObjectProvider>();
+        //var rootObject = (VisualElement)rootObjectProvider.RootObject;
+        //if (!_processedViewType.Contains(rootObject.GetType())) 
+        //{
+        //    foreach (var resource in rootObject.Resources)
+        //    {
+        //        if (resource.Value is DataTemplate dataTemplate)
+        //        {
+        //            _keyToDataTemplate.TryAdd(resource.Key, dataTemplate);
+        //        }
+        //    }
 
-            _processedViewType.Add(rootObject.GetType());
-        }
+        //    _processedViewType.Add(rootObject.GetType());
+        //}
 
         return _instance;
     }

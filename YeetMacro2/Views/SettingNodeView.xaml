@@ -211,7 +211,7 @@
                                 </v:ImageView.Triggers>
                             </v:ImageView>
                             <CollectionView Grid.Column="1"  SelectionMode="None"
-                                            ItemTemplate="{conv:DynamicTemplateSelector}">
+                                            ItemTemplate="{conv:DynamicTemplateSelector Root={Binding .,Source={Reference thisView}}}">
                                 <CollectionView.ItemsSource>
                                     <MultiBinding Converter="{conv:PassThroughConverter}">
                                         <Binding Path="." />

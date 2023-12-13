@@ -54,7 +54,7 @@
             <ScrollView>
                 <material:TreeView ItemsSource="{Binding Dailies.CurrentSubViewModel.Children}"
                                    Spacing="0" HorizontalOptions="Fill"  VerticalOptions="Fill"
-                                   ItemTemplate="{conv:DynamicTemplateSelector}"/> 
+                                   ItemTemplate="{conv:DynamicTemplateSelector Root={Binding .,Source={Reference thisView}}}"/> 
             </ScrollView>
         </Grid>
         <Grid ColumnDefinitions="*,3*" IsVisible="{Binding IsSubView, Converter={conv:InverseBoolConverter}, Source={Reference thisView}}">
