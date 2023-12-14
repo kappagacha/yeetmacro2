@@ -453,12 +453,14 @@ public partial class MacroManagerViewModel : ObservableObject
 
             if (pattternJson is not null)
             {
+                Patterns.SelectedNode = null;
                 var patterns = PatternNodeManagerViewModel.FromJson(pattternJson);
                 Patterns.Import(patterns);
             }
 
             if (nameToScript.Count > 0)
             {
+                Scripts.SelectedNode = null;
                 var scripts = new ScriptNodeManagerViewModel(-1, null, null, null) { Root = new ScriptNode() { Nodes = new List<ScriptNode>() } };
                 foreach (var scriptKvp in nameToScript)
                 {
@@ -477,8 +479,8 @@ public partial class MacroManagerViewModel : ObservableObject
 
             if (settingJson is not null)
             {
-                var settings = SettingNodeManagerViewModel.FromJson(settingJson);
                 Settings.SelectedNode = null;
+                var settings = SettingNodeManagerViewModel.FromJson(settingJson);
                 MergeSettings(Settings.Root, settings.Root);
                 Settings.Import(settings);
             }
