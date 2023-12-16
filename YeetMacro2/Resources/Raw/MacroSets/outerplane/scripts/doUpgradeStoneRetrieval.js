@@ -1,8 +1,8 @@
 // Auto or sweep bounty chase
 const loopPatterns = [patterns.lobby.level, patterns.titles.adventure, patterns.titles.challenge];
 const daily = dailyManager.GetDaily();
-const sweepBattle = settings.doUpgradeStoneRetrieval.sweepBattle.Value;
 const teamSlot = settings.doUpgradeStoneRetrieval.teamSlot.Value;
+const sweepBattle = settings.doUpgradeStoneRetrieval.sweepBattle.Value;
 const elementTypeTarget1 = settings.doUpgradeStoneRetrieval.elementTypeTarget1.Value;
 const elementTypeTarget2 = settings.doUpgradeStoneRetrieval.elementTypeTarget2.Value;
 const elementTypeTarget3 = settings.doUpgradeStoneRetrieval.elementTypeTarget3.Value;
@@ -14,12 +14,12 @@ while (macroService.IsRunning) {
 	const loopResult = macroService.PollPattern(loopPatterns);
 	switch (loopResult.Path) {
 		case 'lobby.level':
-			logger.info('doBanditChase: click adventure tab');
+			logger.info('doUpgradeStoneRetrieval: click adventure tab');
 			macroService.ClickPattern(patterns.tabs.adventure);
 			sleep(500);
 			break;
 		case 'titles.adventure':
-			logger.info('doSpecialRequests: click challenge');
+			logger.info('doUpgradeStoneRetrieval: click challenge');
 			macroService.ClickPattern(patterns.adventure.challenge);
 			sleep(500);
 			break;

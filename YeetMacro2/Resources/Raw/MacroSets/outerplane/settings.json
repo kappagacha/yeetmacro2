@@ -346,5 +346,189 @@
         "path": "doBanditChase.sweepBattle"
       }
     }
+  },
+  "doGuildSecurityArea": {
+    "$isParent": true,
+    "props": {
+      "settingType": "Parent",
+      "isParentNode": true,
+      "name": "doGuildSecurityArea",
+      "path": "doGuildSecurityArea"
+    },
+    "teamSlot": {
+      "$isParent": false,
+      "props": {
+        "$type": "option",
+        "settingType": "Option",
+        "options": [
+          "Current",
+          "1",
+          "2",
+          "3",
+          "4",
+          "5",
+          "6",
+          "7"
+        ],
+        "value": "1",
+        "isParentNode": false,
+        "name": "teamSlot",
+        "path": "doGuildSecurityArea.teamSlot"
+      }
+    },
+    "elementTypeTarget1": {
+      "$isParent": false,
+      "props": {
+        "$type": "option",
+        "settingType": "Option",
+        "options": [
+          "earth",
+          "water",
+          "fire",
+          "light",
+          "dark"
+        ],
+        "value": "water",
+        "isParentNode": false,
+        "name": "elementTypeTarget1",
+        "path": "doGuildSecurityArea.elementTypeTarget1"
+      }
+    },
+    "elementTypeTarget2": {
+      "$isParent": false,
+      "props": {
+        "$type": "option",
+        "settingType": "Option",
+        "options": [
+          "earth",
+          "water",
+          "fire",
+          "light",
+          "dark"
+        ],
+        "value": "earth",
+        "isParentNode": false,
+        "name": "elementTypeTarget2",
+        "path": "doGuildSecurityArea.elementTypeTarget2"
+      }
+    }
+  },
+  "doEcologyStudy": {
+    "$isParent": true,
+    "props": {
+      "settingType": "Parent",
+      "isParentNode": true,
+      "name": "doEcologyStudy",
+      "path": "doEcologyStudy"
+    },
+    "teamSlot": {
+      "$isParent": false,
+      "props": {
+        "$type": "option",
+        "settingType": "Option",
+        "options": [
+          "Current",
+          "1",
+          "2",
+          "3",
+          "4",
+          "5",
+          "6",
+          "7"
+        ],
+        "value": "2",
+        "isParentNode": false,
+        "name": "teamSlot",
+        "path": "doEcologyStudy.teamSlot"
+      }
+    },
+    "sweepBattle": {
+      "$isParent": false,
+      "props": {
+        "$type": "boolean",
+        "settingType": "Boolean",
+        "value": true,
+        "isParentNode": false,
+        "name": "sweepBattle",
+        "path": "doEcologyStudy.sweepBattle"
+      }
+    },
+    "targetEcologyStudy": {
+      "$isParent": false,
+      "props": {
+        "$type": "option",
+        "settingType": "Option",
+        "options": [
+          "masterlessGuardian",
+          "tyrantToddler",
+          "unidentifiedChimera",
+          "sacreedGuardian",
+          "grandCalamari"
+        ],
+        "value": "unidentifiedChimera",
+        "isParentNode": false,
+        "name": "targetEcologyStudy",
+        "path": "doEcologyStudy.targetEcologyStudy"
+      }
+    }
+  },
+  "doIdentification": {
+    "$isParent": true,
+    "props": {
+      "settingType": "Parent",
+      "isParentNode": true,
+      "name": "doIdentification",
+      "path": "doIdentification"
+    },
+    "teamSlot": {
+      "$isParent": false,
+      "props": {
+        "$type": "option",
+        "settingType": "Option",
+        "options": [
+          "Current",
+          "1",
+          "2",
+          "3",
+          "4",
+          "5",
+          "6",
+          "7"
+        ],
+        "value": "2",
+        "isParentNode": false,
+        "name": "teamSlot",
+        "path": "doIdentification.teamSlot"
+      }
+    },
+    "sweepBattle": {
+      "$isParent": false,
+      "props": {
+        "$type": "boolean",
+        "settingType": "Boolean",
+        "value": true,
+        "isParentNode": false,
+        "name": "sweepBattle",
+        "path": "doIdentification.sweepBattle"
+      }
+    },
+    "targetIdentification": {
+      "$isParent": false,
+      "props": {
+        "$type": "option",
+        "settingType": "Option",
+        "options": [
+          "dekRilAndMekRil",
+          "glicys",
+          "blazingKnightMeteos",
+          "arsNova",
+          "amadeus"
+        ],
+        "value": "glicys",
+        "isParentNode": false,
+        "name": "targetIdentification",
+        "path": "doIdentification.targetIdentification"
+      }
+    }
   }
 }

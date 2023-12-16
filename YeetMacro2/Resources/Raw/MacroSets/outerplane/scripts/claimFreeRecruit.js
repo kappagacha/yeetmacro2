@@ -10,8 +10,8 @@ while (macroService.IsRunning) {
 	switch (loopResult.Path) {
 		case 'lobby.level':
 			logger.info('claimFreeRecruit: click recruit tab');
-			const recruitshopNotificationResult = macroService.PollPattern(patterns.tabs.recruit.notification, { TimoutMs: 1_000 });
-			if (recruitshopNotificationResult.IsSuccess) {
+			const recruitNotificationResult = macroService.PollPattern(patterns.tabs.recruit.notification, { TimoutMs: 1_000 });
+			if (recruitNotificationResult.IsSuccess) {
 				macroService.ClickPattern(patterns.tabs.recruit);
 			} else {	// already claimed
 				return;
