@@ -44,7 +44,7 @@ public partial class ActionMenuViewModel : ObservableObject
     public void ManagePatterns()
     {
         _toastService.Show("Manage Patterns");
-        _screenService.Show(AndroidWindowView.PatternsNodeView);
+        _screenService.Show(AndroidWindowView.PatternNodeView);
     }
 
     [RelayCommand]

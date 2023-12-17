@@ -12,21 +12,8 @@
              x:DataType="vm:MacroManagerViewModel"
              x:Class="YeetMacro2.Views.ScriptNodeView"
              x:Name="thisControl">
-    <ContentView.Resources>
-        <ResourceDictionary>
-            <mct:VariableMultiValueConverter x:Key="allTrueMultiValueConverter" ConditionType="All" />
-        </ResourceDictionary>
-    </ContentView.Resources>
     <Grid>
-        <v:SettingNodeView IsVisible="{Binding IsToggled, Source={Reference settingsToggle}}" />
-        <v:DailyNodeView IsVisible="{Binding IsToggled, Source={Reference dailiesToggle}}" />
         <Grid ColumnDefinitions="*,3*">
-            <Grid.IsVisible>
-                <MultiBinding Converter="{StaticResource allTrueMultiValueConverter}">
-                    <Binding Path="IsToggled" Source="{Reference settingsToggle}" Converter="{conv:InverseBoolConverter}" />
-                    <Binding Path="IsToggled" Source="{Reference dailiesToggle}" Converter="{conv:InverseBoolConverter}" />
-                </MultiBinding>
-            </Grid.IsVisible>
             <Border Grid.Column="0" Stroke="{StaticResource Primary}" BackgroundColor="Transparent" Padding="3">
                 <v:NodeView NodeManager="{Binding Scripts}">
                     <v:NodeView.ExtraMenuItemsDataTemplate>
@@ -92,10 +79,6 @@
             </HorizontalStackLayout>
             <v:ToggleImageView IsToggled="{Binding Scripts.ShowScriptEditor}" ToggledColor="Green"
                                FontFamily="MaterialOutlined" Glyph="{x:Static mi:MaterialOutlined.Edit}" />
-        </HorizontalStackLayout>
-        <HorizontalStackLayout HorizontalOptions="Start" VerticalOptions="End">
-            <v:ToggleImageView x:Name="settingsToggle" FontFamily="MaterialOutlined" Glyph="{x:Static mi:MaterialRegular.Settings}" UntoggledColor="Gray" ToggledColor="{StaticResource Primary}" />
-            <v:ToggleImageView x:Name="dailiesToggle" FontFamily="FARegular" Glyph="{x:Static fa:Regular.CalendarCheck}" UntoggledColor="Gray" ToggledColor="{StaticResource Primary}" />
         </HorizontalStackLayout>
         <ActivityIndicator IsRunning="{Binding IsBusy}" />
     </Grid>

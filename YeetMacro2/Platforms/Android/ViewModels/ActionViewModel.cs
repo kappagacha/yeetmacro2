@@ -51,7 +51,7 @@ public partial class ActionViewModel : ObservableObject, IMovable
             if (scriptEventMessage.Value.Type == ScriptEventType.Started)
             {
                 _screenService.IsDrawing = true;    // to prevent _mediaProjectionService from stopping
-                _screenService.Close(AndroidWindowView.ScriptsNodeView);
+                _screenService.Close(AndroidWindowView.ScriptNodeView);
                 State = ActionState.Running;
             }
             else
@@ -91,7 +91,7 @@ public partial class ActionViewModel : ObservableObject, IMovable
         switch (State)
         {
             case ActionState.Stopped:
-                _screenService.Show(AndroidWindowView.ScriptsNodeView);
+                _screenService.Show(AndroidWindowView.ScriptNodeView);
                 break;
             case ActionState.Running:
                 _scriptService.Stop();

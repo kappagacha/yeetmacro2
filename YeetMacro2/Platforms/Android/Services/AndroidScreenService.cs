@@ -19,9 +19,10 @@ namespace YeetMacro2.Platforms.Android.Services;
 
 public enum AndroidWindowView
 {
-    PatternsNodeView,
-    ScriptsNodeView,
-    PatternsView,
+    PatternNodeView,
+    ScriptNodeView,
+    SettingNodeView,
+    DailyNodeView,
     DrawView,
     UserDrawView,
     DebugDrawView,
@@ -95,6 +96,9 @@ public class AndroidScreenService : IScreenService
                 Close(AndroidWindowView.ActionView);
                 Close(AndroidWindowView.StatusPanelView);
                 Close(AndroidWindowView.MacroOverlayView);
+                Close(AndroidWindowView.PatternNodeView);
+                Close(AndroidWindowView.SettingNodeView);
+                Close(AndroidWindowView.DailyNodeView);
                 Close(AndroidWindowView.TestView);
                 Close(AndroidWindowView.DebugDrawView);
                 CloseOverlayWindow();
@@ -450,14 +454,14 @@ public class AndroidScreenService : IScreenService
                     var actionView = new MoveView(_context, _windowManager, new ActionControl());
                     _views.TryAdd(windowView, actionView);
                     break;
-                case AndroidWindowView.PatternsNodeView:
+                case AndroidWindowView.PatternNodeView:
                     var patternsNodeView = new ResizeView(_context, _windowManager, this, new PatternNodeView());
                     _views.TryAdd(windowView, patternsNodeView);
                     patternsNodeView.OnShow = () => {
-                        if (_views.ContainsKey(AndroidWindowView.ScriptsNodeView) && _views[AndroidWindowView.ScriptsNodeView].IsShowing)
+                        if (_views.ContainsKey(AndroidWindowView.ScriptNodeView) && _views[AndroidWindowView.ScriptNodeView].IsShowing)
                         {
                             IsDrawing = true;
-                            Close(AndroidWindowView.ScriptsNodeView);
+                            Close(AndroidWindowView.ScriptNodeView);
                             IsDrawing = false;
                         }
                         else if (!IsDrawing)
@@ -469,14 +473,24 @@ public class AndroidScreenService : IScreenService
                     patternsNodeView.OnClose = () => { 
                         Close(AndroidWindowView.MacroOverlayView); 
                         if (!IsDrawing) _mediaProjectionService.Stop();
-                        ServiceHelper.GetService<AndriodHomeViewModel>().ShowPatternsNodeView = false;
+                        ServiceHelper.GetService<AndriodHomeViewModel>().ShowPatternNodeView = false;
                     };
                     break;
-                case AndroidWindowView.ScriptsNodeView:
-                    var scriptsNodeView = new ResizeView(_context, _windowManager, this, new ScriptNodeView() { ShowExecuteButton = true });
-                    _views.TryAdd(windowView, scriptsNodeView);
-                    scriptsNodeView.OnShow = () => { Show(AndroidWindowView.MacroOverlayView); if (!IsDrawing) _mediaProjectionService.Start(); };
-                    scriptsNodeView.OnClose = () => { Close(AndroidWindowView.MacroOverlayView); if (!IsDrawing) _mediaProjectionService.Stop(); };
+                case AndroidWindowView.ScriptNodeView:
+                    var scriptNodeView = new ResizeView(_context, _windowManager, this, new ScriptNodeView() { ShowExecuteButton = true });
+                    _views.TryAdd(windowView, scriptNodeView);
+                    scriptNodeView.OnShow = () => { Show(AndroidWindowView.MacroOverlayView); if (!IsDrawing) _mediaProjectionService.Start(); };
+                    scriptNodeView.OnClose = () => { Close(AndroidWindowView.MacroOverlayView); if (!IsDrawing) _mediaProjectionService.Stop(); };
+                    break;
+                case AndroidWindowView.SettingNodeView:
+                    var settingNodeView = new ResizeView(_context, _windowManager, this, new SettingNodeView());
+                    _views.TryAdd(windowView, settingNodeView);
+                    settingNodeView.OnClose = () => ServiceHelper.GetService<AndriodHomeViewModel>().ShowSettingNodeView = false;
+                    break;
+                case AndroidWindowView.DailyNodeView:
+                    var dailyNodeView = new ResizeView(_context, _windowManager, this, new DailyNodeView());
+                    _views.TryAdd(windowView, dailyNodeView);
+                    dailyNodeView.OnClose = () => ServiceHelper.GetService<AndriodHomeViewModel>().ShowDailyNodeView = false;
                     break;
                 case AndroidWindowView.PromptStringInputView:
                     var promptStringInputView = new FormsView(_context, _windowManager, new PromptStringInput());

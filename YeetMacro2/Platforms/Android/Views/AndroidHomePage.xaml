@@ -42,9 +42,15 @@
             <v:ToggleImageView IsToggled="{Binding ShowMacroOverlay}"
                                FontFamily="MaterialOutlined" Glyph="{x:Static mi:MaterialOutlined.Credit_card}"
                                HorizontalOptions="Center" Text="Show Macro Overlay" ToggledColor="Green" UntoggledColor="LightGray" />
-            <v:ToggleImageView IsToggled="{Binding ShowPatternsNodeView}"
+            <v:ToggleImageView IsToggled="{Binding ShowPatternNodeView}"
                                FontFamily="MaterialOutlined" Glyph="{x:Static mi:MaterialOutlined.Image_search}"
                                HorizontalOptions="Center" Text="Show Patterns" ToggledColor="Green" UntoggledColor="LightGray" />
+            <v:ToggleImageView IsToggled="{Binding ShowSettingNodeView}"
+                               FontFamily="MaterialOutlined" Glyph="{x:Static mi:MaterialOutlined.Settings}"
+                               HorizontalOptions="Center" Text="Show Settings" ToggledColor="Green" UntoggledColor="LightGray" />
+            <v:ToggleImageView IsToggled="{Binding ShowDailyNodeView}"
+                                FontFamily="FARegular" Glyph="{x:Static fa:Regular.CalendarCheck}"
+                                HorizontalOptions="Center" Text="Show Dailies" ToggledColor="Green" UntoggledColor="LightGray" />
             <v:ToggleImageView IsToggled="{Binding ShowStatusPanel}"
                                FontFamily="MaterialOutlined" Glyph="{x:Static mi:MaterialOutlined.Call_to_action}"
                                HorizontalOptions="Center" Text="Show Status Panel" ToggledColor="Green" UntoggledColor="LightGray" />

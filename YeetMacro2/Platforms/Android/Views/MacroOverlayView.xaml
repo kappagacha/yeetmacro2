@@ -78,9 +78,17 @@
         </VerticalStackLayout>
         <VerticalStackLayout HorizontalOptions="End" VerticalOptions="Start">
             <HorizontalStackLayout>
-                <v:ToggleImageView IsToggled="{Binding ShowPatternsNodeView}"
+                <v:ToggleImageView IsToggled="{Binding ShowPatternNodeView}"
                                    FontFamily="MaterialOutlined" Glyph="{x:Static mi:MaterialOutlined.Image_search}"
                                    HorizontalOptions="Center" ToggledColor="Green" UntoggledColor="LightGray" />
+                <BoxView WidthRequest="1" Color="{StaticResource Primary}"/>
+                <v:ToggleImageView IsToggled="{Binding ShowSettingNodeView}"
+                                   FontFamily="MaterialOutlined" Glyph="{x:Static mi:MaterialOutlined.Settings}"
+                                   HorizontalOptions="Center" ToggledColor="Green" UntoggledColor="LightGray" />
+                <BoxView WidthRequest="1" Color="{StaticResource Primary}"/>
+                <v:ToggleImageView IsToggled="{Binding ShowDailyNodeView}"
+                                    FontFamily="FARegular" Glyph="{x:Static fa:Regular.CalendarCheck}"
+                                    HorizontalOptions="Center" ToggledColor="Green" UntoggledColor="LightGray" />
                 <BoxView WidthRequest="1" Color="{StaticResource Primary}"/>
                 <v:ToggleImageView IsToggled="{Binding ShowTestView}"
                                    FontFamily="MaterialOutlined" Glyph="{x:Static mi:MaterialOutlined.Science}"

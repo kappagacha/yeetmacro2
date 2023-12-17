@@ -13,7 +13,8 @@ public partial class AndriodHomeViewModel : ObservableObject
     public const int REQUEST_IGNORE_BATTERY_OPTIMIZATIONS = 2;
     [ObservableProperty]
     bool _isProjectionServiceEnabled, _isAccessibilityEnabled, _isAppearing, _showMacroOverlay,
-         _showPatternsNodeView, _showStatusPanel, _isMacroReady, _showTestView, _inDeveloperMode;
+         _showPatternNodeView, _showStatusPanel, _isMacroReady, _showTestView, _inDeveloperMode,
+         _showSettingNodeView, _showDailyNodeView;
     private AndroidScreenService _screenService;
     private MacroManagerViewModel _macroManagerViewModel;
     private YeetAccessibilityService _accessibilityService;
@@ -187,15 +188,39 @@ public partial class AndriodHomeViewModel : ObservableObject
         _screenService.Close(AndroidWindowView.MacroOverlayView);
     }
 
-    partial void OnShowPatternsNodeViewChanged(bool value)
+    partial void OnShowPatternNodeViewChanged(bool value)
     {
         if (value)
         {
-            _screenService.Show(AndroidWindowView.PatternsNodeView);
+            _screenService.Show(AndroidWindowView.PatternNodeView);
         }
         else
         {
-            _screenService.Close(AndroidWindowView.PatternsNodeView);
+            _screenService.Close(AndroidWindowView.PatternNodeView);
+        }
+    }
+
+    partial void OnShowSettingNodeViewChanged(bool value)
+    {
+        if (value)
+        {
+            _screenService.Show(AndroidWindowView.SettingNodeView);
+        }
+        else
+        {
+            _screenService.Close(AndroidWindowView.SettingNodeView);
+        }
+    }
+
+    partial void OnShowDailyNodeViewChanged(bool value)
+    {
+        if (value)
+        {
+            _screenService.Show(AndroidWindowView.DailyNodeView);
+        }
+        else
+        {
+            _screenService.Close(AndroidWindowView.DailyNodeView);
         }
     }
 
