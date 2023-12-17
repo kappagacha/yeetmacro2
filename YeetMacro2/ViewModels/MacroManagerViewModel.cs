@@ -559,7 +559,15 @@ public partial class MacroManagerViewModel : ObservableObject
                     ((SettingNode<bool>)dest).Value = ((SettingNode<bool>)source).Value;
                     break;
                 case SettingType.String when dest.SettingType == SettingType.String:
+                case SettingType.Option when dest.SettingType == SettingType.Option:
                     ((SettingNode<string>)dest).Value = ((SettingNode<string>)source).Value;
+                    break;
+                case SettingType.Integer when dest.SettingType == SettingType.Integer:
+                    ((SettingNode<int>)dest).Value = ((SettingNode<int>)source).Value;
+                    break;
+                case SettingType.EnabledInteger when dest.SettingType == SettingType.EnabledInteger:
+                    ((EnabledIntegerSetting)dest).IsEnabled = ((EnabledIntegerSetting)source).IsEnabled;
+                    ((SettingNode<int>)dest).Value = ((SettingNode<int>)source).Value;
                     break;
                 case SettingType.Pattern when dest.SettingType == SettingType.Pattern:
                     ((SettingNode<PatternNode>)dest).Value = ((SettingNode<PatternNode>)source).Value;
