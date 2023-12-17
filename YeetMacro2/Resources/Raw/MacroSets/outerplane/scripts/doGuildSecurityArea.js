@@ -1,5 +1,5 @@
 // Auto guild security area
-const loopPatterns = [patterns.lobby.level, patterns.titles.guildBoard, patterns.titles.guildSecurityArea, patterns.titles.guild];
+const loopPatterns = [patterns.lobby.level, patterns.titles.guildBoard, patterns.titles.guild];
 const daily = dailyManager.GetDaily();
 const teamSlot = settings.doGuildSecurityArea.teamSlot.Value;
 const elementTypeTarget1 = settings.doGuildSecurityArea.elementTypeTarget1.Value;
@@ -29,15 +29,10 @@ while (macroService.IsRunning) {
 			break;
 		case 'titles.guildBoard':
 			logger.info('doGuildSecurityArea: click security area move');
-			macroService.ClickPattern(patterns.guild.securityArea.move);
-			sleep(500);
-			break;
-		case 'titles.guildSecurityArea':
 			const targetElementTypes = [elementTypeTarget1, elementTypeTarget2].map(ett => patterns.guild.securityArea[ett]);
+			macroService.PollPattern(patterns.guild.securityArea.move, { DoClick: true, PredicatePattern: targetElementTypes });
+
 			const elementTypeResult = macroService.FindPattern(targetElementTypes);
-			if (!elementTypeResult.IsSuccess) {
-				throw Error(`Unable to find target element type: ${elementTypeTarget1}, ${elementTypeTarget2}`)
-			}
 			const elementType = elementTypeResult.Path.split('.').pop();
 			logger.info(`elementType: ${elementType}`);
 			macroService.PollPattern(patterns.guild.securityArea[elementType], { DoClick: true, PredicatePattern: patterns.battle.enter });

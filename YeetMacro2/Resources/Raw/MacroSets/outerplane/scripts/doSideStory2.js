@@ -28,8 +28,8 @@ while (macroService.IsRunning) {
 				case 'noa':
 				case 'veronica':
 					macroService.PollPattern(patterns.sideStory.theOtherSideOfTheWorld, { DoClick: true, PredicatePattern: patterns.sideStory.theOtherSideOfTheWorld.selected });
-					const targetCharacterResult = macroService.PollPattern(patterns.sideStory.theOtherSideOfTheWorld[targetCharacter], { DoClick: true, PredicatePattern: [patterns.battle.selectTeam, patterns.battle.enter] });
-					if (targetCharacterResult.PredicatePath === 'battle.enter') {
+					const targetCharacterResult = macroService.PollPattern(patterns.sideStory.theOtherSideOfTheWorld[targetCharacter], { DoClick: true, PredicatePattern: [patterns.battle.selectTeam, patterns.sideStory.enter] });
+					if (targetCharacterResult.PredicatePath === 'sideStory.enter') {
 						const threeStarsResult = macroService.FindPattern(patterns.sideStory.threeStars, { Limit: 10 });
 						const maxY = threeStarsResult.Points.reduce((maxY, p) => (maxY = maxY > p.Y ? maxY : p.Y), 0);
 						if (!maxY) {
