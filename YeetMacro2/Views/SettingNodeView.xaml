@@ -16,9 +16,7 @@
              x:Name="thisView">
     <ContentView.Resources>
         <DataTemplate x:Key="ParentSettingTemplate" x:DataType="{x:Type vm:MacroSetViewModel}">
-            <VerticalStackLayout>
-                <Label Text="{Binding Name}" VerticalOptions="Center" />
-            </VerticalStackLayout>
+            <Label Text="{Binding Name}" VerticalOptions="Center" />
         </DataTemplate>
         <DataTemplate x:Key="BooleanSettingTemplate">
             <HorizontalStackLayout>

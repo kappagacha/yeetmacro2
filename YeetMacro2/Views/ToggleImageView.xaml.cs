@@ -37,6 +37,8 @@ public partial class ToggleImageView : ContentView
             BindableProperty.Create("Command", typeof(ICommand), typeof(ToggleImageView), null);
     public static readonly BindableProperty CommandParameterProperty =
             BindableProperty.Create("CommandParameter", typeof(object), typeof(ToggleImageView), null);
+    public static readonly BindableProperty IsToggledFromImageOnlyProperty =
+            BindableProperty.Create("IsToggledFromImageOnly", typeof(bool), typeof(ToggleImageView), false);
     public double? ImageWidth
     {
         get { return (double?)GetValue(ImageWidthProperty); }
@@ -120,7 +122,11 @@ public partial class ToggleImageView : ContentView
         get { return GetValue(CommandParameterProperty); }
         set { SetValue(CommandParameterProperty, value); }
     }
-
+    public bool IsToggledFromImageOnly
+    {
+        get { return (bool)GetValue(IsToggledFromImageOnlyProperty); }
+        set { SetValue(IsToggledFromImageOnlyProperty, value); }
+    }
     public ToggleImageView()
 	{
 		InitializeComponent();
