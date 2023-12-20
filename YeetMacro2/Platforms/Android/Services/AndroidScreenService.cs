@@ -239,12 +239,6 @@ public class AndroidScreenService : IScreenService
         ms.Close();
         ms.Dispose();
 
-        //var folder = global::Android.OS.Environment.GetExternalStoragePublicDirectory(global::Android.OS.Environment.DirectoryPictures).Path;
-        //var file = System.IO.Path.Combine(folder, $"{DateTime.Now.ToString("screencapture_yyyyMMdd_HHmmss")}.jpeg");
-        //using (FileStream fs = new FileStream(file, FileMode.OpenOrCreate))
-        //{
-        //    fs.Write(array, 0, array.Length);
-        //}
         return array;
     }
 
@@ -323,6 +317,19 @@ public class AndroidScreenService : IScreenService
                 Console.WriteLine($"GetMatches TextMatch: {watch.ElapsedMilliseconds} ms");
                 return textPoints;
             }
+
+            // for debugging
+            //var folder = global::Android.OS.Environment.GetExternalStoragePublicDirectory(global::Android.OS.Environment.DirectoryPictures).Path;
+            //var haystackFile = System.IO.Path.Combine(folder, $"haystack_{DateTime.Now.ToString("yyyyMMdd_HHmmss")}.jpeg");
+            //using (FileStream fs = new FileStream(haystackFile, FileMode.OpenOrCreate))
+            //{
+            //    fs.Write(haystackImageData, 0, haystackImageData.Length);
+            //}
+            //var needleFile = System.IO.Path.Combine(folder, $"needle_{DateTime.Now.ToString("yyyyMMdd_HHmmss")}.jpeg");
+            //using (FileStream fs = new FileStream(needleFile, FileMode.OpenOrCreate))
+            //{
+            //    fs.Write(needleImageData, 0, needleImageData.Length);
+            //}
 
             var points = _openCvService.GetPointsWithMatchTemplate(haystackImageData, needleImageData, opts?.Limit ?? 1, threshold);
             if (pattern.Rect != Rect.Zero)
