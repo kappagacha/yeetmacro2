@@ -18,6 +18,7 @@ while (macroService.IsRunning) {
 			sleep(500);
 			break;
 		case 'titles.arena':
+			macroService.PollPattern(patterns.arena.leagueOfChallenge, { DoClick: true, ClickPattern: patterns.arena.defendReport.close, PredicatePattern: patterns.arena.challenge1 })
 			const numArenaTickets = macroService.GetText(patterns.arena.numTickets);
 			if (numArenaTickets.trim() === '0') {
 				return;
@@ -42,7 +43,7 @@ while (macroService.IsRunning) {
 				if (macroService.IsRunning) {
 					daily.doArena.count.Count++;
 				}
-				macroService.PollPattern(patterns.prompt.ok, { DoClick: true, PredicatePattern: patterns.titles.arena });
+				macroService.PollPattern(patterns.prompt.ok, { DoClick: true, ClickPattern: patterns.arena.tapEmptySpace, PredicatePattern: patterns.titles.arena });
 			}
 			break;
 	}

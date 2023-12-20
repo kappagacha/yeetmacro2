@@ -28,6 +28,10 @@ while (macroService.IsRunning) {
 				case 'noa':
 				case 'veronica':
 					macroService.PollPattern(patterns.sideStory.theOtherSideOfTheWorld, { DoClick: true, PredicatePattern: patterns.sideStory.theOtherSideOfTheWorld.selected });
+					const swipeResult = macroService.SwipePollPattern(patterns.sideStory.theOtherSideOfTheWorld[targetCharacter], { Start: { X: 1000, Y: 850 }, End: { X: 500, Y: 850 } });
+					if (!swipeResult.IsSuccess) {
+						throw new Error(`Could not find side story for ${targetCharacter}`);
+					}
 					const targetCharacterResult = macroService.PollPattern(patterns.sideStory.theOtherSideOfTheWorld[targetCharacter], { DoClick: true, PredicatePattern: [patterns.battle.selectTeam, patterns.sideStory.enter] });
 					if (targetCharacterResult.PredicatePath === 'sideStory.enter') {
 						const threeStarsResult = macroService.FindPattern(patterns.sideStory.threeStars, { Limit: 10 });
