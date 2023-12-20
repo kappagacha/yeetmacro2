@@ -44,6 +44,7 @@ public class CloneOptions
     public double Width { get; set; }
     public double Height { get; set; }
     public double Padding { get; set; }
+    public double Scale { get; set; } = 1.0;
     public string Path { get; set; }
 }
 
@@ -108,7 +109,7 @@ public class MacroService
 
     public PatternNode ClonePattern(PatternNode patternNode, CloneOptions opts)
     {
-        var clone =  PatternNodeManagerViewModel.CloneNode(patternNode);
+        var clone = PatternNodeManagerViewModel.CloneNode(patternNode);
         if (!string.IsNullOrEmpty(opts.Path)) clone.Path = opts.Path;
 
         foreach (var pattern in clone.Patterns)
@@ -130,6 +131,12 @@ public class MacroService
             var location = new Point(calcX, calcY);
 
             pattern.Rect = new Rect(location, size);
+        }
+
+        if (opts.Scale != 1.0)
+        {
+            clone.Patterns = clone.Patterns.Select(
+                p => PatternNodeManagerViewModel.GetScaled(_screenService, p, opts.Scale)).ToList();
         }
 
         return clone;

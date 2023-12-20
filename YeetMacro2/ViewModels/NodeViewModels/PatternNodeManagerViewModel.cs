@@ -1,6 +1,7 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using Microsoft.Extensions.Logging;
+using System.Text.Json;
 using System.Windows.Input;
 using YeetMacro2.Data.Models;
 using YeetMacro2.Data.Services;
@@ -64,6 +65,28 @@ public partial class PatternNodeManagerViewModel : NodeManagerViewModel<PatternN
         {
             SelectedPattern = null;
         }
+    }
+
+    public static Pattern ClonePattern(Pattern pattern)
+    {
+        var json = JsonSerializer.Serialize(pattern);
+        return JsonSerializer.Deserialize<Pattern>(json);
+    }
+
+    public static Pattern GetScaled(IScreenService screenService, Pattern pattern, double scale)
+    {
+        var scaledPattern = ClonePattern(pattern);
+        if (scaledPattern.ImageData is not null)
+        {
+            scaledPattern.ImageData = screenService.ScaleImageData(scaledPattern.ImageData, scale);
+        }
+
+        if (scaledPattern.ColorThreshold.ImageData is not null)
+        {
+            scaledPattern.ColorThreshold.ImageData = screenService.ScaleImageData(scaledPattern.ColorThreshold.ImageData, scale);
+        }
+
+        return scaledPattern;
     }
 
     [RelayCommand]
@@ -224,14 +247,20 @@ public partial class PatternNodeManagerViewModel : NodeManagerViewModel<PatternN
     [RelayCommand]
     private void TestPattern(object[] values)
     {
-        if (values.Length != 4) return;
+        if (values.Length != 5) return;
 
         if (values[0] is Pattern pattern &&
             pattern != null &&
             values[1] is string strXOffset &&
             values[2] is string strYOffset &&
-            values[3] is bool doTestCalc)
+            values[3] is bool doTestCalc &&
+            values[4] is string inputScale)
         {
+            if (double.TryParse(inputScale, out double scale) && scale != 1.0)
+            {
+                pattern = GetScaled(_screenService, pattern, scale);
+            }
+
             var opts = new FindOptions() { Limit = 10 };
             if (int.TryParse(strXOffset, out int xOffset)) opts.Offset = opts.Offset.Offset(xOffset, 0);
             if (int.TryParse(strYOffset, out int yOffset)) opts.Offset = opts.Offset.Offset(0, yOffset);

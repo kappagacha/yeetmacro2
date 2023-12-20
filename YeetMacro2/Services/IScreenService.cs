@@ -16,6 +16,7 @@ public class FindOptions
 {
     public int Limit { get; set; } = 1;
     public double VariancePct { get; set; }
+    public double Scale { get; set; }
     public Point Offset { get; set; } = Point.Zero;
     //public Rect OverrideRect { get; set; }
 }
@@ -48,4 +49,5 @@ public interface IScreenService
     Size CalcResolution { get; }
     Size Resolution { get; }
     double Density { get; }
+    byte[] ScaleImageData(byte[] data, double scale);
 }

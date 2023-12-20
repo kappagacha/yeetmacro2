@@ -14,6 +14,7 @@ using YeetMacro2.ViewModels;
 using YeetMacro2.Views;
 using CommunityToolkit.Mvvm.Messaging.Messages;
 using CommunityToolkit.Mvvm.Messaging;
+using static Android.Graphics.Bitmap;
 
 namespace YeetMacro2.Platforms.Android.Services;
 
@@ -49,6 +50,7 @@ public class AndroidScreenService : IScreenService
     YeetAccessibilityService _accessibilityService;
     IToastService _toastService;
     Size _initialResolution;
+    double _density;
     public IReadOnlyDictionary<AndroidWindowView, IShowable> Views => _views;
     public bool IsDrawing { get; set; }
     public int UserDrawViewWidth => _views.ContainsKey(AndroidWindowView.UserDrawView) ? ((FormsView)_views[AndroidWindowView.UserDrawView]).MeasuredHeightAndState : -1;
@@ -65,6 +67,7 @@ public class AndroidScreenService : IScreenService
         }
     }
     public Size Resolution => new Size(_overlayWindow?.MeasuredWidthAndState ?? 0, _overlayWindow?.MeasuredHeightAndState ?? 0);
+    public double Density => _density;
     //public int DisplayCutoutTop => _androidWindowManagerService.OverlayWindow == null ? 0 : _androidWindowManagerService.OverlayWindow.RootWindowInsets.DisplayCutout?.SafeInsetTop ?? 0;
     JsonSerializerOptions _serializationOptions = new JsonSerializerOptions()
     {
@@ -85,6 +88,7 @@ public class AndroidScreenService : IScreenService
         _windowManager = _context.GetSystemService(Context.WindowService).JavaCast<IWindowManager>();
         DeviceDisplay.MainDisplayInfoChanged += DeviceDisplay_MainDisplayInfoChanged;
         _initialResolution = new Size(DeviceDisplay.MainDisplayInfo.Width, DeviceDisplay.MainDisplayInfo.Height);
+        _density = DeviceDisplay.MainDisplayInfo.Density;
         WeakReferenceMessenger.Default.Register<PropertyChangedMessage<bool>, string>(this, nameof(ForegroundService), (r, propertyChangedMessage) =>
         {
             if (propertyChangedMessage.NewValue)    // true means ForegroundService was started
@@ -217,6 +221,31 @@ public class AndroidScreenService : IScreenService
     public byte[] GetCurrentImageData(Rect rect)
     {
         return _mediaProjectionService.GetCurrentImageData(rect);
+    }
+
+    public byte[] ScaleImageData(byte[] data, double scale)
+    {
+        var bitmap = global::Android.Graphics.BitmapFactory.DecodeByteArray(data, 0, data.Length);
+        var targetWidth = bitmap.Width * scale;
+        var targetHeight = bitmap.Height * scale;
+        var resizedBitmap = global::Android.Graphics.Bitmap.CreateScaledBitmap(bitmap, (int)targetWidth, (int)targetHeight, false);
+
+        MemoryStream ms = new MemoryStream();
+        resizedBitmap.Compress(CompressFormat.Jpeg, 100, ms);
+        ms.Position = 0;
+        var array = ms.ToArray();
+        bitmap.Dispose();
+        resizedBitmap.Dispose();
+        ms.Close();
+        ms.Dispose();
+
+        //var folder = global::Android.OS.Environment.GetExternalStoragePublicDirectory(global::Android.OS.Environment.DirectoryPictures).Path;
+        //var file = System.IO.Path.Combine(folder, $"{DateTime.Now.ToString("screencapture_yyyyMMdd_HHmmss")}.jpeg");
+        //using (FileStream fs = new FileStream(file, FileMode.OpenOrCreate))
+        //{
+        //    fs.Write(array, 0, array.Length);
+        //}
+        return array;
     }
 
     public List<Point> GetMatches(Pattern pattern, FindOptions opts)

@@ -81,6 +81,8 @@
                     </HorizontalStackLayout>
                     <CheckBox x:Name="doTestCalc" Margin="5,0,0,0" VerticalOptions="Center" />
                     <Label Margin="5,0,0,0" VerticalOptions="Center" Padding="0" Text="TestCalc" />
+                    <Label Margin="5,0,0,0" VerticalOptions="Center" Padding="0" Text="Scale:" />
+                    <Entry x:Name="scale" Margin="5,0,0,0" VerticalOptions="Center" Keyboard="Numeric" Text="1.0" />
                 </HorizontalStackLayout>
                 <HorizontalStackLayout Margin="0" Padding="0" Spacing="5">
                     <Label Margin="0" VerticalOptions="Center" Padding="0" Text="Horizontal Stretch Multiplier:" />
