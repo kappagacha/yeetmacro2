@@ -96,6 +96,16 @@ public class MacroService
         return _pathToOffset[patternNode.Path];
     }
 
+    public Size GetCurrentResolution()
+    {
+        return _screenService.Resolution;
+    }
+
+    public double GetScreenDensity()
+    {
+        return _screenService.Density;
+    }
+
     public PatternNode ClonePattern(PatternNode patternNode, CloneOptions opts)
     {
         var clone =  PatternNodeManagerViewModel.CloneNode(patternNode);
@@ -129,7 +139,7 @@ public class MacroService
     {
         if (opts is null) opts = new FindOptions();
 
-        FindPatternResult result = null;
+        var result = new FindPatternResult() { IsSuccess = false };
         PatternNode[] patternNodes;
 
         if (oneOfPattern.IsT1)
@@ -151,14 +161,7 @@ public class MacroService
                 }
                 Sleep(50);
 
-                if (!IsRunning)
-                {
-                    result = new FindPatternResult()
-                    {
-                        IsSuccess = false
-                    };
-                    break;
-                }
+                if (!IsRunning) break;
 
                 var path = patternNode.Path;
                 _logger.LogDebug($"Find: {path}");
@@ -202,7 +205,9 @@ public class MacroService
                 }
                 else
                 {
-                    var pattern = patternNode.Patterns.First();
+                    var pattern = patternNode.Patterns.FirstOrDefault();
+                    if (pattern is null) return result;
+
                     var offset = CalcOffset(patternNode);
                     var optsWithOffset = new FindOptions() {
                         Limit = opts.Limit,

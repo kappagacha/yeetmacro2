@@ -47,4 +47,5 @@ public interface IScreenService
     void ShowMessage(string message);
     Size CalcResolution { get; }
     Size Resolution { get; }
+    double Density { get; }
 }
