@@ -48,6 +48,8 @@ public class Pattern
     public virtual TextMatchProperties TextMatch { get; set; }
     public virtual ColorThresholdProperties ColorThreshold { get; set; }
     public virtual OffsetCalcType OffsetCalcType { get; set; } = OffsetCalcType.Default;
+    [JsonIgnore]
+    public string RectDisplay => $"X={Rect.X:0.####} Y={Rect.Y:0.####} W={Rect.Width:0.####} H={Rect.Height:0.####}";
 }
 
 public class TextMatchProperties

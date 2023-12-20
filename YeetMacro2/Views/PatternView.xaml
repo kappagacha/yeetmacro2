@@ -114,7 +114,7 @@
                              VerticalOptions="End" HorizontalOptions="End">
             <HorizontalStackLayout Spacing="5" VerticalOptions="End" HorizontalOptions="End">
                 <v:ImageView FontFamily="MaterialOutlined" Glyph="{x:Static mi:MaterialOutlined.Rectangle}" Color="{StaticResource Primary}" />
-                <Label Text="{Binding Pattern.Rect, Source={Reference thisView}}" />
+                <Label Text="{Binding Pattern.RectDisplay, Source={Reference thisView}}" />
             </HorizontalStackLayout>
             <!--<HorizontalStackLayout Spacing="5" VerticalOptions="End" HorizontalOptions="End">
                 <v:ImageView FontFamily="MaterialOutlined" Glyph="{x:Static mi:MaterialOutlined.Image_aspect_ratio}" Color="{StaticResource Primary}" />

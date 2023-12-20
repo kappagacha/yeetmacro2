@@ -75,6 +75,7 @@ public class YeetMacroDbContext : DbContext
         modelBuilder.Entity<PatternNode>().HasMany(pn => pn.Patterns).WithOne().HasForeignKey(p => p.PatternNodeId).OnDelete(DeleteBehavior.Cascade);
         modelBuilder.Entity<Pattern>().HasKey(p => p.PatternId);
         modelBuilder.Entity<Pattern>().Ignore(p => p.IsSelected);
+        modelBuilder.Entity<Pattern>().Ignore(p => p.RectDisplay);
         modelBuilder.Entity<Pattern>().Property(p => p.Resolution).HasConversion(sizeConverter);
         modelBuilder.Entity<Pattern>().Property(p => p.Rect).HasConversion(rectConverter);
         modelBuilder.Entity<Pattern>().OwnsOne(p => p.TextMatch);
