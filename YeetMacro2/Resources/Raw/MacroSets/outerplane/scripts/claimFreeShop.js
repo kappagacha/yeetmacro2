@@ -27,7 +27,7 @@ while (macroService.IsRunning) {
 				macroService.PollPattern(patterns.shop.normal.free.confirm, { DoClick: true, InversePredicatePattern: patterns.shop.normal.free.confirm });
 			}
 			logger.info('claimFreeShop: claim Resource');
-			const swipeResult = macroService.SwipePollPattern(patterns.shop.resource, { MaxSwipes: 1, Start: { X: 180, Y: 650 }, End: { X: 180, Y: 250 } });
+			const swipeResult = macroService.SwipePollPattern(patterns.shop.resource, { MaxSwipes: 2, Start: { X: 180, Y: 650 }, End: { X: 180, Y: 250 } });
 			if (!swipeResult.IsSuccess) {
 				throw new Error('Unable to find resource shop');
 			}
