@@ -161,6 +161,7 @@
                             <Binding Path="Text" Source="{Reference xOffset}" />
                             <Binding Path="Text" Source="{Reference yOffset}" />
                             <Binding Path="IsChecked" Source="{Reference doTestCalc}" />
+                            <Binding Path="Text" Source="{Reference scale}" />
                         </MultiBinding>
                     </v:ImageView.CommandParameter>
                 </v:ImageView>
