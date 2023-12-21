@@ -94,9 +94,10 @@
         "settingType": "Option",
         "options": [
           "noa",
-          "veronica"
+          "veronica",
+          "valentine"
         ],
-        "value": "noa",
+        "value": "valentine",
         "isParentNode": false,
         "name": "targetCharacter",
         "path": "doSideStory1.targetCharacter"
@@ -137,7 +138,7 @@
           "6",
           "7"
         ],
-        "value": "2",
+        "value": "1",
         "isParentNode": false,
         "name": "teamSlot",
         "path": "doSideStory2.teamSlot"
@@ -150,9 +151,10 @@
         "settingType": "Option",
         "options": [
           "noa",
-          "veronica"
+          "veronica",
+          "valentine"
         ],
-        "value": "veronica",
+        "value": "noa",
         "isParentNode": false,
         "name": "targetCharacter",
         "path": "doSideStory2.targetCharacter"
@@ -163,7 +165,7 @@
       "props": {
         "$type": "boolean",
         "settingType": "Boolean",
-        "value": true,
+        "value": false,
         "isParentNode": false,
         "name": "sweepBattle",
         "path": "doSideStory2.sweepBattle"
