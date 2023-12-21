@@ -92,18 +92,6 @@ public partial class DailyNodeManagerViewModel : NodeManagerViewModel<DailyNodeV
         _dailyRespository.Save();
     }
 
-    [RelayCommand]
-    public void Increment(DailyJsonCountViewModel dailyJsonCount)
-    {
-        dailyJsonCount.Count++;
-    }
-
-    [RelayCommand]
-    public void Decrement(DailyJsonCountViewModel dailyJsonCount)
-    {
-        dailyJsonCount.Count--;
-    }
-
     protected override Task AddNode()
     {
         var newNode = new DailyNodeViewModel()

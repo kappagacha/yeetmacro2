@@ -26,26 +26,7 @@
         <DataTemplate x:Key="DailyJsonCountTemplate">
             <HorizontalStackLayout>
                 <Label Text="{Binding Key}" VerticalOptions="Center" />
-                <v:ImageView
-                    VerticalOptions="Center" FontFamily="MaterialOutlined" Glyph="{x:Static mi:MaterialOutlined.Remove}"
-                    Command="{Binding BindingContext.Dailies.DecrementCommand, Source={x:Reference thisView}}"
-                    CommandParameter="{Binding .}" />
-                <Entry Margin="5,0,0,0" VerticalOptions="Center" Text="{Binding Count}" Keyboard="Numeric">
-                    <Entry.Behaviors>
-                        <mct:NumericValidationBehavior MaximumDecimalPlaces="0"
-                                                       Flags="ValidateOnValueChanged">
-                            <mct:NumericValidationBehavior.InvalidStyle>
-                                <Style TargetType="Entry">
-                                    <Setter Property="BackgroundColor" Value="Red" />
-                                </Style>
-                            </mct:NumericValidationBehavior.InvalidStyle>
-                        </mct:NumericValidationBehavior>
-                    </Entry.Behaviors>
-                </Entry>
-                <v:ImageView
-                    VerticalOptions="Center" FontFamily="MaterialOutlined" Glyph="{x:Static mi:MaterialOutlined.Add}"
-                    Command="{Binding BindingContext.Dailies.IncrementCommand, Source={RelativeSource AncestorType={x:Type v:DailyNodeView}}}"
-                    CommandParameter="{Binding .}" />
+                <v:IntegerStepper Value="{Binding Count}" />
             </HorizontalStackLayout>
         </DataTemplate>
     </ContentView.Resources>

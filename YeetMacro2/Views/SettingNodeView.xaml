@@ -15,144 +15,65 @@
              BackgroundColor="{AppThemeBinding Light={StaticResource Background}, Dark={StaticResource BackgroundDark}}"
              x:Name="thisView">
     <ContentView.Resources>
-        <DataTemplate x:Key="ParentSettingTemplate" x:DataType="{x:Type vm:MacroSetViewModel}">
-            <Label Text="{Binding Name}" VerticalOptions="Center" />
-        </DataTemplate>
+        <DataTemplate x:Key="ParentSettingTemplate" x:DataType="{x:Type vm:MacroSetViewModel}" />
         <DataTemplate x:Key="BooleanSettingTemplate">
-            <HorizontalStackLayout>
-                <Label x:Name="label" Text="{Binding Name}" VerticalOptions="Center" />
-                <CheckBox x:Name="booleanSettingCheckbox" IsChecked="{Binding Value}" VerticalOptions="Center" HeightRequest="{Binding Height, Source={Reference label}}" />
+            <FlexLayout JustifyContent="SpaceBetween">
+                <CheckBox IsChecked="{Binding Value}" VerticalOptions="Center" HeightRequest="{Binding Height, Source={Reference label}}" />
                 <v:ImageView
                     VerticalOptions="Center" FontFamily="MaterialOutlined" Glyph="{x:Static mi:MaterialOutlined.Refresh}"
                     Command="{Binding BindingContext.Settings.ResetSettingCommand, Source={RelativeSource AncestorType={x:Type v:SettingNodeView}}}"
                     CommandParameter="{Binding .}" />
-            </HorizontalStackLayout>
+            </FlexLayout>
         </DataTemplate>
         <DataTemplate x:Key="OptionSettingTemplate">
-            <HorizontalStackLayout>
-                <Label x:Name="label" Text="{Binding Name, StringFormat='{0}:'}" VerticalOptions="Center" />
-                <Grid Margin="10,0,0,0" Padding="0" VerticalOptions="Center" HeightRequest="{Binding Height, Source={Reference label}}">
-                    <Label Margin="0" Padding="0" Text="{Binding Value}" VerticalOptions="Center" />
-                    <ImageButton Margin="0" Padding="0"
-                        Command="{Binding BindingContext.Settings.SelectOptionCommand, Source={RelativeSource AncestorType={x:Type v:SettingNodeView}}}"
-                        CommandParameter="{Binding .}" />
-                </Grid>
-                <v:ImageView
+            <FlexLayout JustifyContent="SpaceBetween">
+                <HorizontalStackLayout>
+                    <Grid VerticalOptions="Center" HeightRequest="{Binding Height, Source={Reference label}}">
+                        <Label Margin="0" Padding="0" Text="{Binding Value}" VerticalOptions="Center" />
+                        <ImageButton Margin="0" Padding="0"
+                            Command="{Binding BindingContext.Settings.SelectOptionCommand, Source={RelativeSource AncestorType={x:Type v:SettingNodeView}}}"
+                            CommandParameter="{Binding .}" />
+                    </Grid>
+                    <v:ImageView
                         VerticalOptions="Center" FontFamily="MaterialOutlined" Glyph="{x:Static mi:MaterialOutlined.Add}"
                         Command="{Binding BindingContext.Settings.AddOptionCommand, Source={RelativeSource AncestorType={x:Type v:SettingNodeView}}}"
                         CommandParameter="{Binding .}" />
+                </HorizontalStackLayout>
                 <v:ImageView
-                        VerticalOptions="Center" FontFamily="MaterialOutlined" Glyph="{x:Static mi:MaterialOutlined.Refresh}"
-                        Command="{Binding BindingContext.Settings.ResetSettingCommand, Source={RelativeSource AncestorType={x:Type v:SettingNodeView}}}"
-                        CommandParameter="{Binding .}" />
-            </HorizontalStackLayout>
+                         VerticalOptions="Center" FontFamily="MaterialOutlined" Glyph="{x:Static mi:MaterialOutlined.Refresh}"
+                         Command="{Binding BindingContext.Settings.ResetSettingCommand, Source={RelativeSource AncestorType={x:Type v:SettingNodeView}}}"
+                         CommandParameter="{Binding .}" />
+            </FlexLayout>
         </DataTemplate>
         <DataTemplate x:Key="StringSettingTemplate">
-            <HorizontalStackLayout>
-                <Label VerticalOptions="Center" Text="{Binding Name}" />
-                <Entry x:Name="stringSettingEntry" Margin="5,0,0,0" VerticalOptions="Center" Text="{Binding Value}" />
+            <FlexLayout JustifyContent="SpaceBetween">
+                <Entry VerticalOptions="Center" Text="{Binding Value}" />
                 <v:ImageView
                     VerticalOptions="Center" FontFamily="MaterialOutlined" Glyph="{x:Static mi:MaterialOutlined.Refresh}"
                     Command="{Binding BindingContext.Settings.ResetSettingCommand, Source={RelativeSource AncestorType={x:Type v:SettingNodeView}}}"
                     CommandParameter="{Binding .}" />
-            </HorizontalStackLayout>
+            </FlexLayout>
         </DataTemplate>
         <DataTemplate x:Key="IntegerSettingTemplate">
-            <HorizontalStackLayout>
-                <Label x:Name="label" VerticalOptions="Center" Text="{Binding Name}" />
-                <v:ImageView
-                    VerticalOptions="Center" FontFamily="MaterialOutlined" Glyph="{x:Static mi:MaterialOutlined.Remove}"
-                    Command="{Binding BindingContext.Settings.DecrementCommand, Source={RelativeSource AncestorType={x:Type v:SettingNodeView}}}"
-                    CommandParameter="{Binding .}" />
-                <Entry x:Name="integerSettingEntry" Margin="5,0,0,0" VerticalOptions="Center" Text="{Binding Value}" Keyboard="Numeric">
-                    <Entry.Behaviors>
-                        <mct:NumericValidationBehavior MaximumDecimalPlaces="0"
-                                                       Flags="ValidateOnValueChanged">
-                            <mct:NumericValidationBehavior.InvalidStyle>
-                                <Style TargetType="Entry">
-                                    <Setter Property="BackgroundColor" Value="Red" />
-                                </Style>
-                            </mct:NumericValidationBehavior.InvalidStyle>
-                        </mct:NumericValidationBehavior>
-                    </Entry.Behaviors>
-                </Entry>
-                <v:ImageView
-                    VerticalOptions="Center" FontFamily="MaterialOutlined" Glyph="{x:Static mi:MaterialOutlined.Add}"
-                    Command="{Binding BindingContext.Settings.IncrementCommand, Source={RelativeSource AncestorType={x:Type v:SettingNodeView}}}"
-                    CommandParameter="{Binding .}" />
-                <v:ImageView
+            <mct:DockLayout>
+                <v:ImageView mct:DockLayout.DockPosition="Right"
                     VerticalOptions="Center" FontFamily="MaterialOutlined" Glyph="{x:Static mi:MaterialOutlined.Refresh}"
                     Command="{Binding BindingContext.Settings.ResetSettingCommand, Source={RelativeSource AncestorType={x:Type v:SettingNodeView}}}"
                     CommandParameter="{Binding .}" />
-                <Entry x:Name="integerIncrementSettingEntry" Margin="5,0,0,0" VerticalOptions="Center" Text="{Binding Increment}" Keyboard="Numeric">
-                    <Entry.Behaviors>
-                        <mct:NumericValidationBehavior MaximumDecimalPlaces="0"
-                                       Flags="ValidateOnValueChanged">
-                            <mct:NumericValidationBehavior.InvalidStyle>
-                                <Style TargetType="Entry">
-                                    <Setter Property="BackgroundColor" Value="Red" />
-                                </Style>
-                            </mct:NumericValidationBehavior.InvalidStyle>
-                        </mct:NumericValidationBehavior>
-                    </Entry.Behaviors>
-                </Entry>
-                <v:ImageView VerticalOptions="Center" FontFamily="MaterialOutlined" Glyph="{x:Static mi:MaterialOutlined.Trending_up}"/>
-            </HorizontalStackLayout>
+                <v:IntegerStepper Value="{Binding Value}" ShowIncrement="True" Increment="{Binding Increment}" />
+            </mct:DockLayout>
         </DataTemplate>
         <DataTemplate x:Key="EnabledIntegerSettingTemplate">
-            <HorizontalStackLayout>
-                <CheckBox x:Name="integerSettingIsActiveCheckbox" IsChecked="{Binding IsEnabled}" VerticalOptions="Center" HeightRequest="{Binding Height, Source={Reference label}}" />
-                <Label x:Name="label" VerticalOptions="Center" Text="{Binding Name}" />
-                <v:ImageView
-                    IsEnabled="{Binding IsEnabled}"
-                    VerticalOptions="Center" FontFamily="MaterialOutlined" Glyph="{x:Static mi:MaterialOutlined.Remove}"
-                    Command="{Binding BindingContext.Settings.DecrementCommand, Source={RelativeSource AncestorType={x:Type v:SettingNodeView}}}"
-                    CommandParameter="{Binding .}" />
-                <Entry x:Name="integerSettingEntry" Margin="5,0,0,0" VerticalOptions="Center" Text="{Binding Value}" Keyboard="Numeric" 
-                       IsEnabled="{Binding IsEnabled}">
-                    <Entry.Behaviors>
-                        <mct:NumericValidationBehavior MaximumDecimalPlaces="0"
-                                               Flags="ValidateOnValueChanged">
-                            <mct:NumericValidationBehavior.InvalidStyle>
-                                <Style TargetType="Entry">
-                                    <Setter Property="BackgroundColor" Value="Red" />
-                                </Style>
-                            </mct:NumericValidationBehavior.InvalidStyle>
-                        </mct:NumericValidationBehavior>
-                    </Entry.Behaviors>
-                </Entry>
-                <v:ImageView
-                    IsEnabled="{Binding IsEnabled}"
-                    VerticalOptions="Center" FontFamily="MaterialOutlined" Glyph="{x:Static mi:MaterialOutlined.Add}"
-                    Command="{Binding BindingContext.Settings.IncrementCommand, Source={RelativeSource AncestorType={x:Type v:SettingNodeView}}}"
-                    CommandParameter="{Binding .}" />
-                <v:ImageView
-                    IsEnabled="{Binding IsEnabled}"
+            <mct:DockLayout>
+                <CheckBox mct:DockLayout.DockPosition="Left" IsChecked="{Binding IsEnabled}" VerticalOptions="Center" HeightRequest="{Binding Height, Source={Reference label}}" />
+                <v:ImageView mct:DockLayout.DockPosition="Right"
                     VerticalOptions="Center" FontFamily="MaterialOutlined" Glyph="{x:Static mi:MaterialOutlined.Refresh}"
                     Command="{Binding BindingContext.Settings.ResetSettingCommand, Source={RelativeSource AncestorType={x:Type v:SettingNodeView}}}"
                     CommandParameter="{Binding .}" />
-                <Entry x:Name="integerIncrementSettingEntry" Margin="5,0,0,0" VerticalOptions="Center" 
-                       Text="{Binding Increment}" Keyboard="Numeric" IsEnabled="{Binding IsEnabled}">
-                    <Entry.Behaviors>
-                        <mct:NumericValidationBehavior MaximumDecimalPlaces="0"
-                               Flags="ValidateOnValueChanged">
-                            <mct:NumericValidationBehavior.InvalidStyle>
-                                <Style TargetType="Entry">
-                                    <Setter Property="BackgroundColor" Value="Red" />
-                                </Style>
-                            </mct:NumericValidationBehavior.InvalidStyle>
-                        </mct:NumericValidationBehavior>
-                    </Entry.Behaviors>
-                </Entry>
-                <v:ImageView VerticalOptions="Center" FontFamily="MaterialOutlined" Glyph="{x:Static mi:MaterialOutlined.Trending_up}" 
-                             IsEnabled="{Binding IsEnabled}"/>
-            </HorizontalStackLayout>
+                <v:IntegerStepper Value="{Binding Value}" ShowIncrement="True" Increment="{Binding Increment}" />
+            </mct:DockLayout>
         </DataTemplate>
-        <DataTemplate x:Key="PatternSettingTemplate">
-            <VerticalStackLayout>
-                <Label Text="{Binding Name}" VerticalOptions="Center" />
-            </VerticalStackLayout>
-        </DataTemplate>
+        <DataTemplate x:Key="PatternSettingTemplate" />
     </ContentView.Resources>
     <Grid ColumnDefinitions="*">
         <Grid.Triggers>
@@ -181,42 +102,16 @@
                                     <Setter Property="HeightRequest" Value="{StaticResource IconHeight}" />
                                 </DataTrigger>
                             </Grid.Triggers>
-                            <v:ImageView x:Name="imageView" Grid.Column="0" ImageWidth="20" ImageHeight="20">
-                                <v:ImageView.Triggers>
-                                    <DataTrigger TargetType="{x:Type v:ImageView}" Binding="{Binding SettingType}" Value="{x:Static m:SettingType.Parent}">
-                                        <Setter Property="IsVisible" Value="False" />
-                                    </DataTrigger>
-                                    <DataTrigger TargetType="{x:Type v:ImageView}" Binding="{Binding SettingType}" Value="{x:Static m:SettingType.Boolean}">
-                                        <Setter Property="FontFamily" Value="MaterialOutlined" />
-                                        <Setter Property="Glyph" Value="{x:Static mi:MaterialOutlined.Rule}" />
-                                    </DataTrigger>
-                                    <DataTrigger TargetType="{x:Type v:ImageView}" Binding="{Binding SettingType}" Value="{x:Static m:SettingType.Option}">
-                                        <Setter Property="FontFamily" Value="MaterialOutlined" />
-                                        <Setter Property="Glyph" Value="{x:Static mi:MaterialOutlined.Ballot}" />
-                                    </DataTrigger>
-                                    <DataTrigger TargetType="{x:Type v:ImageView}" Binding="{Binding SettingType}" Value="{x:Static m:SettingType.Pattern}">
-                                        <Setter Property="FontFamily" Value="MaterialOutlined" />
-                                        <Setter Property="Glyph" Value="{x:Static mi:MaterialOutlined.Image_search}" />
-                                    </DataTrigger>
-                                    <DataTrigger TargetType="{x:Type v:ImageView}" Binding="{Binding SettingType}" Value="{x:Static m:SettingType.Integer}">
-                                        <Setter Property="FontFamily" Value="FASolid" />
-                                        <Setter Property="Glyph" Value="{x:Static fa:Solid.n}" />
-                                    </DataTrigger>
-                                    <DataTrigger TargetType="{x:Type v:ImageView}" Binding="{Binding SettingType}" Value="{x:Static m:SettingType.String}">
-                                        <Setter Property="FontFamily" Value="FASolid" />
-                                        <Setter Property="Glyph" Value="{x:Static fa:Solid.s}" />
-                                    </DataTrigger>
-                                </v:ImageView.Triggers>
-                            </v:ImageView>
-                            <CollectionView Grid.Column="1"  SelectionMode="None"
+                            <Label Grid.Column="0" x:Name="label" Text="{Binding Name}" VerticalOptions="Center" />
+                            <ImageButton Grid.Column="0" Margin="0" Padding="0" CommandParameter="{Binding .}" Command="{Binding NodeManager.SelectNodeCommand, Source={RelativeSource AncestorType={x:Type v:NodeView}}}" />
+                            <CollectionView Grid.Column="1"  SelectionMode="None" 
                                             ItemTemplate="{conv:DynamicTemplateSelector Root={Binding .,Source={Reference thisView}}}">
                                 <CollectionView.ItemsSource>
                                     <MultiBinding Converter="{conv:PassThroughConverter}">
                                         <Binding Path="." />
                                     </MultiBinding>
                                 </CollectionView.ItemsSource>
-                            </CollectionView>        
-                            <ImageButton Margin="0" Padding="0" CommandParameter="{Binding .}" Command="{Binding NodeManager.SelectNodeCommand, Source={RelativeSource AncestorType={x:Type v:NodeView}}}" />
+                            </CollectionView>
                         </Grid>
                     </DataTemplate>
                 </v:NodeView.ItemTemplate>

@@ -114,6 +114,9 @@
 	  <Compile Update="Views\DailyNodeView.xaml.cs">
 	    <DependentUpon>DailyNodeView.xaml</DependentUpon>
 	  </Compile>
+	  <Compile Update="Views\IntegerStepper.xaml.cs">
+	    <DependentUpon>IntegerStepper.xaml</DependentUpon>
+	  </Compile>
 	  <Compile Update="Views\ToggleImageView.xaml.cs">
 	    <DependentUpon>ToggleImageView.xaml</DependentUpon>
 	  </Compile>
@@ -166,6 +169,9 @@
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
 	  <MauiXaml Update="Platforms\Android\Views\MessageView.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	  <MauiXaml Update="Views\IntegerStepper.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
 	  <MauiXaml Update="Views\ToggleImageView.xaml">

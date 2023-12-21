@@ -14,6 +14,8 @@ public class WindowsScreenService : IScreenService, IRecorderService
 
     public Microsoft.Maui.Graphics.Size Resolution => throw new NotImplementedException();
 
+    public double Density => throw new NotImplementedException();
+
     [DllImport("user32.dll")]
     public static extern bool GetWindowRect(IntPtr hWnd, out RECT lpRect);
     [DllImport("user32.dll")]
@@ -124,6 +126,11 @@ public class WindowsScreenService : IScreenService, IRecorderService
     }
 
     public string GetText(byte[] currentImage)
+    {
+        throw new NotImplementedException();
+    }
+
+    public byte[] ScaleImageData(byte[] data, double scale)
     {
         throw new NotImplementedException();
     }

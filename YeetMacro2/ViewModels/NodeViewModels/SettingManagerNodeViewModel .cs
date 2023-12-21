@@ -121,28 +121,6 @@ public partial class SettingNodeManagerViewModel : NodeManagerViewModel<ParentSe
     }
 
     [RelayCommand]
-    public void Increment(object setting)
-    {
-        if (setting is IntegerSetting integerSetting)
-        {
-            integerSetting.Value += integerSetting.Increment;
-            _settingRepository.Update(integerSetting);
-            _settingRepository.Save();
-        }
-    }
-
-    [RelayCommand]
-    public void Decrement(object setting)
-    {
-        if (setting is IntegerSetting integerSetting)
-        {
-            integerSetting.Value -= integerSetting.Increment;
-            _settingRepository.Update(integerSetting);
-            _settingRepository.Save();
-        }
-    }
-
-    [RelayCommand]
     public void SaveSetting(SettingNode setting)
     {
         _settingRepository.Update(setting);
