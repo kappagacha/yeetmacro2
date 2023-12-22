@@ -140,7 +140,7 @@ public partial class PatternNodeManagerViewModel : NodeManagerViewModel<PatternN
         if (values.Length == 2 && values[0] is Pattern pattern && values[1] is PatternNode patternNode)
         {
             patternNode.Patterns.Remove(pattern);
-            _patternRepository.Delete(pattern);
+            //_patternRepository.Delete(pattern);
             _patternRepository.Save();
         }
     }

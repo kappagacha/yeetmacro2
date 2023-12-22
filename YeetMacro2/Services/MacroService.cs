@@ -46,6 +46,7 @@ public class CloneOptions
     public double Padding { get; set; }
     public double Scale { get; set; } = 1.0;
     public string Path { get; set; }
+    public OffsetCalcType OffsetCalcType { get; set; } = OffsetCalcType.Default;
 }
 
 public class MacroService
@@ -131,6 +132,7 @@ public class MacroService
             var location = new Point(calcX, calcY);
 
             pattern.Rect = new Rect(location, size);
+            pattern.OffsetCalcType = opts.OffsetCalcType;
         }
 
         if (opts.Scale != 1.0)

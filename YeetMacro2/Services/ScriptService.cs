@@ -11,6 +11,7 @@ using Jint.Native;
 using Jint.Runtime;
 using System.Text.Json.Nodes;
 using System.Runtime.Serialization.Formatters;
+using System.Text.Json.Serialization;
 
 namespace YeetMacro2.Services;
 
@@ -135,6 +136,10 @@ public class ScriptService: IScriptService
 // https://github.com/sebastienros/jint/blob/d48ebd50ba5af240f484a3763227d2a53999a365/Jint.Tests/Runtime/EngineTests.cs#L3079
 public class JsToDotNetConverter : DefaultTypeConverter
 {
+    JsonSerializerOptions _jsonOpts = new JsonSerializerOptions()
+    {
+        Converters = { new JsonStringEnumConverter() }
+    };
     public JsToDotNetConverter(Engine engine) : base(engine)
     {
 
@@ -194,7 +199,7 @@ public class JsToDotNetConverter : DefaultTypeConverter
         }
         else if (type == typeof(CloneOptions))
         {
-            var opts = JsonSerializer.Deserialize<CloneOptions>(JsonSerializer.Serialize(value));
+            var opts = JsonSerializer.Deserialize<CloneOptions>(JsonSerializer.Serialize(value, _jsonOpts), _jsonOpts);
             converted = opts;
             return true;
         }

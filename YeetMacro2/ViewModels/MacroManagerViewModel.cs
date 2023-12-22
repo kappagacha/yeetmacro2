@@ -50,7 +50,7 @@ public partial class MacroManagerViewModel : ObservableObject
     {
         Converters = {
                 new JsonStringEnumConverter()
-            },
+        },
         WriteIndented = true,
         PropertyNamingPolicy = JsonNamingPolicy.CamelCase,
         TypeInfoResolver = SizePropertiesResolver.Instance

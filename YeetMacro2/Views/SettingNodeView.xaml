@@ -28,6 +28,7 @@
         <DataTemplate x:Key="OptionSettingTemplate">
             <FlexLayout JustifyContent="SpaceBetween">
                 <HorizontalStackLayout>
+                    <Label Text=": " />
                     <Grid VerticalOptions="Center" HeightRequest="{Binding Height, Source={Reference label}}">
                         <Label Margin="0" Padding="0" Text="{Binding Value}" VerticalOptions="Center" />
                         <ImageButton Margin="0" Padding="0"

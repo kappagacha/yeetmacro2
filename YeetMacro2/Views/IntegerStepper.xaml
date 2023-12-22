@@ -16,7 +16,7 @@
             <Entry VerticalOptions="Center" Text="{Binding Value, Source={Reference thisView}}" Keyboard="Numeric">
                 <Entry.Behaviors>
                     <mct:NumericValidationBehavior MaximumDecimalPlaces="0"
-                   Flags="ValidateOnValueChanged">
+                            Flags="ValidateOnValueChanged">
                         <mct:NumericValidationBehavior.InvalidStyle>
                             <Style TargetType="Entry">
                                 <Setter Property="BackgroundColor" Value="Red" />
