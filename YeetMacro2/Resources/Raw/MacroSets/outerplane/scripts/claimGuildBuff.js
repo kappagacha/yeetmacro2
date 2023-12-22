@@ -7,11 +7,11 @@ if (daily.claimGuildBuff.done.IsChecked) {
 }
 
 while (macroService.IsRunning) {
-	const loopResult = macroService.PollPattern(loopPatterns);
+	const loopResult = macroService.PollPattern(loopPatterns, { ClickPattern: [patterns.general.tapEmptySpace, patterns.guild.checkIn.ok, patterns.guild.raid.startMessage] });
 	switch (loopResult.Path) {
 		case 'lobby.level':
 			logger.info('claimGuildBuff: click guild tab');
-			const guildNotificationResult = macroService.PollPattern(patterns.tabs.guild.notification, { TimoutMs: 1_000 });
+			const guildNotificationResult = macroService.PollPattern(patterns.tabs.guild.notification, { TimoutMs: 2_000 });
 			if (guildNotificationResult.IsSuccess) {
 				macroService.ClickPattern(patterns.tabs.guild);
 			} else {	// no notification

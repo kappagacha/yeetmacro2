@@ -10,7 +10,7 @@ while (macroService.IsRunning) {
 	switch (loopResult.Path) {
 		case 'lobby.level':
 			logger.info('claimFreeShop: click shop tab');
-			const shopNotificationResult = macroService.PollPattern(patterns.tabs.shop.notification, { TimoutMs: 1_000 });
+			const shopNotificationResult = macroService.PollPattern(patterns.tabs.shop.notification, { TimoutMs: 2_000 });
 			if (shopNotificationResult.IsSuccess) {
 				macroService.ClickPattern(patterns.tabs.shop);
 			} else {	// already claimed
