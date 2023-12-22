@@ -255,22 +255,28 @@
     <MauiAsset Update="Resources\Raw\MacroSets\eversoul\patterns.json">
       <LogicalName>%(RecursiveDir)%(Filename)%(Extension)</LogicalName>
     </MauiAsset>
-    <MauiAsset Update="Resources\Raw\MacroSets\eversoul\scripts\doGateFairy.js">
+    <MauiAsset Update="Resources\Raw\MacroSets\eversoul\scripts\claimLoot.js">
       <LogicalName>%(RecursiveDir)%(Filename)%(Extension)</LogicalName>
     </MauiAsset>
-    <MauiAsset Update="Resources\Raw\MacroSets\eversoul\scripts\doGateHumanlike.js">
+    <MauiAsset Update="Resources\Raw\MacroSets\eversoul\scripts\claimMail.js">
       <LogicalName>%(RecursiveDir)%(Filename)%(Extension)</LogicalName>
     </MauiAsset>
-    <MauiAsset Update="Resources\Raw\MacroSets\eversoul\scripts\doGateBeast.js">
+    <MauiAsset Update="Resources\Raw\MacroSets\eversoul\scripts\claimChampsArena.js">
       <LogicalName>%(RecursiveDir)%(Filename)%(Extension)</LogicalName>
     </MauiAsset>
-    <MauiAsset Update="Resources\Raw\MacroSets\eversoul\scripts\doGateUndead.js">
+    <MauiAsset Update="Resources\Raw\MacroSets\eversoul\scripts\doFriends.js">
+      <LogicalName>%(RecursiveDir)%(Filename)%(Extension)</LogicalName>
+    </MauiAsset>
+    <MauiAsset Update="Resources\Raw\MacroSets\eversoul\scripts\doPartTimeJobAndRest.js">
+      <LogicalName>%(RecursiveDir)%(Filename)%(Extension)</LogicalName>
+    </MauiAsset>
+    <MauiAsset Update="Resources\Raw\MacroSets\eversoul\scripts\claimFreeShop.js">
+      <LogicalName>%(RecursiveDir)%(Filename)%(Extension)</LogicalName>
+    </MauiAsset>
+    <MauiAsset Update="Resources\Raw\MacroSets\eversoul\scripts\claimFreeSummon.js">
       <LogicalName>%(RecursiveDir)%(Filename)%(Extension)</LogicalName>
     </MauiAsset>
     <MauiAsset Update="Resources\Raw\MacroSets\eversoul\scripts\doGate.js">
-      <LogicalName>%(RecursiveDir)%(Filename)%(Extension)</LogicalName>
-    </MauiAsset>
-    <MauiAsset Update="Resources\Raw\MacroSets\eversoul\scripts\doGateUnlimited.js">
       <LogicalName>%(RecursiveDir)%(Filename)%(Extension)</LogicalName>
     </MauiAsset>
     <MauiAsset Update="Resources\Raw\MacroSets\eversoul\scripts\doOutings.js">

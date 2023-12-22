@@ -1,29 +1,32 @@
-﻿const offset = macroService.CalcOffset(patterns.lobby.everstone);
-const loopPatterns = [patterns.lobby.everstone, patterns.town.evertalk, patterns.town.outings.outingsCompleted, patterns.town.outings, patterns.titles.outingGo, patterns.town.outings.selectAKeyword];
+﻿// Do all outings based on targetSoul
+const resolution = macroService.GetCurrentResolution();
+const loopPatterns = [patterns.lobby.level, patterns.town.level, patterns.town.outings.outingsCompleted, patterns.town.outings, patterns.titles.outingGo, patterns.town.outings.selectAKeyword];
 const daily = dailyManager.GetDaily();
 if (daily.doOutings.done.IsChecked) {
 	return;
 }
-const targetSoul = macroService.ClonePattern(settings.doOutings.target.Value, {
-	X: 275.85736083984375,
-	Y: 82.9250717163086,
-	Width: 1005.4752807617188 + (offset.X * 2.0),
-	Height: 857.20263671875,
-	Path: 'settings.outings.target'
+const targetSoul = macroService.ClonePattern(settings.doOutings.targetSoul.Value, {
+	X: 275,
+	Y: 80,
+	Width: resolution.Width - 915,
+	Height: 900,
+	Path: 'settings.outings.target',
+	OffsetCalcType: 'DockLeft'
 });
+
 const maxSwipes = 5;
 let swipeCount = 0;
 
 while (macroService.IsRunning) {
 	const loopResult = macroService.PollPattern(loopPatterns);
 	switch (loopResult.Path) {
-		case 'lobby.everstone':
+		case 'lobby.level':
 			logger.info('doOutings: click town');
 			macroService.PollPattern(patterns.lobby.town, { DoClick: true, PredicatePattern: patterns.town.enter });
 			sleep(500);
-			macroService.PollPattern(patterns.town.enter, { DoClick: true, PredicatePattern: patterns.town.evertalk });
+			macroService.PollPattern(patterns.town.enter, { DoClick: true, ClickPattern: patterns.general.tapTheScreen, PredicatePattern: patterns.town.level });
 			break;
-		case 'town.evertalk':
+		case 'town.level':
 			logger.info('doOutings: click info with Offset');
 			macroService.PollPattern(patterns.town.info, { DoClick: true, ClickOffset: { X: -60 }, PredicatePattern: patterns.town.outings });
 			break;
@@ -52,7 +55,7 @@ while (macroService.IsRunning) {
 			break;
 		case 'titles.outingGo':
 			logger.info('doOutings: select outing');
-			const outingNumber = 1 + Math.floor(Math.random() * 4);
+			const outingNumber = 1 + Math.floor(Math.random() * 5);
 			logger.debug('outingNumber: ' + outingNumber);
 			macroService.PollPattern(patterns.town.outings['outing' + outingNumber], { DoClick: true, PredicatePattern: patterns.prompt.confirm });
 			sleep(500);
@@ -62,9 +65,9 @@ while (macroService.IsRunning) {
 			break;
 		case 'town.outings.selectAKeyword':
 			logger.info('doOutings: select keyword');
-			const keywordPoints1 = (macroService.GetText(patterns.town.outings.keywordPoints1)).replace(/[\+ ]/g, '');
-			const keywordPoints2 = (macroService.GetText(patterns.town.outings.keywordPoints2)).replace(/[\+ ]/g, '');
-			const keywordPoints3 = (macroService.GetText(patterns.town.outings.keywordPoints3)).replace(/[\+ ]/g, '');
+			const keywordPoints1 = macroService.GetText(patterns.town.outings.keywordPoints1).replace(/[\+ ]/g, '');
+			const keywordPoints2 = macroService.GetText(patterns.town.outings.keywordPoints2).replace(/[\+ ]/g, '');
+			const keywordPoints3 = macroService.GetText(patterns.town.outings.keywordPoints3).replace(/[\+ ]/g, '');
 			logger.info('keywordPoints1: ' + keywordPoints1);
 			logger.info('keywordPoints2: ' + keywordPoints2);
 			logger.info('keywordPoints3: ' + keywordPoints3);

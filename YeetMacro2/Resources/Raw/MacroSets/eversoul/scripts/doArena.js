@@ -1,12 +1,17 @@
-﻿const loopPatterns = [patterns.lobby.everstone, patterns.titles.adventure, patterns.adventure.arena.freeChallenge, patterns.adventure.arena.startMatch, patterns.adventure.arena.ticket];
+﻿// Use all arena tickets. Automatically fights minimum CP value
+// Will rematch if cpThreshold is enabled and maximum CP is not met
+const loopPatterns = [patterns.lobby.level, patterns.titles.adventure, patterns.adventure.arena.freeChallenge, patterns.adventure.arena.startMatch, patterns.adventure.arena.ticket];
 const daily = dailyManager.GetDaily();
+const isCpThresholdEnabled = settings.doArena.cpThreshold.IsEnabled;
+const cpThreshold = Number(settings.doArena.cpThreshold.Value);
 if (daily.doArena.done.IsChecked) {
 	return;
 }
+
 while (macroService.IsRunning) {
 	const loopResult = macroService.PollPattern(loopPatterns);
 	switch (loopResult.Path) {
-		case 'lobby.everstone':
+		case 'lobby.level':
 			logger.info('doArena: click adventure');
 			macroService.ClickPattern(patterns.lobby.adventure);
 			break;
@@ -22,9 +27,9 @@ while (macroService.IsRunning) {
 			break;
 		case 'adventure.arena.startMatch':
 			logger.info('doArena: start match');
-			const match1CP = (macroService.GetText(patterns.adventure.arena.match1.cp)).replace(/[, ]/g, '');
-			const match2CP = (macroService.GetText(patterns.adventure.arena.match2.cp)).replace(/[, ]/g, '');
-			const match3CP = (macroService.GetText(patterns.adventure.arena.match3.cp)).replace(/[, ]/g, '');
+			const match1CP = macroService.GetText(patterns.adventure.arena.match1.cp).replace(/[, ]/g, '');
+			const match2CP = macroService.GetText(patterns.adventure.arena.match2.cp).replace(/[, ]/g, '');
+			const match3CP = macroService.GetText(patterns.adventure.arena.match3.cp).replace(/[, ]/g, '');
 
 			logger.debug('match1CP: ' + match1CP);
 			logger.debug('match2CP: ' + match2CP);
@@ -33,12 +38,11 @@ while (macroService.IsRunning) {
 			const matches = [Number(match1CP), Number(match2CP), Number(match3CP)];
 			const minIdx = matches.reduce((minIdx, val, idx, arr) => val < arr[minIdx] ? idx : minIdx, 0);
 			const minCP = matches[minIdx];
-			const cpThreshold = Number(settings.doArena.cpThreshold.Value);
 
 			logger.debug('minIdx: ' + minIdx);
 			logger.debug('minCP: ' + minCP);
-			logger.debug('cpThreshold: ' + cpThreshold);
-			if (minCP <= cpThreshold) {
+			if (!isCpThresholdEnabled || minCP <= cpThreshold) {
+				logger.debug('cpThreshold: ' + cpThreshold);
 				macroService.PollPattern(patterns.adventure.arena['match' + (minIdx + 1)].challenge, { DoClick: true, PredicatePattern: patterns.battle.start });
 				sleep(500);
 				macroService.PollPattern(patterns.battle.skip.disabled, { DoClick: true, PredicatePattern: patterns.battle.skip.enabled });
