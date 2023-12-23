@@ -1,4 +1,4 @@
-// Auto or sweep bounty chase
+// Auto or sweep upgrade stone retrieval
 const loopPatterns = [patterns.lobby.level, patterns.titles.adventure, patterns.titles.challenge];
 const daily = dailyManager.GetDaily();
 const teamSlot = settings.doUpgradeStoneRetrieval.teamSlot.Value;

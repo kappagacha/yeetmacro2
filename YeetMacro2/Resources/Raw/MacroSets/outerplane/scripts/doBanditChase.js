@@ -1,4 +1,4 @@
-// Auto or sweep bounty chase
+// Auto or sweep bandit chase
 const loopPatterns = [patterns.lobby.level, patterns.titles.adventure, patterns.titles.challenge];
 const daily = dailyManager.GetDaily();
 const sweepBattle = settings.doBanditChase.sweepBattle.Value;
