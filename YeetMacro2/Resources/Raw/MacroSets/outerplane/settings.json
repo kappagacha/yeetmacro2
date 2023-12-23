@@ -236,7 +236,7 @@
           "6",
           "7"
         ],
-        "value": "2",
+        "value": "1",
         "isParentNode": false,
         "name": "teamSlot",
         "path": "doUpgradeStoneRetrieval.teamSlot"
@@ -247,7 +247,7 @@
       "props": {
         "$type": "boolean",
         "settingType": "Boolean",
-        "value": true,
+        "value": false,
         "isParentNode": false,
         "name": "sweepBattle",
         "path": "doUpgradeStoneRetrieval.sweepBattle"

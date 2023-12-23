@@ -21,7 +21,7 @@ while (macroService.IsRunning) {
 		case 'titles.shop':
 			logger.info('claimFreeShop: claim Normal');
 			macroService.PollPattern(patterns.shop.normal, { DoClick: true, PredicatePattern: patterns.shop.normal.selected });
-			const normalFreeResult = macroService.PollPattern(patterns.shop.normal.free, { TimoutMs: 1_000 });
+			const normalFreeResult = macroService.PollPattern(patterns.shop.normal.free, { TimoutMs: 2_000 });
 			if (normalFreeResult.IsSuccess) {
 				macroService.PollPattern(patterns.shop.normal.free, { DoClick: true, PredicatePattern: patterns.shop.normal.free.confirm });
 				macroService.PollPattern(patterns.shop.normal.free.confirm, { DoClick: true, InversePredicatePattern: patterns.shop.normal.free.confirm });
@@ -37,8 +37,8 @@ while (macroService.IsRunning) {
 			let resourceFreeResult = macroService.FindPattern(patterns.shop.resource.free);
 			while (resourceFreeResult.IsSuccess) {
 				macroService.PollPattern(patterns.shop.resource.free, { DoClick: true, PredicatePattern: patterns.shop.resource.free.confirm });
-				macroService.PollPattern(patterns.shop.resource.free.confirm, { DoClick: true, PredicatePattern: patterns.shop.purchaseComplete });
-				macroService.PollPattern(patterns.shop.purchaseComplete, { DoClick: true, ClickPattern: patterns.prompt.tapEmptySpace, PredicatePattern: patterns.titles.shop });
+				macroService.PollPattern(patterns.shop.resource.free.confirm, { DoClick: true, PredicatePattern: patterns.general.tapEmptySpace });
+				macroService.PollPattern(patterns.general.tapEmptySpace, { DoClick: true, PredicatePattern: patterns.titles.shop });
 				sleep(500);
 				resourceFreeResult = macroService.FindPattern(patterns.shop.resource.free);
 			}
