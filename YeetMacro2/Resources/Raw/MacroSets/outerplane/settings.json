@@ -138,7 +138,7 @@
           "6",
           "7"
         ],
-        "value": "1",
+        "value": "2",
         "isParentNode": false,
         "name": "teamSlot",
         "path": "doSideStory2.teamSlot"
@@ -165,7 +165,7 @@
       "props": {
         "$type": "boolean",
         "settingType": "Boolean",
-        "value": false,
+        "value": true,
         "isParentNode": false,
         "name": "sweepBattle",
         "path": "doSideStory2.sweepBattle"
@@ -195,7 +195,7 @@
           "6",
           "7"
         ],
-        "value": "2",
+        "value": "1",
         "isParentNode": false,
         "name": "teamSlot",
         "path": "doBountyHunter.teamSlot"
@@ -206,7 +206,7 @@
       "props": {
         "$type": "boolean",
         "settingType": "Boolean",
-        "value": true,
+        "value": false,
         "isParentNode": false,
         "name": "sweepBattle",
         "path": "doBountyHunter.sweepBattle"
@@ -236,7 +236,7 @@
           "6",
           "7"
         ],
-        "value": "1",
+        "value": "2",
         "isParentNode": false,
         "name": "teamSlot",
         "path": "doUpgradeStoneRetrieval.teamSlot"
@@ -247,7 +247,7 @@
       "props": {
         "$type": "boolean",
         "settingType": "Boolean",
-        "value": false,
+        "value": true,
         "isParentNode": false,
         "name": "sweepBattle",
         "path": "doUpgradeStoneRetrieval.sweepBattle"
@@ -530,6 +530,158 @@
         "isParentNode": false,
         "name": "targetIdentification",
         "path": "doIdentification.targetIdentification"
+      }
+    }
+  },
+  "doDailies": {
+    "$isParent": true,
+    "props": {
+      "settingType": "Parent",
+      "isParentNode": true,
+      "name": "doDailies",
+      "path": "doDailies"
+    },
+    "claimAntiparticle": {
+      "$isParent": false,
+      "props": {
+        "$type": "boolean",
+        "settingType": "Boolean",
+        "value": true,
+        "isParentNode": false,
+        "name": "claimAntiparticle",
+        "path": "doDailies.claimAntiparticle"
+      }
+    },
+    "claimFreeShop": {
+      "$isParent": false,
+      "props": {
+        "$type": "boolean",
+        "settingType": "Boolean",
+        "value": true,
+        "isParentNode": false,
+        "name": "claimFreeShop",
+        "path": "doDailies.claimFreeShop"
+      }
+    },
+    "claimFreeRecruit": {
+      "$isParent": false,
+      "props": {
+        "$type": "boolean",
+        "settingType": "Boolean",
+        "value": true,
+        "isParentNode": false,
+        "name": "claimFreeRecruit",
+        "path": "doDailies.claimFreeRecruit"
+      }
+    },
+    "claimGuildBuff": {
+      "$isParent": false,
+      "props": {
+        "$type": "boolean",
+        "settingType": "Boolean",
+        "value": true,
+        "isParentNode": false,
+        "name": "claimGuildBuff",
+        "path": "doDailies.claimGuildBuff"
+      }
+    },
+    "doArena": {
+      "$isParent": false,
+      "props": {
+        "$type": "boolean",
+        "settingType": "Boolean",
+        "value": true,
+        "isParentNode": false,
+        "name": "doArena",
+        "path": "doDailies.doArena"
+      }
+    },
+    "doBountyHunter": {
+      "$isParent": false,
+      "props": {
+        "$type": "boolean",
+        "settingType": "Boolean",
+        "value": true,
+        "isParentNode": false,
+        "name": "doBountyHunter",
+        "path": "doDailies.doBountyHunter"
+      }
+    },
+    "doBanditChase": {
+      "$isParent": false,
+      "props": {
+        "$type": "boolean",
+        "settingType": "Boolean",
+        "value": true,
+        "isParentNode": false,
+        "name": "doBanditChase",
+        "path": "doDailies.doBanditChase"
+      }
+    },
+    "doUpgradeStoneRetrieval": {
+      "$isParent": false,
+      "props": {
+        "$type": "boolean",
+        "settingType": "Boolean",
+        "value": true,
+        "isParentNode": false,
+        "name": "doUpgradeStoneRetrieval",
+        "path": "doDailies.doUpgradeStoneRetrieval"
+      }
+    },
+    "doGuildSecurityArea": {
+      "$isParent": false,
+      "props": {
+        "$type": "boolean",
+        "settingType": "Boolean",
+        "value": true,
+        "isParentNode": false,
+        "name": "doGuildSecurityArea",
+        "path": "doDailies.doGuildSecurityArea"
+      }
+    },
+    "doSideStory1": {
+      "$isParent": false,
+      "props": {
+        "$type": "boolean",
+        "settingType": "Boolean",
+        "value": true,
+        "isParentNode": false,
+        "name": "doSideStory1",
+        "path": "doDailies.doSideStory1"
+      }
+    },
+    "doSideStory2": {
+      "$isParent": false,
+      "props": {
+        "$type": "boolean",
+        "settingType": "Boolean",
+        "value": true,
+        "isParentNode": false,
+        "name": "doSideStory2",
+        "path": "doDailies.doSideStory2"
+      }
+    },
+    "watchAds": {
+      "$isParent": false,
+      "props": {
+        "$type": "boolean",
+        "settingType": "Boolean",
+        "value": true,
+        "isParentNode": false,
+        "name": "watchAds",
+        "path": "doDailies.watchAds"
+      }
+    },
+    "doSpecialRequests": {
+      "$isParent": false,
+      "props": {
+        "$type": "boolean",
+        "settingType": "Boolean",
+        "value": true,
+        "isParentNode": false,
+        "name": "doSpecialRequests",
+        "path": "doDailies.doSpecialRequests"
       }
     }
   }

@@ -24,83 +24,84 @@
                 EventName="Appearing"
                 Command="{OnPlatform Android={Binding AppearCommand}}" />
     </ContentPage.Behaviors>
-    <Grid>
-        <VerticalStackLayout Spacing="10">
-            <Label Text="YeetMacro" HorizontalTextAlignment="Center" FontSize="Title" FontAttributes="Bold" />
-            <v:ToggleImageView IsToggled="{Binding IsProjectionServiceEnabled}"
-                               FontFamily="MaterialOutlined" Glyph="{x:Static mi:MaterialOutlined.Branding_watermark}" 
-                               HorizontalOptions="Center" Text="Projection Service" ToggledColor="Green" UntoggledColor="Red" 
-                               Command="{Binding ToggleIsProjectionServiceEnabledCommand}" />
-            <v:ToggleImageView IsToggled="{Binding IsAccessibilityEnabled}"
-                               FontFamily="MaterialOutlined" Glyph="{x:Static mi:MaterialOutlined.Touch_app}"
-                               HorizontalOptions="Center" Text="Accessibility Service" ToggledColor="Green" UntoggledColor="Red"
-                               Command="{Binding ToggleIsAccessibilityEnabledCommand}" />
-            <v:ToggleImageView IsToggled="{Binding IsIgnoringBatteryOptimizations}"
-                               FontFamily="MaterialOutlined" Glyph="{x:Static mi:MaterialOutlined.Battery_saver}"
-                               HorizontalOptions="Center" Text="Disable Battery Optimization" ToggledColor="Green" UntoggledColor="LightGray" 
-                               Command="{Binding RequestIgnoreBatteryOptimizationsCommand}" />
-            <v:ToggleImageView IsToggled="{Binding ShowMacroOverlay}"
-                               FontFamily="MaterialOutlined" Glyph="{x:Static mi:MaterialOutlined.Credit_card}"
-                               HorizontalOptions="Center" Text="Show Macro Overlay" ToggledColor="Green" UntoggledColor="LightGray" />
-            <v:ToggleImageView IsToggled="{Binding ShowPatternNodeView}"
-                               FontFamily="MaterialOutlined" Glyph="{x:Static mi:MaterialOutlined.Image_search}"
-                               HorizontalOptions="Center" Text="Show Patterns" ToggledColor="Green" UntoggledColor="LightGray" />
-            <v:ToggleImageView IsToggled="{Binding ShowSettingNodeView}"
-                               FontFamily="MaterialOutlined" Glyph="{x:Static mi:MaterialOutlined.Settings}"
-                               HorizontalOptions="Center" Text="Show Settings" ToggledColor="Green" UntoggledColor="LightGray" />
-            <v:ToggleImageView IsToggled="{Binding ShowDailyNodeView}"
-                                FontFamily="FARegular" Glyph="{x:Static fa:Regular.CalendarCheck}"
-                                HorizontalOptions="Center" Text="Show Dailies" ToggledColor="Green" UntoggledColor="LightGray" />
-            <v:ToggleImageView IsToggled="{Binding ShowStatusPanel}"
-                               FontFamily="MaterialOutlined" Glyph="{x:Static mi:MaterialOutlined.Call_to_action}"
-                               HorizontalOptions="Center" Text="Show Status Panel" ToggledColor="Green" UntoggledColor="LightGray" />
-            <v:ToggleImageView IsToggled="{Binding MacroManagerViewModel.InDebugMode}"
-                               FontFamily="MaterialOutlined" Glyph="{x:Static mi:MaterialOutlined.Filter_center_focus}"
-                               HorizontalOptions="Center" Text="Debug Mode" ToggledColor="Green" UntoggledColor="LightGray" />
-            <v:ToggleImageView IsToggled="{Binding IsIgnoringBatteryOptimizations}"
-                               FontFamily="MaterialOutlined" Glyph="{x:Static mi:MaterialOutlined.Play_circle}"
-                               HorizontalOptions="Center" Text="Reset Action Button Location" 
-                               Command="{Binding ResetActionViewLocationCommand}" />
-            <v:ToggleImageView IsToggled="{Binding ShowTestView}"
-                   FontFamily="MaterialOutlined" Glyph="{x:Static mi:MaterialOutlined.Science}"
-                   HorizontalOptions="Center" Text="Show Test Panel" ToggledColor="Green" UntoggledColor="LightGray" />
-        </VerticalStackLayout>
-        <Border Margin="10" HorizontalOptions="End" VerticalOptions="End" BackgroundColor="Transparent" 
-                StrokeShape="RoundRectangle 40" Stroke="Green">
-            <Border.Triggers>
-                <DataTrigger TargetType="{x:Type Border}" Value="True">
-                    <DataTrigger.Binding>
-                        <MultiBinding Converter="{StaticResource allTrueMultiValueConverter}">
-                            <Binding Path="IsProjectionServiceEnabled" />
-                            <Binding Path="IsAccessibilityEnabled"  />
-                        </MultiBinding>
-                    </DataTrigger.Binding>
-                    <Setter Property="Stroke" Value="Red" />
-                </DataTrigger>
-            </Border.Triggers>
-            <HorizontalStackLayout Spacing="4" Margin="10">
-                <HorizontalStackLayout.GestureRecognizers>
-                    <TapGestureRecognizer Command="{Binding ToggleIsMacroReadyCommand}" />
-                </HorizontalStackLayout.GestureRecognizers>
-                <v:ToggleImageView FontFamily="MaterialOutlined" Glyph="{x:Static mi:MaterialOutlined.Play_arrow}" Color="Green"
-                                   FontSize="Large"
-                                   Command="{Binding ToggleIsMacroReadyCommand}" Text="Start">
-                    <v:ToggleImageView.Triggers>
-                        <DataTrigger TargetType="{x:Type v:ToggleImageView}" Value="True">
-                            <DataTrigger.Binding>
-                                <MultiBinding Converter="{StaticResource allTrueMultiValueConverter}">
-                                    <Binding Path="IsProjectionServiceEnabled" />
-                                    <Binding Path="IsAccessibilityEnabled"  />
-                                </MultiBinding>
-                            </DataTrigger.Binding>
-                            <Setter Property="Color" Value="Red" />
-                            <Setter Property="Glyph" Value="{x:Static mi:MaterialOutlined.Stop_circle}" />
-                            <Setter Property="Text" Value="Stop" />
-                        </DataTrigger>
-                    </v:ToggleImageView.Triggers>
-                </v:ToggleImageView>
-            </HorizontalStackLayout>
-        </Border>
-        <Label Text="{Binding MacroManagerViewModel.AppVersion, StringFormat='AppVersion: {0}'}" VerticalOptions="End" HorizontalOptions="Start" />
-    </Grid>
+    <ScrollView>
+        <Grid>
+            <VerticalStackLayout Spacing="10">
+                <Label Text="YeetMacro" HorizontalTextAlignment="Center" FontSize="Title" FontAttributes="Bold" />
+                <v:ToggleImageView IsToggled="{Binding IsProjectionServiceEnabled}"
+                                   FontFamily="MaterialOutlined" Glyph="{x:Static mi:MaterialOutlined.Branding_watermark}" 
+                                   HorizontalOptions="Center" Text="Projection Service" ToggledColor="Green" UntoggledColor="Red" 
+                                   Command="{Binding ToggleIsProjectionServiceEnabledCommand}" />
+                <v:ToggleImageView IsToggled="{Binding IsAccessibilityEnabled}"
+                                   FontFamily="MaterialOutlined" Glyph="{x:Static mi:MaterialOutlined.Touch_app}"
+                                   HorizontalOptions="Center" Text="Accessibility Service" ToggledColor="Green" UntoggledColor="Red"
+                                   Command="{Binding ToggleIsAccessibilityEnabledCommand}" />
+                <v:ToggleImageView IsToggled="{Binding IsIgnoringBatteryOptimizations}"
+                                   FontFamily="MaterialOutlined" Glyph="{x:Static mi:MaterialOutlined.Battery_saver}"
+                                   HorizontalOptions="Center" Text="Disable Battery Optimization" ToggledColor="Green" UntoggledColor="LightGray" 
+                                   Command="{Binding RequestIgnoreBatteryOptimizationsCommand}" />
+                <v:ToggleImageView IsToggled="{Binding ShowMacroOverlay}"
+                                   FontFamily="MaterialOutlined" Glyph="{x:Static mi:MaterialOutlined.Credit_card}"
+                                   HorizontalOptions="Center" Text="Show Macro Overlay" ToggledColor="Green" UntoggledColor="LightGray" />
+                <v:ToggleImageView IsToggled="{Binding ShowPatternNodeView}"
+                                   FontFamily="MaterialOutlined" Glyph="{x:Static mi:MaterialOutlined.Image_search}"
+                                   HorizontalOptions="Center" Text="Show Patterns" ToggledColor="Green" UntoggledColor="LightGray" />
+                <v:ToggleImageView IsToggled="{Binding ShowSettingNodeView}"
+                                   FontFamily="MaterialOutlined" Glyph="{x:Static mi:MaterialOutlined.Settings}"
+                                   HorizontalOptions="Center" Text="Show Settings" ToggledColor="Green" UntoggledColor="LightGray" />
+                <v:ToggleImageView IsToggled="{Binding ShowDailyNodeView}"
+                                    FontFamily="FARegular" Glyph="{x:Static fa:Regular.CalendarCheck}"
+                                    HorizontalOptions="Center" Text="Show Dailies" ToggledColor="Green" UntoggledColor="LightGray" />
+                <v:ToggleImageView IsToggled="{Binding ShowStatusPanel}"
+                                   FontFamily="MaterialOutlined" Glyph="{x:Static mi:MaterialOutlined.Call_to_action}"
+                                   HorizontalOptions="Center" Text="Show Status Panel" ToggledColor="Green" UntoggledColor="LightGray" />
+                <v:ToggleImageView IsToggled="{Binding MacroManagerViewModel.InDebugMode}"
+                                   FontFamily="MaterialOutlined" Glyph="{x:Static mi:MaterialOutlined.Filter_center_focus}"
+                                   HorizontalOptions="Center" Text="Debug Mode" ToggledColor="Green" UntoggledColor="LightGray" />
+                <v:ToggleImageView FontFamily="MaterialOutlined" Glyph="{x:Static mi:MaterialOutlined.Play_circle}"
+                                   HorizontalOptions="Center" Text="Reset Action Button Location"
+                                   Command="{Binding ResetActionViewLocationCommand}" />
+                <v:ToggleImageView IsToggled="{Binding ShowTestView}"
+                       FontFamily="MaterialOutlined" Glyph="{x:Static mi:MaterialOutlined.Science}"
+                       HorizontalOptions="Center" Text="Show Test Panel" ToggledColor="Green" UntoggledColor="LightGray" />
+            </VerticalStackLayout>
+            <Border Margin="10" HorizontalOptions="End" VerticalOptions="End" BackgroundColor="Transparent" 
+                    StrokeShape="RoundRectangle 40" Stroke="Green">
+                <Border.Triggers>
+                    <DataTrigger TargetType="{x:Type Border}" Value="True">
+                        <DataTrigger.Binding>
+                            <MultiBinding Converter="{StaticResource allTrueMultiValueConverter}">
+                                <Binding Path="IsProjectionServiceEnabled" />
+                                <Binding Path="IsAccessibilityEnabled"  />
+                            </MultiBinding>
+                        </DataTrigger.Binding>
+                        <Setter Property="Stroke" Value="Red" />
+                    </DataTrigger>
+                </Border.Triggers>
+                <HorizontalStackLayout Spacing="4" Margin="10">
+                    <HorizontalStackLayout.GestureRecognizers>
+                        <TapGestureRecognizer Command="{Binding ToggleIsMacroReadyCommand}" />
+                    </HorizontalStackLayout.GestureRecognizers>
+                    <v:ToggleImageView FontFamily="MaterialOutlined" Glyph="{x:Static mi:MaterialOutlined.Play_arrow}" Color="Green"
+                                       FontSize="Large"
+                                       Command="{Binding ToggleIsMacroReadyCommand}" Text="Start">
+                        <v:ToggleImageView.Triggers>
+                            <DataTrigger TargetType="{x:Type v:ToggleImageView}" Value="True">
+                                <DataTrigger.Binding>
+                                    <MultiBinding Converter="{StaticResource allTrueMultiValueConverter}">
+                                        <Binding Path="IsProjectionServiceEnabled" />
+                                        <Binding Path="IsAccessibilityEnabled"  />
+                                    </MultiBinding>
+                                </DataTrigger.Binding>
+                                <Setter Property="Color" Value="Red" />
+                                <Setter Property="Glyph" Value="{x:Static mi:MaterialOutlined.Stop_circle}" />
+                                <Setter Property="Text" Value="Stop" />
+                            </DataTrigger>
+                        </v:ToggleImageView.Triggers>
+                    </v:ToggleImageView>
+                </HorizontalStackLayout>
+            </Border>
+            <Label Text="{Binding MacroManagerViewModel.AppVersion, StringFormat='AppVersion: {0}'}" VerticalOptions="End" HorizontalOptions="Start" />
+        </Grid>
+    </ScrollView>
 </ContentPage>
