@@ -580,6 +580,7 @@ public class AndroidScreenService : IScreenService
             var selectedMacroSetName = Preferences.Default.Get<string>(nameof(MacroManagerViewModel.SelectedMacroSet), null);
             if (selectedMacroSetName is not null)
             {
+                var selectedMacroSet = ServiceHelper.GetService<MacroManagerViewModel>().SelectedMacroSet;
                 var ve = _views[windowView].VisualElement;
                 var ctx = (IMovable)ve.BindingContext;
                 var orientation = DeviceDisplay.Current.MainDisplayInfo.Orientation;
@@ -592,7 +593,7 @@ public class AndroidScreenService : IScreenService
                 }
                 else
                 {
-                    ctx.Location = Point.Zero;
+                    ctx.Location = selectedMacroSet.DefaultLocation;
                 }
             }
         }

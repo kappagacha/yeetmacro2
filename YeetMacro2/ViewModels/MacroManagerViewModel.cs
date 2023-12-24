@@ -43,7 +43,7 @@ public partial class MacroManagerViewModel : ObservableObject
     bool _isExportEnabled, _isOpenAppDirectoryEnabled, _inDebugMode, 
         _showExport, _isBusy, _persistLogs, _showMacroSetDescriptionEditor;
     [ObservableProperty]
-    double _resolutionWidth, _resolutionHeight;
+    double _resolutionWidth, _resolutionHeight, _defaultLocationX, _defaultLocationY;
     [ObservableProperty]
     string _exportValue, _message;
     JsonSerializerOptions _jsonSerializerOptions = new JsonSerializerOptions()
@@ -53,7 +53,7 @@ public partial class MacroManagerViewModel : ObservableObject
         },
         WriteIndented = true,
         PropertyNamingPolicy = JsonNamingPolicy.CamelCase,
-        TypeInfoResolver = SizePropertiesResolver.Instance
+        TypeInfoResolver = CombinedPropertiesResolver.Combine(SizePropertiesResolver.Instance, PointPropertiesResolver.Instance)
     };
     string _targetBranch = "main";
     public PatternNodeManagerViewModel Patterns
@@ -275,6 +275,7 @@ public partial class MacroManagerViewModel : ObservableObject
     private void Save(MacroSet macroSet)
     {
         macroSet.Resolution = new Size(ResolutionWidth, ResolutionHeight);
+        macroSet.DefaultLocation = new Point(DefaultLocationX, DefaultLocationY);
         _macroSetRepository.Update(macroSet);
         _macroSetRepository.Save();
         _toastService.Show($"Saved MacroSet: {macroSet.Name}");
@@ -543,6 +544,8 @@ public partial class MacroManagerViewModel : ObservableObject
         {
             ResolutionWidth = value.Resolution.Width;
             ResolutionHeight = value.Resolution.Height;
+            DefaultLocationX = value.DefaultLocation.X;
+            DefaultLocationY = value.DefaultLocation.Y;
             Preferences.Default.Set(nameof(SelectedMacroSet), value.Name);
         }
         OnPropertyChanged(nameof(Patterns));

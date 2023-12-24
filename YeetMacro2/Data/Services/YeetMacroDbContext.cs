@@ -44,7 +44,7 @@ public class YeetMacroDbContext : DbContext
         var serializationOptions = new JsonSerializerOptions()
         {
             PropertyNamingPolicy = JsonNamingPolicy.CamelCase,
-            TypeInfoResolver = CombinedPropertiesResolver.Combine(RectPropertiesResolver.Instance, SizePropertiesResolver.Instance)
+            TypeInfoResolver = CombinedPropertiesResolver.Combine(RectPropertiesResolver.Instance, SizePropertiesResolver.Instance, PointPropertiesResolver.Instance)
         };
 
         // https://learn.microsoft.com/en-us/ef/core/modeling/value-conversions?tabs=data-annotations#the-valueconverter-class
@@ -52,11 +52,15 @@ public class YeetMacroDbContext : DbContext
             r => JsonSerializer.Serialize(r, serializationOptions),
             r => JsonSerializer.Deserialize<Rect>(r, serializationOptions));
         var sizeConverter = new ValueConverter<Size, string>(
-            r => JsonSerializer.Serialize(r, serializationOptions),
-            r => JsonSerializer.Deserialize<Size>(r, serializationOptions));
+            s => JsonSerializer.Serialize(s, serializationOptions),
+            s => JsonSerializer.Deserialize<Size>(s, serializationOptions));
+        var pointConverter = new ValueConverter<Point, string>(
+            p => JsonSerializer.Serialize(p, serializationOptions),
+            p => JsonSerializer.Deserialize<Point>(p, serializationOptions));
 
         modelBuilder.Entity<MacroSet>().HasKey(ms => ms.MacroSetId);
         modelBuilder.Entity<MacroSet>().Property(ms => ms.Resolution).HasConversion(sizeConverter);
+        modelBuilder.Entity<MacroSet>().Property(ms => ms.DefaultLocation).HasConversion(pointConverter);
 
         modelBuilder.Entity<Node>().HasKey(n => n.NodeId);
         modelBuilder.Entity<Node>().UseTptMappingStrategy();

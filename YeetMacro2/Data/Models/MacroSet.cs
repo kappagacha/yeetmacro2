@@ -16,6 +16,7 @@ public class MacroSet
     [JsonIgnore]
     public virtual int RootDailyNodeId { get; set; }
     public virtual Size Resolution { get; set; }
+    public virtual Point DefaultLocation { get; set; }
     public virtual bool SupportsGreaterWidth { get; set; }
     public virtual bool SupportsGreaterHeight { get; set; }
     public virtual string Package { get; set; }

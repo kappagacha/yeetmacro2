@@ -40,7 +40,7 @@ public class MoveView : LinearLayout, IShowable
         //_layoutParams.Flags |= WindowManagerFlags.LayoutNoLimits;
         _layoutParams.Width = WindowManagerLayoutParams.WrapContent;
         _layoutParams.Height = WindowManagerLayoutParams.WrapContent;
-        _layoutParams.Gravity = GravityFlags.Top;
+        _layoutParams.Gravity = GravityFlags.Top | GravityFlags.Left;
 
         //SetBackgroundColor(Color.Argb(70, 40, 40, 40));
         _windowManager = windowManager;
