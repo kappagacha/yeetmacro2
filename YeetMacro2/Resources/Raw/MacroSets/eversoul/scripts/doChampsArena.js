@@ -23,7 +23,7 @@ while (macroService.IsRunning) {
 			break;
 		case 'adventure.arena.freeChallenge':
 			logger.info('doChampsArena: free challenges');
-			macroService.PollPattern(patterns.adventure.arena.freeChallenge, { DoClick: true, PredicatePattern: patterns.adventure.arena.startMatch, IntervalDelayMs: 1_000 });
+			macroService.PollPattern(patterns.adventure.arena.freeChallenge, { DoClick: true, PredicatePattern: patterns.adventure.arena.startMatch, IntervalDelayMs: 1_500 });
 			break;
 		case 'adventure.arena.startMatch':
 			logger.info('doChampsArena: start match');

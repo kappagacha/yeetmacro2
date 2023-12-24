@@ -1,5 +1,4 @@
 // Go to lobby
-const loopPatterns = [patterns.lobby.level];
 logger.info('goToLobby: start');
 
 //claimFreeShop
@@ -19,7 +18,7 @@ logger.info('goToLobby: start');
 // => patterns.stamina.cancel
 //doSpecialRequests
 
-macroService.PollPattern(loopPatterns, { ClickPattern: [patterns.general.back, patterns.battle.setup.enter.ok, patterns.battle.exit, patterns.stamina.cancel] });
+macroService.PollPattern(patterns.lobby.level, { ClickPattern: [patterns.general.back, patterns.battle.setup.enter.ok, patterns.battle.exit, patterns.stamina.cancel] });
 if (macroService.IsRunning) {
 	logger.info('goToLobby: done');
 }
