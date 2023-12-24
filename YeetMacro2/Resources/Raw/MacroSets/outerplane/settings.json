@@ -81,7 +81,7 @@
           "6",
           "7"
         ],
-        "value": "1",
+        "value": "2",
         "isParentNode": false,
         "name": "teamSlot",
         "path": "doSideStory1.teamSlot"
@@ -108,7 +108,7 @@
       "props": {
         "$type": "boolean",
         "settingType": "Boolean",
-        "value": false,
+        "value": true,
         "isParentNode": false,
         "name": "sweepBattle",
         "path": "doSideStory1.sweepBattle"
@@ -331,7 +331,7 @@
           "6",
           "7"
         ],
-        "value": "1",
+        "value": "2",
         "isParentNode": false,
         "name": "teamSlot",
         "path": "doBanditChase.teamSlot"
@@ -342,7 +342,7 @@
       "props": {
         "$type": "boolean",
         "settingType": "Boolean",
-        "value": false,
+        "value": true,
         "isParentNode": false,
         "name": "sweepBattle",
         "path": "doBanditChase.sweepBattle"
@@ -546,7 +546,7 @@
       "props": {
         "$type": "boolean",
         "settingType": "Boolean",
-        "value": true,
+        "value": false,
         "isParentNode": false,
         "name": "claimAntiparticle",
         "path": "doDailies.claimAntiparticle"
@@ -572,6 +572,17 @@
         "isParentNode": false,
         "name": "claimFreeRecruit",
         "path": "doDailies.claimFreeRecruit"
+      }
+    },
+    "doFriends": {
+      "$isParent": false,
+      "props": {
+        "$type": "boolean",
+        "settingType": "Boolean",
+        "value": true,
+        "isParentNode": false,
+        "name": "doFriends",
+        "path": "doDailies.doFriends"
       }
     },
     "claimGuildBuff": {

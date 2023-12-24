@@ -16,7 +16,7 @@ while (macroService.IsRunning) {
 			sleep(500);
 			break;
 		case 'titles.adventure':
-			logger.info('doSpecialRequests: click challenge');
+			logger.info('doBountyHunter: click challenge');
 			macroService.ClickPattern(patterns.adventure.challenge);
 			sleep(500);
 			break;

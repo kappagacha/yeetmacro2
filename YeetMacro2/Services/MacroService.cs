@@ -132,7 +132,10 @@ public class MacroService
             var location = new Point(calcX, calcY);
 
             pattern.Rect = new Rect(location, size);
-            pattern.OffsetCalcType = opts.OffsetCalcType;
+            if (opts.OffsetCalcType != OffsetCalcType.Default)
+            {
+                pattern.OffsetCalcType = opts.OffsetCalcType;
+            }
         }
 
         if (opts.Scale != 1.0)

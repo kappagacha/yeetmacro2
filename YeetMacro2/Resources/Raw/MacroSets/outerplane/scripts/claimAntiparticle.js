@@ -18,10 +18,13 @@ while (macroService.IsRunning) {
 		case 'titles.base':
 			logger.info('claimAntiparticle: claim antiparticle');
 
-			macroService.PollPattern(patterns.base.antiparticle, { PredicatePattern: patterns.base.antiparticle.receiveReward });
-			macroService.PollPattern(patterns.base.antiparticle.receiveReward, { PredicatePattern: patterns.general.tapEmptySpace });
-			macroService.PollPattern(patterns.general.tapEmptySpace, { PredicatePattern: patterns.general.back });
-
+			macroService.PollPattern(patterns.base.antiparticle, { DoClick: true, PredicatePattern: patterns.base.antiparticle.receiveReward });
+			const antiparticleResult = macroService.FindPattern([patterns.base.antiparticle.receiveReward.disabled, patterns.base.antiparticle]);
+			if (antiparticleResult.Path !== 'base.antiparticle.receiveReward.disabled') {
+				macroService.PollPattern(patterns.base.antiparticle.receiveReward, { DoClick: true, PredicatePattern: patterns.general.tapEmptySpace });
+				macroService.PollPattern(patterns.general.tapEmptySpace, { DoClick: true, PredicatePattern: patterns.general.back });
+			}
+			
 			if (macroService.IsRunning) {
 				daily.claimAntiparticle.count.Count++;
 			}

@@ -15,6 +15,11 @@ if (settings.doDailies.claimFreeRecruit.Value) {
     goToLobby();
 }
 
+if (settings.doDailies.doFriends.Value) {
+    doFriends();
+    goToLobby();
+}
+
 if (settings.doDailies.claimGuildBuff.Value) {
     claimGuildBuff();
     goToLobby();
