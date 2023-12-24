@@ -1,10 +1,10 @@
 ﻿// Do gate depending on targetGate
 const targetGate = settings.doGate.targetGate.Value;
-const loopPatterns = [patterns.lobby.everstone, patterns.titles.adventure, patterns.titles.gateBreakthrough, patterns.gateBreakthrough.challenge, patterns.gateBreakthrough.nextStage, patterns.gateBreakthrough.retry];
+const loopPatterns = [patterns.lobby.level, patterns.titles.adventure, patterns.titles.gateBreakthrough, patterns.gateBreakthrough.challenge, patterns.gateBreakthrough.nextStage, patterns.gateBreakthrough.retry];
 while (macroService.IsRunning) {
 	const loopResult = macroService.PollPattern(loopPatterns);
 	switch (loopResult.Path) {
-		case 'lobby.everstone':
+		case 'lobby.level':
 			logger.info(`doGateBreakthrough ${targetGate}: click adventure`);
 			macroService.ClickPattern(patterns.lobby.adventure);
 			sleep(500);
