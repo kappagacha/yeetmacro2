@@ -65,6 +65,7 @@ public class ScriptService: IScriptService
     {
         string result = String.Empty;
         if (_macroService.IsRunning) return result;
+        _engine.SetValue("result", JsValue.Null);
 
         // https://github.com/sebastienros/jint
         _macroService.IsRunning = true;
@@ -88,7 +89,7 @@ public class ScriptService: IScriptService
 
             _toastService.Show(_macroService.IsRunning ? "Script finished..." : "Script stopped...");
 
-            if (jsResult is JsObject jsObjectResult)
+            if (jsResult is JsObject || jsResult is JsArray)
             {
                 _engine.SetValue("result", jsResult);
                 return _engine.Evaluate("JSON.stringify(result, null, 2)").AsString();

@@ -30,6 +30,16 @@ if (settings.doDailies.doFriends.Value) {
     goToLobby();
 }
 
+if (settings.doDailies.doShop.Value) {
+    doShop();
+    goToLobby();
+}
+
+if (settings.doDailies.doExpeditions.Value) {
+    doExpeditions();
+    goToLobby();
+}
+
 if (settings.doDailies.doPartTimeJobAndRest.Value) {
     doPartTimeJobAndRest();
     goToLobby();

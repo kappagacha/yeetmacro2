@@ -4,11 +4,13 @@ const loopPatterns = [patterns.lobby.level, patterns.titles.friends];
 const daily = dailyManager.GetDaily();
 const resolution = macroService.GetCurrentResolution();
 const hireTargetBounds = {
-	X: resolution.Width - 950,		// dock right
+	X: 970,
 	Y: 1,
 	Width: 150,
-	Height: 1060
+	Height: 1060,
+	OffsetCalcType: 'DockLeft'
 };
+
 const hireTarget1 = macroService.ClonePattern(settings.doFriends.hireTarget1.Value, { Path: 'settings.outings.hireTarget_1', ...hireTargetBounds });
 const hireTarget2 = macroService.ClonePattern(settings.doFriends.hireTarget2.Value, { Path: 'settings.outings.hireTarget_2', ...hireTargetBounds });
 const hireTarget3 = macroService.ClonePattern(settings.doFriends.hireTarget3.Value, { Path: 'settings.outings.hireTarget_3', ...hireTargetBounds });
@@ -21,13 +23,7 @@ while (macroService.IsRunning) {
 		case 'lobby.level':
 			logger.info('doFriends: click menu');
 			macroService.PollPattern(patterns.lobby.menu, { DoClick: true, PredicatePattern: patterns.titles.menu });
-
-			const notificationResult = macroService.PollPattern(patterns.menu.friends.notification, { TimoutMs: 1_500 });
-			if (notificationResult.IsSuccess) {
-				macroService.PollPattern(patterns.menu.friends.notification, { DoClick: true, PredicatePattern: patterns.titles.friends });
-			} else {	// nothing to do
-				return;
-			}
+			macroService.PollPattern(patterns.menu.friends, { DoClick: true, PredicatePattern: patterns.titles.friends });
 			break;
 		case 'titles.friends':
 			logger.info('doFriends: send and receive hearts');
@@ -41,7 +37,7 @@ while (macroService.IsRunning) {
 			let hireTargets = [hireTarget1, hireTarget2, hireTarget3, hireTarget4, hireTarget5];
 
 			while (macroService.IsRunning && !hireSoulDoneResult.IsSuccess && swipeCount < 15) {
-				const swipeResult = macroService.SwipePollPattern(hireTargets, { MaxSwipes: 1, Start: { X: 1300, Y: 900 }, End: { X: 1300, Y: 250 } });
+				const swipeResult = macroService.SwipePollPattern(hireTargets, { MaxSwipes: 1, Start: { X: 1500, Y: 1000 }, End: { X: 1500, Y: 150 } });
 				if (swipeResult.IsSuccess) {
 					const hirePattern = macroService.ClonePattern(patterns.friends.hireSoul.hire, { CenterY: swipeResult.Point.Y, Padding: 25, Path: `friends.hireSoul.hire_y${swipeResult.Point.Y}` });
 					macroService.ClickPattern(hirePattern);
