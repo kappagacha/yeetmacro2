@@ -673,17 +673,6 @@
         "path": "doDailies.doSideStory2"
       }
     },
-    "watchAds": {
-      "$isParent": false,
-      "props": {
-        "$type": "boolean",
-        "settingType": "Boolean",
-        "value": true,
-        "isParentNode": false,
-        "name": "watchAds",
-        "path": "doDailies.watchAds"
-      }
-    },
     "doSpecialRequests": {
       "$isParent": false,
       "props": {

@@ -60,6 +60,9 @@ if (settings.doDailies.doSideStory2.Value) {
     goToLobby();
 }
 
+_watchAds();
+goToLobby();
+
 if (settings.doDailies.doSpecialRequests.Value) {
     doSpecialRequests();
     goToLobby();
