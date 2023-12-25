@@ -54,7 +54,7 @@
                 <material:TabItem Title="Macro">
                     <ScrollView HorizontalOptions="Fill">
                         <Grid Padding="4" HorizontalOptions="Fill">
-                            <Grid ColumnDefinitions="Auto,*" ColumnSpacing="4">
+                            <Grid ColumnDefinitions="Auto,*" ColumnSpacing="4" HorizontalOptions="Fill">
                                 <VerticalStackLayout Grid.Column="0">
                                     <HorizontalStackLayout Margin="0" Padding="0">
                                         <Label Margin="0" VerticalOptions="Center" Padding="0" Text="Name:" />

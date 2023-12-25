@@ -306,10 +306,22 @@
     <MauiAsset Update="Resources\Raw\MacroSets\konosubaFD\macroSet.json">
       <LogicalName>%(RecursiveDir)%(Filename)%(Extension)</LogicalName>
     </MauiAsset>
+    <MauiAsset Update="Resources\Raw\MacroSets\konosubaFD\scripts\doDailies.js">
+      <LogicalName>%(RecursiveDir)%(Filename)%(Extension)</LogicalName>
+    </MauiAsset>
+    <MauiAsset Update="Resources\Raw\MacroSets\konosubaFD\scripts\doFriends.js">
+      <LogicalName>%(RecursiveDir)%(Filename)%(Extension)</LogicalName>
+    </MauiAsset>
+    <MauiAsset Update="Resources\Raw\MacroSets\konosubaFD\scripts\claimMissionRewards.js">
+      <LogicalName>%(RecursiveDir)%(Filename)%(Extension)</LogicalName>
+    </MauiAsset>
     <MauiAsset Update="Resources\Raw\MacroSets\konosubaFD\scripts\doBranchQuests.js">
       <LogicalName>%(RecursiveDir)%(Filename)%(Extension)</LogicalName>
     </MauiAsset>
     <MauiAsset Update="Resources\Raw\MacroSets\konosubaFD\scripts\doBattleArenaEx.js">
+      <LogicalName>%(RecursiveDir)%(Filename)%(Extension)</LogicalName>
+    </MauiAsset>
+    <MauiAsset Update="Resources\Raw\MacroSets\konosubaFD\scripts\goToLobby.js">
       <LogicalName>%(RecursiveDir)%(Filename)%(Extension)</LogicalName>
     </MauiAsset>
     <MauiAsset Update="Resources\Raw\MacroSets\konosubaFD\scripts\selectParty.js">
@@ -324,7 +336,7 @@
     <MauiAsset Update="Resources\Raw\MacroSets\konosubaFD\scripts\farmEventBossLoop.js">
       <LogicalName>%(RecursiveDir)%(Filename)%(Extension)</LogicalName>
     </MauiAsset>
-    <MauiAsset Update="Resources\Raw\MacroSets\konosubaFD\scripts\farmMats.js">
+    <MauiAsset Update="Resources\Raw\MacroSets\konosubaFD\scripts\doExpertMainQuests.js">
       <LogicalName>%(RecursiveDir)%(Filename)%(Extension)</LogicalName>
     </MauiAsset>
     <MauiAsset Update="Resources\Raw\MacroSets\konosubaFD\scripts\_watchAdQuartz.js">

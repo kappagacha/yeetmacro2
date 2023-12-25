@@ -1,4 +1,9 @@
 ﻿const loopPatterns = [patterns.titles.home, patterns.titles.quest, patterns.titles.battleArena, patterns.titles.party, patterns.battle.report];
+const daily = dailyManager.GetDaily();
+if (daily.doBattleArenaEx.done.IsChecked) {
+	return "Script already completed. Uncheck done to override daily flag.";
+}
+
 while (macroService.IsRunning) {
 	const loopResult = macroService.PollPattern(loopPatterns, { ClickPattern: [patterns.battleArena.newHighScore, patterns.battleArena.prompt.noteOk] });
 	switch (loopResult.Path) {
@@ -46,6 +51,9 @@ while (macroService.IsRunning) {
 			// 3rd battle => battle.next (middle) => patterns.battle.replay.disabled
 
 			macroService.PollPattern(patterns.battle.next, { DoClick: true, ClickPattern: [patterns.battleArena.newHighScore, patterns.battleArena.rank], PredicatePattern: [patterns.battle.replay, patterns.battle.next3] });
+			if (macroService.IsRunning) {
+				daily.doBattleArenaEx.count.Count++;
+			}
 			sleep(500);
 			const replayResult = macroService.FindPattern(patterns.battle.replay);
 			if (replayResult.IsSuccess) {
@@ -56,6 +64,9 @@ while (macroService.IsRunning) {
 				logger.debug('doBattleArenaEx: found next3');
 				const next3Result = macroService.PollPattern(patterns.battle.next3, { DoClick: true, ClickPattern: [patterns.battleArena.prompt.ok, patterns.branchEvent.availableNow, patterns.branchEvent.playLater, patterns.prompt.playerRankUp], PredicatePattern: [patterns.titles.battleArena, patterns.battle.replay] });
 				if (next3Result.PredicatePath === 'titles.battleArena') {
+					if (macroService.IsRunning) {
+						daily.doBattleArenaEx.done.IsChecked = true;
+					}
 					return;
 				}
 				macroService.PollPattern(patterns.battle.replay, { DoClick: true, ClickPattern: [patterns.branchEvent.availableNow, patterns.branchEvent.playLater, patterns.prompt.playerRankUp], PredicatePattern: patterns.battle.replay.ok });

@@ -1,5 +1,10 @@
-﻿const loopPatterns = [patterns.titles.home, patterns.titles.quest, patterns.titles.freeQuests];
+﻿// Do all free quests. Setting exists for upgrade stone difficulty
+const loopPatterns = [patterns.titles.home, patterns.titles.quest, patterns.titles.freeQuests];
 const offset = macroService.CalcOffset(patterns.titles.home);
+const daily = dailyManager.GetDaily();
+if (daily.doFreeQuests.done.IsChecked) {
+	return "Script already completed. Uncheck done to override daily flag.";
+}
 
 while (macroService.IsRunning) {
 	const loopResult = macroService.PollPattern(loopPatterns);
@@ -57,6 +62,10 @@ while (macroService.IsRunning) {
 			sleep(1_000);
 			macroService.PollPattern(patterns.skipAll.prompt.ok, { DoClick: true, PredicatePattern: patterns.skipAll.skipComplete });
 			macroService.PollPattern(patterns.skipAll.skipComplete, { DoClick: true, ClickPattern: [patterns.skipAll.prompt.ok, patterns.branchEvent.availableNow, patterns.branchEvent.playLater, patterns.prompt.playerRankUp], PredicatePattern: patterns.skipAll.title });
+
+			if (macroService.IsRunning) {
+				daily.doFreeQuests.done.IsChecked = true;
+			}
 			return;
 	}
 

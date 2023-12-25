@@ -1,4 +1,8 @@
 ﻿const loopPatterns = [patterns.titles.home, patterns.titles.branchEvent, patterns.titles.branch, patterns.branchEvent.explosionWalk.chant.disabled, patterns.titles.party];
+const daily = dailyManager.GetDaily();
+if (daily.doBranchQuests.done.IsChecked) {
+	return "Script already completed. Uncheck done to override daily flag.";
+}
 let evnt;
 
 while (macroService.IsRunning) {
@@ -6,10 +10,13 @@ while (macroService.IsRunning) {
 	switch (loopResult.Path) {
 		case 'titles.home':
 			logger.info('doBranchQuests: check others notification');
-			const othersNotificationResult = macroService.FindPattern(patterns.others.notification);
+			const othersNotificationResult = macroService.PollPattern(patterns.others.notification, { TimoutMs: 2_000 });
 			if (othersNotificationResult.IsSuccess) {
 				macroService.PollPattern(patterns.others.notification, { DoClick: true, ClickPattern: patterns.others.branch.notification, PredicatePattern: patterns.titles.branch });
 			} else {
+				if (macroService.IsRunning) {
+					daily.doBranchQuests.done.IsChecked = true;
+				}
 				return;
 			}
 			break;
@@ -51,7 +58,7 @@ while (macroService.IsRunning) {
 				selectParty(targetPartyName);
 			}
 			sleep(500);
-			macroService.PollPattern(patterns.battle.begin, { DoClick: true, PredicatePattern: patterns.battle.report });
+			macroService.PollPattern(patterns.battle.begin, { DoClick: true, ClickPattern: [patterns.battleArena.newHighScore, patterns.battleArena.rank], PredicatePattern: patterns.battle.report });
 			macroService.PollPattern(patterns.battle.next, { DoClick: true, ClickPattern: [patterns.battleArena.newHighScore, patterns.battleArena.rank], PredicatePattern: patterns.titles.home });
 			break;
 	}

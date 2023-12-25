@@ -1,7 +1,47 @@
-﻿const loopPatterns = [patterns.titles.home, patterns.titles.smithy, patterns.titles.craft, patterns.skipAll.title];
+﻿// Target farm materials to farm all expert main quests
+const loopPatterns = [patterns.titles.home, patterns.titles.smithy, patterns.titles.craft, patterns.skipAll.title];
 const offset = macroService.CalcOffset(patterns.titles.home);
+const daily = dailyManager.GetDaily();
+if (daily.doExpertMainQuests.done.IsChecked) {
+	return "Script already completed. Uncheck done to override daily flag.";
+}
 
-const farmMat = (targetMats, staminaCost, numSkips) => {
+while (macroService.IsRunning) {
+	const result = macroService.PollPattern(loopPatterns);
+	switch (result.Path) {
+		case 'titles.home':
+			logger.info('farmMats: click smithy tab');
+			macroService.ClickPattern(patterns.tabs.smithy);
+			break;
+		case 'titles.smithy':
+			logger.info('farmMats: click craft');
+			macroService.ClickPattern(patterns.smithy.craft);
+			break;
+		case 'titles.craft':
+			macroService.PollPattern(patterns.smithy.craft.jewelry, { DoClick: true, PredicatePattern: patterns.smithy.craft.jewelry.list });
+			sleep(500);
+			macroService.PollPattern(patterns.smithy.craft.materials.archAngelFeather, { DoClick: true, PredicatePattern: patterns.smithy.prompt.howToAcquire });
+			sleep(1_000);
+			macroService.PollPattern(patterns.smithy.prompt.skipAll, { DoClick: true, PredicatePattern: patterns.skipAll.title });
+			sleep(500);
+			break;
+		case 'skipAll.title':
+			logger.info('farmMats: farm extreme levels');
+			farmMat([patterns.skipAll.search.select.mithrilOre, patterns.skipAll.search.select.yggdrasilBranch, patterns.skipAll.search.select.platinumOre], 700, 1);
+			// sky dragon scale is obsolete when compared to the brooches (hard to come by though)
+			//sleep(1_000);
+			//logger.info('farmMats: farm skyDragonScale');
+			//farmMat([patterns.skipAll.search.select.skyDragonScale], 500, 3);
+			if (macroService.IsRunning) {
+				daily.doExpertMainQuests.done.IsChecked = true;
+			}
+			return;
+	}
+
+	sleep(1_000);
+}
+
+function farmMat(targetMats, staminaCost, numSkips) {
 	macroService.PollPattern(patterns.skipAll.material, { DoClick: true, PredicatePattern: patterns.skipAll.search });
 	sleep(500);
 	const filterOffResult = macroService.FindPattern(patterns.skipAll.search.filter.off);
@@ -22,17 +62,14 @@ const farmMat = (targetMats, staminaCost, numSkips) => {
 	for (const mat of targetMats) {
 		const matResult = macroService.FindPattern(mat);
 		if (matResult.IsSuccess) {
-			const matCheckPattern = macroService.ClonePattern(patterns.skipAll.search.select.check);
-			matCheckPattern.Path += `_${mat.Path}`;
-			for (const pattern of matCheckPattern.Patterns) {
-				pattern.Rect = {
-					X: matResult.Point.X - 115.0,
-					Y: matResult.Point.Y - 105.0,
-					Width: 110.0,
-					Height: 85.0
-				};
-				pattern.OffsetCalcType = "None";
-			}
+			const matCheckPattern = macroService.ClonePattern(patterns.skipAll.search.select.check, {
+				Path: `skipAll.search.select.check_${mat.Path}`,
+				CenterX: matResult.Point.X - 60,
+				CenterY: matResult.Point.Y - 60,
+				Width: 110,
+				Height: 85,
+				OffsetCalcType: "None"
+			});
 			macroService.PollPattern(mat, { DoClick: true, PredicatePattern: matCheckPattern, IntervalDelayMs: 1_000 });
 		}
 	}
@@ -65,34 +102,3 @@ const farmMat = (targetMats, staminaCost, numSkips) => {
 	macroService.PollPattern(patterns.skipAll.prompt.ok, { DoClick: true, PredicatePattern: patterns.skipAll.skipComplete });
 	macroService.PollPattern(patterns.skipAll.skipComplete, { DoClick: true, ClickPattern: [patterns.skipAll.prompt.ok, patterns.branchEvent.availableNow, patterns.branchEvent.playLater, patterns.prompt.playerRankUp], PredicatePattern: patterns.skipAll.title });
 };
-
-while (macroService.IsRunning) {
-	const result = macroService.PollPattern(loopPatterns);
-	switch (result.Path) {
-		case 'titles.home':
-			logger.info('farmMats: click smithy tab');
-			macroService.ClickPattern(patterns.tabs.smithy);
-			break;
-		case 'titles.smithy':
-			logger.info('farmMats: click craft');
-			macroService.ClickPattern(patterns.smithy.craft);
-			break;
-		case 'titles.craft':
-			macroService.PollPattern(patterns.smithy.craft.jewelry, { DoClick: true, PredicatePattern: patterns.smithy.craft.jewelry.list });
-			sleep(500);
-			macroService.PollPattern(patterns.smithy.craft.materials.archAngelFeather, { DoClick: true, PredicatePattern: patterns.smithy.prompt.howToAcquire });
-			sleep(1_000);
-			macroService.PollPattern(patterns.smithy.prompt.skipAll, { DoClick: true, PredicatePattern: patterns.skipAll.title });
-			sleep(500);
-			break;
-		case 'skipAll.title':
-			logger.info('farmMats: farm extreme levels');
-			farmMat([patterns.skipAll.search.select.mithrilOre, patterns.skipAll.search.select.yggdrasilBranch, patterns.skipAll.search.select.platinumOre], 700, 1);
-			sleep(1_000);
-			logger.info('farmMats: farm skyDragonScale');
-			farmMat([patterns.skipAll.search.select.skyDragonScale], 500, 3);
-			return;
-	}
-
-	sleep(1_000);
-}
