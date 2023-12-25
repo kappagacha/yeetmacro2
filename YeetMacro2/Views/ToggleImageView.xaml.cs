@@ -141,7 +141,7 @@ public partial class ToggleImageView : ContentView
         {
             label.TextColor = (Color)Application.Current.Resources[Application.Current.UserAppTheme == AppTheme.Dark ? "White" : "Black"];
         }
-        else
+        else if (e.PropertyName == nameof(ImageView.Color))
         {
             label.TextColor = imageView.Color;
         }

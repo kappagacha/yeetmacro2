@@ -112,11 +112,13 @@ public partial class ParentSettingViewModel : ParentSetting
     public bool IsLeaf
     {
         get => base.Nodes.Count == 0;
+        set { }
     }
 
     public ICollection<SettingNode> Children
     {
         get => base.Nodes;
+        set { }
     }
 
     static ParentSettingViewModel()
@@ -170,7 +172,7 @@ public partial class BooleanSettingViewModel : BooleanSetting
         }
     }
 
-    public bool IsLeaf => true;
+    public bool IsLeaf { get; set; } = true;
 
     public override bool Value
     {
@@ -208,7 +210,7 @@ public partial class OptionSettingViewModel : OptionSetting
         }
     }
 
-    public bool IsLeaf => true;
+    public bool IsLeaf { get; set; } = true;
 
     public override string Value
     {
@@ -256,7 +258,7 @@ public partial class StringSettingViewModel : StringSetting
         }
     }
 
-    public bool IsLeaf => true;
+    public bool IsLeaf { get; set; } = true;
 
     public override string Value
     {
@@ -294,7 +296,7 @@ public partial class IntegerSettingViewModel : IntegerSetting
         }
     }
 
-    public bool IsLeaf => true;
+    public bool IsLeaf { get; set; } = true;
 
     public override int Value
     {
@@ -342,7 +344,7 @@ public partial class EnabledIntegerSettingViewModel : EnabledIntegerSetting
         }
     }
 
-    public bool IsLeaf => true;
+    public bool IsLeaf { get; set; } = true;
 
     public override int Value
     {
@@ -414,7 +416,7 @@ public partial class PatternSettingViewModel : PatternSetting
         }
     }
 
-    public bool IsLeaf => true;
+    public bool IsLeaf { get; set; } = true;
 
     public override PatternNode Value
     {

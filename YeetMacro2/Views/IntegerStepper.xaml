@@ -31,7 +31,7 @@
             </Grid>
         </HorizontalStackLayout>
         <HorizontalStackLayout IsVisible="{Binding ShowIncrement, Source={Reference thisView}}">
-            <Entry VerticalOptions="Center" Text="{Binding Increment}" Keyboard="Numeric">
+            <Entry VerticalOptions="Center" Text="{Binding Increment, Source={Reference thisView}}" Keyboard="Numeric">
                 <Entry.Behaviors>
                     <mct:NumericValidationBehavior MaximumDecimalPlaces="0"
                                            Flags="ValidateOnValueChanged">
