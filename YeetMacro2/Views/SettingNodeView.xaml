@@ -18,7 +18,7 @@
         <DataTemplate x:Key="ParentSettingTemplate" x:DataType="{x:Type vm:MacroSetViewModel}" />
         <DataTemplate x:Key="BooleanSettingTemplate">
             <FlexLayout JustifyContent="SpaceBetween">
-                <CheckBox IsChecked="{Binding Value}" VerticalOptions="Center" HeightRequest="10" />
+                <CheckBox IsChecked="{Binding Value}" VerticalOptions="Center" />
                 <v:ImageView
                     VerticalOptions="Center" FontFamily="MaterialOutlined" Glyph="{x:Static mi:MaterialOutlined.Refresh}"
                     Command="{Binding BindingContext.Settings.ResetSettingCommand, Source={RelativeSource AncestorType={x:Type v:SettingNodeView}}}"
@@ -29,7 +29,7 @@
             <FlexLayout JustifyContent="SpaceBetween">
                 <HorizontalStackLayout>
                     <Label Margin="0" Padding="0" VerticalOptions="Center" Text=": " />
-                    <Grid VerticalOptions="Center" HeightRequest="10">
+                    <Grid>
                         <Label Margin="0" Padding="0" Text="{Binding Value}" VerticalOptions="Center" />
                         <ImageButton Margin="0" Padding="0"
                             Command="{Binding BindingContext.Settings.SelectOptionCommand, Source={RelativeSource AncestorType={x:Type v:SettingNodeView}}}"
@@ -66,7 +66,7 @@
         </DataTemplate>
         <DataTemplate x:Key="EnabledIntegerSettingTemplate">
             <mct:DockLayout>
-                <CheckBox mct:DockLayout.DockPosition="Left" IsChecked="{Binding IsEnabled}" VerticalOptions="Center" HeightRequest="10" />
+                <CheckBox mct:DockLayout.DockPosition="Left" IsChecked="{Binding IsEnabled}" VerticalOptions="Center" />
                 <v:ImageView mct:DockLayout.DockPosition="Right"
                     VerticalOptions="Center" FontFamily="MaterialOutlined" Glyph="{x:Static mi:MaterialOutlined.Refresh}"
                     Command="{Binding BindingContext.Settings.ResetSettingCommand, Source={RelativeSource AncestorType={x:Type v:SettingNodeView}}}"
@@ -105,7 +105,7 @@
                             </Grid.Triggers>
                             <Label Grid.Column="0" Text="{Binding Name}" VerticalOptions="Center" />
                             <ImageButton Grid.Column="0" Margin="0" Padding="0" CommandParameter="{Binding .}" Command="{Binding NodeManager.SelectNodeCommand, Source={RelativeSource AncestorType={x:Type v:NodeView}}}" />
-                            <CollectionView Grid.Column="1"  SelectionMode="None" 
+                            <CollectionView Grid.Column="1" SelectionMode="None"
                                             ItemTemplate="{conv:DynamicTemplateSelector Root={Binding .,Source={Reference thisView}}}">
                                 <CollectionView.ItemsSource>
                                     <MultiBinding Converter="{conv:PassThroughConverter}">
