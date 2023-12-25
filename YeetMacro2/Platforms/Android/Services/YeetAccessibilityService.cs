@@ -19,7 +19,7 @@ public class YeetAccessibilityService : AccessibilityService
     private static YeetAccessibilityService _instance;  //https://stackoverflow.com/questions/600207/how-to-check-if-a-service-is-running-on-android
     public YeetAccessibilityService()
     {
-        _logger = ServiceHelper.GetService<ILogger<MediaProjectionService>>();
+        _logger = ServiceHelper.GetService<ILogger<YeetAccessibilityService>>();
         _logger.LogTrace("YeetAccessibilityService Constructor");
     }
 
@@ -71,7 +71,8 @@ public class YeetAccessibilityService : AccessibilityService
         }
         catch (Exception ex)
         {
-            _logger.LogError(ex, "YeetAccessibilityService OnAccessibilityEvent Exception");
+            _logger.LogError(ex, $"YeetAccessibilityService OnAccessibilityEvent Exception: e.packageName ${e.PackageName}");
+            throw;
         }
     }
 
