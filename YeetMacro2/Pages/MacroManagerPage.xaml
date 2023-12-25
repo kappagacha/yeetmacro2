@@ -52,7 +52,7 @@
             </Border>
             <material:TabView>
                 <material:TabItem Title="Macro">
-                    <ScrollView>
+                    <ScrollView HorizontalOptions="Fill">
                         <Grid Padding="4" HorizontalOptions="Fill">
                             <Grid ColumnDefinitions="Auto,*" ColumnSpacing="4">
                                 <VerticalStackLayout Grid.Column="0">

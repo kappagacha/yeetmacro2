@@ -395,7 +395,7 @@
       "props": {
         "$type": "boolean",
         "settingType": "Boolean",
-        "value": true,
+        "value": false,
         "isParentNode": false,
         "name": "claimLoot",
         "path": "doDailies.claimLoot"
@@ -439,7 +439,7 @@
       "props": {
         "$type": "boolean",
         "settingType": "Boolean",
-        "value": false,
+        "value": true,
         "isParentNode": false,
         "name": "claimChampsArena",
         "path": "doDailies.claimChampsArena"
