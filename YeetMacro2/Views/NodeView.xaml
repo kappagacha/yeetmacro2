@@ -29,7 +29,7 @@
         <Grid IsVisible="{Binding NodeManager.ShowExport, Converter={conv:InverseBoolConverter}, Source={Reference thisView}}">
             <ScrollView>
                 <material:TreeView ItemTemplate="{Binding ItemTemplate, Source={Reference thisView}, TargetNullValue={StaticResource DefaultItemTemplate}}"
-                                   Spacing="0" HorizontalOptions="Fill"  VerticalOptions="Fill">
+                                   Spacing="0" HorizontalOptions="Fill"  VerticalOptions="Fill" ExpanderTemplate="{Binding ExpanderTemplate, Source={Reference thisView}}">
                     <material:TreeView.Triggers>
                         <DataTrigger TargetType="{x:Type material:TreeView}" Binding="{Binding ItemsSource, Source={Reference thisView}, Converter={conv:NullToBoolConverter}}" Value="True">
                             <Setter Property="ItemsSource" Value="{Binding NodeManager.Root.Children, Source={Reference thisView}}" />

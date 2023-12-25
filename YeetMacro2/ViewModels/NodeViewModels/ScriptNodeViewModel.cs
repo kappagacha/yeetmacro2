@@ -7,7 +7,7 @@ namespace YeetMacro2.ViewModels.NodeViewModels;
 [ObservableObject]
 public partial class ScriptNodeViewModel : ScriptNode
 {
-    public bool IsLeaf => true;
+    public bool IsLeaf { get; set; } = true;
     public override ICollection<ScriptNode> Nodes
     {
         get => base.Nodes;

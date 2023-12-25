@@ -12,6 +12,8 @@ public partial class NodeView : ContentView
         BindableProperty.Create("IsMenuVisible", typeof(bool), typeof(NodeView), true);
     public static readonly BindableProperty ItemTemplateProperty =
         BindableProperty.Create("ItemTemplate", typeof(DataTemplate), typeof(NodeView), null);
+    public static readonly BindableProperty ExpanderTemplateProperty =
+        BindableProperty.Create("ExpanderTemplate", typeof(DataTemplate), typeof(NodeView), null);
     // https://stackoverflow.com/questions/58022446/multiple-contentpresenters-in-one-controltemplate
     public static readonly BindableProperty ExtraMenuItemsDataTemplateProperty =
         BindableProperty.Create("ExtraMenuItemsDataTemplate", typeof(DataTemplate), typeof(NodeView), null, propertyChanged: ExtraMenuItemsDataTemplatePropertyChanged);
@@ -47,6 +49,11 @@ public partial class NodeView : ContentView
     {
         get { return (DataTemplate)GetValue(ItemTemplateProperty); }
         set { SetValue(ItemTemplateProperty, value); }
+    }
+    public DataTemplate ExpanderTemplate
+    {
+        get { return (DataTemplate)GetValue(ExpanderTemplateProperty); }
+        set { SetValue(ExpanderTemplateProperty, value); }
     }
     public NodeManagerViewModel NodeManager
     {

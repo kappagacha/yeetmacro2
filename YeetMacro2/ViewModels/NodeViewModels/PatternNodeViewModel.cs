@@ -72,6 +72,7 @@ public partial class PatternNodeViewModel : PatternNode
     public bool IsLeaf
     {
         get => base.Nodes.Count == 0;
+        set { }
     }
 
     public ICollection<PatternNode> Children

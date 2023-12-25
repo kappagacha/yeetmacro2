@@ -13,7 +13,7 @@ public partial class DailyNodeViewModel: DailyNode
 {
     [ObservableProperty]
     DailyJsonParentViewModel _jsonViewModel;
-    public bool IsLeaf => true;
+    public bool IsLeaf { get; set; } = true;
     public override ICollection<DailyNode> Nodes
     {
         get => base.Nodes;
@@ -95,8 +95,8 @@ public partial class DailyNodeViewModel: DailyNode
 
 public abstract partial class DailyJsonElementViewModel : ObservableObject
 {
-    public virtual bool IsLeaf => true;
-    public virtual bool IsExpanded => false;
+    public virtual bool IsLeaf { get; set; } = true;
+    public virtual bool IsExpanded { get; set; } = false;
     public DailyNodeViewModel Node { get; set; }
     public JsonObject Parent { get; set; }
     [ObservableProperty]
@@ -109,8 +109,8 @@ public partial class DailyJsonParentViewModel : DailyJsonElementViewModel
     ObservableCollection<DailyJsonElementViewModel> _children = new ObservableCollection<DailyJsonElementViewModel>();
     Dictionary<string, DailyJsonElementViewModel> _dict = new Dictionary<string, DailyJsonElementViewModel>();
 
-    public override bool IsLeaf => false;
-    public override bool IsExpanded => true;
+    public override bool IsLeaf { get; set; } = false;
+    public override bool IsExpanded { get; set; } = true;
 
     public static DailyJsonParentViewModel Load(JsonObject jsonObject, DailyNodeViewModel node)
     {

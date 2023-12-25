@@ -16,15 +16,50 @@
         <Grid ColumnDefinitions="*,3*">
             <Border Grid.Column="0" Stroke="{StaticResource Primary}" BackgroundColor="Transparent" Padding="3">
                 <v:NodeView NodeManager="{Binding Scripts}">
+                    <v:NodeView.ExpanderTemplate>
+                        <DataTemplate>
+                            <Grid />
+                        </DataTemplate>
+                    </v:NodeView.ExpanderTemplate>
                     <v:NodeView.ExtraMenuItemsDataTemplate>
                         <DataTemplate x:DataType="{x:Null}">
                             <VerticalStackLayout>
                                 <v:ImageView FontFamily="FASolid" Glyph="{x:Static fa:Solid.FileExport}" 
                                                     Command="{Binding ItemsSource.ExportCommand}"
                                                     CommandParameter="{Binding BindingContext.SelectedMacroSet.Name, Source={RelativeSource AncestorType={x:Type v:ScriptNodeView}}}" />
+                                <v:ToggleImageView FontFamily="MaterialOutlined" IsToggled="{Binding BindingContext.Scripts.ShowHiddenScripts, Source={RelativeSource AncestorType={x:Type v:ScriptNodeView}}}"
+                                                   UntoggledGlyph="{x:Static mi:MaterialOutlined.Visibility_off}" 
+                                                   ToggledGlyph="{x:Static mi:MaterialOutlined.Visibility}" />
                             </VerticalStackLayout>
                         </DataTemplate>
                     </v:NodeView.ExtraMenuItemsDataTemplate>
+                    <v:NodeView.ItemTemplate>
+                        <DataTemplate x:DataType="{x:Null}">
+                            <Grid HeightRequest="20">
+                                <Grid.Triggers>
+                                    <MultiTrigger TargetType="Grid">
+                                        <MultiTrigger.Conditions>
+                                            <BindingCondition Binding="{Binding IsHidden}" Value="True" />
+                                            <BindingCondition Binding="{Binding BindingContext.Scripts.ShowHiddenScripts, Source={RelativeSource AncestorType={x:Type v:ScriptNodeView}}}" Value="False" />
+                                        </MultiTrigger.Conditions>
+                                        <MultiTrigger.Setters>
+                                            <Setter Property="IsVisible" Value="False" />
+                                            <Setter Property="HeightRequest" Value="0" />
+                                        </MultiTrigger.Setters>
+                                    </MultiTrigger>
+                                </Grid.Triggers>
+                                <Label Text="{Binding Name}" TextColor="{StaticResource PrimaryDark}" Margin="0" Padding="0" VerticalOptions="Center" BackgroundColor="Transparent">
+                                    <Label.Triggers>
+                                        <DataTrigger TargetType="{x:Type Label}" Binding="{Binding IsSelected}" Value="True">
+                                            <Setter Property="Background" Value="Blue" />
+                                        </DataTrigger>
+                                    </Label.Triggers>
+                                </Label>
+                                <ImageButton Margin="0" Padding="0" CommandParameter="{Binding .}" 
+                                             Command="{Binding BindingContext.Scripts.SelectNodeCommand, Source={RelativeSource AncestorType={x:Type v:ScriptNodeView}}}" />
+                            </Grid>
+                        </DataTemplate>
+                    </v:NodeView.ItemTemplate>
                 </v:NodeView>
             </Border>
             <Grid Grid.Column="1"  BackgroundColor="Transparent" Padding="3" IsVisible="{Binding Scripts.ShowScriptEditor}">

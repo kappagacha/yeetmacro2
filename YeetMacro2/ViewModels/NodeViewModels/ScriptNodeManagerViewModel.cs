@@ -10,7 +10,7 @@ namespace YeetMacro2.ViewModels.NodeViewModels;
 public partial class ScriptNodeManagerViewModel : NodeManagerViewModel<ScriptNodeViewModel, ScriptNode, ScriptNode>
 {
     [ObservableProperty]
-    bool _showScriptEditor;
+    bool _showScriptEditor, _showHiddenScripts;
 
     public ScriptNodeManagerViewModel(
         int rootNodeId,
@@ -21,6 +21,8 @@ public partial class ScriptNodeManagerViewModel : NodeManagerViewModel<ScriptNod
     {
         IsList = true;
         PropertyChanged += ScriptNodeManagerViewModel_PropertyChanged;
+
+        ShowHiddenScripts = Preferences.Default.Get(nameof(ShowHiddenScripts), false);
     }
 
     private void ScriptNodeManagerViewModel_PropertyChanged(object sender, PropertyChangedEventArgs e)
@@ -29,5 +31,10 @@ public partial class ScriptNodeManagerViewModel : NodeManagerViewModel<ScriptNod
         {
             WeakReferenceMessenger.Default.Send(new Lazy<ScriptNode>(SelectedNode));
         }
+    }
+
+    partial void OnShowHiddenScriptsChanged(bool value)
+    {
+        Preferences.Default.Set(nameof(ShowHiddenScripts), ShowHiddenScripts);
     }
 }

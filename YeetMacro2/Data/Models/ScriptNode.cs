@@ -13,6 +13,7 @@ public class ScriptNodeMetadataProvider : INodeMetadataProvider<ScriptNode>
 public class ScriptNode : Node, IParentNode<ScriptNode, ScriptNode>
 {
     public override bool IsParentNode => false;     // prevents tree heirarchy in the UI
+    public virtual bool IsHidden { get; set; }
     [JsonIgnore]
     public virtual ICollection<ScriptNode> Nodes { get; set; } = new List<ScriptNode>();
     public virtual string Text { get; set; }

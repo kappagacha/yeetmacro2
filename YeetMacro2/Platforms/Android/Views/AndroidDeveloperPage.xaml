@@ -8,10 +8,6 @@
              vm:ViewModelLocator.ViewModelType="{x:Type avm:AndriodHomeViewModel}"
              Title="Developer">
     <VerticalStackLayout Spacing="5">
-        <HorizontalStackLayout Spacing="5">
-            <Label VerticalOptions="Center" Text="Developer Mode" />
-            <CheckBox IsChecked="{Binding InDeveloperMode}" />
-        </HorizontalStackLayout>
         <Button Text="Copy Database" Command="{Binding CopyDbCommand}" />
         <Button Text="Delete Database" Command="{Binding DeleteDbCommand}" />
         <Button Text="Throw Exception" Command="{Binding ThrowExceptionCommand}" />

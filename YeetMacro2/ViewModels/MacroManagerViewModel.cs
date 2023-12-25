@@ -447,9 +447,6 @@ public partial class MacroManagerViewModel : ObservableObject
                     var jsonScripts = JsonSerializer.Deserialize<JsonObject>(strScripts);
                     foreach (var script in jsonScripts)
                     {
-#if ANDROID
-                        if (script.Key.StartsWith('_') && !ServiceHelper.GetService<YeetMacro2.Platforms.Android.ViewModels.AndriodHomeViewModel>().InDeveloperMode) continue;
-#endif
                         var scriptText = await _httpService.GetAsync(Path.Combine(rawUrl, "scripts", script.Key), new Dictionary<string, string>() { { "Accept", "application/json" } });
                         nameToScript.Add(Path.GetFileNameWithoutExtension(script.Key), scriptText);
                     }
@@ -483,7 +480,8 @@ public partial class MacroManagerViewModel : ObservableObject
                         Name = scriptKvp.Key,
                         Text = scriptKvp.Value,
                         RootId = Scripts.Root.NodeId,
-                        ParentId = Scripts.Root.NodeId
+                        ParentId = Scripts.Root.NodeId,
+                        IsHidden = scriptKvp.Key.StartsWith('_')
                     };
 
                     scripts.Root.Nodes.Add(script);
