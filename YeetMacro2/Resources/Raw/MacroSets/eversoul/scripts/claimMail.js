@@ -2,7 +2,7 @@
 const loopPatterns = [patterns.lobby.level, patterns.titles.mailbox];
 const daily = dailyManager.GetDaily();
 if (daily.claimMail.done.IsChecked) {
-	return;
+	return "Script already completed. Uncheck done to override daily flag.";
 }
 while (macroService.IsRunning) {
 	const loopResult = macroService.PollPattern(loopPatterns);

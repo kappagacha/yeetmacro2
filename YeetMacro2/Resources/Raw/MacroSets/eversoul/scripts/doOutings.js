@@ -3,7 +3,7 @@ const resolution = macroService.GetCurrentResolution();
 const loopPatterns = [patterns.lobby.level, patterns.town.level, patterns.town.outings.outingsCompleted, patterns.town.outings, patterns.titles.outingGo, patterns.town.outings.selectAKeyword];
 const daily = dailyManager.GetDaily();
 if (daily.doOutings.done.IsChecked) {
-	return;
+	return "Script already completed. Uncheck done to override daily flag.";
 }
 const targetSoul = macroService.ClonePattern(settings.doOutings.targetSoul.Value, {
 	X: 275,

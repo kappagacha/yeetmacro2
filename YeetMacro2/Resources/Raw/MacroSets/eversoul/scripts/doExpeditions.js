@@ -3,7 +3,7 @@
 const loopPatterns = [patterns.lobby.level, patterns.town.level, patterns.titles.visitTown];
 const daily = dailyManager.GetDaily();
 if (daily.doExpeditions.done.IsChecked) {
-	return;
+	return "Script already completed. Uncheck done to override daily flag.";
 }
 
 while (macroService.IsRunning) {

@@ -5,7 +5,7 @@ const daily = dailyManager.GetDaily();
 const isCpThresholdEnabled = settings.doArena.cpThreshold.IsEnabled;
 const cpThreshold = Number(settings.doArena.cpThreshold.Value);
 if (daily.doArena.done.IsChecked) {
-	return;
+	return "Script already completed. Uncheck done to override daily flag.";
 }
 
 while (macroService.IsRunning) {

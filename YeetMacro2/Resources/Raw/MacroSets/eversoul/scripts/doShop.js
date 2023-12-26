@@ -3,7 +3,7 @@
 const loopPatterns = [patterns.lobby.level, patterns.general.back];
 const daily = dailyManager.GetDaily();
 if (daily.doShop.done.IsChecked) {
-	return;
+	return "Script already completed. Uncheck done to override daily flag.";
 }
 
 while (macroService.IsRunning) {
