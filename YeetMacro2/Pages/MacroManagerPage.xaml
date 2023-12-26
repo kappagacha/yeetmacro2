@@ -52,9 +52,9 @@
             </Border>
             <material:TabView>
                 <material:TabItem Title="Macro">
-                    <ScrollView HorizontalOptions="Fill">
-                        <Grid Padding="4" HorizontalOptions="Fill">
-                            <Grid ColumnDefinitions="Auto,*" ColumnSpacing="4" HorizontalOptions="Fill">
+                    <Grid Padding="4">
+                        <ScrollView>
+                            <Grid ColumnDefinitions="Auto,*" ColumnSpacing="4">
                                 <VerticalStackLayout Grid.Column="0">
                                     <HorizontalStackLayout Margin="0" Padding="0">
                                         <Label Margin="0" VerticalOptions="Center" Padding="0" Text="Name:" />
@@ -90,25 +90,25 @@
                                         <Label Margin="0" VerticalOptions="Center" Padding="0" Text="MacroSet LastUpdated:" />
                                         <Label Margin="5,0,0,0" VerticalOptions="Center" Text="{Binding SelectedMacroSet.MacroSetLastUpdated}" />
                                         <v:ImageView FontFamily="MaterialOutlined" Glyph="{x:Static mi:MaterialOutlined.Backspace}" Color="Red" 
-                                        Command="{Binding ClearMacroSetLastUpdatedCommand}" CommandParameter="{Binding SelectedMacroSet}" />
+                                                     Command="{Binding ClearMacroSetLastUpdatedCommand}" CommandParameter="{Binding SelectedMacroSet}" />
                                     </HorizontalStackLayout>
                                     <HorizontalStackLayout Margin="0" Padding="0">
                                         <Label Margin="0" VerticalOptions="Center" Padding="0" Text="Patterns LastUpdated:" />
                                         <Label Margin="5,0,0,0" VerticalOptions="Center" Text="{Binding SelectedMacroSet.PatternsLastUpdated}" />
                                         <v:ImageView FontFamily="MaterialOutlined" Glyph="{x:Static mi:MaterialOutlined.Backspace}" Color="Red" 
-                                        Command="{Binding ClearPatternsLastUpdatedCommand}" CommandParameter="{Binding SelectedMacroSet}" />
+                                                     Command="{Binding ClearPatternsLastUpdatedCommand}" CommandParameter="{Binding SelectedMacroSet}" />
                                     </HorizontalStackLayout>
                                     <HorizontalStackLayout Margin="0" Padding="0">
                                         <Label Margin="0" VerticalOptions="Center" Padding="0" Text="Scripts LastUpdated:" />
                                         <Label Margin="5,0,0,0" VerticalOptions="Center" Text="{Binding SelectedMacroSet.ScriptsLastUpdated}" />
                                         <v:ImageView FontFamily="MaterialOutlined" Glyph="{x:Static mi:MaterialOutlined.Backspace}" Color="Red" 
-                                        Command="{Binding ClearScriptsLastUpdatedCommand}" CommandParameter="{Binding SelectedMacroSet}" />
+                                                     Command="{Binding ClearScriptsLastUpdatedCommand}" CommandParameter="{Binding SelectedMacroSet}" />
                                     </HorizontalStackLayout>
                                     <HorizontalStackLayout Margin="0" Padding="0">
                                         <Label Margin="0" VerticalOptions="Center" Padding="0" Text="Settings LastUpdated:" />
                                         <Label Margin="5,0,0,0" VerticalOptions="Center" Text="{Binding SelectedMacroSet.SettingsLastUpdated}" />
                                         <v:ImageView FontFamily="MaterialOutlined" Glyph="{x:Static mi:MaterialOutlined.Backspace}" Color="Red" 
-                                        Command="{Binding ClearSettingsLastUpdatedCommand}" CommandParameter="{Binding SelectedMacroSet}" />
+                                                     Command="{Binding ClearSettingsLastUpdatedCommand}" CommandParameter="{Binding SelectedMacroSet}" />
                                     </HorizontalStackLayout>
                                     <HorizontalStackLayout Margin="0" Padding="0">
                                         <Label Margin="0" VerticalOptions="Center" Padding="0" Text="Daily Reset UTC Hour:" />
@@ -136,21 +136,21 @@
                                 </Grid>
                                 <HorizontalStackLayout Grid.Column="1" HorizontalOptions="End" VerticalOptions="Start">
                                     <v:ToggleImageView IsToggled="{Binding ShowMacroSetDescriptionEditor}" ToggledColor="Green"
-                                                   FontFamily="MaterialOutlined" Glyph="{x:Static mi:MaterialOutlined.Edit}" />
+                                                       FontFamily="MaterialOutlined" Glyph="{x:Static mi:MaterialOutlined.Edit}" />
                                     <v:ImageView FontFamily="MaterialOutlined" Glyph="{x:Static mi:MaterialOutlined.Select_all}"
-                                             IsVisible="{Binding ShowExport}">
+                                                 IsVisible="{Binding ShowExport}">
                                         <v:ImageView.GestureRecognizers>
                                             <TapGestureRecognizer Tapped="ExportEditor_SelectAll" />
                                         </v:ImageView.GestureRecognizers>
                                     </v:ImageView>
                                     <v:ImageView FontFamily="MaterialOutlined" Glyph="{x:Static mi:MaterialOutlined.Close}" Color="Red"
-                                             IsVisible="{Binding ShowExport}" Command="{Binding CloseExportCommand}" />
+                                                 IsVisible="{Binding ShowExport}" Command="{Binding CloseExportCommand}" />
                                 </HorizontalStackLayout>
                             </Grid>
-                            <v:ImageView HorizontalOptions="End" VerticalOptions="End" FontFamily="MaterialOutlined" Glyph="{x:Static mi:MaterialOutlined.Save}"
+                        </ScrollView>
+                        <v:ImageView HorizontalOptions="End" VerticalOptions="End" FontFamily="MaterialOutlined" Glyph="{x:Static mi:MaterialOutlined.Save}"
                                  Command="{Binding SaveCommand}" CommandParameter="{Binding SelectedMacroSet}" />
-                        </Grid>
-                    </ScrollView>
+                    </Grid>
                 </material:TabItem>
                 <material:TabItem Title="Patterns">
                     <material:TabItem.ContentTemplate>
