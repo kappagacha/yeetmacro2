@@ -195,7 +195,7 @@
           "6",
           "7"
         ],
-        "value": "1",
+        "value": "2",
         "isParentNode": false,
         "name": "teamSlot",
         "path": "doBountyHunter.teamSlot"
@@ -206,7 +206,7 @@
       "props": {
         "$type": "boolean",
         "settingType": "Boolean",
-        "value": false,
+        "value": true,
         "isParentNode": false,
         "name": "sweepBattle",
         "path": "doBountyHunter.sweepBattle"
@@ -546,7 +546,7 @@
       "props": {
         "$type": "boolean",
         "settingType": "Boolean",
-        "value": false,
+        "value": true,
         "isParentNode": false,
         "name": "claimAntiparticle",
         "path": "doDailies.claimAntiparticle"
@@ -579,7 +579,7 @@
       "props": {
         "$type": "boolean",
         "settingType": "Boolean",
-        "value": false,
+        "value": true,
         "isParentNode": false,
         "name": "doFriends",
         "path": "doDailies.doFriends"

@@ -515,7 +515,11 @@ public class AndroidScreenService : IScreenService
                 case AndroidWindowView.ScriptNodeView:
                     var scriptNodeView = new ResizeView(_context, _windowManager, this, new ScriptNodeView() { ShowExecuteButton = true });
                     _views.TryAdd(windowView, scriptNodeView);
-                    scriptNodeView.OnShow = () => { Show(AndroidWindowView.MacroOverlayView); if (!IsDrawing) _mediaProjectionService.Start(); };
+                    scriptNodeView.OnShow = () => {
+                        Show(AndroidWindowView.MacroOverlayView);
+                        ServiceHelper.GetService<MacroManagerViewModel>().Dailies?.ResolveSubViewModelDate();
+                        if (!IsDrawing) _mediaProjectionService.Start(); 
+                    };
                     scriptNodeView.OnClose = () => { Close(AndroidWindowView.MacroOverlayView); if (!IsDrawing) _mediaProjectionService.Stop(); };
                     break;
                 case AndroidWindowView.SettingNodeView:
