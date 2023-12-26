@@ -2,7 +2,7 @@
 const loopPatterns = [patterns.lobby.level, patterns.titles.recruit];
 const daily = dailyManager.GetDaily();
 if (daily.claimFreeRecruit.done.IsChecked) {
-	return;
+	return "Script already completed. Uncheck done to override daily flag.";
 }
 
 while (macroService.IsRunning) {
