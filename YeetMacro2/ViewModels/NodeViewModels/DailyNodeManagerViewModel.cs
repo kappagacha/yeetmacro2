@@ -45,6 +45,15 @@ public partial class DailyNodeManagerViewModel : NodeManagerViewModel<DailyNodeV
         ResolveCurrentSubViewModel();
     }
 
+    public void ResolveSubViewModelDate()
+    {
+        var targetDate = ResolveTargetDate(0);
+        if (SelectedNode is not null && SelectedNode.Date != targetDate)
+        {
+            ResolveCurrentSubViewModel();
+        }
+    }
+
     private void ResolveCurrentSubViewModel()
     {
         if (string.IsNullOrEmpty(_targetSubViewName))
