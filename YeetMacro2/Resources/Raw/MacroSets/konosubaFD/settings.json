@@ -1,5 +1,5 @@
 {
-  "farmEvent": {
+  "farmEventLoop": {
     "$isParent": true,
     "props": {
       "settingType": "Parent",
@@ -23,7 +23,7 @@
       }
     }
   },
-  "freeQuests": {
+  "doFreeQuests": {
     "$isParent": true,
     "props": {
       "settingType": "Parent",
@@ -58,21 +58,29 @@
       }
     }
   },
-  "party": {
+  "doArena": {
     "$isParent": true,
     "props": {
       "settingType": "Parent",
-      "isParentNode": true,
-      "name": "party",
-      "path": "party"
+      "isParentNode": true
+    },
+    "party": {
+      "$isParent": false,
+      "props": {
+        "$type": "option",
+        "settingType": "Option",
+        "options": [
+          "recommendedElement"
+        ],
+        "value": "recommendedElement",
+        "isParentNode": false
+      }
     },
     "recommendedElement": {
       "$isParent": true,
       "props": {
         "settingType": "Parent",
-        "isParentNode": true,
-        "name": "recommendedElement",
-        "path": "party.recommendedElement"
+        "isParentNode": true
       },
       "none": {
         "$isParent": false,
@@ -80,9 +88,7 @@
           "$type": "string",
           "settingType": "String",
           "value": "Main",
-          "isParentNode": false,
-          "name": "none",
-          "path": "party.recommendedElement.none"
+          "isParentNode": false
         }
       },
       "fire": {
@@ -91,9 +97,7 @@
           "$type": "string",
           "settingType": "String",
           "value": "Fire",
-          "isParentNode": false,
-          "name": "fire",
-          "path": "party.recommendedElement.fire"
+          "isParentNode": false
         }
       },
       "water": {
@@ -102,9 +106,7 @@
           "$type": "string",
           "settingType": "String",
           "value": "Water",
-          "isParentNode": false,
-          "name": "water",
-          "path": "party.recommendedElement.water"
+          "isParentNode": false
         }
       },
       "lightning": {
@@ -113,9 +115,7 @@
           "$type": "string",
           "settingType": "String",
           "value": "Ltng",
-          "isParentNode": false,
-          "name": "lightning",
-          "path": "party.recommendedElement.lightning"
+          "isParentNode": false
         }
       },
       "earth": {
@@ -124,9 +124,7 @@
           "$type": "string",
           "settingType": "String",
           "value": "Earth",
-          "isParentNode": false,
-          "name": "earth",
-          "path": "party.recommendedElement.earth"
+          "isParentNode": false
         }
       },
       "wind": {
@@ -135,9 +133,7 @@
           "$type": "string",
           "settingType": "String",
           "value": "Wind",
-          "isParentNode": false,
-          "name": "wind",
-          "path": "party.recommendedElement.wind"
+          "isParentNode": false
         }
       },
       "light": {
@@ -146,9 +142,7 @@
           "$type": "string",
           "settingType": "String",
           "value": "Light",
-          "isParentNode": false,
-          "name": "light",
-          "path": "party.recommendedElement.light"
+          "isParentNode": false
         }
       },
       "dark": {
@@ -157,118 +151,187 @@
           "$type": "string",
           "settingType": "String",
           "value": "Dark",
-          "isParentNode": false,
-          "name": "dark",
-          "path": "party.recommendedElement.dark"
+          "isParentNode": false
         }
       }
+    }
+  },
+  "doArenaEX": {
+    "$isParent": true,
+    "props": {
+      "settingType": "Parent",
+      "isParentNode": true
     },
-    "arenaEX": {
+    "physicalDamage": {
+      "$isParent": false,
+      "props": {
+        "$type": "string",
+        "settingType": "String",
+        "value": "Phys",
+        "isParentNode": false,
+        "name": "physicalDamage",
+        "path": "party.arenaEX.physicalDamage"
+      }
+    },
+    "lowRarity": {
+      "$isParent": false,
+      "props": {
+        "$type": "string",
+        "settingType": "String",
+        "value": "Low",
+        "isParentNode": false,
+        "name": "lowRarity",
+        "path": "party.arenaEX.lowRarity"
+      }
+    },
+    "magicDamage": {
+      "$isParent": false,
+      "props": {
+        "$type": "string",
+        "settingType": "String",
+        "value": "Magic",
+        "isParentNode": false,
+        "name": "magicDamage",
+        "path": "party.arenaEX.magicDamage"
+      }
+    },
+    "defence": {
+      "$isParent": false,
+      "props": {
+        "$type": "string",
+        "settingType": "String",
+        "value": "Def",
+        "isParentNode": false,
+        "name": "defence",
+        "path": "party.arenaEX.defence"
+      }
+    },
+    "characterBonus": {
+      "$isParent": false,
+      "props": {
+        "$type": "string",
+        "settingType": "String",
+        "value": "Cbns",
+        "isParentNode": false,
+        "name": "characterBonus",
+        "path": "party.arenaEX.characterBonus"
+      }
+    }
+  },
+  "farmEventBossLoop": {
+    "$isParent": true,
+    "props": {
+      "settingType": "Parent",
+      "isParentNode": true
+    },
+    "party": {
+      "$isParent": false,
+      "props": {
+        "$type": "option",
+        "settingType": "Option",
+        "options": [
+          "recommendedElement"
+        ],
+        "value": "recommendedElement",
+        "isParentNode": false
+      }
+    },
+    "recommendedElement": {
       "$isParent": true,
       "props": {
         "settingType": "Parent",
-        "isParentNode": true,
-        "name": "arenaEX",
-        "path": "party.arenaEX"
+        "isParentNode": true
       },
-      "physicalDamage": {
+      "none": {
         "$isParent": false,
         "props": {
           "$type": "string",
           "settingType": "String",
-          "value": "Phys",
-          "isParentNode": false,
-          "name": "physicalDamage",
-          "path": "party.arenaEX.physicalDamage"
+          "value": "Main",
+          "isParentNode": false
         }
       },
-      "lowRarity": {
+      "fire": {
         "$isParent": false,
         "props": {
           "$type": "string",
           "settingType": "String",
-          "value": "Low",
-          "isParentNode": false,
-          "name": "lowRarity",
-          "path": "party.arenaEX.lowRarity"
+          "value": "Fire",
+          "isParentNode": false
         }
       },
-      "magicDamage": {
+      "water": {
         "$isParent": false,
         "props": {
           "$type": "string",
           "settingType": "String",
-          "value": "Magic",
-          "isParentNode": false,
-          "name": "magicDamage",
-          "path": "party.arenaEX.magicDamage"
+          "value": "Water",
+          "isParentNode": false
         }
       },
-      "defence": {
+      "lightning": {
         "$isParent": false,
         "props": {
           "$type": "string",
           "settingType": "String",
-          "value": "Def",
-          "isParentNode": false,
-          "name": "defence",
-          "path": "party.arenaEX.defence"
+          "value": "Ltng",
+          "isParentNode": false
         }
       },
-      "characterBonus": {
+      "earth": {
         "$isParent": false,
         "props": {
           "$type": "string",
           "settingType": "String",
-          "value": "Cbns",
-          "isParentNode": false,
-          "name": "characterBonus",
-          "path": "party.arenaEX.characterBonus"
+          "value": "Earth",
+          "isParentNode": false
+        }
+      },
+      "wind": {
+        "$isParent": false,
+        "props": {
+          "$type": "string",
+          "settingType": "String",
+          "value": "Wind",
+          "isParentNode": false
+        }
+      },
+      "light": {
+        "$isParent": false,
+        "props": {
+          "$type": "string",
+          "settingType": "String",
+          "value": "Light",
+          "isParentNode": false
+        }
+      },
+      "dark": {
+        "$isParent": false,
+        "props": {
+          "$type": "string",
+          "settingType": "String",
+          "value": "Dark",
+          "isParentNode": false
         }
       }
+    }
+  },
+  "doBranchQuests": {
+    "$isParent": true,
+    "props": {
+      "settingType": "Parent",
+      "isParentNode": true
     },
-    "eventBoss": {
+    "party": {
       "$isParent": false,
       "props": {
-        "$type": "string",
-        "settingType": "String",
-        "value": "recommendedElement",
-        "isParentNode": false,
-        "name": "eventBoss",
-        "path": "party.eventBoss"
-      }
-    },
-    "battleArena": {
-      "$isParent": false,
-      "props": {
-        "$type": "string",
-        "settingType": "String",
-        "value": "recommendedElement",
-        "isParentNode": false,
-        "name": "battleArena",
-        "path": "party.battleArena"
-      }
-    },
-    "farmEventLoop": {
-      "$isParent": false,
-      "props": {
-        "$type": "string",
-        "settingType": "String",
+        "$type": "option",
+        "settingType": "Option",
+        "options": [
+          "FEL"
+        ],
         "value": "FEL",
-        "isParentNode": false,
-        "name": "farmEventLoop",
-        "path": "party.farmEventLoop"
-      }
-    },
-    "cabbageHunting": {
-      "$isParent": false,
-      "props": {
-        "$type": "string",
-        "settingType": "String",
-        "value": "CabH",
-        "isParentNode": false,
-        "name": "cabbageHunting",
-        "path": "party.cabbageHunting"
+        "isParentNode": false
       }
     }
   },

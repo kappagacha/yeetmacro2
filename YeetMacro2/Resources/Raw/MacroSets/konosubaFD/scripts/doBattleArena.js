@@ -25,10 +25,10 @@ while (macroService.IsRunning) {
 			break;
 		case 'titles.party':
 			logger.info('doBattleArena: select party');
-			const targetPartyName = settings.party.battleArena.Value;
+			const targetPartyName = settings.doBattleArena.party.Value;
 			logger.debug(`targetPartyName: ${targetPartyName}`);
 			if (targetPartyName === 'recommendedElement') {
-				selectPartyByRecommendedElement();
+				selectPartyByRecommendedElement(settings.doBattleArena.recommendedElement);
 			} else {
 				selectParty(targetPartyName);
 			}
