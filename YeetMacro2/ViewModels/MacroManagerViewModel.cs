@@ -512,8 +512,6 @@ public partial class MacroManagerViewModel : ObservableObject
 
             _macroSetRepository.Update(macroSet);
             _macroSetRepository.Save();
-            SelectedMacroSet = null;
-            SelectedMacroSet = macroSet;
             _toastService.Show($"Updated MacroSet: {macroSet.Name}");
         }
         catch (Exception ex)

@@ -40,8 +40,9 @@ public partial class SettingNodeManagerViewModel : NodeManagerViewModel<ParentSe
             CurrentSubViewModel = _emptyParentSetting;
             return;
         }
+
         var targetName = scriptNode.Name;
-        var targetNode = Root.Nodes.FirstOrDefault(sn => sn.Name.ToLower() == targetName.ToLower()) as ParentSetting;
+        var targetNode = Root.Nodes.FirstOrDefault(sn => sn.Name?.ToLower() == targetName.ToLower()) as ParentSetting;
         CurrentSubViewModel = targetNode ?? _emptyParentSetting;
     }
 

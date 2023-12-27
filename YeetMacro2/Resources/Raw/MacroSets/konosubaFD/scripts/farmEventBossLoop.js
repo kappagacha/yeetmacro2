@@ -31,7 +31,7 @@ while (macroService.IsRunning) {
 					return result;
 				}
 				let currentCost = macroService.GetText(patterns.quest.events.bossBattle.cost);
-				for (let i = 0; macroService.IsRunning && i < 2; i++) {
+				for (let i = 0; macroService.IsRunning && i < 5; i++) {
 					const addCostDisabledResult = macroService.FindPattern(patterns.quest.events.bossBattle.addCost.disabled);
 					if (addCostDisabledResult.IsSuccess) {
 						break;
@@ -58,7 +58,7 @@ while (macroService.IsRunning) {
 			isBossMulti = true;
 			macroService.PollPattern(patterns.quest.events.bossBattle.extreme, { DoClick: true, PredicatePattern: patterns.battle.prepare });
 			let currentCost = macroService.GetText(patterns.quest.events.bossBattle.cost);
-			for (let i = 0; macroService.IsRunning && i < 2; i++) {
+			for (let i = 0; macroService.IsRunning && i < 5; i++) {
 				const addCostDisabledResult = macroService.FindPattern(patterns.quest.events.bossBattle.addCost.disabled);
 				if (addCostDisabledResult.IsSuccess) {
 					break;
@@ -80,10 +80,10 @@ while (macroService.IsRunning) {
 			break;
 		case 'titles.party':
 			logger.info('farmEventBossLoop: select party');
-			const targetPartyName = settings.party.eventBoss.Value;
+			const targetPartyName = settings.farmEventBossLoop.party.Value;
 			logger.debug(`targetPartyName: ${targetPartyName}`);
 			if (targetPartyName === 'recommendedElement') {
-				selectPartyByRecommendedElement(isBossMulti ? -424 : 0);	// Recommended Element icons are shifted by 425 to the left of expected location
+				selectPartyByRecommendedElement(settings.farmEventBossLoop.recommendedElement, isBossMulti ? -424 : 0);	// Recommended Element icons are shifted by 425 to the left of expected location
 			} else {
 				selectParty(targetPartyName);
 			}

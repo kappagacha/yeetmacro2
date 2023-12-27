@@ -50,13 +50,9 @@ while (macroService.IsRunning) {
 			break;
 		case 'titles.party':
 			logger.info('doBranchQuests: select party');
-			const targetPartyName = settings.party.cabbageHunting.Value;
+			const targetPartyName = settings.doBranchQuests.cabbageHunting.party.Value;
 			logger.debug(`targetPartyName: ${targetPartyName}`);
-			if (targetPartyName === 'recommendedElement') {
-				selectPartyByRecommendedElement();
-			} else {
-				selectParty(targetPartyName);
-			}
+			selectParty(targetPartyName);
 			sleep(500);
 			macroService.PollPattern(patterns.battle.begin, { DoClick: true, ClickPattern: [patterns.battleArena.newHighScore, patterns.battleArena.rank], PredicatePattern: patterns.battle.report });
 			macroService.PollPattern(patterns.battle.next, { DoClick: true, ClickPattern: [patterns.battleArena.newHighScore, patterns.battleArena.rank], PredicatePattern: patterns.titles.home });

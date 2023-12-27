@@ -32,7 +32,7 @@
                                    Spacing="0" HorizontalOptions="Fill"  VerticalOptions="Fill" ExpanderTemplate="{Binding ExpanderTemplate, Source={Reference thisView}}">
                     <material:TreeView.Triggers>
                         <DataTrigger TargetType="{x:Type material:TreeView}" Binding="{Binding ItemsSource, Source={Reference thisView}, Converter={conv:NullToBoolConverter}}" Value="True">
-                            <Setter Property="ItemsSource" Value="{Binding NodeManager.Root.Children, Source={Reference thisView}}" />
+                            <Setter Property="ItemsSource" Value="{Binding NodeManager.Root.Nodes, Source={Reference thisView}}" />
                         </DataTrigger>
                         <DataTrigger TargetType="{x:Type material:TreeView}" Binding="{Binding ItemsSource, Source={Reference thisView}, Converter={conv:NullToBoolConverter}}" Value="False">
                             <Setter Property="ItemsSource" Value="{Binding ItemsSource, Source={Reference thisView}}" />

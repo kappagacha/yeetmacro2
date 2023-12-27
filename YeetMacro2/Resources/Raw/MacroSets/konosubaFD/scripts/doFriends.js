@@ -6,7 +6,7 @@ if (daily.doFriends.done.IsChecked) {
 }
 
 while (macroService.IsRunning) {
-	const loopResult = macroService.PollPattern(loopPatterns, { ClickPatterns: patterns.friend.greetingLog.close });
+	const loopResult = macroService.PollPattern(loopPatterns, { ClickPattern: patterns.friend.greetingLog.close });
 	switch (loopResult.Path) {
 		case 'titles.home':
 			logger.info('doFriends: click friend');

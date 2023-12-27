@@ -3,11 +3,10 @@ function selectPartyByRecommendedElement(recommendedElementSetting, xOffset) {
     let elementPatterns = ['none', 'fire', 'water', 'lightning', 'earth', 'wind', 'light', 'dark'].map(e => patterns.party.recommendedElement[e]);
     if (xOffset) {
         elementPatterns = elementPatterns.map(el => {
-            const clone = macroService.ClonePattern(el);
-            clone.Path += `_xOffset${xOffset}`;
-            for (const pattern of clone.Patterns) {
-                pattern.Rect = pattern.Rect.Offset(xOffset, 0);
-            }
+            const clone = macroService.ClonePattern(el, {
+                Path: `${el.Path}_xOffset${xOffset}`,
+                X: el.Pattern.Rect.X + xOffset
+            });
             return clone;
         });
     }

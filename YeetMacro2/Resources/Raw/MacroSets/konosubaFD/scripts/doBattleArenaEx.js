@@ -32,11 +32,11 @@ while (macroService.IsRunning) {
 			const scoreBonus = scoreBonusResult.Path?.split('.').pop();
 			logger.debug(`scoreBonus: ${scoreBonus}`);
 			if (!scoreBonusResult.IsSuccess) {
-				return 'Could not detect score bonus...';
+				throw new Error('Could not detect score bonus...');
 			}
-			const scoreBonusPartyName = settings.party.arenaEX[scoreBonus]?.Value;
+			const scoreBonusPartyName = settings.doBattleArenaEx[scoreBonus]?.Value;
 			if (!scoreBonusPartyName) {
-				return `Could not find scoreBonusPartyName for ${scoreBonusPartyName} in settings...`;
+				throw new Error(`Could not find scoreBonusPartyName for ${scoreBonusPartyName} in settings...`);
 			}
 
 			logger.debug(`scoreBonusPartyName: ${scoreBonusPartyName}`);
