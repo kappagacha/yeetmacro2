@@ -4,8 +4,7 @@
     "props": {
       "settingType": "Parent",
       "isParentNode": true,
-      "name": "farmEvent",
-      "path": "farmEvent"
+      "name": "farmEventLoop"
     },
     "targetLevel": {
       "$isParent": false,
@@ -18,8 +17,7 @@
         ],
         "value": "11",
         "isParentNode": false,
-        "name": "targetLevel",
-        "path": "farmEvent.targetLevel"
+        "name": "targetLevel"
       }
     }
   },
@@ -28,16 +26,14 @@
     "props": {
       "settingType": "Parent",
       "isParentNode": true,
-      "name": "freeQuests",
-      "path": "freeQuests"
+      "name": "doFreeQuests"
     },
     "upgradeStone": {
       "$isParent": true,
       "props": {
         "settingType": "Parent",
         "isParentNode": true,
-        "name": "upgradeStone",
-        "path": "freeQuests.upgradeStone"
+        "name": "upgradeStone"
       },
       "targetLevel": {
         "$isParent": false,
@@ -62,13 +58,15 @@
     "$isParent": true,
     "props": {
       "settingType": "Parent",
-      "isParentNode": true
+      "isParentNode": true,
+      "name": "farmEventBossLoop"
     },
     "party": {
       "$isParent": false,
       "props": {
         "$type": "option",
         "settingType": "Option",
+        "name": "party",
         "options": [
           "recommendedElement"
         ],
@@ -80,13 +78,15 @@
       "$isParent": true,
       "props": {
         "settingType": "Parent",
-        "isParentNode": true
+        "isParentNode": true,
+        "name": "recommendedElement"
       },
       "none": {
         "$isParent": false,
         "props": {
           "$type": "string",
           "settingType": "String",
+          "name": "none",
           "value": "Main",
           "isParentNode": false
         }
@@ -96,6 +96,7 @@
         "props": {
           "$type": "string",
           "settingType": "String",
+          "name": "fire",
           "value": "Fire",
           "isParentNode": false
         }
@@ -105,6 +106,7 @@
         "props": {
           "$type": "string",
           "settingType": "String",
+          "name": "water",
           "value": "Water",
           "isParentNode": false
         }
@@ -114,6 +116,7 @@
         "props": {
           "$type": "string",
           "settingType": "String",
+          "name": "lightning",
           "value": "Ltng",
           "isParentNode": false
         }
@@ -123,6 +126,7 @@
         "props": {
           "$type": "string",
           "settingType": "String",
+          "name": "earth",
           "value": "Earth",
           "isParentNode": false
         }
@@ -132,6 +136,7 @@
         "props": {
           "$type": "string",
           "settingType": "String",
+          "name": "wind",
           "value": "Wind",
           "isParentNode": false
         }
@@ -141,6 +146,7 @@
         "props": {
           "$type": "string",
           "settingType": "String",
+          "name": "light",
           "value": "Light",
           "isParentNode": false
         }
@@ -150,6 +156,7 @@
         "props": {
           "$type": "string",
           "settingType": "String",
+          "name": "dark",
           "value": "Dark",
           "isParentNode": false
         }
@@ -160,7 +167,8 @@
     "$isParent": true,
     "props": {
       "settingType": "Parent",
-      "isParentNode": true
+      "isParentNode": true,
+      "name": "farmEventBossLoop"
     },
     "physicalDamage": {
       "$isParent": false,
@@ -222,13 +230,15 @@
     "$isParent": true,
     "props": {
       "settingType": "Parent",
-      "isParentNode": true
+      "isParentNode": true,
+      "name": "farmEventBossLoop"
     },
     "party": {
       "$isParent": false,
       "props": {
         "$type": "option",
         "settingType": "Option",
+        "name": "party",
         "options": [
           "recommendedElement"
         ],
@@ -240,13 +250,15 @@
       "$isParent": true,
       "props": {
         "settingType": "Parent",
-        "isParentNode": true
+        "isParentNode": true,
+        "name": "recommendedElement"
       },
       "none": {
         "$isParent": false,
         "props": {
           "$type": "string",
           "settingType": "String",
+          "name": "none",
           "value": "Main",
           "isParentNode": false
         }
@@ -256,6 +268,7 @@
         "props": {
           "$type": "string",
           "settingType": "String",
+          "name": "fire",
           "value": "Fire",
           "isParentNode": false
         }
@@ -265,6 +278,7 @@
         "props": {
           "$type": "string",
           "settingType": "String",
+          "name": "water",
           "value": "Water",
           "isParentNode": false
         }
@@ -274,6 +288,7 @@
         "props": {
           "$type": "string",
           "settingType": "String",
+          "name": "lightning",
           "value": "Ltng",
           "isParentNode": false
         }
@@ -283,6 +298,7 @@
         "props": {
           "$type": "string",
           "settingType": "String",
+          "name": "earth",
           "value": "Earth",
           "isParentNode": false
         }
@@ -292,6 +308,7 @@
         "props": {
           "$type": "string",
           "settingType": "String",
+          "name": "wind",
           "value": "Wind",
           "isParentNode": false
         }
@@ -301,6 +318,7 @@
         "props": {
           "$type": "string",
           "settingType": "String",
+          "name": "light",
           "value": "Light",
           "isParentNode": false
         }
@@ -310,6 +328,7 @@
         "props": {
           "$type": "string",
           "settingType": "String",
+          "name": "dark",
           "value": "Dark",
           "isParentNode": false
         }
@@ -320,13 +339,15 @@
     "$isParent": true,
     "props": {
       "settingType": "Parent",
-      "isParentNode": true
+      "isParentNode": true,
+      "name": "doBranchQuests"
     },
     "party": {
       "$isParent": false,
       "props": {
         "$type": "option",
         "settingType": "Option",
+        "name": "party",
         "options": [
           "FEL"
         ],
