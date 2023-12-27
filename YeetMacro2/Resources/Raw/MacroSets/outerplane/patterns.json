@@ -5853,6 +5853,48 @@
           "name": "alreadyReceived",
           "path": "guild.hallOfHonor.alreadyReceived"
         }
+      },
+      "guildBuffObtained": {
+        "$isParent": true,
+        "props": {
+          "isMultiPattern": false,
+          "patterns": [
+            {
+              "rect": {
+                "x": 400.0428161621094,
+                "y": 379.90032958984375,
+                "width": 54.469268798828125,
+                "height": 27.47039794921875
+              },
+              "resolution": {
+                "width": 1920,
+                "height": 1080
+              },
+              "isBoundsPattern": false,
+              "isLocationDynamic": false,
+              "name": "pattern",
+              "imageData": "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",
+              "variancePct": 20,
+              "horizontalStretchMultiplier": 0,
+              "verticalStretchMultiplier": 0,
+              "textMatch": {
+                "isActive": false,
+                "text": null,
+                "whiteList": null
+              },
+              "colorThreshold": {
+                "isActive": true,
+                "variancePct": 10,
+                "color": "#ff26262c",
+                "imageData": "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"
+              },
+              "offsetCalcType": "Default"
+            }
+          ],
+          "isParentNode": true,
+          "name": "guildBuffObtained",
+          "path": "guild.hallOfHonor.guildBuffObtained"
+        }
       }
     },
     "checkIn": {
