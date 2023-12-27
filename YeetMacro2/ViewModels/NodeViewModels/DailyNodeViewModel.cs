@@ -178,6 +178,7 @@ public partial class DailyJsonBooleanViewModel: DailyJsonElementViewModel
 {
     [ObservableProperty]
     bool _isChecked;
+    public object Children { get; set; }        // I don't know why this is always binded in UraniumUI treeview
 
     partial void OnIsCheckedChanged(bool oldValue, bool newValue)
     {
@@ -192,6 +193,7 @@ public partial class DailyJsonCountViewModel : DailyJsonElementViewModel
 {
     [ObservableProperty]
     int _count;
+    public object Children { get; set; }        // I don't know why this is always binded in UraniumUI treeview
 
     partial void OnCountChanged(int value)
     {

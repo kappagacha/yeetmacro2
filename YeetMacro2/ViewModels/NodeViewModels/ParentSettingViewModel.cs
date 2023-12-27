@@ -173,6 +173,7 @@ public partial class BooleanSettingViewModel : BooleanSetting
     }
 
     public bool IsLeaf { get; set; } = true;
+    public object Children { get; set; }        // I don't know why this is always binded in UraniumUI treeview
 
     public override bool Value
     {
@@ -211,6 +212,7 @@ public partial class OptionSettingViewModel : OptionSetting
     }
 
     public bool IsLeaf { get; set; } = true;
+    public object Children { get; set; }        // I don't know why this is always binded in UraniumUI treeview
 
     public override string Value
     {
@@ -259,6 +261,7 @@ public partial class StringSettingViewModel : StringSetting
     }
 
     public bool IsLeaf { get; set; } = true;
+    public object Children { get; set; }        // I don't know why this is always binded in UraniumUI treeview
 
     public override string Value
     {
@@ -297,6 +300,7 @@ public partial class IntegerSettingViewModel : IntegerSetting
     }
 
     public bool IsLeaf { get; set; } = true;
+    public object Children { get; set; }        // I don't know why this is always binded in UraniumUI treeview
 
     public override int Value
     {
@@ -345,6 +349,7 @@ public partial class EnabledIntegerSettingViewModel : EnabledIntegerSetting
     }
 
     public bool IsLeaf { get; set; } = true;
+    public object Children { get; set; }        // I don't know why this is always binded in UraniumUI treeview
 
     public override int Value
     {
@@ -417,6 +422,7 @@ public partial class PatternSettingViewModel : PatternSetting
     }
 
     public bool IsLeaf { get; set; } = true;
+    public object Children { get; set; }        // I don't know why this is always binded in UraniumUI treeview
 
     public override PatternNode Value
     {

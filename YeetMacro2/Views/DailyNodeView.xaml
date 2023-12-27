@@ -51,7 +51,7 @@
                                                Spacing="0" HorizontalOptions="Fill"  VerticalOptions="Fill" ItemTemplate="{conv:DynamicTemplateSelector}" />
                         </ScrollView>
                         <Grid IsVisible="{Binding Dailies.ShowJsonEditor}">
-                            <Editor x:Name="dataEditor" Text="{Binding Dailies.SelectedNode.DataText}" AutoSize="TextChanges" />
+                            <Editor x:Name="dataEditor" Text="{Binding Dailies.SelectedNode.DataText, Mode=OneWay}" AutoSize="TextChanges" />
                             <v:ImageView HorizontalOptions="End" VerticalOptions="End" Margin="0,0,30,0"
                                          FontFamily="MaterialOutlined" Glyph="{x:Static mi:MaterialOutlined.Save}" Color="{StaticResource Primary}" 
                                  Command="{Binding Dailies.SaveDailyCommand}">
