@@ -16,7 +16,7 @@ while (macroService.IsRunning) {
 			logger.info('doFriends: click greetAll');
 			macroService.PollPattern(patterns.friend.greetAll, {
 				DoClick: true,
-				ClickPattern: [patterns.friend.greetAll.greet, patterns.friend.greetAll.ok, patterns.branchEvent.availableNow, patterns.branchEvent.playLater, patterns.prompt.playerRankUp],
+				ClickPattern: [patterns.friend.greetingLog.close, patterns.friend.greetAll.greet, patterns.friend.greetAll.ok, patterns.branchEvent.availableNow, patterns.branchEvent.playLater, patterns.prompt.playerRankUp],
 				PredicatePattern: patterns.friend.greetAll.disabled
 			});
 			if (macroService.IsRunning) {

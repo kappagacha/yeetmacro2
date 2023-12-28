@@ -205,7 +205,7 @@
           "value": "FEL",
           "isParentNode": false,
           "name": "party",
-          "path": "doBranchQuests.party"
+          "path": "doBranchQuests.cabbageHunting.party"
         }
       }
     }
@@ -271,6 +271,17 @@
         "isParentNode": false,
         "name": "doBattleArenaEx",
         "path": "doDailies.doBattleArenaEx"
+      }
+    },
+    "farmEventBossLoop": {
+      "$isParent": false,
+      "props": {
+        "$type": "boolean",
+        "settingType": "Boolean",
+        "value": true,
+        "isParentNode": false,
+        "name": "farmEventBossLoop",
+        "path": "doDailies.farmEventBossLoop"
       }
     },
     "claimMissionRewards": {
