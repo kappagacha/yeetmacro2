@@ -557,7 +557,7 @@
       "props": {
         "$type": "boolean",
         "settingType": "Boolean",
-        "value": false,
+        "value": true,
         "isParentNode": false,
         "name": "claimFreeShop",
         "path": "doDailies.claimFreeShop"

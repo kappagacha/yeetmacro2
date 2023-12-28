@@ -1184,6 +1184,37 @@
               "imageData": "/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDAAIBAQEBAQIBAQECAgICAgQDAgICAgUEBAMEBgUGBgYFBgYGBwkIBgcJBwYGCAsICQoKCgoKBggLDAsKDAkKCgr/wAALCAATACUBAREA/8QAHwAAAQUBAQEBAQEAAAAAAAAAAAECAwQFBgcICQoL/8QAtRAAAgEDAwIEAwUFBAQAAAF9AQIDAAQRBRIhMUEGE1FhByJxFDKBkaEII0KxwRVS0fAkM2JyggkKFhcYGRolJicoKSo0NTY3ODk6Q0RFRkdISUpTVFVWV1hZWmNkZWZnaGlqc3R1dnd4eXqDhIWGh4iJipKTlJWWl5iZmqKjpKWmp6ipqrKztLW2t7i5usLDxMXGx8jJytLT1NXW19jZ2uHi4+Tl5ufo6erx8vP09fb3+Pn6/9oACAEBAAA/APo3/g55/wCC4H7T/wDwTL07wb+zn+yP4L1Dw/4r8daedYb4uaroUN1p1lawXGyTT9PS4SSC5viVQ3Hmoy29vcQlUd7pJbf6A/4Icf8ABcf4Nf8ABXr4NPpeqRaf4V+NHhXT0fx54DimIjnjysf9q6b5jF5bF3ZQyEtJaySLFKWDwT3H3fXwh/wXH/4Lj/Br/gkL8Gk0vS4tP8VfGjxVp7v4D8ByzExwR5aP+1dS8tg8VijqwVAVkupI2iiKhJ57f4g/4It/8HPn7T/xj+DXiLwL+1x+xZ8cPjz4r8KahC6+Of2f/hbDqkklrdmdo4tVtLdreCzlQxOkMsQCzxqQ0avA8s/63ft0/sLfs4/8FF/2cdZ/Zf8A2oPBn9q+H9VxNZXtqyx3+i36Kwh1CxmKt5FzFvbDYZXV5IpEkilkjf8Aky/be/Yh/bz/AODe/wDbz0PWNH8cahpWpaVqEmrfCP4ueHrcxWuvWqHY7BH3osoSUQ3eny+YoWYo4nt54pZ/1v8A+IzX4E/8O4/+Fl/8Kp/4ya/5BH/CuPsV1/YX2zy8/wBufa8/8g3+L7H5v2zzf9Hz5f8AxMK/JD9iH9iH9vP/AIOEP289c1jWPHGoarqWq6hHq3xc+LniG3MtroNq52IxRNiNKUiMNpp8XlqVhCIILeCWWD+s39hb9hb9nH/gnR+zjo37L/7L/gz+yvD+lZmvb26ZZL/Wr91UTahfTBV8+5l2LlsKqKkcUaRxRRxp7BXyh/wXG+APwa/aD/4JQfHfS/jN8PdP8QReFfhfr3irw016hEml6zp2mXVxZ3sEiEPFKjrglSA8cksTh4pZEb+LKv7Tf+CHPwB+DX7Pn/BKD4EaX8Gfh7p/h+LxV8L9B8VeJWskJk1TWdR0y1uLy9nkcl5ZXdsAsSEjjiiQJFFGi/V9f//Z"
             },
             "offsetCalcType": "Default"
+          },
+          {
+            "rect": {
+              "x": 0,
+              "y": 0,
+              "width": 0,
+              "height": 0
+            },
+            "resolution": {
+              "width": 0,
+              "height": 0
+            },
+            "isBoundsPattern": false,
+            "isLocationDynamic": false,
+            "name": "left",
+            "imageData": "",
+            "variancePct": 20,
+            "horizontalStretchMultiplier": 0,
+            "verticalStretchMultiplier": 0,
+            "textMatch": {
+              "isActive": false,
+              "text": null,
+              "whiteList": null
+            },
+            "colorThreshold": {
+              "isActive": false,
+              "variancePct": 10,
+              "color": null,
+              "imageData": ""
+            },
+            "offsetCalcType": "Default"
           }
         ],
         "isParentNode": true,
