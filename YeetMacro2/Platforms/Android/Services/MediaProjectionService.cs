@@ -103,6 +103,11 @@ public class MediaProjectionService : IRecorderService
 
     private Bitmap GetBitmap()
     {
+        if (_imageReader is null)
+        {
+            Start();
+        }
+
         _logger.LogTrace("GetBitmap");
         //https://www.tabnine.com/code/java/classes/android.media.Image?snippet=5ce69622e594670004ac3235
         var image = _imageReader.AcquireLatestImage();

@@ -332,7 +332,7 @@ public partial class PatternNodeManagerViewModel : NodeManagerViewModel<PatternN
     }
 
     [RelayCommand]
-    private async Task TestPatternTextMatch(object[] values)
+    private void TestPatternTextMatch(object[] values)
     {
         if (values.Length != 4) return;
 
@@ -356,7 +356,7 @@ public partial class PatternNodeManagerViewModel : NodeManagerViewModel<PatternN
     }
 
     [RelayCommand]
-    private async Task ApplyPatternTextMatch(object[] values)
+    private void ApplyPatternTextMatch(object[] values)
     {
         if (values.Length != 4) return;
 

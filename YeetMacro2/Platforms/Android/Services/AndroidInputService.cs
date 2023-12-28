@@ -13,7 +13,6 @@ public class AndroidInputService : IInputService
 
     public async Task<Rect> DrawUserRectangle()
     {
-        _screenService.IsDrawing = true;
         var patternsViewIsShowing = _screenService.Views.TryGetValue(AndroidWindowView.PatternNodeView, out IShowable patternsView) && patternsView.IsShowing;
         var macroOverlayViewIsShowing = _screenService.Views.TryGetValue(AndroidWindowView.MacroOverlayView, out IShowable macroOverlayView) && macroOverlayView.IsShowing;
         var scriptsViewIsShowing = _screenService.Views.TryGetValue(AndroidWindowView.ScriptNodeView, out IShowable scriptsView) && scriptsView.IsShowing;
@@ -31,10 +30,8 @@ public class AndroidInputService : IInputService
             if (macroOverlayViewIsShowing) _screenService.Views[AndroidWindowView.MacroOverlayView].Show();
             if (scriptsViewIsShowing) _screenService.Views[AndroidWindowView.ScriptNodeView].Show();
 
-            _screenService.IsDrawing = false;
             return drawControl.Rect;
         }
-        _screenService.IsDrawing = false;
         return Rect.Zero;
     }
 

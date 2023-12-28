@@ -52,7 +52,6 @@ public class AndroidScreenService : IScreenService
     Size _initialResolution;
     double _density;
     public IReadOnlyDictionary<AndroidWindowView, IShowable> Views => _views;
-    public bool IsDrawing { get; set; }
     public int UserDrawViewWidth => _views.ContainsKey(AndroidWindowView.UserDrawView) ? ((FormsView)_views[AndroidWindowView.UserDrawView]).MeasuredHeightAndState : -1;
     public int UserDrawViewHeight => _views.ContainsKey(AndroidWindowView.UserDrawView) ? ((FormsView)_views[AndroidWindowView.UserDrawView]).MeasuredWidthAndState : -1;
     public Size CalcResolution
@@ -225,6 +224,8 @@ public class AndroidScreenService : IScreenService
 
     public byte[] ScaleImageData(byte[] data, double scale)
     {
+        if (data is null || data.Length == 0) return null;
+
         var bitmap = global::Android.Graphics.BitmapFactory.DecodeByteArray(data, 0, data.Length);
         var targetWidth = bitmap.Width * scale;
         var targetHeight = bitmap.Height * scale;
@@ -496,19 +497,12 @@ public class AndroidScreenService : IScreenService
                     patternsNodeView.OnShow = () => {
                         if (_views.ContainsKey(AndroidWindowView.ScriptNodeView) && _views[AndroidWindowView.ScriptNodeView].IsShowing)
                         {
-                            IsDrawing = true;
                             Close(AndroidWindowView.ScriptNodeView);
-                            IsDrawing = false;
-                        }
-                        else if (!IsDrawing)
-                        {
-                            _mediaProjectionService.Start();
                         }
                         Show(AndroidWindowView.MacroOverlayView);
                     };
                     patternsNodeView.OnClose = () => { 
                         Close(AndroidWindowView.MacroOverlayView); 
-                        if (!IsDrawing) _mediaProjectionService.Stop();
                         ServiceHelper.GetService<AndriodHomeViewModel>().ShowPatternNodeView = false;
                     };
                     break;
@@ -518,9 +512,8 @@ public class AndroidScreenService : IScreenService
                     scriptNodeView.OnShow = () => {
                         Show(AndroidWindowView.MacroOverlayView);
                         ServiceHelper.GetService<MacroManagerViewModel>().Dailies?.ResolveSubViewModelDate();
-                        if (!IsDrawing) _mediaProjectionService.Start(); 
                     };
-                    scriptNodeView.OnClose = () => { Close(AndroidWindowView.MacroOverlayView); if (!IsDrawing) _mediaProjectionService.Stop(); };
+                    scriptNodeView.OnClose = () => Close(AndroidWindowView.MacroOverlayView);
                     break;
                 case AndroidWindowView.SettingNodeView:
                     var settingNodeView = new ResizeView(_context, _windowManager, this, new SettingNodeView());
