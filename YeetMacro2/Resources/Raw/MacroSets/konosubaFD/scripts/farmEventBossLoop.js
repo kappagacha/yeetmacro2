@@ -1,4 +1,6 @@
-﻿const loopPatterns = [patterns.titles.home, patterns.titles.quest, patterns.titles.events, patterns.battle.report, patterns.titles.bossBattle, patterns.titles.bossMulti, patterns.titles.party, patterns.quest.events.bossBattle.prompt.notEnoughBossTickets];
+﻿// Farm event boss in a loop. (handles single and multiplayer boss)
+// See options for party names
+const loopPatterns = [patterns.titles.home, patterns.titles.quest, patterns.titles.events, patterns.battle.report, patterns.titles.bossBattle, patterns.titles.bossMulti, patterns.titles.party, patterns.quest.events.bossBattle.prompt.notEnoughBossTickets];
 let isBossMulti = false;
 const result = { numBattles: 0 };
 while (macroService.IsRunning) {

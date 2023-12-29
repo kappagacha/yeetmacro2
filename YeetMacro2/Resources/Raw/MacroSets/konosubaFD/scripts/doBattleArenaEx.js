@@ -1,4 +1,6 @@
-﻿const loopPatterns = [patterns.titles.home, patterns.titles.quest, patterns.titles.battleArena, patterns.titles.party, patterns.battle.report];
+﻿// Auto or skip arena EX attempts. See options for party select names.
+const loopPatterns = [patterns.titles.home, patterns.titles.quest, patterns.titles.battleArena, patterns.titles.party, patterns.battle.report];
+const skipBattle = settings.doBattleArenaEx.skipBattle.Value;
 const daily = dailyManager.GetDaily();
 if (daily.doBattleArenaEx.done.IsChecked) {
 	return "Script already completed. Uncheck done to override daily flag.";
@@ -16,11 +18,24 @@ while (macroService.IsRunning) {
 			macroService.ClickPattern(patterns.quest.battleArena);
 			break;
 		case 'titles.battleArena':
-			logger.info('doBattleArena: start arena');
+			logger.info('doBattleArenaEx: start arena');
 			macroService.PollPattern(patterns.battleArena.tabs.arenaEX, { DoClick: true, ClickPattern: patterns.battleArena.prompt.noteOk, PredicatePattern: patterns.titles.battleArenaEX });
 			sleep(500);
 			macroService.PollPattern(patterns.battleArena.begin, { DoClick: true, ClickPattern: patterns.battleArena.prompt.noteOk, PredicatePattern: patterns.battleArena.exRank });
 			sleep(500);
+			if (skipBattle) {
+				macroService.PollPattern(patterns.battleArena.skip, { DoClick: true, PredicatePattern: patterns.battleArena.skip.max });
+				macroService.PollPattern(patterns.battleArena.skip.max, { DoClick: true, PredicatePattern: patterns.battleArena.skip.max.disabled });
+				macroService.PollPattern(patterns.battleArena.skip.skipButton, {
+					DoClick: true,
+					ClickPattern: [patterns.battleArena.skip.ok, patterns.branchEvent.availableNow, patterns.branchEvent.playLater, patterns.prompt.playerRankUp, patterns.skipAll.skipComplete, patterns.skipAll.prompt.ok],
+					PredicatePattern: patterns.titles.battleArena
+				});
+				if (macroService.IsRunning) {
+					daily.doBattleArenaEx.done.IsChecked = true;
+				}
+				return;
+			}
 			macroService.PollPattern(patterns.battleArena.exRank, { DoClick: true, PredicatePattern: patterns.battle.prepare });
 			sleep(500);
 			macroService.PollPattern(patterns.battle.prepare, { DoClick: true, PredicatePattern: patterns.titles.party });

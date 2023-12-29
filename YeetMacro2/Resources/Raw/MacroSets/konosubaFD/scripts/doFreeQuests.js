@@ -1,4 +1,4 @@
-﻿// Do all free quests. Setting exists for upgrade stone difficulty
+﻿// Do all free quests. See options to select upgrade stone difficulty
 const loopPatterns = [patterns.titles.home, patterns.titles.quest, patterns.titles.freeQuests];
 const offset = macroService.CalcOffset(patterns.titles.home);
 const daily = dailyManager.GetDaily();

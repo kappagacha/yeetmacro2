@@ -11,11 +11,13 @@ while (macroService.IsRunning) {
 				logger.info('watchAdQuartz: ad.quartz.notification');
 				macroService.PollPattern(patterns.ad.quartz.notification, { DoClick: true, PredicatePattern: patterns.ad.prompt.ok });
 				sleep(1_000);
-				logger.info('watchAdQuartz: poll ad.prompt.ok 1');
-				macroService.PollPattern(patterns.ad.prompt.ok, { DoClick: true, PredicatePattern: patterns.ad.done });
+				logger.info('watchAdQuartz: poll ad.prompt.ok');
+				macroService.PollPattern(patterns.ad.prompt.ok, {
+					DoClick: true,
+					ClickPattern: [patterns.ad.exit, patterns.ad.exitInstall, patterns.ad.prompt.youGot],
+					PredicatePattern: patterns.titles.home
+				});
 				sleep(1_000);
-				logger.info('watchAdQuartz: poll ad.done');
-				macroService.PollPattern(patterns.ad.done, { DoClick: true, ClickPattern: patterns.ad.prompt.youGot, PredicatePattern: patterns.titles.home });
 			}
 			return;
 	}

@@ -200,9 +200,9 @@
           "$type": "option",
           "settingType": "Option",
           "options": [
-            "FEL"
+            "CABH"
           ],
-          "value": "FEL",
+          "value": "CABH",
           "isParentNode": false,
           "name": "party",
           "path": "doBranchQuests.cabbageHunting.party"
@@ -256,7 +256,7 @@
       "props": {
         "$type": "boolean",
         "settingType": "Boolean",
-        "value": true,
+        "value": false,
         "isParentNode": false,
         "name": "doBattleArena",
         "path": "doDailies.doBattleArena"
@@ -267,7 +267,7 @@
       "props": {
         "$type": "boolean",
         "settingType": "Boolean",
-        "value": true,
+        "value": false,
         "isParentNode": false,
         "name": "doBattleArenaEx",
         "path": "doDailies.doBattleArenaEx"
@@ -445,6 +445,17 @@
       "isParentNode": true,
       "name": "doBattleArenaEx",
       "path": "doBattleArenaEx"
+    },
+    "skipBattle": {
+      "$isParent": false,
+      "props": {
+        "$type": "boolean",
+        "settingType": "Boolean",
+        "value": true,
+        "isParentNode": false,
+        "name": "skipBattle",
+        "path": "doBattleArenaEx.skipBattle"
+      }
     },
     "physicalDamage": {
       "$isParent": false,

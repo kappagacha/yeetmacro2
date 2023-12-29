@@ -1,4 +1,5 @@
-﻿const loopPatterns = [patterns.titles.home, patterns.titles.quest, patterns.titles.party, patterns.titles.events, patterns.battle.report];
+﻿// Farm event in a loop. See options to select between level 11 and 12
+const loopPatterns = [patterns.titles.home, patterns.titles.quest, patterns.titles.party, patterns.titles.events, patterns.battle.report];
 const result = { numBattles: 0 };
 while (macroService.IsRunning) {
 	const loopResult = macroService.PollPattern(loopPatterns, { ClickPattern: [patterns.battle.next, patterns.battle.affinityLevelUp, patterns.branchEvent.availableNow, patterns.branchEvent.playLater, patterns.prompt.playerRankUp] });
