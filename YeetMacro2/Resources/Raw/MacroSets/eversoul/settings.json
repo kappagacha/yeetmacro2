@@ -522,5 +522,47 @@
         "path": "doDailies.doChampsArena"
       }
     }
+  },
+  "doUpkeep": {
+    "$isParent": true,
+    "props": {
+      "settingType": "Parent",
+      "isParentNode": true,
+      "name": "doUpkeep",
+      "path": "doUpkeep"
+    },
+    "claimLoot": {
+      "$isParent": false,
+      "props": {
+        "$type": "boolean",
+        "settingType": "Boolean",
+        "value": true,
+        "isParentNode": false,
+        "name": "claimLoot",
+        "path": "doUpkeep.claimLoot"
+      }
+    },
+    "doFriends": {
+      "$isParent": false,
+      "props": {
+        "$type": "boolean",
+        "settingType": "Boolean",
+        "value": true,
+        "isParentNode": false,
+        "name": "doFriends",
+        "path": "doUpkeep.doFriends"
+      }
+    },
+    "doPartTimeJobAndRest": {
+      "$isParent": false,
+      "props": {
+        "$type": "boolean",
+        "settingType": "Boolean",
+        "value": true,
+        "isParentNode": false,
+        "name": "doPartTimeJobAndRest",
+        "path": "doUpkeep.doPartTimeJobAndRest"
+      }
+    }
   }
 }

@@ -1,4 +1,4 @@
-// Do dailies (all checked scripts)
+// Do upkeep (all checked scripts)
 
 if (settings.doUpkeep.claimAntiparticle.Value) {
     claimAntiparticle();
