@@ -78,7 +78,6 @@
 	  <None Remove="Resources\Fonts\OpenSans-Medium.ttf" />
 	  <None Remove="Resources\Images\appicon2.svg" />
 	  <None Remove="Resources\Raw\eng.traineddata" />
-	  <None Remove="Resources\Raw\MacroSets\outerplane\scripts\doUpkeep.js" />
 	  <None Remove="Resources\Splash\splash.svg" />
 	</ItemGroup>
 

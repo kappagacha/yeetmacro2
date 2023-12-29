@@ -23,9 +23,9 @@ while (macroService.IsRunning) {
 				macroService.ClickPattern(patterns.arena.leagueOfChallenge);
 				break;
 			}
-
-			const numArenaTickets = macroService.GetText(patterns.arena.numTickets);
-			if (numArenaTickets.trim() === '0') {
+			
+			const numTicketsZeroResult = macroService.PollPattern(patterns.arena.numTicketsZero, { TimoutMs: 1_500 })
+			if (numTicketsZeroResult.IsSuccess) {
 				return;
 			}
 

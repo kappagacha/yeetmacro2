@@ -2280,7 +2280,7 @@
         "path": "arena.challenge2"
       }
     },
-    "numTickets": {
+    "numTicketsZero": {
       "$isParent": true,
       "props": {
         "isMultiPattern": false,
@@ -2318,8 +2318,8 @@
           }
         ],
         "isParentNode": true,
-        "name": "numTickets",
-        "path": "arena.numTickets"
+        "name": "numTicketsZero",
+        "path": "arena.numTicketsZero"
       }
     },
     "defendReport": {
