@@ -78,6 +78,7 @@
 	  <None Remove="Resources\Fonts\OpenSans-Medium.ttf" />
 	  <None Remove="Resources\Images\appicon2.svg" />
 	  <None Remove="Resources\Raw\eng.traineddata" />
+	  <None Remove="Resources\Raw\MacroSets\outerplane\scripts\doUpkeep.js" />
 	  <None Remove="Resources\Splash\splash.svg" />
 	</ItemGroup>
 
@@ -347,6 +348,9 @@
       <LogicalName>%(RecursiveDir)%(Filename)%(Extension)</LogicalName>
     </MauiAsset>
     <MauiAsset Update="Resources\Raw\MacroSets\konosubaFD\patterns.json">
+      <LogicalName>%(RecursiveDir)%(Filename)%(Extension)</LogicalName>
+    </MauiAsset>
+    <MauiAsset Update="Resources\Raw\MacroSets\outerplane\scripts\doUpkeep.js">
       <LogicalName>%(RecursiveDir)%(Filename)%(Extension)</LogicalName>
     </MauiAsset>
     <MauiAsset Update="Resources\Raw\MacroSets\outerplane\scripts\_doDailies.js">

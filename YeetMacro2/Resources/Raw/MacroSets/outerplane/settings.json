@@ -684,5 +684,58 @@
         "path": "doDailies.doSpecialRequests"
       }
     }
+  },
+  "doUpkeep": {
+    "$isParent": true,
+    "props": {
+      "settingType": "Parent",
+      "isParentNode": true,
+      "name": "doUpkeep",
+      "path": "doUpkeep"
+    },
+    "claimAntiparticle": {
+      "$isParent": false,
+      "props": {
+        "$type": "boolean",
+        "settingType": "Boolean",
+        "value": true,
+        "isParentNode": false,
+        "name": "claimAntiparticle",
+        "path": "doUpkeep.claimAntiparticle"
+      }
+    },
+    "doArena": {
+      "$isParent": false,
+      "props": {
+        "$type": "boolean",
+        "settingType": "Boolean",
+        "value": true,
+        "isParentNode": false,
+        "name": "doArena",
+        "path": "doUpkeep.doArena"
+      }
+    },
+    "doEcologyStudy": {
+      "$isParent": false,
+      "props": {
+        "$type": "boolean",
+        "settingType": "Boolean",
+        "value": true,
+        "isParentNode": false,
+        "name": "doEcologyStudy",
+        "path": "doUpkeep.doEcologyStudy"
+      }
+    },
+    "doIdentification": {
+      "$isParent": false,
+      "props": {
+        "$type": "boolean",
+        "settingType": "Boolean",
+        "value": false,
+        "isParentNode": false,
+        "name": "doIdentification",
+        "path": "doUpkeep.doIdentification"
+      }
+    }
   }
 }
