@@ -14,6 +14,12 @@ jobs:
       - name: Checkout Repository
         uses: actions/checkout@v2
 
+      - name: Decode keystore file
+        run: |
+          $keystorebase64 = "${{ secrets.ANDROID_KEYSTORE }}"
+          $keystore = [System.Convert]::FromBase64String($keystorebase64)
+          Set-Content "${{ github.workspace }}/yeetmacro.keystore" -Value $keystore -AsByteStream
+
       - name: Set up .NET
         uses: actions/setup-dotnet@v1
         with:
@@ -22,9 +28,10 @@ jobs:
       # https://blog.taranissoftware.com/build-net-maui-apps-with-github-actions
       - name: Install MAUI Workload
         run: dotnet workload install maui --ignore-failed-sources
-        
-      - name: Restore NuGet Packages
-        run: dotnet restore
+
+      # Switching from dotnet build to dotnet publish 
+      #- name: Restore NuGet Packages
+      #  run: dotnet restore
 
       # https://stackoverflow.com/questions/74242135/net-maui-set-version-in-azure-pipelines
       - name: Build APK
@@ -33,7 +40,17 @@ jobs:
             NEW_VERSION: ${{ github.run_number }}
         run: |
           echo 'Target Version: ${{ env.NEW_VERSION }}'
-          dotnet build -f net8.0-android -c Release /p:ApplicationDisplayVersion=${{ env.NEW_VERSION }} /p:ApplicationVersion=${{ env.NEW_VERSION }}
+          dotnet build -f net8.0-android -c Release 
+          dotnet publish .
+                -f:net8.0-android`
+                -c:Release`
+                /p:ApplicationDisplayVersion=${{ env.NEW_VERSION }}`
+                /p:ApplicationVersion=${{ env.NEW_VERSION }}`
+                /p:AndroidKeyStore=True`
+                /p:AndroidSigningKeyStore=${{ github.workspace }}/yeetmacro.keystore"`
+                /p:AndroidSigningKeyPass=${{ secrets.ANDROID_KEYPASSWORD }}`
+                /p:AndroidSigningKeyAlias=${{ secrets.ANDROID_KEYSTOREALIAS }}`
+                /p:AndroidSigningStorePass=${{ secrets.ANDROID_KEYSTOREPASSWORD }}
 
      #- name: Upload APK as Release Asset
      #  uses: actions/upload-artifact@v1
@@ -47,4 +64,5 @@ jobs:
         with:
           body: Version ${{ github.run_number }}
           tag_name: "latest"
-          files: YeetMacro2/bin/Release/net8.0-android/com.companyname.yeetmacro2-Signed.apk
+          files: YeetMacro2/bin/Release/net8.0-android/*-Signed.apk
+          #files: YeetMacro2/bin/Release/net8.0-android/com.yeetoverflow.yeetmacro2-Signed.apk
