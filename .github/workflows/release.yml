@@ -47,7 +47,7 @@ jobs:
                 /p:ApplicationDisplayVersion=${{ env.NEW_VERSION }}`
                 /p:ApplicationVersion=${{ env.NEW_VERSION }}`
                 /p:AndroidKeyStore=True`
-                /p:AndroidSigningKeyStore=${{ github.workspace }}/yeetmacro.keystore"`
+                /p:AndroidSigningKeyStore="${{ github.workspace }}/yeetmacro.keystore"`
                 /p:AndroidSigningKeyPass=${{ secrets.ANDROID_KEYPASSWORD }}`
                 /p:AndroidSigningKeyAlias=${{ secrets.ANDROID_KEYSTOREALIAS }}`
                 /p:AndroidSigningStorePass=${{ secrets.ANDROID_KEYSTOREPASSWORD }}
