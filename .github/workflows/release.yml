@@ -41,7 +41,7 @@ jobs:
         run: |
           echo 'Target Version: ${{ env.NEW_VERSION }}'
           dotnet build -f net8.0-android -c Release 
-          dotnet publish .
+          dotnet publish .`
                 -f:net8.0-android`
                 -c:Release`
                 /p:ApplicationDisplayVersion=${{ env.NEW_VERSION }}`
