@@ -276,6 +276,8 @@ public class AndroidScreenService : IScreenService
             }
             catch (Exception ex)
             {
+
+                _logger.LogTrace($"AndroidScreenService Exception: {ex.Message}");
                 return new List<Point>();
             }
 
@@ -359,7 +361,7 @@ public class AndroidScreenService : IScreenService
 
     public string GetText(Pattern pattern, TextFindOptions opts)
     {
-        _logger.LogTrace("AndroidWindowManagerService GetText");
+        _logger.LogTrace("AndroidScreenService GetText");
         var boundsPadding = 4;
         var currentImageData = pattern.Rect != Rect.Zero ?
             _mediaProjectionService.GetCurrentImageData(
@@ -375,7 +377,7 @@ public class AndroidScreenService : IScreenService
 
     public string GetText(byte[] currentImage)
     {
-        _logger.LogTrace("AndroidWindowManagerService GetText");
+        _logger.LogTrace("AndroidScreenService GetText");
         return _ocrService.GetText(currentImage);
     }
 
