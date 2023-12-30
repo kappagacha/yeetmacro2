@@ -6,7 +6,7 @@ using YeetMacro2.ViewModels;
 
 namespace YeetMacro2.Platforms.Android.Services;
 [BroadcastReceiver(Enabled = true, Exported = false)]
-[IntentFilter(new[] { "com.companyname.AccessibilityService.CHANGED" })]
+[IntentFilter(new[] { "com.yeetoverflow.AccessibilityService.CHANGED" })]
 public class EventBroadcastReceiver : BroadcastReceiver
 {
     public override void OnReceive(Context context, Intent intent)
@@ -16,7 +16,7 @@ public class EventBroadcastReceiver : BroadcastReceiver
             Console.WriteLine($"[*****YeetMacro*****] EventBroadcastReceiver: {intent.Action}");
             switch (intent.Action)
             {
-                case "com.companyname.AccessibilityService.CHANGED":
+                case "com.yeetoverflow.AccessibilityService.CHANGED":
                     bool enabled = intent.GetBooleanExtra("enabled", false);
                     var homeViewModel = ServiceHelper.GetService<AndriodHomeViewModel>();
                     homeViewModel.IsAccessibilityEnabled = enabled;

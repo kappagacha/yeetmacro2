@@ -217,7 +217,7 @@ public class YeetAccessibilityService : AccessibilityService
         try
         {
             _logger.LogTrace("YeetAccessibilityService BroadcastEnabled");
-            Intent enabledChanged = new Intent("com.companyname.AccessibilityService.CHANGED");
+            Intent enabledChanged = new Intent("com.yeetoverflow.AccessibilityService.CHANGED");
             enabledChanged.PutExtra("enabled", _instance != null ? true : false);
             _context?.SendBroadcast(enabledChanged);
         }

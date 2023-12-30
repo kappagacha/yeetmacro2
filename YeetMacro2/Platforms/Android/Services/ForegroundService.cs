@@ -10,7 +10,7 @@ using YeetMacro2.Platforms.Android.Views;
 
 namespace YeetMacro2.Platforms.Android.Services;
 
-[Service(Enabled = true, Exported = true, Name = "com.companyname.ForegroundService", ForegroundServiceType = global::Android.Content.PM.ForegroundService.TypeMediaProjection)]
+[Service(Enabled = true, Exported = true, Name = "com.yeetoverflow.ForegroundService", ForegroundServiceType = global::Android.Content.PM.ForegroundService.TypeMediaProjection)]
 public class ForegroundService : Service
 {
     public const string FOREGROUND_CHANNEL_ID = "9001";

@@ -51,7 +51,7 @@ public class AppInitializer : IMauiInitializeService
         //{
 
         //    var assets = MauiApplication.Current.Assets;
-        //    //var x = Android.Graphics.Typeface.CreateFromAsset(assets, "/data/user/0/com.companyname.yeetmacro2/cache/MaterialIconsOutlined-Regular.otf");
+        //    //var x = Android.Graphics.Typeface.CreateFromAsset(assets, "/data/user/0/com.yeetoverflow.yeetmacro2/cache/MaterialIconsOutlined-Regular.otf");
         //    var x = Android.Graphics.Typeface.CreateFromAsset(assets, "MaterialOutlined");
         //} 
         //catch (Exception ex)
