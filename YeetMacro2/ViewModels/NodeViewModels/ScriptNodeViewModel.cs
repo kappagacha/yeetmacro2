@@ -59,6 +59,26 @@ public partial class ScriptNodeViewModel : ScriptNode
         }
     }
 
+    public override bool IsHidden
+    {
+        get => base.IsHidden;
+        set
+        {
+            base.IsHidden = value;
+            OnPropertyChanged();
+        }
+    }
+
+    public override bool IsFavorite
+    {
+        get => base.IsFavorite;
+        set
+        {
+            base.IsFavorite = value;
+            OnPropertyChanged();
+        }
+    }
+
     public override string Description
     {
         get
@@ -69,7 +89,7 @@ public partial class ScriptNodeViewModel : ScriptNode
             var description = "";
             foreach (var line in lines)
             {
-                if (line.StartsWith("//") && line.Contains("raw-script"))
+                if (line.StartsWith("//") && (line.Contains("raw-script") || line.Contains("@isFavorite")))
                 {
                     continue;
                 }

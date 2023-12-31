@@ -30,6 +30,10 @@
                                 <v:ToggleImageView FontFamily="MaterialOutlined" IsToggled="{Binding BindingContext.Scripts.ShowHiddenScripts, Source={RelativeSource AncestorType={x:Type v:ScriptNodeView}}}"
                                                    UntoggledGlyph="{x:Static mi:MaterialOutlined.Visibility_off}" 
                                                    ToggledGlyph="{x:Static mi:MaterialOutlined.Visibility}" />
+                                <v:ToggleImageView IsVisible="{Binding BindingContext.Scripts.SelectedNode, Source={RelativeSource AncestorType={x:Type v:ScriptNodeView}}, Converter={conv:NullToBoolConverter IsInverse=True}}"
+                                                   IsToggled="{Binding BindingContext.Scripts.SelectedNode.IsFavorite, Source={RelativeSource AncestorType={x:Type v:ScriptNodeView}}}"
+                                                   HorizontalOptions="End" VerticalOptions="Center"
+                                                   FontFamily="MaterialOutlined" Glyph="{x:Static mi:MaterialOutlined.Star}" ToggledColor="Yellow" />
                             </VerticalStackLayout>
                         </DataTemplate>
                     </v:NodeView.ExtraMenuItemsDataTemplate>
@@ -57,6 +61,8 @@
                                 </Label>
                                 <ImageButton Margin="0" Padding="0" CommandParameter="{Binding .}" 
                                              Command="{Binding BindingContext.Scripts.SelectNodeCommand, Source={RelativeSource AncestorType={x:Type v:ScriptNodeView}}}" />
+                                <v:ToggleImageView IsVisible="{Binding IsFavorite}" HorizontalOptions="End" VerticalOptions="Center" ImageHeight="10" ImageWidth="10"
+                                                   FontFamily="MaterialOutlined" Glyph="{x:Static mi:MaterialOutlined.Star}" Color="Yellow" />
                             </Grid>
                         </DataTemplate>
                     </v:NodeView.ItemTemplate>
