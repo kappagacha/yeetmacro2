@@ -1,4 +1,5 @@
 // @isFavorite
+// @position=-1
 // Do upkeep (all checked scripts)
 
 if (settings.doUpkeep.claimAntiparticle.Value) {
