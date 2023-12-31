@@ -1,5 +1,4 @@
-﻿// patterns.stamina.adNotification
-const loopPatterns = [patterns.titles.home, patterns.stamina.prompt.recoverStamina];
+﻿const loopPatterns = [patterns.titles.home, patterns.stamina.prompt.recoverStamina];
 while (macroService.IsRunning) {
 	const result = macroService.PollPattern(loopPatterns);
 	switch (result.Path) {
@@ -9,6 +8,7 @@ while (macroService.IsRunning) {
 			break;
 		case 'stamina.prompt.recoverStamina':
 			logger.info('watchAdStamina: check if disabled');
+			sleep(500);
 			const watchResult = macroService.FindPattern([patterns.ad.stamina.watch, patterns.ad.stamina.watch.disabled]);
 			if (watchResult.IsSuccess && watchResult.Path === 'ad.stamina.watch.disabled') {
 				return;
@@ -21,7 +21,7 @@ while (macroService.IsRunning) {
 			logger.info('watchAdStamina: poll ad.prompt.ok');
 			macroService.PollPattern(patterns.ad.prompt.ok, {
 				DoClick: true,
-				ClickPattern: [patterns.ad.exit, patterns.ad.exitInstall, patterns.ad.prompt.youGot],
+				ClickPattern: [patterns.ad.exit, patterns.ad.exitInstall, patterns.ad.prompt.youGot, patterns.ad.cancel],
 				PredicatePattern: patterns.titles.home
 			});
 			return;

@@ -1,4 +1,5 @@
-﻿// Do dailies (all checked scripts)
+﻿// @isFavorite
+// Do dailies (all checked scripts)
 
 if (settings.doDailies.claimJobs.Value) {
     claimJobs();

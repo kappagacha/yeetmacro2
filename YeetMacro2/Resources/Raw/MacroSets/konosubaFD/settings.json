@@ -200,9 +200,9 @@
           "$type": "option",
           "settingType": "Option",
           "options": [
-            "CABH"
+            "Cbns"
           ],
-          "value": "CABH",
+          "value": "Cbns",
           "isParentNode": false,
           "name": "party",
           "path": "doBranchQuests.cabbageHunting.party"
@@ -256,7 +256,7 @@
       "props": {
         "$type": "boolean",
         "settingType": "Boolean",
-        "value": false,
+        "value": true,
         "isParentNode": false,
         "name": "doBattleArena",
         "path": "doDailies.doBattleArena"
@@ -267,7 +267,7 @@
       "props": {
         "$type": "boolean",
         "settingType": "Boolean",
-        "value": false,
+        "value": true,
         "isParentNode": false,
         "name": "doBattleArenaEx",
         "path": "doDailies.doBattleArenaEx"

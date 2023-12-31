@@ -1,4 +1,5 @@
-﻿// Do upkeep (all checked scripts)
+﻿// @isFavorite
+// Do upkeep (all checked scripts)
 
 if (settings.doDailies.claimLoot.Value) {
     claimLoot();
