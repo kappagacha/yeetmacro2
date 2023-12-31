@@ -15,30 +15,12 @@
             <Label Grid.Column="0" Margin="20,0,0,0" FontSize="Micro" Text="{Binding LogViewModel.Info}" Padding="0" VerticalTextAlignment="Start" />
             <Label Grid.Column="1" FontSize="Micro" Text="{Binding LogViewModel.Debug}" Padding="0" VerticalTextAlignment="Start" />
         </Grid>
-        <Grid ColumnDefinitions="Auto,Auto" HorizontalOptions="End">
-            <Switch Grid.Column="0" IsToggled="{Binding IsRecording, Mode=TwoWay}">
-                <Switch.Behaviors>
-                    <mct:EventToCommandBehavior
-                        EventName="Toggled"
-                        Command="{Binding ToggleRecordingCommand}" />
-                </Switch.Behaviors>
-            </Switch>
-            <v:ImageView Grid.Column="1" FontFamily="MaterialOutlined" Glyph="{x:Static mi:MaterialOutlined.Radio_button_checked}" Color="Gray" />
-            <v:ImageView Grid.Column="1" FontFamily="MaterialOutlined" Glyph="{x:Static mi:MaterialOutlined.Radio_button_checked}" Color="Red"
-                         IsVisible="{Binding IsRecording}" />
-        </Grid>
-        <Grid ColumnDefinitions="Auto,Auto" HorizontalOptions="End">
-            <Switch Grid.Column="0" IsToggled="{Binding IsRecording, Mode=TwoWay}">
-                <Switch.Behaviors>
-                    <mct:EventToCommandBehavior
-                        EventName="Toggled"
-                        Command="{Binding ToggleRecordingCommand}" />
-                </Switch.Behaviors>
-            </Switch>
-            <v:ImageView Grid.Column="1" FontFamily="MaterialOutlined" Glyph="{x:Static mi:MaterialOutlined.Radio_button_checked}" Color="Gray"
-                         IsVisible="{Binding IsRecording, Converter={conv:InverseBoolConverter}}" Margin="5,0,0,0" />
-            <v:ImageView Grid.Column="1" FontFamily="MaterialOutlined" Glyph="{x:Static mi:MaterialOutlined.Radio_button_checked}" Color="Red"
-                         IsVisible="{Binding IsRecording}" />
+        <Grid HorizontalOptions="End">
+            <v:ToggleImageView IsToggled="{Binding IsRecording}" 
+                               FontFamily="MaterialOutlined" 
+                               Glyph="{x:Static mi:MaterialOutlined.Radio_button_checked}" 
+                               Color="Gray"
+                               ToggledColor="Red" />
         </Grid>
     </Grid>
 </ContentView>
