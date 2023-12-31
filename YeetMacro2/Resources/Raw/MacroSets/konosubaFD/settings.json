@@ -5,6 +5,7 @@
       "settingType": "Parent",
       "isParentNode": true,
       "name": "farmEventLoop",
+      "position": 0,
       "path": "farmEventLoop"
     },
     "targetLevel": {
@@ -19,6 +20,7 @@
         "value": "11",
         "isParentNode": false,
         "name": "targetLevel",
+        "position": 0,
         "path": "farmEventLoop.targetLevel"
       }
     }
@@ -29,6 +31,7 @@
       "settingType": "Parent",
       "isParentNode": true,
       "name": "doFreeQuests",
+      "position": 0,
       "path": "doFreeQuests"
     },
     "upgradeStone": {
@@ -37,6 +40,7 @@
         "settingType": "Parent",
         "isParentNode": true,
         "name": "upgradeStone",
+        "position": 0,
         "path": "doFreeQuests.upgradeStone"
       },
       "targetLevel": {
@@ -53,6 +57,7 @@
           "value": "intermediate",
           "isParentNode": false,
           "name": "targetLevel",
+          "position": 0,
           "path": "doFreeQuests.upgradeStone.targetLevel"
         }
       }
@@ -64,6 +69,7 @@
       "settingType": "Parent",
       "isParentNode": true,
       "name": "farmEventBossLoop",
+      "position": 0,
       "path": "farmEventBossLoop"
     },
     "party": {
@@ -77,6 +83,7 @@
         "value": "recommendedElement",
         "isParentNode": false,
         "name": "party",
+        "position": 0,
         "path": "farmEventBossLoop.party"
       }
     },
@@ -86,6 +93,7 @@
         "settingType": "Parent",
         "isParentNode": true,
         "name": "recommendedElement",
+        "position": 0,
         "path": "farmEventBossLoop.recommendedElement"
       },
       "none": {
@@ -96,6 +104,7 @@
           "value": "Main",
           "isParentNode": false,
           "name": "none",
+          "position": 0,
           "path": "farmEventBossLoop.recommendedElement.none"
         }
       },
@@ -107,6 +116,7 @@
           "value": "Fire",
           "isParentNode": false,
           "name": "fire",
+          "position": 0,
           "path": "farmEventBossLoop.recommendedElement.fire"
         }
       },
@@ -118,6 +128,7 @@
           "value": "Water",
           "isParentNode": false,
           "name": "water",
+          "position": 0,
           "path": "farmEventBossLoop.recommendedElement.water"
         }
       },
@@ -129,6 +140,7 @@
           "value": "Ltng",
           "isParentNode": false,
           "name": "lightning",
+          "position": 0,
           "path": "farmEventBossLoop.recommendedElement.lightning"
         }
       },
@@ -140,6 +152,7 @@
           "value": "Earth",
           "isParentNode": false,
           "name": "earth",
+          "position": 0,
           "path": "farmEventBossLoop.recommendedElement.earth"
         }
       },
@@ -151,6 +164,7 @@
           "value": "Wind",
           "isParentNode": false,
           "name": "wind",
+          "position": 0,
           "path": "farmEventBossLoop.recommendedElement.wind"
         }
       },
@@ -162,6 +176,7 @@
           "value": "Light",
           "isParentNode": false,
           "name": "light",
+          "position": 0,
           "path": "farmEventBossLoop.recommendedElement.light"
         }
       },
@@ -173,6 +188,7 @@
           "value": "Dark",
           "isParentNode": false,
           "name": "dark",
+          "position": 0,
           "path": "farmEventBossLoop.recommendedElement.dark"
         }
       }
@@ -184,6 +200,7 @@
       "settingType": "Parent",
       "isParentNode": true,
       "name": "doBranchQuests",
+      "position": 0,
       "path": "doBranchQuests"
     },
     "cabbageHunting": {
@@ -192,6 +209,7 @@
         "settingType": "Parent",
         "isParentNode": true,
         "name": "cabbageHunting",
+        "position": 0,
         "path": "doBranchQuests.cabbageHunting"
       },
       "party": {
@@ -200,11 +218,12 @@
           "$type": "option",
           "settingType": "Option",
           "options": [
-            "Cbns"
+            "CabH"
           ],
-          "value": "Cbns",
+          "value": "CabH",
           "isParentNode": false,
           "name": "party",
+          "position": 0,
           "path": "doBranchQuests.cabbageHunting.party"
         }
       }
@@ -216,6 +235,7 @@
       "settingType": "Parent",
       "isParentNode": true,
       "name": "doDailies",
+      "position": 0,
       "path": "doDailies"
     },
     "claimJobs": {
@@ -226,6 +246,7 @@
         "value": true,
         "isParentNode": false,
         "name": "claimJobs",
+        "position": 0,
         "path": "doDailies.claimJobs"
       }
     },
@@ -237,6 +258,7 @@
         "value": true,
         "isParentNode": false,
         "name": "doExpertMainQuests",
+        "position": 0,
         "path": "doDailies.doExpertMainQuests"
       }
     },
@@ -248,6 +270,7 @@
         "value": true,
         "isParentNode": false,
         "name": "doFreeQuests",
+        "position": 0,
         "path": "doDailies.doFreeQuests"
       }
     },
@@ -259,6 +282,7 @@
         "value": true,
         "isParentNode": false,
         "name": "doBattleArena",
+        "position": 0,
         "path": "doDailies.doBattleArena"
       }
     },
@@ -270,6 +294,7 @@
         "value": true,
         "isParentNode": false,
         "name": "doBattleArenaEx",
+        "position": 0,
         "path": "doDailies.doBattleArenaEx"
       }
     },
@@ -281,6 +306,7 @@
         "value": true,
         "isParentNode": false,
         "name": "farmEventBossLoop",
+        "position": 0,
         "path": "doDailies.farmEventBossLoop"
       }
     },
@@ -292,6 +318,7 @@
         "value": true,
         "isParentNode": false,
         "name": "claimMissionRewards",
+        "position": 0,
         "path": "doDailies.claimMissionRewards"
       }
     },
@@ -303,6 +330,7 @@
         "value": true,
         "isParentNode": false,
         "name": "doFriends",
+        "position": 0,
         "path": "doDailies.doFriends"
       }
     },
@@ -314,6 +342,7 @@
         "value": true,
         "isParentNode": false,
         "name": "doBranchQuests",
+        "position": 0,
         "path": "doDailies.doBranchQuests"
       }
     }
@@ -324,6 +353,7 @@
       "settingType": "Parent",
       "isParentNode": true,
       "name": "doBattleArena",
+      "position": 0,
       "path": "doBattleArena"
     },
     "party": {
@@ -337,6 +367,7 @@
         "value": "recommendedElement",
         "isParentNode": false,
         "name": "party",
+        "position": 0,
         "path": "doBattleArena.party"
       }
     },
@@ -346,6 +377,7 @@
         "settingType": "Parent",
         "isParentNode": true,
         "name": "recommendedElement",
+        "position": 0,
         "path": "doBattleArena.recommendedElement"
       },
       "none": {
@@ -356,6 +388,7 @@
           "value": "Main",
           "isParentNode": false,
           "name": "none",
+          "position": 0,
           "path": "doBattleArena.recommendedElement.none"
         }
       },
@@ -367,6 +400,7 @@
           "value": "Fire",
           "isParentNode": false,
           "name": "fire",
+          "position": 0,
           "path": "doBattleArena.recommendedElement.fire"
         }
       },
@@ -378,6 +412,7 @@
           "value": "Water",
           "isParentNode": false,
           "name": "water",
+          "position": 0,
           "path": "doBattleArena.recommendedElement.water"
         }
       },
@@ -389,6 +424,7 @@
           "value": "Ltng",
           "isParentNode": false,
           "name": "lightning",
+          "position": 0,
           "path": "doBattleArena.recommendedElement.lightning"
         }
       },
@@ -400,6 +436,7 @@
           "value": "Earth",
           "isParentNode": false,
           "name": "earth",
+          "position": 0,
           "path": "doBattleArena.recommendedElement.earth"
         }
       },
@@ -411,6 +448,7 @@
           "value": "Wind",
           "isParentNode": false,
           "name": "wind",
+          "position": 0,
           "path": "doBattleArena.recommendedElement.wind"
         }
       },
@@ -422,6 +460,7 @@
           "value": "Light",
           "isParentNode": false,
           "name": "light",
+          "position": 0,
           "path": "doBattleArena.recommendedElement.light"
         }
       },
@@ -433,6 +472,7 @@
           "value": "Dark",
           "isParentNode": false,
           "name": "dark",
+          "position": 0,
           "path": "doBattleArena.recommendedElement.dark"
         }
       }
@@ -444,6 +484,7 @@
       "settingType": "Parent",
       "isParentNode": true,
       "name": "doBattleArenaEx",
+      "position": 0,
       "path": "doBattleArenaEx"
     },
     "skipBattle": {
@@ -454,6 +495,7 @@
         "value": true,
         "isParentNode": false,
         "name": "skipBattle",
+        "position": 0,
         "path": "doBattleArenaEx.skipBattle"
       }
     },
@@ -465,6 +507,7 @@
         "value": "Phys",
         "isParentNode": false,
         "name": "physicalDamage",
+        "position": 0,
         "path": "doBattleArenaEx.physicalDamage"
       }
     },
@@ -476,6 +519,7 @@
         "value": "Low",
         "isParentNode": false,
         "name": "lowRarity",
+        "position": 0,
         "path": "doBattleArenaEx.lowRarity"
       }
     },
@@ -487,6 +531,7 @@
         "value": "Magic",
         "isParentNode": false,
         "name": "magicDamage",
+        "position": 0,
         "path": "doBattleArenaEx.magicDamage"
       }
     },
@@ -498,6 +543,7 @@
         "value": "Def",
         "isParentNode": false,
         "name": "defence",
+        "position": 0,
         "path": "doBattleArenaEx.defence"
       }
     },
@@ -509,6 +555,7 @@
         "value": "Cbns",
         "isParentNode": false,
         "name": "characterBonus",
+        "position": 0,
         "path": "doBattleArenaEx.characterBonus"
       }
     }

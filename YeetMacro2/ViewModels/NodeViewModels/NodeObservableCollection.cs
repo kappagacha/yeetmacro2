@@ -14,7 +14,7 @@ public class NodeObservableCollection<TViewModel, T> : SortedObservableCollectio
         _mapper = ServiceHelper.GetService<IMapper>();
     }
 
-    public NodeObservableCollection(): base((a, b) => a.Position - b.Position)
+    public NodeObservableCollection(): base((a, b) => a.Position - b.Position == 0 ? 1: a.Position - b.Position)
     {
     }
 
