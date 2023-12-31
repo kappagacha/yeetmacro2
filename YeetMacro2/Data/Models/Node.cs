@@ -5,7 +5,12 @@ using System.Text.Json.Serialization;
 
 namespace YeetMacro2.Data.Models;
 
-public abstract class Node
+public interface ISortable
+{
+    int Position { get; set; }
+}
+
+public abstract class Node: ISortable
 {
     [JsonIgnore]
     public virtual bool IsSelected { get; set; }
@@ -13,6 +18,7 @@ public abstract class Node
     public virtual bool IsExpanded { get; set; } = true;
     public virtual bool IsParentNode { get => this is IParentNode; }
     public virtual string Name { get; set; }
+    public virtual int Position { get; set; }
     [JsonIgnore]
     public int NodeId { get; set; }
     [JsonIgnore]

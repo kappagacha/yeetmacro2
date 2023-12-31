@@ -1,4 +1,5 @@
-﻿// patterns.ad.quartz.notification
+﻿// @isFavorite
+// @position=-100
 const loopPatterns = [patterns.titles.home];
 while (macroService.IsRunning) {
 	const result = macroService.PollPattern(loopPatterns);

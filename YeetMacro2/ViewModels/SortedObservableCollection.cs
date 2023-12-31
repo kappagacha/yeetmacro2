@@ -34,4 +34,14 @@ public class SortedObservableCollection<T> : ObservableCollection<T>
         }
         return index;
     }
+
+    public void OnCollectionReset()
+    {
+        var children = this.ToArray();
+        this.ClearItems();
+        foreach (var child in children)
+        {
+            this.Add(child);
+        }
+    }
 }

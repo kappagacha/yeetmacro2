@@ -15,6 +15,7 @@ using YeetMacro2.ViewModels.NodeViewModels;
 using CommunityToolkit.Mvvm.Messaging;
 using YeetMacro2.Data.Messaging;
 using CommunityToolkit.Mvvm.Messaging.Messages;
+using System.Text.RegularExpressions;
 
 namespace YeetMacro2.ViewModels;
 
@@ -473,8 +474,15 @@ public partial class MacroManagerViewModel : ObservableObject
             {
                 Scripts.SelectedNode = null;
                 var scripts = new ScriptNodeManagerViewModel(-1, null, null, null) { Root = new ScriptNode() { Nodes = new List<ScriptNode>() } };
+                
                 foreach (var scriptKvp in nameToScript)
                 {
+                    var position = 0;
+                    Match positionMatch = Regex.Match(scriptKvp.Value, @"@position=(-?\d+)");
+                    if (positionMatch.Success)
+                    {
+                        position = int.Parse(positionMatch.Groups[1].Value);
+                    }
                     var script = new ScriptNode()
                     {
                         Name = scriptKvp.Key,
@@ -482,7 +490,8 @@ public partial class MacroManagerViewModel : ObservableObject
                         RootId = Scripts.Root.NodeId,
                         ParentId = Scripts.Root.NodeId,
                         IsHidden = scriptKvp.Key.StartsWith('_'),
-                        IsFavorite = scriptKvp.Value.Contains("@isFavorite")
+                        IsFavorite = scriptKvp.Value.Contains("@isFavorite"),
+                        Position = position
                     };
 
                     scripts.Root.Nodes.Add(script);

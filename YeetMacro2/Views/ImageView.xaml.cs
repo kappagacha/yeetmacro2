@@ -67,6 +67,7 @@ public partial class ImageView : ContentView
     }
 #endif
 
+#pragma warning disable CS1998 // (Windows) Async method lacks 'await' operators and will run synchronously
     private async static void ImagePropertyChanged(BindableObject bindable, object oldValue, object newValue)
     {
 #if ANDROID
@@ -83,6 +84,7 @@ public partial class ImageView : ContentView
         imgView.contentView.ControlTemplate = _keyToControlTemplate[compositeKey];
 #endif
     }
+#pragma warning restore CS1998 // Async method lacks 'await' operators and will run synchronously
 
     public static readonly BindableProperty CommandProperty =
         BindableProperty.Create("Command", typeof(ICommand), typeof(ImageView), null);

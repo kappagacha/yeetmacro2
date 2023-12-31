@@ -1,7 +1,7 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using Microsoft.Extensions.Logging;
-using OneOf.Types;
+//using OneOf.Types;
 using YeetMacro2.ViewModels;
 
 namespace YeetMacro2.Platforms.Windows.ViewModels;
@@ -9,7 +9,7 @@ namespace YeetMacro2.Platforms.Windows.ViewModels;
 public partial class WindowsHomeViewModel : ObservableObject
 {
     ILogger _logger;
-    int count = 0;
+    //int count = 0;
     LogViewModel _logViewModel;
     MacroManagerViewModel _macroManagerViewModel;
     public WindowsHomeViewModel(ILogger<WindowsHomeViewModel> logger, LogViewModel logViewModel, MacroManagerViewModel macroManagerViewModel)

@@ -1,4 +1,6 @@
-﻿const loopPatterns = [patterns.titles.home, patterns.stamina.prompt.recoverStamina];
+﻿// @isFavorite
+// @position=-100
+const loopPatterns = [patterns.titles.home, patterns.stamina.prompt.recoverStamina];
 while (macroService.IsRunning) {
 	const result = macroService.PollPattern(loopPatterns);
 	switch (result.Path) {

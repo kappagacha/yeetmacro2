@@ -29,7 +29,7 @@ public class PatternMetadataProvider : INodeMetadataProvider<Pattern>
 }
 
 [NodeMetadata(NodeMetadataProvider = typeof(PatternMetadataProvider))]
-public class Pattern
+public class Pattern: ISortable
 {
     public virtual Rect Rect { get; set; }
     public virtual Size Resolution { get; set; }
@@ -51,6 +51,7 @@ public class Pattern
     public virtual OffsetCalcType OffsetCalcType { get; set; } = OffsetCalcType.Default;
     [JsonIgnore]
     public string RectDisplay => $"X={Rect.X:0.####} Y={Rect.Y:0.####} W={Rect.Width:0.####} H={Rect.Height:0.####}";
+    public virtual int Position { get; set; }
 }
 
 public class TextMatchProperties

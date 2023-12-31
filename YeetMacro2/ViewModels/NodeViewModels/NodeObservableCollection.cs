@@ -1,11 +1,12 @@
 ﻿using AutoMapper;
-using System.Collections.ObjectModel;
+using YeetMacro2.Data.Models;
 using YeetMacro2.Services;
 
 namespace YeetMacro2.ViewModels.NodeViewModels;
 
-public class NodeObservableCollection<TViewModel, T> : ObservableCollection<T>
+public class NodeObservableCollection<TViewModel, T> : SortedObservableCollection<T>
     where TViewModel : T
+    where T: ISortable
 {
     static IMapper _mapper;
     static NodeObservableCollection()
@@ -13,11 +14,24 @@ public class NodeObservableCollection<TViewModel, T> : ObservableCollection<T>
         _mapper = ServiceHelper.GetService<IMapper>();
     }
 
-    public NodeObservableCollection()
+    public NodeObservableCollection(): base((a, b) => a.Position - b.Position)
     {
     }
 
-    public NodeObservableCollection(IEnumerable<T> values)
+    public NodeObservableCollection(IEnumerable<T> values): this()
+    {
+        if (values is null) return;
+        foreach (var val in values)
+        {
+            this.Add(val);
+        }
+    }
+
+    public NodeObservableCollection(Comparison<T> comparer) : base(comparer)
+    {
+    }
+
+    public NodeObservableCollection(IEnumerable<T> values, Comparison<T> comparer) : this(comparer)
     {
         if (values is null) return;
         foreach (var val in values)

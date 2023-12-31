@@ -1,3 +1,5 @@
+// @isFavorite
+// @position=-100
 // Do dailies (all checked scripts)
 
 if (settings.doDailies.claimAntiparticle.Value) {

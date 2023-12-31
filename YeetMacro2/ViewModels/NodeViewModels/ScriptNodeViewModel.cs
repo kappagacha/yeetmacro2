@@ -79,6 +79,16 @@ public partial class ScriptNodeViewModel : ScriptNode
         }
     }
 
+    public override int Position
+    {
+        get => base.Position;
+        set
+        {
+            base.Position = value;
+            OnPropertyChanged();
+        }
+    }
+
     public override string Description
     {
         get
@@ -89,7 +99,7 @@ public partial class ScriptNodeViewModel : ScriptNode
             var description = "";
             foreach (var line in lines)
             {
-                if (line.StartsWith("//") && (line.Contains("raw-script") || line.Contains("@isFavorite")))
+                if (line.StartsWith("//") && (line.Contains("raw-script") || line.Contains("@isFavorite") || line.Contains("@position")))
                 {
                     continue;
                 }

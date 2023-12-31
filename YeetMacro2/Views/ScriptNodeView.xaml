@@ -69,10 +69,15 @@
                 </v:NodeView>
             </Border>
             <Grid Grid.Column="1"  BackgroundColor="Transparent" Padding="3" IsVisible="{Binding Scripts.ShowScriptEditor}">
-                <Border Stroke="{StaticResource Primary}" BackgroundColor="Transparent" Padding="3"
-                    IsVisible="{Binding Scripts.SelectedNode, Converter={conv:NullToBoolConverter IsInverse=True}}">
-                    <Editor x:Name="scriptEditor" Text="{Binding Scripts.SelectedNode.Text}" IsSpellCheckEnabled="False" />
-                </Border>
+                <mct:DockLayout IsVisible="{Binding Scripts.SelectedNode, Converter={conv:NullToBoolConverter IsInverse=True}}">
+                    <HorizontalStackLayout Spacing="5" mct:DockLayout.DockPosition="Top" HeightRequest="35">
+                        <Label Text="Position:" VerticalOptions="Center" />
+                        <v:IntegerStepper Value="{Binding Scripts.SelectedNode.Position}" />
+                    </HorizontalStackLayout>
+                    <Border Stroke="{StaticResource Primary}" BackgroundColor="Transparent" Padding="3">
+                        <Editor x:Name="scriptEditor" Text="{Binding Scripts.SelectedNode.Text}" IsSpellCheckEnabled="False" />
+                    </Border>
+                </mct:DockLayout>
                 <HorizontalStackLayout HorizontalOptions="End" VerticalOptions="End" Margin="0,0,55,0">
                     <Grid>
                         <v:ImageView FontFamily="MaterialOutlined" Glyph="{x:Static mi:MaterialOutlined.Select_all}" />

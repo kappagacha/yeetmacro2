@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
+using System.Collections.ObjectModel;
 using System.Diagnostics;
 using System.Reflection;
 using System.Text.Json;
@@ -402,6 +403,25 @@ public partial class NodeManagerViewModel<TViewModel, TParent, TChild> : NodeMan
 
         _nodeService.Insert(newNode);
         _toastService.Show($"Copied {_nodeTypeName}: " + newNode.Name);
+    }
+
+    [RelayCommand]
+    public void RefreshCollections()
+    {
+        RefreshCollections(Root);
+    }
+
+    public void RefreshCollections(IParentNode<TParent, TChild> node)
+    {
+        ((NodeObservableCollection<TViewModel, TChild>)node.Nodes).OnCollectionReset();
+
+        foreach (var childNode in node.Nodes)
+        {
+            if (childNode is IParentNode<TParent, TChild> subParentNode)
+            {
+                RefreshCollections(subParentNode);
+            }
+        }
     }
 
     [RelayCommand]

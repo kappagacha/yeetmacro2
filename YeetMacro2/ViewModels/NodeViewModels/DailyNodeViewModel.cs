@@ -18,7 +18,7 @@ public partial class DailyNodeViewModel: DailyNode
         get => base.Nodes;
         set
         {
-            base.Nodes = new SortedNodeObservableCollection<DailyNodeViewModel, DailyNode>(value, (a, b) => b.Date > a.Date ? 1: 0);
+            base.Nodes = new NodeObservableCollection<DailyNodeViewModel, DailyNode>(value, (a, b) => b.Date > a.Date ? 1: 0);
             OnPropertyChanged();
             OnPropertyChanged(nameof(IsLeaf));
         }
@@ -88,7 +88,7 @@ public partial class DailyNodeViewModel: DailyNode
 
     public DailyNodeViewModel()
     {
-        base.Nodes = new SortedNodeObservableCollection<DailyNodeViewModel, DailyNode>((a, b) => b.Date > a.Date ? 1 : 0);
+        base.Nodes = new NodeObservableCollection<DailyNodeViewModel, DailyNode>((a, b) => b.Date > a.Date ? 1 : 0);
     }
 }
 

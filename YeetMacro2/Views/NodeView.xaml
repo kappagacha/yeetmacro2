@@ -71,6 +71,8 @@
                                  IsVisible="{Binding NodeManager.SelectedNode.IsParentNode}"/>
                         <v:ImageView FontFamily="MaterialOutlined" Glyph="{x:Static mi:MaterialOutlined.Unfold_less_double}" Command="{Binding NodeManager.CollapseAllCommand}" 
                                      IsVisible="{Binding NodeManager.IsList, Converter={conv:InverseBoolConverter}}" />
+                        <v:ImageView FontFamily="MaterialOutlined" Glyph="{x:Static mi:MaterialOutlined.Sort}" Command="{Binding NodeManager.RefreshCollectionsCommand}" 
+                                     IsVisible="{Binding NodeManager.IsList}" />
                     </VerticalStackLayout>
                     <Border Stroke="{StaticResource Primary}" StrokeThickness="0" BackgroundColor="Transparent">
                         <Border.Triggers>
