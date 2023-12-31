@@ -5,6 +5,7 @@
       "settingType": "Parent",
       "isParentNode": true,
       "name": "doArena",
+      "position": 0,
       "path": "doArena"
     },
     "teamSlot": {
@@ -24,6 +25,7 @@
         "value": "1",
         "isParentNode": false,
         "name": "teamSlot",
+        "position": 0,
         "path": "doArena.teamSlot"
       }
     }
@@ -34,6 +36,7 @@
       "settingType": "Parent",
       "isParentNode": true,
       "name": "doSpecialRequests",
+      "position": 0,
       "path": "doSpecialRequests"
     },
     "teamSlot": {
@@ -54,6 +57,7 @@
         "value": "2",
         "isParentNode": false,
         "name": "teamSlot",
+        "position": 0,
         "path": "doSpecialRequests.teamSlot"
       }
     }
@@ -64,6 +68,7 @@
       "settingType": "Parent",
       "isParentNode": true,
       "name": "doSideStory1",
+      "position": 0,
       "path": "doSideStory1"
     },
     "teamSlot": {
@@ -84,6 +89,7 @@
         "value": "2",
         "isParentNode": false,
         "name": "teamSlot",
+        "position": 0,
         "path": "doSideStory1.teamSlot"
       }
     },
@@ -100,6 +106,7 @@
         "value": "valentine",
         "isParentNode": false,
         "name": "targetCharacter",
+        "position": 0,
         "path": "doSideStory1.targetCharacter"
       }
     },
@@ -111,6 +118,7 @@
         "value": true,
         "isParentNode": false,
         "name": "sweepBattle",
+        "position": 0,
         "path": "doSideStory1.sweepBattle"
       }
     }
@@ -121,6 +129,7 @@
       "settingType": "Parent",
       "isParentNode": true,
       "name": "doSideStory2",
+      "position": 0,
       "path": "doSideStory2"
     },
     "teamSlot": {
@@ -141,6 +150,7 @@
         "value": "2",
         "isParentNode": false,
         "name": "teamSlot",
+        "position": 0,
         "path": "doSideStory2.teamSlot"
       }
     },
@@ -157,6 +167,7 @@
         "value": "noa",
         "isParentNode": false,
         "name": "targetCharacter",
+        "position": 0,
         "path": "doSideStory2.targetCharacter"
       }
     },
@@ -168,6 +179,7 @@
         "value": true,
         "isParentNode": false,
         "name": "sweepBattle",
+        "position": 0,
         "path": "doSideStory2.sweepBattle"
       }
     }
@@ -178,6 +190,7 @@
       "settingType": "Parent",
       "isParentNode": true,
       "name": "doBountyHunter",
+      "position": 0,
       "path": "doBountyHunter"
     },
     "teamSlot": {
@@ -198,6 +211,7 @@
         "value": "2",
         "isParentNode": false,
         "name": "teamSlot",
+        "position": 0,
         "path": "doBountyHunter.teamSlot"
       }
     },
@@ -209,6 +223,7 @@
         "value": true,
         "isParentNode": false,
         "name": "sweepBattle",
+        "position": 0,
         "path": "doBountyHunter.sweepBattle"
       }
     }
@@ -219,6 +234,7 @@
       "settingType": "Parent",
       "isParentNode": true,
       "name": "doUpgradeStoneRetrieval",
+      "position": 0,
       "path": "doUpgradeStoneRetrieval"
     },
     "teamSlot": {
@@ -239,6 +255,7 @@
         "value": "2",
         "isParentNode": false,
         "name": "teamSlot",
+        "position": 0,
         "path": "doUpgradeStoneRetrieval.teamSlot"
       }
     },
@@ -250,6 +267,7 @@
         "value": true,
         "isParentNode": false,
         "name": "sweepBattle",
+        "position": 0,
         "path": "doUpgradeStoneRetrieval.sweepBattle"
       }
     },
@@ -268,6 +286,7 @@
         "value": "earth",
         "isParentNode": false,
         "name": "elementTypeTarget1",
+        "position": 0,
         "path": "doUpgradeStoneRetrieval.elementTypeTarget1"
       }
     },
@@ -286,6 +305,7 @@
         "value": "water",
         "isParentNode": false,
         "name": "elementTypeTarget2",
+        "position": 0,
         "path": "doUpgradeStoneRetrieval.elementTypeTarget2"
       }
     },
@@ -304,6 +324,7 @@
         "value": "dark",
         "isParentNode": false,
         "name": "elementTypeTarget3",
+        "position": 0,
         "path": "doUpgradeStoneRetrieval.elementTypeTarget3"
       }
     }
@@ -314,6 +335,7 @@
       "settingType": "Parent",
       "isParentNode": true,
       "name": "doBanditChase",
+      "position": 0,
       "path": "doBanditChase"
     },
     "teamSlot": {
@@ -334,6 +356,7 @@
         "value": "2",
         "isParentNode": false,
         "name": "teamSlot",
+        "position": 0,
         "path": "doBanditChase.teamSlot"
       }
     },
@@ -345,6 +368,7 @@
         "value": true,
         "isParentNode": false,
         "name": "sweepBattle",
+        "position": 0,
         "path": "doBanditChase.sweepBattle"
       }
     }
@@ -355,6 +379,7 @@
       "settingType": "Parent",
       "isParentNode": true,
       "name": "doGuildSecurityArea",
+      "position": 0,
       "path": "doGuildSecurityArea"
     },
     "teamSlot": {
@@ -375,6 +400,7 @@
         "value": "1",
         "isParentNode": false,
         "name": "teamSlot",
+        "position": 0,
         "path": "doGuildSecurityArea.teamSlot"
       }
     },
@@ -393,6 +419,7 @@
         "value": "water",
         "isParentNode": false,
         "name": "elementTypeTarget1",
+        "position": 0,
         "path": "doGuildSecurityArea.elementTypeTarget1"
       }
     },
@@ -411,6 +438,7 @@
         "value": "earth",
         "isParentNode": false,
         "name": "elementTypeTarget2",
+        "position": 0,
         "path": "doGuildSecurityArea.elementTypeTarget2"
       }
     }
@@ -421,6 +449,7 @@
       "settingType": "Parent",
       "isParentNode": true,
       "name": "doEcologyStudy",
+      "position": 0,
       "path": "doEcologyStudy"
     },
     "teamSlot": {
@@ -441,6 +470,7 @@
         "value": "2",
         "isParentNode": false,
         "name": "teamSlot",
+        "position": 0,
         "path": "doEcologyStudy.teamSlot"
       }
     },
@@ -452,6 +482,7 @@
         "value": true,
         "isParentNode": false,
         "name": "sweepBattle",
+        "position": 0,
         "path": "doEcologyStudy.sweepBattle"
       }
     },
@@ -470,6 +501,7 @@
         "value": "unidentifiedChimera",
         "isParentNode": false,
         "name": "targetEcologyStudy",
+        "position": 0,
         "path": "doEcologyStudy.targetEcologyStudy"
       }
     }
@@ -480,6 +512,7 @@
       "settingType": "Parent",
       "isParentNode": true,
       "name": "doIdentification",
+      "position": 0,
       "path": "doIdentification"
     },
     "teamSlot": {
@@ -500,6 +533,7 @@
         "value": "2",
         "isParentNode": false,
         "name": "teamSlot",
+        "position": 0,
         "path": "doIdentification.teamSlot"
       }
     },
@@ -511,6 +545,7 @@
         "value": true,
         "isParentNode": false,
         "name": "sweepBattle",
+        "position": 0,
         "path": "doIdentification.sweepBattle"
       }
     },
@@ -529,6 +564,7 @@
         "value": "glicys",
         "isParentNode": false,
         "name": "targetIdentification",
+        "position": 0,
         "path": "doIdentification.targetIdentification"
       }
     }
@@ -539,6 +575,7 @@
       "settingType": "Parent",
       "isParentNode": true,
       "name": "doDailies",
+      "position": 0,
       "path": "doDailies"
     },
     "claimAntiparticle": {
@@ -549,6 +586,7 @@
         "value": true,
         "isParentNode": false,
         "name": "claimAntiparticle",
+        "position": 0,
         "path": "doDailies.claimAntiparticle"
       }
     },
@@ -560,6 +598,7 @@
         "value": true,
         "isParentNode": false,
         "name": "claimFreeShop",
+        "position": 0,
         "path": "doDailies.claimFreeShop"
       }
     },
@@ -571,6 +610,7 @@
         "value": true,
         "isParentNode": false,
         "name": "claimFreeRecruit",
+        "position": 0,
         "path": "doDailies.claimFreeRecruit"
       }
     },
@@ -582,6 +622,7 @@
         "value": true,
         "isParentNode": false,
         "name": "doFriends",
+        "position": 0,
         "path": "doDailies.doFriends"
       }
     },
@@ -593,6 +634,7 @@
         "value": true,
         "isParentNode": false,
         "name": "claimGuildBuff",
+        "position": 0,
         "path": "doDailies.claimGuildBuff"
       }
     },
@@ -604,6 +646,7 @@
         "value": true,
         "isParentNode": false,
         "name": "doArena",
+        "position": 0,
         "path": "doDailies.doArena"
       }
     },
@@ -615,6 +658,7 @@
         "value": true,
         "isParentNode": false,
         "name": "doBountyHunter",
+        "position": 0,
         "path": "doDailies.doBountyHunter"
       }
     },
@@ -626,6 +670,7 @@
         "value": true,
         "isParentNode": false,
         "name": "doBanditChase",
+        "position": 0,
         "path": "doDailies.doBanditChase"
       }
     },
@@ -637,6 +682,7 @@
         "value": true,
         "isParentNode": false,
         "name": "doUpgradeStoneRetrieval",
+        "position": 0,
         "path": "doDailies.doUpgradeStoneRetrieval"
       }
     },
@@ -648,6 +694,7 @@
         "value": true,
         "isParentNode": false,
         "name": "doGuildSecurityArea",
+        "position": 0,
         "path": "doDailies.doGuildSecurityArea"
       }
     },
@@ -659,6 +706,7 @@
         "value": true,
         "isParentNode": false,
         "name": "doSideStory1",
+        "position": 0,
         "path": "doDailies.doSideStory1"
       }
     },
@@ -670,6 +718,7 @@
         "value": true,
         "isParentNode": false,
         "name": "doSideStory2",
+        "position": 0,
         "path": "doDailies.doSideStory2"
       }
     },
@@ -681,6 +730,7 @@
         "value": true,
         "isParentNode": false,
         "name": "doSpecialRequests",
+        "position": 0,
         "path": "doDailies.doSpecialRequests"
       }
     }
@@ -691,6 +741,7 @@
       "settingType": "Parent",
       "isParentNode": true,
       "name": "doUpkeep",
+      "position": 0,
       "path": "doUpkeep"
     },
     "claimAntiparticle": {
@@ -701,6 +752,7 @@
         "value": true,
         "isParentNode": false,
         "name": "claimAntiparticle",
+        "position": 0,
         "path": "doUpkeep.claimAntiparticle"
       }
     },
@@ -712,6 +764,7 @@
         "value": true,
         "isParentNode": false,
         "name": "doArena",
+        "position": 0,
         "path": "doUpkeep.doArena"
       }
     },
@@ -723,6 +776,7 @@
         "value": true,
         "isParentNode": false,
         "name": "doEcologyStudy",
+        "position": 0,
         "path": "doUpkeep.doEcologyStudy"
       }
     },
@@ -734,6 +788,7 @@
         "value": false,
         "isParentNode": false,
         "name": "doIdentification",
+        "position": 0,
         "path": "doUpkeep.doIdentification"
       }
     }
