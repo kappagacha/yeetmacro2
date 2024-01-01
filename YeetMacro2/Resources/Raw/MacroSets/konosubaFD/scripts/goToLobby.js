@@ -22,6 +22,9 @@ logger.info('goToLobby: start');
 //doEventSpecialQuests
 // => patterns.quest.events.quest.skipAll.cancel
 
+//_watchAdStamina
+// => patterns.general.close[trialOfTheAncients]
+
 macroService.PollPattern(patterns.titles.home, {
 	ClickPattern: [
 		patterns.tabs.home,
@@ -29,9 +32,11 @@ macroService.PollPattern(patterns.titles.home, {
 		patterns.skipAll.cancel,
 		patterns.general.close,
 		patterns.friend.close,
-		patterns.quest.events.quest.skipAll.cancel
+		patterns.quest.events.quest.skipAll.cancel,
+		patterns.ad.cancel
 	]
 });
+
 if (macroService.IsRunning) {
 	logger.info('goToLobby: done');
 } 

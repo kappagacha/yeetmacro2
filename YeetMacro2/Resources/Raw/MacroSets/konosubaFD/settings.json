@@ -298,6 +298,18 @@
         "path": "doDailies.doBattleArenaEx"
       }
     },
+    "doEventSpecialQuests": {
+      "$isParent": false,
+      "props": {
+        "$type": "boolean",
+        "settingType": "Boolean",
+        "value": true,
+        "isParentNode": false,
+        "name": "doEventSpecialQuests",
+        "position": 0,
+        "path": "doDailies.doEventSpecialQuests"
+      }
+    },
     "farmEventBossLoop": {
       "$isParent": false,
       "props": {

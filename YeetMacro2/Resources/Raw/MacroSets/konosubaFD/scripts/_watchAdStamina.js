@@ -10,20 +10,15 @@ while (macroService.IsRunning) {
 			break;
 		case 'stamina.prompt.recoverStamina':
 			logger.info('watchAdStamina: check if disabled');
-			sleep(500);
-			const watchResult = macroService.FindPattern([patterns.ad.stamina.watch, patterns.ad.stamina.watch.disabled]);
-			if (watchResult.IsSuccess && watchResult.Path === 'ad.stamina.watch.disabled') {
+			const watchResult = macroService.PollPattern(patterns.ad.stamina.watch, { TimoutMs: 3_000 });
+			if (!watchResult.IsSuccess) {
 				return;
 			}
 
 			logger.info('watchAdStamina: watching ad');
-			macroService.PollPattern(patterns.ad.stamina.watch, { DoClick: true, PredicatePattern: patterns.ad.prompt.ok });
-			sleep(1_000);
-
-			logger.info('watchAdStamina: poll ad.prompt.ok');
-			macroService.PollPattern(patterns.ad.prompt.ok, {
+			macroService.PollPattern(patterns.ad.stamina.watch, {
 				DoClick: true,
-				ClickPattern: [patterns.ad.exit, patterns.ad.exitInstall, patterns.ad.prompt.youGot, patterns.ad.cancel],
+				ClickPattern: [patterns.ad.prompt.ok, patterns.ad.exit, patterns.ad.exitInstall, patterns.ad.prompt.youGot, patterns.ad.cancel],
 				PredicatePattern: patterns.titles.home
 			});
 			return;

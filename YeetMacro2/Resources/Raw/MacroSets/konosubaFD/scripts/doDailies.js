@@ -27,6 +27,11 @@ if (settings.doDailies.doBattleArenaEx.Value) {
     goToLobby();
 }
 
+if (settings.doDailies.doEventSpecialQuests.Value) {
+    doEventSpecialQuests();
+    goToLobby();
+}
+
 if (settings.doDailies.farmEventBossLoop.Value) {
     farmEventBossLoop();
     goToLobby();

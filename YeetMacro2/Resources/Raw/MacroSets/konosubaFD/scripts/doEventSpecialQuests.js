@@ -1,12 +1,12 @@
 ﻿// Skip event special quests
-const loopPatterns = [patterns.titles.home, patterns.titles.quest, patterns.titles.events, patterns.battle.report];
+const loopPatterns = [patterns.titles.home, patterns.titles.quest, patterns.titles.events];
 const daily = dailyManager.GetDaily();
 if (daily.doEventSpecialQuests.done.IsChecked) {
 	return "Script already completed. Uncheck done to override daily flag.";
 }
 
 while (macroService.IsRunning) {
-	const result = macroService.PollPattern(loopPatterns);
+	const result = macroService.PollPattern(loopPatterns, { ClickPattern: });
 	switch (result.Path) {
 		case 'titles.home':
 			logger.info('doEventSpecialQuests: click tab quest');
