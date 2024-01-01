@@ -5,6 +5,7 @@
       "settingType": "Parent",
       "isParentNode": true,
       "name": "doArena",
+      "position": 0,
       "path": "doArena"
     },
     "cpThreshold": {
@@ -17,6 +18,7 @@
         "value": 550000,
         "isParentNode": false,
         "name": "cpThreshold",
+        "position": 0,
         "path": "doArena.cpThreshold"
       }
     }
@@ -27,6 +29,7 @@
       "settingType": "Parent",
       "isParentNode": true,
       "name": "doChampsArena",
+      "position": 0,
       "path": "doChampsArena"
     },
     "cpThreshold": {
@@ -39,6 +42,7 @@
         "value": 1300000,
         "isParentNode": false,
         "name": "cpThreshold",
+        "position": 0,
         "path": "doChampsArena.cpThreshold"
       }
     }
@@ -49,6 +53,7 @@
       "settingType": "Parent",
       "isParentNode": true,
       "name": "doOutings",
+      "position": 0,
       "path": "doOutings"
     },
     "targetSoul": {
@@ -88,15 +93,18 @@
                 "color": null,
                 "imageData": ""
               },
-              "offsetCalcType": "Default"
+              "offsetCalcType": "Default",
+              "position": 0
             }
           ],
           "isParentNode": true,
           "name": null,
+          "position": 0,
           "path": null
         },
         "isParentNode": false,
         "name": "targetSoul",
+        "position": 0,
         "path": "doOutings.targetSoul"
       }
     }
@@ -107,6 +115,7 @@
       "settingType": "Parent",
       "isParentNode": true,
       "name": "doFriends",
+      "position": 0,
       "path": "doFriends"
     },
     "hireTarget1": {
@@ -146,15 +155,18 @@
                 "color": null,
                 "imageData": ""
               },
-              "offsetCalcType": "Default"
+              "offsetCalcType": "Default",
+              "position": 0
             }
           ],
           "isParentNode": true,
           "name": null,
+          "position": 0,
           "path": null
         },
         "isParentNode": false,
         "name": "hireTarget1",
+        "position": 0,
         "path": "doFriends.hireTarget1"
       }
     },
@@ -195,15 +207,18 @@
                 "color": null,
                 "imageData": ""
               },
-              "offsetCalcType": "Default"
+              "offsetCalcType": "Default",
+              "position": 0
             }
           ],
           "isParentNode": true,
           "name": null,
+          "position": 0,
           "path": null
         },
         "isParentNode": false,
         "name": "hireTarget2",
+        "position": 0,
         "path": "doFriends.hireTarget2"
       }
     },
@@ -244,15 +259,18 @@
                 "color": null,
                 "imageData": ""
               },
-              "offsetCalcType": "Default"
+              "offsetCalcType": "Default",
+              "position": 0
             }
           ],
           "isParentNode": true,
           "name": null,
+          "position": 0,
           "path": null
         },
         "isParentNode": false,
         "name": "hireTarget3",
+        "position": 0,
         "path": "doFriends.hireTarget3"
       }
     },
@@ -293,15 +311,18 @@
                 "color": null,
                 "imageData": ""
               },
-              "offsetCalcType": "Default"
+              "offsetCalcType": "Default",
+              "position": 0
             }
           ],
           "isParentNode": true,
           "name": null,
+          "position": 0,
           "path": null
         },
         "isParentNode": false,
         "name": "hireTarget4",
+        "position": 0,
         "path": "doFriends.hireTarget4"
       }
     },
@@ -342,15 +363,18 @@
                 "color": null,
                 "imageData": ""
               },
-              "offsetCalcType": "Default"
+              "offsetCalcType": "Default",
+              "position": 0
             }
           ],
           "isParentNode": true,
           "name": null,
+          "position": 0,
           "path": null
         },
         "isParentNode": false,
         "name": "hireTarget5",
+        "position": 0,
         "path": "doFriends.hireTarget5"
       }
     }
@@ -361,6 +385,7 @@
       "settingType": "Parent",
       "isParentNode": true,
       "name": "doGate",
+      "position": 0,
       "path": "doGate"
     },
     "targetGate": {
@@ -378,6 +403,7 @@
         "value": "unlimited",
         "isParentNode": false,
         "name": "targetGate",
+        "position": 0,
         "path": "doGate.targetGate"
       }
     }
@@ -388,6 +414,7 @@
       "settingType": "Parent",
       "isParentNode": true,
       "name": "doDailies",
+      "position": 0,
       "path": "doDailies"
     },
     "claimLoot": {
@@ -398,6 +425,7 @@
         "value": true,
         "isParentNode": false,
         "name": "claimLoot",
+        "position": 0,
         "path": "doDailies.claimLoot"
       }
     },
@@ -409,6 +437,7 @@
         "value": true,
         "isParentNode": false,
         "name": "claimMail",
+        "position": 0,
         "path": "doDailies.claimMail"
       }
     },
@@ -420,6 +449,7 @@
         "value": true,
         "isParentNode": false,
         "name": "claimFreeShop",
+        "position": 0,
         "path": "doDailies.claimFreeShop"
       }
     },
@@ -431,6 +461,7 @@
         "value": true,
         "isParentNode": false,
         "name": "claimFreeSummon",
+        "position": 0,
         "path": "doDailies.claimFreeSummon"
       }
     },
@@ -442,6 +473,7 @@
         "value": true,
         "isParentNode": false,
         "name": "claimChampsArena",
+        "position": 0,
         "path": "doDailies.claimChampsArena"
       }
     },
@@ -453,6 +485,7 @@
         "value": true,
         "isParentNode": false,
         "name": "doFriends",
+        "position": 0,
         "path": "doDailies.doFriends"
       }
     },
@@ -464,6 +497,7 @@
         "value": true,
         "isParentNode": false,
         "name": "doShop",
+        "position": 0,
         "path": "doDailies.doShop"
       }
     },
@@ -475,6 +509,7 @@
         "value": true,
         "isParentNode": false,
         "name": "doExpeditions",
+        "position": 0,
         "path": "doDailies.doExpeditions"
       }
     },
@@ -486,6 +521,7 @@
         "value": true,
         "isParentNode": false,
         "name": "doPartTimeJobAndRest",
+        "position": 0,
         "path": "doDailies.doPartTimeJobAndRest"
       }
     },
@@ -497,6 +533,7 @@
         "value": true,
         "isParentNode": false,
         "name": "doArena",
+        "position": 0,
         "path": "doDailies.doArena"
       }
     },
@@ -508,6 +545,7 @@
         "value": true,
         "isParentNode": false,
         "name": "doOutings",
+        "position": 0,
         "path": "doDailies.doOutings"
       }
     },
@@ -519,6 +557,7 @@
         "value": true,
         "isParentNode": false,
         "name": "doChampsArena",
+        "position": 0,
         "path": "doDailies.doChampsArena"
       }
     }
@@ -529,6 +568,7 @@
       "settingType": "Parent",
       "isParentNode": true,
       "name": "doUpkeep",
+      "position": 0,
       "path": "doUpkeep"
     },
     "claimLoot": {
@@ -539,6 +579,7 @@
         "value": true,
         "isParentNode": false,
         "name": "claimLoot",
+        "position": 0,
         "path": "doUpkeep.claimLoot"
       }
     },
@@ -550,6 +591,7 @@
         "value": true,
         "isParentNode": false,
         "name": "doFriends",
+        "position": 0,
         "path": "doUpkeep.doFriends"
       }
     },
@@ -561,6 +603,7 @@
         "value": true,
         "isParentNode": false,
         "name": "doPartTimeJobAndRest",
+        "position": 0,
         "path": "doUpkeep.doPartTimeJobAndRest"
       }
     }

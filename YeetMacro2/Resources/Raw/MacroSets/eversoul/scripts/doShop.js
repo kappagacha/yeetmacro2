@@ -17,10 +17,10 @@ while (macroService.IsRunning) {
 		case 'general.back':
 			logger.info('doShop: general');
 
-			macroService.PollPattern(patterns.shop.manaCrystal, { DoClick: true, PredicatePattern: patterns.shop.goldBuy });
+			macroService.PollPattern(patterns.shop.manaCrystal, { DoClick: true, PredicatePattern: patterns.shop.buy });
 			macroService.PollPattern(patterns.shop.goldBuy, { DoClick: true, ClickOffset: { Y: 50 }, PredicatePattern: patterns.shop.manaCrystal.soldOut });
 
-			macroService.PollPattern(patterns.shop.classEnhance, { DoClick: true, PredicatePattern: patterns.shop.goldBuy });
+			macroService.PollPattern(patterns.shop.classEnhance, { DoClick: true, PredicatePattern: patterns.shop.buy });
 			macroService.PollPattern(patterns.shop.goldBuy, { DoClick: true, ClickOffset: { Y: 50 }, PredicatePattern: patterns.shop.classEnhance.soldOut });
 			
 			logger.info('doShop: artifact');
@@ -30,11 +30,11 @@ while (macroService.IsRunning) {
 			const cost1500Result = macroService.FindPattern(patterns.shop.artifact.cost1500, { Limit: 4 });
 
 			for (const p of cost1500Result.Points) {
-				let artifactBuyResult = { IsSuccess: false };
-				while (macroService.IsRunning && !artifactBuyResult.IsSuccess) {
+				let shopBuyResult = { IsSuccess: false };
+				while (macroService.IsRunning && !shopBuyResult.IsSuccess) {
 					macroService.DoClick(p);
 					sleep(1_000);
-					artifactBuyResult = macroService.FindPattern(patterns.shop.artifact.buy);
+					shopBuyResult = macroService.FindPattern(patterns.shop.buy);
 					sleep(1_000);
 				}
 				macroService.PollPattern(patterns.shop.artifact.buy, { DoClick: true, ClickOffset: { Y: 50 }, PredicatePattern: patterns.general.back });
