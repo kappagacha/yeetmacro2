@@ -1,4 +1,4 @@
-![YeetMacro Engine](YeetMacro2/Resources/Images/appicon.svg) 
+![YeetMacro Engine](YeetMacro2/Resources/Images/appicon2.svg) 
 # YeetMacro
 YeetMacro is a .NET MAUI android app that automates simple but grindy parts of mobile games.
 
@@ -16,7 +16,7 @@ Please do not use without knowing the risks. The app does randomize tap location
 
 ## 📓 Setup
 ### 💻 Emulator
-* Andoid verion needs to be at least 9
+* Android verion needs to be at least 9
 * Set resolution to 1920x1080 (or 1080x1920 depending on the game)
 * Sideload apk file from [latest release](https://github.com/kappagacha/yeetmacro2/releases/tag/latest)
 
