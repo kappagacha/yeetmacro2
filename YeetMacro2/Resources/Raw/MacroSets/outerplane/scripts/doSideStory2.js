@@ -28,6 +28,7 @@ while (macroService.IsRunning) {
 			switch (targetCharacter) {
 				case 'noa':
 				case 'veronica':
+				case 'ame':
 					sideStorySection = patterns.sideStory.theOtherSideOfTheWorld;
 					break;
 				case 'valentine':

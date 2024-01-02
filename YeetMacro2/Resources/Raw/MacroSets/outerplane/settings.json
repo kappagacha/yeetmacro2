@@ -101,7 +101,8 @@
         "options": [
           "noa",
           "veronica",
-          "valentine"
+          "valentine",
+          "ame"
         ],
         "value": "valentine",
         "isParentNode": false,
@@ -162,9 +163,10 @@
         "options": [
           "noa",
           "veronica",
-          "valentine"
+          "valentine",
+          "ame"
         ],
-        "value": "noa",
+        "value": "ame",
         "isParentNode": false,
         "name": "targetCharacter",
         "position": 0,

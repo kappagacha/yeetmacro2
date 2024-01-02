@@ -6,7 +6,7 @@ if (daily.doEventSpecialQuests.done.IsChecked) {
 }
 
 while (macroService.IsRunning) {
-	const result = macroService.PollPattern(loopPatterns, { ClickPattern: });
+	const result = macroService.PollPattern(loopPatterns);
 	switch (result.Path) {
 		case 'titles.home':
 			logger.info('doEventSpecialQuests: click tab quest');
