@@ -13,6 +13,7 @@
              vm:ViewModelLocator.ViewModelType="{x:Type avm:AndriodHomeViewModel}"
              xmlns:fa="clr-namespace:UraniumUI.Icons.FontAwesome;assembly=UraniumUI.Icons.FontAwesome"
              xmlns:mi="clr-namespace:UraniumUI.Icons.MaterialIcons;assembly=UraniumUI.Icons.MaterialIcons"
+             xmlns:icons="http://www.aathifmahir.com/dotnet/2022/maui/icons"
              Title="Home">
     <ContentPage.Resources>
         <ResourceDictionary>
@@ -101,7 +102,17 @@
                     </v:ToggleImageView>
                 </HorizontalStackLayout>
             </Border>
-            <Label Text="{Binding MacroManagerViewModel.AppVersion, StringFormat='AppVersion: {0}'}" VerticalOptions="End" HorizontalOptions="Start" />
+            <VerticalStackLayout VerticalOptions="End" HorizontalOptions="Start" Spacing="5" Padding="5">
+                <HorizontalStackLayout Spacing="5">
+                    <v:ImageView FontFamily="MaterialOutlined" Glyph="{x:Static mi:MaterialOutlined.Discord}"
+                                 Command="{Binding OpenDiscordLinkCommand}" />
+                    <v:ImageView FontFamily="FontAwesomeBrandIcons" Glyph="&#xf09b;"
+                                 Command="{Binding OpenGithubLinkCommand}" />
+                    <v:ImageView FontFamily="FASolid" Glyph="{x:Static fa:Solid.HandHoldingDollar}"
+                                 Command="{Binding OpenDonateLinkCommand}" />
+                </HorizontalStackLayout>
+                <Label Text="{Binding MacroManagerViewModel.AppVersion, StringFormat='AppVersion: {0}'}"  />
+            </VerticalStackLayout>
         </Grid>
     </ScrollView>
 </ContentPage>

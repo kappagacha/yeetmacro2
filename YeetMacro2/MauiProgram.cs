@@ -5,6 +5,7 @@ using CommunityToolkit.Maui;
 using UraniumUI;
 using SkiaSharp.Views.Maui.Controls.Hosting;
 using CommunityToolkit.Maui.Markup;
+using MauiIcons.FontAwesome.Brand;
 
 namespace YeetMacro2;
 
@@ -47,6 +48,8 @@ public static class MauiProgram
         builder.RegisterViewModels();
 		builder.RegisterServices();
 		builder.RegisterPlatformServices();
+
+		builder.UseFontAwesomeBrandMauiIcons();
 
         return builder.Build();
 	}

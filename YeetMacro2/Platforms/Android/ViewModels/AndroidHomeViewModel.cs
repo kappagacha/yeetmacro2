@@ -299,6 +299,24 @@ public partial class AndriodHomeViewModel : ObservableObject
     }
 
     [RelayCommand]
+    private async Task OpenDiscordLink()
+    {
+        await Launcher.OpenAsync("https://discord.gg/abUPg3RU6J");
+    }
+
+    [RelayCommand]
+    private async Task OpenGithubLink()
+    {
+        await Launcher.OpenAsync("https://github.com/kappagacha/yeetmacro2");
+    }
+
+    [RelayCommand]
+    private async Task OpenDonateLink()
+    {
+        await Launcher.OpenAsync("https://www.paypal.com/donate?business=Z2GDPP65YMA7G&no_recurring=0&currency_code=USD");
+    }
+
+    [RelayCommand]
     public void Appear()
     {
         IsAppearing = true;
