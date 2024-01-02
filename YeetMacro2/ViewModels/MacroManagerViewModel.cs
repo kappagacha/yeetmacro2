@@ -553,6 +553,7 @@ public partial class MacroManagerViewModel : ObservableObject
             DefaultLocationX = value.DefaultLocation.X;
             DefaultLocationY = value.DefaultLocation.Y;
             Preferences.Default.Set(nameof(SelectedMacroSet), value.Name);
+            WeakReferenceMessenger.Default.Send(value);
         }
         OnPropertyChanged(nameof(Patterns));
         OnPropertyChanged(nameof(Scripts));

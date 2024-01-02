@@ -3,6 +3,7 @@ using Android.App;
 using Android.Content;
 using Android.Provider;
 using Android.Views.Accessibility;
+using CommunityToolkit.Mvvm.Messaging;
 using Microsoft.Extensions.Logging;
 using YeetMacro2.Services;
 
@@ -15,7 +16,6 @@ public class YeetAccessibilityService : AccessibilityService
 {
     ILogger _logger;
     MainActivity _context;
-    private static string _currentPackage = "unknown";
     private static YeetAccessibilityService _instance;  //https://stackoverflow.com/questions/600207/how-to-check-if-a-service-is-running-on-android
     public YeetAccessibilityService()
     {
@@ -51,9 +51,6 @@ public class YeetAccessibilityService : AccessibilityService
         get { return _instance != null; }
     }
 
-    public string CurrentPackage => _currentPackage;
-    //public string CurrentPackage => "temp";
-
     //https://stackoverflow.com/questions/23504217/how-do-i-get-active-window-that-is-on-foreground
     public override void OnAccessibilityEvent(AccessibilityEvent e)
     {
@@ -65,7 +62,7 @@ public class YeetAccessibilityService : AccessibilityService
                 if (e.PackageName is not null && e.PackageName != AppInfo.PackageName && e.PackageName != "com.google.android.gms" &&
                     !e.PackageName.StartsWith("com.android"))
                 {
-                    _currentPackage = e.PackageName;
+                    WeakReferenceMessenger.Default.Send<string, string>(e.PackageName, nameof(YeetAccessibilityService));
                 }
             }
         }

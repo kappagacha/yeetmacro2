@@ -5,6 +5,7 @@ using CommunityToolkit.Mvvm.Messaging.Messages;
 using CommunityToolkit.Mvvm.Messaging;
 using YeetMacro2.Platforms.Android.Services;
 using YeetMacro2.ViewModels;
+using YeetMacro2.Data.Models;
 
 namespace YeetMacro2.Platforms.Android.ViewModels;
 
@@ -18,25 +19,10 @@ public partial class AndriodHomeViewModel : ObservableObject
     private AndroidScreenService _screenService;
     private MacroManagerViewModel _macroManagerViewModel;
     private YeetAccessibilityService _accessibilityService;
-
-    public string CurrentPackage
-    {
-        get
-        {
-            var currentPackage = _accessibilityService.CurrentPackage;
-            if (_macroManagerViewModel.SelectedMacroSet?.Package != currentPackage)
-            {
-                var matchingMacroSet = _macroManagerViewModel.MacroSets.FirstOrDefault(ms => ms.Package == currentPackage);
-                if (matchingMacroSet != null)
-                {
-                    _macroManagerViewModel.SelectedMacroSet = matchingMacroSet;
-                }
-            }
-
-            return currentPackage;
-        }
-    }
-    public bool IsCurrentPackageValid => _accessibilityService.CurrentPackage == _macroManagerViewModel.SelectedMacroSet?.Package;
+    [ObservableProperty, NotifyPropertyChangedFor(nameof(IsCurrentPackageValid))]
+    string _currentPackage;
+    
+    public bool IsCurrentPackageValid => CurrentPackage == _macroManagerViewModel.SelectedMacroSet?.Package;
     public Size CurrentResolution => _screenService.CalcResolution;
     public string WidthStatus
     {
@@ -113,6 +99,30 @@ public partial class AndriodHomeViewModel : ObservableObject
             else
             {
                 _screenService.Close(AndroidWindowView.DebugDrawView);
+            }
+        });
+
+        WeakReferenceMessenger.Default.Register<string, string>(this, nameof(YeetAccessibilityService), (r, currentPackage) =>
+        {
+            if (_macroManagerViewModel.SelectedMacroSet?.Package != currentPackage)
+            {
+                var matchingMacroSet = _macroManagerViewModel.MacroSets.FirstOrDefault(ms => ms.Package == currentPackage);
+                if (matchingMacroSet != null)
+                {
+                    _macroManagerViewModel.SelectedMacroSet = matchingMacroSet;
+                }
+            }
+
+            CurrentPackage = currentPackage;
+        });
+
+        WeakReferenceMessenger.Default.Register<MacroSet>(this, (r, macroSet) =>
+        {
+            _screenService.RefreshActionViewLocation();
+            if (_screenService.Views[AndroidWindowView.ActionView].IsShowing)
+            {
+                _screenService.Close(AndroidWindowView.ActionView);
+                _screenService.Show(AndroidWindowView.ActionView);
             }
         });
     }

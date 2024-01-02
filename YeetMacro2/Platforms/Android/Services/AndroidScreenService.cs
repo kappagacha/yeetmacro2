@@ -576,25 +576,7 @@ public class AndroidScreenService : IScreenService
 
         if (windowView == AndroidWindowView.ActionView)
         {
-            var selectedMacroSetName = Preferences.Default.Get<string>(nameof(MacroManagerViewModel.SelectedMacroSet), null);
-            if (selectedMacroSetName is not null)
-            {
-                var selectedMacroSet = ServiceHelper.GetService<MacroManagerViewModel>().SelectedMacroSet;
-                var ve = _views[windowView].VisualElement;
-                var ctx = (IMovable)ve.BindingContext;
-                var orientation = DeviceDisplay.Current.MainDisplayInfo.Orientation;
-                var preferenceKey = $"{selectedMacroSetName}_location_{orientation}";
-                var strTargetLocation = Preferences.Default.Get<string>(preferenceKey, null);
-                if (strTargetLocation is not null)
-                {
-                    var targetLocation = JsonSerializer.Deserialize<Point>(strTargetLocation, _serializationOptions);
-                    ctx.Location = targetLocation;
-                }
-                else
-                {
-                    ctx.Location = selectedMacroSet.DefaultLocation;
-                }
-            }
+            RefreshActionViewLocation();
         }
 
         _views[windowView].Show();
@@ -605,6 +587,29 @@ public class AndroidScreenService : IScreenService
             var ctx = ve.BindingContext;
             ve.BindingContext = null;
             ve.BindingContext = ctx;
+        }
+    }
+
+    public void RefreshActionViewLocation()
+    {
+        var selectedMacroSetName = Preferences.Default.Get<string>(nameof(MacroManagerViewModel.SelectedMacroSet), null);
+        if (selectedMacroSetName is not null)
+        {
+            var selectedMacroSet = ServiceHelper.GetService<MacroManagerViewModel>().SelectedMacroSet;
+            var ve = _views[AndroidWindowView.ActionView].VisualElement;
+            var ctx = (IMovable)ve.BindingContext;
+            var orientation = DeviceDisplay.Current.MainDisplayInfo.Orientation;
+            var preferenceKey = $"{selectedMacroSetName}_location_{orientation}";
+            var strTargetLocation = Preferences.Default.Get<string>(preferenceKey, null);
+            if (strTargetLocation is not null)
+            {
+                var targetLocation = JsonSerializer.Deserialize<Point>(strTargetLocation, _serializationOptions);
+                ctx.Location = targetLocation;
+            }
+            else
+            {
+                ctx.Location = selectedMacroSet.DefaultLocation;
+            }
         }
     }
 

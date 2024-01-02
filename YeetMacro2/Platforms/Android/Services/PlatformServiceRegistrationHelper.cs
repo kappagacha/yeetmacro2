@@ -20,7 +20,6 @@ public static class PlatformServiceRegistrationHelper
         mauiAppBuilder.Services.AddSingleton<AndriodHomeViewModel>();
         mauiAppBuilder.Services.AddSingleton<OpenCvService>();
         mauiAppBuilder.Services.AddSingleton<ActionViewModel>();
-        mauiAppBuilder.Services.AddSingleton<ActionMenuViewModel>();
         mauiAppBuilder.Services.AddSingleton<PromptStringInputViewModel>();
         mauiAppBuilder.Services.AddSingleton<PromptSelectOptionViewModel>();
         mauiAppBuilder.Services.AddSingleton<MessageViewModel>();
