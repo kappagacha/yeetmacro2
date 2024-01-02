@@ -7,19 +7,22 @@ YeetMacro is a .NET MAUI android app that automates simple but grindy parts of m
 Current target games are:
 * Konosuba Fantastic Days
 * Eversoul
+* Outerplane
 
 This project is heavily influenced by [Fate Grand Automata (FGA)](https://github.com/Fate-Grand-Automata/FGA) and would not have been possible without it.
 
 ## ❗ Warning
-Please do not use without knowing the risks. The app does randomize tap locations (see [initJavaScriptContext.js](https://github.com/kappagacha/yeetmacro2/blob/a3112d2af60784a2b3cdf58005dd1db0e2bb8223/YeetMacro2/Resources/Raw/initJavaScriptContext.js#L88)) but that does not guarantee that you will not get banned. If you have spent a lot of money on your account, it is recommended that you do not risk it.
+Please do not use without knowing the risks. The app does randomize tap locations (see [MacroService.cs](https://github.com/kappagacha/yeetmacro2/blob/b5c9a018abb18b0bea1a4b486645f83ba615a269/YeetMacro2/Services/MacroService.cs#L267)) but that does not guarantee that you will not get banned. If you have spent a lot of money on your account, it is recommended that you do not risk it.
 
 ## 📓 Setup
 ### 💻 Emulator
+* Andoid verion needs to be at least 9
 * Set resolution to 1920x1080 (or 1080x1920 depending on the game)
 * Sideload apk file from [latest release](https://github.com/kappagacha/yeetmacro2/releases/tag/latest)
 
 ### 📱 Physical Android Device (recommended since games crash often on emulators)
-* Set resolution to 1920x1080 (or 1080x1920 depending on the game) using [Resolution Changer - Uses ADB](https://play.google.com/store/apps/details?id=com.draco.resolutionchanger&hl=en_US&gl=US&pli=1)
+* Depending on game, you can have width or height greater than the target 1920x1080
+* (If you cannot meet resolution requirements natively) Set resolution to 1920x1080 (or 1080x1920 depending on the game) using [Resolution Changer - Uses ADB](https://play.google.com/store/apps/details?id=com.draco.resolutionchanger&hl=en_US&gl=US&pli=1)
     * Requires a computer with adb installed and enabling developer mode on the phone
     * Follow the direction of the app
         * [Set up adb on your computer](https://www.xda-developers.com/install-adb-windows-macos-linux/)
@@ -47,7 +50,12 @@ Please do not use without knowing the risks. The app does randomize tap location
 * Tap on Update icon next to MacroSet name
 
 ### 🔎 Troubleshooting
-* App randomly crashes
-    * This is a known issue, I don't know how to fix it
+* Get help in discord
+    * [![Discord](https://img.shields.io/badge/Join-Our%20Discord-%237289DA?style=flat&logo=discord)](https://discord.gg/abUPg3RU6J)
 * BlueStacks
     * Settings => Graphics => Graphics engine mode => Compatibility
+
+### 💸 If you'd like to support me
+
+[![](https://www.paypalobjects.com/en_US/i/btn/btn_donateCC_LG.gif)](https://www.paypal.com/donate?business=Z2GDPP65YMA7G&no_recurring=0&currency_code=USD)
+
