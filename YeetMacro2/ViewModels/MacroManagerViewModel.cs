@@ -467,6 +467,7 @@ public partial class MacroManagerViewModel : ObservableObject
             {
                 Patterns.SelectedNode = null;
                 var patterns = PatternNodeManagerViewModel.FromJson(pattternJson);
+                ((PatternNodeViewModel)Patterns.Root).ResetDictionary();
                 Patterns.Import(patterns);
             }
 
@@ -504,6 +505,7 @@ public partial class MacroManagerViewModel : ObservableObject
                 Settings.SelectedNode = null;
                 var settings = SettingNodeManagerViewModel.FromJson(settingJson);
                 MergeSettings(Settings.Root, settings.Root);
+                ((ParentSettingViewModel)Settings.Root).ResetDictionary();
                 Settings.Import(settings);
             }
 
@@ -522,6 +524,7 @@ public partial class MacroManagerViewModel : ObservableObject
 
             _macroSetRepository.Update(macroSet);
             _macroSetRepository.Save();
+            OnSelectedMacroSetChanged(macroSet);
             _toastService.Show($"Updated MacroSet: {macroSet.Name}");
         }
         catch (Exception ex)

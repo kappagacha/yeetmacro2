@@ -102,6 +102,11 @@ public partial class PatternNodeViewModel : PatternNode
             return _nodeCache[key];
         }
     }
+
+    public void ResetDictionary()
+    {
+        _nodeCache.Clear();
+    }
 }
 
 [ObservableObject]

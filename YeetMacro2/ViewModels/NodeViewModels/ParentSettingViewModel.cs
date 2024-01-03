@@ -147,6 +147,11 @@ public partial class ParentSettingViewModel : ParentSetting
             return _nodeCache[key];
         }
     }
+
+    public void ResetDictionary()
+    {
+        _nodeCache.Clear();
+    }
 }
 
 [ObservableObject]
