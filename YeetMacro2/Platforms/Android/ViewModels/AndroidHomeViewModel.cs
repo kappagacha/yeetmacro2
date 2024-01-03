@@ -119,7 +119,7 @@ public partial class AndriodHomeViewModel : ObservableObject
         WeakReferenceMessenger.Default.Register<MacroSet>(this, (r, macroSet) =>
         {
             _screenService.RefreshActionViewLocation();
-            if (_screenService.Views[AndroidWindowView.ActionView].IsShowing)
+            if (_screenService.Views.ContainsKey(AndroidWindowView.ActionView) && _screenService.Views[AndroidWindowView.ActionView].IsShowing)
             {
                 _screenService.Close(AndroidWindowView.ActionView);
                 _screenService.Show(AndroidWindowView.ActionView);

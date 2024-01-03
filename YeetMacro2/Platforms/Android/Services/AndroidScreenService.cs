@@ -593,7 +593,7 @@ public class AndroidScreenService : IScreenService
     public void RefreshActionViewLocation()
     {
         var selectedMacroSetName = Preferences.Default.Get<string>(nameof(MacroManagerViewModel.SelectedMacroSet), null);
-        if (selectedMacroSetName is not null)
+        if (selectedMacroSetName is not null && _views.ContainsKey(AndroidWindowView.ActionView))
         {
             var selectedMacroSet = ServiceHelper.GetService<MacroManagerViewModel>().SelectedMacroSet;
             var ve = _views[AndroidWindowView.ActionView].VisualElement;
