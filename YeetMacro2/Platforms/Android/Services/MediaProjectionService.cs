@@ -106,6 +106,7 @@ public class MediaProjectionService : IRecorderService
         if (_imageReader is null)
         {
             Start();
+            Thread.Sleep(1_000);
         }
 
         _logger.LogTrace("GetBitmap");

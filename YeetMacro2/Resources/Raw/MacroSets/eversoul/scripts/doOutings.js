@@ -1,10 +1,14 @@
-﻿// Do all outings based on targetSoul
+﻿// Do all outings. Required setting: targetSoul (pattern that selects soul)
+// If targetBondLevel is checked and the value is reached, script will stop
 const resolution = macroService.GetCurrentResolution();
 const loopPatterns = [patterns.lobby.level, patterns.town.level, patterns.town.outings.outingsCompleted, patterns.town.outings, patterns.titles.outingGo, patterns.town.outings.selectAKeyword];
 const daily = dailyManager.GetDaily();
+
 if (daily.doOutings.done.IsChecked) {
 	return "Script already completed. Uncheck done to override daily flag.";
 }
+const targetBondLevelIsEnabled = settings.doOutings.targetBondLevel.IsEnabled;
+const targetBondLevel = settings.doOutings.targetBondLevel.Value;
 const targetSoul = macroService.ClonePattern(settings.doOutings.targetSoul.Value, {
 	X: 275,
 	Y: 80,
@@ -46,6 +50,14 @@ while (macroService.IsRunning) {
 			} 
 			macroService.ClickPattern(targetSoul);
 			macroService.PollPattern(targetSoul, { DoClick: true, PredicatePattern: patterns.town.outings.call });
+
+			if (targetBondLevelIsEnabled) {
+				const currentBondLevel = macroService.GetText(patterns.town.outings.bondLevel).replace(/[\+ ]/g, '');
+				if (Number(currentBondLevel) >= Number(targetBondLevel)) {
+					throw new Error(`Target bond level reached: ${targetBondLevel}`);
+				}
+			}
+			
 			sleep(500);
 			macroService.PollPattern(patterns.town.outings.call, { DoClick: true, PredicatePattern: patterns.prompt.confirm });
 			sleep(500);
