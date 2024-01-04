@@ -93,24 +93,6 @@
         "path": "doSideStory1.teamSlot"
       }
     },
-    "targetCharacter": {
-      "$isParent": false,
-      "props": {
-        "$type": "option",
-        "settingType": "Option",
-        "options": [
-          "noa",
-          "veronica",
-          "valentine",
-          "ame"
-        ],
-        "value": "valentine",
-        "isParentNode": false,
-        "name": "targetCharacter",
-        "position": 0,
-        "path": "doSideStory1.targetCharacter"
-      }
-    },
     "sweepBattle": {
       "$isParent": false,
       "props": {
@@ -122,6 +104,75 @@
         "position": 0,
         "path": "doSideStory1.sweepBattle"
       }
+    },
+    "section": {
+      "$isParent": false,
+      "props": {
+        "$type": "option",
+        "settingType": "Option",
+        "options": [
+          "aTaleOfBygoneDays",
+          "aBriefInterlude",
+          "theOtherSideOfTheWorld"
+        ],
+        "value": "theOtherSideOfTheWorld",
+        "isParentNode": false,
+        "name": "section",
+        "position": 0,
+        "path": "doSideStory1.section"
+      }
+    },
+    "targetStory": {
+      "$isParent": false,
+      "props": {
+        "$type": "pattern",
+        "settingType": "Pattern",
+        "value": {
+          "isMultiPattern": false,
+          "patterns": [
+            {
+              "rect": {
+                "x": 1185.6336669921875,
+                "y": 790.5201416015625,
+                "width": 33.480224609375,
+                "height": 69.4315185546875
+              },
+              "resolution": {
+                "width": 1920,
+                "height": 1080
+              },
+              "isBoundsPattern": false,
+              "isLocationDynamic": false,
+              "name": "pattern",
+              "imageData": "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",
+              "variancePct": 20,
+              "horizontalStretchMultiplier": 0,
+              "verticalStretchMultiplier": 0,
+              "textMatch": {
+                "isActive": false,
+                "text": null,
+                "whiteList": null
+              },
+              "colorThreshold": {
+                "isActive": false,
+                "variancePct": 10,
+                "color": null,
+                "imageData": ""
+              },
+              "offsetCalcType": "Default",
+              "position": 0
+            }
+          ],
+          "isParentNode": true,
+          "name": null,
+          "position": 0,
+          "path": null
+        },
+        "isParentNode": false,
+        "name": "targetStory",
+        "position": 0,
+        "path": "doSideStory1.targetStory"
+      }
     }
   },
   "doSideStory2": {
@@ -129,9 +180,9 @@
     "props": {
       "settingType": "Parent",
       "isParentNode": true,
-      "name": "doSideStory2",
+      "name": "doSideStory1",
       "position": 0,
-      "path": "doSideStory2"
+      "path": "doSideStory1"
     },
     "teamSlot": {
       "$isParent": false,
@@ -152,25 +203,7 @@
         "isParentNode": false,
         "name": "teamSlot",
         "position": 0,
-        "path": "doSideStory2.teamSlot"
-      }
-    },
-    "targetCharacter": {
-      "$isParent": false,
-      "props": {
-        "$type": "option",
-        "settingType": "Option",
-        "options": [
-          "noa",
-          "veronica",
-          "valentine",
-          "ame"
-        ],
-        "value": "ame",
-        "isParentNode": false,
-        "name": "targetCharacter",
-        "position": 0,
-        "path": "doSideStory2.targetCharacter"
+        "path": "doSideStory1.teamSlot"
       }
     },
     "sweepBattle": {
@@ -182,7 +215,76 @@
         "isParentNode": false,
         "name": "sweepBattle",
         "position": 0,
-        "path": "doSideStory2.sweepBattle"
+        "path": "doSideStory1.sweepBattle"
+      }
+    },
+    "section": {
+      "$isParent": false,
+      "props": {
+        "$type": "option",
+        "settingType": "Option",
+        "options": [
+          "aTaleOfBygoneDays",
+          "aBriefInterlude",
+          "theOtherSideOfTheWorld"
+        ],
+        "value": "theOtherSideOfTheWorld",
+        "isParentNode": false,
+        "name": "section",
+        "position": 0,
+        "path": "doSideStory1.section"
+      }
+    },
+    "targetStory": {
+      "$isParent": false,
+      "props": {
+        "$type": "pattern",
+        "settingType": "Pattern",
+        "value": {
+          "isMultiPattern": false,
+          "patterns": [
+            {
+              "rect": {
+                "x": 1185.6336669921875,
+                "y": 790.5201416015625,
+                "width": 33.480224609375,
+                "height": 69.4315185546875
+              },
+              "resolution": {
+                "width": 1920,
+                "height": 1080
+              },
+              "isBoundsPattern": false,
+              "isLocationDynamic": false,
+              "name": "pattern",
+              "imageData": "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",
+              "variancePct": 20,
+              "horizontalStretchMultiplier": 0,
+              "verticalStretchMultiplier": 0,
+              "textMatch": {
+                "isActive": false,
+                "text": null,
+                "whiteList": null
+              },
+              "colorThreshold": {
+                "isActive": false,
+                "variancePct": 10,
+                "color": null,
+                "imageData": ""
+              },
+              "offsetCalcType": "Default",
+              "position": 0
+            }
+          ],
+          "isParentNode": true,
+          "name": null,
+          "position": 0,
+          "path": null
+        },
+        "isParentNode": false,
+        "name": "targetStory",
+        "position": 0,
+        "path": "doSideStory1.targetStory"
       }
     }
   },
