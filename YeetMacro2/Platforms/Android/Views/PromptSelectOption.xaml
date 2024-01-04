@@ -7,21 +7,36 @@
              vm:ViewModelLocator.ViewModelType="{x:Type pvm:PromptSelectOptionViewModel}"
              xmlns:av="clr-namespace:YeetMacro2.Platforms.Android.Views"
              x:Class="YeetMacro2.Platforms.Android.Views.PromptSelectOption">
-    <VerticalStackLayout VerticalOptions="Center" HorizontalOptions="Center"
-                         BackgroundColor="{AppThemeBinding Light={StaticResource Background}, Dark={StaticResource BackgroundDark}}">
-        <Label Text="{Binding Message}" FontSize="Title" FontAttributes="Bold" Margin="5" />
-        <CollectionView ItemsSource="{Binding Options}">
-            <CollectionView.ItemsLayout>
-                <LinearItemsLayout Orientation="Vertical" ItemSpacing="5"  />
-            </CollectionView.ItemsLayout>
-            <CollectionView.ItemTemplate>
-                <DataTemplate x:DataType="{x:Type x:String}">
-                    <Button Text="{Binding .}" Margin="0" Padding="0" VerticalOptions="Center"
-                            Command="{Binding BindingContext.SelectCommand, Source={RelativeSource AncestorType={x:Type av:PromptSelectOption}}}"
-                            CommandParameter="{Binding .}"/>
-                </DataTemplate>
-            </CollectionView.ItemTemplate>
-        </CollectionView>
-        <Button Command="{Binding CancelCommand}" Text="Cancel" VerticalOptions="Center" BackgroundColor="Red" />
-    </VerticalStackLayout>
+    <Grid>
+        <VerticalStackLayout VerticalOptions="Center" HorizontalOptions="Center">
+            <Label HorizontalOptions="Center" Text="{Binding Message}" FontSize="Title" FontAttributes="Bold" Margin="5"
+                   BackgroundColor="{AppThemeBinding Light={StaticResource Background}, Dark={StaticResource BackgroundDark}}" />
+            <CollectionView ItemsSource="{Binding Options}" HorizontalOptions="Center">
+                <CollectionView.ItemsLayout>
+                    <LinearItemsLayout Orientation="Vertical" ItemSpacing="5"  />
+                </CollectionView.ItemsLayout>
+                <CollectionView.ItemTemplate>
+                    <DataTemplate x:DataType="{x:Type x:String}">
+                        <Border BackgroundColor="{AppThemeBinding Light={StaticResource Background}, Dark={StaticResource BackgroundDark}}"
+                                MinimumWidthRequest="400" StrokeThickness="1" StrokeShape="RoundRectangle 10,10,10,10" HorizontalOptions="Center">
+                            <Grid>
+                                <Label Padding="0" Margin="3" Text="{Binding .}" FontSize="Medium" />
+                                <ImageButton Margin="0" Padding="0" VerticalOptions="Center"
+                                             Command="{Binding BindingContext.SelectCommand, Source={RelativeSource AncestorType={x:Type av:PromptSelectOption}}}"
+                                             CommandParameter="{Binding .}"/>
+                            </Grid>
+                        </Border>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+            </CollectionView>
+            <Border MinimumWidthRequest="400" StrokeThickness="1" StrokeShape="RoundRectangle 10,10,10,10" BackgroundColor="Red" HorizontalOptions="Center">
+                <Grid>
+                    <Label Padding="0" Margin="3" Text="Cancel" FontSize="Medium" />
+                    <ImageButton Margin="0" Padding="0" VerticalOptions="Center"
+                        Command="{Binding CancelCommand}"
+                        CommandParameter="{Binding .}"/>
+                </Grid>
+            </Border>
+        </VerticalStackLayout>
+    </Grid>
 </ContentView>
