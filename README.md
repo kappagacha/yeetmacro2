@@ -16,7 +16,7 @@ Please do not use without knowing the risks. The app does randomize tap location
 
 ## 📓 Setup
 ### 💻 Emulator
-* Android verion needs to be at least 9
+* Android version needs to be at least 9
 * Set resolution to 1920x1080 (or 1080x1920 depending on the game)
 * Sideload apk file from [latest release](https://github.com/kappagacha/yeetmacro2/releases/tag/latest)
 

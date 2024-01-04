@@ -96,7 +96,7 @@ while (macroService.IsRunning) {
 			break;
 		case 'battle.report':
 			logger.info('farmEventBossLoop: leave room');
-			const endResult = macroService.FindPattern([patterns.battle.next, patterns.battle.replay, patterns.battle.next3]);
+			const endResult = macroService.FindPattern([patterns.battle.next, patterns.battle.replay, patterns.battle.next2]);
 			logger.debug('endResult.Path: ' + endResult.Path);
 			switch (endResult.Path) {
 				case 'battle.next':
@@ -108,8 +108,8 @@ while (macroService.IsRunning) {
 					macroService.PollPattern(patterns.battle.replay.ok, { DoClick: true, PredicatePattern: [patterns.battle.report] });
 					result.numBattles++;
 					break;
-				case 'battle.next3':
-					macroService.PollPattern(patterns.battle.next3, { DoClick: true, PredicatePattern: patterns.titles.bossBattle });
+				case 'battle.next2':
+					macroService.PollPattern(patterns.battle.next2, { DoClick: true, PredicatePattern: patterns.titles.bossBattle });
 					break;
 			}
 			break;
