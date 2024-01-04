@@ -1,6 +1,6 @@
 // Auto or sweep side story (1). Required options:
 // section: selects the tab
-// targetStory: pattern the selects story
+// targetStory: pattern that selects story
 const loopPatterns = [patterns.lobby.level, patterns.titles.adventure, patterns.titles.sideStory];
 const daily = dailyManager.GetDaily();
 const sideStoryNumber = 1;
