@@ -19,7 +19,9 @@ while (macroService.IsRunning) {
 			break;
 		case 'general.back':
 			logger.info('claimFreeShop: regular pack');
-			macroService.PollPattern(patterns.cashShop.regularPack, { DoClick: true, PredicatePattern: patterns.cashShop.regularPack.selected });
+			const regularPackResult = macroService.PollPattern(patterns.cashShop.regularPack);
+			const regularPackSelected = macroService.ClonePattern(patterns.cashShop.regularPack.selected, { CenterY: regularPackResult.Point.Y })
+			macroService.PollPattern(patterns.cashShop.regularPack, { DoClick: true, PredicatePattern: regularPackSelected });
 			macroService.PollPattern(patterns.cashShop.regularPack.dailyFree, { DoClick: true, PredicatePattern: patterns.prompt.tapTheScreen });
 			macroService.PollPattern(patterns.prompt.tapTheScreen, { DoClick: true, PredicatePattern: patterns.general.back });
 

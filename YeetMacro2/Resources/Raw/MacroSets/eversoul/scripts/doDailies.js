@@ -52,12 +52,12 @@ if (settings.doDailies.doArena.Value) {
     goToLobby();
 }
 
-if (settings.doDailies.doOutings.Value) {
-    doOutings();
+if (settings.doDailies.doChampsArena.Value) {
+    doChampsArena();
     goToLobby();
 }
 
-if (settings.doDailies.doChampsArena.Value) {
-    doChampsArena();
+if (settings.doDailies.doOutings.Value) {
+    doOutings();
     goToLobby();
 }
