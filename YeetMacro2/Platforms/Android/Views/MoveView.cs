@@ -89,6 +89,17 @@ public class MoveView : LinearLayout, IShowable
         }
     }
 
+    public void SyncLocation()
+    {
+        var movable = (IMovable)_visualElement.BindingContext;
+        _layoutParams.X = (int)movable.Location.X;
+        _layoutParams.Y = (int)movable.Location.Y;
+        if (_state == FormState.SHOWING)
+        {
+            _windowManager.UpdateViewLayout(this, _layoutParams);
+        }
+    }
+
     public override bool OnInterceptTouchEvent(MotionEvent e)
     {
         var movable = (IMovable)_visualElement.BindingContext;

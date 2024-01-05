@@ -415,21 +415,13 @@ public class AndroidScreenService : IScreenService
             Preferences.Default.Remove($"{selectedMacroSetName}_location_Portrait");
             _toastService.Show($"Reset Action Button Location for MacroSet {selectedMacroSetName}");
 
-            if (_views.ContainsKey(AndroidWindowView.ActionView) && _views[AndroidWindowView.ActionView].IsShowing)
-            {
-                Close(AndroidWindowView.ActionView);
-                Show(AndroidWindowView.ActionView);
-            }
+            RefreshActionViewLocation();
         }
     }
 
     private void DeviceDisplay_MainDisplayInfoChanged(object sender, DisplayInfoChangedEventArgs e)
     {
-        if (_views.ContainsKey(AndroidWindowView.ActionView) && _views[AndroidWindowView.ActionView].IsShowing)
-        {
-            Close(AndroidWindowView.ActionView);
-            Show(AndroidWindowView.ActionView);
-        }
+        RefreshActionViewLocation();
     }
 
     public void ShowOverlayWindow()
@@ -610,6 +602,8 @@ public class AndroidScreenService : IScreenService
             {
                 ctx.Location = selectedMacroSet.DefaultLocation;
             }
+            var moveView = (MoveView)_views[AndroidWindowView.ActionView];
+            moveView.SyncLocation();
         }
     }
 
