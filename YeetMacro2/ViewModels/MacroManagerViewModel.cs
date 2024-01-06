@@ -589,6 +589,14 @@ public partial class MacroManagerViewModel : ObservableObject
                 case SettingType.Option when dest.SettingType == SettingType.Option:
                     ((SettingNode<string>)dest).Value = ((SettingNode<string>)source).Value;
                     break;
+                case SettingType.EnabledString when dest.SettingType == SettingType.EnabledString:
+                    ((SettingNode<string>)dest).Value = ((SettingNode<string>)source).Value;
+                    ((EnabledStringSetting)dest).IsEnabled = ((EnabledStringSetting)source).IsEnabled;
+                    break;
+                case SettingType.EnabledOption when dest.SettingType == SettingType.EnabledOption:
+                    ((SettingNode<string>)dest).Value = ((SettingNode<string>)source).Value;
+                    ((EnabledOptionSetting)dest).IsEnabled = ((EnabledOptionSetting)source).IsEnabled;
+                    break;
                 case SettingType.Integer when dest.SettingType == SettingType.Integer:
                     ((SettingNode<int>)dest).Value = ((SettingNode<int>)source).Value;
                     break;
@@ -597,6 +605,10 @@ public partial class MacroManagerViewModel : ObservableObject
                     ((SettingNode<int>)dest).Value = ((SettingNode<int>)source).Value;
                     break;
                 case SettingType.Pattern when dest.SettingType == SettingType.Pattern:
+                    ((SettingNode<PatternNode>)dest).Value = ((SettingNode<PatternNode>)source).Value;
+                    break;
+                case SettingType.EnabledPattern when dest.SettingType == SettingType.EnabledPattern:
+                    ((EnabledPatternSetting)dest).IsEnabled = ((EnabledPatternSetting)source).IsEnabled;
                     ((SettingNode<PatternNode>)dest).Value = ((SettingNode<PatternNode>)source).Value;
                     break;
             }

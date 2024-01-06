@@ -132,11 +132,23 @@ public partial class SettingNodeManagerViewModel : NodeManagerViewModel<ParentSe
     public void ResetSetting(SettingNode setting)
     {
         if (setting is null) return;
-        
-        if (setting is OptionSettingViewModel optionSetting)
+
+        if (setting is EnabledOptionSettingViewModel enabledOptionSetting)
+        {
+            enabledOptionSetting.Value = enabledOptionSetting.DefaultValue;
+            _settingRepository.Update(enabledOptionSetting);
+            _settingRepository.Save();
+        }
+        else if (setting is OptionSettingViewModel optionSetting)
         {
             optionSetting.Value = optionSetting.DefaultValue;
             _settingRepository.Update(optionSetting);
+            _settingRepository.Save();
+        }
+        else if (setting is EnabledStringSettingViewModel enabledStringSetting)
+        {
+            enabledStringSetting.Value = enabledStringSetting.DefaultValue;
+            _settingRepository.Update(enabledStringSetting);
             _settingRepository.Save();
         }
         else if (setting is StringSettingViewModel stringSetting)

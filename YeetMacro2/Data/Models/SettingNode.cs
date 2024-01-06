@@ -8,10 +8,13 @@ public enum SettingType
     Parent,
     Boolean,
     Option,
+    EnabledOption,
     String,
+    EnabledString,
     Integer,
     EnabledInteger,
-    Pattern
+    Pattern,
+    EnabledPattern
 }
 
 public class SettingNodeMetadataProvider : INodeMetadataProvider<SettingNode>
@@ -20,9 +23,9 @@ public class SettingNodeMetadataProvider : INodeMetadataProvider<SettingNode>
     public Expression<Func<SettingNode, object>> ProxyPropertiesExpression => s => new { ((PatternSetting)s).Value };
 
     public Type[] NodeTypes => new Type[] { 
-        typeof(ParentSetting), typeof(BooleanSetting), typeof(OptionSetting), 
-        typeof(StringSetting), typeof(IntegerSetting), typeof(EnabledIntegerSetting), 
-        typeof(PatternSetting) 
+        typeof(ParentSetting), typeof(BooleanSetting), typeof(OptionSetting), typeof(EnabledOptionSetting), 
+        typeof(StringSetting), typeof(EnabledStringSetting), typeof(IntegerSetting), typeof(EnabledIntegerSetting), 
+        typeof(PatternSetting), typeof(EnabledPatternSetting) 
     };
 }
 
@@ -41,10 +44,13 @@ public class ParentSetting : SettingNode, IParentNode<ParentSetting, SettingNode
 [JsonDerivedType(typeof(ParentSetting), typeDiscriminator: "parent")]
 [JsonDerivedType(typeof(BooleanSetting), typeDiscriminator: "boolean")]
 [JsonDerivedType(typeof(OptionSetting), typeDiscriminator: "option")]
+[JsonDerivedType(typeof(EnabledOptionSetting), typeDiscriminator: "enabledOption")]
 [JsonDerivedType(typeof(StringSetting), typeDiscriminator: "string")]
+[JsonDerivedType(typeof(EnabledStringSetting), typeDiscriminator: "enabledString")]
 [JsonDerivedType(typeof(IntegerSetting), typeDiscriminator: "integer")]
 [JsonDerivedType(typeof(EnabledIntegerSetting), typeDiscriminator: "enabledInteger")]
 [JsonDerivedType(typeof(PatternSetting), typeDiscriminator: "pattern")]
+[JsonDerivedType(typeof(EnabledPatternSetting), typeDiscriminator: "enabledPattern")]
 [JsonPolymorphic(UnknownDerivedTypeHandling = JsonUnknownDerivedTypeHandling.FallBackToNearestAncestor)]
 [NodeMetadata(NodeMetadataProvider = typeof(SettingNodeMetadataProvider))]
 public abstract class SettingNode : Node
@@ -82,9 +88,21 @@ public class OptionSetting : SettingNode<String>
     public virtual ICollection<String> Options { get; set; } = new List<String>();
 }
 
+public class EnabledOptionSetting : OptionSetting
+{
+    public override SettingType SettingType => SettingType.EnabledOption;
+    public virtual bool IsEnabled { get; set; }
+}
+
 public class StringSetting : SettingNode<String>
 {
     public override SettingType SettingType => SettingType.String;
+}
+
+public class EnabledStringSetting : StringSetting
+{
+    public override SettingType SettingType => SettingType.EnabledString;
+    public virtual bool IsEnabled { get; set; }
 }
 
 public class IntegerSetting : SettingNode<int>
@@ -107,4 +125,10 @@ public class PatternSetting : SettingNode<PatternNode>
     {
         Value = new PatternNode();
     }
+}
+
+public class EnabledPatternSetting : PatternSetting
+{
+    public override SettingType SettingType => SettingType.EnabledPattern;
+    public virtual bool IsEnabled { get; set; }
 }

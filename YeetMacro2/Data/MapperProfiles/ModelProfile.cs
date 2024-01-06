@@ -22,10 +22,13 @@ public class ModelProfile : Profile
         CreateMap<ParentSetting, ParentSettingViewModel>().ReverseMap();
         CreateMap<BooleanSetting, BooleanSettingViewModel>().ReverseMap();
         CreateMap<OptionSetting, OptionSettingViewModel>().ReverseMap();
+        CreateMap<EnabledOptionSetting, EnabledOptionSettingViewModel>().ReverseMap();
         CreateMap<StringSetting, StringSettingViewModel>().ReverseMap();
+        CreateMap<EnabledStringSetting, EnabledStringSettingViewModel>().ReverseMap();
         CreateMap<IntegerSetting, IntegerSettingViewModel>().ReverseMap();
         CreateMap<EnabledIntegerSetting, EnabledIntegerSettingViewModel>().ReverseMap();
         CreateMap<PatternSetting, PatternSettingViewModel>().ReverseMap();
+        CreateMap<EnabledPatternSetting, EnabledPatternSettingViewModel>().ReverseMap();
         CreateMap<DailyNode, DailyNodeViewModel>();
         //https://stackoverflow.com/questions/75877586/automapper-exception-when-mapping-jsonobject-in-net6-the-node-already-has-a
         CreateMap<JsonObject, JsonObject>()

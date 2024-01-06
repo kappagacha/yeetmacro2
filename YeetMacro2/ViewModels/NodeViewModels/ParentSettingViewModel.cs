@@ -14,9 +14,9 @@ public class SettingNodeViewModelMetadataProvider : INodeMetadataProvider<Parent
     public Expression<Func<ParentSettingViewModel, object>> ProxyPropertiesExpression => null;
 
     public Type[] NodeTypes => new Type[] { 
-        typeof(ParentSettingViewModel), typeof(BooleanSettingViewModel), typeof(OptionSettingViewModel), 
-        typeof(StringSettingViewModel), typeof(IntegerSettingViewModel), typeof(EnabledIntegerSettingViewModel), 
-        typeof(PatternSettingViewModel) 
+        typeof(ParentSettingViewModel), typeof(BooleanSettingViewModel), typeof(OptionSettingViewModel), typeof(EnabledOptionSettingViewModel), 
+        typeof(StringSettingViewModel), typeof(EnabledStringSettingViewModel), typeof(IntegerSettingViewModel), typeof(EnabledIntegerSettingViewModel), 
+        typeof(PatternSettingViewModel), typeof(EnabledPatternSettingViewModel)
     };
 }
 
@@ -49,9 +49,17 @@ public partial class ParentSettingViewModel : ParentSetting
                 {
                     base.Nodes.Add(_mapper.Map<BooleanSettingViewModel>(val));
                 }
+                else if (val is EnabledOptionSetting)
+                {
+                    base.Nodes.Add(_mapper.Map<EnabledOptionSettingViewModel>(val));
+                }
                 else if (val is OptionSetting)
                 {
                     base.Nodes.Add(_mapper.Map<OptionSettingViewModel>(val));
+                }
+                else if (val is EnabledStringSetting)
+                {
+                    base.Nodes.Add(_mapper.Map<EnabledStringSettingViewModel>(val));
                 }
                 else if (val is StringSetting)
                 {
@@ -64,6 +72,10 @@ public partial class ParentSettingViewModel : ParentSetting
                 else if (val is IntegerSetting)
                 {
                     base.Nodes.Add(_mapper.Map<IntegerSettingViewModel>(val));
+                }
+                else if (val is EnabledPatternSetting)
+                {
+                    base.Nodes.Add(_mapper.Map<EnabledPatternSettingViewModel>(val));
                 }
                 else if (val is PatternSetting)
                 {
@@ -243,6 +255,67 @@ public partial class OptionSettingViewModel : OptionSetting
 }
 
 [ObservableObject]
+public partial class EnabledOptionSettingViewModel : EnabledOptionSetting
+{
+    public override string Name
+    {
+        get => base.Name;
+        set
+        {
+            base.Name = value;
+            OnPropertyChanged();
+        }
+    }
+
+    public override bool IsSelected
+    {
+        get => base.IsSelected;
+        set
+        {
+            base.IsSelected = value;
+            OnPropertyChanged();
+        }
+    }
+
+    public bool IsLeaf { get; set; } = true;
+    public object Children { get; set; }        // I don't know why this is always binded in UraniumUI treeview
+
+    public override string Value
+    {
+        get => base.Value;
+        set
+        {
+            var doSave = base.Value != value;
+            base.Value = value;
+            OnPropertyChanged();
+            if (doSave) WeakReferenceMessenger.Default.Send<SettingNode>(this);
+        }
+    }
+
+    public override ICollection<String> Options
+    {
+        get => base.Options;
+        set
+        {
+            base.Options = value;
+            OnPropertyChanged();
+        }
+    }
+
+    public override bool IsEnabled
+    {
+        get => base.IsEnabled;
+        set
+        {
+            var doSave = base.IsEnabled != value;
+            base.IsEnabled = value;
+            OnPropertyChanged();
+            if (doSave) WeakReferenceMessenger.Default.Send<SettingNode>(this);
+        }
+    }
+}
+
+[ObservableObject]
 public partial class StringSettingViewModel : StringSetting
 {
     public override string Name
@@ -275,6 +348,57 @@ public partial class StringSettingViewModel : StringSetting
         {
             var doSave = base.Value != value;
             base.Value = value;
+            OnPropertyChanged();
+            if (doSave) WeakReferenceMessenger.Default.Send<SettingNode>(this);
+        }
+    }
+}
+
+[ObservableObject]
+public partial class EnabledStringSettingViewModel : EnabledStringSetting
+{
+    public override string Name
+    {
+        get => base.Name;
+        set
+        {
+            base.Name = value;
+            OnPropertyChanged();
+        }
+    }
+
+    public override bool IsSelected
+    {
+        get => base.IsSelected;
+        set
+        {
+            base.IsSelected = value;
+            OnPropertyChanged();
+        }
+    }
+
+    public bool IsLeaf { get; set; } = true;
+    public object Children { get; set; }        // I don't know why this is always binded in UraniumUI treeview
+
+    public override string Value
+    {
+        get => base.Value;
+        set
+        {
+            var doSave = base.Value != value;
+            base.Value = value;
+            OnPropertyChanged();
+            if (doSave) WeakReferenceMessenger.Default.Send<SettingNode>(this);
+        }
+    }
+
+    public override bool IsEnabled
+    {
+        get => base.IsEnabled;
+        set
+        {
+            var doSave = base.IsEnabled != value;
+            base.IsEnabled = value;
             OnPropertyChanged();
             if (doSave) WeakReferenceMessenger.Default.Send<SettingNode>(this);
         }
@@ -445,3 +569,58 @@ public partial class PatternSettingViewModel : PatternSetting
     }
 }
 
+[ObservableObject]
+public partial class EnabledPatternSettingViewModel : EnabledPatternSetting
+{
+    static IMapper _mapper;
+
+    public override string Name
+    {
+        get => base.Name;
+        set
+        {
+            base.Name = value;
+            OnPropertyChanged();
+        }
+    }
+
+    public override bool IsSelected
+    {
+        get => base.IsSelected;
+        set
+        {
+            base.IsSelected = value;
+            OnPropertyChanged();
+        }
+    }
+
+    public bool IsLeaf { get; set; } = true;
+    public object Children { get; set; }        // I don't know why this is always binded in UraniumUI treeview
+
+    public override PatternNode Value
+    {
+        get => base.Value;
+        set
+        {
+            base.Value = _mapper.Map<PatternNodeViewModel>(value);
+            OnPropertyChanged();
+        }
+    }
+
+    static EnabledPatternSettingViewModel()
+    {
+        _mapper = ServiceHelper.GetService<IMapper>();
+    }
+
+    public override bool IsEnabled
+    {
+        get => base.IsEnabled;
+        set
+        {
+            var doSave = base.IsEnabled != value;
+            base.IsEnabled = value;
+            OnPropertyChanged();
+            if (doSave) WeakReferenceMessenger.Default.Send<SettingNode>(this);
+        }
+    }
+}

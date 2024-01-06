@@ -46,9 +46,42 @@
                          CommandParameter="{Binding .}" />
             </FlexLayout>
         </DataTemplate>
+        <DataTemplate x:Key="EnabledOptionSettingTemplate">
+            <FlexLayout JustifyContent="SpaceBetween">
+                <HorizontalStackLayout>
+                    <CheckBox IsChecked="{Binding IsEnabled}" VerticalOptions="Center" />
+                    <Grid>
+                        <Label Margin="0" Padding="0" Text="{Binding Value}" VerticalOptions="Center" />
+                        <ImageButton Margin="0" Padding="0"
+                            Command="{Binding BindingContext.Settings.SelectOptionCommand, Source={RelativeSource AncestorType={x:Type v:SettingNodeView}}}"
+                            CommandParameter="{Binding .}" />
+                    </Grid>
+                    <v:ImageView
+                        VerticalOptions="Center" FontFamily="MaterialOutlined" Glyph="{x:Static mi:MaterialOutlined.Add}"
+                        Command="{Binding BindingContext.Settings.AddOptionCommand, Source={RelativeSource AncestorType={x:Type v:SettingNodeView}}}"
+                        CommandParameter="{Binding .}" />
+                </HorizontalStackLayout>
+                <v:ImageView
+                 VerticalOptions="Center" FontFamily="MaterialOutlined" Glyph="{x:Static mi:MaterialOutlined.Refresh}"
+                 Command="{Binding BindingContext.Settings.ResetSettingCommand, Source={RelativeSource AncestorType={x:Type v:SettingNodeView}}}"
+                 CommandParameter="{Binding .}" />
+            </FlexLayout>
+        </DataTemplate>
         <DataTemplate x:Key="StringSettingTemplate">
             <FlexLayout JustifyContent="SpaceBetween">
                 <Entry VerticalOptions="Center" Text="{Binding Value}" />
+                <v:ImageView
+                    VerticalOptions="Center" FontFamily="MaterialOutlined" Glyph="{x:Static mi:MaterialOutlined.Refresh}"
+                    Command="{Binding BindingContext.Settings.ResetSettingCommand, Source={RelativeSource AncestorType={x:Type v:SettingNodeView}}}"
+                    CommandParameter="{Binding .}" />
+            </FlexLayout>
+        </DataTemplate>
+        <DataTemplate x:Key="EnabledStringSettingTemplate">
+            <FlexLayout JustifyContent="SpaceBetween">
+                <HorizontalStackLayout>
+                    <CheckBox IsChecked="{Binding IsEnabled}" VerticalOptions="Center" />
+                    <Entry VerticalOptions="Center" Text="{Binding Value}" />
+                </HorizontalStackLayout>
                 <v:ImageView
                     VerticalOptions="Center" FontFamily="MaterialOutlined" Glyph="{x:Static mi:MaterialOutlined.Refresh}"
                     Command="{Binding BindingContext.Settings.ResetSettingCommand, Source={RelativeSource AncestorType={x:Type v:SettingNodeView}}}"
@@ -75,6 +108,9 @@
             </mct:DockLayout>
         </DataTemplate>
         <DataTemplate x:Key="PatternSettingTemplate" />
+        <DataTemplate x:Key="EnabledPatternSettingTemplate">
+            <CheckBox IsChecked="{Binding IsEnabled}" VerticalOptions="Center" />
+        </DataTemplate>
     </ContentView.Resources>
     <Grid ColumnDefinitions="*">
         <Grid.Triggers>
