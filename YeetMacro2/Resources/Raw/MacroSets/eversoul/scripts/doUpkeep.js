@@ -2,17 +2,17 @@
 // @position=-1
 // Do upkeep (all checked scripts)
 
-if (settings.doDailies.claimLoot.Value) {
+if (settings.doUpkeep.claimLoot.Value) {
     claimLoot();
     goToLobby();
 }
 
-if (settings.doDailies.doFriends.Value) {
+if (settings.doUpkeep.doFriends.Value) {
     doFriends();
     goToLobby();
 }
 
-if (settings.doDailies.doPartTimeJobAndRest.Value) {
+if (settings.doUpkeep.doPartTimeJobAndRest.Value) {
     doPartTimeJobAndRest();
     goToLobby();
 }
