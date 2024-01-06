@@ -12,12 +12,7 @@ if (settings.doUpkeep.doArena.Value) {
     goToLobby();
 }
 
-if (settings.doUpkeep.doEcologyStudy.Value) {
-    doEcologyStudy();
-    goToLobby();
-}
-
-if (settings.doUpkeep.doIdentification.Value) {
-    doBanditChase();
+if (settings.doUpkeep.spendStaminaScript.IsEnabled) {
+    globalThis[settings.doUpkeep.spendStaminaScript.Value]();
     goToLobby();
 }

@@ -759,28 +759,21 @@
         "path": "doUpkeep.doArena"
       }
     },
-    "doEcologyStudy": {
+    "spendStaminaScript": {
       "$isParent": false,
       "props": {
-        "$type": "boolean",
-        "settingType": "Boolean",
-        "value": true,
+        "$type": "enabledOption",
+        "settingType": "EnabledOption",
+        "isEnabled": false,
+        "options": [
+          "doEcologyStudy",
+          "doIdentification"
+        ],
+        "value": "doEcologyStudy",
         "isParentNode": false,
-        "name": "doEcologyStudy",
+        "name": "spendStaminaScript",
         "position": 0,
-        "path": "doUpkeep.doEcologyStudy"
-      }
-    },
-    "doIdentification": {
-      "$isParent": false,
-      "props": {
-        "$type": "boolean",
-        "settingType": "Boolean",
-        "value": false,
-        "isParentNode": false,
-        "name": "doIdentification",
-        "position": 0,
-        "path": "doUpkeep.doIdentification"
+        "path": "doUpkeep.spendStaminaScript"
       }
     }
   },
