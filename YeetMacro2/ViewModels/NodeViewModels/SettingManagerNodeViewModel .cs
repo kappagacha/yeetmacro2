@@ -44,6 +44,11 @@ public partial class SettingNodeManagerViewModel : NodeManagerViewModel<ParentSe
         var targetName = scriptNode.Name;
         var targetNode = Root.Nodes.FirstOrDefault(sn => sn.Name?.ToLower() == targetName.ToLower()) as ParentSetting;
         CurrentSubViewModel = targetNode ?? _emptyParentSetting;
+
+        if (SelectedNode is not null)
+        {
+            SelectNode(SelectedNode);   // should unselect the node
+        }
     }
 
     private void SettingNodeManagerViewModel_PropertyChanged(object sender, PropertyChangedEventArgs e)
