@@ -24,4 +24,16 @@ public class AndroidOcrService : IOcrService
 
         return _tesseractApi.Text;
     }
+
+    public async Task<string> GetTextAsync(byte[] imageData, string whiteList = null)
+    {
+        if (_tesseractApi is null) return string.Empty;
+
+        if (!String.IsNullOrWhiteSpace(whiteList)) _tesseractApi.SetWhitelist(whiteList);
+        await _tesseractApi.SetImage(imageData);
+        if (!String.IsNullOrWhiteSpace(whiteList)) _tesseractApi.SetWhitelist("");
+
+        return _tesseractApi.Text;
+    }
 }
+

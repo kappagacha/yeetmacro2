@@ -26,7 +26,7 @@ public static class ServiceRegistrationHelper
         mauiAppBuilder.Logging.AddLogViewModelSink();
         mauiAppBuilder.Services.AddSingleton<MacroService>();
 
-        mauiAppBuilder.Services.AddTesseractOcr(files => files.AddFile("eng.traineddata"));
+        //mauiAppBuilder.Services.AddTesseractOcr(files => files.AddFile("eng.traineddata"));
 
         return mauiAppBuilder;
     }

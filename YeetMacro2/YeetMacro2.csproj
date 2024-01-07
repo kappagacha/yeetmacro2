@@ -75,11 +75,18 @@
 	</ItemGroup>
 
 	<ItemGroup>
+	  <None Remove="Platforms\Android\Assets\tessdata\eng.traineddata" />
 	  <None Remove="Platforms\Android\Resources\xml\yeetmacro_config.xml" />
 	  <None Remove="Resources\Fonts\OpenSans-Medium.ttf" />
 	  <None Remove="Resources\Images\appicon2.svg" />
-	  <None Remove="Resources\Raw\eng.traineddata" />
 	  <None Remove="Resources\Splash\splash.svg" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <AndroidAsset Update="Platforms\Android\Assets\tessdata\eng.traineddata">
+	    <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+	    <LogicalName>%(RecursiveDir)%(Filename)%(Extension)</LogicalName>
+	  </AndroidAsset>
 	</ItemGroup>
 
 	<ItemGroup>
@@ -239,9 +246,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <MauiAsset Update="Resources\Raw\eng.traineddata">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </MauiAsset>
     <MauiAsset Update="Resources\Raw\MacroSets\eversoul\macroSet.json">
       <LogicalName>%(RecursiveDir)%(Filename)%(Extension)</LogicalName>
     </MauiAsset>

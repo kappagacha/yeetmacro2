@@ -332,7 +332,7 @@ public partial class PatternNodeManagerViewModel : NodeManagerViewModel<PatternN
     }
 
     [RelayCommand]
-    private void TestPatternTextMatch(object[] values)
+    private async Task TestPatternTextMatch(object[] values)
     {
         if (values.Length != 4) return;
 
@@ -349,14 +349,14 @@ public partial class PatternNodeManagerViewModel : NodeManagerViewModel<PatternN
 
             _screenService.DrawClear();
             _screenService.DrawRectangle(pattern.Rect.Offset(opts.Offset));
-            var result = _screenService.GetText(pattern, opts);
+            var result = await _screenService.GetTextAsync(pattern, opts);
             _toastService.Show($"TextMatch: {result}");
             Console.WriteLine($"TextMatch: {result}");
         }
     }
 
     [RelayCommand]
-    private void ApplyPatternTextMatch(object[] values)
+    private async Task ApplyPatternTextMatch(object[] values)
     {
         if (values.Length != 4) return;
 
@@ -373,7 +373,7 @@ public partial class PatternNodeManagerViewModel : NodeManagerViewModel<PatternN
 
             _screenService.DrawClear();
             _screenService.DrawRectangle(pattern.Rect.Offset(opts.Offset));
-            var result = _screenService.GetText(pattern, opts);
+            var result = await _screenService.GetTextAsync(pattern, opts);
             _toastService.Show($"TextMatch Apply: {result}");
             pattern.TextMatch.Text = result;
 

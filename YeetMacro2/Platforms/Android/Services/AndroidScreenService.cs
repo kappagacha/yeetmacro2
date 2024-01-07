@@ -375,6 +375,22 @@ public class AndroidScreenService : IScreenService
         return _ocrService.GetText(imageData, pattern.TextMatch.WhiteList ?? opts.Whitelist);
     }
 
+    public Task<string> GetTextAsync(Pattern pattern, TextFindOptions opts)
+    {
+        _logger.LogTrace("AndroidScreenService GetText");
+        var boundsPadding = 4;
+        var currentImageData = pattern.Rect != Rect.Zero ?
+            _mediaProjectionService.GetCurrentImageData(
+                new Rect(pattern.Rect.Location.Offset(opts.Offset.X, opts.Offset.Y).Offset(-boundsPadding, -boundsPadding),
+                          pattern.Rect.Size + new Size(boundsPadding, boundsPadding))) :
+            _mediaProjectionService.GetCurrentImageData();
+        var imageData = pattern.ColorThreshold.IsActive ?
+            _openCvService.CalcColorThreshold(currentImageData, pattern.ColorThreshold) :
+            currentImageData;
+
+        return _ocrService.GetTextAsync(imageData, pattern.TextMatch.WhiteList ?? opts.Whitelist);
+    }
+
     public string GetText(byte[] currentImage)
     {
         _logger.LogTrace("AndroidScreenService GetText");
