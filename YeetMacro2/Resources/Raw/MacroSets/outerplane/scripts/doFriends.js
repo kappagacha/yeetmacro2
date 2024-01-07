@@ -1,3 +1,4 @@
+// @position=4
 // Receive and present friend hearts
 const loopPatterns = [patterns.lobby.level, patterns.titles.friends];
 const daily = dailyManager.GetDaily();

@@ -1,3 +1,4 @@
+// @position=11
 // Auto or sweep side story (2). Required options:
 // section: selects the tab
 // targetStory: pattern that selects story

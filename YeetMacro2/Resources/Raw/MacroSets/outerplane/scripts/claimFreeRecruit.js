@@ -1,3 +1,4 @@
+// @position=3
 // Claim daily recruit
 const loopPatterns = [patterns.lobby.level, patterns.titles.recruit];
 const daily = dailyManager.GetDaily();

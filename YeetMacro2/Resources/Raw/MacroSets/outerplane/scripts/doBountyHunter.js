@@ -1,3 +1,4 @@
+// @position=7
 // Auto or sweep bounty hunter
 const loopPatterns = [patterns.lobby.level, patterns.titles.adventure, patterns.titles.challenge];
 const daily = dailyManager.GetDaily();

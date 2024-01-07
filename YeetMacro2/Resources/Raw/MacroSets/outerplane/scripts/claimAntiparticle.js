@@ -1,3 +1,4 @@
+// @position=1
 // Claim anti particle generator rewards
 const loopPatterns = [patterns.lobby.level, patterns.titles.base];
 const daily = dailyManager.GetDaily();

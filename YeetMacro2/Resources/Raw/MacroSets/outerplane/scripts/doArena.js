@@ -1,3 +1,4 @@
+// @position=6
 // Battle in arena until out of arena tickets
 // Will prioritize Memorial Match
 const loopPatterns = [patterns.lobby.level, patterns.titles.adventure, patterns.titles.arena];

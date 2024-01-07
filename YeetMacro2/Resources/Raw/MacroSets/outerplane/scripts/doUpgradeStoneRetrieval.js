@@ -1,3 +1,4 @@
+// @position=9
 // Auto or sweep upgrade stone retrieval
 const loopPatterns = [patterns.lobby.level, patterns.titles.adventure, patterns.titles.challenge];
 const daily = dailyManager.GetDaily();
