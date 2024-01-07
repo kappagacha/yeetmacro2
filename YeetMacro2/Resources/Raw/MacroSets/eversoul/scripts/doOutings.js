@@ -52,7 +52,7 @@ while (macroService.IsRunning) {
 			macroService.PollPattern(targetSoul, { DoClick: true, PredicatePattern: patterns.town.outings.call });
 
 			if (targetBondLevelIsEnabled) {
-				const currentBondLevel = macroService.GetText(patterns.town.outings.bondLevel).replace(/[\+ ]/g, '');
+				const currentBondLevel = macroService.GetText(patterns.town.outings.bondLevel).replace(/[\LV ]/g, '');
 				if (Number(currentBondLevel) >= Number(targetBondLevel)) {
 					throw new Error(`Target bond level reached: ${targetBondLevel}`);
 				}

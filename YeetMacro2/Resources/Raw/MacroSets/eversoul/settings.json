@@ -113,7 +113,7 @@
       "props": {
         "$type": "enabledInteger",
         "settingType": "EnabledInteger",
-        "isEnabled": false,
+        "isEnabled": true,
         "increment": 1,
         "value": 10,
         "isParentNode": false,
