@@ -1,3 +1,4 @@
+// @position=4
 // Auto guild security area
 const loopPatterns = [patterns.lobby.level, patterns.titles.guildBoard, patterns.titles.guild];
 const daily = dailyManager.GetDaily();
