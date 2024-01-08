@@ -1,4 +1,5 @@
-﻿// Claim free shop item
+﻿// @position=3
+// Claim free shop item
 const loopPatterns = [patterns.lobby.level, patterns.general.back];
 const daily = dailyManager.GetDaily();
 if (daily.claimFreeShop.done.IsChecked) {

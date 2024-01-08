@@ -1,4 +1,5 @@
-﻿// Claim and recieve hearts
+﻿// @position=6
+// Claim and recieve hearts
 // Hire 5 souls. Requires hireTarget pattern captures
 const loopPatterns = [patterns.lobby.level, patterns.titles.friends];
 const daily = dailyManager.GetDaily();

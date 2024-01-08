@@ -1,4 +1,5 @@
-﻿// Claim champs arena rewards
+﻿// @position=5
+// Claim champs arena rewards
 const loopPatterns = [patterns.lobby.level, patterns.titles.adventure];
 const daily = dailyManager.GetDaily();
 

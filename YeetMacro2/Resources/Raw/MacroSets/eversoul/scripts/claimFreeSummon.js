@@ -1,4 +1,5 @@
-﻿// Claim free summon
+﻿// @position=4
+// Claim free summon
 const loopPatterns = [patterns.lobby.level, patterns.general.back];
 const daily = dailyManager.GetDaily();
 if (daily.claimFreeSummon.done.IsChecked) {

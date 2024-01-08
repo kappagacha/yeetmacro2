@@ -1,4 +1,5 @@
-﻿// Buy mana crystals and class enhance with gold
+﻿// @position=7
+// Buy mana crystals and class enhance with gold
 // Buy artifact memories
 const loopPatterns = [patterns.lobby.level, patterns.general.back];
 const daily = dailyManager.GetDaily();

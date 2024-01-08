@@ -1,4 +1,5 @@
-﻿// Use all champs arena tickets. Automatically fights minimum CP value
+﻿// @position=10
+// Use all champs arena tickets. Automatically fights minimum CP value
 // Will rematch if cpThreshold is enabled and maximum CP is not met
 const loopPatterns = [patterns.lobby.level, patterns.titles.adventure, patterns.adventure.arena.freeChallenge, patterns.adventure.arena.startMatch, patterns.adventure.champsArena.buyTicket];
 const daily = dailyManager.GetDaily();

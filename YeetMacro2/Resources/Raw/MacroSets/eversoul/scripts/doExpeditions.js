@@ -1,4 +1,5 @@
-﻿// Send all likes. Do all expeditions. Looks at Help Received Yesterday then Like
+﻿// @position=7
+// Send all likes. Do all expeditions. Looks at Help Received Yesterday then Like
 // Prioritizes least helped
 const loopPatterns = [patterns.lobby.level, patterns.town.level, patterns.titles.visitTown];
 const daily = dailyManager.GetDaily();

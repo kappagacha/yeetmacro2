@@ -1,4 +1,5 @@
-﻿// Claim mail
+﻿// @position=2
+// Claim mail
 const loopPatterns = [patterns.lobby.level, patterns.titles.mailbox];
 const daily = dailyManager.GetDaily();
 if (daily.claimMail.done.IsChecked) {

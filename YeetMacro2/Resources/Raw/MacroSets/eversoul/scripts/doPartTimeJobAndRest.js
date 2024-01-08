@@ -1,4 +1,5 @@
-﻿const loopPatterns = [patterns.lobby.level, patterns.town.enter];
+﻿// @position=8
+const loopPatterns = [patterns.lobby.level, patterns.town.enter];
 const daily = dailyManager.GetDaily();
 
 while (macroService.IsRunning) {

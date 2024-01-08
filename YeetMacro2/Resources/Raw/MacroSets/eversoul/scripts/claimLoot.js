@@ -1,4 +1,5 @@
-﻿// Claim loot
+﻿// @position=1
+// Claim loot
 const loopPatterns = [patterns.lobby.level, patterns.titles.loot];
 const daily = dailyManager.GetDaily();
 
