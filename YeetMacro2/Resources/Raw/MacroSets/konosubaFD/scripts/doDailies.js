@@ -27,8 +27,13 @@ if (settings.doDailies.doBattleArenaEx.Value) {
     goToLobby();
 }
 
-if (settings.doDailies.doEventSpecialQuests.Value) {
-    doEventSpecialQuests();
+if (settings.doDailies.doMainOrEventHardQuests.Value) {
+    doMainOrEventHardQuests();
+    goToLobby();
+}
+
+if (settings.doDailies.doOneFameQuest.Value) {
+    doOneFameQuest();
     goToLobby();
 }
 

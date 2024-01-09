@@ -25,6 +25,9 @@ logger.info('goToLobby: start');
 //_watchAdStamina
 // => patterns.general.close[trialOfTheAncients]
 
+//doOneFameQuest
+// => patterns.battle.next => patterns.battle.next2
+
 macroService.PollPattern(patterns.titles.home, {
 	ClickPattern: [
 		patterns.tabs.home,
@@ -33,7 +36,9 @@ macroService.PollPattern(patterns.titles.home, {
 		patterns.general.close,
 		patterns.friend.close,
 		patterns.quest.events.quest.skipAll.cancel,
-		patterns.ad.cancel
+		patterns.ad.cancel,
+		patterns.battle.next,
+		patterns.battle.next2
 	]
 });
 

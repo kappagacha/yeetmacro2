@@ -262,6 +262,18 @@
         "path": "doDailies.doExpertMainQuests"
       }
     },
+    "doOneFameQuest": {
+      "$isParent": false,
+      "props": {
+        "$type": "boolean",
+        "settingType": "Boolean",
+        "value": true,
+        "isParentNode": false,
+        "name": "doOneFameQuest",
+        "position": 0,
+        "path": "doDailies.doOneFameQuest"
+      }
+    },
     "doFreeQuests": {
       "$isParent": false,
       "props": {

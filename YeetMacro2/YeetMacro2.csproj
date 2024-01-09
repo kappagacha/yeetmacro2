@@ -321,6 +321,9 @@
     <MauiAsset Update="Resources\Raw\MacroSets\konosubaFD\scripts\doBattleArenaEx.js">
       <LogicalName>%(RecursiveDir)%(Filename)%(Extension)</LogicalName>
     </MauiAsset>
+    <MauiAsset Update="Resources\Raw\MacroSets\konosubaFD\scripts\doOneFameQuest.js">
+      <LogicalName>%(RecursiveDir)%(Filename)%(Extension)</LogicalName>
+    </MauiAsset>
     <MauiAsset Update="Resources\Raw\MacroSets\konosubaFD\scripts\goToLobby.js">
       <LogicalName>%(RecursiveDir)%(Filename)%(Extension)</LogicalName>
     </MauiAsset>
