@@ -132,6 +132,18 @@
       "position": 0,
       "path": "doFriends"
     },
+    "isHiring": {
+      "$isParent": false,
+      "props": {
+        "$type": "boolean",
+        "settingType": "Boolean",
+        "value": false,
+        "isParentNode": false,
+        "name": "isHiring",
+        "position": 0,
+        "path": "doFriends.isHiring"
+      }
+    },
     "hireTarget1": {
       "$isParent": false,
       "props": {

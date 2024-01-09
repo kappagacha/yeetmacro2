@@ -31,32 +31,34 @@ while (macroService.IsRunning) {
 			macroService.PollPattern(patterns.friends.sendAllHearts, { DoClick: true, PredicatePattern: patterns.friends.sendAllHearts.disabled });
 			macroService.PollPattern(patterns.friends.receiveAllHearts, { DoClick: true, PredicatePattern: patterns.friends.receiveAllHearts.disabled });
 
-			macroService.PollPattern(patterns.friends.hireSoul, { DoClick: true, PredicatePattern: patterns.friends.hireSoul.selected });
-			
-			let swipeCount = 0;
-			let hireSoulDoneResult = macroService.FindPattern(patterns.friends.hireSoul.done);
-			//let hireSoulDoneResult = { IsSuccess: false };
-			let hireTargets = [hireTarget1, hireTarget2, hireTarget3, hireTarget4, hireTarget5];
+			if (settings.doFriends.isHiring.Value) {
+				macroService.PollPattern(patterns.friends.hireSoul, { DoClick: true, PredicatePattern: patterns.friends.hireSoul.selected });
 
-			while (macroService.IsRunning && !hireSoulDoneResult.IsSuccess && swipeCount < 15) {
-				const swipeResult = macroService.SwipePollPattern(hireTargets, { MaxSwipes: 1, Start: { X: 1500, Y: 800 }, End: { X: 1500, Y: 150 } });
-				if (swipeResult.IsSuccess) {
-					const hirePattern = macroService.ClonePattern(patterns.friends.hireSoul.hire, { CenterY: swipeResult.Point.Y, Padding: 25, Path: `friends.hireSoul.hire_y${swipeResult.Point.Y}` });
-					macroService.ClickPattern(hirePattern);
-					sleep(200)
-					macroService.ClickPattern(hirePattern);
-					logger.info();
-					hireTargets = hireTargets.filter(ht => ht.Path !== swipeResult.Path);
-					logger.info(swipeResult.Path + '___' + hireTargets.length);
+				let swipeCount = 0;
+				let hireSoulDoneResult = macroService.FindPattern(patterns.friends.hireSoul.done);
+				//let hireSoulDoneResult = { IsSuccess: false };
+				let hireTargets = [hireTarget1, hireTarget2, hireTarget3, hireTarget4, hireTarget5];
+
+				while (macroService.IsRunning && !hireSoulDoneResult.IsSuccess && swipeCount < 15) {
+					const swipeResult = macroService.SwipePollPattern(hireTargets, { MaxSwipes: 1, Start: { X: 1500, Y: 800 }, End: { X: 1500, Y: 150 } });
+					if (swipeResult.IsSuccess) {
+						const hirePattern = macroService.ClonePattern(patterns.friends.hireSoul.hire, { CenterY: swipeResult.Point.Y, Padding: 25, Path: `friends.hireSoul.hire_y${swipeResult.Point.Y}` });
+						macroService.ClickPattern(hirePattern);
+						sleep(200)
+						macroService.ClickPattern(hirePattern);
+						logger.info();
+						hireTargets = hireTargets.filter(ht => ht.Path !== swipeResult.Path);
+						logger.info(swipeResult.Path + '___' + hireTargets.length);
+					}
+					hireSoulDoneResult = macroService.FindPattern(patterns.friends.hireSoul.done);
+					swipeCount++;
 				}
-				hireSoulDoneResult = macroService.FindPattern(patterns.friends.hireSoul.done);
-				swipeCount++;
-			}
 
-			if (!hireSoulDoneResult.IsSuccess) {
-				throw Error('Unable to find target souls.')
+				if (!hireSoulDoneResult.IsSuccess) {
+					throw Error('Unable to find target souls.')
+				}
 			}
-
+			
 			logger.info('doFriends: done');
 			if (macroService.IsRunning) {
 				daily.doFriends.count.Count++;
