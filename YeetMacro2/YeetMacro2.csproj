@@ -330,7 +330,7 @@
     <MauiAsset Update="Resources\Raw\MacroSets\konosubaFD\scripts\doFreeQuests.js">
       <LogicalName>%(RecursiveDir)%(Filename)%(Extension)</LogicalName>
     </MauiAsset>
-    <MauiAsset Update="Resources\Raw\MacroSets\konosubaFD\scripts\doEventSpecialQuests.js">
+    <MauiAsset Update="Resources\Raw\MacroSets\konosubaFD\scripts\doMainOrEventHardQuests.js">
       <LogicalName>%(RecursiveDir)%(Filename)%(Extension)</LogicalName>
     </MauiAsset>
     <MauiAsset Update="Resources\Raw\MacroSets\konosubaFD\scripts\farmEventBossLoop.js">
