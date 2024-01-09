@@ -186,10 +186,11 @@ public class MacroService
 
                     foreach (var pattern in patternNode.Patterns)
                     {
-                        var optsWithOffset = new FindOptions() {
+                        var optsWithOffset = new FindOptions()
+                        {
                             Limit = opts.Limit,
                             VariancePct = opts.VariancePct,
-                            Offset = opts.Offset.Offset(offset.X, offset.Y) 
+                            Offset = opts.Offset.Offset(offset.X, offset.Y)
                         };
 
                         if (InDebugMode && pattern.Rect != Rect.Zero)
@@ -221,10 +222,11 @@ public class MacroService
                     if (pattern is null) return result;
 
                     var offset = CalcOffset(patternNode);
-                    var optsWithOffset = new FindOptions() {
+                    var optsWithOffset = new FindOptions()
+                    {
                         Limit = opts.Limit,
                         VariancePct = opts.VariancePct,
-                        Offset = opts.Offset.Offset(offset.X, offset.Y) 
+                        Offset = opts.Offset.Offset(offset.X, offset.Y)
                     };
 
                     if (InDebugMode && pattern.Rect != Rect.Zero)
@@ -287,6 +289,27 @@ public class MacroService
 
         Sleep(500);
         return result;
+    }
+
+    public FindPatternResult PollPoint(Point point, PollPatternFindOptions opts = null)
+    {
+        if (opts is null) opts = new PollPatternFindOptions();
+        opts.DoClick = true;
+
+        var patternNode = new PatternNode()
+        {
+            Path = point.ToString(),
+            Patterns = new List<Pattern> {
+                    new Pattern()
+                    {
+                        IsBoundsPattern = true,
+                        Rect = new Rect(point, Size.Zero),
+                        Resolution = _screenService.CalcResolution
+                    }
+                }
+        };
+
+        return PollPattern(patternNode, opts);
     }
 
     public FindPatternResult PollPattern(OneOf<PatternNode, PatternNode[]> oneOfPattern, PollPatternFindOptions opts = null)
