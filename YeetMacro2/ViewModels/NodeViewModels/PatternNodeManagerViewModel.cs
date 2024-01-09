@@ -261,28 +261,36 @@ public partial class PatternNodeManagerViewModel : NodeManagerViewModel<PatternN
                 pattern = GetScaled(_screenService, pattern, scale);
             }
 
-            var opts = new FindOptions() { Limit = 10 };
-            if (int.TryParse(strXOffset, out int xOffset)) opts.Offset = opts.Offset.Offset(xOffset, 0);
-            if (int.TryParse(strYOffset, out int yOffset)) opts.Offset = opts.Offset.Offset(0, yOffset);
-            if (doTestCalc) opts.Offset = CalcOffset(pattern, _screenService.CalcResolution);
-
-            _screenService.DrawClear();
-            var result = _screenService.FindPattern(pattern, opts);
-            var points = result.Points;
-            _toastService.Show(points != null && points.Length > 0 ? "Match(es) found" : "No match found");
-
-            if (pattern.Rect != Rect.Zero)
+            // Usage of Task.Run and MainThread.BeginInvokeOnMainThread is needed because of AndroidOcrService
+            Task.Run(() =>
             {
-                _screenService.DrawRectangle(pattern.Rect.Offset(opts.Offset));
-            }
+                var opts = new FindOptions() { Limit = 10 };
+                if (int.TryParse(strXOffset, out int xOffset)) opts.Offset = opts.Offset.Offset(xOffset, 0);
+                if (int.TryParse(strYOffset, out int yOffset)) opts.Offset = opts.Offset.Offset(0, yOffset);
+                if (doTestCalc) opts.Offset = CalcOffset(pattern, _screenService.CalcResolution);
 
-            if (points != null)
-            {
-                foreach (var point in points)
+                _screenService.DrawClear();
+                var result = _screenService.FindPattern(pattern, opts);
+                var points = result.Points;
+
+                MainThread.BeginInvokeOnMainThread(() =>
                 {
-                    _screenService.DrawCircle(point);
-                }
-            }
+                    _toastService.Show(points != null && points.Length > 0 ? "Match(es) found" : "No match found");
+
+                    if (pattern.Rect != Rect.Zero)
+                    {
+                        _screenService.DrawRectangle(pattern.Rect.Offset(opts.Offset));
+                    }
+
+                    if (points != null)
+                    {
+                        foreach (var point in points)
+                        {
+                            _screenService.DrawCircle(point);
+                        }
+                    }
+                });
+            });
         }
     }
 
