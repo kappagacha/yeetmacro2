@@ -4,7 +4,7 @@ logger.info('goToLobby: start');
 //claimJobs
 // => patterns.tabs.home
 
-//doExpertMainQuests
+//doMainExpertQuests
 //doFreeQuests
 // => patterns.skipAll.cancel => patterns.general.back => patterns.tabs.home
 

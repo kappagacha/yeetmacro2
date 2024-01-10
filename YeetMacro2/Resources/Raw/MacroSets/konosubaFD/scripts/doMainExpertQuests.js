@@ -2,7 +2,7 @@
 const loopPatterns = [patterns.titles.home, patterns.titles.smithy, patterns.titles.craft, patterns.skipAll.title];
 const offset = macroService.CalcOffset(patterns.titles.home);
 const daily = dailyManager.GetDaily();
-if (daily.doExpertMainQuests.done.IsChecked) {
+if (daily.doMainExpertQuests.done.IsChecked) {
 	return "Script already completed. Uncheck done to override daily flag.";
 }
 
@@ -10,11 +10,11 @@ while (macroService.IsRunning) {
 	const result = macroService.PollPattern(loopPatterns);
 	switch (result.Path) {
 		case 'titles.home':
-			logger.info('farmMats: click smithy tab');
+			logger.info('doMainExpertQuests: click smithy tab');
 			macroService.ClickPattern(patterns.tabs.smithy);
 			break;
 		case 'titles.smithy':
-			logger.info('farmMats: click craft');
+			logger.info('doMainExpertQuests: click craft');
 			macroService.ClickPattern(patterns.smithy.craft);
 			break;
 		case 'titles.craft':
@@ -26,14 +26,14 @@ while (macroService.IsRunning) {
 			sleep(500);
 			break;
 		case 'skipAll.title':
-			logger.info('farmMats: farm extreme levels');
+			logger.info('doMainExpertQuests: farm extreme levels');
 			farmMat([patterns.skipAll.search.select.mithrilOre, patterns.skipAll.search.select.yggdrasilBranch, patterns.skipAll.search.select.platinumOre], 700, 1);
 			// sky dragon scale is obsolete when compared to the brooches (hard to come by though)
 			//sleep(1_000);
 			//logger.info('farmMats: farm skyDragonScale');
 			//farmMat([patterns.skipAll.search.select.skyDragonScale], 500, 3);
 			if (macroService.IsRunning) {
-				daily.doExpertMainQuests.done.IsChecked = true;
+				daily.doMainExpertQuests.done.IsChecked = true;
 			}
 			return;
 	}

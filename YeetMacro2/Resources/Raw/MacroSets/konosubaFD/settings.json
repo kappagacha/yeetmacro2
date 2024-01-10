@@ -250,16 +250,16 @@
         "path": "doDailies.claimJobs"
       }
     },
-    "doExpertMainQuests": {
+    "doMainExpertQuests": {
       "$isParent": false,
       "props": {
         "$type": "boolean",
         "settingType": "Boolean",
         "value": true,
         "isParentNode": false,
-        "name": "doExpertMainQuests",
+        "name": "doMainExpertQuests",
         "position": 0,
-        "path": "doDailies.doExpertMainQuests"
+        "path": "doDailies.doMainExpertQuests"
       }
     },
     "doFreeQuests": {

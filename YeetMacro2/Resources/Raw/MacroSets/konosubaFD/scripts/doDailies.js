@@ -7,8 +7,8 @@ if (settings.doDailies.claimJobs.Value) {
     goToLobby();
 }
 
-if (settings.doDailies.doExpertMainQuests.Value) {
-    doExpertMainQuests();
+if (settings.doDailies.doMainExpertQuests.Value) {
+    doMainExpertQuests();
     goToLobby();
 }
 
