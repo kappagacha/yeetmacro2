@@ -20,7 +20,7 @@ while (macroService.IsRunning) {
 			logger.info('doChampsArena: click champs arena');
 			macroService.PollPattern(patterns.adventure.tabs.arena, { DoClick: true, PredicatePattern: patterns.adventure.champsArena });
 			sleep(500);
-			macroService.PollPattern(patterns.adventure.champsArena, { DoClick: true, PredicatePattern: patterns.adventure.arena.freeChallenge });
+			macroService.PollPattern(patterns.adventure.champsArena, { DoClick: true, PredicatePattern: [patterns.adventure.arena.freeChallenge, patterns.adventure.arena.startMatch] });
 			break;
 		case 'adventure.arena.freeChallenge':
 			logger.info('doChampsArena: free challenges');
