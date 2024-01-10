@@ -18,7 +18,7 @@ while (macroService.IsRunning) {
 			logger.info('farmEventBossLoop: start farm');
 			const bossBattleResult = macroService.PollPattern(patterns.quest.events.bossBattle, { DoClick: true, PredicatePattern: [patterns.quest.events.bossBattle.prompt.chooseBattleStyle, patterns.titles.bossBattle] });
 			if (bossBattleResult.PredicatePath === 'quest.events.bossBattle.prompt.chooseBattleStyle') {
-				macroService.PollPattern(patterns.quest.events.bossBattle.multi, { DoClick: true, PredicatePattern: patterns.titles.bossMulti });
+				macroService.PollPattern(patterns.quest.events.bossBattle.multi, { DoClick: true, ClickPattern: patterns.general.next, PredicatePattern: patterns.titles.bossMulti });
 			}
 			break;
 		case 'titles.bossBattle':
