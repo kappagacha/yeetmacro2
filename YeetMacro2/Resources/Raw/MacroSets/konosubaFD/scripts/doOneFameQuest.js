@@ -1,4 +1,5 @@
-﻿// Battles the first level fame quest once for daily task. Does not obtain bonuses
+﻿// @position=7
+// Battles the first level fame quest once for daily task. Does not obtain bonuses
 const loopPatterns = [patterns.titles.home, patterns.titles.quest, patterns.titles.fameQuest];
 const daily = dailyManager.GetDaily();
 if (daily.doOneFameQuest.done.IsChecked) {

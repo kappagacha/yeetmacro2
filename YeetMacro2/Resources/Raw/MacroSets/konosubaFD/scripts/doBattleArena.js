@@ -1,4 +1,5 @@
-﻿// Do all battle arena attempts. See options for party select names.
+﻿// @position=4
+// Do all battle arena attempts. See options for party select names.
 const loopPatterns = [patterns.titles.home, patterns.titles.quest, patterns.titles.battleArena, patterns.titles.party, patterns.battle.report];
 const daily = dailyManager.GetDaily();
 if (daily.doBattleArena.done.IsChecked) {

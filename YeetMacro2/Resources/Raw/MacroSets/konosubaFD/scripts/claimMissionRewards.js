@@ -1,4 +1,5 @@
-﻿// Claim mission rewards
+﻿// @position=9
+// Claim mission rewards
 const loopPatterns = [patterns.titles.home, patterns.titles.missions];
 const daily = dailyManager.GetDaily();
 if (daily.claimMissionRewards.done.IsChecked) {

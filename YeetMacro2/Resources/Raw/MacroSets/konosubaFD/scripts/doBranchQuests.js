@@ -1,4 +1,5 @@
-﻿// Do all branch quests. See options for cabbage hunt party name
+﻿// @position=11
+// Do all branch quests. See options for cabbage hunt party name
 const loopPatterns = [patterns.titles.home, patterns.titles.branchEvent, patterns.titles.branch, patterns.branchEvent.explosionWalk.chant.disabled, patterns.titles.party];
 const daily = dailyManager.GetDaily();
 if (daily.doBranchQuests.done.IsChecked) {

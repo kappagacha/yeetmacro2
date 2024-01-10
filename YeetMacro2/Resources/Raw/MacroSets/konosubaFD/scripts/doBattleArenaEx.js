@@ -1,4 +1,5 @@
-﻿// Auto or skip arena EX attempts. See options for party select names.
+﻿// @position=5
+// Auto or skip arena EX attempts. See options for party select names.
 const loopPatterns = [patterns.titles.home, patterns.titles.quest, patterns.titles.battleArena, patterns.titles.party, patterns.battle.report];
 const skipBattle = settings.doBattleArenaEx.skipBattle.Value;
 const daily = dailyManager.GetDaily();

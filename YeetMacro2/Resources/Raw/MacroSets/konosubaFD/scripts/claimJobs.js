@@ -1,4 +1,5 @@
-﻿// Claim job rewards
+﻿// @position=1
+// Claim job rewards
 const loopPatterns = [patterns.titles.home, patterns.titles.job];
 const daily = dailyManager.GetDaily();
 
