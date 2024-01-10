@@ -583,5 +583,28 @@
         "path": "doBattleArenaEx.characterBonus"
       }
     }
+  },
+  "doMainExpertQuests": {
+    "$isParent": true,
+    "props": {
+      "settingType": "Parent",
+      "isParentNode": true,
+      "name": "doMainExpertQuests",
+      "position": 0,
+      "path": "doMainExpertQuests"
+    },
+    "minStamina": {
+      "$isParent": false,
+      "props": {
+        "$type": "integer",
+        "settingType": "Integer",
+        "increment": 100,
+        "value": 700,
+        "isParentNode": false,
+        "name": "minStamina",
+        "position": 0,
+        "path": "doMainExpertQuests.minStamina"
+      }
+    }
   }
 }

@@ -1,6 +1,7 @@
 ﻿// Target farm materials to farm all expert main quests
 const loopPatterns = [patterns.titles.home, patterns.titles.smithy, patterns.titles.craft, patterns.skipAll.title];
 const offset = macroService.CalcOffset(patterns.titles.home);
+const minStamina = settings.doMainExpertQuests.minStamina.Value;
 const daily = dailyManager.GetDaily();
 if (daily.doMainExpertQuests.done.IsChecked) {
 	return "Script already completed. Uncheck done to override daily flag.";
@@ -27,7 +28,7 @@ while (macroService.IsRunning) {
 			break;
 		case 'skipAll.title':
 			logger.info('doMainExpertQuests: farm extreme levels');
-			farmMat([patterns.skipAll.search.select.mithrilOre, patterns.skipAll.search.select.yggdrasilBranch, patterns.skipAll.search.select.platinumOre], 700, 1);
+			farmMat([patterns.skipAll.search.select.mithrilOre, patterns.skipAll.search.select.yggdrasilBranch, patterns.skipAll.search.select.platinumOre], minStamina, 1);
 			// sky dragon scale is obsolete when compared to the brooches (hard to come by though)
 			//sleep(1_000);
 			//logger.info('farmMats: farm skyDragonScale');
