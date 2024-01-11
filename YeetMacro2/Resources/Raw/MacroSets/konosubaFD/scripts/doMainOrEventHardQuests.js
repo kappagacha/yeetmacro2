@@ -56,7 +56,7 @@ while (macroService.IsRunning) {
 				}
 				macroService.PollPattern(patterns.stamina.prompt.recover, { DoClick: true, ClickPattern: patterns.stamina.prompt.ok, PredicatePattern: patterns.skipAll.title, IntervalDelayMs: 1_000 });
 			}
-			macroService.PollPattern(patterns.quest.events.quest.skipAll.ok, { DoClick: true, PredicatePattern: patterns.skipAll.skipComplete });
+			macroService.PollPattern(patterns.quest.events.quest.skipAll.ok, { DoClick: true, ClickPattern: patterns.stamina.prompt.ok, PredicatePattern: patterns.skipAll.skipComplete });
 			macroService.PollPattern(patterns.skipAll.skipComplete, {
 				DoClick: true,
 				ClickPattern: [patterns.skipAll.prompt.ok, patterns.branchEvent.availableNow, patterns.branchEvent.playLater, patterns.prompt.playerRankUp],
