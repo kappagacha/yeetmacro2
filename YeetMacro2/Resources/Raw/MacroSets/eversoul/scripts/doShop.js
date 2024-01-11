@@ -27,7 +27,7 @@ while (macroService.IsRunning) {
 			logger.info('doShop: artifact');
 			macroService.PollPattern(patterns.shop.artifact, { DoClick: true, PredicatePattern: patterns.shop.artifact.selected });
 			macroService.DoSwipe({ X: 1600, Y: 850 }, { X: 1600, Y: 300 });
-			sleep(1_500);
+			sleep(2_000);
 			const cost1500Result = macroService.FindPattern(patterns.shop.artifact.cost1500, { Limit: 4 });
 
 			for (const p of cost1500Result.Points) {
