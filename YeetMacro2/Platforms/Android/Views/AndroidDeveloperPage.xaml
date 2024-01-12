@@ -8,6 +8,10 @@
              vm:ViewModelLocator.ViewModelType="{x:Type avm:AndriodHomeViewModel}"
              Title="Developer">
     <VerticalStackLayout Spacing="5">
+        <HorizontalStackLayout>
+            <CheckBox IsChecked="{Binding MacroManagerViewModel.IsExportEnabled}" />
+            <Label Text="Enable MacroSet Export" VerticalTextAlignment="Center" />
+        </HorizontalStackLayout>
         <Button Text="Copy Database" Command="{Binding CopyDbCommand}" />
         <Button Text="Delete Database" Command="{Binding DeleteDbCommand}" />
         <Button Text="Throw Exception" Command="{Binding ThrowExceptionCommand}" />
