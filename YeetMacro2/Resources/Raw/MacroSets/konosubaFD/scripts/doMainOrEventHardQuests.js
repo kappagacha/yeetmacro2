@@ -1,5 +1,5 @@
 ﻿// @position=6
-// Skip 10-12 main or event HARD quests
+// Skip at least 10 main hard quests or event special hard quests
 const loopPatterns = [patterns.titles.home, patterns.titles.quest, patterns.titles.events];
 const daily = dailyManager.GetDaily();
 if (daily.doMainOrEventHardQuests.done.IsChecked) {

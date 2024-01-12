@@ -44,7 +44,6 @@ while (macroService.IsRunning) {
 				sleep(500);
 				const checkResult = macroService.FindPattern(patterns.skipAll.search.filter.check, { Limit: 5 });
 				for (let point of checkResult.Points) {
-					logger.debug(JSON.stringify(point));
 					if (point.X < offset.X + 300.0) continue;		// skip 4 stars
 					macroService.DoClick(point);
 					sleep(250);
