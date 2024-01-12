@@ -1,6 +1,6 @@
 ﻿// @position=6
 // Skip at least 10 main hard quests or event special hard quests
-const loopPatterns = [patterns.titles.home, patterns.titles.quest, patterns.titles.events];
+const loopPatterns = [patterns.titles.home, patterns.titles.quest, patterns.titles.events, patterns.quest.events.globalMission];
 const daily = dailyManager.GetDaily();
 if (daily.doMainOrEventHardQuests.done.IsChecked) {
 	return "Script already completed. Uncheck done to override daily flag.";
@@ -16,6 +16,10 @@ while (macroService.IsRunning) {
 		case 'titles.quest':
 			logger.info('doMainOrEventHardQuests: click quest events');
 			macroService.ClickPattern(patterns.quest.events);
+			break;
+		case 'quest.events.globalMission':
+			logger.info('doMainOrEventHardQuests: global mission');
+			macroService.ClickPattern(patterns.quest.events.globalMission.back);
 			break;
 		case 'titles.events':
 			let staminaCost = 120;
