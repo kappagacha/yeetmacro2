@@ -22,7 +22,7 @@ while (macroService.IsRunning) {
 		case 'titles.craft':
 			macroService.PollPattern(patterns.smithy.craft.jewelry, { DoClick: true, PredicatePattern: patterns.smithy.craft.jewelry.list });
 			sleep(500);
-			macroService.PollPattern(patterns.smithy.craft.materials.archAngelFeather, { DoClick: true, PredicatePattern: patterns.smithy.prompt.howToAcquire });
+			macroService.PollPattern(patterns.smithy.craft.materials.archAngelFeather, { DoClick: true, ClickPattern: [patterns.smithy.craft.ascendingRarity, patterns.smithy.craft.jewelry.chaosBrooch], PredicatePattern: patterns.smithy.prompt.howToAcquire });
 			sleep(1_000);
 			macroService.PollPattern(patterns.smithy.prompt.skipAll, { DoClick: true, PredicatePattern: patterns.skipAll.title });
 			sleep(500);
