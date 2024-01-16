@@ -83,11 +83,7 @@ public partial class ActionViewModel : ObservableObject, IMovable
         }
 
         IsBusy = true;
-        if (!_macroManagerViewModel.Scripts.IsInitialized)
-        {
-            await Task.Delay(500);  // Give ActivityIndicator time to render
-            await _macroManagerViewModel.Scripts.WaitForInitialization();
-        }
+        await _macroManagerViewModel.Scripts.WaitForInitialization();
         IsBusy = false;
 
         switch (State)
