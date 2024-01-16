@@ -274,7 +274,7 @@
           "light",
           "dark"
         ],
-        "value": "earth",
+        "value": "fire",
         "isParentNode": false,
         "name": "elementTypeTarget1",
         "position": 0,
@@ -407,7 +407,7 @@
           "light",
           "dark"
         ],
-        "value": "water",
+        "value": "fire",
         "isParentNode": false,
         "name": "elementTypeTarget1",
         "position": 0,
