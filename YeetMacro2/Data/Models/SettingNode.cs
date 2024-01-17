@@ -14,7 +14,8 @@ public enum SettingType
     Integer,
     EnabledInteger,
     Pattern,
-    EnabledPattern
+    EnabledPattern,
+    TimeStamp
 }
 
 public class SettingNodeMetadataProvider : INodeMetadataProvider<SettingNode>
@@ -25,7 +26,7 @@ public class SettingNodeMetadataProvider : INodeMetadataProvider<SettingNode>
     public Type[] NodeTypes => new Type[] { 
         typeof(ParentSetting), typeof(BooleanSetting), typeof(OptionSetting), typeof(EnabledOptionSetting), 
         typeof(StringSetting), typeof(EnabledStringSetting), typeof(IntegerSetting), typeof(EnabledIntegerSetting), 
-        typeof(PatternSetting), typeof(EnabledPatternSetting) 
+        typeof(PatternSetting), typeof(EnabledPatternSetting), typeof(TimestampSetting)
     };
 }
 
@@ -51,6 +52,7 @@ public class ParentSetting : SettingNode, IParentNode<ParentSetting, SettingNode
 [JsonDerivedType(typeof(EnabledIntegerSetting), typeDiscriminator: "enabledInteger")]
 [JsonDerivedType(typeof(PatternSetting), typeDiscriminator: "pattern")]
 [JsonDerivedType(typeof(EnabledPatternSetting), typeDiscriminator: "enabledPattern")]
+[JsonDerivedType(typeof(TimestampSetting), typeDiscriminator: "timestamp")]
 [JsonPolymorphic(UnknownDerivedTypeHandling = JsonUnknownDerivedTypeHandling.FallBackToNearestAncestor)]
 [NodeMetadata(NodeMetadataProvider = typeof(SettingNodeMetadataProvider))]
 public abstract class SettingNode : Node
@@ -131,4 +133,10 @@ public class EnabledPatternSetting : PatternSetting
 {
     public override SettingType SettingType => SettingType.EnabledPattern;
     public virtual bool IsEnabled { get; set; }
+}
+
+public class TimestampSetting : SettingNode<DateTimeOffset>
+{
+    public override SettingType SettingType => SettingType.TimeStamp;
+    public virtual DateTimeOffset LocalValue => Value.ToLocalTime();
 }

@@ -3,8 +3,10 @@ using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Messaging;
 using System.Collections.ObjectModel;
 using System.Linq.Expressions;
+using System.Text.RegularExpressions;
 using YeetMacro2.Data.Models;
 using YeetMacro2.Services;
+using static System.Net.Mime.MediaTypeNames;
 
 namespace YeetMacro2.ViewModels.NodeViewModels;
 
@@ -16,7 +18,7 @@ public class SettingNodeViewModelMetadataProvider : INodeMetadataProvider<Parent
     public Type[] NodeTypes => new Type[] { 
         typeof(ParentSettingViewModel), typeof(BooleanSettingViewModel), typeof(OptionSettingViewModel), typeof(EnabledOptionSettingViewModel), 
         typeof(StringSettingViewModel), typeof(EnabledStringSettingViewModel), typeof(IntegerSettingViewModel), typeof(EnabledIntegerSettingViewModel), 
-        typeof(PatternSettingViewModel), typeof(EnabledPatternSettingViewModel)
+        typeof(PatternSettingViewModel), typeof(EnabledPatternSettingViewModel), typeof(TimestampSettingViewModel)
     };
 }
 
@@ -80,6 +82,10 @@ public partial class ParentSettingViewModel : ParentSetting
                 else if (val is PatternSetting)
                 {
                     base.Nodes.Add(_mapper.Map<PatternSettingViewModel>(val));
+                }
+                else if (val is TimestampSetting)
+                {
+                    base.Nodes.Add(_mapper.Map<TimestampSettingViewModel>(val));
                 }
                 else
                 {
@@ -620,6 +626,47 @@ public partial class EnabledPatternSettingViewModel : EnabledPatternSetting
             var doSave = base.IsEnabled != value;
             base.IsEnabled = value;
             OnPropertyChanged();
+            if (doSave) WeakReferenceMessenger.Default.Send<SettingNode>(this);
+        }
+    }
+}
+
+[ObservableObject]
+public partial class TimestampSettingViewModel : TimestampSetting
+{
+
+    public override string Name
+    {
+        get => base.Name;
+        set
+        {
+            base.Name = value;
+            OnPropertyChanged();
+        }
+    }
+
+    public override bool IsSelected
+    {
+        get => base.IsSelected;
+        set
+        {
+            base.IsSelected = value;
+            OnPropertyChanged();
+        }
+    }
+
+    public bool IsLeaf { get; set; } = true;
+    public object Children { get; set; }        // I don't know why this is always binded in UraniumUI treeview
+
+    public override DateTimeOffset Value
+    {
+        get => base.Value;
+        set
+        {
+            var doSave = base.Value != value;
+            base.Value = value;
+            OnPropertyChanged();
+            OnPropertyChanged(nameof(LocalValue));
             if (doSave) WeakReferenceMessenger.Default.Send<SettingNode>(this);
         }
     }

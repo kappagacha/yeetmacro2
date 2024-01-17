@@ -57,6 +57,7 @@ public partial class MacroManagerViewModel : ObservableObject
         TypeInfoResolver = CombinedPropertiesResolver.Combine(SizePropertiesResolver.Instance, PointPropertiesResolver.Instance)
     };
     string _targetBranch = "main";
+    bool _isUpdatingMacroSet;
     public PatternNodeManagerViewModel Patterns
     {
         get
@@ -169,7 +170,7 @@ public partial class MacroManagerViewModel : ObservableObject
 #endif
 
         WeakReferenceMessenger.Default.Register<SettingNode>(this, (r, settingNode) => {
-            if (IsBusy ||                                   // importing MacroSet   (MacroManagerViewModel)
+            if (_isUpdatingMacroSet ||                      // updating MacroSet   (MacroManagerViewModel)
                 !(Settings?.IsInitialized ?? false) ||      // loading settings     (NodeManagerViewModel)
                 settingNode.NodeId == 0)                    // json desirialization (NodeManagerViewModel)
                 return;
@@ -390,7 +391,7 @@ public partial class MacroManagerViewModel : ObservableObject
     [RelayCommand]
     private async Task UpdateMacroSet(MacroSet macroSet)
     {
-        IsBusy = true;
+        IsBusy = _isUpdatingMacroSet = true;
 
         try
         {
@@ -533,7 +534,7 @@ public partial class MacroManagerViewModel : ObservableObject
         }
         finally
         {
-            IsBusy = false;
+            IsBusy = _isUpdatingMacroSet = false;
         }
     }
 
@@ -610,6 +611,9 @@ public partial class MacroManagerViewModel : ObservableObject
                 case SettingType.EnabledPattern when dest.SettingType == SettingType.EnabledPattern:
                     ((EnabledPatternSetting)dest).IsEnabled = ((EnabledPatternSetting)source).IsEnabled;
                     ((SettingNode<PatternNode>)dest).Value = ((SettingNode<PatternNode>)source).Value;
+                    break;
+                case SettingType.TimeStamp when dest.SettingType == SettingType.TimeStamp:
+                    ((SettingNode<DateTimeOffset>)dest).Value = ((SettingNode<DateTimeOffset>)source).Value;
                     break;
             }
         }

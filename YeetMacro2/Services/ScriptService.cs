@@ -156,6 +156,11 @@ public class JsToDotNetConverter : DefaultTypeConverter
         {
             return Enum.Parse(type, value.ToString());
         }
+        else if (type == typeof(DateTimeOffset))
+        {
+            return DateTimeOffset.Parse(value.ToString());
+        }
+
 
         return base.Convert(value, type, formatProvider);
     }
@@ -238,8 +243,8 @@ public class DotNetToJsConverter : Jint.Runtime.Interop.IObjectConverter
 {
     public bool TryConvert(Engine engine, object value, out JsValue result)
     {
-        // for some reason some viewModels aren't getting wrapped automatically
-        if (value is SettingNode || value is DailyJsonElementViewModel)
+        // If you want object properties/methods to work in JavaScript for your type, add them here
+        if (value is SettingNode || value is DailyJsonElementViewModel || value is DateTimeOffset)
         {
             result = new ObjectWrapper(engine, value);
             return true;

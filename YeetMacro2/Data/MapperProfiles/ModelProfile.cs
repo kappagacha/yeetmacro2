@@ -29,6 +29,7 @@ public class ModelProfile : Profile
         CreateMap<EnabledIntegerSetting, EnabledIntegerSettingViewModel>().ReverseMap();
         CreateMap<PatternSetting, PatternSettingViewModel>().ReverseMap();
         CreateMap<EnabledPatternSetting, EnabledPatternSettingViewModel>().ReverseMap();
+        CreateMap<TimestampSetting, TimestampSettingViewModel>().ReverseMap();
         CreateMap<DailyNode, DailyNodeViewModel>();
         //https://stackoverflow.com/questions/75877586/automapper-exception-when-mapping-jsonobject-in-net6-the-node-already-has-a
         CreateMap<JsonObject, JsonObject>()

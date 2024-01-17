@@ -111,6 +111,9 @@
         <DataTemplate x:Key="EnabledPatternSettingTemplate">
             <CheckBox IsChecked="{Binding IsEnabled}" VerticalOptions="Center" />
         </DataTemplate>
+        <DataTemplate x:Key="TimestampSettingTemplate">
+            <Label Margin="0" Padding="0" VerticalOptions="Center" Text="{Binding LocalValue, StringFormat=' {0:MM/dd/yyyy hh:mm tt}'}" />
+        </DataTemplate>
     </ContentView.Resources>
     <Grid ColumnDefinitions="*">
         <Grid.Triggers>
@@ -136,6 +139,9 @@
                                     <Setter Property="HeightRequest" Value="{StaticResource IconHeight}" />
                                 </DataTrigger>
                                 <DataTrigger TargetType="{x:Type Grid}" Binding="{Binding SettingType}" Value="{x:Static m:SettingType.Pattern}">
+                                    <Setter Property="HeightRequest" Value="{StaticResource IconHeight}" />
+                                </DataTrigger>
+                                <DataTrigger TargetType="{x:Type Grid}" Binding="{Binding SettingType}" Value="{x:Static m:SettingType.TimeStamp}">
                                     <Setter Property="HeightRequest" Value="{StaticResource IconHeight}" />
                                 </DataTrigger>
                             </Grid.Triggers>

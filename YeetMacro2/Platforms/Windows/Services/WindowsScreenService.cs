@@ -33,7 +33,7 @@ public class WindowsScreenService : IScreenService, IRecorderService
         throw new NotImplementedException();
     }
 
-    public Task<FindPatternResult> ClickPattern(Pattern pattern, FindOptions opts)
+    public FindPatternResult ClickPattern(Pattern pattern, FindOptions opts)
     {
         throw new NotImplementedException();
     }
@@ -78,7 +78,7 @@ public class WindowsScreenService : IScreenService, IRecorderService
         throw new NotImplementedException();
     }
 
-    public Task<FindPatternResult> FindPattern(Pattern pattern, FindOptions opts)
+    public FindPatternResult FindPattern(Pattern pattern, FindOptions opts)
     {
         throw new NotImplementedException();
     }
@@ -130,6 +130,11 @@ public class WindowsScreenService : IScreenService, IRecorderService
         throw new NotImplementedException();
     }
 
+    public Task<string> GetTextAsync(Pattern pattern, TextFindOptions opts)
+    {
+        throw new NotImplementedException();
+    }
+
     public byte[] ScaleImageData(byte[] data, double scale)
     {
         throw new NotImplementedException();
@@ -146,16 +151,6 @@ public class WindowsScreenService : IScreenService, IRecorderService
     }
 
     public void StopRecording()
-    {
-        throw new NotImplementedException();
-    }
-
-    FindPatternResult IScreenService.ClickPattern(Pattern pattern, FindOptions opts)
-    {
-        throw new NotImplementedException();
-    }
-
-    FindPatternResult IScreenService.FindPattern(Pattern pattern, FindOptions opts)
     {
         throw new NotImplementedException();
     }
