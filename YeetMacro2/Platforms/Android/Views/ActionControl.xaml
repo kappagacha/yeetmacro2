@@ -33,7 +33,7 @@
                     </DataTrigger>
                 </v:ImageView.Triggers>
             </v:ImageView>
-            <ActivityIndicator IsRunning="{Binding IsBusy}" />
+            <ActivityIndicator IsRunning="{Binding IsScriptRunning}" />
         </Grid>
     </Border>
 </ContentView>

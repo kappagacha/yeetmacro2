@@ -42,7 +42,7 @@ public partial class MacroManagerViewModel : ObservableObject
     IScriptService _scriptService;
     [ObservableProperty]
     bool _isExportEnabled, _isOpenAppDirectoryEnabled, _inDebugMode, 
-        _showExport, _isBusy, _persistLogs, _showMacroSetDescriptionEditor;
+        _showExport, _isBusy, _persistLogs, _showMacroSetDescriptionEditor, _isScriptRunning;
     [ObservableProperty]
     double _resolutionWidth, _resolutionHeight, _defaultLocationX, _defaultLocationY;
     [ObservableProperty]
@@ -170,7 +170,7 @@ public partial class MacroManagerViewModel : ObservableObject
 #endif
 
         WeakReferenceMessenger.Default.Register<SettingNode>(this, (r, settingNode) => {
-            if (_isUpdatingMacroSet ||                      // updating MacroSet   (MacroManagerViewModel)
+            if (IsBusy ||                                   // updating MacroSet   (MacroManagerViewModel)
                 !(Settings?.IsInitialized ?? false) ||      // loading settings     (NodeManagerViewModel)
                 settingNode.NodeId == 0)                    // json desirialization (NodeManagerViewModel)
                 return;
@@ -286,7 +286,7 @@ public partial class MacroManagerViewModel : ObservableObject
     [RelayCommand]
     private async Task ExecuteScript(ScriptNode scriptNode)
     {
-        if (IsBusy) return;
+        if (IsScriptRunning) return;
 
         await Patterns.WaitForInitialization();
         await Settings.WaitForInitialization();
@@ -294,7 +294,7 @@ public partial class MacroManagerViewModel : ObservableObject
 
         await Task.Run(() =>
         {
-            IsBusy = true;
+            IsScriptRunning = true;
             if (PersistLogs) 
             { 
                 _logger.LogInformation("{persistLogs}", true);
@@ -306,7 +306,7 @@ public partial class MacroManagerViewModel : ObservableObject
             var result = _scriptService.RunScript(scriptNode, Scripts, SelectedMacroSet, Patterns, Settings, Dailies);
             WeakReferenceMessenger.Default.Send(new ScriptEventMessage(new ScriptEvent() { Type = ScriptEventType.Finished, Result = result }));
             if (PersistLogs) _logger.LogInformation("{persistLogs}", false);
-            IsBusy = false;
+            IsScriptRunning = false;
         });
     }
 
