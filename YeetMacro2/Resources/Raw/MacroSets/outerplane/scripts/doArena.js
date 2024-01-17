@@ -6,7 +6,7 @@ const daily = dailyManager.GetDaily();
 const teamSlot = settings.doArena.teamSlot.Value;
 
 while (macroService.IsRunning) {
-	const loopResult = macroService.PollPattern(loopPatterns, { ClickPattern: [patterns.arena.defendReport.close, patterns.arena.newLeague] });
+	const loopResult = macroService.PollPattern(loopPatterns, { ClickPattern: [patterns.arena.defendReport.close, patterns.arena.newLeague, patterns.arena.tapEmptySpace] });
 	switch (loopResult.Path) {
 		case 'lobby.level':
 			logger.info('doArena: click adventure tab');

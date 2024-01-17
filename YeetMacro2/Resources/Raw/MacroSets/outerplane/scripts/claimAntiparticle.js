@@ -3,6 +3,12 @@
 const loopPatterns = [patterns.lobby.level, patterns.titles.base];
 const daily = dailyManager.GetDaily();
 
+const isLastRunWithinHour = (Date.now() - settings.claimAntiparticle.lastRun.Value.ToUnixTimeMilliseconds()) / 3_600_000 < 1;
+
+if (isLastRunWithinHour && !settings.claimAntiparticle.forceRun.Value) {
+	return 'Last run was within the hour. Use forceRun setting to override check';
+}
+
 while (macroService.IsRunning) {
 	const loopResult = macroService.PollPattern(loopPatterns, { ClickPattern: patterns.arena.defendReport.close });
 	switch (loopResult.Path) {
@@ -28,6 +34,7 @@ while (macroService.IsRunning) {
 			
 			if (macroService.IsRunning) {
 				daily.claimAntiparticle.count.Count++;
+				settings.claimAntiparticle.lastRun.Value = new Date().toISOString();
 			}
 			return;
 	}

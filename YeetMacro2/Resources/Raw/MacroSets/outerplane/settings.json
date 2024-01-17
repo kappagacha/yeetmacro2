@@ -889,5 +889,75 @@
         "path": "doSideStory2.targetStory"
       }
     }
+  },
+  "claimAntiparticle": {
+    "$isParent": true,
+    "props": {
+      "settingType": "Parent",
+      "isParentNode": true,
+      "name": "claimAntiparticle",
+      "position": 0,
+      "path": "claimAntiparticle"
+    },
+    "forceRun": {
+      "$isParent": false,
+      "props": {
+        "$type": "boolean",
+        "settingType": "Boolean",
+        "value": false,
+        "isParentNode": false,
+        "name": "forceRun",
+        "position": 0,
+        "path": "claimAntiparticle.forceRun"
+      }
+    },
+    "lastRun": {
+      "$isParent": false,
+      "props": {
+        "$type": "timestamp",
+        "settingType": "TimeStamp",
+        "localValue": "0001-01-01T00:00:00-06:58",
+        "value": "0001-01-01T00:00:00+00:00",
+        "isParentNode": false,
+        "name": "lastRun",
+        "position": 0,
+        "path": "claimAntiparticle.lastRun"
+      }
+    }
+  },
+  "doFriends": {
+    "$isParent": true,
+    "props": {
+      "settingType": "Parent",
+      "isParentNode": true,
+      "name": "doFriends",
+      "position": 0,
+      "path": "doFriends"
+    },
+    "forceRun": {
+      "$isParent": false,
+      "props": {
+        "$type": "boolean",
+        "settingType": "Boolean",
+        "value": false,
+        "isParentNode": false,
+        "name": "forceRun",
+        "position": 0,
+        "path": "doFriends.forceRun"
+      }
+    },
+    "lastRun": {
+      "$isParent": false,
+      "props": {
+        "$type": "timestamp",
+        "settingType": "TimeStamp",
+        "localValue": "0001-01-01T00:00:00-06:58",
+        "value": "0001-01-01T00:00:00+00:00",
+        "isParentNode": false,
+        "name": "lastRun",
+        "position": 0,
+        "path": "doFriends.lastRun"
+      }
+    }
   }
 }

@@ -2028,50 +2028,6 @@
         "path": "arena.tapEmptySpace"
       }
     },
-    "leagueOfChallenge": {
-      "$isParent": true,
-      "props": {
-        "isMultiPattern": false,
-        "patterns": [
-          {
-            "rect": {
-              "x": 809.829345703125,
-              "y": 755.552490234375,
-              "width": 16.48907470703125,
-              "height": 27.47039794921875
-            },
-            "resolution": {
-              "width": 1920,
-              "height": 1080
-            },
-            "isBoundsPattern": false,
-            "isLocationDynamic": false,
-            "name": "pattern",
-            "imageData": "/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDAAEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQH/2wBDAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQH/wAARCAAbABADASIAAhEBAxEB/8QAFwABAQEBAAAAAAAAAAAAAAAACggFCf/EACsQAAEEAQIFAAsAAAAAAAAAAAMBAgQFBgcIAAkREiIKExUjMTpBUXF3tf/EABYBAQEBAAAAAAAAAAAAAAAAAAMBBv/EACIRAQACAQIGAwAAAAAAAAAAAAECEQMAIQQSMUFRYYGiwf/aAAwDAQACEQMRAD8Ahva3y79DdYeTtvL3z5SfJm6xaE5/Y45hg4NoYGPrXw6/SmUxLCtaRAyiPJmFsjyEG53aoe1UUTenDPhYOwP5afmaft29/jbf+CfdF69Pr9vzw42y9NfWL+60OFkyz2qGVI23Ryx2PBd6ZdyaNGDbneRxvd2z4/meH4hmWrWvV9S0szLLaJChQ+zFtD7IkySAskEgkdI9ZKazsVrSGag0Ii9VSMMi9Gf3CY7j95kB9zO3uSGip7K4LHDbC9ccVbCPMIES+2ne8KwLmM8XeTk8V+HBzabM8wxyMSHj2V5LQxDGWQWLTXtpVxiyHMYNxyAgygCeZRjGNSuar1YNjVd2taiahNT9SzDeIuoeclEVjhkETLb94yDeitex7HWCtex7VVrmuRWuRVRUVF4EUuu7b0bfnVeGzxnOWPPGMZzZcrjHdq923s9PPrX/2Q==",
-            "variancePct": 20,
-            "horizontalStretchMultiplier": 0,
-            "verticalStretchMultiplier": 0,
-            "textMatch": {
-              "isActive": false,
-              "text": null,
-              "whiteList": null
-            },
-            "colorThreshold": {
-              "isActive": true,
-              "variancePct": 10,
-              "color": "#fffdfbfa",
-              "imageData": "/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDAAIBAQEBAQIBAQECAgICAgQDAgICAgUEBAMEBgUGBgYFBgYGBwkIBgcJBwYGCAsICQoKCgoKBggLDAsKDAkKCgr/wAALCAAbABABAREA/8QAHwAAAQUBAQEBAQEAAAAAAAAAAAECAwQFBgcICQoL/8QAtRAAAgEDAwIEAwUFBAQAAAF9AQIDAAQRBRIhMUEGE1FhByJxFDKBkaEII0KxwRVS0fAkM2JyggkKFhcYGRolJicoKSo0NTY3ODk6Q0RFRkdISUpTVFVWV1hZWmNkZWZnaGlqc3R1dnd4eXqDhIWGh4iJipKTlJWWl5iZmqKjpKWmp6ipqrKztLW2t7i5usLDxMXGx8jJytLT1NXW19jZ2uHi4+Tl5ufo6erx8vP09fb3+Pn6/9oACAEBAAA/AP09+Mn/AAVb/wCFSf8ABZL4T/8ABJP/AIUL/aH/AAtD4f3Pif8A4WB/wlPlf2Z5UOsyfZ/sP2VvOz/ZGN/npj7RnafLw/1/X5A/tkf8rkn7J3/Zv+pf+knjKv1+r8kP+CgPgX4t+Av+DoX9nP8AbRvP2ffihrXwt8H/AAPu7DxL4z8FfC3W/ENrYXU0XimGO3f+y7S4cyl7y1yiqWVZ0dgFO6vv/wAJ/wDBQb4DeNPFWmeDtH8A/HCG71bUIbK1m1b9mTx1YWqSSuEVprq60aOC2iBYFppXSNFyzsqgke4UV//Z"
-            },
-            "offsetCalcType": "Default",
-            "position": 0
-          }
-        ],
-        "isParentNode": true,
-        "name": "leagueOfChallenge",
-        "position": 0,
-        "path": "arena.leagueOfChallenge"
-      }
-    },
     "defendReport": {
       "$isParent": true,
       "props": {
@@ -2587,6 +2543,50 @@
           "position": 0,
           "path": "arena.memorialMatch.selected"
         }
+      }
+    },
+    "leagueOfChallenge": {
+      "$isParent": true,
+      "props": {
+        "isMultiPattern": false,
+        "patterns": [
+          {
+            "rect": {
+              "x": 168.16358947753906,
+              "y": 754.5534057617188,
+              "width": 17.488540649414062,
+              "height": 26.47137451171875
+            },
+            "resolution": {
+              "width": 1920,
+              "height": 1080
+            },
+            "isBoundsPattern": false,
+            "isLocationDynamic": false,
+            "name": "pattern",
+            "imageData": "/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDAAEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQH/2wBDAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQH/wAARCAAaABEDASIAAhEBAxEB/8QAGgAAAgIDAAAAAAAAAAAAAAAAAAkICgEDBv/EADgQAAAFAwAECA4DAAAAAAAAAAECAwQGAAUHCAkREwohIjFXYZahEhQXGSYnOEdRVXV3keG31NX/xAAYAQADAQEAAAAAAAAAAAAAAAACAwQBBf/EACURAAECBAYCAwAAAAAAAAAAAAECEQADIWESMUFRobEiMkJy0f/aAAwDAQACEQMRAD8AWJq0tWNY9PXDemblC7ZKusFcaLOPGs0tlstzBm8RkzhxGp5fhaP1HKCx0ECniCLcBbmRUErtUwn2lIJVBVbS4OT7Imt++w9t/jnNtVLtnWHf+Ob9dddKWslUwKNAUtkwoH5MWpDqWwdilmGXiD3GKK2bvr7v3RTMad+D+QcW8eDMxS9zzRx1q8IjTXx6RzDFEUi9gZbwqQPLzfoVmS12xqKp+SmC710gkJzckgHEw8QDS4R4OVrSCgJhxREthQER9NEh4g4/llRF1f2SsjY+UycWBT+bQgtzJFhuRYhKr7GguAtTXwGwvgsz9kDsW4LLAgLjeCiCyoJ+DvD7WRm0ktInYPr7zTzD70pz8PrtQLmKRMUzVw5iwha1qRNmAEeRS7h9EjpXEQB80Dpy9Hll7Ro/1qK6ny0Zi6WMl9u5T/q0Vomrp66ab4b37swCculEafH63v3uY//Z",
+            "variancePct": 20,
+            "horizontalStretchMultiplier": 0.1667,
+            "verticalStretchMultiplier": 0,
+            "textMatch": {
+              "isActive": false,
+              "text": null,
+              "whiteList": null
+            },
+            "colorThreshold": {
+              "isActive": true,
+              "variancePct": 10,
+              "color": "#fffefdfe",
+              "imageData": "/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDAAIBAQEBAQIBAQECAgICAgQDAgICAgUEBAMEBgUGBgYFBgYGBwkIBgcJBwYGCAsICQoKCgoKBggLDAsKDAkKCgr/wAALCAAaABEBAREA/8QAHwAAAQUBAQEBAQEAAAAAAAAAAAECAwQFBgcICQoL/8QAtRAAAgEDAwIEAwUFBAQAAAF9AQIDAAQRBRIhMUEGE1FhByJxFDKBkaEII0KxwRVS0fAkM2JyggkKFhcYGRolJicoKSo0NTY3ODk6Q0RFRkdISUpTVFVWV1hZWmNkZWZnaGlqc3R1dnd4eXqDhIWGh4iJipKTlJWWl5iZmqKjpKWmp6ipqrKztLW2t7i5usLDxMXGx8jJytLT1NXW19jZ2uHi4+Tl5ufo6erx8vP09fb3+Pn6/9oACAEBAAA/AP1t/bW/4KgfAL9hD4+/Ar9nP4u+EPGGo63+0H4wbw34MuvDen2s1rZXQutPtd9601zE8cW/UoDmJJW2pIduQob6Por8gf8Ag47/AOUpv/BMf/s4CT/0+eFa/X6ivxx/4OZ/FnhXwF/wUk/4JteOvHXibT9F0TRfjhdX+s6zq16lta2FrDrHhaSW4mlkISKJEVnZ2IVVUkkAV+h//D2L/gll/wBJLP2f/wDw8mh//JVe/wBFFFf/2Q=="
+            },
+            "offsetCalcType": "HorizontalStretchOffset",
+            "position": 0
+          }
+        ],
+        "isParentNode": true,
+        "name": "leagueOfChallenge",
+        "position": 0,
+        "path": "arena.leagueOfChallenge"
       }
     }
   },
