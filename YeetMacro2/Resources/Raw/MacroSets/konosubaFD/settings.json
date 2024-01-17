@@ -606,5 +606,40 @@
         "path": "doMainExpertQuests.minStamina"
       }
     }
+  },
+  "claimJobs": {
+    "$isParent": true,
+    "props": {
+      "settingType": "Parent",
+      "isParentNode": true,
+      "name": "claimJobs",
+      "position": 0,
+      "path": "claimJobs"
+    },
+    "forceRun": {
+      "$isParent": false,
+      "props": {
+        "$type": "boolean",
+        "settingType": "Boolean",
+        "value": false,
+        "isParentNode": false,
+        "name": "forceRun",
+        "position": 0,
+        "path": "claimJobs.forceRun"
+      }
+    },
+    "lastRun": {
+      "$isParent": false,
+      "props": {
+        "$type": "timestamp",
+        "settingType": "TimeStamp",
+        "localValue": "2024-01-16T21:27:38.128-06:00",
+        "value": "2024-01-17T03:27:38.128+00:00",
+        "isParentNode": false,
+        "name": "lastRun",
+        "position": 0,
+        "path": "claimJobs.lastRun"
+      }
+    }
   }
 }

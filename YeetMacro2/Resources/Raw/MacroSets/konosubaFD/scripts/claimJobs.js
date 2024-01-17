@@ -2,6 +2,11 @@
 // Claim job rewards
 const loopPatterns = [patterns.titles.home, patterns.titles.job];
 const daily = dailyManager.GetDaily();
+const isLastRunWithinHour = (Date.now() - settings.claimJobs.lastRun.Value.ToUnixTimeMilliseconds()) / 3_600_000 < 1;
+
+if (isLastRunWithinHour && !settings.claimJobs.forceRun.Value) {
+	return 'Last run was within the hour. Use forceRun setting to override check';
+}
 
 while (macroService.IsRunning) {
 	const loopResult = macroService.PollPattern(loopPatterns);
@@ -19,6 +24,7 @@ while (macroService.IsRunning) {
 			});
 			if (macroService.IsRunning) {
 				daily.claimJobs.count.Count++;
+				settings.claimJobs.lastRun.Value = new Date().toISOString();
 			}
 			return;
 	}
