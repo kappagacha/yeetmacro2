@@ -132,6 +132,31 @@
       "position": 0,
       "path": "doFriends"
     },
+    "forceRun": {
+      "$isParent": false,
+      "props": {
+        "$type": "boolean",
+        "settingType": "Boolean",
+        "value": false,
+        "isParentNode": false,
+        "name": "forceRun",
+        "position": 0,
+        "path": "doFriends.forceRun"
+      }
+    },
+    "lastRun": {
+      "$isParent": false,
+      "props": {
+        "$type": "timestamp",
+        "settingType": "TimeStamp",
+        "localValue": "0001-01-01T00:00:00-06:58",
+        "value": "0001-01-01T00:00:00+00:00",
+        "isParentNode": false,
+        "name": "lastRun",
+        "position": 0,
+        "path": "claimLoot.lastRun"
+      }
+    },
     "isHiring": {
       "$isParent": false,
       "props": {
@@ -631,6 +656,41 @@
         "name": "doPartTimeJobAndRest",
         "position": 0,
         "path": "doUpkeep.doPartTimeJobAndRest"
+      }
+    }
+  },
+  "claimLoot": {
+    "$isParent": true,
+    "props": {
+      "settingType": "Parent",
+      "isParentNode": true,
+      "name": "claimLoot",
+      "position": 0,
+      "path": "claimLoot"
+    },
+    "forceRun": {
+      "$isParent": false,
+      "props": {
+        "$type": "boolean",
+        "settingType": "Boolean",
+        "value": false,
+        "isParentNode": false,
+        "name": "forceRun",
+        "position": 0,
+        "path": "claimLoot.forceRun"
+      }
+    },
+    "lastRun": {
+      "$isParent": false,
+      "props": {
+        "$type": "timestamp",
+        "settingType": "TimeStamp",
+        "localValue": "0001-01-01T00:00:00-06:58",
+        "value": "0001-01-01T00:00:00+00:00",
+        "isParentNode": false,
+        "name": "lastRun",
+        "position": 0,
+        "path": "claimLoot.lastRun"
       }
     }
   }

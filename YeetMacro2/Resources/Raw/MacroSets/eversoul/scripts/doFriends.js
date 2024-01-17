@@ -18,6 +18,12 @@ const hireTarget3 = macroService.ClonePattern(settings.doFriends.hireTarget3.Val
 const hireTarget4 = macroService.ClonePattern(settings.doFriends.hireTarget4.Value, { Path: 'settings.outings.hireTarget_4', ...hireTargetBounds });
 const hireTarget5 = macroService.ClonePattern(settings.doFriends.hireTarget5.Value, { Path: 'settings.outings.hireTarget_5', ...hireTargetBounds });
 
+const isLastRunWithinHour = (Date.now() - settings.doFriends.lastRun.Value.ToUnixTimeMilliseconds()) / 3_600_000 < 1;
+
+if (isLastRunWithinHour && !settings.doFriends.forceRun.Value) {
+	return 'Last run was within the hour. Use forceRun setting to override check';
+}
+
 while (macroService.IsRunning) {
 	const loopResult = macroService.PollPattern(loopPatterns);
 	switch (loopResult.Path) {
@@ -62,6 +68,7 @@ while (macroService.IsRunning) {
 			logger.info('doFriends: done');
 			if (macroService.IsRunning) {
 				daily.doFriends.count.Count++;
+				settings.doFriends.lastRun.Value = new Date().toISOString();
 			}
 
 			return;

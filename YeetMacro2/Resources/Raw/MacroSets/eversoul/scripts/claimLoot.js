@@ -3,6 +3,12 @@
 const loopPatterns = [patterns.lobby.level, patterns.titles.loot];
 const daily = dailyManager.GetDaily();
 
+const isLastRunWithinHour = (Date.now() - settings.claimLoot.lastRun.Value.ToUnixTimeMilliseconds()) / 3_600_000 < 1;
+
+if (isLastRunWithinHour && !settings.claimLoot.forceRun.Value) {
+	return 'Last run was within the hour. Use forceRun setting to override check';
+}
+
 while (macroService.IsRunning) {
 	const loopResult = macroService.PollPattern(loopPatterns);
 	switch (loopResult.Path) {
@@ -26,6 +32,7 @@ while (macroService.IsRunning) {
 			logger.info('claimLoot: done');
 			if (macroService.IsRunning) {
 				daily.claimLoot.count.Count++;
+				settings.claimLoot.lastRun.Value = new Date().toISOString();
 			}
 
 			return;
