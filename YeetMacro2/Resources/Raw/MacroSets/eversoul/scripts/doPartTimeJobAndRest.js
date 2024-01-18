@@ -1,6 +1,11 @@
 ﻿// @position=8
 const loopPatterns = [patterns.lobby.level, patterns.town.enter];
 const daily = dailyManager.GetDaily();
+const isLastRunWithinHour = (Date.now() - settings.doPartTimeJobAndRest.lastRun.Value.ToUnixTimeMilliseconds()) / 3_600_000 < 1;
+
+if (isLastRunWithinHour && !settings.doPartTimeJobAndRest.forceRun.Value) {
+	return 'Last run was within the hour. Use forceRun setting to override check';
+}
 
 while (macroService.IsRunning) {
 	const loopResult = macroService.PollPattern(loopPatterns);
@@ -12,6 +17,7 @@ while (macroService.IsRunning) {
 				macroService.ClickPattern(patterns.lobby.town);
 				sleep(1_000);
 			} else {	// nothing to do
+				settings.doPartTimeJobAndRest.lastRun.Value = new Date().toISOString();
 				return;
 			}
 			break;
@@ -44,6 +50,7 @@ while (macroService.IsRunning) {
 			logger.info('doPartTimeJobAndRest: done');
 			if (macroService.IsRunning) {
 				daily.doPartTimeJobAndRest.count.Count++;
+				settings.doPartTimeJobAndRest.lastRun.Value = new Date().toISOString();
 			}
 			return;
 	}

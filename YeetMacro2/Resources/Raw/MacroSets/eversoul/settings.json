@@ -154,7 +154,7 @@
         "isParentNode": false,
         "name": "lastRun",
         "position": 0,
-        "path": "claimLoot.lastRun"
+        "path": "doFriends.lastRun"
       }
     },
     "isHiring": {
@@ -691,6 +691,85 @@
         "name": "lastRun",
         "position": 0,
         "path": "claimLoot.lastRun"
+      }
+    }
+  },
+  "claimFreeSummon": {
+    "$isParent": true,
+    "props": {
+      "settingType": "Parent",
+      "isParentNode": true,
+      "name": "claimFreeSummon",
+      "position": 0,
+      "path": "claimFreeSummon"
+    },
+    "doOneArtifact": {
+      "$isParent": false,
+      "props": {
+        "$type": "boolean",
+        "settingType": "Boolean",
+        "value": true,
+        "isParentNode": false,
+        "name": "doOneArtifact",
+        "position": 0,
+        "path": "claimFreeSummon.doOneArtifact"
+      }
+    }
+  },
+  "doPartTimeJobAndRest": {
+    "$isParent": true,
+    "props": {
+      "settingType": "Parent",
+      "isParentNode": true,
+      "name": "doPartTimeJobAndRest",
+      "position": 0,
+      "path": "doPartTimeJobAndRest"
+    },
+    "forceRun": {
+      "$isParent": false,
+      "props": {
+        "$type": "boolean",
+        "settingType": "Boolean",
+        "value": false,
+        "isParentNode": false,
+        "name": "forceRun",
+        "position": 0,
+        "path": "doPartTimeJobAndRest.forceRun"
+      }
+    },
+    "lastRun": {
+      "$isParent": false,
+      "props": {
+        "$type": "timestamp",
+        "settingType": "TimeStamp",
+        "localValue": "2024-01-17T11:39:26.955-06:00",
+        "value": "2024-01-17T17:39:26.955+00:00",
+        "isParentNode": false,
+        "name": "lastRun",
+        "position": 0,
+        "path": "doPartTimeJobAndRest.lastRun"
+      }
+    }
+  },
+  "doShop": {
+    "$isParent": true,
+    "props": {
+      "settingType": "Parent",
+      "isParentNode": true,
+      "name": "doShop",
+      "position": 0,
+      "path": "doShop"
+    },
+    "doArtifact": {
+      "$isParent": false,
+      "props": {
+        "$type": "boolean",
+        "settingType": "Boolean",
+        "value": true,
+        "isParentNode": false,
+        "name": "doArtifact",
+        "position": 0,
+        "path": "doShop.doArtifact"
       }
     }
   }

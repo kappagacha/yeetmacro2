@@ -21,7 +21,7 @@ while (macroService.IsRunning) {
 			logger.info('claimFreeSummon: normal summon');
 			const swipeResult = macroService.SwipePollPattern(patterns.summon.normal, { Start: { X: 100, Y: 650 }, End: { X: 100, Y: 200 } });
 			if (!swipeResult.IsSuccess) {
-				throw new Error('Unable to find resource shop');
+				throw new Error('Unable to find normal summon');
 			}
 			const selectedSummonNormalPattern = macroService.ClonePattern(patterns.summon.normal.selected, { CenterY: swipeResult.Point.Y, Padding: 10 });
 			macroService.PollPattern(patterns.summon.normal, { DoClick: true, PredicatePattern: selectedSummonNormalPattern });
@@ -30,10 +30,27 @@ while (macroService.IsRunning) {
 			macroService.PollPattern(patterns.summon.normal.free.confirm, { DoClick: true, PredicatePattern: patterns.summon.skip });
 			macroService.PollPattern(patterns.summon.skip, { DoClick: true, PredicatePattern: patterns.general.back, IntervalDelayMs: 2_500 });
 
+			if (settings.claimFreeSummon.doOneArtifact.Value && !daily.claimFreeSummon.doOneArtifact.IsChecked) {
+				const artifactSwipeResult = macroService.SwipePollPattern(patterns.summon.artifact, { Start: { X: 100, Y: 650 }, End: { X: 100, Y: 200 } });
+				if (!artifactSwipeResult.IsSuccess) {
+					throw new Error('Unable to find artifact summon');
+				}
+
+				macroService.PollPattern(patterns.summon.artifact, { DoClick: true, PredicatePattern: patterns.summon.artifact.ticket });
+				macroService.PollPattern(patterns.summon.artifact.ticket, { DoClick: true, PredicatePattern: patterns.summon.normal.free.confirm });
+				macroService.PollPattern(patterns.summon.normal.free.confirm, { DoClick: true, PredicatePattern: patterns.summon.skip });
+				macroService.PollPattern(patterns.summon.skip, { DoClick: true, PredicatePattern: patterns.general.back, IntervalDelayMs: 2_500 });
+
+				if (macroService.IsRunning) {
+					daily.claimFreeSummon.doOneArtifact.IsChecked = true;
+				}
+			}
+
 			logger.info('claimFreeSummon: done');
 			if (macroService.IsRunning) {
 				daily.claimFreeSummon.done.IsChecked = true;
 			}
+
 			return;
 	}
 
