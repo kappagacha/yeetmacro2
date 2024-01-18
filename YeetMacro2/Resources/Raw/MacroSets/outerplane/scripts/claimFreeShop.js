@@ -2,6 +2,7 @@
 // Claim free shop items
 const loopPatterns = [patterns.lobby.level, patterns.titles.shop];
 const daily = dailyManager.GetDaily();
+const resolution = macroService.GetCurrentResolution();
 if (daily.claimFreeShop.done.IsChecked) {
 	return "Script already completed. Uncheck done to override daily flag.";
 }
@@ -44,6 +45,40 @@ while (macroService.IsRunning) {
 				resourceFreeResult = macroService.FindPattern(patterns.shop.resource.free);
 			}
 
+			const friendshipItems = ['stamina', 'gold', 'clearTicket', 'arenaTicket', 'hammer', 'stoneFragment', 'stonePiece'];
+			for (const friendshipItem of friendshipItems) {
+				if (settings.claimFreeShop.useFriendshipPoints[friendshipItem].Value && !daily.claimFreeShop.useFriendshipPoints[friendshipItem].IsChecked) {
+					logger.info(`claimFreeShop: purchase friendshipItem ${friendshipItem}`);
+					macroService.PollPattern(patterns.shop.resource.friendship, { DoClick: true, PredicatePattern: patterns.shop.resource.friendship.currency });
+
+					const friendshipItemPattern = macroService.ClonePattern(patterns.shop.resource.friendship[friendshipItem], {
+						X: 350,
+						Y: 230,
+						Width: resolution.Width - 550,
+						Height: 800,
+						Path: `patterns.shop.resource.friendship.${friendshipItem}`,
+						OffsetCalcType: 'DockLeft'
+					});
+					const friendshipItemResult = macroService.PollPattern(friendshipItemPattern);
+					const friendshipItemPurchasePattern = macroService.ClonePattern(patterns.shop.resource.friendship.purchase, {
+						X: friendshipItemResult.Point.X - 70,
+						Y: friendshipItemResult.Point.Y + 200,
+						Width: 200,
+						Height: 100,
+						Path: `patterns.shop.resource.friendship.${friendshipItem}.purchase`,
+						OffsetCalcType: 'DockLeft'
+					});
+
+					macroService.PollPattern(friendshipItemPurchasePattern, { DoClick: true, PredicatePattern: patterns.shop.resource.friendship.ok });
+					const maxSliderResult = macroService.FindPattern(patterns.shop.resource.friendship.maxSlider);
+					if (maxSliderResult.IsSuccess) {
+						macroService.PollPattern(patterns.shop.resource.friendship.maxSlider, { DoClick: true, InversePredicatePattern: patterns.shop.resource.friendship.maxSlider });
+					}
+					macroService.PollPattern(patterns.shop.resource.friendship.ok, { DoClick: true, PredicatePattern: patterns.general.tapEmptySpace });
+					macroService.PollPattern(patterns.general.tapEmptySpace, { DoClick: true, PredicatePattern: patterns.titles.shop });
+				}
+			}
+			
 			if (macroService.IsRunning) {
 				daily.claimFreeShop.done.IsChecked = true;
 			}
