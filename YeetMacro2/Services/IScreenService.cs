@@ -51,4 +51,5 @@ public interface IScreenService
     Size Resolution { get; }
     double Density { get; }
     byte[] ScaleImageData(byte[] data, double scale);
+    Point GetTopLeft();
 }

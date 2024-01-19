@@ -87,12 +87,12 @@ public class MacroService
 
         if (pattern.IsLocationDynamic)
         {
-            return PatternNodeManagerViewModel.CalcOffset(pattern, _screenService.Resolution);
+            return PatternNodeManagerViewModel.CalcOffset(pattern, _screenService.Resolution, _screenService.GetTopLeft());
         }
 
         if (!_pathToOffset.ContainsKey(patternNode.Path))
         {
-            _pathToOffset[patternNode.Path] = PatternNodeManagerViewModel.CalcOffset(pattern, _screenService.CalcResolution);
+            _pathToOffset[patternNode.Path] = PatternNodeManagerViewModel.CalcOffset(pattern, _screenService.CalcResolution, _screenService.GetTopLeft());
         }
 
         return _pathToOffset[patternNode.Path];
