@@ -1,5 +1,6 @@
 // @raw-script
-function selectTeam(teamSlot) {
+// @position=1000
+function selectTeam(teamSlot, returnCurrentCp) {
 	if (!teamSlot || teamSlot === 'Current' || teamSlot < 1) return;
 
 	const spacing = 90;
@@ -9,6 +10,11 @@ function selectTeam(teamSlot) {
 	const targetTeamSlotSelected = macroService.ClonePattern(patterns.battle.teamSlot.selected, { CenterY: selectedTeamSlotStartY + (spacing * (teamSlot - 1)) });
 
 	macroService.pollPattern(targetTeamSlot, { DoClick: true, PredicatePattern: targetTeamSlotSelected });
+
+	if (macroService.IsRunning && returnCurrentCp) {
+		const cpText = macroService.GetText(patterns.battle.cp);
+		return Number(cpText.slice(0, -4).slice(1) + cpText.slice(-3));
+	}
 }
 
 function selectTeamAndBattle(teamSlot, sweepBattle) {

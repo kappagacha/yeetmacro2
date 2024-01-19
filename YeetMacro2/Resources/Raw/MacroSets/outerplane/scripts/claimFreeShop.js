@@ -45,6 +45,8 @@ while (macroService.IsRunning) {
 				resourceFreeResult = macroService.FindPattern(patterns.shop.resource.free);
 			}
 
+			const daily = dailyManager.GetDaily();
+			const resolution = macroService.GetCurrentResolution();
 			const friendshipItems = ['stamina', 'gold', 'clearTicket', 'arenaTicket', 'hammer', 'stoneFragment', 'stonePiece'];
 			for (const friendshipItem of friendshipItems) {
 				if (settings.claimFreeShop.useFriendshipPoints[friendshipItem].Value && !daily.claimFreeShop.useFriendshipPoints[friendshipItem].IsChecked) {
@@ -63,7 +65,7 @@ while (macroService.IsRunning) {
 					const friendshipItemPurchasePattern = macroService.ClonePattern(patterns.shop.resource.friendship.purchase, {
 						X: friendshipItemResult.Point.X - 70,
 						Y: friendshipItemResult.Point.Y + 200,
-						Width: 200,
+						Width: 350,
 						Height: 100,
 						Path: `patterns.shop.resource.friendship.${friendshipItem}.purchase`,
 						OffsetCalcType: 'DockLeft'
@@ -76,6 +78,9 @@ while (macroService.IsRunning) {
 					}
 					macroService.PollPattern(patterns.shop.resource.friendship.ok, { DoClick: true, PredicatePattern: patterns.general.tapEmptySpace });
 					macroService.PollPattern(patterns.general.tapEmptySpace, { DoClick: true, PredicatePattern: patterns.titles.shop });
+					if (macroService.IsRunning) {
+						daily.claimFreeShop.useFriendshipPoints[friendshipItem].IsChecked = true;
+					}
 				}
 			}
 			

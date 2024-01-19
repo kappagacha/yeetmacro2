@@ -28,6 +28,32 @@
         "position": 0,
         "path": "doArena.teamSlot"
       }
+    },
+    "cpThreshold": {
+      "$isParent": false,
+      "props": {
+        "$type": "enabledInteger",
+        "settingType": "EnabledInteger",
+        "isEnabled": true,
+        "increment": 100,
+        "value": 106983,
+        "isParentNode": false,
+        "name": "cpThreshold",
+        "position": 0,
+        "path": "doArena.cpThreshold"
+      }
+    },
+    "autoDetectCpThreshold": {
+      "$isParent": false,
+      "props": {
+        "$type": "boolean",
+        "settingType": "Boolean",
+        "value": false,
+        "isParentNode": false,
+        "name": "autoDetectCpThreshold",
+        "position": 0,
+        "path": "doArena.autoDetectCpThreshold"
+      }
     }
   },
   "doSpecialRequests": {
