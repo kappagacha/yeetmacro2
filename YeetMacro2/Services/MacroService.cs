@@ -304,7 +304,8 @@ public class MacroService
                     {
                         IsBoundsPattern = true,
                         Rect = new Rect(point, Size.Zero),
-                        Resolution = _screenService.CalcResolution
+                        Resolution = _screenService.CalcResolution,
+                        OffsetCalcType = OffsetCalcType.None
                     }
                 }
         };
