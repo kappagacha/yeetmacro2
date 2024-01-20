@@ -268,7 +268,7 @@ public class MacroService
 
     public void DoClick(Point point)
     {
-        var variance = 3;
+        var variance = 5;
         var xVariance = _random.Next(-variance, variance);
         var yVariance = _random.Next(-variance, variance);
         _screenService.DoClick(point.Offset(xVariance, yVariance));
@@ -472,7 +472,13 @@ public class MacroService
     {
         try
         {
-            _screenService.DoSwipe(start, end);
+            var variance = 5;
+            var xVarianceStart = _random.Next(-variance, variance);
+            var yVarianceStart = _random.Next(-variance, variance);
+            var xVarianceEnd = _random.Next(-variance, variance);
+            var yVarianceEnd = _random.Next(-variance, variance);
+
+            _screenService.DoSwipe(start.Offset(xVarianceStart, yVarianceStart), end.Offset(xVarianceEnd, yVarianceEnd));
         }
         catch (Exception ex)
         {
