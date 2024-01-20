@@ -64,7 +64,7 @@ public class TextMatchProperties
 public class ColorThresholdProperties
 {
     public virtual bool IsActive { get; set; }
-    public virtual double VariancePct { get; set; } = 10.0;
+    public virtual double VariancePct { get; set; } = 30.0;
     public virtual string Color { get; set; }
     public byte[] ImageData { get; set; }
 }
