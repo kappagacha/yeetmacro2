@@ -19,7 +19,7 @@ while (macroService.IsRunning) {
 			break;
 		case 'titles.battleArena':
 			logger.info('doBattleArena: start arena');
-			macroService.PollPattern(patterns.battleArena.begin, { DoClick: true, ClickPattern: [patterns.battleArena.prompt.noteOk, patterns.battleArena.rankResult ], PredicatePattern: patterns.battleArena.advanced });
+			macroService.PollPattern(patterns.battleArena.begin, { DoClick: true, ClickPattern: [patterns.battleArena.prompt.noteOk, patterns.battleArena.rankResult], PredicatePattern: patterns.battleArena.advanced });
 			sleep(500);
 			macroService.PollPattern(patterns.battleArena.advanced, { DoClick: true, ClickPattern: patterns.battleArena.prompt.noteOk, PredicatePattern: patterns.battle.prepare });
 			sleep(500);
@@ -35,7 +35,7 @@ while (macroService.IsRunning) {
 				selectParty(targetPartyName);
 			}
 			sleep(500);
-			macroService.PollPattern(patterns.battle.begin, { DoClick: true, ClickPattern: [patterns.branchEvent.availableNow, patterns.branchEvent.playLater, patterns.prompt.playerRankUp, patterns.battleArena.newHighScore], PredicatePattern: patterns.battle.report });
+			macroService.PollPattern(patterns.battle.begin, { DoClick: true, ClickPattern: [patterns.branchEvent.availableNow, patterns.branchEvent.playLater, patterns.prompt.playerRankUp, patterns.battleArena.newHighScore, patterns.battleArena.rank], PredicatePattern: patterns.battle.report });
 			break;
 		case 'battle.report':
 			logger.info('doBattleArena: restart');
@@ -54,18 +54,18 @@ while (macroService.IsRunning) {
 			const replayResult = macroService.FindPattern(patterns.battle.replay);
 			if (replayResult.IsSuccess) {
 				logger.debug('doBattleArena: found replay');
-				macroService.PollPattern(patterns.battle.replay, { DoClick: true, ClickPattern: [patterns.branchEvent.availableNow, patterns.branchEvent.playLater, patterns.prompt.playerRankUp, patterns.battleArena.newHighScore], PredicatePattern: patterns.battle.replay.ok });
+				macroService.PollPattern(patterns.battle.replay, { DoClick: true, ClickPattern: [patterns.branchEvent.availableNow, patterns.branchEvent.playLater, patterns.prompt.playerRankUp, patterns.battleArena.newHighScore, patterns.battleArena.rank], PredicatePattern: patterns.battle.replay.ok });
 				macroService.PollPattern(patterns.battle.replay.ok, { DoClick: true, PredicatePattern: patterns.battle.report });
 			} else {
 				logger.debug('doBattleArena: found next2');
-				const next2Result = macroService.PollPattern(patterns.battle.next2, { DoClick: true, ClickPattern: [patterns.battleArena.prompt.ok, patterns.branchEvent.availableNow, patterns.branchEvent.playLater, patterns.prompt.playerRankUp, patterns.battleArena.newHighScore], PredicatePattern: [patterns.titles.battleArena, patterns.battle.replay] });
+				const next2Result = macroService.PollPattern(patterns.battle.next2, { DoClick: true, ClickPattern: [patterns.battleArena.prompt.ok, patterns.branchEvent.availableNow, patterns.branchEvent.playLater, patterns.prompt.playerRankUp, patterns.battleArena.newHighScore, patterns.battleArena.rank], PredicatePattern: [patterns.titles.battleArena, patterns.battle.replay] });
 				if (next2Result.PredicatePath === 'titles.battleArena') {
 					if (macroService.IsRunning) {
 						daily.doBattleArena.done.IsChecked = true;
 					}
 					return;
 				}
-				macroService.PollPattern(patterns.battle.replay, { DoClick: true, ClickPattern: [patterns.branchEvent.availableNow, patterns.branchEvent.playLater, patterns.prompt.playerRankUp, patterns.battleArena.newHighScore], PredicatePattern: patterns.battle.replay.ok });
+				macroService.PollPattern(patterns.battle.replay, { DoClick: true, ClickPattern: [patterns.branchEvent.availableNow, patterns.branchEvent.playLater, patterns.prompt.playerRankUp, patterns.battleArena.newHighScore, patterns.battleArena.rank], PredicatePattern: patterns.battle.replay.ok });
 				macroService.PollPattern(patterns.battle.replay.ok, { DoClick: true, PredicatePattern: patterns.battle.report });
 			}
 			break;
