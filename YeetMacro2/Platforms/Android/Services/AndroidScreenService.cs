@@ -257,7 +257,6 @@ public class AndroidScreenService : IScreenService
             watch.Start();
             try
             {
-                //var topLeft = GetTopLeftByPackage();
                 //haystackImageData = pattern.Rect != Rect.Zero ?
                 //    await _mediaProjectionService.GetCurrentImageData(pattern.Rect.Offset(-topLeft.x, -topLeft.y)) :
                 //    await _mediaProjectionService.GetCurrentImageData();
@@ -266,6 +265,18 @@ public class AndroidScreenService : IScreenService
                     haystackImageData = _mediaProjectionService.GetCurrentImageData(
                         new Rect(rect.Location.Offset(-boundsPadding, -boundsPadding),
                         pattern.Rect.Size + new Size(boundsPadding, boundsPadding)));
+                }
+                else if (pattern.OffsetCalcType == OffsetCalcType.Default || pattern.OffsetCalcType == OffsetCalcType.Center || 
+                         pattern.OffsetCalcType == OffsetCalcType.HorizontalStretchOffset || pattern.OffsetCalcType == OffsetCalcType.VerticalStretchOffset)
+                {
+                    var topLeft = GetTopLeft();
+                    if (!topLeft.IsEmpty)   // handle off by one due to calculations
+                    {
+                        var topLeftPadding = 1;
+                        haystackImageData = _mediaProjectionService.GetCurrentImageData(
+                            new Rect(rect.Location.Offset(-topLeftPadding, -topLeftPadding),
+                            pattern.Rect.Size + new Size(topLeftPadding * 2, topLeftPadding * 2)));
+                    }
                 }
                 else
                 {
