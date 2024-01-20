@@ -206,15 +206,16 @@ public partial class PatternNodeManagerViewModel : NodeManagerViewModel<PatternN
 
     public static Point CalcOffset(Pattern pattern, Size currentResolution, Point topLeft)
     {
-        if (currentResolution == pattern.Resolution || pattern.OffsetCalcType == OffsetCalcType.DockLeft)
-        {
-            return topLeft;
-        }
-
         var xOffset = 0;
         var yOffset = 0;
         switch (pattern.OffsetCalcType)
         {
+            case OffsetCalcType.DockLeft:
+                if (currentResolution == pattern.Resolution)
+                {
+                    return topLeft;
+                }
+                break;
             case OffsetCalcType.Default:
             case OffsetCalcType.Center:
                 {   // horizontal center handling
