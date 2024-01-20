@@ -31,7 +31,7 @@ while (macroService.IsRunning) {
 			macroService.PollPattern(patterns.summon.skip, { DoClick: true, PredicatePattern: patterns.general.back, IntervalDelayMs: 2_500 });
 
 			if (settings.claimFreeSummon.doOneArtifact.Value && !daily.claimFreeSummon.doOneArtifact.IsChecked) {
-				macroService.PollPattern(patterns.general.back, { DoClick: true, PredicatePattern: patterns.summon.info });
+				macroService.PollPattern(patterns.summon.info, { ClickPattern: patterns.general.back });
 
 				const artifactSwipeResult = macroService.SwipePollPattern(patterns.summon.artifact, { Start: { X: 100, Y: 650 }, End: { X: 100, Y: 200 } });
 				if (!artifactSwipeResult.IsSuccess) {
