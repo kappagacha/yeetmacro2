@@ -233,14 +233,14 @@ public partial class PatternNodeManagerViewModel : NodeManagerViewModel<PatternN
                 {
                     // HorizontalStretchMultiplier = targetXOffset / deltaX
                     var deltaX = currentResolution.Width - pattern.Resolution.Width - topLeft.X;
-                    xOffset = (int)(deltaX * pattern.HorizontalStretchMultiplier); // + (int)topLeft.X + (deltaX % 2 == 0 ? 0 : 1);
+                    xOffset = (int)(deltaX * pattern.HorizontalStretchMultiplier) + (int)topLeft.X; // + (deltaX % 2 == 0 ? 0 : 1);
                 }
                 break;
             case OffsetCalcType.VerticalStretchOffset:
                 {
                     // HorizontalStretchMultiplier = targetYOffset / deltaY
                     var deltaY = currentResolution.Height - pattern.Resolution.Height - topLeft.Y;
-                    yOffset = (int)(deltaY * pattern.VerticalStretchMultiplier); // + (int)topLeft.Y + (deltaY % 2 == 0 ? 0 : 1);
+                    yOffset = (int)(deltaY * pattern.VerticalStretchMultiplier) + (int)topLeft.Y; // + (deltaY % 2 == 0 ? 0 : 1);
                 }
                 break;
         }
