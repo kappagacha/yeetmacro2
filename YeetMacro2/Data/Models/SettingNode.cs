@@ -138,5 +138,6 @@ public class EnabledPatternSetting : PatternSetting
 public class TimestampSetting : SettingNode<DateTimeOffset>
 {
     public override SettingType SettingType => SettingType.TimeStamp;
+    [JsonIgnore]
     public virtual DateTimeOffset LocalValue => Value.ToLocalTime();
 }
