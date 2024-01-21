@@ -24,10 +24,8 @@ while (macroService.IsRunning) {
 			break;
 		case 'titles.base':
 			logger.info('claimAntiparticle: claim antiparticle');
-
-			macroService.PollPattern(patterns.base.antiparticle, { DoClick: true, PredicatePattern: patterns.base.antiparticle.receiveReward });
-			const antiparticleResult = macroService.FindPattern([patterns.base.antiparticle.receiveReward.disabled, patterns.base.antiparticle]);
-			if (antiparticleResult.Path !== 'base.antiparticle.receiveReward.disabled') {
+			const antiparticleResult = macroService.PollPattern(patterns.base.antiparticle, { DoClick: true, PredicatePattern: [patterns.base.antiparticle.receiveReward, patterns.base.antiparticle.receiveReward.disabled] });
+			if (antiparticleResult.PredicatePath === 'base.antiparticle.receiveReward') {
 				macroService.PollPattern(patterns.base.antiparticle.receiveReward, { DoClick: true, PredicatePattern: patterns.general.tapEmptySpace });
 				macroService.PollPattern(patterns.general.tapEmptySpace, { DoClick: true, PredicatePattern: patterns.general.back });
 			}
