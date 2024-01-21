@@ -45,8 +45,6 @@ while (macroService.IsRunning) {
 				resourceFreeResult = macroService.FindPattern(patterns.shop.resource.free);
 			}
 
-			const daily = dailyManager.GetDaily();
-			const resolution = macroService.GetCurrentResolution();
 			const friendshipItems = ['stamina', 'gold', 'clearTicket', 'arenaTicket', 'hammer', 'stoneFragment', 'stonePiece'];
 			for (const friendshipItem of friendshipItems) {
 				if (settings.claimFreeShop.useFriendshipPoints[friendshipItem].Value && !daily.claimFreeShop.useFriendshipPoints[friendshipItem].IsChecked) {
@@ -68,7 +66,7 @@ while (macroService.IsRunning) {
 						Width: 350,
 						Height: 100,
 						Path: `patterns.shop.resource.friendship.${friendshipItem}.purchase`,
-						OffsetCalcType: 'DockLeft'
+						OffsetCalcType: 'None'
 					});
 
 					macroService.PollPattern(friendshipItemPurchasePattern, { DoClick: true, PredicatePattern: patterns.shop.resource.friendship.ok });

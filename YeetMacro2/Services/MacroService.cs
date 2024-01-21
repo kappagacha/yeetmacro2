@@ -514,6 +514,13 @@ public class MacroService
         if (patternNode?.Patterns.FirstOrDefault() == null) return string.Empty;
 
         var offset = CalcOffset(patternNode);
+        if (InDebugMode)
+        {
+            MainThread.BeginInvokeOnMainThread(_screenService.DebugClear);
+            Sleep(50);
+            MainThread.BeginInvokeOnMainThread(() => _screenService.DebugRectangle(patternNode.Patterns.First().Rect.Offset(offset)));
+        }
+
         var currentTry = 0;
         while (currentTry < maxTry)
         {

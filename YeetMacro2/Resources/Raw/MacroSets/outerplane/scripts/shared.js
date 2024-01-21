@@ -3,18 +3,45 @@
 function selectTeam(teamSlot, returnCurrentCp) {
 	if (!teamSlot || teamSlot === 'Current' || teamSlot < 1) return;
 
-	const spacing = 90;
-	const teamSlotStartY = patterns.battle.teamSlot.Pattern.Rect.Center.Y;
-	const targetTeamSlot = macroService.ClonePattern(patterns.battle.teamSlot, { CenterY: teamSlotStartY + (spacing * (teamSlot - 1)) });
-	const selectedTeamSlotStartY = patterns.battle.teamSlot.selected.Pattern.Rect.Center.Y;
-	const targetTeamSlotSelected = macroService.ClonePattern(patterns.battle.teamSlot.selected, { CenterY: selectedTeamSlotStartY + (spacing * (teamSlot - 1)) });
-
-	macroService.pollPattern(targetTeamSlot, { DoClick: true, PredicatePattern: targetTeamSlotSelected });
-
+	let currentTeamSlot = getCurrentTeamSlot();
+	while (currentTeamSlot?.trim() !== teamSlot) {
+		const teamSlotResult = findTeamSlot(teamSlot);
+		if (teamSlotResult) {
+			macroService.DoClick(teamSlotResult);
+			sleep(1_500);
+		}
+		currentTeamSlot = getCurrentTeamSlot();
+	}
+	
 	if (macroService.IsRunning && returnCurrentCp) {
 		const cpText = macroService.GetText(patterns.battle.cp);
 		return Number(cpText.slice(0, -4).slice(1) + cpText.slice(-3));
 	}
+}
+
+function findTeamSlot(teamSlot) {
+	const teamSlotCornerResults = macroService.FindPattern(patterns.battle.teamSlotCorner, { Limit: 10 });
+	const teams = teamSlotCornerResults.Points.map(p => {
+		const teamSlotPattern = macroService.ClonePattern(patterns.battle.teamSlot, { Y: p.Y + 7 });
+		return {
+			point : p,
+			slot: macroService.GetText(teamSlotPattern)
+		};
+	});
+	return teams.find(t => t.slot === teamSlot)?.point;
+}
+
+function getCurrentTeamSlot() {
+	const selectedTeamSlotResult = macroService.PollPattern(patterns.battle.teamSlotCorner.selected);
+	const selectedTeamSlotPattern = macroService.ClonePattern(patterns.battle.teamSlot, { Y: selectedTeamSlotResult.Point.Y + 7 });
+	let currentTeamSlot = macroService.GetText(selectedTeamSlotPattern)
+	logger.info(`currentTeamSlot: ${currentTeamSlot}`);
+	while (!currentTeamSlot) {
+		currentTeamSlot = macroService.GetText(selectedTeamSlotPattern);
+		logger.info(`currentTeamSlot: ${currentTeamSlot}`);
+		sleep(100);
+	}
+	return currentTeamSlot;
 }
 
 function selectTeamAndBattle(teamSlot, sweepBattle) {

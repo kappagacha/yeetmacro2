@@ -1089,5 +1089,91 @@
         }
       }
     }
+  },
+  "doGuildRaid": {
+    "$isParent": true,
+    "props": {
+      "settingType": "Parent",
+      "isParentNode": true,
+      "name": "doGuildRaid",
+      "position": 0,
+      "path": "doGuildRaid"
+    },
+    "teamSlot1": {
+      "$isParent": false,
+      "props": {
+        "$type": "option",
+        "settingType": "Option",
+        "options": [
+          "Current",
+          "1",
+          "2",
+          "3",
+          "4",
+          "5",
+          "7"
+        ],
+        "value": "1",
+        "isParentNode": false,
+        "name": "teamSlot1",
+        "position": 0,
+        "path": "doGuildRaid.teamSlot1"
+      }
+    },
+    "targetStage1": {
+      "$isParent": false,
+      "props": {
+        "$type": "option",
+        "settingType": "Option",
+        "options": [
+          "1",
+          "2",
+          "3"
+        ],
+        "value": "3",
+        "isParentNode": false,
+        "name": "targetStage1",
+        "position": 0,
+        "path": "doGuildRaid.targetStage1"
+      }
+    },
+    "teamSlot2": {
+      "$isParent": false,
+      "props": {
+        "$type": "option",
+        "settingType": "Option",
+        "options": [
+          "Current",
+          "1",
+          "2",
+          "3",
+          "4",
+          "5",
+          "7"
+        ],
+        "value": "7",
+        "isParentNode": false,
+        "name": "teamSlot2",
+        "position": 0,
+        "path": "doGuildRaid.teamSlot2"
+      }
+    },
+    "targetStage2": {
+      "$isParent": false,
+      "props": {
+        "$type": "option",
+        "settingType": "Option",
+        "options": [
+          "1",
+          "2",
+          "3"
+        ],
+        "value": "2",
+        "isParentNode": false,
+        "name": "targetStage2",
+        "position": 0,
+        "path": "doGuildRaid.targetStage2"
+      }
+    }
   }
 }
