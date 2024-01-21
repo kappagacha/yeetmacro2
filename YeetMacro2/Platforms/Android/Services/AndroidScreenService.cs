@@ -15,6 +15,7 @@ using YeetMacro2.Views;
 using CommunityToolkit.Mvvm.Messaging.Messages;
 using CommunityToolkit.Mvvm.Messaging;
 using static Android.Graphics.Bitmap;
+using Android;
 
 namespace YeetMacro2.Platforms.Android.Services;
 
@@ -39,6 +40,7 @@ public enum AndroidWindowView
 public class AndroidScreenService : IScreenService
 {
     public const int OVERLAY_SERVICE_REQUEST = 0;
+    public const int POST_NOTIFICATION_REQUEST = 10;
     IWindowManager _windowManager;
     ConcurrentDictionary<AndroidWindowView, IShowable> _views = new ConcurrentDictionary<AndroidWindowView, IShowable>();
     FormsView _overlayWindow;
@@ -425,6 +427,13 @@ public class AndroidScreenService : IScreenService
 
     public async Task StartProjectionService()
     {
+        if (global::Android.OS.Build.VERSION.SdkInt >= global::Android.OS.BuildVersionCodes.Tiramisu &&
+            _context.CheckSelfPermission(global::Android.Manifest.Permission.PostNotifications) != global::Android.Content.PM.Permission.Granted)
+        {
+            _context.RequestPermissions(new[] { global::Android.Manifest.Permission.PostNotifications }, POST_NOTIFICATION_REQUEST);
+            return;
+        }
+
         _context.StartForegroundServiceCompat<ForegroundService>();
         await _mediaProjectionService.EnsureProjectionServiceStarted();
     }

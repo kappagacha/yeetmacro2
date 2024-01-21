@@ -6,7 +6,6 @@ using Android.Runtime;
 using AndroidX.Core.App;
 using CommunityToolkit.Mvvm.Messaging.Messages;
 using CommunityToolkit.Mvvm.Messaging;
-using YeetMacro2.Platforms.Android.Views;
 
 namespace YeetMacro2.Platforms.Android.Services;
 
