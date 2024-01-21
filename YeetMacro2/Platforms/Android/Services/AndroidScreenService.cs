@@ -278,7 +278,8 @@ public class AndroidScreenService : IScreenService
                             pattern.Rect.Size + new Size(topLeftPadding * 2, topLeftPadding * 2)));
                     }
                 }
-                else
+                
+                if (haystackImageData is null)
                 {
                     haystackImageData = pattern.Rect != Rect.Zero ?
                        _mediaProjectionService.GetCurrentImageData(rect) :

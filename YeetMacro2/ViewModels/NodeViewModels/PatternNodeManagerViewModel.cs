@@ -211,11 +211,7 @@ public partial class PatternNodeManagerViewModel : NodeManagerViewModel<PatternN
         switch (pattern.OffsetCalcType)
         {
             case OffsetCalcType.DockLeft:
-                if (currentResolution == pattern.Resolution)
-                {
-                    return topLeft;
-                }
-                break;
+                return topLeft;
             case OffsetCalcType.Default:
             case OffsetCalcType.Center:
                 {   // horizontal center handling
