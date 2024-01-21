@@ -24,7 +24,7 @@ while (macroService.IsRunning) {
 			break;
 		case 'titles.branch':
 			logger.info('doBranchQuests: pick quest');
-			const eventResult = macroService.PollPattern([patterns.branchEvent.cabbageHunting, patterns.branchEvent.explosionWalk, patterns.branchEvent.pitAPatBox, patterns.branchEvent.swimsuit], { DoClick: true, PredicatePattern: patterns.titles.branchEvent });
+			const eventResult = macroService.PollPattern([patterns.branchEvent.cabbageHunting, patterns.branchEvent.explosionWalk, patterns.branchEvent.pitAPatBox, patterns.branchEvent.swimsuit, patterns.branchEvent.snowSprite], { DoClick: true, PredicatePattern: patterns.titles.branchEvent });
 			evnt = eventResult.Path;
 			logger.debug('event: ' + evnt);
 			break;
@@ -52,6 +52,7 @@ while (macroService.IsRunning) {
 			break;
 		case 'titles.party':
 			logger.info('doBranchQuests: select party');
+			// snowSprite event also goes here
 			const targetPartyName = settings.doBranchQuests.cabbageHunting.party.Value;
 			logger.debug(`targetPartyName: ${targetPartyName}`);
 			selectParty(targetPartyName);
