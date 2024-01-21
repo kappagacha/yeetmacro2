@@ -1,6 +1,6 @@
 // @position=4
 // Auto guild raid
-const loopPatterns = [patterns.lobby.level, patterns.titles.guildBoard, patterns.titles.guild, patterns.titles.guildRaid];
+const loopPatterns = [patterns.lobby.level, patterns.titles.guildBoard, patterns.titles.guildRaid, patterns.titles.guild];
 const daily = dailyManager.GetDaily();
 const teamSlot1 = settings.doGuildRaid.teamSlot1.Value;
 const targetStage1 = settings.doGuildRaid.targetStage1.Value;
@@ -36,8 +36,6 @@ while (macroService.IsRunning) {
 		case 'titles.guildRaid':
 
 			logger.info(`doGuildRaid: target stage first team`);
-			//const teamSlot1 = '7';
-			//const targetStage1 = '3';
 			macroService.PollPattern(patterns.guild.raid[`stage${targetStage1}`], { ClickPattern: patterns.guild.raid.stageRight });
 			macroService.PollPattern(patterns.guild.raid.selectTeam, { DoClick: true, PredicatePattern: patterns.battle.enter });
 			selectTeam(teamSlot1);
@@ -46,13 +44,17 @@ while (macroService.IsRunning) {
 			sleep(1000);
 
 			logger.info(`doGuildRaid: target stage second team`);
-			//const teamSlot2 = '7';
-			//const targetStage2 = '2';
 			macroService.PollPattern(patterns.guild.raid[`stage${targetStage2}`], { ClickPattern: patterns.guild.raid.stageRight });
 			macroService.PollPattern(patterns.guild.raid.selectTeam, { DoClick: true, PredicatePattern: patterns.battle.enter });
 			selectTeam(teamSlot2);
 			macroService.PollPattern(patterns.battle.enter, { DoClick: true, ClickPattern: [patterns.guild.raid.enterBattle, patterns.battle.setup.auto], PredicatePattern: patterns.battle.exit });
 			macroService.PollPattern(patterns.battle.exit, { DoClick: true, ClickPattern: [patterns.guild.raid.battleRecordExit, patterns.general.tapEmptySpace], PredicatePattern: patterns.titles.guildRaid });
+
+			const raidRewardNotificationResult = macroService.PollPattern(patterns.guild.raid.reward.notification, { TimoutMs: 1_500 });
+			if (raidRewardNotificationResult.IsSuccess) {
+				macroService.PollPattern(patterns.guild.raid.reward.notification, { DoClick: true, PredicatePattern: patterns.general.tapEmptySpace });
+				macroService.PollPattern(patterns.general.tapEmptySpace, { DoClick: true, PredicatePattern: patterns.titles.guildRaid });
+			}
 
 			if (macroService.IsRunning) {
 				daily.doGuildRaid.done.IsChecked = true;

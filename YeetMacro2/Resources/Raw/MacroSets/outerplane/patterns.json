@@ -6818,6 +6818,61 @@
           "position": 0,
           "path": "guild.raid.battleRecordExit"
         }
+      },
+      "reward": {
+        "$isParent": true,
+        "props": {
+          "isMultiPattern": false,
+          "patterns": [],
+          "isParentNode": true,
+          "name": "reward",
+          "position": 0,
+          "path": "guild.raid.reward"
+        },
+        "notification": {
+          "$isParent": true,
+          "props": {
+            "isMultiPattern": false,
+            "patterns": [
+              {
+                "rect": {
+                  "x": 189.15264892578125,
+                  "y": 877.4396362304688,
+                  "width": 7.4937591552734375,
+                  "height": 19.477783203125
+                },
+                "resolution": {
+                  "width": 1920,
+                  "height": 1080
+                },
+                "isBoundsPattern": false,
+                "isLocationDynamic": false,
+                "name": "pattern",
+                "imageData": "/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDAAEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQH/2wBDAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQH/wAARCAATAAcDASIAAhEBAxEB/8QAFwABAAMAAAAAAAAAAAAAAAAAAAcICf/EACIQAAEDBAIDAQEAAAAAAAAAAAQCAwUAAQYHCBEJEiETIv/EABcBAAMBAAAAAAAAAAAAAAAAAAUGBwn/xAApEQABAwMBBgcBAAAAAAAAAAABAgMEBQYRIQAHEhQxQRMWIiMkQmFx/9oADAMBAAIRAxEAPwDZ3mXq7j/B+MbTWXw2Dw8bKzcfhhEFKjsoakFLIlIy5t3iUu2cfu7HXJQqy3Hrf1dXy/SqVTrk7A8oZjxfcS8UktUTULh2q1485JZaRPwJTMtBO4+rHIZhMaMa7LDLdnjo8jo8Zj19b2Ur9OkXVGLllL52L4dIU4k02EoqMUjClJKikcTYJCCeHOMekj+6fbi7fjG167zu8ePDeRfFzNpaTcaCFMtPxm2nyG5agkyEID2CeIhYUrqcxhuPkNuuZ4P62xKT2PkRePEBY20TGreHQglsEsI0RBL7Q6CyEjlsMkN2efX062lX29KUoTX5Urm4/wAl/Snw8e853byft3Op/deuz/ukt+gKoddKqHSFHzjcQyabCJwl9kJGSxnACQAOwAA0A2//2Q==",
+                "variancePct": 20,
+                "horizontalStretchMultiplier": 0,
+                "verticalStretchMultiplier": 0,
+                "textMatch": {
+                  "isActive": false,
+                  "text": null,
+                  "whiteList": null
+                },
+                "colorThreshold": {
+                  "isActive": true,
+                  "variancePct": 30,
+                  "color": "#fffbdcdd",
+                  "imageData": "/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDAAIBAQEBAQIBAQECAgICAgQDAgICAgUEBAMEBgUGBgYFBgYGBwkIBgcJBwYGCAsICQoKCgoKBggLDAsKDAkKCgr/wAALCAATAAcBAREA/8QAHwAAAQUBAQEBAQEAAAAAAAAAAAECAwQFBgcICQoL/8QAtRAAAgEDAwIEAwUFBAQAAAF9AQIDAAQRBRIhMUEGE1FhByJxFDKBkaEII0KxwRVS0fAkM2JyggkKFhcYGRolJicoKSo0NTY3ODk6Q0RFRkdISUpTVFVWV1hZWmNkZWZnaGlqc3R1dnd4eXqDhIWGh4iJipKTlJWWl5iZmqKjpKWmp6ipqrKztLW2t7i5usLDxMXGx8jJytLT1NXW19jZ2uHi4+Tl5ufo6erx8vP09fb3+Pn6/9oACAEBAAA/APHf+CEHxl/4KOaP/wAHLfjX4UfGL43eIPGer6v4g8V6V+0XqOliS70rVP7Htr23truQNCi2ttBqEdpBaSCODyUuEtYxFHO0DfWH/BL7RP2Avgh/wcxftI+Ifhr+3Pp+u+K/iVqHiPQdA+FreEdcbU4tZe8TV/EIur6TTrewgitbrS7xLdY5ZxNA65mDxjz+/wD+CXv/AATe/Yl+HH/BwD+2N4x+H3wD0/Q7v4L6h4JvfhfDpOoXdva+HpPEPhu+fVlhtY5hAYpjNIFhdGjgUhYFiVVA/9k="
+                },
+                "offsetCalcType": "DockLeft",
+                "position": 0
+              }
+            ],
+            "isParentNode": true,
+            "name": "notification",
+            "position": 0,
+            "path": "guild.raid.reward.notification"
+          }
+        }
       }
     },
     "checkIn": {
