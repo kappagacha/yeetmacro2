@@ -68,7 +68,7 @@ public class ForegroundService : Service
             .SetContentIntent(pendingIntent);
 
         // Building channel if API verion is 26 or above
-        if (global::Android.OS.Build.VERSION.SdkInt >= BuildVersionCodes.O)
+        if (OperatingSystem.IsAndroidVersionAtLeast(26))
         {
             NotificationChannel notificationChannel = new NotificationChannel(FOREGROUND_CHANNEL_ID, "Title", NotificationImportance.High);
             notificationChannel.Importance = NotificationImportance.Low;

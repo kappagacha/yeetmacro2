@@ -1,6 +1,5 @@
 ﻿using Android.Content;
 using Android.Graphics;
-using Android.OS;
 using Android.Views;
 using Android.Widget;
 using Microsoft.Maui.Platform;
@@ -33,7 +32,7 @@ public class MoveView : LinearLayout, IShowable
         _context = (MainActivity)context;
         _layoutParams = new WindowManagerLayoutParams();
         //_layoutParams.Type = WindowManagerTypes.ApplicationOverlay;
-        _layoutParams.Type = global::Android.OS.Build.VERSION.SdkInt >= BuildVersionCodes.O ? WindowManagerTypes.ApplicationOverlay : WindowManagerTypes.Phone;
+        _layoutParams.Type = OperatingSystem.IsAndroidVersionAtLeast(26) ? WindowManagerTypes.ApplicationOverlay : WindowManagerTypes.Phone;
         _layoutParams.Format = Format.Translucent;
         _layoutParams.Flags |= WindowManagerFlags.NotFocusable;
         _layoutParams.Flags |= WindowManagerFlags.TranslucentNavigation;

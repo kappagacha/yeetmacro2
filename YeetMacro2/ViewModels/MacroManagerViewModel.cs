@@ -316,7 +316,7 @@ public partial class MacroManagerViewModel : ObservableObject
 
 #if ANDROID
         // https://stackoverflow.com/questions/75880663/maui-on-android-listing-folder-contents-of-an-sd-card-and-writing-in-it
-        if (global::Android.OS.Build.VERSION.SdkInt >= global::Android.OS.BuildVersionCodes.R && !Android.OS.Environment.IsExternalStorageManager)
+        if (OperatingSystem.IsAndroidVersionAtLeast(30) && !Android.OS.Environment.IsExternalStorageManager)
         {
             var intent = new Android.Content.Intent();
             intent.SetAction(Android.Provider.Settings.ActionManageAppAllFilesAccessPermission);

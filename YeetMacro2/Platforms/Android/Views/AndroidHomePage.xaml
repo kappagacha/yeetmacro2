@@ -37,7 +37,7 @@
                                    FontFamily="MaterialOutlined" Glyph="{x:Static mi:MaterialOutlined.Touch_app}"
                                    HorizontalOptions="Center" Text="Accessibility Service" ToggledColor="Green" UntoggledColor="Red"
                                    Command="{Binding ToggleIsAccessibilityEnabledCommand}" />
-                <v:ToggleImageView IsToggled="{Binding IsIgnoringBatteryOptimizations}"
+                <v:ToggleImageView IsToggled="{Binding IsIgnoringBatteryOptimizations, Mode=OneWay}"
                                    FontFamily="MaterialOutlined" Glyph="{x:Static mi:MaterialOutlined.Battery_saver}"
                                    HorizontalOptions="Center" Text="Disable Battery Optimization" ToggledColor="Green" UntoggledColor="LightGray" 
                                    Command="{Binding RequestIgnoreBatteryOptimizationsCommand}" />

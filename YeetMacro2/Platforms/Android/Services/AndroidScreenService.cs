@@ -15,7 +15,6 @@ using YeetMacro2.Views;
 using CommunityToolkit.Mvvm.Messaging.Messages;
 using CommunityToolkit.Mvvm.Messaging;
 using static Android.Graphics.Bitmap;
-using Android;
 
 namespace YeetMacro2.Platforms.Android.Services;
 
@@ -427,7 +426,7 @@ public class AndroidScreenService : IScreenService
 
     public async Task StartProjectionService()
     {
-        if (global::Android.OS.Build.VERSION.SdkInt >= global::Android.OS.BuildVersionCodes.Tiramisu &&
+        if (OperatingSystem.IsAndroidVersionAtLeast(33) &&
             _context.CheckSelfPermission(global::Android.Manifest.Permission.PostNotifications) != global::Android.Content.PM.Permission.Granted)
         {
             _context.RequestPermissions(new[] { global::Android.Manifest.Permission.PostNotifications }, POST_NOTIFICATION_REQUEST);
@@ -473,7 +472,7 @@ public class AndroidScreenService : IScreenService
         }
 
         //Get overlay permissin if needed
-        if (global::Android.OS.Build.VERSION.SdkInt >= global::Android.OS.BuildVersionCodes.M && !Settings.CanDrawOverlays(_context))
+        if (OperatingSystem.IsAndroidVersionAtLeast(23) && !Settings.CanDrawOverlays(_context))
         {
             _context.StartActivityForResult(new Intent(Settings.ActionManageOverlayPermission, global::Android.Net.Uri.Parse("package:" + _context.PackageName)), OVERLAY_SERVICE_REQUEST);
             return;
@@ -490,7 +489,7 @@ public class AndroidScreenService : IScreenService
     public void Show(AndroidWindowView windowView)
     {
         //Get overlay permission if needed
-        if (global::Android.OS.Build.VERSION.SdkInt >= global::Android.OS.BuildVersionCodes.M && !Settings.CanDrawOverlays(_context))
+        if (OperatingSystem.IsAndroidVersionAtLeast(23) && !Settings.CanDrawOverlays(_context))
         {
             _context.StartActivityForResult(new Intent(Settings.ActionManageOverlayPermission, global::Android.Net.Uri.Parse("package:" + _context.PackageName)), OVERLAY_SERVICE_REQUEST);
             return;

@@ -2,7 +2,6 @@
 using Android.Content;
 using Android.Content.PM;
 using Android.OS;
-using Android.Provider;
 
 namespace YeetMacro2.Platforms.Android.Services;
 public static class AndroidServiceHelper
@@ -87,7 +86,7 @@ public static class AndroidServiceHelper
             intent.PutExtras(args);
         }
 
-        if (global::Android.OS.Build.VERSION.SdkInt >= global::Android.OS.BuildVersionCodes.O)
+        if (OperatingSystem.IsAndroidVersionAtLeast(26))
         {
             context.StartForegroundService(intent);
         }
