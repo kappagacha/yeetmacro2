@@ -57,7 +57,6 @@ public partial class MacroManagerViewModel : ObservableObject
         TypeInfoResolver = CombinedPropertiesResolver.Combine(SizePropertiesResolver.Instance, PointPropertiesResolver.Instance)
     };
     string _targetBranch = "main";
-    bool _isUpdatingMacroSet;
     public PatternNodeManagerViewModel Patterns
     {
         get
@@ -391,7 +390,7 @@ public partial class MacroManagerViewModel : ObservableObject
     [RelayCommand]
     private async Task UpdateMacroSet(MacroSet macroSet)
     {
-        IsBusy = _isUpdatingMacroSet = true;
+        IsBusy = true;
 
         try
         {
@@ -534,7 +533,7 @@ public partial class MacroManagerViewModel : ObservableObject
         }
         finally
         {
-            IsBusy = _isUpdatingMacroSet = false;
+            IsBusy = false;
         }
     }
 
