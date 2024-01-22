@@ -161,10 +161,24 @@ public partial class AndriodHomeViewModel : ObservableObject
     }
 
     [RelayCommand]
-    private void ToggleIsAccessibilityEnabled()
+    private async Task ToggleIsAccessibilityEnabled()
     {
         if (!IsAccessibilityEnabled)
         {
+            if (OperatingSystem.IsAndroidVersionAtLeast(33))
+            {
+                // https://support.google.com/googleplay/android-developer/answer/10964491?sjid=10240033564714765854-NC
+                var allow = await Application.Current.MainPage.DisplayAlert("Accessibility Permission",
+    @"YeetMacro requests AccessibilityService for the following:
+* perform taps and swipes for script automation
+* detects current package for context switching (decides available scripts)
+
+No data is being stored or collected.
+
+If you agree, please tap OK then grant Accessibility service permission to YeetMacro in the next screen", "OK", "cancel");
+                if (!allow) return;
+            }
+
             _accessibilityService.Start();
         }
         else
