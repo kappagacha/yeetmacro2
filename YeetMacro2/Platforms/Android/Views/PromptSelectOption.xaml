@@ -10,19 +10,19 @@
     <Grid>
         <ScrollView>
             <Grid>
-                <VerticalStackLayout VerticalOptions="Center" HorizontalOptions="Center">
+                <VerticalStackLayout Margin="0" Padding="0" MinimumWidthRequest="400" VerticalOptions="Center" HorizontalOptions="Center">
                     <Label HorizontalOptions="Center" Text="{Binding Message}" FontSize="Title" FontAttributes="Bold" Margin="5"
                            BackgroundColor="{AppThemeBinding Light={StaticResource Background}, Dark={StaticResource BackgroundDark}}" />
-                    <CollectionView MinimumWidthRequest="400" ItemsSource="{Binding Options}" HorizontalOptions="Center">
+                    <CollectionView Margin="0" ItemsSource="{Binding Options}" HorizontalOptions="Fill">
                         <CollectionView.ItemsLayout>
                             <LinearItemsLayout Orientation="Vertical" ItemSpacing="5"  />
                         </CollectionView.ItemsLayout>
                         <CollectionView.ItemTemplate>
                             <DataTemplate x:DataType="{x:Type x:String}">
-                                <Border BackgroundColor="{AppThemeBinding Light={StaticResource Background}, Dark={StaticResource BackgroundDark}}"
-                                        MinimumWidthRequest="400" StrokeThickness="1" StrokeShape="RoundRectangle 10,10,10,10" HorizontalOptions="Center">
+                                <Border Margin="0" Padding="0" HorizontalOptions="Fill" BackgroundColor="{AppThemeBinding Light={StaticResource Background}, Dark={StaticResource BackgroundDark}}"
+                                        StrokeThickness="1" StrokeShape="RoundRectangle 10,10,10,10">
                                     <Grid Padding="5,0,5,0">
-                                        <Label Padding="0" Margin="3" Text="{Binding .}" FontSize="Medium" />
+                                        <Label Padding="0" Margin="3" Text="{Binding .}" FontSize="Medium" HorizontalTextAlignment="Start" />
                                         <ImageButton Margin="0" Padding="0" VerticalOptions="Center"
                                                      Command="{Binding BindingContext.SelectCommand, Source={RelativeSource AncestorType={x:Type av:PromptSelectOption}}}"
                                                      CommandParameter="{Binding .}"/>
@@ -31,9 +31,9 @@
                             </DataTemplate>
                         </CollectionView.ItemTemplate>
                     </CollectionView>
-                    <Border MinimumWidthRequest="400" StrokeThickness="1" StrokeShape="RoundRectangle 10,10,10,10" BackgroundColor="Red" HorizontalOptions="Center">
+                    <Border Margin="0" Padding="0" HorizontalOptions="Fill" StrokeThickness="1" StrokeShape="RoundRectangle 10,10,10,10" BackgroundColor="Red">
                         <Grid Padding="5,0,5,0">
-                            <Label Padding="0" Margin="3" Text="Cancel" FontSize="Medium" />
+                            <Label Padding="0" Margin="3" Text="Cancel" FontSize="Medium" HorizontalTextAlignment="Start" />
                             <ImageButton Margin="0" Padding="0" VerticalOptions="Center"
                                 Command="{Binding CancelCommand}"
                                 CommandParameter="{Binding .}"/>
