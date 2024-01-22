@@ -13,7 +13,7 @@
                 <VerticalStackLayout VerticalOptions="Center" HorizontalOptions="Center">
                     <Label HorizontalOptions="Center" Text="{Binding Message}" FontSize="Title" FontAttributes="Bold" Margin="5"
                            BackgroundColor="{AppThemeBinding Light={StaticResource Background}, Dark={StaticResource BackgroundDark}}" />
-                    <CollectionView ItemsSource="{Binding Options}" HorizontalOptions="Center">
+                    <CollectionView MinimumWidthRequest="400" ItemsSource="{Binding Options}" HorizontalOptions="Center">
                         <CollectionView.ItemsLayout>
                             <LinearItemsLayout Orientation="Vertical" ItemSpacing="5"  />
                         </CollectionView.ItemsLayout>
