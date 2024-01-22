@@ -1,3 +1,4 @@
+// @position=14
 // Skip all special requests once
 const loopPatterns = [patterns.lobby.level, patterns.titles.adventure, patterns.titles.challenge];
 const daily = dailyManager.GetDaily();

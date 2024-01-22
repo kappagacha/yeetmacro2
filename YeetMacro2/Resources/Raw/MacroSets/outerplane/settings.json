@@ -930,7 +930,7 @@
       "props": {
         "$type": "boolean",
         "settingType": "Boolean",
-        "value": true,
+        "value": false,
         "isParentNode": false,
         "name": "forceRun",
         "position": 0,

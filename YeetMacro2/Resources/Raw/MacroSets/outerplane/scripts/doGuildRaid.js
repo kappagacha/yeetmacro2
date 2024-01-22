@@ -1,4 +1,4 @@
-// @position=4
+// @position=11
 // Auto guild raid
 const loopPatterns = [patterns.lobby.level, patterns.titles.guildBoard, patterns.titles.guildRaid, patterns.titles.guild];
 const daily = dailyManager.GetDaily();

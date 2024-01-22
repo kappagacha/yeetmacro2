@@ -52,6 +52,11 @@ if (settings.doDailies.doGuildSecurityArea.Value) {
     goToLobby();
 }
 
+if (settings.doDailies.doGuildRaid.Value) {
+    doGuildRaid();
+    goToLobby();
+}
+
 if (settings.doDailies.doSideStory1.Value) {
     doSideStory1();
     goToLobby();

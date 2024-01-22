@@ -52,6 +52,11 @@ if (settings.doDailies.doGuildSecurityArea.Value) {
     goToLobby();
 }
 
+if (settings.doDailies.doGuildRaid.Value) {
+    doGuildRaid();
+    goToLobby();
+}
+
 if (settings.doDailies.doSideStory1.Value) {
     doSideStory1();
     goToLobby();
@@ -61,9 +66,6 @@ if (settings.doDailies.doSideStory2.Value) {
     doSideStory2();
     goToLobby();
 }
-
-_watchAds();
-goToLobby();
 
 if (settings.doDailies.doSpecialRequests.Value) {
     doSpecialRequests();
