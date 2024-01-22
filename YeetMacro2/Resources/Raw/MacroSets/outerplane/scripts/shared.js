@@ -35,10 +35,10 @@ function getCurrentTeamSlot() {
 	const selectedTeamSlotResult = macroService.PollPattern(patterns.battle.teamSlotCorner.selected);
 	const selectedTeamSlotPattern = macroService.ClonePattern(patterns.battle.teamSlot, { Y: selectedTeamSlotResult.Point.Y + 7 });
 	let currentTeamSlot = macroService.GetText(selectedTeamSlotPattern)
-	logger.info(`currentTeamSlot: ${currentTeamSlot}`);
+	//logger.info(`currentTeamSlot: ${currentTeamSlot}`);
 	while (!currentTeamSlot) {
 		currentTeamSlot = macroService.GetText(selectedTeamSlotPattern);
-		logger.info(`currentTeamSlot: ${currentTeamSlot}`);
+		//logger.info(`currentTeamSlot: ${currentTeamSlot}`);
 		sleep(100);
 	}
 	return currentTeamSlot;
