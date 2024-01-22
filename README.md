@@ -23,6 +23,8 @@ Please do not use without knowing the risks. The app does randomize tap location
 
 ### 📱 Physical Android Device
 * Depending on game, you can have width or height greater than the target 1920x1080
+* For Android 13 and greater, allow [restricted settings](https://support.google.com/android/answer/12623953?hl=en#allowrestrictedsettings) for the app to enable Accessibility Service
+    * Tap and hold YeetMacro app icon => app info => permissions => three dot in upper right => Allow restricted settings
 * (If you cannot meet resolution requirements natively) Set resolution to 1920x1080 (or 1080x1920 depending on the game) using [Resolution Changer - Uses ADB](https://play.google.com/store/apps/details?id=com.draco.resolutionchanger&hl=en_US&gl=US&pli=1)
     * Requires a computer with adb installed and enabling developer mode on the phone
     * Follow the direction of the app
