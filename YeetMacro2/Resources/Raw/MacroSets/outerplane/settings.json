@@ -930,7 +930,7 @@
       "props": {
         "$type": "boolean",
         "settingType": "Boolean",
-        "value": false,
+        "value": true,
         "isParentNode": false,
         "name": "forceRun",
         "position": 0,
@@ -942,7 +942,6 @@
       "props": {
         "$type": "timestamp",
         "settingType": "TimeStamp",
-        "localValue": "2024-01-21T12:10:22.653-06:00",
         "value": "2024-01-21T18:10:22.653+00:00",
         "isParentNode": false,
         "name": "lastRun",
@@ -977,7 +976,6 @@
       "props": {
         "$type": "timestamp",
         "settingType": "TimeStamp",
-        "localValue": "0001-01-01T00:00:00-06:58",
         "value": "0001-01-01T00:00:00+00:00",
         "isParentNode": false,
         "name": "lastRun",
