@@ -715,6 +715,18 @@
         "path": "doDailies.doGuildSecurityArea"
       }
     },
+    "doGuildRaid": {
+      "$isParent": false,
+      "props": {
+        "$type": "boolean",
+        "settingType": "Boolean",
+        "value": true,
+        "isParentNode": false,
+        "name": "doGuildRaid",
+        "position": 0,
+        "path": "doDailies.doGuildRaid"
+      }
+    },
     "doSideStory1": {
       "$isParent": false,
       "props": {
