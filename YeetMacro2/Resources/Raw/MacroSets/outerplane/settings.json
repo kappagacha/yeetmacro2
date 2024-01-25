@@ -36,7 +36,7 @@
         "settingType": "EnabledInteger",
         "isEnabled": true,
         "increment": 100,
-        "value": 106983,
+        "value": 107183,
         "isParentNode": false,
         "name": "cpThreshold",
         "position": 0,
@@ -343,6 +343,25 @@
         "name": "elementTypeTarget3",
         "position": 0,
         "path": "doUpgradeStoneRetrieval.elementTypeTarget3"
+      }
+    },
+    "elementTypeTarget4": {
+      "$isParent": false,
+      "props": {
+        "$type": "option",
+        "settingType": "Option",
+        "options": [
+          "earth",
+          "water",
+          "fire",
+          "light",
+          "dark"
+        ],
+        "value": "light",
+        "isParentNode": false,
+        "name": "elementTypeTarget4",
+        "position": 0,
+        "path": "doUpgradeStoneRetrieval.elementTypeTarget4"
       }
     }
   },
@@ -1019,7 +1038,7 @@
         "props": {
           "$type": "boolean",
           "settingType": "Boolean",
-          "value": true,
+          "value": false,
           "isParentNode": false,
           "name": "stamina",
           "position": 0,
@@ -1031,7 +1050,7 @@
         "props": {
           "$type": "boolean",
           "settingType": "Boolean",
-          "value": true,
+          "value": false,
           "isParentNode": false,
           "name": "gold",
           "position": 0,
@@ -1055,7 +1074,7 @@
         "props": {
           "$type": "boolean",
           "settingType": "Boolean",
-          "value": true,
+          "value": false,
           "isParentNode": false,
           "name": "arenaTicket",
           "position": 0,
@@ -1067,7 +1086,7 @@
         "props": {
           "$type": "boolean",
           "settingType": "Boolean",
-          "value": true,
+          "value": false,
           "isParentNode": false,
           "name": "hammer",
           "position": 0,
@@ -1079,7 +1098,7 @@
         "props": {
           "$type": "boolean",
           "settingType": "Boolean",
-          "value": true,
+          "value": false,
           "isParentNode": false,
           "name": "stoneFragment",
           "position": 0,
@@ -1091,7 +1110,7 @@
         "props": {
           "$type": "boolean",
           "settingType": "Boolean",
-          "value": true,
+          "value": false,
           "isParentNode": false,
           "name": "stonePiece",
           "position": 0,

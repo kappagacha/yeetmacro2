@@ -7,6 +7,7 @@ const sweepBattle = settings.doUpgradeStoneRetrieval.sweepBattle.Value;
 const elementTypeTarget1 = settings.doUpgradeStoneRetrieval.elementTypeTarget1.Value;
 const elementTypeTarget2 = settings.doUpgradeStoneRetrieval.elementTypeTarget2.Value;
 const elementTypeTarget3 = settings.doUpgradeStoneRetrieval.elementTypeTarget3.Value;
+const elementTypeTarget4 = settings.doUpgradeStoneRetrieval.elementTypeTarget4.Value;
 if (daily.doUpgradeStoneRetrieval.done.IsChecked) {
 	return "Script already completed. Uncheck done to override daily flag.";
 }
@@ -26,10 +27,10 @@ while (macroService.IsRunning) {
 			break;
 		case 'titles.challenge':
 			macroService.PollPattern(patterns.challenge.upgradeStoneRetrieval, { DoClick: true, PredicatePattern: patterns.challenge.selectTeam });
-			const targetElementTypes = [elementTypeTarget1, elementTypeTarget2, elementTypeTarget3].map(ett => patterns.challenge.upgradeStoneRetrieval[ett]);
+			const targetElementTypes = [elementTypeTarget1, elementTypeTarget2, elementTypeTarget3, elementTypeTarget4].map(ett => patterns.challenge.upgradeStoneRetrieval[ett]);
 			const elementTypeResult = macroService.FindPattern(targetElementTypes);
 			if (!elementTypeResult.IsSuccess) {
-				throw Error(`Unable to find target element type: ${elementTypeTarget1}, ${elementTypeTarget2}, ${elementTypeTarget3}`)
+				throw Error(`Unable to find target element type: ${elementTypeTarget1}, ${elementTypeTarget2}, ${elementTypeTarget3}, ${elementTypeTarget4}`)
 			}
 
 			const elementType = elementTypeResult.Path.split('.').pop();

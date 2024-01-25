@@ -5,6 +5,11 @@ function selectTeam(teamSlot, returnCurrentCp) {
 
 	let currentTeamSlot = getCurrentTeamSlot();
 	while (currentTeamSlot?.trim() !== teamSlot) {
+		if (currentTeamSlot > teamSlot) {
+			macroService.DoSwipe({ X: 90, Y: 200 }, { X: 90, Y: 400 });
+			sleep(1_000);
+		}
+
 		const teamSlotResult = findTeamSlot(teamSlot);
 		if (teamSlotResult) {
 			macroService.DoClick(teamSlotResult);
