@@ -5,8 +5,8 @@ YeetMacro is a .NET MAUI android app that automates simple but grindy parts of m
 ![YeetMacro Engine](docs/yeetmacro_engine.drawio.svg)
 
 Current target games are:
-* Konosuba Fantastic Days [Tutorial playlist](https://www.youtube.com/playlist?list=PLPHmhWd4gIREH5qYt8MEQ_HMJ4K2yptmw)
 * Eversoul [Tutorial playlist](https://www.youtube.com/playlist?list=PLPHmhWd4gIREVZMEXKYwJLRM4fEx9b9D9)
+* Konosuba Fantastic Days [Tutorial playlist](https://www.youtube.com/playlist?list=PLPHmhWd4gIREH5qYt8MEQ_HMJ4K2yptmw)
 * Outerplane [Tutorial playlist](https://www.youtube.com/playlist?list=PLPHmhWd4gIRGobeNz08XuzHnxSyDSFwn-)
 
 This project is heavily influenced by [Fate Grand Automata (FGA)](https://github.com/Fate-Grand-Automata/FGA) and would not have been possible without it.
@@ -53,6 +53,8 @@ Please do not use without knowing the risks. The app does randomize tap location
 * Tap on Update icon next to MacroSet name
 
 ### 🔎 Troubleshooting
+* Try re-enabling accessibility service for app
+    * Settings => Accessibility => Disable then Enable YeetMacro Service
 * Get help in discord
     * [![Discord](https://img.shields.io/badge/Join-Our%20Discord-%237289DA?style=flat&logo=discord)](https://discord.gg/abUPg3RU6J)
 * BlueStacks
