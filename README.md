@@ -5,9 +5,9 @@ YeetMacro is a .NET MAUI android app that automates simple but grindy parts of m
 ![YeetMacro Engine](docs/yeetmacro_engine.drawio.svg)
 
 Current target games are:
-* Konosuba Fantastic Days
-* Eversoul
-* Outerplane
+* Konosuba Fantastic Days [Tutorial playlist](https://www.youtube.com/playlist?list=PLPHmhWd4gIREH5qYt8MEQ_HMJ4K2yptmw)
+* Eversoul [Tutorial playlist](https://www.youtube.com/playlist?list=PLPHmhWd4gIREVZMEXKYwJLRM4fEx9b9D9)
+* Outerplane [Tutorial playlist](https://www.youtube.com/playlist?list=PLPHmhWd4gIRGobeNz08XuzHnxSyDSFwn-)
 
 This project is heavily influenced by [Fate Grand Automata (FGA)](https://github.com/Fate-Grand-Automata/FGA) and would not have been possible without it.
 
