@@ -3,10 +3,12 @@
 function selectTeam(teamSlot, returnCurrentCp) {
 	if (!teamSlot || teamSlot === 'Current' || teamSlot < 1) return;
 
+	const topLeft = macroService.GetTopLeft();
+	const xLocation = topLeft.X + 90;
 	let currentTeamSlot = getCurrentTeamSlot();
 	while (currentTeamSlot?.trim() !== teamSlot) {
 		if (currentTeamSlot > teamSlot) {
-			macroService.DoSwipe({ X: 90, Y: 200 }, { X: 90, Y: 400 });
+			macroService.DoSwipe({ X: xLocation, Y: 200 }, { X: xLocation, Y: 400 });
 			sleep(1_000);
 		}
 

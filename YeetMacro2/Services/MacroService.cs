@@ -108,6 +108,11 @@ public class MacroService
         return _screenService.Density;
     }
 
+    public Point GetTopLeft()
+    {
+        return _screenService.GetTopLeft();
+    }
+
     public PatternNode ClonePattern(PatternNode patternNode, CloneOptions opts)
     {
         var clone = PatternNodeManagerViewModel.CloneNode(patternNode);
