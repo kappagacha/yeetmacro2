@@ -67,6 +67,9 @@ if (settings.doDailies.doSideStory2.Value) {
     goToLobby();
 }
 
+claimFreeRecruit();
+_watchAds();
+
 if (settings.doDailies.doSpecialRequests.Value) {
     doSpecialRequests();
     goToLobby();

@@ -158,19 +158,19 @@
           "patterns": [
             {
               "rect": {
-                "x": 1185.6336669921875,
-                "y": 790.5201416015625,
-                "width": 33.480224609375,
-                "height": 69.4315185546875
+                "x": 1883.466064453125,
+                "y": 828.4849853515625,
+                "width": 46.478759765625,
+                "height": 31.4666748046875
               },
               "resolution": {
-                "width": 1920,
+                "width": 2400,
                 "height": 1080
               },
               "isBoundsPattern": false,
               "isLocationDynamic": false,
               "name": "pattern",
-              "imageData": "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",
+              "imageData": "/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDAAEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQH/2wBDAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQH/wAARCAAfAC4DASIAAhEBAxEB/8QAGAABAQADAAAAAAAAAAAAAAAACgkFBgj/xAA5EAAABgEEAQEDBg8BAAAAAAABAgMEBQYHCAkREgATChQhFSIxOXa2FhcZJDI0OFRXc3eUl7LF1f/EABgBAAMBAQAAAAAAAAAAAAAAAAABAgME/8QAKhEBAAIBAQUGBwAAAAAAAAAAAQIRIQADMUFRYRJxkbHR8BMiMjNCgaH/2gAMAwEAAhEDEQA/ADKbdONaXmDWtp/xrkSEa2Sl2y2yDCfg3pezWRaI1affporF+PJCumjdXgQEBFMOfh4uDPuk7Zh0vylehs60LFOPJG1MXslX286VBqMmzjl0Wz5ZqKhSgoDZZwgRYC8iQVku3HcvJWtpz6xHS59uJX7l2jxUu7dtfZU3ArrhyxY+u9WqLPG9ZtMNIJ2Bq5dKvnNgk4l4kduDd02BNNunGGA4m7icywcdeg9uja/ciMmJ2cpfOXA1nH6VAW/Tj7zrn/3L2en95wV/dM/C82DF1YzPrFkcS4COwLT7/l0avj1yzAVYxrX5KTKig/RKAlFRiwY+u96kMHdBASkEOQHypeWvZ+NQuJMaXbJkrlvH0jG0ivSFiesGka/Scu28ekKqiKKh5FQpFDgHBTGIcAH6Sj5s+xDpDw1ma3Ps83e8va9kDDGSI8tIgEZSJas5oFoBA5/eWL0wO3YqGk3SJRa/oimUS/PIPgMYEpRnKWKpvC7mmuXnoRaEDjitxQ++7lqq8ltx7TWijGVVr+plKrOLHao5w3NcMjzIFlJ6ZYRh3ckaEMsYqUWcfQWFshGlbp9wAEkiG58G3nBfGTnLuQ1cMxz6JxZ+FMmnRmMk8VfvE4BBX0GqqjtdRVZYjoU1HbcVTioRuukmcCmIJSv+3AdA+nzWu5x/+PPJUpRgpKEn8htI2bhIf38X6ge8OFflUwHW9Lj0y+iHQvYewiIhwb/QXtd6U9SVo1OQ+TstTdcZYgzFNUKmrM7HXY401X48qBm0k4M8MBXaqoqnKZdr+bm6fN+PPi2cwtlKS8TeVZnLl8i8aJC0AHXw9eq1qfu059Yjpc+3Er9y7R5fTf8ANWOorTfknTrHYOyvZMcsbTS708sDaDLGHSk3UXNV9FguuWRYPeqjZJ65IUURT7FVEFO/UnU1+hTM9R08atcJ5ovgvgqNBsz2VnBjWyjx8DVzXZqLILdqkU6ixgcv0BMUhTGAnY3A8eK3t++Ftj39y0eXaoWG1O2CB2zJxO43eyKrVuqcFFEUDuY44pJnUADnKXgDGABHkQ8raD8SMuwzCOSrPy6O670RrspdN8+7RcLRuQa4bpXpiqWjUbeZiuz7BeMmItynAFQfsHJei7ZYyEKisBFC/AwpqkPx9Bg8yu2H+3xpi/qH/wAGa8SX+WD2kf4Sqf4mV/8AL8OPjPUXiij7i0RqTQZPYzEUXmCYuLZkwjFCPWldeNJJu2IhFIp+oQ5TO0zC3Il2KXt80BAQ8YqTDZsLi8N7WDcZzj96Thj8158P66tt7TL+saZv5Ns/3L4UXy6O81uD4H1zL4YNhRWxLEoyU8E2adhnsQBTSByi3KgD1BAy3IciYSAYC8cCICIB5C7ytkJCkRtwlaUm1Tp5Gv/Z",
               "variancePct": 20,
               "horizontalStretchMultiplier": 0,
               "verticalStretchMultiplier": 0,
@@ -198,6 +198,30 @@
         "name": "targetStory",
         "position": 0,
         "path": "doSideStory1.targetStory"
+      }
+    },
+    "checkPiecesLimit1": {
+      "$isParent": false,
+      "props": {
+        "$type": "boolean",
+        "settingType": "Boolean",
+        "value": true,
+        "isParentNode": false,
+        "name": "checkPiecesLimit1",
+        "position": 0,
+        "path": "doSideStory1.checkPiecesLimit1"
+      }
+    },
+    "checkPiecesLimit2": {
+      "$isParent": false,
+      "props": {
+        "$type": "boolean",
+        "settingType": "Boolean",
+        "value": true,
+        "isParentNode": false,
+        "name": "checkPiecesLimit2",
+        "position": 0,
+        "path": "doSideStory1.checkPiecesLimit2"
       }
     }
   },
@@ -944,6 +968,30 @@
         "name": "targetStory",
         "position": 0,
         "path": "doSideStory2.targetStory"
+      }
+    },
+    "checkPiecesLimit1": {
+      "$isParent": false,
+      "props": {
+        "$type": "boolean",
+        "settingType": "Boolean",
+        "value": true,
+        "isParentNode": false,
+        "name": "checkPiecesLimit1",
+        "position": 0,
+        "path": "doSideStory2.checkPiecesLimit1"
+      }
+    },
+    "checkPiecesLimit2": {
+      "$isParent": false,
+      "props": {
+        "$type": "boolean",
+        "settingType": "Boolean",
+        "value": true,
+        "isParentNode": false,
+        "name": "checkPiecesLimit2",
+        "position": 0,
+        "path": "doSideStory2.checkPiecesLimit2"
       }
     }
   },

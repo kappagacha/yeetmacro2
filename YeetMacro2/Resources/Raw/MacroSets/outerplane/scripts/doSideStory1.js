@@ -17,6 +17,8 @@ const targetStory = macroService.ClonePattern(settings[`doSideStory${sideStoryNu
 	Path: 'settings.outings.target',
 	OffsetCalcType: 'DockLeft'
 });
+const checkPiecesLimit1 = settings[`doSideStory${sideStoryNumber}`].checkPiecesLimit1.Value;
+const checkPiecesLimit2 = settings[`doSideStory${sideStoryNumber}`].checkPiecesLimit2.Value;
 
 if (daily[`doSideStory${sideStoryNumber}`].done.IsChecked) {
 	return "Script already completed. Uncheck done to override daily flag.";
@@ -45,6 +47,12 @@ while (macroService.IsRunning) {
 			}
 			macroService.PollPattern(targetStory, { DoClick: true, PredicatePattern: [patterns.battle.selectTeam, patterns.sideStory.enter] });
 			macroService.PollPattern(patterns.sideStory.shardStage, { DoClick: true, PredicatePattern: patterns.sideStory.rewardSetting });
+			if (checkPiecesLimit1 && macroService.FindPattern(patterns.sideStory.piecesLimit1).IsSuccess) {
+				throw new Error('Pieces limit reached for main character');
+			}
+			if (checkPiecesLimit2 && macroService.FindPattern(patterns.sideStory.piecesLimit2).IsSuccess) {
+				throw new Error('Pieces limit reached for sub character');
+			}
 			macroService.PollPattern(patterns.battle.selectTeam, { DoClick: true, PredicatePattern: patterns.battle.setup.auto });
 			selectTeamAndBattle(teamSlot, sweepBattle);
 			if (macroService.IsRunning) {

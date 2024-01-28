@@ -34,6 +34,13 @@ while (macroService.IsRunning) {
 			macroService.ClickPattern(patterns.guild.raid.move);
 			break;
 		case 'titles.guildRaid':
+			const stageRightResult = macroService.PollPattern(patterns.guild.raid.stageRight, { TimoutMs: 1_500 });
+			if (!stageRightResult.IsSuccess) {	// guild raid is not live
+				if (macroService.IsRunning) {
+					daily.doGuildRaid.done.IsChecked = true;
+				}
+				return;
+			}
 
 			logger.info(`doGuildRaid: target stage first team`);
 			macroService.PollPattern(patterns.guild.raid[`stage${targetStage1}`], { ClickPattern: patterns.guild.raid.stageRight });
