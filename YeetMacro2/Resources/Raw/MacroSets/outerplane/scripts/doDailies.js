@@ -58,16 +58,22 @@ if (settings.doDailies.doGuildRaid.Value) {
 }
 
 if (settings.doDailies.doSideStory1.Value) {
+    refillStamina(30);
+    goToLobby();
     doSideStory1();
     goToLobby();
 }
 
 if (settings.doDailies.doSideStory2.Value) {
+    refillStamina(30);
+    goToLobby();
     doSideStory2();
     goToLobby();
 }
 
 if (settings.doDailies.doSpecialRequests.Value) {
+    refillStamina(140);
+    goToLobby();
     doSpecialRequests();
     goToLobby();
 }

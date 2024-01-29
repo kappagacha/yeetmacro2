@@ -848,7 +848,8 @@
         "isEnabled": true,
         "options": [
           "doEcologyStudy",
-          "doIdentification"
+          "doIdentification",
+          "doSurveyHub"
         ],
         "value": "doEcologyStudy",
         "isParentNode": false,
@@ -1250,6 +1251,38 @@
         "name": "targetStage2",
         "position": 0,
         "path": "doGuildRaid.targetStage2"
+      }
+    }
+  },
+  "doSurveyHub": {
+    "$isParent": true,
+    "props": {
+      "settingType": "Parent",
+      "isParentNode": true,
+      "name": "doSurveyHub",
+      "position": 0,
+      "path": "doSurveyHub"
+    },
+    "teamSlot": {
+      "$isParent": false,
+      "props": {
+        "$type": "option",
+        "settingType": "Option",
+        "options": [
+          "Current",
+          "1",
+          "2",
+          "3",
+          "4",
+          "5",
+          "6",
+          "7"
+        ],
+        "value": "2",
+        "isParentNode": false,
+        "name": "teamSlot",
+        "position": 0,
+        "path": "doSurveyHub.teamSlot"
       }
     }
   }

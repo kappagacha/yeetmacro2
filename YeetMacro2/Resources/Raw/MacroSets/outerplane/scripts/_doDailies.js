@@ -57,20 +57,26 @@ if (settings.doDailies.doGuildRaid.Value) {
     goToLobby();
 }
 
+goToLobby();
+_watchAds();
+
 if (settings.doDailies.doSideStory1.Value) {
+    refillStamina(30);
+    goToLobby();
     doSideStory1();
     goToLobby();
 }
 
 if (settings.doDailies.doSideStory2.Value) {
+    refillStamina(30);
+    goToLobby();
     doSideStory2();
     goToLobby();
 }
 
-goToLobby();
-_watchAds();
-
 if (settings.doDailies.doSpecialRequests.Value) {
+    refillStamina(140);
+    goToLobby();
     doSpecialRequests();
     goToLobby();
 }

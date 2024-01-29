@@ -61,3 +61,28 @@ function selectTeamAndBattle(teamSlot, sweepBattle) {
 		macroService.PollPattern(patterns.battle.setup.enter, { DoClick: true, PredicatePattern: patterns.battle.setup.enter.ok });
 	}
 }
+
+function refillStamina(targetStamina) {
+	goToLobby();
+	let currentStamina = macroService.GetText(patterns.lobby.staminaValue);
+	logger.info(`refillStamina to ${targetStamina}. current stamina is ${currentStamina}`);
+	if (currentStamina >= targetStamina) {
+		return;
+	}
+
+	macroService.PollPattern(patterns.lobby.mailbox, { DoClick: true, PredicatePattern: patterns.titles.mailbox });
+	macroService.PollPattern(patterns.mailbox.product, { DoClick: true, PredicatePattern: patterns.mailbox.product.selected });
+	sleep(1000);
+
+	const targetMailboxItem = patterns.mailbox.stamina;
+	while (macroService.IsRunning && currentStamina < targetStamina) {
+		macroService.SwipePollPattern(targetMailboxItem, { MaxSwipes: 20, Start: { X: 1400, Y: 900 }, End: { X: 1400, Y: 150 } });
+		const staminaResult = macroService.FindPattern(targetMailboxItem);
+		const recievePattern = macroService.ClonePattern(patterns.mailbox.receive, { CenterY: staminaResult.Point.Y, Height: 60.0 });
+		macroService.PollPattern(recievePattern, { DoClick: true, PredicatePattern: patterns.general.tapEmptySpace });
+		macroService.PollPattern(patterns.general.tapEmptySpace, { DoClick: true, PredicatePattern: patterns.titles.mailbox });
+		sleep(500);
+		currentStamina = macroService.GetText(patterns.mailbox.staminaValue);
+		logger.info(`refillStamina to ${targetStamina}. current stamina is ${currentStamina}`);
+	}
+}
