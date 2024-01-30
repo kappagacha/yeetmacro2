@@ -86,6 +86,18 @@
         "position": 0,
         "path": "doSpecialRequests.teamSlot"
       }
+    },
+    "doRefillStamina": {
+      "$isParent": false,
+      "props": {
+        "$type": "boolean",
+        "settingType": "Boolean",
+        "value": true,
+        "isParentNode": false,
+        "name": "doRefillStamina",
+        "position": 0,
+        "path": "doSideStory1.doRefillStamina"
+      }
     }
   },
   "doSideStory1": {
@@ -222,6 +234,18 @@
         "name": "checkPiecesLimit2",
         "position": 0,
         "path": "doSideStory1.checkPiecesLimit2"
+      }
+    },
+    "doRefillStamina": {
+      "$isParent": false,
+      "props": {
+        "$type": "boolean",
+        "settingType": "Boolean",
+        "value": true,
+        "isParentNode": false,
+        "name": "doRefillStamina",
+        "position": 0,
+        "path": "doSideStory1.doRefillStamina"
       }
     }
   },
@@ -993,6 +1017,18 @@
         "name": "checkPiecesLimit2",
         "position": 0,
         "path": "doSideStory2.checkPiecesLimit2"
+      }
+    },
+    "doRefillStamina": {
+      "$isParent": false,
+      "props": {
+        "$type": "boolean",
+        "settingType": "Boolean",
+        "value": true,
+        "isParentNode": false,
+        "name": "doRefillStamina",
+        "position": 0,
+        "path": "doSideStory1.doRefillStamina"
       }
     }
   },

@@ -3,6 +3,12 @@
 const loopPatterns = [patterns.lobby.level, patterns.titles.adventure, patterns.titles.challenge];
 const daily = dailyManager.GetDaily();
 const teamSlot = settings.doSpecialRequests.teamSlot.Value;
+const doRefillStamina = settings.doSpecialRequests.doRefillStamina.Value;
+
+if (doRefillStamina) {
+	refillStamina(140);
+	goToLobby();
+}
 
 while (macroService.IsRunning) {
 	const loopResult = macroService.PollPattern(loopPatterns, { ClickPattern: patterns.arena.defendReport.close });

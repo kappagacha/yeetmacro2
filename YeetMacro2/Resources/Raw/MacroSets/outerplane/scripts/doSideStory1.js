@@ -19,9 +19,15 @@ const targetStory = macroService.ClonePattern(settings[`doSideStory${sideStoryNu
 });
 const checkPiecesLimit1 = settings[`doSideStory${sideStoryNumber}`].checkPiecesLimit1.Value;
 const checkPiecesLimit2 = settings[`doSideStory${sideStoryNumber}`].checkPiecesLimit2.Value;
+const doRefillStamina = settings[`doSideStory${sideStoryNumber}`].doRefillStamina.Value;
 
 if (daily[`doSideStory${sideStoryNumber}`].done.IsChecked) {
 	return "Script already completed. Uncheck done to override daily flag.";
+}
+
+if (doRefillStamina) {
+	refillStamina(30);
+	goToLobby();
 }
 
 while (macroService.IsRunning) {
