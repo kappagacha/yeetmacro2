@@ -36,7 +36,7 @@
         "settingType": "EnabledInteger",
         "isEnabled": true,
         "increment": 100,
-        "value": 107183,
+        "value": 131554,
         "isParentNode": false,
         "name": "cpThreshold",
         "position": 0,
@@ -96,7 +96,7 @@
         "isParentNode": false,
         "name": "doRefillStamina",
         "position": 0,
-        "path": "doSideStory1.doRefillStamina"
+        "path": "doSpecialRequests.doRefillStamina"
       }
     }
   },
@@ -1028,7 +1028,7 @@
         "isParentNode": false,
         "name": "doRefillStamina",
         "position": 0,
-        "path": "doSideStory1.doRefillStamina"
+        "path": "doSideStory2.doRefillStamina"
       }
     }
   },
