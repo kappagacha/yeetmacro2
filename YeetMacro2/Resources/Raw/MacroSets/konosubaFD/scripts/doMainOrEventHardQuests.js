@@ -27,7 +27,7 @@ while (macroService.IsRunning) {
 			if (questResult.Path === 'quest.events.quest') {
 				logger.info('doMainOrEventHardQuests: event special quest');
 				macroService.PollPattern(patterns.quest.events.quest, { DoClick: true, PredicatePattern: patterns.titles.quest });
-				macroService.PollPattern(patterns.quest.events.quest.special, { DoClick: true, PredicatePattern: patterns.quest.events.quest.special.selected });
+				macroService.PollPattern(patterns.quest.events.quest.special, { DoClick: true, PredicatePattern: patterns.quest.events.quest.special.hard });
 			} else if (questResult.Path === 'quest.events.main') {
 				logger.info('doMainOrEventHardQuests: main hard quest');
 				staminaCost = 30;
