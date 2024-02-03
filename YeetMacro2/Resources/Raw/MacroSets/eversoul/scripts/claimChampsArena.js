@@ -16,7 +16,7 @@ while (macroService.IsRunning) {
 			sleep(500);
 
 			logger.info('claimChampsArena: claim reward');
-			const claimRewardResult = macroService.FindPattern([patterns.adventure.champsArena.zeroReward, patterns.adventure.champsArena.claimReward])
+			const claimRewardResult = macroService.PollPattern([patterns.adventure.champsArena.zeroReward, patterns.adventure.champsArena.claimReward])
 			if (claimRewardResult.Path === 'adventure.champsArena.claimReward') {
 				macroService.PollPattern(patterns.adventure.champsArena.claimReward, { DoClick: true, PredicatePattern: patterns.adventure.champsArena.tapTheScreen });
 				macroService.PollPattern(patterns.adventure.champsArena.tapTheScreen, { DoClick: true, PredicatePattern: patterns.titles.adventure });
