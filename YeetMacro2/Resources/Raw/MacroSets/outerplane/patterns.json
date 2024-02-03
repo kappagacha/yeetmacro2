@@ -3072,6 +3072,50 @@
         "position": 0,
         "path": "arena.leagueOfChallenge2"
       }
+    },
+    "leagueOfChallenge3": {
+      "$isParent": true,
+      "props": {
+        "isMultiPattern": false,
+        "patterns": [
+          {
+            "rect": {
+              "x": 329.07977294921875,
+              "y": 755.552490234375,
+              "width": 17.488555908203125,
+              "height": 25.4722900390625
+            },
+            "resolution": {
+              "width": 1920,
+              "height": 1080
+            },
+            "isBoundsPattern": false,
+            "isLocationDynamic": false,
+            "name": "pattern",
+            "imageData": "/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDAAEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQH/2wBDAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQH/wAARCAAZABEDASIAAhEBAxEB/8QAFwABAAMAAAAAAAAAAAAAAAAAAAgJCv/EADAQAAAFAwIDAw0AAAAAAAAAAAECAwQFAAYHCAkREyISITEKFRcjJCo1N3V2tLXB/8QAFwEBAQEBAAAAAAAAAAAAAAAABAMCBf/EACURAAIABQIGAwAAAAAAAAAAAAECABESIVExcQNhkaGx8UHR8P/aAAwDAQACEQMRAD8AhDpg27cF5e2cdYWue6FrmLmTB99Sdv2cVlKroQHm9i2xgsmV/GFUK3dKHNdcqB1FEzn4GS7IhyicKLa1kaCg92g3JBHjx9Ktwj3+Iew4LAP7WTemoxqe+jW2IFtoeoYlxrJyMgWHT3O84UpSq1HJ67cuXfee6Wwf3vzgxs02bsOG1P7GWs7TLBXzZlm3llnOVwwkO9u6YZMWbLswOG5JR65bKum7hVAG8Y5KnyxKCqoAQDl7xCFFyeTPZ6tu3p24VtUund2lBQ8nMKtUJVHnuE41ks8OgjwnT+tVKiJCdJuowdI+FVf6Pfl5Pfd7r9RD1Jy4PgU19KkPxFaGzMvEYKZTI+AdQMxNy6cV1VpAuCZqCbgDxFI1KUpUdChcdz9x/9k=",
+            "variancePct": 20,
+            "horizontalStretchMultiplier": 0.25,
+            "verticalStretchMultiplier": 0,
+            "textMatch": {
+              "isActive": false,
+              "text": null,
+              "whiteList": null
+            },
+            "colorThreshold": {
+              "isActive": true,
+              "variancePct": 30,
+              "color": "#ffffffff",
+              "imageData": "/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDAAIBAQEBAQIBAQECAgICAgQDAgICAgUEBAMEBgUGBgYFBgYGBwkIBgcJBwYGCAsICQoKCgoKBggLDAsKDAkKCgr/wAALCAAZABEBAREA/8QAHwAAAQUBAQEBAQEAAAAAAAAAAAECAwQFBgcICQoL/8QAtRAAAgEDAwIEAwUFBAQAAAF9AQIDAAQRBRIhMUEGE1FhByJxFDKBkaEII0KxwRVS0fAkM2JyggkKFhcYGRolJicoKSo0NTY3ODk6Q0RFRkdISUpTVFVWV1hZWmNkZWZnaGlqc3R1dnd4eXqDhIWGh4iJipKTlJWWl5iZmqKjpKWmp6ipqrKztLW2t7i5usLDxMXGx8jJytLT1NXW19jZ2uHi4+Tl5ufo6erx8vP09fb3+Pn6/9oACAEBAAA/AP0N+Pv/AAVA+Pvwr/4L7/BD/gld4e8IeD5vh78Svhfd+JNd1m90+6bWYLqKDX5FSCVblYFizpVvkPA7YeX5hldn3fRX5A/tkf8AK5J+yd/2b/qX/pJ4yr9fqK/CH/gt7+2t8LP+Cdv/AAc6fs8/ti/GvQPEGqeGfB/7P7/2nY+FrWCe/l+1v4qsY/KSeaGNsS3MZbdIuFDEZICn3/4T/wDB4j/wTK+MHxT8NfCTw78Cv2gItQ8U+ILLSLGT/hBdPvNk1zOkKHyLHUp7qfDOP3dvDLM/3Y45HKof1fooor//2Q=="
+            },
+            "offsetCalcType": "HorizontalStretchOffset",
+            "position": 0
+          }
+        ],
+        "isParentNode": true,
+        "name": "leagueOfChallenge3",
+        "position": 0,
+        "path": "arena.leagueOfChallenge3"
+      }
     }
   },
   "prompt": {

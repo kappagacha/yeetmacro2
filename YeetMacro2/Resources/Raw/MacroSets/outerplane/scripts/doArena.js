@@ -22,9 +22,9 @@ while (macroService.IsRunning) {
 			sleep(500);
 			break;
 		case 'titles.arena':
-			const leagueOfChallengeResult = macroService.FindPattern([patterns.arena.leagueOfChallenge, patterns.arena.leagueOfChallenge2]);
+			const leagueOfChallengeResult = macroService.FindPattern([patterns.arena.leagueOfChallenge, patterns.arena.leagueOfChallenge2, patterns.arena.leagueOfChallenge3]);
 			if (leagueOfChallengeResult.IsSuccess) {
-				macroService.ClickPattern([patterns.arena.leagueOfChallenge, patterns.arena.leagueOfChallenge2]);
+				macroService.ClickPattern([patterns.arena.leagueOfChallenge, patterns.arena.leagueOfChallenge2, patterns.arena.leagueOfChallenge3]);
 				break;
 			}
 			
