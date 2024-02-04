@@ -1321,5 +1321,55 @@
         "path": "doSurveyHub.teamSlot"
       }
     }
+  },
+  "doInfiniteCorridor": {
+    "$isParent": true,
+    "props": {
+      "settingType": "Parent",
+      "isParentNode": true,
+      "name": "doInfiniteCorridor",
+      "position": 0,
+      "path": "doInfiniteCorridor"
+    },
+    "teamSlot": {
+      "$isParent": false,
+      "props": {
+        "$type": "option",
+        "settingType": "Option",
+        "options": [
+          "Current",
+          "1",
+          "2",
+          "3",
+          "4",
+          "5",
+          "6",
+          "7"
+        ],
+        "value": "1",
+        "isParentNode": false,
+        "name": "teamSlot",
+        "position": 0,
+        "path": "doInfiniteCorridor.teamSlot"
+      }
+    },
+    "targetReward": {
+      "$isParent": false,
+      "props": {
+        "$type": "option",
+        "settingType": "Option",
+        "options": [
+          "talisman1",
+          "talisman2",
+          "glunite",
+          "reforgeCatalyst"
+        ],
+        "value": "talisman1",
+        "isParentNode": false,
+        "name": "targetReward",
+        "position": 0,
+        "path": "doInfiniteCorridor.targetReward"
+      }
+    }
   }
 }
