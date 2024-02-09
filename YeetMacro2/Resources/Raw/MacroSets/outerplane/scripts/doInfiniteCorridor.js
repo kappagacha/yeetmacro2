@@ -43,7 +43,7 @@ while (macroService.IsRunning) {
 			macroService.PollPattern(patterns.general.tapEmptySpace, { DoClick: true, PredicatePattern: patterns.challenge.archdemonRuins.infiniteCorridor.getReward });
 			macroService.PollPattern(patterns.challenge.archdemonRuins.infiniteCorridor.getReward[targetReward], { DoClick: true, PredicatePattern: patterns.challenge.archdemonRuins.infiniteCorridor.getReward[targetReward].selected });
 			macroService.PollPattern(patterns.challenge.archdemonRuins.infiniteCorridor.getReward, { DoClick: true, PredicatePattern: patterns.general.tapEmptySpace });
-			macroService.PollPattern(patterns.general.tapEmptySpaces, { DoClick: true, PredicatePattern: patterns.challenge.archdemonRuins.endSearch });
+			macroService.PollPattern(patterns.general.tapEmptySpace, { DoClick: true, PredicatePattern: patterns.challenge.archdemonRuins.endSearch });
 			macroService.PollPattern(patterns.challenge.archdemonRuins.endSearch, { DoClick: true, PredicatePattern: patterns.titles.archdemonRuins });
 
 			if (macroService.IsRunning) {

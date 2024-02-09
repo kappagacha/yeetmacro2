@@ -3,7 +3,7 @@
 const loopPatterns = [patterns.lobby.level, patterns.titles.adventure, patterns.titles.surveyHub, patterns.surveyHub.rewardInfo];
 const daily = dailyManager.GetDaily();
 const teamSlot = settings.doSurveyHub.teamSlot.Value;
-
+let currentStamina;
 while (macroService.IsRunning) {
 	const loopResult = macroService.PollPattern(loopPatterns);
 	switch (loopResult.Path) {
@@ -15,6 +15,11 @@ while (macroService.IsRunning) {
 		case 'titles.adventure':
 			logger.info('doSurveyHub: go to survey hub');
 			macroService.PollPattern(patterns.adventure.adventure, { DoClick: true, PredicatePattern: patterns.adventure.surveyHub });
+			sleep(500);
+			currentStamina = macroService.GetText(patterns.general.staminaValue);
+			if (currentStamina < 10) {
+				return;
+			}
 			macroService.PollPattern(patterns.adventure.surveyHub, { DoClick: true, PredicatePattern: patterns.titles.surveyHub });
 			sleep(500);
 			break;
@@ -27,6 +32,7 @@ while (macroService.IsRunning) {
 			const topLeft = macroService.GetTopLeft();
 			const xLocation = topLeft.X + 1100;
 			macroService.SwipePollPattern([patterns.surveyHub.rewardInfo.lastLevel, patterns.surveyHub.rewardInfo.zeroOutOfFive], { MaxSwipes: 7, Start: { X: xLocation, Y: 800 }, End: { X: xLocation, Y: 280 } });
+			sleep(500);
 			macroService.SwipePollPattern(patterns.surveyHub.rewardInfo.rightArrow, { MaxSwipes: 7, Start: { X: xLocation, Y: 280 }, End: { X: xLocation, Y: 800 } });
 			sleep(500);
 			const rightArrowResult = macroService.PollPattern(patterns.surveyHub.rewardInfo.rightArrow, { Limit: 6 });
@@ -39,6 +45,10 @@ while (macroService.IsRunning) {
 			}
 			selectTeamAndBattle(teamSlot, true);
 			sleep(500);
+			currentStamina = macroService.GetText(patterns.general.staminaValue);
+			if (currentStamina < 10) {
+				return;
+			}
 			macroService.PollPattern(patterns.general.back, { DoClick: true, PredicatePattern: patterns.adventure.surveyHub });
 			macroService.PollPattern(patterns.adventure.surveyHub, { DoClick: true, PredicatePattern: patterns.titles.surveyHub });
 			break;

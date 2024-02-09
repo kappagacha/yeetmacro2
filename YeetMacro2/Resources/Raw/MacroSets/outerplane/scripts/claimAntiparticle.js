@@ -14,7 +14,7 @@ while (macroService.IsRunning) {
 	switch (loopResult.Path) {
 		case 'lobby.level':
 			logger.info('claimAntiparticle: click base tab');
-			const recruitNotificationResult = macroService.PollPattern(patterns.tabs.base.notification, { TimoutMs: 2_000 });
+			const recruitNotificationResult = macroService.PollPattern(patterns.tabs.base.notification, { TimeoutMs: 2_000 });
 			if (recruitNotificationResult.IsSuccess) {
 				macroService.ClickPattern(patterns.tabs.base);
 			} else {	// already claimed

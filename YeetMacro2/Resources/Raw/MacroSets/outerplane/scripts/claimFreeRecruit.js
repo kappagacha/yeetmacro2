@@ -11,7 +11,7 @@ while (macroService.IsRunning) {
 	switch (loopResult.Path) {
 		case 'lobby.level':
 			logger.info('claimFreeRecruit: click recruit tab');
-			const recruitNotificationResult = macroService.PollPattern(patterns.tabs.recruit.notification, { TimoutMs: 2_000 });
+			const recruitNotificationResult = macroService.PollPattern(patterns.tabs.recruit.notification, { TimeoutMs: 2_000 });
 			if (recruitNotificationResult.IsSuccess) {
 				macroService.ClickPattern(patterns.tabs.recruit);
 			} else {	// already claimed

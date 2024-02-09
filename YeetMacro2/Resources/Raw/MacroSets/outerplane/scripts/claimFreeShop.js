@@ -12,7 +12,7 @@ while (macroService.IsRunning) {
 	switch (loopResult.Path) {
 		case 'lobby.level':
 			logger.info('claimFreeShop: click shop tab');
-			const shopNotificationResult = macroService.PollPattern(patterns.tabs.shop.notification, { TimoutMs: 2_000 });
+			const shopNotificationResult = macroService.PollPattern(patterns.tabs.shop.notification, { TimeoutMs: 2_000 });
 			if (shopNotificationResult.IsSuccess) {
 				macroService.ClickPattern(patterns.tabs.shop);
 			} else {	// already claimed
@@ -23,7 +23,7 @@ while (macroService.IsRunning) {
 		case 'titles.shop':
 			logger.info('claimFreeShop: claim Normal');
 			macroService.PollPattern(patterns.shop.normal, { DoClick: true, PredicatePattern: patterns.shop.normal.selected });
-			const normalFreeResult = macroService.PollPattern(patterns.shop.normal.free, { TimoutMs: 2_000 });
+			const normalFreeResult = macroService.PollPattern(patterns.shop.normal.free, { TimeoutMs: 2_000 });
 			if (normalFreeResult.IsSuccess) {
 				macroService.PollPattern(patterns.shop.normal.free, { DoClick: true, PredicatePattern: patterns.shop.normal.free.confirm });
 				macroService.PollPattern(patterns.shop.normal.free.confirm, { DoClick: true, InversePredicatePattern: patterns.shop.normal.free.confirm });

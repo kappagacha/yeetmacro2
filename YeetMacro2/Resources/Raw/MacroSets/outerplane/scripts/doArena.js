@@ -28,12 +28,12 @@ while (macroService.IsRunning) {
 				break;
 			}
 			
-			const numTicketsZeroResult = macroService.PollPattern(patterns.arena.numTicketsZero, { TimoutMs: 1_500 })
+			const numTicketsZeroResult = macroService.PollPattern(patterns.arena.numTicketsZero, { TimeoutMs: 1_500 })
 			if (numTicketsZeroResult.IsSuccess) {
 				return;
 			}
 
-			//const memorialMatchNotificationResult = macroService.PollPattern(patterns.arena.memorialMatch.notification, { TimoutMs: 1_500 });
+			//const memorialMatchNotificationResult = macroService.PollPattern(patterns.arena.memorialMatch.notification, { TimeoutMs: 1_500 });
 			const memorialMatchNotificationResult = macroService.FindPattern(patterns.arena.memorialMatch.notification);
 			if (memorialMatchNotificationResult.IsSuccess) {
 				logger.info('doArena: memorial match');

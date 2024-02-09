@@ -10,7 +10,7 @@ while (macroService.IsRunning) {
 			break;
 		case 'stamina.prompt.recoverStamina':
 			logger.info('watchAdStamina: check if disabled');
-			const watchResult = macroService.PollPattern(patterns.ad.stamina.watch, { TimoutMs: 3_000 });
+			const watchResult = macroService.PollPattern(patterns.ad.stamina.watch, { TimeoutMs: 3_000 });
 			if (!watchResult.IsSuccess) {
 				return;
 			}

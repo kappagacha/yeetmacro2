@@ -11,7 +11,7 @@ while (macroService.IsRunning) {
 	switch (loopResult.Path) {
 		case 'lobby.level':
 			logger.info('claimFreeShop: click cash shop');
-			const notificationResult = macroService.PollPattern(patterns.lobby.cashShop.notification, { TimoutMs: 1_500 });
+			const notificationResult = macroService.PollPattern(patterns.lobby.cashShop.notification, { TimeoutMs: 1_500 });
 			if (notificationResult.IsSuccess) {
 				macroService.ClickPattern(patterns.lobby.cashShop);
 			} else {	// already claimed

@@ -12,7 +12,7 @@ while (macroService.IsRunning) {
 	switch (loopResult.Path) {
 		case 'lobby.level':
 			logger.info('doPartTimeJobAndRest: click town tab');
-			const notificationResult = macroService.PollPattern(patterns.lobby.town.notification, { TimoutMs: 1_500 });
+			const notificationResult = macroService.PollPattern(patterns.lobby.town.notification, { TimeoutMs: 1_500 });
 			if (notificationResult.IsSuccess) {
 				macroService.ClickPattern(patterns.lobby.town);
 				sleep(1_000);
@@ -22,8 +22,8 @@ while (macroService.IsRunning) {
 			}
 			break;
 		case 'town.enter':
-			const partTimeJobNotification = macroService.PollPattern(patterns.town.partTimeJob.notification, { TimoutMs: 2_000 });
-			const soulRestNotification = macroService.PollPattern(patterns.town.rest.notification, { TimoutMs: 2_000 });
+			const partTimeJobNotification = macroService.PollPattern(patterns.town.partTimeJob.notification, { TimeoutMs: 2_000 });
+			const soulRestNotification = macroService.PollPattern(patterns.town.rest.notification, { TimeoutMs: 2_000 });
 			if (partTimeJobNotification.IsSuccess) {
 				macroService.PollPattern(patterns.town.partTimeJob.notification, { DoClick: true, PredicatePattern: patterns.general.back });
 

@@ -22,13 +22,13 @@ public class PollPatternFindOptions : FindOptions
     public int InversePredicateCheckDelayMs { get; set; } = 100;
     public double PredicateThreshold { get; set; } = 0.0;
     public bool DoClick { get; set; }
-    public double TimoutMs { get; set; } = 0.0;
+    public double TimeoutMs { get; set; } = 0.0;
     public Point ClickOffset { get; set; } = Point.Zero;
 }
 
 public class SwipePollPatternFindOptions : FindOptions
 {
-    public int PollTimoutMs { get; set; } = 2_000;
+    public int PollTimeoutMs { get; set; } = 2_000;
     public int SwipeDelayMs { get; set; } = 5_00;
     public int MaxSwipes { get; set; } = 5;
     public Point Start { get; set; }
@@ -329,8 +329,8 @@ public class MacroService
         var inversePredicatePattern = opts.InversePredicatePattern;
         var clickOffsetX = opts.ClickOffset.X;
         var clickOffsetY = opts.ClickOffset.Y;
-        var hasTimeout = opts.TimoutMs > 0;
-        var timeout = hasTimeout ? DateTime.Now.AddMilliseconds(opts.TimoutMs) : DateTime.MaxValue;
+        var hasTimeout = opts.TimeoutMs > 0;
+        var timeout = hasTimeout ? DateTime.Now.AddMilliseconds(opts.TimeoutMs) : DateTime.MaxValue;
 
         if (inversePredicatePattern is not null)
         {
@@ -429,7 +429,7 @@ public class MacroService
 
     public FindPatternResult SwipePollPattern(OneOf<PatternNode, PatternNode[]> oneOfPattern, SwipePollPatternFindOptions opts)
     {
-        var pollOpts = new PollPatternFindOptions() { TimoutMs = opts.PollTimoutMs };
+        var pollOpts = new PollPatternFindOptions() { TimeoutMs = opts.PollTimeoutMs };
         var swipeCount = 0;
         var result = PollPattern(oneOfPattern, pollOpts);
         while (IsRunning && !result.IsSuccess && swipeCount < opts.MaxSwipes)

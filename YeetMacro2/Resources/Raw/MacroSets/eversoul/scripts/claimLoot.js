@@ -21,7 +21,7 @@ while (macroService.IsRunning) {
 			logger.info('claimLoot: receiveAll and quickHunt');
 			macroService.PollPattern(patterns.loot.receiveAll, { DoClick: true, ClickPattern: patterns.loot.tapTheScreen, PredicatePattern: patterns.loot.receiveAll.disabled });
 
-			const notificationResult = macroService.PollPattern(patterns.loot.quickHunt.notification, { TimoutMs: 1_500 });
+			const notificationResult = macroService.PollPattern(patterns.loot.quickHunt.notification, { TimeoutMs: 1_500 });
 			if (notificationResult.IsSuccess) {
 				macroService.PollPattern(patterns.loot.quickHunt.notification, { DoClick: true, PredicatePattern: patterns.loot.quickHunt.free });
 				macroService.PollPattern(patterns.loot.quickHunt.free, { DoClick: true, PredicatePattern: patterns.loot.tapTheScreen });

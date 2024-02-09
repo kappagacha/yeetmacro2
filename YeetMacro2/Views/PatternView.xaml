@@ -124,11 +124,13 @@
                 <v:ImageView FontFamily="MaterialOutlined" Glyph="{x:Static mi:MaterialOutlined.Image}" Color="{StaticResource Primary}" />
                 <Label Text="{Binding Pattern.Resolution, Source={Reference thisView}}" />
             </HorizontalStackLayout>
-            <HorizontalStackLayout VerticalOptions="End" HorizontalOptions="End">
+            <HorizontalStackLayout Spacing="5" VerticalOptions="End" HorizontalOptions="End">
                 <Label Margin="0" VerticalOptions="Center" Padding="0" Text="XOffset:" />
-                <Entry x:Name="xOffset" Margin="5,0,0,0" VerticalOptions="Center" Keyboard="Numeric" Text="0"  />
+                <Entry x:Name="xOffset" VerticalOptions="Center" Keyboard="Numeric" Text="0"  />
                 <Label Margin="0" VerticalOptions="Center" Padding="0" Text="YOffset:" />
-                <Entry x:Name="yOffset" Margin="5,0,0,0" VerticalOptions="Center" Keyboard="Numeric" Text="0" />
+                <Entry x:Name="yOffset" VerticalOptions="Center" Keyboard="Numeric" Text="0" />
+            </HorizontalStackLayout>
+            <HorizontalStackLayout VerticalOptions="End" HorizontalOptions="End">
                 <v:ImageView FontFamily="MaterialOutlined" Glyph="{x:Static mi:MaterialOutlined.Photo_camera_front}" Color="{StaticResource Primary}"
                              Command="{Binding CapturePatternCommand, Source={Reference thisView}}">
                     <v:ImageView.CommandParameter>

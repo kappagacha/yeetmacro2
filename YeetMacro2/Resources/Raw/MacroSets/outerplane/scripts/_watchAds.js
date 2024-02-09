@@ -24,7 +24,7 @@ while (macroService.IsRunning) {
 			break;
 		case 'stamina.purchase':
 			logger.info('watchAds: start ad');
-			const playAdResult = macroService.PollPattern(patterns.stamina.playAd, { TimoutMs: 2_000 });
+			const playAdResult = macroService.PollPattern(patterns.stamina.playAd, { TimeoutMs: 2_000 });
 			if (!playAdResult.IsSuccess) {
 				return;
 			}

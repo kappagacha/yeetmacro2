@@ -16,7 +16,7 @@ while (macroService.IsRunning) {
 	switch (loopResult.Path) {
 		case 'lobby.level':
 			logger.info('doGuildRaid: click guild tab');
-			const guildNotificationResult = macroService.PollPattern(patterns.tabs.guild.notification, { TimoutMs: 1_000 });
+			const guildNotificationResult = macroService.PollPattern(patterns.tabs.guild.notification, { TimeoutMs: 1_000 });
 			if (guildNotificationResult.IsSuccess) {
 				macroService.ClickPattern(patterns.tabs.guild);
 			} else {	// no notification
@@ -34,7 +34,7 @@ while (macroService.IsRunning) {
 			macroService.ClickPattern(patterns.guild.raid.move);
 			break;
 		case 'titles.guildRaid':
-			const stageRightResult = macroService.PollPattern(patterns.guild.raid.stageRight, { TimoutMs: 1_500 });
+			const stageRightResult = macroService.PollPattern(patterns.guild.raid.stageRight, { TimeoutMs: 1_500 });
 			if (!stageRightResult.IsSuccess) {	// guild raid is not live
 				if (macroService.IsRunning) {
 					daily.doGuildRaid.done.IsChecked = true;
@@ -57,7 +57,7 @@ while (macroService.IsRunning) {
 			macroService.PollPattern(patterns.battle.enter, { DoClick: true, ClickPattern: [patterns.guild.raid.enterBattle, patterns.battle.setup.auto], PredicatePattern: patterns.battle.exit });
 			macroService.PollPattern(patterns.battle.exit, { DoClick: true, ClickPattern: [patterns.guild.raid.battleRecordExit, patterns.general.tapEmptySpace], PredicatePattern: patterns.titles.guildRaid });
 
-			const raidRewardNotificationResult = macroService.PollPattern(patterns.guild.raid.reward.notification, { TimoutMs: 1_500 });
+			const raidRewardNotificationResult = macroService.PollPattern(patterns.guild.raid.reward.notification, { TimeoutMs: 1_500 });
 			if (raidRewardNotificationResult.IsSuccess) {
 				macroService.PollPattern(patterns.guild.raid.reward.notification, { DoClick: true, PredicatePattern: patterns.general.tapEmptySpace });
 				macroService.PollPattern(patterns.general.tapEmptySpace, { DoClick: true, PredicatePattern: patterns.titles.guildRaid });

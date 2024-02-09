@@ -12,7 +12,7 @@ while (macroService.IsRunning) {
 	switch (loopResult.Path) {
 		case 'lobby.level':
 			logger.info('claimGuildBuff: click guild tab');
-			const guildNotificationResult = macroService.PollPattern(patterns.tabs.guild.notification, { TimoutMs: 2_000 });
+			const guildNotificationResult = macroService.PollPattern(patterns.tabs.guild.notification, { TimeoutMs: 2_000 });
 			if (guildNotificationResult.IsSuccess) {
 				macroService.ClickPattern(patterns.tabs.guild);
 			} else {	// no notification

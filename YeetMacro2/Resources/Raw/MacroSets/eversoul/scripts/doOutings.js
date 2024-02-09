@@ -39,11 +39,11 @@ while (macroService.IsRunning) {
 			logger.info('doOutings: click outing target');
 			sleep(500);
 			swipeCount = 0;
-			let result = macroService.PollPattern(targetSoul, { TimoutMs: 2_000 });
+			let result = macroService.PollPattern(targetSoul, { TimeoutMs: 2_000 });
 			while (macroService.IsRunning && !result.IsSuccess && swipeCount < maxSwipes) {
 				macroService.DoSwipe({ X: 1080, Y: 800 }, { X: 1080, Y: 250 });
 				sleep(500);
-				result = macroService.PollPattern(targetSoul, { TimoutMs: 2_000 });
+				result = macroService.PollPattern(targetSoul, { TimeoutMs: 2_000 });
 				swipeCount++;
 			}
 			if (!result.IsSuccess) {

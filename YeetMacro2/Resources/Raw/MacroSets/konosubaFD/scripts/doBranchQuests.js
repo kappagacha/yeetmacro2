@@ -12,7 +12,7 @@ while (macroService.IsRunning) {
 	switch (loopResult.Path) {
 		case 'titles.home':
 			logger.info('doBranchQuests: check others notification');
-			const othersNotificationResult = macroService.PollPattern(patterns.others.notification, { TimoutMs: 2_000 });
+			const othersNotificationResult = macroService.PollPattern(patterns.others.notification, { TimeoutMs: 2_000 });
 			if (othersNotificationResult.IsSuccess) {
 				macroService.PollPattern(patterns.others.notification, { DoClick: true, ClickPattern: patterns.others.branch.notification, PredicatePattern: patterns.titles.branch });
 			} else {
