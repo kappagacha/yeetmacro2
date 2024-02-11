@@ -18,8 +18,10 @@ logger.info('goToLobby: start');
 //watchAds
 // => patterns.stamina.cancel
 //doSpecialRequests
+//claimEventDailyMissions
+// => patterns.event.close
 
-macroService.PollPattern(patterns.lobby.level, { ClickPattern: [patterns.general.back, patterns.battle.setup.enter.ok, patterns.battle.exit, patterns.stamina.cancel] });
+macroService.PollPattern(patterns.lobby.level, { ClickPattern: [patterns.general.back, patterns.battle.setup.enter.ok, patterns.battle.exit, patterns.stamina.cancel, patterns.event.close] });
 if (macroService.IsRunning) {
 	logger.info('goToLobby: done');
 }

@@ -71,3 +71,8 @@ if (settings.doDailies.doSpecialRequests.Value) {
     doSpecialRequests();
     goToLobby();
 }
+
+if (settings.doDailies.claimDailyMissions.Value) {
+    claimDailyMissions();
+    goToLobby();
+}
