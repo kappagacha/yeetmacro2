@@ -54,7 +54,7 @@ while (macroService.IsRunning) {
 
 			if (targetBondLevelIsEnabled) {
 				sleep(1_000);
-				const currentBondLevel = Number.parseInt(macroService.GetText(patterns.town.outings.bondLevel));
+				const currentBondLevel = Number.parseInt(macroService.GetText(patterns.town.outings.bondLevel)?.replace(/[ ]/g, ''));
 				if (currentBondLevel >= Number(targetBondLevel)) {
 					throw new Error(`Target bond level reached: ${targetBondLevel}`);
 				}
