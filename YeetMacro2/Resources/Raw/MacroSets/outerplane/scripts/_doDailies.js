@@ -60,13 +60,8 @@ if (settings.doDailies.doGuildRaid.Value) {
 goToLobby();
 _watchAds();
 
-if (settings.doDailies.doSideStory1.Value) {
-    doSideStory1();
-    goToLobby();
-}
-
-if (settings.doDailies.doSideStory2.Value) {
-    doSideStory2();
+if (settings.doDailies.doDoppelganger.Value) {
+    doDoppelganger();
     goToLobby();
 }
 
