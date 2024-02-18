@@ -829,6 +829,30 @@
         "position": 0,
         "path": "doDailies.claimDailyMissions"
       }
+    },
+    "doSurveyHub": {
+      "$isParent": false,
+      "props": {
+        "$type": "boolean",
+        "settingType": "Boolean",
+        "value": true,
+        "isParentNode": false,
+        "name": "doSurveyHub",
+        "position": 0,
+        "path": "doDailies.doSurveyHub"
+      }
+    },
+    "claimEventDailyMissions": {
+      "$isParent": false,
+      "props": {
+        "$type": "boolean",
+        "settingType": "Boolean",
+        "value": true,
+        "isParentNode": false,
+        "name": "claimEventDailyMissions",
+        "position": 0,
+        "path": "doDailies.claimEventDailyMissions"
+      }
     }
   },
   "doUpkeep": {
@@ -1147,7 +1171,7 @@
         "props": {
           "$type": "boolean",
           "settingType": "Boolean",
-          "value": false,
+          "value": true,
           "isParentNode": false,
           "name": "clearTicket",
           "position": 0,

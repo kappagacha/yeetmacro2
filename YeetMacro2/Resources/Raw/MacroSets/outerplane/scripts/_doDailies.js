@@ -74,3 +74,14 @@ if (settings.doDailies.claimDailyMissions.Value) {
     claimDailyMissions();
     goToLobby();
 }
+
+if (settings.doDailies.doSurveyHub.Value) {
+    refillStamina(50);
+    doSurveyHub();
+    goToLobby();
+}
+
+if (settings.doDailies.claimEventDailyMissions.Value) {
+    claimEventDailyMissions();
+    goToLobby();
+}

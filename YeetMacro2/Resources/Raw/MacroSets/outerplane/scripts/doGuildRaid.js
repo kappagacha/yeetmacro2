@@ -16,7 +16,7 @@ while (macroService.IsRunning) {
 	switch (loopResult.Path) {
 		case 'lobby.level':
 			logger.info('doGuildRaid: click guild tab');
-			const guildNotificationResult = macroService.PollPattern(patterns.tabs.guild.notification, { TimeoutMs: 1_000 });
+			const guildNotificationResult = macroService.PollPattern(patterns.tabs.guild.notification, { TimeoutMs: 1_500 });
 			if (guildNotificationResult.IsSuccess) {
 				macroService.ClickPattern(patterns.tabs.guild);
 			} else {	// no notification
@@ -34,7 +34,7 @@ while (macroService.IsRunning) {
 			macroService.ClickPattern(patterns.guild.raid.move);
 			break;
 		case 'titles.guildRaid':
-			const stageRightResult = macroService.PollPattern(patterns.guild.raid.stageRight, { TimeoutMs: 1_500 });
+			const stageRightResult = macroService.PollPattern(patterns.guild.raid.stageRight, { TimeoutMs: 2_500 });
 			if (!stageRightResult.IsSuccess) {	// guild raid is not live
 				if (macroService.IsRunning) {
 					daily.doGuildRaid.done.IsChecked = true;
