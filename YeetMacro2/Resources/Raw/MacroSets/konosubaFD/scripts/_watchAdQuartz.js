@@ -1,6 +1,14 @@
 ﻿// @isFavorite
 // @position=-100
 const loopPatterns = [patterns.titles.home];
+const originalDensity = 1.5;	// density the patterns were captured in
+const currentDensity = macroService.GetScreenDensity();
+// scale calculation worked for density 2.0 and 2.7875. no clue if this will work for others
+const scale = currentDensity / originalDensity * 150.0 / 223.0;
+const adExitPattern = originalDensity === currentDensity ? patterns.ad.exit : macroService.ClonePattern(patterns.ad.exit, { Scale: scale });
+const adExitInstallPattern = originalDensity === currentDensity ? patterns.ad.exitInstall : macroService.ClonePattern(patterns.ad.exitInstall, { Scale: scale });
+const adCancelPattern = originalDensity === currentDensity ? patterns.ad.cancel : macroService.ClonePattern(patterns.ad.cancel, { Scale: scale });
+
 while (macroService.IsRunning) {
 	const result = macroService.PollPattern(loopPatterns);
 	switch (result.Path) {
@@ -15,7 +23,7 @@ while (macroService.IsRunning) {
 				logger.info('watchAdQuartz: poll ad.prompt.ok');
 				macroService.PollPattern(patterns.ad.prompt.ok, {
 					DoClick: true,
-					ClickPattern: [patterns.ad.exit, patterns.ad.exitInstall, patterns.ad.prompt.youGot],
+					ClickPattern: [patterns.ad.prompt.ok, adExitPattern, adExitInstallPattern, patterns.ad.prompt.youGot, adCancelPattern],
 					PredicatePattern: patterns.titles.home
 				});
 				sleep(1_000);
