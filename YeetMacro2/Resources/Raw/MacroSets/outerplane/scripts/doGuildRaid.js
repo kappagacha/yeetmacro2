@@ -34,7 +34,7 @@ while (macroService.IsRunning) {
 			macroService.ClickPattern(patterns.guild.raid.move);
 			break;
 		case 'titles.guildRaid':
-			const stageRightResult = macroService.PollPattern(patterns.guild.raid.stageRight, { TimeoutMs: 2_500 });
+			const stageRightResult = macroService.PollPattern(patterns.guild.raid.stageRight, { TimeoutMs: 5_000 });
 			if (!stageRightResult.IsSuccess) {	// guild raid is not live
 				if (macroService.IsRunning) {
 					daily.doGuildRaid.done.IsChecked = true;
