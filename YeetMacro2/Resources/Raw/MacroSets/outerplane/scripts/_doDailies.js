@@ -57,8 +57,8 @@ if (settings.doDailies.doGuildRaid.Value) {
     goToLobby();
 }
 
-goToLobby();
 _watchAds();
+goToLobby();
 
 if (settings.doDailies.doDoppelganger.Value) {
     doDoppelganger();

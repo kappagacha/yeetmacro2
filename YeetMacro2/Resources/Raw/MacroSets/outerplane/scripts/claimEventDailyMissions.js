@@ -31,11 +31,13 @@ while (macroService.IsRunning) {
 			if (finalNotificationResult.IsSuccess) {
 				macroService.PollPattern(patterns.event.daily.finalNotification, { DoClick: true, PredicatePattern: [patterns.event.ok, patterns.event.confirm] });
 				macroService.PollPattern([patterns.event.ok, patterns.event.confirm], { DoClick: true, PredicatePattern: patterns.event.daily.info });
-				const miniGameResult = macroService.PollPattern([patterns.event.rockPaperScissors, patterns.event.drawACapsule]);
+				const miniGameResult = macroService.PollPattern([patterns.event.rockPaperScissors, patterns.event.drawACapsule, patterns.event.spinTheWheel]);
 				if (miniGameResult.Path === 'event.rockPaperScissors') {
 					doRockPaperScissors();
 				} else if (miniGameResult.Path === 'event.drawACapsule') {
 					doDrawACapsule();
+				} else if (miniGameResult.Path === 'event.spinTheWheel') {
+					doSpinTheWheel();
 				}
 
 				if (macroService.IsRunning) {
@@ -67,6 +69,17 @@ function doDrawACapsule() {
 	let numCoins = macroService.GetText(patterns.event.numCoins)?.replace(/[^0-9]/g, '');
 	while (numCoins > 0) {
 		macroService.PollPattern(patterns.event.drawACapsule.draw, { DoClick: true, PredicatePattern: patterns.event.confirm });
+		macroService.PollPattern(patterns.event.confirm, { DoClick: true, PredicatePattern: patterns.event.coinInfo });
+		numCoins = macroService.GetText(patterns.event.numCoins)?.replace(/[^0-9]/g, '');
+	}
+}
+
+function doSpinTheWheel() {
+	macroService.PollPattern(patterns.event.spinTheWheel, { DoClick: true, PredicatePattern: patterns.event.coinInfo });
+	sleep(1_000);
+	let numCoins = macroService.GetText(patterns.event.numCoins)?.replace(/[^0-9]/g, '');
+	while (numCoins > 0) {
+		macroService.PollPattern(patterns.event.spinTheWheel.start, { DoClick: true, PredicatePattern: patterns.event.confirm });
 		macroService.PollPattern(patterns.event.confirm, { DoClick: true, PredicatePattern: patterns.event.coinInfo });
 		numCoins = macroService.GetText(patterns.event.numCoins)?.replace(/[^0-9]/g, '');
 	}

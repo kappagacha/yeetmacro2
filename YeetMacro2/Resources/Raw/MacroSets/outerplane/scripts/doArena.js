@@ -94,7 +94,7 @@ while (macroService.IsRunning) {
 				if (macroService.IsRunning) {
 					daily.doArena.count.Count++;
 				}
-				macroService.PollPattern(patterns.prompt.ok, { DoClick: true, ClickPattern: patterns.arena.tapEmptySpace, PredicatePattern: patterns.titles.arena });
+				macroService.PollPattern(patterns.prompt.ok, { DoClick: true, ClickPattern: [patterns.arena.tapEmptySpace, patterns.arena.defendReport.close], PredicatePattern: patterns.titles.arena });
 			}
 			break;
 	}

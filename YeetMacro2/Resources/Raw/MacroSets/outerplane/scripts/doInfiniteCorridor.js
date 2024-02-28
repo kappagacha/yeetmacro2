@@ -1,5 +1,5 @@
 // Skip infinite corridor
-const loopPatterns = [patterns.lobby.level, patterns.titles.adventure, patterns.titles.challenge, patterns.titles.archdemonRuins];
+const loopPatterns = [patterns.lobby.level, patterns.titles.adventure, patterns.titles.challenge, patterns.challenge.archdemonRuins.infiniteCorridor];
 const daily = dailyManager.GetDaily();
 const teamSlot = settings.doInfiniteCorridor.teamSlot.Value;
 const targetReward = settings.doInfiniteCorridor.targetReward.Value;
@@ -25,7 +25,7 @@ while (macroService.IsRunning) {
 			macroService.ClickPattern(patterns.challenge.archdemonRuins);
 			sleep(500);
 			break;
-		case 'titles.archdemonRuins':
+		case 'challenge.archdemonRuins.infiniteCorridor':
 			logger.info('doInfiniteCorridor: skip infiniteCorridor');
 			macroService.PollPattern(patterns.challenge.archdemonRuins.infiniteCorridor, { DoClick: true, PredicatePattern: patterns.challenge.archdemonRuins.infiniteCorridor.selected });
 			macroService.PollPattern(patterns.challenge.archdemonRuins.infiniteCorridor.stage3, { DoClick: true, PredicatePattern: patterns.challenge.archdemonRuins.infiniteCorridor.selectTeam });
