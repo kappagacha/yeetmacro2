@@ -41,7 +41,7 @@ public partial class SettingNodeManagerViewModel : NodeManagerViewModel<ParentSe
             return;
         }
 
-        var targetName = scriptNode.Name;
+        var targetName = scriptNode.Name.TrimStart('_');
         var targetNode = Root.Nodes.FirstOrDefault(sn => sn.Name?.ToLower() == targetName.ToLower()) as ParentSetting;
         CurrentSubViewModel = targetNode ?? _emptyParentSetting;
 
