@@ -8,7 +8,7 @@ const sweepBattle1 = settings.doDoppelganger.sweepBattle1.Value;
 const elementTypeTarget2 = settings.doDoppelganger.elementTypeTarget2.Value;
 const teamSlot2 = settings.doDoppelganger.teamSlot2.Value;
 const sweepBattle2 = settings.doDoppelganger.sweepBattle2.Value;
-//const checkPiecesLimit1 = settings.doDoppelganger.checkPiecesLimit1.Value;
+const checkPiecesLimit1 = settings.doDoppelganger.checkPiecesLimit1.Value;
 //const checkPiecesLimit2 = settings.doDoppelganger.checkPiecesLimit2.Value;
 const doRefillStamina = settings.doDoppelganger.doRefillStamina.Value;
 
@@ -42,12 +42,18 @@ while (macroService.IsRunning) {
 		case 'titles.doppelganger':
 			logger.info('doDoppelganger: auto or sweep');
 			macroService.PollPattern(patterns.doppelganger[elementTypeTarget1], { DoClick: true, PredicatePattern: patterns.doppelganger[elementTypeTarget1].selected });
+			if (checkPiecesLimit1 && macroService.FindPattern(patterns.doppelganger.piecesLimit1).IsSuccess) {
+				throw new Error('Failed checkPiecesLimit1');
+			}
 			macroService.PollPattern(patterns.doppelganger.selectTeam, { DoClick: true, PredicatePattern: patterns.battle.setup.auto });
 			selectTeamAndBattle(teamSlot1, sweepBattle1);
 			macroService.PollPattern(patterns.general.back, { DoClick: true, ClickPattern: [patterns.general.ok, patterns.battle.exit], PredicatePattern: patterns.titles.doppelganger });
 
 			if (elementTypeTarget1 !== elementTypeTarget2) {
 				macroService.PollPattern(patterns.doppelganger[elementTypeTarget2], { DoClick: true, PredicatePattern: patterns.doppelganger[elementTypeTarget2].selected });
+				if (checkPiecesLimit1 && macroService.FindPattern(patterns.doppelganger.piecesLimit1).IsSuccess) {
+					throw new Error('Failed checkPiecesLimit1');
+				}
 				macroService.PollPattern(patterns.doppelganger.selectTeam, { DoClick: true, PredicatePattern: patterns.battle.setup.auto });
 				selectTeamAndBattle(teamSlot2, sweepBattle2);
 				macroService.PollPattern(patterns.general.back, { DoClick: true, ClickPattern: [patterns.general.ok, patterns.battle.exit], PredicatePattern: patterns.titles.doppelganger });

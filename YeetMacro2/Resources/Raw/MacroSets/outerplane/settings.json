@@ -1171,7 +1171,7 @@
         "props": {
           "$type": "boolean",
           "settingType": "Boolean",
-          "value": true,
+          "value": false,
           "isParentNode": false,
           "name": "clearTicket",
           "position": 0,
@@ -1195,7 +1195,7 @@
         "props": {
           "$type": "boolean",
           "settingType": "Boolean",
-          "value": true,
+          "value": false,
           "isParentNode": false,
           "name": "hammer",
           "position": 0,
@@ -1583,6 +1583,18 @@
         "name": "doRefillStamina",
         "position": 0,
         "path": "doDoppelganger.doRefillStamina"
+      }
+    },
+    "checkPiecesLimit1": {
+      "$isParent": false,
+      "props": {
+        "$type": "boolean",
+        "settingType": "Boolean",
+        "value": true,
+        "isParentNode": false,
+        "name": "checkPiecesLimit1",
+        "position": 0,
+        "path": "doDoppelganger.checkPiecesLimit1"
       }
     }
   }
