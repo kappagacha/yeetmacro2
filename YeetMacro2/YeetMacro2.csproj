@@ -63,11 +63,11 @@
 		<PackageReference Include="Serilog.Sinks.Console" Version="4.1.0" />
 		<PackageReference Include="SkiaSharp.Views.Maui.Controls" Version="2.88.6" />
 		<PackageReference Include="System.Drawing.Common" Version="7.0.0" />
-		<PackageReference Include="TesseractOcrMaui" Version="1.0.7" />
+		<PackageReference Include="TesseractOcrMaui" Version="1.1.6" />
 		<PackageReference Include="UraniumUI.Icons.FontAwesome" Version="2.7.0" />
 		<PackageReference Include="UraniumUI.Icons.MaterialIcons" Version="2.7.0" />
 		<PackageReference Include="UraniumUI.Material" Version="2.7.0" />
-    <PackageReference Include="Microsoft.Maui.Controls" Version="8.0.3" />
+    <PackageReference Include="Microsoft.Maui.Controls" Version="8.0.7" />
 	</ItemGroup>
 
 	<ItemGroup>
@@ -438,6 +438,10 @@
     <MauiAsset Update="Resources\Raw\MacroSets\outerplane\scripts\doArena.js">
       <LogicalName>%(RecursiveDir)%(Filename)%(Extension)</LogicalName>
     </MauiAsset>
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Update="Microsoft.Maui.Controls.Compatibility" Version="8.0.7" />
   </ItemGroup>
 
 </Project>
