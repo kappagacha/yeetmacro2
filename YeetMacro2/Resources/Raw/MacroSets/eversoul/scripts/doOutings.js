@@ -33,7 +33,8 @@ while (macroService.IsRunning) {
 			break;
 		case 'town.level':
 			logger.info('doOutings: click info with Offset');
-			macroService.PollPattern(patterns.town.info, { DoClick: true, ClickOffset: { X: -60 }, PredicatePattern: patterns.town.outings });
+			//macroService.PollPattern(patterns.town.info, { DoClick: true, ClickOffset: { X: -60 }, PredicatePattern: patterns.town.outings });
+			macroService.PollPattern(patterns.town.chatBubble, { DoClick: true, PredicatePattern: patterns.town.outings });
 			break;
 		case 'town.outings':
 			logger.info('doOutings: click outing target');

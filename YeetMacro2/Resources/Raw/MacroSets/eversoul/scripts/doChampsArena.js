@@ -28,9 +28,9 @@ while (macroService.IsRunning) {
 			break;
 		case 'adventure.arena.startMatch':
 			logger.info('doChampsArena: start match');
-			const match1CP = macroService.GetText(patterns.adventure.arena.match1.cp).replace(/[, ]/g, '');
-			const match2CP = macroService.GetText(patterns.adventure.arena.match2.cp).replace(/[, ]/g, '');
-			const match3CP = macroService.GetText(patterns.adventure.arena.match3.cp).replace(/[, ]/g, '');
+			const match1CP = macroService.GetText(patterns.adventure.champsArena.match1.cp).replace(/[, ]/g, '');
+			const match2CP = macroService.GetText(patterns.adventure.champsArena.match2.cp).replace(/[, ]/g, '');
+			const match3CP = macroService.GetText(patterns.adventure.champsArena.match3.cp).replace(/[, ]/g, '');
 			logger.info('match1CP: ' + match1CP);
 			logger.info('match2CP: ' + match2CP);
 			logger.info('match3CP: ' + match3CP);
@@ -42,7 +42,7 @@ while (macroService.IsRunning) {
 			logger.info('minCP: ' + minCP);
 			logger.info('cpThreshold: ' + cpThreshold);
 			if(!isCpThresholdEnabled || minCP <= cpThreshold) {
-				macroService.PollPattern(patterns.adventure.arena['match' + (minIdx + 1)].challenge, { DoClick: true, ClickPattern: patterns.adventure.champsArena.nextTeam, PredicatePattern: patterns.battle.start, IntervalDelayMs: 1_000 });
+				macroService.PollPattern(patterns.adventure.champsArena['match' + (minIdx + 1)].challenge, { DoClick: true, ClickPattern: patterns.adventure.champsArena.nextTeam, PredicatePattern: patterns.battle.start, IntervalDelayMs: 1_000 });
 				sleep(500);
 				macroService.PollPattern(patterns.battle.skip.disabled, { DoClick: true, PredicatePattern: patterns.battle.skip.enabled });
 				macroService.PollPattern(patterns.battle.start, { DoClick: true, PredicatePattern: patterns.prompt.confirm2 });
