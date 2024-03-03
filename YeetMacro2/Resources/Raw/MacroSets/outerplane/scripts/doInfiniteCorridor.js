@@ -28,6 +28,10 @@ while (macroService.IsRunning) {
 		case 'challenge.archdemonRuins.infiniteCorridor':
 			logger.info('doInfiniteCorridor: skip infiniteCorridor');
 			macroService.PollPattern(patterns.challenge.archdemonRuins.infiniteCorridor, { DoClick: true, PredicatePattern: patterns.challenge.archdemonRuins.infiniteCorridor.selected });
+			if (macroService.FindPattern(patterns.challenge.archdemonRuins.infiniteCorridor.zeroPlayCount).IsSuccess && macroService.IsRunning) {
+				daily.doInfiniteCorridor.done.IsChecked = true;
+				return;
+			}
 			macroService.PollPattern(patterns.challenge.archdemonRuins.infiniteCorridor.stage3, { DoClick: true, PredicatePattern: patterns.challenge.archdemonRuins.infiniteCorridor.selectTeam });
 			macroService.PollPattern(patterns.challenge.archdemonRuins.infiniteCorridor.selectTeam, { DoClick: true, PredicatePattern: patterns.challenge.archdemonRuins.infiniteCorridor.enterRuins });
 			selectTeam(teamSlot);
@@ -44,7 +48,7 @@ while (macroService.IsRunning) {
 			macroService.PollPattern(patterns.challenge.archdemonRuins.infiniteCorridor.getReward[targetReward], { DoClick: true, PredicatePattern: patterns.challenge.archdemonRuins.infiniteCorridor.getReward[targetReward].selected });
 			macroService.PollPattern(patterns.challenge.archdemonRuins.infiniteCorridor.getReward, { DoClick: true, PredicatePattern: patterns.general.tapEmptySpace });
 			macroService.PollPattern(patterns.general.tapEmptySpace, { DoClick: true, PredicatePattern: patterns.challenge.archdemonRuins.infiniteCorridor.endSearch });
-			macroService.PollPattern(patterns.challenge.archdemonRuins.infiniteCorridor.endSearch, { DoClick: true, PredicatePattern: patterns.titles.archdemonRuins });
+			macroService.PollPattern(patterns.challenge.archdemonRuins.infiniteCorridor.endSearch, { DoClick: true, PredicatePattern: patterns.challenge.archdemonRuins.infiniteCorridor });
 
 			if (macroService.IsRunning) {
 				daily.doInfiniteCorridor.done.IsChecked = true;
