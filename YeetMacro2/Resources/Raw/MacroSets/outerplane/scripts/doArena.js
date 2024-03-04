@@ -27,7 +27,12 @@ while (macroService.IsRunning) {
 				macroService.ClickPattern([patterns.arena.leagueOfChallenge, patterns.arena.leagueOfChallenge2, patterns.arena.leagueOfChallenge3]);
 				break;
 			}
-			
+
+			const exchangePeriodResult = macroService.FindPattern(patterns.arena.exchangePeriod2)
+			if (exchangePeriodResult.IsSuccess) {
+				return;
+			}
+
 			const numTicketsZeroResult = macroService.PollPattern(patterns.arena.numTicketsZero, { TimeoutMs: 1_500 })
 			if (numTicketsZeroResult.IsSuccess) {
 				return;
