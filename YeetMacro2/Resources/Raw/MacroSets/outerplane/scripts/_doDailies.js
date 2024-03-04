@@ -77,6 +77,7 @@ if (settings.doDailies.claimDailyMissions.Value) {
 
 if (settings.doDailies.doSurveyHub.Value) {
     refillStamina(50);
+    goToLobby();
     doSurveyHub();
     goToLobby();
 }
