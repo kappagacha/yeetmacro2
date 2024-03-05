@@ -1,7 +1,7 @@
 // @position=6
 // Battle in arena until out of arena tickets
 // Will prioritize Memorial Match
-const loopPatterns = [patterns.lobby.level, patterns.titles.adventure, patterns.titles.arena];
+const loopPatterns = [patterns.lobby.level, patterns.titles.adventure, patterns.arena.challenge1, patterns.titles.arena];
 const daily = dailyManager.GetDaily();
 const teamSlot = settings.doArena.teamSlot.Value;
 const cpThresholdIsEnabled = settings.doArena.cpThreshold.IsEnabled;
@@ -22,23 +22,15 @@ while (macroService.IsRunning) {
 			sleep(500);
 			break;
 		case 'titles.arena':
-			const leagueOfChallengeResult = macroService.FindPattern([patterns.arena.leagueOfChallenge, patterns.arena.leagueOfChallenge2, patterns.arena.leagueOfChallenge3]);
-			if (leagueOfChallengeResult.IsSuccess) {
-				macroService.ClickPattern([patterns.arena.leagueOfChallenge, patterns.arena.leagueOfChallenge2, patterns.arena.leagueOfChallenge3]);
-				break;
-			}
-
-			const exchangePeriodResult = macroService.FindPattern(patterns.arena.exchangePeriod2)
-			if (exchangePeriodResult.IsSuccess) {
-				return;
-			}
-
+			macroService.ClickPattern([patterns.arena.leagueOfChallenge, patterns.arena.leagueOfChallenge2, patterns.arena.leagueOfChallenge3, patterns.arena.exchangePeriod2]);
+			sleep(500);
+			break;
+		case 'arena.challenge1':
 			const numTicketsZeroResult = macroService.PollPattern(patterns.arena.numTicketsZero, { TimeoutMs: 1_500 })
 			if (numTicketsZeroResult.IsSuccess) {
 				return;
 			}
 
-			//const memorialMatchNotificationResult = macroService.PollPattern(patterns.arena.memorialMatch.notification, { TimeoutMs: 1_500 });
 			const memorialMatchNotificationResult = macroService.FindPattern(patterns.arena.memorialMatch.notification);
 			if (memorialMatchNotificationResult.IsSuccess) {
 				logger.info('doArena: memorial match');
@@ -61,7 +53,7 @@ while (macroService.IsRunning) {
 				if (macroService.IsRunning) {
 					daily.doArena.count.Count++;
 				}
-				macroService.PollPattern(patterns.prompt.ok, { DoClick: true, PredicatePattern: patterns.titles.arena });
+				macroService.PollPattern(patterns.prompt.ok, { DoClick: true, ClickPattern: [patterns.arena.tapEmptySpace, patterns.arena.defendReport.close], PredicatePattern: patterns.titles.arena });
 			} else {
 				logger.info('doArena: normal match');
 				macroService.PollPattern(patterns.arena.matchOpponent, { DoClick: true, PredicatePattern: patterns.arena.matchOpponent.selected });
@@ -75,9 +67,13 @@ while (macroService.IsRunning) {
 						Number(challenge3CP.slice(0, -4).slice(1) + challenge3CP.slice(-3)),
 					];
 
-					const minIdx = challenges.reduce((minIdx, val, idx, arr) => arr[minIdx] && arr[minIdx] <= cpThreshold && val < arr[minIdx] ? idx : minIdx, 0);
-					logger.info(`doArena: normal match challenge ${minIdx + 1}`);
-					macroService.PollPattern(patterns.arena[`challenge${minIdx + 1}`], { DoClick: true, PredicatePattern: patterns.arena.enter });
+					const maxIdx = challenges.reduce((maxIdx, val, idx, arr) => arr[maxIdx] && arr[maxIdx] <= cpThreshold && val > arr[maxIdx] ? idx : maxIdx, 0);
+					logger.info(`doArena: normal match challenge ${maxIdx + 1}, ${challenges}`);
+					macroService.PollPattern(patterns.arena[`challenge${maxIdx + 1}`], { DoClick: true, PredicatePattern: patterns.arena.enter });
+
+					//const minIdx = challenges.reduce((minIdx, val, idx, arr) => arr[minIdx] && arr[minIdx] <= cpThreshold && val < arr[minIdx] ? idx : minIdx, 0);
+					//logger.info(`doArena: normal match challenge ${minIdx + 1}, ${challenges}`);
+					//macroService.PollPattern(patterns.arena[`challenge${minIdx + 1}`], { DoClick: true, PredicatePattern: patterns.arena.enter });
 				} else {
 					logger.info('doArena: normal match challenge 3');
 					macroService.PollPattern(patterns.arena.challenge3, { DoClick: true, PredicatePattern: patterns.arena.enter });
