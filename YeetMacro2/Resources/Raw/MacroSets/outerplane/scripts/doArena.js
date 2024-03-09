@@ -1,7 +1,7 @@
 // @position=6
 // Battle in arena until out of arena tickets
 // Will prioritize Memorial Match
-const loopPatterns = [patterns.lobby.level, patterns.titles.adventure, patterns.arena.challenge1, patterns.titles.arena];
+const loopPatterns = [patterns.lobby.level, patterns.titles.adventure, patterns.arena.challenge1, patterns.arena.matchOpponent, patterns.titles.arena];
 const daily = dailyManager.GetDaily();
 const teamSlot = settings.doArena.teamSlot.Value;
 const cpThresholdIsEnabled = settings.doArena.cpThreshold.IsEnabled;
@@ -26,6 +26,7 @@ while (macroService.IsRunning) {
 			sleep(500);
 			break;
 		case 'arena.challenge1':
+		case 'arena.matchOpponent':
 			const numTicketsZeroResult = macroService.PollPattern(patterns.arena.numTicketsZero, { TimeoutMs: 1_500 })
 			if (numTicketsZeroResult.IsSuccess) {
 				return;
@@ -68,7 +69,8 @@ while (macroService.IsRunning) {
 					];
 
 					const maxIdx = challenges.reduce((maxIdx, val, idx, arr) => arr[maxIdx] && arr[maxIdx] <= cpThreshold && val > arr[maxIdx] ? idx : maxIdx, 0);
-					logger.info(`doArena: normal match challenge ${maxIdx + 1}, ${challenges}`);
+					//logger.info(`doArena: normal match challenge ${maxIdx + 1}, ${challenges}`
+					logger.info(`doArena: normal match challenge ${maxIdx + 1}   ~${challenge1CP}~    ~${challenge2CP}~    ~${challenge3CP}~`);
 					macroService.PollPattern(patterns.arena[`challenge${maxIdx + 1}`], { DoClick: true, PredicatePattern: patterns.arena.enter });
 
 					//const minIdx = challenges.reduce((minIdx, val, idx, arr) => arr[minIdx] && arr[minIdx] <= cpThreshold && val < arr[minIdx] ? idx : minIdx, 0);

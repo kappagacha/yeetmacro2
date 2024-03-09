@@ -86,3 +86,8 @@ if (settings.doDailies.claimEventDailyMissions.Value) {
     claimEventDailyMissions();
     goToLobby();
 }
+
+if (settings.doDailies.doInfiniteCorridor.Value) {
+    doInfiniteCorridor();
+    goToLobby();
+}

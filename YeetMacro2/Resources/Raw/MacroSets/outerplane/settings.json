@@ -853,6 +853,18 @@
         "position": 0,
         "path": "doDailies.claimEventDailyMissions"
       }
+    },
+    "doInfiniteCorridor": {
+      "$isParent": false,
+      "props": {
+        "$type": "boolean",
+        "settingType": "Boolean",
+        "value": true,
+        "isParentNode": false,
+        "name": "doInfiniteCorridor",
+        "position": 0,
+        "path": "doDailies.doInfiniteCorridor"
+      }
     }
   },
   "doUpkeep": {
