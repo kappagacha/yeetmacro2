@@ -302,7 +302,8 @@ public partial class TestViewModel : ObservableObject
         var windowManager = Platform.CurrentActivity.GetSystemService(Context.WindowService).JavaCast<IWindowManager>();
         var dm = new DisplayMetrics();
         windowManager.DefaultDisplay.GetRealMetrics(dm);
-        CustomResolution = dm.ToString();
+        CustomResolution = $"Density: {dm.Density}\nScaledDensity: {dm.ScaledDensity}\nWidthPixels: {dm.WidthPixels}\nHeightPixels: {dm.HeightPixels}\nXdpi: {dm.Xdpi}\nYdpi: {dm.Ydpi}";
+
         //CustomResolution = _screenService.CurrentResolution.ToString();
     }
 
