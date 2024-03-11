@@ -22,7 +22,7 @@ while (macroService.IsRunning) {
 			sleep(500);
 			break;
 		case 'titles.arena':
-			macroService.ClickPattern([patterns.arena.leagueOfChallenge, patterns.arena.leagueOfChallenge2, patterns.arena.leagueOfChallenge3, patterns.arena.exchangePeriod2]);
+			macroService.ClickPattern([patterns.arena.arena]);
 			sleep(500);
 			break;
 		case 'arena.challenge1':
