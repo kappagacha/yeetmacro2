@@ -5,7 +5,6 @@ const loopPatterns = [patterns.lobby.level, patterns.titles.adventure, patterns.
 const daily = dailyManager.GetDaily();
 const teamSlot = settings.doArena.teamSlot.Value;
 const cpThresholdIsEnabled = settings.doArena.cpThreshold.IsEnabled;
-const cpThreshold = settings.doArena.cpThreshold.Value;
 const autoDetectCpThreshold = settings.doArena.autoDetectCpThreshold.Value;
 
 while (macroService.IsRunning) {
@@ -59,18 +58,19 @@ while (macroService.IsRunning) {
 				logger.info('doArena: normal match');
 				macroService.PollPattern(patterns.arena.matchOpponent, { DoClick: true, PredicatePattern: patterns.arena.matchOpponent.selected });
 				if (cpThresholdIsEnabled) {
+					const cpThreshold = settings.doArena.cpThreshold.Value;
 					const challenge1CP = macroService.GetText(patterns.arena.challenge1.cp);
 					const challenge2CP = macroService.GetText(patterns.arena.challenge2.cp);
 					const challenge3CP = macroService.GetText(patterns.arena.challenge3.cp);
 					const challenges = [
-						Number(challenge1CP.slice(0, -4).slice(1) + challenge1CP.slice(-3)),
-						Number(challenge2CP.slice(0, -4).slice(1) + challenge2CP.slice(-3)),
-						Number(challenge3CP.slice(0, -4).slice(1) + challenge3CP.slice(-3)),
+						Number(challenge1CP.slice(0, challenge1CP.length - 4) + challenge1CP.slice(-3)),
+						Number(challenge2CP.slice(0, challenge2CP.length - 4) + challenge2CP.slice(-3)),
+						Number(challenge3CP.slice(0, challenge3CP.length - 4) + challenge3CP.slice(-3)),
 					];
 
-					const maxIdx = challenges.reduce((maxIdx, val, idx, arr) => arr[maxIdx] && arr[maxIdx] <= cpThreshold && val > arr[maxIdx] ? idx : maxIdx, 0);
+					const maxIdx = challenges.reduce((maxIdx, val, idx) => val && val <= cpThreshold && val > challenges[maxIdx] ? idx : maxIdx, 2);
 					//logger.info(`doArena: normal match challenge ${maxIdx + 1}, ${challenges}`
-					logger.info(`doArena: normal match challenge ${maxIdx + 1}   ~${challenge1CP}~    ~${challenge2CP}~    ~${challenge3CP}~`);
+					logger.info(`doArena: normal match challenge ${maxIdx + 1}  [${cpThreshold}] ~${challenge1CP}~~${challenge2CP}~~${challenge3CP}~`);
 					macroService.PollPattern(patterns.arena[`challenge${maxIdx + 1}`], { DoClick: true, PredicatePattern: patterns.arena.enter });
 
 					//const minIdx = challenges.reduce((minIdx, val, idx, arr) => arr[minIdx] && arr[minIdx] <= cpThreshold && val < arr[minIdx] ? idx : minIdx, 0);
