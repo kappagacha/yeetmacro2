@@ -1094,7 +1094,7 @@
       "props": {
         "$type": "timestamp",
         "settingType": "TimeStamp",
-        "value": "2024-02-28T02:32:09.848+00:00",
+        "value": "2024-03-11T15:05:52.931+00:00",
         "isParentNode": false,
         "name": "lastRun",
         "position": 0,
@@ -1400,7 +1400,7 @@
           "glunite",
           "reforgeCatalyst"
         ],
-        "value": "glunite",
+        "value": "talisman1",
         "isParentNode": false,
         "name": "targetReward",
         "position": 0,
@@ -1491,7 +1491,7 @@
           "dark",
           "light"
         ],
-        "value": "earth",
+        "value": "fire",
         "isParentNode": false,
         "name": "elementTypeTarget1",
         "position": 0,
