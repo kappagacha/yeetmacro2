@@ -63,19 +63,18 @@ while (macroService.IsRunning) {
 					const challenge2CP = macroService.GetText(patterns.arena.challenge2.cp);
 					const challenge3CP = macroService.GetText(patterns.arena.challenge3.cp);
 					const challenges = [
-						Number(challenge1CP.slice(0, challenge1CP.length - 4) + challenge1CP.slice(-3)),
-						Number(challenge2CP.slice(0, challenge2CP.length - 4) + challenge2CP.slice(-3)),
-						Number(challenge3CP.slice(0, challenge3CP.length - 4) + challenge3CP.slice(-3)),
+						Number((challenge1CP.slice(0, challenge1CP.length - 4) + challenge1CP.slice(-3))?.replace(/[^0-9]/g, '')),
+						Number((challenge2CP.slice(0, challenge2CP.length - 4) + challenge2CP.slice(-3))?.replace(/[^0-9]/g, '')),
+						Number((challenge3CP.slice(0, challenge3CP.length - 4) + challenge3CP.slice(-3))?.replace(/[^0-9]/g, '')),
 					];
-
-					const maxIdx = challenges.reduce((maxIdx, val, idx) => val && val <= cpThreshold && val > challenges[maxIdx] ? idx : maxIdx, 2);
-					//logger.info(`doArena: normal match challenge ${maxIdx + 1}, ${challenges}`
-					logger.info(`doArena: normal match challenge ${maxIdx + 1}  [${cpThreshold}] ~${challenge1CP}~~${challenge2CP}~~${challenge3CP}~`);
-					macroService.PollPattern(patterns.arena[`challenge${maxIdx + 1}`], { DoClick: true, PredicatePattern: patterns.arena.enter });
-
-					//const minIdx = challenges.reduce((minIdx, val, idx, arr) => arr[minIdx] && arr[minIdx] <= cpThreshold && val < arr[minIdx] ? idx : minIdx, 0);
-					//logger.info(`doArena: normal match challenge ${minIdx + 1}, ${challenges}`);
-					//macroService.PollPattern(patterns.arena[`challenge${minIdx + 1}`], { DoClick: true, PredicatePattern: patterns.arena.enter });
+					// choose the first challenge (most reward) that is equal to or under threshold
+					const challengesToWithinThreshold = challenges.map(c => c && c <= cpThreshold);
+					const targetIdx = challengesToWithinThreshold.findIndex(cwt => cwt) ?? 2;
+					//return targetIdx;		// for testing
+					//const maxIdx = challenges.reduce((maxIdx, val, idx) => val && val <= cpThreshold && val > challenges[maxIdx] ? idx : maxIdx, 2);
+					
+					logger.info(`doArena: normal match challenge ${targetIdx + 1}  [${cpThreshold}] ~${challenge1CP}~~${challenge2CP}~~${challenge3CP}~`);
+					macroService.PollPattern(patterns.arena[`challenge${targetIdx + 1}`], { DoClick: true, PredicatePattern: patterns.arena.enter });
 				} else {
 					logger.info('doArena: normal match challenge 3');
 					macroService.PollPattern(patterns.arena.challenge3, { DoClick: true, PredicatePattern: patterns.arena.enter });
