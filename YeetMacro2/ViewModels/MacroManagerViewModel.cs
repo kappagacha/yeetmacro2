@@ -604,6 +604,13 @@ public partial class MacroManagerViewModel : ObservableObject
                     ((EnabledIntegerSetting)dest).IsEnabled = ((EnabledIntegerSetting)source).IsEnabled;
                     ((SettingNode<int>)dest).Value = ((SettingNode<int>)source).Value;
                     break;
+                case SettingType.Double when dest.SettingType == SettingType.Double:
+                    ((SettingNode<double>)dest).Value = ((SettingNode<double>)source).Value;
+                    break;
+                case SettingType.EnabledDouble when dest.SettingType == SettingType.EnabledDouble:
+                    ((EnabledDoubleSetting)dest).IsEnabled = ((EnabledDoubleSetting)source).IsEnabled;
+                    ((SettingNode<double>)dest).Value = ((SettingNode<double>)source).Value;
+                    break;
                 case SettingType.Pattern when dest.SettingType == SettingType.Pattern:
                     ((SettingNode<PatternNode>)dest).Value = ((SettingNode<PatternNode>)source).Value;
                     break;

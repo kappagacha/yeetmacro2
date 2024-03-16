@@ -113,6 +113,9 @@
 	  <Compile Update="Views\DailyNodeView.xaml.cs">
 	    <DependentUpon>DailyNodeView.xaml</DependentUpon>
 	  </Compile>
+	  <Compile Update="Views\DoubleStepper.xaml.cs">
+	    <DependentUpon>DoubleStepper.xaml</DependentUpon>
+	  </Compile>
 	  <Compile Update="Views\IntegerStepper.xaml.cs">
 	    <DependentUpon>IntegerStepper.xaml</DependentUpon>
 	  </Compile>
@@ -168,6 +171,9 @@
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
 	  <MauiXaml Update="Platforms\Android\Views\MessageView.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	  <MauiXaml Update="Views\DoubleStepper.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
 	  <MauiXaml Update="Views\IntegerStepper.xaml">

@@ -24,6 +24,8 @@ public class YeetMacroDbContext : DbContext
     public DbSet<EnabledStringSetting> EnabledStringSettings { get; set; }
     public DbSet<IntegerSetting> IntegerSettings { get; set; }
     public DbSet<EnabledIntegerSetting> EnabledIntegerSetting { get; set; }
+    public DbSet<DoubleSetting> DoubleSettings { get; set; }
+    public DbSet<EnabledDoubleSetting> EnabledDoubleSetting { get; set; }
     public DbSet<PatternSetting> PatternSettings { get; set; }
     public DbSet<EnabledPatternSetting> EnabledPatternSettings { get; set; }
     public DbSet<TimestampSetting> TimestampSettings { get; set; }

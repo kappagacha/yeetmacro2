@@ -1,12 +1,10 @@
 ﻿using AutoMapper;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
-using System.Collections.ObjectModel;
 using System.Diagnostics;
 using System.Reflection;
 using System.Text.Json;
 using System.Text.Json.Serialization;
-using System.Xml.Linq;
 using YeetMacro2.Data.Models;
 using YeetMacro2.Data.Serialization;
 using YeetMacro2.Data.Services;
@@ -173,7 +171,7 @@ public partial class NodeManagerViewModel<TViewModel, TParent, TChild> : NodeMan
         }
 
         TChild newNode = null;
-        var nodeTypes = NodeMetadataHelper.GetNodeTypes<TViewModel>();
+        var nodeTypes = NodeTypesAttribute.GetTypes<TViewModel>();
         if (nodeTypes is not null)
         {
             var selectedTypeName = await _inputService.SelectOption($"Please select {_nodeTypeName} type", nodeTypes.Select(t => t.Name.Replace("ViewModel", "")).ToArray());

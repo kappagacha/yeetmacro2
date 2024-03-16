@@ -1,16 +1,7 @@
-﻿using System.Linq.Expressions;
-using System.Text.Json.Serialization;
+﻿using System.Text.Json.Serialization;
 
 namespace YeetMacro2.Data.Models;
 
-public class PatternNodeMetadataProvider : INodeMetadataProvider<PatternNode>
-{
-    public Expression<Func<PatternNode, object>> CollectionPropertiesExpression => pn => new { pn.Nodes, pn.Patterns };
-    public Expression<Func<PatternNode, object>> ProxyPropertiesExpression => null;
-    public Type[] NodeTypes => null;
-}
-
-[NodeMetadata(NodeMetadataProvider = typeof(PatternNodeMetadataProvider))]
 public class PatternNode : Node, IParentNode<PatternNode, PatternNode>
 {
     public virtual bool IsMultiPattern { get; set; }
@@ -21,14 +12,6 @@ public class PatternNode : Node, IParentNode<PatternNode, PatternNode>
     public Pattern Pattern { get => Patterns.FirstOrDefault(); }
 }
 
-public class PatternMetadataProvider : INodeMetadataProvider<Pattern>
-{
-    public Expression<Func<Pattern, object>> CollectionPropertiesExpression => null;
-    public Expression<Func<Pattern, object>> ProxyPropertiesExpression => p => new { p.TextMatch, p.ColorThreshold };
-    public Type[] NodeTypes => null;
-}
-
-[NodeMetadata(NodeMetadataProvider = typeof(PatternMetadataProvider))]
 public class Pattern: ISortable
 {
     public virtual Rect Rect { get; set; }

@@ -2,28 +2,30 @@
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Messaging;
 using System.Collections.ObjectModel;
-using System.Linq.Expressions;
-using System.Text.RegularExpressions;
 using YeetMacro2.Data.Models;
 using YeetMacro2.Services;
-using static System.Net.Mime.MediaTypeNames;
 
 namespace YeetMacro2.ViewModels.NodeViewModels;
 
-public class SettingNodeViewModelMetadataProvider : INodeMetadataProvider<ParentSettingViewModel>
-{
-    public Expression<Func<ParentSettingViewModel, object>> CollectionPropertiesExpression => null;
-    public Expression<Func<ParentSettingViewModel, object>> ProxyPropertiesExpression => null;
-
-    public Type[] NodeTypes => new Type[] { 
-        typeof(ParentSettingViewModel), typeof(BooleanSettingViewModel), typeof(OptionSettingViewModel), typeof(EnabledOptionSettingViewModel), 
-        typeof(StringSettingViewModel), typeof(EnabledStringSettingViewModel), typeof(IntegerSettingViewModel), typeof(EnabledIntegerSettingViewModel), 
-        typeof(PatternSettingViewModel), typeof(EnabledPatternSettingViewModel), typeof(TimestampSettingViewModel)
-    };
-}
-
 [ObservableObject]
-[NodeMetadata(NodeMetadataProvider = typeof(SettingNodeViewModelMetadataProvider))]
+[NodeTypes(
+    typeof(ParentSettingViewModel), typeof(BooleanSettingViewModel), typeof(OptionSettingViewModel), typeof(EnabledOptionSettingViewModel),
+    typeof(StringSettingViewModel), typeof(EnabledStringSettingViewModel), typeof(IntegerSettingViewModel), typeof(EnabledIntegerSettingViewModel),
+    typeof(DoubleSettingViewModel), typeof(EnabledDoubleSettingViewModel), typeof(PatternSettingViewModel), typeof(EnabledPatternSettingViewModel), typeof(TimestampSettingViewModel)
+)]
+[NodeTypeMapping(typeof(ParentSetting), typeof(ParentSettingViewModel))]
+[NodeTypeMapping(typeof(BooleanSetting), typeof(BooleanSettingViewModel))]
+[NodeTypeMapping(typeof(EnabledOptionSetting), typeof(EnabledOptionSettingViewModel))]
+[NodeTypeMapping(typeof(OptionSetting), typeof(OptionSettingViewModel))]
+[NodeTypeMapping(typeof(EnabledStringSetting), typeof(EnabledStringSettingViewModel))]
+[NodeTypeMapping(typeof(StringSetting), typeof(StringSettingViewModel))]
+[NodeTypeMapping(typeof(EnabledIntegerSetting), typeof(EnabledIntegerSettingViewModel))]
+[NodeTypeMapping(typeof(IntegerSetting), typeof(IntegerSettingViewModel))]
+[NodeTypeMapping(typeof(EnabledDoubleSetting), typeof(EnabledDoubleSettingViewModel))]
+[NodeTypeMapping(typeof(DoubleSetting), typeof(DoubleSettingViewModel))]
+[NodeTypeMapping(typeof(EnabledPatternSetting), typeof(EnabledPatternSettingViewModel))]
+[NodeTypeMapping(typeof(PatternSetting), typeof(PatternSettingViewModel))]
+[NodeTypeMapping(typeof(TimestampSetting), typeof(TimestampSettingViewModel))]
 public partial class ParentSettingViewModel : ParentSetting
 {
     static IMapper _mapper;
@@ -43,54 +45,9 @@ public partial class ParentSettingViewModel : ParentSetting
             base.Nodes = new ObservableCollection<SettingNode>();
             foreach (var val in value)
             {
-                if (val is ParentSetting)
-                {
-                    base.Nodes.Add(_mapper.Map<ParentSettingViewModel>(val));
-                }
-                else if (val is BooleanSetting)
-                {
-                    base.Nodes.Add(_mapper.Map<BooleanSettingViewModel>(val));
-                }
-                else if (val is EnabledOptionSetting)
-                {
-                    base.Nodes.Add(_mapper.Map<EnabledOptionSettingViewModel>(val));
-                }
-                else if (val is OptionSetting)
-                {
-                    base.Nodes.Add(_mapper.Map<OptionSettingViewModel>(val));
-                }
-                else if (val is EnabledStringSetting)
-                {
-                    base.Nodes.Add(_mapper.Map<EnabledStringSettingViewModel>(val));
-                }
-                else if (val is StringSetting)
-                {
-                    base.Nodes.Add(_mapper.Map<StringSettingViewModel>(val));
-                }
-                else if (val is EnabledIntegerSetting)
-                {
-                    base.Nodes.Add(_mapper.Map<EnabledIntegerSettingViewModel>(val));
-                }
-                else if (val is IntegerSetting)
-                {
-                    base.Nodes.Add(_mapper.Map<IntegerSettingViewModel>(val));
-                }
-                else if (val is EnabledPatternSetting)
-                {
-                    base.Nodes.Add(_mapper.Map<EnabledPatternSettingViewModel>(val));
-                }
-                else if (val is PatternSetting)
-                {
-                    base.Nodes.Add(_mapper.Map<PatternSettingViewModel>(val));
-                }
-                else if (val is TimestampSetting)
-                {
-                    base.Nodes.Add(_mapper.Map<TimestampSettingViewModel>(val));
-                }
-                else
-                {
-                    throw new Exception($"Unhandled view model type mapping: {val.GetType().Name}");
-                }
+                var mappedTypes = NodeTypeMappingAttribute.GetMappedType<ParentSettingViewModel>();
+                var targetType = mappedTypes[val.GetType()];
+                base.Nodes.Add((SettingNode)_mapper.Map(val, val.GetType(), targetType));
             }
             OnPropertyChanged();
             OnPropertyChanged(nameof(IsLeaf));
@@ -509,6 +466,126 @@ public partial class EnabledIntegerSettingViewModel : EnabledIntegerSetting
     }
 
     public override int Increment
+    {
+        get => base.Increment;
+        set
+        {
+            base.Increment = value;
+            OnPropertyChanged();
+        }
+    }
+
+    public override bool IsEnabled
+    {
+        get => base.IsEnabled;
+        set
+        {
+            var doSave = base.IsEnabled != value;
+            base.IsEnabled = value;
+            OnPropertyChanged();
+            if (doSave) WeakReferenceMessenger.Default.Send<SettingNode>(this);
+        }
+    }
+}
+
+[ObservableObject]
+public partial class DoubleSettingViewModel : DoubleSetting
+{
+    public override string Name
+    {
+        get => base.Name;
+        set
+        {
+            base.Name = value;
+            OnPropertyChanged();
+        }
+    }
+
+    public override bool IsSelected
+    {
+        get => base.IsSelected;
+        set
+        {
+            base.IsSelected = value;
+            OnPropertyChanged();
+        }
+    }
+
+    public bool IsLeaf { get; set; } = true;
+    public object Children { get; set; }        // I don't know why this is always binded in UraniumUI treeview
+
+    public override double Value
+    {
+        get => base.Value;
+        set
+        {
+            var doSave = base.Value != value;
+            base.Value = value;
+            OnPropertyChanged();
+            if (doSave) WeakReferenceMessenger.Default.Send<SettingNode>(this);
+        }
+    }
+
+    public override double Increment
+    {
+        get => base.Increment;
+        set
+        {
+            base.Increment = value;
+            OnPropertyChanged();
+        }
+    }
+}
+
+[ObservableObject]
+public partial class EnabledDoubleSettingViewModel : EnabledDoubleSetting
+{
+    public override string Name
+    {
+        get => base.Name;
+        set
+        {
+            base.Name = value;
+            OnPropertyChanged();
+        }
+    }
+
+    public override bool IsSelected
+    {
+        get => base.IsSelected;
+        set
+        {
+            base.IsSelected = value;
+            OnPropertyChanged();
+        }
+    }
+
+    public bool IsLeaf { get; set; } = true;
+    public object Children { get; set; }        // I don't know why this is always binded in UraniumUI treeview
+
+    public override double Value
+    {
+        get => base.Value;
+        set
+        {
+            var doSave = base.Value != value;
+            base.Value = value;
+            OnPropertyChanged();
+            if (doSave) WeakReferenceMessenger.Default.Send<SettingNode>(this);
+        }
+    }
+
+    public override bool IsExpanded
+    {
+        get => base.IsExpanded;
+        set
+        {
+            base.IsExpanded = value;
+            OnPropertyChanged();
+        }
+    }
+
+    public override double Increment
     {
         get => base.Increment;
         set

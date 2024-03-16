@@ -168,16 +168,28 @@ public partial class SettingNodeManagerViewModel : NodeManagerViewModel<ParentSe
             _settingRepository.Update(boolSetting);
             _settingRepository.Save();
         }
+        else if (setting is EnabledIntegerSettingViewModel enabledIntegerSetting)
+        {
+            enabledIntegerSetting.Value = enabledIntegerSetting.DefaultValue;
+            _settingRepository.Update(enabledIntegerSetting);
+            _settingRepository.Save();
+        }
         else if (setting is IntegerSettingViewModel integerSetting)
         {
             integerSetting.Value = integerSetting.DefaultValue;
             _settingRepository.Update(integerSetting);
             _settingRepository.Save();
         }
-        else if (setting is EnabledIntegerSettingViewModel enabledIntegerSetting)
+        else if (setting is EnabledDoubleSettingViewModel enabledDoubleSetting)
         {
-            enabledIntegerSetting.Value = enabledIntegerSetting.DefaultValue;
-            _settingRepository.Update(enabledIntegerSetting);
+            enabledDoubleSetting.Value = enabledDoubleSetting.DefaultValue;
+            _settingRepository.Update(enabledDoubleSetting);
+            _settingRepository.Save();
+        }
+        else if (setting is DoubleSettingViewModel doubleSetting)
+        {
+            doubleSetting.Value = doubleSetting.DefaultValue;
+            _settingRepository.Update(doubleSetting);
             _settingRepository.Save();
         }
     }

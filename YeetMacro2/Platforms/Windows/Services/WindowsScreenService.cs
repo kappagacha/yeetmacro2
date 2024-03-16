@@ -135,6 +135,11 @@ public class WindowsScreenService : IScreenService, IRecorderService
         throw new NotImplementedException();
     }
 
+    public Point GetTopLeft()
+    {
+        throw new NotImplementedException();
+    }
+
     public byte[] ScaleImageData(byte[] data, double scale)
     {
         throw new NotImplementedException();

@@ -1,5 +1,4 @@
-﻿using System.Linq.Expressions;
-using System.Text.Json.Serialization;
+﻿using System.Text.Json.Serialization;
 
 namespace YeetMacro2.Data.Models;
 
@@ -13,21 +12,11 @@ public enum SettingType
     EnabledString,
     Integer,
     EnabledInteger,
+    Double,
+    EnabledDouble,
     Pattern,
     EnabledPattern,
     TimeStamp
-}
-
-public class SettingNodeMetadataProvider : INodeMetadataProvider<SettingNode>
-{
-    public Expression<Func<SettingNode, object>> CollectionPropertiesExpression => s => new { ((ParentSetting)s).Nodes };
-    public Expression<Func<SettingNode, object>> ProxyPropertiesExpression => s => new { ((PatternSetting)s).Value };
-
-    public Type[] NodeTypes => new Type[] { 
-        typeof(ParentSetting), typeof(BooleanSetting), typeof(OptionSetting), typeof(EnabledOptionSetting), 
-        typeof(StringSetting), typeof(EnabledStringSetting), typeof(IntegerSetting), typeof(EnabledIntegerSetting), 
-        typeof(PatternSetting), typeof(EnabledPatternSetting), typeof(TimestampSetting)
-    };
 }
 
 public class ParentSetting : SettingNode, IParentNode<ParentSetting, SettingNode>
@@ -50,11 +39,12 @@ public class ParentSetting : SettingNode, IParentNode<ParentSetting, SettingNode
 [JsonDerivedType(typeof(EnabledStringSetting), typeDiscriminator: "enabledString")]
 [JsonDerivedType(typeof(IntegerSetting), typeDiscriminator: "integer")]
 [JsonDerivedType(typeof(EnabledIntegerSetting), typeDiscriminator: "enabledInteger")]
+[JsonDerivedType(typeof(DoubleSetting), typeDiscriminator: "double")]
+[JsonDerivedType(typeof(EnabledDoubleSetting), typeDiscriminator: "enabledDouble")]
 [JsonDerivedType(typeof(PatternSetting), typeDiscriminator: "pattern")]
 [JsonDerivedType(typeof(EnabledPatternSetting), typeDiscriminator: "enabledPattern")]
 [JsonDerivedType(typeof(TimestampSetting), typeDiscriminator: "timestamp")]
 [JsonPolymorphic(UnknownDerivedTypeHandling = JsonUnknownDerivedTypeHandling.FallBackToNearestAncestor)]
-[NodeMetadata(NodeMetadataProvider = typeof(SettingNodeMetadataProvider))]
 public abstract class SettingNode : Node
 {
     public abstract SettingType SettingType { get; }
@@ -116,6 +106,18 @@ public class IntegerSetting : SettingNode<int>
 public class EnabledIntegerSetting : IntegerSetting
 {
     public override SettingType SettingType => SettingType.EnabledInteger;
+    public virtual bool IsEnabled { get; set; }
+}
+
+public class DoubleSetting : SettingNode<double>
+{
+    public override SettingType SettingType => SettingType.Double;
+    public virtual double Increment { get; set; } = 1;
+}
+
+public class EnabledDoubleSetting : DoubleSetting
+{
+    public override SettingType SettingType => SettingType.EnabledDouble;
     public virtual bool IsEnabled { get; set; }
 }
 

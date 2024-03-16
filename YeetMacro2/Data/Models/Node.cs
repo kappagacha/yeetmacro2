@@ -1,4 +1,4 @@
-﻿using System.Linq.Expressions;
+﻿using System.Collections.Generic;
 using System.Reflection;
 using System.Text.Json;
 using System.Text.Json.Serialization;
@@ -41,47 +41,63 @@ public interface IParentNode<TParent, TChild> : IParentNode
     ICollection<TChild> Nodes { get; set; }
 }
 
-public static class NodeMetadataHelper
-{
-    public static INodeMetadataProvider<T> GetMetadataProvider<T>()
-    {
-        var modelType = typeof(T);
-        NodeMetadataAttribute metadataAttribute = null;
-
-        while (modelType != typeof(Object))
-        {
-            metadataAttribute = (NodeMetadataAttribute)modelType.GetCustomAttribute(typeof(NodeMetadataAttribute));
-            if (metadataAttribute is not null)
-            {
-                var metadataProviderType = metadataAttribute.NodeMetadataProvider;
-                return Activator.CreateInstance(metadataProviderType) as INodeMetadataProvider<T>;
-            }
-            modelType = modelType.BaseType;
-        }
-
-        return null;
-    }
-
-    public static Type[] GetNodeTypes<T>()
-    {
-        var metadataProvider = GetMetadataProvider<T>();
-        return metadataProvider?.NodeTypes;
-    }
-}
-
-[AttributeUsage(AttributeTargets.Class)]
-public class NodeMetadataAttribute : Attribute
-{
-    public Type NodeMetadataProvider { get; set; }
-}
-
 // https://learn.microsoft.com/en-us/dotnet/csharp/programming-guide/concepts/attributes/
 // https://code-maze.com/csharp-generic-attributes/
-public interface INodeMetadataProvider<T>
+[AttributeUsage(AttributeTargets.Class)]
+public class NodeTypesAttribute : Attribute
 {
-    Expression<Func<T, object>> CollectionPropertiesExpression { get; }
-    Expression<Func<T, object>> ProxyPropertiesExpression { get; }
-    Type[] NodeTypes { get; }
+    public static Type[] GetTypes<T>()
+    {
+        var nodeTypeAttribute = (NodeTypesAttribute)typeof(T).GetCustomAttribute(typeof(NodeTypesAttribute));
+        return nodeTypeAttribute?.Types;
+    }
+
+    public NodeTypesAttribute(params Type [] types)
+    {
+        Types = types;
+    }
+    public Type[] Types { get; }
+}
+
+public class NodeTypeMapping
+{
+    public Type Key { get; }
+    public Type Value { get; }
+    public NodeTypeMapping(Type key, Type value)
+    {
+        Key = key;
+        Value = value;
+    }
+
+    public static NodeTypeMapping Create(Type key, Type value)
+    {
+        return new NodeTypeMapping(key, value);
+    }
+}
+
+[AttributeUsage(AttributeTargets.Class, AllowMultiple = true)]
+public class NodeTypeMappingAttribute : Attribute
+{
+    static Dictionary<Type, Dictionary<Type, Type>> _typeToMappings = new Dictionary<Type, Dictionary<Type, Type>>();
+    public Type Key { get; }
+    public Type Value { get; }
+
+    public static Dictionary<Type, Type> GetMappedType<T>()
+    {
+        if (!_typeToMappings.ContainsKey(typeof(T)))
+        {
+            var nodeTypeMappingAttribute = (IEnumerable<NodeTypeMappingAttribute>)typeof(T).GetCustomAttributes(typeof(NodeTypeMappingAttribute));
+            _typeToMappings.Add(typeof(T), new Dictionary<Type, Type>(nodeTypeMappingAttribute.Select(att => KeyValuePair.Create(att.Key, att.Value))));
+        }
+       
+        return _typeToMappings[typeof(T)];
+    }
+
+    public NodeTypeMappingAttribute(Type key, Type value)
+    {
+        Key = key;
+        Value = value;
+    }
 }
 
 public class NodeClosure
