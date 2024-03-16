@@ -1,14 +1,11 @@
 ﻿// @isFavorite
 // @position=-100
 const loopPatterns = [patterns.titles.home, patterns.stamina.prompt.recoverStamina];
-const originalDensity = 2.0;	// density the patterns were captured in
-const currentDensity = macroService.GetScreenDensity();
-// scale calculation worked for density 2.0 and 2.7875. no clue if this will work for others
-const scale = originalDensity / currentDensity;
-const adExitPattern = originalDensity === currentDensity ? patterns.ad.exit : macroService.ClonePattern(patterns.ad.exit, { Scale: scale });
-const adExitInstallPattern = originalDensity === currentDensity ? patterns.ad.exitInstall : macroService.ClonePattern(patterns.ad.exitInstall, { Scale: scale });
-const adCancelPattern = originalDensity === currentDensity ? patterns.ad.cancel : macroService.ClonePattern(patterns.ad.cancel, { Scale: scale });
-const soundLeftPattern = originalDensity === currentDensity ? patterns.ad.soundLeft : macroService.ClonePattern(patterns.ad.soundLeft, { Scale: scale });
+const adObjectScale = settings.watchAdStamina.adObjectScale.Value;
+const adExitPattern = adObjectScale === 1 ? patterns.ad.exit : macroService.ClonePattern(patterns.ad.exit, { Scale: adObjectScale });
+const adExitInstallPattern = adObjectScale === 1 ? patterns.ad.exitInstall : macroService.ClonePattern(patterns.ad.exitInstall, { Scale: adObjectScale });
+const adCancelPattern = adObjectScale === 1 ? patterns.ad.cancel : macroService.ClonePattern(patterns.ad.cancel, { Scale: adObjectScale });
+const soundLeftPattern = adObjectScale === 1 ? patterns.ad.soundLeft : macroService.ClonePattern(patterns.ad.soundLeft, { Scale: adObjectScale });
 
 while (macroService.IsRunning) {
 	const result = macroService.PollPattern(loopPatterns);
