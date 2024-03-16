@@ -18,11 +18,15 @@ while (macroService.IsRunning) {
 		case 'general.back':
 			logger.info('doShop: general');
 
-			macroService.PollPattern(patterns.shop.manaCrystal, { DoClick: true, PredicatePattern: patterns.shop.buy });
-			macroService.PollPattern(patterns.shop.goldBuy, { DoClick: true, ClickOffset: { Y: 50 }, PredicatePattern: patterns.shop.manaCrystal.soldOut });
+			if (settings.doShop.buyManaCrystalWithGold.Value) {
+				macroService.PollPattern(patterns.shop.manaCrystal, { DoClick: true, PredicatePattern: patterns.shop.buy });
+				macroService.PollPattern(patterns.shop.goldBuy, { DoClick: true, ClickOffset: { Y: 50 }, PredicatePattern: patterns.shop.manaCrystal.soldOut });
+			}
 
-			macroService.PollPattern(patterns.shop.classEnhance, { DoClick: true, PredicatePattern: patterns.shop.buy });
-			macroService.PollPattern(patterns.shop.goldBuy, { DoClick: true, ClickOffset: { Y: 50 }, PredicatePattern: patterns.shop.classEnhance.soldOut });
+			if (settings.doShop.buyClassEnhanceWithGold.Value) {
+				macroService.PollPattern(patterns.shop.classEnhance, { DoClick: true, PredicatePattern: patterns.shop.buy });
+				macroService.PollPattern(patterns.shop.goldBuy, { DoClick: true, ClickOffset: { Y: 50 }, PredicatePattern: patterns.shop.classEnhance.soldOut });
+			}
 
 			if (settings.doShop.doArtifact.Value && !daily.doShop.doArtifact.done.IsChecked) {
 				logger.info('doShop: artifact');

@@ -37,7 +37,7 @@ while (macroService.IsRunning) {
 			macroService.PollPattern(patterns.friends.sendAllHearts, { DoClick: true, PredicatePattern: patterns.friends.sendAllHearts.disabled });
 			macroService.PollPattern(patterns.friends.receiveAllHearts, { DoClick: true, PredicatePattern: patterns.friends.receiveAllHearts.disabled });
 
-			if (settings.doFriends.isHiring.Value) {
+			if (settings.doFriends.isHiring.Value && !daily.doFriends.isHiring.done.IsChecked) {
 				macroService.PollPattern(patterns.friends.hireSoul, { DoClick: true, PredicatePattern: patterns.friends.hireSoul.selected });
 
 				let swipeCount = 0;

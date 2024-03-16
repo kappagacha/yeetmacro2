@@ -66,10 +66,10 @@
           "patterns": [
             {
               "rect": {
-                "x": 389.04852294921875,
-                "y": 863.4525756835938,
-                "width": 29.4822998046875,
-                "height": 22.47503662109375
+                "x": 580.9486083984375,
+                "y": 873.443359375,
+                "width": 22.48590087890625,
+                "height": 16.48052978515625
               },
               "resolution": {
                 "width": 1920,
@@ -78,7 +78,7 @@
               "isBoundsPattern": false,
               "isLocationDynamic": false,
               "name": "pattern",
-              "imageData": "/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDAAEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQH/2wBDAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQH/wAARCAAWAB0DASIAAhEBAxEB/8QAGAAAAwEBAAAAAAAAAAAAAAAAAAgJCgv/xAAmEAABBQEAAQQCAgMAAAAAAAAEAgMFBgcBCAAJERITFQoUFhch/8QAFwEBAQEBAAAAAAAAAAAAAAAABQYECP/EACMRAAICAgIDAAIDAAAAAAAAAAIDAQQFEgYREyEiBxUjMTP/2gAMAwEAAhEDEQA/AL6aJDVhiSRZMdubaYGPEcKAIr9ginbdSGmOfMnHxaSiCSDKk8yKlpyPPaNVGtBqFfEkAeBri4w7f7zeS+Nu6KyudI2K47SuIjeR+hZ1XrFLmOsrdSbHVHaM8lFS4VsjCQCGJCCk6fGDngMPuEx0HWmzW3ZS720eGmjn4XqcXXH6vEabZYbsHmsh95W2AZvKTHUxjNydlZlLZUizW1mf5GoCUjbI6K1FJYi2jTHWBu5KUeA2ab9jw2neKJOpo2ujPWUXZ9k0+ffKTpO1jTjLcpHREKwqSFrFdgul/rxpBlpsmwc4sx0BxfelStFxTH3OQ8hhWGWaK6l2G2RF5WkEuNRgqybFdM1GvNilLAZHawSpI4DeY6M9Z/GOxuDsVnZatVbYGxeJaRijj64OYTjh5m+bDYCpUKQIvMwjIa1ZJ2AbGK99nyXzC76Ba9Tw+N2HF+v1aTsmuY5C39hrF6zIsrh6uxdMzsYoB1ZjZqSYlnnpF20PNl2BRTLnR1rCGeanE/PGCeVYdXhVJpta28OA0SpQoM0OVxqvSxNiNWQ+IvhDEK5IWaQs0nyCRJyBsRw7+hLpj5IciOGmp7afh55SVL3FMngdLj2rTS9DpG90fRBuybExWrTSv9PWU82pS0fJx43HQyJ5ivyAgT0a21+3jRJAZfCwW3kI/wCS/jJK+Js/X6/HTkiqv2pWknUaELJlUjwmaV/adIr+eqQNJnGcYlJutiizU4sYcDpRpiSTWyT3CCnUOVpzfG+QhhHRdQZwJoqZCuEPVB122fK0lLBkqYAFAFBtWUkvWZ22iU4zdtiV6nkF1nzXWqwThsGqBFzgWKp3V/IUn2YRIyfjkylhwv31BnQeqaaN7xtbSX2lfiX9u/b8bqe/VSec5zqFd58K59+d+v8A3neK+PiHQeG0jw0vmg0OPCRIVTQbhJ6TUgopgcdmMj5qTOlygbDHqaCHLlo6VONBEOYJIRIRQUO+X/WfHSIwej0P+Ncpfx3ISRSsEhV3GSNoIFZw2FurvD/QDkCFqgKCXIF1Eh3oZiQuBIpttjcxhleyo9DJcksNWCEkEiWuwxtHf2OwHsBEMtRmuQO1jWy9DjA66AYJQJGFhC2XiyZAWbt0iGuem1IcjB0imMRIC4+LLDM+O/sDOFgLb+nPWXz+STCRtO1fxcPEZfe7I5xoEEpxRPOEuNVq2Rj7LhTnR1fndcVYXlKf+eKcX+RS0cV3qlno9aORZbIZXnlV2QsnZaikpCjMVjIq/XNPWfGAQf1PexwRf19dREQskBVTyDFxqbIRuXuZLw2AFcT336AWsiIjqPqZnuepj//Z",
+              "imageData": "/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDAAEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQH/2wBDAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQH/wAARCAAQABYDASIAAhEBAxEB/8QAFgABAQEAAAAAAAAAAAAAAAAACQAK/8QAIRAAAgMBAQADAQADAAAAAAAAAwQBAgUGBwAIERQSIjL/xAAXAQADAQAAAAAAAAAAAAAAAAADBQYI/8QAIREAAwACAwABBQAAAAAAAAAAAQIDBBEFBhIhAAcTQZH/2gAMAwEAAhEDEQA/ADX+1f1x0PKlune8vZf7HI8/zL6XZ9b1aWdn4aLA5UpXn+bAgsu10O3YrNoelCWsrKLWFHdIOhBlaHG1s+sWQh4SnMikooKFW6639tq3/wCJlaCnJT9n9/1Lal/2LRMR+fs7Ieg8p4T7BeQ9TijEiTN7jm9rDQ2pB/g1gbcnqQF9BAorlXdx9ZQNNXJYFDS8DZTsMdrT8Mtf6F+Z8Jqu7uxx3obPdPcqhlaORi4Gxt8tfaAUsl18NtDAlUl3C0/nGw9r0XCpQZiJoMmYkk/m9h5hUmZZdWVdehKZrR9FdT0ngICu90IIAAAGzv60X0v7ZdM5R+TlyOJx+PkpNTA8lyycVjQLTp+S8xdb0zqRecgcNXiSatRn8DwoeeL+cfZD3avV25dricknItY62jTexGxCLfYDpGDVZtQbq1igrnWsYF7DLNGBEHF61JNb5o7+vXiHXeL+XaGVg8LOt3Pdd1q9z3N3VBIZWLMr1zMXm0JfooR+2dnwMhHRAgEssvQO1xXFPy+FXn8zyhfLr7KqXCuxAYhdjY+Pgn9fA8/xGegdfLv4w8YTFaLM1E0dkSgVHKFgQHUKyghSVIJAJOv/2Q==",
               "variancePct": 20,
               "horizontalStretchMultiplier": 0,
               "verticalStretchMultiplier": 0,
@@ -149,7 +149,7 @@
       "props": {
         "$type": "timestamp",
         "settingType": "TimeStamp",
-        "value": "2024-03-01T03:25:41.371+00:00",
+        "value": "2024-03-04T23:37:22.855+00:00",
         "isParentNode": false,
         "name": "lastRun",
         "position": 0,
@@ -684,7 +684,7 @@
       "props": {
         "$type": "timestamp",
         "settingType": "TimeStamp",
-        "value": "2024-03-01T02:42:43.527+00:00",
+        "value": "2024-03-15T16:36:09.688+00:00",
         "isParentNode": false,
         "name": "lastRun",
         "position": 0,
@@ -740,7 +740,7 @@
       "props": {
         "$type": "timestamp",
         "settingType": "TimeStamp",
-        "value": "2024-03-01T03:30:15.233+00:00",
+        "value": "2024-03-04T23:39:25.875+00:00",
         "isParentNode": false,
         "name": "lastRun",
         "position": 0,
@@ -767,6 +767,30 @@
         "name": "doArtifact",
         "position": 0,
         "path": "doShop.doArtifact"
+      }
+    },
+    "buyManaCrystalWithGold": {
+      "$isParent": false,
+      "props": {
+        "$type": "boolean",
+        "settingType": "Boolean",
+        "value": false,
+        "isParentNode": false,
+        "name": "buyManaCrystalWithGold",
+        "position": 0,
+        "path": "doShop.buyManaCrystalWithGold"
+      }
+    },
+    "buyClassEnhanceWithGold": {
+      "$isParent": false,
+      "props": {
+        "$type": "boolean",
+        "settingType": "Boolean",
+        "value": true,
+        "isParentNode": false,
+        "name": "buyClassEnhanceWithGold",
+        "position": 0,
+        "path": "doShop.buyClassEnhanceWithGold"
       }
     }
   }

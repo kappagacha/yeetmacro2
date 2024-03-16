@@ -1,6 +1,6 @@
 ﻿// @position=4
 // Claim free summon
-const loopPatterns = [patterns.lobby.level, patterns.general.back];
+const loopPatterns = [patterns.lobby.level, patterns.summon.info];
 const daily = dailyManager.GetDaily();
 if (daily.claimFreeSummon.done.IsChecked) {
 	return "Script already completed. Uncheck done to override daily flag.";
@@ -17,7 +17,7 @@ while (macroService.IsRunning) {
 				return;
 			}
 			break;
-		case 'general.back':
+		case 'summon.info':
 			logger.info('claimFreeSummon: normal summon');
 			const swipeResult = macroService.SwipePollPattern(patterns.summon.normal, { Start: { X: 100, Y: 650 }, End: { X: 100, Y: 200 } });
 			if (!swipeResult.IsSuccess) {
