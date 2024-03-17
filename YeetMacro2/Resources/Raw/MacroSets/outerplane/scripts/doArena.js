@@ -69,7 +69,8 @@ while (macroService.IsRunning) {
 					];
 					// choose the first challenge (most reward) that is equal to or under threshold
 					const challengesToWithinThreshold = challenges.map(c => c && c <= cpThreshold);
-					const targetIdx = challengesToWithinThreshold.findIndex(cwt => cwt) ?? 2;
+					let targetIdx = challengesToWithinThreshold.findIndex(cwt => cwt);
+					if (targetIdx === -1) targetIdx = 2;
 					//return targetIdx;		// for testing
 					//const maxIdx = challenges.reduce((maxIdx, val, idx) => val && val <= cpThreshold && val > challenges[maxIdx] ? idx : maxIdx, 2);
 					
