@@ -36,7 +36,7 @@
         "settingType": "EnabledInteger",
         "isEnabled": true,
         "increment": 100,
-        "value": 131554,
+        "value": 120000,
         "isParentNode": false,
         "name": "cpThreshold",
         "position": 0,

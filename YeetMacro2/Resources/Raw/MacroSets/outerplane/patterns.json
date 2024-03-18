@@ -3204,6 +3204,50 @@
         "position": 0,
         "path": "arena.numTicketsZero"
       }
+    },
+    "calculationsInProgress": {
+      "$isParent": true,
+      "props": {
+        "isMultiPattern": false,
+        "patterns": [
+          {
+            "rect": {
+              "x": 215.1391143798828,
+              "y": 414.8679504394531,
+              "width": 57.46772766113281,
+              "height": 38.959747314453125
+            },
+            "resolution": {
+              "width": 1920,
+              "height": 1080
+            },
+            "isBoundsPattern": false,
+            "isLocationDynamic": false,
+            "name": "pattern",
+            "imageData": "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",
+            "variancePct": 20,
+            "horizontalStretchMultiplier": 0,
+            "verticalStretchMultiplier": 0,
+            "textMatch": {
+              "isActive": false,
+              "text": null,
+              "whiteList": null
+            },
+            "colorThreshold": {
+              "isActive": true,
+              "variancePct": 30,
+              "color": "#ffffffff",
+              "imageData": "/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDAAIBAQEBAQIBAQECAgICAgQDAgICAgUEBAMEBgUGBgYFBgYGBwkIBgcJBwYGCAsICQoKCgoKBggLDAsKDAkKCgr/wAALCAAmADkBAREA/8QAHwAAAQUBAQEBAQEAAAAAAAAAAAECAwQFBgcICQoL/8QAtRAAAgEDAwIEAwUFBAQAAAF9AQIDAAQRBRIhMUEGE1FhByJxFDKBkaEII0KxwRVS0fAkM2JyggkKFhcYGRolJicoKSo0NTY3ODk6Q0RFRkdISUpTVFVWV1hZWmNkZWZnaGlqc3R1dnd4eXqDhIWGh4iJipKTlJWWl5iZmqKjpKWmp6ipqrKztLW2t7i5usLDxMXGx8jJytLT1NXW19jZ2uHi4+Tl5ufo6erx8vP09fb3+Pn6/9oACAEBAAA/AP38r8Uf21v+DyDwr+yp+1x8R/2Y/B3/AAT81DxXafDzxhfeG5vEOp/ExNLkvrqyla2unFsmnXIji+0RyiMmUs8YR2WNmMSfs94T8WeFfHvhXTPHXgXxNp+taJrWnw3+jazpN6lza39rMgkiuIZYyUlidGV1dSVZWBBINaFFFFFeAf8ABU79tb/h3b/wT7+KP7YttoH9qah4P8Pr/YNi9r58Muq3dxFY2H2hBNCzWwu7mAzbJFcQiQplwqn+aH9j7/gij/w0R/wQa+PX/BSe88MeIJvG3hbxBFefDa12/wBn20mhaQFfXb3zbiQQ39s8NzdfLGiyx3Gg+XHK7STW7ftd/wAGp/7eWo/tj/8ABLnSPhn461rT5vFfwS1BfBlxDHqNubqbRooI30m6ktYY4zbRC3ZrFGYOZm0uaQyO5kCdh/wXO/4Lnf8ADlz/AIVd/wAYu/8ACyv+Flf23/zO39jf2d/Z/wBg/wCnK587zPt3+xt8r+Ld8vQfsM/8F7P2Nv8AgpH+3FrP7HX7Hlj4g8Raf4d+H954n1P4h6jp76dYXPlXOlQR29nbTqLqTLahMJHnjt/La0ARZ0mEieP/APBTr/g6l/Yd/wCCe/xT8Ufs3+APAPiD4t/Ebwt5MOpWmgX9tZ6FZ3/n7LnT7nUmMkiXMEQZnWG1nVZdsDvHIswh9A/4JR/8HGX7Dv8AwVW8dxfAjwnpXiD4f/E3/hH4b8eEvGBtvJ1aZYme9g0u6ilP237NtLESR280kOZlh2xz+T9/1+CP/B53+1T4q8e+Kvgr/wAErvhd8OtQ1rW9a1C38cXEdlpD3N1f3Uz3mkaTY2AhlLyyu7aj5sJgLMzWflOSZErx/wCBH7F//B4f+zX+zBa/sXfCL4QafafC200/ULBfBmrT/DfVbWa1vpp5ru3m+3PM9xFK9zPuSVnUrIUxtwoz/wDg2r+Ivxd/4JH/APBZLxb/AME2/wBtiD/hBtQ+Jfh+z0i/0CbUdJuLaLxIkMeo6MZr2OdlHmWl3d28UdvI5luNRt4mjZwDF7B/wfOf82u/9zt/7gK/X/8A4Jw/8E4f2cf+CaH7OPh/4G/A3wB4fttXtvD9haeNfGunaEtrf+Lr+BZGkvryRnlmfdNPcyRwvNItus5iiKxqq1/ND/wQU+Mn/BT+X9o74k/FL9gT9k74P/Hn4u3fka7rfiP4y6lZTeJNK8xryG5v9PuLzVbK6P2lr547yaNpdxkt1lZfNQSfT/ww/wCCb3/BbX4sf8Fw/hz+3T8Qv2EPh/8AB/xBpHxA8NeIvi7b/CD4laTabtKudSlivtWurH+3bq4H262g1CGbygqXn2e5zHLK9w0n9H1fmh4m/wCDdbTvit/wWjj/AOCvXx2/af0/xBFa+MLTXrH4Z6Z4AuNOjik06xjtdIJvxq0jvLbva2VxI3lCO4kgdTDHFKY1/S+vzQ/4Kdf8G8eo/t3/APBQvwj/AMFGvgZ+2Fp/wY8ZeEdP0Z4WsvhLb6xJe6zpl5LcWuqzyPewJPKqfZIAk0Ug8uyiQlkART/g45/4Il/H3/gsL4V+E15+zn8V/B/h/W/hxqGspdaf41a6gtb211FLMtKlxawzuksT2ESiIwlZFuHbzEMQWX9L6/IH9u//AINYtY+KX7ZPjD/goF/wT0/bw8QfBLx74g/tDW4dLhtrw58SXaXH2qaHV7a8jutOtrtpiJVWK4MXn3GwNE0dtH3/APwSq/4NofAn/BPf9snUv28vjp+134g+NvxGP2ybw9q2paJLpf2O/vknj1DULotfXUmoXM0U8iBpXCr507sksjRSQ/p/RRRRRRRRX//Z"
+            },
+            "offsetCalcType": "Default",
+            "position": 0
+          }
+        ],
+        "isParentNode": true,
+        "name": "calculationsInProgress",
+        "position": 0,
+        "path": "arena.calculationsInProgress"
+      }
     }
   },
   "prompt": {

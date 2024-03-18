@@ -1,7 +1,7 @@
 // @position=6
 // Battle in arena until out of arena tickets
 // Will prioritize Memorial Match
-const loopPatterns = [patterns.lobby.level, patterns.titles.adventure, patterns.arena.challenge1, patterns.arena.matchOpponent, patterns.titles.arena];
+const loopPatterns = [patterns.lobby.level, patterns.titles.adventure, patterns.arena.calculationsInProgress, patterns.arena.challenge1, patterns.arena.matchOpponent, patterns.titles.arena];
 const daily = dailyManager.GetDaily();
 const teamSlot = settings.doArena.teamSlot.Value;
 const cpThresholdIsEnabled = settings.doArena.cpThreshold.IsEnabled;
@@ -20,9 +20,10 @@ while (macroService.IsRunning) {
 			macroService.ClickPattern(patterns.adventure.arena);
 			sleep(500);
 			break;
+		case 'arena.calculationsInProgress':
+			return;
 		case 'titles.arena':
 			macroService.ClickPattern([patterns.arena.arena]);
-			sleep(500);
 			break;
 		case 'arena.challenge1':
 		case 'arena.matchOpponent':
