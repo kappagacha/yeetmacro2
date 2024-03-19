@@ -633,11 +633,57 @@
       "props": {
         "$type": "timestamp",
         "settingType": "TimeStamp",
-        "value": "2024-03-16T20:30:01.904+00:00",
+        "value": "2024-03-18T13:22:21.114+00:00",
         "isParentNode": false,
         "name": "lastRun",
         "position": 0,
         "path": "claimJobs.lastRun"
+      }
+    }
+  },
+  "watchAdQuartz": {
+    "$isParent": true,
+    "props": {
+      "settingType": "Parent",
+      "isParentNode": true,
+      "name": "watchAdQuartz",
+      "position": 0,
+      "path": "watchAdQuartz"
+    },
+    "adObjectScale": {
+      "$isParent": false,
+      "props": {
+        "$type": "double",
+        "settingType": "Double",
+        "increment": 1,
+        "value": 1,
+        "isParentNode": false,
+        "name": "adObjectScale",
+        "position": 0,
+        "path": "watchAdQuartz.adObjectScale"
+      }
+    }
+  },
+  "watchAdStamina": {
+    "$isParent": true,
+    "props": {
+      "settingType": "Parent",
+      "isParentNode": true,
+      "name": "watchAdStamina",
+      "position": 0,
+      "path": "watchAdStamina"
+    },
+    "adObjectScale": {
+      "$isParent": false,
+      "props": {
+        "$type": "double",
+        "settingType": "Double",
+        "increment": 1,
+        "value": 1,
+        "isParentNode": false,
+        "name": "adObjectScale",
+        "position": 0,
+        "path": "watchAdStamina.adObjectScale"
       }
     }
   }
