@@ -865,6 +865,18 @@
         "position": 0,
         "path": "doDailies.doInfiniteCorridor"
       }
+    },
+    "claimBossDailyMissions": {
+      "$isParent": false,
+      "props": {
+        "$type": "boolean",
+        "settingType": "Boolean",
+        "value": true,
+        "isParentNode": false,
+        "name": "claimBossDailyMissions",
+        "position": 0,
+        "path": "doDailies.claimBossDailyMissions"
+      }
     }
   },
   "doUpkeep": {
@@ -1094,7 +1106,7 @@
       "props": {
         "$type": "timestamp",
         "settingType": "TimeStamp",
-        "value": "2024-03-13T16:06:06.356+00:00",
+        "value": "2024-03-20T20:18:53.075+00:00",
         "isParentNode": false,
         "name": "lastRun",
         "position": 0,

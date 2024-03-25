@@ -91,3 +91,8 @@ if (settings.doDailies.doInfiniteCorridor.Value) {
     doInfiniteCorridor();
     goToLobby();
 }
+
+if (settings.doDailies.doInfiniteCorridor.Value) {
+    claimBossDailyMissions();
+    goToLobby();
+}
