@@ -271,7 +271,7 @@ If you agree, please tap OK then grant Accessibility service permission to YeetM
             }
             if (!IsAccessibilityEnabled)
             {
-                ToggleIsAccessibilityEnabled();
+                await ToggleIsAccessibilityEnabled();
             }
         }
 

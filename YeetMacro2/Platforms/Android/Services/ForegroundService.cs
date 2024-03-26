@@ -32,7 +32,7 @@ public class ForegroundService : Service
 
     public override StartCommandResult OnStartCommand(Intent intent, [GeneratedEnum] StartCommandFlags flags, int startId)
     {
-        if (_context == null) return StartCommandResult.RedeliverIntent;
+        if (intent == null || _context == null) return StartCommandResult.RedeliverIntent;
 
         switch (intent.Action)
         {
