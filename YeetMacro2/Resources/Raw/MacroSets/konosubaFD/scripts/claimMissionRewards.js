@@ -17,7 +17,7 @@ while (macroService.IsRunning) {
 			logger.info('claimMissionRewards: click acceptAll');
 			macroService.PollPattern(patterns.missions.acceptAll, {
 				DoClick: true,
-				ClickPattern: [patterns.jobs.prompt.ok, patterns.branchEvent.availableNow, patterns.branchEvent.playLater, patterns.prompt.playerRankUp],
+				ClickPattern: [patterns.jobs.prompt.ok, patterns.branchEvent.availableNow, patterns.branchEvent.playLater, patterns.prompt.playerRankUp, patterns.missions.newAdventurerAdded],
 				PredicatePattern: patterns.missions.acceptAll.disabled
 			});
 			if (macroService.IsRunning) {

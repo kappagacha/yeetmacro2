@@ -7,7 +7,7 @@ if (daily.doBattleArena.done.IsChecked) {
 }
 
 while (macroService.IsRunning) {
-	const loopResult = macroService.PollPattern(loopPatterns, { ClickPattern: [patterns.battleArena.newHighScore, patterns.battleArena.rank, patterns.battleArena.prompt.noteOk] });
+	const loopResult = macroService.PollPattern(loopPatterns, { ClickPattern: [patterns.battleArena.newHighScore, patterns.battleArena.rank, patterns.battleArena.prompt.noteOk, patterns.battleArena.rankResult2] });
 	switch (loopResult.Path) {
 		case 'titles.home':
 			logger.info('doBattleArena: click tab quest');
