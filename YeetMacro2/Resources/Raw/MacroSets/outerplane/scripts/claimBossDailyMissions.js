@@ -42,7 +42,7 @@ while (macroService.IsRunning) {
 					continue;
 				}
 				
-				const moveResult = macroService.PollPattern(patterns.titles.inventory);
+				const moveResult = macroService.PollPattern([patterns.titles.inventory, patterns.titles.base]);
 				if (moveResult.Path === 'titles.inventory') {
 					let gearEnhancedResult = macroService.FindPattern(patterns.inventory.gearEnhanced);
 					if (gearEnhancedResult.IsSuccess) {
@@ -71,6 +71,14 @@ while (macroService.IsRunning) {
 					macroService.PollPattern(patterns.inventory.improveGear.enhance.enhance.enabled, { DoClick: true, PredicatePattern: patterns.inventory.improveGear.enhance.enhance.disabled });
 					goToLobby();
 					continue;
+				} else if (moveResult.Path === 'titles.base') {
+					const date = new Date();
+					date.setDate(date.getDate() - 1);
+					// set date to yesterday to claimAntiparticle to run
+					settings.claimAntiparticle.lastRun.Value = date.toISOString();
+					goToLobby();
+					claimAntiparticle();
+					goToLobby();
 				}
 			}
 
