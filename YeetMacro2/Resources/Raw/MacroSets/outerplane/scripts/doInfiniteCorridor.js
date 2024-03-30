@@ -48,7 +48,7 @@ while (macroService.IsRunning) {
 			macroService.PollPattern(patterns.challenge.archdemonRuins.infiniteCorridor.getReward[targetReward], { DoClick: true, PredicatePattern: patterns.challenge.archdemonRuins.infiniteCorridor.getReward[targetReward].selected });
 			macroService.PollPattern(patterns.challenge.archdemonRuins.infiniteCorridor.getReward, { DoClick: true, PredicatePattern: patterns.general.tapEmptySpace });
 			macroService.PollPattern(patterns.general.tapEmptySpace, { DoClick: true, PredicatePattern: patterns.challenge.archdemonRuins.infiniteCorridor.endSearch });
-			macroService.PollPattern(patterns.challenge.archdemonRuins.infiniteCorridor.endSearch, { DoClick: true, PredicatePattern: patterns.challenge.archdemonRuins.infiniteCorridor.stage3 });
+			macroService.PollPattern(patterns.challenge.archdemonRuins.infiniteCorridor.endSearch, { DoClick: true, PredicatePattern: patterns.challenge.archdemonRuins.infiniteCorridor });
 
 			if (macroService.IsRunning) {
 				daily.doInfiniteCorridor.done.IsChecked = true;
