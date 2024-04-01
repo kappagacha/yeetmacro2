@@ -2,7 +2,7 @@
 const targetGate = settings.doGate.targetGate.Value;
 const loopPatterns = [patterns.lobby.level, patterns.titles.adventure, patterns.titles.gateBreakthrough, patterns.gateBreakthrough.challenge, patterns.gateBreakthrough.nextStage, patterns.gateBreakthrough.retry];
 while (macroService.IsRunning) {
-	const loopResult = macroService.PollPattern(loopPatterns);
+	const loopResult = macroService.PollPattern(loopPatterns, { ClickPattern: patterns.prompt.close });
 	switch (loopResult.Path) {
 		case 'lobby.level':
 			logger.info(`doGateBreakthrough ${targetGate}: click adventure`);
