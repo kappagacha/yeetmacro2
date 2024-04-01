@@ -24,7 +24,7 @@ while (macroService.IsRunning) {
 			break;
 		case 'titles.branch':
 			logger.info('doBranchQuests: pick quest');
-			const eventResult = macroService.PollPattern([patterns.branchEvent.cabbageHunting, patterns.branchEvent.explosionWalk, patterns.branchEvent.pitAPatBox, patterns.branchEvent.swimsuit, patterns.branchEvent.snowSprite], { DoClick: true, PredicatePattern: patterns.titles.branchEvent });
+			const eventResult = macroService.PollPattern([patterns.branchEvent.cabbageHunting, patterns.branchEvent.explosionWalk, patterns.branchEvent.pitAPatBox, patterns.branchEvent.swimsuit, patterns.branchEvent.snowSprite, patterns.branchEvent.shopping], { DoClick: true, PredicatePattern: patterns.titles.branchEvent });
 			evnt = eventResult.Path;
 			logger.debug('event: ' + evnt);
 			break;
@@ -37,11 +37,17 @@ while (macroService.IsRunning) {
 				const boxes = ['simpleWoodenBox', 'veryHeavyBox', 'woodenBox', 'clothPouch'].map(option => patterns.branchEvent.pitAPatBox[option]);
 				macroService.PollPattern(patterns.branchEvent.skip2, { DoClick: true, PredicatePattern: boxes });
 				macroService.PollPattern(boxes, { DoClick: true, ClickPattern: [patterns.branchEvent.rewardGained, patterns.branchEvent.noVoices, patterns.branchEvent.skip2, patterns.branchEvent.prompt.ok], PredicatePattern: patterns.titles.home });
-			} else if (evnt === 'branchEvent.swimsuit') {
-				//const options = [patterns.branchEvent.swimsuit.megumin, patterns.branchEvent.swimsuit.wiz, patterns.branchEvent.swimsuit.vanir, patterns.branchEvent.swimsuit.arue];
-				//macroService.PollPattern(patterns.branchEvent.skip2, { DoClick: true, PredicatePattern: options });
-				//macroService.PollPattern(boxes, { DoClick: true, ClickPattern: [patterns.branchEvent.rewardGained, patterns.branchEvent.noVoices, patterns.branchEvent.skip2, patterns.branchEvent.prompt.ok], PredicatePattern: patterns.titles.home });
+			} else if (['branchEvent.shopping'].includes(evnt)) {
+				macroService.PollPattern(patterns.branchEvent.skip2, { DoClick: true, PredicatePattern: patterns.branchEvent.prompt.bottom });
+				const random = macroService.Random(0, 1);
+				const targetPrompt = patterns.branchEvent.prompt[random === 1 ? 'top': 'bottom'];
+				macroService.PollPattern(targetPrompt, { DoClick: true, ClickPattern: [patterns.branchEvent.rewardGained, patterns.branchEvent.noVoices, patterns.branchEvent.skip2, patterns.branchEvent.prompt.ok], PredicatePattern: patterns.titles.home });
 			}
+			//} else if (evnt === 'branchEvent.swimsuit') {
+			//	//const options = [patterns.branchEvent.swimsuit.megumin, patterns.branchEvent.swimsuit.wiz, patterns.branchEvent.swimsuit.vanir, patterns.branchEvent.swimsuit.arue];
+			//	//macroService.PollPattern(patterns.branchEvent.skip2, { DoClick: true, PredicatePattern: options });
+			//	//macroService.PollPattern(boxes, { DoClick: true, ClickPattern: [patterns.branchEvent.rewardGained, patterns.branchEvent.noVoices, patterns.branchEvent.skip2, patterns.branchEvent.prompt.ok], PredicatePattern: patterns.titles.home });
+			//}
 			break;
 		case 'branchEvent.explosionWalk.chant.disabled':
 			logger.info('doBranchQuests: explosion walk');

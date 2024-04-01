@@ -8,7 +8,7 @@ if (daily.doFreeQuests.done.IsChecked) {
 }
 
 while (macroService.IsRunning) {
-	const loopResult = macroService.PollPattern(loopPatterns);
+	const loopResult = macroService.PollPattern(loopPatterns, { ClickPattern: patterns.general.close });
 	switch (loopResult.Path) {
 		case 'titles.home':
 			logger.info('doFreeQuests: click tab quest');

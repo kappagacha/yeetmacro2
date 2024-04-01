@@ -22,11 +22,12 @@ while (macroService.IsRunning) {
 			}
 
 			logger.info('watchAdStamina: watching ad');
-			macroService.PollPattern(patterns.ad.stamina.watch, {
-				DoClick: true,
-				ClickPattern: [patterns.ad.prompt.ok, adExitPattern, adExitInstallPattern, patterns.ad.prompt.youGot, adCancelPattern, soundLeftPattern],
-				PredicatePattern: patterns.titles.home
+			macroService.PollPattern(patterns.ad.stamina.watch, { DoClick: true, PredicatePattern: patterns.ad.prompt.ok });
+			macroService.PollPattern(patterns.ad.prompt.ok, { DoClick: true, InversePredicatePattern: patterns.ad.prompt.ok });
+			macroService.PollPattern(patterns.ad.prompt.ok, {
+				ClickPattern: [adExitPattern, adExitInstallPattern, adCancelPattern, soundLeftPattern]
 			});
+			macroService.PollPattern(patterns.ad.prompt.ok, { DoClick: true, PredicatePattern: patterns.titles.home });
 			return;
 	}
 
