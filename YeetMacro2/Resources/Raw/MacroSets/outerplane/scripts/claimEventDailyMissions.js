@@ -52,6 +52,7 @@ while (macroService.IsRunning) {
 function doRockPaperScissors() {
 	const rockPaperScissors = ['rock', 'paper', 'scissor'];
 	macroService.PollPattern(patterns.event.rockPaperScissors, { DoClick: true, PredicatePattern: patterns.event.coinInfo });
+	macroService.PollPattern(patterns.event.coinsOwned);
 	sleep(1_000);
 	let numCoins = macroService.GetText(patterns.event.numCoins)?.replace(/[^0-9]/g, '');
 	while (numCoins > 0) {
@@ -65,6 +66,7 @@ function doRockPaperScissors() {
 
 function doDrawACapsule() {
 	macroService.PollPattern(patterns.event.drawACapsule, { DoClick: true, PredicatePattern: patterns.event.coinInfo });
+	macroService.PollPattern(patterns.event.coinsOwned);
 	sleep(1_000);
 	let numCoins = macroService.GetText(patterns.event.numCoins)?.replace(/[^0-9]/g, '');
 	while (numCoins > 0) {
@@ -76,7 +78,7 @@ function doDrawACapsule() {
 
 function doSpinTheWheel() {
 	macroService.PollPattern(patterns.event.spinTheWheel, { DoClick: true, PredicatePattern: patterns.event.coinInfo });
-	sleep(1_000);
+	macroService.PollPattern(patterns.event.coinsOwned);
 	let numCoins = macroService.GetText(patterns.event.numCoins)?.replace(/[^0-9]/g, '');
 	while (numCoins > 0) {
 		macroService.PollPattern(patterns.event.spinTheWheel.start, { DoClick: true, PredicatePattern: patterns.event.confirm });
