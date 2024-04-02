@@ -450,7 +450,7 @@
           "fairy",
           "undead"
         ],
-        "value": "humanlike",
+        "value": "unlimited",
         "isParentNode": false,
         "name": "targetGate",
         "position": 0,
@@ -597,6 +597,18 @@
         "name": "doChampsArena",
         "position": 0,
         "path": "doDailies.doChampsArena"
+      }
+    },
+    "skipDualGate": {
+      "$isParent": false,
+      "props": {
+        "$type": "boolean",
+        "settingType": "Boolean",
+        "value": true,
+        "isParentNode": false,
+        "name": "skipDualGate",
+        "position": 0,
+        "path": "doDailies.skipDualGate"
       }
     },
     "doOutings": {

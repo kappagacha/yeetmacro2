@@ -1,4 +1,4 @@
-﻿// @position=11
+﻿// @position=12
 // Do all outings. Required setting: targetSoul (pattern that selects soul)
 // If targetBondLevel is checked and the value is reached, script will stop
 const resolution = macroService.GetCurrentResolution();
