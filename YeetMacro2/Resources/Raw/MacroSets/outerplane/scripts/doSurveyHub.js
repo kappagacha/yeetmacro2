@@ -32,9 +32,9 @@ while (macroService.IsRunning) {
 			const topLeft = macroService.GetTopLeft();
 			const xLocation = topLeft.X + 1100;
 			macroService.SwipePollPattern([patterns.surveyHub.rewardInfo.lastLevel, patterns.surveyHub.rewardInfo.zeroOutOfFive], { MaxSwipes: 7, Start: { X: xLocation, Y: 800 }, End: { X: xLocation, Y: 280 } });
-			sleep(500);
+			sleep(1000);
 			macroService.SwipePollPattern(patterns.surveyHub.rewardInfo.rightArrow, { MaxSwipes: 7, Start: { X: xLocation, Y: 280 }, End: { X: xLocation, Y: 800 } });
-			sleep(500);
+			sleep(1000);
 			const rightArrowResult = macroService.PollPattern(patterns.surveyHub.rewardInfo.rightArrow, { Limit: 6 });
 			const maxY = rightArrowResult.Points.reduce((maxY, p) => (maxY = maxY > p.Y ? maxY : p.Y), 0);
 			const bottomRightArrow = macroService.ClonePattern(patterns.surveyHub.rewardInfo.rightArrow, { CenterY: maxY, Height: 60.0 });
