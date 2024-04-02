@@ -1,7 +1,6 @@
 // Claim daily boss missions
 const loopPatterns = [patterns.lobby.level, patterns.event.close];
 const daily = dailyManager.GetDaily();
-const resolution = macroService.GetCurrentResolution();
 
 if (daily.claimBossDailyMissions.done.IsChecked) {
 	return "Script already completed. Uncheck done to override daily flag.";
@@ -44,6 +43,7 @@ while (macroService.IsRunning) {
 				
 				const moveResult = macroService.PollPattern([patterns.titles.inventory, patterns.titles.base]);
 				if (moveResult.Path === 'titles.inventory') {
+					const resolution = macroService.GetCurrentResolution();
 					let gearEnhancedResult = macroService.FindPattern(patterns.inventory.gearEnhanced);
 					if (gearEnhancedResult.IsSuccess) {
 						macroService.PollPattern(patterns.inventory.filter, { DoClick: true, PredicatePattern: patterns.inventory.filter.apply });
