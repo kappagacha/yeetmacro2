@@ -2,6 +2,16 @@
 // @position=-1
 // Do dailies (all checked scripts)
 
+if (settings.doDailies.watchAdQuartz.Value) {
+    _watchAdQuartz();
+    goToLobby();
+}
+
+if (settings.doDailies.watchAdStamina.Value) {
+    _watchAdStamina();
+    goToLobby();
+}
+
 if (settings.doDailies.claimJobs.Value) {
     claimJobs();
     goToLobby();

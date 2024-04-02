@@ -1,11 +1,16 @@
 ﻿// @isFavorite
 // @position=-100
 const loopPatterns = [patterns.titles.home];
+const daily = dailyManager.GetDaily();
 const adObjectScale = settings.watchAdQuartz.adObjectScale.Value;
 const adExitPattern = adObjectScale === 1 ? patterns.ad.exit : macroService.ClonePattern(patterns.ad.exit, { Scale: adObjectScale });
 const adExitInstallPattern = adObjectScale === 1 ? patterns.ad.exitInstall : macroService.ClonePattern(patterns.ad.exitInstall, { Scale: adObjectScale });
 const adCancelPattern = adObjectScale === 1 ? patterns.ad.cancel : macroService.ClonePattern(patterns.ad.cancel, { Scale: adObjectScale });
 const soundLeftPattern = adObjectScale === 1 ? patterns.ad.soundLeft : macroService.ClonePattern(patterns.ad.soundLeft, { Scale: adObjectScale });
+
+if (daily.watchAdQuartz.done.IsChecked) {
+	return "Script already completed. Uncheck done to override daily flag.";
+}
 
 while (macroService.IsRunning) {
 	const result = macroService.PollPattern(loopPatterns);
@@ -25,7 +30,9 @@ while (macroService.IsRunning) {
 					PredicatePattern: patterns.ad.prompt.youGot
 				});
 				macroService.PollPattern(patterns.ad.prompt.youGot, { DoClick: true, PredicatePattern: patterns.titles.home });
-				sleep(1_000);
+				if (macroService.IsRunning) {
+					daily.watchAdQuartz.done.IsChecked = true;
+				}
 			}
 			return;
 	}

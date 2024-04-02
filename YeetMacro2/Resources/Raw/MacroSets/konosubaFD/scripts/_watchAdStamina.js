@@ -1,11 +1,16 @@
 ﻿// @isFavorite
 // @position=-100
 const loopPatterns = [patterns.titles.home, patterns.stamina.prompt.recoverStamina];
+const daily = dailyManager.GetDaily();
 const adObjectScale = settings.watchAdStamina.adObjectScale.Value;
 const adExitPattern = adObjectScale === 1 ? patterns.ad.exit : macroService.ClonePattern(patterns.ad.exit, { Scale: adObjectScale });
 const adExitInstallPattern = adObjectScale === 1 ? patterns.ad.exitInstall : macroService.ClonePattern(patterns.ad.exitInstall, { Scale: adObjectScale });
 const adCancelPattern = adObjectScale === 1 ? patterns.ad.cancel : macroService.ClonePattern(patterns.ad.cancel, { Scale: adObjectScale });
 const soundLeftPattern = adObjectScale === 1 ? patterns.ad.soundLeft : macroService.ClonePattern(patterns.ad.soundLeft, { Scale: adObjectScale });
+
+if (daily.watchAdStamina.done.IsChecked) {
+	return "Script already completed. Uncheck done to override daily flag.";
+}
 
 while (macroService.IsRunning) {
 	const result = macroService.PollPattern(loopPatterns);
@@ -27,8 +32,15 @@ while (macroService.IsRunning) {
 			macroService.PollPattern(patterns.ad.prompt.ok, {
 				ClickPattern: [adExitPattern, adExitInstallPattern, adCancelPattern, soundLeftPattern]
 			});
-			macroService.PollPattern(patterns.ad.prompt.ok, { DoClick: true, PredicatePattern: patterns.titles.home });
-			return;
+			macroService.PollPattern(patterns.ad.prompt.ok, { DoClick: true, PredicatePattern: [patterns.titles.home, patterns.stamina.prompt.recoverStamina] });
+			if (macroService.IsRunning) {
+				daily.watchAdStamina.count.Count++;
+				if (daily.watchAdStamina.count.Count >= 3) {
+					daily.watchAdStamina.done.IsChecked = true;
+					return;
+				}
+			}
+			break;
 	}
 
 	sleep(1_000);

@@ -238,6 +238,30 @@
       "position": 0,
       "path": "doDailies"
     },
+    "watchAdQuartz": {
+      "$isParent": false,
+      "props": {
+        "$type": "boolean",
+        "settingType": "Boolean",
+        "value": true,
+        "isParentNode": false,
+        "name": "watchAdQuartz",
+        "position": 0,
+        "path": "doDailies.watchAdQuartz"
+      }
+    },
+    "watchAdStamina": {
+      "$isParent": false,
+      "props": {
+        "$type": "boolean",
+        "settingType": "Boolean",
+        "value": true,
+        "isParentNode": false,
+        "name": "watchAdStamina",
+        "position": 0,
+        "path": "doDailies.watchAdStamina"
+      }
+    },
     "claimJobs": {
       "$isParent": false,
       "props": {
@@ -633,7 +657,7 @@
       "props": {
         "$type": "timestamp",
         "settingType": "TimeStamp",
-        "value": "2024-04-01T01:10:36.859+00:00",
+        "value": "2024-04-02T07:43:54.705+00:00",
         "isParentNode": false,
         "name": "lastRun",
         "position": 0,
