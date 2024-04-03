@@ -15,7 +15,7 @@ while (macroService.IsRunning) {
 			break;
 		case 'titles.adventure':
 			logger.info('skipDualGate: click dual gate');
-			macroService.ClickPattern(patterns.adventure.challenge.dualGate);
+			macroService.PollPattern(patterns.adventure.challenge.dualGate, { DoClick: true, ClickOffset: { Y: -100 }, PredicatePattern: patterns.titles.dualGate });
 			break;
 		case 'titles.dualGate':
 			logger.info('skipDualGate: skip dual gate');
