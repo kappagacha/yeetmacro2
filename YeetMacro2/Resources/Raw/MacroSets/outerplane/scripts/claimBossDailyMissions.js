@@ -1,6 +1,7 @@
 // Claim daily boss missions
 const loopPatterns = [patterns.lobby.level, patterns.event.close];
 const daily = dailyManager.GetDaily();
+const resolution = macroService.GetCurrentResolution();
 
 if (daily.claimBossDailyMissions.done.IsChecked) {
 	return "Script already completed. Uncheck done to override daily flag.";
@@ -43,7 +44,6 @@ while (macroService.IsRunning) {
 				
 				const moveResult = macroService.PollPattern([patterns.titles.inventory, patterns.titles.base]);
 				if (moveResult.Path === 'titles.inventory') {
-					const resolution = macroService.GetCurrentResolution();
 					let gearEnhancedResult = macroService.FindPattern(patterns.inventory.gearEnhanced);
 					if (gearEnhancedResult.IsSuccess) {
 						macroService.PollPattern(patterns.inventory.filter, { DoClick: true, PredicatePattern: patterns.inventory.filter.apply });
@@ -64,7 +64,7 @@ while (macroService.IsRunning) {
 					macroService.PollPattern(patterns.inventory.enhance, { DoClick: true, PredicatePattern: patterns.titles.improveGear });
 					let tenMaterialsResult = macroService.FindPattern(patterns.inventory.improveGear.tenMaterials);
 					while (macroService.IsRunning && !tenMaterialsResult.IsSuccess) {
-						macroService.ClickPattern(patterns.inventory.improveGear.apprenticeHammer);
+						macroService.ClickPattern([patterns.inventory.improveGear.apprenticeHammer, patterns.inventory.improveGear.apprenticeHammer.checked]);
 						sleep(500);
 						tenMaterialsResult = macroService.FindPattern(patterns.inventory.improveGear.tenMaterials);
 					}

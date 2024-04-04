@@ -12874,6 +12874,50 @@
           "name": "apprenticeHammer",
           "position": 0,
           "path": "inventory.improveGear.apprenticeHammer"
+        },
+        "checked": {
+          "$isParent": true,
+          "props": {
+            "isMultiPattern": false,
+            "patterns": [
+              {
+                "rect": {
+                  "x": 1303.5721435546875,
+                  "y": 160.1038360595703,
+                  "width": 27.4833984375,
+                  "height": 31.466705322265625
+                },
+                "resolution": {
+                  "width": 1920,
+                  "height": 1080
+                },
+                "isBoundsPattern": false,
+                "isLocationDynamic": false,
+                "name": "pattern",
+                "imageData": "/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDAAEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQH/2wBDAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQH/wAARCAAfABsDASIAAhEBAxEB/8QAGQAAAgMBAAAAAAAAAAAAAAAACQoDBQgG/8QAJRAAAgICAQQBBQEAAAAAAAAAAgMBBAUGEQcIEhMACRQhMkEX/8QAFwEBAQEBAAAAAAAAAAAAAAAABggHCf/EACURAAIDAAICAgEFAQAAAAAAAAECAwQFBhEHEhMhQggUIiMyQf/aAAwDAQACEQMRAD8AWY0XYc3qrU2sRdfW8CEiAD5WURxzBpLyUwZjmCEhmJGZiYiJnnUtruUxGJw+IjZdNsbDls5lKWAxFPWZGcrlsreL1VKtXEO8vdYsPlauU2AXDmrGFrEo4whR2FqwpJrV7OSs5V9Spg8bSH7jIZi9cgRRTq1gj2EwmmA8fr48mUiMSUMEdh3Yh/lDMX16641k5nrLfow7TNVtKCxielOKvJIvuK9doSJ7bkaz5CxkGR76dE5rVAqru3ZuruGcM1OZaaUaSmOnE6PoX3UmKpASAWHfQknYAiGFSCzdFiiBnXO/JHkjE8cYkmnpOs+jOkiZGVGwWxoWlUBQSATDViYq1mywIjTsIskpSNh09ZsTvmhaLa37q92p9Z9R6b2EqjI5vM6tj7eOx6roGVZWeQy+S0/crA2KBkGErAmSQjEz8G5az/bHbsNtVMP1Po1nl7U1MXfVVx6AOImAq1pyzPQvnkvUJysCkhXArgRh0nrBndU17pJ1R2XqVbxdPQqWjbOvY7mwQgsORXMPeVjkWhtcpY5uUmodcSiSByhePEp8oQlq0vcom41LUY5ti2zHJYUyxNA7bipqOT8ik11pUBSRSUyMzMzPxB5M4PncIt5kWfoyW0vwTPJBZaE2K7wPGnuTEqAxTe7evsilWjdQXH+SfhPyjreTc/bn1smChLlW60UVmmJxTtR2o5ZPiAneRlsVxGpk9ZXDRzROVQn+bSf07Pp5D0knF9wPXmhTyfVa/QS7p7pNlMWMX0vwtlASq+2s+CW/bL6y9hW2KCaFRkV6ilQ+064W3Zto13TNd2HfN5zdPXtR1jH2szsew5SyqrUpVEATGNbYskIE5hRwISXkwpn+/n5ctcgK+UzOWtzWx2KpWsxmb8qZYYmnWGW2XBXQJusNn8+ClAUkUxzwMTMKF/UU+oDuneBur+nnT9OXwvbbpGTYrA68qwjF29+zFNpKsbhuKXWKz7MtaEBh8RdAlYqopZhXTds3mPoLW1uNeIeNRUaEAkuSI4p1ST+40LhVfkuXZuj/AFqfUyv+C/HXhUD1CyTx3B5h+oXm9rS17bQ0IDE2jdVO6mRnlz8GZnQFgnzyKJPhT6Mjia3YLH3Lx9/ffdtPetuyNT1RuS1/ty03IMnUdVKX1z3bLqZ6z3nZ6kyJNY0ViGDo2l+zHUiMzBFm5aSA9Llm8my5FCmTqqD9C2BPAkSIhTuI8fx4uBgzH8mJj5cYmc1WXK6+MqYthDIRffbXdchf5GZrU0qhMP4/Q2vNa54n1nxEfO7xtKqmjXUIkfiBQRnPkbGSZS1hlP7GxkmZT/SKZ+SFs7GhvaVrV052sXLcheRj2FRfwiiTsiOGJeljQfSqP+kknoRxrjmTxPGp4OJUSnnUYwkUa9GSRj0ZLFiQAGazO/ck8rfbuT9BQqj/2Q==",
+                "variancePct": 20,
+                "horizontalStretchMultiplier": 0,
+                "verticalStretchMultiplier": 0,
+                "textMatch": {
+                  "isActive": false,
+                  "text": null,
+                  "whiteList": null
+                },
+                "colorThreshold": {
+                  "isActive": true,
+                  "variancePct": 30,
+                  "color": "#ff4aabd5",
+                  "imageData": "/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDAAIBAQEBAQIBAQECAgICAgQDAgICAgUEBAMEBgUGBgYFBgYGBwkIBgcJBwYGCAsICQoKCgoKBggLDAsKDAkKCgr/wAALCAAfABsBAREA/8QAHwAAAQUBAQEBAQEAAAAAAAAAAAECAwQFBgcICQoL/8QAtRAAAgEDAwIEAwUFBAQAAAF9AQIDAAQRBRIhMUEGE1FhByJxFDKBkaEII0KxwRVS0fAkM2JyggkKFhcYGRolJicoKSo0NTY3ODk6Q0RFRkdISUpTVFVWV1hZWmNkZWZnaGlqc3R1dnd4eXqDhIWGh4iJipKTlJWWl5iZmqKjpKWmp6ipqrKztLW2t7i5usLDxMXGx8jJytLT1NXW19jZ2uHi4+Tl5ufo6erx8vP09fb3+Pn6/9oACAEBAAA/AP38orw/4Kf8FL/+Cen7R/xMuPgz8B/22Phf4t8Vw6g9lB4f0PxrZz3V/IllHfO1nGsmb6JLeTc81v5kaNFPGzB4JkT3Civ5kf8Ag6M/4LteFf22PFVt+wj+xd8TNQvfhb4V1CV/iD4i0m+QaZ431ON4jBFCUXfcWNm8bssvmeRczyCVY3W2tbmT8sf2Vfhb+0d8aP2jvBfw2/ZD0LxBqHxN1DxBbt4Kj8LXTW9/BfxN50dzFOrJ9l8jyzO1yXRYFiaVnRY2cf3eV/OD/wAHIv8Awci/8NAf29/wT0/4J6ePf+Lf/vdP+JfxM0e5/wCRr6rLpenyqf8AkG9VmuFP+m8xofsm5r38cfgD8AfjL+1L8ZfD37Pn7Pnw91DxV4y8VagLLQtC0xAZLiTBZmLMQkUSIrySTSMscUcbySMiIzD+t3/ghx/wQ4+DX/BIX4NPqmqS6f4q+NHirT0Tx548ihJjgjysn9lab5ih4rFHVSzkLJdSRrLKFCQQW/3fX8Adf1+/8EDP+CKPws/4JUfs46f418WeGPtfxz8c+H7aX4ja/qKwSTaP5ipM2g2bQySRpbQSgLJJHI32uaETM2xLeKD7/or/2Q=="
+                },
+                "offsetCalcType": "DockLeft",
+                "position": 0
+              }
+            ],
+            "isParentNode": true,
+            "name": "checked",
+            "position": 0,
+            "path": "inventory.improveGear.apprenticeHammer.checked"
+          }
         }
       }
     },
