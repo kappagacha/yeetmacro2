@@ -25,7 +25,7 @@ while (macroService.IsRunning) {
 			if (notificationResult.IsSuccess) {
 				macroService.PollPattern(patterns.loot.quickHunt.notification, { DoClick: true, PredicatePattern: patterns.loot.quickHunt.free });
 				macroService.PollPattern(patterns.loot.quickHunt.free, { DoClick: true, PredicatePattern: patterns.loot.tapTheScreen });
-				macroService.PollPattern(patterns.loot.tapTheScreen, { DoClick: true, ClickPattern: patterns.loot.tapTheScreen, PredicatePattern: patterns.loot.quickHunt.cancel });
+				macroService.PollPattern(patterns.loot.tapTheScreen, { DoClick: true, PredicatePattern: patterns.loot.quickHunt.cancel });
 				macroService.PollPattern(patterns.loot.quickHunt.cancel, { DoClick: true, PredicatePattern: patterns.titles.loot });
 			}
 
