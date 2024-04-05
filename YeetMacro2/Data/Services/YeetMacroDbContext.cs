@@ -107,6 +107,10 @@ public class YeetMacroDbContext : DbContext
             .HasPrincipalKey<PatternSetting>(ps => ps.NodeId)
             .OnDelete(DeleteBehavior.Cascade);
         modelBuilder.Entity<PatternSetting>().Navigation(ps => ps.Value).AutoInclude();
+        modelBuilder.Entity<PatternSetting>().HasOne(ps => ps.DefaultValue).WithOne()
+            .HasPrincipalKey<PatternSetting>(ps => ps.NodeId)
+            .OnDelete(DeleteBehavior.Cascade);
+        modelBuilder.Entity<PatternSetting>().Navigation(ps => ps.DefaultValue).AutoInclude();
         modelBuilder.Entity<TimestampSetting>().Ignore(ts => ts.LocalValue);
         modelBuilder.Entity<LogGroup>().OwnsMany(lg => lg.Logs, (l) =>
         {

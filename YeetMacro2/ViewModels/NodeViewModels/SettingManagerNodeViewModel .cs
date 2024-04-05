@@ -12,6 +12,7 @@ public partial class SettingNodeManagerViewModel : NodeManagerViewModel<ParentSe
 {
     ParentSetting _emptyParentSetting = new ParentSettingViewModel();
     IRepository<SettingNode> _settingRepository;
+    IRepository<Pattern> _patternRepository;
     [ObservableProperty]
     PatternNode _selectedPatternNode;
     [ObservableProperty]
@@ -22,14 +23,27 @@ public partial class SettingNodeManagerViewModel : NodeManagerViewModel<ParentSe
     public SettingNodeManagerViewModel(
         int rootNodeId,
         IRepository<SettingNode> settingRepository,
+        IRepository<Pattern> patternRepository,
         INodeService<ParentSetting, SettingNode> nodeService,
         IInputService inputService,
         IToastService toastService)
             : base(rootNodeId, nodeService, inputService, toastService)
     {
         _settingRepository = settingRepository;
+        _patternRepository = patternRepository;
         PropertyChanged += SettingNodeManagerViewModel_PropertyChanged;
         CurrentSubViewModel = _emptyParentSetting;
+    }
+
+    protected override void CustomInit()
+    {
+        foreach (var settingNode in _nodeService.GetDescendants<SettingNode>(Root).ToList())
+        {
+            if (settingNode is PatternSetting patternSetting)
+            {
+                _patternRepository.AttachEntities(patternSetting.Value.Patterns.ToArray());
+            }
+        }
     }
 
     public async Task OnScriptNodeSelected(ScriptNode scriptNode)
@@ -200,9 +214,24 @@ public partial class SettingNodeManagerViewModel : NodeManagerViewModel<ParentSe
         }
         else if (setting is PatternSettingViewModel patternSetting)
         {
-            patternSetting.Value = patternSetting.DefaultValue;
-            _settingRepository.Update(patternSetting);
-            _settingRepository.Save();
+            foreach (var pattern in patternSetting.Value.Patterns)
+            {
+                _patternRepository.Delete(pattern);
+            }
+            patternSetting.Value.Patterns.Clear();
+            _patternRepository.Save();
+
+            var newPatternNode = PatternNodeManagerViewModel.CloneNode(patternSetting.DefaultValue);
+            foreach (var pattern in newPatternNode.Patterns)
+            {
+                pattern.PatternNodeId = patternSetting.Value.NodeId;
+                patternSetting.Value.Patterns.Add(pattern);
+                _patternRepository.Insert(pattern);
+            }
+            _patternRepository.Save();
+            SelectedPattern = patternSetting.Value.Pattern;
         }
+
+        _toastService.Show($"Reset ${setting.Path}");
     }
 }
