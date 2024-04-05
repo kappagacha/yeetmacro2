@@ -1621,5 +1621,34 @@
         "path": "doDoppelganger.checkPiecesLimit1"
       }
     }
+  },
+  "watchAds": {
+    "$isParent": true,
+    "props": {
+      "settingType": "Parent",
+      "isParentNode": true,
+      "name": "watchAds",
+      "position": 0,
+      "path": "watchAds"
+    },
+    "userClickPattern": {
+      "$isParent": false,
+      "props": {
+        "$type": "pattern",
+        "settingType": "Pattern",
+        "value": {
+          "isMultiPattern": false,
+          "patterns": [],
+          "isParentNode": true,
+          "name": null,
+          "position": 0,
+          "path": null
+        },
+        "isParentNode": false,
+        "name": "userClickPattern",
+        "position": 0,
+        "path": "watchAds.userClickPattern"
+      }
+    }
   }
 }
