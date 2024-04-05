@@ -127,13 +127,10 @@
             </mct:DockLayout>
         </DataTemplate>
         <DataTemplate x:Key="PatternSettingTemplate">
-            <mct:DockLayout>
-                <v:ImageView mct:DockLayout.DockPosition="Right"
-                    VerticalOptions="Center" FontFamily="MaterialOutlined" Glyph="{x:Static mi:MaterialOutlined.Refresh}"
-                    Command="{Binding BindingContext.Settings.ResetSettingCommand, Source={RelativeSource AncestorType={x:Type v:SettingNodeView}}}"
-                    CommandParameter="{Binding .}" />
-                <Grid />
-            </mct:DockLayout>
+            <v:ImageView HorizontalOptions="End"
+                VerticalOptions="Center" FontFamily="MaterialOutlined" Glyph="{x:Static mi:MaterialOutlined.Refresh}"
+                Command="{Binding BindingContext.Settings.ResetSettingCommand, Source={RelativeSource AncestorType={x:Type v:SettingNodeView}}}"
+                CommandParameter="{Binding .}" />
         </DataTemplate>
         <DataTemplate x:Key="EnabledPatternSettingTemplate">
             <mct:DockLayout>
