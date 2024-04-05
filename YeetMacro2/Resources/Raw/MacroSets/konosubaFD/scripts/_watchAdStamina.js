@@ -7,6 +7,9 @@ const adExitPattern = adObjectScale === 1 ? patterns.ad.exit : macroService.Clon
 const adExitInstallPattern = adObjectScale === 1 ? patterns.ad.exitInstall : macroService.ClonePattern(patterns.ad.exitInstall, { Scale: adObjectScale });
 const adCancelPattern = adObjectScale === 1 ? patterns.ad.cancel : macroService.ClonePattern(patterns.ad.cancel, { Scale: adObjectScale });
 const soundLeftPattern = adObjectScale === 1 ? patterns.ad.soundLeft : macroService.ClonePattern(patterns.ad.soundLeft, { Scale: adObjectScale });
+const userClickPattern = macroService.ClonePattern(settings.watchAdStamina.userClickPattern.Value, {
+	Path: 'settings.watchAdStamina.userClickPattern'
+});
 
 if (daily.watchAdStamina.done.IsChecked) {
 	return "Script already completed. Uncheck done to override daily flag.";
@@ -30,7 +33,7 @@ while (macroService.IsRunning) {
 			macroService.PollPattern(patterns.ad.stamina.watch, { DoClick: true, PredicatePattern: patterns.ad.prompt.ok });
 			macroService.PollPattern(patterns.ad.prompt.ok, { DoClick: true, InversePredicatePattern: patterns.ad.prompt.ok });
 			macroService.PollPattern(patterns.ad.prompt.ok, {
-				ClickPattern: [adExitPattern, adExitInstallPattern, adCancelPattern, soundLeftPattern]
+				ClickPattern: [adExitPattern, adExitInstallPattern, adCancelPattern, soundLeftPattern, userClickPattern]
 			});
 			macroService.PollPattern(patterns.ad.prompt.ok, { DoClick: true, PredicatePattern: [patterns.titles.home, patterns.stamina.prompt.recoverStamina] });
 			if (macroService.IsRunning) {

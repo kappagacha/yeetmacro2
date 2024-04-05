@@ -7,6 +7,9 @@ const adExitPattern = adObjectScale === 1 ? patterns.ad.exit : macroService.Clon
 const adExitInstallPattern = adObjectScale === 1 ? patterns.ad.exitInstall : macroService.ClonePattern(patterns.ad.exitInstall, { Scale: adObjectScale });
 const adCancelPattern = adObjectScale === 1 ? patterns.ad.cancel : macroService.ClonePattern(patterns.ad.cancel, { Scale: adObjectScale });
 const soundLeftPattern = adObjectScale === 1 ? patterns.ad.soundLeft : macroService.ClonePattern(patterns.ad.soundLeft, { Scale: adObjectScale });
+const userClickPattern = macroService.ClonePattern(settings.watchAdQuartz.userClickPattern.Value, {
+	Path: 'settings.watchAdQuartz.userClickPattern'
+});
 
 if (daily.watchAdQuartz.done.IsChecked) {
 	return "Script already completed. Uncheck done to override daily flag.";
@@ -26,7 +29,7 @@ while (macroService.IsRunning) {
 				logger.info('watchAdQuartz: poll ad.prompt.ok');
 				macroService.PollPattern(patterns.ad.prompt.ok, {
 					DoClick: true,
-					ClickPattern: [patterns.ad.prompt.ok, adExitPattern, adExitInstallPattern, adCancelPattern, soundLeftPattern],
+					ClickPattern: [patterns.ad.prompt.ok, adExitPattern, adExitInstallPattern, adCancelPattern, soundLeftPattern, userClickPattern],
 					PredicatePattern: patterns.ad.prompt.youGot
 				});
 				macroService.PollPattern(patterns.ad.prompt.youGot, { DoClick: true, PredicatePattern: patterns.titles.home });
