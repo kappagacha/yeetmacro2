@@ -378,6 +378,10 @@ public partial class MacroManagerViewModel : ObservableObject
             {
                 integerSetting.DefaultValue = integerSetting.Value;
             }
+            else if (s is SettingNode<PatternNode> patternSetting)
+            {
+                patternSetting.DefaultValue = patternSetting.Value;
+            }
         });
         File.WriteAllText(Path.Combine(targetDirectory, $"settings.json"), Settings.ToJson());
 

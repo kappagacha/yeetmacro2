@@ -192,5 +192,17 @@ public partial class SettingNodeManagerViewModel : NodeManagerViewModel<ParentSe
             _settingRepository.Update(doubleSetting);
             _settingRepository.Save();
         }
+        else if (setting is EnabledPatternSettingViewModel enabledPatternSetting)
+        {
+            enabledPatternSetting.Value = enabledPatternSetting.DefaultValue;
+            _settingRepository.Update(enabledPatternSetting);
+            _settingRepository.Save();
+        }
+        else if (setting is PatternSettingViewModel patternSetting)
+        {
+            patternSetting.Value = patternSetting.DefaultValue;
+            _settingRepository.Update(patternSetting);
+            _settingRepository.Save();
+        }
     }
 }

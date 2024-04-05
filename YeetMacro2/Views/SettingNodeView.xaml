@@ -126,9 +126,23 @@
                 <v:DoubleStepper Value="{Binding Value}" ShowIncrement="True" Increment="{Binding Increment}" />
             </mct:DockLayout>
         </DataTemplate>
-        <DataTemplate x:Key="PatternSettingTemplate" />
+        <DataTemplate x:Key="PatternSettingTemplate">
+            <mct:DockLayout>
+                <v:ImageView mct:DockLayout.DockPosition="Right"
+                    VerticalOptions="Center" FontFamily="MaterialOutlined" Glyph="{x:Static mi:MaterialOutlined.Refresh}"
+                    Command="{Binding BindingContext.Settings.ResetSettingCommand, Source={RelativeSource AncestorType={x:Type v:SettingNodeView}}}"
+                    CommandParameter="{Binding .}" />
+                <Grid />
+            </mct:DockLayout>
+        </DataTemplate>
         <DataTemplate x:Key="EnabledPatternSettingTemplate">
-            <CheckBox IsChecked="{Binding IsEnabled}" VerticalOptions="Center" />
+            <mct:DockLayout>
+                <v:ImageView mct:DockLayout.DockPosition="Right"
+                    VerticalOptions="Center" FontFamily="MaterialOutlined" Glyph="{x:Static mi:MaterialOutlined.Refresh}"
+                    Command="{Binding BindingContext.Settings.ResetSettingCommand, Source={RelativeSource AncestorType={x:Type v:SettingNodeView}}}"
+                    CommandParameter="{Binding .}" />
+                <CheckBox IsChecked="{Binding IsEnabled}" VerticalOptions="Center" />
+            </mct:DockLayout>
         </DataTemplate>
         <DataTemplate x:Key="TimestampSettingTemplate">
             <Label Margin="0" Padding="0" VerticalOptions="Center" Text="{Binding LocalValue, StringFormat=' {0:MM/dd/yyyy hh:mm tt}'}" />
@@ -155,9 +169,6 @@
                                     <Setter Property="Background" Value="Blue" />
                                 </DataTrigger>
                                 <DataTrigger TargetType="{x:Type Grid}" Binding="{Binding SettingType}" Value="{x:Static m:SettingType.Parent}">
-                                    <Setter Property="HeightRequest" Value="{StaticResource IconHeight}" />
-                                </DataTrigger>
-                                <DataTrigger TargetType="{x:Type Grid}" Binding="{Binding SettingType}" Value="{x:Static m:SettingType.Pattern}">
                                     <Setter Property="HeightRequest" Value="{StaticResource IconHeight}" />
                                 </DataTrigger>
                                 <DataTrigger TargetType="{x:Type Grid}" Binding="{Binding SettingType}" Value="{x:Static m:SettingType.TimeStamp}">

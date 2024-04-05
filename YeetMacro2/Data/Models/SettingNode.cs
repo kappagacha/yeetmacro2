@@ -61,7 +61,6 @@ public abstract class SettingNode : Node
 public abstract class SettingNode<T> : SettingNode
 {
     public virtual T Value { get; set; }
-    [JsonIgnore]
     public virtual T DefaultValue { get; set; }
     public override TTarget GetValue<TTarget>()
     {
