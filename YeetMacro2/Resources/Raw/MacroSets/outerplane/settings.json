@@ -23,6 +23,7 @@
           "7"
         ],
         "value": "1",
+        "defaultValue": "1",
         "isParentNode": false,
         "name": "teamSlot",
         "position": 0,
@@ -37,6 +38,7 @@
         "isEnabled": true,
         "increment": 100,
         "value": 120000,
+        "defaultValue": 120000,
         "isParentNode": false,
         "name": "cpThreshold",
         "position": 0,
@@ -49,6 +51,7 @@
         "$type": "boolean",
         "settingType": "Boolean",
         "value": false,
+        "defaultValue": false,
         "isParentNode": false,
         "name": "autoDetectCpThreshold",
         "position": 0,
@@ -81,6 +84,7 @@
           "7"
         ],
         "value": "2",
+        "defaultValue": "2",
         "isParentNode": false,
         "name": "teamSlot",
         "position": 0,
@@ -93,6 +97,7 @@
         "$type": "boolean",
         "settingType": "Boolean",
         "value": true,
+        "defaultValue": true,
         "isParentNode": false,
         "name": "doRefillStamina",
         "position": 0,
@@ -125,6 +130,7 @@
           "7"
         ],
         "value": "2",
+        "defaultValue": "2",
         "isParentNode": false,
         "name": "teamSlot",
         "position": 0,
@@ -137,6 +143,7 @@
         "$type": "boolean",
         "settingType": "Boolean",
         "value": true,
+        "defaultValue": true,
         "isParentNode": false,
         "name": "sweepBattle",
         "position": 0,
@@ -154,6 +161,7 @@
           "theOtherSideOfTheWorld"
         ],
         "value": "theOtherSideOfTheWorld",
+        "defaultValue": "theOtherSideOfTheWorld",
         "isParentNode": false,
         "name": "section",
         "position": 0,
@@ -206,6 +214,47 @@
           "position": 0,
           "path": null
         },
+        "defaultValue": {
+          "isMultiPattern": false,
+          "patterns": [
+            {
+              "rect": {
+                "x": 1883.466064453125,
+                "y": 828.4849853515625,
+                "width": 46.478759765625,
+                "height": 31.4666748046875
+              },
+              "resolution": {
+                "width": 2400,
+                "height": 1080
+              },
+              "isBoundsPattern": false,
+              "isLocationDynamic": false,
+              "name": "pattern",
+              "imageData": "/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDAAEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQH/2wBDAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQH/wAARCAAfAC4DASIAAhEBAxEB/8QAGAABAQADAAAAAAAAAAAAAAAACgkFBgj/xAA5EAAABgEEAQEDBg8BAAAAAAABAgMEBQYHCAkREgATChQhFSIxOXa2FhcZJDI0OFRXc3eUl7LF1f/EABgBAAMBAQAAAAAAAAAAAAAAAAABAgME/8QAKhEBAAIBAQUGBwAAAAAAAAAAAQIRIQADMUFRYRJxkbHR8BMiMjNCgaH/2gAMAwEAAhEDEQA/ADKbdONaXmDWtp/xrkSEa2Sl2y2yDCfg3pezWRaI1affporF+PJCumjdXgQEBFMOfh4uDPuk7Zh0vylehs60LFOPJG1MXslX286VBqMmzjl0Wz5ZqKhSgoDZZwgRYC8iQVku3HcvJWtpz6xHS59uJX7l2jxUu7dtfZU3ArrhyxY+u9WqLPG9ZtMNIJ2Bq5dKvnNgk4l4kduDd02BNNunGGA4m7icywcdeg9uja/ciMmJ2cpfOXA1nH6VAW/Tj7zrn/3L2en95wV/dM/C82DF1YzPrFkcS4COwLT7/l0avj1yzAVYxrX5KTKig/RKAlFRiwY+u96kMHdBASkEOQHypeWvZ+NQuJMaXbJkrlvH0jG0ivSFiesGka/Scu28ekKqiKKh5FQpFDgHBTGIcAH6Sj5s+xDpDw1ma3Ps83e8va9kDDGSI8tIgEZSJas5oFoBA5/eWL0wO3YqGk3SJRa/oimUS/PIPgMYEpRnKWKpvC7mmuXnoRaEDjitxQ++7lqq8ltx7TWijGVVr+plKrOLHao5w3NcMjzIFlJ6ZYRh3ckaEMsYqUWcfQWFshGlbp9wAEkiG58G3nBfGTnLuQ1cMxz6JxZ+FMmnRmMk8VfvE4BBX0GqqjtdRVZYjoU1HbcVTioRuukmcCmIJSv+3AdA+nzWu5x/+PPJUpRgpKEn8htI2bhIf38X6ge8OFflUwHW9Lj0y+iHQvYewiIhwb/QXtd6U9SVo1OQ+TstTdcZYgzFNUKmrM7HXY401X48qBm0k4M8MBXaqoqnKZdr+bm6fN+PPi2cwtlKS8TeVZnLl8i8aJC0AHXw9eq1qfu059Yjpc+3Er9y7R5fTf8ANWOorTfknTrHYOyvZMcsbTS708sDaDLGHSk3UXNV9FguuWRYPeqjZJ65IUURT7FVEFO/UnU1+hTM9R08atcJ5ovgvgqNBsz2VnBjWyjx8DVzXZqLILdqkU6ixgcv0BMUhTGAnY3A8eK3t++Ftj39y0eXaoWG1O2CB2zJxO43eyKrVuqcFFEUDuY44pJnUADnKXgDGABHkQ8raD8SMuwzCOSrPy6O670RrspdN8+7RcLRuQa4bpXpiqWjUbeZiuz7BeMmItynAFQfsHJei7ZYyEKisBFC/AwpqkPx9Bg8yu2H+3xpi/qH/wAGa8SX+WD2kf4Sqf4mV/8AL8OPjPUXiij7i0RqTQZPYzEUXmCYuLZkwjFCPWldeNJJu2IhFIp+oQ5TO0zC3Il2KXt80BAQ8YqTDZsLi8N7WDcZzj96Thj8158P66tt7TL+saZv5Ns/3L4UXy6O81uD4H1zL4YNhRWxLEoyU8E2adhnsQBTSByi3KgD1BAy3IciYSAYC8cCICIB5C7ytkJCkRtwlaUm1Tp5Gv/Z",
+              "variancePct": 20,
+              "horizontalStretchMultiplier": 0,
+              "verticalStretchMultiplier": 0,
+              "textMatch": {
+                "isActive": false,
+                "text": null,
+                "whiteList": null
+              },
+              "colorThreshold": {
+                "isActive": false,
+                "variancePct": 10,
+                "color": null,
+                "imageData": ""
+              },
+              "offsetCalcType": "Default",
+              "position": 0
+            }
+          ],
+          "isParentNode": true,
+          "name": null,
+          "position": 0,
+          "path": null
+        },
         "isParentNode": false,
         "name": "targetStory",
         "position": 0,
@@ -218,6 +267,7 @@
         "$type": "boolean",
         "settingType": "Boolean",
         "value": true,
+        "defaultValue": true,
         "isParentNode": false,
         "name": "checkPiecesLimit1",
         "position": 0,
@@ -230,6 +280,7 @@
         "$type": "boolean",
         "settingType": "Boolean",
         "value": true,
+        "defaultValue": true,
         "isParentNode": false,
         "name": "checkPiecesLimit2",
         "position": 0,
@@ -242,6 +293,7 @@
         "$type": "boolean",
         "settingType": "Boolean",
         "value": true,
+        "defaultValue": true,
         "isParentNode": false,
         "name": "doRefillStamina",
         "position": 0,
@@ -274,6 +326,7 @@
           "7"
         ],
         "value": "2",
+        "defaultValue": "2",
         "isParentNode": false,
         "name": "teamSlot",
         "position": 0,
@@ -286,6 +339,7 @@
         "$type": "boolean",
         "settingType": "Boolean",
         "value": true,
+        "defaultValue": true,
         "isParentNode": false,
         "name": "sweepBattle",
         "position": 0,
@@ -318,6 +372,7 @@
           "7"
         ],
         "value": "2",
+        "defaultValue": "2",
         "isParentNode": false,
         "name": "teamSlot",
         "position": 0,
@@ -330,6 +385,7 @@
         "$type": "boolean",
         "settingType": "Boolean",
         "value": true,
+        "defaultValue": true,
         "isParentNode": false,
         "name": "sweepBattle",
         "position": 0,
@@ -349,6 +405,7 @@
           "dark"
         ],
         "value": "fire",
+        "defaultValue": "fire",
         "isParentNode": false,
         "name": "elementTypeTarget1",
         "position": 0,
@@ -368,6 +425,7 @@
           "dark"
         ],
         "value": "water",
+        "defaultValue": "water",
         "isParentNode": false,
         "name": "elementTypeTarget2",
         "position": 0,
@@ -387,6 +445,7 @@
           "dark"
         ],
         "value": "dark",
+        "defaultValue": "dark",
         "isParentNode": false,
         "name": "elementTypeTarget3",
         "position": 0,
@@ -406,6 +465,7 @@
           "dark"
         ],
         "value": "light",
+        "defaultValue": "light",
         "isParentNode": false,
         "name": "elementTypeTarget4",
         "position": 0,
@@ -438,6 +498,7 @@
           "7"
         ],
         "value": "2",
+        "defaultValue": "2",
         "isParentNode": false,
         "name": "teamSlot",
         "position": 0,
@@ -450,6 +511,7 @@
         "$type": "boolean",
         "settingType": "Boolean",
         "value": true,
+        "defaultValue": true,
         "isParentNode": false,
         "name": "sweepBattle",
         "position": 0,
@@ -482,6 +544,7 @@
           "7"
         ],
         "value": "1",
+        "defaultValue": "1",
         "isParentNode": false,
         "name": "teamSlot",
         "position": 0,
@@ -501,6 +564,7 @@
           "dark"
         ],
         "value": "fire",
+        "defaultValue": "fire",
         "isParentNode": false,
         "name": "elementTypeTarget1",
         "position": 0,
@@ -520,6 +584,7 @@
           "dark"
         ],
         "value": "earth",
+        "defaultValue": "earth",
         "isParentNode": false,
         "name": "elementTypeTarget2",
         "position": 0,
@@ -552,6 +617,7 @@
           "7"
         ],
         "value": "2",
+        "defaultValue": "2",
         "isParentNode": false,
         "name": "teamSlot",
         "position": 0,
@@ -564,6 +630,7 @@
         "$type": "boolean",
         "settingType": "Boolean",
         "value": true,
+        "defaultValue": true,
         "isParentNode": false,
         "name": "sweepBattle",
         "position": 0,
@@ -583,6 +650,7 @@
           "grandCalamari"
         ],
         "value": "unidentifiedChimera",
+        "defaultValue": "unidentifiedChimera",
         "isParentNode": false,
         "name": "targetEcologyStudy",
         "position": 0,
@@ -615,6 +683,7 @@
           "7"
         ],
         "value": "2",
+        "defaultValue": "2",
         "isParentNode": false,
         "name": "teamSlot",
         "position": 0,
@@ -627,6 +696,7 @@
         "$type": "boolean",
         "settingType": "Boolean",
         "value": true,
+        "defaultValue": true,
         "isParentNode": false,
         "name": "sweepBattle",
         "position": 0,
@@ -646,6 +716,7 @@
           "amadeus"
         ],
         "value": "glicys",
+        "defaultValue": "glicys",
         "isParentNode": false,
         "name": "targetIdentification",
         "position": 0,
@@ -668,6 +739,7 @@
         "$type": "boolean",
         "settingType": "Boolean",
         "value": true,
+        "defaultValue": true,
         "isParentNode": false,
         "name": "claimAntiparticle",
         "position": 0,
@@ -680,6 +752,7 @@
         "$type": "boolean",
         "settingType": "Boolean",
         "value": true,
+        "defaultValue": true,
         "isParentNode": false,
         "name": "claimFreeShop",
         "position": 0,
@@ -692,6 +765,7 @@
         "$type": "boolean",
         "settingType": "Boolean",
         "value": true,
+        "defaultValue": true,
         "isParentNode": false,
         "name": "claimFreeRecruit",
         "position": 0,
@@ -704,6 +778,7 @@
         "$type": "boolean",
         "settingType": "Boolean",
         "value": true,
+        "defaultValue": true,
         "isParentNode": false,
         "name": "doFriends",
         "position": 0,
@@ -716,6 +791,7 @@
         "$type": "boolean",
         "settingType": "Boolean",
         "value": true,
+        "defaultValue": true,
         "isParentNode": false,
         "name": "claimGuildBuff",
         "position": 0,
@@ -728,6 +804,7 @@
         "$type": "boolean",
         "settingType": "Boolean",
         "value": true,
+        "defaultValue": true,
         "isParentNode": false,
         "name": "doArena",
         "position": 0,
@@ -740,6 +817,7 @@
         "$type": "boolean",
         "settingType": "Boolean",
         "value": true,
+        "defaultValue": true,
         "isParentNode": false,
         "name": "doBountyHunter",
         "position": 0,
@@ -752,6 +830,7 @@
         "$type": "boolean",
         "settingType": "Boolean",
         "value": true,
+        "defaultValue": true,
         "isParentNode": false,
         "name": "doBanditChase",
         "position": 0,
@@ -764,6 +843,7 @@
         "$type": "boolean",
         "settingType": "Boolean",
         "value": true,
+        "defaultValue": true,
         "isParentNode": false,
         "name": "doUpgradeStoneRetrieval",
         "position": 0,
@@ -776,6 +856,7 @@
         "$type": "boolean",
         "settingType": "Boolean",
         "value": true,
+        "defaultValue": true,
         "isParentNode": false,
         "name": "doGuildSecurityArea",
         "position": 0,
@@ -788,6 +869,7 @@
         "$type": "boolean",
         "settingType": "Boolean",
         "value": true,
+        "defaultValue": true,
         "isParentNode": false,
         "name": "doGuildRaid",
         "position": 0,
@@ -800,6 +882,7 @@
         "$type": "boolean",
         "settingType": "Boolean",
         "value": true,
+        "defaultValue": true,
         "isParentNode": false,
         "name": "doDoppelganger",
         "position": 0,
@@ -812,6 +895,7 @@
         "$type": "boolean",
         "settingType": "Boolean",
         "value": true,
+        "defaultValue": true,
         "isParentNode": false,
         "name": "doSpecialRequests",
         "position": 0,
@@ -824,6 +908,7 @@
         "$type": "boolean",
         "settingType": "Boolean",
         "value": true,
+        "defaultValue": true,
         "isParentNode": false,
         "name": "claimDailyMissions",
         "position": 0,
@@ -836,6 +921,7 @@
         "$type": "boolean",
         "settingType": "Boolean",
         "value": true,
+        "defaultValue": true,
         "isParentNode": false,
         "name": "doSurveyHub",
         "position": 0,
@@ -848,6 +934,7 @@
         "$type": "boolean",
         "settingType": "Boolean",
         "value": true,
+        "defaultValue": true,
         "isParentNode": false,
         "name": "claimEventDailyMissions",
         "position": 0,
@@ -860,6 +947,7 @@
         "$type": "boolean",
         "settingType": "Boolean",
         "value": true,
+        "defaultValue": true,
         "isParentNode": false,
         "name": "doInfiniteCorridor",
         "position": 0,
@@ -872,6 +960,7 @@
         "$type": "boolean",
         "settingType": "Boolean",
         "value": true,
+        "defaultValue": true,
         "isParentNode": false,
         "name": "claimBossDailyMissions",
         "position": 0,
@@ -894,6 +983,7 @@
         "$type": "boolean",
         "settingType": "Boolean",
         "value": true,
+        "defaultValue": true,
         "isParentNode": false,
         "name": "claimAntiparticle",
         "position": 0,
@@ -906,6 +996,7 @@
         "$type": "boolean",
         "settingType": "Boolean",
         "value": true,
+        "defaultValue": true,
         "isParentNode": false,
         "name": "doArena",
         "position": 0,
@@ -924,6 +1015,7 @@
           "doSurveyHub"
         ],
         "value": "doEcologyStudy",
+        "defaultValue": "doEcologyStudy",
         "isParentNode": false,
         "name": "spendStaminaScript",
         "position": 0,
@@ -956,6 +1048,7 @@
           "7"
         ],
         "value": "2",
+        "defaultValue": "2",
         "isParentNode": false,
         "name": "teamSlot",
         "position": 0,
@@ -968,6 +1061,7 @@
         "$type": "boolean",
         "settingType": "Boolean",
         "value": true,
+        "defaultValue": true,
         "isParentNode": false,
         "name": "sweepBattle",
         "position": 0,
@@ -985,6 +1079,7 @@
           "theOtherSideOfTheWorld"
         ],
         "value": "aBriefInterlude",
+        "defaultValue": "aBriefInterlude",
         "isParentNode": false,
         "name": "section",
         "position": 0,
@@ -1037,6 +1132,47 @@
           "position": 0,
           "path": null
         },
+        "defaultValue": {
+          "isMultiPattern": false,
+          "patterns": [
+            {
+              "rect": {
+                "x": 1676.3780517578125,
+                "y": 822.4905395507812,
+                "width": 62.465087890625,
+                "height": 38.460205078125
+              },
+              "resolution": {
+                "width": 1920,
+                "height": 1080
+              },
+              "isBoundsPattern": false,
+              "isLocationDynamic": false,
+              "name": "pattern",
+              "imageData": "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",
+              "variancePct": 20,
+              "horizontalStretchMultiplier": 0,
+              "verticalStretchMultiplier": 0,
+              "textMatch": {
+                "isActive": false,
+                "text": null,
+                "whiteList": null
+              },
+              "colorThreshold": {
+                "isActive": false,
+                "variancePct": 10,
+                "color": null,
+                "imageData": ""
+              },
+              "offsetCalcType": "Default",
+              "position": 0
+            }
+          ],
+          "isParentNode": true,
+          "name": null,
+          "position": 0,
+          "path": null
+        },
         "isParentNode": false,
         "name": "targetStory",
         "position": 0,
@@ -1049,6 +1185,7 @@
         "$type": "boolean",
         "settingType": "Boolean",
         "value": true,
+        "defaultValue": true,
         "isParentNode": false,
         "name": "checkPiecesLimit1",
         "position": 0,
@@ -1061,6 +1198,7 @@
         "$type": "boolean",
         "settingType": "Boolean",
         "value": true,
+        "defaultValue": true,
         "isParentNode": false,
         "name": "checkPiecesLimit2",
         "position": 0,
@@ -1073,6 +1211,7 @@
         "$type": "boolean",
         "settingType": "Boolean",
         "value": true,
+        "defaultValue": true,
         "isParentNode": false,
         "name": "doRefillStamina",
         "position": 0,
@@ -1095,6 +1234,7 @@
         "$type": "boolean",
         "settingType": "Boolean",
         "value": false,
+        "defaultValue": false,
         "isParentNode": false,
         "name": "forceRun",
         "position": 0,
@@ -1106,7 +1246,8 @@
       "props": {
         "$type": "timestamp",
         "settingType": "TimeStamp",
-        "value": "2024-04-03T14:05:31.906+00:00",
+        "value": "2024-04-06T23:29:39.233+00:00",
+        "defaultValue": "0001-01-01T00:00:00+00:00",
         "isParentNode": false,
         "name": "lastRun",
         "position": 0,
@@ -1129,6 +1270,7 @@
         "$type": "boolean",
         "settingType": "Boolean",
         "value": false,
+        "defaultValue": false,
         "isParentNode": false,
         "name": "forceRun",
         "position": 0,
@@ -1141,6 +1283,7 @@
         "$type": "timestamp",
         "settingType": "TimeStamp",
         "value": "2024-03-29T23:49:28.078+00:00",
+        "defaultValue": "0001-01-01T00:00:00+00:00",
         "isParentNode": false,
         "name": "lastRun",
         "position": 0,
@@ -1172,6 +1315,7 @@
           "$type": "boolean",
           "settingType": "Boolean",
           "value": true,
+          "defaultValue": true,
           "isParentNode": false,
           "name": "stamina",
           "position": 0,
@@ -1184,6 +1328,7 @@
           "$type": "boolean",
           "settingType": "Boolean",
           "value": true,
+          "defaultValue": true,
           "isParentNode": false,
           "name": "gold",
           "position": 0,
@@ -1196,6 +1341,7 @@
           "$type": "boolean",
           "settingType": "Boolean",
           "value": false,
+          "defaultValue": false,
           "isParentNode": false,
           "name": "clearTicket",
           "position": 0,
@@ -1208,6 +1354,7 @@
           "$type": "boolean",
           "settingType": "Boolean",
           "value": true,
+          "defaultValue": true,
           "isParentNode": false,
           "name": "arenaTicket",
           "position": 0,
@@ -1220,6 +1367,7 @@
           "$type": "boolean",
           "settingType": "Boolean",
           "value": false,
+          "defaultValue": false,
           "isParentNode": false,
           "name": "hammer",
           "position": 0,
@@ -1232,6 +1380,7 @@
           "$type": "boolean",
           "settingType": "Boolean",
           "value": true,
+          "defaultValue": true,
           "isParentNode": false,
           "name": "stoneFragment",
           "position": 0,
@@ -1244,10 +1393,60 @@
           "$type": "boolean",
           "settingType": "Boolean",
           "value": true,
+          "defaultValue": true,
           "isParentNode": false,
           "name": "stonePiece",
           "position": 0,
           "path": "claimFreeShop.useFriendshipPoints.stonePiece"
+        }
+      }
+    },
+    "useArenaMedals": {
+      "$isParent": true,
+      "props": {
+        "settingType": "Parent",
+        "isParentNode": true,
+        "name": "useArenaMedals",
+        "position": 0,
+        "path": "claimFreeShop.useArenaMedals"
+      },
+      "gold": {
+        "$isParent": false,
+        "props": {
+          "$type": "boolean",
+          "settingType": "Boolean",
+          "value": true,
+          "defaultValue": true,
+          "isParentNode": false,
+          "name": "gold",
+          "position": 0,
+          "path": "claimFreeShop.useArenaMedals.gold"
+        }
+      },
+      "stamina": {
+        "$isParent": false,
+        "props": {
+          "$type": "boolean",
+          "settingType": "Boolean",
+          "value": true,
+          "defaultValue": true,
+          "isParentNode": false,
+          "name": "stamina",
+          "position": 0,
+          "path": "claimFreeShop.useArenaMedals.stamina"
+        }
+      },
+      "cakeSlice": {
+        "$isParent": false,
+        "props": {
+          "$type": "boolean",
+          "settingType": "Boolean",
+          "value": true,
+          "defaultValue": true,
+          "isParentNode": false,
+          "name": "cakeSlice",
+          "position": 0,
+          "path": "claimFreeShop.useArenaMedals.cakeSlice"
         }
       }
     }
@@ -1276,6 +1475,7 @@
           "7"
         ],
         "value": "1",
+        "defaultValue": "1",
         "isParentNode": false,
         "name": "teamSlot1",
         "position": 0,
@@ -1293,6 +1493,7 @@
           "3"
         ],
         "value": "3",
+        "defaultValue": "3",
         "isParentNode": false,
         "name": "targetStage1",
         "position": 0,
@@ -1314,6 +1515,7 @@
           "7"
         ],
         "value": "7",
+        "defaultValue": "7",
         "isParentNode": false,
         "name": "teamSlot2",
         "position": 0,
@@ -1331,6 +1533,7 @@
           "3"
         ],
         "value": "2",
+        "defaultValue": "2",
         "isParentNode": false,
         "name": "targetStage2",
         "position": 0,
@@ -1363,6 +1566,7 @@
           "7"
         ],
         "value": "2",
+        "defaultValue": "2",
         "isParentNode": false,
         "name": "teamSlot",
         "position": 0,
@@ -1395,6 +1599,7 @@
           "7"
         ],
         "value": "1",
+        "defaultValue": "1",
         "isParentNode": false,
         "name": "teamSlot",
         "position": 0,
@@ -1413,6 +1618,7 @@
           "reforgeCatalyst"
         ],
         "value": "talisman1",
+        "defaultValue": "talisman1",
         "isParentNode": false,
         "name": "targetReward",
         "position": 0,
@@ -1435,6 +1641,47 @@
         "$type": "pattern",
         "settingType": "Pattern",
         "value": {
+          "isMultiPattern": false,
+          "patterns": [
+            {
+              "rect": {
+                "x": 249.1214141845703,
+                "y": 625.6727294921875,
+                "width": 69.46147155761719,
+                "height": 27.470458984375
+              },
+              "resolution": {
+                "width": 1920,
+                "height": 1080
+              },
+              "isBoundsPattern": false,
+              "isLocationDynamic": false,
+              "name": "pattern",
+              "imageData": "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",
+              "variancePct": 20,
+              "horizontalStretchMultiplier": 0,
+              "verticalStretchMultiplier": 0,
+              "textMatch": {
+                "isActive": false,
+                "text": null,
+                "whiteList": null
+              },
+              "colorThreshold": {
+                "isActive": false,
+                "variancePct": 30,
+                "color": null,
+                "imageData": ""
+              },
+              "offsetCalcType": "Default",
+              "position": 0
+            }
+          ],
+          "isParentNode": true,
+          "name": null,
+          "position": 0,
+          "path": null
+        },
+        "defaultValue": {
           "isMultiPattern": false,
           "patterns": [
             {
@@ -1504,6 +1751,7 @@
           "light"
         ],
         "value": "earth",
+        "defaultValue": "earth",
         "isParentNode": false,
         "name": "elementTypeTarget1",
         "position": 0,
@@ -1526,6 +1774,7 @@
           "7"
         ],
         "value": "2",
+        "defaultValue": "2",
         "isParentNode": false,
         "name": "teamSlot1",
         "position": 0,
@@ -1538,6 +1787,7 @@
         "$type": "boolean",
         "settingType": "Boolean",
         "value": true,
+        "defaultValue": true,
         "isParentNode": false,
         "name": "sweepBattle1",
         "position": 0,
@@ -1557,6 +1807,7 @@
           "light"
         ],
         "value": "fire",
+        "defaultValue": "fire",
         "isParentNode": false,
         "name": "elementTypeTarget2",
         "position": 0,
@@ -1579,6 +1830,7 @@
           "7"
         ],
         "value": "2",
+        "defaultValue": "2",
         "isParentNode": false,
         "name": "teamSlot2",
         "position": 0,
@@ -1591,6 +1843,7 @@
         "$type": "boolean",
         "settingType": "Boolean",
         "value": true,
+        "defaultValue": true,
         "isParentNode": false,
         "name": "sweepBattle2",
         "position": 0,
@@ -1603,6 +1856,7 @@
         "$type": "boolean",
         "settingType": "Boolean",
         "value": false,
+        "defaultValue": false,
         "isParentNode": false,
         "name": "doRefillStamina",
         "position": 0,
@@ -1615,6 +1869,7 @@
         "$type": "boolean",
         "settingType": "Boolean",
         "value": true,
+        "defaultValue": true,
         "isParentNode": false,
         "name": "checkPiecesLimit1",
         "position": 0,
@@ -1637,6 +1892,14 @@
         "$type": "pattern",
         "settingType": "Pattern",
         "value": {
+          "isMultiPattern": false,
+          "patterns": [],
+          "isParentNode": true,
+          "name": null,
+          "position": 0,
+          "path": null
+        },
+        "defaultValue": {
           "isMultiPattern": false,
           "patterns": [],
           "isParentNode": true,
