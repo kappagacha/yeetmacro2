@@ -33,7 +33,7 @@ while (macroService.IsRunning) {
 			macroService.PollPattern(patterns.ad.stamina.watch, { DoClick: true, PredicatePattern: patterns.ad.prompt.ok });
 			macroService.PollPattern(patterns.ad.prompt.ok, { DoClick: true, InversePredicatePattern: patterns.ad.prompt.ok });
 			macroService.PollPattern(patterns.ad.prompt.ok, {
-				ClickPattern: [adExitPattern, adExitInstallPattern, adCancelPattern, soundLeftPattern, userClickPattern]
+				ClickPattern: [adExitInstallPattern, adExitPattern, adCancelPattern, soundLeftPattern, userClickPattern]
 			});
 			macroService.PollPattern(patterns.ad.prompt.ok, { DoClick: true, PredicatePattern: [patterns.titles.home, patterns.stamina.prompt.recoverStamina] });
 			if (macroService.IsRunning) {

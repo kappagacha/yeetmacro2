@@ -29,7 +29,7 @@ while (macroService.IsRunning) {
 				logger.info('watchAdQuartz: poll ad.prompt.ok');
 				macroService.PollPattern(patterns.ad.prompt.ok, {
 					DoClick: true,
-					ClickPattern: [patterns.ad.prompt.ok, adExitPattern, adExitInstallPattern, adCancelPattern, soundLeftPattern, userClickPattern],
+					ClickPattern: [adExitInstallPattern, adExitPattern, adCancelPattern, soundLeftPattern, userClickPattern],
 					PredicatePattern: patterns.ad.prompt.youGot
 				});
 				macroService.PollPattern(patterns.ad.prompt.youGot, { DoClick: true, PredicatePattern: patterns.titles.home });
