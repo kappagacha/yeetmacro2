@@ -57,6 +57,11 @@ if (settings.doDailies.doChampsArena.Value) {
     goToLobby();
 }
 
+if (settings.doDailies.skipDualGate.Value) {
+    skipDualGate();
+    goToLobby();
+}
+
 if (settings.doDailies.doOutings.Value) {
     doOutings();
     goToLobby();
