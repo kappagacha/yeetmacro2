@@ -26,7 +26,7 @@ while (macroService.IsRunning) {
 		case 'titles.challenge':
 			if (!daily.doSpecialRequests.ecologyStudy.done.IsChecked) {
 				doEcologyStudy();
-				macroService.PollPattern(patterns.general.back, { DoClick: true, PredicatePattern: patterns.titles.challenge });
+				macroService.PollPattern(patterns.general.back, { DoClick: true, ClickPattern: patterns.challenge.specialRequest.sweepAll.cancel, PredicatePattern: patterns.titles.challenge });
 			}
 			
 			if (!daily.doSpecialRequests.identification.done.IsChecked) {
@@ -44,26 +44,30 @@ while (macroService.IsRunning) {
 function doEcologyStudy() {
 	logger.info('doSpecialRequests: doEcologyStudy');
 	macroService.PollPattern(patterns.challenge.ecologyStudy, { DoClick: true, PredicatePattern: patterns.challenge.enter });
-	const ecologyStudyTypes = ['masterlessGuardian', 'tyrantToddler', 'unidentifiedChimera', 'sacreedGuardian', 'grandCalamari'];
-	for (const ecologyStudy of ecologyStudyTypes) {
-		logger.info(`doSpecialRequests: ${ecologyStudy}`);
-		if (!daily.doSpecialRequests.ecologyStudy[ecologyStudy].IsChecked) {
-			macroService.PollPattern(patterns.challenge.ecologyStudy[ecologyStudy].stars, { DoClick: true, PredicatePattern: patterns.challenge.ecologyStudy[ecologyStudy] });
-			macroService.PollPattern(patterns.challenge.enter, { DoClick: true, PredicatePattern: patterns.challenge.threeStars });
-			clickBottomThreeStars();
-			macroService.PollPattern(patterns.challenge.teamsSetup, { DoClick: true, PredicatePattern: patterns.battle.enter });
-			selectTeam(teamSlot);
+	macroService.PollPattern(patterns.challenge.specialRequest.sweepAll, { DoClick: true, PredicatePattern: patterns.challenge.specialRequest.sweepAll.sweep });
+	macroService.PollPattern(patterns.challenge.specialRequest.sweepAll.sweep, { DoClick: true, PredicatePattern: patterns.challenge.specialRequest.sweepAll.ok });
+	macroService.PollPattern(patterns.challenge.specialRequest.sweepAll.ok, { DoClick: true, PredicatePattern: patterns.challenge.specialRequest.sweepAll.sweep });
 
-			macroService.PollPattern(patterns.battle.setup.auto, { DoClick: true, PredicatePattern: patterns.battle.setup.repeatBattle });
-			macroService.PollPattern(patterns.battle.setup.repeatBattle.minSlider, { DoClick: true, PredicatePattern: patterns.battle.setup.repeatBattle.value1 });
-			macroService.PollPattern(patterns.battle.setup.repeatBattle.sweep, { DoClick: true, PredicatePattern: patterns.battle.setup.repeatBattle.sweep.ok });
-			macroService.PollPattern(patterns.battle.setup.repeatBattle.sweep.ok, { DoClick: true, ClickPattern: patterns.general.back, PredicatePattern: patterns.challenge.ecologyStudy[ecologyStudy].stars });
+	//const ecologyStudyTypes = ['masterlessGuardian', 'tyrantToddler', 'unidentifiedChimera', 'sacreedGuardian', 'grandCalamari'];
+	//for (const ecologyStudy of ecologyStudyTypes) {
+	//	logger.info(`doSpecialRequests: ${ecologyStudy}`);
+	//	if (!daily.doSpecialRequests.ecologyStudy[ecologyStudy].IsChecked) {
+	//		macroService.PollPattern(patterns.challenge.ecologyStudy[ecologyStudy].stars, { DoClick: true, PredicatePattern: patterns.challenge.ecologyStudy[ecologyStudy] });
+	//		macroService.PollPattern(patterns.challenge.enter, { DoClick: true, PredicatePattern: patterns.challenge.threeStars });
+	//		clickBottomThreeStars();
+	//		macroService.PollPattern(patterns.challenge.teamsSetup, { DoClick: true, PredicatePattern: patterns.battle.enter });
+	//		selectTeam(teamSlot);
 
-			if (macroService.IsRunning) {
-				daily.doSpecialRequests.ecologyStudy[ecologyStudy].IsChecked = true;
-			}
-		}
-	}
+	//		macroService.PollPattern(patterns.battle.setup.auto, { DoClick: true, PredicatePattern: patterns.battle.setup.repeatBattle });
+	//		macroService.PollPattern(patterns.battle.setup.repeatBattle.minSlider, { DoClick: true, PredicatePattern: patterns.battle.setup.repeatBattle.value1 });
+	//		macroService.PollPattern(patterns.battle.setup.repeatBattle.sweep, { DoClick: true, PredicatePattern: patterns.battle.setup.repeatBattle.sweep.ok });
+	//		macroService.PollPattern(patterns.battle.setup.repeatBattle.sweep.ok, { DoClick: true, ClickPattern: patterns.general.back, PredicatePattern: patterns.challenge.ecologyStudy[ecologyStudy].stars });
+
+	//		if (macroService.IsRunning) {
+	//			daily.doSpecialRequests.ecologyStudy[ecologyStudy].IsChecked = true;
+	//		}
+	//	}
+	//}
 	if (macroService.IsRunning) {
 		daily.doSpecialRequests.ecologyStudy.done.IsChecked = true;
 	}
@@ -72,26 +76,30 @@ function doEcologyStudy() {
 function doIdentification() {
 	logger.info('doSpecialRequests: doIdentification');
 	macroService.PollPattern(patterns.challenge.identification, { DoClick: true, PredicatePattern: patterns.challenge.enter });
-	const identificationTypes = ['dekRilAndMekRil', 'glicys', 'blazingKnightMeteos', 'arsNova', 'amadeus'];
-	for (const identification of identificationTypes) {
-		logger.info(`doSpecialRequests: ${identification}`);
-		if (!daily.doSpecialRequests.identification[identification].IsChecked) {
-			macroService.PollPattern(patterns.challenge.identification[identification].stars, { DoClick: true, PredicatePattern: patterns.challenge.identification[identification] });
-			macroService.PollPattern(patterns.challenge.enter, { DoClick: true, PredicatePattern: patterns.challenge.threeStars });
-			clickBottomThreeStars();
-			macroService.PollPattern(patterns.challenge.teamsSetup, { DoClick: true, PredicatePattern: patterns.battle.enter });
-			selectTeam(teamSlot);
+	macroService.PollPattern(patterns.challenge.specialRequest.sweepAll, { DoClick: true, PredicatePattern: patterns.challenge.specialRequest.sweepAll.sweep });
+	macroService.PollPattern(patterns.challenge.specialRequest.sweepAll.sweep, { DoClick: true, PredicatePattern: patterns.challenge.specialRequest.sweepAll.ok });
+	macroService.PollPattern(patterns.challenge.specialRequest.sweepAll.ok, { DoClick: true, PredicatePattern: patterns.challenge.specialRequest.sweepAll.sweep });
 
-			macroService.PollPattern(patterns.battle.setup.auto, { DoClick: true, PredicatePattern: patterns.battle.setup.repeatBattle });
-			macroService.PollPattern(patterns.battle.setup.repeatBattle.minSlider, { DoClick: true, PredicatePattern: patterns.battle.setup.repeatBattle.value1 });
-			macroService.PollPattern(patterns.battle.setup.repeatBattle.sweep, { DoClick: true, PredicatePattern: patterns.battle.setup.repeatBattle.sweep.ok });
-			macroService.PollPattern(patterns.battle.setup.repeatBattle.sweep.ok, { DoClick: true, ClickPattern: patterns.general.back, PredicatePattern: patterns.challenge.identification[identification].stars });
+	//const identificationTypes = ['dekRilAndMekRil', 'glicys', 'blazingKnightMeteos', 'arsNova', 'amadeus'];
+	//for (const identification of identificationTypes) {
+	//	logger.info(`doSpecialRequests: ${identification}`);
+	//	if (!daily.doSpecialRequests.identification[identification].IsChecked) {
+	//		macroService.PollPattern(patterns.challenge.identification[identification].stars, { DoClick: true, PredicatePattern: patterns.challenge.identification[identification] });
+	//		macroService.PollPattern(patterns.challenge.enter, { DoClick: true, PredicatePattern: patterns.challenge.threeStars });
+	//		clickBottomThreeStars();
+	//		macroService.PollPattern(patterns.challenge.teamsSetup, { DoClick: true, PredicatePattern: patterns.battle.enter });
+	//		selectTeam(teamSlot);
 
-			if (macroService.IsRunning) {
-				daily.doSpecialRequests.identification[identification].IsChecked = true;
-			}
-		}
-	}
+	//		macroService.PollPattern(patterns.battle.setup.auto, { DoClick: true, PredicatePattern: patterns.battle.setup.repeatBattle });
+	//		macroService.PollPattern(patterns.battle.setup.repeatBattle.minSlider, { DoClick: true, PredicatePattern: patterns.battle.setup.repeatBattle.value1 });
+	//		macroService.PollPattern(patterns.battle.setup.repeatBattle.sweep, { DoClick: true, PredicatePattern: patterns.battle.setup.repeatBattle.sweep.ok });
+	//		macroService.PollPattern(patterns.battle.setup.repeatBattle.sweep.ok, { DoClick: true, ClickPattern: patterns.general.back, PredicatePattern: patterns.challenge.identification[identification].stars });
+
+	//		if (macroService.IsRunning) {
+	//			daily.doSpecialRequests.identification[identification].IsChecked = true;
+	//		}
+	//	}
+	//}
 	if (macroService.IsRunning) {
 		daily.doSpecialRequests.identification.done.IsChecked = true;
 	}
