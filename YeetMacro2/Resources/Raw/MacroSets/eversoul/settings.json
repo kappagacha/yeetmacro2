@@ -702,8 +702,8 @@
           "fairy",
           "undead"
         ],
-        "value": "undead",
-        "defaultValue": "undead",
+        "value": "fairy",
+        "defaultValue": "fairy",
         "isParentNode": false,
         "name": "targetGate",
         "position": 0,
