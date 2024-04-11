@@ -28,14 +28,14 @@ while (macroService.IsRunning) {
 				macroService.PollPattern(patterns.event.dailyBossMission.move, { DoClick: true, PredicatePattern: patterns.general.back });
 				if (isInEcologyStudy()) {
 					goToLobby();
-					refillStamina(50);
+					refillStamina(70);
 					goToLobby();
 					doEcologyStudy();
 					goToLobby();
 					continue;
 				} else if (isInIdentification()) {
 					goToLobby();
-					refillStamina(50);
+					refillStamina(70);
 					goToLobby();
 					doIdentification();
 					goToLobby();
