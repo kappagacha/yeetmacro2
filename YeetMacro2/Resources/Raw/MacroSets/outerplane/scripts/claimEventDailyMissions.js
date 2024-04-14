@@ -89,6 +89,7 @@ function doDrawACapsule() {
 function doSpinTheWheel() {
 	macroService.PollPattern(patterns.event.spinTheWheel, { DoClick: true, PredicatePattern: patterns.event.coinInfo });
 	macroService.PollPattern(patterns.event.coinsOwned);
+	sleep(1_000);
 	let numCoins = macroService.GetText(patterns.event.numCoins)?.replace(/[^0-9]/g, '');
 	while (!numCoins) {
 		sleep(200);

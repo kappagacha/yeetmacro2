@@ -79,6 +79,7 @@ while (macroService.IsRunning) {
 					goToLobby();
 					claimAntiparticle();
 					goToLobby();
+					continue;
 				}
 			}
 
