@@ -53,6 +53,7 @@ function getCurrentTeamSlot() {
 
 function selectTeamAndBattle(teamSlot, sweepBattle) {
 	selectTeam(teamSlot);
+	const numBattles = macroService.GetText(patterns.battle.setup.numBattles);
 	macroService.PollPattern(patterns.battle.setup.auto, { DoClick: true, PredicatePattern: patterns.battle.setup.repeatBattle });
 	if (sweepBattle) {
 		macroService.PollPattern(patterns.battle.setup.sweep, { DoClick: true, PredicatePattern: patterns.battle.setup.sweep.ok });
@@ -60,6 +61,7 @@ function selectTeamAndBattle(teamSlot, sweepBattle) {
 	} else {
 		macroService.PollPattern(patterns.battle.setup.enter, { DoClick: true, PredicatePattern: patterns.battle.setup.enter.ok });
 	}
+	return numBattles;
 }
 
 function refillStamina(targetStamina) {

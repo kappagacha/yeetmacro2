@@ -386,6 +386,9 @@
     <MauiAsset Update="Resources\Raw\MacroSets\outerplane\scripts\doDoppelganger.js">
       <LogicalName>%(RecursiveDir)%(Filename)%(Extension)</LogicalName>
     </MauiAsset>
+    <MauiAsset Update="Resources\Raw\MacroSets\outerplane\scripts\sellInventory.js">
+      <LogicalName>%(RecursiveDir)%(Filename)%(Extension)</LogicalName>
+    </MauiAsset>
     <MauiAsset Update="Resources\Raw\MacroSets\outerplane\scripts\doSurveyHub.js">
       <LogicalName>%(RecursiveDir)%(Filename)%(Extension)</LogicalName>
     </MauiAsset>

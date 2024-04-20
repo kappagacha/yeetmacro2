@@ -5,6 +5,10 @@ const daily = dailyManager.GetDaily();
 const teamSlot = settings.doSpecialRequests.teamSlot.Value;
 const doRefillStamina = settings.doSpecialRequests.doRefillStamina.Value;
 
+if (daily.doSpecialRequests.done.IsChecked) {
+	return "Script already completed. Uncheck done to override daily flag.";
+}
+
 if (doRefillStamina) {
 	refillStamina(140);
 	goToLobby();

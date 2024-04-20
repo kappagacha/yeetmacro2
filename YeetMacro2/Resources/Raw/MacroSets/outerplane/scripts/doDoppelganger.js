@@ -14,8 +14,8 @@ const doRefillStamina = settings.doDoppelganger.doRefillStamina.Value;
 
 if (daily.doDoppelganger.done.IsChecked) {
 	return "Script already completed. Uncheck done to override daily flag.";
-
 }
+
 if (doRefillStamina) {
 	refillStamina(60);
 	goToLobby();
