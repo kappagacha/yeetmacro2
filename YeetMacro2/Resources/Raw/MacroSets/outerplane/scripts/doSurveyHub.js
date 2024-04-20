@@ -49,10 +49,10 @@ function doSurveyHub(targetNumBattles = 0) {
 				}
 				const numBattles = selectTeamAndBattle(teamSlot, true);
 				if (macroService.IsRunning) {
-					daily.doSurveyHub.count.Value += numBattles;
+					daily.doSurveyHub.count.Count += numBattles;
 				}
 
-				if (targetNumBattles && targetNumBattles >= daily.doSurveyHub.count.Value) {
+				if (targetNumBattles && targetNumBattles >= daily.doSurveyHub.count.Count) {
 					return;
 				}
 
