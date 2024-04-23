@@ -1,6 +1,6 @@
 namespace YeetMacro2.Views;
 
-public partial class DailyNodeView : ContentView
+public partial class WeeklyNodeView : ContentView
 {
     public static readonly BindableProperty IsSubViewProperty =
         BindableProperty.Create("IsSubView", typeof(bool), typeof(SettingNodeView), false);
@@ -10,7 +10,7 @@ public partial class DailyNodeView : ContentView
         get { return (bool)GetValue(IsSubViewProperty); }
         set { SetValue(IsSubViewProperty, value); }
     }
-    public DailyNodeView()
+    public WeeklyNodeView()
 	{
 		InitializeComponent();
 	}

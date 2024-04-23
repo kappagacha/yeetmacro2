@@ -110,6 +110,9 @@
 	  <Compile Update="Pages\LogGroupItemPage.xaml.cs">
 	    <DependentUpon>LogGroupItemPage.xaml</DependentUpon>
 	  </Compile>
+	  <Compile Update="Views\WeeklyNodeView.xaml.cs">
+	    <DependentUpon>WeeklyNodeView.xaml</DependentUpon>
+	  </Compile>
 	  <Compile Update="Views\DailyNodeView.xaml.cs">
 	    <DependentUpon>DailyNodeView.xaml</DependentUpon>
 	  </Compile>
@@ -171,6 +174,9 @@
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
 	  <MauiXaml Update="Platforms\Android\Views\MessageView.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	  <MauiXaml Update="Views\WeeklyNodeView.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
 	  <MauiXaml Update="Views\DoubleStepper.xaml">

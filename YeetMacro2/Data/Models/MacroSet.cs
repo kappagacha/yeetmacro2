@@ -15,6 +15,8 @@ public class MacroSet
     public virtual int RootSettingNodeId { get; set; }
     [JsonIgnore]
     public virtual int RootDailyNodeId { get; set; }
+    [JsonIgnore]
+    public virtual int RootWeeklyNodeId { get; set; }
     public virtual Size Resolution { get; set; }
     public virtual Point DefaultLocation { get; set; }
     public virtual bool SupportsGreaterWidth { get; set; }
@@ -28,4 +30,6 @@ public class MacroSet
     public virtual string Description { get; set; }
     public virtual string DailyTemplate { get; set; }
     public virtual int DailyResetUtcHour { get; set; }
+    public virtual string WeeklyTemplate { get; set; }
+    public virtual DayOfWeek WeeklyStartDay { get; set; } = DayOfWeek.Monday;
 }

@@ -27,7 +27,7 @@ public partial class MacroManagerViewModel : ObservableObject
     INodeService<PatternNode, PatternNode> _patternNodeService;
     INodeService<ScriptNode, ScriptNode> _scriptNodeService;
     INodeService<ParentSetting, SettingNode> _settingNodeService;
-    INodeService<DailyNode, DailyNode> _dailyNodeService;
+    INodeService<TodoNode, TodoNode> _todoNodeService;
     NodeManagerViewModelFactory _nodeViewModelManagerFactory;
     IMapper _mapper;
     IHttpService _httpService;
@@ -39,6 +39,7 @@ public partial class MacroManagerViewModel : ObservableObject
     ConcurrentDictionary<int, ScriptNodeManagerViewModel> _nodeRootIdToScriptList;
     ConcurrentDictionary<int, SettingNodeManagerViewModel> _nodeRootIdToSettingTree;
     ConcurrentDictionary<int, DailyNodeManagerViewModel> _nodeRootIdToDailyList;
+    ConcurrentDictionary<int, WeeklyNodeManagerViewModel> _nodeRootIdToWeeklyList;
     IScriptService _scriptService;
     [ObservableProperty]
     bool _isExportEnabled, _isOpenAppDirectoryEnabled, _inDebugMode, 
@@ -114,6 +115,21 @@ public partial class MacroManagerViewModel : ObservableObject
         }
     }
 
+    public WeeklyNodeManagerViewModel Weeklies
+    {
+        get
+        {
+            if (SelectedMacroSet == null) return null;
+            if (!_nodeRootIdToWeeklyList.ContainsKey(SelectedMacroSet.RootWeeklyNodeId))
+            {
+                var list = _nodeViewModelManagerFactory.Create<WeeklyNodeManagerViewModel>(SelectedMacroSet.RootWeeklyNodeId);
+                _nodeRootIdToWeeklyList.TryAdd(SelectedMacroSet.RootWeeklyNodeId, list);
+                list.MacroSet = (MacroSetViewModel)SelectedMacroSet;
+            }
+            return _nodeRootIdToWeeklyList[SelectedMacroSet.RootWeeklyNodeId];
+        }
+    }
+
     public string AppVersion { get { return AppInfo.Current.VersionString; } }
     public MacroManagerViewModel(ILogger<MacroManagerViewModel> logger,
         IRepository<MacroSet> macroSetRepository,
@@ -122,7 +138,7 @@ public partial class MacroManagerViewModel : ObservableObject
         INodeService<PatternNode, PatternNode> patternNodeService,
         INodeService<ScriptNode, ScriptNode> scriptNodeService,
         INodeService<ParentSetting, SettingNode> settingNodeService,
-        INodeService<DailyNode, DailyNode> dailyNodeService,
+        INodeService<TodoNode, TodoNode> todoNodeService,
         IScriptService scriptService,
         IMapper mapper,
         IHttpService httpService)
@@ -134,7 +150,7 @@ public partial class MacroManagerViewModel : ObservableObject
         _patternNodeService = patternNodeService;
         _scriptNodeService = scriptNodeService;
         _settingNodeService = settingNodeService;
-        _dailyNodeService = dailyNodeService;
+        _todoNodeService = todoNodeService;
         _mapper = mapper;
         _httpService = httpService;
         // manually instantiating in ServiceRegistrationHelper.AppInitializer to pre initialize MacroSets
@@ -158,6 +174,7 @@ public partial class MacroManagerViewModel : ObservableObject
         _nodeRootIdToScriptList = new ConcurrentDictionary<int, ScriptNodeManagerViewModel>();
         _nodeRootIdToSettingTree = new ConcurrentDictionary<int, SettingNodeManagerViewModel>();
         _nodeRootIdToDailyList = new ConcurrentDictionary<int, DailyNodeManagerViewModel>();
+        _nodeRootIdToWeeklyList = new ConcurrentDictionary<int, WeeklyNodeManagerViewModel>();
         _scriptService = scriptService;
 
 #if DEBUG
@@ -182,8 +199,8 @@ public partial class MacroManagerViewModel : ObservableObject
             await Dailies?.OnScriptNodeSelected(scriptNode.Value);
         });
 
-        WeakReferenceMessenger.Default.Register<DailyNodeViewModel>(this, (r, dailyNode) => {
-            Dailies?.SaveDaily(dailyNode);
+        WeakReferenceMessenger.Default.Register<TodoViewModel>(this, (r, todoNode) => {
+            _todoNodeService.Update(todoNode);
         });
     }
 
@@ -228,9 +245,13 @@ public partial class MacroManagerViewModel : ObservableObject
         _settingNodeService.ReAttachNodes(rootSetting);
         macroSet.RootSettingNodeId = rootSetting.NodeId;
 
-        var rootDaily = _mapper.Map<DailyNodeViewModel>(_dailyNodeService.GetRoot(0));
-        _dailyNodeService.ReAttachNodes(rootDaily);
+        var rootDaily = _mapper.Map<TodoViewModel>(_todoNodeService.GetRoot(0));
+        _todoNodeService.ReAttachNodes(rootDaily);
         macroSet.RootDailyNodeId = rootDaily.NodeId;
+
+        var rootWeekly = _mapper.Map<TodoViewModel>(_todoNodeService.GetRoot(0));
+        _todoNodeService.ReAttachNodes(rootWeekly);
+        macroSet.RootWeeklyNodeId = rootWeekly.NodeId;
 
         MacroSets.Add(macroSet);
         _macroSetRepository.Insert(macroSet);
@@ -251,11 +272,13 @@ public partial class MacroManagerViewModel : ObservableObject
         await Scripts.WaitForInitialization();
         await Settings.WaitForInitialization();
         await Dailies.WaitForInitialization();
+        await Weeklies.WaitForInitialization();
         SelectedMacroSet = null;
         _patternNodeService.Delete(_nodeRootIdToPatternTree[macroSet.RootPatternNodeId].Root);
         _scriptNodeService.Delete(_nodeRootIdToScriptList[macroSet.RootScriptNodeId].Root);
         _settingNodeService.Delete(_nodeRootIdToSettingTree[macroSet.RootSettingNodeId].Root);
-        _dailyNodeService.Delete(_nodeRootIdToDailyList[macroSet.RootDailyNodeId].Root);
+        _todoNodeService.Delete(_nodeRootIdToDailyList[macroSet.RootDailyNodeId].Root);
+        _todoNodeService.Delete(_nodeRootIdToWeeklyList[macroSet.RootWeeklyNodeId].Root);
         _macroSetRepository.Delete(macroSet);
         _macroSetRepository.Save();
         MacroSets.Remove(macroSet);
@@ -290,6 +313,7 @@ public partial class MacroManagerViewModel : ObservableObject
         await Patterns.WaitForInitialization();
         await Settings.WaitForInitialization();
         await Dailies.WaitForInitialization();
+        await Weeklies.WaitForInitialization();
 
         await Task.Run(() =>
         {
@@ -302,7 +326,7 @@ public partial class MacroManagerViewModel : ObservableObject
             Console.WriteLine($"[*****YeetMacro*****] MacroManagerViewModel ExecuteScript");
 
             WeakReferenceMessenger.Default.Send(new ScriptEventMessage(new ScriptEvent() {  Type = ScriptEventType.Started }));
-            var result = _scriptService.RunScript(scriptNode, Scripts, SelectedMacroSet, Patterns, Settings, Dailies);
+            var result = _scriptService.RunScript(scriptNode, Scripts, SelectedMacroSet, Patterns, Settings, Dailies, Weeklies);
             WeakReferenceMessenger.Default.Send(new ScriptEventMessage(new ScriptEvent() { Type = ScriptEventType.Finished, Result = result }));
             if (PersistLogs) _logger.LogInformation("{persistLogs}", false);
             IsScriptRunning = false;
@@ -522,6 +546,7 @@ public partial class MacroManagerViewModel : ObservableObject
                     src.RootPatternNodeId = dst.RootPatternNodeId;
                     src.RootSettingNodeId = dst.RootSettingNodeId;
                     src.RootDailyNodeId = dst.RootDailyNodeId;
+                    src.RootWeeklyNodeId = dst.RootWeeklyNodeId;
                     src.Source = dst.Source;
                 });
             });
@@ -566,6 +591,7 @@ public partial class MacroManagerViewModel : ObservableObject
         OnPropertyChanged(nameof(Scripts));
         OnPropertyChanged(nameof(Settings));
         OnPropertyChanged(nameof(Dailies));
+        OnPropertyChanged(nameof(Weeklies));
     }
 
     private void MergeSettings(SettingNode source, SettingNode dest)

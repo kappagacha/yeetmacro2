@@ -24,6 +24,7 @@ public enum AndroidWindowView
     ScriptNodeView,
     SettingNodeView,
     DailyNodeView,
+    WeeklyNodeView,
     DrawView,
     UserDrawView,
     DebugDrawView,
@@ -103,6 +104,7 @@ public class AndroidScreenService : IScreenService
                 Close(AndroidWindowView.PatternNodeView);
                 Close(AndroidWindowView.SettingNodeView);
                 Close(AndroidWindowView.DailyNodeView);
+                Close(AndroidWindowView.WeeklyNodeView);
                 Close(AndroidWindowView.TestView);
                 Close(AndroidWindowView.DebugDrawView);
                 CloseOverlayWindow();
@@ -554,6 +556,11 @@ public class AndroidScreenService : IScreenService
                     var dailyNodeView = new ResizeView(_context, _windowManager, this, new DailyNodeView());
                     _views.TryAdd(windowView, dailyNodeView);
                     dailyNodeView.OnClose = () => ServiceHelper.GetService<AndriodHomeViewModel>().ShowDailyNodeView = false;
+                    break;
+                case AndroidWindowView.WeeklyNodeView:
+                    var weeklyNodeView = new ResizeView(_context, _windowManager, this, new WeeklyNodeView());
+                    _views.TryAdd(windowView, weeklyNodeView);
+                    weeklyNodeView.OnClose = () => ServiceHelper.GetService<AndriodHomeViewModel>().ShowWeeklyNodeView = false;
                     break;
                 case AndroidWindowView.PromptStringInputView:
                     var promptStringInputView = new FormsView(_context, _windowManager, new PromptStringInput());

@@ -25,7 +25,7 @@ public class ModelProfile : Profile
             CreateMap(mappedType.Key, mappedType.Value).ReverseMap();
         }
 
-        CreateMap<DailyNode, DailyNodeViewModel>();
+        CreateMap<TodoNode, TodoViewModel>();
         //https://stackoverflow.com/questions/75877586/automapper-exception-when-mapping-jsonobject-in-net6-the-node-already-has-a
         CreateMap<JsonObject, JsonObject>()
           .ConvertUsing(src => src == null ? null : JsonNode.Parse(src.ToJsonString(JsonSerializerOptions.Default), null, default)

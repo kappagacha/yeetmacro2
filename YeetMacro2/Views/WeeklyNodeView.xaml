@@ -11,7 +11,7 @@
              BackgroundColor="{AppThemeBinding Light={StaticResource Background}, Dark={StaticResource BackgroundDark}}"
              xmlns:material="http://schemas.enisn-projects.io/dotnet/maui/uraniumui/material"
              x:DataType="vm:MacroManagerViewModel"
-             x:Class="YeetMacro2.Views.DailyNodeView"
+             x:Class="YeetMacro2.Views.WeeklyNodeView"
              x:Name="thisView">
     <ContentView.Resources>
         <DataTemplate x:Key="TodoJsonParentTemplate">
@@ -32,32 +32,32 @@
     </ContentView.Resources>
     <Border Stroke="{StaticResource Primary}" BackgroundColor="Transparent" Padding="3">
         <Grid>
-            <Grid IsVisible="{Binding IsSubView, Source={Reference thisView}}">
+            <!--<Grid IsVisible="{Binding IsSubView, Source={Reference thisView}}">
                 <ScrollView>
-                    <material:TreeView ItemsSource="{Binding Dailies.CurrentSubViewModel.Children}"
+                    <material:TreeView ItemsSource="{Binding Weeklies.CurrentSubViewModel.Children}"
                                    Spacing="0" HorizontalOptions="Fill"  VerticalOptions="Fill"
                                    ItemTemplate="{conv:DynamicTemplateSelector Root={Binding .,Source={Reference thisView}}}"/>
                 </ScrollView>
-            </Grid>
+            </Grid>-->
             <Grid ColumnDefinitions="*,3*" IsVisible="{Binding IsSubView, Converter={conv:InverseBoolConverter}, Source={Reference thisView}}">
-                <v:NodeView Grid.Column="0" NodeManager="{Binding Dailies}" />
+                <v:NodeView Grid.Column="0" NodeManager="{Binding Weeklies}" />
                 <mct:DockLayout Grid.Column="1" IsVisible="{Binding IsToggled, Source={Reference templateToggle}, Converter={conv:InverseBoolConverter}}">
-                    <DatePicker IsVisible="{Binding Dailies.SelectedNode, Converter={conv:NullToBoolConverter IsInverse=True}}" 
-                        Date="{Binding Dailies.SelectedNode.Date, Converter={conv:DateOnlyConverter}}" />
+                    <DatePicker IsVisible="{Binding Weeklies.SelectedNode, Converter={conv:NullToBoolConverter IsInverse=True}}" 
+                        Date="{Binding Weeklies.SelectedNode.Date, Converter={conv:DateOnlyConverter}}" />
                     <Grid>
                         <ScrollView>
-                            <material:TreeView IsVisible="{Binding Dailies.ShowJsonEditor, Converter={conv:InverseBoolConverter}}"
-                                               x:DataType="{x:Null}" ItemsSource="{Binding Dailies.SelectedNode.JsonViewModel.Children}"
+                            <material:TreeView IsVisible="{Binding Weeklies.ShowJsonEditor, Converter={conv:InverseBoolConverter}}"
+                                               x:DataType="{x:Null}" ItemsSource="{Binding Weeklies.SelectedNode.JsonViewModel.Children}"
                                                Spacing="0" HorizontalOptions="Fill"  VerticalOptions="Fill" ItemTemplate="{conv:DynamicTemplateSelector}" />
                         </ScrollView>
-                        <Grid IsVisible="{Binding Dailies.ShowJsonEditor}">
-                            <Editor x:Name="dataEditor" Text="{Binding Dailies.SelectedNode.DataText, Mode=OneWay}" AutoSize="TextChanges" />
+                        <Grid IsVisible="{Binding Weeklies.ShowJsonEditor}">
+                            <Editor x:Name="dataEditor" Text="{Binding Weeklies.SelectedNode.DataText, Mode=OneWay}" AutoSize="TextChanges" />
                             <v:ImageView HorizontalOptions="End" VerticalOptions="End" Margin="0,0,30,0"
                                          FontFamily="MaterialOutlined" Glyph="{x:Static mi:MaterialOutlined.Save}" Color="{StaticResource Primary}" 
-                                 Command="{Binding Dailies.SaveDailyCommand}">
+                                 Command="{Binding Weeklies.SaveWeeklyCommand}">
                                 <v:ImageView.CommandParameter>
                                     <MultiBinding Converter="{conv:PassThroughConverter}">
-                                        <Binding Path="Dailies.SelectedNode" />
+                                        <Binding Path="Weeklies.SelectedNode" />
                                         <Binding Path="Text" Source="{Reference dataEditor}" />
                                     </MultiBinding>
                                 </v:ImageView.CommandParameter>
@@ -66,7 +66,7 @@
                     </Grid>
                 </mct:DockLayout>
                 <Grid Grid.Column="1" IsVisible="{Binding IsToggled, Source={Reference templateToggle}}">
-                    <Editor x:Name="templateEditor" Text="{Binding SelectedMacroSet.DailyTemplate}" />
+                    <Editor x:Name="templateEditor" Text="{Binding SelectedMacroSet.WeeklyTemplate}" />
                     <HorizontalStackLayout HorizontalOptions="End" VerticalOptions="End" IsVisible="{Binding IsToggled, Source={Reference templateToggle}}">
                         <Grid>
                             <v:ImageView FontFamily="MaterialOutlined" Glyph="{x:Static mi:MaterialOutlined.Select_all}" />
@@ -77,8 +77,8 @@
                     </HorizontalStackLayout>
                 </Grid>
                 <HorizontalStackLayout Grid.ColumnSpan="2" HorizontalOptions="End" VerticalOptions="End" IsVisible="{Binding IsToggled, Source={Reference templateToggle}, Converter={conv:InverseBoolConverter}}">
-                    <v:ToggleImageView IsVisible="{Binding Dailies.SelectedNode, Converter={conv:NullToBoolConverter IsInverse=True}}"
-                                   IsToggled="{Binding Dailies.ShowJsonEditor}" ToggledColor="Green"
+                    <v:ToggleImageView IsVisible="{Binding Weeklies.SelectedNode, Converter={conv:NullToBoolConverter IsInverse=True}}"
+                                   IsToggled="{Binding Weeklies.ShowJsonEditor}" ToggledColor="Green"
                                    FontFamily="MaterialOutlined" Glyph="{x:Static mi:MaterialOutlined.Edit}" />
                 </HorizontalStackLayout>
                 <HorizontalStackLayout Grid.ColumnSpan="2" HorizontalOptions="Start" VerticalOptions="End">

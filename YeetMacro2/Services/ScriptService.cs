@@ -10,7 +10,6 @@ using OneOf;
 using Jint.Native;
 using Jint.Runtime;
 using System.Text.Json.Nodes;
-using System.Runtime.Serialization.Formatters;
 using System.Text.Json.Serialization;
 
 namespace YeetMacro2.Services;
@@ -19,7 +18,8 @@ public interface IScriptService
 {
     string RunScript(ScriptNode targetScript, ScriptNodeManagerViewModel scriptNodeManager, 
         MacroSet macroSet, PatternNodeManagerViewModel patternNodeManager, 
-        SettingNodeManagerViewModel settingNodeManager, DailyNodeManagerViewModel dailyNodeManager);
+        SettingNodeManagerViewModel settingNodeManager, DailyNodeManagerViewModel dailyNodeManager,
+        WeeklyNodeManagerViewModel weeklyNodeManager);
     void Stop();
 }
 
@@ -61,7 +61,8 @@ public class ScriptService: IScriptService
 
     public string RunScript(ScriptNode targetScript, ScriptNodeManagerViewModel scriptNodeManger, 
         MacroSet macroSet, PatternNodeManagerViewModel patternNodeManager, 
-        SettingNodeManagerViewModel settingNodeManager, DailyNodeManagerViewModel dailyNodeManager)
+        SettingNodeManagerViewModel settingNodeManager, DailyNodeManagerViewModel dailyNodeManager,
+        WeeklyNodeManagerViewModel weeklyNodeManager)
     {
         string result = String.Empty;
         if (_macroService.IsRunning) return result;
@@ -85,6 +86,7 @@ public class ScriptService: IScriptService
             _engine.SetValue("patterns", patternNodeManager.Root);
             _engine.SetValue("settings", settingNodeManager.Root);
             _engine.SetValue("dailyManager", dailyNodeManager);
+            _engine.SetValue("weeklyManager", weeklyNodeManager);
             var jsResult = _engine.Evaluate($"{{\n{targetScript.Text}\n}}");
 
             _toastService.Show(_macroService.IsRunning ? "Script finished..." : "Script stopped...");
@@ -244,7 +246,7 @@ public class DotNetToJsConverter : Jint.Runtime.Interop.IObjectConverter
     public bool TryConvert(Engine engine, object value, out JsValue result)
     {
         // If you want object properties/methods to work in JavaScript for your type, add them here
-        if (value is SettingNode || value is DailyJsonElementViewModel || value is DateTimeOffset)
+        if (value is SettingNode || value is TodoJsonElementViewModel || value is DateTimeOffset)
         {
             result = new ObjectWrapper(engine, value);
             return true;

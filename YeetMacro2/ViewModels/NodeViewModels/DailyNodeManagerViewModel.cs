@@ -8,26 +8,26 @@ using YeetMacro2.Data.Services;
 using YeetMacro2.Services;
 
 namespace YeetMacro2.ViewModels.NodeViewModels;
-public partial class DailyNodeManagerViewModel : NodeManagerViewModel<DailyNodeViewModel, DailyNode, DailyNode>
+public partial class DailyNodeManagerViewModel : NodeManagerViewModel<TodoViewModel, TodoNode, TodoNode>
 {
-    DailyJsonParentViewModel _emptySubView = new DailyJsonParentViewModel();
+    TodoJsonParentViewModel _emptySubView = new TodoJsonParentViewModel();
     [ObservableProperty]
     bool _showJsonEditor;
     [ObservableProperty]
-    DailyJsonParentViewModel _currentSubViewModel;
+    TodoJsonParentViewModel _currentSubViewModel;
     public MacroSetViewModel MacroSet { get; set; }
     string _targetSubViewName;
 
-    IRepository<DailyNode> _dailyRespository;
+    IRepository<TodoNode> _todoRepository;
     public DailyNodeManagerViewModel(
         int rootNodeId,
-        IRepository<DailyNode> dailyRespository,
-        INodeService<DailyNode, DailyNode> nodeService,
+        IRepository<TodoNode> todoRepository,
+        INodeService<TodoNode, TodoNode> nodeService,
         IInputService inputService,
         IToastService toastService)
         : base(rootNodeId, nodeService, inputService, toastService)
     {
-        _dailyRespository = dailyRespository;
+        _todoRepository = todoRepository;
         IsList = true;
         CurrentSubViewModel = _emptySubView;
     }
@@ -65,7 +65,7 @@ public partial class DailyNodeManagerViewModel : NodeManagerViewModel<DailyNodeV
         var existingDaily = Root.Nodes.FirstOrDefault(dn => dn.Date == targetDate);
         if (existingDaily is null)
         {
-            existingDaily = new DailyNodeViewModel()
+            existingDaily = new TodoViewModel()
             {
                 Date = targetDate,
                 Data = GetJsonFromTemplate()
@@ -73,14 +73,14 @@ public partial class DailyNodeManagerViewModel : NodeManagerViewModel<DailyNodeV
             this.AddNode(existingDaily);
         }
         SelectedNode = existingDaily;
-        var targetJsonViewModel = ((DailyNodeViewModel)existingDaily).JsonViewModel;
-        CurrentSubViewModel = ((DailyJsonParentViewModel)targetJsonViewModel.Children.FirstOrDefault(c => c.Key == _targetSubViewName)) ?? _emptySubView;
+        var targetJsonViewModel = ((TodoViewModel)existingDaily).JsonViewModel;
+        CurrentSubViewModel = ((TodoJsonParentViewModel)targetJsonViewModel.Children.FirstOrDefault(c => c.Key == _targetSubViewName)) ?? _emptySubView;
     }
 
     [RelayCommand]
     public void SaveDaily(object[] values)
     {
-        if (values[0] is DailyNodeViewModel daily && values[1] is string stringValue)
+        if (values[0] is TodoViewModel daily && values[1] is string stringValue)
         {
             try
             {
@@ -95,15 +95,15 @@ public partial class DailyNodeManagerViewModel : NodeManagerViewModel<DailyNodeV
         }
     }
 
-    public void SaveDaily(DailyNodeViewModel daily)
+    public void SaveDaily(TodoViewModel daily)
     {
-        _dailyRespository.Update(daily);
-        _dailyRespository.Save();
+        _todoRepository.Update(daily);
+        _todoRepository.Save();
     }
 
     protected override Task AddNode()
     {
-        var newNode = new DailyNodeViewModel()
+        var newNode = new TodoViewModel()
         {
             Date = ResolveTargetDate(0),
             Data = GetJsonFromTemplate()
@@ -112,13 +112,13 @@ public partial class DailyNodeManagerViewModel : NodeManagerViewModel<DailyNodeV
         return Task.CompletedTask;
     }
 
-    public DailyJsonParentViewModel GetDaily(int offset = 0)
+    public TodoJsonParentViewModel GetDaily(int offset = 0)
     {
         var targetDate = ResolveTargetDate(offset);
         var existingDaily = Root.Nodes.FirstOrDefault(dn => dn.Date == targetDate);
-        if (existingDaily is not null) return ((DailyNodeViewModel)existingDaily).JsonViewModel;
+        if (existingDaily is not null) return ((TodoViewModel)existingDaily).JsonViewModel;
 
-        var newDaily = new DailyNodeViewModel()
+        var newDaily = new TodoViewModel()
         {
             Date = targetDate,
             Data = GetJsonFromTemplate()

@@ -31,7 +31,7 @@ public class YeetMacroDbContext : DbContext
     public DbSet<TimestampSetting> TimestampSettings { get; set; }
     public DbSet<LogGroup> LogGroups { get; set; }
     public DbSet<Log> Logs { get; set; }
-    public DbSet<DailyNode> DailyNodes { get; set; }
+    public DbSet<TodoNode> TodoNodes { get; set; }
 
     public YeetMacroDbContext()
     {
@@ -67,6 +67,7 @@ public class YeetMacroDbContext : DbContext
         modelBuilder.Entity<MacroSet>().HasKey(ms => ms.MacroSetId);
         modelBuilder.Entity<MacroSet>().Property(ms => ms.Resolution).HasConversion(sizeConverter);
         modelBuilder.Entity<MacroSet>().Property(ms => ms.DefaultLocation).HasConversion(pointConverter);
+        modelBuilder.Entity<MacroSet>().Property(ms => ms.WeeklyStartDay).HasConversion(new EnumToStringConverter<DayOfWeek>());
 
         modelBuilder.Entity<Node>().HasKey(n => n.NodeId);
         modelBuilder.Entity<Node>().UseTptMappingStrategy();
@@ -117,8 +118,8 @@ public class YeetMacroDbContext : DbContext
             l.HasKey(l => l.LogId);
         });
 
-        modelBuilder.Entity<DailyNode>().Ignore(d => d.DataText);
-        modelBuilder.Entity<DailyNode>().Property(d => d.Data).HasConversion(
+        modelBuilder.Entity<TodoNode>().Ignore(d => d.DataText);
+        modelBuilder.Entity<TodoNode>().Property(d => d.Data).HasConversion(
             d => d.ToJsonString(null),
             d => (JsonObject)JsonObject.Parse(d, null, default(JsonDocumentOptions))
         );

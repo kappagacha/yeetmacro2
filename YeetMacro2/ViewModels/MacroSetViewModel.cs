@@ -126,12 +126,32 @@ public partial class MacroSetViewModel : MacroSet
         }
     }
 
+    public override string WeeklyTemplate
+    {
+        get => base.WeeklyTemplate;
+        set
+        {
+            base.WeeklyTemplate = value;
+            OnPropertyChanged();
+        }
+    }
+
     public override int DailyResetUtcHour
     {
         get => base.DailyResetUtcHour;
         set
         {
             base.DailyResetUtcHour = value;
+            OnPropertyChanged();
+        }
+    }
+
+    public override DayOfWeek WeeklyStartDay
+    {
+        get => base.WeeklyStartDay;
+        set
+        {
+            base.WeeklyStartDay = value;
             OnPropertyChanged();
         }
     }

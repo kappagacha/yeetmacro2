@@ -15,7 +15,7 @@ public partial class AndriodHomeViewModel : ObservableObject
     [ObservableProperty]
     bool _isProjectionServiceEnabled, _isAccessibilityEnabled, _isAppearing, _showMacroOverlay,
          _showPatternNodeView, _showStatusPanel, _isMacroReady, _showTestView,
-         _showSettingNodeView, _showDailyNodeView;
+         _showSettingNodeView, _showDailyNodeView, _showWeeklyNodeView;
     private AndroidScreenService _screenService;
     private MacroManagerViewModel _macroManagerViewModel;
     private YeetAccessibilityService _accessibilityService;
@@ -240,6 +240,19 @@ If you agree, please tap OK then grant Accessibility service permission to YeetM
             _screenService.Close(AndroidWindowView.DailyNodeView);
         }
     }
+
+    partial void OnShowWeeklyNodeViewChanged(bool value)
+    {
+        if (value)
+        {
+            _screenService.Show(AndroidWindowView.WeeklyNodeView);
+        }
+        else
+        {
+            _screenService.Close(AndroidWindowView.WeeklyNodeView);
+        }
+    }
+
 
     partial void OnShowStatusPanelChanged(bool value)
     {

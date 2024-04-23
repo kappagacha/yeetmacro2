@@ -51,8 +51,11 @@
                                    FontFamily="MaterialOutlined" Glyph="{x:Static mi:MaterialOutlined.Settings}"
                                    HorizontalOptions="Center" Text="Show Settings" ToggledColor="Green" UntoggledColor="LightGray" />
                 <v:ToggleImageView IsToggled="{Binding ShowDailyNodeView}"
-                                    FontFamily="FARegular" Glyph="{x:Static fa:Regular.CalendarCheck}"
+                                    FontFamily="FASolid" Glyph="{x:Static fa:Solid.CalendarDay}"
                                     HorizontalOptions="Center" Text="Show Dailies" ToggledColor="Green" UntoggledColor="LightGray" />
+                <v:ToggleImageView IsToggled="{Binding ShowWeeklyNodeView}"
+                                    FontFamily="FASolid" Glyph="{x:Static fa:Solid.CalendarWeek}"
+                                    HorizontalOptions="Center" Text="Show Weeklies" ToggledColor="Green" UntoggledColor="LightGray" />
                 <v:ToggleImageView IsToggled="{Binding ShowStatusPanel}"
                                    FontFamily="MaterialOutlined" Glyph="{x:Static mi:MaterialOutlined.Call_to_action}"
                                    HorizontalOptions="Center" Text="Show Status Panel" ToggledColor="Green" UntoggledColor="LightGray" />

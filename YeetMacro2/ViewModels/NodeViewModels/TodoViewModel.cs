@@ -8,17 +8,17 @@ using YeetMacro2.Data.Models;
 namespace YeetMacro2.ViewModels.NodeViewModels;
 
 [ObservableObject]
-public partial class DailyNodeViewModel: DailyNode
+public partial class TodoViewModel: TodoNode
 {
     [ObservableProperty]
-    DailyJsonParentViewModel _jsonViewModel;
+    TodoJsonParentViewModel _jsonViewModel;
     public bool IsLeaf { get; set; } = true;
-    public override ICollection<DailyNode> Nodes
+    public override ICollection<TodoNode> Nodes
     {
         get => base.Nodes;
         set
         {
-            base.Nodes = new NodeObservableCollection<DailyNodeViewModel, DailyNode>(value, (a, b) => b.Date > a.Date ? 1: 0);
+            base.Nodes = new NodeObservableCollection<TodoViewModel, TodoNode>(value, (a, b) => b.Date > a.Date ? 1: 0);
             OnPropertyChanged();
             OnPropertyChanged(nameof(IsLeaf));
         }
@@ -76,44 +76,44 @@ public partial class DailyNodeViewModel: DailyNode
 
             if (Data is not null)
             {
-                JsonViewModel = DailyJsonParentViewModel.Load(Data, this);
+                JsonViewModel = TodoJsonParentViewModel.Load(Data, this);
             }
         }
     }
 
-    public ICollection<DailyNode> Children
+    public ICollection<TodoNode> Children
     {
         get => base.Nodes;
     }
 
-    public DailyNodeViewModel()
+    public TodoViewModel()
     {
-        base.Nodes = new NodeObservableCollection<DailyNodeViewModel, DailyNode>((a, b) => b.Date > a.Date ? 1 : 0);
+        base.Nodes = new NodeObservableCollection<TodoViewModel, TodoNode>((a, b) => b.Date > a.Date ? 1 : 0);
     }
 }
 
-public abstract partial class DailyJsonElementViewModel : ObservableObject
+public abstract partial class TodoJsonElementViewModel : ObservableObject
 {
     public virtual bool IsLeaf { get; set; } = true;
     public virtual bool IsExpanded { get; set; } = false;
-    public DailyNodeViewModel Node { get; set; }
+    public TodoViewModel Node { get; set; }
     public JsonObject Parent { get; set; }
     [ObservableProperty]
     string _key;
 }
 
-public partial class DailyJsonParentViewModel : DailyJsonElementViewModel
+public partial class TodoJsonParentViewModel : TodoJsonElementViewModel
 {
     [ObservableProperty]
-    ObservableCollection<DailyJsonElementViewModel> _children = new ObservableCollection<DailyJsonElementViewModel>();
-    Dictionary<string, DailyJsonElementViewModel> _dict = new Dictionary<string, DailyJsonElementViewModel>();
+    ObservableCollection<TodoJsonElementViewModel> _children = new ObservableCollection<TodoJsonElementViewModel>();
+    Dictionary<string, TodoJsonElementViewModel> _dict = new Dictionary<string, TodoJsonElementViewModel>();
 
     public override bool IsLeaf { get; set; } = false;
     public override bool IsExpanded { get; set; } = true;
 
-    public static DailyJsonParentViewModel Load(JsonObject jsonObject, DailyNodeViewModel node)
+    public static TodoJsonParentViewModel Load(JsonObject jsonObject, TodoViewModel node)
     {
-        var parent = new DailyJsonParentViewModel();
+        var parent = new TodoJsonParentViewModel();
 
         foreach (var item in jsonObject)
         {
@@ -129,7 +129,7 @@ public partial class DailyJsonParentViewModel : DailyJsonElementViewModel
                     parent.Children.Add(subParent);
                     break;
                 case JsonValueKind.Number:
-                    var count = new DailyJsonCountViewModel()
+                    var count = new TodoJsonCountViewModel()
                     {
                         Count = (int)item.Value.GetValue<double>(),
                         Parent = jsonObject,
@@ -140,7 +140,7 @@ public partial class DailyJsonParentViewModel : DailyJsonElementViewModel
                     break;
                 case JsonValueKind.True:
                 case JsonValueKind.False:
-                    var boolean = new DailyJsonBooleanViewModel()
+                    var boolean = new TodoJsonBooleanViewModel()
                     {
                         IsChecked = item.Value.GetValue<bool>(),
                         Parent = jsonObject,
@@ -156,7 +156,7 @@ public partial class DailyJsonParentViewModel : DailyJsonElementViewModel
         return parent;
     }
 
-    public DailyJsonElementViewModel this[string key]
+    public TodoJsonElementViewModel this[string key]
     {
         get
         {
@@ -173,7 +173,7 @@ public partial class DailyJsonParentViewModel : DailyJsonElementViewModel
     }
 }
 
-public partial class DailyJsonBooleanViewModel: DailyJsonElementViewModel
+public partial class TodoJsonBooleanViewModel: TodoJsonElementViewModel
 {
     [ObservableProperty]
     bool _isChecked;
@@ -188,7 +188,7 @@ public partial class DailyJsonBooleanViewModel: DailyJsonElementViewModel
     }
 }
 
-public partial class DailyJsonCountViewModel : DailyJsonElementViewModel
+public partial class TodoJsonCountViewModel : TodoJsonElementViewModel
 {
     [ObservableProperty]
     int _count;

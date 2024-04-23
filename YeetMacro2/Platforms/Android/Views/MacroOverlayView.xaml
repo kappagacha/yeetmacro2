@@ -87,7 +87,10 @@
                                    HorizontalOptions="Center" ToggledColor="Green" UntoggledColor="LightGray" />
                 <BoxView WidthRequest="1" Color="{StaticResource Primary}"/>
                 <v:ToggleImageView IsToggled="{Binding ShowDailyNodeView}"
-                                    FontFamily="FARegular" Glyph="{x:Static fa:Regular.CalendarCheck}"
+                                    FontFamily="FASolid" Glyph="{x:Static fa:Solid.CalendarDay}"
+                                    HorizontalOptions="Center" ToggledColor="Green" UntoggledColor="LightGray" />
+                <v:ToggleImageView IsToggled="{Binding ShowWeeklyNodeView}"
+                                    FontFamily="FASolid" Glyph="{x:Static fa:Solid.CalendarWeek}"
                                     HorizontalOptions="Center" ToggledColor="Green" UntoggledColor="LightGray" />
                 <BoxView WidthRequest="1" Color="{StaticResource Primary}"/>
                 <v:ToggleImageView IsToggled="{Binding ShowTestView}"
