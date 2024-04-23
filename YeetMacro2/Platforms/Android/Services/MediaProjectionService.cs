@@ -76,7 +76,10 @@ public class MediaProjectionService : IRecorderService
     {
         if (resultCode != global::Android.App.Result.Ok)
         {
-            Toast.MakeText(_context, "Media projection canceled...", ToastLength.Short).Show();
+            if (_context != null)
+            {
+                Toast.MakeText(_context, "Media projection canceled...", ToastLength.Short).Show();
+            }
             _startCompleted.SetResult(false);
             return;
         }
