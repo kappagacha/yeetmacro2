@@ -16,18 +16,27 @@
         <Grid HorizontalOptions="Start" VerticalOptions="Start">
             <Grid BackgroundColor="{AppThemeBinding Light={StaticResource Background}, Dark={StaticResource BackgroundDark}}" Opacity="0.8" />
             <VerticalStackLayout>
-                <HorizontalStackLayout Margin="0" Padding="0">
-                    <CheckBox VerticalOptions="Center" IsChecked="{Binding PatternNode.IsMultiPattern, Source={Reference thisView}}" />
-                    <Label Margin="0" VerticalOptions="Center" Padding="0" Text="MultiPattern" />
-                    <CheckBox Margin="0" VerticalOptions="Center" IsChecked="{Binding Pattern.IsBoundsPattern, Source={Reference thisView}}" />
-                    <Label Margin="0" VerticalOptions="Center" Padding="0" Text="BoundsPattern" />
-                    <CheckBox Margin="0" VerticalOptions="Center" IsChecked="{Binding Pattern.IsLocationDynamic, Source={Reference thisView}}" />
-                    <Label Margin="0" VerticalOptions="Center" Padding="0" Text="DynamicLocation" />
-                    <Label Margin="7,0,0,0" VerticalOptions="Center" Padding="0" Text="VariancePct" />
-                    <Entry Margin="5,0,0,0" VerticalOptions="Center" Keyboard="Numeric" Text="{Binding Pattern.VariancePct, Source={Reference thisView}}" />
+                <HorizontalStackLayout>
+                    <v:ToggleImageView x:Name="generalFlagsToggle" ToggledColor="Green" FontFamily="MaterialOutlined" Glyph="{x:Static mi:MaterialOutlined.Settings}" />
+                    <v:ToggleImageView x:Name="textMatchToggle" ToggledColor="Green" FontFamily="FASolid" Glyph="{x:Static fa:Solid.SpellCheck}" />
+                    <v:ToggleImageView x:Name="colorThresholdToggle" ToggledColor="Green" FontFamily="MaterialOutlined" Glyph="{x:Static mi:MaterialOutlined.Invert_colors}" />
+                    <v:ToggleImageView x:Name="offsetToggle" ToggledColor="Green" FontFamily="FASolid" Glyph="{x:Static fa:Solid.ArrowRightArrowLeft}" />
+                    <v:ToggleImageView x:Name="infoToggle" ToggledColor="Green" FontFamily="MaterialOutlined" Glyph="{x:Static mi:MaterialOutlined.Info}" />
                 </HorizontalStackLayout>
-                <HorizontalStackLayout Margin="0" Padding="0">
-                    <CheckBox IsChecked="{Binding Pattern.TextMatch.IsActive, Source={Reference thisView}}" />
+                <HorizontalStackLayout Spacing="5" IsVisible="{Binding IsToggled, Source={x:Reference generalFlagsToggle}}">
+                    <Label VerticalOptions="Center" Padding="0" Text="VariancePct" />
+                    <Entry VerticalOptions="Center" Keyboard="Numeric" Text="{Binding Pattern.VariancePct, Source={Reference thisView}}" />
+                </HorizontalStackLayout>
+                <HorizontalStackLayout Margin="0" Padding="0" IsVisible="{Binding IsToggled, Source={x:Reference generalFlagsToggle}}">
+                    <CheckBox TranslationX="{OnPlatform WinUI=20, Android=10}" VerticalOptions="Center" Margin="0" IsChecked="{Binding PatternNode.IsMultiPattern, Source={Reference thisView}}" />
+                    <Label Margin="0" VerticalOptions="Center" Padding="0" Text="MultiPattern" />
+                    <CheckBox TranslationX="{OnPlatform WinUI=20, Android=10}" Margin="0" VerticalOptions="Center" IsChecked="{Binding Pattern.IsBoundsPattern, Source={Reference thisView}}" />
+                    <Label Margin="0" VerticalOptions="Center" Padding="0" Text="BoundsPattern" />
+                    <CheckBox TranslationX="{OnPlatform WinUI=20, Android=10}" Margin="0" VerticalOptions="Center" IsChecked="{Binding Pattern.IsLocationDynamic, Source={Reference thisView}}" />
+                    <Label Margin="0" VerticalOptions="Center" Padding="0" Text="DynamicLocation" />
+                </HorizontalStackLayout>
+                <HorizontalStackLayout Margin="0" Padding="0" IsVisible="{Binding IsToggled, Source={x:Reference textMatchToggle}}">
+                    <CheckBox TranslationX="{OnPlatform WinUI=20, Android=10}" IsChecked="{Binding Pattern.TextMatch.IsActive, Source={Reference thisView}}" />
                     <Label Margin="0" VerticalOptions="Center" Padding="0" Text="TextMatch:" />
                     <Entry Margin="5,0,0,0" VerticalOptions="Center" Text="{Binding Pattern.TextMatch.Text, Source={Reference thisView}}" />
                     <Label Margin="5,0,0,0" VerticalOptions="Center" Padding="0" Text="Whitelist:" />
@@ -53,8 +62,8 @@
                         </Button.CommandParameter>
                     </Button>
                 </HorizontalStackLayout>
-                <HorizontalStackLayout Margin="0" Padding="0">
-                    <CheckBox IsChecked="{Binding Pattern.ColorThreshold.IsActive, Source={Reference thisView}}" CheckedChanged="colorThresholdIsActive_CheckedChanged" />
+                <HorizontalStackLayout Margin="0" Padding="0" IsVisible="{Binding IsToggled, Source={x:Reference colorThresholdToggle}}">
+                    <CheckBox TranslationX="{OnPlatform WinUI=20, Android=10}" IsChecked="{Binding Pattern.ColorThreshold.IsActive, Source={Reference thisView}}" CheckedChanged="colorThresholdIsActive_CheckedChanged" />
                     <Label Margin="0" VerticalOptions="Center" Padding="0" Text="Color Threshold:" />
                     <Entry x:Name="colorThresholdVariancePct" Margin="5,0,0,0" VerticalOptions="Center" Keyboard="Numeric" />
                     <Label Margin="0" VerticalOptions="Center" Padding="0" Text="@" />
@@ -71,7 +80,7 @@
                         </Button.CommandParameter>
                     </Button>
                 </HorizontalStackLayout>
-                <HorizontalStackLayout Margin="0" Padding="0">
+                <HorizontalStackLayout Margin="0" Padding="0" IsVisible="{Binding IsToggled, Source={x:Reference offsetToggle}}">
                     <Label  VerticalOptions="Center" Padding="0" Text="OffsetCalcType" />
                     <HorizontalStackLayout>
                         <Grid Margin="10,0,0,0" Padding="0" VerticalOptions="Center">
@@ -79,12 +88,18 @@
                             <ImageButton Margin="0" Padding="0" BindingContext="{Binding Pattern, Source={Reference thisView}}" Clicked="offsetCalcType_Clicked" />
                         </Grid>
                     </HorizontalStackLayout>
-                    <CheckBox x:Name="doTestCalc" Margin="5,0,0,0" VerticalOptions="Center" />
-                    <Label Margin="5,0,0,0" VerticalOptions="Center" Padding="0" Text="TestCalc" />
                     <Label Margin="5,0,0,0" VerticalOptions="Center" Padding="0" Text="Scale:" />
                     <Entry x:Name="scale" Margin="5,0,0,0" VerticalOptions="Center" Keyboard="Numeric" Text="1.0" />
                 </HorizontalStackLayout>
-                <HorizontalStackLayout Margin="0" Padding="0" Spacing="5">
+                <HorizontalStackLayout Spacing="5" VerticalOptions="End" IsVisible="{Binding IsToggled, Source={x:Reference offsetToggle}}">
+                    <CheckBox TranslationX="{OnPlatform WinUI=20, Android=10}" x:Name="doTestCalc" Margin="0,0,0,0" VerticalOptions="Center" />
+                    <Label Margin="0,0,0,0" VerticalOptions="Center" Padding="0" Text="TestCalc" />
+                    <Label Margin="0" VerticalOptions="Center" Padding="0" Text="XOffset:" />
+                    <Entry x:Name="xOffset" VerticalOptions="Center" Keyboard="Numeric" Text="0"  />
+                    <Label Margin="0" VerticalOptions="Center" Padding="0" Text="YOffset:" />
+                    <Entry x:Name="yOffset" VerticalOptions="Center" Keyboard="Numeric" Text="0" />
+                </HorizontalStackLayout>
+                <HorizontalStackLayout Margin="0" Padding="0" Spacing="5" IsVisible="{Binding IsToggled, Source={x:Reference offsetToggle}}">
                     <Label Margin="0" VerticalOptions="Center" Padding="0" Text="Horizontal Stretch Multiplier:" />
                     <Entry Margin="0" VerticalOptions="Center" Keyboard="Numeric" Text="{Binding Pattern.HorizontalStretchMultiplier, Source={Reference thisView}}" />
                     <Label Margin="0" VerticalOptions="Center" Padding="0" Text="Vertical Stretch Multiplier:" />
@@ -112,7 +127,7 @@
         </Grid>
         <VerticalStackLayout BackgroundColor="{AppThemeBinding Light={StaticResource Background}, Dark={StaticResource BackgroundDark}}" Opacity="0.8"
                              VerticalOptions="End" HorizontalOptions="End">
-            <HorizontalStackLayout Spacing="5" VerticalOptions="End" HorizontalOptions="End">
+            <HorizontalStackLayout Spacing="5" VerticalOptions="End" HorizontalOptions="End" IsVisible="{Binding IsToggled, Source={x:Reference infoToggle}}">
                 <v:ImageView FontFamily="MaterialOutlined" Glyph="{x:Static mi:MaterialOutlined.Rectangle}" Color="{StaticResource Primary}" />
                 <Label Text="{Binding Pattern.RectDisplay, Source={Reference thisView}}" />
             </HorizontalStackLayout>
@@ -120,15 +135,9 @@
                 <v:ImageView FontFamily="MaterialOutlined" Glyph="{x:Static mi:MaterialOutlined.Image_aspect_ratio}" Color="{StaticResource Primary}" />
                 <Label Text="{Binding Patterns.CurrentResolution}" />
             </HorizontalStackLayout>-->
-            <HorizontalStackLayout Spacing="5" VerticalOptions="End" HorizontalOptions="End">
+            <HorizontalStackLayout Spacing="5" VerticalOptions="End" HorizontalOptions="End" IsVisible="{Binding IsToggled, Source={x:Reference infoToggle}}">
                 <v:ImageView FontFamily="MaterialOutlined" Glyph="{x:Static mi:MaterialOutlined.Image}" Color="{StaticResource Primary}" />
                 <Label Text="{Binding Pattern.Resolution, Source={Reference thisView}}" />
-            </HorizontalStackLayout>
-            <HorizontalStackLayout Spacing="5" VerticalOptions="End" HorizontalOptions="End">
-                <Label Margin="0" VerticalOptions="Center" Padding="0" Text="XOffset:" />
-                <Entry x:Name="xOffset" VerticalOptions="Center" Keyboard="Numeric" Text="0"  />
-                <Label Margin="0" VerticalOptions="Center" Padding="0" Text="YOffset:" />
-                <Entry x:Name="yOffset" VerticalOptions="Center" Keyboard="Numeric" Text="0" />
             </HorizontalStackLayout>
             <HorizontalStackLayout VerticalOptions="End" HorizontalOptions="End">
                 <v:ImageView FontFamily="MaterialOutlined" Glyph="{x:Static mi:MaterialOutlined.Photo_camera_front}" Color="{StaticResource Primary}"
