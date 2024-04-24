@@ -79,23 +79,19 @@ public class MacroService
         Thread.Sleep(ms);
     }
 
-    public Point CalcOffset(PatternNode patternNode)
+    public Point CalcOffset(string path, Pattern pattern)
     {
-        if (patternNode.Patterns.Count == 0) return Point.Zero;
-
-        var pattern = patternNode.Patterns.First();
-
         if (pattern.IsLocationDynamic)
         {
             return PatternNodeManagerViewModel.CalcOffset(pattern, _screenService.Resolution, _screenService.GetTopLeft());
         }
 
-        if (!_pathToOffset.ContainsKey(patternNode.Path))
+        if (!_pathToOffset.ContainsKey(path))
         {
-            _pathToOffset[patternNode.Path] = PatternNodeManagerViewModel.CalcOffset(pattern, _screenService.CalcResolution, _screenService.GetTopLeft());
+            _pathToOffset[path] = PatternNodeManagerViewModel.CalcOffset(pattern, _screenService.CalcResolution, _screenService.GetTopLeft());
         }
 
-        return _pathToOffset[patternNode.Path];
+        return _pathToOffset[path];
     }
 
     public Size GetCurrentResolution()
@@ -187,10 +183,11 @@ public class MacroService
                 {
                     var points = new List<Point>();
                     var multiResult = new FindPatternResult();
-                    var offset = CalcOffset(patternNode);
+                    var idx = 0;
 
                     foreach (var pattern in patternNode.Patterns)
                     {
+                        var offset = CalcOffset($"{patternNode.Path}_{idx}", pattern);
                         var optsWithOffset = new FindOptions()
                         {
                             Limit = opts.Limit,
@@ -220,13 +217,14 @@ public class MacroService
                     multiResult.Points = points.ToArray();
                     multiResult.IsSuccess = points.Count > 0;
                     result = multiResult;
+                    idx++;
                 }
                 else
                 {
                     var pattern = patternNode.Patterns.FirstOrDefault();
                     if (pattern is null) return result;
 
-                    var offset = CalcOffset(patternNode);
+                    var offset = CalcOffset(patternNode.Path, pattern);
                     var optsWithOffset = new FindOptions()
                     {
                         Limit = opts.Limit,
@@ -515,15 +513,16 @@ public class MacroService
             patternNode = oneOfPattern.AsT0;
         }
 
+        var pattern = patternNode.Patterns.First();
         var maxTry = 10;
         if (patternNode?.Patterns.FirstOrDefault() == null) return string.Empty;
 
-        var offset = CalcOffset(patternNode);
+        var offset = CalcOffset(patternNode.Path, pattern);
         if (InDebugMode)
         {
             MainThread.BeginInvokeOnMainThread(_screenService.DebugClear);
             Sleep(50);
-            MainThread.BeginInvokeOnMainThread(() => _screenService.DebugRectangle(patternNode.Patterns.First().Rect.Offset(offset)));
+            MainThread.BeginInvokeOnMainThread(() => _screenService.DebugRectangle(pattern.Rect.Offset(offset)));
         }
 
         var currentTry = 0;
@@ -531,7 +530,7 @@ public class MacroService
         {
             try
             {
-                return _screenService.GetText(patternNode.Patterns.First(), new TextFindOptions() { Whitelist = whiteList, Offset = offset });
+                return _screenService.GetText(pattern, new TextFindOptions() { Whitelist = whiteList, Offset = offset });
             }
             catch (Exception ex)
             {

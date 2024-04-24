@@ -1,7 +1,7 @@
 ﻿// @position=2
 // Target farm materials to farm all expert main quests
 const loopPatterns = [patterns.titles.home, patterns.titles.smithy, patterns.titles.craft, patterns.skipAll.title];
-const offset = macroService.CalcOffset(patterns.titles.home);
+const offset = macroService.GetTopLeft();
 const minStamina = settings.doMainExpertQuests.minStamina.Value;
 const daily = dailyManager.GetDaily();
 if (daily.doMainExpertQuests.done.IsChecked) {
