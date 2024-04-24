@@ -96,8 +96,8 @@
       "props": {
         "$type": "boolean",
         "settingType": "Boolean",
-        "value": true,
-        "defaultValue": true,
+        "value": false,
+        "defaultValue": false,
         "isParentNode": false,
         "name": "doRefillStamina",
         "position": 0,
@@ -404,8 +404,8 @@
           "light",
           "dark"
         ],
-        "value": "fire",
-        "defaultValue": "fire",
+        "value": "water",
+        "defaultValue": "water",
         "isParentNode": false,
         "name": "elementTypeTarget1",
         "position": 0,
@@ -424,8 +424,8 @@
           "light",
           "dark"
         ],
-        "value": "water",
-        "defaultValue": "water",
+        "value": "earth",
+        "defaultValue": "earth",
         "isParentNode": false,
         "name": "elementTypeTarget2",
         "position": 0,
@@ -1246,7 +1246,7 @@
       "props": {
         "$type": "timestamp",
         "settingType": "TimeStamp",
-        "value": "2024-04-13T16:58:27.739+00:00",
+        "value": "2024-04-24T01:15:19.341+00:00",
         "defaultValue": "0001-01-01T00:00:00+00:00",
         "isParentNode": false,
         "name": "lastRun",
@@ -1282,7 +1282,7 @@
       "props": {
         "$type": "timestamp",
         "settingType": "TimeStamp",
-        "value": "2024-03-29T23:49:28.078+00:00",
+        "value": "2024-04-24T01:15:37.355+00:00",
         "defaultValue": "0001-01-01T00:00:00+00:00",
         "isParentNode": false,
         "name": "lastRun",
@@ -1750,8 +1750,8 @@
           "dark",
           "light"
         ],
-        "value": "earth",
-        "defaultValue": "earth",
+        "value": "water",
+        "defaultValue": "water",
         "isParentNode": false,
         "name": "elementTypeTarget1",
         "position": 0,

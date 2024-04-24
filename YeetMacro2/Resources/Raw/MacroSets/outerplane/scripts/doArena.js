@@ -49,8 +49,9 @@ while (macroService.IsRunning) {
 					selectTeam(teamSlot);
 				}
 
-				macroService.PollPattern(patterns.arena.enter, { DoClick: true, PredicatePattern: patterns.arena.auto.disabled });
-				macroService.PollPattern(patterns.arena.auto.disabled, { DoClick: true, PredicatePattern: patterns.arena.matchResult });
+				macroService.PollPattern(patterns.arena.enter, { DoClick: true, PredicatePattern: patterns.arena.matchResult });
+				//macroService.PollPattern(patterns.arena.enter, { DoClick: true, PredicatePattern: patterns.arena.auto.disabled });
+				//macroService.PollPattern(patterns.arena.auto.disabled, { DoClick: true, PredicatePattern: patterns.arena.matchResult });
 				if (macroService.IsRunning) {
 					daily.doArena.count.Count++;
 				}
@@ -93,8 +94,9 @@ while (macroService.IsRunning) {
 					selectTeam(teamSlot);
 				}
 
-				macroService.PollPattern(patterns.arena.enter, { DoClick: true, PredicatePattern: patterns.arena.auto.disabled });
-				macroService.PollPattern(patterns.arena.auto.disabled, { DoClick: true, PredicatePattern: patterns.arena.matchResult });
+				macroService.PollPattern(patterns.arena.enter, { DoClick: true, PredicatePattern: patterns.arena.matchResult });
+				//macroService.PollPattern(patterns.arena.enter, { DoClick: true, PredicatePattern: patterns.arena.auto.disabled });
+				//macroService.PollPattern(patterns.arena.auto.disabled, { DoClick: true, PredicatePattern: patterns.arena.matchResult });
 				if (macroService.IsRunning) {
 					daily.doArena.count.Count++;
 				}

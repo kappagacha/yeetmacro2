@@ -7,6 +7,10 @@ function doSurveyHub(targetNumBattles = 0) {
 	const daily = dailyManager.GetDaily();
 	const teamSlot = settings.doSurveyHub.teamSlot.Value;
 
+	if (targetNumBattles && daily.doSurveyHub.count.Count >= targetNumBattles) {
+		return;
+	}
+
 	let currentStamina;
 	while (macroService.IsRunning) {
 		const loopResult = macroService.PollPattern(loopPatterns);
@@ -49,10 +53,11 @@ function doSurveyHub(targetNumBattles = 0) {
 				}
 				const numBattles = selectTeamAndBattle(teamSlot, true);
 				if (macroService.IsRunning) {
-					daily.doSurveyHub.count.Count += numBattles;
+					daily.doSurveyHub.count.Count += Number(numBattles);
 				}
 
-				if (targetNumBattles && targetNumBattles >= daily.doSurveyHub.count.Count) {
+				//logger.info(`targetNumBattles: ${targetNumBattles}, numBattles: ${numBattles}, doSurveyHub count: ${daily.doSurveyHub.count.Count}, `)
+				if (targetNumBattles && daily.doSurveyHub.count.Count >= targetNumBattles) {
 					return;
 				}
 
