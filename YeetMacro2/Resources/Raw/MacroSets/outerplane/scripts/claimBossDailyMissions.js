@@ -48,6 +48,8 @@ while (macroService.IsRunning) {
 					if (gearEnhancedResult.IsSuccess) {
 						macroService.PollPattern(patterns.inventory.filter, { DoClick: true, PredicatePattern: patterns.inventory.filter.apply });
 						macroService.PollPattern(patterns.inventory.filter.excludeEquippedGear.disabled, { DoClick: true, PredicatePattern: patterns.inventory.filter.excludeEquippedGear.enabled });
+						macroService.PollPattern(patterns.inventory.filter.grade.normal.disabled, { DoClick: true, PredicatePattern: patterns.inventory.filter.grade.normal.enabled });
+						macroService.PollPattern(patterns.inventory.filter.grade.superior.disabled, { DoClick: true, PredicatePattern: patterns.inventory.filter.grade.superior.enabled });
 						macroService.PollPattern(patterns.inventory.filter.apply, { DoClick: true, PredicatePattern: patterns.titles.inventory });
 
 						const starsPattern = macroService.ClonePattern(patterns.inventory.stars, {
