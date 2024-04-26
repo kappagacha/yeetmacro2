@@ -1246,7 +1246,7 @@
       "props": {
         "$type": "timestamp",
         "settingType": "TimeStamp",
-        "value": "2024-04-24T01:15:19.341+00:00",
+        "value": "2024-04-26T02:23:28.445+00:00",
         "defaultValue": "0001-01-01T00:00:00+00:00",
         "isParentNode": false,
         "name": "lastRun",
@@ -1282,7 +1282,7 @@
       "props": {
         "$type": "timestamp",
         "settingType": "TimeStamp",
-        "value": "2024-04-24T01:15:37.355+00:00",
+        "value": "2024-04-26T02:25:29.547+00:00",
         "defaultValue": "0001-01-01T00:00:00+00:00",
         "isParentNode": false,
         "name": "lastRun",
@@ -1617,8 +1617,8 @@
           "glunite",
           "reforgeCatalyst"
         ],
-        "value": "talisman1",
-        "defaultValue": "talisman1",
+        "value": "glunite",
+        "defaultValue": "glunite",
         "isParentNode": false,
         "name": "targetReward",
         "position": 0,
@@ -1868,8 +1868,8 @@
       "props": {
         "$type": "boolean",
         "settingType": "Boolean",
-        "value": true,
-        "defaultValue": true,
+        "value": false,
+        "defaultValue": false,
         "isParentNode": false,
         "name": "checkPiecesLimit1",
         "position": 0,
