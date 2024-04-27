@@ -31,7 +31,7 @@ while (macroService.IsRunning) {
 			if (questResult.Path === 'quest.events.quest') {
 				logger.info('doMainOrEventHardQuests: main hard quest');
 				staminaCost = 30;
-				macroService.PollPattern(patterns.quest.events.main, { DoClick: true, PredicatePattern: patterns.titles.quest });
+				macroService.PollPattern(patterns.quest.events.quest, { DoClick: true, PredicatePattern: patterns.titles.quest });
 				macroService.PollPattern(patterns.quest.main, { DoClick: true, PredicatePattern: patterns.titles.mainQuests });
 				macroService.PollPattern(patterns.quest.main.part);
 				const partResult = macroService.FindPattern(patterns.quest.main.part, { Limit: 10 });
