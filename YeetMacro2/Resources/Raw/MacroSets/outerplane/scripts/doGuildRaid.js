@@ -1,7 +1,7 @@
 // @position=11
 // Auto guild raid
 const loopPatterns = [patterns.lobby.level, patterns.titles.guildBoard, patterns.titles.guildRaid, patterns.titles.guild];
-const daily = dailyManager.GetDaily();
+const daily = dailyManager.GetCurrentDaily();
 const teamSlot1 = settings.doGuildRaid.teamSlot1.Value;
 const targetStage1 = settings.doGuildRaid.targetStage1.Value;
 const teamSlot2 = settings.doGuildRaid.teamSlot2.Value;

@@ -1,8 +1,9 @@
-// Claim daily missions
+// Claim weekly missions
 const loopPatterns = [patterns.lobby.level, patterns.titles.mission];
-const daily = dailyManager.GetCurrentDaily();
+//const weekly = weeklyManager.GetWeekly();
+const weekly = weeklyManager.GetCurrentWeelky();
 
-if (daily.claimDailyMissions.done.IsChecked) {
+if (weekly.claimWeeklyMissions.done.IsChecked) {
 	return "Script already completed. Uncheck done to override daily flag.";
 }
 
@@ -10,19 +11,20 @@ while (macroService.IsRunning) {
 	const loopResult = macroService.PollPattern(loopPatterns);
 	switch (loopResult.Path) {
 		case 'lobby.level':
-			logger.info('claimDailyMissions: click mission');
+			logger.info('claimWeeklyMissions: click mission');
 			macroService.ClickPattern(patterns.tabs.mission);
 			sleep(500);
 			break;
 		case 'titles.mission':
-			logger.info('claimDailyMissions: claim final reward');
-			const finalNotificationResult = macroService.PollPattern(patterns.mission.finalNotification, { TimeoutMs: 1_500, DoClick: true, PredicatePattern: patterns.general.tapEmptySpace });
+			logger.info('claimWeeklyMissions: claim final reward');
+			macroService.PollPattern(patterns.mission.weekly, { DoClick: true, PredicatePattern: patterns.mission.weekly.selected });
+			const finalNotificationResult = macroService.PollPattern(patterns.mission.finalNotification, { TimeoutMs: 2_000, DoClick: true, PredicatePattern: patterns.general.tapEmptySpace });
 			if (!finalNotificationResult.IsSuccess) {
 				return;
 			}
 			macroService.PollPattern(patterns.general.tapEmptySpace, { DoClick: true, PredicatePattern: patterns.titles.mission });
 			if (macroService.IsRunning) {
-				daily.claimDailyMissions.done.IsChecked = true;
+				weekly.claimWeeklyMissions.done.IsChecked = true;
 			}
 			return;
 	}

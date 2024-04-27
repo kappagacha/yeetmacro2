@@ -1,7 +1,7 @@
 ﻿// @position=4
 // Claim free summon
 const loopPatterns = [patterns.lobby.level, patterns.summon.info];
-const daily = dailyManager.GetDaily();
+const daily = dailyManager.GetCurrentDaily();
 if (daily.claimFreeSummon.done.IsChecked) {
 	return "Script already completed. Uncheck done to override daily flag.";
 }

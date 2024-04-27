@@ -1,7 +1,7 @@
 ﻿// @position=10
 // Claim friend beefs
 const loopPatterns = [patterns.titles.home, patterns.titles.friendList];
-const daily = dailyManager.GetDaily();
+const daily = dailyManager.GetCurrentDaily();
 if (daily.doFriends.done.IsChecked) {
 	return "Script already completed. Uncheck done to override daily flag.";
 }

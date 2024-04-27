@@ -1,7 +1,7 @@
 // @position=1
 // Claim anti particle generator rewards
 const loopPatterns = [patterns.lobby.level, patterns.titles.base];
-const daily = dailyManager.GetDaily();
+const daily = dailyManager.GetCurrentDaily();
 
 const isLastRunWithinHour = (Date.now() - settings.claimAntiparticle.lastRun.Value.ToUnixTimeMilliseconds()) / 3_600_000 < 1;
 

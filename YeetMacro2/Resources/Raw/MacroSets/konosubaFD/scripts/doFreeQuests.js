@@ -2,7 +2,7 @@
 // Do all free quests. See options to select upgrade stone difficulty
 const loopPatterns = [patterns.titles.home, patterns.titles.quest, patterns.titles.freeQuests];
 const offset = macroService.GetTopLeft();
-const daily = dailyManager.GetDaily();
+const daily = dailyManager.GetCurrentDaily();
 if (daily.doFreeQuests.done.IsChecked) {
 	return "Script already completed. Uncheck done to override daily flag.";
 }

@@ -1,7 +1,7 @@
 ﻿// @position=5
 // Claim champs arena rewards
 const loopPatterns = [patterns.lobby.level, patterns.titles.adventure];
-const daily = dailyManager.GetDaily();
+const daily = dailyManager.GetCurrentDaily();
 
 while (macroService.IsRunning) {
 	const loopResult = macroService.PollPattern(loopPatterns);

@@ -112,7 +112,7 @@ public partial class DailyNodeManagerViewModel : NodeManagerViewModel<TodoViewMo
         return Task.CompletedTask;
     }
 
-    public TodoJsonParentViewModel GetDaily(int offset = 0)
+    public TodoJsonParentViewModel GetCurrentDaily(int offset = 0)
     {
         var targetDate = ResolveTargetDate(offset);
         var existingDaily = Root.Nodes.FirstOrDefault(dn => dn.Date == targetDate);

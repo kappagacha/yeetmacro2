@@ -1,7 +1,7 @@
 // @position=2
 // Claim free shop items
 const loopPatterns = [patterns.lobby.level, patterns.titles.shop];
-const daily = dailyManager.GetDaily();
+const daily = dailyManager.GetCurrentDaily();
 const resolution = macroService.GetCurrentResolution();
 if (daily.claimFreeShop.done.IsChecked) {
 	return "Script already completed. Uncheck done to override daily flag.";

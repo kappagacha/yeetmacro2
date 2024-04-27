@@ -1,7 +1,7 @@
 ﻿// @position=1
 // Claim job rewards
 const loopPatterns = [patterns.titles.home, patterns.titles.job];
-const daily = dailyManager.GetDaily();
+const daily = dailyManager.GetCurrentDaily();
 const isLastRunWithinHour = (Date.now() - settings.claimJobs.lastRun.Value.ToUnixTimeMilliseconds()) / 3_600_000 < 1;
 
 if (isLastRunWithinHour && !settings.claimJobs.forceRun.Value) {

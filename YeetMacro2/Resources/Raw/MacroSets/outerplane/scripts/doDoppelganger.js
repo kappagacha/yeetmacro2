@@ -1,7 +1,7 @@
 // @position=12
 // Auto or sweep doppelganger
 const loopPatterns = [patterns.lobby.level, patterns.titles.adventure, patterns.titles.challenge, patterns.titles.doppelganger];
-const daily = dailyManager.GetDaily();
+const daily = dailyManager.GetCurrentDaily();
 const elementTypeTarget1 = settings.doDoppelganger.elementTypeTarget1.Value;
 const teamSlot1 = settings.doDoppelganger.teamSlot1.Value;
 const sweepBattle1 = settings.doDoppelganger.sweepBattle1.Value;

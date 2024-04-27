@@ -2,7 +2,7 @@
 // Send all likes. Do all expeditions. Looks at Help Received Yesterday then Like
 // Prioritizes least helped
 const loopPatterns = [patterns.lobby.level, patterns.town.level, patterns.titles.visitTown];
-const daily = dailyManager.GetDaily();
+const daily = dailyManager.GetCurrentDaily();
 if (daily.doExpeditions.done.IsChecked) {
 	return "Script already completed. Uncheck done to override daily flag.";
 }

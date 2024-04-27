@@ -1,7 +1,7 @@
 // @position=3
 // Claim daily recruit
 const loopPatterns = [patterns.lobby.level, patterns.titles.recruit];
-const daily = dailyManager.GetDaily();
+const daily = dailyManager.GetCurrentDaily();
 if (daily.claimFreeRecruit.done.IsChecked) {
 	return "Script already completed. Uncheck done to override daily flag.";
 }

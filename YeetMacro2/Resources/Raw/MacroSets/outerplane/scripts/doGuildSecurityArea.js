@@ -1,7 +1,7 @@
 // @position=10
 // Auto guild security area
 const loopPatterns = [patterns.lobby.level, patterns.titles.guildBoard, patterns.titles.guild];
-const daily = dailyManager.GetDaily();
+const daily = dailyManager.GetCurrentDaily();
 const teamSlot = settings.doGuildSecurityArea.teamSlot.Value;
 const elementTypeTarget1 = settings.doGuildSecurityArea.elementTypeTarget1.Value;
 const elementTypeTarget2 = settings.doGuildSecurityArea.elementTypeTarget2.Value;

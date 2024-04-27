@@ -2,7 +2,7 @@
 // Auto or skip arena EX attempts. See options for party select names.
 const loopPatterns = [patterns.titles.home, patterns.titles.quest, patterns.titles.battleArena, patterns.titles.party, patterns.battle.report];
 const skipBattle = settings.doBattleArenaEx.skipBattle.Value;
-const daily = dailyManager.GetDaily();
+const daily = dailyManager.GetCurrentDaily();
 if (daily.doBattleArenaEx.done.IsChecked) {
 	return "Script already completed. Uncheck done to override daily flag.";
 }

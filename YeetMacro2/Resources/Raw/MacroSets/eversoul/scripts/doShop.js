@@ -2,7 +2,7 @@
 // Buy mana crystals and class enhance with gold
 // Buy artifact memories
 const loopPatterns = [patterns.lobby.level, patterns.general.back];
-const daily = dailyManager.GetDaily();
+const daily = dailyManager.GetCurrentDaily();
 if (daily.doShop.done.IsChecked) {
 	return "Script already completed. Uncheck done to override daily flag.";
 }

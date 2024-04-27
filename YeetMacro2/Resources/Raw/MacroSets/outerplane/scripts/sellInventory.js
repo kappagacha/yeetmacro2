@@ -1,6 +1,6 @@
 // Sell inventory - normal and superior grade
 const loopPatterns = [patterns.lobby.level, patterns.titles.inventory];
-//const daily = dailyManager.GetDaily();
+//const daily = dailyManager.GetCurrentDaily();
 
 while (macroService.IsRunning) {
 	const loopResult = macroService.PollPattern(loopPatterns);

@@ -1,7 +1,7 @@
 ﻿// @isFavorite
 // @position=-100
 const loopPatterns = [patterns.titles.home];
-const daily = dailyManager.GetDaily();
+const daily = dailyManager.GetCurrentDaily();
 const adObjectScale = settings.watchAdQuartz.adObjectScale.Value;
 const adExitPattern = adObjectScale === 1 ? patterns.ad.exit : macroService.ClonePattern(patterns.ad.exit, { Scale: adObjectScale });
 const adExitInstallPattern = adObjectScale === 1 ? patterns.ad.exitInstall : macroService.ClonePattern(patterns.ad.exitInstall, { Scale: adObjectScale });

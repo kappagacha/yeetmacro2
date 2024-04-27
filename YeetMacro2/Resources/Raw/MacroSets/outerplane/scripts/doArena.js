@@ -2,7 +2,7 @@
 // Battle in arena until out of arena tickets
 // Will prioritize Memorial Match
 const loopPatterns = [patterns.lobby.level, patterns.titles.adventure, patterns.arena.calculationsInProgress, patterns.arena.challenge1, patterns.arena.matchOpponent, patterns.titles.arena];
-const daily = dailyManager.GetDaily();
+const daily = dailyManager.GetCurrentDaily();
 const teamSlot = settings.doArena.teamSlot.Value;
 const cpThresholdIsEnabled = settings.doArena.cpThreshold.IsEnabled;
 const autoDetectCpThreshold = settings.doArena.autoDetectCpThreshold.Value;

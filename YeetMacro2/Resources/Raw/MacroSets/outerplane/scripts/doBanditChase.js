@@ -1,7 +1,7 @@
 // @position=8
 // Auto or sweep bandit chase
 const loopPatterns = [patterns.lobby.level, patterns.titles.adventure, patterns.titles.challenge];
-const daily = dailyManager.GetDaily();
+const daily = dailyManager.GetCurrentDaily();
 const sweepBattle = settings.doBanditChase.sweepBattle.Value;
 const teamSlot = settings.doBanditChase.teamSlot.Value;
 if (daily.doBanditChase.done.IsChecked) {

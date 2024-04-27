@@ -1,7 +1,7 @@
 ﻿// @position=11
 // Skip dual gate
 const loopPatterns = [patterns.lobby.level, patterns.titles.adventure, patterns.titles.dualGate];
-const daily = dailyManager.GetDaily();
+const daily = dailyManager.GetCurrentDaily();
 const resolution = macroService.GetCurrentResolution();
 
 if (daily.skipDualGate.done.IsChecked) {

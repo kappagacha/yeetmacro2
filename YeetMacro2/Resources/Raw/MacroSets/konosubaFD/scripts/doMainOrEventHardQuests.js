@@ -1,7 +1,7 @@
 ﻿// @position=6
 // Skip at least 10 main hard quests or event special hard quests
 const loopPatterns = [patterns.titles.home, patterns.titles.quest, patterns.titles.events, patterns.quest.events.globalMission];
-const daily = dailyManager.GetDaily();
+const daily = dailyManager.GetCurrentDaily();
 if (daily.doMainOrEventHardQuests.done.IsChecked) {
 	return "Script already completed. Uncheck done to override daily flag.";
 }

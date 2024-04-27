@@ -1,6 +1,6 @@
 ﻿// @position=8
 const loopPatterns = [patterns.lobby.level, patterns.town.enter];
-const daily = dailyManager.GetDaily();
+const daily = dailyManager.GetCurrentDaily();
 const isLastRunWithinHour = (Date.now() - settings.doPartTimeJobAndRest.lastRun.Value.ToUnixTimeMilliseconds()) / 3_600_000 < 1;
 
 if (isLastRunWithinHour && !settings.doPartTimeJobAndRest.forceRun.Value) {

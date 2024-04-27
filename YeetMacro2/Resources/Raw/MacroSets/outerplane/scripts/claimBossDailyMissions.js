@@ -1,6 +1,6 @@
 // Claim daily boss missions
 const loopPatterns = [patterns.lobby.level, patterns.event.close];
-const daily = dailyManager.GetDaily();
+const daily = dailyManager.GetCurrentDaily();
 const resolution = macroService.GetCurrentResolution();
 
 if (daily.claimBossDailyMissions.done.IsChecked) {

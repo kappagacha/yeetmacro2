@@ -59,7 +59,7 @@ public partial class WeeklyNodeManagerViewModel : NodeManagerViewModel<TodoViewM
         return Task.CompletedTask;
     }
 
-    public TodoJsonParentViewModel GetWeelky(int offset = 0)
+    public TodoJsonParentViewModel GetCurrentWeelky(int offset = 0)
     {
         var targetDate = ResolveTargetDate(offset);
         var existingWeekly = Root.Nodes.FirstOrDefault(dn => dn.Date == targetDate);

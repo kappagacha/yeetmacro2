@@ -1,7 +1,7 @@
 ﻿// @position=9
 // Claim mission rewards
 const loopPatterns = [patterns.titles.home, patterns.titles.missions];
-const daily = dailyManager.GetDaily();
+const daily = dailyManager.GetCurrentDaily();
 if (daily.claimMissionRewards.done.IsChecked) {
 	return "Script already completed. Uncheck done to override daily flag.";
 }

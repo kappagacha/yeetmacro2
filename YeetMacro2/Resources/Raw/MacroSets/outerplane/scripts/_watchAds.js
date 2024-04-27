@@ -3,7 +3,7 @@
 // Watches all ads in a loop
 
 const loopPatterns = [patterns.lobby.level, patterns.stamina.purchase];
-//const daily = dailyManager.GetDaily();
+//const daily = dailyManager.GetCurrentDaily();
 //if (daily.watchAds.count.Count >= 15) {
 //	return;
 //}

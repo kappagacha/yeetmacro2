@@ -1,7 +1,7 @@
 // @position=5
 // Auto guild security area
 const loopPatterns = [patterns.lobby.level, patterns.titles.guildHallOfHonor, patterns.titles.guild];
-const daily = dailyManager.GetDaily();
+const daily = dailyManager.GetCurrentDaily();
 
 if (daily.claimGuildBuff.done.IsChecked) {
 	return "Script already completed. Uncheck done to override daily flag.";

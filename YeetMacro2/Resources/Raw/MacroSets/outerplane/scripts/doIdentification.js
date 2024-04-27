@@ -1,6 +1,6 @@
 // Auto or skip target identification
 const loopPatterns = [patterns.lobby.level, patterns.titles.adventure, patterns.titles.challenge];
-const daily = dailyManager.GetDaily();
+const daily = dailyManager.GetCurrentDaily();
 const teamSlot = settings.doIdentification.teamSlot.Value;
 const sweepBattle = settings.doIdentification.sweepBattle.Value;
 const identification = settings.doIdentification.targetIdentification.Value;

@@ -3,7 +3,7 @@
 const loopPatterns = [patterns.titles.home, patterns.titles.smithy, patterns.titles.craft, patterns.skipAll.title];
 const offset = macroService.GetTopLeft();
 const minStamina = settings.doMainExpertQuests.minStamina.Value;
-const daily = dailyManager.GetDaily();
+const daily = dailyManager.GetCurrentDaily();
 if (daily.doMainExpertQuests.done.IsChecked) {
 	return "Script already completed. Uncheck done to override daily flag.";
 }

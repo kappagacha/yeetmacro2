@@ -1,6 +1,6 @@
 // Claim daily event missions
 const loopPatterns = [patterns.lobby.level, patterns.event.close];
-const daily = dailyManager.GetDaily();
+const daily = dailyManager.GetCurrentDaily();
 const dailyMissionPattern = macroService.ClonePattern(settings.claimEventDailyMissions.dailyMissionPattern.Value, {
 	X: 90,
 	Y: 200,

@@ -1,6 +1,6 @@
 // Auto or skip target ecology study
 const loopPatterns = [patterns.lobby.level, patterns.titles.adventure, patterns.titles.challenge];
-const daily = dailyManager.GetDaily();
+const daily = dailyManager.GetCurrentDaily();
 const teamSlot = settings.doEcologyStudy.teamSlot.Value;
 const sweepBattle = settings.doEcologyStudy.sweepBattle.Value;
 const ecologyStudy = settings.doEcologyStudy.targetEcologyStudy.Value;

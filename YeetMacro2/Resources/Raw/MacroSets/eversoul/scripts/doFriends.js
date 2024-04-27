@@ -2,7 +2,7 @@
 // Claim and recieve hearts
 // Hire 5 souls. Requires hireTarget pattern captures
 const loopPatterns = [patterns.lobby.level, patterns.titles.friends];
-const daily = dailyManager.GetDaily();
+const daily = dailyManager.GetCurrentDaily();
 const resolution = macroService.GetCurrentResolution();
 const hireTargetBounds = {
 	X: 970,

@@ -1,7 +1,7 @@
 // @position=9
 // Auto or sweep upgrade stone retrieval
 const loopPatterns = [patterns.lobby.level, patterns.titles.adventure, patterns.titles.challenge];
-const daily = dailyManager.GetDaily();
+const daily = dailyManager.GetCurrentDaily();
 const teamSlot = settings.doUpgradeStoneRetrieval.teamSlot.Value;
 const sweepBattle = settings.doUpgradeStoneRetrieval.sweepBattle.Value;
 const elementTypeTarget1 = settings.doUpgradeStoneRetrieval.elementTypeTarget1.Value;

@@ -1,7 +1,7 @@
 ﻿// @position=2
 // Claim mail
 const loopPatterns = [patterns.lobby.level, patterns.titles.mailbox];
-const daily = dailyManager.GetDaily();
+const daily = dailyManager.GetCurrentDaily();
 if (daily.claimMail.done.IsChecked) {
 	return "Script already completed. Uncheck done to override daily flag.";
 }

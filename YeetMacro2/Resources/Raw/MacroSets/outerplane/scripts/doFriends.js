@@ -1,7 +1,7 @@
 // @position=4
 // Receive and present friend hearts
 const loopPatterns = [patterns.lobby.level, patterns.titles.friends];
-const daily = dailyManager.GetDaily();
+const daily = dailyManager.GetCurrentDaily();
 
 const isLastRunWithinHour = (Date.now() - settings.doFriends.lastRun.Value.ToUnixTimeMilliseconds()) / 3_600_000 < 1;
 

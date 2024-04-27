@@ -1,6 +1,6 @@
 // Skip infinite corridor
 const loopPatterns = [patterns.lobby.level, patterns.titles.adventure, patterns.titles.challenge, patterns.challenge.archdemonRuins.infiniteCorridor];
-const daily = dailyManager.GetDaily();
+const daily = dailyManager.GetCurrentDaily();
 const teamSlot = settings.doInfiniteCorridor.teamSlot.Value;
 const targetReward = settings.doInfiniteCorridor.targetReward.Value;
 if (daily.doInfiniteCorridor.done.IsChecked) {

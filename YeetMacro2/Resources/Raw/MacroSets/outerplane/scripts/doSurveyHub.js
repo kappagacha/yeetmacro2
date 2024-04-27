@@ -4,7 +4,7 @@
 
 function doSurveyHub(targetNumBattles = 0) {
 	const loopPatterns = [patterns.lobby.level, patterns.titles.adventure, patterns.titles.surveyHub, patterns.surveyHub.rewardInfo];
-	const daily = dailyManager.GetDaily();
+	const daily = dailyManager.GetCurrentDaily();
 	const teamSlot = settings.doSurveyHub.teamSlot.Value;
 
 	if (targetNumBattles && daily.doSurveyHub.count.Count >= targetNumBattles) {
