@@ -1913,5 +1913,234 @@
         "path": "watchAds.userClickPattern"
       }
     }
+  },
+  "doWeeklyShop": {
+    "$isParent": true,
+    "props": {
+      "settingType": "Parent",
+      "isParentNode": true,
+      "name": "doWeeklyShop",
+      "position": 0,
+      "path": "doWeeklyShop"
+    },
+    "normalItems": {
+      "$isParent": true,
+      "props": {
+        "settingType": "Parent",
+        "isParentNode": true,
+        "name": "normalItems",
+        "position": 0,
+        "path": "doWeeklyShop.normalItems"
+      },
+      "gold": {
+        "$isParent": false,
+        "props": {
+          "$type": "boolean",
+          "settingType": "Boolean",
+          "value": true,
+          "defaultValue": true,
+          "isParentNode": false,
+          "name": "gold",
+          "position": 0,
+          "path": "doWeeklyShop.normalItems.gold"
+        }
+      },
+      "basicSkillManual": {
+        "$isParent": false,
+        "props": {
+          "$type": "boolean",
+          "settingType": "Boolean",
+          "value": true,
+          "defaultValue": true,
+          "isParentNode": false,
+          "name": "basicSkillManual",
+          "position": 0,
+          "path": "doWeeklyShop.normalItems.basicSkillManual"
+        }
+      },
+      "intermediateSkillManual": {
+        "$isParent": false,
+        "props": {
+          "$type": "boolean",
+          "settingType": "Boolean",
+          "value": true,
+          "defaultValue": true,
+          "isParentNode": false,
+          "name": "intermediateSkillManual",
+          "position": 0,
+          "path": "doWeeklyShop.normalItems.intermediateSkillManual"
+        }
+      }
+    },
+    "useFriendshipPoints": {
+      "$isParent": true,
+      "props": {
+        "settingType": "Parent",
+        "isParentNode": true,
+        "name": "useFriendshipPoints",
+        "position": 0,
+        "path": "doWeeklyShop.useFriendshipPoints"
+      },
+      "upgradeStoneSelectionChest": {
+        "$isParent": false,
+        "props": {
+          "$type": "boolean",
+          "settingType": "Boolean",
+          "value": true,
+          "defaultValue": true,
+          "isParentNode": false,
+          "name": "upgradeStoneSelectionChest",
+          "position": 0,
+          "path": "doWeeklyShop.useFriendshipPoints.upgradeStoneSelectionChest"
+        }
+      },
+      "lowStarHeroPieceTicket": {
+        "$isParent": false,
+        "props": {
+          "$type": "boolean",
+          "settingType": "Boolean",
+          "value": true,
+          "defaultValue": true,
+          "isParentNode": false,
+          "name": "lowStarHeroPieceTicket",
+          "position": 0,
+          "path": "doWeeklyShop.useFriendshipPoints.lowStarHeroPieceTicket"
+        }
+      }
+    },
+    "useArenaMedals": {
+      "$isParent": true,
+      "props": {
+        "settingType": "Parent",
+        "isParentNode": true,
+        "name": "useArenaMedals",
+        "position": 0,
+        "path": "doWeeklyShop.useArenaMedals"
+      },
+      "basicSkillManual": {
+        "$isParent": false,
+        "props": {
+          "$type": "boolean",
+          "settingType": "Boolean",
+          "value": true,
+          "defaultValue": true,
+          "isParentNode": false,
+          "name": "basicSkillManual",
+          "position": 0,
+          "path": "doWeeklyShop.useArenaMedals.basicSkillManual"
+        }
+      },
+      "intermediateSkilManual": {
+        "$isParent": false,
+        "props": {
+          "$type": "boolean",
+          "settingType": "Boolean",
+          "value": true,
+          "defaultValue": true,
+          "isParentNode": false,
+          "name": "intermediateSkilManual",
+          "position": 0,
+          "path": "doWeeklyShop.useArenaMedals.intermediateSkilManual"
+        }
+      },
+      "professionalSkillManual": {
+        "$isParent": false,
+        "props": {
+          "$type": "boolean",
+          "settingType": "Boolean",
+          "value": true,
+          "defaultValue": true,
+          "isParentNode": false,
+          "name": "professionalSkillManual",
+          "position": 0,
+          "path": "doWeeklyShop.useArenaMedals.professionalSkillManual"
+        }
+      }
+    },
+    "useStarMemory": {
+      "$isParent": true,
+      "props": {
+        "settingType": "Parent",
+        "isParentNode": true,
+        "name": "useStarMemory",
+        "position": 0,
+        "path": "doWeeklyShop.useStarMemory"
+      },
+      "intermediateSkilManual": {
+        "$isParent": false,
+        "props": {
+          "$type": "boolean",
+          "settingType": "Boolean",
+          "value": true,
+          "defaultValue": true,
+          "isParentNode": false,
+          "name": "intermediateSkilManual",
+          "position": 0,
+          "path": "doWeeklyShop.useStarMemory.intermediateSkilManual"
+        }
+      },
+      "professionalSkillManual": {
+        "$isParent": false,
+        "props": {
+          "$type": "boolean",
+          "settingType": "Boolean",
+          "value": true,
+          "defaultValue": true,
+          "isParentNode": false,
+          "name": "professionalSkillManual",
+          "position": 0,
+          "path": "doWeeklyShop.useStarMemory.professionalSkillManual"
+        }
+      }
+    },
+    "useGuildMedals": {
+      "$isParent": true,
+      "props": {
+        "settingType": "Parent",
+        "isParentNode": true,
+        "name": "useGuildMedals",
+        "position": 0,
+        "path": "doWeeklyShop.useGuildMedals"
+      },
+      "basicSkillManual": {
+        "$isParent": false,
+        "props": {
+          "$type": "boolean",
+          "settingType": "Boolean",
+          "value": true,
+          "defaultValue": true,
+          "isParentNode": false,
+          "name": "basicSkillManual",
+          "position": 0,
+          "path": "doWeeklyShop.useGuildMedals.basicSkillManual"
+        }
+      },
+      "intermediateSkilManual": {
+        "$isParent": false,
+        "props": {
+          "$type": "boolean",
+          "settingType": "Boolean",
+          "value": true,
+          "defaultValue": true,
+          "isParentNode": false,
+          "name": "intermediateSkilManual",
+          "position": 0,
+          "path": "doWeeklyShop.useGuildMedals.intermediateSkilManual"
+        }
+      },
+      "professionalSkillManual": {
+        "$isParent": false,
+        "props": {
+          "$type": "boolean",
+          "settingType": "Boolean",
+          "value": true,
+          "defaultValue": true,
+          "isParentNode": false,
+          "name": "professionalSkillManual",
+          "position": 0,
+          "path": "doWeeklyShop.useGuildMedals.professionalSkillManual"
+        }
+      }
+    }
   }
 }

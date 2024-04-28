@@ -29,7 +29,8 @@ macroService.PollPattern(patterns.lobby.level, {
 		patterns.battle.exit,
 		patterns.stamina.cancel,
 		patterns.event.close,
-		patterns.challenge.specialRequest.sweepAll.cancel
+		patterns.challenge.specialRequest.sweepAll.cancel,
+		patterns.lobby.expedition.searchAgain
 	]
 });
 if (macroService.IsRunning) {

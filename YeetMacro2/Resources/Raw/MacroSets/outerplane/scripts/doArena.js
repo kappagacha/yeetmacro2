@@ -58,7 +58,7 @@ while (macroService.IsRunning) {
 				macroService.PollPattern(patterns.prompt.ok, { DoClick: true, ClickPattern: [patterns.arena.tapEmptySpace, patterns.arena.defendReport.close], PredicatePattern: patterns.titles.arena });
 			} else {
 				logger.info('doArena: normal match');
-				macroService.PollPattern(patterns.arena.matchOpponent, { DoClick: true, PredicatePattern: patterns.arena.matchOpponent.selected });
+				macroService.PollPattern(patterns.arena.matchOpponent, { DoClick: true, ClickPattern: patterns.arena.defendReport.close, PredicatePattern: patterns.arena.matchOpponent.selected });
 				if (cpThresholdIsEnabled) {
 					const cpThreshold = settings.doArena.cpThreshold.Value;
 					const challenge1CP = macroService.GetText(patterns.arena.challenge1.cp);
