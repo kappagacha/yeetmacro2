@@ -12,12 +12,7 @@ while (macroService.IsRunning) {
 	switch (loopResult.Path) {
 		case 'lobby.level':
 			logger.info('doWeeklyShop: click shop tab');
-			const shopNotificationResult = macroService.PollPattern(patterns.tabs.shop.notification, { TimeoutMs: 2_000 });
-			if (shopNotificationResult.IsSuccess) {
-				macroService.ClickPattern(patterns.tabs.shop);
-			} else {	// already claimed
-				return;
-			}
+			macroService.ClickPattern(patterns.tabs.shop);
 			sleep(500);
 			break;
 		case 'titles.shop':
@@ -48,7 +43,7 @@ while (macroService.IsRunning) {
 			}
 			macroService.PollPattern(patterns.shop.shopList, { DoClick: true, PredicatePattern: patterns.shop.shopList.guildShop });
 			macroService.PollPattern(patterns.shop.shopList.guildShop, { DoClick: true, PredicatePattern: patterns.shop.shopList.guildShop.go });
-			macroService.PollPattern(patterns.shop.shopList.guildShop.go, { DoClick: true, PredicatePattern: patterns.guild.shop.weekly });
+			macroService.PollPattern(patterns.shop.shopList.guildShop.go, { DoClick: true, PredicatePattern: [patterns.guild.shop.weeklyProducts, patterns.guild.shop.weeklyProducts.selected] });
 			doGuildItems();
 
 			if (macroService.IsRunning) {
@@ -102,6 +97,9 @@ function doNormalItems() {
 }
 
 function doFriendshipItems() {
+	const endX = resolution.Width - 100;
+	const startX = endX - 300;
+	macroService.DoSwipe({ X: startX, Y: 500 }, { X: endX, Y: 500 });
 	const friendshipItems = ['upgradeStoneSelectionChest', 'lowStarHeroPieceTicket'];
 	for (const friendshipItem of friendshipItems) {
 		if (settings.doWeeklyShop.useFriendshipPoints[friendshipItem].Value && !weekly.doWeeklyShop.useFriendshipPoints[friendshipItem].IsChecked) {
@@ -219,18 +217,23 @@ function doStarMemoryItems() {
 }
 
 function doGuildItems() {
-	macroService.PollPattern(patterns.guild.shop.weekly, { DoClick: true, PredicatePattern: patterns.guild.shop.weekly.selected });
+	const resolution = macroService.GetCurrentResolution();
+	const weekly = weeklyManager.GetCurrentWeekly();
+	macroService.PollPattern(patterns.guild.shop.weeklyProducts, { DoClick: true, PredicatePattern: patterns.guild.shop.weeklyProducts.selected });
+	const startX = resolution.Width - 100;
+	const endX = startX - 300;
+	macroService.DoSwipe({ X: startX, Y: 500 }, { X: endX, Y: 500 });
 	const guildItems = ['basicSkillManual', 'intermediateSkilManual', 'professionalSkillManual'];
 	for (const guildItem of guildItems) {
-		if (settings.doWeeklyShop.useGuildMedals[guildItem].Value && !weekly.doWeeklyShop.useGuildMedalsMedals[guildItem].IsChecked) {
+		if (settings.doWeeklyShop.useGuildMedals[guildItem].Value && !weekly.doWeeklyShop.useGuildMedals[guildItem].IsChecked) {
 			logger.info(`doWeeklyShop: purchase guildItem ${guildItem}`);
 
-			const guildItemPattern = macroService.ClonePattern(patterns.guild.shop.weekly[guildItem], {
+			const guildItemPattern = macroService.ClonePattern(patterns.guild.shop.weeklyProducts[guildItem], {
 				X: 350,
-				Y: 230,
+				Y: 190,
 				Width: resolution.Width - 550,
 				Height: 800,
-				Path: `patterns.guild.shop.weekly.${guildItem}`,
+				Path: `patterns.guild.shop.weeklyProducts.${guildItem}`,
 				OffsetCalcType: 'DockLeft'
 			});
 			const guildItemResult = macroService.PollPattern(guildItemPattern);
@@ -239,7 +242,7 @@ function doGuildItems() {
 				Y: guildItemResult.Point.Y + 200,
 				Width: 350,
 				Height: 100,
-				Path: `patterns.guild.shop.weekly.${guildItem}.purchase`,
+				Path: `patterns.guild.shop.weeklyProducts.${guildItem}.purchase`,
 				OffsetCalcType: 'None'
 			});
 
