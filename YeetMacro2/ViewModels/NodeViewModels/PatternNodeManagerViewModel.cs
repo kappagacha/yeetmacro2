@@ -139,8 +139,9 @@ public partial class PatternNodeManagerViewModel : NodeManagerViewModel<PatternN
     {
         if (values.Length == 2 && values[0] is Pattern pattern && values[1] is PatternNode patternNode)
         {
+            _patternRepository.AttachEntities(pattern);     // When called form SettingPattern, pattern is not attached to the repository
             patternNode.Patterns.Remove(pattern);
-            //_patternRepository.Delete(pattern);
+            _patternRepository.Delete(pattern);
             _patternRepository.Save();
         }
     }

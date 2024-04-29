@@ -148,7 +148,7 @@ public partial class SettingNodeManagerViewModel : NodeManagerViewModel<ParentSe
     }
 
     [RelayCommand]
-    public void ResetSetting(SettingNode setting)
+    public async Task ResetSetting(SettingNode setting)
     {
         if (setting is null) return;
 
@@ -214,6 +214,9 @@ public partial class SettingNodeManagerViewModel : NodeManagerViewModel<ParentSe
         }
         else if (setting is PatternSettingViewModel patternSetting)
         {
+            var option = await _inputService.SelectOption($"Reset pattern setting {patternSetting.Name}?");
+            if (option != "ok") return;
+
             foreach (var pattern in patternSetting.Value.Patterns)
             {
                 _patternRepository.Delete(pattern);

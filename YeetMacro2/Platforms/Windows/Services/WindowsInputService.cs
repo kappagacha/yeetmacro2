@@ -35,12 +35,12 @@ internal class WindowsInputService : IInputService
 
         var output = await proc.StandardOutput.ReadToEndAsync();
         var json = JsonSerializer.Deserialize<JsonObject>(output);
-        var x1 = (double)json["Start"]["X"];
-        var y1 = (double)json["Start"]["Y"];
-        var x2 = (double)json["End"]["X"];
-        var y2 = (double)json["End"]["Y"];
-        var location = new Point(x1, y1);
-        var size = new Size(x2 - x1, y2 - y1);
+        var x = (double)json["X"];
+        var y = (double)json["Y"];
+        var width = (double)json["Width"];
+        var height = (double)json["Height"];
+        var location = new Point(x, y);
+        var size = new Size(width, height);
         var result = new Rect(location, size);
 
         return result;

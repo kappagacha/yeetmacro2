@@ -51,13 +51,13 @@ public partial class PatternView : ContentView
     {
         if (pattern != null && !pattern.ColorThreshold.IsActive && pattern.ImageData != null)
         {
-            colorThresholdVariancePct.Text = pattern.ColorThreshold.VariancePct.ToString();
+            colorThresholdVariancePct.Value = (int)pattern.ColorThreshold.VariancePct;
             colorThresholdColor.Text = pattern.ColorThreshold.Color;
             _currentImageData = pattern.ImageData;
         }
         else if (pattern != null && pattern.ColorThreshold.IsActive && pattern.ColorThreshold.ImageData != null)
         {
-            colorThresholdVariancePct.Text = pattern.ColorThreshold.VariancePct.ToString();
+            colorThresholdVariancePct.Value = (int)pattern.ColorThreshold.VariancePct;
             colorThresholdColor.Text = pattern.ColorThreshold.Color;
             _currentImageData = pattern.ColorThreshold.ImageData;
         }

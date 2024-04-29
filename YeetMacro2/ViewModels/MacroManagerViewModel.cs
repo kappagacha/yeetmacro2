@@ -642,11 +642,13 @@ public partial class MacroManagerViewModel : ObservableObject
                     ((SettingNode<double>)dest).Value = ((SettingNode<double>)source).Value;
                     break;
                 case SettingType.Pattern when dest.SettingType == SettingType.Pattern:
-                    ((SettingNode<PatternNode>)dest).Value = ((SettingNode<PatternNode>)source).Value;
-                    break;
                 case SettingType.EnabledPattern when dest.SettingType == SettingType.EnabledPattern:
-                    ((EnabledPatternSetting)dest).IsEnabled = ((EnabledPatternSetting)source).IsEnabled;
-                    ((SettingNode<PatternNode>)dest).Value = ((SettingNode<PatternNode>)source).Value;
+                    var patternNodeCopy = PatternNodeManagerViewModel.CloneNode(((PatternSetting)source).Value);
+                    ((SettingNode<PatternNode>)dest).Value = patternNodeCopy;
+                    if (source.SettingType == SettingType.EnabledPattern)
+                    {
+                        ((EnabledPatternSetting)dest).IsEnabled = ((EnabledPatternSetting)source).IsEnabled;
+                    }
                     break;
                 case SettingType.TimeStamp when dest.SettingType == SettingType.TimeStamp:
                     ((SettingNode<DateTimeOffset>)dest).Value = ((SettingNode<DateTimeOffset>)source).Value;

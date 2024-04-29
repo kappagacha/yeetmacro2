@@ -65,7 +65,7 @@
                 <HorizontalStackLayout Margin="0" Padding="0" IsVisible="{Binding IsToggled, Source={x:Reference colorThresholdToggle}}">
                     <CheckBox TranslationX="{OnPlatform WinUI=20, Android=10}" IsChecked="{Binding Pattern.ColorThreshold.IsActive, Source={Reference thisView}}" CheckedChanged="colorThresholdIsActive_CheckedChanged" />
                     <Label Margin="0" VerticalOptions="Center" Padding="0" Text="Color Threshold:" />
-                    <Entry x:Name="colorThresholdVariancePct" Margin="5,0,0,0" VerticalOptions="Center" Keyboard="Numeric" />
+                    <v:IntegerStepper x:Name="colorThresholdVariancePct" Value="30" Increment="10" />
                     <Label Margin="0" VerticalOptions="Center" Padding="0" Text="@" />
                     <Entry x:Name="colorThresholdColor" Margin="0,0,0,0" VerticalOptions="Center" IsReadOnly="True" />
                     <skia:SKCanvasView Margin="5,0,0,0" x:Name="colorPickCanvas" PaintSurface="OnColorPickPaintSurface" WidthRequest="20" HeightRequest="20" />
@@ -73,7 +73,7 @@
                         <Button.CommandParameter>
                             <MultiBinding Converter="{conv:PassThroughConverter}">
                                 <Binding Path="Pattern" Source="{Reference thisView}" />
-                                <Binding Path="Text" Source="{Reference colorThresholdVariancePct}" />
+                                <Binding Path="Value" Source="{Reference colorThresholdVariancePct}" />
                                 <Binding Path="Text" Source="{Reference colorThresholdColor}" />
                                 <Binding Path="SelectPatternCommand" Source="{Reference thisView}" />
                             </MultiBinding>
@@ -92,7 +92,7 @@
                     <Entry x:Name="scale" Margin="5,0,0,0" VerticalOptions="Center" Keyboard="Numeric" Text="1.0" />
                 </HorizontalStackLayout>
                 <HorizontalStackLayout Spacing="5" VerticalOptions="End" IsVisible="{Binding IsToggled, Source={x:Reference offsetToggle}}">
-                    <CheckBox TranslationX="{OnPlatform WinUI=20, Android=10}" x:Name="doTestCalc" Margin="0,0,0,0" VerticalOptions="Center" />
+                    <CheckBox TranslationX="{OnPlatform WinUI=20, Android=10}" x:Name="doTestCalc" IsChecked="True" Margin="0,0,0,0" VerticalOptions="Center" />
                     <Label Margin="0,0,0,0" VerticalOptions="Center" Padding="0" Text="TestCalc" />
                     <Label Margin="0" VerticalOptions="Center" Padding="0" Text="XOffset:" />
                     <Entry x:Name="xOffset" VerticalOptions="Center" Keyboard="Numeric" Text="0"  />

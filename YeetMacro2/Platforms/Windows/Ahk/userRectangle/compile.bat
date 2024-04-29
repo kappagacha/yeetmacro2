@@ -1,1 +1,1 @@
-"C:\Program Files\AutoHotkey\Compiler\Ahk2Exe.exe" /in "userRectangle.ahk" /out "userRectangle.exe"
+"C:\Program Files\AutoHotkey\Compiler\Ahk2Exe.exe" /in "userRectangle.ahk" /out "userRectangle.exe" /base "C:\Program Files\AutoHotkey\v1.1.37.01\AutoHotkeyA32.exe"
