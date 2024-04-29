@@ -105,7 +105,10 @@
                 <Border  Grid.Row="2" Stroke="{StaticResource Primary}">
                     <mct:DockLayout BindingContext="{Binding Scripts.SelectedNode}">
                         <v:ImageView mct:DockLayout.DockPosition="Left" FontFamily="FARegular" Glyph="{x:Static fa:Regular.CalendarCheck}" />
-                        <v:DailyNodeView IsSubView="True"  />
+                        <Grid>
+                            <v:WeeklyNodeView IsSubView="True" IsVisible="{Binding Weeklies.CurrentSubViewModel.Children.Count, Converter={conv:NumberToBoolConverter}}" />
+                            <v:DailyNodeView IsSubView="True" IsVisible="{Binding Dailies.CurrentSubViewModel.Children.Count, Converter={conv:NumberToBoolConverter}}"/>
+                        </Grid>
                     </mct:DockLayout>
                 </Border>
             </Grid>

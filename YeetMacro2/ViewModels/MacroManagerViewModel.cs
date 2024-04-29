@@ -197,6 +197,7 @@ public partial class MacroManagerViewModel : ObservableObject
         WeakReferenceMessenger.Default.Register<Lazy<ScriptNode>>(this, async (r, scriptNode) => {
             await Settings?.OnScriptNodeSelected(scriptNode.Value);
             await Dailies?.OnScriptNodeSelected(scriptNode.Value);
+            await Weeklies?.OnScriptNodeSelected(scriptNode.Value);
         });
 
         WeakReferenceMessenger.Default.Register<TodoViewModel>(this, (r, todoNode) => {

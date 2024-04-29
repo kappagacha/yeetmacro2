@@ -32,13 +32,13 @@
     </ContentView.Resources>
     <Border Stroke="{StaticResource Primary}" BackgroundColor="Transparent" Padding="3">
         <Grid>
-            <!--<Grid IsVisible="{Binding IsSubView, Source={Reference thisView}}">
+            <Grid IsVisible="{Binding IsSubView, Source={Reference thisView}}">
                 <ScrollView>
                     <material:TreeView ItemsSource="{Binding Weeklies.CurrentSubViewModel.Children}"
                                    Spacing="0" HorizontalOptions="Fill"  VerticalOptions="Fill"
                                    ItemTemplate="{conv:DynamicTemplateSelector Root={Binding .,Source={Reference thisView}}}"/>
                 </ScrollView>
-            </Grid>-->
+            </Grid>
             <Grid ColumnDefinitions="*,3*" IsVisible="{Binding IsSubView, Converter={conv:InverseBoolConverter}, Source={Reference thisView}}">
                 <v:NodeView Grid.Column="0" NodeManager="{Binding Weeklies}" />
                 <mct:DockLayout Grid.Column="1" IsVisible="{Binding IsToggled, Source={Reference templateToggle}, Converter={conv:InverseBoolConverter}}">
