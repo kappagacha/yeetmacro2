@@ -143,6 +143,19 @@ public partial class WeeklyNodeManagerViewModel : NodeManagerViewModel<TodoViewM
         return targetDate;
     }
 
+    public DayOfWeek GetDayOfWeek()
+    {
+        var utcNow = DateTime.UtcNow;
+        var targetDate = DateOnly.FromDateTime(utcNow);
+        if (utcNow.Hour < MacroSet.DailyResetUtcHour)
+        {
+            targetDate = targetDate.AddDays(-1);
+        }
+
+        return targetDate.DayOfWeek;
+    }
+
+
     private JsonObject GetJsonFromTemplate()
     {
         if (string.IsNullOrWhiteSpace(MacroSet.WeeklyTemplate)) return new JsonObject();

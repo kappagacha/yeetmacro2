@@ -1,6 +1,9 @@
 // Sell inventory - normal and superior grade
 const loopPatterns = [patterns.lobby.level, patterns.titles.inventory];
-//const daily = dailyManager.GetCurrentDaily();
+const weekly = weeklyManager.GetCurrentWeekly();
+if (weekly.sellInventory.done.IsChecked && !settings.sellInventory.forceRun.Value) {
+	return "Script already completed. Uncheck done to override weekly flag.";
+}
 
 while (macroService.IsRunning) {
 	const loopResult = macroService.PollPattern(loopPatterns);
@@ -23,8 +26,10 @@ while (macroService.IsRunning) {
 			macroService.PollPattern(patterns.inventory.sell.enabled, { DoClick: true, PredicatePattern: patterns.inventory.sell.ok });
 			macroService.PollPattern(patterns.inventory.sell.ok, { DoClick: true, PredicatePattern: patterns.general.tapEmptySpace });
 			macroService.PollPattern(patterns.general.tapEmptySpace, { DoClick: true, PredicatePattern: patterns.titles.inventory });
-			// TODO: save weekly
 
+			if (macroService.IsRunning) {
+				weekly.sellInventory.done.IsChecked = true;
+			}
 			return;
 	}
 	sleep(1_000);

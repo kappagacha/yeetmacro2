@@ -1,7 +1,9 @@
 // Claim weekly missions
 const loopPatterns = [patterns.lobby.level, patterns.titles.mission];
-//const weekly = weeklyManager.GetWeekly();
-const weekly = weeklyManager.GetCurrentWeelky();
+const weekly = weeklyManager.GetCurrentWeekly();
+const dayOfWeek = weeklyManager.GetDayOfWeek();
+
+if (dayOfWeek < 5) return;	// Needs to be at least Friday
 
 if (weekly.claimWeeklyMissions.done.IsChecked) {
 	return "Script already completed. Uncheck done to override daily flag.";

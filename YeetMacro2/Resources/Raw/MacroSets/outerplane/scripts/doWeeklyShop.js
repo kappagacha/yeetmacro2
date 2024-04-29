@@ -59,7 +59,6 @@ function doNormalItems() {
 	const endX = startX - 300;
 	macroService.DoSwipe({ X: startX, Y: 500 }, { X: endX, Y: 500 });
 	sleep(1_500);
-	//const normalItems = ['gold', 'basicSkillManual', 'intermediateSkillManual'];
 	const normalItems = ['basicSkillManual', 'intermediateSkillManual'];
 	for (const normalItem of normalItems) {
 		if (settings.doWeeklyShop.normalItems[normalItem].Value && !weekly.doWeeklyShop.normalItems[normalItem].IsChecked) {
