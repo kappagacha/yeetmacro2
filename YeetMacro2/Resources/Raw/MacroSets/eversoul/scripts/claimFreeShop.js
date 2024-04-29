@@ -24,7 +24,7 @@ while (macroService.IsRunning) {
 			if (!regularPackSwipeResult.IsSuccess) {
 				throw new Error('Unable to find regular pack');
 			}
-			sleep(1_000);
+			sleep(2_000);
 			const regularPackResult = macroService.FindPattern(patterns.cashShop.regularPack);
 			const regularPackSelected = macroService.ClonePattern(patterns.cashShop.regularPack.selected, { CenterY: regularPackResult.Point.Y })
 			macroService.PollPattern(patterns.cashShop.regularPack, { DoClick: true, PredicatePattern: regularPackSelected });
