@@ -203,6 +203,8 @@ public partial class MacroManagerViewModel : ObservableObject
         WeakReferenceMessenger.Default.Register<TodoViewModel>(this, (r, todoNode) => {
             _todoNodeService.Update(todoNode);
         });
+
+        InDebugMode = Preferences.Default.Get(nameof(InDebugMode), false);
     }
 
     [RelayCommand]
@@ -692,6 +694,7 @@ public partial class MacroManagerViewModel : ObservableObject
 
     partial void OnInDebugModeChanged(bool oldValue, bool newValue)
     {
+        Preferences.Default.Set(nameof(InDebugMode), InDebugMode);
         WeakReferenceMessenger.Default.Send(new PropertyChangedMessage<bool>(this, nameof(InDebugMode), oldValue, newValue), nameof(MacroManagerViewModel));
     }
 }

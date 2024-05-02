@@ -82,8 +82,7 @@ public partial class AndriodHomeViewModel : ObservableObject
             }
             else
             {
-                IsProjectionServiceEnabled = IsMacroReady = ShowStatusPanel = false;
-                _macroManagerViewModel.InDebugMode = false;
+                IsProjectionServiceEnabled = IsMacroReady = false;
             }
             
         });
@@ -92,7 +91,7 @@ public partial class AndriodHomeViewModel : ObservableObject
         {
             if (propertyChangedMessage.PropertyName != nameof(MacroManagerViewModel.InDebugMode)) return;
 
-            if (propertyChangedMessage.NewValue)
+            if (IsProjectionServiceEnabled && propertyChangedMessage.NewValue)
             {
                 _screenService.Show(AndroidWindowView.DebugDrawView);
             }
@@ -120,6 +119,9 @@ public partial class AndriodHomeViewModel : ObservableObject
         {
             _screenService.RefreshActionViewLocation();
         });
+
+
+        ShowStatusPanel = Preferences.Default.Get(nameof(ShowStatusPanel), false);
     }
 
     public void InvokeOnPropertyChanged(string propertyName)
@@ -253,9 +255,12 @@ If you agree, please tap OK then grant Accessibility service permission to YeetM
         }
     }
 
-
     partial void OnShowStatusPanelChanged(bool value)
     {
+        Preferences.Default.Set(nameof(ShowStatusPanel), value);
+
+        if (!IsProjectionServiceEnabled) return;
+
         if (value)
         {
             _screenService.Show(AndroidWindowView.StatusPanelView);
@@ -263,6 +268,27 @@ If you agree, please tap OK then grant Accessibility service permission to YeetM
         else
         {
             _screenService.Close(AndroidWindowView.StatusPanelView);
+        }
+    }
+
+    partial void OnIsProjectionServiceEnabledChanged(bool value)
+    {
+        if (value && ShowStatusPanel)
+        {
+            _screenService.Show(AndroidWindowView.StatusPanelView);
+        }
+        else
+        {
+            _screenService.Close(AndroidWindowView.StatusPanelView);
+        }
+
+        if (value && MacroManagerViewModel.InDebugMode)
+        {
+            _screenService.Show(AndroidWindowView.DebugDrawView);
+        }
+        else
+        {
+            _screenService.Close(AndroidWindowView.DebugDrawView);
         }
     }
 
