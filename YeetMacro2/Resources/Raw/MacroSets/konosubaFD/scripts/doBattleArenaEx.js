@@ -74,7 +74,7 @@ while (macroService.IsRunning) {
 			const replayResult = macroService.FindPattern(patterns.battle.replay);
 			if (replayResult.IsSuccess) {
 				logger.debug('doBattleArenaEx: found replay');
-				macroService.PollPattern(patterns.battle.replay, { DoClick: true, ClickPattern: [patterns.branchEvent.availableNow, patterns.branchEvent.playLater, patterns.prompt.playerRankUp], PredicatePattern: patterns.battle.replay.ok });
+				macroService.PollPattern(patterns.battle.replay, { DoClick: true, ClickPattern: [patterns.branchEvent.availableNow, patterns.branchEvent.playLater, patterns.prompt.playerRankUp, patterns.battleArena.newHighScore], PredicatePattern: patterns.battle.replay.ok });
 				macroService.PollPattern(patterns.battle.replay.ok, { DoClick: true, PredicatePattern: patterns.battle.report });
 			} else {
 				logger.debug('doBattleArenaEx: found next3');
@@ -85,7 +85,7 @@ while (macroService.IsRunning) {
 					}
 					return;
 				}
-				macroService.PollPattern(patterns.battle.replay, { DoClick: true, ClickPattern: [patterns.branchEvent.availableNow, patterns.branchEvent.playLater, patterns.prompt.playerRankUp], PredicatePattern: patterns.battle.replay.ok });
+				macroService.PollPattern(patterns.battle.replay, { DoClick: true, ClickPattern: [patterns.branchEvent.availableNow, patterns.branchEvent.playLater, patterns.prompt.playerRankUp, patterns.battleArena.newHighScore], PredicatePattern: patterns.battle.replay.ok });
 				macroService.PollPattern(patterns.battle.replay.ok, { DoClick: true, PredicatePattern: patterns.battle.report });
 			}
 			break;
