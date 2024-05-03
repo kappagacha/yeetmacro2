@@ -324,8 +324,7 @@ public partial class PatternNodeManagerViewModel : NodeManagerViewModel<PatternN
         if (values.Length != 4) return;
 
         if (values[0] is Pattern pattern &&
-            values[1] is string colorThresholdVariancePctString &&
-            double.TryParse(colorThresholdVariancePctString, out double colorThresholdVariancePct) &&
+            values[1] is int colorThresholdVariancePct &&
             values[2] is string colorThresholdColor &&
             values[3] is ICommand selectCommand)
         {
