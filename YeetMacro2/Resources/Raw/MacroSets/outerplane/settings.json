@@ -2142,5 +2142,188 @@
         }
       }
     }
+  },
+  "sellInventory": {
+    "$isParent": true,
+    "props": {
+      "settingType": "Parent",
+      "isParentNode": true,
+      "name": "sellInventory",
+      "position": 0,
+      "path": "sellInventory"
+    },
+    "forceRun": {
+      "$isParent": false,
+      "props": {
+        "$type": "boolean",
+        "settingType": "Boolean",
+        "value": false,
+        "defaultValue": false,
+        "isParentNode": false,
+        "name": "forceRun",
+        "position": 0,
+        "path": "sellInventory.forceRun"
+      }
+    }
+  },
+  "doWeeklySurveyHubShop": {
+    "$isParent": true,
+    "props": {
+      "settingType": "Parent",
+      "isParentNode": true,
+      "name": "doWeeklySurveyHubShop",
+      "position": 0,
+      "path": "doWeeklySurveyHubShop"
+    },
+    "done": {
+      "$isParent": false,
+      "props": {
+        "$type": "boolean",
+        "settingType": "Boolean",
+        "value": false,
+        "defaultValue": false,
+        "isParentNode": false,
+        "name": "done",
+        "position": 0,
+        "path": "doWeeklySurveyHubShop.done"
+      }
+    },
+    "surveyHubItems": {
+      "$isParent": true,
+      "props": {
+        "settingType": "Parent",
+        "isParentNode": true,
+        "name": "surveyHubItems",
+        "position": 0,
+        "path": "doWeeklySurveyHubShop.surveyHubItems"
+      },
+      "epicReforgeCatalyst": {
+        "$isParent": false,
+        "props": {
+          "$type": "boolean",
+          "settingType": "Boolean",
+          "value": false,
+          "defaultValue": false,
+          "isParentNode": false,
+          "name": "epicReforgeCatalyst",
+          "position": 0,
+          "path": "doWeeklySurveyHubShop.surveyHubItems.epicReforgeCatalyst"
+        }
+      },
+      "superiorQualityPresentChest": {
+        "$isParent": false,
+        "props": {
+          "$type": "boolean",
+          "settingType": "Boolean",
+          "value": false,
+          "defaultValue": false,
+          "isParentNode": false,
+          "name": "superiorQualityPresentChest",
+          "position": 0,
+          "path": "doWeeklySurveyHubShop.surveyHubItems.superiorQualityPresentChest"
+        }
+      },
+      "basicSkillManual": {
+        "$isParent": false,
+        "props": {
+          "$type": "boolean",
+          "settingType": "Boolean",
+          "value": false,
+          "defaultValue": false,
+          "isParentNode": false,
+          "name": "basicSkillManual",
+          "position": 0,
+          "path": "doWeeklySurveyHubShop.surveyHubItems.basicSkillManual"
+        }
+      },
+      "10pctLegendaryAbrasive": {
+        "$isParent": false,
+        "props": {
+          "$type": "boolean",
+          "settingType": "Boolean",
+          "value": false,
+          "defaultValue": false,
+          "isParentNode": false,
+          "name": "10pctLegendaryAbrasive",
+          "position": 0,
+          "path": "doWeeklySurveyHubShop.surveyHubItems.10pctLegendaryAbrasive"
+        }
+      },
+      "intermediateSkillManual": {
+        "$isParent": false,
+        "props": {
+          "$type": "boolean",
+          "settingType": "Boolean",
+          "value": false,
+          "defaultValue": false,
+          "isParentNode": false,
+          "name": "intermediateSkillManual",
+          "position": 0,
+          "path": "doWeeklySurveyHubShop.surveyHubItems.intermediateSkillManual"
+        }
+      }
+    }
+  },
+  "doWeeklies": {
+    "$isParent": true,
+    "props": {
+      "settingType": "Parent",
+      "isParentNode": true,
+      "name": "doWeeklies",
+      "position": 0,
+      "path": "doWeeklies"
+    },
+    "sellInventory": {
+      "$isParent": false,
+      "props": {
+        "$type": "boolean",
+        "settingType": "Boolean",
+        "value": false,
+        "defaultValue": false,
+        "isParentNode": false,
+        "name": "sellInventory",
+        "position": 0,
+        "path": "doWeeklies.sellInventory"
+      }
+    },
+    "claimWeeklyMissions": {
+      "$isParent": false,
+      "props": {
+        "$type": "boolean",
+        "settingType": "Boolean",
+        "value": false,
+        "defaultValue": false,
+        "isParentNode": false,
+        "name": "claimWeeklyMissions",
+        "position": 0,
+        "path": "doWeeklies.claimWeeklyMissions"
+      }
+    },
+    "doWeeklySurveyHubShop": {
+      "$isParent": false,
+      "props": {
+        "$type": "boolean",
+        "settingType": "Boolean",
+        "value": false,
+        "defaultValue": false,
+        "isParentNode": false,
+        "name": "doWeeklySurveyHubShop",
+        "position": 0,
+        "path": "doWeeklies.doWeeklySurveyHubShop"
+      }
+    },
+    "doWeeklyShop": {
+      "$isParent": false,
+      "props": {
+        "$type": "boolean",
+        "settingType": "Boolean",
+        "value": false,
+        "defaultValue": false,
+        "isParentNode": false,
+        "name": "doWeeklyShop",
+        "position": 0,
+        "path": "doWeeklies.doWeeklyShop"
+      }
+    }
   }
 }

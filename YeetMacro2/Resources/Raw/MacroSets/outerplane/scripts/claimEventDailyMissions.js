@@ -24,7 +24,7 @@ while (macroService.IsRunning) {
 			break;
 		case 'event.close':
 			logger.info('claimEventDailyMissions: claim rewards');
-			macroService.PollPattern(dailyMissionPattern, { DoClick: true, PredicatePattern: patterns.event.daily.info });
+			macroService.PollPattern(dailyMissionPattern, { DoClick: true, PredicatePattern: patterns.event.daily.info, IntervalDelayMs: 3_000 });
 			macroService.PollPattern(patterns.event.daily.firstDone, { ClickPattern: [patterns.event.daily.firstNotification, patterns.event.ok, patterns.event.confirm] });
 
 			const finalNotificationResult = macroService.FindPattern(patterns.event.daily.finalNotification);
