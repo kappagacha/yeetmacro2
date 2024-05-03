@@ -56,6 +56,7 @@ while (macroService.IsRunning) {
 							macroService.DoClick(hirePatternResult.Point);
 							hireTargets = hireTargets.filter(ht => ht.Path !== swipeResult.Path);
 							logger.info(swipeResult.Path + '___' + hireTargets.length);
+							sleep(1_500);
 						}
 					}
 					hireSoulDoneResult = macroService.FindPattern(patterns.friends.hireSoul.done);
