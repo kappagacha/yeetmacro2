@@ -888,6 +888,19 @@
         "position": 0,
         "path": "doDailies.skipDecoyOperation"
       }
+    },
+    "skipDimensionalLabyrinth": {
+      "$isParent": false,
+      "props": {
+        "$type": "boolean",
+        "settingType": "Boolean",
+        "value": false,
+        "defaultValue": false,
+        "isParentNode": false,
+        "name": "skipDimensionalLabyrinth",
+        "position": 0,
+        "path": "doDailies.skipDimensionalLabyrinth"
+      }
     }
   },
   "doUpkeep": {

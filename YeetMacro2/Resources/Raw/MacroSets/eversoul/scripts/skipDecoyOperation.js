@@ -32,7 +32,9 @@ while (macroService.IsRunning) {
 				}
 				macroService.PollPattern(patterns.adventure.challenge.decoyOperation.sweepAvailable, { DoClick: true, PredicatePattern: patterns.adventure.challenge.decoyOperation.sweep.enabled });
 			}
-			macroService.PollPattern(patterns.adventure.challenge.decoyOperation.sweep.enabled, { DoClick: true, PredicatePattern: patterns.adventure.challenge.decoyOperation.sweep.sweep });
+
+			macroService.PollPattern(patterns.adventure.challenge.decoyOperation.sweep.enabled, { DoClick: true, PredicatePattern: patterns.adventure.challenge.decoyOperation.sweep.max });
+			macroService.PollPattern(patterns.adventure.challenge.decoyOperation.sweep.max, { DoClick: true, InversePredicatePattern: patterns.adventure.challenge.decoyOperation.sweep.max });
 			macroService.PollPattern(patterns.adventure.challenge.decoyOperation.sweep.sweep, { DoClick: true, PredicatePattern: patterns.general.tapTheScreen });
 			macroService.PollPattern(patterns.general.tapTheScreen, { DoClick: true, PredicatePattern: patterns.titles.decoyOperation });
 
