@@ -8,7 +8,8 @@ const adExitInstallPattern = adObjectScale === 1 ? patterns.ad.exitInstall : mac
 const adCancelPattern = adObjectScale === 1 ? patterns.ad.cancel : macroService.ClonePattern(patterns.ad.cancel, { Scale: adObjectScale });
 const soundLeftPattern = adObjectScale === 1 ? patterns.ad.soundLeft : macroService.ClonePattern(patterns.ad.soundLeft, { Scale: adObjectScale });
 const userClickPattern = macroService.ClonePattern(settings.watchAdStamina.userClickPattern.Value, {
-	Path: 'settings.watchAdStamina.userClickPattern'
+	Path: 'settings.watchAdStamina.userClickPattern',
+	OffsetCalcType: 'None'
 });
 
 if (daily.watchAdStamina.done.IsChecked) {
