@@ -214,8 +214,8 @@ public partial class SettingNodeManagerViewModel : NodeManagerViewModel<ParentSe
         }
         else if (setting is PatternSettingViewModel patternSetting)
         {
-            var option = await _inputService.SelectOption($"Reset pattern setting {patternSetting.Name}?");
-            if (option != "ok") return;
+            var option = await _inputService.SelectOption($"Reset pattern setting {patternSetting.Name}?", "OK");
+            if (option != "OK") return;
 
             foreach (var pattern in patternSetting.Value.Patterns)
             {

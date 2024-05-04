@@ -85,7 +85,12 @@
                     <HorizontalStackLayout>
                         <Grid Margin="10,0,0,0" Padding="0" VerticalOptions="Center">
                             <Label Margin="0" Padding="0" Text="{Binding Pattern.OffsetCalcType, Source={Reference thisView}}" VerticalOptions="Center" />
-                            <ImageButton Margin="0" Padding="0" BindingContext="{Binding Pattern, Source={Reference thisView}}" Clicked="offsetCalcType_Clicked" />
+                            <Border Opacity="0.2" BackgroundColor="Gray">
+                                <Border.StrokeShape>
+                                    <RoundRectangle CornerRadius="10" />
+                                </Border.StrokeShape>
+                                <ImageButton Margin="0" Padding="0" BindingContext="{Binding Pattern, Source={Reference thisView}}" Clicked="offsetCalcType_Clicked" />
+                            </Border>
                         </Grid>
                     </HorizontalStackLayout>
                     <Label Margin="5,0,0,0" VerticalOptions="Center" Padding="0" Text="Scale:" />
