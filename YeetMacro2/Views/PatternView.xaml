@@ -68,6 +68,8 @@
                     <v:IntegerStepper x:Name="colorThresholdVariancePct" Value="30" Increment="10" />
                     <Label Margin="0" VerticalOptions="Center" Padding="0" Text="@" />
                     <Entry x:Name="colorThresholdColor" Margin="0,0,0,0" VerticalOptions="Center" IsReadOnly="True" />
+                </HorizontalStackLayout>
+                <HorizontalStackLayout Margin="0" Padding="0" IsVisible="{Binding IsToggled, Source={x:Reference colorThresholdToggle}}">
                     <skia:SKCanvasView Margin="5,0,0,0" x:Name="colorPickCanvas" PaintSurface="OnColorPickPaintSurface" WidthRequest="20" HeightRequest="20" />
                     <Button Text="Apply" Command="{Binding ApplyColorThresholdCommand, Source={Reference thisView}}">
                         <Button.CommandParameter>

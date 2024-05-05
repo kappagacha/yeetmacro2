@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using CommunityToolkit.Mvvm.ComponentModel;
+using CommunityToolkit.Mvvm.Messaging;
 using YeetMacro2.Data.Models;
 using YeetMacro2.Services;
 
@@ -44,8 +45,14 @@ public partial class PatternNodeViewModel : PatternNode
         get => base.IsMultiPattern;
         set
         {
+            var original = base.IsMultiPattern;
             base.IsMultiPattern = value;
             OnPropertyChanged();
+
+            if (original != value)
+            {
+                WeakReferenceMessenger.Default.Send(this);
+            }
         }
     }
 

@@ -215,6 +215,10 @@ public partial class PatternView : ContentView
         var pattern = ((ImageButton)sender).BindingContext as Pattern;
         var options = Enum.GetValues<OffsetCalcType>().Select(oct => oct.ToString()).ToArray();
         var selectedOption = await ServiceHelper.GetService<IInputService>().SelectOption("Select option", options);
-        if (!String.IsNullOrEmpty(selectedOption) && selectedOption != "cancel" && selectedOption != "ok") pattern.OffsetCalcType = Enum.Parse<OffsetCalcType>(selectedOption);
+        if (!String.IsNullOrEmpty(selectedOption) && selectedOption != "cancel" && selectedOption != "ok")
+        {
+            pattern.OffsetCalcType = Enum.Parse<OffsetCalcType>(selectedOption);
+            SavePatternCommand.Execute(new object[] { pattern, PatternNode });
+        }
     }
 }

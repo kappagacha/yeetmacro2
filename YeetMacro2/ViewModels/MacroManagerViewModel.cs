@@ -204,6 +204,15 @@ public partial class MacroManagerViewModel : ObservableObject
             _todoNodeService.Update(todoNode);
         });
 
+        WeakReferenceMessenger.Default.Register<PatternNodeViewModel>(this, (r, patternNode) => {
+            if (IsBusy ||                                   // updating MacroSet   (MacroManagerViewModel)
+                !(Patterns?.IsInitialized ?? false) ||      // loading patterns     (NodeManagerViewModel)
+                patternNode.NodeId == 0)                    // json desirialization (NodeManagerViewModel)
+                return;
+
+            _patternNodeService.Update(patternNode);
+        });
+
         InDebugMode = Preferences.Default.Get(nameof(InDebugMode), false);
     }
 
