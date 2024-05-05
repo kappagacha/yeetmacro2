@@ -92,7 +92,12 @@ if (settings.doDailies.doInfiniteCorridor.Value) {
     goToLobby();
 }
 
-if (settings.doDailies.doInfiniteCorridor.Value) {
+if (settings.doDailies.claimBossDailyMissions.Value) {
     claimBossDailyMissions();
+    goToLobby();
+}
+
+if (settings.doDailies.startTerminusIsleExploration.Value) {
+    startTerminusIsleExploration();
     goToLobby();
 }

@@ -3,7 +3,8 @@ const loopPatterns = [patterns.lobby.level, patterns.titles.mission];
 const weekly = weeklyManager.GetCurrentWeekly();
 const dayOfWeek = weeklyManager.GetDayOfWeek();
 
-if (dayOfWeek < 5) return;	// Needs to be at least Friday
+// dayOfWeek is UTC which is a day forward; 0 is UTC Sunday, which is local Saturday
+if (dayOfWeek !== 0 && dayOfWeek < 5) return;	// Needs to be at least Friday
 
 if (weekly.claimWeeklyMissions.done.IsChecked) {
 	return "Script already completed. Uncheck done to override daily flag.";

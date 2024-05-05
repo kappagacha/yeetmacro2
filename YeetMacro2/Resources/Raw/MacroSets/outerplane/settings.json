@@ -966,6 +966,19 @@
         "position": 0,
         "path": "doDailies.claimBossDailyMissions"
       }
+    },
+    "startTerminusIsleExploration": {
+      "$isParent": false,
+      "props": {
+        "$type": "boolean",
+        "settingType": "Boolean",
+        "value": true,
+        "defaultValue": true,
+        "isParentNode": false,
+        "name": "startTerminusIsleExploration",
+        "position": 0,
+        "path": "doDailies.startTerminusIsleExploration"
+      }
     }
   },
   "doUpkeep": {

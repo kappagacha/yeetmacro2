@@ -95,6 +95,9 @@ while (macroService.IsRunning) {
 			macroService.PollPattern(patterns.event.dailyBossMission.getFinalReward, { DoClick: true, PredicatePattern: patterns.general.tapEmptySpace });
 			macroService.PollPattern(patterns.general.tapEmptySpace, { DoClick: true, PredicatePattern: patterns.event.dailyBossMission.utc });
 
+			if (macroService.IsRunning) {
+				daily.claimBossDailyMissions.done.IsChecked = true;
+			}
 			return;
 	}
 	sleep(1_000);
