@@ -1,6 +1,6 @@
 // @position=20
 // Start terminus isle exploration
-const loopPatterns = [patterns.lobby.level, patterns.titles.adventure, patterns.titles.terminusIsleExploration]
+const loopPatterns = [patterns.lobby.level, patterns.titles.adventure, patterns.terminusIsle.stage]
 const daily = dailyManager.GetCurrentDaily();
 if (daily.startTerminusIsleExploration.done.IsChecked) {
 	return "Script already completed. Uncheck done to override daily flag.";
@@ -19,14 +19,14 @@ while (macroService.IsRunning) {
 			macroService.ClickPattern(patterns.adventure.terminusIsle);
 			sleep(500);
 			break;
-		case 'titles.terminusIsleExploration':
+		case 'terminusIsle.stage':
 			logger.info('startTerminusIsleExploration: star exploration');
 			const formExplorationTeamResult = macroService.PollPattern(patterns.terminusIsle.formExplorationTeam, { DoClick: true, PredicatePattern: [patterns.terminusIsle.formExplorationTeam.autoFormation, patterns.terminusIsle.zeroExplorationChances] });
 			if (formExplorationTeamResult.PredicatePath === 'terminusIsle.zeroExplorationChances') {
 				return;
 			}
 			macroService.PollPattern(patterns.terminusIsle.formExplorationTeam.autoFormation, { DoClick: true, PredicatePattern: patterns.terminusIsle.formExplorationTeam.startExploration });
-			macroService.PollPattern(patterns.terminusIsle.formExplorationTeam.startExploration, { DoClick: true, PredicatePattern: patterns.titles.terminusIsleExploration });
+			macroService.PollPattern(patterns.terminusIsle.formExplorationTeam.startExploration, { DoClick: true, PredicatePattern: patterns.terminusIsle.stage });
 
 			if (macroService.IsRunning) {
 				daily.startTerminusIsleExploration.done.IsChecked = true;

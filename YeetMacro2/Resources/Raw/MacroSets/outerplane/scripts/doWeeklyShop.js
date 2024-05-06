@@ -219,9 +219,11 @@ function doGuildItems() {
 	const resolution = macroService.GetCurrentResolution();
 	const weekly = weeklyManager.GetCurrentWeekly();
 	macroService.PollPattern(patterns.guild.shop.weeklyProducts, { DoClick: true, PredicatePattern: patterns.guild.shop.weeklyProducts.selected });
+	sleep(1_000);
 	const startX = resolution.Width - 100;
 	const endX = startX - 300;
 	macroService.DoSwipe({ X: startX, Y: 500 }, { X: endX, Y: 500 });
+	sleep(1_000);
 	const guildItems = ['basicSkillManual', 'intermediateSkilManual', 'professionalSkillManual'];
 	for (const guildItem of guildItems) {
 		if (settings.doWeeklyShop.useGuildMedals[guildItem].Value && !weekly.doWeeklyShop.useGuildMedals[guildItem].IsChecked) {

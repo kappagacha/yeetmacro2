@@ -2215,8 +2215,8 @@
         "props": {
           "$type": "boolean",
           "settingType": "Boolean",
-          "value": false,
-          "defaultValue": false,
+          "value": true,
+          "defaultValue": true,
           "isParentNode": false,
           "name": "epicReforgeCatalyst",
           "position": 0,
@@ -2228,8 +2228,8 @@
         "props": {
           "$type": "boolean",
           "settingType": "Boolean",
-          "value": false,
-          "defaultValue": false,
+          "value": true,
+          "defaultValue": true,
           "isParentNode": false,
           "name": "superiorQualityPresentChest",
           "position": 0,
@@ -2241,8 +2241,8 @@
         "props": {
           "$type": "boolean",
           "settingType": "Boolean",
-          "value": false,
-          "defaultValue": false,
+          "value": true,
+          "defaultValue": true,
           "isParentNode": false,
           "name": "basicSkillManual",
           "position": 0,
@@ -2254,8 +2254,8 @@
         "props": {
           "$type": "boolean",
           "settingType": "Boolean",
-          "value": false,
-          "defaultValue": false,
+          "value": true,
+          "defaultValue": true,
           "isParentNode": false,
           "name": "10pctLegendaryAbrasive",
           "position": 0,
@@ -2267,12 +2267,64 @@
         "props": {
           "$type": "boolean",
           "settingType": "Boolean",
-          "value": false,
-          "defaultValue": false,
+          "value": true,
+          "defaultValue": true,
           "isParentNode": false,
           "name": "intermediateSkillManual",
           "position": 0,
           "path": "doWeeklySurveyHubShop.surveyHubItems.intermediateSkillManual"
+        }
+      },
+      "legendaryReforgeCatalyst": {
+        "$isParent": false,
+        "props": {
+          "$type": "boolean",
+          "settingType": "Boolean",
+          "value": true,
+          "defaultValue": true,
+          "isParentNode": false,
+          "name": "legendaryReforgeCatalyst",
+          "position": 0,
+          "path": "doWeeklySurveyHubShop.surveyHubItems.legendaryReforgeCatalyst"
+        }
+      },
+      "professionalSkillManual": {
+        "$isParent": false,
+        "props": {
+          "$type": "boolean",
+          "settingType": "Boolean",
+          "value": true,
+          "defaultValue": true,
+          "isParentNode": false,
+          "name": "professionalSkillManual",
+          "position": 0,
+          "path": "doWeeklySurveyHubShop.surveyHubItems.professionalSkillManual"
+        }
+      },
+      "refinedGlunite": {
+        "$isParent": false,
+        "props": {
+          "$type": "boolean",
+          "settingType": "Boolean",
+          "value": true,
+          "defaultValue": true,
+          "isParentNode": false,
+          "name": "refinedGlunite",
+          "position": 0,
+          "path": "doWeeklySurveyHubShop.surveyHubItems.refinedGlunite"
+        }
+      },
+      "epicQualityPresentChest": {
+        "$isParent": false,
+        "props": {
+          "$type": "boolean",
+          "settingType": "Boolean",
+          "value": true,
+          "defaultValue": true,
+          "isParentNode": false,
+          "name": "epicQualityPresentChest",
+          "position": 0,
+          "path": "doWeeklySurveyHubShop.surveyHubItems.epicQualityPresentChest"
         }
       }
     }
