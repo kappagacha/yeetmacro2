@@ -9,6 +9,7 @@ const dailyMissionPattern = macroService.ClonePattern(settings.claimEventDailyMi
 	Path: 'settings.claimEventDailyMissions.dailyMissionPattern',
 	OffsetCalcType: 'Default'
 });
+const resolution = macroService.GetCurrentResolution();
 
 if (daily.claimEventDailyMissions.done.IsChecked) {
 	return "Script already completed. Uncheck done to override daily flag.";
@@ -24,6 +25,8 @@ while (macroService.IsRunning) {
 			break;
 		case 'event.close':
 			logger.info('claimEventDailyMissions: claim rewards');
+			const x = (resolution.Width - 1920) / 2.0 + 400;
+			macroService.SwipePollPattern(dailyMissionPattern, { Start: { X: x, Y: 650 }, End: { X: x, Y: 200 } });
 			macroService.PollPattern(dailyMissionPattern, { DoClick: true, PredicatePattern: patterns.event.daily.info, IntervalDelayMs: 3_000 });
 			macroService.PollPattern(patterns.event.daily.firstDone, { ClickPattern: [patterns.event.daily.firstNotification, patterns.event.ok, patterns.event.confirm] });
 

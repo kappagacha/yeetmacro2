@@ -39,7 +39,7 @@ function doSurveyHub(targetNumBattles = 0) {
 				logger.info('doSurveyHub: find entry');
 				const topLeft = macroService.GetTopLeft();
 				const xLocation = topLeft.X + 1100;
-				macroService.SwipePollPattern([patterns.surveyHub.rewardInfo.lastLevel, patterns.surveyHub.rewardInfo.zeroOutOfFive, patterns.surveyHub.rewardInfo.zeroOutOfFive], { MaxSwipes: 7, Start: { X: xLocation, Y: 800 }, End: { X: xLocation, Y: 280 } });
+				macroService.SwipePollPattern([patterns.surveyHub.rewardInfo.lastLevel, patterns.surveyHub.rewardInfo.zeroOutOfFive, patterns.surveyHub.rewardInfo.lock], { MaxSwipes: 7, Start: { X: xLocation, Y: 800 }, End: { X: xLocation, Y: 280 } });
 				sleep(1000);
 				macroService.SwipePollPattern(patterns.surveyHub.rewardInfo.rightArrow, { MaxSwipes: 7, Start: { X: xLocation, Y: 280 }, End: { X: xLocation, Y: 800 } });
 				sleep(1000);

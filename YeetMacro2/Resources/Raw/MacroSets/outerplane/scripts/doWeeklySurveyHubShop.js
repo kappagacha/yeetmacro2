@@ -33,8 +33,7 @@ while (macroService.IsRunning) {
 			}
 
 			macroService.PollPattern(patterns.surveyHub.surveyHubItems.season1, { DoClick: true, PredicatePattern: patterns.surveyHub.surveyHubItems.season1.enabled });
-			const season1surveyHubItems = ['intermediateSkillManual', '10pctLegendaryAbrasive'];
-			//const season1surveyHubItems = ['epicReforgeCatalyst', 'superiorQualityPresentChest', 'basicSkillManual', 'intermediateSkillManual', '10pctLegendaryAbrasive'];
+			const season1surveyHubItems = ['epicReforgeCatalyst', 'superiorQualityPresentChest', 'basicSkillManual', 'intermediateSkillManual', '10pctLegendaryAbrasive'];
 			for (const surveyHubItem of season1surveyHubItems) {
 				purchaseSurveyHubItem(surveyHubItem);
 			}

@@ -6,6 +6,9 @@ if (daily.startTerminusIsleExploration.done.IsChecked) {
 	return "Script already completed. Uncheck done to override daily flag.";
 }
 
+refillStamina(30);
+goToLobby();
+
 while (macroService.IsRunning) {
 	const loopResult = macroService.PollPattern(loopPatterns);
 	switch (loopResult.Path) {
