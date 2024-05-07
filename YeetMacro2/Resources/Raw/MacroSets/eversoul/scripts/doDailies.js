@@ -57,15 +57,15 @@ if (settings.doDailies.doChampsArena.Value) {
     goToLobby();
 }
 
-//if (settings.doDailies.skipDecoyOperation.Value) {
-//    skipDecoyOperation();
-//    goToLobby();
-//}
+if (settings.doDailies.skipDecoyOperation.Value) {
+    skipDecoyOperation();
+    goToLobby();
+}
 
-//if (settings.doDailies.skipDimensionalLabyrinth.Value) {
-//    skipDimensionalLabyrinth();
-//    goToLobby();
-//}
+if (settings.doDailies.skipDimensionalLabyrinth.Value) {
+    skipDimensionalLabyrinth();
+    goToLobby();
+}
 
 if (settings.doDailies.doOutings.Value) {
     doOutings();
