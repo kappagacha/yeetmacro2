@@ -9,7 +9,6 @@ const dailyMissionPattern = macroService.ClonePattern(settings.claimEventDailyMi
 	Path: 'settings.claimEventDailyMissions.dailyMissionPattern',
 	OffsetCalcType: 'Default'
 });
-const resolution = macroService.GetCurrentResolution();
 
 if (daily.claimEventDailyMissions.done.IsChecked) {
 	return "Script already completed. Uncheck done to override daily flag.";
@@ -25,9 +24,23 @@ while (macroService.IsRunning) {
 			break;
 		case 'event.close':
 			logger.info('claimEventDailyMissions: claim rewards');
-			const x = (resolution.Width - 1920) / 2.0 + 400;
-			macroService.SwipePollPattern(dailyMissionPattern, { Start: { X: x, Y: 650 }, End: { X: x, Y: 200 } });
 			macroService.PollPattern(dailyMissionPattern, { DoClick: true, PredicatePattern: patterns.event.daily.info, IntervalDelayMs: 3_000 });
+			sleep(2_000);
+			const anniversaryPatternResult = macroService.FindPattern(patterns.event.daily.anniversary);
+			if (anniversaryPatternResult.IsSuccess) {
+				let notificationResult = macroService.PollPattern(patterns.event.daily.anniversary.notification, { TimeoutMs: 3_000 });
+				while (notificationResult.IsSuccess) {
+					macroService.PollPattern(patterns.event.daily.anniversary.notification, { DoClick: true, PredicatePattern: patterns.event.ok, ClickOffset: { X: -40, Y: 40 } });
+					macroService.PollPattern(patterns.event.ok, { DoClick: true, PredicatePattern: patterns.event.daily.info });
+					notificationResult = macroService.PollPattern(patterns.event.daily.anniversary.notification, { TimeoutMs: 3_000 });
+				}
+				
+				if (macroService.IsRunning) {
+					daily.claimEventDailyMissions.done.IsChecked = true;
+				}
+				return;
+			}
+
 			macroService.PollPattern(patterns.event.daily.firstDone, { ClickPattern: [patterns.event.daily.firstNotification, patterns.event.ok, patterns.event.confirm] });
 
 			const finalNotificationResult = macroService.FindPattern(patterns.event.daily.finalNotification);
