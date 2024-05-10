@@ -87,7 +87,8 @@ public class ScriptService: IScriptService
             _engine.SetValue("settings", settingNodeManager.Root);
             _engine.SetValue("dailyManager", dailyNodeManager);
             _engine.SetValue("weeklyManager", weeklyNodeManager);
-            var jsResult = _engine.Evaluate($"{{\n{targetScript.Text}\n}}");
+
+            var jsResult = _engine.Evaluate($"{{\n{targetScript.Text}\n {(targetScript.Text.StartsWith("// @raw-script") ? targetScript.Name + "()\n" : "")}}}");
 
             _toastService.Show(_macroService.IsRunning ? "Script finished..." : "Script stopped...");
 
