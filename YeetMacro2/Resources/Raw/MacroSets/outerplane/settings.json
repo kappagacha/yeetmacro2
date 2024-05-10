@@ -35,7 +35,7 @@
       "props": {
         "$type": "enabledInteger",
         "settingType": "EnabledInteger",
-        "isEnabled": true,
+        "isEnabled": false,
         "increment": 100,
         "value": 120000,
         "defaultValue": 120000,
@@ -325,8 +325,8 @@
           "6",
           "7"
         ],
-        "value": "2",
-        "defaultValue": "2",
+        "value": "1",
+        "defaultValue": "1",
         "isParentNode": false,
         "name": "teamSlot",
         "position": 0,
@@ -338,8 +338,8 @@
       "props": {
         "$type": "boolean",
         "settingType": "Boolean",
-        "value": true,
-        "defaultValue": true,
+        "value": false,
+        "defaultValue": false,
         "isParentNode": false,
         "name": "sweepBattle",
         "position": 0,
@@ -371,8 +371,8 @@
           "6",
           "7"
         ],
-        "value": "2",
-        "defaultValue": "2",
+        "value": "1",
+        "defaultValue": "1",
         "isParentNode": false,
         "name": "teamSlot",
         "position": 0,
@@ -384,8 +384,8 @@
       "props": {
         "$type": "boolean",
         "settingType": "Boolean",
-        "value": true,
-        "defaultValue": true,
+        "value": false,
+        "defaultValue": false,
         "isParentNode": false,
         "name": "sweepBattle",
         "position": 0,
@@ -404,8 +404,8 @@
           "light",
           "dark"
         ],
-        "value": "light",
-        "defaultValue": "light",
+        "value": "earth",
+        "defaultValue": "earth",
         "isParentNode": false,
         "name": "elementTypeTarget1",
         "position": 0,
@@ -444,8 +444,8 @@
           "light",
           "dark"
         ],
-        "value": "earth",
-        "defaultValue": "earth",
+        "value": "light",
+        "defaultValue": "light",
         "isParentNode": false,
         "name": "elementTypeTarget3",
         "position": 0,
@@ -497,8 +497,8 @@
           "6",
           "7"
         ],
-        "value": "2",
-        "defaultValue": "2",
+        "value": "1",
+        "defaultValue": "1",
         "isParentNode": false,
         "name": "teamSlot",
         "position": 0,
@@ -510,8 +510,8 @@
       "props": {
         "$type": "boolean",
         "settingType": "Boolean",
-        "value": true,
-        "defaultValue": true,
+        "value": false,
+        "defaultValue": false,
         "isParentNode": false,
         "name": "sweepBattle",
         "position": 0,
@@ -1259,7 +1259,7 @@
       "props": {
         "$type": "timestamp",
         "settingType": "TimeStamp",
-        "value": "2024-05-07T02:00:03.417+00:00",
+        "value": "2024-05-09T23:28:41.972+00:00",
         "defaultValue": "0001-01-01T00:00:00+00:00",
         "isParentNode": false,
         "name": "lastRun",
@@ -1295,7 +1295,7 @@
       "props": {
         "$type": "timestamp",
         "settingType": "TimeStamp",
-        "value": "2024-05-07T02:02:09.202+00:00",
+        "value": "2024-05-09T22:14:08.979+00:00",
         "defaultValue": "0001-01-01T00:00:00+00:00",
         "isParentNode": false,
         "name": "lastRun",
@@ -1585,6 +1585,32 @@
         "position": 0,
         "path": "doSurveyHub.teamSlot"
       }
+    },
+    "sweepBattle": {
+      "$isParent": false,
+      "props": {
+        "$type": "boolean",
+        "settingType": "Boolean",
+        "value": true,
+        "defaultValue": true,
+        "isParentNode": false,
+        "name": "sweepBattle",
+        "position": 0,
+        "path": "doSurveyHub.sweepBattle"
+      }
+    },
+    "descendingPriority": {
+      "$isParent": false,
+      "props": {
+        "$type": "boolean",
+        "settingType": "Boolean",
+        "value": true,
+        "defaultValue": true,
+        "isParentNode": false,
+        "name": "descendingPriority",
+        "position": 0,
+        "path": "doSurveyHub.descendingPriority"
+      }
     }
   },
   "doInfiniteCorridor": {
@@ -1827,8 +1853,8 @@
           "dark",
           "light"
         ],
-        "value": "light",
-        "defaultValue": "light",
+        "value": "earth",
+        "defaultValue": "earth",
         "isParentNode": false,
         "name": "elementTypeTarget1",
         "position": 0,
@@ -1850,8 +1876,8 @@
           "6",
           "7"
         ],
-        "value": "2",
-        "defaultValue": "2",
+        "value": "1",
+        "defaultValue": "1",
         "isParentNode": false,
         "name": "teamSlot1",
         "position": 0,
@@ -1863,8 +1889,8 @@
       "props": {
         "$type": "boolean",
         "settingType": "Boolean",
-        "value": true,
-        "defaultValue": true,
+        "value": false,
+        "defaultValue": false,
         "isParentNode": false,
         "name": "sweepBattle1",
         "position": 0,
@@ -1883,8 +1909,8 @@
           "dark",
           "light"
         ],
-        "value": "fire",
-        "defaultValue": "fire",
+        "value": "earth",
+        "defaultValue": "earth",
         "isParentNode": false,
         "name": "elementTypeTarget2",
         "position": 0,
@@ -1906,8 +1932,8 @@
           "6",
           "7"
         ],
-        "value": "2",
-        "defaultValue": "2",
+        "value": "1",
+        "defaultValue": "1",
         "isParentNode": false,
         "name": "teamSlot2",
         "position": 0,
@@ -1919,8 +1945,8 @@
       "props": {
         "$type": "boolean",
         "settingType": "Boolean",
-        "value": true,
-        "defaultValue": true,
+        "value": false,
+        "defaultValue": false,
         "isParentNode": false,
         "name": "sweepBattle2",
         "position": 0,

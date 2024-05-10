@@ -1,3 +1,4 @@
+// @position=15
 // Claim daily missions
 const loopPatterns = [patterns.lobby.level, patterns.titles.mission];
 const daily = dailyManager.GetCurrentDaily();

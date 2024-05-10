@@ -1,3 +1,4 @@
+// @position=17
 // Claim daily event missions
 const loopPatterns = [patterns.lobby.level, patterns.event.close];
 const daily = dailyManager.GetCurrentDaily();

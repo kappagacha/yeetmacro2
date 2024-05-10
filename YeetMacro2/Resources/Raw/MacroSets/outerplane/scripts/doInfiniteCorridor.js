@@ -1,3 +1,4 @@
+// @position=18
 // Skip infinite corridor
 const loopPatterns = [patterns.lobby.level, patterns.titles.adventure, patterns.titles.challenge, patterns.challenge.archdemonRuins.infiniteCorridor];
 const daily = dailyManager.GetCurrentDaily();

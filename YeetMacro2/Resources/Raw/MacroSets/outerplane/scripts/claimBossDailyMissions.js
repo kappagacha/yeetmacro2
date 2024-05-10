@@ -1,3 +1,4 @@
+// @position=19
 // Claim daily boss missions
 const loopPatterns = [patterns.lobby.level, patterns.event.close];
 const daily = dailyManager.GetCurrentDaily();

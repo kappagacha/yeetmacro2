@@ -1,11 +1,13 @@
 // @raw-script
-// @position=15
+// @position=16
 // Spend remaining stamina on survey hub
 
 function doSurveyHub(targetNumBattles = 0) {
 	const loopPatterns = [patterns.lobby.level, patterns.titles.adventure, patterns.titles.surveyHub, patterns.surveyHub.rewardInfo];
 	const daily = dailyManager.GetCurrentDaily();
 	const teamSlot = settings.doSurveyHub.teamSlot.Value;
+	const sweepBattle = settings.doSurveyHub.sweepBattle.Value;
+	const descendingPriority = settings.doSurveyHub.descendingPriority.Value;
 
 	if (targetNumBattles && daily.doSurveyHub.count.Count >= targetNumBattles) {
 		return;
@@ -39,19 +41,34 @@ function doSurveyHub(targetNumBattles = 0) {
 				logger.info('doSurveyHub: find entry');
 				const topLeft = macroService.GetTopLeft();
 				const xLocation = topLeft.X + 1100;
-				macroService.SwipePollPattern([patterns.surveyHub.rewardInfo.lastLevel, patterns.surveyHub.rewardInfo.zeroOutOfFive, patterns.surveyHub.rewardInfo.lock], { MaxSwipes: 7, Start: { X: xLocation, Y: 800 }, End: { X: xLocation, Y: 280 } });
-				sleep(1000);
-				macroService.SwipePollPattern(patterns.surveyHub.rewardInfo.rightArrow, { MaxSwipes: 7, Start: { X: xLocation, Y: 280 }, End: { X: xLocation, Y: 800 } });
-				sleep(1000);
-				const rightArrowResult = macroService.PollPattern(patterns.surveyHub.rewardInfo.rightArrow, { Limit: 6 });
-				const maxY = rightArrowResult.Points.reduce((maxY, p) => (maxY = maxY > p.Y ? maxY : p.Y), 0);
-				const bottomRightArrow = macroService.ClonePattern(patterns.surveyHub.rewardInfo.rightArrow, { CenterY: maxY, Height: 60.0 });
-				macroService.PollPattern(bottomRightArrow, { DoClick: true, PredicatePattern: patterns.surveyHub.selectTeam });
-				const selectTeamResult = macroService.PollPattern(patterns.surveyHub.selectTeam, { DoClick: true, PredicatePattern: [patterns.battle.enter, patterns.battle.restore] });
+				let selectTeamResult;
+
+				if (descendingPriority) {
+					sleep(1000);
+					macroService.SwipePollPattern(patterns.surveyHub.rewardInfo.rightArrow, { MaxSwipes: 7, Start: { X: xLocation, Y: 280 }, End: { X: xLocation, Y: 800 } });
+					sleep(1000);
+					const rightArrowResult = macroService.PollPattern(patterns.surveyHub.rewardInfo.rightArrow, { Limit: 6 });
+					const minY = rightArrowResult.Points.reduce((minY, p) => (minY = minY < p.Y ? minY : p.Y), 10000);
+					const topRightArrow = macroService.ClonePattern(patterns.surveyHub.rewardInfo.rightArrow, { CenterY: minY, Height: 60.0 });
+					macroService.PollPattern(topRightArrow, { DoClick: true, PredicatePattern: patterns.surveyHub.selectTeam });
+					selectTeamResult = macroService.PollPattern(patterns.surveyHub.selectTeam, { DoClick: true, PredicatePattern: [patterns.battle.enter, patterns.battle.restore] });
+				} else {
+					macroService.SwipePollPattern([patterns.surveyHub.rewardInfo.lastLevel, patterns.surveyHub.rewardInfo.zeroOutOfFive, patterns.surveyHub.rewardInfo.lock], { MaxSwipes: 7, Start: { X: xLocation, Y: 800 }, End: { X: xLocation, Y: 280 } });
+					sleep(1000);
+					macroService.SwipePollPattern(patterns.surveyHub.rewardInfo.rightArrow, { MaxSwipes: 7, Start: { X: xLocation, Y: 280 }, End: { X: xLocation, Y: 800 } });
+					sleep(1000);
+					const rightArrowResult = macroService.PollPattern(patterns.surveyHub.rewardInfo.rightArrow, { Limit: 6 });
+					const maxY = rightArrowResult.Points.reduce((maxY, p) => (maxY = maxY > p.Y ? maxY : p.Y), 0);
+					const bottomRightArrow = macroService.ClonePattern(patterns.surveyHub.rewardInfo.rightArrow, { CenterY: maxY, Height: 60.0 });
+					macroService.PollPattern(bottomRightArrow, { DoClick: true, PredicatePattern: patterns.surveyHub.selectTeam });
+					selectTeamResult = macroService.PollPattern(patterns.surveyHub.selectTeam, { DoClick: true, PredicatePattern: [patterns.battle.enter, patterns.battle.restore] });
+				}
+
 				if (selectTeamResult.PredicatePath === 'battle.restore') {
 					return;
 				}
-				const numBattles = selectTeamAndBattle(teamSlot, true);
+
+				const numBattles = selectTeamAndBattle(teamSlot, sweepBattle);
 				if (macroService.IsRunning) {
 					daily.doSurveyHub.count.Count += Number(numBattles);
 				}
