@@ -24,10 +24,11 @@ while (macroService.IsRunning) {
 			if (!regularPackSwipeResult.IsSuccess) {
 				throw new Error('Unable to find regular pack');
 			}
-			sleep(2_000);
-			const regularPackResult = macroService.FindPattern(patterns.cashShop.regularPack);
-			const regularPackSelected = macroService.ClonePattern(patterns.cashShop.regularPack.selected, { CenterY: regularPackResult.Point.Y, Padding: 10 })
-			macroService.PollPattern(patterns.cashShop.regularPack, { DoClick: true, PredicatePattern: regularPackSelected });
+			sleep(1_000);
+			//const regularPackResult = macroService.FindPattern(patterns.cashShop.regularPack);
+			//const regularPackSelected = macroService.ClonePattern(patterns.cashShop.regularPack.selected, { CenterY: regularPackResult.Point.Y, Padding: 10 })
+			//macroService.PollPattern(patterns.cashShop.regularPack, { DoClick: true, PredicatePattern: regularPackSelected });
+			macroService.PollPattern(patterns.cashShop.regularPack, { DoClick: true, PredicatePattern: patterns.cashShop.regularPack.dailyFree });
 			macroService.PollPattern(patterns.cashShop.regularPack.dailyFree, { DoClick: true, PredicatePattern: patterns.prompt.tapTheScreen });
 			macroService.PollPattern(patterns.prompt.tapTheScreen, { DoClick: true, PredicatePattern: patterns.general.back });
 
