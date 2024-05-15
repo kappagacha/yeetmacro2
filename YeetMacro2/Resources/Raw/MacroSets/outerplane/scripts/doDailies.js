@@ -2,6 +2,10 @@
 // @position=-1
 // Do dailies (all checked scripts)
 
+goToLobby();
+claimReplenishYourStamina();
+goToLobby();
+
 if (settings.doDailies.claimAntiparticle.Value) {
     claimAntiparticle();
     goToLobby();
