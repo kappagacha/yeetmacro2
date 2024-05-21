@@ -21,7 +21,7 @@ while (macroService.IsRunning) {
 		case 'titles.mission':
 			logger.info('claimWeeklyMissions: claim final reward');
 			macroService.PollPattern(patterns.mission.weekly, { DoClick: true, PredicatePattern: patterns.mission.weekly.selected });
-			const finalNotificationResult = macroService.PollPattern(patterns.mission.finalNotification, { TimeoutMs: 2_000, DoClick: true, PredicatePattern: patterns.general.tapEmptySpace });
+			const finalNotificationResult = macroService.PollPattern(patterns.mission.finalNotification, { DoClick: true, PredicatePattern: patterns.general.tapEmptySpace });
 			if (!finalNotificationResult.IsSuccess) {
 				return;
 			}

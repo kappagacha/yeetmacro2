@@ -3,10 +3,10 @@
 // Watches all ads in a loop
 
 const loopPatterns = [patterns.lobby.level, patterns.stamina.purchase];
-//const daily = dailyManager.GetCurrentDaily();
-//if (daily.watchAds.count.Count >= 15) {
-//	return;
-//}
+const daily = dailyManager.GetCurrentDaily();
+if (daily.watchAds.done.IsChecked && daily.watchAds.count.Count >= 15) {
+	return;
+}
 
 const originalDensity = 1.5;	// density the patterns were captured in
 const currentDensity = macroService.GetScreenDensity();
@@ -30,14 +30,17 @@ while (macroService.IsRunning) {
 			logger.info('watchAds: start ad');
 			const playAdResult = macroService.PollPattern(patterns.stamina.playAd, { TimeoutMs: 2_000 });
 			if (!playAdResult.IsSuccess) {
+				if (macroService.IsRunning) {
+					daily.watchAds.done.IsChecked = true;
+				}
 				return;
 			}
 			if (macroService.FindPattern(patterns.stamina.playAd.free).IsSuccess) {
 				macroService.PollPattern(patterns.stamina.playAd, { DoClick: true, PredicatePattern: patterns.stamina.playAd.selected });
 				macroService.PollPattern(patterns.stamina.purchase.button, { DoClick: true, ClickPattern: [adExitInstallPattern, adExitPattern, userClickPattern], PredicatePattern: patterns.stamina.playAd.rewardTap });
-				//if (macroService.IsRunning) {
-				//	daily.watchAds.count.Count++;
-				//}
+				if (macroService.IsRunning) {
+					daily.watchAds.count.Count++;
+				}
 				macroService.PollPattern(patterns.stamina.playAd.rewardTap, { DoClick: true, PredicatePattern: patterns.lobby.level });
 			}
 			sleep(500);

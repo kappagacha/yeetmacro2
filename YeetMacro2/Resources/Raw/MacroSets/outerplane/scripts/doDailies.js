@@ -1,5 +1,5 @@
 // @isFavorite
-// @position=-1
+// @position=-99
 // Do dailies (all checked scripts)
 
 goToLobby();
@@ -60,6 +60,12 @@ if (settings.doDailies.doGuildRaid.Value) {
     doGuildRaid();
     goToLobby();
 }
+
+if (settings.doDailies.watchAds.Value) {
+    watchAds();
+    goToLobby();
+}
+
 
 if (settings.doDailies.doDoppelganger.Value) {
     doDoppelganger();

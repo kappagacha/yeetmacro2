@@ -3,10 +3,12 @@
 const loopPatterns = [patterns.lobby.level, patterns.event.close];
 const daily = dailyManager.GetCurrentDaily();
 const resolution = macroService.GetCurrentResolution();
+const utcHour = new Date().getUTCHours();
+const isStamina1 = utcHour < 11;
 
-//if (daily.claimReplenishYourStamina.done.IsChecked) {
-//	return "Script already completed. Uncheck done to override daily flag.";
-//}
+if ((isStamina1 && daily.claimReplenishYourStamina.done1.IsChecked) || (!isStamina1 && daily.claimReplenishYourStamina.done2.IsChecked)) {
+	return "Script already completed. Uncheck done to override daily flag.";
+}
 
 while (macroService.IsRunning) {
 	const loopResult = macroService.PollPattern(loopPatterns);
@@ -31,9 +33,9 @@ while (macroService.IsRunning) {
 
 			//const claimed2Result = macroService.FindPattern(patterns.event.replenishYourStamina.claimed2);
 
-			//if (macroService.IsRunning) {
-			//	daily.claimReplenishYourStamina.done.IsChecked = true;
-			//}
+			if (macroService.IsRunning) {
+				daily.claimReplenishYourStamina[isStamina1 ? 'done1' : 'done2'].IsChecked = true;
+			}
 			return;
 	}
 	sleep(1_000);

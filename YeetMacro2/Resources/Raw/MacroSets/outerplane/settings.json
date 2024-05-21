@@ -876,6 +876,19 @@
         "path": "doDailies.doGuildRaid"
       }
     },
+    "watchAds": {
+      "$isParent": false,
+      "props": {
+        "$type": "boolean",
+        "settingType": "Boolean",
+        "value": true,
+        "defaultValue": true,
+        "isParentNode": false,
+        "name": "watchAds",
+        "position": 0,
+        "path": "doDailies.watchAds"
+      }
+    },
     "doDoppelganger": {
       "$isParent": false,
       "props": {
