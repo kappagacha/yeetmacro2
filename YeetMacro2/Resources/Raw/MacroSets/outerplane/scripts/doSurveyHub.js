@@ -3,7 +3,7 @@
 // Spend remaining stamina on survey hub
 
 function doSurveyHub(targetNumBattles = 0) {
-	const loopPatterns = [patterns.lobby.level, patterns.titles.adventure, patterns.titles.surveyHub, patterns.surveyHub.rewardInfo];
+	const loopPatterns = [patterns.lobby.level, patterns.titles.adventure, patterns.surveyHub.rewardInfo, patterns.titles.shop];
 	const daily = dailyManager.GetCurrentDaily();
 	const teamSlot = settings.doSurveyHub.teamSlot.Value;
 	const sweepBattle = settings.doSurveyHub.sweepBattle.Value;
@@ -30,10 +30,10 @@ function doSurveyHub(targetNumBattles = 0) {
 				if (currentStamina < 10) {
 					return;
 				}
-				macroService.PollPattern(patterns.adventure.surveyHub, { DoClick: true, PredicatePattern: patterns.titles.surveyHub });
+				macroService.PollPattern(patterns.adventure.surveyHub, { DoClick: true, PredicatePattern: patterns.titles.shop });
 				sleep(500);
 				break;
-			case 'titles.surveyHub':
+			case 'titles.shop':
 				logger.info('doSurveyHub: click placesToEarnPoints');
 				macroService.ClickPattern(patterns.surveyHub.placesToEarnPoints);
 				break;
@@ -74,7 +74,7 @@ function doSurveyHub(targetNumBattles = 0) {
 				}
 
 				if (!sweepBattle) {
-					macroService.PollPattern([patterns.general.back, patterns.battle.setup.enter.ok, patterns.battle.exit], { DoClick: true, PredicatePattern: patterns.adventure.surveyHub });
+					macroService.PollPattern([patterns.general.back, patterns.battle.setup.enter.ok, patterns.battle.exit], { DoClick: true, PredicatePattern: patterns.titles.shop });
 				}
 
 				//logger.info(`targetNumBattles: ${targetNumBattles}, numBattles: ${numBattles}, doSurveyHub count: ${daily.doSurveyHub.count.Count}, `)
@@ -88,7 +88,7 @@ function doSurveyHub(targetNumBattles = 0) {
 					return;
 				}
 				macroService.PollPattern(patterns.general.back, { DoClick: true, PredicatePattern: patterns.adventure.surveyHub });
-				macroService.PollPattern(patterns.adventure.surveyHub, { DoClick: true, PredicatePattern: patterns.titles.surveyHub });
+				macroService.PollPattern(patterns.adventure.surveyHub, { DoClick: true, PredicatePattern: patterns.titles.shop });
 				break;
 		}
 		sleep(1_000);

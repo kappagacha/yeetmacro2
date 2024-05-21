@@ -27,7 +27,7 @@ while (macroService.IsRunning) {
 			break;
 		case 'titles.guildHallOfHonor':
 			logger.info('claimGuildBuff: click receive guild buff');
-			macroService.PollPattern(patterns.guild.hallOfHonor.receiveGuildBuff, { DoClick: true, PredicatePattern: [patterns.guild.hallOfHonor.alreadyReceived, patterns.guild.hallOfHonor.guildBuffObtained], TimeoutMs: 3_000 });
+			macroService.PollPattern(patterns.guild.hallOfHonor.notification, { DoClick: true, InversePredicatePattern: patterns.guild.hallOfHonor.notification });
 			if (macroService.IsRunning) {
 				daily.claimGuildBuff.done.IsChecked = true;
 			}
