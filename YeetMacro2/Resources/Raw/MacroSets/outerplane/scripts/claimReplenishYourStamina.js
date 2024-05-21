@@ -1,5 +1,5 @@
 // @position=0
-// Claim daily boss missions
+// Claim replenish your stamina
 const loopPatterns = [patterns.lobby.level, patterns.event.close];
 const daily = dailyManager.GetCurrentDaily();
 const resolution = macroService.GetCurrentResolution();

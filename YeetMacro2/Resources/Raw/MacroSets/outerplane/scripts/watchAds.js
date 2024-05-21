@@ -1,5 +1,5 @@
 // @isFavorite
-// @position=-100
+// @position=1000
 // Watches all ads in a loop
 
 const loopPatterns = [patterns.lobby.level, patterns.stamina.purchase];
