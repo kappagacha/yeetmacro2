@@ -30,7 +30,8 @@ macroService.PollPattern(patterns.lobby.level, {
 		patterns.stamina.cancel,
 		patterns.event.close,
 		patterns.challenge.specialRequest.sweepAll.cancel,
-		patterns.lobby.expedition.searchAgain
+		patterns.lobby.expedition.searchAgain,
+		patterns.general.startMessageClose
 	]
 });
 if (macroService.IsRunning) {
