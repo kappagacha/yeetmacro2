@@ -87,7 +87,15 @@ function doSurveyHub(targetNumBattles = 0) {
 				if (currentStamina < 10) {
 					return;
 				}
-				macroService.PollPattern(patterns.general.back, { DoClick: true, PredicatePattern: patterns.adventure.surveyHub });
+
+				let surveyHubResult = macroService.FindPattern(patterns.adventure.surveyHub);
+				while (!surveyHubResult.IsSuccess) {
+					macroService.ClickPattern(patterns.general.back);
+					sleep(1_000);
+					surveyHubResult = macroService.FindPattern(patterns.adventure.surveyHub);
+					sleep(1_000);
+				}
+
 				macroService.PollPattern(patterns.adventure.surveyHub, { DoClick: true, PredicatePattern: patterns.titles.shop });
 				break;
 		}
