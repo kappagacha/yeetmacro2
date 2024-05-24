@@ -224,14 +224,18 @@ public partial class SettingNodeManagerViewModel : NodeManagerViewModel<ParentSe
             patternSetting.Value.Patterns.Clear();
             _patternRepository.Save();
 
-            var newPatternNode = PatternNodeManagerViewModel.CloneNode(patternSetting.DefaultValue);
-            foreach (var pattern in newPatternNode.Patterns)
+            if (patternSetting.DefaultValue is not null)
             {
-                pattern.PatternNodeId = patternSetting.Value.NodeId;
-                patternSetting.Value.Patterns.Add(pattern);
-                _patternRepository.Insert(pattern);
+                var newPatternNode = PatternNodeManagerViewModel.CloneNode(patternSetting.DefaultValue);
+                foreach (var pattern in newPatternNode.Patterns)
+                {
+                    pattern.PatternNodeId = patternSetting.Value.NodeId;
+                    patternSetting.Value.Patterns.Add(pattern);
+                    _patternRepository.Insert(pattern);
+                }
+                _patternRepository.Save();
             }
-            _patternRepository.Save();
+
             SelectedPattern = patternSetting.Value.Pattern;
         }
 
