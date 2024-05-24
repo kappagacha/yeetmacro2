@@ -6,15 +6,20 @@ const daily = dailyManager.GetCurrentDaily();
 const utcHour = new Date().getUTCHours();
 const isStamina1 = utcHour < 11;
 
+goToLobby();
+
 if ((isStamina1 && !daily.claimReplenishYourStamina.done1.IsChecked) || (!isStamina1 && !daily.claimReplenishYourStamina.done2.IsChecked)) {
-    goToLobby();
     claimReplenishYourStamina();
     goToLobby();
 }
 
 if (!daily.claimArenaRewards.done.IsChecked) {
-    goToLobby();
     claimArenaRewards();
+    goToLobby();
+}
+
+if (!daily.claimArenaRewards.done.IsChecked) {
+    startTerminusIsleExploration();
     goToLobby();
 }
 
