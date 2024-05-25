@@ -74,7 +74,10 @@ function doSurveyHub(targetNumBattles = 0) {
 				}
 
 				if (!sweepBattle) {
-					macroService.PollPattern([patterns.general.back, patterns.battle.setup.enter.ok, patterns.battle.exit], { DoClick: true, PredicatePattern: patterns.titles.shop });
+					macroService.PollPattern(patterns.battle.setup.enter.ok, { DoClick: true, PredicatePattern: patterns.battle.exit });
+					macroService.PollPattern(patterns.battle.exit, { DoClick: true, PredicatePattern: patterns.general.back });
+					macroService.PollPattern(patterns.general.back, { DoClick: true, PredicatePattern: patterns.adventure.surveyHub });
+					//macroService.PollPattern(patterns.adventure.surveyHub, { DoClick: true, PredicatePattern: patterns.titles.shop });
 				}
 
 				//logger.info(`targetNumBattles: ${targetNumBattles}, numBattles: ${numBattles}, doSurveyHub count: ${daily.doSurveyHub.count.Count}, `)
@@ -88,14 +91,15 @@ function doSurveyHub(targetNumBattles = 0) {
 					return;
 				}
 
-				let surveyHubResult = macroService.FindPattern(patterns.adventure.surveyHub);
-				while (!surveyHubResult.IsSuccess) {
-					macroService.ClickPattern(patterns.general.back);
-					sleep(1_000);
-					surveyHubResult = macroService.FindPattern(patterns.adventure.surveyHub);
-					sleep(1_000);
-				}
+				//let surveyHubResult = macroService.FindPattern(patterns.adventure.surveyHub);
+				//while (!surveyHubResult.IsSuccess) {
+				//	macroService.ClickPattern(patterns.general.back);
+				//	sleep(1_000);
+				//	surveyHubResult = macroService.FindPattern(patterns.adventure.surveyHub);
+				//	sleep(1_000);
+				//}
 
+				macroService.PollPattern(patterns.general.back, { DoClick: true, PredicatePattern: patterns.adventure.surveyHub });
 				macroService.PollPattern(patterns.adventure.surveyHub, { DoClick: true, PredicatePattern: patterns.titles.shop });
 				break;
 		}
