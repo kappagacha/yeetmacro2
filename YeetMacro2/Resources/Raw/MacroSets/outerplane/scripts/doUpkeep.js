@@ -4,7 +4,7 @@
 
 const daily = dailyManager.GetCurrentDaily();
 const utcHour = new Date().getUTCHours();
-const isStamina1 = utcHour < 11;
+const isStamina1 = utcHour < 12;
 
 goToLobby();
 

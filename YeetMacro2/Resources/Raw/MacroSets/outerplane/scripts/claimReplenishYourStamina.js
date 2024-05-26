@@ -4,7 +4,7 @@ const loopPatterns = [patterns.lobby.level, patterns.event.close];
 const daily = dailyManager.GetCurrentDaily();
 const resolution = macroService.GetCurrentResolution();
 const utcHour = new Date().getUTCHours();
-const isStamina1 = utcHour < 11;
+const isStamina1 = utcHour < 12;
 
 if ((isStamina1 && daily.claimReplenishYourStamina.done1.IsChecked) || (!isStamina1 && daily.claimReplenishYourStamina.done2.IsChecked)) {
 	return "Script already completed. Uncheck done to override daily flag.";
