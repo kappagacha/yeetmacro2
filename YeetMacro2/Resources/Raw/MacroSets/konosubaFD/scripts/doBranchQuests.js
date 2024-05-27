@@ -6,6 +6,9 @@ if (daily.doBranchQuests.done.IsChecked) {
 	return "Script already completed. Uncheck done to override daily flag.";
 }
 let evnt;
+const limitedEventPattern = macroService.ClonePattern(settings.doBranchQuests.limitedEventPattern.Value, {
+	Path: 'settings.doBranchQuests.limitedEventPattern'
+});
 
 while (macroService.IsRunning) {
 	const loopResult = macroService.PollPattern(loopPatterns, { ClickPattern: patterns.branchEvent.rewardGained });
@@ -24,7 +27,7 @@ while (macroService.IsRunning) {
 			break;
 		case 'titles.branch':
 			logger.info('doBranchQuests: pick quest');
-			const eventResult = macroService.PollPattern([patterns.branchEvent.cabbageHunting, patterns.branchEvent.explosionWalk, patterns.branchEvent.pitAPatBox, patterns.branchEvent.swimsuit, patterns.branchEvent.snowSprite, patterns.branchEvent.shopping], { DoClick: true, PredicatePattern: patterns.titles.branchEvent });
+			const eventResult = macroService.PollPattern([patterns.branchEvent.cabbageHunting, patterns.branchEvent.explosionWalk, patterns.branchEvent.pitAPatBox, patterns.branchEvent.swimsuit, patterns.branchEvent.snowSprite, patterns.branchEvent.shopping, limitedEventPattern], { DoClick: true, PredicatePattern: patterns.titles.branchEvent });
 			evnt = eventResult.Path;
 			logger.debug('event: ' + evnt);
 			break;
@@ -37,7 +40,7 @@ while (macroService.IsRunning) {
 				const boxes = ['simpleWoodenBox', 'veryHeavyBox', 'woodenBox', 'clothPouch'].map(option => patterns.branchEvent.pitAPatBox[option]);
 				macroService.PollPattern(patterns.branchEvent.skip2, { DoClick: true, PredicatePattern: boxes });
 				macroService.PollPattern(boxes, { DoClick: true, ClickPattern: [patterns.branchEvent.rewardGained, patterns.branchEvent.noVoices, patterns.branchEvent.skip2, patterns.branchEvent.prompt.ok], PredicatePattern: patterns.titles.home });
-			} else if (['branchEvent.shopping'].includes(evnt)) {
+			} else if (['settings.doBranchQuests.limitedEventPattern'].includes(evnt)) {
 				macroService.PollPattern(patterns.branchEvent.skip2, { DoClick: true, PredicatePattern: patterns.branchEvent.prompt.bottom });
 				const random = macroService.Random(0, 1);
 				const targetPrompt = patterns.branchEvent.prompt[random === 1 ? 'top': 'bottom'];

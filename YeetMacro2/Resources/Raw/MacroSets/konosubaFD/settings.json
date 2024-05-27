@@ -18,6 +18,7 @@
           "11"
         ],
         "value": "11",
+        "defaultValue": "11",
         "isParentNode": false,
         "name": "targetLevel",
         "position": 0,
@@ -55,6 +56,7 @@
             "intermediate"
           ],
           "value": "intermediate",
+          "defaultValue": "intermediate",
           "isParentNode": false,
           "name": "targetLevel",
           "position": 0,
@@ -81,6 +83,7 @@
           "recommendedElement"
         ],
         "value": "recommendedElement",
+        "defaultValue": "recommendedElement",
         "isParentNode": false,
         "name": "party",
         "position": 0,
@@ -102,6 +105,7 @@
           "$type": "string",
           "settingType": "String",
           "value": "Main",
+          "defaultValue": "Main",
           "isParentNode": false,
           "name": "none",
           "position": 0,
@@ -114,6 +118,7 @@
           "$type": "string",
           "settingType": "String",
           "value": "Fire",
+          "defaultValue": "Fire",
           "isParentNode": false,
           "name": "fire",
           "position": 0,
@@ -126,6 +131,7 @@
           "$type": "string",
           "settingType": "String",
           "value": "Water",
+          "defaultValue": "Water",
           "isParentNode": false,
           "name": "water",
           "position": 0,
@@ -138,6 +144,7 @@
           "$type": "string",
           "settingType": "String",
           "value": "Ltng",
+          "defaultValue": "Ltng",
           "isParentNode": false,
           "name": "lightning",
           "position": 0,
@@ -150,6 +157,7 @@
           "$type": "string",
           "settingType": "String",
           "value": "Earth",
+          "defaultValue": "Earth",
           "isParentNode": false,
           "name": "earth",
           "position": 0,
@@ -162,6 +170,7 @@
           "$type": "string",
           "settingType": "String",
           "value": "Wind",
+          "defaultValue": "Wind",
           "isParentNode": false,
           "name": "wind",
           "position": 0,
@@ -174,6 +183,7 @@
           "$type": "string",
           "settingType": "String",
           "value": "Light",
+          "defaultValue": "Light",
           "isParentNode": false,
           "name": "light",
           "position": 0,
@@ -186,6 +196,7 @@
           "$type": "string",
           "settingType": "String",
           "value": "Dark",
+          "defaultValue": "Dark",
           "isParentNode": false,
           "name": "dark",
           "position": 0,
@@ -221,11 +232,105 @@
             "CabH"
           ],
           "value": "CabH",
+          "defaultValue": "CabH",
           "isParentNode": false,
           "name": "party",
           "position": 0,
           "path": "doBranchQuests.cabbageHunting.party"
         }
+      }
+    },
+    "limitedEventPattern": {
+      "$isParent": false,
+      "props": {
+        "$type": "pattern",
+        "settingType": "Pattern",
+        "value": {
+          "isMultiPattern": false,
+          "patterns": [
+            {
+              "rect": {
+                "x": 1244.6029052734375,
+                "y": 268.0039367675781,
+                "width": 81.4552001953125,
+                "height": 57.442657470703125
+              },
+              "resolution": {
+                "width": 1920,
+                "height": 1080
+              },
+              "isBoundsPattern": false,
+              "isLocationDynamic": false,
+              "name": "pattern",
+              "imageData": "/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDAAEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQH/2wBDAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQH/wAARCAAMAAwDASIAAhEBAxEB/8QAFgABAQEAAAAAAAAAAAAAAAAABwgJ/8QAIBAAAQUBAQADAQEAAAAAAAAABAECAwUGBwgJERMSFP/EABUBAQEAAAAAAAAAAAAAAAAAAAcI/8QAHREAAwEAAwADAAAAAAAAAAAAAQIDBAUGERITIf/aAAwDAQACEQMRAD8AJycNT+8M/wA1sfDFndcrXIfnD6N692+pvLHPB3lrl4zaznWdDspLgzpPRm26lW9pZYOADG57HqIt/ZsuywRy5i6oz115a15XKN5RQbk0QeC4pNpzPU2FPlNRnbB0sIVqNVEBkkV5TjArEUsaf8HskFT6gRisll0I+GUtz/EKDJFBGwf0H2tFdHH/ADIQ8knOyumJerl/SWNo8UEbmoxEHY1jmvVrHNMvkP7Btsl6AhzVGWGNVVGCzkAscoTC5V/0nXh88kkhTpVR8pJkz1ZAkI7fv7ZC1yvc+WOEOuHZeQ65GktWLFbeJV3/AGtyDmNkZq35KLLps5ejTnJvISzCUghrE3sXbu024XVfRGDeq7ZzSd2jqctZvWfVNFqykp+zYlQAo8LD5n//2Q==",
+              "variancePct": 20,
+              "horizontalStretchMultiplier": 0,
+              "verticalStretchMultiplier": 0,
+              "textMatch": {
+                "isActive": false,
+                "text": null,
+                "whiteList": null
+              },
+              "colorThreshold": {
+                "isActive": false,
+                "variancePct": 30,
+                "color": null,
+                "imageData": ""
+              },
+              "offsetCalcType": "Default",
+              "position": 0
+            }
+          ],
+          "isParentNode": true,
+          "name": null,
+          "position": 0,
+          "path": null
+        },
+        "defaultValue": {
+          "isMultiPattern": false,
+          "patterns": [
+            {
+              "rect": {
+                "x": 1244.6029052734375,
+                "y": 268.0039367675781,
+                "width": 81.4552001953125,
+                "height": 57.442657470703125
+              },
+              "resolution": {
+                "width": 1920,
+                "height": 1080
+              },
+              "isBoundsPattern": false,
+              "isLocationDynamic": false,
+              "name": "pattern",
+              "imageData": "/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDAAEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQH/2wBDAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQH/wAARCAAMAAwDASIAAhEBAxEB/8QAFgABAQEAAAAAAAAAAAAAAAAABwgJ/8QAIBAAAQUBAQADAQEAAAAAAAAABAECAwUGBwgJERMSFP/EABUBAQEAAAAAAAAAAAAAAAAAAAcI/8QAHREAAwEAAwADAAAAAAAAAAAAAQIDBAUGERITIf/aAAwDAQACEQMRAD8AJycNT+8M/wA1sfDFndcrXIfnD6N692+pvLHPB3lrl4zaznWdDspLgzpPRm26lW9pZYOADG57HqIt/ZsuywRy5i6oz115a15XKN5RQbk0QeC4pNpzPU2FPlNRnbB0sIVqNVEBkkV5TjArEUsaf8HskFT6gRisll0I+GUtz/EKDJFBGwf0H2tFdHH/ADIQ8knOyumJerl/SWNo8UEbmoxEHY1jmvVrHNMvkP7Btsl6AhzVGWGNVVGCzkAscoTC5V/0nXh88kkhTpVR8pJkz1ZAkI7fv7ZC1yvc+WOEOuHZeQ65GktWLFbeJV3/AGtyDmNkZq35KLLps5ejTnJvISzCUghrE3sXbu024XVfRGDeq7ZzSd2jqctZvWfVNFqykp+zYlQAo8LD5n//2Q==",
+              "variancePct": 20,
+              "horizontalStretchMultiplier": 0,
+              "verticalStretchMultiplier": 0,
+              "textMatch": {
+                "isActive": false,
+                "text": null,
+                "whiteList": null
+              },
+              "colorThreshold": {
+                "isActive": false,
+                "variancePct": 30,
+                "color": null,
+                "imageData": ""
+              },
+              "offsetCalcType": "Default",
+              "position": 0
+            }
+          ],
+          "isParentNode": true,
+          "name": null,
+          "position": 0,
+          "path": null
+        },
+        "isParentNode": false,
+        "name": "limitedEventPattern",
+        "position": 0,
+        "path": "doBranchQuests.limitedEventPattern"
       }
     }
   },
@@ -244,6 +349,7 @@
         "$type": "boolean",
         "settingType": "Boolean",
         "value": true,
+        "defaultValue": true,
         "isParentNode": false,
         "name": "watchAdQuartz",
         "position": 0,
@@ -256,6 +362,7 @@
         "$type": "boolean",
         "settingType": "Boolean",
         "value": true,
+        "defaultValue": true,
         "isParentNode": false,
         "name": "watchAdStamina",
         "position": 0,
@@ -268,6 +375,7 @@
         "$type": "boolean",
         "settingType": "Boolean",
         "value": true,
+        "defaultValue": true,
         "isParentNode": false,
         "name": "claimJobs",
         "position": 0,
@@ -280,6 +388,7 @@
         "$type": "boolean",
         "settingType": "Boolean",
         "value": true,
+        "defaultValue": true,
         "isParentNode": false,
         "name": "doMainExpertQuests",
         "position": 0,
@@ -292,6 +401,7 @@
         "$type": "boolean",
         "settingType": "Boolean",
         "value": true,
+        "defaultValue": true,
         "isParentNode": false,
         "name": "doFreeQuests",
         "position": 0,
@@ -304,6 +414,7 @@
         "$type": "boolean",
         "settingType": "Boolean",
         "value": true,
+        "defaultValue": true,
         "isParentNode": false,
         "name": "doBattleArena",
         "position": 0,
@@ -316,6 +427,7 @@
         "$type": "boolean",
         "settingType": "Boolean",
         "value": true,
+        "defaultValue": true,
         "isParentNode": false,
         "name": "doBattleArenaEx",
         "position": 0,
@@ -328,6 +440,7 @@
         "$type": "boolean",
         "settingType": "Boolean",
         "value": true,
+        "defaultValue": true,
         "isParentNode": false,
         "name": "doMainOrEventHardQuests",
         "position": 0,
@@ -340,6 +453,7 @@
         "$type": "boolean",
         "settingType": "Boolean",
         "value": true,
+        "defaultValue": true,
         "isParentNode": false,
         "name": "doOneFameQuest",
         "position": 0,
@@ -352,6 +466,7 @@
         "$type": "boolean",
         "settingType": "Boolean",
         "value": true,
+        "defaultValue": true,
         "isParentNode": false,
         "name": "farmEventBossLoop",
         "position": 0,
@@ -364,6 +479,7 @@
         "$type": "boolean",
         "settingType": "Boolean",
         "value": true,
+        "defaultValue": true,
         "isParentNode": false,
         "name": "claimMissionRewards",
         "position": 0,
@@ -376,6 +492,7 @@
         "$type": "boolean",
         "settingType": "Boolean",
         "value": true,
+        "defaultValue": true,
         "isParentNode": false,
         "name": "doFriends",
         "position": 0,
@@ -388,6 +505,7 @@
         "$type": "boolean",
         "settingType": "Boolean",
         "value": true,
+        "defaultValue": true,
         "isParentNode": false,
         "name": "doBranchQuests",
         "position": 0,
@@ -413,6 +531,7 @@
           "recommendedElement"
         ],
         "value": "recommendedElement",
+        "defaultValue": "recommendedElement",
         "isParentNode": false,
         "name": "party",
         "position": 0,
@@ -434,6 +553,7 @@
           "$type": "string",
           "settingType": "String",
           "value": "Main",
+          "defaultValue": "Main",
           "isParentNode": false,
           "name": "none",
           "position": 0,
@@ -446,6 +566,7 @@
           "$type": "string",
           "settingType": "String",
           "value": "Fire",
+          "defaultValue": "Fire",
           "isParentNode": false,
           "name": "fire",
           "position": 0,
@@ -458,6 +579,7 @@
           "$type": "string",
           "settingType": "String",
           "value": "Water",
+          "defaultValue": "Water",
           "isParentNode": false,
           "name": "water",
           "position": 0,
@@ -470,6 +592,7 @@
           "$type": "string",
           "settingType": "String",
           "value": "Ltng",
+          "defaultValue": "Ltng",
           "isParentNode": false,
           "name": "lightning",
           "position": 0,
@@ -482,6 +605,7 @@
           "$type": "string",
           "settingType": "String",
           "value": "Earth",
+          "defaultValue": "Earth",
           "isParentNode": false,
           "name": "earth",
           "position": 0,
@@ -494,6 +618,7 @@
           "$type": "string",
           "settingType": "String",
           "value": "Wind",
+          "defaultValue": "Wind",
           "isParentNode": false,
           "name": "wind",
           "position": 0,
@@ -506,6 +631,7 @@
           "$type": "string",
           "settingType": "String",
           "value": "Light",
+          "defaultValue": "Light",
           "isParentNode": false,
           "name": "light",
           "position": 0,
@@ -518,6 +644,7 @@
           "$type": "string",
           "settingType": "String",
           "value": "Dark",
+          "defaultValue": "Dark",
           "isParentNode": false,
           "name": "dark",
           "position": 0,
@@ -541,6 +668,7 @@
         "$type": "boolean",
         "settingType": "Boolean",
         "value": true,
+        "defaultValue": true,
         "isParentNode": false,
         "name": "skipBattle",
         "position": 0,
@@ -553,6 +681,7 @@
         "$type": "string",
         "settingType": "String",
         "value": "Phys",
+        "defaultValue": "Phys",
         "isParentNode": false,
         "name": "physicalDamage",
         "position": 0,
@@ -565,6 +694,7 @@
         "$type": "string",
         "settingType": "String",
         "value": "Low",
+        "defaultValue": "Low",
         "isParentNode": false,
         "name": "lowRarity",
         "position": 0,
@@ -577,6 +707,7 @@
         "$type": "string",
         "settingType": "String",
         "value": "Magic",
+        "defaultValue": "Magic",
         "isParentNode": false,
         "name": "magicDamage",
         "position": 0,
@@ -589,6 +720,7 @@
         "$type": "string",
         "settingType": "String",
         "value": "Def",
+        "defaultValue": "Def",
         "isParentNode": false,
         "name": "defence",
         "position": 0,
@@ -601,6 +733,7 @@
         "$type": "string",
         "settingType": "String",
         "value": "Cbns",
+        "defaultValue": "Cbns",
         "isParentNode": false,
         "name": "characterBonus",
         "position": 0,
@@ -624,6 +757,7 @@
         "settingType": "Integer",
         "increment": 100,
         "value": 700,
+        "defaultValue": 700,
         "isParentNode": false,
         "name": "minStamina",
         "position": 0,
@@ -646,6 +780,7 @@
         "$type": "boolean",
         "settingType": "Boolean",
         "value": false,
+        "defaultValue": false,
         "isParentNode": false,
         "name": "forceRun",
         "position": 0,
@@ -657,7 +792,8 @@
       "props": {
         "$type": "timestamp",
         "settingType": "TimeStamp",
-        "value": "2024-04-03T22:47:41.936+00:00",
+        "value": "2024-04-26T23:41:51.499+00:00",
+        "defaultValue": "0001-01-01T00:00:00+00:00",
         "isParentNode": false,
         "name": "lastRun",
         "position": 0,
@@ -681,6 +817,7 @@
         "settingType": "Double",
         "increment": 1,
         "value": 1,
+        "defaultValue": 0,
         "isParentNode": false,
         "name": "adObjectScale",
         "position": 0,
@@ -693,6 +830,14 @@
         "$type": "pattern",
         "settingType": "Pattern",
         "value": {
+          "isMultiPattern": false,
+          "patterns": [],
+          "isParentNode": true,
+          "name": null,
+          "position": 0,
+          "path": null
+        },
+        "defaultValue": {
           "isMultiPattern": false,
           "patterns": [],
           "isParentNode": true,
@@ -723,6 +868,7 @@
         "settingType": "Double",
         "increment": 1,
         "value": 1,
+        "defaultValue": 0,
         "isParentNode": false,
         "name": "adObjectScale",
         "position": 0,
@@ -742,10 +888,18 @@
           "position": 0,
           "path": null
         },
+        "defaultValue": {
+          "isMultiPattern": false,
+          "patterns": [],
+          "isParentNode": true,
+          "name": null,
+          "position": 0,
+          "path": null
+        },
         "isParentNode": false,
         "name": "userClickPattern",
         "position": 0,
-        "path": "watchAdQuartz.userClickPattern"
+        "path": "watchAdStamina.userClickPattern"
       }
     }
   }

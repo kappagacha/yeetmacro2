@@ -3,12 +3,12 @@
 // Do dailies (all checked scripts)
 
 if (settings.doDailies.watchAdQuartz.Value) {
-    _watchAdQuartz();
+    watchAdQuartz();
     goToLobby();
 }
 
 if (settings.doDailies.watchAdStamina.Value) {
-    _watchAdStamina();
+    watchAdStamina();
     goToLobby();
 }
 

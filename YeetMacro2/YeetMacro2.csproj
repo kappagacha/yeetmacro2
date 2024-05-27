@@ -359,10 +359,10 @@
     <MauiAsset Update="Resources\Raw\MacroSets\konosubaFD\scripts\doMainExpertQuests.js">
       <LogicalName>%(RecursiveDir)%(Filename)%(Extension)</LogicalName>
     </MauiAsset>
-    <MauiAsset Update="Resources\Raw\MacroSets\konosubaFD\scripts\_watchAdQuartz.js">
+    <MauiAsset Update="Resources\Raw\MacroSets\konosubaFD\scripts\watchAdQuartz.js">
       <LogicalName>%(RecursiveDir)%(Filename)%(Extension)</LogicalName>
     </MauiAsset>
-    <MauiAsset Update="Resources\Raw\MacroSets\konosubaFD\scripts\_watchAdStamina.js">
+    <MauiAsset Update="Resources\Raw\MacroSets\konosubaFD\scripts\watchAdStamina.js">
       <LogicalName>%(RecursiveDir)%(Filename)%(Extension)</LogicalName>
     </MauiAsset>
     <MauiAsset Update="Resources\Raw\MacroSets\konosubaFD\scripts\claimJobs.js">
