@@ -12,11 +12,6 @@ if (settings.doWeeklies.claimWeeklyMissions.Value) {
     goToLobby();
 }
 
-if (settings.doWeeklies.doWeeklySurveyHubShop.Value) {
-    doWeeklySurveyHubShop();
-    goToLobby();
-}
-
 if (settings.doWeeklies.doWeeklyShop.Value) {
     doWeeklyShop();
     goToLobby();

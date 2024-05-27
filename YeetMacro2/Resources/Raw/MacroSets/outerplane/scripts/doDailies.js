@@ -16,6 +16,11 @@ if (settings.doDailies.claimFreeShop.Value) {
     goToLobby();
 }
 
+if (settings.doDailies.doShop.Value) {
+    doShop();
+    goToLobby();
+}
+
 if (settings.doDailies.claimFreeRecruit.Value) {
     claimFreeRecruit();
     goToLobby();
@@ -65,7 +70,6 @@ if (settings.doDailies.watchAds.Value) {
     watchAds();
     goToLobby();
 }
-
 
 if (settings.doDailies.doDoppelganger.Value) {
     doDoppelganger();

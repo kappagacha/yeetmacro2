@@ -31,7 +31,9 @@ macroService.PollPattern(patterns.lobby.level, {
 		patterns.event.close,
 		patterns.challenge.specialRequest.sweepAll.cancel,
 		patterns.lobby.expedition.searchAgain,
-		patterns.general.startMessageClose
+		patterns.general.startMessageClose,
+		patterns.general.tapEmptySpace,
+		patterns.general.exitCheckIn
 	]
 });
 if (macroService.IsRunning) {

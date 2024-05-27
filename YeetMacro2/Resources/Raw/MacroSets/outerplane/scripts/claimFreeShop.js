@@ -33,7 +33,7 @@ while (macroService.IsRunning) {
 			if (!swipeResult.IsSuccess) {
 				throw new Error('Unable to find resource shop');
 			}
-			const selectedResourcePattern = macroService.ClonePattern(patterns.shop.resource.selected, { CenterY: swipeResult.Point.Y, Padding: 20 });
+			const selectedResourcePattern = macroService.ClonePattern(patterns.shop.selected, { CenterY: swipeResult.Point.Y, Padding: 20 });
 			macroService.PollPattern(patterns.shop.resource, { DoClick: true, PredicatePattern: selectedResourcePattern });
 
 			let resourceFreeResult = macroService.FindPattern(patterns.shop.resource.free);
@@ -45,79 +45,94 @@ while (macroService.IsRunning) {
 				resourceFreeResult = macroService.FindPattern(patterns.shop.resource.free);
 			}
 
-			const friendshipItems = ['stamina', 'gold', 'clearTicket', 'arenaTicket', 'hammer', 'stoneFragment', 'stonePiece'];
-			for (const friendshipItem of friendshipItems) {
-				if (settings.claimFreeShop.useFriendshipPoints[friendshipItem].Value && !daily.claimFreeShop.useFriendshipPoints[friendshipItem].IsChecked) {
-					logger.info(`claimFreeShop: purchase friendshipItem ${friendshipItem}`);
-					macroService.PollPattern(patterns.shop.resource.friendship, { DoClick: true, PredicatePattern: patterns.shop.resource.friendship.currency });
-
-					const friendshipItemPattern = macroService.ClonePattern(patterns.shop.resource.friendship[friendshipItem], {
-						X: 350,
-						Y: 230,
-						Width: resolution.Width - 550,
-						Height: 800,
-						Path: `patterns.shop.resource.friendship.${friendshipItem}`,
-						OffsetCalcType: 'DockLeft'
-					});
-					const friendshipItemResult = macroService.PollPattern(friendshipItemPattern);
-					const friendshipItemPurchasePattern = macroService.ClonePattern(patterns.shop.resource.purchase, {
-						X: friendshipItemResult.Point.X - 70,
-						Y: friendshipItemResult.Point.Y + 200,
-						Width: 350,
-						Height: 100,
-						Path: `patterns.shop.resource.friendship.${friendshipItem}.purchase`,
-						OffsetCalcType: 'None'
-					});
-
-					macroService.PollPattern(friendshipItemPurchasePattern, { DoClick: true, PredicatePattern: patterns.shop.resource.ok });
-					const maxSliderResult = macroService.FindPattern(patterns.shop.resource.maxSlider);
-					if (maxSliderResult.IsSuccess) {
-						macroService.PollPattern(patterns.shop.resource.maxSlider, { DoClick: true, InversePredicatePattern: patterns.shop.resource.maxSlider });
-					}
-					macroService.PollPattern(patterns.shop.resource.ok, { DoClick: true, PredicatePattern: patterns.general.tapEmptySpace });
-					macroService.PollPattern(patterns.general.tapEmptySpace, { DoClick: true, PredicatePattern: patterns.titles.shop });
-					if (macroService.IsRunning) {
-						daily.claimFreeShop.useFriendshipPoints[friendshipItem].IsChecked = true;
-					}
-				}
+			const swipeResult2 = macroService.SwipePollPattern(patterns.shop.surveyHub, { MaxSwipes: 2, Start: { X: 180, Y: 650 }, End: { X: 180, Y: 250 } });
+			if (!swipeResult2.IsSuccess) {
+				throw new Error('Unable to find surveyhub shop');
 			}
 
-			const arenaItems = ['gold', 'stamina', 'cakeSlice'];
-			for (const arenaItem of arenaItems) {
-				if (settings.claimFreeShop.useArenaMedals[arenaItem].Value && !daily.claimFreeShop.useArenaMedals[arenaItem].IsChecked) {
-					logger.info(`claimFreeShop: purchase arenaItem ${arenaItem}`);
-					macroService.PollPattern(patterns.shop.resource.arena, { DoClick: true, PredicatePattern: patterns.shop.resource.arena.currency });
+			const selectedSurveyHubPattern = macroService.ClonePattern(patterns.shop.selected, { CenterY: swipeResult2.Point.Y, Padding: 20 });
+			macroService.PollPattern(patterns.shop.surveyHub, { DoClick: true, PredicatePattern: selectedSurveyHubPattern });
 
-					const arenaItemPattern = macroService.ClonePattern(patterns.shop.resource.arena[arenaItem], {
-						X: 350,
-						Y: 230,
-						Width: resolution.Width - 550,
-						Height: 800,
-						Path: `patterns.shop.resource.arena.${arenaItem}`,
-						OffsetCalcType: 'DockLeft'
-					});
-					const arenaItemResult = macroService.PollPattern(arenaItemPattern);
-					const arenaItemPurchasePattern = macroService.ClonePattern(patterns.shop.resource.purchase, {
-						X: arenaItemResult.Point.X - 70,
-						Y: arenaItemResult.Point.Y + 200,
-						Width: 350,
-						Height: 100,
-						Path: `patterns.shop.resource.arena.${arenaItem}.purchase`,
-						OffsetCalcType: 'None'
-					});
-
-					macroService.PollPattern(arenaItemPurchasePattern, { DoClick: true, PredicatePattern: patterns.shop.resource.ok });
-					const maxSliderResult = macroService.FindPattern(patterns.shop.resource.maxSlider);
-					if (maxSliderResult.IsSuccess) {
-						macroService.PollPattern(patterns.shop.resource.maxSlider, { DoClick: true, InversePredicatePattern: patterns.shop.resource.maxSlider });
-					}
-					macroService.PollPattern(patterns.shop.resource.ok, { DoClick: true, PredicatePattern: patterns.general.tapEmptySpace });
-					macroService.PollPattern(patterns.general.tapEmptySpace, { DoClick: true, PredicatePattern: patterns.titles.shop });
-					if (macroService.IsRunning) {
-						daily.claimFreeShop.useArenaMedals[arenaItem].IsChecked = true;
-					}
-				}
+			const surveyhubFreeResult = macroService.FindPattern(patterns.shop.free);
+			if (surveyhubFreeResult.IsSuccess) {
+				macroService.PollPattern(patterns.shop.free, { DoClick: true, PredicatePattern: patterns.shop.free.ok });
+				macroService.PollPattern(patterns.shop.free.ok, { DoClick: true, PredicatePattern: patterns.general.tapEmptySpace });
+				macroService.PollPattern(patterns.general.tapEmptySpace, { DoClick: true, PredicatePattern: patterns.titles.shop });
 			}
+
+			//const friendshipItems = ['stamina', 'gold', 'clearTicket', 'arenaTicket', 'hammer', 'stoneFragment', 'stonePiece'];
+			//for (const friendshipItem of friendshipItems) {
+			//	if (settings.claimFreeShop.useFriendshipPoints[friendshipItem].Value && !daily.claimFreeShop.useFriendshipPoints[friendshipItem].IsChecked) {
+			//		logger.info(`claimFreeShop: purchase friendshipItem ${friendshipItem}`);
+			//		macroService.PollPattern(patterns.shop.resource.friendship, { DoClick: true, PredicatePattern: patterns.shop.resource.friendship.currency });
+
+			//		const friendshipItemPattern = macroService.ClonePattern(patterns.shop.resource.friendship[friendshipItem], {
+			//			X: 350,
+			//			Y: 230,
+			//			Width: resolution.Width - 550,
+			//			Height: 800,
+			//			Path: `patterns.shop.resource.friendship.${friendshipItem}`,
+			//			OffsetCalcType: 'DockLeft'
+			//		});
+			//		const friendshipItemResult = macroService.PollPattern(friendshipItemPattern);
+			//		const friendshipItemPurchasePattern = macroService.ClonePattern(patterns.shop.resource.purchase, {
+			//			X: friendshipItemResult.Point.X - 70,
+			//			Y: friendshipItemResult.Point.Y + 200,
+			//			Width: 350,
+			//			Height: 100,
+			//			Path: `patterns.shop.resource.friendship.${friendshipItem}.purchase`,
+			//			OffsetCalcType: 'None'
+			//		});
+
+			//		macroService.PollPattern(friendshipItemPurchasePattern, { DoClick: true, PredicatePattern: patterns.shop.resource.ok });
+			//		const maxSliderResult = macroService.FindPattern(patterns.shop.resource.maxSlider);
+			//		if (maxSliderResult.IsSuccess) {
+			//			macroService.PollPattern(patterns.shop.resource.maxSlider, { DoClick: true, InversePredicatePattern: patterns.shop.resource.maxSlider });
+			//		}
+			//		macroService.PollPattern(patterns.shop.resource.ok, { DoClick: true, PredicatePattern: patterns.general.tapEmptySpace });
+			//		macroService.PollPattern(patterns.general.tapEmptySpace, { DoClick: true, PredicatePattern: patterns.titles.shop });
+			//		if (macroService.IsRunning) {
+			//			daily.claimFreeShop.useFriendshipPoints[friendshipItem].IsChecked = true;
+			//		}
+			//	}
+			//}
+
+			//const arenaItems = ['gold', 'stamina', 'cakeSlice'];
+			//for (const arenaItem of arenaItems) {
+			//	if (settings.claimFreeShop.useArenaMedals[arenaItem].Value && !daily.claimFreeShop.useArenaMedals[arenaItem].IsChecked) {
+			//		logger.info(`claimFreeShop: purchase arenaItem ${arenaItem}`);
+			//		macroService.PollPattern(patterns.shop.resource.arena, { DoClick: true, PredicatePattern: patterns.shop.resource.arena.currency });
+
+			//		const arenaItemPattern = macroService.ClonePattern(patterns.shop.resource.arena[arenaItem], {
+			//			X: 350,
+			//			Y: 230,
+			//			Width: resolution.Width - 550,
+			//			Height: 800,
+			//			Path: `patterns.shop.resource.arena.${arenaItem}`,
+			//			OffsetCalcType: 'DockLeft'
+			//		});
+			//		const arenaItemResult = macroService.PollPattern(arenaItemPattern);
+			//		const arenaItemPurchasePattern = macroService.ClonePattern(patterns.shop.resource.purchase, {
+			//			X: arenaItemResult.Point.X - 70,
+			//			Y: arenaItemResult.Point.Y + 200,
+			//			Width: 350,
+			//			Height: 100,
+			//			Path: `patterns.shop.resource.arena.${arenaItem}.purchase`,
+			//			OffsetCalcType: 'None'
+			//		});
+
+			//		macroService.PollPattern(arenaItemPurchasePattern, { DoClick: true, PredicatePattern: patterns.shop.resource.ok });
+			//		const maxSliderResult = macroService.FindPattern(patterns.shop.resource.maxSlider);
+			//		if (maxSliderResult.IsSuccess) {
+			//			macroService.PollPattern(patterns.shop.resource.maxSlider, { DoClick: true, InversePredicatePattern: patterns.shop.resource.maxSlider });
+			//		}
+			//		macroService.PollPattern(patterns.shop.resource.ok, { DoClick: true, PredicatePattern: patterns.general.tapEmptySpace });
+			//		macroService.PollPattern(patterns.general.tapEmptySpace, { DoClick: true, PredicatePattern: patterns.titles.shop });
+			//		if (macroService.IsRunning) {
+			//			daily.claimFreeShop.useArenaMedals[arenaItem].IsChecked = true;
+			//		}
+			//	}
+			//}
 			
 			if (macroService.IsRunning) {
 				daily.claimFreeShop.done.IsChecked = true;

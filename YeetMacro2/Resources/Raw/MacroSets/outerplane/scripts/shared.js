@@ -89,3 +89,100 @@ function refillStamina(targetStamina) {
 		logger.info(`refillStamina to ${targetStamina}. current stamina is ${currentStamina}`);
 	}
 }
+
+function findShopItem(shopItemName) {
+	const resolution = macroService.GetCurrentResolution();
+	const swipeStartX = resolution.Width - 100;
+	const swipeEndX = swipeStartX - 300;
+
+	const shopItemNameToRegex = {
+		stamina: /stamina/is,
+		stamina1: /stamina/is,
+		stamina2: /stamina/is,
+		gold: /gold/is,
+		clearTicket: /clear.*ticket/is,
+		arenaTicket: /arena.*ticket/is,
+		hammer: /h[au]mmer/is,
+		stoneFragment: /s.*ne.*fr[au]g/is,
+		stonePiece: /s.*ne.*piece/is,
+		basicSkillManual: /basic.*manual/is,
+		intermediateSkillManual: /[il]n.*manual/is,
+		professionalSkillManual: /pro.*manual/is,
+		cakeSlice: /cake/is,
+		upgradeStoneSelectionChest: /^(?!.*piece)upgrade.*stone/is,		//does not contain piece (using negative look ahead)
+		lowStarHeroPieceTicket: /1.*2/is,
+		// season 1 survey hub items
+		epicReforgeCatalyst: /epic.*reforge/is,
+		superiorQualityPresentChest: /sup.*pres/is,
+		'10pctLegendaryAbrasive': /10.*leg/is,
+		// season 2 survey hub items
+		legendaryReforgeCatalyst: /leg.*ref/is,
+		epicQualityPresentChest: /epic.*pres/is,
+		refinedGlunite: /ref.*g[li]un/is,
+	}
+
+	let findResult;
+	//let tryCount = 0;
+
+	while (!findResult) {
+		const itemCornerPattern = macroService.ClonePattern(patterns.shop.itemCorner, {
+			X: 350,
+			Y: 130,
+			Width: resolution.Width - 550,
+			Height: 900
+		});
+
+		let itemCornerResult = macroService.FindPattern(itemCornerPattern, { Limit: 12 });
+		let textResults = itemCornerResult.Points.filter(p => p.X < resolution.Width - 350).map(p => {
+			const itemTextPattern = macroService.ClonePattern(patterns.shop.itemText, { X: p.X, Y: p.Y });
+			return {
+				point: { X: p.X, Y: p.Y },
+				text: macroService.GetText(itemTextPattern)
+			};
+		});
+
+		//return textResults;
+
+		findResult = textResults.find(tr => tr.text.match(shopItemNameToRegex[shopItemName]));
+
+		if (!findResult) {
+			macroService.DoSwipe({ X: swipeStartX, Y: 500 }, { X: swipeEndX, Y: 500 });
+			sleep(2000);
+		}
+	}
+
+	return findResult;
+}
+
+function doShopItems(scriptName, shopType, shopItems, isWeekly = false) {
+	const weekly = weeklyManager.GetCurrentWeekly();
+	const daily = dailyManager.GetCurrentDaily();
+	const todo = isWeekly ? weekly : daily;
+
+	for (const shopItem of shopItems) {
+		if (settings[scriptName][shopType][shopItem].Value && !todo[scriptName][shopType][shopItem].IsChecked) {
+			logger.info(`${scriptName}: purchase shopItem ${shopItem}`);
+
+			const findShopItemResult = findShopItem(shopItem);
+			const shopItemPurchasePattern = macroService.ClonePattern(patterns.shop.resource.purchase, {
+				X: findShopItemResult.point.X + 100,
+				Y: findShopItemResult.point.Y + 200,
+				Width: 350,
+				Height: 100,
+				Path: `patterns.shop.resource.${shopType}.${shopItem}.purchase`,
+				OffsetCalcType: 'None'
+			});
+
+			macroService.PollPattern(shopItemPurchasePattern, { DoClick: true, PredicatePattern: patterns.shop.resource.ok });
+			const maxSliderResult = macroService.FindPattern(patterns.shop.resource.maxSlider);
+			if (maxSliderResult.IsSuccess) {
+				macroService.PollPattern(patterns.shop.resource.maxSlider, { DoClick: true, InversePredicatePattern: patterns.shop.resource.maxSlider });
+			}
+			macroService.PollPattern(patterns.shop.resource.ok, { DoClick: true, PredicatePattern: patterns.general.tapEmptySpace });
+			macroService.PollPattern(patterns.general.tapEmptySpace, { DoClick: true, PredicatePattern: patterns.titles.shop });
+			if (macroService.IsRunning) {
+				todo[scriptName][shopType][shopItem].IsChecked = true;
+			}
+		}
+	}
+}

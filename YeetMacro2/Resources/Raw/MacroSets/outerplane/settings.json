@@ -1123,7 +1123,7 @@
             {
               "rect": {
                 "x": 1676.3780517578125,
-                "y": 822.4905395507812,
+                "y": 822.49053955078125,
                 "width": 62.465087890625,
                 "height": 38.460205078125
               },
@@ -1164,7 +1164,7 @@
             {
               "rect": {
                 "x": 1676.3780517578125,
-                "y": 822.4905395507812,
+                "y": 822.49053955078125,
                 "width": 62.465087890625,
                 "height": 38.460205078125
               },
@@ -1272,7 +1272,7 @@
       "props": {
         "$type": "timestamp",
         "settingType": "TimeStamp",
-        "value": "2024-05-21T14:02:51.647+00:00",
+        "value": "2024-05-26T23:22:02.744+00:00",
         "defaultValue": "0001-01-01T00:00:00+00:00",
         "isParentNode": false,
         "name": "lastRun",
@@ -1314,166 +1314,6 @@
         "name": "lastRun",
         "position": 0,
         "path": "doFriends.lastRun"
-      }
-    }
-  },
-  "claimFreeShop": {
-    "$isParent": true,
-    "props": {
-      "settingType": "Parent",
-      "isParentNode": true,
-      "name": "claimFreeShop",
-      "position": 0,
-      "path": "claimFreeShop"
-    },
-    "useFriendshipPoints": {
-      "$isParent": true,
-      "props": {
-        "settingType": "Parent",
-        "isParentNode": true,
-        "name": "useFriendshipPoints",
-        "position": 0,
-        "path": "claimFreeShop.useFriendshipPoints"
-      },
-      "stamina": {
-        "$isParent": false,
-        "props": {
-          "$type": "boolean",
-          "settingType": "Boolean",
-          "value": true,
-          "defaultValue": true,
-          "isParentNode": false,
-          "name": "stamina",
-          "position": 0,
-          "path": "claimFreeShop.useFriendshipPoints.stamina"
-        }
-      },
-      "gold": {
-        "$isParent": false,
-        "props": {
-          "$type": "boolean",
-          "settingType": "Boolean",
-          "value": true,
-          "defaultValue": true,
-          "isParentNode": false,
-          "name": "gold",
-          "position": 0,
-          "path": "claimFreeShop.useFriendshipPoints.gold"
-        }
-      },
-      "clearTicket": {
-        "$isParent": false,
-        "props": {
-          "$type": "boolean",
-          "settingType": "Boolean",
-          "value": false,
-          "defaultValue": false,
-          "isParentNode": false,
-          "name": "clearTicket",
-          "position": 0,
-          "path": "claimFreeShop.useFriendshipPoints.clearTicket"
-        }
-      },
-      "arenaTicket": {
-        "$isParent": false,
-        "props": {
-          "$type": "boolean",
-          "settingType": "Boolean",
-          "value": true,
-          "defaultValue": true,
-          "isParentNode": false,
-          "name": "arenaTicket",
-          "position": 0,
-          "path": "claimFreeShop.useFriendshipPoints.arenaTicket"
-        }
-      },
-      "hammer": {
-        "$isParent": false,
-        "props": {
-          "$type": "boolean",
-          "settingType": "Boolean",
-          "value": false,
-          "defaultValue": false,
-          "isParentNode": false,
-          "name": "hammer",
-          "position": 0,
-          "path": "claimFreeShop.useFriendshipPoints.hammer"
-        }
-      },
-      "stoneFragment": {
-        "$isParent": false,
-        "props": {
-          "$type": "boolean",
-          "settingType": "Boolean",
-          "value": true,
-          "defaultValue": true,
-          "isParentNode": false,
-          "name": "stoneFragment",
-          "position": 0,
-          "path": "claimFreeShop.useFriendshipPoints.stoneFragment"
-        }
-      },
-      "stonePiece": {
-        "$isParent": false,
-        "props": {
-          "$type": "boolean",
-          "settingType": "Boolean",
-          "value": true,
-          "defaultValue": true,
-          "isParentNode": false,
-          "name": "stonePiece",
-          "position": 0,
-          "path": "claimFreeShop.useFriendshipPoints.stonePiece"
-        }
-      }
-    },
-    "useArenaMedals": {
-      "$isParent": true,
-      "props": {
-        "settingType": "Parent",
-        "isParentNode": true,
-        "name": "useArenaMedals",
-        "position": 0,
-        "path": "claimFreeShop.useArenaMedals"
-      },
-      "gold": {
-        "$isParent": false,
-        "props": {
-          "$type": "boolean",
-          "settingType": "Boolean",
-          "value": true,
-          "defaultValue": true,
-          "isParentNode": false,
-          "name": "gold",
-          "position": 0,
-          "path": "claimFreeShop.useArenaMedals.gold"
-        }
-      },
-      "stamina": {
-        "$isParent": false,
-        "props": {
-          "$type": "boolean",
-          "settingType": "Boolean",
-          "value": true,
-          "defaultValue": true,
-          "isParentNode": false,
-          "name": "stamina",
-          "position": 0,
-          "path": "claimFreeShop.useArenaMedals.stamina"
-        }
-      },
-      "cakeSlice": {
-        "$isParent": false,
-        "props": {
-          "$type": "boolean",
-          "settingType": "Boolean",
-          "value": true,
-          "defaultValue": true,
-          "isParentNode": false,
-          "name": "cakeSlice",
-          "position": 0,
-          "path": "claimFreeShop.useArenaMedals.cakeSlice"
-        }
       }
     }
   },
@@ -1591,8 +1431,8 @@
           "6",
           "7"
         ],
-        "value": "2",
-        "defaultValue": "2",
+        "value": "1",
+        "defaultValue": "1",
         "isParentNode": false,
         "name": "teamSlot",
         "position": 0,
@@ -1604,8 +1444,8 @@
       "props": {
         "$type": "boolean",
         "settingType": "Boolean",
-        "value": true,
-        "defaultValue": true,
+        "value": false,
+        "defaultValue": false,
         "isParentNode": false,
         "name": "sweepBattle",
         "position": 0,
@@ -1697,9 +1537,9 @@
           "patterns": [
             {
               "rect": {
-                "x": 249.1214141845703,
+                "x": 249.12141418457031,
                 "y": 625.6727294921875,
-                "width": 69.46147155761719,
+                "width": 69.461471557617188,
                 "height": 27.470458984375
               },
               "resolution": {
@@ -1729,8 +1569,8 @@
             },
             {
               "rect": {
-                "x": 284.1031799316406,
-                "y": 640.6588745117188,
+                "x": 284.10317993164063,
+                "y": 640.65887451171875,
                 "width": 65.46356201171875,
                 "height": 29.46856689453125
               },
@@ -1770,9 +1610,9 @@
           "patterns": [
             {
               "rect": {
-                "x": 249.1214141845703,
+                "x": 249.12141418457031,
                 "y": 625.6727294921875,
-                "width": 69.46147155761719,
+                "width": 69.461471557617188,
                 "height": 27.470458984375
               },
               "resolution": {
@@ -1802,8 +1642,8 @@
             },
             {
               "rect": {
-                "x": 284.1031799316406,
-                "y": 640.6588745117188,
+                "x": 284.10317993164063,
+                "y": 640.65887451171875,
                 "width": 65.46356201171875,
                 "height": 29.46856689453125
               },
@@ -2008,7 +1848,7 @@
         "$type": "pattern",
         "settingType": "Pattern",
         "value": {
-          "isMultiPattern": false,
+          "isMultiPattern": true,
           "patterns": [],
           "isParentNode": true,
           "name": null,
@@ -2016,7 +1856,7 @@
           "path": null
         },
         "defaultValue": {
-          "isMultiPattern": false,
+          "isMultiPattern": true,
           "patterns": [],
           "isParentNode": true,
           "name": null,
@@ -2039,14 +1879,14 @@
       "position": 0,
       "path": "doWeeklyShop"
     },
-    "normalItems": {
+    "normal": {
       "$isParent": true,
       "props": {
         "settingType": "Parent",
         "isParentNode": true,
-        "name": "normalItems",
+        "name": "normal",
         "position": 0,
-        "path": "doWeeklyShop.normalItems"
+        "path": "doWeeklyShop.normal"
       },
       "gold": {
         "$isParent": false,
@@ -2058,7 +1898,7 @@
           "isParentNode": false,
           "name": "gold",
           "position": 0,
-          "path": "doWeeklyShop.normalItems.gold"
+          "path": "doWeeklyShop.normal.gold"
         }
       },
       "basicSkillManual": {
@@ -2071,7 +1911,7 @@
           "isParentNode": false,
           "name": "basicSkillManual",
           "position": 0,
-          "path": "doWeeklyShop.normalItems.basicSkillManual"
+          "path": "doWeeklyShop.normal.basicSkillManual"
         }
       },
       "intermediateSkillManual": {
@@ -2084,18 +1924,18 @@
           "isParentNode": false,
           "name": "intermediateSkillManual",
           "position": 0,
-          "path": "doWeeklyShop.normalItems.intermediateSkillManual"
+          "path": "doWeeklyShop.normal.intermediateSkillManual"
         }
       }
     },
-    "useFriendshipPoints": {
+    "friendshipPoint": {
       "$isParent": true,
       "props": {
         "settingType": "Parent",
         "isParentNode": true,
-        "name": "useFriendshipPoints",
+        "name": "friendshipPoint",
         "position": 0,
-        "path": "doWeeklyShop.useFriendshipPoints"
+        "path": "doWeeklyShop.friendshipPoint"
       },
       "upgradeStoneSelectionChest": {
         "$isParent": false,
@@ -2107,7 +1947,7 @@
           "isParentNode": false,
           "name": "upgradeStoneSelectionChest",
           "position": 0,
-          "path": "doWeeklyShop.useFriendshipPoints.upgradeStoneSelectionChest"
+          "path": "doWeeklyShop.friendshipPoint.upgradeStoneSelectionChest"
         }
       },
       "lowStarHeroPieceTicket": {
@@ -2120,18 +1960,18 @@
           "isParentNode": false,
           "name": "lowStarHeroPieceTicket",
           "position": 0,
-          "path": "doWeeklyShop.useFriendshipPoints.lowStarHeroPieceTicket"
+          "path": "doWeeklyShop.friendshipPoint.lowStarHeroPieceTicket"
         }
       }
     },
-    "useArenaMedals": {
+    "arena": {
       "$isParent": true,
       "props": {
         "settingType": "Parent",
         "isParentNode": true,
-        "name": "useArenaMedals",
+        "name": "arena",
         "position": 0,
-        "path": "doWeeklyShop.useArenaMedals"
+        "path": "doWeeklyShop.arena"
       },
       "basicSkillManual": {
         "$isParent": false,
@@ -2143,20 +1983,7 @@
           "isParentNode": false,
           "name": "basicSkillManual",
           "position": 0,
-          "path": "doWeeklyShop.useArenaMedals.basicSkillManual"
-        }
-      },
-      "intermediateSkilManual": {
-        "$isParent": false,
-        "props": {
-          "$type": "boolean",
-          "settingType": "Boolean",
-          "value": true,
-          "defaultValue": true,
-          "isParentNode": false,
-          "name": "intermediateSkilManual",
-          "position": 0,
-          "path": "doWeeklyShop.useArenaMedals.intermediateSkilManual"
+          "path": "doWeeklyShop.arena.basicSkillManual"
         }
       },
       "professionalSkillManual": {
@@ -2169,20 +1996,10 @@
           "isParentNode": false,
           "name": "professionalSkillManual",
           "position": 0,
-          "path": "doWeeklyShop.useArenaMedals.professionalSkillManual"
+          "path": "doWeeklyShop.arena.professionalSkillManual"
         }
-      }
-    },
-    "useStarMemory": {
-      "$isParent": true,
-      "props": {
-        "settingType": "Parent",
-        "isParentNode": true,
-        "name": "useStarMemory",
-        "position": 0,
-        "path": "doWeeklyShop.useStarMemory"
       },
-      "intermediateSkilManual": {
+      "intermediateSkillManual": {
         "$isParent": false,
         "props": {
           "$type": "boolean",
@@ -2190,10 +2007,20 @@
           "value": true,
           "defaultValue": true,
           "isParentNode": false,
-          "name": "intermediateSkilManual",
+          "name": "intermediateSkillManual",
           "position": 0,
-          "path": "doWeeklyShop.useStarMemory.intermediateSkilManual"
+          "path": "doWeeklyShop.arena.intermediateSkillManual"
         }
+      }
+    },
+    "starMemory": {
+      "$isParent": true,
+      "props": {
+        "settingType": "Parent",
+        "isParentNode": true,
+        "name": "starMemory",
+        "position": 0,
+        "path": "doWeeklyShop.starMemory"
       },
       "professionalSkillManual": {
         "$isParent": false,
@@ -2205,18 +2032,57 @@
           "isParentNode": false,
           "name": "professionalSkillManual",
           "position": 0,
-          "path": "doWeeklyShop.useStarMemory.professionalSkillManual"
+          "path": "doWeeklyShop.starMemory.professionalSkillManual"
+        }
+      },
+      "intermediateSkillManual": {
+        "$isParent": false,
+        "props": {
+          "$type": "boolean",
+          "settingType": "Boolean",
+          "value": true,
+          "defaultValue": true,
+          "isParentNode": false,
+          "name": "intermediateSkillManual",
+          "position": 0,
+          "path": "doWeeklyShop.starMemory.intermediateSkillManual"
         }
       }
     },
-    "useGuildMedals": {
+    "surveyHub": {
       "$isParent": true,
       "props": {
         "settingType": "Parent",
         "isParentNode": true,
-        "name": "useGuildMedals",
+        "name": "surveyHub",
         "position": 0,
-        "path": "doWeeklyShop.useGuildMedals"
+        "path": "doWeeklyShop.surveyHub"
+      },
+      "epicReforgeCatalyst": {
+        "$isParent": false,
+        "props": {
+          "$type": "boolean",
+          "settingType": "Boolean",
+          "value": true,
+          "defaultValue": true,
+          "isParentNode": false,
+          "name": "epicReforgeCatalyst",
+          "position": 0,
+          "path": "doWeeklyShop.surveyHub.epicReforgeCatalyst"
+        }
+      },
+      "superiorQualityPresentChest": {
+        "$isParent": false,
+        "props": {
+          "$type": "boolean",
+          "settingType": "Boolean",
+          "value": true,
+          "defaultValue": true,
+          "isParentNode": false,
+          "name": "superiorQualityPresentChest",
+          "position": 0,
+          "path": "doWeeklyShop.surveyHub.superiorQualityPresentChest"
+        }
       },
       "basicSkillManual": {
         "$isParent": false,
@@ -2228,10 +2094,10 @@
           "isParentNode": false,
           "name": "basicSkillManual",
           "position": 0,
-          "path": "doWeeklyShop.useGuildMedals.basicSkillManual"
+          "path": "doWeeklyShop.surveyHub.basicSkillManual"
         }
       },
-      "intermediateSkilManual": {
+      "10pctLegendaryAbrasive": {
         "$isParent": false,
         "props": {
           "$type": "boolean",
@@ -2239,9 +2105,35 @@
           "value": true,
           "defaultValue": true,
           "isParentNode": false,
-          "name": "intermediateSkilManual",
+          "name": "10pctLegendaryAbrasive",
           "position": 0,
-          "path": "doWeeklyShop.useGuildMedals.intermediateSkilManual"
+          "path": "doWeeklyShop.surveyHub.10pctLegendaryAbrasive"
+        }
+      },
+      "intermediateSkillManual": {
+        "$isParent": false,
+        "props": {
+          "$type": "boolean",
+          "settingType": "Boolean",
+          "value": true,
+          "defaultValue": true,
+          "isParentNode": false,
+          "name": "intermediateSkillManual",
+          "position": 0,
+          "path": "doWeeklyShop.surveyHub.intermediateSkillManual"
+        }
+      },
+      "legendaryReforgeCatalyst": {
+        "$isParent": false,
+        "props": {
+          "$type": "boolean",
+          "settingType": "Boolean",
+          "value": true,
+          "defaultValue": true,
+          "isParentNode": false,
+          "name": "legendaryReforgeCatalyst",
+          "position": 0,
+          "path": "doWeeklyShop.surveyHub.legendaryReforgeCatalyst"
         }
       },
       "professionalSkillManual": {
@@ -2254,7 +2146,82 @@
           "isParentNode": false,
           "name": "professionalSkillManual",
           "position": 0,
-          "path": "doWeeklyShop.useGuildMedals.professionalSkillManual"
+          "path": "doWeeklyShop.surveyHub.professionalSkillManual"
+        }
+      },
+      "refinedGlunite": {
+        "$isParent": false,
+        "props": {
+          "$type": "boolean",
+          "settingType": "Boolean",
+          "value": true,
+          "defaultValue": true,
+          "isParentNode": false,
+          "name": "refinedGlunite",
+          "position": 0,
+          "path": "doWeeklyShop.surveyHub.refinedGlunite"
+        }
+      },
+      "epicQualityPresentChest": {
+        "$isParent": false,
+        "props": {
+          "$type": "boolean",
+          "settingType": "Boolean",
+          "value": true,
+          "defaultValue": true,
+          "isParentNode": false,
+          "name": "epicQualityPresentChest",
+          "position": 0,
+          "path": "doWeeklyShop.surveyHub.epicQualityPresentChest"
+        }
+      }
+    },
+    "guild": {
+      "$isParent": true,
+      "props": {
+        "settingType": "Parent",
+        "isParentNode": true,
+        "name": "guild",
+        "position": 0,
+        "path": "doWeeklyShop.guild"
+      },
+      "basicSkillManual": {
+        "$isParent": false,
+        "props": {
+          "$type": "boolean",
+          "settingType": "Boolean",
+          "value": true,
+          "defaultValue": true,
+          "isParentNode": false,
+          "name": "basicSkillManual",
+          "position": 0,
+          "path": "doWeeklyShop.guild.basicSkillManual"
+        }
+      },
+      "professionalSkillManual": {
+        "$isParent": false,
+        "props": {
+          "$type": "boolean",
+          "settingType": "Boolean",
+          "value": true,
+          "defaultValue": true,
+          "isParentNode": false,
+          "name": "professionalSkillManual",
+          "position": 0,
+          "path": "doWeeklyShop.guild.professionalSkillManual"
+        }
+      },
+      "intermediateSkillManual": {
+        "$isParent": false,
+        "props": {
+          "$type": "boolean",
+          "settingType": "Boolean",
+          "value": true,
+          "defaultValue": true,
+          "isParentNode": false,
+          "name": "intermediateSkillManual",
+          "position": 0,
+          "path": "doWeeklyShop.guild.intermediateSkillManual"
         }
       }
     }
@@ -2279,156 +2246,6 @@
         "name": "forceRun",
         "position": 0,
         "path": "sellInventory.forceRun"
-      }
-    }
-  },
-  "doWeeklySurveyHubShop": {
-    "$isParent": true,
-    "props": {
-      "settingType": "Parent",
-      "isParentNode": true,
-      "name": "doWeeklySurveyHubShop",
-      "position": 0,
-      "path": "doWeeklySurveyHubShop"
-    },
-    "done": {
-      "$isParent": false,
-      "props": {
-        "$type": "boolean",
-        "settingType": "Boolean",
-        "value": false,
-        "defaultValue": false,
-        "isParentNode": false,
-        "name": "done",
-        "position": 0,
-        "path": "doWeeklySurveyHubShop.done"
-      }
-    },
-    "surveyHubItems": {
-      "$isParent": true,
-      "props": {
-        "settingType": "Parent",
-        "isParentNode": true,
-        "name": "surveyHubItems",
-        "position": 0,
-        "path": "doWeeklySurveyHubShop.surveyHubItems"
-      },
-      "epicReforgeCatalyst": {
-        "$isParent": false,
-        "props": {
-          "$type": "boolean",
-          "settingType": "Boolean",
-          "value": true,
-          "defaultValue": true,
-          "isParentNode": false,
-          "name": "epicReforgeCatalyst",
-          "position": 0,
-          "path": "doWeeklySurveyHubShop.surveyHubItems.epicReforgeCatalyst"
-        }
-      },
-      "superiorQualityPresentChest": {
-        "$isParent": false,
-        "props": {
-          "$type": "boolean",
-          "settingType": "Boolean",
-          "value": true,
-          "defaultValue": true,
-          "isParentNode": false,
-          "name": "superiorQualityPresentChest",
-          "position": 0,
-          "path": "doWeeklySurveyHubShop.surveyHubItems.superiorQualityPresentChest"
-        }
-      },
-      "basicSkillManual": {
-        "$isParent": false,
-        "props": {
-          "$type": "boolean",
-          "settingType": "Boolean",
-          "value": true,
-          "defaultValue": true,
-          "isParentNode": false,
-          "name": "basicSkillManual",
-          "position": 0,
-          "path": "doWeeklySurveyHubShop.surveyHubItems.basicSkillManual"
-        }
-      },
-      "10pctLegendaryAbrasive": {
-        "$isParent": false,
-        "props": {
-          "$type": "boolean",
-          "settingType": "Boolean",
-          "value": true,
-          "defaultValue": true,
-          "isParentNode": false,
-          "name": "10pctLegendaryAbrasive",
-          "position": 0,
-          "path": "doWeeklySurveyHubShop.surveyHubItems.10pctLegendaryAbrasive"
-        }
-      },
-      "intermediateSkillManual": {
-        "$isParent": false,
-        "props": {
-          "$type": "boolean",
-          "settingType": "Boolean",
-          "value": true,
-          "defaultValue": true,
-          "isParentNode": false,
-          "name": "intermediateSkillManual",
-          "position": 0,
-          "path": "doWeeklySurveyHubShop.surveyHubItems.intermediateSkillManual"
-        }
-      },
-      "legendaryReforgeCatalyst": {
-        "$isParent": false,
-        "props": {
-          "$type": "boolean",
-          "settingType": "Boolean",
-          "value": true,
-          "defaultValue": true,
-          "isParentNode": false,
-          "name": "legendaryReforgeCatalyst",
-          "position": 0,
-          "path": "doWeeklySurveyHubShop.surveyHubItems.legendaryReforgeCatalyst"
-        }
-      },
-      "professionalSkillManual": {
-        "$isParent": false,
-        "props": {
-          "$type": "boolean",
-          "settingType": "Boolean",
-          "value": true,
-          "defaultValue": true,
-          "isParentNode": false,
-          "name": "professionalSkillManual",
-          "position": 0,
-          "path": "doWeeklySurveyHubShop.surveyHubItems.professionalSkillManual"
-        }
-      },
-      "refinedGlunite": {
-        "$isParent": false,
-        "props": {
-          "$type": "boolean",
-          "settingType": "Boolean",
-          "value": true,
-          "defaultValue": true,
-          "isParentNode": false,
-          "name": "refinedGlunite",
-          "position": 0,
-          "path": "doWeeklySurveyHubShop.surveyHubItems.refinedGlunite"
-        }
-      },
-      "epicQualityPresentChest": {
-        "$isParent": false,
-        "props": {
-          "$type": "boolean",
-          "settingType": "Boolean",
-          "value": true,
-          "defaultValue": true,
-          "isParentNode": false,
-          "name": "epicQualityPresentChest",
-          "position": 0,
-          "path": "doWeeklySurveyHubShop.surveyHubItems.epicQualityPresentChest"
-        }
       }
     }
   },
@@ -2467,19 +2284,6 @@
         "path": "doWeeklies.claimWeeklyMissions"
       }
     },
-    "doWeeklySurveyHubShop": {
-      "$isParent": false,
-      "props": {
-        "$type": "boolean",
-        "settingType": "Boolean",
-        "value": false,
-        "defaultValue": false,
-        "isParentNode": false,
-        "name": "doWeeklySurveyHubShop",
-        "position": 0,
-        "path": "doWeeklies.doWeeklySurveyHubShop"
-      }
-    },
     "doWeeklyShop": {
       "$isParent": false,
       "props": {
@@ -2491,6 +2295,179 @@
         "name": "doWeeklyShop",
         "position": 0,
         "path": "doWeeklies.doWeeklyShop"
+      }
+    }
+  },
+  "doShop": {
+    "$isParent": true,
+    "props": {
+      "settingType": "Parent",
+      "isParentNode": true,
+      "name": "doShop",
+      "position": 0,
+      "path": "doShop"
+    },
+    "friendshipPoint": {
+      "$isParent": true,
+      "props": {
+        "settingType": "Parent",
+        "isParentNode": true,
+        "name": "friendshipPoint",
+        "position": 0,
+        "path": "doShop.friendshipPoint"
+      },
+      "gold": {
+        "$isParent": false,
+        "props": {
+          "$type": "boolean",
+          "settingType": "Boolean",
+          "value": true,
+          "defaultValue": true,
+          "isParentNode": false,
+          "name": "gold",
+          "position": 0,
+          "path": "doShop.friendshipPoint.gold"
+        }
+      },
+      "clearTicket": {
+        "$isParent": false,
+        "props": {
+          "$type": "boolean",
+          "settingType": "Boolean",
+          "value": true,
+          "defaultValue": true,
+          "isParentNode": false,
+          "name": "clearTicket",
+          "position": 0,
+          "path": "doShop.friendshipPoint.clearTicket"
+        }
+      },
+      "arenaTicket": {
+        "$isParent": false,
+        "props": {
+          "$type": "boolean",
+          "settingType": "Boolean",
+          "value": true,
+          "defaultValue": true,
+          "isParentNode": false,
+          "name": "arenaTicket",
+          "position": 0,
+          "path": "doShop.friendshipPoint.arenaTicket"
+        }
+      },
+      "hammer": {
+        "$isParent": false,
+        "props": {
+          "$type": "boolean",
+          "settingType": "Boolean",
+          "value": false,
+          "defaultValue": false,
+          "isParentNode": false,
+          "name": "hammer",
+          "position": 0,
+          "path": "doShop.friendshipPoint.hammer"
+        }
+      },
+      "stoneFragment": {
+        "$isParent": false,
+        "props": {
+          "$type": "boolean",
+          "settingType": "Boolean",
+          "value": true,
+          "defaultValue": true,
+          "isParentNode": false,
+          "name": "stoneFragment",
+          "position": 0,
+          "path": "doShop.friendshipPoint.stoneFragment"
+        }
+      },
+      "stonePiece": {
+        "$isParent": false,
+        "props": {
+          "$type": "boolean",
+          "settingType": "Boolean",
+          "value": true,
+          "defaultValue": true,
+          "isParentNode": false,
+          "name": "stonePiece",
+          "position": 0,
+          "path": "doShop.friendshipPoint.stonePiece"
+        }
+      },
+      "stamina1": {
+        "$isParent": false,
+        "props": {
+          "$type": "boolean",
+          "settingType": "Boolean",
+          "value": true,
+          "defaultValue": true,
+          "isParentNode": false,
+          "name": "stamina1",
+          "position": 0,
+          "path": "doShop.friendshipPoint.stamina1"
+        }
+      },
+      "stamina2": {
+        "$isParent": false,
+        "props": {
+          "$type": "boolean",
+          "settingType": "Boolean",
+          "value": true,
+          "defaultValue": true,
+          "isParentNode": false,
+          "name": "stamina2",
+          "position": 0,
+          "path": "doShop.friendshipPoint.stamina2"
+        }
+      }
+    },
+    "arena": {
+      "$isParent": true,
+      "props": {
+        "settingType": "Parent",
+        "isParentNode": true,
+        "name": "arena",
+        "position": 0,
+        "path": "doShop.arena"
+      },
+      "gold": {
+        "$isParent": false,
+        "props": {
+          "$type": "boolean",
+          "settingType": "Boolean",
+          "value": true,
+          "defaultValue": true,
+          "isParentNode": false,
+          "name": "gold",
+          "position": 0,
+          "path": "doShop.arena.gold"
+        }
+      },
+      "stamina": {
+        "$isParent": false,
+        "props": {
+          "$type": "boolean",
+          "settingType": "Boolean",
+          "value": true,
+          "defaultValue": true,
+          "isParentNode": false,
+          "name": "stamina",
+          "position": 0,
+          "path": "doShop.arena.stamina"
+        }
+      },
+      "cakeSlice": {
+        "$isParent": false,
+        "props": {
+          "$type": "boolean",
+          "settingType": "Boolean",
+          "value": true,
+          "defaultValue": true,
+          "isParentNode": false,
+          "name": "cakeSlice",
+          "position": 0,
+          "path": "doShop.arena.cakeSlice"
+        }
       }
     }
   }
