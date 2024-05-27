@@ -8,7 +8,7 @@ if (weekly.doWeeklyShop.done.IsChecked) {
 }
 
 const swipeLeftEndX = resolution.Width - 100;
-const swipeLeftStartX = swipeLeftEndX - 300;
+const swipeLeftStartX = swipeLeftEndX - 500;
 
 while (macroService.IsRunning) {
 	const loopResult = macroService.PollPattern(loopPatterns);
@@ -19,15 +19,6 @@ while (macroService.IsRunning) {
 			sleep(500);
 			break;
 		case 'titles.shop':
-			logger.info('doWeeklyShop: claim Normal');
-			macroService.PollPattern(patterns.shop.normal, { DoClick: true, PredicatePattern: patterns.shop.normal.selected });
-			macroService.PollPattern(patterns.shop.normal.weekly, { DoClick: true, PredicatePattern: patterns.shop.normal.weekly.selected });
-			const normalFreeResult = macroService.PollPattern(patterns.shop.normal.free, { TimeoutMs: 2_000 });
-			if (normalFreeResult.IsSuccess) {
-				macroService.PollPattern(patterns.shop.normal.free, { DoClick: true, PredicatePattern: patterns.shop.normal.free.confirm });
-				macroService.PollPattern(patterns.shop.normal.free.confirm, { DoClick: true, InversePredicatePattern: patterns.shop.normal.free.confirm });
-			}
-
 			logger.info('doWeeklyShop: claim Resource');
 			const swipeResult = macroService.SwipePollPattern(patterns.shop.resource, { MaxSwipes: 2, Start: { X: 180, Y: 650 }, End: { X: 180, Y: 250 } });
 			if (!swipeResult.IsSuccess) {
@@ -105,6 +96,7 @@ function doSurveyHubItems() {
 	const season1surveyHubItems = ['epicReforgeCatalyst', 'superiorQualityPresentChest', 'basicSkillManual', 'intermediateSkillManual', '10pctLegendaryAbrasive'];
 	doShopItems('doWeeklyShop', 'surveyHub', season1surveyHubItems, true);
 	macroService.PollPattern(patterns.surveyHub.surveyHubItems.season2, { DoClick: true, PredicatePattern: patterns.surveyHub.surveyHubItems.season2.enabled });
+	swipeLeft();
 	const season2surveyHubItems = ['legendaryReforgeCatalyst', 'epicQualityPresentChest', 'professionalSkillManual', 'refinedGlunite'];
 	doShopItems('doWeeklyShop', 'surveyHub', season2surveyHubItems, true);
 }

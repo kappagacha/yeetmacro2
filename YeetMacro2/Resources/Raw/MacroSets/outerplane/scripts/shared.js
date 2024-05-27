@@ -167,7 +167,7 @@ function doShopItems(scriptName, shopType, shopItems, isWeekly = false) {
 			const shopItemPurchasePattern = macroService.ClonePattern(patterns.shop.resource.purchase, {
 				X: findShopItemResult.point.X + 100,
 				Y: findShopItemResult.point.Y + 200,
-				Width: 350,
+				Width: 250,
 				Height: 100,
 				Path: `patterns.shop.resource.${shopType}.${shopItem}.purchase`,
 				OffsetCalcType: 'None'
