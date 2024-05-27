@@ -95,7 +95,12 @@ function doStarMemoryItems() {
 function doSurveyHubItems() {
 	const season1surveyHubItems = ['epicReforgeCatalyst', 'superiorQualityPresentChest', 'basicSkillManual', 'intermediateSkillManual', '10pctLegendaryAbrasive'];
 	doShopItems('doWeeklyShop', 'surveyHub', season1surveyHubItems, true);
-	macroService.PollPattern(patterns.surveyHub.surveyHubItems.season2, { DoClick: true, PredicatePattern: patterns.surveyHub.surveyHubItems.season2.enabled });
+	const season2Result = macroService.PollPattern(patterns.surveyHub.surveyHubItems.season2, { DoClick: true, PredicatePattern: patterns.surveyHub.surveyHubItems.season2.enabled, TimeoutMs: 3_000 });
+	if (!season2Result.IsSuccess) {
+		return;
+	}
+	swipeLeft();
+	swipeLeft();
 	swipeLeft();
 	const season2surveyHubItems = ['legendaryReforgeCatalyst', 'epicQualityPresentChest', 'professionalSkillManual', 'refinedGlunite'];
 	doShopItems('doWeeklyShop', 'surveyHub', season2surveyHubItems, true);

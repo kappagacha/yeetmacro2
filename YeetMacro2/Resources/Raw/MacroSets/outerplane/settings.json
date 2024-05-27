@@ -759,6 +759,19 @@
         "path": "doDailies.claimFreeShop"
       }
     },
+    "doShop": {
+      "$isParent": false,
+      "props": {
+        "$type": "boolean",
+        "settingType": "Boolean",
+        "value": true,
+        "defaultValue": true,
+        "isParentNode": false,
+        "name": "doShop",
+        "position": 0,
+        "path": "doDailies.doShop"
+      }
+    },
     "claimFreeRecruit": {
       "$isParent": false,
       "props": {
