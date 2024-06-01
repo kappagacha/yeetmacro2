@@ -512,7 +512,7 @@
         "path": "doDailies.doBranchQuests"
       }
     },
-    "skipEventQuest": {
+    "skipEventQuests": {
       "$isParent": false,
       "props": {
         "$type": "boolean",
@@ -520,9 +520,9 @@
         "value": true,
         "defaultValue": true,
         "isParentNode": false,
-        "name": "skipEventQuest",
+        "name": "skipEventQuests",
         "position": 0,
-        "path": "doDailies.skipEventQuest"
+        "path": "doDailies.skipEventQuests"
       }
     }
   },
@@ -916,14 +916,14 @@
       }
     }
   },
-  "skipEventQuest": {
+  "skipEventQuests": {
     "$isParent": true,
     "props": {
       "settingType": "Parent",
       "isParentNode": true,
-      "name": "skipEventQuest",
+      "name": "skipEventQuests",
       "position": 0,
-      "path": "skipEventQuest"
+      "path": "skipEventQuests"
     },
     "targetLevel": {
       "$isParent": false,
@@ -939,7 +939,7 @@
         "isParentNode": false,
         "name": "targetLevel",
         "position": 0,
-        "path": "skipEventQuest.targetLevel"
+        "path": "skipEventQuests.targetLevel"
       }
     }
   },
@@ -965,7 +965,7 @@
         "path": "doUpkeep.claimJobs"
       }
     },
-    "skipEventQuest": {
+    "skipEventQuests": {
       "$isParent": false,
       "props": {
         "$type": "boolean",
@@ -973,9 +973,9 @@
         "value": true,
         "defaultValue": true,
         "isParentNode": false,
-        "name": "skipEventQuest",
+        "name": "skipEventQuests",
         "position": 0,
-        "path": "doUpkeep.skipEventQuest"
+        "path": "doUpkeep.skipEventQuests"
       }
     }
   }
