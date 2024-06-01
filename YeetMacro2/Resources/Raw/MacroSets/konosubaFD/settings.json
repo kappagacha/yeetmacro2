@@ -511,6 +511,19 @@
         "position": 0,
         "path": "doDailies.doBranchQuests"
       }
+    },
+    "skipEventQuest": {
+      "$isParent": false,
+      "props": {
+        "$type": "boolean",
+        "settingType": "Boolean",
+        "value": true,
+        "defaultValue": true,
+        "isParentNode": false,
+        "name": "skipEventQuest",
+        "position": 0,
+        "path": "doDailies.skipEventQuest"
+      }
     }
   },
   "doBattleArena": {
@@ -792,7 +805,7 @@
       "props": {
         "$type": "timestamp",
         "settingType": "TimeStamp",
-        "value": "2024-04-26T23:41:51.499+00:00",
+        "value": "2024-06-01T21:31:41.195+00:00",
         "defaultValue": "0001-01-01T00:00:00+00:00",
         "isParentNode": false,
         "name": "lastRun",
@@ -900,6 +913,69 @@
         "name": "userClickPattern",
         "position": 0,
         "path": "watchAdStamina.userClickPattern"
+      }
+    }
+  },
+  "skipEventQuest": {
+    "$isParent": true,
+    "props": {
+      "settingType": "Parent",
+      "isParentNode": true,
+      "name": "skipEventQuest",
+      "position": 0,
+      "path": "skipEventQuest"
+    },
+    "targetLevel": {
+      "$isParent": false,
+      "props": {
+        "$type": "option",
+        "settingType": "Option",
+        "options": [
+          "12",
+          "11"
+        ],
+        "value": "12",
+        "defaultValue": "12",
+        "isParentNode": false,
+        "name": "targetLevel",
+        "position": 0,
+        "path": "skipEventQuest.targetLevel"
+      }
+    }
+  },
+  "doUpkeep": {
+    "$isParent": true,
+    "props": {
+      "settingType": "Parent",
+      "isParentNode": true,
+      "name": "doUpkeep",
+      "position": 0,
+      "path": "doUpkeep"
+    },
+    "claimJobs": {
+      "$isParent": false,
+      "props": {
+        "$type": "boolean",
+        "settingType": "Boolean",
+        "value": true,
+        "defaultValue": true,
+        "isParentNode": false,
+        "name": "claimJobs",
+        "position": 0,
+        "path": "doUpkeep.claimJobs"
+      }
+    },
+    "skipEventQuest": {
+      "$isParent": false,
+      "props": {
+        "$type": "boolean",
+        "settingType": "Boolean",
+        "value": true,
+        "defaultValue": true,
+        "isParentNode": false,
+        "name": "skipEventQuest",
+        "position": 0,
+        "path": "doUpkeep.skipEventQuest"
       }
     }
   }

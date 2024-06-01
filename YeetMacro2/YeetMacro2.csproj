@@ -323,6 +323,9 @@
     <MauiAsset Update="Resources\Raw\MacroSets\konosubaFD\macroSet.json">
       <LogicalName>%(RecursiveDir)%(Filename)%(Extension)</LogicalName>
     </MauiAsset>
+    <MauiAsset Update="Resources\Raw\MacroSets\konosubaFD\scripts\doUpkeep.js">
+      <LogicalName>%(RecursiveDir)%(Filename)%(Extension)</LogicalName>
+    </MauiAsset>
     <MauiAsset Update="Resources\Raw\MacroSets\konosubaFD\scripts\doDailies.js">
       <LogicalName>%(RecursiveDir)%(Filename)%(Extension)</LogicalName>
     </MauiAsset>
@@ -336,6 +339,9 @@
       <LogicalName>%(RecursiveDir)%(Filename)%(Extension)</LogicalName>
     </MauiAsset>
     <MauiAsset Update="Resources\Raw\MacroSets\konosubaFD\scripts\doBattleArenaEx.js">
+      <LogicalName>%(RecursiveDir)%(Filename)%(Extension)</LogicalName>
+    </MauiAsset>
+    <MauiAsset Update="Resources\Raw\MacroSets\konosubaFD\scripts\skipEventQuests.js">
       <LogicalName>%(RecursiveDir)%(Filename)%(Extension)</LogicalName>
     </MauiAsset>
     <MauiAsset Update="Resources\Raw\MacroSets\konosubaFD\scripts\doOneFameQuest.js">

@@ -1,5 +1,5 @@
 ﻿// @isFavorite
-// @position=-100
+// @position=999
 const loopPatterns = [patterns.titles.home, patterns.stamina.prompt.recoverStamina];
 const daily = dailyManager.GetCurrentDaily();
 const adObjectScale = settings.watchAdStamina.adObjectScale.Value;

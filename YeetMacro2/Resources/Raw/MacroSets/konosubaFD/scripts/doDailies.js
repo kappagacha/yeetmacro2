@@ -66,3 +66,8 @@ if (settings.doDailies.doBranchQuests.Value) {
     doBranchQuests();
     goToLobby();
 }
+
+if (settings.doDailies.skipEventQuest.Value) {
+    skipEventQuest();
+    goToLobby();
+}

@@ -1,3 +1,4 @@
+// @position=999
 // Go to lobby
 logger.info('goToLobby: start');
 

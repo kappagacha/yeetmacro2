@@ -1,5 +1,5 @@
 ﻿// @isFavorite
-// @position=-100
+// @position=999
 const loopPatterns = [patterns.titles.home];
 const daily = dailyManager.GetCurrentDaily();
 const adObjectScale = settings.watchAdQuartz.adObjectScale.Value;
