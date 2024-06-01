@@ -34,7 +34,7 @@ while (macroService.IsRunning) {
 			}
 
 			const elementType = elementTypeResult.Path.split('.').pop();
-			logger.info(`elementType: ${elementType}`);
+			logger.info(`doUpgradeStoneRetrieval elementType: ${elementType}`);
 			macroService.PollPattern(patterns.challenge.upgradeStoneRetrieval[elementType], { DoClick: true, PredicatePattern: patterns.challenge.upgradeStoneRetrieval[elementType].selected });
 			macroService.PollPattern(patterns.challenge.selectTeam, { DoClick: true, PredicatePattern: patterns.battle.setup.auto });
 

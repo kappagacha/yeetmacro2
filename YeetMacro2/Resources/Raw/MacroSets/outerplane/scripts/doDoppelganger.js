@@ -40,7 +40,7 @@ while (macroService.IsRunning) {
 			sleep(500);
 			break;
 		case 'titles.doppelganger':
-			logger.info('doDoppelganger: auto or sweep');
+			logger.info('doDoppelganger elementTypeTarget1: auto or sweep');
 			macroService.PollPattern(patterns.doppelganger[elementTypeTarget1], { DoClick: true, PredicatePattern: patterns.doppelganger[elementTypeTarget1].selected });
 			if (checkPiecesLimit1 && macroService.FindPattern(patterns.doppelganger.piecesLimit1).IsSuccess) {
 				throw new Error('Failed checkPiecesLimit1');
@@ -50,6 +50,7 @@ while (macroService.IsRunning) {
 			macroService.PollPattern(patterns.general.back, { DoClick: true, ClickPattern: [patterns.general.ok, patterns.battle.exit], PredicatePattern: patterns.titles.doppelganger });
 
 			if (elementTypeTarget1 !== elementTypeTarget2) {
+				logger.info('doDoppelganger elementTypeTarget2: auto or sweep');
 				macroService.PollPattern(patterns.doppelganger[elementTypeTarget2], { DoClick: true, PredicatePattern: patterns.doppelganger[elementTypeTarget2].selected });
 				if (checkPiecesLimit1 && macroService.FindPattern(patterns.doppelganger.piecesLimit1).IsSuccess) {
 					throw new Error('Failed checkPiecesLimit1');

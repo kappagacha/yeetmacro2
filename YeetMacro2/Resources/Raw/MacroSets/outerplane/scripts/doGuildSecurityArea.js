@@ -35,7 +35,7 @@ while (macroService.IsRunning) {
 
 			const elementTypeResult = macroService.FindPattern(targetElementTypes);
 			const elementType = elementTypeResult.Path.split('.').pop();
-			logger.info(`elementType: ${elementType}`);
+			logger.info(`doGuildSecurityArea elementType: ${elementType}`);
 			macroService.PollPattern(patterns.guild.securityArea[elementType], { DoClick: true, PredicatePattern: patterns.battle.enter });
 			selectTeamAndBattle(teamSlot, false);
 
