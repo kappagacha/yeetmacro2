@@ -14,5 +14,6 @@ if (settings.doUpkeep.doFriends.Value) {
 
 if (settings.doUpkeep.doPartTimeJobAndRest.Value) {
     doPartTimeJobAndRest();
+    doPartTimeJobAndRest();     // 2 times cause part time job can produce tired souls
     goToLobby();
 }
