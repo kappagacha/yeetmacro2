@@ -2,6 +2,8 @@
 // @position=-1
 // Do dailies (all checked scripts)
 
+goToLobby();
+
 if (settings.doDailies.claimLoot.Value) {
     claimLoot();
     goToLobby();

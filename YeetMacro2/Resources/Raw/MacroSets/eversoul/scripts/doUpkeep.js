@@ -2,6 +2,8 @@
 // @position=-1
 // Do upkeep (all checked scripts)
 
+goToLobby();
+
 if (settings.doUpkeep.claimLoot.Value) {
     claimLoot();
     goToLobby();
