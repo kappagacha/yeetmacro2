@@ -37,6 +37,10 @@ while (macroService.IsRunning) {
 				if (normalFreeResult.IsSuccess) {
 					macroService.PollPattern(patterns.shop.normal.free, { DoClick: true, PredicatePattern: patterns.shop.normal.free.confirm });
 					macroService.PollPattern(patterns.shop.normal.free.confirm, { DoClick: true, InversePredicatePattern: patterns.shop.normal.free.confirm });
+
+					if (macroService.IsRunning) {
+						weekly.claimFreeShop.done.IsChecked = true;
+					}
 				}
 			}
 
