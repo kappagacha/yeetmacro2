@@ -805,7 +805,7 @@
       "props": {
         "$type": "timestamp",
         "settingType": "TimeStamp",
-        "value": "2024-06-01T21:31:41.195+00:00",
+        "value": "2024-06-03T02:31:54.789+00:00",
         "defaultValue": "0001-01-01T00:00:00+00:00",
         "isParentNode": false,
         "name": "lastRun",
@@ -916,33 +916,6 @@
       }
     }
   },
-  "skipEventQuests": {
-    "$isParent": true,
-    "props": {
-      "settingType": "Parent",
-      "isParentNode": true,
-      "name": "skipEventQuests",
-      "position": 0,
-      "path": "skipEventQuests"
-    },
-    "targetLevel": {
-      "$isParent": false,
-      "props": {
-        "$type": "option",
-        "settingType": "Option",
-        "options": [
-          "12",
-          "11"
-        ],
-        "value": "12",
-        "defaultValue": "12",
-        "isParentNode": false,
-        "name": "targetLevel",
-        "position": 0,
-        "path": "skipEventQuests.targetLevel"
-      }
-    }
-  },
   "doUpkeep": {
     "$isParent": true,
     "props": {
@@ -976,6 +949,33 @@
         "name": "skipEventQuests",
         "position": 0,
         "path": "doUpkeep.skipEventQuests"
+      }
+    }
+  },
+  "skipEventQuests": {
+    "$isParent": true,
+    "props": {
+      "settingType": "Parent",
+      "isParentNode": true,
+      "name": "skipEventQuests",
+      "position": 0,
+      "path": "skipEventQuests"
+    },
+    "targetLevel": {
+      "$isParent": false,
+      "props": {
+        "$type": "option",
+        "settingType": "Option",
+        "options": [
+          "12",
+          "11"
+        ],
+        "value": "12",
+        "defaultValue": "12",
+        "isParentNode": false,
+        "name": "targetLevel",
+        "position": 0,
+        "path": "skipEventQuests.targetLevel"
       }
     }
   }

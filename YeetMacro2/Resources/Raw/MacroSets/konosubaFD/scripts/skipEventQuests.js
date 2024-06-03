@@ -31,8 +31,8 @@ while (macroService.IsRunning) {
 
 			macroService.PollPattern(patterns.quest.events.quest.normal[targetSkipLevel], { DoClick: true, PredicatePattern: patterns.titles.events });
 			macroService.PollPattern(patterns.quest.events.quest.skipMax, { DoClick: true, PredicatePattern: patterns.battle.prepare.disabled });
-			macroService.PollPattern(patterns.tickets.use, { DoClick: true, ClickPattern: [patterns.branchEvent.availableNow, patterns.branchEvent.playLater, patterns.prompt.playerRankUp, patterns.skipAll.skipComplete], PredicatePattern: patterns.tickets.prompt.ok });
-			macroService.PollPattern(patterns.tickets.prompt.ok, { DoClick: true, PredicatePattern: patterns.titles.events });
+			macroService.PollPattern(patterns.tickets.use, { DoClick: true, PredicatePattern: patterns.tickets.prompt.ok });
+			macroService.PollPattern(patterns.tickets.prompt.ok, { DoClick: true, ClickPattern: [patterns.branchEvent.availableNow, patterns.branchEvent.playLater, patterns.prompt.playerRankUp, patterns.skipAll.skipComplete], PredicatePattern: patterns.titles.events });
 			sleep(500);
 			return;
 	}
