@@ -101,13 +101,14 @@ public partial class AndriodHomeViewModel : ObservableObject
             }
         });
 
-        WeakReferenceMessenger.Default.Register<string, string>(this, nameof(YeetAccessibilityService), (r, currentPackage) =>
+        WeakReferenceMessenger.Default.Register<string, string>(this, nameof(YeetAccessibilityService), async (r, currentPackage) =>
         {
             if (_macroManagerViewModel.SelectedMacroSet?.Package != currentPackage)
             {
                 var matchingMacroSet = _macroManagerViewModel.MacroSets.FirstOrDefault(ms => ms.Package == currentPackage);
                 if (matchingMacroSet != null)
                 {
+                    await Task.Delay(5000);
                     _macroManagerViewModel.SelectedMacroSet = matchingMacroSet;
                 }
             }
