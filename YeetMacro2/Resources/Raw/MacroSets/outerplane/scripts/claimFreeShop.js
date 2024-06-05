@@ -4,6 +4,8 @@ const loopPatterns = [patterns.lobby.level, patterns.titles.shop];
 const daily = dailyManager.GetCurrentDaily();
 const resolution = macroService.GetCurrentResolution();
 const weekly = weeklyManager.GetCurrentWeekly();
+const swipeRightStartX = resolution.Width - 500;
+const swipeRightEndX = swipeRightStartX - 600;
 
 if (daily.claimFreeShop.done.IsChecked) {
 	return "Script already completed. Uncheck done to override daily flag.";
@@ -25,7 +27,7 @@ while (macroService.IsRunning) {
 		case 'titles.shop':
 			logger.info('claimFreeShop: claim Normal');
 			macroService.PollPattern(patterns.shop.normal, { DoClick: true, PredicatePattern: patterns.shop.normal.selected });
-			const normalFreeResult = macroService.PollPattern(patterns.shop.normal.free, { TimeoutMs: 2_000 });
+			const normalFreeResult = macroService.SwipePollPattern(patterns.shop.normal.free, { MaxSwipes: 5, Start: { X: swipeRightStartX, Y: 500 }, End: { X: swipeRightEndX, Y: 500 } });
 			if (normalFreeResult.IsSuccess) {
 				macroService.PollPattern(patterns.shop.normal.free, { DoClick: true, PredicatePattern: patterns.shop.normal.free.confirm });
 				macroService.PollPattern(patterns.shop.normal.free.confirm, { DoClick: true, InversePredicatePattern: patterns.shop.normal.free.confirm });
@@ -33,7 +35,7 @@ while (macroService.IsRunning) {
 
 			if (!weekly.claimFreeShop.done.IsChecked) {
 				macroService.PollPattern(patterns.shop.normal.weekly, { DoClick: true, PredicatePattern: patterns.shop.normal.weekly.selected });
-				const normalFreeResult = macroService.PollPattern(patterns.shop.normal.free, { TimeoutMs: 2_000 });
+				const normalFreeResult = macroService.SwipePollPattern(patterns.shop.normal.free, { MaxSwipes: 5, Start: { X: swipeRightStartX, Y: 500 }, End: { X: swipeRightEndX, Y: 500 } });
 				if (normalFreeResult.IsSuccess) {
 					macroService.PollPattern(patterns.shop.normal.free, { DoClick: true, PredicatePattern: patterns.shop.normal.free.confirm });
 					macroService.PollPattern(patterns.shop.normal.free.confirm, { DoClick: true, InversePredicatePattern: patterns.shop.normal.free.confirm });

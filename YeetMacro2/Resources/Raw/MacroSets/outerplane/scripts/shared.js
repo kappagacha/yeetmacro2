@@ -96,12 +96,12 @@ function findShopItem(shopItemName) {
 	const swipeEndX = swipeStartX - 300;
 
 	const shopItemNameToRegex = {
-		stamina: /stamina/is,
-		stamina1: /stamina/is,
-		stamina2: /stamina/is,
+		stamina: /stamin/is,
+		stamina1: /stamin/is,
+		stamina2: /stamin/is,
 		gold: /gold/is,
 		clearTicket: /clear.*ticket/is,
-		arenaTicket: /arena.*ticket/is,
+		arenaTicket: /aren.*ticket/is,
 		hammer: /h[au]mmer/is,
 		stoneFragment: /s.*ne.*fr[au]g/is,
 		stonePiece: /s.*ne.*piece/is,
