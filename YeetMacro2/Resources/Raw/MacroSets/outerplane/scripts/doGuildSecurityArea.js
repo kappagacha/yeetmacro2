@@ -11,7 +11,7 @@ if (daily.doGuildSecurityArea.done.IsChecked) {
 }
 
 while (macroService.IsRunning) {
-	const loopResult = macroService.PollPattern(loopPatterns);
+	const loopResult = macroService.PollPattern(loopPatterns, { ClickPattern: [patterns.general.tapEmptySpace, patterns.guild.checkIn.ok, patterns.guild.raid.startMessage] });
 	switch (loopResult.Path) {
 		case 'lobby.level':
 			logger.info('doGuildSecurityArea: click guild tab');

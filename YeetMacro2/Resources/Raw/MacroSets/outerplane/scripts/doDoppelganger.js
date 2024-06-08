@@ -47,7 +47,7 @@ while (macroService.IsRunning) {
 			}
 			macroService.PollPattern(patterns.doppelganger.selectTeam, { DoClick: true, PredicatePattern: patterns.battle.setup.auto });
 			selectTeamAndBattle(teamSlot1, sweepBattle1);
-			macroService.PollPattern(patterns.general.back, { DoClick: true, ClickPattern: [patterns.general.ok, patterns.battle.exit], PredicatePattern: patterns.titles.doppelganger });
+			goBackToDoppelgangerScreen();
 
 			if (elementTypeTarget1 !== elementTypeTarget2) {
 				logger.info('doDoppelganger elementTypeTarget2: auto or sweep');
@@ -57,7 +57,7 @@ while (macroService.IsRunning) {
 				}
 				macroService.PollPattern(patterns.doppelganger.selectTeam, { DoClick: true, PredicatePattern: patterns.battle.setup.auto });
 				selectTeamAndBattle(teamSlot2, sweepBattle2);
-				macroService.PollPattern(patterns.general.back, { DoClick: true, ClickPattern: [patterns.general.ok, patterns.battle.exit], PredicatePattern: patterns.titles.doppelganger });
+				goBackToDoppelgangerScreen();
 			}
 
 			if (macroService.IsRunning) {
@@ -67,4 +67,14 @@ while (macroService.IsRunning) {
 			return;
 	}
 	sleep(1_000);
+}
+
+function goBackToDoppelgangerScreen() {
+	let doppelgangerTitleResult = macroService.FindPattern(patterns.titles.doppelganger);
+	while (!doppelgangerTitleResult.IsSuccess) {
+		macroService.ClickPattern([patterns.general.back, patterns.general.ok, patterns.battle.exit]);
+		sleep(1_000);
+		doppelgangerTitleResult = macroService.FindPattern(patterns.titles.doppelganger);
+		sleep(1_000);
+	}
 }
