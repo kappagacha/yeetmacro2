@@ -25,7 +25,7 @@ while (macroService.IsRunning) {
 			let staminaCost = 120;
 			macroService.PollPattern(patterns.quest.events.quest, { DoClick: true, PredicatePattern: patterns.titles.quest });
 			sleep(1_000);
-			const questResult = macroService.PollPattern([patterns.quest.events.quest.special, patterns.quest.events.quest]);
+			const questResult = macroService.PollPattern([patterns.quest.events.quest.special, patterns.quest.events.main]);
 			if (questResult.Path === 'quest.events.quest.special') {
 				logger.info('doMainOrEventHardQuests: event special quest');
 				macroService.PollPattern(patterns.quest.events.quest.special, { DoClick: true, PredicatePattern: patterns.quest.events.quest.special.hard });
