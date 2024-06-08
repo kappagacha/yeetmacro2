@@ -106,7 +106,7 @@ function findShopItem(shopItemName) {
 		stoneFragment: /s.*ne.*fr[au]g/is,
 		stonePiece: /s.*ne.*piece/is,
 		basicSkillManual: /basic.*manual/is,
-		intermediateSkillManual: /[il]n.*manual/is,
+		intermediateSkillManual: /.nter.*manual/is,
 		professionalSkillManual: /pro.*manual/is,
 		cakeSlice: /cake/is,
 		upgradeStoneSelectionChest: /^(?!.*piece)upgrade.*stone/is,		//does not contain piece (using negative look ahead)
