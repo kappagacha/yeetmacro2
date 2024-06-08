@@ -2071,7 +2071,7 @@
         "position": 0,
         "path": "doWeeklyShop.surveyHub"
       },
-      "epicReforgeCatalyst": {
+      "epicReforgeCatalyst1": {
         "$isParent": false,
         "props": {
           "$type": "boolean",
@@ -2079,9 +2079,61 @@
           "value": true,
           "defaultValue": true,
           "isParentNode": false,
-          "name": "epicReforgeCatalyst",
+          "name": "epicReforgeCatalyst1",
           "position": 0,
-          "path": "doWeeklyShop.surveyHub.epicReforgeCatalyst"
+          "path": "doWeeklyShop.surveyHub.epicReforgeCatalyst1"
+        }
+      },
+      "epicReforgeCatalyst2": {
+        "$isParent": false,
+        "props": {
+          "$type": "boolean",
+          "settingType": "Boolean",
+          "value": true,
+          "defaultValue": true,
+          "isParentNode": false,
+          "name": "epicReforgeCatalyst2",
+          "position": 0,
+          "path": "doWeeklyShop.surveyHub.epicReforgeCatalyst2"
+        }
+      },
+      "epicReforgeCatalyst3": {
+        "$isParent": false,
+        "props": {
+          "$type": "boolean",
+          "settingType": "Boolean",
+          "value": true,
+          "defaultValue": true,
+          "isParentNode": false,
+          "name": "epicReforgeCatalyst3",
+          "position": 0,
+          "path": "doWeeklyShop.surveyHub.epicReforgeCatalyst3"
+        }
+      },
+      "epicReforgeCatalyst4": {
+        "$isParent": false,
+        "props": {
+          "$type": "boolean",
+          "settingType": "Boolean",
+          "value": true,
+          "defaultValue": true,
+          "isParentNode": false,
+          "name": "epicReforgeCatalyst4",
+          "position": 0,
+          "path": "doWeeklyShop.surveyHub.epicReforgeCatalyst4"
+        }
+      },
+      "epicReforgeCatalyst5": {
+        "$isParent": false,
+        "props": {
+          "$type": "boolean",
+          "settingType": "Boolean",
+          "value": true,
+          "defaultValue": true,
+          "isParentNode": false,
+          "name": "epicReforgeCatalyst5",
+          "position": 0,
+          "path": "doWeeklyShop.surveyHub.epicReforgeCatalyst5"
         }
       },
       "superiorQualityPresentChest": {
@@ -2121,6 +2173,19 @@
           "name": "10pctLegendaryAbrasive",
           "position": 0,
           "path": "doWeeklyShop.surveyHub.10pctLegendaryAbrasive"
+        }
+      },
+      "stage2RandomGemChest": {
+        "$isParent": false,
+        "props": {
+          "$type": "boolean",
+          "settingType": "Boolean",
+          "value": true,
+          "defaultValue": true,
+          "isParentNode": false,
+          "name": "stage2RandomGemChest",
+          "position": 0,
+          "path": "doWeeklyShop.surveyHub.stage2RandomGemChest"
         }
       },
       "intermediateSkillManual": {

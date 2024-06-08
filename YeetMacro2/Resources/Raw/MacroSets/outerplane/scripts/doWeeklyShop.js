@@ -96,7 +96,7 @@ function doStarMemoryItems() {
 }
 
 function doSurveyHubItems() {
-	const season1surveyHubItems = ['epicReforgeCatalyst', 'superiorQualityPresentChest', 'basicSkillManual', 'intermediateSkillManual', '10pctLegendaryAbrasive'];
+	const season1surveyHubItems = ['epicReforgeCatalyst1', 'epicReforgeCatalyst2', 'epicReforgeCatalyst3', 'epicReforgeCatalyst4', 'epicReforgeCatalyst5', 'superiorQualityPresentChest', 'basicSkillManual', 'intermediateSkillManual', '10pctLegendaryAbrasive'];
 	doShopItems('doWeeklyShop', 'surveyHub', season1surveyHubItems, true);
 	const season2Result = macroService.PollPattern(patterns.surveyHub.surveyHubItems.season2, { DoClick: true, PredicatePattern: patterns.surveyHub.surveyHubItems.season2.enabled, TimeoutMs: 3_000 });
 	if (!season2Result.IsSuccess) {
@@ -106,7 +106,7 @@ function doSurveyHubItems() {
 	swipeLeft();
 	swipeLeft();
 	swipeLeft();
-	const season2surveyHubItems = ['legendaryReforgeCatalyst', 'epicQualityPresentChest', 'professionalSkillManual', 'refinedGlunite'];
+	const season2surveyHubItems = ['stage2RandomGemChest', 'legendaryReforgeCatalyst', 'epicQualityPresentChest', 'professionalSkillManual', 'refinedGlunite'];
 	doShopItems('doWeeklyShop', 'surveyHub', season2surveyHubItems, true);
 }
 

@@ -93,7 +93,7 @@ function refillStamina(targetStamina) {
 function findShopItem(shopItemName) {
 	const resolution = macroService.GetCurrentResolution();
 	const swipeStartX = resolution.Width - 500;
-	const swipeEndX = swipeStartX - 300;
+	const swipeEndX = swipeStartX - 800;
 
 	const shopItemNameToRegex = {
 		stamina: /stamin/is,
@@ -112,10 +112,15 @@ function findShopItem(shopItemName) {
 		upgradeStoneSelectionChest: /^(?!.*piece)upgrade.*stone/is,		//does not contain piece (using negative look ahead)
 		lowStarHeroPieceTicket: /1.*2/is,
 		// season 1 survey hub items
-		epicReforgeCatalyst: /epic.*reforge/is,
+		epicReforgeCatalyst1: /epic.*refo.ge/is,
+		epicReforgeCatalyst2: /epic.*refo.ge/is,
+		epicReforgeCatalyst3: /epic.*refo.ge/is,
+		epicReforgeCatalyst4: /epic.*refo.ge/is,
+		epicReforgeCatalyst5: /epic.*refo.ge/is,
 		superiorQualityPresentChest: /sup.*pres/is,
 		'10pctLegendaryAbrasive': /10.*leg/is,
 		// season 2 survey hub items
+		stage2RandomGemChest: /random.*gem/is,
 		legendaryReforgeCatalyst: /leg.*ref/is,
 		epicQualityPresentChest: /epic.*pres/is,
 		refinedGlunite: /ref.*g[li]un/is,
