@@ -6,6 +6,7 @@ const daily = dailyManager.GetCurrentDaily();
 const utcHour = new Date().getUTCHours();
 const isStamina1 = utcHour < 12;
 
+claimGuildBuff();
 goToLobby();
 
 claimReplenishYourStamina();
