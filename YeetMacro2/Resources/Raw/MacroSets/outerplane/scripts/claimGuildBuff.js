@@ -1,7 +1,8 @@
 // @position=5
 // Claims guild buff
-//const loopPatterns = [patterns.lobby.level, patterns.titles.guildHallOfHonor, patterns.titles.guild];
 const loopPatterns = [patterns.lobby.level];
+//const loopPatterns = [patterns.lobby.level, patterns.titles.guildHallOfHonor, patterns.titles.guild];
+
 const daily = dailyManager.GetCurrentDaily();
 
 if (daily.claimGuildBuff.done.IsChecked) {
@@ -22,7 +23,7 @@ while (macroService.IsRunning) {
 			//sleep(500);
 			//break;
 
-			macroService.PollPattern(patterns.lobby.receiveGuildBuff, { DoClick: true, PredicatePattern: patterns.lobby.level });
+			macroService.PollPattern(patterns.lobby.receiveGuildBuff, { DoClick: true, InversePredicatePattern: patterns.lobby.receiveGuildBuff });
 
 			if (macroService.IsRunning) {
 				daily.claimGuildBuff.done.IsChecked = true;
