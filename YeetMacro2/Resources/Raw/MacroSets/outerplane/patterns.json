@@ -13726,7 +13726,7 @@
               "whiteList": null
             },
             "colorThreshold": {
-              "isActive": true,
+              "isActive": false,
               "variancePct": 30,
               "color": "#ffffffff",
               "imageData": "/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDAAIBAQEBAQIBAQECAgICAgQDAgICAgUEBAMEBgUGBgYFBgYGBwkIBgcJBwYGCAsICQoKCgoKBggLDAsKDAkKCgr/wAALCAASAAoBAREA/8QAHwAAAQUBAQEBAQEAAAAAAAAAAAECAwQFBgcICQoL/8QAtRAAAgEDAwIEAwUFBAQAAAF9AQIDAAQRBRIhMUEGE1FhByJxFDKBkaEII0KxwRVS0fAkM2JyggkKFhcYGRolJicoKSo0NTY3ODk6Q0RFRkdISUpTVFVWV1hZWmNkZWZnaGlqc3R1dnd4eXqDhIWGh4iJipKTlJWWl5iZmqKjpKWmp6ipqrKztLW2t7i5usLDxMXGx8jJytLT1NXW19jZ2uHi4+Tl5ufo6erx8vP09fb3+Pn6/9oACAEBAAA/APo3/g6J/wCCsH7bX/BLTxV+zn4h/ZB+I+n6VaeJdQ8RXHjDQtW8O2l9a69HYPo7Q20zSxmeGIi5uEY20sMhWU4dWVGX9b6/MD/g4h/ZU+Cfxx+Nn7IXxr+Nf7Rnwf8ADWkfDL4wRXXiPwB8XPE+maXD4u8N3Gp6KdXe3OozJDdfZYbaNprVlIlhuXAbzBFBcfp/X4A/8Hzn/Nrv/c7f+4Cv2O/4Jk+LPFXj3/gm3+z5468deJtQ1rW9a+B/hO/1nWdWvXubq/uptHtZJbiaWQl5ZXdmdnYlmZiSSTX/2Q=="

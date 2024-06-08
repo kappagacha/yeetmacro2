@@ -8,20 +8,14 @@ const isStamina1 = utcHour < 12;
 
 goToLobby();
 
-if ((isStamina1 && !daily.claimReplenishYourStamina.done1.IsChecked) || (!isStamina1 && !daily.claimReplenishYourStamina.done2.IsChecked)) {
-    claimReplenishYourStamina();
-    goToLobby();
-}
+claimReplenishYourStamina();
+goToLobby();
 
-if (!daily.claimArenaRewards.done.IsChecked) {
-    claimArenaRewards();
-    goToLobby();
-}
+claimArenaRewards();
+goToLobby();
 
-if (!daily.claimArenaRewards.done.IsChecked) {
-    startTerminusIsleExploration();
-    goToLobby();
-}
+startTerminusIsleExploration();
+goToLobby();
 
 if (settings.doUpkeep.claimAntiparticle.Value) {
     claimAntiparticle();

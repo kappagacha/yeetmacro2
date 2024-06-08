@@ -1,5 +1,5 @@
 // @position=5
-// Auto guild security area
+// Claims guild buff
 const loopPatterns = [patterns.lobby.level, patterns.titles.guildHallOfHonor, patterns.titles.guild];
 const daily = dailyManager.GetCurrentDaily();
 

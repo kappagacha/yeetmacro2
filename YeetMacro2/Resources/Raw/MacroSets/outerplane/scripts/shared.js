@@ -100,7 +100,7 @@ function findShopItem(shopItemName) {
 		stamina1: /stamin/is,
 		stamina2: /stamin/is,
 		gold: /gold/is,
-		clearTicket: /clear.*ticket/is,
+		clearTicket: /cle[ao]r.*ticket/is,
 		arenaTicket: /aren.*ticket/is,
 		hammer: /h[au]mmer/is,
 		stoneFragment: /s.*ne.*fr[au]g/is,
