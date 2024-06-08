@@ -77,18 +77,21 @@ function doNormalItems() {
 function doFriendshipItems() {
 	const friendshipItems = ['upgradeStoneSelectionChest', 'lowStarHeroPieceTicket'];
 	macroService.PollPattern(patterns.shop.resource.friendship, { DoClick: true, PredicatePattern: patterns.shop.resource.friendship.currency });
+	sleep(1000);
 	doShopItems('doWeeklyShop', 'friendshipPoint', friendshipItems, true);
 }
 
 function doArenaItems() {
 	const arenaItems = ['basicSkillManual', 'intermediateSkillManual', 'professionalSkillManual'];
 	macroService.PollPattern(patterns.shop.resource.arena, { DoClick: true, PredicatePattern: patterns.shop.resource.arena.currency });
+	sleep(1000);
 	doShopItems('doWeeklyShop', 'arena', arenaItems, true);
 }
 
 function doStarMemoryItems() {
 	const starMemoryItems = ['intermediateSkillManual', 'professionalSkillManual'];
 	macroService.PollPattern(patterns.shop.resource.starMemory, { DoClick: true, PredicatePattern: patterns.shop.resource.starMemory.currency });
+	sleep(1000);
 	doShopItems('doWeeklyShop', 'starMemory', starMemoryItems, true);
 }
 
@@ -99,6 +102,7 @@ function doSurveyHubItems() {
 	if (!season2Result.IsSuccess) {
 		return;
 	}
+	sleep(1000);
 	swipeLeft();
 	swipeLeft();
 	swipeLeft();

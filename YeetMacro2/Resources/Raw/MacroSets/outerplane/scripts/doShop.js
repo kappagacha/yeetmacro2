@@ -26,10 +26,12 @@ while (macroService.IsRunning) {
 
 			const friendshipItems = ['stamina1', 'stamina2', 'gold', 'clearTicket', 'arenaTicket', 'hammer', 'stoneFragment', 'stonePiece'];
 			macroService.PollPattern(patterns.shop.resource.friendship, { DoClick: true, PredicatePattern: patterns.shop.resource.friendship.currency });
+			sleep(1000);
 			doShopItems('doShop', 'friendshipPoint', friendshipItems);
 
 			const arenaItems = ['gold', 'stamina', 'cakeSlice'];
 			macroService.PollPattern(patterns.shop.resource.arena, { DoClick: true, PredicatePattern: patterns.shop.resource.arena.currency });
+			sleep(1000);
 			doShopItems('doShop', 'arena', arenaItems);
 
 			if (macroService.IsRunning) {
