@@ -1,5 +1,5 @@
 ﻿// @isFavorite
-// @position=-1
+// @position=-100
 // Do upkeep (all checked scripts)
 
 goToLobby();
