@@ -47,7 +47,7 @@ while (macroService.IsRunning) {
 			}
 			macroService.PollPattern(patterns.doppelganger.selectTeam, { DoClick: true, PredicatePattern: patterns.battle.setup.auto });
 			selectTeamAndBattle(teamSlot1, sweepBattle1);
-			goBackToDoppelgangerScreen();
+			goBackToDoppelgangerScreen(sweepBattle1);
 
 			if (elementTypeTarget1 !== elementTypeTarget2) {
 				logger.info('doDoppelganger elementTypeTarget2: auto or sweep');
@@ -57,7 +57,7 @@ while (macroService.IsRunning) {
 				}
 				macroService.PollPattern(patterns.doppelganger.selectTeam, { DoClick: true, PredicatePattern: patterns.battle.setup.auto });
 				selectTeamAndBattle(teamSlot2, sweepBattle2);
-				goBackToDoppelgangerScreen();
+				goBackToDoppelgangerScreen(sweepBattle2);
 			}
 
 			if (macroService.IsRunning) {
@@ -69,12 +69,18 @@ while (macroService.IsRunning) {
 	sleep(1_000);
 }
 
-function goBackToDoppelgangerScreen() {
-	let doppelgangerTitleResult = macroService.FindPattern(patterns.titles.doppelganger);
-	while (!doppelgangerTitleResult.IsSuccess) {
-		macroService.ClickPattern([patterns.general.back, patterns.general.ok, patterns.battle.exit]);
-		sleep(1_000);
-		doppelgangerTitleResult = macroService.FindPattern(patterns.titles.doppelganger);
-		sleep(1_000);
+function goBackToDoppelgangerScreen(sweepBattle) {
+	if (sweepBattle) {
+		macroService.PollPattern(patterns.general.ok, { DoClick: true, PredicatePattern: patterns.battle.exit });
+		macroService.PollPattern(patterns.battle.exit, { DoClick: true, PredicatePattern: patterns.titles.doppelganger });
+	} else {
+		macroService.PollPattern(patterns.battle.setup.enter.ok, { DoClick: true, PredicatePattern: patterns.battle.setup.auto });
+		let doppelgangerTitleResult = macroService.FindPattern(patterns.titles.doppelganger);
+		while (macroService.IsRunning && !doppelgangerTitleResult.IsSuccess) {
+			macroService.ClickPattern(patterns.general.back);
+			sleep(1_000);
+			doppelgangerTitleResult = macroService.FindPattern(patterns.titles.doppelganger);
+			sleep(1_000);
+		}
 	}
 }
