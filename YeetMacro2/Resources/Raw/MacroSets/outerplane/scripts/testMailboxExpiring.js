@@ -21,8 +21,8 @@ while (macroService.IsRunning) {
 				const regexResult = numDaysRegex.exec(text);
 				return {
 					text,
-					groups: regexResult.groups,
-					numDays: regexResult.groups?.numDays
+					groups: regexResult?.groups,
+					numDays: regexResult?.groups?.numDays
 				};
 			});
 			return expirations;

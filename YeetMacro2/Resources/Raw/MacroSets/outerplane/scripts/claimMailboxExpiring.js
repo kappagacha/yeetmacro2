@@ -2,6 +2,11 @@
 const loopPatterns = [patterns.lobby.level, patterns.titles.mailbox];
 let done = false;
 const numDaysRegex = /(?<numDays>\d+)\s*d/;
+const daily = dailyManager.GetCurrentDaily();
+
+if (daily.claimMailboxExpiring.done.IsChecked) {
+	return "Script already completed. Uncheck done to override daily flag.";
+}
 
 while (macroService.IsRunning) {
 	const loopResult = macroService.PollPattern(loopPatterns);
@@ -24,7 +29,7 @@ while (macroService.IsRunning) {
 					const expirationPattern = macroService.ClonePattern(patterns.mailbox.expiration, { CenterY: p.Y - 75 });
 					const text = macroService.GetText(expirationPattern);
 					const regexResult = numDaysRegex.exec(text);
-					const numDays = regexResult.groups?.numDays;
+					const numDays = regexResult?.groups?.numDays;
 					if (!numDays || numDays == 1) {
 						macroService.PollPoint(p, { PredicatePattern: patterns.general.tapEmptySpace });
 						macroService.PollPattern(patterns.general.tapEmptySpace, { DoClick: true, PredicatePattern: patterns.titles.mailbox });
@@ -32,6 +37,10 @@ while (macroService.IsRunning) {
 						done = false;
 					}
 				}
+			}
+
+			if (macroService.IsRunning) {
+				daily.claimMailboxExpiring.done.IsChecked = true;
 			}
 			return;
 	}

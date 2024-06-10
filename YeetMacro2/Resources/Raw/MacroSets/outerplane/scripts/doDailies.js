@@ -6,6 +6,11 @@ goToLobby();
 claimReplenishYourStamina();
 goToLobby();
 
+if (settings.doDailies.claimMailboxExpiring.Value) {
+    claimMailboxExpiring();
+    goToLobby();
+}
+
 if (settings.doDailies.claimAntiparticle.Value) {
     claimAntiparticle();
     goToLobby();
