@@ -70,7 +70,7 @@ while (macroService.IsRunning) {
 }
 
 function goBackToDoppelgangerScreen(sweepBattle) {
-	if (sweepBattle) {
+	if (!sweepBattle) {
 		macroService.PollPattern(patterns.general.ok, { DoClick: true, PredicatePattern: patterns.battle.exit });
 		macroService.PollPattern(patterns.battle.exit, { DoClick: true, PredicatePattern: patterns.titles.doppelganger });
 	} else {

@@ -6,7 +6,7 @@ function selectTeam(teamSlot, returnCurrentCp) {
 	const topLeft = macroService.GetTopLeft();
 	const xLocation = topLeft.X + 90;
 	let currentTeamSlot = getCurrentTeamSlot();
-	while (currentTeamSlot?.trim() !== teamSlot) {
+	while (macroService.IsRunning && currentTeamSlot?.trim() !== teamSlot) {
 		if (currentTeamSlot > teamSlot) {
 			macroService.DoSwipe({ X: xLocation, Y: 200 }, { X: xLocation, Y: 400 });
 			sleep(1_000);
@@ -43,7 +43,7 @@ function getCurrentTeamSlot() {
 	const selectedTeamSlotPattern = macroService.ClonePattern(patterns.battle.teamSlot, { Y: selectedTeamSlotResult.Point.Y + 7 });
 	let currentTeamSlot = macroService.GetText(selectedTeamSlotPattern)
 	//logger.info(`currentTeamSlot: ${currentTeamSlot}`);
-	while (!currentTeamSlot) {
+	while (macroService.IsRunning && !currentTeamSlot) {
 		currentTeamSlot = macroService.GetText(selectedTeamSlotPattern);
 		//logger.info(`currentTeamSlot: ${currentTeamSlot}`);
 		sleep(100);
@@ -100,7 +100,7 @@ function findShopItem(shopItemName) {
 		stamina1: /stamin/is,
 		stamina2: /stamin/is,
 		gold: /gold/is,
-		clearTicket: /cle[ao]r.*ticket/is,
+		clearTicket: /cle.r.*ticket/is,
 		arenaTicket: /aren.*ticket/is,
 		hammer: /h[au]mmer/is,
 		stoneFragment: /s.*ne.*fr[au]g/is,
