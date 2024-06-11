@@ -47,6 +47,7 @@ if (settings.doDailies.doExpeditions.Value) {
 if (settings.doDailies.doPartTimeJobAndRest.Value) {
     doPartTimeJobAndRest();
     goToLobby();
+    sleep(5000);
     doPartTimeJobAndRest();     // 2 times cause part time job can produce tired souls
     goToLobby();
 }
