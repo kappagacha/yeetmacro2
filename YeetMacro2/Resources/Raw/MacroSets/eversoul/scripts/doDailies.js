@@ -46,8 +46,12 @@ if (settings.doDailies.doExpeditions.Value) {
 
 if (settings.doDailies.doPartTimeJobAndRest.Value) {
     doPartTimeJobAndRest();
-    goToLobby();
-    sleep(5000);
+    const date = new Date();
+    date.setDate(date.getDate() - 1);
+    // set date to yesterday for doPartTimeJobAndRest to run
+    settings.doPartTimeJobAndRest.lastRun.Value = date.toISOString();
+    //goToLobby();
+    //sleep(5000);
     doPartTimeJobAndRest();     // 2 times cause part time job can produce tired souls
     goToLobby();
 }
