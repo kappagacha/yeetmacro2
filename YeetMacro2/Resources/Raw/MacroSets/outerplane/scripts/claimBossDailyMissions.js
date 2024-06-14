@@ -77,7 +77,7 @@ while (macroService.IsRunning) {
 				} else if (moveResult.Path === 'titles.base') {
 					const date = new Date();
 					date.setDate(date.getDate() - 1);
-					// set date to yesterday to claimAntiparticle to run
+					// set date to yesterday for claimAntiparticle to run
 					settings.claimAntiparticle.lastRun.Value = date.toISOString();
 					goToLobby();
 					claimAntiparticle();

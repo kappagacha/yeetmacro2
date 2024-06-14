@@ -117,3 +117,6 @@ if (settings.doDailies.startTerminusIsleExploration.Value) {
     startTerminusIsleExploration();
     goToLobby();
 }
+
+doUpkeep();
+goToLobby();

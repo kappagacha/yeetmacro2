@@ -96,20 +96,20 @@ function findShopItem(shopItemName) {
 	const swipeEndX = swipeStartX - 800;
 
 	const shopItemNameToRegex = {
-		stamina: /stamin/is,
-		stamina1: /stamin/is,
-		stamina2: /stamin/is,
+		stamina: /s..min/is,
+		stamina1: /s..min/is,
+		stamina2: /s..min/is,
 		gold: /gold/is,
-		clearTicket: /cle.r.*ticket/is,
-		arenaTicket: /aren.*ticket/is,
+		clearTicket: /c.e.r.*icke/is,
+		arenaTicket: /aren.*icke/is,
 		hammer: /h[au]mmer/is,
 		stoneFragment: /s.*ne.*fr[au]g/is,
 		stonePiece: /s.*ne.*piece/is,
-		basicSkillManual: /basic.*manual/is,
-		intermediateSkillManual: /.nter.*manual/is,
-		professionalSkillManual: /pro.*manual/is,
-		cakeSlice: /cake/is,
-		upgradeStoneSelectionChest: /^(?!.*piece)upgrade.*stone/is,		//does not contain piece (using negative look ahead)
+		basicSkillManual: /basic.*m.nu/is,
+		intermediateSkillManual: /.n.er.*m.nu/is,
+		professionalSkillManual: /pro.*m.nu/is,
+		cakeSlice: /c.ke/is,
+		upgradeStoneSelectionChest: /^(?!.*piece)upgr.de.*stone/is,		//does not contain piece (using negative look ahead)
 		lowStarHeroPieceTicket: /1.*2/is,
 		// season 1 survey hub items
 		epicReforgeCatalyst1: /epic.*refo.ge/is,
@@ -118,12 +118,12 @@ function findShopItem(shopItemName) {
 		epicReforgeCatalyst4: /epic.*refo.ge/is,
 		epicReforgeCatalyst5: /epic.*refo.ge/is,
 		superiorQualityPresentChest: /sup.*pres/is,
-		'10pctLegendaryAbrasive': /10.*leg/is,
+		'10pctLegendaryAbrasive': /10.*[lt]eg/is,
 		// season 2 survey hub items
-		stage2RandomGemChest: /random.*gem/is,
-		legendaryReforgeCatalyst: /leg.*ref/is,
+		stage2RandomGemChest: /r.ndom.*gem/is,
+		legendaryReforgeCatalyst: /.eg.*ref/is,
 		epicQualityPresentChest: /epic.*pres/is,
-		refinedGlunite: /ref.*g[li]un/is,
+		refinedGlunite: /ref.*g.un/is,
 	}
 
 	let findResult;
