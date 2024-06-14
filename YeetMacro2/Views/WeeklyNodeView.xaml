@@ -14,8 +14,37 @@
              x:Class="YeetMacro2.Views.WeeklyNodeView"
              x:Name="thisView">
     <ContentView.Resources>
-        <DataTemplate x:Key="TodoJsonParentTemplate">
-            <Label Text="{Binding Key}" VerticalOptions="Center" />
+        <DataTemplate x:Key="TodoJsonParentTemplate" x:DataType="{x:Null}">
+            <Grid ColumnDefinitions="Auto, *" RowDefinitions="Auto, Auto" ColumnSpacing="5">
+                <Grid WidthRequest="15" />
+                <v:ToggleImageView Grid.Row="0" Grid.Column="0"
+                                   IsVisible="{Binding Children.Count, Converter={conv:NumberToBoolConverter}}"
+                                   ImageHeight="15"
+                                   ImageWidth="15"
+                                   FontFamily="MaterialOutlined" 
+                                   Glyph="{x:Static mi:MaterialOutlined.Keyboard_arrow_right}"
+                                   ToggledGlyph="{x:Static mi:MaterialOutlined.Keyboard_arrow_down}"
+                                   IsToggled="{Binding IsExpanded}"
+                                   HeightRequest="20" />
+                <Grid Grid.Row="0" Grid.Column="1" HeightRequest="20">
+                    <Label Text="{Binding Key}" TextColor="{StaticResource PrimaryDark}" Margin="0" Padding="0" VerticalOptions="Center" BackgroundColor="Transparent" />
+                    <!--<Grid HeightRequest="20">
+                        <Label Text="{Binding Key}" TextColor="{StaticResource PrimaryDark}" Margin="0" Padding="0" VerticalOptions="Center" BackgroundColor="Transparent">
+                            <Label.Triggers>
+                                <DataTrigger TargetType="{x:Type Label}" Binding="{Binding IsSelected}" Value="True">
+                                    <Setter Property="Background" Value="Blue" />
+                                </DataTrigger>
+                            </Label.Triggers>
+                        </Label>
+                        <ImageButton Margin="0" Padding="0" CommandParameter="{Binding .}" 
+                            Command="{Binding NodeManager.SelectNodeCommand, Source={RelativeSource AncestorType={x:Type v:NodeView}}}" />
+                    </Grid>-->
+                </Grid>
+                <Grid Grid.Row="1" Grid.Column="1" IsVisible="{Binding Children.Count, Converter={conv:NumberToBoolConverter}}">
+                    <CollectionView ItemsSource="{Binding Children}" IsVisible="{Binding IsExpanded}"
+                                ItemTemplate="{conv:DynamicTemplateSelector Root={Binding .,Source={Reference thisView}}}" />
+                </Grid>
+            </Grid>
         </DataTemplate>
         <DataTemplate x:Key="TodoJsonBooleanTemplate">
             <HorizontalStackLayout Spacing="4">
@@ -34,9 +63,9 @@
         <Grid>
             <Grid IsVisible="{Binding IsSubView, Source={Reference thisView}}">
                 <ScrollView>
-                    <material:TreeView ItemsSource="{Binding Weeklies.CurrentSubViewModel.Children}"
-                                   Spacing="0" HorizontalOptions="Fill"  VerticalOptions="Fill"
-                                   ItemTemplate="{conv:DynamicTemplateSelector Root={Binding .,Source={Reference thisView}}}"/>
+                    <CollectionView ItemsSource="{Binding Weeklies.CurrentSubViewModel.Children}"
+                                    HorizontalOptions="Fill"  VerticalOptions="Fill"
+                                    ItemTemplate="{conv:DynamicTemplateSelector Root={Binding .,Source={Reference thisView}}}" />
                 </ScrollView>
             </Grid>
             <Grid ColumnDefinitions="*,3*" IsVisible="{Binding IsSubView, Converter={conv:InverseBoolConverter}, Source={Reference thisView}}">
@@ -46,9 +75,9 @@
                         Date="{Binding Weeklies.SelectedNode.Date, Converter={conv:DateOnlyConverter}}" />
                     <Grid>
                         <ScrollView>
-                            <material:TreeView IsVisible="{Binding Weeklies.ShowJsonEditor, Converter={conv:InverseBoolConverter}}"
-                                               x:DataType="{x:Null}" ItemsSource="{Binding Weeklies.SelectedNode.JsonViewModel.Children}"
-                                               Spacing="0" HorizontalOptions="Fill"  VerticalOptions="Fill" ItemTemplate="{conv:DynamicTemplateSelector}" />
+                            <CollectionView IsVisible="{Binding Weeklies.ShowJsonEditor, Converter={conv:InverseBoolConverter}}"
+                                            x:DataType="{x:Null}" ItemsSource="{Binding Weeklies.SelectedNode.JsonViewModel.Children}"
+                                            HorizontalOptions="Fill"  VerticalOptions="Fill" ItemTemplate="{conv:DynamicTemplateSelector}" />
                         </ScrollView>
                         <Grid IsVisible="{Binding Weeklies.ShowJsonEditor}">
                             <Editor x:Name="dataEditor" Text="{Binding Weeklies.SelectedNode.DataText, Mode=OneWay}" AutoSize="TextChanges" />

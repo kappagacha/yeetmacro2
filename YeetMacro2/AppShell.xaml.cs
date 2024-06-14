@@ -30,6 +30,13 @@ public partial class AppShell : Shell
         //});
 #endif
 
+        //this.Items.Add(new ShellContent()
+        //{
+        //    Title = "Test",
+        //    Route = "Test",
+        //    ContentTemplate = new DataTemplate(typeof(TestPage))
+        //});
+
         this.Items.Add(new ShellContent()
         {
             Title = "Macro Manager",

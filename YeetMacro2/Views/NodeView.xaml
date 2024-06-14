@@ -11,34 +11,52 @@
              x:Class="YeetMacro2.Views.NodeView"
              x:Name="thisView">
     <ContentView.Resources>
-        <DataTemplate x:Key="DefaultItemTemplate">
-            <Grid HeightRequest="20">
-                <Label Text="{Binding Name}" TextColor="{StaticResource PrimaryDark}" Margin="0" Padding="0" VerticalOptions="Center" BackgroundColor="Transparent">
-                    <Label.Triggers>
-                        <DataTrigger TargetType="{x:Type Label}" Binding="{Binding IsSelected}" Value="True">
-                            <Setter Property="Background" Value="Blue" />
-                        </DataTrigger>
-                    </Label.Triggers>
-                </Label>
-                <ImageButton Margin="0" Padding="0" CommandParameter="{Binding .}" 
-                             Command="{Binding NodeManager.SelectNodeCommand, Source={RelativeSource AncestorType={x:Type v:NodeView}}}" />
+        <DataTemplate x:Key="DefaultItemTemplate" x:DataType="{x:Null}">
+            <Grid ColumnDefinitions="Auto, *" RowDefinitions="Auto, Auto" ColumnSpacing="5">
+                <Grid WidthRequest="15" />
+                <v:ToggleImageView Grid.Row="0" Grid.Column="0"
+                                   IsVisible="{Binding Nodes.Count, Converter={conv:NumberToBoolConverter}}"
+                                   ImageHeight="15"
+                                   ImageWidth="15"
+                                   FontFamily="MaterialOutlined" 
+                                   Glyph="{x:Static mi:MaterialOutlined.Keyboard_arrow_right}"
+                                   ToggledGlyph="{x:Static mi:MaterialOutlined.Keyboard_arrow_down}"
+                                   IsToggled="{Binding IsExpanded}"
+                                   HeightRequest="20" />
+                <Grid Grid.Row="0" Grid.Column="1" HeightRequest="20">
+                    <Grid HeightRequest="20">
+                        <Label Text="{Binding Name}" TextColor="{StaticResource PrimaryDark}" Margin="0" Padding="0" VerticalOptions="Center" BackgroundColor="Transparent">
+                            <Label.Triggers>
+                                <DataTrigger TargetType="{x:Type Label}" Binding="{Binding IsSelected}" Value="True">
+                                    <Setter Property="Background" Value="Blue" />
+                                </DataTrigger>
+                            </Label.Triggers>
+                        </Label>
+                        <ImageButton Margin="0" Padding="0" CommandParameter="{Binding .}" 
+                            Command="{Binding NodeManager.SelectNodeCommand, Source={RelativeSource AncestorType={x:Type v:NodeView}}}" />
+                    </Grid>
+                </Grid>
+                <Grid Grid.Row="1" Grid.Column="1" IsVisible="{Binding Nodes.Count, Converter={conv:NumberToBoolConverter}}">
+                    <CollectionView ItemsSource="{Binding Nodes}" IsVisible="{Binding IsExpanded}"
+                                ItemTemplate="{DynamicResource DefaultItemTemplate}" />
+                </Grid>
             </Grid>
         </DataTemplate>
     </ContentView.Resources>
     <Grid>
         <Grid IsVisible="{Binding NodeManager.ShowExport, Converter={conv:InverseBoolConverter}, Source={Reference thisView}}">
             <ScrollView>
-                <material:TreeView ItemTemplate="{Binding ItemTemplate, Source={Reference thisView}, TargetNullValue={StaticResource DefaultItemTemplate}}"
-                                   Spacing="0" HorizontalOptions="Fill"  VerticalOptions="Fill" ExpanderTemplate="{Binding ExpanderTemplate, Source={Reference thisView}}">
-                    <material:TreeView.Triggers>
-                        <DataTrigger TargetType="{x:Type material:TreeView}" Binding="{Binding ItemsSource, Source={Reference thisView}, Converter={conv:NullToBoolConverter}}" Value="True">
+                <CollectionView ItemTemplate="{Binding ItemTemplate, Source={Reference thisView}, TargetNullValue={StaticResource DefaultItemTemplate}}"
+                                HorizontalOptions="Fill"  VerticalOptions="Fill">
+                    <CollectionView.Triggers>
+                        <DataTrigger TargetType="CollectionView" Binding="{Binding ItemsSource, Source={Reference thisView}, Converter={conv:NullToBoolConverter}}" Value="True">
                             <Setter Property="ItemsSource" Value="{Binding NodeManager.Root.Nodes, Source={Reference thisView}}" />
                         </DataTrigger>
-                        <DataTrigger TargetType="{x:Type material:TreeView}" Binding="{Binding ItemsSource, Source={Reference thisView}, Converter={conv:NullToBoolConverter}}" Value="False">
+                        <DataTrigger TargetType="CollectionView" Binding="{Binding ItemsSource, Source={Reference thisView}, Converter={conv:NullToBoolConverter}}" Value="False">
                             <Setter Property="ItemsSource" Value="{Binding ItemsSource, Source={Reference thisView}}" />
                         </DataTrigger>
-                    </material:TreeView.Triggers>
-                </material:TreeView>
+                    </CollectionView.Triggers>
+                </CollectionView>
             </ScrollView>
             <Grid VerticalOptions="End" HorizontalOptions="End" BindingContext="{Binding ., Source={Reference thisView}}"
                   IsVisible="{Binding IsMenuVisible, Source={Reference thisView}}">
