@@ -89,7 +89,7 @@
             </Grid>
             <Grid ColumnDefinitions="*,3*" IsVisible="{Binding IsSubView, Converter={conv:InverseBoolConverter}, Source={Reference thisView}}">
                 <v:NodeView Grid.Column="0" NodeManager="{Binding Todos, Source={Reference thisView}}" />
-                <mct:DockLayout Grid.Column="1" IsVisible="{Binding IsToggled, Source={Reference templateToggle}, Converter={conv:InverseBoolConverter}}">
+                <mct:DockLayout Grid.Column="1" IsVisible="{Binding Todos.ShowTemplate, Source={Reference thisView}}">
                     <DatePicker IsVisible="{Binding Todos.SelectedNode, Source={Reference thisView}, Converter={conv:NullToBoolConverter IsInverse=True}}" 
                                 Date="{Binding Todos.SelectedNode.Date, Source={Reference thisView}, Converter={conv:DateOnlyConverter}}" />
                     <Grid>
