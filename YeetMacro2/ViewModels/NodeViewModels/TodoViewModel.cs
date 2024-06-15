@@ -13,7 +13,7 @@ public partial class TodoViewModel: TodoNode
     [ObservableProperty]
     TodoJsonParentViewModel _jsonViewModel;
     public bool IsLeaf { get; set; } = true;
-    public override ICollection<TodoNode> Nodes
+    public override IList<TodoNode> Nodes
     {
         get => base.Nodes;
         set

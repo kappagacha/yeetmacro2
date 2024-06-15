@@ -10,7 +10,7 @@ public class TodoNode
     static JsonSerializerOptions _opts = new JsonSerializerOptions() { WriteIndented = true };
     public override bool IsParentNode => false;     // prevents tree heirarchy in the UI
     [JsonIgnore]
-    public virtual ICollection<TodoNode> Nodes { get; set; } = new List<TodoNode>();
+    public virtual IList<TodoNode> Nodes { get; set; } = new List<TodoNode>();
     public virtual DateOnly Date { get; set; }
     public virtual JsonObject Data { get; set; }
     [JsonIgnore]

@@ -65,6 +65,14 @@
                         <ContentView x:Name="extraMenuItemsContentView" />
                         <v:ImageView FontFamily="MaterialOutlined" Glyph="{x:Static mi:MaterialOutlined.Unfold_more_double}" Command="{Binding NodeManager.ExpandAllCommand}" 
                                      IsVisible="{Binding NodeManager.IsList, Converter={conv:InverseBoolConverter}}" />
+                        <v:ImageView FontFamily="MaterialOutlined" Glyph="{x:Static mi:MaterialOutlined.Unfold_less_double}" Command="{Binding NodeManager.CollapseAllCommand}" 
+                                     IsVisible="{Binding NodeManager.IsList, Converter={conv:InverseBoolConverter}}" />
+                        <v:ImageView FontFamily="FASolid" Glyph="{x:Static fa:Solid.ArrowUp}"
+                                 IsVisible="{Binding NodeManager.SelectedNode, Converter={conv:NullToBoolConverter IsInverse=True}}"
+                                 Command="{Binding NodeManager.MoveNodeUpCommand}" CommandParameter="{Binding NodeManager.SelectedNode}" />
+                        <v:ImageView FontFamily="FASolid" Glyph="{x:Static fa:Solid.ArrowDown}"
+                                 IsVisible="{Binding NodeManager.SelectedNode, Converter={conv:NullToBoolConverter IsInverse=True}}"
+                                 Command="{Binding NodeManager.MoveNodeDownCommand}" CommandParameter="{Binding NodeManager.SelectedNode}" />
                         <v:ImageView FontFamily="FASolid" Glyph="{x:Static fa:Solid.Pencil}"
                                      IsVisible="{Binding NodeManager.SelectedNode, Converter={conv:NullToBoolConverter IsInverse=True}}"
                                      Command="{Binding NodeManager.RenameNodeCommand}" CommandParameter="{Binding NodeManager.SelectedNode}" />
@@ -87,8 +95,6 @@
                                  Command="{Binding NodeManager.DeleteNodeCommand}" CommandParameter="{Binding NodeManager.SelectedNode}" />
                         <v:ImageView FontFamily="FASolid" Glyph="{x:Static fa:Solid.Plus}" Command="{Binding NodeManager.AddNodeCommand}"
                                  IsVisible="{Binding NodeManager.SelectedNode.IsParentNode}"/>
-                        <v:ImageView FontFamily="MaterialOutlined" Glyph="{x:Static mi:MaterialOutlined.Unfold_less_double}" Command="{Binding NodeManager.CollapseAllCommand}" 
-                                     IsVisible="{Binding NodeManager.IsList, Converter={conv:InverseBoolConverter}}" />
                         <v:ImageView FontFamily="MaterialOutlined" Glyph="{x:Static mi:MaterialOutlined.Sort}" Command="{Binding NodeManager.RefreshCollectionsCommand}" 
                                      IsVisible="{Binding NodeManager.IsList}" />
                     </VerticalStackLayout>

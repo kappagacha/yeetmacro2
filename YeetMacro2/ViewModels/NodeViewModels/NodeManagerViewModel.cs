@@ -287,6 +287,50 @@ public partial class NodeManagerViewModel<TViewModel, TParent, TChild> : NodeMan
         Traverse(Root, (node) => node.IsExpanded = true);
     }
 
+    [RelayCommand]
+    public void MoveNodeUp(TChild node)
+    {
+        var parent = (TParent)_nodeService.Get(node.ParentId.Value);
+        if (parent.Nodes.All(n => n.Position == 0))
+        {
+            for (int i = 0; i < parent.Nodes.Count; i++)
+            {
+                parent.Nodes[i].Position = i;
+            }
+        }
+
+        if (node.Position == 0) return;
+
+        var nodeAbove = parent.Nodes.First(n => n.Position == node.Position - 1);
+        nodeAbove.Position++;
+        node.Position--;
+        _nodeService.Save();
+
+        ((NodeObservableCollection<TViewModel, TChild>)parent.Nodes).OnCollectionReset();
+    }
+
+    [RelayCommand]
+    public void MoveNodeDown(TChild node)
+    {
+        var parent = (TParent)_nodeService.Get(node.ParentId.Value);
+        if (parent.Nodes.All(n => n.Position == 0))
+        {
+            for (int i = 0; i < parent.Nodes.Count; i++)
+            {
+                parent.Nodes[i].Position = i;
+            }
+        }
+
+        if (node.Position == parent.Nodes.Count - 1) return;
+
+        var nodeBelow = parent.Nodes.First(n => n.Position == node.Position + 1);
+        nodeBelow.Position--;
+        node.Position++;
+        _nodeService.Save();
+
+        ((NodeObservableCollection<TViewModel, TChild>)parent.Nodes).OnCollectionReset();
+    }
+
     public void Traverse(TChild node, Action<TChild> callback)
     {
         callback(node);

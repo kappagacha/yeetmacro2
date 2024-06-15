@@ -38,7 +38,7 @@ public interface IParentNode<TParent, TChild> : IParentNode
     where TParent : Node, TChild
     where TChild : Node
 {
-    ICollection<TChild> Nodes { get; set; }
+    IList<TChild> Nodes { get; set; }
 }
 
 // https://learn.microsoft.com/en-us/dotnet/csharp/programming-guide/concepts/attributes/

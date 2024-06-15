@@ -22,7 +22,7 @@ public enum SettingType
 public class ParentSetting : SettingNode, IParentNode<ParentSetting, SettingNode>
 {
     [JsonIgnore]
-    public virtual ICollection<SettingNode> Nodes { get; set; } = new List<SettingNode>();
+    public virtual IList<SettingNode> Nodes { get; set; } = new List<SettingNode>();
     public override SettingType SettingType => SettingType.Parent;
     public override TTarget GetValue<TTarget>()
     {

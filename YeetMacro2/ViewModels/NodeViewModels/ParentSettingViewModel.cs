@@ -31,23 +31,17 @@ public partial class ParentSettingViewModel : ParentSetting
     static IMapper _mapper;
     Dictionary<string, SettingNode> _nodeCache;
 
-    public override ICollection<SettingNode> Nodes
+    public override IList<SettingNode> Nodes
     {
         get => base.Nodes;
         set {
             if (value is null)
             {
-                base.Nodes = new ObservableCollection<SettingNode>();
-                OnPropertyChanged();
-                OnPropertyChanged(nameof(IsLeaf));
-                return;
-            }
-            base.Nodes = new ObservableCollection<SettingNode>();
-            foreach (var val in value)
+                base.Nodes = new NodeObservableCollection<ParentSettingViewModel, SettingNode>();
+            } 
+            else
             {
-                var mappedTypes = NodeTypeMappingAttribute.GetMappedType<ParentSettingViewModel>();
-                var targetType = mappedTypes[val.GetType()];
-                base.Nodes.Add((SettingNode)_mapper.Map(val, val.GetType(), targetType));
+                base.Nodes = new NodeObservableCollection<ParentSettingViewModel, SettingNode>(value);
             }
             OnPropertyChanged();
             OnPropertyChanged(nameof(IsLeaf));
@@ -103,7 +97,7 @@ public partial class ParentSettingViewModel : ParentSetting
 
     public ParentSettingViewModel()
     {
-        base.Nodes = new ObservableCollection<SettingNode>();
+        base.Nodes = new NodeObservableCollection<ParentSettingViewModel, SettingNode>();
         _nodeCache = new Dictionary<string, SettingNode>();
     }
 

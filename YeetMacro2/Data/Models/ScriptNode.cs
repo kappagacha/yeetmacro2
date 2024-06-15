@@ -8,7 +8,7 @@ public class ScriptNode : Node, IParentNode<ScriptNode, ScriptNode>
     public virtual bool IsHidden { get; set; }
     public virtual bool IsFavorite { get; set; }
     [JsonIgnore]
-    public virtual ICollection<ScriptNode> Nodes { get; set; } = new List<ScriptNode>();
+    public virtual IList<ScriptNode> Nodes { get; set; } = new List<ScriptNode>();
     public virtual string Text { get; set; }
     [JsonIgnore]
     public virtual string Description { get; set; }

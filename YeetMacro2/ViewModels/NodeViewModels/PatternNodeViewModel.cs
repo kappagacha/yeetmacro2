@@ -10,7 +10,7 @@ namespace YeetMacro2.ViewModels.NodeViewModels;
 public partial class PatternNodeViewModel : PatternNode
 {
     Dictionary<string, PatternNodeViewModel> _nodeCache;
-    public override ICollection<PatternNode> Nodes
+    public override IList<PatternNode> Nodes
     {
         get => base.Nodes;
         set {
@@ -20,7 +20,7 @@ public partial class PatternNodeViewModel : PatternNode
         }
     }
 
-    public override ICollection<Pattern> Patterns
+    public override IList<Pattern> Patterns
     {
         get => base.Patterns;
         set
