@@ -16,17 +16,26 @@
              x:Name="thisView">
     <ContentView.Resources>
         <DataTemplate x:Key="SharedTemplate">
-            <Grid HeightRequest="20">
-                <Label Text="{Binding Name}" TextColor="{StaticResource PrimaryDark}" Margin="0" Padding="0" VerticalOptions="Center" BackgroundColor="Transparent">
-                    <Label.Triggers>
-                        <DataTrigger TargetType="{x:Type Label}" Binding="{Binding IsSelected}" Value="True">
-                            <Setter Property="Background" Value="Blue" />
-                        </DataTrigger>
-                    </Label.Triggers>
-                </Label>
-                <ImageButton Margin="0" Padding="0" CommandParameter="{Binding .}" 
-                             Command="{Binding BindingContext.Settings.SelectNodeCommand, Source={RelativeSource AncestorType={x:Type v:SettingNodeView}}}" />
-            </Grid>
+            <FlexLayout JustifyContent="SpaceBetween">
+                <HorizontalStackLayout>
+                    <Grid>
+                        <Label Text="{Binding Name}" TextColor="{StaticResource PrimaryDark}" Margin="0" Padding="0" VerticalOptions="Center" BackgroundColor="Transparent">
+                            <Label.Triggers>
+                                <DataTrigger TargetType="{x:Type Label}" Binding="{Binding IsSelected}" Value="True">
+                                    <Setter Property="Background" Value="Blue" />
+                                </DataTrigger>
+                            </Label.Triggers>
+                        </Label>
+                        <ImageButton Margin="0" Padding="0" CommandParameter="{Binding .}" 
+                            Command="{Binding BindingContext.Settings.SelectNodeCommand, Source={RelativeSource AncestorType={x:Type v:SettingNodeView}}}" />
+                    </Grid>
+                    <ContentPresenter Grid.Column="1" x:Name="contentPresenter" BindingContext="{Binding .}" />
+                </HorizontalStackLayout>
+                <v:ImageView
+                    VerticalOptions="Center" FontFamily="MaterialOutlined" Glyph="{x:Static mi:MaterialOutlined.Refresh}"
+                    Command="{Binding BindingContext.Settings.ResetSettingCommand, Source={RelativeSource AncestorType={x:Type v:SettingNodeView}}}"
+                    CommandParameter="{Binding .}" />
+            </FlexLayout>
         </DataTemplate>
         <DataTemplate x:Key="ParentSettingTemplate" x:DataType="{x:Null}">
             <Grid ColumnDefinitions="Auto, *" RowDefinitions="Auto, Auto" ColumnSpacing="5">
@@ -54,173 +63,144 @@
                     </Grid>
                 </Grid>
                 <Grid Grid.Row="1" Grid.Column="1" IsVisible="{Binding Nodes.Count, Converter={conv:NumberToBoolConverter}}">
-                    <CollectionView ItemsSource="{Binding Nodes}" IsVisible="{Binding IsExpanded}"
+                    <CollectionView Margin="15,0,0,0" ItemsSource="{Binding Nodes}" IsVisible="{Binding IsExpanded}"
                                     ItemTemplate="{conv:DynamicTemplateSelector Root={Binding .,Source={Reference thisView}}}" />
                 </Grid>
             </Grid>
         </DataTemplate>
         <DataTemplate x:Key="BooleanSettingTemplate">
-            <FlexLayout JustifyContent="SpaceBetween">
-                <HorizontalStackLayout>
-                    <v:DataTemplateView DataTemplate="{StaticResource SharedTemplate}" />
-                    <CheckBox IsChecked="{Binding Value}" VerticalOptions="Center" />
-                </HorizontalStackLayout>
-                <v:ImageView
-                    VerticalOptions="Center" FontFamily="MaterialOutlined" Glyph="{x:Static mi:MaterialOutlined.Refresh}"
-                    Command="{Binding BindingContext.Settings.ResetSettingCommand, Source={RelativeSource AncestorType={x:Type v:SettingNodeView}}}"
-                    CommandParameter="{Binding .}" />
-            </FlexLayout>
+            <v:DataTemplateView DataTemplate="{StaticResource SharedTemplate}">
+                <v:DataTemplateView.ContentTemplate>
+                    <DataTemplate>
+                        <CheckBox IsChecked="{Binding Value}" VerticalOptions="Center" />
+                    </DataTemplate>
+                </v:DataTemplateView.ContentTemplate>
+            </v:DataTemplateView>
         </DataTemplate>
         <DataTemplate x:Key="OptionSettingTemplate">
-            <FlexLayout JustifyContent="SpaceBetween">
-                <HorizontalStackLayout>
-                    <v:DataTemplateView DataTemplate="{StaticResource SharedTemplate}" />
-                    <Label Margin="0" Padding="0" VerticalOptions="Center" Text=": " />
-                    <Grid>
-                        <Label Margin="0" Padding="0" Text="{Binding Value}" VerticalOptions="Center" />
-                        <ImageButton Margin="0" Padding="0"
-                            Command="{Binding BindingContext.Settings.SelectOptionCommand, Source={RelativeSource AncestorType={x:Type v:SettingNodeView}}}"
-                            CommandParameter="{Binding .}" />
-                    </Grid>
-                    <v:ImageView
-                        VerticalOptions="Center" FontFamily="MaterialOutlined" Glyph="{x:Static mi:MaterialOutlined.Add}"
-                        Command="{Binding BindingContext.Settings.AddOptionCommand, Source={RelativeSource AncestorType={x:Type v:SettingNodeView}}}"
-                        CommandParameter="{Binding .}" />
-                </HorizontalStackLayout>
-                <v:ImageView
-                         VerticalOptions="Center" FontFamily="MaterialOutlined" Glyph="{x:Static mi:MaterialOutlined.Refresh}"
-                         Command="{Binding BindingContext.Settings.ResetSettingCommand, Source={RelativeSource AncestorType={x:Type v:SettingNodeView}}}"
-                         CommandParameter="{Binding .}" />
-            </FlexLayout>
+            <v:DataTemplateView DataTemplate="{StaticResource SharedTemplate}">
+                <v:DataTemplateView.ContentTemplate>
+                    <DataTemplate>
+                        <HorizontalStackLayout>
+                            <Grid>
+                                <Label Margin="0" Padding="0" Text="{Binding Value}" VerticalOptions="Center" />
+                                <ImageButton Margin="0" Padding="0"
+                                    Command="{Binding BindingContext.Settings.SelectOptionCommand, Source={RelativeSource AncestorType={x:Type v:SettingNodeView}}}"
+                                    CommandParameter="{Binding .}" />
+                            </Grid>
+                            <v:ImageView
+                                VerticalOptions="Center" FontFamily="MaterialOutlined" Glyph="{x:Static mi:MaterialOutlined.Add}"
+                                Command="{Binding BindingContext.Settings.AddOptionCommand, Source={RelativeSource AncestorType={x:Type v:SettingNodeView}}}"
+                                CommandParameter="{Binding .}" />
+                        </HorizontalStackLayout>
+                    </DataTemplate>
+                </v:DataTemplateView.ContentTemplate>
+            </v:DataTemplateView>
         </DataTemplate>
         <DataTemplate x:Key="EnabledOptionSettingTemplate">
-            <FlexLayout JustifyContent="SpaceBetween">
-                <HorizontalStackLayout>
-                    <v:DataTemplateView DataTemplate="{StaticResource SharedTemplate}" />
-                    <CheckBox IsChecked="{Binding IsEnabled}" VerticalOptions="Center" />
-                    <Grid>
-                        <Label Margin="0" Padding="0" Text="{Binding Value}" VerticalOptions="Center" />
-                        <ImageButton Margin="0" Padding="0"
-                            Command="{Binding BindingContext.Settings.SelectOptionCommand, Source={RelativeSource AncestorType={x:Type v:SettingNodeView}}}"
-                            CommandParameter="{Binding .}" />
-                    </Grid>
-                    <v:ImageView
-                        VerticalOptions="Center" FontFamily="MaterialOutlined" Glyph="{x:Static mi:MaterialOutlined.Add}"
-                        Command="{Binding BindingContext.Settings.AddOptionCommand, Source={RelativeSource AncestorType={x:Type v:SettingNodeView}}}"
-                        CommandParameter="{Binding .}" />
-                </HorizontalStackLayout>
-                <v:ImageView
-                 VerticalOptions="Center" FontFamily="MaterialOutlined" Glyph="{x:Static mi:MaterialOutlined.Refresh}"
-                 Command="{Binding BindingContext.Settings.ResetSettingCommand, Source={RelativeSource AncestorType={x:Type v:SettingNodeView}}}"
-                 CommandParameter="{Binding .}" />
-            </FlexLayout>
+            <v:DataTemplateView DataTemplate="{StaticResource SharedTemplate}">
+                <v:DataTemplateView.ContentTemplate>
+                    <DataTemplate>
+                        <HorizontalStackLayout>
+                            <CheckBox IsChecked="{Binding IsEnabled}" VerticalOptions="Center" />
+                            <Grid>
+                                <Label Margin="0" Padding="0" Text="{Binding Value}" VerticalOptions="Center" />
+                                <ImageButton Margin="0" Padding="0"
+                                    Command="{Binding BindingContext.Settings.SelectOptionCommand, Source={RelativeSource AncestorType={x:Type v:SettingNodeView}}}"
+                                    CommandParameter="{Binding .}" />
+                            </Grid>
+                            <v:ImageView
+                                VerticalOptions="Center" FontFamily="MaterialOutlined" Glyph="{x:Static mi:MaterialOutlined.Add}"
+                                Command="{Binding BindingContext.Settings.AddOptionCommand, Source={RelativeSource AncestorType={x:Type v:SettingNodeView}}}"
+                                CommandParameter="{Binding .}" />
+                        </HorizontalStackLayout>
+                    </DataTemplate>
+                </v:DataTemplateView.ContentTemplate>
+            </v:DataTemplateView>
         </DataTemplate>
         <DataTemplate x:Key="StringSettingTemplate">
-            <FlexLayout JustifyContent="SpaceBetween">
-                <HorizontalStackLayout>
-                    <v:DataTemplateView DataTemplate="{StaticResource SharedTemplate}" />
-                    <Entry VerticalOptions="Center" Text="{Binding Value}" />
-                </HorizontalStackLayout>
-                <v:ImageView
-                    VerticalOptions="Center" FontFamily="MaterialOutlined" Glyph="{x:Static mi:MaterialOutlined.Refresh}"
-                    Command="{Binding BindingContext.Settings.ResetSettingCommand, Source={RelativeSource AncestorType={x:Type v:SettingNodeView}}}"
-                    CommandParameter="{Binding .}" />
-            </FlexLayout>
+            <v:DataTemplateView DataTemplate="{StaticResource SharedTemplate}">
+                <v:DataTemplateView.ContentTemplate>
+                    <DataTemplate>
+                        <Entry VerticalOptions="Center" Text="{Binding Value}" />
+                    </DataTemplate>
+                </v:DataTemplateView.ContentTemplate>
+            </v:DataTemplateView>
         </DataTemplate>
         <DataTemplate x:Key="EnabledStringSettingTemplate">
-            <FlexLayout JustifyContent="SpaceBetween">
-                <HorizontalStackLayout>
-                    <v:DataTemplateView DataTemplate="{StaticResource SharedTemplate}" />
-                    <CheckBox IsChecked="{Binding IsEnabled}" VerticalOptions="Center" />
-                    <Entry VerticalOptions="Center" Text="{Binding Value}" />
-                </HorizontalStackLayout>
-                <v:ImageView
-                    VerticalOptions="Center" FontFamily="MaterialOutlined" Glyph="{x:Static mi:MaterialOutlined.Refresh}"
-                    Command="{Binding BindingContext.Settings.ResetSettingCommand, Source={RelativeSource AncestorType={x:Type v:SettingNodeView}}}"
-                    CommandParameter="{Binding .}" />
-            </FlexLayout>
+            <v:DataTemplateView DataTemplate="{StaticResource SharedTemplate}">
+                <v:DataTemplateView.ContentTemplate>
+                    <DataTemplate>
+                        <HorizontalStackLayout>
+                            <CheckBox IsChecked="{Binding IsEnabled}" VerticalOptions="Center" />
+                            <Entry VerticalOptions="Center" Text="{Binding Value}" />
+                        </HorizontalStackLayout>
+                    </DataTemplate>
+                </v:DataTemplateView.ContentTemplate>
+            </v:DataTemplateView>
         </DataTemplate>
         <DataTemplate x:Key="IntegerSettingTemplate">
-            <FlexLayout JustifyContent="SpaceBetween">
-                <HorizontalStackLayout>
-                    <v:DataTemplateView DataTemplate="{StaticResource SharedTemplate}" />
-                    <v:IntegerStepper Value="{Binding Value}" ShowIncrement="True" Increment="{Binding Increment}" />
-                </HorizontalStackLayout>
-                <v:ImageView
-                    VerticalOptions="Center" FontFamily="MaterialOutlined" Glyph="{x:Static mi:MaterialOutlined.Refresh}"
-                    Command="{Binding BindingContext.Settings.ResetSettingCommand, Source={RelativeSource AncestorType={x:Type v:SettingNodeView}}}"
-                    CommandParameter="{Binding .}" />
-            </FlexLayout>
+            <v:DataTemplateView DataTemplate="{StaticResource SharedTemplate}">
+                <v:DataTemplateView.ContentTemplate>
+                    <DataTemplate>
+                        <v:IntegerStepper Value="{Binding Value}" ShowIncrement="True" Increment="{Binding Increment}" />
+                    </DataTemplate>
+                </v:DataTemplateView.ContentTemplate>
+            </v:DataTemplateView>
         </DataTemplate>
         <DataTemplate x:Key="EnabledIntegerSettingTemplate">
-            <FlexLayout JustifyContent="SpaceBetween">
-                <HorizontalStackLayout>
-                    <v:DataTemplateView DataTemplate="{StaticResource SharedTemplate}" />
-                    <CheckBox mct:DockLayout.DockPosition="Left" IsChecked="{Binding IsEnabled}" VerticalOptions="Center" />
-                    <v:IntegerStepper Value="{Binding Value}" ShowIncrement="True" Increment="{Binding Increment}" />
-                </HorizontalStackLayout>
-                <v:ImageView
-                    VerticalOptions="Center" FontFamily="MaterialOutlined" Glyph="{x:Static mi:MaterialOutlined.Refresh}"
-                    Command="{Binding BindingContext.Settings.ResetSettingCommand, Source={RelativeSource AncestorType={x:Type v:SettingNodeView}}}"
-                    CommandParameter="{Binding .}" />
-            </FlexLayout>
+            <v:DataTemplateView DataTemplate="{StaticResource SharedTemplate}">
+                <v:DataTemplateView.ContentTemplate>
+                    <DataTemplate>
+                        <HorizontalStackLayout>
+                            <CheckBox IsChecked="{Binding IsEnabled}" VerticalOptions="Center" />
+                            <v:IntegerStepper Value="{Binding Value}" ShowIncrement="True" Increment="{Binding Increment}" />
+                        </HorizontalStackLayout>
+                    </DataTemplate>
+                </v:DataTemplateView.ContentTemplate>
+            </v:DataTemplateView>
         </DataTemplate>
         <DataTemplate x:Key="DoubleSettingTemplate">
-            <FlexLayout JustifyContent="SpaceBetween">
-                <HorizontalStackLayout>
-                    <v:DataTemplateView DataTemplate="{StaticResource SharedTemplate}" />
-                    <v:DoubleStepper Value="{Binding Value}" ShowIncrement="True" Increment="{Binding Increment}" />
-                </HorizontalStackLayout>
-                <v:ImageView
-                    VerticalOptions="Center" FontFamily="MaterialOutlined" Glyph="{x:Static mi:MaterialOutlined.Refresh}"
-                    Command="{Binding BindingContext.Settings.ResetSettingCommand, Source={RelativeSource AncestorType={x:Type v:SettingNodeView}}}"
-                    CommandParameter="{Binding .}" />
-            </FlexLayout>
+            <v:DataTemplateView DataTemplate="{StaticResource SharedTemplate}">
+                <v:DataTemplateView.ContentTemplate>
+                    <DataTemplate>
+                        <v:DoubleStepper Value="{Binding Value}" ShowIncrement="True" Increment="{Binding Increment}" />
+                    </DataTemplate>
+                </v:DataTemplateView.ContentTemplate>
+            </v:DataTemplateView>
         </DataTemplate>
         <DataTemplate x:Key="EnabledDoubleSettingTemplate">
-            <FlexLayout JustifyContent="SpaceBetween">
-                <HorizontalStackLayout>
-                    <v:DataTemplateView DataTemplate="{StaticResource SharedTemplate}" />
-                    <CheckBox mct:DockLayout.DockPosition="Left" IsChecked="{Binding IsEnabled}" VerticalOptions="Center" />
-                    <v:DoubleStepper Value="{Binding Value}" ShowIncrement="True" Increment="{Binding Increment}" />
-                </HorizontalStackLayout>
-                <v:ImageView
-                    VerticalOptions="Center" FontFamily="MaterialOutlined" Glyph="{x:Static mi:MaterialOutlined.Refresh}"
-                    Command="{Binding BindingContext.Settings.ResetSettingCommand, Source={RelativeSource AncestorType={x:Type v:SettingNodeView}}}"
-                    CommandParameter="{Binding .}" />
-            </FlexLayout>
+            <v:DataTemplateView DataTemplate="{StaticResource SharedTemplate}">
+                <v:DataTemplateView.ContentTemplate>
+                    <DataTemplate>
+                        <HorizontalStackLayout>
+                            <CheckBox mct:DockLayout.DockPosition="Left" IsChecked="{Binding IsEnabled}" VerticalOptions="Center" />
+                            <v:DoubleStepper Value="{Binding Value}" ShowIncrement="True" Increment="{Binding Increment}" />
+                        </HorizontalStackLayout>
+                    </DataTemplate>
+                </v:DataTemplateView.ContentTemplate>
+            </v:DataTemplateView>
         </DataTemplate>
         <DataTemplate x:Key="PatternSettingTemplate">
-            <FlexLayout JustifyContent="SpaceBetween">
-                <HorizontalStackLayout>
-                    <v:DataTemplateView DataTemplate="{StaticResource SharedTemplate}" />
-                </HorizontalStackLayout>
-                <v:ImageView
-                    VerticalOptions="Center" FontFamily="MaterialOutlined" Glyph="{x:Static mi:MaterialOutlined.Refresh}"
-                    Command="{Binding BindingContext.Settings.ResetSettingCommand, Source={RelativeSource AncestorType={x:Type v:SettingNodeView}}}"
-                    CommandParameter="{Binding .}" />
-            </FlexLayout>
+            <v:DataTemplateView DataTemplate="{StaticResource SharedTemplate}" />
         </DataTemplate>
         <DataTemplate x:Key="EnabledPatternSettingTemplate">
-            <FlexLayout JustifyContent="SpaceBetween">
-                <HorizontalStackLayout>
-                    <v:DataTemplateView DataTemplate="{StaticResource SharedTemplate}" />
-                    <CheckBox IsChecked="{Binding IsEnabled}" VerticalOptions="Center" />
-                </HorizontalStackLayout>
-                <v:ImageView
-                    VerticalOptions="Center" FontFamily="MaterialOutlined" Glyph="{x:Static mi:MaterialOutlined.Refresh}"
-                    Command="{Binding BindingContext.Settings.ResetSettingCommand, Source={RelativeSource AncestorType={x:Type v:SettingNodeView}}}"
-                    CommandParameter="{Binding .}" />
-            </FlexLayout>
+            <v:DataTemplateView DataTemplate="{StaticResource SharedTemplate}">
+                <v:DataTemplateView.ContentTemplate>
+                    <DataTemplate>
+                        <CheckBox IsChecked="{Binding IsEnabled}" VerticalOptions="Center" />
+                    </DataTemplate>
+                </v:DataTemplateView.ContentTemplate>
+            </v:DataTemplateView>
         </DataTemplate>
         <DataTemplate x:Key="TimestampSettingTemplate">
-            <FlexLayout>
-                <HorizontalStackLayout>
-                    <v:DataTemplateView DataTemplate="{StaticResource SharedTemplate}" />
-                    <CheckBox IsChecked="{Binding IsEnabled}" VerticalOptions="Center" />
-                </HorizontalStackLayout>
-                <Label Margin="0" Padding="0" VerticalOptions="Center" Text="{Binding LocalValue, StringFormat=' {0:MM/dd/yyyy hh:mm tt}'}" />
-            </FlexLayout>
+            <v:DataTemplateView DataTemplate="{StaticResource SharedTemplate}">
+                <v:DataTemplateView.ContentTemplate>
+                    <DataTemplate>
+                        <Label Margin="0" Padding="0" VerticalOptions="Center" Text="{Binding LocalValue, StringFormat=' {0:MM/dd/yyyy hh:mm tt}'}" />
+                    </DataTemplate>
+                </v:DataTemplateView.ContentTemplate>
+            </v:DataTemplateView>
         </DataTemplate>
     </ContentView.Resources>
     <Grid ColumnDefinitions="*">
