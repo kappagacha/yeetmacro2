@@ -22,6 +22,7 @@
                                    Glyph="{x:Static mi:MaterialOutlined.Keyboard_arrow_right}"
                                    ToggledGlyph="{x:Static mi:MaterialOutlined.Keyboard_arrow_down}"
                                    IsToggled="{Binding IsExpanded}"
+                                   IsToggledFromImageOnly="True"
                                    HeightRequest="20" />
                 <Grid Grid.Row="0" Grid.Column="1" HeightRequest="20">
                     <Grid HeightRequest="20">
@@ -61,25 +62,31 @@
             <Grid VerticalOptions="End" HorizontalOptions="End" BindingContext="{Binding ., Source={Reference thisView}}"
                   IsVisible="{Binding IsMenuVisible, Source={Reference thisView}}">
                 <VerticalStackLayout>
-                    <VerticalStackLayout IsVisible="{Binding IsMenuOpen}">
+                    <VerticalStackLayout IsVisible="{Binding IsToggled, Source={Reference menuToggle}}">
                         <ContentView x:Name="extraMenuItemsContentView" />
                         <v:ImageView FontFamily="MaterialOutlined" Glyph="{x:Static mi:MaterialOutlined.Unfold_more_double}" Command="{Binding NodeManager.ExpandAllCommand}" 
                                      IsVisible="{Binding NodeManager.IsList, Converter={conv:InverseBoolConverter}}" />
                         <v:ImageView FontFamily="MaterialOutlined" Glyph="{x:Static mi:MaterialOutlined.Unfold_less_double}" Command="{Binding NodeManager.CollapseAllCommand}" 
                                      IsVisible="{Binding NodeManager.IsList, Converter={conv:InverseBoolConverter}}" />
+                        <v:ImageView FontFamily="MaterialRegular" Glyph="{x:Static mi:MaterialRegular.Vertical_align_top}"
+                                     IsVisible="{Binding NodeManager.SelectedNode, Converter={conv:NullToBoolConverter IsInverse=True}}"
+                                     Command="{Binding NodeManager.MoveNodeTopCommand}" CommandParameter="{Binding NodeManager.SelectedNode}" />
                         <v:ImageView FontFamily="FASolid" Glyph="{x:Static fa:Solid.ArrowUp}"
-                                 IsVisible="{Binding NodeManager.SelectedNode, Converter={conv:NullToBoolConverter IsInverse=True}}"
-                                 Command="{Binding NodeManager.MoveNodeUpCommand}" CommandParameter="{Binding NodeManager.SelectedNode}" />
+                                    IsVisible="{Binding NodeManager.SelectedNode, Converter={conv:NullToBoolConverter IsInverse=True}}"
+                                    Command="{Binding NodeManager.MoveNodeUpCommand}" CommandParameter="{Binding NodeManager.SelectedNode}" />
                         <v:ImageView FontFamily="FASolid" Glyph="{x:Static fa:Solid.ArrowDown}"
-                                 IsVisible="{Binding NodeManager.SelectedNode, Converter={conv:NullToBoolConverter IsInverse=True}}"
-                                 Command="{Binding NodeManager.MoveNodeDownCommand}" CommandParameter="{Binding NodeManager.SelectedNode}" />
+                                     IsVisible="{Binding NodeManager.SelectedNode, Converter={conv:NullToBoolConverter IsInverse=True}}"
+                                     Command="{Binding NodeManager.MoveNodeDownCommand}" CommandParameter="{Binding NodeManager.SelectedNode}" />
+                        <v:ImageView FontFamily="MaterialRegular" Glyph="{x:Static mi:MaterialRegular.Vertical_align_bottom}"
+                                     IsVisible="{Binding NodeManager.SelectedNode, Converter={conv:NullToBoolConverter IsInverse=True}}"
+                                     Command="{Binding NodeManager.MoveNodeBottomCommand}" CommandParameter="{Binding NodeManager.SelectedNode}" />
                         <v:ImageView FontFamily="FASolid" Glyph="{x:Static fa:Solid.Pencil}"
                                      IsVisible="{Binding NodeManager.SelectedNode, Converter={conv:NullToBoolConverter IsInverse=True}}"
                                      Command="{Binding NodeManager.RenameNodeCommand}" CommandParameter="{Binding NodeManager.SelectedNode}" />
                         <Grid IsVisible="{Binding NodeManager.HasCopyClipboard, Converter={conv:InverseBoolConverter}}">
                             <v:ImageView FontFamily="MaterialOutlined" Glyph="{x:Static mi:MaterialOutlined.Content_copy}"
-                                 IsVisible="{Binding NodeManager.SelectedNode, Converter={conv:NullToBoolConverter IsInverse=True}}"
-                                 Command="{Binding NodeManager.CopyNodeCommand}" CommandParameter="{Binding NodeManager.SelectedNode}" />
+                                         IsVisible="{Binding NodeManager.SelectedNode, Converter={conv:NullToBoolConverter IsInverse=True}}"
+                                         Command="{Binding NodeManager.CopyNodeCommand}" CommandParameter="{Binding NodeManager.SelectedNode}" />
                         </Grid>
                         <Grid IsVisible="{Binding NodeManager.HasCopyClipboard}">
                             <v:ImageView FontFamily="MaterialOutlined" Glyph="{x:Static mi:MaterialOutlined.Content_paste}" Command="{Binding NodeManager.PasteNodeCommand}"
@@ -98,15 +105,7 @@
                         <v:ImageView FontFamily="MaterialOutlined" Glyph="{x:Static mi:MaterialOutlined.Sort}" Command="{Binding NodeManager.RefreshCollectionsCommand}" 
                                      IsVisible="{Binding NodeManager.IsList}" />
                     </VerticalStackLayout>
-                    <Border Stroke="{StaticResource Primary}" StrokeThickness="0" BackgroundColor="Transparent">
-                        <Border.Triggers>
-                            <DataTrigger TargetType="Border" Binding="{Binding IsMenuOpen}" Value="True">
-                                <Setter Property="StrokeThickness" Value="1" />
-                            </DataTrigger>
-                        </Border.Triggers>
-                        <v:ImageView FontFamily="FASolid" Glyph="{x:Static fa:Solid.Bars}"
-                             Command="{Binding ToggleIsMenuOpenCommand}" />
-                    </Border>
+                    <v:ToggleImageView x:Name="menuToggle" FontFamily="FASolid" Glyph="{x:Static fa:Solid.Bars}" ToggledColor="Green" />
                 </VerticalStackLayout>
             </Grid>
         </Grid>

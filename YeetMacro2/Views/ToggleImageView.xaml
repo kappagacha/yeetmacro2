@@ -133,17 +133,12 @@
                VerticalTextAlignment="Center"
                FontSize="{Binding FontSize, Source={Reference thisView}}"
                Text="{Binding Text, Source={Reference thisView}}" />
-        <Grid Grid.Column="0">
-            <Grid.Triggers>
-                <DataTrigger TargetType="Grid" Binding="{Binding ImageWidth, Source={Reference thisView}, Converter={conv:NullToBoolConverter}}" Value="False">
-                    <Setter Property="WidthRequest" Value="{Binding ImageWidth, Source={Reference thisView}}" />
-                </DataTrigger>
-            </Grid.Triggers>
+        <Grid Grid.Column="0" WidthRequest="{Binding ImageWidth, Source={Reference thisView}, TargetNullValue={StaticResource IconWidth}, FallbackValue={StaticResource IconWidth}}">
             <ImageButton
                 Padding="0" Margin="0" Clicked="ImageButton_Clicked" 
                 IsVisible="{Binding Command, Source={Reference thisView}, Converter={conv:NullToBoolConverter}}" />
         </Grid>
-        <Grid Grid.Column="1" IsVisible="{Binding IsToggledFromImageOnly, Source={Reference thisView}}">
+        <Grid Grid.Column="1" IsVisible="{Binding IsToggledFromImageOnly, Source={Reference thisView}, Converter={conv:InverseBoolConverter}}">
             <ImageButton Padding="0" Margin="0" Clicked="ImageButton_Clicked" 
                      IsVisible="{Binding Command, Source={Reference thisView}, Converter={conv:NullToBoolConverter}}">
             </ImageButton>

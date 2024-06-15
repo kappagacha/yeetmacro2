@@ -3,7 +3,7 @@ namespace YeetMacro2.Views;
 public partial class DailyNodeView : ContentView
 {
     public static readonly BindableProperty IsSubViewProperty =
-        BindableProperty.Create("IsSubView", typeof(bool), typeof(SettingNodeView), false);
+        BindableProperty.Create("IsSubView", typeof(bool), typeof(DailyNodeView), false);
 
     public bool IsSubView
     {
@@ -14,12 +14,4 @@ public partial class DailyNodeView : ContentView
 	{
 		InitializeComponent();
 	}
-
-    private void TemplateEditor_SelectAll(object sender, EventArgs e)
-    {
-        if (templateEditor.Text == null) return;
-        templateEditor.Focus();
-        templateEditor.CursorPosition = 0;
-        templateEditor.SelectionLength = templateEditor.Text.Length;
-    }
 }

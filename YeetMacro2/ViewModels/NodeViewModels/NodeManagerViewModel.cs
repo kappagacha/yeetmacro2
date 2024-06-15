@@ -265,7 +265,7 @@ public partial class NodeManagerViewModel<TViewModel, TParent, TChild> : NodeMan
                 SelectedNode.IsSelected = false;
             }
 
-            target.IsSelected = true;
+            if (target is not null) target.IsSelected = true;
             SelectedNode = target;
         }
 
@@ -288,15 +288,36 @@ public partial class NodeManagerViewModel<TViewModel, TParent, TChild> : NodeMan
     }
 
     [RelayCommand]
+    public void MoveNodeTop(TChild node)
+    {
+        var parent = (TParent)_nodeService.Get(node.ParentId.Value);
+        for (int i = 0; i < parent.Nodes.Count; i++)
+        {
+            parent.Nodes[i].Position = i;
+        }
+
+        if (node.Position == 0) return;
+
+        foreach (var child in parent.Nodes)
+        {
+            if (child.Position < node.Position)
+            {
+                child.Position++;
+            }
+        }
+        node.Position = 0;
+        _nodeService.Save();
+
+        ((NodeObservableCollection<TViewModel, TChild>)parent.Nodes).OnCollectionReset();
+    }
+
+    [RelayCommand]
     public void MoveNodeUp(TChild node)
     {
         var parent = (TParent)_nodeService.Get(node.ParentId.Value);
-        if (parent.Nodes.All(n => n.Position == 0))
+        for (int i = 0; i < parent.Nodes.Count; i++)
         {
-            for (int i = 0; i < parent.Nodes.Count; i++)
-            {
-                parent.Nodes[i].Position = i;
-            }
+            parent.Nodes[i].Position = i;
         }
 
         if (node.Position == 0) return;
@@ -313,12 +334,9 @@ public partial class NodeManagerViewModel<TViewModel, TParent, TChild> : NodeMan
     public void MoveNodeDown(TChild node)
     {
         var parent = (TParent)_nodeService.Get(node.ParentId.Value);
-        if (parent.Nodes.All(n => n.Position == 0))
+        for (int i = 0; i < parent.Nodes.Count; i++)
         {
-            for (int i = 0; i < parent.Nodes.Count; i++)
-            {
-                parent.Nodes[i].Position = i;
-            }
+            parent.Nodes[i].Position = i;
         }
 
         if (node.Position == parent.Nodes.Count - 1) return;
@@ -326,6 +344,30 @@ public partial class NodeManagerViewModel<TViewModel, TParent, TChild> : NodeMan
         var nodeBelow = parent.Nodes.First(n => n.Position == node.Position + 1);
         nodeBelow.Position--;
         node.Position++;
+        _nodeService.Save();
+
+        ((NodeObservableCollection<TViewModel, TChild>)parent.Nodes).OnCollectionReset();
+    }
+
+    [RelayCommand]
+    public void MoveNodeBottom(TChild node)
+    {
+        var parent = (TParent)_nodeService.Get(node.ParentId.Value);
+        for (int i = 0; i < parent.Nodes.Count; i++)
+        {
+            parent.Nodes[i].Position = i;
+        }
+
+        if (node.Position == parent.Nodes.Count - 1) return;
+
+        foreach (var child in parent.Nodes)
+        {
+            if (child.Position > node.Position)
+            {
+                child.Position--;
+            }
+        }
+        node.Position = parent.Nodes.Count - 1;
         _nodeService.Save();
 
         ((NodeObservableCollection<TViewModel, TChild>)parent.Nodes).OnCollectionReset();

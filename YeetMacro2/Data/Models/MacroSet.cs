@@ -27,9 +27,11 @@ public class MacroSet
     public virtual DateTimeOffset? PatternsLastUpdated { get; set; }
     public virtual DateTimeOffset? ScriptsLastUpdated { get; set; }
     public virtual DateTimeOffset? SettingsLastUpdated { get; set; }
+    public virtual DateTimeOffset? WeeklyTemplateLastUpdated { get; set; }
+    public virtual DateTimeOffset? DailyTemplateLastUpdated { get; set; }
     public virtual string Description { get; set; }
-    public virtual string DailyTemplate { get; set; }
+    public string DailyTemplate { get; set; }
     public virtual int DailyResetUtcHour { get; set; }
-    public virtual string WeeklyTemplate { get; set; }
+    public string WeeklyTemplate { get; set; }
     public virtual DayOfWeek WeeklyStartDay { get; set; } = DayOfWeek.Monday;
 }

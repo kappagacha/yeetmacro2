@@ -1,6 +1,5 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Messaging;
-using System.Collections.ObjectModel;
 using System.Text.Json;
 using System.Text.Json.Nodes;
 using YeetMacro2.Data.Models;
@@ -90,31 +89,41 @@ public partial class TodoViewModel: TodoNode
     {
         base.Nodes = new NodeObservableCollection<TodoViewModel, TodoNode>((a, b) => b.Date > a.Date ? 1 : 0);
     }
+
+    public void OnDataTextPropertyChanged()
+    {
+        OnPropertyChanged(nameof(DataText));
+    }
 }
 
-public abstract partial class TodoJsonElementViewModel : ObservableObject
+public abstract partial class TodoJsonElementViewModel : ObservableObject, ISortable
 {
     public virtual bool IsLeaf { get; set; } = true;
     [ObservableProperty]
-    bool _isExpanded = false;
-    //public virtual bool IsExpanded { get; set; } = false;
+    bool _isExpanded = false, _isSelected = false;
     public TodoViewModel Node { get; set; }
     public JsonObject Parent { get; set; }
+    public int Position { get; set; }
+
     [ObservableProperty]
     string _key;
+    public virtual bool IsParent => false;
 }
 
 public partial class TodoJsonParentViewModel : TodoJsonElementViewModel
 {
     [ObservableProperty]
-    ObservableCollection<TodoJsonElementViewModel> _children = new ObservableCollection<TodoJsonElementViewModel>();
+    NodeObservableCollection<TodoJsonElementViewModel, TodoJsonElementViewModel> _children = new NodeObservableCollection<TodoJsonElementViewModel, TodoJsonElementViewModel>();
     Dictionary<string, TodoJsonElementViewModel> _dict = new Dictionary<string, TodoJsonElementViewModel>();
 
     public override bool IsLeaf { get; set; } = false;
+    public override bool IsParent => true;
+    public JsonObject JsonObject { get; set; }
 
     public static TodoJsonParentViewModel Load(JsonObject jsonObject, TodoViewModel node)
     {
         var parent = new TodoJsonParentViewModel();
+        parent.JsonObject = jsonObject;
 
         foreach (var item in jsonObject)
         {
@@ -157,6 +166,26 @@ public partial class TodoJsonParentViewModel : TodoJsonElementViewModel
         return parent;
     }
 
+    public static JsonObject Export(TodoJsonParentViewModel todoJsonParentViewModel)
+    {
+        var jsonObject = new JsonObject();
+        foreach (var child in todoJsonParentViewModel.Children)
+        {
+            if (child is TodoJsonParentViewModel parentViewModel)
+            {
+                jsonObject[child.Key] = Export(parentViewModel);
+            }
+            else if (child is TodoJsonCountViewModel countViewModel)
+            {
+                jsonObject[child.Key] = (double)countViewModel.Count;
+            }
+            else if (child is TodoJsonBooleanViewModel boolViewModel) {
+                jsonObject[child.Key] = boolViewModel.IsChecked;
+            }
+        }
+        return jsonObject;
+    }
+
     public TodoJsonElementViewModel this[string key]
     {
         get
@@ -185,6 +214,7 @@ public partial class TodoJsonBooleanViewModel: TodoJsonElementViewModel
         if (Parent is null || Key is null) return;
 
         Parent[Key] = newValue;
+        Node.OnDataTextPropertyChanged();
         WeakReferenceMessenger.Default.Send(Node);
     }
 }
@@ -200,6 +230,7 @@ public partial class TodoJsonCountViewModel : TodoJsonElementViewModel
         if (Parent is null || Key is null) return;
 
         Parent[Key] = value;
+        Node.OnDataTextPropertyChanged();
         WeakReferenceMessenger.Default.Send(Node);
     }
 }

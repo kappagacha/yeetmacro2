@@ -48,6 +48,7 @@
                        Glyph="{x:Static mi:MaterialOutlined.Keyboard_arrow_right}"
                        ToggledGlyph="{x:Static mi:MaterialOutlined.Keyboard_arrow_down}"
                        IsToggled="{Binding IsExpanded}"
+                       IsToggledFromImageOnly="True"
                        HeightRequest="20" />
                 <Grid Grid.Row="0" Grid.Column="1" HeightRequest="20">
                     <Grid HeightRequest="20">
@@ -81,7 +82,7 @@
             <v:DataTemplateView DataTemplate="{StaticResource SharedTemplate}">
                 <v:DataTemplateView.ContentTemplate>
                     <DataTemplate>
-                        <HorizontalStackLayout>
+                        <HorizontalStackLayout Spacing="5">
                             <Grid>
                                 <Label Margin="0" Padding="0" Text="{Binding Value}" VerticalOptions="Center" />
                                 <ImageButton Margin="0" Padding="0"
@@ -101,7 +102,7 @@
             <v:DataTemplateView DataTemplate="{StaticResource SharedTemplate}">
                 <v:DataTemplateView.ContentTemplate>
                     <DataTemplate>
-                        <HorizontalStackLayout>
+                        <HorizontalStackLayout Spacing="5">
                             <CheckBox IsChecked="{Binding IsEnabled}" VerticalOptions="Center" />
                             <Grid>
                                 <Label Margin="0" Padding="0" Text="{Binding Value}" VerticalOptions="Center" />

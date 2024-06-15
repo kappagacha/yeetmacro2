@@ -204,6 +204,11 @@ public partial class MacroManagerViewModel : ObservableObject
         });
 
         WeakReferenceMessenger.Default.Register<TodoViewModel>(this, (r, todoNode) => {
+            if (IsBusy ||                                   // updating MacroSet   (MacroManagerViewModel)
+                //!(Dailies?.IsInitialized ?? false) ||       // loading dailies     (NodeManagerViewModel)
+                //!(Weeklies?.IsInitialized ?? false) ||      // loading weeklies     (NodeManagerViewModel)
+                todoNode.NodeId == 0)                       // json desirialization (NodeManagerViewModel)
+                return;
             _todoNodeService.Update(todoNode);
         });
 
@@ -371,6 +376,21 @@ public partial class MacroManagerViewModel : ObservableObject
         macroSet.PatternsLastUpdated = DateTimeOffset.Now;
         macroSet.ScriptsLastUpdated = DateTimeOffset.Now;
         macroSet.SettingsLastUpdated = DateTimeOffset.Now;
+
+        await Dailies.WaitForInitialization();
+        if (Dailies.Root.Data is not null)
+        {
+            macroSet.DailyTemplate = Dailies.Root.Data.ToJsonString(JsonSerializerOptions.Default);
+            macroSet.DailyTemplateLastUpdated = DateTimeOffset.Now;
+        }
+
+        await Weeklies.WaitForInitialization();
+        if (Weeklies.Root.Data is not null)
+        {
+            macroSet.WeeklyTemplate = Weeklies.Root.Data.ToJsonString(JsonSerializerOptions.Default);
+            macroSet.WeeklyTemplateLastUpdated = DateTimeOffset.Now;
+        }
+
         _macroSetRepository.Update(macroSet);
         _macroSetRepository.Save();
 
@@ -566,6 +586,20 @@ public partial class MacroManagerViewModel : ObservableObject
                 });
             });
 
+            if (targetMacroSet.DailyTemplate is not null && (!macroSet.DailyTemplateLastUpdated.HasValue || macroSet.DailyTemplateLastUpdated < targetMacroSet.DailyTemplateLastUpdated))
+            {
+                await Dailies.WaitForInitialization();
+                Dailies.Root.Data = (JsonObject)JsonObject.Parse(targetMacroSet.DailyTemplate, null, default(JsonDocumentOptions));
+                Dailies.Save();
+            }
+
+            if (targetMacroSet.WeeklyTemplate is not null && (!macroSet.WeeklyTemplateLastUpdated.HasValue || macroSet.WeeklyTemplateLastUpdated < targetMacroSet.WeeklyTemplateLastUpdated))
+            {
+                await Weeklies.WaitForInitialization();
+                Weeklies.Root.Data = (JsonObject)JsonObject.Parse(targetMacroSet.WeeklyTemplate, null, default(JsonDocumentOptions));
+                Weeklies.Save();
+            }
+
             _macroSetRepository.Update(macroSet);
             _macroSetRepository.Save();
             OnSelectedMacroSetChanged(macroSet);
@@ -700,6 +734,22 @@ public partial class MacroManagerViewModel : ObservableObject
     private void ClearSettingsLastUpdated(MacroSet macroSet)
     {
         macroSet.SettingsLastUpdated = null;
+        _macroSetRepository.Update(macroSet);
+        _macroSetRepository.Save();
+    }
+
+    [RelayCommand]
+    private void ClearDailyTemplateLastUpdated(MacroSet macroSet)
+    {
+        macroSet.DailyTemplateLastUpdated = null;
+        _macroSetRepository.Update(macroSet);
+        _macroSetRepository.Save();
+    }
+
+    [RelayCommand]
+    private void ClearWeeklyTemplateLastUpdated(MacroSet macroSet)
+    {
+        macroSet.WeeklyTemplateLastUpdated = null;
         _macroSetRepository.Update(macroSet);
         _macroSetRepository.Save();
     }

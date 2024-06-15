@@ -1,122 +1,13 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <ContentView xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             xmlns:conv="clr-namespace:YeetMacro2.Converters"
              xmlns:v="clr-namespace:YeetMacro2.Views"
              xmlns:vm="clr-namespace:YeetMacro2.ViewModels"
              vm:ViewModelLocator.ViewModelType="{x:Type vm:MacroManagerViewModel}"
-             xmlns:mct="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
-             xmlns:fa="clr-namespace:UraniumUI.Icons.FontAwesome;assembly=UraniumUI.Icons.FontAwesome"
-             xmlns:mi="clr-namespace:UraniumUI.Icons.MaterialIcons;assembly=UraniumUI.Icons.MaterialIcons"
              BackgroundColor="{AppThemeBinding Light={StaticResource Background}, Dark={StaticResource BackgroundDark}}"
              xmlns:material="http://schemas.enisn-projects.io/dotnet/maui/uraniumui/material"
              x:DataType="vm:MacroManagerViewModel"
              x:Class="YeetMacro2.Views.WeeklyNodeView"
              x:Name="thisView">
-    <ContentView.Resources>
-        <DataTemplate x:Key="TodoJsonParentTemplate" x:DataType="{x:Null}">
-            <Grid ColumnDefinitions="Auto, *" RowDefinitions="Auto, Auto" ColumnSpacing="5">
-                <Grid WidthRequest="15" />
-                <v:ToggleImageView Grid.Row="0" Grid.Column="0"
-                                   IsVisible="{Binding Children.Count, Converter={conv:NumberToBoolConverter}}"
-                                   ImageHeight="15"
-                                   ImageWidth="15"
-                                   FontFamily="MaterialOutlined" 
-                                   Glyph="{x:Static mi:MaterialOutlined.Keyboard_arrow_right}"
-                                   ToggledGlyph="{x:Static mi:MaterialOutlined.Keyboard_arrow_down}"
-                                   IsToggled="{Binding IsExpanded}"
-                                   HeightRequest="20" />
-                <Grid Grid.Row="0" Grid.Column="1" HeightRequest="20">
-                    <Label Text="{Binding Key}" TextColor="{StaticResource PrimaryDark}" Margin="0" Padding="0" VerticalOptions="Center" BackgroundColor="Transparent" />
-                    <!--<Grid HeightRequest="20">
-                        <Label Text="{Binding Key}" TextColor="{StaticResource PrimaryDark}" Margin="0" Padding="0" VerticalOptions="Center" BackgroundColor="Transparent">
-                            <Label.Triggers>
-                                <DataTrigger TargetType="{x:Type Label}" Binding="{Binding IsSelected}" Value="True">
-                                    <Setter Property="Background" Value="Blue" />
-                                </DataTrigger>
-                            </Label.Triggers>
-                        </Label>
-                        <ImageButton Margin="0" Padding="0" CommandParameter="{Binding .}" 
-                            Command="{Binding NodeManager.SelectNodeCommand, Source={RelativeSource AncestorType={x:Type v:NodeView}}}" />
-                    </Grid>-->
-                </Grid>
-                <Grid Grid.Row="1" Grid.Column="1" IsVisible="{Binding Children.Count, Converter={conv:NumberToBoolConverter}}">
-                    <CollectionView ItemsSource="{Binding Children}" IsVisible="{Binding IsExpanded}"
-                                ItemTemplate="{conv:DynamicTemplateSelector Root={Binding .,Source={Reference thisView}}}" />
-                </Grid>
-            </Grid>
-        </DataTemplate>
-        <DataTemplate x:Key="TodoJsonBooleanTemplate">
-            <HorizontalStackLayout Spacing="4">
-                <Label Text="{Binding Key}" VerticalOptions="Center" />
-                <CheckBox IsChecked="{Binding IsChecked}" VerticalOptions="Center" />
-            </HorizontalStackLayout>
-        </DataTemplate>
-        <DataTemplate x:Key="TodoJsonCountTemplate">
-            <HorizontalStackLayout>
-                <Label Text="{Binding Key}" VerticalOptions="Center" />
-                <v:IntegerStepper Value="{Binding Count}" />
-            </HorizontalStackLayout>
-        </DataTemplate>
-    </ContentView.Resources>
-    <Border Stroke="{StaticResource Primary}" BackgroundColor="Transparent" Padding="3">
-        <Grid>
-            <Grid IsVisible="{Binding IsSubView, Source={Reference thisView}}">
-                <ScrollView>
-                    <CollectionView ItemsSource="{Binding Weeklies.CurrentSubViewModel.Children}"
-                                    HorizontalOptions="Fill"  VerticalOptions="Fill"
-                                    ItemTemplate="{conv:DynamicTemplateSelector Root={Binding .,Source={Reference thisView}}}" />
-                </ScrollView>
-            </Grid>
-            <Grid ColumnDefinitions="*,3*" IsVisible="{Binding IsSubView, Converter={conv:InverseBoolConverter}, Source={Reference thisView}}">
-                <v:NodeView Grid.Column="0" NodeManager="{Binding Weeklies}" />
-                <mct:DockLayout Grid.Column="1" IsVisible="{Binding IsToggled, Source={Reference templateToggle}, Converter={conv:InverseBoolConverter}}">
-                    <DatePicker IsVisible="{Binding Weeklies.SelectedNode, Converter={conv:NullToBoolConverter IsInverse=True}}" 
-                        Date="{Binding Weeklies.SelectedNode.Date, Converter={conv:DateOnlyConverter}}" />
-                    <Grid>
-                        <ScrollView>
-                            <CollectionView IsVisible="{Binding Weeklies.ShowJsonEditor, Converter={conv:InverseBoolConverter}}"
-                                            x:DataType="{x:Null}" ItemsSource="{Binding Weeklies.SelectedNode.JsonViewModel.Children}"
-                                            HorizontalOptions="Fill"  VerticalOptions="Fill" ItemTemplate="{conv:DynamicTemplateSelector}" />
-                        </ScrollView>
-                        <Grid IsVisible="{Binding Weeklies.ShowJsonEditor}">
-                            <Editor x:Name="dataEditor" Text="{Binding Weeklies.SelectedNode.DataText, Mode=OneWay}" AutoSize="TextChanges" />
-                            <v:ImageView HorizontalOptions="End" VerticalOptions="End" Margin="0,0,30,0"
-                                         FontFamily="MaterialOutlined" Glyph="{x:Static mi:MaterialOutlined.Save}" Color="{StaticResource Primary}" 
-                                 Command="{Binding Weeklies.SaveWeeklyCommand}">
-                                <v:ImageView.CommandParameter>
-                                    <MultiBinding Converter="{conv:PassThroughConverter}">
-                                        <Binding Path="Weeklies.SelectedNode" />
-                                        <Binding Path="Text" Source="{Reference dataEditor}" />
-                                    </MultiBinding>
-                                </v:ImageView.CommandParameter>
-                            </v:ImageView>
-                        </Grid>
-                    </Grid>
-                </mct:DockLayout>
-                <Grid Grid.Column="1" IsVisible="{Binding IsToggled, Source={Reference templateToggle}}">
-                    <Editor x:Name="templateEditor" Text="{Binding SelectedMacroSet.WeeklyTemplate}" />
-                    <HorizontalStackLayout HorizontalOptions="End" VerticalOptions="End" IsVisible="{Binding IsToggled, Source={Reference templateToggle}}">
-                        <Grid>
-                            <v:ImageView FontFamily="MaterialOutlined" Glyph="{x:Static mi:MaterialOutlined.Select_all}" />
-                            <ImageButton Clicked="TemplateEditor_SelectAll" />
-                        </Grid>
-                        <v:ImageView FontFamily="MaterialOutlined" Glyph="{x:Static mi:MaterialOutlined.Save}"
-                                     Command="{Binding SaveCommand}" CommandParameter="{Binding SelectedMacroSet}" />
-                    </HorizontalStackLayout>
-                </Grid>
-                <HorizontalStackLayout Grid.ColumnSpan="2" HorizontalOptions="End" VerticalOptions="End" IsVisible="{Binding IsToggled, Source={Reference templateToggle}, Converter={conv:InverseBoolConverter}}">
-                    <v:ToggleImageView IsVisible="{Binding Weeklies.SelectedNode, Converter={conv:NullToBoolConverter IsInverse=True}}"
-                                   IsToggled="{Binding Weeklies.ShowJsonEditor}" ToggledColor="Green"
-                                   FontFamily="MaterialOutlined" Glyph="{x:Static mi:MaterialOutlined.Edit}" />
-                </HorizontalStackLayout>
-                <HorizontalStackLayout Grid.ColumnSpan="2" HorizontalOptions="Start" VerticalOptions="End">
-                    <v:ToggleImageView x:Name="templateToggle" FontFamily="MaterialOutlined" Glyph="{x:Static mi:MaterialOutlined.Data_object}"
-                               ToggledColor="Green" Text="Template" />
-                </HorizontalStackLayout>
-            </Grid>
-            <ActivityIndicator Grid.ColumnSpan="2" IsRunning="{Binding IsBusy}" />
-        </Grid>
-       
-    </Border>
+    <v:TodoNodeView Todos="{Binding Weeklies}" IsSubView="{Binding IsSubView, Source={Reference thisView}}" />
 </ContentView>

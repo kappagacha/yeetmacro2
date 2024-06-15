@@ -28,7 +28,6 @@ namespace YeetMacro2.ViewModels.NodeViewModels;
 [NodeTypeMapping(typeof(TimestampSetting), typeof(TimestampSettingViewModel))]
 public partial class ParentSettingViewModel : ParentSetting
 {
-    static IMapper _mapper;
     Dictionary<string, SettingNode> _nodeCache;
 
     public override IList<SettingNode> Nodes
@@ -92,7 +91,6 @@ public partial class ParentSettingViewModel : ParentSetting
 
     static ParentSettingViewModel()
     {
-        _mapper = ServiceHelper.GetService<IMapper>();
     }
 
     public ParentSettingViewModel()

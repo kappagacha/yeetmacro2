@@ -106,32 +106,32 @@ public partial class MacroSetViewModel : MacroSet
         }
     }
 
+    public override DateTimeOffset? DailyTemplateLastUpdated
+    {
+        get => base.DailyTemplateLastUpdated;
+        set
+        {
+            base.DailyTemplateLastUpdated = value;
+            OnPropertyChanged();
+        }
+    }
+
+    public override DateTimeOffset? WeeklyTemplateLastUpdated
+    {
+        get => base.WeeklyTemplateLastUpdated;
+        set
+        {
+            base.WeeklyTemplateLastUpdated = value;
+            OnPropertyChanged();
+        }
+    }
+
     public override string Description
     {
         get => base.Description;
         set
         {
             base.Description = value;
-            OnPropertyChanged();
-        }
-    }
-
-    public override string DailyTemplate
-    {
-        get => base.DailyTemplate;
-        set
-        {
-            base.DailyTemplate = value;
-            OnPropertyChanged();
-        }
-    }
-
-    public override string WeeklyTemplate
-    {
-        get => base.WeeklyTemplate;
-        set
-        {
-            base.WeeklyTemplate = value;
             OnPropertyChanged();
         }
     }

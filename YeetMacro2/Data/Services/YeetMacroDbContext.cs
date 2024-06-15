@@ -63,11 +63,14 @@ public class YeetMacroDbContext : DbContext
         var pointConverter = new ValueConverter<Point, string>(
             p => JsonSerializer.Serialize(p, serializationOptions),
             p => JsonSerializer.Deserialize<Point>(p, serializationOptions));
+        var jsonObjectConverter = new ValueConverter<JsonObject, string>(
+            json => json.ToJsonString(null),
+            json => (JsonObject)JsonObject.Parse(json, null, default(JsonDocumentOptions)));
 
         modelBuilder.Entity<MacroSet>().HasKey(ms => ms.MacroSetId);
         modelBuilder.Entity<MacroSet>().Property(ms => ms.Resolution).HasConversion(sizeConverter);
         modelBuilder.Entity<MacroSet>().Property(ms => ms.DefaultLocation).HasConversion(pointConverter);
-        modelBuilder.Entity<MacroSet>().Property(ms => ms.WeeklyStartDay).HasConversion(new EnumToStringConverter<DayOfWeek>());
+        modelBuilder.Entity<MacroSet>().Property(ms => ms.WeeklyStartDay).HasConversion(new EnumToStringConverter<DayOfWeek>()); 
 
         modelBuilder.Entity<Node>().HasKey(n => n.NodeId);
         modelBuilder.Entity<Node>().UseTptMappingStrategy();
@@ -119,9 +122,6 @@ public class YeetMacroDbContext : DbContext
         });
 
         modelBuilder.Entity<TodoNode>().Ignore(d => d.DataText);
-        modelBuilder.Entity<TodoNode>().Property(d => d.Data).HasConversion(
-            d => d.ToJsonString(null),
-            d => (JsonObject)JsonObject.Parse(d, null, default(JsonDocumentOptions))
-        );
+        modelBuilder.Entity<TodoNode>().Property(d => d.Data).HasConversion(jsonObjectConverter);
     }
 }

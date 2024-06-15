@@ -6,8 +6,6 @@ namespace YeetMacro2.Views;
 public partial class NodeView : ContentView
 {
     ICommand _toggleIsMenuOpenCommand;
-    public static readonly BindableProperty IsMenuOpenProperty =
-        BindableProperty.Create("IsMenuOpen", typeof(bool), typeof(NodeView), false);
     public static readonly BindableProperty IsMenuVisibleProperty =
         BindableProperty.Create("IsMenuVisible", typeof(bool), typeof(NodeView), true);
     public static readonly BindableProperty ItemTemplateProperty =
@@ -27,12 +25,6 @@ public partial class NodeView : ContentView
         var nodeView = bindable as NodeView;
         // https://github.com/dotnet/maui/blob/main/src/Controls/src/Core/Shell/ShellContent.cs#L81
         nodeView.extraMenuItemsContentView.Content = (View)nodeView.ExtraMenuItemsDataTemplate.CreateContent();
-    }
-
-    public bool IsMenuOpen
-    {
-        get { return (bool)GetValue(IsMenuOpenProperty); }
-        set { SetValue(IsMenuOpenProperty, value); }
     }
     public bool IsMenuVisible
     {
@@ -65,11 +57,6 @@ public partial class NodeView : ContentView
     {
         get { return GetValue(ItemsSourceProperty); }
         set { SetValue(ItemsSourceProperty, value); }
-    }
-
-    public ICommand ToggleIsMenuOpenCommand
-    {
-        get => _toggleIsMenuOpenCommand ?? (_toggleIsMenuOpenCommand = new Command(() => IsMenuOpen = !IsMenuOpen));
     }
 
     public NodeView()
