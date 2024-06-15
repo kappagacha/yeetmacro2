@@ -15,7 +15,7 @@ public abstract class Node: ISortable
     [JsonIgnore]
     public virtual bool IsSelected { get; set; }
     [JsonIgnore]
-    public virtual bool IsExpanded { get; set; } = true;
+    public virtual bool IsExpanded { get; set; } = false;
     public virtual bool IsParentNode { get => this is IParentNode; }
     public virtual string Name { get; set; }
     public virtual int Position { get; set; }

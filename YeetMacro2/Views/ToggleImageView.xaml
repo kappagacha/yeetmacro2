@@ -5,7 +5,7 @@
              x:Class="YeetMacro2.Views.ToggleImageView"
              xmlns:v="clr-namespace:YeetMacro2.Views"
              x:Name="thisView">
-    <Grid ColumnSpacing="5" HeightRequest="{Binding ImageHeight, Source={Reference thisView}, TargetNullValue={StaticResource IconHeight}}">
+    <Grid ColumnSpacing="5" HeightRequest="{Binding HeightRequest, Source={Reference thisView}, FallbackValue={StaticResource IconHeight}}">
         <Grid.Triggers>
             <DataTrigger TargetType="Grid" Binding="{Binding Text, Source={Reference thisView}, Converter={conv:NullToBoolConverter IsInverse=True}}" Value="True">
                 <Setter Property="ColumnDefinitions" Value="Auto,*" />
@@ -133,14 +133,21 @@
                VerticalTextAlignment="Center"
                FontSize="{Binding FontSize, Source={Reference thisView}}"
                Text="{Binding Text, Source={Reference thisView}}" />
-        <ImageButton Padding="0" Margin="0" Grid.ColumnSpan="2" Clicked="ImageButton_Clicked" 
-                     IsVisible="{Binding Command, Source={Reference thisView}, Converter={conv:NullToBoolConverter}}">
-            <ImageButton.Triggers>
-                <DataTrigger TargetType="ImageButton" Binding="{Binding IsToggledFromImageOnly, Source={Reference thisView}}" Value="True">
-                    <Setter Property="Grid.ColumnSpan" Value="1" />
+        <Grid Grid.Column="0">
+            <Grid.Triggers>
+                <DataTrigger TargetType="Grid" Binding="{Binding ImageWidth, Source={Reference thisView}, Converter={conv:NullToBoolConverter}}" Value="False">
+                    <Setter Property="WidthRequest" Value="{Binding ImageWidth, Source={Reference thisView}}" />
                 </DataTrigger>
-            </ImageButton.Triggers>
-        </ImageButton>
+            </Grid.Triggers>
+            <ImageButton
+                Padding="0" Margin="0" Clicked="ImageButton_Clicked" 
+                IsVisible="{Binding Command, Source={Reference thisView}, Converter={conv:NullToBoolConverter}}" />
+        </Grid>
+        <Grid Grid.Column="1" IsVisible="{Binding IsToggledFromImageOnly, Source={Reference thisView}}">
+            <ImageButton Padding="0" Margin="0" Clicked="ImageButton_Clicked" 
+                     IsVisible="{Binding Command, Source={Reference thisView}, Converter={conv:NullToBoolConverter}}">
+            </ImageButton>
+        </Grid>
         <ImageButton Padding="0" Margin="0" Grid.ColumnSpan="2" Command="{Binding Command, Source={Reference thisView}}"
                      CommandParameter="{Binding CommandParameter, Source={Reference thisView}}"
                      IsVisible="{Binding Command, Source={Reference thisView}, Converter={conv:NullToBoolConverter IsInverse=True}}" />

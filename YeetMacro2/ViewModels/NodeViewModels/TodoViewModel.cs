@@ -95,7 +95,9 @@ public partial class TodoViewModel: TodoNode
 public abstract partial class TodoJsonElementViewModel : ObservableObject
 {
     public virtual bool IsLeaf { get; set; } = true;
-    public virtual bool IsExpanded { get; set; } = false;
+    [ObservableProperty]
+    bool _isExpanded = false;
+    //public virtual bool IsExpanded { get; set; } = false;
     public TodoViewModel Node { get; set; }
     public JsonObject Parent { get; set; }
     [ObservableProperty]
@@ -109,7 +111,6 @@ public partial class TodoJsonParentViewModel : TodoJsonElementViewModel
     Dictionary<string, TodoJsonElementViewModel> _dict = new Dictionary<string, TodoJsonElementViewModel>();
 
     public override bool IsLeaf { get; set; } = false;
-    public override bool IsExpanded { get; set; } = true;
 
     public static TodoJsonParentViewModel Load(JsonObject jsonObject, TodoViewModel node)
     {
