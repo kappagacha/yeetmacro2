@@ -8,6 +8,5 @@
              x:DataType="vm:MacroManagerViewModel"
              x:Class="YeetMacro2.Views.DailyNodeView"
              x:Name="thisView">
-    <!--<v:TodoNodeView Todos="{Binding Dailies}" IsSubView="{Binding IsSubView, Source={Reference thisView}}" />-->
-    <v:TodoNodeView Todos="{Binding Dailies}" IsSubView="False" />
+    <v:TodoNodeView Todos="{Binding Dailies}" IsSubView="{Binding IsSubView, Source={Reference thisView}}" />
 </ContentView>

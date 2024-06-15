@@ -17,7 +17,7 @@
     <ContentView.Resources>
         <DataTemplate x:Key="SharedTemplate">
             <FlexLayout JustifyContent="SpaceBetween">
-                <HorizontalStackLayout>
+                <HorizontalStackLayout Spacing="5">
                     <Grid>
                         <Label Text="{Binding Name}" TextColor="{StaticResource PrimaryDark}" Margin="0" Padding="0" VerticalOptions="Center" BackgroundColor="Transparent">
                             <Label.Triggers>
