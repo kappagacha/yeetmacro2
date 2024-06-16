@@ -112,11 +112,11 @@ function findShopItem(shopItemName) {
 		upgradeStoneSelectionChest: /^(?!.*piece)upgr.de.*stone/is,		//does not contain piece (using negative look ahead)
 		lowStarHeroPieceTicket: /1.*2/is,
 		// season 1 survey hub items
-		epicReforgeCatalyst1: /epic.*refo.ge/is,
-		epicReforgeCatalyst2: /epic.*refo.ge/is,
-		epicReforgeCatalyst3: /epic.*refo.ge/is,
-		epicReforgeCatalyst4: /epic.*refo.ge/is,
-		epicReforgeCatalyst5: /epic.*refo.ge/is,
+		epicReforgeCatalyst1: /ep.c.*refo.ge/is,
+		epicReforgeCatalyst2: /ep.c.*refo.ge/is,
+		epicReforgeCatalyst3: /ep.c.*refo.ge/is,
+		epicReforgeCatalyst4: /ep.c.*refo.ge/is,
+		epicReforgeCatalyst5: /ep.c.*refo.ge/is,
 		superiorQualityPresentChest: /sup.*pres/is,
 		'10pctLegendaryAbrasive': /10.*[lt]eg/is,
 		// season 2 survey hub items
