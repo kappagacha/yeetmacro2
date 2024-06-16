@@ -127,7 +127,7 @@ function findShopItem(shopItemName) {
 	}
 
 	let findResult;
-	//let tryCount = 0;
+	let tryCount = 0;
 
 	while (!findResult) {
 		const itemCornerPattern = macroService.ClonePattern(patterns.shop.itemCorner, {
@@ -150,7 +150,8 @@ function findShopItem(shopItemName) {
 
 		findResult = textResults.find(tr => tr.text.match(shopItemNameToRegex[shopItemName]));
 
-		if (!findResult) {
+		tryCount++;
+		if (!findResult && tryCount % 2 === 0) {	// scan twice before swiping
 			macroService.DoSwipe({ X: swipeStartX, Y: 500 }, { X: swipeEndX, Y: 500 });
 			sleep(2000);
 		}
