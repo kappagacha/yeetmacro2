@@ -1,6 +1,6 @@
 // Test mailbox expirations
 const loopPatterns = [patterns.lobby.level, patterns.titles.mailbox];
-const numDaysRegex = /(?<numDays>\d+)\s*d/;
+const numDaysRegex = /(?<numDays>\d+).\s/;
 
 while (macroService.IsRunning) {
 	const loopResult = macroService.PollPattern(loopPatterns);

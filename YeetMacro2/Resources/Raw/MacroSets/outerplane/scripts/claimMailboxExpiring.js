@@ -1,7 +1,7 @@
 // Claim mailbox items close to expiration
 const loopPatterns = [patterns.lobby.level, patterns.titles.mailbox];
 let done = false;
-const numDaysRegex = /(?<numDays>\d+)\s*d/;
+const numDaysRegex = /(?<numDays>\d+).\s/;
 const daily = dailyManager.GetCurrentDaily();
 
 if (daily.claimMailboxExpiring.done.IsChecked) {
