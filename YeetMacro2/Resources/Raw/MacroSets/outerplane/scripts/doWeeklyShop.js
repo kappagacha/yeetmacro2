@@ -50,7 +50,6 @@ while (macroService.IsRunning) {
 			macroService.PollPattern(patterns.shop.surveyHub, { DoClick: true, PredicatePattern: selectedSurveyHubPattern });
 			doSurveyHubItems();
 
-
 			const swipeResult3 = macroService.SwipePollPattern(patterns.shop.shopList, { MaxSwipes: 2, Start: { X: 180, Y: 650 }, End: { X: 180, Y: 250 } });
 			if (!swipeResult3.IsSuccess) {
 				throw new Error('Unable to find shop list');

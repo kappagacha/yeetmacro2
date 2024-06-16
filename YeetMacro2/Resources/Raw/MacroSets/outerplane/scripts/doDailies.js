@@ -2,9 +2,22 @@
 // @position=-99
 // Do dailies (all checked scripts)
 
+// call multiple times to get past popups
 goToLobby();
-claimReplenishYourStamina();
 goToLobby();
+goToLobby();
+goToLobby();
+goToLobby();
+
+if (settings.doDailies.claimGuildBuff.Value) {
+    claimGuildBuff();
+    goToLobby();
+}
+
+if (settings.doDailies.claimReplenishYourStamina.Value) {
+    claimReplenishYourStamina();
+    goToLobby();
+}
 
 if (settings.doDailies.claimMailboxExpiring.Value) {
     claimMailboxExpiring();
@@ -13,6 +26,11 @@ if (settings.doDailies.claimMailboxExpiring.Value) {
 
 if (settings.doDailies.claimAntiparticle.Value) {
     claimAntiparticle();
+    goToLobby();
+}
+
+if (settings.doDailies.startTerminusIsleExploration.Value) {
+    startTerminusIsleExploration();
     goToLobby();
 }
 
@@ -33,11 +51,6 @@ if (settings.doDailies.claimFreeRecruit.Value) {
 
 if (settings.doDailies.doFriends.Value) {
     doFriends();
-    goToLobby();
-}
-
-if (settings.doDailies.claimGuildBuff.Value) {
-    claimGuildBuff();
     goToLobby();
 }
 
@@ -113,10 +126,12 @@ if (settings.doDailies.claimBossDailyMissions.Value) {
     goToLobby();
 }
 
-if (settings.doDailies.startTerminusIsleExploration.Value) {
-    startTerminusIsleExploration();
+if (settings.doDailies.claimBossDailyMissions.Value) {
+    claimBossDailyMissions();
     goToLobby();
 }
 
-doUpkeep();
-goToLobby();
+if (settings.doDailies.doUpkeep.Value) {
+    doUpkeep();
+    goToLobby();
+}

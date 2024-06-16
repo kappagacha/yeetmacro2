@@ -733,71 +733,6 @@
       "position": 0,
       "path": "doDailies"
     },
-    "claimAntiparticle": {
-      "$isParent": false,
-      "props": {
-        "$type": "boolean",
-        "settingType": "Boolean",
-        "value": true,
-        "defaultValue": true,
-        "isParentNode": false,
-        "name": "claimAntiparticle",
-        "position": 0,
-        "path": "doDailies.claimAntiparticle"
-      }
-    },
-    "claimFreeShop": {
-      "$isParent": false,
-      "props": {
-        "$type": "boolean",
-        "settingType": "Boolean",
-        "value": true,
-        "defaultValue": true,
-        "isParentNode": false,
-        "name": "claimFreeShop",
-        "position": 0,
-        "path": "doDailies.claimFreeShop"
-      }
-    },
-    "doShop": {
-      "$isParent": false,
-      "props": {
-        "$type": "boolean",
-        "settingType": "Boolean",
-        "value": true,
-        "defaultValue": true,
-        "isParentNode": false,
-        "name": "doShop",
-        "position": 0,
-        "path": "doDailies.doShop"
-      }
-    },
-    "claimFreeRecruit": {
-      "$isParent": false,
-      "props": {
-        "$type": "boolean",
-        "settingType": "Boolean",
-        "value": true,
-        "defaultValue": true,
-        "isParentNode": false,
-        "name": "claimFreeRecruit",
-        "position": 0,
-        "path": "doDailies.claimFreeRecruit"
-      }
-    },
-    "doFriends": {
-      "$isParent": false,
-      "props": {
-        "$type": "boolean",
-        "settingType": "Boolean",
-        "value": true,
-        "defaultValue": true,
-        "isParentNode": false,
-        "name": "doFriends",
-        "position": 0,
-        "path": "doDailies.doFriends"
-      }
-    },
     "claimGuildBuff": {
       "$isParent": false,
       "props": {
@@ -811,6 +746,110 @@
         "path": "doDailies.claimGuildBuff"
       }
     },
+    "claimReplenishYourStamina": {
+      "$isParent": false,
+      "props": {
+        "$type": "boolean",
+        "settingType": "Boolean",
+        "value": true,
+        "defaultValue": true,
+        "isParentNode": false,
+        "name": "claimReplenishYourStamina",
+        "position": 1,
+        "path": "doDailies.claimReplenishYourStamina"
+      }
+    },
+    "claimMailboxExpiring": {
+      "$isParent": false,
+      "props": {
+        "$type": "boolean",
+        "settingType": "Boolean",
+        "value": true,
+        "defaultValue": true,
+        "isParentNode": false,
+        "name": "claimMailboxExpiring",
+        "position": 2,
+        "path": "doDailies.claimMailboxExpiring"
+      }
+    },
+    "claimAntiparticle": {
+      "$isParent": false,
+      "props": {
+        "$type": "boolean",
+        "settingType": "Boolean",
+        "value": true,
+        "defaultValue": true,
+        "isParentNode": false,
+        "name": "claimAntiparticle",
+        "position": 3,
+        "path": "doDailies.claimAntiparticle"
+      }
+    },
+    "startTerminusIsleExploration": {
+      "$isParent": false,
+      "props": {
+        "$type": "boolean",
+        "settingType": "Boolean",
+        "value": true,
+        "defaultValue": true,
+        "isParentNode": false,
+        "name": "startTerminusIsleExploration",
+        "position": 4,
+        "path": "doDailies.startTerminusIsleExploration"
+      }
+    },
+    "claimFreeShop": {
+      "$isParent": false,
+      "props": {
+        "$type": "boolean",
+        "settingType": "Boolean",
+        "value": true,
+        "defaultValue": true,
+        "isParentNode": false,
+        "name": "claimFreeShop",
+        "position": 5,
+        "path": "doDailies.claimFreeShop"
+      }
+    },
+    "doShop": {
+      "$isParent": false,
+      "props": {
+        "$type": "boolean",
+        "settingType": "Boolean",
+        "value": true,
+        "defaultValue": true,
+        "isParentNode": false,
+        "name": "doShop",
+        "position": 6,
+        "path": "doDailies.doShop"
+      }
+    },
+    "claimFreeRecruit": {
+      "$isParent": false,
+      "props": {
+        "$type": "boolean",
+        "settingType": "Boolean",
+        "value": true,
+        "defaultValue": true,
+        "isParentNode": false,
+        "name": "claimFreeRecruit",
+        "position": 7,
+        "path": "doDailies.claimFreeRecruit"
+      }
+    },
+    "doFriends": {
+      "$isParent": false,
+      "props": {
+        "$type": "boolean",
+        "settingType": "Boolean",
+        "value": true,
+        "defaultValue": true,
+        "isParentNode": false,
+        "name": "doFriends",
+        "position": 8,
+        "path": "doDailies.doFriends"
+      }
+    },
     "doArena": {
       "$isParent": false,
       "props": {
@@ -820,7 +859,7 @@
         "defaultValue": true,
         "isParentNode": false,
         "name": "doArena",
-        "position": 0,
+        "position": 9,
         "path": "doDailies.doArena"
       }
     },
@@ -833,7 +872,7 @@
         "defaultValue": true,
         "isParentNode": false,
         "name": "doBountyHunter",
-        "position": 0,
+        "position": 10,
         "path": "doDailies.doBountyHunter"
       }
     },
@@ -846,7 +885,7 @@
         "defaultValue": true,
         "isParentNode": false,
         "name": "doBanditChase",
-        "position": 0,
+        "position": 11,
         "path": "doDailies.doBanditChase"
       }
     },
@@ -859,7 +898,7 @@
         "defaultValue": true,
         "isParentNode": false,
         "name": "doUpgradeStoneRetrieval",
-        "position": 0,
+        "position": 12,
         "path": "doDailies.doUpgradeStoneRetrieval"
       }
     },
@@ -872,7 +911,7 @@
         "defaultValue": true,
         "isParentNode": false,
         "name": "doGuildSecurityArea",
-        "position": 0,
+        "position": 13,
         "path": "doDailies.doGuildSecurityArea"
       }
     },
@@ -885,7 +924,7 @@
         "defaultValue": true,
         "isParentNode": false,
         "name": "doGuildRaid",
-        "position": 0,
+        "position": 14,
         "path": "doDailies.doGuildRaid"
       }
     },
@@ -898,7 +937,7 @@
         "defaultValue": true,
         "isParentNode": false,
         "name": "watchAds",
-        "position": 0,
+        "position": 15,
         "path": "doDailies.watchAds"
       }
     },
@@ -911,7 +950,7 @@
         "defaultValue": true,
         "isParentNode": false,
         "name": "doDoppelganger",
-        "position": 0,
+        "position": 16,
         "path": "doDailies.doDoppelganger"
       }
     },
@@ -924,7 +963,7 @@
         "defaultValue": true,
         "isParentNode": false,
         "name": "doSpecialRequests",
-        "position": 0,
+        "position": 17,
         "path": "doDailies.doSpecialRequests"
       }
     },
@@ -937,7 +976,7 @@
         "defaultValue": true,
         "isParentNode": false,
         "name": "claimDailyMissions",
-        "position": 0,
+        "position": 18,
         "path": "doDailies.claimDailyMissions"
       }
     },
@@ -950,7 +989,7 @@
         "defaultValue": true,
         "isParentNode": false,
         "name": "doSurveyHub",
-        "position": 0,
+        "position": 19,
         "path": "doDailies.doSurveyHub"
       }
     },
@@ -963,7 +1002,7 @@
         "defaultValue": true,
         "isParentNode": false,
         "name": "claimEventDailyMissions",
-        "position": 0,
+        "position": 20,
         "path": "doDailies.claimEventDailyMissions"
       }
     },
@@ -976,7 +1015,7 @@
         "defaultValue": true,
         "isParentNode": false,
         "name": "doInfiniteCorridor",
-        "position": 0,
+        "position": 21,
         "path": "doDailies.doInfiniteCorridor"
       }
     },
@@ -989,11 +1028,11 @@
         "defaultValue": true,
         "isParentNode": false,
         "name": "claimBossDailyMissions",
-        "position": 0,
+        "position": 22,
         "path": "doDailies.claimBossDailyMissions"
       }
     },
-    "startTerminusIsleExploration": {
+    "doUpkeep": {
       "$isParent": false,
       "props": {
         "$type": "boolean",
@@ -1001,22 +1040,9 @@
         "value": true,
         "defaultValue": true,
         "isParentNode": false,
-        "name": "startTerminusIsleExploration",
-        "position": 0,
-        "path": "doDailies.startTerminusIsleExploration"
-      }
-    },
-    "claimMailboxExpiring": {
-      "$isParent": false,
-      "props": {
-        "$type": "boolean",
-        "settingType": "Boolean",
-        "value": true,
-        "defaultValue": true,
-        "isParentNode": false,
-        "name": "claimMailboxExpiring",
-        "position": 0,
-        "path": "doDailies.claimMailboxExpiring"
+        "name": "doUpkeep",
+        "position": 23,
+        "path": "doDailies.doUpkeep"
       }
     }
   },
@@ -1029,6 +1055,58 @@
       "position": 0,
       "path": "doUpkeep"
     },
+    "claimGuildBuff": {
+      "$isParent": false,
+      "props": {
+        "$type": "boolean",
+        "settingType": "Boolean",
+        "value": true,
+        "defaultValue": true,
+        "isParentNode": false,
+        "name": "claimGuildBuff",
+        "position": 0,
+        "path": "doUpkeep.claimGuildBuff"
+      }
+    },
+    "claimReplenishYourStamina": {
+      "$isParent": false,
+      "props": {
+        "$type": "boolean",
+        "settingType": "Boolean",
+        "value": true,
+        "defaultValue": true,
+        "isParentNode": false,
+        "name": "claimReplenishYourStamina",
+        "position": 1,
+        "path": "doUpkeep.claimReplenishYourStamina"
+      }
+    },
+    "claimArenaRewards": {
+      "$isParent": false,
+      "props": {
+        "$type": "boolean",
+        "settingType": "Boolean",
+        "value": true,
+        "defaultValue": true,
+        "isParentNode": false,
+        "name": "claimArenaRewards",
+        "position": 2,
+        "path": "doUpkeep.claimArenaRewards"
+      }
+    },
+    "startTerminusIsleExploration": {
+      "$isParent": false,
+      "props": {
+        "$type": "boolean",
+        "settingType": "Boolean",
+        "value": true,
+        "defaultValue": true,
+        "isParentNode": false,
+        "name": "startTerminusIsleExploration",
+        "position": 3,
+        "path": "doUpkeep.startTerminusIsleExploration"
+      }
+    },
     "claimAntiparticle": {
       "$isParent": false,
       "props": {
@@ -1038,7 +1116,7 @@
         "defaultValue": true,
         "isParentNode": false,
         "name": "claimAntiparticle",
-        "position": 0,
+        "position": 4,
         "path": "doUpkeep.claimAntiparticle"
       }
     },
@@ -1051,7 +1129,7 @@
         "defaultValue": true,
         "isParentNode": false,
         "name": "doArena",
-        "position": 0,
+        "position": 5,
         "path": "doUpkeep.doArena"
       }
     },
@@ -1070,7 +1148,7 @@
         "defaultValue": "doSurveyHub",
         "isParentNode": false,
         "name": "spendStaminaScript",
-        "position": 0,
+        "position": 6,
         "path": "doUpkeep.spendStaminaScript"
       }
     }

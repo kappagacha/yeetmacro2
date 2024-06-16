@@ -13,17 +13,25 @@ goToLobby();
 goToLobby();
 goToLobby();
 
-claimGuildBuff();
-goToLobby();
+if (settings.doUpkeep.claimGuildBuff.Value) {
+    claimGuildBuff();
+    goToLobby();
+}
 
-claimReplenishYourStamina();
-goToLobby();
+if (settings.doUpkeep.claimReplenishYourStamina.Value) {
+    claimReplenishYourStamina();
+    goToLobby();
+}
 
-claimArenaRewards();
-goToLobby();
+if (settings.doUpkeep.claimArenaRewards.Value) {
+    claimArenaRewards();
+    goToLobby();
+}
 
-startTerminusIsleExploration();
-goToLobby();
+if (settings.doUpkeep.startTerminusIsleExploration.Value) {
+    startTerminusIsleExploration();
+    goToLobby();
+}
 
 if (settings.doUpkeep.claimAntiparticle.Value) {
     claimAntiparticle();
