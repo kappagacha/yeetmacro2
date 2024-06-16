@@ -28,11 +28,15 @@ while (macroService.IsRunning) {
 			macroService.PollPattern(patterns.shop.resource, { DoClick: true, PredicatePattern: selectedResourcePattern });
 
 			doNormalItems();
+			swipeLeft();
+			swipeLeft();
 
 			doFriendshipItems();
 			swipeLeft();
+			swipeLeft();
 
 			doArenaItems();
+			swipeLeft();
 			swipeLeft();
 
 			doStarMemoryItems();
