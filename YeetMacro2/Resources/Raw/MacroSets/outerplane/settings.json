@@ -1142,10 +1142,11 @@
         "options": [
           "doEcologyStudy",
           "doIdentification",
-          "doSurveyHub"
+          "doSurveyHub",
+          "doSkywardTower"
         ],
-        "value": "doSurveyHub",
-        "defaultValue": "doSurveyHub",
+        "value": "doSkywardTower",
+        "defaultValue": "doSkywardTower",
         "isParentNode": false,
         "name": "spendStaminaScript",
         "position": 6,
@@ -1376,7 +1377,7 @@
       "props": {
         "$type": "timestamp",
         "settingType": "TimeStamp",
-        "value": "2024-06-04T15:07:29.285+00:00",
+        "value": "2024-06-17T03:41:03.87+00:00",
         "defaultValue": "0001-01-01T00:00:00+00:00",
         "isParentNode": false,
         "name": "lastRun",
@@ -2637,6 +2638,38 @@
           "position": 0,
           "path": "doShop.arena.cakeSlice"
         }
+      }
+    }
+  },
+  "doSkywardTower": {
+    "$isParent": true,
+    "props": {
+      "settingType": "Parent",
+      "isParentNode": true,
+      "name": "doSkywardTower",
+      "position": 0,
+      "path": "doSkywardTower"
+    },
+    "teamSlot": {
+      "$isParent": false,
+      "props": {
+        "$type": "option",
+        "settingType": "Option",
+        "options": [
+          "Current",
+          "1",
+          "2",
+          "3",
+          "4",
+          "5",
+          "7"
+        ],
+        "value": "1",
+        "defaultValue": "1",
+        "isParentNode": false,
+        "name": "teamSlot",
+        "position": 0,
+        "path": "doSkywardTower.teamSlot"
       }
     }
   }

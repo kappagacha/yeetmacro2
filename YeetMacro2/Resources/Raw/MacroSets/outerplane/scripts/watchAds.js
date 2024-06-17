@@ -4,8 +4,8 @@
 
 const loopPatterns = [patterns.lobby.level, patterns.stamina.purchase];
 const daily = dailyManager.GetCurrentDaily();
-if (daily.watchAds.done.IsChecked && daily.watchAds.count.Count >= 15) {
-	return;
+if (daily.watchAds.done.IsChecked || daily.watchAds.count.Count >= 15) {
+	return "Script already completed. Uncheck done to override daily flag.";
 }
 
 const originalDensity = 1.5;	// density the patterns were captured in
