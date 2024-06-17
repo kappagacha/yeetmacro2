@@ -398,6 +398,9 @@
     <MauiAsset Update="Resources\Raw\MacroSets\outerplane\scripts\claimArenaRewards.js">
       <LogicalName>%(RecursiveDir)%(Filename)%(Extension)</LogicalName>
     </MauiAsset>
+    <MauiAsset Update="Resources\Raw\MacroSets\outerplane\scripts\doSkywardTower.js">
+      <LogicalName>%(RecursiveDir)%(Filename)%(Extension)</LogicalName>
+    </MauiAsset>
     <MauiAsset Update="Resources\Raw\MacroSets\outerplane\scripts\testMailboxExpiring.js">
       <LogicalName>%(RecursiveDir)%(Filename)%(Extension)</LogicalName>
     </MauiAsset>
