@@ -7,7 +7,7 @@ if (settings.doUpkeep.claimJobs.Value) {
     goToLobby();
 }
 
-if (settings.doUpkeep.skipEventQuests.Value) {
-    skipEventQuests();
+if (settings.doUpkeep.skipEventOrMainHardQuests.Value) {
+    skipEventOrMainHardQuests();
     goToLobby();
 }

@@ -512,7 +512,7 @@
         "path": "doDailies.doBranchQuests"
       }
     },
-    "skipEventQuests": {
+    "skipEventOrMainHardQuests": {
       "$isParent": false,
       "props": {
         "$type": "boolean",
@@ -520,9 +520,9 @@
         "value": true,
         "defaultValue": true,
         "isParentNode": false,
-        "name": "skipEventQuests",
+        "name": "skipEventOrMainHardQuests",
         "position": 0,
-        "path": "doDailies.skipEventQuests"
+        "path": "doDailies.skipEventOrMainHardQuests"
       }
     }
   },
@@ -938,7 +938,7 @@
         "path": "doUpkeep.claimJobs"
       }
     },
-    "skipEventQuests": {
+    "skipEventOrMainHardQuests": {
       "$isParent": false,
       "props": {
         "$type": "boolean",
@@ -946,22 +946,22 @@
         "value": true,
         "defaultValue": true,
         "isParentNode": false,
-        "name": "skipEventQuests",
+        "name": "skipEventOrMainHardQuests",
         "position": 0,
-        "path": "doUpkeep.skipEventQuests"
+        "path": "doUpkeep.skipEventOrMainHardQuests"
       }
     }
   },
-  "skipEventQuests": {
+  "skipEventOrMainHardQuests": {
     "$isParent": true,
     "props": {
       "settingType": "Parent",
       "isParentNode": true,
-      "name": "skipEventQuests",
+      "name": "skipEventOrMainHardQuests",
       "position": 0,
-      "path": "skipEventQuests"
+      "path": "skipEventOrMainHardQuests"
     },
-    "targetLevel": {
+    "targetEventLevel": {
       "$isParent": false,
       "props": {
         "$type": "option",
@@ -973,9 +973,9 @@
         "value": "12",
         "defaultValue": "12",
         "isParentNode": false,
-        "name": "targetLevel",
+        "name": "targetEventLevel",
         "position": 0,
-        "path": "skipEventQuests.targetLevel"
+        "path": "skipEventOrMainHardQuests.targetEventLevel"
       }
     }
   }

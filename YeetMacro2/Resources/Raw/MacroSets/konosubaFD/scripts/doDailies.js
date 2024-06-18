@@ -67,7 +67,7 @@ if (settings.doDailies.doBranchQuests.Value) {
     goToLobby();
 }
 
-if (settings.doDailies.skipEventQuests.Value) {
-    skipEventQuests();
+if (settings.doDailies.skipEventOrMainHardQuests.Value) {
+    skipEventOrMainHardQuests();
     goToLobby();
 }
