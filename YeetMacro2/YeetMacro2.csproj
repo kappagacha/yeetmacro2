@@ -275,10 +275,19 @@
     <MauiAsset Update="Resources\Raw\MacroSets\eversoul\patterns.json">
       <LogicalName>%(RecursiveDir)%(Filename)%(Extension)</LogicalName>
     </MauiAsset>
-    <MauiAsset Update="Resources\Raw\MacroSets\eversoul\scripts\skipDimensionalLabyrinth.js">
+    <MauiAsset Update="Resources\Raw\MacroSets\eversoul\scripts\doOperationEdenAlliance.js">
       <LogicalName>%(RecursiveDir)%(Filename)%(Extension)</LogicalName>
     </MauiAsset>
-    <MauiAsset Update="Resources\Raw\MacroSets\eversoul\scripts\skipDecoyOperation.js">
+    <MauiAsset Update="Resources\Raw\MacroSets\eversoul\scripts\sweepEvent.js">
+      <LogicalName>%(RecursiveDir)%(Filename)%(Extension)</LogicalName>
+    </MauiAsset>
+    <MauiAsset Update="Resources\Raw\MacroSets\eversoul\scripts\sweepGuildRaid.js">
+      <LogicalName>%(RecursiveDir)%(Filename)%(Extension)</LogicalName>
+    </MauiAsset>
+    <MauiAsset Update="Resources\Raw\MacroSets\eversoul\scripts\sweepDimensionalLabyrinth.js">
+      <LogicalName>%(RecursiveDir)%(Filename)%(Extension)</LogicalName>
+    </MauiAsset>
+    <MauiAsset Update="Resources\Raw\MacroSets\eversoul\scripts\sweepDecoyOperation.js">
       <LogicalName>%(RecursiveDir)%(Filename)%(Extension)</LogicalName>
     </MauiAsset>
     <MauiAsset Update="Resources\Raw\MacroSets\eversoul\scripts\doUpkeep.js">
