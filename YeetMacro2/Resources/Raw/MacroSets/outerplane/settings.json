@@ -1145,8 +1145,8 @@
           "doSurveyHub",
           "doSkywardTower"
         ],
-        "value": "doSkywardTower",
-        "defaultValue": "doSkywardTower",
+        "value": "doIdentification",
+        "defaultValue": "doIdentification",
         "isParentNode": false,
         "name": "spendStaminaScript",
         "position": 6,
@@ -1377,7 +1377,7 @@
       "props": {
         "$type": "timestamp",
         "settingType": "TimeStamp",
-        "value": "2024-06-17T03:41:03.87+00:00",
+        "value": "2024-06-18T14:59:45.949+00:00",
         "defaultValue": "0001-01-01T00:00:00+00:00",
         "isParentNode": false,
         "name": "lastRun",
@@ -1413,7 +1413,7 @@
       "props": {
         "$type": "timestamp",
         "settingType": "TimeStamp",
-        "value": "2024-05-21T14:03:05.986+00:00",
+        "value": "2024-06-18T15:05:33.693+00:00",
         "defaultValue": "0001-01-01T00:00:00+00:00",
         "isParentNode": false,
         "name": "lastRun",
@@ -1536,8 +1536,8 @@
           "6",
           "7"
         ],
-        "value": "1",
-        "defaultValue": "1",
+        "value": "2",
+        "defaultValue": "2",
         "isParentNode": false,
         "name": "teamSlot",
         "position": 0,
@@ -1549,8 +1549,8 @@
       "props": {
         "$type": "boolean",
         "settingType": "Boolean",
-        "value": false,
-        "defaultValue": false,
+        "value": true,
+        "defaultValue": true,
         "isParentNode": false,
         "name": "sweepBattle",
         "position": 0,
@@ -2564,7 +2564,7 @@
           "path": "doShop.friendshipPoint.stonePiece"
         }
       },
-      "stamina1": {
+      "stamina": {
         "$isParent": false,
         "props": {
           "$type": "boolean",
@@ -2572,22 +2572,9 @@
           "value": true,
           "defaultValue": true,
           "isParentNode": false,
-          "name": "stamina1",
+          "name": "stamina",
           "position": 0,
-          "path": "doShop.friendshipPoint.stamina1"
-        }
-      },
-      "stamina2": {
-        "$isParent": false,
-        "props": {
-          "$type": "boolean",
-          "settingType": "Boolean",
-          "value": true,
-          "defaultValue": true,
-          "isParentNode": false,
-          "name": "stamina2",
-          "position": 0,
-          "path": "doShop.friendshipPoint.stamina2"
+          "path": "doShop.friendshipPoint.stamina"
         }
       }
     },
