@@ -572,20 +572,6 @@ public partial class MacroManagerViewModel : ObservableObject
                 Settings.Import(settings);
             }
 
-            _mapper.Map(targetMacroSet, macroSet, opt =>
-            {
-                opt.BeforeMap((src, dst) =>     // prevent db id from getting wiped out
-                {
-                    src.MacroSetId = dst.MacroSetId;
-                    src.RootScriptNodeId = dst.RootScriptNodeId;
-                    src.RootPatternNodeId = dst.RootPatternNodeId;
-                    src.RootSettingNodeId = dst.RootSettingNodeId;
-                    src.RootDailyNodeId = dst.RootDailyNodeId;
-                    src.RootWeeklyNodeId = dst.RootWeeklyNodeId;
-                    src.Source = dst.Source;
-                });
-            });
-
             if (targetMacroSet.DailyTemplate is not null && (!macroSet.DailyTemplateLastUpdated.HasValue || macroSet.DailyTemplateLastUpdated < targetMacroSet.DailyTemplateLastUpdated))
             {
                 await Dailies.WaitForInitialization();
@@ -599,6 +585,20 @@ public partial class MacroManagerViewModel : ObservableObject
                 Weeklies.Root.Data = (JsonObject)JsonObject.Parse(targetMacroSet.WeeklyTemplate, null, default(JsonDocumentOptions));
                 Weeklies.Save();
             }
+
+            _mapper.Map(targetMacroSet, macroSet, opt =>
+            {
+                opt.BeforeMap((src, dst) =>     // prevent db id from getting wiped out
+                {
+                    src.MacroSetId = dst.MacroSetId;
+                    src.RootScriptNodeId = dst.RootScriptNodeId;
+                    src.RootPatternNodeId = dst.RootPatternNodeId;
+                    src.RootSettingNodeId = dst.RootSettingNodeId;
+                    src.RootDailyNodeId = dst.RootDailyNodeId;
+                    src.RootWeeklyNodeId = dst.RootWeeklyNodeId;
+                    src.Source = dst.Source;
+                });
+            });
 
             _macroSetRepository.Update(macroSet);
             _macroSetRepository.Save();

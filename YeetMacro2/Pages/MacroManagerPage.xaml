@@ -112,13 +112,13 @@
                                     </HorizontalStackLayout>
                                     <HorizontalStackLayout Margin="0" Padding="0">
                                         <Label Margin="0" VerticalOptions="Center" Padding="0" Text="Daily Template LastUpdated:" />
-                                        <Label Margin="5,0,0,0" VerticalOptions="Center" Text="{Binding SelectedMacroSet.SettingsLastUpdated}" />
+                                        <Label Margin="5,0,0,0" VerticalOptions="Center" Text="{Binding SelectedMacroSet.DailyTemplateLastUpdated}" />
                                         <v:ImageView FontFamily="MaterialOutlined" Glyph="{x:Static mi:MaterialOutlined.Backspace}" Color="Red" 
                                                      Command="{Binding ClearDailyTemplateLastUpdatedCommand}" CommandParameter="{Binding SelectedMacroSet}" />
                                     </HorizontalStackLayout>
                                     <HorizontalStackLayout Margin="0" Padding="0">
                                         <Label Margin="0" VerticalOptions="Center" Padding="0" Text="WeeklyTemplate LastUpdated:" />
-                                        <Label Margin="5,0,0,0" VerticalOptions="Center" Text="{Binding SelectedMacroSet.SettingsLastUpdated}" />
+                                        <Label Margin="5,0,0,0" VerticalOptions="Center" Text="{Binding SelectedMacroSet.WeeklyTemplateLastUpdated}" />
                                         <v:ImageView FontFamily="MaterialOutlined" Glyph="{x:Static mi:MaterialOutlined.Backspace}" Color="Red" 
                                                      Command="{Binding ClearWeeklyTemplateLastUpdatedCommand}" CommandParameter="{Binding SelectedMacroSet}" />
                                     </HorizontalStackLayout>
