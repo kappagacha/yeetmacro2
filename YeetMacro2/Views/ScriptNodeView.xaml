@@ -52,7 +52,7 @@
                                         </MultiTrigger.Setters>
                                     </MultiTrigger>
                                 </Grid.Triggers>
-                                <Label Text="{Binding Name}" TextColor="{StaticResource PrimaryDark}" Margin="0" Padding="0" VerticalOptions="Center" BackgroundColor="Transparent">
+                                <Label Text="{Binding Name}" TextColor="{StaticResource Primary}" Margin="0" Padding="0" VerticalOptions="Center" BackgroundColor="Transparent">
                                     <Label.Triggers>
                                         <DataTrigger TargetType="{x:Type Label}" Binding="{Binding IsSelected}" Value="True">
                                             <Setter Property="Background" Value="Blue" />
@@ -126,7 +126,7 @@
                 <CheckBox IsChecked="{Binding PersistLogs}" />
                 <Label VerticalOptions="Center" Text="Persist Logs" />
             </HorizontalStackLayout>
-            <v:ToggleImageView IsToggled="{Binding Scripts.ShowScriptEditor}" ToggledColor="Green"
+            <v:ToggleImageView IsToggled="{Binding Scripts.ShowScriptEditor}" ToggledColor="{StaticResource Primary}"
                                FontFamily="MaterialOutlined" Glyph="{x:Static mi:MaterialOutlined.Edit}" />
         </HorizontalStackLayout>
         <ActivityIndicator IsRunning="{Binding IsBusy}" />

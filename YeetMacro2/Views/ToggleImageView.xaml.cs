@@ -139,7 +139,7 @@ public partial class ToggleImageView : ContentView
         // xaml Binding/Trigger is not able handle null with propert theming color
         if (e.PropertyName == nameof(ImageView.Color) && imageView.Color is null)
         {
-            label.TextColor = (Color)Application.Current.Resources[Application.Current.UserAppTheme == AppTheme.Dark ? "White" : "Black"];
+            label.TextColor = Application.Current.UserAppTheme == AppTheme.Dark ? Colors.White : Colors.Black;
         }
         else if (e.PropertyName == nameof(ImageView.Color))
         {

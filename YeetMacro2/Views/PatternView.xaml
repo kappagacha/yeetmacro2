@@ -17,11 +17,11 @@
             <Grid BackgroundColor="{AppThemeBinding Light={StaticResource Background}, Dark={StaticResource BackgroundDark}}" Opacity="0.8" />
             <VerticalStackLayout>
                 <HorizontalStackLayout>
-                    <v:ToggleImageView x:Name="generalFlagsToggle" ToggledColor="Green" FontFamily="MaterialOutlined" Glyph="{x:Static mi:MaterialOutlined.Settings}" />
-                    <v:ToggleImageView x:Name="textMatchToggle" ToggledColor="Green" FontFamily="FASolid" Glyph="{x:Static fa:Solid.SpellCheck}" />
-                    <v:ToggleImageView x:Name="colorThresholdToggle" ToggledColor="Green" FontFamily="MaterialOutlined" Glyph="{x:Static mi:MaterialOutlined.Invert_colors}" />
-                    <v:ToggleImageView x:Name="offsetToggle" ToggledColor="Green" FontFamily="FASolid" Glyph="{x:Static fa:Solid.ArrowRightArrowLeft}" />
-                    <v:ToggleImageView x:Name="infoToggle" ToggledColor="Green" FontFamily="MaterialOutlined" Glyph="{x:Static mi:MaterialOutlined.Info}" />
+                    <v:ToggleImageView x:Name="generalFlagsToggle" ToggledColor="{StaticResource Primary}" FontFamily="MaterialOutlined" Glyph="{x:Static mi:MaterialOutlined.Settings}" />
+                    <v:ToggleImageView x:Name="textMatchToggle" ToggledColor="{StaticResource Primary}" FontFamily="FASolid" Glyph="{x:Static fa:Solid.SpellCheck}" />
+                    <v:ToggleImageView x:Name="colorThresholdToggle" ToggledColor="{StaticResource Primary}" FontFamily="MaterialOutlined" Glyph="{x:Static mi:MaterialOutlined.Invert_colors}" />
+                    <v:ToggleImageView x:Name="offsetToggle" ToggledColor="{StaticResource Primary}" FontFamily="FASolid" Glyph="{x:Static fa:Solid.ArrowRightArrowLeft}" />
+                    <v:ToggleImageView x:Name="infoToggle" ToggledColor="{StaticResource Primary}" FontFamily="MaterialOutlined" Glyph="{x:Static mi:MaterialOutlined.Info}" />
                 </HorizontalStackLayout>
                 <HorizontalStackLayout Spacing="5" IsVisible="{Binding IsToggled, Source={x:Reference generalFlagsToggle}}">
                     <Label VerticalOptions="Center" Padding="0" Text="VariancePct" />

@@ -6,6 +6,12 @@ using UraniumUI;
 using SkiaSharp.Views.Maui.Controls.Hosting;
 using CommunityToolkit.Maui.Markup;
 using MauiIcons.FontAwesome.Brand;
+using Microsoft.Maui.Controls.Platform;
+using Microsoft.Maui.Platform;
+
+#if ANDROID
+using Microsoft.Maui.Controls.Compatibility.Platform.Android;
+#endif
 
 namespace YeetMacro2;
 
@@ -33,14 +39,6 @@ public static class MauiProgram
 #endif
 
 		builder
-			.UseUraniumUI()
-			.UseUraniumUIMaterial()
-			.ConfigureMauiHandlers(handlers =>
-			{
-				handlers.AddUraniumUIHandlers();
-            });
-
-		builder
 			.UseSkiaSharp();
 
         builder.UseMauiCommunityToolkit();
@@ -50,6 +48,17 @@ public static class MauiProgram
 		builder.RegisterPlatformServices();
 
 		builder.UseFontAwesomeBrandMauiIcons();
+
+#if ANDROID
+        Microsoft.Maui.Handlers.EntryHandler.Mapper.AppendToMapping("WhiteUnderline", (h, v) =>
+        {
+            // https://stackoverflow.com/questions/26574328/changing-edittext-bottom-line-color-with-appcompat-v7
+            var drawable = h.PlatformView.Background;
+            drawable.SetColorFilter(Colors.White.ToAndroid(), FilterMode.SrcAtop);
+            h.PlatformView.SetBackground(drawable);
+        });
+#endif
+
 
         return builder.Build();
 	}

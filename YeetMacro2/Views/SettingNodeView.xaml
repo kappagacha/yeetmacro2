@@ -19,7 +19,7 @@
             <FlexLayout JustifyContent="SpaceBetween">
                 <HorizontalStackLayout Spacing="5">
                     <Grid>
-                        <Label Text="{Binding Name}" TextColor="{StaticResource PrimaryDark}" Margin="0" Padding="0" VerticalOptions="Center" BackgroundColor="Transparent">
+                        <Label Text="{Binding Name}" TextColor="{StaticResource Primary}" Margin="0" Padding="0" VerticalOptions="Center" BackgroundColor="Transparent">
                             <Label.Triggers>
                                 <DataTrigger TargetType="{x:Type Label}" Binding="{Binding IsSelected}" Value="True">
                                     <Setter Property="Background" Value="Blue" />
@@ -52,7 +52,7 @@
                        HeightRequest="20" />
                 <Grid Grid.Row="0" Grid.Column="1" HeightRequest="20">
                     <Grid HeightRequest="20">
-                        <Label Text="{Binding Name}" TextColor="{StaticResource PrimaryDark}" Margin="0" Padding="0" VerticalOptions="Center" BackgroundColor="Transparent">
+                        <Label Text="{Binding Name}" TextColor="{StaticResource Primary}" Margin="0" Padding="0" VerticalOptions="Center" BackgroundColor="Transparent">
                             <Label.Triggers>
                                 <DataTrigger TargetType="{x:Type Label}" Binding="{Binding IsSelected}" Value="True">
                                     <Setter Property="Background" Value="Blue" />

@@ -7,8 +7,6 @@
              vm:ViewModelLocator.ViewModelType="{x:Type vm:MacroManagerViewModel}"
              xmlns:v="clr-namespace:YeetMacro2.Views"
              x:Class="YeetMacro2.Pages.MacroManagerPage"
-             xmlns:uuiv="clr-namespace:UraniumUI.Views;assembly=UraniumUI"
-             xmlns:uranium="http://schemas.enisn-projects.io/dotnet/maui/uraniumui"
              xmlns:mct="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
              xmlns:fa="clr-namespace:UraniumUI.Icons.FontAwesome;assembly=UraniumUI.Icons.FontAwesome"
              xmlns:mi="clr-namespace:UraniumUI.Icons.MaterialIcons;assembly=UraniumUI.Icons.MaterialIcons"
@@ -16,10 +14,132 @@
              xmlns:material="http://schemas.enisn-projects.io/dotnet/maui/uraniumui/material"
              Title="Macro Manager"
              x:Name="thisPage">
-    <Grid>
+    <ContentPage.Resources>
+        <DataTemplate x:Key="macroTabDataTemplate">
+            <Grid Padding="4">
+                <ScrollView>
+                    <Grid ColumnDefinitions="Auto,*" ColumnSpacing="4">
+                        <VerticalStackLayout Grid.Column="0">
+                            <HorizontalStackLayout Margin="0" Padding="0">
+                                <Label Margin="0" VerticalOptions="Center" Padding="0" Text="Name:" />
+                                <Entry Margin="5,0,0,0" VerticalOptions="Center" Text="{Binding SelectedMacroSet.Name}" />
+                            </HorizontalStackLayout>
+                            <HorizontalStackLayout Margin="0" Padding="0">
+                                <Label Margin="0" VerticalOptions="Center" Padding="0" Text="Resolution Width:" />
+                                <Entry Margin="5,0,0,0" VerticalOptions="Center" Text="{Binding ResolutionWidth}" />
+                                <Label Margin="0" VerticalOptions="Center" Padding="0" Text="Supports Greater Width" />
+                                <CheckBox Margin="5,0,0,0" VerticalOptions="Center" IsChecked="{Binding SelectedMacroSet.SupportsGreaterWidth}" />
+                            </HorizontalStackLayout>
+                            <HorizontalStackLayout Margin="0" Padding="0">
+                                <Label Margin="0" VerticalOptions="Center" Padding="0" Text="Resolution Height:" />
+                                <Entry Margin="5,0,0,0" VerticalOptions="Center" Text="{Binding ResolutionHeight}" />
+                                <Label Margin="0" VerticalOptions="Center" Padding="0" Text="Supports Greater Height" />
+                                <CheckBox Margin="5,0,0,0" VerticalOptions="Center" IsChecked="{Binding SelectedMacroSet.SupportsGreaterHeight}" />
+                            </HorizontalStackLayout>
+                            <HorizontalStackLayout Margin="0" Padding="0">
+                                <Label Margin="0" VerticalOptions="Center" Padding="0" Text="Default Location X:" />
+                                <Entry Margin="5,0,0,0" VerticalOptions="Center" Text="{Binding DefaultLocationX}" />
+                                <Label Margin="5,0,0,0" VerticalOptions="Center" Padding="0" Text="Y:" />
+                                <Entry Margin="5,0,0,0" VerticalOptions="Center" Text="{Binding DefaultLocationY}" />
+                            </HorizontalStackLayout>
+                            <HorizontalStackLayout Margin="0" Padding="0">
+                                <Label Margin="0" VerticalOptions="Center" Padding="0" Text="Package:" />
+                                <Entry Margin="5,0,0,0" VerticalOptions="Center" Text="{Binding SelectedMacroSet.Package}" />
+                            </HorizontalStackLayout>
+                            <HorizontalStackLayout Margin="0" Padding="0">
+                                <Label Margin="0" VerticalOptions="Center" Padding="0" Text="Source:" />
+                                <Entry Margin="5,0,0,0" VerticalOptions="Center" Text="{Binding SelectedMacroSet.Source}" />
+                            </HorizontalStackLayout>
+                            <HorizontalStackLayout Margin="0" Padding="0">
+                                <Label Margin="0" VerticalOptions="Center" Padding="0" Text="MacroSet LastUpdated:" />
+                                <Label Margin="5,0,0,0" VerticalOptions="Center" Text="{Binding SelectedMacroSet.MacroSetLastUpdated}" />
+                                <v:ImageView FontFamily="MaterialOutlined" Glyph="{x:Static mi:MaterialOutlined.Backspace}" Color="Red" 
+                                 Command="{Binding ClearMacroSetLastUpdatedCommand}" CommandParameter="{Binding SelectedMacroSet}" />
+                            </HorizontalStackLayout>
+                            <HorizontalStackLayout Margin="0" Padding="0">
+                                <Label Margin="0" VerticalOptions="Center" Padding="0" Text="Patterns LastUpdated:" />
+                                <Label Margin="5,0,0,0" VerticalOptions="Center" Text="{Binding SelectedMacroSet.PatternsLastUpdated}" />
+                                <v:ImageView FontFamily="MaterialOutlined" Glyph="{x:Static mi:MaterialOutlined.Backspace}" Color="Red" 
+                                 Command="{Binding ClearPatternsLastUpdatedCommand}" CommandParameter="{Binding SelectedMacroSet}" />
+                            </HorizontalStackLayout>
+                            <HorizontalStackLayout Margin="0" Padding="0">
+                                <Label Margin="0" VerticalOptions="Center" Padding="0" Text="Scripts LastUpdated:" />
+                                <Label Margin="5,0,0,0" VerticalOptions="Center" Text="{Binding SelectedMacroSet.ScriptsLastUpdated}" />
+                                <v:ImageView FontFamily="MaterialOutlined" Glyph="{x:Static mi:MaterialOutlined.Backspace}" Color="Red" 
+                                 Command="{Binding ClearScriptsLastUpdatedCommand}" CommandParameter="{Binding SelectedMacroSet}" />
+                            </HorizontalStackLayout>
+                            <HorizontalStackLayout Margin="0" Padding="0">
+                                <Label Margin="0" VerticalOptions="Center" Padding="0" Text="Settings LastUpdated:" />
+                                <Label Margin="5,0,0,0" VerticalOptions="Center" Text="{Binding SelectedMacroSet.SettingsLastUpdated}" />
+                                <v:ImageView FontFamily="MaterialOutlined" Glyph="{x:Static mi:MaterialOutlined.Backspace}" Color="Red" 
+                                 Command="{Binding ClearSettingsLastUpdatedCommand}" CommandParameter="{Binding SelectedMacroSet}" />
+                            </HorizontalStackLayout>
+                            <HorizontalStackLayout Margin="0" Padding="0">
+                                <Label Margin="0" VerticalOptions="Center" Padding="0" Text="Daily Template LastUpdated:" />
+                                <Label Margin="5,0,0,0" VerticalOptions="Center" Text="{Binding SelectedMacroSet.DailyTemplateLastUpdated}" />
+                                <v:ImageView FontFamily="MaterialOutlined" Glyph="{x:Static mi:MaterialOutlined.Backspace}" Color="Red" 
+                                 Command="{Binding ClearDailyTemplateLastUpdatedCommand}" CommandParameter="{Binding SelectedMacroSet}" />
+                            </HorizontalStackLayout>
+                            <HorizontalStackLayout Margin="0" Padding="0">
+                                <Label Margin="0" VerticalOptions="Center" Padding="0" Text="WeeklyTemplate LastUpdated:" />
+                                <Label Margin="5,0,0,0" VerticalOptions="Center" Text="{Binding SelectedMacroSet.WeeklyTemplateLastUpdated}" />
+                                <v:ImageView FontFamily="MaterialOutlined" Glyph="{x:Static mi:MaterialOutlined.Backspace}" Color="Red" 
+                                 Command="{Binding ClearWeeklyTemplateLastUpdatedCommand}" CommandParameter="{Binding SelectedMacroSet}" />
+                            </HorizontalStackLayout>
+                            <HorizontalStackLayout Margin="0" Padding="0">
+                                <Label Margin="0" VerticalOptions="Center" Padding="0" Text="Daily Reset UTC Hour:" />
+                                <Entry Margin="5,0,0,0" VerticalOptions="Center" Text="{Binding SelectedMacroSet.DailyResetUtcHour, FallbackValue=0}" Keyboard="Numeric">
+                                    <Entry.Behaviors>
+                                        <mct:NumericValidationBehavior MaximumDecimalPlaces="0" Flags="ValidateOnValueChanged">
+                                            <mct:NumericValidationBehavior.InvalidStyle>
+                                                <Style TargetType="Entry">
+                                                    <Setter Property="BackgroundColor" Value="Red" />
+                                                </Style>
+                                            </mct:NumericValidationBehavior.InvalidStyle>
+                                        </mct:NumericValidationBehavior>
+                                    </Entry.Behaviors>
+                                </Entry>
+                            </HorizontalStackLayout>
+                            <HorizontalStackLayout>
+                                <Label Margin="0" VerticalOptions="Center" Padding="0" Text="Weelky Start Day" />
+                                <Grid Margin="10,0,0,0" Padding="0" VerticalOptions="Center">
+                                    <Label Margin="0" Padding="0" Text="{Binding SelectedMacroSet.WeeklyStartDay}" VerticalOptions="Center" />
+                                    <ImageButton Margin="0" Padding="0" BindingContext="{Binding SelectedMacroSet}" Clicked="weeklyDayStart_Clicked" />
+                                </Grid>
+                            </HorizontalStackLayout>
+                        </VerticalStackLayout>
+                        <Grid Grid.Column="1" IsVisible="{Binding ShowMacroSetDescriptionEditor}">
+                            <Editor Text="{Binding SelectedMacroSet.Description}" />
+                        </Grid>
+                        <Grid Grid.Column="1" IsVisible="{Binding ShowMacroSetDescriptionEditor, Converter={conv:InverseBoolConverter}}">
+                            <Label Text="{Binding SelectedMacroSet.Description}" />
+                        </Grid>
+                        <Grid Grid.Column="1" IsVisible="{Binding ShowExport}">
+                            <Editor x:Name="exportEditor" Text="{Binding ExportValue}" />
+                        </Grid>
+                        <HorizontalStackLayout Grid.Column="1" HorizontalOptions="End" VerticalOptions="Start">
+                            <v:ToggleImageView IsToggled="{Binding ShowMacroSetDescriptionEditor}" ToggledColor="{StaticResource Primary}"
+                                   FontFamily="MaterialOutlined" Glyph="{x:Static mi:MaterialOutlined.Edit}" />
+                            <v:ImageView FontFamily="MaterialOutlined" Glyph="{x:Static mi:MaterialOutlined.Select_all}"
+                             IsVisible="{Binding ShowExport}">
+                                <v:ImageView.GestureRecognizers>
+                                    <TapGestureRecognizer Tapped="ExportEditor_SelectAll" />
+                                </v:ImageView.GestureRecognizers>
+                            </v:ImageView>
+                            <v:ImageView FontFamily="MaterialOutlined" Glyph="{x:Static mi:MaterialOutlined.Close}" Color="Red"
+                             IsVisible="{Binding ShowExport}" Command="{Binding CloseExportCommand}" />
+                        </HorizontalStackLayout>
+                    </Grid>
+                </ScrollView>
+                <v:ImageView HorizontalOptions="End" VerticalOptions="End" FontFamily="MaterialOutlined" Glyph="{x:Static mi:MaterialOutlined.Save}"
+                        Command="{Binding SaveCommand}" CommandParameter="{Binding SelectedMacroSet}" />
+            </Grid>
+        </DataTemplate>
+    </ContentPage.Resources>
+    <Grid x:Name="parentGrid">
         <mct:DockLayout HorizontalSpacing="5" VerticalSpacing="5">
-            <Border Stroke="{StaticResource Primary}" Padding="0" BackgroundColor="Transparent">
-                <Grid mct:DockLayout.DockPosition="Top">
+            <Border Stroke="{StaticResource Primary}" Padding="0" BackgroundColor="Transparent" mct:DockLayout.DockPosition="Top">
+                <Grid>
                     <HorizontalStackLayout Spacing="10">
                         <Label Text="Macro Set: " Margin="5,0,0,0" FontSize="Body" VerticalOptions="Center" FontAttributes="Bold" />
                         <Picker ItemsSource="{Binding MacroSets}" ItemDisplayBinding="{Binding Name}" SelectedItem="{Binding SelectedMacroSet}" />
@@ -50,163 +170,135 @@
                     </HorizontalStackLayout>
                 </Grid>
             </Border>
-            <material:TabView>
-                <material:TabItem Title="Macro">
-                    <Grid Padding="4">
-                        <ScrollView>
-                            <Grid ColumnDefinitions="Auto,*" ColumnSpacing="4">
-                                <VerticalStackLayout Grid.Column="0">
-                                    <HorizontalStackLayout Margin="0" Padding="0">
-                                        <Label Margin="0" VerticalOptions="Center" Padding="0" Text="Name:" />
-                                        <Entry Margin="5,0,0,0" VerticalOptions="Center" Text="{Binding SelectedMacroSet.Name}" />
-                                    </HorizontalStackLayout>
-                                    <HorizontalStackLayout Margin="0" Padding="0">
-                                        <Label Margin="0" VerticalOptions="Center" Padding="0" Text="Resolution Width:" />
-                                        <Entry Margin="5,0,0,0" VerticalOptions="Center" Text="{Binding ResolutionWidth}" />
-                                        <Label Margin="0" VerticalOptions="Center" Padding="0" Text="Supports Greater Width" />
-                                        <CheckBox Margin="5,0,0,0" VerticalOptions="Center" IsChecked="{Binding SelectedMacroSet.SupportsGreaterWidth}" />
-                                    </HorizontalStackLayout>
-                                    <HorizontalStackLayout Margin="0" Padding="0">
-                                        <Label Margin="0" VerticalOptions="Center" Padding="0" Text="Resolution Height:" />
-                                        <Entry Margin="5,0,0,0" VerticalOptions="Center" Text="{Binding ResolutionHeight}" />
-                                        <Label Margin="0" VerticalOptions="Center" Padding="0" Text="Supports Greater Height" />
-                                        <CheckBox Margin="5,0,0,0" VerticalOptions="Center" IsChecked="{Binding SelectedMacroSet.SupportsGreaterHeight}" />
-                                    </HorizontalStackLayout>
-                                    <HorizontalStackLayout Margin="0" Padding="0">
-                                        <Label Margin="0" VerticalOptions="Center" Padding="0" Text="Default Location X:" />
-                                        <Entry Margin="5,0,0,0" VerticalOptions="Center" Text="{Binding DefaultLocationX}" />
-                                        <Label Margin="5,0,0,0" VerticalOptions="Center" Padding="0" Text="Y:" />
-                                        <Entry Margin="5,0,0,0" VerticalOptions="Center" Text="{Binding DefaultLocationY}" />
-                                    </HorizontalStackLayout>
-                                    <HorizontalStackLayout Margin="0" Padding="0">
-                                        <Label Margin="0" VerticalOptions="Center" Padding="0" Text="Package:" />
-                                        <Entry Margin="5,0,0,0" VerticalOptions="Center" Text="{Binding SelectedMacroSet.Package}" />
-                                    </HorizontalStackLayout>
-                                    <HorizontalStackLayout Margin="0" Padding="0">
-                                        <Label Margin="0" VerticalOptions="Center" Padding="0" Text="Source:" />
-                                        <Entry Margin="5,0,0,0" VerticalOptions="Center" Text="{Binding SelectedMacroSet.Source}" />
-                                    </HorizontalStackLayout>
-                                    <HorizontalStackLayout Margin="0" Padding="0">
-                                        <Label Margin="0" VerticalOptions="Center" Padding="0" Text="MacroSet LastUpdated:" />
-                                        <Label Margin="5,0,0,0" VerticalOptions="Center" Text="{Binding SelectedMacroSet.MacroSetLastUpdated}" />
-                                        <v:ImageView FontFamily="MaterialOutlined" Glyph="{x:Static mi:MaterialOutlined.Backspace}" Color="Red" 
-                                                     Command="{Binding ClearMacroSetLastUpdatedCommand}" CommandParameter="{Binding SelectedMacroSet}" />
-                                    </HorizontalStackLayout>
-                                    <HorizontalStackLayout Margin="0" Padding="0">
-                                        <Label Margin="0" VerticalOptions="Center" Padding="0" Text="Patterns LastUpdated:" />
-                                        <Label Margin="5,0,0,0" VerticalOptions="Center" Text="{Binding SelectedMacroSet.PatternsLastUpdated}" />
-                                        <v:ImageView FontFamily="MaterialOutlined" Glyph="{x:Static mi:MaterialOutlined.Backspace}" Color="Red" 
-                                                     Command="{Binding ClearPatternsLastUpdatedCommand}" CommandParameter="{Binding SelectedMacroSet}" />
-                                    </HorizontalStackLayout>
-                                    <HorizontalStackLayout Margin="0" Padding="0">
-                                        <Label Margin="0" VerticalOptions="Center" Padding="0" Text="Scripts LastUpdated:" />
-                                        <Label Margin="5,0,0,0" VerticalOptions="Center" Text="{Binding SelectedMacroSet.ScriptsLastUpdated}" />
-                                        <v:ImageView FontFamily="MaterialOutlined" Glyph="{x:Static mi:MaterialOutlined.Backspace}" Color="Red" 
-                                                     Command="{Binding ClearScriptsLastUpdatedCommand}" CommandParameter="{Binding SelectedMacroSet}" />
-                                    </HorizontalStackLayout>
-                                    <HorizontalStackLayout Margin="0" Padding="0">
-                                        <Label Margin="0" VerticalOptions="Center" Padding="0" Text="Settings LastUpdated:" />
-                                        <Label Margin="5,0,0,0" VerticalOptions="Center" Text="{Binding SelectedMacroSet.SettingsLastUpdated}" />
-                                        <v:ImageView FontFamily="MaterialOutlined" Glyph="{x:Static mi:MaterialOutlined.Backspace}" Color="Red" 
-                                                     Command="{Binding ClearSettingsLastUpdatedCommand}" CommandParameter="{Binding SelectedMacroSet}" />
-                                    </HorizontalStackLayout>
-                                    <HorizontalStackLayout Margin="0" Padding="0">
-                                        <Label Margin="0" VerticalOptions="Center" Padding="0" Text="Daily Template LastUpdated:" />
-                                        <Label Margin="5,0,0,0" VerticalOptions="Center" Text="{Binding SelectedMacroSet.DailyTemplateLastUpdated}" />
-                                        <v:ImageView FontFamily="MaterialOutlined" Glyph="{x:Static mi:MaterialOutlined.Backspace}" Color="Red" 
-                                                     Command="{Binding ClearDailyTemplateLastUpdatedCommand}" CommandParameter="{Binding SelectedMacroSet}" />
-                                    </HorizontalStackLayout>
-                                    <HorizontalStackLayout Margin="0" Padding="0">
-                                        <Label Margin="0" VerticalOptions="Center" Padding="0" Text="WeeklyTemplate LastUpdated:" />
-                                        <Label Margin="5,0,0,0" VerticalOptions="Center" Text="{Binding SelectedMacroSet.WeeklyTemplateLastUpdated}" />
-                                        <v:ImageView FontFamily="MaterialOutlined" Glyph="{x:Static mi:MaterialOutlined.Backspace}" Color="Red" 
-                                                     Command="{Binding ClearWeeklyTemplateLastUpdatedCommand}" CommandParameter="{Binding SelectedMacroSet}" />
-                                    </HorizontalStackLayout>
-                                    <HorizontalStackLayout Margin="0" Padding="0">
-                                        <Label Margin="0" VerticalOptions="Center" Padding="0" Text="Daily Reset UTC Hour:" />
-                                        <Entry Margin="5,0,0,0" VerticalOptions="Center" Text="{Binding SelectedMacroSet.DailyResetUtcHour, FallbackValue=0}" Keyboard="Numeric">
-                                            <Entry.Behaviors>
-                                                <mct:NumericValidationBehavior MaximumDecimalPlaces="0" Flags="ValidateOnValueChanged">
-                                                    <mct:NumericValidationBehavior.InvalidStyle>
-                                                        <Style TargetType="Entry">
-                                                            <Setter Property="BackgroundColor" Value="Red" />
-                                                        </Style>
-                                                    </mct:NumericValidationBehavior.InvalidStyle>
-                                                </mct:NumericValidationBehavior>
-                                            </Entry.Behaviors>
-                                        </Entry>
-                                    </HorizontalStackLayout>
-                                    <HorizontalStackLayout>
-                                        <Label Margin="0" VerticalOptions="Center" Padding="0" Text="Weelky Start Day" />
-                                        <Grid Margin="10,0,0,0" Padding="0" VerticalOptions="Center">
-                                            <Label Margin="0" Padding="0" Text="{Binding SelectedMacroSet.WeeklyStartDay}" VerticalOptions="Center" />
-                                            <ImageButton Margin="0" Padding="0" BindingContext="{Binding SelectedMacroSet}" Clicked="weeklyDayStart_Clicked" />
-                                        </Grid>
-                                    </HorizontalStackLayout>
-                                </VerticalStackLayout>
-                                <Grid Grid.Column="1" IsVisible="{Binding ShowMacroSetDescriptionEditor}">
-                                    <Editor Text="{Binding SelectedMacroSet.Description}" />
-                                </Grid>
-                                <Grid Grid.Column="1" IsVisible="{Binding ShowMacroSetDescriptionEditor, Converter={conv:InverseBoolConverter}}">
-                                    <Label Text="{Binding SelectedMacroSet.Description}" />
-                                </Grid>
-                                <Grid Grid.Column="1" IsVisible="{Binding ShowExport}">
-                                    <Editor x:Name="exportEditor" Text="{Binding ExportValue}" />
-                                </Grid>
-                                <HorizontalStackLayout Grid.Column="1" HorizontalOptions="End" VerticalOptions="Start">
-                                    <v:ToggleImageView IsToggled="{Binding ShowMacroSetDescriptionEditor}" ToggledColor="Green"
-                                                       FontFamily="MaterialOutlined" Glyph="{x:Static mi:MaterialOutlined.Edit}" />
-                                    <v:ImageView FontFamily="MaterialOutlined" Glyph="{x:Static mi:MaterialOutlined.Select_all}"
-                                                 IsVisible="{Binding ShowExport}">
-                                        <v:ImageView.GestureRecognizers>
-                                            <TapGestureRecognizer Tapped="ExportEditor_SelectAll" />
-                                        </v:ImageView.GestureRecognizers>
-                                    </v:ImageView>
-                                    <v:ImageView FontFamily="MaterialOutlined" Glyph="{x:Static mi:MaterialOutlined.Close}" Color="Red"
-                                                 IsVisible="{Binding ShowExport}" Command="{Binding CloseExportCommand}" />
-                                </HorizontalStackLayout>
-                            </Grid>
-                        </ScrollView>
-                        <v:ImageView HorizontalOptions="End" VerticalOptions="End" FontFamily="MaterialOutlined" Glyph="{x:Static mi:MaterialOutlined.Save}"
-                                 Command="{Binding SaveCommand}" CommandParameter="{Binding SelectedMacroSet}" />
-                    </Grid>
-                </material:TabItem>
-                <material:TabItem Title="Patterns">
-                    <material:TabItem.ContentTemplate>
-                        <DataTemplate>
-                            <v:PatternNodeView />
-                        </DataTemplate>
-                    </material:TabItem.ContentTemplate>
-                </material:TabItem>
-                <material:TabItem Title="Scripts">
-                    <material:TabItem.ContentTemplate>
-                        <DataTemplate>
-                            <v:ScriptNodeView />
-                        </DataTemplate>
-                    </material:TabItem.ContentTemplate>
-                </material:TabItem>
-                <material:TabItem Title="Settings">
-                    <material:TabItem.ContentTemplate>
-                        <DataTemplate>
-                            <v:SettingNodeView />
-                        </DataTemplate>
-                    </material:TabItem.ContentTemplate>
-                </material:TabItem>
-                <material:TabItem Title="Dailies">
-                    <material:TabItem.ContentTemplate>
-                        <DataTemplate>
-                            <v:DailyNodeView />
-                        </DataTemplate>
-                    </material:TabItem.ContentTemplate>
-                </material:TabItem>
-                <material:TabItem Title="Weeklies">
-                    <material:TabItem.ContentTemplate>
-                        <DataTemplate>
-                            <v:WeeklyNodeView />
-                        </DataTemplate>
-                    </material:TabItem.ContentTemplate>
-                </material:TabItem>
-            </material:TabView>
+            <FlexLayout x:Name="radioButtons" mct:DockLayout.DockPosition="Top" AlignContent="Start" AlignItems="Start" Wrap="Wrap" JustifyContent="SpaceEvenly"> 
+                <BindableLayout.ItemTemplate>
+                    <DataTemplate>
+                        <RadioButton Content="{Binding .}" CheckedChanged="Tab_CheckedChanged">
+                            <RadioButton.ControlTemplate>
+                                <ControlTemplate>
+                                    <Grid RowDefinitions="30,4">
+                                        <VisualStateManager.VisualStateGroups>
+                                            <VisualStateGroupList>
+                                                <VisualStateGroup x:Name="CheckedStates">
+                                                    <VisualState x:Name="Checked">
+                                                        <VisualState.Setters>
+                                                            <Setter
+                                                                TargetName="TextLabel"
+                                                                Property="Label.TextColor"
+                                                                Value="{StaticResource Primary}"/>
+                                                            <Setter
+                                                                TargetName="Indicator"
+                                                                Property="BoxView.Color"
+                                                                Value="{StaticResource Primary}"/>
+                                                        </VisualState.Setters>
+                                                    </VisualState>
+                                                    <VisualState x:Name="Unchecked">
+                                                        <VisualState.Setters>
+                                                            <Setter
+                                                                TargetName="TextLabel"
+                                                                Property="Label.TextColor"
+                                                                Value="White"/>
+                                                            <Setter
+                                                                TargetName="Indicator"
+                                                                Property="BoxView.Color"
+                                                                Value="Transparent"/>
+                                                        </VisualState.Setters>
+                                                    </VisualState>
+                                                </VisualStateGroup>
+                                            </VisualStateGroupList>
+                                        </VisualStateManager.VisualStateGroups>
+                                        <Label Text="{TemplateBinding Content}" x:Name="TextLabel" />
+                                        <BoxView x:Name="Indicator" Grid.Row="1" Color="Transparent"/>
+                                    </Grid>
+                                </ControlTemplate>
+                            </RadioButton.ControlTemplate>
+                        </RadioButton>
+                    </DataTemplate>
+                </BindableLayout.ItemTemplate>
+                <BindableLayout.ItemsSource>
+                    <x:Array Type="{x:Type x:String}">
+                        <x:String>Macro</x:String>
+                        <x:String>Patterns</x:String>
+                        <x:String>Scripts</x:String>
+                        <x:String>Settings</x:String>
+                        <x:String>Dailies</x:String>
+                        <x:String>Weeklies</x:String>
+                    </x:Array>
+                </BindableLayout.ItemsSource>
+            </FlexLayout>
+            <v:DataTemplateView x:Name="tabItemView">
+                <VisualStateManager.VisualStateGroups>
+                    <VisualStateGroup Name="TabStates">
+                        <VisualState Name="Macro">
+                            <VisualState.Setters>
+                                <Setter TargetName="tabItemView"
+                                        Property="DataTemplate"
+                                        Value="{StaticResource macroTabDataTemplate}" />
+                            </VisualState.Setters>
+                        </VisualState>
+                        <VisualState Name="Patterns">
+                            <VisualState.Setters>
+                                <Setter TargetName="tabItemView"
+                                         Property="DataTemplate">
+                                    <Setter.Value>
+                                        <DataTemplate>
+                                            <v:PatternNodeView />
+                                        </DataTemplate>
+                                    </Setter.Value>
+                                </Setter>
+                            </VisualState.Setters>
+                        </VisualState>
+                        <VisualState Name="Scripts">
+                            <VisualState.Setters>
+                                <Setter TargetName="tabItemView"
+                                        Property="DataTemplate">
+                                    <Setter.Value>
+                                        <DataTemplate>
+                                            <v:ScriptNodeView />
+                                        </DataTemplate>
+                                    </Setter.Value>
+                                </Setter>
+                            </VisualState.Setters>
+                        </VisualState>
+                        <VisualState Name="Settings">
+                            <VisualState.Setters>
+                                <Setter TargetName="tabItemView"
+                                        Property="DataTemplate">
+                                    <Setter.Value>
+                                        <DataTemplate>
+                                            <v:SettingNodeView />
+                                        </DataTemplate>
+                                    </Setter.Value>
+                                </Setter>
+                            </VisualState.Setters>
+                        </VisualState>
+                        <VisualState Name="Dailies">
+                            <VisualState.Setters>
+                                <Setter TargetName="tabItemView"
+                                        Property="DataTemplate">
+                                    <Setter.Value>
+                                        <DataTemplate>
+                                            <v:DailyNodeView />
+                                        </DataTemplate>
+                                    </Setter.Value>
+                                </Setter>
+                            </VisualState.Setters>
+                        </VisualState>
+                        <VisualState Name="Weeklies">
+                            <VisualState.Setters>
+                                <Setter TargetName="tabItemView"
+                                        Property="DataTemplate">
+                                    <Setter.Value>
+                                        <DataTemplate>
+                                            <v:WeeklyNodeView />
+                                        </DataTemplate>
+                                    </Setter.Value>
+                                </Setter>
+                            </VisualState.Setters>
+                        </VisualState>
+                    </VisualStateGroup>
+                </VisualStateManager.VisualStateGroups>
+            </v:DataTemplateView>
         </mct:DockLayout>
         <ActivityIndicator IsRunning="{Binding IsBusy}" />
         <Label Text="{Binding AppVersion, StringFormat='AppVersion: {0}'}" VerticalOptions="End" HorizontalOptions="Start" />

@@ -9,5 +9,5 @@ public partial class App : Application
 		MainPage = new AppShell();
 
         Application.Current.UserAppTheme = AppTheme.Dark;
-    }
+	}
 }

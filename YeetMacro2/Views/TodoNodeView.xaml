@@ -28,7 +28,7 @@
                                    HeightRequest="20" />
                 <Grid Grid.Row="0" Grid.Column="1" HeightRequest="20">
                     <Grid HeightRequest="20">
-                        <Label Text="{Binding Key}" TextColor="{StaticResource PrimaryDark}" Margin="0" Padding="0" VerticalOptions="Center" BackgroundColor="Transparent">
+                        <Label Text="{Binding Key}" TextColor="{StaticResource Primary}" Margin="0" Padding="0" VerticalOptions="Center" BackgroundColor="Transparent">
                             <Label.Triggers>
                                 <DataTrigger TargetType="{x:Type Label}" Binding="{Binding IsSelected}" Value="True">
                                     <Setter Property="Background" Value="Blue" />
@@ -48,7 +48,7 @@
         <DataTemplate x:Key="TodoJsonBooleanTemplate">
             <HorizontalStackLayout Spacing="4">
                 <Grid HeightRequest="20" Margin="20,0,0,0">
-                    <Label Text="{Binding Key}" TextColor="{StaticResource PrimaryDark}" Margin="0" Padding="0" VerticalOptions="Center" BackgroundColor="Transparent">
+                    <Label Text="{Binding Key}" TextColor="{StaticResource Primary}" Margin="0" Padding="0" VerticalOptions="Center" BackgroundColor="Transparent">
                         <Label.Triggers>
                             <DataTrigger TargetType="{x:Type Label}" Binding="{Binding IsSelected}" Value="True">
                                 <Setter Property="Background" Value="Blue" />
@@ -64,7 +64,7 @@
         <DataTemplate x:Key="TodoJsonCountTemplate">
             <HorizontalStackLayout>
                 <Grid HeightRequest="20" Margin="20,0,0,0">
-                    <Label Text="{Binding Key}" TextColor="{StaticResource PrimaryDark}" Margin="0" Padding="0" VerticalOptions="Center" BackgroundColor="Transparent">
+                    <Label Text="{Binding Key}" TextColor="{StaticResource Primary}" Margin="0" Padding="0" VerticalOptions="Center" BackgroundColor="Transparent">
                         <Label.Triggers>
                             <DataTrigger TargetType="{x:Type Label}" Binding="{Binding IsSelected}" Value="True">
                                 <Setter Property="Background" Value="Blue" />
@@ -138,18 +138,18 @@
                                      IsVisible="{Binding Todos.SelectedJsonElement, Source={Reference thisView}, Converter={conv:NullToBoolConverter IsInverse=True}}"
                                      Command="{Binding Todos.MoveElementBottomCommand, Source={Reference thisView}}" CommandParameter="{Binding Todos.SelectedJsonElement, Source={Reference thisView}}" />
                         <v:ToggleImageView IsVisible="{Binding Todos.SelectedNode, Source={Reference thisView}, Converter={conv:NullToBoolConverter IsInverse=True}}"
-                                     IsToggled="{Binding Todos.ShowJsonEditor, Source={Reference thisView}}" ToggledColor="Green"
+                                     IsToggled="{Binding Todos.ShowJsonEditor, Source={Reference thisView}}" ToggledColor="{StaticResource Primary}"
                                      FontFamily="MaterialOutlined" Glyph="{x:Static mi:MaterialOutlined.Edit}" />
                         <v:ImageView FontFamily="FASolid" Glyph="{x:Static fa:Solid.TrashCan}" Color="Red" 
                                      IsVisible="{Binding Todos.SelectedJsonElement, Source={Reference thisView}, Converter={conv:NullToBoolConverter IsInverse=True}}"
                                      Command="{Binding Todos.DeleteJsonElementCommand, Source={Reference thisView}}" CommandParameter="{Binding Todos.SelectedJsonElement, Source={Reference thisView}}" />
                         <v:ImageView FontFamily="FASolid" Glyph="{x:Static fa:Solid.Plus}" Command="{Binding Todos.AddJsonElementCommand, Source={Reference thisView}}" />
                     </VerticalStackLayout>
-                    <v:ToggleImageView x:Name="menuToggle" FontFamily="FASolid" Glyph="{x:Static fa:Solid.Bars}" ToggledColor="Green" />
+                    <v:ToggleImageView x:Name="menuToggle" FontFamily="FASolid" Glyph="{x:Static fa:Solid.Bars}" ToggledColor="{StaticResource Primary}" />
                 </VerticalStackLayout>
                 <HorizontalStackLayout Grid.ColumnSpan="2" HorizontalOptions="Start" VerticalOptions="End">
                     <v:ToggleImageView FontFamily="MaterialOutlined" Glyph="{x:Static mi:MaterialOutlined.Data_object}" IsToggled="{Binding Todos.ShowTemplate, Source={Reference thisView}}"
-                                       ToggledColor="Green" Text="Template" />
+                                       ToggledColor="{StaticResource Primary}" Text="Template" />
                 </HorizontalStackLayout>
             </Grid>
             <ActivityIndicator Grid.ColumnSpan="2" IsRunning="{Binding IsBusy}" />

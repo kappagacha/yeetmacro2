@@ -12,7 +12,7 @@
              HeightRequest="50"
              WidthRequest="50"
              x:Class="YeetMacro2.Platforms.Android.Views.ActionControl">
-    <Border StrokeShape="RoundRectangle 10" Stroke="Green" BackgroundColor="{StaticResource BackgroundDark}">
+    <Border StrokeShape="RoundRectangle 10" Stroke="{StaticResource Primary}" BackgroundColor="{StaticResource BackgroundDark}">
         <Border.Triggers>
             <DataTrigger TargetType="{x:Type Border}" Binding="{Binding State}" Value="{x:Static pvm:ActionState.Running}">
                 <Setter Property="Stroke" Value="Red" />
@@ -20,7 +20,7 @@
         </Border.Triggers>
         <Grid>
             <ImageButton Command="{Binding ExecuteCommand}" />
-            <v:ImageView FontFamily="MaterialOutlined" Glyph="{x:Static mi:MaterialOutlined.Play_arrow}" Color="Green"
+            <v:ImageView FontFamily="MaterialOutlined" Glyph="{x:Static mi:MaterialOutlined.Play_arrow}" Color="{StaticResource Primary}"
                          Command="{Binding ExecuteCommand}">
                 <v:ImageView.Triggers>
                     <DataTrigger TargetType="{x:Type v:ImageView}" Binding="{Binding State}" Value="{x:Static pvm:ActionState.Running}">
@@ -28,7 +28,7 @@
                         <Setter Property="Glyph" Value="{x:Static mi:MaterialOutlined.Stop}" />
                     </DataTrigger>
                     <DataTrigger TargetType="{x:Type v:ImageView}" Binding="{Binding State}" Value="{x:Static pvm:ActionState.Stopped}">
-                        <Setter Property="Color" Value="Green" />
+                        <Setter Property="Color" Value="{StaticResource Primary}" />
                         <Setter Property="Glyph" Value="{x:Static mi:MaterialOutlined.Play_arrow}" />
                     </DataTrigger>
                 </v:ImageView.Triggers>

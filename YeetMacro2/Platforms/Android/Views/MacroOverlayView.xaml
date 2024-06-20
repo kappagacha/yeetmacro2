@@ -15,21 +15,21 @@
             <HorizontalStackLayout Spacing="5">
                 <v:ToggleImageView IsToggled="{Binding IsProjectionServiceEnabled}"
                    FontFamily="MaterialOutlined" Glyph="{x:Static mi:MaterialOutlined.Branding_watermark}" 
-                   HorizontalOptions="Center" ToggledColor="Green" UntoggledColor="Red"
+                   HorizontalOptions="Center" ToggledColor="{StaticResource Primary}" UntoggledColor="Red"
                    Command="{Binding ToggleIsProjectionServiceEnabledCommand}" />
                 <BoxView WidthRequest="1" Color="{StaticResource Primary}"/>
                 <v:ToggleImageView IsToggled="{Binding IsAccessibilityEnabled}"
                    FontFamily="MaterialOutlined" Glyph="{x:Static mi:MaterialOutlined.Touch_app}"
-                   HorizontalOptions="Center" ToggledColor="Green" UntoggledColor="Red"
+                   HorizontalOptions="Center" ToggledColor="{StaticResource Primary}" UntoggledColor="Red"
                    Command="{Binding ToggleIsAccessibilityEnabledCommand}" />
                 <BoxView WidthRequest="1" Color="{StaticResource Primary}"/>
                 <v:ToggleImageView IsToggled="{Binding ShowStatusPanel}"
                                FontFamily="MaterialOutlined" Glyph="{x:Static mi:MaterialOutlined.Call_to_action}"
-                               HorizontalOptions="Center" ToggledColor="Green" UntoggledColor="LightGray" />
+                               HorizontalOptions="Center" ToggledColor="{StaticResource Primary}" UntoggledColor="LightGray" />
                 <BoxView WidthRequest="1" Color="{StaticResource Primary}"/>
                 <v:ToggleImageView IsToggled="{Binding MacroManagerViewModel.InDebugMode}"
                    FontFamily="MaterialOutlined" Glyph="{x:Static mi:MaterialOutlined.Filter_center_focus}"
-                   HorizontalOptions="Center" ToggledColor="Green" UntoggledColor="LightGray" />
+                   HorizontalOptions="Center" ToggledColor="{StaticResource Primary}" UntoggledColor="LightGray" />
                 <BoxView WidthRequest="1" Color="{StaticResource Primary}"/>
                 <Label Text="Current Resolution: " />
                 <Label Text="{Binding CurrentResolution.Width}" TextColor="Red">
@@ -80,22 +80,22 @@
             <HorizontalStackLayout>
                 <v:ToggleImageView IsToggled="{Binding ShowPatternNodeView}"
                                    FontFamily="MaterialOutlined" Glyph="{x:Static mi:MaterialOutlined.Image_search}"
-                                   HorizontalOptions="Center" ToggledColor="Green" UntoggledColor="LightGray" />
+                                   HorizontalOptions="Center" ToggledColor="{StaticResource Primary}" UntoggledColor="LightGray" />
                 <BoxView WidthRequest="1" Color="{StaticResource Primary}"/>
                 <v:ToggleImageView IsToggled="{Binding ShowSettingNodeView}"
                                    FontFamily="MaterialOutlined" Glyph="{x:Static mi:MaterialOutlined.Settings}"
-                                   HorizontalOptions="Center" ToggledColor="Green" UntoggledColor="LightGray" />
+                                   HorizontalOptions="Center" ToggledColor="{StaticResource Primary}" UntoggledColor="LightGray" />
                 <BoxView WidthRequest="1" Color="{StaticResource Primary}"/>
                 <v:ToggleImageView IsToggled="{Binding ShowDailyNodeView}"
                                     FontFamily="FASolid" Glyph="{x:Static fa:Solid.CalendarDay}"
-                                    HorizontalOptions="Center" ToggledColor="Green" UntoggledColor="LightGray" />
+                                    HorizontalOptions="Center" ToggledColor="{StaticResource Primary}" UntoggledColor="LightGray" />
                 <v:ToggleImageView IsToggled="{Binding ShowWeeklyNodeView}"
                                     FontFamily="FASolid" Glyph="{x:Static fa:Solid.CalendarWeek}"
-                                    HorizontalOptions="Center" ToggledColor="Green" UntoggledColor="LightGray" />
+                                    HorizontalOptions="Center" ToggledColor="{StaticResource Primary}" UntoggledColor="LightGray" />
                 <BoxView WidthRequest="1" Color="{StaticResource Primary}"/>
                 <v:ToggleImageView IsToggled="{Binding ShowTestView}"
                                    FontFamily="MaterialOutlined" Glyph="{x:Static mi:MaterialOutlined.Science}"
-                                   HorizontalOptions="Center" ToggledColor="Green" UntoggledColor="LightGray" />
+                                   HorizontalOptions="Center" ToggledColor="{StaticResource Primary}" UntoggledColor="LightGray" />
                 <BoxView WidthRequest="1" Color="{StaticResource Primary}"/>
                 <v:ImageView FontFamily="FASolid" Glyph="{x:Static fa:Solid.x}" Color="Red"
                                      Command="{Binding CloseMacroOverlayCommand}" />
