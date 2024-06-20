@@ -4,6 +4,7 @@
              x:Class="YeetMacro2.Views.SettingNodeView"
              xmlns:vm="clr-namespace:YeetMacro2.ViewModels"
              xmlns:v="clr-namespace:YeetMacro2.Views"
+             xmlns:nvm="clr-namespace:YeetMacro2.ViewModels.NodeViewModels"
              xmlns:conv="clr-namespace:YeetMacro2.Converters"
              xmlns:m="clr-namespace:YeetMacro2.Data.Models"
              x:DataType="vm:MacroManagerViewModel"
@@ -15,7 +16,7 @@
              BackgroundColor="{AppThemeBinding Light={StaticResource Background}, Dark={StaticResource BackgroundDark}}"
              x:Name="thisView">
     <ContentView.Resources>
-        <DataTemplate x:Key="SharedTemplate">
+        <DataTemplate x:Key="SharedTemplate" x:DataType="m:Node">
             <FlexLayout JustifyContent="SpaceBetween">
                 <HorizontalStackLayout Spacing="5">
                     <Grid>
@@ -37,7 +38,7 @@
                     CommandParameter="{Binding .}" />
             </FlexLayout>
         </DataTemplate>
-        <DataTemplate x:Key="ParentSettingTemplate" x:DataType="{x:Null}">
+        <DataTemplate x:Key="ParentSettingTemplate" x:DataType="nvm:ParentSettingViewModel">
             <Grid ColumnDefinitions="Auto, *" RowDefinitions="Auto, Auto" ColumnSpacing="5">
                 <Grid WidthRequest="15" />
                 <v:ToggleImageView Grid.Row="0" Grid.Column="0"
@@ -69,7 +70,7 @@
                 </Grid>
             </Grid>
         </DataTemplate>
-        <DataTemplate x:Key="BooleanSettingTemplate">
+        <DataTemplate x:Key="BooleanSettingTemplate" x:DataType="nvm:BooleanSettingViewModel">
             <v:DataTemplateView DataTemplate="{StaticResource SharedTemplate}">
                 <v:DataTemplateView.ContentTemplate>
                     <DataTemplate>
@@ -78,10 +79,10 @@
                 </v:DataTemplateView.ContentTemplate>
             </v:DataTemplateView>
         </DataTemplate>
-        <DataTemplate x:Key="OptionSettingTemplate">
+        <DataTemplate x:Key="OptionSettingTemplate" x:DataType="nvm:OptionSettingViewModel">
             <v:DataTemplateView DataTemplate="{StaticResource SharedTemplate}">
                 <v:DataTemplateView.ContentTemplate>
-                    <DataTemplate>
+                    <DataTemplate x:DataType="{x:Type m:OptionSetting}">
                         <HorizontalStackLayout Spacing="5">
                             <Grid>
                                 <Label Margin="0" Padding="0" Text="{Binding Value}" VerticalOptions="Center" />
@@ -98,8 +99,8 @@
                 </v:DataTemplateView.ContentTemplate>
             </v:DataTemplateView>
         </DataTemplate>
-        <DataTemplate x:Key="EnabledOptionSettingTemplate">
-            <v:DataTemplateView DataTemplate="{StaticResource SharedTemplate}">
+        <DataTemplate x:Key="EnabledOptionSettingTemplate" x:DataType="nvm:EnabledOptionSettingViewModel">
+            <v:DataTemplateView DataTemplate="{StaticResource SharedTemplate}" x:DataType="nvm:EnabledOptionSettingViewModel">
                 <v:DataTemplateView.ContentTemplate>
                     <DataTemplate>
                         <HorizontalStackLayout Spacing="5">
@@ -119,7 +120,7 @@
                 </v:DataTemplateView.ContentTemplate>
             </v:DataTemplateView>
         </DataTemplate>
-        <DataTemplate x:Key="StringSettingTemplate">
+        <DataTemplate x:Key="StringSettingTemplate" x:DataType="nvm:StringSettingViewModel">
             <v:DataTemplateView DataTemplate="{StaticResource SharedTemplate}">
                 <v:DataTemplateView.ContentTemplate>
                     <DataTemplate>
@@ -128,7 +129,7 @@
                 </v:DataTemplateView.ContentTemplate>
             </v:DataTemplateView>
         </DataTemplate>
-        <DataTemplate x:Key="EnabledStringSettingTemplate">
+        <DataTemplate x:Key="EnabledStringSettingTemplate" x:DataType="nvm:EnabledStringSettingViewModel">
             <v:DataTemplateView DataTemplate="{StaticResource SharedTemplate}">
                 <v:DataTemplateView.ContentTemplate>
                     <DataTemplate>
@@ -140,7 +141,7 @@
                 </v:DataTemplateView.ContentTemplate>
             </v:DataTemplateView>
         </DataTemplate>
-        <DataTemplate x:Key="IntegerSettingTemplate">
+        <DataTemplate x:Key="IntegerSettingTemplate" x:DataType="nvm:IntegerSettingViewModel">
             <v:DataTemplateView DataTemplate="{StaticResource SharedTemplate}">
                 <v:DataTemplateView.ContentTemplate>
                     <DataTemplate>
@@ -149,7 +150,7 @@
                 </v:DataTemplateView.ContentTemplate>
             </v:DataTemplateView>
         </DataTemplate>
-        <DataTemplate x:Key="EnabledIntegerSettingTemplate">
+        <DataTemplate x:Key="EnabledIntegerSettingTemplate" x:DataType="nvm:EnabledIntegerSettingViewModel">
             <v:DataTemplateView DataTemplate="{StaticResource SharedTemplate}">
                 <v:DataTemplateView.ContentTemplate>
                     <DataTemplate>
@@ -161,7 +162,7 @@
                 </v:DataTemplateView.ContentTemplate>
             </v:DataTemplateView>
         </DataTemplate>
-        <DataTemplate x:Key="DoubleSettingTemplate">
+        <DataTemplate x:Key="DoubleSettingTemplate" x:DataType="nvm:DoubleSettingViewModel">
             <v:DataTemplateView DataTemplate="{StaticResource SharedTemplate}">
                 <v:DataTemplateView.ContentTemplate>
                     <DataTemplate>
@@ -170,7 +171,7 @@
                 </v:DataTemplateView.ContentTemplate>
             </v:DataTemplateView>
         </DataTemplate>
-        <DataTemplate x:Key="EnabledDoubleSettingTemplate">
+        <DataTemplate x:Key="EnabledDoubleSettingTemplate" x:DataType="nvm:EnabledDoubleSettingViewModel">
             <v:DataTemplateView DataTemplate="{StaticResource SharedTemplate}">
                 <v:DataTemplateView.ContentTemplate>
                     <DataTemplate>
@@ -182,10 +183,10 @@
                 </v:DataTemplateView.ContentTemplate>
             </v:DataTemplateView>
         </DataTemplate>
-        <DataTemplate x:Key="PatternSettingTemplate">
+        <DataTemplate x:Key="PatternSettingTemplate" x:DataType="nvm:PatternSettingViewModel">
             <v:DataTemplateView DataTemplate="{StaticResource SharedTemplate}" />
         </DataTemplate>
-        <DataTemplate x:Key="EnabledPatternSettingTemplate">
+        <DataTemplate x:Key="EnabledPatternSettingTemplate" x:DataType="nvm:EnabledPatternSettingViewModel">
             <v:DataTemplateView DataTemplate="{StaticResource SharedTemplate}">
                 <v:DataTemplateView.ContentTemplate>
                     <DataTemplate>
@@ -194,7 +195,7 @@
                 </v:DataTemplateView.ContentTemplate>
             </v:DataTemplateView>
         </DataTemplate>
-        <DataTemplate x:Key="TimestampSettingTemplate">
+        <DataTemplate x:Key="TimestampSettingTemplate" x:DataType="nvm:TimestampSettingViewModel">
             <v:DataTemplateView DataTemplate="{StaticResource SharedTemplate}">
                 <v:DataTemplateView.ContentTemplate>
                     <DataTemplate>

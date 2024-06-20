@@ -18,7 +18,8 @@ public static class OpenCvHelper
         var upperBounds = new Scalar(skColorTarget.Blue + variance, skColorTarget.Green + variance, skColorTarget.Red + variance);
         var mask = mat.InRange(lowerBounds, upperBounds);
         // https://forum.opencv.org/t/do-we-have-a-function-to-invert-gray-image-values/5902
-        var maskInverted = 255 - mask;
+        var maskInverted = new Scalar(255) - mask;
+        
         //var maskRgb = mask.CvtColor(ColorConversionCodes.GRAY2BGR);
         //var result = mat & maskRgb;
         //return result.ToMat().ToBytes(".jpeg");
