@@ -21,7 +21,7 @@
         <ListView ItemsSource="{Binding LogGroups}">
             <ListView.ItemTemplate>
                 <DataTemplate>
-                    <ViewCell x:DataType="{x:Type m:LogGroup}">
+                    <ViewCell x:DataType="m:LogGroup">
                         <Button Command="{Binding BindingContext.SelectLogGroupCommand, Source={RelativeSource AncestorType={x:Type p:LogGroupsPage}}}"
                                 CommandParameter="{Binding .}">
                             <Button.Text>

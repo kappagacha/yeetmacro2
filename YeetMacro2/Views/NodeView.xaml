@@ -28,8 +28,8 @@
                     <Grid HeightRequest="20">
                         <Label Text="{Binding Name}" TextColor="{StaticResource Primary}" Margin="0" Padding="0" VerticalOptions="Center" BackgroundColor="Transparent">
                             <Label.Triggers>
-                                <DataTrigger TargetType="{x:Type Label}" Binding="{Binding IsSelected}" Value="True">
-                                    <Setter Property="Background" Value="Blue" />
+                                <DataTrigger TargetType="Label" Binding="{Binding IsSelected}" Value="True">
+                                    <Setter Property="BackgroundColor" Value="Blue" />
                                 </DataTrigger>
                             </Label.Triggers>
                         </Label>
