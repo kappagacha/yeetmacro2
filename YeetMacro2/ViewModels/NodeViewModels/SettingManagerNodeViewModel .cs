@@ -19,6 +19,8 @@ public partial class SettingNodeManagerViewModel : NodeManagerViewModel<ParentSe
     Pattern _selectedPattern;
     [ObservableProperty]
     ParentSetting _currentSubViewModel;
+    [ObservableProperty]
+    bool _showResetButton;
 
     public SettingNodeManagerViewModel(
         int rootNodeId,

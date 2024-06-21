@@ -33,6 +33,7 @@
                     <ContentPresenter Grid.Column="1" x:Name="contentPresenter" BindingContext="{Binding .}" />
                 </HorizontalStackLayout>
                 <v:ImageView
+                    IsVisible="{Binding BindingContext.Settings.ShowResetButton, Source={RelativeSource AncestorType={x:Type v:SettingNodeView}}}"
                     VerticalOptions="Center" FontFamily="MaterialOutlined" Glyph="{x:Static mi:MaterialOutlined.Refresh}"
                     Command="{Binding BindingContext.Settings.ResetSettingCommand, Source={RelativeSource AncestorType={x:Type v:SettingNodeView}}}"
                     CommandParameter="{Binding .}" />
@@ -219,6 +220,19 @@
                         <Setter Property="ItemsSource" Value="{Binding Settings.CurrentSubViewModel.Nodes}" />
                     </DataTrigger>
                 </v:NodeView.Triggers>
+                <v:NodeView.ExtraMenuItemsDataTemplate>
+                    <DataTemplate x:DataType="{x:Null}">
+                        <VerticalStackLayout>
+                            <Grid>
+                                <v:ToggleImageView FontFamily="MaterialOutlined" Glyph="{x:Static mi:MaterialOutlined.Refresh}" ToggledColor="{StaticResource Primary}" 
+                                                   IsToggled="{Binding BindingContext.Settings.ShowResetButton, Source={RelativeSource AncestorType={x:Type v:SettingNodeView}}}"/>
+                                <v:ToggleImageView FontFamily="FASolid" Glyph="{x:Static fa:Solid.Eye}" ToggledColor="{StaticResource Primary}" 
+                                                   IsToggled="{Binding BindingContext.Settings.ShowResetButton, Source={RelativeSource AncestorType={x:Type v:SettingNodeView}}}"
+                                                   Scale=".5"/>
+                            </Grid>
+                        </VerticalStackLayout>
+                    </DataTemplate>
+                </v:NodeView.ExtraMenuItemsDataTemplate>
             </v:NodeView>
         </Border>
         <Border Grid.Column="1" Stroke="{StaticResource Primary}" BackgroundColor="Transparent" Padding="3"
