@@ -194,7 +194,7 @@ public partial class MacroManagerViewModel : ObservableObject
             Settings?.SaveSetting(settingNode);
         });
 
-        WeakReferenceMessenger.Default.Register<Lazy<ScriptNode>>(this, async (r, scriptNode) => {
+        WeakReferenceMessenger.Default.Register<Lazy<ScriptNode>>(this, (r, scriptNode) => {
             MainThread.BeginInvokeOnMainThread(async () =>
             {
                 await Settings?.OnScriptNodeSelected(scriptNode.Value);

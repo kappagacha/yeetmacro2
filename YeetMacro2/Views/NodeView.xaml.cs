@@ -5,7 +5,6 @@ namespace YeetMacro2.Views;
 
 public partial class NodeView : ContentView
 {
-    ICommand _toggleIsMenuOpenCommand;
     public static readonly BindableProperty IsMenuVisibleProperty =
         BindableProperty.Create("IsMenuVisible", typeof(bool), typeof(NodeView), true);
     public static readonly BindableProperty ItemTemplateProperty =
