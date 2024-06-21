@@ -207,7 +207,7 @@
                                                 </VisualStateGroup>
                                             </VisualStateGroupList>
                                         </VisualStateManager.VisualStateGroups>
-                                        <Label Text="{TemplateBinding Content}" x:Name="TextLabel" />
+                                        <Label Text="{TemplateBinding Content}" x:Name="TextLabel" TextColor="White" />
                                         <BoxView x:Name="Indicator" Grid.Row="1" Color="Transparent"/>
                                     </Grid>
                                 </ControlTemplate>
