@@ -24,9 +24,9 @@
                     <v:NodeView.ExtraMenuItemsDataTemplate>
                         <DataTemplate x:DataType="{x:Null}">
                             <VerticalStackLayout>
-                                <v:ImageView FontFamily="FASolid" Glyph="{x:Static fa:Solid.FileExport}" 
+                                <!--<v:ImageView FontFamily="FASolid" Glyph="{x:Static fa:Solid.FileExport}" 
                                                     Command="{Binding ItemsSource.ExportCommand}"
-                                                    CommandParameter="{Binding BindingContext.SelectedMacroSet.Name, Source={RelativeSource AncestorType={x:Type v:ScriptNodeView}}}" />
+                                                    CommandParameter="{Binding BindingContext.SelectedMacroSet.Name, Source={RelativeSource AncestorType={x:Type v:ScriptNodeView}}}" />-->
                                 <v:ToggleImageView FontFamily="MaterialOutlined" IsToggled="{Binding BindingContext.Scripts.ShowHiddenScripts, Source={RelativeSource AncestorType={x:Type v:ScriptNodeView}}}"
                                                    UntoggledGlyph="{x:Static mi:MaterialOutlined.Visibility_off}" 
                                                    ToggledGlyph="{x:Static mi:MaterialOutlined.Visibility}" />

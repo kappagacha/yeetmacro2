@@ -1,10 +1,13 @@
 ﻿using AutoMapper;
+using CommunityToolkit.Maui.Core;
+using CommunityToolkit.Maui.Storage;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using System.Diagnostics;
 using System.Reflection;
 using System.Text.Json;
 using System.Text.Json.Serialization;
+using System.Threading;
 using YeetMacro2.Data.Models;
 using YeetMacro2.Data.Serialization;
 using YeetMacro2.Data.Services;
@@ -38,7 +41,7 @@ public partial class NodeManagerViewModel<TViewModel, TParent, TChild> : NodeMan
         where TParent : Node, IParentNode<TParent, TChild>, TChild, new()
         where TChild : Node
 {
-    static IMapper _mapper;
+    protected static IMapper _mapper;
     private int _rootNodeId;
     private string _nodeTypeName;
     [ObservableProperty]
@@ -46,7 +49,7 @@ public partial class NodeManagerViewModel<TViewModel, TParent, TChild> : NodeMan
     [ObservableProperty]
     protected TChild _selectedNode;
     [ObservableProperty]
-    bool _isInitialized, _showExport, _isList;
+    bool _isInitialized, _showExport, _isList, _isBusy;
     TaskCompletionSource _initializeCompleted;
     protected INodeService<TParent, TChild> _nodeService;
     protected IToastService _toastService;
@@ -407,26 +410,23 @@ public partial class NodeManagerViewModel<TViewModel, TParent, TChild> : NodeMan
     }
 
     [RelayCommand]
-    public void Export(string name)
+    public async Task Export(string name)
     {
-        //        if (await Permissions.RequestAsync<Permissions.StorageWrite>() != PermissionStatus.Granted) return;
+        if (await Permissions.RequestAsync<Permissions.StorageWrite>() != PermissionStatus.Granted) return;
+
         var json = JsonSerializer.Serialize(this, _defaultJsonSerializerOptions);
+        var defaultFolder = FileSystem.Current.AppDataDirectory;
+
 #if ANDROID
         // https://stackoverflow.com/questions/39332085/get-path-to-pictures-directory
-        var targetDirectory = DeviceInfo.Current.Platform == DevicePlatform.Android ?
-            Android.OS.Environment.GetExternalStoragePublicDirectory(Android.OS.Environment.DirectoryPictures).AbsolutePath :
-            FileSystem.Current.AppDataDirectory;
-        var targetFile = Path.Combine(targetDirectory, $"{name}_{_nodeTypeName}s.json");
-        File.WriteAllText(targetFile, json);
-#elif WINDOWS
-        var targetDirectory = FileSystem.Current.AppDataDirectory;
-        var targetFile = Path.Combine(targetDirectory, $"{name}_{_nodeTypeName}s.json");
-        File.WriteAllText(targetFile, json);
+        defaultFolder = Android.OS.Environment.GetExternalStoragePublicDirectory(Android.OS.Environment.DirectoryPictures).AbsolutePath;
 #endif
-        // Clipboard seems to have a character limit in Android
-        ExportValue = json;
-        ShowExport = true;
-        _toastService.Show($"Exported {_nodeTypeName}: {name}");
+
+        var result = await FolderPicker.Default.PickAsync(defaultFolder, new CancellationToken());
+        if (!result.IsSuccessful) return;
+        var targetFile = Path.Combine(result.Folder.Path, $"{name}_{_nodeTypeName}s.json");
+        File.WriteAllText(targetFile, json);
+        _toastService.Show($"Exported {name} {_nodeTypeName} on ${result.Folder.Path}");
     }
 
     [RelayCommand]

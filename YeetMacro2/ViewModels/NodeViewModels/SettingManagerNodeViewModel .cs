@@ -243,4 +243,93 @@ public partial class SettingNodeManagerViewModel : NodeManagerViewModel<ParentSe
 
         _toastService.Show($"Reset ${setting.Path}");
     }
+
+    [RelayCommand]
+    public async Task ImportSettings()
+    {
+        var pickOptions = new PickOptions();
+        pickOptions.FileTypes = new FilePickerFileType(
+            new Dictionary<DevicePlatform, IEnumerable<string>>
+            {
+                { DevicePlatform.Android, new[] { ".json" } },
+                { DevicePlatform.WinUI, new[] { ".json" } }
+            });
+        var result = await FilePicker.Default.PickAsync(pickOptions);
+        if (result is null) return;
+
+        IsBusy = true;
+        var fileSettingsJson = File.ReadAllText(result.FullPath);
+        var fileSettings = SettingNodeManagerViewModel.FromJson(fileSettingsJson);
+        var mappedFileSettings = _mapper.Map<ParentSettingViewModel>(fileSettings.Root);
+        MergeSettings(mappedFileSettings, this.Root);
+        IsBusy = false;
+
+        Save();
+        _toastService.Show($"Imported settings from {result.FullPath}");
+    }
+
+    public static void MergeSettings(SettingNode source, SettingNode dest)
+    {
+        if (source is ParentSetting parentSource && dest is ParentSetting parentDest)
+        {
+            foreach (var childSource in parentSource.Nodes)
+            {
+                // Not supporting duplicate names
+                var childDest = parentDest.Nodes.FirstOrDefault(sn => sn.Name == childSource.Name);
+                if (childDest is not null)
+                {
+                    MergeSettings(childSource, childDest);
+                }
+            }
+        }
+        else
+        {
+            switch (source.SettingType)
+            {
+                case SettingType.Boolean when dest.SettingType == SettingType.Boolean:
+                    ((BooleanSettingViewModel)dest).Value = ((BooleanSettingViewModel)source).Value;
+                    break;
+                case SettingType.String when dest.SettingType == SettingType.String:
+                    ((StringSettingViewModel)dest).Value = ((StringSettingViewModel)source).Value;
+                    break;
+                case SettingType.Option when dest.SettingType == SettingType.Option:
+                    ((OptionSettingViewModel)dest).Value = ((OptionSettingViewModel)source).Value;
+                    break;
+                case SettingType.EnabledString when dest.SettingType == SettingType.EnabledString:
+                    ((EnabledStringSettingViewModel)dest).Value = ((EnabledStringSettingViewModel)source).Value;
+                    ((EnabledStringSettingViewModel)dest).IsEnabled = ((EnabledStringSettingViewModel)source).IsEnabled;
+                    break;
+                case SettingType.EnabledOption when dest.SettingType == SettingType.EnabledOption:
+                    ((EnabledOptionSettingViewModel)dest).Value = ((EnabledOptionSettingViewModel)source).Value;
+                    ((EnabledOptionSettingViewModel)dest).IsEnabled = ((EnabledOptionSettingViewModel)source).IsEnabled;
+                    break;
+                case SettingType.Integer when dest.SettingType == SettingType.Integer:
+                    ((IntegerSettingViewModel)dest).Value = ((IntegerSettingViewModel)source).Value;
+                    break;
+                case SettingType.EnabledInteger when dest.SettingType == SettingType.EnabledInteger:
+                    ((EnabledIntegerSettingViewModel)dest).IsEnabled = ((EnabledIntegerSettingViewModel)source).IsEnabled;
+                    ((EnabledIntegerSettingViewModel)dest).Value = ((EnabledIntegerSettingViewModel)source).Value;
+                    break;
+                case SettingType.Double when dest.SettingType == SettingType.Double:
+                    ((DoubleSettingViewModel)dest).Value = ((DoubleSettingViewModel)source).Value;
+                    break;
+                case SettingType.EnabledDouble when dest.SettingType == SettingType.EnabledDouble:
+                    ((EnabledDoubleSettingViewModel)dest).IsEnabled = ((EnabledDoubleSettingViewModel)source).IsEnabled;
+                    ((EnabledDoubleSettingViewModel)dest).Value = ((EnabledDoubleSettingViewModel)source).Value;
+                    break;
+                case SettingType.Pattern when dest.SettingType == SettingType.Pattern:
+                case SettingType.EnabledPattern when dest.SettingType == SettingType.EnabledPattern:
+                    var patternNodeCopy = PatternNodeManagerViewModel.CloneNode(((PatternSettingViewModel)source).Value);
+                    ((PatternSettingViewModel)dest).Value = patternNodeCopy;
+                    if (source.SettingType == SettingType.EnabledPattern)
+                    {
+                        ((EnabledPatternSettingViewModel)dest).IsEnabled = ((EnabledPatternSettingViewModel)source).IsEnabled;
+                    }
+                    break;
+                case SettingType.TimeStamp when dest.SettingType == SettingType.TimeStamp:
+                    ((TimestampSettingViewModel)dest).Value = ((TimestampSettingViewModel)source).Value;
+                    break;
+            }
+        }
+    }
 }

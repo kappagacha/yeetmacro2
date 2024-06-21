@@ -214,6 +214,7 @@ public partial class MacroManagerViewModel : ObservableObject
 
         WeakReferenceMessenger.Default.Register<PatternNodeViewModel>(this, (r, patternNode) => {
             if (IsBusy ||                                   // updating MacroSet   (MacroManagerViewModel)
+                Patterns.IsBusy ||                          // updating patterns
                 !(Patterns?.IsInitialized ?? false) ||      // loading patterns     (NodeManagerViewModel)
                 patternNode.NodeId == 0)                    // json desirialization (NodeManagerViewModel)
                 return;
@@ -566,10 +567,13 @@ public partial class MacroManagerViewModel : ObservableObject
             if (settingJson is not null)
             {
                 Settings.SelectedNode = null;
+                Settings.IsBusy = true;
                 var settings = SettingNodeManagerViewModel.FromJson(settingJson);
-                MergeSettings(Settings.Root, settings.Root);
+                var mappedFileSettings = _mapper.Map<ParentSettingViewModel>(settings.Root);
+                SettingNodeManagerViewModel.MergeSettings(Settings.Root, mappedFileSettings);
                 ((ParentSettingViewModel)Settings.Root).ResetDictionary();
                 Settings.Import(settings);
+                Settings.IsBusy = false;
             }
 
             if (targetMacroSet.DailyTemplate is not null && (!macroSet.DailyTemplateLastUpdated.HasValue || macroSet.DailyTemplateLastUpdated < targetMacroSet.DailyTemplateLastUpdated))
@@ -641,69 +645,6 @@ public partial class MacroManagerViewModel : ObservableObject
         OnPropertyChanged(nameof(Settings));
         OnPropertyChanged(nameof(Dailies));
         OnPropertyChanged(nameof(Weeklies));
-    }
-
-    private void MergeSettings(SettingNode source, SettingNode dest)
-    {
-        if (source is ParentSetting parentSource && dest is ParentSetting parentDest)
-        {
-            foreach (var childSource in parentSource.Nodes)
-            {
-                // Not supporting duplicate names
-                var childDest = parentDest.Nodes.FirstOrDefault(sn => sn.Name == childSource.Name);
-                if (childDest is not null)
-                {
-                    MergeSettings(childSource, childDest);
-                }
-            }
-        } 
-        else
-        {
-            switch (source.SettingType)
-            {
-                case SettingType.Boolean when dest.SettingType == SettingType.Boolean:
-                    ((SettingNode<bool>)dest).Value = ((SettingNode<bool>)source).Value;
-                    break;
-                case SettingType.String when dest.SettingType == SettingType.String:
-                case SettingType.Option when dest.SettingType == SettingType.Option:
-                    ((SettingNode<string>)dest).Value = ((SettingNode<string>)source).Value;
-                    break;
-                case SettingType.EnabledString when dest.SettingType == SettingType.EnabledString:
-                    ((SettingNode<string>)dest).Value = ((SettingNode<string>)source).Value;
-                    ((EnabledStringSetting)dest).IsEnabled = ((EnabledStringSetting)source).IsEnabled;
-                    break;
-                case SettingType.EnabledOption when dest.SettingType == SettingType.EnabledOption:
-                    ((SettingNode<string>)dest).Value = ((SettingNode<string>)source).Value;
-                    ((EnabledOptionSetting)dest).IsEnabled = ((EnabledOptionSetting)source).IsEnabled;
-                    break;
-                case SettingType.Integer when dest.SettingType == SettingType.Integer:
-                    ((SettingNode<int>)dest).Value = ((SettingNode<int>)source).Value;
-                    break;
-                case SettingType.EnabledInteger when dest.SettingType == SettingType.EnabledInteger:
-                    ((EnabledIntegerSetting)dest).IsEnabled = ((EnabledIntegerSetting)source).IsEnabled;
-                    ((SettingNode<int>)dest).Value = ((SettingNode<int>)source).Value;
-                    break;
-                case SettingType.Double when dest.SettingType == SettingType.Double:
-                    ((SettingNode<double>)dest).Value = ((SettingNode<double>)source).Value;
-                    break;
-                case SettingType.EnabledDouble when dest.SettingType == SettingType.EnabledDouble:
-                    ((EnabledDoubleSetting)dest).IsEnabled = ((EnabledDoubleSetting)source).IsEnabled;
-                    ((SettingNode<double>)dest).Value = ((SettingNode<double>)source).Value;
-                    break;
-                case SettingType.Pattern when dest.SettingType == SettingType.Pattern:
-                case SettingType.EnabledPattern when dest.SettingType == SettingType.EnabledPattern:
-                    var patternNodeCopy = PatternNodeManagerViewModel.CloneNode(((PatternSetting)source).Value);
-                    ((SettingNode<PatternNode>)dest).Value = patternNodeCopy;
-                    if (source.SettingType == SettingType.EnabledPattern)
-                    {
-                        ((EnabledPatternSetting)dest).IsEnabled = ((EnabledPatternSetting)source).IsEnabled;
-                    }
-                    break;
-                case SettingType.TimeStamp when dest.SettingType == SettingType.TimeStamp:
-                    ((SettingNode<DateTimeOffset>)dest).Value = ((SettingNode<DateTimeOffset>)source).Value;
-                    break;
-            }
-        }
     }
 
     [RelayCommand]
