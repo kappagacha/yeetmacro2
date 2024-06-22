@@ -247,14 +247,7 @@ public partial class SettingNodeManagerViewModel : NodeManagerViewModel<ParentSe
     [RelayCommand]
     public async Task ImportSettings()
     {
-        var pickOptions = new PickOptions();
-        pickOptions.FileTypes = new FilePickerFileType(
-            new Dictionary<DevicePlatform, IEnumerable<string>>
-            {
-                { DevicePlatform.Android, new[] { ".json" } },
-                { DevicePlatform.WinUI, new[] { ".json" } }
-            });
-        var result = await FilePicker.Default.PickAsync(pickOptions);
+        var result = await FilePicker.Default.PickAsync();
         if (result is null) return;
 
         IsBusy = true;

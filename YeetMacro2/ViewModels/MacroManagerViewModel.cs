@@ -357,7 +357,7 @@ public partial class MacroManagerViewModel : ObservableObject
     [RelayCommand]
     private async Task ExportMacroSet(MacroSet macroSet)
     {
-        if (await Permissions.RequestAsync<Permissions.StorageWrite>() != PermissionStatus.Granted) return;
+        //if (await Permissions.RequestAsync<Permissions.StorageWrite>() != PermissionStatus.Granted) return;
 
 #if ANDROID
         // https://stackoverflow.com/questions/75880663/maui-on-android-listing-folder-contents-of-an-sd-card-and-writing-in-it
