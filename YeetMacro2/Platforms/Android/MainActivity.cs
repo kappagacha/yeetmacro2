@@ -26,8 +26,16 @@ public class MainActivity : MauiAppCompatActivity
             Console.WriteLine("[*****YeetMacro*****] OpenCVLoader.InitDebug ERROR");
         }
 
-        RegisterReceiver(receiver, new IntentFilter("com.yeetoverflow.AccessibilityService.CHANGED"));
-        RegisterReceiver(receiver, new IntentFilter("com.yeetoverflow.MediaProjectionService.STARTED"));
+        if (OperatingSystem.IsAndroidVersionAtLeast(33))
+        {
+            RegisterReceiver(receiver, new IntentFilter("com.yeetoverflow.AccessibilityService.CHANGED"), ReceiverFlags.Exported);
+            RegisterReceiver(receiver, new IntentFilter("com.yeetoverflow.MediaProjectionService.STARTED"), ReceiverFlags.Exported);
+        }
+        else
+        {
+            RegisterReceiver(receiver, new IntentFilter("com.yeetoverflow.AccessibilityService.CHANGED"));
+            RegisterReceiver(receiver, new IntentFilter("com.yeetoverflow.MediaProjectionService.STARTED"));
+        }
 
         AppDomain.CurrentDomain.UnhandledException += (sender, args) =>
         {

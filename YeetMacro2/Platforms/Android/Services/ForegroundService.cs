@@ -41,7 +41,14 @@ public class ForegroundService : Service
                 WeakReferenceMessenger.Default.Send(new PropertyChangedMessage<bool>(this, nameof(OnStartCommand), true, false), nameof(ForegroundService));
                 break;
             default:
-                StartForeground(SERVICE_RUNNING_NOTIFICATION_ID, GenerateNotification());
+                if (OperatingSystem.IsAndroidVersionAtLeast(29))
+                {
+                    StartForeground(SERVICE_RUNNING_NOTIFICATION_ID, GenerateNotification(), global::Android.Content.PM.ForegroundService.TypeMediaProjection);
+                }
+                else
+                {
+                    StartForeground(SERVICE_RUNNING_NOTIFICATION_ID, GenerateNotification());
+                }
                 WeakReferenceMessenger.Default.Send(new PropertyChangedMessage<bool>(this, nameof(OnStartCommand), false, true), nameof(ForegroundService));
                 break;
         }
