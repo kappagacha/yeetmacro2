@@ -97,7 +97,7 @@ function findShopItem(shopItemName) {
 
 	const shopItemNameToRegex = {
 		stamina: /s..m.n/is,
-		gold: /gold/is,
+		gold: /go.d/is,
 		clearTicket: /c.e.r.*icke/is,
 		arenaTicket: /aren.*icke/is,
 		hammer: /h[au]mmer/is,
