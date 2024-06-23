@@ -6,8 +6,6 @@
 goToLobby();
 goToLobby();
 goToLobby();
-goToLobby();
-goToLobby();
 
 if (settings.doDailies.claimGuildBuff.Value) {
     claimGuildBuff();
@@ -41,6 +39,11 @@ if (settings.doDailies.claimFreeShop.Value) {
 
 if (settings.doDailies.doShop.Value) {
     doShop();
+    goToLobby();
+}
+
+if (settings.doDailies.sellInventory.Value) {
+    sellInventory();
     goToLobby();
 }
 

@@ -1,11 +1,6 @@
 // @isFavorite
 // @position=-1
-// Do dailies (all checked scripts)
-
-if (settings.doWeeklies.sellInventory.Value) {
-    sellInventory();
-    goToLobby();
-}
+// Do weeklies (all checked scripts)
 
 if (settings.doWeeklies.claimWeeklyMissions.Value) {
     claimWeeklyMissions();

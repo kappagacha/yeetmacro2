@@ -1,7 +1,7 @@
 // Sell inventory - normal and superior grade
 const loopPatterns = [patterns.lobby.level, patterns.titles.inventory];
-const weekly = weeklyManager.GetCurrentWeekly();
-if (weekly.sellInventory.done.IsChecked && !settings.sellInventory.forceRun.Value) {
+const daily = dailyManager.GetCurrentDaily();
+if (daily.sellInventory.done.IsChecked && !settings.sellInventory.forceRun.Value) {
 	return "Script already completed. Uncheck done to override weekly flag.";
 }
 
@@ -28,7 +28,7 @@ while (macroService.IsRunning) {
 			macroService.PollPattern(patterns.general.tapEmptySpace, { DoClick: true, PredicatePattern: patterns.titles.inventory });
 
 			if (macroService.IsRunning) {
-				weekly.sellInventory.done.IsChecked = true;
+				daily.sellInventory.done.IsChecked = true;
 			}
 			return;
 	}
