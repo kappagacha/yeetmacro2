@@ -66,13 +66,13 @@ if (settings.doDailies.doChampsArena.Value) {
     goToLobby();
 }
 
-if (settings.doDailies.skipDecoyOperation.Value) {
-    skipDecoyOperation();
+if (settings.doDailies.sweepDecoyOperation.Value) {
+    sweepDecoyOperation();
     goToLobby();
 }
 
-if (settings.doDailies.skipDimensionalLabyrinth.Value) {
-    skipDimensionalLabyrinth();
+if (settings.doDailies.sweepDimensionalLabyrinth.Value) {
+    sweepDimensionalLabyrinth();
     goToLobby();
 }
 

@@ -34,7 +34,7 @@ while (macroService.IsRunning) {
 	switch (loopResult.Path) {
 		case 'lobby.level':
 			logger.info('sweepEvent: click attendance check');
-			const attendanceCheckSwipeResult = macroService.SwipePollPattern(patterns.lobby.attendanceCheck, { Start: { X: lobbySwipeXStart, Y: 300 }, End: { X: lobbySwipeXEnd, Y: 300 } });
+			const attendanceCheckSwipeResult = macroService.SwipePollPattern(patterns.lobby.attendanceCheck, { MaxSwipes: 10, Start: { X: lobbySwipeXStart, Y: 300 }, End: { X: lobbySwipeXEnd, Y: 300 }, PollTimeoutMs: 4_000 });
 			if (!attendanceCheckSwipeResult.IsSuccess) {
 				throw Error('Unable to find pattern: patterns.lobby.attendanceCheck');
 			}
