@@ -20,7 +20,7 @@ while (macroService.IsRunning) {
 	const result = macroService.PollPattern(loopPatterns);
 	switch (result.Path) {
 		case 'titles.home':
-			logger.info('watchAdStamina: stamina ad');
+			logger.info('watchAdStamina: stamina add');
 			macroService.ClickPattern(patterns.stamina.add);
 			break;
 		case 'stamina.prompt.recoverStamina':

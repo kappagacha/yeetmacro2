@@ -7,6 +7,11 @@ if (settings.doUpkeep.claimJobs.Value) {
     goToLobby();
 }
 
+if (settings.doUpkeep.useFriendBeefs.Value) {
+    useFriendBeefs();
+    goToLobby();
+}
+
 if (settings.doUpkeep.skipEventOrMainHardQuests.Value) {
     skipEventOrMainHardQuests();
     goToLobby();

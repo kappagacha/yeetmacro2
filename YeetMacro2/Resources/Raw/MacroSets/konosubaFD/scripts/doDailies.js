@@ -71,3 +71,8 @@ if (settings.doDailies.skipEventOrMainHardQuests.Value) {
     skipEventOrMainHardQuests();
     goToLobby();
 }
+
+if (settings.doDailies.claimGifts.Value) {
+    claimGifts();
+    goToLobby();
+}

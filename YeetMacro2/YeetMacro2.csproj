@@ -344,6 +344,9 @@
     <MauiAsset Update="Resources\Raw\MacroSets\konosubaFD\macroSet.json">
       <LogicalName>%(RecursiveDir)%(Filename)%(Extension)</LogicalName>
     </MauiAsset>
+    <MauiAsset Update="Resources\Raw\MacroSets\konosubaFD\scripts\claimGifts.js">
+      <LogicalName>%(RecursiveDir)%(Filename)%(Extension)</LogicalName>
+    </MauiAsset>
     <MauiAsset Update="Resources\Raw\MacroSets\konosubaFD\scripts\doUpkeep.js">
       <LogicalName>%(RecursiveDir)%(Filename)%(Extension)</LogicalName>
     </MauiAsset>
@@ -387,6 +390,9 @@
       <LogicalName>%(RecursiveDir)%(Filename)%(Extension)</LogicalName>
     </MauiAsset>
     <MauiAsset Update="Resources\Raw\MacroSets\konosubaFD\scripts\watchAdQuartz.js">
+      <LogicalName>%(RecursiveDir)%(Filename)%(Extension)</LogicalName>
+    </MauiAsset>
+    <MauiAsset Update="Resources\Raw\MacroSets\konosubaFD\scripts\useFriendBeefs.js">
       <LogicalName>%(RecursiveDir)%(Filename)%(Extension)</LogicalName>
     </MauiAsset>
     <MauiAsset Update="Resources\Raw\MacroSets\konosubaFD\scripts\watchAdStamina.js">

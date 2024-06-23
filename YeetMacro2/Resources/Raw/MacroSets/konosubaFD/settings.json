@@ -524,6 +524,19 @@
         "position": 0,
         "path": "doDailies.skipEventOrMainHardQuests"
       }
+    },
+    "claimGifts": {
+      "$isParent": false,
+      "props": {
+        "$type": "boolean",
+        "settingType": "Boolean",
+        "value": true,
+        "defaultValue": true,
+        "isParentNode": false,
+        "name": "claimGifts",
+        "position": 0,
+        "path": "doDailies.claimGifts"
+      }
     }
   },
   "doBattleArena": {
@@ -938,6 +951,19 @@
         "path": "doUpkeep.claimJobs"
       }
     },
+    "useFriendBeefs": {
+      "$isParent": false,
+      "props": {
+        "$type": "boolean",
+        "settingType": "Boolean",
+        "value": true,
+        "defaultValue": true,
+        "isParentNode": false,
+        "name": "useFriendBeefs",
+        "position": 1,
+        "path": "doUpkeep.useFriendBeefs"
+      }
+    },
     "skipEventOrMainHardQuests": {
       "$isParent": false,
       "props": {
@@ -947,7 +973,7 @@
         "defaultValue": true,
         "isParentNode": false,
         "name": "skipEventOrMainHardQuests",
-        "position": 0,
+        "position": 2,
         "path": "doUpkeep.skipEventOrMainHardQuests"
       }
     }
