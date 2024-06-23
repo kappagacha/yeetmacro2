@@ -569,9 +569,10 @@ public partial class MacroManagerViewModel : ObservableObject
                 Settings.SelectedNode = null;
                 Settings.IsBusy = true;
                 var settings = SettingNodeManagerViewModel.FromJson(settingJson);
-                var mappedFileSettings = _mapper.Map<ParentSettingViewModel>(settings.Root);
-                SettingNodeManagerViewModel.MergeSettings(Settings.Root, mappedFileSettings);
+                settings.Root = _mapper.Map<ParentSettingViewModel>(settings.Root);
+                SettingNodeManagerViewModel.MergeSettings(Settings.Root, settings.Root);
                 ((ParentSettingViewModel)Settings.Root).ResetDictionary();
+                
                 Settings.Import(settings);
                 Settings.IsBusy = false;
             }
