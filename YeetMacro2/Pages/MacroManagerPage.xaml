@@ -133,6 +133,7 @@
                 </ScrollView>
                 <v:ImageView HorizontalOptions="End" VerticalOptions="End" FontFamily="MaterialOutlined" Glyph="{x:Static mi:MaterialOutlined.Save}"
                         Command="{Binding SaveCommand}" CommandParameter="{Binding SelectedMacroSet}" />
+                <ActivityIndicator IsRunning="{Binding IsBusy}" />
             </Grid>
         </DataTemplate>
     </ContentPage.Resources>

@@ -1,5 +1,6 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
 using Microsoft.Maui.Layouts;
+using System.Collections.Concurrent;
 using System.Collections.ObjectModel;
 using System.Collections.Specialized;
 
@@ -8,11 +9,12 @@ namespace YeetMacro2.Views;
 [ContentProperty("Items")]
 public class TabView : Grid
 {
-    DataTemplateView _dataTemplateView;
+    ContentView _contentView;
     public static readonly BindableProperty ItemsProperty =
         BindableProperty.Create(nameof(Items), typeof(ObservableCollection<TabItem>), typeof(TabView), new ObservableCollection<TabItem>());
     public static readonly BindableProperty SelectedTabItemProperty =
         BindableProperty.Create(nameof(SelectedTabItem), typeof(TabItem), typeof(TabView));
+    ConcurrentDictionary<TabItem, View> _tabItemToView;
 
     public ObservableCollection<TabItem> Items
     {
@@ -23,23 +25,34 @@ public class TabView : Grid
     public TabItem SelectedTabItem
     {
         get { return (TabItem)GetValue(SelectedTabItemProperty); }
-        set 
+        set
         {
+            var newTabItem = value;
             var currentTabItem = (TabItem)GetValue(SelectedTabItemProperty);
+            if (currentTabItem == newTabItem) return;
+
             if (currentTabItem != null)
             {
                 currentTabItem.IsSelected = false;
             }
-            SetValue(SelectedTabItemProperty, value);
-            value.IsSelected = true;
-            _dataTemplateView.DataTemplate = value.ContentDataTemplate;
+
+            SetValue(SelectedTabItemProperty, newTabItem);
+            newTabItem.IsSelected = true;
+
+            if (!_tabItemToView.ContainsKey(newTabItem))
+            {
+                _tabItemToView.TryAdd(newTabItem, (View)newTabItem.ContentDataTemplate.CreateContent());
+            }
+            _contentView.Content = _tabItemToView[newTabItem];
         }
     }
 
-    public DataTemplateView Content => _dataTemplateView;
+    public View Content => _contentView.Content;
 
     public TabView()
     {
+        _tabItemToView = new ConcurrentDictionary<TabItem, View>();
+
         this.AddRowDefinition(new RowDefinition(34));
         this.AddRowDefinition(new RowDefinition(GridLength.Star));
 
@@ -58,6 +71,7 @@ public class TabView : Grid
             grid.Add(label);
 
             var indicator = new BoxView();
+            indicator.Color = (Color)App.Current.Resources["Primary"];
             Grid.SetRow(indicator, 1);
             grid.Add(indicator);
 
@@ -79,7 +93,8 @@ public class TabView : Grid
                 {
                     new GenericTriggerAction<Grid>((grid) =>
                     {
-                        label.TextColor = indicator.Color = (Color)App.Current.Resources["Primary"];
+                        label.TextColor = (Color)App.Current.Resources["Primary"];
+                        indicator.IsVisible = true;
                     })
                 }
             };
@@ -91,7 +106,8 @@ public class TabView : Grid
                 {
                     new GenericTriggerAction<Grid>((grid) =>
                     {
-                        label.TextColor = indicator.Color = null;
+                        label.TextColor = Colors.White;
+                        indicator.IsVisible = false;
                     })
                 }
             };
@@ -103,9 +119,9 @@ public class TabView : Grid
         Grid.SetRow(headerContainer, 0);
         this.Add(headerContainer);
 
-        _dataTemplateView = new DataTemplateView();
-        Grid.SetRow(_dataTemplateView, 1);
-        this.Add(_dataTemplateView);
+        _contentView = new ContentView();
+        Grid.SetRow(_contentView, 1);
+        this.Add(_contentView);
 
         Items.CollectionChanged += Items_CollectionChanged;
     }

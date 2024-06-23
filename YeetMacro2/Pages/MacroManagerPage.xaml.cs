@@ -12,7 +12,7 @@ public partial class MacroManagerPage : ContentPage
 
     private void ExportEditor_SelectAll(object sender, TappedEventArgs e)
     {
-        var exportEditor = (Editor)tabView.Content.Content.FindByName("exportEditor");
+        var exportEditor = (Editor)tabView.Content.FindByName("exportEditor");
         if (exportEditor.Text == null) return;
         exportEditor.Focus();
         exportEditor.CursorPosition = 0;
