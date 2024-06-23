@@ -376,6 +376,12 @@ If you agree, please tap OK then grant Accessibility service permission to YeetM
     }
 
     [RelayCommand]
+    private async Task OpenLatestVersionLink()
+    {
+        await Launcher.OpenAsync("https://github.com/kappagacha/yeetmacro2/releases/tag/latest");
+    }
+
+    [RelayCommand]
     public void Appear()
     {
         IsAppearing = true;

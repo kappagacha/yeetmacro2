@@ -114,7 +114,9 @@
                     <v:ImageView FontFamily="FASolid" Glyph="{x:Static fa:Solid.HandHoldingDollar}"
                                  Command="{Binding OpenDonateLinkCommand}" />
                 </HorizontalStackLayout>
-                <Label Text="{Binding MacroManagerViewModel.AppVersion, StringFormat='AppVersion: {0}'}"  />
+                <v:ToggleImageView FontFamily="FASolid" Glyph="{x:Static fa:Solid.ArrowUpRightFromSquare}"
+                                   Text="{Binding MacroManagerViewModel.AppVersion, StringFormat='AppVersion: {0}'}"
+                                   Command="{Binding OpenLatestVersionLinkCommand}" />
             </VerticalStackLayout>
         </Grid>
     </ScrollView>
