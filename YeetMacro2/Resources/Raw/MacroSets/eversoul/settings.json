@@ -876,7 +876,7 @@
         "path": "doDailies.doOutings"
       }
     },
-    "skipDecoyOperation": {
+    "sweepDecoyOperation": {
       "$isParent": false,
       "props": {
         "$type": "boolean",
@@ -884,12 +884,12 @@
         "value": true,
         "defaultValue": true,
         "isParentNode": false,
-        "name": "skipDecoyOperation",
+        "name": "sweepDecoyOperation",
         "position": 0,
-        "path": "doDailies.skipDecoyOperation"
+        "path": "doDailies.sweepDecoyOperation"
       }
     },
-    "skipDimensionalLabyrinth": {
+    "sweepDimensionalLabyrinth": {
       "$isParent": false,
       "props": {
         "$type": "boolean",
@@ -897,9 +897,9 @@
         "value": true,
         "defaultValue": true,
         "isParentNode": false,
-        "name": "skipDimensionalLabyrinth",
+        "name": "sweepDimensionalLabyrinth",
         "position": 0,
-        "path": "doDailies.skipDimensionalLabyrinth"
+        "path": "doDailies.sweepDimensionalLabyrinth"
       }
     }
   },
