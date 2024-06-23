@@ -1,4 +1,5 @@
 // @position=9999
+// Test shop
 
 const resolution = macroService.GetCurrentResolution();
 const itemCornerPattern = macroService.ClonePattern(patterns.shop.itemCorner, {

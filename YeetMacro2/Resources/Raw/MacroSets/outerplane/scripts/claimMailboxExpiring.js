@@ -1,7 +1,6 @@
 // Claim mailbox items close to expiration
 const loopPatterns = [patterns.lobby.level, patterns.titles.mailbox];
 let done = false;
-const numDaysRegex = /(?<numDays>\d+).\s/;
 const daily = dailyManager.GetCurrentDaily();
 
 if (daily.claimMailboxExpiring.done.IsChecked) {
@@ -26,11 +25,16 @@ while (macroService.IsRunning) {
 
 				done = true;
 				for (const p of receiveResult.Points) {
-					const expirationPattern = macroService.ClonePattern(patterns.mailbox.expiration, { CenterY: p.Y - 75 });
-					const text = macroService.GetText(expirationPattern);
-					const regexResult = numDaysRegex.exec(text);
-					const numDays = regexResult?.groups?.numDays;
-					if (!numDays || numDays == 1) {
+					const dPattern = macroService.ClonePattern(patterns.mailbox.expiration.d, { CenterX: p.X, CenterY: p.Y - 75, Width: 100, Height: 40, Path: `patterns.mailbox.expiration.d_x${p.X}_y${p.Y - 75}` });
+					const dPatternResult = macroService.FindPattern(dPattern);
+					if (!dPatternResult.IsSuccess) {
+						continue;
+					}
+
+					const numberPattern = macroService.ClonePattern(patterns.mailbox.expiration.d, { X: dPatternResult.Point.X - 60, Y: dPatternResult.Point.Y - 15, Width: 50, Path: `patterns.mailbox.expiration.number_text_x${dPatternResult.Point.X - 30}_y${dPatternResult.Point.Y}` });
+					const numberText = macroService.GetText(numberPattern, "1234567890");
+
+					if (numberText == 1) {
 						macroService.PollPoint(p, { PredicatePattern: patterns.general.tapEmptySpace });
 						macroService.PollPattern(patterns.general.tapEmptySpace, { DoClick: true, PredicatePattern: patterns.titles.mailbox });
 						sleep(500);

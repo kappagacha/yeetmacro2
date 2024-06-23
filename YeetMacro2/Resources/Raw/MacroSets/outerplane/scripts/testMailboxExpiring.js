@@ -1,6 +1,6 @@
+// @position=9999
 // Test mailbox expirations
 const loopPatterns = [patterns.lobby.level, patterns.titles.mailbox];
-const numDaysRegex = /(?<numDays>\d+).\s/;
 
 while (macroService.IsRunning) {
 	const loopResult = macroService.PollPattern(loopPatterns);
@@ -18,11 +18,17 @@ while (macroService.IsRunning) {
 			const expirations = receiveResult.Points.map(p => {
 				const expirationPattern = macroService.ClonePattern(patterns.mailbox.expiration, { CenterY: p.Y - 75 });
 				const text = macroService.GetText(expirationPattern);
-				const regexResult = numDaysRegex.exec(text);
+				const dPattern = macroService.ClonePattern(patterns.mailbox.expiration.d, { CenterX: p.X, CenterY: p.Y - 75, Width: 100, Height: 40, Path: `patterns.mailbox.expiration.d_x${p.X}_y${p.Y - 75}` });
+				const dPatternResult = macroService.FindPattern(dPattern);
+				if (!dPatternResult.IsSuccess) {
+					return { text, numDays: 0 };
+				}
+
+				const numberPattern = macroService.ClonePattern(patterns.mailbox.expiration.d, { X: dPatternResult.Point.X - 60, Y: dPatternResult.Point.Y - 15, Width: 50, Path: `patterns.mailbox.expiration.number_text_x${dPatternResult.Point.X - 30}_y${dPatternResult.Point.Y}` });
+				const numberText = macroService.GetText(numberPattern, "1234567890");
 				return {
 					text,
-					groups: regexResult?.groups,
-					numDays: regexResult?.groups?.numDays
+					numDays: numberText
 				};
 			});
 			return expirations;
