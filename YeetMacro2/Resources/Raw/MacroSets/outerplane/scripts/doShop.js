@@ -21,6 +21,7 @@ while (macroService.IsRunning) {
 			if (!swipeResult.IsSuccess) {
 				throw new Error('Unable to find resource shop');
 			}
+			sleep(1_000);
 			const selectedResourcePattern = macroService.ClonePattern(patterns.shop.selected, { CenterY: swipeResult.Point.Y, Padding: 20 });
 			macroService.PollPattern(patterns.shop.resource, { DoClick: true, PredicatePattern: selectedResourcePattern });
 

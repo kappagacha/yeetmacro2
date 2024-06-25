@@ -29,6 +29,7 @@ while (macroService.IsRunning) {
 			macroService.PollPattern(patterns.shop.normal, { DoClick: true, PredicatePattern: patterns.shop.normal.selected });
 			const normalFreeResult = macroService.SwipePollPattern(patterns.shop.normal.free, { MaxSwipes: 5, Start: { X: swipeRightStartX, Y: 500 }, End: { X: swipeRightEndX, Y: 500 } });
 			if (normalFreeResult.IsSuccess) {
+				sleep(1_000);
 				macroService.PollPattern(patterns.shop.normal.free, { DoClick: true, PredicatePattern: patterns.shop.normal.free.confirm });
 				macroService.PollPattern(patterns.shop.normal.free.confirm, { DoClick: true, InversePredicatePattern: patterns.shop.normal.free.confirm });
 			}
@@ -37,6 +38,7 @@ while (macroService.IsRunning) {
 				macroService.PollPattern(patterns.shop.normal.weekly, { DoClick: true, PredicatePattern: patterns.shop.normal.weekly.selected });
 				const normalFreeResult = macroService.SwipePollPattern(patterns.shop.normal.free, { MaxSwipes: 5, Start: { X: swipeRightStartX, Y: 500 }, End: { X: swipeRightEndX, Y: 500 } });
 				if (normalFreeResult.IsSuccess) {
+					sleep(1_000);
 					macroService.PollPattern(patterns.shop.normal.free, { DoClick: true, PredicatePattern: patterns.shop.normal.free.confirm });
 					macroService.PollPattern(patterns.shop.normal.free.confirm, { DoClick: true, InversePredicatePattern: patterns.shop.normal.free.confirm });
 
@@ -51,6 +53,7 @@ while (macroService.IsRunning) {
 			if (!swipeResult.IsSuccess) {
 				throw new Error('Unable to find resource shop');
 			}
+			sleep(1_000);
 			const selectedResourcePattern = macroService.ClonePattern(patterns.shop.selected, { CenterY: swipeResult.Point.Y, Padding: 20 });
 			macroService.PollPattern(patterns.shop.resource, { DoClick: true, PredicatePattern: selectedResourcePattern });
 
@@ -67,6 +70,7 @@ while (macroService.IsRunning) {
 			if (!swipeResult2.IsSuccess) {
 				throw new Error('Unable to find surveyhub shop');
 			}
+			sleep(1_000);
 
 			const selectedSurveyHubPattern = macroService.ClonePattern(patterns.shop.selected, { CenterY: swipeResult2.Point.Y, Padding: 20 });
 			macroService.PollPattern(patterns.shop.surveyHub, { DoClick: true, PredicatePattern: selectedSurveyHubPattern });
