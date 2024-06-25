@@ -177,6 +177,8 @@ public partial class MacroManagerViewModel : ObservableObject
         _nodeRootIdToWeeklyList = new ConcurrentDictionary<int, WeeklyNodeManagerViewModel>();
         _scriptService = scriptService;
 
+        IsExportEnabled = Preferences.Default.Get(nameof(IsExportEnabled), false);
+
 #if DEBUG
         IsExportEnabled = true;
 #endif
@@ -703,5 +705,11 @@ public partial class MacroManagerViewModel : ObservableObject
     {
         Preferences.Default.Set(nameof(InDebugMode), InDebugMode);
         WeakReferenceMessenger.Default.Send(new PropertyChangedMessage<bool>(this, nameof(InDebugMode), oldValue, newValue), nameof(MacroManagerViewModel));
+    }
+
+    partial void OnIsExportEnabledChanged(bool oldValue, bool newValue)
+    {
+        Preferences.Default.Set(nameof(IsExportEnabled), IsExportEnabled);
+        WeakReferenceMessenger.Default.Send(new PropertyChangedMessage<bool>(this, nameof(IsExportEnabled), oldValue, newValue), nameof(MacroManagerViewModel));
     }
 }
