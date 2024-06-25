@@ -104,8 +104,8 @@ function findShopItem(shopItemName) {
 		stoneFragment: /s.*ne.*fr[au]g/is,
 		stonePiece: /s.*ne.*piece/is,
 		basicSkillManual: /basic.*m.nu/is,
-		intermediateSkillManual: /.n.er.*m.nu/is,
-		professionalSkillManual: /pro.*m.nu/is,
+		intermediateSkillManual: /.n.er.*m/is,
+		professionalSkillManual: /pro.*m/is,
 		cakeSlice: /c.ke/is,
 		upgradeStoneSelectionChest: /^(?!.*piece)upgr.de.*stone/is,		//does not contain piece (using negative look ahead)
 		lowStarHeroPieceTicket: /1.*2/is,
