@@ -742,7 +742,7 @@
         "defaultValue": true,
         "isParentNode": false,
         "name": "claimMail",
-        "position": 0,
+        "position": 1,
         "path": "doDailies.claimMail"
       }
     },
@@ -755,7 +755,7 @@
         "defaultValue": true,
         "isParentNode": false,
         "name": "claimFreeShop",
-        "position": 0,
+        "position": 2,
         "path": "doDailies.claimFreeShop"
       }
     },
@@ -768,7 +768,7 @@
         "defaultValue": true,
         "isParentNode": false,
         "name": "claimFreeSummon",
-        "position": 0,
+        "position": 3,
         "path": "doDailies.claimFreeSummon"
       }
     },
@@ -781,7 +781,7 @@
         "defaultValue": true,
         "isParentNode": false,
         "name": "claimChampsArena",
-        "position": 0,
+        "position": 4,
         "path": "doDailies.claimChampsArena"
       }
     },
@@ -794,7 +794,7 @@
         "defaultValue": true,
         "isParentNode": false,
         "name": "doFriends",
-        "position": 0,
+        "position": 5,
         "path": "doDailies.doFriends"
       }
     },
@@ -807,7 +807,7 @@
         "defaultValue": true,
         "isParentNode": false,
         "name": "doShop",
-        "position": 0,
+        "position": 6,
         "path": "doDailies.doShop"
       }
     },
@@ -820,7 +820,7 @@
         "defaultValue": true,
         "isParentNode": false,
         "name": "doExpeditions",
-        "position": 0,
+        "position": 7,
         "path": "doDailies.doExpeditions"
       }
     },
@@ -833,7 +833,7 @@
         "defaultValue": true,
         "isParentNode": false,
         "name": "doPartTimeJobAndRest",
-        "position": 0,
+        "position": 8,
         "path": "doDailies.doPartTimeJobAndRest"
       }
     },
@@ -846,7 +846,7 @@
         "defaultValue": true,
         "isParentNode": false,
         "name": "doArena",
-        "position": 0,
+        "position": 9,
         "path": "doDailies.doArena"
       }
     },
@@ -859,21 +859,8 @@
         "defaultValue": true,
         "isParentNode": false,
         "name": "doChampsArena",
-        "position": 0,
+        "position": 10,
         "path": "doDailies.doChampsArena"
-      }
-    },
-    "doOutings": {
-      "$isParent": false,
-      "props": {
-        "$type": "boolean",
-        "settingType": "Boolean",
-        "value": true,
-        "defaultValue": true,
-        "isParentNode": false,
-        "name": "doOutings",
-        "position": 0,
-        "path": "doDailies.doOutings"
       }
     },
     "sweepDecoyOperation": {
@@ -885,7 +872,7 @@
         "defaultValue": true,
         "isParentNode": false,
         "name": "sweepDecoyOperation",
-        "position": 0,
+        "position": 11,
         "path": "doDailies.sweepDecoyOperation"
       }
     },
@@ -898,8 +885,34 @@
         "defaultValue": true,
         "isParentNode": false,
         "name": "sweepDimensionalLabyrinth",
-        "position": 0,
+        "position": 12,
         "path": "doDailies.sweepDimensionalLabyrinth"
+      }
+    },
+    "doOutings": {
+      "$isParent": false,
+      "props": {
+        "$type": "boolean",
+        "settingType": "Boolean",
+        "value": true,
+        "defaultValue": true,
+        "isParentNode": false,
+        "name": "doOutings",
+        "position": 13,
+        "path": "doDailies.doOutings"
+      }
+    },
+    "sweepEvent": {
+      "$isParent": false,
+      "props": {
+        "$type": "boolean",
+        "settingType": "Boolean",
+        "value": true,
+        "defaultValue": true,
+        "isParentNode": false,
+        "name": "sweepEvent",
+        "position": 14,
+        "path": "doDailies.sweepEvent"
       }
     }
   },
