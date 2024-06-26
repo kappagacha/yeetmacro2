@@ -28,6 +28,10 @@ while (macroService.IsRunning) {
 					const dPattern = macroService.ClonePattern(patterns.mailbox.expiration.d, { CenterX: p.X, CenterY: p.Y - 75, Width: 100, Height: 40, Path: `patterns.mailbox.expiration.d_x${p.X}_y${p.Y - 75}` });
 					const dPatternResult = macroService.FindPattern(dPattern);
 					if (!dPatternResult.IsSuccess) {
+						macroService.PollPoint(p, { PredicatePattern: patterns.general.tapEmptySpace });
+						macroService.PollPattern(patterns.general.tapEmptySpace, { DoClick: true, PredicatePattern: patterns.titles.mailbox });
+						sleep(500);
+						done = false;
 						continue;
 					}
 
