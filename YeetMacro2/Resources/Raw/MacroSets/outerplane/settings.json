@@ -1177,8 +1177,8 @@
           "doSurveyHub",
           "doSkywardTower"
         ],
-        "value": "doIdentification",
-        "defaultValue": "doIdentification",
+        "value": "doSurveyHub",
+        "defaultValue": "doSurveyHub",
         "isParentNode": false,
         "name": "spendStaminaScript",
         "position": 6,
@@ -1411,7 +1411,7 @@
       "props": {
         "$type": "timestamp",
         "settingType": "TimeStamp",
-        "value": "2024-06-18T14:59:45.949+00:00",
+        "value": "2024-07-03T01:07:21.521+00:00",
         "defaultValue": "0001-01-01T00:00:00+00:00",
         "isParentNode": false,
         "name": "lastRun",
@@ -1447,7 +1447,7 @@
       "props": {
         "$type": "timestamp",
         "settingType": "TimeStamp",
-        "value": "2024-06-18T15:05:33.693+00:00",
+        "value": "2024-07-03T01:10:50.655+00:00",
         "defaultValue": "0001-01-01T00:00:00+00:00",
         "isParentNode": false,
         "name": "lastRun",
@@ -1855,8 +1855,8 @@
           "dark",
           "light"
         ],
-        "value": "light",
-        "defaultValue": "light",
+        "value": "earth",
+        "defaultValue": "earth",
         "isParentNode": false,
         "name": "elementTypeTarget1",
         "position": 0,
@@ -1913,8 +1913,8 @@
           "dark",
           "light"
         ],
-        "value": "water",
-        "defaultValue": "water",
+        "value": "earth",
+        "defaultValue": "earth",
         "isParentNode": false,
         "name": "elementTypeTarget2",
         "position": 0,
