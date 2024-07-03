@@ -3,13 +3,9 @@ using YeetMacro2.Platforms.Android.Views;
 using YeetMacro2.Services;
 
 namespace YeetMacro2.Platforms.Android.Services;
-public class AndroidInputService : IInputService
+public class AndroidInputService(AndroidScreenService screenService) : IInputService
 {
-    AndroidScreenService _screenService;
-    public AndroidInputService(AndroidScreenService screenService)
-    {
-        _screenService = screenService;
-    }
+    readonly AndroidScreenService _screenService = screenService;
 
     public async Task<Rect> DrawUserRectangle()
     {

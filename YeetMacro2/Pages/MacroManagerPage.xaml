@@ -104,7 +104,7 @@
                                 <Label Margin="0" VerticalOptions="Center" Padding="0" Text="Weelky Start Day" />
                                 <Grid Margin="10,0,0,0" Padding="0" VerticalOptions="Center">
                                     <Label Margin="0" Padding="0" Text="{Binding SelectedMacroSet.WeeklyStartDay}" VerticalOptions="Center" />
-                                    <ImageButton Margin="0" Padding="0" BindingContext="{Binding SelectedMacroSet}" Clicked="weeklyDayStart_Clicked" />
+                                    <ImageButton Margin="0" Padding="0" BindingContext="{Binding SelectedMacroSet}" Clicked="WeeklyDayStart_Clicked" />
                                 </Grid>
                             </HorizontalStackLayout>
                         </VerticalStackLayout>

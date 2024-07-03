@@ -14,13 +14,13 @@ public interface IMovable
 
 public class MoveView : LinearLayout, IShowable
 {
-    private IWindowManager _windowManager;
-    private MainActivity _context;
-    private WindowManagerLayoutParams _layoutParams;
+    private readonly IWindowManager _windowManager;
+    //private MainActivity _context;
+    private readonly WindowManagerLayoutParams _layoutParams;
     TaskCompletionSource<bool> _closeCompleted;
     enum FormState { SHOWING, CLOSED };
     int _x, _y;
-    private VisualElement _visualElement;
+    private readonly VisualElement _visualElement;
     public VisualElement VisualElement => _visualElement;
     bool _isMoving = false;
     FormState _state;
@@ -29,11 +29,13 @@ public class MoveView : LinearLayout, IShowable
     public MoveView(Context context, IWindowManager windowManager, VisualElement visualElement) : base(context)
     {
         _state = FormState.CLOSED;
-        _context = (MainActivity)context;
-        _layoutParams = new WindowManagerLayoutParams();
-        //_layoutParams.Type = WindowManagerTypes.ApplicationOverlay;
-        _layoutParams.Type = OperatingSystem.IsAndroidVersionAtLeast(26) ? WindowManagerTypes.ApplicationOverlay : WindowManagerTypes.Phone;
-        _layoutParams.Format = Format.Translucent;
+        //_context = (MainActivity)context;
+        _layoutParams = new WindowManagerLayoutParams
+        {
+            //_layoutParams.Type = WindowManagerTypes.ApplicationOverlay;
+            Type = OperatingSystem.IsAndroidVersionAtLeast(26) ? WindowManagerTypes.ApplicationOverlay : WindowManagerTypes.Phone,
+            Format = Format.Translucent
+        };
         _layoutParams.Flags |= WindowManagerFlags.NotFocusable;
         _layoutParams.Flags |= WindowManagerFlags.TranslucentNavigation;
         //_layoutParams.Flags |= WindowManagerFlags.LayoutNoLimits;
@@ -115,8 +117,8 @@ public class MoveView : LinearLayout, IShowable
                 int movedY = nowY - _y;
                 _x = nowX;
                 _y = nowY;
-                _layoutParams.X = _layoutParams.X + movedX;
-                _layoutParams.Y = _layoutParams.Y + movedY;
+                _layoutParams.X += movedX;
+                _layoutParams.Y += movedY;
                 if (movable != null && (movedX != 0 || movedY != 0))
                 {
                     _isMoving = true;

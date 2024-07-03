@@ -5,7 +5,7 @@ namespace YeetMacro2.Converters;
 public class NullToBoolConverter : IMarkupExtension, IValueConverter
 {
     //Key pattern should be a cartesian product of all available public properties
-    static ConcurrentDictionary<String, NullToBoolConverter> _converters = new ConcurrentDictionary<string, NullToBoolConverter>();
+    static readonly ConcurrentDictionary<String, NullToBoolConverter> _converters = new();
 
     public bool IsInverse { get; set; }
     public NullToBoolConverter()
@@ -25,7 +25,7 @@ public class NullToBoolConverter : IMarkupExtension, IValueConverter
 
     public object ProvideValue(IServiceProvider serviceProvider)
     {
-        var anonKey = new { IsInverse = IsInverse };
+        var anonKey = new { IsInverse };
         String key = anonKey.ToString();
         if (!_converters.ContainsKey(key))
         {

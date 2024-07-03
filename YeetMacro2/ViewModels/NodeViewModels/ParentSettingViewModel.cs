@@ -27,7 +27,7 @@ namespace YeetMacro2.ViewModels.NodeViewModels;
 [NodeTypeMapping(typeof(TimestampSetting), typeof(TimestampSettingViewModel))]
 public partial class ParentSettingViewModel : ParentSetting
 {
-    Dictionary<string, SettingNode> _nodeCache;
+    readonly Dictionary<string, SettingNode> _nodeCache;
 
     public override IList<SettingNode> Nodes
     {
@@ -35,7 +35,7 @@ public partial class ParentSettingViewModel : ParentSetting
         set {
             if (value is null)
             {
-                base.Nodes = new NodeObservableCollection<ParentSettingViewModel, SettingNode>();
+                base.Nodes = [];
             } 
             else
             {
@@ -94,8 +94,8 @@ public partial class ParentSettingViewModel : ParentSetting
 
     public ParentSettingViewModel()
     {
-        base.Nodes = new NodeObservableCollection<ParentSettingViewModel, SettingNode>();
-        _nodeCache = new Dictionary<string, SettingNode>();
+        base.Nodes = [];
+        _nodeCache = [];
     }
 
     public override SettingNode this[string key]
@@ -105,8 +105,7 @@ public partial class ParentSettingViewModel : ParentSetting
             // Note: cache does not automatically invalidate
             if (!_nodeCache.ContainsKey(key))
             {
-                var child = base.Nodes.FirstOrDefault(n => n.Name == key);
-                if (child is null) throw new ArgumentException($"Invalid key: {key}");
+                var child = base.Nodes.FirstOrDefault(n => n.Name == key) ?? throw new ArgumentException($"Invalid key: {key}");
                 _nodeCache.Add(key, child);
             }
 
@@ -602,7 +601,7 @@ public partial class EnabledDoubleSettingViewModel : EnabledDoubleSetting
 [ObservableObject]
 public partial class PatternSettingViewModel : PatternSetting
 {
-    static IMapper _mapper;
+    static readonly IMapper _mapper;
 
     public override string Name
     {
@@ -646,7 +645,7 @@ public partial class PatternSettingViewModel : PatternSetting
 [ObservableObject]
 public partial class EnabledPatternSettingViewModel : EnabledPatternSetting
 {
-    static IMapper _mapper;
+    static readonly IMapper _mapper;
 
     public override string Name
     {

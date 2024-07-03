@@ -1,20 +1,21 @@
-﻿using CommunityToolkit.Mvvm.ComponentModel;
-using Microsoft.Maui.Layouts;
+﻿using Microsoft.Maui.Layouts;
 using System.Collections.Concurrent;
 using System.Collections.ObjectModel;
 using System.Collections.Specialized;
+using System.Windows.Input;
 
 namespace YeetMacro2.Views;
 
-[ContentProperty("Items")]
+[ContentProperty(nameof(Items))]
 public class TabView : Grid
 {
-    ContentView _contentView;
+    readonly ContentView _contentView;
+    readonly ConcurrentDictionary<TabItem, View> _tabItemToView;
+
     public static readonly BindableProperty ItemsProperty =
         BindableProperty.Create(nameof(Items), typeof(ObservableCollection<TabItem>), typeof(TabView), new ObservableCollection<TabItem>());
     public static readonly BindableProperty SelectedTabItemProperty =
         BindableProperty.Create(nameof(SelectedTabItem), typeof(TabItem), typeof(TabView));
-    ConcurrentDictionary<TabItem, View> _tabItemToView;
 
     public ObservableCollection<TabItem> Items
     {
@@ -41,7 +42,8 @@ public class TabView : Grid
 
             if (!_tabItemToView.ContainsKey(newTabItem))
             {
-                _tabItemToView.TryAdd(newTabItem, (View)newTabItem.ContentDataTemplate.CreateContent());
+                _tabItemToView.TryAdd(newTabItem, newTabItem.ContentDataTemplate is not null ? (View)newTabItem.ContentDataTemplate.CreateContent() : newTabItem.Content);
+                newTabItem.InitCommand?.Execute(this);
             }
             _contentView.Content = _tabItemToView[newTabItem];
         }
@@ -70,16 +72,20 @@ public class TabView : Grid
             Grid.SetRow(label, 0);
             grid.Add(label);
 
-            var indicator = new BoxView();
-            indicator.Color = (Color)App.Current.Resources["Primary"];
+            var indicator = new BoxView
+            {
+                Color = (Color)App.Current.Resources["Primary"]
+            };
             Grid.SetRow(indicator, 1);
             grid.Add(indicator);
 
             var buttonGrid = new Grid();
-            var imageButton = new ImageButton();
-            imageButton.Margin = 0;
-            imageButton.Padding = 0;
-            imageButton.Command = new Command(() => SelectedTabItem = (TabItem)grid.BindingContext);
+            var imageButton = new ImageButton
+            {
+                Margin = 0,
+                Padding = 0,
+                Command = new Command(() => SelectedTabItem = (TabItem)grid.BindingContext)
+            };
             buttonGrid.Add(imageButton);
             Grid.SetRow(buttonGrid, 0);
             Grid.SetRowSpan(buttonGrid, 2);
@@ -124,6 +130,15 @@ public class TabView : Grid
         this.Add(_contentView);
 
         Items.CollectionChanged += Items_CollectionChanged;
+        BindingContextChanged += TabView_BindingContextChanged;
+    }
+
+    private void TabView_BindingContextChanged(object sender, EventArgs e)
+    {
+        foreach (TabItem tabItem in Items)
+        {
+            tabItem.BindingContext = this.BindingContext;
+        }
     }
 
     private void Items_CollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
@@ -135,16 +150,34 @@ public class TabView : Grid
     }
 }
 
-//[ContentProperty(nameof(Content))]
-public partial class TabItem : ObservableObject
+[ContentProperty(nameof(Content))]
+public partial class TabItem : BindableObject
 {
-    [ObservableProperty]
-    string _header;
-    [ObservableProperty]
-    bool _isSelected;
-    //public DataTemplate HeaderDataTemplate { get; set; }
-    //public View Content { get; set; }
+    public static readonly BindableProperty HeaderProperty =
+        BindableProperty.Create(nameof(Header), typeof(string), typeof(TabItem));
+    public static readonly BindableProperty IsSelectedProperty =
+        BindableProperty.Create(nameof(IsSelected), typeof(bool), typeof(TabItem));
+    public static readonly BindableProperty InitCommandProperty =
+        BindableProperty.Create(nameof(InitCommand), typeof(ICommand), typeof(TabItem));
+
+    public string Header
+    {
+        get { return (string)GetValue(HeaderProperty); }
+        set { SetValue(HeaderProperty, value); }
+    }
+    public bool IsSelected
+    {
+        get { return (bool)GetValue(IsSelectedProperty); }
+        set { SetValue(IsSelectedProperty, value); }
+    }
+    public ICommand InitCommand
+    {
+        get { return (ICommand)GetValue(InitCommandProperty); }
+        set { SetValue(InitCommandProperty, value); }
+    }
+
     public DataTemplate ContentDataTemplate { get; set; }
+    public View Content { get; set; }
 
     public TabItem()
     {
@@ -153,15 +186,10 @@ public partial class TabItem : ObservableObject
 }
 
 // https://github.com/enisn/UraniumUI/blob/develop/src/UraniumUI/Triggers/GenericTriggerAction.cs
-public class GenericTriggerAction<T> : TriggerAction<T>
+public class GenericTriggerAction<T>(Action<T> action) : TriggerAction<T>
     where T : BindableObject
 {
-    private readonly Action<T> action;
-
-    public GenericTriggerAction(Action<T> action)
-    {
-        this.action = action ?? throw new InvalidOperationException("An action must be defined to run the GenericTriggerAction");
-    }
+    private readonly Action<T> action = action ?? throw new InvalidOperationException("An action must be defined to run the GenericTriggerAction");
 
     protected override void Invoke(T sender)
     {

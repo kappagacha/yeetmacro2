@@ -5,10 +5,10 @@ namespace YeetMacro2.Views;
 public partial class TodoNodeView : ContentView
 {
     public static readonly BindableProperty TodosProperty =
-        BindableProperty.Create("Todos", typeof(TodoNodeManagerViewModel), typeof(TodoNodeView), null);
+        BindableProperty.Create(nameof(Todos), typeof(TodoNodeManagerViewModel), typeof(TodoNodeView), null);
 
     public static readonly BindableProperty IsSubViewProperty =
-        BindableProperty.Create("IsSubView", typeof(bool), typeof(TodoNodeView), false);
+        BindableProperty.Create(nameof(IsSubView), typeof(bool), typeof(TodoNodeView), false);
 
     public TodoNodeManagerViewModel Todos
     {
@@ -21,9 +21,9 @@ public partial class TodoNodeView : ContentView
         set { SetValue(IsSubViewProperty, value); }
     }
     public TodoNodeView()
-	{
-		InitializeComponent();
-	}
+    {
+        InitializeComponent();
+    }
 
     private void JsonText_SelectAll(object sender, EventArgs e)
     {

@@ -9,11 +9,11 @@ namespace YeetMacro2.Platforms.Android.Views;
 public partial class DrawControl : ContentView
 {
     bool _userRectangle;
-    double _expirationMs = 2000.0;
-    ConcurrentQueue<(SKRect rect, SKPaint paint, DateTime expiration)> _rectangles = new();
-    ConcurrentQueue<(SKPoint center, SKPaint paint, DateTime expiration)> _circles = new();
+    readonly double _expirationMs = 2000.0;
+    readonly ConcurrentQueue<(SKRect rect, SKPaint paint, DateTime expiration)> _rectangles = new();
+    readonly ConcurrentQueue<(SKPoint center, SKPaint paint, DateTime expiration)> _circles = new();
     SKPoint _canvasBegin = SKPoint.Empty, _canvasEnd = SKPoint.Empty;
-    SKPaint _greenPaint = new SKPaint
+    readonly SKPaint _greenPaint = new()
     {
         Color = SKColors.Green,
         StrokeWidth = 6,
@@ -21,7 +21,7 @@ public partial class DrawControl : ContentView
         TextSize = 60,
         Style = SKPaintStyle.Stroke
     };
-    SKPaint _bluePaint = new SKPaint
+    readonly SKPaint _bluePaint = new()
     {
         Color = SKColors.Blue,
         StrokeWidth = 6,
@@ -29,7 +29,7 @@ public partial class DrawControl : ContentView
         TextSize = 60,
         Style = SKPaintStyle.Stroke
     };
-    SKPaint _userStroke = new SKPaint
+    readonly SKPaint _userStroke = new()
     {
         Color = SKColors.Red,
         StrokeWidth = 3,
@@ -37,7 +37,7 @@ public partial class DrawControl : ContentView
         TextSize = 60,
         Style = SKPaintStyle.Stroke
     };
-    AndroidScreenService _androidScreenService;
+    readonly AndroidScreenService _androidScreenService;
     public Rect Rect { get; set; }
     public bool CloseAfterDraw { get; set; } = false;
     public DrawControl()
@@ -90,19 +90,19 @@ public partial class DrawControl : ContentView
         DateTime now = DateTime.Now;
         while (_rectangles.TryPeek(out (SKRect rect, SKPaint paint, DateTime expiration) r) && r.expiration <= now)
         {
-            _rectangles.TryDequeue(out (SKRect rect, SKPaint paint, DateTime expiration) r0);
+            _rectangles.TryDequeue(out _);
         }
         while (_circles.TryPeek(out (SKPoint center, SKPaint paint, DateTime expiration) c) && c.expiration <= now)
         {
-            _circles.TryDequeue(out (SKPoint center, SKPaint paint, DateTime expiration) c0);
+            _circles.TryDequeue(out _);
         }
-        foreach (var r in _rectangles)
+        foreach (var (rect, paint, _) in _rectangles)
         {
-            canvas.DrawRect(r.rect, r.paint);
+            canvas.DrawRect(rect, paint);
         }
-        foreach (var c in _circles)
+        foreach (var (center, paint, _) in _circles)
         {
-            canvas.DrawCircle(c.center, 10, c.paint);
+            canvas.DrawCircle(center, 10, paint);
         }
 
         // TODO: maybe make this a toggle?
@@ -121,7 +121,7 @@ public partial class DrawControl : ContentView
         //}
     }
 
-    private void canvasView_Touch(object sender, SKTouchEventArgs e)
+    private void CanvasView_Touch(object sender, SKTouchEventArgs e)
     {
         switch (e.ActionType)
         {

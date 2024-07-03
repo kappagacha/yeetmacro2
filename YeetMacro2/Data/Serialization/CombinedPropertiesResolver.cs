@@ -8,17 +8,12 @@ public interface ICombinableTypeResolver
     void ResolveJsonTypeInfo(JsonTypeInfo jsonTypeInfo, Type type);
 }
 
-public class CombinedPropertiesResolver : DefaultJsonTypeInfoResolver
+public class CombinedPropertiesResolver(IEnumerable<ICombinableTypeResolver> resolvers) : DefaultJsonTypeInfoResolver
 {
-    private readonly ICombinableTypeResolver[] _resolvers;
+    private readonly ICombinableTypeResolver[] _resolvers = resolvers.ToArray();
     public static CombinedPropertiesResolver Combine(params ICombinableTypeResolver[] resolvers)
     {
         return new CombinedPropertiesResolver(resolvers);
-    }
-
-    public CombinedPropertiesResolver(IEnumerable<ICombinableTypeResolver> resolvers)
-    {
-        _resolvers = resolvers.ToArray();
     }
 
     public override JsonTypeInfo GetTypeInfo(Type type, JsonSerializerOptions options)

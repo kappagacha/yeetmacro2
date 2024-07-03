@@ -1,7 +1,7 @@
 ﻿namespace YeetMacro2.Converters;
 public class DateOnlyConverter : IMarkupExtension, IValueConverter
 {
-    static DateOnlyConverter _instance = new DateOnlyConverter();
+    static readonly DateOnlyConverter _instance = new();
 
     public DateOnlyConverter()
     {

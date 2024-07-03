@@ -22,7 +22,7 @@ public enum SettingType
 public class ParentSetting : SettingNode, IParentNode<ParentSetting, SettingNode>
 {
     [JsonIgnore]
-    public virtual IList<SettingNode> Nodes { get; set; } = new List<SettingNode>();
+    public virtual IList<SettingNode> Nodes { get; set; } = [];
     public override SettingType SettingType => SettingType.Parent;
     public override TTarget GetValue<TTarget>()
     {
@@ -76,7 +76,7 @@ public class BooleanSetting: SettingNode<Boolean>
 public class OptionSetting : SettingNode<String>
 {
     public override SettingType SettingType => SettingType.Option;
-    public virtual ICollection<String> Options { get; set; } = new List<String>();
+    public virtual ICollection<String> Options { get; set; } = [];
 }
 
 public class EnabledOptionSetting : OptionSetting

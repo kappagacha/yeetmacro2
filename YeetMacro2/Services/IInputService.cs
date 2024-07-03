@@ -1,4 +1,5 @@
 ﻿namespace YeetMacro2.Services;
+
 public interface IInputService
 {
     Task<string> PromptInput(string message, string placeholderInput = "");

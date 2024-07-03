@@ -5,18 +5,13 @@ using YeetMacro2.Data.Services;
 using YeetMacro2.Services;
 
 namespace YeetMacro2.ViewModels.NodeViewModels;
-public partial class DailyNodeManagerViewModel : TodoNodeManagerViewModel
+public partial class DailyNodeManagerViewModel(
+    int rootNodeId,
+    IRepository<TodoNode> todoRepository,
+    INodeService<TodoNode, TodoNode> nodeService,
+    IInputService inputService,
+    IToastService toastService) : TodoNodeManagerViewModel(rootNodeId, todoRepository, nodeService, inputService, toastService)
 {
-    public DailyNodeManagerViewModel(
-        int rootNodeId,
-        IRepository<TodoNode> todoRepository,
-        INodeService<TodoNode, TodoNode> nodeService,
-        IInputService inputService,
-        IToastService toastService)
-        : base(rootNodeId, todoRepository, nodeService, inputService, toastService)
-    {
-    }
-
     protected override void CustomInit()
     {
         // This invokes ScriptNodeManagerViewModel SelectedNode PropertyChangedMessage

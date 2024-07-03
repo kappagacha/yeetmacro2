@@ -7,10 +7,10 @@ using System.Reflection;
 namespace YeetMacro2.Data.Services;
 public static class ReflectionHelper
 {
-    private static FieldInfoCollection _fieldInfoCollection = new FieldInfoCollection();
-    private static PropertyInfoCollection _propertyInfoCollection = new PropertyInfoCollection();
-    private static MethodInfoCollection _methodInfoCollection = new MethodInfoCollection();
-    private static TypeConverterCache _typeConverterCache = new TypeConverterCache();
+    private static readonly FieldInfoCollection _fieldInfoCollection = new();
+    private static readonly PropertyInfoCollection _propertyInfoCollection = new();
+    private static readonly MethodInfoCollection _methodInfoCollection = new();
+    private static readonly TypeConverterCache _typeConverterCache = new();
     //Usage: ReflectionHelper.FieldInfoCollection[type][field] instead of type.GetField(field)
     public static FieldInfoCollection FieldInfoCollection => _fieldInfoCollection;
     //Usage: ReflectionHelper.PropertyInfoCollection[type][property] instead of type.GetProperty(property)  
@@ -25,17 +25,14 @@ public static class ReflectionHelper
     public static PropertyInfo GetPropertyInfo<TSource, TProperty>(
         Expression<Func<TSource, TProperty>> propertyLambda)
     {
-        Type type = typeof(TSource);
+        //Type type = typeof(TSource);
 
-        MemberExpression member = propertyLambda.Body as MemberExpression;
-        if (member == null)
+        if (propertyLambda.Body is not MemberExpression member)
             throw new ArgumentException(string.Format(
                 "Expression '{0}' refers to a method, not a property.",
                 propertyLambda.ToString()));
 
-        PropertyInfo propInfo = member.Member as PropertyInfo;
-        if (propInfo == null)
-            throw new ArgumentException(string.Format(
+        PropertyInfo propInfo = member.Member as PropertyInfo ?? throw new ArgumentException(string.Format(
                 "Expression '{0}' refers to a field, not a property.",
                 propertyLambda.ToString()));
 
@@ -59,7 +56,7 @@ public static class ReflectionHelper
     public static List<PropertyInfo> GetMultiPropertyInfo<TSource, TProperty>(
         Expression<Func<TSource, TProperty>> propertyLambda, Type targetType)
     {
-        List<PropertyInfo> properties = new List<PropertyInfo>();
+        List<PropertyInfo> properties = [];
         //https://github.com/dotnet/efcore/blob/03c1ba5275b11963ee1d05ad388ded2fda861c1b/src/EFCore/Extensions/Internal/ExpressionExtensions.cs#L73
         //Got clue from the way EF Core does it 
         NewExpression exp = propertyLambda.Body as NewExpression;
@@ -117,7 +114,7 @@ public class FieldInfoCollection : ReflectionCache<Type, IReflectionCache<String
             if (!_cache.ContainsKey(type))
             {
                 Type genericTemplate = typeof(FieldInfoCache<>);
-                Type[] typeArgs = { type };
+                Type[] typeArgs = [type];
                 Type genericType = genericTemplate.MakeGenericType(typeArgs);
                 IReflectionCache<String, FieldInfo> subCache = (IReflectionCache<String, FieldInfo>)Activator.CreateInstance(genericType);
                 _cache.TryAdd(type, subCache);
@@ -166,7 +163,7 @@ public interface IReflectionCache<TKey, TValue> : IEnumerable<TValue>
 #region ReflectionCache
 public abstract class ReflectionCache<TKey, TValue> : IReflectionCache<TKey, TValue>
 {
-    protected ConcurrentDictionary<TKey, TValue> _cache = new ConcurrentDictionary<TKey, TValue>();
+    protected ConcurrentDictionary<TKey, TValue> _cache = new();
     public Boolean IsLoaded { get; protected set; } = false;
 
     public abstract TValue this[TKey key] { get; }
@@ -209,7 +206,7 @@ public class PropertyInfoCollection : ReflectionCache<Type, IReflectionCache<Str
             if (!_cache.ContainsKey(type))
             {
                 Type genericTemplate = typeof(PropertyInfoCache<>);
-                Type[] typeArgs = { type };
+                Type[] typeArgs = [type];
                 Type genericType = genericTemplate.MakeGenericType(typeArgs);
                 IReflectionCache<String, PropertyInfo> subCache = (IReflectionCache<String, PropertyInfo>)Activator.CreateInstance(genericType);
                 _cache.TryAdd(type, subCache);
@@ -261,7 +258,7 @@ public class MethodInfoCollection : ReflectionCache<Type, IReflectionCache<Objec
             if (!_cache.ContainsKey(type))
             {
                 Type genericTemplate = typeof(MethodInfoCache<>);
-                Type[] typeArgs = { type };
+                Type[] typeArgs = [type];
                 Type genericType = genericTemplate.MakeGenericType(typeArgs);
                 IReflectionCache<Object, MethodInfo> subCache = (IReflectionCache<Object, MethodInfo>)Activator.CreateInstance(genericType);
                 _cache.TryAdd(type, subCache);

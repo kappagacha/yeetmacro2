@@ -12,21 +12,21 @@ namespace YeetMacro2.Views;
 public partial class ImageView : ContentView
 {
     public static readonly BindableProperty ImageWidthProperty =
-            BindableProperty.Create("ImageWidth", typeof(double?), typeof(ImageView), null);
+            BindableProperty.Create(nameof(ImageWidth), typeof(double?), typeof(ImageView), null);
     public static readonly BindableProperty ImageHeightProperty =
-            BindableProperty.Create("ImageHeight", typeof(double?), typeof(ImageView), null);
+            BindableProperty.Create(nameof(ImageHeight), typeof(double?), typeof(ImageView), null);
     public static readonly BindableProperty FontFamilyProperty =
-            BindableProperty.Create("FontFamily", typeof(string), typeof(ImageView), null, propertyChanged: ImagePropertyChanged);
+            BindableProperty.Create(nameof(FontFamily), typeof(string), typeof(ImageView), null, propertyChanged: ImagePropertyChanged);
     public static readonly BindableProperty GlyphProperty =
-            BindableProperty.Create("Glyph", typeof(string), typeof(ImageView), null, propertyChanged: ImagePropertyChanged);
+            BindableProperty.Create(nameof(Glyph), typeof(string), typeof(ImageView), null, propertyChanged: ImagePropertyChanged);
     public static readonly BindableProperty ColorProperty =
-            BindableProperty.Create("Color", typeof(Color), typeof(ImageView), null, propertyChanged: ImagePropertyChanged);
+            BindableProperty.Create(nameof(Color), typeof(Color), typeof(ImageView), null, propertyChanged: ImagePropertyChanged);
 
 #if ANDROID
     // The timer is needed because of the async setting of image property,
     // image is wrong sometimes when both Glyph and Color are set at the same time
     //IDispatcherTimer _imageUpdatedDelayTimer;
-    static ConcurrentDictionary<string, ControlTemplate> _keyToControlTemplate = new();
+    static readonly ConcurrentDictionary<string, ControlTemplate> _keyToControlTemplate = new();
 
     //private void _imageUpdatedDelayTimer_Tick(object sender, EventArgs e)
     //{
@@ -50,7 +50,7 @@ public partial class ImageView : ContentView
             Color = color
         };
 
-        MemoryStream ms = new MemoryStream();
+        MemoryStream ms = new();
         var imageSourceResult = await fontImageSource.GetPlatformImageAsync(ctx);
         var bitmap = ((BitmapDrawable)imageSourceResult.Value).Bitmap;
         bitmap.Compress(CompressFormat.Png, 100, ms);
@@ -80,16 +80,16 @@ public partial class ImageView : ContentView
         await ResolveDrawable(imgView.FontFamily, imgView.Glyph, imgView.Color);
         //imgView._imageUpdatedDelayTimer.Start();
         var compositeKey = $"{imgView.FontFamily}-{(int)imgView.Glyph[0]}-{imgView.Color}";
-        if(!_keyToControlTemplate.ContainsKey(compositeKey)) return;
+        if (!_keyToControlTemplate.ContainsKey(compositeKey)) return;
         imgView.contentView.ControlTemplate = _keyToControlTemplate[compositeKey];
 #endif
     }
 #pragma warning restore CS1998 // Async method lacks 'await' operators and will run synchronously
 
     public static readonly BindableProperty CommandProperty =
-        BindableProperty.Create("Command", typeof(ICommand), typeof(ImageView), null);
+        BindableProperty.Create(nameof(Command), typeof(ICommand), typeof(ImageView), null);
     public static readonly BindableProperty CommandParameterProperty =
-        BindableProperty.Create("CommandParameter", typeof(object), typeof(ImageView), null);
+        BindableProperty.Create(nameof(CommandParameter), typeof(object), typeof(ImageView), null);
     public string FontFamily
     {
         get { return (string)GetValue(FontFamilyProperty); }

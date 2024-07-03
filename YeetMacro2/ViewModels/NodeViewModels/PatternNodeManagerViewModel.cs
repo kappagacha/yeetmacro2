@@ -1,6 +1,5 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
-using Microsoft.Extensions.Logging;
 using System.Text.Json;
 using System.Windows.Input;
 using YeetMacro2.Data.Models;
@@ -11,9 +10,8 @@ namespace YeetMacro2.ViewModels.NodeViewModels;
 
 public partial class PatternNodeManagerViewModel : NodeManagerViewModel<PatternNodeViewModel, PatternNode, PatternNode>
 {
-    ILogger<PatternNodeManagerViewModel> _logger;
-    IRepository<Pattern> _patternRepository;
-    IScreenService _screenService;
+    readonly IRepository<Pattern> _patternRepository;
+    readonly IScreenService _screenService;
     [ObservableProperty]
     Pattern _selectedPattern;
     static PatternNodeManagerViewModel()
@@ -22,7 +20,6 @@ public partial class PatternNodeManagerViewModel : NodeManagerViewModel<PatternN
 
     public PatternNodeManagerViewModel(
         int rootNodeId,
-        ILogger<PatternNodeManagerViewModel> logger,
         INodeService<PatternNode, PatternNode> nodeService,
         IInputService inputService,
         IToastService toastService,
@@ -30,7 +27,6 @@ public partial class PatternNodeManagerViewModel : NodeManagerViewModel<PatternN
         IScreenService screenService)
             : base(rootNodeId, nodeService, inputService, toastService)
     {
-        _logger = logger;
         _patternRepository = patternRepository;
         _screenService = screenService;
 
@@ -49,7 +45,7 @@ public partial class PatternNodeManagerViewModel : NodeManagerViewModel<PatternN
     {
         foreach (var patternNode in _nodeService.GetDescendants<PatternNode>(Root).ToList())
         {
-            _patternRepository.AttachEntities(patternNode.Patterns.ToArray());
+            _patternRepository.AttachEntities([..patternNode.Patterns]);
         }
     }
 
@@ -151,8 +147,7 @@ public partial class PatternNodeManagerViewModel : NodeManagerViewModel<PatternN
     {
         if (values.Length > 1 && values[1] is PatternNode patternNode)
         {
-            var pattern = values[0] as Pattern;
-            if (pattern == null)
+            if (values[0] is not Pattern pattern)
             {
                 pattern = new PatternViewModel() { Name = "pattern", PatternNodeId = patternNode.NodeId, ColorThreshold = new ColorThresholdPropertiesViewModel(), TextMatch = new TextMatchPropertiesViewModel() };
                 patternNode.Patterns.Add(pattern);

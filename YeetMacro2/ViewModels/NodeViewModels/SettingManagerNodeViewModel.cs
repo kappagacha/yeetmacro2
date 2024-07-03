@@ -10,9 +10,9 @@ namespace YeetMacro2.ViewModels;
 
 public partial class SettingNodeManagerViewModel : NodeManagerViewModel<ParentSettingViewModel, ParentSetting, SettingNode>
 {
-    ParentSetting _emptyParentSetting = new ParentSettingViewModel();
-    IRepository<SettingNode> _settingRepository;
-    IRepository<Pattern> _patternRepository;
+    readonly ParentSetting _emptyParentSetting = new ParentSettingViewModel();
+    readonly IRepository<SettingNode> _settingRepository;
+    readonly IRepository<Pattern> _patternRepository;
     [ObservableProperty]
     PatternNode _selectedPatternNode;
     [ObservableProperty]
@@ -43,7 +43,7 @@ public partial class SettingNodeManagerViewModel : NodeManagerViewModel<ParentSe
         {
             if (settingNode is PatternSetting patternSetting)
             {
-                _patternRepository.AttachEntities(patternSetting.Value.Patterns.ToArray());
+                _patternRepository.AttachEntities([..patternSetting.Value.Patterns]);
             }
         }
     }
@@ -58,7 +58,7 @@ public partial class SettingNodeManagerViewModel : NodeManagerViewModel<ParentSe
         }
 
         var targetName = scriptNode.Name.TrimStart('_');
-        var targetNode = Root.Nodes.FirstOrDefault(sn => sn.Name?.ToLower() == targetName.ToLower()) as ParentSetting;
+        var targetNode = Root.Nodes.FirstOrDefault(sn => (sn.Name?.ToLower()).Equals(targetName, StringComparison.CurrentCultureIgnoreCase)) as ParentSetting;
         CurrentSubViewModel = targetNode ?? _emptyParentSetting;
 
         if (SelectedNode is not null)
@@ -107,7 +107,7 @@ public partial class SettingNodeManagerViewModel : NodeManagerViewModel<ParentSe
     {
         if (setting is OptionSetting optionSetting)
         {
-            var selectedOption = await _inputService.SelectOption("Select option", optionSetting.Options.ToArray());
+            var selectedOption = await _inputService.SelectOption("Select option", [.. optionSetting.Options]);
             if (String.IsNullOrEmpty(selectedOption) || selectedOption == "ok" || selectedOption == "cancel") return;
 
             optionSetting.Value = selectedOption;

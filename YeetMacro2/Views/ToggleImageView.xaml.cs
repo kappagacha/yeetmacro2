@@ -6,39 +6,39 @@ namespace YeetMacro2.Views;
 public partial class ToggleImageView : ContentView
 {
     public static readonly BindableProperty IsToggledProperty =
-            BindableProperty.Create("IsToggled", typeof(bool), typeof(ToggleImageView), false, BindingMode.TwoWay);
+            BindableProperty.Create(nameof(IsToggled), typeof(bool), typeof(ToggleImageView), false, BindingMode.TwoWay);
     public static readonly BindableProperty ImageWidthProperty =
-            BindableProperty.Create("ImageWidth", typeof(double?), typeof(ToggleImageView), null);
+            BindableProperty.Create(nameof(ImageWidth), typeof(double?), typeof(ToggleImageView), null);
     public static readonly BindableProperty ImageHeightProperty =
-            BindableProperty.Create("ImageHeight", typeof(double?), typeof(ToggleImageView), null);
+            BindableProperty.Create(nameof(ImageHeight), typeof(double?), typeof(ToggleImageView), null);
     public static readonly BindableProperty TextProperty =
-            BindableProperty.Create("Text", typeof(string), typeof(ToggleImageView), null);
+            BindableProperty.Create(nameof(Text), typeof(string), typeof(ToggleImageView), null);
     public static readonly BindableProperty FontSizeProperty =
-            BindableProperty.Create("FontSize", typeof(double), typeof(ToggleImageView), null);
+            BindableProperty.Create(nameof(FontSize), typeof(double), typeof(ToggleImageView), null);
     public static readonly BindableProperty FontFamilyProperty =
-            BindableProperty.Create("FontFamily", typeof(string), typeof(ToggleImageView), null);
+            BindableProperty.Create(nameof(FontFamily), typeof(string), typeof(ToggleImageView), null);
     public static readonly BindableProperty GlyphProperty =
-            BindableProperty.Create("Glyph", typeof(string), typeof(ToggleImageView), null);
+            BindableProperty.Create(nameof(Glyph), typeof(string), typeof(ToggleImageView), null);
     public static readonly BindableProperty ColorProperty =
-            BindableProperty.Create("Color", typeof(Color), typeof(ToggleImageView), null);
+            BindableProperty.Create(nameof(Color), typeof(Color), typeof(ToggleImageView), null);
     public static readonly BindableProperty ToggledFontFamilyProperty =
-            BindableProperty.Create("ToggledFontFamily", typeof(string), typeof(ToggleImageView), null);
+            BindableProperty.Create(nameof(ToggledFontFamily), typeof(string), typeof(ToggleImageView), null);
     public static readonly BindableProperty ToggledGlyphProperty =
-            BindableProperty.Create("ToggledGlyph", typeof(string), typeof(ToggleImageView), null);
+            BindableProperty.Create(nameof(ToggledGlyph), typeof(string), typeof(ToggleImageView), null);
     public static readonly BindableProperty ToggledColorProperty =
-            BindableProperty.Create("ToggledColor", typeof(Color), typeof(ToggleImageView), null);
+            BindableProperty.Create(nameof(ToggledColor), typeof(Color), typeof(ToggleImageView), null);
     public static readonly BindableProperty UntoggledFontFamilyProperty =
-            BindableProperty.Create("UntoggledFontFamily", typeof(string), typeof(ToggleImageView), null);
+            BindableProperty.Create(nameof(UntoggledFontFamily), typeof(string), typeof(ToggleImageView), null);
     public static readonly BindableProperty UntoggledGlyphProperty =
-            BindableProperty.Create("UntoggledGlyph", typeof(string), typeof(ToggleImageView), null);
+            BindableProperty.Create(nameof(UntoggledGlyph), typeof(string), typeof(ToggleImageView), null);
     public static readonly BindableProperty UntoggledColorProperty =
-            BindableProperty.Create("UntoggledColor", typeof(Color), typeof(ToggleImageView), null);
+            BindableProperty.Create(nameof(UntoggledColor), typeof(Color), typeof(ToggleImageView), null);
     public static readonly BindableProperty CommandProperty =
-            BindableProperty.Create("Command", typeof(ICommand), typeof(ToggleImageView), null);
+            BindableProperty.Create(nameof(Command), typeof(ICommand), typeof(ToggleImageView), null);
     public static readonly BindableProperty CommandParameterProperty =
-            BindableProperty.Create("CommandParameter", typeof(object), typeof(ToggleImageView), null);
+            BindableProperty.Create(nameof(CommandParameter), typeof(object), typeof(ToggleImageView), null);
     public static readonly BindableProperty IsToggledFromImageOnlyProperty =
-            BindableProperty.Create("IsToggledFromImageOnly", typeof(bool), typeof(ToggleImageView), false);
+            BindableProperty.Create(nameof(IsToggledFromImageOnly), typeof(bool), typeof(ToggleImageView), false);
     public double? ImageWidth
     {
         get { return (double?)GetValue(ImageWidthProperty); }
@@ -75,7 +75,7 @@ public partial class ToggleImageView : ContentView
         get { return (string)GetValue(GlyphProperty); }
         set { SetValue(GlyphProperty, value); }
     }
-    
+
     public Color Color
     {
         get { return (Color)GetValue(ColorProperty); }
@@ -128,8 +128,8 @@ public partial class ToggleImageView : ContentView
         set { SetValue(IsToggledFromImageOnlyProperty, value); }
     }
     public ToggleImageView()
-	{
-		InitializeComponent();
+    {
+        InitializeComponent();
 
         imageView.PropertyChanged += ImageView_PropertyChanged;
     }

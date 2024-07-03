@@ -8,14 +8,14 @@ using YeetMacro2.Data.Services;
 namespace YeetMacro2.ViewModels;
 
 // https://github.com/serilog/serilog/wiki/Developing-a-sink
-public partial class LogViewModel : ObservableObject, ILogEventSink
+public partial class LogViewModel(Lazy<IRepository<LogGroup>> logGroupRepository) : ObservableObject, ILogEventSink
 {
     [ObservableProperty]
     string _debug, _info;
     string _currentMacroSet = "???", _currentScript = "???";
     bool _persistLogs;
     LogGroup _currentLogGroup;
-    Lazy<IRepository<LogGroup>> _logGroupRepository;
+    readonly Lazy<IRepository<LogGroup>> _logGroupRepository = logGroupRepository;
     SortedObservableCollection<LogGroup> _logGroups;
     [ObservableProperty]
     LogGroup _selectedLogGroup;
@@ -37,12 +37,6 @@ public partial class LogViewModel : ObservableObject, ILogEventSink
             }
             return _logGroups; 
         }
-    }
-
-    // Using Lazy to resolve later because of circular dependency
-    public LogViewModel(Lazy<IRepository<LogGroup>> logGroupRepository)
-    {
-        _logGroupRepository = logGroupRepository;
     }
 
     [RelayCommand]
@@ -162,8 +156,14 @@ public partial class LogViewModel : ObservableObject, ILogEventSink
 
     public void InitLogGroup(Exception ex = null)
     {
-        _currentLogGroup = new LogGroup() { Timestamp = DateTime.Now.Ticks, MacroSet = _currentMacroSet, Script = ex?.Message ?? _currentScript, Stack = (ex is not null ? ex.StackTrace ?? Environment.StackTrace : null) };
-        _currentLogGroup.Logs = new SortedObservableCollection<Log>((a, b) => (int)(b.Timestamp - a.Timestamp));
+        _currentLogGroup = new LogGroup
+        {
+            Timestamp = DateTime.Now.Ticks,
+            MacroSet = _currentMacroSet,
+            Script = ex?.Message ?? _currentScript,
+            Stack = (ex is not null ? ex.StackTrace ?? Environment.StackTrace : null),
+            Logs = new SortedObservableCollection<Log>((a, b) => (int)(b.Timestamp - a.Timestamp))
+        };
         LogGroups.Add(_currentLogGroup);
         _logGroupRepository.Value.Insert(_currentLogGroup);
         _logGroupRepository.Value.Save();

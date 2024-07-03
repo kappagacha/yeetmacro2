@@ -9,21 +9,23 @@ namespace YeetMacro2.Platforms.Android.Views;
 public class StaticView : RelativeLayout, IShowable
 {
     enum FormState { SHOWING, CLOSED };
-    private IWindowManager _windowManager;
-    private WindowManagerLayoutParams _layoutParams;
-    private VisualElement _visualElement;
+    private readonly IWindowManager _windowManager;
+    private readonly WindowManagerLayoutParams _layoutParams;
+    private readonly VisualElement _visualElement;
     public VisualElement VisualElement => _visualElement;
     private FormState _state;
     public bool IsShowing { get => _state == FormState.SHOWING; }
-    private global::Android.Views.View _androidView;
+    private readonly global::Android.Views.View _androidView;
     //https://www.linkedin.com/pulse/6-floating-windows-android-keyboard-input-v%C3%A1clav-hodek/
     public StaticView(Context context, IWindowManager windowManager, VisualElement visualElement) : base(context)
     {
         _state = FormState.CLOSED;
-        _layoutParams = new WindowManagerLayoutParams();
-        //_layoutParams.Type = WindowManagerTypes.ApplicationOverlay;
-        _layoutParams.Type = OperatingSystem.IsAndroidVersionAtLeast(26) ? WindowManagerTypes.ApplicationOverlay : WindowManagerTypes.Phone;
-        _layoutParams.Format = Format.Translucent;
+        _layoutParams = new WindowManagerLayoutParams
+        {
+            //_layoutParams.Type = WindowManagerTypes.ApplicationOverlay;
+            Type = OperatingSystem.IsAndroidVersionAtLeast(26) ? WindowManagerTypes.ApplicationOverlay : WindowManagerTypes.Phone,
+            Format = Format.Translucent
+        };
         _layoutParams.Flags |= WindowManagerFlags.NotFocusable;
         _layoutParams.Flags |= WindowManagerFlags.TranslucentNavigation;
         //_layoutParams.Flags |= WindowManagerFlags.LayoutInsetDecor;

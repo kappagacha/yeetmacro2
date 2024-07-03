@@ -10,11 +10,11 @@ using YeetMacro2.Services;
 namespace YeetMacro2.Platforms.Android.Services;
 //http://www.spikie.be/post/2017/07/01/AndroidFloatingWidgetsInXamarin.html
 [Service(Label = "YeetMacro Service", Exported = true, Permission = global::Android.Manifest.Permission.BindAccessibilityService)]
-[IntentFilter(new string[] { "android.accessibilityservice.AccessibilityService" })]
+[IntentFilter(["android.accessibilityservice.AccessibilityService"])]
 [MetaData("android.accessibilityservice", Resource = "@xml/yeetmacro_config")]
 public class YeetAccessibilityService : AccessibilityService
 {
-    ILogger _logger;
+    readonly ILogger _logger;
     MainActivity _context;
     private static YeetAccessibilityService _instance;  //https://stackoverflow.com/questions/600207/how-to-check-if-a-service-is-running-on-android
     public YeetAccessibilityService()
@@ -97,8 +97,8 @@ public class YeetAccessibilityService : AccessibilityService
         if (_instance == null || point.X < 0.0 || point.Y < 0.0) return;
 
         _logger.LogTrace("YeetAccessibilityService DoClick");
-        GestureDescription.Builder gestureBuilder = new GestureDescription.Builder();
-        global::Android.Graphics.Path swipePath = new global::Android.Graphics.Path();
+        GestureDescription.Builder gestureBuilder = new();
+        global::Android.Graphics.Path swipePath = new();
         swipePath.MoveTo((float)point.X, (float)point.Y);
         swipePath.Close();
         var strokeDescription = new GestureDescription.StrokeDescription(swipePath, 0, 100);
@@ -214,8 +214,8 @@ public class YeetAccessibilityService : AccessibilityService
         try
         {
             _logger.LogTrace("YeetAccessibilityService BroadcastEnabled");
-            Intent enabledChanged = new Intent("com.yeetoverflow.AccessibilityService.CHANGED");
-            enabledChanged.PutExtra("enabled", _instance != null ? true : false);
+            Intent enabledChanged = new("com.yeetoverflow.AccessibilityService.CHANGED");
+            enabledChanged.PutExtra("enabled", _instance != null);
             _context?.SendBroadcast(enabledChanged);
         }
         catch (Exception ex)

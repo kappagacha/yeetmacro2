@@ -77,15 +77,16 @@ public class ForegroundService : Service
         // Building channel if API verion is 26 or above
         if (OperatingSystem.IsAndroidVersionAtLeast(26))
         {
-            NotificationChannel notificationChannel = new NotificationChannel(FOREGROUND_CHANNEL_ID, "Title", NotificationImportance.High);
-            notificationChannel.Importance = NotificationImportance.Low;
+            NotificationChannel notificationChannel = new(FOREGROUND_CHANNEL_ID, "Title", NotificationImportance.High)
+            {
+                Importance = NotificationImportance.Low
+            };
             notificationChannel.EnableLights(true);
             notificationChannel.EnableVibration(true);
             notificationChannel.SetShowBadge(true);
-            notificationChannel.SetVibrationPattern(new long[] { 100, 200, 300, 400, 500, 400, 300, 200, 400 });
+            notificationChannel.SetVibrationPattern([100, 200, 300, 400, 500, 400, 300, 200, 400]);
 
-            var notifManager = _context.GetSystemService(Context.NotificationService) as NotificationManager;
-            if (notifManager != null)
+            if (_context.GetSystemService(Context.NotificationService) is NotificationManager notifManager)
             {
                 notifBuilder.SetChannelId(FOREGROUND_CHANNEL_ID);
                 notifManager.CreateNotificationChannel(notificationChannel);

@@ -3,14 +3,9 @@
 namespace YeetMacro2.ViewModels;
 
 // From chagGPT question: Can we make an observable collection that will sort itself?
-public class SortedObservableCollection<T> : ObservableCollection<T>
+public class SortedObservableCollection<T>(Comparison<T> comparer) : ObservableCollection<T>
 {
-    private readonly IComparer<T> _comparer;
-
-    public SortedObservableCollection(Comparison<T> comparer)
-    {
-        _comparer = Comparer<T>.Create(comparer);
-    }
+    private readonly Comparer<T> _comparer = Comparer<T>.Create(comparer);
 
     protected override void InsertItem(int index, T item)
     {

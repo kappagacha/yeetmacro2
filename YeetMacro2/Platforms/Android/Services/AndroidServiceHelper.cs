@@ -45,18 +45,15 @@ public static class AndroidServiceHelper
     private static bool IsAppInstalled(string packageName)
     {
         PackageManager pm = global::Android.App.Application.Context.PackageManager;
-        bool installed = false;
         try
         {
             pm.GetPackageInfo(packageName, PackageInfoFlags.Activities);
-            installed = true;
+            return true;
         }
         catch (PackageManager.NameNotFoundException)
         {
-            installed = false;
+            return false;
         }
-
-        return installed;
     }
 
     //https://stackoverflow.com/questions/3600713/size-of-android-notification-bar-and-title-bar

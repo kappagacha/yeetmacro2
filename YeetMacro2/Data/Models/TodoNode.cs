@@ -7,10 +7,10 @@ namespace YeetMacro2.Data.Models;
 public class TodoNode
     : Node, IParentNode<TodoNode, TodoNode>
 {
-    static JsonSerializerOptions _opts = new JsonSerializerOptions() { WriteIndented = true };
+    static readonly JsonSerializerOptions _opts = new() { WriteIndented = true };
     public override bool IsParentNode => false;     // prevents tree heirarchy in the UI
     [JsonIgnore]
-    public virtual IList<TodoNode> Nodes { get; set; } = new List<TodoNode>();
+    public virtual IList<TodoNode> Nodes { get; set; } = [];
     public virtual DateOnly Date { get; set; }
     public virtual JsonObject Data { get; set; }
     [JsonIgnore]

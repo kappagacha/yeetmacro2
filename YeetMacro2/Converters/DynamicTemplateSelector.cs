@@ -5,9 +5,9 @@ namespace YeetMacro2.Converters;
 
 public class DynamicTemplateSelector : DataTemplateSelector, IMarkupExtension
 {
-    static DynamicTemplateSelector _instance = new DynamicTemplateSelector();
-    static ConcurrentDictionary<string, DataTemplate> _keyToDataTemplate = new ConcurrentDictionary<string, DataTemplate>();
-    static ConcurrentBag<Type> _processedViewType = new ConcurrentBag<Type>();
+    static readonly DynamicTemplateSelector _instance = new();
+    static readonly ConcurrentDictionary<string, DataTemplate> _keyToDataTemplate = new();
+    static readonly ConcurrentBag<Type> _processedViewType = [];
     public object Root
     {
         set

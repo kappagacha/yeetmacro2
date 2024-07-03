@@ -13,6 +13,6 @@
         <skia:SKCanvasView x:Name="canvasView"
                         EnableTouchEvents="True"
                         PaintSurface="OnCanvasViewPaintSurface"
-                        Touch="canvasView_Touch" />
+                        Touch="CanvasView_Touch" />
     </Grid>
 </ContentView>

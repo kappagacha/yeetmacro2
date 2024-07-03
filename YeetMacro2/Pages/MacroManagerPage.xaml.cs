@@ -19,7 +19,7 @@ public partial class MacroManagerPage : ContentPage
         exportEditor.SelectionLength = exportEditor.Text.Length;
     }
 
-    private async void weeklyDayStart_Clicked(object sender, EventArgs e)
+    private async void WeeklyDayStart_Clicked(object sender, EventArgs e)
     {
         var macroSet = ((ImageButton)sender).BindingContext as MacroSet;
         var options = Enum.GetValues<DayOfWeek>().Select(oct => oct.ToString()).ToArray();

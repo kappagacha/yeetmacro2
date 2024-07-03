@@ -13,14 +13,14 @@ namespace YeetMacro2.Platforms.Android.Views;
 public class ResizeView : RelativeLayout, IOnTouchListener, IShowable
 {
     enum FormState { SHOWING, CLOSED };
-    private IWindowManager _windowManager;
-    private AndroidScreenService _screenService;
-    private MainActivity _context;
-    private WindowManagerLayoutParams _layoutParams;
-    private ImageView _topLeft, _bottomRight, _topRight;
+    private readonly IWindowManager _windowManager;
+    private readonly AndroidScreenService _screenService;
+    private readonly MainActivity _context;
+    private readonly WindowManagerLayoutParams _layoutParams;
+    private readonly ImageView _topLeft, _bottomRight, _topRight;
     int _x, _y, _displayWidth, _displayHeight;
     double _density;
-    private VisualElement _visualElement;
+    private readonly VisualElement _visualElement;
     private const int MIN_WIDTH = 50, MIN_HEIGHT = 50;
     private FormState _state;
     public VisualElement VisualElement => _visualElement;
@@ -36,10 +36,12 @@ public class ResizeView : RelativeLayout, IOnTouchListener, IShowable
         _context = (MainActivity)context;
         _windowManager = windowManager;
         _screenService = screenService;
-        _layoutParams = new WindowManagerLayoutParams();
-        //_layoutParams.Type = WindowManagerTypes.ApplicationOverlay;
-        _layoutParams.Type = OperatingSystem.IsAndroidVersionAtLeast(26) ? WindowManagerTypes.ApplicationOverlay : WindowManagerTypes.Phone;
-        _layoutParams.Format = Format.Translucent;
+        _layoutParams = new WindowManagerLayoutParams
+        {
+            //_layoutParams.Type = WindowManagerTypes.ApplicationOverlay;
+            Type = OperatingSystem.IsAndroidVersionAtLeast(26) ? WindowManagerTypes.ApplicationOverlay : WindowManagerTypes.Phone,
+            Format = Format.Translucent
+        };
         _layoutParams.Flags |= WindowManagerFlags.NotFocusable;
         _layoutParams.Flags |= WindowManagerFlags.TranslucentNavigation;
         _layoutParams.Flags |= WindowManagerFlags.LayoutNoLimits;
@@ -58,7 +60,7 @@ public class ResizeView : RelativeLayout, IOnTouchListener, IShowable
         _topLeft.SetX(-cornerShapeSize / 2.0f);
         _topLeft.SetY(-cornerShapeSize / 2.0f);
 
-        RelativeLayout.LayoutParams topLeftParams = new RelativeLayout.LayoutParams(cornerShapeSize, cornerShapeSize);
+        RelativeLayout.LayoutParams topLeftParams = new(cornerShapeSize, cornerShapeSize);
         topLeftParams.AddRule(LayoutRules.AlignParentTop);
         topLeftParams.AddRule(LayoutRules.AlignParentLeft);
         _topLeft.Clickable = true;
@@ -69,7 +71,7 @@ public class ResizeView : RelativeLayout, IOnTouchListener, IShowable
         _bottomRight.SetX(cornerShapeSize / 2.0f);
         _bottomRight.SetY(cornerShapeSize / 2.0f);
 
-        RelativeLayout.LayoutParams bottomRightParams = new RelativeLayout.LayoutParams(cornerShapeSize, cornerShapeSize);
+        RelativeLayout.LayoutParams bottomRightParams = new(cornerShapeSize, cornerShapeSize);
         bottomRightParams.AddRule(LayoutRules.AlignParentBottom);
         bottomRightParams.AddRule(LayoutRules.AlignParentRight);
         _bottomRight.Clickable = true;
@@ -79,7 +81,7 @@ public class ResizeView : RelativeLayout, IOnTouchListener, IShowable
         _topRight.SetImageResource(global::Android.Resource.Drawable.IcMenuCloseClearCancel);
         _topRight.SetColorFilter(Color.Red);    //https://stackoverflow.com/questions/1309629/how-to-change-colors-of-a-drawable-in-android
 
-        RelativeLayout.LayoutParams topRightParams = new RelativeLayout.LayoutParams(cornerShapeSize, cornerShapeSize);
+        RelativeLayout.LayoutParams topRightParams = new(cornerShapeSize, cornerShapeSize);
         topRightParams.AddRule(LayoutRules.AlignParentTop);
         topRightParams.AddRule(LayoutRules.AlignParentRight);
         _topRight.Clickable = true;
@@ -213,8 +215,8 @@ public class ResizeView : RelativeLayout, IOnTouchListener, IShowable
                 {
                     _x = nowX;
                     _y = nowY;
-                    _layoutParams.X = _layoutParams.X + movedX;
-                    _layoutParams.Y = _layoutParams.Y + movedY;
+                    _layoutParams.X += movedX;
+                    _layoutParams.Y += movedY;
                     _windowManager.UpdateViewLayout(this, _layoutParams);
                 }
                 else if (v == _bottomRight)

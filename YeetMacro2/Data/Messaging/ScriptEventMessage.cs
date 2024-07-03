@@ -15,10 +15,6 @@ public enum ScriptEventType
 }
 
 // https://learn.microsoft.com/en-us/dotnet/communitytoolkit/mvvm/messenger
-public class ScriptEventMessage : ValueChangedMessage<ScriptEvent>
+public class ScriptEventMessage(ScriptEvent evnt) : ValueChangedMessage<ScriptEvent>(evnt)
 {
-    public ScriptEventMessage(ScriptEvent evnt) : base(evnt)
-    {
-
-    }
 }

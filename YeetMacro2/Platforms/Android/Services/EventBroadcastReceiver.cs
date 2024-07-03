@@ -2,11 +2,10 @@
 using Android.Content;
 using YeetMacro2.Platforms.Android.ViewModels;
 using YeetMacro2.Services;
-using YeetMacro2.ViewModels;
 
 namespace YeetMacro2.Platforms.Android.Services;
 [BroadcastReceiver(Enabled = true, Exported = false)]
-[IntentFilter(new[] { "com.yeetoverflow.AccessibilityService.CHANGED" })]
+[IntentFilter(["com.yeetoverflow.AccessibilityService.CHANGED"])]
 public class EventBroadcastReceiver : BroadcastReceiver
 {
     public override void OnReceive(Context context, Intent intent)

@@ -6,11 +6,11 @@ using UraniumUI;
 using SkiaSharp.Views.Maui.Controls.Hosting;
 using CommunityToolkit.Maui.Markup;
 using MauiIcons.FontAwesome.Brand;
-using Microsoft.Maui.Controls.Platform;
-using Microsoft.Maui.Platform;
 
 #if ANDROID
 using Microsoft.Maui.Controls.Compatibility.Platform.Android;
+using Microsoft.Maui.Controls.Platform;
+using Microsoft.Maui.Platform;
 #endif
 
 namespace YeetMacro2;

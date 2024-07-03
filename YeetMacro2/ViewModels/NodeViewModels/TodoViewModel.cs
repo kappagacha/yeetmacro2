@@ -113,8 +113,8 @@ public abstract partial class TodoJsonElementViewModel : ObservableObject, ISort
 public partial class TodoJsonParentViewModel : TodoJsonElementViewModel
 {
     [ObservableProperty]
-    NodeObservableCollection<TodoJsonElementViewModel, TodoJsonElementViewModel> _children = new NodeObservableCollection<TodoJsonElementViewModel, TodoJsonElementViewModel>();
-    Dictionary<string, TodoJsonElementViewModel> _dict = new Dictionary<string, TodoJsonElementViewModel>();
+    NodeObservableCollection<TodoJsonElementViewModel, TodoJsonElementViewModel> _children = [];
+    readonly Dictionary<string, TodoJsonElementViewModel> _dict = [];
 
     public override bool IsLeaf { get; set; } = false;
     public override bool IsParent => true;
@@ -122,8 +122,10 @@ public partial class TodoJsonParentViewModel : TodoJsonElementViewModel
 
     public static TodoJsonParentViewModel Load(JsonObject jsonObject, TodoViewModel node)
     {
-        var parent = new TodoJsonParentViewModel();
-        parent.JsonObject = jsonObject;
+        var parent = new TodoJsonParentViewModel
+        {
+            JsonObject = jsonObject
+        };
 
         foreach (var item in jsonObject)
         {
@@ -193,8 +195,7 @@ public partial class TodoJsonParentViewModel : TodoJsonElementViewModel
             // Note: cache does not automatically invalidate
             if (!_dict.ContainsKey(key))
             {
-                var child = Children.FirstOrDefault(n => n.Key == key);
-                if (child is null) throw new ArgumentException($"Invalid key: {key}");
+                var child = Children.FirstOrDefault(n => n.Key == key) ?? throw new ArgumentException($"Invalid key: {key}");
                 _dict.Add(key, child);
             }
 

@@ -95,7 +95,7 @@ public partial class ScriptNodeViewModel : ScriptNode
         { 
             if (Text is null) return String.Empty;
 
-            var lines = Text.Split(new char[] { '\n', '\r' });
+            var lines = Text.Split(['\n', '\r']);
             var description = "";
             foreach (var line in lines)
             {
@@ -105,7 +105,7 @@ public partial class ScriptNodeViewModel : ScriptNode
                 }
                 else if (line.StartsWith("//"))
                 {
-                    description += Regex.Replace(line, "^//\\s+", "") + "\n";
+                    description += CommentRegex().Replace(line, "") + "\n";
                 }
                 else
                 {
@@ -123,6 +123,9 @@ public partial class ScriptNodeViewModel : ScriptNode
 
     public ScriptNodeViewModel()
     {
-        base.Nodes = new NodeObservableCollection<ScriptNodeViewModel, ScriptNode>();
+        base.Nodes = [];
     }
+
+    [GeneratedRegex("^//\\s+")]
+    private static partial Regex CommentRegex();
 }

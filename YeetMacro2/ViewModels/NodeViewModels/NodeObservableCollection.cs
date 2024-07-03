@@ -8,7 +8,7 @@ public class NodeObservableCollection<TViewModel, T> : SortedObservableCollectio
     where TViewModel : T
     where T: ISortable
 {
-    static IMapper _mapper;
+    static readonly IMapper _mapper;
     static NodeObservableCollection()
     {
         _mapper = ServiceHelper.GetService<IMapper>();

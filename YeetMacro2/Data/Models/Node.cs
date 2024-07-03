@@ -1,5 +1,4 @@
-﻿using System.Collections.Generic;
-using System.Reflection;
+﻿using System.Reflection;
 using System.Text.Json;
 using System.Text.Json.Serialization;
 
@@ -44,7 +43,7 @@ public interface IParentNode<TParent, TChild> : IParentNode
 // https://learn.microsoft.com/en-us/dotnet/csharp/programming-guide/concepts/attributes/
 // https://code-maze.com/csharp-generic-attributes/
 [AttributeUsage(AttributeTargets.Class)]
-public class NodeTypesAttribute : Attribute
+public class NodeTypesAttribute(params Type[] types) : Attribute
 {
     public static Type[] GetTypes<T>()
     {
@@ -52,22 +51,13 @@ public class NodeTypesAttribute : Attribute
         return nodeTypeAttribute?.Types;
     }
 
-    public NodeTypesAttribute(params Type [] types)
-    {
-        Types = types;
-    }
-    public Type[] Types { get; }
+    public Type[] Types { get; } = types;
 }
 
-public class NodeTypeMapping
+public class NodeTypeMapping(Type key, Type value)
 {
-    public Type Key { get; }
-    public Type Value { get; }
-    public NodeTypeMapping(Type key, Type value)
-    {
-        Key = key;
-        Value = value;
-    }
+    public Type Key { get; } = key;
+    public Type Value { get; } = value;
 
     public static NodeTypeMapping Create(Type key, Type value)
     {
@@ -76,11 +66,11 @@ public class NodeTypeMapping
 }
 
 [AttributeUsage(AttributeTargets.Class, AllowMultiple = true)]
-public class NodeTypeMappingAttribute : Attribute
+public class NodeTypeMappingAttribute(Type key, Type value) : Attribute
 {
-    static Dictionary<Type, Dictionary<Type, Type>> _typeToMappings = new Dictionary<Type, Dictionary<Type, Type>>();
-    public Type Key { get; }
-    public Type Value { get; }
+    static readonly Dictionary<Type, Dictionary<Type, Type>> _typeToMappings = [];
+    public Type Key { get; } = key;
+    public Type Value { get; } = value;
 
     public static Dictionary<Type, Type> GetMappedType<T>()
     {
@@ -91,12 +81,6 @@ public class NodeTypeMappingAttribute : Attribute
         }
        
         return _typeToMappings[typeof(T)];
-    }
-
-    public NodeTypeMappingAttribute(Type key, Type value)
-    {
-        Key = key;
-        Value = value;
     }
 }
 
@@ -114,23 +98,15 @@ public class NodeClosure
     public int Depth { get; set; }
 }
 
-public class NodeValueConverter<TParent, TChild> : JsonConverter<TChild>
+public class NodeValueConverter<TParent, TChild>(JsonSerializerOptions options) : JsonConverter<TChild>
     where TParent : Node, IParentNode<TParent, TChild>, TChild, new()
     where TChild : Node
 {
-    private readonly JsonConverter<TChild> _childConverter;
-    private readonly JsonConverter<TParent> _parentConverter;
-    private readonly Type _parentType;
-    private readonly Type _childType;
-    private readonly JsonSerializerOptions _options;
-    public NodeValueConverter(JsonSerializerOptions options)
-    {
-        _childConverter = (JsonConverter<TChild>)(options).GetConverter(typeof(TChild));
-        _parentConverter = (JsonConverter<TParent>)(options).GetConverter(typeof(TParent));
-        _parentType = typeof(TParent);
-        _childType = typeof(TChild);
-        _options = options;
-    }
+    private readonly JsonConverter<TChild> _childConverter = (JsonConverter<TChild>)(options).GetConverter(typeof(TChild));
+    private readonly JsonConverter<TParent> _parentConverter = (JsonConverter<TParent>)(options).GetConverter(typeof(TParent));
+    private readonly Type _parentType = typeof(TParent);
+    private readonly Type _childType = typeof(TChild);
+    private readonly JsonSerializerOptions _options = options;
 
     // incoming options is ignored, we are using the options passed in through the constructor
     public override TChild Read(

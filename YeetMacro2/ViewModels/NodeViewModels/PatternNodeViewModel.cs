@@ -9,7 +9,7 @@ namespace YeetMacro2.ViewModels.NodeViewModels;
 [ObservableObject]
 public partial class PatternNodeViewModel : PatternNode
 {
-    Dictionary<string, PatternNodeViewModel> _nodeCache;
+    readonly Dictionary<string, PatternNodeViewModel> _nodeCache;
     public override IList<PatternNode> Nodes
     {
         get => base.Nodes;
@@ -89,9 +89,9 @@ public partial class PatternNodeViewModel : PatternNode
 
     public PatternNodeViewModel()
     {
-        base.Nodes = new NodeObservableCollection<PatternNodeViewModel, PatternNode>();
-        base.Patterns = new NodeObservableCollection<PatternViewModel, Pattern>();
-        _nodeCache = new Dictionary<string, PatternNodeViewModel>();
+        base.Nodes = [];
+        base.Patterns = [];
+        _nodeCache = [];
     }
 
     public PatternNodeViewModel this[string key]
@@ -101,8 +101,7 @@ public partial class PatternNodeViewModel : PatternNode
             // Note: cache does not automatically invalidate
             if (!_nodeCache.ContainsKey(key))
             {
-                var child = base.Nodes.FirstOrDefault(n => n.Name == key);
-                if (child is null) throw new ArgumentException($"Invalid key: {key}");
+                var child = base.Nodes.FirstOrDefault(n => n.Name == key) ?? throw new ArgumentException($"Invalid key: {key}");
                 _nodeCache.Add(key, child as PatternNodeViewModel);
             }
             
@@ -119,7 +118,7 @@ public partial class PatternNodeViewModel : PatternNode
 [ObservableObject]
 public partial class PatternViewModel : Pattern
 {
-    static IMapper _mapper;
+    static readonly IMapper _mapper;
 
     public override Rect Rect
     {

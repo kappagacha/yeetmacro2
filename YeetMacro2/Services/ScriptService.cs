@@ -25,21 +25,26 @@ public interface IScriptService
 
 public class ScriptService: IScriptService
 {
-    ILogger _logger;
-    IScreenService _screenService;
-    IToastService _toastService;
-    Engine _engine;
-    Random _random;
-    Dictionary<string, PatternNode> _jsonValueToPatternNode;
-    MacroService _macroService;
+    readonly ILogger _logger;
+    readonly IScreenService _screenService;
+    readonly IToastService _toastService;
+    readonly Engine _engine;
+    readonly Random _random;
+    readonly Dictionary<string, PatternNode> _jsonValueToPatternNode;
+    readonly MacroService _macroService;
 
+    readonly JsonSerializerOptions _jsonOpts = new ()
+    {
+        WriteIndented = true
+    };
+             
     public ScriptService(ILogger<ScriptService> logger, IScreenService screenService, IToastService toastService, MacroService macroService)
     {
         _logger = logger;
         _screenService = screenService;
         _toastService = toastService;
         _random = new Random();
-        _jsonValueToPatternNode = new Dictionary<string, PatternNode>();
+        _jsonValueToPatternNode = [];
         _macroService = macroService;
         _engine = new Engine(options => options
             .SetTypeConverter(e => new JsToDotNetConverter(e))
@@ -99,10 +104,7 @@ public class ScriptService: IScriptService
             }
             else if (jsResult is IObjectWrapper objectWrapper)
             {
-                return JsonSerializer.Serialize(objectWrapper.Target, new JsonSerializerOptions()
-                {
-                    WriteIndented = true
-                });
+                return JsonSerializer.Serialize(objectWrapper.Target, _jsonOpts);
             }
             else if (jsResult != JsValue.Null && jsResult != JsValue.Undefined)
             {
@@ -138,16 +140,12 @@ public class ScriptService: IScriptService
 }
 
 // https://github.com/sebastienros/jint/blob/d48ebd50ba5af240f484a3763227d2a53999a365/Jint.Tests/Runtime/EngineTests.cs#L3079
-public class JsToDotNetConverter : DefaultTypeConverter
+public class JsToDotNetConverter(Engine engine) : DefaultTypeConverter(engine)
 {
-    JsonSerializerOptions _jsonOpts = new JsonSerializerOptions()
+    readonly JsonSerializerOptions _jsonOpts = new()
     {
         Converters = { new JsonStringEnumConverter() }
     };
-    public JsToDotNetConverter(Engine engine) : base(engine)
-    {
-
-    }
 
     public override object Convert(object value, Type type, IFormatProvider formatProvider)
     {

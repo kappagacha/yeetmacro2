@@ -5,27 +5,18 @@ using System.Reflection;
 
 namespace YeetMacro2.Data.Services;
 
-public class YeetMacroEfRepository<TEntity> : EfRepository<YeetMacroDbContext, TEntity>
+public class YeetMacroEfRepository<TEntity>(YeetMacroDbContext context) : EfRepository<YeetMacroDbContext, TEntity>(context)
     where TEntity : class
 {
-    public YeetMacroEfRepository(YeetMacroDbContext context) : base(context)
-    {
-    }
 }
 
 //https://codewithshadman.com/repository-pattern-csharp/
-public class EfRepository<TContext, TEntity> : IRepository<TEntity>
+public class EfRepository<TContext, TEntity>(TContext context) : IRepository<TEntity>
     where TContext : DbContext
     where TEntity : class
 {
-    protected TContext context;
-    internal DbSet<TEntity> dbSet;
-
-    public EfRepository(TContext context)
-    {
-        this.context = context;
-        this.dbSet = context.Set<TEntity>();
-    }
+    protected TContext context = context;
+    internal DbSet<TEntity> dbSet = context.Set<TEntity>();
 
     public virtual IEnumerable<TEntity> Get(
         Expression<Func<TEntity, bool>> filter = null,
@@ -51,17 +42,16 @@ public class EfRepository<TContext, TEntity> : IRepository<TEntity>
 
         if (orderBy != null)
         {
-            return orderBy(query).ToList();
+            return [.. orderBy(query)];
         }
         else
         {
-            return query.ToList();
+            return [.. query];
         }
     }
 
     public virtual TEntity GetById(object id, Expression<Func<TEntity, object>> includePropertyExpression = null)
     {
-        IQueryable<TEntity> query = dbSet;
         var entity = dbSet.Find(id);
 
         if (entity != null && includePropertyExpression != null)
@@ -73,10 +63,10 @@ public class EfRepository<TContext, TEntity> : IRepository<TEntity>
                 {
                     switch (context.Entry(entity).Member(propertyInfo.Name))
                     {
-                        case ReferenceEntry refEntry:
+                        case ReferenceEntry:
                             context.Entry(entity).Reference(propertyInfo.Name).Load();
                             break;
-                        case CollectionEntry colEntry:
+                        case CollectionEntry:
                             context.Entry(entity).Collection(propertyInfo.Name).Load();
                             break;
                     }

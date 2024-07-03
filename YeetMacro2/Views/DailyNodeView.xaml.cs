@@ -3,7 +3,7 @@ namespace YeetMacro2.Views;
 public partial class DailyNodeView : ContentView
 {
     public static readonly BindableProperty IsSubViewProperty =
-        BindableProperty.Create("IsSubView", typeof(bool), typeof(DailyNodeView), false);
+        BindableProperty.Create(nameof(IsSubView), typeof(bool), typeof(DailyNodeView), false);
 
     public bool IsSubView
     {

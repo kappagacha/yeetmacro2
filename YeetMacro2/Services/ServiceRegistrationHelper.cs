@@ -94,12 +94,8 @@ public static class LazyResolutionMiddlewareExtensions
     }
 }
 
-public class LazilyResolved<T> : Lazy<T>
+public class LazilyResolved<T>(IServiceProvider serviceProvider) : Lazy<T>(serviceProvider.GetRequiredService<T>)
 {
-    public LazilyResolved(IServiceProvider serviceProvider)
-        : base(serviceProvider.GetRequiredService<T>)
-    {
-    }
 }
 
 // https://github.com/adiamante/yeetoverflow/blob/main/YeetOverFlow.Logging/YeetLoggerServiceCollectionExtensions.cs
@@ -108,8 +104,8 @@ public static class StatusPanelModelSinkExtensions
 {
     public static ILoggingBuilder AddLogViewModelSink(this ILoggingBuilder builder, Action<LoggerConfiguration> setupAction = null)
     {
-        if (builder == null) throw new ArgumentNullException(nameof(builder));
-        
+        ArgumentNullException.ThrowIfNull(builder);
+
         builder.Services.AddSingleton<ILoggerProvider, SerilogLoggerProvider>(sp =>
         {
             var logViewModel = sp.GetService<LogViewModel>();

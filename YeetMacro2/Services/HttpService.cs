@@ -6,14 +6,9 @@ public interface IHttpService
     Task<Stream> GetStreamAsync(string url);
 }
 
-public class HttpService : IHttpService
+public class HttpService(IHttpClientFactory httpClientFactory) : IHttpService
 {
-    private readonly IHttpClientFactory _httpClientFactory;
-
-    public HttpService(IHttpClientFactory httpClientFactory)
-    {
-        _httpClientFactory = httpClientFactory;
-    }
+    private readonly IHttpClientFactory _httpClientFactory = httpClientFactory;
 
     public async Task<string> GetAsync(string url, IDictionary<string, string> headers = null)
     {

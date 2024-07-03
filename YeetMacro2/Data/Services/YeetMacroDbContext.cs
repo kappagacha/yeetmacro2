@@ -65,7 +65,7 @@ public class YeetMacroDbContext : DbContext
             p => JsonSerializer.Deserialize<Point>(p, serializationOptions));
         var jsonObjectConverter = new ValueConverter<JsonObject, string>(
             json => json.ToJsonString(null),
-            json => (JsonObject)JsonObject.Parse(json, null, default(JsonDocumentOptions)));
+            json => (JsonObject)JsonObject.Parse(json, null, default));
 
         modelBuilder.Entity<MacroSet>().HasKey(ms => ms.MacroSetId);
         modelBuilder.Entity<MacroSet>().Property(ms => ms.Resolution).HasConversion(sizeConverter);

@@ -10,7 +10,7 @@ public interface IOcrService
 
 public class OcrService : IOcrService
 {
-    TessEngine _tessEngine;
+    readonly TessEngine _tessEngine;
 
     public OcrService()
     {
@@ -22,8 +22,10 @@ public class OcrService : IOcrService
             traineddata.CopyTo(fileStream);
         }
 
-        _tessEngine = new TessEngine("eng", FileSystem.Current.CacheDirectory);
-        _tessEngine.DefaultSegmentationMode = TesseractOcrMaui.Enums.PageSegmentationMode.SingleLine;
+        _tessEngine = new TessEngine("eng", FileSystem.Current.CacheDirectory)
+        {
+            DefaultSegmentationMode = TesseractOcrMaui.Enums.PageSegmentationMode.SingleLine
+        };
     }
 
     public string GetText(byte[] imageData, string whiteList = null)

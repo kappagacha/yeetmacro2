@@ -16,17 +16,12 @@ public interface INodeService<TParent, TChild>
     IEnumerable<TTarget> GetDescendants<TTarget>(TChild root) where TTarget : TChild;
 }
 
-public class NodeService<TParent, TChild> : INodeService<TParent, TChild>
+public class NodeService<TParent, TChild>(IRepository<TChild> nodeRepository, IRepository<NodeClosure> closureRepository) : INodeService<TParent, TChild>
     where TParent : Node, IParentNode<TParent, TChild>, TChild, new()
     where TChild : Node
 {
-    IRepository<TChild> _nodeRepository;
-    IRepository<NodeClosure> _closureRepository;
-    public NodeService(IRepository<TChild> nodeRepository, IRepository<NodeClosure> closureRepository)
-    {
-        _nodeRepository = nodeRepository;
-        _closureRepository = closureRepository;
-    }
+    readonly IRepository<TChild> _nodeRepository = nodeRepository;
+    readonly IRepository<NodeClosure> _closureRepository = closureRepository;
 
     public TParent GetRoot(int id)
     {
@@ -176,7 +171,7 @@ public class NodeService<TParent, TChild> : INodeService<TParent, TChild>
 
     public IEnumerable<TTarget> GetDescendants<TTarget>(TChild node) where TTarget: TChild
     {
-        if (node is TTarget) yield return (TTarget)node;
+        if (node is TTarget target) yield return target;
 
         if (node is TParent parent)
         {

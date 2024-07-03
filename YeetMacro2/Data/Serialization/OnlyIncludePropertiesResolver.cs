@@ -3,14 +3,9 @@ using System.Text.Json.Serialization.Metadata;
 
 namespace YeetMacro2.Data.Serialization;
 
-public class OnlyIncludePropertiesResolver<T> : DefaultJsonTypeInfoResolver, ICombinableTypeResolver
+public class OnlyIncludePropertiesResolver<T>(IEnumerable<string> propertyNames) : DefaultJsonTypeInfoResolver, ICombinableTypeResolver
 {
-    private readonly List<string> _propertyNames;
-
-    public OnlyIncludePropertiesResolver(IEnumerable<string> propertyNames)
-    {
-        _propertyNames = propertyNames.ToList();
-    }
+    private readonly List<string> _propertyNames = propertyNames.ToList();
 
     public override JsonTypeInfo GetTypeInfo(Type type, JsonSerializerOptions options)
     {

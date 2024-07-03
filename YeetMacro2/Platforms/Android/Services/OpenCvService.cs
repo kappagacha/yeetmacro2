@@ -10,13 +10,9 @@ using Microsoft.Extensions.Logging;
 
 namespace YeetMacro2.Platforms.Android.Services;
 
-public class OpenCvService
+public class OpenCvService(ILogger<OpenCvService> logger)
 {
-    ILogger _logger;
-    public OpenCvService(ILogger<OpenCvService> logger)
-    {
-        _logger = logger;
-    }
+    readonly ILogger _logger = logger;
 
     public byte[] CalcColorThreshold(byte[] imageData, ColorThresholdProperties colorThreshold)
     {
@@ -29,7 +25,7 @@ public class OpenCvService
             {
                 _logger.LogTrace("Empty matOfByte");
                 matOfByte.Dispose();
-                return new byte[0];
+                return [];
             }
             var mat = Org.Opencv.Imgcodecs.Imgcodecs.Imdecode(matOfByte, Org.Opencv.Imgcodecs.Imgcodecs.CvLoadImageColor);
 
@@ -60,7 +56,7 @@ public class OpenCvService
         catch (Exception ex)
         {
             _logger.LogError(ex, "CalcColorThreshold Exception");
-            return new byte[0];
+            return [];
         }
     }
 
@@ -77,7 +73,7 @@ public class OpenCvService
                 _logger.LogTrace("Empty matOfByte");
                 haystackMatOfByte.Dispose();
                 needleMatOfByte.Dispose();
-                return new List<Point>();
+                return [];
             }
 
             var haystackMat = Org.Opencv.Imgcodecs.Imgcodecs.Imdecode(haystackMatOfByte, Org.Opencv.Imgcodecs.Imgcodecs.CvLoadImageColor);
@@ -92,7 +88,7 @@ public class OpenCvService
         catch (Exception ex)
         {
             _logger.LogError(ex, "GetPointsWithMatchTemplate Exception");
-            return new List<Point>();
+            return [];
         }
     }
 
@@ -137,7 +133,7 @@ public class OpenCvService
                 resultAction(location);
 
                 var floodFillDiff = 0.3;        //flood fill avoid searching the same area
-                Rect outRect = new Rect();
+                Rect outRect = new();
 
                 var newVal = new Scalar(0, 0, 0);
                 var lowerDiff = new Scalar(floodFillDiff);
@@ -162,26 +158,21 @@ public class OpenCvService
 /// https://github.com/shimat/opencvsharp/blob/master/src/OpenCvSharp/Modules/core/Struct/MatType.cs
 /// Matrix data type (depth and number of channels)
 /// </summary>
-public readonly struct MatType : IEquatable<MatType>, IEquatable<int>
+/// <remarks>
+/// 
+/// </remarks>
+/// <param name="value"></param>
+public readonly struct MatType(int value) : IEquatable<MatType>, IEquatable<int>
 {
     /// <summary>
     /// Entity value
     /// </summary>
-    private readonly int value;
+    private readonly int value = value;
 
     /// <summary>
     /// Entity value
     /// </summary>
     public int Value => value;
-
-    /// <summary>
-    /// 
-    /// </summary>
-    /// <param name="value"></param>
-    public MatType(int value)
-    {
-        this.value = value;
-    }
 
     /// <summary> 
     /// </summary>

@@ -1,4 +1,3 @@
-using System.Windows.Input;
 using YeetMacro2.ViewModels.NodeViewModels;
 
 namespace YeetMacro2.Views;
@@ -6,18 +5,18 @@ namespace YeetMacro2.Views;
 public partial class NodeView : ContentView
 {
     public static readonly BindableProperty IsMenuVisibleProperty =
-        BindableProperty.Create("IsMenuVisible", typeof(bool), typeof(NodeView), true);
+        BindableProperty.Create(nameof(IsMenuVisible), typeof(bool), typeof(NodeView), true);
     public static readonly BindableProperty ItemTemplateProperty =
-        BindableProperty.Create("ItemTemplate", typeof(DataTemplate), typeof(NodeView), null);
+        BindableProperty.Create(nameof(ItemTemplate), typeof(DataTemplate), typeof(NodeView), null);
     public static readonly BindableProperty ExpanderTemplateProperty =
-        BindableProperty.Create("ExpanderTemplate", typeof(DataTemplate), typeof(NodeView), null);
+        BindableProperty.Create(nameof(ExpanderTemplate), typeof(DataTemplate), typeof(NodeView), null);
     // https://stackoverflow.com/questions/58022446/multiple-contentpresenters-in-one-controltemplate
     public static readonly BindableProperty ExtraMenuItemsDataTemplateProperty =
-        BindableProperty.Create("ExtraMenuItemsDataTemplate", typeof(DataTemplate), typeof(NodeView), null, propertyChanged: ExtraMenuItemsDataTemplatePropertyChanged);
+        BindableProperty.Create(nameof(ExtraMenuItemsDataTemplate), typeof(DataTemplate), typeof(NodeView), null, propertyChanged: ExtraMenuItemsDataTemplatePropertyChanged);
     public static readonly BindableProperty NodeManagerProperty =
-        BindableProperty.Create("NodeManager", typeof(NodeManagerViewModel), typeof(NodeView), null);
+        BindableProperty.Create(nameof(NodeManager), typeof(NodeManagerViewModel), typeof(NodeView), null);
     public static readonly BindableProperty ItemsSourceProperty =
-        BindableProperty.Create("ItemsSource", typeof(object), typeof(NodeView), null);
+        BindableProperty.Create(nameof(ItemsSource), typeof(object), typeof(NodeView), null);
 
     private static void ExtraMenuItemsDataTemplatePropertyChanged(BindableObject bindable, object oldValue, object newValue)
     {
@@ -59,9 +58,9 @@ public partial class NodeView : ContentView
     }
 
     public NodeView()
-	{
-		InitializeComponent();
-	}
+    {
+        InitializeComponent();
+    }
 
     private void ExportEditor_SelectAll(object sender, TappedEventArgs e)
     {

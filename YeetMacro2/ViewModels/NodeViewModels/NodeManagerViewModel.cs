@@ -1,5 +1,4 @@
 ﻿using AutoMapper;
-using CommunityToolkit.Maui.Core;
 using CommunityToolkit.Maui.Storage;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
@@ -7,7 +6,6 @@ using System.Diagnostics;
 using System.Reflection;
 using System.Text.Json;
 using System.Text.Json.Serialization;
-using System.Threading;
 using YeetMacro2.Data.Models;
 using YeetMacro2.Data.Serialization;
 using YeetMacro2.Data.Services;
@@ -16,13 +14,9 @@ using YeetMacro2.Services;
 namespace YeetMacro2.ViewModels.NodeViewModels;
 
 // https://stackoverflow.com/questions/53884417/net-core-di-ways-of-passing-parameters-to-constructor
-public class NodeManagerViewModelFactory
+public class NodeManagerViewModelFactory(IServiceProvider serviceProvider)
 {
-    IServiceProvider _serviceProvider;
-    public NodeManagerViewModelFactory(IServiceProvider serviceProvider)
-    {
-        _serviceProvider = serviceProvider;
-    }
+    readonly IServiceProvider _serviceProvider = serviceProvider;
 
     public T Create<T>(int rootId) where T : NodeManagerViewModel
     {
@@ -41,16 +35,16 @@ public partial class NodeManagerViewModel<TViewModel, TParent, TChild> : NodeMan
         where TParent : Node, IParentNode<TParent, TChild>, TChild, new()
         where TChild : Node
 {
-    protected static IMapper _mapper;
-    private int _rootNodeId;
-    private string _nodeTypeName;
+    protected readonly static IMapper _mapper;
+    private readonly int _rootNodeId;
+    private readonly string _nodeTypeName;
     [ObservableProperty]
     protected TParent _root;
     [ObservableProperty]
     protected TChild _selectedNode;
     [ObservableProperty]
     bool _isInitialized, _showExport, _isList, _isBusy;
-    TaskCompletionSource _initializeCompleted;
+    readonly TaskCompletionSource _initializeCompleted;
     protected INodeService<TParent, TChild> _nodeService;
     protected IToastService _toastService;
     protected IInputService _inputService;
@@ -61,7 +55,7 @@ public partial class NodeManagerViewModel<TViewModel, TParent, TChild> : NodeMan
 
     public bool HasCopyClipboard => CopyClipboard != null;
 
-    public static readonly JsonSerializerOptions _defaultJsonSerializerOptions = new JsonSerializerOptions()
+    public static readonly JsonSerializerOptions _defaultJsonSerializerOptions = new()
     {
         Converters = {
             new JsonStringEnumConverter()
@@ -555,26 +549,21 @@ public class NodeViewModelValueConverter : JsonConverterFactory
 
         JsonConverter converter = (JsonConverter)Activator.CreateInstance(
             typeof(GenericNodeViewModelValueConverter<,,>).MakeGenericType(
-                new Type[] { viewModelType, parentType, childType }),
+                [viewModelType, parentType, childType]),
             BindingFlags.Instance | BindingFlags.Public,
             binder: null,
-            args: new object[] { options },
+            args: [options],
             culture: null)!;
 
         return converter;
     }
 
-    private class GenericNodeViewModelValueConverter<TViewModel, TParent, TChild> : JsonConverter<NodeManagerViewModel<TViewModel, TParent, TChild>>
+    private class GenericNodeViewModelValueConverter<TViewModel, TParent, TChild>(JsonSerializerOptions options) : JsonConverter<NodeManagerViewModel<TViewModel, TParent, TChild>>
         where TViewModel : TParent, new()
         where TParent : Node, IParentNode<TParent, TChild>, TChild, new()
         where TChild : Node
     {
-        private readonly JsonConverter<TChild> _childConverter;
-
-        public GenericNodeViewModelValueConverter(JsonSerializerOptions options)
-        {
-            _childConverter = (JsonConverter<TChild>)options.GetConverter(typeof(TChild));
-        }
+        private readonly JsonConverter<TChild> _childConverter = (JsonConverter<TChild>)options.GetConverter(typeof(TChild));
 
         public override NodeManagerViewModel<TViewModel, TParent, TChild> Read(
             ref Utf8JsonReader reader,
@@ -586,9 +575,11 @@ public class NodeViewModelValueConverter : JsonConverterFactory
                 throw new JsonException();
             }
 
-            var tree = new NodeManagerViewModel<TViewModel, TParent, TChild>(-1, null, null, null);
-            tree.Root = new TParent();
-            tree.Root.Nodes = new List<TChild>();
+            var tree = new NodeManagerViewModel<TViewModel, TParent, TChild>(-1, null, null, null)
+            {
+                Root = new TParent()
+            };
+            tree.Root.Nodes = [];
 
             while (reader.Read())
             {

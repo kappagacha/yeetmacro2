@@ -13,6 +13,5 @@ public class WindowsHomePage : ContentPage
         //button.SetBinding(Button.CommandProperty, nameof(WindowsHomeViewModel.TestCommand));
         //button.Text = "Test";
         Content = new TreeView();
-
     }
 }

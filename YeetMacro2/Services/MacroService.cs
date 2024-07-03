@@ -51,10 +51,10 @@ public class CloneOptions
 
 public class MacroService
 {
-    ILogger _logger;
-    IScreenService _screenService;
-    Dictionary<string, Point> _pathToOffset;
-    Random _random;
+    readonly ILogger _logger;
+    readonly IScreenService _screenService;
+    readonly Dictionary<string, Point> _pathToOffset;
+    readonly Random _random;
     public bool InDebugMode { get; set; }
     public bool IsRunning { get; set; }
 
@@ -62,7 +62,7 @@ public class MacroService
     {
         _logger = logger;
         _screenService = screenService;
-        _pathToOffset = new Dictionary<string, Point>();
+        _pathToOffset = [];
         _random = new Random();
 
         WeakReferenceMessenger.Default.Register<PropertyChangedMessage<bool>, string>(this, nameof(MacroManagerViewModel), (r, propertyChangedMessage) =>
@@ -150,7 +150,7 @@ public class MacroService
 
     public FindPatternResult FindPattern(OneOf<PatternNode, PatternNode[]> oneOfPattern, FindOptions opts = null)
     {
-        if (opts is null) opts = new FindOptions();
+        opts ??= new FindOptions();
 
         var result = new FindPatternResult() { IsSuccess = false };
         PatternNode[] patternNodes;
@@ -161,7 +161,7 @@ public class MacroService
         }
         else
         {
-            patternNodes = new PatternNode[] { oneOfPattern.AsT0 };
+            patternNodes = [oneOfPattern.AsT0];
         }
 
         try
@@ -214,7 +214,7 @@ public class MacroService
                             }
                         }
                     }
-                    multiResult.Points = points.ToArray();
+                    multiResult.Points = [.. points];
                     multiResult.IsSuccess = points.Count > 0;
                     result = multiResult;
                     idx++;
@@ -279,7 +279,7 @@ public class MacroService
 
     public FindPatternResult ClickPattern(OneOf<PatternNode, PatternNode[]> oneOfPattern, FindOptions opts = null)
     {
-        if (opts is null) opts = new FindOptions();
+        opts ??= new FindOptions();
 
         FindPatternResult result = this.FindPattern(oneOfPattern, opts);
         if (result.IsSuccess)
@@ -296,13 +296,13 @@ public class MacroService
 
     public FindPatternResult PollPoint(Point point, PollPatternFindOptions opts = null)
     {
-        if (opts is null) opts = new PollPatternFindOptions();
+        opts ??= new PollPatternFindOptions();
         opts.DoClick = true;
 
         var patternNode = new PatternNode()
         {
             Path = point.ToString(),
-            Patterns = new List<Pattern> {
+            Patterns = [
                     new Pattern()
                     {
                         IsBoundsPattern = true,
@@ -310,7 +310,7 @@ public class MacroService
                         Resolution = _screenService.CalcResolution,
                         OffsetCalcType = OffsetCalcType.None
                     }
-                }
+                ]
         };
 
         return PollPattern(patternNode, opts);
@@ -318,7 +318,7 @@ public class MacroService
 
     public FindPatternResult PollPattern(OneOf<PatternNode, PatternNode[]> oneOfPattern, PollPatternFindOptions opts = null)
     {
-        if (opts is null) opts = new PollPatternFindOptions();
+        opts ??= new PollPatternFindOptions();
 
         var result = new FindPatternResult() { IsSuccess = false };
         var intervalDelayMs = opts.IntervalDelayMs;
@@ -335,7 +335,7 @@ public class MacroService
             var inversePredicateChecks = opts.InversePredicateChecks;
             var inversePredicateCheckDelayMs = opts.InversePredicateCheckDelayMs;
             var predicateOpts = new FindOptions() { VariancePct = opts.PredicateThreshold };
-            FindPatternResult successResult = new FindPatternResult() { IsSuccess = false };
+            FindPatternResult successResult = new() { IsSuccess = false };
 
             while (IsRunning)
             {
@@ -375,7 +375,7 @@ public class MacroService
         else if (predicatePattern is not null)
         {
             var predicateOpts = new FindOptions() { VariancePct = opts.PredicateThreshold };
-            FindPatternResult successResult = new FindPatternResult() { IsSuccess = false };
+            FindPatternResult successResult = new() { IsSuccess = false };
             while (IsRunning)
             {
                 if (hasTimeout && DateTime.Now > timeout) break;

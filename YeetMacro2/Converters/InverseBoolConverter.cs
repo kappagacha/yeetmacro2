@@ -1,7 +1,7 @@
 ﻿namespace YeetMacro2.Converters;
 public class InverseBoolConverter : IMarkupExtension, IValueConverter
 {
-    static InverseBoolConverter _instance = new InverseBoolConverter();
+    static readonly InverseBoolConverter _instance = new();
 
     public InverseBoolConverter()
     {

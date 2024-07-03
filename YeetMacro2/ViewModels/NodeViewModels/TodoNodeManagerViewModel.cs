@@ -9,7 +9,7 @@ using YeetMacro2.Services;
 namespace YeetMacro2.ViewModels.NodeViewModels;
 public partial class TodoNodeManagerViewModel : NodeManagerViewModel<TodoViewModel, TodoNode, TodoNode>
 {
-    TodoJsonParentViewModel _emptySubView = new TodoJsonParentViewModel();
+    readonly TodoJsonParentViewModel _emptySubView = new();
     [ObservableProperty]
     bool _showJsonEditor, _showTemplate;
     [ObservableProperty]
@@ -19,7 +19,7 @@ public partial class TodoNodeManagerViewModel : NodeManagerViewModel<TodoViewMod
     public MacroSetViewModel MacroSet { get; set; }
     string _targetSubViewName;
 
-    IRepository<TodoNode> _todoRepository;
+    readonly IRepository<TodoNode> _todoRepository;
     public TodoNodeManagerViewModel(
         int rootNodeId,
         IRepository<TodoNode> todoRepository,
@@ -122,7 +122,7 @@ public partial class TodoNodeManagerViewModel : NodeManagerViewModel<TodoViewMod
         var selectedTypeName = await _inputService.SelectOption("Please select todo element type", "parent", "bool", "count");
         if (string.IsNullOrEmpty(selectedTypeName) || selectedTypeName == "cancel") return;
         var elementName = await _inputService.PromptInput($"Enter name for element");
-        TodoJsonElementViewModel elementToAdd = null;
+        TodoJsonElementViewModel elementToAdd;
 
         switch (selectedTypeName)
         {
@@ -327,7 +327,7 @@ public partial class TodoNodeManagerViewModel : NodeManagerViewModel<TodoViewMod
 
     protected JsonObject GetJsonFromTemplate()
     {
-        if (Root.Data == null) Root.Data = new JsonObject();
+        if (Root.Data == null) Root.Data = new();
 
         return (JsonObject)Root.Data.DeepClone();
     }

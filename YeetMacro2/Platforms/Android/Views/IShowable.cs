@@ -1,4 +1,5 @@
 ﻿namespace YeetMacro2.Platforms.Android.Views;
+
 public interface IShowable
 {
     bool IsShowing { get; }

@@ -3,7 +3,7 @@
 namespace YeetMacro2.Converters;
 public class PassThroughConverter : IMarkupExtension, IMultiValueConverter
 {
-    static PassThroughConverter _instance = new PassThroughConverter();
+    static readonly PassThroughConverter _instance = new();
 
     public PassThroughConverter()
     {

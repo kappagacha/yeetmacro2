@@ -6,18 +6,12 @@ using YeetMacro2.ViewModels;
 
 namespace YeetMacro2.Platforms.Windows.ViewModels;
 
-public partial class WindowsHomeViewModel : ObservableObject
+public partial class WindowsHomeViewModel(ILogger<WindowsHomeViewModel> logger, LogViewModel logViewModel, MacroManagerViewModel macroManagerViewModel) : ObservableObject
 {
-    ILogger _logger;
+    readonly ILogger _logger = logger;
     //int count = 0;
-    LogViewModel _logViewModel;
-    MacroManagerViewModel _macroManagerViewModel;
-    public WindowsHomeViewModel(ILogger<WindowsHomeViewModel> logger, LogViewModel logViewModel, MacroManagerViewModel macroManagerViewModel)
-    {
-        _logger = logger;
-        _logViewModel = logViewModel;
-        _macroManagerViewModel = macroManagerViewModel;
-    }
+    readonly LogViewModel _logViewModel = logViewModel;
+    readonly MacroManagerViewModel _macroManagerViewModel = macroManagerViewModel;
 
     [RelayCommand]
     public void Test()

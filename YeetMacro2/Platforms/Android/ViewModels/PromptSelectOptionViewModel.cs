@@ -3,20 +3,15 @@ using CommunityToolkit.Mvvm.Input;
 using YeetMacro2.Platforms.Android.Services;
 
 namespace YeetMacro2.Platforms.Android.ViewModels;
-public partial class PromptSelectOptionViewModel : ObservableObject
+public partial class PromptSelectOptionViewModel(AndroidScreenService screenService) : ObservableObject
 {
-    AndroidScreenService _screenService;
+    readonly AndroidScreenService _screenService = screenService;
     [ObservableProperty]
     string _message = "Please select option";
     [ObservableProperty]
     IEnumerable<string> _options;
     [ObservableProperty]
     string _selectedOption;
-
-    public PromptSelectOptionViewModel(AndroidScreenService screenService)
-    {
-        _screenService = screenService;
-    }
 
     [RelayCommand]
     private void Select(string option)

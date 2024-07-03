@@ -6,8 +6,8 @@ public class PatternNode : Node, IParentNode<PatternNode, PatternNode>
 {
     public virtual bool IsMultiPattern { get; set; }
     [JsonIgnore]
-    public virtual IList<PatternNode> Nodes { get; set; } = new List<PatternNode>();
-    public virtual IList<Pattern> Patterns { get; set; } = new List<Pattern>();
+    public virtual IList<PatternNode> Nodes { get; set; } = [];
+    public virtual IList<Pattern> Patterns { get; set; } = [];
     [JsonIgnore]
     public Pattern Pattern { get => Patterns.FirstOrDefault(); }
 }

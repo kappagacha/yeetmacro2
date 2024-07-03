@@ -26,12 +26,12 @@ public partial class ActionViewModel : ObservableObject, IMovable
     [ObservableProperty]
     bool _isBusy;
 
-    AndroidScreenService _screenService;
-    IScriptService _scriptService;
-    MacroManagerViewModel _macroManagerViewModel;
-    IToastService _toastService;
-    MediaProjectionService _mediaProjectionService;
-    JsonSerializerOptions _serializationOptions = new JsonSerializerOptions()
+    readonly AndroidScreenService _screenService;
+    readonly IScriptService _scriptService;
+    readonly MacroManagerViewModel _macroManagerViewModel;
+    readonly IToastService _toastService;
+    readonly MediaProjectionService _mediaProjectionService;
+    readonly JsonSerializerOptions _serializationOptions = new()
     {
         PropertyNamingPolicy = JsonNamingPolicy.CamelCase,
         TypeInfoResolver = PointPropertiesResolver.Instance

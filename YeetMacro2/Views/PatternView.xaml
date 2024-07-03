@@ -63,7 +63,7 @@
                     </Button>
                 </HorizontalStackLayout>
                 <HorizontalStackLayout Margin="0" Padding="0" IsVisible="{Binding IsToggled, Source={x:Reference colorThresholdToggle}}">
-                    <CheckBox TranslationX="{OnPlatform WinUI=20, Android=10}" IsChecked="{Binding Pattern.ColorThreshold.IsActive, Source={Reference thisView}}" CheckedChanged="colorThresholdIsActive_CheckedChanged" />
+                    <CheckBox TranslationX="{OnPlatform WinUI=20, Android=10}" IsChecked="{Binding Pattern.ColorThreshold.IsActive, Source={Reference thisView}}" CheckedChanged="ColorThresholdIsActive_CheckedChanged" />
                     <Label Margin="0" VerticalOptions="Center" Padding="0" Text="Color Threshold:" />
                     <v:IntegerStepper x:Name="colorThresholdVariancePct" Value="30" Increment="10" />
                     <Label Margin="0" VerticalOptions="Center" Padding="0" Text="@" />
@@ -91,7 +91,7 @@
                                 <Border.StrokeShape>
                                     <RoundRectangle CornerRadius="10" />
                                 </Border.StrokeShape>
-                                <ImageButton Margin="0" Padding="0" BindingContext="{Binding Pattern, Source={Reference thisView}}" Clicked="offsetCalcType_Clicked" />
+                                <ImageButton Margin="0" Padding="0" BindingContext="{Binding Pattern, Source={Reference thisView}}" Clicked="OffsetCalcType_Clicked" />
                             </Border>
                         </Grid>
                     </HorizontalStackLayout>

@@ -1,6 +1,4 @@
 using SkiaSharp;
-using System.Collections;
-using System.Linq;
 using System.Windows.Input;
 using YeetMacro2.Data.Models;
 using YeetMacro2.Services;
@@ -13,31 +11,31 @@ public partial class PatternView : ContentView
     private SKColor _pickedColor;
     private Byte[] _currentImageData;
     public static readonly BindableProperty PatternNodeProperty =
-        BindableProperty.Create("PatternNode", typeof(PatternNode), typeof(ImageView));
+        BindableProperty.Create(nameof(PatternNode), typeof(PatternNode), typeof(ImageView));
     public static readonly BindableProperty PatternProperty =
-            BindableProperty.Create("Pattern", typeof(Pattern), typeof(ImageView), null, propertyChanged: PatternPropertyChanged);
+            BindableProperty.Create(nameof(Pattern), typeof(Pattern), typeof(ImageView), null, propertyChanged: PatternPropertyChanged);
     public static readonly BindableProperty SavePatternCommandProperty =
-        BindableProperty.Create("SavePatternCommand", typeof(ICommand), typeof(ImageView));
+        BindableProperty.Create(nameof(SavePatternCommand), typeof(ICommand), typeof(ImageView));
     public static readonly BindableProperty SelectPatternCommandProperty =
-        BindableProperty.Create("SelectPatternCommand", typeof(ICommand), typeof(ImageView));
+        BindableProperty.Create(nameof(SelectPatternCommand), typeof(ICommand), typeof(ImageView));
     public static readonly BindableProperty CapturePatternCommandProperty =
-        BindableProperty.Create("CapturePatternCommand", typeof(ICommand), typeof(ImageView));
+        BindableProperty.Create(nameof(CapturePatternCommand), typeof(ICommand), typeof(ImageView));
     public static readonly BindableProperty SetPatternBoundsCommandProperty =
-        BindableProperty.Create("SetPatternBoundsCommand", typeof(ICommand), typeof(ImageView));
+        BindableProperty.Create(nameof(SetPatternBoundsCommand), typeof(ICommand), typeof(ImageView));
     public static readonly BindableProperty ClickPatternCommandProperty =
-        BindableProperty.Create("ClickPatternCommand", typeof(ICommand), typeof(ImageView));
+        BindableProperty.Create(nameof(ClickPatternCommand), typeof(ICommand), typeof(ImageView));
     public static readonly BindableProperty TestPatternCommandProperty =
-        BindableProperty.Create("TestPatternCommand", typeof(ICommand), typeof(ImageView));
+        BindableProperty.Create(nameof(TestPatternCommand), typeof(ICommand), typeof(ImageView));
     public static readonly BindableProperty AddPatternCommandProperty =
-        BindableProperty.Create("AddPatternCommand", typeof(ICommand), typeof(ImageView));
+        BindableProperty.Create(nameof(AddPatternCommand), typeof(ICommand), typeof(ImageView));
     public static readonly BindableProperty DeletePatternCommandProperty =
-        BindableProperty.Create("DeletePatternCommand", typeof(ICommand), typeof(ImageView));
+        BindableProperty.Create(nameof(DeletePatternCommand), typeof(ICommand), typeof(ImageView));
     public static readonly BindableProperty ApplyColorThresholdCommandProperty =
-        BindableProperty.Create("ApplyColorThresholdCommand", typeof(ICommand), typeof(ImageView));
+        BindableProperty.Create(nameof(ApplyColorThresholdCommand), typeof(ICommand), typeof(ImageView));
     public static readonly BindableProperty TestPatternTextMatchCommandProperty =
-        BindableProperty.Create("TestPatternTextMatchCommand", typeof(ICommand), typeof(ImageView));
+        BindableProperty.Create(nameof(TestPatternTextMatchCommand), typeof(ICommand), typeof(ImageView));
     public static readonly BindableProperty ApplyPatternTextMatchCommandProperty =
-        BindableProperty.Create("ApplyPatternTextMatchCommand", typeof(ICommand), typeof(ImageView));
+        BindableProperty.Create(nameof(ApplyPatternTextMatchCommand), typeof(ICommand), typeof(ImageView));
 
 
     private static void PatternPropertyChanged(BindableObject bindable, object oldValue, object newValue)
@@ -134,9 +132,9 @@ public partial class PatternView : ContentView
         set { SetValue(ApplyPatternTextMatchCommandProperty, value); }
     }
     public PatternView()
-	{
-		InitializeComponent();
-	}
+    {
+        InitializeComponent();
+    }
 
     private void OnCanvasViewPaintSurface(object sender, SkiaSharp.Views.Maui.SKPaintSurfaceEventArgs e)
     {
@@ -154,7 +152,7 @@ public partial class PatternView : ContentView
         {
             targetWidth = imageInfo.Width;
             targetHeight = Convert.ToInt32(bitmap.Height * targetWidth / (double)bitmap.Width);
-        } 
+        }
         else
         {
             targetHeight = imageInfo.Height;
@@ -167,26 +165,25 @@ public partial class PatternView : ContentView
 
         if (_lastTouchPoint == SKPoint.Empty) return;
 
-        using (SKBitmap pointBitmap = new SKBitmap(imageInfo))
+        using SKBitmap pointBitmap = new(imageInfo);
+        
+        // get the pixel buffer for the bitmap
+        IntPtr dstpixels = pointBitmap.GetPixels();
+
+        // read the surface into the bitmap
+        surface.ReadPixels(imageInfo,
+            dstpixels,
+            imageInfo.RowBytes,
+            (int)_lastTouchPoint.X, (int)_lastTouchPoint.Y);
+
+        // access the color
+        var color = pointBitmap.GetPixel(0, 0);
+        if (color != SKColor.Empty)
         {
-            // get the pixel buffer for the bitmap
-            IntPtr dstpixels = pointBitmap.GetPixels();
-
-            // read the surface into the bitmap
-            surface.ReadPixels(imageInfo,
-                dstpixels,
-                imageInfo.RowBytes,
-                (int)_lastTouchPoint.X, (int)_lastTouchPoint.Y);
-
-            // access the color
-            var color = pointBitmap.GetPixel(0, 0);
-            if (color != SKColor.Empty)
-            {
-                _pickedColor = color;
-                colorPickCanvas.InvalidateSurface();
-                System.Diagnostics.Debug.WriteLine(color);
-                colorThresholdColor.Text = _pickedColor.ToString();
-            }
+            _pickedColor = color;
+            colorPickCanvas.InvalidateSurface();
+            System.Diagnostics.Debug.WriteLine(color);
+            colorThresholdColor.Text = _pickedColor.ToString();
         }
     }
 
@@ -205,12 +202,12 @@ public partial class PatternView : ContentView
         e.Surface.Canvas.Clear(_pickedColor);
     }
 
-    private void colorThresholdIsActive_CheckedChanged(object sender, CheckedChangedEventArgs e)
+    private void ColorThresholdIsActive_CheckedChanged(object sender, CheckedChangedEventArgs e)
     {
         UpdateCanvas(Pattern);
     }
 
-    private async void offsetCalcType_Clicked(object sender, EventArgs e)
+    private async void OffsetCalcType_Clicked(object sender, EventArgs e)
     {
         var pattern = ((ImageButton)sender).BindingContext as Pattern;
         var options = Enum.GetValues<OffsetCalcType>().Select(oct => oct.ToString()).ToArray();

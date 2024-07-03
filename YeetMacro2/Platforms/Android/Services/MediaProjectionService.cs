@@ -19,7 +19,7 @@ namespace YeetMacro2.Platforms.Android.Services;
 //https://medium.com/jamesob-com/recording-your-android-screen-7e0e75aae260
 public class MediaProjectionService : IRecorderService
 {
-    ILogger _logger;
+    readonly ILogger _logger;
     MainActivity _context;
     MediaProjectionManager _mediaProjectionManager;
     MediaProjection _mediaProjection;
@@ -29,7 +29,7 @@ public class MediaProjectionService : IRecorderService
     Intent _resultData;
     int _resultCode;
     public const int REQUEST_MEDIA_PROJECTION = 1;
-    TaskCompletionSource<bool> _startCompleted;
+    readonly TaskCompletionSource<bool> _startCompleted;
     bool _isRecording, _isInitialized;
 
     public MediaProjectionService()
@@ -160,7 +160,7 @@ public class MediaProjectionService : IRecorderService
         var bitmap = GetBitmap();
         if (bitmap == null) return null;
 
-        MemoryStream ms = new MemoryStream();
+        MemoryStream ms = new();
         bitmap.Compress(CompressFormat.Jpeg, 100, ms);
         bitmap.Dispose();
         ms.Position = 0;
@@ -180,7 +180,7 @@ public class MediaProjectionService : IRecorderService
 
         var newBitmap = Bitmap.CreateBitmap(bitmap, (int)rect.X, (int)rect.Y, (int)rect.Width, (int)rect.Height);
         bitmap.Dispose();
-        MemoryStream ms = new MemoryStream();
+        MemoryStream ms = new();
         newBitmap.Compress(CompressFormat.Jpeg, 100, ms);
         newBitmap.Dispose();
         ms.Position = 0;
@@ -194,11 +194,9 @@ public class MediaProjectionService : IRecorderService
     {
         var imageData = GetCurrentImageData();
         var folder = global::Android.OS.Environment.GetExternalStoragePublicDirectory(global::Android.OS.Environment.DirectoryPictures).Path;
-        var file = System.IO.Path.Combine(folder, $"{DateTime.Now.ToString("screencapture_yyyyMMdd_HHmmss")}.jpeg");
-        using (FileStream fs = new FileStream(file, FileMode.OpenOrCreate))
-        {
-            fs.Write(imageData, 0, imageData.Length);
-        }
+        var file = System.IO.Path.Combine(folder, $"{DateTime.Now:screencapture_yyyyMMdd_HHmmss}.jpeg");
+        using FileStream fs = new(file, FileMode.OpenOrCreate);
+        fs.Write(imageData, 0, imageData.Length);
     }
 
     // https://github.com/chinmoyp/screenrecorder/blob/master/app/src/main/java/com/confusedbox/screenrecorder/MainActivity.java
@@ -225,7 +223,7 @@ public class MediaProjectionService : IRecorderService
         _mediaRecorder.SetVideoSize(width, height);     // weird resolutions will fail on prepare. ex: 1080x2350
         
         var folder = global::Android.OS.Environment.GetExternalStoragePublicDirectory(global::Android.OS.Environment.DirectoryPictures).Path;
-        var file = System.IO.Path.Combine(folder, $"{DateTime.Now.ToString("yyyyMMdd_HHmmss")}.mp4");
+        var file = System.IO.Path.Combine(folder, $"{DateTime.Now:yyyyMMdd_HHmmss}.mp4");
         _mediaRecorder.SetOutputFile(file);
         _mediaRecorder.Prepare();
         _mediaRecorder.Start();

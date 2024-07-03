@@ -21,26 +21,26 @@ namespace YeetMacro2.ViewModels;
 
 public partial class MacroManagerViewModel : ObservableObject
 {
-    ILogger _logger;
-    IRepository<MacroSet> _macroSetRepository;
-    IToastService _toastService;
-    INodeService<PatternNode, PatternNode> _patternNodeService;
-    INodeService<ScriptNode, ScriptNode> _scriptNodeService;
-    INodeService<ParentSetting, SettingNode> _settingNodeService;
-    INodeService<TodoNode, TodoNode> _todoNodeService;
-    NodeManagerViewModelFactory _nodeViewModelManagerFactory;
-    IMapper _mapper;
-    IHttpService _httpService;
+    readonly ILogger _logger;
+    readonly IRepository<MacroSet> _macroSetRepository;
+    readonly IToastService _toastService;
+    readonly INodeService<PatternNode, PatternNode> _patternNodeService;
+    readonly INodeService<ScriptNode, ScriptNode> _scriptNodeService;
+    readonly INodeService<ParentSetting, SettingNode> _settingNodeService;
+    readonly INodeService<TodoNode, TodoNode> _todoNodeService;
+    readonly NodeManagerViewModelFactory _nodeViewModelManagerFactory;
+    readonly IMapper _mapper;
+    readonly IHttpService _httpService;
     [ObservableProperty]
     ICollection<MacroSet> _macroSets;
     [ObservableProperty, NotifyPropertyChangedFor(nameof(Patterns), nameof(Scripts))]
     MacroSet _selectedMacroSet;
-    ConcurrentDictionary<int, PatternNodeManagerViewModel> _nodeRootIdToPatternTree;
-    ConcurrentDictionary<int, ScriptNodeManagerViewModel> _nodeRootIdToScriptList;
-    ConcurrentDictionary<int, SettingNodeManagerViewModel> _nodeRootIdToSettingTree;
-    ConcurrentDictionary<int, DailyNodeManagerViewModel> _nodeRootIdToDailyList;
-    ConcurrentDictionary<int, WeeklyNodeManagerViewModel> _nodeRootIdToWeeklyList;
-    IScriptService _scriptService;
+    readonly ConcurrentDictionary<int, PatternNodeManagerViewModel> _nodeRootIdToPatternTree;
+    readonly ConcurrentDictionary<int, ScriptNodeManagerViewModel> _nodeRootIdToScriptList;
+    readonly ConcurrentDictionary<int, SettingNodeManagerViewModel> _nodeRootIdToSettingTree;
+    readonly ConcurrentDictionary<int, DailyNodeManagerViewModel> _nodeRootIdToDailyList;
+    readonly ConcurrentDictionary<int, WeeklyNodeManagerViewModel> _nodeRootIdToWeeklyList;
+    readonly IScriptService _scriptService;
     [ObservableProperty]
     bool _isExportEnabled, _isOpenAppDirectoryEnabled, _inDebugMode, 
         _showExport, _isBusy, _persistLogs, _showMacroSetDescriptionEditor, _isScriptRunning;
@@ -48,7 +48,7 @@ public partial class MacroManagerViewModel : ObservableObject
     double _resolutionWidth, _resolutionHeight, _defaultLocationX, _defaultLocationY;
     [ObservableProperty]
     string _exportValue, _message;
-    JsonSerializerOptions _jsonSerializerOptions = new JsonSerializerOptions()
+    readonly JsonSerializerOptions _jsonSerializerOptions = new ()
     {
         Converters = {
                 new JsonStringEnumConverter()
@@ -57,7 +57,7 @@ public partial class MacroManagerViewModel : ObservableObject
         PropertyNamingPolicy = JsonNamingPolicy.CamelCase,
         TypeInfoResolver = CombinedPropertiesResolver.Combine(SizePropertiesResolver.Instance, PointPropertiesResolver.Instance)
     };
-    string _targetBranch = "main";
+    readonly string _targetBranch = "main";
     public PatternNodeManagerViewModel Patterns
     {
         get
@@ -169,7 +169,7 @@ public partial class MacroManagerViewModel : ObservableObject
         }
 
         _macroSetRepository.DetachAllEntities();
-        _macroSetRepository.AttachEntities(_macroSets.ToArray());
+        _macroSetRepository.AttachEntities([.._macroSets]);
         _nodeRootIdToPatternTree = new ConcurrentDictionary<int, PatternNodeManagerViewModel>();
         _nodeRootIdToScriptList = new ConcurrentDictionary<int, ScriptNodeManagerViewModel>();
         _nodeRootIdToSettingTree = new ConcurrentDictionary<int, SettingNodeManagerViewModel>();
@@ -251,8 +251,8 @@ public partial class MacroManagerViewModel : ObservableObject
         if (string.IsNullOrEmpty(source) || source == "cancel") return;
         IsBusy = true;
         string macroSetName = source;
-        if (source.StartsWith("localAsset:")) macroSetName = source.Substring(11);
-        else if (source.StartsWith("online:")) macroSetName = source.Substring(7);
+        if (source.StartsWith("localAsset:")) macroSetName = source[11..];
+        else if (source.StartsWith("online:")) macroSetName = source[7..];
 
         var macroSet = new MacroSetViewModel() { Name = macroSetName, Source = source };
 
@@ -413,11 +413,11 @@ public partial class MacroManagerViewModel : ObservableObject
 
         if (macroSet.Source.StartsWith("localAsset:"))
         {
-            targetDirectory = Path.Combine(targetDirectory, $"{macroSet.Source.Substring(11)}");
+            targetDirectory = Path.Combine(targetDirectory, $"{macroSet.Source[11..]}");
         }
         else
         {
-            targetDirectory = Path.Combine(targetDirectory, $"{macroSet.Source.Substring(7)}");
+            targetDirectory = Path.Combine(targetDirectory, $"{macroSet.Source[7..]}");
         }
 
         if (!Directory.Exists(targetDirectory))
@@ -465,10 +465,10 @@ public partial class MacroManagerViewModel : ObservableObject
         {
             MacroSet targetMacroSet;
             string macroSetJson = null, pattternJson = null, settingJson = null;
-            Dictionary<string, string> nameToScript = new Dictionary<string, string>();
+            Dictionary<string, string> nameToScript = [];
             if (macroSet.Source.StartsWith("localAsset:"))
             {
-                var macroSetName = macroSet.Source.Substring(11);
+                var macroSetName = macroSet.Source[11..];
                 var localMacroSets = ServiceHelper.ListAssets("MacroSets").ToList();
                 if (!localMacroSets.Contains(macroSetName))
                 {
@@ -500,7 +500,7 @@ public partial class MacroManagerViewModel : ObservableObject
             }
             else // online from public github
             {
-                var macroSetName = macroSet.Source.Substring(7);
+                var macroSetName = macroSet.Source[7..];
 
                 var commitInfoUrl = $"https://github.com/kappagacha/yeetmacro2/tree-commit-info/{_targetBranch}/YeetMacro2/Resources/Raw/MacroSets/{macroSetName}";
                 var rawUrl = $"https://raw.githubusercontent.com/kappagacha/yeetmacro2/{_targetBranch}/YeetMacro2/Resources/Raw/MacroSets/{macroSetName}";
@@ -543,12 +543,12 @@ public partial class MacroManagerViewModel : ObservableObject
             if (nameToScript.Count > 0)
             {
                 Scripts.SelectedNode = null;
-                var scripts = new ScriptNodeManagerViewModel(-1, null, null, null) { Root = new ScriptNode() { Nodes = new List<ScriptNode>() } };
+                var scripts = new ScriptNodeManagerViewModel(-1, null, null, null) { Root = new ScriptNode() { Nodes = [] } };
                 
                 foreach (var scriptKvp in nameToScript)
                 {
                     var position = 0;
-                    Match positionMatch = Regex.Match(scriptKvp.Value, @"@position=(-?\d+)");
+                    Match positionMatch = PositionRegex().Match(scriptKvp.Value);
                     if (positionMatch.Success)
                     {
                         position = int.Parse(positionMatch.Groups[1].Value);
@@ -585,14 +585,14 @@ public partial class MacroManagerViewModel : ObservableObject
             if (targetMacroSet.DailyTemplate is not null && (!macroSet.DailyTemplateLastUpdated.HasValue || macroSet.DailyTemplateLastUpdated < targetMacroSet.DailyTemplateLastUpdated))
             {
                 await Dailies.WaitForInitialization();
-                Dailies.Root.Data = (JsonObject)JsonObject.Parse(targetMacroSet.DailyTemplate, null, default(JsonDocumentOptions));
+                Dailies.Root.Data = (JsonObject)JsonObject.Parse(targetMacroSet.DailyTemplate, null, default);
                 Dailies.Save();
             }
 
             if (targetMacroSet.WeeklyTemplate is not null && (!macroSet.WeeklyTemplateLastUpdated.HasValue || macroSet.WeeklyTemplateLastUpdated < targetMacroSet.WeeklyTemplateLastUpdated))
             {
                 await Weeklies.WaitForInitialization();
-                Weeklies.Root.Data = (JsonObject)JsonObject.Parse(targetMacroSet.WeeklyTemplate, null, default(JsonDocumentOptions));
+                Weeklies.Root.Data = (JsonObject)JsonObject.Parse(targetMacroSet.WeeklyTemplate, null, default);
                 Weeklies.Save();
             }
 
@@ -712,4 +712,7 @@ public partial class MacroManagerViewModel : ObservableObject
         Preferences.Default.Set(nameof(IsExportEnabled), IsExportEnabled);
         WeakReferenceMessenger.Default.Send(new PropertyChangedMessage<bool>(this, nameof(IsExportEnabled), oldValue, newValue), nameof(MacroManagerViewModel));
     }
+
+    [GeneratedRegex(@"@position=(-?\d+)")]
+    private static partial Regex PositionRegex();
 }

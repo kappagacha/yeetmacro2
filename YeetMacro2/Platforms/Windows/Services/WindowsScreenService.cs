@@ -174,22 +174,15 @@ public static class WindowHelper
 }
 
 [StructLayout(LayoutKind.Sequential)]
-public struct RECT
+public struct RECT(int Left, int Top, int Right, int Bottom)
 {
-    private int _Left;
-    private int _Top;
-    private int _Right;
-    private int _Bottom;
+    private int _Left = Left;
+    private int _Top = Top;
+    private int _Right = Right;
+    private int _Bottom = Bottom;
 
     public RECT(RECT Rectangle) : this(Rectangle.Left, Rectangle.Top, Rectangle.Right, Rectangle.Bottom)
     {
-    }
-    public RECT(int Left, int Top, int Right, int Bottom)
-    {
-        _Left = Left;
-        _Top = Top;
-        _Right = Right;
-        _Bottom = Bottom;
     }
 
     public int X
@@ -285,13 +278,13 @@ public struct RECT
 
     public override bool Equals(object Object)
     {
-        if (Object is RECT)
+        if (Object is RECT rect)
         {
-            return Equals((RECT)Object);
+            return Equals(rect);
         }
-        else if (Object is Rectangle)
+        else if (Object is Rectangle rectangle)
         {
-            return Equals(new RECT((Rectangle)Object));
+            return Equals(new RECT(rectangle));
         }
 
         return false;

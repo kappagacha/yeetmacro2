@@ -1,7 +1,7 @@
 ﻿namespace YeetMacro2.Converters;
 public class NumberToBoolConverter : IMarkupExtension, IValueConverter
 {
-    static NumberToBoolConverter _instance = new NumberToBoolConverter();
+    static readonly NumberToBoolConverter _instance = new();
 
     public NumberToBoolConverter()
     {

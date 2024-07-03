@@ -16,9 +16,9 @@ public partial class AndriodHomeViewModel : ObservableObject
     bool _isProjectionServiceEnabled, _isAccessibilityEnabled, _isAppearing, _showMacroOverlay,
          _showPatternNodeView, _showStatusPanel, _isMacroReady, _showTestView,
          _showSettingNodeView, _showDailyNodeView, _showWeeklyNodeView;
-    private AndroidScreenService _screenService;
-    private MacroManagerViewModel _macroManagerViewModel;
-    private YeetAccessibilityService _accessibilityService;
+    private readonly AndroidScreenService _screenService;
+    private readonly MacroManagerViewModel _macroManagerViewModel;
+    private readonly YeetAccessibilityService _accessibilityService;
     [ObservableProperty, NotifyPropertyChangedFor(nameof(IsCurrentPackageValid))]
     string _currentPackage;
     

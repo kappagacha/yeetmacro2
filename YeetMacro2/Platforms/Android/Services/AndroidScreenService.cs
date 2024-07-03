@@ -41,18 +41,18 @@ public class AndroidScreenService : IScreenService
 {
     public const int OVERLAY_SERVICE_REQUEST = 0;
     public const int POST_NOTIFICATION_REQUEST = 10;
-    IWindowManager _windowManager;
-    ConcurrentDictionary<AndroidWindowView, IShowable> _views = new ConcurrentDictionary<AndroidWindowView, IShowable>();
+    readonly IWindowManager _windowManager;
+    readonly ConcurrentDictionary<AndroidWindowView, IShowable> _views = new();
     FormsView _overlayWindow;
-    ILogger _logger;
-    MainActivity _context;
-    OpenCvService _openCvService;
-    MediaProjectionService _mediaProjectionService;
-    IOcrService _ocrService;
-    YeetAccessibilityService _accessibilityService;
-    IToastService _toastService;
+    readonly ILogger _logger;
+    readonly MainActivity _context;
+    readonly OpenCvService _openCvService;
+    readonly MediaProjectionService _mediaProjectionService;
+    readonly IOcrService _ocrService;
+    readonly YeetAccessibilityService _accessibilityService;
+    readonly IToastService _toastService;
     Size _initialResolution;
-    double _density;
+    readonly double _density;
     public IReadOnlyDictionary<AndroidWindowView, IShowable> Views => _views;
     public int UserDrawViewWidth => _views.ContainsKey(AndroidWindowView.UserDrawView) ? ((FormsView)_views[AndroidWindowView.UserDrawView]).MeasuredHeightAndState : -1;
     public int UserDrawViewHeight => _views.ContainsKey(AndroidWindowView.UserDrawView) ? ((FormsView)_views[AndroidWindowView.UserDrawView]).MeasuredWidthAndState : -1;
@@ -67,10 +67,10 @@ public class AndroidScreenService : IScreenService
             return new Size(width, height);
         }
     }
-    public Size Resolution => new Size(_overlayWindow?.MeasuredWidthAndState ?? 0, _overlayWindow?.MeasuredHeightAndState ?? 0);
+    public Size Resolution => new(_overlayWindow?.MeasuredWidthAndState ?? 0, _overlayWindow?.MeasuredHeightAndState ?? 0);
     public double Density => _density;
     //public int DisplayCutoutTop => _androidWindowManagerService.OverlayWindow == null ? 0 : _androidWindowManagerService.OverlayWindow.RootWindowInsets.DisplayCutout?.SafeInsetTop ?? 0;
-    JsonSerializerOptions _serializationOptions = new JsonSerializerOptions()
+    readonly JsonSerializerOptions _serializationOptions = new()
     {
         PropertyNamingPolicy = JsonNamingPolicy.CamelCase,
         TypeInfoResolver = PointPropertiesResolver.Instance
@@ -203,18 +203,20 @@ public class AndroidScreenService : IScreenService
             {
                 IsSuccess = true,
                 Point = pattern.Rect.Offset(opts.Offset).Center,
-                Points = new Point[] { pattern.Rect.Offset(opts.Offset).Center }
+                Points = [pattern.Rect.Offset(opts.Offset).Center]
             };
         }
 
         var points = GetMatches(pattern, opts);
 
-        var result = new FindPatternResult();
-        result.IsSuccess = points.Count > 0;
+        var result = new FindPatternResult
+        {
+            IsSuccess = points.Count > 0
+        };
         if (points.Count > 0)
         {
             result.Point = new Point(points[0].X, points[0].Y);
-            result.Points = points.ToArray();
+            result.Points = [.. points];
         }
 
         return result;
@@ -234,7 +236,7 @@ public class AndroidScreenService : IScreenService
         var targetHeight = bitmap.Height * scale;
         var resizedBitmap = global::Android.Graphics.Bitmap.CreateScaledBitmap(bitmap, (int)targetWidth, (int)targetHeight, false);
 
-        MemoryStream ms = new MemoryStream();
+        MemoryStream ms = new();
         resizedBitmap.Compress(CompressFormat.Jpeg, 100, ms);
         ms.Position = 0;
         var array = ms.ToArray();
@@ -282,23 +284,20 @@ public class AndroidScreenService : IScreenService
                     }
                 }
                 
-                if (haystackImageData is null)
-                {
-                    haystackImageData = pattern.Rect != Rect.Zero ?
+                haystackImageData ??= pattern.Rect != Rect.Zero ?
                        _mediaProjectionService.GetCurrentImageData(rect) :
                        _mediaProjectionService.GetCurrentImageData();
-                }
             }
             catch (Exception ex)
             {
 
                 _logger.LogTrace($"AndroidScreenService Exception: {ex.Message}");
-                return new List<Point>();
+                return [];
             }
 
             if (haystackImageData == null)
             {
-                return new List<Point>();
+                return [];
             }
 
             if (pattern.ColorThreshold.IsActive)
@@ -308,7 +307,7 @@ public class AndroidScreenService : IScreenService
 
                 if (needleImageData.Length == 0 || haystackImageData.Length == 0)
                 {
-                    return new List<Point>();
+                    return [];
                 }
             }
 
@@ -370,7 +369,7 @@ public class AndroidScreenService : IScreenService
         {
             Console.WriteLine("[*****YeetMacro*****] MediaProjectionService GetMatches Exception");
             Console.WriteLine("[*****YeetMacro*****] " + ex.Message);
-            return new List<Point>();
+            return [];
         }
     }
 
@@ -431,7 +430,7 @@ public class AndroidScreenService : IScreenService
         if (OperatingSystem.IsAndroidVersionAtLeast(33) &&
             _context.CheckSelfPermission(global::Android.Manifest.Permission.PostNotifications) != global::Android.Content.PM.Permission.Granted)
         {
-            _context.RequestPermissions(new[] { global::Android.Manifest.Permission.PostNotifications }, POST_NOTIFICATION_REQUEST);
+            _context.RequestPermissions([global::Android.Manifest.Permission.PostNotifications], POST_NOTIFICATION_REQUEST);
             return;
         }
 
@@ -602,8 +601,10 @@ public class AndroidScreenService : IScreenService
                     _views.TryAdd(windowView, messageView);
                     break;
                 case AndroidWindowView.TestView:
-                    var testView = new ResizeView(_context, _windowManager, this, new TestView());
-                    testView.OnClose = () => ServiceHelper.GetService<AndriodHomeViewModel>().ShowTestView = false;
+                    var testView = new ResizeView(_context, _windowManager, this, new TestView())
+                    {
+                        OnClose = () => ServiceHelper.GetService<AndriodHomeViewModel>().ShowTestView = false
+                    };
                     _views.TryAdd(windowView, testView);
                     break;
             }

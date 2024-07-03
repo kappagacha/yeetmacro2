@@ -9,9 +9,9 @@ namespace YeetMacro2.Platforms.Android.Views;
 public class FormsView : RelativeLayout, IShowable
 {
     enum FormState { SHOWING, CLOSED };
-    private IWindowManager _windowManager;
-    private WindowManagerLayoutParams _layoutParams;
-    private VisualElement _visualElement;
+    private readonly IWindowManager _windowManager;
+    private readonly WindowManagerLayoutParams _layoutParams;
+    private readonly VisualElement _visualElement;
     public VisualElement VisualElement => _visualElement;
     private FormState _state;
     public bool IsModal { get; set; } = true;
@@ -22,10 +22,12 @@ public class FormsView : RelativeLayout, IShowable
     public FormsView(Context context, IWindowManager windowManager, VisualElement visualElement) : base(context)
     {
         _windowManager = windowManager;
-        _layoutParams = new WindowManagerLayoutParams();
-        //_layoutParams.Type = WindowManagerTypes.ApplicationOverlay;
-        _layoutParams.Type = OperatingSystem.IsAndroidVersionAtLeast(26) ? WindowManagerTypes.ApplicationOverlay : WindowManagerTypes.Phone;
-        _layoutParams.Format = Format.Translucent;
+        _layoutParams = new WindowManagerLayoutParams
+        {
+            //_layoutParams.Type = WindowManagerTypes.ApplicationOverlay;
+            Type = OperatingSystem.IsAndroidVersionAtLeast(26) ? WindowManagerTypes.ApplicationOverlay : WindowManagerTypes.Phone,
+            Format = Format.Translucent
+        };
         _layoutParams.Flags |= WindowManagerFlags.TranslucentNavigation;
         _layoutParams.Flags |= WindowManagerFlags.LayoutNoLimits;
         //_layoutParams.Flags |= WindowManagerFlags.Fullscreen;
