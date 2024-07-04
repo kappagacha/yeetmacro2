@@ -2698,5 +2698,42 @@
         "path": "doSkywardTower.teamSlot"
       }
     }
+  },
+  "goToLobby": {
+    "$isParent": true,
+    "props": {
+      "settingType": "Parent",
+      "isParentNode": true,
+      "name": "goToLobby",
+      "position": 0,
+      "path": "goToLobby"
+    },
+    "userClickPattern": {
+      "$isParent": false,
+      "props": {
+        "$type": "pattern",
+        "settingType": "Pattern",
+        "value": {
+          "isMultiPattern": false,
+          "patterns": [],
+          "isParentNode": true,
+          "name": null,
+          "position": 0,
+          "path": null
+        },
+        "defaultValue": {
+          "isMultiPattern": false,
+          "patterns": [],
+          "isParentNode": true,
+          "name": null,
+          "position": 0,
+          "path": null
+        },
+        "isParentNode": false,
+        "name": "userClickPattern",
+        "position": 0,
+        "path": "goToLobby.userClickPattern"
+      }
+    }
   }
 }

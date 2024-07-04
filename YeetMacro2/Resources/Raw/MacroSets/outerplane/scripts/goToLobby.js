@@ -2,6 +2,11 @@
 // Go to lobby
 logger.info('goToLobby: start');
 
+const userClickPattern = macroService.ClonePattern(settings.goToLobby.userClickPattern.Value, {
+	Path: 'settings.goToLobby.userClickPattern',
+	OffsetCalcType: 'None'
+});
+
 //claimFreeShop
 //claimFreeRecruit
 //claimGuildBuff
@@ -33,7 +38,8 @@ macroService.PollPattern(patterns.lobby.level, {
 		patterns.lobby.expedition.searchAgain,
 		patterns.general.startMessageClose,
 		patterns.general.tapEmptySpace,
-		patterns.general.exitCheckIn
+		patterns.general.exitCheckIn,
+		userClickPattern
 	]
 });
 if (macroService.IsRunning) {

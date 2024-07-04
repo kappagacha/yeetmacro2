@@ -15,7 +15,8 @@ const scale = currentDensity / originalDensity * 150.0 / 223.0;
 const adExitPattern = originalDensity === currentDensity ? patterns.ad.exit : macroService.ClonePattern(patterns.ad.exit, { Scale: scale });
 const adExitInstallPattern = originalDensity === currentDensity ? patterns.ad.exitInstall : macroService.ClonePattern(patterns.ad.exitInstall, { Scale: scale });
 const userClickPattern = macroService.ClonePattern(settings.watchAds.userClickPattern.Value, {
-	Path: 'settings.watchAds.userClickPattern'
+	Path: 'settings.watchAds.userClickPattern',
+	OffsetCalcType: 'None'
 });
 
 while (macroService.IsRunning) {
