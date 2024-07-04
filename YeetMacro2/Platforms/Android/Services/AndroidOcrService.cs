@@ -16,6 +16,13 @@ public class AndroidOcrService : IOcrService
 
     public string GetText(byte[] imageData, string whiteList = null)
     {
+        //var folder = global::Android.OS.Environment.GetExternalStoragePublicDirectory(global::Android.OS.Environment.DirectoryPictures).Path;
+        //var haystackFile = System.IO.Path.Combine(folder, $"ocr_{DateTime.Now.ToString("yyyyMMdd_HHmmss")}.jpeg");
+        //using (FileStream fs = new FileStream(haystackFile, FileMode.OpenOrCreate))
+        //{
+        //    fs.Write(imageData, 0, imageData.Length);
+        //}
+
         if (_tesseractApi is null) return string.Empty;
 
         if (!String.IsNullOrWhiteSpace(whiteList)) _tesseractApi.SetWhitelist(whiteList);

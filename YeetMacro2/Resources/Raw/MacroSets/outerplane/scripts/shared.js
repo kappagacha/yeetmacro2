@@ -1,46 +1,49 @@
 // @raw-script
 // @position=1000
-function selectTeam(teamSlot, returnCurrentCp) {
-	if (!teamSlot || teamSlot === 'Current' || teamSlot < 1) return;
+function selectTeam(targetTeamSlot, returnCurrentCp) {
+	if (!targetTeamSlot || targetTeamSlot === 'Current' || targetTeamSlot < 1) return;
 
 	const topLeft = macroService.GetTopLeft();
 	const xLocation = topLeft.X + 90;
 	let currentTeamSlot = getCurrentTeamSlot();
-	while (macroService.IsRunning && currentTeamSlot?.trim() !== teamSlot) {
-		if (currentTeamSlot > teamSlot) {
-			macroService.DoSwipe({ X: xLocation, Y: 200 }, { X: xLocation, Y: 400 });
-			sleep(1_000);
-		}
-
-		const teamSlotResult = findTeamSlot(teamSlot);
+	while (macroService.IsRunning && currentTeamSlot?.trim() != targetTeamSlot) {
+		const teamSlotResult = findTeamSlot(targetTeamSlot);
 		if (teamSlotResult) {
 			macroService.DoClick(teamSlotResult);
-			sleep(1_500);
+			sleep(2_500);
+			currentTeamSlot = getCurrentTeamSlot();
+		} else if (currentTeamSlot > targetTeamSlot) {
+			macroService.DoSwipe({ X: xLocation, Y: 200 }, { X: xLocation, Y: 400 });
+			sleep(2_500);
+		} else {
+			macroService.DoSwipe({ X: xLocation, Y: 400 }, { X: xLocation, Y: 200 });
+			sleep(2_500);
 		}
-		currentTeamSlot ||= getCurrentTeamSlot();
 	}
-	
+
 	if (macroService.IsRunning && returnCurrentCp) {
 		const cpText = macroService.GetText(patterns.battle.cp);
 		return Number(cpText.slice(0, -4).slice(1) + cpText.slice(-3));
 	}
 }
 
-function findTeamSlot(teamSlot) {
+function findTeamSlot(targetTeamSlot) {
 	const teamSlotCornerResults = macroService.FindPattern(patterns.battle.teamSlotCorner, { Limit: 10 });
+	if (!teamSlotCornerResults.IsSuccess) return null;
+
 	const teams = teamSlotCornerResults.Points.map(p => {
-		const teamSlotPattern = macroService.ClonePattern(patterns.battle.teamSlot, { Y: p.Y + 7 });
+		const teamSlotPattern = macroService.ClonePattern(patterns.battle.teamSlot, { Y: p.Y + 8 });
 		return {
-			point : p,
+			point: p,
 			slot: macroService.GetText(teamSlotPattern)
 		};
 	});
-	return teams.find(t => t.slot === teamSlot)?.point;
+	return teams.find(t => t.slot == targetTeamSlot)?.point;
 }
 
 function getCurrentTeamSlot() {
 	const selectedTeamSlotResult = macroService.PollPattern(patterns.battle.teamSlotCorner.selected);
-	const selectedTeamSlotPattern = macroService.ClonePattern(patterns.battle.teamSlot, { Y: selectedTeamSlotResult.Point.Y + 7 });
+	const selectedTeamSlotPattern = macroService.ClonePattern(patterns.battle.teamSlot, { Y: selectedTeamSlotResult.Point.Y + 8 });
 	let currentTeamSlot = macroService.GetText(selectedTeamSlotPattern)
 	//logger.info(`currentTeamSlot: ${currentTeamSlot}`);
 	while (macroService.IsRunning && !currentTeamSlot) {
