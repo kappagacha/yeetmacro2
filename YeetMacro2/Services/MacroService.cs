@@ -208,14 +208,19 @@ public class MacroService
                         if (singleResult.IsSuccess)
                         {
                             points.AddRange(singleResult.Points);
-                            if (opts.Limit == 1)
-                            {
-                                multiResult.Point = points[0];
-                            }
+                        }
+
+                        if (points.Count >= opts.Limit)
+                        {
+                            break;
                         }
                     }
-                    multiResult.Points = [.. points];
                     multiResult.IsSuccess = points.Count > 0;
+                    multiResult.Points = points.Take(opts.Limit).ToArray();
+                    if (multiResult.IsSuccess && opts.Limit >= 1)
+                    {
+                        multiResult.Point = points[0];
+                    }
                     result = multiResult;
                     idx++;
                 }

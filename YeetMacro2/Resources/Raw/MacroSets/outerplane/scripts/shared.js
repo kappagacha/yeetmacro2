@@ -28,7 +28,7 @@ function selectTeam(targetTeamSlot, returnCurrentCp) {
 }
 
 function findTeamSlot(targetTeamSlot) {
-	const teamSlotCornerResults = macroService.FindPattern(patterns.battle.teamSlotCorner, { Limit: 10 });
+	const teamSlotCornerResults = macroService.FindPattern(patterns.battle.teamSlotCorner, { Limit: 20 });
 	if (!teamSlotCornerResults.IsSuccess) return null;
 
 	const teams = teamSlotCornerResults.Points.map(p => {
