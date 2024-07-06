@@ -75,19 +75,30 @@ while (macroService.IsRunning) {
 
 				logger.info(`sweepEvent: currencyAmount1 ${currencyAmount1} VS currencyAmount2 ${currencyAmount2}`);
 
-				macroService.PollPattern(patterns.event.eventStage, { DoClick: true, PredicatePattern: patterns.event.eventStage.sweep, ClickOffset: { Y: 60 } });
-
+				const eventStageResult = macroService.PollPattern(patterns.event.eventStage, { DoClick: true, PredicatePattern: [patterns.event.eventStage.sweep, patterns.event.eventStage.sweep.disabled], ClickOffset: { Y: 60 } });
 				// currency amount 1 is the right stage
 				// currency amount 2 is the left stage
 				if (currencyAmount1 < currencyAmount2) {
 					macroService.PollPattern(patterns.event.eventStage.currency1.play, { DoClick: true, PredicatePattern: patterns.event.eventStage.currency1.enemyLvl });
 				}
-				macroService.PollPattern(patterns.event.eventStage.sweep, { DoClick: true, PredicatePattern: patterns.event.eventStage.sweep.sweep });
-				macroService.PollPattern(patterns.event.max, { DoClick: true, InversePredicatePattern: patterns.event.max });
-				macroService.PollPattern(patterns.event.eventStage.sweep.sweep, { DoClick: true, PredicatePattern: patterns.general.tapTheScreen });
-				macroService.PollPattern(patterns.general.tapTheScreen, { DoClick: true, PredicatePattern: patterns.general.back });
-				macroService.PollPattern(patterns.general.back, { DoClick: true, PredicatePattern: patterns.event.eventStage });
 
+				if (eventStageResult.PredicatePath === 'event.eventStage.sweep.disabled') {
+					while (macroService.IsRunning) {
+						macroService.PollPattern(patterns.event.eventStage.challenge, { DoClick: true, PredicatePattern: patterns.battle.start });
+						macroService.PollPattern(patterns.battle.start, { DoClick: true, PredicatePattern: patterns.battle.continue });
+						const continueResult = macroService.PollPattern(patterns.battle.continue, { DoClick: true, PredicatePattern: [patterns.event.eventStage.challenge, patterns.event.eventStage.purchaseExtraEntries] });
+						if (continueResult.PredicatePath === 'event.eventStage.purchaseExtraEntries') {
+							break;
+						}
+					}
+				} else {
+					macroService.PollPattern(patterns.event.eventStage.sweep, { DoClick: true, PredicatePattern: patterns.event.eventStage.sweep.sweep });
+					macroService.PollPattern(patterns.event.max, { DoClick: true, InversePredicatePattern: patterns.event.max });
+					macroService.PollPattern(patterns.event.eventStage.sweep.sweep, { DoClick: true, PredicatePattern: patterns.general.tapTheScreen });
+					macroService.PollPattern(patterns.general.tapTheScreen, { DoClick: true, PredicatePattern: patterns.general.back });
+					macroService.PollPattern(patterns.general.back, { DoClick: true, PredicatePattern: patterns.event.eventStage });
+				}
+				
 				if (macroService.IsRunning) {
 					daily.sweepEvent.eventStage.IsChecked = true;
 				}
