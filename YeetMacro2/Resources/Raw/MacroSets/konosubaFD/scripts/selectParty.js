@@ -1,23 +1,25 @@
 ﻿// @raw-script
-function selectPartyByRecommendedElement(recommendedElementSetting, xOffset) {
-    let elementPatterns = ['none', 'fire', 'water', 'lightning', 'earth', 'wind', 'light', 'dark'].map(e => patterns.party.recommendedElement[e]);
-    if (xOffset) {
-        elementPatterns = elementPatterns.map(el => {
+function selectPartyByRecommendedElement(recommendedElementSetting) {
+    const recommendedElemntResult = macroService.FindPattern(patterns.party.recommendedElement);
+    if (!recommendedElemntResult.IsSuccess) {
+        throw new Error('Could not find recommendedElement label');
+    }
+
+    const elementPatterns = ['none', 'fire', 'water', 'lightning', 'earth', 'wind', 'light', 'dark']
+        .map(e => patterns.party.recommendedElement[e])
+        .map(el => {
             const clone = macroService.ClonePattern(el, {
-                Path: `${el.Path}_xOffset${xOffset}`,
-                X: el.Pattern.Rect.X + xOffset
+                Path: `${el.Path}_${parseInt(recommendedElemntResult.Point.X + 58)}`,
+                X: recommendedElemntResult.Point.X + 58,
+                OffsetCalcType: 'None'
             });
             return clone;
         });
-    }
+
     const elementResult = macroService.PollPattern(elementPatterns);
     logger.info(`selectPartyByRecommendedElement: ${elementResult.Path}`);
-    let targetElement = elementResult.Path.split('.').pop();
+    let targetElement = elementResult.Path.split('.').pop().split('_')[0];
     logger.debug(`targetElement: ${targetElement}`);
-    if (xOffset) {
-        targetElement = targetElement.split('_')[0];
-    }
-    logger.debug(`targetElement2: ${targetElement}`);
     const targetElementName = recommendedElementSetting[targetElement]?.Value;
     logger.debug(`targetElementName: ${targetElementName}`);
     if (!targetElementName) {

@@ -499,6 +499,10 @@ public class MacroService
     public void Reset()
     {
         _pathToOffset.Clear();
+        if (InDebugMode)
+        {
+            MainThread.BeginInvokeOnMainThread(_screenService.DebugClear);
+        }
     }
 
     public int Random(int min, int max)

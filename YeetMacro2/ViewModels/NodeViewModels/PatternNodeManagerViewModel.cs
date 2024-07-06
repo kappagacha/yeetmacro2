@@ -261,9 +261,9 @@ public partial class PatternNodeManagerViewModel : NodeManagerViewModel<PatternN
             Task.Run(() =>
             {
                 var opts = new FindOptions() { Limit = 10 };
+                if (doTestCalc) opts.Offset = CalcOffset(pattern, _screenService.CalcResolution, _screenService.GetTopLeft());
                 if (int.TryParse(strXOffset, out int xOffset)) opts.Offset = opts.Offset.Offset(xOffset, 0);
                 if (int.TryParse(strYOffset, out int yOffset)) opts.Offset = opts.Offset.Offset(0, yOffset);
-                if (doTestCalc) opts.Offset = CalcOffset(pattern, _screenService.CalcResolution, _screenService.GetTopLeft());
 
                 _screenService.DrawClear();
                 var result = _screenService.FindPattern(pattern, opts);

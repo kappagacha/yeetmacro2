@@ -40,7 +40,8 @@ macroService.PollPattern(patterns.titles.home, {
 		patterns.ad.cancel,
 		patterns.battle.next,
 		patterns.battle.next2,
-		patterns.quest.main.skipAllAtOnce.cancel
+		patterns.quest.main.skipAllAtOnce.cancel,
+		patterns.general.cancel
 	]
 });
 

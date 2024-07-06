@@ -38,7 +38,12 @@ while (macroService.IsRunning) {
 			}
 			
 			logger.info('doOneFameQuest: battle');
-			macroService.PollPattern(patterns.battle.prepare, { DoClick: true, ClickPattern: [patterns.battle.begin, patterns.quest.fame.doNotObtain, patterns.quest.fame.ok], PredicatePattern: patterns.battle.next });
+			//macroService.PollPattern(patterns.battle.prepare, { DoClick: true, ClickPattern: [patterns.battle.begin, patterns.quest.fame.doNotObtain, patterns.quest.fame.ok], PredicatePattern: patterns.battle.next });
+			macroService.PollPattern(patterns.battle.prepare, { DoClick: true, PredicatePattern: patterns.battle.skip });
+			macroService.PollPattern(patterns.battle.skip, { DoClick: true, PredicatePattern: patterns.battle.skip.skip });
+			macroService.PollPattern(patterns.battle.skip.skip, { DoClick: true, PredicatePattern: patterns.battle.skip.ok });
+			macroService.PollPattern(patterns.battle.skip.ok, { DoClick: true, ClickPattern: [patterns.quest.fame.doNotObtain, patterns.quest.fame.ok], PredicatePattern: patterns.battle.skip.ok2 });
+			macroService.PollPattern(patterns.battle.skip.ok2, { DoClick: true, PredicatePattern: patterns.battle.skip.skip });
 
 			if (macroService.IsRunning) {
 				daily.doOneFameQuest.done.IsChecked = true;

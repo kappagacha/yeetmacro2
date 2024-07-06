@@ -191,8 +191,8 @@ public partial class NodeManagerViewModel<TViewModel, TParent, TChild> : NodeMan
         {
             newNode.ParentId = SelectedNode.NodeId;
             newNode.RootId = SelectedNode.RootId;
+            parent.IsExpanded = true;
             parent.Nodes.Add(newNode);
-            SelectedNode.IsExpanded = true;
         }
         else
         {
