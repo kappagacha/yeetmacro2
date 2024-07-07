@@ -179,7 +179,8 @@ public partial class NodeManagerViewModel<TViewModel, TParent, TChild> : NodeMan
         }
         else
         {
-            newNode = new TViewModel() { Name = name };
+            //newNode = new TViewModel() { Name = name };
+            newNode = new TParent() { Name = name };        // conversion to ViewModel is taken care of in NodeObservableCollection
         }
 
         AddNode(newNode);
