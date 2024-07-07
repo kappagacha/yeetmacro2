@@ -30,22 +30,22 @@ while (macroService.IsRunning) {
 		case 'titles.operationEdenAlliance':
 			macroService.PollPattern(patterns.operationEdenAlliance.dailyOperations, { DoClick: true, PredicatePattern: patterns.operationEdenAlliance.battle });
 			const lv1Result = macroService.FindPattern(patterns.operationEdenAlliance.dailyOperations.disadvantages.lv1, { Limit: 3 });
-			lv1Result.Points.sort((a, b) => a.Y - b.Y);
-			for (const p of lv1Result.Points) {
+			const lvl1SortedPoints = lv1Result.Points.sort((a, b) => a.Y - b.Y);
+			for (const p of lvl1SortedPoints) {
 				const checkPattern = macroService.ClonePattern(patterns.operationEdenAlliance.dailyOperations.disadvantages.check, { CenterX: p.X + 48, CenterY: p.Y + 38, Padding: 15, OffsetCalcType: 'None' })
 				macroService.PollPoint(p, { DoClick: true, PredicatePattern: checkPattern });
 			}
 
 			const lv2Result = macroService.FindPattern(patterns.operationEdenAlliance.dailyOperations.disadvantages.lv2, { Limit: 3 });
-			lv2Result.Points.sort((a, b) => a.Y - b.Y);
-			for (const p of lv2Result.Points.slice(0, 2)) {
+			const lvl2SortedPoints = lv2Result.Points.sort((a, b) => a.Y - b.Y);
+			for (const p of lvl2SortedPoints.slice(0, 2)) {
 				const checkPattern = macroService.ClonePattern(patterns.operationEdenAlliance.dailyOperations.disadvantages.check, { CenterX: p.X + 48, CenterY: p.Y + 38, Padding: 15, OffsetCalcType: 'None' })
 				macroService.PollPoint(p, { DoClick: true, PredicatePattern: checkPattern });
 			}
 
 			const lv3Result = macroService.FindPattern(patterns.operationEdenAlliance.dailyOperations.disadvantages.lv3, { Limit: 3 });
-			lv3Result.Points.sort((a, b) => a.Y - b.Y);
-			for (const p of lv3Result.Points.slice(0, 1)) {
+			const lvl3SortedPoints = lv3Result.Points.sort((a, b) => a.Y - b.Y);
+			for (const p of lvl3SortedPoints.slice(0, 1)) {
 				const checkPattern = macroService.ClonePattern(patterns.operationEdenAlliance.dailyOperations.disadvantages.check, { CenterX: p.X + 48, CenterY: p.Y + 38, Padding: 15, OffsetCalcType: 'None' })
 				macroService.PollPoint(p, { DoClick: true, PredicatePattern: checkPattern });
 			}
