@@ -91,6 +91,7 @@ function refillStamina(targetStamina) {
 		currentStamina = macroService.GetText(patterns.general.staminaValue);
 		logger.info(`refillStamina to ${targetStamina}. current stamina is ${currentStamina}`);
 	}
+	goToLobby();
 }
 
 function findShopItem(shopItemName) {
