@@ -1064,6 +1064,32 @@
         "path": "doDailies.claimBossDailyMissions"
       }
     },
+    "claimWorldBossRewards": {
+      "$isParent": false,
+      "props": {
+        "$type": "boolean",
+        "settingType": "Boolean",
+        "value": true,
+        "defaultValue": true,
+        "isParentNode": false,
+        "name": "claimWorldBossRewards",
+        "position": 24,
+        "path": "doDailies.claimWorldBossRewards"
+      }
+    },
+    "sweepEventStoryHard": {
+      "$isParent": false,
+      "props": {
+        "$type": "boolean",
+        "settingType": "Boolean",
+        "value": true,
+        "defaultValue": true,
+        "isParentNode": false,
+        "name": "sweepEventStoryHard",
+        "position": 25,
+        "path": "doDailies.sweepEventStoryHard"
+      }
+    },
     "doUpkeep": {
       "$isParent": false,
       "props": {
@@ -1073,7 +1099,7 @@
         "defaultValue": true,
         "isParentNode": false,
         "name": "doUpkeep",
-        "position": 24,
+        "position": 26,
         "path": "doDailies.doUpkeep"
       }
     }

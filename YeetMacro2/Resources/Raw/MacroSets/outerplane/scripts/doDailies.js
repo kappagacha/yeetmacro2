@@ -134,6 +134,16 @@ if (settings.doDailies.claimBossDailyMissions.Value) {
     goToLobby();
 }
 
+if (settings.doDailies.claimWorldBossRewards.Value) {
+    claimWorldBossRewards();
+    goToLobby();
+}
+
+if (settings.doDailies.sweepEventStoryHard.Value) {
+    sweepEventStoryHard();
+    goToLobby();
+}
+
 if (settings.doDailies.doUpkeep.Value) {
     doUpkeep();
     goToLobby();
