@@ -74,12 +74,17 @@ if (settings.doDailies.sweepDimensionalLabyrinth.Value) {
     goToLobby();
 }
 
-if (settings.doDailies.doOutings.Value) {
-    doOutings();
+if (settings.doDailies.sweepEvent.Value) {
+    sweepEvent();
     goToLobby();
 }
 
-if (settings.doDailies.sweepEvent.Value) {
-    sweepEvent();
+if (settings.doDailies.doOperationEdenAlliance.Value) {
+    doOperationEdenAlliance();
+    goToLobby();
+}
+
+if (settings.doDailies.doOutings.Value) {
+    doOutings();
     goToLobby();
 }

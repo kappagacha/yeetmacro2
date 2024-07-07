@@ -889,19 +889,6 @@
         "path": "doDailies.sweepDimensionalLabyrinth"
       }
     },
-    "doOutings": {
-      "$isParent": false,
-      "props": {
-        "$type": "boolean",
-        "settingType": "Boolean",
-        "value": true,
-        "defaultValue": true,
-        "isParentNode": false,
-        "name": "doOutings",
-        "position": 13,
-        "path": "doDailies.doOutings"
-      }
-    },
     "sweepEvent": {
       "$isParent": false,
       "props": {
@@ -911,8 +898,34 @@
         "defaultValue": true,
         "isParentNode": false,
         "name": "sweepEvent",
-        "position": 14,
+        "position": 13,
         "path": "doDailies.sweepEvent"
+      }
+    },
+    "doOperationEdenAlliance": {
+      "$isParent": false,
+      "props": {
+        "$type": "boolean",
+        "settingType": "Boolean",
+        "value": true,
+        "defaultValue": true,
+        "isParentNode": false,
+        "name": "doOperationEdenAlliance",
+        "position": 14,
+        "path": "doDailies.doOperationEdenAlliance"
+      }
+    },
+    "doOutings": {
+      "$isParent": false,
+      "props": {
+        "$type": "boolean",
+        "settingType": "Boolean",
+        "value": true,
+        "defaultValue": true,
+        "isParentNode": false,
+        "name": "doOutings",
+        "position": 15,
+        "path": "doDailies.doOutings"
       }
     }
   },
