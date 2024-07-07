@@ -32,21 +32,21 @@ while (macroService.IsRunning) {
 			const lv1Result = macroService.FindPattern(patterns.operationEdenAlliance.dailyOperations.disadvantages.lv1, { Limit: 3 });
 			lv1Result.Points.sort((a, b) => a.Y - b.Y);
 			for (const p of lv1Result.Points) {
-				const checkPattern = macroService.ClonePattern(patterns.operationEdenAlliance.dailyOperations.disadvantages.check, { CenterX: p.X + 48, CenterY: p.Y + 38, Padding: 10, OffsetCalcType: 'None' })
+				const checkPattern = macroService.ClonePattern(patterns.operationEdenAlliance.dailyOperations.disadvantages.check, { CenterX: p.X + 48, CenterY: p.Y + 38, Padding: 15, OffsetCalcType: 'None' })
 				macroService.PollPoint(p, { DoClick: true, PredicatePattern: checkPattern });
 			}
 
 			const lv2Result = macroService.FindPattern(patterns.operationEdenAlliance.dailyOperations.disadvantages.lv2, { Limit: 3 });
 			lv2Result.Points.sort((a, b) => a.Y - b.Y);
 			for (const p of lv2Result.Points.slice(0, 2)) {
-				const checkPattern = macroService.ClonePattern(patterns.operationEdenAlliance.dailyOperations.disadvantages.check, { CenterX: p.X + 48, CenterY: p.Y + 38, Padding: 10, OffsetCalcType: 'None' })
+				const checkPattern = macroService.ClonePattern(patterns.operationEdenAlliance.dailyOperations.disadvantages.check, { CenterX: p.X + 48, CenterY: p.Y + 38, Padding: 15, OffsetCalcType: 'None' })
 				macroService.PollPoint(p, { DoClick: true, PredicatePattern: checkPattern });
 			}
 
 			const lv3Result = macroService.FindPattern(patterns.operationEdenAlliance.dailyOperations.disadvantages.lv3, { Limit: 3 });
 			lv3Result.Points.sort((a, b) => a.Y - b.Y);
 			for (const p of lv3Result.Points.slice(0, 1)) {
-				const checkPattern = macroService.ClonePattern(patterns.operationEdenAlliance.dailyOperations.disadvantages.check, { CenterX: p.X + 48, CenterY: p.Y + 38, Padding: 10, OffsetCalcType: 'None' })
+				const checkPattern = macroService.ClonePattern(patterns.operationEdenAlliance.dailyOperations.disadvantages.check, { CenterX: p.X + 48, CenterY: p.Y + 38, Padding: 15, OffsetCalcType: 'None' })
 				macroService.PollPoint(p, { DoClick: true, PredicatePattern: checkPattern });
 			}
 
