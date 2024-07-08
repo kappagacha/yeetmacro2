@@ -23,6 +23,7 @@ while (macroService.IsRunning) {
 			//sleep(500);
 			//break;
 
+			macroService.PollPattern(patterns.lobby.receiveGuildBuff);
 			macroService.PollPattern(patterns.lobby.receiveGuildBuff, { DoClick: true, InversePredicatePattern: patterns.lobby.receiveGuildBuff });
 
 			if (macroService.IsRunning) {
