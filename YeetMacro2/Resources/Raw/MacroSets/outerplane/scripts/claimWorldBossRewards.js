@@ -16,7 +16,13 @@ while (macroService.IsRunning) {
 			break;
 		case 'titles.adventure':
 			logger.info('claimWorldBossRewards: click world boss');
-			macroService.ClickPattern(patterns.adventure.worldBoss);
+			const worldBossNotificationResult = macroService.PollPattern(patterns.adventure.worldBoss.notification, { TimeoutMs: 3_000 });
+			if (worldBossNotificationResult.IsSuccess) {
+				macroService.ClickPattern(patterns.adventure.worldBoss);
+			} else {	// already claimed
+				return;
+			}
+
 			sleep(500);
 			break;
 		case 'titles.worldBoss':

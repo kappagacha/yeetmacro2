@@ -2946,6 +2946,50 @@
           "position": 0,
           "path": "adventure.worldBoss.rewardNotification"
         }
+      },
+      "notification": {
+        "$isParent": true,
+        "props": {
+          "isMultiPattern": false,
+          "patterns": [
+            {
+              "rect": {
+                "x": 1322.8359375,
+                "y": 669.043212890625,
+                "width": 15.83203125,
+                "height": 23.350341796875
+              },
+              "resolution": {
+                "width": 1920,
+                "height": 1080
+              },
+              "isBoundsPattern": false,
+              "isLocationDynamic": false,
+              "name": "pattern",
+              "imageData": "/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDAAEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQH/2wBDAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQH/wAARCAAXAA8DASIAAhEBAxEB/8QAFwABAQEBAAAAAAAAAAAAAAAABwACBv/EACEQAAEEAgIDAQEAAAAAAAAAAAMBAgQFBgcACBESIgkT/8QAFgEBAQEAAAAAAAAAAAAAAAAACAYJ/8QAIxEAAgIBBAICAwAAAAAAAAAAAQIDBAUGERITAAcUFRghMv/aAAwDAQACEQMRAD8A1+dOotdb77ca/wBcbYhhucXt0OdaaaxDxLmwYcLBwpgnsI0gFjkkFc1VH9Davv4T1VL/AFU0Dqjrb2XhYPp2riY/QS8WPZ2NLXDYCHW2Q7AMYYY4hsYg2viuQqtVXqqvVUciL44AdFswuMA7g6AzGlpshyI9FnDZUykxesm3FvZQXVFpHdHHWVwJEuYJJJo5nCGF/wBiY5fHqi8Qf0vzrJdidzttZReY1lmL08+ZWuwqBmFDaY7ZloW0FEOeZK23jxZYhtvmWIvoLEcjGvRFa9rnHiJ6g0JY2rJ8sZVYhP0qZAhEcnPt2JCAAxbb7AkDb9jzaS+upPy5w4TUF5dPn13PkJcT9g60nso9qj8Y0eYjM5kaLIq3AyMqNIH2QgDmg9s5t1X3Fi+6cNqarI7bGCudGrbOSOJEsAP8EUSyiQpxYJFc1jkkDhPK1qOZ4Rr1Tnbdruzez+7mzKrZmwMfoMXnUtAfHayqpTx5QQwDTG2BHS7AddVmsJDjp8mkxnEYNf5o/wBUROXLkSmfyoxEmNWyVovL2PXCJwZxxIYsVMn9KrcQ4XkAdvFJa9RaBl19U9gyYRX1dVpDH18sbNgSQ1JI3iaJYBIKxJhsTRdrxNN1uV7NgPP/2Q==",
+              "variancePct": 20,
+              "horizontalStretchMultiplier": 0,
+              "verticalStretchMultiplier": 0,
+              "textMatch": {
+                "isActive": false,
+                "text": null,
+                "whiteList": null
+              },
+              "colorThreshold": {
+                "isActive": true,
+                "variancePct": 30,
+                "color": "#ffffffff",
+                "imageData": "/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDAAIBAQEBAQIBAQECAgICAgQDAgICAgUEBAMEBgUGBgYFBgYGBwkIBgcJBwYGCAsICQoKCgoKBggLDAsKDAkKCgr/wAALCAAXAA8BAREA/8QAHwAAAQUBAQEBAQEAAAAAAAAAAAECAwQFBgcICQoL/8QAtRAAAgEDAwIEAwUFBAQAAAF9AQIDAAQRBRIhMUEGE1FhByJxFDKBkaEII0KxwRVS0fAkM2JyggkKFhcYGRolJicoKSo0NTY3ODk6Q0RFRkdISUpTVFVWV1hZWmNkZWZnaGlqc3R1dnd4eXqDhIWGh4iJipKTlJWWl5iZmqKjpKWmp6ipqrKztLW2t7i5usLDxMXGx8jJytLT1NXW19jZ2uHi4+Tl5ufo6erx8vP09fb3+Pn6/9oACAEBAAA/AP1N/wCC4v7Xnxl/YQ/4JX/Fr9qX9ny90+08ZeHtP0230K/1OwF1HZSX2q2entciJjseWJLp5IxIHj8xE8xJE3Rt5f8A8G2P7cX7ZP8AwUD/AOCcbfHX9tiT+0PEEHxA1TStA8U/8I0mmf8ACQ6VFHbOt3shSO3l8u5lu7TzLeNE/wBC2MDLHK7fR/8AwUv+CnhX9ov/AIJ6fGz4K+MdQ8H2Fpr/AML9bhh1nx/KkWjaPdLZyyWupXcro4t4rW4SK6NwFLQmASr8yCvIP+Den4N6j8Af+COnwW+FmsePvB/iW7stP1a4utU8B+KLfWtMEl1rV/dNbJe2rNBPLAZjbzGJ3jE8Eqo8iqHb3/8AbQ/ZD+DX7en7L/i/9kf4/wBlqE3hTxpp6W+oNpN+ba6tpIpo7i3uYZACBLDcQwzKHV42aMLIkiFkbkP+CbH/AATY/Zx/4JW/s4n9mb9mZvEFzpFz4gutb1bVvFOqLdX+pX86xxmaUxxxQpthgt4VWKKNdsCsQ0jSSP8A/9k="
+              },
+              "offsetCalcType": "DockRight",
+              "position": 0
+            }
+          ],
+          "isParentNode": true,
+          "name": "notification",
+          "position": 0,
+          "path": "adventure.worldBoss.notification"
+        }
       }
     },
     "event": {
