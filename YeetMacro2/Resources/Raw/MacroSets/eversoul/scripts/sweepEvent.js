@@ -75,12 +75,15 @@ while (macroService.IsRunning) {
 
 				logger.info(`sweepEvent: currencyAmount1 ${currencyAmount1} VS currencyAmount2 ${currencyAmount2}`);
 
-				const eventStageResult = macroService.PollPattern(patterns.event.eventStage, { DoClick: true, PredicatePattern: [patterns.event.eventStage.sweep, patterns.event.eventStage.sweep.disabled], ClickOffset: { Y: 60 } });
-				// currency amount 1 is the right stage
-				// currency amount 2 is the left stage
-				if (currencyAmount1 < currencyAmount2) {
-					macroService.PollPattern(patterns.event.eventStage.currency1.play, { DoClick: true, PredicatePattern: patterns.event.eventStage.currency1.enemyLvl });
+				let eventStageResult = macroService.PollPattern(patterns.event.eventStage, { DoClick: true, PredicatePattern: [patterns.event.eventStage.sweep, patterns.event.eventStage.sweep.disabled], ClickOffset: { Y: 60 } });
+				// currency amount 1 is the left stage?
+				// currency amount 2 is the right stage?
+				// ??? the placement of the stages is not consistent
+				if (currencyAmount1 >= currencyAmount2) {
+					macroService.PollPattern(patterns.event.eventStage.currency1.play, { DoClick: true, PredicatePattern: patterns.event.eventStage.currency1.selected });
 				}
+
+				eventStageResult = macroService.PollPattern(patterns.event.eventStage, { PredicatePattern: [patterns.event.eventStage.sweep, patterns.event.eventStage.sweep.disabled]});
 
 				if (eventStageResult.PredicatePath === 'event.eventStage.sweep.disabled') {
 					while (macroService.IsRunning) {
