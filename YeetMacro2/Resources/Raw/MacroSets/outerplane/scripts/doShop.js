@@ -22,7 +22,8 @@ while (macroService.IsRunning) {
 				throw new Error('Unable to find resource shop');
 			}
 			sleep(1_000);
-			const selectedResourcePattern = macroService.ClonePattern(patterns.shop.selected, { CenterY: swipeResult.Point.Y, Padding: 20 });
+			const shopResourceResult = macroService.FindPattern(patterns.shop.resource);
+			const selectedResourcePattern = macroService.ClonePattern(patterns.shop.selected, { CenterY: shopResourceResult.Point.Y, Padding: 20 });
 			macroService.PollPattern(patterns.shop.resource, { DoClick: true, PredicatePattern: selectedResourcePattern });
 
 			const friendshipItems = ['stamina', 'gold', 'clearTicket', 'arenaTicket', 'hammer', 'stoneFragment', 'stonePiece'];

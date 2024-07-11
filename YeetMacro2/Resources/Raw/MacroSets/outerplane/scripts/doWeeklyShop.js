@@ -45,8 +45,9 @@ while (macroService.IsRunning) {
 			if (!swipeResult2.IsSuccess) {
 				throw new Error('Unable to find surveyhub shop');
 			}
-
-			const selectedSurveyHubPattern = macroService.ClonePattern(patterns.shop.selected, { CenterY: swipeResult2.Point.Y, Padding: 20 });
+			sleep(1_000);
+			const shopResourceResult = macroService.FindPattern(patterns.shop.resource);
+			const selectedSurveyHubPattern = macroService.ClonePattern(patterns.shop.selected, { CenterY: shopResourceResult.Point.Y, Padding: 20 });
 			macroService.PollPattern(patterns.shop.surveyHub, { DoClick: true, PredicatePattern: selectedSurveyHubPattern });
 			doSurveyHubItems();
 
