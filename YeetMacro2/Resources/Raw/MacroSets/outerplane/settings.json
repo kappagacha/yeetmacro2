@@ -2889,5 +2889,33 @@
         "path": "sweepEventStoryHard.teamSlot"
       }
     }
+  },
+  "sweepJointChallenge": {
+    "$isParent": true,
+    "props": {
+      "settingType": "Parent",
+      "isParentNode": true,
+      "name": "sweepJointChallenge",
+      "position": 0,
+      "path": "sweepJointChallenge"
+    },
+    "jointChallengeLevel": {
+      "$isParent": false,
+      "props": {
+        "$type": "option",
+        "settingType": "Option",
+        "options": [
+          "normal",
+          "hard",
+          "veryHard"
+        ],
+        "value": "hard",
+        "defaultValue": "hard",
+        "isParentNode": false,
+        "name": "jointChallengeLevel",
+        "position": 0,
+        "path": "sweepJointChallenge.jointChallengeLevel"
+      }
+    }
   }
 }
