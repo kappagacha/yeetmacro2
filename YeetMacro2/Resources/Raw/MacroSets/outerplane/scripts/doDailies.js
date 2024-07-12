@@ -144,6 +144,11 @@ if (settings.doDailies.sweepEventStoryHard.Value) {
     goToLobby();
 }
 
+if (settings.doDailies.sweepJointChallenge.Value) {
+    sweepJointChallenge();
+    goToLobby();
+}
+
 if (settings.doDailies.doUpkeep.Value) {
     doUpkeep();
     goToLobby();

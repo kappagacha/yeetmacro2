@@ -1077,6 +1077,19 @@
         "path": "doDailies.claimWorldBossRewards"
       }
     },
+    "sweepJointChallenge": {
+      "$isParent": false,
+      "props": {
+        "$type": "boolean",
+        "settingType": "Boolean",
+        "value": true,
+        "defaultValue": true,
+        "isParentNode": false,
+        "name": "sweepJointChallenge",
+        "position": 25,
+        "path": "doDailies.sweepJointChallenge"
+      }
+    },
     "sweepEventStoryHard": {
       "$isParent": false,
       "props": {
@@ -1086,7 +1099,7 @@
         "defaultValue": true,
         "isParentNode": false,
         "name": "sweepEventStoryHard",
-        "position": 25,
+        "position": 26,
         "path": "doDailies.sweepEventStoryHard"
       }
     },
@@ -1099,7 +1112,7 @@
         "defaultValue": true,
         "isParentNode": false,
         "name": "doUpkeep",
-        "position": 26,
+        "position": 27,
         "path": "doDailies.doUpkeep"
       }
     }
@@ -2909,8 +2922,8 @@
           "hard",
           "veryHard"
         ],
-        "value": "hard",
-        "defaultValue": "hard",
+        "value": "normal",
+        "defaultValue": "normal",
         "isParentNode": false,
         "name": "jointChallengeLevel",
         "position": 0,

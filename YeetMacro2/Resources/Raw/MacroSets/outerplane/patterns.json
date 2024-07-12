@@ -2505,17 +2505,6 @@
       "$isParent": true,
       "props": {
         "isMultiPattern": false,
-        "patterns": [],
-        "isParentNode": true,
-        "name": "jointChallenge",
-        "position": 0,
-        "path": "titles.jointChallenge"
-      }
-    },
-    "jointChallenge": {
-      "$isParent": true,
-      "props": {
-        "isMultiPattern": false,
         "patterns": [
           {
             "rect": {
@@ -18395,17 +18384,6 @@
       "$isParent": true,
       "props": {
         "isMultiPattern": false,
-        "patterns": [],
-        "isParentNode": true,
-        "name": "normal",
-        "position": 0,
-        "path": "jointChallenge.normal"
-      }
-    },
-    "normal": {
-      "$isParent": true,
-      "props": {
-        "isMultiPattern": false,
         "patterns": [
           {
             "rect": {
@@ -18450,17 +18428,6 @@
       "$isParent": true,
       "props": {
         "isMultiPattern": false,
-        "patterns": [],
-        "isParentNode": true,
-        "name": "hard",
-        "position": 0,
-        "path": "jointChallenge.hard"
-      }
-    },
-    "hard": {
-      "$isParent": true,
-      "props": {
-        "isMultiPattern": false,
         "patterns": [
           {
             "rect": {
@@ -18499,17 +18466,6 @@
         "name": "hard",
         "position": 0,
         "path": "jointChallenge.hard"
-      }
-    },
-    "veryHard": {
-      "$isParent": true,
-      "props": {
-        "isMultiPattern": false,
-        "patterns": [],
-        "isParentNode": true,
-        "name": "veryHard",
-        "position": 0,
-        "path": "jointChallenge.veryHard"
       }
     },
     "veryHard": {
