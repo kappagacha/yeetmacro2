@@ -89,9 +89,9 @@ public partial class PatternNodeViewModel : PatternNode
 
     public PatternNodeViewModel()
     {
-        base.Nodes = [];
-        base.Patterns = [];
-        _nodeCache = [];
+        base.Nodes = new NodeObservableCollection<PatternNodeViewModel, PatternNode>();
+        base.Patterns = new NodeObservableCollection<PatternViewModel, Pattern>();
+        _nodeCache = new Dictionary<string, PatternNodeViewModel>();
     }
 
     public PatternNodeViewModel this[string key]

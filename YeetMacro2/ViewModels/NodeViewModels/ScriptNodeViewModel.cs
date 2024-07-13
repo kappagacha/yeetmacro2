@@ -123,7 +123,7 @@ public partial class ScriptNodeViewModel : ScriptNode
 
     public ScriptNodeViewModel()
     {
-        base.Nodes = [];
+        base.Nodes = new NodeObservableCollection<ScriptNodeViewModel, ScriptNode>();
     }
 
     [GeneratedRegex("^//\\s+")]

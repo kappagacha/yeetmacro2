@@ -179,8 +179,7 @@ public partial class NodeManagerViewModel<TViewModel, TParent, TChild> : NodeMan
         }
         else
         {
-            //newNode = new TViewModel() { Name = name };
-            newNode = new TParent() { Name = name };        // conversion to ViewModel is taken care of in NodeObservableCollection
+            newNode = new TViewModel() { Name = name };
         }
 
         AddNode(newNode);
@@ -204,6 +203,7 @@ public partial class NodeManagerViewModel<TViewModel, TParent, TChild> : NodeMan
 
         ResolvePath(Root);
         _nodeService.Insert(newNode);
+        SelectNode(newNode);
         //_toastService.Show($"Created {_nodeTypeName}: " + newNode.Name);
         // Fix attempt for getting stuck upon script initialization. Theorizing that when daily is created, it can get stuck with _toastService
         // TODO: remove this if it doesn't help

@@ -35,7 +35,7 @@ public partial class ParentSettingViewModel : ParentSetting
         set {
             if (value is null)
             {
-                base.Nodes = [];
+                base.Nodes = new NodeObservableCollection<ParentSettingViewModel, SettingNode>();
             } 
             else
             {
@@ -94,8 +94,8 @@ public partial class ParentSettingViewModel : ParentSetting
 
     public ParentSettingViewModel()
     {
-        base.Nodes = [];
-        _nodeCache = [];
+        base.Nodes = new NodeObservableCollection<ParentSettingViewModel, SettingNode>();
+        _nodeCache = new Dictionary<string, SettingNode>();
     }
 
     public override SettingNode this[string key]
