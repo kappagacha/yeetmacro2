@@ -25,8 +25,6 @@ public class ForegroundService : Service
     public override void OnCreate()
     {
         _context = (MainActivity)Platform.CurrentActivity;
-        var mediaProjectionManager = (MediaProjectionManager)_context.GetSystemService(Context.MediaProjectionService);
-        _context.StartActivityForResult(mediaProjectionManager.CreateScreenCaptureIntent(), Services.MediaProjectionService.REQUEST_MEDIA_PROJECTION);
         base.OnCreate();
     }
 
@@ -49,6 +47,8 @@ public class ForegroundService : Service
                 {
                     StartForeground(SERVICE_RUNNING_NOTIFICATION_ID, GenerateNotification());
                 }
+                var mediaProjectionManager = (MediaProjectionManager)_context.GetSystemService(Context.MediaProjectionService);
+                _context.StartActivityForResult(mediaProjectionManager.CreateScreenCaptureIntent(), Services.MediaProjectionService.REQUEST_MEDIA_PROJECTION);
                 WeakReferenceMessenger.Default.Send(new PropertyChangedMessage<bool>(this, nameof(OnStartCommand), false, true), nameof(ForegroundService));
                 break;
         }

@@ -84,7 +84,6 @@ public partial class AndriodHomeViewModel : ObservableObject
             {
                 IsProjectionServiceEnabled = IsMacroReady = false;
             }
-            
         });
 
         WeakReferenceMessenger.Default.Register<PropertyChangedMessage<bool>, string>(this, nameof(MacroManagerViewModel), (r, propertyChangedMessage) =>

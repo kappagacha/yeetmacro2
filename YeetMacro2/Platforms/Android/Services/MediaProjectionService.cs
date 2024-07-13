@@ -29,7 +29,7 @@ public class MediaProjectionService : IRecorderService
     Intent _resultData;
     int _resultCode;
     public const int REQUEST_MEDIA_PROJECTION = 1;
-    readonly TaskCompletionSource<bool> _startCompleted;
+    TaskCompletionSource<bool> _startCompleted;
     bool _isRecording, _isInitialized;
 
     public MediaProjectionService()
@@ -95,13 +95,16 @@ public class MediaProjectionService : IRecorderService
         Toast.MakeText(_context, "Media projection initialized...", ToastLength.Short).Show();
     }
 
-    public async Task EnsureProjectionServiceStarted()
+    public async Task<bool> EnsureProjectionServiceStarted()
     {
         if (_resultCode == 0)
         {
-            await _startCompleted.Task;
+            var success = await _startCompleted.Task;
             await Task.Delay(500);      //give projection service time to start
+            _startCompleted = new TaskCompletionSource<bool>();
         }
+
+        return _resultCode == (int)global::Android.App.Result.Ok;
     }
 
     private Bitmap GetBitmap()
@@ -134,6 +137,7 @@ public class MediaProjectionService : IRecorderService
 
     public void Stop()
     {
+        _resultCode = 0;
         if (_imageReader != null)
         {
             _imageReader.Close();

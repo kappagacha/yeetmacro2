@@ -435,7 +435,11 @@ public class AndroidScreenService : IScreenService
         }
 
         _context.StartForegroundServiceCompat<ForegroundService>();
-        await _mediaProjectionService.EnsureProjectionServiceStarted();
+        var success = await _mediaProjectionService.EnsureProjectionServiceStarted();
+        if (!success)
+        {
+            _context.StartForegroundServiceCompat<ForegroundService>(ForegroundService.EXIT_ACTION);
+        }
     }
 
     public void StopProjectionService()
