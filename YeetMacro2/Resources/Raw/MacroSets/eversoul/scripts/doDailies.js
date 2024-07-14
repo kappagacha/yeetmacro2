@@ -84,6 +84,16 @@ if (settings.doDailies.doOperationEdenAlliance.Value) {
     goToLobby();
 }
 
+if (settings.doDailies.claimDailyQuests.Value) {
+    claimDailyQuests();
+    goToLobby();
+}
+
+if (settings.doDailies.levelSoulOnce.Value) {
+    levelSoulOnce();
+    goToLobby();
+}
+
 if (settings.doDailies.doOutings.Value) {
     doOutings();
     goToLobby();
