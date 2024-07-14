@@ -71,6 +71,8 @@ public class MediaProjectionService : IRecorderService
 
     public void Init(global::Android.App.Result resultCode, Intent resultData)
     {
+        _resultCode = (int)resultCode;
+
         if (resultCode != global::Android.App.Result.Ok)
         {
             if (_context != null)
@@ -82,7 +84,6 @@ public class MediaProjectionService : IRecorderService
         }
 
         _context = (MainActivity)Platform.CurrentActivity;
-        _resultCode = (int)resultCode;
         _resultData = resultData;
         _mediaProjectionManager = (MediaProjectionManager)_context.GetSystemService(Context.MediaProjectionService);
         _startCompleted.SetResult(true);
