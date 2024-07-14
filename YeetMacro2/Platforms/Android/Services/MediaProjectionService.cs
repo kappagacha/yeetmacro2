@@ -30,8 +30,7 @@ public class MediaProjectionService : IRecorderService
     int _resultCode;
     public const int REQUEST_MEDIA_PROJECTION = 1;
     TaskCompletionSource<bool> _startCompleted;
-    bool _isRecording, _isInitialized;
-
+    bool _isRecording;
     public MediaProjectionService()
     {
         _startCompleted = new TaskCompletionSource<bool>();
@@ -49,8 +48,6 @@ public class MediaProjectionService : IRecorderService
 
     public void Start()
     {
-        if (!_isInitialized) return;
-
         try
         {
             _logger.LogTrace("MediaProjectionService Start");
@@ -89,7 +86,6 @@ public class MediaProjectionService : IRecorderService
         _resultData = resultData;
         _mediaProjectionManager = (MediaProjectionManager)_context.GetSystemService(Context.MediaProjectionService);
         _startCompleted.SetResult(true);
-        _isInitialized = true;
         // ForegroundService can start before Media projection approval so we send this message to invoke showing ActionView
         WeakReferenceMessenger.Default.Send(new PropertyChangedMessage<bool>(this, nameof(ForegroundService.OnStartCommand), false, true), nameof(ForegroundService));
         Toast.MakeText(_context, "Media projection initialized...", ToastLength.Short).Show();
@@ -196,6 +192,12 @@ public class MediaProjectionService : IRecorderService
 
     public void TakeScreenCapture()
     {
+        if (_imageReader is null)
+        {
+            Start();
+            Thread.Sleep(1_000);
+        }
+
         var imageData = GetCurrentImageData();
         var folder = global::Android.OS.Environment.GetExternalStoragePublicDirectory(global::Android.OS.Environment.DirectoryPictures).Path;
         var file = System.IO.Path.Combine(folder, $"{DateTime.Now:screencapture_yyyyMMdd_HHmmss}.jpeg");

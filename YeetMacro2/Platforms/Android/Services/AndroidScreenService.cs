@@ -420,9 +420,7 @@ public class AndroidScreenService : IScreenService
 
     public void ScreenCapture()
     {
-        _mediaProjectionService.Start();
         _mediaProjectionService.TakeScreenCapture();
-        _mediaProjectionService.Stop();
     }
 
     public async Task StartProjectionService()
