@@ -96,12 +96,30 @@ public class MediaProjectionService : IRecorderService
     {
         if (_resultCode == 0)
         {
-            var success = await _startCompleted.Task;
+            var success = await TimeoutAfter(_startCompleted.Task, TimeSpan.FromSeconds(30));
             await Task.Delay(500);      //give projection service time to start
             _startCompleted = new TaskCompletionSource<bool>();
         }
 
         return _resultCode == (int)global::Android.App.Result.Ok;
+    }
+
+    // https://stackoverflow.com/questions/18760252/timeout-an-async-method-implemented-with-taskcompletionsource
+    public async Task<TResult> TimeoutAfter<TResult>(Task<TResult> task, TimeSpan timeout)
+    {
+        using (var timeoutCancellationTokenSource = new CancellationTokenSource())
+        {
+            var completedTask = await Task.WhenAny(task, Task.Delay(timeout, timeoutCancellationTokenSource.Token));
+            if (completedTask == task)
+            {
+                timeoutCancellationTokenSource.Cancel();
+                return await task;  // Very important in order to propagate exceptions
+            }
+            else
+            {
+                throw new TimeoutException($"{nameof(TimeoutAfter)}: The operation has timed out after {timeout:mm\\:ss}");
+            }
+        }
     }
 
     private Bitmap GetBitmap()
