@@ -25,7 +25,7 @@ while (macroService.IsRunning) {
 				throw new Error('Unable to find resource shop');
 			}
 			sleep(1_000);
-			const shopResourceResult = macroService.FindPattern(patterns.shop.resource);
+			const shopResourceResult = macroService.PollPattern(patterns.shop.resource);
 			const selectedResourcePattern = macroService.ClonePattern(patterns.shop.selected, { CenterY: shopResourceResult.Point.Y, Padding: 20, Path: `patterns.shop.selected_Y${shopResourceResult.Point.Y}` });
 			macroService.PollPattern(patterns.shop.resource, { DoClick: true, PredicatePattern: selectedResourcePattern });
 
@@ -48,7 +48,7 @@ while (macroService.IsRunning) {
 				throw new Error('Unable to find surveyhub shop');
 			}
 			sleep(1_000);
-			const shopSurveyHubResult = macroService.FindPattern(patterns.shop.surveyHub);
+			const shopSurveyHubResult = macroService.PollPattern(patterns.shop.surveyHub);
 			const selectedSurveyHubPattern = macroService.ClonePattern(patterns.shop.selected, { CenterY: shopSurveyHubResult.Point.Y, Padding: 20, Path: `patterns.shop.selected_Y${shopSurveyHubResult.Point.Y}` });
 			macroService.PollPattern(patterns.shop.surveyHub, { DoClick: true, PredicatePattern: selectedSurveyHubPattern });
 			doSurveyHubItems();

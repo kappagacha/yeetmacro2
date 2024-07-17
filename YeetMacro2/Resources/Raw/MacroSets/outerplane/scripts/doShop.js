@@ -22,7 +22,7 @@ while (macroService.IsRunning) {
 				throw new Error('Unable to find resource shop');
 			}
 			sleep(1_000);
-			const shopResourceResult = macroService.FindPattern(patterns.shop.resource);
+			const shopResourceResult = macroService.PollPattern(patterns.shop.resource);
 			const selectedResourcePattern = macroService.ClonePattern(patterns.shop.selected, { CenterY: shopResourceResult.Point.Y, Padding: 20, Path: `patterns.shop.selected_Y${shopResourceResult.Point.Y}` });
 			macroService.PollPattern(patterns.shop.resource, { DoClick: true, PredicatePattern: selectedResourcePattern });
 
