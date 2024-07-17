@@ -16,6 +16,12 @@ while (macroService.IsRunning) {
 			break;
 		case 'titles.adventure':
 			logger.info('claimWorldBossRewards: click world boss');
+			const worldBossResult = macroService.FindPattern([patterns.adventure.worldBoss, patterns.adventure.worldBoss.locked]);
+			if (worldBossResult.Path === 'adventure.worldBoss.locked') {
+				settings.doDailies.claimWorldBossRewards.Value = false;
+				return;
+			}
+
 			const worldBossNotificationResult = macroService.PollPattern(patterns.adventure.worldBoss.notification, { TimeoutMs: 3_000 });
 			if (worldBossNotificationResult.IsSuccess) {
 				macroService.ClickPattern(patterns.adventure.worldBoss);

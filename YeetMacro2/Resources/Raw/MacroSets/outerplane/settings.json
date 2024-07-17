@@ -2922,8 +2922,8 @@
           "hard",
           "veryHard"
         ],
-        "value": "normal",
-        "defaultValue": "normal",
+        "value": "hard",
+        "defaultValue": "hard",
         "isParentNode": false,
         "name": "jointChallengeLevel",
         "position": 0,

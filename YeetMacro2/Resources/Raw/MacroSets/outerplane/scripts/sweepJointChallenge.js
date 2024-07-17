@@ -17,6 +17,12 @@ while (macroService.IsRunning) {
 			break;
 		case 'titles.adventure':
 			logger.info('sweepJointChallenge: click joint challenge');
+			const jointChallengeResult = macroService.FindPattern([patterns.adventure.jointChallenge, patterns.adventure.jointChallenge.locked]);
+			if (jointChallengeResult.Path === 'adventure.jointChallenge.locked') {
+				settings.doDailies.sweepJointChallenge.Value = false;
+				return;
+			}
+
 			macroService.ClickPattern(patterns.adventure.jointChallenge);
 			sleep(500);
 			break;
