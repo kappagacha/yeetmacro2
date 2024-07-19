@@ -24,7 +24,6 @@ while (macroService.IsRunning) {
 			const questResult = macroService.PollPattern([patterns.quest.events.quest.special, patterns.quest.events.main]);
 			if (questResult.Path === 'quest.events.quest.special') {
 				logger.info('skipEventOrMainHardQuests: event special quest');
-
 				macroService.PollPattern(patterns.quest.events.quest.normal[targetSkipLevel], { DoClick: true, PredicatePattern: patterns.titles.events });
 				macroService.PollPattern(patterns.quest.events.quest.skipMax, { DoClick: true, PredicatePattern: patterns.battle.prepare.disabled });
 				macroService.PollPattern(patterns.tickets.use, { DoClick: true, PredicatePattern: patterns.tickets.prompt.ok });
