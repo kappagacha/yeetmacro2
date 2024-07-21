@@ -30,7 +30,8 @@ public class ForegroundService : Service
 
     public override StartCommandResult OnStartCommand(Intent intent, [GeneratedEnum] StartCommandFlags flags, int startId)
     {
-        if (intent == null || _context == null) return StartCommandResult.RedeliverIntent;
+        //if (intent == null || _context == null) return StartCommandResult.RedeliverIntent;
+        if (intent == null || _context == null) return StartCommandResult.NotSticky;
 
         switch (intent.Action)
         {
@@ -53,7 +54,8 @@ public class ForegroundService : Service
                 break;
         }
 
-        return StartCommandResult.Sticky;
+        //return StartCommandResult.Sticky;
+        return StartCommandResult.NotSticky;
     }
 
     //https://stackoverflow.com/questions/61079610/how-to-create-a-xamarin-foreground-service
