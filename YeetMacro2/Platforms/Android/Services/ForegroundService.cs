@@ -1,6 +1,5 @@
 ﻿using Android.App;
 using Android.Content;
-using Android.Media.Projection;
 using Android.OS;
 using Android.Runtime;
 using AndroidX.Core.App;
@@ -30,9 +29,6 @@ public class ForegroundService : Service
 
     public override StartCommandResult OnStartCommand(Intent intent, [GeneratedEnum] StartCommandFlags flags, int startId)
     {
-        //if (intent == null || _context == null) return StartCommandResult.RedeliverIntent;
-        if (intent == null || _context == null) return StartCommandResult.NotSticky;
-
         switch (intent.Action)
         {
             case EXIT_ACTION:
@@ -48,13 +44,10 @@ public class ForegroundService : Service
                 {
                     StartForeground(SERVICE_RUNNING_NOTIFICATION_ID, GenerateNotification());
                 }
-                var mediaProjectionManager = (MediaProjectionManager)_context.GetSystemService(Context.MediaProjectionService);
-                _context.StartActivityForResult(mediaProjectionManager.CreateScreenCaptureIntent(), Services.MediaProjectionService.REQUEST_MEDIA_PROJECTION);
                 WeakReferenceMessenger.Default.Send(new PropertyChangedMessage<bool>(this, nameof(OnStartCommand), false, true), nameof(ForegroundService));
                 break;
         }
 
-        //return StartCommandResult.Sticky;
         return StartCommandResult.NotSticky;
     }
 

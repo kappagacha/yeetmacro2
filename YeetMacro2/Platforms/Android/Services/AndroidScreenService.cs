@@ -98,6 +98,8 @@ public class AndroidScreenService : IScreenService
             }
             else // Foreground Service Exit action
             {
+                _mediaProjectionService.Stop();
+                _mediaProjectionService.StopRecording();
                 Close(AndroidWindowView.ActionView);
                 Close(AndroidWindowView.StatusPanelView);
                 Close(AndroidWindowView.MacroOverlayView);
@@ -423,7 +425,7 @@ public class AndroidScreenService : IScreenService
         _mediaProjectionService.TakeScreenCapture();
     }
 
-    public async Task StartProjectionService()
+    public void StartProjectionService()
     {
         if (OperatingSystem.IsAndroidVersionAtLeast(33) &&
             _context.CheckSelfPermission(global::Android.Manifest.Permission.PostNotifications) != global::Android.Content.PM.Permission.Granted)
@@ -432,17 +434,15 @@ public class AndroidScreenService : IScreenService
             return;
         }
 
-        _context.StartForegroundServiceCompat<ForegroundService>();
-        var success = await _mediaProjectionService.EnsureProjectionServiceStarted();
-        if (!success)
-        {
-            _context.StartForegroundServiceCompat<ForegroundService>(ForegroundService.EXIT_ACTION);
-        }
+        // Foreground service is requred for projection service
+        _context.StartForegroundServiceCompat<ForegroundService>(); 
     }
 
     public void StopProjectionService()
     {
         _context.StartForegroundServiceCompat<ForegroundService>(ForegroundService.EXIT_ACTION);
+        _mediaProjectionService.Stop();
+        _mediaProjectionService.StopRecording();
     }
 
     public void ResetActionViewLocation()

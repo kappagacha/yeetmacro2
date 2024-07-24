@@ -9,7 +9,6 @@ using static Android.Graphics.Bitmap;
 using YeetMacro2.Services;
 using Rect = Microsoft.Maui.Graphics.Rect;
 using Microsoft.Extensions.Logging;
-using CommunityToolkit.Mvvm.Messaging.Messages;
 using CommunityToolkit.Mvvm.Messaging;
 
 namespace YeetMacro2.Platforms.Android.Services;
@@ -29,21 +28,12 @@ public class MediaProjectionService : IRecorderService
     Intent _resultData;
     int _resultCode;
     public const int REQUEST_MEDIA_PROJECTION = 1;
-    TaskCompletionSource<bool> _startCompleted;
     bool _isRecording;
+    public bool IsInitialized => _resultCode == (int)global::Android.App.Result.Ok;
+
     public MediaProjectionService()
     {
-        _startCompleted = new TaskCompletionSource<bool>();
         _logger = ServiceHelper.GetService<ILogger<MediaProjectionService>>();
-
-        WeakReferenceMessenger.Default.Register<PropertyChangedMessage<bool>, string>(this, nameof(ForegroundService), (r, propertyChangedMessage) =>
-        {
-            if (!propertyChangedMessage.NewValue)
-            {
-                Stop();
-                StopRecording();
-            }
-        });
     }
 
     public void Start()
@@ -79,29 +69,15 @@ public class MediaProjectionService : IRecorderService
             {
                 Toast.MakeText(_context, "Media projection canceled...", ToastLength.Short).Show();
             }
-            _startCompleted.SetResult(false);
             return;
         }
 
         _context = (MainActivity)Platform.CurrentActivity;
         _resultData = resultData;
         _mediaProjectionManager = (MediaProjectionManager)_context.GetSystemService(Context.MediaProjectionService);
-        _startCompleted.SetResult(true);
-        // ForegroundService can start before Media projection approval so we send this message to invoke showing ActionView
-        WeakReferenceMessenger.Default.Send(new PropertyChangedMessage<bool>(this, nameof(ForegroundService.OnStartCommand), false, true), nameof(ForegroundService));
+
         Toast.MakeText(_context, "Media projection initialized...", ToastLength.Short).Show();
-    }
-
-    public async Task<bool> EnsureProjectionServiceStarted()
-    {
-        if (_resultCode == 0)
-        {
-            var success = await TimeoutAfter(_startCompleted.Task, TimeSpan.FromSeconds(30));
-            await Task.Delay(500);      //give projection service time to start
-            _startCompleted = new TaskCompletionSource<bool>();
-        }
-
-        return _resultCode == (int)global::Android.App.Result.Ok;
+        WeakReferenceMessenger.Default.Send(this);
     }
 
     // https://stackoverflow.com/questions/18760252/timeout-an-async-method-implemented-with-taskcompletionsource
@@ -172,6 +148,7 @@ public class MediaProjectionService : IRecorderService
             _mediaProjection.Dispose();
             _mediaProjection = null;
         }
+        WeakReferenceMessenger.Default.Send(this);
     }
 
     public byte[] GetCurrentImageData()

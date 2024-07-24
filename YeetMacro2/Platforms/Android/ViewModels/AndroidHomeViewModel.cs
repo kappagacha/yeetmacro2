@@ -6,6 +6,7 @@ using CommunityToolkit.Mvvm.Messaging;
 using YeetMacro2.Platforms.Android.Services;
 using YeetMacro2.ViewModels;
 using YeetMacro2.Data.Models;
+using Android.Media.Projection;
 
 namespace YeetMacro2.Platforms.Android.ViewModels;
 
@@ -75,10 +76,21 @@ public partial class AndriodHomeViewModel : ObservableObject
 
             if (propertyChangedMessage.NewValue)
             {
-                IsProjectionServiceEnabled = true;
+                var context = (MainActivity)Platform.CurrentActivity;
+                var mediaProjectionManager = (MediaProjectionManager)context.GetSystemService(Context.MediaProjectionService);
+                context.StartActivityForResult(mediaProjectionManager.CreateScreenCaptureIntent(), Services.MediaProjectionService.REQUEST_MEDIA_PROJECTION);
+
                 _screenService.Show(AndroidWindowView.ActionView);
                 if (_macroManagerViewModel.InDebugMode) _screenService.Show(AndroidWindowView.DebugDrawView);
                 if (ShowStatusPanel) _screenService.Show(AndroidWindowView.StatusPanelView);
+            }
+        });
+
+        WeakReferenceMessenger.Default.Register<MediaProjectionService>(this, (r, mediaProjectionService) =>
+        {
+            if (mediaProjectionService.IsInitialized)
+            {
+                IsProjectionServiceEnabled = true;
             }
             else
             {
@@ -150,11 +162,11 @@ public partial class AndriodHomeViewModel : ObservableObject
     }
 
     [RelayCommand]
-    private async Task ToggleIsProjectionServiceEnabled()
+    private void ToggleIsProjectionServiceEnabled()
     {
         if (!IsProjectionServiceEnabled)
         {
-            await _screenService.StartProjectionService();
+            _screenService.StartProjectionService();
         }
         else
         {
@@ -299,14 +311,14 @@ If you agree, please tap OK then grant Accessibility service permission to YeetM
         {
             if (IsProjectionServiceEnabled)
             {
-                await ToggleIsProjectionServiceEnabled();
+                ToggleIsProjectionServiceEnabled();
             }
         }
         else
         {
             if (!IsProjectionServiceEnabled)
             {
-                await ToggleIsProjectionServiceEnabled();
+                ToggleIsProjectionServiceEnabled();
             }
             if (!IsAccessibilityEnabled)
             {
