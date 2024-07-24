@@ -42,7 +42,7 @@ while (macroService.IsRunning) {
 				while (numStamina >= 10) {
 					macroService.PollPattern(patterns.quest.main.skipAllAtOnce.swipeLeft, { DoClick: true, PredicatePattern: patterns.quest.main.skipAllAtOnce.ok, IntervalDelayMs: 3_000 });
 					macroService.PollPattern(patterns.quest.main.skipAllAtOnce.ok, { DoClick: true, ClickPattern: [patterns.skipAll.skipComplete, patterns.branchEvent.availableNow, patterns.branchEvent.playLater, patterns.prompt.playerRankUp], PredicatePattern: patterns.tickets.prompt.ok });
-					macroService.PollPattern(patterns.tickets.prompt.ok, { DoClick: true, PredicatePattern: patterns.quest.main.skipAllAtOnce });
+					macroService.PollPattern(patterns.tickets.prompt.ok, { DoClick: true, PredicatePattern: patterns.quest.main.skipAllAtOnce.cancel });
 					sleep(1_000);
 					numStamina = macroService.GetText(patterns.quest.main.skipAllAtOnce.numStamina);
 				}
