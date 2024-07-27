@@ -441,8 +441,6 @@ public class AndroidScreenService : IScreenService
     public void StopProjectionService()
     {
         _context.StartForegroundServiceCompat<ForegroundService>(ForegroundService.EXIT_ACTION);
-        _mediaProjectionService.Stop();
-        _mediaProjectionService.StopRecording();
     }
 
     public void ResetActionViewLocation()

@@ -10,6 +10,7 @@ using YeetMacro2.Services;
 using Rect = Microsoft.Maui.Graphics.Rect;
 using Microsoft.Extensions.Logging;
 using CommunityToolkit.Mvvm.Messaging;
+using CommunityToolkit.Mvvm.Messaging.Messages;
 
 namespace YeetMacro2.Platforms.Android.Services;
 
@@ -33,7 +34,22 @@ public class MediaProjectionService : IRecorderService
 
     public MediaProjectionService()
     {
+        _context = (MainActivity)Platform.CurrentActivity;
+        _mediaProjectionManager = (MediaProjectionManager)_context.GetSystemService(Context.MediaProjectionService);
         _logger = ServiceHelper.GetService<ILogger<MediaProjectionService>>();
+
+        WeakReferenceMessenger.Default.Register<PropertyChangedMessage<bool>, string>(this, nameof(ForegroundService), (r, propertyChangedMessage) =>
+        {
+            if (propertyChangedMessage.NewValue)
+            {
+                _context.StartActivityForResult(_mediaProjectionManager.CreateScreenCaptureIntent(), Services.MediaProjectionService.REQUEST_MEDIA_PROJECTION);
+            }
+            else
+            {
+                if (_isRecording) StopRecording();
+                else Stop();
+            }
+        });
     }
 
     public void Start()
@@ -62,6 +78,7 @@ public class MediaProjectionService : IRecorderService
     public void Init(global::Android.App.Result resultCode, Intent resultData)
     {
         _resultCode = (int)resultCode;
+        _resultData = resultData;
 
         if (resultCode != global::Android.App.Result.Ok)
         {
@@ -69,12 +86,9 @@ public class MediaProjectionService : IRecorderService
             {
                 Toast.MakeText(_context, "Media projection canceled...", ToastLength.Short).Show();
             }
+            WeakReferenceMessenger.Default.Send(this);
             return;
         }
-
-        _context = (MainActivity)Platform.CurrentActivity;
-        _resultData = resultData;
-        _mediaProjectionManager = (MediaProjectionManager)_context.GetSystemService(Context.MediaProjectionService);
 
         Toast.MakeText(_context, "Media projection initialized...", ToastLength.Short).Show();
         WeakReferenceMessenger.Default.Send(this);
@@ -149,6 +163,10 @@ public class MediaProjectionService : IRecorderService
             _mediaProjection = null;
         }
         WeakReferenceMessenger.Default.Send(this);
+        if (_context != null)
+        {
+            Toast.MakeText(_context, "Media projection stopped...", ToastLength.Short).Show();
+        }
     }
 
     public byte[] GetCurrentImageData()

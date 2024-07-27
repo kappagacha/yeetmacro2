@@ -19,11 +19,19 @@ public class ForegroundService : Service
     public ForegroundService()
     {
         Console.WriteLine("[*****YeetMacro*****] ForegroundService Constructor");
+        _context = (MainActivity)Platform.CurrentActivity;
     }
 
     public override void OnCreate()
     {
-        _context = (MainActivity)Platform.CurrentActivity;
+        WeakReferenceMessenger.Default.Register<MediaProjectionService>(this, (r, mediaProjectionService) =>
+        {
+            if (!mediaProjectionService.IsInitialized)
+            {
+                _context.StartForegroundServiceCompat<ForegroundService>(ForegroundService.EXIT_ACTION);
+            }
+        });
+
         base.OnCreate();
     }
 
@@ -33,6 +41,7 @@ public class ForegroundService : Service
         {
             case EXIT_ACTION:
                 StopForeground(StopForegroundFlags.Remove);
+                WeakReferenceMessenger.Default.Unregister<MediaProjectionService>(this);
                 WeakReferenceMessenger.Default.Send(new PropertyChangedMessage<bool>(this, nameof(OnStartCommand), true, false), nameof(ForegroundService));
                 break;
             default:
@@ -115,6 +124,7 @@ public class ForegroundService : Service
     public override void OnDestroy()
     {
         Console.WriteLine("[*****YeetMacro*****] ForegroundService OnDestroy");
+        WeakReferenceMessenger.Default.Unregister<MediaProjectionService>(this);
         base.OnDestroy();
     }
 

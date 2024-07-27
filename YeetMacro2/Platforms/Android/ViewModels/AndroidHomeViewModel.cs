@@ -6,7 +6,6 @@ using CommunityToolkit.Mvvm.Messaging;
 using YeetMacro2.Platforms.Android.Services;
 using YeetMacro2.ViewModels;
 using YeetMacro2.Data.Models;
-using Android.Media.Projection;
 
 namespace YeetMacro2.Platforms.Android.ViewModels;
 
@@ -78,9 +77,6 @@ public partial class AndriodHomeViewModel : ObservableObject
 
             if (propertyChangedMessage.NewValue)
             {
-                var mediaProjectionManager = (MediaProjectionManager)_context.GetSystemService(Context.MediaProjectionService);
-                _context.StartActivityForResult(mediaProjectionManager.CreateScreenCaptureIntent(), Services.MediaProjectionService.REQUEST_MEDIA_PROJECTION);
-
                 _screenService.Show(AndroidWindowView.ActionView);
                 if (_macroManagerViewModel.InDebugMode) _screenService.Show(AndroidWindowView.DebugDrawView);
                 if (ShowStatusPanel) _screenService.Show(AndroidWindowView.StatusPanelView);
@@ -99,7 +95,7 @@ public partial class AndriodHomeViewModel : ObservableObject
             }
             else
             {
-                _context.StartForegroundServiceCompat<ForegroundService>(ForegroundService.EXIT_ACTION);
+                IsProjectionServiceEnabled = IsMacroReady = false;
             }
         });
 
