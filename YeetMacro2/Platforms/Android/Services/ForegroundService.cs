@@ -24,14 +24,7 @@ public class ForegroundService : Service
 
     public override void OnCreate()
     {
-        WeakReferenceMessenger.Default.Register<MediaProjectionService>(this, (r, mediaProjectionService) =>
-        {
-            if (!mediaProjectionService.IsInitialized)
-            {
-                _context.StartForegroundServiceCompat<ForegroundService>(ForegroundService.EXIT_ACTION);
-            }
-        });
-
+        Console.WriteLine("[*****YeetMacro*****] ForegroundService OnCreate");
         base.OnCreate();
     }
 
@@ -45,6 +38,13 @@ public class ForegroundService : Service
                 WeakReferenceMessenger.Default.Send(new PropertyChangedMessage<bool>(this, nameof(OnStartCommand), true, false), nameof(ForegroundService));
                 break;
             default:
+                WeakReferenceMessenger.Default.Register<MediaProjectionService>(this, (r, mediaProjectionService) =>
+                {
+                    if (!mediaProjectionService.IsInitialized)
+                    {
+                        _context.StartForegroundServiceCompat<ForegroundService>(ForegroundService.EXIT_ACTION);
+                    }
+                });
                 if (OperatingSystem.IsAndroidVersionAtLeast(29))
                 {
                     StartForeground(SERVICE_RUNNING_NOTIFICATION_ID, GenerateNotification(), global::Android.Content.PM.ForegroundService.TypeMediaProjection);
