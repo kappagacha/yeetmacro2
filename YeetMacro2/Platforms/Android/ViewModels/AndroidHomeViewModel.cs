@@ -17,6 +17,7 @@ public partial class AndriodHomeViewModel : ObservableObject
     bool _isProjectionServiceEnabled, _isAccessibilityEnabled, _isAppearing, _showMacroOverlay,
          _showPatternNodeView, _showStatusPanel, _isMacroReady, _showTestView,
          _showSettingNodeView, _showDailyNodeView, _showWeeklyNodeView;
+    private readonly MainActivity _context;
     private readonly AndroidScreenService _screenService;
     private readonly MacroManagerViewModel _macroManagerViewModel;
     private readonly YeetAccessibilityService _accessibilityService;
@@ -66,6 +67,7 @@ public partial class AndriodHomeViewModel : ObservableObject
     public AndriodHomeViewModel(AndroidScreenService screenService, YeetAccessibilityService accessibilityService, 
         MacroManagerViewModel macroManagerViewModel)
     {
+        _context = (MainActivity)Platform.CurrentActivity;
         _screenService = screenService;
         _accessibilityService = accessibilityService;
         _macroManagerViewModel = macroManagerViewModel;
@@ -76,13 +78,16 @@ public partial class AndriodHomeViewModel : ObservableObject
 
             if (propertyChangedMessage.NewValue)
             {
-                var context = (MainActivity)Platform.CurrentActivity;
-                var mediaProjectionManager = (MediaProjectionManager)context.GetSystemService(Context.MediaProjectionService);
-                context.StartActivityForResult(mediaProjectionManager.CreateScreenCaptureIntent(), Services.MediaProjectionService.REQUEST_MEDIA_PROJECTION);
+                var mediaProjectionManager = (MediaProjectionManager)_context.GetSystemService(Context.MediaProjectionService);
+                _context.StartActivityForResult(mediaProjectionManager.CreateScreenCaptureIntent(), Services.MediaProjectionService.REQUEST_MEDIA_PROJECTION);
 
                 _screenService.Show(AndroidWindowView.ActionView);
                 if (_macroManagerViewModel.InDebugMode) _screenService.Show(AndroidWindowView.DebugDrawView);
                 if (ShowStatusPanel) _screenService.Show(AndroidWindowView.StatusPanelView);
+            }
+            else
+            {
+                IsProjectionServiceEnabled = IsMacroReady = false;
             }
         });
 
@@ -94,7 +99,7 @@ public partial class AndriodHomeViewModel : ObservableObject
             }
             else
             {
-                IsProjectionServiceEnabled = IsMacroReady = false;
+                _context.StartForegroundServiceCompat<ForegroundService>(ForegroundService.EXIT_ACTION);
             }
         });
 
