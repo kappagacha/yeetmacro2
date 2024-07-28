@@ -365,7 +365,7 @@
         "defaultValue": true,
         "isParentNode": false,
         "name": "watchAdStamina",
-        "position": 0,
+        "position": 1,
         "path": "doDailies.watchAdStamina"
       }
     },
@@ -378,7 +378,7 @@
         "defaultValue": true,
         "isParentNode": false,
         "name": "claimJobs",
-        "position": 0,
+        "position": 2,
         "path": "doDailies.claimJobs"
       }
     },
@@ -391,7 +391,7 @@
         "defaultValue": true,
         "isParentNode": false,
         "name": "doMainExpertQuests",
-        "position": 0,
+        "position": 3,
         "path": "doDailies.doMainExpertQuests"
       }
     },
@@ -404,7 +404,7 @@
         "defaultValue": true,
         "isParentNode": false,
         "name": "doFreeQuests",
-        "position": 0,
+        "position": 4,
         "path": "doDailies.doFreeQuests"
       }
     },
@@ -417,7 +417,7 @@
         "defaultValue": true,
         "isParentNode": false,
         "name": "doBattleArena",
-        "position": 0,
+        "position": 5,
         "path": "doDailies.doBattleArena"
       }
     },
@@ -430,7 +430,7 @@
         "defaultValue": true,
         "isParentNode": false,
         "name": "doBattleArenaEx",
-        "position": 0,
+        "position": 6,
         "path": "doDailies.doBattleArenaEx"
       }
     },
@@ -443,7 +443,7 @@
         "defaultValue": true,
         "isParentNode": false,
         "name": "doMainOrEventHardQuests",
-        "position": 0,
+        "position": 7,
         "path": "doDailies.doMainOrEventHardQuests"
       }
     },
@@ -456,7 +456,7 @@
         "defaultValue": true,
         "isParentNode": false,
         "name": "doOneFameQuest",
-        "position": 0,
+        "position": 8,
         "path": "doDailies.doOneFameQuest"
       }
     },
@@ -469,7 +469,7 @@
         "defaultValue": true,
         "isParentNode": false,
         "name": "farmEventBossLoop",
-        "position": 0,
+        "position": 9,
         "path": "doDailies.farmEventBossLoop"
       }
     },
@@ -482,7 +482,7 @@
         "defaultValue": true,
         "isParentNode": false,
         "name": "claimMissionRewards",
-        "position": 0,
+        "position": 10,
         "path": "doDailies.claimMissionRewards"
       }
     },
@@ -495,7 +495,7 @@
         "defaultValue": true,
         "isParentNode": false,
         "name": "doFriends",
-        "position": 0,
+        "position": 11,
         "path": "doDailies.doFriends"
       }
     },
@@ -508,7 +508,7 @@
         "defaultValue": true,
         "isParentNode": false,
         "name": "doBranchQuests",
-        "position": 0,
+        "position": 12,
         "path": "doDailies.doBranchQuests"
       }
     },
@@ -521,8 +521,34 @@
         "defaultValue": true,
         "isParentNode": false,
         "name": "skipEventOrMainHardQuests",
-        "position": 0,
+        "position": 13,
         "path": "doDailies.skipEventOrMainHardQuests"
+      }
+    },
+    "claimFreeShopGem": {
+      "$isParent": false,
+      "props": {
+        "$type": "boolean",
+        "settingType": "Boolean",
+        "value": true,
+        "defaultValue": true,
+        "isParentNode": false,
+        "name": "claimFreeShopGem",
+        "position": 14,
+        "path": "doDailies.claimFreeShopGem"
+      }
+    },
+    "skipDungeon": {
+      "$isParent": false,
+      "props": {
+        "$type": "boolean",
+        "settingType": "Boolean",
+        "value": true,
+        "defaultValue": true,
+        "isParentNode": false,
+        "name": "skipDungeon",
+        "position": 15,
+        "path": "doDailies.skipDungeon"
       }
     },
     "claimGifts": {
@@ -534,7 +560,7 @@
         "defaultValue": true,
         "isParentNode": false,
         "name": "claimGifts",
-        "position": 0,
+        "position": 16,
         "path": "doDailies.claimGifts"
       }
     }
@@ -818,7 +844,7 @@
       "props": {
         "$type": "timestamp",
         "settingType": "TimeStamp",
-        "value": "2024-07-06T21:18:04.4+00:00",
+        "value": "2024-07-28T01:09:34.113+00:00",
         "defaultValue": "0001-01-01T00:00:00+00:00",
         "isParentNode": false,
         "name": "lastRun",
@@ -1002,6 +1028,35 @@
         "name": "targetEventLevel",
         "position": 0,
         "path": "skipEventOrMainHardQuests.targetEventLevel"
+      }
+    }
+  },
+  "skipDungeon": {
+    "$isParent": true,
+    "props": {
+      "settingType": "Parent",
+      "isParentNode": true,
+      "name": "skipDungeon",
+      "position": 0,
+      "path": "skipDungeon"
+    },
+    "targetDungeon": {
+      "$isParent": false,
+      "props": {
+        "$type": "option",
+        "settingType": "Option",
+        "options": [
+          "fire",
+          "dark",
+          "water",
+          "wind"
+        ],
+        "value": "water",
+        "defaultValue": "water",
+        "isParentNode": false,
+        "name": "targetDungeon",
+        "position": 0,
+        "path": "skipDungeon.targetDungeon"
       }
     }
   }

@@ -72,6 +72,16 @@ if (settings.doDailies.skipEventOrMainHardQuests.Value) {
     goToLobby();
 }
 
+if (settings.doDailies.claimFreeShopGem.Value) {
+    claimFreeShopGem();
+    goToLobby();
+}
+
+if (settings.doDailies.skipDungeon.Value) {
+    skipDungeon();
+    goToLobby();
+}
+
 if (settings.doDailies.claimGifts.Value) {
     claimGifts();
     goToLobby();

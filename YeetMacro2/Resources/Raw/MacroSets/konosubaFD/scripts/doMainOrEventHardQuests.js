@@ -10,7 +10,7 @@ while (macroService.IsRunning) {
 	const result = macroService.PollPattern(loopPatterns);
 	switch (result.Path) {
 		case 'titles.home':
-			logger.info('doMainOrEventHardQuests: click tab quest');
+			logger.info('doMainOrEventHardQuests: click quest tab');
 			macroService.ClickPattern(patterns.tabs.quest);
 			break;
 		case 'titles.quest':
