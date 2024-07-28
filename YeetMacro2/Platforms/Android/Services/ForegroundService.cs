@@ -14,12 +14,10 @@ public class ForegroundService : Service
     public const string FOREGROUND_CHANNEL_ID = "9001";
     public const string EXIT_ACTION = "EXIT";
     public const int SERVICE_RUNNING_NOTIFICATION_ID = 10000;
-    MainActivity _context;
 
     public ForegroundService()
     {
         Console.WriteLine("[*****YeetMacro*****] ForegroundService Constructor");
-        _context = (MainActivity)Platform.CurrentActivity;
     }
 
     public override void OnCreate()
@@ -44,7 +42,7 @@ public class ForegroundService : Service
                     {
                         if (!mediaProjectionService.IsInitialized)
                         {
-                            _context.StartForegroundServiceCompat<ForegroundService>(ForegroundService.EXIT_ACTION);
+                            Platform.CurrentActivity.StartForegroundServiceCompat<ForegroundService>(ForegroundService.EXIT_ACTION);
                         }
                     });
                 }
@@ -67,13 +65,13 @@ public class ForegroundService : Service
     //https://stackoverflow.com/questions/61079610/how-to-create-a-xamarin-foreground-service
     public Notification GenerateNotification()
     {
-        var intent = new Intent(_context, typeof(MainActivity));
+        var intent = new Intent(Platform.CurrentActivity, typeof(MainActivity));
         intent.AddFlags(ActivityFlags.SingleTop);
         intent.PutExtra("Title", "Message");
 
-        var pendingIntent = PendingIntent.GetActivity(_context, 0, intent, PendingIntentFlags.UpdateCurrent | PendingIntentFlags.Immutable);
+        var pendingIntent = PendingIntent.GetActivity(Platform.CurrentActivity, 0, intent, PendingIntentFlags.UpdateCurrent | PendingIntentFlags.Immutable);
 
-        var notifBuilder = new NotificationCompat.Builder(_context, FOREGROUND_CHANNEL_ID)
+        var notifBuilder = new NotificationCompat.Builder(Platform.CurrentActivity, FOREGROUND_CHANNEL_ID)
             .SetContentTitle("YeetMacro")
             .SetPriority((int)NotificationCompat.PriorityHigh)
             //.SetContentText("Main Text Body")
@@ -94,7 +92,7 @@ public class ForegroundService : Service
             notificationChannel.SetShowBadge(true);
             notificationChannel.SetVibrationPattern([100, 200, 300, 400, 500, 400, 300, 200, 400]);
 
-            if (_context.GetSystemService(Context.NotificationService) is NotificationManager notifManager)
+            if (Platform.CurrentActivity.GetSystemService(Context.NotificationService) is NotificationManager notifManager)
             {
                 notifBuilder.SetChannelId(FOREGROUND_CHANNEL_ID);
                 notifManager.CreateNotificationChannel(notificationChannel);
