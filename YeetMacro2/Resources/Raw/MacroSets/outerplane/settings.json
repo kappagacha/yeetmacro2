@@ -869,19 +869,6 @@
         "path": "doDailies.claimFreeRecruit"
       }
     },
-    "doFriends": {
-      "$isParent": false,
-      "props": {
-        "$type": "boolean",
-        "settingType": "Boolean",
-        "value": true,
-        "defaultValue": true,
-        "isParentNode": false,
-        "name": "doFriends",
-        "position": 9,
-        "path": "doDailies.doFriends"
-      }
-    },
     "doArena": {
       "$isParent": false,
       "props": {
@@ -1139,6 +1126,19 @@
         "path": "doUpkeep.claimGuildBuff"
       }
     },
+    "doFriends": {
+      "$isParent": false,
+      "props": {
+        "$type": "boolean",
+        "settingType": "Boolean",
+        "value": true,
+        "defaultValue": true,
+        "isParentNode": false,
+        "name": "doFriends",
+        "position": 1,
+        "path": "doUpkeep.doFriends"
+      }
+    },
     "claimReplenishYourStamina": {
       "$isParent": false,
       "props": {
@@ -1148,7 +1148,7 @@
         "defaultValue": true,
         "isParentNode": false,
         "name": "claimReplenishYourStamina",
-        "position": 1,
+        "position": 2,
         "path": "doUpkeep.claimReplenishYourStamina"
       }
     },
@@ -1161,7 +1161,7 @@
         "defaultValue": true,
         "isParentNode": false,
         "name": "claimArenaRewards",
-        "position": 2,
+        "position": 3,
         "path": "doUpkeep.claimArenaRewards"
       }
     },
@@ -1174,7 +1174,7 @@
         "defaultValue": true,
         "isParentNode": false,
         "name": "startTerminusIsleExploration",
-        "position": 3,
+        "position": 4,
         "path": "doUpkeep.startTerminusIsleExploration"
       }
     },
@@ -1187,7 +1187,7 @@
         "defaultValue": true,
         "isParentNode": false,
         "name": "claimAntiparticle",
-        "position": 4,
+        "position": 5,
         "path": "doUpkeep.claimAntiparticle"
       }
     },
@@ -1200,7 +1200,7 @@
         "defaultValue": true,
         "isParentNode": false,
         "name": "doArena",
-        "position": 5,
+        "position": 6,
         "path": "doUpkeep.doArena"
       }
     },
@@ -1220,7 +1220,7 @@
         "defaultValue": "doSurveyHub",
         "isParentNode": false,
         "name": "spendStaminaScript",
-        "position": 6,
+        "position": 7,
         "path": "doUpkeep.spendStaminaScript"
       }
     }

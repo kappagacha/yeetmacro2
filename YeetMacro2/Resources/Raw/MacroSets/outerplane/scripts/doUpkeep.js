@@ -18,6 +18,11 @@ if (settings.doUpkeep.claimGuildBuff.Value) {
     goToLobby();
 }
 
+if (settings.doUpkeep.doFriends.Value) {
+    doFriends();
+    goToLobby();
+}
+
 if (settings.doUpkeep.claimReplenishYourStamina.Value) {
     claimReplenishYourStamina();
     goToLobby();
