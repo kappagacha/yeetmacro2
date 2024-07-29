@@ -24,11 +24,6 @@ if (settings.doDailies.claimFreeSummon.Value) {
     goToLobby();
 }
 
-if (settings.doDailies.claimChampsArena.Value) {
-    claimChampsArena();
-    goToLobby();
-}
-
 if (settings.doDailies.doFriends.Value) {
     doFriends();
     goToLobby();

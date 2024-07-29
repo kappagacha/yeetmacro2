@@ -14,6 +14,11 @@ if (settings.doUpkeep.doFriends.Value) {
     goToLobby();
 }
 
+if (settings.doUpkeep.claimChampsArena.Value) {
+    claimChampsArena();
+    goToLobby();
+}
+
 if (settings.doUpkeep.doPartTimeJobAndRest.Value) {
     doPartTimeJobAndRest();
     const date = new Date();
@@ -23,3 +28,4 @@ if (settings.doUpkeep.doPartTimeJobAndRest.Value) {
     doPartTimeJobAndRest();     // 2 times cause part time job can produce tired souls
     goToLobby();
 }
+
