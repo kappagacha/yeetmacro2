@@ -10,7 +10,7 @@ if (isLastRunWithinHour && !settings.doFriends.forceRun.Value) {
 }
 
 while (macroService.IsRunning) {
-	const loopResult = macroService.PollPattern(loopPatterns);
+	const loopResult = macroService.PollPattern(loopPatterns, { ClickPattern: patterns.friends.ok });
 	switch (loopResult.Path) {
 		case 'lobby.level':
 			logger.info('doFriends: click menu');

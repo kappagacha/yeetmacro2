@@ -39,6 +39,7 @@ macroService.PollPattern(patterns.lobby.level, {
 		patterns.general.startMessageClose,
 		patterns.general.tapEmptySpace,
 		patterns.general.exitCheckIn,
+		patterns.friends.ok,
 		userClickPattern
 	]
 });

@@ -1069,8 +1069,8 @@
       "props": {
         "$type": "boolean",
         "settingType": "Boolean",
-        "value": true,
-        "defaultValue": true,
+        "value": false,
+        "defaultValue": false,
         "isParentNode": false,
         "name": "sweepJointChallenge",
         "position": 25,
@@ -1450,7 +1450,7 @@
       "props": {
         "$type": "timestamp",
         "settingType": "TimeStamp",
-        "value": "2024-07-03T01:07:21.521+00:00",
+        "value": "2024-07-30T21:20:40.519+00:00",
         "defaultValue": "0001-01-01T00:00:00+00:00",
         "isParentNode": false,
         "name": "lastRun",
@@ -1486,7 +1486,7 @@
       "props": {
         "$type": "timestamp",
         "settingType": "TimeStamp",
-        "value": "2024-07-03T01:10:50.655+00:00",
+        "value": "2024-07-30T22:13:24.105+00:00",
         "defaultValue": "0001-01-01T00:00:00+00:00",
         "isParentNode": false,
         "name": "lastRun",
@@ -1894,8 +1894,8 @@
           "dark",
           "light"
         ],
-        "value": "earth",
-        "defaultValue": "earth",
+        "value": "light",
+        "defaultValue": "light",
         "isParentNode": false,
         "name": "elementTypeTarget1",
         "position": 0,
@@ -1952,8 +1952,8 @@
           "dark",
           "light"
         ],
-        "value": "earth",
-        "defaultValue": "earth",
+        "value": "dark",
+        "defaultValue": "dark",
         "isParentNode": false,
         "name": "elementTypeTarget2",
         "position": 0,
