@@ -772,6 +772,19 @@
         "path": "doDailies.claimFreeSummon"
       }
     },
+    "claimChampsArena": {
+      "$isParent": false,
+      "props": {
+        "$type": "boolean",
+        "settingType": "Boolean",
+        "value": true,
+        "defaultValue": true,
+        "isParentNode": false,
+        "name": "claimChampsArena",
+        "position": 4,
+        "path": "doDailies.claimChampsArena"
+      }
+    },
     "doFriends": {
       "$isParent": false,
       "props": {
@@ -987,7 +1000,7 @@
         "isParentNode": false,
         "name": "claimChampsArena",
         "position": 2,
-        "path": "doDailies.claimChampsArena"
+        "path": "doUpkeep.claimChampsArena"
       }
     },
     "doPartTimeJobAndRest": {
@@ -1031,7 +1044,7 @@
       "props": {
         "$type": "timestamp",
         "settingType": "TimeStamp",
-        "value": "2024-07-17T02:19:48.344+00:00",
+        "value": "2024-07-31T02:55:58.558+00:00",
         "defaultValue": "0001-01-01T00:00:00+00:00",
         "isParentNode": false,
         "name": "lastRun",
@@ -1090,7 +1103,7 @@
       "props": {
         "$type": "timestamp",
         "settingType": "TimeStamp",
-        "value": "2024-07-16T02:19:51.688+00:00",
+        "value": "2024-07-30T02:56:14.576+00:00",
         "defaultValue": "0001-01-01T00:00:00+00:00",
         "isParentNode": false,
         "name": "lastRun",
