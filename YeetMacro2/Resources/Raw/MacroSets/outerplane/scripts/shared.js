@@ -8,6 +8,7 @@ function selectTeam(targetTeamSlot, returnCurrentCp) {
 	let currentTeamSlot = getCurrentTeamSlot();
 	while (macroService.IsRunning && currentTeamSlot?.trim() != targetTeamSlot) {
 		const teamSlotResult = findTeamSlot(targetTeamSlot);
+		logger.info(`${teamSlotResult} => ${targetTeamSlot}`);
 		if (teamSlotResult) {
 			macroService.DoClick(teamSlotResult);
 			sleep(2_500);
