@@ -12,16 +12,16 @@ function selectTeam(targetTeamSlot, returnCurrentCp) {
 		if (teamSlotResult) {
 			macroService.DoClick(teamSlotResult);
 			sleep(2_500);
-			const newTeamSlot = getCurrentTeamSlot();
-			if (newTeamSlot) {
-				currentTeamSlot = newTeamSlot;
-			}
 		} else if (currentTeamSlot > targetTeamSlot) {
 			macroService.DoSwipe({ X: xLocation, Y: 200 }, { X: xLocation, Y: 400 });	// scroll up
 			sleep(2_500);
 		} else {
 			macroService.DoSwipe({ X: xLocation, Y: 400 }, { X: xLocation, Y: 200 });	// scroll down
 			sleep(2_500);
+		}
+		const newTeamSlot = getCurrentTeamSlot();
+		if (newTeamSlot) {
+			currentTeamSlot = newTeamSlot;
 		}
 	}
 
