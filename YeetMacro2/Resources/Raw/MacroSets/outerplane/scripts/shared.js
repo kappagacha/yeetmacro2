@@ -8,11 +8,14 @@ function selectTeam(targetTeamSlot, returnCurrentCp) {
 	let currentTeamSlot = getCurrentTeamSlot();
 	while (macroService.IsRunning && currentTeamSlot?.trim() != targetTeamSlot) {
 		const teamSlotResult = findTeamSlot(targetTeamSlot);
-		logger.info(`${currentTeamSlot} => ${targetTeamSlot}`);
+		logger.info(`selectTeam ${currentTeamSlot} => ${targetTeamSlot}`);
 		if (teamSlotResult) {
 			macroService.DoClick(teamSlotResult);
 			sleep(2_500);
-			currentTeamSlot ||= getCurrentTeamSlot();
+			const newTeamSlot = getCurrentTeamSlot();
+			if (newTeamSlot) {
+				currentTeamSlot = newTeamSlot;
+			}
 		} else if (currentTeamSlot > targetTeamSlot) {
 			macroService.DoSwipe({ X: xLocation, Y: 200 }, { X: xLocation, Y: 400 });	// scroll up
 			sleep(2_500);
