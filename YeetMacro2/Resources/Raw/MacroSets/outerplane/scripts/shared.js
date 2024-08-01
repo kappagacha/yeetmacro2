@@ -11,7 +11,7 @@ function selectTeam(targetTeamSlot, returnCurrentCp) {
 		if (teamSlotResult) {
 			macroService.DoClick(teamSlotResult);
 			sleep(2_500);
-			currentTeamSlot = getCurrentTeamSlot();
+			currentTeamSlot ||= getCurrentTeamSlot();
 		} else if (currentTeamSlot > targetTeamSlot) {
 			macroService.DoSwipe({ X: xLocation, Y: 200 }, { X: xLocation, Y: 400 });	// scroll up
 			sleep(2_500);
@@ -43,11 +43,14 @@ function findTeamSlot(targetTeamSlot) {
 
 function getCurrentTeamSlot() {
 	let selectedTeamSlotResult = macroService.FindPattern(patterns.battle.teamSlotCorner.selected);
-	while (!selectedTeamSlotResult.IsSuccess) {
-		macroService.DoSwipe({ X: xLocation, Y: 400 }, { X: xLocation, Y: 200 });	// scroll down
-		sleep(2_500);
-		selectedTeamSlotResult = macroService.FindPattern(patterns.battle.teamSlotCorner.selected);
+	if (!selectedTeamSlotResult.IsSuccess) {
+		return 0;
 	}
+	//while (!selectedTeamSlotResult.IsSuccess) {
+	//	macroService.DoSwipe({ X: xLocation, Y: 400 }, { X: xLocation, Y: 200 });	// scroll down
+	//	sleep(2_500);
+	//	selectedTeamSlotResult = macroService.FindPattern(patterns.battle.teamSlotCorner.selected);
+	//}
 	const selectedTeamSlotPattern = macroService.ClonePattern(patterns.battle.teamSlot, { Y: selectedTeamSlotResult.Point.Y + 8 });
 	
 	let currentTeamSlot = macroService.GetText(selectedTeamSlotPattern)
