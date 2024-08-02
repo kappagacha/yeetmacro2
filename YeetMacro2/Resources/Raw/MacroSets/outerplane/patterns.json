@@ -5726,6 +5726,94 @@
           "position": 0,
           "path": "shop.resource.purchase"
         }
+      },
+      "skywardTower": {
+        "$isParent": true,
+        "props": {
+          "isMultiPattern": false,
+          "patterns": [
+            {
+              "rect": {
+                "x": 824.14453125,
+                "y": 122.121826171875,
+                "width": 1074.26953125,
+                "height": 80.039794921875
+              },
+              "resolution": {
+                "width": 1920,
+                "height": 1080
+              },
+              "isBoundsPattern": false,
+              "isLocationDynamic": false,
+              "name": "pattern",
+              "imageData": "/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDAAEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQH/2wBDAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQH/wAARCAAfACYDASIAAhEBAxEB/8QAGgAAAgMBAQAAAAAAAAAAAAAACQoABgcIA//EADUQAAAFAgQEAwYFBQAAAAAAAAECAwQFBgcACBETEhQVFgkKIRcYIjFRoRkjJEHRJUax4fH/xAAXAQADAQAAAAAAAAAAAAAAAAADBAUG/8QAJxEAAgEDAwMEAwEAAAAAAAAAAQIDBBEhEjFBAGFxBRMiUUKRweH/2gAMAwEAAhEDEQA/AOEcu/hAZ280NqafvPaWk6LkaFqczwsQ8mK+hIZ8tyLgzZwKsc6EV0ABUggTc0ExfXQAHG4D5fzxJQ01oO3Ia+oa3RpwNQ+oa/PAraRzN5jrfwTSl6Dv/e2iaZYCqLGnaRutXdNwTIVjiosLSIhp1lHthVUETqii3IJziJjamHXDRXj3XsvJbG0mSqQtvdq5tvn1QUgVSdeURXtU0m6mlO3mC25LOIGVYLSR90xleJ4dY24YT68QiONxUT+pRVNPAstKVqXlEZMDEosYUjX8xqJBAxba/iFHHSvE7lJbxKmoCTDFiBjGMi/+gdLI5k8t91sp905Ozl5I2Mia3iWDCSeNIiXZzjEGkkCwtVE5BkIonMbYVAxPQ5BL6hoYBHBeM31+wfxi8PJm69967j05WYrq7dx6octIaOXnJiarOrZpwYxiMmCb6Vcv5N2BBOfaSOuZNEonMAEIBhAoP4FHiOdj98eyaB2em9V7Z70h+8+X2N/a7d15vnOH4eW14uP4eLFE1UdMsa1c8CSsoucIHa4uVUm4W+2bd+QuIGkLGJJGQH7JtsbXAycbb7eQIbjN9fsH8YmLwjbOrkawnaCnmjejqqpoXac3FVi8b04tHumTlu1cMVhkjogD0qjkhytwETqIlUWJxJkE2JgpqY1sC6ZAI7ggEEEYIIAIIxt0MRMdg+DbcYIt92OPHHjrJ94of91/wGGtfMWG4bMZEh/bs4v76f2zH4U0FTX5h9/9YLp4lPicQ2faiLAUjE2ulLfHsvCBFO3shONJcs2qEW2jtxuk3boi2T1QMr+aYxtBAunzHE6qjlkrfTpEXVHE85kYEXUOkem4vyQRi+1vLMTqsNQpNmdYwozmz3P6HXTvlz6LoSrM88nLVS3YSFQUZbGdm6Ij32yppLKOWrZ3KtE1AEQdxzcyaCaxBAUiSKpR1BQMeR89Gez8XHkAuJcsHHvJhboLT9WnezBtx3n0Xb7HBz0fgGk/6/1cWQuQV/Wi45UNjAZ8uOY25mVi8FI3utLLFi6yo92ZdsVyRRWMlGS5dt7DzLRFZuZ7Fvk9AXbiqXRVNBwmYqyCRysNB5hezWvtYHILRHvQhG8t391mI6X1PY2OrdU7f68A6/HscjzW1+m6pw/nYUrIJxVzTLSrVpUUwgVWdFMDEAXs/wCJOSVIIN/kvJoJI/aRDKYWjl9wkAkOMYxzwAb44PGEeYzoyhaUzww0zS7ZhHVFWlsoWarmPYikQTSiTlduylHiaYAIvJBvvIKLn9VU49IpdAS0xMBfzI5j7mZqbxVde67UqSUrGr3ZFXBGpFEYuKYtyimxh4Zqsu4MzjGKYmBFAFT6qqLrnEyq6hhmKdFE9PSQQyEs6RgMRkAnOkHkLq0g8hb9LTusksjqLKzEgf09zue56//Z",
+              "variancePct": 20,
+              "horizontalStretchMultiplier": 0,
+              "verticalStretchMultiplier": 0,
+              "textMatch": {
+                "isActive": false,
+                "text": null,
+                "whiteList": null
+              },
+              "colorThreshold": {
+                "isActive": true,
+                "variancePct": 30,
+                "color": "#fff3f3f3",
+                "imageData": "/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDAAIBAQEBAQIBAQECAgICAgQDAgICAgUEBAMEBgUGBgYFBgYGBwkIBgcJBwYGCAsICQoKCgoKBggLDAsKDAkKCgr/wAALCAAfACYBAREA/8QAHwAAAQUBAQEBAQEAAAAAAAAAAAECAwQFBgcICQoL/8QAtRAAAgEDAwIEAwUFBAQAAAF9AQIDAAQRBRIhMUEGE1FhByJxFDKBkaEII0KxwRVS0fAkM2JyggkKFhcYGRolJicoKSo0NTY3ODk6Q0RFRkdISUpTVFVWV1hZWmNkZWZnaGlqc3R1dnd4eXqDhIWGh4iJipKTlJWWl5iZmqKjpKWmp6ipqrKztLW2t7i5usLDxMXGx8jJytLT1NXW19jZ2uHi4+Tl5ufo6erx8vP09fb3+Pn6/9oACAEBAAA/AP09/aj/AOC9X/BJ79i747a7+zR+0v8AtWf8I1428NfZf7b0T/hBddvPs32i1iuof31rYywvuhnif5XON2DhgQPP/wDiKO/4IUf9Hzf+Yy8T/wDysr6//Zc/aj+BP7aPwJ0L9pf9mjxz/wAJL4J8S/av7E1v+zLqz+0/Z7qW1m/c3UUUybZoJU+ZBnbkZUgn0CivL/jX+xF+xf8AtKeKrfx1+0Z+yJ8L/H+t2mnpYWus+NfAGnardQ2qvJItukt1C7rEHllcIDtDSOcZY5/BH/gzW/ZO/ZY/ag/4aO/4aX/Zp+H/AMRP7D/4RD+xP+E68G2Or/2f539t+d5H2qKTyvM8qLdtxu8pM52jH9B3hnwn8Av2UPg1Jo/g7wz4P+Gvw98I6fd381rplla6No2i2oMl1dXBVBHBbRAtLNI52rku7HkmvlD/AIiQ/wDgiV/wtP8A4U7/AMN7+H/7X/4SD+xvtn/CP6t/ZX2nz/I8z+0/sn2H7Nv5+1+f9n2fvPN8v56+z/Cfizwr498K6Z468C+JtP1rRNa0+G/0bWdJvUubW/tZkEkVxDLGSksToyurqSrKwIJBrQr8Af8Agxj/AObov+5J/wDc/X0//wAHknxS8d/D/wD4JH6b4T8I679k0/xz8YNG0TxTb/ZYpPtthHaahqSQ7nUtHi70+zl3RlWPk7SdjurYH/Dqv/gnH/xDK/8ACy/+GMPh/wD8Jb/wyB/wm3/Cbf2BH/bv9u/8I/8A2x9r/tP/AI+/+P35vK83yvK/0fZ9n/c1v/8ABm38UvHfxA/4JH6l4T8Xa79r0/wN8YNZ0Twtb/ZYo/sVhJaafqTw7kUNJm71C8l3SFmHnbQdiIq/q/Xwh/wRd/4IdeFf+CNHir4yXngX9onUPHGifE/UNKfRtP1bw2lndaJa2D6iYopriOdkvZWS+VWlWG3UtCWEah9qfV/7VX7NHws/bI/Zx8afsufGvSftfhjxz4fuNK1PZBBJNa+Yv7u7t/PjkjS5glEc8MjI3lzQxuBlBX5Q/wDEJL8U/wDhHP8AhnP/AIfUfGD/AIZ8/wCEg87/AIUz/ZU/2b+yv7R+2/Zc/wBp/YftO/8AefafsGz7R+/+z5+Sv1e/ZV/Zo+Fn7G/7OPgv9lz4KaT9k8MeBvD9vpWmb4II5rry1/eXdx5Eccb3M8pknmkVF8yaaRyMua//2Q=="
+              },
+              "offsetCalcType": "DockRight",
+              "position": 0
+            }
+          ],
+          "isParentNode": true,
+          "name": "skywardTower",
+          "position": 0,
+          "path": "shop.resource.skywardTower"
+        },
+        "currency": {
+          "$isParent": true,
+          "props": {
+            "isMultiPattern": false,
+            "patterns": [
+              {
+                "rect": {
+                  "x": 465.609375,
+                  "y": 518.1240234375,
+                  "width": 25.5,
+                  "height": 21.2080078125
+                },
+                "resolution": {
+                  "width": 1920,
+                  "height": 1080
+                },
+                "isBoundsPattern": false,
+                "isLocationDynamic": false,
+                "name": "pattern",
+                "imageData": "/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDAAEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQH/2wBDAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQH/wAARCAAVABkDASIAAhEBAxEB/8QAGgAAAgMBAQAAAAAAAAAAAAAAAAgGBwkFCv/EACwQAAEEAgECBAQHAAAAAAAAAAUCAwQGAQcIAAkRExRXEhUZlRcYI5PS1Nb/xAAZAQABBQAAAAAAAAAAAAAAAAAFAwQGBwj/xAAhEQADAAMAAwACAwAAAAAAAAABAgMEERIABSETMTJCYf/aAAwDAQACEQMRAD8Af3ty6seBCdY6dYuhYjaOUIZ7ktyx2ADKJXZWYQmS8LAa7ElFMzFVVJydYZymJzD/AM0wCrksYNSOS0mSixO4NXs6g4VbeqOloUih7dpXIKtAxVtps8si/FKvfLKBtg0sst6uQeJMMgbamvFZS3X2nUApaJCkoZV8PA7bKdU8VyNc4/BbW5Zdi26oTd6iJdkVGZtVzrRuIOGRxaJWEMrIi66Ygz4glTDaW0tTHorePMadcXJu7reDeOBlo26uufhltBi+UEBCt8GHID2JsFIsQlhxbD7zqijEVr18+ApuRIcw4ph6RH8pl5pCM2j2Zr7HFxw3UrXgInhJLVaNzNxMKSJgDhUBblU1okEeW2+AEc2X+pDU7Z20yOC3ZLaJKnTEj50DrfzxHuKPLO+bh5JWfh1sCwkdv0Coa2FUBEUlMHLs9iP1SAsRsE7WTkhptCbJMnQnDtPxKU8jBx6PHlOvQcZaxAPo5HParcn36s/x6zf4taItlg5Dg5HHu6m7UbEi1X81dwTokyRqiaed+bS7GzhEGRBxJKQ4cgsIDmI5B1z9OLPXNx5ql+gH6gW9PdKtfftbf5vpL22Xl+uy1HqDNxfHg2ShVoulEBRaMgChfzFqMF0COCf4spLmGJi5SbuqrwxCbqwB6YbACdfocgk/PoAJKHSRcN6GEskPb+syqVOY44ltdztQ3KMhmHeKUKtcO2kmglctMdCDgGOKdh5jLUIIw4x2ApiKdgTsQ2V9PRioW3m5ZRnF3kPsUlb9bTKYm8PyGAYoVZZT9QsktiDAIE4WW4031fo2FziaxzZNzKfBEhHgnKTo6jefl5KNe61YWjhYmVKpCmksivr8e9KyZgTNnsxo3BALH6Pg0YvGQ/OoRQq518cKPg/CmQyJMga6CqNDrZA/R8qTegHV3b/ABeMvF7WsLXoLbM90Xsm8xzhKdsO0DpasQCMZ61kUSjjCpkbOWcO5Jv5jx8Jjspw0hCU5afmcd9tKb+2r+v0dHRj0sUysSeTkmlsjIkl72pazUrV6WVno5p0xKzQDZ0oUBQBvwe7mShZhFVXdABOZAVVkVUbU6ALMdf6fP//Z",
+                "variancePct": 20,
+                "horizontalStretchMultiplier": 0,
+                "verticalStretchMultiplier": 0,
+                "textMatch": {
+                  "isActive": false,
+                  "text": null,
+                  "whiteList": null
+                },
+                "colorThreshold": {
+                  "isActive": false,
+                  "variancePct": 30,
+                  "color": null,
+                  "imageData": ""
+                },
+                "offsetCalcType": "Default",
+                "position": 0
+              }
+            ],
+            "isParentNode": true,
+            "name": "currency",
+            "position": 0,
+            "path": "shop.resource.skywardTower.currency"
+          }
+        }
       }
     },
     "normal": {
