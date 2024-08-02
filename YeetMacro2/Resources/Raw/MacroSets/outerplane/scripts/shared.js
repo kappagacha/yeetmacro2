@@ -132,14 +132,14 @@ function findShopItem(shopItemName) {
 		epicReforgeCatalyst3: /ep.c.*refo.ge/is,
 		epicReforgeCatalyst4: /ep.c.*refo.ge/is,
 		epicReforgeCatalyst5: /ep.c.*refo.ge/is,
-		'30pctEpicAbrasive': /30.*ep.c.*/is,
+		'30pctEpicAbrasive': /3[0o].*ep.c.*/is,
 		superiorQualityPresentChest: /sup.*pres/is,
-		'10pctLegendaryAbrasive': /10.*[lt]eg/is,
+		'10pctLegendaryAbrasive': /1[0o].*[lt]eg/is,
 		// season 2 survey hub items
 		stage2RandomGemChest: /r.ndom.*gem/is,
 		legendaryReforgeCatalyst: /.eg.*ref/is,
 		epicQualityPresentChest: /epic.*pres/is,
-		refinedGlunite: /ref.*g.un/is,
+		refinedGlunite: /ref.*?g.un/is,
 	}
 
 	let findResult;
