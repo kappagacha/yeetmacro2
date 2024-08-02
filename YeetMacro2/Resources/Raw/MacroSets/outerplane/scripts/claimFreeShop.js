@@ -80,7 +80,7 @@ while (macroService.IsRunning) {
 
 			if (!daily.claimFreeShop.resource.skywardTower.IsChecked) {
 				logger.info('claimFreeShop: claim Resource Skyward Tower');
-				const skywardTowerSwipeResult = macroService.SwipePollPattern(patterns.shop.resource.skywardTower, { MaxSwipes: 4, Start: { X: 180, Y: 650 }, End: { X: 180, Y: 250 } });
+				const skywardTowerSwipeResult = macroService.SwipePollPattern(patterns.shop.resource.skywardTower, { MaxSwipes: 5, Start: { X: 1000, Y: 160 }, End: { X: 850, Y: 160 } });
 				if (!skywardTowerSwipeResult.IsSuccess) {
 					throw new Error('Unable to find skyward tower');
 				}
