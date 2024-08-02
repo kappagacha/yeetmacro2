@@ -132,6 +132,7 @@ function findShopItem(shopItemName) {
 		epicReforgeCatalyst3: /ep.c.*refo.ge/is,
 		epicReforgeCatalyst4: /ep.c.*refo.ge/is,
 		epicReforgeCatalyst5: /ep.c.*refo.ge/is,
+		'30pctEpicAbrasive': /30.*ep.c.*/is,
 		superiorQualityPresentChest: /sup.*pres/is,
 		'10pctLegendaryAbrasive': /10.*[lt]eg/is,
 		// season 2 survey hub items
