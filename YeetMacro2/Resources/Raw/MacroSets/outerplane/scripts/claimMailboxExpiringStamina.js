@@ -1,4 +1,4 @@
-// Claim mailbox items close to expiration
+// Claim mailbox items close to expiration (only stamina)
 const loopPatterns = [patterns.lobby.level, patterns.titles.mailbox];
 let done = false;
 const daily = dailyManager.GetCurrentDaily();
