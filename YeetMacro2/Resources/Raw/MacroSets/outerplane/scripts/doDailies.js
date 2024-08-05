@@ -57,6 +57,11 @@ if (settings.doDailies.doBanditChase.Value) {
     goToLobby();
 }
 
+if (settings.doDailies.claimMailboxExpiring.Value) {
+    claimMailboxExpiring();
+    goToLobby();
+}
+
 if (settings.doDailies.doUpgradeStoneRetrieval.Value) {
     doUpgradeStoneRetrieval();
     goToLobby();
@@ -77,8 +82,8 @@ if (settings.doDailies.watchAds.Value) {
     goToLobby();
 }
 
-if (settings.doDailies.claimMailboxExpiring.Value) {
-    claimMailboxExpiring();
+if (settings.doDailies.claimMailboxExpiringStamina.Value) {
+    claimMailboxExpiringStamina();
     goToLobby();
 }
 

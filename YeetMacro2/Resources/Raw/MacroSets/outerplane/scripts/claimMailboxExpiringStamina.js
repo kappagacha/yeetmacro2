@@ -3,7 +3,7 @@ const loopPatterns = [patterns.lobby.level, patterns.titles.mailbox];
 let done = false;
 const daily = dailyManager.GetCurrentDaily();
 
-if (daily.claimMailboxExpiring.done.IsChecked) {
+if (daily.claimMailboxExpiringStamina.done.IsChecked) {
 	return "Script already completed. Uncheck done to override daily flag.";
 }
 
@@ -11,12 +11,12 @@ while (macroService.IsRunning) {
 	const loopResult = macroService.PollPattern(loopPatterns);
 	switch (loopResult.Path) {
 		case 'lobby.level':
-			logger.info('claimMailboxExpiring: click mailbox');
+			logger.info('claimMailboxExpiringStamina: click mailbox');
 			macroService.ClickPattern(patterns.lobby.mailbox);
 			sleep(500);
 			break;
 		case 'titles.mailbox':
-			logger.info('claimMailboxExpiring: claim mailbox items that are almost expiring');
+			logger.info('claimMailboxExpiringStamina: claim mailbox items that are almost expiring');
 			
 			while (!done) {
 				macroService.PollPattern(patterns.mailbox.normal, { DoClick: true, PredicatePattern: patterns.mailbox.normal.selected });
@@ -27,7 +27,7 @@ while (macroService.IsRunning) {
 				for (const p of receiveResult.Points) {
 					const staminaPattern = macroService.ClonePattern(patterns.mailbox.stamina, { CenterY: p.Y, Height: 50 });
 					const staminaPatternResult = macroService.FindPattern(staminaPattern);
-					if (staminaPatternResult.IsSuccess) {	// skip stamina
+					if (!staminaPatternResult.IsSuccess) {	// only stamina
 						continue;
 					}
 
@@ -54,7 +54,7 @@ while (macroService.IsRunning) {
 			}
 
 			if (macroService.IsRunning) {
-				daily.claimMailboxExpiring.done.IsChecked = true;
+				daily.claimMailboxExpiringStamina.done.IsChecked = true;
 			}
 			return;
 	}

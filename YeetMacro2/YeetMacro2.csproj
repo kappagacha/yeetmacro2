@@ -82,6 +82,7 @@
 	  <None Remove="Platforms\Android\Resources\xml\yeetmacro_config.xml" />
 	  <None Remove="Resources\Fonts\OpenSans-Medium.ttf" />
 	  <None Remove="Resources\Images\appicon2.svg" />
+	  <None Remove="Resources\Raw\MacroSets\outerplane\scripts\claimMailboxExpiring.js" />
 	  <None Remove="Resources\Splash\splash.svg" />
 	</ItemGroup>
 
@@ -429,6 +430,9 @@
     <MauiAsset Update="Resources\Raw\MacroSets\outerplane\scripts\claimArenaRewards.js">
       <LogicalName>%(RecursiveDir)%(Filename)%(Extension)</LogicalName>
     </MauiAsset>
+    <MauiAsset Update="Resources\Raw\MacroSets\outerplane\scripts\claimMailboxExpiring.js">
+      <LogicalName>%(RecursiveDir)%(Filename)%(Extension)</LogicalName>
+    </MauiAsset>
     <MauiAsset Update="Resources\Raw\MacroSets\outerplane\scripts\sweepJointChallenge.js">
       <LogicalName>%(RecursiveDir)%(Filename)%(Extension)</LogicalName>
     </MauiAsset>
@@ -444,7 +448,7 @@
     <MauiAsset Update="Resources\Raw\MacroSets\outerplane\scripts\testMailboxExpiring.js">
       <LogicalName>%(RecursiveDir)%(Filename)%(Extension)</LogicalName>
     </MauiAsset>
-    <MauiAsset Update="Resources\Raw\MacroSets\outerplane\scripts\claimMailboxExpiring.js">
+    <MauiAsset Update="Resources\Raw\MacroSets\outerplane\scripts\claimMailboxExpiringStamina.js">
       <LogicalName>%(RecursiveDir)%(Filename)%(Extension)</LogicalName>
     </MauiAsset>
     <MauiAsset Update="Resources\Raw\MacroSets\outerplane\scripts\doShop.js">
