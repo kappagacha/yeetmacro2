@@ -17,11 +17,6 @@ if (settings.doDailies.claimReplenishYourStamina.Value) {
     goToLobby();
 }
 
-if (settings.doDailies.claimMailboxExpiring.Value) {
-    claimMailboxExpiring();
-    goToLobby();
-}
-
 if (settings.doDailies.claimAntiparticle.Value) {
     claimAntiparticle();
     goToLobby();
@@ -39,11 +34,6 @@ if (settings.doDailies.claimFreeShop.Value) {
 
 if (settings.doDailies.doShop.Value) {
     doShop();
-    goToLobby();
-}
-
-if (settings.doDailies.sellInventory.Value) {
-    sellInventory();
     goToLobby();
 }
 
@@ -84,6 +74,11 @@ if (settings.doDailies.doGuildRaid.Value) {
 
 if (settings.doDailies.watchAds.Value) {
     watchAds();
+    goToLobby();
+}
+
+if (settings.doDailies.claimMailboxExpiring.Value) {
+    claimMailboxExpiring();
     goToLobby();
 }
 
@@ -146,5 +141,10 @@ if (settings.doDailies.sweepJointChallenge.Value) {
 
 if (settings.doDailies.doUpkeep.Value) {
     doUpkeep();
+    goToLobby();
+}
+
+if (settings.doDailies.sellInventory.Value) {
+    sellInventory();
     goToLobby();
 }
