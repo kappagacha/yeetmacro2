@@ -51,7 +51,6 @@ while (macroService.IsRunning) {
 				}
 			}
 			
-			const daily = dailyManager.GetCurrentDaily();
 			if (settings.doShop.evilSoulShop.advancedKeepsakeEnhanceStone.Value && !daily.doShop.evilSoulShop.advancedKeepsakeEnhanceStone.IsChecked) {
 				logger.info('doShop: evilSoulShop advancedKeepsakeEnhanceStone');
 				const evilSoulShopSwipe = macroService.SwipePollPattern(patterns.shop.evilSoulShop, { Start: { X: 100, Y: 650 }, End: { X: 100, Y: 200 } });
