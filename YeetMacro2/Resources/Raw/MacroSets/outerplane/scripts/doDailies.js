@@ -47,6 +47,11 @@ if (settings.doDailies.doArena.Value) {
     goToLobby();
 }
 
+if (settings.doDailies.claimMailboxExpiring.Value) {
+    claimMailboxExpiring();
+    goToLobby();
+}
+
 if (settings.doDailies.doBountyHunter.Value) {
     doBountyHunter();
     goToLobby();
@@ -54,11 +59,6 @@ if (settings.doDailies.doBountyHunter.Value) {
 
 if (settings.doDailies.doBanditChase.Value) {
     doBanditChase();
-    goToLobby();
-}
-
-if (settings.doDailies.claimMailboxExpiring.Value) {
-    claimMailboxExpiring();
     goToLobby();
 }
 
