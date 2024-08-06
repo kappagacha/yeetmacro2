@@ -58,14 +58,14 @@ while (macroService.IsRunning) {
 				if (macroService.IsRunning) {
 					daily.sweepEvent.eventRaid.IsChecked = true;
 				}
+			}
 
+			if (settings.sweepEvent.doEventStage.Value && !daily.sweepEvent.eventStage.IsChecked) {
 				const eventStageSwipeResult = macroService.SwipePollPattern(eventStagePattern, { Start: { X: 50, Y: 800 }, End: { X: 50, Y: 500 } });
 				if (!eventStageSwipeResult.IsSuccess) {
 					throw Error('Unable to find pattern: settings.eventRaid.eventStagePattern');
 				}
-			}
 
-			if (settings.sweepEvent.doEventStage.Value && !daily.sweepEvent.eventStage.IsChecked) {
 				macroService.PollPattern(eventStagePattern, { DoClick: true, PredicatePattern: patterns.event.eventStage });
 
 				// currency amount 1 is to the left in event banner page
