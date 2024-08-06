@@ -50,6 +50,35 @@ while (macroService.IsRunning) {
 					daily.doShop.doArtifact.done.IsChecked = true;
 				}
 			}
+			
+			const daily = dailyManager.GetCurrentDaily();
+			if (settings.doShop.evilSoulShop.advancedKeepsakeEnhanceStone.Value && !daily.doShop.evilSoulShop.advancedKeepsakeEnhanceStone.IsChecked) {
+				logger.info('doShop: evilSoulShop advancedKeepsakeEnhanceStone');
+				const evilSoulShopSwipe = macroService.SwipePollPattern(patterns.shop.evilSoulShop, { Start: { X: 100, Y: 650 }, End: { X: 100, Y: 200 } });
+				if (!evilSoulShopSwipe.IsSuccess) {
+					throw new Error('Unable to find regular pack');
+				}
+				macroService.PollPattern(patterns.shop.evilSoulShop, { DoClick: true, PredicatePattern: patterns.shop.evilSoulShop.selected });
+				sleep(1_000);
+
+				const advancedKeepsakeEnhanceStoneResult = macroService.FindPattern(patterns.shop.evilSoulShop.advancedKeepsakeEnhanceStone, { Limit: 2 });
+
+				for (const p of advancedKeepsakeEnhanceStoneResult.Points) {
+					let shopBuyResult = { IsSuccess: false };
+					while (macroService.IsRunning && !shopBuyResult.IsSuccess) {
+						macroService.DoClick(p);
+						sleep(1_000);
+						shopBuyResult = macroService.FindPattern(patterns.shop.buy);
+						sleep(1_000);
+					}
+					macroService.PollPattern(patterns.shop.evilSoulShop.buy, { DoClick: true, ClickOffset: { Y: 50 }, PredicatePattern: patterns.general.back });
+				}
+				sleep(1_000);
+
+				if (macroService.IsRunning) {
+					daily.doShop.evilSoulShop.advancedKeepsakeEnhanceStone.IsChecked = true;
+				}
+			}
 
 			logger.info('doShop: done');
 			if (macroService.IsRunning) {

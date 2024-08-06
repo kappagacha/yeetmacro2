@@ -1159,6 +1159,29 @@
         "position": 0,
         "path": "doShop.buyClassEnhanceWithGold"
       }
+    },
+    "evilSoulShop": {
+      "$isParent": true,
+      "props": {
+        "settingType": "Parent",
+        "isParentNode": true,
+        "name": "evilSoulShop",
+        "position": 0,
+        "path": "doShop.evilSoulShop"
+      },
+      "advancedKeepsakeEnhanceStone": {
+        "$isParent": false,
+        "props": {
+          "$type": "boolean",
+          "settingType": "Boolean",
+          "value": true,
+          "defaultValue": true,
+          "isParentNode": false,
+          "name": "advancedKeepsakeEnhanceStone",
+          "position": 0,
+          "path": "doShop.evilSoulShop.advancedKeepsakeEnhanceStone"
+        }
+      }
     }
   },
   "sweepDecoyOperation": {
@@ -1198,6 +1221,19 @@
       "name": "sweepEvent",
       "position": 0,
       "path": "sweepEvent"
+    },
+    "doEventRaid": {
+      "$isParent": false,
+      "props": {
+        "$type": "boolean",
+        "settingType": "Boolean",
+        "value": false,
+        "defaultValue": false,
+        "isParentNode": false,
+        "name": "doEventRaid",
+        "position": 0,
+        "path": "sweepEvent.doEventRaid"
+      }
     },
     "eventRaidPattern": {
       "$isParent": false,
@@ -1288,8 +1324,21 @@
         },
         "isParentNode": false,
         "name": "eventRaidPattern",
-        "position": 0,
+        "position": 1,
         "path": "sweepEvent.eventRaidPattern"
+      }
+    },
+    "doEventStage": {
+      "$isParent": false,
+      "props": {
+        "$type": "boolean",
+        "settingType": "Boolean",
+        "value": false,
+        "defaultValue": false,
+        "isParentNode": false,
+        "name": "doEventStage",
+        "position": 2,
+        "path": "sweepEvent.doEventStage"
       }
     },
     "eventStagePattern": {
@@ -1381,7 +1430,7 @@
         },
         "isParentNode": false,
         "name": "eventStagePattern",
-        "position": 0,
+        "position": 3,
         "path": "sweepEvent.eventStagePattern"
       }
     }
