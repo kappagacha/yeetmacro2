@@ -20,6 +20,7 @@ public partial class AndriodHomeViewModel : ObservableObject
     private readonly AndroidScreenService _screenService;
     private readonly MacroManagerViewModel _macroManagerViewModel;
     private readonly YeetAccessibilityService _accessibilityService;
+    private readonly LogServiceViewModel _logServiceViewModel;
     [ObservableProperty, NotifyPropertyChangedFor(nameof(IsCurrentPackageValid))]
     string _currentPackage;
     
@@ -64,12 +65,13 @@ public partial class AndriodHomeViewModel : ObservableObject
         }
     }
     public AndriodHomeViewModel(AndroidScreenService screenService, YeetAccessibilityService accessibilityService, 
-        MacroManagerViewModel macroManagerViewModel)
+        MacroManagerViewModel macroManagerViewModel, LogServiceViewModel logServiceViewModel)
     {
         _context = (MainActivity)Platform.CurrentActivity;
         _screenService = screenService;
         _accessibilityService = accessibilityService;
         _macroManagerViewModel = macroManagerViewModel;
+        _logServiceViewModel = logServiceViewModel;
 
         WeakReferenceMessenger.Default.Register<PropertyChangedMessage<bool>, string>(this, nameof(ForegroundService), (r, propertyChangedMessage) =>
         {
@@ -165,6 +167,8 @@ public partial class AndriodHomeViewModel : ObservableObject
     [RelayCommand]
     private void ToggleIsProjectionServiceEnabled()
     {
+        _logServiceViewModel.LogDebug($"AndriodHomeViewModel.IsProjectionServiceEnabled: {IsProjectionServiceEnabled}");
+
         if (!IsProjectionServiceEnabled)
         {
             _screenService.StartProjectionService();

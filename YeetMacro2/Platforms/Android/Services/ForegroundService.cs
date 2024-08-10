@@ -5,6 +5,8 @@ using Android.Runtime;
 using AndroidX.Core.App;
 using CommunityToolkit.Mvvm.Messaging.Messages;
 using CommunityToolkit.Mvvm.Messaging;
+using YeetMacro2.Services;
+using YeetMacro2.ViewModels;
 
 namespace YeetMacro2.Platforms.Android.Services;
 
@@ -14,20 +16,20 @@ public class ForegroundService : Service
     public const string FOREGROUND_CHANNEL_ID = "9001";
     public const string EXIT_ACTION = "EXIT";
     public const int SERVICE_RUNNING_NOTIFICATION_ID = 10000;
-
     public ForegroundService()
     {
-        Console.WriteLine("[*****YeetMacro*****] ForegroundService Constructor");
+        ServiceHelper.GetService<LogServiceViewModel>().LogDebug($"ForegroundService Constructor");
     }
 
     public override void OnCreate()
     {
-        Console.WriteLine("[*****YeetMacro*****] ForegroundService OnCreate");
+        ServiceHelper.GetService<LogServiceViewModel>().LogDebug($"ForegroundService.OnCreate");
         base.OnCreate();
     }
 
     public override StartCommandResult OnStartCommand(Intent intent, [GeneratedEnum] StartCommandFlags flags, int startId)
     {
+        ServiceHelper.GetService<LogServiceViewModel>().LogDebug($"ForegroundService.OnStartCommand intent.Action: {intent.Action}");
         switch (intent.Action)
         {
             case EXIT_ACTION:
@@ -119,20 +121,20 @@ public class ForegroundService : Service
 
     public override void OnRebind(Intent intent)
     {
-        Console.WriteLine("[*****YeetMacro*****] ForegroundService OnRebind");
+        ServiceHelper.GetService<LogServiceViewModel>().LogDebug($"ForegroundService.OnRebind");
         base.OnRebind(intent);
     }
 
     public override void OnDestroy()
     {
-        Console.WriteLine("[*****YeetMacro*****] ForegroundService OnDestroy");
+        ServiceHelper.GetService<LogServiceViewModel>().LogDebug($"ForegroundService.OnDestroy");
         WeakReferenceMessenger.Default.Unregister<MediaProjectionService>(this);
         base.OnDestroy();
     }
 
     public override IBinder OnBind(Intent intent)
     {
-        Console.WriteLine("[*****YeetMacro*****] ForegroundService OnBind");
+        ServiceHelper.GetService<LogServiceViewModel>().LogDebug($"ForegroundService.OnBind");
         return null;
     }
 }
