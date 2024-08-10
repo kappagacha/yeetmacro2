@@ -51,7 +51,6 @@ public class AndroidScreenService : IScreenService
     readonly IOcrService _ocrService;
     readonly YeetAccessibilityService _accessibilityService;
     readonly IToastService _toastService;
-    readonly LogServiceViewModel _logServiceViewModel;
     Size _initialResolution;
     readonly double _density;
     public IReadOnlyDictionary<AndroidWindowView, IShowable> Views => _views;
@@ -78,8 +77,7 @@ public class AndroidScreenService : IScreenService
     };
     public AndroidScreenService(ILogger<AndroidScreenService> logger, OpenCvService openCvService, 
         MediaProjectionService mediaProjectionService, IOcrService ocrService,
-        YeetAccessibilityService accessibilityService, IToastService toastService,
-        LogServiceViewModel logServiceViewModel)
+        YeetAccessibilityService accessibilityService, IToastService toastService)
     {
         _logger = logger;
         _context = (MainActivity)Platform.CurrentActivity;
@@ -88,7 +86,6 @@ public class AndroidScreenService : IScreenService
         _ocrService = ocrService;
         _accessibilityService = accessibilityService;
         _toastService = toastService;
-        _logServiceViewModel = logServiceViewModel;
         _windowManager = _context.GetSystemService(Context.WindowService).JavaCast<IWindowManager>();
         DeviceDisplay.MainDisplayInfoChanged += DeviceDisplay_MainDisplayInfoChanged;
         _initialResolution = new Size(DeviceDisplay.MainDisplayInfo.Width, DeviceDisplay.MainDisplayInfo.Height);
@@ -435,7 +432,7 @@ public class AndroidScreenService : IScreenService
 
     public void StartProjectionService()
     {
-        _logServiceViewModel.LogDebug($"AndroidScreenService.StartProjectionService");
+        ServiceHelper.GetService<LogServiceViewModel>().LogDebug($"AndroidScreenService.StartProjectionService");
         if (OperatingSystem.IsAndroidVersionAtLeast(33) &&
             _context.CheckSelfPermission(global::Android.Manifest.Permission.PostNotifications) != global::Android.Content.PM.Permission.Granted)
         {
@@ -449,7 +446,7 @@ public class AndroidScreenService : IScreenService
 
     public void StopProjectionService()
     {
-        _logServiceViewModel.LogDebug($"AndroidScreenService.StopProjectionService");
+        ServiceHelper.GetService<LogServiceViewModel>().LogDebug($"AndroidScreenService.StopProjectionService");
         _context.StartForegroundServiceCompat<ForegroundService>(ForegroundService.EXIT_ACTION);
     }
 

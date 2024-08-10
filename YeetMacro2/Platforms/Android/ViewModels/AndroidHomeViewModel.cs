@@ -6,6 +6,7 @@ using CommunityToolkit.Mvvm.Messaging;
 using YeetMacro2.Platforms.Android.Services;
 using YeetMacro2.ViewModels;
 using YeetMacro2.Data.Models;
+using YeetMacro2.Services;
 
 namespace YeetMacro2.Platforms.Android.ViewModels;
 
@@ -20,7 +21,6 @@ public partial class AndriodHomeViewModel : ObservableObject
     private readonly AndroidScreenService _screenService;
     private readonly MacroManagerViewModel _macroManagerViewModel;
     private readonly YeetAccessibilityService _accessibilityService;
-    private readonly LogServiceViewModel _logServiceViewModel;
     [ObservableProperty, NotifyPropertyChangedFor(nameof(IsCurrentPackageValid))]
     string _currentPackage;
     
@@ -65,13 +65,12 @@ public partial class AndriodHomeViewModel : ObservableObject
         }
     }
     public AndriodHomeViewModel(AndroidScreenService screenService, YeetAccessibilityService accessibilityService, 
-        MacroManagerViewModel macroManagerViewModel, LogServiceViewModel logServiceViewModel)
+        MacroManagerViewModel macroManagerViewModel)
     {
         _context = (MainActivity)Platform.CurrentActivity;
         _screenService = screenService;
         _accessibilityService = accessibilityService;
         _macroManagerViewModel = macroManagerViewModel;
-        _logServiceViewModel = logServiceViewModel;
 
         WeakReferenceMessenger.Default.Register<PropertyChangedMessage<bool>, string>(this, nameof(ForegroundService), (r, propertyChangedMessage) =>
         {
@@ -167,7 +166,7 @@ public partial class AndriodHomeViewModel : ObservableObject
     [RelayCommand]
     private void ToggleIsProjectionServiceEnabled()
     {
-        _logServiceViewModel.LogDebug($"AndriodHomeViewModel.IsProjectionServiceEnabled: {IsProjectionServiceEnabled}");
+        ServiceHelper.GetService<LogServiceViewModel>().LogDebug($"AndriodHomeViewModel.IsProjectionServiceEnabled: {IsProjectionServiceEnabled}");
 
         if (!IsProjectionServiceEnabled)
         {
