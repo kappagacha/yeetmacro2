@@ -23,7 +23,6 @@ public static class ServiceRegistrationHelper
         //mauiAppBuilder.Services.AddSingleton<IOcrService, OcrService>();
         mauiAppBuilder.Services.AddAutoMapper(typeof(App).GetTypeInfo().Assembly);
         mauiAppBuilder.Services.AddLazyResolution();
-        mauiAppBuilder.Logging.AddLogViewModelSink();
         mauiAppBuilder.Services.AddSingleton<MacroService>();
 
         //mauiAppBuilder.Services.AddTesseractOcr(files => files.AddFile("eng.traineddata"));
@@ -36,7 +35,7 @@ public static class ServiceRegistrationHelper
         mauiAppBuilder.Services.AddSingleton<MacroManagerViewModel>();
         mauiAppBuilder.Services.AddSingleton<NodeManagerViewModelFactory>();
         mauiAppBuilder.Services.AddSingleton<StatusPanelViewModel>();
-        mauiAppBuilder.Services.AddSingleton<LogViewModel>();
+        mauiAppBuilder.Services.AddSingleton<LogServiceViewModel>();
 
         return mauiAppBuilder;
     }
@@ -96,43 +95,4 @@ public static class LazyResolutionMiddlewareExtensions
 
 public class LazilyResolved<T>(IServiceProvider serviceProvider) : Lazy<T>(serviceProvider.GetRequiredService<T>)
 {
-}
-
-// https://github.com/adiamante/yeetoverflow/blob/main/YeetOverFlow.Logging/YeetLoggerServiceCollectionExtensions.cs
-// https://github.com/serilog/serilog-extensions-logging/blob/dev/src/Serilog.Extensions.Logging/SerilogLoggingBuilderExtensions.cs
-public static class StatusPanelModelSinkExtensions
-{
-    public static ILoggingBuilder AddLogViewModelSink(this ILoggingBuilder builder, Action<LoggerConfiguration> setupAction = null)
-    {
-        ArgumentNullException.ThrowIfNull(builder);
-
-        builder.Services.AddSingleton<ILoggerProvider, SerilogLoggerProvider>(sp =>
-        {
-            var logViewModel = sp.GetService<LogViewModel>();
-            // https://improveandrepeat.com/2014/08/structured-logging-with-serilog/
-            // https://github.com/serilog/serilog/wiki/Formatting-Output
-            // https://github.com/serilog/serilog-formatting-compact
-            var configuration = new LoggerConfiguration()
-                .MinimumLevel.Verbose()
-                .WriteTo.Console()
-                .WriteTo.LogViewModelSink(logViewModel)
-                // https://github.com/serilog/serilog/wiki/Configuration-Basics#filters
-                .Filter.ByExcluding(Matching.WithProperty<string>("SourceContext", sctx => sctx.StartsWith("Microsoft.")));
-                
-            setupAction?.Invoke(configuration);
-            var logger = configuration.CreateLogger();
-            return new SerilogLoggerProvider(logger, true);
-        });
-
-        builder.AddFilter<SerilogLoggerProvider>(null, LogLevel.Trace);
-
-        return builder;
-    }
-
-    public static LoggerConfiguration LogViewModelSink(
-              this LoggerSinkConfiguration loggerConfiguration,
-              LogViewModel logViewModel)
-    {
-        return loggerConfiguration.Sink(logViewModel);
-    }
 }

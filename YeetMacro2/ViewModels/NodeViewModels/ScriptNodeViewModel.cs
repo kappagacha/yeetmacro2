@@ -79,6 +79,16 @@ public partial class ScriptNodeViewModel : ScriptNode
         }
     }
 
+    public override bool DoLog
+    {
+        get => base.DoLog;
+        set
+        {
+            base.DoLog = value;
+            OnPropertyChanged();
+        }
+    }
+
     public override int Position
     {
         get => base.Position;

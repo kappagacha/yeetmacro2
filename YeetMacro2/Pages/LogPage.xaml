@@ -1,20 +1,133 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             xmlns:vm="clr-namespace:YeetMacro2.ViewModels"
-             xmlns:m="clr-namespace:YeetMacro2.Data.Models"
-             xmlns:conv="clr-namespace:YeetMacro2.Converters"
-             xmlns:v="clr-namespace:YeetMacro2.Views"
-             x:DataType="vm:LogViewModel"
-             vm:ViewModelLocator.ViewModelType="{x:Type vm:LogViewModel}"
-             xmlns:mct="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
              x:Class="YeetMacro2.Pages.LogPage"
+             xmlns:m="clr-namespace:YeetMacro2.Data.Models"
+             xmlns:vm="clr-namespace:YeetMacro2.ViewModels"
+             xmlns:v="clr-namespace:YeetMacro2.Views"
+             x:DataType="vm:LogServiceViewModel"
+             vm:ViewModelLocator.ViewModelType="{x:Type vm:LogServiceViewModel}"
+             xmlns:conv="clr-namespace:YeetMacro2.Converters"
              xmlns:mi="clr-namespace:UraniumUI.Icons.MaterialIcons;assembly=UraniumUI.Icons.MaterialIcons"
-             BackgroundColor="{AppThemeBinding Light={StaticResource Background}, Dark={StaticResource BackgroundDark}}"
-             Padding="0">
-    <mct:DockLayout BindingContext="{Binding SelectedLog}">
-        <Label mct:DockLayout.DockPosition="Top" x:DataType="{x:Type m:Log}" Text="{Binding Timestamp, StringFormat='{}Timestamp: {0}'}" />
-        <Label mct:DockLayout.DockPosition="Top" x:DataType="{x:Type m:Log}" Text="{Binding Message, StringFormat='{}Message: {0}'}" />
-        <Label x:DataType="{x:Type m:Log}" Text="{Binding Stack, StringFormat='{}Stack: {0}'}" />
-    </mct:DockLayout>
+             xmlns:p="clr-namespace:YeetMacro2.Pages"
+             x:Name="thisPage"
+             Title="LogPage">
+    <ContentPage.Resources>
+        <DataTemplate x:Key="ScriptLogTemplate" x:DataType="vm:ScriptLogViewModel">
+            <Grid ColumnDefinitions="Auto,*" RowDefinitions="Auto,Auto" ColumnSpacing="5">
+                <Grid WidthRequest="15" />
+                <v:ToggleImageView Grid.Row="0" Grid.Column="0"
+                           x:Name="toggleImageView"
+                           IsVisible="{Binding Logs.Count, Converter={conv:NumberToBoolConverter}}"
+                           ImageHeight="15"
+                           ImageWidth="15"
+                           FontFamily="MaterialOutlined" 
+                           Glyph="{x:Static mi:MaterialOutlined.Keyboard_arrow_right}"
+                           ToggledGlyph="{x:Static mi:MaterialOutlined.Keyboard_arrow_down}"
+                           IsToggledFromImageOnly="True"
+                           HeightRequest="20" />
+                <Grid Grid.Row="0" Grid.Column="1" HeightRequest="20">
+                    <Grid HeightRequest="20">
+                        <Label Margin="0" Padding="0" VerticalOptions="Center" BackgroundColor="Transparent">
+                            <Label.Text>
+                                <MultiBinding StringFormat="{}[{0}] {1}">
+                                    <Binding Path="MacroSet" />
+                                    <Binding Path="Script" />
+                                </MultiBinding>
+                            </Label.Text>
+                            <Label.Triggers>
+                                <DataTrigger TargetType="Label" Binding="{Binding IsSelected}" Value="True">
+                                    <Setter Property="BackgroundColor" Value="Blue" />
+                                </DataTrigger>
+                            </Label.Triggers>
+                        </Label>
+                        <ImageButton Margin="0" Padding="0" CommandParameter="{Binding .}" 
+                                     Command="{Binding BindingContext.SelectLogCommand, Source={RelativeSource AncestorType={x:Type p:LogPage}}}" />
+                    </Grid>
+                </Grid>
+                <Grid Grid.Row="1" Grid.Column="1" IsVisible="{Binding Logs.Count, Converter={conv:NumberToBoolConverter}}">
+                    <CollectionView ItemsSource="{Binding Logs}" IsVisible="{Binding IsToggled, Source={Reference toggleImageView}}"
+                            ItemTemplate="{conv:DynamicTemplateSelector}" />
+                </Grid>
+            </Grid>
+        </DataTemplate>
+        <DataTemplate x:Key="ExceptionLogTemplate" x:DataType="vm:ExceptionLogViewModel">
+            <Grid ColumnDefinitions="Auto,*" RowDefinitions="Auto,Auto" ColumnSpacing="5">
+                <Grid WidthRequest="15" />
+                <v:ToggleImageView Grid.Row="0" Grid.Column="0"
+                                   x:Name="toggleImageView"
+                                   IsVisible="{Binding Logs.Count, Converter={conv:NumberToBoolConverter}}"
+                                   ImageHeight="15"
+                                   ImageWidth="15"
+                                   FontFamily="MaterialOutlined" 
+                                   Glyph="{x:Static mi:MaterialOutlined.Keyboard_arrow_right}"
+                                   ToggledGlyph="{x:Static mi:MaterialOutlined.Keyboard_arrow_down}"
+                                   IsToggledFromImageOnly="True"
+                                   HeightRequest="20" />
+                <Grid Grid.Row="0" Grid.Column="1" HeightRequest="20">
+                    <Grid HeightRequest="20">
+                        <Label Text="{Binding Message}" Margin="0" Padding="0" VerticalOptions="Center" BackgroundColor="Transparent">
+                            <Label.Triggers>
+                                <DataTrigger TargetType="Label" Binding="{Binding IsSelected}" Value="True">
+                                    <Setter Property="BackgroundColor" Value="Blue" />
+                                </DataTrigger>
+                            </Label.Triggers>
+                        </Label>
+                        <ImageButton Margin="0" Padding="0" CommandParameter="{Binding .}" 
+                                     Command="{Binding BindingContext.SelectLogCommand, Source={RelativeSource AncestorType={x:Type p:LogPage}}}" />
+                    </Grid>
+                </Grid>
+                <Grid Grid.Row="1" Grid.Column="1" IsVisible="{Binding Logs.Count, Converter={conv:NumberToBoolConverter}}">
+                    <CollectionView ItemsSource="{Binding Logs}" IsVisible="{Binding IsToggled, Source={Reference toggleImageView}}"
+                                    ItemTemplate="{conv:DynamicTemplateSelector}" />
+                </Grid>
+            </Grid>
+        </DataTemplate>
+        <DataTemplate x:Key="ScreenCaptureLogTemplate" x:DataType="vm:ScreenCaptureLogViewModel">
+            <Grid HeightRequest="20">
+                <Label Text="{Binding Message}" Margin="0" Padding="0" VerticalOptions="Center" BackgroundColor="Transparent">
+                    <Label.Triggers>
+                        <DataTrigger TargetType="Label" Binding="{Binding IsSelected}" Value="True">
+                            <Setter Property="BackgroundColor" Value="Blue" />
+                        </DataTrigger>
+                    </Label.Triggers>
+                </Label>
+                <ImageButton Margin="0" Padding="0" CommandParameter="{Binding .}" 
+                             Command="{Binding BindingContext.SelectLogCommand, Source={RelativeSource AncestorType={x:Type p:LogPage}}}" />
+            </Grid>
+        </DataTemplate>
+        <DataTemplate x:Key="LogTemplate" x:DataType="vm:LogViewModel">
+            <Grid HeightRequest="20">
+                <Label Text="{Binding Message}" Margin="0" Padding="0" VerticalOptions="Center" BackgroundColor="Transparent">
+                    <Label.Triggers>
+                        <DataTrigger TargetType="Label" Binding="{Binding IsSelected}" Value="True">
+                            <Setter Property="BackgroundColor" Value="Blue" />
+                        </DataTrigger>
+                    </Label.Triggers>
+                </Label>
+                <ImageButton Margin="0" Padding="0" CommandParameter="{Binding .}" 
+                             Command="{Binding BindingContext.SelectLogCommand, Source={RelativeSource AncestorType={x:Type p:LogPage}}}" />
+            </Grid>
+        </DataTemplate>
+    </ContentPage.Resources>
+    <Grid>
+        <Image Source="{Binding LogImage}" />
+        <Grid RowDefinitions="Auto,*">
+            <Grid.Triggers>
+                <DataTrigger TargetType="Grid" Binding="{Binding LogImage, Converter={conv:NullToBoolConverter}}" Value="False">
+                    <Setter Property="Opacity" Value="0.2" />
+                </DataTrigger>
+            </Grid.Triggers>
+            <FlexLayout Grid.Row="0" JustifyContent="SpaceEvenly">
+                <Button Text="Test" FontAttributes="Bold" Command="{Binding TestCommand}"/>
+                <Button Text="Load Logs" FontAttributes="Bold" Command="{Binding LoadLogsCommand}"/>
+                <Button Text="Clear Logs" FontAttributes="Bold" TextColor="White" BackgroundColor="Red" Command="{Binding ClearLogsCommand}"/>
+            </FlexLayout>
+            <ScrollView Grid.Row="1" >
+                <CollectionView ItemsSource="{Binding Logs}" HorizontalOptions="Fill"  VerticalOptions="Fill"
+                        ItemTemplate="{conv:DynamicTemplateSelector Root={Binding .,Source={Reference thisPage}}}" />
+            </ScrollView>
+        </Grid>
+    </Grid>
+    
 </ContentPage>

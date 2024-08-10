@@ -29,9 +29,11 @@ public class YeetMacroDbContext : DbContext
     public DbSet<PatternSetting> PatternSettings { get; set; }
     public DbSet<EnabledPatternSetting> EnabledPatternSettings { get; set; }
     public DbSet<TimestampSetting> TimestampSettings { get; set; }
-    public DbSet<LogGroup> LogGroups { get; set; }
-    public DbSet<Log> Logs { get; set; }
     public DbSet<TodoNode> TodoNodes { get; set; }
+    public DbSet<Log> Logs { get; set; }
+    public DbSet<ExceptionLog> ExceptionLogs { get; set; }
+    public DbSet<ScreenCaptureLog> ScreenCaptureLogs { get; set; }
+    public DbSet<ScriptLog> ScriptLogs { get; set; }
 
     public YeetMacroDbContext()
     {
@@ -116,10 +118,15 @@ public class YeetMacroDbContext : DbContext
             .OnDelete(DeleteBehavior.Cascade);
         modelBuilder.Entity<PatternSetting>().Navigation(ps => ps.DefaultValue).AutoInclude();
         modelBuilder.Entity<TimestampSetting>().Ignore(ts => ts.LocalValue);
-        modelBuilder.Entity<LogGroup>().OwnsMany(lg => lg.Logs, (l) =>
-        {
-            l.HasKey(l => l.LogId);
-        });
+
+        modelBuilder.Entity<Log>().Ignore(l => l.IsSelected);
+        //modelBuilder.Entity<ScriptLog>().HasMany(sl => sl.Logs).WithOne().HasForeignKey($"{nameof(ScriptLog)}{nameof(Log.ParentId)}").OnDelete(DeleteBehavior.Cascade);
+        //modelBuilder.Entity<ExceptionLog>().HasMany(exl => exl.Logs).WithOne().HasForeignKey($"{nameof(ExceptionLog)}{nameof(Log.ExceptionLogParentId)}").OnDelete(DeleteBehavior.Cascade);
+        //modelBuilder.Entity<ScriptLog>().HasMany(sl => sl.Logs).WithOne().HasForeignKey(nameof(Log.ParentId)).OnDelete(DeleteBehavior.Cascade);
+        //modelBuilder.Entity<ExceptionLog>().HasMany(exl => exl.Logs).WithOne().HasForeignKey(nameof(Log.ExceptionLogParentId)).OnDelete(DeleteBehavior.Cascade);
+
+        modelBuilder.Entity<ScriptLog>().HasMany(sl => sl.Logs).WithOne().HasForeignKey(l => l.ParentId).OnDelete(DeleteBehavior.Cascade);
+        modelBuilder.Entity<ExceptionLog>().HasMany(exl => exl.Logs).WithOne().HasForeignKey(l => l.ParentId).OnDelete(DeleteBehavior.Cascade);
 
         modelBuilder.Entity<TodoNode>().Ignore(d => d.DataText);
         modelBuilder.Entity<TodoNode>().Property(d => d.Data).HasConversion(jsonObjectConverter);

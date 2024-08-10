@@ -224,6 +224,11 @@ public class AndroidScreenService : IScreenService
         return result;
     }
 
+    public byte[] GetCurrentImageData()
+    {
+        return _mediaProjectionService.GetCurrentImageData();
+    }
+
     public byte[] GetCurrentImageData(Rect rect)
     {
         return _mediaProjectionService.GetCurrentImageData(rect);

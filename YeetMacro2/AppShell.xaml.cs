@@ -28,6 +28,12 @@ public partial class AppShell : Shell
         //    Route = "Home",
         //    ContentTemplate = new DataTemplate(typeof(WindowsHomePage))
         //});
+        this.Items.Add(new ShellContent()
+        {
+            Title = "Logs",
+            Route = "Logs",
+            ContentTemplate = new DataTemplate(typeof(LogPage))
+        });
 #endif
 
         //this.Items.Add(new ShellContent()
@@ -46,13 +52,10 @@ public partial class AppShell : Shell
 
         this.Items.Add(new ShellContent()
         {
-            Title = "Log Groups",
-            Route = "LogGroups",
-            ContentTemplate = new DataTemplate(typeof(LogGroupsPage))
+            Title = "Logs",
+            Route = "Logs",
+            ContentTemplate = new DataTemplate(typeof(LogPage))
         });
-
-        Routing.RegisterRoute("LogGroupItem", typeof(LogGroupItemPage));
-        Routing.RegisterRoute("Log", typeof(LogPage));
 
 #if ANDROID
         this.Items.Add(new ShellContent()

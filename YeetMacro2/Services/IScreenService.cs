@@ -40,6 +40,7 @@ public interface IScreenService
     void DoClick(Point point);
     void DoSwipe(Point start, Point end);
     Byte[] CalcColorThreshold(Pattern pattern, ColorThresholdProperties colorThreshold);
+    byte[] GetCurrentImageData();
     byte[] GetCurrentImageData(Rect rect);
     string GetText(Pattern pattern, TextFindOptions opts);
     Task<string> GetTextAsync(Pattern pattern, TextFindOptions opts);

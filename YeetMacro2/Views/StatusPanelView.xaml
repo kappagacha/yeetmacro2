@@ -12,8 +12,8 @@
              HeightRequest="20" Padding="0">
     <Grid BackgroundColor="Blue" Margin="0" Padding="0" HeightRequest="10">
         <Grid ColumnDefinitions="*,*" Margin="0" Padding="0">
-            <Label Grid.Column="0" Margin="20,0,0,0" FontSize="Micro" Text="{Binding LogViewModel.Info}" Padding="0" VerticalTextAlignment="Start" />
-            <Label Grid.Column="1" FontSize="Micro" Text="{Binding LogViewModel.Debug}" Padding="0" VerticalTextAlignment="Start" />
+            <Label Grid.Column="0" Margin="20,0,0,0" FontSize="Micro" Text="{Binding LogServiceViewModel.Info}" Padding="0" VerticalTextAlignment="Start" />
+            <Label Grid.Column="1" FontSize="Micro" Text="{Binding LogServiceViewModel.Debug}" Padding="0" VerticalTextAlignment="Start" />
         </Grid>
         <Grid HorizontalOptions="End">
             <v:ToggleImageView IsToggled="{Binding IsRecording}" 

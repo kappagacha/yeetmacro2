@@ -44,20 +44,20 @@ public class MainActivity : MauiAppCompatActivity
             {
                 ServiceHelper.GetService<YeetAccessibilityService>().Stop();
             }
-            ServiceHelper.GetService<LogViewModel>().LogException(args.ExceptionObject as Exception);
+            ServiceHelper.GetService<LogServiceViewModel>().LogException(args.ExceptionObject as Exception);
         };
 
         // https://gist.github.com/mattjohnsonpint/7b385b7a2da7059c4a16562bc5ddb3b7
         Android.Runtime.AndroidEnvironment.UnhandledExceptionRaiser += (sender, args) =>
         {
             Console.WriteLine("[*****YeetMacro*****] UnhandledExceptionRaiser UnhandledException: " + args.Exception.Message);
-            ServiceHelper.GetService<LogViewModel>().LogException(args.Exception );
+            ServiceHelper.GetService<LogServiceViewModel>().LogException(args.Exception );
         };
 
         TaskScheduler.UnobservedTaskException += (sender, args) =>
         {
             Console.WriteLine("[*****YeetMacro*****] TaskScheduler UnobservedTaskException: " + args.Exception.Message);
-            ServiceHelper.GetService<LogViewModel>().LogException(args.Exception);
+            ServiceHelper.GetService<LogServiceViewModel>().LogException(args.Exception);
         };
 
         base.OnCreate(savedInstanceState);
@@ -65,6 +65,8 @@ public class MainActivity : MauiAppCompatActivity
 
     protected override void OnActivityResult(int requestCode, [GeneratedEnum] Result resultCode, Intent data)
     {
+        ServiceHelper.GetService<LogServiceViewModel>().LogDebug($"MainActivity.OnActivityResult requestCode: {requestCode}");
+        ServiceHelper.GetService<LogServiceViewModel>().LogDebug($"MainActivity.OnActivityResult resultCode: {resultCode}");
         switch (requestCode)
         {
             case Platforms.Android.Services.MediaProjectionService.REQUEST_MEDIA_PROJECTION:

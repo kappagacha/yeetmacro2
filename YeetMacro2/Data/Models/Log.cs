@@ -1,25 +1,36 @@
 ﻿using System.Text.Json.Serialization;
 namespace YeetMacro2.Data.Models;
 
-public class LogGroup
+public class ScriptLog : Log
 {
-    [JsonIgnore]
-    public int LogGroupId { get; set; }
-    public long Timestamp { get; set; }
     public string MacroSet { get; set; }
     public string Script { get; set; }
-    public string Stack { get; set; }
-    public ICollection<Log> Logs { get; set; }
+    public IList<Log> Logs { get; set; }
+}
+
+public class ExceptionLog : Log
+{
+    public IList<Log> Logs { get; set; }
+}
+
+// TODO: make function for script engine
+// TODO: update UI to work
+public class ScreenCaptureLog : Log
+{
+    public byte[] ScreenCapture { get; set; }
 }
 
 public class Log
 {
     [JsonIgnore]
     public int LogId { get; set; }
+    [JsonIgnore]
+    public int? ParentId { get; set; }
     public long Timestamp { get; set; }
-    public LogType Type { get; set; }
     public string Message { get; set; }
-    public string Stack { get; set; }
+    public LogType Type { get; set; }
+    [JsonIgnore]
+    public virtual bool IsSelected { get; set; }
 }
 
 public enum LogType

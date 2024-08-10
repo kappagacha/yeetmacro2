@@ -11,6 +11,7 @@ using Rect = Microsoft.Maui.Graphics.Rect;
 using Microsoft.Extensions.Logging;
 using CommunityToolkit.Mvvm.Messaging;
 using CommunityToolkit.Mvvm.Messaging.Messages;
+using YeetMacro2.ViewModels;
 
 namespace YeetMacro2.Platforms.Android.Services;
 
@@ -56,7 +57,7 @@ public class MediaProjectionService : IRecorderService
     {
         try
         {
-            _logger.LogTrace("MediaProjectionService Start");
+            ServiceHelper.GetService<LogServiceViewModel>().LogDebug($"MediaProjectionService Start");
 
             var screenService = ServiceHelper.GetService<AndroidScreenService>();
             var currentResolution = screenService.CalcResolution;
@@ -71,7 +72,8 @@ public class MediaProjectionService : IRecorderService
         }
         catch (Exception ex)
         {
-            _logger.LogError(ex, "MediaProjectionService Init Exception");
+            ServiceHelper.GetService<LogServiceViewModel>().LogDebug($"MediaProjectionService Start Exception: {ex.Message}");
+            ServiceHelper.GetService<LogServiceViewModel>().LogException(ex);
         }
     }
 
@@ -80,6 +82,7 @@ public class MediaProjectionService : IRecorderService
         _resultCode = (int)resultCode;
         _resultData = resultData;
 
+        ServiceHelper.GetService<LogServiceViewModel>().LogDebug($"MediaProjectionService resultCode: {resultCode}");
         if (resultCode != global::Android.App.Result.Ok)
         {
             if (_context != null)
@@ -87,29 +90,14 @@ public class MediaProjectionService : IRecorderService
                 Toast.MakeText(_context, "Media projection canceled...", ToastLength.Short).Show();
             }
             WeakReferenceMessenger.Default.Send(this);
+
+            ServiceHelper.GetService<LogServiceViewModel>().LogDebug($"MediaProjectionService Canceled");
             return;
         }
 
         Toast.MakeText(_context, "Media projection initialized...", ToastLength.Short).Show();
+        ServiceHelper.GetService<LogServiceViewModel>().LogDebug($"MediaProjectionService Initialized");
         WeakReferenceMessenger.Default.Send(this);
-    }
-
-    // https://stackoverflow.com/questions/18760252/timeout-an-async-method-implemented-with-taskcompletionsource
-    public async Task<TResult> TimeoutAfter<TResult>(Task<TResult> task, TimeSpan timeout)
-    {
-        using (var timeoutCancellationTokenSource = new CancellationTokenSource())
-        {
-            var completedTask = await Task.WhenAny(task, Task.Delay(timeout, timeoutCancellationTokenSource.Token));
-            if (completedTask == task)
-            {
-                timeoutCancellationTokenSource.Cancel();
-                return await task;  // Very important in order to propagate exceptions
-            }
-            else
-            {
-                throw new TimeoutException($"{nameof(TimeoutAfter)}: The operation has timed out after {timeout:mm\\:ss}");
-            }
-        }
     }
 
     private Bitmap GetBitmap()
@@ -167,6 +155,8 @@ public class MediaProjectionService : IRecorderService
         {
             Toast.MakeText(_context, "Media projection stopped...", ToastLength.Short).Show();
         }
+
+        ServiceHelper.GetService<LogServiceViewModel>().LogDebug($"MediaProjectionService Stop");
     }
 
     public byte[] GetCurrentImageData()

@@ -3,12 +3,12 @@ using YeetMacro2.Services;
 
 namespace YeetMacro2.ViewModels;
 
-public partial class StatusPanelViewModel(IRecorderService recorderService, IToastService toastService, LogViewModel logViewModel) : ObservableObject
+public partial class StatusPanelViewModel(IRecorderService recorderService, IToastService toastService, LogServiceViewModel LogServiceViewModel) : ObservableObject
 {
     readonly IRecorderService _recorderService = recorderService;
     readonly IToastService _toastService = toastService;
     [ObservableProperty]
-    LogViewModel _logViewModel = logViewModel;
+    LogServiceViewModel _logServiceViewModel = LogServiceViewModel;
     [ObservableProperty]
     bool _isRecording;
 

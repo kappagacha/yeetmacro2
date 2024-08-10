@@ -1,6 +1,5 @@
 ﻿using CommunityToolkit.Mvvm.Messaging.Messages;
 using CommunityToolkit.Mvvm.Messaging;
-using Microsoft.Extensions.Logging;
 using OneOf;
 using System.Text.Json.Serialization;
 using YeetMacro2.Data.Models;
@@ -51,16 +50,16 @@ public class CloneOptions
 
 public class MacroService
 {
-    readonly ILogger _logger;
+    readonly LogServiceViewModel _logServiceViewModel;
     readonly IScreenService _screenService;
     readonly Dictionary<string, Point> _pathToOffset;
     readonly Random _random;
     public bool InDebugMode { get; set; }
     public bool IsRunning { get; set; }
 
-    public MacroService(ILogger<MacroService> logger, IScreenService screenService)
+    public MacroService(LogServiceViewModel LogServiceViewModel, IScreenService screenService)
     {
-        _logger = logger;
+        _logServiceViewModel = LogServiceViewModel;
         _screenService = screenService;
         _pathToOffset = [];
         _random = new Random();
@@ -177,7 +176,7 @@ public class MacroService
                 if (!IsRunning) break;
 
                 var path = patternNode.Path;
-                _logger.LogDebug($"Find: {path}");
+                _logServiceViewModel.Debug = $"Find: {path}";
 
                 if (patternNode.IsMultiPattern)
                 {
@@ -269,7 +268,7 @@ public class MacroService
         }
         catch (Exception ex)
         {
-            _logger.LogDebug($"findPattern failed: {ex.Message}");
+            _logServiceViewModel.Debug = $"findPattern failed: {ex.Message}";
             throw;
         }
     }
@@ -456,7 +455,7 @@ public class MacroService
         }
         catch (Exception ex)
         {
-            _logger.LogDebug($"debugRectangle failed: {ex.Message}");
+            _logServiceViewModel.Debug = $"debugRectangle failed: {ex.Message}";
             throw;
         }
     }
@@ -472,7 +471,7 @@ public class MacroService
         }
         catch (Exception ex)
         {
-            _logger.LogDebug($"debugClear failed: {ex.Message}");
+            _logServiceViewModel.Debug = $"debugClear failed: {ex.Message}";
             throw;
         }
     }
@@ -491,7 +490,7 @@ public class MacroService
         }
         catch (Exception ex)
         {
-            _logger.LogDebug($"DoSwipe failed: {ex.Message}");
+            _logServiceViewModel.Debug = $"DoSwipe failed: {ex.Message}";
             throw;
         }
     }
@@ -543,12 +542,12 @@ public class MacroService
             }
             catch (Exception ex)
             {
-                _logger.LogError(ex, "GetText Error");
+                _logServiceViewModel.LogException(ex);
                 Sleep(200);
                 currentTry++;
             }
         }
-        _logger.LogDebug($"getText failed {maxTry} times...");
+        _logServiceViewModel.Debug = $"getText failed {maxTry} times...";
         return String.Empty;
     }
 

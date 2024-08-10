@@ -83,6 +83,21 @@ public class WindowsScreenService : IScreenService, IRecorderService
         throw new NotImplementedException();
     }
 
+    public byte[] GetCurrentImageData()
+    {
+        var mdi = DeviceDisplay.Current.MainDisplayInfo;
+        // https://nishanc.medium.com/c-screenshot-utility-to-capture-a-portion-of-the-screen-489ddceeee49
+        Rectangle rect = new Rectangle(0, 0, (int)mdi.Width, (int)mdi.Height);
+        var bmp = new Bitmap(rect.Width, rect.Height, PixelFormat.Format32bppArgb);
+        Graphics g = Graphics.FromImage(bmp);
+        var size = new System.Drawing.Size((int)rect.Width, (int)rect.Height);
+        g.CopyFromScreen(0, 0, 0, 0, size, CopyPixelOperation.SourceCopy);
+        
+        var stream = new MemoryStream();
+        bmp.Save(stream, System.Drawing.Imaging.ImageFormat.Jpeg);
+        return stream.ToArray();
+    }
+
     public byte[] GetCurrentImageData(Rect rect)
     {
         // https://nishanc.medium.com/c-screenshot-utility-to-capture-a-portion-of-the-screen-489ddceeee49

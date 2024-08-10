@@ -43,7 +43,7 @@ public partial class MacroManagerViewModel : ObservableObject
     readonly IScriptService _scriptService;
     [ObservableProperty]
     bool _isExportEnabled, _isOpenAppDirectoryEnabled, _inDebugMode, 
-        _showExport, _isBusy, _persistLogs, _showMacroSetDescriptionEditor, _isScriptRunning;
+        _showExport, _isBusy, _showMacroSetDescriptionEditor, _isScriptRunning;
     [ObservableProperty]
     double _resolutionWidth, _resolutionHeight, _defaultLocationX, _defaultLocationY;
     [ObservableProperty]
@@ -340,18 +340,10 @@ public partial class MacroManagerViewModel : ObservableObject
 
         await Task.Run(() =>
         {
-            IsScriptRunning = true;
-            if (PersistLogs) 
-            { 
-                _logger.LogInformation("{persistLogs}", true);
-                _logger.LogInformation("{macroSet} {script}", SelectedMacroSet?.Name ?? string.Empty, scriptNode.Name);
-            };
             Console.WriteLine($"[*****YeetMacro*****] MacroManagerViewModel ExecuteScript");
-
             WeakReferenceMessenger.Default.Send(new ScriptEventMessage(new ScriptEvent() {  Type = ScriptEventType.Started }));
             var result = _scriptService.RunScript(scriptNode, Scripts, SelectedMacroSet, Patterns, Settings, Dailies, Weeklies);
             WeakReferenceMessenger.Default.Send(new ScriptEventMessage(new ScriptEvent() { Type = ScriptEventType.Finished, Result = result }));
-            if (PersistLogs) _logger.LogInformation("{persistLogs}", false);
             IsScriptRunning = false;
         });
     }

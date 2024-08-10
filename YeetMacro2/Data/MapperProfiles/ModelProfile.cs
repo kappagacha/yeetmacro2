@@ -31,5 +31,10 @@ public class ModelProfile : Profile
           .ConvertUsing(src => src == null ? null : JsonNode.Parse(src.ToJsonString(JsonSerializerOptions.Default), null, default)
           .AsObject());
 
+        CreateMap<ScriptLog, ScriptLogViewModel>();
+        CreateMap<ExceptionLog, ExceptionLogViewModel>();
+        CreateMap<ScreenCaptureLog, ScreenCaptureLogViewModel>();
+        CreateMap<Log, LogViewModel>();
+
     }
 }

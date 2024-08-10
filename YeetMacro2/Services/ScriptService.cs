@@ -1,5 +1,4 @@
-﻿using Microsoft.Extensions.Logging;
-using YeetMacro2.Data.Models;
+﻿using YeetMacro2.Data.Models;
 using Jint;
 using System.Dynamic;
 using Jint.Runtime.Interop;
@@ -25,7 +24,7 @@ public interface IScriptService
 
 public class ScriptService: IScriptService
 {
-    readonly ILogger _logger;
+    readonly LogServiceViewModel _logServiceViewModel;
     readonly IScreenService _screenService;
     readonly IToastService _toastService;
     readonly Engine _engine;
@@ -38,9 +37,9 @@ public class ScriptService: IScriptService
         WriteIndented = true
     };
              
-    public ScriptService(ILogger<ScriptService> logger, IScreenService screenService, IToastService toastService, MacroService macroService)
+    public ScriptService(LogServiceViewModel LogServiceViewModel, IScreenService screenService, IToastService toastService, MacroService macroService)
     {
-        _logger = logger;
+        _logServiceViewModel = LogServiceViewModel;
         _screenService = screenService;
         _toastService = toastService;
         _random = new Random();
@@ -52,10 +51,6 @@ public class ScriptService: IScriptService
             .AddExtensionMethods(typeof(System.Linq.Enumerable))
         );
         _engine.SetValue("sleep", new Action<int>((ms) => Sleep(ms)));
-        dynamic engineLogger = new ExpandoObject();
-        engineLogger.info = new Action<string>((msg) => _logger.LogInformation(msg));
-        engineLogger.debug = new Action<string>((msg) => _logger.LogDebug(msg));
-        _engine.SetValue("logger", engineLogger);
         _engine.SetValue("macroService", _macroService);
     }
 
@@ -71,7 +66,46 @@ public class ScriptService: IScriptService
     {
         string result = String.Empty;
         if (_macroService.IsRunning) return result;
+
         _engine.SetValue("result", JsValue.Null);
+
+        var scriptLog = new ScriptLog() { 
+            MacroSet = macroSet.Name, 
+            Script = targetScript.Name, 
+            Logs = new SortedObservableCollection<Log>((a, b) => (int)(b.Timestamp - a.Timestamp)),
+            Timestamp = DateTime.Now.Ticks
+        };
+        dynamic logger = new ExpandoObject();
+        logger.info = new Action<string>((msg) => {
+            _logServiceViewModel.Info = msg;
+            if (targetScript.DoLog)
+            {
+                scriptLog.Logs.Add(new Log()
+                {
+                    Message = msg,
+                    Timestamp = DateTime.Now.Ticks
+                });
+            }
+        });
+        logger.debug = new Action<string>((msg) => {
+            _logServiceViewModel.Debug = msg;
+            if (targetScript.DoLog)
+            {
+                scriptLog.Logs.Add(new Log()
+                {
+                    Message = msg,
+                    Timestamp = DateTime.Now.Ticks
+                });
+            }
+        });
+        logger.screenCapture = new Action<string>((msg) => {
+            if (targetScript.DoLog)
+            {
+                var screenCaptureLog = _logServiceViewModel.GenerateScreenCaptureLog(msg);
+                scriptLog.Logs.Add(screenCaptureLog);
+            }
+        });
+        _engine.SetValue("logger", logger);
 
         // https://github.com/sebastienros/jint
         _macroService.IsRunning = true;
@@ -123,11 +157,16 @@ public class ScriptService: IScriptService
         catch (Exception ex)
         {
             _toastService.Show("Error: " + ex.Message);
-            _logger.LogError(ex, $"Script Error: {ex.Message}");
+            _logServiceViewModel.LogException(ex);
             return $"{ex.Message}: \n\t{ex.StackTrace}";
         }
         finally
         {
+            if (targetScript.DoLog)
+            {
+                _logServiceViewModel.Log(scriptLog);
+            }
+
             _macroService.IsRunning = false;
             _macroService.Reset();
         }
