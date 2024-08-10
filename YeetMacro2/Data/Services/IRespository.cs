@@ -12,7 +12,8 @@ public interface IRepository<TEntity> where TEntity : class
     IEnumerable<TEntity> Get(
         Expression<Func<TEntity, bool>> filter = null,
         Func<IQueryable<TEntity>, IOrderedQueryable<TEntity>> orderBy = null,
-        Expression<Func<TEntity, object>> includePropertyExpression = null);
+        Expression<Func<TEntity, object>> includePropertyExpression = null,
+        bool noTracking = false);
     TEntity GetById(object id, Expression<Func<TEntity, object>> includePropertyExpression = null);
     void Insert(TEntity entity);
     void Update(TEntity entityToUpdate);

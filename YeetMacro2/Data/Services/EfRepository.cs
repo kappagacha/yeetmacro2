@@ -21,10 +21,17 @@ public class EfRepository<TContext, TEntity>(TContext context) : IRepository<TEn
     public virtual IEnumerable<TEntity> Get(
         Expression<Func<TEntity, bool>> filter = null,
         Func<IQueryable<TEntity>, IOrderedQueryable<TEntity>> orderBy = null,
-        Expression<Func<TEntity, object>> includePropertyExpression = null)
+        Expression<Func<TEntity, object>> includePropertyExpression = null,
+        bool noTracking = false)
     {
 
         IQueryable<TEntity> query = dbSet;
+
+        // https://learn.microsoft.com/en-us/ef/core/querying/tracking
+        if (noTracking)
+        {
+            query = query.AsNoTracking();
+        }
 
         if (filter != null)
         {

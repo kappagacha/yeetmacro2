@@ -110,15 +110,15 @@ public partial class LogServiceViewModel(IRepository<Log> _logRepository, IMappe
     [RelayCommand]
     public void Test()
     {
-        //var ex = new Exception("Test exception", new Exception("Inner exception"));
-        //LogException(ex);
-        LogScreenCapture("Test Screenshot Log");
+        var ex = new Exception("Test exception", new Exception("Inner exception"));
+        LogException(ex);
+        //LogScreenCapture("Test Screenshot Log");
     }
 
     [RelayCommand]
     public void LoadLogs()
     {
-        var logs = _logRepository.Get(l => l.ParentId == null);
+        var logs = _logRepository.Get(l => l.ParentId == null, noTracking: true);
         Logs.Clear();
         foreach (var log in logs)
         {
@@ -130,7 +130,7 @@ public partial class LogServiceViewModel(IRepository<Log> _logRepository, IMappe
     {
         if (log is ExceptionLog exLog)
         {
-            var subLogs = _logRepository.Get(l => l.ParentId == exLog.LogId);
+            var subLogs = _logRepository.Get(l => l.ParentId == exLog.LogId, noTracking: true);
             exLog.Logs = new SortedObservableCollection<Log>((a, b) => (int)(b.Timestamp - a.Timestamp));
             foreach (var subLog in subLogs)
             {
@@ -140,7 +140,7 @@ public partial class LogServiceViewModel(IRepository<Log> _logRepository, IMappe
         }
         else if (log is ScriptLog sLog)
         {
-            var subLogs = _logRepository.Get(l => l.ParentId == sLog.LogId);
+            var subLogs = _logRepository.Get(l => l.ParentId == sLog.LogId, noTracking: false);
             sLog.Logs = new SortedObservableCollection<Log>((a, b) => (int)(b.Timestamp - a.Timestamp));
             foreach (var subLog in subLogs)
             {
