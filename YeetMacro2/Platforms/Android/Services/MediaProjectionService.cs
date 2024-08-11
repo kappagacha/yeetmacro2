@@ -8,7 +8,6 @@ using Android.Widget;
 using static Android.Graphics.Bitmap;
 using YeetMacro2.Services;
 using Rect = Microsoft.Maui.Graphics.Rect;
-using Microsoft.Extensions.Logging;
 using CommunityToolkit.Mvvm.Messaging;
 using CommunityToolkit.Mvvm.Messaging.Messages;
 using YeetMacro2.ViewModels;
@@ -20,8 +19,6 @@ namespace YeetMacro2.Platforms.Android.Services;
 //https://medium.com/jamesob-com/recording-your-android-screen-7e0e75aae260
 public class MediaProjectionService : IRecorderService
 {
-    readonly ILogger _logger;
-    MainActivity _context;
     MediaProjectionManager _mediaProjectionManager;
     MediaProjection _mediaProjection;
     ImageReader _imageReader;
@@ -35,15 +32,12 @@ public class MediaProjectionService : IRecorderService
 
     public MediaProjectionService()
     {
-        _context = (MainActivity)Platform.CurrentActivity;
-        _mediaProjectionManager = (MediaProjectionManager)_context.GetSystemService(Context.MediaProjectionService);
-        _logger = ServiceHelper.GetService<ILogger<MediaProjectionService>>();
 
         WeakReferenceMessenger.Default.Register<PropertyChangedMessage<bool>, string>(this, nameof(ForegroundService), (r, propertyChangedMessage) =>
         {
             if (propertyChangedMessage.NewValue)
             {
-                _context.StartActivityForResult(_mediaProjectionManager.CreateScreenCaptureIntent(), Services.MediaProjectionService.REQUEST_MEDIA_PROJECTION);
+                Platform.CurrentActivity.StartActivityForResult(_mediaProjectionManager.CreateScreenCaptureIntent(), Services.MediaProjectionService.REQUEST_MEDIA_PROJECTION);
             }
             else
             {
@@ -66,6 +60,7 @@ public class MediaProjectionService : IRecorderService
             var density = (int)DeviceDisplay.MainDisplayInfo.Density;
 
             // https://github.com/Fate-Grand-Automata/FGA/blob/2a62ab7a456a9913cf0355db81b5a15f13906f27/app/src/main/java/io/github/fate_grand_automata/runner/ScreenshotServiceHolder.kt#L53
+            _mediaProjectionManager = (MediaProjectionManager)Platform.CurrentActivity.GetSystemService(Context.MediaProjectionService);
             _mediaProjection = _mediaProjectionManager.GetMediaProjection(_resultCode, (Intent)_resultData.Clone());
             _imageReader = ImageReader.NewInstance(width, height, (ImageFormatType)global::Android.Graphics.Format.Rgba8888, 2);
             _virtualDisplay = _mediaProjection.CreateVirtualDisplay("ScreenCapture", width, height, density, (DisplayFlags)VirtualDisplayFlags.AutoMirror, _imageReader.Surface, null, null);
@@ -85,9 +80,9 @@ public class MediaProjectionService : IRecorderService
         ServiceHelper.GetService<LogServiceViewModel>().LogDebug($"MediaProjectionService resultCode: {resultCode}");
         if (resultCode != global::Android.App.Result.Ok)
         {
-            if (_context != null)
+            if (Platform.CurrentActivity != null)
             {
-                Toast.MakeText(_context, "Media projection canceled...", ToastLength.Short).Show();
+                Toast.MakeText(Platform.CurrentActivity, "Media projection canceled...", ToastLength.Short).Show();
             }
             WeakReferenceMessenger.Default.Send(this);
 
@@ -95,7 +90,7 @@ public class MediaProjectionService : IRecorderService
             return;
         }
 
-        Toast.MakeText(_context, "Media projection initialized...", ToastLength.Short).Show();
+        Toast.MakeText(Platform.CurrentActivity, "Media projection initialized...", ToastLength.Short).Show();
         ServiceHelper.GetService<LogServiceViewModel>().LogDebug($"MediaProjectionService Initialized");
         WeakReferenceMessenger.Default.Send(this);
     }
@@ -108,7 +103,6 @@ public class MediaProjectionService : IRecorderService
             Thread.Sleep(1_000);
         }
 
-        _logger.LogTrace("GetBitmap");
         //https://www.tabnine.com/code/java/classes/android.media.Image?snippet=5ce69622e594670004ac3235
         var image = _imageReader.AcquireLatestImage();
         if (image == null) return null;
@@ -151,9 +145,9 @@ public class MediaProjectionService : IRecorderService
             _mediaProjection = null;
         }
         WeakReferenceMessenger.Default.Send(this);
-        if (_context != null)
+        if (Platform.CurrentActivity != null)
         {
-            Toast.MakeText(_context, "Media projection stopped...", ToastLength.Short).Show();
+            Toast.MakeText(Platform.CurrentActivity, "Media projection stopped...", ToastLength.Short).Show();
         }
 
         ServiceHelper.GetService<LogServiceViewModel>().LogDebug($"MediaProjectionService Stop");
