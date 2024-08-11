@@ -84,7 +84,7 @@
             </Grid>
         </DataTemplate>
         <DataTemplate x:Key="ScreenCaptureLogTemplate" x:DataType="vm:ScreenCaptureLogViewModel">
-            <Grid HeightRequest="20">
+            <Grid Margin="0" Padding="0">
                 <Label Text="{Binding Message}" Margin="0" Padding="0" VerticalOptions="Center" BackgroundColor="Transparent">
                     <Label.Triggers>
                         <DataTrigger TargetType="Label" Binding="{Binding IsSelected}" Value="True">
@@ -97,7 +97,7 @@
             </Grid>
         </DataTemplate>
         <DataTemplate x:Key="LogTemplate" x:DataType="vm:LogViewModel">
-            <Grid HeightRequest="20">
+            <Grid Margin="0" Padding="0">
                 <Label Text="{Binding Message}" Margin="0" Padding="0" VerticalOptions="Center" BackgroundColor="Transparent">
                     <Label.Triggers>
                         <DataTrigger TargetType="Label" Binding="{Binding IsSelected}" Value="True">
