@@ -114,9 +114,13 @@ function findShopItem(shopItemName) {
 
 	while (!findResult) {
 		const itemCornerPattern = macroService.ClonePattern(patterns.shop.itemCorner, {
-			X: 350,
+			//X: 350,
+			//Y: 130,
+			//Width: 1370,	//resolution.Width - 550,
+			//Height: 900
+			X: 300,
 			Y: 130,
-			Width: 1370,	//resolution.Width - 550,
+			Width: 1420,	//resolution.Width - 550,
 			Height: 900
 		});
 

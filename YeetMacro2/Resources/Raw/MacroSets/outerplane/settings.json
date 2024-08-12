@@ -2692,13 +2692,36 @@
         }
       }
     },
+    "jointChallenge": {
+      "$isParent": true,
+      "props": {
+        "settingType": "Parent",
+        "isParentNode": true,
+        "name": "jointChallenge",
+        "position": 1,
+        "path": "doShop.jointChallenge"
+      },
+      "stamina": {
+        "$isParent": false,
+        "props": {
+          "$type": "boolean",
+          "settingType": "Boolean",
+          "value": true,
+          "defaultValue": true,
+          "isParentNode": false,
+          "name": "stamina",
+          "position": 0,
+          "path": "doShop.jointChallenge.stamina"
+        }
+      }
+    },
     "arena": {
       "$isParent": true,
       "props": {
         "settingType": "Parent",
         "isParentNode": true,
         "name": "arena",
-        "position": 0,
+        "position": 2,
         "path": "doShop.arena"
       },
       "gold": {
