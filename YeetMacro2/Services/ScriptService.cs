@@ -130,7 +130,10 @@ public class ScriptService: IScriptService
             var jsResult = _engine.Evaluate($"{{\n{targetScript.Text}\n {(targetScript.Text.StartsWith("// @raw-script") ? targetScript.Name + "()\n" : "")}}}");
 
             _toastService.Show(_macroService.IsRunning ? "Script finished..." : "Script stopped...");
-            Vibration.Default.Vibrate();
+            if (_macroService.IsRunning)
+            {
+                Vibration.Default.Vibrate();
+            }
 
             if (jsResult is JsObject || jsResult is JsArray)
             {
