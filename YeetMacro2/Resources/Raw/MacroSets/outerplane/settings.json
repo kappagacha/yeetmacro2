@@ -2140,7 +2140,7 @@
         "settingType": "Parent",
         "isParentNode": true,
         "name": "friendshipPoint",
-        "position": 0,
+        "position": 1,
         "path": "doWeeklyShop.friendshipPoint"
       },
       "upgradeStoneSelectionChest": {
@@ -2176,7 +2176,7 @@
         "settingType": "Parent",
         "isParentNode": true,
         "name": "arena",
-        "position": 0,
+        "position": 2,
         "path": "doWeeklyShop.arena"
       },
       "basicSkillManual": {
@@ -2225,7 +2225,7 @@
         "settingType": "Parent",
         "isParentNode": true,
         "name": "starMemory",
-        "position": 0,
+        "position": 3,
         "path": "doWeeklyShop.starMemory"
       },
       "professionalSkillManual": {
@@ -2255,13 +2255,75 @@
         }
       }
     },
+    "jointChallenge": {
+      "$isParent": true,
+      "props": {
+        "settingType": "Parent",
+        "isParentNode": true,
+        "name": "jointChallenge",
+        "position": 4,
+        "path": "doWeeklyShop.jointChallenge"
+      },
+      "specialRecruitmentTicket": {
+        "$isParent": false,
+        "props": {
+          "$type": "boolean",
+          "settingType": "Boolean",
+          "value": true,
+          "defaultValue": true,
+          "isParentNode": false,
+          "name": "specialRecruitmentTicket",
+          "position": 0,
+          "path": "doWeeklyShop.jointChallenge.specialRecruitmentTicket"
+        }
+      },
+      "normalRecruitmentTicket": {
+        "$isParent": false,
+        "props": {
+          "$type": "boolean",
+          "settingType": "Boolean",
+          "value": true,
+          "defaultValue": true,
+          "isParentNode": false,
+          "name": "normalRecruitmentTicket",
+          "position": 0,
+          "path": "doWeeklyShop.jointChallenge.normalRecruitmentTicket"
+        }
+      },
+      "stage3GemChest": {
+        "$isParent": false,
+        "props": {
+          "$type": "boolean",
+          "settingType": "Boolean",
+          "value": true,
+          "defaultValue": true,
+          "isParentNode": false,
+          "name": "stage3GemChest",
+          "position": 0,
+          "path": "doWeeklyShop.jointChallenge.stage3GemChest"
+        }
+      },
+      "gold": {
+        "$isParent": false,
+        "props": {
+          "$type": "boolean",
+          "settingType": "Boolean",
+          "value": true,
+          "defaultValue": true,
+          "isParentNode": false,
+          "name": "gold",
+          "position": 0,
+          "path": "doWeeklyShop.jointChallenge.gold"
+        }
+      }
+    },
     "surveyHub": {
       "$isParent": true,
       "props": {
         "settingType": "Parent",
         "isParentNode": true,
         "name": "surveyHub",
-        "position": 0,
+        "position": 5,
         "path": "doWeeklyShop.surveyHub"
       },
       "30pctEpicAbrasive": {
@@ -2466,7 +2528,7 @@
         "settingType": "Parent",
         "isParentNode": true,
         "name": "guild",
-        "position": 0,
+        "position": 6,
         "path": "doWeeklyShop.guild"
       },
       "gold": {

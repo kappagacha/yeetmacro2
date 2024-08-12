@@ -79,6 +79,7 @@ function findShopItem(shopItemName) {
 	const swipeStartX = resolution.Width - 500;
 	const swipeEndX = swipeStartX - 800;
 
+	// troublesome characters: t,a,l,i
 	const shopItemNameToRegex = {
 		stamina: /s..m.n/is,
 		gold: /go.d/is,
@@ -107,6 +108,10 @@ function findShopItem(shopItemName) {
 		legendaryReforgeCatalyst: /.eg.*ref/is,
 		epicQualityPresentChest: /epic.*pres/is,
 		refinedGlunite: /ref.*?g.un/is,
+		// joint challenge items
+		specialRecruitmentTicket: /spec.a..*recru/is,
+		normalRecruitmentTicket: /norma..*recru/is,
+		stage3GemChest: /3.*chest/is
 	}
 
 	let findResult;

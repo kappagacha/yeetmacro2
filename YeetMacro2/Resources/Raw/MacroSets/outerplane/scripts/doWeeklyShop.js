@@ -63,6 +63,13 @@ while (macroService.IsRunning) {
 				}
 			}
 
+			if (!weekly.doWeeklyShop.jointChallenge.done.IsChecked) {
+				doJointChallengeItems();
+				if (macroService.IsRunning) {
+					weekly.doWeeklyShop.jointChallenge.done.IsChecked = true;
+				}
+			}
+
 			if (!weekly.doWeeklyShop.surveyHub.done.IsChecked) {
 				const swipeResult2 = macroService.SwipePollPattern(patterns.shop.surveyHub, { MaxSwipes: 2, Start: { X: 180, Y: 650 }, End: { X: 180, Y: 250 } });
 				if (!swipeResult2.IsSuccess) {
@@ -129,6 +136,22 @@ function doStarMemoryItems() {
 	macroService.PollPattern(patterns.shop.resource.starMemory, { DoClick: true, PredicatePattern: patterns.shop.resource.starMemory.currency });
 	sleep(1000);
 	doShopItems('doWeeklyShop', 'starMemory', starMemoryItems, true);
+}
+
+function doJointChallengeItems() {
+	const jointChallengeItems = ['specialRecruitmentTicket',  'normalRecruitmentTicket', 'stage3GemChest', 'gold'];
+	const selectedEventPattern = macroService.PollPattern(patterns.shop.event);
+	const selectedResourcePattern = macroService.ClonePattern(patterns.shop.selected, { CenterY: selectedEventPattern.Point.Y, Padding: 20, Path: `patterns.shop.selected_Y${selectedEventPattern.Point.Y}` });
+	macroService.PollPattern(patterns.shop.event, { DoClick: true, PredicatePattern: selectedResourcePattern });
+	sleep(1_000);
+
+	const jointChallengeSwipeResult = macroService.SwipePollPattern(patterns.shop.event.jointChallenge, { MaxSwipes: 5, Start: { X: 1100, Y: 160 }, End: { X: 700, Y: 160 } });
+	if (!jointChallengeSwipeResult.IsSuccess) {
+		throw new Error('Unable to find joint challenge');
+	}
+	macroService.PollPattern(patterns.shop.event.jointChallenge, { DoClick: true, PredicatePattern: patterns.shop.event.jointChallenge.currency });
+
+	doShopItems('doWeeklyShop', 'jointChallenge', jointChallengeItems);
 }
 
 function doSurveyHubItems() {
