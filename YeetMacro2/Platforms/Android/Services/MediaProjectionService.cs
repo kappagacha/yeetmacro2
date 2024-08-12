@@ -19,7 +19,6 @@ namespace YeetMacro2.Platforms.Android.Services;
 //https://medium.com/jamesob-com/recording-your-android-screen-7e0e75aae260
 public class MediaProjectionService : IRecorderService
 {
-    MediaProjectionManager _mediaProjectionManager;
     MediaProjection _mediaProjection;
     ImageReader _imageReader;
     VirtualDisplay _virtualDisplay, _screenVirtualDisplay;
@@ -37,7 +36,8 @@ public class MediaProjectionService : IRecorderService
         {
             if (propertyChangedMessage.NewValue)
             {
-                Platform.CurrentActivity.StartActivityForResult(_mediaProjectionManager.CreateScreenCaptureIntent(), Services.MediaProjectionService.REQUEST_MEDIA_PROJECTION);
+                var mediaProjectionManager = (MediaProjectionManager)Platform.CurrentActivity.GetSystemService(Context.MediaProjectionService);
+                Platform.CurrentActivity.StartActivityForResult(mediaProjectionManager.CreateScreenCaptureIntent(), Services.MediaProjectionService.REQUEST_MEDIA_PROJECTION);
             }
             else
             {
@@ -60,8 +60,8 @@ public class MediaProjectionService : IRecorderService
             var density = (int)DeviceDisplay.MainDisplayInfo.Density;
 
             // https://github.com/Fate-Grand-Automata/FGA/blob/2a62ab7a456a9913cf0355db81b5a15f13906f27/app/src/main/java/io/github/fate_grand_automata/runner/ScreenshotServiceHolder.kt#L53
-            _mediaProjectionManager = (MediaProjectionManager)Platform.CurrentActivity.GetSystemService(Context.MediaProjectionService);
-            _mediaProjection = _mediaProjectionManager.GetMediaProjection(_resultCode, (Intent)_resultData.Clone());
+            var mediaProjectionManager = (MediaProjectionManager)Platform.CurrentActivity.GetSystemService(Context.MediaProjectionService);
+            _mediaProjection = mediaProjectionManager.GetMediaProjection(_resultCode, (Intent)_resultData.Clone());
             _imageReader = ImageReader.NewInstance(width, height, (ImageFormatType)global::Android.Graphics.Format.Rgba8888, 2);
             _virtualDisplay = _mediaProjection.CreateVirtualDisplay("ScreenCapture", width, height, density, (DisplayFlags)VirtualDisplayFlags.AutoMirror, _imageReader.Surface, null, null);
         }
