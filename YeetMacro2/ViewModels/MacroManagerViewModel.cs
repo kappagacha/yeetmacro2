@@ -614,6 +614,7 @@ public partial class MacroManagerViewModel : ObservableObject
         finally
         {
             IsBusy = false;
+            Vibration.Default.Vibrate();
         }
     }
 

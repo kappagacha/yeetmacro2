@@ -156,12 +156,14 @@ public class ScriptService: IScriptService
         catch (JavaScriptException jex)
         {
             _engine.SetValue("error", jex.Error);
+            Vibration.Default.Vibrate();
             return _engine.Evaluate("JSON.stringify({ ...error, message: error.message }, null, 2)").AsString();
         }
         catch (Exception ex)
         {
             _toastService.Show("Error: " + ex.Message);
             _logServiceViewModel.LogException(ex);
+            Vibration.Default.Vibrate();
             return $"{ex.Message}: \n\t{ex.StackTrace}";
         }
         finally
