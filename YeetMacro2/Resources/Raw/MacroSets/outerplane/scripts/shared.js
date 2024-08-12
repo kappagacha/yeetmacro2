@@ -92,8 +92,8 @@ function findShopItem(shopItemName) {
 		intermediateSkillManual: /.n.er.*m/is,
 		professionalSkillManual: /pro.*m/is,
 		cakeSlice: /c.ke/is,
-		upgradeStoneSelectionChest: /^(?!.*piece)upgr.de.*st.ne/is,		//does not contain piece (using negative look ahead)
-		lowStarHeroPieceTicket: /1.*2/is,
+		upgradeStoneSelectionChest: /^(?!.*piece)upgr.de.*s..ne/is,		//does not contain piece (using negative look ahead)
+		lowStarHeroPieceTicket: /2.*He.*r.ndom/is,
 		// season 1 survey hub items
 		epicReforgeCatalyst1: /ep.c.*refo.ge/is,
 		epicReforgeCatalyst2: /ep.c.*refo.ge/is,

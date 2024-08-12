@@ -151,7 +151,7 @@ function doJointChallengeItems() {
 	}
 	macroService.PollPattern(patterns.shop.event.jointChallenge, { DoClick: true, PredicatePattern: patterns.shop.event.jointChallenge.currency });
 
-	doShopItems('doWeeklyShop', 'jointChallenge', jointChallengeItems);
+	doShopItems('doWeeklyShop', 'jointChallenge', jointChallengeItems, true);
 }
 
 function doSurveyHubItems() {
@@ -162,9 +162,9 @@ function doSurveyHubItems() {
 		return;
 	}
 	sleep(1000);
-	swipeLeft();
-	swipeLeft();
-	swipeLeft();
+	//swipeLeft();
+	//swipeLeft();
+	//swipeLeft();
 	const season2surveyHubItems = ['stage2RandomGemChest', 'legendaryReforgeCatalyst', 'epicQualityPresentChest', 'professionalSkillManual', 'refinedGlunite'];
 	doShopItems('doWeeklyShop', 'surveyHub', season2surveyHubItems, true);
 }

@@ -2500,8 +2500,8 @@
         "props": {
           "$type": "boolean",
           "settingType": "Boolean",
-          "value": true,
-          "defaultValue": true,
+          "value": false,
+          "defaultValue": false,
           "isParentNode": false,
           "name": "refinedGlunite",
           "position": 13,
