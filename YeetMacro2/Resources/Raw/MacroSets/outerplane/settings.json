@@ -2754,36 +2754,13 @@
         }
       }
     },
-    "jointChallenge": {
-      "$isParent": true,
-      "props": {
-        "settingType": "Parent",
-        "isParentNode": true,
-        "name": "jointChallenge",
-        "position": 1,
-        "path": "doShop.jointChallenge"
-      },
-      "stamina": {
-        "$isParent": false,
-        "props": {
-          "$type": "boolean",
-          "settingType": "Boolean",
-          "value": true,
-          "defaultValue": true,
-          "isParentNode": false,
-          "name": "stamina",
-          "position": 0,
-          "path": "doShop.jointChallenge.stamina"
-        }
-      }
-    },
     "arena": {
       "$isParent": true,
       "props": {
         "settingType": "Parent",
         "isParentNode": true,
         "name": "arena",
-        "position": 2,
+        "position": 1,
         "path": "doShop.arena"
       },
       "gold": {
@@ -2823,6 +2800,65 @@
           "name": "cakeSlice",
           "position": 0,
           "path": "doShop.arena.cakeSlice"
+        }
+      }
+    },
+    "jointChallenge": {
+      "$isParent": true,
+      "props": {
+        "settingType": "Parent",
+        "isParentNode": true,
+        "name": "jointChallenge",
+        "position": 2,
+        "path": "doShop.jointChallenge"
+      },
+      "stamina": {
+        "$isParent": false,
+        "props": {
+          "$type": "boolean",
+          "settingType": "Boolean",
+          "value": true,
+          "defaultValue": true,
+          "isParentNode": false,
+          "name": "stamina",
+          "position": 0,
+          "path": "doShop.jointChallenge.stamina"
+        }
+      }
+    },
+    "festival": {
+      "$isParent": true,
+      "props": {
+        "settingType": "Parent",
+        "isParentNode": true,
+        "name": "festival",
+        "position": 3,
+        "path": "doShop.festival"
+      },
+      "stamina": {
+        "$isParent": false,
+        "props": {
+          "$type": "boolean",
+          "settingType": "Boolean",
+          "value": true,
+          "defaultValue": true,
+          "isParentNode": false,
+          "name": "stamina",
+          "position": 0,
+          "path": "doShop.festival.stamina"
+        }
+      },
+      "gold": {
+        "$isParent": false,
+        "props": {
+          "$type": "boolean",
+          "settingType": "Boolean",
+          "value": true,
+          "defaultValue": true,
+          "isParentNode": false,
+          "name": "gold",
+          "position": 0,
+          "path": "doShop.festival.gold"
         }
       }
     }

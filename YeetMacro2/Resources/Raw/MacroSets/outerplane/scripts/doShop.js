@@ -36,6 +36,37 @@ while (macroService.IsRunning) {
 					daily.doShop.friendshipPoint.done.IsChecked = true;
 				}
 			}
+			
+			if (!daily.doShop.arena.done.IsChecked) {
+				const arenaItems = ['gold', 'stamina', 'cakeSlice'];
+				macroService.PollPattern(patterns.shop.resource.arena, { DoClick: true, PredicatePattern: patterns.shop.resource.arena.currency });
+				sleep(1_000);
+				doShopItems('doShop', 'arena', arenaItems);
+				
+				if (macroService.IsRunning) {
+					daily.doShop.arena.done.IsChecked = true;
+				}
+			}
+
+			if (!daily.doShop.festival.done.IsChecked) {
+				const festivalItems = ['stamina', 'gold'];
+				const selectedEventPattern = macroService.PollPattern(patterns.shop.event);
+				const selectedResourcePattern = macroService.ClonePattern(patterns.shop.selected, { CenterY: selectedEventPattern.Point.Y, Padding: 20, Path: `patterns.shop.selected_Y${selectedEventPattern.Point.Y}` });
+				macroService.PollPattern(patterns.shop.event, { DoClick: true, PredicatePattern: selectedResourcePattern });
+				sleep(1_000);
+
+				const festivalSwipeResult = macroService.SwipePollPattern(patterns.shop.event.festival, { MaxSwipes: 5, Start: { X: 1100, Y: 160 }, End: { X: 700, Y: 160 } });
+				if (!festivalSwipeResult.IsSuccess) {
+					throw new Error('Unable to find festival');
+				}
+				macroService.PollPattern(patterns.shop.event.festival, { DoClick: true, PredicatePattern: patterns.shop.event.festival.currency });
+
+				doShopItems('doShop', 'festival', festivalItems);
+
+				if (macroService.IsRunning) {
+					daily.doShop.festival.done.IsChecked = true;
+				}
+			}
 
 			if (!daily.doShop.jointChallenge.done.IsChecked) {
 				const jointChallengeItems = ['stamina'];
@@ -54,17 +85,6 @@ while (macroService.IsRunning) {
 
 				if (macroService.IsRunning) {
 					daily.doShop.jointChallenge.done.IsChecked = true;
-				}
-			}
-
-			if (!daily.doShop.arena.done.IsChecked) {
-				const arenaItems = ['gold', 'stamina', 'cakeSlice'];
-				macroService.PollPattern(patterns.shop.resource.arena, { DoClick: true, PredicatePattern: patterns.shop.resource.arena.currency });
-				sleep(1_000);
-				doShopItems('doShop', 'arena', arenaItems);
-				
-				if (macroService.IsRunning) {
-					daily.doShop.arena.done.IsChecked = true;
 				}
 			}
 
