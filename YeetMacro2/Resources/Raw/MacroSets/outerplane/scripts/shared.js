@@ -123,9 +123,9 @@ function findShopItem(shopItemName) {
 			//Y: 130,
 			//Width: 1370,	//resolution.Width - 550,
 			//Height: 900
-			X: 300,
+			X: 250,
 			Y: 130,
-			Width: 1420,	//resolution.Width - 550,
+			Width: 1470,	//resolution.Width - 550,
 			Height: 900
 		});
 
