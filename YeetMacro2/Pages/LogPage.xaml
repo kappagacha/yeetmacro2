@@ -44,8 +44,9 @@
                         <ImageButton Margin="0" Padding="0" CommandParameter="{Binding .}" 
                                      Command="{Binding BindingContext.SelectLogCommand, Source={RelativeSource AncestorType={x:Type p:LogPage}}}" />
                     </Grid>
-                    <Grid HeightRequest="20" HorizontalOptions="End">
-                        <v:ToggleImageView FontFamily="MaterialOutlined" Glyph="{x:Static mi:MaterialOutlined.Archive}" IsToggled="{Binding IsArchived}" 
+                    <Grid HeightRequest="20" HorizontalOptions="End" IsVisible="{Binding ParentId, Converter={conv:NullToBoolConverter}}">
+                        <v:ToggleImageView FontFamily="MaterialOutlined" Glyph="{x:Static mi:MaterialOutlined.Archive}" IsToggled="{Binding IsArchived}"
+                                           ToggledColor="{StaticResource Primary}"
                                            CommandParameter="{Binding .}"
                                            Command="{Binding BindingContext.ToggleLogArchivedCommand, Source={RelativeSource AncestorType={x:Type p:LogPage}}}" />
                     </Grid>
@@ -81,7 +82,7 @@
                         <ImageButton Margin="0" Padding="0" CommandParameter="{Binding .}" 
                                      Command="{Binding BindingContext.SelectLogCommand, Source={RelativeSource AncestorType={x:Type p:LogPage}}}" />
                     </Grid>
-                    <Grid HeightRequest="20" HorizontalOptions="End">
+                    <Grid HeightRequest="20" HorizontalOptions="End" IsVisible="{Binding ParentId, Converter={conv:NullToBoolConverter}}">
                         <v:ToggleImageView FontFamily="MaterialOutlined" Glyph="{x:Static mi:MaterialOutlined.Archive}" IsToggled="{Binding IsArchived}"
                                            ToggledColor="{StaticResource Primary}"
                                            CommandParameter="{Binding .}"
@@ -105,6 +106,12 @@
                 </Label>
                 <ImageButton Margin="0" Padding="0" CommandParameter="{Binding .}" 
                              Command="{Binding BindingContext.SelectLogCommand, Source={RelativeSource AncestorType={x:Type p:LogPage}}}" />
+                <Grid HeightRequest="20" HorizontalOptions="End" IsVisible="{Binding ParentId, Converter={conv:NullToBoolConverter}}">
+                    <v:ToggleImageView FontFamily="MaterialOutlined" Glyph="{x:Static mi:MaterialOutlined.Archive}" IsToggled="{Binding IsArchived}"
+                                           ToggledColor="{StaticResource Primary}"
+                                           CommandParameter="{Binding .}"
+                                           Command="{Binding BindingContext.ToggleLogArchivedCommand, Source={RelativeSource AncestorType={x:Type p:LogPage}}}" />
+                </Grid>
             </Grid>
         </DataTemplate>
         <DataTemplate x:Key="LogTemplate" x:DataType="vm:LogViewModel">
@@ -118,6 +125,12 @@
                 </Label>
                 <ImageButton Margin="0" Padding="0" CommandParameter="{Binding .}" 
                              Command="{Binding BindingContext.SelectLogCommand, Source={RelativeSource AncestorType={x:Type p:LogPage}}}" />
+                <Grid HeightRequest="20" HorizontalOptions="End" IsVisible="{Binding ParentId, Converter={conv:NullToBoolConverter}}">
+                    <v:ToggleImageView FontFamily="MaterialOutlined" Glyph="{x:Static mi:MaterialOutlined.Archive}" IsToggled="{Binding IsArchived}"
+                                           ToggledColor="{StaticResource Primary}"
+                                           CommandParameter="{Binding .}"
+                                           Command="{Binding BindingContext.ToggleLogArchivedCommand, Source={RelativeSource AncestorType={x:Type p:LogPage}}}" />
+                </Grid>
             </Grid>
         </DataTemplate>
     </ContentPage.Resources>
