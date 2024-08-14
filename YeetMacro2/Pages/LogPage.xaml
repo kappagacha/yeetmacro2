@@ -142,7 +142,7 @@
                     <Setter Property="Opacity" Value="0.2" />
                 </DataTrigger>
             </Grid.Triggers>
-            <FlexLayout Grid.Row="0" JustifyContent="SpaceEvenly">
+            <FlexLayout Grid.Row="0" JustifyContent="SpaceEvenly" Wrap="Wrap">
                 <Button Text="Test" FontAttributes="Bold" Command="{Binding TestCommand}"/>
                 <Button Text="Load Archive Logs" FontAttributes="Bold" Command="{Binding LoadArchivedLogsCommand}"/>
                 <Button Text="Clear Archive Logs" FontAttributes="Bold" TextColor="White" BackgroundColor="Red" Command="{Binding ClearArchivedLogsCommand}"/>
