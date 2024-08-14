@@ -44,6 +44,11 @@
                         <ImageButton Margin="0" Padding="0" CommandParameter="{Binding .}" 
                                      Command="{Binding BindingContext.SelectLogCommand, Source={RelativeSource AncestorType={x:Type p:LogPage}}}" />
                     </Grid>
+                    <Grid HeightRequest="20" HorizontalOptions="End">
+                        <v:ToggleImageView FontFamily="MaterialOutlined" Glyph="{x:Static mi:MaterialOutlined.Archive}" IsToggled="{Binding IsArchived}" 
+                                           CommandParameter="{Binding .}"
+                                           Command="{Binding BindingContext.ToggleLogArchivedCommand, Source={RelativeSource AncestorType={x:Type p:LogPage}}}" />
+                    </Grid>
                 </Grid>
                 <Grid Grid.Row="1" Grid.Column="1" IsVisible="{Binding Logs.Count, Converter={conv:NumberToBoolConverter}}">
                     <CollectionView ItemsSource="{Binding Logs}" IsVisible="{Binding IsToggled, Source={Reference toggleImageView}}"
@@ -75,6 +80,12 @@
                         </Label>
                         <ImageButton Margin="0" Padding="0" CommandParameter="{Binding .}" 
                                      Command="{Binding BindingContext.SelectLogCommand, Source={RelativeSource AncestorType={x:Type p:LogPage}}}" />
+                    </Grid>
+                    <Grid HeightRequest="20" HorizontalOptions="End">
+                        <v:ToggleImageView FontFamily="MaterialOutlined" Glyph="{x:Static mi:MaterialOutlined.Archive}" IsToggled="{Binding IsArchived}"
+                                           ToggledColor="{StaticResource Primary}"
+                                           CommandParameter="{Binding .}"
+                                           Command="{Binding BindingContext.ToggleLogArchivedCommand, Source={RelativeSource AncestorType={x:Type p:LogPage}}}" />
                     </Grid>
                 </Grid>
                 <Grid Grid.Row="1" Grid.Column="1" IsVisible="{Binding Logs.Count, Converter={conv:NumberToBoolConverter}}">
@@ -120,10 +131,12 @@
             </Grid.Triggers>
             <FlexLayout Grid.Row="0" JustifyContent="SpaceEvenly">
                 <Button Text="Test" FontAttributes="Bold" Command="{Binding TestCommand}"/>
+                <Button Text="Load Archive Logs" FontAttributes="Bold" Command="{Binding LoadArchivedLogsCommand}"/>
+                <Button Text="Clear Archive Logs" FontAttributes="Bold" TextColor="White" BackgroundColor="Red" Command="{Binding ClearArchivedLogsCommand}"/>
                 <Button Text="Load Logs" FontAttributes="Bold" Command="{Binding LoadLogsCommand}"/>
                 <Button Text="Clear Logs" FontAttributes="Bold" TextColor="White" BackgroundColor="Red" Command="{Binding ClearLogsCommand}"/>
             </FlexLayout>
-            <ScrollView Grid.Row="1" >
+            <ScrollView Grid.Row="2" >
                 <CollectionView ItemsSource="{Binding Logs}" HorizontalOptions="Fill"  VerticalOptions="Fill"
                         ItemTemplate="{conv:DynamicTemplateSelector Root={Binding .,Source={Reference thisPage}}}" />
             </ScrollView>

@@ -81,8 +81,7 @@ public partial class LogServiceViewModel(IRepository<Log> _logRepository, IMappe
             ex = ex.InnerException;
         }
 
-        _logRepository.Insert(exceptionLog);
-        _logRepository.Save();
+        Log(exceptionLog);
     }
 
     public ScreenCaptureLog GenerateScreenCaptureLog(string message)
@@ -105,6 +104,7 @@ public partial class LogServiceViewModel(IRepository<Log> _logRepository, IMappe
     {
         _logRepository.Insert(log);
         _logRepository.Save();
+        _logRepository.DetachEntities(log);
     }
 
     [RelayCommand]
@@ -118,7 +118,18 @@ public partial class LogServiceViewModel(IRepository<Log> _logRepository, IMappe
     [RelayCommand]
     public void LoadLogs()
     {
-        var logs = _logRepository.Get(l => l.ParentId == null, noTracking: true);
+        var logs = _logRepository.Get(l => l.ParentId == null && !l.IsArchived, noTracking: true);
+        Logs.Clear();
+        foreach (var log in logs)
+        {
+            Logs.Add(ResolveLog(log));
+        }
+    }
+
+    [RelayCommand]
+    public void LoadArchivedLogs()
+    {
+        var logs = _logRepository.Get(l => l.ParentId == null && l.IsArchived, noTracking: true);
         Logs.Clear();
         foreach (var log in logs)
         {
@@ -161,7 +172,23 @@ public partial class LogServiceViewModel(IRepository<Log> _logRepository, IMappe
     [RelayCommand]
     public void ClearLogs()
     {
-        var logs = _logRepository.Get(l => l.ParentId == null);
+        var logs = _logRepository.Get(l => l.ParentId == null && !l.IsArchived);
+        foreach (var log in logs)
+        {
+            _logRepository.Delete(log);
+        }
+        Logs.Clear();
+        _logRepository.Save();
+    }
+
+
+    [RelayCommand]
+    public async Task ClearArchivedLogs()
+    {
+        if (!await Application.Current.MainPage.DisplayAlert("Delete All Archived Logs", "Are you sure?", "Ok", "Cancel")) return;
+
+        var logs = _logRepository.Get(l => l.ParentId == null && l.IsArchived);
+
         foreach (var log in logs)
         {
             _logRepository.Delete(log);
@@ -203,6 +230,15 @@ public partial class LogServiceViewModel(IRepository<Log> _logRepository, IMappe
             LogImage = ImageSource.FromStream(() => new MemoryStream(screenCaptureLog.ScreenCapture));
         }
     }
+
+    [RelayCommand]
+    public void ToggleLogArchived(Log log)
+    {
+        log.IsArchived = !log.IsArchived;
+        _logRepository.Update(log);
+        _logRepository.Save();
+        _logRepository.DetachEntities(log);
+    }
 }
 
 [ObservableObject]
@@ -214,6 +250,16 @@ public partial class ScriptLogViewModel : ScriptLog
         set
         {
             base.IsSelected = value;
+            OnPropertyChanged();
+        }
+    }
+
+    public override bool IsArchived
+    {
+        get => base.IsArchived;
+        set
+        {
+            base.IsArchived = value;
             OnPropertyChanged();
         }
     }
@@ -231,6 +277,16 @@ public partial class ExceptionLogViewModel : ExceptionLog
             OnPropertyChanged();
         }
     }
+
+    public override bool IsArchived
+    {
+        get => base.IsArchived;
+        set
+        {
+            base.IsArchived = value;
+            OnPropertyChanged();
+        }
+    }
 }
 
 [ObservableObject]
@@ -245,6 +301,16 @@ public partial class ScreenCaptureLogViewModel : ScreenCaptureLog
             OnPropertyChanged();
         }
     }
+
+    public override bool IsArchived
+    {
+        get => base.IsArchived;
+        set
+        {
+            base.IsArchived = value;
+            OnPropertyChanged();
+        }
+    }
 }
 
 [ObservableObject]
@@ -256,6 +322,16 @@ public partial class LogViewModel: Log
         set
         {
             base.IsSelected = value;
+            OnPropertyChanged();
+        }
+    }
+
+    public override bool IsArchived
+    {
+        get => base.IsArchived;
+        set
+        {
+            base.IsArchived = value;
             OnPropertyChanged();
         }
     }

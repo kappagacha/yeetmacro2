@@ -13,8 +13,6 @@ public class ExceptionLog : Log
     public IList<Log> Logs { get; set; }
 }
 
-// TODO: make function for script engine
-// TODO: update UI to work
 public class ScreenCaptureLog : Log
 {
     public byte[] ScreenCapture { get; set; }
@@ -29,6 +27,7 @@ public class Log
     public long Timestamp { get; set; }
     public string Message { get; set; }
     public LogType Type { get; set; }
+    public virtual bool IsArchived { get; set; }
     [JsonIgnore]
     public virtual bool IsSelected { get; set; }
 }
