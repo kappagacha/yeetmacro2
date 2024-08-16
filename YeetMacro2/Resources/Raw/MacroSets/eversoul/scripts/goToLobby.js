@@ -15,7 +15,15 @@ logger.info('goToLobby: start');
 //doChampsArena
 // => patterns.general.back
 
-macroService.PollPattern(patterns.lobby.level, { ClickPattern: [patterns.general.back, patterns.town.cancel, patterns.town.menu, patterns.town.menu.returnToLobby] });
+macroService.PollPattern(patterns.lobby.level, {
+	ClickPattern: [
+		patterns.general.back,
+		patterns.town.cancel,
+		patterns.town.menu,
+		patterns.town.menu.returnToLobby,
+		patterns.battle.exit
+	]
+});
 if (macroService.IsRunning) {
 	logger.info('goToLobby: done');
 }
