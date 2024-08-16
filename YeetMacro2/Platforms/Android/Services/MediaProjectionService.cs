@@ -51,8 +51,6 @@ public class MediaProjectionService : IRecorderService
     {
         try
         {
-            ServiceHelper.GetService<LogServiceViewModel>().LogDebug($"MediaProjectionService Start");
-
             var screenService = ServiceHelper.GetService<AndroidScreenService>();
             var currentResolution = screenService.CalcResolution;
             var width = (int)screenService.CalcResolution.Width;
@@ -77,7 +75,6 @@ public class MediaProjectionService : IRecorderService
         _resultCode = (int)resultCode;
         _resultData = resultData;
 
-        ServiceHelper.GetService<LogServiceViewModel>().LogDebug($"MediaProjectionService resultCode: {resultCode}");
         if (resultCode != global::Android.App.Result.Ok)
         {
             if (Platform.CurrentActivity != null)
@@ -85,13 +82,10 @@ public class MediaProjectionService : IRecorderService
                 Toast.MakeText(Platform.CurrentActivity, "Media projection canceled...", ToastLength.Short).Show();
             }
             WeakReferenceMessenger.Default.Send(this);
-
-            ServiceHelper.GetService<LogServiceViewModel>().LogDebug($"MediaProjectionService Canceled");
             return;
         }
 
         Toast.MakeText(Platform.CurrentActivity, "Media projection initialized...", ToastLength.Short).Show();
-        ServiceHelper.GetService<LogServiceViewModel>().LogDebug($"MediaProjectionService Initialized");
         WeakReferenceMessenger.Default.Send(this);
     }
 
@@ -149,8 +143,6 @@ public class MediaProjectionService : IRecorderService
         {
             Toast.MakeText(Platform.CurrentActivity, "Media projection stopped...", ToastLength.Short).Show();
         }
-
-        ServiceHelper.GetService<LogServiceViewModel>().LogDebug($"MediaProjectionService Stop");
     }
 
     public byte[] GetCurrentImageData()

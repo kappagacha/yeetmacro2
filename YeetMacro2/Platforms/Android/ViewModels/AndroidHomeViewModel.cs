@@ -166,8 +166,6 @@ public partial class AndriodHomeViewModel : ObservableObject
     [RelayCommand]
     private void ToggleIsProjectionServiceEnabled()
     {
-        ServiceHelper.GetService<LogServiceViewModel>().LogDebug($"AndriodHomeViewModel.IsProjectionServiceEnabled: {IsProjectionServiceEnabled}");
-
         if (!IsProjectionServiceEnabled)
         {
             _screenService.StartProjectionService();

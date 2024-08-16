@@ -18,18 +18,15 @@ public class ForegroundService : Service
     public const int SERVICE_RUNNING_NOTIFICATION_ID = 10000;
     public ForegroundService()
     {
-        ServiceHelper.GetService<LogServiceViewModel>().LogDebug($"ForegroundService Constructor");
     }
 
     public override void OnCreate()
     {
-        ServiceHelper.GetService<LogServiceViewModel>().LogDebug($"ForegroundService.OnCreate");
         base.OnCreate();
     }
 
     public override StartCommandResult OnStartCommand(Intent intent, [GeneratedEnum] StartCommandFlags flags, int startId)
     {
-        ServiceHelper.GetService<LogServiceViewModel>().LogDebug($"ForegroundService.OnStartCommand intent.Action: {intent.Action}");
         switch (intent.Action)
         {
             case EXIT_ACTION:
@@ -121,20 +118,17 @@ public class ForegroundService : Service
 
     public override void OnRebind(Intent intent)
     {
-        ServiceHelper.GetService<LogServiceViewModel>().LogDebug($"ForegroundService.OnRebind");
         base.OnRebind(intent);
     }
 
     public override void OnDestroy()
     {
-        ServiceHelper.GetService<LogServiceViewModel>().LogDebug($"ForegroundService.OnDestroy");
         WeakReferenceMessenger.Default.Unregister<MediaProjectionService>(this);
         base.OnDestroy();
     }
 
     public override IBinder OnBind(Intent intent)
     {
-        ServiceHelper.GetService<LogServiceViewModel>().LogDebug($"ForegroundService.OnBind");
         return null;
     }
 }

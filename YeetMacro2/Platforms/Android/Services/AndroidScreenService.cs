@@ -432,7 +432,6 @@ public class AndroidScreenService : IScreenService
 
     public void StartProjectionService()
     {
-        ServiceHelper.GetService<LogServiceViewModel>().LogDebug($"AndroidScreenService.StartProjectionService");
         if (OperatingSystem.IsAndroidVersionAtLeast(33) &&
             _context.CheckSelfPermission(global::Android.Manifest.Permission.PostNotifications) != global::Android.Content.PM.Permission.Granted)
         {
@@ -446,7 +445,6 @@ public class AndroidScreenService : IScreenService
 
     public void StopProjectionService()
     {
-        ServiceHelper.GetService<LogServiceViewModel>().LogDebug($"AndroidScreenService.StopProjectionService");
         _context.StartForegroundServiceCompat<ForegroundService>(ForegroundService.EXIT_ACTION);
     }
 
