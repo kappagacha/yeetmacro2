@@ -18,7 +18,7 @@ while (macroService.IsRunning) {
 			sleep(500);
 			break;
 		case 'titles.adventure':
-			logger.info('doArena: click terminus isle');
+			logger.info('startTerminusIsleExploration: click terminus isle');
 			macroService.ClickPattern(patterns.adventure.terminusIsle);
 			sleep(500);
 			break;

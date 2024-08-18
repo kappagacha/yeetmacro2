@@ -3934,5 +3934,150 @@
         }
       }
     }
+  },
+  "doTerminusIsleExploration": {
+    "$isParent": true,
+    "props": {
+      "settingType": "Parent",
+      "isParentNode": true,
+      "name": "doTerminusIsleExploration",
+      "position": 0,
+      "path": "doTerminusIsleExploration"
+    },
+    "teamSlot": {
+      "$isParent": true,
+      "props": {
+        "settingType": "Parent",
+        "isParentNode": true,
+        "name": "teamSlot",
+        "position": 0,
+        "path": "doTerminusIsleExploration.teamSlot"
+      },
+      "earth": {
+        "$isParent": false,
+        "props": {
+          "$type": "option",
+          "settingType": "Option",
+          "options": [
+            "Current",
+            "1",
+            "2",
+            "3",
+            "4",
+            "5",
+            "6",
+            "7",
+            "8",
+            "9"
+          ],
+          "value": "3",
+          "defaultValue": "3",
+          "isParentNode": false,
+          "name": "earth",
+          "position": 0,
+          "path": "doTerminusIsleExploration.teamSlot.earth"
+        }
+      },
+      "water": {
+        "$isParent": false,
+        "props": {
+          "$type": "option",
+          "settingType": "Option",
+          "options": [
+            "Current",
+            "1",
+            "2",
+            "3",
+            "4",
+            "5",
+            "6",
+            "7",
+            "8",
+            "9"
+          ],
+          "value": "4",
+          "defaultValue": "4",
+          "isParentNode": false,
+          "name": "water",
+          "position": 0,
+          "path": "doTerminusIsleExploration.teamSlot.water"
+        }
+      },
+      "fire": {
+        "$isParent": false,
+        "props": {
+          "$type": "option",
+          "settingType": "Option",
+          "options": [
+            "Current",
+            "1",
+            "2",
+            "3",
+            "4",
+            "5",
+            "6",
+            "7",
+            "8",
+            "9"
+          ],
+          "value": "1",
+          "defaultValue": "1",
+          "isParentNode": false,
+          "name": "fire",
+          "position": 0,
+          "path": "doTerminusIsleExploration.teamSlot.fire"
+        }
+      },
+      "light": {
+        "$isParent": false,
+        "props": {
+          "$type": "option",
+          "settingType": "Option",
+          "options": [
+            "Current",
+            "1",
+            "2",
+            "3",
+            "4",
+            "5",
+            "6",
+            "7",
+            "8",
+            "9"
+          ],
+          "value": "1",
+          "defaultValue": "1",
+          "isParentNode": false,
+          "name": "light",
+          "position": 0,
+          "path": "doTerminusIsleExploration.teamSlot.light"
+        }
+      },
+      "dark": {
+        "$isParent": false,
+        "props": {
+          "$type": "option",
+          "settingType": "Option",
+          "options": [
+            "Current",
+            "1",
+            "2",
+            "3",
+            "4",
+            "5",
+            "6",
+            "7",
+            "8",
+            "9"
+          ],
+          "value": "1",
+          "defaultValue": "1",
+          "isParentNode": false,
+          "name": "dark",
+          "position": 0,
+          "path": "doTerminusIsleExploration.teamSlot.dark"
+        }
+      }
+    }
   }
 }

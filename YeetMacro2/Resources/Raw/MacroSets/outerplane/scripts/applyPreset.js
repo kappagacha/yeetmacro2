@@ -21,7 +21,7 @@ function applyPreset(teamSlot) {
 		macroService.PollPattern(patterns.battle.teamFormation[location], { DoClick: true, HoldDurationMs: 750, PredicatePattern: patterns.battle.teamFormation.preset });
 		const currentPreset = macroService.GetText(patterns.battle.teamFormation.preset.current);
 		if (currentPreset.replace(/ /g, '').match(presetRegex)) {
-			macroService.PollPattern(patterns.battle.teamFormation.preset.topLeft, { DoClick: true, ClickOffset: { X: -60 }, PredicatePattern: patterns.battle.teamFormation });
+			macroService.PollPattern(patterns.battle.teamFormation.preset.topLeft, { DoClick: true, ClickOffset: { X: -60, Y: 50 }, PredicatePattern: patterns.battle.teamFormation });
 			continue;
 		}
 
@@ -35,7 +35,7 @@ function applyPreset(teamSlot) {
 			};
 		});
 		const targetPreset = presetNames.find(pn => pn.name.replace(/ /g, '').match(presetRegex));
-		if (!targetPreset) throw new Error(`Unable to find target preset ${preset} for slot ${teamSlot} ${location}`);
+		if (!targetPreset) throw new Error(`Unable to find target preset '${preset}' for slot ${teamSlot} ${location}`);
 
 		macroService.PollPoint(targetPreset.point, { DoClick: true, PredicatePattern: patterns.battle.teamFormation.preset.ok });
 		macroService.PollPattern(patterns.battle.teamFormation.preset.ok, { DoClick: true, ClickPattern: patterns.battle.teamFormation.preset.ok2, PredicatePattern: patterns.battle.teamFormation.preset.presetList });
