@@ -21,6 +21,7 @@ public partial class AndriodHomeViewModel : ObservableObject
     private readonly AndroidScreenService _screenService;
     private readonly MacroManagerViewModel _macroManagerViewModel;
     private readonly YeetAccessibilityService _accessibilityService;
+    private readonly IToastService _toastService;
     [ObservableProperty, NotifyPropertyChangedFor(nameof(IsCurrentPackageValid))]
     string _currentPackage;
     
@@ -65,12 +66,13 @@ public partial class AndriodHomeViewModel : ObservableObject
         }
     }
     public AndriodHomeViewModel(AndroidScreenService screenService, YeetAccessibilityService accessibilityService, 
-        MacroManagerViewModel macroManagerViewModel)
+        MacroManagerViewModel macroManagerViewModel, IToastService toastService)
     {
         _context = (MainActivity)Platform.CurrentActivity;
         _screenService = screenService;
         _accessibilityService = accessibilityService;
         _macroManagerViewModel = macroManagerViewModel;
+        _toastService = toastService;
 
         WeakReferenceMessenger.Default.Register<PropertyChangedMessage<bool>, string>(this, nameof(ForegroundService), (r, propertyChangedMessage) =>
         {
@@ -146,14 +148,26 @@ public partial class AndriodHomeViewModel : ObservableObject
     [RelayCommand]
     private async Task CopyDb()
     {
-        if (await Permissions.RequestAsync<Permissions.StorageWrite>() == PermissionStatus.Granted)
+        if (OperatingSystem.IsAndroidVersionAtLeast(30) && !global::Android.OS.Environment.IsExternalStorageManager)
         {
-            var fromPath = Path.Combine(FileSystem.AppDataDirectory, "yeetmacro.db3");
-            var picturesPath = "/storage/emulated/0/Pictures";
-            var toPath = Path.Combine(picturesPath, "yeetmacro.db3");
-
-            File.Copy(fromPath, toPath, true);
+            var intent = new Intent();
+            intent.SetAction(global::Android.Provider.Settings.ActionManageAppAllFilesAccessPermission);
+            var uri = global::Android.Net.Uri.FromParts("package", Platform.CurrentActivity.PackageName, null);
+            intent.SetData(uri);
+            Platform.CurrentActivity.StartActivity(intent);
+            return;
         }
+        else if (!OperatingSystem.IsAndroidVersionAtLeast(30) && await Permissions.RequestAsync<Permissions.StorageWrite>() != PermissionStatus.Granted)
+        {
+            return;
+        }
+
+        var fromPath = Path.Combine(FileSystem.AppDataDirectory, "yeetmacro.db3");
+        var picturesPath = "/storage/emulated/0/Pictures";
+        var toPath = Path.Combine(picturesPath, "yeetmacro.db3");
+
+        File.Copy(fromPath, toPath, true);
+        _toastService.Show($"Local database copied to ${toPath}");
     }
 
     [RelayCommand]
@@ -161,6 +175,7 @@ public partial class AndriodHomeViewModel : ObservableObject
     {
         var dbPath = Path.Combine(FileSystem.AppDataDirectory, "yeetmacro.db3");
         File.Delete(dbPath);
+        _toastService.Show($"Local database deleted from ${dbPath}");
     }
 
     [RelayCommand]
