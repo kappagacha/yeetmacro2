@@ -3933,6 +3933,19 @@
           "path": "applyPreset.teamSlot9.bottom"
         }
       }
+    },
+    "lastApplied": {
+      "$isParent": false,
+      "props": {
+        "$type": "string",
+        "settingType": "String",
+        "value": "",
+        "defaultValue": "",
+        "isParentNode": false,
+        "name": "lastApplied",
+        "position": 0,
+        "path": "applyPreset.lastApplied"
+      }
     }
   },
   "doTerminusIsleExploration": {
@@ -4020,8 +4033,8 @@
             "8",
             "9"
           ],
-          "value": "1",
-          "defaultValue": "1",
+          "value": "5",
+          "defaultValue": "5",
           "isParentNode": false,
           "name": "fire",
           "position": 0,
@@ -4045,8 +4058,8 @@
             "8",
             "9"
           ],
-          "value": "1",
-          "defaultValue": "1",
+          "value": "6",
+          "defaultValue": "6",
           "isParentNode": false,
           "name": "light",
           "position": 0,
@@ -4070,8 +4083,8 @@
             "8",
             "9"
           ],
-          "value": "1",
-          "defaultValue": "1",
+          "value": "7",
+          "defaultValue": "7",
           "isParentNode": false,
           "name": "dark",
           "position": 0,
