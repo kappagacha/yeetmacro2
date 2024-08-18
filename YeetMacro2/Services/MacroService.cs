@@ -21,6 +21,7 @@ public class PollPatternFindOptions : FindOptions
     public int InversePredicateCheckDelayMs { get; set; } = 100;
     public double PredicateThreshold { get; set; } = 0.0;
     public bool DoClick { get; set; }
+    public long HoldDurationMs { get; set; } = 100;
     public double TimeoutMs { get; set; } = 0.0;
     public Point ClickOffset { get; set; } = Point.Zero;
 }
@@ -273,12 +274,12 @@ public class MacroService
         }
     }
 
-    public void DoClick(Point point)
+    public void DoClick(Point point, long holdDurationMs = 100)
     {
         var variance = 5;
         var xVariance = _random.Next(-variance, variance);
         var yVariance = _random.Next(-variance, variance);
-        _screenService.DoClick(point.Offset(xVariance, yVariance));
+        _screenService.DoClick(point.Offset(xVariance, yVariance), holdDurationMs);
     }
 
     public FindPatternResult ClickPattern(OneOf<PatternNode, PatternNode[]> oneOfPattern, FindOptions opts = null)
@@ -363,7 +364,7 @@ public class MacroService
                 {
                     successResult = result;
                     var point = result.Point;
-                    this.DoClick(point.Offset(clickOffsetX, clickOffsetY));
+                    this.DoClick(point.Offset(clickOffsetX, clickOffsetY), opts.HoldDurationMs);
                     Sleep(500);
                 }
                 if (clickPattern is not null) this.ClickPattern(clickPattern.Value, opts);
@@ -395,7 +396,7 @@ public class MacroService
                 {
                     successResult = result;
                     var point = result.Point;
-                    this.DoClick(point.Offset(clickOffsetX, clickOffsetY));
+                    this.DoClick(point.Offset(clickOffsetX, clickOffsetY), opts.HoldDurationMs);
                     Sleep(500);
                 }
                 if (clickPattern is not null) this.ClickPattern(clickPattern.Value, opts);
@@ -417,7 +418,7 @@ public class MacroService
                 if (opts.DoClick && result.IsSuccess)
                 {
                     var point = result.Point;
-                    this.DoClick(point.Offset(clickOffsetX, clickOffsetY));
+                    this.DoClick(point.Offset(clickOffsetX, clickOffsetY), opts.HoldDurationMs);
                     Sleep(500);
                 }
                 if (result.IsSuccess) break;

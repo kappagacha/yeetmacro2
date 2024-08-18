@@ -37,7 +37,7 @@ public interface IScreenService
     void DebugCircle(Point point);
     void DebugClear();
     List<Point> GetMatches(Pattern template, FindOptions opts);
-    void DoClick(Point point);
+    void DoClick(Point point, long holdDurationMs = 100);
     void DoSwipe(Point start, Point end);
     Byte[] CalcColorThreshold(Pattern pattern, ColorThresholdProperties colorThreshold);
     byte[] GetCurrentImageData();

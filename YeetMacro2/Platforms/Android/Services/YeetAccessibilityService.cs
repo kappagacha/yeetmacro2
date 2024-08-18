@@ -92,7 +92,7 @@ public class YeetAccessibilityService : AccessibilityService
         return base.OnUnbind(intent);
     }
 
-    public void DoClick(Point point)
+    public void DoClick(Point point, long holdDurationMs = 100)
     {
         if (_instance == null || point.X < 0.0 || point.Y < 0.0) return;
 
@@ -101,7 +101,7 @@ public class YeetAccessibilityService : AccessibilityService
         global::Android.Graphics.Path swipePath = new();
         swipePath.MoveTo((float)point.X, (float)point.Y);
         swipePath.Close();
-        var strokeDescription = new GestureDescription.StrokeDescription(swipePath, 0, 100);
+        var strokeDescription = new GestureDescription.StrokeDescription(swipePath, 0, holdDurationMs);
         gestureBuilder.AddStroke(strokeDescription);
         var gesture = gestureBuilder.Build();
 

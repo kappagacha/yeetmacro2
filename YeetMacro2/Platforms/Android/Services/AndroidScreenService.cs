@@ -160,9 +160,9 @@ public class AndroidScreenService : IScreenService
         drawControl.AddRectangle(new Rect(loc, size));
     }
 
-    public void DoClick(Point point)
+    public void DoClick(Point point, long holdDurationMs = 100)
     {
-        _accessibilityService.DoClick(point);
+        _accessibilityService.DoClick(point, holdDurationMs);
     }
 
     public void DoSwipe(Point start, Point end)

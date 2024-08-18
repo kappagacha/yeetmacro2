@@ -290,7 +290,7 @@ public class DotNetToJsConverter : Jint.Runtime.Interop.IObjectConverter
     public bool TryConvert(Engine engine, object value, out JsValue result)
     {
         // If you want object properties/methods to work in JavaScript for your type, add them here
-        if (value is SettingNode || value is TodoJsonElementViewModel || value is DateTimeOffset)
+        if (value is SettingNode || value is PatternNode || value is TodoJsonElementViewModel || value is DateTimeOffset)
         {
             result = ObjectWrapper.Create(engine, value);
             return true;
