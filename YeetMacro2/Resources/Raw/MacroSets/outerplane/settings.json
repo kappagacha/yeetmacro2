@@ -3090,5 +3090,804 @@
         "path": "sweepJointChallenge.jointChallengeLevel"
       }
     }
+  },
+  "applyPreset": {
+    "$isParent": true,
+    "props": {
+      "settingType": "Parent",
+      "isParentNode": true,
+      "name": "applyPreset",
+      "position": 0,
+      "path": "applyPreset"
+    },
+    "teamSlot": {
+      "$isParent": false,
+      "props": {
+        "$type": "option",
+        "settingType": "Option",
+        "options": [
+          "1",
+          "2",
+          "3",
+          "4",
+          "5",
+          "6",
+          "7",
+          "8",
+          "9"
+        ],
+        "value": "1",
+        "defaultValue": "1",
+        "isParentNode": false,
+        "name": "teamSlot",
+        "position": 0,
+        "path": "applyPreset.teamSlot"
+      }
+    },
+    "teamSlot1": {
+      "$isParent": true,
+      "props": {
+        "settingType": "Parent",
+        "isParentNode": true,
+        "name": "defaultPresets",
+        "position": 0
+      },
+      "left": {
+        "$isParent": false,
+        "props": {
+          "$type": "enabledOption",
+          "settingType": "EnabledOption",
+          "isEnabled": false,
+          "options": [
+            "CRT DMG 1",
+            "CRT DMG 2",
+            "SPD 1",
+            "SPD 2"
+          ],
+          "value": "SPD 1",
+          "defaultValue": "SPD 1",
+          "isParentNode": false,
+          "name": "left",
+          "position": 0
+        }
+      },
+      "top": {
+        "$isParent": false,
+        "props": {
+          "$type": "enabledOption",
+          "settingType": "EnabledOption",
+          "isEnabled": false,
+          "options": [
+            "CRT DMG 1",
+            "CRT DMG 2",
+            "SPD 1",
+            "SPD 2"
+          ],
+          "value": "SPD 2",
+          "defaultValue": "SPD 2",
+          "isParentNode": false,
+          "name": "top",
+          "position": 0
+        }
+      },
+      "right": {
+        "$isParent": false,
+        "props": {
+          "$type": "enabledOption",
+          "settingType": "EnabledOption",
+          "isEnabled": false,
+          "options": [
+            "CRT DMG 1",
+            "CRT DMG 2",
+            "SPD 1",
+            "SPD 2"
+          ],
+          "value": "CRT DMG 1",
+          "defaultValue": "CRT DMG 1",
+          "isParentNode": false,
+          "name": "right",
+          "position": 0
+        }
+      },
+      "bottom": {
+        "$isParent": false,
+        "props": {
+          "$type": "enabledOption",
+          "settingType": "EnabledOption",
+          "isEnabled": false,
+          "options": [
+            "CRT DMG 1",
+            "CRT DMG 2",
+            "SPD 1",
+            "SPD 2"
+          ],
+          "value": "CRT DMG 2",
+          "defaultValue": "CRT DMG 2",
+          "isParentNode": false,
+          "name": "bottom",
+          "position": 0
+        }
+      }
+    },
+    "teamSlot2": {
+      "$isParent": true,
+      "props": {
+        "settingType": "Parent",
+        "isParentNode": true,
+        "name": "defaultPresets",
+        "position": 0
+      },
+      "left": {
+        "$isParent": false,
+        "props": {
+          "$type": "enabledOption",
+          "settingType": "EnabledOption",
+          "isEnabled": false,
+          "options": [
+            "CRT DMG 1",
+            "CRT DMG 2",
+            "SPD 1",
+            "SPD 2"
+          ],
+          "value": "SPD 1",
+          "defaultValue": "SPD 1",
+          "isParentNode": false,
+          "name": "left",
+          "position": 0
+        }
+      },
+      "top": {
+        "$isParent": false,
+        "props": {
+          "$type": "enabledOption",
+          "settingType": "EnabledOption",
+          "isEnabled": false,
+          "options": [
+            "CRT DMG 1",
+            "CRT DMG 2",
+            "SPD 1",
+            "SPD 2"
+          ],
+          "value": "SPD 2",
+          "defaultValue": "SPD 2",
+          "isParentNode": false,
+          "name": "top",
+          "position": 0
+        }
+      },
+      "right": {
+        "$isParent": false,
+        "props": {
+          "$type": "enabledOption",
+          "settingType": "EnabledOption",
+          "isEnabled": false,
+          "options": [
+            "CRT DMG 1",
+            "CRT DMG 2",
+            "SPD 1",
+            "SPD 2"
+          ],
+          "value": "CRT DMG 1",
+          "defaultValue": "CRT DMG 1",
+          "isParentNode": false,
+          "name": "right",
+          "position": 0
+        }
+      },
+      "bottom": {
+        "$isParent": false,
+        "props": {
+          "$type": "enabledOption",
+          "settingType": "EnabledOption",
+          "isEnabled": false,
+          "options": [
+            "CRT DMG 1",
+            "CRT DMG 2",
+            "SPD 1",
+            "SPD 2"
+          ],
+          "value": "CRT DMG 2",
+          "defaultValue": "CRT DMG 2",
+          "isParentNode": false,
+          "name": "bottom",
+          "position": 0
+        }
+      }
+    },
+    "teamSlot3": {
+      "$isParent": true,
+      "props": {
+        "settingType": "Parent",
+        "isParentNode": true,
+        "name": "defaultPresets",
+        "position": 0
+      },
+      "left": {
+        "$isParent": false,
+        "props": {
+          "$type": "enabledOption",
+          "settingType": "EnabledOption",
+          "isEnabled": false,
+          "options": [
+            "CRT DMG 1",
+            "CRT DMG 2",
+            "SPD 1",
+            "SPD 2"
+          ],
+          "value": "SPD 1",
+          "defaultValue": "SPD 1",
+          "isParentNode": false,
+          "name": "left",
+          "position": 0
+        }
+      },
+      "top": {
+        "$isParent": false,
+        "props": {
+          "$type": "enabledOption",
+          "settingType": "EnabledOption",
+          "isEnabled": false,
+          "options": [
+            "CRT DMG 1",
+            "CRT DMG 2",
+            "SPD 1",
+            "SPD 2"
+          ],
+          "value": "SPD 2",
+          "defaultValue": "SPD 2",
+          "isParentNode": false,
+          "name": "top",
+          "position": 0
+        }
+      },
+      "right": {
+        "$isParent": false,
+        "props": {
+          "$type": "enabledOption",
+          "settingType": "EnabledOption",
+          "isEnabled": false,
+          "options": [
+            "CRT DMG 1",
+            "CRT DMG 2",
+            "SPD 1",
+            "SPD 2"
+          ],
+          "value": "CRT DMG 1",
+          "defaultValue": "CRT DMG 1",
+          "isParentNode": false,
+          "name": "right",
+          "position": 0
+        }
+      },
+      "bottom": {
+        "$isParent": false,
+        "props": {
+          "$type": "enabledOption",
+          "settingType": "EnabledOption",
+          "isEnabled": false,
+          "options": [
+            "CRT DMG 1",
+            "CRT DMG 2",
+            "SPD 1",
+            "SPD 2"
+          ],
+          "value": "CRT DMG 2",
+          "defaultValue": "CRT DMG 2",
+          "isParentNode": false,
+          "name": "bottom",
+          "position": 0
+        }
+      }
+    },
+    "teamSlot4": {
+      "$isParent": true,
+      "props": {
+        "settingType": "Parent",
+        "isParentNode": true,
+        "name": "defaultPresets",
+        "position": 0
+      },
+      "left": {
+        "$isParent": false,
+        "props": {
+          "$type": "enabledOption",
+          "settingType": "EnabledOption",
+          "isEnabled": false,
+          "options": [
+            "CRT DMG 1",
+            "CRT DMG 2",
+            "SPD 1",
+            "SPD 2"
+          ],
+          "value": "SPD 1",
+          "defaultValue": "SPD 1",
+          "isParentNode": false,
+          "name": "left",
+          "position": 0
+        }
+      },
+      "top": {
+        "$isParent": false,
+        "props": {
+          "$type": "enabledOption",
+          "settingType": "EnabledOption",
+          "isEnabled": false,
+          "options": [
+            "CRT DMG 1",
+            "CRT DMG 2",
+            "SPD 1",
+            "SPD 2"
+          ],
+          "value": "SPD 2",
+          "defaultValue": "SPD 2",
+          "isParentNode": false,
+          "name": "top",
+          "position": 0
+        }
+      },
+      "right": {
+        "$isParent": false,
+        "props": {
+          "$type": "enabledOption",
+          "settingType": "EnabledOption",
+          "isEnabled": false,
+          "options": [
+            "CRT DMG 1",
+            "CRT DMG 2",
+            "SPD 1",
+            "SPD 2"
+          ],
+          "value": "CRT DMG 1",
+          "defaultValue": "CRT DMG 1",
+          "isParentNode": false,
+          "name": "right",
+          "position": 0
+        }
+      },
+      "bottom": {
+        "$isParent": false,
+        "props": {
+          "$type": "enabledOption",
+          "settingType": "EnabledOption",
+          "isEnabled": false,
+          "options": [
+            "CRT DMG 1",
+            "CRT DMG 2",
+            "SPD 1",
+            "SPD 2"
+          ],
+          "value": "CRT DMG 2",
+          "defaultValue": "CRT DMG 2",
+          "isParentNode": false,
+          "name": "bottom",
+          "position": 0
+        }
+      }
+    },
+    "teamSlot5": {
+      "$isParent": true,
+      "props": {
+        "settingType": "Parent",
+        "isParentNode": true,
+        "name": "defaultPresets",
+        "position": 0
+      },
+      "left": {
+        "$isParent": false,
+        "props": {
+          "$type": "enabledOption",
+          "settingType": "EnabledOption",
+          "isEnabled": false,
+          "options": [
+            "CRT DMG 1",
+            "CRT DMG 2",
+            "SPD 1",
+            "SPD 2"
+          ],
+          "value": "SPD 1",
+          "defaultValue": "SPD 1",
+          "isParentNode": false,
+          "name": "left",
+          "position": 0
+        }
+      },
+      "top": {
+        "$isParent": false,
+        "props": {
+          "$type": "enabledOption",
+          "settingType": "EnabledOption",
+          "isEnabled": false,
+          "options": [
+            "CRT DMG 1",
+            "CRT DMG 2",
+            "SPD 1",
+            "SPD 2"
+          ],
+          "value": "SPD 2",
+          "defaultValue": "SPD 2",
+          "isParentNode": false,
+          "name": "top",
+          "position": 0
+        }
+      },
+      "right": {
+        "$isParent": false,
+        "props": {
+          "$type": "enabledOption",
+          "settingType": "EnabledOption",
+          "isEnabled": false,
+          "options": [
+            "CRT DMG 1",
+            "CRT DMG 2",
+            "SPD 1",
+            "SPD 2"
+          ],
+          "value": "CRT DMG 1",
+          "defaultValue": "CRT DMG 1",
+          "isParentNode": false,
+          "name": "right",
+          "position": 0
+        }
+      },
+      "bottom": {
+        "$isParent": false,
+        "props": {
+          "$type": "enabledOption",
+          "settingType": "EnabledOption",
+          "isEnabled": false,
+          "options": [
+            "CRT DMG 1",
+            "CRT DMG 2",
+            "SPD 1",
+            "SPD 2"
+          ],
+          "value": "CRT DMG 2",
+          "defaultValue": "CRT DMG 2",
+          "isParentNode": false,
+          "name": "bottom",
+          "position": 0
+        }
+      }
+    },
+    "teamSlot6": {
+      "$isParent": true,
+      "props": {
+        "settingType": "Parent",
+        "isParentNode": true,
+        "name": "defaultPresets",
+        "position": 0
+      },
+      "left": {
+        "$isParent": false,
+        "props": {
+          "$type": "enabledOption",
+          "settingType": "EnabledOption",
+          "isEnabled": false,
+          "options": [
+            "CRT DMG 1",
+            "CRT DMG 2",
+            "SPD 1",
+            "SPD 2"
+          ],
+          "value": "SPD 1",
+          "defaultValue": "SPD 1",
+          "isParentNode": false,
+          "name": "left",
+          "position": 0
+        }
+      },
+      "top": {
+        "$isParent": false,
+        "props": {
+          "$type": "enabledOption",
+          "settingType": "EnabledOption",
+          "isEnabled": false,
+          "options": [
+            "CRT DMG 1",
+            "CRT DMG 2",
+            "SPD 1",
+            "SPD 2"
+          ],
+          "value": "SPD 2",
+          "defaultValue": "SPD 2",
+          "isParentNode": false,
+          "name": "top",
+          "position": 0
+        }
+      },
+      "right": {
+        "$isParent": false,
+        "props": {
+          "$type": "enabledOption",
+          "settingType": "EnabledOption",
+          "isEnabled": false,
+          "options": [
+            "CRT DMG 1",
+            "CRT DMG 2",
+            "SPD 1",
+            "SPD 2"
+          ],
+          "value": "CRT DMG 1",
+          "defaultValue": "CRT DMG 1",
+          "isParentNode": false,
+          "name": "right",
+          "position": 0
+        }
+      },
+      "bottom": {
+        "$isParent": false,
+        "props": {
+          "$type": "enabledOption",
+          "settingType": "EnabledOption",
+          "isEnabled": false,
+          "options": [
+            "CRT DMG 1",
+            "CRT DMG 2",
+            "SPD 1",
+            "SPD 2"
+          ],
+          "value": "CRT DMG 2",
+          "defaultValue": "CRT DMG 2",
+          "isParentNode": false,
+          "name": "bottom",
+          "position": 0
+        }
+      }
+    },
+    "teamSlot7": {
+      "$isParent": true,
+      "props": {
+        "settingType": "Parent",
+        "isParentNode": true,
+        "name": "defaultPresets",
+        "position": 0
+      },
+      "left": {
+        "$isParent": false,
+        "props": {
+          "$type": "enabledOption",
+          "settingType": "EnabledOption",
+          "isEnabled": false,
+          "options": [
+            "CRT DMG 1",
+            "CRT DMG 2",
+            "SPD 1",
+            "SPD 2"
+          ],
+          "value": "SPD 1",
+          "defaultValue": "SPD 1",
+          "isParentNode": false,
+          "name": "left",
+          "position": 0
+        }
+      },
+      "top": {
+        "$isParent": false,
+        "props": {
+          "$type": "enabledOption",
+          "settingType": "EnabledOption",
+          "isEnabled": false,
+          "options": [
+            "CRT DMG 1",
+            "CRT DMG 2",
+            "SPD 1",
+            "SPD 2"
+          ],
+          "value": "SPD 2",
+          "defaultValue": "SPD 2",
+          "isParentNode": false,
+          "name": "top",
+          "position": 0
+        }
+      },
+      "right": {
+        "$isParent": false,
+        "props": {
+          "$type": "enabledOption",
+          "settingType": "EnabledOption",
+          "isEnabled": false,
+          "options": [
+            "CRT DMG 1",
+            "CRT DMG 2",
+            "SPD 1",
+            "SPD 2"
+          ],
+          "value": "CRT DMG 1",
+          "defaultValue": "CRT DMG 1",
+          "isParentNode": false,
+          "name": "right",
+          "position": 0
+        }
+      },
+      "bottom": {
+        "$isParent": false,
+        "props": {
+          "$type": "enabledOption",
+          "settingType": "EnabledOption",
+          "isEnabled": false,
+          "options": [
+            "CRT DMG 1",
+            "CRT DMG 2",
+            "SPD 1",
+            "SPD 2"
+          ],
+          "value": "CRT DMG 2",
+          "defaultValue": "CRT DMG 2",
+          "isParentNode": false,
+          "name": "bottom",
+          "position": 0
+        }
+      }
+    },
+    "teamSlot8": {
+      "$isParent": true,
+      "props": {
+        "settingType": "Parent",
+        "isParentNode": true,
+        "name": "defaultPresets",
+        "position": 0
+      },
+      "left": {
+        "$isParent": false,
+        "props": {
+          "$type": "enabledOption",
+          "settingType": "EnabledOption",
+          "isEnabled": false,
+          "options": [
+            "CRT DMG 1",
+            "CRT DMG 2",
+            "SPD 1",
+            "SPD 2"
+          ],
+          "value": "SPD 1",
+          "defaultValue": "SPD 1",
+          "isParentNode": false,
+          "name": "left",
+          "position": 0
+        }
+      },
+      "top": {
+        "$isParent": false,
+        "props": {
+          "$type": "enabledOption",
+          "settingType": "EnabledOption",
+          "isEnabled": false,
+          "options": [
+            "CRT DMG 1",
+            "CRT DMG 2",
+            "SPD 1",
+            "SPD 2"
+          ],
+          "value": "SPD 2",
+          "defaultValue": "SPD 2",
+          "isParentNode": false,
+          "name": "top",
+          "position": 0
+        }
+      },
+      "right": {
+        "$isParent": false,
+        "props": {
+          "$type": "enabledOption",
+          "settingType": "EnabledOption",
+          "isEnabled": false,
+          "options": [
+            "CRT DMG 1",
+            "CRT DMG 2",
+            "SPD 1",
+            "SPD 2"
+          ],
+          "value": "CRT DMG 1",
+          "defaultValue": "CRT DMG 1",
+          "isParentNode": false,
+          "name": "right",
+          "position": 0
+        }
+      },
+      "bottom": {
+        "$isParent": false,
+        "props": {
+          "$type": "enabledOption",
+          "settingType": "EnabledOption",
+          "isEnabled": false,
+          "options": [
+            "CRT DMG 1",
+            "CRT DMG 2",
+            "SPD 1",
+            "SPD 2"
+          ],
+          "value": "CRT DMG 2",
+          "defaultValue": "CRT DMG 2",
+          "isParentNode": false,
+          "name": "bottom",
+          "position": 0
+        }
+      }
+    },
+    "teamSlot9": {
+      "$isParent": true,
+      "props": {
+        "settingType": "Parent",
+        "isParentNode": true,
+        "name": "defaultPresets",
+        "position": 0
+      },
+      "left": {
+        "$isParent": false,
+        "props": {
+          "$type": "enabledOption",
+          "settingType": "EnabledOption",
+          "isEnabled": false,
+          "options": [
+            "CRT DMG 1",
+            "CRT DMG 2",
+            "SPD 1",
+            "SPD 2"
+          ],
+          "value": "SPD 1",
+          "defaultValue": "SPD 1",
+          "isParentNode": false,
+          "name": "left",
+          "position": 0
+        }
+      },
+      "top": {
+        "$isParent": false,
+        "props": {
+          "$type": "enabledOption",
+          "settingType": "EnabledOption",
+          "isEnabled": false,
+          "options": [
+            "CRT DMG 1",
+            "CRT DMG 2",
+            "SPD 1",
+            "SPD 2"
+          ],
+          "value": "SPD 2",
+          "defaultValue": "SPD 2",
+          "isParentNode": false,
+          "name": "top",
+          "position": 0
+        }
+      },
+      "right": {
+        "$isParent": false,
+        "props": {
+          "$type": "enabledOption",
+          "settingType": "EnabledOption",
+          "isEnabled": false,
+          "options": [
+            "CRT DMG 1",
+            "CRT DMG 2",
+            "SPD 1",
+            "SPD 2"
+          ],
+          "value": "CRT DMG 1",
+          "defaultValue": "CRT DMG 1",
+          "isParentNode": false,
+          "name": "right",
+          "position": 0
+        }
+      },
+      "bottom": {
+        "$isParent": false,
+        "props": {
+          "$type": "enabledOption",
+          "settingType": "EnabledOption",
+          "isEnabled": false,
+          "options": [
+            "CRT DMG 1",
+            "CRT DMG 2",
+            "SPD 1",
+            "SPD 2"
+          ],
+          "value": "CRT DMG 2",
+          "defaultValue": "CRT DMG 2",
+          "isParentNode": false,
+          "name": "bottom",
+          "position": 0
+        }
+      }
+    }
   }
 }
