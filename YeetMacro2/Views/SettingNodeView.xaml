@@ -92,6 +92,10 @@
                                     CommandParameter="{Binding .}" />
                             </Grid>
                             <v:ImageView
+                                VerticalOptions="Center" FontFamily="MaterialOutlined" Glyph="{x:Static mi:MaterialOutlined.Edit}"
+                                Command="{Binding BindingContext.Settings.EditOptionCommand, Source={RelativeSource AncestorType={x:Type v:SettingNodeView}}}"
+                                CommandParameter="{Binding .}" />
+                            <v:ImageView
                                 VerticalOptions="Center" FontFamily="MaterialOutlined" Glyph="{x:Static mi:MaterialOutlined.Add}"
                                 Command="{Binding BindingContext.Settings.AddOptionCommand, Source={RelativeSource AncestorType={x:Type v:SettingNodeView}}}"
                                 CommandParameter="{Binding .}" />
@@ -112,6 +116,10 @@
                                     Command="{Binding BindingContext.Settings.SelectOptionCommand, Source={RelativeSource AncestorType={x:Type v:SettingNodeView}}}"
                                     CommandParameter="{Binding .}" />
                             </Grid>
+                            <v:ImageView
+                                VerticalOptions="Center" FontFamily="MaterialOutlined" Glyph="{x:Static mi:MaterialOutlined.Edit}"
+                                Command="{Binding BindingContext.Settings.EditOptionCommand, Source={RelativeSource AncestorType={x:Type v:SettingNodeView}}}"
+                                CommandParameter="{Binding .}" />
                             <v:ImageView
                                 VerticalOptions="Center" FontFamily="MaterialOutlined" Glyph="{x:Static mi:MaterialOutlined.Add}"
                                 Command="{Binding BindingContext.Settings.AddOptionCommand, Source={RelativeSource AncestorType={x:Type v:SettingNodeView}}}"

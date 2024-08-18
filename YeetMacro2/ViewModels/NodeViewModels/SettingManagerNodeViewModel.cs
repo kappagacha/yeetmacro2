@@ -96,7 +96,10 @@ public partial class SettingNodeManagerViewModel : NodeManagerViewModel<ParentSe
             var newOption = await _inputService.PromptInput("New option value");
             if (String.IsNullOrEmpty(newOption)) return;
 
-            optionSetting.Options.Add(newOption);
+            foreach (var opt in newOption.Split(','))
+            {
+                optionSetting.Options.Add(opt);
+            }
             _settingRepository.Update(optionSetting);
             _settingRepository.Save();
         }
@@ -111,6 +114,22 @@ public partial class SettingNodeManagerViewModel : NodeManagerViewModel<ParentSe
             if (String.IsNullOrEmpty(selectedOption) || selectedOption == "ok" || selectedOption == "cancel") return;
 
             optionSetting.Value = selectedOption;
+            _settingRepository.Update(optionSetting);
+            _settingRepository.Save();
+        }
+    }
+
+    [RelayCommand]
+    public async Task EditOption(object setting)
+    {
+        if (setting is OptionSetting optionSetting)
+        {
+            var newOptions = await _inputService.PromptInput("Update options", String.Join(',', optionSetting.Options));
+            optionSetting.Options.Clear();
+            foreach (var opt in newOptions.Split(','))
+            {
+                optionSetting.Options.Add(opt);
+            }
             _settingRepository.Update(optionSetting);
             _settingRepository.Save();
         }
