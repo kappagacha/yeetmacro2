@@ -5,7 +5,11 @@ function applyPreset(teamSlot) {
 	if (!teamSlot) {
 		teamSlot = settings.applyPreset.teamSlot.Value;
 	}
-	
+
+	if (teamSlot == settings.applyPreset.lastApplied.Value) {
+		return;
+	} 
+
 	const locationToPreset = {
 		left: settings.applyPreset[`teamSlot${teamSlot}`].left.IsEnabled && settings.applyPreset[`teamSlot${teamSlot}`].left.Value,
 		top: settings.applyPreset[`teamSlot${teamSlot}`].top.IsEnabled && settings.applyPreset[`teamSlot${teamSlot}`].top.Value,
@@ -39,6 +43,10 @@ function applyPreset(teamSlot) {
 
 		macroService.PollPoint(targetPreset.point, { DoClick: true, PredicatePattern: patterns.battle.teamFormation.preset.ok });
 		macroService.PollPattern(patterns.battle.teamFormation.preset.ok, { DoClick: true, ClickPattern: patterns.battle.teamFormation.preset.ok2, PredicatePattern: patterns.battle.teamFormation.preset.presetList });
-		macroService.PollPattern(patterns.battle.teamFormation.preset.topLeft, { DoClick: true, ClickOffset: { X: -60 }, PredicatePattern: patterns.battle.teamFormation });
+		macroService.PollPattern(patterns.battle.teamFormation.preset.topLeft, { DoClick: true, ClickOffset: { X: -60 }, PredicatePattern: patterns.battle.teamFormation });		
+	}
+
+	if (macroService.IsRunning) {
+		settings.applyPreset.lastApplied.Value = teamSlot;
 	}
 }

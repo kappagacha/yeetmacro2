@@ -26,8 +26,8 @@ while (macroService.IsRunning) {
 			logger.info('doTerminusIsleExploration: star exploration');
 			let confirmResult = macroService.PollPattern(patterns.terminusIsle.confirm, { TimeoutMs: 3_000 });
 			while (confirmResult.IsSuccess) {
-				const confirmResult = macroService.PollPattern(patterns.terminusIsle.confirm, {
-					DoClick: true, PredicatePattern: [
+				confirmResult = macroService.PollPattern(patterns.terminusIsle.confirm, {
+					DoClick: true, ClickOffset: { X: -20, Y: -20 }, PredicatePattern: [
 						patterns.terminusIsle.prompt.next,
 						patterns.terminusIsle.prompt.treasureChestFound,
 						patterns.terminusIsle.prompt.explorationFailed,
@@ -35,7 +35,7 @@ while (macroService.IsRunning) {
 					]
 				});
 
-				switch (confirmResult.PredicatePattern) {
+				switch (confirmResult.PredicatePath) {
 					case 'terminusIsle.prompt.next':
 						const title = macroService.GetText(patterns.terminusIsle.prompt.title);
 						logger.screenCapture(`Title: ${title}`);
