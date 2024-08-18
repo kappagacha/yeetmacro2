@@ -132,7 +132,7 @@ public class ScriptService: IScriptService
             _toastService.Show(_macroService.IsRunning ? "Script finished..." : "Script stopped...");
             if (_macroService.IsRunning)
             {
-                Vibration.Default.Vibrate();
+                Vibration.Default.Vibrate(100);
             }
 
             if (jsResult is JsObject || jsResult is JsArray)
@@ -156,14 +156,14 @@ public class ScriptService: IScriptService
         catch (JavaScriptException jex)
         {
             _engine.SetValue("error", jex.Error);
-            Vibration.Default.Vibrate();
+            Vibration.Default.Vibrate(100);
             return _engine.Evaluate("JSON.stringify({ ...error, message: error.message }, null, 2)").AsString();
         }
         catch (Exception ex)
         {
             _toastService.Show("Error: " + ex.Message);
             _logServiceViewModel.LogException(ex);
-            Vibration.Default.Vibrate();
+            Vibration.Default.Vibrate(100);
             return $"{ex.Message}: \n\t{ex.StackTrace}";
         }
         finally
