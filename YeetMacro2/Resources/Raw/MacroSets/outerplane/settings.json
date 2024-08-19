@@ -3228,7 +3228,7 @@
         "props": {
           "$type": "enabledOption",
           "settingType": "EnabledOption",
-          "isEnabled": true,
+          "isEnabled": false,
           "options": [
             "CRT DMG 1",
             "CRT DMG 2",
@@ -3248,7 +3248,7 @@
         "props": {
           "$type": "enabledOption",
           "settingType": "EnabledOption",
-          "isEnabled": true,
+          "isEnabled": false,
           "options": [
             "CRT DMG 1",
             "CRT DMG 2",
@@ -3268,7 +3268,7 @@
         "props": {
           "$type": "enabledOption",
           "settingType": "EnabledOption",
-          "isEnabled": true,
+          "isEnabled": false,
           "options": [
             "CRT DMG 1",
             "CRT DMG 2",
@@ -3288,7 +3288,7 @@
         "props": {
           "$type": "enabledOption",
           "settingType": "EnabledOption",
-          "isEnabled": true,
+          "isEnabled": false,
           "options": [
             "CRT DMG 1",
             "CRT DMG 2",
@@ -3858,7 +3858,7 @@
         "props": {
           "$type": "enabledOption",
           "settingType": "EnabledOption",
-          "isEnabled": true,
+          "isEnabled": false,
           "options": [
             "CRT DMG 1",
             "CRT DMG 2",
@@ -3878,7 +3878,7 @@
         "props": {
           "$type": "enabledOption",
           "settingType": "EnabledOption",
-          "isEnabled": true,
+          "isEnabled": false,
           "options": [
             "CRT DMG 1",
             "CRT DMG 2",
@@ -3898,7 +3898,7 @@
         "props": {
           "$type": "enabledOption",
           "settingType": "EnabledOption",
-          "isEnabled": true,
+          "isEnabled": false,
           "options": [
             "CRT DMG 1",
             "CRT DMG 2",
@@ -3918,7 +3918,7 @@
         "props": {
           "$type": "enabledOption",
           "settingType": "EnabledOption",
-          "isEnabled": true,
+          "isEnabled": false,
           "options": [
             "CRT DMG 1",
             "CRT DMG 2",

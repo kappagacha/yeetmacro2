@@ -1,9 +1,9 @@
 // Do terminus isle exploration
 const loopPatterns = [patterns.lobby.level, patterns.titles.adventure, patterns.terminusIsle.stage]
 const daily = dailyManager.GetCurrentDaily();
-if (daily.startTerminusIsleExploration.done.IsChecked) {
-	return "Terminus isle hasn't been started yet";
-}
+//if (!daily.startTerminusIsleExploration.done.IsChecked) {
+//	return "Terminus isle hasn't been started yet";
+//}
 
 if (daily.doTerminusIsleExploration.done.IsChecked) {
 	return "Script already completed. Uncheck done to override daily flag.";
@@ -38,12 +38,18 @@ while (macroService.IsRunning) {
 				switch (confirmResult.PredicatePath) {
 					case 'terminusIsle.prompt.next':
 						const title = macroService.GetText(patterns.terminusIsle.prompt.title);
+						sleep(3_000);
 						logger.screenCapture(`Title: ${title}`);
 						// TODO: pick 1 out of 3 options based on title
 						const randomOption = macroService.Random(1, 3);
-						macroService.PollPattern(patterns.terminusIsle.prompt.options[randomOption], { DoClick: true, ClickPattern: patterns.terminusIsle.prompt.next, PredicatePattern: patterns.general.tapEmptySpace });
+						const optionResult = macroService.PollPattern(patterns.terminusIsle.prompt.options[randomOption], { DoClick: true, ClickPattern: patterns.terminusIsle.prompt.next, PredicatePattern: [patterns.general.tapEmptySpace, patterns.terminusIsle.prompt.heroDeployment] });
 						logger.screenCapture(`Title: ${title} => option ${randomOption}`);
-						macroService.PollPattern(patterns.general.tapEmptySpace, { DoClick: true, PredicatePattern: patterns.terminusIsle.stage });
+						if (optionResult.PredicatePath === 'terminusIsle.prompt.heroDeployment') {
+							deployHeroes();
+							macroService.PollPattern(patterns.general.tapEmptySpace, { DoClick: true, ClickPattern: patterns.terminusIsle.prompt.next, PredicatePattern: patterns.terminusIsle.stage });
+						} else {
+							macroService.PollPattern(patterns.general.tapEmptySpace, { DoClick: true, PredicatePattern: patterns.terminusIsle.stage });
+						}
 						break;
 					case 'terminusIsle.prompt.treasureChestFound':
 						const randomChest = macroService.Random(1, 3);

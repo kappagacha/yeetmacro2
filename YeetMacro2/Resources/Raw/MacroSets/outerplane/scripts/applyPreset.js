@@ -22,7 +22,7 @@ function applyPreset(teamSlot) {
 
 		const presetRegex = new RegExp(preset.replace(/ /g, ''));
 		
-		macroService.PollPattern(patterns.battle.teamFormation[location], { DoClick: true, HoldDurationMs: 750, PredicatePattern: patterns.battle.teamFormation.preset });
+		macroService.PollPattern(patterns.battle.teamFormation[location], { DoClick: true, HoldDurationMs: 1_000, PredicatePattern: patterns.battle.teamFormation.preset });
 		const currentPreset = macroService.GetText(patterns.battle.teamFormation.preset.current);
 		if (currentPreset.replace(/ /g, '').match(presetRegex)) {
 			macroService.PollPattern(patterns.battle.teamFormation.preset.topLeft, { DoClick: true, ClickOffset: { X: -60, Y: 50 }, PredicatePattern: patterns.general.back });

@@ -65,8 +65,8 @@ public class MainActivity : MauiAppCompatActivity
 
     protected override void OnActivityResult(int requestCode, [GeneratedEnum] Result resultCode, Intent data)
     {
-        ServiceHelper.GetService<LogServiceViewModel>().LogDebug($"MainActivity.OnActivityResult requestCode: {requestCode}");
-        ServiceHelper.GetService<LogServiceViewModel>().LogDebug($"MainActivity.OnActivityResult resultCode: {resultCode}");
+        //ServiceHelper.GetService<LogServiceViewModel>().LogDebug($"MainActivity.OnActivityResult requestCode: {requestCode}");
+        //ServiceHelper.GetService<LogServiceViewModel>().LogDebug($"MainActivity.OnActivityResult resultCode: {resultCode}");
         switch (requestCode)
         {
             case Platforms.Android.Services.MediaProjectionService.REQUEST_MEDIA_PROJECTION:
