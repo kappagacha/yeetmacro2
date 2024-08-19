@@ -14,17 +14,10 @@ while (macroService.IsRunning) {
 	switch (loopResult.Path) {
 		case 'lobby.level':
 			logger.info('claimGuildBuff: click guild tab');
-			//const guildNotificationResult = macroService.PollPattern(patterns.tabs.guild.notification, { TimeoutMs: 2_000 });
-			//if (guildNotificationResult.IsSuccess) {
-			//	macroService.ClickPattern(patterns.tabs.guild);
-			//} else {	// no notification
-			//	return;
-			//}
-			//sleep(500);
-			//break;
-
 			macroService.PollPattern(patterns.lobby.receiveGuildBuff);
-			macroService.PollPattern(patterns.lobby.receiveGuildBuff, { DoClick: true, InversePredicatePattern: patterns.lobby.receiveGuildBuff });
+			macroService.PollPattern(patterns.lobby.receiveGuildBuff, { DoClick: true, PredicatePattern: patterns.lobby.receiveGuildBuff.message });
+			macroService.PollPattern(patterns.lobby.receiveGuildBuff.message, { DoClick: true, PredicatePattern: patterns.lobby.level });
+
 
 			if (macroService.IsRunning) {
 				daily.claimGuildBuff.done.IsChecked = true;

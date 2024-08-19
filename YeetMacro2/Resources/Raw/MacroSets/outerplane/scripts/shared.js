@@ -28,6 +28,8 @@ function selectTeam(targetTeamSlot, returnCurrentCp) {
 		}
 	}
 
+	applyPreset(targetTeamSlot);
+
 	if (macroService.IsRunning && returnCurrentCp) {
 		const cpText = macroService.GetText(patterns.battle.cp);
 		return Number(cpText.slice(0, -4).slice(1) + cpText.slice(-3));

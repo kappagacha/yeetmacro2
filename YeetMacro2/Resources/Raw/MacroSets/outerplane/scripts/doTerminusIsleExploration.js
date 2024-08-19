@@ -81,7 +81,6 @@ function deployHeroes() {
 	const recommendedElement = recommendedElementResult.Path?.split('.').pop();
 	const teamSlot = settings.doTerminusIsleExploration.teamSlot[recommendedElement].Value;
 	selectTeam(teamSlot);
-	applyPreset(teamSlot);
 	macroService.PollPattern(patterns.battle.enter, { DoClick: true, PredicatePattern: patterns.battle.exit });
 	macroService.PollPattern(patterns.battle.exit, { DoClick: true, PredicatePattern: patterns.general.tapEmptySpace });
 }
