@@ -3306,10 +3306,10 @@
         "patterns": [
           {
             "rect": {
-              "x": 1087.6846923828125,
-              "y": 737.5691528320312,
-              "width": 27.4832763671875,
-              "height": 18.47869873046875
+              "x": 1001.68359375,
+              "y": 700.25537109375,
+              "width": 269.6015625,
+              "height": 93.684814453125
             },
             "resolution": {
               "width": 1920,
@@ -14172,40 +14172,7 @@
       "$isParent": true,
       "props": {
         "isMultiPattern": false,
-        "patterns": [
-          {
-            "rect": {
-              "x": 277.5234375,
-              "y": 220.141845703125,
-              "width": 37.39453125,
-              "height": 25.4267578125
-            },
-            "resolution": {
-              "width": 1920,
-              "height": 1080
-            },
-            "isBoundsPattern": false,
-            "isLocationDynamic": false,
-            "name": "pattern",
-            "imageData": "/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDAAEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQH/2wBDAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQH/wAARCAAZACUDASIAAhEBAxEB/8QAGgABAAIDAQAAAAAAAAAAAAAACQADBQgKBv/EADQQAAEEAQMCAgUMAwAAAAAAAAECAwQFBgAHEggREzEUITNBkQkVFhgiKTVic3SDobG0wv/EABcBAQEBAQAAAAAAAAAAAAAAAAACAQP/xAAmEQABAgQGAQUAAAAAAAAAAAABABExQVFxAhIhYYHw0WKRobGy/9oADAMBAAIRAxEAPwDo76i9pN6d1Bi7G0e9cvZv5rcnuXkuLGflG3Q62lMVlTbDzXHwVgqCjy8+w7d9Fmqk6vj1SMdMDHVnlT9u9VtWpytKXE1zbTte5YeGquURIK0pbLZIlAEnl+XT06JGAPvaog7+eHRj8calaJ3vut2unLZrd/auPlzm7+/E7eWRairGPIkxZEVNMI63vTyEPOPBZkocbPcKQR4QBCh5bKaweT38HFMbvcosyoV2P1M+4mce3NUevjOSXEN9/UXFhsoR39XNQ76FnFt1N8uqZeS7kfWxxLpsxODbSoOGYaqS0ixsmYxKo71hHTLYfbDyeAXMd9IJVzKWChKVKLCQOI7Q6BNk4YST5DU0bvSH1b3WXVGc4ZupcVV9lW2l1BqDldS62uDk1bPFkmJPQ8ykNvPhdVIDriUI5oWytQ5qWEzRRmPpFy9Ji72eiSwRj7x/fr+HcaKiBi2RH5VWJkCaC6Vj6MSjMrvE1c5VOh76Nyk+EqzDBhJd5EDwy/z5dgASRpZNWY5+Mz/4/wDXd0TCSTGA8Vr9rxOcYkzmuG5RiMlxTLOSUVnTLeHYlkz4jsdD3YEcvCWtLnHuOXHt79Alh23OPdORyHb3fzo3yHeayj2kt7Es2xyDPms2tcv7MWO7IiRZcYlRSFoaJalMoUUONAJQpXQ/q+N7Zr9Vv/J0U4Dq1ZubyPX4R89H+zNTkWE3eWXXShjOyxu7NlFZVyrewh2VxUQhLVCm2FfKSX4T0f0xxvg6G1LW66sMto4cppHcm9vE/b/9DU0XTLq7zf8APj52X//Z",
-            "variancePct": 20,
-            "horizontalStretchMultiplier": 0,
-            "verticalStretchMultiplier": 0,
-            "textMatch": {
-              "isActive": false,
-              "text": null,
-              "whiteList": null
-            },
-            "colorThreshold": {
-              "isActive": true,
-              "variancePct": 30,
-              "color": "#ff6d6d6d",
-              "imageData": "/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDAAIBAQEBAQIBAQECAgICAgQDAgICAgUEBAMEBgUGBgYFBgYGBwkIBgcJBwYGCAsICQoKCgoKBggLDAsKDAkKCgr/wAALCAAZACUBAREA/8QAHwAAAQUBAQEBAQEAAAAAAAAAAAECAwQFBgcICQoL/8QAtRAAAgEDAwIEAwUFBAQAAAF9AQIDAAQRBRIhMUEGE1FhByJxFDKBkaEII0KxwRVS0fAkM2JyggkKFhcYGRolJicoKSo0NTY3ODk6Q0RFRkdISUpTVFVWV1hZWmNkZWZnaGlqc3R1dnd4eXqDhIWGh4iJipKTlJWWl5iZmqKjpKWmp6ipqrKztLW2t7i5usLDxMXGx8jJytLT1NXW19jZ2uHi4+Tl5ufo6erx8vP09fb3+Pn6/9oACAEBAAA/APv3/gud+wL/AMFTf24/+FXf8O0f21P+FP8A/CL/ANt/8Jr/AMXH1zw//a/2n7B9j/5BUEv2jyvs91/rduzzvlzvbH4g/wDCtv8Agvp/w9h/4c6/8PaviB/ws3/oO/8AC+fFP9hf8gL+2/8AXbftH/Ht8n/Hv/rePu/PX7nf8EOv+Cfn/BST9hrwr8Rbz/gpF+3bqHxk1vxXqGmp4a0+TxprGvWuhWtolwZJY7jVBG6S3D3W14khVQtnCxkkL7Yvu+iivwB/53rv8/8ARMa/c79oX41+Ff2a/gF44/aM8dafqF3ongDwfqfiTWbXSYkkuprWxtZLqVIVkdEaUpEwUM6KWIBZRyP50fCn7Yf7cX/Ba3x38Q/2vfE3/Bdv4f8A7Gvh+w+26N8OPg6/xwudBmM1vFBPZpcQxz2vm2032qRZtYImmM0MiR2nlRxQw/YH/Bt5/wAHBuj/ABx/Zx8SfBT/AIKb/tQfD/w14g+GX9mWvhjx/wDEPx7Z6Xf+LrC4W5GycXkifarm1+zIsl0rFpVuYTMvmh57j9nq/BHRvCfirxH/AMHzurax4e8M6hf2mgaet/rt1ZWTyx6dat8OYbVbidlBEMRuLm3hDvhTJPEmdzqD+137WPwL/wCGoP2WPiX+zR/wlP8AYf8AwsT4f6z4Y/tv7D9p/s/7fYzWv2jyd8fm+X5u/ZvTdtxuXOR/KFqfwK+HX/BGjx34p/Z4/wCCvn/BGb/hbuoXHiCT/hA/iFa/FfxD4YsNStoYovP+w3VorWup2xWa1lGIori3a4kjuPnZYYP2O/4IO/8ABK/9njx38GvHvxm/a4/4IXfC/wCEsXiTxg6eAfDXj+LUvEesro1uZUQXdn4kNy9jKrs6m4i+zG9AEjWkMUVvJP8ArfRRRRX/2Q=="
-            },
-            "offsetCalcType": "DockLeft",
-            "position": 0
-          }
-        ],
+        "patterns": [],
         "isParentNode": true,
         "name": "teamFormation",
         "position": 0,
