@@ -23,7 +23,7 @@ while (macroService.IsRunning) {
 			sleep(500);
 			break;
 		case 'terminusIsle.stage':
-			logger.info('startTerminusIsleExploration: star exploration');
+			logger.info('startTerminusIsleExploration: start exploration');
 			const formExplorationTeamResult = macroService.PollPattern(patterns.terminusIsle.formExplorationTeam, { DoClick: true, PredicatePattern: [patterns.terminusIsle.formExplorationTeam.autoFormation, patterns.terminusIsle.zeroExplorationChances] });
 			if (formExplorationTeamResult.PredicatePath === 'terminusIsle.zeroExplorationChances') {
 				return;

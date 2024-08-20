@@ -23,7 +23,7 @@ while (macroService.IsRunning) {
 			sleep(500);
 			break;
 		case 'terminusIsle.stage':
-			logger.info('doTerminusIsleExploration: star exploration');
+			logger.info('doTerminusIsleExploration: do explorations');
 			let confirmResult = macroService.PollPattern(patterns.terminusIsle.confirm, { TimeoutMs: 3_000 });
 			while (confirmResult.IsSuccess) {
 				confirmResult = macroService.PollPattern(patterns.terminusIsle.confirm, {
