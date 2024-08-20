@@ -55,7 +55,7 @@ while (macroService.IsRunning) {
 				logger.info('doShop: evilSoulShop advancedKeepsakeEnhanceStone');
 				const evilSoulShopSwipe = macroService.SwipePollPattern(patterns.shop.evilSoulShop, { Start: { X: 100, Y: 650 }, End: { X: 100, Y: 200 } });
 				if (!evilSoulShopSwipe.IsSuccess) {
-					throw new Error('Unable to find regular pack');
+					throw new Error('Unable to find evil soul shop');
 				}
 				macroService.PollPattern(patterns.shop.evilSoulShop, { DoClick: true, PredicatePattern: patterns.shop.evilSoulShop.selected });
 				sleep(1_000);
