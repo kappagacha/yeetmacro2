@@ -21766,6 +21766,50 @@
           }
         }
       }
+    },
+    "inProgress": {
+      "$isParent": true,
+      "props": {
+        "isMultiPattern": false,
+        "patterns": [
+          {
+            "rect": {
+              "x": 211.6640625,
+              "y": 197.400146484375,
+              "width": 1474.326904296875,
+              "height": 687.539794921875
+            },
+            "resolution": {
+              "width": 1920,
+              "height": 1080
+            },
+            "isBoundsPattern": false,
+            "isLocationDynamic": false,
+            "name": "pattern",
+            "imageData": "/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDAAEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQH/2wBDAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQH/wAARCAARAA4DASIAAhEBAxEB/8QAGAAAAgMAAAAAAAAAAAAAAAAAAAgDCQr/xAAnEAABBAIBAwIHAAAAAAAAAAAEAQIDBQYHAAgREgkTFBUWITNys//EABcBAAMBAAAAAAAAAAAAAAAAAAIDBQb/xAAlEQEAAgECAwkAAAAAAAAAAAABAhEDAAQSIUIxMjNBUWGBsfD/2gAMAwEAAhEDEQA/AMopN/k+29k0Fln19a5ZeZdnWNi2ZtwZMT7nz3Ja4ScYcfyaIIN7RKjxDhQDwxxIjY2NX78fD1T9I4N0/wC/Nd4lrfHRsHDM0zW2VyNjkptS2xtlyK1HkOMQYmNZSJIYYWPcq9nJGxVTu1OzAaPM9EvEI8MyLZNpuy9y3HZaLJCkq8tyIUb6jpbUazGb8C6ijEfHESLBKo7lcPKxisejmOVFWz1UerDVfWL1Px7O0qFdha6pMNGxGnTIEjYdO6C1MsXypGxrFbCrSmo3zYjvLu3u5G+S7fHkyz3eKGPb5ceHGT4+IIQWmuQo8097b0OXNNtksZAhdj00V5HJqmg9OwrXE/E79I/58l4cOW595+Po0nc+I/umOv/Z",
+            "variancePct": 20,
+            "horizontalStretchMultiplier": 0,
+            "verticalStretchMultiplier": 0,
+            "textMatch": {
+              "isActive": false,
+              "text": null,
+              "whiteList": null
+            },
+            "colorThreshold": {
+              "isActive": true,
+              "variancePct": 30,
+              "color": "#ffadaeb3",
+              "imageData": "/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDAAIBAQEBAQIBAQECAgICAgQDAgICAgUEBAMEBgUGBgYFBgYGBwkIBgcJBwYGCAsICQoKCgoKBggLDAsKDAkKCgr/wAALCAARAA4BAREA/8QAHwAAAQUBAQEBAQEAAAAAAAAAAAECAwQFBgcICQoL/8QAtRAAAgEDAwIEAwUFBAQAAAF9AQIDAAQRBRIhMUEGE1FhByJxFDKBkaEII0KxwRVS0fAkM2JyggkKFhcYGRolJicoKSo0NTY3ODk6Q0RFRkdISUpTVFVWV1hZWmNkZWZnaGlqc3R1dnd4eXqDhIWGh4iJipKTlJWWl5iZmqKjpKWmp6ipqrKztLW2t7i5usLDxMXGx8jJytLT1NXW19jZ2uHi4+Tl5ufo6erx8vP09fb3+Pn6/9oACAEBAAA/AP3M+APwB+DX7LXwa8Pfs+fs+fD3T/Cvg3wrp4stC0LTEIjt48lmYsxLyyu7PJJNIzSSySPJIzu7MfhD/g1+/b1/ax/4KJfsC+L/AI1/ti/Fb/hMPE+l/GDUNEsdT/sKw0/yrCPStKnSHy7GCGNsS3M7bipY78EkBQPkD9u/w/8A8Hl37Uf/AAmHwU/4UV8P9I8Ba34f1DwnrumfDPUvC66V4ksJvtEE15HJrd7NqUP2iCXaPmt2VFjPlRS7yft//g29/wCCbH7R3/BLz9gXVPgp+1G3h+LxP4p+IE/iz+zNA1Rrz+y4bnStMg+x3MnlrGbmOW0lV/JaWH7pSWQHNff9Ff/Z"
+            },
+            "offsetCalcType": "Default",
+            "position": 0
+          }
+        ],
+        "isParentNode": true,
+        "name": "inProgress",
+        "position": 0,
+        "path": "terminusIsle.inProgress"
+      }
     }
   },
   "jointChallenge": {
