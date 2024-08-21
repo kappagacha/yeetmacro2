@@ -25,7 +25,7 @@ while (macroService.IsRunning) {
 		case 'terminusIsle.stage':
 			logger.info('doTerminusIsleExploration: do explorations');
 			const terminusIsleResult = macroService.PollPattern([patterns.terminusIsle.confirm, patterns.terminusIsle.inProgress], { TimeoutMs: 3_000 });
-			if (terminusIsleResult.Path === 'patterns.terminusIsle.inProgress') {
+			if (terminusIsleResult.Path === 'terminusIsle.inProgress') {
 				return;
 			}
 
