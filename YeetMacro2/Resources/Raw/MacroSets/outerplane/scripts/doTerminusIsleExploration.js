@@ -43,11 +43,13 @@ while (macroService.IsRunning) {
 						// TODO: pick 1 out of 3 options based on title
 						const randomOption = macroService.Random(1, 3);
 						const optionResult = macroService.PollPattern(patterns.terminusIsle.prompt.options[randomOption], { DoClick: true, ClickPattern: patterns.terminusIsle.prompt.next, PredicatePattern: [patterns.general.tapEmptySpace, patterns.terminusIsle.prompt.heroDeployment] });
-						logger.screenCapture(`Title: ${title} => option ${randomOption}`);
+						
 						if (optionResult.PredicatePath === 'terminusIsle.prompt.heroDeployment') {
 							deployHeroes();
+							logger.screenCapture(`Title: ${title} => option ${randomOption}`);
 							macroService.PollPattern(patterns.general.tapEmptySpace, { DoClick: true, ClickPattern: patterns.terminusIsle.prompt.next, PredicatePattern: patterns.terminusIsle.stage });
 						} else {
+							logger.screenCapture(`Title: ${title} => option ${randomOption}`);
 							macroService.PollPattern(patterns.general.tapEmptySpace, { DoClick: true, PredicatePattern: patterns.terminusIsle.stage });
 						}
 						break;
