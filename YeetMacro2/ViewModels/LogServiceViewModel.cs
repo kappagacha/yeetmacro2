@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using CommunityToolkit.Maui.Storage;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using System.Diagnostics;
@@ -9,7 +10,7 @@ using YeetMacro2.Services;
 namespace YeetMacro2.ViewModels;
 
 // https://github.com/serilog/serilog/wiki/Developing-a-sink
-public partial class LogServiceViewModel(IRepository<Log> _logRepository, IMapper _mapper, IScreenService _screenService) : ObservableObject
+public partial class LogServiceViewModel(IRepository<Log> _logRepository, IMapper _mapper, IScreenService _screenService, IToastService _toastService) : ObservableObject
 {   
     [ObservableProperty]
     string _info, _debug;
@@ -238,6 +239,46 @@ public partial class LogServiceViewModel(IRepository<Log> _logRepository, IMappe
         _logRepository.Update(log);
         _logRepository.Save();
         _logRepository.DetachEntities(log);
+    }
+
+    [RelayCommand]
+    public async Task DownloadScreenCapture(ScreenCaptureLog log)
+    {
+#if ANDROID
+        // https://stackoverflow.com/questions/75880663/maui-on-android-listing-folder-contents-of-an-sd-card-and-writing-in-it
+        if (OperatingSystem.IsAndroidVersionAtLeast(30) && !Android.OS.Environment.IsExternalStorageManager)
+        {
+            var intent = new Android.Content.Intent();
+            intent.SetAction(Android.Provider.Settings.ActionManageAppAllFilesAccessPermission);
+            Android.Net.Uri uri = Android.Net.Uri.FromParts("package", Platform.CurrentActivity.PackageName, null);
+            intent.SetData(uri);
+            Platform.CurrentActivity.StartActivity(intent);
+            return;
+        }
+        else if (!OperatingSystem.IsAndroidVersionAtLeast(30) && await Permissions.RequestAsync<Permissions.StorageWrite>() != PermissionStatus.Granted)
+        {
+            return;
+        }
+#endif
+
+        var defaultFolder = Environment.GetFolderPath(Environment.SpecialFolder.Desktop);
+
+#if ANDROID
+        // https://stackoverflow.com/questions/39332085/get-path-to-pictures-directory
+        defaultFolder = Android.OS.Environment.GetExternalStoragePublicDirectory(Android.OS.Environment.DirectoryPictures).AbsolutePath;
+#endif
+
+        using var stream = new MemoryStream(log.ScreenCapture);
+        
+        var fileSaverResult = await FileSaver.Default.SaveAsync(defaultFolder, $"{log.Message}.jpeg", stream);
+        if (fileSaverResult.IsSuccessful)
+        {
+            _toastService.Show($"Downloaded screen capture {log.Message}");
+        }
+        else
+        {
+            _toastService.Show($"Failed to download screen capture {log.Message}: {fileSaverResult.Exception.Message}");
+        }
     }
 }
 

@@ -53,7 +53,7 @@ public class WindowsScreenService : IScreenService, IRecorderService
         throw new NotImplementedException();
     }
 
-    public void DoClick(Point point)
+    public void DoClick(Point point, long holdDurationMs = 100)
     {
         throw new NotImplementedException();
     }
