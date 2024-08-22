@@ -52,7 +52,7 @@ while (macroService.IsRunning) {
 						if (optionResult.PredicatePath === 'terminusIsle.prompt.heroDeployment') {
 							deployHeroes();
 							logger.screenCapture(`Title: ${title} => option ${randomOption}`);
-							macroService.PollPattern(patterns.general.tapEmptySpace, { DoClick: true, ClickPattern: patterns.terminusIsle.prompt.next, PredicatePattern: patterns.terminusIsle.stage });
+							macroService.PollPattern(patterns.general.tapEmptySpace, { DoClick: true, PredicatePattern: patterns.terminusIsle.stage });
 						} else {
 							logger.screenCapture(`Title: ${title} => option ${randomOption}`);
 							macroService.PollPattern(patterns.general.tapEmptySpace, { DoClick: true, PredicatePattern: patterns.terminusIsle.stage });
@@ -95,5 +95,5 @@ function deployHeroes() {
 	const teamSlot = settings.doTerminusIsleExploration.teamSlot[recommendedElement].Value;
 	selectTeam(teamSlot);
 	macroService.PollPattern(patterns.battle.enter, { DoClick: true, PredicatePattern: patterns.battle.exit });
-	macroService.PollPattern(patterns.battle.exit, { DoClick: true, PredicatePattern: patterns.general.tapEmptySpace });
+	macroService.PollPattern(patterns.battle.exit, { DoClick: true, ClickPattern: patterns.terminusIsle.prompt.next, PredicatePattern: patterns.general.tapEmptySpace });
 }
