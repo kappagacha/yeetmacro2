@@ -67,25 +67,26 @@ while (macroService.IsRunning) {
 				}
 
 				macroService.PollPattern(eventStagePattern, { DoClick: true, PredicatePattern: patterns.event.eventStage });
-
-				// currency amount 1 is to the left in event banner page
-				const currencyAmount1 = macroService.GetText(patterns.event.eventStage.currency1.amount);
-				// currency amount 2 is to the right in event banner page
-				const currencyAmount2 = macroService.GetText(patterns.event.eventStage.currency2.amount);
-
-				logger.info(`sweepEvent: currencyAmount1 ${currencyAmount1} VS currencyAmount2 ${currencyAmount2}`);
-
 				let eventStageResult = macroService.PollPattern(patterns.event.eventStage, { DoClick: true, PredicatePattern: [patterns.event.eventStage.sweep, patterns.event.eventStage.sweep.disabled], ClickOffset: { Y: 60 } });
-				// currency amount 1 is the left stage?
-				// currency amount 2 is the right stage?
-				// ??? the placement of the stages is not consistent
-				//if (currencyAmount1 >= currencyAmount2) {
-				//	macroService.PollPattern(patterns.event.eventStage.currency1.play, { DoClick: true, PredicatePattern: patterns.event.eventStage.currency1.selected });
-				//}
-				if (currencyAmount2 >= currencyAmount1) {
-					macroService.PollPattern(patterns.event.eventStage.currency1.play, { DoClick: true, PredicatePattern: patterns.event.eventStage.currency1.selected });
-				}
 
+				macroService.PollPattern(patterns.event.eventStage.firstStage.play, { DoClick: true, PredicatePattern: patterns.event.eventStage.firstStage.selected });
+
+				macroService.PollPattern(patterns.event.eventStage.currency, { DoClick: true, PredicatePattern: patterns.event.eventStage.currency.current });
+				const firstStageCurrencyAmount = macroService.GetText(patterns.event.eventStage.currency.amount).replace(/[,.]/g, '');
+				macroService.PollPattern(patterns.event.eventStage.currency.current, { DoClick: true, PredicatePattern: patterns.general.back, ClickOffset: { X: -200 } });
+
+				macroService.PollPattern(patterns.event.eventStage.secondStage.play, { DoClick: true, PredicatePattern: patterns.event.eventStage.secondStage.selected });
+
+				macroService.PollPattern(patterns.event.eventStage.currency, { DoClick: true, PredicatePattern: patterns.event.eventStage.currency.current });
+				const secondStageCurrencyAmount = macroService.GetText(patterns.event.eventStage.currency.amount).replace(/[,.]/g, '');
+				macroService.PollPattern(patterns.event.eventStage.currency.current, { DoClick: true, PredicatePattern: patterns.general.back, ClickOffset: { X: -200 } });
+
+				logger.info(`sweepEvent: firstStage ${firstStageCurrencyAmount} VS secondStage ${secondStageCurrencyAmount}`);
+
+				if (firstStageCurrencyAmount < secondStageCurrencyAmount) {
+					macroService.PollPattern(patterns.event.eventStage.firstStage.play, { DoClick: true, PredicatePattern: patterns.event.eventStage.firstStage.selected });
+				}
+				
 				eventStageResult = macroService.PollPattern(patterns.event.eventStage, { PredicatePattern: [patterns.event.eventStage.sweep, patterns.event.eventStage.sweep.disabled]});
 
 				if (eventStageResult.PredicatePath === 'event.eventStage.sweep.disabled') {
