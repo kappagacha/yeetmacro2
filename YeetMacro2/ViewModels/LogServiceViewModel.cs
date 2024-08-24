@@ -280,6 +280,13 @@ public partial class LogServiceViewModel(IRepository<Log> _logRepository, IMappe
             _toastService.Show($"Failed to download screen capture {log.Message}: {fileSaverResult.Exception.Message}");
         }
     }
+
+    [RelayCommand]
+    public async Task CopyMessgeToClipboard(Log log)
+    {
+        await Clipboard.Default.SetTextAsync(log.Message);
+        _toastService.Show($"Copied message to clipboard: {log.Message}");
+    }
 }
 
 [ObservableObject]
