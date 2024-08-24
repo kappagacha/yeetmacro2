@@ -74,7 +74,6 @@ while (macroService.IsRunning) {
 						break;
 				}
 
-				
 				confirmResult = macroService.PollPattern(patterns.terminusIsle.confirm, { TimeoutMs: 3_000 });
 			}
 
@@ -92,8 +91,7 @@ function deployHeroes() {
 	const recommendedElementPatterns = ['earth', 'water', 'fire', 'light', 'dark'].map(el => patterns.terminusIsle.prompt.heroDeployment.recommendedElement[el]);
 	const recommendedElementResult = macroService.PollPattern(recommendedElementPatterns);
 	const recommendedElement = recommendedElementResult.Path?.split('.').pop();
-	const teamSlot = settings.doTerminusIsleExploration.teamSlot[recommendedElement].Value;
-	selectTeam(teamSlot);
+	selectTeam(recommendedElement);
 	macroService.PollPattern(patterns.battle.enter, { DoClick: true, PredicatePattern: patterns.battle.exit });
 	macroService.PollPattern(patterns.battle.exit, { DoClick: true, ClickPattern: patterns.terminusIsle.prompt.next, PredicatePattern: patterns.general.tapEmptySpace });
 }

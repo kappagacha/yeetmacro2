@@ -37,7 +37,7 @@ while (macroService.IsRunning) {
 			const elementType = elementTypeResult.Path.split('.').pop();
 			logger.info(`doGuildSecurityArea elementType: ${elementType}`);
 			macroService.PollPattern(patterns.guild.securityArea[elementType], { DoClick: true, PredicatePattern: patterns.battle.enter });
-			selectTeamAndBattle(teamSlot, false);
+			selectTeamAndBattle(teamSlot === 'RecommendedElement' ? elementType : teamSlot, false);
 
 			if (macroService.IsRunning) {
 				daily.doGuildSecurityArea.done.IsChecked = true;

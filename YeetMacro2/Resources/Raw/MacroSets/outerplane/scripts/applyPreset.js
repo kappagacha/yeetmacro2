@@ -3,8 +3,18 @@
 
 function applyPreset(teamSlot) {
 	if (!teamSlot) {
-		teamSlot = settings.applyPreset.teamSlot.Value;
+		const slots = [1, 2, 3, 4, 5, 6, 7, 8, 9];
+		for (const s of slots) {
+			if (macroService.FindPattern(patterns.battle.slot[s].selected).IsSuccess) {
+				teamSlot = s;
+				break;
+			}
+		}
 	}
+
+	if (!teamSlot) throw new Error('Team slot not resolved');
+
+	logger.info(`applyPreset teamSlot ${teamSlot}`);
 
 	if (teamSlot == settings.applyPreset.lastApplied.Value) {
 		return;
