@@ -109,18 +109,8 @@ if (settings.doDailies.doSurveyHub.Value) {
     goToLobby();
 }
 
-if (settings.doDailies.claimEventDailyMissions.Value) {
-    claimEventDailyMissions();
-    goToLobby();
-}
-
 if (settings.doDailies.doInfiniteCorridor.Value) {
     doInfiniteCorridor();
-    goToLobby();
-}
-
-if (settings.doDailies.claimBossDailyMissions.Value) {
-    claimBossDailyMissions();
     goToLobby();
 }
 
@@ -146,6 +136,16 @@ if (settings.doDailies.sweepJointChallenge.Value) {
 
 if (settings.doDailies.doUpkeep.Value) {
     doUpkeep();
+    goToLobby();
+}
+
+if (settings.doDailies.claimBossDailyMissions.Value) {
+    claimBossDailyMissions();
+    goToLobby();
+}
+
+if (settings.doDailies.claimEventDailyMissions.Value) {
+    claimEventDailyMissions();
     goToLobby();
 }
 
