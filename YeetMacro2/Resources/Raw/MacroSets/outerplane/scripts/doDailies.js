@@ -134,13 +134,19 @@ if (settings.doDailies.sweepJointChallenge.Value) {
     goToLobby();
 }
 
-if (settings.doDailies.doUpkeep.Value) {
-    doUpkeep();
+// again after doShop
+if (settings.doDailies.doArena.Value) {
+    doArena();
     goToLobby();
 }
 
 if (settings.doDailies.claimBossDailyMissions.Value) {
     claimBossDailyMissions();
+    goToLobby();
+}
+
+if (settings.doDailies.doUpkeep.Value) {
+    doUpkeep();
     goToLobby();
 }
 
