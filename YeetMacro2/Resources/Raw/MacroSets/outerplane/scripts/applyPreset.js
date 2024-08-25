@@ -16,7 +16,7 @@ function applyPreset(teamSlot) {
 
 	logger.info(`applyPreset teamSlot ${teamSlot}`);
 
-	if (teamSlot == settings.applyPreset.lastApplied.Value) {
+	if (settings.applyPreset.lastApplied.IsEnabled && teamSlot == settings.applyPreset.lastApplied.Value) {
 		return;
 	} 
 
