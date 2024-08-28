@@ -14,7 +14,7 @@ function applyPreset(teamSlot) {
 
 	if (!teamSlot) throw new Error('Team slot not resolved');
 
-	logger.info(`applyPreset teamSlot ${teamSlot}`);
+	//logger.info(`applyPreset teamSlot ${teamSlot}`);
 
 	if (settings.applyPreset.lastApplied.IsEnabled && teamSlot == settings.applyPreset.lastApplied.Value) {
 		return;
