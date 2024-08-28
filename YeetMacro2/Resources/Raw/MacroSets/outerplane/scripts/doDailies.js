@@ -2,6 +2,8 @@
 // @position=-99
 // Do dailies (all checked scripts)
 
+settings.applyPreset.lastApplied.IsEnabled = true;
+
 // call multiple times to get past popups
 goToLobby();
 goToLobby();

@@ -6,6 +6,8 @@ const daily = dailyManager.GetCurrentDaily();
 const utcHour = new Date().getUTCHours();
 const isStamina1 = utcHour < 12;
 
+settings.applyPreset.lastApplied.IsEnabled = true;
+
 // call multiple times to get past popups
 goToLobby();
 goToLobby();
