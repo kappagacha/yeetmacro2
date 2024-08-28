@@ -1,7 +1,7 @@
 // @raw-script
 // @position=1000
 function selectTeam(targetTeamSlot, returnCurrentCp) {
-	logger.info(`selectTeam teamSlot ${targetTeamSlot}`);
+	//logger.info(`selectTeam teamSlot ${targetTeamSlot}`);
 
 	if (!targetTeamSlot || targetTeamSlot === 'Current' || targetTeamSlot < 1) return;
 
