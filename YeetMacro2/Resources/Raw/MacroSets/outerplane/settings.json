@@ -60,6 +60,19 @@
         "position": 0,
         "path": "doArena.autoDetectCpThreshold"
       }
+    },
+    "skipMemorialMatch": {
+      "$isParent": false,
+      "props": {
+        "$type": "boolean",
+        "settingType": "Boolean",
+        "value": false,
+        "defaultValue": false,
+        "isParentNode": false,
+        "name": "skipMemorialMatch",
+        "position": 0,
+        "path": "doArena.skipMemorialMatch"
+      }
     }
   },
   "doSpecialRequests": {
@@ -559,8 +572,8 @@
           "9",
           "RecommendedElement"
         ],
-        "value": "1",
-        "defaultValue": "1",
+        "value": "RecommendedElement",
+        "defaultValue": "RecommendedElement",
         "isParentNode": false,
         "name": "teamSlot",
         "position": 0,
@@ -1464,7 +1477,7 @@
       "props": {
         "$type": "timestamp",
         "settingType": "TimeStamp",
-        "value": "2024-08-25T19:25:04.7+00:00",
+        "value": "2024-07-30T21:20:40.519+00:00",
         "defaultValue": "0001-01-01T00:00:00+00:00",
         "isParentNode": false,
         "name": "lastRun",
@@ -1500,7 +1513,7 @@
       "props": {
         "$type": "timestamp",
         "settingType": "TimeStamp",
-        "value": "2024-08-25T19:25:18.069+00:00",
+        "value": "2024-07-30T22:13:24.105+00:00",
         "defaultValue": "0001-01-01T00:00:00+00:00",
         "isParentNode": false,
         "name": "lastRun",
@@ -3917,8 +3930,8 @@
         "$type": "enabledString",
         "settingType": "EnabledString",
         "isEnabled": true,
-        "value": "",
-        "defaultValue": "",
+        "value": "6",
+        "defaultValue": "6",
         "isParentNode": false,
         "name": "lastApplied",
         "position": 0,
