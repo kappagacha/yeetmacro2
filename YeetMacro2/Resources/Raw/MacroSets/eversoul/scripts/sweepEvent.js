@@ -83,7 +83,7 @@ while (macroService.IsRunning) {
 
 				logger.info(`sweepEvent: firstStage ${firstStageCurrencyAmount} VS secondStage ${secondStageCurrencyAmount}`);
 
-				if (firstStageCurrencyAmount < secondStageCurrencyAmount) {
+				if (Number(firstStageCurrencyAmount) < Number(secondStageCurrencyAmount)) {
 					macroService.PollPattern(patterns.event.eventStage.firstStage.play, { DoClick: true, PredicatePattern: patterns.event.eventStage.firstStage.selected });
 				}
 				
