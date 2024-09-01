@@ -1129,6 +1129,19 @@
         "position": 27,
         "path": "doDailies.sellInventory"
       }
+    },
+    "claimEventDailyMissions2": {
+      "$isParent": false,
+      "props": {
+        "$type": "boolean",
+        "settingType": "Boolean",
+        "value": true,
+        "defaultValue": true,
+        "isParentNode": false,
+        "name": "claimEventDailyMissions2",
+        "position": 28,
+        "path": "doDailies.claimEventDailyMissions2"
+      }
     }
   },
   "doUpkeep": {
@@ -1477,7 +1490,7 @@
       "props": {
         "$type": "timestamp",
         "settingType": "TimeStamp",
-        "value": "2024-07-30T21:20:40.519+00:00",
+        "value": "2024-08-25T19:25:04.7+00:00",
         "defaultValue": "0001-01-01T00:00:00+00:00",
         "isParentNode": false,
         "name": "lastRun",
@@ -1513,7 +1526,7 @@
       "props": {
         "$type": "timestamp",
         "settingType": "TimeStamp",
-        "value": "2024-07-30T22:13:24.105+00:00",
+        "value": "2024-08-25T19:25:18.069+00:00",
         "defaultValue": "0001-01-01T00:00:00+00:00",
         "isParentNode": false,
         "name": "lastRun",
@@ -4071,6 +4084,109 @@
         "name": "dark",
         "position": 0,
         "path": "selectTeam.dark"
+      }
+    }
+  },
+  "claimEventDailyMissions2": {
+    "$isParent": true,
+    "props": {
+      "settingType": "Parent",
+      "isParentNode": true,
+      "name": "claimEventDailyMissions2",
+      "position": 0,
+      "path": "claimEventDailyMissions2"
+    },
+    "dailyMissionPattern": {
+      "$isParent": false,
+      "props": {
+        "$type": "pattern",
+        "settingType": "Pattern",
+        "value": {
+          "isMultiPattern": false,
+          "patterns": [
+            {
+              "rect": {
+                "x": 286.1953125,
+                "y": 610.73876953125,
+                "width": 77.765625,
+                "height": 26.2177734375
+              },
+              "resolution": {
+                "width": 1920,
+                "height": 1080
+              },
+              "isBoundsPattern": false,
+              "isLocationDynamic": false,
+              "name": "pattern",
+              "imageData": "/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDAAEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQH/2wBDAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQH/wAARCAAaAE0DASIAAhEBAxEB/8QAGQAAAwEBAQAAAAAAAAAAAAAABwgJAAUG/8QAMBAAAQQBBAEDAgMJAQAAAAAAAgEDBAUGAAcIERITISIxQRQVUQkWGCMkMjhCdrX/xAAYAQEBAQEBAAAAAAAAAAAAAAAAAQIFBv/EACwRAQABAwIFAgQHAAAAAAAAAAERAAIhEjEDQVFhcTKhE5HB8CJCYoHR4fH/2gAMAwEAAhEDEQA/ALd8qN08k2b2hss4xMYB3EO5o4LY2UdZMVWLGYkd/wAmkNtVJAXsCQk8ST7p7aX7H8v55ZLSVeQVlLtUVfcQmLCGT7pNOrHkgjjSuN9F4EoqiqPkvX669v8AtAf8br3/AKXFP/UHQv283Q5ew8GxSLQ7H0djTR6OvarJ7t0rTkuEDAoxINtRXwJwEQlHtelXrXs1niItwBbGnqpvB9k1xLfRMWLqSb42i1jKf5PWmOXKuQ+NbL2N/fYbR5PuxFnuCxjuPyPCtfrjkoDLwOfFSdajfN0F6Uj7FPsujxidhcWuNUdlkFWlLdza2LJtKlHPVSvmOtoT0b1P9/TJeu9LPyK3E3EwzjY9m8Y1xHPQGiWc1EUJA10qXKRuZFbJ4TBwEFfDyUfdPknWh/vbu7uBinEzDdxKLIH4eX2TWKlNt0bZN18rE0SWpNkCtfzUVUXoE6+3WrqLVFudNowwvdneckjjpWdOoNib22Txb0xHvT862k72CyzeyTiN3urvRMro+MycTjWePUMIPCZFagtuPyLCeqon9TZMiCoKqiApInXuuleg8gd8d1IN5n+O7q7d7b00CZP/AHdwq2Vo7O2jV6n4DOJxwSbOSIp4qo+JkXQr0iEp4hAw5yGJiQneOeM5oWKpJBEsqS8iBV64ghmqy62kjwve3Md7ONGX5bjTyY7uTjUOxivnXoDrH5vVNq+jrIuCY/h5rAE76a9qIqidr9VXHMuW2e/wz7aXWO3jw7l315Op7eaxHadnENEjxTZJRfTIUGUoeK+LfQj0SdInejxLQHMNur3CI65ocO6Yx6tL27+PvpVatbUuMk5M5/k+2/HGBhGQHDzvcS4CvyaXFbYdfJuveGDakLZgYgoPF6qr4IvQqiJo/cheVUHj3Y4pjcyrdyCztKZ2ZOfQ/BW1jFFjgZIKe5yjJ90vZERETpNX4lsK7GmXf1Ax1knOP4p8O6Q5qkdIYl7b/KupzYxLJM22GuKDFKeZe3L+QY2+1XwAFyQbMawR19xBIgHxabRSJVJOk+na+2jrtVAmVe22EV1hHciToWN1caXFeTxdYfajADjTiIqohASKioir7/fRA1ta0mpuzKB2xWZ/Dp5SvzA+lK3zHxfIcx2IyShxepl3dxKn05x6+CAnIdFmYhukIkQp0AIpEqknSaCW/O3ua33DvCcOp8bsrDJ4TWIjKpY7QlNYKG4iykcBTEU9FEVT+a/T271RHW1m7hlyso3W6XxI/SqXIWkbXav3xj2oZU2LrcbSVuIWjRxDn4VGpZrRiiORnXawI7iGH08mXF7Ie/dRVO9S2ptk8w2mZt8JveLVJu9LGdMXGc6AmVGZHkGX4YbHyfbJEjioEQICIHu2iknZLZbW0usGOSEDA+yJS29tkNlFJTZ7JQD2B2/cxLbgYFzgmL4HbXyvSL6gxZXSgKTrSxwKT6nx/FrGX03xb7bFexEiREJUE2d4w5fXcm7drJqKxHbfF5+U2VFNkiK1EkrZDSMzDb81Fe2przZqrafJlO+/bVd9bRsHT+nbvtvy3Bql6ao/Nv28eBQ/qpKceuN2bY3ybnzcjpLCPg2CT8kscUmyRH8tcesZKnBGuHzJET0njR7oBRTBCTtffTE8p+J0zfvI8byKqumaqRVVkytnA8KKj4k+w7FMVVF/tFHgJPt8f108WtocO3S25RZ78o+QBR4l2oumEI6+d53r/9k=",
+              "variancePct": 20,
+              "horizontalStretchMultiplier": 0,
+              "verticalStretchMultiplier": 0,
+              "textMatch": {
+                "isActive": false,
+                "text": null,
+                "whiteList": null
+              },
+              "colorThreshold": {
+                "isActive": false,
+                "variancePct": 30,
+                "color": null,
+                "imageData": ""
+              },
+              "offsetCalcType": "Default",
+              "position": 0
+            }
+          ],
+          "isParentNode": true,
+          "name": null,
+          "position": 0,
+          "path": null
+        },
+        "defaultValue": {
+          "isMultiPattern": false,
+          "patterns": [
+            {
+              "rect": {
+                "x": 286.1953125,
+                "y": 610.73876953125,
+                "width": 77.765625,
+                "height": 26.2177734375
+              },
+              "resolution": {
+                "width": 1920,
+                "height": 1080
+              },
+              "isBoundsPattern": false,
+              "isLocationDynamic": false,
+              "name": "pattern",
+              "imageData": "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",
+              "variancePct": 20,
+              "horizontalStretchMultiplier": 0,
+              "verticalStretchMultiplier": 0,
+              "textMatch": {
+                "isActive": false,
+                "text": null,
+                "whiteList": null
+              },
+              "colorThreshold": {
+                "isActive": false,
+                "variancePct": 30,
+                "color": null,
+                "imageData": ""
+              },
+              "offsetCalcType": "Default",
+              "position": 0
+            }
+          ],
+          "isParentNode": true,
+          "name": null,
+          "position": 0,
+          "path": null
+        },
+        "isParentNode": false,
+        "name": "dailyMissionPattern",
+        "position": 0,
+        "path": "claimEventDailyMissions2.dailyMissionPattern"
       }
     }
   }

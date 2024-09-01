@@ -17,11 +17,10 @@ while (macroService.IsRunning) {
 			break;
 		case 'titles.mission':
 			logger.info('claimDailyMissions: claim final reward');
-			const finalNotificationResult = macroService.PollPattern(patterns.mission.finalNotification, { DoClick: true, PredicatePattern: patterns.general.tapEmptySpace });
-			if (!finalNotificationResult.IsSuccess) {
-				return;
+			const finalNotificationResult = macroService.PollPattern(patterns.mission.finalNotification, { DoClick: true, PredicatePattern: [patterns.general.tapEmptySpace, patterns.mission.claimed] });
+			if (finalNotificationResult.PredicatePattern === 'general.tapEmptySpace') {
+				macroService.PollPattern(patterns.general.tapEmptySpace, { DoClick: true, PredicatePattern: patterns.titles.mission });
 			}
-			macroService.PollPattern(patterns.general.tapEmptySpace, { DoClick: true, PredicatePattern: patterns.titles.mission });
 			if (macroService.IsRunning) {
 				daily.claimDailyMissions.done.IsChecked = true;
 			}

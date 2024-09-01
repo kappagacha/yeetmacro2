@@ -22,8 +22,15 @@ while (macroService.IsRunning) {
 			const xLocation = topLeft.X + 300 + (resolution.Width - 1920) / 2.0;
 			macroService.SwipePollPattern(patterns.event.dailyBossMission, { MaxSwipes: 3, Start: { X: xLocation, Y: 800 }, End: { X: xLocation, Y: 280 } });
 			macroService.PollPattern(patterns.event.dailyBossMission, { DoClick: true, PredicatePattern: patterns.event.dailyBossMission.utc });
+
+			const claimedFinalRewardResult = macroService.FindPattern(patterns.event.dailyBossMission.claimedFinalReward);
+			if (claimedFinalRewardResult.IsSuccess && macroService.IsRunning) {
+				daily.claimBossDailyMissions.done.IsChecked = true;
+				return;
+			}
+
 			let bossRewardButtonResult = macroService.FindPattern([patterns.event.dailyBossMission.getFinalReward, patterns.event.dailyBossMission.move, patterns.event.dailyBossMission.getReward]);
-			if (!bossRewardButtonResult.IsSuccess) throw new Error('Failed to find button pattern');
+			if (!bossRewardButtonResult.IsSuccess) throw new Error('Failed to find bossRewardButtonResult pattern');
 
 			if (bossRewardButtonResult.Path === 'event.dailyBossMission.move') {
 				macroService.PollPattern(patterns.event.dailyBossMission.move, { DoClick: true, PredicatePattern: patterns.general.back });
