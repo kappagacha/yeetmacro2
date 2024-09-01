@@ -50,6 +50,11 @@ if (settings.doUpkeep.doArena.Value) {
     goToLobby();
 }
 
+if (settings.doUpkeep.doTerminusIsleExploration.Value) {
+    doTerminusIsleExploration();
+    goToLobby();
+}
+
 if (settings.doUpkeep.spendStaminaScript.IsEnabled) {
     globalThis[settings.doUpkeep.spendStaminaScript.Value]();
     goToLobby();

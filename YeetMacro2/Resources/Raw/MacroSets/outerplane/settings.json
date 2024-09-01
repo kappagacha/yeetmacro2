@@ -1244,6 +1244,19 @@
         "path": "doUpkeep.doArena"
       }
     },
+    "doTerminusIsleExploration": {
+      "$isParent": false,
+      "props": {
+        "$type": "boolean",
+        "settingType": "Boolean",
+        "value": true,
+        "defaultValue": true,
+        "isParentNode": false,
+        "name": "doTerminusIsleExploration",
+        "position": 7,
+        "path": "doUpkeep.doTerminusIsleExploration"
+      }
+    },
     "spendStaminaScript": {
       "$isParent": false,
       "props": {
@@ -1260,7 +1273,7 @@
         "defaultValue": "doSurveyHub",
         "isParentNode": false,
         "name": "spendStaminaScript",
-        "position": 7,
+        "position": 8,
         "path": "doUpkeep.spendStaminaScript"
       }
     }
@@ -1490,7 +1503,7 @@
       "props": {
         "$type": "timestamp",
         "settingType": "TimeStamp",
-        "value": "2024-08-25T19:25:04.7+00:00",
+        "value": "2024-07-30T21:20:40.519+00:00",
         "defaultValue": "0001-01-01T00:00:00+00:00",
         "isParentNode": false,
         "name": "lastRun",
@@ -1526,7 +1539,7 @@
       "props": {
         "$type": "timestamp",
         "settingType": "TimeStamp",
-        "value": "2024-08-25T19:25:18.069+00:00",
+        "value": "2024-07-30T22:13:24.105+00:00",
         "defaultValue": "0001-01-01T00:00:00+00:00",
         "isParentNode": false,
         "name": "lastRun",
@@ -4187,6 +4200,52 @@
         "name": "dailyMissionPattern",
         "position": 0,
         "path": "claimEventDailyMissions2.dailyMissionPattern"
+      }
+    }
+  },
+  "startTerminusIsleExploration": {
+    "$isParent": true,
+    "props": {
+      "settingType": "Parent",
+      "isParentNode": true,
+      "name": "startTerminusIsleExploration",
+      "position": 0,
+      "path": "startTerminusIsleExploration"
+    },
+    "lastRun": {
+      "$isParent": false,
+      "props": {
+        "$type": "timestamp",
+        "settingType": "TimeStamp",
+        "value": "0001-01-01T00:00:00+00:00",
+        "defaultValue": "0001-01-01T00:00:00+00:00",
+        "isParentNode": false,
+        "name": "lastRun",
+        "position": 0,
+        "path": "startTerminusIsleExploration.lastRun"
+      }
+    }
+  },
+  "doTerminusIsleExploration": {
+    "$isParent": true,
+    "props": {
+      "settingType": "Parent",
+      "isParentNode": true,
+      "name": "doTerminusIsleExploration",
+      "position": 0,
+      "path": "doTerminusIsleExploration"
+    },
+    "forceRun": {
+      "$isParent": false,
+      "props": {
+        "$type": "boolean",
+        "settingType": "Boolean",
+        "value": false,
+        "defaultValue": false,
+        "isParentNode": false,
+        "name": "forceRun",
+        "position": 0,
+        "path": "doTerminusIsleExploration.forceRun"
       }
     }
   }

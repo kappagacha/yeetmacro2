@@ -1,12 +1,15 @@
 // Do terminus isle exploration
 const loopPatterns = [patterns.lobby.level, patterns.titles.adventure, patterns.terminusIsle.stage]
 const daily = dailyManager.GetCurrentDaily();
-//if (!daily.startTerminusIsleExploration.done.IsChecked) {
-//	return "Terminus isle hasn't been started yet";
-//}
 
 if (daily.doTerminusIsleExploration.done.IsChecked) {
 	return "Script already completed. Uncheck done to override daily flag.";
+}
+
+// Exploration takes 4 hours
+const isTerminusIsleReady = (Date.now() - settings.startTerminusIsleExploration.lastRun.Value.ToUnixTimeMilliseconds()) / 3_600_000 > 3;
+if (isTerminusIsleReady && !settings.doTerminusIsleExploration.forceRun.Value) {
+	return 'startTerminusIsleExploration was ran less than 4 hours ago. Use forceRun setting to override check';
 }
 
 while (macroService.IsRunning) {

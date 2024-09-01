@@ -161,3 +161,8 @@ if (settings.doDailies.sellInventory.Value) {
     sellInventory();
     goToLobby();
 }
+
+if (settings.doDailies.claimEventDailyMissions2.Value) {
+    claimEventDailyMissions2();
+    goToLobby();
+}

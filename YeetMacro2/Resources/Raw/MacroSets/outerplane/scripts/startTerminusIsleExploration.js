@@ -33,6 +33,7 @@ while (macroService.IsRunning) {
 
 			if (macroService.IsRunning) {
 				daily.startTerminusIsleExploration.done.IsChecked = true;
+				settings.startTerminusIsleExploration.lastRun.Value = new Date().toISOString();
 			}
 			return;
 	}
