@@ -16,16 +16,8 @@ while (macroService.IsRunning) {
 			break;
 		case 'titles.adventure':
 			logger.info('doOperationEdenAlliance: click operation eden alliance');
-			const operationEdenAllianceNotificationResult = macroService.PollPattern(patterns.adventure.operationEdenAlliance.notification, { TimeoutMs: 3_000 });
-			if (!operationEdenAllianceNotificationResult.IsSuccess) {
-				if (macroService.IsRunning) {
-					daily.doOperationEdenAlliance.done.IsChecked = true;
-				}
-				return;
-			}
-			
-			macroService.PollPattern(patterns.adventure.operationEdenAlliance, { DoClick: true, PredicatePattern: patterns.adventure.operationEdenAlliance.operationEdenAlliance });
-			macroService.PollPattern(patterns.adventure.operationEdenAlliance.operationEdenAlliance, { DoClick: true, PredicatePattern: patterns.titles.operationEdenAlliance });
+			macroService.PollPattern(patterns.adventure.tabs.specialMissions, { DoClick: true, PredicatePattern: patterns.operationEdenAlliance });
+			macroService.PollPattern(patterns.operationEdenAlliance, { DoClick: true, PredicatePattern: patterns.titles.operationEdenAlliance });
 			break;
 		case 'titles.operationEdenAlliance':
 			macroService.PollPattern(patterns.operationEdenAlliance.dailyOperations, { DoClick: true, PredicatePattern: patterns.operationEdenAlliance.battle });
