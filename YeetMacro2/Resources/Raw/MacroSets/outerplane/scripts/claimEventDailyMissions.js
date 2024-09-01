@@ -40,14 +40,14 @@ while (macroService.IsRunning) {
 				notificationResult = macroService.PollPattern(patterns.event.daily.anniversary.notification, { TimeoutMs: 3_000 });
 			}
 			
-			//const miniGameResult = macroService.PollPattern([patterns.event.rockPaperScissors, patterns.event.drawACapsule, patterns.event.spinTheWheel]);
-			//if (miniGameResult.Path === 'event.rockPaperScissors') {
-			//	doRockPaperScissors();
-			//} else if (miniGameResult.Path === 'event.drawACapsule') {
-			//	doDrawACapsule();
-			//} else if (miniGameResult.Path === 'event.spinTheWheel') {
-			//	doSpinTheWheel();
-			//}
+			const miniGameResult = macroService.PollPattern([patterns.event.rockPaperScissors, patterns.event.drawACapsule, patterns.event.spinTheWheel]);
+			if (miniGameResult.Path === 'event.rockPaperScissors') {
+				doRockPaperScissors();
+			} else if (miniGameResult.Path === 'event.drawACapsule') {
+				doDrawACapsule();
+			} else if (miniGameResult.Path === 'event.spinTheWheel') {
+				doSpinTheWheel();
+			}
 
 			if (macroService.IsRunning) {
 				daily.claimEventDailyMissions.done.IsChecked = true;
