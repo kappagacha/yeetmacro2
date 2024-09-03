@@ -2,6 +2,7 @@
   "doArena": {
     "$isParent": true,
     "props": {
+      "$type": "parent",
       "settingType": "Parent",
       "isParentNode": true,
       "name": "doArena",
@@ -78,6 +79,7 @@
   "doSpecialRequests": {
     "$isParent": true,
     "props": {
+      "$type": "parent",
       "settingType": "Parent",
       "isParentNode": true,
       "name": "doSpecialRequests",
@@ -126,6 +128,7 @@
   "doSideStory1": {
     "$isParent": true,
     "props": {
+      "$type": "parent",
       "settingType": "Parent",
       "isParentNode": true,
       "name": "doSideStory1",
@@ -324,6 +327,7 @@
   "doBountyHunter": {
     "$isParent": true,
     "props": {
+      "$type": "parent",
       "settingType": "Parent",
       "isParentNode": true,
       "name": "doBountyHunter",
@@ -372,6 +376,7 @@
   "doUpgradeStoneRetrieval": {
     "$isParent": true,
     "props": {
+      "$type": "parent",
       "settingType": "Parent",
       "isParentNode": true,
       "name": "doUpgradeStoneRetrieval",
@@ -500,6 +505,7 @@
   "doBanditChase": {
     "$isParent": true,
     "props": {
+      "$type": "parent",
       "settingType": "Parent",
       "isParentNode": true,
       "name": "doBanditChase",
@@ -548,6 +554,7 @@
   "doGuildSecurityArea": {
     "$isParent": true,
     "props": {
+      "$type": "parent",
       "settingType": "Parent",
       "isParentNode": true,
       "name": "doGuildSecurityArea",
@@ -624,6 +631,7 @@
   "doEcologyStudy": {
     "$isParent": true,
     "props": {
+      "$type": "parent",
       "settingType": "Parent",
       "isParentNode": true,
       "name": "doEcologyStudy",
@@ -692,6 +700,7 @@
   "doIdentification": {
     "$isParent": true,
     "props": {
+      "$type": "parent",
       "settingType": "Parent",
       "isParentNode": true,
       "name": "doIdentification",
@@ -760,6 +769,7 @@
   "doDailies": {
     "$isParent": true,
     "props": {
+      "$type": "parent",
       "settingType": "Parent",
       "isParentNode": true,
       "name": "doDailies",
@@ -1147,6 +1157,7 @@
   "doUpkeep": {
     "$isParent": true,
     "props": {
+      "$type": "parent",
       "settingType": "Parent",
       "isParentNode": true,
       "name": "doUpkeep",
@@ -1281,6 +1292,7 @@
   "doSideStory2": {
     "$isParent": true,
     "props": {
+      "$type": "parent",
       "settingType": "Parent",
       "isParentNode": true,
       "name": "doSideStory2",
@@ -1479,6 +1491,7 @@
   "claimAntiparticle": {
     "$isParent": true,
     "props": {
+      "$type": "parent",
       "settingType": "Parent",
       "isParentNode": true,
       "name": "claimAntiparticle",
@@ -1515,6 +1528,7 @@
   "doFriends": {
     "$isParent": true,
     "props": {
+      "$type": "parent",
       "settingType": "Parent",
       "isParentNode": true,
       "name": "doFriends",
@@ -1551,6 +1565,7 @@
   "doGuildRaid": {
     "$isParent": true,
     "props": {
+      "$type": "parent",
       "settingType": "Parent",
       "isParentNode": true,
       "name": "doGuildRaid",
@@ -1647,6 +1662,7 @@
   "doSurveyHub": {
     "$isParent": true,
     "props": {
+      "$type": "parent",
       "settingType": "Parent",
       "isParentNode": true,
       "name": "doSurveyHub",
@@ -1708,6 +1724,7 @@
   "doInfiniteCorridor": {
     "$isParent": true,
     "props": {
+      "$type": "parent",
       "settingType": "Parent",
       "isParentNode": true,
       "name": "doInfiniteCorridor",
@@ -1762,6 +1779,7 @@
   "claimEventDailyMissions": {
     "$isParent": true,
     "props": {
+      "$type": "parent",
       "settingType": "Parent",
       "isParentNode": true,
       "name": "claimEventDailyMissions",
@@ -1929,6 +1947,7 @@
   "doDoppelganger": {
     "$isParent": true,
     "props": {
+      "$type": "parent",
       "settingType": "Parent",
       "isParentNode": true,
       "name": "doDoppelganger",
@@ -2082,6 +2101,7 @@
   "watchAds": {
     "$isParent": true,
     "props": {
+      "$type": "parent",
       "settingType": "Parent",
       "isParentNode": true,
       "name": "watchAds",
@@ -2119,6 +2139,7 @@
   "doWeeklyShop": {
     "$isParent": true,
     "props": {
+      "$type": "parent",
       "settingType": "Parent",
       "isParentNode": true,
       "name": "doWeeklyShop",
@@ -2128,6 +2149,7 @@
     "normal": {
       "$isParent": true,
       "props": {
+        "$type": "parent",
         "settingType": "Parent",
         "isParentNode": true,
         "name": "normal",
@@ -2177,6 +2199,7 @@
     "friendshipPoint": {
       "$isParent": true,
       "props": {
+        "$type": "parent",
         "settingType": "Parent",
         "isParentNode": true,
         "name": "friendshipPoint",
@@ -2213,6 +2236,7 @@
     "arena": {
       "$isParent": true,
       "props": {
+        "$type": "parent",
         "settingType": "Parent",
         "isParentNode": true,
         "name": "arena",
@@ -2262,6 +2286,7 @@
     "starMemory": {
       "$isParent": true,
       "props": {
+        "$type": "parent",
         "settingType": "Parent",
         "isParentNode": true,
         "name": "starMemory",
@@ -2298,6 +2323,7 @@
     "jointChallenge": {
       "$isParent": true,
       "props": {
+        "$type": "parent",
         "settingType": "Parent",
         "isParentNode": true,
         "name": "jointChallenge",
@@ -2360,6 +2386,7 @@
     "surveyHub": {
       "$isParent": true,
       "props": {
+        "$type": "parent",
         "settingType": "Parent",
         "isParentNode": true,
         "name": "surveyHub",
@@ -2565,6 +2592,7 @@
     "guild": {
       "$isParent": true,
       "props": {
+        "$type": "parent",
         "settingType": "Parent",
         "isParentNode": true,
         "name": "guild",
@@ -2628,6 +2656,7 @@
   "sellInventory": {
     "$isParent": true,
     "props": {
+      "$type": "parent",
       "settingType": "Parent",
       "isParentNode": true,
       "name": "sellInventory",
@@ -2651,6 +2680,7 @@
   "doWeeklies": {
     "$isParent": true,
     "props": {
+      "$type": "parent",
       "settingType": "Parent",
       "isParentNode": true,
       "name": "doWeeklies",
@@ -2687,6 +2717,7 @@
   "doShop": {
     "$isParent": true,
     "props": {
+      "$type": "parent",
       "settingType": "Parent",
       "isParentNode": true,
       "name": "doShop",
@@ -2696,6 +2727,7 @@
     "friendshipPoint": {
       "$isParent": true,
       "props": {
+        "$type": "enabledParent",
         "settingType": "EnabledParent",
         "isParentNode": true,
         "name": "friendshipPoint",
@@ -2797,6 +2829,7 @@
     "arena": {
       "$isParent": true,
       "props": {
+        "$type": "enabledParent",
         "settingType": "EnabledParent",
         "isParentNode": true,
         "name": "arena",
@@ -2846,6 +2879,7 @@
     "jointChallenge": {
       "$isParent": true,
       "props": {
+        "$type": "enabledParent",
         "settingType": "EnabledParent",
         "isParentNode": true,
         "name": "jointChallenge",
@@ -2869,6 +2903,7 @@
     "festival": {
       "$isParent": true,
       "props": {
+        "$type": "enabledParent",
         "settingType": "EnabledParent",
         "isParentNode": true,
         "name": "festival",
@@ -2906,6 +2941,7 @@
   "doSkywardTower": {
     "$isParent": true,
     "props": {
+      "$type": "parent",
       "settingType": "Parent",
       "isParentNode": true,
       "name": "doSkywardTower",
@@ -2941,6 +2977,7 @@
   "goToLobby": {
     "$isParent": true,
     "props": {
+      "$type": "parent",
       "settingType": "Parent",
       "isParentNode": true,
       "name": "goToLobby",
@@ -2978,6 +3015,7 @@
   "sweepEventStoryHard": {
     "$isParent": true,
     "props": {
+      "$type": "parent",
       "settingType": "Parent",
       "isParentNode": true,
       "name": "sweepEventStoryHard",
@@ -3106,6 +3144,7 @@
   "sweepJointChallenge": {
     "$isParent": true,
     "props": {
+      "$type": "parent",
       "settingType": "Parent",
       "isParentNode": true,
       "name": "sweepJointChallenge",
@@ -3134,6 +3173,7 @@
   "applyPreset": {
     "$isParent": true,
     "props": {
+      "$type": "parent",
       "settingType": "Parent",
       "isParentNode": true,
       "name": "applyPreset",
@@ -3143,6 +3183,7 @@
     "teamSlot1": {
       "$isParent": true,
       "props": {
+        "$type": "parent",
         "settingType": "Parent",
         "isParentNode": true,
         "name": "teamSlot1",
@@ -3233,6 +3274,7 @@
     "teamSlot2": {
       "$isParent": true,
       "props": {
+        "$type": "parent",
         "settingType": "Parent",
         "isParentNode": true,
         "name": "teamSlot2",
@@ -3323,6 +3365,7 @@
     "teamSlot3": {
       "$isParent": true,
       "props": {
+        "$type": "parent",
         "settingType": "Parent",
         "isParentNode": true,
         "name": "teamSlot3",
@@ -3413,6 +3456,7 @@
     "teamSlot4": {
       "$isParent": true,
       "props": {
+        "$type": "parent",
         "settingType": "Parent",
         "isParentNode": true,
         "name": "teamSlot4",
@@ -3503,6 +3547,7 @@
     "teamSlot5": {
       "$isParent": true,
       "props": {
+        "$type": "parent",
         "settingType": "Parent",
         "isParentNode": true,
         "name": "teamSlot5",
@@ -3593,6 +3638,7 @@
     "teamSlot6": {
       "$isParent": true,
       "props": {
+        "$type": "parent",
         "settingType": "Parent",
         "isParentNode": true,
         "name": "teamSlot6",
@@ -3683,6 +3729,7 @@
     "teamSlot7": {
       "$isParent": true,
       "props": {
+        "$type": "parent",
         "settingType": "Parent",
         "isParentNode": true,
         "name": "teamSlot7",
@@ -3773,6 +3820,7 @@
     "teamSlot8": {
       "$isParent": true,
       "props": {
+        "$type": "parent",
         "settingType": "Parent",
         "isParentNode": true,
         "name": "teamSlot8",
@@ -3863,6 +3911,7 @@
     "teamSlot9": {
       "$isParent": true,
       "props": {
+        "$type": "parent",
         "settingType": "Parent",
         "isParentNode": true,
         "name": "teamSlot9",
@@ -3968,6 +4017,7 @@
   "selectTeam": {
     "$isParent": true,
     "props": {
+      "$type": "parent",
       "settingType": "Parent",
       "isParentNode": true,
       "name": "selectTeam",
@@ -4103,6 +4153,7 @@
   "claimEventDailyMissions2": {
     "$isParent": true,
     "props": {
+      "$type": "parent",
       "settingType": "Parent",
       "isParentNode": true,
       "name": "claimEventDailyMissions2",
@@ -4206,6 +4257,7 @@
   "startTerminusIsleExploration": {
     "$isParent": true,
     "props": {
+      "$type": "parent",
       "settingType": "Parent",
       "isParentNode": true,
       "name": "startTerminusIsleExploration",
@@ -4229,6 +4281,7 @@
   "doTerminusIsleExploration": {
     "$isParent": true,
     "props": {
+      "$type": "parent",
       "settingType": "Parent",
       "isParentNode": true,
       "name": "doTerminusIsleExploration",
