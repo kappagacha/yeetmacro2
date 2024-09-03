@@ -2,6 +2,7 @@
   "doArena": {
     "$isParent": true,
     "props": {
+      "$type": "parent",
       "settingType": "Parent",
       "isParentNode": true,
       "name": "doArena",
@@ -27,6 +28,7 @@
   "doChampsArena": {
     "$isParent": true,
     "props": {
+      "$type": "parent",
       "settingType": "Parent",
       "isParentNode": true,
       "name": "doChampsArena",
@@ -52,6 +54,7 @@
   "doOutings": {
     "$isParent": true,
     "props": {
+      "$type": "parent",
       "settingType": "Parent",
       "isParentNode": true,
       "name": "doOutings",
@@ -170,6 +173,7 @@
   "doFriends": {
     "$isParent": true,
     "props": {
+      "$type": "parent",
       "settingType": "Parent",
       "isParentNode": true,
       "name": "doFriends",
@@ -684,6 +688,7 @@
   "doGate": {
     "$isParent": true,
     "props": {
+      "$type": "parent",
       "settingType": "Parent",
       "isParentNode": true,
       "name": "doGate",
@@ -714,6 +719,7 @@
   "doDailies": {
     "$isParent": true,
     "props": {
+      "$type": "parent",
       "settingType": "Parent",
       "isParentNode": true,
       "name": "doDailies",
@@ -958,6 +964,7 @@
   "doUpkeep": {
     "$isParent": true,
     "props": {
+      "$type": "parent",
       "settingType": "Parent",
       "isParentNode": true,
       "name": "doUpkeep",
@@ -1020,6 +1027,7 @@
   "claimLoot": {
     "$isParent": true,
     "props": {
+      "$type": "parent",
       "settingType": "Parent",
       "isParentNode": true,
       "name": "claimLoot",
@@ -1056,6 +1064,7 @@
   "claimFreeSummon": {
     "$isParent": true,
     "props": {
+      "$type": "parent",
       "settingType": "Parent",
       "isParentNode": true,
       "name": "claimFreeSummon",
@@ -1079,6 +1088,7 @@
   "doPartTimeJobAndRest": {
     "$isParent": true,
     "props": {
+      "$type": "parent",
       "settingType": "Parent",
       "isParentNode": true,
       "name": "doPartTimeJobAndRest",
@@ -1115,6 +1125,7 @@
   "doShop": {
     "$isParent": true,
     "props": {
+      "$type": "parent",
       "settingType": "Parent",
       "isParentNode": true,
       "name": "doShop",
@@ -1163,6 +1174,7 @@
     "evilSoulShop": {
       "$isParent": true,
       "props": {
+        "$type": "parent",
         "settingType": "Parent",
         "isParentNode": true,
         "name": "evilSoulShop",
@@ -1187,6 +1199,7 @@
   "sweepDecoyOperation": {
     "$isParent": true,
     "props": {
+      "$type": "parent",
       "settingType": "Parent",
       "isParentNode": true,
       "name": "sweepDecoyOperation",
@@ -1216,6 +1229,7 @@
   "sweepEvent": {
     "$isParent": true,
     "props": {
+      "$type": "parent",
       "settingType": "Parent",
       "isParentNode": true,
       "name": "sweepEvent",

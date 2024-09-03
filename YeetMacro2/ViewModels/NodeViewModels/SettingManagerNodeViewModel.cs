@@ -282,7 +282,20 @@ public partial class SettingNodeManagerViewModel : NodeManagerViewModel<ParentSe
 
     public static void MergeSettings(SettingNode source, SettingNode dest)
     {
-        if (source is ParentSetting parentSource && dest is ParentSetting parentDest)
+        if (source is EnabledParentSetting enabledParentSource && dest is EnabledParentSetting enabledParentDest)
+        {
+            ((EnabledParentSettingViewModel)enabledParentDest).IsEnabled = enabledParentSource.IsEnabled;
+            foreach (var childSource in enabledParentSource.Nodes)
+            {
+                // Not supporting duplicate names
+                var childDest = enabledParentDest.Nodes.FirstOrDefault(sn => sn.Name == childSource.Name);
+                if (childDest is not null)
+                {
+                    MergeSettings(childSource, childDest);
+                }
+            }
+        }
+        else if(source is ParentSetting parentSource && dest is ParentSetting parentDest)
         {
             foreach (var childSource in parentSource.Nodes)
             {

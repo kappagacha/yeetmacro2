@@ -2729,6 +2729,7 @@
       "props": {
         "$type": "enabledParent",
         "settingType": "EnabledParent",
+        "isEnabled": true,
         "isParentNode": true,
         "name": "friendshipPoint",
         "position": 0,
@@ -2831,6 +2832,7 @@
       "props": {
         "$type": "enabledParent",
         "settingType": "EnabledParent",
+        "isEnabled": true,
         "isParentNode": true,
         "name": "arena",
         "position": 1,
@@ -2881,6 +2883,7 @@
       "props": {
         "$type": "enabledParent",
         "settingType": "EnabledParent",
+        "isEnabled": true,
         "isParentNode": true,
         "name": "jointChallenge",
         "position": 2,
@@ -2905,6 +2908,7 @@
       "props": {
         "$type": "enabledParent",
         "settingType": "EnabledParent",
+        "isEnabled": true,
         "isParentNode": true,
         "name": "festival",
         "position": 3,

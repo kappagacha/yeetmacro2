@@ -2,6 +2,7 @@
   "farmEventLoop": {
     "$isParent": true,
     "props": {
+      "$type": "parent",
       "settingType": "Parent",
       "isParentNode": true,
       "name": "farmEventLoop",
@@ -29,6 +30,7 @@
   "doFreeQuests": {
     "$isParent": true,
     "props": {
+      "$type": "parent",
       "settingType": "Parent",
       "isParentNode": true,
       "name": "doFreeQuests",
@@ -38,6 +40,7 @@
     "upgradeStone": {
       "$isParent": true,
       "props": {
+        "$type": "parent",
         "settingType": "Parent",
         "isParentNode": true,
         "name": "upgradeStone",
@@ -68,6 +71,7 @@
   "farmEventBossLoop": {
     "$isParent": true,
     "props": {
+      "$type": "parent",
       "settingType": "Parent",
       "isParentNode": true,
       "name": "farmEventBossLoop",
@@ -93,6 +97,7 @@
     "recommendedElement": {
       "$isParent": true,
       "props": {
+        "$type": "parent",
         "settingType": "Parent",
         "isParentNode": true,
         "name": "recommendedElement",
@@ -208,6 +213,7 @@
   "doBranchQuests": {
     "$isParent": true,
     "props": {
+      "$type": "parent",
       "settingType": "Parent",
       "isParentNode": true,
       "name": "doBranchQuests",
@@ -217,6 +223,7 @@
     "cabbageHunting": {
       "$isParent": true,
       "props": {
+        "$type": "parent",
         "settingType": "Parent",
         "isParentNode": true,
         "name": "cabbageHunting",
@@ -337,6 +344,7 @@
   "doDailies": {
     "$isParent": true,
     "props": {
+      "$type": "parent",
       "settingType": "Parent",
       "isParentNode": true,
       "name": "doDailies",
@@ -568,6 +576,7 @@
   "doBattleArena": {
     "$isParent": true,
     "props": {
+      "$type": "parent",
       "settingType": "Parent",
       "isParentNode": true,
       "name": "doBattleArena",
@@ -593,6 +602,7 @@
     "recommendedElement": {
       "$isParent": true,
       "props": {
+        "$type": "parent",
         "settingType": "Parent",
         "isParentNode": true,
         "name": "recommendedElement",
@@ -708,6 +718,7 @@
   "doBattleArenaEx": {
     "$isParent": true,
     "props": {
+      "$type": "parent",
       "settingType": "Parent",
       "isParentNode": true,
       "name": "doBattleArenaEx",
@@ -796,6 +807,7 @@
   "doMainExpertQuests": {
     "$isParent": true,
     "props": {
+      "$type": "parent",
       "settingType": "Parent",
       "isParentNode": true,
       "name": "doMainExpertQuests",
@@ -820,6 +832,7 @@
   "claimJobs": {
     "$isParent": true,
     "props": {
+      "$type": "parent",
       "settingType": "Parent",
       "isParentNode": true,
       "name": "claimJobs",
@@ -856,6 +869,7 @@
   "watchAdQuartz": {
     "$isParent": true,
     "props": {
+      "$type": "parent",
       "settingType": "Parent",
       "isParentNode": true,
       "name": "watchAdQuartz",
@@ -907,6 +921,7 @@
   "watchAdStamina": {
     "$isParent": true,
     "props": {
+      "$type": "parent",
       "settingType": "Parent",
       "isParentNode": true,
       "name": "watchAdStamina",
@@ -958,6 +973,7 @@
   "doUpkeep": {
     "$isParent": true,
     "props": {
+      "$type": "parent",
       "settingType": "Parent",
       "isParentNode": true,
       "name": "doUpkeep",
@@ -1007,6 +1023,7 @@
   "skipEventOrMainHardQuests": {
     "$isParent": true,
     "props": {
+      "$type": "parent",
       "settingType": "Parent",
       "isParentNode": true,
       "name": "skipEventOrMainHardQuests",
@@ -1034,6 +1051,7 @@
   "skipDungeon": {
     "$isParent": true,
     "props": {
+      "$type": "parent",
       "settingType": "Parent",
       "isParentNode": true,
       "name": "skipDungeon",

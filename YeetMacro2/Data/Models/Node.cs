@@ -103,7 +103,6 @@ public class NodeValueConverter<TParent, TChild>(JsonSerializerOptions options) 
     where TChild : Node
 {
     private readonly JsonConverter<TChild> _childConverter = (JsonConverter<TChild>)(options).GetConverter(typeof(TChild));
-    private readonly JsonConverter<TParent> _parentConverter = (JsonConverter<TParent>)(options).GetConverter(typeof(TParent));
     private readonly Type _parentType = typeof(TParent);
     private readonly Type _childType = typeof(TChild);
     private readonly JsonSerializerOptions _options = options;
@@ -135,14 +134,11 @@ public class NodeValueConverter<TParent, TChild>(JsonSerializerOptions options) 
             if (reader.TokenType == JsonTokenType.PropertyName && reader.GetString() == "props")
             {
                 reader.Read();
+                node = _childConverter.Read(ref reader, _childType, _options);
+
                 if (isParent)
                 {
-                    parent = _parentConverter.Read(ref reader, _parentType, _options);
-                    node = parent;
-                }
-                else
-                {
-                    node = _childConverter.Read(ref reader, _childType, _options);
+                    parent = (TParent)node;
                 }
             }
             // additional properties are nodes
@@ -168,7 +164,7 @@ public class NodeValueConverter<TParent, TChild>(JsonSerializerOptions options) 
             writer.WritePropertyName("$isParent");
             writer.WriteBooleanValue(true);
             writer.WritePropertyName("props");
-            _parentConverter.Write(writer, parent, _options);
+            _childConverter.Write(writer, parent, _options);
             
             foreach (var subChild in parent.Nodes)
             {
