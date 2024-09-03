@@ -7,8 +7,8 @@ if (daily.doTerminusIsleExploration.done.IsChecked) {
 }
 
 // Exploration takes 4 hours
-const isTerminusIsleReady = (Date.now() - settings.startTerminusIsleExploration.lastRun.Value.ToUnixTimeMilliseconds()) / 3_600_000 > 3;
-if (isTerminusIsleReady && !settings.doTerminusIsleExploration.forceRun.Value) {
+const isTerminusIsleReady = (Date.now() - settings.startTerminusIsleExploration.lastRun.Value.ToUnixTimeMilliseconds()) / 3_600_000 > 4;
+if (!isTerminusIsleReady && !settings.doTerminusIsleExploration.forceRun.Value) {
 	return 'startTerminusIsleExploration was ran less than 4 hours ago. Use forceRun setting to override check';
 }
 
