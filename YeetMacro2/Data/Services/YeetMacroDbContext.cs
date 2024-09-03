@@ -17,6 +17,7 @@ public class YeetMacroDbContext : DbContext
     public DbSet<PatternNode> PatternNodes { get; set; }
     public DbSet<SettingNode> Settings { get; set; }
     public DbSet<ParentSetting> ParentSettings { get; set; }
+    public DbSet<EnabledParentSetting> EnabledParentSettings { get; set; }
     public DbSet<BooleanSetting> BooleanSettings { get; set; }
     public DbSet<OptionSetting> OptionSettings { get; set; }
     public DbSet<EnabledOptionSetting> EnabledOptionSettings { get; set; }

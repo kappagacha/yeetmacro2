@@ -8,11 +8,13 @@ namespace YeetMacro2.ViewModels.NodeViewModels;
 
 [ObservableObject]
 [NodeTypes(
-    typeof(ParentSettingViewModel), typeof(BooleanSettingViewModel), typeof(OptionSettingViewModel), typeof(EnabledOptionSettingViewModel),
+    typeof(ParentSettingViewModel), typeof(EnabledParentSettingViewModel), typeof(BooleanSettingViewModel), typeof(OptionSettingViewModel), typeof(EnabledOptionSettingViewModel),
     typeof(StringSettingViewModel), typeof(EnabledStringSettingViewModel), typeof(IntegerSettingViewModel), typeof(EnabledIntegerSettingViewModel),
-    typeof(DoubleSettingViewModel), typeof(EnabledDoubleSettingViewModel), typeof(PatternSettingViewModel), typeof(EnabledPatternSettingViewModel), typeof(TimestampSettingViewModel)
+    typeof(DoubleSettingViewModel), typeof(EnabledDoubleSettingViewModel), typeof(PatternSettingViewModel), typeof(EnabledPatternSettingViewModel),
+    typeof(TimestampSettingViewModel)
 )]
 [NodeTypeMapping(typeof(ParentSetting), typeof(ParentSettingViewModel))]
+[NodeTypeMapping(typeof(EnabledParentSetting), typeof(EnabledParentSettingViewModel))]
 [NodeTypeMapping(typeof(BooleanSetting), typeof(BooleanSettingViewModel))]
 [NodeTypeMapping(typeof(EnabledOptionSetting), typeof(EnabledOptionSettingViewModel))]
 [NodeTypeMapping(typeof(OptionSetting), typeof(OptionSettingViewModel))]
@@ -116,6 +118,135 @@ public partial class ParentSettingViewModel : ParentSetting
     public void ResetDictionary()
     {
         _nodeCache.Clear();
+    }
+}
+
+[ObservableObject]
+[NodeTypes(
+    typeof(ParentSettingViewModel), typeof(BooleanSettingViewModel), typeof(OptionSettingViewModel), typeof(EnabledOptionSettingViewModel),
+    typeof(StringSettingViewModel), typeof(EnabledStringSettingViewModel), typeof(IntegerSettingViewModel), typeof(EnabledIntegerSettingViewModel),
+    typeof(DoubleSettingViewModel), typeof(EnabledDoubleSettingViewModel), typeof(PatternSettingViewModel), typeof(EnabledPatternSettingViewModel),
+    typeof(TimestampSettingViewModel), typeof(EnabledParentSettingViewModel)
+)]
+[NodeTypeMapping(typeof(ParentSetting), typeof(ParentSettingViewModel))]
+[NodeTypeMapping(typeof(EnabledParentSetting), typeof(EnabledParentSettingViewModel))]
+[NodeTypeMapping(typeof(BooleanSetting), typeof(BooleanSettingViewModel))]
+[NodeTypeMapping(typeof(EnabledOptionSetting), typeof(EnabledOptionSettingViewModel))]
+[NodeTypeMapping(typeof(OptionSetting), typeof(OptionSettingViewModel))]
+[NodeTypeMapping(typeof(EnabledStringSetting), typeof(EnabledStringSettingViewModel))]
+[NodeTypeMapping(typeof(StringSetting), typeof(StringSettingViewModel))]
+[NodeTypeMapping(typeof(EnabledIntegerSetting), typeof(EnabledIntegerSettingViewModel))]
+[NodeTypeMapping(typeof(IntegerSetting), typeof(IntegerSettingViewModel))]
+[NodeTypeMapping(typeof(EnabledDoubleSetting), typeof(EnabledDoubleSettingViewModel))]
+[NodeTypeMapping(typeof(DoubleSetting), typeof(DoubleSettingViewModel))]
+[NodeTypeMapping(typeof(EnabledPatternSetting), typeof(EnabledPatternSettingViewModel))]
+[NodeTypeMapping(typeof(PatternSetting), typeof(PatternSettingViewModel))]
+[NodeTypeMapping(typeof(TimestampSetting), typeof(TimestampSettingViewModel))]
+public partial class EnabledParentSettingViewModel : EnabledParentSetting
+{
+
+    readonly Dictionary<string, SettingNode> _nodeCache;
+
+    public override IList<SettingNode> Nodes
+    {
+        get => base.Nodes;
+        set
+        {
+            if (value is null)
+            {
+                base.Nodes = new NodeObservableCollection<ParentSettingViewModel, SettingNode>();
+            }
+            else
+            {
+                base.Nodes = new NodeObservableCollection<ParentSettingViewModel, SettingNode>(value);
+            }
+            OnPropertyChanged();
+            OnPropertyChanged(nameof(IsLeaf));
+        }
+    }
+
+    public override string Name
+    {
+        get => base.Name;
+        set
+        {
+            base.Name = value;
+            OnPropertyChanged();
+        }
+    }
+
+    public override bool IsSelected
+    {
+        get => base.IsSelected;
+        set
+        {
+            base.IsSelected = value;
+            OnPropertyChanged();
+        }
+    }
+
+    public override bool IsExpanded
+    {
+        get => base.IsExpanded;
+        set
+        {
+            base.IsExpanded = value;
+            OnPropertyChanged();
+        }
+    }
+
+    public bool IsLeaf
+    {
+        get => base.Nodes.Count == 0;
+        set { }
+    }
+
+    public ICollection<SettingNode> Children
+    {
+        get => base.Nodes;
+        set { }
+    }
+
+    static EnabledParentSettingViewModel()
+    {
+    }
+
+    public EnabledParentSettingViewModel()
+    {
+        base.Nodes = new NodeObservableCollection<ParentSettingViewModel, SettingNode>();
+        _nodeCache = new Dictionary<string, SettingNode>();
+    }
+
+    public override SettingNode this[string key]
+    {
+        get
+        {
+            // Note: cache does not automatically invalidate
+            if (!_nodeCache.ContainsKey(key))
+            {
+                var child = base.Nodes.FirstOrDefault(n => n.Name == key) ?? throw new ArgumentException($"Invalid key: {key}");
+                _nodeCache.Add(key, child);
+            }
+
+            return _nodeCache[key];
+        }
+    }
+
+    public void ResetDictionary()
+    {
+        _nodeCache.Clear();
+    }
+
+    public override bool IsEnabled
+    {
+        get => base.IsEnabled;
+        set
+        {
+            var doSave = base.IsEnabled != value;
+            base.IsEnabled = value;
+            OnPropertyChanged();
+            if (doSave) WeakReferenceMessenger.Default.Send<SettingNode>(this);
+        }
     }
 }
 

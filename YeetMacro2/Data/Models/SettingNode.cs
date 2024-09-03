@@ -5,6 +5,7 @@ namespace YeetMacro2.Data.Models;
 public enum SettingType
 {
     Parent,
+    EnabledParent,
     Boolean,
     Option,
     EnabledOption,
@@ -30,8 +31,15 @@ public class ParentSetting : SettingNode, IParentNode<ParentSetting, SettingNode
     }
 }
 
+public class EnabledParentSetting : ParentSetting
+{
+    public override SettingType SettingType => SettingType.EnabledParent;
+    public virtual bool IsEnabled { get; set; }
+}
+
 // https://learn.microsoft.com/en-us/dotnet/standard/serialization/system-text-json/polymorphism?pivots=dotnet-7-0
 [JsonDerivedType(typeof(ParentSetting), typeDiscriminator: "parent")]
+[JsonDerivedType(typeof(EnabledParentSetting), typeDiscriminator: "enabledParent")]
 [JsonDerivedType(typeof(BooleanSetting), typeDiscriminator: "boolean")]
 [JsonDerivedType(typeof(OptionSetting), typeDiscriminator: "option")]
 [JsonDerivedType(typeof(EnabledOptionSetting), typeDiscriminator: "enabledOption")]

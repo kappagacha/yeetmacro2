@@ -71,6 +71,39 @@
                 </Grid>
             </Grid>
         </DataTemplate>
+        <DataTemplate x:Key="EnabledParentSettingTemplate" x:DataType="nvm:EnabledParentSettingViewModel">
+            <Grid ColumnDefinitions="Auto,Auto,*" RowDefinitions="Auto,Auto" ColumnSpacing="5">
+                <Grid WidthRequest="15" />
+                <v:ToggleImageView Grid.Row="0" Grid.Column="0"
+                       IsVisible="{Binding Nodes.Count, Converter={conv:NumberToBoolConverter}}"
+                       ImageHeight="15"
+                       ImageWidth="15"
+                       FontFamily="MaterialOutlined" 
+                       Glyph="{x:Static mi:MaterialOutlined.Keyboard_arrow_right}"
+                       ToggledGlyph="{x:Static mi:MaterialOutlined.Keyboard_arrow_down}"
+                       IsToggled="{Binding IsExpanded}"
+                       IsToggledFromImageOnly="True"
+                       HeightRequest="20" />
+                <CheckBox Grid.Row="0" Grid.Column="1" IsChecked="{Binding IsEnabled}" VerticalOptions="Center" />
+                <Grid Grid.Row="0" Grid.Column="2" HeightRequest="20">
+                    <Grid HeightRequest="20">
+                        <Label Text="{Binding Name}" TextColor="{StaticResource Primary}" Margin="0" Padding="0" VerticalOptions="Center" BackgroundColor="Transparent">
+                            <Label.Triggers>
+                                <DataTrigger TargetType="Label" Binding="{Binding IsSelected}" Value="True">
+                                    <Setter Property="BackgroundColor" Value="Blue" />
+                                </DataTrigger>
+                            </Label.Triggers>
+                        </Label>
+                        <ImageButton Margin="0" Padding="0" CommandParameter="{Binding .}" 
+                            Command="{Binding NodeManager.SelectNodeCommand, Source={RelativeSource AncestorType={x:Type v:NodeView}}}" />
+                    </Grid>
+                </Grid>
+                <Grid Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="2" IsVisible="{Binding Nodes.Count, Converter={conv:NumberToBoolConverter}}">
+                    <CollectionView Margin="15,0,0,0" ItemsSource="{Binding Nodes}" IsVisible="{Binding IsExpanded}"
+                                    ItemTemplate="{conv:DynamicTemplateSelector Root={Binding .,Source={Reference thisView}}}" />
+                </Grid>
+            </Grid>
+        </DataTemplate>
         <DataTemplate x:Key="BooleanSettingTemplate" x:DataType="nvm:BooleanSettingViewModel">
             <v:DataTemplateView DataTemplate="{StaticResource SharedTemplate}">
                 <v:DataTemplateView.ContentTemplate>

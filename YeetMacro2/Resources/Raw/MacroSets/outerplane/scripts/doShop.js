@@ -26,7 +26,7 @@ while (macroService.IsRunning) {
 			const selectedResourcePattern = macroService.ClonePattern(patterns.shop.selected, { CenterY: shopResourceResult.Point.Y, Padding: 20, Path: `patterns.shop.selected_Y${shopResourceResult.Point.Y}` });
 			macroService.PollPattern(patterns.shop.resource, { DoClick: true, PredicatePattern: selectedResourcePattern });
 
-			if (!daily.doShop.friendshipPoint.done.IsChecked) {
+			if (settings.doShop.friendshipPoint.IsEnabled && !daily.doShop.friendshipPoint.done.IsChecked) {
 				const friendshipItems = ['stamina', 'gold', 'clearTicket', 'arenaTicket', 'hammer', 'stoneFragment', 'stonePiece'];
 				macroService.PollPattern(patterns.shop.resource.friendship, { DoClick: true, PredicatePattern: patterns.shop.resource.friendship.currency });
 				sleep(1_000);
@@ -37,7 +37,7 @@ while (macroService.IsRunning) {
 				}
 			}
 			
-			if (!daily.doShop.arena.done.IsChecked) {
+			if (settings.doShop.arena.IsEnabled && !daily.doShop.arena.done.IsChecked) {
 				const arenaItems = ['gold', 'stamina', 'cakeSlice'];
 				macroService.PollPattern(patterns.shop.resource.arena, { DoClick: true, PredicatePattern: patterns.shop.resource.arena.currency });
 				sleep(1_000);
@@ -48,7 +48,7 @@ while (macroService.IsRunning) {
 				}
 			}
 
-			if (!daily.doShop.festival.done.IsChecked) {
+			if (settings.doShop.festival.IsEnabled && !daily.doShop.festival.done.IsChecked) {
 				const festivalItems = ['stamina', 'gold'];
 				const selectedEventPattern = macroService.PollPattern(patterns.shop.event);
 				const selectedResourcePattern = macroService.ClonePattern(patterns.shop.selected, { CenterY: selectedEventPattern.Point.Y, Padding: 20, Path: `patterns.shop.selected_Y${selectedEventPattern.Point.Y}` });
@@ -68,7 +68,7 @@ while (macroService.IsRunning) {
 				}
 			}
 
-			if (!daily.doShop.jointChallenge.done.IsChecked) {
+			if (settings.doShop.jointChallenge.IsEnabled && !daily.doShop.jointChallenge.done.IsChecked) {
 				const jointChallengeItems = ['stamina'];
 				const selectedEventPattern = macroService.PollPattern(patterns.shop.event);
 				const selectedResourcePattern = macroService.ClonePattern(patterns.shop.selected, { CenterY: selectedEventPattern.Point.Y, Padding: 20, Path: `patterns.shop.selected_Y${selectedEventPattern.Point.Y}` });

@@ -208,7 +208,6 @@ public partial class TodoJsonBooleanViewModel: TodoJsonElementViewModel
 {
     [ObservableProperty]
     bool _isChecked;
-    public object Children { get; set; }        // I don't know why this is always binded in UraniumUI treeview
 
     partial void OnIsCheckedChanged(bool oldValue, bool newValue)
     {
@@ -224,7 +223,6 @@ public partial class TodoJsonCountViewModel : TodoJsonElementViewModel
 {
     [ObservableProperty]
     int _count;
-    public object Children { get; set; }        // I don't know why this is always binded in UraniumUI treeview
 
     partial void OnCountChanged(int value)
     {
