@@ -1,1081 +1,700 @@
 {
   "farmEventLoop": {
-    "$isParent": true,
-    "props": {
-      "$type": "parent",
-      "settingType": "Parent",
-      "isParentNode": true,
-      "name": "farmEventLoop",
-      "position": 0,
-      "path": "farmEventLoop"
-    },
+    "$type": "parent",
+    "$position": 0,
+    "$name": "farmEventLoop",
+    "$path": "farmEventLoop",
     "targetLevel": {
-      "$isParent": false,
-      "props": {
-        "$type": "option",
-        "settingType": "Option",
-        "options": [
-          "12",
-          "11"
-        ],
-        "value": "11",
-        "defaultValue": "11",
-        "isParentNode": false,
-        "name": "targetLevel",
-        "position": 0,
-        "path": "farmEventLoop.targetLevel"
-      }
+      "$type": "option",
+      "$options": [
+        "12",
+        "11"
+      ],
+      "$defaultValue": "11",
+      "$value": "11",
+      "$position": 0,
+      "$name": "targetLevel",
+      "$path": "farmEventLoop.targetLevel"
     }
   },
   "doFreeQuests": {
-    "$isParent": true,
-    "props": {
-      "$type": "parent",
-      "settingType": "Parent",
-      "isParentNode": true,
-      "name": "doFreeQuests",
-      "position": 0,
-      "path": "doFreeQuests"
-    },
+    "$type": "parent",
+    "$position": 0,
+    "$name": "doFreeQuests",
+    "$path": "doFreeQuests",
     "upgradeStone": {
-      "$isParent": true,
-      "props": {
-        "$type": "parent",
-        "settingType": "Parent",
-        "isParentNode": true,
-        "name": "upgradeStone",
-        "position": 0,
-        "path": "doFreeQuests.upgradeStone"
-      },
+      "$type": "parent",
+      "$position": 0,
+      "$name": "upgradeStone",
+      "$path": "doFreeQuests.upgradeStone",
       "targetLevel": {
-        "$isParent": false,
-        "props": {
-          "$type": "option",
-          "settingType": "Option",
-          "options": [
-            "extreme",
-            "ultimate",
-            "advanced",
-            "intermediate"
-          ],
-          "value": "intermediate",
-          "defaultValue": "intermediate",
-          "isParentNode": false,
-          "name": "targetLevel",
-          "position": 0,
-          "path": "doFreeQuests.upgradeStone.targetLevel"
-        }
+        "$type": "option",
+        "$options": [
+          "extreme",
+          "ultimate",
+          "advanced",
+          "intermediate"
+        ],
+        "$defaultValue": "intermediate",
+        "$value": "intermediate",
+        "$position": 0,
+        "$name": "targetLevel",
+        "$path": "doFreeQuests.upgradeStone.targetLevel"
       }
     }
   },
   "farmEventBossLoop": {
-    "$isParent": true,
-    "props": {
-      "$type": "parent",
-      "settingType": "Parent",
-      "isParentNode": true,
-      "name": "farmEventBossLoop",
-      "position": 0,
-      "path": "farmEventBossLoop"
-    },
+    "$type": "parent",
+    "$position": 0,
+    "$name": "farmEventBossLoop",
+    "$path": "farmEventBossLoop",
     "party": {
-      "$isParent": false,
-      "props": {
-        "$type": "option",
-        "settingType": "Option",
-        "options": [
-          "recommendedElement"
-        ],
-        "value": "recommendedElement",
-        "defaultValue": "recommendedElement",
-        "isParentNode": false,
-        "name": "party",
-        "position": 0,
-        "path": "farmEventBossLoop.party"
-      }
+      "$type": "option",
+      "$options": [
+        "recommendedElement"
+      ],
+      "$defaultValue": "recommendedElement",
+      "$value": "recommendedElement",
+      "$position": 0,
+      "$name": "party",
+      "$path": "farmEventBossLoop.party"
     },
     "recommendedElement": {
-      "$isParent": true,
-      "props": {
-        "$type": "parent",
-        "settingType": "Parent",
-        "isParentNode": true,
-        "name": "recommendedElement",
-        "position": 0,
-        "path": "farmEventBossLoop.recommendedElement"
-      },
+      "$type": "parent",
+      "$position": 0,
+      "$name": "recommendedElement",
+      "$path": "farmEventBossLoop.recommendedElement",
       "none": {
-        "$isParent": false,
-        "props": {
-          "$type": "string",
-          "settingType": "String",
-          "value": "Main",
-          "defaultValue": "Main",
-          "isParentNode": false,
-          "name": "none",
-          "position": 0,
-          "path": "farmEventBossLoop.recommendedElement.none"
-        }
+        "$type": "string",
+        "$defaultValue": "Main",
+        "$value": "Main",
+        "$position": 0,
+        "$name": "none",
+        "$path": "farmEventBossLoop.recommendedElement.none"
       },
       "fire": {
-        "$isParent": false,
-        "props": {
-          "$type": "string",
-          "settingType": "String",
-          "value": "Fire",
-          "defaultValue": "Fire",
-          "isParentNode": false,
-          "name": "fire",
-          "position": 0,
-          "path": "farmEventBossLoop.recommendedElement.fire"
-        }
+        "$type": "string",
+        "$defaultValue": "Fire",
+        "$value": "Fire",
+        "$position": 0,
+        "$name": "fire",
+        "$path": "farmEventBossLoop.recommendedElement.fire"
       },
       "water": {
-        "$isParent": false,
-        "props": {
-          "$type": "string",
-          "settingType": "String",
-          "value": "Water",
-          "defaultValue": "Water",
-          "isParentNode": false,
-          "name": "water",
-          "position": 0,
-          "path": "farmEventBossLoop.recommendedElement.water"
-        }
+        "$type": "string",
+        "$defaultValue": "Water",
+        "$value": "Water",
+        "$position": 0,
+        "$name": "water",
+        "$path": "farmEventBossLoop.recommendedElement.water"
       },
       "lightning": {
-        "$isParent": false,
-        "props": {
-          "$type": "string",
-          "settingType": "String",
-          "value": "Ltng",
-          "defaultValue": "Ltng",
-          "isParentNode": false,
-          "name": "lightning",
-          "position": 0,
-          "path": "farmEventBossLoop.recommendedElement.lightning"
-        }
+        "$type": "string",
+        "$defaultValue": "Ltng",
+        "$value": "Ltng",
+        "$position": 0,
+        "$name": "lightning",
+        "$path": "farmEventBossLoop.recommendedElement.lightning"
       },
       "earth": {
-        "$isParent": false,
-        "props": {
-          "$type": "string",
-          "settingType": "String",
-          "value": "Earth",
-          "defaultValue": "Earth",
-          "isParentNode": false,
-          "name": "earth",
-          "position": 0,
-          "path": "farmEventBossLoop.recommendedElement.earth"
-        }
+        "$type": "string",
+        "$defaultValue": "Earth",
+        "$value": "Earth",
+        "$position": 0,
+        "$name": "earth",
+        "$path": "farmEventBossLoop.recommendedElement.earth"
       },
       "wind": {
-        "$isParent": false,
-        "props": {
-          "$type": "string",
-          "settingType": "String",
-          "value": "Wind",
-          "defaultValue": "Wind",
-          "isParentNode": false,
-          "name": "wind",
-          "position": 0,
-          "path": "farmEventBossLoop.recommendedElement.wind"
-        }
+        "$type": "string",
+        "$defaultValue": "Wind",
+        "$value": "Wind",
+        "$position": 0,
+        "$name": "wind",
+        "$path": "farmEventBossLoop.recommendedElement.wind"
       },
       "light": {
-        "$isParent": false,
-        "props": {
-          "$type": "string",
-          "settingType": "String",
-          "value": "Light",
-          "defaultValue": "Light",
-          "isParentNode": false,
-          "name": "light",
-          "position": 0,
-          "path": "farmEventBossLoop.recommendedElement.light"
-        }
+        "$type": "string",
+        "$defaultValue": "Light",
+        "$value": "Light",
+        "$position": 0,
+        "$name": "light",
+        "$path": "farmEventBossLoop.recommendedElement.light"
       },
       "dark": {
-        "$isParent": false,
-        "props": {
-          "$type": "string",
-          "settingType": "String",
-          "value": "Dark",
-          "defaultValue": "Dark",
-          "isParentNode": false,
-          "name": "dark",
-          "position": 0,
-          "path": "farmEventBossLoop.recommendedElement.dark"
-        }
+        "$type": "string",
+        "$defaultValue": "Dark",
+        "$value": "Dark",
+        "$position": 0,
+        "$name": "dark",
+        "$path": "farmEventBossLoop.recommendedElement.dark"
       }
     }
   },
   "doBranchQuests": {
-    "$isParent": true,
-    "props": {
-      "$type": "parent",
-      "settingType": "Parent",
-      "isParentNode": true,
-      "name": "doBranchQuests",
-      "position": 0,
-      "path": "doBranchQuests"
-    },
+    "$type": "parent",
+    "$position": 0,
+    "$name": "doBranchQuests",
+    "$path": "doBranchQuests",
     "cabbageHunting": {
-      "$isParent": true,
-      "props": {
-        "$type": "parent",
-        "settingType": "Parent",
-        "isParentNode": true,
-        "name": "cabbageHunting",
-        "position": 0,
-        "path": "doBranchQuests.cabbageHunting"
-      },
+      "$type": "parent",
+      "$position": 0,
+      "$name": "cabbageHunting",
+      "$path": "doBranchQuests.cabbageHunting",
       "party": {
-        "$isParent": false,
-        "props": {
-          "$type": "option",
-          "settingType": "Option",
-          "options": [
-            "CabH"
-          ],
-          "value": "CabH",
-          "defaultValue": "CabH",
-          "isParentNode": false,
-          "name": "party",
-          "position": 0,
-          "path": "doBranchQuests.cabbageHunting.party"
-        }
+        "$type": "option",
+        "$options": [
+          "CabH"
+        ],
+        "$defaultValue": "CabH",
+        "$value": "CabH",
+        "$position": 0,
+        "$name": "party",
+        "$path": "doBranchQuests.cabbageHunting.party"
       }
     },
     "limitedEventPattern": {
-      "$isParent": false,
-      "props": {
-        "$type": "pattern",
-        "settingType": "Pattern",
-        "value": {
-          "isMultiPattern": false,
-          "patterns": [
-            {
-              "rect": {
-                "x": 1244.6029052734375,
-                "y": 268.0039367675781,
-                "width": 81.4552001953125,
-                "height": 57.442657470703125
-              },
-              "resolution": {
-                "width": 1920,
-                "height": 1080
-              },
-              "isBoundsPattern": false,
-              "isLocationDynamic": false,
-              "name": "pattern",
-              "imageData": "/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDAAEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQH/2wBDAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQH/wAARCAAMAAwDASIAAhEBAxEB/8QAFgABAQEAAAAAAAAAAAAAAAAABwgJ/8QAIBAAAQUBAQADAQEAAAAAAAAABAECAwUGBwgJERMSFP/EABUBAQEAAAAAAAAAAAAAAAAAAAcI/8QAHREAAwEAAwADAAAAAAAAAAAAAQIDBAUGERITIf/aAAwDAQACEQMRAD8AJycNT+8M/wA1sfDFndcrXIfnD6N692+pvLHPB3lrl4zaznWdDspLgzpPRm26lW9pZYOADG57HqIt/ZsuywRy5i6oz115a15XKN5RQbk0QeC4pNpzPU2FPlNRnbB0sIVqNVEBkkV5TjArEUsaf8HskFT6gRisll0I+GUtz/EKDJFBGwf0H2tFdHH/ADIQ8knOyumJerl/SWNo8UEbmoxEHY1jmvVrHNMvkP7Btsl6AhzVGWGNVVGCzkAscoTC5V/0nXh88kkhTpVR8pJkz1ZAkI7fv7ZC1yvc+WOEOuHZeQ65GktWLFbeJV3/AGtyDmNkZq35KLLps5ejTnJvISzCUghrE3sXbu024XVfRGDeq7ZzSd2jqctZvWfVNFqykp+zYlQAo8LD5n//2Q==",
-              "variancePct": 20,
-              "horizontalStretchMultiplier": 0,
-              "verticalStretchMultiplier": 0,
-              "textMatch": {
-                "isActive": false,
-                "text": null,
-                "whiteList": null
-              },
-              "colorThreshold": {
-                "isActive": false,
-                "variancePct": 30,
-                "color": null,
-                "imageData": ""
-              },
-              "offsetCalcType": "Default",
-              "position": 0
-            }
-          ],
-          "isParentNode": true,
-          "name": null,
-          "position": 0,
-          "path": null
-        },
-        "defaultValue": {
-          "isMultiPattern": false,
-          "patterns": [
-            {
-              "rect": {
-                "x": 1244.6029052734375,
-                "y": 268.0039367675781,
-                "width": 81.4552001953125,
-                "height": 57.442657470703125
-              },
-              "resolution": {
-                "width": 1920,
-                "height": 1080
-              },
-              "isBoundsPattern": false,
-              "isLocationDynamic": false,
-              "name": "pattern",
-              "imageData": "/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDAAEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQH/2wBDAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQH/wAARCAAMAAwDASIAAhEBAxEB/8QAFgABAQEAAAAAAAAAAAAAAAAABwgJ/8QAIBAAAQUBAQADAQEAAAAAAAAABAECAwUGBwgJERMSFP/EABUBAQEAAAAAAAAAAAAAAAAAAAcI/8QAHREAAwEAAwADAAAAAAAAAAAAAQIDBAUGERITIf/aAAwDAQACEQMRAD8AJycNT+8M/wA1sfDFndcrXIfnD6N692+pvLHPB3lrl4zaznWdDspLgzpPRm26lW9pZYOADG57HqIt/ZsuywRy5i6oz115a15XKN5RQbk0QeC4pNpzPU2FPlNRnbB0sIVqNVEBkkV5TjArEUsaf8HskFT6gRisll0I+GUtz/EKDJFBGwf0H2tFdHH/ADIQ8knOyumJerl/SWNo8UEbmoxEHY1jmvVrHNMvkP7Btsl6AhzVGWGNVVGCzkAscoTC5V/0nXh88kkhTpVR8pJkz1ZAkI7fv7ZC1yvc+WOEOuHZeQ65GktWLFbeJV3/AGtyDmNkZq35KLLps5ejTnJvISzCUghrE3sXbu024XVfRGDeq7ZzSd2jqctZvWfVNFqykp+zYlQAo8LD5n//2Q==",
-              "variancePct": 20,
-              "horizontalStretchMultiplier": 0,
-              "verticalStretchMultiplier": 0,
-              "textMatch": {
-                "isActive": false,
-                "text": null,
-                "whiteList": null
-              },
-              "colorThreshold": {
-                "isActive": false,
-                "variancePct": 30,
-                "color": null,
-                "imageData": ""
-              },
-              "offsetCalcType": "Default",
-              "position": 0
-            }
-          ],
-          "isParentNode": true,
-          "name": null,
-          "position": 0,
-          "path": null
-        },
-        "isParentNode": false,
-        "name": "limitedEventPattern",
-        "position": 0,
-        "path": "doBranchQuests.limitedEventPattern"
-      }
+      "$type": "pattern",
+      "$defaultValue": {
+        "$position": 0,
+        "$patterns": [
+          {
+            "rect": {
+              "x": 1244.6029052734375,
+              "y": 268.0039367675781,
+              "width": 81.4552001953125,
+              "height": 57.442657470703125
+            },
+            "resolution": {
+              "width": 1920,
+              "height": 1080
+            },
+            "isBoundsPattern": false,
+            "isLocationDynamic": false,
+            "name": "pattern",
+            "imageData": "/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDAAEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQH/2wBDAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQH/wAARCAAMAAwDASIAAhEBAxEB/8QAFgABAQEAAAAAAAAAAAAAAAAABwgJ/8QAIBAAAQUBAQADAQEAAAAAAAAABAECAwUGBwgJERMSFP/EABUBAQEAAAAAAAAAAAAAAAAAAAcI/8QAHREAAwEAAwADAAAAAAAAAAAAAQIDBAUGERITIf/aAAwDAQACEQMRAD8AJycNT+8M/wA1sfDFndcrXIfnD6N692+pvLHPB3lrl4zaznWdDspLgzpPRm26lW9pZYOADG57HqIt/ZsuywRy5i6oz115a15XKN5RQbk0QeC4pNpzPU2FPlNRnbB0sIVqNVEBkkV5TjArEUsaf8HskFT6gRisll0I+GUtz/EKDJFBGwf0H2tFdHH/ADIQ8knOyumJerl/SWNo8UEbmoxEHY1jmvVrHNMvkP7Btsl6AhzVGWGNVVGCzkAscoTC5V/0nXh88kkhTpVR8pJkz1ZAkI7fv7ZC1yvc+WOEOuHZeQ65GktWLFbeJV3/AGtyDmNkZq35KLLps5ejTnJvISzCUghrE3sXbu024XVfRGDeq7ZzSd2jqctZvWfVNFqykp+zYlQAo8LD5n//2Q==",
+            "variancePct": 20,
+            "horizontalStretchMultiplier": 0,
+            "verticalStretchMultiplier": 0,
+            "textMatch": {
+              "isActive": false,
+              "text": null,
+              "whiteList": null
+            },
+            "colorThreshold": {
+              "isActive": false,
+              "variancePct": 30,
+              "color": null,
+              "imageData": ""
+            },
+            "offsetCalcType": "Default",
+            "position": 0
+          }
+        ],
+        "$name": null,
+        "$path": null,
+        "$isMultiPattern": false
+      },
+      "$value": {
+        "$position": 0,
+        "$patterns": [
+          {
+            "rect": {
+              "x": 1244.6029052734375,
+              "y": 268.0039367675781,
+              "width": 81.4552001953125,
+              "height": 57.442657470703125
+            },
+            "resolution": {
+              "width": 1920,
+              "height": 1080
+            },
+            "isBoundsPattern": false,
+            "isLocationDynamic": false,
+            "name": "pattern",
+            "imageData": "/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDAAEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQH/2wBDAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQH/wAARCAAMAAwDASIAAhEBAxEB/8QAFgABAQEAAAAAAAAAAAAAAAAABwgJ/8QAIBAAAQUBAQADAQEAAAAAAAAABAECAwUGBwgJERMSFP/EABUBAQEAAAAAAAAAAAAAAAAAAAcI/8QAHREAAwEAAwADAAAAAAAAAAAAAQIDBAUGERITIf/aAAwDAQACEQMRAD8AJycNT+8M/wA1sfDFndcrXIfnD6N692+pvLHPB3lrl4zaznWdDspLgzpPRm26lW9pZYOADG57HqIt/ZsuywRy5i6oz115a15XKN5RQbk0QeC4pNpzPU2FPlNRnbB0sIVqNVEBkkV5TjArEUsaf8HskFT6gRisll0I+GUtz/EKDJFBGwf0H2tFdHH/ADIQ8knOyumJerl/SWNo8UEbmoxEHY1jmvVrHNMvkP7Btsl6AhzVGWGNVVGCzkAscoTC5V/0nXh88kkhTpVR8pJkz1ZAkI7fv7ZC1yvc+WOEOuHZeQ65GktWLFbeJV3/AGtyDmNkZq35KLLps5ejTnJvISzCUghrE3sXbu024XVfRGDeq7ZzSd2jqctZvWfVNFqykp+zYlQAo8LD5n//2Q==",
+            "variancePct": 20,
+            "horizontalStretchMultiplier": 0,
+            "verticalStretchMultiplier": 0,
+            "textMatch": {
+              "isActive": false,
+              "text": null,
+              "whiteList": null
+            },
+            "colorThreshold": {
+              "isActive": false,
+              "variancePct": 30,
+              "color": null,
+              "imageData": ""
+            },
+            "offsetCalcType": "Default",
+            "position": 0
+          }
+        ],
+        "$name": null,
+        "$path": null,
+        "$isMultiPattern": false
+      },
+      "$position": 0,
+      "$name": "limitedEventPattern",
+      "$path": "doBranchQuests.limitedEventPattern"
     }
   },
   "doDailies": {
-    "$isParent": true,
-    "props": {
-      "$type": "parent",
-      "settingType": "Parent",
-      "isParentNode": true,
-      "name": "doDailies",
-      "position": 0,
-      "path": "doDailies"
-    },
+    "$type": "parent",
+    "$position": 0,
+    "$name": "doDailies",
+    "$path": "doDailies",
     "watchAdQuartz": {
-      "$isParent": false,
-      "props": {
-        "$type": "boolean",
-        "settingType": "Boolean",
-        "value": true,
-        "defaultValue": true,
-        "isParentNode": false,
-        "name": "watchAdQuartz",
-        "position": 0,
-        "path": "doDailies.watchAdQuartz"
-      }
+      "$type": "boolean",
+      "$defaultValue": true,
+      "$value": true,
+      "$position": 0,
+      "$name": "watchAdQuartz",
+      "$path": "doDailies.watchAdQuartz"
     },
     "watchAdStamina": {
-      "$isParent": false,
-      "props": {
-        "$type": "boolean",
-        "settingType": "Boolean",
-        "value": true,
-        "defaultValue": true,
-        "isParentNode": false,
-        "name": "watchAdStamina",
-        "position": 1,
-        "path": "doDailies.watchAdStamina"
-      }
+      "$type": "boolean",
+      "$defaultValue": true,
+      "$value": true,
+      "$position": 1,
+      "$name": "watchAdStamina",
+      "$path": "doDailies.watchAdStamina"
     },
     "claimJobs": {
-      "$isParent": false,
-      "props": {
-        "$type": "boolean",
-        "settingType": "Boolean",
-        "value": true,
-        "defaultValue": true,
-        "isParentNode": false,
-        "name": "claimJobs",
-        "position": 2,
-        "path": "doDailies.claimJobs"
-      }
+      "$type": "boolean",
+      "$defaultValue": true,
+      "$value": true,
+      "$position": 2,
+      "$name": "claimJobs",
+      "$path": "doDailies.claimJobs"
     },
     "doMainExpertQuests": {
-      "$isParent": false,
-      "props": {
-        "$type": "boolean",
-        "settingType": "Boolean",
-        "value": true,
-        "defaultValue": true,
-        "isParentNode": false,
-        "name": "doMainExpertQuests",
-        "position": 3,
-        "path": "doDailies.doMainExpertQuests"
-      }
+      "$type": "boolean",
+      "$defaultValue": true,
+      "$value": true,
+      "$position": 3,
+      "$name": "doMainExpertQuests",
+      "$path": "doDailies.doMainExpertQuests"
     },
     "doFreeQuests": {
-      "$isParent": false,
-      "props": {
-        "$type": "boolean",
-        "settingType": "Boolean",
-        "value": true,
-        "defaultValue": true,
-        "isParentNode": false,
-        "name": "doFreeQuests",
-        "position": 4,
-        "path": "doDailies.doFreeQuests"
-      }
+      "$type": "boolean",
+      "$defaultValue": true,
+      "$value": true,
+      "$position": 4,
+      "$name": "doFreeQuests",
+      "$path": "doDailies.doFreeQuests"
     },
     "doBattleArena": {
-      "$isParent": false,
-      "props": {
-        "$type": "boolean",
-        "settingType": "Boolean",
-        "value": true,
-        "defaultValue": true,
-        "isParentNode": false,
-        "name": "doBattleArena",
-        "position": 5,
-        "path": "doDailies.doBattleArena"
-      }
+      "$type": "boolean",
+      "$defaultValue": true,
+      "$value": true,
+      "$position": 5,
+      "$name": "doBattleArena",
+      "$path": "doDailies.doBattleArena"
     },
     "doBattleArenaEx": {
-      "$isParent": false,
-      "props": {
-        "$type": "boolean",
-        "settingType": "Boolean",
-        "value": true,
-        "defaultValue": true,
-        "isParentNode": false,
-        "name": "doBattleArenaEx",
-        "position": 6,
-        "path": "doDailies.doBattleArenaEx"
-      }
+      "$type": "boolean",
+      "$defaultValue": true,
+      "$value": true,
+      "$position": 6,
+      "$name": "doBattleArenaEx",
+      "$path": "doDailies.doBattleArenaEx"
     },
     "doMainOrEventHardQuests": {
-      "$isParent": false,
-      "props": {
-        "$type": "boolean",
-        "settingType": "Boolean",
-        "value": true,
-        "defaultValue": true,
-        "isParentNode": false,
-        "name": "doMainOrEventHardQuests",
-        "position": 7,
-        "path": "doDailies.doMainOrEventHardQuests"
-      }
+      "$type": "boolean",
+      "$defaultValue": true,
+      "$value": true,
+      "$position": 7,
+      "$name": "doMainOrEventHardQuests",
+      "$path": "doDailies.doMainOrEventHardQuests"
     },
     "doOneFameQuest": {
-      "$isParent": false,
-      "props": {
-        "$type": "boolean",
-        "settingType": "Boolean",
-        "value": true,
-        "defaultValue": true,
-        "isParentNode": false,
-        "name": "doOneFameQuest",
-        "position": 8,
-        "path": "doDailies.doOneFameQuest"
-      }
+      "$type": "boolean",
+      "$defaultValue": true,
+      "$value": true,
+      "$position": 8,
+      "$name": "doOneFameQuest",
+      "$path": "doDailies.doOneFameQuest"
     },
     "farmEventBossLoop": {
-      "$isParent": false,
-      "props": {
-        "$type": "boolean",
-        "settingType": "Boolean",
-        "value": true,
-        "defaultValue": true,
-        "isParentNode": false,
-        "name": "farmEventBossLoop",
-        "position": 9,
-        "path": "doDailies.farmEventBossLoop"
-      }
+      "$type": "boolean",
+      "$defaultValue": true,
+      "$value": true,
+      "$position": 9,
+      "$name": "farmEventBossLoop",
+      "$path": "doDailies.farmEventBossLoop"
     },
     "claimMissionRewards": {
-      "$isParent": false,
-      "props": {
-        "$type": "boolean",
-        "settingType": "Boolean",
-        "value": true,
-        "defaultValue": true,
-        "isParentNode": false,
-        "name": "claimMissionRewards",
-        "position": 10,
-        "path": "doDailies.claimMissionRewards"
-      }
+      "$type": "boolean",
+      "$defaultValue": true,
+      "$value": true,
+      "$position": 10,
+      "$name": "claimMissionRewards",
+      "$path": "doDailies.claimMissionRewards"
     },
     "doFriends": {
-      "$isParent": false,
-      "props": {
-        "$type": "boolean",
-        "settingType": "Boolean",
-        "value": true,
-        "defaultValue": true,
-        "isParentNode": false,
-        "name": "doFriends",
-        "position": 11,
-        "path": "doDailies.doFriends"
-      }
+      "$type": "boolean",
+      "$defaultValue": true,
+      "$value": true,
+      "$position": 11,
+      "$name": "doFriends",
+      "$path": "doDailies.doFriends"
     },
     "doBranchQuests": {
-      "$isParent": false,
-      "props": {
-        "$type": "boolean",
-        "settingType": "Boolean",
-        "value": true,
-        "defaultValue": true,
-        "isParentNode": false,
-        "name": "doBranchQuests",
-        "position": 12,
-        "path": "doDailies.doBranchQuests"
-      }
+      "$type": "boolean",
+      "$defaultValue": true,
+      "$value": true,
+      "$position": 12,
+      "$name": "doBranchQuests",
+      "$path": "doDailies.doBranchQuests"
     },
     "skipEventOrMainHardQuests": {
-      "$isParent": false,
-      "props": {
-        "$type": "boolean",
-        "settingType": "Boolean",
-        "value": true,
-        "defaultValue": true,
-        "isParentNode": false,
-        "name": "skipEventOrMainHardQuests",
-        "position": 13,
-        "path": "doDailies.skipEventOrMainHardQuests"
-      }
+      "$type": "boolean",
+      "$defaultValue": true,
+      "$value": true,
+      "$position": 13,
+      "$name": "skipEventOrMainHardQuests",
+      "$path": "doDailies.skipEventOrMainHardQuests"
     },
     "claimFreeShopGem": {
-      "$isParent": false,
-      "props": {
-        "$type": "boolean",
-        "settingType": "Boolean",
-        "value": true,
-        "defaultValue": true,
-        "isParentNode": false,
-        "name": "claimFreeShopGem",
-        "position": 14,
-        "path": "doDailies.claimFreeShopGem"
-      }
+      "$type": "boolean",
+      "$defaultValue": true,
+      "$value": true,
+      "$position": 14,
+      "$name": "claimFreeShopGem",
+      "$path": "doDailies.claimFreeShopGem"
     },
     "skipDungeon": {
-      "$isParent": false,
-      "props": {
-        "$type": "boolean",
-        "settingType": "Boolean",
-        "value": true,
-        "defaultValue": true,
-        "isParentNode": false,
-        "name": "skipDungeon",
-        "position": 15,
-        "path": "doDailies.skipDungeon"
-      }
+      "$type": "boolean",
+      "$defaultValue": true,
+      "$value": true,
+      "$position": 15,
+      "$name": "skipDungeon",
+      "$path": "doDailies.skipDungeon"
     },
     "claimGifts": {
-      "$isParent": false,
-      "props": {
-        "$type": "boolean",
-        "settingType": "Boolean",
-        "value": true,
-        "defaultValue": true,
-        "isParentNode": false,
-        "name": "claimGifts",
-        "position": 16,
-        "path": "doDailies.claimGifts"
-      }
+      "$type": "boolean",
+      "$defaultValue": true,
+      "$value": true,
+      "$position": 16,
+      "$name": "claimGifts",
+      "$path": "doDailies.claimGifts"
     }
   },
   "doBattleArena": {
-    "$isParent": true,
-    "props": {
-      "$type": "parent",
-      "settingType": "Parent",
-      "isParentNode": true,
-      "name": "doBattleArena",
-      "position": 0,
-      "path": "doBattleArena"
-    },
+    "$type": "parent",
+    "$position": 0,
+    "$name": "doBattleArena",
+    "$path": "doBattleArena",
     "party": {
-      "$isParent": false,
-      "props": {
-        "$type": "option",
-        "settingType": "Option",
-        "options": [
-          "recommendedElement"
-        ],
-        "value": "recommendedElement",
-        "defaultValue": "recommendedElement",
-        "isParentNode": false,
-        "name": "party",
-        "position": 0,
-        "path": "doBattleArena.party"
-      }
+      "$type": "option",
+      "$options": [
+        "recommendedElement"
+      ],
+      "$defaultValue": "recommendedElement",
+      "$value": "recommendedElement",
+      "$position": 0,
+      "$name": "party",
+      "$path": "doBattleArena.party"
     },
     "recommendedElement": {
-      "$isParent": true,
-      "props": {
-        "$type": "parent",
-        "settingType": "Parent",
-        "isParentNode": true,
-        "name": "recommendedElement",
-        "position": 0,
-        "path": "doBattleArena.recommendedElement"
-      },
+      "$type": "parent",
+      "$position": 0,
+      "$name": "recommendedElement",
+      "$path": "doBattleArena.recommendedElement",
       "none": {
-        "$isParent": false,
-        "props": {
-          "$type": "string",
-          "settingType": "String",
-          "value": "Main",
-          "defaultValue": "Main",
-          "isParentNode": false,
-          "name": "none",
-          "position": 0,
-          "path": "doBattleArena.recommendedElement.none"
-        }
+        "$type": "string",
+        "$defaultValue": "Main",
+        "$value": "Main",
+        "$position": 0,
+        "$name": "none",
+        "$path": "doBattleArena.recommendedElement.none"
       },
       "fire": {
-        "$isParent": false,
-        "props": {
-          "$type": "string",
-          "settingType": "String",
-          "value": "Fire",
-          "defaultValue": "Fire",
-          "isParentNode": false,
-          "name": "fire",
-          "position": 0,
-          "path": "doBattleArena.recommendedElement.fire"
-        }
+        "$type": "string",
+        "$defaultValue": "Fire",
+        "$value": "Fire",
+        "$position": 0,
+        "$name": "fire",
+        "$path": "doBattleArena.recommendedElement.fire"
       },
       "water": {
-        "$isParent": false,
-        "props": {
-          "$type": "string",
-          "settingType": "String",
-          "value": "Water",
-          "defaultValue": "Water",
-          "isParentNode": false,
-          "name": "water",
-          "position": 0,
-          "path": "doBattleArena.recommendedElement.water"
-        }
+        "$type": "string",
+        "$defaultValue": "Water",
+        "$value": "Water",
+        "$position": 0,
+        "$name": "water",
+        "$path": "doBattleArena.recommendedElement.water"
       },
       "lightning": {
-        "$isParent": false,
-        "props": {
-          "$type": "string",
-          "settingType": "String",
-          "value": "Ltng",
-          "defaultValue": "Ltng",
-          "isParentNode": false,
-          "name": "lightning",
-          "position": 0,
-          "path": "doBattleArena.recommendedElement.lightning"
-        }
+        "$type": "string",
+        "$defaultValue": "Ltng",
+        "$value": "Ltng",
+        "$position": 0,
+        "$name": "lightning",
+        "$path": "doBattleArena.recommendedElement.lightning"
       },
       "earth": {
-        "$isParent": false,
-        "props": {
-          "$type": "string",
-          "settingType": "String",
-          "value": "Earth",
-          "defaultValue": "Earth",
-          "isParentNode": false,
-          "name": "earth",
-          "position": 0,
-          "path": "doBattleArena.recommendedElement.earth"
-        }
+        "$type": "string",
+        "$defaultValue": "Earth",
+        "$value": "Earth",
+        "$position": 0,
+        "$name": "earth",
+        "$path": "doBattleArena.recommendedElement.earth"
       },
       "wind": {
-        "$isParent": false,
-        "props": {
-          "$type": "string",
-          "settingType": "String",
-          "value": "Wind",
-          "defaultValue": "Wind",
-          "isParentNode": false,
-          "name": "wind",
-          "position": 0,
-          "path": "doBattleArena.recommendedElement.wind"
-        }
+        "$type": "string",
+        "$defaultValue": "Wind",
+        "$value": "Wind",
+        "$position": 0,
+        "$name": "wind",
+        "$path": "doBattleArena.recommendedElement.wind"
       },
       "light": {
-        "$isParent": false,
-        "props": {
-          "$type": "string",
-          "settingType": "String",
-          "value": "Light",
-          "defaultValue": "Light",
-          "isParentNode": false,
-          "name": "light",
-          "position": 0,
-          "path": "doBattleArena.recommendedElement.light"
-        }
+        "$type": "string",
+        "$defaultValue": "Light",
+        "$value": "Light",
+        "$position": 0,
+        "$name": "light",
+        "$path": "doBattleArena.recommendedElement.light"
       },
       "dark": {
-        "$isParent": false,
-        "props": {
-          "$type": "string",
-          "settingType": "String",
-          "value": "Dark",
-          "defaultValue": "Dark",
-          "isParentNode": false,
-          "name": "dark",
-          "position": 0,
-          "path": "doBattleArena.recommendedElement.dark"
-        }
+        "$type": "string",
+        "$defaultValue": "Dark",
+        "$value": "Dark",
+        "$position": 0,
+        "$name": "dark",
+        "$path": "doBattleArena.recommendedElement.dark"
       }
     }
   },
   "doBattleArenaEx": {
-    "$isParent": true,
-    "props": {
-      "$type": "parent",
-      "settingType": "Parent",
-      "isParentNode": true,
-      "name": "doBattleArenaEx",
-      "position": 0,
-      "path": "doBattleArenaEx"
-    },
+    "$type": "parent",
+    "$position": 0,
+    "$name": "doBattleArenaEx",
+    "$path": "doBattleArenaEx",
     "skipBattle": {
-      "$isParent": false,
-      "props": {
-        "$type": "boolean",
-        "settingType": "Boolean",
-        "value": true,
-        "defaultValue": true,
-        "isParentNode": false,
-        "name": "skipBattle",
-        "position": 0,
-        "path": "doBattleArenaEx.skipBattle"
-      }
+      "$type": "boolean",
+      "$defaultValue": true,
+      "$value": true,
+      "$position": 0,
+      "$name": "skipBattle",
+      "$path": "doBattleArenaEx.skipBattle"
     },
     "physicalDamage": {
-      "$isParent": false,
-      "props": {
-        "$type": "string",
-        "settingType": "String",
-        "value": "Phys",
-        "defaultValue": "Phys",
-        "isParentNode": false,
-        "name": "physicalDamage",
-        "position": 0,
-        "path": "doBattleArenaEx.physicalDamage"
-      }
+      "$type": "string",
+      "$defaultValue": "Phys",
+      "$value": "Phys",
+      "$position": 0,
+      "$name": "physicalDamage",
+      "$path": "doBattleArenaEx.physicalDamage"
     },
     "lowRarity": {
-      "$isParent": false,
-      "props": {
-        "$type": "string",
-        "settingType": "String",
-        "value": "Low",
-        "defaultValue": "Low",
-        "isParentNode": false,
-        "name": "lowRarity",
-        "position": 0,
-        "path": "doBattleArenaEx.lowRarity"
-      }
+      "$type": "string",
+      "$defaultValue": "Low",
+      "$value": "Low",
+      "$position": 0,
+      "$name": "lowRarity",
+      "$path": "doBattleArenaEx.lowRarity"
     },
     "magicDamage": {
-      "$isParent": false,
-      "props": {
-        "$type": "string",
-        "settingType": "String",
-        "value": "Magic",
-        "defaultValue": "Magic",
-        "isParentNode": false,
-        "name": "magicDamage",
-        "position": 0,
-        "path": "doBattleArenaEx.magicDamage"
-      }
+      "$type": "string",
+      "$defaultValue": "Magic",
+      "$value": "Magic",
+      "$position": 0,
+      "$name": "magicDamage",
+      "$path": "doBattleArenaEx.magicDamage"
     },
     "defence": {
-      "$isParent": false,
-      "props": {
-        "$type": "string",
-        "settingType": "String",
-        "value": "Def",
-        "defaultValue": "Def",
-        "isParentNode": false,
-        "name": "defence",
-        "position": 0,
-        "path": "doBattleArenaEx.defence"
-      }
+      "$type": "string",
+      "$defaultValue": "Def",
+      "$value": "Def",
+      "$position": 0,
+      "$name": "defence",
+      "$path": "doBattleArenaEx.defence"
     },
     "characterBonus": {
-      "$isParent": false,
-      "props": {
-        "$type": "string",
-        "settingType": "String",
-        "value": "Cbns",
-        "defaultValue": "Cbns",
-        "isParentNode": false,
-        "name": "characterBonus",
-        "position": 0,
-        "path": "doBattleArenaEx.characterBonus"
-      }
+      "$type": "string",
+      "$defaultValue": "Cbns",
+      "$value": "Cbns",
+      "$position": 0,
+      "$name": "characterBonus",
+      "$path": "doBattleArenaEx.characterBonus"
     }
   },
   "doMainExpertQuests": {
-    "$isParent": true,
-    "props": {
-      "$type": "parent",
-      "settingType": "Parent",
-      "isParentNode": true,
-      "name": "doMainExpertQuests",
-      "position": 0,
-      "path": "doMainExpertQuests"
-    },
+    "$type": "parent",
+    "$position": 0,
+    "$name": "doMainExpertQuests",
+    "$path": "doMainExpertQuests",
     "minStamina": {
-      "$isParent": false,
-      "props": {
-        "$type": "integer",
-        "settingType": "Integer",
-        "increment": 100,
-        "value": 800,
-        "defaultValue": 800,
-        "isParentNode": false,
-        "name": "minStamina",
-        "position": 0,
-        "path": "doMainExpertQuests.minStamina"
-      }
+      "$type": "integer",
+      "$defaultValue": 800,
+      "$value": 800,
+      "$position": 0,
+      "$increment": 100,
+      "$name": "minStamina",
+      "$path": "doMainExpertQuests.minStamina"
     }
   },
   "claimJobs": {
-    "$isParent": true,
-    "props": {
-      "$type": "parent",
-      "settingType": "Parent",
-      "isParentNode": true,
-      "name": "claimJobs",
-      "position": 0,
-      "path": "claimJobs"
-    },
+    "$type": "parent",
+    "$position": 0,
+    "$name": "claimJobs",
+    "$path": "claimJobs",
     "forceRun": {
-      "$isParent": false,
-      "props": {
-        "$type": "boolean",
-        "settingType": "Boolean",
-        "value": false,
-        "defaultValue": false,
-        "isParentNode": false,
-        "name": "forceRun",
-        "position": 0,
-        "path": "claimJobs.forceRun"
-      }
+      "$type": "boolean",
+      "$defaultValue": false,
+      "$value": false,
+      "$position": 0,
+      "$name": "forceRun",
+      "$path": "claimJobs.forceRun"
     },
     "lastRun": {
-      "$isParent": false,
-      "props": {
-        "$type": "timestamp",
-        "settingType": "TimeStamp",
-        "value": "2024-08-05T02:48:58.501+00:00",
-        "defaultValue": "0001-01-01T00:00:00+00:00",
-        "isParentNode": false,
-        "name": "lastRun",
-        "position": 0,
-        "path": "claimJobs.lastRun"
-      }
+      "$type": "timestamp",
+      "$defaultValue": "0001-01-01T00:00:00+00:00",
+      "$value": "2024-08-05T02:48:58.501+00:00",
+      "$position": 0,
+      "$name": "lastRun",
+      "$path": "claimJobs.lastRun"
     }
   },
   "watchAdQuartz": {
-    "$isParent": true,
-    "props": {
-      "$type": "parent",
-      "settingType": "Parent",
-      "isParentNode": true,
-      "name": "watchAdQuartz",
-      "position": 0,
-      "path": "watchAdQuartz"
-    },
+    "$type": "parent",
+    "$position": 0,
+    "$name": "watchAdQuartz",
+    "$path": "watchAdQuartz",
     "adObjectScale": {
-      "$isParent": false,
-      "props": {
-        "$type": "double",
-        "settingType": "Double",
-        "increment": 1,
-        "value": 1,
-        "defaultValue": 0,
-        "isParentNode": false,
-        "name": "adObjectScale",
-        "position": 0,
-        "path": "watchAdQuartz.adObjectScale"
-      }
+      "$type": "double",
+      "$defaultValue": 0,
+      "$value": 1,
+      "$position": 0,
+      "$increment": 1,
+      "$name": "adObjectScale",
+      "$path": "watchAdQuartz.adObjectScale"
     },
     "userClickPattern": {
-      "$isParent": false,
-      "props": {
-        "$type": "pattern",
-        "settingType": "Pattern",
-        "value": {
-          "isMultiPattern": false,
-          "patterns": [],
-          "isParentNode": true,
-          "name": null,
-          "position": 0,
-          "path": null
-        },
-        "defaultValue": {
-          "isMultiPattern": false,
-          "patterns": [],
-          "isParentNode": true,
-          "name": null,
-          "position": 0,
-          "path": null
-        },
-        "isParentNode": false,
-        "name": "userClickPattern",
-        "position": 0,
-        "path": "watchAdQuartz.userClickPattern"
-      }
+      "$type": "pattern",
+      "$defaultValue": {
+        "$position": 0,
+        "$patterns": [],
+        "$name": null,
+        "$path": null,
+        "$isMultiPattern": false
+      },
+      "$value": {
+        "$position": 0,
+        "$patterns": [],
+        "$name": null,
+        "$path": null,
+        "$isMultiPattern": false
+      },
+      "$position": 0,
+      "$name": "userClickPattern",
+      "$path": "watchAdQuartz.userClickPattern"
     }
   },
   "watchAdStamina": {
-    "$isParent": true,
-    "props": {
-      "$type": "parent",
-      "settingType": "Parent",
-      "isParentNode": true,
-      "name": "watchAdStamina",
-      "position": 0,
-      "path": "watchAdStamina"
-    },
+    "$type": "parent",
+    "$position": 0,
+    "$name": "watchAdStamina",
+    "$path": "watchAdStamina",
     "adObjectScale": {
-      "$isParent": false,
-      "props": {
-        "$type": "double",
-        "settingType": "Double",
-        "increment": 1,
-        "value": 1,
-        "defaultValue": 0,
-        "isParentNode": false,
-        "name": "adObjectScale",
-        "position": 0,
-        "path": "watchAdStamina.adObjectScale"
-      }
+      "$type": "double",
+      "$defaultValue": 0,
+      "$value": 1,
+      "$position": 0,
+      "$increment": 1,
+      "$name": "adObjectScale",
+      "$path": "watchAdStamina.adObjectScale"
     },
     "userClickPattern": {
-      "$isParent": false,
-      "props": {
-        "$type": "pattern",
-        "settingType": "Pattern",
-        "value": {
-          "isMultiPattern": false,
-          "patterns": [],
-          "isParentNode": true,
-          "name": null,
-          "position": 0,
-          "path": null
-        },
-        "defaultValue": {
-          "isMultiPattern": false,
-          "patterns": [],
-          "isParentNode": true,
-          "name": null,
-          "position": 0,
-          "path": null
-        },
-        "isParentNode": false,
-        "name": "userClickPattern",
-        "position": 0,
-        "path": "watchAdStamina.userClickPattern"
-      }
+      "$type": "pattern",
+      "$defaultValue": {
+        "$position": 0,
+        "$patterns": [],
+        "$name": null,
+        "$path": null,
+        "$isMultiPattern": false
+      },
+      "$value": {
+        "$position": 0,
+        "$patterns": [],
+        "$name": null,
+        "$path": null,
+        "$isMultiPattern": false
+      },
+      "$position": 0,
+      "$name": "userClickPattern",
+      "$path": "watchAdStamina.userClickPattern"
     }
   },
   "doUpkeep": {
-    "$isParent": true,
-    "props": {
-      "$type": "parent",
-      "settingType": "Parent",
-      "isParentNode": true,
-      "name": "doUpkeep",
-      "position": 0,
-      "path": "doUpkeep"
-    },
+    "$type": "parent",
+    "$position": 0,
+    "$name": "doUpkeep",
+    "$path": "doUpkeep",
     "claimJobs": {
-      "$isParent": false,
-      "props": {
-        "$type": "boolean",
-        "settingType": "Boolean",
-        "value": true,
-        "defaultValue": true,
-        "isParentNode": false,
-        "name": "claimJobs",
-        "position": 0,
-        "path": "doUpkeep.claimJobs"
-      }
+      "$type": "boolean",
+      "$defaultValue": true,
+      "$value": true,
+      "$position": 0,
+      "$name": "claimJobs",
+      "$path": "doUpkeep.claimJobs"
     },
     "useFriendBeefs": {
-      "$isParent": false,
-      "props": {
-        "$type": "boolean",
-        "settingType": "Boolean",
-        "value": true,
-        "defaultValue": true,
-        "isParentNode": false,
-        "name": "useFriendBeefs",
-        "position": 1,
-        "path": "doUpkeep.useFriendBeefs"
-      }
+      "$type": "boolean",
+      "$defaultValue": true,
+      "$value": true,
+      "$position": 1,
+      "$name": "useFriendBeefs",
+      "$path": "doUpkeep.useFriendBeefs"
     },
     "skipEventOrMainHardQuests": {
-      "$isParent": false,
-      "props": {
-        "$type": "boolean",
-        "settingType": "Boolean",
-        "value": true,
-        "defaultValue": true,
-        "isParentNode": false,
-        "name": "skipEventOrMainHardQuests",
-        "position": 2,
-        "path": "doUpkeep.skipEventOrMainHardQuests"
-      }
+      "$type": "boolean",
+      "$defaultValue": true,
+      "$value": true,
+      "$position": 2,
+      "$name": "skipEventOrMainHardQuests",
+      "$path": "doUpkeep.skipEventOrMainHardQuests"
     }
   },
   "skipEventOrMainHardQuests": {
-    "$isParent": true,
-    "props": {
-      "$type": "parent",
-      "settingType": "Parent",
-      "isParentNode": true,
-      "name": "skipEventOrMainHardQuests",
-      "position": 0,
-      "path": "skipEventOrMainHardQuests"
-    },
+    "$type": "parent",
+    "$position": 0,
+    "$name": "skipEventOrMainHardQuests",
+    "$path": "skipEventOrMainHardQuests",
     "targetEventLevel": {
-      "$isParent": false,
-      "props": {
-        "$type": "option",
-        "settingType": "Option",
-        "options": [
-          "12",
-          "11"
-        ],
-        "value": "12",
-        "defaultValue": "12",
-        "isParentNode": false,
-        "name": "targetEventLevel",
-        "position": 0,
-        "path": "skipEventOrMainHardQuests.targetEventLevel"
-      }
+      "$type": "option",
+      "$options": [
+        "12",
+        "11"
+      ],
+      "$defaultValue": "12",
+      "$value": "12",
+      "$position": 0,
+      "$name": "targetEventLevel",
+      "$path": "skipEventOrMainHardQuests.targetEventLevel"
     }
   },
   "skipDungeon": {
-    "$isParent": true,
-    "props": {
-      "$type": "parent",
-      "settingType": "Parent",
-      "isParentNode": true,
-      "name": "skipDungeon",
-      "position": 0,
-      "path": "skipDungeon"
-    },
+    "$type": "parent",
+    "$position": 0,
+    "$name": "skipDungeon",
+    "$path": "skipDungeon",
     "targetDungeon": {
-      "$isParent": false,
-      "props": {
-        "$type": "option",
-        "settingType": "Option",
-        "options": [
-          "fire",
-          "dark",
-          "water",
-          "wind"
-        ],
-        "value": "water",
-        "defaultValue": "water",
-        "isParentNode": false,
-        "name": "targetDungeon",
-        "position": 0,
-        "path": "skipDungeon.targetDungeon"
-      }
+      "$type": "option",
+      "$options": [
+        "fire",
+        "dark",
+        "water",
+        "wind"
+      ],
+      "$defaultValue": "water",
+      "$value": "water",
+      "$position": 0,
+      "$name": "targetDungeon",
+      "$path": "skipDungeon.targetDungeon"
     }
   }
 }

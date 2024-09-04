@@ -1,6 +1,7 @@
 ﻿using System.Reflection;
 using System.Text.Json;
 using System.Text.Json.Serialization;
+using YeetMacro2.Data.Services;
 
 namespace YeetMacro2.Data.Models;
 
@@ -98,14 +99,20 @@ public class NodeClosure
     public int Depth { get; set; }
 }
 
-public class NodeValueConverter<TParent, TChild>(JsonSerializerOptions options) : JsonConverter<TChild>
+public class NodeValueConverter<TParent, TChild> : JsonConverter<TChild>
     where TParent : Node, IParentNode<TParent, TChild>, TChild, new()
     where TChild : Node
 {
-    private readonly JsonConverter<TChild> _childConverter = (JsonConverter<TChild>)(options).GetConverter(typeof(TChild));
+    //private readonly JsonConverter<TChild> _childConverter = (JsonConverter<TChild>)(options).GetConverter(typeof(TChild));
     private readonly Type _parentType = typeof(TParent);
     private readonly Type _childType = typeof(TChild);
-    private readonly JsonSerializerOptions _options = options;
+    private readonly JsonSerializerOptions _options;
+
+
+    public NodeValueConverter(JsonSerializerOptions options)
+    {
+        _options = options;
+    }
 
     // incoming options is ignored, we are using the options passed in through the constructor
     public override TChild Read(
@@ -113,9 +120,24 @@ public class NodeValueConverter<TParent, TChild>(JsonSerializerOptions options) 
             Type typeToConvert,
             JsonSerializerOptions options)
     {
-        var isParent = false;
-        TChild node = null;
-        TParent parent = null;
+        return (TChild)ReadNodeObject(ref reader, typeToConvert, options);
+    }
+
+    public object ReadNodeObject(
+        ref Utf8JsonReader reader,
+        Type typeToConvert,
+        JsonSerializerOptions options)
+    {
+        object node = null;
+        Type type = null;
+
+        var jsonDerivedTypeAttributes = typeToConvert.GetCustomAttributes<JsonDerivedTypeAttribute>();
+        var discriminatorToType = jsonDerivedTypeAttributes.ToDictionary(jdta => jdta.TypeDiscriminator.ToString(), jdta => jdta.DerivedType);
+
+        if (discriminatorToType.Count == 0)    // not polymorphic
+        {
+            node = Activator.CreateInstance(typeToConvert);
+        }
 
         while (reader.Read())
         {
@@ -124,27 +146,40 @@ public class NodeValueConverter<TParent, TChild>(JsonSerializerOptions options) 
                 return node;
             }
 
-            if (reader.TokenType == JsonTokenType.PropertyName && reader.GetString() == "$isParent")
+            if (reader.TokenType == JsonTokenType.PropertyName && reader.GetString() == "$type") // polymorphic
             {
                 reader.Read();
-                isParent = reader.GetBoolean();
+                var discriminator = reader.GetString();
+                type = discriminatorToType[discriminator];
+                reader.Read();
+
+                node = (TChild)Activator.CreateInstance(type);
+                ReflectionHelper.PropertyInfoCollection[type].Load();
             }
 
-            // each property named "props" is the properties of the node
-            if (reader.TokenType == JsonTokenType.PropertyName && reader.GetString() == "props")
+            if (reader.TokenType == JsonTokenType.PropertyName && reader.GetString().StartsWith("$"))
             {
-                reader.Read();
-                node = _childConverter.Read(ref reader, _childType, _options);
-
-                if (isParent)
+                var propJson = reader.GetString();
+                var prop = $"{propJson[1].ToString().ToUpper()}{propJson.Substring(2)}";
+                var propInfo = ReflectionHelper.PropertyInfoCollection[node.GetType()][prop];
+                if (propInfo.CanWrite)
                 {
-                    parent = (TParent)node;
+                    reader.Read();
+
+                    if (propInfo.PropertyType.IsAssignableTo(typeof(Node)))
+                    {
+                        propInfo.SetValue(node, ReadNodeObject(ref reader, propInfo.PropertyType, _options));
+                    }
+                    else
+                    {
+                        propInfo.SetValue(node, JsonSerializer.Deserialize(ref reader, propInfo.PropertyType, _options));
+                    }
                 }
             }
-            // additional properties are nodes
-            else if (reader.TokenType == JsonTokenType.PropertyName)
+            else if (reader.TokenType == JsonTokenType.PropertyName && node is TParent parent)
             {
-                parent.Nodes.Add(Read(ref reader, typeToConvert, _options));
+                reader.Read();
+                parent.Nodes.Add((TChild)ReadNodeObject(ref reader, typeToConvert, _options));
             }
         }
 
@@ -158,27 +193,56 @@ public class NodeValueConverter<TParent, TChild>(JsonSerializerOptions options) 
             JsonSerializerOptions options)
     {
         writer.WritePropertyName(child.Name);
+        WriteNodeObject(writer, child);
+    }
+
+    public void WriteNodeObject(Utf8JsonWriter writer, Object obj)
+    {
         writer.WriteStartObject();
-        if (child is TParent parent)
+
+        ReflectionHelper.PropertyInfoCollection[obj.GetType()].Load();
+        var properties = ReflectionHelper.PropertyInfoCollection[obj.GetType()];
+        var jsonDerivedTypeAttributes = typeof(TChild).GetCustomAttributes<JsonDerivedTypeAttribute>();
+        var descriminator = jsonDerivedTypeAttributes.FirstOrDefault(jdta => jdta.DerivedType == obj.GetType() || jdta.DerivedType == obj.GetType().BaseType)?.TypeDiscriminator?.ToString();
+        if (!String.IsNullOrEmpty(descriminator))
         {
-            writer.WritePropertyName("$isParent");
-            writer.WriteBooleanValue(true);
-            writer.WritePropertyName("props");
-            _childConverter.Write(writer, parent, _options);
-            
+            writer.WritePropertyName("$type");
+            writer.WriteStringValue(descriminator);
+        }
+        var ignoreProperties = new List<string>() { "Children", "Nodes", "IsExpanded", "IsSelected", "IsLeaf", "Item", "IsParentNode", "SettingType" };
+
+        foreach (var property in properties)
+        {
+            if (ignoreProperties.Contains(property.Name)) continue;
+
+            bool jsonIgnore = property.IsDefined(typeof(JsonIgnoreAttribute), false);
+            if (jsonIgnore) continue;
+
+            writer.WritePropertyName($"${property.Name[0].ToString().ToLower()}{property.Name.Substring(1)}");
+
+            WriteValue(writer, property.PropertyType, property.GetValue(obj));
+        }
+
+        if (obj is TParent parent)
+        {
             foreach (var subChild in parent.Nodes)
             {
                 Write(writer, subChild, _options);
             }
         }
-        else
-        {
-            writer.WritePropertyName("$isParent");
-            writer.WriteBooleanValue(false);
-            writer.WritePropertyName("props");
-            _childConverter.Write(writer, child, _options);
-        }
 
         writer.WriteEndObject();
+    }
+
+    public void WriteValue(Utf8JsonWriter writer, Type type, Object val)
+    {
+        if (type.IsAssignableTo(typeof(Node)))
+        {
+            WriteNodeObject(writer, val);
+        }
+        else
+        {
+            JsonSerializer.Serialize(writer, val, _options);
+        }
     }
 }

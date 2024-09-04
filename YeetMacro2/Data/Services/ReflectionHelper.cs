@@ -236,6 +236,8 @@ public class PropertyInfoCache<T> : ReflectionCache<String, PropertyInfo>
 
     public override void Load()
     {
+        if (IsLoaded) return;
+
         foreach (PropertyInfo propertyInfo in typeof(T).GetProperties(BindingFlags.Public | BindingFlags.Instance))
         {
             if (!_cache.ContainsKey(propertyInfo.Name))

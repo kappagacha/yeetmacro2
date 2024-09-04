@@ -28,12 +28,12 @@ public partial class AppShell : Shell
         //    Route = "Home",
         //    ContentTemplate = new DataTemplate(typeof(WindowsHomePage))
         //});
-        this.Items.Add(new ShellContent()
-        {
-            Title = "Logs",
-            Route = "Logs",
-            ContentTemplate = new DataTemplate(typeof(LogPage))
-        });
+        //this.Items.Add(new ShellContent()
+        //{
+        //    Title = "Logs",
+        //    Route = "Logs",
+        //    ContentTemplate = new DataTemplate(typeof(LogPage))
+        //});
 #endif
 
         //this.Items.Add(new ShellContent()

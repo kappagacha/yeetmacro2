@@ -82,8 +82,6 @@
 	  <None Remove="Platforms\Android\Resources\xml\yeetmacro_config.xml" />
 	  <None Remove="Resources\Fonts\OpenSans-Medium.ttf" />
 	  <None Remove="Resources\Images\appicon2.svg" />
-	  <None Remove="Resources\Raw\MacroSets\outerplane\scripts\claimEventDailyMissions2.js" />
-	  <None Remove="Resources\Raw\MacroSets\outerplane\scripts\selectTeam.js" />
 	  <None Remove="Resources\Splash\splash.svg" />
 	</ItemGroup>
 
