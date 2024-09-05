@@ -16,7 +16,6 @@ public partial class PatternNodeViewModel : PatternNode
         set {
             base.Nodes = new NodeObservableCollection<PatternNodeViewModel, PatternNode>(value);
             OnPropertyChanged();
-            OnPropertyChanged(nameof(IsLeaf));
         }
     }
 
@@ -74,17 +73,6 @@ public partial class PatternNodeViewModel : PatternNode
             base.IsExpanded = value;
             OnPropertyChanged();
         }
-    }
-
-    public bool IsLeaf
-    {
-        get => base.Nodes.Count == 0;
-        set { }
-    }
-
-    public ICollection<PatternNode> Children
-    {
-        get => base.Nodes;
     }
 
     public PatternNodeViewModel()
@@ -208,11 +196,6 @@ public partial class PatternViewModel : Pattern
             base.OffsetCalcType = value;
             OnPropertyChanged();
         }
-    }
-
-    public bool IsLeaf
-    {
-        get => true;
     }
 
     static PatternViewModel()

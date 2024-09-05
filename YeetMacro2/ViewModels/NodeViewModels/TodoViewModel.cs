@@ -11,7 +11,6 @@ public partial class TodoViewModel: TodoNode
 {
     [ObservableProperty]
     TodoJsonParentViewModel _jsonViewModel;
-    public bool IsLeaf { get; set; } = true;
     public override IList<TodoNode> Nodes
     {
         get => base.Nodes;
@@ -19,7 +18,6 @@ public partial class TodoViewModel: TodoNode
         {
             base.Nodes = new NodeObservableCollection<TodoViewModel, TodoNode>(value, (a, b) => b.Date > a.Date ? 1: 0);
             OnPropertyChanged();
-            OnPropertyChanged(nameof(IsLeaf));
         }
     }
 
@@ -80,11 +78,6 @@ public partial class TodoViewModel: TodoNode
         }
     }
 
-    public ICollection<TodoNode> Children
-    {
-        get => base.Nodes;
-    }
-
     public TodoViewModel()
     {
         base.Nodes = new NodeObservableCollection<TodoViewModel, TodoNode>((a, b) => b.Date > a.Date ? 1 : 0);
@@ -98,7 +91,6 @@ public partial class TodoViewModel: TodoNode
 
 public abstract partial class TodoJsonElementViewModel : ObservableObject, ISortable
 {
-    public virtual bool IsLeaf { get; set; } = true;
     [ObservableProperty]
     bool _isExpanded = false, _isSelected = false;
     public TodoViewModel Node { get; set; }
@@ -116,7 +108,6 @@ public partial class TodoJsonParentViewModel : TodoJsonElementViewModel
     NodeObservableCollection<TodoJsonElementViewModel, TodoJsonElementViewModel> _children = [];
     readonly Dictionary<string, TodoJsonElementViewModel> _dict = [];
 
-    public override bool IsLeaf { get; set; } = false;
     public override bool IsParent => true;
     public JsonObject JsonObject { get; set; }
 

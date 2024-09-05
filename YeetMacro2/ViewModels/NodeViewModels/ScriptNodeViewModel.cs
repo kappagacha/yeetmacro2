@@ -7,14 +7,12 @@ namespace YeetMacro2.ViewModels.NodeViewModels;
 [ObservableObject]
 public partial class ScriptNodeViewModel : ScriptNode
 {
-    public bool IsLeaf { get; set; } = true;
     public override IList<ScriptNode> Nodes
     {
         get => base.Nodes;
         set {
             base.Nodes = new NodeObservableCollection<ScriptNodeViewModel, ScriptNode>(value);
             OnPropertyChanged();
-            OnPropertyChanged(nameof(IsLeaf));
         }
     }
 
@@ -124,11 +122,6 @@ public partial class ScriptNodeViewModel : ScriptNode
             }
             return description.TrimEnd();
         }
-    }
-
-    public ICollection<ScriptNode> Children
-    {
-        get => base.Nodes;
     }
 
     public ScriptNodeViewModel()

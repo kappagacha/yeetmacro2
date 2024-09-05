@@ -155,9 +155,4 @@ public partial class MacroSetViewModel : MacroSet
             OnPropertyChanged();
         }
     }
-
-    public bool IsLeaf
-    {
-        get => true;
-    }
 }

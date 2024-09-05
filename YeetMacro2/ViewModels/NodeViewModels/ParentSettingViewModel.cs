@@ -44,7 +44,6 @@ public partial class ParentSettingViewModel : ParentSetting
                 base.Nodes = new NodeObservableCollection<ParentSettingViewModel, SettingNode>(value);
             }
             OnPropertyChanged();
-            OnPropertyChanged(nameof(IsLeaf));
         }
     }
 
@@ -76,18 +75,6 @@ public partial class ParentSettingViewModel : ParentSetting
             base.IsExpanded = value;
             OnPropertyChanged();
         }
-    }
-
-    public bool IsLeaf
-    {
-        get => base.Nodes.Count == 0;
-        set { }
-    }
-
-    public ICollection<SettingNode> Children
-    {
-        get => base.Nodes;
-        set { }
     }
 
     static ParentSettingViewModel()
@@ -161,7 +148,6 @@ public partial class EnabledParentSettingViewModel : EnabledParentSetting
                 base.Nodes = new NodeObservableCollection<ParentSettingViewModel, SettingNode>(value);
             }
             OnPropertyChanged();
-            OnPropertyChanged(nameof(IsLeaf));
         }
     }
 
@@ -193,18 +179,6 @@ public partial class EnabledParentSettingViewModel : EnabledParentSetting
             base.IsExpanded = value;
             OnPropertyChanged();
         }
-    }
-
-    public bool IsLeaf
-    {
-        get => base.Nodes.Count == 0;
-        set { }
-    }
-
-    public ICollection<SettingNode> Children
-    {
-        get => base.Nodes;
-        set { }
     }
 
     static EnabledParentSettingViewModel()
@@ -273,9 +247,6 @@ public partial class BooleanSettingViewModel : BooleanSetting
         }
     }
 
-    public bool IsLeaf { get; set; } = true;
-    public object Children { get; set; }        // I don't know why this is always binded in UraniumUI treeview
-
     public override bool Value
     {
         get => base.Value;
@@ -311,9 +282,6 @@ public partial class OptionSettingViewModel : OptionSetting
             OnPropertyChanged();
         }
     }
-
-    public bool IsLeaf { get; set; } = true;
-    public object Children { get; set; }        // I don't know why this is always binded in UraniumUI treeview
 
     public override string Value
     {
@@ -360,9 +328,6 @@ public partial class EnabledOptionSettingViewModel : EnabledOptionSetting
             OnPropertyChanged();
         }
     }
-
-    public bool IsLeaf { get; set; } = true;
-    public object Children { get; set; }        // I don't know why this is always binded in UraniumUI treeview
 
     public override string Value
     {
@@ -422,9 +387,6 @@ public partial class StringSettingViewModel : StringSetting
         }
     }
 
-    public bool IsLeaf { get; set; } = true;
-    public object Children { get; set; }        // I don't know why this is always binded in UraniumUI treeview
-
     public override string Value
     {
         get => base.Value;
@@ -460,9 +422,6 @@ public partial class EnabledStringSettingViewModel : EnabledStringSetting
             OnPropertyChanged();
         }
     }
-
-    public bool IsLeaf { get; set; } = true;
-    public object Children { get; set; }        // I don't know why this is always binded in UraniumUI treeview
 
     public override string Value
     {
@@ -512,9 +471,6 @@ public partial class IntegerSettingViewModel : IntegerSetting
         }
     }
 
-    public bool IsLeaf { get; set; } = true;
-    public object Children { get; set; }        // I don't know why this is always binded in UraniumUI treeview
-
     public override int Value
     {
         get => base.Value;
@@ -560,9 +516,6 @@ public partial class EnabledIntegerSettingViewModel : EnabledIntegerSetting
             OnPropertyChanged();
         }
     }
-
-    public bool IsLeaf { get; set; } = true;
-    public object Children { get; set; }        // I don't know why this is always binded in UraniumUI treeview
 
     public override int Value
     {
@@ -632,9 +585,6 @@ public partial class DoubleSettingViewModel : DoubleSetting
         }
     }
 
-    public bool IsLeaf { get; set; } = true;
-    public object Children { get; set; }        // I don't know why this is always binded in UraniumUI treeview
-
     public override double Value
     {
         get => base.Value;
@@ -680,9 +630,6 @@ public partial class EnabledDoubleSettingViewModel : EnabledDoubleSetting
             OnPropertyChanged();
         }
     }
-
-    public bool IsLeaf { get; set; } = true;
-    public object Children { get; set; }        // I don't know why this is always binded in UraniumUI treeview
 
     public override double Value
     {
@@ -754,9 +701,6 @@ public partial class PatternSettingViewModel : PatternSetting
         }
     }
 
-    public bool IsLeaf { get; set; } = true;
-    public object Children { get; set; }        // I don't know why this is always binded in UraniumUI treeview
-
     public override PatternNode Value
     {
         get => base.Value;
@@ -797,9 +741,6 @@ public partial class EnabledPatternSettingViewModel : EnabledPatternSetting
             OnPropertyChanged();
         }
     }
-
-    public bool IsLeaf { get; set; } = true;
-    public object Children { get; set; }        // I don't know why this is always binded in UraniumUI treeview
 
     public override PatternNode Value
     {
@@ -852,9 +793,6 @@ public partial class TimestampSettingViewModel : TimestampSetting
             OnPropertyChanged();
         }
     }
-
-    public bool IsLeaf { get; set; } = true;
-    public object Children { get; set; }        // I don't know why this is always binded in UraniumUI treeview
 
     public override DateTimeOffset Value
     {
