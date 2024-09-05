@@ -38,6 +38,14 @@ while (macroService.IsRunning) {
 			macroService.PollPattern(patterns.challenge.upgradeStoneRetrieval[elementType], { DoClick: true, PredicatePattern: patterns.challenge.upgradeStoneRetrieval[elementType].selected });
 			macroService.PollPattern(patterns.challenge.selectTeam, { DoClick: true, PredicatePattern: patterns.battle.setup.auto });
 
+			const recommendedElement = {
+				earth: 'fire',
+				water: 'earth',
+				fire: 'water',
+				light: 'dark',
+				dark: 'light'
+			};
+			selectTeamAndBattle(teamSlot === 'RecommendedElement' ? recommendedElement[elementType] : teamSlot, false);
 			selectTeamAndBattle(teamSlot, sweepBattle);
 			if (macroService.IsRunning) {
 				daily.doUpgradeStoneRetrieval.done.IsChecked = true;

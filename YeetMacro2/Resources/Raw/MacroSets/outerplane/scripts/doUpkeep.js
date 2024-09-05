@@ -50,12 +50,12 @@ if (settings.doUpkeep.doArena.Value) {
     goToLobby();
 }
 
-if (settings.doUpkeep.doTerminusIsleExploration.Value) {
-    doTerminusIsleExploration();
+if (settings.doUpkeep.spendStaminaScript.IsEnabled) {
+    globalThis[settings.doUpkeep.spendStaminaScript.Value]();
     goToLobby();
 }
 
-if (settings.doUpkeep.spendStaminaScript.IsEnabled) {
-    globalThis[settings.doUpkeep.spendStaminaScript.Value]();
+if (settings.doUpkeep.doTerminusIsleExploration.Value && !daily.doTerminusIsleExploration.done.IsChecked) {
+    doTerminusIsleExploration();
     goToLobby();
 }

@@ -24,7 +24,7 @@ while (macroService.IsRunning) {
 		case 'titles.challenge':
 			macroService.PollPattern(patterns.challenge.banditChase, { DoClick: true, PredicatePattern: patterns.challenge.selectTeam });
 			macroService.PollPattern(patterns.challenge.selectTeam, { DoClick: true, PredicatePattern: patterns.battle.setup.auto });
-			selectTeamAndBattle(teamSlot, sweepBattle);
+			selectTeamAndBattle(teamSlot === 'RecommendedElement' ? 'dark' : teamSlot, sweepBattle);
 			if (macroService.IsRunning) {
 				daily.doBanditChase.done.IsChecked = true;
 			}
