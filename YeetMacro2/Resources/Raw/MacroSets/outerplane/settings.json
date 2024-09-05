@@ -26,13 +26,13 @@
     },
     "cpThreshold": {
       "$type": "enabledInteger",
-      "$value": 120000,
-      "$position": 0,
       "$defaultValue": 120000,
-      "$name": "cpThreshold",
-      "$path": "doArena.cpThreshold",
+      "$value": 120000,
+      "$isEnabled": true,
+      "$position": 0,
       "$increment": 100,
-      "$isEnabled": true
+      "$name": "cpThreshold",
+      "$path": "doArena.cpThreshold"
     },
     "autoDetectCpThreshold": {
       "$type": "boolean",
@@ -134,7 +134,6 @@
     "targetStory": {
       "$type": "pattern",
       "$defaultValue": {
-        "$position": 0,
         "$patterns": [
           {
             "rect": {
@@ -169,12 +168,12 @@
             "position": 0
           }
         ],
+        "$isMultiPattern": false,
+        "$position": 0,
         "$name": null,
-        "$path": null,
-        "$isMultiPattern": false
+        "$path": null
       },
       "$value": {
-        "$position": 0,
         "$patterns": [
           {
             "rect": {
@@ -209,9 +208,10 @@
             "position": 0
           }
         ],
+        "$isMultiPattern": false,
+        "$position": 0,
         "$name": null,
-        "$path": null,
-        "$isMultiPattern": false
+        "$path": null
       },
       "$position": 0,
       "$name": "targetStory",
@@ -931,7 +931,6 @@
     "targetStory": {
       "$type": "pattern",
       "$defaultValue": {
-        "$position": 0,
         "$patterns": [
           {
             "rect": {
@@ -966,12 +965,12 @@
             "position": 0
           }
         ],
+        "$isMultiPattern": false,
+        "$position": 0,
         "$name": null,
-        "$path": null,
-        "$isMultiPattern": false
+        "$path": null
       },
       "$value": {
-        "$position": 0,
         "$patterns": [
           {
             "rect": {
@@ -1006,9 +1005,10 @@
             "position": 0
           }
         ],
+        "$isMultiPattern": false,
+        "$position": 0,
         "$name": null,
-        "$path": null,
-        "$isMultiPattern": false
+        "$path": null
       },
       "$position": 0,
       "$name": "targetStory",
@@ -1245,7 +1245,6 @@
     "dailyMissionPattern": {
       "$type": "pattern",
       "$defaultValue": {
-        "$position": 0,
         "$patterns": [
           {
             "rect": {
@@ -1312,12 +1311,12 @@
             "position": 0
           }
         ],
+        "$isMultiPattern": true,
+        "$position": 0,
         "$name": null,
-        "$path": null,
-        "$isMultiPattern": true
+        "$path": null
       },
       "$value": {
-        "$position": 0,
         "$patterns": [
           {
             "rect": {
@@ -1384,9 +1383,10 @@
             "position": 0
           }
         ],
+        "$isMultiPattern": true,
+        "$position": 0,
         "$name": null,
-        "$path": null,
-        "$isMultiPattern": true
+        "$path": null
       },
       "$position": 0,
       "$name": "dailyMissionPattern",
@@ -1510,18 +1510,18 @@
     "userClickPattern": {
       "$type": "pattern",
       "$defaultValue": {
-        "$position": 0,
         "$patterns": [],
+        "$isMultiPattern": true,
+        "$position": 0,
         "$name": null,
-        "$path": null,
-        "$isMultiPattern": true
+        "$path": null
       },
       "$value": {
-        "$position": 0,
         "$patterns": [],
+        "$isMultiPattern": true,
+        "$position": 0,
         "$name": null,
-        "$path": null,
-        "$isMultiPattern": true
+        "$path": null
       },
       "$position": 0,
       "$name": "userClickPattern",
@@ -1883,10 +1883,10 @@
     "$path": "doShop",
     "friendshipPoint": {
       "$type": "enabledParent",
+      "$isEnabled": true,
       "$position": 0,
       "$name": "friendshipPoint",
       "$path": "doShop.friendshipPoint",
-      "$isEnabled": true,
       "gold": {
         "$type": "boolean",
         "$defaultValue": true,
@@ -1946,10 +1946,10 @@
     },
     "arena": {
       "$type": "enabledParent",
+      "$isEnabled": true,
       "$position": 1,
       "$name": "arena",
       "$path": "doShop.arena",
-      "$isEnabled": true,
       "gold": {
         "$type": "boolean",
         "$defaultValue": true,
@@ -1977,10 +1977,10 @@
     },
     "jointChallenge": {
       "$type": "enabledParent",
+      "$isEnabled": true,
       "$position": 2,
       "$name": "jointChallenge",
       "$path": "doShop.jointChallenge",
-      "$isEnabled": true,
       "stamina": {
         "$type": "boolean",
         "$defaultValue": true,
@@ -1992,10 +1992,10 @@
     },
     "festival": {
       "$type": "enabledParent",
+      "$isEnabled": true,
       "$position": 3,
       "$name": "festival",
       "$path": "doShop.festival",
-      "$isEnabled": true,
       "stamina": {
         "$type": "boolean",
         "$defaultValue": true,
@@ -2048,18 +2048,18 @@
     "userClickPattern": {
       "$type": "pattern",
       "$defaultValue": {
-        "$position": 0,
         "$patterns": [],
+        "$isMultiPattern": false,
+        "$position": 0,
         "$name": null,
-        "$path": null,
-        "$isMultiPattern": false
+        "$path": null
       },
       "$value": {
-        "$position": 0,
         "$patterns": [],
+        "$isMultiPattern": false,
+        "$position": 0,
         "$name": null,
-        "$path": null,
-        "$isMultiPattern": false
+        "$path": null
       },
       "$position": 0,
       "$name": "userClickPattern",
@@ -2074,7 +2074,6 @@
     "targetPartPattern": {
       "$type": "pattern",
       "$defaultValue": {
-        "$position": 0,
         "$patterns": [
           {
             "rect": {
@@ -2109,12 +2108,12 @@
             "position": 0
           }
         ],
+        "$isMultiPattern": false,
+        "$position": 0,
         "$name": null,
-        "$path": null,
-        "$isMultiPattern": false
+        "$path": null
       },
       "$value": {
-        "$position": 0,
         "$patterns": [
           {
             "rect": {
@@ -2149,9 +2148,10 @@
             "position": 0
           }
         ],
+        "$isMultiPattern": false,
+        "$position": 0,
         "$name": null,
-        "$path": null,
-        "$isMultiPattern": false
+        "$path": null
       },
       "$position": 0,
       "$name": "targetPartPattern",
@@ -2920,7 +2920,6 @@
     "dailyMissionPattern": {
       "$type": "pattern",
       "$defaultValue": {
-        "$position": 0,
         "$patterns": [
           {
             "rect": {
@@ -2955,12 +2954,12 @@
             "position": 0
           }
         ],
+        "$isMultiPattern": false,
+        "$position": 0,
         "$name": null,
-        "$path": null,
-        "$isMultiPattern": false
+        "$path": null
       },
       "$value": {
-        "$position": 0,
         "$patterns": [
           {
             "rect": {
@@ -2995,9 +2994,10 @@
             "position": 0
           }
         ],
+        "$isMultiPattern": false,
+        "$position": 0,
         "$name": null,
-        "$path": null,
-        "$isMultiPattern": false
+        "$path": null
       },
       "$position": 0,
       "$name": "dailyMissionPattern",
