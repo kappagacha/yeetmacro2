@@ -145,7 +145,8 @@ function doJointChallengeItems() {
 	macroService.PollPattern(patterns.shop.event, { DoClick: true, PredicatePattern: selectedResourcePattern });
 	sleep(1_000);
 
-	const jointChallengeSwipeResult = macroService.SwipePollPattern(patterns.shop.event.jointChallenge, { MaxSwipes: 5, Start: { X: 1100, Y: 160 }, End: { X: 700, Y: 160 } });
+	const jointChallengePattern = macroService.ClonePattern(patterns.shop.event.jointChallenge, { X: 400, Y: 120, Width: resolution.Width - 420, Height: 90, OffsetCalcType: 'None' });
+	const jointChallengeSwipeResult = macroService.SwipePollPattern(jointChallengePattern, { MaxSwipes: 5, Start: { X: 1100, Y: 160 }, End: { X: 700, Y: 160 } });
 	if (!jointChallengeSwipeResult.IsSuccess) {
 		throw new Error('Unable to find joint challenge');
 	}
