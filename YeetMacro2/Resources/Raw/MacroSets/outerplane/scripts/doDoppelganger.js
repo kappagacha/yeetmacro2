@@ -8,8 +8,6 @@ const sweepBattle1 = settings.doDoppelganger.sweepBattle1.Value;
 const elementTypeTarget2 = settings.doDoppelganger.elementTypeTarget2.Value;
 const teamSlot2 = settings.doDoppelganger.teamSlot2.Value;
 const sweepBattle2 = settings.doDoppelganger.sweepBattle2.Value;
-const checkPiecesLimit1 = settings.doDoppelganger.checkPiecesLimit1.Value;
-//const checkPiecesLimit2 = settings.doDoppelganger.checkPiecesLimit2.Value;
 const doRefillStamina = settings.doDoppelganger.doRefillStamina.Value;
 
 if (daily.doDoppelganger.done.IsChecked) {
@@ -42,21 +40,24 @@ while (macroService.IsRunning) {
 		case 'titles.doppelganger':
 			logger.info(`doDoppelganger elementTypeTarget1 ${elementTypeTarget1}: auto or sweep`);
 			macroService.PollPattern(patterns.doppelganger[elementTypeTarget1], { DoClick: true, PredicatePattern: patterns.doppelganger[elementTypeTarget1].selected });
-			if (checkPiecesLimit1 && macroService.FindPattern(patterns.doppelganger.piecesLimit1).IsSuccess) {
-				throw new Error('Failed checkPiecesLimit1');
-			}
 			macroService.PollPattern(patterns.doppelganger.selectTeam, { DoClick: true, PredicatePattern: patterns.battle.setup.auto });
-			selectTeamAndBattle(teamSlot1, sweepBattle1);
+
+			const recommendedElement = {
+				earth: 'fire',
+				water: 'earth',
+				fire: 'water',
+				light: 'dark',
+				dark: 'light'
+			};
+
+			selectTeamAndBattle(teamSlot1 === 'RecommendedElement' ? recommendedElement[elementType] : teamSlot1, sweepBattle1);
 			goBackToDoppelgangerScreen(sweepBattle1);
 
 			if (elementTypeTarget1 !== elementTypeTarget2) {
 				logger.info(`doDoppelganger elementTypeTarget2 ${elementTypeTarget2}: auto or sweep`);
 				macroService.PollPattern(patterns.doppelganger[elementTypeTarget2], { DoClick: true, PredicatePattern: patterns.doppelganger[elementTypeTarget2].selected });
-				if (checkPiecesLimit1 && macroService.FindPattern(patterns.doppelganger.piecesLimit1).IsSuccess) {
-					throw new Error('Failed checkPiecesLimit1');
-				}
 				macroService.PollPattern(patterns.doppelganger.selectTeam, { DoClick: true, PredicatePattern: patterns.battle.setup.auto });
-				selectTeamAndBattle(teamSlot2, sweepBattle2);
+				selectTeamAndBattle(teamSlot2 === 'RecommendedElement' ? recommendedElement[elementType] : teamSlot2, sweepBattle2);
 				goBackToDoppelgangerScreen(sweepBattle2);
 			}
 

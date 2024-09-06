@@ -1428,7 +1428,8 @@
         "6",
         "7",
         "8",
-        "9"
+        "9",
+        "RecommendedElement"
       ],
       "$defaultValue": "2",
       "$value": "2",
@@ -1469,10 +1470,10 @@
         "4",
         "5",
         "6",
-        "6",
         "7",
         "8",
-        "9"
+        "9",
+        "RecommendedElement"
       ],
       "$defaultValue": "2",
       "$value": "2",
@@ -1495,14 +1496,6 @@
       "$position": 0,
       "$name": "doRefillStamina",
       "$path": "doDoppelganger.doRefillStamina"
-    },
-    "checkPiecesLimit1": {
-      "$type": "boolean",
-      "$defaultValue": false,
-      "$value": false,
-      "$position": 0,
-      "$name": "checkPiecesLimit1",
-      "$path": "doDoppelganger.checkPiecesLimit1"
     }
   },
   "watchAds": {
