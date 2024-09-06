@@ -60,7 +60,7 @@ while (macroService.IsRunning) {
 				if (!festivalSwipeResult.IsSuccess) {
 					throw new Error('Unable to find festival');
 				}
-				macroService.PollPattern(patterns.shop.event.festival, { DoClick: true, PredicatePattern: patterns.shop.event.festival.currency });
+				macroService.PollPattern(festivalPattern, { DoClick: true, PredicatePattern: patterns.shop.event.festival.currency });
 
 				doShopItems('doShop', 'festival', festivalItems);
 
@@ -81,7 +81,7 @@ while (macroService.IsRunning) {
 				if (!jointChallengeSwipeResult.IsSuccess) {
 					throw new Error('Unable to find joint challenge');
 				}
-				macroService.PollPattern(patterns.shop.event.jointChallenge, { DoClick: true, PredicatePattern: patterns.shop.event.jointChallenge.currency });
+				macroService.PollPattern(jointChallengePattern, { DoClick: true, PredicatePattern: patterns.shop.event.jointChallenge.currency });
 
 				doShopItems('doShop', 'jointChallenge', jointChallengeItems);
 

@@ -150,7 +150,7 @@ function doJointChallengeItems() {
 	if (!jointChallengeSwipeResult.IsSuccess) {
 		throw new Error('Unable to find joint challenge');
 	}
-	macroService.PollPattern(patterns.shop.event.jointChallenge, { DoClick: true, PredicatePattern: patterns.shop.event.jointChallenge.currency });
+	macroService.PollPattern(jointChallengePattern, { DoClick: true, PredicatePattern: patterns.shop.event.jointChallenge.currency });
 
 	doShopItems('doWeeklyShop', 'jointChallenge', jointChallengeItems, true);
 }
