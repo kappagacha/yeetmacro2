@@ -46,7 +46,6 @@ while (macroService.IsRunning) {
 				dark: 'light'
 			};
 			selectTeamAndBattle(teamSlot === 'RecommendedElement' ? recommendedElement[elementType] : teamSlot, false);
-			selectTeamAndBattle(teamSlot, sweepBattle);
 			if (macroService.IsRunning) {
 				daily.doUpgradeStoneRetrieval.done.IsChecked = true;
 			}
