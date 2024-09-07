@@ -50,14 +50,14 @@ while (macroService.IsRunning) {
 				dark: 'light'
 			};
 
-			selectTeamAndBattle(teamSlot1 === 'RecommendedElement' ? recommendedElement[elementType] : teamSlot1, sweepBattle1);
+			selectTeamAndBattle(teamSlot1 === 'RecommendedElement' ? recommendedElement[elementTypeTarget1] : teamSlot1, sweepBattle1);
 			goBackToDoppelgangerScreen(sweepBattle1);
 
 			if (elementTypeTarget1 !== elementTypeTarget2) {
 				logger.info(`doDoppelganger elementTypeTarget2 ${elementTypeTarget2}: auto or sweep`);
 				macroService.PollPattern(patterns.doppelganger[elementTypeTarget2], { DoClick: true, PredicatePattern: patterns.doppelganger[elementTypeTarget2].selected });
 				macroService.PollPattern(patterns.doppelganger.selectTeam, { DoClick: true, PredicatePattern: patterns.battle.setup.auto });
-				selectTeamAndBattle(teamSlot2 === 'RecommendedElement' ? recommendedElement[elementType] : teamSlot2, sweepBattle2);
+				selectTeamAndBattle(teamSlot2 === 'RecommendedElement' ? recommendedElement[elementTypeTarget2] : teamSlot2, sweepBattle2);
 				goBackToDoppelgangerScreen(sweepBattle2);
 			}
 

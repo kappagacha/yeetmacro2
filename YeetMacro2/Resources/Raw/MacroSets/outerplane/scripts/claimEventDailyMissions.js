@@ -54,48 +54,13 @@ while (macroService.IsRunning) {
 			}
 
 			return;
-			//const anniversaryPatternResult = macroService.FindPattern(patterns.event.daily.anniversary);
-			//if (anniversaryPatternResult.IsSuccess) {
-			//	let notificationResult = macroService.PollPattern(patterns.event.daily.anniversary.notification, { TimeoutMs: 3_000 });
-			//	while (notificationResult.IsSuccess) {
-			//		macroService.PollPattern(patterns.event.daily.anniversary.notification, { DoClick: true, PredicatePattern: patterns.event.ok, ClickOffset: { X: -40, Y: 40 } });
-			//		macroService.PollPattern(patterns.event.ok, { DoClick: true, PredicatePattern: patterns.event.daily.info });
-			//		notificationResult = macroService.PollPattern(patterns.event.daily.anniversary.notification, { TimeoutMs: 3_000 });
-			//	}
-				
-			//	if (macroService.IsRunning) {
-			//		daily.claimEventDailyMissions.done.IsChecked = true;
-			//	}
-			//	return;
-			//}
-
-			//macroService.PollPattern(patterns.event.daily.firstDone, { ClickPattern: [patterns.event.daily.firstNotification, patterns.event.ok, patterns.event.confirm] });
-
-			//const finalNotificationResult = macroService.FindPattern(patterns.event.daily.finalNotification);
-			//if (finalNotificationResult.IsSuccess) {
-			//	macroService.PollPattern(patterns.event.daily.finalNotification, { DoClick: true, PredicatePattern: [patterns.event.ok, patterns.event.confirm] });
-			//	macroService.PollPattern([patterns.event.ok, patterns.event.confirm], { DoClick: true, PredicatePattern: patterns.event.daily.info });
-			//	const miniGameResult = macroService.PollPattern([patterns.event.rockPaperScissors, patterns.event.drawACapsule, patterns.event.spinTheWheel]);
-			//	if (miniGameResult.Path === 'event.rockPaperScissors') {
-			//		doRockPaperScissors();
-			//	} else if (miniGameResult.Path === 'event.drawACapsule') {
-			//		doDrawACapsule();
-			//	} else if (miniGameResult.Path === 'event.spinTheWheel') {
-			//		doSpinTheWheel();
-			//	}
-
-			//	if (macroService.IsRunning) {
-			//		daily.claimEventDailyMissions.done.IsChecked = true;
-			//	}
-			//}
 	}
 	sleep(1_000);
 }
 
 function doRockPaperScissors() {
 	const rockPaperScissors = ['rock', 'paper', 'scissor'];
-	macroService.PollPattern(patterns.event.rockPaperScissors, { DoClick: true, PredicatePattern: patterns.event.coinInfo });
-	macroService.PollPattern(patterns.event.coinsOwned);
+	macroService.PollPattern(patterns.event.rockPaperScissors, { DoClick: true, PredicatePattern: patterns.event.coinsOwned });
 	sleep(2_000);
 	let numCoins = macroService.GetText(patterns.event.numCoins)?.replace(/[^0-9]/g, '');
 	while (macroService.IsRunning && !numCoins) {
@@ -113,8 +78,7 @@ function doRockPaperScissors() {
 }
 
 function doDrawACapsule() {
-	macroService.PollPattern(patterns.event.drawACapsule, { DoClick: true, PredicatePattern: patterns.event.coinInfo });
-	macroService.PollPattern(patterns.event.coinsOwned);
+	macroService.PollPattern(patterns.event.drawACapsule, { DoClick: true, PredicatePattern: patterns.event.coinsOwned });
 	sleep(2_000);
 	let numCoins = macroService.GetText(patterns.event.numCoins)?.replace(/[^0-9]/g, '');
 	while (macroService.IsRunning && !numCoins) {
@@ -130,8 +94,7 @@ function doDrawACapsule() {
 }
 
 function doSpinTheWheel() {
-	macroService.PollPattern(patterns.event.spinTheWheel, { DoClick: true, PredicatePattern: patterns.event.coinInfo });
-	macroService.PollPattern(patterns.event.coinsOwned);
+	macroService.PollPattern(patterns.event.spinTheWheel, { DoClick: true, PredicatePattern: patterns.event.coinsOwned });
 	sleep(2_000);
 	let numCoins = macroService.GetText(patterns.event.numCoins)?.replace(/[^0-9]/g, '');
 	while (macroService.IsRunning && !numCoins) {

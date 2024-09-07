@@ -54,3 +54,11 @@ function selectTeamAndBattle(teamSlot, sweepBattle) {
 	}
 	return numBattles;
 }
+
+function detectBossType() {
+	const bossElements = ['earth', 'water', 'fire', 'light', 'dark'].map(el => patterns.battle.bossType[el]);
+	const bossElementsResult = macroService.PollPattern(bossElements);
+	const detectedElement = bossElementsResult.Path?.split('.').pop();
+
+	return detectedElement;
+}
