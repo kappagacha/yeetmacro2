@@ -57,5 +57,4 @@ if (settings.doUpkeep.spendStaminaScript.IsEnabled) {
 
 if (settings.doUpkeep.doTerminusIsleExploration.Value && !daily.doTerminusIsleExploration.done.IsChecked) {
     doTerminusIsleExploration();
-    goToLobby();
 }
