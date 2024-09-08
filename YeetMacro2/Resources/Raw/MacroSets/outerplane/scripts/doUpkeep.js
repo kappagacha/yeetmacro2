@@ -13,7 +13,6 @@ goToLobby();
 goToLobby();
 goToLobby();
 goToLobby();
-goToLobby();
 
 if (settings.doUpkeep.claimGuildBuff.Value) {
     claimGuildBuff();
@@ -57,4 +56,5 @@ if (settings.doUpkeep.spendStaminaScript.IsEnabled) {
 
 if (settings.doUpkeep.doTerminusIsleExploration.Value && !daily.doTerminusIsleExploration.done.IsChecked) {
     doTerminusIsleExploration();
+    return;
 }

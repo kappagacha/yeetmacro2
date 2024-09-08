@@ -2794,8 +2794,8 @@
     },
     "lastApplied": {
       "$type": "enabledString",
-      "$defaultValue": "7",
-      "$value": "7",
+      "$defaultValue": "6",
+      "$value": "6",
       "$isEnabled": true,
       "$position": 0,
       "$name": "lastApplied",
