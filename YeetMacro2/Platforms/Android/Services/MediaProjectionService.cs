@@ -118,7 +118,7 @@ public class MediaProjectionService : IRecorderService
 
     public void Stop()
     {
-        _resultCode = 0;
+        //_resultCode = 0;
         if (_imageReader != null)
         {
             _imageReader.Close();
