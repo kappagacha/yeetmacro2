@@ -50,7 +50,7 @@ while (macroService.IsRunning) {
 					continue;
 				}
 				
-				const moveResult = macroService.PollPattern([patterns.titles.inventory, patterns.titles.base]);
+				const moveResult = macroService.PollPattern([patterns.titles.inventory, patterns.titles.base, patterns.titles.base]);
 				if (moveResult.Path === 'titles.inventory') {
 					let gearEnhancedResult = macroService.FindPattern(patterns.inventory.gearEnhanced);
 					if (gearEnhancedResult.IsSuccess) {
@@ -86,8 +86,12 @@ while (macroService.IsRunning) {
 					date.setDate(date.getDate() - 1);
 					// set date to yesterday for claimAntiparticle to run
 					settings.claimAntiparticle.lastRun.Value = date.toISOString();
-					goToLobby();
 					claimAntiparticle();
+					goToLobby();
+					continue;
+				}
+				} else if (moveResult.Path === 'titles.arena') {
+					doArena();
 					goToLobby();
 					continue;
 				}

@@ -775,11 +775,19 @@
       "$name": "sweepEventStoryHard",
       "$path": "doDailies.sweepEventStoryHard"
     },
-    "doUpkeep": {
+    "sweepEventStoryHard2": {
       "$type": "boolean",
       "$defaultValue": true,
       "$value": true,
       "$position": 26,
+      "$name": "sweepEventStoryHard2",
+      "$path": "doDailies.sweepEventStoryHard2"
+    },
+    "doUpkeep": {
+      "$type": "boolean",
+      "$defaultValue": true,
+      "$value": true,
+      "$position": 27,
       "$name": "doUpkeep",
       "$path": "doDailies.doUpkeep"
     },
@@ -787,7 +795,7 @@
       "$type": "boolean",
       "$defaultValue": true,
       "$value": true,
-      "$position": 27,
+      "$position": 28,
       "$name": "sellInventory",
       "$path": "doDailies.sellInventory"
     },
@@ -795,7 +803,7 @@
       "$type": "boolean",
       "$defaultValue": true,
       "$value": true,
-      "$position": 28,
+      "$position": 29,
       "$name": "claimEventDailyMissions2",
       "$path": "doDailies.claimEventDailyMissions2"
     }
@@ -2167,8 +2175,8 @@
         "8",
         "9"
       ],
-      "$defaultValue": "9",
-      "$value": "9",
+      "$defaultValue": "8",
+      "$value": "8",
       "$position": 0,
       "$name": "teamSlot",
       "$path": "sweepEventStoryHard.teamSlot"
@@ -3026,6 +3034,52 @@
       "$position": 0,
       "$name": "forceRun",
       "$path": "doTerminusIsleExploration.forceRun"
+    }
+  },
+  "sweepEventStoryHard2": {
+    "$type": "parent",
+    "$position": 0,
+    "$name": "sweepEventStoryHard2",
+    "$path": "sweepEventStoryHard2",
+    "targetPartPattern": {
+      "$type": "pattern",
+      "$defaultValue": {
+        "$patterns": [],
+        "$isMultiPattern": false,
+        "$position": 0,
+        "$name": null,
+        "$path": null
+      },
+      "$value": {
+        "$patterns": [],
+        "$isMultiPattern": false,
+        "$position": 0,
+        "$name": null,
+        "$path": null
+      },
+      "$position": 0,
+      "$name": "targetPartPattern",
+      "$path": "sweepEventStoryHard2.targetPartPattern"
+    },
+    "teamSlot": {
+      "$type": "option",
+      "$options": [
+        "Current",
+        "1",
+        "2",
+        "3",
+        "4",
+        "5",
+        "6",
+        "7",
+        "8",
+        "9"
+      ],
+      "$defaultValue": "8",
+      "$value": "8",
+      "$position": 0,
+      "$name": "teamSlot",
+      "$path": "sweepEventStoryHard2.teamSlot"
     }
   }
 }

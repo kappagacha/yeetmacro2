@@ -131,14 +131,13 @@ if (settings.doDailies.sweepEventStoryHard.Value) {
     goToLobby();
 }
 
-if (settings.doDailies.sweepJointChallenge.Value) {
-    sweepJointChallenge();
+if (settings.doDailies.sweepEventStoryHard2.Value) {
+    sweepEventStoryHard2();
     goToLobby();
 }
 
-// again after doShop
-if (settings.doDailies.doArena.Value) {
-    doArena();
+if (settings.doDailies.sweepJointChallenge.Value) {
+    sweepJointChallenge();
     goToLobby();
 }
 
