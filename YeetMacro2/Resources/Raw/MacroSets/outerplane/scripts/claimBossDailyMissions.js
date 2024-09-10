@@ -89,7 +89,6 @@ while (macroService.IsRunning) {
 					claimAntiparticle();
 					goToLobby();
 					continue;
-				}
 				} else if (moveResult.Path === 'titles.arena') {
 					doArena();
 					goToLobby();
