@@ -18,7 +18,7 @@ while (macroService.IsRunning) {
 			logger.info('sweepGuildRaid: click raid');
 			macroService.PollPattern(patterns.adventure.raid, { DoClick: true, PredicatePattern: patterns.adventure.raid.guildRaid });
 			macroService.PollPattern(patterns.adventure.raid.guildRaid, { DoClick: true, PredicatePattern: patterns.guildRaid.sweep });
-			macroService.PollPattern(patterns.guildRaid.sweep, { DoClick: true, PredicatePattern: patterns.guildRaid.sweep.confirm });
+			macroService.PollPattern(patterns.guildRaid.sweep, { DoClick: true, PredicatePattern: [patterns.guildRaid.sweep.confirm, patterns.guildRaid.sweep.disabled] });
 			macroService.PollPattern(patterns.guildRaid.sweep.confirm, { DoClick: true, PredicatePattern: patterns.guildRaid.sweep.disabled });
 
 			if (macroService.IsRunning) {
