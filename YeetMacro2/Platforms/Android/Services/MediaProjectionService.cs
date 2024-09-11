@@ -28,16 +28,22 @@ public class MediaProjectionService : IRecorderService
     public const int REQUEST_MEDIA_PROJECTION = 1;
     bool _isRecording;
     public bool IsInitialized => _resultCode == (int)global::Android.App.Result.Ok;
+    MediaProjectionCallback _mediaProjectionCallback;
 
     public MediaProjectionService()
     {
+        _mediaProjectionCallback = new MediaProjectionCallback(this);
 
         WeakReferenceMessenger.Default.Register<PropertyChangedMessage<bool>, string>(this, nameof(ForegroundService), (r, propertyChangedMessage) =>
         {
-            if (propertyChangedMessage.NewValue)
+            if (propertyChangedMessage.NewValue && !IsInitialized)
             {
                 var mediaProjectionManager = (MediaProjectionManager)Platform.CurrentActivity.GetSystemService(Context.MediaProjectionService);
                 Platform.CurrentActivity.StartActivityForResult(mediaProjectionManager.CreateScreenCaptureIntent(), Services.MediaProjectionService.REQUEST_MEDIA_PROJECTION);
+            }
+            else if (propertyChangedMessage.NewValue)
+            {
+                WeakReferenceMessenger.Default.Send(this);
             }
             else
             {
@@ -60,6 +66,7 @@ public class MediaProjectionService : IRecorderService
             // https://github.com/Fate-Grand-Automata/FGA/blob/2a62ab7a456a9913cf0355db81b5a15f13906f27/app/src/main/java/io/github/fate_grand_automata/runner/ScreenshotServiceHolder.kt#L53
             var mediaProjectionManager = (MediaProjectionManager)Platform.CurrentActivity.GetSystemService(Context.MediaProjectionService);
             _mediaProjection = mediaProjectionManager.GetMediaProjection(_resultCode, (Intent)_resultData.Clone());
+            MainThread.BeginInvokeOnMainThread(() => _mediaProjection.RegisterCallback(new MediaProjectionCallback(this), null));
             _imageReader = ImageReader.NewInstance(width, height, (ImageFormatType)global::Android.Graphics.Format.Rgba8888, 2);
             _virtualDisplay = _mediaProjection.CreateVirtualDisplay("ScreenCapture", width, height, density, (DisplayFlags)VirtualDisplayFlags.AutoMirror, _imageReader.Surface, null, null);
         }
@@ -116,33 +123,31 @@ public class MediaProjectionService : IRecorderService
         return bitmap;
     }
 
+
+    public void CallbackStop()
+    {
+        if (_virtualDisplay == null) return;
+
+        _resultCode = 0;
+        Stop();
+    }
+
     public void Stop()
     {
-        //_resultCode = 0;
-        if (_imageReader != null)
-        {
-            _imageReader.Close();
-            _imageReader.Dispose();
-            _imageReader = null;
-        }
-        if (_virtualDisplay != null)
-        {
-            _virtualDisplay.Release();
-            _virtualDisplay.Dispose();
-            _virtualDisplay = null;
-        }
+        if (_virtualDisplay == null) return;
 
-        if (_mediaProjection != null)
-        {
-            _mediaProjection.Stop();
-            _mediaProjection.Dispose();
-            _mediaProjection = null;
-        }
+        _virtualDisplay.Release();
+        _virtualDisplay = null;
+        _imageReader.Close();
+        _imageReader = null;
+        _mediaProjection.Stop();
+        _mediaProjection = null;
+
         WeakReferenceMessenger.Default.Send(this);
-        if (Platform.CurrentActivity != null)
-        {
-            Toast.MakeText(Platform.CurrentActivity, "Media projection stopped...", ToastLength.Short).Show();
-        }
+        //if (Platform.CurrentActivity != null)
+        //{
+        //    Toast.MakeText(Platform.CurrentActivity, "Media projection stopped...", ToastLength.Short).Show();
+        //}
     }
 
     public byte[] GetCurrentImageData()
@@ -237,5 +242,18 @@ public class MediaProjectionService : IRecorderService
         _mediaRecorder.Release();
         _mediaRecorder.Dispose();
         Stop();
+    }
+
+    private class MediaProjectionCallback : MediaProjection.Callback
+    {
+        MediaProjectionService _mediaProjectionService;
+        public MediaProjectionCallback(MediaProjectionService mediaProjectionService)
+        {
+            _mediaProjectionService = mediaProjectionService;
+        }
+        public override void OnStop()
+        {
+            _mediaProjectionService.CallbackStop();
+        }
     }
 }

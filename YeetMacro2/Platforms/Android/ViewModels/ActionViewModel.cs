@@ -57,6 +57,7 @@ public partial class ActionViewModel : ObservableObject, IMovable
             else
             {
                 State = ActionState.Stopped;
+                _mediaProjectionService.Stop();
                 if (!String.IsNullOrWhiteSpace(scriptEventMessage.Value.Result))
                 {
                     MainThread.BeginInvokeOnMainThread(() => _screenService.ShowMessage(scriptEventMessage.Value.Result));
