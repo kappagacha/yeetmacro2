@@ -30,7 +30,7 @@ function applyPreset(teamSlot) {
 	for (const [location, preset] of Object.entries(locationToPreset)) {
 		if (!preset) continue;
 
-		const presetRegex = new RegExp(preset.replace(/ /g, ''));
+		const presetRegex = new RegExp(preset.replace(/ /g, '\s*'));
 
 		if (macroService.FindPattern(patterns.battle.teamFormation[location].remove).IsSuccess) {
 			macroService.PollPattern(patterns.battle.teamFormation[location].remove, { DoClick: true, ClickOffset: { X: -100 }, InversePredicatePattern: patterns.battle.teamFormation[location].remove });
