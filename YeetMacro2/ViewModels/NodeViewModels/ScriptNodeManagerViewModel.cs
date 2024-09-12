@@ -37,4 +37,21 @@ public partial class ScriptNodeManagerViewModel : NodeManagerViewModel<ScriptNod
     {
         Preferences.Default.Set(nameof(ShowHiddenScripts), ShowHiddenScripts);
     }
+
+    public static void MergeSettings(ScriptNode source, ScriptNode dest)
+    {
+        dest.DoLog = source.DoLog;
+        dest.IsHidden = source.IsHidden;
+        dest.IsFavorite = source.IsFavorite;
+
+        foreach (var childSource in source.Nodes)
+        {
+            // Not supporting duplicate names
+            var childDest = dest.Nodes.FirstOrDefault(sn => sn.Name == childSource.Name);
+            if (childDest is not null)
+            {
+                MergeSettings(childSource, childDest);
+            }
+        }
+    }
 }

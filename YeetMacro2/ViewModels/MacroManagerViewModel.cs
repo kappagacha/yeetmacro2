@@ -558,6 +558,7 @@ public partial class MacroManagerViewModel : ObservableObject
 
                     scripts.Root.Nodes.Add(script);
                 }
+                ScriptNodeManagerViewModel.MergeSettings(Scripts.Root, scripts.Root);
                 Scripts.Import(scripts);
             }
 
