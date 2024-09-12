@@ -5,7 +5,6 @@ using CommunityToolkit.Mvvm.Messaging.Messages;
 using CommunityToolkit.Mvvm.Messaging;
 using YeetMacro2.Platforms.Android.Services;
 using YeetMacro2.ViewModels;
-using YeetMacro2.Data.Models;
 using YeetMacro2.Services;
 
 namespace YeetMacro2.Platforms.Android.ViewModels;
@@ -116,14 +115,14 @@ public partial class AndriodHomeViewModel : ObservableObject
             }
         });
 
-        WeakReferenceMessenger.Default.Register<string, string>(this, nameof(YeetAccessibilityService), async (r, currentPackage) =>
+        WeakReferenceMessenger.Default.Register<string, string>(this, nameof(YeetAccessibilityService), (r, currentPackage) =>
         {
             if (_macroManagerViewModel.SelectedMacroSet?.Package != currentPackage)
             {
                 var matchingMacroSet = _macroManagerViewModel.MacroSets.FirstOrDefault(ms => ms.Package == currentPackage);
                 if (matchingMacroSet != null)
                 {
-                    await Task.Delay(5000);
+                    _screenService.CloseAll();
                     _macroManagerViewModel.SelectedMacroSet = matchingMacroSet;
                 }
             }
@@ -131,11 +130,10 @@ public partial class AndriodHomeViewModel : ObservableObject
             CurrentPackage = currentPackage;
         });
 
-        WeakReferenceMessenger.Default.Register<MacroSet>(this, (r, macroSet) =>
+        WeakReferenceMessenger.Default.Register<MacroSetViewModel>(this, (r, macroSet) =>
         {
             _screenService.RefreshActionViewLocation();
         });
-
 
         ShowStatusPanel = Preferences.Default.Get(nameof(ShowStatusPanel), false);
     }

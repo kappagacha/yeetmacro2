@@ -2,6 +2,7 @@
 using System.Text.Json;
 using System.Text.Json.Nodes;
 using YeetMacro2.Data.Models;
+using YeetMacro2.Services;
 using YeetMacro2.ViewModels;
 using YeetMacro2.ViewModels.NodeViewModels;
 
@@ -10,7 +11,10 @@ public class ModelProfile : Profile
 {
     public ModelProfile()
     {
-        CreateMap<MacroSet, MacroSetViewModel>().ReverseMap();
+        CreateMap<MacroSet, MacroSetViewModel>()
+            .ForCtorParam("nodeViewModelManagerFactory", o => o.MapFrom(ms => ServiceHelper.GetService<NodeManagerViewModelFactory>()))
+            .ForCtorParam("scriptService", o => o.MapFrom(ms => ServiceHelper.GetService<IScriptService>()))
+            .ReverseMap();
 
         CreateMap<PatternNode, PatternNodeViewModel>().ReverseMap();
         CreateMap<Pattern, PatternViewModel>().ReverseMap();

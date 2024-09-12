@@ -5,8 +5,7 @@
              xmlns:vm="clr-namespace:YeetMacro2.ViewModels"
              xmlns:v="clr-namespace:YeetMacro2.Views"
              xmlns:conv="clr-namespace:YeetMacro2.Converters"
-             x:DataType="vm:MacroManagerViewModel"
-             vm:ViewModelLocator.ViewModelType="{x:Type vm:MacroManagerViewModel}"
+             x:DataType="vm:MacroSetViewModel"
              xmlns:fa="clr-namespace:UraniumUI.Icons.FontAwesome;assembly=UraniumUI.Icons.FontAwesome"
              BackgroundColor="{AppThemeBinding Light={StaticResource Background}, Dark={StaticResource BackgroundDark}}"
              x:Name="thisControl">

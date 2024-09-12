@@ -91,9 +91,14 @@ public partial class ParentSettingViewModel : ParentSetting
     {
         get
         {
-            // Note: cache does not automatically invalidate
             if (!_nodeCache.ContainsKey(key))
             {
+                var child = base.Nodes.FirstOrDefault(n => n.Name == key) ?? throw new ArgumentException($"Invalid key: {key}");
+                _nodeCache.Add(key, child);
+            }
+            else if (!base.Nodes.Contains(_nodeCache[key]))
+            {
+                _nodeCache.Remove(key);
                 var child = base.Nodes.FirstOrDefault(n => n.Name == key) ?? throw new ArgumentException($"Invalid key: {key}");
                 _nodeCache.Add(key, child);
             }
@@ -105,6 +110,17 @@ public partial class ParentSettingViewModel : ParentSetting
     public void ResetDictionary()
     {
         _nodeCache.Clear();
+        foreach (var child in Nodes)
+        {
+            if (child is EnabledParentSettingViewModel parent)
+            {
+                parent.ResetDictionary();
+            }
+            else if (child is EnabledParentSettingViewModel enabledParent)
+            {
+                enabledParent.ResetDictionary();
+            }
+        }
     }
 }
 
@@ -209,6 +225,17 @@ public partial class EnabledParentSettingViewModel : EnabledParentSetting
     public void ResetDictionary()
     {
         _nodeCache.Clear();
+        foreach (var child in Nodes)
+        {
+            if (child is EnabledParentSettingViewModel parent)
+            {
+                parent.ResetDictionary();
+            }
+            else if (child is EnabledParentSettingViewModel enabledParent)
+            {
+                enabledParent.ResetDictionary();
+            }
+        }
     }
 
     public override bool IsEnabled

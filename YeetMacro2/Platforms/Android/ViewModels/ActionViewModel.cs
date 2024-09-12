@@ -84,7 +84,7 @@ public partial class ActionViewModel : ObservableObject, IMovable
         }
 
         IsBusy = true;
-        await _macroManagerViewModel.Scripts.WaitForInitialization();
+        await _macroManagerViewModel.SelectedMacroSet.Scripts.WaitForInitialization();
         IsBusy = false;
 
         switch (State)

@@ -1,11 +1,105 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
+using CommunityToolkit.Mvvm.Input;
+using CommunityToolkit.Mvvm.Messaging;
+using System.Text.Json.Serialization;
+using YeetMacro2.Data.Messaging;
 using YeetMacro2.Data.Models;
+using YeetMacro2.Services;
+using YeetMacro2.ViewModels.NodeViewModels;
 
 namespace YeetMacro2.ViewModels;
 
 [ObservableObject]
 public partial class MacroSetViewModel : MacroSet
 {
+    readonly NodeManagerViewModelFactory _nodeViewModelManagerFactory;
+    readonly IScriptService _scriptService;
+    PatternNodeManagerViewModel _patterns;
+    ScriptNodeManagerViewModel _scripts;
+    SettingNodeManagerViewModel _settings;
+    DailyNodeManagerViewModel _dailies;
+    WeeklyNodeManagerViewModel _weeklies;
+
+    [ObservableProperty]
+    [property: JsonIgnore]  // https://stackoverflow.com/questions/74599937/is-there-any-other-way-of-ignoring-a-property-during-json-serialization-instead
+    bool _isScriptRunning, _isBusy;
+
+    public MacroSetViewModel(NodeManagerViewModelFactory nodeViewModelManagerFactory, IScriptService scriptService)
+    {
+        _nodeViewModelManagerFactory = nodeViewModelManagerFactory;
+        _scriptService = scriptService;
+    }
+
+    [JsonIgnore]
+    public PatternNodeManagerViewModel Patterns
+    {
+        get
+        {
+            if (_patterns == null)
+            {
+                _patterns = _nodeViewModelManagerFactory.Create<PatternNodeManagerViewModel>(RootPatternNodeId);
+            }
+
+            return _patterns;
+        }
+    }
+
+    [JsonIgnore]
+    public SettingNodeManagerViewModel Settings
+    {
+        get
+        {
+            if (_settings == null)
+            {
+                _settings = _nodeViewModelManagerFactory.Create<SettingNodeManagerViewModel>(RootSettingNodeId);
+            }
+
+            return _settings;
+        }
+    }
+
+    [JsonIgnore]
+    public ScriptNodeManagerViewModel Scripts
+    {
+        get
+        {
+            if (_scripts == null)
+            {
+                _scripts = _nodeViewModelManagerFactory.Create<ScriptNodeManagerViewModel>(RootScriptNodeId);
+            }
+
+            return _scripts;
+        }
+    }
+
+    [JsonIgnore]
+    public DailyNodeManagerViewModel Dailies
+    {
+        get
+        {
+            if (_dailies == null)
+            {
+                _dailies = _nodeViewModelManagerFactory.Create<DailyNodeManagerViewModel>(RootDailyNodeId);
+            }
+
+            return _dailies;
+        }
+    }
+
+    [JsonIgnore]
+    public WeeklyNodeManagerViewModel Weeklies
+    {
+        get
+        {
+            if (_weeklies == null)
+            {
+                _weeklies = _nodeViewModelManagerFactory.Create<WeeklyNodeManagerViewModel>(RootWeeklyNodeId);
+            }
+
+            return _weeklies;
+        }
+    }
+
     public override string Name
     {
         get => base.Name;
@@ -154,5 +248,33 @@ public partial class MacroSetViewModel : MacroSet
             base.WeeklyStartDay = value;
             OnPropertyChanged();
         }
+    }
+
+    public async Task WaitForInitialization()
+    {
+        await Patterns.WaitForInitialization();
+        await Scripts.WaitForInitialization();
+        await Settings.WaitForInitialization();
+        await Dailies.WaitForInitialization();
+        await Weeklies.WaitForInitialization();
+    }
+
+    [RelayCommand]
+    [property: JsonIgnore]
+    private async Task ExecuteScript(ScriptNode scriptNode)
+    {
+        if (IsScriptRunning) return;
+
+        await WaitForInitialization();
+
+        await Task.Run(() =>
+        {
+            Console.WriteLine($"[*****YeetMacro*****] MacroManagerViewModel ExecuteScript");
+            WeakReferenceMessenger.Default.Send(new ScriptEventMessage(new ScriptEvent() { Type = ScriptEventType.Started }));
+            // TODO: simplify scriptService parameters
+            var result = _scriptService.RunScript(scriptNode, this.Scripts, this, this.Patterns, this.Settings, this.Dailies, this.Weeklies);
+            WeakReferenceMessenger.Default.Send(new ScriptEventMessage(new ScriptEvent() { Type = ScriptEventType.Finished, Result = result }));
+            IsScriptRunning = false;
+        });
     }
 }

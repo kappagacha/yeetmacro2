@@ -125,6 +125,8 @@ public partial class SettingNodeManagerViewModel : NodeManagerViewModel<ParentSe
         if (setting is OptionSetting optionSetting)
         {
             var newOptions = await _inputService.PromptInput("Update options", String.Join(',', optionSetting.Options));
+            if (String.IsNullOrEmpty(newOptions)) return;
+
             optionSetting.Options.Clear();
             foreach (var opt in newOptions.Split(','))
             {

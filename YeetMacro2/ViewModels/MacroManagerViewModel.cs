@@ -2,7 +2,6 @@
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using Microsoft.Extensions.Logging;
-using System.Collections.Concurrent;
 using System.Collections.ObjectModel;
 using System.Text.Json;
 using System.Text.Json.Nodes;
@@ -32,18 +31,13 @@ public partial class MacroManagerViewModel : ObservableObject
     readonly IMapper _mapper;
     readonly IHttpService _httpService;
     [ObservableProperty]
-    ICollection<MacroSet> _macroSets;
-    [ObservableProperty, NotifyPropertyChangedFor(nameof(Patterns), nameof(Scripts))]
-    MacroSet _selectedMacroSet;
-    readonly ConcurrentDictionary<int, PatternNodeManagerViewModel> _nodeRootIdToPatternTree;
-    readonly ConcurrentDictionary<int, ScriptNodeManagerViewModel> _nodeRootIdToScriptList;
-    readonly ConcurrentDictionary<int, SettingNodeManagerViewModel> _nodeRootIdToSettingTree;
-    readonly ConcurrentDictionary<int, DailyNodeManagerViewModel> _nodeRootIdToDailyList;
-    readonly ConcurrentDictionary<int, WeeklyNodeManagerViewModel> _nodeRootIdToWeeklyList;
+    ICollection<MacroSetViewModel> _macroSets;
+    [ObservableProperty]
+    MacroSetViewModel _selectedMacroSet;
     readonly IScriptService _scriptService;
     [ObservableProperty]
     bool _isExportEnabled, _isOpenAppDirectoryEnabled, _inDebugMode, 
-        _showExport, _isBusy, _showMacroSetDescriptionEditor, _isScriptRunning;
+        _showExport, _isBusy, _showMacroSetDescriptionEditor;
     [ObservableProperty]
     double _resolutionWidth, _resolutionHeight, _defaultLocationX, _defaultLocationY;
     [ObservableProperty]
@@ -58,78 +52,6 @@ public partial class MacroManagerViewModel : ObservableObject
         TypeInfoResolver = CombinedPropertiesResolver.Combine(SizePropertiesResolver.Instance, PointPropertiesResolver.Instance)
     };
     readonly string _targetBranch = "main";
-    public PatternNodeManagerViewModel Patterns
-    {
-        get
-        {
-            if (SelectedMacroSet == null) return null;
-            if (!_nodeRootIdToPatternTree.ContainsKey(SelectedMacroSet.RootPatternNodeId))
-            {
-                var tree = _nodeViewModelManagerFactory.Create<PatternNodeManagerViewModel>(SelectedMacroSet.RootPatternNodeId);
-                _nodeRootIdToPatternTree.TryAdd(SelectedMacroSet.RootPatternNodeId, tree);
-            }
-            return _nodeRootIdToPatternTree[SelectedMacroSet.RootPatternNodeId];
-        }
-    }
-
-    public ScriptNodeManagerViewModel Scripts
-    {
-        get
-        {
-            if (SelectedMacroSet == null) return null;
-            if (!_nodeRootIdToScriptList.ContainsKey(SelectedMacroSet.RootScriptNodeId))
-            {
-                var list = _nodeViewModelManagerFactory.Create<ScriptNodeManagerViewModel>(SelectedMacroSet.RootScriptNodeId);
-                _nodeRootIdToScriptList.TryAdd(SelectedMacroSet.RootScriptNodeId, list);
-            }
-            return _nodeRootIdToScriptList[SelectedMacroSet.RootScriptNodeId];
-        }
-    }
-
-    public SettingNodeManagerViewModel Settings
-    {
-        get
-        {
-            if (SelectedMacroSet == null) return null;
-            if (!_nodeRootIdToSettingTree.ContainsKey(SelectedMacroSet.RootSettingNodeId))
-            {
-                var tree = _nodeViewModelManagerFactory.Create<SettingNodeManagerViewModel>(SelectedMacroSet.RootSettingNodeId);
-                _nodeRootIdToSettingTree.TryAdd(SelectedMacroSet.RootSettingNodeId, tree);
-            }
-            return _nodeRootIdToSettingTree[SelectedMacroSet.RootSettingNodeId];
-        }
-    }
-
-    public DailyNodeManagerViewModel Dailies
-    {
-        get
-        {
-            if (SelectedMacroSet == null) return null;
-            if (!_nodeRootIdToDailyList.ContainsKey(SelectedMacroSet.RootDailyNodeId))
-            {
-                var list = _nodeViewModelManagerFactory.Create<DailyNodeManagerViewModel>(SelectedMacroSet.RootDailyNodeId);
-                _nodeRootIdToDailyList.TryAdd(SelectedMacroSet.RootDailyNodeId, list);
-                list.MacroSet = (MacroSetViewModel)SelectedMacroSet;
-            }
-            return _nodeRootIdToDailyList[SelectedMacroSet.RootDailyNodeId];
-        }
-    }
-
-    public WeeklyNodeManagerViewModel Weeklies
-    {
-        get
-        {
-            if (SelectedMacroSet == null) return null;
-            if (!_nodeRootIdToWeeklyList.ContainsKey(SelectedMacroSet.RootWeeklyNodeId))
-            {
-                var list = _nodeViewModelManagerFactory.Create<WeeklyNodeManagerViewModel>(SelectedMacroSet.RootWeeklyNodeId);
-                _nodeRootIdToWeeklyList.TryAdd(SelectedMacroSet.RootWeeklyNodeId, list);
-                list.MacroSet = (MacroSetViewModel)SelectedMacroSet;
-            }
-            return _nodeRootIdToWeeklyList[SelectedMacroSet.RootWeeklyNodeId];
-        }
-    }
-
     public string AppVersion { get { return AppInfo.Current.VersionString; } }
     public MacroManagerViewModel(ILogger<MacroManagerViewModel> logger,
         IRepository<MacroSet> macroSetRepository,
@@ -157,7 +79,7 @@ public partial class MacroManagerViewModel : ObservableObject
         if (_macroSetRepository == null) return;  
 
         var tempMacroSets = _macroSetRepository.Get();
-        MacroSets = new ObservableCollection<MacroSet>(tempMacroSets.Select(ms => (MacroSet)_mapper.Map<MacroSetViewModel>(ms)));
+        MacroSets = new ObservableCollection<MacroSetViewModel>(tempMacroSets.Select(ms => _mapper.Map<MacroSetViewModel>(ms)));
 
         if (Preferences.Default.ContainsKey(nameof(SelectedMacroSet)) && MacroSets.Any(ms => ms.Name == Preferences.Default.Get<string>(nameof(SelectedMacroSet), null)))
         {
@@ -170,11 +92,6 @@ public partial class MacroManagerViewModel : ObservableObject
 
         _macroSetRepository.DetachAllEntities();
         _macroSetRepository.AttachEntities([.._macroSets]);
-        _nodeRootIdToPatternTree = new ConcurrentDictionary<int, PatternNodeManagerViewModel>();
-        _nodeRootIdToScriptList = new ConcurrentDictionary<int, ScriptNodeManagerViewModel>();
-        _nodeRootIdToSettingTree = new ConcurrentDictionary<int, SettingNodeManagerViewModel>();
-        _nodeRootIdToDailyList = new ConcurrentDictionary<int, DailyNodeManagerViewModel>();
-        _nodeRootIdToWeeklyList = new ConcurrentDictionary<int, WeeklyNodeManagerViewModel>();
         _scriptService = scriptService;
 
         IsExportEnabled = Preferences.Default.Get(nameof(IsExportEnabled), false);
@@ -189,19 +106,19 @@ public partial class MacroManagerViewModel : ObservableObject
 
         WeakReferenceMessenger.Default.Register<SettingNode>(this, (r, settingNode) => {
             if (IsBusy ||                                   // updating MacroSet   (MacroManagerViewModel)
-                !(Settings?.IsInitialized ?? false) ||      // loading settings     (NodeManagerViewModel)
+                !(SelectedMacroSet.Settings?.IsInitialized ?? false) ||      // loading settings     (NodeManagerViewModel)
                 settingNode.NodeId == 0)                    // json desirialization (NodeManagerViewModel)
                 return;
 
-            Settings?.SaveSetting(settingNode);
+            SelectedMacroSet.Settings?.SaveSetting(settingNode);
         });
 
         WeakReferenceMessenger.Default.Register<Lazy<ScriptNode>>(this, (r, scriptNode) => {
             MainThread.BeginInvokeOnMainThread(async () =>
             {
-                await Settings?.OnScriptNodeSelected(scriptNode.Value);
-                await Dailies?.OnScriptNodeSelected(scriptNode.Value);
-                await Weeklies?.OnScriptNodeSelected(scriptNode.Value);
+                await SelectedMacroSet.Settings?.OnScriptNodeSelected(scriptNode.Value);
+                await SelectedMacroSet.Dailies?.OnScriptNodeSelected(scriptNode.Value);
+                await SelectedMacroSet.Weeklies?.OnScriptNodeSelected(scriptNode.Value);
             });
         });
 
@@ -215,10 +132,10 @@ public partial class MacroManagerViewModel : ObservableObject
         });
 
         WeakReferenceMessenger.Default.Register<PatternNodeViewModel>(this, (r, patternNode) => {
-            if (IsBusy ||                                   // updating MacroSet   (MacroManagerViewModel)
-                Patterns.IsBusy ||                          // updating patterns
-                !(Patterns?.IsInitialized ?? false) ||      // loading patterns     (NodeManagerViewModel)
-                patternNode.NodeId == 0)                    // json desirialization (NodeManagerViewModel)
+            if (IsBusy ||                                           // updating MacroSet   (MacroManagerViewModel)
+                SelectedMacroSet.Patterns.IsBusy ||                 // updating patterns
+                !(SelectedMacroSet.Patterns.IsInitialized) ||       // loading patterns     (NodeManagerViewModel)
+                patternNode.NodeId == 0)                            // json desirialization (NodeManagerViewModel)
                 return;
 
             _patternNodeService.Update(patternNode);
@@ -254,7 +171,7 @@ public partial class MacroManagerViewModel : ObservableObject
         if (source.StartsWith("localAsset:")) macroSetName = source[11..];
         else if (source.StartsWith("online:")) macroSetName = source[7..];
 
-        var macroSet = new MacroSetViewModel() { Name = macroSetName, Source = source };
+        var macroSet = new MacroSetViewModel(_nodeViewModelManagerFactory, _scriptService) { Name = macroSetName, Source = source };
 
         var rootPattern = _mapper.Map<PatternNodeViewModel>(_patternNodeService.GetRoot(0));
         _patternNodeService.ReAttachNodes(rootPattern);
@@ -286,22 +203,18 @@ public partial class MacroManagerViewModel : ObservableObject
     } 
 
     [RelayCommand]
-    public async Task DeleteMacroSet(MacroSet macroSet)
+    public async Task DeleteMacroSet(MacroSetViewModel macroSet)
     {
         if (!await Application.Current.MainPage.DisplayAlert("Delete Macro Set", "Are you sure?", "Ok", "Cancel")) return;
 
         IsBusy = true;
-        await Patterns.WaitForInitialization();
-        await Scripts.WaitForInitialization();
-        await Settings.WaitForInitialization();
-        await Dailies.WaitForInitialization();
-        await Weeklies.WaitForInitialization();
+        await macroSet.WaitForInitialization();
         SelectedMacroSet = null;
-        _patternNodeService.Delete(_nodeRootIdToPatternTree[macroSet.RootPatternNodeId].Root);
-        _scriptNodeService.Delete(_nodeRootIdToScriptList[macroSet.RootScriptNodeId].Root);
-        _settingNodeService.Delete(_nodeRootIdToSettingTree[macroSet.RootSettingNodeId].Root);
-        _todoNodeService.Delete(_nodeRootIdToDailyList[macroSet.RootDailyNodeId].Root);
-        _todoNodeService.Delete(_nodeRootIdToWeeklyList[macroSet.RootWeeklyNodeId].Root);
+        _patternNodeService.Delete(macroSet.Patterns.Root);
+        _settingNodeService.Delete(macroSet.Settings.Root);
+        _scriptNodeService.Delete(macroSet.Scripts.Root);
+        _todoNodeService.Delete(macroSet.Dailies.Root);
+        _todoNodeService.Delete(macroSet.Weeklies.Root);
         _macroSetRepository.Delete(macroSet);
         _macroSetRepository.Save();
         MacroSets.Remove(macroSet);
@@ -319,7 +232,7 @@ public partial class MacroManagerViewModel : ObservableObject
     }
 
     [RelayCommand]
-    private void Save(MacroSet macroSet)
+    private void Save(MacroSetViewModel macroSet)
     {
         macroSet.Resolution = new Size(ResolutionWidth, ResolutionHeight);
         macroSet.DefaultLocation = new Point(DefaultLocationX, DefaultLocationY);
@@ -329,27 +242,7 @@ public partial class MacroManagerViewModel : ObservableObject
     }
 
     [RelayCommand]
-    private async Task ExecuteScript(ScriptNode scriptNode)
-    {
-        if (IsScriptRunning) return;
-
-        await Patterns.WaitForInitialization();
-        await Settings.WaitForInitialization();
-        await Dailies.WaitForInitialization();
-        await Weeklies.WaitForInitialization();
-
-        await Task.Run(() =>
-        {
-            Console.WriteLine($"[*****YeetMacro*****] MacroManagerViewModel ExecuteScript");
-            WeakReferenceMessenger.Default.Send(new ScriptEventMessage(new ScriptEvent() {  Type = ScriptEventType.Started }));
-            var result = _scriptService.RunScript(scriptNode, Scripts, SelectedMacroSet, Patterns, Settings, Dailies, Weeklies);
-            WeakReferenceMessenger.Default.Send(new ScriptEventMessage(new ScriptEvent() { Type = ScriptEventType.Finished, Result = result }));
-            IsScriptRunning = false;
-        });
-    }
-
-    [RelayCommand]
-    private async Task ExportMacroSet(MacroSet macroSet)
+    private async Task ExportMacroSet(MacroSetViewModel macroSet)
     {
 #if ANDROID
         // https://stackoverflow.com/questions/75880663/maui-on-android-listing-folder-contents-of-an-sd-card-and-writing-in-it
@@ -375,17 +268,17 @@ public partial class MacroManagerViewModel : ObservableObject
         macroSet.ScriptsLastUpdated = DateTimeOffset.Now;
         macroSet.SettingsLastUpdated = DateTimeOffset.Now;
 
-        await Dailies.WaitForInitialization();
-        if (Dailies.Root.Data is not null)
+        await macroSet.Dailies.WaitForInitialization();
+        if (macroSet.Dailies.Root.Data is not null)
         {
-            macroSet.DailyTemplate = Dailies.Root.Data.ToJsonString(JsonSerializerOptions.Default);
+            macroSet.DailyTemplate = macroSet.Dailies.Root.Data.ToJsonString(JsonSerializerOptions.Default);
             macroSet.DailyTemplateLastUpdated = DateTimeOffset.Now;
         }
 
-        await Weeklies.WaitForInitialization();
-        if (Weeklies.Root.Data is not null)
+        await macroSet.Weeklies.WaitForInitialization();
+        if (macroSet.Weeklies.Root.Data is not null)
         {
-            macroSet.WeeklyTemplate = Weeklies.Root.Data.ToJsonString(JsonSerializerOptions.Default);
+            macroSet.WeeklyTemplate = macroSet.Weeklies.Root.Data.ToJsonString(JsonSerializerOptions.Default);
             macroSet.WeeklyTemplateLastUpdated = DateTimeOffset.Now;
         }
 
@@ -416,12 +309,12 @@ public partial class MacroManagerViewModel : ObservableObject
         {
             Directory.CreateDirectory(targetDirectory);
         }
-
-        await Patterns.WaitForInitialization();
-        await Settings.WaitForInitialization();
+        
+        await macroSet.Patterns.WaitForInitialization();
+        await macroSet.Settings.WaitForInitialization();
         File.WriteAllText(Path.Combine(targetDirectory, $"macroSet.json"), macroSetJson);
-        File.WriteAllText(Path.Combine(targetDirectory, $"patterns.json"), Patterns.ToJson());
-        Settings.Traverse(Settings.Root, s =>
+        File.WriteAllText(Path.Combine(targetDirectory, $"patterns.json"), SelectedMacroSet.Patterns.ToJson());
+        macroSet.Settings.Traverse(macroSet.Settings.Root, s =>
         {
             if (s is SettingNode<String> stringSetting)
             {
@@ -440,7 +333,7 @@ public partial class MacroManagerViewModel : ObservableObject
                 patternSetting.DefaultValue = patternSetting.Value;
             }
         });
-        File.WriteAllText(Path.Combine(targetDirectory, $"settings.json"), Settings.ToJson());
+        File.WriteAllText(Path.Combine(targetDirectory, $"settings.json"), macroSet.Settings.ToJson());
 
         ExportValue = macroSetJson;
         ShowExport = true;
@@ -449,7 +342,7 @@ public partial class MacroManagerViewModel : ObservableObject
     }
 
     [RelayCommand]
-    private async Task UpdateMacroSet(MacroSet macroSet)
+    private async Task UpdateMacroSet(MacroSetViewModel macroSet)
     {
         IsBusy = true;
 
@@ -520,21 +413,19 @@ public partial class MacroManagerViewModel : ObservableObject
                 }
             }
 
-            await Patterns.WaitForInitialization();
-            await Scripts.WaitForInitialization();
-            await Settings.WaitForInitialization();
+            await macroSet.WaitForInitialization();
 
             if (pattternJson is not null)
             {
-                Patterns.SelectedNode = null;
+                macroSet.Patterns.SelectedNode = null;
                 var patterns = PatternNodeManagerViewModel.FromJson(pattternJson);
-                ((PatternNodeViewModel)Patterns.Root).ResetDictionary();
-                Patterns.Import(patterns);
+                ((PatternNodeViewModel)macroSet.Patterns.Root).ResetDictionary();
+                macroSet.Patterns.Import(patterns);
             }
 
             if (nameToScript.Count > 0)
             {
-                Scripts.SelectedNode = null;
+                macroSet.Scripts.SelectedNode = null;
                 var scripts = new ScriptNodeManagerViewModel(-1, null, null, null) { Root = new ScriptNode() { Nodes = [] } };
                 
                 foreach (var scriptKvp in nameToScript)
@@ -549,8 +440,8 @@ public partial class MacroManagerViewModel : ObservableObject
                     {
                         Name = scriptKvp.Key,
                         Text = scriptKvp.Value,
-                        RootId = Scripts.Root.NodeId,
-                        ParentId = Scripts.Root.NodeId,
+                        RootId = macroSet.Scripts.Root.NodeId,
+                        ParentId = macroSet.Scripts.Root.NodeId,
                         IsHidden = scriptKvp.Key.StartsWith('_'),
                         IsFavorite = scriptKvp.Value.Contains("@isFavorite"),
                         Position = position
@@ -558,35 +449,33 @@ public partial class MacroManagerViewModel : ObservableObject
 
                     scripts.Root.Nodes.Add(script);
                 }
-                ScriptNodeManagerViewModel.MergeSettings(Scripts.Root, scripts.Root);
-                Scripts.Import(scripts);
+                ScriptNodeManagerViewModel.MergeSettings(macroSet.Scripts.Root, scripts.Root);
+                macroSet.Scripts.Import(scripts);
             }
 
             if (settingJson is not null)
             {
-                Settings.SelectedNode = null;
-                Settings.IsBusy = true;
+                macroSet.Settings.SelectedNode = null;
+                macroSet.Settings.IsBusy = true;
                 var settings = SettingNodeManagerViewModel.FromJson(settingJson);
                 settings.Root = _mapper.Map<ParentSettingViewModel>(settings.Root);
-                SettingNodeManagerViewModel.MergeSettings(Settings.Root, settings.Root);
-                ((ParentSettingViewModel)Settings.Root).ResetDictionary();
-                
-                Settings.Import(settings);
-                Settings.IsBusy = false;
+                SettingNodeManagerViewModel.MergeSettings(macroSet.Settings.Root, settings.Root);
+                ((ParentSettingViewModel)macroSet.Settings.Root).ResetDictionary();
+
+                macroSet.Settings.Import(settings);
+                macroSet.Settings.IsBusy = false;
             }
 
             if (targetMacroSet.DailyTemplate is not null && (!macroSet.DailyTemplateLastUpdated.HasValue || macroSet.DailyTemplateLastUpdated < targetMacroSet.DailyTemplateLastUpdated))
             {
-                await Dailies.WaitForInitialization();
-                Dailies.Root.Data = (JsonObject)JsonObject.Parse(targetMacroSet.DailyTemplate, null, default);
-                Dailies.Save();
+                macroSet.Dailies.Root.Data = (JsonObject)JsonObject.Parse(targetMacroSet.DailyTemplate, null, default);
+                macroSet.Dailies.Save();
             }
 
             if (targetMacroSet.WeeklyTemplate is not null && (!macroSet.WeeklyTemplateLastUpdated.HasValue || macroSet.WeeklyTemplateLastUpdated < targetMacroSet.WeeklyTemplateLastUpdated))
             {
-                await Weeklies.WaitForInitialization();
-                Weeklies.Root.Data = (JsonObject)JsonObject.Parse(targetMacroSet.WeeklyTemplate, null, default);
-                Weeklies.Save();
+                macroSet.Weeklies.Root.Data = (JsonObject)JsonObject.Parse(targetMacroSet.WeeklyTemplate, null, default);
+                macroSet.Weeklies.Save();
             }
 
             _mapper.Map(targetMacroSet, macroSet, opt =>
@@ -627,7 +516,7 @@ public partial class MacroManagerViewModel : ObservableObject
         ShowExport = false;
     }
 
-    partial void OnSelectedMacroSetChanged(MacroSet value)
+    partial void OnSelectedMacroSetChanged(MacroSetViewModel value)
     {
         if (value == null)
         {
@@ -642,15 +531,10 @@ public partial class MacroManagerViewModel : ObservableObject
             Preferences.Default.Set(nameof(SelectedMacroSet), value.Name);
             WeakReferenceMessenger.Default.Send(value);
         }
-        OnPropertyChanged(nameof(Patterns));
-        OnPropertyChanged(nameof(Scripts));
-        OnPropertyChanged(nameof(Settings));
-        OnPropertyChanged(nameof(Dailies));
-        OnPropertyChanged(nameof(Weeklies));
     }
 
     [RelayCommand]
-    private void ClearMacroSetLastUpdated(MacroSet macroSet)
+    private void ClearMacroSetLastUpdated(MacroSetViewModel macroSet)
     {
         macroSet.MacroSetLastUpdated = null;
         _macroSetRepository.Update(macroSet);
@@ -658,7 +542,7 @@ public partial class MacroManagerViewModel : ObservableObject
     }
 
     [RelayCommand]
-    private void ClearPatternsLastUpdated(MacroSet macroSet)
+    private void ClearPatternsLastUpdated(MacroSetViewModel macroSet)
     {
         macroSet.PatternsLastUpdated = null;
         _macroSetRepository.Update(macroSet);
@@ -666,7 +550,7 @@ public partial class MacroManagerViewModel : ObservableObject
     }
 
     [RelayCommand]
-    private void ClearScriptsLastUpdated(MacroSet macroSet)
+    private void ClearScriptsLastUpdated(MacroSetViewModel macroSet)
     {
         macroSet.ScriptsLastUpdated = null;
         _macroSetRepository.Update(macroSet);
@@ -674,7 +558,7 @@ public partial class MacroManagerViewModel : ObservableObject
     }
 
     [RelayCommand]
-    private void ClearSettingsLastUpdated(MacroSet macroSet)
+    private void ClearSettingsLastUpdated(MacroSetViewModel macroSet)
     {
         macroSet.SettingsLastUpdated = null;
         _macroSetRepository.Update(macroSet);

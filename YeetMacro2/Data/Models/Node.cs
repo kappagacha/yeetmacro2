@@ -1,4 +1,5 @@
-﻿using System.Reflection;
+﻿using System.Collections.Concurrent;
+using System.Reflection;
 using System.Text.Json;
 using System.Text.Json.Serialization;
 using YeetMacro2.Data.Services;
@@ -69,7 +70,7 @@ public class NodeTypeMapping(Type key, Type value)
 [AttributeUsage(AttributeTargets.Class, AllowMultiple = true)]
 public class NodeTypeMappingAttribute(Type key, Type value) : Attribute
 {
-    static readonly Dictionary<Type, Dictionary<Type, Type>> _typeToMappings = [];
+    static readonly ConcurrentDictionary<Type, Dictionary<Type, Type>> _typeToMappings = [];
     public Type Key { get; } = key;
     public Type Value { get; } = value;
 
@@ -78,7 +79,7 @@ public class NodeTypeMappingAttribute(Type key, Type value) : Attribute
         if (!_typeToMappings.ContainsKey(typeof(T)))
         {
             var nodeTypeMappingAttribute = (IEnumerable<NodeTypeMappingAttribute>)typeof(T).GetCustomAttributes(typeof(NodeTypeMappingAttribute));
-            _typeToMappings.Add(typeof(T), new Dictionary<Type, Type>(nodeTypeMappingAttribute.Select(att => KeyValuePair.Create(att.Key, att.Value))));
+            _typeToMappings.TryAdd(typeof(T), new Dictionary<Type, Type>(nodeTypeMappingAttribute.Select(att => KeyValuePair.Create(att.Key, att.Value))));
         }
        
         return _typeToMappings[typeof(T)];
@@ -103,7 +104,6 @@ public class NodeValueConverter<TParent, TChild> : JsonConverter<TChild>
     where TParent : Node, IParentNode<TParent, TChild>, TChild, new()
     where TChild : Node
 {
-    //private readonly JsonConverter<TChild> _childConverter = (JsonConverter<TChild>)(options).GetConverter(typeof(TChild));
     private readonly Type _parentType = typeof(TParent);
     private readonly Type _childType = typeof(TChild);
     private readonly JsonSerializerOptions _options;

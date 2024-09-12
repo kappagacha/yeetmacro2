@@ -6,8 +6,7 @@
              xmlns:v="clr-namespace:YeetMacro2.Views"
              xmlns:conv="clr-namespace:YeetMacro2.Converters"
              x:Class="YeetMacro2.Views.TreeView"
-             x:DataType="vm:MacroManagerViewModel"
-             vm:ViewModelLocator.ViewModelType="{x:Type vm:MacroManagerViewModel}"
+             x:DataType="vm:MacroSetViewModel"
              xmlns:mi="clr-namespace:UraniumUI.Icons.MaterialIcons;assembly=UraniumUI.Icons.MaterialIcons"
              x:Name="thisView">
     <ContentView.Resources>

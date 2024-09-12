@@ -86,9 +86,14 @@ public partial class PatternNodeViewModel : PatternNode
     {
         get
         {
-            // Note: cache does not automatically invalidate
             if (!_nodeCache.ContainsKey(key))
             {
+                var child = base.Nodes.FirstOrDefault(n => n.Name == key) ?? throw new ArgumentException($"Invalid key: {key}");
+                _nodeCache.Add(key, child as PatternNodeViewModel);
+            }
+            else if (!base.Nodes.Contains(_nodeCache[key]))
+            {
+                _nodeCache.Remove(key);
                 var child = base.Nodes.FirstOrDefault(n => n.Name == key) ?? throw new ArgumentException($"Invalid key: {key}");
                 _nodeCache.Add(key, child as PatternNodeViewModel);
             }
@@ -100,6 +105,10 @@ public partial class PatternNodeViewModel : PatternNode
     public void ResetDictionary()
     {
         _nodeCache.Clear();
+        foreach (PatternNodeViewModel child in Nodes)
+        {
+            child.ResetDictionary();
+        }
     }
 }
 

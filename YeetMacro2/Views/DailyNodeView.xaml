@@ -3,9 +3,8 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:v="clr-namespace:YeetMacro2.Views"
              xmlns:vm="clr-namespace:YeetMacro2.ViewModels"
-             vm:ViewModelLocator.ViewModelType="{x:Type vm:MacroManagerViewModel}"
              BackgroundColor="{AppThemeBinding Light={StaticResource Background}, Dark={StaticResource BackgroundDark}}"
-             x:DataType="vm:MacroManagerViewModel"
+             x:DataType="vm:MacroSetViewModel"
              x:Class="YeetMacro2.Views.DailyNodeView"
              x:Name="thisView">
     <v:TodoNodeView Todos="{Binding Dailies}" IsSubView="{Binding IsSubView, Source={Reference thisView}}" />

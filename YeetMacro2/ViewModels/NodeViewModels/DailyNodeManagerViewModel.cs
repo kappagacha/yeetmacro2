@@ -49,7 +49,8 @@ public partial class DailyNodeManagerViewModel(
     {
         var utcNow = DateTime.UtcNow;
         var targetDate = DateOnly.FromDateTime(utcNow).AddDays(offset);
-        if (utcNow.Hour < MacroSet.DailyResetUtcHour)
+        var currentMacroSet = ServiceHelper.GetService<MacroManagerViewModel>().SelectedMacroSet;
+        if (utcNow.Hour < currentMacroSet.DailyResetUtcHour)
         {
             targetDate = targetDate.AddDays(-1);
         }

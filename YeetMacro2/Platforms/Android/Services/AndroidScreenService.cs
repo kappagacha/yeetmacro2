@@ -75,6 +75,12 @@ public class AndroidScreenService : IScreenService
         PropertyNamingPolicy = JsonNamingPolicy.CamelCase,
         TypeInfoResolver = PointPropertiesResolver.Instance
     };
+    readonly Dictionary<MacroSetViewModel, IShowable> _macroSetToPatternsView = new Dictionary<MacroSetViewModel, IShowable>();
+    readonly Dictionary<MacroSetViewModel, IShowable> _macroSetToSettingsView = new Dictionary<MacroSetViewModel, IShowable>();
+    readonly Dictionary<MacroSetViewModel, IShowable> _macroSetToScriptsView = new Dictionary<MacroSetViewModel, IShowable>();
+    readonly Dictionary<MacroSetViewModel, IShowable> _macroSetToDailiesView = new Dictionary<MacroSetViewModel, IShowable>();
+    readonly Dictionary<MacroSetViewModel, IShowable> _macroSetToWeekliesView = new Dictionary<MacroSetViewModel, IShowable>();
+
     public AndroidScreenService(ILogger<AndroidScreenService> logger, OpenCvService openCvService, 
         MediaProjectionService mediaProjectionService, IOcrService ocrService,
         YeetAccessibilityService accessibilityService, IToastService toastService)
@@ -100,15 +106,8 @@ public class AndroidScreenService : IScreenService
             {
                 _mediaProjectionService.Stop();
                 _mediaProjectionService.StopRecording();
+                CloseAll();
                 Close(AndroidWindowView.ActionView);
-                Close(AndroidWindowView.StatusPanelView);
-                Close(AndroidWindowView.MacroOverlayView);
-                Close(AndroidWindowView.PatternNodeView);
-                Close(AndroidWindowView.SettingNodeView);
-                Close(AndroidWindowView.DailyNodeView);
-                Close(AndroidWindowView.WeeklyNodeView);
-                Close(AndroidWindowView.TestView);
-                Close(AndroidWindowView.DebugDrawView);
                 CloseOverlayWindow();
             }
         });
@@ -501,6 +500,7 @@ public class AndroidScreenService : IScreenService
             return;
         }
 
+        var currentMacroSet = ServiceHelper.GetService<MacroManagerViewModel>().SelectedMacroSet;
         if (!_views.ContainsKey(windowView))
         {
             switch (windowView)
@@ -528,44 +528,66 @@ public class AndroidScreenService : IScreenService
                     _views.TryAdd(windowView, actionView);
                     break;
                 case AndroidWindowView.PatternNodeView:
-                    var patternsNodeView = new ResizeView(_context, _windowManager, this, new PatternNodeView());
-                    _views.TryAdd(windowView, patternsNodeView);
-                    patternsNodeView.OnShow = () => {
-                        if (_views.ContainsKey(AndroidWindowView.ScriptNodeView) && _views[AndroidWindowView.ScriptNodeView].IsShowing)
-                        {
-                            Close(AndroidWindowView.ScriptNodeView);
-                        }
-                        Show(AndroidWindowView.MacroOverlayView);
-                    };
-                    patternsNodeView.OnClose = () => { 
-                        Close(AndroidWindowView.MacroOverlayView); 
-                        ServiceHelper.GetService<AndriodHomeViewModel>().ShowPatternNodeView = false;
-                    };
-                    break;
-                case AndroidWindowView.ScriptNodeView:
-                    var scriptNodeView = new ResizeView(_context, _windowManager, this, new ScriptNodeView() { ShowExecuteButton = true });
-                    _views.TryAdd(windowView, scriptNodeView);
-                    scriptNodeView.OnShow = () => {
-                        Show(AndroidWindowView.MacroOverlayView);
-                        ServiceHelper.GetService<MacroManagerViewModel>().Dailies?.ResolveSubViewModelDate();
-                    };
-                    scriptNodeView.OnClose = () => Close(AndroidWindowView.MacroOverlayView);
-                    break;
+                    if (!_macroSetToPatternsView.ContainsKey(currentMacroSet))
+                    {
+                        var patternsNodeView = new ResizeView(_context, _windowManager, this, new PatternNodeView(){ MacroSet = currentMacroSet });
+                        patternsNodeView.OnShow = () => {
+                            if (_views.ContainsKey(AndroidWindowView.ScriptNodeView) && _views[AndroidWindowView.ScriptNodeView].IsShowing)
+                            {
+                                Close(AndroidWindowView.ScriptNodeView);
+                            }
+                            Show(AndroidWindowView.MacroOverlayView);
+                        };
+                        patternsNodeView.OnClose = () => {
+                            Close(AndroidWindowView.MacroOverlayView);
+                            ServiceHelper.GetService<AndriodHomeViewModel>().ShowPatternNodeView = false;
+                        };
+                        _macroSetToPatternsView.Add(currentMacroSet, patternsNodeView);
+                    }
+                    _macroSetToPatternsView[currentMacroSet].Show();
+                    return;
                 case AndroidWindowView.SettingNodeView:
-                    var settingNodeView = new ResizeView(_context, _windowManager, this, new SettingNodeView());
-                    _views.TryAdd(windowView, settingNodeView);
-                    settingNodeView.OnClose = () => ServiceHelper.GetService<AndriodHomeViewModel>().ShowSettingNodeView = false;
-                    break;
+                    if (!_macroSetToSettingsView.ContainsKey(currentMacroSet))
+                    {
+                        var settingNodeView = new ResizeView(_context, _windowManager, this, new SettingNodeView(){ MacroSet = currentMacroSet });
+                        settingNodeView.OnClose = () => ServiceHelper.GetService<AndriodHomeViewModel>().ShowSettingNodeView = false;
+                        _macroSetToSettingsView.TryAdd(currentMacroSet, settingNodeView);
+                    }
+                    _macroSetToSettingsView[currentMacroSet].Show();
+                    return;
+                case AndroidWindowView.ScriptNodeView:
+                    if (!_macroSetToScriptsView.ContainsKey(currentMacroSet))
+                    {
+                        var scriptNodeView = new ResizeView(_context, _windowManager, this, new ScriptNodeView() { MacroSet = currentMacroSet, ShowExecuteButton = true });
+                        scriptNodeView.OnShow = () => {
+                            Show(AndroidWindowView.MacroOverlayView);
+                            ServiceHelper.GetService<MacroManagerViewModel>().SelectedMacroSet.Dailies?.ResolveSubViewModelDate();
+                        };
+                        scriptNodeView.OnClose = () => Close(AndroidWindowView.MacroOverlayView);
+                        _macroSetToScriptsView.TryAdd(currentMacroSet, scriptNodeView);
+                    }
+                    _macroSetToScriptsView[currentMacroSet].Show();
+                    return;
                 case AndroidWindowView.DailyNodeView:
-                    var dailyNodeView = new ResizeView(_context, _windowManager, this, new DailyNodeView());
-                    _views.TryAdd(windowView, dailyNodeView);
-                    dailyNodeView.OnClose = () => ServiceHelper.GetService<AndriodHomeViewModel>().ShowDailyNodeView = false;
-                    break;
+                    if (!_macroSetToDailiesView.ContainsKey(currentMacroSet))
+                    {
+                        var dailyNodeView = new ResizeView(_context, _windowManager, this, new DailyNodeView() { MacroSet = currentMacroSet });
+                        _views.TryAdd(windowView, dailyNodeView);
+                        dailyNodeView.OnClose = () => ServiceHelper.GetService<AndriodHomeViewModel>().ShowDailyNodeView = false;
+                        _macroSetToDailiesView.TryAdd(currentMacroSet, dailyNodeView);
+                    }
+                    _macroSetToDailiesView[currentMacroSet].Show();
+                    return;
                 case AndroidWindowView.WeeklyNodeView:
-                    var weeklyNodeView = new ResizeView(_context, _windowManager, this, new WeeklyNodeView());
-                    _views.TryAdd(windowView, weeklyNodeView);
-                    weeklyNodeView.OnClose = () => ServiceHelper.GetService<AndriodHomeViewModel>().ShowWeeklyNodeView = false;
-                    break;
+                    if (!_macroSetToWeekliesView.ContainsKey(currentMacroSet))
+                    {
+                        var weeklyNodeView = new ResizeView(_context, _windowManager, this, new WeeklyNodeView() { MacroSet = currentMacroSet });
+                        _views.TryAdd(windowView, weeklyNodeView);
+                        weeklyNodeView.OnClose = () => ServiceHelper.GetService<AndriodHomeViewModel>().ShowWeeklyNodeView = false;
+                        _macroSetToWeekliesView.TryAdd(currentMacroSet, weeklyNodeView);
+                    }
+                    _macroSetToWeekliesView[currentMacroSet].Show();
+                    return;
                 case AndroidWindowView.PromptStringInputView:
                     var promptStringInputView = new FormsView(_context, _windowManager, new PromptStringInput());
                     _views.TryAdd(windowView, promptStringInputView);
@@ -656,16 +678,82 @@ public class AndroidScreenService : IScreenService
         }
     }
 
+    // Except action view and overlay
+    public void CloseAll()
+    {
+        Close(AndroidWindowView.StatusPanelView);
+        Close(AndroidWindowView.MacroOverlayView);
+        Close(AndroidWindowView.PatternNodeView);
+        Close(AndroidWindowView.SettingNodeView);
+        Close(AndroidWindowView.ScriptNodeView);
+        Close(AndroidWindowView.DailyNodeView);
+        Close(AndroidWindowView.WeeklyNodeView);
+        Close(AndroidWindowView.TestView);
+        Close(AndroidWindowView.DebugDrawView);
+    }
+
     public void Close(AndroidWindowView view)
     {
-        if (!_views.ContainsKey(view)) return;
-        _views[view].Close();
+        var currentMacroSet = ServiceHelper.GetService<MacroManagerViewModel>().SelectedMacroSet;
+        switch (view)
+        {
+            case AndroidWindowView.PatternNodeView:
+                if (!_macroSetToPatternsView.ContainsKey(currentMacroSet)) return;
+                _macroSetToPatternsView[currentMacroSet].Close();
+                return;
+            case AndroidWindowView.SettingNodeView:
+                if (!_macroSetToSettingsView.ContainsKey(currentMacroSet)) return;
+                _macroSetToSettingsView[currentMacroSet].Close();
+                return;
+            case AndroidWindowView.ScriptNodeView:
+                if (!_macroSetToScriptsView.ContainsKey(currentMacroSet)) return;
+                _macroSetToScriptsView[currentMacroSet].Close();
+                return;
+            case AndroidWindowView.DailyNodeView:
+                if (!_macroSetToDailiesView.ContainsKey(currentMacroSet)) return;
+                _macroSetToDailiesView[currentMacroSet].Close();
+                return;
+            case AndroidWindowView.WeeklyNodeView:
+                if (!_macroSetToWeekliesView.ContainsKey(currentMacroSet)) return;
+                _macroSetToWeekliesView[currentMacroSet].Close();
+                return;
+            default:
+                if (!_views.ContainsKey(view)) return;
+                _views[view].Close();
+                break;
+        }
     }
 
     public void Cancel(AndroidWindowView view)
     {
-        if (!_views.ContainsKey(view)) return;
-        _views[view]?.CloseCancel();
+        var currentMacroSet = ServiceHelper.GetService<MacroManagerViewModel>().SelectedMacroSet;
+        switch (view)
+        {
+            case AndroidWindowView.PatternNodeView:
+                if (!_macroSetToPatternsView.ContainsKey(currentMacroSet)) return;
+                _macroSetToPatternsView[currentMacroSet].CloseCancel();
+                return;
+            case AndroidWindowView.SettingNodeView:
+                if (!_macroSetToSettingsView.ContainsKey(currentMacroSet)) return;
+                _macroSetToSettingsView[currentMacroSet].CloseCancel();
+                return;
+            case AndroidWindowView.ScriptNodeView:
+                if (!_macroSetToScriptsView.ContainsKey(currentMacroSet)) return;
+                _macroSetToScriptsView[currentMacroSet].CloseCancel();
+                return;
+            case AndroidWindowView.DailyNodeView:
+                if (!_macroSetToDailiesView.ContainsKey(currentMacroSet)) return;
+                _macroSetToDailiesView[currentMacroSet].CloseCancel();
+                return;
+            case AndroidWindowView.WeeklyNodeView:
+                if (!_macroSetToWeekliesView.ContainsKey(currentMacroSet)) return;
+                _macroSetToWeekliesView[currentMacroSet].CloseCancel();
+                return;
+            default:
+                if (!_views.ContainsKey(view)) return;
+                _views[view].CloseCancel();
+                break;
+        }
     }
 
     // https://stackoverflow.com/questions/3407256/height-of-status-bar-in-android

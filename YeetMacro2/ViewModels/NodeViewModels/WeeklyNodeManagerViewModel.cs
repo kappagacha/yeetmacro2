@@ -49,12 +49,13 @@ public partial class WeeklyNodeManagerViewModel(
     {
         var utcNow = DateTime.UtcNow;
         var targetDate = DateOnly.FromDateTime(utcNow).AddDays(offset);
-        if (utcNow.Hour < MacroSet.DailyResetUtcHour)
+        var currentMacroSet = ServiceHelper.GetService<MacroManagerViewModel>().SelectedMacroSet;
+        if (utcNow.Hour < currentMacroSet.DailyResetUtcHour)
         {
             targetDate = targetDate.AddDays(-1);
         }
 
-        while (targetDate.DayOfWeek != MacroSet.WeeklyStartDay)
+        while (targetDate.DayOfWeek != currentMacroSet.WeeklyStartDay)
         {
             targetDate = targetDate.AddDays(-1);
         }
@@ -66,7 +67,8 @@ public partial class WeeklyNodeManagerViewModel(
     {
         var utcNow = DateTime.UtcNow;
         var targetDate = DateOnly.FromDateTime(utcNow);
-        if (utcNow.Hour < MacroSet.DailyResetUtcHour)
+        var currentMacroSet = ServiceHelper.GetService<MacroManagerViewModel>().SelectedMacroSet;
+        if (utcNow.Hour < currentMacroSet.DailyResetUtcHour)
         {
             targetDate = targetDate.AddDays(-1);
         }

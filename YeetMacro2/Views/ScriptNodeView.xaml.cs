@@ -1,3 +1,5 @@
+using YeetMacro2.ViewModels;
+
 namespace YeetMacro2.Views;
 
 public partial class ScriptNodeView : ContentView
@@ -9,6 +11,25 @@ public partial class ScriptNodeView : ContentView
         get { return (bool)GetValue(ShowExecuteButtonProperty); }
         set { SetValue(ShowExecuteButtonProperty, value); }
     }
+
+    public static readonly BindableProperty MacroSetProperty =
+        BindableProperty.Create(nameof(MacroSet), typeof(MacroSetViewModel), typeof(ScriptNodeView), null, propertyChanged: MacroSet_Changed);
+
+    public MacroSetViewModel MacroSet
+    {
+        get { return (MacroSetViewModel)GetValue(MacroSetProperty); }
+        set { SetValue(MacroSetProperty, value); }
+    }
+
+    private static void MacroSet_Changed(BindableObject bindable, object oldValue, object newValue)
+    {
+        if (newValue is MacroSetViewModel macroSet)
+        {
+            var scriptNodeView = bindable as ScriptNodeView;
+            scriptNodeView.BindingContext = macroSet;
+        }
+    }
+
     public ScriptNodeView()
     {
         InitializeComponent();

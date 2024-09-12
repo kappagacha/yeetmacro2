@@ -16,7 +16,6 @@ public partial class TodoNodeManagerViewModel : NodeManagerViewModel<TodoViewMod
     TodoJsonParentViewModel _currentSubViewModel;
     [ObservableProperty]
     TodoJsonElementViewModel _selectedJsonElement;
-    public MacroSetViewModel MacroSet { get; set; }
     string _targetSubViewName;
 
     readonly IRepository<TodoNode> _todoRepository;
