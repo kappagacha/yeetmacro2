@@ -24,7 +24,7 @@ const locationToPreset = {
 const location = 'left';
 const preset = locationToPreset[location];
 
-const presetRegex = new RegExp(preset.replace(/ /g, '\s*').replace(/1/g, '[1T]'));
+const presetRegex = new RegExp(preset.replace(/ /g, '\\s*').replace(/1/g, '[1T]'));
 
 if (macroService.FindPattern(patterns.battle.teamFormation[location].remove).IsSuccess) {
 	macroService.PollPattern(patterns.battle.teamFormation[location].remove, { DoClick: true, ClickOffset: { X: -100 }, InversePredicatePattern: patterns.battle.teamFormation[location].remove });
