@@ -46,7 +46,7 @@ const presetNames = presetCornerResult.Points.filter(p => p).map(p => {
 	const presetNamePattern = macroService.ClonePattern(patterns.battle.teamFormation.preset.name, { X: p.X + 13, Y: p.Y + 10, OffsetCalcType: 'None', Path: `battle.teamFormation.preset.name_x${p.X}_y${p.Y}` });
 	return {
 		point: { X: p.X, Y: p.Y },
-		name: macroService.GetText(presetNamePattern, preset + '0123456789')
+		name: macroService.GetText(presetNamePattern)
 	};
 });
 
