@@ -1,7 +1,7 @@
-// @raw-script
 // @position=9999
 // Apply equipmentPreset
 
+let teamSlot;
 if (!teamSlot) {
 	const slots = [1, 2, 3, 4, 5, 6, 7, 8, 9];
 	for (const s of slots) {
@@ -43,7 +43,7 @@ macroService.PollPattern(patterns.battle.teamFormation[location], { DoClick: tru
 macroService.PollPattern(patterns.battle.teamFormation.preset, { DoClick: true, PredicatePattern: patterns.battle.teamFormation.preset.presetList });
 const presetCornerResult = macroService.FindPattern(patterns.battle.teamFormation.preset.corner, { Limit: 10 });
 const presetNames = presetCornerResult.Points.filter(p => p).map(p => {
-	const presetNamePattern = macroService.ClonePattern(patterns.battle.teamFormation.preset.name, { X: p.X, Y: p.Y, OffsetCalcType: 'None', Path: `battle.teamFormation.preset.name_x${p.X}_y${p.Y}` });
+	const presetNamePattern = macroService.ClonePattern(patterns.battle.teamFormation.preset.name, { X: p.X + 13, Y: p.Y + 10, OffsetCalcType: 'None', Path: `battle.teamFormation.preset.name_x${p.X}_y${p.Y}` });
 	return {
 		point: { X: p.X, Y: p.Y },
 		name: macroService.GetText(presetNamePattern, preset)
