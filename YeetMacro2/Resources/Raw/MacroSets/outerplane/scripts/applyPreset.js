@@ -40,7 +40,7 @@ function applyPreset(teamSlot) {
 		}
 		
 		macroService.PollPattern(patterns.battle.teamFormation[location], { DoClick: true, HoldDurationMs: 1_000, PredicatePattern: patterns.battle.teamFormation.preset });
-		const currentPreset = macroService.GetText(patterns.battle.teamFormation.preset.current, preset);
+		const currentPreset = macroService.GetText(patterns.battle.teamFormation.preset.current, preset + '0123456789');
 		if (currentPreset.replace(/ /g, '').match(presetRegex)) {
 			macroService.PollPattern(patterns.battle.teamFormation.preset.topLeft, { DoClick: true, ClickOffset: { X: -60, Y: 50 }, PredicatePattern: patterns.general.back });
 			continue;
@@ -52,7 +52,7 @@ function applyPreset(teamSlot) {
 			const presetNamePattern = macroService.ClonePattern(patterns.battle.teamFormation.preset.name, { X: p.X + 13, Y: p.Y + 10, OffsetCalcType: 'None', Path: `battle.teamFormation.preset.name_x${p.X}_y${p.Y}` });
 			return {
 				point: { X: p.X, Y: p.Y },
-				name: macroService.GetText(presetNamePattern, preset)
+				name: macroService.GetText(presetNamePattern, preset + '0123456789')
 			};
 		});
 		const targetPreset = presetNames.find(pn => pn.name.replace(/ /g, '').match(presetRegex));
