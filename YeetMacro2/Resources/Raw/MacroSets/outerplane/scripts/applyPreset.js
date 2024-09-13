@@ -55,7 +55,7 @@ function applyPreset(teamSlot) {
 				name: macroService.GetText(presetNamePattern, preset + '0123456789')
 			};
 		});
-		const targetPreset = presetNames.find(pn => pn.name.replace(/ /g, '').match(presetRegex));
+		const targetPreset = presetNames.sort((a, b) => a.Y - b.Y).find(pn => pn.name.replace(/ /g, '').match(presetRegex));
 		if (!targetPreset) throw new Error(`Unable to find target preset '${preset}' for slot ${teamSlot} ${location}`);
 
 		macroService.PollPoint(targetPreset.point, { DoClick: true, PredicatePattern: patterns.battle.teamFormation.preset.ok });
