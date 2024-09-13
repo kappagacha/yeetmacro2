@@ -271,8 +271,7 @@ public partial class MacroSetViewModel : MacroSet
         {
             Console.WriteLine($"[*****YeetMacro*****] MacroManagerViewModel ExecuteScript");
             WeakReferenceMessenger.Default.Send(new ScriptEventMessage(new ScriptEvent() { Type = ScriptEventType.Started }));
-            // TODO: simplify scriptService parameters
-            var result = _scriptService.RunScript(scriptNode, this.Scripts, this, this.Patterns, this.Settings, this.Dailies, this.Weeklies);
+            var result = _scriptService.RunScript(scriptNode, this);
             WeakReferenceMessenger.Default.Send(new ScriptEventMessage(new ScriptEvent() { Type = ScriptEventType.Finished, Result = result }));
             IsScriptRunning = false;
         });

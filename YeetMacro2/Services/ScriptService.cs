@@ -15,10 +15,7 @@ namespace YeetMacro2.Services;
 
 public interface IScriptService
 {
-    string RunScript(ScriptNode targetScript, ScriptNodeManagerViewModel scriptNodeManager, 
-        MacroSet macroSet, PatternNodeManagerViewModel patternNodeManager, 
-        SettingNodeManagerViewModel settingNodeManager, DailyNodeManagerViewModel dailyNodeManager,
-        WeeklyNodeManagerViewModel weeklyNodeManager);
+    string RunScript(ScriptNode targetScript, MacroSetViewModel macroSet);
     void Stop();
 }
 
@@ -59,10 +56,7 @@ public class ScriptService: IScriptService
         Thread.Sleep(ms);
     }
 
-    public string RunScript(ScriptNode targetScript, ScriptNodeManagerViewModel scriptNodeManger, 
-        MacroSet macroSet, PatternNodeManagerViewModel patternNodeManager, 
-        SettingNodeManagerViewModel settingNodeManager, DailyNodeManagerViewModel dailyNodeManager,
-        WeeklyNodeManagerViewModel weeklyNodeManager)
+    public string RunScript(ScriptNode targetScript, MacroSetViewModel macroSet)
     {
         string result = String.Empty;
         if (_macroService.IsRunning) return result;
@@ -111,7 +105,7 @@ public class ScriptService: IScriptService
         _macroService.IsRunning = true;
         try
         {
-            foreach (var script in scriptNodeManger.Root.Nodes)
+            foreach (var script in macroSet.Scripts.Root.Nodes)
             {
                 if (script.Text.StartsWith("// @raw-script"))
                 {
@@ -122,10 +116,10 @@ public class ScriptService: IScriptService
                     _engine.Execute($"function {script.Name}() {{ {script.Text} }}");
                 }
             }
-            _engine.SetValue("patterns", patternNodeManager.Root);
-            _engine.SetValue("settings", settingNodeManager.Root);
-            _engine.SetValue("dailyManager", dailyNodeManager);
-            _engine.SetValue("weeklyManager", weeklyNodeManager);
+            _engine.SetValue("patterns", macroSet.Patterns.Root);
+            _engine.SetValue("settings", macroSet.Settings.Root);
+            _engine.SetValue("dailyManager", macroSet.Dailies);
+            _engine.SetValue("weeklyManager", macroSet.Weeklies);
 
             var jsResult = _engine.Evaluate($"{{\n{targetScript.Text}\n {(targetScript.Text.StartsWith("// @raw-script") ? targetScript.Name + "()\n" : "")}}}");
 

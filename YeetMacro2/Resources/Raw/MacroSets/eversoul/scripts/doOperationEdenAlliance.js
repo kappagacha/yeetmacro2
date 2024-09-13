@@ -16,7 +16,11 @@ while (macroService.IsRunning) {
 			break;
 		case 'titles.adventure':
 			logger.info('doOperationEdenAlliance: click operation eden alliance');
-			macroService.PollPattern(patterns.adventure.tabs.specialMissions, { DoClick: true, PredicatePattern: patterns.operationEdenAlliance });
+			const operationEdenAllianceResult = macroService.PollPattern(patterns.adventure.tabs.specialMissions, { DoClick: true, PredicatePattern: [patterns.operationEdenAlliance, patterns.operationEdenAlliance.disabled] });
+			if (macroService.IsRunning && operationEdenAllianceResult.PredicatePath === 'operationEdenAlliance.disabled') {
+				daily.doOperationEdenAlliance.done.IsChecked = true;
+				return;
+			}
 			macroService.PollPattern(patterns.operationEdenAlliance, { DoClick: true, PredicatePattern: patterns.titles.operationEdenAlliance });
 			break;
 		case 'titles.operationEdenAlliance':

@@ -84,6 +84,11 @@ if (settings.doDailies.doOperationEdenAlliance.Value) {
     goToLobby();
 }
 
+if (settings.doDailies.sweepGuildRaid.Value) {
+    sweepGuildRaid();
+    goToLobby();
+}
+
 if (settings.doDailies.levelSoulOnce.Value) {
     levelSoulOnce();
     goToLobby();
