@@ -21,7 +21,7 @@ const locationToPreset = {
 	bottom: settings.applyPreset[`teamSlot${teamSlot}`].bottom.IsEnabled && settings.applyPreset[`teamSlot${teamSlot}`].bottom.Value,
 };
 
-const location = 'left';
+const location = 'top';
 const preset = locationToPreset[location];
 
 const presetRegex = new RegExp(preset.replace(/ /g, '\\s*').replace(/1/g, '[1T]'));
