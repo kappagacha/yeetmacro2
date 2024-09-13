@@ -24,7 +24,7 @@ const locationToPreset = {
 const location = 'left';
 const preset = locationToPreset[location];
 
-const presetRegex = new RegExp(preset.replace(/ /g, '\s*'));
+const presetRegex = new RegExp(preset.replace(/ /g, '\s*').replace(/1/g, '[1T]'));
 
 if (macroService.FindPattern(patterns.battle.teamFormation[location].remove).IsSuccess) {
 	macroService.PollPattern(patterns.battle.teamFormation[location].remove, { DoClick: true, ClickOffset: { X: -100 }, InversePredicatePattern: patterns.battle.teamFormation[location].remove });
@@ -35,7 +35,7 @@ if (macroService.FindPattern(patterns.battle.teamFormation[location].move).IsSuc
 
 macroService.PollPattern(patterns.battle.teamFormation[location], { DoClick: true, HoldDurationMs: 1_000, PredicatePattern: patterns.battle.teamFormation.preset });
 //const currentPreset = macroService.GetText(patterns.battle.teamFormation.preset.current);
-//if (currentPreset.replace(/ /g, '').match(presetRegex)) {
+//if (currentPreset.replace(/ /g, '').match(presetRegex, preset)) {
 //	macroService.PollPattern(patterns.battle.teamFormation.preset.topLeft, { DoClick: true, ClickOffset: { X: -60, Y: 50 }, PredicatePattern: patterns.general.back });
 //	continue;
 //}
@@ -50,7 +50,7 @@ const presetNames = presetCornerResult.Points.filter(p => p).map(p => {
 	};
 });
 
-return { preset, presetNames };
+return { preset, presetRegex, presetNames };
 //const targetPreset = presetNames.find(pn => pn.name.replace(/ /g, '').match(presetRegex));
 //if (!targetPreset) throw new Error(`Unable to find target preset '${preset}' for slot ${teamSlot} ${location}`);
 
