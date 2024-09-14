@@ -6,13 +6,13 @@
     "$path": "doArena",
     "cpThreshold": {
       "$type": "enabledInteger",
-      "$value": 550000,
-      "$position": 0,
       "$defaultValue": 550000,
-      "$name": "cpThreshold",
-      "$path": "doArena.cpThreshold",
+      "$value": 550000,
+      "$isEnabled": false,
+      "$position": 0,
       "$increment": 10000,
-      "$isEnabled": false
+      "$name": "cpThreshold",
+      "$path": "doArena.cpThreshold"
     }
   },
   "doChampsArena": {
@@ -22,13 +22,13 @@
     "$path": "doChampsArena",
     "cpThreshold": {
       "$type": "enabledInteger",
-      "$value": 1300000,
-      "$position": 0,
       "$defaultValue": 1300000,
-      "$name": "cpThreshold",
-      "$path": "doChampsArena.cpThreshold",
+      "$value": 1300000,
+      "$isEnabled": false,
+      "$position": 0,
       "$increment": 10000,
-      "$isEnabled": false
+      "$name": "cpThreshold",
+      "$path": "doChampsArena.cpThreshold"
     }
   },
   "doOutings": {
@@ -39,7 +39,6 @@
     "targetSoul": {
       "$type": "pattern",
       "$defaultValue": {
-        "$position": 0,
         "$patterns": [
           {
             "rect": {
@@ -74,12 +73,12 @@
             "position": 0
           }
         ],
+        "$isMultiPattern": false,
+        "$position": 0,
         "$name": null,
-        "$path": null,
-        "$isMultiPattern": false
+        "$path": null
       },
       "$value": {
-        "$position": 0,
         "$patterns": [
           {
             "rect": {
@@ -114,9 +113,10 @@
             "position": 0
           }
         ],
+        "$isMultiPattern": false,
+        "$position": 0,
         "$name": null,
-        "$path": null,
-        "$isMultiPattern": false
+        "$path": null
       },
       "$position": 0,
       "$name": "targetSoul",
@@ -124,13 +124,13 @@
     },
     "targetBondLevel": {
       "$type": "enabledInteger",
-      "$value": 10,
-      "$position": 0,
       "$defaultValue": 10,
-      "$name": "targetBondLevel",
-      "$path": "doOutings.targetBondLevel",
+      "$value": 10,
+      "$isEnabled": true,
+      "$position": 0,
       "$increment": 1,
-      "$isEnabled": true
+      "$name": "targetBondLevel",
+      "$path": "doOutings.targetBondLevel"
     }
   },
   "doFriends": {
@@ -165,7 +165,6 @@
     "hireTarget1": {
       "$type": "pattern",
       "$defaultValue": {
-        "$position": 0,
         "$patterns": [
           {
             "rect": {
@@ -200,12 +199,12 @@
             "position": 0
           }
         ],
+        "$isMultiPattern": false,
+        "$position": 0,
         "$name": null,
-        "$path": null,
-        "$isMultiPattern": false
+        "$path": null
       },
       "$value": {
-        "$position": 0,
         "$patterns": [
           {
             "rect": {
@@ -240,9 +239,10 @@
             "position": 0
           }
         ],
+        "$isMultiPattern": false,
+        "$position": 0,
         "$name": null,
-        "$path": null,
-        "$isMultiPattern": false
+        "$path": null
       },
       "$position": 0,
       "$name": "hireTarget1",
@@ -251,7 +251,6 @@
     "hireTarget2": {
       "$type": "pattern",
       "$defaultValue": {
-        "$position": 0,
         "$patterns": [
           {
             "rect": {
@@ -286,12 +285,12 @@
             "position": 0
           }
         ],
+        "$isMultiPattern": false,
+        "$position": 0,
         "$name": null,
-        "$path": null,
-        "$isMultiPattern": false
+        "$path": null
       },
       "$value": {
-        "$position": 0,
         "$patterns": [
           {
             "rect": {
@@ -326,9 +325,10 @@
             "position": 0
           }
         ],
+        "$isMultiPattern": false,
+        "$position": 0,
         "$name": null,
-        "$path": null,
-        "$isMultiPattern": false
+        "$path": null
       },
       "$position": 0,
       "$name": "hireTarget2",
@@ -337,7 +337,6 @@
     "hireTarget3": {
       "$type": "pattern",
       "$defaultValue": {
-        "$position": 0,
         "$patterns": [
           {
             "rect": {
@@ -372,12 +371,12 @@
             "position": 0
           }
         ],
+        "$isMultiPattern": false,
+        "$position": 0,
         "$name": null,
-        "$path": null,
-        "$isMultiPattern": false
+        "$path": null
       },
       "$value": {
-        "$position": 0,
         "$patterns": [
           {
             "rect": {
@@ -412,9 +411,10 @@
             "position": 0
           }
         ],
+        "$isMultiPattern": false,
+        "$position": 0,
         "$name": null,
-        "$path": null,
-        "$isMultiPattern": false
+        "$path": null
       },
       "$position": 0,
       "$name": "hireTarget3",
@@ -423,7 +423,6 @@
     "hireTarget4": {
       "$type": "pattern",
       "$defaultValue": {
-        "$position": 0,
         "$patterns": [
           {
             "rect": {
@@ -458,12 +457,12 @@
             "position": 0
           }
         ],
+        "$isMultiPattern": false,
+        "$position": 0,
         "$name": null,
-        "$path": null,
-        "$isMultiPattern": false
+        "$path": null
       },
       "$value": {
-        "$position": 0,
         "$patterns": [
           {
             "rect": {
@@ -498,9 +497,10 @@
             "position": 0
           }
         ],
+        "$isMultiPattern": false,
+        "$position": 0,
         "$name": null,
-        "$path": null,
-        "$isMultiPattern": false
+        "$path": null
       },
       "$position": 0,
       "$name": "hireTarget4",
@@ -509,7 +509,6 @@
     "hireTarget5": {
       "$type": "pattern",
       "$defaultValue": {
-        "$position": 0,
         "$patterns": [
           {
             "rect": {
@@ -544,12 +543,12 @@
             "position": 0
           }
         ],
+        "$isMultiPattern": false,
+        "$position": 0,
         "$name": null,
-        "$path": null,
-        "$isMultiPattern": false
+        "$path": null
       },
       "$value": {
-        "$position": 0,
         "$patterns": [
           {
             "rect": {
@@ -584,9 +583,10 @@
             "position": 0
           }
         ],
+        "$isMultiPattern": false,
+        "$position": 0,
         "$name": null,
-        "$path": null,
-        "$isMultiPattern": false
+        "$path": null
       },
       "$position": 0,
       "$name": "hireTarget5",
@@ -739,11 +739,19 @@
       "$name": "doOperationEdenAlliance",
       "$path": "doDailies.doOperationEdenAlliance"
     },
-    "levelSoulOnce": {
+    "sweepGuildRaid": {
       "$type": "boolean",
       "$defaultValue": true,
       "$value": true,
       "$position": 15,
+      "$name": "sweepGuildRaid",
+      "$path": "doDailies.sweepGuildRaid"
+    },
+    "levelSoulOnce": {
+      "$type": "boolean",
+      "$defaultValue": true,
+      "$value": true,
+      "$position": 16,
       "$name": "levelSoulOnce",
       "$path": "doDailies.levelSoulOnce"
     },
@@ -751,7 +759,7 @@
       "$type": "boolean",
       "$defaultValue": true,
       "$value": true,
-      "$position": 16,
+      "$position": 17,
       "$name": "claimDailyQuests",
       "$path": "doDailies.claimDailyQuests"
     },
@@ -759,7 +767,7 @@
       "$type": "boolean",
       "$defaultValue": true,
       "$value": true,
-      "$position": 17,
+      "$position": 18,
       "$name": "doOutings",
       "$path": "doDailies.doOutings"
     }
@@ -940,7 +948,6 @@
     "eventRaidPattern": {
       "$type": "pattern",
       "$defaultValue": {
-        "$position": 0,
         "$patterns": [
           {
             "rect": {
@@ -975,12 +982,12 @@
             "position": 0
           }
         ],
+        "$isMultiPattern": false,
+        "$position": 0,
         "$name": null,
-        "$path": null,
-        "$isMultiPattern": false
+        "$path": null
       },
       "$value": {
-        "$position": 0,
         "$patterns": [
           {
             "rect": {
@@ -1015,9 +1022,10 @@
             "position": 0
           }
         ],
+        "$isMultiPattern": false,
+        "$position": 0,
         "$name": null,
-        "$path": null,
-        "$isMultiPattern": false
+        "$path": null
       },
       "$position": 1,
       "$name": "eventRaidPattern",
@@ -1034,7 +1042,6 @@
     "eventStagePattern": {
       "$type": "pattern",
       "$defaultValue": {
-        "$position": 0,
         "$patterns": [
           {
             "rect": {
@@ -1069,12 +1076,12 @@
             "position": 0
           }
         ],
+        "$isMultiPattern": false,
+        "$position": 0,
         "$name": null,
-        "$path": null,
-        "$isMultiPattern": false
+        "$path": null
       },
       "$value": {
-        "$position": 0,
         "$patterns": [
           {
             "rect": {
@@ -1109,9 +1116,10 @@
             "position": 0
           }
         ],
+        "$isMultiPattern": false,
+        "$position": 0,
         "$name": null,
-        "$path": null,
-        "$isMultiPattern": false
+        "$path": null
       },
       "$position": 3,
       "$name": "eventStagePattern",

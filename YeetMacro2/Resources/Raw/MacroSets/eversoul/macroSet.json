@@ -4,23 +4,23 @@
     "width": 1920,
     "height": 1080
   },
-  "defaultLocation": {
-    "x": 500,
-    "y": 0
-  },
   "supportsGreaterWidth": true,
   "supportsGreaterHeight": false,
   "package": "com.kakaogames.eversoul",
   "source": "online:eversoul",
-  "macroSetLastUpdated": "2024-09-03T18:37:19.245212-05:00",
-  "patternsLastUpdated": "2024-09-03T18:37:19.2452853-05:00",
-  "scriptsLastUpdated": "2024-09-03T18:37:19.2453009-05:00",
-  "settingsLastUpdated": "2024-09-03T18:37:19.2453122-05:00",
-  "weeklyTemplateLastUpdated": "2024-09-03T18:37:19.245397-05:00",
-  "dailyTemplateLastUpdated": "2024-09-03T18:37:19.2453775-05:00",
+  "macroSetLastUpdated": "2024-09-13T22:18:37.7220399-05:00",
+  "patternsLastUpdated": "2024-09-13T22:18:37.7227644-05:00",
+  "scriptsLastUpdated": "2024-09-13T22:18:37.7229568-05:00",
+  "settingsLastUpdated": "2024-09-13T22:18:37.7231183-05:00",
+  "dailyTemplateLastUpdated": "2024-09-13T22:18:38.3451063-05:00",
+  "weeklyTemplateLastUpdated": "2024-09-13T22:18:38.3821328-05:00",
   "description": "Requirement: Settings =\u003E Graphics =\u003E Resolution =\u003E High",
-  "dailyTemplate": "{\u0022doArena\u0022:{\u0022done\u0022:false,\u0022count\u0022:0},\u0022doChampsArena\u0022:{\u0022done\u0022:false,\u0022count\u0022:0},\u0022doOutings\u0022:{\u0022done\u0022:false,\u0022count\u0022:0},\u0022claimFreeShop\u0022:{\u0022done\u0022:false},\u0022claimFreeSummon\u0022:{\u0022done\u0022:false,\u0022doOneArtifact\u0022:false},\u0022claimLoot\u0022:{\u0022count\u0022:0},\u0022claimMail\u0022:{\u0022done\u0022:false},\u0022claimChampsArena\u0022:{\u0022count\u0022:0},\u0022doPartTimeJobAndRest\u0022:{\u0022count\u0022:0},\u0022doFriends\u0022:{\u0022count\u0022:0,\u0022isHiring\u0022:{\u0022done\u0022:false}},\u0022doExpeditions\u0022:{\u0022done\u0022:false},\u0022doShop\u0022:{\u0022done\u0022:false,\u0022doArtifact\u0022:{\u0022done\u0022:false},\u0022evilSoulShop\u0022:{\u0022advancedKeepsakeEnhanceStone\u0022:false}},\u0022sweepDecoyOperation\u0022:{\u0022done\u0022:false},\u0022sweepDimensionalLabyrinth\u0022:{\u0022done\u0022:false},\u0022sweepGuildRaid\u0022:{\u0022done\u0022:false},\u0022doOperationEdenAlliance\u0022:{\u0022done\u0022:false},\u0022sweepEvent\u0022:{\u0022done\u0022:false,\u0022eventRaid\u0022:false,\u0022eventStage\u0022:false},\u0022levelSoulOnce\u0022:{\u0022done\u0022:false},\u0022claimDailyQuests\u0022:{\u0022done\u0022:false}}",
   "dailyResetUtcHour": 0,
-  "weeklyTemplate": "{}",
-  "weeklyStartDay": "Monday"
+  "weeklyStartDay": "Monday",
+  "defaultLocation": {
+    "x": 500,
+    "y": 0
+  },
+  "dailyTemplate": "{\u0022doArena\u0022:{\u0022done\u0022:false,\u0022count\u0022:0},\u0022doChampsArena\u0022:{\u0022done\u0022:false,\u0022count\u0022:0},\u0022doOutings\u0022:{\u0022done\u0022:false,\u0022count\u0022:0},\u0022claimFreeShop\u0022:{\u0022done\u0022:false},\u0022claimFreeSummon\u0022:{\u0022done\u0022:false,\u0022doOneArtifact\u0022:false},\u0022claimLoot\u0022:{\u0022count\u0022:0},\u0022claimMail\u0022:{\u0022done\u0022:false},\u0022claimChampsArena\u0022:{\u0022count\u0022:0},\u0022doPartTimeJobAndRest\u0022:{\u0022count\u0022:0},\u0022doFriends\u0022:{\u0022count\u0022:0,\u0022isHiring\u0022:{\u0022done\u0022:false}},\u0022doExpeditions\u0022:{\u0022done\u0022:false},\u0022doShop\u0022:{\u0022done\u0022:false,\u0022doArtifact\u0022:{\u0022done\u0022:false},\u0022evilSoulShop\u0022:{\u0022advancedKeepsakeEnhanceStone\u0022:false}},\u0022sweepDecoyOperation\u0022:{\u0022done\u0022:false},\u0022sweepDimensionalLabyrinth\u0022:{\u0022done\u0022:false},\u0022sweepGuildRaid\u0022:{\u0022done\u0022:false},\u0022doOperationEdenAlliance\u0022:{\u0022done\u0022:false},\u0022sweepEvent\u0022:{\u0022done\u0022:false,\u0022eventRaid\u0022:false,\u0022eventStage\u0022:false},\u0022levelSoulOnce\u0022:{\u0022done\u0022:false},\u0022claimDailyQuests\u0022:{\u0022done\u0022:false}}",
+  "weeklyTemplate": "{}"
 }

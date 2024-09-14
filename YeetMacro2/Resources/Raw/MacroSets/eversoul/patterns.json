@@ -1,12 +1,11 @@
 {
   "titles": {
-    "$position": 0,
     "$patterns": [],
+    "$isMultiPattern": false,
+    "$position": 0,
     "$name": "titles",
     "$path": "titles",
-    "$isMultiPattern": false,
     "outingGo": {
-      "$position": 0,
       "$patterns": [
         {
           "rect": {
@@ -41,12 +40,12 @@
           "position": 0
         }
       ],
+      "$isMultiPattern": false,
+      "$position": 0,
       "$name": "outingGo",
-      "$path": "titles.outingGo",
-      "$isMultiPattern": false
+      "$path": "titles.outingGo"
     },
     "adventure": {
-      "$position": 0,
       "$patterns": [
         {
           "rect": {
@@ -81,12 +80,12 @@
           "position": 0
         }
       ],
+      "$isMultiPattern": false,
+      "$position": 0,
       "$name": "adventure",
-      "$path": "titles.adventure",
-      "$isMultiPattern": false
+      "$path": "titles.adventure"
     },
     "gateBreakthrough": {
-      "$position": 0,
       "$patterns": [
         {
           "rect": {
@@ -121,12 +120,12 @@
           "position": 0
         }
       ],
+      "$isMultiPattern": false,
+      "$position": 0,
       "$name": "gateBreakthrough",
-      "$path": "titles.gateBreakthrough",
-      "$isMultiPattern": false
+      "$path": "titles.gateBreakthrough"
     },
     "menu": {
-      "$position": 0,
       "$patterns": [
         {
           "rect": {
@@ -161,12 +160,12 @@
           "position": 0
         }
       ],
+      "$isMultiPattern": false,
+      "$position": 0,
       "$name": "menu",
-      "$path": "titles.menu",
-      "$isMultiPattern": false
+      "$path": "titles.menu"
     },
     "friends": {
-      "$position": 0,
       "$patterns": [
         {
           "rect": {
@@ -201,12 +200,12 @@
           "position": 0
         }
       ],
+      "$isMultiPattern": false,
+      "$position": 0,
       "$name": "friends",
-      "$path": "titles.friends",
-      "$isMultiPattern": false
+      "$path": "titles.friends"
     },
     "loot": {
-      "$position": 0,
       "$patterns": [
         {
           "rect": {
@@ -241,12 +240,12 @@
           "position": 0
         }
       ],
+      "$isMultiPattern": false,
+      "$position": 0,
       "$name": "loot",
-      "$path": "titles.loot",
-      "$isMultiPattern": false
+      "$path": "titles.loot"
     },
     "mailbox": {
-      "$position": 0,
       "$patterns": [
         {
           "rect": {
@@ -281,12 +280,12 @@
           "position": 0
         }
       ],
+      "$isMultiPattern": false,
+      "$position": 0,
       "$name": "mailbox",
-      "$path": "titles.mailbox",
-      "$isMultiPattern": false
+      "$path": "titles.mailbox"
     },
     "visitTown": {
-      "$position": 0,
       "$patterns": [
         {
           "rect": {
@@ -321,12 +320,12 @@
           "position": 0
         }
       ],
+      "$isMultiPattern": false,
+      "$position": 0,
       "$name": "visitTown",
-      "$path": "titles.visitTown",
-      "$isMultiPattern": false
+      "$path": "titles.visitTown"
     },
     "decoyOperation": {
-      "$position": 0,
       "$patterns": [
         {
           "rect": {
@@ -361,12 +360,12 @@
           "position": 0
         }
       ],
+      "$isMultiPattern": false,
+      "$position": 0,
       "$name": "decoyOperation",
-      "$path": "titles.decoyOperation",
-      "$isMultiPattern": false
+      "$path": "titles.decoyOperation"
     },
     "dimensionalLabyrinth": {
-      "$position": 0,
       "$patterns": [
         {
           "rect": {
@@ -401,12 +400,12 @@
           "position": 0
         }
       ],
+      "$isMultiPattern": false,
+      "$position": 0,
       "$name": "dimensionalLabyrinth",
-      "$path": "titles.dimensionalLabyrinth",
-      "$isMultiPattern": false
+      "$path": "titles.dimensionalLabyrinth"
     },
     "operationEdenAlliance": {
-      "$position": 0,
       "$patterns": [
         {
           "rect": {
@@ -441,12 +440,12 @@
           "position": 0
         }
       ],
+      "$isMultiPattern": false,
+      "$position": 0,
       "$name": "operationEdenAlliance",
-      "$path": "titles.operationEdenAlliance",
-      "$isMultiPattern": false
+      "$path": "titles.operationEdenAlliance"
     },
     "quest": {
-      "$position": 0,
       "$patterns": [
         {
           "rect": {
@@ -481,25 +480,25 @@
           "position": 0
         }
       ],
+      "$isMultiPattern": false,
+      "$position": 0,
       "$name": "quest",
-      "$path": "titles.quest",
-      "$isMultiPattern": false
+      "$path": "titles.quest"
     }
   },
   "adventure": {
-    "$position": 0,
     "$patterns": [],
+    "$isMultiPattern": false,
+    "$position": 0,
     "$name": "adventure",
     "$path": "adventure",
-    "$isMultiPattern": false,
     "tabs": {
-      "$position": 0,
       "$patterns": [],
+      "$isMultiPattern": false,
+      "$position": 0,
       "$name": "tabs",
       "$path": "adventure.tabs",
-      "$isMultiPattern": false,
       "arena": {
-        "$position": 0,
         "$patterns": [
           {
             "rect": {
@@ -534,12 +533,12 @@
             "position": 0
           }
         ],
+        "$isMultiPattern": false,
+        "$position": 0,
         "$name": "arena",
-        "$path": "adventure.tabs.arena",
-        "$isMultiPattern": false
+        "$path": "adventure.tabs.arena"
       },
       "specialMissions": {
-        "$position": 0,
         "$patterns": [
           {
             "rect": {
@@ -574,13 +573,13 @@
             "position": 0
           }
         ],
+        "$isMultiPattern": false,
+        "$position": 0,
         "$name": "specialMissions",
-        "$path": "adventure.tabs.specialMissions",
-        "$isMultiPattern": false
+        "$path": "adventure.tabs.specialMissions"
       }
     },
     "arena": {
-      "$position": 0,
       "$patterns": [
         {
           "rect": {
@@ -615,11 +614,11 @@
           "position": 0
         }
       ],
+      "$isMultiPattern": false,
+      "$position": 0,
       "$name": "arena",
       "$path": "adventure.arena",
-      "$isMultiPattern": false,
       "startMatch": {
-        "$position": 0,
         "$patterns": [
           {
             "rect": {
@@ -654,18 +653,18 @@
             "position": 0
           }
         ],
+        "$isMultiPattern": false,
+        "$position": 0,
         "$name": "startMatch",
-        "$path": "adventure.arena.startMatch",
-        "$isMultiPattern": false
+        "$path": "adventure.arena.startMatch"
       },
       "match1": {
-        "$position": 0,
         "$patterns": [],
+        "$isMultiPattern": false,
+        "$position": 0,
         "$name": "match1",
         "$path": "adventure.arena.match1",
-        "$isMultiPattern": false,
         "cp": {
-          "$position": 0,
           "$patterns": [
             {
               "rect": {
@@ -700,12 +699,12 @@
               "position": 0
             }
           ],
+          "$isMultiPattern": false,
+          "$position": 0,
           "$name": "cp",
-          "$path": "adventure.arena.match1.cp",
-          "$isMultiPattern": false
+          "$path": "adventure.arena.match1.cp"
         },
         "challenge": {
-          "$position": 0,
           "$patterns": [
             {
               "rect": {
@@ -740,19 +739,19 @@
               "position": 0
             }
           ],
+          "$isMultiPattern": false,
+          "$position": 0,
           "$name": "challenge",
-          "$path": "adventure.arena.match1.challenge",
-          "$isMultiPattern": false
+          "$path": "adventure.arena.match1.challenge"
         }
       },
       "match2": {
-        "$position": 0,
         "$patterns": [],
+        "$isMultiPattern": false,
+        "$position": 0,
         "$name": "match2",
         "$path": "adventure.arena.match2",
-        "$isMultiPattern": false,
         "cp": {
-          "$position": 0,
           "$patterns": [
             {
               "rect": {
@@ -787,12 +786,12 @@
               "position": 0
             }
           ],
+          "$isMultiPattern": false,
+          "$position": 0,
           "$name": "cp",
-          "$path": "adventure.arena.match2.cp",
-          "$isMultiPattern": false
+          "$path": "adventure.arena.match2.cp"
         },
         "challenge": {
-          "$position": 0,
           "$patterns": [
             {
               "rect": {
@@ -827,19 +826,19 @@
               "position": 0
             }
           ],
+          "$isMultiPattern": false,
+          "$position": 0,
           "$name": "challenge",
-          "$path": "adventure.arena.match2.challenge",
-          "$isMultiPattern": false
+          "$path": "adventure.arena.match2.challenge"
         }
       },
       "match3": {
-        "$position": 0,
         "$patterns": [],
+        "$isMultiPattern": false,
+        "$position": 0,
         "$name": "match3",
         "$path": "adventure.arena.match3",
-        "$isMultiPattern": false,
         "cp": {
-          "$position": 0,
           "$patterns": [
             {
               "rect": {
@@ -874,12 +873,12 @@
               "position": 0
             }
           ],
+          "$isMultiPattern": false,
+          "$position": 0,
           "$name": "cp",
-          "$path": "adventure.arena.match3.cp",
-          "$isMultiPattern": false
+          "$path": "adventure.arena.match3.cp"
         },
         "challenge": {
-          "$position": 0,
           "$patterns": [
             {
               "rect": {
@@ -914,13 +913,13 @@
               "position": 0
             }
           ],
+          "$isMultiPattern": false,
+          "$position": 0,
           "$name": "challenge",
-          "$path": "adventure.arena.match3.challenge",
-          "$isMultiPattern": false
+          "$path": "adventure.arena.match3.challenge"
         }
       },
       "info": {
-        "$position": 0,
         "$patterns": [
           {
             "rect": {
@@ -955,12 +954,12 @@
             "position": 0
           }
         ],
+        "$isMultiPattern": false,
+        "$position": 0,
         "$name": "info",
-        "$path": "adventure.arena.info",
-        "$isMultiPattern": false
+        "$path": "adventure.arena.info"
       },
       "freeChallenge": {
-        "$position": 0,
         "$patterns": [
           {
             "rect": {
@@ -1059,12 +1058,12 @@
             "position": 0
           }
         ],
+        "$isMultiPattern": true,
+        "$position": 0,
         "$name": "freeChallenge",
-        "$path": "adventure.arena.freeChallenge",
-        "$isMultiPattern": true
+        "$path": "adventure.arena.freeChallenge"
       },
       "ticket": {
-        "$position": 0,
         "$patterns": [
           {
             "rect": {
@@ -1099,12 +1098,12 @@
             "position": 0
           }
         ],
+        "$isMultiPattern": false,
+        "$position": 0,
         "$name": "ticket",
-        "$path": "adventure.arena.ticket",
-        "$isMultiPattern": false
+        "$path": "adventure.arena.ticket"
       },
       "lobby": {
-        "$position": 0,
         "$patterns": [
           {
             "rect": {
@@ -1139,13 +1138,13 @@
             "position": 0
           }
         ],
+        "$isMultiPattern": false,
+        "$position": 0,
         "$name": "lobby",
-        "$path": "adventure.arena.lobby",
-        "$isMultiPattern": false
+        "$path": "adventure.arena.lobby"
       }
     },
     "champsArena": {
-      "$position": 0,
       "$patterns": [
         {
           "rect": {
@@ -1180,11 +1179,11 @@
           "position": 0
         }
       ],
+      "$isMultiPattern": false,
+      "$position": 0,
       "$name": "champsArena",
       "$path": "adventure.champsArena",
-      "$isMultiPattern": false,
       "tapTheScreen": {
-        "$position": 0,
         "$patterns": [
           {
             "rect": {
@@ -1219,12 +1218,12 @@
             "position": 0
           }
         ],
+        "$isMultiPattern": false,
+        "$position": 0,
         "$name": "tapTheScreen",
-        "$path": "adventure.champsArena.tapTheScreen",
-        "$isMultiPattern": false
+        "$path": "adventure.champsArena.tapTheScreen"
       },
       "buyTicket": {
-        "$position": 0,
         "$patterns": [
           {
             "rect": {
@@ -1259,12 +1258,12 @@
             "position": 0
           }
         ],
+        "$isMultiPattern": false,
+        "$position": 0,
         "$name": "buyTicket",
-        "$path": "adventure.champsArena.buyTicket",
-        "$isMultiPattern": false
+        "$path": "adventure.champsArena.buyTicket"
       },
       "nextTeam": {
-        "$position": 0,
         "$patterns": [
           {
             "rect": {
@@ -1299,12 +1298,12 @@
             "position": 0
           }
         ],
+        "$isMultiPattern": false,
+        "$position": 0,
         "$name": "nextTeam",
-        "$path": "adventure.champsArena.nextTeam",
-        "$isMultiPattern": false
+        "$path": "adventure.champsArena.nextTeam"
       },
       "claimReward": {
-        "$position": 0,
         "$patterns": [
           {
             "rect": {
@@ -1371,12 +1370,12 @@
             "position": 0
           }
         ],
+        "$isMultiPattern": true,
+        "$position": 0,
         "$name": "claimReward",
-        "$path": "adventure.champsArena.claimReward",
-        "$isMultiPattern": true
+        "$path": "adventure.champsArena.claimReward"
       },
       "zeroReward": {
-        "$position": 0,
         "$patterns": [
           {
             "rect": {
@@ -1443,18 +1442,18 @@
             "position": 0
           }
         ],
+        "$isMultiPattern": true,
+        "$position": 0,
         "$name": "zeroReward",
-        "$path": "adventure.champsArena.zeroReward",
-        "$isMultiPattern": true
+        "$path": "adventure.champsArena.zeroReward"
       },
       "match1": {
-        "$position": 0,
         "$patterns": [],
+        "$isMultiPattern": false,
+        "$position": 0,
         "$name": "match1",
         "$path": "adventure.champsArena.match1",
-        "$isMultiPattern": false,
         "challenge": {
-          "$position": 0,
           "$patterns": [
             {
               "rect": {
@@ -1489,12 +1488,12 @@
               "position": 0
             }
           ],
+          "$isMultiPattern": false,
+          "$position": 0,
           "$name": "challenge",
-          "$path": "adventure.champsArena.match1.challenge",
-          "$isMultiPattern": false
+          "$path": "adventure.champsArena.match1.challenge"
         },
         "cp": {
-          "$position": 0,
           "$patterns": [
             {
               "rect": {
@@ -1529,19 +1528,19 @@
               "position": 0
             }
           ],
+          "$isMultiPattern": false,
+          "$position": 0,
           "$name": "cp",
-          "$path": "adventure.champsArena.match1.cp",
-          "$isMultiPattern": false
+          "$path": "adventure.champsArena.match1.cp"
         }
       },
       "match2": {
-        "$position": 0,
         "$patterns": [],
+        "$isMultiPattern": false,
+        "$position": 0,
         "$name": "match2",
         "$path": "adventure.champsArena.match2",
-        "$isMultiPattern": false,
         "challenge": {
-          "$position": 0,
           "$patterns": [
             {
               "rect": {
@@ -1576,12 +1575,12 @@
               "position": 0
             }
           ],
+          "$isMultiPattern": false,
+          "$position": 0,
           "$name": "challenge",
-          "$path": "adventure.champsArena.match2.challenge",
-          "$isMultiPattern": false
+          "$path": "adventure.champsArena.match2.challenge"
         },
         "cp": {
-          "$position": 0,
           "$patterns": [
             {
               "rect": {
@@ -1616,19 +1615,19 @@
               "position": 0
             }
           ],
+          "$isMultiPattern": false,
+          "$position": 0,
           "$name": "cp",
-          "$path": "adventure.champsArena.match2.cp",
-          "$isMultiPattern": false
+          "$path": "adventure.champsArena.match2.cp"
         }
       },
       "match3": {
-        "$position": 0,
         "$patterns": [],
+        "$isMultiPattern": false,
+        "$position": 0,
         "$name": "match3",
         "$path": "adventure.champsArena.match3",
-        "$isMultiPattern": false,
         "cp": {
-          "$position": 0,
           "$patterns": [
             {
               "rect": {
@@ -1663,12 +1662,12 @@
               "position": 0
             }
           ],
+          "$isMultiPattern": false,
+          "$position": 0,
           "$name": "cp",
-          "$path": "adventure.champsArena.match3.cp",
-          "$isMultiPattern": false
+          "$path": "adventure.champsArena.match3.cp"
         },
         "challenge": {
-          "$position": 0,
           "$patterns": [
             {
               "rect": {
@@ -1703,20 +1702,20 @@
               "position": 0
             }
           ],
+          "$isMultiPattern": false,
+          "$position": 0,
           "$name": "challenge",
-          "$path": "adventure.champsArena.match3.challenge",
-          "$isMultiPattern": false
+          "$path": "adventure.champsArena.match3.challenge"
         }
       }
     },
     "challenge": {
-      "$position": 0,
       "$patterns": [],
+      "$isMultiPattern": false,
+      "$position": 0,
       "$name": "challenge",
       "$path": "adventure.challenge",
-      "$isMultiPattern": false,
       "decoyOperation": {
-        "$position": 0,
         "$patterns": [
           {
             "rect": {
@@ -1751,17 +1750,17 @@
             "position": 0
           }
         ],
+        "$isMultiPattern": false,
+        "$position": 0,
         "$name": "decoyOperation",
         "$path": "adventure.challenge.decoyOperation",
-        "$isMultiPattern": false,
         "sweep": {
-          "$position": 0,
           "$patterns": [],
+          "$isMultiPattern": false,
+          "$position": 0,
           "$name": "sweep",
           "$path": "adventure.challenge.decoyOperation.sweep",
-          "$isMultiPattern": false,
           "enabled": {
-            "$position": 0,
             "$patterns": [
               {
                 "rect": {
@@ -1796,12 +1795,12 @@
                 "position": 0
               }
             ],
+            "$isMultiPattern": false,
+            "$position": 0,
             "$name": "enabled",
-            "$path": "adventure.challenge.decoyOperation.sweep.enabled",
-            "$isMultiPattern": false
+            "$path": "adventure.challenge.decoyOperation.sweep.enabled"
           },
           "sweep": {
-            "$position": 0,
             "$patterns": [
               {
                 "rect": {
@@ -1836,12 +1835,12 @@
                 "position": 0
               }
             ],
+            "$isMultiPattern": false,
+            "$position": 0,
             "$name": "sweep",
-            "$path": "adventure.challenge.decoyOperation.sweep.sweep",
-            "$isMultiPattern": false
+            "$path": "adventure.challenge.decoyOperation.sweep.sweep"
           },
           "disabled": {
-            "$position": 0,
             "$patterns": [
               {
                 "rect": {
@@ -1876,12 +1875,12 @@
                 "position": 0
               }
             ],
+            "$isMultiPattern": false,
+            "$position": 0,
             "$name": "disabled",
-            "$path": "adventure.challenge.decoyOperation.sweep.disabled",
-            "$isMultiPattern": false
+            "$path": "adventure.challenge.decoyOperation.sweep.disabled"
           },
           "max": {
-            "$position": 0,
             "$patterns": [
               {
                 "rect": {
@@ -1916,13 +1915,13 @@
                 "position": 0
               }
             ],
+            "$isMultiPattern": false,
+            "$position": 0,
             "$name": "max",
-            "$path": "adventure.challenge.decoyOperation.sweep.max",
-            "$isMultiPattern": false
+            "$path": "adventure.challenge.decoyOperation.sweep.max"
           }
         },
         "sweepAvailable": {
-          "$position": 0,
           "$patterns": [
             {
               "rect": {
@@ -1957,12 +1956,12 @@
               "position": 0
             }
           ],
+          "$isMultiPattern": false,
+          "$position": 0,
           "$name": "sweepAvailable",
-          "$path": "adventure.challenge.decoyOperation.sweepAvailable",
-          "$isMultiPattern": false
+          "$path": "adventure.challenge.decoyOperation.sweepAvailable"
         },
         "manaCrystalMining": {
-          "$position": 0,
           "$patterns": [
             {
               "rect": {
@@ -1997,12 +1996,12 @@
               "position": 0
             }
           ],
+          "$isMultiPattern": false,
+          "$position": 0,
           "$name": "manaCrystalMining",
-          "$path": "adventure.challenge.decoyOperation.manaCrystalMining",
-          "$isMultiPattern": false
+          "$path": "adventure.challenge.decoyOperation.manaCrystalMining"
         },
         "goldSourcing": {
-          "$position": 0,
           "$patterns": [
             {
               "rect": {
@@ -2037,12 +2036,12 @@
               "position": 0
             }
           ],
+          "$isMultiPattern": false,
+          "$position": 0,
           "$name": "goldSourcing",
-          "$path": "adventure.challenge.decoyOperation.goldSourcing",
-          "$isMultiPattern": false
+          "$path": "adventure.challenge.decoyOperation.goldSourcing"
         },
         "manaDustProcurement": {
-          "$position": 0,
           "$patterns": [
             {
               "rect": {
@@ -2077,12 +2076,12 @@
               "position": 0
             }
           ],
+          "$isMultiPattern": false,
+          "$position": 0,
           "$name": "manaDustProcurement",
-          "$path": "adventure.challenge.decoyOperation.manaDustProcurement",
-          "$isMultiPattern": false
+          "$path": "adventure.challenge.decoyOperation.manaDustProcurement"
         },
         "keepstoneEnhanceStoneQuarrying": {
-          "$position": 0,
           "$patterns": [
             {
               "rect": {
@@ -2117,14 +2116,14 @@
               "position": 0
             }
           ],
+          "$isMultiPattern": false,
+          "$position": 0,
           "$name": "keepstoneEnhanceStoneQuarrying",
-          "$path": "adventure.challenge.decoyOperation.keepstoneEnhanceStoneQuarrying",
-          "$isMultiPattern": false
+          "$path": "adventure.challenge.decoyOperation.keepstoneEnhanceStoneQuarrying"
         }
       }
     },
     "dungeon": {
-      "$position": 0,
       "$patterns": [
         {
           "rect": {
@@ -2159,11 +2158,11 @@
           "position": 0
         }
       ],
+      "$isMultiPattern": false,
+      "$position": 0,
       "$name": "dungeon",
       "$path": "adventure.dungeon",
-      "$isMultiPattern": false,
       "dimensionalLabyrinth": {
-        "$position": 0,
         "$patterns": [
           {
             "rect": {
@@ -2198,11 +2197,11 @@
             "position": 0
           }
         ],
+        "$isMultiPattern": false,
+        "$position": 0,
         "$name": "dimensionalLabyrinth",
         "$path": "adventure.dungeon.dimensionalLabyrinth",
-        "$isMultiPattern": false,
         "sweepAvailable": {
-          "$position": 0,
           "$patterns": [
             {
               "rect": {
@@ -2237,12 +2236,12 @@
               "position": 0
             }
           ],
+          "$isMultiPattern": false,
+          "$position": 0,
           "$name": "sweepAvailable",
-          "$path": "adventure.dungeon.dimensionalLabyrinth.sweepAvailable",
-          "$isMultiPattern": false
+          "$path": "adventure.dungeon.dimensionalLabyrinth.sweepAvailable"
         },
         "sweep": {
-          "$position": 0,
           "$patterns": [
             {
               "rect": {
@@ -2277,11 +2276,11 @@
               "position": 0
             }
           ],
+          "$isMultiPattern": false,
+          "$position": 0,
           "$name": "sweep",
           "$path": "adventure.dungeon.dimensionalLabyrinth.sweep",
-          "$isMultiPattern": false,
           "confirm": {
-            "$position": 0,
             "$patterns": [
               {
                 "rect": {
@@ -2316,13 +2315,13 @@
                 "position": 0
               }
             ],
+            "$isMultiPattern": false,
+            "$position": 0,
             "$name": "confirm",
-            "$path": "adventure.dungeon.dimensionalLabyrinth.sweep.confirm",
-            "$isMultiPattern": false
+            "$path": "adventure.dungeon.dimensionalLabyrinth.sweep.confirm"
           }
         },
         "disabled": {
-          "$position": 0,
           "$patterns": [
             {
               "rect": {
@@ -2357,14 +2356,14 @@
               "position": 0
             }
           ],
+          "$isMultiPattern": false,
+          "$position": 0,
           "$name": "disabled",
-          "$path": "adventure.dungeon.dimensionalLabyrinth.disabled",
-          "$isMultiPattern": false
+          "$path": "adventure.dungeon.dimensionalLabyrinth.disabled"
         }
       }
     },
     "raid": {
-      "$position": 0,
       "$patterns": [
         {
           "rect": {
@@ -2399,11 +2398,11 @@
           "position": 0
         }
       ],
+      "$isMultiPattern": false,
+      "$position": 0,
       "$name": "raid",
       "$path": "adventure.raid",
-      "$isMultiPattern": false,
       "guildRaid": {
-        "$position": 0,
         "$patterns": [
           {
             "rect": {
@@ -2438,27 +2437,27 @@
             "position": 0
           }
         ],
+        "$isMultiPattern": false,
+        "$position": 0,
         "$name": "guildRaid",
-        "$path": "adventure.raid.guildRaid",
-        "$isMultiPattern": false
+        "$path": "adventure.raid.guildRaid"
       }
     },
     "jointChallenge": {
-      "$position": 0,
       "$patterns": [],
+      "$isMultiPattern": false,
+      "$position": 0,
       "$name": "jointChallenge",
-      "$path": "adventure.jointChallenge",
-      "$isMultiPattern": false
+      "$path": "adventure.jointChallenge"
     }
   },
   "battle": {
-    "$position": 0,
     "$patterns": [],
+    "$isMultiPattern": false,
+    "$position": 0,
     "$name": "battle",
     "$path": "battle",
-    "$isMultiPattern": false,
     "skip": {
-      "$position": 0,
       "$patterns": [
         {
           "rect": {
@@ -2493,11 +2492,11 @@
           "position": 0
         }
       ],
+      "$isMultiPattern": false,
+      "$position": 0,
       "$name": "skip",
       "$path": "battle.skip",
-      "$isMultiPattern": false,
       "enabled": {
-        "$position": 0,
         "$patterns": [
           {
             "rect": {
@@ -2532,12 +2531,12 @@
             "position": 0
           }
         ],
+        "$isMultiPattern": false,
+        "$position": 0,
         "$name": "enabled",
-        "$path": "battle.skip.enabled",
-        "$isMultiPattern": false
+        "$path": "battle.skip.enabled"
       },
       "disabled": {
-        "$position": 0,
         "$patterns": [
           {
             "rect": {
@@ -2572,13 +2571,13 @@
             "position": 0
           }
         ],
+        "$isMultiPattern": false,
+        "$position": 0,
         "$name": "disabled",
-        "$path": "battle.skip.disabled",
-        "$isMultiPattern": false
+        "$path": "battle.skip.disabled"
       }
     },
     "start": {
-      "$position": 0,
       "$patterns": [
         {
           "rect": {
@@ -2613,12 +2612,12 @@
           "position": 0
         }
       ],
+      "$isMultiPattern": false,
+      "$position": 0,
       "$name": "start",
-      "$path": "battle.start",
-      "$isMultiPattern": false
+      "$path": "battle.start"
     },
     "rematch": {
-      "$position": 0,
       "$patterns": [
         {
           "rect": {
@@ -2653,12 +2652,12 @@
           "position": 0
         }
       ],
+      "$isMultiPattern": false,
+      "$position": 0,
       "$name": "rematch",
-      "$path": "battle.rematch",
-      "$isMultiPattern": false
+      "$path": "battle.rematch"
     },
     "continue": {
-      "$position": 0,
       "$patterns": [
         {
           "rect": {
@@ -2693,12 +2692,12 @@
           "position": 0
         }
       ],
+      "$isMultiPattern": false,
+      "$position": 0,
       "$name": "continue",
-      "$path": "battle.continue",
-      "$isMultiPattern": false
+      "$path": "battle.continue"
     },
     "exit": {
-      "$position": 0,
       "$patterns": [
         {
           "rect": {
@@ -2733,19 +2732,19 @@
           "position": 0
         }
       ],
+      "$isMultiPattern": false,
+      "$position": 0,
       "$name": "exit",
-      "$path": "battle.exit",
-      "$isMultiPattern": false
+      "$path": "battle.exit"
     }
   },
   "town": {
-    "$position": 0,
     "$patterns": [],
+    "$isMultiPattern": false,
+    "$position": 0,
     "$name": "town",
     "$path": "town",
-    "$isMultiPattern": false,
     "enter": {
-      "$position": 0,
       "$patterns": [
         {
           "rect": {
@@ -2780,12 +2779,12 @@
           "position": 0
         }
       ],
+      "$isMultiPattern": false,
+      "$position": 0,
       "$name": "enter",
-      "$path": "town.enter",
-      "$isMultiPattern": false
+      "$path": "town.enter"
     },
     "outings": {
-      "$position": 0,
       "$patterns": [
         {
           "rect": {
@@ -2820,11 +2819,11 @@
           "position": 0
         }
       ],
+      "$isMultiPattern": false,
+      "$position": 0,
       "$name": "outings",
       "$path": "town.outings",
-      "$isMultiPattern": false,
       "call": {
-        "$position": 0,
         "$patterns": [
           {
             "rect": {
@@ -2859,12 +2858,12 @@
             "position": 0
           }
         ],
+        "$isMultiPattern": false,
+        "$position": 0,
         "$name": "call",
-        "$path": "town.outings.call",
-        "$isMultiPattern": false
+        "$path": "town.outings.call"
       },
       "outing1": {
-        "$position": 0,
         "$patterns": [
           {
             "rect": {
@@ -2899,12 +2898,12 @@
             "position": 0
           }
         ],
+        "$isMultiPattern": false,
+        "$position": 0,
         "$name": "outing1",
-        "$path": "town.outings.outing1",
-        "$isMultiPattern": false
+        "$path": "town.outings.outing1"
       },
       "outing2": {
-        "$position": 0,
         "$patterns": [
           {
             "rect": {
@@ -2939,12 +2938,12 @@
             "position": 0
           }
         ],
+        "$isMultiPattern": false,
+        "$position": 0,
         "$name": "outing2",
-        "$path": "town.outings.outing2",
-        "$isMultiPattern": false
+        "$path": "town.outings.outing2"
       },
       "outing3": {
-        "$position": 0,
         "$patterns": [
           {
             "rect": {
@@ -2979,12 +2978,12 @@
             "position": 0
           }
         ],
+        "$isMultiPattern": false,
+        "$position": 0,
         "$name": "outing3",
-        "$path": "town.outings.outing3",
-        "$isMultiPattern": false
+        "$path": "town.outings.outing3"
       },
       "outing4": {
-        "$position": 0,
         "$patterns": [
           {
             "rect": {
@@ -3019,12 +3018,12 @@
             "position": 0
           }
         ],
+        "$isMultiPattern": false,
+        "$position": 0,
         "$name": "outing4",
-        "$path": "town.outings.outing4",
-        "$isMultiPattern": false
+        "$path": "town.outings.outing4"
       },
       "goOnOuting": {
-        "$position": 0,
         "$patterns": [
           {
             "rect": {
@@ -3059,12 +3058,12 @@
             "position": 0
           }
         ],
+        "$isMultiPattern": false,
+        "$position": 0,
         "$name": "goOnOuting",
-        "$path": "town.outings.goOnOuting",
-        "$isMultiPattern": false
+        "$path": "town.outings.goOnOuting"
       },
       "keywordSelectionOpportunity": {
-        "$position": 0,
         "$patterns": [
           {
             "rect": {
@@ -3099,12 +3098,12 @@
             "position": 0
           }
         ],
+        "$isMultiPattern": false,
+        "$position": 0,
         "$name": "keywordSelectionOpportunity",
-        "$path": "town.outings.keywordSelectionOpportunity",
-        "$isMultiPattern": false
+        "$path": "town.outings.keywordSelectionOpportunity"
       },
       "selectAKeyword": {
-        "$position": 0,
         "$patterns": [
           {
             "rect": {
@@ -3139,12 +3138,12 @@
             "position": 0
           }
         ],
+        "$isMultiPattern": false,
+        "$position": 0,
         "$name": "selectAKeyword",
-        "$path": "town.outings.selectAKeyword",
-        "$isMultiPattern": false
+        "$path": "town.outings.selectAKeyword"
       },
       "keywordPoints1": {
-        "$position": 0,
         "$patterns": [
           {
             "rect": {
@@ -3179,12 +3178,12 @@
             "position": 0
           }
         ],
+        "$isMultiPattern": false,
+        "$position": 0,
         "$name": "keywordPoints1",
-        "$path": "town.outings.keywordPoints1",
-        "$isMultiPattern": false
+        "$path": "town.outings.keywordPoints1"
       },
       "keywordPoints2": {
-        "$position": 0,
         "$patterns": [
           {
             "rect": {
@@ -3219,12 +3218,12 @@
             "position": 0
           }
         ],
+        "$isMultiPattern": false,
+        "$position": 0,
         "$name": "keywordPoints2",
-        "$path": "town.outings.keywordPoints2",
-        "$isMultiPattern": false
+        "$path": "town.outings.keywordPoints2"
       },
       "keywordPoints3": {
-        "$position": 0,
         "$patterns": [
           {
             "rect": {
@@ -3259,12 +3258,12 @@
             "position": 0
           }
         ],
+        "$isMultiPattern": false,
+        "$position": 0,
         "$name": "keywordPoints3",
-        "$path": "town.outings.keywordPoints3",
-        "$isMultiPattern": false
+        "$path": "town.outings.keywordPoints3"
       },
       "outingsCompleted": {
-        "$position": 0,
         "$patterns": [
           {
             "rect": {
@@ -3299,12 +3298,12 @@
             "position": 0
           }
         ],
+        "$isMultiPattern": false,
+        "$position": 0,
         "$name": "outingsCompleted",
-        "$path": "town.outings.outingsCompleted",
-        "$isMultiPattern": false
+        "$path": "town.outings.outingsCompleted"
       },
       "outing5": {
-        "$position": 0,
         "$patterns": [
           {
             "rect": {
@@ -3339,12 +3338,12 @@
             "position": 0
           }
         ],
+        "$isMultiPattern": false,
+        "$position": 0,
         "$name": "outing5",
-        "$path": "town.outings.outing5",
-        "$isMultiPattern": false
+        "$path": "town.outings.outing5"
       },
       "bondLevel": {
-        "$position": 0,
         "$patterns": [
           {
             "rect": {
@@ -3379,13 +3378,13 @@
             "position": 0
           }
         ],
+        "$isMultiPattern": false,
+        "$position": 0,
         "$name": "bondLevel",
-        "$path": "town.outings.bondLevel",
-        "$isMultiPattern": false
+        "$path": "town.outings.bondLevel"
       }
     },
     "info": {
-      "$position": 0,
       "$patterns": [
         {
           "rect": {
@@ -3420,18 +3419,18 @@
           "position": 0
         }
       ],
+      "$isMultiPattern": false,
+      "$position": 0,
       "$name": "info",
-      "$path": "town.info",
-      "$isMultiPattern": false
+      "$path": "town.info"
     },
     "partTimeJob": {
-      "$position": 0,
       "$patterns": [],
+      "$isMultiPattern": false,
+      "$position": 0,
       "$name": "partTimeJob",
       "$path": "town.partTimeJob",
-      "$isMultiPattern": false,
       "notification": {
-        "$position": 0,
         "$patterns": [
           {
             "rect": {
@@ -3466,12 +3465,12 @@
             "position": 0
           }
         ],
+        "$isMultiPattern": false,
+        "$position": 0,
         "$name": "notification",
-        "$path": "town.partTimeJob.notification",
-        "$isMultiPattern": false
+        "$path": "town.partTimeJob.notification"
       },
       "autoDeploy": {
-        "$position": 0,
         "$patterns": [
           {
             "rect": {
@@ -3506,11 +3505,11 @@
             "position": 0
           }
         ],
+        "$isMultiPattern": false,
+        "$position": 0,
         "$name": "autoDeploy",
         "$path": "town.partTimeJob.autoDeploy",
-        "$isMultiPattern": false,
         "confirm": {
-          "$position": 0,
           "$patterns": [
             {
               "rect": {
@@ -3545,12 +3544,12 @@
               "position": 0
             }
           ],
+          "$isMultiPattern": false,
+          "$position": 0,
           "$name": "confirm",
-          "$path": "town.partTimeJob.autoDeploy.confirm",
-          "$isMultiPattern": false
+          "$path": "town.partTimeJob.autoDeploy.confirm"
         },
         "disabled": {
-          "$position": 0,
           "$patterns": [
             {
               "rect": {
@@ -3585,13 +3584,13 @@
               "position": 0
             }
           ],
+          "$isMultiPattern": false,
+          "$position": 0,
           "$name": "disabled",
-          "$path": "town.partTimeJob.autoDeploy.disabled",
-          "$isMultiPattern": false
+          "$path": "town.partTimeJob.autoDeploy.disabled"
         }
       },
       "tapTheScreen": {
-        "$position": 0,
         "$patterns": [
           {
             "rect": {
@@ -3626,12 +3625,12 @@
             "position": 0
           }
         ],
+        "$isMultiPattern": false,
+        "$position": 0,
         "$name": "tapTheScreen",
-        "$path": "town.partTimeJob.tapTheScreen",
-        "$isMultiPattern": false
+        "$path": "town.partTimeJob.tapTheScreen"
       },
       "recieveAll": {
-        "$position": 0,
         "$patterns": [
           {
             "rect": {
@@ -3666,11 +3665,11 @@
             "position": 0
           }
         ],
+        "$isMultiPattern": false,
+        "$position": 0,
         "$name": "recieveAll",
         "$path": "town.partTimeJob.recieveAll",
-        "$isMultiPattern": false,
         "disabled": {
-          "$position": 0,
           "$patterns": [
             {
               "rect": {
@@ -3705,20 +3704,20 @@
               "position": 0
             }
           ],
+          "$isMultiPattern": false,
+          "$position": 0,
           "$name": "disabled",
-          "$path": "town.partTimeJob.recieveAll.disabled",
-          "$isMultiPattern": false
+          "$path": "town.partTimeJob.recieveAll.disabled"
         }
       }
     },
     "rest": {
-      "$position": 0,
       "$patterns": [],
+      "$isMultiPattern": false,
+      "$position": 0,
       "$name": "rest",
       "$path": "town.rest",
-      "$isMultiPattern": false,
       "notification": {
-        "$position": 0,
         "$patterns": [
           {
             "rect": {
@@ -3753,12 +3752,12 @@
             "position": 0
           }
         ],
+        "$isMultiPattern": false,
+        "$position": 0,
         "$name": "notification",
-        "$path": "town.rest.notification",
-        "$isMultiPattern": false
+        "$path": "town.rest.notification"
       },
       "autoSelect": {
-        "$position": 0,
         "$patterns": [
           {
             "rect": {
@@ -3793,11 +3792,11 @@
             "position": 0
           }
         ],
+        "$isMultiPattern": false,
+        "$position": 0,
         "$name": "autoSelect",
         "$path": "town.rest.autoSelect",
-        "$isMultiPattern": false,
         "disabled": {
-          "$position": 0,
           "$patterns": [
             {
               "rect": {
@@ -3832,14 +3831,14 @@
               "position": 0
             }
           ],
+          "$isMultiPattern": false,
+          "$position": 0,
           "$name": "disabled",
-          "$path": "town.rest.autoSelect.disabled",
-          "$isMultiPattern": false
+          "$path": "town.rest.autoSelect.disabled"
         }
       }
     },
     "level": {
-      "$position": 0,
       "$patterns": [
         {
           "rect": {
@@ -3874,12 +3873,12 @@
           "position": 0
         }
       ],
+      "$isMultiPattern": false,
+      "$position": 0,
       "$name": "level",
-      "$path": "town.level",
-      "$isMultiPattern": false
+      "$path": "town.level"
     },
     "cancel": {
-      "$position": 0,
       "$patterns": [
         {
           "rect": {
@@ -3914,12 +3913,12 @@
           "position": 0
         }
       ],
+      "$isMultiPattern": false,
+      "$position": 0,
       "$name": "cancel",
-      "$path": "town.cancel",
-      "$isMultiPattern": false
+      "$path": "town.cancel"
     },
     "menu": {
-      "$position": 0,
       "$patterns": [
         {
           "rect": {
@@ -3954,11 +3953,11 @@
           "position": 0
         }
       ],
+      "$isMultiPattern": false,
+      "$position": 0,
       "$name": "menu",
       "$path": "town.menu",
-      "$isMultiPattern": false,
       "returnToLobby": {
-        "$position": 0,
         "$patterns": [
           {
             "rect": {
@@ -3993,12 +3992,12 @@
             "position": 0
           }
         ],
+        "$isMultiPattern": false,
+        "$position": 0,
         "$name": "returnToLobby",
-        "$path": "town.menu.returnToLobby",
-        "$isMultiPattern": false
+        "$path": "town.menu.returnToLobby"
       },
       "visitTown": {
-        "$position": 0,
         "$patterns": [
           {
             "rect": {
@@ -4033,13 +4032,13 @@
             "position": 0
           }
         ],
+        "$isMultiPattern": false,
+        "$position": 0,
         "$name": "visitTown",
-        "$path": "town.menu.visitTown",
-        "$isMultiPattern": false
+        "$path": "town.menu.visitTown"
       }
     },
     "chatBubble": {
-      "$position": 0,
       "$patterns": [
         {
           "rect": {
@@ -4074,19 +4073,19 @@
           "position": 0
         }
       ],
+      "$isMultiPattern": false,
+      "$position": 0,
       "$name": "chatBubble",
-      "$path": "town.chatBubble",
-      "$isMultiPattern": false
+      "$path": "town.chatBubble"
     }
   },
   "prompt": {
-    "$position": 0,
     "$patterns": [],
+    "$isMultiPattern": false,
+    "$position": 0,
     "$name": "prompt",
     "$path": "prompt",
-    "$isMultiPattern": false,
     "confirm": {
-      "$position": 0,
       "$patterns": [
         {
           "rect": {
@@ -4121,12 +4120,12 @@
           "position": 0
         }
       ],
+      "$isMultiPattern": false,
+      "$position": 0,
       "$name": "confirm",
-      "$path": "prompt.confirm",
-      "$isMultiPattern": false
+      "$path": "prompt.confirm"
     },
     "next": {
-      "$position": 0,
       "$patterns": [
         {
           "rect": {
@@ -4161,12 +4160,12 @@
           "position": 0
         }
       ],
+      "$isMultiPattern": false,
+      "$position": 0,
       "$name": "next",
-      "$path": "prompt.next",
-      "$isMultiPattern": false
+      "$path": "prompt.next"
     },
     "middleTap": {
-      "$position": 0,
       "$patterns": [
         {
           "rect": {
@@ -4201,12 +4200,12 @@
           "position": 0
         }
       ],
+      "$isMultiPattern": false,
+      "$position": 0,
       "$name": "middleTap",
-      "$path": "prompt.middleTap",
-      "$isMultiPattern": false
+      "$path": "prompt.middleTap"
     },
     "close": {
-      "$position": 0,
       "$patterns": [
         {
           "rect": {
@@ -4241,12 +4240,12 @@
           "position": 0
         }
       ],
+      "$isMultiPattern": false,
+      "$position": 0,
       "$name": "close",
-      "$path": "prompt.close",
-      "$isMultiPattern": false
+      "$path": "prompt.close"
     },
     "confirm2": {
-      "$position": 0,
       "$patterns": [
         {
           "rect": {
@@ -4281,12 +4280,12 @@
           "position": 0
         }
       ],
+      "$isMultiPattern": false,
+      "$position": 0,
       "$name": "confirm2",
-      "$path": "prompt.confirm2",
-      "$isMultiPattern": false
+      "$path": "prompt.confirm2"
     },
     "tapTheScreen": {
-      "$position": 0,
       "$patterns": [
         {
           "rect": {
@@ -4353,13 +4352,13 @@
           "position": 0
         }
       ],
+      "$isMultiPattern": true,
+      "$position": 0,
       "$name": "tapTheScreen",
-      "$path": "prompt.tapTheScreen",
-      "$isMultiPattern": true
+      "$path": "prompt.tapTheScreen"
     }
   },
   "gateBreakthrough": {
-    "$position": 0,
     "$patterns": [
       {
         "rect": {
@@ -4394,11 +4393,11 @@
         "position": 0
       }
     ],
+    "$isMultiPattern": false,
+    "$position": 0,
     "$name": "gateBreakthrough",
     "$path": "gateBreakthrough",
-    "$isMultiPattern": false,
     "challenge": {
-      "$position": 0,
       "$patterns": [
         {
           "rect": {
@@ -4433,18 +4432,18 @@
           "position": 0
         }
       ],
+      "$isMultiPattern": false,
+      "$position": 0,
       "$name": "challenge",
-      "$path": "gateBreakthrough.challenge",
-      "$isMultiPattern": false
+      "$path": "gateBreakthrough.challenge"
     },
     "gates": {
-      "$position": 0,
       "$patterns": [],
+      "$isMultiPattern": false,
+      "$position": 0,
       "$name": "gates",
       "$path": "gateBreakthrough.gates",
-      "$isMultiPattern": false,
       "unlimited": {
-        "$position": 0,
         "$patterns": [
           {
             "rect": {
@@ -4479,12 +4478,12 @@
             "position": 0
           }
         ],
+        "$isMultiPattern": false,
+        "$position": 0,
         "$name": "unlimited",
-        "$path": "gateBreakthrough.gates.unlimited",
-        "$isMultiPattern": false
+        "$path": "gateBreakthrough.gates.unlimited"
       },
       "humanlike": {
-        "$position": 0,
         "$patterns": [
           {
             "rect": {
@@ -4519,12 +4518,12 @@
             "position": 0
           }
         ],
+        "$isMultiPattern": false,
+        "$position": 0,
         "$name": "humanlike",
-        "$path": "gateBreakthrough.gates.humanlike",
-        "$isMultiPattern": false
+        "$path": "gateBreakthrough.gates.humanlike"
       },
       "beast": {
-        "$position": 0,
         "$patterns": [
           {
             "rect": {
@@ -4559,12 +4558,12 @@
             "position": 0
           }
         ],
+        "$isMultiPattern": false,
+        "$position": 0,
         "$name": "beast",
-        "$path": "gateBreakthrough.gates.beast",
-        "$isMultiPattern": false
+        "$path": "gateBreakthrough.gates.beast"
       },
       "fairy": {
-        "$position": 0,
         "$patterns": [
           {
             "rect": {
@@ -4599,12 +4598,12 @@
             "position": 0
           }
         ],
+        "$isMultiPattern": false,
+        "$position": 0,
         "$name": "fairy",
-        "$path": "gateBreakthrough.gates.fairy",
-        "$isMultiPattern": false
+        "$path": "gateBreakthrough.gates.fairy"
       },
       "undead": {
-        "$position": 0,
         "$patterns": [
           {
             "rect": {
@@ -4639,13 +4638,13 @@
             "position": 0
           }
         ],
+        "$isMultiPattern": false,
+        "$position": 0,
         "$name": "undead",
-        "$path": "gateBreakthrough.gates.undead",
-        "$isMultiPattern": false
+        "$path": "gateBreakthrough.gates.undead"
       }
     },
     "retry": {
-      "$position": 0,
       "$patterns": [
         {
           "rect": {
@@ -4680,12 +4679,12 @@
           "position": 0
         }
       ],
+      "$isMultiPattern": false,
+      "$position": 0,
       "$name": "retry",
-      "$path": "gateBreakthrough.retry",
-      "$isMultiPattern": false
+      "$path": "gateBreakthrough.retry"
     },
     "nextStage": {
-      "$position": 0,
       "$patterns": [
         {
           "rect": {
@@ -4720,19 +4719,19 @@
           "position": 0
         }
       ],
+      "$isMultiPattern": false,
+      "$position": 0,
       "$name": "nextStage",
-      "$path": "gateBreakthrough.nextStage",
-      "$isMultiPattern": false
+      "$path": "gateBreakthrough.nextStage"
     }
   },
   "general": {
-    "$position": 0,
     "$patterns": [],
+    "$isMultiPattern": false,
+    "$position": 0,
     "$name": "general",
     "$path": "general",
-    "$isMultiPattern": false,
     "back": {
-      "$position": 0,
       "$patterns": [
         {
           "rect": {
@@ -4767,12 +4766,12 @@
           "position": 0
         }
       ],
+      "$isMultiPattern": false,
+      "$position": 0,
       "$name": "back",
-      "$path": "general.back",
-      "$isMultiPattern": false
+      "$path": "general.back"
     },
     "tapTheScreen": {
-      "$position": 0,
       "$patterns": [
         {
           "rect": {
@@ -4839,12 +4838,12 @@
           "position": 0
         }
       ],
+      "$isMultiPattern": true,
+      "$position": 0,
       "$name": "tapTheScreen",
-      "$path": "general.tapTheScreen",
-      "$isMultiPattern": true
+      "$path": "general.tapTheScreen"
     },
     "home": {
-      "$position": 0,
       "$patterns": [
         {
           "rect": {
@@ -4879,19 +4878,19 @@
           "position": 0
         }
       ],
+      "$isMultiPattern": false,
+      "$position": 0,
       "$name": "home",
-      "$path": "general.home",
-      "$isMultiPattern": false
+      "$path": "general.home"
     }
   },
   "cashShop": {
-    "$position": 0,
     "$patterns": [],
+    "$isMultiPattern": false,
+    "$position": 0,
     "$name": "cashShop",
     "$path": "cashShop",
-    "$isMultiPattern": false,
     "regularPack": {
-      "$position": 0,
       "$patterns": [
         {
           "rect": {
@@ -4926,11 +4925,11 @@
           "position": 0
         }
       ],
+      "$isMultiPattern": false,
+      "$position": 0,
       "$name": "regularPack",
       "$path": "cashShop.regularPack",
-      "$isMultiPattern": false,
       "dailyFree": {
-        "$position": 0,
         "$patterns": [
           {
             "rect": {
@@ -4965,12 +4964,12 @@
             "position": 0
           }
         ],
+        "$isMultiPattern": false,
+        "$position": 0,
         "$name": "dailyFree",
-        "$path": "cashShop.regularPack.dailyFree",
-        "$isMultiPattern": false
+        "$path": "cashShop.regularPack.dailyFree"
       },
       "selected": {
-        "$position": 0,
         "$patterns": [
           {
             "rect": {
@@ -5005,20 +5004,20 @@
             "position": 0
           }
         ],
+        "$isMultiPattern": false,
+        "$position": 0,
         "$name": "selected",
-        "$path": "cashShop.regularPack.selected",
-        "$isMultiPattern": false
+        "$path": "cashShop.regularPack.selected"
       }
     }
   },
   "summon": {
-    "$position": 0,
     "$patterns": [],
+    "$isMultiPattern": false,
+    "$position": 0,
     "$name": "summon",
     "$path": "summon",
-    "$isMultiPattern": false,
     "normal": {
-      "$position": 0,
       "$patterns": [
         {
           "rect": {
@@ -5053,11 +5052,11 @@
           "position": 0
         }
       ],
+      "$isMultiPattern": false,
+      "$position": 0,
       "$name": "normal",
       "$path": "summon.normal",
-      "$isMultiPattern": false,
       "selected": {
-        "$position": 0,
         "$patterns": [
           {
             "rect": {
@@ -5092,12 +5091,12 @@
             "position": 0
           }
         ],
+        "$isMultiPattern": false,
+        "$position": 0,
         "$name": "selected",
-        "$path": "summon.normal.selected",
-        "$isMultiPattern": false
+        "$path": "summon.normal.selected"
       },
       "free": {
-        "$position": 0,
         "$patterns": [
           {
             "rect": {
@@ -5132,11 +5131,11 @@
             "position": 0
           }
         ],
+        "$isMultiPattern": false,
+        "$position": 0,
         "$name": "free",
         "$path": "summon.normal.free",
-        "$isMultiPattern": false,
         "confirm": {
-          "$position": 0,
           "$patterns": [
             {
               "rect": {
@@ -5171,14 +5170,14 @@
               "position": 0
             }
           ],
+          "$isMultiPattern": false,
+          "$position": 0,
           "$name": "confirm",
-          "$path": "summon.normal.free.confirm",
-          "$isMultiPattern": false
+          "$path": "summon.normal.free.confirm"
         }
       }
     },
     "skip": {
-      "$position": 0,
       "$patterns": [
         {
           "rect": {
@@ -5213,12 +5212,12 @@
           "position": 0
         }
       ],
+      "$isMultiPattern": false,
+      "$position": 0,
       "$name": "skip",
-      "$path": "summon.skip",
-      "$isMultiPattern": false
+      "$path": "summon.skip"
     },
     "artifact": {
-      "$position": 0,
       "$patterns": [
         {
           "rect": {
@@ -5253,11 +5252,11 @@
           "position": 0
         }
       ],
+      "$isMultiPattern": false,
+      "$position": 0,
       "$name": "artifact",
       "$path": "summon.artifact",
-      "$isMultiPattern": false,
       "ticket": {
-        "$position": 0,
         "$patterns": [
           {
             "rect": {
@@ -5292,13 +5291,13 @@
             "position": 0
           }
         ],
+        "$isMultiPattern": false,
+        "$position": 0,
         "$name": "ticket",
-        "$path": "summon.artifact.ticket",
-        "$isMultiPattern": false
+        "$path": "summon.artifact.ticket"
       }
     },
     "info": {
-      "$position": 0,
       "$patterns": [
         {
           "rect": {
@@ -5365,19 +5364,19 @@
           "position": 0
         }
       ],
+      "$isMultiPattern": true,
+      "$position": 0,
       "$name": "info",
-      "$path": "summon.info",
-      "$isMultiPattern": true
+      "$path": "summon.info"
     }
   },
   "menu": {
-    "$position": 0,
     "$patterns": [],
+    "$isMultiPattern": false,
+    "$position": 0,
     "$name": "menu",
     "$path": "menu",
-    "$isMultiPattern": false,
     "friends": {
-      "$position": 0,
       "$patterns": [
         {
           "rect": {
@@ -5412,19 +5411,19 @@
           "position": 0
         }
       ],
+      "$isMultiPattern": false,
+      "$position": 0,
       "$name": "friends",
-      "$path": "menu.friends",
-      "$isMultiPattern": false
+      "$path": "menu.friends"
     }
   },
   "friends": {
-    "$position": 0,
     "$patterns": [],
+    "$isMultiPattern": false,
+    "$position": 0,
     "$name": "friends",
     "$path": "friends",
-    "$isMultiPattern": false,
     "sendAllHearts": {
-      "$position": 0,
       "$patterns": [
         {
           "rect": {
@@ -5459,11 +5458,11 @@
           "position": 0
         }
       ],
+      "$isMultiPattern": false,
+      "$position": 0,
       "$name": "sendAllHearts",
       "$path": "friends.sendAllHearts",
-      "$isMultiPattern": false,
       "disabled": {
-        "$position": 0,
         "$patterns": [
           {
             "rect": {
@@ -5498,13 +5497,13 @@
             "position": 0
           }
         ],
+        "$isMultiPattern": false,
+        "$position": 0,
         "$name": "disabled",
-        "$path": "friends.sendAllHearts.disabled",
-        "$isMultiPattern": false
+        "$path": "friends.sendAllHearts.disabled"
       }
     },
     "receiveAllHearts": {
-      "$position": 0,
       "$patterns": [
         {
           "rect": {
@@ -5539,11 +5538,11 @@
           "position": 0
         }
       ],
+      "$isMultiPattern": false,
+      "$position": 0,
       "$name": "receiveAllHearts",
       "$path": "friends.receiveAllHearts",
-      "$isMultiPattern": false,
       "disabled": {
-        "$position": 0,
         "$patterns": [
           {
             "rect": {
@@ -5578,13 +5577,13 @@
             "position": 0
           }
         ],
+        "$isMultiPattern": false,
+        "$position": 0,
         "$name": "disabled",
-        "$path": "friends.receiveAllHearts.disabled",
-        "$isMultiPattern": false
+        "$path": "friends.receiveAllHearts.disabled"
       }
     },
     "hireSoul": {
-      "$position": 0,
       "$patterns": [
         {
           "rect": {
@@ -5619,11 +5618,11 @@
           "position": 0
         }
       ],
+      "$isMultiPattern": false,
+      "$position": 0,
       "$name": "hireSoul",
       "$path": "friends.hireSoul",
-      "$isMultiPattern": false,
       "selected": {
-        "$position": 0,
         "$patterns": [
           {
             "rect": {
@@ -5658,12 +5657,12 @@
             "position": 0
           }
         ],
+        "$isMultiPattern": false,
+        "$position": 0,
         "$name": "selected",
-        "$path": "friends.hireSoul.selected",
-        "$isMultiPattern": false
+        "$path": "friends.hireSoul.selected"
       },
       "hire": {
-        "$position": 0,
         "$patterns": [
           {
             "rect": {
@@ -5698,12 +5697,12 @@
             "position": 0
           }
         ],
+        "$isMultiPattern": false,
+        "$position": 0,
         "$name": "hire",
-        "$path": "friends.hireSoul.hire",
-        "$isMultiPattern": false
+        "$path": "friends.hireSoul.hire"
       },
       "done": {
-        "$position": 0,
         "$patterns": [
           {
             "rect": {
@@ -5738,12 +5737,12 @@
             "position": 0
           }
         ],
+        "$isMultiPattern": false,
+        "$position": 0,
         "$name": "done",
-        "$path": "friends.hireSoul.done",
-        "$isMultiPattern": false
+        "$path": "friends.hireSoul.done"
       },
       "cp": {
-        "$position": 0,
         "$patterns": [
           {
             "rect": {
@@ -5778,20 +5777,20 @@
             "position": 0
           }
         ],
+        "$isMultiPattern": false,
+        "$position": 0,
         "$name": "cp",
-        "$path": "friends.hireSoul.cp",
-        "$isMultiPattern": false
+        "$path": "friends.hireSoul.cp"
       }
     }
   },
   "battleFront": {
-    "$position": 0,
     "$patterns": [],
+    "$isMultiPattern": false,
+    "$position": 0,
     "$name": "battleFront",
     "$path": "battleFront",
-    "$isMultiPattern": false,
     "loot": {
-      "$position": 0,
       "$patterns": [
         {
           "rect": {
@@ -5826,19 +5825,19 @@
           "position": 0
         }
       ],
+      "$isMultiPattern": false,
+      "$position": 0,
       "$name": "loot",
-      "$path": "battleFront.loot",
-      "$isMultiPattern": false
+      "$path": "battleFront.loot"
     }
   },
   "loot": {
-    "$position": 0,
     "$patterns": [],
+    "$isMultiPattern": false,
+    "$position": 0,
     "$name": "loot",
     "$path": "loot",
-    "$isMultiPattern": false,
     "receiveAll": {
-      "$position": 0,
       "$patterns": [
         {
           "rect": {
@@ -5873,11 +5872,11 @@
           "position": 0
         }
       ],
+      "$isMultiPattern": false,
+      "$position": 0,
       "$name": "receiveAll",
       "$path": "loot.receiveAll",
-      "$isMultiPattern": false,
       "disabled": {
-        "$position": 0,
         "$patterns": [
           {
             "rect": {
@@ -5912,13 +5911,13 @@
             "position": 0
           }
         ],
+        "$isMultiPattern": false,
+        "$position": 0,
         "$name": "disabled",
-        "$path": "loot.receiveAll.disabled",
-        "$isMultiPattern": false
+        "$path": "loot.receiveAll.disabled"
       }
     },
     "tapTheScreen": {
-      "$position": 0,
       "$patterns": [
         {
           "rect": {
@@ -5953,18 +5952,18 @@
           "position": 0
         }
       ],
+      "$isMultiPattern": false,
+      "$position": 0,
       "$name": "tapTheScreen",
-      "$path": "loot.tapTheScreen",
-      "$isMultiPattern": false
+      "$path": "loot.tapTheScreen"
     },
     "quickHunt": {
-      "$position": 0,
       "$patterns": [],
+      "$isMultiPattern": false,
+      "$position": 0,
       "$name": "quickHunt",
       "$path": "loot.quickHunt",
-      "$isMultiPattern": false,
       "free": {
-        "$position": 0,
         "$patterns": [
           {
             "rect": {
@@ -5999,12 +5998,12 @@
             "position": 0
           }
         ],
+        "$isMultiPattern": false,
+        "$position": 0,
         "$name": "free",
-        "$path": "loot.quickHunt.free",
-        "$isMultiPattern": false
+        "$path": "loot.quickHunt.free"
       },
       "cancel": {
-        "$position": 0,
         "$patterns": [
           {
             "rect": {
@@ -6039,12 +6038,12 @@
             "position": 0
           }
         ],
+        "$isMultiPattern": false,
+        "$position": 0,
         "$name": "cancel",
-        "$path": "loot.quickHunt.cancel",
-        "$isMultiPattern": false
+        "$path": "loot.quickHunt.cancel"
       },
       "notification": {
-        "$position": 0,
         "$patterns": [
           {
             "rect": {
@@ -6079,20 +6078,20 @@
             "position": 0
           }
         ],
+        "$isMultiPattern": false,
+        "$position": 0,
         "$name": "notification",
-        "$path": "loot.quickHunt.notification",
-        "$isMultiPattern": false
+        "$path": "loot.quickHunt.notification"
       }
     }
   },
   "mailbox": {
-    "$position": 0,
     "$patterns": [],
+    "$isMultiPattern": false,
+    "$position": 0,
     "$name": "mailbox",
     "$path": "mailbox",
-    "$isMultiPattern": false,
     "receiveAll": {
-      "$position": 0,
       "$patterns": [
         {
           "rect": {
@@ -6127,11 +6126,11 @@
           "position": 0
         }
       ],
+      "$isMultiPattern": false,
+      "$position": 0,
       "$name": "receiveAll",
       "$path": "mailbox.receiveAll",
-      "$isMultiPattern": false,
       "disabled": {
-        "$position": 0,
         "$patterns": [
           {
             "rect": {
@@ -6166,13 +6165,13 @@
             "position": 0
           }
         ],
+        "$isMultiPattern": false,
+        "$position": 0,
         "$name": "disabled",
-        "$path": "mailbox.receiveAll.disabled",
-        "$isMultiPattern": false
+        "$path": "mailbox.receiveAll.disabled"
       }
     },
     "tapTheScreen": {
-      "$position": 0,
       "$patterns": [
         {
           "rect": {
@@ -6207,12 +6206,12 @@
           "position": 0
         }
       ],
+      "$isMultiPattern": false,
+      "$position": 0,
       "$name": "tapTheScreen",
-      "$path": "mailbox.tapTheScreen",
-      "$isMultiPattern": false
+      "$path": "mailbox.tapTheScreen"
     },
     "operator": {
-      "$position": 0,
       "$patterns": [
         {
           "rect": {
@@ -6247,11 +6246,11 @@
           "position": 0
         }
       ],
+      "$isMultiPattern": false,
+      "$position": 0,
       "$name": "operator",
       "$path": "mailbox.operator",
-      "$isMultiPattern": false,
       "selected": {
-        "$position": 0,
         "$patterns": [
           {
             "rect": {
@@ -6286,13 +6285,13 @@
             "position": 0
           }
         ],
+        "$isMultiPattern": false,
+        "$position": 0,
         "$name": "selected",
-        "$path": "mailbox.operator.selected",
-        "$isMultiPattern": false
+        "$path": "mailbox.operator.selected"
       }
     },
     "new": {
-      "$position": 0,
       "$patterns": [
         {
           "rect": {
@@ -6327,19 +6326,19 @@
           "position": 0
         }
       ],
+      "$isMultiPattern": false,
+      "$position": 0,
       "$name": "new",
-      "$path": "mailbox.new",
-      "$isMultiPattern": false
+      "$path": "mailbox.new"
     }
   },
   "visitTown": {
-    "$position": 0,
     "$patterns": [],
+    "$isMultiPattern": false,
+    "$position": 0,
     "$name": "visitTown",
     "$path": "visitTown",
-    "$isMultiPattern": false,
     "guild": {
-      "$position": 0,
       "$patterns": [
         {
           "rect": {
@@ -6374,11 +6373,11 @@
           "position": 0
         }
       ],
+      "$isMultiPattern": false,
+      "$position": 0,
       "$name": "guild",
       "$path": "visitTown.guild",
-      "$isMultiPattern": false,
       "selected": {
-        "$position": 0,
         "$patterns": [
           {
             "rect": {
@@ -6413,13 +6412,13 @@
             "position": 0
           }
         ],
+        "$isMultiPattern": false,
+        "$position": 0,
         "$name": "selected",
-        "$path": "visitTown.guild.selected",
-        "$isMultiPattern": false
+        "$path": "visitTown.guild.selected"
       }
     },
     "visit": {
-      "$position": 0,
       "$patterns": [
         {
           "rect": {
@@ -6454,12 +6453,12 @@
           "position": 0
         }
       ],
+      "$isMultiPattern": false,
+      "$position": 0,
       "$name": "visit",
-      "$path": "visitTown.visit",
-      "$isMultiPattern": false
+      "$path": "visitTown.visit"
     },
     "numHelpReceived": {
-      "$position": 0,
       "$patterns": [
         {
           "rect": {
@@ -6494,12 +6493,12 @@
           "position": 0
         }
       ],
+      "$isMultiPattern": false,
+      "$position": 0,
       "$name": "numHelpReceived",
-      "$path": "visitTown.numHelpReceived",
-      "$isMultiPattern": false
+      "$path": "visitTown.numHelpReceived"
     },
     "sweep": {
-      "$position": 0,
       "$patterns": [
         {
           "rect": {
@@ -6534,11 +6533,11 @@
           "position": 0
         }
       ],
+      "$isMultiPattern": false,
+      "$position": 0,
       "$name": "sweep",
       "$path": "visitTown.sweep",
-      "$isMultiPattern": false,
       "confirm": {
-        "$position": 0,
         "$patterns": [
           {
             "rect": {
@@ -6573,13 +6572,13 @@
             "position": 0
           }
         ],
+        "$isMultiPattern": false,
+        "$position": 0,
         "$name": "confirm",
-        "$path": "visitTown.sweep.confirm",
-        "$isMultiPattern": false
+        "$path": "visitTown.sweep.confirm"
       }
     },
     "noSweep": {
-      "$position": 0,
       "$patterns": [
         {
           "rect": {
@@ -6614,12 +6613,12 @@
           "position": 0
         }
       ],
+      "$isMultiPattern": false,
+      "$position": 0,
       "$name": "noSweep",
-      "$path": "visitTown.noSweep",
-      "$isMultiPattern": false
+      "$path": "visitTown.noSweep"
     },
     "cancel": {
-      "$position": 0,
       "$patterns": [
         {
           "rect": {
@@ -6654,12 +6653,12 @@
           "position": 0
         }
       ],
+      "$isMultiPattern": false,
+      "$position": 0,
       "$name": "cancel",
-      "$path": "visitTown.cancel",
-      "$isMultiPattern": false
+      "$path": "visitTown.cancel"
     },
     "done": {
-      "$position": 0,
       "$patterns": [
         {
           "rect": {
@@ -6694,12 +6693,12 @@
           "position": 0
         }
       ],
+      "$isMultiPattern": false,
+      "$position": 0,
       "$name": "done",
-      "$path": "visitTown.done",
-      "$isMultiPattern": false
+      "$path": "visitTown.done"
     },
     "helpReceivedYesterday": {
-      "$position": 0,
       "$patterns": [
         {
           "rect": {
@@ -6734,11 +6733,11 @@
           "position": 0
         }
       ],
+      "$isMultiPattern": false,
+      "$position": 0,
       "$name": "helpReceivedYesterday",
       "$path": "visitTown.helpReceivedYesterday",
-      "$isMultiPattern": false,
       "selected": {
-        "$position": 0,
         "$patterns": [
           {
             "rect": {
@@ -6773,13 +6772,13 @@
             "position": 0
           }
         ],
+        "$isMultiPattern": false,
+        "$position": 0,
         "$name": "selected",
-        "$path": "visitTown.helpReceivedYesterday.selected",
-        "$isMultiPattern": false
+        "$path": "visitTown.helpReceivedYesterday.selected"
       }
     },
     "like": {
-      "$position": 0,
       "$patterns": [
         {
           "rect": {
@@ -6814,11 +6813,11 @@
           "position": 0
         }
       ],
+      "$isMultiPattern": false,
+      "$position": 0,
       "$name": "like",
       "$path": "visitTown.like",
-      "$isMultiPattern": false,
       "selected": {
-        "$position": 0,
         "$patterns": [
           {
             "rect": {
@@ -6853,13 +6852,13 @@
             "position": 0
           }
         ],
+        "$isMultiPattern": false,
+        "$position": 0,
         "$name": "selected",
-        "$path": "visitTown.like.selected",
-        "$isMultiPattern": false
+        "$path": "visitTown.like.selected"
       }
     },
     "sendAllLikes": {
-      "$position": 0,
       "$patterns": [
         {
           "rect": {
@@ -6894,19 +6893,19 @@
           "position": 0
         }
       ],
+      "$isMultiPattern": false,
+      "$position": 0,
       "$name": "sendAllLikes",
-      "$path": "visitTown.sendAllLikes",
-      "$isMultiPattern": false
+      "$path": "visitTown.sendAllLikes"
     }
   },
   "shop": {
-    "$position": 0,
     "$patterns": [],
+    "$isMultiPattern": false,
+    "$position": 0,
     "$name": "shop",
     "$path": "shop",
-    "$isMultiPattern": false,
     "manaCrystal": {
-      "$position": 0,
       "$patterns": [
         {
           "rect": {
@@ -6941,11 +6940,11 @@
           "position": 0
         }
       ],
+      "$isMultiPattern": false,
+      "$position": 0,
       "$name": "manaCrystal",
       "$path": "shop.manaCrystal",
-      "$isMultiPattern": false,
       "soldOut": {
-        "$position": 0,
         "$patterns": [
           {
             "rect": {
@@ -6980,13 +6979,13 @@
             "position": 0
           }
         ],
+        "$isMultiPattern": false,
+        "$position": 0,
         "$name": "soldOut",
-        "$path": "shop.manaCrystal.soldOut",
-        "$isMultiPattern": false
+        "$path": "shop.manaCrystal.soldOut"
       }
     },
     "goldBuy": {
-      "$position": 0,
       "$patterns": [
         {
           "rect": {
@@ -7021,12 +7020,12 @@
           "position": 0
         }
       ],
+      "$isMultiPattern": false,
+      "$position": 0,
       "$name": "goldBuy",
-      "$path": "shop.goldBuy",
-      "$isMultiPattern": false
+      "$path": "shop.goldBuy"
     },
     "artifact": {
-      "$position": 0,
       "$patterns": [
         {
           "rect": {
@@ -7061,11 +7060,11 @@
           "position": 0
         }
       ],
+      "$isMultiPattern": false,
+      "$position": 0,
       "$name": "artifact",
       "$path": "shop.artifact",
-      "$isMultiPattern": false,
       "selected": {
-        "$position": 0,
         "$patterns": [
           {
             "rect": {
@@ -7100,12 +7099,12 @@
             "position": 0
           }
         ],
+        "$isMultiPattern": false,
+        "$position": 0,
         "$name": "selected",
-        "$path": "shop.artifact.selected",
-        "$isMultiPattern": false
+        "$path": "shop.artifact.selected"
       },
       "buy": {
-        "$position": 0,
         "$patterns": [
           {
             "rect": {
@@ -7140,12 +7139,12 @@
             "position": 0
           }
         ],
+        "$isMultiPattern": false,
+        "$position": 0,
         "$name": "buy",
-        "$path": "shop.artifact.buy",
-        "$isMultiPattern": false
+        "$path": "shop.artifact.buy"
       },
       "cost1500": {
-        "$position": 0,
         "$patterns": [
           {
             "rect": {
@@ -7180,13 +7179,13 @@
             "position": 0
           }
         ],
+        "$isMultiPattern": false,
+        "$position": 0,
         "$name": "cost1500",
-        "$path": "shop.artifact.cost1500",
-        "$isMultiPattern": false
+        "$path": "shop.artifact.cost1500"
       }
     },
     "classEnhance": {
-      "$position": 0,
       "$patterns": [
         {
           "rect": {
@@ -7221,11 +7220,11 @@
           "position": 0
         }
       ],
+      "$isMultiPattern": false,
+      "$position": 0,
       "$name": "classEnhance",
       "$path": "shop.classEnhance",
-      "$isMultiPattern": false,
       "soldOut": {
-        "$position": 0,
         "$patterns": [
           {
             "rect": {
@@ -7260,13 +7259,13 @@
             "position": 0
           }
         ],
+        "$isMultiPattern": false,
+        "$position": 0,
         "$name": "soldOut",
-        "$path": "shop.classEnhance.soldOut",
-        "$isMultiPattern": false
+        "$path": "shop.classEnhance.soldOut"
       }
     },
     "buy": {
-      "$position": 0,
       "$patterns": [
         {
           "rect": {
@@ -7301,12 +7300,12 @@
           "position": 0
         }
       ],
+      "$isMultiPattern": false,
+      "$position": 0,
       "$name": "buy",
-      "$path": "shop.buy",
-      "$isMultiPattern": false
+      "$path": "shop.buy"
     },
     "evilSoulShop": {
-      "$position": 0,
       "$patterns": [
         {
           "rect": {
@@ -7341,11 +7340,11 @@
           "position": 0
         }
       ],
+      "$isMultiPattern": false,
+      "$position": 0,
       "$name": "evilSoulShop",
       "$path": "shop.evilSoulShop",
-      "$isMultiPattern": false,
       "selected": {
-        "$position": 0,
         "$patterns": [
           {
             "rect": {
@@ -7380,12 +7379,12 @@
             "position": 0
           }
         ],
+        "$isMultiPattern": false,
+        "$position": 0,
         "$name": "selected",
-        "$path": "shop.evilSoulShop.selected",
-        "$isMultiPattern": false
+        "$path": "shop.evilSoulShop.selected"
       },
       "advancedKeepsakeEnhanceStone": {
-        "$position": 0,
         "$patterns": [
           {
             "rect": {
@@ -7420,12 +7419,12 @@
             "position": 0
           }
         ],
+        "$isMultiPattern": false,
+        "$position": 0,
         "$name": "advancedKeepsakeEnhanceStone",
-        "$path": "shop.evilSoulShop.advancedKeepsakeEnhanceStone",
-        "$isMultiPattern": false
+        "$path": "shop.evilSoulShop.advancedKeepsakeEnhanceStone"
       },
       "buy": {
-        "$position": 0,
         "$patterns": [
           {
             "rect": {
@@ -7460,20 +7459,20 @@
             "position": 0
           }
         ],
+        "$isMultiPattern": false,
+        "$position": 0,
         "$name": "buy",
-        "$path": "shop.evilSoulShop.buy",
-        "$isMultiPattern": false
+        "$path": "shop.evilSoulShop.buy"
       }
     }
   },
   "guildRaid": {
-    "$position": 0,
     "$patterns": [],
+    "$isMultiPattern": false,
+    "$position": 0,
     "$name": "guildRaid",
     "$path": "guildRaid",
-    "$isMultiPattern": false,
     "sweep": {
-      "$position": 0,
       "$patterns": [
         {
           "rect": {
@@ -7508,11 +7507,11 @@
           "position": 0
         }
       ],
+      "$isMultiPattern": false,
+      "$position": 0,
       "$name": "sweep",
       "$path": "guildRaid.sweep",
-      "$isMultiPattern": false,
       "confirm": {
-        "$position": 0,
         "$patterns": [
           {
             "rect": {
@@ -7547,12 +7546,12 @@
             "position": 0
           }
         ],
+        "$isMultiPattern": false,
+        "$position": 0,
         "$name": "confirm",
-        "$path": "guildRaid.sweep.confirm",
-        "$isMultiPattern": false
+        "$path": "guildRaid.sweep.confirm"
       },
       "disabled": {
-        "$position": 0,
         "$patterns": [
           {
             "rect": {
@@ -7587,14 +7586,14 @@
             "position": 0
           }
         ],
+        "$isMultiPattern": false,
+        "$position": 0,
         "$name": "disabled",
-        "$path": "guildRaid.sweep.disabled",
-        "$isMultiPattern": false
+        "$path": "guildRaid.sweep.disabled"
       }
     }
   },
   "operationEdenAlliance": {
-    "$position": 0,
     "$patterns": [
       {
         "rect": {
@@ -7629,11 +7628,11 @@
         "position": 0
       }
     ],
+    "$isMultiPattern": false,
+    "$position": 0,
     "$name": "operationEdenAlliance",
     "$path": "operationEdenAlliance",
-    "$isMultiPattern": false,
     "battle": {
-      "$position": 0,
       "$patterns": [
         {
           "rect": {
@@ -7668,12 +7667,12 @@
           "position": 0
         }
       ],
+      "$isMultiPattern": false,
+      "$position": 0,
       "$name": "battle",
-      "$path": "operationEdenAlliance.battle",
-      "$isMultiPattern": false
+      "$path": "operationEdenAlliance.battle"
     },
     "dailyOperations": {
-      "$position": 0,
       "$patterns": [
         {
           "rect": {
@@ -7708,17 +7707,17 @@
           "position": 0
         }
       ],
+      "$isMultiPattern": false,
+      "$position": 0,
       "$name": "dailyOperations",
       "$path": "operationEdenAlliance.dailyOperations",
-      "$isMultiPattern": false,
       "disadvantages": {
-        "$position": 0,
         "$patterns": [],
+        "$isMultiPattern": false,
+        "$position": 0,
         "$name": "disadvantages",
         "$path": "operationEdenAlliance.dailyOperations.disadvantages",
-        "$isMultiPattern": false,
         "lv2": {
-          "$position": 0,
           "$patterns": [
             {
               "rect": {
@@ -7753,12 +7752,12 @@
               "position": 0
             }
           ],
+          "$isMultiPattern": false,
+          "$position": 0,
           "$name": "lv2",
-          "$path": "operationEdenAlliance.dailyOperations.disadvantages.lv2",
-          "$isMultiPattern": false
+          "$path": "operationEdenAlliance.dailyOperations.disadvantages.lv2"
         },
         "check": {
-          "$position": 0,
           "$patterns": [
             {
               "rect": {
@@ -7793,12 +7792,12 @@
               "position": 0
             }
           ],
+          "$isMultiPattern": false,
+          "$position": 0,
           "$name": "check",
-          "$path": "operationEdenAlliance.dailyOperations.disadvantages.check",
-          "$isMultiPattern": false
+          "$path": "operationEdenAlliance.dailyOperations.disadvantages.check"
         },
         "lv1": {
-          "$position": 0,
           "$patterns": [
             {
               "rect": {
@@ -7833,12 +7832,12 @@
               "position": 0
             }
           ],
+          "$isMultiPattern": false,
+          "$position": 0,
           "$name": "lv1",
-          "$path": "operationEdenAlliance.dailyOperations.disadvantages.lv1",
-          "$isMultiPattern": false
+          "$path": "operationEdenAlliance.dailyOperations.disadvantages.lv1"
         },
         "lv3": {
-          "$position": 0,
           "$patterns": [
             {
               "rect": {
@@ -7873,13 +7872,13 @@
               "position": 0
             }
           ],
+          "$isMultiPattern": false,
+          "$position": 0,
           "$name": "lv3",
-          "$path": "operationEdenAlliance.dailyOperations.disadvantages.lv3",
-          "$isMultiPattern": false
+          "$path": "operationEdenAlliance.dailyOperations.disadvantages.lv3"
         }
       },
       "mission": {
-        "$position": 0,
         "$patterns": [
           {
             "rect": {
@@ -7914,11 +7913,11 @@
             "position": 0
           }
         ],
+        "$isMultiPattern": false,
+        "$position": 0,
         "$name": "mission",
         "$path": "operationEdenAlliance.dailyOperations.mission",
-        "$isMultiPattern": false,
         "close": {
-          "$position": 0,
           "$patterns": [
             {
               "rect": {
@@ -7953,12 +7952,12 @@
               "position": 0
             }
           ],
+          "$isMultiPattern": false,
+          "$position": 0,
           "$name": "close",
-          "$path": "operationEdenAlliance.dailyOperations.mission.close",
-          "$isMultiPattern": false
+          "$path": "operationEdenAlliance.dailyOperations.mission.close"
         },
         "receiveAll": {
-          "$position": 0,
           "$patterns": [
             {
               "rect": {
@@ -7993,15 +7992,55 @@
               "position": 0
             }
           ],
+          "$isMultiPattern": false,
+          "$position": 0,
           "$name": "receiveAll",
-          "$path": "operationEdenAlliance.dailyOperations.mission.receiveAll",
-          "$isMultiPattern": false
+          "$path": "operationEdenAlliance.dailyOperations.mission.receiveAll"
         }
       }
+    },
+    "disabled": {
+      "$patterns": [
+        {
+          "rect": {
+            "x": 969.984375,
+            "y": 967.256103515625,
+            "width": 69.123046875,
+            "height": 44.60888671875
+          },
+          "resolution": {
+            "width": 1920,
+            "height": 1080
+          },
+          "isBoundsPattern": false,
+          "isLocationDynamic": false,
+          "name": "pattern",
+          "imageData": "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",
+          "variancePct": 20,
+          "horizontalStretchMultiplier": 0,
+          "verticalStretchMultiplier": 0,
+          "textMatch": {
+            "isActive": false,
+            "text": null,
+            "whiteList": null
+          },
+          "colorThreshold": {
+            "isActive": true,
+            "variancePct": 30,
+            "color": "#ff3e3c52",
+            "imageData": "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"
+          },
+          "offsetCalcType": "DockRight",
+          "position": 0
+        }
+      ],
+      "$isMultiPattern": false,
+      "$position": 0,
+      "$name": "disabled",
+      "$path": "operationEdenAlliance.disabled"
     }
   },
   "lobby": {
-    "$position": 0,
     "$patterns": [
       {
         "rect": {
@@ -8036,11 +8075,11 @@
         "position": 0
       }
     ],
+    "$isMultiPattern": false,
+    "$position": 0,
     "$name": "lobby",
     "$path": "lobby",
-    "$isMultiPattern": false,
     "adventure": {
-      "$position": 0,
       "$patterns": [
         {
           "rect": {
@@ -8075,12 +8114,12 @@
           "position": 0
         }
       ],
+      "$isMultiPattern": false,
+      "$position": 0,
       "$name": "adventure",
-      "$path": "lobby.adventure",
-      "$isMultiPattern": false
+      "$path": "lobby.adventure"
     },
     "town": {
-      "$position": 0,
       "$patterns": [
         {
           "rect": {
@@ -8115,11 +8154,11 @@
           "position": 0
         }
       ],
+      "$isMultiPattern": false,
+      "$position": 0,
       "$name": "town",
       "$path": "lobby.town",
-      "$isMultiPattern": false,
       "notification": {
-        "$position": 0,
         "$patterns": [
           {
             "rect": {
@@ -8154,13 +8193,13 @@
             "position": 0
           }
         ],
+        "$isMultiPattern": false,
+        "$position": 0,
         "$name": "notification",
-        "$path": "lobby.town.notification",
-        "$isMultiPattern": false
+        "$path": "lobby.town.notification"
       }
     },
     "level": {
-      "$position": 0,
       "$patterns": [
         {
           "rect": {
@@ -8195,12 +8234,12 @@
           "position": 0
         }
       ],
+      "$isMultiPattern": false,
+      "$position": 0,
       "$name": "level",
-      "$path": "lobby.level",
-      "$isMultiPattern": false
+      "$path": "lobby.level"
     },
     "cashShop": {
-      "$position": 0,
       "$patterns": [
         {
           "rect": {
@@ -8235,11 +8274,11 @@
           "position": 0
         }
       ],
+      "$isMultiPattern": false,
+      "$position": 0,
       "$name": "cashShop",
       "$path": "lobby.cashShop",
-      "$isMultiPattern": false,
       "notification": {
-        "$position": 0,
         "$patterns": [
           {
             "rect": {
@@ -8274,13 +8313,13 @@
             "position": 0
           }
         ],
+        "$isMultiPattern": false,
+        "$position": 0,
         "$name": "notification",
-        "$path": "lobby.cashShop.notification",
-        "$isMultiPattern": false
+        "$path": "lobby.cashShop.notification"
       }
     },
     "menu": {
-      "$position": 0,
       "$patterns": [
         {
           "rect": {
@@ -8315,12 +8354,12 @@
           "position": 0
         }
       ],
+      "$isMultiPattern": false,
+      "$position": 0,
       "$name": "menu",
-      "$path": "lobby.menu",
-      "$isMultiPattern": false
+      "$path": "lobby.menu"
     },
     "loot": {
-      "$position": 0,
       "$patterns": [
         {
           "rect": {
@@ -8355,12 +8394,12 @@
           "position": 0
         }
       ],
+      "$isMultiPattern": false,
+      "$position": 0,
       "$name": "loot",
-      "$path": "lobby.loot",
-      "$isMultiPattern": false
+      "$path": "lobby.loot"
     },
     "mail": {
-      "$position": 0,
       "$patterns": [
         {
           "rect": {
@@ -8395,12 +8434,12 @@
           "position": 0
         }
       ],
+      "$isMultiPattern": false,
+      "$position": 0,
       "$name": "mail",
-      "$path": "lobby.mail",
-      "$isMultiPattern": false
+      "$path": "lobby.mail"
     },
     "summon": {
-      "$position": 0,
       "$patterns": [
         {
           "rect": {
@@ -8435,11 +8474,11 @@
           "position": 0
         }
       ],
+      "$isMultiPattern": false,
+      "$position": 0,
       "$name": "summon",
       "$path": "lobby.summon",
-      "$isMultiPattern": false,
       "notification": {
-        "$position": 0,
         "$patterns": [
           {
             "rect": {
@@ -8474,13 +8513,13 @@
             "position": 0
           }
         ],
+        "$isMultiPattern": false,
+        "$position": 0,
         "$name": "notification",
-        "$path": "lobby.summon.notification",
-        "$isMultiPattern": false
+        "$path": "lobby.summon.notification"
       }
     },
     "shop": {
-      "$position": 0,
       "$patterns": [
         {
           "rect": {
@@ -8515,12 +8554,12 @@
           "position": 0
         }
       ],
+      "$isMultiPattern": false,
+      "$position": 0,
       "$name": "shop",
-      "$path": "lobby.shop",
-      "$isMultiPattern": false
+      "$path": "lobby.shop"
     },
     "attendanceCheck": {
-      "$position": 0,
       "$patterns": [
         {
           "rect": {
@@ -8555,12 +8594,12 @@
           "position": 0
         }
       ],
+      "$isMultiPattern": false,
+      "$position": 0,
       "$name": "attendanceCheck",
-      "$path": "lobby.attendanceCheck",
-      "$isMultiPattern": false
+      "$path": "lobby.attendanceCheck"
     },
     "souls": {
-      "$position": 0,
       "$patterns": [
         {
           "rect": {
@@ -8595,12 +8634,12 @@
           "position": 0
         }
       ],
+      "$isMultiPattern": false,
+      "$position": 0,
       "$name": "souls",
-      "$path": "lobby.souls",
-      "$isMultiPattern": false
+      "$path": "lobby.souls"
     },
     "quest": {
-      "$position": 0,
       "$patterns": [
         {
           "rect": {
@@ -8635,19 +8674,19 @@
           "position": 0
         }
       ],
+      "$isMultiPattern": false,
+      "$position": 0,
       "$name": "quest",
-      "$path": "lobby.quest",
-      "$isMultiPattern": false
+      "$path": "lobby.quest"
     }
   },
   "event": {
-    "$position": 0,
     "$patterns": [],
+    "$isMultiPattern": false,
+    "$position": 0,
     "$name": "event",
     "$path": "event",
-    "$isMultiPattern": false,
     "eventRaid": {
-      "$position": 0,
       "$patterns": [
         {
           "rect": {
@@ -8682,11 +8721,11 @@
           "position": 0
         }
       ],
+      "$isMultiPattern": false,
+      "$position": 0,
       "$name": "eventRaid",
       "$path": "event.eventRaid",
-      "$isMultiPattern": false,
       "sweep": {
-        "$position": 0,
         "$patterns": [
           {
             "rect": {
@@ -8721,11 +8760,11 @@
             "position": 0
           }
         ],
+        "$isMultiPattern": false,
+        "$position": 0,
         "$name": "sweep",
         "$path": "event.eventRaid.sweep",
-        "$isMultiPattern": false,
         "sweep": {
-          "$position": 0,
           "$patterns": [
             {
               "rect": {
@@ -8760,14 +8799,14 @@
               "position": 0
             }
           ],
+          "$isMultiPattern": false,
+          "$position": 0,
           "$name": "sweep",
-          "$path": "event.eventRaid.sweep.sweep",
-          "$isMultiPattern": false
+          "$path": "event.eventRaid.sweep.sweep"
         }
       }
     },
     "eventStage": {
-      "$position": 0,
       "$patterns": [
         {
           "rect": {
@@ -8802,11 +8841,11 @@
           "position": 0
         }
       ],
+      "$isMultiPattern": false,
+      "$position": 0,
       "$name": "eventStage",
       "$path": "event.eventStage",
-      "$isMultiPattern": false,
       "sweep": {
-        "$position": 0,
         "$patterns": [
           {
             "rect": {
@@ -8841,11 +8880,11 @@
             "position": 0
           }
         ],
+        "$isMultiPattern": false,
+        "$position": 0,
         "$name": "sweep",
         "$path": "event.eventStage.sweep",
-        "$isMultiPattern": false,
         "sweep": {
-          "$position": 0,
           "$patterns": [
             {
               "rect": {
@@ -8880,12 +8919,12 @@
               "position": 0
             }
           ],
+          "$isMultiPattern": false,
+          "$position": 0,
           "$name": "sweep",
-          "$path": "event.eventStage.sweep.sweep",
-          "$isMultiPattern": false
+          "$path": "event.eventStage.sweep.sweep"
         },
         "disabled": {
-          "$position": 0,
           "$patterns": [
             {
               "rect": {
@@ -8920,13 +8959,13 @@
               "position": 0
             }
           ],
+          "$isMultiPattern": false,
+          "$position": 0,
           "$name": "disabled",
-          "$path": "event.eventStage.sweep.disabled",
-          "$isMultiPattern": false
+          "$path": "event.eventStage.sweep.disabled"
         }
       },
       "challenge": {
-        "$position": 1,
         "$patterns": [
           {
             "rect": {
@@ -8961,12 +9000,12 @@
             "position": 0
           }
         ],
+        "$isMultiPattern": false,
+        "$position": 1,
         "$name": "challenge",
-        "$path": "event.eventStage.challenge",
-        "$isMultiPattern": false
+        "$path": "event.eventStage.challenge"
       },
       "purchaseExtraEntries": {
-        "$position": 2,
         "$patterns": [
           {
             "rect": {
@@ -9001,18 +9040,18 @@
             "position": 0
           }
         ],
+        "$isMultiPattern": false,
+        "$position": 2,
         "$name": "purchaseExtraEntries",
-        "$path": "event.eventStage.purchaseExtraEntries",
-        "$isMultiPattern": false
+        "$path": "event.eventStage.purchaseExtraEntries"
       },
       "firstStage": {
-        "$position": 3,
         "$patterns": [],
+        "$isMultiPattern": false,
+        "$position": 3,
         "$name": "firstStage",
         "$path": "event.eventStage.firstStage",
-        "$isMultiPattern": false,
         "play": {
-          "$position": 0,
           "$patterns": [
             {
               "rect": {
@@ -9047,12 +9086,12 @@
               "position": 0
             }
           ],
+          "$isMultiPattern": false,
+          "$position": 0,
           "$name": "play",
-          "$path": "event.eventStage.firstStage.play",
-          "$isMultiPattern": false
+          "$path": "event.eventStage.firstStage.play"
         },
         "selected": {
-          "$position": 0,
           "$patterns": [
             {
               "rect": {
@@ -9087,19 +9126,19 @@
               "position": 0
             }
           ],
+          "$isMultiPattern": false,
+          "$position": 0,
           "$name": "selected",
-          "$path": "event.eventStage.firstStage.selected",
-          "$isMultiPattern": false
+          "$path": "event.eventStage.firstStage.selected"
         }
       },
       "secondStage": {
-        "$position": 4,
         "$patterns": [],
+        "$isMultiPattern": false,
+        "$position": 4,
         "$name": "secondStage",
         "$path": "event.eventStage.secondStage",
-        "$isMultiPattern": false,
         "play": {
-          "$position": 0,
           "$patterns": [
             {
               "rect": {
@@ -9134,12 +9173,12 @@
               "position": 0
             }
           ],
+          "$isMultiPattern": false,
+          "$position": 0,
           "$name": "play",
-          "$path": "event.eventStage.secondStage.play",
-          "$isMultiPattern": false
+          "$path": "event.eventStage.secondStage.play"
         },
         "selected": {
-          "$position": 0,
           "$patterns": [
             {
               "rect": {
@@ -9174,13 +9213,13 @@
               "position": 0
             }
           ],
+          "$isMultiPattern": false,
+          "$position": 0,
           "$name": "selected",
-          "$path": "event.eventStage.secondStage.selected",
-          "$isMultiPattern": false
+          "$path": "event.eventStage.secondStage.selected"
         }
       },
       "currency": {
-        "$position": 5,
         "$patterns": [
           {
             "rect": {
@@ -9215,11 +9254,11 @@
             "position": 0
           }
         ],
+        "$isMultiPattern": false,
+        "$position": 5,
         "$name": "currency",
         "$path": "event.eventStage.currency",
-        "$isMultiPattern": false,
         "current": {
-          "$position": 0,
           "$patterns": [
             {
               "rect": {
@@ -9254,12 +9293,12 @@
               "position": 0
             }
           ],
+          "$isMultiPattern": false,
+          "$position": 0,
           "$name": "current",
-          "$path": "event.eventStage.currency.current",
-          "$isMultiPattern": false
+          "$path": "event.eventStage.currency.current"
         },
         "amount": {
-          "$position": 1,
           "$patterns": [
             {
               "rect": {
@@ -9294,14 +9333,14 @@
               "position": 0
             }
           ],
+          "$isMultiPattern": false,
+          "$position": 1,
           "$name": "amount",
-          "$path": "event.eventStage.currency.amount",
-          "$isMultiPattern": false
+          "$path": "event.eventStage.currency.amount"
         }
       }
     },
     "max": {
-      "$position": 0,
       "$patterns": [
         {
           "rect": {
@@ -9336,26 +9375,26 @@
           "position": 0
         }
       ],
+      "$isMultiPattern": false,
+      "$position": 0,
       "$name": "max",
-      "$path": "event.max",
-      "$isMultiPattern": false
+      "$path": "event.max"
     }
   },
   "souls": {
-    "$position": 0,
     "$patterns": [],
+    "$isMultiPattern": false,
+    "$position": 0,
     "$name": "souls",
     "$path": "souls",
-    "$isMultiPattern": false,
     "levelUp": {
-      "$position": 0,
       "$patterns": [],
+      "$isMultiPattern": false,
+      "$position": 0,
       "$name": "levelUp",
-      "$path": "souls.levelUp",
-      "$isMultiPattern": false
+      "$path": "souls.levelUp"
     },
     "quickLevelUp": {
-      "$position": 0,
       "$patterns": [
         {
           "rect": {
@@ -9390,11 +9429,11 @@
           "position": 0
         }
       ],
+      "$isMultiPattern": false,
+      "$position": 0,
       "$name": "quickLevelUp",
       "$path": "souls.quickLevelUp",
-      "$isMultiPattern": false,
       "confirm": {
-        "$position": 0,
         "$patterns": [
           {
             "rect": {
@@ -9429,12 +9468,12 @@
             "position": 0
           }
         ],
+        "$isMultiPattern": false,
+        "$position": 0,
         "$name": "confirm",
-        "$path": "souls.quickLevelUp.confirm",
-        "$isMultiPattern": false
+        "$path": "souls.quickLevelUp.confirm"
       },
       "tapTheScreen": {
-        "$position": 0,
         "$patterns": [
           {
             "rect": {
@@ -9469,13 +9508,13 @@
             "position": 0
           }
         ],
+        "$isMultiPattern": false,
+        "$position": 0,
         "$name": "tapTheScreen",
-        "$path": "souls.quickLevelUp.tapTheScreen",
-        "$isMultiPattern": false
+        "$path": "souls.quickLevelUp.tapTheScreen"
       }
     },
     "star": {
-      "$position": 0,
       "$patterns": [
         {
           "rect": {
@@ -9510,19 +9549,19 @@
           "position": 0
         }
       ],
+      "$isMultiPattern": false,
+      "$position": 0,
       "$name": "star",
-      "$path": "souls.star",
-      "$isMultiPattern": false
+      "$path": "souls.star"
     }
   },
   "quest": {
-    "$position": 0,
     "$patterns": [],
+    "$isMultiPattern": false,
+    "$position": 0,
     "$name": "quest",
     "$path": "quest",
-    "$isMultiPattern": false,
     "receiveAll": {
-      "$position": 0,
       "$patterns": [
         {
           "rect": {
@@ -9557,12 +9596,12 @@
           "position": 0
         }
       ],
+      "$isMultiPattern": false,
+      "$position": 0,
       "$name": "receiveAll",
-      "$path": "quest.receiveAll",
-      "$isMultiPattern": false
+      "$path": "quest.receiveAll"
     },
     "tapTheScreen": {
-      "$position": 0,
       "$patterns": [
         {
           "rect": {
@@ -9597,9 +9636,10 @@
           "position": 0
         }
       ],
+      "$isMultiPattern": false,
+      "$position": 0,
       "$name": "tapTheScreen",
-      "$path": "quest.tapTheScreen",
-      "$isMultiPattern": false
+      "$path": "quest.tapTheScreen"
     }
   }
 }
