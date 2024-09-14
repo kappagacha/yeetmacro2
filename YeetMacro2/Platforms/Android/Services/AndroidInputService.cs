@@ -1,6 +1,7 @@
 ﻿using YeetMacro2.Platforms.Android.ViewModels;
 using YeetMacro2.Platforms.Android.Views;
 using YeetMacro2.Services;
+using YeetMacro2.ViewModels;
 
 namespace YeetMacro2.Platforms.Android.Services;
 public class AndroidInputService(AndroidScreenService screenService) : IInputService
@@ -9,12 +10,13 @@ public class AndroidInputService(AndroidScreenService screenService) : IInputSer
 
     public async Task<Rect> DrawUserRectangle()
     {
-        var patternsViewIsShowing = _screenService.Views.TryGetValue(AndroidWindowView.PatternNodeView, out IShowable patternsView) && patternsView.IsShowing;
+        var currentMacroSet = ServiceHelper.GetService<MacroManagerViewModel>().SelectedMacroSet;
+        var patternsViewIsShowing = _screenService.PatternViews.TryGetValue(currentMacroSet, out IShowable patternsView) && patternsView.IsShowing;
         var macroOverlayViewIsShowing = _screenService.Views.TryGetValue(AndroidWindowView.MacroOverlayView, out IShowable macroOverlayView) && macroOverlayView.IsShowing;
-        var scriptsViewIsShowing = _screenService.Views.TryGetValue(AndroidWindowView.ScriptNodeView, out IShowable scriptsView) && scriptsView.IsShowing;
-        if (patternsViewIsShowing) _screenService.Views[AndroidWindowView.PatternNodeView].Close();
+        var scriptsViewIsShowing = _screenService.ScriptViews.TryGetValue(currentMacroSet, out IShowable scriptsView) && scriptsView.IsShowing;
+        if (patternsViewIsShowing) _screenService.PatternViews[currentMacroSet].Close();
         if (macroOverlayViewIsShowing) _screenService.Views[AndroidWindowView.MacroOverlayView].Close();
-        if (scriptsViewIsShowing) _screenService.Views[AndroidWindowView.ScriptNodeView].Close();
+        if (scriptsViewIsShowing) _screenService.ScriptViews[currentMacroSet].Close();
 
         _screenService.Show(AndroidWindowView.UserDrawView);
         var drawControl = (DrawControl)_screenService.Views[AndroidWindowView.UserDrawView].VisualElement;
@@ -24,7 +26,7 @@ public class AndroidInputService(AndroidScreenService screenService) : IInputSer
         {
             if (patternsViewIsShowing) ServiceHelper.GetService<AndriodHomeViewModel>().ShowPatternNodeView = true;
             if (macroOverlayViewIsShowing) _screenService.Views[AndroidWindowView.MacroOverlayView].Show();
-            if (scriptsViewIsShowing) _screenService.Views[AndroidWindowView.ScriptNodeView].Show();
+            if (scriptsViewIsShowing) _screenService.ScriptViews[currentMacroSet].Show();
 
             return drawControl.Rect;
         }

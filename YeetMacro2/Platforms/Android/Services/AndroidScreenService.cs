@@ -53,7 +53,6 @@ public class AndroidScreenService : IScreenService
     readonly IToastService _toastService;
     Size _initialResolution;
     readonly double _density;
-    public IReadOnlyDictionary<AndroidWindowView, IShowable> Views => _views;
     public int UserDrawViewWidth => _views.ContainsKey(AndroidWindowView.UserDrawView) ? ((FormsView)_views[AndroidWindowView.UserDrawView]).MeasuredHeightAndState : -1;
     public int UserDrawViewHeight => _views.ContainsKey(AndroidWindowView.UserDrawView) ? ((FormsView)_views[AndroidWindowView.UserDrawView]).MeasuredWidthAndState : -1;
     public Size CalcResolution
@@ -80,6 +79,9 @@ public class AndroidScreenService : IScreenService
     readonly Dictionary<MacroSetViewModel, IShowable> _macroSetToScriptsView = new Dictionary<MacroSetViewModel, IShowable>();
     readonly Dictionary<MacroSetViewModel, IShowable> _macroSetToDailiesView = new Dictionary<MacroSetViewModel, IShowable>();
     readonly Dictionary<MacroSetViewModel, IShowable> _macroSetToWeekliesView = new Dictionary<MacroSetViewModel, IShowable>();
+    public IReadOnlyDictionary<AndroidWindowView, IShowable> Views => _views;
+    public IReadOnlyDictionary<MacroSetViewModel, IShowable> PatternViews => _macroSetToPatternsView;
+    public IReadOnlyDictionary<MacroSetViewModel, IShowable> ScriptViews => _macroSetToScriptsView;
 
     public AndroidScreenService(ILogger<AndroidScreenService> logger, OpenCvService openCvService, 
         MediaProjectionService mediaProjectionService, IOcrService ocrService,
