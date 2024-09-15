@@ -44,8 +44,8 @@ macroService.PollPattern(patterns.titles.home, {
 		patterns.general.cancel,
 		patterns.dungeon.cancel,
 		patterns.shop.close,
-		//patterns.login.skip,
-		patterns.login.youGot,
+		//patterns.logIn.skip,
+		patterns.logIn.youGot,
 	]
 });
 
