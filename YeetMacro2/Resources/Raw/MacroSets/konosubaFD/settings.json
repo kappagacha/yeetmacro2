@@ -155,7 +155,6 @@
     "limitedEventPattern": {
       "$type": "pattern",
       "$defaultValue": {
-        "$position": 0,
         "$patterns": [
           {
             "rect": {
@@ -190,12 +189,12 @@
             "position": 0
           }
         ],
+        "$isMultiPattern": false,
+        "$position": 0,
         "$name": null,
-        "$path": null,
-        "$isMultiPattern": false
+        "$path": null
       },
       "$value": {
-        "$position": 0,
         "$patterns": [
           {
             "rect": {
@@ -230,9 +229,10 @@
             "position": 0
           }
         ],
+        "$isMultiPattern": false,
+        "$position": 0,
         "$name": null,
-        "$path": null,
-        "$isMultiPattern": false
+        "$path": null
       },
       "$position": 0,
       "$name": "limitedEventPattern",
@@ -576,18 +576,18 @@
     "userClickPattern": {
       "$type": "pattern",
       "$defaultValue": {
-        "$position": 0,
         "$patterns": [],
+        "$isMultiPattern": false,
+        "$position": 0,
         "$name": null,
-        "$path": null,
-        "$isMultiPattern": false
+        "$path": null
       },
       "$value": {
-        "$position": 0,
         "$patterns": [],
+        "$isMultiPattern": false,
+        "$position": 0,
         "$name": null,
-        "$path": null,
-        "$isMultiPattern": false
+        "$path": null
       },
       "$position": 0,
       "$name": "userClickPattern",
@@ -611,18 +611,18 @@
     "userClickPattern": {
       "$type": "pattern",
       "$defaultValue": {
-        "$position": 0,
         "$patterns": [],
+        "$isMultiPattern": false,
+        "$position": 0,
         "$name": null,
-        "$path": null,
-        "$isMultiPattern": false
+        "$path": null
       },
       "$value": {
-        "$position": 0,
         "$patterns": [],
+        "$isMultiPattern": false,
+        "$position": 0,
         "$name": null,
-        "$path": null,
-        "$isMultiPattern": false
+        "$path": null
       },
       "$position": 0,
       "$name": "userClickPattern",
