@@ -50,7 +50,7 @@ while (macroService.IsRunning) {
 					continue;
 				}
 				
-				const moveResult = macroService.PollPattern([patterns.titles.inventory, patterns.titles.base, patterns.titles.base, patterns.titles.arena]);
+				const moveResult = macroService.PollPattern([patterns.titles.inventory, patterns.titles.base, patterns.titles.base, patterns.titles.arena], { ClickPattern: [patterns.arena.defendReport.close, patterns.arena.newLeague, patterns.arena.tapEmptySpace] });
 				if (moveResult.Path === 'titles.inventory') {
 					let gearEnhancedResult = macroService.FindPattern(patterns.inventory.gearEnhanced);
 					if (gearEnhancedResult.IsSuccess) {
