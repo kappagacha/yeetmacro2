@@ -138,35 +138,32 @@ public class ResizeView : RelativeLayout, IOnTouchListener, IShowable
 
     public void Show()
     {
-        if (_state != FormState.SHOWING)
-        {
-            _windowManager.AddView(this, _layoutParams);
-            _closeCompleted = new TaskCompletionSource<bool>();
-            OnShow?.Invoke();
-            _state = FormState.SHOWING;
-        }
+        if (_state == FormState.SHOWING) return;
+
+        _windowManager.AddView(this, _layoutParams);
+        _closeCompleted = new TaskCompletionSource<bool>();
+        OnShow?.Invoke();
+        _state = FormState.SHOWING;
     }
 
     public void Close()
     {
-        if (_state == FormState.SHOWING)
-        {
-            _windowManager.RemoveView(this);
-            _state = FormState.CLOSED;
-            _closeCompleted.TrySetResult(true);
-            OnClose?.Invoke();
-        }
+        if (_state == FormState.CLOSED) return;
+
+        _windowManager.RemoveView(this);
+        _state = FormState.CLOSED;
+        _closeCompleted.TrySetResult(true);
+        OnClose?.Invoke();
     }
 
     public void CloseCancel()
     {
-        if (_state == FormState.SHOWING)
-        {
-            _windowManager.RemoveView(this);
-            _state = FormState.CLOSED;
-            _closeCompleted.TrySetResult(false);
-            OnClose?.Invoke();
-        }
+        if (_state == FormState.CLOSED) return;
+
+        _windowManager.RemoveView(this);
+        _state = FormState.CLOSED;
+        _closeCompleted.TrySetResult(false);
+        OnClose?.Invoke();
     }
 
     private void EnableKeyboard()

@@ -15,6 +15,7 @@ public class StaticView : RelativeLayout, IShowable
     public VisualElement VisualElement => _visualElement;
     private FormState _state;
     public bool IsShowing { get => _state == FormState.SHOWING; }
+    public Action OnClose { get; set; }
     private readonly global::Android.Views.View _androidView;
     //https://www.linkedin.com/pulse/6-floating-windows-android-keyboard-input-v%C3%A1clav-hodek/
     public StaticView(Context context, IWindowManager windowManager, VisualElement visualElement) : base(context)
@@ -71,11 +72,13 @@ public class StaticView : RelativeLayout, IShowable
 
         _windowManager.RemoveView(this);
         _state = FormState.CLOSED;
+        OnClose?.Invoke();
     }
 
     public void CloseCancel()
     {
         Close();
+        OnClose?.Invoke();
     }
 
     public async Task<bool> WaitForClose()

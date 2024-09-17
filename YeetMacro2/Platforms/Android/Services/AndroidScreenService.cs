@@ -514,6 +514,7 @@ public class AndroidScreenService : IScreenService
                         lp.Gravity = GravityFlags.Bottom;
                         lp.Width = WindowManagerLayoutParams.MatchParent;
                     });
+                    statusPanelView.OnClose = () => ServiceHelper.GetService<AndriodHomeViewModel>().ShowStatusPanel = false;
                     _views.TryAdd(windowView, statusPanelView);
                     break;
                 case AndroidWindowView.MacroOverlayView:
