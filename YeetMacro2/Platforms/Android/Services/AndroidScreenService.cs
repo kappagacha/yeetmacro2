@@ -110,6 +110,7 @@ public class AndroidScreenService : IScreenService
                 _mediaProjectionService.StopRecording();
                 CloseAll();
                 Close(AndroidWindowView.ActionView);
+                Close(AndroidWindowView.StatusPanelView);
                 CloseOverlayWindow();
             }
         });
@@ -514,7 +515,7 @@ public class AndroidScreenService : IScreenService
                         lp.Gravity = GravityFlags.Bottom;
                         lp.Width = WindowManagerLayoutParams.MatchParent;
                     });
-                    statusPanelView.OnClose = () => ServiceHelper.GetService<AndriodHomeViewModel>().ShowStatusPanel = false;
+                    //statusPanelView.OnClose = () => ServiceHelper.GetService<AndriodHomeViewModel>().ShowStatusPanel = false;
                     _views.TryAdd(windowView, statusPanelView);
                     break;
                 case AndroidWindowView.MacroOverlayView:
@@ -681,10 +682,9 @@ public class AndroidScreenService : IScreenService
         }
     }
 
-    // Except action view and overlay
+    // Except action view, overlay and status panel
     public void CloseAll()
     {
-        Close(AndroidWindowView.StatusPanelView);
         Close(AndroidWindowView.MacroOverlayView);
         Close(AndroidWindowView.PatternNodeView);
         Close(AndroidWindowView.SettingNodeView);
