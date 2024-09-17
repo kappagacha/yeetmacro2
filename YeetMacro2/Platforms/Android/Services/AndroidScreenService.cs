@@ -109,6 +109,7 @@ public class AndroidScreenService : IScreenService
                 _mediaProjectionService.Stop();
                 _mediaProjectionService.StopRecording();
                 CloseAll();
+                Close(AndroidWindowView.MacroOverlayView);
                 Close(AndroidWindowView.ActionView);
                 Close(AndroidWindowView.StatusPanelView);
                 CloseOverlayWindow();
@@ -685,7 +686,6 @@ public class AndroidScreenService : IScreenService
     // Except action view, overlay and status panel
     public void CloseAll()
     {
-        Close(AndroidWindowView.MacroOverlayView);
         Close(AndroidWindowView.PatternNodeView);
         Close(AndroidWindowView.SettingNodeView);
         Close(AndroidWindowView.ScriptNodeView);
