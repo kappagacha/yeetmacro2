@@ -6,9 +6,10 @@ const daily = dailyManager.GetCurrentDaily();
 const teamSlot = settings.doArena.teamSlot.Value;
 const cpThresholdIsEnabled = settings.doArena.cpThreshold.IsEnabled;
 const autoDetectCpThreshold = settings.doArena.autoDetectCpThreshold.Value;
+const clickPattern = [patterns.arena.defendReport.close, patterns.arena.newLeague, patterns.arena.tapEmptySpace];
 
 while (macroService.IsRunning) {
-	const loopResult = macroService.PollPattern(loopPatterns, { ClickPattern: [patterns.arena.defendReport.close, patterns.arena.newLeague, patterns.arena.tapEmptySpace] });
+	const loopResult = macroService.PollPattern(loopPatterns, { ClickPattern: clickPattern });
 	switch (loopResult.Path) {
 		case 'lobby.level':
 			logger.info('doArena: click adventure tab');
@@ -91,7 +92,7 @@ while (macroService.IsRunning) {
 				}
 			} else {
 				logger.info('doArena: normal match');
-				macroService.PollPattern(patterns.arena.matchOpponent, { DoClick: true, ClickPattern: patterns.arena.defendReport.close, PredicatePattern: patterns.arena.matchOpponent.selected });
+				macroService.PollPattern(patterns.arena.matchOpponent, { DoClick: true, ClickPattern: clickPattern, PredicatePattern: patterns.arena.matchOpponent.selected });
 				if (cpThresholdIsEnabled) {
 					const cpThreshold = settings.doArena.cpThreshold.Value;
 					const challenge1CP = macroService.GetText(patterns.arena.challenge1.cp);
