@@ -54,9 +54,11 @@ while (macroService.IsRunning) {
 						
 						if (optionResult.PredicatePath === 'terminusIsle.prompt.heroDeployment') {
 							deployHeroes();
+							sleep(1000);
 							logger.screenCapture(`Title: ${title} => option ${randomOption}`);
 							macroService.PollPattern(patterns.general.tapEmptySpace, { DoClick: true, PredicatePattern: patterns.terminusIsle.stage });
 						} else {
+							sleep(1000);
 							logger.screenCapture(`Title: ${title} => option ${randomOption}`);
 							macroService.PollPattern(patterns.general.tapEmptySpace, { DoClick: true, PredicatePattern: patterns.terminusIsle.stage });
 						}
