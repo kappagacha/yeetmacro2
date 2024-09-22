@@ -12,16 +12,16 @@ while (macroService.IsRunning) {
 	const loopResult = macroService.PollPattern(loopPatterns, { ClickPattern: [patterns.general.tapEmptySpace, patterns.guild.checkIn.ok, patterns.guild.raid.startMessage, patterns.guild.raid.endMessage.ok] });
 	switch (loopResult.Path) {
 		case 'lobby.level':
-			//const receiveGuildBuffResult = macroService.PollPattern(patterns.lobby.receiveGuildBuff, { DoClick: true, PredicatePattern: patterns.lobby.receiveGuildBuff.message, TimeoutMs: 3_000 });
-			//if (receiveGuildBuffResult.IsSuccess) {
-			//	macroService.PollPattern(patterns.lobby.receiveGuildBuff.message, { DoClick: true, PredicatePattern: patterns.lobby.level });
+			const receiveGuildBuffResult = macroService.PollPattern(patterns.lobby.receiveGuildBuff, { DoClick: true, PredicatePattern: patterns.lobby.receiveGuildBuff.message, TimeoutMs: 3_000 });
+			if (receiveGuildBuffResult.IsSuccess) {
+				macroService.PollPattern(patterns.lobby.receiveGuildBuff.message, { DoClick: true, PredicatePattern: patterns.lobby.level });
 
-			//	if (macroService.IsRunning) {
-			//		daily.claimGuildBuff.done.IsChecked = true;
-			//	}
+				if (macroService.IsRunning) {
+					daily.claimGuildBuff.done.IsChecked = true;
+				}
 
-			//	return;
-			//}
+				return;
+			}
 
 			logger.info('claimGuildBuff: click guild tab');
 			macroService.ClickPattern(patterns.tabs.guild);
