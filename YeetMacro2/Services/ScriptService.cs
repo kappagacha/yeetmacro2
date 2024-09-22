@@ -15,7 +15,7 @@ namespace YeetMacro2.Services;
 
 public interface IScriptService
 {
-    string RunScript(ScriptNode targetScript, MacroSetViewModel macroSet);
+    string RunScript(ScriptNodeViewModel targetScript, MacroSetViewModel macroSet);
     void Stop();
 }
 
@@ -56,7 +56,7 @@ public class ScriptService: IScriptService
         Thread.Sleep(ms);
     }
 
-    public string RunScript(ScriptNode targetScript, MacroSetViewModel macroSet)
+    public string RunScript(ScriptNodeViewModel targetScript, MacroSetViewModel macroSet)
     {
         string result = String.Empty;
         if (_macroService.IsRunning) return result;

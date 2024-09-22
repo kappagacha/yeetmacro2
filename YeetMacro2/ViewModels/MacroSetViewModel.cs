@@ -261,7 +261,7 @@ public partial class MacroSetViewModel : MacroSet
 
     [RelayCommand]
     [property: JsonIgnore]
-    private async Task ExecuteScript(ScriptNode scriptNode)
+    private async Task ExecuteScript(ScriptNodeViewModel scriptNode)
     {
         if (IsScriptRunning) return;
 
