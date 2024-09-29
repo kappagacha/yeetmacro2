@@ -40,6 +40,8 @@ macroService.PollPattern(patterns.lobby.level, {
 		patterns.general.tapEmptySpace,
 		patterns.general.exitCheckIn,
 		patterns.friends.ok,
+		patterns.login.downloadPatch,
+		patterns.login.touchToStart,
 		userClickPattern
 	]
 });
