@@ -21,7 +21,12 @@ macroService.PollPattern(patterns.lobby.level, {
 		patterns.town.cancel,
 		patterns.town.menu,
 		patterns.town.menu.returnToLobby,
-		patterns.battle.exit
+		patterns.battle.exit,
+		patterns.login.pressToStart,
+		patterns.login.confirm,
+		patterns.login.pressToStart2,
+		patterns.login.skip,
+		patterns.login.newCharacter,
 	]
 });
 if (macroService.IsRunning) {
