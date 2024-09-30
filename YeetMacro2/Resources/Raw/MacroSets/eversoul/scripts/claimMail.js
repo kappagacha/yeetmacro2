@@ -28,15 +28,14 @@ while (macroService.IsRunning) {
 				macroService.PollPattern(patterns.mailbox.tapTheScreen, { DoClick: true, PredicatePattern: patterns.titles.mailbox });
 			}
 
-			//logger.info('claimMail: claim message');
-			//macroService.PollPattern(patterns.mailbox.message, { DoClick: true, PredicatePattern: patterns.mailbox.message.selected });
-			//const newOperatorResult = macroService.FindPattern(patterns.mailbox.new);
-			//if (newOperatorResult.IsSuccess) {
-			//	// TODO: capture message.receive pattern
-			//	macroService.PollPattern(patterns.mailbox.new, { DoClick: true, PredicatePattern: patterns.mailbox.message.receive });
-			//	macroService.PollPattern(patterns.mailbox.message.receive, { DoClick: true, PredicatePattern: patterns.mailbox.tapTheScreen });
-			//	macroService.PollPattern(patterns.mailbox.tapTheScreen, { DoClick: true, PredicatePattern: patterns.titles.mailbox });
-			//}
+			logger.info('claimMail: claim message');
+			macroService.PollPattern(patterns.mailbox.message, { DoClick: true, PredicatePattern: patterns.mailbox.message.selected });
+			const newOperatorResult = macroService.FindPattern(patterns.mailbox.new);
+			if (newOperatorResult.IsSuccess) {
+				macroService.PollPattern(patterns.mailbox.new, { DoClick: true, PredicatePattern: patterns.mailbox.message.receive });
+				macroService.PollPattern(patterns.mailbox.message.receive, { DoClick: true, PredicatePattern: patterns.mailbox.tapTheScreen });
+				macroService.PollPattern(patterns.mailbox.tapTheScreen, { DoClick: true, PredicatePattern: patterns.titles.mailbox });
+			}
 			
 			logger.info('claimMail: done');
 			if (macroService.IsRunning) {
