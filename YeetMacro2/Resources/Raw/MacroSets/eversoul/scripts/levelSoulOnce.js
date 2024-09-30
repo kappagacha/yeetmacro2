@@ -14,6 +14,7 @@ while (macroService.IsRunning) {
 			break;
 		case 'general.back':
 			logger.info('levelSoulOnce: level a soul');
+			macroService.PollPattern(patterns.souls.star);
 			const starResult = macroService.FindPattern(patterns.souls.star, { Limit: 5 });
 			const maxXPoint = starResult.Points.reduce((maxXPoint, p) => (maxXPoint = maxXPoint.X >= p.X ? maxXPoint : p));
 			macroService.PollPoint(maxXPoint, { PredicatePattern: patterns.souls.quickLevelUp });
