@@ -17,7 +17,7 @@
                         <VerticalStackLayout>
                             <v:ImageView FontFamily="FASolid" Glyph="{x:Static fa:Solid.FileExport}" 
                                              Command="{Binding ItemsSource.ExportCommand}"
-                                             CommandParameter="{Binding BindingContext.SelectedMacroSet.Name, Source={RelativeSource AncestorType={x:Type v:PatternNodeView}}}" />
+                                             CommandParameter="{Binding BindingContext.Name, Source={RelativeSource AncestorType={x:Type v:PatternNodeView}}}" />
                         </VerticalStackLayout>
                     </DataTemplate>
                 </v:NodeView.ExtraMenuItemsDataTemplate>

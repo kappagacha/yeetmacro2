@@ -12,7 +12,6 @@ using YeetMacro2.Data.Services;
 using YeetMacro2.Services;
 using YeetMacro2.ViewModels.NodeViewModels;
 using CommunityToolkit.Mvvm.Messaging;
-using YeetMacro2.Data.Messaging;
 using CommunityToolkit.Mvvm.Messaging.Messages;
 using System.Text.RegularExpressions;
 

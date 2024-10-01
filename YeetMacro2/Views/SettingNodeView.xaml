@@ -265,12 +265,11 @@
                         <VerticalStackLayout>
                             <v:ImageView IsVisible="{Binding BindingContext.Settings.SelectedNode, Source={RelativeSource AncestorType={x:Type v:SettingNodeView}}, Converter={conv:NullToBoolConverter}}"
                                          FontFamily="FASolid" Glyph="{x:Static fa:Solid.FileImport}"
-                                         Command="{Binding  BindingContext.Settings.ImportSettingsCommand}"
-                                         CommandParameter="{Binding BindingContext.SelectedMacroSet.Name, Source={RelativeSource AncestorType={x:Type v:SettingNodeView}}}" />
+                                         Command="{Binding  BindingContext.Settings.ImportSettingsCommand}" />
                             <v:ImageView IsVisible="{Binding BindingContext.Settings.SelectedNode, Source={RelativeSource AncestorType={x:Type v:SettingNodeView}}, Converter={conv:NullToBoolConverter}}"
                                          FontFamily="FASolid" Glyph="{x:Static fa:Solid.FileExport}" 
                                          Command="{Binding  BindingContext.Settings.ExportCommand}"
-                                         CommandParameter="{Binding BindingContext.SelectedMacroSet.Name, Source={RelativeSource AncestorType={x:Type v:SettingNodeView}}}" />
+                                         CommandParameter="{Binding BindingContext.Name, Source={RelativeSource AncestorType={x:Type v:SettingNodeView}}}" />
                             <Grid>
                                 <v:ToggleImageView FontFamily="MaterialOutlined" Glyph="{x:Static mi:MaterialOutlined.Refresh}" ToggledColor="{StaticResource Primary}" 
                                                    IsToggled="{Binding BindingContext.Settings.ShowResetButton, Source={RelativeSource AncestorType={x:Type v:SettingNodeView}}}"/>
