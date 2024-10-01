@@ -33,7 +33,7 @@ public class ScriptService: IScriptService
     {
         WriteIndented = true
     };
-             
+
     public ScriptService(LogServiceViewModel LogServiceViewModel, IScreenService screenService, IToastService toastService, MacroService macroService)
     {
         _logServiceViewModel = LogServiceViewModel;
@@ -70,9 +70,10 @@ public class ScriptService: IScriptService
             Timestamp = DateTime.Now.Ticks
         };
         dynamic logger = new ExpandoObject();
+        logger.isPersistingLogs = false;
         logger.info = new Action<string>((msg) => {
             _logServiceViewModel.Info = msg;
-            if (targetScript.DoLog)
+            if (logger.isPersistingLogs)
             {
                 scriptLog.Logs.Add(new Log()
                 {
@@ -83,7 +84,7 @@ public class ScriptService: IScriptService
         });
         logger.debug = new Action<string>((msg) => {
             _logServiceViewModel.Debug = msg;
-            if (targetScript.DoLog)
+            if (logger.isPersistingLogs)
             {
                 scriptLog.Logs.Add(new Log()
                 {
@@ -93,12 +94,13 @@ public class ScriptService: IScriptService
             }
         });
         logger.screenCapture = new Action<string>((msg) => {
-            if (targetScript.DoLog)
+            if (logger.isPersistingLogs)
             {
                 var screenCaptureLog = _logServiceViewModel.GenerateScreenCaptureLog(msg);
                 scriptLog.Logs.Add(screenCaptureLog);
             }
         });
+
         _engine.SetValue("logger", logger);
 
         // https://github.com/sebastienros/jint
@@ -162,7 +164,7 @@ public class ScriptService: IScriptService
         }
         finally
         {
-            if (targetScript.DoLog)
+            if (scriptLog.Logs.Count > 0)
             {
                 _logServiceViewModel.Log(scriptLog);
             }

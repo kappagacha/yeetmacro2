@@ -121,10 +121,6 @@
                  CommandParameter="{Binding Scripts.SelectedNode}" />
         </Grid>
         <HorizontalStackLayout HorizontalOptions="End" VerticalOptions="Start" Margin="0,0,40,0">
-            <HorizontalStackLayout HorizontalOptions="End" VerticalOptions="Start">
-                <CheckBox IsChecked="{Binding Scripts.SelectedNode.DoLog}" />
-                <Label VerticalOptions="Center" Text="DoLog" />
-            </HorizontalStackLayout>
             <v:ToggleImageView IsToggled="{Binding Scripts.ShowScriptEditor}" ToggledColor="{StaticResource Primary}"
                                FontFamily="MaterialOutlined" Glyph="{x:Static mi:MaterialOutlined.Edit}" />
         </HorizontalStackLayout>

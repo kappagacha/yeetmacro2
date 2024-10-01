@@ -40,7 +40,6 @@ public partial class ScriptNodeManagerViewModel : NodeManagerViewModel<ScriptNod
 
     public static void MergeSettings(ScriptNode source, ScriptNode dest)
     {
-        dest.DoLog = source.DoLog;
         dest.IsHidden = source.IsHidden;
         dest.IsFavorite = source.IsFavorite;
 

@@ -12,6 +12,8 @@ if (!isTerminusIsleReady && !settings.doTerminusIsleExploration.forceRun.Value) 
 	return 'startTerminusIsleExploration was ran less than 4 hours ago. Use forceRun setting to override check';
 }
 
+logger.isPersistingLogs = true;
+
 while (macroService.IsRunning) {
 	const loopResult = macroService.PollPattern(loopPatterns);
 	switch (loopResult.Path) {
@@ -29,6 +31,7 @@ while (macroService.IsRunning) {
 			logger.info('doTerminusIsleExploration: do explorations');
 			const terminusIsleResult = macroService.PollPattern([patterns.terminusIsle.confirm, patterns.terminusIsle.inProgress], { TimeoutMs: 3_000 });
 			if (terminusIsleResult.Path === 'terminusIsle.inProgress') {
+				logger.isPersistingLogs = false;
 				return;
 			}
 
@@ -98,6 +101,7 @@ while (macroService.IsRunning) {
 			if (macroService.IsRunning) {
 				daily.doTerminusIsleExploration.done.IsChecked = true;
 			}
+			logger.isPersistingLogs = false;
 			return;
 	}
 	sleep(1_000);
