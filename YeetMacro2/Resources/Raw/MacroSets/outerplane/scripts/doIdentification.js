@@ -24,7 +24,10 @@ while (macroService.IsRunning) {
 			macroService.PollPattern(patterns.challenge.identification[identification].stars, { DoClick: true, PredicatePattern: patterns.challenge.identification[identification] });
 			macroService.PollPattern(patterns.challenge.enter, { DoClick: true, PredicatePattern: patterns.challenge.threeStars });
 			clickBottomThreeStars();
-			macroService.PollPattern(patterns.challenge.teamsSetup, { DoClick: true, PredicatePattern: patterns.battle.enter });
+			const teamsSetupResult = macroService.PollPattern(patterns.challenge.teamsSetup, { DoClick: true, PredicatePattern: [patterns.battle.enter, patterns.battle.restore] });
+			if (teamsSetupResult.PredicatePath === 'battle.restore') {
+				return;
+			}
 			selectTeamAndBattle(teamSlot, sweepBattle);
 
 			if (macroService.IsRunning) {
