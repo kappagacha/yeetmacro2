@@ -10,9 +10,9 @@ if (daily.sweepEventStoryHard.done.IsChecked) {
 
 const targetPartPattern = macroService.ClonePattern(settings.sweepEventStoryHard.targetPartPattern.Value, {
 	X: 80,
-	Y: 870,
+	Y: 215,
 	Width: resolution.Width - 100,
-	Height: 100,
+	Height: 785,
 	Path: 'settings.sweepEventStoryHard.targetPartPattern',
 	OffsetCalcType: 'DockLeft'
 });
