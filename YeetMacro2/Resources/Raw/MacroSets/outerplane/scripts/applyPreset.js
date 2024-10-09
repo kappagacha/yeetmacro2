@@ -20,6 +20,10 @@ function applyPreset(teamSlot) {
 		return;
 	} 
 
+	if (!settings.applyPreset[`teamSlot${teamSlot}`].IsEnabled) {
+		return;
+	}
+
 	const locationToPreset = {
 		left: settings.applyPreset[`teamSlot${teamSlot}`].left.IsEnabled && settings.applyPreset[`teamSlot${teamSlot}`].left.Value,
 		top: settings.applyPreset[`teamSlot${teamSlot}`].top.IsEnabled && settings.applyPreset[`teamSlot${teamSlot}`].top.Value,

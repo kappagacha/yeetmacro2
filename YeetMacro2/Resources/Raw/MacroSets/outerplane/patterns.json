@@ -16191,9 +16191,41 @@
           },
           "offsetCalcType": "Default",
           "position": 0
+        },
+        {
+          "rect": {
+            "x": 555.84375,
+            "y": 922.9921875,
+            "width": 31.18359375,
+            "height": 28.755615234375
+          },
+          "resolution": {
+            "width": 1920,
+            "height": 1080
+          },
+          "isBoundsPattern": false,
+          "isLocationDynamic": false,
+          "name": "pattern2",
+          "imageData": "/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDAAEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQH/2wBDAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQH/wAARCAAVAA8DASIAAhEBAxEB/8QAGQAAAgMBAAAAAAAAAAAAAAAAAAcFBgkK/8QAJRAAAQQCAQMEAwAAAAAAAAAAAwECBAUGBwgREhQAExUhCSJC/8QAFgEBAQEAAAAAAAAAAAAAAAAABgQI/8QAJREBAAEDAgQHAAAAAAAAAAAAAQIAESESQQMyUYEFYXLB0fDx/9oADAMBAAIRAxEAPwDnw428UmbkwvKd0Z9ntZqPR+GSBRLDMbQRJNla2I3v+QpaNgDjMVw2oEbBCiSnNWWxFRyuTrEbz19xfqcSFmejuQDsyFEtIdNYYlZ4rkFbePdLHIelwOdOjw46QxJFd3N8Vyk8oSMIn9WzY8y4sPwv6Ks8WIhsdquSO1U2UMZXJKA6YPXY8XNYNYjl8A9gOakZTuQa9hlYir3dM0tA1sLYO2saxW9PIStufl/MWGcghuHWYvc2EBH+25rRtR0MHY37QvRH9EVET1oM8WEHTe4ZsZ5c37O/TpR5ikkvK4/mPvnemBxS5k5Vx0ZkOGz8Ox3ben80DLj5VqLNpVgLF7WRXCK8Fg2XXOZb10z3JKkcWtlxXK4Yvv8ARva1d3c16O7wav19orjhq/jNTlu4mYTZWCWOR5Tby7SLEnQWsS3zmTc2caI+Ldzxlixpg470ezuEvtD7T0ejUZSIwy8sd/Se7V3EAZNt176j5a//2Q==",
+          "variancePct": 20,
+          "horizontalStretchMultiplier": 0,
+          "verticalStretchMultiplier": 0,
+          "textMatch": {
+            "isActive": false,
+            "text": null,
+            "whiteList": null
+          },
+          "colorThreshold": {
+            "isActive": true,
+            "variancePct": 30,
+            "color": "#ffb2b6cf",
+            "imageData": "/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDAAIBAQEBAQIBAQECAgICAgQDAgICAgUEBAMEBgUGBgYFBgYGBwkIBgcJBwYGCAsICQoKCgoKBggLDAsKDAkKCgr/wAALCAAVAA8BAREA/8QAHwAAAQUBAQEBAQEAAAAAAAAAAAECAwQFBgcICQoL/8QAtRAAAgEDAwIEAwUFBAQAAAF9AQIDAAQRBRIhMUEGE1FhByJxFDKBkaEII0KxwRVS0fAkM2JyggkKFhcYGRolJicoKSo0NTY3ODk6Q0RFRkdISUpTVFVWV1hZWmNkZWZnaGlqc3R1dnd4eXqDhIWGh4iJipKTlJWWl5iZmqKjpKWmp6ipqrKztLW2t7i5usLDxMXGx8jJytLT1NXW19jZ2uHi4+Tl5ufo6erx8vP09fb3+Pn6/9oACAEBAAA/AP0t/wCCjv8AwWQ8K/sQ/H3wR+xF8GP2afGHxq+P/wAStPiv/Bnw48NyJYWptWumh+0XupTKyWsWyC/l3pHMsa2MjXBtois1dh+xT+1T/wAFJ/jj8U9Q8J/ti/8ABKX/AIUX4Yt/D8t3Y+Lf+F6aP4n+136zwIlj9lsYkkj3xSTy+cTtX7PtIy61z/hz/hRP/D/Txl/wkP8AyU3/AIZA8Nf8Ij/x9f8AIC/4SnXf7X+7/o//AB8/2J/rP3v/ADy+Xz6+v68P/a7/AGBPg1+2H4q8CfFTxP4o8YeEPiF8LNQnvfhr8RvAfiE2ep+HpLl7Y3ipFKstndRXMVqlvNDd21xG8EkqbR5jGj4Kfsb+NPhX8fbj9oPx1+3f8cPiVdzeD38PR+F/GuraNBoEEZuo7kXiadpGl2MBvlKNGLplaTypXjJKhAn/2Q=="
+          },
+          "offsetCalcType": "Default",
+          "position": 0
         }
       ],
-      "$isMultiPattern": false,
+      "$isMultiPattern": true,
       "$position": 0,
       "$name": "coinInfo",
       "$path": "event.coinInfo"
