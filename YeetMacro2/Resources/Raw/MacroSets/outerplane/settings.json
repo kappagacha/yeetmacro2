@@ -946,7 +946,7 @@
           {
             "rect": {
               "x": 1676.3780517578125,
-              "y": 822.49053955078125,
+              "y": 822.4905395507812,
               "width": 62.465087890625,
               "height": 38.460205078125
             },
@@ -986,7 +986,7 @@
           {
             "rect": {
               "x": 1676.3780517578125,
-              "y": 822.49053955078125,
+              "y": 822.4905395507812,
               "width": 62.465087890625,
               "height": 38.460205078125
             },
@@ -1259,9 +1259,9 @@
         "$patterns": [
           {
             "rect": {
-              "x": 249.12141418457031,
+              "x": 249.1214141845703,
               "y": 625.6727294921875,
-              "width": 69.461471557617188,
+              "width": 69.46147155761719,
               "height": 27.470458984375
             },
             "resolution": {
@@ -1291,8 +1291,8 @@
           },
           {
             "rect": {
-              "x": 284.10317993164063,
-              "y": 640.65887451171875,
+              "x": 284.1031799316406,
+              "y": 640.6588745117188,
               "width": 65.46356201171875,
               "height": 29.46856689453125
             },
@@ -1331,9 +1331,9 @@
         "$patterns": [
           {
             "rect": {
-              "x": 249.12141418457031,
+              "x": 249.1214141845703,
               "y": 625.6727294921875,
-              "width": 69.461471557617188,
+              "width": 69.46147155761719,
               "height": 27.470458984375
             },
             "resolution": {
@@ -1363,8 +1363,8 @@
           },
           {
             "rect": {
-              "x": 284.10317993164063,
-              "y": 640.65887451171875,
+              "x": 284.1031799316406,
+              "y": 640.6588745117188,
               "width": 65.46356201171875,
               "height": 29.46856689453125
             },
@@ -2208,6 +2208,7 @@
     "$path": "applyPreset",
     "teamSlot1": {
       "$type": "enabledParent",
+      "$isEnabled": true,
       "$position": 0,
       "$name": "teamSlot1",
       "$path": "applyPreset.teamSlot1",
@@ -2274,6 +2275,7 @@
     },
     "teamSlot2": {
       "$type": "enabledParent",
+      "$isEnabled": false,
       "$position": 0,
       "$name": "teamSlot2",
       "$path": "applyPreset.teamSlot2",
@@ -2287,7 +2289,7 @@
         ],
         "$defaultValue": "SPD 1",
         "$value": "SPD 1",
-        "$isEnabled": false,
+        "$isEnabled": true,
         "$position": 0,
         "$name": "left",
         "$path": "applyPreset.teamSlot2.left"
@@ -2302,7 +2304,7 @@
         ],
         "$defaultValue": "CRT DMG 1",
         "$value": "CRT DMG 1",
-        "$isEnabled": false,
+        "$isEnabled": true,
         "$position": 0,
         "$name": "top",
         "$path": "applyPreset.teamSlot2.top"
@@ -2317,7 +2319,7 @@
         ],
         "$defaultValue": "SPD 2",
         "$value": "SPD 2",
-        "$isEnabled": false,
+        "$isEnabled": true,
         "$position": 0,
         "$name": "right",
         "$path": "applyPreset.teamSlot2.right"
@@ -2332,7 +2334,7 @@
         ],
         "$defaultValue": "CRT DMG 2",
         "$value": "CRT DMG 2",
-        "$isEnabled": false,
+        "$isEnabled": true,
         "$position": 0,
         "$name": "bottom",
         "$path": "applyPreset.teamSlot2.bottom"
@@ -2340,6 +2342,7 @@
     },
     "teamSlot3": {
       "$type": "enabledParent",
+      "$isEnabled": true,
       "$position": 0,
       "$name": "teamSlot3",
       "$path": "applyPreset.teamSlot3",
@@ -2406,6 +2409,7 @@
     },
     "teamSlot4": {
       "$type": "enabledParent",
+      "$isEnabled": true,
       "$position": 0,
       "$name": "teamSlot4",
       "$path": "applyPreset.teamSlot4",
@@ -2472,6 +2476,7 @@
     },
     "teamSlot5": {
       "$type": "enabledParent",
+      "$isEnabled": true,
       "$position": 0,
       "$name": "teamSlot5",
       "$path": "applyPreset.teamSlot5",
@@ -2538,6 +2543,7 @@
     },
     "teamSlot6": {
       "$type": "enabledParent",
+      "$isEnabled": true,
       "$position": 0,
       "$name": "teamSlot6",
       "$path": "applyPreset.teamSlot6",
@@ -2604,6 +2610,7 @@
     },
     "teamSlot7": {
       "$type": "enabledParent",
+      "$isEnabled": true,
       "$position": 0,
       "$name": "teamSlot7",
       "$path": "applyPreset.teamSlot7",
@@ -2670,6 +2677,7 @@
     },
     "teamSlot8": {
       "$type": "enabledParent",
+      "$isEnabled": true,
       "$position": 0,
       "$name": "teamSlot8",
       "$path": "applyPreset.teamSlot8",
@@ -2736,6 +2744,7 @@
     },
     "teamSlot9": {
       "$type": "enabledParent",
+      "$isEnabled": false,
       "$position": 0,
       "$name": "teamSlot9",
       "$path": "applyPreset.teamSlot9",
@@ -2749,7 +2758,7 @@
         ],
         "$defaultValue": "SPD 1",
         "$value": "SPD 1",
-        "$isEnabled": false,
+        "$isEnabled": true,
         "$position": 0,
         "$name": "left",
         "$path": "applyPreset.teamSlot9.left"
@@ -2764,7 +2773,7 @@
         ],
         "$defaultValue": "CRT DMG 1",
         "$value": "CRT DMG 1",
-        "$isEnabled": false,
+        "$isEnabled": true,
         "$position": 0,
         "$name": "top",
         "$path": "applyPreset.teamSlot9.top"
@@ -2779,7 +2788,7 @@
         ],
         "$defaultValue": "SPD 2",
         "$value": "SPD 2",
-        "$isEnabled": false,
+        "$isEnabled": true,
         "$position": 0,
         "$name": "right",
         "$path": "applyPreset.teamSlot9.right"
@@ -2794,7 +2803,7 @@
         ],
         "$defaultValue": "CRT DMG 2",
         "$value": "CRT DMG 2",
-        "$isEnabled": false,
+        "$isEnabled": true,
         "$position": 0,
         "$name": "bottom",
         "$path": "applyPreset.teamSlot9.bottom"
@@ -2802,9 +2811,9 @@
     },
     "lastApplied": {
       "$type": "enabledString",
-      "$defaultValue": "6",
-      "$value": "6",
-      "$isEnabled": true,
+      "$defaultValue": "",
+      "$value": "",
+      "$isEnabled": false,
       "$position": 0,
       "$name": "lastApplied",
       "$path": "applyPreset.lastApplied"
