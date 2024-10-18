@@ -2,7 +2,9 @@
 // Apply equipmentPreset
 
 function applyPreset(teamSlot) {
+	let ignoreLastApplied = false;
 	if (!teamSlot) {
+		ignoreLastApplied = true;
 		const slots = [1, 2, 3, 4, 5, 6, 7, 8, 9];
 		for (const s of slots) {
 			if (macroService.FindPattern(patterns.battle.slot[s].selected).IsSuccess) {
@@ -16,7 +18,7 @@ function applyPreset(teamSlot) {
 
 	//logger.info(`applyPreset teamSlot ${teamSlot}`);
 
-	if (settings.applyPreset.lastApplied.IsEnabled && teamSlot == settings.applyPreset.lastApplied.Value) {
+	if (!ignoreLastApplied && teamSlot == settings.applyPreset.lastApplied.Value) {
 		return;
 	} 
 

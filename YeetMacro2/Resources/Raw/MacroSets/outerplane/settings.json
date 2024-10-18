@@ -2677,7 +2677,7 @@
     },
     "teamSlot8": {
       "$type": "enabledParent",
-      "$isEnabled": true,
+      "$isEnabled": false,
       "$position": 0,
       "$name": "teamSlot8",
       "$path": "applyPreset.teamSlot8",
@@ -2810,10 +2810,9 @@
       }
     },
     "lastApplied": {
-      "$type": "enabledString",
-      "$defaultValue": "",
-      "$value": "",
-      "$isEnabled": false,
+      "$type": "string",
+      "$defaultValue": null,
+      "$value": null,
       "$position": 0,
       "$name": "lastApplied",
       "$path": "applyPreset.lastApplied"
