@@ -522,6 +522,10 @@ public class AndroidScreenService : IScreenService
                     {
                         lp.Gravity = GravityFlags.Bottom;
                         lp.Width = WindowManagerLayoutParams.MatchParent;
+                        if (OperatingSystem.IsAndroidVersionAtLeast(26) && !OperatingSystem.IsAndroidVersionAtLeast(30))
+                        {
+                            lp.SystemUiFlags |= SystemUiFlags.HideNavigation;
+                        }
                     });
                     //statusPanelView.OnClose = () => ServiceHelper.GetService<AndriodHomeViewModel>().ShowStatusPanel = false;
                     _views.TryAdd(windowView, statusPanelView);

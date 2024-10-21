@@ -8,6 +8,7 @@ using Android.OS;
 using Org.Opencv.Android;
 using YeetMacro2.ViewModels;
 using YeetMacro2.Platforms.Android.ViewModels;
+using Android.Views;
 
 namespace YeetMacro2;
 
@@ -59,6 +60,12 @@ public class MainActivity : MauiAppCompatActivity
             Console.WriteLine("[*****YeetMacro*****] TaskScheduler UnobservedTaskException: " + args.Exception.Message);
             ServiceHelper.GetService<LogServiceViewModel>().LogException(args.Exception);
         };
+
+        // https://stackoverflow.com/questions/74165500/net-maui-how-to-ensure-that-android-platform-specific-code-is-only-executed-on
+        //if (OperatingSystem.IsAndroidVersionAtLeast(30)) // hide navigation bars
+        //{
+        //    Window?.InsetsController?.Hide(WindowInsets.Type.NavigationBars());
+        //}
 
         base.OnCreate(savedInstanceState);
     }
