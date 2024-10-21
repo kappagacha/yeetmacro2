@@ -266,7 +266,7 @@ public partial class TestViewModel(ILogger<TestViewModel> logger, MediaProjectio
 
         var windowManager = Platform.CurrentActivity.GetSystemService(Context.WindowService).JavaCast<IWindowManager>();
         var wm = windowManager.CurrentWindowMetrics;
-        CurrentWindowMetrics = $"Width: {wm.Bounds.Width}\nHeight: {wm.Bounds.Height}\nWidth: {wm.Bounds.Top}\nHeight: {wm.Bounds.Left}";
+        CurrentWindowMetrics = $"Width: {wm.Bounds.Width()}\nHeight: {wm.Bounds.Height()}\nWidth: {wm.Bounds.Top}\nHeight: {wm.Bounds.Left}";
     }
 
     [RelayCommand]
