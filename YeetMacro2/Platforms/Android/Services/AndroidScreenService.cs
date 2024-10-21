@@ -86,7 +86,10 @@ public class AndroidScreenService : IScreenService
     {
         get
         {
-            return $"Top: {_overlayWindow.Top}\nLeft: {_overlayWindow.Left}\nRight: {_overlayWindow.Right}\nBottom: {_overlayWindow.Bottom}";
+            var rect = new Rect();
+            _overlayWindow.GetLocalVisibleRect(rect);
+            return $"Top: {rect.Top}\nLeft: {rect.Left}\nRight: {rect.Right}\nBottom: {rect.Bottom}";
+            //return $"Top: {_overlayWindow.Top}\nLeft: {_overlayWindow.Left}\nRight: {_overlayWindow.Right}\nBottom: {_overlayWindow.Bottom}";
         }
     }
 
