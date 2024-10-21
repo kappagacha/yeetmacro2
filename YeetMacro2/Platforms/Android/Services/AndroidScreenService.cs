@@ -82,6 +82,13 @@ public class AndroidScreenService : IScreenService
     public IReadOnlyDictionary<AndroidWindowView, IShowable> Views => _views;
     public IReadOnlyDictionary<MacroSetViewModel, IShowable> PatternViews => _macroSetToPatternsView;
     public IReadOnlyDictionary<MacroSetViewModel, IShowable> ScriptViews => _macroSetToScriptsView;
+    public string TestMessage
+    {
+        get
+        {
+            return $"Top: {_overlayWindow.Top}\nLeft: {_overlayWindow.Left}\nRight: {_overlayWindow.Right}\nBottom: {_overlayWindow.Bottom}";
+        }
+    }
 
     public AndroidScreenService(ILogger<AndroidScreenService> logger, OpenCvService openCvService, 
         MediaProjectionService mediaProjectionService, IOcrService ocrService,
@@ -504,7 +511,7 @@ public class AndroidScreenService : IScreenService
             return;
         }
 
-        var currentMacroSet = ServiceHelper.GetService<MacroManagerViewModel>().SelectedMacroSet;
+        var currentMacroSet = ServiceHelper.GetService<MacroManagerViewModel>()?.SelectedMacroSet;
         if (!_views.ContainsKey(windowView))
         {
             switch (windowView)
@@ -697,27 +704,27 @@ public class AndroidScreenService : IScreenService
 
     public void Close(AndroidWindowView view)
     {
-        var currentMacroSet = ServiceHelper.GetService<MacroManagerViewModel>().SelectedMacroSet;
+        var currentMacroSet = ServiceHelper.GetService<MacroManagerViewModel>()?.SelectedMacroSet;
         switch (view)
         {
             case AndroidWindowView.PatternNodeView:
-                if (!_macroSetToPatternsView.ContainsKey(currentMacroSet)) return;
+                if (currentMacroSet is null || !_macroSetToPatternsView.ContainsKey(currentMacroSet)) return;
                 _macroSetToPatternsView[currentMacroSet].Close();
                 return;
             case AndroidWindowView.SettingNodeView:
-                if (!_macroSetToSettingsView.ContainsKey(currentMacroSet)) return;
+                if (currentMacroSet is null || !_macroSetToSettingsView.ContainsKey(currentMacroSet)) return;
                 _macroSetToSettingsView[currentMacroSet].Close();
                 return;
             case AndroidWindowView.ScriptNodeView:
-                if (!_macroSetToScriptsView.ContainsKey(currentMacroSet)) return;
+                if (currentMacroSet is null || !_macroSetToScriptsView.ContainsKey(currentMacroSet)) return;
                 _macroSetToScriptsView[currentMacroSet].Close();
                 return;
             case AndroidWindowView.DailyNodeView:
-                if (!_macroSetToDailiesView.ContainsKey(currentMacroSet)) return;
+                if (currentMacroSet is null || !_macroSetToDailiesView.ContainsKey(currentMacroSet)) return;
                 _macroSetToDailiesView[currentMacroSet].Close();
                 return;
             case AndroidWindowView.WeeklyNodeView:
-                if (!_macroSetToWeekliesView.ContainsKey(currentMacroSet)) return;
+                if (currentMacroSet is null || !_macroSetToWeekliesView.ContainsKey(currentMacroSet)) return;
                 _macroSetToWeekliesView[currentMacroSet].Close();
                 return;
             default:
@@ -729,27 +736,27 @@ public class AndroidScreenService : IScreenService
 
     public void Cancel(AndroidWindowView view)
     {
-        var currentMacroSet = ServiceHelper.GetService<MacroManagerViewModel>().SelectedMacroSet;
+        var currentMacroSet = ServiceHelper.GetService<MacroManagerViewModel>()?.SelectedMacroSet;
         switch (view)
         {
             case AndroidWindowView.PatternNodeView:
-                if (!_macroSetToPatternsView.ContainsKey(currentMacroSet)) return;
+                if (currentMacroSet is null || !_macroSetToPatternsView.ContainsKey(currentMacroSet)) return;
                 _macroSetToPatternsView[currentMacroSet].CloseCancel();
                 return;
             case AndroidWindowView.SettingNodeView:
-                if (!_macroSetToSettingsView.ContainsKey(currentMacroSet)) return;
+                if (currentMacroSet is null || !_macroSetToSettingsView.ContainsKey(currentMacroSet)) return;
                 _macroSetToSettingsView[currentMacroSet].CloseCancel();
                 return;
             case AndroidWindowView.ScriptNodeView:
-                if (!_macroSetToScriptsView.ContainsKey(currentMacroSet)) return;
+                if (currentMacroSet is null || !_macroSetToScriptsView.ContainsKey(currentMacroSet)) return;
                 _macroSetToScriptsView[currentMacroSet].CloseCancel();
                 return;
             case AndroidWindowView.DailyNodeView:
-                if (!_macroSetToDailiesView.ContainsKey(currentMacroSet)) return;
+                if (currentMacroSet is null || !_macroSetToDailiesView.ContainsKey(currentMacroSet)) return;
                 _macroSetToDailiesView[currentMacroSet].CloseCancel();
                 return;
             case AndroidWindowView.WeeklyNodeView:
-                if (!_macroSetToWeekliesView.ContainsKey(currentMacroSet)) return;
+                if (currentMacroSet is null || !_macroSetToWeekliesView.ContainsKey(currentMacroSet)) return;
                 _macroSetToWeekliesView[currentMacroSet].CloseCancel();
                 return;
             default:
