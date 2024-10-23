@@ -16361,10 +16361,10 @@
         "$patterns": [
           {
             "rect": {
-              "x": 1449.4962158203125,
-              "y": 588.7069702148438,
-              "width": 16.489013671875,
-              "height": 16.98016357421875
+              "x": 1445.765625,
+              "y": 590.501953125,
+              "width": 23.478515625,
+              "height": 15.275390625
             },
             "resolution": {
               "width": 1920,
@@ -16383,7 +16383,7 @@
               "whiteList": null
             },
             "colorThreshold": {
-              "isActive": true,
+              "isActive": false,
               "variancePct": 30,
               "color": "#ff2765ef",
               "imageData": "/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDAAIBAQEBAQIBAQECAgICAgQDAgICAgUEBAMEBgUGBgYFBgYGBwkIBgcJBwYGCAsICQoKCgoKBggLDAsKDAkKCgr/wAALCAANAAgBAREA/8QAHwAAAQUBAQEBAQEAAAAAAAAAAAECAwQFBgcICQoL/8QAtRAAAgEDAwIEAwUFBAQAAAF9AQIDAAQRBRIhMUEGE1FhByJxFDKBkaEII0KxwRVS0fAkM2JyggkKFhcYGRolJicoKSo0NTY3ODk6Q0RFRkdISUpTVFVWV1hZWmNkZWZnaGlqc3R1dnd4eXqDhIWGh4iJipKTlJWWl5iZmqKjpKWmp6ipqrKztLW2t7i5usLDxMXGx8jJytLT1NXW19jZ2uHi4+Tl5ufo6erx8vP09fb3+Pn6/9oACAEBAAA/AP09+In/AAVt+Fng7/gsl8Ov+CS2kW39q6v4r+H+r6r4hvtPSCf+xtVSFb7T7SZ1ug1vu0+z1OaWN4Gc/atLdD5csrDj/GX/AAb8/sj/ABZ/4KoXv/BWP4zeOvGGt+MovGGj694a8KWV5FZaNYyaZpVhaWZnCRtcXUsd1Z/bAyzQxsTFE8Loknnf/9k="
@@ -17200,10 +17200,10 @@
         "$patterns": [
           {
             "rect": {
-              "x": 532.9921875,
-              "y": 923.51953125,
-              "width": 25.79217529296875,
-              "height": 24.04248046875
+              "x": 528.01171875,
+              "y": 920.849853515625,
+              "width": 60.3046875,
+              "height": 40.52197265625
             },
             "resolution": {
               "width": 1920,
@@ -17229,9 +17229,41 @@
             },
             "offsetCalcType": "Default",
             "position": 0
+          },
+          {
+            "rect": {
+              "x": 532.40625,
+              "y": 918.674560546875,
+              "width": 52.62890625,
+              "height": 36.10546875
+            },
+            "resolution": {
+              "width": 1920,
+              "height": 1080
+            },
+            "isBoundsPattern": false,
+            "isLocationDynamic": false,
+            "name": "letterD",
+            "imageData": "/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDAAEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQH/2wBDAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQH/wAARCAAOAA0DASIAAhEBAxEB/8QAFwAAAwEAAAAAAAAAAAAAAAAABQcICv/EACEQAAEFAQACAwEBAAAAAAAAAAIBAwQFBgcIERITISNB/8QAFAEBAAAAAAAAAAAAAAAAAAAAB//EAB4RAAICAgIDAAAAAAAAAAAAAAECAxEEEwAhEmGx/9oADAMBAAIRAxEAPwDLN3XpG7xdD4+lmtZeZ8A41gpCxK6fMYr5ZyITqONyYzL7TKq4IoBiYF7RVRUX/T/QspG7rheTdVNpulv7+r0lZoH40Fp8bR/MWkakiynB/h9bv0xzVxfRk6bhOESqvtXLovD2/wC2cw4RumdLS09NX8ix1dawnSsTsZKV0BTJ2Kgwn4okaOl8VN5v9RPaJ+KkleQ/R6vPScby3GVs+Bn+bVM6C07LkKxJn2Fy/GnW0oxhynG1bcntPGwpKh/U4PyAC9ijJjx1KVzJoxjvjY2sJEWIZY4h2NdjsEXf3ha+xYVOMskcizyklXQFtjOxBJeqHlQ9c//Z",
+            "variancePct": 20,
+            "horizontalStretchMultiplier": 0,
+            "verticalStretchMultiplier": 0,
+            "textMatch": {
+              "isActive": false,
+              "text": null,
+              "whiteList": null
+            },
+            "colorThreshold": {
+              "isActive": true,
+              "variancePct": 30,
+              "color": "#ff4c5d6d",
+              "imageData": "/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDAAIBAQEBAQIBAQECAgICAgQDAgICAgUEBAMEBgUGBgYFBgYGBwkIBgcJBwYGCAsICQoKCgoKBggLDAsKDAkKCgr/wAALCAAOAA0BAREA/8QAHwAAAQUBAQEBAQEAAAAAAAAAAAECAwQFBgcICQoL/8QAtRAAAgEDAwIEAwUFBAQAAAF9AQIDAAQRBRIhMUEGE1FhByJxFDKBkaEII0KxwRVS0fAkM2JyggkKFhcYGRolJicoKSo0NTY3ODk6Q0RFRkdISUpTVFVWV1hZWmNkZWZnaGlqc3R1dnd4eXqDhIWGh4iJipKTlJWWl5iZmqKjpKWmp6ipqrKztLW2t7i5usLDxMXGx8jJytLT1NXW19jZ2uHi4+Tl5ufo6erx8vP09fb3+Pn6/9oACAEBAAA/APze/wCCCv8AwTY8Cf8ABVf9qfx1+yt4/b+z4H+D+p6rpvi2HVJYrnwxfw32npbahDarG0ep5lmW2ls5ngVre7uJEnjmhhz8YeLPDOo+C/FWp+DtYudPmu9J1CayuptJ1a3v7V5InKM0N1aySQXMRKkrNE7xuuGRmUgn1D9in9vX9rH/AIJ2/FPUPjX+x18Vv+EP8T6p4fl0S+1P+wrDUPNsJJ4J3h8u+gmjXMttA24KGGzAIBYH1/8A4JSf8EVP2p/+Cwf/AAnv/DNHj74f6H/wrv8Asv8Atv8A4TrVb628/wC3/a/J8j7LZ3O7H2KXdu2Y3Jjdk7f/2Q=="
+            },
+            "offsetCalcType": "Default",
+            "position": 0
           }
         ],
-        "$isMultiPattern": false,
+        "$isMultiPattern": true,
         "$position": 0,
         "$name": "info",
         "$path": "event.daily.info"
