@@ -32,8 +32,6 @@
                     <Label Margin="0" VerticalOptions="Center" Padding="0" Text="MultiPattern" />
                     <CheckBox TranslationX="{OnPlatform WinUI=20, Android=10}" Margin="0" VerticalOptions="Center" IsChecked="{Binding Pattern.IsBoundsPattern, Source={Reference thisView}}" />
                     <Label Margin="0" VerticalOptions="Center" Padding="0" Text="BoundsPattern" />
-                    <CheckBox TranslationX="{OnPlatform WinUI=20, Android=10}" Margin="0" VerticalOptions="Center" IsChecked="{Binding Pattern.IsLocationDynamic, Source={Reference thisView}}" />
-                    <Label Margin="0" VerticalOptions="Center" Padding="0" Text="DynamicLocation" />
                 </HorizontalStackLayout>
                 <HorizontalStackLayout Margin="0" Padding="0" IsVisible="{Binding IsToggled, Source={x:Reference textMatchToggle}}">
                     <CheckBox TranslationX="{OnPlatform WinUI=20, Android=10}" IsChecked="{Binding Pattern.TextMatch.IsActive, Source={Reference thisView}}" />

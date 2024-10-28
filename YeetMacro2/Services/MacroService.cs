@@ -5,6 +5,7 @@ using System.Text.Json.Serialization;
 using YeetMacro2.Data.Models;
 using YeetMacro2.ViewModels.NodeViewModels;
 using YeetMacro2.ViewModels;
+using System.Collections.Concurrent;
 
 namespace YeetMacro2.Services;
 
@@ -53,7 +54,7 @@ public class MacroService
 {
     readonly LogServiceViewModel _logServiceViewModel;
     readonly IScreenService _screenService;
-    readonly Dictionary<string, Point> _pathToOffset;
+    readonly ConcurrentDictionary<string, Point> _pathToOffset;
     readonly Random _random;
     public bool InDebugMode { get; set; }
     public bool IsRunning { get; set; }
@@ -72,6 +73,13 @@ public class MacroService
                 InDebugMode = propertyChangedMessage.NewValue;
             }
         });
+
+        DeviceDisplay.MainDisplayInfoChanged += DeviceDisplay_MainDisplayInfoChanged;
+    }
+
+    private void DeviceDisplay_MainDisplayInfoChanged(object sender, DisplayInfoChangedEventArgs e)
+    {
+        _pathToOffset.Clear();
     }
 
     public void Sleep(int ms)
@@ -81,14 +89,9 @@ public class MacroService
 
     public Point CalcOffset(string path, Pattern pattern)
     {
-        if (pattern.IsLocationDynamic)
-        {
-            return PatternNodeManagerViewModel.CalcOffset(pattern, _screenService.Resolution, _screenService.GetTopLeft());
-        }
-
         if (!_pathToOffset.ContainsKey(path))
         {
-            _pathToOffset[path] = PatternNodeManagerViewModel.CalcOffset(pattern, _screenService.CalcResolution, _screenService.GetTopLeft());
+            _pathToOffset[path] = PatternNodeManagerViewModel.CalcOffset(pattern, _screenService.Resolution, _screenService.GetTopLeft());
         }
 
         return _pathToOffset[path];

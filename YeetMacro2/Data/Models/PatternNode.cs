@@ -19,7 +19,6 @@ public class Pattern: ISortable
     [JsonIgnore]
     public virtual bool IsSelected { get; set; }
     public virtual bool IsBoundsPattern { get; set; }
-    public virtual bool IsLocationDynamic { get; set; }
     [JsonIgnore]
     public virtual int PatternId { get; set; }
     [JsonIgnore]
