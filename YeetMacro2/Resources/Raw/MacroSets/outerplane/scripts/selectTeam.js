@@ -42,10 +42,22 @@ function selectTeam(targetTeamSlot, returnCurrentCp) {
 	}
 }
 
-function selectTeamAndBattle(teamSlot, sweepBattle) {
+function selectTeamAndBattle(teamSlot, sweepBattle, targetNumBattles = 0) {
 	selectTeam(teamSlot);
 	macroService.PollPattern(patterns.battle.setup.auto, { DoClick: true, PredicatePattern: patterns.battle.setup.repeatBattle });
-	const numBattles = macroService.GetText(patterns.battle.setup.numBattles);
+	let numBattles = macroService.GetText(patterns.battle.setup.numBattles);
+	if (targetNumBattles) {
+		macroService.PollPattern(patterns.battle.setup.minBattle, { DoClick: true, PredicatePattern: patterns.battle.setup.numBattles.one });
+
+		numBattles = 1
+		while (Number(numBattles) < targetNumBattles) {
+			macroService.ClickPattern(patterns.battle.setup.addBattle)
+			sleep(250)
+			numBattles = macroService.GetText(patterns.battle.setup.numBattles);
+			sleep(250)
+		}
+	}
+
 	if (sweepBattle) {
 		macroService.PollPattern(patterns.battle.setup.sweep, { DoClick: true, PredicatePattern: patterns.battle.setup.sweep.ok });
 		macroService.PollPattern(patterns.battle.setup.sweep.ok, { DoClick: true, InversePredicatePattern: patterns.battle.setup.sweep.ok });

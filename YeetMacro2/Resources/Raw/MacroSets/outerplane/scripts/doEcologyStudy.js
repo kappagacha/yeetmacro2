@@ -1,41 +1,45 @@
+// @raw-script
 // Auto or skip target ecology study
-const loopPatterns = [patterns.lobby.level, patterns.titles.adventure, patterns.titles.challenge];
-const daily = dailyManager.GetCurrentDaily();
-const teamSlot = settings.doEcologyStudy.teamSlot.Value;
-const sweepBattle = settings.doEcologyStudy.sweepBattle.Value;
-const ecologyStudy = settings.doEcologyStudy.targetEcologyStudy.Value;
 
-while (macroService.IsRunning) {
-	const loopResult = macroService.PollPattern(loopPatterns, { ClickPattern: patterns.arena.defendReport.close });
-	switch (loopResult.Path) {
-		case 'lobby.level':
-			logger.info('doEcologyStudy: click adventure tab');
-			macroService.ClickPattern(patterns.tabs.adventure);
-			sleep(500);
-			break;
-		case 'titles.adventure':
-			logger.info('doEcologyStudy: click challenge');
-			macroService.ClickPattern(patterns.adventure.challenge);
-			sleep(500);
-			break;
-		case 'titles.challenge':
-			logger.info(`doEcologyStudy: ${ecologyStudy}`);
-			macroService.PollPattern(patterns.challenge.ecologyStudy, { DoClick: true, PredicatePattern: patterns.challenge.enter });
-			macroService.PollPattern(patterns.challenge.ecologyStudy[ecologyStudy].stars, { DoClick: true, PredicatePattern: patterns.challenge.ecologyStudy[ecologyStudy] });
-			macroService.PollPattern(patterns.challenge.enter, { DoClick: true, PredicatePattern: patterns.challenge.threeStars });
-			clickBottomThreeStars();
-			const teamsSetupResult = macroService.PollPattern(patterns.challenge.teamsSetup, { DoClick: true, PredicatePattern: [patterns.battle.enter, patterns.battle.restore] });
-			if (teamsSetupResult.PredicatePath === 'battle.restore') {
+function doEcologyStudy(targetNumBattles = 0) {
+	const loopPatterns = [patterns.lobby.level, patterns.titles.adventure, patterns.titles.challenge];
+	const daily = dailyManager.GetCurrentDaily();
+	const teamSlot = settings.doEcologyStudy.teamSlot.Value;
+	const sweepBattle = settings.doEcologyStudy.sweepBattle.Value;
+	const ecologyStudy = settings.doEcologyStudy.targetEcologyStudy.Value;
+
+	while (macroService.IsRunning) {
+		const loopResult = macroService.PollPattern(loopPatterns, { ClickPattern: patterns.arena.defendReport.close });
+		switch (loopResult.Path) {
+			case 'lobby.level':
+				logger.info('doEcologyStudy: click adventure tab');
+				macroService.ClickPattern(patterns.tabs.adventure);
+				sleep(500);
+				break;
+			case 'titles.adventure':
+				logger.info('doEcologyStudy: click challenge');
+				macroService.ClickPattern(patterns.adventure.challenge);
+				sleep(500);
+				break;
+			case 'titles.challenge':
+				logger.info(`doEcologyStudy: ${ecologyStudy}`);
+				macroService.PollPattern(patterns.challenge.ecologyStudy, { DoClick: true, PredicatePattern: patterns.challenge.enter });
+				macroService.PollPattern(patterns.challenge.ecologyStudy[ecologyStudy].stars, { DoClick: true, PredicatePattern: patterns.challenge.ecologyStudy[ecologyStudy] });
+				macroService.PollPattern(patterns.challenge.enter, { DoClick: true, PredicatePattern: patterns.challenge.threeStars });
+				clickBottomThreeStars();
+				const teamsSetupResult = macroService.PollPattern(patterns.challenge.teamsSetup, { DoClick: true, PredicatePattern: [patterns.battle.enter, patterns.battle.restore] });
+				if (teamsSetupResult.PredicatePath === 'battle.restore') {
+					return;
+				}
+				selectTeamAndBattle(teamSlot, sweepBattle, targetNumBattles);
+
+				if (macroService.IsRunning) {
+					daily.doEcologyStudy.count.Count++;
+				}
 				return;
-			}
-			selectTeamAndBattle(teamSlot, sweepBattle);
-
-			if (macroService.IsRunning) {
-				daily.doEcologyStudy.count.Count++;
-			}
-			return;
+		}
+		sleep(1_000);
 	}
-	sleep(1_000);
 }
 
 function clickBottomThreeStars() {

@@ -41,7 +41,7 @@ while (macroService.IsRunning) {
 			const memorialMatchNotificationResult = macroService.FindPattern(patterns.arena.memorialMatch.notification);
 			if (memorialMatchNotificationResult.IsSuccess) {
 				logger.info('doArena: memorial match');
-				macroService.PollPattern(patterns.arena.memorialMatch.notification, { DoClick: true, PredicatePattern: [patterns.arena.memorialMatch.sweepAll, patterns.arena.memorialMatch.sweepAll.disabled] });
+				macroService.PollPattern(patterns.arena.memorialMatch.notification, { DoClick: true, ClickPattern: clickPattern, PredicatePattern: [patterns.arena.memorialMatch.sweepAll, patterns.arena.memorialMatch.sweepAll.disabled] });
 
 				if (settings.doArena.skipMemorialMatch.Value) {
 					macroService.PollPattern(patterns.arena.memorialMatch.sweepAll, { DoClick: true, PredicatePattern: patterns.arena.memorialMatch.sweepAll.title });

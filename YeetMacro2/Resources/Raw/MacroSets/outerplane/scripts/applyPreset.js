@@ -27,10 +27,10 @@ function applyPreset(teamSlot) {
 	}
 
 	const locationToPreset = {
-		left: settings.applyPreset[`teamSlot${teamSlot}`].left.IsEnabled && settings.applyPreset[`teamSlot${teamSlot}`].left.Value,
-		top: settings.applyPreset[`teamSlot${teamSlot}`].top.IsEnabled && settings.applyPreset[`teamSlot${teamSlot}`].top.Value,
-		right: settings.applyPreset[`teamSlot${teamSlot}`].right.IsEnabled && settings.applyPreset[`teamSlot${teamSlot}`].right.Value,
-		bottom: settings.applyPreset[`teamSlot${teamSlot}`].bottom.IsEnabled && settings.applyPreset[`teamSlot${teamSlot}`].bottom.Value,
+		left: (settings.applyPreset[`teamSlot${teamSlot}`].left.IsEnabled || ignoreLastApplied) && settings.applyPreset[`teamSlot${teamSlot}`].left.Value,
+		top: (settings.applyPreset[`teamSlot${teamSlot}`].top.IsEnabled || ignoreLastApplied) && settings.applyPreset[`teamSlot${teamSlot}`].top.Value,
+		right: (settings.applyPreset[`teamSlot${teamSlot}`].right.IsEnabled || ignoreLastApplied) && settings.applyPreset[`teamSlot${teamSlot}`].right.Value,
+		bottom: (settings.applyPreset[`teamSlot${teamSlot}`].bottom.IsEnabled || ignoreLastApplied) && settings.applyPreset[`teamSlot${teamSlot}`].bottom.Value,
 	};
 
 	for (const [location, preset] of Object.entries(locationToPreset)) {
