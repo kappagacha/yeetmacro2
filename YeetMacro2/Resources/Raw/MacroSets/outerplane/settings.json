@@ -2271,6 +2271,24 @@
         "$position": 0,
         "$name": "bottom",
         "$path": "applyPreset.teamSlot1.bottom"
+      },
+      "weaponSlot": {
+        "$type": "integer",
+        "$defaultValue": 1,
+        "$value": 1,
+        "$position": 0,
+        "$increment": 1,
+        "$name": "weaponSlot",
+        "$path": "applyPreset.teamSlot1.weaponSlot"
+      },
+      "accessorySlot": {
+        "$type": "integer",
+        "$defaultValue": 1,
+        "$value": 1,
+        "$position": 0,
+        "$increment": 1,
+        "$name": "accessorySlot",
+        "$path": "applyPreset.teamSlot1.accessorySlot"
       }
     },
     "teamSlot2": {
@@ -2338,6 +2356,24 @@
         "$position": 0,
         "$name": "bottom",
         "$path": "applyPreset.teamSlot2.bottom"
+      },
+      "weaponSlot": {
+        "$type": "integer",
+        "$defaultValue": 1,
+        "$value": 1,
+        "$position": 0,
+        "$increment": 1,
+        "$name": "weaponSlot",
+        "$path": "applyPreset.teamSlot2.weaponSlot"
+      },
+      "accessorySlot": {
+        "$type": "integer",
+        "$defaultValue": 1,
+        "$value": 1,
+        "$position": 0,
+        "$increment": 1,
+        "$name": "accessorySlot",
+        "$path": "applyPreset.teamSlot2.accessorySlot"
       }
     },
     "teamSlot3": {
@@ -2405,6 +2441,24 @@
         "$position": 0,
         "$name": "bottom",
         "$path": "applyPreset.teamSlot3.bottom"
+      },
+      "weaponSlot": {
+        "$type": "integer",
+        "$defaultValue": 1,
+        "$value": 1,
+        "$position": 0,
+        "$increment": 1,
+        "$name": "weaponSlot",
+        "$path": "applyPreset.teamSlot3.weaponSlot"
+      },
+      "accessorySlot": {
+        "$type": "integer",
+        "$defaultValue": 1,
+        "$value": 1,
+        "$position": 0,
+        "$increment": 1,
+        "$name": "accessorySlot",
+        "$path": "applyPreset.teamSlot3.accessorySlot"
       }
     },
     "teamSlot4": {
@@ -2472,6 +2526,24 @@
         "$position": 0,
         "$name": "bottom",
         "$path": "applyPreset.teamSlot4.bottom"
+      },
+      "weaponSlot": {
+        "$type": "integer",
+        "$defaultValue": 1,
+        "$value": 1,
+        "$position": 0,
+        "$increment": 1,
+        "$name": "weaponSlot",
+        "$path": "applyPreset.teamSlot4.weaponSlot"
+      },
+      "accessorySlot": {
+        "$type": "integer",
+        "$defaultValue": 1,
+        "$value": 1,
+        "$position": 0,
+        "$increment": 1,
+        "$name": "accessorySlot",
+        "$path": "applyPreset.teamSlot4.accessorySlot"
       }
     },
     "teamSlot5": {
@@ -2539,6 +2611,24 @@
         "$position": 0,
         "$name": "bottom",
         "$path": "applyPreset.teamSlot5.bottom"
+      },
+      "weaponSlot": {
+        "$type": "integer",
+        "$defaultValue": 1,
+        "$value": 1,
+        "$position": 0,
+        "$increment": 1,
+        "$name": "weaponSlot",
+        "$path": "applyPreset.teamSlot5.weaponSlot"
+      },
+      "accessorySlot": {
+        "$type": "integer",
+        "$defaultValue": 1,
+        "$value": 1,
+        "$position": 0,
+        "$increment": 1,
+        "$name": "accessorySlot",
+        "$path": "applyPreset.teamSlot5.accessorySlot"
       }
     },
     "teamSlot6": {
@@ -2606,6 +2696,24 @@
         "$position": 0,
         "$name": "bottom",
         "$path": "applyPreset.teamSlot6.bottom"
+      },
+      "weaponSlot": {
+        "$type": "integer",
+        "$defaultValue": 1,
+        "$value": 1,
+        "$position": 0,
+        "$increment": 1,
+        "$name": "weaponSlot",
+        "$path": "applyPreset.teamSlot6.weaponSlot"
+      },
+      "accessorySlot": {
+        "$type": "integer",
+        "$defaultValue": 1,
+        "$value": 1,
+        "$position": 0,
+        "$increment": 1,
+        "$name": "accessorySlot",
+        "$path": "applyPreset.teamSlot6.accessorySlot"
       }
     },
     "teamSlot7": {
@@ -2673,6 +2781,24 @@
         "$position": 0,
         "$name": "bottom",
         "$path": "applyPreset.teamSlot7.bottom"
+      },
+      "weaponSlot": {
+        "$type": "integer",
+        "$defaultValue": 1,
+        "$value": 1,
+        "$position": 0,
+        "$increment": 1,
+        "$name": "weaponSlot",
+        "$path": "applyPreset.teamSlot7.weaponSlot"
+      },
+      "accessorySlot": {
+        "$type": "integer",
+        "$defaultValue": 1,
+        "$value": 1,
+        "$position": 0,
+        "$increment": 1,
+        "$name": "accessorySlot",
+        "$path": "applyPreset.teamSlot7.accessorySlot"
       }
     },
     "teamSlot8": {
@@ -2740,6 +2866,24 @@
         "$position": 0,
         "$name": "bottom",
         "$path": "applyPreset.teamSlot8.bottom"
+      },
+      "weaponSlot": {
+        "$type": "integer",
+        "$defaultValue": 1,
+        "$value": 1,
+        "$position": 0,
+        "$increment": 1,
+        "$name": "weaponSlot",
+        "$path": "applyPreset.teamSlot8.weaponSlot"
+      },
+      "accessorySlot": {
+        "$type": "integer",
+        "$defaultValue": 1,
+        "$value": 1,
+        "$position": 0,
+        "$increment": 1,
+        "$name": "accessorySlot",
+        "$path": "applyPreset.teamSlot8.accessorySlot"
       }
     },
     "teamSlot9": {
@@ -2807,12 +2951,30 @@
         "$position": 0,
         "$name": "bottom",
         "$path": "applyPreset.teamSlot9.bottom"
+      },
+      "weaponSlot": {
+        "$type": "integer",
+        "$defaultValue": 1,
+        "$value": 1,
+        "$position": 0,
+        "$increment": 1,
+        "$name": "weaponSlot",
+        "$path": "applyPreset.teamSlot9.weaponSlot"
+      },
+      "accessorySlot": {
+        "$type": "integer",
+        "$defaultValue": 1,
+        "$value": 1,
+        "$position": 0,
+        "$increment": 1,
+        "$name": "accessorySlot",
+        "$path": "applyPreset.teamSlot9.accessorySlot"
       }
     },
     "lastApplied": {
       "$type": "string",
-      "$defaultValue": null,
-      "$value": null,
+      "$defaultValue": "4",
+      "$value": "4",
       "$position": 0,
       "$name": "lastApplied",
       "$path": "applyPreset.lastApplied"

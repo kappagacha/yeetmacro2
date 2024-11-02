@@ -22,7 +22,7 @@ function applyPreset(teamSlot) {
 		return;
 	} 
 
-	if (!settings.applyPreset[`teamSlot${teamSlot}`].IsEnabled) {
+	if (!ignoreLastApplied && !settings.applyPreset[`teamSlot${teamSlot}`].IsEnabled) {
 		return;
 	}
 
@@ -67,7 +67,66 @@ function applyPreset(teamSlot) {
 
 		macroService.PollPoint(targetPreset.point, { DoClick: true, PredicatePattern: patterns.battle.teamFormation.preset.ok });
 		macroService.PollPattern(patterns.battle.teamFormation.preset.ok, { DoClick: true, ClickPattern: patterns.battle.teamFormation.preset.ok2, PredicatePattern: patterns.battle.teamFormation.preset.presetList });
-		macroService.PollPattern(patterns.battle.teamFormation.preset.topLeft, { DoClick: true, ClickOffset: { X: -60 }, PredicatePattern: patterns.general.back });		
+
+		const weaponSlot = settings.applyPreset[`teamSlot${teamSlot}`].weaponSlot.Value;
+		const accessorySlot = settings.applyPreset[`teamSlot${teamSlot}`].accessorySlot.Value;
+		const resolution = macroService.GetCurrentResolution();
+
+		//if (weaponSlot || accessorySlot) {
+		if (ignoreLastApplied && (weaponSlot || accessorySlot)) {
+			macroService.PollPattern(patterns.battle.teamFormation.preset.manageGear, { DoClick: true, PredicatePattern: patterns.titles.manageGear });
+
+			const cornersPattern = macroService.ClonePattern(patterns.battle.teamFormation.preset.manageGear.corners, { X: 1340, Y: 100, Width: resolution.Width - 1920 + 420, Height: 450, OffsetCalcType: 'None' });
+
+			if (weaponSlot) {
+				const corners = macroService.FindPattern(cornersPattern, { Limit: 10 })
+				const cornerPoints = corners.Points.map(p => ({ X: parseInt(p.X), Y: parseInt(p.Y) }));
+				cornerPoints.sort((a, b) => {
+					if (a.Y === b.Y) {
+						return a.X - b.X; // If Y values are the same, sort by X
+					}
+					return a.Y - b.Y; // Otherwise, sort by Y
+				});
+
+				const point = cornerPoints[weaponSlot - 1];
+				const centerPoint = { X: point.X + 60, Y: point.Y - 60 };
+				const checkPattern = macroService.ClonePattern(patterns.battle.teamFormation.preset.manageGear.check, { CenterX: centerPoint.X, CenterY: centerPoint.Y, Padding: 20, OffsetCalcType: 'None', Path: `patterns.battle.teamFormation.preset.manageGear.check_x${centerPoint.X}_y${centerPoint.Y}` })
+				macroService.PollPoint(centerPoint, { DoClick: true, PredicatePattern: checkPattern });
+			}
+
+			if (accessorySlot) {
+				macroService.PollPattern(patterns.battle.teamFormation.preset.manageGear.accessory, { DoClick: true, PredicatePattern: patterns.battle.teamFormation.preset.manageGear.accessory.selected });
+
+				const corners = macroService.FindPattern(cornersPattern, { Limit: 10 })
+				const cornerPoints = corners.Points.map(p => ({ X: parseInt(p.X), Y: parseInt(p.Y) }));
+				cornerPoints.sort((a, b) => {
+					if (a.Y === b.Y) {
+						return a.X - b.X; // If Y values are the same, sort by X
+					}
+					return a.Y - b.Y; // Otherwise, sort by Y
+				});
+
+				const point = cornerPoints[accessorySlot - 1];
+				const centerPoint = { X: point.X + 60, Y: point.Y - 60 };
+				const checkPattern = macroService.ClonePattern(patterns.battle.teamFormation.preset.manageGear.check, { CenterX: centerPoint.X, CenterY: centerPoint.Y, Padding: 20, OffsetCalcType: 'None', Path: `patterns.battle.teamFormation.preset.manageGear.check_x${centerPoint.X}_y${centerPoint.Y}` })
+				macroService.PollPoint(centerPoint, { DoClick: true, PredicatePattern: checkPattern });
+			}
+
+			macroService.ClickPattern(patterns.battle.teamFormation.preset.manageGear.equipGear);
+			sleep(500);
+			macroService.ClickPattern(patterns.battle.teamFormation.preset.manageGear.equipGear);
+
+			macroService.PollPattern(patterns.titles.manageGear);
+
+			// only click back if you see manage gear title
+			if (macroService.FindPattern(patterns.titles.manageGear).IsSuccess) {
+				macroService.ClickPattern(patterns.general.back);
+				sleep(1_000);
+			}
+		} else {
+			macroService.PollPattern(patterns.battle.teamFormation.preset.topLeft, { DoClick: true, ClickOffset: { X: -60 }, PredicatePattern: patterns.general.back });
+		}
+
 	}
 
 	if (macroService.IsRunning) {
