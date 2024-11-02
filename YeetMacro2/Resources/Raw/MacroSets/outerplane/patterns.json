@@ -14500,6 +14500,213 @@
             "$path": "battle.teamFormation.preset.manageGear.check"
           }
         }
+      },
+      "battleTypes": {
+        "$patterns": [],
+        "$isMultiPattern": false,
+        "$position": 0,
+        "$name": "battleTypes",
+        "$path": "battle.teamFormation.battleTypes",
+        "defender": {
+          "$patterns": [
+            {
+              "rect": {
+                "x": 340.1015625,
+                "y": 131.482177734375,
+                "width": 45.421875,
+                "height": 48.56396484375
+              },
+              "resolution": {
+                "width": 1920,
+                "height": 1080
+              },
+              "isBoundsPattern": false,
+              "isLocationDynamic": false,
+              "name": "pattern",
+              "imageData": "/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDAAEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQH/2wBDAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQH/wAARCAAVABoDASIAAhEBAxEB/8QAGgAAAgIDAAAAAAAAAAAAAAAAAAcICQQGCv/EACUQAAEEAgEFAAMBAQAAAAAAAAMCBAUGAQcIAAkREhMKFiEVI//EABcBAAMBAAAAAAAAAAAAAAAAAAECAwT/xAApEQEAAQMCBQEJAAAAAAAAAAABEQIDIQBBEhMiMWEEI1FSgZGSodHw/9oADAMBAAIRAxEAPwBPcdX1B3Hxw3r3gOY/7PsDauvLFY7hrJThzIHzRlV9J1Qr5jFsyJG6PMlGpJwvxumLSLdCCNuHCDEJGaxfkJW3k9zo1JyL1DxIxUtq1yBext2RVpGZsba0tGNecxcFPzsa0K8boe1gZAtGcmtokwWgm7XLnA8ICiSPbis1J5Y8FOb/AA1pysYkX+l30jXo1RfKhmtdLfQse1bjL9CqNFybByoxsrIrKhYJnHtnzl0/j18XuLMNszWu7NJ2qPk5a768jda7c13YI2LlZqn7CrzOXa2h67JKYNIRqHMkdwc8WkAm522GSnhFpE3QHW25ot12wp9nU1xUjUmKglyRHbZXOplRKcU5IIiCCOx/PuzrZNc90ao85a1rTgRyA0shdF2rfXExtu5GnZeYsW0raSvyYBBnyLcrfMW8k5QzCYzc7fEfHQsZFgyFmj4jzbH2cdJx9hnmEHsfYsLCMpmUaQ8O2fxxW0TFtnxwx8Y3K6jTuSAYNEBaiI4OY6xiSopSEypeXrIcKeKepO5BpOk6Wv4tl7Qoh97b45Gz8Uhgzq9fZ2qUGHX1aRFRftFQjyEcWCU+LNmpCP8ANbANlA0fMIYhbR7uOrIDZuxYIrp2skLe7dEkWNYlDWuNsEgzWpCv77IUoOcpV5z5TnGfP96eyWeXxXSkWtBqlkCjcTtMvznfQWpq6anB2gIz5PEPh21VXxakZXt7d4Oi631zIFslQvlrsmpLNEv8ZiQvYNThwRLpOArkMIdN8BcIaIJgyG6Xzn0znynGF7zqjLh20e8RsIHFXYlhoDXaKnVqlGkYkbdqyTsWK/bJeJbtVFcNSt2T2TKCKdZbidsW2CICtCXJ0qOjqNObCOeG9TE7cVPUHhgk07iU+F/ER9NWs8V5cvFntdcxecUAkts3HbWtgrOH087P9GDSKakURwSSJl69kXcm4nHzyQObITGdJaFUXOW3/TktbUyRs7ZvZZa1yTmUsIBTkk4KAayHkJYaX7wxF/bHusrhwRa1eMeylZz4x58dHR0fUYpshg5cxtKsuhbOmd0pn7T96//Z",
+              "variancePct": 20,
+              "horizontalStretchMultiplier": 0,
+              "verticalStretchMultiplier": 0,
+              "textMatch": {
+                "isActive": false,
+                "text": null,
+                "whiteList": null
+              },
+              "colorThreshold": {
+                "isActive": false,
+                "variancePct": 30,
+                "color": null,
+                "imageData": ""
+              },
+              "offsetCalcType": "Default",
+              "position": 0
+            }
+          ],
+          "$isMultiPattern": false,
+          "$position": 0,
+          "$name": "defender",
+          "$path": "battle.teamFormation.battleTypes.defender"
+        },
+        "striker": {
+          "$patterns": [
+            {
+              "rect": {
+                "x": 338.87109375,
+                "y": 128.911376953125,
+                "width": 45.421875,
+                "height": 50.508544921875
+              },
+              "resolution": {
+                "width": 1920,
+                "height": 1080
+              },
+              "isBoundsPattern": false,
+              "isLocationDynamic": false,
+              "name": "pattern",
+              "imageData": "/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDAAEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQH/2wBDAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQH/wAARCAAbABoDASIAAhEBAxEB/8QAGQAAAgMBAAAAAAAAAAAAAAAACQoFBggH/8QAMBAAAQQCAQIFAQYHAAAAAAAABAECAwUGBxEICQASExQhChUXIiMxYRgkJjI2QYH/xAAYAQADAQEAAAAAAAAAAAAAAAABAgMABP/EACcRAQABAwMCBQUAAAAAAAAAAAERAAIhAzFBElEiMkJhgXGRocHw/9oADAMBAAIRAxEAPwDEXdB7kG2u5TmF3rnTWUxa16cNf26hIGZEY5trC1XRk35ZwxIw1tkjo05WGdjBa6OTyiOhVqRrDdhus6Yazq72FWE5ebkGFs0tkFfk13f2dtT4eflgMhktULWEUswAxdhC0ogh455JRUaltenPquc4UGy8/P6WsW0iXT41hec43jhoWQ5jiuQWL31Wb2bYVmhrroEQgK6Ox88uX3cxECwrJ6UMcz1hklZ4bZ7KXX7vLr01XfT6e6f+h/TOS1m5xcLyLEW6VyKXFyKwyjorCfKwsgM2Dc2k9wJUktihpZKsQQokRkL7AWOVxTaeNvUG66G66SeJVPaf3SBNseUkiMQERnmX77UpKRg9Lc7ezW90RtEzHNx4zsjMbWzx/K0OZykuY2hTSAyY3jXP2ZLBOIZXlFIYRIyWImGXiVZXlvqe/P3AcPqqzEp88vDp8XrwsdmNXB5DFMlpBo6yQpS55JJylIeKsqkzPfLOr/Vke57lVaX3zO5bbY31a9RHRVV9PXTNZXWCZDh1d/EVj+sb3WezlzVcQpLtxdYONsLJKCCtDbcw07PcDsQ6Id0pUbIlck2YKPL7A6kpzbGlxb7QMqq8o/8AqKjk/nSBIZSvzGF+ST897/xt/C/+5vwqeAHUYwm/ZMR8kL7vai75Oo4xKbT/AHPcoOPVthezda5mLguzRrkC9xWMvHPbWkM0Dmj1srB0hVkzWvbJB6TI3xSNR8a/Cqv6+HC/o9v8S2eqfLk6iQOE/b7v8b5+P++Ou/VD6N1HFWa12pDgOPwbCyaotJcgykcaQewtiK5yoIUa2GWMWYxiNT1DFH90R8+5ml5Xms/Saijii7RQeGOBJt90s8jYmpGx00uu8bWR6Rt4Y1XqnK+VrU5+ePlfFtG1NXVtWU0tXOfTav5iPo1hLrRMD04+Slj+/vK+HvFdc0sbvK9mz8fVrk/Vq/djgycp+6c/C/6X58ZMx7K89HoKMcajspx4KeshHmUUhyzQxBQMilV3nTzLJG1r1dwnPPPCc+Cu93XHaO770PV4FbVYh41huqiQ2IiJHoS2DWWALEyR3KPWJiqq+kjkjcq8uaq+Gs9TdAfR1Yar1meZoXDpyzdf4YWVO+W8R8xJOOVs08rkbbtajpJXue5GtRvLl4RE+PHNTV//2Q==",
+              "variancePct": 20,
+              "horizontalStretchMultiplier": 0,
+              "verticalStretchMultiplier": 0,
+              "textMatch": {
+                "isActive": false,
+                "text": null,
+                "whiteList": null
+              },
+              "colorThreshold": {
+                "isActive": false,
+                "variancePct": 30,
+                "color": null,
+                "imageData": ""
+              },
+              "offsetCalcType": "Default",
+              "position": 0
+            }
+          ],
+          "$isMultiPattern": false,
+          "$position": 0,
+          "$name": "striker",
+          "$path": "battle.teamFormation.battleTypes.striker"
+        },
+        "ranger": {
+          "$patterns": [
+            {
+              "rect": {
+                "x": 333.71484375,
+                "y": 128.911376953125,
+                "width": 53.09765625,
+                "height": 50.508544921875
+              },
+              "resolution": {
+                "width": 1920,
+                "height": 1080
+              },
+              "isBoundsPattern": false,
+              "isLocationDynamic": false,
+              "name": "pattern",
+              "imageData": "/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDAAEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQH/2wBDAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQH/wAARCAAbABoDASIAAhEBAxEB/8QAGAAAAwEBAAAAAAAAAAAAAAAACAkKBwX/xAAmEAABBQEBAAEEAgMBAAAAAAAEAQIDBQYHCAkAERIUFiEKFxgx/8QAFQEBAQAAAAAAAAAAAAAAAAAAAgH/xAAfEQEAAgICAgMAAAAAAAAAAAABAAIRITFBUWGRofD/2gAMAwEAAhEDEQA/AAW+Tz5GOt/JvtbnA8q13+rPNfPbeQIaskHImjth0c6Mm6LshzQ4bLUOhRyzLLEoYjZFiCaM1FiRGeZ5f576p6b8q8PxZuj28Ou7pgMl0AmchsNVaZmx0tWLooap0cCMjllrlOd+w5kr2o5znucqff6JD3b5w9MeQPN/Gf5NzfTc853th4DJde4oNsOmuJR3nR17Daw2cgWYkhshJVfYqBcRNhlHKCY1CY4+L8Pfjn0VtPTvGPVh/NdgBw3ku+rNBPrzqEqGDZ3yRkw0OO55Xk/qk6+6tLCRjfypYia8GIYlTzhp2wxSptnbuzu1nKque/t/JDHoOA447l8Of+Bjxpq09TcezVEdR1FdXcoqOVdIhfAu75N0Wio9Nb2Q9RcjMGGua2IXT5w0wa1AlUqM+QCZ6xDxORSdj5R+XHnNgdz2s9aYixrcIYVja+wXWX1UpwOXnkpBDFq2znNrVKHBjnUBppjQ/wA/10KISNJX0e8zd8ktxjb2bM8t4V5bpdfp9XsdFru6dIs+i9Qjj1JMjw7d2I59QfwemMz2fjp60MA3rFlFG+riaYsTGviVaN78d3leyu7ix2Xyv3ZOvPtbA3Vkin5gIYjSFFzT3s44UOjdCJBLaSFSQixOWIeNzYo1VrEX6MUyTy57b5b74yuy8uewua1DO111e8XtHnW6hHrnboionbG3rvAZLVR3B7QA6CCzMpBpobEK4bDGr2zPrzjCR7A7zp5+wvMeh/8AUOmP1XCd9jrUHCb+sB5dpMdio6Kxy1nfScvvW0B2ys8+LZQ2drauCJJllHlIAhkmbFE9Uv8Ak7cq57jj+YdoyOYBy3VNHRWpt5uc5KZSX1maNK1rDCiawkVji5Gtb+0UkbZzlT7myTqqqsw/hbunXb/1xzHC6Hf6HSY+5Hnfa53SEx6CrsHOjYiqUPcxHNlT7Kv4o5fs1f7aiL/f0rVa2au0U16kHIPkH5l2HsX5ZfJmH4jynM6Ho2P9x7JK49oP8H7jzzNN3FkPVm6Gwt9thw9VHdhUgFUOweRh9S5pUsaxjCzukcjZm7X5fMTZWllY1XlbxCNV2B5htaO/MWpLx68oiScOF5Lc5GhDoh5I2OnRjElVqyIxqO+yZd8t1fV1G/4biaWmo6PLqfbEvqaKjqaSOUiyZXwnSzkVQYZhDiYYI4ZFnJkRYkdGiIx70cSeI8y8FnxeQnl5jm3SzZeglkcjDGo6SSpEe9UawtrGorlVfxa1rU/8aiIiJ9GWf//Z",
+              "variancePct": 20,
+              "horizontalStretchMultiplier": 0,
+              "verticalStretchMultiplier": 0,
+              "textMatch": {
+                "isActive": false,
+                "text": null,
+                "whiteList": null
+              },
+              "colorThreshold": {
+                "isActive": false,
+                "variancePct": 30,
+                "color": null,
+                "imageData": ""
+              },
+              "offsetCalcType": "Default",
+              "position": 0
+            }
+          ],
+          "$isMultiPattern": false,
+          "$position": 0,
+          "$name": "ranger",
+          "$path": "battle.teamFormation.battleTypes.ranger"
+        },
+        "mage": {
+          "$patterns": [
+            {
+              "rect": {
+                "x": 336.29296875,
+                "y": 128.911376953125,
+                "width": 48,
+                "height": 51.7939453125
+              },
+              "resolution": {
+                "width": 1920,
+                "height": 1080
+              },
+              "isBoundsPattern": false,
+              "isLocationDynamic": false,
+              "name": "pattern",
+              "imageData": "/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDAAEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQH/2wBDAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQH/wAARCAAXAB8DASIAAhEBAxEB/8QAGAAAAwEBAAAAAAAAAAAAAAAAAAkKCAP/xAAjEAACAgMBAAIDAQEBAAAAAAADBAIFAQYHCAAJEhMUERUY/8QAFQEBAQAAAAAAAAAAAAAAAAAAAQD/xAAiEQEAAgEDBAMBAAAAAAAAAAABAhExACFBA1Fx8IGRocH/2gAMAwEAAhEDEQA/AFCbp7m2Pv3Zbv2z7N1us6NqVXskYUfNN4pgu0bdMHMkoVVVrbSxY1QxLk/gpFUgjymEQBhxD8s4+VHaX0DdPQP16eR2fqN6Zpvm7jD20dSr/TWx1aAmbjjdRWf27AhX3Y/7UrY+2GExV0Vca5dk3/IynZsf3CENZqGT1t3znN9oNTXUjNhc2DrDzVa4qeKqKzQClXJmxTnA0jfuxCRVZQIOWIzhPGcf5j4436FvEVH3jwL6869tntT0Hx/QUuoI650Li3Bn9UqWrBer01K5hsN1Y7VrO1M1bewIWx6te2ooVLWVqXIWCOZEmRRf4fdb/uiLZiuK8adPy73z1jrn1X+iu7310bbe4+POldX8yY7Hb1IyXHUeJ7Rc3es3WDClCRi2topplbsbQ5fnNVpFEA84gHOMzvea/evZ/rp6XVdQ85GI7zHo+t2ArGgTrMX2t2LDYpthNa0GBGXfnJwsbITLAyTFZLhbjKM4fl87+t/sl5Ny3w7/AOX/AK/V9G1vgG1bjc1t+ha7TYbJ2q+tY5FN7oW2jkuFJbNtErKyJfxirmJ7BhNNGTTOG8cef+581qOO66xYXDlCGvfPVDzZlE8crf6jf0ETGGC2YV0cgIIUSYlkeZwx+Uv9xn4lb8OyO9m/Ht+eBydmx7Y59760p9tP1MOeBe9VQLE6u58S3M7l1ot4k0ik3/zGT5Eo7a68Vglgi0kaWFLWpF+8H9eZlrH7BOMWCPs+g7TOEF8BexPOGsf9Ks7rsm9H2fsrDCzJE7HnL2kUimlWGq2cAxq4YqQuHkzUNGTs8MMsyhgkDYyE+HymEZyiYjJC80Kb6YtxiuUF+TUZ7/muj5z3z0Dx81nC/quK7JaqzvDp5XJa6uM0MpsFT/MxIvSWaUGVaJCYwwQn+G/VDJcPC+mX6VJe4bLaOmbzcQ59wHVDvKgLKVftN/ixtlSxqFK/XlX1cMGbNmLzJn269RCuieMWWbGAEjnw+PTiT6kIt1KQNZpdE1jFTIc6/9k=",
+              "variancePct": 20,
+              "horizontalStretchMultiplier": 0,
+              "verticalStretchMultiplier": 0,
+              "textMatch": {
+                "isActive": false,
+                "text": null,
+                "whiteList": null
+              },
+              "colorThreshold": {
+                "isActive": false,
+                "variancePct": 30,
+                "color": null,
+                "imageData": ""
+              },
+              "offsetCalcType": "Default",
+              "position": 0
+            }
+          ],
+          "$isMultiPattern": false,
+          "$position": 0,
+          "$name": "mage",
+          "$path": "battle.teamFormation.battleTypes.mage"
+        },
+        "healer": {
+          "$patterns": [
+            {
+              "rect": {
+                "x": 333.71484375,
+                "y": 130.19677734375,
+                "width": 55.03125,
+                "height": 49.22314453125
+              },
+              "resolution": {
+                "width": 1920,
+                "height": 1080
+              },
+              "isBoundsPattern": false,
+              "isLocationDynamic": false,
+              "name": "pattern",
+              "imageData": "/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDAAEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQH/2wBDAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQH/wAARCAAYABwDASIAAhEBAxEB/8QAGQAAAgMBAAAAAAAAAAAAAAAAAAoICQsH/8QAJRAAAQUBAAEFAAMBAQAAAAAAAwECBAUGBwgACRESFAoTIhUj/8QAFwEBAQEBAAAAAAAAAAAAAAAAAgMABP/EACQRAQACAgEDAwUAAAAAAAAAAAECEQMhEgAxQUJh8FFxgcHh/9oADAMBAAIRAxEAPwCAvd/bI88/DraxOg5jxy1Xcu3yEqbmB2LFQwjorFkssexLMiHkWqFiyAMI9JDGKUs36tGc5kX4a6j7auiHEpus6S3lx68o8dUWc18wjY7YkgMV5pDTtMrXC/OZFaVr2oo3NVHIip65Xae70bDAroWom8QyKLChPDAuJdhWHDGeAbho6CG7ckNEH/r+hBtaJF+rW/CInqlLqfi37jNp7ouJ8w+k9OteWeBvZzjl6jDYDTW9TAkYSQCdOSovOVox+bsJx2zIs+RZ2KWVhKjAKCW1CkVF6EyY4yxSpMnF0jx4o2hdXq9na7fMLhKpijFe9tutfo7PtXVNG14p5EecXkZ1/rO25Hos32Ow6R0iyynV9LHkSKBuZJorOVlrP+z9rfmGKn/HGr647BuhxmDENomNRyyq4D/IZ7d4q4Inj31CLltfp+UaO/xi2+niEsJawaKWlcAMGab/ANT06njSpNc56uVopKsRfq1qI37i+E+CnUDGr8B5Lm2csEMsptTTbTKTJhY4guf/AFx4ZaQTjvUTVawA0Vzk/wA/X4RfhVbrfk/7H/Kut9WwfcsF0zyV6BnOk7Wsn7On5fRc3Fl40HQToQeaza3N5eXBvrPGHjSYk3WnMtheEko6Y1j46NQyccCLinNlbykjFrVHeqv49OJJXmFaTd7K38P6uvsPbu8u+ve4jX+OHc76Jn+h6fYR6Sy2/Y9LFzNREpawkaOeVJs7Bo4Qgx4CKaNHhj+ZwmEkRQmK9/20sPPfpvHz8n43ZZ7peMsslVwrljL2JoYEiGtXRwJFTPtGvAV5S10KWB4JNgIT4gyDcjzJ8ej0ejikxnyNoLvf062QOD94n45HWZgLxa8peXe4deZ7x11Lyb1vTbu4xGz5HomW8xmc21tYmoiCkwBuC2znUFoH9lWVC/jOQrCfZQIT06h42fx7eVl5hEv/ACn2ejse5bS4t9vuzVkSvtzJcagzLOd/27GWeN+nQSJ5Zk21WON0YR5SAY9SCK1p6PV8GGGXJkJjUboGvVW/Pb36OSbCMePmvfx1/9k=",
+              "variancePct": 20,
+              "horizontalStretchMultiplier": 0,
+              "verticalStretchMultiplier": 0,
+              "textMatch": {
+                "isActive": false,
+                "text": null,
+                "whiteList": null
+              },
+              "colorThreshold": {
+                "isActive": false,
+                "variancePct": 30,
+                "color": null,
+                "imageData": ""
+              },
+              "offsetCalcType": "Default",
+              "position": 0
+            }
+          ],
+          "$isMultiPattern": false,
+          "$position": 0,
+          "$name": "healer",
+          "$path": "battle.teamFormation.battleTypes.healer"
+        }
       }
     },
     "bossType": {

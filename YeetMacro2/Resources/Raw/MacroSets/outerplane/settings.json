@@ -2206,10 +2206,287 @@
     "$position": 0,
     "$name": "applyPreset",
     "$path": "applyPreset",
-    "teamSlot1": {
+    "manual": {
       "$type": "enabledParent",
       "$isEnabled": true,
       "$position": 0,
+      "$name": "manual",
+      "$path": "applyPreset.manual",
+      "left": {
+        "$type": "enabledOption",
+        "$options": [
+          "CRT DMG 1",
+          "CRT DMG 2",
+          "SPD 1",
+          "SPD 2"
+        ],
+        "$defaultValue": "SPD 1",
+        "$value": "SPD 1",
+        "$isEnabled": true,
+        "$position": 0,
+        "$name": "left",
+        "$path": "applyPreset.manual.left"
+      },
+      "top": {
+        "$type": "enabledOption",
+        "$options": [
+          "CRT DMG 1",
+          "CRT DMG 2",
+          "SPD 1",
+          "SPD 2"
+        ],
+        "$defaultValue": "CRT DMG 1",
+        "$value": "CRT DMG 1",
+        "$isEnabled": true,
+        "$position": 0,
+        "$name": "top",
+        "$path": "applyPreset.manual.top"
+      },
+      "right": {
+        "$type": "enabledOption",
+        "$options": [
+          "CRT DMG 1",
+          "CRT DMG 2",
+          "SPD 1",
+          "SPD 2"
+        ],
+        "$defaultValue": "SPD 2",
+        "$value": "SPD 2",
+        "$isEnabled": true,
+        "$position": 0,
+        "$name": "right",
+        "$path": "applyPreset.manual.right"
+      },
+      "bottom": {
+        "$type": "enabledOption",
+        "$options": [
+          "CRT DMG 1",
+          "CRT DMG 2",
+          "SPD 1",
+          "SPD 2"
+        ],
+        "$defaultValue": "CRT DMG 2",
+        "$value": "CRT DMG 2",
+        "$isEnabled": true,
+        "$position": 0,
+        "$name": "bottom",
+        "$path": "applyPreset.manual.bottom"
+      },
+      "defender": {
+        "$type": "parent",
+        "$position": 0,
+        "$name": "defender",
+        "$path": "applyPreset.manual.defender",
+        "weaponSlot1": {
+          "$type": "integer",
+          "$defaultValue": 1,
+          "$value": 1,
+          "$position": 0,
+          "$increment": 1,
+          "$name": "weaponSlot1",
+          "$path": "applyPreset.manual.defender.weaponSlot1"
+        },
+        "accessorySlot1": {
+          "$type": "integer",
+          "$defaultValue": 1,
+          "$value": 1,
+          "$position": 0,
+          "$increment": 1,
+          "$name": "accessorySlot1",
+          "$path": "applyPreset.manual.defender.accessorySlot1"
+        },
+        "weaponSlot2": {
+          "$type": "integer",
+          "$defaultValue": 1,
+          "$value": 1,
+          "$position": 0,
+          "$increment": 1,
+          "$name": "weaponSlot2",
+          "$path": "applyPreset.manual.defender.weaponSlot2"
+        },
+        "accessorySlot2": {
+          "$type": "integer",
+          "$defaultValue": 1,
+          "$value": 1,
+          "$position": 0,
+          "$increment": 1,
+          "$name": "accessorySlot2",
+          "$path": "applyPreset.manual.defender.accessorySlot2"
+        }
+      },
+      "striker": {
+        "$type": "parent",
+        "$position": 0,
+        "$name": "striker",
+        "$path": "applyPreset.manual.striker",
+        "weaponSlot1": {
+          "$type": "integer",
+          "$defaultValue": 1,
+          "$value": 1,
+          "$position": 0,
+          "$increment": 1,
+          "$name": "weaponSlot1",
+          "$path": "applyPreset.manual.striker.weaponSlot1"
+        },
+        "accessorySlot1": {
+          "$type": "integer",
+          "$defaultValue": 1,
+          "$value": 1,
+          "$position": 0,
+          "$increment": 1,
+          "$name": "accessorySlot1",
+          "$path": "applyPreset.manual.striker.accessorySlot1"
+        },
+        "weaponSlot2": {
+          "$type": "integer",
+          "$defaultValue": 1,
+          "$value": 1,
+          "$position": 0,
+          "$increment": 1,
+          "$name": "weaponSlot2",
+          "$path": "applyPreset.manual.striker.weaponSlot2"
+        },
+        "accessorySlot2": {
+          "$type": "integer",
+          "$defaultValue": 1,
+          "$value": 1,
+          "$position": 0,
+          "$increment": 1,
+          "$name": "accessorySlot2",
+          "$path": "applyPreset.manual.striker.accessorySlot2"
+        }
+      },
+      "ranger": {
+        "$type": "parent",
+        "$position": 0,
+        "$name": "ranger",
+        "$path": "applyPreset.manual.ranger",
+        "weaponSlot1": {
+          "$type": "integer",
+          "$defaultValue": 1,
+          "$value": 1,
+          "$position": 0,
+          "$increment": 1,
+          "$name": "weaponSlot1",
+          "$path": "applyPreset.manual.ranger.weaponSlot1"
+        },
+        "accessorySlot1": {
+          "$type": "integer",
+          "$defaultValue": 1,
+          "$value": 1,
+          "$position": 0,
+          "$increment": 1,
+          "$name": "accessorySlot1",
+          "$path": "applyPreset.manual.ranger.accessorySlot1"
+        },
+        "weaponSlot2": {
+          "$type": "integer",
+          "$defaultValue": 1,
+          "$value": 1,
+          "$position": 0,
+          "$increment": 1,
+          "$name": "weaponSlot2",
+          "$path": "applyPreset.manual.ranger.weaponSlot2"
+        },
+        "accessorySlot2": {
+          "$type": "integer",
+          "$defaultValue": 1,
+          "$value": 1,
+          "$position": 0,
+          "$increment": 1,
+          "$name": "accessorySlot2",
+          "$path": "applyPreset.manual.ranger.accessorySlot2"
+        }
+      },
+      "mage": {
+        "$type": "parent",
+        "$position": 0,
+        "$name": "mage",
+        "$path": "applyPreset.manual.mage",
+        "weaponSlot1": {
+          "$type": "integer",
+          "$defaultValue": 1,
+          "$value": 1,
+          "$position": 0,
+          "$increment": 1,
+          "$name": "weaponSlot1",
+          "$path": "applyPreset.manual.mage.weaponSlot1"
+        },
+        "accessorySlot1": {
+          "$type": "integer",
+          "$defaultValue": 1,
+          "$value": 1,
+          "$position": 0,
+          "$increment": 1,
+          "$name": "accessorySlot1",
+          "$path": "applyPreset.manual.mage.accessorySlot1"
+        },
+        "weaponSlot2": {
+          "$type": "integer",
+          "$defaultValue": 1,
+          "$value": 1,
+          "$position": 0,
+          "$increment": 1,
+          "$name": "weaponSlot2",
+          "$path": "applyPreset.manual.mage.weaponSlot2"
+        },
+        "accessorySlot2": {
+          "$type": "integer",
+          "$defaultValue": 1,
+          "$value": 1,
+          "$position": 0,
+          "$increment": 1,
+          "$name": "accessorySlot2",
+          "$path": "applyPreset.manual.mage.accessorySlot2"
+        }
+      },
+      "healer": {
+        "$type": "parent",
+        "$position": 0,
+        "$name": "healer",
+        "$path": "applyPreset.manual.healer",
+        "weaponSlot1": {
+          "$type": "integer",
+          "$defaultValue": 1,
+          "$value": 1,
+          "$position": 0,
+          "$increment": 1,
+          "$name": "weaponSlot1",
+          "$path": "applyPreset.manual.healer.weaponSlot1"
+        },
+        "accessorySlot1": {
+          "$type": "integer",
+          "$defaultValue": 1,
+          "$value": 1,
+          "$position": 0,
+          "$increment": 1,
+          "$name": "accessorySlot1",
+          "$path": "applyPreset.manual.healer.accessorySlot1"
+        },
+        "weaponSlot2": {
+          "$type": "integer",
+          "$defaultValue": 1,
+          "$value": 1,
+          "$position": 0,
+          "$increment": 1,
+          "$name": "weaponSlot2",
+          "$path": "applyPreset.manual.healer.weaponSlot2"
+        },
+        "accessorySlot2": {
+          "$type": "integer",
+          "$defaultValue": 1,
+          "$value": 1,
+          "$position": 0,
+          "$increment": 1,
+          "$name": "accessorySlot2",
+          "$path": "applyPreset.manual.healer.accessorySlot2"
+        }
+      }
+    },
+    "teamSlot1": {
+      "$type": "enabledParent",
+      "$isEnabled": true,
+      "$position": 1,
       "$name": "teamSlot1",
       "$path": "applyPreset.teamSlot1",
       "left": {
@@ -2294,7 +2571,7 @@
     "teamSlot2": {
       "$type": "enabledParent",
       "$isEnabled": false,
-      "$position": 0,
+      "$position": 2,
       "$name": "teamSlot2",
       "$path": "applyPreset.teamSlot2",
       "left": {
@@ -2379,7 +2656,7 @@
     "teamSlot3": {
       "$type": "enabledParent",
       "$isEnabled": true,
-      "$position": 0,
+      "$position": 3,
       "$name": "teamSlot3",
       "$path": "applyPreset.teamSlot3",
       "left": {
@@ -2464,7 +2741,7 @@
     "teamSlot4": {
       "$type": "enabledParent",
       "$isEnabled": true,
-      "$position": 0,
+      "$position": 4,
       "$name": "teamSlot4",
       "$path": "applyPreset.teamSlot4",
       "left": {
@@ -2549,7 +2826,7 @@
     "teamSlot5": {
       "$type": "enabledParent",
       "$isEnabled": true,
-      "$position": 0,
+      "$position": 5,
       "$name": "teamSlot5",
       "$path": "applyPreset.teamSlot5",
       "left": {
@@ -2634,7 +2911,7 @@
     "teamSlot6": {
       "$type": "enabledParent",
       "$isEnabled": true,
-      "$position": 0,
+      "$position": 6,
       "$name": "teamSlot6",
       "$path": "applyPreset.teamSlot6",
       "left": {
@@ -2719,7 +2996,7 @@
     "teamSlot7": {
       "$type": "enabledParent",
       "$isEnabled": true,
-      "$position": 0,
+      "$position": 7,
       "$name": "teamSlot7",
       "$path": "applyPreset.teamSlot7",
       "left": {
@@ -2804,7 +3081,7 @@
     "teamSlot8": {
       "$type": "enabledParent",
       "$isEnabled": false,
-      "$position": 0,
+      "$position": 8,
       "$name": "teamSlot8",
       "$path": "applyPreset.teamSlot8",
       "left": {
@@ -2889,7 +3166,7 @@
     "teamSlot9": {
       "$type": "enabledParent",
       "$isEnabled": false,
-      "$position": 0,
+      "$position": 9,
       "$name": "teamSlot9",
       "$path": "applyPreset.teamSlot9",
       "left": {
@@ -2973,9 +3250,9 @@
     },
     "lastApplied": {
       "$type": "string",
-      "$defaultValue": "4",
-      "$value": "4",
-      "$position": 0,
+      "$defaultValue": null,
+      "$value": null,
+      "$position": 10,
       "$name": "lastApplied",
       "$path": "applyPreset.lastApplied"
     }
@@ -3251,5 +3528,23 @@
       "$name": "teamSlot",
       "$path": "sweepEventStoryHard2.teamSlot"
     }
+  },
+  "weaponSlot": {
+    "$type": "integer",
+    "$defaultValue": 1,
+    "$value": 1,
+    "$position": 0,
+    "$increment": 1,
+    "$name": "weaponSlot",
+    "$path": "weaponSlot"
+  },
+  "weaponSlot1": {
+    "$type": "integer",
+    "$defaultValue": 1,
+    "$value": 1,
+    "$position": 0,
+    "$increment": 1,
+    "$name": "weaponSlot1",
+    "$path": "weaponSlot1"
   }
 }

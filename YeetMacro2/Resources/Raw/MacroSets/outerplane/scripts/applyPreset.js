@@ -2,9 +2,14 @@
 // Apply equipmentPreset
 
 function applyPreset(teamSlot) {
-	let ignoreLastApplied = false;
-	if (!teamSlot) {
-		ignoreLastApplied = true;
+	const resolution = macroService.GetCurrentResolution();
+	let isManualInvoke = false;
+	let locationToPreset;
+	let weaponSlot, accessorySlot;
+
+	if (!teamSlot && settings.applyPreset.manual.IsEnabled) {
+		isManualInvoke = true;
+	} else if (!teamSlot) {
 		const slots = [1, 2, 3, 4, 5, 6, 7, 8, 9];
 		for (const s of slots) {
 			if (macroService.FindPattern(patterns.battle.slot[s].selected).IsSuccess) {
@@ -12,26 +17,49 @@ function applyPreset(teamSlot) {
 				break;
 			}
 		}
+
+		if (!teamSlot) throw new Error('Team slot not resolved');
+	} else {
+		// not ready yet
+		//weaponSlot = settings.applyPreset[`teamSlot${teamSlot}`].weaponSlot.Value;
+		//accessorySlot = settings.applyPreset[`teamSlot${teamSlot}`].accessorySlot.Value;
 	}
-
-	if (!teamSlot) throw new Error('Team slot not resolved');
-
+	
 	//logger.info(`applyPreset teamSlot ${teamSlot}`);
 
-	if (!ignoreLastApplied && teamSlot == settings.applyPreset.lastApplied.Value) {
+	if (!isManualInvoke && teamSlot == settings.applyPreset.lastApplied.Value) {
 		return;
 	} 
 
-	if (!ignoreLastApplied && !settings.applyPreset[`teamSlot${teamSlot}`].IsEnabled) {
+	if (!isManualInvoke && !settings.applyPreset[`teamSlot${teamSlot}`].IsEnabled) {
 		return;
 	}
-
-	const locationToPreset = {
-		left: (settings.applyPreset[`teamSlot${teamSlot}`].left.IsEnabled || ignoreLastApplied) && settings.applyPreset[`teamSlot${teamSlot}`].left.Value,
-		top: (settings.applyPreset[`teamSlot${teamSlot}`].top.IsEnabled || ignoreLastApplied) && settings.applyPreset[`teamSlot${teamSlot}`].top.Value,
-		right: (settings.applyPreset[`teamSlot${teamSlot}`].right.IsEnabled || ignoreLastApplied) && settings.applyPreset[`teamSlot${teamSlot}`].right.Value,
-		bottom: (settings.applyPreset[`teamSlot${teamSlot}`].bottom.IsEnabled || ignoreLastApplied) && settings.applyPreset[`teamSlot${teamSlot}`].bottom.Value,
+	
+	const battleTypeToCount = {
+		defender: 0,
+		striker: 0,
+		ranger: 0,
+		mage: 0,
+		healer: 0
 	};
+
+
+	if (isManualInvoke) {
+		locationToPreset = {
+			left: settings.applyPreset.manual.left.IsEnabled && settings.applyPreset.manual.left.Value,
+			top: settings.applyPreset.manual.top.IsEnabled && settings.applyPreset.manual.top.Value,
+			right: settings.applyPreset.manual.right.IsEnabled && settings.applyPreset.manual.right.Value,
+			bottom: settings.applyPreset.manual.bottom.IsEnabled && settings.applyPreset.manual.bottom.Value,
+		};
+	} else {
+		locationToPreset = {
+			left: settings.applyPreset[`teamSlot${teamSlot}`].left.IsEnabled && settings.applyPreset[`teamSlot${teamSlot}`].left.Value,
+			top: settings.applyPreset[`teamSlot${teamSlot}`].top.IsEnabled && settings.applyPreset[`teamSlot${teamSlot}`].top.Value,
+			right: settings.applyPreset[`teamSlot${teamSlot}`].right.IsEnabled && settings.applyPreset[`teamSlot${teamSlot}`].right.Value,
+			bottom: settings.applyPreset[`teamSlot${teamSlot}`].bottom.IsEnabled && settings.applyPreset[`teamSlot${teamSlot}`].bottom.Value,
+		};
+	}
+
 
 	for (const [location, preset] of Object.entries(locationToPreset)) {
 		if (!preset) continue;
@@ -47,12 +75,14 @@ function applyPreset(teamSlot) {
 		}
 		
 		macroService.PollPattern(patterns.battle.teamFormation[location], { DoClick: true, HoldDurationMs: 1_000, PredicatePattern: patterns.battle.teamFormation.preset });
-		const currentPreset = macroService.GetText(patterns.battle.teamFormation.preset.current, preset);
-		if (currentPreset.replace(/ /g, '').match(presetRegex, preset)) {
-			macroService.PollPattern(patterns.battle.teamFormation.preset.topLeft, { DoClick: true, ClickOffset: { X: -60, Y: 50 }, PredicatePattern: patterns.general.back });
-			continue;
+		if (!isManualInvoke && !weaponSlot && !accessorySlot) {
+			const currentPreset = macroService.GetText(patterns.battle.teamFormation.preset.current, preset);
+			if (currentPreset.replace(/ /g, '').match(presetRegex, preset)) {
+				macroService.PollPattern(patterns.battle.teamFormation.preset.topLeft, { DoClick: true, ClickOffset: { X: -60, Y: 50 }, PredicatePattern: patterns.general.back });
+				continue;
+			}
 		}
-
+		
 		macroService.PollPattern(patterns.battle.teamFormation.preset, { DoClick: true, PredicatePattern: patterns.battle.teamFormation.preset.presetList });
 		const presetCornerResult = macroService.FindPattern(patterns.battle.teamFormation.preset.corner, { Limit: 10 });
 		const presetNames = presetCornerResult.Points.filter(p => p).map(p => {
@@ -68,12 +98,17 @@ function applyPreset(teamSlot) {
 		macroService.PollPoint(targetPreset.point, { DoClick: true, PredicatePattern: patterns.battle.teamFormation.preset.ok });
 		macroService.PollPattern(patterns.battle.teamFormation.preset.ok, { DoClick: true, ClickPattern: patterns.battle.teamFormation.preset.ok2, PredicatePattern: patterns.battle.teamFormation.preset.presetList });
 
-		const weaponSlot = settings.applyPreset[`teamSlot${teamSlot}`].weaponSlot.Value;
-		const accessorySlot = settings.applyPreset[`teamSlot${teamSlot}`].accessorySlot.Value;
-		const resolution = macroService.GetCurrentResolution();
-
-		//if (weaponSlot || accessorySlot) {
-		if (ignoreLastApplied && (weaponSlot || accessorySlot)) {
+		if (isManualInvoke) {
+			const battleTypes = ['defender', 'striker', 'ranger', 'mage', 'healer'].map(el => patterns.battle.teamFormation.battleTypes[el]);
+			const battleTypeResult = macroService.PollPattern(battleTypes);
+			const battleType = battleTypeResult.Path?.split('.').pop();
+			battleTypeToCount[battleType]++;
+			
+			weaponSlot = settings.applyPreset.manual[battleType][`weaponSlot${battleTypeToCount[battleType]}`].Value;
+			accessorySlot = settings.applyPreset.manual[battleType][`accessorySlot${battleTypeToCount[battleType]}`].Value;
+		}
+		
+		if (weaponSlot || accessorySlot) {
 			macroService.PollPattern(patterns.battle.teamFormation.preset.manageGear, { DoClick: true, PredicatePattern: patterns.titles.manageGear });
 
 			const cornersPattern = macroService.ClonePattern(patterns.battle.teamFormation.preset.manageGear.corners, { X: 1340, Y: 100, Width: resolution.Width - 1920 + 420, Height: 450, OffsetCalcType: 'None' });
