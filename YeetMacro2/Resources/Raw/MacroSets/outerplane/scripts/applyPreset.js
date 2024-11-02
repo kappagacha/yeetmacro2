@@ -91,7 +91,7 @@ function applyPreset(teamSlot) {
 				const point = cornerPoints[weaponSlot - 1];
 				const centerPoint = { X: point.X + 60, Y: point.Y - 60 };
 				const checkPattern = macroService.ClonePattern(patterns.battle.teamFormation.preset.manageGear.check, { CenterX: centerPoint.X, CenterY: centerPoint.Y, Padding: 20, OffsetCalcType: 'None', Path: `patterns.battle.teamFormation.preset.manageGear.check_x${centerPoint.X}_y${centerPoint.Y}` })
-				macroService.PollPoint(centerPoint, { DoClick: true, PredicatePattern: checkPattern });
+				macroService.PollPoint({ X: point.X + 5, Y: point.Y - 5 }, { DoClick: true, PredicatePattern: checkPattern });
 			}
 
 			if (accessorySlot) {
@@ -109,7 +109,7 @@ function applyPreset(teamSlot) {
 				const point = cornerPoints[accessorySlot - 1];
 				const centerPoint = { X: point.X + 60, Y: point.Y - 60 };
 				const checkPattern = macroService.ClonePattern(patterns.battle.teamFormation.preset.manageGear.check, { CenterX: centerPoint.X, CenterY: centerPoint.Y, Padding: 20, OffsetCalcType: 'None', Path: `patterns.battle.teamFormation.preset.manageGear.check_x${centerPoint.X}_y${centerPoint.Y}` })
-				macroService.PollPoint(centerPoint, { DoClick: true, PredicatePattern: checkPattern });
+				macroService.PollPoint({ X: point.X + 5, Y: point.Y - 5 }, { DoClick: true, PredicatePattern: checkPattern });
 			}
 
 			macroService.ClickPattern(patterns.battle.teamFormation.preset.manageGear.equipGear);
