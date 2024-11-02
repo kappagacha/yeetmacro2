@@ -111,7 +111,7 @@ function applyPreset(teamSlot) {
 		if (weaponSlot || accessorySlot) {
 			macroService.PollPattern(patterns.battle.teamFormation.preset.manageGear, { DoClick: true, PredicatePattern: patterns.titles.manageGear });
 
-			const cornersPattern = macroService.ClonePattern(patterns.battle.teamFormation.preset.manageGear.corners, { X: 1340, Y: 100, Width: resolution.Width - 1920 + 420, Height: 450, OffsetCalcType: 'None' });
+			const cornersPattern = macroService.ClonePattern(patterns.battle.teamFormation.preset.manageGear.corners, { X: 1340, Y: 100, Width: resolution.Width - 1920 + 420, Height: 450, OffsetCalcType: 'DockLeft' });
 
 			if (weaponSlot) {
 				const corners = macroService.FindPattern(cornersPattern, { Limit: 10 })
