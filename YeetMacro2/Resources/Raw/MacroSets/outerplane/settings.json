@@ -2312,6 +2312,24 @@
           "$increment": 1,
           "$name": "accessorySlot2",
           "$path": "applyPreset.manual.defender.accessorySlot2"
+        },
+        "weaponSlot3": {
+          "$type": "integer",
+          "$defaultValue": 1,
+          "$value": 1,
+          "$position": 0,
+          "$increment": 1,
+          "$name": "weaponSlot3",
+          "$path": "applyPreset.manual.defender.weaponSlot3"
+        },
+        "accessorySlot3": {
+          "$type": "integer",
+          "$defaultValue": 1,
+          "$value": 1,
+          "$position": 0,
+          "$increment": 1,
+          "$name": "accessorySlot3",
+          "$path": "applyPreset.manual.defender.accessorySlot3"
         }
       },
       "striker": {
@@ -2354,6 +2372,24 @@
           "$increment": 1,
           "$name": "accessorySlot2",
           "$path": "applyPreset.manual.striker.accessorySlot2"
+        },
+        "weaponSlot3": {
+          "$type": "integer",
+          "$defaultValue": 1,
+          "$value": 1,
+          "$position": 0,
+          "$increment": 1,
+          "$name": "weaponSlot3",
+          "$path": "applyPreset.manual.striker.weaponSlot3"
+        },
+        "accessorySlot3": {
+          "$type": "integer",
+          "$defaultValue": 1,
+          "$value": 1,
+          "$position": 0,
+          "$increment": 1,
+          "$name": "accessorySlot3",
+          "$path": "applyPreset.manual.defender.accessorySlot3"
         }
       },
       "ranger": {
@@ -2396,6 +2432,24 @@
           "$increment": 1,
           "$name": "accessorySlot2",
           "$path": "applyPreset.manual.ranger.accessorySlot2"
+        },
+        "weaponSlot3": {
+          "$type": "integer",
+          "$defaultValue": 1,
+          "$value": 1,
+          "$position": 0,
+          "$increment": 1,
+          "$name": "weaponSlot3",
+          "$path": "applyPreset.manual.ranger.weaponSlot3"
+        },
+        "accessorySlot3": {
+          "$type": "integer",
+          "$defaultValue": 1,
+          "$value": 1,
+          "$position": 0,
+          "$increment": 1,
+          "$name": "accessorySlot3",
+          "$path": "applyPreset.manual.defender.accessorySlot3"
         }
       },
       "mage": {
@@ -2438,6 +2492,24 @@
           "$increment": 1,
           "$name": "accessorySlot2",
           "$path": "applyPreset.manual.mage.accessorySlot2"
+        },
+        "weaponSlot3": {
+          "$type": "integer",
+          "$defaultValue": 1,
+          "$value": 1,
+          "$position": 0,
+          "$increment": 1,
+          "$name": "weaponSlot3",
+          "$path": "applyPreset.manual.mage.weaponSlot3"
+        },
+        "accessorySlot3": {
+          "$type": "integer",
+          "$defaultValue": 1,
+          "$value": 1,
+          "$position": 0,
+          "$increment": 1,
+          "$name": "accessorySlot3",
+          "$path": "applyPreset.manual.defender.accessorySlot3"
         }
       },
       "healer": {
@@ -2480,6 +2552,24 @@
           "$increment": 1,
           "$name": "accessorySlot2",
           "$path": "applyPreset.manual.healer.accessorySlot2"
+        },
+        "weaponSlot3": {
+          "$type": "integer",
+          "$defaultValue": 1,
+          "$value": 1,
+          "$position": 0,
+          "$increment": 1,
+          "$name": "weaponSlot3",
+          "$path": "applyPreset.manual.healer.weaponSlot3"
+        },
+        "accessorySlot3": {
+          "$type": "integer",
+          "$defaultValue": 1,
+          "$value": 1,
+          "$position": 0,
+          "$increment": 1,
+          "$name": "accessorySlot3",
+          "$path": "applyPreset.manual.defender.accessorySlot3"
         }
       }
     },
@@ -3528,23 +3618,5 @@
       "$name": "teamSlot",
       "$path": "sweepEventStoryHard2.teamSlot"
     }
-  },
-  "weaponSlot": {
-    "$type": "integer",
-    "$defaultValue": 1,
-    "$value": 1,
-    "$position": 0,
-    "$increment": 1,
-    "$name": "weaponSlot",
-    "$path": "weaponSlot"
-  },
-  "weaponSlot1": {
-    "$type": "integer",
-    "$defaultValue": 1,
-    "$value": 1,
-    "$position": 0,
-    "$increment": 1,
-    "$name": "weaponSlot1",
-    "$path": "weaponSlot1"
   }
 }
