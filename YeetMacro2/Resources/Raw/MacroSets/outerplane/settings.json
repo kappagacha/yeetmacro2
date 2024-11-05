@@ -44,8 +44,8 @@
     },
     "skipMemorialMatch": {
       "$type": "boolean",
-      "$defaultValue": false,
-      "$value": false,
+      "$defaultValue": true,
+      "$value": true,
       "$position": 0,
       "$name": "skipMemorialMatch",
       "$path": "doArena.skipMemorialMatch"
@@ -885,8 +885,8 @@
         "doSurveyHub",
         "doSkywardTower"
       ],
-      "$defaultValue": "doSurveyHub",
-      "$value": "doSurveyHub",
+      "$defaultValue": "doEcologyStudy",
+      "$value": "doEcologyStudy",
       "$isEnabled": true,
       "$position": 8,
       "$name": "spendStaminaScript",
@@ -1066,7 +1066,7 @@
     "lastRun": {
       "$type": "timestamp",
       "$defaultValue": "0001-01-01T00:00:00+00:00",
-      "$value": "2024-07-30T21:20:40.519+00:00",
+      "$value": "2024-11-05T13:04:58.678+00:00",
       "$position": 0,
       "$name": "lastRun",
       "$path": "claimAntiparticle.lastRun"
@@ -1088,7 +1088,7 @@
     "lastRun": {
       "$type": "timestamp",
       "$defaultValue": "0001-01-01T00:00:00+00:00",
-      "$value": "2024-07-30T22:13:24.105+00:00",
+      "$value": "2024-11-05T13:07:20.483+00:00",
       "$position": 0,
       "$name": "lastRun",
       "$path": "doFriends.lastRun"
@@ -3553,7 +3553,7 @@
     "lastRun": {
       "$type": "timestamp",
       "$defaultValue": "0001-01-01T00:00:00+00:00",
-      "$value": "0001-01-01T00:00:00+00:00",
+      "$value": "2024-11-05T13:04:45.023+00:00",
       "$position": 0,
       "$name": "lastRun",
       "$path": "startTerminusIsleExploration.lastRun"
