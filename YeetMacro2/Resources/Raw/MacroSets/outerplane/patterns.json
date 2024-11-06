@@ -18195,6 +18195,46 @@
       "$position": 0,
       "$name": "coinInfo",
       "$path": "event.coinInfo"
+    },
+    "tokenExchange": {
+      "$patterns": [
+        {
+          "rect": {
+            "x": 1553.51953125,
+            "y": 375.873046875,
+            "width": 45.421875,
+            "height": 45.39990234375
+          },
+          "resolution": {
+            "width": 1920,
+            "height": 1080
+          },
+          "isBoundsPattern": false,
+          "isLocationDynamic": false,
+          "name": "pattern",
+          "imageData": "/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDAAEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQH/2wBDAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQH/wAARCAAYABoDASIAAhEBAxEB/8QAGgAAAQUBAAAAAAAAAAAAAAAAAAIHCAkKBP/EADAQAAEEAgIAAwMNAQAAAAAAAAUCAwQGAQcICQARIRNBUQoUFSIxNWJncoKRofDx/8QAGAEAAgMAAAAAAAAAAAAAAAAABQYECAn/xAAmEQACAwEAAgEEAQUAAAAAAAADBAECBQYHERIAExQVCCEiIzFh/9oADAMBAAIRAxEAPwB5eOPT3xm5HVzUSa72jaaj7a2nRa3aHdICaJUrRfK2fKU9q2WSluC4vIYebJFaY3gpEMLVXxklCQ06XLFjsNvsMcfJXqG4zccKnuF4v2h6ZLbb1VS7LYmtGEKPUqxfLLYxFZfsYOkIGv8AIQobGF7V5j4Y3Ka6TlZ+k4siOLn+0bYdjP0pZzns74ueeU/eW0fsz+SGzPd5/wC9Ph6T0vfHemcovlCt/wBU7Hisk6C5d41utgR55bSbCNo+igFoYrzuG1IW7CMlBw+AWabW244FfI+zcQ5hKsbOdJ2Xk7k/K3QY2p5r6K/G814nd8vuiBxPjmzpQZ3TsIsc0G885QtliZysjCzLNH5PaJliLf5PqkOXgcpscjnOq8Jm129Prl+NBcm701QUuzlBYHqErGpNILRkvyIKBWXilZiBTEfGc4f1vjj3+/8AV+L/AL+7wnPn559cfx5/35+vjaUC7ElXLs1N9ZRnj1pKRxRUZtOmIVexS85LMEazRiJd4nJHOTV016tzSImaKSDjVOH80Byoc9oiuRCeTNifsvoU1jJ2Nf5NV2oerFYkXa1P1ytNuCpTdeAunZ7gcG3KnRnpslAkeqPATImPPSnkx8OSHXHVLXluzP5YZee2on5O5s3j4uzzOL2HN3BrV60GrhbV2Bry1fPzEiZekC6swwiQLI6Rb3Vy/qPuBWvDjTASn5bTp0VEtR3G06kS/TkU0EoDa8Cqy0erapILH22K3FafXqQ1n38aMOvPkZSeJfMXTPITY4u1G6XruXc5BsZSYQglZ5SLFrq4VGFgXCOnK2KfU0SsEN+ViWag4RBbkusqfkJZjPvRt3sFUjs2sHP3j8JNj4mLyEs9crew4g8aVIBWqAJolprtli105YIMRiwjGjw3Lo01OcjwiDE1pbcxGGWjweGrR4nntbpX+q0k7OaOpxTHj/QAct7Z7fMNaBdJlMqnuKzc5zloQ0Xi0gvIvUR/X6jLbminmL5SxYCuptj6FclK+mRagV6LCNQ3v3FaDHS1aevUEj5/8+rSUdvnWSI3EU5n17hRt9HM4lX5TCys0+CaoabBMr2K5Kmtkm7/ADIcWXMEYyFm2uFqSOdlC3palRkySE3L9L177GuYN5u9yurm4rAAXcLVYbSsEDQPZCBV2AvMLKEB2pMKTJaFjcy8wx7ciTIfREZZS6+65hTijweF3lvDvB8sczAMxjbYughkLG6zQc6m+Zi5liTn4uT+7K5XOzE5OWQrLVp6+URe14rSKktTst/VpQZGRojqwdwtMhcOVVp5n7f5Lzn4NQyy0eBUi5Szb/X9tazM+//Z",
+          "variancePct": 20,
+          "horizontalStretchMultiplier": 0,
+          "verticalStretchMultiplier": 0,
+          "textMatch": {
+            "isActive": false,
+            "text": null,
+            "whiteList": null
+          },
+          "colorThreshold": {
+            "isActive": true,
+            "variancePct": 30,
+            "color": "#fffcfeff",
+            "imageData": "/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDAAIBAQEBAQIBAQECAgICAgQDAgICAgUEBAMEBgUGBgYFBgYGBwkIBgcJBwYGCAsICQoKCgoKBggLDAsKDAkKCgr/wAALCAAYABoBAREA/8QAHwAAAQUBAQEBAQEAAAAAAAAAAAECAwQFBgcICQoL/8QAtRAAAgEDAwIEAwUFBAQAAAF9AQIDAAQRBRIhMUEGE1FhByJxFDKBkaEII0KxwRVS0fAkM2JyggkKFhcYGRolJicoKSo0NTY3ODk6Q0RFRkdISUpTVFVWV1hZWmNkZWZnaGlqc3R1dnd4eXqDhIWGh4iJipKTlJWWl5iZmqKjpKWmp6ipqrKztLW2t7i5usLDxMXGx8jJytLT1NXW19jZ2uHi4+Tl5ufo6erx8vP09fb3+Pn6/9oACAEBAAA/APo39tb/AIOTP20P2K/iF8R7Pxj/AMEKPihN8PfAPjC+0eH4ran4g1HTtG1O1iv2s7XUBO+hNBHFcnymjxM6kzoqu+QSfsU/8HJn7aH7anxC+HFn4O/4IUfFCH4e+PvGFjo83xW0zxBqOo6NplrLfrZ3WoGdNCWCSK2PmtJmZFBgdWdMEj9b6K+AP+Do7/lBR8c/+5Z/9SfSa+UP2Nv2vPjL+wh/wZsaP+1L+z5e6faeMvD2n6rb6Ff6nYC6jspL7x5dae1yImOx5YkunkjEgePzETzEkTdG3y/8cP8AgjL4V/ZD/wCCLll/wXX8Hftr/HBv2j9W8H+HvGs3inTPFqWEf2rxLfWUd0DIkTX7S/ZdVliknN5unk3yMFSUwjsPhP8A8Hvfjvwh8LPDXhP4pfsAf8Jh4n0vw/ZWniPxb/wtWLT/AO27+OBEuL77LDoxjtvOlV5fJQlY9+1SQBX6/wD/AAWZ/Yp+Kf8AwUS/4JsfEj9jr4Ka/wCH9L8T+MP7H/sy+8U3U8FhF9k1ixvpPNeCGaRcxW0gXbG2WKg4BLDy/wDY2/4I26doP/BDnR/+CQX7dWpafrUT6fqtv4j1HwBrNwkcck2v3WrWdzaTzwRP5sDvbSASwmMyQlXSWIsr/IHib/g35/4LeeNPg1H/AMEyPGP/AAV58H6t+yhDp9pYQvqfgRZ/ESWtqY721txbPAZBFDfQxRRoNX2pbRJtARRaj9D/AIT/APBF/wD4JZfCj4WeGvhb/wAMEfB/xL/wjXh+y0r/AISPxZ8LNDvNV1X7PAkP2u9uPsa+fcy7PMlk2je7M2BnFf/Z"
+          },
+          "offsetCalcType": "Default",
+          "position": 0
+        }
+      ],
+      "$isMultiPattern": false,
+      "$position": 0,
+      "$name": "tokenExchange",
+      "$path": "event.tokenExchange"
     }
   },
   "doppelganger": {

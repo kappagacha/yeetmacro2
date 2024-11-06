@@ -40,7 +40,7 @@ while (macroService.IsRunning) {
 				notificationResult = macroService.PollPattern(patterns.event.daily.anniversary.notification, { TimeoutMs: 3_000 });
 			}
 			
-			const miniGameResult = macroService.PollPattern([patterns.event.rockPaperScissors, patterns.event.drawACapsule, patterns.event.spinTheWheel]);
+			const miniGameResult = macroService.PollPattern([patterns.event.rockPaperScissors, patterns.event.drawACapsule, patterns.event.spinTheWheel, patterns.event.tokenExchange]);
 			if (miniGameResult.Path === 'event.rockPaperScissors') {
 				doRockPaperScissors();
 			} else if (miniGameResult.Path === 'event.drawACapsule') {
