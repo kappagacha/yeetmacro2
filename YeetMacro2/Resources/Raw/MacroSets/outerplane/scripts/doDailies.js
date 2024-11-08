@@ -100,6 +100,11 @@ if (settings.doDailies.doSpecialRequests.Value) {
     goToLobby();
 }
 
+if (settings.doDailies.doSpecialRequestsStage13.Value) {
+    doSpecialRequestsStage13();
+    goToLobby();
+}
+
 if (settings.doDailies.claimDailyMissions.Value) {
     claimDailyMissions();
     goToLobby();

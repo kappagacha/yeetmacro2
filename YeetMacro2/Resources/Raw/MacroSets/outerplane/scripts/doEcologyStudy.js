@@ -45,8 +45,10 @@ function doEcologyStudy(targetNumBattles = 0) {
 function clickBottomThreeStars() {
 	if (!macroService.IsRunning) return;
 
+	const stage13Result = macroService.FindPattern(patterns.challenge.stage13);
+	const stage13Y = stage13Result.IsSuccess ? stage13Result.Point.Y - 50 : 1080;
 	const threeStarsResult = macroService.FindPattern(patterns.challenge.threeStars, { Limit: 10 });
-	const maxY = threeStarsResult.Points.reduce((maxY, p) => (maxY = maxY > p.Y ? maxY : p.Y), 0);
+	const maxY = threeStarsResult.Points.reduce((maxY, p) => (maxY = p.Y > stage13Y || maxY > p.Y ? maxY : p.Y), 0);
 	const bottomThreeStars = macroService.ClonePattern(patterns.challenge.threeStars, { CenterY: maxY, Height: 60.0 });
 	const threeStarsSelected = macroService.ClonePattern(patterns.challenge.threeStars.selected, { CenterY: maxY });
 	macroService.PollPattern(bottomThreeStars, { DoClick: true, PredicatePattern: threeStarsSelected });

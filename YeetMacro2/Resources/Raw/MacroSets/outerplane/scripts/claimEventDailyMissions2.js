@@ -29,15 +29,24 @@ while (macroService.IsRunning) {
 			const topLeft = macroService.GetTopLeft();
 			const xLocation = topLeft.X + 300 + (resolution.Width - 1920) / 2.0;
 			macroService.SwipePollPattern(dailyMissionPattern, { MaxSwipes: 3, Start: { X: xLocation, Y: 800 }, End: { X: xLocation, Y: 280 } });
-			macroService.PollPattern(dailyMissionPattern, { DoClick: true, PredicatePattern: patterns.event.eventBulletPoint, IntervalDelayMs: 3_000 });
+			macroService.PollPattern(dailyMissionPattern, { DoClick: true, PredicatePattern: patterns.event.move, IntervalDelayMs: 3_000 });
 			sleep(2_000);
 
-			let notificationResult = macroService.PollPattern(patterns.event.event2Notification, { TimeoutMs: 3_000 });
+			macroService.PollPattern(patterns.event.move, { DoClick: true, PredicatePattern: patterns.event.bingo });
+			
+			let notificationResult = macroService.PollPattern(patterns.event.bingo.notification, { TimeoutMs: 3_000 });
 			while (notificationResult.IsSuccess) {
-				macroService.PollPattern(patterns.event.event2Notification, { DoClick: true, PredicatePattern: patterns.general.tapEmptySpace, ClickOffset: { X: -40, Y: 40 } });
-				macroService.PollPattern(patterns.general.tapEmptySpace, { DoClick: true, PredicatePattern: patterns.event.eventBulletPoint });
-				notificationResult = macroService.PollPattern(patterns.event.event2Notification, { TimeoutMs: 3_000 });
+				macroService.PollPattern(patterns.event.bingo.notification, { DoClick: true, PredicatePattern: patterns.general.tapEmptySpace, ClickOffset: { X: -40, Y: 40 } });
+				macroService.PollPattern(patterns.general.tapEmptySpace, { DoClick: true, PredicatePattern: patterns.event.bingo });
+				notificationResult = macroService.PollPattern(patterns.event.bingo.notification, { TimeoutMs: 3_000 });
 			}
+
+			//let notificationResult = macroService.PollPattern(patterns.event.event2Notification, { TimeoutMs: 3_000 });
+			//while (notificationResult.IsSuccess) {
+			//	macroService.PollPattern(patterns.event.event2Notification, { DoClick: true, PredicatePattern: patterns.general.tapEmptySpace, ClickOffset: { X: -40, Y: 40 } });
+			//	macroService.PollPattern(patterns.general.tapEmptySpace, { DoClick: true, PredicatePattern: patterns.event.eventBulletPoint });
+			//	notificationResult = macroService.PollPattern(patterns.event.event2Notification, { TimeoutMs: 3_000 });
+			//}
 			
 			if (macroService.IsRunning) {
 				daily.claimEventDailyMissions2.done.IsChecked = true;

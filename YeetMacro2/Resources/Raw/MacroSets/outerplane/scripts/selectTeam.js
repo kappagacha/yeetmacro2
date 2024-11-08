@@ -5,6 +5,18 @@ function selectTeam(targetTeamSlot, returnCurrentCp) {
 
 	if (!targetTeamSlot || targetTeamSlot === 'Current' || targetTeamSlot < 1) return;
 
+	if (targetTeamSlot === 'RecommendedElement') {
+		const recommendedElement = {
+			earth: 'fire',
+			water: 'earth',
+			fire: 'water',
+			light: 'dark',
+			dark: 'light'
+		};
+		const bossType = detectBossType();
+		targetTeamSlot = recommendedElement[bossType];
+	}
+
 	if (['earth', 'water', 'fire', 'light', 'dark'].includes(targetTeamSlot)) {
 		targetTeamSlot = settings.selectTeam[targetTeamSlot].Value;
 	}
