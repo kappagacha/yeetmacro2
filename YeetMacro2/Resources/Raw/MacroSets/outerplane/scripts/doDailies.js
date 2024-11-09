@@ -100,7 +100,9 @@ if (settings.doDailies.doSpecialRequests.Value) {
     goToLobby();
 }
 
-if (settings.doDailies.doSpecialRequestsStage13.Value) {
+if (settings.doDailies.doSpecialRequestsStage13.Value && !daily.doSpecialRequestsStage13.done.IsChecked) {
+    refillStamina(280);
+    goToLobby();
     doSpecialRequestsStage13();
     goToLobby();
 }

@@ -9,7 +9,7 @@ const dailyMissionPattern = macroService.ClonePattern(settings.claimEventDailyMi
 	Width: 400,
 	Height: 800,
 	Path: 'settings.claimEventDailyMissions2.dailyMissionPattern2',
-	OffsetCalcType: 'Default'
+	OffsetCalcType: 'DockLeft'
 });
 
 if (daily.claimEventDailyMissions2.done.IsChecked) {
