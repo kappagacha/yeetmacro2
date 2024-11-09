@@ -14,7 +14,7 @@ const targetPartPattern = macroService.ClonePattern(settings.sweepEventStoryHard
 	Width: resolution.Width - 100,
 	Height: 785,
 	Path: 'settings.sweepEventStoryHard2.targetPartPattern',
-	OffsetCalcType: 'DockLeft'
+	OffsetCalcType: 'Center'
 });
 
 while (macroService.IsRunning) {
