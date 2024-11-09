@@ -1,6 +1,7 @@
 // @isFavorite
 // @position=-99
 // Do dailies (all checked scripts)
+const daily = dailyManager.GetCurrentDaily();
 
 settings.applyPreset.lastApplied.IsEnabled = true;
 
