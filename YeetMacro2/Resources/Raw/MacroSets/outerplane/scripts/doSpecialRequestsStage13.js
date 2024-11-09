@@ -25,16 +25,16 @@ while (macroService.IsRunning) {
 			// 2 runs because doSpecialRequest will do 1 run
 			// 5 stages * 16 stamina * 2 runs = 160 * 2 (ecology study and identification) = 320 stamina
 
-			if (!daily.doSpecialRequestsStage13.ecologyStudy.IsChecked) {
-				logger.info('doSpecialRequestsStage13: doEcologyStudy');
-				macroService.PollPattern(patterns.challenge.ecologyStudy, { DoClick: true, PredicatePattern: patterns.challenge.enter });
-				sweepAllStage13();
+			//if (!daily.doSpecialRequestsStage13.ecologyStudy.IsChecked) {
+			//	logger.info('doSpecialRequestsStage13: doEcologyStudy');
+			//	macroService.PollPattern(patterns.challenge.ecologyStudy, { DoClick: true, PredicatePattern: patterns.challenge.enter });
+			//	sweepAllStage13();
 
-				if (macroService.IsRunning) {
-					daily.doSpecialRequestsStage13.ecologyStudy.IsChecked = true;
-				}
-				macroService.PollPattern(patterns.general.back, { DoClick: true, ClickPattern: patterns.challenge.specialRequest.sweepAll.cancel, PredicatePattern: patterns.titles.challenge });
-			}
+			//	if (macroService.IsRunning) {
+			//		daily.doSpecialRequestsStage13.ecologyStudy.IsChecked = true;
+			//	}
+			//	macroService.PollPattern(patterns.general.back, { DoClick: true, ClickPattern: patterns.challenge.specialRequest.sweepAll.cancel, PredicatePattern: patterns.titles.challenge });
+			//}
 			
 			if (!daily.doSpecialRequestsStage13.identification.IsChecked) {
 				logger.info('doSpecialRequestsStage13: doIdentification');

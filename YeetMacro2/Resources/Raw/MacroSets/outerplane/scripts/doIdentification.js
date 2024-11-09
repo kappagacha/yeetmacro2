@@ -45,7 +45,7 @@ function doIdentification(targetNumBattles = 0) {
 function clickBottomThreeStars() {
 	if (!macroService.IsRunning) return;
 
-	const stage13Result = macroService.FindPattern(patterns.challenge.stage13);
+	const stage13Result = macroService.PollPattern(patterns.challenge.stage13, { TimeoutMs: 1_500 });
 	const stage13Y = stage13Result.IsSuccess ? stage13Result.Point.Y - 50 : 1080;
 	const threeStarsResult = macroService.FindPattern(patterns.challenge.threeStars, { Limit: 10 });
 	const maxY = threeStarsResult.Points.reduce((maxY, p) => (maxY = p.Y > stage13Y || maxY > p.Y ? maxY : p.Y), 0);
