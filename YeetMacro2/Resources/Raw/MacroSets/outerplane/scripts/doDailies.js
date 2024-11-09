@@ -102,7 +102,7 @@ if (settings.doDailies.doSpecialRequests.Value) {
 }
 
 if (settings.doDailies.doSpecialRequestsStage13.Value && !daily.doSpecialRequestsStage13.done.IsChecked) {
-    refillStamina(280);
+    refillStamina(320);
     goToLobby();
     doSpecialRequestsStage13();
     goToLobby();

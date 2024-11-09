@@ -21,9 +21,9 @@ while (macroService.IsRunning) {
 			sleep(500);
 			break;
 		case 'titles.challenge':
-			// Note: Each stage 13 costs 14 stamina
+			// Note: Each stage 13 costs 16 stamina
 			// 2 runs because doSpecialRequest will do 1 run
-			// 5 stages * 14 stamina * 2 runs = 140 * 2 (ecology study and identification) = 280 stamina
+			// 5 stages * 16 stamina * 2 runs = 160 * 2 (ecology study and identification) = 320 stamina
 
 			if (!daily.doSpecialRequestsStage13.ecologyStudy.IsChecked) {
 				logger.info('doSpecialRequestsStage13: doEcologyStudy');
