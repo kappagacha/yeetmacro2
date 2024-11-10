@@ -70,12 +70,9 @@ function sweepAllStage13() {
 			const stagecheckPattern = macroService.ClonePattern(patterns.challenge.specialRequest.stage.check, { CenterY: p.Y, Padding: 10, Path: `patterns.challenge.specialRequest.stage.check_y${p.Y}` });
 			const stage13Result = macroService.FindPattern(stage13Pattern);
 
-			if (stage13Result.IsSuccess) {
+			if (stage13Result.IsSuccess && numRuns < maxRuns) {
 				macroService.PollPoint(p, { DoClick: true, PredicatePattern: stagecheckPattern });
 				numRuns++;
-				if (numRuns >= maxRuns) {
-					break;
-				}
 			} else {
 				macroService.PollPoint(p, { DoClick: true, InversePredicatePattern: stagecheckPattern });
 			}
