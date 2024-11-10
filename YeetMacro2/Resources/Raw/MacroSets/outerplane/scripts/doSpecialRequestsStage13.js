@@ -34,7 +34,7 @@ while (macroService.IsRunning) {
 					daily.doSpecialRequestsStage13.identification.IsChecked = true;
 				}
 
-				goToLobby();
+				macroService.PollPattern(patterns.general.back, { DoClick: true, ClickPattern: patterns.challenge.specialRequest.sweepAll.cancel, PredicatePattern: patterns.titles.challenge });
 			}
 
 			if (!daily.doSpecialRequestsStage13.ecologyStudy.IsChecked) {
