@@ -1,3 +1,4 @@
+using System.ComponentModel;
 using YeetMacro2.ViewModels;
 
 namespace YeetMacro2.Views;
@@ -23,11 +24,30 @@ public partial class ScriptNodeView : ContentView
 
     private static void MacroSet_Changed(BindableObject bindable, object oldValue, object newValue)
     {
+        if (oldValue is MacroSetViewModel oldMacroSet)
+        {
+            oldMacroSet.Dailies.PropertyChanged -= Dailies_PropertyChanged;
+            
+        }
+
         if (newValue is MacroSetViewModel macroSet)
         {
             var scriptNodeView = bindable as ScriptNodeView;
             scriptNodeView.BindingContext = macroSet;
+            macroSet.Dailies.PropertyChanged += Dailies_PropertyChanged;
+            macroSet.Weeklies.PropertyChanged += Weeklies_PropertyChanged;
         }
+    }
+
+    private static void Dailies_PropertyChanged(object sender, PropertyChangedEventArgs e)
+    {
+        // TODO: cache UI based on send viewmodel
+        //throw new NotImplementedException();
+    }
+
+    private static void Weeklies_PropertyChanged(object sender, PropertyChangedEventArgs e)
+    {
+        //throw new NotImplementedException();
     }
 
     public ScriptNodeView()
