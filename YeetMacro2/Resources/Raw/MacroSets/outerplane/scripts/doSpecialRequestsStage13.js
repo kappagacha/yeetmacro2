@@ -25,17 +25,6 @@ while (macroService.IsRunning) {
 			// 2 runs because doSpecialRequest will do 1 run
 			// 5 stages * 16 stamina * 2 runs = 160 * 2 (ecology study and identification) = 320 stamina
 
-			//if (!daily.doSpecialRequestsStage13.ecologyStudy.IsChecked) {
-			//	logger.info('doSpecialRequestsStage13: doEcologyStudy');
-			//	macroService.PollPattern(patterns.challenge.ecologyStudy, { DoClick: true, PredicatePattern: patterns.challenge.enter });
-			//	sweepAllStage13();
-
-			//	if (macroService.IsRunning) {
-			//		daily.doSpecialRequestsStage13.ecologyStudy.IsChecked = true;
-			//	}
-			//	macroService.PollPattern(patterns.general.back, { DoClick: true, ClickPattern: patterns.challenge.specialRequest.sweepAll.cancel, PredicatePattern: patterns.titles.challenge });
-			//}
-			
 			if (!daily.doSpecialRequestsStage13.identification.IsChecked) {
 				logger.info('doSpecialRequestsStage13: doIdentification');
 				macroService.PollPattern(patterns.challenge.identification, { DoClick: true, PredicatePattern: patterns.challenge.enter });
@@ -44,6 +33,17 @@ while (macroService.IsRunning) {
 				if (macroService.IsRunning) {
 					daily.doSpecialRequestsStage13.ecologyStudy.IsChecked = true;
 				}
+			}
+
+			if (!daily.doSpecialRequestsStage13.ecologyStudy.IsChecked) {
+				logger.info('doSpecialRequestsStage13: doEcologyStudy');
+				macroService.PollPattern(patterns.challenge.ecologyStudy, { DoClick: true, PredicatePattern: patterns.challenge.enter });
+				sweepAllStage13();
+
+				if (macroService.IsRunning) {
+					daily.doSpecialRequestsStage13.ecologyStudy.IsChecked = true;
+				}
+				macroService.PollPattern(patterns.general.back, { DoClick: true, ClickPattern: patterns.challenge.specialRequest.sweepAll.cancel, PredicatePattern: patterns.titles.challenge });
 			}
 
 			if (macroService.IsRunning) {
@@ -60,6 +60,10 @@ function sweepAllStage13() {
 	const stage13AllPattern = macroService.ClonePattern(patterns.challenge.specialRequest.stage._13, { Height: 600, Path: 'patterns.challenge.specialRequest.stage._13_all' });
 	let stage13AllResult = macroService.FindPattern(stage13AllPattern);
 	while (stage13AllResult.IsSuccess) {
+		const currentStamina = parseInt(macroService.GetText(patterns.challenge.specialRequest.currentStamina));
+		const maxRuns = parseInt(currentStamina / 16);
+		let numRuns = 0;
+
 		let stageResult = macroService.FindPattern(patterns.challenge.specialRequest.stage, { Limit: 10 });
 		for (let p of stageResult.Points) {
 			const stage13Pattern = macroService.ClonePattern(patterns.challenge.specialRequest.stage._13, { CenterY: p.Y - 3, Padding: 10, Path: `patterns.challenge.specialRequest.stage._13_y${p.Y}` });
@@ -68,6 +72,10 @@ function sweepAllStage13() {
 
 			if (stage13Result.IsSuccess) {
 				macroService.PollPoint(p, { DoClick: true, PredicatePattern: stagecheckPattern });
+				numRuns++;
+				if (numRuns >= maxRuns) {
+					break;
+				}
 			} else {
 				macroService.PollPoint(p, { DoClick: true, InversePredicatePattern: stagecheckPattern });
 			}

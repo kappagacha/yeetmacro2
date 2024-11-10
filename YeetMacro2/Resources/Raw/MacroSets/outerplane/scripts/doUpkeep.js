@@ -49,6 +49,11 @@ if (settings.doUpkeep.doArena.Value) {
     goToLobby();
 }
 
+if (settings.doDailies.doSpecialRequestsStage13.Value && !daily.doSpecialRequestsStage13.done.IsChecked) {
+    doSpecialRequestsStage13();
+    goToLobby();
+}
+
 if (settings.doUpkeep.spendStaminaScript.IsEnabled) {
     globalThis[settings.doUpkeep.spendStaminaScript.Value]();
     goToLobby();

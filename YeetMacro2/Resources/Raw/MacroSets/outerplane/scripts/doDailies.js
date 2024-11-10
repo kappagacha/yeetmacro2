@@ -101,14 +101,6 @@ if (settings.doDailies.doSpecialRequests.Value) {
     goToLobby();
 }
 
-if (settings.doDailies.doSpecialRequestsStage13.Value && !daily.doSpecialRequestsStage13.done.IsChecked) {
-    //refillStamina(320);
-    refillStamina(160);     // just identification. Not enough daily stamina
-    goToLobby();
-    doSpecialRequestsStage13();
-    goToLobby();
-}
-
 if (settings.doDailies.claimDailyMissions.Value) {
     claimDailyMissions();
     goToLobby();
