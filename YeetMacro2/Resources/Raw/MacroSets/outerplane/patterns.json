@@ -9570,10 +9570,10 @@
         "$patterns": [
           {
             "rect": {
-              "x": 803.4609375,
-              "y": 818.611083984375,
-              "width": 45.99481201171875,
-              "height": 26.2177734375
+              "x": 786.25,
+              "y": 817.25,
+              "width": 138.5,
+              "height": 31.5
             },
             "resolution": {
               "width": 1920,
@@ -9588,7 +9588,7 @@
             "textMatch": {
               "isActive": false,
               "text": null,
-              "whiteList": "0123456789"
+              "whiteList": "0123456789/"
             },
             "colorThreshold": {
               "isActive": true,

@@ -61,7 +61,7 @@ function sweepAllStage13() {
 	const stage13AllPattern = macroService.ClonePattern(patterns.challenge.specialRequest.stage._13, { Height: 600, Path: 'patterns.challenge.specialRequest.stage._13_all' });
 	let stage13AllResult = macroService.FindPattern(stage13AllPattern);
 	while (stage13AllResult.IsSuccess) {
-		const currentStamina = parseInt(macroService.GetText(patterns.challenge.specialRequest.currentStamina));
+		const currentStamina = parseInt(macroService.GetText(patterns.challenge.specialRequest.currentStamina).split('/')[0]);
 		const maxRuns = parseInt(currentStamina / 16);
 
 		logger.info(`doSpecialRequestsStage13: currentStamina=${currentStamina}, maxRuns=${maxRuns}`);
