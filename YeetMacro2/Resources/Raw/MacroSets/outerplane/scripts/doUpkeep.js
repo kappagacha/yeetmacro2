@@ -3,8 +3,6 @@
 // Do upkeep (all checked scripts)
 
 const daily = dailyManager.GetCurrentDaily();
-const utcHour = new Date().getUTCHours();
-const isStamina1 = utcHour < 12;
 
 settings.applyPreset.lastApplied.IsEnabled = true;
 
@@ -29,11 +27,6 @@ if (settings.doUpkeep.claimReplenishYourStamina.Value) {
     goToLobby();
 }
 
-if (settings.doUpkeep.claimArenaRewards.Value) {
-    claimArenaRewards();
-    goToLobby();
-}
-
 if (settings.doUpkeep.startTerminusIsleExploration.Value) {
     startTerminusIsleExploration();
     goToLobby();
@@ -46,6 +39,11 @@ if (settings.doUpkeep.claimAntiparticle.Value) {
 
 if (settings.doUpkeep.doArena.Value) {
     doArena();
+    goToLobby();
+}
+
+if (settings.doUpkeep.claimArenaRewards.Value) {
+    claimArenaRewards();
     goToLobby();
 }
 

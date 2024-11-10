@@ -434,14 +434,6 @@
       "$name": "claimAntiparticle",
       "$path": "doDailies.claimAntiparticle"
     },
-    "startTerminusIsleExploration": {
-      "$type": "boolean",
-      "$defaultValue": true,
-      "$value": true,
-      "$position": 3,
-      "$name": "startTerminusIsleExploration",
-      "$path": "doDailies.startTerminusIsleExploration"
-    },
     "claimFreeShop": {
       "$type": "boolean",
       "$defaultValue": true,
@@ -548,8 +540,8 @@
     },
     "doSpecialRequests": {
       "$type": "boolean",
-      "$defaultValue": false,
-      "$value": false,
+      "$defaultValue": true,
+      "$value": true,
       "$position": 17,
       "$name": "doSpecialRequests",
       "$path": "doDailies.doSpecialRequests"
@@ -680,19 +672,11 @@
       "$name": "claimReplenishYourStamina",
       "$path": "doUpkeep.claimReplenishYourStamina"
     },
-    "claimArenaRewards": {
-      "$type": "boolean",
-      "$defaultValue": true,
-      "$value": true,
-      "$position": 3,
-      "$name": "claimArenaRewards",
-      "$path": "doUpkeep.claimArenaRewards"
-    },
     "startTerminusIsleExploration": {
       "$type": "boolean",
       "$defaultValue": true,
       "$value": true,
-      "$position": 4,
+      "$position": 3,
       "$name": "startTerminusIsleExploration",
       "$path": "doUpkeep.startTerminusIsleExploration"
     },
@@ -700,7 +684,7 @@
       "$type": "boolean",
       "$defaultValue": true,
       "$value": true,
-      "$position": 5,
+      "$position": 4,
       "$name": "claimAntiparticle",
       "$path": "doUpkeep.claimAntiparticle"
     },
@@ -708,9 +692,17 @@
       "$type": "boolean",
       "$defaultValue": true,
       "$value": true,
-      "$position": 6,
+      "$position": 5,
       "$name": "doArena",
       "$path": "doUpkeep.doArena"
+    },
+    "claimArenaRewards": {
+      "$type": "boolean",
+      "$defaultValue": true,
+      "$value": true,
+      "$position": 6,
+      "$name": "claimArenaRewards",
+      "$path": "doUpkeep.claimArenaRewards"
     },
     "doTerminusIsleExploration": {
       "$type": "boolean",
@@ -726,7 +718,7 @@
       "$value": true,
       "$position": 8,
       "$name": "doSpecialRequestsStage13",
-      "$path": "doDailies.doSpecialRequestsStage13"
+      "$path": "doUpkeep.doSpecialRequestsStage13"
     },
     "spendStaminaScript": {
       "$type": "enabledOption",

@@ -28,26 +28,26 @@ while (macroService.IsRunning) {
 			if (!daily.doSpecialRequestsStage13.identification.IsChecked) {
 				logger.info('doSpecialRequestsStage13: doIdentification');
 				macroService.PollPattern(patterns.challenge.identification, { DoClick: true, PredicatePattern: patterns.challenge.enter });
-				sweepAllStage13();
+				const done = sweepAllStage13();
 
-				if (macroService.IsRunning) {
-					daily.doSpecialRequestsStage13.ecologyStudy.IsChecked = true;
+				if (macroService.IsRunning && done) {
+					daily.doSpecialRequestsStage13.identification.IsChecked = true;
 				}
 			}
 
 			if (!daily.doSpecialRequestsStage13.ecologyStudy.IsChecked) {
 				logger.info('doSpecialRequestsStage13: doEcologyStudy');
 				macroService.PollPattern(patterns.challenge.ecologyStudy, { DoClick: true, PredicatePattern: patterns.challenge.enter });
-				sweepAllStage13();
+				const done = sweepAllStage13();
 
-				if (macroService.IsRunning) {
+				if (macroService.IsRunning && done) {
 					daily.doSpecialRequestsStage13.ecologyStudy.IsChecked = true;
 				}
 				macroService.PollPattern(patterns.general.back, { DoClick: true, ClickPattern: patterns.challenge.specialRequest.sweepAll.cancel, PredicatePattern: patterns.titles.challenge });
 			}
 
 			if (macroService.IsRunning) {
-				daily.doSpecialRequestsStage13.done.IsChecked = true;
+				daily.doSpecialRequestsStage13.done.IsChecked = daily.doSpecialRequestsStage13.identification.IsChecked && daily.doSpecialRequestsStage13.ecologyStudy.IsChecked;
 			}
 			return;
 	}
@@ -86,4 +86,6 @@ function sweepAllStage13() {
 		sleep(1_000);
 		stage13AllResult = macroService.FindPattern(stage13AllPattern);
 	}
+
+	return !macroService.FindPattern(stage13AllPattern).IsSuccess;
 }

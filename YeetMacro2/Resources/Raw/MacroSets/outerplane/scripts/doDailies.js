@@ -26,11 +26,6 @@ if (settings.doDailies.claimAntiparticle.Value) {
     goToLobby();
 }
 
-if (settings.doDailies.startTerminusIsleExploration.Value) {
-    startTerminusIsleExploration();
-    goToLobby();
-}
-
 if (settings.doDailies.claimFreeShop.Value) {
     claimFreeShop();
     goToLobby();
