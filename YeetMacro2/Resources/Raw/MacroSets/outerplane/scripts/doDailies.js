@@ -96,15 +96,10 @@ if (settings.doDailies.doDoppelganger.Value) {
     goToLobby();
 }
 
-if (settings.doDailies.doSpecialRequests.Value) {
-    doSpecialRequests();
-    goToLobby();
-}
-
-if (settings.doDailies.claimDailyMissions.Value) {
-    claimDailyMissions();
-    goToLobby();
-}
+//if (settings.doDailies.doSpecialRequests.Value) {
+//    doSpecialRequests();
+//    goToLobby();
+//}
 
 if (settings.doDailies.doSurveyHub.Value) {
     refillStamina(30);
@@ -115,11 +110,6 @@ if (settings.doDailies.doSurveyHub.Value) {
 
 if (settings.doDailies.doInfiniteCorridor.Value) {
     doInfiniteCorridor();
-    goToLobby();
-}
-
-if (settings.doDailies.claimBossDailyMissions.Value) {
-    claimBossDailyMissions();
     goToLobby();
 }
 
@@ -150,6 +140,16 @@ if (settings.doDailies.claimBossDailyMissions.Value) {
 
 if (settings.doDailies.doUpkeep.Value) {
     doUpkeep();
+    goToLobby();
+}
+
+if (settings.doDailies.claimDailyMissions.Value) {
+    claimDailyMissions();
+    goToLobby();
+}
+
+if (settings.doDailies.claimBossDailyMissions.Value) {
+    claimBossDailyMissions();
     goToLobby();
 }
 

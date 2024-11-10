@@ -548,65 +548,33 @@
     },
     "doSpecialRequests": {
       "$type": "boolean",
-      "$defaultValue": true,
-      "$value": true,
+      "$defaultValue": false,
+      "$value": false,
       "$position": 17,
       "$name": "doSpecialRequests",
       "$path": "doDailies.doSpecialRequests"
-    },
-    "doSpecialRequestsStage13": {
-      "$type": "boolean",
-      "$defaultValue": false,
-      "$value": false,
-      "$position": 18,
-      "$name": "doSpecialRequestsStage13",
-      "$path": "doDailies.doSpecialRequestsStage13"
-    },
-    "claimDailyMissions": {
-      "$type": "boolean",
-      "$defaultValue": true,
-      "$value": true,
-      "$position": 19,
-      "$name": "claimDailyMissions",
-      "$path": "doDailies.claimDailyMissions"
     },
     "doSurveyHub": {
       "$type": "boolean",
       "$defaultValue": true,
       "$value": true,
-      "$position": 20,
+      "$position": 18,
       "$name": "doSurveyHub",
       "$path": "doDailies.doSurveyHub"
-    },
-    "claimEventDailyMissions": {
-      "$type": "boolean",
-      "$defaultValue": true,
-      "$value": true,
-      "$position": 21,
-      "$name": "claimEventDailyMissions",
-      "$path": "doDailies.claimEventDailyMissions"
     },
     "doInfiniteCorridor": {
       "$type": "boolean",
       "$defaultValue": true,
       "$value": true,
-      "$position": 22,
+      "$position": 19,
       "$name": "doInfiniteCorridor",
       "$path": "doDailies.doInfiniteCorridor"
-    },
-    "claimBossDailyMissions": {
-      "$type": "boolean",
-      "$defaultValue": true,
-      "$value": true,
-      "$position": 23,
-      "$name": "claimBossDailyMissions",
-      "$path": "doDailies.claimBossDailyMissions"
     },
     "claimWorldBossRewards": {
       "$type": "boolean",
       "$defaultValue": true,
       "$value": true,
-      "$position": 24,
+      "$position": 20,
       "$name": "claimWorldBossRewards",
       "$path": "doDailies.claimWorldBossRewards"
     },
@@ -614,7 +582,7 @@
       "$type": "boolean",
       "$defaultValue": false,
       "$value": false,
-      "$position": 25,
+      "$position": 21,
       "$name": "sweepJointChallenge",
       "$path": "doDailies.sweepJointChallenge"
     },
@@ -622,7 +590,7 @@
       "$type": "boolean",
       "$defaultValue": false,
       "$value": false,
-      "$position": 26,
+      "$position": 22,
       "$name": "sweepEventStoryHard",
       "$path": "doDailies.sweepEventStoryHard"
     },
@@ -630,7 +598,7 @@
       "$type": "boolean",
       "$defaultValue": false,
       "$value": false,
-      "$position": 27,
+      "$position": 23,
       "$name": "sweepEventStoryHard2",
       "$path": "doDailies.sweepEventStoryHard2"
     },
@@ -638,15 +606,39 @@
       "$type": "boolean",
       "$defaultValue": true,
       "$value": true,
-      "$position": 28,
+      "$position": 24,
       "$name": "doUpkeep",
       "$path": "doDailies.doUpkeep"
+    },
+    "claimDailyMissions": {
+      "$type": "boolean",
+      "$defaultValue": true,
+      "$value": true,
+      "$position": 25,
+      "$name": "claimDailyMissions",
+      "$path": "doDailies.claimDailyMissions"
+    },
+    "claimBossDailyMissions": {
+      "$type": "boolean",
+      "$defaultValue": true,
+      "$value": true,
+      "$position": 26,
+      "$name": "claimBossDailyMissions",
+      "$path": "doDailies.claimBossDailyMissions"
+    },
+    "claimEventDailyMissions": {
+      "$type": "boolean",
+      "$defaultValue": true,
+      "$value": true,
+      "$position": 27,
+      "$name": "claimEventDailyMissions",
+      "$path": "doDailies.claimEventDailyMissions"
     },
     "sellInventory": {
       "$type": "boolean",
       "$defaultValue": true,
       "$value": true,
-      "$position": 29,
+      "$position": 28,
       "$name": "sellInventory",
       "$path": "doDailies.sellInventory"
     },
@@ -654,7 +646,7 @@
       "$type": "boolean",
       "$defaultValue": false,
       "$value": false,
-      "$position": 30,
+      "$position": 29,
       "$name": "claimEventDailyMissions2",
       "$path": "doDailies.claimEventDailyMissions2"
     }
@@ -728,6 +720,14 @@
       "$name": "doTerminusIsleExploration",
       "$path": "doUpkeep.doTerminusIsleExploration"
     },
+    "doSpecialRequestsStage13": {
+      "$type": "boolean",
+      "$defaultValue": true,
+      "$value": true,
+      "$position": 8,
+      "$name": "doSpecialRequestsStage13",
+      "$path": "doDailies.doSpecialRequestsStage13"
+    },
     "spendStaminaScript": {
       "$type": "enabledOption",
       "$options": [
@@ -739,7 +739,7 @@
       "$defaultValue": "doEcologyStudy",
       "$value": "doEcologyStudy",
       "$isEnabled": true,
-      "$position": 8,
+      "$position": 9,
       "$name": "spendStaminaScript",
       "$path": "doUpkeep.spendStaminaScript"
     }
