@@ -4,7 +4,7 @@ const loopPatterns = [patterns.lobby.level, patterns.event.close];
 const daily = dailyManager.GetCurrentDaily();
 const resolution = macroService.GetCurrentResolution();
 const dailyMissionPattern = macroService.ClonePattern(settings.claimEventDailyMissions2.dailyMissionPattern.Value, {
-	X: 90,
+	X: 200,
 	Y: 200,
 	Width: 400,
 	Height: 800,
