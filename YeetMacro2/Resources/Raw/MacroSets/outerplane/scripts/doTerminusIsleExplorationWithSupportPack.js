@@ -40,7 +40,7 @@ while (macroService.IsRunning) {
 				const targetWeatherConditions = ['earth', 'fire'];
 				while (!targetWeatherConditions.includes(weatherCondition)) {
 					executeOrderChangeWeather();
-					sleep(1_000);
+					sleep(3_000);
 					weatherCondition = getCurrentWeatherCondition();
 				}
 
@@ -54,6 +54,8 @@ while (macroService.IsRunning) {
 				sleep(1_000);
 				doMoonlitFangBoss();
 				sleep(1_000);
+
+				formExplorationTeamResult = macroService.PollPattern(patterns.terminusIsle.formExplorationTeam, { DoClick: true, PredicatePattern: [patterns.terminusIsle.formExplorationTeam.autoFormation, patterns.terminusIsle.zeroExplorationChances] });
 			}
 			
 			//if (macroService.IsRunning) {
