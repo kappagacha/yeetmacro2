@@ -32,34 +32,29 @@ while (macroService.IsRunning) {
 		case 'terminusIsle.stage':
 			logger.info('doTerminusIsleExplorationWithSupportPack: do explorations');
 
+			executeBonusOrders();
 
-			activateBonusOrders();
-
-			//let formExplorationTeamResult = macroService.PollPattern(patterns.terminusIsle.formExplorationTeam, { DoClick: true, PredicatePattern: [patterns.terminusIsle.formExplorationTeam.autoFormation, patterns.terminusIsle.zeroExplorationChances] });
-			//while (formExplorationTeamResult.PredicatePath !== 'terminusIsle.zeroExplorationChances') {
+			let formExplorationTeamResult = macroService.PollPattern(patterns.terminusIsle.formExplorationTeam, { DoClick: true, PredicatePattern: [patterns.terminusIsle.formExplorationTeam.autoFormation, patterns.terminusIsle.zeroExplorationChances] });
+			while (formExplorationTeamResult.PredicatePath !== 'terminusIsle.zeroExplorationChances') {
 				let weatherCondition = getCurrentWeatherCondition();
 				const targetWeatherConditions = ['earth', 'fire'];
 				while (!targetWeatherConditions.includes(weatherCondition)) {
-					macroService.PollPattern(patterns.terminusIsle.explorationOrder, { DoClick: true, PredicatePattern: patterns.terminusIsle.explorationOrder.activate });
-					
-					const orderNames = getOrderNames();
-					for (let { point: p, name } of orderNames) {
-						if (name.match(orderNameRegex.changeWeather)) {
-							const selectedPattern = macroService.ClonePattern(patterns.terminusIsle.explorationOrder.selected, { CenterY: p.Y, OffsetCalcType: 'None', Path: `patterns.terminusIsle.explorationOrder.selected_y${p.Y}` });
-							macroService.PollPoint(p, { DoClick: true, PredicatePattern: selectedPattern });
-							break;
-						}
-					}
-
-					macroService.PollPattern(patterns.terminusIsle.explorationOrder.activate, { DoClick: true, PredicatePattern: patterns.terminusIsle.explorationOrder.activate.ok });
-					macroService.PollPattern(patterns.terminusIsle.explorationOrder.activate.ok, { DoClick: true, PredicatePattern: patterns.terminusIsle.stage });
+					executeOrderChangeWeather();
 					sleep(1_000);
 					weatherCondition = getCurrentWeatherCondition();
 				}
-			//}
-			
-			startExploration();
-			doExplorations();
+
+				startExploration();
+				sleep(1_000);
+				executeOrderCompleteAllExplorations();
+				sleep(1_000);
+				doExplorations();
+				sleep(1_000);
+				doEnhancedDeadlyCreature();
+				sleep(1_000);
+				doMoonlitFangBoss();
+				sleep(1_000);
+			}
 			
 			//if (macroService.IsRunning) {
 			//	daily.doTerminusIsleExplorationWithSupportPack.done.IsChecked = true;
@@ -78,7 +73,7 @@ function getCurrentWeatherCondition() {
 }
 
 // if available, activate enhancedDeadlyCreatureAppearanceRate or increaseExplorationRewards
-function activateBonusOrders() {
+function executeBonusOrders() {
 	macroService.PollPattern(patterns.terminusIsle.explorationOrder, { DoClick: true, PredicatePattern: patterns.terminusIsle.explorationOrder.activate });
 	sleep(1_000);
 	macroService.DoSwipe({ X: 1400, Y: 800 }, { X: 1400, Y: 150 });
@@ -101,9 +96,42 @@ function activateBonusOrders() {
 	}
 }
 
+function executeOrderChangeWeather() {
+	macroService.PollPattern(patterns.terminusIsle.explorationOrder, { DoClick: true, PredicatePattern: patterns.terminusIsle.explorationOrder.activate });
+
+	const orderNames = getOrderNames();
+	for (let { point: p, name } of orderNames) {
+		if (name.match(orderNameRegex.changeWeather)) {
+			const selectedPattern = macroService.ClonePattern(patterns.terminusIsle.explorationOrder.selected, { CenterY: p.Y, OffsetCalcType: 'None', Path: `patterns.terminusIsle.explorationOrder.selected_y${p.Y}` });
+			macroService.PollPoint(p, { DoClick: true, PredicatePattern: selectedPattern });
+			break;
+		}
+	}
+
+	macroService.PollPattern(patterns.terminusIsle.explorationOrder.activate, { DoClick: true, PredicatePattern: patterns.terminusIsle.explorationOrder.activate.ok });
+	macroService.PollPattern(patterns.terminusIsle.explorationOrder.activate.ok, { DoClick: true, PredicatePattern: patterns.terminusIsle.stage });
+}
+
 function startExploration() {
+	macroService.PollPattern(patterns.terminusIsle.formExplorationTeam, { DoClick: true, PredicatePattern: patterns.terminusIsle.formExplorationTeam.autoFormation });
 	macroService.PollPattern(patterns.terminusIsle.formExplorationTeam.autoFormation, { DoClick: true, PredicatePattern: patterns.terminusIsle.formExplorationTeam.startExploration });
 	macroService.PollPattern(patterns.terminusIsle.formExplorationTeam.startExploration, { DoClick: true, PredicatePattern: patterns.terminusIsle.stage });
+}
+
+function executeOrderCompleteAllExplorations() {
+	macroService.PollPattern(patterns.terminusIsle.explorationOrder, { DoClick: true, PredicatePattern: patterns.terminusIsle.explorationOrder.activate });
+
+	const orderNames = getOrderNames();
+	for (let { point: p, name } of orderNames) {
+		if (name.match(orderNameRegex.completeAllExplorations)) {
+			const selectedPattern = macroService.ClonePattern(patterns.terminusIsle.explorationOrder.selected, { CenterY: p.Y, OffsetCalcType: 'None', Path: `patterns.terminusIsle.explorationOrder.selected_y${p.Y}` });
+			macroService.PollPoint(p, { DoClick: true, PredicatePattern: selectedPattern });
+			break;
+		}
+	}
+
+	macroService.PollPattern(patterns.terminusIsle.explorationOrder.activate, { DoClick: true, PredicatePattern: patterns.terminusIsle.explorationOrder.activate.ok });
+	macroService.PollPattern(patterns.terminusIsle.explorationOrder.activate.ok, { DoClick: true, PredicatePattern: patterns.terminusIsle.stage });
 }
 
 function getOrderNames() {
@@ -170,7 +198,28 @@ function doExplorations() {
 
 		confirmResult = macroService.PollPattern(patterns.terminusIsle.confirm, { TimeoutMs: 3_000 });
 	}
+}
 
+function doEnhancedDeadlyCreature() {
+	let warningResult = macroService.PollPattern(patterns.terminusIsle.warning, { TimeoutMs: 3_000 });
+	if (warningResult.IsSuccess) {
+		macroService.PollPattern(patterns.terminusIsle.warning, { DoClick: true, PredicatePattern: patterns.terminusIsle.prompt.heroDeployment, });
+		macroService.PollPattern(patterns.terminusIsle.prompt.heroDeployment, { DoClick: true, PredicatePattern: patterns.battle.enter });
+		selectTeam('RecommendedElement');
+		macroService.PollPattern(patterns.battle.enter, { DoClick: true, PredicatePattern: patterns.battle.exit });
+		const exitResult = macroService.PollPattern(patterns.battle.exit, { DoClick: true, PredicatePattern: [patterns.general.tapEmptySpace, patterns.terminusIsle.prompt.heroDeployment] });
+		// if another attempt is needed
+		if (exitResult.PredicatePath === 'terminusIsle.prompt.heroDeployment') {
+			macroService.PollPattern(patterns.terminusIsle.prompt.heroDeployment, { DoClick: true, PredicatePattern: patterns.battle.enter });
+			selectTeam('RecommendedElement');
+			macroService.PollPattern(patterns.battle.enter, { DoClick: true, PredicatePattern: patterns.battle.exit });
+			macroService.PollPattern(patterns.battle.exit, { DoClick: true, PredicatePattern: patterns.general.tapEmptySpace });
+		}
+		macroService.PollPattern(patterns.general.tapEmptySpace, { DoClick: true, PredicatePattern: patterns.terminusIsle.stage });
+	}
+}
+
+function doMoonlitFangBoss() {
 	let moonlitFangBossResult = macroService.PollPattern(patterns.terminusIsle.moonlitFangBoss, { TimeoutMs: 3_000 });
 	while (moonlitFangBossResult.IsSuccess) {
 		macroService.PollPattern(patterns.terminusIsle.moonlitFangBoss, { DoClick: true, PredicatePattern: patterns.terminusIsle.prompt.heroDeployment, });
