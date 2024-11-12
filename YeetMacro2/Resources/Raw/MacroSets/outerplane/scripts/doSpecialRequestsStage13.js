@@ -62,7 +62,7 @@ function sweepAllStage13() {
 	let stage13AllResult = macroService.FindPattern(stage13AllPattern);
 	while (macroService.IsRunning && stage13AllResult.IsSuccess) {
 		const staminaSlashResult = macroService.PollPattern(patterns.challenge.specialRequest.staminaSlash);
-		const staminaPattern = macroService.ClonePattern(patterns.challenge.specialRequest.currentStamina, { X: staminaSlashResult.Point.X - 75, OffsetCalcType: 'None', Path: `challenge.specialRequest.currentStamina_${staminaSlashResult.Point.X}` });
+		const staminaPattern = macroService.ClonePattern(patterns.challenge.specialRequest.currentStamina, { X: staminaSlashResult.Point.X - 72, OffsetCalcType: 'None', Path: `challenge.specialRequest.currentStamina_${staminaSlashResult.Point.X}` });
 		const staminaText = macroService.GetText(staminaPattern, '0123456789');
 		const currentStamina = parseInt(staminaText);
 		const maxRuns = parseInt(currentStamina / 16);
