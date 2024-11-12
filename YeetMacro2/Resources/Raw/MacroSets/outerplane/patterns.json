@@ -9588,7 +9588,7 @@
             "textMatch": {
               "isActive": false,
               "text": null,
-              "whiteList": "0123456789"
+              "whiteList": "0123456789/"
             },
             "colorThreshold": {
               "isActive": true,
