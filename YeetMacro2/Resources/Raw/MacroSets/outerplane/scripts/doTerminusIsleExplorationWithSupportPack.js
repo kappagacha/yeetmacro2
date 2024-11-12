@@ -132,7 +132,7 @@ function executeOrderCompleteAllExplorations() {
 	const orderNames = getOrderNames();
 	for (let { point: p, name } of orderNames) {
 		if (name.match(orderNameRegex.completeAllExplorations)) {
-			const selectedPattern = macroService.ClonePattern(patterns.terminusIsle.explorationOrder.selected, { CenterY: p.Y, OffsetCalcType: 'None', Path: `patterns.terminusIsle.explorationOrder.selected_y${p.Y}` });
+			const selectedPattern = macroService.ClonePattern(patterns.terminusIsle.explorationOrder.selected, { CenterY: p.Y, Path: `patterns.terminusIsle.explorationOrder.selected_y${p.Y}` });
 			macroService.PollPoint(p, { DoClick: true, PredicatePattern: selectedPattern });
 			break;
 		}
