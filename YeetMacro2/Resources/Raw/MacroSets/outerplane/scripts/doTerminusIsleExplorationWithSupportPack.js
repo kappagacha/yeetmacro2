@@ -146,7 +146,7 @@ function getOrderNames() {
 	// TODO: throw error if FREE is not found
 	const cornerResult = macroService.FindPattern(patterns.terminusIsle.explorationOrder.corner, { Limit: 5 });
 	const orderNames = cornerResult.Points.filter(p => p).map(p => {
-		const orderNamePattern = macroService.ClonePattern(patterns.terminusIsle.explorationOrder.orderName, { CenterY: p.Y + 25, OffsetCalcType: 'None', Path: `patterns.terminusIsle.explorationOrder.orderName_x${p.X}_y${p.Y}` });
+		const orderNamePattern = macroService.ClonePattern(patterns.terminusIsle.explorationOrder.orderName, { CenterY: p.Y + 25, Path: `patterns.terminusIsle.explorationOrder.orderName_x${p.X}_y${p.Y}` });
 
 		return {
 			point: { X: p.X, Y: p.Y + 25 },
