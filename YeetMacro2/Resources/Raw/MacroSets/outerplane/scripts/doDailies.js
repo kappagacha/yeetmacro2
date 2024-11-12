@@ -162,3 +162,8 @@ if (settings.doDailies.claimEventDailyMissions2.Value) {
     claimEventDailyMissions2();
     goToLobby();
 }
+
+if (settings.doDailies.doTerminusIsleExplorationWithSupportPack.Value) {
+    doTerminusIsleExplorationWithSupportPack();
+    goToLobby();
+}
