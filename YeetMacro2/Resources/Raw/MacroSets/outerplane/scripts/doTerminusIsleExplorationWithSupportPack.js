@@ -30,12 +30,11 @@ while (macroService.IsRunning) {
 			sleep(500);
 			break;
 		case 'terminusIsle.stage':
-			logger.info('doTerminusIsleExplorationWithSupportPack: do explorations');
-
+			logger.info('doTerminusIsleExplorationWithSupportPack: executeBonusOrders');
 			executeBonusOrders();
 
-			let formExplorationTeamResult = macroService.PollPattern(patterns.terminusIsle.formExplorationTeam, { DoClick: true, PredicatePattern: [patterns.terminusIsle.formExplorationTeam.autoFormation, patterns.terminusIsle.zeroExplorationChances] });
-			while (formExplorationTeamResult.PredicatePath !== 'terminusIsle.zeroExplorationChances') {
+			let zeroExplorationChanceResult = macroService.FindPattern(patterns.terminusIsle.zeroExplorationChances);
+			while (zeroExplorationChanceResult.IsSuccess) {
 				let weatherCondition = getCurrentWeatherCondition();
 				logger.info(`doTerminusIsleExplorationWithSupportPack: detected weather is ${weatherCondition}`);
 				const targetWeatherConditions = ['earth', 'fire'];
@@ -43,20 +42,26 @@ while (macroService.IsRunning) {
 					executeOrderChangeWeather();
 					sleep(3_000);
 					weatherCondition = getCurrentWeatherCondition();
+					logger.info(`doTerminusIsleExplorationWithSupportPack: detected weather is ${weatherCondition}`);
 				}
 
+				logger.info('doTerminusIsleExplorationWithSupportPack: startExploration');
 				startExploration();
 				sleep(1_000);
+				logger.info('doTerminusIsleExplorationWithSupportPack: executeOrderCompleteAllExplorations');
 				executeOrderCompleteAllExplorations();
 				sleep(1_000);
+				logger.info('doTerminusIsleExplorationWithSupportPack: doExplorations');
 				doExplorations();
 				sleep(1_000);
+				logger.info('doTerminusIsleExplorationWithSupportPack: doEnhancedDeadlyCreature');
 				doEnhancedDeadlyCreature();
 				sleep(1_000);
+				logger.info('doTerminusIsleExplorationWithSupportPack: doMoonlitFangBoss');
 				doMoonlitFangBoss();
 				sleep(1_000);
 
-				formExplorationTeamResult = macroService.PollPattern(patterns.terminusIsle.formExplorationTeam, { DoClick: true, PredicatePattern: [patterns.terminusIsle.formExplorationTeam.autoFormation, patterns.terminusIsle.zeroExplorationChances] });
+				zeroExplorationChanceResult = macroService.FindPattern(patterns.terminusIsle.zeroExplorationChances);
 			}
 			
 			//if (macroService.IsRunning) {
