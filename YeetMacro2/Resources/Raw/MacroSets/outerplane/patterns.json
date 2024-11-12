@@ -21835,6 +21835,45 @@
         "$name": "close",
         "$path": "terminusIsle.explorationOrder.close"
       }
+    },
+    "warning": {
+      "$patterns": [
+        {
+          "rect": {
+            "x": 616.95703125,
+            "y": 302.9677734375,
+            "width": 594.85546875,
+            "height": 429.5533447265625
+          },
+          "resolution": {
+            "width": 1920,
+            "height": 1080
+          },
+          "isBoundsPattern": false,
+          "name": "pattern",
+          "imageData": "/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDAAEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQH/2wBDAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQH/wAARCAAOAA0DASIAAhEBAxEB/8QAFgABAQEAAAAAAAAAAAAAAAAACAkK/8QAIxAAAQQCAgICAwAAAAAAAAAAAwECBAUGBwgSABMJERQhIv/EABUBAQEAAAAAAAAAAAAAAAAAAAUH/8QAHhEAAgICAgMAAAAAAAAAAAAAAQIDIQQRAAUSQXH/2gAMAwEAAhEDEQA/AMwOqKQFxunS1ZKYklcg3TqqmnOkp7yTg2+eUMCSGU8nZZKSRSHCMhVf7Wvc16Oark8bfy1YHQ4bzGl49T0dZVQYeoNaPWHCgRooFlOPlQDyFAELB+4zIwWlJ17kQTEc5UY1Eb2oeR/xw6olYTlLuCgMnyjFplDk1bdWFm8MqLkVFMBZ11rGcuVSWJJiWMQEsBHiXqUTHKz9fXk2Od3IQXLnkllm8ImLtwivuK+Bj1bjn5r55IcKisLk4XFOv893pbqPoNz2NQKKi/bl8VGSzyBiCEUWNgjZBG9UCb9j5rllxcJux7KMpjSwwQYswd5ng2XeXH8AqxSyGgjWRoCgbv8A/9k=",
+          "variancePct": 20,
+          "horizontalStretchMultiplier": 0,
+          "verticalStretchMultiplier": 0,
+          "textMatch": {
+            "isActive": false,
+            "text": null,
+            "whiteList": null
+          },
+          "colorThreshold": {
+            "isActive": true,
+            "variancePct": 30,
+            "color": "#ffddd3d7",
+            "imageData": "/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDAAIBAQEBAQIBAQECAgICAgQDAgICAgUEBAMEBgUGBgYFBgYGBwkIBgcJBwYGCAsICQoKCgoKBggLDAsKDAkKCgr/wAALCAAOAA0BAREA/8QAHwAAAQUBAQEBAQEAAAAAAAAAAAECAwQFBgcICQoL/8QAtRAAAgEDAwIEAwUFBAQAAAF9AQIDAAQRBRIhMUEGE1FhByJxFDKBkaEII0KxwRVS0fAkM2JyggkKFhcYGRolJicoKSo0NTY3ODk6Q0RFRkdISUpTVFVWV1hZWmNkZWZnaGlqc3R1dnd4eXqDhIWGh4iJipKTlJWWl5iZmqKjpKWmp6ipqrKztLW2t7i5usLDxMXGx8jJytLT1NXW19jZ2uHi4+Tl5ufo6erx8vP09fb3+Pn6/9oACAEBAAA/AP3c+LPxS8CfA74WeJvjX8Utd/svwx4P8P3ut+I9T+yyz/ZLC0gee4m8uFXkk2RRu21FZmxhQSQK+QP+DcP4sfFP44/8EY/g38UvjX8S/EHjDxPqn/CRf2n4j8U6zPqF/d+X4i1OGPzbid3kk2RRxxruY7VRVGAAK5/9rH/gmB/wVh/ag/4WX4A/4fkf2H8MviJ/bOn/APCv/wDhmfQrn+z9Cv8Azo/7L+3faY7iXy7aXyPtGUlbbvyrHI+gP+CXH7DH/Dtf9hPwN+xT/wALR/4TT/hC/wC0/wDipv7E/s77Z9s1S7v/APj38+fy9n2ry/8AWNu2buN20f/Z"
+          },
+          "offsetCalcType": "Default",
+          "position": 0
+        }
+      ],
+      "$isMultiPattern": false,
+      "$position": 0,
+      "$name": "warning",
+      "$path": "terminusIsle.warning"
     }
   },
   "jointChallenge": {
