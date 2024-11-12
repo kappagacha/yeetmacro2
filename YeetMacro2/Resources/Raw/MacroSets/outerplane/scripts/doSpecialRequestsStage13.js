@@ -67,7 +67,7 @@ function sweepAllStage13() {
 
 		logger.info(`doSpecialRequestsStage13: currentStamina=${currentStamina}, maxRuns=${maxRuns}, [${staminaText}]`);
 
-		if (maxRuns === 0) return false;
+		if (!maxRuns) return false;
 
 		let numRuns = 0;
 		let stageResult = macroService.FindPattern(patterns.challenge.specialRequest.stage, { Limit: 10 });
