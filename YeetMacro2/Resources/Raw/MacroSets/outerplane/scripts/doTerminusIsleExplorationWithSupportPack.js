@@ -37,6 +37,7 @@ while (macroService.IsRunning) {
 			let formExplorationTeamResult = macroService.PollPattern(patterns.terminusIsle.formExplorationTeam, { DoClick: true, PredicatePattern: [patterns.terminusIsle.formExplorationTeam.autoFormation, patterns.terminusIsle.zeroExplorationChances] });
 			while (formExplorationTeamResult.PredicatePath !== 'terminusIsle.zeroExplorationChances') {
 				let weatherCondition = getCurrentWeatherCondition();
+				logger.info(`doTerminusIsleExplorationWithSupportPack: detected weather is ${weatherCondition}`);
 				const targetWeatherConditions = ['earth', 'fire'];
 				while (!targetWeatherConditions.includes(weatherCondition)) {
 					executeOrderChangeWeather();
