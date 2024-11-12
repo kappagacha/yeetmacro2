@@ -2,9 +2,9 @@
 const loopPatterns = [patterns.lobby.level, patterns.titles.adventure, patterns.terminusIsle.stage]
 const daily = dailyManager.GetCurrentDaily();
 
-//if (daily.doTerminusIsleExplorationWithSupportPack.done.IsChecked) {
-//	return "Script already completed. Uncheck done to override daily flag.";
-//}
+if (daily.doTerminusIsleExplorationWithSupportPack.done.IsChecked) {
+	return "Script already completed. Uncheck done to override daily flag.";
+}
 
 logger.isPersistingLogs = true;
 
@@ -34,7 +34,7 @@ while (macroService.IsRunning) {
 			executeBonusOrders();
 
 			let zeroExplorationChanceResult = macroService.FindPattern(patterns.terminusIsle.zeroExplorationChances);
-			while (zeroExplorationChanceResult.IsSuccess) {
+			while (!zeroExplorationChanceResult.IsSuccess) {
 				let weatherCondition = getCurrentWeatherCondition();
 				logger.info(`doTerminusIsleExplorationWithSupportPack: detected weather is ${weatherCondition}`);
 				const targetWeatherConditions = ['earth', 'fire'];
@@ -64,9 +64,9 @@ while (macroService.IsRunning) {
 				zeroExplorationChanceResult = macroService.FindPattern(patterns.terminusIsle.zeroExplorationChances);
 			}
 			
-			//if (macroService.IsRunning) {
-			//	daily.doTerminusIsleExplorationWithSupportPack.done.IsChecked = true;
-			//}
+			if (macroService.IsRunning) {
+				daily.doTerminusIsleExplorationWithSupportPack.done.IsChecked = true;
+			}
 			logger.isPersistingLogs = false;
 			return;
 	}

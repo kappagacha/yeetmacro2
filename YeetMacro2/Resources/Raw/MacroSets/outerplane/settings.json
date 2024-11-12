@@ -438,7 +438,7 @@
       "$type": "boolean",
       "$defaultValue": true,
       "$value": true,
-      "$position": 4,
+      "$position": 3,
       "$name": "claimFreeShop",
       "$path": "doDailies.claimFreeShop"
     },
@@ -446,7 +446,7 @@
       "$type": "boolean",
       "$defaultValue": true,
       "$value": true,
-      "$position": 5,
+      "$position": 4,
       "$name": "claimFreeRecruit",
       "$path": "doDailies.claimFreeRecruit"
     },
@@ -454,7 +454,7 @@
       "$type": "boolean",
       "$defaultValue": true,
       "$value": true,
-      "$position": 6,
+      "$position": 5,
       "$name": "doArena",
       "$path": "doDailies.doArena"
     },
@@ -462,7 +462,7 @@
       "$type": "boolean",
       "$defaultValue": true,
       "$value": true,
-      "$position": 7,
+      "$position": 6,
       "$name": "claimMailboxExpiring",
       "$path": "doDailies.claimMailboxExpiring"
     },
@@ -470,7 +470,7 @@
       "$type": "boolean",
       "$defaultValue": true,
       "$value": true,
-      "$position": 8,
+      "$position": 7,
       "$name": "doBountyHunter",
       "$path": "doDailies.doBountyHunter"
     },
@@ -478,7 +478,7 @@
       "$type": "boolean",
       "$defaultValue": true,
       "$value": true,
-      "$position": 9,
+      "$position": 8,
       "$name": "doBanditChase",
       "$path": "doDailies.doBanditChase"
     },
@@ -486,7 +486,7 @@
       "$type": "boolean",
       "$defaultValue": true,
       "$value": true,
-      "$position": 10,
+      "$position": 9,
       "$name": "doUpgradeStoneRetrieval",
       "$path": "doDailies.doUpgradeStoneRetrieval"
     },
@@ -494,7 +494,7 @@
       "$type": "boolean",
       "$defaultValue": true,
       "$value": true,
-      "$position": 11,
+      "$position": 10,
       "$name": "doGuildSecurityArea",
       "$path": "doDailies.doGuildSecurityArea"
     },
@@ -502,7 +502,7 @@
       "$type": "boolean",
       "$defaultValue": true,
       "$value": true,
-      "$position": 12,
+      "$position": 11,
       "$name": "doGuildRaid",
       "$path": "doDailies.doGuildRaid"
     },
@@ -510,7 +510,7 @@
       "$type": "boolean",
       "$defaultValue": true,
       "$value": true,
-      "$position": 13,
+      "$position": 12,
       "$name": "watchAds",
       "$path": "doDailies.watchAds"
     },
@@ -518,7 +518,7 @@
       "$type": "boolean",
       "$defaultValue": true,
       "$value": true,
-      "$position": 14,
+      "$position": 13,
       "$name": "doShop",
       "$path": "doDailies.doShop"
     },
@@ -526,7 +526,7 @@
       "$type": "boolean",
       "$defaultValue": true,
       "$value": true,
-      "$position": 15,
+      "$position": 14,
       "$name": "claimMailboxExpiringStamina",
       "$path": "doDailies.claimMailboxExpiringStamina"
     },
@@ -534,7 +534,7 @@
       "$type": "boolean",
       "$defaultValue": true,
       "$value": true,
-      "$position": 16,
+      "$position": 15,
       "$name": "doDoppelganger",
       "$path": "doDailies.doDoppelganger"
     },
@@ -542,7 +542,7 @@
       "$type": "boolean",
       "$defaultValue": true,
       "$value": true,
-      "$position": 17,
+      "$position": 16,
       "$name": "doSpecialRequests",
       "$path": "doDailies.doSpecialRequests"
     },
@@ -550,7 +550,7 @@
       "$type": "boolean",
       "$defaultValue": true,
       "$value": true,
-      "$position": 18,
+      "$position": 17,
       "$name": "doSurveyHub",
       "$path": "doDailies.doSurveyHub"
     },
@@ -558,7 +558,7 @@
       "$type": "boolean",
       "$defaultValue": true,
       "$value": true,
-      "$position": 19,
+      "$position": 18,
       "$name": "doInfiniteCorridor",
       "$path": "doDailies.doInfiniteCorridor"
     },
@@ -566,7 +566,7 @@
       "$type": "boolean",
       "$defaultValue": true,
       "$value": true,
-      "$position": 20,
+      "$position": 19,
       "$name": "claimWorldBossRewards",
       "$path": "doDailies.claimWorldBossRewards"
     },
@@ -574,7 +574,7 @@
       "$type": "boolean",
       "$defaultValue": false,
       "$value": false,
-      "$position": 21,
+      "$position": 20,
       "$name": "sweepJointChallenge",
       "$path": "doDailies.sweepJointChallenge"
     },
@@ -582,7 +582,7 @@
       "$type": "boolean",
       "$defaultValue": false,
       "$value": false,
-      "$position": 22,
+      "$position": 21,
       "$name": "sweepEventStoryHard",
       "$path": "doDailies.sweepEventStoryHard"
     },
@@ -590,7 +590,7 @@
       "$type": "boolean",
       "$defaultValue": false,
       "$value": false,
-      "$position": 23,
+      "$position": 22,
       "$name": "sweepEventStoryHard2",
       "$path": "doDailies.sweepEventStoryHard2"
     },
@@ -598,7 +598,7 @@
       "$type": "boolean",
       "$defaultValue": true,
       "$value": true,
-      "$position": 24,
+      "$position": 23,
       "$name": "doUpkeep",
       "$path": "doDailies.doUpkeep"
     },
@@ -606,7 +606,7 @@
       "$type": "boolean",
       "$defaultValue": true,
       "$value": true,
-      "$position": 25,
+      "$position": 24,
       "$name": "claimDailyMissions",
       "$path": "doDailies.claimDailyMissions"
     },
@@ -614,7 +614,7 @@
       "$type": "boolean",
       "$defaultValue": true,
       "$value": true,
-      "$position": 26,
+      "$position": 25,
       "$name": "claimBossDailyMissions",
       "$path": "doDailies.claimBossDailyMissions"
     },
@@ -622,7 +622,7 @@
       "$type": "boolean",
       "$defaultValue": true,
       "$value": true,
-      "$position": 27,
+      "$position": 26,
       "$name": "claimEventDailyMissions",
       "$path": "doDailies.claimEventDailyMissions"
     },
@@ -630,7 +630,7 @@
       "$type": "boolean",
       "$defaultValue": true,
       "$value": true,
-      "$position": 28,
+      "$position": 27,
       "$name": "sellInventory",
       "$path": "doDailies.sellInventory"
     },
@@ -638,9 +638,17 @@
       "$type": "boolean",
       "$defaultValue": false,
       "$value": false,
-      "$position": 29,
+      "$position": 28,
       "$name": "claimEventDailyMissions2",
       "$path": "doDailies.claimEventDailyMissions2"
+    },
+    "doTerminusIsleExplorationWithSupportPack": {
+      "$type": "boolean",
+      "$defaultValue": false,
+      "$value": false,
+      "$position": 29,
+      "$name": "doTerminusIsleExplorationWithSupportPack",
+      "$path": "doDailies.doTerminusIsleExplorationWithSupportPack"
     }
   },
   "doUpkeep": {
