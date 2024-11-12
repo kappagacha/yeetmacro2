@@ -60,8 +60,14 @@ function sweepAllStage13() {
 
 	const stage13AllPattern = macroService.ClonePattern(patterns.challenge.specialRequest.stage._13, { Height: 600, Path: 'patterns.challenge.specialRequest.stage._13_all' });
 	let stage13AllResult = macroService.FindPattern(stage13AllPattern);
-	while (stage13AllResult.IsSuccess) {
-		const staminaText = macroService.GetText(patterns.challenge.specialRequest.currentStamina);
+	while (macroService.IsRunning && stage13AllResult.IsSuccess) {
+		let staminaText = macroService.GetText(patterns.challenge.specialRequest.currentStamina);
+		while (macroService.IsRunning && !staminaText.includes('/')) {
+			staminaText = macroService.GetText(patterns.challenge.specialRequest.currentStamina);
+			sleep(100);
+			logger.info(`doSpecialRequestsStage13: [${staminaText}]`);
+		}
+
 		const currentStamina = parseInt(staminaText.split('/')[0]);
 		const maxRuns = parseInt(currentStamina / 16);
 
