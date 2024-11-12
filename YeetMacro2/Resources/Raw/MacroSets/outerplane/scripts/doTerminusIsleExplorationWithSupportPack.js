@@ -12,8 +12,8 @@ const orderNameRegex = {
 	baseArtilleryFire: /Base/i,
 	changeWeather: /Ch.*We/i,
 	enhancedDeadlyCreatureAppearanceRate: /Enhanced/i,
-	completeAllExplorations: /Complete/i,
-	increaseExplorationRewards: /increase/i
+	completeAllExplorations: /Com/i,
+	increaseExplorationRewards: /inc/i
 }
 
 while (macroService.IsRunning) {

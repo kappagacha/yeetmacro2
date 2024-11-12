@@ -86,6 +86,7 @@
 	  <None Remove="Resources\Raw\MacroSets\outerplane\scripts\doSpecialRequestsStage13.js" />
 	  <None Remove="Resources\Raw\MacroSets\outerplane\scripts\sweepEventStoryHard2.js" />
 	  <None Remove="Resources\Raw\MacroSets\outerplane\scripts\testApplyPreset.js" />
+	  <None Remove="Resources\Raw\MacroSets\outerplane\scripts\testExplorationOrders.js" />
 	  <None Remove="Resources\Splash\splash.svg" />
 	</ItemGroup>
 
@@ -470,6 +471,9 @@
       <LogicalName>%(RecursiveDir)%(Filename)%(Extension)</LogicalName>
     </MauiAsset>
     <MauiAsset Update="Resources\Raw\MacroSets\outerplane\scripts\claimBossDailyMissions.js">
+      <LogicalName>%(RecursiveDir)%(Filename)%(Extension)</LogicalName>
+    </MauiAsset>
+    <MauiAsset Update="Resources\Raw\MacroSets\outerplane\scripts\testExplorationOrders.js">
       <LogicalName>%(RecursiveDir)%(Filename)%(Extension)</LogicalName>
     </MauiAsset>
     <MauiAsset Update="Resources\Raw\MacroSets\outerplane\scripts\testShop.js">
