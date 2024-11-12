@@ -90,7 +90,7 @@ function executeBonusOrders() {
 	let isAtLeastOneOrderSelected = false;
 	for (let { point: p, name } of orderNames) {
 		if (name.match(orderNameRegex.enhancedDeadlyCreatureAppearanceRate) || name.match(orderNameRegex.increaseExplorationRewards)) {
-			const selectedPattern = macroService.ClonePattern(patterns.terminusIsle.explorationOrder.selected, { CenterY: p.Y, OffsetCalcType: 'None', Path: `patterns.terminusIsle.explorationOrder.selected_y${p.Y}` });
+			const selectedPattern = macroService.ClonePattern(patterns.terminusIsle.explorationOrder.selected, { CenterY: p.Y, Path: `patterns.terminusIsle.explorationOrder.selected_y${p.Y}` });
 			macroService.PollPoint(p, { DoClick: true, PredicatePattern: selectedPattern });
 			isAtLeastOneOrderSelected = true;
 		}
@@ -110,7 +110,7 @@ function executeOrderChangeWeather() {
 	const orderNames = getOrderNames();
 	for (let { point: p, name } of orderNames) {
 		if (name.match(orderNameRegex.changeWeather)) {
-			const selectedPattern = macroService.ClonePattern(patterns.terminusIsle.explorationOrder.selected, { CenterY: p.Y, OffsetCalcType: 'None', Path: `patterns.terminusIsle.explorationOrder.selected_y${p.Y}` });
+			const selectedPattern = macroService.ClonePattern(patterns.terminusIsle.explorationOrder.selected, { CenterY: p.Y, Path: `patterns.terminusIsle.explorationOrder.selected_y${p.Y}` });
 			macroService.PollPoint(p, { DoClick: true, PredicatePattern: selectedPattern });
 			break;
 		}
@@ -132,6 +132,22 @@ function executeOrderCompleteAllExplorations() {
 	const orderNames = getOrderNames();
 	for (let { point: p, name } of orderNames) {
 		if (name.match(orderNameRegex.completeAllExplorations)) {
+			const selectedPattern = macroService.ClonePattern(patterns.terminusIsle.explorationOrder.selected, { CenterY: p.Y, Path: `patterns.terminusIsle.explorationOrder.selected_y${p.Y}` });
+			macroService.PollPoint(p, { DoClick: true, PredicatePattern: selectedPattern });
+			break;
+		}
+	}
+
+	macroService.PollPattern(patterns.terminusIsle.explorationOrder.activate, { DoClick: true, PredicatePattern: patterns.terminusIsle.explorationOrder.activate.ok });
+	macroService.PollPattern(patterns.terminusIsle.explorationOrder.activate.ok, { DoClick: true, PredicatePattern: patterns.terminusIsle.stage });
+}
+
+function executeOrderBaseArtilleryFire() {
+	macroService.PollPattern(patterns.terminusIsle.explorationOrder, { DoClick: true, PredicatePattern: patterns.terminusIsle.explorationOrder.activate });
+
+	const orderNames = getOrderNames();
+	for (let { point: p, name } of orderNames) {
+		if (name.match(orderNameRegex.baseArtilleryFire)) {
 			const selectedPattern = macroService.ClonePattern(patterns.terminusIsle.explorationOrder.selected, { CenterY: p.Y, Path: `patterns.terminusIsle.explorationOrder.selected_y${p.Y}` });
 			macroService.PollPoint(p, { DoClick: true, PredicatePattern: selectedPattern });
 			break;
@@ -211,6 +227,7 @@ function doExplorations() {
 function doEnhancedDeadlyCreature() {
 	let warningResult = macroService.PollPattern(patterns.terminusIsle.warning, { TimeoutMs: 3_000 });
 	if (warningResult.IsSuccess) {
+		executeOrderBaseArtilleryFire();
 		macroService.PollPattern(patterns.terminusIsle.warning, { DoClick: true, PredicatePattern: patterns.terminusIsle.prompt.heroDeployment, });
 		macroService.PollPattern(patterns.terminusIsle.prompt.heroDeployment, { DoClick: true, PredicatePattern: patterns.battle.enter });
 		selectTeam('RecommendedElement');
