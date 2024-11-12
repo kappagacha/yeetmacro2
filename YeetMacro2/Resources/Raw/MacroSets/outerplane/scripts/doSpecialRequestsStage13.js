@@ -58,17 +58,13 @@ while (macroService.IsRunning) {
 function sweepAllStage13() {
 	macroService.PollPattern(patterns.challenge.specialRequest.sweepAll, { DoClick: true, PredicatePattern: patterns.challenge.specialRequest.sweepAll.sweep });
 
-	const stage13AllPattern = macroService.ClonePattern(patterns.challenge.specialRequest.stage._13, { Height: 600, Path: 'patterns.challenge.specialRequest.stage._13_all' });
+	const stage13AllPattern = macroService.ClonePattern(patterns.challenge.specialRequest.stage._13, { Height: 600, Path: 'challenge.specialRequest.stage._13_all' });
 	let stage13AllResult = macroService.FindPattern(stage13AllPattern);
 	while (macroService.IsRunning && stage13AllResult.IsSuccess) {
-		let staminaText = macroService.GetText(patterns.challenge.specialRequest.currentStamina);
-		while (macroService.IsRunning && !staminaText.includes('/')) {
-			staminaText = macroService.GetText(patterns.challenge.specialRequest.currentStamina);
-			sleep(100);
-			logger.info(`doSpecialRequestsStage13: [${staminaText}]`);
-		}
-
-		const currentStamina = parseInt(staminaText.split('/')[0]);
+		const staminaSlashResult = macroService.PollPattern(patterns.challenge.specialRequest.staminaSlash);
+		const staminaPattern = macroService.ClonePattern(patterns.challenge.specialRequest.currentStamina, { X: staminaSlashResult.Point.X - 75, CalcOffsettype: 'None', Path: `challenge.specialRequest.currentStamina_${staminaSlashResult.Point.X}` });
+		const staminaText = macroService.GetText(staminaPattern, '0123456789');
+		const currentStamina = parseInt(staminaText);
 		const maxRuns = parseInt(currentStamina / 16);
 
 		logger.info(`doSpecialRequestsStage13: currentStamina=${currentStamina}, maxRuns=${maxRuns}, [${staminaText}]`);
