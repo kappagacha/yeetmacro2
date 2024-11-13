@@ -540,8 +540,8 @@
     },
     "doSpecialRequests": {
       "$type": "boolean",
-      "$defaultValue": true,
-      "$value": true,
+      "$defaultValue": false,
+      "$value": false,
       "$position": 16,
       "$name": "doSpecialRequests",
       "$path": "doDailies.doSpecialRequests"

@@ -11,9 +11,9 @@ logger.isPersistingLogs = true;
 const orderNameRegex = {
 	baseArtilleryFire: /Base/i,
 	changeWeather: /Ch.*We/i,
-	enhancedDeadlyCreatureAppearanceRate: /Enhanced/i,
-	completeAllExplorations: /Com/i,
-	increaseExplorationRewards: /inc/i
+	enhancedDeadlyCreatureAppearanceRate: /Enh/i,
+	completeAllExplorations: /C[0o]m/i,
+	increaseExplorationRewards: /Inc/i
 }
 
 while (macroService.IsRunning) {
