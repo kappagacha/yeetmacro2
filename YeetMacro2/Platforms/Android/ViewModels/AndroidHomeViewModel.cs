@@ -73,15 +73,27 @@ public partial class AndriodHomeViewModel : ObservableObject
         _macroManagerViewModel = macroManagerViewModel;
         _toastService = toastService;
 
+        WeakReferenceMessenger.Default.Register<PropertyChangedMessage<bool>, string>(this, nameof(AndroidScreenService), (r, propertyChangedMessage) =>
+        {
+            if (IsAppearing) return;
+
+            if (propertyChangedMessage.NewValue)
+            {
+                ShowActionView();
+            }
+            else
+            {
+                IsProjectionServiceEnabled = IsMacroReady = false;
+            }
+        });
+
         WeakReferenceMessenger.Default.Register<PropertyChangedMessage<bool>, string>(this, nameof(ForegroundService), (r, propertyChangedMessage) =>
         {
             if (IsAppearing) return;
 
             if (propertyChangedMessage.NewValue)
             {
-                _screenService.Show(AndroidWindowView.ActionView);
-                if (_macroManagerViewModel.InDebugMode) _screenService.Show(AndroidWindowView.DebugDrawView);
-                if (ShowStatusPanel) _screenService.Show(AndroidWindowView.StatusPanelView);
+                ShowActionView();
             }
             else
             {
@@ -136,6 +148,13 @@ public partial class AndriodHomeViewModel : ObservableObject
         });
 
         ShowStatusPanel = Preferences.Default.Get(nameof(ShowStatusPanel), false);
+    }
+
+    private void ShowActionView()
+    {
+        _screenService.Show(AndroidWindowView.ActionView);
+        if (_macroManagerViewModel.InDebugMode) _screenService.Show(AndroidWindowView.DebugDrawView);
+        if (ShowStatusPanel) _screenService.Show(AndroidWindowView.StatusPanelView);
     }
 
     public void InvokeOnPropertyChanged(string propertyName)

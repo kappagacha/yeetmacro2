@@ -92,6 +92,7 @@ public class AndroidScreenService : IScreenService
              $"X: {_overlayWindow.GetX()}\nY: {_overlayWindow.GetY()}\nTop: {_overlayWindow.Top}\nLeft: {_overlayWindow.Left}\nRight: {_overlayWindow.Right}\nBottom: {_overlayWindow.Bottom}";
         }
     }
+    public bool CanDrawOverlays => Settings.CanDrawOverlays(_context);
 
     public AndroidScreenService(ILogger<AndroidScreenService> logger, OpenCvService openCvService, 
         MediaProjectionService mediaProjectionService, IOcrService ocrService,
@@ -491,7 +492,7 @@ public class AndroidScreenService : IScreenService
         }
 
         //Get overlay permissin if needed
-        if (OperatingSystem.IsAndroidVersionAtLeast(23) && !Settings.CanDrawOverlays(_context))
+        if (OperatingSystem.IsAndroidVersionAtLeast(23) && !CanDrawOverlays)
         {
             _context.StartActivityForResult(new Intent(Settings.ActionManageOverlayPermission, global::Android.Net.Uri.Parse("package:" + _context.PackageName)), OVERLAY_SERVICE_REQUEST);
             return;
@@ -508,7 +509,7 @@ public class AndroidScreenService : IScreenService
     public void Show(AndroidWindowView windowView)
     {
         //Get overlay permission if needed
-        if (OperatingSystem.IsAndroidVersionAtLeast(23) && !Settings.CanDrawOverlays(_context))
+        if (OperatingSystem.IsAndroidVersionAtLeast(23) && !CanDrawOverlays)
         {
             _context.StartActivityForResult(new Intent(Settings.ActionManageOverlayPermission, global::Android.Net.Uri.Parse("package:" + _context.PackageName)), OVERLAY_SERVICE_REQUEST);
             return;

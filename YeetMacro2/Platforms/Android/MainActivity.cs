@@ -9,6 +9,8 @@ using Org.Opencv.Android;
 using YeetMacro2.ViewModels;
 using YeetMacro2.Platforms.Android.ViewModels;
 using Android.Views;
+using CommunityToolkit.Mvvm.Messaging.Messages;
+using CommunityToolkit.Mvvm.Messaging;
 
 namespace YeetMacro2;
 
@@ -83,7 +85,7 @@ public class MainActivity : MauiAppCompatActivity
                 ServiceHelper.GetService<AndriodHomeViewModel>().InvokeOnPropertyChanged(nameof(AndriodHomeViewModel.IsIgnoringBatteryOptimizations));
                 break;
             case AndroidScreenService.OVERLAY_SERVICE_REQUEST:
-                ServiceHelper.GetService<AndroidScreenService>().ShowOverlayWindow();
+                WeakReferenceMessenger.Default.Send(new PropertyChangedMessage<bool>(this, nameof(AndroidScreenService.CanDrawOverlays), requestCode != 0, resultCode == 0), nameof(AndroidScreenService));
                 break;
         }
     }
