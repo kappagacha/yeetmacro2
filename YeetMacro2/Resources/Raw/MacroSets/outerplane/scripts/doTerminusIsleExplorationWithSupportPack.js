@@ -90,7 +90,7 @@ function executeBonusOrders() {
 	let isAtLeastOneOrderSelected = false;
 	for (let { point: p, name } of orderNames) {
 		if (name.match(orderNameRegex.enhancedDeadlyCreatureAppearanceRate) || name.match(orderNameRegex.increaseExplorationRewards)) {
-			const selectedPattern = macroService.ClonePattern(patterns.terminusIsle.explorationOrder.selected, { CenterY: p.Y, Path: `patterns.terminusIsle.explorationOrder.selected_y${p.Y}` });
+			const selectedPattern = macroService.ClonePattern(patterns.terminusIsle.explorationOrder.selected, { CenterY: p.Y, Padding: 10, Path: `patterns.terminusIsle.explorationOrder.selected_y${p.Y}` });
 			macroService.PollPoint(p, { DoClick: true, PredicatePattern: selectedPattern });
 			isAtLeastOneOrderSelected = true;
 		}
