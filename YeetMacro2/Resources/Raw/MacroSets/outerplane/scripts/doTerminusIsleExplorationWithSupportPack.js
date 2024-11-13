@@ -60,6 +60,9 @@ while (macroService.IsRunning) {
 				logger.info('doTerminusIsleExplorationWithSupportPack: doMoonlitFangBoss');
 				doMoonlitFangBoss();
 				sleep(1_000);
+				logger.info('doTerminusIsleExplorationWithSupportPack: claimFinalStageReward');
+				claimFinalStageReward();
+				sleep(1_000);
 
 				zeroExplorationChanceResult = macroService.FindPattern(patterns.terminusIsle.zeroExplorationChances);
 			}
@@ -259,6 +262,16 @@ function doMoonlitFangBoss() {
 		macroService.PollPattern(patterns.general.tapEmptySpace, { DoClick: true, PredicatePattern: patterns.terminusIsle.stage });
 
 		moonlitFangBossResult = macroService.PollPattern(patterns.terminusIsle.moonlitFangBoss, { TimeoutMs: 3_000 });
+	}
+}
+
+function claimFinalStageReward() {
+	let finalStageRewardResult = macroService.PollPattern(patterns.terminusIsle.finalStageReward, { TimeoutMs: 3_000 });
+	if (finalStageRewardResult.IsSuccess) {
+		macroService.PollPattern(patterns.terminusIsle.finalStageReward, { DoClick: true, PredicatePattern: patterns.terminusIsle.finalStageReward.ok, });
+		macroService.PollPattern(patterns.terminusIsle.finalStageReward.ok, { DoClick: true, PredicatePattern: patterns.terminusIsle.finalStageReward.retry });
+		macroService.PollPattern(patterns.terminusIsle.finalStageReward.retry, { DoClick: true, PredicatePattern: patterns.general.tapEmptySpace });
+		macroService.PollPattern(patterns.general.tapEmptySpace, { DoClick: true, PredicatePattern: patterns.terminusIsle.stage });
 	}
 }
 
