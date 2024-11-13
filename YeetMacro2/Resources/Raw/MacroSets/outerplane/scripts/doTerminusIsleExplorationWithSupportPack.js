@@ -110,7 +110,7 @@ function executeOrderChangeWeather() {
 	const orderNames = getOrderNames();
 	for (let { point: p, name } of orderNames) {
 		if (name.match(orderNameRegex.changeWeather)) {
-			const selectedPattern = macroService.ClonePattern(patterns.terminusIsle.explorationOrder.selected, { CenterY: p.Y, Path: `patterns.terminusIsle.explorationOrder.selected_y${p.Y}` });
+			const selectedPattern = macroService.ClonePattern(patterns.terminusIsle.explorationOrder.selected, { CenterY: p.Y + 30, Path: `patterns.terminusIsle.explorationOrder.selected_y${p.Y}` });
 			macroService.PollPoint(p, { DoClick: true, PredicatePattern: selectedPattern });
 			break;
 		}
@@ -135,7 +135,7 @@ function executeOrderCompleteAllExplorations() {
 	const orderNames = getOrderNames();
 	for (let { point: p, name } of orderNames) {
 		if (name.match(orderNameRegex.completeAllExplorations)) {
-			const selectedPattern = macroService.ClonePattern(patterns.terminusIsle.explorationOrder.selected, { CenterY: p.Y, Path: `patterns.terminusIsle.explorationOrder.selected_y${p.Y}` });
+			const selectedPattern = macroService.ClonePattern(patterns.terminusIsle.explorationOrder.selected, { CenterY: p.Y + 30, Path: `patterns.terminusIsle.explorationOrder.selected_y${p.Y}` });
 			macroService.PollPoint(p, { DoClick: true, PredicatePattern: selectedPattern });
 			break;
 		}
@@ -151,7 +151,7 @@ function executeOrderBaseArtilleryFire() {
 	const orderNames = getOrderNames();
 	for (let { point: p, name } of orderNames) {
 		if (name.match(orderNameRegex.baseArtilleryFire)) {
-			const selectedPattern = macroService.ClonePattern(patterns.terminusIsle.explorationOrder.selected, { CenterY: p.Y, Path: `patterns.terminusIsle.explorationOrder.selected_y${p.Y}` });
+			const selectedPattern = macroService.ClonePattern(patterns.terminusIsle.explorationOrder.selected, { CenterY: p.Y + 30, Path: `patterns.terminusIsle.explorationOrder.selected_y${p.Y}` });
 			macroService.PollPoint(p, { DoClick: true, PredicatePattern: selectedPattern });
 			break;
 		}
