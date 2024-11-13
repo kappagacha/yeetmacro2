@@ -590,7 +590,7 @@ public class AndroidScreenService : IScreenService
                 case AndroidWindowView.DailyNodeView:
                     if (!_macroSetToDailiesView.ContainsKey(currentMacroSet))
                     {
-                        var dailyNodeView = new ResizeView(_context, _windowManager, this, new DailyNodeView() { MacroSet = currentMacroSet });
+                        var dailyNodeView = new ResizeView(_context, _windowManager, this, new TodoNodeView() { Todos = currentMacroSet.Dailies });
                         _views.TryAdd(windowView, dailyNodeView);
                         dailyNodeView.OnClose = () => ServiceHelper.GetService<AndriodHomeViewModel>().ShowDailyNodeView = false;
                         _macroSetToDailiesView.TryAdd(currentMacroSet, dailyNodeView);
@@ -600,7 +600,7 @@ public class AndroidScreenService : IScreenService
                 case AndroidWindowView.WeeklyNodeView:
                     if (!_macroSetToWeekliesView.ContainsKey(currentMacroSet))
                     {
-                        var weeklyNodeView = new ResizeView(_context, _windowManager, this, new WeeklyNodeView() { MacroSet = currentMacroSet });
+                        var weeklyNodeView = new ResizeView(_context, _windowManager, this, new TodoNodeView() { Todos = currentMacroSet.Weeklies });
                         _views.TryAdd(windowView, weeklyNodeView);
                         weeklyNodeView.OnClose = () => ServiceHelper.GetService<AndriodHomeViewModel>().ShowWeeklyNodeView = false;
                         _macroSetToWeekliesView.TryAdd(currentMacroSet, weeklyNodeView);

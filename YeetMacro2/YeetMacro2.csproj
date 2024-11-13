@@ -113,12 +113,6 @@
 	  <Compile Update="Views\TodoNodeView.xaml.cs">
 	    <DependentUpon>TodoNodeView.xaml</DependentUpon>
 	  </Compile>
-	  <Compile Update="Views\WeeklyNodeView.xaml.cs">
-	    <DependentUpon>WeeklyNodeView.xaml</DependentUpon>
-	  </Compile>
-	  <Compile Update="Views\DailyNodeView.xaml.cs">
-	    <DependentUpon>DailyNodeView.xaml</DependentUpon>
-	  </Compile>
 	  <Compile Update="Views\DoubleStepper.xaml.cs">
 	    <DependentUpon>DoubleStepper.xaml</DependentUpon>
 	  </Compile>
@@ -188,9 +182,6 @@
 	  <MauiXaml Update="Views\TreeView.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
-	  <MauiXaml Update="Views\WeeklyNodeView.xaml">
-	    <Generator>MSBuild:Compile</Generator>
-	  </MauiXaml>
 	  <MauiXaml Update="Views\DoubleStepper.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
@@ -201,9 +192,6 @@
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
 	  <MauiXaml Update="Views\ImageView.xaml">
-	    <Generator>MSBuild:Compile</Generator>
-	  </MauiXaml>
-	  <MauiXaml Update="Views\DailyNodeView.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
 	  <MauiXaml Update="Views\StatusPanelView.xaml">

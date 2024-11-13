@@ -98,16 +98,21 @@
                 <Border  Grid.Row="1" mct:DockLayout.DockPosition="Top" Stroke="{StaticResource Primary}">
                     <mct:DockLayout>
                         <v:ImageView mct:DockLayout.DockPosition="Left" FontFamily="MaterialOutlined" Glyph="{x:Static mi:MaterialRegular.Settings}" />
-                        <v:SettingNodeView MacroSet="{Binding BindingContext, Source={Reference thisControl}}" IsSubView="True"  />
+                        <!--<v:SettingNodeView MacroSet="{Binding BindingContext, Source={Reference thisControl}}" IsSubView="True"  />-->
+                        <ContentPresenter x:Name="settingsContentPresenter" />
                     </mct:DockLayout>
                 </Border>
                 <Border  Grid.Row="2" Stroke="{StaticResource Primary}">
                     <mct:DockLayout>
                         <v:ImageView mct:DockLayout.DockPosition="Left" FontFamily="FARegular" Glyph="{x:Static fa:Regular.CalendarCheck}" />
                         <Grid>
+                            <ContentPresenter x:Name="dailiesContentPresenter" />
+                            <ContentPresenter x:Name="weekliesContentPresenter" />
+                        </Grid>
+                        <!--<Grid>
                             <v:WeeklyNodeView MacroSet="{Binding BindingContext, Source={Reference thisControl}}" IsSubView="True" IsVisible="{Binding Weeklies.CurrentSubViewModel.Children.Count, Converter={conv:NumberToBoolConverter}}" />
                             <v:DailyNodeView MacroSet="{Binding BindingContext, Source={Reference thisControl}}" IsSubView="True" IsVisible="{Binding Dailies.CurrentSubViewModel.Children.Count, Converter={conv:NumberToBoolConverter}}"/>
-                        </Grid>
+                        </Grid>-->
                     </mct:DockLayout>
                 </Border>
             </Grid>

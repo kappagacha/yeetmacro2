@@ -197,14 +197,14 @@
             <v:TabItem Header="Dailies">
                 <v:TabItem.ContentDataTemplate>
                     <DataTemplate>
-                        <v:DailyNodeView MacroSet="{Binding BindingContext.SelectedMacroSet, Source={RelativeSource AncestorType={x:Type p:MacroManagerPage}}}" />
+                        <v:TodoNodeView Todos="{Binding BindingContext.SelectedMacroSet.Dailies, Source={RelativeSource AncestorType={x:Type p:MacroManagerPage}}}" />
                     </DataTemplate>
                 </v:TabItem.ContentDataTemplate>
             </v:TabItem>
             <v:TabItem Header="Weeklies">
                 <v:TabItem.ContentDataTemplate>
                     <DataTemplate>
-                        <v:WeeklyNodeView MacroSet="{Binding BindingContext.SelectedMacroSet, Source={RelativeSource AncestorType={x:Type p:MacroManagerPage}}}" />
+                        <v:TodoNodeView Todos="{Binding BindingContext.SelectedMacroSet.Weeklies, Source={RelativeSource AncestorType={x:Type p:MacroManagerPage}}}" />
                     </DataTemplate>
                 </v:TabItem.ContentDataTemplate>
             </v:TabItem>

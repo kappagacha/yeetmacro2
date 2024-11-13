@@ -1,5 +1,8 @@
+using System.Collections.Concurrent;
 using System.ComponentModel;
+using YeetMacro2.Data.Models;
 using YeetMacro2.ViewModels;
+using YeetMacro2.ViewModels.NodeViewModels;
 
 namespace YeetMacro2.Views;
 
@@ -22,32 +25,74 @@ public partial class ScriptNodeView : ContentView
         set { SetValue(MacroSetProperty, value); }
     }
 
+    static ConcurrentDictionary<ParentSetting, View> _settingSubViewModelToView = new ConcurrentDictionary<ParentSetting, View>();
+    static ConcurrentDictionary<TodoJsonParentViewModel, View> _todoSubViewModelToView = new ConcurrentDictionary<TodoJsonParentViewModel, View>();
+
     private static void MacroSet_Changed(BindableObject bindable, object oldValue, object newValue)
     {
-        if (oldValue is MacroSetViewModel oldMacroSet)
+        var scriptNodeView = bindable as ScriptNodeView;
+        var settingsPropertyChanged = new PropertyChangedEventHandler(delegate (object s, PropertyChangedEventArgs e)
         {
-            oldMacroSet.Dailies.PropertyChanged -= Dailies_PropertyChanged;
-            
-        }
+            if (e.PropertyName == nameof(SettingNodeManagerViewModel.CurrentSubViewModel) &&
+                scriptNodeView.MacroSet.Settings.CurrentSubViewModel is ParentSetting settingsSubViewModel)
+            {
+                if (!_settingSubViewModelToView.ContainsKey(settingsSubViewModel))
+                {
+                    var settingNodeView = new SettingNodeView() { MacroSet = scriptNodeView.MacroSet, SubView = settingsSubViewModel };
+                    _settingSubViewModelToView.TryAdd(settingsSubViewModel, settingNodeView);
+                }
+
+                scriptNodeView.settingsContentPresenter.Content = _settingSubViewModelToView[settingsSubViewModel];
+            }
+        });
+
+        var dailiesPropertyChanged = new PropertyChangedEventHandler(delegate (object s, PropertyChangedEventArgs e)
+        {
+            if (e.PropertyName == nameof(DailyNodeManagerViewModel.CurrentSubViewModel) &&
+                 scriptNodeView.MacroSet.Dailies.CurrentSubViewModel is TodoJsonParentViewModel todoSubViewModel)
+            {
+                if (!_todoSubViewModelToView.ContainsKey(todoSubViewModel))
+                {
+                    var todoNodeView = new TodoNodeView() { Todos = scriptNodeView.MacroSet.Dailies, SubView = todoSubViewModel, IsVisible = todoSubViewModel.Children.Count > 0 };
+                    _todoSubViewModelToView.TryAdd(todoSubViewModel, todoNodeView);
+                }
+
+                scriptNodeView.dailiesContentPresenter.Content = _todoSubViewModelToView[todoSubViewModel];
+            }
+        });
+
+        var weekliesPropertyChanged = new PropertyChangedEventHandler(delegate (object s, PropertyChangedEventArgs e)
+        {
+            if (e.PropertyName == nameof(WeeklyNodeManagerViewModel.CurrentSubViewModel) &&
+                scriptNodeView.MacroSet.Weeklies.CurrentSubViewModel is TodoJsonParentViewModel todoSubViewModel)
+            {
+                if (!_todoSubViewModelToView.ContainsKey(todoSubViewModel))
+                {
+                    var todoNodeView = new TodoNodeView() { Todos = scriptNodeView.MacroSet.Weeklies, SubView = todoSubViewModel, IsVisible = todoSubViewModel.Children.Count > 0 };
+                    _todoSubViewModelToView.TryAdd(todoSubViewModel, todoNodeView);
+                }
+
+                scriptNodeView.weekliesContentPresenter.Content = _todoSubViewModelToView[todoSubViewModel];
+            }
+        });
 
         if (newValue is MacroSetViewModel macroSet)
         {
-            var scriptNodeView = bindable as ScriptNodeView;
             scriptNodeView.BindingContext = macroSet;
-            macroSet.Dailies.PropertyChanged += Dailies_PropertyChanged;
-            macroSet.Weeklies.PropertyChanged += Weeklies_PropertyChanged;
+            macroSet.Settings.PropertyChanged += settingsPropertyChanged;
+            macroSet.Dailies.PropertyChanged += dailiesPropertyChanged;
+            macroSet.Weeklies.PropertyChanged += weekliesPropertyChanged;
+            settingsPropertyChanged.Invoke(null, new PropertyChangedEventArgs(nameof(SettingNodeManagerViewModel.CurrentSubViewModel)));
+            dailiesPropertyChanged.Invoke(null, new PropertyChangedEventArgs(nameof(DailyNodeManagerViewModel.CurrentSubViewModel)));
+            weekliesPropertyChanged.Invoke(null, new PropertyChangedEventArgs(nameof(WeeklyNodeManagerViewModel.CurrentSubViewModel)));
         }
-    }
 
-    private static void Dailies_PropertyChanged(object sender, PropertyChangedEventArgs e)
-    {
-        // TODO: cache UI based on send viewmodel
-        //throw new NotImplementedException();
-    }
-
-    private static void Weeklies_PropertyChanged(object sender, PropertyChangedEventArgs e)
-    {
-        //throw new NotImplementedException();
+        if (oldValue is MacroSetViewModel oldMacroSet)
+        {
+            oldMacroSet.Settings.PropertyChanged -= settingsPropertyChanged;
+            oldMacroSet.Dailies.PropertyChanged -= dailiesPropertyChanged;
+            oldMacroSet.Weeklies.PropertyChanged -= weekliesPropertyChanged;
+        }
     }
 
     public ScriptNodeView()

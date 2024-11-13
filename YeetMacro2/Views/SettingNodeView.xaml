@@ -253,11 +253,11 @@
             </DataTrigger>
         </Grid.Triggers>
         <Border Grid.Column="0" Stroke="{StaticResource Primary}" BackgroundColor="Transparent" Padding="3">
-            <v:NodeView NodeManager="{Binding Settings}" IsMenuVisible="{Binding IsSubView, Converter={conv:InverseBoolConverter}, Source={Reference thisView}}"
+            <v:NodeView NodeManager="{Binding Settings}" IsMenuVisible="{Binding SubView, Converter={conv:NullToBoolConverter}, Source={Reference thisView}}"
                         ItemTemplate="{conv:DynamicTemplateSelector Root={Binding .,Source={Reference thisView}}}">
                 <v:NodeView.Triggers>
-                    <DataTrigger TargetType="{x:Type v:NodeView}" Binding="{Binding IsSubView, Source={Reference thisView}}" Value="True">
-                        <Setter Property="ItemsSource" Value="{Binding Settings.CurrentSubViewModel.Nodes}" />
+                    <DataTrigger TargetType="{x:Type v:NodeView}" Binding="{Binding SubView, Converter={conv:NullToBoolConverter IsInverse=True}, Source={Reference thisView}}" Value="True">
+                        <Setter Property="ItemsSource" Value="{Binding SubView.Nodes, Source={Reference thisView}}" />
                     </DataTrigger>
                 </v:NodeView.Triggers>
                 <v:NodeView.ExtraMenuItemsDataTemplate>

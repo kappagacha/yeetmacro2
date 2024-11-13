@@ -81,14 +81,14 @@
     </ContentView.Resources>
     <Border Stroke="{StaticResource Primary}" BackgroundColor="Transparent" Padding="3">
         <Grid>
-            <Grid IsVisible="{Binding IsSubView, Source={Reference thisView}}">
+            <Grid IsVisible="{Binding SubView, Converter={conv:NullToBoolConverter IsInverse=True}, Source={Reference thisView}}">
                 <ScrollView>
-                    <CollectionView ItemsSource="{Binding Todos.CurrentSubViewModel.Children, Source={Reference thisView}}"
+                    <CollectionView ItemsSource="{Binding SubView.Children, Source={Reference thisView}}"
                                     HorizontalOptions="Fill"  VerticalOptions="Fill"
                                     ItemTemplate="{conv:DynamicTemplateSelector Root={Binding .,Source={Reference thisView}}}" />
                 </ScrollView>
             </Grid>
-            <Grid ColumnDefinitions="*,3*" IsVisible="{Binding IsSubView, Converter={conv:InverseBoolConverter}, Source={Reference thisView}}">
+            <Grid ColumnDefinitions="*,3*" IsVisible="{Binding SubView, Converter={conv:NullToBoolConverter}, Source={Reference thisView}}">
                 <v:NodeView Grid.Column="0" NodeManager="{Binding Todos, Source={Reference thisView}}" />
                 <mct:DockLayout Grid.Column="1">
                     <DatePicker IsVisible="{Binding Todos.SelectedNode, Source={Reference thisView}, Converter={conv:NullToBoolConverter IsInverse=True}}" 

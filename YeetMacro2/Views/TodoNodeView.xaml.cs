@@ -7,19 +7,20 @@ public partial class TodoNodeView : ContentView
     public static readonly BindableProperty TodosProperty =
         BindableProperty.Create(nameof(Todos), typeof(TodoNodeManagerViewModel), typeof(TodoNodeView), null);
 
-    public static readonly BindableProperty IsSubViewProperty =
-        BindableProperty.Create(nameof(IsSubView), typeof(bool), typeof(TodoNodeView), false);
-
     public TodoNodeManagerViewModel Todos
     {
         get { return (TodoNodeManagerViewModel)GetValue(TodosProperty); }
         set { SetValue(TodosProperty, value); }
     }
-    public bool IsSubView
+
+    public static readonly BindableProperty SubViewProperty =
+        BindableProperty.Create(nameof(SubView), typeof(TodoJsonParentViewModel), typeof(TodoNodeView), null);
+    public TodoJsonParentViewModel SubView
     {
-        get { return (bool)GetValue(IsSubViewProperty); }
-        set { SetValue(IsSubViewProperty, value); }
+        get { return (TodoJsonParentViewModel)GetValue(SubViewProperty); }
+        set { SetValue(SubViewProperty, value); }
     }
+
     public TodoNodeView()
     {
         InitializeComponent();
