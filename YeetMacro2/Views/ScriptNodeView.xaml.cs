@@ -42,7 +42,8 @@ public partial class ScriptNodeView : ContentView
                     _settingSubViewModelToView.TryAdd(settingsSubViewModel, settingNodeView);
                 }
 
-                scriptNodeView.settingsContentPresenter.Content = _settingSubViewModelToView[settingsSubViewModel];
+
+                MainThread.BeginInvokeOnMainThread(() => scriptNodeView.settingsContentPresenter.Content = _settingSubViewModelToView[settingsSubViewModel]);
             }
         });
 
@@ -57,7 +58,7 @@ public partial class ScriptNodeView : ContentView
                     _todoSubViewModelToView.TryAdd(todoSubViewModel, todoNodeView);
                 }
 
-                scriptNodeView.dailiesContentPresenter.Content = _todoSubViewModelToView[todoSubViewModel];
+                MainThread.BeginInvokeOnMainThread(() => scriptNodeView.dailiesContentPresenter.Content = _todoSubViewModelToView[todoSubViewModel]);
             }
         });
 
@@ -72,7 +73,7 @@ public partial class ScriptNodeView : ContentView
                     _todoSubViewModelToView.TryAdd(todoSubViewModel, todoNodeView);
                 }
 
-                scriptNodeView.weekliesContentPresenter.Content = _todoSubViewModelToView[todoSubViewModel];
+                MainThread.BeginInvokeOnMainThread(() => scriptNodeView.weekliesContentPresenter.Content = _todoSubViewModelToView[todoSubViewModel]);
             }
         });
 
