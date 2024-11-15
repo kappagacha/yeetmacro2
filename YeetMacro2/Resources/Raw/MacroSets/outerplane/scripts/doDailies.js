@@ -103,6 +103,13 @@ if (settings.doDailies.doSurveyHub.Value) {
     goToLobby();
 }
 
+if (settings.doDailies.doTerminusIsleExplorationWithSupportPack.Value) {
+    refillStamina(40);
+    goToLobby();
+    doTerminusIsleExplorationWithSupportPack();
+    goToLobby();
+}
+
 if (settings.doDailies.doInfiniteCorridor.Value) {
     doInfiniteCorridor();
     goToLobby();
@@ -160,10 +167,5 @@ if (settings.doDailies.sellInventory.Value) {
 
 if (settings.doDailies.claimEventDailyMissions2.Value) {
     claimEventDailyMissions2();
-    goToLobby();
-}
-
-if (settings.doDailies.doTerminusIsleExplorationWithSupportPack.Value) {
-    doTerminusIsleExplorationWithSupportPack();
     goToLobby();
 }
