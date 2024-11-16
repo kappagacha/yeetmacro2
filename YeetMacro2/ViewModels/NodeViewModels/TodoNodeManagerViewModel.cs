@@ -127,16 +127,13 @@ public partial class TodoNodeManagerViewModel : NodeManagerViewModel<TodoViewMod
         {
             case "parent":
                 var jsonObject = new JsonObject();
-                elementToAdd = new TodoJsonParentViewModel() { Key = elementName, Parent = parent.JsonObject, Node = todo, JsonObject = jsonObject };
-                parent.JsonObject[elementName] = jsonObject;
+                elementToAdd = new TodoJsonParentViewModel() { Key = elementName, Parent = parent, ViewModel = todo };
                 break;
             case "bool":
-                elementToAdd = new TodoJsonBooleanViewModel() { Key = elementName, Parent = parent.JsonObject, Node = todo };
-                parent.JsonObject[elementName] = false;
+                elementToAdd = new TodoJsonBooleanViewModel() { Key = elementName, Parent = parent, ViewModel = todo };
                 break;
             case "count":
-                elementToAdd = new TodoJsonCountViewModel() { Key = elementName, Parent = parent.JsonObject, Node = todo };
-                parent.JsonObject[elementName] = 0;
+                elementToAdd = new TodoJsonCountViewModel() { Key = elementName, Parent = parent, ViewModel = todo };
                 break;
             default:
                 throw new NotImplementedException($"Unimplemented todo element type: ${selectedTypeName}");
@@ -261,7 +258,6 @@ public partial class TodoNodeManagerViewModel : NodeManagerViewModel<TodoViewMod
         var todo = (TodoViewModel)SelectedNode;
         var parent = FindJsonElementParent(todo.JsonViewModel, jsonElementViewModel);
         parent.Children.Remove(jsonElementViewModel);
-        jsonElementViewModel.Parent.Remove(jsonElementViewModel.Key);
         todo.OnDataTextPropertyChanged();
         WeakReferenceMessenger.Default.Send(todo);
     }

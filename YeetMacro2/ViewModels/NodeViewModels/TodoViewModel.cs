@@ -2,6 +2,7 @@
 using CommunityToolkit.Mvvm.Messaging;
 using System.Text.Json;
 using System.Text.Json.Nodes;
+using System.Text.Json.Serialization;
 using YeetMacro2.Data.Models;
 
 namespace YeetMacro2.ViewModels.NodeViewModels;
@@ -93,8 +94,13 @@ public abstract partial class TodoJsonElementViewModel : ObservableObject, ISort
 {
     [ObservableProperty]
     bool _isExpanded = false, _isSelected = false;
-    public TodoViewModel Node { get; set; }
-    public JsonObject Parent { get; set; }
+    public TodoJsonParentViewModel Parent { get; set; }
+    public TodoJsonParentViewModel Root { get => Parent?.Root ?? Parent ?? (TodoJsonParentViewModel)this; }
+    public virtual TodoViewModel ViewModel
+    {
+        get { return Parent.ViewModel; }
+        set { }
+    }
     public int Position { get; set; }
 
     [ObservableProperty]
@@ -107,76 +113,35 @@ public partial class TodoJsonParentViewModel : TodoJsonElementViewModel
     [ObservableProperty]
     NodeObservableCollection<TodoJsonElementViewModel, TodoJsonElementViewModel> _children = [];
     readonly Dictionary<string, TodoJsonElementViewModel> _dict = [];
+    TodoViewModel _viewModel;
+    public override TodoViewModel ViewModel 
+    { 
+        get { return Parent?.ViewModel ?? _viewModel; }
+        set { _viewModel = value; }
+    }
 
     public override bool IsParent => true;
-    public JsonObject JsonObject { get; set; }
+
+    public static readonly JsonSerializerOptions _defaultJsonSerializerOptions = new()
+    {
+        Converters = {
+            new TodoJsonParentViewModelJsonConverter()
+        },
+        WriteIndented = true,
+        PropertyNamingPolicy = JsonNamingPolicy.CamelCase
+    };
 
     public static TodoJsonParentViewModel Load(JsonObject jsonObject, TodoViewModel node)
     {
-        var parent = new TodoJsonParentViewModel
-        {
-            JsonObject = jsonObject
-        };
-
-        foreach (var item in jsonObject)
-        {
-            var jsonKind = item.Value.GetValueKind();
-            switch (jsonKind)
-            {
-                case JsonValueKind.Object:
-                    var childObject = (JsonObject)item.Value;
-                    var subParent = Load(childObject, node);
-                    subParent.Key = item.Key;
-                    subParent.Parent = jsonObject;
-                    subParent.Node = node;
-                    parent.Children.Add(subParent);
-                    break;
-                case JsonValueKind.Number:
-                    var count = new TodoJsonCountViewModel()
-                    {
-                        Count = (int)item.Value.GetValue<double>(),
-                        Parent = jsonObject,
-                        Key = item.Key,
-                        Node = node
-                    };
-                    parent.Children.Add(count);
-                    break;
-                case JsonValueKind.True:
-                case JsonValueKind.False:
-                    var boolean = new TodoJsonBooleanViewModel()
-                    {
-                        IsChecked = item.Value.GetValue<bool>(),
-                        Parent = jsonObject,
-                        Key = item.Key,
-                        Node = node
-                    };
-                    parent.Children.Add(boolean);
-                    break;
-            }
-
-        }
-
-        return parent;
+        var jsonViewModel = (TodoJsonParentViewModel)JsonSerializer.Deserialize<TodoJsonElementViewModel>(jsonObject.ToJsonString(null), _defaultJsonSerializerOptions);
+        jsonViewModel.ViewModel = node;
+        return jsonViewModel;
     }
 
     public static JsonObject Export(TodoJsonParentViewModel todoJsonParentViewModel)
     {
-        var jsonObject = new JsonObject();
-        foreach (var child in todoJsonParentViewModel.Children)
-        {
-            if (child is TodoJsonParentViewModel parentViewModel)
-            {
-                jsonObject[child.Key] = Export(parentViewModel);
-            }
-            else if (child is TodoJsonCountViewModel countViewModel)
-            {
-                jsonObject[child.Key] = (double)countViewModel.Count;
-            }
-            else if (child is TodoJsonBooleanViewModel boolViewModel) {
-                jsonObject[child.Key] = boolViewModel.IsChecked;
-            }
-        }
-        return jsonObject;
+        var jsonText = JsonSerializer.Serialize<TodoJsonElementViewModel>(todoJsonParentViewModel, _defaultJsonSerializerOptions);
+        return (JsonObject)JsonObject.Parse(jsonText);
     }
 
     public TodoJsonElementViewModel this[string key]
@@ -202,11 +167,11 @@ public partial class TodoJsonBooleanViewModel: TodoJsonElementViewModel
 
     partial void OnIsCheckedChanged(bool oldValue, bool newValue)
     {
-        if (Parent is null || Key is null) return;
+        if (Key is null) return;
 
-        Parent[Key] = newValue;
-        Node.OnDataTextPropertyChanged();
-        WeakReferenceMessenger.Default.Send(Node);
+        //ViewModel.OnDataTextPropertyChanged();
+        ViewModel.Data = TodoJsonParentViewModel.Export(Root);
+        WeakReferenceMessenger.Default.Send(ViewModel);
     }
 }
 
@@ -217,10 +182,90 @@ public partial class TodoJsonCountViewModel : TodoJsonElementViewModel
 
     partial void OnCountChanged(int value)
     {
-        if (Parent is null || Key is null) return;
+        if (Key is null) return;
 
-        Parent[Key] = value;
-        Node.OnDataTextPropertyChanged();
-        WeakReferenceMessenger.Default.Send(Node);
+        ViewModel.OnDataTextPropertyChanged();
+        WeakReferenceMessenger.Default.Send(ViewModel);
+    }
+}
+
+public class TodoJsonParentViewModelJsonConverter() : JsonConverter<TodoJsonElementViewModel>
+{
+    public override TodoJsonElementViewModel Read(
+        ref Utf8JsonReader reader,
+        Type typeToConvert,
+        JsonSerializerOptions options)
+    {
+        if (reader.TokenType != JsonTokenType.StartObject)
+        {
+            throw new JsonException();
+        }
+
+        var json = new TodoJsonParentViewModel();
+        var children = new List<TodoJsonElementViewModel>();
+
+        while (reader.Read())
+        {
+            if (reader.TokenType == JsonTokenType.EndObject)
+            {
+                foreach (var child in children)
+                {
+                    child.Parent = json;
+                    json.Children.Add(child);
+                }
+                return json;
+            }
+
+            if (reader.TokenType == JsonTokenType.PropertyName) 
+            {
+                var prop = reader.GetString();
+                Console.WriteLine(prop);
+                reader.Read();
+
+                if (reader.TokenType == JsonTokenType.False || reader.TokenType == JsonTokenType.True)
+                {
+                    var boolValue = reader.GetBoolean();
+                    children.Add(new TodoJsonBooleanViewModel() {  IsChecked = boolValue, Key = prop });
+                }
+                else if (reader.TokenType == JsonTokenType.Number)
+                {
+                    var numValue = reader.GetInt32();
+                    children.Add(new TodoJsonCountViewModel() { Count = numValue, Key = prop });
+                }
+                else if (reader.TokenType == JsonTokenType.StartObject)
+                {
+                    var child = Read(ref reader, typeof(TodoJsonElementViewModel), options);
+                    child.Key = prop;
+                    children.Add(child);
+                }
+            }
+        }
+
+        throw new JsonException();
+    }
+
+    public override void Write(
+        Utf8JsonWriter writer,
+        TodoJsonElementViewModel todo,
+        JsonSerializerOptions options)
+    {
+        if (todo is TodoJsonParentViewModel parent)
+        {
+            writer.WriteStartObject();
+            foreach (var child in parent.Children)
+            {
+                writer.WritePropertyName(child.Key);
+                Write(writer, child, options);
+            }
+            writer.WriteEndObject();
+        }
+        else if (todo is TodoJsonBooleanViewModel todoBool)
+        {
+            writer.WriteBooleanValue(todoBool.IsChecked);
+        }
+        else if (todo is TodoJsonCountViewModel todoCount)
+        {
+            writer.WriteNumberValue(todoCount.Count);
+        }
     }
 }
