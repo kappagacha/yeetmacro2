@@ -66,9 +66,6 @@ public class YeetMacroDbContext : DbContext
         var pointConverter = new ValueConverter<Point, string>(
             p => JsonSerializer.Serialize(p, serializationOptions),
             p => JsonSerializer.Deserialize<Point>(p, serializationOptions));
-        var jsonObjectConverter = new ValueConverter<JsonObject, string>(
-            json => json.ToJsonString(null),
-            json => (JsonObject)JsonObject.Parse(json, null, default));
 
         modelBuilder.Entity<MacroSet>().HasKey(ms => ms.MacroSetId);
         modelBuilder.Entity<MacroSet>().Property(ms => ms.Resolution).HasConversion(sizeConverter);
@@ -128,8 +125,5 @@ public class YeetMacroDbContext : DbContext
 
         modelBuilder.Entity<ScriptLog>().HasMany(sl => sl.Logs).WithOne().HasForeignKey(l => l.ParentId).OnDelete(DeleteBehavior.Cascade);
         modelBuilder.Entity<ExceptionLog>().HasMany(exl => exl.Logs).WithOne().HasForeignKey(l => l.ParentId).OnDelete(DeleteBehavior.Cascade);
-
-        modelBuilder.Entity<TodoNode>().Ignore(d => d.DataText);
-        modelBuilder.Entity<TodoNode>().Property(d => d.Data).HasConversion(jsonObjectConverter);
     }
 }

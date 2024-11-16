@@ -23,7 +23,7 @@ public partial class DailyNodeManagerViewModel(
         var newNode = new TodoViewModel()
         {
             Date = ResolveTargetDate(0),
-            Data = GetJsonFromTemplate()
+            Data = Root.Data
         };
         base.AddNode(newNode);
         return Task.CompletedTask;
@@ -38,7 +38,7 @@ public partial class DailyNodeManagerViewModel(
         var newDaily = new TodoViewModel()
         {
             Date = targetDate,
-            Data = GetJsonFromTemplate()
+            Data = Root.Data
         };
         this.AddNode(newDaily);
 

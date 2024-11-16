@@ -62,7 +62,7 @@ public partial class TodoNodeManagerViewModel : NodeManagerViewModel<TodoViewMod
             existingDaily = new TodoViewModel()
             {
                 Date = targetDate,
-                Data = GetJsonFromTemplate()
+                Data = Root.Data
             };
             this.AddNode(existingDaily);
         }
@@ -74,13 +74,14 @@ public partial class TodoNodeManagerViewModel : NodeManagerViewModel<TodoViewMod
     [RelayCommand]
     public void SaveTodo(object[] values)
     {
-        if (values[0] is TodoViewModel daily && values[1] is string stringValue)
+        if (values[0] is TodoViewModel todo && values[1] is string stringValue)
         {
             try
             {
-                daily.Data = (JsonObject)JsonObject.Parse(stringValue);
+                todo.Data = stringValue;
+                todo.JsonViewModel = TodoJsonParentViewModel.Load(stringValue, todo);
                 ResolveCurrentSubViewModel();
-                SaveTodo(daily);
+                SaveTodo(todo);
             }
             catch (Exception ex)
             {
@@ -140,7 +141,7 @@ public partial class TodoNodeManagerViewModel : NodeManagerViewModel<TodoViewMod
         }
 
         parent.Children.Add(elementToAdd);
-        todo.OnDataTextPropertyChanged();
+        todo.Data = TodoJsonParentViewModel.Export(parent.Root);
         WeakReferenceMessenger.Default.Send(todo);
     }
 
@@ -258,7 +259,7 @@ public partial class TodoNodeManagerViewModel : NodeManagerViewModel<TodoViewMod
         var todo = (TodoViewModel)SelectedNode;
         var parent = FindJsonElementParent(todo.JsonViewModel, jsonElementViewModel);
         parent.Children.Remove(jsonElementViewModel);
-        todo.OnDataTextPropertyChanged();
+        todo.Data = TodoJsonParentViewModel.Export(parent.Root);
         WeakReferenceMessenger.Default.Send(todo);
     }
 
@@ -307,7 +308,7 @@ public partial class TodoNodeManagerViewModel : NodeManagerViewModel<TodoViewMod
         var newNode = new TodoViewModel()
         {
             Date = ResolveTargetDate(0),
-            Data = GetJsonFromTemplate()
+            Data = Root.Data
         };
         base.AddNode(newNode);
         return Task.CompletedTask;
@@ -318,13 +319,6 @@ public partial class TodoNodeManagerViewModel : NodeManagerViewModel<TodoViewMod
         var utcNow = DateTime.UtcNow;
         var targetDate = DateOnly.FromDateTime(utcNow).AddDays(offset);
         return targetDate;
-    }
-
-    protected JsonObject GetJsonFromTemplate()
-    {
-        if (Root.Data == null) Root.Data = new();
-
-        return (JsonObject)Root.Data.DeepClone();
     }
 
     partial void OnShowTemplateChanged(bool value)

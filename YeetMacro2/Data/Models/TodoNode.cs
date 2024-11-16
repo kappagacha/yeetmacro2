@@ -12,10 +12,5 @@ public class TodoNode
     [JsonIgnore]
     public virtual IList<TodoNode> Nodes { get; set; } = [];
     public virtual DateOnly Date { get; set; }
-    public virtual JsonObject Data { get; set; }
-    [JsonIgnore]
-    public string DataText
-    {
-        get => Data?.ToJsonString(_opts);
-    }
+    public virtual string Data { get; set; }
 }

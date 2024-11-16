@@ -100,7 +100,7 @@
                                             HorizontalOptions="Fill"  VerticalOptions="Fill" ItemTemplate="{conv:DynamicTemplateSelector}" />
                         </ScrollView>
                         <Grid IsVisible="{Binding Todos.ShowJsonEditor, Source={Reference thisView}}">
-                            <Editor x:Name="dataEditor" Text="{Binding Todos.SelectedNode.DataText, Source={Reference thisView}, Mode=OneWay}" AutoSize="TextChanges" />
+                            <Editor x:Name="dataEditor" x:DataType="{x:Null}" Text="{Binding Todos.SelectedNode.Data, Source={Reference thisView}, Mode=OneWay}" AutoSize="TextChanges" />
                             <HorizontalStackLayout HorizontalOptions="End" VerticalOptions="End" Margin="0,0,40,0" Spacing="5">
                                 <Grid HorizontalOptions="End" VerticalOptions="End">
                                     <v:ImageView FontFamily="MaterialOutlined" Glyph="{x:Static mi:MaterialOutlined.Select_all}" />

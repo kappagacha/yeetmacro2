@@ -270,14 +270,14 @@ public partial class MacroManagerViewModel : ObservableObject
         await macroSet.Dailies.WaitForInitialization();
         if (macroSet.Dailies.Root.Data is not null)
         {
-            macroSet.DailyTemplate = macroSet.Dailies.Root.Data.ToJsonString(JsonSerializerOptions.Default);
+            macroSet.DailyTemplate = macroSet.Dailies.Root.Data;
             macroSet.DailyTemplateLastUpdated = DateTimeOffset.Now;
         }
 
         await macroSet.Weeklies.WaitForInitialization();
         if (macroSet.Weeklies.Root.Data is not null)
         {
-            macroSet.WeeklyTemplate = macroSet.Weeklies.Root.Data.ToJsonString(JsonSerializerOptions.Default);
+            macroSet.WeeklyTemplate = macroSet.Weeklies.Root.Data;
             macroSet.WeeklyTemplateLastUpdated = DateTimeOffset.Now;
         }
 
@@ -467,13 +467,13 @@ public partial class MacroManagerViewModel : ObservableObject
 
             if (targetMacroSet.DailyTemplate is not null && (!macroSet.DailyTemplateLastUpdated.HasValue || macroSet.DailyTemplateLastUpdated < targetMacroSet.DailyTemplateLastUpdated))
             {
-                macroSet.Dailies.Root.Data = (JsonObject)JsonObject.Parse(targetMacroSet.DailyTemplate, null, default);
+                macroSet.Dailies.Root.Data = targetMacroSet.DailyTemplate;
                 macroSet.Dailies.Save();
             }
 
             if (targetMacroSet.WeeklyTemplate is not null && (!macroSet.WeeklyTemplateLastUpdated.HasValue || macroSet.WeeklyTemplateLastUpdated < targetMacroSet.WeeklyTemplateLastUpdated))
             {
-                macroSet.Weeklies.Root.Data = (JsonObject)JsonObject.Parse(targetMacroSet.WeeklyTemplate, null, default);
+                macroSet.Weeklies.Root.Data = targetMacroSet.WeeklyTemplate;
                 macroSet.Weeklies.Save();
             }
 

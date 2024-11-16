@@ -63,16 +63,15 @@ public partial class TodoViewModel: TodoNode
         }
     }
 
-    public override JsonObject Data
+    public override string Data
     {
         get => base.Data;
         set
         {
             base.Data = value;
             OnPropertyChanged();
-            OnPropertyChanged(nameof(DataText));
 
-            if (Data is not null)
+            if (Data is not null && JsonViewModel is null)
             {
                 JsonViewModel = TodoJsonParentViewModel.Load(Data, this);
             }
@@ -82,11 +81,6 @@ public partial class TodoViewModel: TodoNode
     public TodoViewModel()
     {
         base.Nodes = new NodeObservableCollection<TodoViewModel, TodoNode>((a, b) => b.Date > a.Date ? 1 : 0);
-    }
-
-    public void OnDataTextPropertyChanged()
-    {
-        OnPropertyChanged(nameof(DataText));
     }
 }
 
@@ -131,17 +125,17 @@ public partial class TodoJsonParentViewModel : TodoJsonElementViewModel
         PropertyNamingPolicy = JsonNamingPolicy.CamelCase
     };
 
-    public static TodoJsonParentViewModel Load(JsonObject jsonObject, TodoViewModel node)
+    public static TodoJsonParentViewModel Load(string jsonString, TodoViewModel node)
     {
-        var jsonViewModel = (TodoJsonParentViewModel)JsonSerializer.Deserialize<TodoJsonElementViewModel>(jsonObject.ToJsonString(null), _defaultJsonSerializerOptions);
+        var jsonViewModel = (TodoJsonParentViewModel)JsonSerializer.Deserialize<TodoJsonElementViewModel>(jsonString, _defaultJsonSerializerOptions);
         jsonViewModel.ViewModel = node;
         return jsonViewModel;
     }
 
-    public static JsonObject Export(TodoJsonParentViewModel todoJsonParentViewModel)
+    public static string Export(TodoJsonParentViewModel todoJsonParentViewModel)
     {
         var jsonText = JsonSerializer.Serialize<TodoJsonElementViewModel>(todoJsonParentViewModel, _defaultJsonSerializerOptions);
-        return (JsonObject)JsonObject.Parse(jsonText);
+        return jsonText;
     }
 
     public TodoJsonElementViewModel this[string key]
@@ -184,7 +178,8 @@ public partial class TodoJsonCountViewModel : TodoJsonElementViewModel
     {
         if (Key is null) return;
 
-        ViewModel.OnDataTextPropertyChanged();
+        //ViewModel.OnDataTextPropertyChanged();
+        ViewModel.Data = TodoJsonParentViewModel.Export(Root);
         WeakReferenceMessenger.Default.Send(ViewModel);
     }
 }
