@@ -434,7 +434,7 @@ public partial class NodeManagerViewModel<TViewModel, TParent, TChild> : NodeMan
 
         var result = await FolderPicker.Default.PickAsync(defaultFolder, new CancellationToken());
         if (!result.IsSuccessful) return;
-        var targetFile = Path.Combine(result.Folder.Path, $"{name}_{_nodeTypeName}s_{new DateTime().ToString("yyyyMMdd_hhmmss")}.json");
+        var targetFile = Path.Combine(result.Folder.Path, $"{name}_{_nodeTypeName}s_{DateTime.Now.ToString("yyyyMMdd_hhmmss")}.json");
         File.WriteAllText(targetFile, json);
         _toastService.Show($"Exported {name} {_nodeTypeName} on ${result.Folder.Path}");
     }
