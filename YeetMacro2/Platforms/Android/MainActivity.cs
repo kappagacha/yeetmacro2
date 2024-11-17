@@ -64,10 +64,11 @@ public class MainActivity : MauiAppCompatActivity
         };
 
         // https://stackoverflow.com/questions/74165500/net-maui-how-to-ensure-that-android-platform-specific-code-is-only-executed-on
-        //if (OperatingSystem.IsAndroidVersionAtLeast(30)) // hide navigation bars
-        //{
-        //    Window?.InsetsController?.Hide(WindowInsets.Type.NavigationBars());
-        //}
+        if (OperatingSystem.IsAndroidVersionAtLeast(30)) // hide navigation bars
+        {
+            Window?.InsetsController?.Hide(WindowInsets.Type.NavigationBars());
+            Window?.InsetsController?.Hide(WindowInsets.Type.SystemBars());
+        }
 
         base.OnCreate(savedInstanceState);
     }
