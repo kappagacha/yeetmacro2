@@ -152,16 +152,22 @@ function executeOrderBaseArtilleryFire() {
 	macroService.PollPattern(patterns.terminusIsle.explorationOrder, { DoClick: true, PredicatePattern: patterns.terminusIsle.explorationOrder.activate });
 
 	const orderNames = getOrderNames();
+	let foundOrder = false;
 	for (let { point: p, name } of orderNames) {
 		if (name.match(orderNameRegex.baseArtilleryFire)) {
 			const selectedPattern = macroService.ClonePattern(patterns.terminusIsle.explorationOrder.selected, { CenterY: p.Y + 30, Path: `patterns.terminusIsle.explorationOrder.selected_y${p.Y}` });
 			macroService.PollPoint(p, { DoClick: true, PredicatePattern: selectedPattern });
+			foundOrder = true;
 			break;
 		}
 	}
 
-	macroService.PollPattern(patterns.terminusIsle.explorationOrder.activate, { DoClick: true, PredicatePattern: patterns.terminusIsle.explorationOrder.activate.ok });
-	macroService.PollPattern(patterns.terminusIsle.explorationOrder.activate.ok, { DoClick: true, PredicatePattern: patterns.terminusIsle.stage });
+	if (foundOrder) {
+		macroService.PollPattern(patterns.terminusIsle.explorationOrder.activate, { DoClick: true, PredicatePattern: patterns.terminusIsle.explorationOrder.activate.ok });
+		macroService.PollPattern(patterns.terminusIsle.explorationOrder.activate.ok, { DoClick: true, PredicatePattern: patterns.terminusIsle.stage });
+	} else {
+		macroService.PollPattern(patterns.terminusIsle.explorationOrder.close, { DoClick: true, PredicatePattern: patterns.terminusIsle.stage });
+	}
 }
 
 function getOrderNames() {
