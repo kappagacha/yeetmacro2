@@ -91,11 +91,6 @@ if (settings.doDailies.doDoppelganger.Value) {
     goToLobby();
 }
 
-//if (settings.doDailies.doSpecialRequests.Value) {
-//    doSpecialRequests();
-//    goToLobby();
-//}
-
 if (settings.doDailies.doSurveyHub.Value) {
     refillStamina(30);
     goToLobby();
@@ -135,13 +130,18 @@ if (settings.doDailies.sweepJointChallenge.Value) {
     goToLobby();
 }
 
-if (settings.doDailies.claimBossDailyMissions.Value) {
-    claimBossDailyMissions();
+if (settings.doDailies.doSpecialRequests.Value) {
+    doSpecialRequests();
     goToLobby();
 }
 
 if (settings.doDailies.doUpkeep.Value) {
     doUpkeep();
+    goToLobby();
+}
+
+if (settings.doDailies.claimBossDailyMissions.Value) {
+    claimBossDailyMissions();
     goToLobby();
 }
 
