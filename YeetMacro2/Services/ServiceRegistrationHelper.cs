@@ -1,11 +1,5 @@
 ﻿using CommunityToolkit.Maui;
-using Microsoft.Extensions.Logging;
-using Serilog;
-using Serilog.Configuration;
-using Serilog.Extensions.Logging;
-using Serilog.Filters;
 using System.Reflection;
-using TesseractOcrMaui;
 using YeetMacro2.ViewModels;
 using YeetMacro2.ViewModels.NodeViewModels;
 
