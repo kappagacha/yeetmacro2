@@ -25,6 +25,7 @@ jobs:
         with:
           dotnet-version: '9.x'
           cache: true
+          cache-dependency-path: YeetMacro2/packages.lock.json
       # https://blog.taranissoftware.com/build-net-maui-apps-with-github-actions
       - name: Install MAUI Workload
         run: dotnet workload install maui --ignore-failed-sources
