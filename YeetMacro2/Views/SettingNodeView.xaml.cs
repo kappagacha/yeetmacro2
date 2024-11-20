@@ -6,7 +6,7 @@ namespace YeetMacro2.Views;
 public partial class SettingNodeView : ContentView
 {
     public static readonly BindableProperty MacroSetProperty =
-        BindableProperty.Create(nameof(MacroSet), typeof(MacroSetViewModel), typeof(SettingNodeView), null, propertyChanged: MacroSet_Changed);
+        BindableProperty.Create(nameof(MacroSet), typeof(MacroSetViewModel), typeof(SettingNodeView), null);
 
     public MacroSetViewModel MacroSet
     {
@@ -22,15 +22,6 @@ public partial class SettingNodeView : ContentView
     {
         get { return (ParentSetting)GetValue(SubViewProperty); }
         set { SetValue(SubViewProperty, value); }
-    }
-
-    private static void MacroSet_Changed(BindableObject bindable, object oldValue, object newValue)
-    {
-        if (newValue is MacroSetViewModel macroSet)
-        {
-            var settingNodeView = bindable as SettingNodeView;
-            settingNodeView.BindingContext = macroSet;
-        }
     }
 
     public SettingNodeView()

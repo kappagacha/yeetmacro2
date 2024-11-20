@@ -10,7 +10,6 @@
              xmlns:mi="clr-namespace:UraniumUI.Icons.MaterialIcons;assembly=UraniumUI.Icons.MaterialIcons"
              BackgroundColor="{AppThemeBinding Light={StaticResource Background}, Dark={StaticResource BackgroundDark}}"
              xmlns:material="http://schemas.enisn-projects.io/dotnet/maui/uraniumui/material"
-             x:DataType="vm:MacroManagerViewModel"
              x:Class="YeetMacro2.Views.TodoNodeView"
              x:Name="thisView">
     <ContentView.Resources>

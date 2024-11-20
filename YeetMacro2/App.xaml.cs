@@ -6,8 +6,11 @@ public partial class App : Application
 	{
 		InitializeComponent();
 
-		MainPage = new AppShell();
-
         Application.Current.UserAppTheme = AppTheme.Dark;
 	}
+
+    protected override Window CreateWindow(IActivationState? activationState)
+    {
+        return new Window(new AppShell());
+    }
 }

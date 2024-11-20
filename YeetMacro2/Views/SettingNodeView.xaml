@@ -7,7 +7,6 @@
              xmlns:nvm="clr-namespace:YeetMacro2.ViewModels.NodeViewModels"
              xmlns:conv="clr-namespace:YeetMacro2.Converters"
              xmlns:m="clr-namespace:YeetMacro2.Data.Models"
-             x:DataType="vm:MacroSetViewModel"
              xmlns:mct="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
              xmlns:fa="clr-namespace:UraniumUI.Icons.FontAwesome;assembly=UraniumUI.Icons.FontAwesome"
              xmlns:mi="clr-namespace:UraniumUI.Icons.MaterialIcons;assembly=UraniumUI.Icons.MaterialIcons"
@@ -27,14 +26,14 @@
                             </Label.Triggers>
                         </Label>
                         <ImageButton Margin="0" Padding="0" CommandParameter="{Binding .}" 
-                            Command="{Binding BindingContext.Settings.SelectNodeCommand, Source={RelativeSource AncestorType={x:Type v:SettingNodeView}}}" />
+                            Command="{Binding MacroSet.Settings.SelectNodeCommand, Source={RelativeSource AncestorType={x:Type v:SettingNodeView}}}" />
                     </Grid>
                     <ContentPresenter Grid.Column="1" x:Name="contentPresenter" BindingContext="{Binding .}" />
                 </HorizontalStackLayout>
                 <v:ImageView
-                    IsVisible="{Binding BindingContext.Settings.ShowResetButton, Source={RelativeSource AncestorType={x:Type v:SettingNodeView}}}"
+                    IsVisible="{Binding MacroSet.Settings.ShowResetButton, Source={RelativeSource AncestorType={x:Type v:SettingNodeView}}}"
                     VerticalOptions="Center" FontFamily="MaterialOutlined" Glyph="{x:Static mi:MaterialOutlined.Refresh}"
-                    Command="{Binding BindingContext.Settings.ResetSettingCommand, Source={RelativeSource AncestorType={x:Type v:SettingNodeView}}}"
+                    Command="{Binding MacroSet.Settings.ResetSettingCommand, Source={RelativeSource AncestorType={x:Type v:SettingNodeView}}}"
                     CommandParameter="{Binding .}" />
             </FlexLayout>
         </DataTemplate>
@@ -120,16 +119,16 @@
                             <Grid>
                                 <Label Margin="0" Padding="0" Text="{Binding Value}" VerticalOptions="Center" />
                                 <ImageButton Margin="0" Padding="0"
-                                    Command="{Binding BindingContext.Settings.SelectOptionCommand, Source={RelativeSource AncestorType={x:Type v:SettingNodeView}}}"
+                                    Command="{Binding MacroSet.Settings.SelectOptionCommand, Source={RelativeSource AncestorType={x:Type v:SettingNodeView}}}"
                                     CommandParameter="{Binding .}" />
                             </Grid>
                             <v:ImageView
                                 VerticalOptions="Center" FontFamily="MaterialOutlined" Glyph="{x:Static mi:MaterialOutlined.Edit}"
-                                Command="{Binding BindingContext.Settings.EditOptionCommand, Source={RelativeSource AncestorType={x:Type v:SettingNodeView}}}"
+                                Command="{Binding MacroSet.Settings.EditOptionCommand, Source={RelativeSource AncestorType={x:Type v:SettingNodeView}}}"
                                 CommandParameter="{Binding .}" />
                             <v:ImageView
                                 VerticalOptions="Center" FontFamily="MaterialOutlined" Glyph="{x:Static mi:MaterialOutlined.Add}"
-                                Command="{Binding BindingContext.Settings.AddOptionCommand, Source={RelativeSource AncestorType={x:Type v:SettingNodeView}}}"
+                                Command="{Binding MacroSet.Settings.AddOptionCommand, Source={RelativeSource AncestorType={x:Type v:SettingNodeView}}}"
                                 CommandParameter="{Binding .}" />
                         </HorizontalStackLayout>
                     </DataTemplate>
@@ -145,16 +144,16 @@
                             <Grid>
                                 <Label Margin="0" Padding="0" Text="{Binding Value}" VerticalOptions="Center" />
                                 <ImageButton Margin="0" Padding="0"
-                                    Command="{Binding BindingContext.Settings.SelectOptionCommand, Source={RelativeSource AncestorType={x:Type v:SettingNodeView}}}"
+                                    Command="{Binding MacroSet.Settings.SelectOptionCommand, Source={RelativeSource AncestorType={x:Type v:SettingNodeView}}}"
                                     CommandParameter="{Binding .}" />
                             </Grid>
                             <v:ImageView
                                 VerticalOptions="Center" FontFamily="MaterialOutlined" Glyph="{x:Static mi:MaterialOutlined.Edit}"
-                                Command="{Binding BindingContext.Settings.EditOptionCommand, Source={RelativeSource AncestorType={x:Type v:SettingNodeView}}}"
+                                Command="{Binding MacroSet.Settings.EditOptionCommand, Source={RelativeSource AncestorType={x:Type v:SettingNodeView}}}"
                                 CommandParameter="{Binding .}" />
                             <v:ImageView
                                 VerticalOptions="Center" FontFamily="MaterialOutlined" Glyph="{x:Static mi:MaterialOutlined.Add}"
-                                Command="{Binding BindingContext.Settings.AddOptionCommand, Source={RelativeSource AncestorType={x:Type v:SettingNodeView}}}"
+                                Command="{Binding MacroSet.Settings.AddOptionCommand, Source={RelativeSource AncestorType={x:Type v:SettingNodeView}}}"
                                 CommandParameter="{Binding .}" />
                         </HorizontalStackLayout>
                     </DataTemplate>
@@ -248,12 +247,12 @@
     </ContentView.Resources>
     <Grid ColumnDefinitions="*">
         <Grid.Triggers>
-            <DataTrigger TargetType="Grid" Binding="{Binding Settings.SelectedPatternNode, Converter={conv:NullToBoolConverter IsInverse=True}}" Value="True">
+            <DataTrigger TargetType="Grid" Binding="{Binding MacroSet.Settings.SelectedPatternNode, Source={Reference thisView}, Converter={conv:NullToBoolConverter IsInverse=True}}" Value="True">
                 <Setter Property="ColumnDefinitions" Value="*,3*" />
             </DataTrigger>
         </Grid.Triggers>
         <Border Grid.Column="0" Stroke="{StaticResource Primary}" BackgroundColor="Transparent" Padding="3">
-            <v:NodeView NodeManager="{Binding Settings}" IsMenuVisible="{Binding SubView, Converter={conv:NullToBoolConverter}, Source={Reference thisView}}"
+            <v:NodeView NodeManager="{Binding MacroSet.Settings, Source={Reference thisView}}" IsMenuVisible="{Binding SubView, Converter={conv:NullToBoolConverter}, Source={Reference thisView}}"
                         ItemTemplate="{conv:DynamicTemplateSelector Root={Binding .,Source={Reference thisView}}}">
                 <v:NodeView.Triggers>
                     <DataTrigger TargetType="{x:Type v:NodeView}" Binding="{Binding SubView, Converter={conv:NullToBoolConverter IsInverse=True}, Source={Reference thisView}}" Value="True">
@@ -263,18 +262,18 @@
                 <v:NodeView.ExtraMenuItemsDataTemplate>
                     <DataTemplate x:DataType="{x:Null}">
                         <VerticalStackLayout>
-                            <v:ImageView IsVisible="{Binding BindingContext.Settings.SelectedNode, Source={RelativeSource AncestorType={x:Type v:SettingNodeView}}, Converter={conv:NullToBoolConverter}}"
+                            <v:ImageView IsVisible="{Binding MacroSet.Settings.SelectedNode, Source={RelativeSource AncestorType={x:Type v:SettingNodeView}}, Converter={conv:NullToBoolConverter}}"
                                          FontFamily="FASolid" Glyph="{x:Static fa:Solid.FileImport}"
-                                         Command="{Binding  BindingContext.Settings.ImportSettingsCommand}" />
-                            <v:ImageView IsVisible="{Binding BindingContext.Settings.SelectedNode, Source={RelativeSource AncestorType={x:Type v:SettingNodeView}}, Converter={conv:NullToBoolConverter}}"
+                                         Command="{Binding  MacroSet.Settings.ImportSettingsCommand, Source={RelativeSource AncestorType={x:Type v:SettingNodeView}}}" />
+                            <v:ImageView IsVisible="{Binding MacroSet.Settings.SelectedNode, Source={RelativeSource AncestorType={x:Type v:SettingNodeView}}, Converter={conv:NullToBoolConverter}}"
                                          FontFamily="FASolid" Glyph="{x:Static fa:Solid.FileExport}" 
-                                         Command="{Binding  BindingContext.Settings.ExportCommand}"
-                                         CommandParameter="{Binding BindingContext.Name, Source={RelativeSource AncestorType={x:Type v:SettingNodeView}}}" />
+                                         Command="{Binding  MacroSet.Settings.ExportCommand, Source={RelativeSource AncestorType={x:Type v:SettingNodeView}}}"
+                                         CommandParameter="{Binding MacroSet.Name, Source={RelativeSource AncestorType={x:Type v:SettingNodeView}}}" />
                             <Grid>
                                 <v:ToggleImageView FontFamily="MaterialOutlined" Glyph="{x:Static mi:MaterialOutlined.Refresh}" ToggledColor="{StaticResource Primary}" 
-                                                   IsToggled="{Binding BindingContext.Settings.ShowResetButton, Source={RelativeSource AncestorType={x:Type v:SettingNodeView}}}"/>
+                                                   IsToggled="{Binding MacroSet.Settings.ShowResetButton, Source={RelativeSource AncestorType={x:Type v:SettingNodeView}}}"/>
                                 <v:ToggleImageView FontFamily="FASolid" Glyph="{x:Static fa:Solid.Eye}" ToggledColor="{StaticResource Primary}" 
-                                                   IsToggled="{Binding BindingContext.Settings.ShowResetButton, Source={RelativeSource AncestorType={x:Type v:SettingNodeView}}}"
+                                                   IsToggled="{Binding MacroSet.Settings.ShowResetButton, Source={RelativeSource AncestorType={x:Type v:SettingNodeView}}}"
                                                    Scale=".5"/>
                             </Grid>
                         </VerticalStackLayout>
@@ -283,21 +282,21 @@
             </v:NodeView>
         </Border>
         <Border Grid.Column="1" Stroke="{StaticResource Primary}" BackgroundColor="Transparent" Padding="3"
-                IsVisible="{Binding Settings.SelectedPatternNode, Converter={conv:NullToBoolConverter IsInverse=True}}">
+                IsVisible="{Binding MacroSet.Settings.SelectedPatternNode, Source={Reference thisView}, Converter={conv:NullToBoolConverter IsInverse=True}}">
             <v:PatternView 
-                PatternNode="{Binding Settings.SelectedPatternNode}"
-                Pattern="{Binding Settings.SelectedPattern}"
-                SavePatternCommand="{Binding Patterns.SavePatternCommand}"
-                SelectPatternCommand="{Binding Settings.SelectPatternCommand}"
-                CapturePatternCommand="{Binding Patterns.CapturePatternCommand}"
-                SetPatternBoundsCommand="{Binding Patterns.SetPatternBoundsCommand}"
-                ClickPatternCommand="{Binding Patterns.ClickPatternCommand}"
-                TestPatternCommand="{Binding Patterns.TestPatternCommand}"
-                AddPatternCommand="{Binding Patterns.AddPatternCommand}"
-                DeletePatternCommand="{Binding Patterns.DeletePatternCommand}"
-                ApplyColorThresholdCommand="{Binding Patterns.ApplyColorThresholdCommand}"
-                TestPatternTextMatchCommand="{Binding Patterns.TestPatternTextMatchCommand}"
-                ApplyPatternTextMatchCommand="{Binding Patterns.ApplyPatternTextMatchCommand}" />
+                PatternNode="{Binding MacroSet.Settings.SelectedPatternNode, Source={Reference thisView}}"
+                Pattern="{Binding MacroSet.Settings.SelectedPattern, Source={Reference thisView}}"
+                SavePatternCommand="{Binding MacroSet.Patterns.SavePatternCommand, Source={Reference thisView}}"
+                SelectPatternCommand="{Binding MacroSet.Settings.SelectPatternCommand, Source={Reference thisView}}"
+                CapturePatternCommand="{Binding MacroSet.Patterns.CapturePatternCommand, Source={Reference thisView}}"
+                SetPatternBoundsCommand="{Binding MacroSet.Patterns.SetPatternBoundsCommand, Source={Reference thisView}}"
+                ClickPatternCommand="{Binding MacroSet.Patterns.ClickPatternCommand, Source={Reference thisView}}"
+                TestPatternCommand="{Binding MacroSet.Patterns.TestPatternCommand, Source={Reference thisView}}"
+                AddPatternCommand="{Binding MacroSet.Patterns.AddPatternCommand, Source={Reference thisView}}"
+                DeletePatternCommand="{Binding MacroSet.Patterns.DeletePatternCommand, Source={Reference thisView}}"
+                ApplyColorThresholdCommand="{Binding MacroSet.Patterns.ApplyColorThresholdCommand, Source={Reference thisView}}"
+                TestPatternTextMatchCommand="{Binding MacroSet.Patterns.TestPatternTextMatchCommand, Source={Reference thisView}}"
+                ApplyPatternTextMatchCommand="{Binding MacroSet.Patterns.ApplyPatternTextMatchCommand, Source={Reference thisView}}" />
         </Border>
     </Grid>
 </ContentView>

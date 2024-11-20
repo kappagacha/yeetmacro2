@@ -5,13 +5,12 @@
              xmlns:vm="clr-namespace:YeetMacro2.ViewModels"
              xmlns:v="clr-namespace:YeetMacro2.Views"
              xmlns:conv="clr-namespace:YeetMacro2.Converters"
-             x:DataType="vm:MacroSetViewModel"
              xmlns:fa="clr-namespace:UraniumUI.Icons.FontAwesome;assembly=UraniumUI.Icons.FontAwesome"
              BackgroundColor="{AppThemeBinding Light={StaticResource Background}, Dark={StaticResource BackgroundDark}}"
              x:Name="thisControl">
     <Grid ColumnDefinitions="*,3*">
         <Border Grid.Column="0" Stroke="{StaticResource Primary}" BackgroundColor="Transparent" Padding="3">
-            <v:NodeView NodeManager="{Binding Patterns}">
+            <v:NodeView NodeManager="{Binding MacroSet.Patterns, Source={Reference thisControl}}">
                 <v:NodeView.ExtraMenuItemsDataTemplate>
                     <DataTemplate x:DataType="{x:Null}">
                         <VerticalStackLayout>
@@ -24,21 +23,21 @@
             </v:NodeView>
         </Border>
         <Border Grid.Column="1" Stroke="{StaticResource Primary}" BackgroundColor="Transparent" Padding="3"
-                IsVisible="{Binding Patterns.SelectedNode, Converter={conv:NullToBoolConverter IsInverse=True}}">
+                IsVisible="{Binding MacroSet.Patterns.SelectedNode, Source={Reference thisControl}, Converter={conv:NullToBoolConverter IsInverse=True}}">
             <v:PatternView 
-                PatternNode="{Binding Patterns.SelectedNode}"
-                Pattern="{Binding Patterns.SelectedPattern}"
-                SavePatternCommand="{Binding Patterns.SavePatternCommand}"
-                SelectPatternCommand="{Binding Patterns.SelectPatternCommand}"
-                CapturePatternCommand="{Binding Patterns.CapturePatternCommand}"
-                SetPatternBoundsCommand="{Binding Patterns.SetPatternBoundsCommand}"
-                ClickPatternCommand="{Binding Patterns.ClickPatternCommand}"
-                TestPatternCommand="{Binding Patterns.TestPatternCommand}"
-                AddPatternCommand="{Binding Patterns.AddPatternCommand}"
-                DeletePatternCommand="{Binding Patterns.DeletePatternCommand}"
-                ApplyColorThresholdCommand="{Binding Patterns.ApplyColorThresholdCommand}"
-                TestPatternTextMatchCommand="{Binding Patterns.TestPatternTextMatchCommand}"
-                ApplyPatternTextMatchCommand="{Binding Patterns.ApplyPatternTextMatchCommand}" />
+                PatternNode="{Binding MacroSet.Patterns.SelectedNode, Source={Reference thisControl}}"
+                Pattern="{Binding MacroSet.Patterns.SelectedPattern, Source={Reference thisControl}}"
+                SavePatternCommand="{Binding MacroSet.Patterns.SavePatternCommand, Source={Reference thisControl}}"
+                SelectPatternCommand="{Binding MacroSet.Patterns.SelectPatternCommand, Source={Reference thisControl}}"
+                CapturePatternCommand="{Binding MacroSet.Patterns.CapturePatternCommand, Source={Reference thisControl}}"
+                SetPatternBoundsCommand="{Binding MacroSet.Patterns.SetPatternBoundsCommand, Source={Reference thisControl}}"
+                ClickPatternCommand="{Binding MacroSet.Patterns.ClickPatternCommand, Source={Reference thisControl}}"
+                TestPatternCommand="{Binding MacroSet.Patterns.TestPatternCommand, Source={Reference thisControl}}"
+                AddPatternCommand="{Binding MacroSet.Patterns.AddPatternCommand, Source={Reference thisControl}}"
+                DeletePatternCommand="{Binding MacroSet.Patterns.DeletePatternCommand, Source={Reference thisControl}}"
+                ApplyColorThresholdCommand="{Binding MacroSet.Patterns.ApplyColorThresholdCommand, Source={Reference thisControl}}"
+                TestPatternTextMatchCommand="{Binding MacroSet.Patterns.TestPatternTextMatchCommand, Source={Reference thisControl}}"
+                ApplyPatternTextMatchCommand="{Binding MacroSet.Patterns.ApplyPatternTextMatchCommand, Source={Reference thisControl}}" />
         </Border>
     </Grid>
 </ContentView>

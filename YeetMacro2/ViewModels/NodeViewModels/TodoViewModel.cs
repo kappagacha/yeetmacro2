@@ -214,7 +214,6 @@ public class TodoJsonParentViewModelJsonConverter() : JsonConverter<TodoJsonElem
             if (reader.TokenType == JsonTokenType.PropertyName) 
             {
                 var prop = reader.GetString();
-                Console.WriteLine(prop);
                 reader.Read();
 
                 if (reader.TokenType == JsonTokenType.False || reader.TokenType == JsonTokenType.True)
