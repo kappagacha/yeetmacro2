@@ -41,7 +41,7 @@ jobs:
         run: |
           echo 'Target Version: ${{ env.NEW_VERSION }}'
           dotnet publish `
-                -f:net8.0-android `
+                -f:net9.0-android `
                 -c:Release `
                 /p:ApplicationDisplayVersion=${{ env.NEW_VERSION }} `
                 /p:ApplicationVersion=${{ env.NEW_VERSION }} `
@@ -63,5 +63,5 @@ jobs:
         with:
           body: Version ${{ github.run_number }}
           tag_name: "latest"
-          files: YeetMacro2/bin/Release/net8.0-android/*-Signed.apk
+          files: YeetMacro2/bin/Release/net9.0-android/*-Signed.apk
           #files: YeetMacro2/bin/Release/net8.0-android/com.yeetoverflow.yeetmacro2-Signed.apk
