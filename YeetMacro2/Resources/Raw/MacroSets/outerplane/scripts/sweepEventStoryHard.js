@@ -1,5 +1,5 @@
 // Sweep event story hard
-const loopPatterns = [patterns.lobby.level, patterns.titles.adventure, patterns.titles.eventStory];
+const loopPatterns = [patterns.lobby.level, patterns.titles.adventure, patterns.event.story.enter];
 const daily = dailyManager.GetCurrentDaily();
 const resolution = macroService.GetCurrentResolution();
 const teamSlot = settings.sweepEventStoryHard.teamSlot.Value;
@@ -31,7 +31,7 @@ while (macroService.IsRunning) {
 			macroService.ClickPattern(patterns.adventure.event);
 			sleep(500);
 			break;
-		case 'titles.eventStory':
+		case 'event.story.enter':
 			logger.info('sweepEventStoryHard: sweep event hard stages');
 			macroService.PollPattern(patterns.event.story.enter, { DoClick: true, InversePredicatePattern: patterns.event.story.enter });
 			const storyPartSwipeResult = macroService.SwipePollPattern(targetPartPattern, { Start: { X: 1000, Y: 800 }, End: { X: 500, Y: 800 } });
