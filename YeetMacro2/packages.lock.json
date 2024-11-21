@@ -145,16 +145,6 @@
         "resolved": "3.0.271",
         "contentHash": "pqpqeK8xQGggExhr4tesVgJkjdn+9HQAO0QgrYV2hFjE3y90okzk1kQMntMiUOGfV7FrCUfKPaVvPBD4IANqKg=="
       },
-      "OpenCvSharp4.Windows": {
-        "type": "Direct",
-        "requested": "[4.10.0.20241108, )",
-        "resolved": "4.10.0.20241108",
-        "contentHash": "icKN1+zHQdKY/yTKgd4o2dN3eCF6hq174/mu2+vrwcwOVg+3gT0egNAVaQqc58xNQRp04cBgR1yOD3rchG+U/A==",
-        "dependencies": {
-          "OpenCvSharp4": "4.10.0.20241108",
-          "OpenCvSharp4.runtime.win": "4.10.0.20241108"
-        }
-      },
       "SkiaSharp.Views.Maui.Controls": {
         "type": "Direct",
         "requested": "[2.88.9, )",
@@ -476,20 +466,6 @@
         "resolved": "9.0.0",
         "contentHash": "z8FfGIaoeALdD+KF44A2uP8PZIQQtDGiXsOLuN8nohbKhkyKt7zGaZb+fKiCxTuBqG22Q7myIAioSWaIcOOrOw=="
       },
-      "OpenCvSharp4": {
-        "type": "Transitive",
-        "resolved": "4.10.0.20241108",
-        "contentHash": "4Lw57NQzOaR0fi9et7GMWB1rpdGzGuNgXHXy45Gltvt8SizQLOGufUonNF9Z+9mo3dcwGC/mL4w5NBgJCqZdHQ==",
-        "dependencies": {
-          "System.Memory": "4.5.5",
-          "System.Runtime.CompilerServices.Unsafe": "6.0.0"
-        }
-      },
-      "OpenCvSharp4.runtime.win": {
-        "type": "Transitive",
-        "resolved": "4.10.0.20241108",
-        "contentHash": "0ae2dwel83tqKlAs45D3KYncoJHRzj1ArEESa6wz7FS3tYu37JDIb5yoMIZPzlkx3Gx2S1BjUrClfXbBHmVh5g=="
-      },
       "SkiaSharp": {
         "type": "Transitive",
         "resolved": "2.88.9",
@@ -552,22 +528,22 @@
       },
       "System.Buffers": {
         "type": "Transitive",
-        "resolved": "4.5.1",
-        "contentHash": "Rw7ijyl1qqRS0YQD/WycNst8hUUMgrMH4FCn1nNm27M4VxchZ1js3fVjQaANHO5f3sN4isvP4a+Met9Y4YomAg=="
+        "resolved": "4.4.0",
+        "contentHash": "AwarXzzoDwX6BgrhjoJsk6tUezZEozOT5Y9QKF94Gl4JK91I4PIIBkBco9068Y9/Dra8Dkbie99kXB8+1BaYKw=="
       },
       "System.Memory": {
         "type": "Transitive",
-        "resolved": "4.5.5",
-        "contentHash": "XIWiDvKPXaTveaB7HVganDlOCRoj03l+jrwNvcge/t8vhGYKvqV+dMv6G4SAX2NoNmN0wZfVPTAlFwZcZvVOUw==",
+        "resolved": "4.5.3",
+        "contentHash": "3oDzvc/zzetpTKWMShs1AADwZjQ/36HnsufHRPcOjyRAAMLDlu2iD33MBI2opxnezcVUtXyqDXXjoFMOU9c7SA==",
         "dependencies": {
-          "System.Buffers": "4.5.1",
-          "System.Runtime.CompilerServices.Unsafe": "4.5.3"
+          "System.Buffers": "4.4.0",
+          "System.Runtime.CompilerServices.Unsafe": "4.5.2"
         }
       },
       "System.Runtime.CompilerServices.Unsafe": {
         "type": "Transitive",
-        "resolved": "6.0.0",
-        "contentHash": "/iUeP3tq1S0XdNNoMz5C9twLSrM/TH+qElHkXWaPvuNOt+99G75NrV0OS2EqHx5wMN7popYjpc8oTjC1y16DLg=="
+        "resolved": "4.5.2",
+        "contentHash": "wprSFgext8cwqymChhrBLu62LMg/1u92bU+VOwyfBimSPVFXtsNqEWC92Pf9ofzJFlk4IHmJA75EDJn1b2goAQ=="
       },
       "System.Text.Json": {
         "type": "Transitive",
@@ -1537,11 +1513,6 @@
         "resolved": "9.0.0",
         "contentHash": "z8FfGIaoeALdD+KF44A2uP8PZIQQtDGiXsOLuN8nohbKhkyKt7zGaZb+fKiCxTuBqG22Q7myIAioSWaIcOOrOw=="
       },
-      "OpenCvSharp4.runtime.win": {
-        "type": "Transitive",
-        "resolved": "4.10.0.20241108",
-        "contentHash": "0ae2dwel83tqKlAs45D3KYncoJHRzj1ArEESa6wz7FS3tYu37JDIb5yoMIZPzlkx3Gx2S1BjUrClfXbBHmVh5g=="
-      },
       "SkiaSharp.NativeAssets.Android": {
         "type": "Transitive",
         "resolved": "2.88.9",
@@ -1554,11 +1525,6 @@
         "resolved": "9.0.0",
         "contentHash": "z8FfGIaoeALdD+KF44A2uP8PZIQQtDGiXsOLuN8nohbKhkyKt7zGaZb+fKiCxTuBqG22Q7myIAioSWaIcOOrOw=="
       },
-      "OpenCvSharp4.runtime.win": {
-        "type": "Transitive",
-        "resolved": "4.10.0.20241108",
-        "contentHash": "0ae2dwel83tqKlAs45D3KYncoJHRzj1ArEESa6wz7FS3tYu37JDIb5yoMIZPzlkx3Gx2S1BjUrClfXbBHmVh5g=="
-      },
       "SkiaSharp.NativeAssets.Android": {
         "type": "Transitive",
         "resolved": "2.88.9",
@@ -1570,11 +1536,6 @@
         "type": "Transitive",
         "resolved": "9.0.0",
         "contentHash": "z8FfGIaoeALdD+KF44A2uP8PZIQQtDGiXsOLuN8nohbKhkyKt7zGaZb+fKiCxTuBqG22Q7myIAioSWaIcOOrOw=="
-      },
-      "OpenCvSharp4.runtime.win": {
-        "type": "Transitive",
-        "resolved": "4.10.0.20241108",
-        "contentHash": "0ae2dwel83tqKlAs45D3KYncoJHRzj1ArEESa6wz7FS3tYu37JDIb5yoMIZPzlkx3Gx2S1BjUrClfXbBHmVh5g=="
       },
       "SkiaSharp.NativeAssets.Android": {
         "type": "Transitive",
@@ -1719,16 +1680,6 @@
         "requested": "[3.0.271, )",
         "resolved": "3.0.271",
         "contentHash": "pqpqeK8xQGggExhr4tesVgJkjdn+9HQAO0QgrYV2hFjE3y90okzk1kQMntMiUOGfV7FrCUfKPaVvPBD4IANqKg=="
-      },
-      "OpenCvSharp4.Windows": {
-        "type": "Direct",
-        "requested": "[4.10.0.20241108, )",
-        "resolved": "4.10.0.20241108",
-        "contentHash": "icKN1+zHQdKY/yTKgd4o2dN3eCF6hq174/mu2+vrwcwOVg+3gT0egNAVaQqc58xNQRp04cBgR1yOD3rchG+U/A==",
-        "dependencies": {
-          "OpenCvSharp4": "4.10.0.20241108",
-          "OpenCvSharp4.runtime.win": "4.10.0.20241108"
-        }
       },
       "SkiaSharp.Views.Maui.Controls": {
         "type": "Direct",
@@ -2071,20 +2022,6 @@
           "Microsoft.Windows.SDK.BuildTools": "10.0.22621.756"
         }
       },
-      "OpenCvSharp4": {
-        "type": "Transitive",
-        "resolved": "4.10.0.20241108",
-        "contentHash": "4Lw57NQzOaR0fi9et7GMWB1rpdGzGuNgXHXy45Gltvt8SizQLOGufUonNF9Z+9mo3dcwGC/mL4w5NBgJCqZdHQ==",
-        "dependencies": {
-          "System.Memory": "4.5.5",
-          "System.Runtime.CompilerServices.Unsafe": "6.0.0"
-        }
-      },
-      "OpenCvSharp4.runtime.win": {
-        "type": "Transitive",
-        "resolved": "4.10.0.20241108",
-        "contentHash": "0ae2dwel83tqKlAs45D3KYncoJHRzj1ArEESa6wz7FS3tYu37JDIb5yoMIZPzlkx3Gx2S1BjUrClfXbBHmVh5g=="
-      },
       "SkiaSharp": {
         "type": "Transitive",
         "resolved": "2.88.9",
@@ -2160,13 +2097,8 @@
       },
       "System.Memory": {
         "type": "Transitive",
-        "resolved": "4.5.5",
-        "contentHash": "XIWiDvKPXaTveaB7HVganDlOCRoj03l+jrwNvcge/t8vhGYKvqV+dMv6G4SAX2NoNmN0wZfVPTAlFwZcZvVOUw=="
-      },
-      "System.Runtime.CompilerServices.Unsafe": {
-        "type": "Transitive",
-        "resolved": "6.0.0",
-        "contentHash": "/iUeP3tq1S0XdNNoMz5C9twLSrM/TH+qElHkXWaPvuNOt+99G75NrV0OS2EqHx5wMN7popYjpc8oTjC1y16DLg=="
+        "resolved": "4.5.3",
+        "contentHash": "3oDzvc/zzetpTKWMShs1AADwZjQ/36HnsufHRPcOjyRAAMLDlu2iD33MBI2opxnezcVUtXyqDXXjoFMOU9c7SA=="
       },
       "System.Speech": {
         "type": "Transitive",
@@ -2206,11 +2138,6 @@
           "Microsoft.Web.WebView2": "1.0.2651.64",
           "Microsoft.Windows.SDK.BuildTools": "10.0.22621.756"
         }
-      },
-      "OpenCvSharp4.runtime.win": {
-        "type": "Transitive",
-        "resolved": "4.10.0.20241108",
-        "contentHash": "0ae2dwel83tqKlAs45D3KYncoJHRzj1ArEESa6wz7FS3tYu37JDIb5yoMIZPzlkx3Gx2S1BjUrClfXbBHmVh5g=="
       },
       "SkiaSharp.NativeAssets.macOS": {
         "type": "Transitive",
@@ -2266,11 +2193,6 @@
           "Microsoft.Windows.SDK.BuildTools": "10.0.22621.756"
         }
       },
-      "OpenCvSharp4.runtime.win": {
-        "type": "Transitive",
-        "resolved": "4.10.0.20241108",
-        "contentHash": "0ae2dwel83tqKlAs45D3KYncoJHRzj1ArEESa6wz7FS3tYu37JDIb5yoMIZPzlkx3Gx2S1BjUrClfXbBHmVh5g=="
-      },
       "SkiaSharp.NativeAssets.macOS": {
         "type": "Transitive",
         "resolved": "2.88.9",
@@ -2324,11 +2246,6 @@
           "Microsoft.Web.WebView2": "1.0.2651.64",
           "Microsoft.Windows.SDK.BuildTools": "10.0.22621.756"
         }
-      },
-      "OpenCvSharp4.runtime.win": {
-        "type": "Transitive",
-        "resolved": "4.10.0.20241108",
-        "contentHash": "0ae2dwel83tqKlAs45D3KYncoJHRzj1ArEESa6wz7FS3tYu37JDIb5yoMIZPzlkx3Gx2S1BjUrClfXbBHmVh5g=="
       },
       "SkiaSharp.NativeAssets.macOS": {
         "type": "Transitive",
