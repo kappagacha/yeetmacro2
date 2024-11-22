@@ -24,8 +24,8 @@ while (macroService.IsRunning) {
 		case 'arena.calculationsInProgress':
 			return;
 		case 'titles.arena':
-			const numTicketsZeroResult = macroService.FindPattern(patterns.arena.numTicketsZero)
-			if (numTicketsZeroResult.IsSuccess) {
+			const numTicketsZeroResult1 = macroService.FindPattern(patterns.arena.numTicketsZero)
+			if (numTicketsZeroResult1.IsSuccess) {
 				return;
 			} else {
 				macroService.ClickPattern(patterns.arena.arena);
@@ -33,8 +33,8 @@ while (macroService.IsRunning) {
 			break;
 		case 'arena.challenge1':
 		case 'arena.matchOpponent':
-			const numTicketsZeroResult = macroService.FindPattern(patterns.arena.numTicketsZero2)
-			if (numTicketsZeroResult.IsSuccess) {
+			const numTicketsZeroResult2 = macroService.FindPattern(patterns.arena.numTicketsZero2)
+			if (numTicketsZeroResult2.IsSuccess) {
 				return;
 			}
 
