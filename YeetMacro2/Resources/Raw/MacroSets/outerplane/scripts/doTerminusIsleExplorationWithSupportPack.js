@@ -185,9 +185,8 @@ function getOrderNames() {
 }
 
 function doExplorations() {
-	let confirmResult = macroService.PollPattern(patterns.terminusIsle.confirm, { TimeoutMs: 3_000 });
-	while (confirmResult.IsSuccess) {
-		confirmResult = macroService.PollPattern(patterns.terminusIsle.confirm, {
+	for (let i = 0; i < 5; i++) {
+		const confirmResult = macroService.PollPattern(patterns.terminusIsle.confirm, {
 			DoClick: true, ClickOffset: { X: -20, Y: -20 }, PredicatePattern: [
 				patterns.terminusIsle.prompt.next,
 				patterns.terminusIsle.prompt.treasureChestFound,
@@ -231,8 +230,6 @@ function doExplorations() {
 				macroService.PollPattern(patterns.general.tapEmptySpace, { DoClick: true, PredicatePattern: patterns.terminusIsle.stage });
 				break;
 		}
-
-		confirmResult = macroService.PollPattern(patterns.terminusIsle.confirm, { TimeoutMs: 3_000 });
 	}
 }
 
