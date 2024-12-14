@@ -31,35 +31,36 @@ while (macroService.IsRunning) {
 			if (settings.doShop.doArtifact.Value && !daily.doShop.doArtifact.done.IsChecked) {
 				logger.info('doShop: artifact');
 
-				for (let i = 0; i < 4; i++) {
-					macroService.PollPattern(patterns.shop.artifact, { DoClick: true, PredicatePattern: patterns.shop.artifact.selected });
-					macroService.DoSwipe({ X: 1600, Y: 850 }, { X: 1600, Y: 300 });
-					sleep(2_000);
+				const cost1500Result = macroService.FindPattern(patterns.shop.artifact.cost1500, { Limit: 4 });
 
-					const cost1500Result = macroService.PollPattern(patterns.shop.artifact.cost1500);
+				for (const p of cost1500Result.Points) {
 					let shopBuyResult = { IsSuccess: false };
 					while (macroService.IsRunning && !shopBuyResult.IsSuccess) {
-						macroService.DoClick(cost1500Result.Point);
+						macroService.DoClick(p);
 						sleep(1_000);
 						shopBuyResult = macroService.FindPattern(patterns.shop.buy);
 						sleep(1_000);
 					}
 					macroService.PollPattern(patterns.shop.artifact.buy, { DoClick: true, ClickOffset: { Y: 50 }, PredicatePattern: patterns.general.back });
-
-					//const cost1500Result = macroService.FindPattern(patterns.shop.artifact.cost1500, { Limit: 4 });
-
-					//for (const p of cost1500Result.Points) {
-					//	let shopBuyResult = { IsSuccess: false };
-					//	while (macroService.IsRunning && !shopBuyResult.IsSuccess) {
-					//		macroService.DoClick(p);
-					//		sleep(1_000);
-					//		shopBuyResult = macroService.FindPattern(patterns.shop.buy);
-					//		sleep(1_000);
-					//	}
-					//	macroService.PollPattern(patterns.shop.artifact.buy, { DoClick: true, ClickOffset: { Y: 50 }, PredicatePattern: patterns.general.back });
-					//}
-					sleep(1_000);
 				}
+
+				//for (let i = 0; i < 4; i++) {
+				//	macroService.PollPattern(patterns.shop.artifact, { DoClick: true, PredicatePattern: patterns.shop.artifact.selected });
+				//	macroService.DoSwipe({ X: 1600, Y: 850 }, { X: 1600, Y: 300 });
+				//	sleep(2_000);
+
+				//	const cost1500Result = macroService.PollPattern(patterns.shop.artifact.cost1500);
+				//	let shopBuyResult = { IsSuccess: false };
+				//	while (macroService.IsRunning && !shopBuyResult.IsSuccess) {
+				//		macroService.DoClick(cost1500Result.Point);
+				//		sleep(1_000);
+				//		shopBuyResult = macroService.FindPattern(patterns.shop.buy);
+				//		sleep(1_000);
+				//	}
+				//	macroService.PollPattern(patterns.shop.artifact.buy, { DoClick: true, ClickOffset: { Y: 50 }, PredicatePattern: patterns.general.back });
+
+				//	sleep(1_000);
+				//}
 
 				if (macroService.IsRunning) {
 					daily.doShop.doArtifact.done.IsChecked = true;
