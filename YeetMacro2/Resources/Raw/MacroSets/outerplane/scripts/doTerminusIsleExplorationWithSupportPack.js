@@ -31,12 +31,12 @@ while (macroService.IsRunning) {
 			break;
 		case 'terminusIsle.stage':
 			logger.info('doTerminusIsleExplorationWithSupportPack: executeBonusOrders');
-			executeBonusOrders();
-
 			const maxExplorationChances2Result = macroService.FindPattern(patterns.terminusIsle.maxExplorationChances2);
-			if (maxExplorationChances2Result.IsSuccess) {
+			if (!maxExplorationChances2Result.IsSuccess) {
 				throw new Error('Did not detect max exploration chance of 2. Make sure you have Exploration support pack')
 			}
+
+			executeBonusOrders();
 
 			let zeroExplorationChanceResult = macroService.FindPattern(patterns.terminusIsle.zeroExplorationChances);
 			while (!zeroExplorationChanceResult.IsSuccess) {
