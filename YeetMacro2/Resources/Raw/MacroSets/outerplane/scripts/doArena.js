@@ -45,41 +45,45 @@ while (macroService.IsRunning) {
 
 				if (settings.doArena.skipMemorialMatch.Value) {
 					macroService.PollPattern(patterns.arena.memorialMatch.sweepAll, { DoClick: true, PredicatePattern: patterns.arena.memorialMatch.sweepAll.title });
-					for (let i = 0; i < 3; i++) {
-						let uncheckedResult = macroService.FindPattern(patterns.arena.memorialMatch.sweepAll.unchecked, { Limit: 3 });
-						if (uncheckedResult.IsSuccess) {
-							for (const p of uncheckedResult.Points) {
-								if (macroService.FindPattern(patterns.arena.memorialMatch.sweepAll.negative).IsSuccess) break;
-								macroService.DoClick(p);
-								sleep(1_000);
-							}
-						}
-						macroService.DoSwipe({ X: 1300, Y: 730 }, { X: 1300, Y: 230 });
-						sleep(1_000);
-
-						if (macroService.FindPattern(patterns.arena.memorialMatch.sweepAll.negative).IsSuccess) break;
-					}
-
-					if (macroService.FindPattern(patterns.arena.memorialMatch.sweepAll.negative).IsSuccess) {
-						for (let i = 0; i < 3; i++) {
-							let checkedResult = macroService.FindPattern(patterns.arena.memorialMatch.sweepAll.checked, { Limit: 3 });
-							if (checkedResult.IsSuccess) {
-								for (const p of checkedResult.Points) {
-									if (!macroService.FindPattern(patterns.arena.memorialMatch.sweepAll.negative).IsSuccess) break;
-
-									macroService.DoClick(p);
-									sleep(1_000);
-								}
-							}
-							macroService.DoSwipe({ X: 1300, Y: 230 }, { X: 1300, Y: 730 });
-							sleep(1_000);
-
-							if (!macroService.FindPattern(patterns.arena.memorialMatch.sweepAll.negative).IsSuccess) break;
-						}
-					}
-
 					macroService.PollPattern(patterns.arena.memorialMatch.sweepAll.sweep, { DoClick: true, PredicatePattern: patterns.arena.memorialMatch.sweepAll.ok });
-					macroService.PollPattern(patterns.arena.memorialMatch.sweepAll.ok, { DoClick: true, PredicatePattern: [patterns.arena.memorialMatch.sweepAll, patterns.arena.memorialMatch.sweepAll.disabled] });
+					macroService.PollPattern(patterns.arena.memorialMatch.sweepAll.ok, { DoClick: true, InversePredicatePattern: patterns.arena.memorialMatch.sweepAll.ok });
+
+					//macroService.PollPattern(patterns.arena.memorialMatch.sweepAll, { DoClick: true, PredicatePattern: patterns.arena.memorialMatch.sweepAll.title });
+					//for (let i = 0; i < 3; i++) {
+					//	let uncheckedResult = macroService.FindPattern(patterns.arena.memorialMatch.sweepAll.unchecked, { Limit: 3 });
+					//	if (uncheckedResult.IsSuccess) {
+					//		for (const p of uncheckedResult.Points) {
+					//			if (macroService.FindPattern(patterns.arena.memorialMatch.sweepAll.negative).IsSuccess) break;
+					//			macroService.DoClick(p);
+					//			sleep(1_000);
+					//		}
+					//	}
+					//	macroService.DoSwipe({ X: 1300, Y: 730 }, { X: 1300, Y: 230 });
+					//	sleep(1_000);
+
+					//	if (macroService.FindPattern(patterns.arena.memorialMatch.sweepAll.negative).IsSuccess) break;
+					//}
+
+					//if (macroService.FindPattern(patterns.arena.memorialMatch.sweepAll.negative).IsSuccess) {
+					//	for (let i = 0; i < 3; i++) {
+					//		let checkedResult = macroService.FindPattern(patterns.arena.memorialMatch.sweepAll.checked, { Limit: 3 });
+					//		if (checkedResult.IsSuccess) {
+					//			for (const p of checkedResult.Points) {
+					//				if (!macroService.FindPattern(patterns.arena.memorialMatch.sweepAll.negative).IsSuccess) break;
+
+					//				macroService.DoClick(p);
+					//				sleep(1_000);
+					//			}
+					//		}
+					//		macroService.DoSwipe({ X: 1300, Y: 230 }, { X: 1300, Y: 730 });
+					//		sleep(1_000);
+
+					//		if (!macroService.FindPattern(patterns.arena.memorialMatch.sweepAll.negative).IsSuccess) break;
+					//	}
+					//}
+
+					//macroService.PollPattern(patterns.arena.memorialMatch.sweepAll.sweep, { DoClick: true, PredicatePattern: patterns.arena.memorialMatch.sweepAll.ok });
+					//macroService.PollPattern(patterns.arena.memorialMatch.sweepAll.ok, { DoClick: true, PredicatePattern: [patterns.arena.memorialMatch.sweepAll, patterns.arena.memorialMatch.sweepAll.disabled] });
 				} else {
 					macroService.PollPattern(patterns.arena.challenge1, { DoClick: true, PredicatePattern: patterns.arena.enter });
 					selectTeam(teamSlot);

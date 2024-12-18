@@ -14,8 +14,22 @@ while (macroService.IsRunning) {
 	switch (loopResult.Path) {
 		case 'lobby.level':
 			logger.info('claimAntiparticle: click base tab');
-			const recruitNotificationResult = macroService.PollPattern(patterns.tabs.base.notification, { TimeoutMs: 2_000 });
-			if (recruitNotificationResult.IsSuccess) {
+
+			const obtainAntiParticleResult = macroService.PollPattern(patterns.lobby.obtainAntiParticle, { DoClick: true, PredicatePattern: patterns.lobby.obtainAntiParticle.receiveReward, TimeoutMs: 3_000 });
+			if (obtainAntiParticleResult.IsSuccess) {
+				macroService.PollPattern(patterns.lobby.obtainAntiParticle.receiveReward, { DoClick: true, PredicatePattern: patterns.general.tapEmptySpace });
+				macroService.PollPattern(patterns.general.tapEmptySpace, { DoClick: true, PredicatePattern: patterns.lobby.level });
+
+				if (macroService.IsRunning) {
+					daily.claimAntiparticle.count.Count++;
+					settings.claimAntiparticle.lastRun.Value = new Date().toISOString();
+				}
+
+				return;
+			}
+
+			const baseNotificationResult = macroService.PollPattern(patterns.tabs.base.notification, { TimeoutMs: 2_000 });
+			if (baseNotificationResult.IsSuccess) {
 				macroService.ClickPattern(patterns.tabs.base);
 			} else {	// already claimed
 				return;
