@@ -27,24 +27,38 @@ const userClickPattern = macroService.ClonePattern(settings.goToLobby.userClickP
 //claimEventDailyMissions
 // => patterns.event.close
 
-macroService.PollPattern(patterns.lobby.level, {
-	ClickPattern: [
-		patterns.general.back,
-		patterns.battle.setup.enter.ok,
-		patterns.battle.exit,
-		patterns.stamina.cancel,
-		patterns.event.close,
-		patterns.challenge.specialRequest.sweepAll.cancel,
-		patterns.lobby.expedition.searchAgain,
-		patterns.general.startMessageClose,
-		patterns.general.tapEmptySpace,
-		patterns.general.exitCheckIn,
-		patterns.friends.ok,
-		patterns.login.downloadPatch,
-		patterns.login.touchToStart,
-		userClickPattern
-	]
-});
+const loopPatterns = [patterns.lobby.level, patterns.lobby.expedition];
+const clickPatterns = [
+	patterns.general.back,
+	patterns.battle.setup.enter.ok,
+	patterns.battle.exit,
+	patterns.stamina.cancel,
+	patterns.event.close,
+	patterns.challenge.specialRequest.sweepAll.cancel,
+	//patterns.lobby.expedition.searchAgain,
+	patterns.general.startMessageClose,
+	patterns.general.tapEmptySpace,
+	patterns.general.exitCheckIn,
+	patterns.friends.ok,
+	patterns.login.downloadPatch,
+	patterns.login.touchToStart,
+	userClickPattern
+]
+
+while (macroService.IsRunning) {
+	const loopResult = macroService.PollPattern(loopPatterns, { ClickPattern: clickPatterns });
+	switch (loopResult.Path) {
+		case 'lobby.level':
+			break;
+		case 'lobby.expedition':
+			logger.info('goToLobby: expedition');
+			macroService.PollPattern(patterns.lobby.expedition.researchAll, { DoClick: true, PredicatePattern: patterns.lobby.expedition.researchAll.disabled });
+			macroService.PollPattern(patterns.lobby.expedition.close, { DoClick: true, PredicatePattern: patterns.lobby.level });
+			break;
+	}
+	sleep(1_000);
+}
+
 if (macroService.IsRunning) {
 	logger.info('goToLobby: done');
 }
