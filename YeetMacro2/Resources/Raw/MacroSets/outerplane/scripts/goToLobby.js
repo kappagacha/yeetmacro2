@@ -49,16 +49,14 @@ while (macroService.IsRunning) {
 	const loopResult = macroService.PollPattern(loopPatterns, { ClickPattern: clickPatterns });
 	switch (loopResult.Path) {
 		case 'lobby.level':
-			break;
+			logger.info('goToLobby: done');
+			return;
 		case 'lobby.expedition':
 			logger.info('goToLobby: expedition');
 			macroService.PollPattern(patterns.lobby.expedition.researchAll, { DoClick: true, PredicatePattern: patterns.lobby.expedition.researchAll.disabled });
 			macroService.PollPattern(patterns.lobby.expedition.close, { DoClick: true, PredicatePattern: patterns.lobby.level });
-			break;
+			logger.info('goToLobby: done');
+			return;
 	}
 	sleep(1_000);
-}
-
-if (macroService.IsRunning) {
-	logger.info('goToLobby: done');
 }
