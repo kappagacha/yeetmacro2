@@ -115,10 +115,10 @@ while (macroService.IsRunning) {
 					//const maxIdx = challenges.reduce((maxIdx, val, idx) => val && val <= cpThreshold && val > challenges[maxIdx] ? idx : maxIdx, 2);
 					
 					logger.info(`doArena: normal match challenge ${targetIdx + 1}  [${cpThreshold}] ~${challenge1CP}~~${challenge2CP}~~${challenge3CP}~`);
-					macroService.PollPattern(patterns.arena[`challenge${targetIdx + 1}`], { DoClick: true, PredicatePattern: patterns.arena.enter });
+					macroService.PollPattern(patterns.arena[`challenge${targetIdx + 1}`], { DoClick: true, ClickPattern: clickPattern, PredicatePattern: patterns.arena.enter });
 				} else {
 					logger.info('doArena: normal match challenge 3');
-					macroService.PollPattern(patterns.arena.challenge3, { DoClick: true, PredicatePattern: patterns.arena.enter });
+					macroService.PollPattern(patterns.arena.challenge3, { DoClick: true, ClickPattern: clickPattern, PredicatePattern: patterns.arena.enter });
 				}
 				
 				if (autoDetectCpThreshold) {

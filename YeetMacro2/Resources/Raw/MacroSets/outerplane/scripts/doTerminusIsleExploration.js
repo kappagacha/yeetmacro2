@@ -38,7 +38,7 @@ while (macroService.IsRunning) {
 			let confirmResult = macroService.PollPattern(patterns.terminusIsle.confirm, { TimeoutMs: 3_000 });
 			while (confirmResult.IsSuccess) {
 				confirmResult = macroService.PollPattern(patterns.terminusIsle.confirm, {
-					DoClick: true, ClickOffset: { X: -20, Y: -20 }, PredicatePattern: [
+					DoClick: true, ClickOffset: { X: -25, Y: -25 }, PredicatePattern: [
 						patterns.terminusIsle.prompt.next,
 						patterns.terminusIsle.prompt.treasureChestFound,
 						patterns.terminusIsle.prompt.explorationFailed,

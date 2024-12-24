@@ -53,8 +53,8 @@ while (macroService.IsRunning) {
 			return;
 		case 'lobby.expedition':
 			logger.info('goToLobby: expedition');
-			macroService.PollPattern(patterns.lobby.expedition.researchAll, { DoClick: true, PredicatePattern: patterns.lobby.expedition.researchAll.disabled });
-			macroService.PollPattern(patterns.lobby.expedition.close, { DoClick: true, PredicatePattern: patterns.lobby.level });
+			macroService.PollPattern(patterns.lobby.expedition.researchAll, { DoClick: true, ClickPattern: patterns.general.tapEmptySpace, PredicatePattern: patterns.lobby.expedition.researchAll.disabled });
+			macroService.PollPattern(patterns.lobby.expedition.close, { DoClick: true, ClickPattern: patterns.general.tapEmptySpace, PredicatePattern: patterns.lobby.level });
 			logger.info('goToLobby: done');
 			return;
 	}

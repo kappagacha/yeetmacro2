@@ -192,7 +192,7 @@ function getOrderNames() {
 function doExplorations() {
 	for (let i = 0; i < 5; i++) {
 		const confirmResult = macroService.PollPattern(patterns.terminusIsle.confirm, {
-			DoClick: true, ClickOffset: { X: -20, Y: -20 }, PredicatePattern: [
+			DoClick: true, ClickOffset: { X: -25, Y: -25 }, PredicatePattern: [
 				patterns.terminusIsle.prompt.next,
 				patterns.terminusIsle.prompt.treasureChestFound,
 				patterns.terminusIsle.prompt.explorationFailed,
