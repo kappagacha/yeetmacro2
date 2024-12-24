@@ -15564,7 +15564,46 @@
         "$isMultiPattern": false,
         "$position": 0,
         "$name": "craft",
-        "$path": "base.katesWorkshop.craft"
+        "$path": "base.katesWorkshop.craft",
+        "disabled": {
+          "$patterns": [
+            {
+              "rect": {
+                "x": 1681.60546875,
+                "y": 982.0546875,
+                "width": 34.69921875,
+                "height": 29.25
+              },
+              "resolution": {
+                "width": 1920,
+                "height": 1080
+              },
+              "isBoundsPattern": false,
+              "name": "pattern",
+              "imageData": "/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDAAEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQH/2wBDAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQH/wAARCAAdACIDASIAAhEBAxEB/8QAGgAAAgMBAQAAAAAAAAAAAAAACAkABAUHA//EAC0QAAICAQQBAwIEBwAAAAAAAAECAwQFBgcREgAIEyEUkRUkUVIiIzFBU9Hw/8QAFQEBAQAAAAAAAAAAAAAAAAAAAAH/xAAaEQEAAQUAAAAAAAAAAAAAAAAAARFRkfDx/9oADAMBAAIRAxEAPwAavTVsFkt/NcNhVsSY3TeGiiv6lyqKGkgqyOywU63YFPrLrRyrGW5EcccshHIUE1NR699EuyWSm0NS21TXeQxTnH5jLLWhvuliL+XOkuRuyKLbowIlEHPR+yD5Hlj0Lo+O9Pm+2XxQ66jisZ8VpIh+ZVaejKtnHFepLH2rk1l4h/kLdfknxUtr6mxZsT2Xd7M00ss7yfMjTSOzys5J57Fyxbn5558A4PUPj/SpqDb3Hbg7RXDpzVN3IfRHRtWJ4kb2wr3Prcc/P4eK6yI0VqMhLPdRyw4ABLz29lv+4/346bE7ZenDT/ps2s3I3L0hh44aWk9JZjI2q9T8/qDMXMKnWpaEZ73jcmlknkgP8LvH7rDiPwEp+TwhdT6v2rv6k1DewukFp4e7nMtbxNQVooxVxtm/YmoVhGCRGIKrxRBOT169efjyeErF43sZdN9IG/1HZjV+RxeqvcbQ+sY4KmWk6GVMZch9yOvkHh4PevJFM9e8ACfaELkFYm8IzW3oh0XuJmZtX7Sbo6boaezsr5FsfbZL8VR7TGZ/o5K9qGRK5LllhnUunPUcKAPFhewP3H7DzRpZHK41Gjx2WyVBHJLpSu2aqOSOCWWCWMMSPgkg/HhRh+oPYPZjZzb7EVMdr85zdNLQe7VqzJbr5KtMeJA9SB3TFw0yvEEjN7kvJE3ZyD52v1CXqcvod2UqQ3K0liOht6JK0diJ5lMenZlb3IUcuChJDdlHUng8HxYkoksSPNPPLNNIxaSWV2kkdj/VndyzMx/uWJJ/XyxLavz146k+QuzVIeohqy2ZpK8QQdUEcLuY06j4Xqo6j4HA8DD4P6H7HyeaHsD9x+w8ngf/2Q==",
+              "variancePct": 20,
+              "horizontalStretchMultiplier": 0,
+              "verticalStretchMultiplier": 0,
+              "textMatch": {
+                "isActive": false,
+                "text": null,
+                "whiteList": null
+              },
+              "colorThreshold": {
+                "isActive": true,
+                "variancePct": 10,
+                "color": "#ffb4b4b4",
+                "imageData": "/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDAAIBAQEBAQIBAQECAgICAgQDAgICAgUEBAMEBgUGBgYFBgYGBwkIBgcJBwYGCAsICQoKCgoKBggLDAsKDAkKCgr/wAALCAAdACIBAREA/8QAHwAAAQUBAQEBAQEAAAAAAAAAAAECAwQFBgcICQoL/8QAtRAAAgEDAwIEAwUFBAQAAAF9AQIDAAQRBRIhMUEGE1FhByJxFDKBkaEII0KxwRVS0fAkM2JyggkKFhcYGRolJicoKSo0NTY3ODk6Q0RFRkdISUpTVFVWV1hZWmNkZWZnaGlqc3R1dnd4eXqDhIWGh4iJipKTlJWWl5iZmqKjpKWmp6ipqrKztLW2t7i5usLDxMXGx8jJytLT1NXW19jZ2uHi4+Tl5ufo6erx8vP09fb3+Pn6/9oACAEBAAA/AP1d/wCCrn/BVz9nH/gkr+zjL8a/jXdf2r4g1XzrXwB4AsbtY7/xNfoqkohIbyLaLfG090yssKuoCySywQS/EH7NH7M//B0t+3D4ctPjB+05/wAFKPD/AOzl4Y8U+X4k0bwNoHwxsrzXdCmTUYrqy065tnt4JILYxIC8U+oXEzRbba8ikMtyie3/APBJ3xN/wX38E/tceOv2Xv8Agq1beD/G/gTRfB8eu6D8aPDekwW0eoajdS20Vvpls9vHaJJFGkGptKj2QuIpFjZ5RDPaeb+h9Ffhj/wcial4q+J//Bcr9gz9nT4o/CTT9T+Fp8YaJNb3WraC81rrt1qXia0tdW02Zpi1vdRR2tnpxa3CblW+Jl3LNGB+51Ffzo3H/BWz/g4Z/aS/4K7/ABt/4Jz/ALDfxq0/Ultfih4l0Lw7Nq3gPRza+BdGsNf2DU5roWRIiht4VtWe5FyZFuikcUl3JbEfv9+z1o3xl8OfALwP4e/aM8Wafr/xCsPB+mW/jvXdJjCWuo6ylrGt7cwqsUIWKS4ErqBFGArD5E+6PiD/AIOO/wDgj74q/wCCsH7I+kS/A0aePix8MNQutU8FwandvDHrFrPEq3ukBzKsEEs5htJI55lZVktEjLwRzyzJ8wfCT/g6k+Jn7DunL+zH/wAFvf2Ffih4Y+LHhvT4oW8Q+EtHsjH4tWO4uraTUhbXE1rBFExt1C3FlLc2tzILh4fIjVIq+r/+CSn/AAVR/bi/4KQ/tHfEbUvH/wDwTy8QfDT9nxfD9lq/wd8f+KdPudPv9VhmZRCJROTDqP2uEvdrJZfubNYlheS5M8M7fEH/AAQn+E/xT8L/APB0F+254i8TfDTxBp2n2n/CZfa76+0aeGGH+0/Fdlfabvd0Cr9rtI5LmDJ/fQxtJHuRSw/d6iiiiiv/2Q=="
+              },
+              "offsetCalcType": "Default",
+              "position": 0
+            }
+          ],
+          "$isMultiPattern": false,
+          "$position": 0,
+          "$name": "disabled",
+          "$path": "base.katesWorkshop.craft.disabled"
+        }
       },
       "talisman": {
         "$patterns": [
