@@ -21,15 +21,19 @@ while (macroService.IsRunning) {
 			break;
 		case 'titles.recruit':
 			logger.info('claimFreeRecruit: claim Normal');
-			const swipeResult = macroService.SwipePollPattern(patterns.recruit.normal, { Start: { X: 650, Y: 200 }, End: { X: 300, Y: 200 } });
-			if (!swipeResult.IsSuccess) {
-				throw new Error('Unable to find normal recruit');
+			for (let i = 0; i < 2; i++) {
+				const swipeResult = macroService.SwipePollPattern(patterns.recruit.notification, { Start: { X: 200, Y: 600 }, End: { X: 200, Y: 200 } });
+				if (!swipeResult.IsSuccess) {
+					throw new Error('Unable to find normal recruit');
+				}
+				sleep(1_000);
+				//macroService.PollPattern(patterns.recruit.normal, { DoClick: true, PredicatePattern: patterns.recruit.normal.ticket });
+				macroService.PollPattern(patterns.recruit.notification, { DoClick: true, PredicatePattern: patterns.recruit.normal.free });
+				macroService.PollPattern(patterns.recruit.normal.free, { DoClick: true, PredicatePattern: patterns.recruit.prompt.ok });
+				macroService.PollPattern(patterns.recruit.prompt.ok, { DoClick: true, ClickPattern: patterns.recruit.skip, PredicatePattern: patterns.recruit.prompt.ok2 });
+				macroService.PollPattern(patterns.recruit.prompt.ok2, { DoClick: true, InversePredicatePattern: patterns.recruit.prompt.ok2 });
 			}
-			sleep(1_000);
-			macroService.PollPattern(patterns.recruit.normal, { DoClick: true, PredicatePattern: patterns.recruit.normal.ticket });
-			macroService.PollPattern(patterns.recruit.normal.free, { DoClick: true, PredicatePattern: patterns.recruit.prompt.ok });
-			macroService.PollPattern(patterns.recruit.prompt.ok, { DoClick: true, ClickPattern: patterns.recruit.skip, PredicatePattern: patterns.titles.recruit });
-
+			
 			if (macroService.IsRunning) {
 				daily.claimFreeRecruit.done.IsChecked = true;
 			}

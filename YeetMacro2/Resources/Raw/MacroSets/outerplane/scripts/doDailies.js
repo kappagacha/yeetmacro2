@@ -150,10 +150,11 @@ if (settings.doDailies.claimDailyMissions.Value) {
     goToLobby();
 }
 
-if (settings.doDailies.claimBossDailyMissions.Value) {
-    claimBossDailyMissions();
-    goToLobby();
-}
+// replaced with milaege singles
+//if (settings.doDailies.claimBossDailyMissions.Value) {
+//    claimBossDailyMissions();
+//    goToLobby();
+//}
 
 if (settings.doDailies.claimEventDailyMissions.Value) {
     claimEventDailyMissions();
