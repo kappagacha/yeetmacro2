@@ -18880,10 +18880,10 @@
         },
         {
           "rect": {
-            "x": 533.28515625,
-            "y": 922.9921875,
-            "width": 85.79296875,
-            "height": 28.755615234375
+            "x": 533.40234375,
+            "y": 920.981689453125,
+            "width": 82.51171875,
+            "height": 30.041015625
           },
           "resolution": {
             "width": 1920,
@@ -18905,6 +18905,37 @@
             "variancePct": 30,
             "color": "#ffb2b6cf",
             "imageData": "/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDAAIBAQEBAQIBAQECAgICAgQDAgICAgUEBAMEBgUGBgYFBgYGBwkIBgcJBwYGCAsICQoKCgoKBggLDAsKDAkKCgr/wAALCAAVAA8BAREA/8QAHwAAAQUBAQEBAQEAAAAAAAAAAAECAwQFBgcICQoL/8QAtRAAAgEDAwIEAwUFBAQAAAF9AQIDAAQRBRIhMUEGE1FhByJxFDKBkaEII0KxwRVS0fAkM2JyggkKFhcYGRolJicoKSo0NTY3ODk6Q0RFRkdISUpTVFVWV1hZWmNkZWZnaGlqc3R1dnd4eXqDhIWGh4iJipKTlJWWl5iZmqKjpKWmp6ipqrKztLW2t7i5usLDxMXGx8jJytLT1NXW19jZ2uHi4+Tl5ufo6erx8vP09fb3+Pn6/9oACAEBAAA/AP0t/wCCjv8AwWQ8K/sQ/H3wR+xF8GP2afGHxq+P/wAStPiv/Bnw48NyJYWptWumh+0XupTKyWsWyC/l3pHMsa2MjXBtois1dh+xT+1T/wAFJ/jj8U9Q8J/ti/8ABKX/AIUX4Yt/D8t3Y+Lf+F6aP4n+136zwIlj9lsYkkj3xSTy+cTtX7PtIy61z/hz/hRP/D/Txl/wkP8AyU3/AIZA8Nf8Ij/x9f8AIC/4SnXf7X+7/o//AB8/2J/rP3v/ADy+Xz6+v68P/a7/AGBPg1+2H4q8CfFTxP4o8YeEPiF8LNQnvfhr8RvAfiE2ep+HpLl7Y3ipFKstndRXMVqlvNDd21xG8EkqbR5jGj4Kfsb+NPhX8fbj9oPx1+3f8cPiVdzeD38PR+F/GuraNBoEEZuo7kXiadpGl2MBvlKNGLplaTypXjJKhAn/2Q=="
+          },
+          "offsetCalcType": "Default",
+          "position": 0
+        },
+        {
+          "rect": {
+            "x": 561.5859375,
+            "y": 924.804931640625,
+            "width": 12.140625,
+            "height": 22.39453125
+          },
+          "resolution": {
+            "width": 1920,
+            "height": 1080
+          },
+          "isBoundsPattern": false,
+          "name": "pattern3",
+          "imageData": "/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDAAEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQH/2wBDAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQH/wAARCAAWAAwDASIAAhEBAxEB/8QAGAAAAgMAAAAAAAAAAAAAAAAAAAgHCQr/xAAnEAACAgICAQQBBQEAAAAAAAACBAEDBQYHCBEACRITFBUXIjFB8P/EABYBAQEBAAAAAAAAAAAAAAAAAAQDB//EACERAAICAgICAwEAAAAAAAAAAAECAxEEEgAhEyIUQlFh/9oADAMBAAIRAxEAPwDMj0t9v7N9mdV3LmDd99wHDfAvG1ZM7TyJsi9jtTViwsWs4bCoruLOPZUgXimihOtu372aBigiIRNjK+lXt57nE5fRe+uOx2FCfwbF9m453RbI/qC0RLVoVsroHKdsWVGuUUSMRJB9hmB+JYyirGS9gvX2NE+Yp4jsdnP3FBK4vzPvcyGk1Yy10av5ynY1U1NI3FFY/G74RPko9UBVrtWDJABHEFI+YGZjyPiJj/f6/wCj1sEjx4y46eBZTJAkzSMZASX+q6MoCqBRtTZPZ64SPzZL5D/JeBYsh4ESNYzQj1BLl1YlmJ2HYCgjru+O90476ckdQ79lwSmu69ynxTuilie4cR7zN56lmzsrYrXyEkqEvI5BKxo2KWMferYVw1zYZRWHxd1f3d+O9aprxukdBuveBw8wTViV7m1ZSw8iyZWOMQzksg6xFZl8Aqqi6KwrqGRrAiPyej0bHy8hE0Enqp9QyI+oJWwpdWKg/gIH85ebDxpZA7x+zEbFXkQNrWpYI6qSB1ZBNULoDn//2Q==",
+          "variancePct": 20,
+          "horizontalStretchMultiplier": 0,
+          "verticalStretchMultiplier": 0,
+          "textMatch": {
+            "isActive": false,
+            "text": null,
+            "whiteList": null
+          },
+          "colorThreshold": {
+            "isActive": true,
+            "variancePct": 30,
+            "color": "#ffbac1de",
+            "imageData": "/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDAAIBAQEBAQIBAQECAgICAgQDAgICAgUEBAMEBgUGBgYFBgYGBwkIBgcJBwYGCAsICQoKCgoKBggLDAsKDAkKCgr/wAALCAAWAAwBAREA/8QAHwAAAQUBAQEBAQEAAAAAAAAAAAECAwQFBgcICQoL/8QAtRAAAgEDAwIEAwUFBAQAAAF9AQIDAAQRBRIhMUEGE1FhByJxFDKBkaEII0KxwRVS0fAkM2JyggkKFhcYGRolJicoKSo0NTY3ODk6Q0RFRkdISUpTVFVWV1hZWmNkZWZnaGlqc3R1dnd4eXqDhIWGh4iJipKTlJWWl5iZmqKjpKWmp6ipqrKztLW2t7i5usLDxMXGx8jJytLT1NXW19jZ2uHi4+Tl5ufo6erx8vP09fb3+Pn6/9oACAEBAAA/AP1N/wCCjv8AwVS8K/sPeKvBH7Ofwi+D2ofGX4//ABP1CKH4ffBbw3qyWd1d2u9hPqV7dPHImnWMaRzn7RKhVmhkPyxQXU9v5f8A8PD/APguv/0rq/8Am3Phj/5HrP1nxZ4V8Of8HVmk6P4h8TafYXev/sINYaFa3t6kUmo3S+L5rpreBWIM0ot7a4mKJlhHBK+NqMR+h9eAftz/APBN74E/t7/8It4j8f8AjH4geCvG3gL7d/wr/wCJnwt8b3Wh674a+3fZ1vvsssZaFvtENutu/nRS4ikkCbGYtXh/iz/gib8TPit4q1P4g/F3/gth+2e+t6lqEzsPAfxPsvDGmRWquUtIk06xsBbxSparAk0sSotxOktx5cRmMa//2Q=="
           },
           "offsetCalcType": "Default",
           "position": 0
