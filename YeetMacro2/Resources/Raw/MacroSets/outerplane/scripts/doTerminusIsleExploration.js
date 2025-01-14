@@ -108,11 +108,13 @@ while (macroService.IsRunning) {
 }
 
 function deployHeroes() {
-	macroService.PollPattern(patterns.terminusIsle.prompt.heroDeployment, { DoClick: true, PredicatePattern: patterns.battle.enter });
-	const recommendedElementPatterns = ['earth', 'water', 'fire', 'light', 'dark'].map(el => patterns.terminusIsle.prompt.heroDeployment.recommendedElement[el]);
-	const recommendedElementResult = macroService.PollPattern(recommendedElementPatterns);
-	const recommendedElement = recommendedElementResult.Path?.split('.').pop();
-	selectTeam(recommendedElement);
-	macroService.PollPattern(patterns.battle.enter, { DoClick: true, PredicatePattern: patterns.battle.exit });
-	macroService.PollPattern(patterns.battle.exit, { DoClick: true, ClickPattern: patterns.terminusIsle.prompt.next, PredicatePattern: patterns.general.tapEmptySpace });
+	macroService.PollPattern(patterns.terminusIsle.prompt.heroDeployment.skip, { DoClick: true, PredicatePattern: patterns.general.tapEmptySpace });
+
+	//macroService.PollPattern(patterns.terminusIsle.prompt.heroDeployment, { DoClick: true, PredicatePattern: patterns.battle.enter });
+	//const recommendedElementPatterns = ['earth', 'water', 'fire', 'light', 'dark'].map(el => patterns.terminusIsle.prompt.heroDeployment.recommendedElement[el]);
+	//const recommendedElementResult = macroService.PollPattern(recommendedElementPatterns);
+	//const recommendedElement = recommendedElementResult.Path?.split('.').pop();
+	//selectTeam(recommendedElement);
+	//macroService.PollPattern(patterns.battle.enter, { DoClick: true, PredicatePattern: patterns.battle.exit });
+	//macroService.PollPattern(patterns.battle.exit, { DoClick: true, ClickPattern: patterns.terminusIsle.prompt.next, PredicatePattern: patterns.general.tapEmptySpace });
 }
