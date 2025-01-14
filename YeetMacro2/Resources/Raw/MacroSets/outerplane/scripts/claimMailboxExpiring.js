@@ -20,7 +20,7 @@ while (macroService.IsRunning) {
 			
 			while (!done) {
 				macroService.PollPattern(patterns.mailbox.normal, { DoClick: true, PredicatePattern: patterns.mailbox.normal.selected });
-				sleep(1000);
+				macroService.PollPattern(patterns.mailbox.receive);
 				const receiveResult = macroService.FindPattern(patterns.mailbox.receive, { Limit: 10 });
 
 				done = true;
