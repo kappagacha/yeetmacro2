@@ -1,0 +1,26 @@
+{
+  "name": "Horizon Walker",
+  "resolution": {
+    "width": 1920,
+    "height": 1080
+  },
+  "supportsGreaterWidth": true,
+  "supportsGreaterHeight": false,
+  "package": "com.GentleManiac.HorizonWalkerGoogle",
+  "source": "online:horizonWalker",
+  "macroSetLastUpdated": null,
+  "patternsLastUpdated": null,
+  "scriptsLastUpdated": null,
+  "settingsLastUpdated": null,
+  "dailyTemplateLastUpdated": null,
+  "weeklyTemplateLastUpdated": null,
+  "description": null,
+  "dailyResetUtcHour": 1,
+  "weeklyStartDay": "Monday",
+  "defaultLocation": {
+    "x": 0,
+    "y": 200
+  },
+  "dailyTemplate": "{}",
+  "weeklyTemplate": "{}"
+}
