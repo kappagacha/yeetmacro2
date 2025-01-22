@@ -32,7 +32,7 @@ while (macroService.IsRunning) {
 				};
 			});
 			//stageNames.sort((a, b) => a.point.Y - b.point.Y);		// Y ascending
-			stageNames.sort((a, b) => a.point.Y - b.point.Y);		// Y descending
+			stageNames.sort((a, b) => b.point.Y - a.point.Y);		// Y descending
 			//const targetStage = stageNames.find(pn => pn.name.match(/corp|lab/gi));
 			const targetStage = stageNames.find(pn => pn.name.match(/corp/gi)) || stageNames.find(pn => pn.name.match(/lab/gi));
 			macroService.PollPoint(targetStage.point, { PredicatePattern: patterns.battle.deploy });

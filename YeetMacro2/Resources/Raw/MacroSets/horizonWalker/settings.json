@@ -7,10 +7,18 @@
     "lastRun": {
       "$type": "timestamp",
       "$defaultValue": "0001-01-01T00:00:00+00:00",
-      "$value": "2025-01-18T19:42:25.596+00:00",
+      "$value": "2025-01-22T04:00:25.296+00:00",
       "$position": 0,
       "$name": "lastRun",
       "$path": "claimTribute.lastRun"
+    },
+    "forceRun": {
+      "$type": "boolean",
+      "$defaultValue": true,
+      "$value": true,
+      "$position": 0,
+      "$name": "forceRun",
+      "$path": "claimTribute.forceRun"
     }
   },
   "doStageBounty": {
@@ -185,6 +193,52 @@
       "$position": 0,
       "$name": "targetFloorPattern",
       "$path": "doStageBounty.targetFloorPattern"
+    }
+  },
+  "doDailies": {
+    "$type": "parent",
+    "$position": 0,
+    "$name": "doDailies",
+    "$path": "doDailies",
+    "claimTribute": {
+      "$type": "boolean",
+      "$defaultValue": true,
+      "$value": true,
+      "$position": 0,
+      "$name": "claimTribute",
+      "$path": "doDailies.claimTribute"
+    },
+    "doDailyShop": {
+      "$type": "boolean",
+      "$defaultValue": true,
+      "$value": true,
+      "$position": 0,
+      "$name": "doDailyShop",
+      "$path": "doDailies.doDailyShop"
+    },
+    "doStageWish": {
+      "$type": "boolean",
+      "$defaultValue": true,
+      "$value": true,
+      "$position": 0,
+      "$name": "doStageWish",
+      "$path": "doDailies.doStageWish"
+    },
+    "doStageBounty": {
+      "$type": "boolean",
+      "$defaultValue": true,
+      "$value": true,
+      "$position": 0,
+      "$name": "doStageBounty",
+      "$path": "doDailies.doStageBounty"
+    },
+    "claimDailyRewards": {
+      "$type": "boolean",
+      "$defaultValue": true,
+      "$value": true,
+      "$position": 0,
+      "$name": "claimDailyRewards",
+      "$path": "doDailies.claimDailyRewards"
     }
   }
 }

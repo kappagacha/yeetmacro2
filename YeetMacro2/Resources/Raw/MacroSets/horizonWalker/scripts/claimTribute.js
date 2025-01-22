@@ -17,17 +17,17 @@ while (macroService.IsRunning) {
 			break;
 		case 'tribute.receive':
 			logger.info('claimTribute: claim tribute');
-			//const receiveResult = macroService.PollPattern(patterns.tribute.receive, { DoClick: true, PredicatePattern: [patterns.general.touchTheScreen, patterns.general.confirm] });
-			//if (receiveResult.PredicatePath === 'general.confirm') {
-			//	macroService.PollPattern(patterns.general.confirm, { DoClick: true, PredicatePattern: patterns.tribute.receive });
-			//	if (macroService.IsRunning) {
-			//		daily.claimTribute.count.Count++;
-			//		settings.claimTribute.lastRun.Value = new Date().toISOString();
-			//	}
-			//	return;
-			//}
+			const receiveResult = macroService.PollPattern(patterns.tribute.receive, { DoClick: true, PredicatePattern: [patterns.general.touchTheScreen, patterns.general.confirm] });
+			if (receiveResult.PredicatePath === 'general.confirm') {
+				macroService.PollPattern(patterns.general.confirm, { DoClick: true, PredicatePattern: patterns.tribute.receive });
+				if (macroService.IsRunning) {
+					daily.claimTribute.count.Count++;
+					settings.claimTribute.lastRun.Value = new Date().toISOString();
+				}
+				return;
+			}
 
-			macroService.PollPattern(patterns.general.touchTheScreen, { DoClick: true, ClickPattern: [patterns.general.levelUp, patterns.general.confirm], PredicatePattern: patterns.tribute.receive });
+			macroService.PollPattern(patterns.general.touchTheScreen, { DoClick: true, ClickPattern: patterns.general.levelUp, PredicatePattern: patterns.tribute.receive });
 
 			if (macroService.IsRunning) {
 				daily.claimTribute.count.Count++;
