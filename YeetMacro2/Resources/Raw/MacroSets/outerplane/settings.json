@@ -1110,8 +1110,8 @@
         "dark",
         "light"
       ],
-      "$defaultValue": "light",
-      "$value": "light",
+      "$defaultValue": "water",
+      "$value": "water",
       "$position": 0,
       "$name": "elementTypeTarget1",
       "$path": "doDoppelganger.elementTypeTarget1"
@@ -1154,8 +1154,8 @@
         "dark",
         "light"
       ],
-      "$defaultValue": "dark",
-      "$value": "dark",
+      "$defaultValue": "light",
+      "$value": "light",
       "$position": 0,
       "$name": "elementTypeTarget2",
       "$path": "doDoppelganger.elementTypeTarget2"
