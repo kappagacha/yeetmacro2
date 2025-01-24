@@ -56,32 +56,30 @@ function selectTeam(targetTeamSlot, returnCurrentCp) {
 
 function selectTeamAndBattle(teamSlot, sweepBattle, targetNumBattles = 0) {
 	selectTeam(teamSlot);
-	macroService.PollPattern(patterns.battle.setup.auto, { DoClick: true, PredicatePattern: patterns.battle.setup.sweep });
+	const autoResult = macroService.PollPattern(patterns.battle.setup.auto, { DoClick: true, PredicatePattern: [patterns.battle.setup.sweep, patterns.battle.setup.enter] });
+
+	let numBattles = macroService.GetText(patterns.battle.setup.numBattles);
+	if (targetNumBattles) {
+		macroService.PollPattern(patterns.battle.setup.minBattle, { DoClick: true, PredicatePattern: patterns.battle.setup.numBattles.one });
+
+		numBattles = 1
+		while (Number(numBattles) < targetNumBattles) {
+			macroService.ClickPattern(patterns.battle.setup.addBattle)
+			sleep(250)
+			numBattles = macroService.GetText(patterns.battle.setup.numBattles);
+			sleep(250)
+		}
+	}
+
+	if (autoResult.PredicatePath === 'battle.setup.enter') {
+		macroService.PollPattern(patterns.battle.setup.enter, { DoClick: true, PredicatePattern: patterns.battle.setup.enter.ok });
+	}
+
 	macroService.PollPattern(patterns.battle.setup.sweep, { DoClick: true, PredicatePattern: patterns.battle.setup.sweep.ok });
 	macroService.PollPattern(patterns.battle.setup.sweep.ok, { DoClick: true, InversePredicatePattern: patterns.battle.setup.sweep.ok });
 
-	//macroService.PollPattern(patterns.battle.setup.auto, { DoClick: true, PredicatePattern: patterns.battle.setup.repeatBattle });
-	//let numBattles = macroService.GetText(patterns.battle.setup.numBattles);
-	//if (targetNumBattles) {
-	//	macroService.PollPattern(patterns.battle.setup.minBattle, { DoClick: true, PredicatePattern: patterns.battle.setup.numBattles.one });
-
-	//	numBattles = 1
-	//	while (Number(numBattles) < targetNumBattles) {
-	//		macroService.ClickPattern(patterns.battle.setup.addBattle)
-	//		sleep(250)
-	//		numBattles = macroService.GetText(patterns.battle.setup.numBattles);
-	//		sleep(250)
-	//	}
-	//}
-
-	//if (sweepBattle) {
-	//	macroService.PollPattern(patterns.battle.setup.sweep, { DoClick: true, PredicatePattern: patterns.battle.setup.sweep.ok });
-	//	macroService.PollPattern(patterns.battle.setup.sweep.ok, { DoClick: true, InversePredicatePattern: patterns.battle.setup.sweep.ok });
-	//} else {
-	//	macroService.PollPattern(patterns.battle.setup.enter, { DoClick: true, PredicatePattern: patterns.battle.setup.enter.ok });
-	//}
-	//return numBattles;
-	return 0;
+	logger.info(`numBattles: ${numBattles}`);
+	return numBattles;
 }
 
 function detectBossType() {
