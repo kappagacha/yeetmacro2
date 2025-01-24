@@ -7,6 +7,11 @@ if (settings.doWeeklies.claimWeeklyMissions.Value) {
     goToLobby();
 }
 
+if (settings.doWeeklies.doWeeklyCraft.Value) {
+    doWeeklyCraft();
+    goToLobby();
+}
+
 if (settings.doWeeklies.doWeeklyShop.Value) {
     doWeeklyShop();
     goToLobby();

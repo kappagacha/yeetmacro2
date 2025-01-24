@@ -84,7 +84,6 @@
 	  <None Remove="Resources\Fonts\OpenSans-Medium.ttf" />
 	  <None Remove="Resources\Images\appicon2.svg" />
 	  <None Remove="Resources\Raw\MacroSets\konosubaFD\scripts\doEventDraw.js" />
-	  <None Remove="Resources\Raw\MacroSets\outerplane\scripts\doSpecialRequestsStage13.js" />
 	  <None Remove="Resources\Raw\MacroSets\outerplane\scripts\sweepEventStoryHard2.js" />
 	  <None Remove="Resources\Raw\MacroSets\outerplane\scripts\testApplyPreset.js" />
 	  <None Remove="Resources\Raw\MacroSets\outerplane\scripts\testExplorationOrders.js" />
