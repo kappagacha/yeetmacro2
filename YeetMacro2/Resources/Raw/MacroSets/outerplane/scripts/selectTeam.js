@@ -73,12 +73,12 @@ function selectTeamAndBattle(teamSlot, sweepBattle, targetNumBattles = 0) {
 
 	if (autoResult.PredicatePath === 'battle.setup.enter') {
 		macroService.PollPattern(patterns.battle.setup.enter, { DoClick: true, PredicatePattern: patterns.battle.setup.enter.ok });
+		return numBattles;
 	}
 
 	macroService.PollPattern(patterns.battle.setup.sweep, { DoClick: true, PredicatePattern: patterns.battle.setup.sweep.ok });
 	macroService.PollPattern(patterns.battle.setup.sweep.ok, { DoClick: true, InversePredicatePattern: patterns.battle.setup.sweep.ok });
 
-	logger.info(`numBattles: ${numBattles}`);
 	return numBattles;
 }
 
