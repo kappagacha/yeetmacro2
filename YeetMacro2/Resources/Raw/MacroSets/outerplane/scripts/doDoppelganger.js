@@ -71,17 +71,25 @@ while (macroService.IsRunning) {
 }
 
 function goBackToDoppelgangerScreen(sweepBattle) {
-	if (!sweepBattle) {
-		macroService.PollPattern(patterns.general.ok, { DoClick: true, PredicatePattern: patterns.battle.exit });
-		macroService.PollPattern(patterns.battle.exit, { DoClick: true, PredicatePattern: patterns.titles.doppelganger });
-	} else {
-		macroService.PollPattern(patterns.battle.setup.enter.ok, { DoClick: true, PredicatePattern: patterns.battle.setup.auto });
-		let doppelgangerTitleResult = macroService.FindPattern(patterns.titles.doppelganger);
-		while (macroService.IsRunning && !doppelgangerTitleResult.IsSuccess) {
-			macroService.ClickPattern(patterns.general.back);
-			sleep(1_000);
-			doppelgangerTitleResult = macroService.FindPattern(patterns.titles.doppelganger);
-			sleep(1_000);
-		}
+	macroService.PollPattern(patterns.battle.setup.enter.ok, { DoClick: true, PredicatePattern: patterns.battle.setup.auto });
+	let doppelgangerTitleResult = macroService.FindPattern(patterns.titles.doppelganger);
+	while (macroService.IsRunning && !doppelgangerTitleResult.IsSuccess) {
+		macroService.ClickPattern(patterns.general.back);
+		sleep(1_000);
+		doppelgangerTitleResult = macroService.FindPattern(patterns.titles.doppelganger);
+		sleep(1_000);
 	}
+	//if (!sweepBattle) {
+	//	macroService.PollPattern(patterns.general.ok, { DoClick: true, PredicatePattern: patterns.battle.exit });
+	//	macroService.PollPattern(patterns.battle.exit, { DoClick: true, PredicatePattern: patterns.titles.doppelganger });
+	//} else {
+	//	macroService.PollPattern(patterns.battle.setup.enter.ok, { DoClick: true, PredicatePattern: patterns.battle.setup.auto });
+	//	let doppelgangerTitleResult = macroService.FindPattern(patterns.titles.doppelganger);
+	//	while (macroService.IsRunning && !doppelgangerTitleResult.IsSuccess) {
+	//		macroService.ClickPattern(patterns.general.back);
+	//		sleep(1_000);
+	//		doppelgangerTitleResult = macroService.FindPattern(patterns.titles.doppelganger);
+	//		sleep(1_000);
+	//	}
+	//}
 }
