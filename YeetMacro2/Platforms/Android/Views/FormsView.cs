@@ -14,6 +14,7 @@ public class FormsView : RelativeLayout, IShowable
     private readonly VisualElement _visualElement;
     public VisualElement VisualElement => _visualElement;
     private FormState _state;
+    private readonly global::Android.Views.View _androidView;
     public bool IsModal { get; set; } = true;
     TaskCompletionSource<bool> _closeCompleted;
     public bool IsShowing { get => _state == FormState.SHOWING; }
@@ -41,12 +42,25 @@ public class FormsView : RelativeLayout, IShowable
 
         _visualElement = visualElement;
         var mauiContext = new MauiContext(IPlatformApplication.Current.Services, context);
-        var androidView = visualElement.ToPlatform(mauiContext);
-        androidView.SetPadding(0, 0, 0, 0);
-        AddView(androidView, new ViewGroup.LayoutParams(_layoutParams.Width, _layoutParams.Height));
+        _androidView = visualElement.ToPlatform(mauiContext);
+        _androidView.SetPadding(0, 0, 0, 0);
+        AddView(_androidView, new ViewGroup.LayoutParams(_layoutParams.Width, _layoutParams.Height));
 
-        androidView.Clickable = true;
-        androidView.Click += FormsView_Click;
+        _androidView.Clickable = true;
+        _androidView.Click += FormsView_Click;
+    }
+
+    public void SetUpLayoutParameters(Action<WindowManagerLayoutParams> setup)
+    {
+        setup(_layoutParams);
+        RemoveView(_androidView);
+        AddView(_androidView, new ViewGroup.LayoutParams(_layoutParams.Width, _layoutParams.Height));
+
+        if (_state == FormState.SHOWING)
+        {
+            Close();
+            Show();
+        }
     }
 
     public void SetBackgroundToTransparent()

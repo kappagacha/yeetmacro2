@@ -486,8 +486,14 @@ public class AndroidScreenService : IScreenService
         {
             var grid = new Grid() { InputTransparent = true, CascadeInputTransparent = true };
             _overlayWindow = new FormsView(_context, _windowManager, grid) { IsModal = false };
+            
             _overlayWindow.SetIsTouchable(false);
             _overlayWindow.SetBackgroundToTransparent();
+            _overlayWindow.SetUpLayoutParameters(lp =>
+            {
+                lp.Width = WindowManagerLayoutParams.WrapContent;
+                lp.Height = WindowManagerLayoutParams.WrapContent;
+            });
             //_overlayWindow.DisableTranslucentNavigation();
         }
 
