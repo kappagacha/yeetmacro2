@@ -28,7 +28,6 @@ public class FormsView : RelativeLayout, IShowable
             Type = OperatingSystem.IsAndroidVersionAtLeast(26) ? WindowManagerTypes.ApplicationOverlay : WindowManagerTypes.Phone,
             Format = Format.Translucent
         };
-        _layoutParams.Flags |= WindowManagerFlags.TranslucentNavigation;
         _layoutParams.Flags |= WindowManagerFlags.LayoutNoLimits;
         //_layoutParams.Flags |= WindowManagerFlags.Fullscreen;
         _layoutParams.Flags |= WindowManagerFlags.TranslucentNavigation;

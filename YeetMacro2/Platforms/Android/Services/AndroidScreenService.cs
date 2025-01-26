@@ -488,7 +488,7 @@ public class AndroidScreenService : IScreenService
             _overlayWindow = new FormsView(_context, _windowManager, grid) { IsModal = false };
             _overlayWindow.SetIsTouchable(false);
             _overlayWindow.SetBackgroundToTransparent();
-            _overlayWindow.DisableTranslucentNavigation();
+            //_overlayWindow.DisableTranslucentNavigation();
         }
 
         //Get overlay permissin if needed
