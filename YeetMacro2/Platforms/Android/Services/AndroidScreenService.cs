@@ -478,6 +478,8 @@ public class AndroidScreenService : IScreenService
     private void DeviceDisplay_MainDisplayInfoChanged(object sender, DisplayInfoChangedEventArgs e)
     {
         RefreshActionViewLocation();
+        CloseOverlayWindow();
+        ShowOverlayWindow();
     }
 
     public void ShowOverlayWindow()
@@ -510,6 +512,7 @@ public class AndroidScreenService : IScreenService
     public void CloseOverlayWindow()
     {
         _overlayWindow?.Close();
+        _overlayWindow = null;
     }
 
     public void Show(AndroidWindowView windowView)
@@ -646,7 +649,7 @@ public class AndroidScreenService : IScreenService
                     var debugDrawView = new FormsView(_context, _windowManager, debugDrawControl) { IsModal = false };
                     debugDrawView.SetIsTouchable(false);
                     debugDrawView.SetBackgroundToTransparent();
-                    debugDrawView.DisableTranslucentNavigation();
+                    //debugDrawView.DisableTranslucentNavigation();
                     _views.TryAdd(windowView, debugDrawView);
                     break;
                 case AndroidWindowView.MessageView:
