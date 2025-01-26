@@ -491,11 +491,6 @@ public class AndroidScreenService : IScreenService
             
             _overlayWindow.SetIsTouchable(false);
             _overlayWindow.SetBackgroundToTransparent();
-            _overlayWindow.SetUpLayoutParameters(lp =>
-            {
-                lp.Width = WindowManagerLayoutParams.WrapContent;
-                lp.Height = WindowManagerLayoutParams.WrapContent;
-            });
             //_overlayWindow.DisableTranslucentNavigation();
         }
 
@@ -641,7 +636,7 @@ public class AndroidScreenService : IScreenService
                     drawView.SetIsTouchable(false);
                     drawView.Click += DrawView_Click;
                     drawView.SetBackgroundToTransparent();
-                    drawView.DisableTranslucentNavigation();
+                    //drawView.DisableTranslucentNavigation();
                     _views.TryAdd(windowView, drawView);
                     break;
                 case AndroidWindowView.DebugDrawView:
