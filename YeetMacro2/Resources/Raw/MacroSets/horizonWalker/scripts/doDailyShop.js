@@ -15,6 +15,14 @@ const brilliantGiftBoxPattern = macroService.ClonePattern(patterns.mall.dailyLim
 	OffsetCalcType: 'DockLeft'
 });
 
+const luxuriousGiftBoxPattern = macroService.ClonePattern(patterns.mall.dailyLimited.luxuriousGiftBox, {
+	X: 400,
+	Y: 230,
+	Width: resolution.Width - 420,
+	Height: 790,
+	OffsetCalcType: 'DockLeft'
+});
+
 const giftBoxPattern = macroService.ClonePattern(patterns.mall.dailyLimited.giftBox, {
 	X: 400,
 	Y: 230,
@@ -45,7 +53,7 @@ while (macroService.IsRunning) {
 		case 'mall':
 			logger.info('doDailyShop: purchase brilliant gift box');
 			macroService.PollPattern(patterns.mall.dailyLimited, { DoClick: true, PredicatePattern: patterns.mall.dailyLimited.selected });
-			macroService.PollPattern([giftBoxPattern, brilliantGiftBoxPattern], { DoClick: true, PredicatePattern: patterns.mall.purchase });
+			macroService.PollPattern([giftBoxPattern, brilliantGiftBoxPattern, luxuriousGiftBoxPattern], { DoClick: true, PredicatePattern: patterns.mall.purchase });
 			const sliderEndResult = macroService.FindPattern(patterns.mall.sliderEnd);
 			if (sliderEndResult.IsSuccess) {
 				macroService.PollPattern(patterns.mall.sliderEnd, { DoClick: true, InversePredicatePattern: patterns.mall.sliderEnd });
