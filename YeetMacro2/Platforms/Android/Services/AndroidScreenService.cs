@@ -556,9 +556,9 @@ public class AndroidScreenService : IScreenService
                     {
                         var patternsNodeView = new ResizeView(_context, _windowManager, this, new PatternNodeView(){ MacroSet = currentMacroSet });
                         patternsNodeView.OnShow = () => {
-                            if (_views.ContainsKey(AndroidWindowView.ScriptNodeView) && _views[AndroidWindowView.ScriptNodeView].IsShowing)
+                            if (_macroSetToScriptsView.ContainsKey(currentMacroSet) && _macroSetToScriptsView[currentMacroSet].IsShowing)
                             {
-                                Close(AndroidWindowView.ScriptNodeView);
+                                _macroSetToScriptsView[currentMacroSet].Close();
                             }
                             Show(AndroidWindowView.MacroOverlayView);
                         };
