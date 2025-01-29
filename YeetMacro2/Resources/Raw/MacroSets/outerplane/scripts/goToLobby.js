@@ -2,11 +2,6 @@
 // Go to lobby
 logger.info('goToLobby: start');
 
-const userClickPattern = macroService.ClonePattern(settings.goToLobby.userClickPattern.Value, {
-	Path: 'settings.goToLobby.userClickPattern',
-	OffsetCalcType: 'None'
-});
-
 //claimFreeShop
 //claimFreeRecruit
 //claimGuildBuff
@@ -42,7 +37,7 @@ const clickPatterns = [
 	patterns.friends.ok,
 	patterns.login.downloadPatch,
 	patterns.login.touchToStart,
-	userClickPattern
+	settings.goToLobby.userClickPattern.Value
 ]
 
 while (macroService.IsRunning) {
