@@ -103,6 +103,15 @@
                     <Entry x:Name="xOffset" VerticalOptions="Center" Keyboard="Numeric" Text="0"  />
                     <Label Margin="0" VerticalOptions="Center" Padding="0" Text="YOffset:" />
                     <Entry x:Name="yOffset" VerticalOptions="Center" Keyboard="Numeric" Text="0" />
+                    <Button Text="Apply" Command="{Binding ApplyPatternOffsetCommand, Source={Reference thisView}}">
+                        <Button.CommandParameter>
+                            <MultiBinding Converter="{conv:PassThroughConverter}">
+                                <Binding Path="Pattern" Source="{Reference thisView}" />
+                                <Binding Path="Text" Source="{Reference xOffset}" />
+                                <Binding Path="Text" Source="{Reference yOffset}" />
+                            </MultiBinding>
+                        </Button.CommandParameter>
+                    </Button>
                 </HorizontalStackLayout>
                 <HorizontalStackLayout Margin="0" Padding="0" Spacing="5" IsVisible="{Binding IsToggled, Source={x:Reference offsetToggle}}">
                     <Label Margin="0" VerticalOptions="Center" Padding="0" Text="Horizontal Stretch Multiplier:" />

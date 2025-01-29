@@ -158,6 +158,13 @@ public partial class PatternNodeManagerViewModel : NodeManagerViewModel<PatternN
             var rect = await _inputService.DrawUserRectangle();
             pattern.ImageData = _screenService.GetCurrentImageData(rect);
 
+            var topLeft = _screenService.GetTopLeft();
+            if (!topLeft.IsEmpty)   // If top left has value, then assuming it's a capture from physical device
+            {
+                rect = rect.Offset(-topLeft.X, -topLeft.Y);
+                pattern.OffsetCalcType = OffsetCalcType.DockLeft;
+            }
+
             pattern.Rect = rect;
             pattern.Resolution = new Size(DeviceDisplay.MainDisplayInfo.Width, DeviceDisplay.MainDisplayInfo.Height);
 
@@ -246,7 +253,6 @@ public partial class PatternNodeManagerViewModel : NodeManagerViewModel<PatternN
         if (values.Length != 5) return;
 
         if (values[0] is Pattern pattern &&
-            pattern != null &&
             values[1] is string strXOffset &&
             values[2] is string strYOffset &&
             values[3] is bool doTestCalc &&
@@ -382,6 +388,28 @@ public partial class PatternNodeManagerViewModel : NodeManagerViewModel<PatternN
 
             _patternRepository.Update(pattern);
             _patternRepository.Save();
+        }
+    }
+
+    [RelayCommand]
+    private void ApplyPatternOffset(object[] values)
+    {
+        if (values.Length != 3) return;
+
+        if (values[0] is Pattern pattern &&
+            values[1] is string strXOffset &&
+            values[2] is string strYOffset)
+        {
+            var offset = Point.Zero;
+            if (int.TryParse(strXOffset, out int xOffset)) offset = offset.Offset(xOffset, 0);
+            if (int.TryParse(strYOffset, out int yOffset)) offset = offset.Offset(0, yOffset);
+
+            if (offset.IsEmpty) return;
+
+            pattern.Rect = pattern.Rect.Offset(offset);
+            _patternRepository.Update(pattern);
+            _patternRepository.Save();
+            _toastService.Show($"Offset applied to pattern");
         }
     }
 }

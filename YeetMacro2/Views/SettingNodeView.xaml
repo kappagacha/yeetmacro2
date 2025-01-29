@@ -296,7 +296,8 @@
                 DeletePatternCommand="{Binding MacroSet.Patterns.DeletePatternCommand, Source={Reference thisView}}"
                 ApplyColorThresholdCommand="{Binding MacroSet.Patterns.ApplyColorThresholdCommand, Source={Reference thisView}}"
                 TestPatternTextMatchCommand="{Binding MacroSet.Patterns.TestPatternTextMatchCommand, Source={Reference thisView}}"
-                ApplyPatternTextMatchCommand="{Binding MacroSet.Patterns.ApplyPatternTextMatchCommand, Source={Reference thisView}}" />
+                ApplyPatternTextMatchCommand="{Binding MacroSet.Patterns.ApplyPatternTextMatchCommand, Source={Reference thisView}}"
+                ApplyPatternOffsetCommand="{Binding MacroSet.Patterns.ApplyPatternOffsetCommand, Source={Reference thisView}}" />
         </Border>
     </Grid>
 </ContentView>

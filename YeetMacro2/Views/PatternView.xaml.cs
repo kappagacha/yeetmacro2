@@ -36,6 +36,8 @@ public partial class PatternView : ContentView
         BindableProperty.Create(nameof(TestPatternTextMatchCommand), typeof(ICommand), typeof(ImageView));
     public static readonly BindableProperty ApplyPatternTextMatchCommandProperty =
         BindableProperty.Create(nameof(ApplyPatternTextMatchCommand), typeof(ICommand), typeof(ImageView));
+    public static readonly BindableProperty ApplyPatternOffsetCommandProperty =
+        BindableProperty.Create(nameof(ApplyPatternOffsetCommand), typeof(ICommand), typeof(ImageView));
 
 
     private static void PatternPropertyChanged(BindableObject bindable, object oldValue, object newValue)
@@ -130,6 +132,11 @@ public partial class PatternView : ContentView
     {
         get { return (ICommand)GetValue(ApplyPatternTextMatchCommandProperty); }
         set { SetValue(ApplyPatternTextMatchCommandProperty, value); }
+    }
+    public ICommand ApplyPatternOffsetCommand
+    {
+        get { return (ICommand)GetValue(ApplyPatternOffsetCommandProperty); }
+        set { SetValue(ApplyPatternOffsetCommandProperty, value); }
     }
     public PatternView()
     {
