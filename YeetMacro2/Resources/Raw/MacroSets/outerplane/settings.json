@@ -1019,7 +1019,7 @@
         "$isMultiPattern": true,
         "$position": 0,
         "$name": null,
-        "$path": null
+        "$path": "claimEventDailyMissions.dailyMissionPattern"
       },
       "$value": {
         "$patterns": [
@@ -1089,7 +1089,7 @@
         "$isMultiPattern": true,
         "$position": 0,
         "$name": null,
-        "$path": null
+        "$path": "claimEventDailyMissions.dailyMissionPattern"
       },
       "$position": 0,
       "$name": "dailyMissionPattern",
@@ -1210,14 +1210,14 @@
         "$isMultiPattern": true,
         "$position": 0,
         "$name": null,
-        "$path": null
+        "$path": "watchAds.userClickPattern"
       },
       "$value": {
         "$patterns": [],
         "$isMultiPattern": true,
         "$position": 0,
         "$name": null,
-        "$path": null
+        "$path": "watchAds.userClickPattern"
       },
       "$position": 0,
       "$name": "userClickPattern",
@@ -1756,14 +1756,14 @@
         "$isMultiPattern": false,
         "$position": 0,
         "$name": null,
-        "$path": null
+        "$path": "goToLobby.userClickPattern"
       },
       "$value": {
         "$patterns": [],
         "$isMultiPattern": false,
         "$position": 0,
         "$name": null,
-        "$path": null
+        "$path": "goToLobby.userClickPattern"
       },
       "$position": 0,
       "$name": "userClickPattern",
@@ -1814,7 +1814,7 @@
         "$isMultiPattern": false,
         "$position": 0,
         "$name": null,
-        "$path": null
+        "$path": "sweepEventStoryHard.targetPartPattern"
       },
       "$value": {
         "$patterns": [
@@ -1853,7 +1853,7 @@
         "$isMultiPattern": false,
         "$position": 0,
         "$name": null,
-        "$path": null
+        "$path": "sweepEventStoryHard.targetPartPattern"
       },
       "$position": 0,
       "$name": "targetPartPattern",
@@ -3195,7 +3195,7 @@
         "$isMultiPattern": false,
         "$position": 0,
         "$name": null,
-        "$path": null
+        "$path": "claimEventDailyMissions2.dailyMissionPattern"
       },
       "$value": {
         "$patterns": [
@@ -3234,7 +3234,7 @@
         "$isMultiPattern": false,
         "$position": 0,
         "$name": null,
-        "$path": null
+        "$path": "claimEventDailyMissions2.dailyMissionPattern"
       },
       "$position": 0,
       "$name": "dailyMissionPattern",
@@ -3281,14 +3281,14 @@
         "$isMultiPattern": false,
         "$position": 0,
         "$name": null,
-        "$path": null
+        "$path": "sweepEventStoryHard2.targetPartPattern"
       },
       "$value": {
         "$patterns": [],
         "$isMultiPattern": false,
         "$position": 0,
         "$name": null,
-        "$path": null
+        "$path": "sweepEventStoryHard2.targetPartPattern"
       },
       "$position": 0,
       "$name": "targetPartPattern",
@@ -3310,6 +3310,46 @@
       ],
       "$defaultValue": "8",
       "$value": "8",
+      "$position": 0,
+      "$name": "teamSlot",
+      "$path": "sweepEventStoryHard2.teamSlot"
+    }
+  },
+  "doPursuitOperation": {
+    "$type": "parent",
+    "$position": 0,
+    "$name": "doPursuitOperation",
+    "$path": "doPursuitOperation",
+    "targetOperation": {
+      "$type": "option",
+      "$options": [
+        "ironStretcher",
+        "irregularQueen",
+        "blockbuster",
+        "mutatedWyvre"
+      ],
+      "$defaultValue": "ironStretcher",
+      "$value": "ironStretcher",
+      "$position": 0,
+      "$name": "targetOperation",
+      "$path": "doPursuitOperation.targetOperation"
+    },
+    "teamSlot": {
+      "$type": "option",
+      "$options": [
+        "Current",
+        "1",
+        "2",
+        "3",
+        "4",
+        "5",
+        "6",
+        "7",
+        "8",
+        "9"
+      ],
+      "$defaultValue": "9",
+      "$value": "9",
       "$position": 0,
       "$name": "teamSlot",
       "$path": "sweepEventStoryHard2.teamSlot"

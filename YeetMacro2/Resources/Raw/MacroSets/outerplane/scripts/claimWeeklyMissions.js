@@ -4,7 +4,7 @@ const weekly = weeklyManager.GetCurrentWeekly();
 const dayOfWeek = weeklyManager.GetDayOfWeek();
 
 // dayOfWeek is UTC which is a day forward; 0 is UTC Sunday, which is local Saturday
-if (dayOfWeek !== 0 && dayOfWeek < 5) return;	// Needs to be at least Friday
+if (dayOfWeek !== 0 && dayOfWeek < 3) return;	// Needs to be at least Wednesday
 
 if (weekly.claimWeeklyMissions.done.IsChecked) {
 	return "Script already completed. Uncheck done to override daily flag.";

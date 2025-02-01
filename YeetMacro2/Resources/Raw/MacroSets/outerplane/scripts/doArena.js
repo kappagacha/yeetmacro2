@@ -3,10 +3,12 @@
 // Will prioritize Memorial Match
 const loopPatterns = [patterns.lobby.level, patterns.titles.adventure, patterns.arena.calculationsInProgress, patterns.arena.challenge1, patterns.arena.matchOpponent, patterns.titles.arena];
 const daily = dailyManager.GetCurrentDaily();
+const weekly = weeklyManager.GetCurrentWeekly();
 const teamSlot = settings.doArena.teamSlot.Value;
 const cpThresholdIsEnabled = settings.doArena.cpThreshold.IsEnabled;
 const autoDetectCpThreshold = settings.doArena.autoDetectCpThreshold.Value;
 const clickPattern = [patterns.arena.defendReport.close, patterns.arena.newLeague, patterns.arena.tapEmptySpace];
+const dayOfWeek = weeklyManager.GetDayOfWeek();
 
 while (macroService.IsRunning) {
 	const loopResult = macroService.PollPattern(loopPatterns, { ClickPattern: clickPattern });
@@ -36,6 +38,16 @@ while (macroService.IsRunning) {
 			const numTicketsZeroResult2 = macroService.FindPattern(patterns.arena.numTicketsZero)
 			if (numTicketsZeroResult2.IsSuccess) {
 				return;
+			}
+
+			// At least Thursday
+			if (dayOfWeek >= 4 && !weekly.claimWeeklyPlayReward.done.IsChecked) {	
+				const claimWeeklyPlayRewardNotificationResult = macroService.FindPattern(patterns.arena.claimWeeklyPlayReward.notification);
+				if (claimWeeklyPlayRewardNotificationResult.IsSuccess) {
+					macroService.PollPattern(patterns.arena.claimWeeklyPlayReward.notification, { DoClick: true, ClickPattern: clickPattern, PredicatePattern: patterns.general.tapEmptySpace });
+					macroService.PollPattern(patterns.general.tapEmptySpace, { DoClick: true, ClickPattern: clickPattern, PredicatePattern: patterns.titles.arena });
+					macroService.IsRunning && (weekly.claimWeeklyPlayReward.done.IsChecked = true);
+				}
 			}
 
 			const memorialMatchNotificationResult = macroService.FindPattern(patterns.arena.memorialMatch.notification);

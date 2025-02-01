@@ -9,7 +9,7 @@ if (daily.doBountyHunter.done.IsChecked) {
 }
 
 while (macroService.IsRunning) {
-	const loopResult = macroService.PollPattern(loopPatterns);
+	const loopResult = macroService.PollPattern(loopPatterns, { ClickPattern: patterns.general.doNotShowFor3days });
 	switch (loopResult.Path) {
 		case 'lobby.level':
 			logger.info('doBountyHunter: click adventure tab');
