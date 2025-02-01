@@ -1,3 +1,5 @@
+// @isFavorite
+// @position=-1
 // Sell inventory - normal and superior grade
 const loopPatterns = [patterns.lobby.level, patterns.titles.inventory];
 const daily = dailyManager.GetCurrentDaily();
