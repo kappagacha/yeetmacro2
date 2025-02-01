@@ -1,4 +1,5 @@
-// @position=8
+// @isFavorite
+// @position=-1
 // Do pursuit operation
 const loopPatterns = [patterns.lobby.level, patterns.titles.adventure, patterns.irregularExtermination.pursuitOperation, patterns.titles.pursuitOperation];
 const daily = dailyManager.GetCurrentDaily();
@@ -27,7 +28,7 @@ while (macroService.IsRunning) {
 			sleep(500);
 			break;
 		case 'titles.pursuitOperation':
-			const zeroOperationsResult = macroService.FindPattern(patterns.irregularExtermination.pursuitOperation.zerorOperations);
+			const zeroOperationsResult = macroService.FindPattern(patterns.irregularExtermination.pursuitOperation.zeroOperations);
 			if (zeroOperationsResult.IsSuccess) {
 				macroService.IsRunning && (daily.doPursuitOperation.done.IsChecked = true);
 				return;
