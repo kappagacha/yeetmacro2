@@ -3352,7 +3352,47 @@
       "$value": "9",
       "$position": 0,
       "$name": "teamSlot",
-      "$path": "sweepEventStoryHard2.teamSlot"
+      "$path": "doPursuitOperation.teamSlot"
+    }
+  },
+  "doPursuitOperationAssist": {
+    "$type": "parent",
+    "$position": 0,
+    "$name": "doPursuitOperationAssist",
+    "$path": "doPursuitOperationAssist",
+    "targetOperation": {
+      "$type": "option",
+      "$options": [
+        "ironStretcher",
+        "irregularQueen",
+        "blockbuster",
+        "mutatedWyvre"
+      ],
+      "$defaultValue": "ironStretcher",
+      "$value": "ironStretcher",
+      "$position": 0,
+      "$name": "targetOperation",
+      "$path": "doPursuitOperationAssist.targetOperation"
+    },
+    "teamSlot": {
+      "$type": "option",
+      "$options": [
+        "Current",
+        "1",
+        "2",
+        "3",
+        "4",
+        "5",
+        "6",
+        "7",
+        "8",
+        "9"
+      ],
+      "$defaultValue": "9",
+      "$value": "9",
+      "$position": 0,
+      "$name": "teamSlot",
+      "$path": "doPursuitOperationAssist.teamSlot"
     }
   }
 }
