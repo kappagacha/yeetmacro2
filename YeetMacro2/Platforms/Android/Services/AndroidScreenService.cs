@@ -478,8 +478,6 @@ public class AndroidScreenService : IScreenService
     private void DeviceDisplay_MainDisplayInfoChanged(object sender, DisplayInfoChangedEventArgs e)
     {
         RefreshActionViewLocation();
-        CloseOverlayWindow();
-        ShowOverlayWindow();
     }
 
     public void ShowOverlayWindow()
