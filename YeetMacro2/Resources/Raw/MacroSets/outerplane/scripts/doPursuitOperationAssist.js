@@ -41,7 +41,7 @@ while (macroService.IsRunning) {
 				macroService.PollPattern(patterns.battle.next, { DoClick: true, PredicatePattern: patterns.battle.exit });
 				const exitResult = macroService.PollPattern(patterns.battle.exit, { DoClick: true, PredicatePattern: [patterns.irregularExtermination.pursuitOperation.selectTeam, patterns.titles.pursuitOperation] });
 				if (exitResult.PredicatePath !== 'titles.pursuitOperation') {
-					while (!macroService.FindPattern(patterns.irregularExtermination.pursuitOperation[targetOperation]).IsSuccess) {
+					while (macroService.IsRunning && !macroService.FindPattern(patterns.irregularExtermination.pursuitOperation[targetOperation]).IsSuccess) {
 						macroService.ClickPattern(patterns.general.back);
 						sleep(1_000);
 					}

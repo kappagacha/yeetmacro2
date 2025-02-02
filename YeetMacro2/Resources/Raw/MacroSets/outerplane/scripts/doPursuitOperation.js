@@ -50,7 +50,7 @@ while (macroService.IsRunning) {
 				macroService.PollPattern(patterns.irregularExtermination.pursuitOperation.friendsOrGuild, { DoClick: true, PredicatePattern: patterns.irregularExtermination.pursuitOperation.ok });
 				macroService.PollPattern(patterns.irregularExtermination.pursuitOperation.ok, { DoClick: true, PredicatePattern: patterns.irregularExtermination.pursuitOperation.selectTeam });
 			}
-			while (!macroService.FindPattern(patterns.irregularExtermination.pursuitOperation[targetOperation]).IsSuccess) {
+			while (macroService.IsRunning && !macroService.FindPattern(patterns.irregularExtermination.pursuitOperation[targetOperation]).IsSuccess) {
 				macroService.ClickPattern(patterns.general.back);
 				sleep(1_000);
 			}
