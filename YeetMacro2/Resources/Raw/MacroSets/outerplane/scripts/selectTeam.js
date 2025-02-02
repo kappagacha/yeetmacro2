@@ -28,15 +28,9 @@ function selectTeam(targetTeamSlot, returnCurrentCp) {
 	let targetSlotSelectedResult = macroService.FindPattern(patterns.battle.slot[targetTeamSlot].selected);
 	if (!targetSlotSelectedResult.IsSuccess) {
 		while (macroService.IsRunning) {
-			//const slotsResult = Object.assign(...slots.map(s => ({ [s]: macroService.FindPattern(patterns.battle.slot[s]).IsSuccess })));
-			//if (slotsResult[targetTeamSlot]) {	// found slot
-			//	macroService.PollPattern(patterns.battle.slot[targetTeamSlot], { DoClick: true, PredicatePattern: patterns.battle.slot[targetTeamSlot].selected });
-			//	break;
-			//}
-
-			const slotsResult = Object.assign(...slots.map(s => ({ [s]: macroService.FindPattern(patterns.battle.slot[s]) })));
-			if (slotsResult[targetTeamSlot].IsSuccess) {	// found slot
-				macroService.PollPoint(slotsResult[targetTeamSlot].Point, { DoClick: true, PredicatePattern: patterns.battle.slot[targetTeamSlot].selected });
+			const slotsResult = Object.assign(...slots.map(s => ({ [s]: macroService.FindPattern(patterns.battle.slot[s]).IsSuccess })));
+			if (slotsResult[targetTeamSlot]) {	// found slot
+				macroService.PollPattern(patterns.battle.slot[targetTeamSlot], { DoClick: true, PredicatePattern: patterns.battle.slot[targetTeamSlot].selected });
 				break;
 			}
 
