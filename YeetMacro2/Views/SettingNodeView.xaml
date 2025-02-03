@@ -283,21 +283,24 @@
         </Border>
         <Border Grid.Column="1" Stroke="{StaticResource Primary}" BackgroundColor="Transparent" Padding="3"
                 IsVisible="{Binding MacroSet.Settings.SelectedPatternNode, Source={Reference thisView}, Converter={conv:NullToBoolConverter IsInverse=True}}">
-            <v:PatternView 
-                PatternNode="{Binding MacroSet.Settings.SelectedPatternNode, Source={Reference thisView}}"
-                Pattern="{Binding MacroSet.Settings.SelectedPattern, Source={Reference thisView}}"
-                SavePatternCommand="{Binding MacroSet.Patterns.SavePatternCommand, Source={Reference thisView}}"
-                SelectPatternCommand="{Binding MacroSet.Settings.SelectPatternCommand, Source={Reference thisView}}"
-                CapturePatternCommand="{Binding MacroSet.Patterns.CapturePatternCommand, Source={Reference thisView}}"
-                SetPatternBoundsCommand="{Binding MacroSet.Patterns.SetPatternBoundsCommand, Source={Reference thisView}}"
-                ClickPatternCommand="{Binding MacroSet.Patterns.ClickPatternCommand, Source={Reference thisView}}"
-                TestPatternCommand="{Binding MacroSet.Patterns.TestPatternCommand, Source={Reference thisView}}"
-                AddPatternCommand="{Binding MacroSet.Patterns.AddPatternCommand, Source={Reference thisView}}"
-                DeletePatternCommand="{Binding MacroSet.Patterns.DeletePatternCommand, Source={Reference thisView}}"
-                ApplyColorThresholdCommand="{Binding MacroSet.Patterns.ApplyColorThresholdCommand, Source={Reference thisView}}"
-                TestPatternTextMatchCommand="{Binding MacroSet.Patterns.TestPatternTextMatchCommand, Source={Reference thisView}}"
-                ApplyPatternTextMatchCommand="{Binding MacroSet.Patterns.ApplyPatternTextMatchCommand, Source={Reference thisView}}"
-                ApplyPatternOffsetCommand="{Binding MacroSet.Patterns.ApplyPatternOffsetCommand, Source={Reference thisView}}" />
+            <Grid>
+                <v:PatternView 
+                    PatternNode="{Binding MacroSet.Settings.SelectedPatternNode, Source={Reference thisView}}"
+                    Pattern="{Binding MacroSet.Settings.SelectedPattern, Source={Reference thisView}}"
+                    SavePatternCommand="{Binding MacroSet.Patterns.SavePatternCommand, Source={Reference thisView}}"
+                    SelectPatternCommand="{Binding MacroSet.Settings.SelectPatternCommand, Source={Reference thisView}}"
+                    CapturePatternCommand="{Binding MacroSet.Patterns.CapturePatternCommand, Source={Reference thisView}}"
+                    SetPatternBoundsCommand="{Binding MacroSet.Patterns.SetPatternBoundsCommand, Source={Reference thisView}}"
+                    ClickPatternCommand="{Binding MacroSet.Patterns.ClickPatternCommand, Source={Reference thisView}}"
+                    TestPatternCommand="{Binding MacroSet.Patterns.TestPatternCommand, Source={Reference thisView}}"
+                    AddPatternCommand="{Binding MacroSet.Patterns.AddPatternCommand, Source={Reference thisView}}"
+                    DeletePatternCommand="{Binding MacroSet.Patterns.DeletePatternCommand, Source={Reference thisView}}"
+                    ApplyColorThresholdCommand="{Binding MacroSet.Patterns.ApplyColorThresholdCommand, Source={Reference thisView}}"
+                    TestPatternTextMatchCommand="{Binding MacroSet.Patterns.TestPatternTextMatchCommand, Source={Reference thisView}}"
+                    ApplyPatternTextMatchCommand="{Binding MacroSet.Patterns.ApplyPatternTextMatchCommand, Source={Reference thisView}}"
+                    ApplyPatternOffsetCommand="{Binding MacroSet.Patterns.ApplyPatternOffsetCommand, Source={Reference thisView}}" />
+                <Label Text="{Binding MacroSet.Settings.SelectedPatternNode.NodeId, StringFormat='NodeId: {0}', Source={Reference thisView}}" HorizontalOptions="End" VerticalOptions="Start" />
+            </Grid>
         </Border>
     </Grid>
 </ContentView>
