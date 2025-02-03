@@ -3241,10 +3241,10 @@
       "$patterns": [
         {
           "rect": {
-            "x": 956.25,
-            "y": 414.25,
-            "width": 22,
-            "height": 17.5
+            "x": 934.25,
+            "y": 398.25,
+            "width": 67.5,
+            "height": 51.5
           },
           "resolution": {
             "width": 1920,
