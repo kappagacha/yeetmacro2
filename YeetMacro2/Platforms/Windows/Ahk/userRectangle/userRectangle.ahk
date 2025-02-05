@@ -1,177 +1,121 @@
-result := LetUserSelectRect()
-;message := "{""Start"" :{""X"": " . result.x1 . ",""Y"": " . result.y1 . " },""End"":{""X"": " . result.x2 . ",""Y"": " . result.y2 . "}}"
-message := "{""X"": " . result.x1 . ", ""Y"": " . result.y1 . ", ""Width"": " . result.x2 - result.x1 . ", ""Height"": " . result.y2 - result.y1 . "}"
-stdout := FileOpen("*", 0x1)	; https://www.reddit.com/r/AutoHotkey/comments/rf9krl/stdout_to_console/
+#SingleInstance Force
+CoordMode "Mouse"  ; Use screen coordinates
+
+global selectionGUI := Gui("+AlwaysOnTop -caption +Border +ToolWindow +LastFound -DPIScale")
+WinSetTransparent(30)
+
+result := SelectRectangle()
+message := "{`"X`": " . result.x . ", `"Y`": " . result.y . ", `"Width`": " . result.w . ", `"Height`": " . result.h . "}"
+
+stdout := FileOpen("*", "w")  ; Open stdout for writing
 stdout.Write(message)
-; FileAppend message
+stdout.Close()
+
+;MsgBox message
 
 ExitApp
 
-LetUserSelectRect()
-{
-    ;global windowX, windowY
-    CoordMode, Mouse ; Required: change coord mode to screen vs relative.
+SelectRectangle() {
+    global selectionGUI
+    ToolTip "Click and drag to select a rectangle"
+    SetSystemCursor("IDC_CROSS")  ; Change cursor to crosshair
+    Sleep 100  ; Ensure cursor update
 
-    ToolTip, Left Click (Hold) and Drag to create a rectangle
-    SetSystemCursor("IDC_CROSS")
-    static r := 3
-    ; Create the "selection rectangle" GUIs (one for each edge).
-    Loop 4 {
-        Gui, r%A_Index%: -Caption +ToolWindow +AlwaysOnTop
-        Gui, r%A_Index%: Color, Red
+    while !GetKeyState("LButton", "P") {
+        if GetKeyState("Esc", "P") {  ; Allow escape to cancel
+            RestoreCursors()
+            ToolTip()
+            ExitApp
+        }
+        Sleep 10
     }
-    ; Disable LButton.
-    Hotkey, *LButton, lusr_return, On
 
-    ; Wait for user to press LButton or Escape
-	Loop {
-		
-		if GetKeyState("LButton", "P") {
-			Break
-		}
-		if GetKeyState("Esc", "P") {
-            abort := true
-            Break
-		}
+    MouseGetPos &xStart, &yStart  ; Get initial mouse position
+    SetTimer UpdateSelection, 10
 
-		sleep, 50
-	}
-
-    if (!abort) {
-        ; Get initial coordinates.
-        MouseGetPos, xorigin, yorigin
-        ; Set timer for updating the selection rectangle.
-        SetTimer, lusr_update, 10
-        ; Wait for user to release LButton.
-        KeyWait, LButton
-    }
-    
-    ; Re-enable LButton.
-    Hotkey, *LButton, Off
-    ; Disable timer.
-    SetTimer, lusr_update, Off
-    ; Destroy "selection rectangle" GUIs.
-    Loop 4
-        Gui, r%A_Index%: Destroy
+    KeyWait "LButton"  ; Wait for release
+    SetTimer UpdateSelection, 0
+    selectionGUI.Hide()
+    ToolTip()
     RestoreCursors()
-    ToolTip
-    ;CoordMode, Mouse
-    return abort ? "" : { x1 : x1, y1 : y1, x2 : x2, y2 : y2 }
- 
-    lusr_update:
-        CoordMode, Mouse ; Required: change coord mode to screen vs relative.
-        MouseGetPos, x, y
-        if (x = xlast && y = ylast)
-            ; Mouse hasn't moved so there's nothing to do.
-            return
-        if (x < xorigin)
-             x1 := x, x2 := xorigin
-        else x2 := x, x1 := xorigin
-        if (y < yorigin)
-             y1 := y, y2 := yorigin
-        else y2 := y, y1 := yorigin
 
-        ; Update the "selection rectangle".
-        Gui, r1:Show, % "NA X" x1 " Y" y1 " W" x2-x1 " H" r
-        Gui, r2:Show, % "NA X" x1 " Y" y2-r " W" x2-x1 " H" r
-        Gui, r3:Show, % "NA X" x1 " Y" y1 " W" r " H" y2-y1
-        Gui, r4:Show, % "NA X" x2-r " Y" y1 " W" r " H" y2-y1
+    xEnd := xStart, yEnd := yStart
+    MouseGetPos &xEnd, &yEnd  ; Get final mouse position
 
-        ; x1 := x1 - windowX
-        ; x2 := x2 - windowX
-        ; y1 := y1 - windowY
-        ; y2 := y2 - windowY
-    lusr_return:
-    return
+    return {
+        x: Min(xStart, xEnd),
+        y: Min(yStart, yEnd),
+        w: Abs(xEnd - xStart),
+        h: Abs(yEnd - yStart)
+    }
+
+    UpdateSelection() {
+        MouseGetPos &xNow, &yNow
+        x1 := Min(xStart, xNow)
+        y1 := Min(yStart, yNow)
+        w := Abs(xNow - xStart)
+        h := Abs(yNow - yStart)
+        selectionGUI.Show("NA X" x1 " Y" y1 " W" w " H" h)
+    }
 }
 
-;https://www.autohotkey.com/board/topic/32608-changing-the-system-cursor/
-SetSystemCursor( Cursor = "", cx = 0, cy = 0 )
-{
-	BlankCursor := 0, SystemCursor := 0, FileCursor := 0 ; init
-	
-	SystemCursors = 32512IDC_ARROW,32513IDC_IBEAM,32514IDC_WAIT,32515IDC_CROSS
-	,32516IDC_UPARROW,32640IDC_SIZE,32641IDC_ICON,32642IDC_SIZENWSE
-	,32643IDC_SIZENESW,32644IDC_SIZEWE,32645IDC_SIZENS,32646IDC_SIZEALL
-	,32648IDC_NO,32649IDC_HAND,32650IDC_APPSTARTING,32651IDC_HELP
-	
-	If Cursor = ; empty, so create blank cursor 
-	{
-		VarSetCapacity( AndMask, 32*4, 0xFF ), VarSetCapacity( XorMask, 32*4, 0 )
-		BlankCursor = 1 ; flag for later
-	}
-	Else If SubStr( Cursor,1,4 ) = "IDC_" ; load system cursor
-	{
-		Loop, Parse, SystemCursors, `,
-		{
-			CursorName := SubStr( A_Loopfield, 6, 15 ) ; get the cursor name, no trailing space with substr
-			CursorID := SubStr( A_Loopfield, 1, 5 ) ; get the cursor id
-			SystemCursor = 1
-			If ( CursorName = Cursor )
-			{
-				CursorHandle := DllCall( "LoadCursor", Uint,0, Int,CursorID )	
-				Break					
-			}
-		}	
-		If CursorHandle = ; invalid cursor name given
-		{
-			Msgbox,, SetCursor, Error: Invalid cursor name
-			CursorHandle = Error
-		}
-	}	
-	Else If FileExist( Cursor )
-	{
-		SplitPath, Cursor,,, Ext ; auto-detect type
-		If Ext = ico 
-			uType := 0x1	
-		Else If Ext in cur,ani
-			uType := 0x2		
-		Else ; invalid file ext
-		{
-			Msgbox,, SetCursor, Error: Invalid file type
-			CursorHandle = Error
-		}		
-		FileCursor = 1
-	}
-	Else
-	{	
-		Msgbox,, SetCursor, Error: Invalid file path or cursor name
-		CursorHandle = Error ; raise for later
-	}
-	If CursorHandle != Error 
-	{
-		Loop, Parse, SystemCursors, `,
-		{
-			If BlankCursor = 1 
-			{
-				Type = BlankCursor
-				%Type%%A_Index% := DllCall( "CreateCursor"
-				, Uint,0, Int,0, Int,0, Int,32, Int,32, Uint,&AndMask, Uint,&XorMask )
-				CursorHandle := DllCall( "CopyImage", Uint,%Type%%A_Index%, Uint,0x2, Int,0, Int,0, Int,0 )
-				DllCall( "SetSystemCursor", Uint,CursorHandle, Int,SubStr( A_Loopfield, 1, 5 ) )
-			}			
-			Else If SystemCursor = 1
-			{
-				Type = SystemCursor
-				CursorHandle := DllCall( "LoadCursor", Uint,0, Int,CursorID )	
-				%Type%%A_Index% := DllCall( "CopyImage"
-				, Uint,CursorHandle, Uint,0x2, Int,cx, Int,cy, Uint,0 )		
-				CursorHandle := DllCall( "CopyImage", Uint,%Type%%A_Index%, Uint,0x2, Int,0, Int,0, Int,0 )
-				DllCall( "SetSystemCursor", Uint,CursorHandle, Int,SubStr( A_Loopfield, 1, 5 ) )
-			}
-			Else If FileCursor = 1
-			{
-				Type = FileCursor
-				%Type%%A_Index% := DllCall( "LoadImageA"
-				, UInt,0, Str,Cursor, UInt,uType, Int,cx, Int,cy, UInt,0x10 ) 
-				DllCall( "SetSystemCursor", Uint,%Type%%A_Index%, Int,SubStr( A_Loopfield, 1, 5 ) )			
-			}          
-		}
-	}	
+
+; Source:   Serenity - https://autohotkey.com/board/topic/32608-changing-the-system-cursor/
+; Modified: iseahound - https://www.autohotkey.com/boards/viewtopic.php?t=75867
+
+SetSystemCursor(Cursor := "", cx := 0, cy := 0) {
+
+   static SystemCursors := Map("APPSTARTING", 32650, "ARROW", 32512, "CROSS", 32515, "HAND", 32649, "HELP", 32651, "IBEAM", 32513, "NO", 32648,
+                           "SIZEALL", 32646, "SIZENESW", 32643, "SIZENS", 32645, "SIZENWSE", 32642, "SIZEWE", 32644, "UPARROW", 32516, "WAIT", 32514)
+
+   if (Cursor = "") {
+      AndMask := Buffer(128, 0xFF), XorMask := Buffer(128, 0)
+
+      for CursorName, CursorID in SystemCursors {
+         CursorHandle := DllCall("CreateCursor", "ptr", 0, "int", 0, "int", 0, "int", 32, "int", 32, "ptr", AndMask, "ptr", XorMask, "ptr")
+         DllCall("SetSystemCursor", "ptr", CursorHandle, "int", CursorID) ; calls DestroyCursor
+      }
+      return
+   }
+
+   if (Cursor ~= "^(IDC_)?(?i:AppStarting|Arrow|Cross|Hand|Help|IBeam|No|SizeAll|SizeNESW|SizeNS|SizeNWSE|SizeWE|UpArrow|Wait)$") {
+      Cursor := RegExReplace(Cursor, "^IDC_")
+
+      if !(CursorShared := DllCall("LoadCursor", "ptr", 0, "ptr", SystemCursors[StrUpper(Cursor)], "ptr"))
+         throw Error("Error: Invalid cursor name")
+
+      for CursorName, CursorID in SystemCursors {
+         CursorHandle := DllCall("CopyImage", "ptr", CursorShared, "uint", 2, "int", cx, "int", cy, "uint", 0, "ptr")
+         DllCall("SetSystemCursor", "ptr", CursorHandle, "int", CursorID) ; calls DestroyCursor
+      }
+      return
+   }
+
+   if FileExist(Cursor) {
+      SplitPath Cursor,,, &Ext:="" ; auto-detect type
+      if !(uType := (Ext = "ani" || Ext = "cur") ? 2 : (Ext = "ico") ? 1 : 0)
+         throw Error("Error: Invalid file type")
+
+      if (Ext = "ani") {
+         for CursorName, CursorID in SystemCursors {
+            CursorHandle := DllCall("LoadImage", "ptr", 0, "str", Cursor, "uint", uType, "int", cx, "int", cy, "uint", 0x10, "ptr")
+            DllCall("SetSystemCursor", "ptr", CursorHandle, "int", CursorID) ; calls DestroyCursor
+         }
+      } else {
+         if !(CursorShared := DllCall("LoadImage", "ptr", 0, "str", Cursor, "uint", uType, "int", cx, "int", cy, "uint", 0x8010, "ptr"))
+            throw Error("Error: Corrupted file")
+
+         for CursorName, CursorID in SystemCursors {
+            CursorHandle := DllCall("CopyImage", "ptr", CursorShared, "uint", 2, "int", 0, "int", 0, "uint", 0, "ptr")
+            DllCall("SetSystemCursor", "ptr", CursorHandle, "int", CursorID) ; calls DestroyCursor
+         }
+      }
+      return
+   }
+
+   throw Error("Error: Invalid file path or cursor name")
 }
 
-RestoreCursors()
-{
-	SPI_SETCURSORS := 0x57
-	DllCall( "SystemParametersInfo", UInt,SPI_SETCURSORS, UInt,0, UInt,0, UInt,0 )
+RestoreCursors() {
+   return DllCall("SystemParametersInfo", "uint", SPI_SETCURSORS := 0x57, "uint", 0, "ptr", 0, "uint", 0)
 }

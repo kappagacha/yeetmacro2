@@ -152,7 +152,7 @@ public class WindowsScreenService : IScreenService, IRecorderService
 
     public Point GetTopLeft()
     {
-        throw new NotImplementedException();
+        return Point.Zero;
     }
 
     public byte[] ScaleImageData(byte[] data, double scale)

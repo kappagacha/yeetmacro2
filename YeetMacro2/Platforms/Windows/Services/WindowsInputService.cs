@@ -26,7 +26,8 @@ internal class WindowsInputService : IInputService
                 FileName = "Platforms/Windows/Ahk/userRectangle/userRectangle.exe",
                 UseShellExecute = false,
                 RedirectStandardOutput = true,
-                CreateNoWindow = true
+                CreateNoWindow = true,
+                WorkingDirectory = AppDomain.CurrentDomain.BaseDirectory
             }
         };
 
