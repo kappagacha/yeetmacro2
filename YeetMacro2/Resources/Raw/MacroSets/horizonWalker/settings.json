@@ -65,7 +65,7 @@
         "$isMultiPattern": false,
         "$position": 0,
         "$name": null,
-        "$path": null
+        "$path": "doStageBounty.targetBountyPattern"
       },
       "$value": {
         "$patterns": [
@@ -104,7 +104,7 @@
         "$isMultiPattern": false,
         "$position": 0,
         "$name": null,
-        "$path": null
+        "$path": "doStageBounty.targetBountyPattern"
       },
       "$position": 0,
       "$name": "targetBountyPattern",
@@ -149,7 +149,7 @@
         "$isMultiPattern": false,
         "$position": 0,
         "$name": null,
-        "$path": null
+        "$path": "doStageBounty.targetFloorPattern"
       },
       "$value": {
         "$patterns": [
@@ -188,7 +188,7 @@
         "$isMultiPattern": false,
         "$position": 0,
         "$name": null,
-        "$path": null
+        "$path": "doStageBounty.targetFloorPattern"
       },
       "$position": 0,
       "$name": "targetFloorPattern",

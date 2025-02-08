@@ -63,7 +63,7 @@ while (macroService.IsRunning) {
 			macroService.PollPattern(patterns.general.touchTheScreen, { DoClick: true, PredicatePattern: patterns.mall });
 
 			logger.info('doDailyShop: claim free fund');
-			macroService.PollPattern(patterns.mall.specialDeals, { DoClick: true, PredicatePattern: patterns.mall.specialDeals.selected });
+			macroService.PollPattern(patterns.mall.cashShop, { DoClick: true, PredicatePattern: patterns.mall.cashShop.selected });
 			macroService.PollPattern(fairyNetSupportFundPattern, { DoClick: true, PredicatePattern: patterns.mall.purchase });
 			macroService.PollPattern(patterns.mall.purchase, { DoClick: true, PredicatePattern: patterns.mall.purchase.confirm });
 			macroService.PollPattern(patterns.mall.purchase.confirm, { DoClick: true, PredicatePattern: patterns.general.touchTheScreen });
