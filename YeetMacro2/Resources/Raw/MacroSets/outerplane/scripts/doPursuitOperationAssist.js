@@ -4,6 +4,7 @@
 const loopPatterns = [patterns.lobby.level, patterns.titles.adventure, patterns.irregularExtermination.pursuitOperation, patterns.titles.pursuitOperation];
 const teamSlot = settings.doPursuitOperationAssist.teamSlot.Value;
 const targetOperation = settings.doPursuitOperationAssist.targetOperation.Value;
+let teamRestored = false;
 
 while (macroService.IsRunning) {
 	const loopResult = macroService.PollPattern(loopPatterns);
@@ -24,6 +25,13 @@ while (macroService.IsRunning) {
 			sleep(500);
 			break;
 		case 'titles.pursuitOperation':
+			const exterminationRecordNotificationResult = macroService.PollPattern(patterns.irregularExtermination.pursuitOperation.exterminationRecords.notification, { TimeoutMs: 1_000 });
+			if (exterminationRecordNotificationResult.IsSuccess) {
+				macroService.PollPattern(patterns.irregularExtermination.pursuitOperation.exterminationRecords.notification, { DoClick: true, PredicatePattern: patterns.irregularExtermination.pursuitOperation.exterminationRecords.close });
+				macroService.PollPattern(patterns.irregularExtermination.pursuitOperation.exterminationRecords.close, { DoClick: true, PredicatePattern: patterns.irregularExtermination.pursuitOperation.exterminationRecords.reward });
+				macroService.PollPattern(patterns.irregularExtermination.pursuitOperation.exterminationRecords.reward, { DoClick: true, ClickOffset: { X: -100 }, PredicatePattern: patterns.titles.pursuitOperation });
+			}
+
 			macroService.PollPattern(patterns.irregularExtermination.pursuitOperation[targetOperation], { DoClick: true, PredicatePattern: patterns.irregularExtermination.pursuitOperation.createOperation });
 			macroService.PollPattern(patterns.irregularExtermination.pursuitOperation.recruiting, { DoClick: true, PredicatePattern: patterns.irregularExtermination.pursuitOperation.recruiting.selected });
 			sleep(1_000);
@@ -35,16 +43,17 @@ while (macroService.IsRunning) {
 				macroService.PollPattern(patterns.irregularExtermination.pursuitOperation.selectTeam, { DoClick: true, PredicatePattern: patterns.battle.enter });
 				selectTeam(teamSlot);
 				macroService.PollPattern(patterns.battle.battleRecord, { DoClick: true, PredicatePattern: patterns.battle.battleRecord.restoreTeam });
-				macroService.PollPattern(patterns.battle.battleRecord.restoreTeam, { DoClick: true, PredicatePattern: patterns.battle.battleRecord.restoreTeam.ok });
-				macroService.PollPattern(patterns.battle.battleRecord.restoreTeam.ok, { DoClick: true, PredicatePattern: patterns.battle.enter });
+				if (!teamRestored) {
+					macroService.PollPattern(patterns.battle.battleRecord.restoreTeam, { DoClick: true, PredicatePattern: patterns.battle.battleRecord.restoreTeam.ok });
+					macroService.PollPattern(patterns.battle.battleRecord.restoreTeam.ok, { DoClick: true, PredicatePattern: patterns.battle.enter });
+					teamRestored = true;
+				}
 				macroService.PollPattern(patterns.battle.enter, { DoClick: true, PredicatePattern: patterns.battle.next });
 				macroService.PollPattern(patterns.battle.next, { DoClick: true, PredicatePattern: patterns.battle.exit });
-				const exitResult = macroService.PollPattern(patterns.battle.exit, { DoClick: true, PredicatePattern: [patterns.irregularExtermination.pursuitOperation.selectTeam, patterns.titles.pursuitOperation] });
-				if (exitResult.PredicatePath !== 'titles.pursuitOperation') {
-					while (macroService.IsRunning && !macroService.FindPattern(patterns.irregularExtermination.pursuitOperation[targetOperation]).IsSuccess) {
-						macroService.ClickPattern(patterns.general.back);
-						sleep(1_000);
-					}
+				macroService.PollPattern(patterns.battle.exit, { DoClick: true, PredicatePattern: [patterns.irregularExtermination.pursuitOperation.selectTeam, patterns.titles.pursuitOperation] });
+				while (macroService.IsRunning && !macroService.FindPattern(patterns.irregularExtermination.pursuitOperation[targetOperation]).IsSuccess) {
+					macroService.ClickPattern(patterns.general.back);
+					sleep(1_000);
 				}
 			} else {
 				return;
