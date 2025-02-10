@@ -1207,17 +1207,17 @@
       "$type": "pattern",
       "$defaultValue": {
         "$patterns": [],
-        "$isMultiPattern": true,
+        "$isMultiPattern": false,
         "$position": 0,
         "$name": null,
-        "$path": "watchAds.userClickPattern"
+        "$path": "watchAds.userClickPattern2"
       },
       "$value": {
         "$patterns": [],
-        "$isMultiPattern": true,
+        "$isMultiPattern": false,
         "$position": 0,
         "$name": null,
-        "$path": "watchAds.userClickPattern"
+        "$path": "watchAds.userClickPattern2"
       },
       "$position": 0,
       "$name": "userClickPattern",
@@ -3368,8 +3368,8 @@
         "blockbuster",
         "mutatedWyvre"
       ],
-      "$defaultValue": "ironStretcher",
-      "$value": "ironStretcher",
+      "$defaultValue": "irregularQueen",
+      "$value": "irregularQueen",
       "$position": 0,
       "$name": "targetOperation",
       "$path": "doPursuitOperationAssist.targetOperation"
@@ -3393,6 +3393,15 @@
       "$position": 0,
       "$name": "teamSlot",
       "$path": "doPursuitOperationAssist.teamSlot"
+    },
+    "refillStaminaAmount": {
+      "$type": "integer",
+      "$defaultValue": 100,
+      "$value": 100,
+      "$position": 0,
+      "$increment": 50,
+      "$name": "refillStaminaAmount",
+      "$path": "doPursuitOperationAssist.refillStaminaAmount"
     }
   }
 }

@@ -4,12 +4,19 @@
 const loopPatterns = [patterns.lobby.level, patterns.titles.adventure, patterns.irregularExtermination.pursuitOperation, patterns.titles.pursuitOperation];
 const teamSlot = settings.doPursuitOperationAssist.teamSlot.Value;
 const targetOperation = settings.doPursuitOperationAssist.targetOperation.Value;
+const refillStaminaAmount = settings.doPursuitOperationAssist.refillStaminaAmount.Value;
+
 let teamRestored = false;
 
 while (macroService.IsRunning) {
 	const loopResult = macroService.PollPattern(loopPatterns);
 	switch (loopResult.Path) {
 		case 'lobby.level':
+			if (refillStaminaAmount) {
+				refillStamina(refillStaminaAmount);
+				goToLobby();
+			}
+
 			logger.info('doPursuitOperationAssist: click adventure tab');
 			macroService.ClickPattern(patterns.tabs.adventure);
 			sleep(500);
