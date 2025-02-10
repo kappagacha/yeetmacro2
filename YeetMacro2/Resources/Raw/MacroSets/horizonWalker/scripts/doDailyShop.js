@@ -31,7 +31,7 @@ const giftBoxPattern = macroService.ClonePattern(patterns.mall.dailyLimited.gift
 	OffsetCalcType: 'DockLeft'
 });
 
-const fairyNetSupportFundPattern = macroService.ClonePattern(patterns.mall.specialDeals.fairyNetSupportFund, {
+const fairyNetSupportFundPattern = macroService.ClonePattern(patterns.mall.cashShop.fairyNetSupportFund, {
 	X: 400,
 	Y: 230,
 	Width: resolution.Width - 420,
@@ -65,8 +65,7 @@ while (macroService.IsRunning) {
 			logger.info('doDailyShop: claim free fund');
 			macroService.PollPattern(patterns.mall.cashShop, { DoClick: true, PredicatePattern: patterns.mall.cashShop.selected });
 			macroService.PollPattern(fairyNetSupportFundPattern, { DoClick: true, PredicatePattern: patterns.mall.purchase });
-			macroService.PollPattern(patterns.mall.purchase, { DoClick: true, PredicatePattern: patterns.mall.purchase.confirm });
-			macroService.PollPattern(patterns.mall.purchase.confirm, { DoClick: true, PredicatePattern: patterns.general.touchTheScreen });
+			macroService.PollPattern(patterns.mall.purchase, { DoClick: true, PredicatePattern: patterns.general.touchTheScreen });
 			macroService.PollPattern(patterns.general.touchTheScreen, { DoClick: true, PredicatePattern: patterns.mall });
 
 			macroService.IsRunning && (daily.doDailyShop.done.IsChecked = true);
