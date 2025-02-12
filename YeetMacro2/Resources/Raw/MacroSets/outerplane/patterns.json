@@ -19109,9 +19109,40 @@
             },
             "offsetCalcType": "Default",
             "position": 0
+          },
+          {
+            "rect": {
+              "x": 526.25,
+              "y": 915.25,
+              "width": 39.5,
+              "height": 41.5
+            },
+            "resolution": {
+              "width": 1920,
+              "height": 1080
+            },
+            "isBoundsPattern": false,
+            "name": "pattern2",
+            "imageData": "/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDAAEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQH/2wBDAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQH/wAARCAARAAoDASIAAhEBAxEB/8QAFwABAQEBAAAAAAAAAAAAAAAACQAGB//EACgQAAEEAQMDAgcAAAAAAAAAAAIBAwQFBgAHEggREwkUITU3dXe0tf/EABYBAQEBAAAAAAAAAAAAAAAAAAYICf/EACMRAAICAQMEAwEAAAAAAAAAAAEEAgMFABETBhJ0tBQiMkL/2gAMAwEAAhEDEQA/AMt6d3RxsDuhQ9QVXkVG/TwtsdlsozLGoOOvRK9t+xo8YyOzYam+4hy/NH81XGQ22/ESgpohopCqGzJ2X2hkyZEg8Bx4zffdeI3IAk4ROuEZE4SEiEZKSqZIiIpKqoid+2ll9O6q3ntk6kH9ocbxrJYg7JZdFzF3IMpLHAq6C0xjJoztjAUa2wSzlMRvePNw1WOLptNt+YEd5Abkhl+JIfiPOB5Yrzsd3gaEHkZMmz4l2TkPIV4l2+Kdl1m3kWW6en+nHaLX1HnZ5o5HIxtbpnk5VuVCg2M9wDclomyokTnxEmM9idtV4pSvblcsvbFS9ZaOO+IrKNNkUxNeXIIU9p4RcYxsH1iJ7AgkDfXQ/TE+l+7v4tuv4Nzo8bb5rZ/cJv7LurVp+3+7PPynt6NL/wA+Ij641//Z",
+            "variancePct": 20,
+            "horizontalStretchMultiplier": 0,
+            "verticalStretchMultiplier": 0,
+            "textMatch": {
+              "isActive": false,
+              "text": null,
+              "whiteList": null
+            },
+            "colorThreshold": {
+              "isActive": true,
+              "variancePct": 30,
+              "color": "#fffff9de",
+              "imageData": "/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDAAIBAQEBAQIBAQECAgICAgQDAgICAgUEBAMEBgUGBgYFBgYGBwkIBgcJBwYGCAsICQoKCgoKBggLDAsKDAkKCgr/wAALCAARAAoBAREA/8QAHwAAAQUBAQEBAQEAAAAAAAAAAAECAwQFBgcICQoL/8QAtRAAAgEDAwIEAwUFBAQAAAF9AQIDAAQRBRIhMUEGE1FhByJxFDKBkaEII0KxwRVS0fAkM2JyggkKFhcYGRolJicoKSo0NTY3ODk6Q0RFRkdISUpTVFVWV1hZWmNkZWZnaGlqc3R1dnd4eXqDhIWGh4iJipKTlJWWl5iZmqKjpKWmp6ipqrKztLW2t7i5usLDxMXGx8jJytLT1NXW19jZ2uHi4+Tl5ufo6erx8vP09fb3+Pn6/9oACAEBAAA/AP1d/wCCnP7a3xT/AGLv+Gev+FW6B4fv/wDhbP7T/hP4ceI/7ftZ5fs2lap9q+0TW3kzRbLlfITY7+Ygy26NuMfT9fOH/BSDRv2Jde074I2P7afizUNFlT9o/wAI3HwfvNMju3kk8bw3Ekum2xFvFKnlTol1BIbhRCI5nO+KURSp9H0UV//Z"
+            },
+            "offsetCalcType": "Default",
+            "position": 0
           }
         ],
-        "$isMultiPattern": false,
+        "$isMultiPattern": true,
         "$position": 0,
         "$name": "info",
         "$path": "event.daily.info"
