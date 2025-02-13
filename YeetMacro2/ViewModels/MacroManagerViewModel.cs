@@ -461,13 +461,13 @@ public partial class MacroManagerViewModel : ObservableObject
             if (targetMacroSet.DailyTemplate is not null && (!macroSet.DailyTemplateLastUpdated.HasValue || macroSet.DailyTemplateLastUpdated < targetMacroSet.DailyTemplateLastUpdated))
             {
                 macroSet.Dailies.Root.Data = targetMacroSet.DailyTemplate;
-                macroSet.Dailies.Save();
+                macroSet.Dailies.SaveTodo((TodoViewModel)macroSet.Dailies.Root);
             }
 
             if (targetMacroSet.WeeklyTemplate is not null && (!macroSet.WeeklyTemplateLastUpdated.HasValue || macroSet.WeeklyTemplateLastUpdated < targetMacroSet.WeeklyTemplateLastUpdated))
             {
                 macroSet.Weeklies.Root.Data = targetMacroSet.WeeklyTemplate;
-                macroSet.Weeklies.Save();
+                macroSet.Weeklies.SaveTodo((TodoViewModel)macroSet.Weeklies.Root);
             }
 
             _mapper.Map(targetMacroSet, macroSet, opt =>

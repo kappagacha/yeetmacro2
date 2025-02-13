@@ -50,6 +50,8 @@ public partial class WeeklyNodeManagerViewModel(
         var utcNow = DateTime.UtcNow;
         var targetDate = DateOnly.FromDateTime(utcNow).AddDays(offset);
         var currentMacroSet = ServiceHelper.GetService<MacroManagerViewModel>().SelectedMacroSet;
+        if (currentMacroSet is null) return targetDate;
+
         if (utcNow.Hour < currentMacroSet.DailyResetUtcHour)
         {
             targetDate = targetDate.AddDays(-1);
