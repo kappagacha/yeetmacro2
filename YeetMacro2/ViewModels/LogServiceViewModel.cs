@@ -105,7 +105,6 @@ public partial class LogServiceViewModel(IRepository<Log> _logRepository, IMappe
     {
         _logRepository.Insert(log);
         _logRepository.Save();
-        _logRepository.DetachEntities(log);
     }
 
     [RelayCommand]
@@ -238,7 +237,6 @@ public partial class LogServiceViewModel(IRepository<Log> _logRepository, IMappe
         log.IsArchived = !log.IsArchived;
         _logRepository.Update(log);
         _logRepository.Save();
-        _logRepository.DetachEntities(log);
     }
 
     [RelayCommand]

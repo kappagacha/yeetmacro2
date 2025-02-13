@@ -18,7 +18,4 @@ public interface IRepository<TEntity> where TEntity : class
     void Insert(TEntity entity);
     void Update(TEntity entityToUpdate);
     void Save();
-    void AttachEntities(params TEntity[] entities);
-    void DetachAllEntities();
-    void DetachEntities(params TEntity[] entities);
 }

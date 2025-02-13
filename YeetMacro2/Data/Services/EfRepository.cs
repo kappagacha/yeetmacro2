@@ -97,11 +97,6 @@ public class EfRepository<TContext, TEntity>(TContext context) : IRepository<TEn
 
     public virtual void Delete(TEntity entityToDelete)
     {
-        //if (entityToDelete is IProxyTargetAccessor proxy)
-        //{
-        //    entityToDelete = (TEntity)proxy.DynProxyGetTarget();
-        //}
-
         var entityState = context.Entry(entityToDelete).State;
         if (entityState == EntityState.Deleted || entityState == EntityState.Detached) //already deleted
         {
@@ -116,53 +111,6 @@ public class EfRepository<TContext, TEntity>(TContext context) : IRepository<TEn
         if (entry.State != EntityState.Added)
         {
             entry.State = EntityState.Modified;
-        }
-    }
-
-    //public virtual void Attach(TEntity entityToAttach)
-    //{
-    //    dbSet.Attach(entityToAttach);
-    //}
-
-    //public virtual void Detach(TEntity entityToDetach)
-    //{
-    //    context.Entry(entityToDetach).State = EntityState.Detached;
-    //}
-
-    public void DetachEntities(params TEntity[] entities)
-    {
-        for (int i = 0; i < entities.Length; i++)
-        {
-            var entity = entities[i];
-            context.Entry(entity).State = EntityState.Detached;
-        }
-    }
-
-    public void AttachEntities(params TEntity[] entities)
-    {
-        for (int i = 0; i < entities.Length; i++)
-        {
-            var entity = entities[i];
-            var entry = context.Entry(entity);
-            if (entry.State == EntityState.Detached)
-            {
-                dbSet.Attach(entity);
-            }
-        }
-    }
-
-    public void DetachAllEntities()
-    {
-        var changedEntriesCopy = context.ChangeTracker.Entries<TEntity>()
-            //.Where(e => e.State == EntityState.Added ||
-            //            e.State == EntityState.Modified ||
-            //            e.State == EntityState.Deleted)
-            .ToList();
-
-        for (int i = 0; i < changedEntriesCopy.Count; i++)
-        {
-            var entry = changedEntriesCopy[i];
-            entry.State = EntityState.Detached;
         }
     }
 

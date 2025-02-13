@@ -43,10 +43,10 @@ public partial class PatternNodeManagerViewModel : NodeManagerViewModel<PatternN
 
     protected override void CustomInit()
     {
-        foreach (var patternNode in _nodeService.GetDescendants<PatternNode>(Root).ToList())
-        {
-            _patternRepository.AttachEntities([..patternNode.Patterns]);
-        }
+        //foreach (var patternNode in _nodeService.GetDescendants<PatternNode>(Root).ToList())
+        //{
+        //    _patternRepository.AttachEntities([..patternNode.Patterns]);
+        //}
     }
 
     private void PatternTreeViewViewModel_PropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)
@@ -135,7 +135,7 @@ public partial class PatternNodeManagerViewModel : NodeManagerViewModel<PatternN
     {
         if (values.Length == 2 && values[0] is Pattern pattern && values[1] is PatternNode patternNode)
         {
-            _patternRepository.AttachEntities(pattern);     // When called form SettingPattern, pattern is not attached to the repository
+            //_patternRepository.AttachEntities(pattern);     // When called form SettingPattern, pattern is not attached to the repository
             patternNode.Patterns.Remove(pattern);
             _patternRepository.Delete(pattern);
             _patternRepository.Save();

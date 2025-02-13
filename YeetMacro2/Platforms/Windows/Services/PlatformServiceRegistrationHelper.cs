@@ -22,6 +22,7 @@ public static class PlatformServiceRegistrationHelper
 
         mauiAppBuilder.Services.AddYeetMacroData(setup =>
         {
+            setup.EnableSensitiveDataLogging();
             string dbPath = Path.Combine(FileSystem.AppDataDirectory, "yeetmacro.db3");
             setup.UseSqlite($"Filename={dbPath}");
         }, ServiceLifetime.Transient);

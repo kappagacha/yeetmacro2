@@ -107,13 +107,19 @@ public class YeetMacroDbContext : DbContext
             opts => JsonSerializer.Deserialize<List<string>>(opts, serializationOptions)
         );
 
-        modelBuilder.Entity<PatternSetting>().HasOne(ps => ps.Value).WithOne()
-            .HasPrincipalKey<PatternSetting>(ps => ps.NodeId)
+        modelBuilder.Entity<PatternSetting>()
+            .HasOne(ps => ps.Value)
+            .WithMany()
+            .HasForeignKey($"{nameof(PatternNode)}Id")
             .OnDelete(DeleteBehavior.Cascade);
         modelBuilder.Entity<PatternSetting>().Navigation(ps => ps.Value).AutoInclude();
-        modelBuilder.Entity<PatternSetting>().HasOne(ps => ps.DefaultValue).WithOne()
-            .HasPrincipalKey<PatternSetting>(ps => ps.NodeId)
+
+        modelBuilder.Entity<PatternSetting>()
+            .HasOne(ps => ps.DefaultValue)
+            .WithMany()
+            .HasForeignKey($"Default{nameof(PatternNode)}Id")
             .OnDelete(DeleteBehavior.Cascade);
+
         modelBuilder.Entity<PatternSetting>().Navigation(ps => ps.DefaultValue).AutoInclude();
         modelBuilder.Entity<TimestampSetting>().Ignore(ts => ts.LocalValue);
 

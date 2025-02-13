@@ -68,6 +68,8 @@ public partial class TodoNodeManagerViewModel : NodeManagerViewModel<TodoViewMod
         }
         SelectedNode = existingDaily;
         var targetJsonViewModel = ((TodoViewModel)existingDaily).JsonViewModel;
+        if (targetJsonViewModel is null) return;
+
         CurrentSubViewModel = ((TodoJsonParentViewModel)targetJsonViewModel.Children.FirstOrDefault(c => c.Key == _targetSubViewName)) ?? _emptySubView;
     }
 

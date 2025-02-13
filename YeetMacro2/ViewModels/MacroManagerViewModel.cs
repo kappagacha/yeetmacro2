@@ -77,7 +77,7 @@ public partial class MacroManagerViewModel : ObservableObject
         // manually instantiating in ServiceRegistrationHelper.AppInitializer to pre initialize MacroSets
         if (_macroSetRepository == null) return;  
 
-        var tempMacroSets = _macroSetRepository.Get();
+        var tempMacroSets = _macroSetRepository.Get(noTracking: true);
         MacroSets = new ObservableCollection<MacroSetViewModel>(tempMacroSets.Select(ms => _mapper.Map<MacroSetViewModel>(ms)));
 
         if (Preferences.Default.ContainsKey(nameof(SelectedMacroSet)) && MacroSets.Any(ms => ms.Name == Preferences.Default.Get<string>(nameof(SelectedMacroSet), null)))
@@ -89,8 +89,6 @@ public partial class MacroManagerViewModel : ObservableObject
             SelectedMacroSet = MacroSets.First();
         }
 
-        _macroSetRepository.DetachAllEntities();
-        _macroSetRepository.AttachEntities([.._macroSets]);
         _scriptService = scriptService;
 
         IsExportEnabled = Preferences.Default.Get(nameof(IsExportEnabled), false);
@@ -173,23 +171,18 @@ public partial class MacroManagerViewModel : ObservableObject
         var macroSet = new MacroSetViewModel(_nodeViewModelManagerFactory, _scriptService) { Name = macroSetName, Source = source };
 
         var rootPattern = _mapper.Map<PatternNodeViewModel>(_patternNodeService.GetRoot(0));
-        _patternNodeService.ReAttachNodes(rootPattern);
         macroSet.RootPatternNodeId = rootPattern.NodeId;
 
         var rootScript = _mapper.Map<ScriptNodeViewModel>(_scriptNodeService.GetRoot(0));
-        _scriptNodeService.ReAttachNodes(rootScript);
         macroSet.RootScriptNodeId = rootScript.NodeId;
 
         var rootSetting = _mapper.Map<ParentSettingViewModel>(_settingNodeService.GetRoot(0));
-        _settingNodeService.ReAttachNodes(rootSetting);
         macroSet.RootSettingNodeId = rootSetting.NodeId;
 
         var rootDaily = _mapper.Map<TodoViewModel>(_todoNodeService.GetRoot(0));
-        _todoNodeService.ReAttachNodes(rootDaily);
         macroSet.RootDailyNodeId = rootDaily.NodeId;
 
         var rootWeekly = _mapper.Map<TodoViewModel>(_todoNodeService.GetRoot(0));
-        _todoNodeService.ReAttachNodes(rootWeekly);
         macroSet.RootWeeklyNodeId = rootWeekly.NodeId;
 
         MacroSets.Add(macroSet);
@@ -214,7 +207,7 @@ public partial class MacroManagerViewModel : ObservableObject
         _scriptNodeService.Delete(macroSet.Scripts.Root);
         _todoNodeService.Delete(macroSet.Dailies.Root);
         _todoNodeService.Delete(macroSet.Weeklies.Root);
-        _macroSetRepository.Delete(macroSet);
+        _macroSetRepository.Delete(macroSet.MacroSetId);
         _macroSetRepository.Save();
         MacroSets.Remove(macroSet);
 

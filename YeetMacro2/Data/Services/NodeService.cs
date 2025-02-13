@@ -10,7 +10,6 @@ public interface INodeService<TParent, TChild>
     TParent GetRoot(int id);
     void Insert(TChild node);
     bool IsDescendant(TParent ancestor, TChild potentialDescendant);
-    void ReAttachNodes(TParent root);
     void Update(TChild node);
     void Save();
     IEnumerable<TTarget> GetDescendants<TTarget>(TChild root) where TTarget : TChild;
@@ -70,18 +69,22 @@ public class NodeService<TParent, TChild>(IRepository<TChild> nodeRepository, IR
     {
         if (node is TParent parent)
         {
+            var children = parent.Nodes.ToList();
+            parent.Nodes = null;
+
             parent.NodeId = 0;
             _nodeRepository.Insert(parent);
             _nodeRepository.Save();
             Resolve(node);
 
-            var children = parent.Nodes.ToList();
             foreach (var child in children)
             {
                 child.ParentId = parent.NodeId;
                 child.RootId = parent.RootId;
                 Insert(child);
             }
+
+            parent.Nodes = children;
             _nodeRepository.Save();
         }
         else
@@ -159,14 +162,6 @@ public class NodeService<TParent, TChild>(IRepository<TChild> nodeRepository, IR
             _closureRepository.Delete(closure);
         }
         _closureRepository.Save();
-    }
-    public void ReAttachNodes(TParent root)
-    {
-        var originalRoot = Get(root.NodeId);
-        var originalDescendants = GetDescendants<TChild>(originalRoot).ToArray();
-        _nodeRepository.DetachEntities(originalDescendants);
-        var newDescendants = GetDescendants<TChild>(root).ToArray();
-        _nodeRepository.AttachEntities(newDescendants);
     }
 
     public IEnumerable<TTarget> GetDescendants<TTarget>(TChild node) where TTarget: TChild

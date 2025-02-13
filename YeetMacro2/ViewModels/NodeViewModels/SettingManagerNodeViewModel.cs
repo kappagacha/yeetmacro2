@@ -44,7 +44,7 @@ public partial class SettingNodeManagerViewModel : NodeManagerViewModel<ParentSe
             if (settingNode is PatternSetting patternSetting)
             {
                 patternSetting.Value.Path = patternSetting.Path;
-                _patternRepository.AttachEntities([..patternSetting.Value.Patterns]);
+                //_patternRepository.AttachEntities([..patternSetting.Value.Patterns]);
             }
         }
     }
