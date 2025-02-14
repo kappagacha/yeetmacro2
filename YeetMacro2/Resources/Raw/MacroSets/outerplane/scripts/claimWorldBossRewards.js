@@ -33,6 +33,21 @@ while (macroService.IsRunning) {
 			macroService.PollPattern(patterns.adventure.worldBoss.rewardNotification, { DoClick: true, PredicatePattern: patterns.general.tapEmptySpace });
 			macroService.PollPattern(patterns.general.tapEmptySpace, { DoClick: true, PredicatePattern: patterns.titles.worldBoss });
 
+			macroService.PollPattern(patterns.adventure.worldBoss.battleStart, { DoClick: true, PredicatePattern: patterns.adventure.worldBoss.battleRecord });
+			macroService.PollPattern(patterns.adventure.worldBoss.battleRecord, { DoClick: true, PredicatePattern: patterns.adventure.worldBoss.battleRecord.restoreTeam });
+			macroService.PollPattern(patterns.adventure.worldBoss.battleRecord.restoreTeam, { DoClick: true, PredicatePattern: patterns.adventure.worldBoss.battleRecord.restoreTeam.ok });
+			macroService.PollPattern(patterns.adventure.worldBoss.battleRecord.restoreTeam.ok, { DoClick: true, PredicatePattern: patterns.adventure.worldBoss.battleRecord });
+			macroService.PollPattern(patterns.adventure.worldBoss.enter, { DoClick: true, PredicatePattern: patterns.adventure.worldBoss.saveAndExit });
+			macroService.PollPattern(patterns.adventure.worldBoss.saveAndExit, { DoClick: true, PredicatePattern: patterns.adventure.worldBoss.battleStart });
+
+			macroService.PollPattern(patterns.adventure.worldBoss.challengeReward.notification, { DoClick: true, PredicatePattern: patterns.adventure.worldBoss.challengeReward.notification2 });
+			let notificationResult = { IsSuccess: true };
+			while (notificationResult.IsSuccess) {
+				macroService.PollPattern(patterns.adventure.worldBoss.challengeReward.notification2, { DoClick: true, PredicatePattern: patterns.general.tapEmptySpace });
+				macroService.PollPattern(patterns.general.tapEmptySpace, { DoClick: true, PredicatePattern: patterns.event.close });
+				notificationResult = macroService.PollPattern(patterns.adventure.worldBoss.challengeReward.notification2, { TimeoutMs: 3_000 });
+			}
+
 			if (macroService.IsRunning) {
 				daily.claimWorldBossRewards.done.IsChecked = true;
 			}

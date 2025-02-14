@@ -3118,6 +3118,325 @@
         "$position": 0,
         "$name": "locked",
         "$path": "adventure.worldBoss.locked"
+      },
+      "battleStart": {
+        "$patterns": [
+          {
+            "rect": {
+              "x": 1632.25,
+              "y": 985.25,
+              "width": 36.5,
+              "height": 25.5
+            },
+            "resolution": {
+              "width": 1920,
+              "height": 1080
+            },
+            "isBoundsPattern": false,
+            "name": "pattern",
+            "imageData": "/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDAAEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQH/2wBDAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQH/wAARCAAZACQDASIAAhEBAxEB/8QAGgAAAwADAQAAAAAAAAAAAAAAAAgJBQYHCv/EADIQAAEEAgEDAwEECwEAAAAAAAQBAgMFBgcIABESCRQVExYXUbQhIyc1Njdhc3WEscP/xAAVAQEBAAAAAAAAAAAAAAAAAAAAAf/EAB4RAAIBBAMBAAAAAAAAAAAAAAABEVFhkfAh0fGx/9oADAMBAAIRAxEAPwCrPqK5rnOz+V+p+KMWaF4JrfIoMNHu5oSpQhbQ3NLo0Iw+2RksDLUQEEccSrqiXqE+zSZ03nJJC4badueltLrbF67POKWZ5qPtrFza0gcYu5hFfeRSljwFSV547RG10grHqbIIQ4gI0SEgaZXeTGSOvzL4J4lytEqL0e4XDdmYwHIBSZPFA6YU6vWdxcNVeRRK0h44pb5iASx3KQE8kpGxzNmRI58mbI9QTgZCHPtIQbc+mq8oUB92WW+1UYR7mxQsZk8LFuaokl6IyF+Tj2bpFT6TPpI9j2gtnjosrp4jY7NWYa/dEFTXbIHpBh8yWsNHJq5bQdzh3HREQ+IzHWETISyIYl+iOVPMPC6SKON7p+a35ebQyX1Ac74821hjCawoH5X8a+IBYbRyVVGIeE2W1dYPHlRCJ5PPwFYsjWtaioqOVzai2OJc3uLxJOGZLbYnS7So0BfbDQtfkGKWdfaDuta+UeMyCP5GvOr5gpHRGfQkY5pQ0048sT5YAa/4gJlPOXM+Nf3p5RW/Zx+TftDFFc7Ij/iKYaw7zj/Kx+Cl+49vO75CT9Wzv2d5eKAepqOSOVjZInskjendkkbmvY5Pxa5qq1yf1RVTo60/Ums/us1phWuvnjMl+x1AFR/P2UaxH23s2q33xkfuCfEibv5SJ7ibu7uvmvf9B1JV8PoRsq17/aMnjy7znl7xw37Rbux+I/ZnHRtclZY4LUAtiHpIi4x2W8Nv7SEgz5R5IsNlSZAQkwrO761sA8bzkmX7kX6hjOSOqMh0ZprRmzics2QKNjhj8gpwJIwh5ihyDG1glQdazGHyNHUYR5KAMFfKhvm6QdsEl9b39yW/+MO/Ky9KFx7/AI/yD/c/9OqDHcBuP2TaA41YhhOasaNlh51zll9WNekqU5V+U2Uepc9Fc33AddAEw5rF8GHuKY1XI3ydO3SlIfH6v+1y3AlxhPfn7WGPGmaK9VxWuREYQ6NIXKrkcieL17qjkRFVF6v70ulD/Oq0/v235JegO4+yd+P/ADo6zXR1IVFviwWXV74sH//Z",
+            "variancePct": 20,
+            "horizontalStretchMultiplier": 0,
+            "verticalStretchMultiplier": 0,
+            "textMatch": {
+              "isActive": false,
+              "text": null,
+              "whiteList": null
+            },
+            "colorThreshold": {
+              "isActive": true,
+              "variancePct": 30,
+              "color": "#ff707070",
+              "imageData": "/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDAAIBAQEBAQIBAQECAgICAgQDAgICAgUEBAMEBgUGBgYFBgYGBwkIBgcJBwYGCAsICQoKCgoKBggLDAsKDAkKCgr/wAALCAAZACQBAREA/8QAHwAAAQUBAQEBAQEAAAAAAAAAAAECAwQFBgcICQoL/8QAtRAAAgEDAwIEAwUFBAQAAAF9AQIDAAQRBRIhMUEGE1FhByJxFDKBkaEII0KxwRVS0fAkM2JyggkKFhcYGRolJicoKSo0NTY3ODk6Q0RFRkdISUpTVFVWV1hZWmNkZWZnaGlqc3R1dnd4eXqDhIWGh4iJipKTlJWWl5iZmqKjpKWmp6ipqrKztLW2t7i5usLDxMXGx8jJytLT1NXW19jZ2uHi4+Tl5ufo6erx8vP09fb3+Pn6/9oACAEBAAA/AOd/4OY/jr+0d+1z/wAFiPhZ/wAEitD+LfxA+H3wy8U/8Ip4f1ayuNPaHSNcv9X1eMnWEhjlj/tm2g/0ONBM4WK7026SMRN5kj9B/wAFBP8Agz/8R/ATwJ4f+On/AAR3+MXxA1v4jeFvEEF5J4e8YeLNOs7+XbLG0F7peoQw2Udpc2sq+aVlYb1y0csckKRXH7Hf8E3tZ/ba179iXwDff8FGvCen6L8aE0+4t/G9npklo8ckkN3PFb3JNlLLb+bPapbzyCFhGJJnCpEAIk/LH9iv/guX/wAFBPjV/wAHLfiz/gn74/8AG/h+4+ET/EDxr4T03wlD4Yt4v7Mh0W2v3tryG6UC6e5kbTFMvnSywn7XcbIo/wBz5P7fV+cH/BeD/g3x8Cf8Ffv7G+NfgD4qf8IN8XfCnh+XStN1PUoJbrStcsE+0T22n3UauGtNt3OzC8hV2RJ5w8FziEQ/AHi79sX/AIOdP+CAusaddftiWf8Awv8A+CWkbYr3xNfSPrVhJDNeWcs0j66IU1OxufMujZQSaorQ7pGWGC4SGPb+p/x38KfBr/g4c/4I6XWg/AD4vah4R8KfGjT9PuNP8R6t4VNxdaVJp+tQT3FtNZmeIPKlxp81qxSYx7gZI3lTaz/zI/s0/wDBKT/hoj/gslqX/BJP/hfX9j/2f8QPFnhj/hYH/CLfaPM/sSHUZPtH2H7UmPO+wY2eefL83O59uG/rt/Yp/Zm079jP9kf4cfsqaX4x1DxDF4A8H2Oitrup3NxJJfyQxKskwW4nneCJn3GO2EjR28ZSCLbFEij8wf8AguB+15/wWj/4JZ/t56L/AMFAPhle6h8Q/wBlDTdPsbTXPBTWFja6Zpkl8Y7a7sLqS3L3nmtLYwXNvq08Zjtp9RW1XekstvdfL/8AwWO/4OZvgF/wVG/Y91L/AIJ4fsXfslfFDU9b+KmoaZYNe+JIbW3ure6g1fT7u0t7KxsZL19RluHgeHZvgZGaMqJixVf1P/4N7/8Agmx47/4Jef8ABOPR/gp8Ym8rx74p8QXfizx1pkOqRXltpd/cxwQR2cMkUaqfLtLS0WXDSr9o+0GOWSIxmvxw/wCCfPhPxV4L/wCDzbX9H8Y+GdQ0m7m+OHxNv4bXU7J4JHtbrS9durW4CuATFNbzRTRuPleOVHUlWBP9N1FFFFFf/9k="
+            },
+            "offsetCalcType": "DockRight",
+            "position": 0
+          }
+        ],
+        "$isMultiPattern": false,
+        "$position": 0,
+        "$name": "battleStart",
+        "$path": "adventure.worldBoss.battleStart"
+      },
+      "battleRecord": {
+        "$patterns": [
+          {
+            "rect": {
+              "x": 1162.25,
+              "y": 814.25,
+              "width": 31.5,
+              "height": 24.5
+            },
+            "resolution": {
+              "width": 1920,
+              "height": 1080
+            },
+            "isBoundsPattern": false,
+            "name": "pattern",
+            "imageData": "/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDAAEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQH/2wBDAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQH/wAARCAAYAB8DASIAAhEBAxEB/8QAGgAAAgMBAQAAAAAAAAAAAAAAAAkCBwgEBv/EACYQAAICAwABBAICAwAAAAAAAAMEAgUBBgcIABITFAkRIUEVIiP/xAAUAQEAAAAAAAAAAAAAAAAAAAAA/8QAFBEBAAAAAAAAAAAAAAAAAAAAAP/aAAwDAQACEQMRAD8AdZ0vqHlr0Dzq6N438V61TaJT0WuUOxVcL2hrXkFV8aFqV1bDyx/iX7ApmrG4YOPE8yhD3yhjMYRhH1HoXaPM7wtu9F2Tv206V2Lku1bGHXbmz1+rjXWtScwSOkGn8KtbLD46xOxsEgsImXscIsp/ZVlLDAa03rpG3ck/Kf1/adK5pe9ZvM6Nr1VHUtdnKFjJV/lnP8nssSiBn/gl8I/lx8f6/RY/7Yz+v3z7hvfU/wAmnSKDxwFpKPGdb5ls0t26VnYbyLW0Kyp8Naw38FWVRCf2awV5YpQRDFzJG31mWiqLAlkgPWGQZhCOGcSBOERwlj/MShOOJREhn+4kHOM45/vGcep+sS/kC8hLnxe4lUH5wNYG17VeVugai9YQEwpQKLVTLLt2YBZjGwVOvroKqRN7gQedXaZEZYBQEVxvff8Ae+IUdJ0PnPnOl3LeGGAJblz+wqwsUQ4WFexEz1Mv8a2TK1j0Q/yrisP7phPKBVosikDPdN8dOp1n5K+j+QLWvxFyu70JSjrNg++nkhrEfP8ASaaYfoYL9uEcWNO+D3yH7c5FiWM+0kc+vMeVHip1mr79z7yr8WqtZroa1iJHourFsF6hHaK8a0gydbmaUAGFb1cCUN5DOJGzLNVaLQy6sRiJ6PQXr5g+L73llw2noA4xpm/Uz9RvGtr3PwsL1t9GtYVsNcuiK/aCUBFrBtQh1smXy8smziZFYyzLH6/G/OjaoUmsY8dPEznp6iGc3m/Oarp1stfTXRKEERVoBmkvhw04GYwphjOGoQnEiysChkej0H//2Q==",
+            "variancePct": 20,
+            "horizontalStretchMultiplier": 0,
+            "verticalStretchMultiplier": 0,
+            "textMatch": {
+              "isActive": false,
+              "text": null,
+              "whiteList": null
+            },
+            "colorThreshold": {
+              "isActive": true,
+              "variancePct": 30,
+              "color": "#ff747474",
+              "imageData": "/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDAAIBAQEBAQIBAQECAgICAgQDAgICAgUEBAMEBgUGBgYFBgYGBwkIBgcJBwYGCAsICQoKCgoKBggLDAsKDAkKCgr/wAALCAAYAB8BAREA/8QAHwAAAQUBAQEBAQEAAAAAAAAAAAECAwQFBgcICQoL/8QAtRAAAgEDAwIEAwUFBAQAAAF9AQIDAAQRBRIhMUEGE1FhByJxFDKBkaEII0KxwRVS0fAkM2JyggkKFhcYGRolJicoKSo0NTY3ODk6Q0RFRkdISUpTVFVWV1hZWmNkZWZnaGlqc3R1dnd4eXqDhIWGh4iJipKTlJWWl5iZmqKjpKWmp6ipqrKztLW2t7i5usLDxMXGx8jJytLT1NXW19jZ2uHi4+Tl5ufo6erx8vP09fb3+Pn6/9oACAEBAAA/AN79vX/gor/wW1+IH/Bwl4r/AOCUf/BP39svw/4G0+7+w/8ACJWfinwhpM1hZbPCdvrF15ty+l3d0d7Lclch8NIq/Kg+XP8A2hv+Cjf/AAcZf8EO/j78PfHX/BT74m+D/jL8F/F+oW9hrms+DvBlnJa2a/akku7e3lt7TSpYdXFnDM9ulyTayrK5AlMEvkfvdRX80P7ev7R/xT/ZI/4O/vFf7QnwU/Zj8QfGTxN4f+w/2Z8N/CzTi/1fz/AFvbSeUYLa5k/dRTSTtthf5YGztGWXQ/aN/a7/AG8/+Dqv9rjwr/wTB8K/AjT/AIA+FPh5qFz4i+J2leJL86jqOj3VlK2n3N9c+db2k7S24vPskWnRRxsbi6kNxIEAktP1P/4OMv8Agq547/4JU/sO2niz4EXXh/8A4Wb8QPEH/CP+Ejq93E82kw/ZppbrWIbJwftv2bbBEAw8mOa9tmlEi/uJvwx+I/8AwU7/AGrv2GvCvhj4u/sXf8HHXjD46+Mta086b478GeJPCfiK5tdCZ0imM1l/wlFtNaXkSzRPF9p8u1ugrR7Yik86xfq9o3/BJ/8Aba1T/g6y1b/gp3ffDjT9O+C+naetxZ+Kb3xFaNJqkh8Gw6KbaC0ike4WUXUrsTNHFH5dtKwckxLIf8FkP+CT/wC214c/4KK/DT/gsh/wR1+HGn6/8YrDUGt/iR4d1/xFaJa6jGmnrY29ysOoSQxrFJYiexuRFcxyBWtZIESXz7kfSH/Bbf8A4JseO/8AgsR/wTjsvgp4Nb/hBvHtp4g0fxZ4Z0zxlqkUNtYX6RyQXFnqUlhHfK+y0vbxf9FZ1NxHCRK0QYt+YGmf8Ez/APgv18cdH8LfA+6/4I9/sQfBue18v+1vjHdfCTwPdTXfkWcoP26CM6nGPtEoRj9j05Nsxj2+TD5gr//Z"
+            },
+            "offsetCalcType": "DockRight",
+            "position": 0
+          }
+        ],
+        "$isMultiPattern": false,
+        "$position": 0,
+        "$name": "battleRecord",
+        "$path": "adventure.worldBoss.battleRecord",
+        "restoreTeam": {
+          "$patterns": [
+            {
+              "rect": {
+                "x": 1023.25,
+                "y": 934.25,
+                "width": 36.5,
+                "height": 27.5
+              },
+              "resolution": {
+                "width": 1920,
+                "height": 1080
+              },
+              "isBoundsPattern": false,
+              "name": "pattern",
+              "imageData": "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",
+              "variancePct": 20,
+              "horizontalStretchMultiplier": 0,
+              "verticalStretchMultiplier": 0,
+              "textMatch": {
+                "isActive": false,
+                "text": null,
+                "whiteList": null
+              },
+              "colorThreshold": {
+                "isActive": true,
+                "variancePct": 30,
+                "color": "#ffffffff",
+                "imageData": "/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDAAIBAQEBAQIBAQECAgICAgQDAgICAgUEBAMEBgUGBgYFBgYGBwkIBgcJBwYGCAsICQoKCgoKBggLDAsKDAkKCgr/wAALCAAbACQBAREA/8QAHwAAAQUBAQEBAQEAAAAAAAAAAAECAwQFBgcICQoL/8QAtRAAAgEDAwIEAwUFBAQAAAF9AQIDAAQRBRIhMUEGE1FhByJxFDKBkaEII0KxwRVS0fAkM2JyggkKFhcYGRolJicoKSo0NTY3ODk6Q0RFRkdISUpTVFVWV1hZWmNkZWZnaGlqc3R1dnd4eXqDhIWGh4iJipKTlJWWl5iZmqKjpKWmp6ipqrKztLW2t7i5usLDxMXGx8jJytLT1NXW19jZ2uHi4+Tl5ufo6erx8vP09fb3+Pn6/9oACAEBAAA/APTv+DyD9tb9rj9lTwr+z94O/Zj/AGjfGHw8tPFeoeJr3xDN4K1yXS7q+ksU0xLZXurYpP5Si+uSYQ4jdmRnVmiiKef+Gf8Agjf/AMHZ37PmoyfGb4d/8FatP8Va34f0+7uNN8Nan8Zte1mPVJPs8iC2FnrennT5ZXDFYzdbY0kKSF4ygkX7P/4NvP8Ags347/4Kz/s4+JPDPx38KeR8TfhN/Zlp4t8SWMMUVh4khvFufst8kSY+z3LfY5xPCqCEMFkiKrL9nt/0for8Af8Ag+c/5td/7nb/ANwFdh8a/wDg9w+AUXwCt7z9nP8AY48YT/FK909EutP8a39rFoGj3T2shaVLi1le41KKK68pREYbJp4t7eZbthT7f/wakf8ABKP9o7/gnd+zj44+Nf7UFr/YHiD40/2LdWXgC6tGS/0GwsVvTC98Sf3VzP8AbmY2u3dbrHGJGEryQQfKH/BRj/gsD+3n+3x/wUL+L/8AwTd/ZR/b1+F/7K3w9+GWoahYTeNfiJ4rPhG91+6028sLW6t/7YRrmSOX7dHdSW6Wn2VpbIyi4D4MY8PvP+Dmj/grh/wTX8R6l+x14i+Pf7P/AO0p/wAIn9ijsfipC93r9teWz6daskEOp2NxY/b/AC8kSz3Eclw1wbgSTSYXH0h/wfKeE/FV54V/Zp8dWfhnUJdE07UPFthqGsx2Tta2t1cppElvbySgbEllS1unRGIZ1tpioIjbH6H/APBfP/glHo//AAVZ/Yd1DwT4ZtfK+JvgT7T4g+F97b2lmZry/W2cNo7zXJTyba9xHG5E0SpNFazyGRbfy3+f/wDg1a/4KT+O/wBoj9nHX/8Agnl+1Av9kfFb9nfyNEstE1LS4tMv5PDduq2cMMtsZBM9zYTQtaXDeREI1ksBIZJ5ZHb80f8AgpR+x98M/wDgml/wWZ+Kv7QX/BS39gnxh8b/ANnf4reMLnVtA8T6Tq17oNrZ3WtXw1KVobmyn2XF9ZpHqlsunz3Fu1ysYuCIY3jYeP8AizwPZfHzxVqfxX/4J4f8G0eoeIfgvqeoTJ4B1zVtK+Jut3V9awubd5ZrvTNdS0aUzRSlooQywNmEyTGIyv8A120UUUV//9k="
+              },
+              "offsetCalcType": "Default",
+              "position": 0
+            }
+          ],
+          "$isMultiPattern": false,
+          "$position": 0,
+          "$name": "restoreTeam",
+          "$path": "adventure.worldBoss.battleRecord.restoreTeam",
+          "ok": {
+            "$patterns": [
+              {
+                "rect": {
+                  "x": 1090.25,
+                  "y": 824.25,
+                  "width": 51.5,
+                  "height": 20.5
+                },
+                "resolution": {
+                  "width": 1920,
+                  "height": 1080
+                },
+                "isBoundsPattern": false,
+                "name": "pattern",
+                "imageData": "/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDAAEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQH/2wBDAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQH/wAARCAAUADMDASIAAhEBAxEB/8QAGwAAAgMAAwAAAAAAAAAAAAAAAAkHCAoCBAb/xAAtEAABBAIBAwMDAgcAAAAAAAADAQIEBQYHCAAREgkTFBUhIiNBChcxUaG00f/EABcBAQEBAQAAAAAAAAAAAAAAAAgEBQf/xAAlEQADAQACAgICAgMBAAAAAAABAgMEBQYREgcTABQWIRUiMiT/2gAMAwEAAhEDEQA/AOhwT4lyeanJjE9OzZMuuwCtgnzXaFlCc4cl2L1kgQQUUYydvZkZDLUoPPyRfixJaN7uVE6eRyd9SrWfAPIn8YeHGlcAY7AYsStyS+lCSPTxbJoWPWteCpaCyv7IY1YWxnTrOP4lKxolMqvQdZf4f6wqK3kju2DNMBltkuq8ZDRje5EMRuO399LtvZRfuqIG4hq9E/ZE79+32VlzHw/KsK5Rb0o8wDJDc/zJyqz7y0IhDV1vbSrKqKxxERXhSukxxDc3u1EErEX8F7LXRxmXt/ybzPFdhLaeN4Hi8VuO4pq1lDRTVOD01Os3RqiTVKsAfBJmG8qrKw2ycts6R8ScHzHWVTLyvY+Y2x5PmBCF7ZkyW1TllQ2SqzNEzL9fsh9VFmUK7o4fxxe9RDUvqJ3i8ZeXGm8IhZDmMCZFxDIoHiWDYWQ4zyvgVz7BjragufZaaRB+JYzGSGgKhXIxr2dJg5OcYJfEnm5imp/fNOx9m3NRZBh1idP1peMW+xaF0Bp3J+LpMR4TRSqi93oIZnNYpvFI54IY9kuXc1ON+N4fHlS7oew4OQznwmvetVj1HHkybWzmuH940NyODX+6Tsx5ZrRoq91TpqfrPXtLZc9ON1NAKElvQ22onXaDVHEG2y2hjZK8ZVRPs5GRZPZir3air3RPJO8DZc/VO7cn17gS8+F5fqPJb9nGC1LQwbIZ9PpeQq9Gl9iyRCpb+/v8f8iSrpT2ae5dA4ns/ZBOnO8H3TiuPwcqYSho5HDfZgWkKfVOSV+s6Kt5RfH/AJA5Huas07etZqDZm/tt8OdPaiojXebZlR5NFjFUb3VuP1g5VQlnkl0ZrVaCtqgkaR3mqKczhAZ5Of26krL8i0f6KvFOHrLXi1+W8k9hQHyp1pJQRLi+yQwUbPyu9c1VPGx6oO9W1sJytG9zQhZ5EeiK0/enILj7xqfrrN9vWVXT5HlL6zAMXnvjskXLYdvIjkme1/UsWmjyPbk2stqMEMTPM71GNUbnW9ajidldBsePyrxy3tcz1tsgFdHsZZpZbQGJT0jt+nAiFRXsjY7ZBehILR+McUkjvycSS7x510un8jv1Pq/YK2w9bz/u1wRM6Shz3JJqe7Zm0EqhAN/rIUk/6fSpWt0K9O7zM9Wydv7d1qEN/atM+PlvuXnXRwHGHJLOumeYBn8esPv/ANwASwvQUjmZCkjNM9y/YWV3+b5hf2N5k+TWUi2urWXJK88ubJd3e5fy7MGNiMCALEQYADEEbWjG1qHXk/Bf7p/n/nR0upxjJElKU5zmiznNEVUREAVERQAFVVAVVAAAAAHj8E1dOi1KWte1a1d61rSju9KUYu7uzEszuxLMxJLMSSfJ/LH8VNr5rpPf+ss8wCybXX0bKKmpepxuPEm1d3YRa+yr5wGEC48WQAvk4aFZ+qIL+6+HZdjnJngJxt5k0NFnW2cXtK7NWU0IpMrwK5Li11KC4LSJCmyEDPHMiCe9yhSSEkgaKrWyPFVRTo6OHzRa2DtHW9mG1cWxsFUbVko+bSyDSyhGvEpUqAzAKXIAZgB4J/FP8DQjyPUezYOQjLfhXk5MuLbNNWRWbLNmYZ7ikQWZVZiE8llUnyQPzhx44JcbeDWFZhnWkcMMXO5OOWEuTmucWJcoyY4gxiGZXLZuHBeGucQbFJHisjuKjUQhXIidse+d7PzLcvLao2Jntmtrkt5yB158ozWuFGACJszH4cSFBjueX4sOLHCxgQNe5EXzI9zykI9x0dRfFlKbK99266Pq2f4Wift6Wa+n0eej3X76lq+reiey+/hvRfIPqPGh8wynhh8d4cU0x4v5Bmb9PKi58vsjw9G/XkEj7J7v6n08r7t48ex8ub9f1qOs+Mnf9sWyj/Yq+rYel7fTuVPArOdWbyQGbYvjn1fDa5bBjyWf0MMAh4IjzykMpZVa5GtgzUEyQJrUQjyr3cp0dTcgqr8N9S0qAujPzzHPoUAWgW3ckWMajxSRYohYoyklFJ/5HivimZvnHuOVmLZtHWoDRnYkwuExcSqC0j5nX1FKBfdW9RRwPAZvOVDYuOwMWz7NMarHSHV1BlN7TwXSiMLJWJXWUmLH98rBiaQvtCb7j2jYjnd3I1O/bo6OjpR5SWzZ2YlmaESzEkkkzUkkn+ySf7JP9k/hB2qqbdaIoVV1aFVVAVVVauAqgeAAAAAAAAB4H5//2Q==",
+                "variancePct": 20,
+                "horizontalStretchMultiplier": 0,
+                "verticalStretchMultiplier": 0,
+                "textMatch": {
+                  "isActive": false,
+                  "text": null,
+                  "whiteList": null
+                },
+                "colorThreshold": {
+                  "isActive": true,
+                  "variancePct": 30,
+                  "color": "#fffdffff",
+                  "imageData": "/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDAAIBAQEBAQIBAQECAgICAgQDAgICAgUEBAMEBgUGBgYFBgYGBwkIBgcJBwYGCAsICQoKCgoKBggLDAsKDAkKCgr/wAALCAAUADMBAREA/8QAHwAAAQUBAQEBAQEAAAAAAAAAAAECAwQFBgcICQoL/8QAtRAAAgEDAwIEAwUFBAQAAAF9AQIDAAQRBRIhMUEGE1FhByJxFDKBkaEII0KxwRVS0fAkM2JyggkKFhcYGRolJicoKSo0NTY3ODk6Q0RFRkdISUpTVFVWV1hZWmNkZWZnaGlqc3R1dnd4eXqDhIWGh4iJipKTlJWWl5iZmqKjpKWmp6ipqrKztLW2t7i5usLDxMXGx8jJytLT1NXW19jZ2uHi4+Tl5ufo6erx8vP09fb3+Pn6/9oACAEBAAA/AP1N/wCC0v8AwUw07/glH+wZ4g/aes9E0/V/Fd1qFtoPw+0LVhcC11DWbkOyCZoEJEUNvDdXTKzRCVbUwrNG8qNX5Qf8E8f+Dev4y/8ABab4Z6V/wUv/AOCwP7aPxQv7v4g6feT+EvDOnoLfU7TTmvWltbjz7+CSC0sZS97NBYWlqLfyLq2mimVXaEZ//BQv/ghl+1j/AMEF/s3/AAUq/wCCKP7QfxAu9P8ADHh+6tPiZZa2thqOq6dYSZMt80K2iWuoaaFEbTQyW7NaPbx3eXRGks/2P/4JMf8ABQLwr/wU0/YM8C/tW6PPp8Wt6jp/2Dx3o2nsirpOv2wEd7b+Us87wRM+LiBJXMptbm2kcAyV+MH/AAZw/H74NfstfBr9sP8AaD/aD+IWn+FfBvhXT/BV7ruu6m5EdvHnXVVQqgvLK7skccMatJLJIkcau7qp4/8AZo+Fv7cX/B2F/wAFHLT9qD9pfQv+Ef8A2bPhj4gjin8PvdXJ0qysBJFPJ4esXiaGS61K8iWL7ZfKY2iR0lPlKthZt/Sd4T8J+FfAXhXTPAvgXwzp+i6Jounw2GjaNpNklta2FrCgjit4YowEiiRFVFRQFVVAAAFfkj/werf8osvAP/ZwGlf+mPXK+/8A/glJ8RfAnxX/AOCZXwA8c/DaDw/baRc/B/w9DHpnhbUZbqw0qaDT4YJ9PikmnnmP2WaKW2ZZpZJkaBkldpFc1z//AAWt+KXgT4P/APBI/wDaN8WfEXXf7O0+7+D+uaJb3H2WWbff6naPptjDtiVmHmXd3bxbiNqeZucqisw+L/8AgzC8J+KvDn/BKDxRrHiHwzqFhaa/8cNXv9Cur2yeKPUbVdM0m1a4gZgBNELi2uIS6ZUSQSpncjAfgD/wTy/4J4/t5/8ABS/UfFvwH/Y38K6hq2laRp6eJPFsF1rBstGF1a294unJO8jCA30xmura0D/MDc3DFooFupo/3f8A+DQT/gph8GvjF+x7Y/8ABMqXRNQ0n4hfCXT9U1iBpAZrXXtGutXkuHu45FQCCWC41GO3eCQ5ZWhljeTdMlv+x1eX/tofsh/Br9vT9l/xf+yP8f7LUJvCnjTT0t9QbSb8211bSRTR3FvcwyAECWG4hhmUOrxs0YWRJELI38mX/BNj/g4Q/wCCjn/BLzwIfg78FPGHh/xT4Ci+1SaZ4F+IWkyX1hpdzcSxyyT2skE0F1BlkkPkLP8AZ91zPIYTLIZK4/8A4KYf8Fpf28/+Crmo2Nn+098QNPtfCmkagL/Qvh94S042WjafdfZ0ga4CM8k9zKQsjK9zNM0RubhYTEkrJX9hv7Kv7NHws/Y3/Zx8F/sufBTSfsnhjwN4ft9K0zfBBHNdeWv7y7uPIjjje5nlMk80iovmTTSORlzX4g/8GMf/ADdF/wByT/7n68P/AODlTWdO/wCCYf8AwXt+H37XH7GvhPT/AAl4rm8H6T4/1xbCS4gtda1l9V1S3u3uY7eWM+VeW9skN1HE0YuFlnZ8vPK7/wBN1f/Z"
+                },
+                "offsetCalcType": "Default",
+                "position": 0
+              }
+            ],
+            "$isMultiPattern": false,
+            "$position": 0,
+            "$name": "ok",
+            "$path": "adventure.worldBoss.battleRecord.restoreTeam.ok"
+          }
+        }
+      },
+      "enter": {
+        "$patterns": [
+          {
+            "rect": {
+              "x": 1660.25,
+              "y": 811.25,
+              "width": 38.5,
+              "height": 31.5
+            },
+            "resolution": {
+              "width": 1920,
+              "height": 1080
+            },
+            "isBoundsPattern": false,
+            "name": "pattern",
+            "imageData": "/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDAAEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQH/2wBDAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQH/wAARCAAfACYDASIAAhEBAxEB/8QAGQAAAwEBAQAAAAAAAAAAAAAAAAgJBwYK/8QANBAAAQQBAwMCAgYLAAAAAAAAAwECBAUGBwgRABITCRQhIhkyUVeRlRYXJFNWkpTS1Nbm/8QAFAEBAAAAAAAAAAAAAAAAAAAAAP/EABQRAQAAAAAAAAAAAAAAAAAAAAD/2gAMAwEAAhEDEQA/ALj79d3+vuhWummmlmjsfFJSZ3iNJLBFv6eVOlSMjusvvcdiADJFb1wggN7OCJGkG7tIr3qTtdw3m/0/9XH7sdNvy/8A6vrFfVRvAYbvI27ZbLiSpsTF8QwfI5MKGNrpsuPSapZLZGixGleMbpJxxXijtIRjHFe1HPY3lyM39LvpT9yet35Njv8AsvQNvtPutz15jOVG3P47RY9kYL2MLGo+Px0BGkUiwGPOYyJZWauMk5SM5Uo+GI1EGvxcrXcL9i/gvWN4frHG1C2+fr0x2js6mPPwjJ8rq6PIwjDYRyUQrdBRrMcORJCNSyKvuegZBOAkTh3dyiSl0y9UfW7U6ouKTC9u58+1MFMHJh1mKvsS01ZjIo/7XZWpUBKmEmknPZHixGACBwGnMSYwjBhKFvuF+xfwXo6mdt19SXENQLvKcE11xxuh2d4oMxpIbieR9PNSLMjQZcLzzIsCTAuYx5QnurZEdzSxUfJiyTtEdoDoFt9TOLCHvw2qLO8CQUqdMXTVlK32qRU1jv8A3CyfNyPweFHqXycj7O7v+Xnq1vOh/wC900/lx7+3rHd0OwDSndbmlFnGeXmUVlnQYuHFYgKKRFDFfBBa2tu0pWnARynWRbHYqoqN8bBpxzyqrT9C/tx/i7UP+tr/APE6B7c+Ji03RvVAWLyqaVAg6fZqJRUhoz4kRz8btDeLxw3+EKvVzidiNTuVzn8KqqqyN9GIFTA071wtGxBvupeZYxXOk9qeZYEOklyQAeVPmaEcifJL4/queXuVFVG9U40P2bab7atLtS9O8Rt8hsKXUds91rItyxzTIpZ1CSgf7NwhDY1qRXoRqPa5EK3leUXjri9sO0/CNrNJlNFhNtd28TLriJdTSXrwEMGREhrBGwCgYxEG4XCuR3PzN5ReF6DzseqQJ0XeXqCaOwMd9jR4LYTECEY2FlvxGpjPOre34kIKMLyPX5iPa4j1c9716OrhbhfTg0j3E6m2mqWWZFllbd20GorzxKg0NkIYaavBXR1YhxPf3PGFHkVXfXcvHwROjoP/2Q==",
+            "variancePct": 20,
+            "horizontalStretchMultiplier": 0,
+            "verticalStretchMultiplier": 0,
+            "textMatch": {
+              "isActive": false,
+              "text": null,
+              "whiteList": null
+            },
+            "colorThreshold": {
+              "isActive": true,
+              "variancePct": 30,
+              "color": "#ff767676",
+              "imageData": "/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDAAIBAQEBAQIBAQECAgICAgQDAgICAgUEBAMEBgUGBgYFBgYGBwkIBgcJBwYGCAsICQoKCgoKBggLDAsKDAkKCgr/wAALCAAfACYBAREA/8QAHwAAAQUBAQEBAQEAAAAAAAAAAAECAwQFBgcICQoL/8QAtRAAAgEDAwIEAwUFBAQAAAF9AQIDAAQRBRIhMUEGE1FhByJxFDKBkaEII0KxwRVS0fAkM2JyggkKFhcYGRolJicoKSo0NTY3ODk6Q0RFRkdISUpTVFVWV1hZWmNkZWZnaGlqc3R1dnd4eXqDhIWGh4iJipKTlJWWl5iZmqKjpKWmp6ipqrKztLW2t7i5usLDxMXGx8jJytLT1NXW19jZ2uHi4+Tl5ufo6erx8vP09fb3+Pn6/9oACAEBAAA/AO+/4OXf+Cwv/BT/APYy/b6+GP7HX/BPvx9/Yf8Awknw/s9VSx0TwPZazquv6rf6reWMNoqXlvc7sfYoxDHBGjs9zIGMuYlj8/8A+O67/P8AwrGv0P8A+CHWs/8ABcafwr8RfD3/AAWm8J6fDd2uoabcfDvXY5NAN1eRypcLe20i6HKYBFCYbV0LxJIWupsvIoVYvu+iv5wf+DqX46f8Mv8A/BfT9nb9pf8A4Rb+3P8AhXfw/wDCPif+xPt32b+0PsHinVrr7P52yTyvM8rZv2Pt3Z2tjB+wP+I1b/gll/0QP9oD/wAJbQ//AJcV9n6P/wAFQPCvx+/4I/eM/wDgqj+y14Q1C2tLD4X+LvEnhTRvH+nokhutGS/jCXcVpcuPKa4sWyI5wxjYfMjH5fyA/Zy/4O4/+Cu/7ReneKvhr8IP+CcHg/4mfEIafbX/AIcHw58K6/dx6PaxXCpeXF9p0FxcT3kTiWGJHSe1WGR1LmbesdfSH/BPv/g7w+EXiDWPEHwU/wCCuvww/wCFHeNvCvnw3uuaRoOrXNhd38V5JFNp82mCGe+0y5hTylKyNOrtDcl3t2EcL/P/APwcm/8ACrP+Ikf9lD/hen/CP/8ACE/8I/4F/wCEx/4SzyP7K/sr/hMNU+1/bftH7n7N5Pmeb5vybN275c1/Q9XgH/BWL/lFl+0t/wBm/wDjL/0x3lfkB/wYx/8AN0X/AHJP/ufr4A/4Ojv+U6/xz/7ln/1GNJr+g7/gqB/wb0/sX/8ABWb4+6R+0Z+0Z8Tvihout6L4Pt/Ddra+Cta062tXtYbq7uld1urC4cyl7yUEhwu1UG0EEn5w/wCIKn/gll/0Xz9oD/wqdD/+U9fT/wCxl/wQC/Yd/YX/AGWPjT+yn8HfEPxAu9P+PPh+40Tx14n1/XrabVRYSWNzZxw23lWsdrF5K3l3IjG3Zi9w3mGREjROg/4JSf8ABFT9lj/gj5/wnv8AwzR4++IGuf8ACxP7L/tv/hOtVsbnyPsH2vyfI+y2dttz9tl3bt+dqY24O7x/9vX/AINfv2Bf+CiX7WPiv9sX41/F34waX4n8YfYf7TsfC2v6VBYRfZLC3sY/KSfTZpFzFbRlt0jZYsRgEKP/2Q=="
+            },
+            "offsetCalcType": "DockRight",
+            "position": 0
+          }
+        ],
+        "$isMultiPattern": false,
+        "$position": 0,
+        "$name": "enter",
+        "$path": "adventure.worldBoss.enter"
+      },
+      "saveAndExit": {
+        "$patterns": [
+          {
+            "rect": {
+              "x": 1541.25,
+              "y": 969.25,
+              "width": 50.5,
+              "height": 34.5
+            },
+            "resolution": {
+              "width": 1920,
+              "height": 1080
+            },
+            "isBoundsPattern": false,
+            "name": "pattern",
+            "imageData": "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",
+            "variancePct": 20,
+            "horizontalStretchMultiplier": 0,
+            "verticalStretchMultiplier": 0,
+            "textMatch": {
+              "isActive": false,
+              "text": null,
+              "whiteList": null
+            },
+            "colorThreshold": {
+              "isActive": true,
+              "variancePct": 30,
+              "color": "#ff747474",
+              "imageData": "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"
+            },
+            "offsetCalcType": "DockRight",
+            "position": 0
+          }
+        ],
+        "$isMultiPattern": false,
+        "$position": 0,
+        "$name": "saveAndExit",
+        "$path": "adventure.worldBoss.saveAndExit"
+      },
+      "challengeReward": {
+        "$patterns": [],
+        "$isMultiPattern": false,
+        "$position": 0,
+        "$name": "challengeReward",
+        "$path": "adventure.worldBoss.challengeReward",
+        "notification": {
+          "$patterns": [
+            {
+              "rect": {
+                "x": 441.25,
+                "y": 825.25,
+                "width": 16.5,
+                "height": 22.5
+              },
+              "resolution": {
+                "width": 1920,
+                "height": 1080
+              },
+              "isBoundsPattern": false,
+              "name": "pattern",
+              "imageData": "/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDAAEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQH/2wBDAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQH/wAARCAAWABADASIAAhEBAxEB/8QAFwABAQEBAAAAAAAAAAAAAAAACQAHCP/EACMQAAEFAQABBAMBAAAAAAAAAAMBAgQFBgcIABESFAkTIkH/xAAXAQADAQAAAAAAAAAAAAAAAAAGBwgJ/8QAIhEAAgICAQUAAwAAAAAAAAAAAQIDBAUGEQAHEhMhGDEy/9oADAMBAAIRAxEAPwDJPGDKZPqXkjynHdHaknJ6PSxYVvGc1r2T1KcLY0M7SMK14ZR3oEjFajXMeqKrU919Id+ZTxh4H4xdC5ZU8Oy1biyaCFZu0dLTxAQYKhjQopoMxBRgCb9g5im/a9XuV3xT+U/0pORTbys7FyW2z0S1sLen6ZgbgNfTANLtJ0er1lTOnQ4sUCKaQsmIAoXgY1ylYRR+y/P2VHfzC9O2HVPJnNaK8xG1xWabzbLRqePtM3ZZqRJ0g2WK6X6kSyEEhACC6rVhWM+Dvm5WvcjV9p4xpqppWZElSN5xdrrDN6fJ0WT1/RJ48oE8TyOQB5fok9bS7wmw/lN2uaDYbcOFsaxl57mKXJvFVlkqC0nhLR9gSdrRmjZWMbsxhJBAjPB/YzUaHh3R8l0zMLAmW2XtI1rAjT2oseQwRRkLEOro0lofsCYofsDEUsdXftEivanro7zD83uoed9vg5O8zmayAMG2xWrg0kt9kpj2cWNGllk2RqasmFao4zFCAqFEJyqrPj7qq3q9CtbLZGLDzUI7TrUsyK08IWMrIVKcEsULr/I5Csobj6D96fuw9vNMyXczXduu4GtY2PCwzVsXlGmtrNUhctyqxJYWvIQJpQjzQySRhyI2Uccf/9k=",
+              "variancePct": 20,
+              "horizontalStretchMultiplier": 0,
+              "verticalStretchMultiplier": 0,
+              "textMatch": {
+                "isActive": false,
+                "text": null,
+                "whiteList": null
+              },
+              "colorThreshold": {
+                "isActive": true,
+                "variancePct": 30,
+                "color": "#fffef2f0",
+                "imageData": "/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDAAIBAQEBAQIBAQECAgICAgQDAgICAgUEBAMEBgUGBgYFBgYGBwkIBgcJBwYGCAsICQoKCgoKBggLDAsKDAkKCgr/wAALCAAWABABAREA/8QAHwAAAQUBAQEBAQEAAAAAAAAAAAECAwQFBgcICQoL/8QAtRAAAgEDAwIEAwUFBAQAAAF9AQIDAAQRBRIhMUEGE1FhByJxFDKBkaEII0KxwRVS0fAkM2JyggkKFhcYGRolJicoKSo0NTY3ODk6Q0RFRkdISUpTVFVWV1hZWmNkZWZnaGlqc3R1dnd4eXqDhIWGh4iJipKTlJWWl5iZmqKjpKWmp6ipqrKztLW2t7i5usLDxMXGx8jJytLT1NXW19jZ2uHi4+Tl5ufo6erx8vP09fb3+Pn6/9oACAEBAAA/AP2c/wCChPxS8d/A79gX44fGv4W67/Zfifwf8H/E2t+HNT+yxT/ZL+00q5nt5vLmV45NksaNtdWVsYYEEivgD/g1b/4Kaf8ABQT/AIKR/Cz4w6z+254h/wCEp0/wn4g0mHwh41/4RG3037TNcQXDXun+ZZxQ2s32dYrKbasfnR/b8yOySQqn6P8A7WPgD4WfFf8AZY+Jfwt+OnjX/hGvBPiX4f6zpXjHxH/aUFn/AGVpVxYzQ3d39ouFaGDyoXkk8yVSibdzAqCK+IP+DXL9lTR/2RP+Cceu+ALL9oz4f/EnUNS+MGu3+t6h8M/E9nrOlafMkdpZQwR3lrNIsvnWlna34EiwTImoxxyQxuhz93/tC/BTwr+0p8AvHH7OfjrUNQtNE8f+D9T8N6zdaTKkd1Da31rJayvC0iOiyhJWKlkdQwBKsOD4B/wSt/4I2/sj/wDBIPwr4w8Pfsx6l4w1a78dahaXHiHXfGusxXV1LHapIttbIttBBAkUZnuXBEXmM1w+93VYlj//2Q=="
+              },
+              "offsetCalcType": "Default",
+              "position": 0
+            }
+          ],
+          "$isMultiPattern": false,
+          "$position": 0,
+          "$name": "notification",
+          "$path": "adventure.worldBoss.challengeReward.notification"
+        },
+        "notification2": {
+          "$patterns": [
+            {
+              "rect": {
+                "x": 686.25,
+                "y": 612.25,
+                "width": 741.5,
+                "height": 65.5
+              },
+              "resolution": {
+                "width": 1920,
+                "height": 1080
+              },
+              "isBoundsPattern": false,
+              "name": "pattern",
+              "imageData": "/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDAAEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQH/2wBDAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQH/wAARCAAUABADASIAAhEBAxEB/8QAFgABAQEAAAAAAAAAAAAAAAAACQAH/8QAJBAAAQQCAgICAwEAAAAAAAAAAwECBAUGBxESAAgJExQjMSH/xAAXAQADAQAAAAAAAAAAAAAAAAAFBwgJ/8QAJhEAAgIBAwMDBQAAAAAAAAAAAQIDBAUGERIAEzEHCDIUIUFCUf/aAAwDAQACEQMRAD8AzL1Dj4xd+0ml4Gdwx22PT8vrocqCdf0yZcuZHBXtM3sxCN/LIzs1yuRyct6u/nih/O5gmrtf7V1DVYBi9bjVuarsiX6VcdkYEqvWBEWra8IlRncZfvd3QSOcq/69eOEGfTdTlFxubU0bC6w9zlMLY+D3tTVxpAoppp6DKKq3cBsk7xgCj2xOrnmIwTUdyRyDRyokPzDrvS69isQzzcGvLHXtVd68xzH8dgT7enuWzLugFOPkU4MmklzYjfyQT679amQrUCqvGzlOZ9xsgTQ2aT6ZpCbtbjKISVRX7YYmQKQvb4/k/sAB9+tl9eY9m92PpRdOfjhjbS+XeTGPkkhlklri2kMMdJpw84uiYtskLBuw5O/HcGZFy+/1HmFXneDziVmR4tPFaVMtXPc1h4xBm+kzRvC8kU/RBSQoRn2hc4fZvPPml7v9zt6+50rFLTd97Aslw9kllBApYkmtrIT54gR5h2Q5E+wRJEgQRtKVj2K7qnKfzi8vANOxYXTt2FZ5lieaDnEJXEb/AA+SBuLeB5B8D+dNzV+GxE3rbojITYrGy362NyorXpaNWS5XCM4QQWWiM0QQSOFEbrxDvttyO/8A/9k=",
+              "variancePct": 20,
+              "horizontalStretchMultiplier": 0,
+              "verticalStretchMultiplier": 0,
+              "textMatch": {
+                "isActive": false,
+                "text": null,
+                "whiteList": null
+              },
+              "colorThreshold": {
+                "isActive": true,
+                "variancePct": 30,
+                "color": "#fffffdfe",
+                "imageData": "/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDAAIBAQEBAQIBAQECAgICAgQDAgICAgUEBAMEBgUGBgYFBgYGBwkIBgcJBwYGCAsICQoKCgoKBggLDAsKDAkKCgr/wAALCAAUABABAREA/8QAHwAAAQUBAQEBAQEAAAAAAAAAAAECAwQFBgcICQoL/8QAtRAAAgEDAwIEAwUFBAQAAAF9AQIDAAQRBRIhMUEGE1FhByJxFDKBkaEII0KxwRVS0fAkM2JyggkKFhcYGRolJicoKSo0NTY3ODk6Q0RFRkdISUpTVFVWV1hZWmNkZWZnaGlqc3R1dnd4eXqDhIWGh4iJipKTlJWWl5iZmqKjpKWmp6ipqrKztLW2t7i5usLDxMXGx8jJytLT1NXW19jZ2uHi4+Tl5ufo6erx8vP09fb3+Pn6/9oACAEBAAA/AP2c/wCChPxS8d/A79gX44fGv4W67/Zfifwf8H/E2t+HNT+yxT/ZL+00q5nt5vLmV45NksaNtdWVsYYEEivzh/4M+fjZ+3F+0b+yx8XPi3+1P+074g+IvhgfEC10jwbH4x8Q3Oqarpt/BYpNqJae5VpBbSRXemeXH5zqrw3DCOIuzzfqd+0L4m+DXgv4BeOPGP7Rltp83w90nwfqd747h1bSTf2r6NFayPerNarHIbmI26yhoQjl1yu1s4Pwh/wbH+Dv+Cffwh/Yd8S/BT9g39tz/hd/2D4gXGr+PNcuPDNxoM1tf3dtbxQBNMu1Fxb2zW1nEqSO0qyzQ3RST5Whh/Q/xZ4T8K+PfCup+BfHXhnT9a0TWtPmsNZ0bVrJLm1v7WZDHLbzRSApLE6MyMjAqysQQQa8f/Yh/wCCb37Ev/BOHwrrng79i74B6f4KtPEuoR3uvzR6hd311fSRpsiWS6vZpp2ijBcpDv8ALjaWZlVWlkLf/9k="
+              },
+              "offsetCalcType": "Default",
+              "position": 0
+            }
+          ],
+          "$isMultiPattern": false,
+          "$position": 0,
+          "$name": "notification2",
+          "$path": "adventure.worldBoss.challengeReward.notification2"
+        }
       }
     },
     "event": {
