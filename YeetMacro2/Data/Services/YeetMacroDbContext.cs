@@ -110,12 +110,12 @@ public class YeetMacroDbContext : DbContext
         modelBuilder.Entity<PatternSetting>()
             .HasOne(ps => ps.Value)
             .WithOne()
-            .HasForeignKey<PatternNode>(pn => pn.PatternSettingValueNodeId)
+            .HasForeignKey<PatternNode>($"{nameof(PatternSetting)}ValueNodeId")
             .OnDelete(DeleteBehavior.Cascade);
         modelBuilder.Entity<PatternSetting>()
             .HasOne(ps => ps.DefaultValue)
             .WithOne()
-            .HasForeignKey<PatternNode>(pn => pn.PatternSettingDefaultValueNodeId)
+            .HasForeignKey<PatternNode>($"{nameof(PatternSetting)}DefaultNodeId")
             .OnDelete(DeleteBehavior.Cascade);
 
         modelBuilder.Entity<PatternSetting>().Navigation(ps => ps.Value).AutoInclude();

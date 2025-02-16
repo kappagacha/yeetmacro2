@@ -4,10 +4,6 @@ namespace YeetMacro2.Data.Models;
 
 public class PatternNode : Node, IParentNode<PatternNode, PatternNode>
 {
-    [JsonIgnore]
-    public int? PatternSettingValueNodeId { get; set; }
-    [JsonIgnore]
-    public int? PatternSettingDefaultValueNodeId { get; set; }
     public virtual bool IsMultiPattern { get; set; }
     [JsonIgnore]
     public virtual IList<PatternNode> Nodes { get; set; } = [];
