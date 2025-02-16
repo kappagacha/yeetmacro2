@@ -3,6 +3,8 @@ using CommunityToolkit.Mvvm.Messaging;
 using YeetMacro2.Data.Models;
 using YeetMacro2.Data.Services;
 using YeetMacro2.Services;
+using System.Text.Json.Nodes;
+using YeetMacro2.Data.Serialization;
 
 namespace YeetMacro2.ViewModels.NodeViewModels;
 public partial class WeeklyNodeManagerViewModel(
@@ -27,6 +29,19 @@ public partial class WeeklyNodeManagerViewModel(
         };
         base.AddNode(newNode);
         return Task.CompletedTask;
+    }
+
+    public void UpdateCurrentWeeklyTemplate()
+    {
+        var targetDate = ResolveTargetDate(0);
+        var existingWeekly = Root.Nodes.FirstOrDefault(dn => dn.Date == targetDate);
+
+        if (existingWeekly is null) return;
+
+        var currentJson = JsonObject.Parse(existingWeekly.Data);
+        var currentTemplate = JsonObject.Parse(Root.Data);
+        var newJsonString = currentJson.Merge(currentTemplate).ToString();
+        SaveTodo([existingWeekly, newJsonString]);
     }
 
     public TodoJsonParentViewModel GetCurrentWeekly(int offset = 0)

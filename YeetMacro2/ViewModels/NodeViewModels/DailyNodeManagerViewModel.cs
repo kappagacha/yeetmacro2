@@ -3,6 +3,8 @@ using CommunityToolkit.Mvvm.Messaging;
 using YeetMacro2.Data.Models;
 using YeetMacro2.Data.Services;
 using YeetMacro2.Services;
+using YeetMacro2.Data.Serialization;
+using System.Text.Json.Nodes;
 
 namespace YeetMacro2.ViewModels.NodeViewModels;
 public partial class DailyNodeManagerViewModel(
@@ -27,6 +29,19 @@ public partial class DailyNodeManagerViewModel(
         };
         base.AddNode(newNode);
         return Task.CompletedTask;
+    }
+
+    public void UpdateCurrentDailyTemplate()
+    {
+        var targetDate = ResolveTargetDate(0);
+        var existingDaily = Root.Nodes.FirstOrDefault(dn => dn.Date == targetDate);
+
+        if (existingDaily is null) return;
+
+        var currentJson = JsonObject.Parse(existingDaily.Data);
+        var currentTemplate = JsonObject.Parse(Root.Data);
+        var newJsonString = currentJson.Merge(currentTemplate).ToString();
+        SaveTodo([existingDaily, newJsonString]);
     }
 
     public TodoJsonParentViewModel GetCurrentDaily(int offset = 0)
