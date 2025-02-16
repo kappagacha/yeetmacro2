@@ -192,12 +192,14 @@ public partial class NodeManagerViewModel<TViewModel, TParent, TChild> : NodeMan
             newNode.RootId = SelectedNode.RootId;
             parent.IsExpanded = true;
             parent.Nodes.Add(newNode);
+            _nodeService.Update(parent);
         }
         else
         {
             newNode.ParentId = Root.NodeId;
             newNode.RootId = Root.NodeId;
             Root.Nodes.Add(newNode);
+            _nodeService.Update(Root);
         }
 
         ResolvePath(Root);

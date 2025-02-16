@@ -109,19 +109,20 @@ public class YeetMacroDbContext : DbContext
 
         modelBuilder.Entity<PatternSetting>()
             .HasOne(ps => ps.Value)
-            .WithMany()
-            .HasForeignKey($"{nameof(PatternNode)}Id")
+            .WithOne()
+            .HasForeignKey<PatternNode>(pn => pn.PatternSettingValueNodeId)
             .OnDelete(DeleteBehavior.Cascade);
-        modelBuilder.Entity<PatternSetting>().Navigation(ps => ps.Value).AutoInclude();
-
         modelBuilder.Entity<PatternSetting>()
             .HasOne(ps => ps.DefaultValue)
-            .WithMany()
-            .HasForeignKey($"Default{nameof(PatternNode)}Id")
+            .WithOne()
+            .HasForeignKey<PatternNode>(pn => pn.PatternSettingDefaultValueNodeId)
             .OnDelete(DeleteBehavior.Cascade);
 
+        modelBuilder.Entity<PatternSetting>().Navigation(ps => ps.Value).AutoInclude();
         modelBuilder.Entity<PatternSetting>().Navigation(ps => ps.DefaultValue).AutoInclude();
         modelBuilder.Entity<TimestampSetting>().Ignore(ts => ts.LocalValue);
+
+        modelBuilder.Entity<TodoNode>().HasMany(tn => tn.Nodes).WithOne().HasForeignKey($"{nameof(TodoNode)}{nameof(Node.ParentId)}").OnDelete(DeleteBehavior.Cascade);
 
         modelBuilder.Entity<Log>().Ignore(l => l.IsSelected);
         //modelBuilder.Entity<ScriptLog>().HasMany(sl => sl.Logs).WithOne().HasForeignKey($"{nameof(ScriptLog)}{nameof(Log.ParentId)}").OnDelete(DeleteBehavior.Cascade);

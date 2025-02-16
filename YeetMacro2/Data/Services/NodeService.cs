@@ -24,7 +24,7 @@ public class NodeService<TParent, TChild>(IRepository<TChild> nodeRepository, IR
 
     public TParent GetRoot(int id)
     {
-        var rootNode = _nodeRepository.Get(n => n.NodeId == id).FirstOrDefault();
+        var rootNode = _nodeRepository.Get(n => n.NodeId == id, noTracking: true).FirstOrDefault();
         var root = (TParent)rootNode;
         if (root == null)
         {
@@ -114,7 +114,7 @@ public class NodeService<TParent, TChild>(IRepository<TChild> nodeRepository, IR
             }
         }
         DeleteClosures(node);
-        _nodeRepository.Delete(node);
+        _nodeRepository.Delete(node.NodeId);
         _nodeRepository.Save();
     }
 

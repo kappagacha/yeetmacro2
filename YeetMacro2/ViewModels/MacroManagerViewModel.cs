@@ -113,6 +113,8 @@ public partial class MacroManagerViewModel : ObservableObject
         WeakReferenceMessenger.Default.Register<Lazy<ScriptNode>>(this, (r, scriptNode) => {
             MainThread.BeginInvokeOnMainThread(async () =>
             {
+                if (IsBusy) return;
+
                 await SelectedMacroSet.Settings?.OnScriptNodeSelected(scriptNode.Value);
                 await SelectedMacroSet.Dailies?.OnScriptNodeSelected(scriptNode.Value);
                 await SelectedMacroSet.Weeklies?.OnScriptNodeSelected(scriptNode.Value);
