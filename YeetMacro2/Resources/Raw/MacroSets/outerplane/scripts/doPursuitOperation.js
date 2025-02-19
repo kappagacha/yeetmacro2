@@ -4,12 +4,16 @@
 const loopPatterns = [patterns.lobby.level, patterns.titles.adventure, patterns.irregularExtermination.pursuitOperation, patterns.titles.pursuitOperation];
 const daily = dailyManager.GetCurrentDaily();
 const teamSlot = settings.doPursuitOperation.teamSlot.Value;
-const targetOperation = settings.doPursuitOperation.targetOperation.Value;
+let targetOperation = settings.doPursuitOperation.targetOperation.Value;
+
 if (daily.doPursuitOperation.done.IsChecked) {
 	return "Script already completed. Uncheck done to override daily flag.";
 }
 
 let teamRestored = false;
+let isRotateOperation = targetOperation === 'rotate';
+
+const operations = ['ironStretcher', 'irregularQueen', 'blockbuster', 'mutatedWyvre']
 
 while (macroService.IsRunning) {
 	const loopResult = macroService.PollPattern(loopPatterns);
@@ -36,6 +40,12 @@ while (macroService.IsRunning) {
 				return;
 			}
 
+			if (isRotateOperation) {
+				const operations = ['ironStretcher', 'irregularQueen', 'blockbuster', 'mutatedWyvre']
+				const lastOperationIndex = operations.findIndex(o => o === settings.doPursuitOperation.lastOperation.Value);
+				targetOperation = operations[(lastOperationIndex + 1) % operations.length];
+			}
+
 			macroService.PollPattern(patterns.irregularExtermination.pursuitOperation[targetOperation], { DoClick: true, PredicatePattern: patterns.irregularExtermination.pursuitOperation.createOperation });
 			macroService.PollPattern(patterns.irregularExtermination.pursuitOperation.createOperation, { DoClick: true, PredicatePattern: patterns.irregularExtermination.pursuitOperation.selectTeam });
 			macroService.PollPattern(patterns.irregularExtermination.pursuitOperation.selectTeam, { DoClick: true, PredicatePattern: patterns.battle.enter });
@@ -51,6 +61,8 @@ while (macroService.IsRunning) {
 			macroService.PollPattern(patterns.battle.enter, { DoClick: true, PredicatePattern: patterns.battle.next });
 			macroService.PollPattern(patterns.battle.next, { DoClick: true, PredicatePattern: patterns.battle.exit });
 			macroService.PollPattern(patterns.battle.exit, { DoClick: true, PredicatePattern: patterns.irregularExtermination.pursuitOperation.selectTeam });
+
+			macroService.IsRunning && (settings.doPursuitOperation.lastOperation.Value = targetOperation);
 
 			const friendsOrGuildResult = macroService.FindPattern(patterns.irregularExtermination.pursuitOperation.friendsOrGuild);
 			if (friendsOrGuildResult.IsSuccess) {

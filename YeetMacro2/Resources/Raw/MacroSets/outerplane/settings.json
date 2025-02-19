@@ -1210,14 +1210,14 @@
         "$isMultiPattern": false,
         "$position": 0,
         "$name": null,
-        "$path": "watchAds.userClickPattern2"
+        "$path": "watchAds.userClickPattern"
       },
       "$value": {
         "$patterns": [],
         "$isMultiPattern": false,
         "$position": 0,
         "$name": null,
-        "$path": "watchAds.userClickPattern2"
+        "$path": "watchAds.userClickPattern"
       },
       "$position": 0,
       "$name": "userClickPattern",
@@ -3326,7 +3326,8 @@
         "ironStretcher",
         "irregularQueen",
         "blockbuster",
-        "mutatedWyvre"
+        "mutatedWyvre",
+        "rotate"
       ],
       "$defaultValue": "ironStretcher",
       "$value": "ironStretcher",
@@ -3353,6 +3354,14 @@
       "$position": 0,
       "$name": "teamSlot",
       "$path": "doPursuitOperation.teamSlot"
+    },
+    "lastOperation": {
+      "$type": "string",
+      "$defaultValue": "",
+      "$value": "",
+      "$position": 0,
+      "$name": "lastOperation",
+      "$path": "doPursuitOperation.lastOperation"
     }
   },
   "doPursuitOperationAssist": {
