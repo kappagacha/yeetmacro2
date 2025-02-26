@@ -410,6 +410,7 @@ public partial class MacroManagerViewModel : ObservableObject
 
             if (pattternJson is not null && macroSet.Patterns.UseSnapshot)
             {
+                macroSet.Name = targetMacroSet.Name;
                 macroSet.Patterns.TakeSnapshot(pattternJson);
             }
             else if (pattternJson is not null)
