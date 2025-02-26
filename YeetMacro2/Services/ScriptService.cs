@@ -118,7 +118,16 @@ public class ScriptService: IScriptService
                     _engine.Execute($"function {script.Name}() {{ {script.Text} }}");
                 }
             }
-            _engine.SetValue("patterns", macroSet.Patterns.Root);
+
+            if (macroSet.Patterns.UseSnapshot)
+            {
+                _engine.Execute($"patterns = {macroSet.Patterns.ToJson()};");
+            }
+            else
+            {
+                _engine.SetValue("patterns", macroSet.Patterns.Root);
+            }
+
             _engine.SetValue("settings", macroSet.Settings.Root);
             _engine.SetValue("dailyManager", macroSet.Dailies);
             _engine.SetValue("weeklyManager", macroSet.Weeklies);
@@ -211,21 +220,14 @@ public class JsToDotNetConverter(Engine engine) : DefaultTypeConverter(engine)
     {
         if (type == typeof(OneOf<PatternNode, PatternNode[]>))
         {
-            if (value is object[] arr)
-            {
-                converted = OneOf<PatternNode, PatternNode[]>.FromT1(arr.Cast<PatternNode>().ToArray());
-                return true;
-            }
-            else
-            {
-                converted = OneOf<PatternNode, PatternNode[]>.FromT0(value as PatternNode);
-                return true;
-            }
+            converted = (OneOf<PatternNode, PatternNode[]>?)ToOneOfPatternNode(value);
+            return true;
         }
         else if (type == typeof(PollPatternFindOptions))
         {
             var opts = JsonSerializer.Deserialize<PollPatternFindOptions>(JsonSerializer.Serialize(value));
             var dict = value as IDictionary<string, object>;
+
             opts.PredicatePattern = dict.ContainsKey("PredicatePattern") ? (OneOf<PatternNode, PatternNode[]>?)ToOneOfPatternNode(dict["PredicatePattern"]) : null;
             opts.ClickPattern = dict.ContainsKey("ClickPattern") ? (OneOf<PatternNode, PatternNode[]>?)ToOneOfPatternNode(dict["ClickPattern"]) : null;
             opts.InversePredicatePattern = dict.ContainsKey("InversePredicatePattern") ? (OneOf<PatternNode, PatternNode[]>?)ToOneOfPatternNode(dict["InversePredicatePattern"]) : null;
@@ -269,11 +271,24 @@ public class JsToDotNetConverter(Engine engine) : DefaultTypeConverter(engine)
     {
         if (value is object[] arr)
         {
+            for (int i = 0; i < arr.Length; i++)
+            {
+                var obj = arr[i];
+                if (obj is not PatternNode)
+                {
+                    arr[i] = PatternNodeManagerViewModel.FromJsonNode(JsonSerializer.Serialize(obj));
+                }
+            }
+
             return arr.Cast<PatternNode>().ToArray();
+        }
+        else if (value is PatternNode patternNode)
+        {
+            return value;
         }
         else
         {
-            return value as PatternNode;
+            return PatternNodeManagerViewModel.FromJsonNode(JsonSerializer.Serialize(value));
         }
     }
 }

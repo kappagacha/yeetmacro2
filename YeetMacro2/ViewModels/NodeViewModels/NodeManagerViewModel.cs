@@ -94,7 +94,7 @@ public partial class NodeManagerViewModel<TViewModel, TParent, TChild> : NodeMan
         Init();
     }
 
-    private void Init()
+    protected virtual void Init()
     {
         if (_rootNodeId <= 0) return;       // serialization sends -1 rootNodeId
 
@@ -384,7 +384,7 @@ public partial class NodeManagerViewModel<TViewModel, TParent, TChild> : NodeMan
         }
     }
 
-    public string ToJson()
+    public virtual string ToJson()
     {
         return JsonSerializer.Serialize(this, _defaultJsonSerializerOptions);
     }
@@ -424,7 +424,6 @@ public partial class NodeManagerViewModel<TViewModel, TParent, TChild> : NodeMan
             return;
         }
 #endif
-
         var json = JsonSerializer.Serialize(this, _defaultJsonSerializerOptions);
         var defaultFolder = FileSystem.Current.AppDataDirectory;
 

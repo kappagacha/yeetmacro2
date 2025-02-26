@@ -1,7 +1,9 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
+using OneOf.Types;
 using System.Text.Json;
 using System.Windows.Input;
+using System.Xml.Linq;
 using YeetMacro2.Data.Models;
 using YeetMacro2.Data.Services;
 using YeetMacro2.Services;
@@ -14,6 +16,8 @@ public partial class PatternNodeManagerViewModel : NodeManagerViewModel<PatternN
     readonly IScreenService _screenService;
     [ObservableProperty]
     Pattern _selectedPattern;
+    [ObservableProperty]
+    bool _useSnapshot;
     static PatternNodeManagerViewModel()
     {
     }
@@ -41,12 +45,62 @@ public partial class PatternNodeManagerViewModel : NodeManagerViewModel<PatternN
         //}
     }
 
-    protected override void CustomInit()
+    protected override void Init()
     {
-        //foreach (var patternNode in _nodeService.GetDescendants<PatternNode>(Root).ToList())
-        //{
-        //    _patternRepository.AttachEntities([..patternNode.Patterns]);
-        //}
+#pragma warning disable MVVMTK0034 // Direct field reference to [ObservableProperty] backing field
+        _useSnapshot = Preferences.Default.Get(nameof(UseSnapshot), true);
+
+        if (!_useSnapshot)
+        {
+            base.Init();
+        }
+#pragma warning restore MVVMTK0034 // Direct field reference to [ObservableProperty] backing field
+    }
+
+    partial void OnUseSnapshotChanged(bool value)
+    {
+        Preferences.Default.Set(nameof(UseSnapshot), UseSnapshot);
+
+        if (!UseSnapshot && !IsInitialized)
+        {
+            base.Init();
+        }
+
+        if (UseSnapshot)
+        {
+            TakeSnapshot();
+        }
+    }
+
+    private string GetPatternsSnapshotFile()
+    {
+        var macroSet = ServiceHelper.GetService<MacroManagerViewModel>().SelectedMacroSet;
+        var folder = FileSystem.Current.AppDataDirectory;
+        var targetFile = Path.Combine(folder, $"{macroSet.Name}_patterns.json");
+        return targetFile;
+    }
+
+    public void TakeSnapshot()
+    {
+        TakeSnapshot(base.ToJson());
+    }
+
+    public void TakeSnapshot(string json)
+    {
+        var targetFile = GetPatternsSnapshotFile();
+        var macroSet = ServiceHelper.GetService<MacroManagerViewModel>().SelectedMacroSet;
+        File.WriteAllText(targetFile, json);
+        _toastService.Show($"Exported {macroSet.Name} patterns on {targetFile}");
+    }
+
+    public override string ToJson()
+    {
+        if (UseSnapshot)
+        {
+            return File.ReadAllText(GetPatternsSnapshotFile());
+        }
+
+        return base.ToJson();
     }
 
     private void PatternTreeViewViewModel_PropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)

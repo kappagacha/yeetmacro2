@@ -252,7 +252,7 @@ public partial class MacroSetViewModel : MacroSet
 
     public async Task WaitForInitialization()
     {
-        await Patterns.WaitForInitialization();
+        if (!Patterns.UseSnapshot) await Patterns.WaitForInitialization();
         await Scripts.WaitForInitialization();
         await Settings.WaitForInitialization();
         await Dailies.WaitForInitialization();

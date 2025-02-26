@@ -92,6 +92,7 @@ public partial class MacroManagerViewModel : ObservableObject
         _scriptService = scriptService;
 
         IsExportEnabled = Preferences.Default.Get(nameof(IsExportEnabled), false);
+        InDebugMode = Preferences.Default.Get(nameof(InDebugMode), false);
 
 #if DEBUG
         IsExportEnabled = true;
@@ -139,8 +140,6 @@ public partial class MacroManagerViewModel : ObservableObject
 
             _patternNodeService.Update(patternNode);
         });
-
-        InDebugMode = Preferences.Default.Get(nameof(InDebugMode), false);
     }
 
     [RelayCommand]
@@ -409,12 +408,17 @@ public partial class MacroManagerViewModel : ObservableObject
 
             await macroSet.WaitForInitialization();
 
-            if (pattternJson is not null)
+            if (pattternJson is not null && macroSet.Patterns.UseSnapshot)
+            {
+                macroSet.Patterns.TakeSnapshot(pattternJson);
+            }
+            else if (pattternJson is not null)
             {
                 macroSet.Patterns.SelectedNode = null;
                 var patterns = PatternNodeManagerViewModel.FromJson(pattternJson);
                 ((PatternNodeViewModel)macroSet.Patterns.Root).ResetDictionary();
                 macroSet.Patterns.Import(patterns);
+                macroSet.Patterns.TakeSnapshot();
             }
 
             if (nameToScript.Count > 0)
