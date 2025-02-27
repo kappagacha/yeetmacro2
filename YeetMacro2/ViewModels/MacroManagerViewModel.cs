@@ -203,6 +203,11 @@ public partial class MacroManagerViewModel : ObservableObject
         IsBusy = true;
         await macroSet.WaitForInitialization();
         SelectedMacroSet = null;
+        if (macroSet.Patterns.UseSnapshot)
+        {
+            macroSet.Patterns.ForceInit();
+            await macroSet.Patterns.WaitForInitialization();
+        }
         _patternNodeService.Delete(macroSet.Patterns.Root);
         _settingNodeService.Delete(macroSet.Settings.Root);
         _scriptNodeService.Delete(macroSet.Scripts.Root);

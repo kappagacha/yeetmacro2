@@ -223,6 +223,11 @@ public class JsToDotNetConverter(Engine engine) : DefaultTypeConverter(engine)
             converted = (OneOf<PatternNode, PatternNode[]>?)ToOneOfPatternNode(value);
             return true;
         }
+        else if (type == typeof(PatternNode) && value is not PatternNode)
+        {
+            converted = PatternNodeManagerViewModel.FromJsonNode(JsonSerializer.Serialize(value));
+            return true;
+        }
         else if (type == typeof(PollPatternFindOptions))
         {
             var opts = JsonSerializer.Deserialize<PollPatternFindOptions>(JsonSerializer.Serialize(value));

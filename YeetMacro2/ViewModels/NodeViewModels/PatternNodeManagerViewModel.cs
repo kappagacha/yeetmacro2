@@ -57,6 +57,11 @@ public partial class PatternNodeManagerViewModel : NodeManagerViewModel<PatternN
 #pragma warning restore MVVMTK0034 // Direct field reference to [ObservableProperty] backing field
     }
 
+    public void ForceInit()
+    {
+        base.Init();
+    }
+
     partial void OnUseSnapshotChanged(bool value)
     {
         Preferences.Default.Set(nameof(UseSnapshot), UseSnapshot);
