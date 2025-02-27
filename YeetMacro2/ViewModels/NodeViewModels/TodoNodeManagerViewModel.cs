@@ -30,6 +30,20 @@ public partial class TodoNodeManagerViewModel : NodeManagerViewModel<TodoViewMod
         _todoRepository = todoRepository;
         IsList = true;
         CurrentSubViewModel = _emptySubView;
+
+        InitTodoRoot();
+    }
+
+    protected override void Init()
+    {
+        // Not doing the normal filling of nodes
+    }
+
+    private void InitTodoRoot()
+    {
+        Root = _mapper.Map<TodoViewModel>(_todoRepository.Get(td => td.NodeId == _rootNodeId, noTracking: true).First());
+        IsInitialized = true;
+        _initializeCompleted.SetResult();
     }
 
     public async Task OnScriptNodeSelected(ScriptNode scriptNode)
@@ -56,18 +70,26 @@ public partial class TodoNodeManagerViewModel : NodeManagerViewModel<TodoViewMod
             return;
         };
         var targetDate = ResolveTargetDate(0);
-        var existingDaily = Root.Nodes.FirstOrDefault(dn => dn.Date == targetDate);
-        if (existingDaily is null)
+        var existingTodo = Root.Nodes.FirstOrDefault(dn => dn.Date == targetDate) ?? _todoRepository.Get(td => td.Date == targetDate, noTracking: true).FirstOrDefault();
+
+        if (existingTodo is null)
         {
-            existingDaily = new TodoViewModel()
+            existingTodo = new TodoViewModel()
             {
                 Date = targetDate,
                 Data = Root.Data
             };
-            this.AddNode(existingDaily);
+            this.AddNode(existingTodo);
         }
-        SelectedNode = existingDaily;
-        var targetJsonViewModel = ((TodoViewModel)existingDaily).JsonViewModel;
+        else if (existingTodo is not TodoViewModel)
+        {
+            var existingTodoViewModel = _mapper.Map<TodoViewModel>(existingTodo);
+            Root.Nodes.Add(existingTodoViewModel);
+            existingTodo = existingTodoViewModel;
+        }
+
+        SelectedNode = existingTodo;
+        var targetJsonViewModel = ((TodoViewModel)existingTodo).JsonViewModel;
         if (targetJsonViewModel is null) return;
 
         CurrentSubViewModel = ((TodoJsonParentViewModel)targetJsonViewModel.Children.FirstOrDefault(c => c.Key == _targetSubViewName)) ?? _emptySubView;

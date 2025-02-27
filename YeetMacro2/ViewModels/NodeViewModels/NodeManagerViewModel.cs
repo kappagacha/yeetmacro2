@@ -36,7 +36,7 @@ public partial class NodeManagerViewModel<TViewModel, TParent, TChild> : NodeMan
         where TChild : Node
 {
     protected readonly static IMapper _mapper;
-    private readonly int _rootNodeId;
+    protected readonly int _rootNodeId;
     private readonly string _nodeTypeName;
     [ObservableProperty]
     protected TParent _root;
@@ -44,7 +44,7 @@ public partial class NodeManagerViewModel<TViewModel, TParent, TChild> : NodeMan
     protected TChild _selectedNode;
     [ObservableProperty]
     bool _isInitialized, _showExport, _isList, _isBusy;
-    readonly TaskCompletionSource _initializeCompleted;
+    protected readonly TaskCompletionSource _initializeCompleted;
     protected INodeService<TParent, TChild> _nodeService;
     protected IToastService _toastService;
     protected IInputService _inputService;
