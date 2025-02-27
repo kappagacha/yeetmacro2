@@ -70,7 +70,7 @@ public partial class TodoNodeManagerViewModel : NodeManagerViewModel<TodoViewMod
             return;
         };
         var targetDate = ResolveTargetDate(0);
-        var existingTodo = Root.Nodes.FirstOrDefault(dn => dn.Date == targetDate) ?? _todoRepository.Get(td => td.Date == targetDate, noTracking: true).FirstOrDefault();
+        var existingTodo = Root.Nodes.FirstOrDefault(dn => dn.Date == targetDate) ?? _todoRepository.Get(td => td.RootId == _rootNodeId && td.Date == targetDate, noTracking: true).FirstOrDefault();
 
         if (existingTodo is null)
         {
