@@ -54,7 +54,7 @@ function findShopItem(shopItemName) {
 		cakeSlice: /c.ke/is,
 		upgradeStoneSelectionChest: /^(?!.*piece)upgr.de.*s..ne/is,		//does not contain piece (using negative look ahead)
 		lowStarHeroPieceTicket: /2.*He.*r.ndom/is,
-		threeStarHeroPieceTicket: /3.*He.*r.ndom/is,
+		threeStarHeroPieceTicket: /3.*He.*select/is,
 		// season 1 survey hub items
 		epicReforgeCatalyst1: /ep.c.*refo.ge/is,
 		epicReforgeCatalyst2: /ep.c.*refo.ge/is,

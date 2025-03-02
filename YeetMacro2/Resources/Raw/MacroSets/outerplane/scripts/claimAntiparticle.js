@@ -28,12 +28,13 @@ while (macroService.IsRunning) {
 				return;
 			}
 
-			const baseNotificationResult = macroService.PollPattern(patterns.tabs.base.notification, { TimeoutMs: 2_000 });
-			if (baseNotificationResult.IsSuccess) {
-				macroService.ClickPattern(patterns.tabs.base);
-			} else {	// already claimed
-				return;
-			}
+			//const baseNotificationResult = macroService.PollPattern(patterns.tabs.base.notification, { TimeoutMs: 2_000 });
+			//if (baseNotificationResult.IsSuccess) {
+			//	macroService.ClickPattern(patterns.tabs.base);
+			//} else {	// already claimed
+			//	return;
+			//}
+			macroService.ClickPattern(patterns.tabs.base);
 			sleep(500);
 			break;
 		case 'titles.base':
