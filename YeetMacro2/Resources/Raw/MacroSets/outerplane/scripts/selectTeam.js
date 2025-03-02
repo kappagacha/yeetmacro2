@@ -1,6 +1,6 @@
 // @raw-script
 // @position=1000
-function selectTeam(targetTeamSlot, returnCurrentCp) {
+function selectTeam(targetTeamSlot, opts = {}) {
 	//logger.info(`selectTeam teamSlot ${targetTeamSlot}`);
 
 	if (!targetTeamSlot || targetTeamSlot === 'Current' || targetTeamSlot < 1) return;
@@ -46,20 +46,17 @@ function selectTeam(targetTeamSlot, returnCurrentCp) {
 		}
 	}
 
-	applyPreset(targetTeamSlot);
-
-	if (macroService.IsRunning && returnCurrentCp) {
-		const cpText = macroService.GetText(patterns.battle.cp);
-		return Number(cpText.slice(0, -4).slice(1) + cpText.slice(-3));
+	if (opts.applyPreset) {
+		applyPreset(targetTeamSlot);
 	}
 }
 
-function selectTeamAndBattle(teamSlot, sweepBattle, targetNumBattles = 0) {
-	selectTeam(teamSlot);
+function selectTeamAndBattle(teamSlot, opts = {}) {
+	selectTeam(teamSlot, opts);
 	const autoResult = macroService.PollPattern(patterns.battle.setup.auto, { DoClick: true, PredicatePattern: [patterns.battle.setup.sweep, patterns.battle.setup.enter] });
 
 	let numBattles = macroService.GetText(patterns.battle.setup.numBattles);
-	if (targetNumBattles) {
+	if (opts.targetNumBattles) {
 		macroService.PollPattern(patterns.battle.setup.minBattle, { DoClick: true, PredicatePattern: patterns.battle.setup.numBattles.one });
 
 		numBattles = 1

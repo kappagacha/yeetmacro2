@@ -150,8 +150,9 @@ function applyPreset(teamSlot) {
 			macroService.ClickPattern(patterns.battle.teamFormation.preset.manageGear.equipGear);
 			sleep(500);
 			macroService.ClickPattern(patterns.battle.teamFormation.preset.manageGear.equipGear);
-
+			sleep(500);
 			macroService.PollPattern(patterns.titles.manageGear);
+
 
 			// only click back if you see manage gear title
 			if (macroService.FindPattern(patterns.titles.manageGear).IsSuccess) {

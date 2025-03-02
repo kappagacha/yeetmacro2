@@ -46,7 +46,7 @@ while (macroService.IsRunning) {
 			logger.info(`doGuildRaid: target stage first team`);
 			macroService.PollPattern(patterns.guild.raid[`stage${targetStage1}`], { ClickPattern: patterns.guild.raid.stageRight });
 			macroService.PollPattern(patterns.guild.raid.selectTeam, { DoClick: true, PredicatePattern: patterns.battle.enter });
-			selectTeam(teamSlot1);
+			selectTeam(teamSlot1, { applyPreset: true });
 			macroService.PollPattern(patterns.battle.enter, { DoClick: true, ClickPattern: [patterns.guild.raid.enterBattle, patterns.battle.setup.auto], PredicatePattern: patterns.battle.exit });
 			macroService.PollPattern(patterns.battle.exit, { DoClick: true, ClickPattern: [patterns.guild.raid.battleRecordExit, patterns.general.tapEmptySpace], PredicatePattern: patterns.titles.guildRaid });
 			sleep(1000);
@@ -54,7 +54,7 @@ while (macroService.IsRunning) {
 			logger.info(`doGuildRaid: target stage second team`);
 			macroService.PollPattern(patterns.guild.raid[`stage${targetStage2}`], { ClickPattern: patterns.guild.raid.stageRight });
 			macroService.PollPattern(patterns.guild.raid.selectTeam, { DoClick: true, PredicatePattern: patterns.battle.enter });
-			selectTeam(teamSlot2);
+			selectTeam(teamSlot2, { applyPreset: true });
 			macroService.PollPattern(patterns.battle.enter, { DoClick: true, ClickPattern: [patterns.guild.raid.enterBattle, patterns.battle.setup.auto], PredicatePattern: patterns.battle.exit });
 			macroService.PollPattern(patterns.battle.exit, { DoClick: true, ClickPattern: [patterns.guild.raid.battleRecordExit, patterns.general.tapEmptySpace], PredicatePattern: patterns.titles.guildRaid });
 

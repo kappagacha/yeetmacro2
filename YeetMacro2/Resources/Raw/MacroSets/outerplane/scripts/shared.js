@@ -27,6 +27,13 @@ function refillStamina(targetStamina) {
 	goToLobby();
 }
 
+function getCurrentStaminaValue() {
+	const staminaResult = macroService.PollPattern(patterns.general.stamina);
+	const staminaValue = macroService.ClonePattern(patterns.general.staminaValue, { X: staminaResult.Point.X + 100, Path: `general.stamina_y${staminaResult.Point.Y}` })
+	const currentStamina = macroService.GetText(staminaValue);
+	return Number(currentStamina);
+}
+
 function findShopItem(shopItemName) {
 	const resolution = macroService.GetCurrentResolution();
 	const swipeStartX = resolution.Width - 500;
@@ -47,6 +54,7 @@ function findShopItem(shopItemName) {
 		cakeSlice: /c.ke/is,
 		upgradeStoneSelectionChest: /^(?!.*piece)upgr.de.*s..ne/is,		//does not contain piece (using negative look ahead)
 		lowStarHeroPieceTicket: /2.*He.*r.ndom/is,
+		threeStarHeroPieceTicket: /3.*He.*r.ndom/is,
 		// season 1 survey hub items
 		epicReforgeCatalyst1: /ep.c.*refo.ge/is,
 		epicReforgeCatalyst2: /ep.c.*refo.ge/is,

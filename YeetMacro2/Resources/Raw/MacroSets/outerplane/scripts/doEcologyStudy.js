@@ -12,6 +12,11 @@ function doEcologyStudy(targetNumBattles = 0) {
 		const loopResult = macroService.PollPattern(loopPatterns, { ClickPattern: patterns.arena.defendReport.close });
 		switch (loopResult.Path) {
 			case 'lobby.level':
+				const currentStaminaValue = getCurrentStaminaValue();
+				if (currentStaminaValue < 12) {
+					return;
+				}
+
 				logger.info('doEcologyStudy: click adventure tab');
 				macroService.ClickPattern(patterns.tabs.adventure);
 				sleep(500);

@@ -1279,6 +1279,14 @@
         "$position": 0,
         "$name": "lowStarHeroPieceTicket",
         "$path": "doWeeklyShop.friendshipPoint.lowStarHeroPieceTicket"
+      },
+      "threeStarHeroPieceTicket": {
+        "$type": "boolean",
+        "$defaultValue": true,
+        "$value": true,
+        "$position": 0,
+        "$name": "threeStarHeroPieceTicket",
+        "$path": "doWeeklyShop.friendshipPoint.threeStarHeroPieceTicket"
       }
     },
     "arena": {

@@ -98,7 +98,7 @@ while (macroService.IsRunning) {
 					//macroService.PollPattern(patterns.arena.memorialMatch.sweepAll.ok, { DoClick: true, PredicatePattern: [patterns.arena.memorialMatch.sweepAll, patterns.arena.memorialMatch.sweepAll.disabled] });
 				} else {
 					macroService.PollPattern(patterns.arena.challenge1, { DoClick: true, PredicatePattern: patterns.arena.enter });
-					selectTeam(teamSlot);
+					selectTeam(teamSlot, { applyPreset: true });
 
 					macroService.PollPattern(patterns.arena.enter, { DoClick: true, PredicatePattern: patterns.arena.matchResult });
 					if (macroService.IsRunning) {
@@ -132,16 +132,17 @@ while (macroService.IsRunning) {
 					logger.info('doArena: normal match challenge 3');
 					macroService.PollPattern(patterns.arena.challenge3, { DoClick: true, ClickPattern: clickPattern, PredicatePattern: patterns.arena.enter });
 				}
-				
+
+				selectTeam(teamSlot, { applyPreset: true });
 				if (autoDetectCpThreshold) {
-					const currentCp = selectTeam(teamSlot, true);
+					const cpText = macroService.GetText(patterns.battle.cp);
+					const currentCp = Number(cpText.slice(0, -4).slice(1) + cpText.slice(-3));
+					
 					if (currentCp) {
 						logger.info(`doArena: set settings.doArena.cpThreshold to ${currentCp}`);
 						settings.doArena.cpThreshold.Value = currentCp;
 						settings.doArena.autoDetectCpThreshold.Value = false;
 					}
-				} else {
-					selectTeam(teamSlot);
 				}
 
 				macroService.PollPattern(patterns.arena.enter, { DoClick: true, PredicatePattern: patterns.arena.matchResult });

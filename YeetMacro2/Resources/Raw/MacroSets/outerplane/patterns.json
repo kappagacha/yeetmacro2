@@ -10874,6 +10874,45 @@
       "$position": 0,
       "$name": "doNotShowFor3days",
       "$path": "general.doNotShowFor3days"
+    },
+    "stamina": {
+      "$patterns": [
+        {
+          "rect": {
+            "x": 715.25,
+            "y": 19.25,
+            "width": 1171.5,
+            "height": 82.5
+          },
+          "resolution": {
+            "width": 1920,
+            "height": 1080
+          },
+          "isBoundsPattern": false,
+          "name": "pattern",
+          "imageData": "/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDAAEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQH/2wBDAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQH/wAARCAAUABIDASIAAhEBAxEB/8QAGAABAAMBAAAAAAAAAAAAAAAAAAYHCAn/xAAhEAABBQEBAQACAwAAAAAAAAAEAQIDBQYHCAATFBEiI//EABcBAAMBAAAAAAAAAAAAAAAAAAIEBQb/xAArEQABAwIEBAUFAAAAAAAAAAABAgMEBTEAERMhBiJBQjJRYXHwFTREYnL/2gAMAwEAAhEDEQA/ALU535n6V6W0G24d5b5PluPYJs4Og7TX2kufu+f43stLU0FdQbPlsWYuB4jTzaFJj7BjbY937BqSzjQGNMjbnr2p5n3fFrwODulXkegUPQeiy39zueewj0Nzo9smdHqaXF7KC2tbaMTHAupqixWwKdXjykujBQ1srvwzaF8nerwPLmB6XzykuScaZ1DWXu15Fu7qlk57kdvUCuHB0puFCmlcINWUeiNkpwngFkMkAYMVArhi4XPp/wBY9moOwYgzPN0c++3NylWy6r8bRzbcSkzVXZJcGbO4DCmkQpkkQx40gZP4VmQVrWTyKqMRV7iRppR+mcRRna3Gr9NpK+A5UdlEmfElPsifV2S1HNQaiRqXIdqjNVROdpja4YhymVOOLZxnxCnvyUKfoc1FNchuumvhLyIrbwSnQhkrIbQ8Xk6LsdTWpkoOJXmnHJu14cbPaWU5hnF6YuY8yUqngfJPBVEyESPnrYZ4dJ+GaIGVXCxyxf5yMia+P+qp8+lzudU9s51rQdO8elUVm5bCkKtqDH19qTUGqpNaRZgSXSyA2EwckMhociq8Yl0sLlVzFX59vdfeyz6lABPh3tt8tlyhpJByz8h4/wCP19fmZzidV6h631Hi3Rd/tbOpt7+26JmuMQo+nGjqs9z6agqv3KjJ1DV/QzU9gRXjn2FlUwjnlnrITMQ57mo2xdZuNTmKTrF3lbaTMT8W7nndBkh6YcOAY1berxNXYUendOOSbfZsge1Ne+mJMYOhEjZkVHRxo18+Je0QkbFTiyo9SQXFAk9SCSQTYkm5wq19ylPbpJ5en46bWtt7bWxjHddY1d/ttjenRZxht1qtDbGMFy1COK0qytyzCGjQNBVIYGyzPSGJFVI40axFVG/z8+fPoqlrzPOq57j5++KyUIyTypsntHk36Y//2Q==",
+          "variancePct": 20,
+          "horizontalStretchMultiplier": 0,
+          "verticalStretchMultiplier": 0,
+          "textMatch": {
+            "isActive": false,
+            "text": null,
+            "whiteList": null
+          },
+          "colorThreshold": {
+            "isActive": false,
+            "variancePct": 30,
+            "color": null,
+            "imageData": ""
+          },
+          "offsetCalcType": "DockRight",
+          "position": 0
+        }
+      ],
+      "$isMultiPattern": false,
+      "$position": 0,
+      "$name": "stamina",
+      "$path": "general.stamina"
     }
   },
   "sideStory": {

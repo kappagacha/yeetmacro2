@@ -25,7 +25,7 @@ while (macroService.IsRunning) {
 			logger.info('doSkywardTower: do skyward tower');
 			macroService.PollPattern(patterns.challenge.skywardTower.normal.disabled, { DoClick: true, PredicatePattern: patterns.challenge.skywardTower.normal.enabled });
 			macroService.PollPattern(patterns.battle.selectTeam, { DoClick: true, PredicatePattern: patterns.battle.enter });
-			selectTeam(teamSlot);
+			selectTeam(teamSlot, { applyPreset: true });
 			macroService.PollPattern(patterns.battle.setup.auto, { DoClick: true, PredicatePattern: patterns.battle.setup.enter });
 			macroService.PollPattern(patterns.battle.setup.enter, { DoClick: true, PredicatePattern: patterns.battle.setup.consecutiveBattles.ok });
 			return;

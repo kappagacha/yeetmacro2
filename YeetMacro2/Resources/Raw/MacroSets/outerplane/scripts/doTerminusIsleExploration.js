@@ -90,7 +90,7 @@ while (macroService.IsRunning) {
 				macroService.PollPattern(patterns.terminusIsle.moonlitFangBoss, { DoClick: true, PredicatePattern: patterns.terminusIsle.prompt.heroDeployment, });
 				macroService.PollPattern(patterns.terminusIsle.prompt.heroDeployment, { DoClick: true, PredicatePattern: patterns.battle.enter });
 				const bossType = detectBossType();
-				selectTeam(bossType === 'light' ? 'dark' : 'light');
+				selectTeam(bossType === 'light' ? 'dark' : 'light', { applyPreset: true });
 				macroService.PollPattern(patterns.battle.enter, { DoClick: true, PredicatePattern: patterns.battle.exit });
 				macroService.PollPattern(patterns.battle.exit, { DoClick: true, PredicatePattern: patterns.general.tapEmptySpace });
 				macroService.PollPattern(patterns.general.tapEmptySpace, { DoClick: true, PredicatePattern: patterns.terminusIsle.stage });
@@ -114,7 +114,7 @@ function deployHeroes() {
 	//const recommendedElementPatterns = ['earth', 'water', 'fire', 'light', 'dark'].map(el => patterns.terminusIsle.prompt.heroDeployment.recommendedElement[el]);
 	//const recommendedElementResult = macroService.PollPattern(recommendedElementPatterns);
 	//const recommendedElement = recommendedElementResult.Path?.split('.').pop();
-	//selectTeam(recommendedElement);
+	//selectTeam(recommendedElement, { applyPreset: true });
 	//macroService.PollPattern(patterns.battle.enter, { DoClick: true, PredicatePattern: patterns.battle.exit });
 	//macroService.PollPattern(patterns.battle.exit, { DoClick: true, ClickPattern: patterns.terminusIsle.prompt.next, PredicatePattern: patterns.general.tapEmptySpace });
 }

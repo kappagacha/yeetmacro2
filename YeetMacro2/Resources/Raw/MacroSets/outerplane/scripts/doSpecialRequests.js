@@ -60,7 +60,7 @@ function doEcologyStudy() {
 	//		macroService.PollPattern(patterns.challenge.enter, { DoClick: true, PredicatePattern: patterns.challenge.threeStars });
 	//		clickBottomThreeStars();
 	//		macroService.PollPattern(patterns.challenge.teamsSetup, { DoClick: true, PredicatePattern: patterns.battle.enter });
-	//		selectTeam(teamSlot);
+	//		selectTeam(teamSlot, { applyPreset: true });
 
 	//		macroService.PollPattern(patterns.battle.setup.auto, { DoClick: true, PredicatePattern: patterns.battle.setup.repeatBattle });
 	//		macroService.PollPattern(patterns.battle.setup.repeatBattle.minSlider, { DoClick: true, PredicatePattern: patterns.battle.setup.repeatBattle.value1 });
@@ -92,7 +92,7 @@ function doIdentification() {
 	//		macroService.PollPattern(patterns.challenge.enter, { DoClick: true, PredicatePattern: patterns.challenge.threeStars });
 	//		clickBottomThreeStars();
 	//		macroService.PollPattern(patterns.challenge.teamsSetup, { DoClick: true, PredicatePattern: patterns.battle.enter });
-	//		selectTeam(teamSlot);
+	//		selectTeam(teamSlot, { applyPreset: true });
 
 	//		macroService.PollPattern(patterns.battle.setup.auto, { DoClick: true, PredicatePattern: patterns.battle.setup.repeatBattle });
 	//		macroService.PollPattern(patterns.battle.setup.repeatBattle.minSlider, { DoClick: true, PredicatePattern: patterns.battle.setup.repeatBattle.value1 });

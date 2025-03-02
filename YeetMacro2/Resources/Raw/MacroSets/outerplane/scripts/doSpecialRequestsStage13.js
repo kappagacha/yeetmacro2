@@ -11,6 +11,11 @@ while (macroService.IsRunning) {
 	const loopResult = macroService.PollPattern(loopPatterns, { ClickPattern: patterns.arena.defendReport.close });
 	switch (loopResult.Path) {
 		case 'lobby.level':
+			const currentStaminaValue = getCurrentStaminaValue();
+			if (currentStaminaValue < 16) {
+				return;
+			}
+
 			logger.info('doSpecialRequestsStage13: click adventure tab');
 			macroService.ClickPattern(patterns.tabs.adventure);
 			sleep(500);

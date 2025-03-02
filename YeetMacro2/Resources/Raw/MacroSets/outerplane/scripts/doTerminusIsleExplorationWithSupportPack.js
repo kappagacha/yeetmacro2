@@ -245,7 +245,7 @@ function deployHeroes() {
 	//const recommendedElementPatterns = ['earth', 'water', 'fire', 'light', 'dark'].map(el => patterns.terminusIsle.prompt.heroDeployment.recommendedElement[el]);
 	//const recommendedElementResult = macroService.PollPattern(recommendedElementPatterns);
 	//const recommendedElement = recommendedElementResult.Path?.split('.').pop();
-	//selectTeam(recommendedElement);
+	//selectTeam(recommendedElement, { applyPreset: true });
 	//macroService.PollPattern(patterns.battle.enter, { DoClick: true, PredicatePattern: patterns.battle.exit });
 	//macroService.PollPattern(patterns.battle.exit, { DoClick: true, ClickPattern: patterns.terminusIsle.prompt.next, PredicatePattern: patterns.general.tapEmptySpace });
 }
@@ -256,13 +256,13 @@ function doEnhancedDeadlyCreature() {
 		executeOrderBaseArtilleryFire();
 		macroService.PollPattern(patterns.terminusIsle.warning, { DoClick: true, PredicatePattern: patterns.terminusIsle.prompt.heroDeployment, });
 		macroService.PollPattern(patterns.terminusIsle.prompt.heroDeployment, { DoClick: true, PredicatePattern: patterns.battle.enter });
-		selectTeam('RecommendedElement');
+		selectTeam('RecommendedElement', { applyPreset: true });
 		macroService.PollPattern(patterns.battle.enter, { DoClick: true, PredicatePattern: patterns.battle.exit });
 		const exitResult = macroService.PollPattern(patterns.battle.exit, { DoClick: true, PredicatePattern: [patterns.general.tapEmptySpace, patterns.terminusIsle.prompt.heroDeployment] });
 		// if another attempt is needed
 		if (exitResult.PredicatePath === 'terminusIsle.prompt.heroDeployment') {
 			macroService.PollPattern(patterns.terminusIsle.prompt.heroDeployment, { DoClick: true, PredicatePattern: patterns.battle.enter });
-			selectTeam('RecommendedElement');
+			selectTeam('RecommendedElement', { applyPreset: true });
 			macroService.PollPattern(patterns.battle.enter, { DoClick: true, PredicatePattern: patterns.battle.exit });
 			macroService.PollPattern(patterns.battle.exit, { DoClick: true, PredicatePattern: patterns.general.tapEmptySpace });
 		}
@@ -276,7 +276,7 @@ function doMoonlitFangBoss() {
 		macroService.PollPattern(patterns.terminusIsle.moonlitFangBoss, { DoClick: true, PredicatePattern: patterns.terminusIsle.prompt.heroDeployment, });
 		macroService.PollPattern(patterns.terminusIsle.prompt.heroDeployment, { DoClick: true, PredicatePattern: patterns.battle.enter });
 		const bossType = detectBossType();
-		selectTeam(bossType === 'light' ? 'dark' : 'light');
+		selectTeam(bossType === 'light' ? 'dark' : 'light', { applyPreset: true });
 		macroService.PollPattern(patterns.battle.enter, { DoClick: true, PredicatePattern: patterns.battle.exit });
 		macroService.PollPattern(patterns.battle.exit, { DoClick: true, PredicatePattern: patterns.general.tapEmptySpace });
 		macroService.PollPattern(patterns.general.tapEmptySpace, { DoClick: true, PredicatePattern: patterns.terminusIsle.stage });

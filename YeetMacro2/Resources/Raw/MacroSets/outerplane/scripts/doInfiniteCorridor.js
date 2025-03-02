@@ -35,7 +35,7 @@ while (macroService.IsRunning) {
 			}
 			macroService.PollPattern(patterns.challenge.archdemonRuins.infiniteCorridor.stage3, { DoClick: true, PredicatePattern: patterns.challenge.archdemonRuins.infiniteCorridor.selectTeam });
 			macroService.PollPattern(patterns.challenge.archdemonRuins.infiniteCorridor.selectTeam, { DoClick: true, PredicatePattern: patterns.challenge.archdemonRuins.infiniteCorridor.enterRuins });
-			selectTeam(teamSlot);
+			selectTeam(teamSlot, { applyPreset: true });
 			macroService.PollPattern(patterns.challenge.archdemonRuins.infiniteCorridor.enterRuins, { DoClick: true, PredicatePattern: patterns.challenge.archdemonRuins.infiniteCorridor.ok });
 			macroService.PollPattern(patterns.challenge.archdemonRuins.infiniteCorridor.ok, { DoClick: true, PredicatePattern: patterns.challenge.archdemonRuins.infiniteCorridor.skip });
 			macroService.PollPattern(patterns.challenge.archdemonRuins.infiniteCorridor.skip, { DoClick: true, PredicatePattern: patterns.challenge.archdemonRuins.infiniteCorridor.artifactOk });
