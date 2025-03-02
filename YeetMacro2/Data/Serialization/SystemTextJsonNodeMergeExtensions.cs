@@ -41,7 +41,9 @@ public static class SystemTextJsonMergeExtensions
                         {
                             JsonObject jsonBaseChildObj when prop.Value is JsonObject jsonMergeChildObj => jsonBaseChildObj.Merge(jsonMergeChildObj),
                             JsonArray jsonBaseChildArray when prop.Value is JsonArray jsonMergeChildArray => jsonBaseChildArray.Merge(jsonMergeChildArray),
-                            _ => prop.Value
+                            //_ => prop.Value
+                            // NOTE: The logic is cusomized to keep values if keys match
+                            _ => jsonBaseObj[prop.Key] ?? prop.Value
                         };
                     }
                     break;

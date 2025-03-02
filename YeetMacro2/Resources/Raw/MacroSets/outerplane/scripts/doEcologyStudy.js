@@ -5,7 +5,6 @@ function doEcologyStudy(targetNumBattles = 0) {
 	const loopPatterns = [patterns.lobby.level, patterns.titles.adventure, patterns.titles.challenge];
 	const daily = dailyManager.GetCurrentDaily();
 	const teamSlot = settings.doEcologyStudy.teamSlot.Value;
-	const sweepBattle = settings.doEcologyStudy.sweepBattle.Value;
 	const ecologyStudy = settings.doEcologyStudy.targetEcologyStudy.Value;
 
 	while (macroService.IsRunning) {
@@ -36,7 +35,7 @@ function doEcologyStudy(targetNumBattles = 0) {
 				if (teamsSetupResult.PredicatePath === 'battle.restore') {
 					return;
 				}
-				selectTeamAndBattle(teamSlot, sweepBattle, targetNumBattles);
+				selectTeamAndBattle(teamSlot, { targetNumBattles });
 
 				if (macroService.IsRunning) {
 					daily.doEcologyStudy.count.Count++;

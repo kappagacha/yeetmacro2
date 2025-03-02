@@ -6,7 +6,6 @@ function doSurveyHub(targetNumBattles = 0) {
 	const loopPatterns = [patterns.lobby.level, patterns.titles.adventure, patterns.surveyHub.rewardInfo, patterns.titles.shop];
 	const daily = dailyManager.GetCurrentDaily();
 	const teamSlot = settings.doSurveyHub.teamSlot.Value;
-	const sweepBattle = settings.doSurveyHub.sweepBattle.Value;
 	const descendingPriority = settings.doSurveyHub.descendingPriority.Value;
 
 	if (targetNumBattles && daily.doSurveyHub.count.Count >= targetNumBattles) {
@@ -68,17 +67,17 @@ function doSurveyHub(targetNumBattles = 0) {
 					return;
 				}
 
-				const numBattles = selectTeamAndBattle(teamSlot, sweepBattle);
+				const numBattles = selectTeamAndBattle(teamSlot);
 				if (macroService.IsRunning) {
 					daily.doSurveyHub.count.Count += Number(numBattles);
 				}
 
-				if (!sweepBattle) {
-					macroService.PollPattern(patterns.battle.setup.enter.ok, { DoClick: true, PredicatePattern: patterns.battle.exit });
-					macroService.PollPattern(patterns.battle.exit, { DoClick: true, PredicatePattern: patterns.general.back });
-					macroService.PollPattern(patterns.general.back, { DoClick: true, PredicatePattern: patterns.adventure.surveyHub });
-					//macroService.PollPattern(patterns.adventure.surveyHub, { DoClick: true, PredicatePattern: patterns.titles.shop });
-				}
+				//if (!sweepBattle) {
+				//	macroService.PollPattern(patterns.battle.setup.enter.ok, { DoClick: true, PredicatePattern: patterns.battle.exit });
+				//	macroService.PollPattern(patterns.battle.exit, { DoClick: true, PredicatePattern: patterns.general.back });
+				//	macroService.PollPattern(patterns.general.back, { DoClick: true, PredicatePattern: patterns.adventure.surveyHub });
+				//	//macroService.PollPattern(patterns.adventure.surveyHub, { DoClick: true, PredicatePattern: patterns.titles.shop });
+				//}
 
 				//logger.info(`targetNumBattles: ${targetNumBattles}, numBattles: ${numBattles}, doSurveyHub count: ${daily.doSurveyHub.count.Count}, `)
 				if (targetNumBattles && daily.doSurveyHub.count.Count >= targetNumBattles) {
@@ -90,14 +89,6 @@ function doSurveyHub(targetNumBattles = 0) {
 				if (currentStamina < 10) {
 					return;
 				}
-
-				//let surveyHubResult = macroService.FindPattern(patterns.adventure.surveyHub);
-				//while (!surveyHubResult.IsSuccess) {
-				//	macroService.ClickPattern(patterns.general.back);
-				//	sleep(1_000);
-				//	surveyHubResult = macroService.FindPattern(patterns.adventure.surveyHub);
-				//	sleep(1_000);
-				//}
 
 				macroService.PollPattern(patterns.general.back, { DoClick: true, PredicatePattern: patterns.adventure.surveyHub });
 				macroService.PollPattern(patterns.adventure.surveyHub, { DoClick: true, PredicatePattern: patterns.titles.shop });

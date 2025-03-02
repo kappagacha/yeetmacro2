@@ -2,7 +2,6 @@
 // Auto or sweep bounty hunter
 const loopPatterns = [patterns.lobby.level, patterns.titles.adventure, patterns.titles.challenge];
 const daily = dailyManager.GetCurrentDaily();
-const sweepBattle = settings.doBountyHunter.sweepBattle.Value;
 const teamSlot = settings.doBountyHunter.teamSlot.Value;
 if (daily.doBountyHunter.done.IsChecked) {
 	return "Script already completed. Uncheck done to override daily flag.";
@@ -24,7 +23,7 @@ while (macroService.IsRunning) {
 		case 'titles.challenge':
 			macroService.PollPattern(patterns.challenge.bountyHunter, { DoClick: true, PredicatePattern: patterns.challenge.selectTeam });
 			macroService.PollPattern(patterns.challenge.selectTeam, { DoClick: true, PredicatePattern: patterns.battle.setup.auto });
-			selectTeamAndBattle(teamSlot === 'RecommendedElement' ? 'light' : teamSlot, sweepBattle);
+			selectTeamAndBattle(teamSlot === 'RecommendedElement' ? 'light' : teamSlot);
 			if (macroService.IsRunning) {
 				daily.doBountyHunter.done.IsChecked = true;
 			}

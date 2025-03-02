@@ -5,7 +5,6 @@ function doIdentification(targetNumBattles = 0) {
 	const loopPatterns = [patterns.lobby.level, patterns.titles.adventure, patterns.titles.challenge];
 	const daily = dailyManager.GetCurrentDaily();
 	const teamSlot = settings.doIdentification.teamSlot.Value;
-	const sweepBattle = settings.doIdentification.sweepBattle.Value;
 	const identification = settings.doIdentification.targetIdentification.Value;
 
 	while (macroService.IsRunning) {
@@ -36,7 +35,7 @@ function doIdentification(targetNumBattles = 0) {
 				if (teamsSetupResult.PredicatePath === 'battle.restore') {
 					return;
 				}
-				selectTeamAndBattle(teamSlot, sweepBattle, targetNumBattles);
+				selectTeamAndBattle(teamSlot, { targetNumBattles });
 
 				if (macroService.IsRunning) {
 					daily.doIdentification.count.Count++;

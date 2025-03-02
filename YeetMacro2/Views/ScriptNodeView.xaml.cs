@@ -30,15 +30,16 @@ public partial class ScriptNodeView : ContentView
 
     private static void MacroSet_Changed(BindableObject bindable, object oldValue, object newValue)
     {
+        var macroSet = newValue as MacroSetViewModel;
         var scriptNodeView = bindable as ScriptNodeView;
         var settingsPropertyChanged = new PropertyChangedEventHandler(delegate (object s, PropertyChangedEventArgs e)
         {
             if (e.PropertyName == nameof(SettingNodeManagerViewModel.CurrentSubViewModel) &&
-                scriptNodeView.MacroSet.Settings.CurrentSubViewModel is ParentSetting settingsSubViewModel)
+                macroSet.Settings.CurrentSubViewModel is ParentSetting settingsSubViewModel)
             {
                 if (!_settingSubViewModelToView.ContainsKey(settingsSubViewModel))
                 {
-                    var settingNodeView = new SettingNodeView() { MacroSet = scriptNodeView.MacroSet, SubView = settingsSubViewModel };
+                    var settingNodeView = new SettingNodeView() { MacroSet = macroSet, SubView = settingsSubViewModel };
                     _settingSubViewModelToView.TryAdd(settingsSubViewModel, settingNodeView);
                 }
 
@@ -50,11 +51,11 @@ public partial class ScriptNodeView : ContentView
         var dailiesPropertyChanged = new PropertyChangedEventHandler(delegate (object s, PropertyChangedEventArgs e)
         {
             if (e.PropertyName == nameof(DailyNodeManagerViewModel.CurrentSubViewModel) &&
-                 scriptNodeView.MacroSet.Dailies.CurrentSubViewModel is TodoJsonParentViewModel todoSubViewModel)
+                 macroSet.Dailies.CurrentSubViewModel is TodoJsonParentViewModel todoSubViewModel)
             {
                 if (!_todoSubViewModelToView.ContainsKey(todoSubViewModel))
                 {
-                    var todoNodeView = new TodoNodeView() { Todos = scriptNodeView.MacroSet.Dailies, SubView = todoSubViewModel, IsVisible = todoSubViewModel.Children.Count > 0 };
+                    var todoNodeView = new TodoNodeView() { Todos = macroSet.Dailies, SubView = todoSubViewModel, IsVisible = todoSubViewModel.Children.Count > 0 };
                     _todoSubViewModelToView.TryAdd(todoSubViewModel, todoNodeView);
                 }
 
@@ -65,11 +66,11 @@ public partial class ScriptNodeView : ContentView
         var weekliesPropertyChanged = new PropertyChangedEventHandler(delegate (object s, PropertyChangedEventArgs e)
         {
             if (e.PropertyName == nameof(WeeklyNodeManagerViewModel.CurrentSubViewModel) &&
-                scriptNodeView.MacroSet.Weeklies.CurrentSubViewModel is TodoJsonParentViewModel todoSubViewModel)
+                macroSet.Weeklies.CurrentSubViewModel is TodoJsonParentViewModel todoSubViewModel)
             {
                 if (!_todoSubViewModelToView.ContainsKey(todoSubViewModel))
                 {
-                    var todoNodeView = new TodoNodeView() { Todos = scriptNodeView.MacroSet.Weeklies, SubView = todoSubViewModel, IsVisible = todoSubViewModel.Children.Count > 0 };
+                    var todoNodeView = new TodoNodeView() { Todos = macroSet.Weeklies, SubView = todoSubViewModel, IsVisible = todoSubViewModel.Children.Count > 0 };
                     _todoSubViewModelToView.TryAdd(todoSubViewModel, todoNodeView);
                 }
 
@@ -77,7 +78,7 @@ public partial class ScriptNodeView : ContentView
             }
         });
 
-        if (newValue is MacroSetViewModel macroSet)
+        if (newValue is not null)
         {
             scriptNodeView.BindingContext = macroSet;
             macroSet.Settings.PropertyChanged += settingsPropertyChanged;

@@ -3,7 +3,6 @@
 const loopPatterns = [patterns.lobby.level, patterns.titles.adventure, patterns.titles.challenge];
 const daily = dailyManager.GetCurrentDaily();
 const teamSlot = settings.doUpgradeStoneRetrieval.teamSlot.Value;
-const sweepBattle = settings.doUpgradeStoneRetrieval.sweepBattle.Value;
 const elementTypeTarget1 = settings.doUpgradeStoneRetrieval.elementTypeTarget1.Value;
 const elementTypeTarget2 = settings.doUpgradeStoneRetrieval.elementTypeTarget2.Value;
 const elementTypeTarget3 = settings.doUpgradeStoneRetrieval.elementTypeTarget3.Value;
@@ -45,7 +44,7 @@ while (macroService.IsRunning) {
 				light: 'dark',
 				dark: 'light'
 			};
-			selectTeamAndBattle(teamSlot === 'RecommendedElement' ? recommendedElement[elementType] : teamSlot, false);
+			selectTeamAndBattle(teamSlot === 'RecommendedElement' ? recommendedElement[elementType] : teamSlot);
 			if (macroService.IsRunning) {
 				daily.doUpgradeStoneRetrieval.done.IsChecked = true;
 			}

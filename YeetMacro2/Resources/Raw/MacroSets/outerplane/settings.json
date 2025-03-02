@@ -110,14 +110,6 @@
       "$position": 0,
       "$name": "teamSlot",
       "$path": "doBountyHunter.teamSlot"
-    },
-    "sweepBattle": {
-      "$type": "boolean",
-      "$defaultValue": true,
-      "$value": true,
-      "$position": 0,
-      "$name": "sweepBattle",
-      "$path": "doBountyHunter.sweepBattle"
     }
   },
   "doUpgradeStoneRetrieval": {
@@ -145,14 +137,6 @@
       "$position": 0,
       "$name": "teamSlot",
       "$path": "doUpgradeStoneRetrieval.teamSlot"
-    },
-    "sweepBattle": {
-      "$type": "boolean",
-      "$defaultValue": true,
-      "$value": true,
-      "$position": 0,
-      "$name": "sweepBattle",
-      "$path": "doUpgradeStoneRetrieval.sweepBattle"
     },
     "elementTypeTarget1": {
       "$type": "option",
@@ -240,14 +224,6 @@
       "$position": 0,
       "$name": "teamSlot",
       "$path": "doBanditChase.teamSlot"
-    },
-    "sweepBattle": {
-      "$type": "boolean",
-      "$defaultValue": true,
-      "$value": true,
-      "$position": 0,
-      "$name": "sweepBattle",
-      "$path": "doBanditChase.sweepBattle"
     }
   },
   "doGuildSecurityArea": {
@@ -332,14 +308,6 @@
       "$name": "teamSlot",
       "$path": "doEcologyStudy.teamSlot"
     },
-    "sweepBattle": {
-      "$type": "boolean",
-      "$defaultValue": true,
-      "$value": true,
-      "$position": 0,
-      "$name": "sweepBattle",
-      "$path": "doEcologyStudy.sweepBattle"
-    },
     "targetEcologyStudy": {
       "$type": "option",
       "$options": [
@@ -380,14 +348,6 @@
       "$position": 0,
       "$name": "teamSlot",
       "$path": "doIdentification.teamSlot"
-    },
-    "sweepBattle": {
-      "$type": "boolean",
-      "$defaultValue": true,
-      "$value": true,
-      "$position": 0,
-      "$name": "sweepBattle",
-      "$path": "doIdentification.sweepBattle"
     },
     "targetIdentification": {
       "$type": "option",
@@ -887,14 +847,6 @@
       "$name": "teamSlot",
       "$path": "doSurveyHub.teamSlot"
     },
-    "sweepBattle": {
-      "$type": "boolean",
-      "$defaultValue": true,
-      "$value": true,
-      "$position": 0,
-      "$name": "sweepBattle",
-      "$path": "doSurveyHub.sweepBattle"
-    },
     "descendingPriority": {
       "$type": "boolean",
       "$defaultValue": false,
@@ -1137,14 +1089,6 @@
       "$name": "teamSlot1",
       "$path": "doDoppelganger.teamSlot1"
     },
-    "sweepBattle1": {
-      "$type": "boolean",
-      "$defaultValue": true,
-      "$value": true,
-      "$position": 0,
-      "$name": "sweepBattle1",
-      "$path": "doDoppelganger.sweepBattle1"
-    },
     "elementTypeTarget2": {
       "$type": "option",
       "$options": [
@@ -1180,14 +1124,6 @@
       "$position": 0,
       "$name": "teamSlot2",
       "$path": "doDoppelganger.teamSlot2"
-    },
-    "sweepBattle2": {
-      "$type": "boolean",
-      "$defaultValue": true,
-      "$value": true,
-      "$position": 0,
-      "$name": "sweepBattle2",
-      "$path": "doDoppelganger.sweepBattle2"
     },
     "doRefillStamina": {
       "$type": "boolean",
