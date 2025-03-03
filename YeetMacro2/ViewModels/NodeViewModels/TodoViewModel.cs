@@ -1,5 +1,7 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Messaging;
+using System.Collections.Specialized;
+using System.ComponentModel;
 using System.Text.Json;
 using System.Text.Json.Nodes;
 using System.Text.Json.Serialization;
@@ -87,7 +89,8 @@ public partial class TodoViewModel: TodoNode
 public abstract partial class TodoJsonElementViewModel : ObservableObject, ISortable
 {
     [ObservableProperty]
-    bool _isExpanded = false, _isSelected = false;
+    bool _isSelected = false; 
+    protected bool _isExpanded;
     public TodoJsonParentViewModel Parent { get; set; }
     public TodoJsonParentViewModel Root { get => Parent?.Root ?? Parent ?? (TodoJsonParentViewModel)this; }
     public virtual TodoViewModel ViewModel
@@ -99,22 +102,45 @@ public abstract partial class TodoJsonElementViewModel : ObservableObject, ISort
 
     [ObservableProperty]
     string _key;
+    public virtual bool IsExpanded { get; set; }
     public virtual bool IsParent => false;
+    public virtual int Height => 20;
+    public virtual int ChildrenHeight => 0;
 }
 
 public partial class TodoJsonParentViewModel : TodoJsonElementViewModel
 {
     [ObservableProperty]
-    NodeObservableCollection<TodoJsonElementViewModel, TodoJsonElementViewModel> _children = [];
+    NodeObservableCollection<TodoJsonElementViewModel, TodoJsonElementViewModel> _children;
     readonly Dictionary<string, TodoJsonElementViewModel> _dict = [];
-    TodoViewModel _viewModel;
+    TodoViewModel _viewModel; 
+    
+    public override bool IsParent => true;
     public override TodoViewModel ViewModel 
     { 
         get { return Parent?.ViewModel ?? _viewModel; }
         set { _viewModel = value; }
     }
+    public override bool IsExpanded
+    {
+        get => _isExpanded;
+        set
+        {
+            _isExpanded = value;
+            OnPropertyChanged();
+            OnPropertyChanged(nameof(ChildrenHeight));
+        }
+    }
 
-    public override bool IsParent => true;
+    public override int ChildrenHeight
+    {
+        get
+        {
+            if (!IsExpanded) return 0;
+
+            return Children.Sum(n => n.Height + n.ChildrenHeight);
+        }
+    }
 
     public static readonly JsonSerializerOptions _defaultJsonSerializerOptions = new()
     {
@@ -152,6 +178,41 @@ public partial class TodoJsonParentViewModel : TodoJsonElementViewModel
             return _dict[key];
         }
     }
+
+    public TodoJsonParentViewModel()
+    {
+        _children = new NodeObservableCollection<TodoJsonElementViewModel, TodoJsonElementViewModel>();
+        _children.CollectionChanged += Children_CollectionChanged;
+    }
+
+    private void Children_CollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
+    {
+        if (e.NewItems is not null)
+        {
+            foreach (INotifyPropertyChanged node in e.NewItems)
+            {
+                node.PropertyChanged += Child_PropertyChanged;
+            }
+            OnPropertyChanged(nameof(ChildrenHeight));
+        }
+
+        if (e.OldItems is not null)
+        {
+            foreach (INotifyPropertyChanged node in e.OldItems)
+            {
+                node.PropertyChanged -= Child_PropertyChanged;
+            }
+            OnPropertyChanged(nameof(ChildrenHeight));
+        }
+    }
+
+    private void Child_PropertyChanged(object sender, PropertyChangedEventArgs e)
+    {
+        if (e.PropertyName == nameof(ChildrenHeight))
+        {
+            OnPropertyChanged(nameof(ChildrenHeight));
+        }
+    }
 }
 
 public partial class TodoJsonBooleanViewModel: TodoJsonElementViewModel
@@ -167,6 +228,8 @@ public partial class TodoJsonBooleanViewModel: TodoJsonElementViewModel
         ViewModel.Data = TodoJsonParentViewModel.Export(Root);
         WeakReferenceMessenger.Default.Send(ViewModel);
     }
+
+    public override int Height => 30;
 }
 
 public partial class TodoJsonCountViewModel : TodoJsonElementViewModel
@@ -182,6 +245,7 @@ public partial class TodoJsonCountViewModel : TodoJsonElementViewModel
         ViewModel.Data = TodoJsonParentViewModel.Export(Root);
         WeakReferenceMessenger.Default.Send(ViewModel);
     }
+    public override int Height => 30;
 }
 
 public class TodoJsonParentViewModelJsonConverter() : JsonConverter<TodoJsonElementViewModel>

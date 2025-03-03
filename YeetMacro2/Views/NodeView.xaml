@@ -8,6 +8,7 @@
              xmlns:material="http://schemas.enisn-projects.io/dotnet/maui/uraniumui/material"
              xmlns:mi="clr-namespace:UraniumUI.Icons.MaterialIcons;assembly=UraniumUI.Icons.MaterialIcons"
              xmlns:conv="clr-namespace:YeetMacro2.Converters"
+             xmlns:vlv="clr-namespace:Microsoft.Maui.Controls;assembly=VirtualListView"
              x:Class="YeetMacro2.Views.NodeView"
              x:Name="thisView">
     <ContentView.Resources>
@@ -15,15 +16,15 @@
             <Grid ColumnDefinitions="Auto, *" RowDefinitions="Auto, Auto" ColumnSpacing="5">
                 <Grid WidthRequest="15" />
                 <v:ToggleImageView Grid.Row="0" Grid.Column="0"
-                                   IsVisible="{Binding Nodes.Count, Converter={conv:NumberToBoolConverter}}"
-                                   ImageHeight="15"
-                                   ImageWidth="15"
-                                   FontFamily="MaterialOutlined" 
-                                   Glyph="{x:Static mi:MaterialOutlined.Keyboard_arrow_right}"
-                                   ToggledGlyph="{x:Static mi:MaterialOutlined.Keyboard_arrow_down}"
-                                   IsToggled="{Binding IsExpanded}"
-                                   IsToggledFromImageOnly="True"
-                                   HeightRequest="20" />
+                                    IsVisible="{Binding Nodes.Count, Converter={conv:NumberToBoolConverter}}"
+                                    ImageHeight="15"
+                                    ImageWidth="15"
+                                    FontFamily="MaterialOutlined" 
+                                    Glyph="{x:Static mi:MaterialOutlined.Keyboard_arrow_right}"
+                                    ToggledGlyph="{x:Static mi:MaterialOutlined.Keyboard_arrow_down}"
+                                    IsToggled="{Binding IsExpanded}"
+                                    IsToggledFromImageOnly="True"
+                                    HeightRequest="20" />
                 <Grid Grid.Row="0" Grid.Column="1" HeightRequest="20">
                     <Grid HeightRequest="20">
                         <Label Text="{Binding Name}" TextColor="{StaticResource Primary}" Margin="0" Padding="0" VerticalOptions="Center" BackgroundColor="Transparent">
@@ -38,16 +39,17 @@
                     </Grid>
                 </Grid>
                 <Grid Grid.Row="1" Grid.Column="1" IsVisible="{Binding Nodes.Count, Converter={conv:NumberToBoolConverter}}">
-                    <CollectionView ItemsSource="{Binding Nodes}" IsVisible="{Binding IsExpanded}"
-                                ItemTemplate="{DynamicResource DefaultItemTemplate}" />
+                    <!--<CollectionView ItemsSource="{Binding Nodes}" IsVisible="{Binding IsExpanded}"
+                                ItemTemplate="{DynamicResource DefaultItemTemplate}" />-->
+                    <vlv:VirtualListView Adapter="{Binding Nodes}" IsVisible="{Binding IsExpanded}"
+                                ItemTemplate="{DynamicResource DefaultItemTemplate}" HeightRequest="{Binding NodesHeight}" />
                 </Grid>
             </Grid>
         </DataTemplate>
     </ContentView.Resources>
     <Grid>
         <Grid IsVisible="{Binding NodeManager.ShowExport, Converter={conv:InverseBoolConverter}, Source={Reference thisView}}">
-            <ScrollView>
-                <CollectionView ItemTemplate="{Binding ItemTemplate, Source={Reference thisView}, TargetNullValue={StaticResource DefaultItemTemplate}}"
+            <!--<CollectionView ItemTemplate="{Binding ItemTemplate, Source={Reference thisView}, TargetNullValue={StaticResource DefaultItemTemplate}}"
                                 HorizontalOptions="Fill"  VerticalOptions="Fill">
                     <CollectionView.Triggers>
                         <DataTrigger TargetType="CollectionView" Binding="{Binding ItemsSource, Source={Reference thisView}, Converter={conv:NullToBoolConverter}}" Value="True">
@@ -57,8 +59,19 @@
                             <Setter Property="ItemsSource" Value="{Binding ItemsSource, Source={Reference thisView}}" />
                         </DataTrigger>
                     </CollectionView.Triggers>
-                </CollectionView>
-            </ScrollView>
+                </CollectionView>-->
+            <vlv:VirtualListView ItemTemplate="{Binding ItemTemplate, Source={Reference thisView}, TargetNullValue={StaticResource DefaultItemTemplate}}"
+                                     ItemTemplateSelector="{Binding ItemTemplateSelector, Source={Reference thisView}}"
+                                     HorizontalOptions="Fill" VerticalOptions="Fill">
+                <vlv:VirtualListView.Triggers>
+                    <DataTrigger TargetType="vlv:VirtualListView" Binding="{Binding ItemsSource, Source={Reference thisView}, Converter={conv:NullToBoolConverter}}" Value="True">
+                        <Setter Property="Adapter" Value="{Binding NodeManager.Root.Nodes, Source={Reference thisView}}" />
+                    </DataTrigger>
+                    <DataTrigger TargetType="vlv:VirtualListView" Binding="{Binding ItemsSource, Source={Reference thisView}, Converter={conv:NullToBoolConverter}}" Value="False">
+                        <Setter Property="Adapter" Value="{Binding ItemsSource, Source={Reference thisView}}" />
+                    </DataTrigger>
+                </vlv:VirtualListView.Triggers>
+            </vlv:VirtualListView>
             <Grid VerticalOptions="End" HorizontalOptions="End" BindingContext="{Binding ., Source={Reference thisView}}"
                   IsVisible="{Binding IsMenuVisible, Source={Reference thisView}}">
                 <VerticalStackLayout>

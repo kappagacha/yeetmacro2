@@ -1,6 +1,8 @@
 ﻿using AutoMapper;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Messaging;
+using System.Collections.Specialized;
+using System.ComponentModel;
 using YeetMacro2.Data.Models;
 using YeetMacro2.Services;
 
@@ -35,14 +37,11 @@ public partial class ParentSettingViewModel : ParentSetting
     {
         get => base.Nodes;
         set {
-            if (value is null)
-            {
-                base.Nodes = new NodeObservableCollection<ParentSettingViewModel, SettingNode>();
-            } 
-            else
-            {
-                base.Nodes = new NodeObservableCollection<ParentSettingViewModel, SettingNode>(value);
-            }
+            var nodes = value is null ? new NodeObservableCollection<ParentSettingViewModel, SettingNode>()
+                : new NodeObservableCollection<ParentSettingViewModel, SettingNode>(value);
+            nodes.CollectionChanged += Nodes_CollectionChanged;
+            base.Nodes = nodes;
+            Nodes_CollectionChanged(null, new NotifyCollectionChangedEventArgs(NotifyCollectionChangedAction.Add, nodes));
             OnPropertyChanged();
         }
     }
@@ -74,6 +73,19 @@ public partial class ParentSettingViewModel : ParentSetting
         {
             base.IsExpanded = value;
             OnPropertyChanged();
+            OnPropertyChanged(nameof(NodesHeight));
+        }
+    }
+
+    public override int Height => 20;
+
+    public override int NodesHeight
+    {
+        get
+        {
+            if (!IsExpanded) return 0;
+
+            return Nodes.Sum(n => n.Height + n.NodesHeight);
         }
     }
 
@@ -83,8 +95,39 @@ public partial class ParentSettingViewModel : ParentSetting
 
     public ParentSettingViewModel()
     {
-        base.Nodes = new NodeObservableCollection<ParentSettingViewModel, SettingNode>();
+        var nodes = new NodeObservableCollection<ParentSettingViewModel, SettingNode>();
+        nodes.CollectionChanged += Nodes_CollectionChanged;
+        base.Nodes = nodes;
         _nodeCache = new Dictionary<string, SettingNode>();
+    }
+
+    private void Nodes_CollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
+    {
+        if (e.NewItems is not null)
+        {
+            foreach (INotifyPropertyChanged node in e.NewItems)
+            {
+                node.PropertyChanged += Node_PropertyChanged;
+            }
+            OnPropertyChanged(nameof(NodesHeight));
+        }
+
+        if (e.OldItems is not null)
+        {
+            foreach (INotifyPropertyChanged node in e.OldItems)
+            {
+                node.PropertyChanged -= Node_PropertyChanged;
+            }
+            OnPropertyChanged(nameof(NodesHeight));
+        }
+    }
+
+    private void Node_PropertyChanged(object sender, PropertyChangedEventArgs e)
+    {
+        if (e.PropertyName == nameof(NodesHeight))
+        {
+            OnPropertyChanged(nameof(NodesHeight));
+        }
     }
 
     public override SettingNode this[string key]
@@ -155,14 +198,11 @@ public partial class EnabledParentSettingViewModel : EnabledParentSetting
         get => base.Nodes;
         set
         {
-            if (value is null)
-            {
-                base.Nodes = new NodeObservableCollection<ParentSettingViewModel, SettingNode>();
-            }
-            else
-            {
-                base.Nodes = new NodeObservableCollection<ParentSettingViewModel, SettingNode>(value);
-            }
+            var nodes = value is null ? new NodeObservableCollection<ParentSettingViewModel, SettingNode>()
+                : new NodeObservableCollection<ParentSettingViewModel, SettingNode>(value);
+            nodes.CollectionChanged += Nodes_CollectionChanged;
+            base.Nodes = nodes;
+            Nodes_CollectionChanged(null, new NotifyCollectionChangedEventArgs(NotifyCollectionChangedAction.Add, nodes));
             OnPropertyChanged();
         }
     }
@@ -194,6 +234,19 @@ public partial class EnabledParentSettingViewModel : EnabledParentSetting
         {
             base.IsExpanded = value;
             OnPropertyChanged();
+            OnPropertyChanged(nameof(NodesHeight));
+        }
+    }
+
+    public override int Height => 25;
+
+    public override int NodesHeight
+    {
+        get
+        {
+            if (!IsExpanded) return 0;
+
+            return Nodes.Sum(n => n.Height + n.NodesHeight);
         }
     }
 
@@ -203,8 +256,39 @@ public partial class EnabledParentSettingViewModel : EnabledParentSetting
 
     public EnabledParentSettingViewModel()
     {
-        base.Nodes = new NodeObservableCollection<ParentSettingViewModel, SettingNode>();
+        var nodes = new NodeObservableCollection<ParentSettingViewModel, SettingNode>();
+        nodes.CollectionChanged += Nodes_CollectionChanged;
+        base.Nodes = nodes;
         _nodeCache = new Dictionary<string, SettingNode>();
+    }
+
+    private void Nodes_CollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
+    {
+        if (e.NewItems is not null)
+        {
+            foreach (INotifyPropertyChanged node in e.NewItems)
+            {
+                node.PropertyChanged += Node_PropertyChanged;
+            }
+            OnPropertyChanged(nameof(NodesHeight));
+        }
+
+        if (e.OldItems is not null)
+        {
+            foreach (INotifyPropertyChanged node in e.OldItems)
+            {
+                node.PropertyChanged -= Node_PropertyChanged;
+            }
+            OnPropertyChanged(nameof(NodesHeight));
+        }
+    }
+
+    private void Node_PropertyChanged(object sender, PropertyChangedEventArgs e)
+    {
+        if (e.PropertyName == nameof(NodesHeight))
+        {
+            OnPropertyChanged(nameof(NodesHeight));
+        }
     }
 
     public override SettingNode this[string key]
@@ -285,6 +369,8 @@ public partial class BooleanSettingViewModel : BooleanSetting
             if (doSave) WeakReferenceMessenger.Default.Send<SettingNode>(this);
         }
     }
+
+    public override int Height => 25;
 }
 
 [ObservableObject]
@@ -331,6 +417,7 @@ public partial class OptionSettingViewModel : OptionSetting
             OnPropertyChanged();
         }
     }
+    public override int Height => 25;
 }
 
 [ObservableObject]
@@ -389,6 +476,7 @@ public partial class EnabledOptionSettingViewModel : EnabledOptionSetting
             if (doSave) WeakReferenceMessenger.Default.Send<SettingNode>(this);
         }
     }
+    public override int Height => 25;
 }
 
 [ObservableObject]
@@ -425,6 +513,7 @@ public partial class StringSettingViewModel : StringSetting
             if (doSave) WeakReferenceMessenger.Default.Send<SettingNode>(this);
         }
     }
+    public override int Height => 30;
 }
 
 [ObservableObject]
@@ -473,6 +562,7 @@ public partial class EnabledStringSettingViewModel : EnabledStringSetting
             if (doSave) WeakReferenceMessenger.Default.Send<SettingNode>(this);
         }
     }
+    public override int Height => 30;
 }
 
 [ObservableObject]
@@ -519,6 +609,7 @@ public partial class IntegerSettingViewModel : IntegerSetting
             OnPropertyChanged();
         }
     }
+    public override int Height => 30;
 }
 
 [ObservableObject]
@@ -587,6 +678,7 @@ public partial class EnabledIntegerSettingViewModel : EnabledIntegerSetting
             if (doSave) WeakReferenceMessenger.Default.Send<SettingNode>(this);
         }
     }
+    public override int Height => 30;
 }
 
 [ObservableObject]
@@ -633,6 +725,7 @@ public partial class DoubleSettingViewModel : DoubleSetting
             OnPropertyChanged();
         }
     }
+    public override int Height => 30;
 }
 
 [ObservableObject]
@@ -701,6 +794,7 @@ public partial class EnabledDoubleSettingViewModel : EnabledDoubleSetting
             if (doSave) WeakReferenceMessenger.Default.Send<SettingNode>(this);
         }
     }
+    public override int Height => 30;
 }
 
 [ObservableObject]
@@ -738,10 +832,13 @@ public partial class PatternSettingViewModel : PatternSetting
         }
     }
 
+    public override int Height => 20;
+
     static PatternSettingViewModel()
     {
         _mapper = ServiceHelper.GetService<IMapper>();
     }
+
 }
 
 [ObservableObject]
@@ -778,6 +875,8 @@ public partial class EnabledPatternSettingViewModel : EnabledPatternSetting
             OnPropertyChanged();
         }
     }
+
+    public override int Height => 20;
 
     static EnabledPatternSettingViewModel()
     {
@@ -820,6 +919,8 @@ public partial class TimestampSettingViewModel : TimestampSetting
             OnPropertyChanged();
         }
     }
+
+    public override int Height => 20;
 
     public override DateTimeOffset Value
     {

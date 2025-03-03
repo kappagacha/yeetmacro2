@@ -27,6 +27,10 @@ public abstract class Node: ISortable
     [JsonIgnore]
     public int RootId { get; set; }
     public string Path { get; set; }
+    [JsonIgnore]
+    public virtual int Height { get; }
+    [JsonIgnore]
+    public virtual int NodesHeight { get; }
 }
 
 public interface IParentNode

@@ -3,7 +3,8 @@ using System.Collections.Concurrent;
 
 namespace YeetMacro2.Converters;
 
-public class DynamicTemplateSelector : DataTemplateSelector, IMarkupExtension
+public class DynamicTemplateSelector : VirtualListViewItemTemplateSelector, IMarkupExtension
+//public class DynamicTemplateSelector : DataTemplateSelector, IMarkupExtension
 {
     static readonly DynamicTemplateSelector _instance = new();
     static readonly ConcurrentDictionary<string, DataTemplate> _keyToDataTemplate = new();
@@ -27,14 +28,14 @@ public class DynamicTemplateSelector : DataTemplateSelector, IMarkupExtension
             }
         }
     }
-    protected override DataTemplate OnSelectTemplate(object item, BindableObject container)
-    {
-        string typeKey = item.GetType().Name.Replace("Proxy", "").Replace("ViewModel", "") + "Template";
-        if (!_keyToDataTemplate.ContainsKey(typeKey)) throw new Exception($"DynamicTemplateSelector: template {typeKey} not found.");
+    //protected override DataTemplate OnSelectTemplate(object item, BindableObject container)
+    //{
+    //    string typeKey = item.GetType().Name.Replace("Proxy", "").Replace("ViewModel", "") + "Template";
+    //    if (!_keyToDataTemplate.ContainsKey(typeKey)) throw new Exception($"DynamicTemplateSelector: template {typeKey} not found.");
 
-        var dataTemplate = _keyToDataTemplate[typeKey];
-        return dataTemplate;
-    }
+    //    var dataTemplate = _keyToDataTemplate[typeKey];
+    //    return dataTemplate;
+    //}
 
     public object ProvideValue(IServiceProvider serviceProvider)
     {
@@ -55,5 +56,14 @@ public class DynamicTemplateSelector : DataTemplateSelector, IMarkupExtension
         //}
 
         return _instance;
+    }
+
+    public override DataTemplate SelectTemplate(object item, int sectionIndex, int itemIndex)
+    {
+        string typeKey = item.GetType().Name.Replace("ViewModel", "") + "Template";
+        if (!_keyToDataTemplate.ContainsKey(typeKey)) throw new Exception($"DynamicTemplateSelector: template {typeKey} not found.");
+
+        var dataTemplate = _keyToDataTemplate[typeKey];
+        return dataTemplate;
     }
 }

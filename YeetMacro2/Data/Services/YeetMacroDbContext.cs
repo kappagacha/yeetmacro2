@@ -76,6 +76,8 @@ public class YeetMacroDbContext : DbContext
         modelBuilder.Entity<Node>().UseTptMappingStrategy();
         modelBuilder.Entity<Node>().Ignore(n => n.IsSelected);
         modelBuilder.Entity<Node>().Ignore(n => n.IsExpanded);
+        modelBuilder.Entity<Node>().Ignore(n => n.Height);
+        modelBuilder.Entity<Node>().Ignore(n => n.NodesHeight);
         modelBuilder.Entity<NodeClosure>().HasKey(nc => nc.ClosureId);
         modelBuilder.Entity<NodeClosure>().HasOne(nc => nc.Ancestor).WithMany().HasForeignKey(n => n.AncestorId);
         modelBuilder.Entity<NodeClosure>().HasOne(nc => nc.Descendant).WithMany().HasForeignKey(n => n.DescendantId);

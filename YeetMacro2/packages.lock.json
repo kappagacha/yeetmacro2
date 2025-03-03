@@ -155,6 +155,16 @@
           "OpenCvSharp4.runtime.win": "4.10.0.20241108"
         }
       },
+      "Redth.Maui.VirtualListView": {
+        "type": "Direct",
+        "requested": "[0.4.0, )",
+        "resolved": "0.4.0",
+        "contentHash": "GoCZKuaN3AqRAYiiFJvPTCecr+6MYuXBB53zwyPOlv64KGZVJr/02UOGeV8r0eKen1Et5vuzp3wOBRW/11mCUw==",
+        "dependencies": {
+          "Microsoft.Maui.Controls": "8.0.21",
+          "Microsoft.Maui.Controls.Compatibility": "8.0.21"
+        }
+      },
       "SkiaSharp.Views.Maui.Controls": {
         "type": "Direct",
         "requested": "[2.88.9, )",
@@ -1728,6 +1738,16 @@
         "dependencies": {
           "OpenCvSharp4": "4.10.0.20241108",
           "OpenCvSharp4.runtime.win": "4.10.0.20241108"
+        }
+      },
+      "Redth.Maui.VirtualListView": {
+        "type": "Direct",
+        "requested": "[0.4.0, )",
+        "resolved": "0.4.0",
+        "contentHash": "GoCZKuaN3AqRAYiiFJvPTCecr+6MYuXBB53zwyPOlv64KGZVJr/02UOGeV8r0eKen1Et5vuzp3wOBRW/11mCUw==",
+        "dependencies": {
+          "Microsoft.Maui.Controls": "8.0.21",
+          "Microsoft.Maui.Controls.Compatibility": "8.0.21"
         }
       },
       "SkiaSharp.Views.Maui.Controls": {

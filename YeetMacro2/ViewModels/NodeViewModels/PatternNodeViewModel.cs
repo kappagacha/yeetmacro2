@@ -1,6 +1,8 @@
 ﻿using AutoMapper;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Messaging;
+using System.Collections.Specialized;
+using System.ComponentModel;
 using YeetMacro2.Data.Models;
 using YeetMacro2.Services;
 
@@ -14,7 +16,10 @@ public partial class PatternNodeViewModel : PatternNode
     {
         get => base.Nodes;
         set {
-            base.Nodes = new NodeObservableCollection<PatternNodeViewModel, PatternNode>(value);
+            var nodes = new NodeObservableCollection<PatternNodeViewModel, PatternNode>(value);
+            nodes.CollectionChanged += Nodes_CollectionChanged;
+            base.Nodes = nodes;
+            Nodes_CollectionChanged(null, new NotifyCollectionChangedEventArgs(NotifyCollectionChangedAction.Add, nodes));
             OnPropertyChanged();
         }
     }
@@ -72,14 +77,58 @@ public partial class PatternNodeViewModel : PatternNode
         {
             base.IsExpanded = value;
             OnPropertyChanged();
+            OnPropertyChanged(nameof(NodesHeight));
+        }
+    }
+
+    public override int Height => 20;
+
+    public override int NodesHeight
+    {
+        get
+        {
+            if (!IsExpanded) return 0;
+
+            return Nodes.Sum(n => n.Height + n.NodesHeight);
         }
     }
 
     public PatternNodeViewModel()
     {
-        base.Nodes = new NodeObservableCollection<PatternNodeViewModel, PatternNode>();
+        var nodes = new NodeObservableCollection<PatternNodeViewModel, PatternNode>();
+        nodes.CollectionChanged += Nodes_CollectionChanged;
+        base.Nodes = nodes;
         base.Patterns = new NodeObservableCollection<PatternViewModel, Pattern>();
         _nodeCache = new Dictionary<string, PatternNodeViewModel>();
+    }
+
+    private void Nodes_CollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
+    {
+        if (e.NewItems is not null)
+        {
+            foreach (INotifyPropertyChanged node in e.NewItems)
+            {
+                node.PropertyChanged += Node_PropertyChanged;
+            }
+            OnPropertyChanged(nameof(NodesHeight));
+        }
+
+        if (e.OldItems is not null)
+        {
+            foreach (INotifyPropertyChanged node in e.OldItems)
+            {
+                node.PropertyChanged -= Node_PropertyChanged;
+            }
+            OnPropertyChanged(nameof(NodesHeight));
+        }
+    }
+
+    private void Node_PropertyChanged(object sender, PropertyChangedEventArgs e)
+    {
+        if (e.PropertyName == nameof(NodesHeight))
+        {
+            OnPropertyChanged(nameof(NodesHeight));
+        }
     }
 
     public PatternNodeViewModel this[string key]

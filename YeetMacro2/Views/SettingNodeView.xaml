@@ -11,11 +11,12 @@
              xmlns:fa="clr-namespace:UraniumUI.Icons.FontAwesome;assembly=UraniumUI.Icons.FontAwesome"
              xmlns:mi="clr-namespace:UraniumUI.Icons.MaterialIcons;assembly=UraniumUI.Icons.MaterialIcons"
              xmlns:material="http://schemas.enisn-projects.io/dotnet/maui/uraniumui/material"
+             xmlns:vlv="clr-namespace:Microsoft.Maui.Controls;assembly=VirtualListView"
              BackgroundColor="{AppThemeBinding Light={StaticResource Background}, Dark={StaticResource BackgroundDark}}"
              x:Name="thisView">
     <ContentView.Resources>
         <DataTemplate x:Key="SharedTemplate" x:DataType="m:Node">
-            <FlexLayout JustifyContent="SpaceBetween">
+            <FlexLayout JustifyContent="SpaceBetween" HeightRequest="{Binding Height}">
                 <HorizontalStackLayout Spacing="5">
                     <Grid>
                         <Label Text="{Binding Name}" TextColor="{StaticResource Primary}" Margin="0" Padding="0" VerticalOptions="Center" BackgroundColor="Transparent">
@@ -64,13 +65,19 @@
                     </Grid>
                 </Grid>
                 <Grid Grid.Row="1" Grid.Column="1" IsVisible="{Binding Nodes.Count, Converter={conv:NumberToBoolConverter}}">
-                    <CollectionView Margin="15,0,0,0" ItemsSource="{Binding Nodes}" IsVisible="{Binding IsExpanded}"
-                                    ItemTemplate="{conv:DynamicTemplateSelector Root={Binding .,Source={Reference thisView}}}" />
+                    <!--<CollectionView Margin="15,0,0,0" ItemsSource="{Binding Nodes}" IsVisible="{Binding IsExpanded}"
+                                    ItemTemplate="{conv:DynamicTemplateSelector}" />-->
+                    <vlv:VirtualListView Margin="15,0,0,0" Adapter="{Binding Nodes}" IsVisible="{Binding IsExpanded}"
+                                    ItemTemplateSelector="{conv:DynamicTemplateSelector}" HeightRequest="{Binding NodesHeight}" />
                 </Grid>
             </Grid>
         </DataTemplate>
         <DataTemplate x:Key="EnabledParentSettingTemplate" x:DataType="nvm:EnabledParentSettingViewModel">
-            <Grid ColumnDefinitions="Auto,Auto,*" RowDefinitions="Auto,Auto" ColumnSpacing="5">
+            <Grid ColumnDefinitions="Auto,Auto,*" ColumnSpacing="5">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="{Binding Height}" />
+                    <RowDefinition Height="Auto" />
+                </Grid.RowDefinitions>
                 <Grid WidthRequest="15" />
                 <v:ToggleImageView Grid.Row="0" Grid.Column="0"
                        IsVisible="{Binding Nodes.Count, Converter={conv:NumberToBoolConverter}}"
@@ -97,8 +104,10 @@
                     </Grid>
                 </Grid>
                 <Grid Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="2" IsVisible="{Binding Nodes.Count, Converter={conv:NumberToBoolConverter}}">
-                    <CollectionView Margin="15,0,0,0" ItemsSource="{Binding Nodes}" IsVisible="{Binding IsExpanded}"
-                                    ItemTemplate="{conv:DynamicTemplateSelector Root={Binding .,Source={Reference thisView}}}" />
+                    <!--<CollectionView Margin="15,0,0,0" ItemsSource="{Binding Nodes}" IsVisible="{Binding IsExpanded}"
+                                    ItemTemplate="{conv:DynamicTemplateSelector}" />-->
+                    <vlv:VirtualListView Margin="15,0,0,0" Adapter="{Binding Nodes}" IsVisible="{Binding IsExpanded}"
+                                    ItemTemplateSelector="{conv:DynamicTemplateSelector}" HeightRequest="{Binding NodesHeight}" />
                 </Grid>
             </Grid>
         </DataTemplate>
@@ -164,7 +173,7 @@
             <v:DataTemplateView DataTemplate="{StaticResource SharedTemplate}">
                 <v:DataTemplateView.ContentTemplate>
                     <DataTemplate>
-                        <Entry VerticalOptions="Center" Text="{Binding Value}" />
+                        <Entry HeightRequest="{Binding Height}" VerticalOptions="Center" Text="{Binding Value}" />
                     </DataTemplate>
                 </v:DataTemplateView.ContentTemplate>
             </v:DataTemplateView>
@@ -175,7 +184,7 @@
                     <DataTemplate>
                         <HorizontalStackLayout>
                             <CheckBox IsChecked="{Binding IsEnabled}" VerticalOptions="Center" />
-                            <Entry VerticalOptions="Center" Text="{Binding Value}" />
+                            <Entry HeightRequest="{Binding Height}" VerticalOptions="Center" Text="{Binding Value}" />
                         </HorizontalStackLayout>
                     </DataTemplate>
                 </v:DataTemplateView.ContentTemplate>
@@ -185,7 +194,7 @@
             <v:DataTemplateView DataTemplate="{StaticResource SharedTemplate}">
                 <v:DataTemplateView.ContentTemplate>
                     <DataTemplate>
-                        <v:IntegerStepper Value="{Binding Value}" ShowIncrement="True" Increment="{Binding Increment}" />
+                        <v:IntegerStepper  HeightRequest="{Binding Height}" Value="{Binding Value}" ShowIncrement="True" Increment="{Binding Increment}" />
                     </DataTemplate>
                 </v:DataTemplateView.ContentTemplate>
             </v:DataTemplateView>
@@ -196,7 +205,7 @@
                     <DataTemplate>
                         <HorizontalStackLayout>
                             <CheckBox IsChecked="{Binding IsEnabled}" VerticalOptions="Center" />
-                            <v:IntegerStepper Value="{Binding Value}" ShowIncrement="True" Increment="{Binding Increment}" />
+                            <v:IntegerStepper HeightRequest="{Binding Height}" Value="{Binding Value}" ShowIncrement="True" Increment="{Binding Increment}" />
                         </HorizontalStackLayout>
                     </DataTemplate>
                 </v:DataTemplateView.ContentTemplate>
@@ -206,7 +215,7 @@
             <v:DataTemplateView DataTemplate="{StaticResource SharedTemplate}">
                 <v:DataTemplateView.ContentTemplate>
                     <DataTemplate>
-                        <v:DoubleStepper Value="{Binding Value}" ShowIncrement="True" Increment="{Binding Increment}" />
+                        <v:DoubleStepper HeightRequest="{Binding Height}" Value="{Binding Value}" ShowIncrement="True" Increment="{Binding Increment}" />
                     </DataTemplate>
                 </v:DataTemplateView.ContentTemplate>
             </v:DataTemplateView>
@@ -217,7 +226,7 @@
                     <DataTemplate>
                         <HorizontalStackLayout>
                             <CheckBox mct:DockLayout.DockPosition="Left" IsChecked="{Binding IsEnabled}" VerticalOptions="Center" />
-                            <v:DoubleStepper Value="{Binding Value}" ShowIncrement="True" Increment="{Binding Increment}" />
+                            <v:DoubleStepper  HeightRequest="{Binding Height}" Value="{Binding Value}" ShowIncrement="True" Increment="{Binding Increment}" />
                         </HorizontalStackLayout>
                     </DataTemplate>
                 </v:DataTemplateView.ContentTemplate>
@@ -253,7 +262,7 @@
         </Grid.Triggers>
         <Border Grid.Column="0" Stroke="{StaticResource Primary}" BackgroundColor="Transparent" Padding="3">
             <v:NodeView NodeManager="{Binding MacroSet.Settings, Source={Reference thisView}}" IsMenuVisible="{Binding SubView, Converter={conv:NullToBoolConverter}, Source={Reference thisView}}"
-                        ItemTemplate="{conv:DynamicTemplateSelector Root={Binding .,Source={Reference thisView}}}">
+                        ItemTemplateSelector="{conv:DynamicTemplateSelector Root={Binding .,Source={Reference thisView}}}">
                 <v:NodeView.Triggers>
                     <DataTrigger TargetType="{x:Type v:NodeView}" Binding="{Binding SubView, Converter={conv:NullToBoolConverter IsInverse=True}, Source={Reference thisView}}" Value="True">
                         <Setter Property="ItemsSource" Value="{Binding SubView.Nodes, Source={Reference thisView}}" />
