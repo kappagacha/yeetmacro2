@@ -57,6 +57,7 @@ public static class MauiProgram
             var drawable = h.PlatformView.Background;
             drawable.SetColorFilter(Colors.White.ToAndroid(), FilterMode.SrcAtop);
             h.PlatformView.SetBackground(drawable);
+            h.PlatformView.SetPadding(0, 0, 0, 0);
         });
 #endif
 
