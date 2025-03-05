@@ -5,12 +5,6 @@ const daily = dailyManager.GetCurrentDaily();
 
 settings.applyPreset.lastApplied.IsEnabled = true;
 
-// call multiple times to get past popups
-goToLobby();
-sleep(500);
-goToLobby();
-goToLobby();
-
 if (settings.doDailies.claimGuildBuff.Value) {
     claimGuildBuff();
     goToLobby();

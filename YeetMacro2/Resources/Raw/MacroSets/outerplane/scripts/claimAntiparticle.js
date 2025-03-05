@@ -1,6 +1,7 @@
 // @position=1
 // Claim anti particle generator rewards
-const loopPatterns = [patterns.lobby.level, patterns.titles.base];
+const popupPatterns = [patterns.lobby.expedition, patterns.general.tapEmptySpace, settings.goToLobby.userClickPattern.Value, patterns.general.exitCheckIn, patterns.general.startMessageClose];
+const loopPatterns = [patterns.lobby.level, patterns.titles.base, ...popupPatterns];
 const daily = dailyManager.GetCurrentDaily();
 
 const isLastRunWithinHour = (Date.now() - settings.claimAntiparticle.lastRun.Value.ToUnixTimeMilliseconds()) / 3_600_000 < 1;
@@ -12,6 +13,13 @@ if (isLastRunWithinHour && !settings.claimAntiparticle.forceRun.Value) {
 while (macroService.IsRunning) {
 	const loopResult = macroService.PollPattern(loopPatterns, { ClickPattern: patterns.arena.defendReport.close });
 	switch (loopResult.Path) {
+		case 'lobby.expedition':
+		case 'general.tapEmptySpace':
+		case 'settings.goToLobby.userClickPattern':
+		case 'general.exitCheckIn':
+		case 'general.startMessageClose':
+			goToLobby();
+			break;
 		case 'lobby.level':
 			logger.info('claimAntiparticle: click base tab');
 

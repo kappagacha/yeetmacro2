@@ -213,7 +213,7 @@ public class NodeValueConverter<TParent, TChild> : JsonConverter<TChild>
             writer.WritePropertyName("$type");
             writer.WriteStringValue(descriminator);
         }
-        var ignoreProperties = new List<string>() { nameof(IParentNode<Node, Node>.Nodes), nameof(Node.IsExpanded), nameof(Node.IsSelected), nameof(Node.IsParentNode), nameof(SettingNode.SettingType), "Item" };
+        var ignoreProperties = new List<string>() { nameof(IParentNode<Node, Node>.Nodes), nameof(Node.IsExpanded), nameof(Node.IsSelected), nameof(Node.IsParentNode), nameof(Node.Height), nameof(Node.NodesHeight), nameof(SettingNode.SettingType), "Item" };
 
         foreach (var property in properties)
         {

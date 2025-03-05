@@ -1,6 +1,7 @@
 // @position=0
 // Claim replenish your stamina
-const loopPatterns = [patterns.lobby.level, patterns.event.close];
+const popupPatterns = [patterns.lobby.expedition, patterns.general.tapEmptySpace, settings.goToLobby.userClickPattern.Value, patterns.general.exitCheckIn, patterns.general.startMessageClose];
+const loopPatterns = [patterns.lobby.level, patterns.event.close, ...popupPatterns];
 const daily = dailyManager.GetCurrentDaily();
 const resolution = macroService.GetCurrentResolution();
 const utcHour = new Date().getUTCHours();
@@ -13,6 +14,13 @@ if ((isStamina1 && daily.claimReplenishYourStamina.done1.IsChecked) || (!isStami
 while (macroService.IsRunning) {
 	const loopResult = macroService.PollPattern(loopPatterns);
 	switch (loopResult.Path) {
+		case 'lobby.expedition':
+		case 'general.tapEmptySpace':
+		case 'settings.goToLobby.userClickPattern':
+		case 'general.exitCheckIn':
+		case 'general.startMessageClose':
+			goToLobby();
+			break;
 		case 'lobby.level':
 			logger.info('claimReplenishYourStamina: click event');
 			macroService.PollPattern(patterns.lobby.event, { DoClick: true, ClickOffset: { Y: -30 }, PredicatePattern: patterns.event.close });
