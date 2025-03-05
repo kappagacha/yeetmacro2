@@ -5,6 +5,7 @@
 const daily = dailyManager.GetCurrentDaily();
 
 settings.applyPreset.lastApplied.IsEnabled = true;
+goToLobby();
 
 if (settings.doUpkeep.claimGuildBuff.Value) {
     claimGuildBuff();
