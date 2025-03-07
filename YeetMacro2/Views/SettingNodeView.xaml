@@ -68,7 +68,7 @@
                     <!--<CollectionView Margin="15,0,0,0" ItemsSource="{Binding Nodes}" IsVisible="{Binding IsExpanded}"
                                     ItemTemplate="{conv:DynamicTemplateSelector}" />-->
                     <vlv:VirtualListView Margin="15,0,0,0" Adapter="{Binding Nodes}" IsVisible="{Binding IsExpanded}"
-                                    ItemTemplateSelector="{conv:DynamicTemplateSelector}" HeightRequest="{Binding NodesHeight}" />
+                                    ItemTemplateSelector="{conv:VirtualDynamicTemplateSelector}" HeightRequest="{Binding NodesHeight}" />
                 </Grid>
             </Grid>
         </DataTemplate>
@@ -107,7 +107,7 @@
                     <!--<CollectionView Margin="15,0,0,0" ItemsSource="{Binding Nodes}" IsVisible="{Binding IsExpanded}"
                                     ItemTemplate="{conv:DynamicTemplateSelector}" />-->
                     <vlv:VirtualListView Margin="15,0,0,0" Adapter="{Binding Nodes}" IsVisible="{Binding IsExpanded}"
-                                    ItemTemplateSelector="{conv:DynamicTemplateSelector}" HeightRequest="{Binding NodesHeight}" />
+                                    ItemTemplateSelector="{conv:VirtualDynamicTemplateSelector}" HeightRequest="{Binding NodesHeight}" />
                 </Grid>
             </Grid>
         </DataTemplate>
@@ -262,7 +262,7 @@
         </Grid.Triggers>
         <Border Grid.Column="0" Stroke="{StaticResource Primary}" BackgroundColor="Transparent" Padding="3">
             <v:NodeView NodeManager="{Binding MacroSet.Settings, Source={Reference thisView}}" IsMenuVisible="{Binding SubView, Converter={conv:NullToBoolConverter}, Source={Reference thisView}}"
-                        ItemTemplateSelector="{conv:DynamicTemplateSelector Root={Binding .,Source={Reference thisView}}}">
+                        ItemTemplateSelector="{conv:VirtualDynamicTemplateSelector Root={Binding .,Source={Reference thisView}}}">
                 <v:NodeView.Triggers>
                     <DataTrigger TargetType="{x:Type v:NodeView}" Binding="{Binding SubView, Converter={conv:NullToBoolConverter IsInverse=True}, Source={Reference thisView}}" Value="True">
                         <Setter Property="ItemsSource" Value="{Binding SubView.Nodes, Source={Reference thisView}}" />

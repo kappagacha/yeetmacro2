@@ -229,7 +229,7 @@ public partial class TodoJsonBooleanViewModel: TodoJsonElementViewModel
         WeakReferenceMessenger.Default.Send(ViewModel);
     }
 
-    public override int Height => 30;
+    public override int Height => 25;
 }
 
 public partial class TodoJsonCountViewModel : TodoJsonElementViewModel
@@ -245,7 +245,7 @@ public partial class TodoJsonCountViewModel : TodoJsonElementViewModel
         ViewModel.Data = TodoJsonParentViewModel.Export(Root);
         WeakReferenceMessenger.Default.Send(ViewModel);
     }
-    public override int Height => 30;
+    public override int Height => 25;
 }
 
 public class TodoJsonParentViewModelJsonConverter() : JsonConverter<TodoJsonElementViewModel>

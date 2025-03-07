@@ -44,14 +44,14 @@
                     <!--<CollectionView ItemsSource="{Binding Children}" IsVisible="{Binding IsExpanded}"
                                 ItemTemplate="{conv:DynamicTemplateSelector}" />-->
                     <vlv:VirtualListView Adapter="{Binding Children}" IsVisible="{Binding IsExpanded}"
-                                         ItemTemplateSelector="{conv:DynamicTemplateSelector}"
+                                         ItemTemplateSelector="{conv:VirtualDynamicTemplateSelector}"
                                          HeightRequest="{Binding ChildrenHeight}"/>
                 </Grid>
             </Grid>
         </DataTemplate>
         <DataTemplate x:Key="TodoJsonBooleanTemplate" x:DataType="nvm:TodoJsonBooleanViewModel">
             <HorizontalStackLayout Spacing="4" HeightRequest="{Binding Height}">
-                <Grid Margin="20,0,0,0">
+                <Grid Margin="20,0,0,0" VerticalOptions="Center">
                     <Label Text="{Binding Key}" TextColor="{StaticResource Primary}" Margin="0" Padding="0" VerticalOptions="Center" BackgroundColor="Transparent">
                         <Label.Triggers>
                             <DataTrigger TargetType="Label" Binding="{Binding IsSelected}" Value="True">
@@ -85,14 +85,12 @@
     <Border Stroke="{StaticResource Primary}" BackgroundColor="Transparent" Padding="3">
         <Grid>
             <Grid IsVisible="{Binding SubView, Converter={conv:NullToBoolConverter IsInverse=True}, Source={Reference thisView}}">
-                <ScrollView>
-                    <!--<CollectionView ItemsSource="{Binding SubView.Children, Source={Reference thisView}}"
-                                    HorizontalOptions="Fill"  VerticalOptions="Fill"
-                                    ItemTemplate="{conv:DynamicTemplateSelector Root={Binding .,Source={Reference thisView}}}" />-->
-                    <vlv:VirtualListView Adapter="{Binding SubView.Children, Source={Reference thisView}}"
-                                    HorizontalOptions="Fill"  VerticalOptions="Fill"
-                                    ItemTemplateSelector="{conv:DynamicTemplateSelector Root={Binding .,Source={Reference thisView}}}" />
-                </ScrollView>
+                <!--<CollectionView ItemsSource="{Binding SubView.Children, Source={Reference thisView}}"
+                                HorizontalOptions="Fill"  VerticalOptions="Fill"
+                                ItemTemplate="{conv:DynamicTemplateSelector Root={Binding .,Source={Reference thisView}}}" />-->
+                <vlv:VirtualListView Adapter="{Binding SubView.Children, Source={Reference thisView}}"
+                                HorizontalOptions="Fill"  VerticalOptions="Fill"
+                                ItemTemplateSelector="{conv:VirtualDynamicTemplateSelector Root={Binding .,Source={Reference thisView}}}" />
             </Grid>
             <Grid ColumnDefinitions="*,3*" IsVisible="{Binding SubView, Converter={conv:NullToBoolConverter}, Source={Reference thisView}}">
                 <v:NodeView Grid.Column="0" NodeManager="{Binding Todos, Source={Reference thisView}}" />
@@ -105,7 +103,7 @@
                                         HorizontalOptions="Fill"  VerticalOptions="Fill" ItemTemplate="{conv:DynamicTemplateSelector}" />-->
                         <vlv:VirtualListView IsVisible="{Binding Todos.ShowJsonEditor, Source={Reference thisView}, Converter={conv:InverseBoolConverter}}"
                                         x:DataType="{x:Null}" Adapter="{Binding Todos.SelectedNode.JsonViewModel.Children, Source={Reference thisView}}"
-                                        HorizontalOptions="Fill"  VerticalOptions="Fill" ItemTemplateSelector="{conv:DynamicTemplateSelector}" />
+                                        HorizontalOptions="Fill"  VerticalOptions="Fill" ItemTemplateSelector="{conv:VirtualDynamicTemplateSelector}" />
                         <Grid IsVisible="{Binding Todos.ShowJsonEditor, Source={Reference thisView}}">
                             <Editor x:Name="dataEditor" x:DataType="{x:Null}" Text="{Binding Todos.SelectedNode.Data, Source={Reference thisView}, Mode=OneWay}" AutoSize="TextChanges" />
                             <HorizontalStackLayout HorizontalOptions="End" VerticalOptions="End" Margin="0,0,40,0" Spacing="5">
