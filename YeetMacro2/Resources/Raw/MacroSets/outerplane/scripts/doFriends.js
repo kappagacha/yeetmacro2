@@ -22,7 +22,9 @@ while (macroService.IsRunning) {
 			break;
 		case 'lobby.level':
 			logger.info('doFriends: click menu');
-			macroService.PollPattern(patterns.lobby.menu, { DoClick: true, PredicatePattern: patterns.lobby.menu.friends });
+			const lobbyMenuResult = macroService.PollPattern(patterns.lobby.menu, { DoClick: true, PredicatePattern: patterns.lobby.menu.friends, TimeoutMs: 5_000 });
+			if (!lobbyMenuResult.IsSuccess) continue;
+
 			macroService.PollPattern(patterns.lobby.menu.friends, { DoClick: true, ClickOffset: { Y: -30 }, PredicatePattern: patterns.titles.friends });
 			break;
 		case 'titles.friends':

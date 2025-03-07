@@ -6,7 +6,7 @@ if (daily.doTerminusIsleExplorationWithSupportPack.done.IsChecked) {
 	return "Script already completed. Uncheck done to override daily flag.";
 }
 
-logger.isPersistingLogs = true;
+//logger.isPersistingLogs = true;
 
 const orderNameRegex = {
 	baseArtilleryFire: /Base/i,
@@ -75,7 +75,7 @@ while (macroService.IsRunning) {
 			if (macroService.IsRunning) {
 				daily.doTerminusIsleExplorationWithSupportPack.done.IsChecked = true;
 			}
-			logger.isPersistingLogs = false;
+			//logger.isPersistingLogs = false;
 			return;
 	}
 	sleep(1_000);
