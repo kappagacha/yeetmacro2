@@ -43,7 +43,7 @@ while (macroService.IsRunning) {
 
 			if (soulRestNotification.IsSuccess) {
 				macroService.PollPattern(patterns.town.rest.notification, { DoClick: true, PredicatePattern: patterns.general.back });
-				macroService.PollPattern(patterns.town.rest.autoSelect, { DoClick: true, PredicatePattern: patterns.town.rest.autoSelect.disabled });
+				macroService.PollPattern(patterns.town.rest.restAll, { DoClick: true, ClickPattern: patterns.town.rest.restAll.confirm, PredicatePattern: patterns.town.rest.restAll.disabled });
 				macroService.PollPattern(patterns.general.back, { DoClick: true, PredicatePattern: patterns.town.enter });
 			}
 

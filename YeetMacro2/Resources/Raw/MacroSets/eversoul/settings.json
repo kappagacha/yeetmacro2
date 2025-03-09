@@ -713,8 +713,8 @@
     },
     "sweepEvent": {
       "$type": "boolean",
-      "$defaultValue": true,
-      "$value": true,
+      "$defaultValue": false,
+      "$value": false,
       "$position": 13,
       "$name": "sweepEvent",
       "$path": "doDailies.sweepEvent"
@@ -814,7 +814,7 @@
     "lastRun": {
       "$type": "timestamp",
       "$defaultValue": "0001-01-01T00:00:00+00:00",
-      "$value": "2024-12-06T23:41:47.702+00:00",
+      "$value": "2025-03-09T02:59:45.045+00:00",
       "$position": 0,
       "$name": "lastRun",
       "$path": "claimLoot.lastRun"
@@ -850,7 +850,7 @@
     "lastRun": {
       "$type": "timestamp",
       "$defaultValue": "0001-01-01T00:00:00+00:00",
-      "$value": "2024-12-05T23:44:10.67+00:00",
+      "$value": "2025-03-08T03:00:14.135+00:00",
       "$position": 0,
       "$name": "lastRun",
       "$path": "doPartTimeJobAndRest.lastRun"
