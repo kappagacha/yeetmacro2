@@ -56,6 +56,7 @@ while (macroService.IsRunning) {
 				macroService.PollPattern(patterns.battle.battleRecord.restoreTeam, { DoClick: true, PredicatePattern: patterns.battle.battleRecord.restoreTeam.ok });
 				macroService.PollPattern(patterns.battle.battleRecord.restoreTeam.ok, { DoClick: true, PredicatePattern: patterns.battle.enter });
 				teamRestored = true;
+				macroService.IsRunning && (settings.applyPreset.lastApplied.Value = teamSlot);
 			}
 
 			macroService.PollPattern(patterns.battle.enter, { DoClick: true, PredicatePattern: patterns.battle.next });

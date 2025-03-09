@@ -165,7 +165,5 @@ function applyPreset(teamSlot) {
 
 	}
 
-	if (macroService.IsRunning) {
-		settings.applyPreset.lastApplied.Value = teamSlot;
-	}
+	macroService.IsRunning && (settings.applyPreset.lastApplied.Value = teamSlot);
 }
