@@ -347,7 +347,7 @@ public class MacroService
 
             while (IsRunning)
             {
-                if (hasTimeout && DateTime.Now > timeout) break;
+                if (hasTimeout && DateTime.Now > timeout) return new FindPatternResult() {  IsSuccess = false };
 
                 var numChecks = 1;
                 FindPatternResult inversePredicateResult = this.FindPattern(inversePredicatePattern.Value, predicateOpts);
@@ -386,7 +386,7 @@ public class MacroService
             FindPatternResult successResult = new() { IsSuccess = false };
             while (IsRunning)
             {
-                if (hasTimeout && DateTime.Now > timeout) break;
+                if (hasTimeout && DateTime.Now > timeout) return new FindPatternResult() { IsSuccess = false };
 
                 FindPatternResult predicateResult = this.FindPattern(predicatePattern.Value, predicateOpts);
                 if (predicateResult.IsSuccess)
@@ -415,7 +415,7 @@ public class MacroService
         {
             while (IsRunning)
             {
-                if (hasTimeout && DateTime.Now > timeout) break;
+                if (hasTimeout && DateTime.Now > timeout) return new FindPatternResult() { IsSuccess = false }; ;
 
                 result = this.FindPattern(oneOfPattern, opts);
                 if (opts.DoClick && result.IsSuccess)
