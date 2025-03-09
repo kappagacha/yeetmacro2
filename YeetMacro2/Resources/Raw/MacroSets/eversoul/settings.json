@@ -75,7 +75,7 @@
         "$isMultiPattern": false,
         "$position": 0,
         "$name": null,
-        "$path": null
+        "$path": "settings.doOutings.targetSoul"
       },
       "$value": {
         "$patterns": [
@@ -114,7 +114,7 @@
         "$isMultiPattern": false,
         "$position": 0,
         "$name": null,
-        "$path": null
+        "$path": "settings.doOutings.targetSoul"
       },
       "$position": 0,
       "$name": "targetSoul",
@@ -199,7 +199,7 @@
         "$isMultiPattern": false,
         "$position": 0,
         "$name": null,
-        "$path": null
+        "$path": "settings.doFriends.hireTarget1"
       },
       "$value": {
         "$patterns": [
@@ -238,7 +238,7 @@
         "$isMultiPattern": false,
         "$position": 0,
         "$name": null,
-        "$path": null
+        "$path": "settings.doFriends.hireTarget1"
       },
       "$position": 0,
       "$name": "hireTarget1",
@@ -283,7 +283,7 @@
         "$isMultiPattern": false,
         "$position": 0,
         "$name": null,
-        "$path": null
+        "$path": "settings.doFriends.hireTarget2"
       },
       "$value": {
         "$patterns": [
@@ -322,7 +322,7 @@
         "$isMultiPattern": false,
         "$position": 0,
         "$name": null,
-        "$path": null
+        "$path": "settings.doFriends.hireTarget2"
       },
       "$position": 0,
       "$name": "hireTarget2",
@@ -367,7 +367,7 @@
         "$isMultiPattern": false,
         "$position": 0,
         "$name": null,
-        "$path": null
+        "$path": "settings.doFriends.hireTarget3"
       },
       "$value": {
         "$patterns": [
@@ -406,7 +406,7 @@
         "$isMultiPattern": false,
         "$position": 0,
         "$name": null,
-        "$path": null
+        "$path": "settings.doFriends.hireTarget3"
       },
       "$position": 0,
       "$name": "hireTarget3",
@@ -451,7 +451,7 @@
         "$isMultiPattern": false,
         "$position": 0,
         "$name": null,
-        "$path": null
+        "$path": "settings.doFriends.hireTarget4"
       },
       "$value": {
         "$patterns": [
@@ -490,7 +490,7 @@
         "$isMultiPattern": false,
         "$position": 0,
         "$name": null,
-        "$path": null
+        "$path": "settings.doFriends.hireTarget4"
       },
       "$position": 0,
       "$name": "hireTarget4",
@@ -535,7 +535,7 @@
         "$isMultiPattern": false,
         "$position": 0,
         "$name": null,
-        "$path": null
+        "$path": "settings.doFriends.hireTarget5"
       },
       "$value": {
         "$patterns": [
@@ -574,7 +574,7 @@
         "$isMultiPattern": false,
         "$position": 0,
         "$name": null,
-        "$path": null
+        "$path": "settings.doFriends.hireTarget5"
       },
       "$position": 0,
       "$name": "hireTarget5",
@@ -758,6 +758,14 @@
       "$position": 18,
       "$name": "doOutings",
       "$path": "doDailies.doOutings"
+    },
+    "sweepEvilSoulSubjugation": {
+      "$type": "boolean",
+      "$defaultValue": true,
+      "$value": true,
+      "$position": 19,
+      "$name": "sweepEvilSoulSubjugation",
+      "$path": "doDailies.sweepEvilSoulSubjugation"
     }
   },
   "doUpkeep": {
@@ -972,7 +980,7 @@
         "$isMultiPattern": false,
         "$position": 0,
         "$name": null,
-        "$path": null
+        "$path": "settings.sweepEvent.eventRaidPattern"
       },
       "$value": {
         "$patterns": [
@@ -1011,7 +1019,7 @@
         "$isMultiPattern": false,
         "$position": 0,
         "$name": null,
-        "$path": null
+        "$path": "settings.sweepEvent.eventRaidPattern"
       },
       "$position": 1,
       "$name": "eventRaidPattern",
@@ -1064,7 +1072,7 @@
         "$isMultiPattern": false,
         "$position": 0,
         "$name": null,
-        "$path": null
+        "$path": "settings.sweepEvent.eventStagePattern"
       },
       "$value": {
         "$patterns": [
@@ -1103,7 +1111,7 @@
         "$isMultiPattern": false,
         "$position": 0,
         "$name": null,
-        "$path": null
+        "$path": "settings.sweepEvent.eventStagePattern"
       },
       "$position": 3,
       "$name": "eventStagePattern",

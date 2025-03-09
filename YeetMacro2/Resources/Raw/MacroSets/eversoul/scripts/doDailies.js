@@ -84,10 +84,7 @@ if (settings.doDailies.doOperationEdenAlliance.Value) {
     goToLobby();
 }
 
-if (settings.doDailies.sweepGuildRaid.Value) {
-    sweepGuildRaid();
-    goToLobby();
-}
+
 
 if (settings.doDailies.levelSoulOnce.Value) {
     levelSoulOnce();
@@ -101,5 +98,15 @@ if (settings.doDailies.claimDailyQuests.Value) {
 
 if (settings.doDailies.doOutings.Value) {
     doOutings();
+    goToLobby();
+}
+
+if (settings.doDailies.sweepGuildRaid.Value) {
+    sweepGuildRaid();
+    goToLobby();
+}
+
+if (settings.doDailies.sweepEvilSoulSubjugation.Value) {
+    sweepEvilSoulSubjugation();
     goToLobby();
 }
