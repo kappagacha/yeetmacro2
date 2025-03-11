@@ -22,7 +22,8 @@ while (macroService.IsRunning) {
 				return;
 			}
 			macroService.PollPattern(patterns.adventure.raid.evilSoulSubjugation, { DoClick: true, PredicatePattern: patterns.evilSoulSubjugation.sweep });
-			macroService.PollPattern(patterns.evilSoulSubjugation.sweep, { DoClick: true, PredicatePattern: [patterns.evilSoulSubjugation.sweep.confirm, patterns.evilSoulSubjugation.sweep.disabled] });
+			//macroService.PollPattern(patterns.evilSoulSubjugation.sweep, { DoClick: true, PredicatePattern: [patterns.evilSoulSubjugation.sweep.confirm, patterns.evilSoulSubjugation.sweep.disabled] });
+			macroService.PollPattern(patterns.evilSoulSubjugation.sweep, { DoClick: true, PredicatePattern: [patterns.general.tapTheScreen, patterns.evilSoulSubjugation.sweep.disabled] });
 			macroService.PollPattern(patterns.evilSoulSubjugation.sweep.confirm, { DoClick: true, PredicatePattern: patterns.evilSoulSubjugation.sweep.disabled });
 
 			if (macroService.IsRunning) {
