@@ -17,18 +17,19 @@ while (macroService.IsRunning) {
 			break;
 		case 'titles.shop':
 			logger.info('doShop: claim Resource');
-			const swipeResult = macroService.SwipePollPattern(patterns.shop.resource, { MaxSwipes: 2, Start: { X: 180, Y: 650 }, End: { X: 180, Y: 250 } });
-			if (!swipeResult.IsSuccess) {
-				throw new Error('Unable to find resource shop');
-			}
-			sleep(1_000);
-			const shopResourceResult = macroService.PollPattern(patterns.shop.resource);
-			const selectedResourcePattern = macroService.ClonePattern(patterns.shop.selected, { CenterY: shopResourceResult.Point.Y, Padding: 20, Path: `patterns.shop.selected_Y${shopResourceResult.Point.Y}` });
-			macroService.PollPattern(patterns.shop.resource, { DoClick: true, PredicatePattern: selectedResourcePattern });
+			//const swipeResult = macroService.SwipePollPattern(patterns.shop.resource, { MaxSwipes: 2, Start: { X: 180, Y: 650 }, End: { X: 180, Y: 250 } });
+			//if (!swipeResult.IsSuccess) {
+			//	throw new Error('Unable to find resource shop');
+			//}
+			//sleep(1_000);
+			//const shopResourceResult = macroService.PollPattern(patterns.shop.resource);
+			//const selectedResourcePattern = macroService.ClonePattern(patterns.shop.selected, { CenterY: shopResourceResult.Point.Y, Padding: 20, Path: `patterns.shop.selected_Y${shopResourceResult.Point.Y}` });
+			//macroService.PollPattern(patterns.shop.resource, { DoClick: true, PredicatePattern: selectedResourcePattern });
+			macroService.PollPattern(patterns.shop.contents, { DoClick: true, PredicatePattern: patterns.shop.contents.friendshipPoints });
 
 			if (settings.doShop.friendshipPoint.IsEnabled && !daily.doShop.friendshipPoint.done.IsChecked) {
-				const friendshipItems = ['stamina', 'gold', 'clearTicket', 'arenaTicket', 'hammer', 'stoneFragment', 'stonePiece'];
-				macroService.PollPattern(patterns.shop.resource.friendship, { DoClick: true, PredicatePattern: patterns.shop.resource.friendship.currency });
+				const friendshipItems = ['stamina', 'gold', 'arenaTicket', 'hammer', 'stoneFragment', 'stonePiece'];
+				macroService.PollPattern(patterns.shop.contents.friendshipPoints, { DoClick: true, PredicatePattern: patterns.shop.contents.friendshipPoints.selected });
 				sleep(1_000);
 				doShopItems('doShop', 'friendshipPoint', friendshipItems);
 
@@ -38,8 +39,8 @@ while (macroService.IsRunning) {
 			}
 			
 			if (settings.doShop.arena.IsEnabled && !daily.doShop.arena.done.IsChecked) {
-				const arenaItems = ['gold', 'stamina', 'cakeSlice'];
-				macroService.PollPattern(patterns.shop.resource.arena, { DoClick: true, PredicatePattern: patterns.shop.resource.arena.currency });
+				const arenaItems = ['gold', 'stamina'];
+				macroService.PollPattern(patterns.shop.contents.arena, { DoClick: true, PredicatePattern: patterns.shop.contents.arena.selected });
 				sleep(1_000);
 				doShopItems('doShop', 'arena', arenaItems);
 				
@@ -48,40 +49,42 @@ while (macroService.IsRunning) {
 				}
 			}
 
-			if (settings.doShop.festival.IsEnabled && !daily.doShop.festival.done.IsChecked) {
-				const festivalItems = ['stamina', 'gold'];
-				const selectedEventPattern = macroService.PollPattern(patterns.shop.event);
-				const selectedResourcePattern = macroService.ClonePattern(patterns.shop.selected, { CenterY: selectedEventPattern.Point.Y, Padding: 20, Path: `patterns.shop.selected_Y${selectedEventPattern.Point.Y}` });
-				macroService.PollPattern(patterns.shop.event, { DoClick: true, PredicatePattern: selectedResourcePattern });
-				sleep(1_000);
+			//if (settings.doShop.festival.IsEnabled && !daily.doShop.festival.done.IsChecked) {
+			//	const festivalItems = ['stamina', 'gold'];
+			//	const selectedEventPattern = macroService.PollPattern(patterns.shop.event);
+			//	const selectedResourcePattern = macroService.ClonePattern(patterns.shop.selected, { CenterY: selectedEventPattern.Point.Y, Padding: 20, Path: `patterns.shop.selected_Y${selectedEventPattern.Point.Y}` });
+			//	macroService.PollPattern(patterns.shop.event, { DoClick: true, PredicatePattern: selectedResourcePattern });
+			//	sleep(1_000);
 
-				const festivalPattern = macroService.ClonePattern(patterns.shop.event.festival, { X: 400, Y: 120, Width: resolution.Width - 420, Height: 90, OffsetCalcType: 'None' });
-				const festivalSwipeResult = macroService.SwipePollPattern(festivalPattern, { MaxSwipes: 5, Start: { X: 1100, Y: 160 }, End: { X: 700, Y: 160 } });
-				if (!festivalSwipeResult.IsSuccess) {
-					throw new Error('Unable to find festival');
-				}
-				macroService.PollPattern(festivalPattern, { DoClick: true, PredicatePattern: patterns.shop.event.festival.currency });
+			//	const festivalPattern = macroService.ClonePattern(patterns.shop.event.festival, { X: 400, Y: 120, Width: resolution.Width - 420, Height: 90, OffsetCalcType: 'None' });
+			//	const festivalSwipeResult = macroService.SwipePollPattern(festivalPattern, { MaxSwipes: 5, Start: { X: 1100, Y: 160 }, End: { X: 700, Y: 160 } });
+			//	if (!festivalSwipeResult.IsSuccess) {
+			//		throw new Error('Unable to find festival');
+			//	}
+			//	macroService.PollPattern(festivalPattern, { DoClick: true, PredicatePattern: patterns.shop.event.festival.currency });
 
-				doShopItems('doShop', 'festival', festivalItems);
+			//	doShopItems('doShop', 'festival', festivalItems);
 
-				if (macroService.IsRunning) {
-					daily.doShop.festival.done.IsChecked = true;
-				}
-			}
+			//	if (macroService.IsRunning) {
+			//		daily.doShop.festival.done.IsChecked = true;
+			//	}
+			//}
 
 			if (settings.doShop.jointChallenge.IsEnabled && !daily.doShop.jointChallenge.done.IsChecked) {
 				const jointChallengeItems = ['stamina'];
-				const selectedEventPattern = macroService.PollPattern(patterns.shop.event);
-				const selectedResourcePattern = macroService.ClonePattern(patterns.shop.selected, { CenterY: selectedEventPattern.Point.Y, Padding: 20, Path: `patterns.shop.selected_Y${selectedEventPattern.Point.Y}` });
-				macroService.PollPattern(patterns.shop.event, { DoClick: true, PredicatePattern: selectedResourcePattern });
-				sleep(1_000);
+				macroService.PollPattern(patterns.shop.contents.event, { DoClick: true, PredicatePattern: patterns.shop.contents.event.selected });
+				macroService.PollPattern(patterns.shop.contents.event.jointChallenge, { DoClick: true, PredicatePattern: patterns.shop.contents.event.jointChallenge.selected });
+				//const selectedEventPattern = macroService.PollPattern(patterns.shop.event);
+				//const selectedResourcePattern = macroService.ClonePattern(patterns.shop.selected, { CenterY: selectedEventPattern.Point.Y, Padding: 20, Path: `patterns.shop.selected_Y${selectedEventPattern.Point.Y}` });
+				//macroService.PollPattern(patterns.shop.event, { DoClick: true, PredicatePattern: selectedResourcePattern });
+				//sleep(1_000);
 				
-				const jointChallengePattern = macroService.ClonePattern(patterns.shop.event.jointChallenge, { X: 400, Y: 120, Width: resolution.Width - 420, Height: 90, OffsetCalcType: 'None' });
-				const jointChallengeSwipeResult = macroService.SwipePollPattern(jointChallengePattern, { MaxSwipes: 5, Start: { X: 1100, Y: 160 }, End: { X: 700, Y: 160 } });
-				if (!jointChallengeSwipeResult.IsSuccess) {
-					throw new Error('Unable to find joint challenge');
-				}
-				macroService.PollPattern(jointChallengePattern, { DoClick: true, PredicatePattern: patterns.shop.event.jointChallenge.currency });
+				//const jointChallengePattern = macroService.ClonePattern(patterns.shop.event.jointChallenge, { X: 400, Y: 120, Width: resolution.Width - 420, Height: 90, OffsetCalcType: 'None' });
+				//const jointChallengeSwipeResult = macroService.SwipePollPattern(jointChallengePattern, { MaxSwipes: 5, Start: { X: 1100, Y: 160 }, End: { X: 700, Y: 160 } });
+				//if (!jointChallengeSwipeResult.IsSuccess) {
+				//	throw new Error('Unable to find joint challenge');
+				//}
+				//macroService.PollPattern(jointChallengePattern, { DoClick: true, PredicatePattern: patterns.shop.event.jointChallenge.currency });
 
 				doShopItems('doShop', 'jointChallenge', jointChallengeItems);
 

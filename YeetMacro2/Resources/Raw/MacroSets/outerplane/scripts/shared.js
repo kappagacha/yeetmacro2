@@ -80,14 +80,10 @@ function findShopItem(shopItemName) {
 
 	while (!findResult) {
 		const itemCornerPattern = macroService.ClonePattern(patterns.shop.itemCorner, {
-			//X: 350,
-			//Y: 130,
-			//Width: 1370,	//resolution.Width - 550,
-			//Height: 900
-			X: 230,
-			Y: 130,
-			Width: 1490,	//resolution.Width - 550,
-			Height: 900
+			X: 250,
+			Y: 110,
+			Width: 1470,	//resolution.Width - 550,
+			Height: 920
 		});
 
 		let itemCornerResult = macroService.FindPattern(itemCornerPattern, { Limit: 12 });
@@ -127,7 +123,7 @@ function doShopItems(scriptName, shopType, shopItems, isWeekly = false) {
 				X: findShopItemResult.point.X + 100,
 				Y: findShopItemResult.point.Y + 200,
 				Width: 250,
-				Height: 100,
+				Height: 200,
 				Path: `patterns.shop.resource.${shopType}.${shopItem}.purchase`,
 				OffsetCalcType: 'None'
 			});

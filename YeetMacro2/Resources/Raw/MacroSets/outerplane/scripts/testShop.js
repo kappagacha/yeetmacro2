@@ -4,9 +4,9 @@
 const resolution = macroService.GetCurrentResolution();
 const itemCornerPattern = macroService.ClonePattern(patterns.shop.itemCorner, {
 	X: 250,
-	Y: 130,
+	Y: 110,
 	Width: 1470,	//resolution.Width - 550,
-	Height: 900
+	Height: 920
 });
 
 let itemCornerResult = macroService.FindPattern(itemCornerPattern, { Limit: 12 });

@@ -604,8 +604,8 @@
     },
     "doTerminusIsleExplorationWithSupportPack": {
       "$type": "boolean",
-      "$defaultValue": false,
-      "$value": false,
+      "$defaultValue": true,
+      "$value": true,
       "$position": 29,
       "$name": "doTerminusIsleExplorationWithSupportPack",
       "$path": "doDailies.doTerminusIsleExplorationWithSupportPack"
@@ -720,7 +720,7 @@
     "lastRun": {
       "$type": "timestamp",
       "$defaultValue": "0001-01-01T00:00:00+00:00",
-      "$value": "2024-11-05T13:04:58.678+00:00",
+      "$value": "2025-03-11T22:34:19.069+00:00",
       "$position": 0,
       "$name": "lastRun",
       "$path": "claimAntiparticle.lastRun"
@@ -1062,8 +1062,8 @@
         "dark",
         "light"
       ],
-      "$defaultValue": "water",
-      "$value": "water",
+      "$defaultValue": "fire",
+      "$value": "fire",
       "$position": 0,
       "$name": "elementTypeTarget1",
       "$path": "doDoppelganger.elementTypeTarget1"
@@ -1098,8 +1098,8 @@
         "dark",
         "light"
       ],
-      "$defaultValue": "light",
-      "$value": "light",
+      "$defaultValue": "fire",
+      "$value": "fire",
       "$position": 0,
       "$name": "elementTypeTarget2",
       "$path": "doDoppelganger.elementTypeTarget2"
@@ -1543,14 +1543,6 @@
         "$name": "gold",
         "$path": "doShop.friendshipPoint.gold"
       },
-      "clearTicket": {
-        "$type": "boolean",
-        "$defaultValue": true,
-        "$value": true,
-        "$position": 0,
-        "$name": "clearTicket",
-        "$path": "doShop.friendshipPoint.clearTicket"
-      },
       "arenaTicket": {
         "$type": "boolean",
         "$defaultValue": true,
@@ -1613,14 +1605,6 @@
         "$position": 0,
         "$name": "stamina",
         "$path": "doShop.arena.stamina"
-      },
-      "cakeSlice": {
-        "$type": "boolean",
-        "$defaultValue": true,
-        "$value": true,
-        "$position": 0,
-        "$name": "cakeSlice",
-        "$path": "doShop.arena.cakeSlice"
       }
     },
     "jointChallenge": {
@@ -2982,8 +2966,8 @@
     },
     "lastApplied": {
       "$type": "string",
-      "$defaultValue": null,
-      "$value": null,
+      "$defaultValue": "1",
+      "$value": "1",
       "$position": 10,
       "$name": "lastApplied",
       "$path": "applyPreset.lastApplied"

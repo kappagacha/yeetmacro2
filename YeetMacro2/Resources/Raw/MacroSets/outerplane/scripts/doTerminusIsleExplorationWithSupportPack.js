@@ -10,7 +10,7 @@ if (daily.doTerminusIsleExplorationWithSupportPack.done.IsChecked) {
 
 const orderNameRegex = {
 	baseArtilleryFire: /Base/i,
-	changeWeather: /Ch.*We/i,
+	changeWeather: /We.*C[0o]/i,
 	enhancedDeadlyCreatureAppearanceRate: /Enh/i,
 	completeAllExplorations: /C[0o]m/i,
 	increaseExplorationRewards: /Inc/i
@@ -42,13 +42,16 @@ while (macroService.IsRunning) {
 			while (!zeroExplorationChanceResult.IsSuccess) {
 				let weatherCondition = getCurrentWeatherCondition();
 				logger.info(`doTerminusIsleExplorationWithSupportPack: detected weather is ${weatherCondition}`);
-				const targetWeatherConditions = ['earth', 'fire'];
-				while (!targetWeatherConditions.includes(weatherCondition)) {
+				if (weatherCondition != 'fire') {
 					executeOrderChangeWeather();
-					sleep(3_000);
-					weatherCondition = getCurrentWeatherCondition();
-					logger.info(`doTerminusIsleExplorationWithSupportPack: detected weather is ${weatherCondition}`);
 				}
+				//const targetWeatherConditions = ['earth', 'fire'];
+				//while (!targetWeatherConditions.includes(weatherCondition)) {
+				//	executeOrderChangeWeather();
+				//	sleep(3_000);
+				//	weatherCondition = getCurrentWeatherCondition();
+				//	logger.info(`doTerminusIsleExplorationWithSupportPack: detected weather is ${weatherCondition}`);
+				//}
 
 				logger.info('doTerminusIsleExplorationWithSupportPack: startExploration');
 				startExploration();
@@ -124,7 +127,9 @@ function executeOrderChangeWeather() {
 		}
 	}
 
-	macroService.PollPattern(patterns.terminusIsle.explorationOrder.activate, { DoClick: true, PredicatePattern: patterns.terminusIsle.explorationOrder.activate.ok });
+	macroService.PollPattern(patterns.terminusIsle.explorationOrder.activate, { DoClick: true, PredicatePattern: patterns.terminusIsle.explorationOrder.activate.apply });
+	macroService.PollPattern(patterns.terminusIsle.explorationOrder.activate.apply.heatWave, { DoClick: true, PredicatePattern: patterns.terminusIsle.explorationOrder.activate.apply.heatWave.selected });
+	macroService.PollPattern(patterns.terminusIsle.explorationOrder.activate.apply, { DoClick: true, PredicatePattern: patterns.terminusIsle.explorationOrder.activate.ok });
 	macroService.PollPattern(patterns.terminusIsle.explorationOrder.activate.ok, { DoClick: true, PredicatePattern: patterns.terminusIsle.stage });
 }
 

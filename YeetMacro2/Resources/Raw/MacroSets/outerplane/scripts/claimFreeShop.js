@@ -25,14 +25,16 @@ while (macroService.IsRunning) {
 			sleep(500);
 			break;
 		case 'titles.shop':
+			macroService.PollPattern(patterns.shop.resources, { DoClick: true, PredicatePattern: patterns.shop.resources.normal });
+
 			if (!daily.claimFreeShop.normal.IsChecked) {
 				logger.info('claimFreeShop: claim Normal');
-				macroService.PollPattern(patterns.shop.normal, { DoClick: true, PredicatePattern: patterns.shop.normal.selected });
-				const normalFreeResult = macroService.SwipePollPattern(patterns.shop.normal.free, { MaxSwipes: 5, Start: { X: swipeRightStartX, Y: 500 }, End: { X: swipeRightEndX, Y: 500 } });
+				//macroService.PollPattern(patterns.shop.normal, { DoClick: true, PredicatePattern: patterns.shop.normal.selected });
+				const normalFreeResult = macroService.SwipePollPattern(patterns.shop.free, { MaxSwipes: 5, Start: { X: swipeRightStartX, Y: 500 }, End: { X: swipeRightEndX, Y: 500 } });
 				if (normalFreeResult.IsSuccess) {
 					sleep(1_000);
-					macroService.PollPattern(patterns.shop.normal.free, { DoClick: true, PredicatePattern: patterns.shop.normal.free.confirm });
-					macroService.PollPattern(patterns.shop.normal.free.confirm, { DoClick: true, InversePredicatePattern: patterns.shop.normal.free.confirm });
+					macroService.PollPattern(patterns.shop.free, { DoClick: true, PredicatePattern: patterns.shop.free.ok });
+					macroService.PollPattern(patterns.shop.free.ok, { DoClick: true, InversePredicatePattern: patterns.shop.free.ok });
 				}
 				if (macroService.IsRunning) {
 					daily.claimFreeShop.normal.IsChecked = true;
@@ -41,12 +43,12 @@ while (macroService.IsRunning) {
 
 			if (!weekly.claimFreeShop.done.IsChecked) {
 				logger.info('claimFreeShop: claim Normal weekly');
-				macroService.PollPattern(patterns.shop.normal.weekly, { DoClick: true, PredicatePattern: patterns.shop.normal.weekly.selected });
-				const normalFreeResult = macroService.SwipePollPattern(patterns.shop.normal.free, { MaxSwipes: 5, Start: { X: swipeRightStartX, Y: 500 }, End: { X: swipeRightEndX, Y: 500 } });
+				//macroService.PollPattern(patterns.shop.normal.weekly, { DoClick: true, PredicatePattern: patterns.shop.normal.weekly.selected });
+				const normalFreeResult = macroService.SwipePollPattern(patterns.shop.free, { MaxSwipes: 5, Start: { X: swipeRightStartX, Y: 500 }, End: { X: swipeRightEndX, Y: 500 } });
 				if (normalFreeResult.IsSuccess) {
 					sleep(1_000);
-					macroService.PollPattern(patterns.shop.normal.free, { DoClick: true, PredicatePattern: patterns.shop.normal.free.confirm });
-					macroService.PollPattern(patterns.shop.normal.free.confirm, { DoClick: true, InversePredicatePattern: patterns.shop.normal.free.confirm });
+					macroService.PollPattern(patterns.shop.free, { DoClick: true, PredicatePattern: patterns.shop.free.ok });
+					macroService.PollPattern(patterns.shop.free.ok, { DoClick: true, InversePredicatePattern: patterns.shop.free.ok });
 				}
 				if (macroService.IsRunning) {
 					weekly.claimFreeShop.done.IsChecked = true;
@@ -54,21 +56,23 @@ while (macroService.IsRunning) {
 			}
 
 			logger.info('claimFreeShop: claim Resource');
-			const swipeResult = macroService.SwipePollPattern(patterns.shop.resource, { MaxSwipes: 2, Start: { X: 180, Y: 650 }, End: { X: 180, Y: 250 } });
-			if (!swipeResult.IsSuccess) {
-				throw new Error('Unable to find resource shop');
-			}
-			sleep(1_000)
-			const shopResourceResult = macroService.PollPattern(patterns.shop.resource);
-			const selectedResourcePattern = macroService.ClonePattern(patterns.shop.selected, { CenterY: shopResourceResult.Point.Y, Padding: 20, Path: `patterns.shop.selected_Y${shopResourceResult.Point.Y}` });
-			macroService.PollPattern(patterns.shop.resource, { DoClick: true, PredicatePattern: selectedResourcePattern });
+			//const swipeResult = macroService.SwipePollPattern(patterns.shop.resource, { MaxSwipes: 2, Start: { X: 180, Y: 650 }, End: { X: 180, Y: 250 } });
+			//if (!swipeResult.IsSuccess) {
+			//	throw new Error('Unable to find resource shop');
+			//}
+			//sleep(1_000)
+			//const shopResourceResult = macroService.PollPattern(patterns.shop.resource);
+			//const selectedResourcePattern = macroService.ClonePattern(patterns.shop.selected, { CenterY: shopResourceResult.Point.Y, Padding: 20, Path: `patterns.shop.selected_Y${shopResourceResult.Point.Y}` });
+			//macroService.PollPattern(patterns.shop.resource, { DoClick: true, PredicatePattern: selectedResourcePattern });
 
 			if (!daily.claimFreeShop.resource.normal.IsChecked) {
 				logger.info('claimFreeShop: claim Resource Normal');
-				let resourceFreeResult = macroService.FindPattern(patterns.shop.resource.free);
+				macroService.PollPattern(patterns.shop.resources.resources, { DoClick: true, PredicatePattern: patterns.shop.resources.resources.selected });
+
+				let resourceFreeResult = macroService.FindPattern(patterns.shop.free);
 				while (resourceFreeResult.IsSuccess) {
-					macroService.PollPattern(patterns.shop.resource.free, { DoClick: true, PredicatePattern: patterns.shop.resource.free.confirm });
-					macroService.PollPattern(patterns.shop.resource.free.confirm, { DoClick: true, PredicatePattern: patterns.general.tapEmptySpace });
+					macroService.PollPattern(patterns.shop.free, { DoClick: true, PredicatePattern: patterns.shop.free.ok });
+					macroService.PollPattern(patterns.shop.free.ok, { DoClick: true, PredicatePattern: patterns.general.tapEmptySpace });
 					macroService.PollPattern(patterns.general.tapEmptySpace, { DoClick: true, PredicatePattern: patterns.titles.shop });
 					sleep(500);
 					resourceFreeResult = macroService.FindPattern(patterns.shop.resource.free);
@@ -78,18 +82,19 @@ while (macroService.IsRunning) {
 				}
 			}
 
+			macroService.PollPattern(patterns.shop.contents, { DoClick: true, PredicatePattern: patterns.shop.contents.friendshipPoints });
 			if (!daily.claimFreeShop.resource.skywardTower.IsChecked) {
 				logger.info('claimFreeShop: claim Resource Skyward Tower');
-				const skywardTowerSwipeResult = macroService.SwipePollPattern(patterns.shop.resource.skywardTower, { MaxSwipes: 5, Start: { X: 1100, Y: 160 }, End: { X: 700, Y: 160 } });
+				const skywardTowerSwipeResult = macroService.SwipePollPattern(patterns.shop.contents.skywardTower, { MaxSwipes: 5, Start: { X: 320, Y: 800 }, End: { X: 320, Y: 400 } });
 				if (!skywardTowerSwipeResult.IsSuccess) {
 					throw new Error('Unable to find skyward tower');
 				}
-				macroService.PollPattern(patterns.shop.resource.skywardTower, { DoClick: true, PredicatePattern: patterns.shop.resource.skywardTower.currency });
+				macroService.PollPattern(patterns.shop.contents.skywardTower, { DoClick: true, PredicatePattern: patterns.shop.contents.skywardTower.selected });
 
-				let skywardTowerFreeResult = macroService.FindPattern(patterns.shop.resource.free);
+				let skywardTowerFreeResult = macroService.FindPattern(patterns.shop.free);
 				while (skywardTowerFreeResult.IsSuccess) {
-					macroService.PollPattern(patterns.shop.resource.free, { DoClick: true, PredicatePattern: patterns.shop.resource.free.confirm });
-					macroService.PollPattern(patterns.shop.resource.free.confirm, { DoClick: true, PredicatePattern: patterns.general.tapEmptySpace });
+					macroService.PollPattern(patterns.shop.free, { DoClick: true, PredicatePattern: patterns.shop.free.ok });
+					macroService.PollPattern(patterns.shop.free.ok, { DoClick: true, PredicatePattern: patterns.general.tapEmptySpace });
 					macroService.PollPattern(patterns.general.tapEmptySpace, { DoClick: true, PredicatePattern: patterns.titles.shop });
 					sleep(500);
 					skywardTowerFreeResult = macroService.FindPattern(patterns.shop.resource.free);
@@ -101,14 +106,20 @@ while (macroService.IsRunning) {
 
 			if (!daily.claimFreeShop.surveyHub.IsChecked) {
 				logger.info('claimFreeShop: claim Survey Hub');
-				const swipeResult2 = macroService.SwipePollPattern(patterns.shop.surveyHub, { MaxSwipes: 2, Start: { X: 180, Y: 650 }, End: { X: 180, Y: 250 } });
-				if (!swipeResult2.IsSuccess) {
-					throw new Error('Unable to find surveyhub shop');
+				//const swipeResult2 = macroService.SwipePollPattern(patterns.shop.surveyHub, { MaxSwipes: 2, Start: { X: 180, Y: 650 }, End: { X: 180, Y: 250 } });
+				//if (!swipeResult2.IsSuccess) {
+				//	throw new Error('Unable to find surveyhub shop');
+				//}
+				//sleep(1_000);
+				//const shopSurveyHubResult = macroService.PollPattern(patterns.shop.surveyHub);
+				//const selectedSurveyHubPattern = macroService.ClonePattern(patterns.shop.selected, { CenterY: shopSurveyHubResult.Point.Y, Padding: 20, Path: `patterns.shop.selected_Y${shopSurveyHubResult.Point.Y}` });
+				//macroService.PollPattern(patterns.shop.surveyHub, { DoClick: true, PredicatePattern: selectedSurveyHubPattern });
+
+				const surveyHubSwipeResult = macroService.SwipePollPattern(patterns.shop.contents.surveyHub, { MaxSwipes: 5, Start: { X: 320, Y: 800 }, End: { X: 320, Y: 400 } });
+				if (!surveyHubSwipeResult.IsSuccess) {
+					throw new Error('Unable to find skyward tower');
 				}
-				sleep(1_000);
-				const shopSurveyHubResult = macroService.PollPattern(patterns.shop.surveyHub);
-				const selectedSurveyHubPattern = macroService.ClonePattern(patterns.shop.selected, { CenterY: shopSurveyHubResult.Point.Y, Padding: 20, Path: `patterns.shop.selected_Y${shopSurveyHubResult.Point.Y}` });
-				macroService.PollPattern(patterns.shop.surveyHub, { DoClick: true, PredicatePattern: selectedSurveyHubPattern });
+				macroService.PollPattern(patterns.shop.contents.surveyHub, { DoClick: true, PredicatePattern: patterns.shop.contents.surveyHub.selected });
 
 				const surveyhubFreeResult = macroService.FindPattern(patterns.shop.free);
 				if (surveyhubFreeResult.IsSuccess) {
