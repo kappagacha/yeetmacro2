@@ -224,8 +224,9 @@ public partial class PatternNodeManagerViewModel : NodeManagerViewModel<PatternN
 
             pattern.Rect = rect;
             pattern.Resolution = new Size(DeviceDisplay.MainDisplayInfo.Width, DeviceDisplay.MainDisplayInfo.Height);
+            pattern.ColorThreshold.IsActive = false;
 
-            _patternRepository.Update(pattern);
+            _patternRepository.Update(pattern, p => p.ColorThreshold);
             _patternRepository.Save();
 
             if (values.Length > 2 && values[2] is ICommand selectCommand)
