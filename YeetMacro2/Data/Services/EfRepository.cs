@@ -105,12 +105,24 @@ public class EfRepository<TContext, TEntity>(TContext context) : IRepository<TEn
         dbSet.Remove(entityToDelete);
     }
 
-    public virtual void Update(TEntity entityToUpdate)
+    public virtual void Update(TEntity entityToUpdate, Expression<Func<TEntity, object>> updateReferenceExpression = null)
     {
         var entry = context.Entry(entityToUpdate);
+        if (entry.State == EntityState.Detached)
+        {
+            context.Attach(entityToUpdate);
+        } 
+        
         if (entry.State != EntityState.Added)
         {
             entry.State = EntityState.Modified;
+        }
+
+        if (updateReferenceExpression is not null)
+        {
+            var updateReferenceValue = updateReferenceExpression.Compile().Invoke(entityToUpdate);
+            var updateRefrenceEntry = context.Entry(updateReferenceValue);
+            updateRefrenceEntry.State = EntityState.Modified;
         }
     }
 

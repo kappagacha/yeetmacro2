@@ -16,6 +16,6 @@ public interface IRepository<TEntity> where TEntity : class
         bool noTracking = false);
     TEntity GetById(object id, Expression<Func<TEntity, object>> includePropertyExpression = null);
     void Insert(TEntity entity);
-    void Update(TEntity entityToUpdate);
+    void Update(TEntity entityToUpdate, Expression<Func<TEntity, object>> updateReferenceExpression = null);
     void Save();
 }

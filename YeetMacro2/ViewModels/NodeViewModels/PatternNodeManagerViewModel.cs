@@ -1,9 +1,7 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
-using OneOf.Types;
 using System.Text.Json;
 using System.Windows.Input;
-using System.Xml.Linq;
 using YeetMacro2.Data.Models;
 using YeetMacro2.Data.Services;
 using YeetMacro2.Services;
@@ -392,7 +390,7 @@ public partial class PatternNodeManagerViewModel : NodeManagerViewModel<PatternN
             pattern.ColorThreshold.Color = colorThresholdColor;
             pattern.ColorThreshold.IsActive = true;
             pattern.ColorThreshold.ImageData = _screenService.CalcColorThreshold(pattern, pattern.ColorThreshold);
-            _patternRepository.Update(pattern);
+            _patternRepository.Update(pattern, p => p.ColorThreshold);
             _patternRepository.Save();
             selectCommand.Execute(null);
             selectCommand.Execute(pattern);
@@ -445,7 +443,7 @@ public partial class PatternNodeManagerViewModel : NodeManagerViewModel<PatternN
             _toastService.Show($"TextMatch Apply: {result}");
             pattern.TextMatch.Text = result;
 
-            _patternRepository.Update(pattern);
+            _patternRepository.Update(pattern, p => p.TextMatch);
             _patternRepository.Save();
         }
     }
