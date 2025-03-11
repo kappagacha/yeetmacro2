@@ -128,7 +128,7 @@ function executeOrderChangeWeather() {
 	}
 
 	macroService.PollPattern(patterns.terminusIsle.explorationOrder.activate, { DoClick: true, PredicatePattern: patterns.terminusIsle.explorationOrder.activate.apply });
-	macroService.PollPattern(patterns.terminusIsle.explorationOrder.activate.apply.heatWave, { DoClick: true, PredicatePattern: patterns.terminusIsle.explorationOrder.activate.apply.heatWave.selected });
+	macroService.PollPattern(patterns.terminusIsle.explorationOrder.activate.heatWave, { DoClick: true, PredicatePattern: patterns.terminusIsle.explorationOrder.activate.heatWave.selected });
 	macroService.PollPattern(patterns.terminusIsle.explorationOrder.activate.apply, { DoClick: true, PredicatePattern: patterns.terminusIsle.explorationOrder.activate.ok });
 	macroService.PollPattern(patterns.terminusIsle.explorationOrder.activate.ok, { DoClick: true, PredicatePattern: patterns.terminusIsle.stage });
 }

@@ -572,8 +572,8 @@
     },
     "claimBossDailyMissions": {
       "$type": "boolean",
-      "$defaultValue": true,
-      "$value": true,
+      "$defaultValue": false,
+      "$value": false,
       "$position": 25,
       "$name": "claimBossDailyMissions",
       "$path": "doDailies.claimBossDailyMissions"
@@ -642,8 +642,8 @@
     },
     "startTerminusIsleExploration": {
       "$type": "boolean",
-      "$defaultValue": true,
-      "$value": true,
+      "$defaultValue": false,
+      "$value": false,
       "$position": 3,
       "$name": "startTerminusIsleExploration",
       "$path": "doUpkeep.startTerminusIsleExploration"
@@ -674,8 +674,8 @@
     },
     "doTerminusIsleExploration": {
       "$type": "boolean",
-      "$defaultValue": true,
-      "$value": true,
+      "$defaultValue": false,
+      "$value": false,
       "$position": 7,
       "$name": "doTerminusIsleExploration",
       "$path": "doUpkeep.doTerminusIsleExploration"
@@ -696,9 +696,9 @@
         "doSurveyHub",
         "doSkywardTower"
       ],
-      "$defaultValue": "doEcologyStudy",
-      "$value": "doEcologyStudy",
-      "$isEnabled": true,
+      "$defaultValue": "doIdentification",
+      "$value": "doIdentification",
+      "$isEnabled": false,
       "$position": 9,
       "$name": "spendStaminaScript",
       "$path": "doUpkeep.spendStaminaScript"
@@ -720,7 +720,7 @@
     "lastRun": {
       "$type": "timestamp",
       "$defaultValue": "0001-01-01T00:00:00+00:00",
-      "$value": "2025-03-11T22:34:19.069+00:00",
+      "$value": "2025-03-11T23:34:52.623+00:00",
       "$position": 0,
       "$name": "lastRun",
       "$path": "claimAntiparticle.lastRun"
@@ -742,7 +742,7 @@
     "lastRun": {
       "$type": "timestamp",
       "$defaultValue": "0001-01-01T00:00:00+00:00",
-      "$value": "2024-11-13T20:18:27.315+00:00",
+      "$value": "2025-03-11T23:36:50.655+00:00",
       "$position": 0,
       "$name": "lastRun",
       "$path": "doFriends.lastRun"
@@ -2966,8 +2966,8 @@
     },
     "lastApplied": {
       "$type": "string",
-      "$defaultValue": "1",
-      "$value": "1",
+      "$defaultValue": "6",
+      "$value": "6",
       "$position": 10,
       "$name": "lastApplied",
       "$path": "applyPreset.lastApplied"
