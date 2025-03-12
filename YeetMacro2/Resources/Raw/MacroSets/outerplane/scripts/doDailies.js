@@ -106,10 +106,10 @@ if (settings.doDailies.doInfiniteCorridor.Value) {
     goToLobby();
 }
 
-if (settings.doDailies.claimWorldBossRewards.Value) {
-    claimWorldBossRewards();
-    goToLobby();
-}
+//if (settings.doDailies.claimWorldBossRewards.Value) {
+//    claimWorldBossRewards();
+//    goToLobby();
+//}
 
 if (settings.doDailies.sweepEventStoryHard.Value) {
     sweepEventStoryHard();

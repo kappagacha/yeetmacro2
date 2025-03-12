@@ -698,7 +698,7 @@
       ],
       "$defaultValue": "doIdentification",
       "$value": "doIdentification",
-      "$isEnabled": false,
+      "$isEnabled": true,
       "$position": 9,
       "$name": "spendStaminaScript",
       "$path": "doUpkeep.spendStaminaScript"
@@ -720,7 +720,7 @@
     "lastRun": {
       "$type": "timestamp",
       "$defaultValue": "0001-01-01T00:00:00+00:00",
-      "$value": "2025-03-11T23:34:52.623+00:00",
+      "$value": "2025-03-12T04:27:32.331+00:00",
       "$position": 0,
       "$name": "lastRun",
       "$path": "claimAntiparticle.lastRun"
@@ -742,7 +742,7 @@
     "lastRun": {
       "$type": "timestamp",
       "$defaultValue": "0001-01-01T00:00:00+00:00",
-      "$value": "2025-03-11T23:36:50.655+00:00",
+      "$value": "2025-03-12T05:24:19.102+00:00",
       "$position": 0,
       "$name": "lastRun",
       "$path": "doFriends.lastRun"
@@ -2966,8 +2966,8 @@
     },
     "lastApplied": {
       "$type": "string",
-      "$defaultValue": "6",
-      "$value": "6",
+      "$defaultValue": "1",
+      "$value": "1",
       "$position": 10,
       "$name": "lastApplied",
       "$path": "applyPreset.lastApplied"
