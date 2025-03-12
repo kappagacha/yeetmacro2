@@ -109,4 +109,23 @@ public partial class ScriptNodeView : ContentView
         scriptEditor.CursorPosition = 0;
         scriptEditor.SelectionLength = scriptEditor.Text.Length;
     }
+
+    private void ScriptEditor_LoadFromFile(object sender, EventArgs e)
+    {
+        var targetDirectory = "";
+#if ANDROID
+        // https://stackoverflow.com/questions/39332085/get-path-to-pictures-directory
+        targetDirectory = DeviceInfo.Current.Platform == DevicePlatform.Android ?
+            Android.OS.Environment.GetExternalStoragePublicDirectory(Android.OS.Environment.DirectoryPictures).AbsolutePath :
+            FileSystem.Current.AppDataDirectory;
+#elif WINDOWS
+        targetDirectory = FileSystem.Current.AppDataDirectory;
+#endif
+
+        var filePath = Path.Combine(targetDirectory, "clipboard.txt");
+        if (!File.Exists(filePath)) return;
+
+        var clipboardText = File.ReadAllText(filePath);
+        scriptEditor.Text = clipboardText;
+    }
 }

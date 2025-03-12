@@ -79,6 +79,10 @@
                 </mct:DockLayout>
                 <HorizontalStackLayout HorizontalOptions="End" VerticalOptions="End" Margin="0,0,55,0">
                     <Grid>
+                        <v:ImageView FontFamily="MaterialOutlined" Glyph="{x:Static mi:MaterialOutlined.Content_paste}" />
+                        <ImageButton Clicked="ScriptEditor_LoadFromFile" />
+                    </Grid>
+                    <Grid>
                         <v:ImageView FontFamily="MaterialOutlined" Glyph="{x:Static mi:MaterialOutlined.Select_all}" />
                         <ImageButton Clicked="ScriptEditor_SelectAll" />
                     </Grid>
