@@ -2,6 +2,8 @@
 // @position=-1
 // Do dailies (all checked scripts)
 
+result = {};
+
 goToLobby();
 
 if (settings.doDailies.claimLoot.Value) {
@@ -84,8 +86,6 @@ if (settings.doDailies.doOperationEdenAlliance.Value) {
     goToLobby();
 }
 
-
-
 if (settings.doDailies.levelSoulOnce.Value) {
     levelSoulOnce();
     goToLobby();
@@ -102,11 +102,16 @@ if (settings.doDailies.doOutings.Value) {
 }
 
 if (settings.doDailies.sweepGuildRaid.Value) {
-    sweepGuildRaid();
+    const sweepGuildRaidResult = sweepGuildRaid();
+    if (sweepGuildRaidResult) result.sweepGuildRaid = sweepGuildRaidResult;
     goToLobby();
 }
 
 if (settings.doDailies.sweepEvilSoulSubjugation.Value) {
     sweepEvilSoulSubjugation();
     goToLobby();
+}
+
+if (!Object.keys(result).length) {
+    result = null;
 }
