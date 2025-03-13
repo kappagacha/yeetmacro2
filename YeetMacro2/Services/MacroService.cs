@@ -343,11 +343,11 @@ public class MacroService
             var inversePredicateChecks = opts.InversePredicateChecks;
             var inversePredicateCheckDelayMs = opts.InversePredicateCheckDelayMs;
             var predicateOpts = new FindOptions() { VariancePct = opts.PredicateThreshold };
-            FindPatternResult successResult = new() { IsSuccess = false };
+            var successResult = new FindPatternResult() { IsSuccess = false };
 
             while (IsRunning)
             {
-                if (hasTimeout && DateTime.Now > timeout) return new FindPatternResult() {  IsSuccess = false };
+                if (hasTimeout && DateTime.Now > timeout) return new FindPatternResult() { IsSuccess = false };
 
                 var numChecks = 1;
                 FindPatternResult inversePredicateResult = this.FindPattern(inversePredicatePattern.Value, predicateOpts);
@@ -383,7 +383,7 @@ public class MacroService
         else if (predicatePattern is not null)
         {
             var predicateOpts = new FindOptions() { VariancePct = opts.PredicateThreshold };
-            FindPatternResult successResult = new() { IsSuccess = false };
+            var successResult = new FindPatternResult() { IsSuccess = false };
             while (IsRunning)
             {
                 if (hasTimeout && DateTime.Now > timeout) return new FindPatternResult() { IsSuccess = false };
@@ -415,7 +415,7 @@ public class MacroService
         {
             while (IsRunning)
             {
-                if (hasTimeout && DateTime.Now > timeout) return new FindPatternResult() { IsSuccess = false }; ;
+                if (hasTimeout && DateTime.Now > timeout) return new FindPatternResult() { IsSuccess = false };
 
                 result = this.FindPattern(oneOfPattern, opts);
                 if (opts.DoClick && result.IsSuccess)
