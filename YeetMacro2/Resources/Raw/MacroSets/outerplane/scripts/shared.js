@@ -56,11 +56,7 @@ function findShopItem(shopItemName) {
 		lowStarHeroPieceTicket: /2.*He.*r.ndom/is,
 		threeStarHeroPieceTicket: /3.*He.*select/is,
 		// season 1 survey hub items
-		epicReforgeCatalyst1: /ep.c.*refo.ge/is,
-		epicReforgeCatalyst2: /ep.c.*refo.ge/is,
-		epicReforgeCatalyst3: /ep.c.*refo.ge/is,
-		epicReforgeCatalyst4: /ep.c.*refo.ge/is,
-		epicReforgeCatalyst5: /ep.c.*refo.ge/is,
+		epicReforgeCatalyst: /ep.c.*refo.ge/is,
 		'30pctEpicAbrasive': /3[0o].*ep.c.*/is,
 		superiorQualityPresentChest: /sup.*pres/is,
 		'10pctLegendaryAbrasive': /1[0o].*[lt]eg/is,
@@ -82,7 +78,7 @@ function findShopItem(shopItemName) {
 		const itemCornerPattern = macroService.ClonePattern(patterns.shop.itemCorner, {
 			X: 250,
 			Y: 110,
-			Width: 1470,	//resolution.Width - 550,
+			Width: 1450,	//resolution.Width - 550,
 			Height: 920
 		});
 

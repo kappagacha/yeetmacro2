@@ -1290,14 +1290,6 @@
         "$name": "specialRecruitmentTicket",
         "$path": "doWeeklyShop.jointChallenge.specialRecruitmentTicket"
       },
-      "normalRecruitmentTicket": {
-        "$type": "boolean",
-        "$defaultValue": true,
-        "$value": true,
-        "$position": 0,
-        "$name": "normalRecruitmentTicket",
-        "$path": "doWeeklyShop.jointChallenge.normalRecruitmentTicket"
-      },
       "stage3GemChest": {
         "$type": "boolean",
         "$defaultValue": true,
@@ -1322,80 +1314,48 @@
       "$path": "doWeeklyShop.surveyHub",
       "30pctEpicAbrasive": {
         "$type": "boolean",
-        "$defaultValue": true,
-        "$value": true,
+        "$defaultValue": false,
+        "$value": false,
         "$position": 0,
         "$name": "30pctEpicAbrasive",
         "$path": "doWeeklyShop.surveyHub.30pctEpicAbrasive"
       },
-      "epicReforgeCatalyst1": {
+      "epicReforgeCatalyst": {
         "$type": "boolean",
-        "$defaultValue": true,
-        "$value": true,
+        "$defaultValue": false,
+        "$value": false,
         "$position": 1,
-        "$name": "epicReforgeCatalyst1",
-        "$path": "doWeeklyShop.surveyHub.epicReforgeCatalyst1"
-      },
-      "epicReforgeCatalyst2": {
-        "$type": "boolean",
-        "$defaultValue": true,
-        "$value": true,
-        "$position": 2,
-        "$name": "epicReforgeCatalyst2",
-        "$path": "doWeeklyShop.surveyHub.epicReforgeCatalyst2"
-      },
-      "epicReforgeCatalyst3": {
-        "$type": "boolean",
-        "$defaultValue": true,
-        "$value": true,
-        "$position": 3,
-        "$name": "epicReforgeCatalyst3",
-        "$path": "doWeeklyShop.surveyHub.epicReforgeCatalyst3"
-      },
-      "epicReforgeCatalyst4": {
-        "$type": "boolean",
-        "$defaultValue": true,
-        "$value": true,
-        "$position": 4,
-        "$name": "epicReforgeCatalyst4",
-        "$path": "doWeeklyShop.surveyHub.epicReforgeCatalyst4"
-      },
-      "epicReforgeCatalyst5": {
-        "$type": "boolean",
-        "$defaultValue": true,
-        "$value": true,
-        "$position": 5,
-        "$name": "epicReforgeCatalyst5",
-        "$path": "doWeeklyShop.surveyHub.epicReforgeCatalyst5"
+        "$name": "epicReforgeCatalyst",
+        "$path": "doWeeklyShop.surveyHub.epicReforgeCatalyst"
       },
       "superiorQualityPresentChest": {
         "$type": "boolean",
-        "$defaultValue": true,
-        "$value": true,
+        "$defaultValue": false,
+        "$value": false,
         "$position": 6,
         "$name": "superiorQualityPresentChest",
         "$path": "doWeeklyShop.surveyHub.superiorQualityPresentChest"
       },
       "basicSkillManual": {
         "$type": "boolean",
-        "$defaultValue": true,
-        "$value": true,
+        "$defaultValue": false,
+        "$value": false,
         "$position": 7,
         "$name": "basicSkillManual",
         "$path": "doWeeklyShop.surveyHub.basicSkillManual"
       },
       "10pctLegendaryAbrasive": {
         "$type": "boolean",
-        "$defaultValue": true,
-        "$value": true,
+        "$defaultValue": false,
+        "$value": false,
         "$position": 8,
         "$name": "10pctLegendaryAbrasive",
         "$path": "doWeeklyShop.surveyHub.10pctLegendaryAbrasive"
       },
       "stage2RandomGemChest": {
         "$type": "boolean",
-        "$defaultValue": true,
-        "$value": true,
+        "$defaultValue": false,
+        "$value": false,
         "$position": 9,
         "$name": "stage2RandomGemChest",
         "$path": "doWeeklyShop.surveyHub.stage2RandomGemChest"
@@ -1410,8 +1370,8 @@
       },
       "legendaryReforgeCatalyst": {
         "$type": "boolean",
-        "$defaultValue": true,
-        "$value": true,
+        "$defaultValue": false,
+        "$value": false,
         "$position": 11,
         "$name": "legendaryReforgeCatalyst",
         "$path": "doWeeklyShop.surveyHub.legendaryReforgeCatalyst"
@@ -1434,8 +1394,8 @@
       },
       "epicQualityPresentChest": {
         "$type": "boolean",
-        "$defaultValue": true,
-        "$value": true,
+        "$defaultValue": false,
+        "$value": false,
         "$position": 14,
         "$name": "epicQualityPresentChest",
         "$path": "doWeeklyShop.surveyHub.epicQualityPresentChest"
@@ -1501,24 +1461,24 @@
     "$path": "doWeeklies",
     "claimWeeklyMissions": {
       "$type": "boolean",
-      "$defaultValue": false,
-      "$value": false,
+      "$defaultValue": true,
+      "$value": true,
       "$position": 0,
       "$name": "claimWeeklyMissions",
       "$path": "doWeeklies.claimWeeklyMissions"
     },
     "doWeeklyCraft": {
       "$type": "boolean",
-      "$defaultValue": false,
-      "$value": false,
+      "$defaultValue": true,
+      "$value": true,
       "$position": 1,
       "$name": "doWeeklyCraft",
       "$path": "doWeeklies.doWeeklyCraft"
     },
     "doWeeklyShop": {
       "$type": "boolean",
-      "$defaultValue": false,
-      "$value": false,
+      "$defaultValue": true,
+      "$value": true,
       "$position": 2,
       "$name": "doWeeklyShop",
       "$path": "doWeeklies.doWeeklyShop"
