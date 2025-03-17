@@ -120,7 +120,7 @@ function doNormalItems() {
 }
 
 function doFriendshipItems() {
-	const friendshipItems = ['upgradeStoneSelectionChest', 'lowStarHeroPieceTicket', 'threeStarHeroPieceTicket'];
+	const friendshipItems = ['threeStarHeroPieceTicket', 'upgradeStoneSelectionChest', 'lowStarHeroPieceTicket'];
 	macroService.PollPattern(patterns.shop.contents.friendshipPoints, { DoClick: true, PredicatePattern: patterns.shop.contents.friendshipPoints.selected });
 	sleep(1000);
 	doShopItems('doWeeklyShop', 'friendshipPoint', friendshipItems, true);

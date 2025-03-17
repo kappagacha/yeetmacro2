@@ -1,4 +1,5 @@
 // @raw-script
+// @isFavorite
 // Apply equipmentPreset
 
 function applyPreset(teamSlot) {
