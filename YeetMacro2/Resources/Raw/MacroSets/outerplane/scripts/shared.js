@@ -78,8 +78,10 @@ function findShopItem(shopItemName) {
 		const itemCornerPattern = macroService.ClonePattern(patterns.shop.itemCorner, {
 			X: 250,
 			Y: 110,
-			Width: 1450,	//resolution.Width - 550,
-			Height: 920
+			//Width: 1450,	//resolution.Width - 550,
+			Width: resolution.Width - 300,
+			Height: 920,
+			OffsetCalcType: 'DockLeft'
 		});
 
 		let itemCornerResult = macroService.FindPattern(itemCornerPattern, { Limit: 12 });

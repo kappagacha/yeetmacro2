@@ -424,9 +424,6 @@
     <MauiAsset Update="Resources\Raw\MacroSets\outerplane\scripts\claimMailboxExpiring.js">
       <LogicalName>%(RecursiveDir)%(Filename)%(Extension)</LogicalName>
     </MauiAsset>
-    <MauiAsset Update="Resources\Raw\MacroSets\outerplane\scripts\applyPreset.js">
-      <LogicalName>%(RecursiveDir)%(Filename)%(Extension)</LogicalName>
-    </MauiAsset>
     <MauiAsset Update="Resources\Raw\MacroSets\outerplane\scripts\doTerminusIsleExploration.js">
       <LogicalName>%(RecursiveDir)%(Filename)%(Extension)</LogicalName>
     </MauiAsset>

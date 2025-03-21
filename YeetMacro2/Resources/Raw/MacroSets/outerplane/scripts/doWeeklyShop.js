@@ -28,7 +28,7 @@ while (macroService.IsRunning) {
 			//const shopResourceResult = macroService.PollPattern(patterns.shop.resource);
 			//const selectedResourcePattern = macroService.ClonePattern(patterns.shop.selected, { CenterY: shopResourceResult.Point.Y, Padding: 20, Path: `patterns.shop.selected_Y${shopResourceResult.Point.Y}` });
 			//macroService.PollPattern(patterns.shop.resource, { DoClick: true, PredicatePattern: selectedResourcePattern });
-			macroService.PollPattern(patterns.shop.contents, { DoClick: true, PredicatePattern: patterns.shop.contents.friendshipPoints });
+			macroService.PollPattern(patterns.shop.resources, { DoClick: true, PredicatePattern: patterns.shop.resources.normal });
 
 			if (!weekly.doWeeklyShop.normal.done.IsChecked) {
 				doNormalItems();
@@ -39,6 +39,7 @@ while (macroService.IsRunning) {
 				}
 			}
 
+			macroService.PollPattern(patterns.shop.contents, { DoClick: true, PredicatePattern: patterns.shop.contents.friendshipPoints });
 			if (!weekly.doWeeklyShop.friendshipPoint.done.IsChecked) {
 				doFriendshipItems();
 				swipeLeft();
@@ -116,6 +117,7 @@ function swipeLeft() {
 
 function doNormalItems() {
 	const normalItems = ['basicSkillManual', 'intermediateSkillManual'];
+	macroService.PollPattern(patterns.shop.resources.resources, { DoClick: true, PredicatePattern: patterns.shop.resources.resources.selected });
 	doShopItems('doWeeklyShop', 'normal', normalItems, true);
 }
 
