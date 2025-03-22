@@ -91,6 +91,11 @@ if (settings.doDailies.levelSoulOnce.Value) {
     goToLobby();
 }
 
+if (settings.doDailies.doUnlimitedGateOnce.Value) {
+    doUnlimitedGateOnce();
+    goToLobby();
+}
+
 if (settings.doDailies.claimDailyQuests.Value) {
     claimDailyQuests();
     goToLobby();

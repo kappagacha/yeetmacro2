@@ -16,9 +16,15 @@ while (macroService.IsRunning) {
 			break;
 		case 'titles.adventure':
 			logger.info('sweepGuildRaid: click raid');
-			macroService.PollPattern(patterns.adventure.raid, { DoClick: true, PredicatePattern: [patterns.adventure.raid.guildRaid, patterns.adventure.raid.guildRaid.disabled] });
+			const raidResult = macroService.PollPattern(patterns.adventure.raid, { DoClick: true, PredicatePattern: [patterns.adventure.raid.guildRaid, patterns.adventure.raid.guildRaid.disabled] });
+			if (raidResult.PredicatePath === 'adventure.raid.guildRaid.disabled' && macroService.IsRunning) {
+				daily.sweepGuildRaid.done.IsChecked = true;
+				return;
+			}
+
+
 			const guildRaidResult = macroService.PollPattern(patterns.adventure.raid.guildRaid, { DoClick: true, PredicatePattern: [patterns.guildRaid.sweep, patterns.guildRaid.sweep.disabled] });
-			if (guildRaidResult.PredicatePath === 'adventure.raid.guildRaid.disabled' && macroService.IsRunning) {
+			if (guildRaidResult.PredicatePath === 'guildRaid.sweep.disabled' && macroService.IsRunning) {
 				daily.sweepGuildRaid.done.IsChecked = true;
 				return 'Need to do guild raid';
 			}

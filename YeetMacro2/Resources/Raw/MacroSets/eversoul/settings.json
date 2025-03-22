@@ -602,172 +602,6 @@
       "$path": "doGate.targetGate"
     }
   },
-  "doDailies": {
-    "$type": "parent",
-    "$position": 0,
-    "$name": "doDailies",
-    "$path": "doDailies",
-    "claimLoot": {
-      "$type": "boolean",
-      "$defaultValue": true,
-      "$value": true,
-      "$position": 0,
-      "$name": "claimLoot",
-      "$path": "doDailies.claimLoot"
-    },
-    "claimMail": {
-      "$type": "boolean",
-      "$defaultValue": true,
-      "$value": true,
-      "$position": 1,
-      "$name": "claimMail",
-      "$path": "doDailies.claimMail"
-    },
-    "claimFreeShop": {
-      "$type": "boolean",
-      "$defaultValue": true,
-      "$value": true,
-      "$position": 2,
-      "$name": "claimFreeShop",
-      "$path": "doDailies.claimFreeShop"
-    },
-    "claimFreeSummon": {
-      "$type": "boolean",
-      "$defaultValue": true,
-      "$value": true,
-      "$position": 3,
-      "$name": "claimFreeSummon",
-      "$path": "doDailies.claimFreeSummon"
-    },
-    "claimChampsArena": {
-      "$type": "boolean",
-      "$defaultValue": true,
-      "$value": true,
-      "$position": 4,
-      "$name": "claimChampsArena",
-      "$path": "doDailies.claimChampsArena"
-    },
-    "doFriends": {
-      "$type": "boolean",
-      "$defaultValue": true,
-      "$value": true,
-      "$position": 5,
-      "$name": "doFriends",
-      "$path": "doDailies.doFriends"
-    },
-    "doShop": {
-      "$type": "boolean",
-      "$defaultValue": true,
-      "$value": true,
-      "$position": 6,
-      "$name": "doShop",
-      "$path": "doDailies.doShop"
-    },
-    "doExpeditions": {
-      "$type": "boolean",
-      "$defaultValue": true,
-      "$value": true,
-      "$position": 7,
-      "$name": "doExpeditions",
-      "$path": "doDailies.doExpeditions"
-    },
-    "doPartTimeJobAndRest": {
-      "$type": "boolean",
-      "$defaultValue": true,
-      "$value": true,
-      "$position": 8,
-      "$name": "doPartTimeJobAndRest",
-      "$path": "doDailies.doPartTimeJobAndRest"
-    },
-    "doArena": {
-      "$type": "boolean",
-      "$defaultValue": true,
-      "$value": true,
-      "$position": 9,
-      "$name": "doArena",
-      "$path": "doDailies.doArena"
-    },
-    "doChampsArena": {
-      "$type": "boolean",
-      "$defaultValue": true,
-      "$value": true,
-      "$position": 10,
-      "$name": "doChampsArena",
-      "$path": "doDailies.doChampsArena"
-    },
-    "sweepDecoyOperation": {
-      "$type": "boolean",
-      "$defaultValue": true,
-      "$value": true,
-      "$position": 11,
-      "$name": "sweepDecoyOperation",
-      "$path": "doDailies.sweepDecoyOperation"
-    },
-    "sweepDimensionalLabyrinth": {
-      "$type": "boolean",
-      "$defaultValue": true,
-      "$value": true,
-      "$position": 12,
-      "$name": "sweepDimensionalLabyrinth",
-      "$path": "doDailies.sweepDimensionalLabyrinth"
-    },
-    "sweepEvent": {
-      "$type": "boolean",
-      "$defaultValue": false,
-      "$value": false,
-      "$position": 13,
-      "$name": "sweepEvent",
-      "$path": "doDailies.sweepEvent"
-    },
-    "doOperationEdenAlliance": {
-      "$type": "boolean",
-      "$defaultValue": true,
-      "$value": true,
-      "$position": 14,
-      "$name": "doOperationEdenAlliance",
-      "$path": "doDailies.doOperationEdenAlliance"
-    },
-    "sweepGuildRaid": {
-      "$type": "boolean",
-      "$defaultValue": true,
-      "$value": true,
-      "$position": 15,
-      "$name": "sweepGuildRaid",
-      "$path": "doDailies.sweepGuildRaid"
-    },
-    "levelSoulOnce": {
-      "$type": "boolean",
-      "$defaultValue": true,
-      "$value": true,
-      "$position": 16,
-      "$name": "levelSoulOnce",
-      "$path": "doDailies.levelSoulOnce"
-    },
-    "claimDailyQuests": {
-      "$type": "boolean",
-      "$defaultValue": true,
-      "$value": true,
-      "$position": 17,
-      "$name": "claimDailyQuests",
-      "$path": "doDailies.claimDailyQuests"
-    },
-    "doOutings": {
-      "$type": "boolean",
-      "$defaultValue": true,
-      "$value": true,
-      "$position": 18,
-      "$name": "doOutings",
-      "$path": "doDailies.doOutings"
-    },
-    "sweepEvilSoulSubjugation": {
-      "$type": "boolean",
-      "$defaultValue": true,
-      "$value": true,
-      "$position": 19,
-      "$name": "sweepEvilSoulSubjugation",
-      "$path": "doDailies.sweepEvilSoulSubjugation"
-    }
-  },
   "doUpkeep": {
     "$type": "parent",
     "$position": 0,
@@ -1116,6 +950,180 @@
       "$position": 3,
       "$name": "eventStagePattern",
       "$path": "sweepEvent.eventStagePattern"
+    }
+  },
+  "doDailies": {
+    "$type": "parent",
+    "$position": 0,
+    "$name": "doDailies",
+    "$path": "doDailies",
+    "claimLoot": {
+      "$type": "boolean",
+      "$defaultValue": true,
+      "$value": true,
+      "$position": 0,
+      "$name": "claimLoot",
+      "$path": "doDailies.claimLoot"
+    },
+    "claimMail": {
+      "$type": "boolean",
+      "$defaultValue": true,
+      "$value": true,
+      "$position": 1,
+      "$name": "claimMail",
+      "$path": "doDailies.claimMail"
+    },
+    "claimFreeShop": {
+      "$type": "boolean",
+      "$defaultValue": true,
+      "$value": true,
+      "$position": 2,
+      "$name": "claimFreeShop",
+      "$path": "doDailies.claimFreeShop"
+    },
+    "claimFreeSummon": {
+      "$type": "boolean",
+      "$defaultValue": true,
+      "$value": true,
+      "$position": 3,
+      "$name": "claimFreeSummon",
+      "$path": "doDailies.claimFreeSummon"
+    },
+    "claimChampsArena": {
+      "$type": "boolean",
+      "$defaultValue": true,
+      "$value": true,
+      "$position": 4,
+      "$name": "claimChampsArena",
+      "$path": "doDailies.claimChampsArena"
+    },
+    "doFriends": {
+      "$type": "boolean",
+      "$defaultValue": true,
+      "$value": true,
+      "$position": 5,
+      "$name": "doFriends",
+      "$path": "doDailies.doFriends"
+    },
+    "doShop": {
+      "$type": "boolean",
+      "$defaultValue": true,
+      "$value": true,
+      "$position": 6,
+      "$name": "doShop",
+      "$path": "doDailies.doShop"
+    },
+    "doExpeditions": {
+      "$type": "boolean",
+      "$defaultValue": true,
+      "$value": true,
+      "$position": 7,
+      "$name": "doExpeditions",
+      "$path": "doDailies.doExpeditions"
+    },
+    "doPartTimeJobAndRest": {
+      "$type": "boolean",
+      "$defaultValue": true,
+      "$value": true,
+      "$position": 8,
+      "$name": "doPartTimeJobAndRest",
+      "$path": "doDailies.doPartTimeJobAndRest"
+    },
+    "doArena": {
+      "$type": "boolean",
+      "$defaultValue": true,
+      "$value": true,
+      "$position": 9,
+      "$name": "doArena",
+      "$path": "doDailies.doArena"
+    },
+    "doChampsArena": {
+      "$type": "boolean",
+      "$defaultValue": true,
+      "$value": true,
+      "$position": 10,
+      "$name": "doChampsArena",
+      "$path": "doDailies.doChampsArena"
+    },
+    "sweepDecoyOperation": {
+      "$type": "boolean",
+      "$defaultValue": true,
+      "$value": true,
+      "$position": 11,
+      "$name": "sweepDecoyOperation",
+      "$path": "doDailies.sweepDecoyOperation"
+    },
+    "sweepDimensionalLabyrinth": {
+      "$type": "boolean",
+      "$defaultValue": true,
+      "$value": true,
+      "$position": 12,
+      "$name": "sweepDimensionalLabyrinth",
+      "$path": "doDailies.sweepDimensionalLabyrinth"
+    },
+    "sweepEvent": {
+      "$type": "boolean",
+      "$defaultValue": false,
+      "$value": false,
+      "$position": 13,
+      "$name": "sweepEvent",
+      "$path": "doDailies.sweepEvent"
+    },
+    "doOperationEdenAlliance": {
+      "$type": "boolean",
+      "$defaultValue": true,
+      "$value": true,
+      "$position": 14,
+      "$name": "doOperationEdenAlliance",
+      "$path": "doDailies.doOperationEdenAlliance"
+    },
+    "sweepGuildRaid": {
+      "$type": "boolean",
+      "$defaultValue": true,
+      "$value": true,
+      "$position": 15,
+      "$name": "sweepGuildRaid",
+      "$path": "doDailies.sweepGuildRaid"
+    },
+    "levelSoulOnce": {
+      "$type": "boolean",
+      "$defaultValue": false,
+      "$value": false,
+      "$position": 16,
+      "$name": "levelSoulOnce",
+      "$path": "doDailies.levelSoulOnce"
+    },
+    "claimDailyQuests": {
+      "$type": "boolean",
+      "$defaultValue": true,
+      "$value": true,
+      "$position": 17,
+      "$name": "claimDailyQuests",
+      "$path": "doDailies.claimDailyQuests"
+    },
+    "doUnlimitedGateOnce": {
+      "$type": "boolean",
+      "$defaultValue": true,
+      "$value": true,
+      "$position": 18,
+      "$name": "doUnlimitedGateOnce",
+      "$path": "doDailies.doUnlimitedGateOnce"
+    },
+    "doOutings": {
+      "$type": "boolean",
+      "$defaultValue": true,
+      "$value": true,
+      "$position": 19,
+      "$name": "doOutings",
+      "$path": "doDailies.doOutings"
+    },
+    "sweepEvilSoulSubjugation": {
+      "$type": "boolean",
+      "$defaultValue": true,
+      "$value": true,
+      "$position": 20,
+      "$name": "sweepEvilSoulSubjugation",
+      "$path": "doDailies.sweepEvilSoulSubjugation"
     }
   }
 }
