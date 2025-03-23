@@ -61,9 +61,12 @@ while (macroService.IsRunning) {
 
 			macroService.PollPattern(patterns.battle.enter, { DoClick: true, PredicatePattern: patterns.battle.next });
 			macroService.PollPattern(patterns.battle.next, { DoClick: true, PredicatePattern: patterns.battle.exit });
-			macroService.PollPattern(patterns.battle.exit, { DoClick: true, PredicatePattern: patterns.irregularExtermination.pursuitOperation.selectTeam });
-
+			const battleExitResult = macroService.PollPattern(patterns.battle.exit, { DoClick: true, PredicatePattern: [patterns.irregularExtermination.pursuitOperation.selectTeam, patterns.irregularExtermination.pursuitOperation[targetOperation]] });
 			macroService.IsRunning && (settings.doPursuitOperation.lastOperation.Value = targetOperation);
+
+			if (battleExitResult.PredicatePath === `irregularExtermination.pursuitOperation.${targetOperation}`) {
+				continue;
+			}
 
 			const friendsOrGuildResult = macroService.FindPattern(patterns.irregularExtermination.pursuitOperation.friendsOrGuild);
 			if (friendsOrGuildResult.IsSuccess) {
