@@ -70,29 +70,37 @@ public partial class TodoNodeManagerViewModel : NodeManagerViewModel<TodoViewMod
             return;
         };
         var targetDate = ResolveTargetDate(0);
+        var todo = ResolveTodo(targetDate);
+
+        SelectedNode = todo;
+        var targetJsonViewModel = ((TodoViewModel)todo).JsonViewModel;
+        if (targetJsonViewModel is null) return;
+
+        CurrentSubViewModel = ((TodoJsonParentViewModel)targetJsonViewModel.Children.FirstOrDefault(c => c.Key == _targetSubViewName)) ?? _emptySubView;
+    }
+
+    protected TodoViewModel ResolveTodo(DateOnly targetDate)
+    {
         var existingTodo = Root.Nodes.FirstOrDefault(dn => dn.Date == targetDate) ?? _todoRepository.Get(td => td.RootId == _rootNodeId && td.Date == targetDate, noTracking: true).FirstOrDefault();
 
         if (existingTodo is null)
         {
-            existingTodo = new TodoViewModel()
+            var newTodo = new TodoViewModel()
             {
                 Date = targetDate,
                 Data = Root.Data
             };
-            this.AddNode(existingTodo);
+            this.AddNode(newTodo);
+            return newTodo;
         }
         else if (existingTodo is not TodoViewModel)
         {
             var existingTodoViewModel = _mapper.Map<TodoViewModel>(existingTodo);
             Root.Nodes.Add(existingTodoViewModel);
-            existingTodo = existingTodoViewModel;
+            return existingTodoViewModel;
         }
 
-        SelectedNode = existingTodo;
-        var targetJsonViewModel = ((TodoViewModel)existingTodo).JsonViewModel;
-        if (targetJsonViewModel is null) return;
-
-        CurrentSubViewModel = ((TodoJsonParentViewModel)targetJsonViewModel.Children.FirstOrDefault(c => c.Key == _targetSubViewName)) ?? _emptySubView;
+        return existingTodo as TodoViewModel;
     }
 
     [RelayCommand]

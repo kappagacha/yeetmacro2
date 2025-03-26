@@ -34,30 +34,20 @@ public partial class DailyNodeManagerViewModel(
     public void UpdateCurrentDailyTemplate()
     {
         var targetDate = ResolveTargetDate(0);
-        var existingDaily = Root.Nodes.FirstOrDefault(dn => dn.Date == targetDate);
+        var todo = ResolveTodo(targetDate);
 
-        if (existingDaily is null) return;
-
-        var currentJson = JsonObject.Parse(existingDaily.Data);
+        var currentJson = JsonObject.Parse(todo.Data);
         var currentTemplate = JsonObject.Parse(Root.Data);
         var newJsonString = currentJson.Merge(currentTemplate).ToString();
-        SaveTodo([existingDaily, newJsonString]);
+        SaveTodo([todo, newJsonString]);
     }
 
     public TodoJsonParentViewModel GetCurrentDaily(int offset = 0)
     {
         var targetDate = ResolveTargetDate(offset);
-        var existingDaily = Root.Nodes.FirstOrDefault(dn => dn.Date == targetDate);
-        if (existingDaily is not null) return ((TodoViewModel)existingDaily).JsonViewModel;
+        var todo = ResolveTodo(targetDate);
 
-        var newDaily = new TodoViewModel()
-        {
-            Date = targetDate,
-            Data = Root.Data
-        };
-        this.AddNode(newDaily);
-
-        return newDaily.JsonViewModel;
+        return todo.JsonViewModel;
     }
 
     public override DateOnly ResolveTargetDate(int offset)

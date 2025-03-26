@@ -34,30 +34,20 @@ public partial class WeeklyNodeManagerViewModel(
     public void UpdateCurrentWeeklyTemplate()
     {
         var targetDate = ResolveTargetDate(0);
-        var existingWeekly = Root.Nodes.FirstOrDefault(dn => dn.Date == targetDate);
+        var todo = ResolveTodo(targetDate);
 
-        if (existingWeekly is null) return;
-
-        var currentJson = JsonObject.Parse(existingWeekly.Data);
+        var currentJson = JsonObject.Parse(todo.Data);
         var currentTemplate = JsonObject.Parse(Root.Data);
         var newJsonString = currentJson.Merge(currentTemplate).ToString();
-        SaveTodo([existingWeekly, newJsonString]);
+        SaveTodo([todo, newJsonString]);
     }
 
     public TodoJsonParentViewModel GetCurrentWeekly(int offset = 0)
     {
         var targetDate = ResolveTargetDate(offset);
-        var existingWeekly = Root.Nodes.FirstOrDefault(dn => dn.Date == targetDate);
-        if (existingWeekly is not null) return ((TodoViewModel)existingWeekly).JsonViewModel;
+        var todo = ResolveTodo(targetDate);
 
-        var newWeekly = new TodoViewModel()
-        {
-            Date = targetDate,
-            Data = Root.Data
-        };
-        this.AddNode(newWeekly);
-
-        return newWeekly.JsonViewModel;
+        return todo.JsonViewModel;
     }
 
     public override DateOnly ResolveTargetDate(int offset)
