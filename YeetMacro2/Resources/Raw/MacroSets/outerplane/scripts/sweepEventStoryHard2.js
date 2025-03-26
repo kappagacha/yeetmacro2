@@ -42,7 +42,7 @@ while (macroService.IsRunning) {
 
 			macroService.PollPattern(targetPartPattern, { DoClick: true, PredicatePattern: patterns.event.story.selectTeam });
 			macroService.PollPattern(patterns.event.story.selectTeam, { DoClick: true, PredicatePattern: patterns.battle.enter });
-			selectTeamAndBattle(teamSlot, true);
+			selectTeamAndBattle(teamSlot);
 
 			if (macroService.IsRunning) {
 				daily.sweepEventStoryHard2.done.IsChecked = true;

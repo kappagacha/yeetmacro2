@@ -43,7 +43,7 @@ while (macroService.IsRunning) {
 				water: 'earth',
 				fire: 'water'
 			};
-			selectTeamAndBattle(teamSlot === 'RecommendedElement' ? recommendedElement[elementType] : teamSlot, false);
+			selectTeamAndBattle(teamSlot === 'RecommendedElement' ? recommendedElement[elementType] : teamSlot, { applyPreset: true });
 
 			if (macroService.IsRunning) {
 				daily.doGuildSecurityArea.done.IsChecked = true;
