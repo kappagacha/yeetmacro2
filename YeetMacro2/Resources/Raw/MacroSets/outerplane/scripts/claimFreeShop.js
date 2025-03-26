@@ -41,19 +41,19 @@ while (macroService.IsRunning) {
 				}
 			}
 
-			if (!weekly.claimFreeShop.done.IsChecked) {
-				logger.info('claimFreeShop: claim Normal weekly');
-				//macroService.PollPattern(patterns.shop.normal.weekly, { DoClick: true, PredicatePattern: patterns.shop.normal.weekly.selected });
-				const normalFreeResult = macroService.SwipePollPattern(patterns.shop.free, { MaxSwipes: 5, Start: { X: swipeRightStartX, Y: 500 }, End: { X: swipeRightEndX, Y: 500 } });
-				if (normalFreeResult.IsSuccess) {
-					sleep(1_000);
-					macroService.PollPattern(patterns.shop.free, { DoClick: true, PredicatePattern: patterns.shop.free.ok });
-					macroService.PollPattern(patterns.shop.free.ok, { DoClick: true, InversePredicatePattern: patterns.shop.free.ok });
-				}
-				if (macroService.IsRunning) {
-					weekly.claimFreeShop.done.IsChecked = true;
-				}
-			}
+			//if (!weekly.claimFreeShop.done.IsChecked) {
+			//	logger.info('claimFreeShop: claim Normal weekly');
+			//	//macroService.PollPattern(patterns.shop.normal.weekly, { DoClick: true, PredicatePattern: patterns.shop.normal.weekly.selected });
+			//	const normalFreeResult = macroService.SwipePollPattern(patterns.shop.free, { MaxSwipes: 5, Start: { X: swipeRightStartX, Y: 500 }, End: { X: swipeRightEndX, Y: 500 } });
+			//	if (normalFreeResult.IsSuccess) {
+			//		sleep(1_000);
+			//		macroService.PollPattern(patterns.shop.free, { DoClick: true, PredicatePattern: patterns.shop.free.ok });
+			//		macroService.PollPattern(patterns.shop.free.ok, { DoClick: true, InversePredicatePattern: patterns.shop.free.ok });
+			//	}
+			//	if (macroService.IsRunning) {
+			//		weekly.claimFreeShop.done.IsChecked = true;
+			//	}
+			//}
 
 			logger.info('claimFreeShop: claim Resource');
 			//const swipeResult = macroService.SwipePollPattern(patterns.shop.resource, { MaxSwipes: 2, Start: { X: 180, Y: 650 }, End: { X: 180, Y: 250 } });
