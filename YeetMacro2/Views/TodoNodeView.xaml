@@ -159,7 +159,7 @@
                 </HorizontalStackLayout>
             </Grid>
             <ActivityIndicator Grid.ColumnSpan="2" IsRunning="{Binding IsBusy}" />
+            <Label Text="{Binding Todos.SelectedNode.NodeId, StringFormat='NodeId: {0}', Source={Reference thisView}}" HorizontalOptions="End" VerticalOptions="Start" />
         </Grid>
-       
     </Border>
 </ContentView>
