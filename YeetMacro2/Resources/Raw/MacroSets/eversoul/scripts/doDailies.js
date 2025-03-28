@@ -101,10 +101,6 @@ if (settings.doDailies.claimDailyQuests.Value) {
     goToLobby();
 }
 
-if (settings.doDailies.doOutings.Value) {
-    doOutings();
-    goToLobby();
-}
 
 if (settings.doDailies.sweepGuildRaid.Value) {
     const sweepGuildRaidResult = sweepGuildRaid();
@@ -113,10 +109,18 @@ if (settings.doDailies.sweepGuildRaid.Value) {
 }
 
 if (settings.doDailies.sweepEvilSoulSubjugation.Value) {
-    sweepEvilSoulSubjugation();
+    const sweepEvilSoulSubjugation = sweepEvilSoulSubjugation();
+    if (sweepEvilSoulSubjugation) result.sweepEvilSoulSubjugation = sweepEvilSoulSubjugation;
     goToLobby();
 }
 
 if (!Object.keys(result).length) {
     result = null;
+} else {
+    return result;
+}
+
+if (settings.doDailies.doOutings.Value) {
+    doOutings();
+    goToLobby();
 }

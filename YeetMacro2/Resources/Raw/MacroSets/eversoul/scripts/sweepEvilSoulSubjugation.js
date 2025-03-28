@@ -16,12 +16,16 @@ while (macroService.IsRunning) {
 			break;
 		case 'titles.adventure':
 			logger.info('sweepEvilSoulSubjugation: click raid');
-			const evilSoulSubjugationResult = macroService.PollPattern(patterns.adventure.raid, { DoClick: true, PredicatePattern: [patterns.adventure.raid.evilSoulSubjugation, patterns.adventure.raid.evilSoulSubjugation.disabled] });
-			if (evilSoulSubjugationResult.PredicatePath === 'adventure.raid.evilSoulSubjugation.disabled' && macroService.IsRunning) {
+			const raidResult = macroService.PollPattern(patterns.adventure.raid, { DoClick: true, PredicatePattern: [patterns.adventure.raid.evilSoulSubjugation, patterns.adventure.raid.evilSoulSubjugation.disabled] });
+			if (raidResult.PredicatePath === 'adventure.raid.evilSoulSubjugation.disabled' && macroService.IsRunning) {
 				daily.sweepEvilSoulSubjugation.done.IsChecked = true;
 				return;
 			}
-			macroService.PollPattern(patterns.adventure.raid.evilSoulSubjugation, { DoClick: true, PredicatePattern: patterns.evilSoulSubjugation.sweep });
+			const evilSoulSubjugationResult = macroService.PollPattern(patterns.adventure.raid.evilSoulSubjugation, { DoClick: true, PredicatePattern: [patterns.evilSoulSubjugation.sweep, patterns.evilSoulSubjugation.sweep.disabled] });
+			if (evilSoulSubjugationResult.PredicatePath === 'evilSoulSubjugation.sweep.disabled' && macroService.IsRunning) {
+				daily.sweepEvilSoulSubjugation.done.IsChecked = true;
+				return 'Need to challenge Evil Soul Subjugation';
+			}
 			//macroService.PollPattern(patterns.evilSoulSubjugation.sweep, { DoClick: true, PredicatePattern: [patterns.evilSoulSubjugation.sweep.confirm, patterns.evilSoulSubjugation.sweep.disabled] });
 			macroService.PollPattern(patterns.evilSoulSubjugation.sweep, { DoClick: true, PredicatePattern: [patterns.general.tapTheScreen, patterns.evilSoulSubjugation.sweep.disabled] });
 			macroService.PollPattern(patterns.evilSoulSubjugation.sweep.confirm, { DoClick: true, PredicatePattern: patterns.evilSoulSubjugation.sweep.disabled });
