@@ -186,24 +186,16 @@ public partial class NodeManagerViewModel<TViewModel, TParent, TChild> : NodeMan
 
     protected void AddNode(TChild newNode)
     {
-        if (!IsList && SelectedNode != null && SelectedNode is TParent parent)
-        {
-            newNode.ParentId = SelectedNode.NodeId;
-            newNode.RootId = SelectedNode.RootId;
-            parent.IsExpanded = true;
-            parent.Nodes.Add(newNode);
-            _nodeService.Update(parent);
-        }
-        else
-        {
-            newNode.ParentId = Root.NodeId;
-            newNode.RootId = Root.NodeId;
-            Root.Nodes.Add(newNode);
-            _nodeService.Update(Root);
-        }
+        var parent = !IsList && SelectedNode != null && SelectedNode is TParent ?
+            SelectedNode as TParent : Root;
+        newNode.ParentId = parent.NodeId;
+        newNode.RootId = parent.RootId;
+
+        parent.IsExpanded = true;
+        parent.Nodes.Add(newNode);
+        _nodeService.Update(parent);
 
         ResolvePath(Root);
-        _nodeService.Insert(newNode);
         SelectNode(newNode);
         //_toastService.Show($"Created {_nodeTypeName}: " + newNode.Name);
         // Fix attempt for getting stuck upon script initialization. Theorizing that when daily is created, it can get stuck with _toastService
