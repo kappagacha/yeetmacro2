@@ -109,8 +109,8 @@ if (settings.doDailies.sweepGuildRaid.Value) {
 }
 
 if (settings.doDailies.sweepEvilSoulSubjugation.Value) {
-    const sweepEvilSoulSubjugation = sweepEvilSoulSubjugation();
-    if (sweepEvilSoulSubjugation) result.sweepEvilSoulSubjugation = sweepEvilSoulSubjugation;
+    const sweepEvilSoulSubjugationResult = sweepEvilSoulSubjugation();
+    if (sweepEvilSoulSubjugationResult) result.sweepEvilSoulSubjugation = sweepEvilSoulSubjugationResult;
     goToLobby();
 }
 
