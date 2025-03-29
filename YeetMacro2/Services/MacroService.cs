@@ -9,7 +9,7 @@ using System.Collections.Concurrent;
 
 namespace YeetMacro2.Services;
 
-public class PollPatternFindOptions : FindOptions
+public class PollPatternFindOptions : ClickPatternFindOptions
 {
     public int IntervalDelayMs { get; set; } = 1_000;
     [JsonIgnore]
@@ -24,6 +24,10 @@ public class PollPatternFindOptions : FindOptions
     public bool DoClick { get; set; }
     public long HoldDurationMs { get; set; } = 100;
     public double TimeoutMs { get; set; } = 0.0;
+}
+
+public class ClickPatternFindOptions : FindOptions
+{
     public Point ClickOffset { get; set; } = Point.Zero;
 }
 
@@ -285,16 +289,16 @@ public class MacroService
         _screenService.DoClick(point.Offset(xVariance, yVariance), holdDurationMs);
     }
 
-    public FindPatternResult ClickPattern(OneOf<PatternNode, PatternNode[]> oneOfPattern, FindOptions opts = null)
+    public FindPatternResult ClickPattern(OneOf<PatternNode, PatternNode[]> oneOfPattern, ClickPatternFindOptions opts = null)
     {
-        opts ??= new FindOptions();
+        opts ??= new ClickPatternFindOptions();
 
         FindPatternResult result = this.FindPattern(oneOfPattern, opts);
         if (result.IsSuccess)
         {
             foreach (var point in result.Points)
             {
-                this.DoClick(point.Offset(opts.Offset.X, opts.Offset.Y));
+                this.DoClick(point.Offset(opts.ClickOffset.X, opts.ClickOffset.Y));
             }
         }
 
