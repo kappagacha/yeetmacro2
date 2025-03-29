@@ -13,7 +13,7 @@ while (macroService.IsRunning) {
 	switch (loopResult.Path) {
 		case 'lobby.stage':
 			logger.info('claimTribute: click tribute');
-			macroService.ClickPattern(patterns.lobby.tribute);
+			macroService.ClickPattern(patterns.lobby.stage, { ClickOffset: { X: -100 } });
 			break;
 		case 'tribute.receive':
 			logger.info('claimTribute: claim tribute');
