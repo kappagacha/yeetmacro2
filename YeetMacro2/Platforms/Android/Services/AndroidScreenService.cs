@@ -369,7 +369,7 @@ public class AndroidScreenService : IScreenService
             //    fs.Write(needleImageData, 0, needleImageData.Length);
             //}
 
-            var points = _openCvService.GetPointsWithMatchTemplate(haystackImageData, needleImageData, opts?.Limit ?? 1, threshold);
+            var points = _openCvService.GetPointsWithMatchTemplate(haystackImageData, needleImageData, opts?.Limit ?? 1, threshold, pattern.ColorThreshold.IgnoreBackground);
             if (pattern.Rect != Rect.Zero)
             {
                 var newPoints = new List<Point>();

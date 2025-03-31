@@ -328,4 +328,14 @@ public partial class ColorThresholdPropertiesViewModel : ColorThresholdPropertie
             OnPropertyChanged();
         }
     }
+
+    public override bool IgnoreBackground
+    {
+        get => base.IgnoreBackground;
+        set
+        {
+            base.IgnoreBackground = value;
+            OnPropertyChanged();
+        }
+    }
 }

@@ -49,6 +49,7 @@ public class ColorThresholdProperties
     public virtual double VariancePct { get; set; } = 30.0;
     public virtual string Color { get; set; }
     public byte[] ImageData { get; set; }
+    public virtual bool IgnoreBackground { get; set; }
 }
 
 public enum OffsetCalcType

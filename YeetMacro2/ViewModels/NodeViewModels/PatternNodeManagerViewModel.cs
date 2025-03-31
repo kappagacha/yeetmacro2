@@ -243,7 +243,7 @@ public partial class PatternNodeManagerViewModel : NodeManagerViewModel<PatternN
     {
         if (values.Length > 1 && values[0] is Pattern pattern && values[1] is PatternNode patternNode)
         {
-            _patternRepository.Update(pattern);
+            _patternRepository.Update(pattern, p => p.ColorThreshold);
             _patternRepository.Save();
             _nodeService.Update(patternNode);
             _nodeService.Save();

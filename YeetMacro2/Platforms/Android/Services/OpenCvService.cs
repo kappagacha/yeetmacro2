@@ -60,7 +60,7 @@ public class OpenCvService(ILogger<OpenCvService> logger)
         }
     }
 
-    public List<Point> GetPointsWithMatchTemplate(byte[] haystackImageData, byte[] needleImageData, int limit = 1, double threshold = 0.8)
+    public List<Point> GetPointsWithMatchTemplate(byte[] haystackImageData, byte[] needleImageData, int limit = 1, double threshold = 0.8, bool ignoreWhiteBackground = false)
     {
         try
         {
@@ -80,7 +80,7 @@ public class OpenCvService(ILogger<OpenCvService> logger)
             var needleMat = Org.Opencv.Imgcodecs.Imgcodecs.Imdecode(needleMatOfByte, Org.Opencv.Imgcodecs.Imgcodecs.CvLoadImageColor);
             haystackMatOfByte.Dispose();
             needleMatOfByte.Dispose();
-            var points = GetPointsWithMatchTemplate(haystackMat, needleMat, limit, threshold);
+            var points = GetPointsWithMatchTemplate(haystackMat, needleMat, limit, threshold, ignoreWhiteBackground);
             haystackMat.Dispose();
             needleMat.Dispose();
             return points;
@@ -92,30 +92,38 @@ public class OpenCvService(ILogger<OpenCvService> logger)
         }
     }
 
-    private List<Point> GetPointsWithMatchTemplate(Mat haystackMat, Mat needleMat, int limit, double threshold)
+    private List<Point> GetPointsWithMatchTemplate(Mat haystackMat, Mat needleMat, int limit, double threshold, bool ignoreWhiteBackground)
     {
         var matches = new List<Point>();
 
         MatchTemplate(haystackMat, needleMat, limit, threshold, (result) =>
         {
             matches.Add(new Point((int)(result.MaxLoc.X + needleMat.Width() / 2), (int)(result.MaxLoc.Y + needleMat.Height() / 2)));
-        });
+        }, ignoreWhiteBackground);
 
         return matches;
     }
 
     //https://stackoverflow.com/questions/32737420/multiple-results-in-opencvsharp3-matchtemplate
     //https://github.com/Fate-Grand-Automata/FGA/blob/master/app/src/main/java/com/mathewsachin/fategrandautomata/imaging/DroidCvPattern.kt
-    private void MatchTemplate(Mat haystack, Mat needle, int limit, double threshold, Action<MinMaxLocResult> resultAction)
+    private void MatchTemplate(Mat haystack, Mat needle, int limit, double threshold, Action<MinMaxLocResult> resultAction, bool ignoreWhiteBackground = true)
     {
         var watch = new System.Diagnostics.Stopwatch();
+        var floodfillMask = new Mat();
+
         var mask = new Mat();
+        var matchingOperation = Org.Opencv.Imgproc.Imgproc.TmCcoeffNormed;
+        if (ignoreWhiteBackground)
+        {
+            Core.Bitwise_not(needle, mask);
+            matchingOperation = Org.Opencv.Imgproc.Imgproc.TmCcorrNormed;
+        }
 
         using (var result = new Mat(haystack.Rows() - needle.Rows() + 1, haystack.Cols() - needle.Cols() + 1, MatType.CV_32FC1))
         {
             watch.Start();
 
-            Org.Opencv.Imgproc.Imgproc.MatchTemplate(haystack, needle, result, Org.Opencv.Imgproc.Imgproc.TmCcoeffNormed);
+            Org.Opencv.Imgproc.Imgproc.MatchTemplate(haystack, needle, result, matchingOperation, mask);
             Org.Opencv.Imgproc.Imgproc.Threshold(result, result, 0.8, 1.0, Org.Opencv.Imgproc.Imgproc.ThreshTozero);
 
             var count = 0;
@@ -138,7 +146,7 @@ public class OpenCvService(ILogger<OpenCvService> logger)
                 var newVal = new Scalar(0, 0, 0);
                 var lowerDiff = new Scalar(floodFillDiff);
                 var upperDiff = new Scalar(floodFillDiff);
-                Org.Opencv.Imgproc.Imgproc.FloodFill(result, mask, location.MaxLoc, newVal, outRect, lowerDiff, upperDiff, Org.Opencv.Imgproc.Imgproc.FloodfillFixedRange);
+                Org.Opencv.Imgproc.Imgproc.FloodFill(result, floodfillMask, location.MaxLoc, newVal, outRect, lowerDiff, upperDiff, Org.Opencv.Imgproc.Imgproc.FloodfillFixedRange);
                 newVal.Dispose();
                 lowerDiff.Dispose();
                 upperDiff.Dispose();
@@ -148,6 +156,7 @@ public class OpenCvService(ILogger<OpenCvService> logger)
         }
 
         mask.Dispose();
+        floodfillMask.Dispose();
 
         watch.Stop();
         Console.WriteLine($"MatchTemplate: {watch.ElapsedMilliseconds} ms");
