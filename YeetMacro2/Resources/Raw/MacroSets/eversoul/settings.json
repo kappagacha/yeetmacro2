@@ -66,7 +66,8 @@
               "isActive": false,
               "variancePct": 10,
               "color": null,
-              "imageData": ""
+              "imageData": "",
+              "ignoreBackground": false
             },
             "offsetCalcType": "Default",
             "position": 0
@@ -105,7 +106,8 @@
               "isActive": false,
               "variancePct": 10,
               "color": null,
-              "imageData": ""
+              "imageData": "",
+              "ignoreBackground": false
             },
             "offsetCalcType": "Default",
             "position": 0
@@ -147,7 +149,7 @@
     "lastRun": {
       "$type": "timestamp",
       "$defaultValue": "0001-01-01T00:00:00+00:00",
-      "$value": "2024-03-04T23:37:22.855+00:00",
+      "$value": "2025-03-31T22:28:50.04+00:00",
       "$position": 0,
       "$name": "lastRun",
       "$path": "doFriends.lastRun"
@@ -190,7 +192,8 @@
               "isActive": false,
               "variancePct": 10,
               "color": null,
-              "imageData": ""
+              "imageData": "",
+              "ignoreBackground": false
             },
             "offsetCalcType": "Default",
             "position": 0
@@ -229,7 +232,8 @@
               "isActive": false,
               "variancePct": 10,
               "color": null,
-              "imageData": ""
+              "imageData": "",
+              "ignoreBackground": false
             },
             "offsetCalcType": "Default",
             "position": 0
@@ -274,7 +278,8 @@
               "isActive": false,
               "variancePct": 10,
               "color": null,
-              "imageData": ""
+              "imageData": "",
+              "ignoreBackground": false
             },
             "offsetCalcType": "Default",
             "position": 0
@@ -313,7 +318,8 @@
               "isActive": false,
               "variancePct": 10,
               "color": null,
-              "imageData": ""
+              "imageData": "",
+              "ignoreBackground": false
             },
             "offsetCalcType": "Default",
             "position": 0
@@ -358,7 +364,8 @@
               "isActive": false,
               "variancePct": 10,
               "color": null,
-              "imageData": ""
+              "imageData": "",
+              "ignoreBackground": false
             },
             "offsetCalcType": "Default",
             "position": 0
@@ -397,7 +404,8 @@
               "isActive": false,
               "variancePct": 10,
               "color": null,
-              "imageData": ""
+              "imageData": "",
+              "ignoreBackground": false
             },
             "offsetCalcType": "Default",
             "position": 0
@@ -442,7 +450,8 @@
               "isActive": false,
               "variancePct": 10,
               "color": null,
-              "imageData": ""
+              "imageData": "",
+              "ignoreBackground": false
             },
             "offsetCalcType": "Default",
             "position": 0
@@ -481,7 +490,8 @@
               "isActive": false,
               "variancePct": 10,
               "color": null,
-              "imageData": ""
+              "imageData": "",
+              "ignoreBackground": false
             },
             "offsetCalcType": "Default",
             "position": 0
@@ -526,7 +536,8 @@
               "isActive": false,
               "variancePct": 10,
               "color": null,
-              "imageData": ""
+              "imageData": "",
+              "ignoreBackground": false
             },
             "offsetCalcType": "Default",
             "position": 0
@@ -565,7 +576,8 @@
               "isActive": false,
               "variancePct": 10,
               "color": null,
-              "imageData": ""
+              "imageData": "",
+              "ignoreBackground": false
             },
             "offsetCalcType": "Default",
             "position": 0
@@ -656,7 +668,7 @@
     "lastRun": {
       "$type": "timestamp",
       "$defaultValue": "0001-01-01T00:00:00+00:00",
-      "$value": "2025-03-24T03:51:56.54+00:00",
+      "$value": "2025-03-31T22:28:40.122+00:00",
       "$position": 0,
       "$name": "lastRun",
       "$path": "claimLoot.lastRun"
@@ -692,7 +704,7 @@
     "lastRun": {
       "$type": "timestamp",
       "$defaultValue": "0001-01-01T00:00:00+00:00",
-      "$value": "2025-03-08T03:00:14.135+00:00",
+      "$value": "2025-03-30T22:29:01.879+00:00",
       "$position": 0,
       "$name": "lastRun",
       "$path": "doPartTimeJobAndRest.lastRun"
@@ -805,7 +817,8 @@
               "isActive": false,
               "variancePct": 30,
               "color": null,
-              "imageData": ""
+              "imageData": "",
+              "ignoreBackground": false
             },
             "offsetCalcType": "Default",
             "position": 0
@@ -844,7 +857,8 @@
               "isActive": false,
               "variancePct": 30,
               "color": null,
-              "imageData": ""
+              "imageData": "",
+              "ignoreBackground": false
             },
             "offsetCalcType": "Default",
             "position": 0
@@ -897,7 +911,8 @@
               "isActive": false,
               "variancePct": 30,
               "color": null,
-              "imageData": ""
+              "imageData": "",
+              "ignoreBackground": false
             },
             "offsetCalcType": "Default",
             "position": 0
@@ -936,7 +951,8 @@
               "isActive": false,
               "variancePct": 30,
               "color": null,
-              "imageData": ""
+              "imageData": "",
+              "ignoreBackground": false
             },
             "offsetCalcType": "Default",
             "position": 0
