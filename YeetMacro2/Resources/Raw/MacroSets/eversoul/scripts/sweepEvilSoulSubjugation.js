@@ -27,8 +27,8 @@ while (macroService.IsRunning) {
 				return 'Need to challenge Evil Soul Subjugation';
 			}
 			//macroService.PollPattern(patterns.evilSoulSubjugation.sweep, { DoClick: true, PredicatePattern: [patterns.evilSoulSubjugation.sweep.confirm, patterns.evilSoulSubjugation.sweep.disabled] });
-			macroService.PollPattern(patterns.evilSoulSubjugation.sweep, { DoClick: true, PredicatePattern: [patterns.general.tapTheScreen, patterns.evilSoulSubjugation.sweep.disabled] });
-			macroService.PollPattern(patterns.evilSoulSubjugation.sweep.confirm, { DoClick: true, PredicatePattern: patterns.evilSoulSubjugation.sweep.disabled });
+			macroService.PollPattern(patterns.evilSoulSubjugation.sweep, { DoClick: true, PredicatePattern: patterns.evilSoulSubjugation.sweep.confirm });
+			macroService.PollPattern(patterns.evilSoulSubjugation.sweep.confirm, { DoClick: true, ClickPattern: patterns.general.tapTheScreen, PredicatePattern: patterns.evilSoulSubjugation.sweep.disabled });
 
 			if (macroService.IsRunning) {
 				daily.sweepEvilSoulSubjugation.done.IsChecked = true;
