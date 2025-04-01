@@ -234,7 +234,7 @@ public class MacroService
                 else
                 {
                     var pattern = patternNode.Patterns.FirstOrDefault();
-                    if (pattern is null) return result;
+                    if (pattern is null) continue;
 
                     var offset = CalcOffset(patternNode.Path, pattern);
                     var optsWithOffset = new FindOptions()
