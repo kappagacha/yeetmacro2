@@ -15,12 +15,13 @@ while (macroService.IsRunning) {
 	switch (loopResult.Path) {
 		case 'lobby.level':
 			logger.info('doGuildSecurityArea: click guild tab');
-			const guildNotificationResult = macroService.PollPattern(patterns.tabs.guild.notification, { TimeoutMs: 1_000 });
-			if (guildNotificationResult.IsSuccess) {
-				macroService.ClickPattern(patterns.tabs.guild);
-			} else {	// no notification
-				return;
-			}
+			macroService.ClickPattern(patterns.tabs.guild);
+			//const guildNotificationResult = macroService.PollPattern(patterns.tabs.guild.notification, { TimeoutMs: 2_000 });
+			//if (guildNotificationResult.IsSuccess) {
+			//	macroService.ClickPattern(patterns.tabs.guild);
+			//} else {	// no notification
+			//	return;
+			//}
 			sleep(500);
 			break;
 		case 'titles.guild':
@@ -32,7 +33,7 @@ while (macroService.IsRunning) {
 			logger.info('doGuildSecurityArea: click security area move');
 			const targetElementTypes = [elementTypeTarget1, elementTypeTarget2].map(ett => patterns.guild.securityArea[ett]);
 			macroService.PollPattern(patterns.guild.securityArea.move, { DoClick: true, PredicatePattern: targetElementTypes });
-
+			sleep(500);
 			const elementTypeResult = macroService.FindPattern(targetElementTypes);
 			const elementType = elementTypeResult.Path.split('.').pop();
 			logger.info(`doGuildSecurityArea elementType: ${elementType}`);
