@@ -33,8 +33,7 @@ while (macroService.IsRunning) {
 			logger.info('doGuildSecurityArea: click security area move');
 			const targetElementTypes = [elementTypeTarget1, elementTypeTarget2].map(ett => patterns.guild.securityArea[ett]);
 			macroService.PollPattern(patterns.guild.securityArea.move, { DoClick: true, PredicatePattern: targetElementTypes });
-			sleep(500);
-			const elementTypeResult = macroService.FindPattern(targetElementTypes);
+			const elementTypeResult = macroService.PollPattern(targetElementTypes);
 			const elementType = elementTypeResult.Path.split('.').pop();
 			logger.info(`doGuildSecurityArea elementType: ${elementType}`);
 			macroService.PollPattern(patterns.guild.securityArea[elementType], { DoClick: true, PredicatePattern: patterns.battle.enter });
