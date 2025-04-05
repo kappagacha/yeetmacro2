@@ -5,7 +5,6 @@
              xmlns:m="clr-namespace:YeetMacro2.Data.Models"
              xmlns:vm="clr-namespace:YeetMacro2.ViewModels"
              xmlns:fa="clr-namespace:UraniumUI.Icons.FontAwesome;assembly=UraniumUI.Icons.FontAwesome"
-             xmlns:material="http://schemas.enisn-projects.io/dotnet/maui/uraniumui/material"
              xmlns:mi="clr-namespace:UraniumUI.Icons.MaterialIcons;assembly=UraniumUI.Icons.MaterialIcons"
              xmlns:conv="clr-namespace:YeetMacro2.Converters"
              xmlns:vlv="clr-namespace:Microsoft.Maui.Controls;assembly=VirtualListView"

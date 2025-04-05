@@ -16,17 +16,24 @@ public partial class ImageView : ContentView
     public static readonly BindableProperty ImageHeightProperty =
             BindableProperty.Create(nameof(ImageHeight), typeof(double?), typeof(ImageView), null);
     public static readonly BindableProperty FontFamilyProperty =
-            BindableProperty.Create(nameof(FontFamily), typeof(string), typeof(ImageView), null, propertyChanged: ImagePropertyChanged);
+        BindableProperty.Create(nameof(FontFamily), typeof(string), typeof(ImageView), null);
     public static readonly BindableProperty GlyphProperty =
-            BindableProperty.Create(nameof(Glyph), typeof(string), typeof(ImageView), null, propertyChanged: ImagePropertyChanged);
+            BindableProperty.Create(nameof(Glyph), typeof(string), typeof(ImageView), null);
     public static readonly BindableProperty ColorProperty =
-            BindableProperty.Create(nameof(Color), typeof(Color), typeof(ImageView), null, propertyChanged: ImagePropertyChanged);
+            BindableProperty.Create(nameof(Color), typeof(Color), typeof(ImageView), null);
+
+    //public static readonly BindableProperty FontFamilyProperty =
+    //        BindableProperty.Create(nameof(FontFamily), typeof(string), typeof(ImageView), null, propertyChanged: ImagePropertyChanged);
+    //public static readonly BindableProperty GlyphProperty =
+    //        BindableProperty.Create(nameof(Glyph), typeof(string), typeof(ImageView), null, propertyChanged: ImagePropertyChanged);
+    //public static readonly BindableProperty ColorProperty =
+    //        BindableProperty.Create(nameof(Color), typeof(Color), typeof(ImageView), null, propertyChanged: ImagePropertyChanged);
 
 #if ANDROID
     // The timer is needed because of the async setting of image property,
     // image is wrong sometimes when both Glyph and Color are set at the same time
     //IDispatcherTimer _imageUpdatedDelayTimer;
-    static readonly ConcurrentDictionary<string, ControlTemplate> _keyToControlTemplate = new();
+    //static readonly ConcurrentDictionary<string, ControlTemplate> _keyToControlTemplate = new();
 
     //private void _imageUpdatedDelayTimer_Tick(object sender, EventArgs e)
     //{
@@ -37,53 +44,53 @@ public partial class ImageView : ContentView
     //    contentView.ControlTemplate = _keyToControlTemplate[compositeKey];
     //}
 
-    private async static Task ResolveDrawable(string fontFamily, string glyph, Color color)
-    {
-        var compositeKey = $"{fontFamily}-{(int)glyph[0]}-{color}";
-        if (_keyToControlTemplate.ContainsKey(compositeKey)) return;
+    //private async static Task ResolveDrawable(string fontFamily, string glyph, Color color)
+    //{
+    //    var compositeKey = $"{fontFamily}-{(int)glyph[0]}-{color}";
+    //    if (_keyToControlTemplate.ContainsKey(compositeKey)) return;
 
-        var ctx = new MauiContext(IPlatformApplication.Current.Services, MauiApplication.Context);
-        var fontImageSource = new FontImageSource()
-        {
-            FontFamily = fontFamily,
-            Glyph = glyph,
-            Color = color
-        };
+    //    var ctx = new MauiContext(IPlatformApplication.Current.Services, MauiApplication.Context);
+    //    var fontImageSource = new FontImageSource()
+    //    {
+    //        FontFamily = fontFamily,
+    //        Glyph = glyph,
+    //        Color = color
+    //    };
 
-        MemoryStream ms = new();
-        var imageSourceResult = await fontImageSource.GetPlatformImageAsync(ctx);
-        var bitmap = ((BitmapDrawable)imageSourceResult.Value).Bitmap;
-        bitmap.Compress(CompressFormat.Png, 100, ms);
-        //bitmap.Dispose();
-        ms.Position = 0;
+    //    MemoryStream ms = new();
+    //    var imageSourceResult = await fontImageSource.GetPlatformImageAsync(ctx);
+    //    var bitmap = ((BitmapDrawable)imageSourceResult.Value).Bitmap;
+    //    bitmap.Compress(CompressFormat.Png, 100, ms);
+    //    //bitmap.Dispose();
+    //    ms.Position = 0;
 
-        var drawable = PlatformImage.FromStream(ms);
-        var template = new ControlTemplate(() => new GraphicsView()
-        {
-            Drawable = drawable,
-            InputTransparent = true
-        });
-        _keyToControlTemplate.TryAdd(compositeKey, template);
-    }
+    //    var drawable = PlatformImage.FromStream(ms);
+    //    var template = new ControlTemplate(() => new GraphicsView()
+    //    {
+    //        Drawable = drawable,
+    //        InputTransparent = true
+    //    });
+    //    _keyToControlTemplate.TryAdd(compositeKey, template);
+    //}
 #endif
 
 #pragma warning disable CS1998 // (Windows) Async method lacks 'await' operators and will run synchronously
-    private async static void ImagePropertyChanged(BindableObject bindable, object oldValue, object newValue)
-    {
-#if ANDROID
-        // This android workaround exists for the overlay windows not properly loading FontImageSource
-        // unless spawned while YeetMacro app is active
-        var imgView = bindable as ImageView;
-        if (String.IsNullOrWhiteSpace(imgView.FontFamily) || String.IsNullOrWhiteSpace(imgView.Glyph)) return;
+//    private async static void ImagePropertyChanged(BindableObject bindable, object oldValue, object newValue)
+//    {
+//#if ANDROID
+//        // This android workaround exists for the overlay windows not properly loading FontImageSource
+//        // unless spawned while YeetMacro app is active
+//        //var imgView = bindable as ImageView;
+//        //if (String.IsNullOrWhiteSpace(imgView.FontFamily) || String.IsNullOrWhiteSpace(imgView.Glyph)) return;
 
-        //imgView._imageUpdatedDelayTimer.Stop();
-        await ResolveDrawable(imgView.FontFamily, imgView.Glyph, imgView.Color);
-        //imgView._imageUpdatedDelayTimer.Start();
-        var compositeKey = $"{imgView.FontFamily}-{(int)imgView.Glyph[0]}-{imgView.Color}";
-        if (!_keyToControlTemplate.ContainsKey(compositeKey)) return;
-        imgView.contentView.ControlTemplate = _keyToControlTemplate[compositeKey];
-#endif
-    }
+//        ////imgView._imageUpdatedDelayTimer.Stop();
+//        //await ResolveDrawable(imgView.FontFamily, imgView.Glyph, imgView.Color);
+//        ////imgView._imageUpdatedDelayTimer.Start();
+//        //var compositeKey = $"{imgView.FontFamily}-{(int)imgView.Glyph[0]}-{imgView.Color}";
+//        //if (!_keyToControlTemplate.ContainsKey(compositeKey)) return;
+//        //imgView.contentView.ControlTemplate = _keyToControlTemplate[compositeKey];
+//#endif
+//    }
 #pragma warning restore CS1998 // Async method lacks 'await' operators and will run synchronously
 
     public static readonly BindableProperty CommandProperty =

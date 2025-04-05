@@ -12,7 +12,6 @@
              xmlns:fa="clr-namespace:UraniumUI.Icons.FontAwesome;assembly=UraniumUI.Icons.FontAwesome"
              xmlns:mi="clr-namespace:UraniumUI.Icons.MaterialIcons;assembly=UraniumUI.Icons.MaterialIcons"
              xmlns:conv="clr-namespace:YeetMacro2.Converters"
-             xmlns:material="http://schemas.enisn-projects.io/dotnet/maui/uraniumui/material"
              Title="Macro Manager"
              x:Name="thisPage">
     <ContentPage.Resources>

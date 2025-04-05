@@ -47,8 +47,7 @@ public class MoveView : LinearLayout, IShowable
         _windowManager = windowManager;
         _visualElement = visualElement;
 
-        var mauiContext = new MauiContext(IPlatformApplication.Current.Services, context);
-        var androidView = visualElement.ToPlatform(mauiContext);
+        var androidView = visualElement.ToPlatform(IPlatformApplication.Current.Application.Handler.MauiContext);
         androidView.SetPadding(0, 0, 0, 0);
         var density = DeviceDisplay.MainDisplayInfo.Density;
         _layoutParams.Width = (int)(_visualElement.WidthRequest * density);
