@@ -91,12 +91,15 @@ public class YeetMacroDbContext : DbContext
         modelBuilder.Entity<PatternNode>().HasMany(pn => pn.Patterns).WithOne().HasForeignKey(p => p.PatternNodeId).OnDelete(DeleteBehavior.Cascade);
         modelBuilder.Entity<Pattern>().HasKey(p => p.PatternId);
         modelBuilder.Entity<Pattern>().Ignore(p => p.IsSelected);
-        modelBuilder.Entity<Pattern>().Ignore(p => p.RectDisplay);
+        modelBuilder.Entity<Pattern>().Ignore(p => p.RawBoundsDisplay);
         modelBuilder.Entity<Pattern>().Property(p => p.Resolution).HasConversion(sizeConverter);
-        modelBuilder.Entity<Pattern>().Property(p => p.Rect).HasConversion(rectConverter);
+        modelBuilder.Entity<Pattern>().Property(p => p.RawBounds).HasConversion(rectConverter);
         modelBuilder.Entity<Pattern>().OwnsOne(p => p.TextMatch);
         modelBuilder.Entity<Pattern>().OwnsOne(p => p.ColorThreshold);
         modelBuilder.Entity<Pattern>().Property(p => p.OffsetCalcType).HasConversion(new EnumToStringConverter<OffsetCalcType>());
+        modelBuilder.Entity<Pattern>().Property(p => p.BoundsCalcType).HasConversion(new EnumToStringConverter<BoundsCalcType>());
+        modelBuilder.Entity<Pattern>().Ignore(p => p.Offset);
+        modelBuilder.Entity<Pattern>().Ignore(p => p.Bounds);
 
         modelBuilder.Entity<ScriptNode>().HasMany(sn => sn.Nodes).WithOne().HasForeignKey($"{nameof(ScriptNode)}{nameof(Node.ParentId)}").OnDelete(DeleteBehavior.Cascade);
         modelBuilder.Entity<ScriptNode>().Ignore(sn => sn.Description);

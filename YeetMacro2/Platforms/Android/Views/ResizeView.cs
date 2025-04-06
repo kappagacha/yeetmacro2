@@ -7,6 +7,7 @@ using Android.Graphics.Drawables.Shapes;
 using Color = Android.Graphics.Color;
 using Microsoft.Maui.Platform;
 using YeetMacro2.Platforms.Android.Services;
+using YeetMacro2.Data.Models;
 
 namespace YeetMacro2.Platforms.Android.Views;
 
@@ -14,7 +15,6 @@ public class ResizeView : RelativeLayout, IOnTouchListener, IShowable
 {
     enum FormState { SHOWING, CLOSED };
     private readonly IWindowManager _windowManager;
-    private readonly AndroidScreenService _screenService;
     private readonly MainActivity _context;
     private readonly WindowManagerLayoutParams _layoutParams;
     private readonly ImageView _topLeft, _bottomRight, _topRight;
@@ -31,11 +31,10 @@ public class ResizeView : RelativeLayout, IOnTouchListener, IShowable
 
     //https://www.linkedin.com/pulse/6-floating-windows-android-keyboard-input-v%C3%A1clav-hodek/
 
-    public ResizeView(Context context, IWindowManager windowManager, AndroidScreenService screenService, VisualElement visualElement) : base(context)
+    public ResizeView(Context context, IWindowManager windowManager, VisualElement visualElement) : base(context)
     {
         _context = (MainActivity)context;
         _windowManager = windowManager;
-        _screenService = screenService;
         _layoutParams = new WindowManagerLayoutParams
         {
             //_layoutParams.Type = WindowManagerTypes.ApplicationOverlay;
@@ -101,7 +100,7 @@ public class ResizeView : RelativeLayout, IOnTouchListener, IShowable
 
         androidView.Clickable = true;
         Clickable = true;
-        InitDisplay(_screenService.CalcResolution);
+        InitDisplay(PatternHelper.ScreenResolution);
     }
 
     private void InitDisplay(Size size)

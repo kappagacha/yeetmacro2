@@ -383,7 +383,7 @@ public partial class TestViewModel : ObservableObject
             return;
         }
 
-        Resolution = _screenService.Resolution.ToString();
+        Resolution = PatternHelper.CurrentResolution.ToString();
     }
 
     [RelayCommand]
@@ -402,7 +402,7 @@ public partial class TestViewModel : ObservableObject
 
         //CustomResolution = _screenService.CurrentResolution.ToString();
 
-        CustomResolution = _screenService.CalcResolution.ToString();
+        CustomResolution = PatternHelper.ScreenResolution.ToString();
     }
 
     [RelayCommand]
@@ -414,7 +414,7 @@ public partial class TestViewModel : ObservableObject
             return;
         }
 
-        TopLeft = _screenService.GetTopLeft().ToString();
+        //TopLeft = _screenService.GetTopLeft().ToString();
     }
 
     [RelayCommand]

@@ -95,7 +95,7 @@ public class MacroService
     {
         if (!_pathToOffset.ContainsKey(path))
         {
-            _pathToOffset[path] = PatternNodeManagerViewModel.CalcOffset(pattern, _screenService.Resolution, _screenService.GetTopLeft());
+            _pathToOffset[path] = pattern.Offset;
         }
 
         return _pathToOffset[path];
@@ -103,17 +103,17 @@ public class MacroService
 
     public Size GetCurrentResolution()
     {
-        return _screenService.Resolution;
+        return PatternHelper.CurrentResolution;
     }
 
     public double GetScreenDensity()
     {
-        return _screenService.Density;
+        return DeviceDisplay.MainDisplayInfo.Density;
     }
 
     public Point GetTopLeft()
     {
-        return _screenService.GetTopLeft();
+        return PatternHelper.TopLeft;
     }
 
     public PatternNode ClonePattern(PatternNode patternNode, CloneOptions opts)
@@ -123,7 +123,7 @@ public class MacroService
 
         foreach (var pattern in clone.Patterns)
         {
-            var rect = pattern.Rect;
+            var rect = pattern.RawBounds;
             var size = new Size(
                 (opts.Width == 0 ? rect.Width : opts.Width) + opts.Padding,
                 (opts.Height == 0 ? rect.Height : opts.Height) + opts.Padding
@@ -139,7 +139,7 @@ public class MacroService
 
             var location = new Point(calcX, calcY);
 
-            pattern.Rect = new Rect(location, size);
+            pattern.RawBounds = new Rect(location, size);
             if (opts.OffsetCalcType != OffsetCalcType.Default)
             {
                 pattern.OffsetCalcType = opts.OffsetCalcType;
@@ -202,12 +202,12 @@ public class MacroService
                             Offset = opts.Offset.Offset(offset.X, offset.Y)
                         };
 
-                        if (InDebugMode && pattern.Rect != Rect.Zero)
+                        if (InDebugMode && pattern.RawBounds != Rect.Zero)
                         {
                             MainThread.BeginInvokeOnMainThread(() =>
                             {
                                 _screenService.DebugClear();
-                                _screenService.DebugRectangle(pattern.Rect.Offset(offset));
+                                _screenService.DebugRectangle(pattern.Bounds.Offset(offset));
                             });
                         }
                         Sleep(50);
@@ -244,11 +244,11 @@ public class MacroService
                         Offset = opts.Offset.Offset(offset.X, offset.Y)
                     };
 
-                    if (InDebugMode && pattern.Rect != Rect.Zero)
+                    if (InDebugMode && pattern.RawBounds != Rect.Zero)
                     {
                         MainThread.BeginInvokeOnMainThread(() =>
                         {
-                            _screenService.DebugRectangle(pattern.Rect.Offset(offset));
+                            _screenService.DebugRectangle(pattern.Bounds.Offset(offset));
                         });
                     }
                     result = _screenService.FindPattern(pattern, optsWithOffset);
@@ -318,8 +318,8 @@ public class MacroService
                     new Pattern()
                     {
                         IsBoundsPattern = true,
-                        Rect = new Rect(point, Size.Zero),
-                        Resolution = _screenService.CalcResolution,
+                        RawBounds = new Rect(point, Size.Zero),
+                        Resolution = PatternHelper.ScreenResolution,
                         OffsetCalcType = OffsetCalcType.None
                     }
                 ]
@@ -538,7 +538,7 @@ public class MacroService
         {
             MainThread.BeginInvokeOnMainThread(_screenService.DebugClear);
             Sleep(50);
-            MainThread.BeginInvokeOnMainThread(() => _screenService.DebugRectangle(pattern.Rect.Offset(offset)));
+            MainThread.BeginInvokeOnMainThread(() => _screenService.DebugRectangle(pattern.Bounds.Offset(offset)));
         }
 
         var currentTry = 0;

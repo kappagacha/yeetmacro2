@@ -215,14 +215,14 @@ public partial class PatternNodeManagerViewModel : NodeManagerViewModel<PatternN
             var rect = await _inputService.DrawUserRectangle();
             pattern.ImageData = _screenService.GetCurrentImageData(rect);
 
-            var topLeft = _screenService.GetTopLeft();
+            var topLeft = PatternHelper.TopLeft;
             if (!topLeft.IsEmpty)   // If top left has value, then assuming it's a capture from physical device
             {
                 rect = rect.Offset(-topLeft.X, -topLeft.Y);
                 pattern.OffsetCalcType = OffsetCalcType.DockLeft;
             }
 
-            pattern.Rect = rect;
+            pattern.RawBounds = rect;
             pattern.Resolution = new Size(DeviceDisplay.MainDisplayInfo.Width, DeviceDisplay.MainDisplayInfo.Height);
             pattern.ColorThreshold.IsActive = false;
 
@@ -259,50 +259,10 @@ public partial class PatternNodeManagerViewModel : NodeManagerViewModel<PatternN
         var rect = await _inputService.DrawUserRectangle();
         if (rect != Rect.Zero)
         {
-            pattern.Rect = rect;
+            pattern.RawBounds = rect;
             _patternRepository.Update(pattern);
             _patternRepository.Save();
         }
-    }
-
-    public static Point CalcOffset(Pattern pattern, Size currentResolution, Point topLeft)
-    {
-        var xOffset = 0;
-        var yOffset = 0;
-        switch (pattern.OffsetCalcType)
-        {
-            case OffsetCalcType.DockLeft:
-                return topLeft;
-            case OffsetCalcType.Default:
-            case OffsetCalcType.Center:
-                {   // horizontal center handling
-                    var deltaX = currentResolution.Width - pattern.Resolution.Width + (topLeft.X * 2);
-                    xOffset = (int)(deltaX / 2);
-                }
-                break;
-            case OffsetCalcType.DockRight:
-                {   // horizontal dock right handling (dock left does not need handling)
-                    var right = pattern.Resolution.Width - pattern.Rect.X;
-                    var targetX = currentResolution.Width - right + topLeft.X;
-                    xOffset = (int)(targetX - pattern.Rect.X);
-                }
-                break;
-            case OffsetCalcType.HorizontalStretchOffset:
-                {
-                    // HorizontalStretchMultiplier = targetXOffset / deltaX
-                    var deltaX = currentResolution.Width - pattern.Resolution.Width;
-                    xOffset = (int)(deltaX * pattern.HorizontalStretchMultiplier) + (int)topLeft.X;
-                }
-                break;
-            case OffsetCalcType.VerticalStretchOffset:
-                {
-                    // HorizontalStretchMultiplier = targetYOffset / deltaY
-                    var deltaY = currentResolution.Height - pattern.Resolution.Height;
-                    yOffset = (int)(deltaY * pattern.VerticalStretchMultiplier) + (int)topLeft.Y;
-                }
-                break;
-        }
-        return new Point(xOffset, yOffset);
     }
 
     [RelayCommand]
@@ -325,7 +285,7 @@ public partial class PatternNodeManagerViewModel : NodeManagerViewModel<PatternN
             Task.Run(() =>
             {
                 var opts = new FindOptions() { Limit = 10 };
-                if (doTestCalc) opts.Offset = CalcOffset(pattern, _screenService.Resolution, _screenService.GetTopLeft());
+                if (doTestCalc) opts.Offset = pattern.Offset;
                 if (int.TryParse(strXOffset, out int xOffset)) opts.Offset = opts.Offset.Offset(xOffset, 0);
                 if (int.TryParse(strYOffset, out int yOffset)) opts.Offset = opts.Offset.Offset(0, yOffset);
 
@@ -337,9 +297,9 @@ public partial class PatternNodeManagerViewModel : NodeManagerViewModel<PatternN
                 {
                     _toastService.Show(points != null && points.Length > 0 ? "Match(es) found" : "No match found");
 
-                    if (pattern.Rect != Rect.Zero)
+                    if (pattern.RawBounds != Rect.Zero)
                     {
-                        _screenService.DrawRectangle(pattern.Rect.Offset(opts.Offset));
+                        _screenService.DrawRectangle(pattern.Bounds.Offset(opts.Offset));
                     }
 
                     if (points != null)
@@ -369,7 +329,7 @@ public partial class PatternNodeManagerViewModel : NodeManagerViewModel<PatternN
             var opts = new FindOptions() { Limit = 10 };
             if (int.TryParse(strXOffset, out int xOffset)) opts.Offset = opts.Offset.Offset(xOffset, 0);
             if (int.TryParse(strYOffset, out int yOffset)) opts.Offset = opts.Offset.Offset(0, yOffset);
-            if (doTestCalc) opts.Offset = CalcOffset(pattern, _screenService.Resolution, _screenService.GetTopLeft());
+            if (doTestCalc) opts.Offset = pattern.Offset;
 
             _screenService.ClickPattern(pattern, opts);     //one to change focus
             await Task.Delay(300);
@@ -412,10 +372,10 @@ public partial class PatternNodeManagerViewModel : NodeManagerViewModel<PatternN
             var opts = new TextFindOptions();
             if (int.TryParse(strXOffset, out int xOffset)) opts.Offset = opts.Offset.Offset(xOffset, 0);
             if (int.TryParse(strYOffset, out int yOffset)) opts.Offset = opts.Offset.Offset(0, yOffset);
-            if (doTestCalc) opts.Offset = CalcOffset(pattern, _screenService.Resolution, _screenService.GetTopLeft());
+            if (doTestCalc) opts.Offset = pattern.Offset;
 
             _screenService.DrawClear();
-            _screenService.DrawRectangle(pattern.Rect.Offset(opts.Offset));
+            _screenService.DrawRectangle(pattern.Bounds.Offset(opts.Offset));
             var result = await _screenService.GetTextAsync(pattern, opts);
             _toastService.Show($"TextMatch: {result}");
             Console.WriteLine($"TextMatch: {result}");
@@ -436,10 +396,10 @@ public partial class PatternNodeManagerViewModel : NodeManagerViewModel<PatternN
             var opts = new TextFindOptions();
             if (int.TryParse(strXOffset, out int xOffset)) opts.Offset = opts.Offset.Offset(xOffset, 0);
             if (int.TryParse(strYOffset, out int yOffset)) opts.Offset = opts.Offset.Offset(0, yOffset);
-            if (doTestCalc) opts.Offset = CalcOffset(pattern, _screenService.Resolution, _screenService.GetTopLeft());
+            if (doTestCalc) opts.Offset = pattern.Offset;
 
             _screenService.DrawClear();
-            _screenService.DrawRectangle(pattern.Rect.Offset(opts.Offset));
+            _screenService.DrawRectangle(pattern.Bounds.Offset(opts.Offset));
             var result = await _screenService.GetTextAsync(pattern, opts);
             _toastService.Show($"TextMatch Apply: {result}");
             pattern.TextMatch.Text = result;
@@ -464,7 +424,7 @@ public partial class PatternNodeManagerViewModel : NodeManagerViewModel<PatternN
 
             if (offset.IsEmpty) return;
 
-            pattern.Rect = pattern.Rect.Offset(offset);
+            pattern.RawBounds = pattern.RawBounds.Offset(offset);
             _patternRepository.Update(pattern);
             _patternRepository.Save();
             _toastService.Show($"Offset applied to pattern");

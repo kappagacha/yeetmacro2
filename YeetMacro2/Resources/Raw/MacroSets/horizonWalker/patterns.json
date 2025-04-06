@@ -8,7 +8,7 @@
     "stage": {
       "$patterns": [
         {
-          "rect": {
+          "rawBounds": {
             "x": 1234.25,
             "y": 706.25,
             "width": 124.5,
@@ -47,7 +47,7 @@
     "phone": {
       "$patterns": [
         {
-          "rect": {
+          "rawBounds": {
             "x": 1387.25,
             "y": 906.25,
             "width": 175,
@@ -86,7 +86,7 @@
     "schedule": {
       "$patterns": [
         {
-          "rect": {
+          "rawBounds": {
             "x": 1574.25,
             "y": 765.25,
             "width": 115.5,
@@ -132,7 +132,7 @@
     "receive": {
       "$patterns": [
         {
-          "rect": {
+          "rawBounds": {
             "x": 1086.17578125,
             "y": 872.597900390625,
             "width": 21.046875,
@@ -171,7 +171,7 @@
     "close": {
       "$patterns": [
         {
-          "rect": {
+          "rawBounds": {
             "x": 1679.3203125,
             "y": 234.841552734375,
             "width": 61.9453125,
@@ -217,7 +217,7 @@
     "touchTheScreen": {
       "$patterns": [
         {
-          "rect": {
+          "rawBounds": {
             "x": 1120.6875,
             "y": 935.219970703125,
             "width": 35.109375,
@@ -256,7 +256,7 @@
     "levelUp": {
       "$patterns": [
         {
-          "rect": {
+          "rawBounds": {
             "x": 914.90625,
             "y": 315.3603515625,
             "width": 92.6484375,
@@ -287,7 +287,7 @@
           "position": 0
         },
         {
-          "rect": {
+          "rawBounds": {
             "x": 762.796875,
             "y": 354.97705078125,
             "width": 72.19921875,
@@ -326,7 +326,7 @@
     "confirm": {
       "$patterns": [
         {
-          "rect": {
+          "rawBounds": {
             "x": 881.68359375,
             "y": 707.737060546875,
             "width": 38.91796875,
@@ -365,7 +365,7 @@
     "confirm2": {
       "$patterns": [
         {
-          "rect": {
+          "rawBounds": {
             "x": 895.74609375,
             "y": 974.836669921875,
             "width": 45.3046875,
@@ -404,7 +404,7 @@
     "back": {
       "$patterns": [
         {
-          "rect": {
+          "rawBounds": {
             "x": 78.890625,
             "y": 66.12451171875,
             "width": 21.10546875,
@@ -450,7 +450,7 @@
     "stage": {
       "$patterns": [
         {
-          "rect": {
+          "rawBounds": {
             "x": 188.87109375,
             "y": 36.72509765625,
             "width": 32.53125,
@@ -496,7 +496,7 @@
     "wish": {
       "$patterns": [
         {
-          "rect": {
+          "rawBounds": {
             "x": 150.25,
             "y": 166.25,
             "width": 126.5,
@@ -534,7 +534,7 @@
       "zeroWishes": {
         "$patterns": [
           {
-            "rect": {
+            "rawBounds": {
               "x": 1748.34375,
               "y": 149.214111328125,
               "width": 18.46875,
@@ -573,7 +573,7 @@
       "selected": {
         "$patterns": [
           {
-            "rect": {
+            "rawBounds": {
               "x": 160.25,
               "y": 175.25,
               "width": 119.5,
@@ -612,7 +612,7 @@
       "stage": {
         "$patterns": [
           {
-            "rect": {
+            "rawBounds": {
               "x": 333.3046875,
               "y": 231.018310546875,
               "width": 93.9375,
@@ -650,7 +650,7 @@
         "name": {
           "$patterns": [
             {
-              "rect": {
+              "rawBounds": {
                 "x": 430.453125,
                 "y": 252.73828125,
                 "width": 323.9765625,
@@ -691,7 +691,7 @@
     "bounty": {
       "$patterns": [
         {
-          "rect": {
+          "rawBounds": {
             "x": 147.25,
             "y": 169.25,
             "width": 134.5,
@@ -729,7 +729,7 @@
       "selected": {
         "$patterns": [
           {
-            "rect": {
+            "rawBounds": {
               "x": 142.25,
               "y": 170.25,
               "width": 130.5,
@@ -768,7 +768,7 @@
       "sweep": {
         "$patterns": [
           {
-            "rect": {
+            "rawBounds": {
               "x": 1395.4921875,
               "y": 878.991943359375,
               "width": 35.16796875,
@@ -806,7 +806,7 @@
         "confirm": {
           "$patterns": [
             {
-              "rect": {
+              "rawBounds": {
                 "x": 1318.8515625,
                 "y": 772.89697265625,
                 "width": 35.109375,
@@ -846,7 +846,7 @@
       "floor": {
         "$patterns": [
           {
-            "rect": {
+            "rawBounds": {
               "x": 109.25,
               "y": 206.25,
               "width": 19.5,
@@ -893,7 +893,7 @@
     "deploy": {
       "$patterns": [
         {
-          "rect": {
+          "rawBounds": {
             "x": 1398.0703125,
             "y": 954.402099609375,
             "width": 118.1953125,
@@ -932,7 +932,7 @@
     "skip": {
       "$patterns": [
         {
-          "rect": {
+          "rawBounds": {
             "x": 1738.08984375,
             "y": 104.48876953125,
             "width": 49.171875,
@@ -971,7 +971,7 @@
     "next": {
       "$patterns": [
         {
-          "rect": {
+          "rawBounds": {
             "x": 1614.10546875,
             "y": 956.93994140625,
             "width": 46.65234375,
@@ -1010,7 +1010,7 @@
     "exit": {
       "$patterns": [
         {
-          "rect": {
+          "rawBounds": {
             "x": 1621.78125,
             "y": 969.72802734375,
             "width": 26.759765625,
@@ -1050,7 +1050,7 @@
   "test": {
     "$patterns": [
       {
-        "rect": {
+        "rawBounds": {
           "x": 182.25,
           "y": 801.25,
           "width": 115.5,
@@ -1095,7 +1095,7 @@
     "mall": {
       "$patterns": [
         {
-          "rect": {
+          "rawBounds": {
             "x": 1392.97265625,
             "y": 982.51611328125,
             "width": 33.8203125,
@@ -1134,7 +1134,7 @@
     "battery": {
       "$patterns": [
         {
-          "rect": {
+          "rawBounds": {
             "x": 1640.25,
             "y": 13.25,
             "width": 127.5,
@@ -1173,7 +1173,7 @@
     "back": {
       "$patterns": [
         {
-          "rect": {
+          "rawBounds": {
             "x": 1589.25,
             "y": 20.25,
             "width": 77.5,
@@ -1213,7 +1213,7 @@
   "schedule": {
     "$patterns": [
       {
-        "rect": {
+        "rawBounds": {
           "x": 347.3671875,
           "y": 933.9345703125,
           "width": 32.53125,
@@ -1251,7 +1251,7 @@
     "redeemAll": {
       "$patterns": [
         {
-          "rect": {
+          "rawBounds": {
             "x": 1441.546875,
             "y": 901.997314453125,
             "width": 30.01171875,
@@ -1290,7 +1290,7 @@
     "close": {
       "$patterns": [
         {
-          "rect": {
+          "rawBounds": {
             "x": 1537.25,
             "y": 111.25,
             "width": 36.5,
@@ -1330,7 +1330,7 @@
   "mall": {
     "$patterns": [
       {
-        "rect": {
+        "rawBounds": {
           "x": 461.09765625,
           "y": 78.91259765625,
           "width": 18.52734375,
@@ -1368,7 +1368,7 @@
     "dailyLimited": {
       "$patterns": [
         {
-          "rect": {
+          "rawBounds": {
             "x": 184.25,
             "y": 413.25,
             "width": 64.5,
@@ -1406,7 +1406,7 @@
       "selected": {
         "$patterns": [
           {
-            "rect": {
+            "rawBounds": {
               "x": 183.25,
               "y": 406.25,
               "width": 72.5,
@@ -1445,7 +1445,7 @@
       "brilliantGiftBox": {
         "$patterns": [
           {
-            "rect": {
+            "rawBounds": {
               "x": 1470.9609375,
               "y": 585.03076171875,
               "width": 104.1328125,
@@ -1484,7 +1484,7 @@
       "giftBox": {
         "$patterns": [
           {
-            "rect": {
+            "rawBounds": {
               "x": 1590.25,
               "y": 585.25,
               "width": 99.5,
@@ -1523,7 +1523,7 @@
       "luxuriousGiftBox": {
         "$patterns": [
           {
-            "rect": {
+            "rawBounds": {
               "x": 1470.25,
               "y": 587.25,
               "width": 114.5,
@@ -1563,7 +1563,7 @@
     "purchase": {
       "$patterns": [
         {
-          "rect": {
+          "rawBounds": {
             "x": 868.8515625,
             "y": 921.179443359375,
             "width": 42.84375,
@@ -1601,7 +1601,7 @@
       "confirm": {
         "$patterns": [
           {
-            "rect": {
+            "rawBounds": {
               "x": 1010.765625,
               "y": 693.66357421875,
               "width": 46.65234375,
@@ -1641,7 +1641,7 @@
     "sliderEnd": {
       "$patterns": [
         {
-          "rect": {
+          "rawBounds": {
             "x": 1064.25,
             "y": 711.25,
             "width": 33.5,
@@ -1680,7 +1680,7 @@
     "cashShop": {
       "$patterns": [
         {
-          "rect": {
+          "rawBounds": {
             "x": 181.25,
             "y": 979.25,
             "width": 65.5,
@@ -1718,7 +1718,7 @@
       "fairyNetSupportFund": {
         "$patterns": [
           {
-            "rect": {
+            "rawBounds": {
               "x": 417.6796875,
               "y": 633.6123046875,
               "width": 81.10546875,
@@ -1757,7 +1757,7 @@
       "selected": {
         "$patterns": [
           {
-            "rect": {
+            "rawBounds": {
               "x": 165.25,
               "y": 585.25,
               "width": 96.5,
@@ -1797,7 +1797,7 @@
     "back": {
       "$patterns": [
         {
-          "rect": {
+          "rawBounds": {
             "x": 50.25,
             "y": 46.25,
             "width": 50.5,

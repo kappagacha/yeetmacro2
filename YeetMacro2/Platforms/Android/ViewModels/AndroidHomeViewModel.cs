@@ -6,6 +6,7 @@ using CommunityToolkit.Mvvm.Messaging;
 using YeetMacro2.Platforms.Android.Services;
 using YeetMacro2.ViewModels;
 using YeetMacro2.Services;
+using YeetMacro2.Data.Models;
 
 namespace YeetMacro2.Platforms.Android.ViewModels;
 
@@ -25,14 +26,14 @@ public partial class AndriodHomeViewModel : ObservableObject
     string _currentPackage;
     
     public bool IsCurrentPackageValid => CurrentPackage == _macroManagerViewModel.SelectedMacroSet?.Package;
-    public Size CurrentResolution => _screenService.CalcResolution;
+    public Size CurrentResolution => PatternHelper.ScreenResolution;
     public string WidthStatus
     {
         get
         {
             if (_macroManagerViewModel.SelectedMacroSet is null) return "Invalid";
-            if (_macroManagerViewModel.SelectedMacroSet.SupportsGreaterWidth && _screenService.CalcResolution.Width > _macroManagerViewModel.SelectedMacroSet.Resolution.Width) return "Acceptable";
-            return _screenService.CalcResolution.Width == _macroManagerViewModel.SelectedMacroSet.Resolution.Width ? "Valid" : "Invalid";
+            if (_macroManagerViewModel.SelectedMacroSet.SupportsGreaterWidth && PatternHelper.ScreenResolution.Width > _macroManagerViewModel.SelectedMacroSet.Resolution.Width) return "Acceptable";
+            return PatternHelper.ScreenResolution.Width == _macroManagerViewModel.SelectedMacroSet.Resolution.Width ? "Valid" : "Invalid";
         }
     }
     public string HeightStatus
@@ -40,8 +41,8 @@ public partial class AndriodHomeViewModel : ObservableObject
         get
         {
             if (_macroManagerViewModel.SelectedMacroSet is null) return "Invalid";
-            if (_macroManagerViewModel.SelectedMacroSet.SupportsGreaterHeight && _screenService.CalcResolution.Height > _macroManagerViewModel.SelectedMacroSet.Resolution.Height) return "Acceptable";
-            return _screenService.CalcResolution.Height == _macroManagerViewModel.SelectedMacroSet.Resolution.Height ? "Valid" : "Invalid";
+            if (_macroManagerViewModel.SelectedMacroSet.SupportsGreaterHeight && PatternHelper.ScreenResolution.Height > _macroManagerViewModel.SelectedMacroSet.Resolution.Height) return "Acceptable";
+            return PatternHelper.ScreenResolution.Height == _macroManagerViewModel.SelectedMacroSet.Resolution.Height ? "Valid" : "Invalid";
         }
     }
     public MacroManagerViewModel MacroManagerViewModel => _macroManagerViewModel;

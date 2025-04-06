@@ -225,4 +225,16 @@ public partial class PatternView : ContentView
             SavePatternCommand.Execute(new object[] { pattern, PatternNode });
         }
     }
+
+    private async void BoundsCalcType_Clicked(object sender, EventArgs e)
+    {
+        var pattern = ((ImageButton)sender).BindingContext as Pattern;
+        var options = Enum.GetValues<BoundsCalcType>().Select(oct => oct.ToString()).ToArray();
+        var selectedOption = await ServiceHelper.GetService<IInputService>().SelectOption("Select option", options);
+        if (!String.IsNullOrEmpty(selectedOption) && selectedOption != "cancel" && selectedOption != "ok")
+        {
+            pattern.BoundsCalcType = Enum.Parse<BoundsCalcType>(selectedOption);
+            SavePatternCommand.Execute(new object[] { pattern, PatternNode });
+        }
+    }
 }

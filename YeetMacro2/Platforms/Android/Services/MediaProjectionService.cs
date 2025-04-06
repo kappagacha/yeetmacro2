@@ -11,6 +11,7 @@ using Rect = Microsoft.Maui.Graphics.Rect;
 using CommunityToolkit.Mvvm.Messaging;
 using CommunityToolkit.Mvvm.Messaging.Messages;
 using YeetMacro2.ViewModels;
+using YeetMacro2.Data.Models;
 
 namespace YeetMacro2.Platforms.Android.Services;
 
@@ -57,10 +58,9 @@ public class MediaProjectionService : IRecorderService
     {
         try
         {
-            var screenService = ServiceHelper.GetService<AndroidScreenService>();
-            var currentResolution = screenService.CalcResolution;
-            var width = (int)screenService.CalcResolution.Width;
-            var height = (int)screenService.CalcResolution.Height;
+            var screenResolution = PatternHelper.ScreenResolution;
+            var width = (int)screenResolution.Width;
+            var height = (int)screenResolution.Height;
             var density = (int)DeviceDisplay.MainDisplayInfo.Density;
 
             // https://github.com/Fate-Grand-Automata/FGA/blob/2a62ab7a456a9913cf0355db81b5a15f13906f27/app/src/main/java/io/github/fate_grand_automata/runner/ScreenshotServiceHolder.kt#L53
@@ -209,9 +209,9 @@ public class MediaProjectionService : IRecorderService
         if (_isRecording) return;
 
         Start();
-        var screenService = ServiceHelper.GetService<AndroidScreenService>();
-        var width = (int)screenService.CalcResolution.Width;
-        var height = (int)screenService.CalcResolution.Height;
+        var screenResolution = PatternHelper.ScreenResolution;
+        var width = (int)screenResolution.Width;
+        var height = (int)screenResolution.Height;
         var density = (int)DeviceDisplay.MainDisplayInfo.Density;
         var profile = CamcorderProfile.Get(CamcorderQuality.High);
 

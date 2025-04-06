@@ -83,7 +83,7 @@
                     </Button>
                 </HorizontalStackLayout>
                 <HorizontalStackLayout Margin="0" Padding="0" IsVisible="{Binding IsToggled, Source={x:Reference offsetToggle}}">
-                    <Label  VerticalOptions="Center" Padding="0" Text="OffsetCalcType" />
+                    <Label VerticalOptions="Center" Padding="0" Text="OffsetCalcType" />
                     <HorizontalStackLayout>
                         <Grid Margin="10,0,0,0" Padding="0" VerticalOptions="Center">
                             <Label Margin="0" Padding="0" Text="{Binding Pattern.OffsetCalcType, Source={Reference thisView}}" VerticalOptions="Center" />
@@ -92,6 +92,18 @@
                                     <RoundRectangle CornerRadius="10" />
                                 </Border.StrokeShape>
                                 <ImageButton Margin="0" Padding="0" BindingContext="{Binding Pattern, Source={Reference thisView}}" Clicked="OffsetCalcType_Clicked" />
+                            </Border>
+                        </Grid>
+                    </HorizontalStackLayout>
+                    <Label Margin="10,0,0,0" VerticalOptions="Center" Padding="0" Text="BoundsCalcType" />
+                    <HorizontalStackLayout>
+                        <Grid Margin="10,0,0,0" Padding="0" VerticalOptions="Center">
+                            <Label Margin="0" Padding="0" Text="{Binding Pattern.BoundsCalcType, Source={Reference thisView}}" VerticalOptions="Center" />
+                            <Border Opacity="0.2" BackgroundColor="Gray">
+                                <Border.StrokeShape>
+                                    <RoundRectangle CornerRadius="10" />
+                                </Border.StrokeShape>
+                                <ImageButton Margin="0" Padding="0" BindingContext="{Binding Pattern, Source={Reference thisView}}" Clicked="BoundsCalcType_Clicked" />
                             </Border>
                         </Grid>
                     </HorizontalStackLayout>
@@ -145,7 +157,7 @@
                              VerticalOptions="End" HorizontalOptions="End">
             <HorizontalStackLayout Spacing="5" VerticalOptions="End" HorizontalOptions="End" IsVisible="{Binding IsToggled, Source={x:Reference infoToggle}}">
                 <v:ImageView FontFamily="MaterialOutlined" Glyph="{x:Static mi:MaterialOutlined.Rectangle}" Color="{StaticResource Primary}" />
-                <Label Text="{Binding Pattern.RectDisplay, Source={Reference thisView}}" />
+                <Label Text="{Binding Pattern.RawBoundsDisplay, Source={Reference thisView}}" />
             </HorizontalStackLayout>
             <!--<HorizontalStackLayout Spacing="5" VerticalOptions="End" HorizontalOptions="End">
                 <v:ImageView FontFamily="MaterialOutlined" Glyph="{x:Static mi:MaterialOutlined.Image_aspect_ratio}" Color="{StaticResource Primary}" />

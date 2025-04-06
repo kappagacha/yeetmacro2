@@ -166,12 +166,12 @@ public partial class PatternViewModel : Pattern
 {
     static readonly IMapper _mapper;
 
-    public override Rect Rect
+    public override Rect RawBounds
     {
-        get => base.Rect;
+        get => base.RawBounds;
         set
         {
-            base.Rect = value;
+            base.RawBounds = value;
             OnPropertyChanged();
         }
     }
@@ -252,6 +252,16 @@ public partial class PatternViewModel : Pattern
         set
         {
             base.OffsetCalcType = value;
+            OnPropertyChanged();
+        }
+    }
+
+    public override BoundsCalcType BoundsCalcType
+    {
+        get => base.BoundsCalcType;
+        set
+        {
+            base.BoundsCalcType = value;
             OnPropertyChanged();
         }
     }

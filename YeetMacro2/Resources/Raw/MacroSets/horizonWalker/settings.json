@@ -31,7 +31,7 @@
       "$defaultValue": {
         "$patterns": [
           {
-            "rect": {
+            "rawBounds": {
               "x": 1013.34375,
               "y": 831.69580078125,
               "width": 33.17578125,
@@ -70,7 +70,7 @@
       "$value": {
         "$patterns": [
           {
-            "rect": {
+            "rawBounds": {
               "x": 1013.34375,
               "y": 831.69580078125,
               "width": 33.17578125,
@@ -115,7 +115,7 @@
       "$defaultValue": {
         "$patterns": [
           {
-            "rect": {
+            "rawBounds": {
               "x": 1713.25,
               "y": 739.25,
               "width": 73.5,
@@ -154,7 +154,7 @@
       "$value": {
         "$patterns": [
           {
-            "rect": {
+            "rawBounds": {
               "x": 1713.25,
               "y": 739.25,
               "width": 73.5,

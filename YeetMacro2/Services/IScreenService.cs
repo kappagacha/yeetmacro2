@@ -48,9 +48,5 @@ public interface IScreenService
     FindPatternResult ClickPattern(Pattern pattern, FindOptions opts);
     FindPatternResult FindPattern(Pattern pattern, FindOptions opts);
     void ShowMessage(string message);
-    Size CalcResolution { get; }
-    Size Resolution { get; }
-    double Density { get; }
     byte[] ScaleImageData(byte[] data, double scale);
-    Point GetTopLeft();
 }

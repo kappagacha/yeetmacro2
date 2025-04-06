@@ -1,6 +1,7 @@
 using SkiaSharp;
 using SkiaSharp.Views.Maui;
 using System.Collections.Concurrent;
+using YeetMacro2.Data.Models;
 using YeetMacro2.Platforms.Android.Services;
 using YeetMacro2.Services;
 
@@ -48,7 +49,7 @@ public partial class DrawControl : ContentView
 
     public void AddRectangle(Rect rect)
     {
-        var topLeft = _androidScreenService.GetTopLeft();
+        var topLeft = PatternHelper.TopLeft;
         var location = new SKPoint((float)(rect.X - topLeft.X), (float)(rect.Y - topLeft.Y));
         var size = new SKSize((float)rect.Width, (float)rect.Height);
         var skRect = SKRect.Create(location, size);
@@ -65,7 +66,7 @@ public partial class DrawControl : ContentView
 
     public void AddCircle(Point point)
     {
-        var topLeft = _androidScreenService.GetTopLeft();
+        var topLeft = PatternHelper.TopLeft;
         _circles.Enqueue((new SKPoint((float)(point.X - topLeft.X), (float)(point.Y - topLeft.Y)), _greenPaint.Clone(), DateTime.Now.AddMilliseconds(_expirationMs)));
         canvasView.InvalidateSurface();
     }

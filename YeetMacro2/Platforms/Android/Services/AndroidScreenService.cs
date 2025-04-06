@@ -43,7 +43,7 @@ public class AndroidScreenService : IScreenService
     public const int POST_NOTIFICATION_REQUEST = 10;
     readonly IWindowManager _windowManager;
     readonly ConcurrentDictionary<AndroidWindowView, IShowable> _views = new();
-    FormsView _overlayWindow;
+    //FormsView _overlayWindow;
     readonly ILogger _logger;
     readonly MainActivity _context;
     readonly OpenCvService _openCvService;
@@ -51,23 +51,23 @@ public class AndroidScreenService : IScreenService
     readonly IOcrService _ocrService;
     readonly YeetAccessibilityService _accessibilityService;
     readonly IToastService _toastService;
-    Size _initialResolution;
-    readonly double _density;
+    //Size _initialResolution;
+    //readonly double _density;
     public int UserDrawViewWidth => _views.ContainsKey(AndroidWindowView.UserDrawView) ? ((FormsView)_views[AndroidWindowView.UserDrawView]).MeasuredHeightAndState : -1;
     public int UserDrawViewHeight => _views.ContainsKey(AndroidWindowView.UserDrawView) ? ((FormsView)_views[AndroidWindowView.UserDrawView]).MeasuredWidthAndState : -1;
-    public Size CalcResolution
-    {
-        get
-        {
-            var overlayWidth = _overlayWindow?.MeasuredWidthAndState ?? 0;
-            var overlayHeight = _overlayWindow?.MeasuredHeightAndState ?? 0;
-            var width = overlayWidth > overlayHeight ? Math.Max(_initialResolution.Width, _initialResolution.Height) : Math.Min(_initialResolution.Width, _initialResolution.Height);
-            var height = overlayHeight > overlayWidth ? Math.Max(_initialResolution.Width, _initialResolution.Height) : Math.Min(_initialResolution.Width, _initialResolution.Height);
-            return new Size(width, height);
-        }
-    }
-    public Size Resolution => new(_overlayWindow?.MeasuredWidthAndState ?? 0, _overlayWindow?.MeasuredHeightAndState ?? 0);
-    public double Density => _density;
+    //public Size CalcResolution
+    //{
+    //    get
+    //    {
+    //        var overlayWidth = _overlayWindow?.MeasuredWidthAndState ?? 0;
+    //        var overlayHeight = _overlayWindow?.MeasuredHeightAndState ?? 0;
+    //        var width = overlayWidth > overlayHeight ? Math.Max(_initialResolution.Width, _initialResolution.Height) : Math.Min(_initialResolution.Width, _initialResolution.Height);
+    //        var height = overlayHeight > overlayWidth ? Math.Max(_initialResolution.Width, _initialResolution.Height) : Math.Min(_initialResolution.Width, _initialResolution.Height);
+    //        return new Size(width, height);
+    //    }
+    //}
+    //public Size Resolution => new(_overlayWindow?.MeasuredWidthAndState ?? 0, _overlayWindow?.MeasuredHeightAndState ?? 0);
+    //public double Density => _density;
     //public int DisplayCutoutTop => _androidWindowManagerService.OverlayWindow == null ? 0 : _androidWindowManagerService.OverlayWindow.RootWindowInsets.DisplayCutout?.SafeInsetTop ?? 0;
     readonly JsonSerializerOptions _serializationOptions = new()
     {
@@ -116,13 +116,14 @@ public class AndroidScreenService : IScreenService
         _toastService = toastService;
         _windowManager = _context.GetSystemService(Context.WindowService).JavaCast<IWindowManager>();
         DeviceDisplay.MainDisplayInfoChanged += DeviceDisplay_MainDisplayInfoChanged;
-        _initialResolution = new Size(DeviceDisplay.MainDisplayInfo.Width, DeviceDisplay.MainDisplayInfo.Height);
-        _density = DeviceDisplay.MainDisplayInfo.Density;
+        ResolveWindowBounds();
+        //_initialResolution = new Size(DeviceDisplay.MainDisplayInfo.Width, DeviceDisplay.MainDisplayInfo.Height);
+        //_density = DeviceDisplay.MainDisplayInfo.Density;
         WeakReferenceMessenger.Default.Register<PropertyChangedMessage<bool>, string>(this, nameof(ForegroundService), (r, propertyChangedMessage) =>
         {
             if (propertyChangedMessage.NewValue)    // true means ForegroundService was started
             {
-                ShowOverlayWindow();
+                //ShowOverlayWindow();
             }
             else // Foreground Service Exit action
             {
@@ -132,7 +133,7 @@ public class AndroidScreenService : IScreenService
                 Close(AndroidWindowView.MacroOverlayView);
                 Close(AndroidWindowView.ActionView);
                 Close(AndroidWindowView.StatusPanelView);
-                CloseOverlayWindow();
+                //CloseOverlayWindow();
             }
         });
     }
@@ -227,8 +228,8 @@ public class AndroidScreenService : IScreenService
             return new FindPatternResult()
             {
                 IsSuccess = true,
-                Point = pattern.Rect.Offset(opts.Offset).Center,
-                Points = [pattern.Rect.Offset(opts.Offset).Center]
+                Point = pattern.RawBounds.Offset(opts.Offset).Center,
+                Points = [pattern.RawBounds.Offset(opts.Offset).Center]
             };
         }
 
@@ -286,35 +287,36 @@ public class AndroidScreenService : IScreenService
             var boundsPadding = 4;
             byte[] needleImageData = pattern.ImageData;
             byte[] haystackImageData = null;
-            var rect = pattern.Rect.Offset(opts.Offset);
-            //var rect = opts.OverrideRect != Rect.Zero ? opts.OverrideRect : pattern.Rect;
+            var currentResolution = PatternHelper.CurrentResolution;
+            var rect = pattern.Bounds.Offset(opts.Offset);
+            //var rect = opts.OverrideRect != Rect.Zero ? opts.OverrideRect : pattern.RawBounds;
 
             watch.Start();
             try
             {
-                //haystackImageData = pattern.Rect != Rect.Zero ?
-                //    await _mediaProjectionService.GetCurrentImageData(pattern.Rect.Offset(-topLeft.x, -topLeft.y)) :
+                //haystackImageData = pattern.RawBounds != Rect.Zero ?
+                //    await _mediaProjectionService.GetCurrentImageData(pattern.RawBounds.Offset(-topLeft.x, -topLeft.y)) :
                 //    await _mediaProjectionService.GetCurrentImageData();
                 if (pattern.TextMatch.IsActive && !String.IsNullOrEmpty(pattern.TextMatch.Text))
                 {
                     haystackImageData = _mediaProjectionService.GetCurrentImageData(
                         new Rect(rect.Location.Offset(-boundsPadding, -boundsPadding),
-                        pattern.Rect.Size + new Size(boundsPadding, boundsPadding)));
+                        pattern.RawBounds.Size + new Size(boundsPadding, boundsPadding)));
                 }
                 else if (pattern.OffsetCalcType == OffsetCalcType.Default || pattern.OffsetCalcType == OffsetCalcType.Center || 
                          pattern.OffsetCalcType == OffsetCalcType.HorizontalStretchOffset || pattern.OffsetCalcType == OffsetCalcType.VerticalStretchOffset)
                 {
-                    var topLeft = GetTopLeft();
+                    var topLeft = PatternHelper.TopLeft;
                     if (!topLeft.IsEmpty)   // handle off by one due to calculations
                     {
                         var topLeftPadding = 1;
                         haystackImageData = _mediaProjectionService.GetCurrentImageData(
                             new Rect(rect.Location.Offset(-topLeftPadding, -topLeftPadding),
-                            pattern.Rect.Size + new Size(topLeftPadding * 2, topLeftPadding * 2)));
+                            pattern.RawBounds.Size + new Size(topLeftPadding * 2, topLeftPadding * 2)));
                     }
                 }
                 
-                haystackImageData ??= pattern.Rect != Rect.Zero ?
+                haystackImageData ??= pattern.RawBounds != Rect.Zero ?
                        _mediaProjectionService.GetCurrentImageData(rect) :
                        _mediaProjectionService.GetCurrentImageData();
             }
@@ -350,7 +352,7 @@ public class AndroidScreenService : IScreenService
                 var text = _ocrService.GetText(haystackImageData, pattern.TextMatch.WhiteList);
                 var textPoints = new List<Point>();
 
-                if (text == pattern.TextMatch.Text && pattern.Rect != Rect.Zero)
+                if (text == pattern.TextMatch.Text && pattern.RawBounds != Rect.Zero)
                 {
                     textPoints.Add(rect.Center.Offset(-boundsPadding, -boundsPadding));
                 }
@@ -379,7 +381,7 @@ public class AndroidScreenService : IScreenService
             //}
 
             var points = _openCvService.GetPointsWithMatchTemplate(haystackImageData, needleImageData, opts?.Limit ?? 1, threshold, pattern.ColorThreshold.IgnoreBackground);
-            if (pattern.Rect != Rect.Zero)
+            if (pattern.RawBounds != Rect.Zero)
             {
                 var newPoints = new List<Point>();
                 for (int i = 0; i < points.Count; i++)
@@ -407,10 +409,10 @@ public class AndroidScreenService : IScreenService
     {
         _logger.LogTrace("AndroidScreenService GetText");
         var boundsPadding = 4;
-        var currentImageData = pattern.Rect != Rect.Zero ?
+        var currentImageData = pattern.RawBounds != Rect.Zero ?
             _mediaProjectionService.GetCurrentImageData(
-                new Rect(pattern.Rect.Location.Offset(opts.Offset.X, opts.Offset.Y).Offset(-boundsPadding, -boundsPadding),
-                          pattern.Rect.Size + new Size(boundsPadding, boundsPadding))) :
+                new Rect(pattern.RawBounds.Location.Offset(opts.Offset.X, opts.Offset.Y).Offset(-boundsPadding, -boundsPadding),
+                          pattern.RawBounds.Size + new Size(boundsPadding, boundsPadding))) :
             _mediaProjectionService.GetCurrentImageData();
         var imageData = pattern.ColorThreshold.IsActive ?
             _openCvService.CalcColorThreshold(currentImageData, pattern.ColorThreshold) :
@@ -423,10 +425,10 @@ public class AndroidScreenService : IScreenService
     {
         _logger.LogTrace("AndroidScreenService GetText");
         var boundsPadding = 4;
-        var currentImageData = pattern.Rect != Rect.Zero ?
+        var currentImageData = pattern.RawBounds != Rect.Zero ?
             _mediaProjectionService.GetCurrentImageData(
-                new Rect(pattern.Rect.Location.Offset(opts.Offset.X, opts.Offset.Y).Offset(-boundsPadding, -boundsPadding),
-                          pattern.Rect.Size + new Size(boundsPadding, boundsPadding))) :
+                new Rect(pattern.RawBounds.Location.Offset(opts.Offset.X, opts.Offset.Y).Offset(-boundsPadding, -boundsPadding),
+                          pattern.RawBounds.Size + new Size(boundsPadding, boundsPadding))) :
             _mediaProjectionService.GetCurrentImageData();
         var imageData = pattern.ColorThreshold.IsActive ?
             _openCvService.CalcColorThreshold(currentImageData, pattern.ColorThreshold) :
@@ -487,35 +489,36 @@ public class AndroidScreenService : IScreenService
     private void DeviceDisplay_MainDisplayInfoChanged(object sender, DisplayInfoChangedEventArgs e)
     {
         RefreshActionViewLocation();
+        ResolveWindowBounds();
     }
 
-    public void ShowOverlayWindow()
-    {
-        if (_overlayWindow == null)
-        {
-            var grid = new Grid() { InputTransparent = true, CascadeInputTransparent = true };
-            _overlayWindow = new FormsView(_context, _windowManager, grid) { IsModal = false };
+    //public void ShowOverlayWindow()
+    //{
+    //    if (_overlayWindow == null)
+    //    {
+    //        var grid = new Grid() { InputTransparent = true, CascadeInputTransparent = true };
+    //        _overlayWindow = new FormsView(_context, _windowManager, grid) { IsModal = false };
             
-            _overlayWindow.SetIsTouchable(false);
-            _overlayWindow.SetBackgroundToTransparent();
-            //_overlayWindow.DisableTranslucentNavigation();
-        }
+    //        _overlayWindow.SetIsTouchable(false);
+    //        _overlayWindow.SetBackgroundToTransparent();
+    //        //_overlayWindow.DisableTranslucentNavigation();
+    //    }
 
-        //Get overlay permissin if needed
-        if (OperatingSystem.IsAndroidVersionAtLeast(23) && !CanDrawOverlays)
-        {
-            _context.StartActivityForResult(new Intent(Settings.ActionManageOverlayPermission, global::Android.Net.Uri.Parse("package:" + _context.PackageName)), OVERLAY_SERVICE_REQUEST);
-            return;
-        }
+    //    //Get overlay permissin if needed
+    //    if (OperatingSystem.IsAndroidVersionAtLeast(23) && !CanDrawOverlays)
+    //    {
+    //        _context.StartActivityForResult(new Intent(Settings.ActionManageOverlayPermission, global::Android.Net.Uri.Parse("package:" + _context.PackageName)), OVERLAY_SERVICE_REQUEST);
+    //        return;
+    //    }
 
-        _overlayWindow.Show();
-    }
+    //    _overlayWindow.Show();
+    //}
 
-    public void CloseOverlayWindow()
-    {
-        _overlayWindow?.Close();
-        _overlayWindow = null;
-    }
+    //public void CloseOverlayWindow()
+    //{
+    //    _overlayWindow?.Close();
+    //    _overlayWindow = null;
+    //}
 
     public void Show(AndroidWindowView windowView)
     {
@@ -561,7 +564,7 @@ public class AndroidScreenService : IScreenService
                 case AndroidWindowView.PatternNodeView:
                     if (!_macroSetToPatternsView.ContainsKey(currentMacroSet))
                     {
-                        var patternsNodeView = new ResizeView(_context, _windowManager, this, new PatternNodeView(){ MacroSet = currentMacroSet });
+                        var patternsNodeView = new ResizeView(_context, _windowManager, new PatternNodeView(){ MacroSet = currentMacroSet });
                         patternsNodeView.OnShow = () => {
                             if (_macroSetToScriptsView.ContainsKey(currentMacroSet) && _macroSetToScriptsView[currentMacroSet].IsShowing)
                             {
@@ -580,7 +583,7 @@ public class AndroidScreenService : IScreenService
                 case AndroidWindowView.SettingNodeView:
                     if (!_macroSetToSettingsView.ContainsKey(currentMacroSet))
                     {
-                        var settingNodeView = new ResizeView(_context, _windowManager, this, new SettingNodeView(){ MacroSet = currentMacroSet });
+                        var settingNodeView = new ResizeView(_context, _windowManager, new SettingNodeView(){ MacroSet = currentMacroSet });
                         settingNodeView.OnClose = () => ServiceHelper.GetService<AndriodHomeViewModel>().ShowSettingNodeView = false;
                         _macroSetToSettingsView.TryAdd(currentMacroSet, settingNodeView);
                     }
@@ -589,7 +592,7 @@ public class AndroidScreenService : IScreenService
                 case AndroidWindowView.ScriptNodeView:
                     if (!_macroSetToScriptsView.ContainsKey(currentMacroSet))
                     {
-                        var scriptNodeView = new ResizeView(_context, _windowManager, this, new ScriptNodeView() { MacroSet = currentMacroSet, ShowExecuteButton = true });
+                        var scriptNodeView = new ResizeView(_context, _windowManager, new ScriptNodeView() { MacroSet = currentMacroSet, ShowExecuteButton = true });
                         scriptNodeView.OnShow = () => {
                             Show(AndroidWindowView.MacroOverlayView);
                             ServiceHelper.GetService<MacroManagerViewModel>().SelectedMacroSet.Dailies?.ResolveSubViewModelDate();
@@ -602,7 +605,7 @@ public class AndroidScreenService : IScreenService
                 case AndroidWindowView.DailyNodeView:
                     if (!_macroSetToDailiesView.ContainsKey(currentMacroSet))
                     {
-                        var dailyNodeView = new ResizeView(_context, _windowManager, this, new TodoNodeView() { Todos = currentMacroSet.Dailies });
+                        var dailyNodeView = new ResizeView(_context, _windowManager, new TodoNodeView() { Todos = currentMacroSet.Dailies });
                         _views.TryAdd(windowView, dailyNodeView);
                         dailyNodeView.OnClose = () => ServiceHelper.GetService<AndriodHomeViewModel>().ShowDailyNodeView = false;
                         _macroSetToDailiesView.TryAdd(currentMacroSet, dailyNodeView);
@@ -612,7 +615,7 @@ public class AndroidScreenService : IScreenService
                 case AndroidWindowView.WeeklyNodeView:
                     if (!_macroSetToWeekliesView.ContainsKey(currentMacroSet))
                     {
-                        var weeklyNodeView = new ResizeView(_context, _windowManager, this, new TodoNodeView() { Todos = currentMacroSet.Weeklies });
+                        var weeklyNodeView = new ResizeView(_context, _windowManager, new TodoNodeView() { Todos = currentMacroSet.Weeklies });
                         _views.TryAdd(windowView, weeklyNodeView);
                         weeklyNodeView.OnClose = () => ServiceHelper.GetService<AndriodHomeViewModel>().ShowWeeklyNodeView = false;
                         _macroSetToWeekliesView.TryAdd(currentMacroSet, weeklyNodeView);
@@ -655,11 +658,11 @@ public class AndroidScreenService : IScreenService
                     _views.TryAdd(windowView, debugDrawView);
                     break;
                 case AndroidWindowView.MessageView:
-                    var messageView = new ResizeView(_context, _windowManager, this, new MessageView());
+                    var messageView = new ResizeView(_context, _windowManager, new MessageView());
                     _views.TryAdd(windowView, messageView);
                     break;
                 case AndroidWindowView.TestView:
-                    var testView = new ResizeView(_context, _windowManager, this, new TestView())
+                    var testView = new ResizeView(_context, _windowManager, new TestView())
                     {
                         OnClose = () => ServiceHelper.GetService<AndriodHomeViewModel>().ShowTestView = false
                     };
@@ -786,12 +789,12 @@ public class AndroidScreenService : IScreenService
     }
 
     // https://stackoverflow.com/questions/3407256/height-of-status-bar-in-android
-    public Point GetTopLeft()
-    {
-        var loc = new int[2];
-        _overlayWindow?.GetLocationOnScreen(loc);
-        return new Point(loc[0], loc[1]);
-    }
+    //public Point GetTopLeft()
+    //{
+    //    var loc = new int[2];
+    //    _overlayWindow?.GetLocationOnScreen(loc);
+    //    return new Point(loc[0], loc[1]);
+    //}
 
     public Point GetUserDrawViewTopLeft()
     {
@@ -803,6 +806,65 @@ public class AndroidScreenService : IScreenService
         }
 
         return new Point(loc[0], loc[1]);
+    }
+
+    public void ResolveWindowBounds()
+    {
+        var windowBounds = GetWindowBounds();
+        PatternHelper.CurrentResolution = windowBounds.Size;
+        PatternHelper.TopLeft = windowBounds.Location;
+        PatternHelper.ScreenResolution = new Size(DeviceDisplay.MainDisplayInfo.Width, DeviceDisplay.MainDisplayInfo.Height);
+    }
+
+    public Rect GetWindowBounds()
+    {
+        if (!OperatingSystem.IsAndroidVersionAtLeast(28)) return Rect.FromLTRB(0, 0, DeviceDisplay.MainDisplayInfo.Width, DeviceDisplay.MainDisplayInfo.Height);
+
+        var decorView = Platform.CurrentActivity?.Window?.DecorView;
+        var insets = decorView?.RootWindowInsets;
+        var cutout = insets?.DisplayCutout;
+
+        if (cutout is null) return Rect.FromLTRB(0, 0, DeviceDisplay.MainDisplayInfo.Width, DeviceDisplay.MainDisplayInfo.Height);
+
+        var displayInfo = DeviceDisplay.MainDisplayInfo;
+        var rotation = displayInfo.Rotation;
+
+        int top = 0, left = 0;
+        int width = (int)displayInfo.Width;
+        int height = (int)displayInfo.Height;
+
+        switch (rotation)
+        {
+            case DisplayRotation.Rotation0:
+                top = cutout.SafeInsetTop;
+                left = cutout.SafeInsetLeft;
+                width -= cutout.SafeInsetLeft;
+                height -= cutout.SafeInsetTop;
+                break;
+
+            case DisplayRotation.Rotation90:
+                top = cutout.SafeInsetRight;
+                left = cutout.SafeInsetTop;
+                width -= cutout.SafeInsetTop;
+                height -= cutout.SafeInsetRight;
+                break;
+
+            case DisplayRotation.Rotation180:
+                top = cutout.SafeInsetBottom;
+                left = cutout.SafeInsetRight;
+                width -= cutout.SafeInsetRight;
+                height -= cutout.SafeInsetBottom;
+                break;
+
+            case DisplayRotation.Rotation270:
+                top = cutout.SafeInsetLeft;
+                left = cutout.SafeInsetBottom;
+                width -= cutout.SafeInsetBottom;
+                height -= cutout.SafeInsetLeft;
+                break;
+        }
+
+        return new Rect(left, top, width, height);
     }
 
     private void DrawView_Click(object sender, System.EventArgs e)
