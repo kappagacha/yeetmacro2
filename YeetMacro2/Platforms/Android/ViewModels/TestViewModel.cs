@@ -265,17 +265,91 @@ public partial class TestViewModel(ILogger<TestViewModel> logger, MediaProjectio
         }
 
         var decorView = Platform.CurrentActivity?.Window?.DecorView;
-        var insets = decorView.RootWindowInsets;
+        var insets = decorView?.RootWindowInsets;
         var cutout = insets?.DisplayCutout;
+
         if (cutout != null)
         {
-            CurrentWindowMetrics = $"SafeInsetLeft: {cutout.SafeInsetLeft}\nSafeInsetTop: {cutout.SafeInsetTop}\nSafeInsetRight: {cutout.SafeInsetRight}\nSafeInsetBottom: {cutout.SafeInsetBottom}\n";
-            CurrentWindowMetrics += $"Rotation{DeviceDisplay.MainDisplayInfo.Rotation}";
+            var displayInfo = DeviceDisplay.MainDisplayInfo;
+            var rotation = displayInfo.Rotation;
+
+            int top = 0, left = 0;
+            int width = (int)displayInfo.Width;
+            int height = (int)displayInfo.Height;
+
+            switch (rotation)
+            {
+                case DisplayRotation.Rotation0:
+                    top = cutout.SafeInsetTop;
+                    left = cutout.SafeInsetLeft;
+                    width -= cutout.SafeInsetLeft;
+                    height -= cutout.SafeInsetTop;
+                    break;
+
+                case DisplayRotation.Rotation90:
+                    top = cutout.SafeInsetLeft;
+                    left = cutout.SafeInsetBottom;
+                    width -= cutout.SafeInsetBottom;
+                    height -= cutout.SafeInsetLeft;
+                    break;
+
+                case DisplayRotation.Rotation180:
+                    top = cutout.SafeInsetBottom;
+                    left = cutout.SafeInsetRight;
+                    width -= cutout.SafeInsetRight;
+                    height -= cutout.SafeInsetBottom;
+                    break;
+
+                case DisplayRotation.Rotation270:
+                    top = cutout.SafeInsetRight;
+                    left = cutout.SafeInsetTop;
+                    width -= cutout.SafeInsetTop;
+                    height -= cutout.SafeInsetRight;
+                    break;
+            }
+
+            CurrentWindowMetrics =
+                $"SafeInsetLeft: {cutout.SafeInsetLeft}\n" +
+                $"SafeInsetTop: {cutout.SafeInsetTop}\n" +
+                $"SafeInsetRight: {cutout.SafeInsetRight}\n" +
+                $"SafeInsetBottom: {cutout.SafeInsetBottom}\n" +
+                $"Rotation: {rotation}\n" +
+                $"Top: {top}\nLeft: {left}\nWidth: {width}\nHeight: {height}\n";
         }
         else
         {
             CurrentWindowMetrics = "Cutout not resolved";
         }
+
+        //var decorView = Platform.CurrentActivity?.Window?.DecorView;
+        //var insets = decorView.RootWindowInsets;
+        //var cutout = insets?.DisplayCutout;
+        //if (cutout != null)
+        //{
+        //    CurrentWindowMetrics = $"SafeInsetLeft: {cutout.SafeInsetLeft}\nSafeInsetTop: {cutout.SafeInsetTop}\nSafeInsetRight: {cutout.SafeInsetRight}\nSafeInsetBottom: {cutout.SafeInsetBottom}\n";
+        //    CurrentWindowMetrics += $"Rotation{DeviceDisplay.MainDisplayInfo.Rotation}";
+
+        //    if (DeviceDisplay.MainDisplayInfo.Rotation == DisplayRotation.Rotation0)
+        //    {
+        //        CurrentWindowMetrics +=  $"Top: {cutout.SafeInsetTop}\nLeft: {cutout.SafeInsetLeft}\nWidth: {DeviceDisplay.MainDisplayInfo.Width - cutout.SafeInsetLeft}\nHeight: {DeviceDisplay.MainDisplayInfo.Height - cutout.SafeInsetTop}\n";
+        //    }
+        //    else if (DeviceDisplay.MainDisplayInfo.Rotation == DisplayRotation.Rotation90)
+        //    {
+        //        CurrentWindowMetrics += $"Top: {cutout.SafeInsetLeft}\nLeft: {cutout.SafeInsetBottom}\nWidth: {DeviceDisplay.MainDisplayInfo.Width - cutout.SafeInsetBottom}\nHeight: {DeviceDisplay.MainDisplayInfo.Height - cutout.SafeInsetLeft}\n";
+        //    }
+        //    else if (DeviceDisplay.MainDisplayInfo.Rotation == DisplayRotation.Rotation180)
+        //    {
+        //        CurrentWindowMetrics += $"Top: {cutout.SafeInsetBottom}\nLeft: {cutout.SafeInsetRight}\nWidth: {DeviceDisplay.MainDisplayInfo.Width - cutout.SafeInsetRight}\nHeight: {DeviceDisplay.MainDisplayInfo.Height - cutout.SafeInsetBottom}\n";
+        //    }
+        //    else if (DeviceDisplay.MainDisplayInfo.Rotation == DisplayRotation.Rotation270)
+        //    {
+        //        CurrentWindowMetrics += $"Top: {cutout.SafeInsetRight}\nLeft: {cutout.SafeInsetTop}\nWidth: {DeviceDisplay.MainDisplayInfo.Width - cutout.SafeInsetTop}\nHeight: {DeviceDisplay.MainDisplayInfo.Height - cutout.SafeInsetRight}\n";
+        //    }
+        //}
+        //else
+        //{
+        //    CurrentWindowMetrics = "Cutout not resolved";
+        //}
 
 
         //var windowManager = Platform.CurrentActivity.GetSystemService(Context.WindowService).JavaCast<IWindowManager>();
