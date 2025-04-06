@@ -264,9 +264,22 @@ public partial class TestViewModel(ILogger<TestViewModel> logger, MediaProjectio
             return;
         }
 
-        var windowManager = Platform.CurrentActivity.GetSystemService(Context.WindowService).JavaCast<IWindowManager>();
-        var wm = windowManager.CurrentWindowMetrics;
-        CurrentWindowMetrics = $"Width: {wm.Bounds.Width()}\nHeight: {wm.Bounds.Height()}\nWidth: {wm.Bounds.Top}\nHeight: {wm.Bounds.Left}";
+        var decorView = Platform.CurrentActivity?.Window?.DecorView;
+        var insets = decorView.RootWindowInsets;
+        var cutout = insets?.DisplayCutout;
+        if (cutout != null)
+        {
+            CurrentWindowMetrics = $"SafeInsetLeft: {cutout.SafeInsetLeft}\nSafeInsetTop: {cutout.SafeInsetTop}\nSafeInsetRight: {cutout.SafeInsetRight}\nSafeInsetBottom: {cutout.SafeInsetBottom}\n";
+        }
+        else
+        {
+            CurrentWindowMetrics = "Cutout not resolved";
+        }
+
+
+        //var windowManager = Platform.CurrentActivity.GetSystemService(Context.WindowService).JavaCast<IWindowManager>();
+        //var wm = windowManager.CurrentWindowMetrics;
+        //CurrentWindowMetrics = $"Width: {wm.Bounds.Width()}\nHeight: {wm.Bounds.Height()}\nWidth: {wm.Bounds.Top}\nHeight: {wm.Bounds.Left}";
     }
 
     [RelayCommand]
