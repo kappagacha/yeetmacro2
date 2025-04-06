@@ -287,10 +287,10 @@ public partial class TestViewModel(ILogger<TestViewModel> logger, MediaProjectio
                     break;
 
                 case DisplayRotation.Rotation90:
-                    top = cutout.SafeInsetLeft;
-                    left = cutout.SafeInsetBottom;
-                    width -= cutout.SafeInsetBottom;
-                    height -= cutout.SafeInsetLeft;
+                    top = cutout.SafeInsetRight;
+                    left = cutout.SafeInsetTop;
+                    width -= cutout.SafeInsetTop;
+                    height -= cutout.SafeInsetRight;
                     break;
 
                 case DisplayRotation.Rotation180:
@@ -301,10 +301,10 @@ public partial class TestViewModel(ILogger<TestViewModel> logger, MediaProjectio
                     break;
 
                 case DisplayRotation.Rotation270:
-                    top = cutout.SafeInsetRight;
-                    left = cutout.SafeInsetTop;
-                    width -= cutout.SafeInsetTop;
-                    height -= cutout.SafeInsetRight;
+                    top = cutout.SafeInsetLeft;
+                    left = cutout.SafeInsetBottom;
+                    width -= cutout.SafeInsetBottom;
+                    height -= cutout.SafeInsetLeft;
                     break;
             }
 
