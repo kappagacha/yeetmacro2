@@ -86,10 +86,19 @@ public class AndroidScreenService : IScreenService
     {
         get
         {
+
+            var activity = Platform.CurrentActivity;
+            var window = activity?.Window;
+            if (window is null) return "Window not found";
+
             var rect = new Rect();
-            _overlayWindow.GetGlobalVisibleRect(rect);
-            return $"Top: {rect.Top}\nLeft: {rect.Left}\nRight: {rect.Right}\nBottom: {rect.Bottom}" + "\n\n" +
-             $"X: {_overlayWindow.GetX()}\nY: {_overlayWindow.GetY()}\nTop: {_overlayWindow.Top}\nLeft: {_overlayWindow.Left}\nRight: {_overlayWindow.Right}\nBottom: {_overlayWindow.Bottom}";
+            window.DecorView.GetWindowVisibleDisplayFrame(rect);
+            return $"Top: {rect.Top}\nLeft: {rect.Left}\nRight: {rect.Right}\nBottom: {rect.Bottom}";
+
+            //var rect = new Rect();
+            //_overlayWindow.GetGlobalVisibleRect(rect);
+            //return $"Top: {rect.Top}\nLeft: {rect.Left}\nRight: {rect.Right}\nBottom: {rect.Bottom}" + "\n\n" +
+            // $"X: {_overlayWindow.GetX()}\nY: {_overlayWindow.GetY()}\nTop: {_overlayWindow.Top}\nLeft: {_overlayWindow.Left}\nRight: {_overlayWindow.Right}\nBottom: {_overlayWindow.Bottom}";
         }
     }
     public bool CanDrawOverlays => Settings.CanDrawOverlays(_context);
