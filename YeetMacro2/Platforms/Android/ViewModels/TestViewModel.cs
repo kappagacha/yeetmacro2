@@ -270,6 +270,7 @@ public partial class TestViewModel(ILogger<TestViewModel> logger, MediaProjectio
         if (cutout != null)
         {
             CurrentWindowMetrics = $"SafeInsetLeft: {cutout.SafeInsetLeft}\nSafeInsetTop: {cutout.SafeInsetTop}\nSafeInsetRight: {cutout.SafeInsetRight}\nSafeInsetBottom: {cutout.SafeInsetBottom}\n";
+            CurrentWindowMetrics += $"Rotation{DeviceDisplay.MainDisplayInfo.Rotation}";
         }
         else
         {
