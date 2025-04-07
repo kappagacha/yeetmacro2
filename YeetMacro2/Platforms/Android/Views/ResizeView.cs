@@ -142,6 +142,7 @@ public class ResizeView : RelativeLayout, IOnTouchListener, IShowable
         _closeCompleted = new TaskCompletionSource<bool>();
         OnShow?.Invoke();
         _state = FormState.SHOWING;
+        InitDisplay(PatternHelper.ScreenResolution);
     }
 
     public void Close()
