@@ -55,7 +55,7 @@ function selectTeamAndBattle(teamSlot, opts = {}) {
 	selectTeam(teamSlot, opts);
 	const autoResult = macroService.PollPattern(patterns.battle.setup.auto, { DoClick: true, PredicatePattern: [patterns.battle.setup.sweep, patterns.battle.setup.enter] });
 
-	let numBattles = macroService.GetText(patterns.battle.setup.numBattles);
+	let numBattles = macroService.FindText(patterns.battle.setup.numBattles);
 	if (opts.targetNumBattles) {
 		macroService.PollPattern(patterns.battle.setup.minBattle, { DoClick: true, PredicatePattern: patterns.battle.setup.numBattles.one });
 
@@ -63,7 +63,7 @@ function selectTeamAndBattle(teamSlot, opts = {}) {
 		while (Number(numBattles) < targetNumBattles) {
 			macroService.ClickPattern(patterns.battle.setup.addBattle)
 			sleep(250)
-			numBattles = macroService.GetText(patterns.battle.setup.numBattles);
+			numBattles = macroService.FindText(patterns.battle.setup.numBattles);
 			sleep(250)
 		}
 	}

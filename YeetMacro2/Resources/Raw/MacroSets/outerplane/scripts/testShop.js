@@ -14,7 +14,7 @@ let textResults = itemCornerResult.Points.filter(p => p.X < resolution.Width - 3
 	const itemTextPattern = macroService.ClonePattern(patterns.shop.itemText, { X: p.X, Y: p.Y, OffsetCalcType: 'None' });
 	return {
 		point: { X: p.X, Y: p.Y },
-		text: macroService.GetText(itemTextPattern)
+		text: macroService.FindText(itemTextPattern)
 	};
 });
 

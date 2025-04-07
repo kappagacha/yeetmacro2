@@ -2,7 +2,7 @@
 // @position=1000
 function refillStamina(targetStamina) {
 	goToLobby();
-	let currentStamina = macroService.GetText(patterns.lobby.staminaValue);
+	let currentStamina = macroService.FindText(patterns.lobby.staminaValue);
 	logger.info(`refillStamina to ${targetStamina}. current stamina is ${currentStamina}`);
 	if (currentStamina >= targetStamina) {
 		return;
@@ -21,7 +21,7 @@ function refillStamina(targetStamina) {
 		macroService.PollPattern(recievePattern, { DoClick: true, PredicatePattern: patterns.general.tapEmptySpace });
 		macroService.PollPattern(patterns.general.tapEmptySpace, { DoClick: true, PredicatePattern: patterns.titles.mailbox });
 		sleep(500);
-		currentStamina = macroService.GetText(patterns.general.staminaValue);
+		currentStamina = macroService.FindText(patterns.general.staminaValue);
 		logger.info(`refillStamina to ${targetStamina}. current stamina is ${currentStamina}`);
 	}
 	goToLobby();
@@ -30,7 +30,7 @@ function refillStamina(targetStamina) {
 function getCurrentStaminaValue() {
 	const staminaResult = macroService.PollPattern(patterns.general.stamina);
 	const staminaValue = macroService.ClonePattern(patterns.general.staminaValue, { X: staminaResult.Point.X + 58, Path: `general.stamina_y${staminaResult.Point.Y}`, OffsetCalcType: 'None' })
-	const currentStamina = macroService.GetText(staminaValue);
+	const currentStamina = macroService.FindText(staminaValue);
 	return Number(currentStamina);
 }
 
@@ -89,7 +89,7 @@ function findShopItem(shopItemName) {
 			const itemTextPattern = macroService.ClonePattern(patterns.shop.itemText, { X: p.X, Y: p.Y, OffsetCalcType: 'None' });
 			return {
 				point: { X: p.X, Y: p.Y },
-				text: macroService.GetText(itemTextPattern)
+				text: macroService.FindText(itemTextPattern)
 			};
 		});
 

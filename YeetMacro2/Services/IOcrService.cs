@@ -2,6 +2,6 @@
 
 public interface IOcrService
 {
-    string GetText(byte[] imageData, string whiteList = null);
-    Task<string> GetTextAsync(byte[] imageData, string whiteList = null);
+    string FindText(byte[] imageData, string whiteList = null);
+    Task<string> FindTextAsync(byte[] imageData, string whiteList = null);
 }

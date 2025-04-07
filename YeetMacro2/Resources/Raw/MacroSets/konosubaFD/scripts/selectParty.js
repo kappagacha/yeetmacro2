@@ -30,13 +30,13 @@ function selectPartyByRecommendedElement(recommendedElementSetting) {
 
 function selectParty(targetPartyName) {
     logger.info(`selectParty: ${targetPartyName}`);
-    let currentParty = macroService.GetText(patterns.party.partyName, targetPartyName);
+    let currentParty = macroService.FindText(patterns.party.partyName, targetPartyName);
     let numScrolls = 0;
     while (macroService.IsRunning && currentParty != targetPartyName && numScrolls < 20) {
         scrollRight();
         numScrolls++;
         logger.debug(`numScrolls: ${numScrolls}`);
-        currentParty = macroService.GetText(patterns.party.partyName, targetPartyName);
+        currentParty = macroService.FindText(patterns.party.partyName, targetPartyName);
         logger.debug(`currentParty: ${currentParty}`);
         sleep(500);
     }

@@ -111,9 +111,9 @@ while (macroService.IsRunning) {
 				macroService.PollPattern(patterns.arena.matchOpponent, { DoClick: true, ClickPattern: clickPattern, PredicatePattern: patterns.arena.matchOpponent.selected });
 				if (cpThresholdIsEnabled) {
 					const cpThreshold = settings.doArena.cpThreshold.Value;
-					const challenge1CP = macroService.GetText(patterns.arena.challenge1.cp);
-					const challenge2CP = macroService.GetText(patterns.arena.challenge2.cp);
-					const challenge3CP = macroService.GetText(patterns.arena.challenge3.cp);
+					const challenge1CP = macroService.FindText(patterns.arena.challenge1.cp);
+					const challenge2CP = macroService.FindText(patterns.arena.challenge2.cp);
+					const challenge3CP = macroService.FindText(patterns.arena.challenge3.cp);
 					const challenges = [
 						Number((challenge1CP.slice(0, challenge1CP.length - 4) + challenge1CP.slice(-3))?.replace(/[^0-9]/g, '')),
 						Number((challenge2CP.slice(0, challenge2CP.length - 4) + challenge2CP.slice(-3))?.replace(/[^0-9]/g, '')),
@@ -135,7 +135,7 @@ while (macroService.IsRunning) {
 
 				selectTeam(teamSlot, { applyPreset: true });
 				if (autoDetectCpThreshold) {
-					const cpText = macroService.GetText(patterns.battle.cp);
+					const cpText = macroService.FindText(patterns.battle.cp);
 					const currentCp = Number(cpText.slice(0, -4).slice(1) + cpText.slice(-3));
 					
 					if (currentCp) {

@@ -188,7 +188,7 @@ function getOrderNames() {
 
 		return {
 			point: { X: p.X, Y: p.Y + 25 },
-			name: macroService.GetText(orderNamePattern)
+			name: macroService.FindText(orderNamePattern)
 		};
 	});
 	return orderNames;
@@ -207,7 +207,7 @@ function doExplorations() {
 
 		switch (confirmResult.PredicatePath) {
 			case 'terminusIsle.prompt.next':
-				const title = macroService.GetText(patterns.terminusIsle.prompt.title);
+				const title = macroService.FindText(patterns.terminusIsle.prompt.title);
 				sleep(3_000);
 				logger.screenCapture(`Title: ${title}`);
 				// TODO: pick 1 out of 3 options based on title

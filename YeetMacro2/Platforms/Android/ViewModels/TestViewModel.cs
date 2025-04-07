@@ -15,10 +15,10 @@ public partial class TestViewModel : ObservableObject
 {
     [ObservableProperty]
     bool _isBusy, _isImageViewTestRunning, _isImageViewWinking, _isOpenCVMatchTemplateTestRunning, _isOpenCVCalcColorThresholdTestRunning,
-        _isMediaProjectionGetCurrentImageTestRunning, _isAccessibilityServiceDoClickTestRunning, _isGetTextTestRunning;
+        _isMediaProjectionGetCurrentImageTestRunning, _isAccessibilityServiceDoClickTestRunning, _isFindTextTestRunning;
     [ObservableProperty]
     int _imageViewTestCount, _openCVMatchTemplateTestCount, _OpenCVCalcColorThresholdTestCount,
-        _mediaProjectionGetCurrentImageTestCount, _accessibilityServiceDoClickTestCount, _getTextTestCount;
+        _mediaProjectionGetCurrentImageTestCount, _accessibilityServiceDoClickTestCount, _findTextTestCount;
     [ObservableProperty]
     string _deviceDisplayResolution, _currentWindowMetrics, _resolution, _customResolution, _topLeft, _testMessage;
     readonly byte[] _haystackImage = Convert.FromBase64String("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"), 
@@ -235,26 +235,26 @@ public partial class TestViewModel : ObservableObject
     }
 
     [RelayCommand]
-    public void ToggleGetTextTest()
+    public void ToggleFindTextTest()
     {
-        if (IsGetTextTestRunning)
+        if (IsFindTextTestRunning)
         {
-            IsGetTextTestRunning = IsBusy = false;
+            IsFindTextTestRunning = IsBusy = false;
             return;
         }
 
         if (IsBusy) return;
 
-        IsGetTextTestRunning = IsBusy = true;
+        IsFindTextTestRunning = IsBusy = true;
         DeviceDisplay.Current.KeepScreenOn = true;
         Task.Run(async () =>
         {
-            GetTextTestCount = 0;
-            while (IsGetTextTestRunning)
+            FindTextTestCount = 0;
+            while (IsFindTextTestRunning)
             {
-                GetTextTestCount++;
-                _logger.LogDebug(GetTextTestCount.ToString());
-                var text = _screenService.GetText(_textImage);
+                FindTextTestCount++;
+                _logger.LogDebug(FindTextTestCount.ToString());
+                var text = _screenService.FindText(_textImage);
                 await Task.Delay(100);
             }
         });

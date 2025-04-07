@@ -62,10 +62,10 @@ function doRockPaperScissors() {
 	const rockPaperScissors = ['rock', 'paper', 'scissor'];
 	macroService.PollPattern(patterns.event.rockPaperScissors, { DoClick: true, PredicatePattern: patterns.event.coinsOwned });
 	sleep(2_000);
-	let numCoins = macroService.GetText(patterns.event.numCoins)?.replace(/[^0-9]/g, '');
+	let numCoins = macroService.FindText(patterns.event.numCoins)?.replace(/[^0-9]/g, '');
 	while (macroService.IsRunning && !numCoins) {
 		sleep(200);
-		numCoins = macroService.GetText(patterns.event.numCoins)?.replace(/[^0-9]/g, '');
+		numCoins = macroService.FindText(patterns.event.numCoins)?.replace(/[^0-9]/g, '');
 	}
 
 	while (macroService.IsRunning && numCoins > 0) {
@@ -73,38 +73,38 @@ function doRockPaperScissors() {
 		const rockPaperOrScissorPattern = patterns.event.rockPaperScissors[rockPaperScissors[randomNumber]];
 		macroService.PollPattern(rockPaperOrScissorPattern, { DoClick: true, PredicatePattern: patterns.event.ok });
 		macroService.PollPattern(patterns.event.ok, { DoClick: true, PredicatePattern: patterns.event.coinInfo });
-		numCoins = macroService.GetText(patterns.event.numCoins)?.replace(/[^0-9]/g, '');
+		numCoins = macroService.FindText(patterns.event.numCoins)?.replace(/[^0-9]/g, '');
 	}
 }
 
 function doDrawACapsule() {
 	macroService.PollPattern(patterns.event.drawACapsule, { DoClick: true, PredicatePattern: patterns.event.coinsOwned });
 	sleep(2_000);
-	let numCoins = macroService.GetText(patterns.event.numCoins)?.replace(/[^0-9]/g, '');
+	let numCoins = macroService.FindText(patterns.event.numCoins)?.replace(/[^0-9]/g, '');
 	while (macroService.IsRunning && !numCoins) {
 		sleep(200);
-		numCoins = macroService.GetText(patterns.event.numCoins)?.replace(/[^0-9]/g, '');
+		numCoins = macroService.FindText(patterns.event.numCoins)?.replace(/[^0-9]/g, '');
 	}
 
 	while (macroService.IsRunning && numCoins > 0) {
 		macroService.PollPattern(patterns.event.drawACapsule.draw, { DoClick: true, PredicatePattern: patterns.event.confirm });
 		macroService.PollPattern(patterns.event.confirm, { DoClick: true, PredicatePattern: patterns.event.coinInfo });
-		numCoins = macroService.GetText(patterns.event.numCoins)?.replace(/[^0-9]/g, '');
+		numCoins = macroService.FindText(patterns.event.numCoins)?.replace(/[^0-9]/g, '');
 	}
 }
 
 function doSpinTheWheel() {
 	macroService.PollPattern(patterns.event.spinTheWheel, { DoClick: true, PredicatePattern: patterns.event.coinsOwned });
 	sleep(2_000);
-	let numCoins = macroService.GetText(patterns.event.numCoins)?.replace(/[^0-9]/g, '');
+	let numCoins = macroService.FindText(patterns.event.numCoins)?.replace(/[^0-9]/g, '');
 	while (macroService.IsRunning && !numCoins) {
 		sleep(200);
-		numCoins = macroService.GetText(patterns.event.numCoins)?.replace(/[^0-9]/g, '');
+		numCoins = macroService.FindText(patterns.event.numCoins)?.replace(/[^0-9]/g, '');
 	}
 
 	while (macroService.IsRunning && numCoins > 0) {
 		macroService.PollPattern(patterns.event.spinTheWheel.start, { DoClick: true, PredicatePattern: patterns.event.confirm });
 		macroService.PollPattern(patterns.event.confirm, { DoClick: true, PredicatePattern: patterns.event.coinInfo });
-		numCoins = macroService.GetText(patterns.event.numCoins)?.replace(/[^0-9]/g, '');
+		numCoins = macroService.FindText(patterns.event.numCoins)?.replace(/[^0-9]/g, '');
 	}
 }

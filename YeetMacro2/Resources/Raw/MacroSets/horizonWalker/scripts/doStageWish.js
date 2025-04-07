@@ -28,7 +28,7 @@ while (macroService.IsRunning) {
 				const stageNamePattern = macroService.ClonePattern(patterns.stage.wish.stage.name, { CenterY: p.Y, OffsetCalcType: 'None', Path: `stage.wish.stage.name_x${p.X}_y${p.Y}` });
 				return {
 					point: { X: p.X, Y: p.Y },
-					name: macroService.GetText(stageNamePattern)
+					name: macroService.FindText(stageNamePattern)
 				};
 			});
 			//stageNames.sort((a, b) => a.point.Y - b.point.Y);		// Y ascending

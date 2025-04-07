@@ -49,15 +49,15 @@ while (macroService.IsRunning) {
 			
 			macroService.PollPattern(patterns.skipAll.skipQuest, { DoClick: true, PredicatePattern: patterns.skipAll.title });
 			
-			const currentStaminaCost = macroService.GetText(patterns.quest.events.quest.skipAll.currentStamina);
+			const currentStaminaCost = macroService.FindText(patterns.quest.events.quest.skipAll.currentStamina);
 			if (currentStaminaCost < staminaCost) {
 				macroService.PollPattern(patterns.quest.events.quest.skipAll.addStamina, { DoClick: true, PredicatePattern: patterns.stamina.prompt.recoverStamina });
 				macroService.PollPattern(patterns.stamina.meat, { DoClick: true, PredicatePattern: patterns.stamina.prompt.recoverStamina2 });
-				let targetStamina = macroService.GetText(patterns.stamina.target);
+				let targetStamina = macroService.FindText(patterns.stamina.target);
 				while (macroService.IsRunning && targetStamina < staminaCost) {
 					macroService.ClickPattern(patterns.stamina.plusOne);
 					sleep(500);
-					targetStamina = macroService.GetText(patterns.stamina.target);
+					targetStamina = macroService.FindText(patterns.stamina.target);
 				}
 				macroService.PollPattern(patterns.stamina.prompt.recover, { DoClick: true, ClickPattern: patterns.stamina.prompt.ok, PredicatePattern: patterns.skipAll.title, IntervalDelayMs: 1_000 });
 			}

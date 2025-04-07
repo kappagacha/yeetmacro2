@@ -28,11 +28,11 @@ while (macroService.IsRunning) {
 				const staminaCost = 20;
 				macroService.PollPattern(patterns.quest.fame.addStamina, { DoClick: true, PredicatePattern: patterns.stamina.prompt.recoverStamina });
 				macroService.PollPattern(patterns.stamina.meat, { DoClick: true, PredicatePattern: patterns.stamina.prompt.recoverStamina2 });
-				let targetStamina = macroService.GetText(patterns.stamina.target);
+				let targetStamina = macroService.FindText(patterns.stamina.target);
 				while (macroService.IsRunning && targetStamina < staminaCost) {
 					macroService.ClickPattern(patterns.stamina.plusOne);
 					sleep(500);
-					targetStamina = macroService.GetText(patterns.stamina.target);
+					targetStamina = macroService.FindText(patterns.stamina.target);
 				}
 				macroService.PollPattern(patterns.stamina.prompt.recover, { DoClick: true, ClickPattern: patterns.stamina.prompt.ok, PredicatePattern: patterns.battle.prepare, IntervalDelayMs: 1_000 });
 			}

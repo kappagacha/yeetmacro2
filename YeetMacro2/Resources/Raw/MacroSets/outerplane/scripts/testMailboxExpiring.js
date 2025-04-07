@@ -17,7 +17,7 @@ while (macroService.IsRunning) {
 			const receiveResult = macroService.FindPattern(patterns.mailbox.receive, { Limit: 10 });
 			const expirations = receiveResult.Points.map(p => {
 				const expirationPattern = macroService.ClonePattern(patterns.mailbox.expiration, { CenterY: p.Y - 75 });
-				const text = macroService.GetText(expirationPattern);
+				const text = macroService.FindText(expirationPattern);
 				const dPattern = macroService.ClonePattern(patterns.mailbox.expiration.d, { CenterX: p.X, CenterY: p.Y - 75, Width: 100, Height: 40, Path: `patterns.mailbox.expiration.d_x${p.X}_y${p.Y - 75}` });
 				const dPatternResult = macroService.FindPattern(dPattern);
 				if (!dPatternResult.IsSuccess) {
@@ -25,7 +25,7 @@ while (macroService.IsRunning) {
 				}
 
 				const numberPattern = macroService.ClonePattern(patterns.mailbox.expiration.d, { X: dPatternResult.Point.X - 60, Y: dPatternResult.Point.Y - 15, Width: 50, Path: `patterns.mailbox.expiration.number_text_x${dPatternResult.Point.X - 30}_y${dPatternResult.Point.Y}` });
-				const numberText = macroService.GetText(numberPattern, "1234567890");
+				const numberText = macroService.FindText(numberPattern, "1234567890");
 				return {
 					text,
 					numDays: numberText

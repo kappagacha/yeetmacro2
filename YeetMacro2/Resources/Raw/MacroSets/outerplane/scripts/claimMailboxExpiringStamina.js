@@ -42,7 +42,7 @@ while (macroService.IsRunning) {
 					}
 
 					const numberPattern = macroService.ClonePattern(patterns.mailbox.expiration.d, { X: dPatternResult.Point.X - 60, Y: dPatternResult.Point.Y - 15, Width: 50, Path: `patterns.mailbox.expiration.number_text_x${dPatternResult.Point.X - 30}_y${dPatternResult.Point.Y}` });
-					const numberText = macroService.GetText(numberPattern, "1234567890");
+					const numberText = macroService.FindText(numberPattern, "1234567890");
 
 					if (numberText == 1 || numberText > 10) {
 						macroService.PollPoint(p, { PredicatePattern: patterns.general.tapEmptySpace });

@@ -55,7 +55,7 @@ while (macroService.IsRunning) {
 
 			if (targetBondLevelIsEnabled) {
 				sleep(1_000);
-				const currentBondLevel = Number.parseInt(macroService.GetText(patterns.town.outings.bondLevel)?.replace(/[ ]/g, ''));
+				const currentBondLevel = Number.parseInt(macroService.FindText(patterns.town.outings.bondLevel)?.replace(/[ ]/g, ''));
 				if (currentBondLevel >= Number(targetBondLevel)) {
 					throw new Error(`Target bond level reached: ${targetBondLevel}`);
 				}
@@ -80,9 +80,9 @@ while (macroService.IsRunning) {
 			break;
 		case 'town.outings.selectAKeyword':
 			logger.info('doOutings: select keyword');
-			const keywordPoints1 = macroService.GetText(patterns.town.outings.keywordPoints1).replace(/[\+ ]/g, '');
-			const keywordPoints2 = macroService.GetText(patterns.town.outings.keywordPoints2).replace(/[\+ ]/g, '');
-			const keywordPoints3 = macroService.GetText(patterns.town.outings.keywordPoints3).replace(/[\+ ]/g, '');
+			const keywordPoints1 = macroService.FindText(patterns.town.outings.keywordPoints1).replace(/[\+ ]/g, '');
+			const keywordPoints2 = macroService.FindText(patterns.town.outings.keywordPoints2).replace(/[\+ ]/g, '');
+			const keywordPoints3 = macroService.FindText(patterns.town.outings.keywordPoints3).replace(/[\+ ]/g, '');
 			logger.info('keywordPoints1: ' + keywordPoints1);
 			logger.info('keywordPoints2: ' + keywordPoints2);
 			logger.info('keywordPoints3: ' + keywordPoints3);

@@ -135,17 +135,17 @@ public class WindowsScreenService : IScreenService, IRecorderService
         throw new NotImplementedException();
     }
 
-    public string GetText(Pattern pattern, TextFindOptions opts)
+    public string FindText(Pattern pattern, TextFindOptions opts)
     {
         throw new NotImplementedException();
     }
 
-    public string GetText(byte[] currentImage)
+    public string FindText(byte[] currentImage)
     {
         throw new NotImplementedException();
     }
 
-    public Task<string> GetTextAsync(Pattern pattern, TextFindOptions opts)
+    public Task<string> FindTextAsync(Pattern pattern, TextFindOptions opts)
     {
         throw new NotImplementedException();
     }
@@ -171,6 +171,11 @@ public class WindowsScreenService : IScreenService, IRecorderService
     }
 
     public void StopRecording()
+    {
+        throw new NotImplementedException();
+    }
+
+    public string FindText(Rect bounds, TextFindOptions opts)
     {
         throw new NotImplementedException();
     }

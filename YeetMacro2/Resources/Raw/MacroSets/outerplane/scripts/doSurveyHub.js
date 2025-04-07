@@ -25,7 +25,7 @@ function doSurveyHub(targetNumBattles = 0) {
 				logger.info('doSurveyHub: go to survey hub');
 				macroService.PollPattern(patterns.adventure.adventure, { DoClick: true, PredicatePattern: patterns.adventure.surveyHub });
 				sleep(500);
-				currentStamina = macroService.GetText(patterns.general.staminaValue);
+				currentStamina = macroService.FindText(patterns.general.staminaValue);
 				if (currentStamina < 10) {
 					return;
 				}
@@ -85,7 +85,7 @@ function doSurveyHub(targetNumBattles = 0) {
 				}
 
 				sleep(500);
-				currentStamina = macroService.GetText(patterns.general.staminaValue);
+				currentStamina = macroService.FindText(patterns.general.staminaValue);
 				if (currentStamina < 10) {
 					return;
 				}

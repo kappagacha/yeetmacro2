@@ -48,7 +48,7 @@ while (macroService.IsRunning) {
 
 				switch (confirmResult.PredicatePath) {
 					case 'terminusIsle.prompt.next':
-						const title = macroService.GetText(patterns.terminusIsle.prompt.title);
+						const title = macroService.FindText(patterns.terminusIsle.prompt.title);
 						sleep(3_000);
 						logger.screenCapture(`Title: ${title}`);
 						// TODO: pick 1 out of 3 options based on title

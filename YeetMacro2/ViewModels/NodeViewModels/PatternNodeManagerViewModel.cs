@@ -376,7 +376,7 @@ public partial class PatternNodeManagerViewModel : NodeManagerViewModel<PatternN
 
             _screenService.DrawClear();
             _screenService.DrawRectangle(pattern.Bounds.Offset(opts.Offset));
-            var result = await _screenService.GetTextAsync(pattern, opts);
+            var result = await _screenService.FindTextAsync(pattern, opts);
             _toastService.Show($"TextMatch: {result}");
             Console.WriteLine($"TextMatch: {result}");
         }
@@ -400,7 +400,7 @@ public partial class PatternNodeManagerViewModel : NodeManagerViewModel<PatternN
 
             _screenService.DrawClear();
             _screenService.DrawRectangle(pattern.Bounds.Offset(opts.Offset));
-            var result = await _screenService.GetTextAsync(pattern, opts);
+            var result = await _screenService.FindTextAsync(pattern, opts);
             _toastService.Show($"TextMatch Apply: {result}");
             pattern.TextMatch.Text = result;
 

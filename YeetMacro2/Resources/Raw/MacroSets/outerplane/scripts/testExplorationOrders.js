@@ -7,7 +7,7 @@ const orderNames = cornerResult.Points.filter(p => p).map(p => {
 
 	return {
 		point: { X: p.X, Y: p.Y + 25 },
-		name: macroService.GetText(orderNamePattern)
+		name: macroService.FindText(orderNamePattern)
 	};
 });
 return orderNames;

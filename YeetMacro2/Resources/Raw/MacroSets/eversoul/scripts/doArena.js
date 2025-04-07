@@ -28,9 +28,9 @@ while (macroService.IsRunning) {
 			break;
 		case 'adventure.arena.startMatch':
 			logger.info('doArena: start match');
-			const match1CP = macroService.GetText(patterns.adventure.arena.match1.cp).replace(/[, ]/g, '');
-			const match2CP = macroService.GetText(patterns.adventure.arena.match2.cp).replace(/[, ]/g, '');
-			const match3CP = macroService.GetText(patterns.adventure.arena.match3.cp).replace(/[, ]/g, '');
+			const match1CP = macroService.FindText(patterns.adventure.arena.match1.cp).replace(/[, ]/g, '');
+			const match2CP = macroService.FindText(patterns.adventure.arena.match2.cp).replace(/[, ]/g, '');
+			const match3CP = macroService.FindText(patterns.adventure.arena.match3.cp).replace(/[, ]/g, '');
 
 			logger.debug('match1CP: ' + match1CP);
 			logger.debug('match2CP: ' + match2CP);

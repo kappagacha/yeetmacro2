@@ -517,7 +517,19 @@ public class MacroService
         return _random.Next(min, max);
     }
 
-    public string GetText(OneOf<PatternNode, PatternNode[]> oneOfPattern, string whiteList = "")
+    public string FindTextWithBounds(Rect bounds, string whiteList = "")
+    {
+        if (InDebugMode)
+        {
+            MainThread.BeginInvokeOnMainThread(_screenService.DebugClear);
+            Sleep(50);
+            MainThread.BeginInvokeOnMainThread(() => _screenService.DebugRectangle(bounds));
+        }
+
+        return _screenService.FindText(bounds, new TextFindOptions() { Whitelist = whiteList });
+    }
+
+    public string FindText(OneOf<PatternNode, PatternNode[]> oneOfPattern, string whiteList = "")
     {
         PatternNode patternNode;
         if (oneOfPattern.IsT1)
@@ -546,7 +558,7 @@ public class MacroService
         {
             try
             {
-                return _screenService.GetText(pattern, new TextFindOptions() { Whitelist = whiteList, Offset = offset });
+                return _screenService.FindText(pattern, new TextFindOptions() { Whitelist = whiteList, Offset = offset });
             }
             catch (Exception ex)
             {

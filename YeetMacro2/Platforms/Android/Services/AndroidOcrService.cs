@@ -14,7 +14,7 @@ public class AndroidOcrService : IOcrService
         });
     }
 
-    public string GetText(byte[] imageData, string whiteList = null)
+    public string FindText(byte[] imageData, string whiteList = null)
     {
         //var folder = global::Android.OS.Environment.GetExternalStoragePublicDirectory(global::Android.OS.Environment.DirectoryPictures).Path;
         //var haystackFile = System.IO.Path.Combine(folder, $"ocr_{DateTime.Now.ToString("yyyyMMdd_HHmmss")}.jpeg");
@@ -32,7 +32,7 @@ public class AndroidOcrService : IOcrService
         return _tesseractApi.Text;
     }
 
-    public async Task<string> GetTextAsync(byte[] imageData, string whiteList = null)
+    public async Task<string> FindTextAsync(byte[] imageData, string whiteList = null)
     {
         if (_tesseractApi is null) return string.Empty;
 

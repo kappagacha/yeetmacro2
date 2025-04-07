@@ -32,7 +32,7 @@ function applyPreset(teamSlot) {
 		}
 
 		macroService.PollPattern(patterns.battle.teamFormation[location], { DoClick: true, HoldDurationMs: 1_000, PredicatePattern: patterns.battle.teamFormation.preset });
-		const unitTitleAndName = macroService.GetText(patterns.battle.teamFormation.unitTitleAndName);
+		const unitTitleAndName = macroService.FindText(patterns.battle.teamFormation.unitTitleAndName);
 		const battleTypes = ['defender', 'striker', 'ranger', 'mage', 'healer'].map(el => patterns.battle.teamFormation.battleTypes2[el]);
 		const battleTypeResult = macroService.PollPattern(battleTypes);
 		const battleType = battleTypeResult.Path?.split('.').pop();
@@ -44,7 +44,7 @@ function applyPreset(teamSlot) {
 		}
 
 		const presetRegex = new RegExp(`\\s?${delimiter}\\s?${battleTypeAbbreviation}\\s?${delimiter}\\s?${gearSet}\\s?${delimiter}\\s?${primaryStat}\\s?`);
-		const currentPreset = macroService.GetText(patterns.battle.teamFormation.preset.current);
+		const currentPreset = macroService.FindText(patterns.battle.teamFormation.preset.current);
 		//logger.info(unitTitleAndName.replace(/\n/g, ' '));
 		logger.info(`regex: ${presetRegex}    ||   currentPreset: ${currentPreset}`);
 		if (currentPreset.match(presetRegex)) {
@@ -91,7 +91,7 @@ function findTargetPreset(presetRegex) {
 		const presetNamePattern = macroService.ClonePattern(patterns.battle.teamFormation.preset.name, { X: p.X + 13, Y: p.Y + 8, OffsetCalcType: 'None', Path: `battle.teamFormation.preset.name_x${p.X}_y${p.Y}` });
 		return {
 			point: { X: p.X, Y: p.Y },
-			name: macroService.GetText(presetNamePattern)
+			name: macroService.FindText(presetNamePattern)
 		};
 	});
 	const targetPreset = presetNames.sort((a, b) => a.point.Y - b.point.Y).find(pn => pn.name.match(presetRegex));

@@ -349,7 +349,7 @@ public class AndroidScreenService : IScreenService
 
             if (pattern.TextMatch.IsActive && !String.IsNullOrEmpty(pattern.TextMatch.Text))
             {
-                var text = _ocrService.GetText(haystackImageData, pattern.TextMatch.WhiteList);
+                var text = _ocrService.FindText(haystackImageData, pattern.TextMatch.WhiteList);
                 var textPoints = new List<Point>();
 
                 if (text == pattern.TextMatch.Text && pattern.RawBounds != Rect.Zero)
@@ -405,9 +405,9 @@ public class AndroidScreenService : IScreenService
         }
     }
 
-    public string GetText(Pattern pattern, TextFindOptions opts)
+    public string FindText(Pattern pattern, TextFindOptions opts)
     {
-        _logger.LogTrace("AndroidScreenService GetText");
+        _logger.LogTrace("AndroidScreenService FindText");
         var boundsPadding = 4;
         var currentImageData = pattern.RawBounds != Rect.Zero ?
             _mediaProjectionService.GetCurrentImageData(
@@ -418,12 +418,23 @@ public class AndroidScreenService : IScreenService
             _openCvService.CalcColorThreshold(currentImageData, pattern.ColorThreshold) :
             currentImageData;
 
-        return _ocrService.GetText(imageData, pattern.TextMatch.WhiteList ?? opts.Whitelist);
+        return _ocrService.FindText(imageData, pattern.TextMatch.WhiteList ?? opts.Whitelist);
     }
 
-    public Task<string> GetTextAsync(Pattern pattern, TextFindOptions opts)
+    public string FindText(Rect bounds, TextFindOptions opts)
     {
-        _logger.LogTrace("AndroidScreenService GetText");
+        _logger.LogTrace("AndroidScreenService FindText");
+        var boundsPadding = 4;
+        var imageData = _mediaProjectionService.GetCurrentImageData(
+                new Rect(bounds.Location.Offset(opts.Offset.X, opts.Offset.Y).Offset(-boundsPadding, -boundsPadding),
+                         bounds.Size + new Size(boundsPadding, boundsPadding)));
+
+        return _ocrService.FindText(imageData, opts.Whitelist);
+    }
+
+    public Task<string> FindTextAsync(Pattern pattern, TextFindOptions opts)
+    {
+        _logger.LogTrace("AndroidScreenService FindText");
         var boundsPadding = 4;
         var currentImageData = pattern.RawBounds != Rect.Zero ?
             _mediaProjectionService.GetCurrentImageData(
@@ -434,13 +445,13 @@ public class AndroidScreenService : IScreenService
             _openCvService.CalcColorThreshold(currentImageData, pattern.ColorThreshold) :
             currentImageData;
 
-        return _ocrService.GetTextAsync(imageData, pattern.TextMatch.WhiteList ?? opts.Whitelist);
+        return _ocrService.FindTextAsync(imageData, pattern.TextMatch.WhiteList ?? opts.Whitelist);
     }
 
-    public string GetText(byte[] currentImage)
+    public string FindText(byte[] currentImage)
     {
-        _logger.LogTrace("AndroidScreenService GetText");
-        return _ocrService.GetText(currentImage);
+        _logger.LogTrace("AndroidScreenService FindText");
+        return _ocrService.FindText(currentImage);
     }
 
     public void ShowMessage(string message)

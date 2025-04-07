@@ -33,7 +33,7 @@ while (macroService.IsRunning) {
 					result.message = 'Not enough boss tickets...';
 					return result;
 				}
-				let currentCost = macroService.GetText(patterns.quest.events.bossBattle.cost);
+				let currentCost = macroService.FindText(patterns.quest.events.bossBattle.cost);
 				for (let i = 0; macroService.IsRunning && i < 9; i++) {
 					const addCostDisabledResult = macroService.FindPattern(patterns.quest.events.bossBattle.addCost.disabled);
 					if (addCostDisabledResult.IsSuccess) {
@@ -41,7 +41,7 @@ while (macroService.IsRunning) {
 					}
 					macroService.ClickPattern(patterns.quest.events.bossBattle.addCost);
 					sleep(500);
-					currentCost = macroService.GetText(patterns.quest.events.bossBattle.cost);
+					currentCost = macroService.FindText(patterns.quest.events.bossBattle.cost);
 				}
 				logger.debug(`currentCost: ${currentCost}`);
 				if (currentCost == 1) {
@@ -66,7 +66,7 @@ while (macroService.IsRunning) {
 				return result;
 			}
 
-			let currentCost = macroService.GetText(patterns.quest.events.bossBattle.cost);
+			let currentCost = macroService.FindText(patterns.quest.events.bossBattle.cost);
 			for (let i = 0; macroService.IsRunning && i < 9; i++) {
 				const addCostDisabledResult = macroService.FindPattern(patterns.quest.events.bossBattle.addCost.disabled);
 				if (addCostDisabledResult.IsSuccess) {
@@ -74,7 +74,7 @@ while (macroService.IsRunning) {
 				}
 				macroService.ClickPattern(patterns.quest.events.bossBattle.addCost);
 				sleep(500);
-				currentCost = macroService.GetText(patterns.quest.events.bossBattle.cost);
+				currentCost = macroService.FindText(patterns.quest.events.bossBattle.cost);
 			}
 			logger.debug(`currentCost: ${currentCost}`);
 			if (currentCost == 1) {

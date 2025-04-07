@@ -192,6 +192,7 @@ public partial class NodeManagerViewModel<TViewModel, TParent, TChild> : NodeMan
         newNode.RootId = parent.RootId;
 
         parent.IsExpanded = true;
+        _nodeService.Insert(newNode);
         parent.Nodes.Add(newNode);
         _nodeService.Update(parent);
 

@@ -79,24 +79,24 @@ function farmMat(targetMats, staminaCost, numSkips) {
 	macroService.PollPattern(patterns.skipAll.search.button, { DoClick: true, PredicatePattern: patterns.skipAll.title });
 	sleep(2000);
 
-	const currentStaminaCost = macroService.GetText(patterns.skipAll.totalCost);
+	const currentStaminaCost = macroService.FindText(patterns.skipAll.totalCost);
 	if (currentStaminaCost < staminaCost) {
 		macroService.PollPattern(patterns.skipAll.addStamina, { DoClick: true, PredicatePattern: patterns.stamina.prompt.recoverStamina });
 		macroService.PollPattern(patterns.stamina.meat, { DoClick: true, PredicatePattern: patterns.stamina.prompt.recoverStamina2 });
-		let targetStamina = macroService.GetText(patterns.stamina.target);
+		let targetStamina = macroService.FindText(patterns.stamina.target);
 		while (macroService.IsRunning && targetStamina < staminaCost) {
 			macroService.ClickPattern(patterns.stamina.plusOne);
 			sleep(500);
-			targetStamina = macroService.GetText(patterns.stamina.target);
+			targetStamina = macroService.FindText(patterns.stamina.target);
 		}
 		macroService.PollPattern(patterns.stamina.prompt.recover, { DoClick: true, ClickPattern: patterns.stamina.prompt.ok, PredicatePattern: patterns.skipAll.addMaxSkips, IntervalDelayMs: 1_000 });
 	}
 
-	let maxNumSkips = macroService.GetText(patterns.skipAll.maxNumSkips);
+	let maxNumSkips = macroService.FindText(patterns.skipAll.maxNumSkips);
 	while (macroService.IsRunning && maxNumSkips < numSkips) {
 		macroService.ClickPattern(patterns.skipAll.addMaxSkips);
 		sleep(500);
-		maxNumSkips = macroService.GetText(patterns.skipAll.maxNumSkips);
+		maxNumSkips = macroService.FindText(patterns.skipAll.maxNumSkips);
 	}
 
 	macroService.PollPattern(patterns.skipAll.button, { DoClick: true, PredicatePattern: patterns.skipAll.prompt.ok });

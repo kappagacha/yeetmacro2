@@ -25,11 +25,11 @@ while (macroService.IsRunning) {
 				macroService.PollPattern(patterns.freeQuests.upgradeStone, { DoClick: true, PredicatePattern: patterns.freeQuests.upgradeStone[upgradeStoneTargetLevel] });
 				macroService.PollPattern(patterns.freeQuests.upgradeStone[upgradeStoneTargetLevel], { DoClick: true, PredicatePattern: patterns.tickets.add });
 				// sample text capture: "25 x1" (it catches some of the words)
-				let numTickets = (macroService.GetText(patterns.tickets.numTickets)).split('x')[1];
+				let numTickets = (macroService.FindText(patterns.tickets.numTickets)).split('x')[1];
 				while (macroService.IsRunning && numTickets < 2) {
 					macroService.ClickPattern(patterns.tickets.add);
 					sleep(500);
-					numTickets = (macroService.GetText(patterns.tickets.numTickets)).split('x')[1];
+					numTickets = (macroService.FindText(patterns.tickets.numTickets)).split('x')[1];
 				}
 				macroService.PollPattern(patterns.tickets.use, { DoClick: true, ClickPattern: [patterns.branchEvent.availableNow, patterns.branchEvent.playLater, patterns.prompt.playerRankUp], PredicatePattern: patterns.tickets.prompt.ok });
 				macroService.PollPattern(patterns.tickets.prompt.ok, { DoClick: true, PredicatePattern: patterns.titles.freeQuests });
@@ -52,11 +52,11 @@ while (macroService.IsRunning) {
 				sleep(500);
 			}
 
-			let maxNumSkips = macroService.GetText(patterns.skipAll.maxNumSkips);
+			let maxNumSkips = macroService.FindText(patterns.skipAll.maxNumSkips);
 			while (macroService.IsRunning && maxNumSkips < 2) {
 				macroService.ClickPattern(patterns.skipAll.addMaxSkips);
 				sleep(500);
-				maxNumSkips = macroService.GetText(patterns.skipAll.maxNumSkips);
+				maxNumSkips = macroService.FindText(patterns.skipAll.maxNumSkips);
 			}
 			macroService.PollPattern(patterns.skipAll.button, { DoClick: true, PredicatePattern: patterns.skipAll.prompt.ok });
 			sleep(1_000);

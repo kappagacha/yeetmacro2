@@ -42,9 +42,10 @@ public interface IScreenService
     Byte[] CalcColorThreshold(Pattern pattern, ColorThresholdProperties colorThreshold);
     byte[] GetCurrentImageData();
     byte[] GetCurrentImageData(Rect rect);
-    string GetText(Pattern pattern, TextFindOptions opts);
-    Task<string> GetTextAsync(Pattern pattern, TextFindOptions opts);
-    string GetText(byte[] currentImage);
+    string FindText(Pattern pattern, TextFindOptions opts);
+    string FindText(Rect bounds, TextFindOptions opts);
+    Task<string> FindTextAsync(Pattern pattern, TextFindOptions opts);
+    string FindText(byte[] currentImage);
     FindPatternResult ClickPattern(Pattern pattern, FindOptions opts);
     FindPatternResult FindPattern(Pattern pattern, FindOptions opts);
     void ShowMessage(string message);

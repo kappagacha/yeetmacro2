@@ -269,6 +269,11 @@ public class JsToDotNetConverter(Engine engine) : DefaultTypeConverter(engine)
             converted = JsonSerializer.Deserialize<Point>(JsonSerializer.Serialize(value));
             return true;
         }
+        else if (type == typeof(Rect))
+        {
+            converted = JsonSerializer.Deserialize<Rect>(JsonSerializer.Serialize(value));
+            return true;
+        }
         else if (type == typeof(JsonObject))
         {
             converted = JsonObject.Parse(JsonSerializer.Serialize(value));
