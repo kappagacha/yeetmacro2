@@ -50,7 +50,7 @@ function doExpeditionSweeps() {
 	const visitResult = macroService.FindPattern(patterns.visitTown.visit, { Limit: 10 });
 	const helpReceivedArr = visitResult.Points
 		.map(point => macroService.ClonePattern(patterns.visitTown.numHelpReceived, { CenterY: point.Y, Path: `visitTown.numHelpReceived_y${point.Y}` }))
-		.map(pattern => ({ numHelpReceived: macroService.FindText(pattern), centerY: pattern.Pattern.Rect.Center.Y }));
+		.map(pattern => ({ numHelpReceived: macroService.FindText(pattern), centerY: pattern.Pattern.RawBounds.Center.Y }));
 
 	helpReceivedArr.sort((a, b) => a.numHelpReceived - b.numHelpReceived); // prioritize least helped
 
