@@ -28,24 +28,24 @@ while (macroService.IsRunning) {
 				macroService.PollPattern(patterns.shop.goldBuy, { DoClick: true, ClickOffset: { Y: 50 }, PredicatePattern: patterns.shop.classEnhance.soldOut });
 			}
 
-			//if (settings.doShop.town.IsEnabled && !daily.doShop.town.done.IsChecked) {
-			//	logger.info('doShop: town');
+			if (settings.doShop.town.IsEnabled && !daily.doShop.town.done.IsChecked) {
+				logger.info('doShop: town');
 
-			//	macroService.PollPattern(patterns.shop.town, { DoClick: true, PredicatePattern: patterns.shop.town.selected });
-			//	if (settings.doShop.town.ashOfProgress.Value && !daily.doShop.town.ashOfProgress.IsChecked) {
-			//		let itemResult = findShopItem(/ash.*progress/is);
-			//		if (!itemResult) {
-			//			throw new Error('Could not find ash of progress.');
-			//		}
+				macroService.PollPattern(patterns.shop.town, { DoClick: true, PredicatePattern: patterns.shop.town.selected });
+				if (settings.doShop.town.ashOfProgress.Value && !daily.doShop.town.ashOfProgress.IsChecked) {
+					let itemResult = findShopItem(/ash.*progress/is);
+					if (!itemResult) {
+						throw new Error('Could not find ash of progress.');
+					}
 
-			//		macroService.PollPoint(itemResult.point, { DoClick: true, PredicatePattern: patterns.shop.townBuy });
-			//		macroService.PollPattern(patterns.shop.buy, { DoClick: true, PredicatePattern: patterns.general.back });
+					macroService.PollPoint(itemResult.point, { DoClick: true, PredicatePattern: patterns.shop.townBuy });
+					macroService.PollPattern(patterns.shop.buy, { DoClick: true, PredicatePattern: patterns.general.back });
 
-			//		macroService.IsRunning && (daily.doShop.town.ashOfProgress.IsChecked = true);
-			//	}
+					macroService.IsRunning && (daily.doShop.town.ashOfProgress.IsChecked = true);
+				}
 
-			//	macroService.IsRunning && (daily.doShop.town.done.IsChecked = true);
-			//}
+				macroService.IsRunning && (daily.doShop.town.done.IsChecked = true);
+			}
 
 			if (settings.doShop.doArtifact.Value && !daily.doShop.doArtifact.done.IsChecked) {
 				logger.info('doShop: artifact');
