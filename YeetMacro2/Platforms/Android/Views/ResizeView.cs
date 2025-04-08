@@ -6,7 +6,6 @@ using Android.Graphics;
 using Android.Graphics.Drawables.Shapes;
 using Color = Android.Graphics.Color;
 using Microsoft.Maui.Platform;
-using YeetMacro2.Platforms.Android.Services;
 using YeetMacro2.Data.Models;
 
 namespace YeetMacro2.Platforms.Android.Views;

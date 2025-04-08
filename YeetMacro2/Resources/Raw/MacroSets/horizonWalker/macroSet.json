@@ -8,12 +8,12 @@
   "supportsGreaterHeight": false,
   "package": "com.GentleManiac.HorizonWalkerGoogle",
   "source": "online:horizonWalker",
-  "macroSetLastUpdated": "2025-03-29T18:02:17.7385166-05:00",
-  "patternsLastUpdated": "2025-03-29T18:02:17.7430017-05:00",
-  "scriptsLastUpdated": "2025-03-29T18:02:17.7433285-05:00",
-  "settingsLastUpdated": "2025-03-29T18:02:17.7435445-05:00",
-  "dailyTemplateLastUpdated": "2025-03-29T18:02:17.8824856-05:00",
-  "weeklyTemplateLastUpdated": "2025-03-29T18:02:17.899271-05:00",
+  "macroSetLastUpdated": "2025-04-07T21:12:10.6691705-05:00",
+  "patternsLastUpdated": "2025-04-07T21:12:10.669978-05:00",
+  "scriptsLastUpdated": "2025-04-07T21:12:10.6702473-05:00",
+  "settingsLastUpdated": "2025-04-07T21:12:10.6704017-05:00",
+  "dailyTemplateLastUpdated": "2025-04-07T21:12:10.6705321-05:00",
+  "weeklyTemplateLastUpdated": "2025-04-07T21:12:10.6706526-05:00",
   "description": null,
   "dailyResetUtcHour": 1,
   "weeklyStartDay": "Monday",
@@ -21,6 +21,6 @@
     "x": 0,
     "y": 200
   },
-  "dailyTemplate": "{\n  \u0022claimTribute\u0022: {\n    \u0022count\u0022: 0\n  },\n  \u0022doStageWish\u0022: {\n    \u0022done\u0022: false\n  },\n  \u0022doStageBounty\u0022: {\n    \u0022done\u0022: false\n  },\n  \u0022doDailyShop\u0022: {\n    \u0022done\u0022: false\n  },\n  \u0022claimDailyRewards\u0022: {\n    \u0022done\u0022: false\n  }\n}",
+  "dailyTemplate": "{\n  \u0022claimTribute\u0022: {\n    \u0022count\u0022: 0\n  },\n  \u0022doStageWish\u0022: {\n    \u0022done\u0022: false\n  },\n  \u0022doStageBounty\u0022: {\n    \u0022done\u0022: false\n  },\n  \u0022doDailyShop\u0022: {\n    \u0022done\u0022: false\n  },\n  \u0022claimDailyRewards\u0022: {\n    \u0022done\u0022: false\n  },\n  \u0022sweepEvent\u0022: {\n    \u0022done\u0022: false\n  }\n}",
   "weeklyTemplate": "{}"
 }

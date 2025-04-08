@@ -56,9 +56,11 @@
               "isActive": false,
               "variancePct": 30,
               "color": null,
-              "imageData": ""
+              "imageData": "",
+              "ignoreBackground": false
             },
             "offsetCalcType": "Default",
+            "boundsCalcType": "Default",
             "position": 0
           }
         ],
@@ -95,9 +97,11 @@
               "isActive": false,
               "variancePct": 30,
               "color": null,
-              "imageData": ""
+              "imageData": "",
+              "ignoreBackground": false
             },
             "offsetCalcType": "Default",
+            "boundsCalcType": "Default",
             "position": 0
           }
         ],
@@ -140,9 +144,11 @@
               "isActive": false,
               "variancePct": 30,
               "color": null,
-              "imageData": ""
+              "imageData": "",
+              "ignoreBackground": false
             },
             "offsetCalcType": "Default",
+            "boundsCalcType": "Default",
             "position": 0
           }
         ],
@@ -179,9 +185,11 @@
               "isActive": false,
               "variancePct": 30,
               "color": null,
-              "imageData": ""
+              "imageData": "",
+              "ignoreBackground": false
             },
             "offsetCalcType": "Default",
+            "boundsCalcType": "Default",
             "position": 0
           }
         ],
@@ -239,6 +247,14 @@
       "$position": 0,
       "$name": "claimDailyRewards",
       "$path": "doDailies.claimDailyRewards"
+    },
+    "sweepEvent": {
+      "$type": "boolean",
+      "$defaultValue": true,
+      "$value": true,
+      "$position": 0,
+      "$name": "sweepEvent",
+      "$path": "doDailies.sweepEvent"
     }
   }
 }

@@ -28,3 +28,8 @@ if (settings.doDailies.claimDailyRewards.Value) {
     claimDailyRewards();
     goToLobby();
 }
+
+if (settings.doDailies.sweepEvent.Value) {
+    sweepEvent();
+    goToLobby();
+}
