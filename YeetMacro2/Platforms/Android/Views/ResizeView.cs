@@ -15,7 +15,7 @@ public class ResizeView : RelativeLayout, IOnTouchListener, IShowable
     enum FormState { SHOWING, CLOSED };
     private readonly IWindowManager _windowManager;
     private readonly MainActivity _context;
-    private readonly WindowManagerLayoutParams _layoutParams;
+    private WindowManagerLayoutParams _layoutParams, _layoutParamsPortrait, _layoutParamsLandscape;
     private readonly ImageView _topLeft, _bottomRight, _topRight;
     int _x, _y, _displayWidth, _displayHeight;
     double _density;
@@ -34,17 +34,9 @@ public class ResizeView : RelativeLayout, IOnTouchListener, IShowable
     {
         _context = (MainActivity)context;
         _windowManager = windowManager;
-        _layoutParams = new WindowManagerLayoutParams
-        {
-            //_layoutParams.Type = WindowManagerTypes.ApplicationOverlay;
-            Type = OperatingSystem.IsAndroidVersionAtLeast(26) ? WindowManagerTypes.ApplicationOverlay : WindowManagerTypes.Phone,
-            Format = Format.Translucent
-        };
-        _layoutParams.Flags |= WindowManagerFlags.NotFocusable;
-        _layoutParams.Flags |= WindowManagerFlags.TranslucentNavigation;
-        _layoutParams.Flags |= WindowManagerFlags.LayoutNoLimits;
+        _layoutParamsPortrait = GenerateLayoutParams();
+        _layoutParamsLandscape = GenerateLayoutParams();
 
-        _layoutParams.Gravity = GravityFlags.Top | GravityFlags.Left;
         var density = DeviceDisplay.MainDisplayInfo.Density;
         var cornerShapeSize = (int)(30 * density);
         var shape = new global::Android.Graphics.Drawables.ShapeDrawable(new OvalShape());
@@ -100,6 +92,30 @@ public class ResizeView : RelativeLayout, IOnTouchListener, IShowable
         androidView.Clickable = true;
         Clickable = true;
         InitDisplay(PatternHelper.ScreenResolution);
+
+        DeviceDisplay.MainDisplayInfoChanged += DeviceDisplay_MainDisplayInfoChanged;
+    }
+
+    private void DeviceDisplay_MainDisplayInfoChanged(object sender, DisplayInfoChangedEventArgs e)
+    {
+        var isPortrait = e.DisplayInfo.Orientation == DisplayOrientation.Portrait;
+        _layoutParams = isPortrait ? _layoutParamsPortrait : _layoutParamsLandscape;
+
+        if (_state == FormState.SHOWING)
+        {
+            _windowManager.UpdateViewLayout(this, _layoutParams);
+        }
+    }
+
+    private WindowManagerLayoutParams GenerateLayoutParams()
+    {
+        return new WindowManagerLayoutParams
+        {
+            Type = OperatingSystem.IsAndroidVersionAtLeast(26) ? WindowManagerTypes.ApplicationOverlay : WindowManagerTypes.Phone,
+            Format = Format.Translucent,
+            Flags = WindowManagerFlags.NotFocusable | WindowManagerFlags.TranslucentNavigation | WindowManagerFlags.LayoutNoLimits,
+            Gravity = GravityFlags.Top | GravityFlags.Left
+        };
     }
 
     private void InitDisplay(Size size)
@@ -107,10 +123,20 @@ public class ResizeView : RelativeLayout, IOnTouchListener, IShowable
         _density = DeviceDisplay.MainDisplayInfo.Density;
         _displayWidth = (int)size.Width;
         _displayHeight = (int)size.Height;
-        _layoutParams.Width = (int)(_displayWidth * 0.75);
-        _layoutParams.Height = (int)(_displayHeight * 0.75);
-        _layoutParams.X = (int)(_displayWidth * 0.20);
-        _layoutParams.Y = (int)(_displayHeight * 0.25);
+
+        var isPortrait = DeviceDisplay.Current.MainDisplayInfo.Orientation == DisplayOrientation.Portrait;
+
+        _layoutParamsPortrait.Width = (int)((isPortrait ? _displayWidth : _displayHeight) * 0.75);
+        _layoutParamsPortrait.Height = (int)((isPortrait ? _displayHeight : _displayWidth) * 0.75);
+        _layoutParamsPortrait.X = (int)((isPortrait ? _displayWidth : _displayHeight) * 0.20);
+        _layoutParamsPortrait.Y = (int)((isPortrait ? _displayHeight : _displayWidth) * 0.25);
+
+        _layoutParamsLandscape.Width = (int)((isPortrait ? _displayHeight : _displayWidth) * 0.75);
+        _layoutParamsLandscape.Height = (int)((isPortrait ? _displayWidth : _displayHeight) * 0.75);
+        _layoutParamsLandscape.X = (int)((isPortrait ? _displayHeight : _displayWidth) * 0.20);
+        _layoutParamsLandscape.Y = (int)((isPortrait ? _displayWidth : _displayHeight) * 0.25);
+
+        _layoutParams = isPortrait ? _layoutParamsPortrait : _layoutParamsLandscape;
 
         if (_state == FormState.SHOWING)
         {
@@ -137,7 +163,8 @@ public class ResizeView : RelativeLayout, IOnTouchListener, IShowable
     {
         if (_state == FormState.SHOWING) return;
 
-        InitDisplay(PatternHelper.ScreenResolution);
+        var isPortrait = DeviceDisplay.Current.MainDisplayInfo.Orientation == DisplayOrientation.Portrait;
+        _layoutParams = isPortrait ? _layoutParamsPortrait : _layoutParamsLandscape;
         _windowManager.AddView(this, _layoutParams);
         _closeCompleted = new TaskCompletionSource<bool>();
         OnShow?.Invoke();
