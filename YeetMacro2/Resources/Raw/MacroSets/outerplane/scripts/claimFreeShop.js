@@ -30,12 +30,14 @@ while (macroService.IsRunning) {
 			if (!daily.claimFreeShop.normal.IsChecked) {
 				logger.info('claimFreeShop: claim Normal');
 				//macroService.PollPattern(patterns.shop.normal, { DoClick: true, PredicatePattern: patterns.shop.normal.selected });
-				const normalFreeResult = macroService.SwipePollPattern(patterns.shop.free, { MaxSwipes: 5, Start: { X: swipeRightStartX, Y: 500 }, End: { X: swipeRightEndX, Y: 500 } });
+				//const normalFreeResult = macroService.SwipePollPattern(patterns.shop.free, { MaxSwipes: 5, Start: { X: swipeRightStartX, Y: 500 }, End: { X: swipeRightEndX, Y: 500 } });
+				let normalFreeResult = macroService.PollPattern(patterns.shop.free, { TimeoutMs: 2_500 });
 				if (normalFreeResult.IsSuccess) {
-					sleep(1_000);
 					macroService.PollPattern(patterns.shop.free, { DoClick: true, PredicatePattern: patterns.shop.free.ok });
 					macroService.PollPattern(patterns.shop.free.ok, { DoClick: true, InversePredicatePattern: patterns.shop.free.ok });
+					normalFreeResult = macroService.PollPattern(patterns.shop.free, { TimeoutMs: 2_500 });
 				}
+
 				if (macroService.IsRunning) {
 					daily.claimFreeShop.normal.IsChecked = true;
 				}
@@ -69,14 +71,23 @@ while (macroService.IsRunning) {
 				logger.info('claimFreeShop: claim Resource Normal');
 				macroService.PollPattern(patterns.shop.resources.resources, { DoClick: true, PredicatePattern: patterns.shop.resources.resources.selected });
 
-				let resourceFreeResult = macroService.FindPattern(patterns.shop.free);
-				while (resourceFreeResult.IsSuccess) {
+				//let resourceFreeResult = macroService.FindPattern(patterns.shop.free);
+				//while (resourceFreeResult.IsSuccess) {
+				//	macroService.PollPattern(patterns.shop.free, { DoClick: true, PredicatePattern: patterns.shop.free.ok });
+				//	macroService.PollPattern(patterns.shop.free.ok, { DoClick: true, PredicatePattern: patterns.general.tapEmptySpace });
+				//	macroService.PollPattern(patterns.general.tapEmptySpace, { DoClick: true, PredicatePattern: patterns.titles.shop });
+				//	sleep(500);
+				//	resourceFreeResult = macroService.FindPattern(patterns.shop.resource.free);
+				//}
+
+				let resourceFreeResult = macroService.PollPattern(patterns.shop.free, { TimeoutMs: 2_500 });
+				if (resourceFreeResult.IsSuccess) {
 					macroService.PollPattern(patterns.shop.free, { DoClick: true, PredicatePattern: patterns.shop.free.ok });
 					macroService.PollPattern(patterns.shop.free.ok, { DoClick: true, PredicatePattern: patterns.general.tapEmptySpace });
 					macroService.PollPattern(patterns.general.tapEmptySpace, { DoClick: true, PredicatePattern: patterns.titles.shop });
-					sleep(500);
-					resourceFreeResult = macroService.FindPattern(patterns.shop.resource.free);
+					resourceFreeResult = macroService.PollPattern(patterns.shop.free, { TimeoutMs: 2_500 });
 				}
+
 				if (macroService.IsRunning) {
 					daily.claimFreeShop.resource.normal.IsChecked = true;
 				}

@@ -8,6 +8,8 @@ const refillStaminaAmount = settings.doPursuitOperationAssist.refillStaminaAmoun
 
 let teamRestored = false;
 
+goToLobby();
+
 while (macroService.IsRunning) {
 	const loopResult = macroService.PollPattern(loopPatterns);
 	switch (loopResult.Path) {

@@ -15,6 +15,8 @@ let isRotateOperation = targetOperation === 'rotate';
 
 const operations = ['ironStretcher', 'irregularQueen', 'blockbuster', 'mutatedWyvre']
 
+goToLobby();
+
 while (macroService.IsRunning) {
 	const loopResult = macroService.PollPattern(loopPatterns);
 	switch (loopResult.Path) {
