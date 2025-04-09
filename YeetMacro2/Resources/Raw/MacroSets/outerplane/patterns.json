@@ -31,6 +31,7 @@
           "ignoreBackground": false
         },
         "offsetCalcType": "Default",
+        "boundsCalcType": "Default",
         "position": 0
       }
     ],
@@ -70,6 +71,7 @@
             "ignoreBackground": false
           },
           "offsetCalcType": "Default",
+          "boundsCalcType": "Default",
           "position": 0
         }
       ],
@@ -110,6 +112,7 @@
             "ignoreBackground": false
           },
           "offsetCalcType": "DockRight",
+          "boundsCalcType": "Default",
           "position": 0
         }
       ],
@@ -150,6 +153,7 @@
             "ignoreBackground": false
           },
           "offsetCalcType": "Default",
+          "boundsCalcType": "Default",
           "position": 0
         }
       ],
@@ -189,6 +193,7 @@
               "ignoreBackground": false
             },
             "offsetCalcType": "Default",
+            "boundsCalcType": "Default",
             "position": 0
           }
         ],
@@ -230,6 +235,7 @@
             "ignoreBackground": false
           },
           "offsetCalcType": "Default",
+          "boundsCalcType": "Default",
           "position": 0
         },
         {
@@ -262,6 +268,7 @@
             "ignoreBackground": false
           },
           "offsetCalcType": "Default",
+          "boundsCalcType": "Default",
           "position": 0
         }
       ],
@@ -301,6 +308,7 @@
               "ignoreBackground": false
             },
             "offsetCalcType": "Default",
+            "boundsCalcType": "Default",
             "position": 0
           },
           {
@@ -333,6 +341,7 @@
               "ignoreBackground": false
             },
             "offsetCalcType": "Default",
+            "boundsCalcType": "Default",
             "position": 0
           }
         ],
@@ -373,6 +382,7 @@
               "ignoreBackground": false
             },
             "offsetCalcType": "Default",
+            "boundsCalcType": "Default",
             "position": 0
           },
           {
@@ -405,6 +415,7 @@
               "ignoreBackground": false
             },
             "offsetCalcType": "Default",
+            "boundsCalcType": "Default",
             "position": 0
           }
         ],
@@ -445,6 +456,7 @@
               "ignoreBackground": false
             },
             "offsetCalcType": "Default",
+            "boundsCalcType": "Default",
             "position": 0
           }
         ],
@@ -493,6 +505,7 @@
             "ignoreBackground": false
           },
           "offsetCalcType": "Default",
+          "boundsCalcType": "Default",
           "position": 0
         }
       ],
@@ -532,6 +545,7 @@
               "ignoreBackground": false
             },
             "offsetCalcType": "Default",
+            "boundsCalcType": "Default",
             "position": 0
           }
         ],
@@ -573,6 +587,7 @@
             "ignoreBackground": false
           },
           "offsetCalcType": "Default",
+          "boundsCalcType": "Default",
           "position": 0
         }
       ],
@@ -612,6 +627,7 @@
               "ignoreBackground": false
             },
             "offsetCalcType": "Default",
+            "boundsCalcType": "Default",
             "position": 0
           }
         ],
@@ -653,6 +669,7 @@
             "ignoreBackground": false
           },
           "offsetCalcType": "Default",
+          "boundsCalcType": "Default",
           "position": 0
         }
       ],
@@ -692,6 +709,7 @@
               "ignoreBackground": false
             },
             "offsetCalcType": "Default",
+            "boundsCalcType": "Default",
             "position": 0
           }
         ],
@@ -733,6 +751,7 @@
             "ignoreBackground": false
           },
           "offsetCalcType": "Default",
+          "boundsCalcType": "Default",
           "position": 0
         }
       ],
@@ -772,6 +791,7 @@
               "ignoreBackground": false
             },
             "offsetCalcType": "Default",
+            "boundsCalcType": "Default",
             "position": 0
           }
         ],
@@ -813,6 +833,7 @@
             "ignoreBackground": false
           },
           "offsetCalcType": "Default",
+          "boundsCalcType": "Default",
           "position": 0
         }
       ],
@@ -853,6 +874,7 @@
             "ignoreBackground": false
           },
           "offsetCalcType": "Default",
+          "boundsCalcType": "Default",
           "position": 0
         }
       ],
@@ -893,6 +915,7 @@
             "ignoreBackground": false
           },
           "offsetCalcType": "Default",
+          "boundsCalcType": "Default",
           "position": 0
         }
       ],
@@ -940,6 +963,7 @@
             "ignoreBackground": false
           },
           "offsetCalcType": "DockRight",
+          "boundsCalcType": "Default",
           "position": 0
         }
       ],
@@ -979,6 +1003,7 @@
               "ignoreBackground": false
             },
             "offsetCalcType": "DockRight",
+            "boundsCalcType": "Default",
             "position": 0
           }
         ],
@@ -1019,6 +1044,7 @@
               "ignoreBackground": false
             },
             "offsetCalcType": "DockRight",
+            "boundsCalcType": "Default",
             "position": 0
           }
         ],
@@ -1060,6 +1086,7 @@
             "ignoreBackground": false
           },
           "offsetCalcType": "DockLeft",
+          "boundsCalcType": "Default",
           "position": 0
         }
       ],
@@ -1100,6 +1127,7 @@
             "ignoreBackground": false
           },
           "offsetCalcType": "DockRight",
+          "boundsCalcType": "Default",
           "position": 0
         }
       ],
@@ -1140,6 +1168,7 @@
             "ignoreBackground": false
           },
           "offsetCalcType": "DockRight",
+          "boundsCalcType": "Default",
           "position": 0
         }
       ],
@@ -1180,6 +1209,7 @@
             "ignoreBackground": false
           },
           "offsetCalcType": "DockRight",
+          "boundsCalcType": "Default",
           "position": 0
         }
       ],
@@ -1220,6 +1250,7 @@
             "ignoreBackground": false
           },
           "offsetCalcType": "DockLeft",
+          "boundsCalcType": "Default",
           "position": 0
         }
       ],
@@ -1260,6 +1291,7 @@
             "ignoreBackground": false
           },
           "offsetCalcType": "Default",
+          "boundsCalcType": "Default",
           "position": 0
         }
       ],
@@ -1299,6 +1331,7 @@
               "ignoreBackground": false
             },
             "offsetCalcType": "Default",
+            "boundsCalcType": "Default",
             "position": 0
           }
         ],
@@ -1339,6 +1372,7 @@
               "ignoreBackground": false
             },
             "offsetCalcType": "Default",
+            "boundsCalcType": "Default",
             "position": 0
           }
         ],
@@ -1378,6 +1412,7 @@
                 "ignoreBackground": false
               },
               "offsetCalcType": "Default",
+              "boundsCalcType": "Default",
               "position": 0
             }
           ],
@@ -1419,6 +1454,7 @@
               "ignoreBackground": false
             },
             "offsetCalcType": "Default",
+            "boundsCalcType": "Default",
             "position": 0
           }
         ],
@@ -1460,6 +1496,7 @@
             "ignoreBackground": false
           },
           "offsetCalcType": "Default",
+          "boundsCalcType": "Default",
           "position": 0
         }
       ],
@@ -1499,6 +1536,7 @@
               "ignoreBackground": false
             },
             "offsetCalcType": "Default",
+            "boundsCalcType": "Default",
             "position": 0
           }
         ],
@@ -1540,6 +1578,7 @@
             "ignoreBackground": false
           },
           "offsetCalcType": "Default",
+          "boundsCalcType": "Default",
           "position": 0
         }
       ],
@@ -1579,6 +1618,7 @@
               "ignoreBackground": false
             },
             "offsetCalcType": "Default",
+            "boundsCalcType": "Default",
             "position": 0
           }
         ],
@@ -1627,6 +1667,7 @@
             "ignoreBackground": false
           },
           "offsetCalcType": "DockRight",
+          "boundsCalcType": "Default",
           "position": 0
         },
         {
@@ -1659,6 +1700,7 @@
             "ignoreBackground": false
           },
           "offsetCalcType": "DockRight",
+          "boundsCalcType": "Default",
           "position": 0
         }
       ],
@@ -1699,6 +1741,7 @@
             "ignoreBackground": false
           },
           "offsetCalcType": "DockRight",
+          "boundsCalcType": "Default",
           "position": 0
         },
         {
@@ -1731,6 +1774,7 @@
             "ignoreBackground": false
           },
           "offsetCalcType": "DockRight",
+          "boundsCalcType": "Default",
           "position": 0
         }
       ],
@@ -1778,6 +1822,7 @@
             "ignoreBackground": false
           },
           "offsetCalcType": "DockRight",
+          "boundsCalcType": "Default",
           "position": 0
         },
         {
@@ -1810,6 +1855,7 @@
             "ignoreBackground": false
           },
           "offsetCalcType": "DockRight",
+          "boundsCalcType": "Default",
           "position": 0
         }
       ],
@@ -1850,6 +1896,7 @@
             "ignoreBackground": false
           },
           "offsetCalcType": "DockRight",
+          "boundsCalcType": "Default",
           "position": 0
         },
         {
@@ -1882,6 +1929,7 @@
             "ignoreBackground": false
           },
           "offsetCalcType": "DockRight",
+          "boundsCalcType": "Default",
           "position": 0
         }
       ],
@@ -1922,6 +1970,7 @@
             "ignoreBackground": false
           },
           "offsetCalcType": "DockRight",
+          "boundsCalcType": "Default",
           "position": 0
         },
         {
@@ -1954,6 +2003,7 @@
             "ignoreBackground": false
           },
           "offsetCalcType": "DockRight",
+          "boundsCalcType": "Default",
           "position": 0
         }
       ],
@@ -1994,6 +2044,7 @@
             "ignoreBackground": false
           },
           "offsetCalcType": "DockRight",
+          "boundsCalcType": "Default",
           "position": 0
         },
         {
@@ -2026,6 +2077,7 @@
             "ignoreBackground": false
           },
           "offsetCalcType": "DockRight",
+          "boundsCalcType": "Default",
           "position": 0
         }
       ],
@@ -2066,6 +2118,7 @@
             "ignoreBackground": false
           },
           "offsetCalcType": "DockLeft",
+          "boundsCalcType": "Default",
           "position": 0
         }
       ],
@@ -2106,6 +2159,7 @@
             "ignoreBackground": false
           },
           "offsetCalcType": "DockRight",
+          "boundsCalcType": "Default",
           "position": 0
         }
       ],
@@ -2145,6 +2199,7 @@
               "ignoreBackground": false
             },
             "offsetCalcType": "DockRight",
+            "boundsCalcType": "Default",
             "position": 0
           }
         ],
@@ -2185,6 +2240,7 @@
               "ignoreBackground": false
             },
             "offsetCalcType": "DockRight",
+            "boundsCalcType": "Default",
             "position": 0
           }
         ],
@@ -2225,6 +2281,7 @@
               "ignoreBackground": false
             },
             "offsetCalcType": "DockRight",
+            "boundsCalcType": "Default",
             "position": 0
           }
         ],
@@ -2265,6 +2322,7 @@
               "ignoreBackground": false
             },
             "offsetCalcType": "DockRight",
+            "boundsCalcType": "Default",
             "position": 0
           }
         ],
@@ -2305,6 +2363,7 @@
               "ignoreBackground": false
             },
             "offsetCalcType": "Default",
+            "boundsCalcType": "Default",
             "position": 0
           }
         ],
@@ -2344,6 +2403,7 @@
                 "ignoreBackground": false
               },
               "offsetCalcType": "Default",
+              "boundsCalcType": "Default",
               "position": 0
             }
           ],
@@ -2383,6 +2443,7 @@
                   "ignoreBackground": false
                 },
                 "offsetCalcType": "Default",
+                "boundsCalcType": "Default",
                 "position": 0
               }
             ],
@@ -2425,6 +2486,7 @@
               "ignoreBackground": false
             },
             "offsetCalcType": "Default",
+            "boundsCalcType": "Default",
             "position": 0
           }
         ],
@@ -2465,6 +2527,7 @@
               "ignoreBackground": false
             },
             "offsetCalcType": "DockRight",
+            "boundsCalcType": "Default",
             "position": 0
           }
         ],
@@ -2511,6 +2574,7 @@
                 "ignoreBackground": false
               },
               "offsetCalcType": "DockLeft",
+              "boundsCalcType": "Default",
               "position": 0
             }
           ],
@@ -2551,6 +2615,7 @@
                 "ignoreBackground": false
               },
               "offsetCalcType": "Default",
+              "boundsCalcType": "Default",
               "position": 0
             }
           ],
@@ -2593,6 +2658,7 @@
             "ignoreBackground": false
           },
           "offsetCalcType": "DockRight",
+          "boundsCalcType": "Default",
           "position": 0
         }
       ],
@@ -2633,6 +2699,7 @@
             "ignoreBackground": false
           },
           "offsetCalcType": "DockRight",
+          "boundsCalcType": "Default",
           "position": 0
         }
       ],
@@ -2672,6 +2739,7 @@
               "ignoreBackground": false
             },
             "offsetCalcType": "DockRight",
+            "boundsCalcType": "Default",
             "position": 0
           }
         ],
@@ -2713,6 +2781,7 @@
             "ignoreBackground": false
           },
           "offsetCalcType": "DockRight",
+          "boundsCalcType": "Default",
           "position": 0
         }
       ],
@@ -2720,6 +2789,47 @@
       "$position": 0,
       "$name": "irregularExtermination",
       "$path": "adventure.irregularExtermination"
+    },
+    "doNotSeeFor3days": {
+      "$patterns": [
+        {
+          "rawBounds": {
+            "x": 1007.25,
+            "y": 943.25,
+            "width": 39.5,
+            "height": 28.5
+          },
+          "resolution": {
+            "width": 1920,
+            "height": 1080
+          },
+          "isBoundsPattern": false,
+          "name": "pattern",
+          "imageData": "/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDAAEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQH/2wBDAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQH/wAARCAAcACcDASIAAhEBAxEB/8QAGwAAAgIDAQAAAAAAAAAAAAAAAAkFCAMGCgT/xAAtEAACAgIBAwMBBwUAAAAAAAACAwEEBQYHAAgRCRITISIjMTJRUnEUFkFWgf/EABcBAQADAAAAAAAAAAAAAAAAAAABAgP/xAAbEQACAgMBAAAAAAAAAAAAAAAAARHwEyFR0f/aAAwDAQACEQMRAD8AeZ6lvMXM/G+z8F67xFyDldEsb1lX4W87HhTYmw+5kKdGm20Fupa+xXOzBT8XsKRiY8z9OoHK8W+p3xhim7hhOdcPy4WOTF5+pZDG1VHcrrCGtVVVCK82HkETAqh65mfrBRP068fqnoCOWO0mPbEed6oR48T/ALJh/r9Z6dHWrr/pq8fH5+4V+7xP3Y9O2NIFF+zTu+o9zOAzWKz2IjU+UtIdFHctYIpgRYDDrlfpAyBbFcrCmKaoo9yHCS5+gxM3b6S9xRSpa96s3JuJ08ATicrq+Xt7JRpR7agXyo4tzZatf2BYDDF8RPj7yww/zFPW7c188c/88dzOX7W+2fZKnHlPTKxO3Tfm1RsWl2EpU6ytHyCyJrLGwlSlLCGWG/LHyL+LyUNSmu+gbX0dJr1vuG7huz/nHGcO9zu2VOU9O2zB5LL67uqqo1MgttCo58BECK/aiGJGs+u0SNbHpOGnBFAHVMb7bNehM+rLjszV3btr2PE61ndjRq+wNzt6rg8ZbyD5Ti8tjrxJmayXAljwrktJO9o++fMz4iethznqWb7tuILXeGO1rllu730RSxlnZ8QQ4qraNcLCywqiyCfiKfeIWTSkpiINgxPmHVvxePtSM2qdazIeYGXoU6RifxgfkAvHn/Pjx0IxWOqzJVqVWuUx4mUISqZj9JlYDMx/PWgFcdhfaJu3F9/dOdOcHhc5l5RcyzeqSYvLAULTpssrMdBEMW3kQrYtREtFZSawkcLgprRyXgOR+yTvL3DuFo8d7HyTxFytWMcv/a1MruTxFx6kAyuS1iZKOs5E2FtdEV3A8wkxJYiT5/gV+3rG2lVeslPStyijwS2gDFlH6EBjIzH8xPQHPRmdW5I9SDuJ1vcK3G+zcZ8Rcd63msajK7hROjdu3clUb4UImK4cdi5NVgTXg1pSlgsOGHAwddCyaNSuuFV0KQofyrSsFLHz+PgAERj/AJHR0B//2Q==",
+          "variancePct": 20,
+          "horizontalStretchMultiplier": 0,
+          "verticalStretchMultiplier": 0,
+          "textMatch": {
+            "isActive": false,
+            "text": null,
+            "whiteList": null
+          },
+          "colorThreshold": {
+            "isActive": true,
+            "variancePct": 30,
+            "color": "#ff6e6e6e",
+            "imageData": "/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDAAIBAQEBAQIBAQECAgICAgQDAgICAgUEBAMEBgUGBgYFBgYGBwkIBgcJBwYGCAsICQoKCgoKBggLDAsKDAkKCgr/wAALCAAcACcBAREA/8QAHwAAAQUBAQEBAQEAAAAAAAAAAAECAwQFBgcICQoL/8QAtRAAAgEDAwIEAwUFBAQAAAF9AQIDAAQRBRIhMUEGE1FhByJxFDKBkaEII0KxwRVS0fAkM2JyggkKFhcYGRolJicoKSo0NTY3ODk6Q0RFRkdISUpTVFVWV1hZWmNkZWZnaGlqc3R1dnd4eXqDhIWGh4iJipKTlJWWl5iZmqKjpKWmp6ipqrKztLW2t7i5usLDxMXGx8jJytLT1NXW19jZ2uHi4+Tl5ufo6erx8vP09fb3+Pn6/9oACAEBAAA/APTv+DyD9tb9rj9lTwr+z94O/Zj/AGjfGHw8tPFeoeJr3xDN4K1yXS7q+ksU0xLZXurYpP5Si+uSYQ4jdmRnVmiiKef3X/BPj/g7x/YD+DXjX4v/AAs/4KSaf8T5bbT4r298IReKL7xlrN7Hbl9y6bB4h0p0WUJLJI0MEkclwI1RVmlWGM/d/wDwQf8A+C6HgT/gsD8LNZ0bxroHh/wX8XfB/lHX/BWm6zLP/adh5Fura1axzRI0ds93JNCYBJcNbYgEsp+0RM/3/RX4A/8AB85/za7/ANzt/wC4Cv3+r8Ef2afCfir4A/8AB6x8S/h9+zX4Z1Cy8KeJdP1C/wDidFZWT30YtdR8N2utXNxPNMJGtIpdeezcOrRqJJYrdCqSCJug/wCCgv8AwUF/4Kjf8FYv+Co3jb/gkH/wSD+Nen/Dbw18NtPvE8d+O49ZuNJury6sLi1W9lkvVtzfWcVvqBj05IrBGadnmkkkltZv3Hn/AMJP+CxH/BS7/g3r/a4X9hz/AILReMNQ+N3gS+8Hxax4f8S+G9Yj1fWbWOeW6eO7try++zXF9E10txaSwagySRC3R7d1hiSO60P+D5z/AJtd/wC52/8AcBXoHi7/AIO7Pin+0v4E07wB/wAErP8AgmP8QPHfxdk8PrqXirTdX0ifWLDw7sls1meG20hmutTti000AuJDYbGa2co/mGFfb/8Ag3e/4I+/tP8A7IXxC+K//BQ//go0NPHx4+MeoXiXOl2V3DJJpFrPfveX8s72Ev2B5b66W3mEUKMtvHbRBZFM80EXyh+014I/aO/4N1v+C4fj3/gqbpn7N/iD4kfs6/GT7fL408S6WrXdz4eh1bUrK51GOSWNIobG5j1TyjaR3P7m6t5UtxP55mlt/L/HvwB+Mv8Awd+/8FC7n9pT4QfD3UPgj8F/hz4PHg+7+IXidBq0l9JBeX95aJFaxmBHvpUv4WmtUneO0jG97lzLbxz/ANJ1FFFFf//Z",
+            "ignoreBackground": false
+          },
+          "offsetCalcType": "Default",
+          "boundsCalcType": "Default",
+          "position": 0
+        }
+      ],
+      "$isMultiPattern": false,
+      "$position": 0,
+      "$name": "doNotSeeFor3days",
+      "$path": "adventure.doNotSeeFor3days"
     }
   },
   "arena": {
@@ -2760,6 +2870,7 @@
             "ignoreBackground": false
           },
           "offsetCalcType": "Default",
+          "boundsCalcType": "Default",
           "position": 0
         }
       ],
@@ -2800,6 +2911,7 @@
             "ignoreBackground": false
           },
           "offsetCalcType": "Default",
+          "boundsCalcType": "Default",
           "position": 0
         }
       ],
@@ -2846,6 +2958,7 @@
               "ignoreBackground": false
             },
             "offsetCalcType": "Default",
+            "boundsCalcType": "Default",
             "position": 0
           }
         ],
@@ -2887,6 +3000,7 @@
             "ignoreBackground": false
           },
           "offsetCalcType": "DockRight",
+          "boundsCalcType": "Default",
           "position": 0
         }
       ],
@@ -2926,6 +3040,7 @@
               "ignoreBackground": false
             },
             "offsetCalcType": "HorizontalStretchOffset",
+            "boundsCalcType": "Default",
             "position": 0
           }
         ],
@@ -2967,6 +3082,7 @@
             "ignoreBackground": false
           },
           "offsetCalcType": "DockRight",
+          "boundsCalcType": "Default",
           "position": 0
         }
       ],
@@ -3006,6 +3122,7 @@
               "ignoreBackground": false
             },
             "offsetCalcType": "HorizontalStretchOffset",
+            "boundsCalcType": "Default",
             "position": 0
           }
         ],
@@ -3047,6 +3164,7 @@
             "ignoreBackground": false
           },
           "offsetCalcType": "DockRight",
+          "boundsCalcType": "Default",
           "position": 0
         }
       ],
@@ -3086,6 +3204,7 @@
               "ignoreBackground": false
             },
             "offsetCalcType": "HorizontalStretchOffset",
+            "boundsCalcType": "Default",
             "position": 0
           }
         ],
@@ -3127,6 +3246,7 @@
             "ignoreBackground": false
           },
           "offsetCalcType": "HorizontalStretchOffset",
+          "boundsCalcType": "Default",
           "position": 0
         }
       ],
@@ -3166,6 +3286,7 @@
               "ignoreBackground": false
             },
             "offsetCalcType": "HorizontalStretchOffset",
+            "boundsCalcType": "Default",
             "position": 0
           }
         ],
@@ -3207,6 +3328,7 @@
             "ignoreBackground": false
           },
           "offsetCalcType": "Default",
+          "boundsCalcType": "Default",
           "position": 0
         }
       ],
@@ -3253,6 +3375,7 @@
               "ignoreBackground": false
             },
             "offsetCalcType": "DockLeft",
+            "boundsCalcType": "Default",
             "position": 0
           }
         ],
@@ -3300,6 +3423,7 @@
               "ignoreBackground": false
             },
             "offsetCalcType": "HorizontalStretchOffset",
+            "boundsCalcType": "Default",
             "position": 0
           }
         ],
@@ -3340,6 +3464,7 @@
               "ignoreBackground": false
             },
             "offsetCalcType": "HorizontalStretchOffset",
+            "boundsCalcType": "Default",
             "position": 0
           }
         ],
@@ -3380,6 +3505,7 @@
               "ignoreBackground": false
             },
             "offsetCalcType": "DockRight",
+            "boundsCalcType": "Default",
             "position": 0
           }
         ],
@@ -3419,6 +3545,7 @@
                 "ignoreBackground": false
               },
               "offsetCalcType": "Default",
+              "boundsCalcType": "Default",
               "position": 0
             }
           ],
@@ -3459,6 +3586,7 @@
                 "ignoreBackground": false
               },
               "offsetCalcType": "Default",
+              "boundsCalcType": "Default",
               "position": 0
             }
           ],
@@ -3499,6 +3627,7 @@
                 "ignoreBackground": false
               },
               "offsetCalcType": "Default",
+              "boundsCalcType": "Default",
               "position": 0
             }
           ],
@@ -3539,6 +3668,7 @@
                 "ignoreBackground": false
               },
               "offsetCalcType": "Default",
+              "boundsCalcType": "Default",
               "position": 0
             }
           ],
@@ -3579,6 +3709,7 @@
                 "ignoreBackground": false
               },
               "offsetCalcType": "DockRight",
+              "boundsCalcType": "Default",
               "position": 0
             }
           ],
@@ -3619,6 +3750,7 @@
                 "ignoreBackground": false
               },
               "offsetCalcType": "Default",
+              "boundsCalcType": "Default",
               "position": 0
             }
           ],
@@ -3659,6 +3791,7 @@
                 "ignoreBackground": false
               },
               "offsetCalcType": "Default",
+              "boundsCalcType": "Default",
               "position": 0
             }
           ],
@@ -3701,6 +3834,7 @@
             "ignoreBackground": false
           },
           "offsetCalcType": "HorizontalStretchOffset",
+          "boundsCalcType": "Default",
           "position": 0
         }
       ],
@@ -3741,6 +3875,7 @@
             "ignoreBackground": false
           },
           "offsetCalcType": "DockRight",
+          "boundsCalcType": "Default",
           "position": 0
         }
       ],
@@ -3781,6 +3916,7 @@
             "ignoreBackground": false
           },
           "offsetCalcType": "Default",
+          "boundsCalcType": "Default",
           "position": 0
         }
       ],
@@ -3821,6 +3957,7 @@
             "ignoreBackground": false
           },
           "offsetCalcType": "DockRight",
+          "boundsCalcType": "Default",
           "position": 0
         }
       ],
@@ -3861,6 +3998,7 @@
             "ignoreBackground": false
           },
           "offsetCalcType": "DockRight",
+          "boundsCalcType": "Default",
           "position": 0
         }
       ],
@@ -3907,6 +4045,7 @@
               "ignoreBackground": false
             },
             "offsetCalcType": "DockLeft",
+            "boundsCalcType": "Default",
             "position": 0
           }
         ],
@@ -3955,6 +4094,7 @@
             "ignoreBackground": false
           },
           "offsetCalcType": "Default",
+          "boundsCalcType": "Default",
           "position": 0
         }
       ],
@@ -3995,6 +4135,7 @@
             "ignoreBackground": false
           },
           "offsetCalcType": "Default",
+          "boundsCalcType": "Default",
           "position": 0
         }
       ],
@@ -4042,6 +4183,7 @@
             "ignoreBackground": false
           },
           "offsetCalcType": "DockRight",
+          "boundsCalcType": "Default",
           "position": 0
         },
         {
@@ -4074,6 +4216,7 @@
             "ignoreBackground": false
           },
           "offsetCalcType": "DockRight",
+          "boundsCalcType": "Default",
           "position": 0
         }
       ],
@@ -4114,6 +4257,7 @@
             "ignoreBackground": false
           },
           "offsetCalcType": "DockLeft",
+          "boundsCalcType": "Default",
           "position": 0
         }
       ],
@@ -4153,6 +4297,7 @@
               "ignoreBackground": false
             },
             "offsetCalcType": "DockRight",
+            "boundsCalcType": "Default",
             "position": 0
           }
         ],
@@ -4193,6 +4338,7 @@
               "ignoreBackground": false
             },
             "offsetCalcType": "DockRight",
+            "boundsCalcType": "Default",
             "position": 0
           }
         ],
@@ -4240,6 +4386,7 @@
               "ignoreBackground": false
             },
             "offsetCalcType": "Default",
+            "boundsCalcType": "Default",
             "position": 0
           }
         ],
@@ -4280,6 +4427,7 @@
               "ignoreBackground": false
             },
             "offsetCalcType": "DockLeft",
+            "boundsCalcType": "Default",
             "position": 0
           }
         ],
@@ -4321,6 +4469,7 @@
             "ignoreBackground": false
           },
           "offsetCalcType": "DockLeft",
+          "boundsCalcType": "Default",
           "position": 0
         }
       ],
@@ -4368,6 +4517,7 @@
             "ignoreBackground": false
           },
           "offsetCalcType": "DockRight",
+          "boundsCalcType": "Default",
           "position": 0
         }
       ],
@@ -4408,6 +4558,7 @@
             "ignoreBackground": false
           },
           "offsetCalcType": "Default",
+          "boundsCalcType": "Default",
           "position": 0
         }
       ],
@@ -4447,6 +4598,7 @@
               "ignoreBackground": false
             },
             "offsetCalcType": "DockLeft",
+            "boundsCalcType": "Default",
             "position": 0
           }
         ],
@@ -4486,6 +4638,7 @@
                 "ignoreBackground": false
               },
               "offsetCalcType": "DockRight",
+              "boundsCalcType": "Default",
               "position": 0
             }
           ],
@@ -4527,6 +4680,7 @@
               "ignoreBackground": false
             },
             "offsetCalcType": "DockLeft",
+            "boundsCalcType": "Default",
             "position": 0
           }
         ],
@@ -4566,6 +4720,7 @@
                 "ignoreBackground": false
               },
               "offsetCalcType": "DockRight",
+              "boundsCalcType": "Default",
               "position": 0
             }
           ],
@@ -4607,6 +4762,7 @@
               "ignoreBackground": false
             },
             "offsetCalcType": "DockLeft",
+            "boundsCalcType": "Default",
             "position": 0
           }
         ],
@@ -4646,6 +4802,7 @@
                 "ignoreBackground": false
               },
               "offsetCalcType": "DockRight",
+              "boundsCalcType": "Default",
               "position": 0
             }
           ],
@@ -4687,6 +4844,7 @@
               "ignoreBackground": false
             },
             "offsetCalcType": "DockLeft",
+            "boundsCalcType": "Default",
             "position": 0
           }
         ],
@@ -4726,6 +4884,7 @@
                 "ignoreBackground": false
               },
               "offsetCalcType": "DockRight",
+              "boundsCalcType": "Default",
               "position": 0
             }
           ],
@@ -4767,6 +4926,7 @@
               "ignoreBackground": false
             },
             "offsetCalcType": "DockLeft",
+            "boundsCalcType": "Default",
             "position": 0
           }
         ],
@@ -4806,6 +4966,7 @@
                 "ignoreBackground": false
               },
               "offsetCalcType": "DockRight",
+              "boundsCalcType": "Default",
               "position": 0
             }
           ],
@@ -4848,6 +5009,7 @@
             "ignoreBackground": false
           },
           "offsetCalcType": "Default",
+          "boundsCalcType": "Default",
           "position": 0
         }
       ],
@@ -4887,6 +5049,7 @@
               "ignoreBackground": false
             },
             "offsetCalcType": "DockLeft",
+            "boundsCalcType": "Default",
             "position": 0
           }
         ],
@@ -4926,6 +5089,7 @@
                 "ignoreBackground": false
               },
               "offsetCalcType": "DockRight",
+              "boundsCalcType": "Default",
               "position": 0
             }
           ],
@@ -4967,6 +5131,7 @@
               "ignoreBackground": false
             },
             "offsetCalcType": "DockLeft",
+            "boundsCalcType": "Default",
             "position": 0
           }
         ],
@@ -5006,6 +5171,7 @@
                 "ignoreBackground": false
               },
               "offsetCalcType": "DockRight",
+              "boundsCalcType": "Default",
               "position": 0
             }
           ],
@@ -5047,6 +5213,7 @@
               "ignoreBackground": false
             },
             "offsetCalcType": "DockLeft",
+            "boundsCalcType": "Default",
             "position": 0
           }
         ],
@@ -5086,6 +5253,7 @@
                 "ignoreBackground": false
               },
               "offsetCalcType": "DockRight",
+              "boundsCalcType": "Default",
               "position": 0
             }
           ],
@@ -5127,6 +5295,7 @@
               "ignoreBackground": false
             },
             "offsetCalcType": "DockLeft",
+            "boundsCalcType": "Default",
             "position": 0
           }
         ],
@@ -5166,6 +5335,7 @@
                 "ignoreBackground": false
               },
               "offsetCalcType": "DockRight",
+              "boundsCalcType": "Default",
               "position": 0
             }
           ],
@@ -5207,6 +5377,7 @@
               "ignoreBackground": false
             },
             "offsetCalcType": "DockLeft",
+            "boundsCalcType": "Default",
             "position": 0
           }
         ],
@@ -5246,6 +5417,7 @@
                 "ignoreBackground": false
               },
               "offsetCalcType": "DockRight",
+              "boundsCalcType": "Default",
               "position": 0
             }
           ],
@@ -5288,6 +5460,7 @@
             "ignoreBackground": false
           },
           "offsetCalcType": "Default",
+          "boundsCalcType": "Default",
           "position": 0
         }
       ],
@@ -5327,6 +5500,7 @@
               "ignoreBackground": false
             },
             "offsetCalcType": "DockLeft",
+            "boundsCalcType": "Default",
             "position": 0
           }
         ],
@@ -5366,6 +5540,7 @@
                 "ignoreBackground": false
               },
               "offsetCalcType": "DockLeft",
+              "boundsCalcType": "Default",
               "position": 0
             }
           ],
@@ -5407,6 +5582,7 @@
               "ignoreBackground": false
             },
             "offsetCalcType": "DockLeft",
+            "boundsCalcType": "Default",
             "position": 0
           }
         ],
@@ -5446,6 +5622,7 @@
                 "ignoreBackground": false
               },
               "offsetCalcType": "DockLeft",
+              "boundsCalcType": "Default",
               "position": 0
             }
           ],
@@ -5487,6 +5664,7 @@
               "ignoreBackground": false
             },
             "offsetCalcType": "DockLeft",
+            "boundsCalcType": "Default",
             "position": 0
           }
         ],
@@ -5526,6 +5704,7 @@
                 "ignoreBackground": false
               },
               "offsetCalcType": "DockLeft",
+              "boundsCalcType": "Default",
               "position": 0
             }
           ],
@@ -5567,6 +5746,7 @@
               "ignoreBackground": false
             },
             "offsetCalcType": "DockLeft",
+            "boundsCalcType": "Default",
             "position": 0
           }
         ],
@@ -5606,6 +5786,7 @@
                 "ignoreBackground": false
               },
               "offsetCalcType": "DockLeft",
+              "boundsCalcType": "Default",
               "position": 0
             }
           ],
@@ -5647,6 +5828,7 @@
               "ignoreBackground": false
             },
             "offsetCalcType": "DockLeft",
+            "boundsCalcType": "Default",
             "position": 0
           }
         ],
@@ -5686,6 +5868,7 @@
                 "ignoreBackground": false
               },
               "offsetCalcType": "DockLeft",
+              "boundsCalcType": "Default",
               "position": 0
             }
           ],
@@ -5728,6 +5911,7 @@
             "ignoreBackground": false
           },
           "offsetCalcType": "Default",
+          "boundsCalcType": "Default",
           "position": 0
         }
       ],
@@ -5768,6 +5952,7 @@
             "ignoreBackground": false
           },
           "offsetCalcType": "Default",
+          "boundsCalcType": "Default",
           "position": 0
         }
       ],
@@ -5808,6 +5993,7 @@
             "ignoreBackground": false
           },
           "offsetCalcType": "DockRight",
+          "boundsCalcType": "Default",
           "position": 0
         }
       ],
@@ -5848,6 +6034,7 @@
             "ignoreBackground": false
           },
           "offsetCalcType": "DockRight",
+          "boundsCalcType": "Default",
           "position": 0
         }
       ],
@@ -5887,6 +6074,7 @@
               "ignoreBackground": false
             },
             "offsetCalcType": "DockRight",
+            "boundsCalcType": "Default",
             "position": 0
           }
         ],
@@ -5928,6 +6116,7 @@
             "ignoreBackground": false
           },
           "offsetCalcType": "DockRight",
+          "boundsCalcType": "Default",
           "position": 0
         }
       ],
@@ -5968,6 +6157,7 @@
             "ignoreBackground": false
           },
           "offsetCalcType": "Default",
+          "boundsCalcType": "Default",
           "position": 0
         }
       ],
@@ -6007,6 +6197,7 @@
               "ignoreBackground": false
             },
             "offsetCalcType": "DockLeft",
+            "boundsCalcType": "Default",
             "position": 0
           }
         ],
@@ -6046,6 +6237,7 @@
                 "ignoreBackground": false
               },
               "offsetCalcType": "Default",
+              "boundsCalcType": "Default",
               "position": 0
             }
           ],
@@ -6086,6 +6278,7 @@
                 "ignoreBackground": false
               },
               "offsetCalcType": "DockLeft",
+              "boundsCalcType": "Default",
               "position": 0
             }
           ],
@@ -6126,6 +6319,7 @@
                 "ignoreBackground": false
               },
               "offsetCalcType": "Default",
+              "boundsCalcType": "Default",
               "position": 0
             }
           ],
@@ -6166,6 +6360,7 @@
                 "ignoreBackground": false
               },
               "offsetCalcType": "Default",
+              "boundsCalcType": "Default",
               "position": 0
             }
           ],
@@ -6206,6 +6401,7 @@
                 "ignoreBackground": false
               },
               "offsetCalcType": "Default",
+              "boundsCalcType": "Default",
               "position": 0
             }
           ],
@@ -6246,6 +6442,7 @@
                 "ignoreBackground": false
               },
               "offsetCalcType": "Default",
+              "boundsCalcType": "Default",
               "position": 0
             }
           ],
@@ -6286,6 +6483,7 @@
                 "ignoreBackground": false
               },
               "offsetCalcType": "Default",
+              "boundsCalcType": "Default",
               "position": 0
             }
           ],
@@ -6326,6 +6524,7 @@
                 "ignoreBackground": false
               },
               "offsetCalcType": "Default",
+              "boundsCalcType": "Default",
               "position": 0
             }
           ],
@@ -6366,6 +6565,7 @@
                 "ignoreBackground": false
               },
               "offsetCalcType": "Default",
+              "boundsCalcType": "Default",
               "position": 0
             }
           ],
@@ -6406,6 +6606,7 @@
                 "ignoreBackground": false
               },
               "offsetCalcType": "Default",
+              "boundsCalcType": "Default",
               "position": 0
             }
           ],
@@ -6446,6 +6647,7 @@
                 "ignoreBackground": false
               },
               "offsetCalcType": "Default",
+              "boundsCalcType": "Default",
               "position": 0
             }
           ],
@@ -6485,6 +6687,7 @@
                   "ignoreBackground": false
                 },
                 "offsetCalcType": "Default",
+                "boundsCalcType": "Default",
                 "position": 0
               }
             ],
@@ -6524,6 +6727,7 @@
                     "ignoreBackground": false
                   },
                   "offsetCalcType": "Default",
+                  "boundsCalcType": "Default",
                   "position": 0
                 }
               ],
@@ -6565,6 +6769,7 @@
                   "ignoreBackground": false
                 },
                 "offsetCalcType": "Default",
+                "boundsCalcType": "Default",
                 "position": 0
               }
             ],
@@ -6604,6 +6809,7 @@
                     "ignoreBackground": false
                   },
                   "offsetCalcType": "Default",
+                  "boundsCalcType": "Default",
                   "position": 0
                 }
               ],
@@ -6645,6 +6851,7 @@
                   "ignoreBackground": false
                 },
                 "offsetCalcType": "Default",
+                "boundsCalcType": "Default",
                 "position": 0
               }
             ],
@@ -6684,6 +6891,7 @@
                     "ignoreBackground": false
                   },
                   "offsetCalcType": "Default",
+                  "boundsCalcType": "Default",
                   "position": 0
                 }
               ],
@@ -6725,6 +6933,7 @@
                   "ignoreBackground": false
                 },
                 "offsetCalcType": "Default",
+                "boundsCalcType": "Default",
                 "position": 0
               }
             ],
@@ -6764,6 +6973,7 @@
                     "ignoreBackground": false
                   },
                   "offsetCalcType": "Default",
+                  "boundsCalcType": "Default",
                   "position": 0
                 }
               ],
@@ -6806,6 +7016,7 @@
                 "ignoreBackground": false
               },
               "offsetCalcType": "Default",
+              "boundsCalcType": "Default",
               "position": 0
             }
           ],
@@ -6846,6 +7057,7 @@
                 "ignoreBackground": false
               },
               "offsetCalcType": "DockRight",
+              "boundsCalcType": "Default",
               "position": 0
             }
           ],
@@ -6886,6 +7098,7 @@
                 "ignoreBackground": false
               },
               "offsetCalcType": "DockRight",
+              "boundsCalcType": "Default",
               "position": 0
             }
           ],
@@ -6928,6 +7141,7 @@
             "ignoreBackground": false
           },
           "offsetCalcType": "Default",
+          "boundsCalcType": "Default",
           "position": 0
         }
       ],
@@ -6974,6 +7188,7 @@
               "ignoreBackground": false
             },
             "offsetCalcType": "DockRight",
+            "boundsCalcType": "Default",
             "position": 0
           }
         ],
@@ -7013,6 +7228,7 @@
                 "ignoreBackground": false
               },
               "offsetCalcType": "Default",
+              "boundsCalcType": "Default",
               "position": 0
             }
           ],
@@ -7053,6 +7269,7 @@
                 "ignoreBackground": false
               },
               "offsetCalcType": "Default",
+              "boundsCalcType": "Default",
               "position": 0
             }
           ],
@@ -7093,6 +7310,7 @@
                 "ignoreBackground": false
               },
               "offsetCalcType": "Default",
+              "boundsCalcType": "Default",
               "position": 0
             },
             {
@@ -7125,6 +7343,7 @@
                 "ignoreBackground": false
               },
               "offsetCalcType": "Default",
+              "boundsCalcType": "Default",
               "position": 0
             }
           ],
@@ -7166,6 +7385,7 @@
               "ignoreBackground": false
             },
             "offsetCalcType": "Default",
+            "boundsCalcType": "Default",
             "position": 0
           }
         ],
@@ -7205,6 +7425,7 @@
                 "ignoreBackground": false
               },
               "offsetCalcType": "Default",
+              "boundsCalcType": "Default",
               "position": 0
             }
           ],
@@ -7245,6 +7466,7 @@
                 "ignoreBackground": false
               },
               "offsetCalcType": "Default",
+              "boundsCalcType": "Default",
               "position": 0
             }
           ],
@@ -7286,6 +7508,7 @@
               "ignoreBackground": false
             },
             "offsetCalcType": "Default",
+            "boundsCalcType": "Default",
             "position": 0
           }
         ],
@@ -7326,6 +7549,7 @@
               "ignoreBackground": false
             },
             "offsetCalcType": "Default",
+            "boundsCalcType": "Default",
             "position": 0
           }
         ],
@@ -7367,6 +7591,7 @@
             "ignoreBackground": false
           },
           "offsetCalcType": "Default",
+          "boundsCalcType": "Default",
           "position": 0
         }
       ],
@@ -7412,6 +7637,7 @@
                 "ignoreBackground": false
               },
               "offsetCalcType": "DockLeft",
+              "boundsCalcType": "Default",
               "position": 0
             }
           ],
@@ -7452,6 +7678,7 @@
                 "ignoreBackground": false
               },
               "offsetCalcType": "DockLeft",
+              "boundsCalcType": "Default",
               "position": 0
             }
           ],
@@ -7494,6 +7721,7 @@
             "ignoreBackground": false
           },
           "offsetCalcType": "DockRight",
+          "boundsCalcType": "Default",
           "position": 0
         }
       ],
@@ -7541,6 +7769,7 @@
             "ignoreBackground": false
           },
           "offsetCalcType": "DockRight",
+          "boundsCalcType": "Default",
           "position": 0
         }
       ],
@@ -7581,6 +7810,7 @@
             "ignoreBackground": false
           },
           "offsetCalcType": "DockRight",
+          "boundsCalcType": "Default",
           "position": 0
         }
       ],
@@ -7621,6 +7851,7 @@
             "ignoreBackground": false
           },
           "offsetCalcType": "Default",
+          "boundsCalcType": "Default",
           "position": 0
         }
       ],
@@ -7661,6 +7892,7 @@
             "ignoreBackground": false
           },
           "offsetCalcType": "DockLeft",
+          "boundsCalcType": "Default",
           "position": 0
         }
       ],
@@ -7700,6 +7932,7 @@
               "ignoreBackground": false
             },
             "offsetCalcType": "Default",
+            "boundsCalcType": "Default",
             "position": 0
           }
         ],
@@ -7741,6 +7974,7 @@
             "ignoreBackground": false
           },
           "offsetCalcType": "DockLeft",
+          "boundsCalcType": "Default",
           "position": 0
         }
       ],
@@ -7780,6 +8014,7 @@
               "ignoreBackground": false
             },
             "offsetCalcType": "DockLeft",
+            "boundsCalcType": "Default",
             "position": 0
           }
         ],
@@ -7821,6 +8056,7 @@
             "ignoreBackground": false
           },
           "offsetCalcType": "DockLeft",
+          "boundsCalcType": "Default",
           "position": 0
         }
       ],
@@ -7860,6 +8096,7 @@
               "ignoreBackground": false
             },
             "offsetCalcType": "DockLeft",
+            "boundsCalcType": "Default",
             "position": 0
           }
         ],
@@ -7901,6 +8138,7 @@
             "ignoreBackground": false
           },
           "offsetCalcType": "DockRight",
+          "boundsCalcType": "Default",
           "position": 0
         }
       ],
@@ -7941,6 +8179,7 @@
             "ignoreBackground": false
           },
           "offsetCalcType": "DockRight",
+          "boundsCalcType": "Default",
           "position": 0
         }
       ],
@@ -7994,6 +8233,7 @@
               "ignoreBackground": false
             },
             "offsetCalcType": "Default",
+            "boundsCalcType": "Default",
             "position": 0
           }
         ],
@@ -8034,6 +8274,7 @@
               "ignoreBackground": false
             },
             "offsetCalcType": "Default",
+            "boundsCalcType": "Default",
             "position": 0
           }
         ],
@@ -8074,6 +8315,7 @@
               "ignoreBackground": false
             },
             "offsetCalcType": "Default",
+            "boundsCalcType": "Default",
             "position": 0
           },
           {
@@ -8106,6 +8348,7 @@
               "ignoreBackground": false
             },
             "offsetCalcType": "Default",
+            "boundsCalcType": "Default",
             "position": 0
           }
         ],
@@ -8146,6 +8389,7 @@
               "ignoreBackground": false
             },
             "offsetCalcType": "Default",
+            "boundsCalcType": "Default",
             "position": 0
           }
         ],
@@ -8186,6 +8430,7 @@
               "ignoreBackground": false
             },
             "offsetCalcType": "Default",
+            "boundsCalcType": "Default",
             "position": 0
           }
         ],
@@ -8226,6 +8471,7 @@
               "ignoreBackground": false
             },
             "offsetCalcType": "Default",
+            "boundsCalcType": "Default",
             "position": 0
           }
         ],
@@ -8266,6 +8512,7 @@
               "ignoreBackground": false
             },
             "offsetCalcType": "Default",
+            "boundsCalcType": "Default",
             "position": 0
           }
         ],
@@ -8306,6 +8553,7 @@
               "ignoreBackground": false
             },
             "offsetCalcType": "Default",
+            "boundsCalcType": "Default",
             "position": 0
           }
         ],
@@ -8346,6 +8594,7 @@
               "ignoreBackground": false
             },
             "offsetCalcType": "Default",
+            "boundsCalcType": "Default",
             "position": 0
           }
         ],
@@ -8392,6 +8641,7 @@
                 "ignoreBackground": false
               },
               "offsetCalcType": "DockLeft",
+              "boundsCalcType": "Default",
               "position": 0
             }
           ],
@@ -8439,6 +8689,7 @@
                 "ignoreBackground": false
               },
               "offsetCalcType": "Default",
+              "boundsCalcType": "Default",
               "position": 0
             }
           ],
@@ -8487,6 +8738,7 @@
               "ignoreBackground": false
             },
             "offsetCalcType": "Default",
+            "boundsCalcType": "Default",
             "position": 0
           }
         ],
@@ -8528,6 +8780,7 @@
             "ignoreBackground": false
           },
           "offsetCalcType": "Default",
+          "boundsCalcType": "Default",
           "position": 0
         }
       ],
@@ -8567,6 +8820,7 @@
               "ignoreBackground": false
             },
             "offsetCalcType": "Default",
+            "boundsCalcType": "Default",
             "position": 0
           }
         ],
@@ -8607,6 +8861,7 @@
               "ignoreBackground": false
             },
             "offsetCalcType": "Default",
+            "boundsCalcType": "Default",
             "position": 0
           }
         ],
@@ -8647,6 +8902,7 @@
               "ignoreBackground": false
             },
             "offsetCalcType": "Default",
+            "boundsCalcType": "Default",
             "position": 0
           }
         ],
@@ -8687,6 +8943,7 @@
               "ignoreBackground": false
             },
             "offsetCalcType": "Default",
+            "boundsCalcType": "Default",
             "position": 0
           }
         ],
@@ -8727,6 +8984,7 @@
               "ignoreBackground": false
             },
             "offsetCalcType": "Default",
+            "boundsCalcType": "Default",
             "position": 0
           }
         ],
@@ -8774,6 +9032,7 @@
               "ignoreBackground": false
             },
             "offsetCalcType": "DockLeft",
+            "boundsCalcType": "Default",
             "position": 0
           }
         ],
@@ -8814,6 +9073,7 @@
               "ignoreBackground": false
             },
             "offsetCalcType": "HorizontalStretchOffset",
+            "boundsCalcType": "Default",
             "position": 0
           }
         ],
@@ -8854,6 +9114,7 @@
               "ignoreBackground": false
             },
             "offsetCalcType": "HorizontalStretchOffset",
+            "boundsCalcType": "Default",
             "position": 0
           }
         ],
@@ -8894,6 +9155,7 @@
               "ignoreBackground": false
             },
             "offsetCalcType": "Default",
+            "boundsCalcType": "Default",
             "position": 0
           }
         ],
@@ -8935,6 +9197,7 @@
             "ignoreBackground": false
           },
           "offsetCalcType": "Default",
+          "boundsCalcType": "Default",
           "position": 0
         }
       ],
@@ -8975,6 +9238,7 @@
             "ignoreBackground": false
           },
           "offsetCalcType": "Default",
+          "boundsCalcType": "Default",
           "position": 0
         }
       ],
@@ -9014,6 +9278,7 @@
               "ignoreBackground": false
             },
             "offsetCalcType": "DockLeft",
+            "boundsCalcType": "Default",
             "position": 0
           }
         ],
@@ -9053,6 +9318,7 @@
                 "ignoreBackground": false
               },
               "offsetCalcType": "Default",
+              "boundsCalcType": "Default",
               "position": 0
             }
           ],
@@ -9093,6 +9359,7 @@
                 "ignoreBackground": false
               },
               "offsetCalcType": "Default",
+              "boundsCalcType": "Default",
               "position": 0
             }
           ],
@@ -9133,6 +9400,7 @@
                 "ignoreBackground": false
               },
               "offsetCalcType": "Default",
+              "boundsCalcType": "Default",
               "position": 0
             }
           ],
@@ -9173,6 +9441,7 @@
                 "ignoreBackground": false
               },
               "offsetCalcType": "DockLeft",
+              "boundsCalcType": "Default",
               "position": 0
             }
           ],
@@ -9216,6 +9485,7 @@
           "ignoreBackground": false
         },
         "offsetCalcType": "Default",
+        "boundsCalcType": "Default",
         "position": 0
       }
     ],
@@ -9255,6 +9525,7 @@
             "ignoreBackground": false
           },
           "offsetCalcType": "DockRight",
+          "boundsCalcType": "Default",
           "position": 0
         }
       ],
@@ -9301,6 +9572,7 @@
               "ignoreBackground": false
             },
             "offsetCalcType": "Default",
+            "boundsCalcType": "Default",
             "position": 0
           }
         ],
@@ -9341,6 +9613,7 @@
               "ignoreBackground": false
             },
             "offsetCalcType": "Default",
+            "boundsCalcType": "Default",
             "position": 0
           },
           {
@@ -9373,6 +9646,7 @@
               "ignoreBackground": false
             },
             "offsetCalcType": "Default",
+            "boundsCalcType": "Default",
             "position": 0
           }
         ],
@@ -9412,6 +9686,7 @@
                 "ignoreBackground": false
               },
               "offsetCalcType": "Default",
+              "boundsCalcType": "Default",
               "position": 0
             }
           ],
@@ -9453,6 +9728,7 @@
               "ignoreBackground": false
             },
             "offsetCalcType": "Default",
+            "boundsCalcType": "Default",
             "position": 0
           }
         ],
@@ -9492,6 +9768,7 @@
                 "ignoreBackground": false
               },
               "offsetCalcType": "Default",
+              "boundsCalcType": "Default",
               "position": 0
             }
           ],
@@ -9533,6 +9810,7 @@
               "ignoreBackground": false
             },
             "offsetCalcType": "Default",
+            "boundsCalcType": "Default",
             "position": 0
           }
         ],
@@ -9572,6 +9850,7 @@
                 "ignoreBackground": false
               },
               "offsetCalcType": "Default",
+              "boundsCalcType": "Default",
               "position": 0
             }
           ],
@@ -9612,6 +9891,7 @@
                 "ignoreBackground": false
               },
               "offsetCalcType": "Default",
+              "boundsCalcType": "Default",
               "position": 0
             }
           ],
@@ -9651,6 +9931,7 @@
                   "ignoreBackground": false
                 },
                 "offsetCalcType": "Default",
+                "boundsCalcType": "Default",
                 "position": 0
               }
             ],
@@ -9692,6 +9973,7 @@
                 "ignoreBackground": false
               },
               "offsetCalcType": "Default",
+              "boundsCalcType": "Default",
               "position": 0
             }
           ],
@@ -9733,6 +10015,7 @@
               "ignoreBackground": false
             },
             "offsetCalcType": "Default",
+            "boundsCalcType": "Default",
             "position": 0
           }
         ],
@@ -9772,6 +10055,7 @@
                 "ignoreBackground": false
               },
               "offsetCalcType": "Default",
+              "boundsCalcType": "Default",
               "position": 0
             }
           ],
@@ -9813,6 +10097,7 @@
               "ignoreBackground": false
             },
             "offsetCalcType": "DockRight",
+            "boundsCalcType": "Default",
             "position": 0
           }
         ],
@@ -9859,6 +10144,7 @@
                 "ignoreBackground": false
               },
               "offsetCalcType": "Default",
+              "boundsCalcType": "Default",
               "position": 0
             }
           ],
@@ -9900,6 +10186,7 @@
               "ignoreBackground": false
             },
             "offsetCalcType": "Default",
+            "boundsCalcType": "Default",
             "position": 0
           }
         ],
@@ -9941,6 +10228,7 @@
             "ignoreBackground": false
           },
           "offsetCalcType": "DockLeft",
+          "boundsCalcType": "Default",
           "position": 0
         }
       ],
@@ -9981,6 +10269,7 @@
             "ignoreBackground": false
           },
           "offsetCalcType": "DockRight",
+          "boundsCalcType": "Default",
           "position": 0
         }
       ],
@@ -10021,6 +10310,7 @@
             "ignoreBackground": false
           },
           "offsetCalcType": "DockRight",
+          "boundsCalcType": "Default",
           "position": 0
         }
       ],
@@ -10067,6 +10357,7 @@
               "ignoreBackground": false
             },
             "offsetCalcType": "DockLeft",
+            "boundsCalcType": "Default",
             "position": 0
           }
         ],
@@ -10106,6 +10397,7 @@
                 "ignoreBackground": false
               },
               "offsetCalcType": "DockLeft",
+              "boundsCalcType": "Default",
               "position": 0
             }
           ],
@@ -10147,6 +10439,7 @@
               "ignoreBackground": false
             },
             "offsetCalcType": "DockLeft",
+            "boundsCalcType": "Default",
             "position": 0
           }
         ],
@@ -10186,6 +10479,7 @@
                 "ignoreBackground": false
               },
               "offsetCalcType": "DockLeft",
+              "boundsCalcType": "Default",
               "position": 0
             }
           ],
@@ -10227,6 +10521,7 @@
               "ignoreBackground": false
             },
             "offsetCalcType": "DockLeft",
+            "boundsCalcType": "Default",
             "position": 0
           }
         ],
@@ -10266,6 +10561,7 @@
                 "ignoreBackground": false
               },
               "offsetCalcType": "DockLeft",
+              "boundsCalcType": "Default",
               "position": 0
             }
           ],
@@ -10307,6 +10603,7 @@
               "ignoreBackground": false
             },
             "offsetCalcType": "DockLeft",
+            "boundsCalcType": "Default",
             "position": 0
           }
         ],
@@ -10346,6 +10643,7 @@
                 "ignoreBackground": false
               },
               "offsetCalcType": "DockLeft",
+              "boundsCalcType": "Default",
               "position": 0
             }
           ],
@@ -10387,6 +10685,7 @@
               "ignoreBackground": false
             },
             "offsetCalcType": "DockLeft",
+            "boundsCalcType": "Default",
             "position": 0
           }
         ],
@@ -10426,6 +10725,7 @@
                 "ignoreBackground": false
               },
               "offsetCalcType": "DockLeft",
+              "boundsCalcType": "Default",
               "position": 0
             }
           ],
@@ -10467,6 +10767,7 @@
               "ignoreBackground": false
             },
             "offsetCalcType": "DockLeft",
+            "boundsCalcType": "Default",
             "position": 0
           }
         ],
@@ -10506,6 +10807,7 @@
                 "ignoreBackground": false
               },
               "offsetCalcType": "DockLeft",
+              "boundsCalcType": "Default",
               "position": 0
             }
           ],
@@ -10547,6 +10849,7 @@
               "ignoreBackground": false
             },
             "offsetCalcType": "DockLeft",
+            "boundsCalcType": "Default",
             "position": 0
           }
         ],
@@ -10586,6 +10889,7 @@
                 "ignoreBackground": false
               },
               "offsetCalcType": "DockLeft",
+              "boundsCalcType": "Default",
               "position": 0
             }
           ],
@@ -10627,6 +10931,7 @@
               "ignoreBackground": false
             },
             "offsetCalcType": "DockLeft",
+            "boundsCalcType": "Default",
             "position": 0
           }
         ],
@@ -10666,6 +10971,7 @@
                 "ignoreBackground": false
               },
               "offsetCalcType": "DockLeft",
+              "boundsCalcType": "Default",
               "position": 0
             }
           ],
@@ -10707,6 +11013,7 @@
               "ignoreBackground": false
             },
             "offsetCalcType": "DockLeft",
+            "boundsCalcType": "Default",
             "position": 0
           }
         ],
@@ -10746,6 +11053,7 @@
                 "ignoreBackground": false
               },
               "offsetCalcType": "DockLeft",
+              "boundsCalcType": "Default",
               "position": 0
             }
           ],
@@ -10794,6 +11102,7 @@
               "ignoreBackground": false
             },
             "offsetCalcType": "DockRight",
+            "boundsCalcType": "Default",
             "position": 0
           }
         ],
@@ -10834,6 +11143,7 @@
               "ignoreBackground": false
             },
             "offsetCalcType": "DockRight",
+            "boundsCalcType": "Default",
             "position": 0
           }
         ],
@@ -10874,6 +11184,7 @@
               "ignoreBackground": false
             },
             "offsetCalcType": "DockRight",
+            "boundsCalcType": "Default",
             "position": 0
           }
         ],
@@ -10914,6 +11225,7 @@
               "ignoreBackground": false
             },
             "offsetCalcType": "DockRight",
+            "boundsCalcType": "Default",
             "position": 0
           }
         ],
@@ -10954,6 +11266,7 @@
               "ignoreBackground": false
             },
             "offsetCalcType": "DockRight",
+            "boundsCalcType": "Default",
             "position": 0
           }
         ],
@@ -10995,6 +11308,7 @@
             "ignoreBackground": false
           },
           "offsetCalcType": "DockLeft",
+          "boundsCalcType": "Default",
           "position": 0
         }
       ],
@@ -11034,6 +11348,7 @@
               "ignoreBackground": false
             },
             "offsetCalcType": "Default",
+            "boundsCalcType": "Default",
             "position": 0
           }
         ],
@@ -11073,6 +11388,7 @@
                 "ignoreBackground": false
               },
               "offsetCalcType": "Default",
+              "boundsCalcType": "Default",
               "position": 0
             }
           ],
@@ -11115,6 +11431,7 @@
             "ignoreBackground": false
           },
           "offsetCalcType": "DockRight",
+          "boundsCalcType": "Default",
           "position": 0
         }
       ],
@@ -11155,6 +11472,7 @@
             "ignoreBackground": false
           },
           "offsetCalcType": "DockRight",
+          "boundsCalcType": "Default",
           "position": 0
         },
         {
@@ -11187,6 +11505,7 @@
             "ignoreBackground": false
           },
           "offsetCalcType": "DockRight",
+          "boundsCalcType": "Default",
           "position": 0
         },
         {
@@ -11219,6 +11538,7 @@
             "ignoreBackground": false
           },
           "offsetCalcType": "DockRight",
+          "boundsCalcType": "Default",
           "position": 0
         },
         {
@@ -11251,6 +11571,7 @@
             "ignoreBackground": false
           },
           "offsetCalcType": "DockRight",
+          "boundsCalcType": "Default",
           "position": 0
         },
         {
@@ -11283,6 +11604,7 @@
             "ignoreBackground": false
           },
           "offsetCalcType": "DockRight",
+          "boundsCalcType": "Default",
           "position": 0
         }
       ],
@@ -11329,6 +11651,7 @@
               "ignoreBackground": false
             },
             "offsetCalcType": "DockLeft",
+            "boundsCalcType": "Default",
             "position": 0
           }
         ],
@@ -11368,6 +11691,7 @@
                 "ignoreBackground": false
               },
               "offsetCalcType": "DockLeft",
+              "boundsCalcType": "Default",
               "position": 0
             }
           ],
@@ -11408,6 +11732,7 @@
                 "ignoreBackground": false
               },
               "offsetCalcType": "DockLeft",
+              "boundsCalcType": "Default",
               "position": 0
             }
           ],
@@ -11449,6 +11774,7 @@
               "ignoreBackground": false
             },
             "offsetCalcType": "DockLeft",
+            "boundsCalcType": "Default",
             "position": 0
           }
         ],
@@ -11488,6 +11814,7 @@
                 "ignoreBackground": false
               },
               "offsetCalcType": "DockLeft",
+              "boundsCalcType": "Default",
               "position": 0
             }
           ],
@@ -11528,6 +11855,7 @@
                 "ignoreBackground": false
               },
               "offsetCalcType": "DockLeft",
+              "boundsCalcType": "Default",
               "position": 0
             }
           ],
@@ -11569,6 +11897,7 @@
               "ignoreBackground": false
             },
             "offsetCalcType": "DockLeft",
+            "boundsCalcType": "Default",
             "position": 0
           }
         ],
@@ -11608,6 +11937,7 @@
                 "ignoreBackground": false
               },
               "offsetCalcType": "DockLeft",
+              "boundsCalcType": "Default",
               "position": 0
             }
           ],
@@ -11648,6 +11978,7 @@
                 "ignoreBackground": false
               },
               "offsetCalcType": "DockLeft",
+              "boundsCalcType": "Default",
               "position": 0
             }
           ],
@@ -11689,6 +12020,7 @@
               "ignoreBackground": false
             },
             "offsetCalcType": "DockLeft",
+            "boundsCalcType": "Default",
             "position": 0
           }
         ],
@@ -11728,6 +12060,7 @@
                 "ignoreBackground": false
               },
               "offsetCalcType": "DockLeft",
+              "boundsCalcType": "Default",
               "position": 0
             }
           ],
@@ -11768,6 +12101,7 @@
                 "ignoreBackground": false
               },
               "offsetCalcType": "DockLeft",
+              "boundsCalcType": "Default",
               "position": 0
             }
           ],
@@ -11809,6 +12143,7 @@
               "ignoreBackground": false
             },
             "offsetCalcType": "Default",
+            "boundsCalcType": "Default",
             "position": 0
           }
         ],
@@ -11848,6 +12183,7 @@
                 "ignoreBackground": false
               },
               "offsetCalcType": "Default",
+              "boundsCalcType": "Default",
               "position": 0
             }
           ],
@@ -11888,6 +12224,7 @@
                 "ignoreBackground": false
               },
               "offsetCalcType": "Default",
+              "boundsCalcType": "Default",
               "position": 0
             }
           ],
@@ -11928,6 +12265,7 @@
                 "ignoreBackground": false
               },
               "offsetCalcType": "Default",
+              "boundsCalcType": "Default",
               "position": 0
             }
           ],
@@ -11968,6 +12306,7 @@
                 "ignoreBackground": false
               },
               "offsetCalcType": "Default",
+              "boundsCalcType": "Default",
               "position": 0
             }
           ],
@@ -12008,6 +12347,7 @@
                 "ignoreBackground": false
               },
               "offsetCalcType": "Default",
+              "boundsCalcType": "Default",
               "position": 0
             }
           ],
@@ -12048,6 +12388,7 @@
                 "ignoreBackground": false
               },
               "offsetCalcType": "Default",
+              "boundsCalcType": "Default",
               "position": 0
             }
           ],
@@ -12088,6 +12429,7 @@
                 "ignoreBackground": false
               },
               "offsetCalcType": "Default",
+              "boundsCalcType": "Default",
               "position": 0
             }
           ],
@@ -12128,6 +12470,7 @@
                 "ignoreBackground": false
               },
               "offsetCalcType": "Default",
+              "boundsCalcType": "Default",
               "position": 0
             }
           ],
@@ -12167,6 +12510,7 @@
                   "ignoreBackground": false
                 },
                 "offsetCalcType": "DockRight",
+                "boundsCalcType": "Default",
                 "position": 0
               }
             ],
@@ -12206,6 +12550,7 @@
                     "ignoreBackground": false
                   },
                   "offsetCalcType": "DockRight",
+                  "boundsCalcType": "Default",
                   "position": 0
                 }
               ],
@@ -12247,6 +12592,7 @@
                   "ignoreBackground": false
                 },
                 "offsetCalcType": "Default",
+                "boundsCalcType": "Default",
                 "position": 0
               }
             ],
@@ -12287,6 +12633,7 @@
                   "ignoreBackground": false
                 },
                 "offsetCalcType": "Default",
+                "boundsCalcType": "Default",
                 "position": 0
               }
             ],
@@ -12327,6 +12674,7 @@
                   "ignoreBackground": false
                 },
                 "offsetCalcType": "Default",
+                "boundsCalcType": "Default",
                 "position": 0
               }
             ],
@@ -12375,6 +12723,7 @@
                 "ignoreBackground": false
               },
               "offsetCalcType": "Default",
+              "boundsCalcType": "Default",
               "position": 0
             }
           ],
@@ -12415,6 +12764,7 @@
                 "ignoreBackground": false
               },
               "offsetCalcType": "Default",
+              "boundsCalcType": "Default",
               "position": 0
             }
           ],
@@ -12455,6 +12805,7 @@
                 "ignoreBackground": false
               },
               "offsetCalcType": "Default",
+              "boundsCalcType": "Default",
               "position": 0
             }
           ],
@@ -12495,6 +12846,7 @@
                 "ignoreBackground": false
               },
               "offsetCalcType": "Default",
+              "boundsCalcType": "Default",
               "position": 0
             }
           ],
@@ -12535,6 +12887,7 @@
                 "ignoreBackground": false
               },
               "offsetCalcType": "Default",
+              "boundsCalcType": "Default",
               "position": 0
             }
           ],
@@ -12582,6 +12935,7 @@
                 "ignoreBackground": false
               },
               "offsetCalcType": "Default",
+              "boundsCalcType": "Default",
               "position": 0
             }
           ],
@@ -12622,6 +12976,7 @@
                 "ignoreBackground": false
               },
               "offsetCalcType": "Default",
+              "boundsCalcType": "Default",
               "position": 0
             }
           ],
@@ -12662,6 +13017,7 @@
                 "ignoreBackground": false
               },
               "offsetCalcType": "Default",
+              "boundsCalcType": "Default",
               "position": 0
             }
           ],
@@ -12702,6 +13058,7 @@
                 "ignoreBackground": false
               },
               "offsetCalcType": "Default",
+              "boundsCalcType": "Default",
               "position": 0
             }
           ],
@@ -12742,6 +13099,7 @@
                 "ignoreBackground": false
               },
               "offsetCalcType": "Default",
+              "boundsCalcType": "Default",
               "position": 0
             }
           ],
@@ -12783,6 +13141,7 @@
               "ignoreBackground": false
             },
             "offsetCalcType": "Default",
+            "boundsCalcType": "Default",
             "position": 0
           }
         ],
@@ -12831,6 +13190,7 @@
             "ignoreBackground": false
           },
           "offsetCalcType": "DockRight",
+          "boundsCalcType": "Default",
           "position": 0
         }
       ],
@@ -12871,6 +13231,7 @@
             "ignoreBackground": false
           },
           "offsetCalcType": "Default",
+          "boundsCalcType": "Default",
           "position": 0
         }
       ],
@@ -12918,6 +13279,7 @@
             "ignoreBackground": false
           },
           "offsetCalcType": "Default",
+          "boundsCalcType": "Default",
           "position": 0
         }
       ],
@@ -12957,6 +13319,7 @@
               "ignoreBackground": false
             },
             "offsetCalcType": "Default",
+            "boundsCalcType": "Default",
             "position": 0
           }
         ],
@@ -12997,6 +13360,7 @@
               "ignoreBackground": false
             },
             "offsetCalcType": "Default",
+            "boundsCalcType": "Default",
             "position": 0
           }
         ],
@@ -13037,6 +13401,7 @@
               "ignoreBackground": false
             },
             "offsetCalcType": "Default",
+            "boundsCalcType": "Default",
             "position": 0
           }
         ],
@@ -13077,6 +13442,7 @@
               "ignoreBackground": false
             },
             "offsetCalcType": "Default",
+            "boundsCalcType": "Default",
             "position": 0
           }
         ],
@@ -13118,6 +13484,7 @@
             "ignoreBackground": false
           },
           "offsetCalcType": "DockRight",
+          "boundsCalcType": "Default",
           "position": 0
         }
       ],
@@ -13164,6 +13531,7 @@
               "ignoreBackground": false
             },
             "offsetCalcType": "Default",
+            "boundsCalcType": "Default",
             "position": 0
           }
         ],
@@ -13204,6 +13572,7 @@
               "ignoreBackground": false
             },
             "offsetCalcType": "Default",
+            "boundsCalcType": "Default",
             "position": 0
           }
         ],
@@ -13244,6 +13613,7 @@
               "ignoreBackground": false
             },
             "offsetCalcType": "Default",
+            "boundsCalcType": "Default",
             "position": 0
           }
         ],
@@ -13284,6 +13654,7 @@
               "ignoreBackground": false
             },
             "offsetCalcType": "Default",
+            "boundsCalcType": "Default",
             "position": 0
           }
         ],
@@ -13324,6 +13695,7 @@
               "ignoreBackground": false
             },
             "offsetCalcType": "Default",
+            "boundsCalcType": "Default",
             "position": 0
           }
         ],
@@ -13364,6 +13736,7 @@
               "ignoreBackground": false
             },
             "offsetCalcType": "Default",
+            "boundsCalcType": "Default",
             "position": 0
           }
         ],
@@ -13404,6 +13777,7 @@
               "ignoreBackground": false
             },
             "offsetCalcType": "Default",
+            "boundsCalcType": "Default",
             "position": 0
           }
         ],
@@ -13444,6 +13818,7 @@
               "ignoreBackground": false
             },
             "offsetCalcType": "Default",
+            "boundsCalcType": "Default",
             "position": 0
           }
         ],
@@ -13484,6 +13859,7 @@
               "ignoreBackground": false
             },
             "offsetCalcType": "Default",
+            "boundsCalcType": "Default",
             "position": 0
           }
         ],
@@ -13524,6 +13900,7 @@
               "ignoreBackground": false
             },
             "offsetCalcType": "Default",
+            "boundsCalcType": "Default",
             "position": 0
           }
         ],
@@ -13563,6 +13940,7 @@
                 "ignoreBackground": false
               },
               "offsetCalcType": "Default",
+              "boundsCalcType": "Default",
               "position": 0
             }
           ],
@@ -13604,6 +13982,7 @@
               "ignoreBackground": false
             },
             "offsetCalcType": "Default",
+            "boundsCalcType": "Default",
             "position": 0
           }
         ],
@@ -13643,6 +14022,7 @@
                 "ignoreBackground": false
               },
               "offsetCalcType": "Default",
+              "boundsCalcType": "Default",
               "position": 0
             }
           ],
@@ -13685,6 +14065,7 @@
             "ignoreBackground": false
           },
           "offsetCalcType": "Default",
+          "boundsCalcType": "Default",
           "position": 0
         }
       ],
@@ -13725,6 +14106,7 @@
             "ignoreBackground": false
           },
           "offsetCalcType": "DockRight",
+          "boundsCalcType": "Default",
           "position": 0
         }
       ],
@@ -13765,6 +14147,7 @@
             "ignoreBackground": false
           },
           "offsetCalcType": "DockRight",
+          "boundsCalcType": "Default",
           "position": 0
         }
       ],
@@ -13812,6 +14195,7 @@
             "ignoreBackground": false
           },
           "offsetCalcType": "DockLeft",
+          "boundsCalcType": "Default",
           "position": 0
         }
       ],
@@ -13851,6 +14235,7 @@
               "ignoreBackground": false
             },
             "offsetCalcType": "DockLeft",
+            "boundsCalcType": "Default",
             "position": 0
           }
         ],
@@ -13892,6 +14277,7 @@
             "ignoreBackground": false
           },
           "offsetCalcType": "DockLeft",
+          "boundsCalcType": "Default",
           "position": 0
         }
       ],
@@ -13931,6 +14317,7 @@
               "ignoreBackground": false
             },
             "offsetCalcType": "DockLeft",
+            "boundsCalcType": "Default",
             "position": 0
           }
         ],
@@ -13972,6 +14359,7 @@
             "ignoreBackground": false
           },
           "offsetCalcType": "DockLeft",
+          "boundsCalcType": "Default",
           "position": 0
         }
       ],
@@ -14012,6 +14400,7 @@
             "ignoreBackground": false
           },
           "offsetCalcType": "DockRight",
+          "boundsCalcType": "Default",
           "position": 0
         }
       ],
@@ -14052,6 +14441,7 @@
             "ignoreBackground": false
           },
           "offsetCalcType": "DockRight",
+          "boundsCalcType": "Default",
           "position": 0
         }
       ],
@@ -14091,6 +14481,7 @@
               "ignoreBackground": false
             },
             "offsetCalcType": "None",
+            "boundsCalcType": "Default",
             "position": 0
           }
         ],
@@ -14139,6 +14530,7 @@
             "ignoreBackground": false
           },
           "offsetCalcType": "DockLeft",
+          "boundsCalcType": "Default",
           "position": 0
         }
       ],
@@ -14178,6 +14570,7 @@
               "ignoreBackground": false
             },
             "offsetCalcType": "DockLeft",
+            "boundsCalcType": "Default",
             "position": 0
           }
         ],
@@ -14219,6 +14612,7 @@
             "ignoreBackground": false
           },
           "offsetCalcType": "HorizontalStretchOffset",
+          "boundsCalcType": "Default",
           "position": 0
         }
       ],
@@ -14259,6 +14653,7 @@
             "ignoreBackground": false
           },
           "offsetCalcType": "HorizontalStretchOffset",
+          "boundsCalcType": "Default",
           "position": 0
         }
       ],
@@ -14306,6 +14701,7 @@
             "ignoreBackground": false
           },
           "offsetCalcType": "Default",
+          "boundsCalcType": "Default",
           "position": 0
         }
       ],
@@ -14346,6 +14742,7 @@
             "ignoreBackground": false
           },
           "offsetCalcType": "Default",
+          "boundsCalcType": "Default",
           "position": 0
         }
       ],
@@ -14386,6 +14783,7 @@
             "ignoreBackground": false
           },
           "offsetCalcType": "Default",
+          "boundsCalcType": "Default",
           "position": 0
         }
       ],
@@ -14425,6 +14823,7 @@
               "ignoreBackground": false
             },
             "offsetCalcType": "Default",
+            "boundsCalcType": "Default",
             "position": 0
           }
         ],
@@ -14465,6 +14864,7 @@
               "ignoreBackground": false
             },
             "offsetCalcType": "Default",
+            "boundsCalcType": "Default",
             "position": 0
           }
         ],
@@ -14505,6 +14905,7 @@
               "ignoreBackground": false
             },
             "offsetCalcType": "Default",
+            "boundsCalcType": "Default",
             "position": 0
           }
         ],
@@ -14546,6 +14947,7 @@
             "ignoreBackground": false
           },
           "offsetCalcType": "Default",
+          "boundsCalcType": "Default",
           "position": 0
         }
       ],
@@ -14586,6 +14988,7 @@
             "ignoreBackground": false
           },
           "offsetCalcType": "Default",
+          "boundsCalcType": "Default",
           "position": 0
         }
       ],
@@ -14625,6 +15028,7 @@
               "ignoreBackground": false
             },
             "offsetCalcType": "Default",
+            "boundsCalcType": "Default",
             "position": 0
           }
         ],
@@ -14666,6 +15070,7 @@
             "ignoreBackground": false
           },
           "offsetCalcType": "Default",
+          "boundsCalcType": "Default",
           "position": 0
         }
       ],
@@ -14706,6 +15111,7 @@
             "ignoreBackground": false
           },
           "offsetCalcType": "Default",
+          "boundsCalcType": "Default",
           "position": 0
         }
       ],
@@ -14745,6 +15151,7 @@
               "ignoreBackground": false
             },
             "offsetCalcType": "Default",
+            "boundsCalcType": "Default",
             "position": 0
           }
         ],
@@ -14786,6 +15193,7 @@
             "ignoreBackground": false
           },
           "offsetCalcType": "Default",
+          "boundsCalcType": "Default",
           "position": 0
         }
       ],
@@ -14825,6 +15233,7 @@
               "ignoreBackground": false
             },
             "offsetCalcType": "Default",
+            "boundsCalcType": "Default",
             "position": 0
           }
         ],
@@ -14865,6 +15274,7 @@
               "ignoreBackground": false
             },
             "offsetCalcType": "Default",
+            "boundsCalcType": "Default",
             "position": 0
           }
         ],
@@ -14905,6 +15315,7 @@
               "ignoreBackground": false
             },
             "offsetCalcType": "Default",
+            "boundsCalcType": "Default",
             "position": 0
           }
         ],
@@ -14945,6 +15356,7 @@
               "ignoreBackground": false
             },
             "offsetCalcType": "Default",
+            "boundsCalcType": "Default",
             "position": 0
           }
         ],
@@ -14985,6 +15397,7 @@
               "ignoreBackground": false
             },
             "offsetCalcType": "Default",
+            "boundsCalcType": "Default",
             "position": 0
           }
         ],
@@ -15026,6 +15439,7 @@
             "ignoreBackground": false
           },
           "offsetCalcType": "Default",
+          "boundsCalcType": "Default",
           "position": 0
         }
       ],
@@ -15066,6 +15480,7 @@
             "ignoreBackground": false
           },
           "offsetCalcType": "Default",
+          "boundsCalcType": "Default",
           "position": 0
         }
       ],
@@ -15105,6 +15520,7 @@
               "ignoreBackground": false
             },
             "offsetCalcType": "Default",
+            "boundsCalcType": "Default",
             "position": 0
           }
         ],
@@ -15145,6 +15561,7 @@
               "ignoreBackground": false
             },
             "offsetCalcType": "Default",
+            "boundsCalcType": "Default",
             "position": 0
           }
         ],
@@ -15185,6 +15602,7 @@
               "ignoreBackground": false
             },
             "offsetCalcType": "Default",
+            "boundsCalcType": "Default",
             "position": 0
           }
         ],
@@ -15225,6 +15643,7 @@
               "ignoreBackground": false
             },
             "offsetCalcType": "Default",
+            "boundsCalcType": "Default",
             "position": 0
           }
         ],
@@ -15266,6 +15685,7 @@
             "ignoreBackground": false
           },
           "offsetCalcType": "Default",
+          "boundsCalcType": "Default",
           "position": 0
         }
       ],
@@ -15305,6 +15725,7 @@
               "ignoreBackground": false
             },
             "offsetCalcType": "Default",
+            "boundsCalcType": "Default",
             "position": 0
           }
         ],
@@ -15345,6 +15766,7 @@
               "ignoreBackground": false
             },
             "offsetCalcType": "Default",
+            "boundsCalcType": "Default",
             "position": 0
           }
         ],
@@ -15385,6 +15807,7 @@
               "ignoreBackground": false
             },
             "offsetCalcType": "Default",
+            "boundsCalcType": "Default",
             "position": 0
           }
         ],
@@ -15432,6 +15855,7 @@
               "ignoreBackground": false
             },
             "offsetCalcType": "DockRight",
+            "boundsCalcType": "Default",
             "position": 0
           }
         ],
@@ -15472,6 +15896,7 @@
               "ignoreBackground": false
             },
             "offsetCalcType": "DockRight",
+            "boundsCalcType": "Default",
             "position": 0
           }
         ],
@@ -15513,6 +15938,7 @@
             "ignoreBackground": false
           },
           "offsetCalcType": "Default",
+          "boundsCalcType": "Default",
           "position": 0
         },
         {
@@ -15545,6 +15971,7 @@
             "ignoreBackground": false
           },
           "offsetCalcType": "Default",
+          "boundsCalcType": "Default",
           "position": 0
         }
       ],
@@ -15584,6 +16011,7 @@
               "ignoreBackground": false
             },
             "offsetCalcType": "Default",
+            "boundsCalcType": "Default",
             "position": 0
           }
         ],
@@ -15624,6 +16052,7 @@
               "ignoreBackground": false
             },
             "offsetCalcType": "Default",
+            "boundsCalcType": "Default",
             "position": 0
           }
         ],
@@ -15664,6 +16093,7 @@
               "ignoreBackground": false
             },
             "offsetCalcType": "Default",
+            "boundsCalcType": "Default",
             "position": 0
           }
         ],
@@ -15704,6 +16134,7 @@
               "ignoreBackground": false
             },
             "offsetCalcType": "Default",
+            "boundsCalcType": "Default",
             "position": 0
           }
         ],
@@ -15743,6 +16174,7 @@
                 "ignoreBackground": false
               },
               "offsetCalcType": "Default",
+              "boundsCalcType": "Default",
               "position": 0
             }
           ],
@@ -15784,6 +16216,7 @@
               "ignoreBackground": false
             },
             "offsetCalcType": "Default",
+            "boundsCalcType": "Default",
             "position": 0
           },
           {
@@ -15816,6 +16249,7 @@
               "ignoreBackground": false
             },
             "offsetCalcType": "Default",
+            "boundsCalcType": "Default",
             "position": 0
           },
           {
@@ -15848,6 +16282,7 @@
               "ignoreBackground": false
             },
             "offsetCalcType": "Default",
+            "boundsCalcType": "Default",
             "position": 0
           }
         ],
@@ -15889,6 +16324,7 @@
             "ignoreBackground": false
           },
           "offsetCalcType": "Default",
+          "boundsCalcType": "Default",
           "position": 0
         }
       ],
@@ -15929,6 +16365,7 @@
             "ignoreBackground": false
           },
           "offsetCalcType": "Default",
+          "boundsCalcType": "Default",
           "position": 0
         }
       ],
@@ -15969,6 +16406,7 @@
             "ignoreBackground": false
           },
           "offsetCalcType": "Default",
+          "boundsCalcType": "Default",
           "position": 0
         },
         {
@@ -16001,14 +16439,15 @@
             "ignoreBackground": false
           },
           "offsetCalcType": "Default",
+          "boundsCalcType": "Default",
           "position": 0
         },
         {
           "rawBounds": {
-            "x": 517.25,
+            "x": 530.25,
             "y": 915.25,
-            "width": 103.5,
-            "height": 40.5
+            "width": 30.5,
+            "height": 34.5
           },
           "resolution": {
             "width": 1920,
@@ -16016,7 +16455,7 @@
           },
           "isBoundsPattern": false,
           "name": "pattern3",
-          "imageData": "/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDAAEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQH/2wBDAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQH/wAARCAAWAAwDASIAAhEBAxEB/8QAGAAAAgMAAAAAAAAAAAAAAAAAAAgHCQr/xAAnEAACAgICAQQBBQEAAAAAAAACBAEDBQYHCBEACRITFBUXIjFB8P/EABYBAQEBAAAAAAAAAAAAAAAAAAQDB//EACERAAICAgICAwEAAAAAAAAAAAECAxEEEgAhEyIUQlFh/9oADAMBAAIRAxEAPwDMj0t9v7N9mdV3LmDd99wHDfAvG1ZM7TyJsi9jtTViwsWs4bCoruLOPZUgXimihOtu372aBigiIRNjK+lXt57nE5fRe+uOx2FCfwbF9m453RbI/qC0RLVoVsroHKdsWVGuUUSMRJB9hmB+JYyirGS9gvX2NE+Yp4jsdnP3FBK4vzPvcyGk1Yy10av5ynY1U1NI3FFY/G74RPko9UBVrtWDJABHEFI+YGZjyPiJj/f6/wCj1sEjx4y46eBZTJAkzSMZASX+q6MoCqBRtTZPZ64SPzZL5D/JeBYsh4ESNYzQj1BLl1YlmJ2HYCgjru+O90476ckdQ79lwSmu69ynxTuilie4cR7zN56lmzsrYrXyEkqEvI5BKxo2KWMferYVw1zYZRWHxd1f3d+O9aprxukdBuveBw8wTViV7m1ZSw8iyZWOMQzksg6xFZl8Aqqi6KwrqGRrAiPyej0bHy8hE0Enqp9QyI+oJWwpdWKg/gIH85ebDxpZA7x+zEbFXkQNrWpYI6qSB1ZBNULoDn//2Q==",
+          "imageData": "/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDAAEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQH/2wBDAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQH/wAARCAAWABIDASIAAhEBAxEB/8QAGAABAQEBAQAAAAAAAAAAAAAAAAgKBwv/xAApEAAABgEDAwQCAwAAAAAAAAABAgMEBQYRAAcSCAkxChMVMhQhIkJR/8QAGAEBAAMBAAAAAAAAAAAAAAAABAUGBwj/xAAqEQABAgQDBgcAAAAAAAAAAAABAhEAAxIhEzFRBEFhkbHhBTNxwtHw8f/aAAwDAQACEQMRAD8AmHt79iFfqF2/qe6+/wBaJOpwF6Ixe1epQahGNjeRsiVFRous9WSfoNROm4TEQcM0xIIG5lAAwFJ9aXpxIahQEpI9ONwnkJuBiPl3devcqysLmUSK3KsKUe4jm0OkmsqJyimmYqx8G+o8R1pN27mKswq+30hUTtGtP/FjT10yBUlWycQINzM0GKxcESIVHAJgjgChgS4/Qa7BuXYo6avSyrZwi6apRcKCYJqA4BZT4xuLjmsIiPNJTJDNx5AJhHkIcMa6Lm7QseJy5QKcFUklSrtWMGgBVVORmOGJJAIZi+ZyZAwCSL24bg5L5kWyYt6x5UcptdunEScjEvKhJFdxj53HOi+wYOLhk4UbLlwJBEMKpGDGRx/umtUO6sn0vhuhuQBZ+tcQvtwAMOWWMBYZHGMHxjHjH600/FGqOffiOcBwuCuXaIo7dnflu+w9cqG0281Jf7oVSnKM2cOdiaP+QCNYewm2QVO7exnJQEkSlMJlTgI/3HzqnuuP1Hat4grPW9htnJfbiXnYokSjLTJ4kfwEFmwJLOUjMZeTUB0BypmSEE8AHLIgOMtNV2d5wU5cEpFywBKXs7bgxZxuIcxKhRpUHypbpGW5/N3GXfPZV7bJZR5Ju3Eg7U98f5uXqx3K5/qH2VVObwHnwGmmmmgm19PZ8mC1K1P3866mP//Z",
           "variancePct": 20,
           "horizontalStretchMultiplier": 0,
           "verticalStretchMultiplier": 0,
@@ -16027,12 +16466,13 @@
           },
           "colorThreshold": {
             "isActive": true,
-            "variancePct": 30,
-            "color": "#ffbac1de",
-            "imageData": "/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDAAIBAQEBAQIBAQECAgICAgQDAgICAgUEBAMEBgUGBgYFBgYGBwkIBgcJBwYGCAsICQoKCgoKBggLDAsKDAkKCgr/wAALCAAWAAwBAREA/8QAHwAAAQUBAQEBAQEAAAAAAAAAAAECAwQFBgcICQoL/8QAtRAAAgEDAwIEAwUFBAQAAAF9AQIDAAQRBRIhMUEGE1FhByJxFDKBkaEII0KxwRVS0fAkM2JyggkKFhcYGRolJicoKSo0NTY3ODk6Q0RFRkdISUpTVFVWV1hZWmNkZWZnaGlqc3R1dnd4eXqDhIWGh4iJipKTlJWWl5iZmqKjpKWmp6ipqrKztLW2t7i5usLDxMXGx8jJytLT1NXW19jZ2uHi4+Tl5ufo6erx8vP09fb3+Pn6/9oACAEBAAA/AP1N/wCCjv8AwVS8K/sPeKvBH7Ofwi+D2ofGX4//ABP1CKH4ffBbw3qyWd1d2u9hPqV7dPHImnWMaRzn7RKhVmhkPyxQXU9v5f8A8PD/APguv/0rq/8Am3Phj/5HrP1nxZ4V8Of8HVmk6P4h8TafYXev/sINYaFa3t6kUmo3S+L5rpreBWIM0ot7a4mKJlhHBK+NqMR+h9eAftz/APBN74E/t7/8It4j8f8AjH4geCvG3gL7d/wr/wCJnwt8b3Wh674a+3fZ1vvsssZaFvtENutu/nRS4ikkCbGYtXh/iz/gib8TPit4q1P4g/F3/gth+2e+t6lqEzsPAfxPsvDGmRWquUtIk06xsBbxSparAk0sSotxOktx5cRmMa//2Q==",
+            "variancePct": 5,
+            "color": "#ffe8f4ff",
+            "imageData": "/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDAAIBAQEBAQIBAQECAgICAgQDAgICAgUEBAMEBgUGBgYFBgYGBwkIBgcJBwYGCAsICQoKCgoKBggLDAsKDAkKCgr/wAALCAAWABIBAREA/8QAHwAAAQUBAQEBAQEAAAAAAAAAAAECAwQFBgcICQoL/8QAtRAAAgEDAwIEAwUFBAQAAAF9AQIDAAQRBRIhMUEGE1FhByJxFDKBkaEII0KxwRVS0fAkM2JyggkKFhcYGRolJicoKSo0NTY3ODk6Q0RFRkdISUpTVFVWV1hZWmNkZWZnaGlqc3R1dnd4eXqDhIWGh4iJipKTlJWWl5iZmqKjpKWmp6ipqrKztLW2t7i5usLDxMXGx8jJytLT1NXW19jZ2uHi4+Tl5ufo6erx8vP09fb3+Pn6/9oACAEBAAA/AP3s8WeLPCvgLwrqfjrx14m0/RdE0XT5r/WdZ1a9S2tbC1hQyS3E0shCRRIis7OxCqqkkgCuP/Zc/aj+BP7aPwJ0L9pf9mjxz/wkvgnxL9q/sTW/7MurP7T9nupbWb9zdRRTJtmglT5kGduRlSCfQKK+QP8Agg5+zR8U/wBjf/glt4A/Zc+Nek/ZPE/gbxB4u0rU9kE8cN15finVvLu7fz445Htp4jHPDIyL5kM0bgYcV9f1n+LNG1HxH4V1Pw9o/izUNAu7/T5re113SY7d7rTpHQqtzCt1FNA0sZIdRLFJGWUb0dcqeP8A2XPgF/wy/wDAnQvgX/wur4gfET+w/tX/ABWPxS8R/wBr67qHnXUtx/pV35cfm+X5vlJ8o2xRRrztyfQK/9k=",
             "ignoreBackground": false
           },
           "offsetCalcType": "Default",
+          "boundsCalcType": "Default",
           "position": 0
         }
       ],
@@ -16073,6 +16513,7 @@
             "ignoreBackground": false
           },
           "offsetCalcType": "Default",
+          "boundsCalcType": "Default",
           "position": 0
         }
       ],
@@ -16113,6 +16554,7 @@
             "ignoreBackground": false
           },
           "offsetCalcType": "Default",
+          "boundsCalcType": "Default",
           "position": 0
         }
       ],
@@ -16153,6 +16595,7 @@
             "ignoreBackground": false
           },
           "offsetCalcType": "DockLeft",
+          "boundsCalcType": "Default",
           "position": 0
         }
       ],
@@ -16192,6 +16635,7 @@
               "ignoreBackground": false
             },
             "offsetCalcType": "DockRight",
+            "boundsCalcType": "Default",
             "position": 0
           }
         ],
@@ -16240,6 +16684,7 @@
             "ignoreBackground": false
           },
           "offsetCalcType": "Default",
+          "boundsCalcType": "Default",
           "position": 0
         }
       ],
@@ -16279,6 +16724,7 @@
               "ignoreBackground": false
             },
             "offsetCalcType": "DockRight",
+            "boundsCalcType": "Default",
             "position": 0
           }
         ],
@@ -16320,6 +16766,7 @@
             "ignoreBackground": false
           },
           "offsetCalcType": "DockLeft",
+          "boundsCalcType": "Default",
           "position": 0
         }
       ],
@@ -16359,6 +16806,7 @@
               "ignoreBackground": false
             },
             "offsetCalcType": "DockRight",
+            "boundsCalcType": "Default",
             "position": 0
           }
         ],
@@ -16400,6 +16848,7 @@
             "ignoreBackground": false
           },
           "offsetCalcType": "DockLeft",
+          "boundsCalcType": "Default",
           "position": 0
         }
       ],
@@ -16439,6 +16888,7 @@
               "ignoreBackground": false
             },
             "offsetCalcType": "DockRight",
+            "boundsCalcType": "Default",
             "position": 0
           }
         ],
@@ -16480,6 +16930,7 @@
             "ignoreBackground": false
           },
           "offsetCalcType": "DockRight",
+          "boundsCalcType": "Default",
           "position": 0
         }
       ],
@@ -16519,6 +16970,7 @@
               "ignoreBackground": false
             },
             "offsetCalcType": "DockRight",
+            "boundsCalcType": "Default",
             "position": 0
           }
         ],
@@ -16560,6 +17012,7 @@
             "ignoreBackground": false
           },
           "offsetCalcType": "DockRight",
+          "boundsCalcType": "Default",
           "position": 0
         }
       ],
@@ -16599,6 +17052,7 @@
               "ignoreBackground": false
             },
             "offsetCalcType": "DockRight",
+            "boundsCalcType": "Default",
             "position": 0
           }
         ],
@@ -16640,6 +17094,7 @@
             "ignoreBackground": false
           },
           "offsetCalcType": "DockRight",
+          "boundsCalcType": "Default",
           "position": 0
         }
       ],
@@ -16687,6 +17142,7 @@
             "ignoreBackground": false
           },
           "offsetCalcType": "DockLeft",
+          "boundsCalcType": "Default",
           "position": 0
         }
       ],
@@ -16727,6 +17183,7 @@
             "ignoreBackground": false
           },
           "offsetCalcType": "DockLeft",
+          "boundsCalcType": "Default",
           "position": 0
         }
       ],
@@ -16773,6 +17230,7 @@
               "ignoreBackground": false
             },
             "offsetCalcType": "DockLeft",
+            "boundsCalcType": "Default",
             "position": 0
           }
         ],
@@ -16825,6 +17283,7 @@
                   "ignoreBackground": false
                 },
                 "offsetCalcType": "DockRight",
+                "boundsCalcType": "Default",
                 "position": 0
               }
             ],
@@ -16865,6 +17324,7 @@
                   "ignoreBackground": false
                 },
                 "offsetCalcType": "DockRight",
+                "boundsCalcType": "Default",
                 "position": 0
               }
             ],
@@ -16907,6 +17367,7 @@
               "ignoreBackground": false
             },
             "offsetCalcType": "DockLeft",
+            "boundsCalcType": "Default",
             "position": 0
           }
         ],
@@ -16946,6 +17407,7 @@
                 "ignoreBackground": false
               },
               "offsetCalcType": "DockLeft",
+              "boundsCalcType": "Default",
               "position": 0
             }
           ],
@@ -16988,6 +17450,7 @@
             "ignoreBackground": false
           },
           "offsetCalcType": "DockLeft",
+          "boundsCalcType": "Default",
           "position": 0
         }
       ],
@@ -17028,6 +17491,7 @@
             "ignoreBackground": false
           },
           "offsetCalcType": "DockLeft",
+          "boundsCalcType": "Default",
           "position": 0
         }
       ],
@@ -17067,6 +17531,7 @@
               "ignoreBackground": false
             },
             "offsetCalcType": "Default",
+            "boundsCalcType": "Default",
             "position": 0
           }
         ],
@@ -17107,6 +17572,7 @@
               "ignoreBackground": false
             },
             "offsetCalcType": "Default",
+            "boundsCalcType": "Default",
             "position": 0
           },
           {
@@ -17139,6 +17605,7 @@
               "ignoreBackground": false
             },
             "offsetCalcType": "Default",
+            "boundsCalcType": "Default",
             "position": 0
           }
         ],
@@ -17178,6 +17645,7 @@
                 "ignoreBackground": false
               },
               "offsetCalcType": "Default",
+              "boundsCalcType": "Default",
               "position": 0
             }
           ],
@@ -17218,6 +17686,7 @@
                 "ignoreBackground": false
               },
               "offsetCalcType": "Default",
+              "boundsCalcType": "Default",
               "position": 0
             }
           ],
@@ -17271,6 +17740,7 @@
                   "ignoreBackground": false
                 },
                 "offsetCalcType": "Default",
+                "boundsCalcType": "Default",
                 "position": 0
               }
             ],
@@ -17311,6 +17781,7 @@
                   "ignoreBackground": false
                 },
                 "offsetCalcType": "Default",
+                "boundsCalcType": "Default",
                 "position": 0
               }
             ],
@@ -17358,6 +17829,7 @@
                   "ignoreBackground": false
                 },
                 "offsetCalcType": "Default",
+                "boundsCalcType": "Default",
                 "position": 0
               }
             ],
@@ -17398,6 +17870,7 @@
                   "ignoreBackground": false
                 },
                 "offsetCalcType": "Default",
+                "boundsCalcType": "Default",
                 "position": 0
               }
             ],
@@ -17445,6 +17918,7 @@
                   "ignoreBackground": false
                 },
                 "offsetCalcType": "Default",
+                "boundsCalcType": "Default",
                 "position": 0
               }
             ],
@@ -17485,6 +17959,7 @@
                   "ignoreBackground": false
                 },
                 "offsetCalcType": "Default",
+                "boundsCalcType": "Default",
                 "position": 0
               }
             ],
@@ -17539,6 +18014,7 @@
                   "ignoreBackground": false
                 },
                 "offsetCalcType": "Default",
+                "boundsCalcType": "Default",
                 "position": 0
               }
             ],
@@ -17579,6 +18055,7 @@
                   "ignoreBackground": false
                 },
                 "offsetCalcType": "Default",
+                "boundsCalcType": "Default",
                 "position": 0
               }
             ],
@@ -17626,6 +18103,7 @@
                   "ignoreBackground": false
                 },
                 "offsetCalcType": "Default",
+                "boundsCalcType": "Default",
                 "position": 0
               }
             ],
@@ -17666,6 +18144,7 @@
                   "ignoreBackground": false
                 },
                 "offsetCalcType": "Default",
+                "boundsCalcType": "Default",
                 "position": 0
               }
             ],
@@ -17713,6 +18192,7 @@
                   "ignoreBackground": false
                 },
                 "offsetCalcType": "Default",
+                "boundsCalcType": "Default",
                 "position": 0
               }
             ],
@@ -17753,6 +18233,7 @@
                   "ignoreBackground": false
                 },
                 "offsetCalcType": "Default",
+                "boundsCalcType": "Default",
                 "position": 0
               }
             ],
@@ -17800,6 +18281,7 @@
                   "ignoreBackground": false
                 },
                 "offsetCalcType": "Default",
+                "boundsCalcType": "Default",
                 "position": 0
               }
             ],
@@ -17840,6 +18322,7 @@
                   "ignoreBackground": false
                 },
                 "offsetCalcType": "Default",
+                "boundsCalcType": "Default",
                 "position": 0
               }
             ],
@@ -17887,6 +18370,7 @@
                   "ignoreBackground": false
                 },
                 "offsetCalcType": "Default",
+                "boundsCalcType": "Default",
                 "position": 0
               }
             ],
@@ -17927,6 +18411,7 @@
                   "ignoreBackground": false
                 },
                 "offsetCalcType": "Default",
+                "boundsCalcType": "Default",
                 "position": 0
               }
             ],
@@ -17974,6 +18459,7 @@
                   "ignoreBackground": false
                 },
                 "offsetCalcType": "Default",
+                "boundsCalcType": "Default",
                 "position": 0
               }
             ],
@@ -18014,6 +18500,7 @@
                   "ignoreBackground": false
                 },
                 "offsetCalcType": "Default",
+                "boundsCalcType": "Default",
                 "position": 0
               }
             ],
@@ -18057,6 +18544,7 @@
             "ignoreBackground": false
           },
           "offsetCalcType": "DockRight",
+          "boundsCalcType": "Default",
           "position": 0
         }
       ],
@@ -18096,6 +18584,7 @@
               "ignoreBackground": false
             },
             "offsetCalcType": "Default",
+            "boundsCalcType": "Default",
             "position": 0
           }
         ],
@@ -18136,6 +18625,7 @@
               "ignoreBackground": false
             },
             "offsetCalcType": "DockRight",
+            "boundsCalcType": "Default",
             "position": 0
           }
         ],
@@ -18176,6 +18666,7 @@
               "ignoreBackground": false
             },
             "offsetCalcType": "DockRight",
+            "boundsCalcType": "Default",
             "position": 0
           }
         ],
@@ -18216,6 +18707,7 @@
               "ignoreBackground": false
             },
             "offsetCalcType": "DockLeft",
+            "boundsCalcType": "Default",
             "position": 0
           }
         ],
@@ -18255,6 +18747,7 @@
                 "ignoreBackground": false
               },
               "offsetCalcType": "Default",
+              "boundsCalcType": "Default",
               "position": 0
             }
           ],
@@ -18307,6 +18800,7 @@
                     "ignoreBackground": false
                   },
                   "offsetCalcType": "Default",
+                  "boundsCalcType": "Default",
                   "position": 0
                 }
               ],
@@ -18347,6 +18841,7 @@
                     "ignoreBackground": false
                   },
                   "offsetCalcType": "Default",
+                  "boundsCalcType": "Default",
                   "position": 0
                 }
               ],
@@ -18394,6 +18889,7 @@
                     "ignoreBackground": false
                   },
                   "offsetCalcType": "Default",
+                  "boundsCalcType": "Default",
                   "position": 0
                 }
               ],
@@ -18434,6 +18930,7 @@
                     "ignoreBackground": false
                   },
                   "offsetCalcType": "Default",
+                  "boundsCalcType": "Default",
                   "position": 0
                 }
               ],
@@ -18485,6 +18982,7 @@
             "ignoreBackground": false
           },
           "offsetCalcType": "DockRight",
+          "boundsCalcType": "Default",
           "position": 0
         }
       ],
@@ -18524,6 +19022,7 @@
               "ignoreBackground": false
             },
             "offsetCalcType": "Default",
+            "boundsCalcType": "Default",
             "position": 0
           }
         ],
@@ -18564,6 +19063,7 @@
               "ignoreBackground": false
             },
             "offsetCalcType": "Default",
+            "boundsCalcType": "Default",
             "position": 0
           }
         ],
@@ -18605,6 +19105,7 @@
             "ignoreBackground": false
           },
           "offsetCalcType": "DockRight",
+          "boundsCalcType": "Default",
           "position": 0
         }
       ],
@@ -18645,6 +19146,7 @@
             "ignoreBackground": false
           },
           "offsetCalcType": "DockLeft",
+          "boundsCalcType": "Default",
           "position": 0
         }
       ],
@@ -18685,6 +19187,7 @@
             "ignoreBackground": false
           },
           "offsetCalcType": "Default",
+          "boundsCalcType": "Default",
           "position": 0
         }
       ],
@@ -18731,6 +19234,7 @@
               "ignoreBackground": false
             },
             "offsetCalcType": "Default",
+            "boundsCalcType": "Default",
             "position": 0
           }
         ],
@@ -18770,6 +19274,7 @@
                 "ignoreBackground": false
               },
               "offsetCalcType": "DockRight",
+              "boundsCalcType": "Default",
               "position": 0
             }
           ],
@@ -18810,6 +19315,7 @@
                 "ignoreBackground": false
               },
               "offsetCalcType": "DockRight",
+              "boundsCalcType": "Default",
               "position": 0
             }
           ],
@@ -18850,6 +19356,7 @@
                 "ignoreBackground": false
               },
               "offsetCalcType": "DockRight",
+              "boundsCalcType": "Default",
               "position": 0
             }
           ],
@@ -18891,6 +19398,7 @@
               "ignoreBackground": false
             },
             "offsetCalcType": "DockRight",
+            "boundsCalcType": "Default",
             "position": 0
           }
         ],
@@ -18931,6 +19439,7 @@
               "ignoreBackground": false
             },
             "offsetCalcType": "DockRight",
+            "boundsCalcType": "Default",
             "position": 0
           }
         ],
@@ -18971,6 +19480,7 @@
               "ignoreBackground": false
             },
             "offsetCalcType": "DockRight",
+            "boundsCalcType": "Default",
             "position": 0
           }
         ],
@@ -19010,6 +19520,7 @@
                 "ignoreBackground": false
               },
               "offsetCalcType": "DockRight",
+              "boundsCalcType": "Default",
               "position": 0
             }
           ],
@@ -19050,6 +19561,7 @@
                 "ignoreBackground": false
               },
               "offsetCalcType": "DockRight",
+              "boundsCalcType": "Default",
               "position": 0
             }
           ],
@@ -19090,6 +19602,7 @@
                 "ignoreBackground": false
               },
               "offsetCalcType": "DockRight",
+              "boundsCalcType": "Default",
               "position": 0
             }
           ],
@@ -19130,6 +19643,7 @@
                 "ignoreBackground": false
               },
               "offsetCalcType": "DockRight",
+              "boundsCalcType": "Default",
               "position": 0
             }
           ],
@@ -19171,6 +19685,7 @@
               "ignoreBackground": false
             },
             "offsetCalcType": "DockRight",
+            "boundsCalcType": "Default",
             "position": 0
           }
         ],
@@ -19210,6 +19725,7 @@
                 "ignoreBackground": false
               },
               "offsetCalcType": "DockRight",
+              "boundsCalcType": "Default",
               "position": 0
             }
           ],
@@ -19251,6 +19767,7 @@
               "ignoreBackground": false
             },
             "offsetCalcType": "DockRight",
+            "boundsCalcType": "Default",
             "position": 0
           }
         ],
@@ -19296,6 +19813,7 @@
                   "ignoreBackground": false
                 },
                 "offsetCalcType": "DockRight",
+                "boundsCalcType": "Default",
                 "position": 0
               }
             ],
@@ -19336,6 +19854,7 @@
                   "ignoreBackground": false
                 },
                 "offsetCalcType": "DockRight",
+                "boundsCalcType": "Default",
                 "position": 0
               }
             ],
@@ -19376,6 +19895,7 @@
                   "ignoreBackground": false
                 },
                 "offsetCalcType": "DockRight",
+                "boundsCalcType": "Default",
                 "position": 0
               }
             ],
@@ -19416,6 +19936,7 @@
                   "ignoreBackground": false
                 },
                 "offsetCalcType": "DockRight",
+                "boundsCalcType": "Default",
                 "position": 0
               }
             ],
@@ -19456,6 +19977,7 @@
                   "ignoreBackground": false
                 },
                 "offsetCalcType": "DockRight",
+                "boundsCalcType": "Default",
                 "position": 0
               }
             ],
@@ -19497,6 +20019,7 @@
                 "ignoreBackground": false
               },
               "offsetCalcType": "DockRight",
+              "boundsCalcType": "Default",
               "position": 0
             }
           ],
@@ -19539,6 +20062,7 @@
             "ignoreBackground": false
           },
           "offsetCalcType": "Default",
+          "boundsCalcType": "Default",
           "position": 0
         }
       ],
@@ -19579,6 +20103,7 @@
             "ignoreBackground": false
           },
           "offsetCalcType": "Default",
+          "boundsCalcType": "Default",
           "position": 0
         }
       ],
@@ -19625,6 +20150,7 @@
               "ignoreBackground": false
             },
             "offsetCalcType": "DockLeft",
+            "boundsCalcType": "Default",
             "position": 0
           }
         ],
@@ -19665,6 +20191,7 @@
               "ignoreBackground": false
             },
             "offsetCalcType": "DockLeft",
+            "boundsCalcType": "Default",
             "position": 0
           }
         ],
@@ -19705,6 +20232,7 @@
               "ignoreBackground": false
             },
             "offsetCalcType": "DockLeft",
+            "boundsCalcType": "Default",
             "position": 0
           }
         ],
@@ -19745,6 +20273,7 @@
               "ignoreBackground": false
             },
             "offsetCalcType": "DockLeft",
+            "boundsCalcType": "Default",
             "position": 0
           }
         ],
@@ -19785,6 +20314,7 @@
               "ignoreBackground": false
             },
             "offsetCalcType": "DockLeft",
+            "boundsCalcType": "Default",
             "position": 0
           }
         ],
@@ -19826,6 +20356,7 @@
             "ignoreBackground": false
           },
           "offsetCalcType": "DockRight",
+          "boundsCalcType": "Default",
           "position": 0
         }
       ],
@@ -19865,6 +20396,7 @@
               "ignoreBackground": false
             },
             "offsetCalcType": "Default",
+            "boundsCalcType": "Default",
             "position": 0
           }
         ],
@@ -19905,6 +20437,7 @@
               "ignoreBackground": false
             },
             "offsetCalcType": "Default",
+            "boundsCalcType": "Default",
             "position": 0
           }
         ],
@@ -19945,6 +20478,7 @@
               "ignoreBackground": false
             },
             "offsetCalcType": "Default",
+            "boundsCalcType": "Default",
             "position": 0
           }
         ],
@@ -19985,6 +20519,7 @@
               "ignoreBackground": false
             },
             "offsetCalcType": "Default",
+            "boundsCalcType": "Default",
             "position": 0
           }
         ],
@@ -20025,6 +20560,7 @@
               "ignoreBackground": false
             },
             "offsetCalcType": "Default",
+            "boundsCalcType": "Default",
             "position": 0
           }
         ],
@@ -20064,6 +20600,7 @@
                 "ignoreBackground": false
               },
               "offsetCalcType": "Default",
+              "boundsCalcType": "Default",
               "position": 0
             }
           ],
@@ -20104,6 +20641,7 @@
                 "ignoreBackground": false
               },
               "offsetCalcType": "Default",
+              "boundsCalcType": "Default",
               "position": 0
             }
           ],
@@ -20144,6 +20682,7 @@
                 "ignoreBackground": false
               },
               "offsetCalcType": "Default",
+              "boundsCalcType": "Default",
               "position": 0
             }
           ],
@@ -20183,6 +20722,7 @@
                   "ignoreBackground": false
                 },
                 "offsetCalcType": "Default",
+                "boundsCalcType": "Default",
                 "position": 0
               }
             ],
@@ -20226,6 +20766,7 @@
             "ignoreBackground": false
           },
           "offsetCalcType": "Default",
+          "boundsCalcType": "Default",
           "position": 0
         },
         {
@@ -20258,6 +20799,7 @@
             "ignoreBackground": false
           },
           "offsetCalcType": "Default",
+          "boundsCalcType": "Default",
           "position": 0
         }
       ],
@@ -20298,6 +20840,7 @@
             "ignoreBackground": false
           },
           "offsetCalcType": "Default",
+          "boundsCalcType": "Default",
           "position": 0
         }
       ],
@@ -20337,6 +20880,7 @@
               "ignoreBackground": false
             },
             "offsetCalcType": "DockLeft",
+            "boundsCalcType": "Default",
             "position": 0
           }
         ],
@@ -20377,6 +20921,7 @@
               "ignoreBackground": false
             },
             "offsetCalcType": "Default",
+            "boundsCalcType": "Default",
             "position": 0
           }
         ],
@@ -20418,6 +20963,7 @@
             "ignoreBackground": false
           },
           "offsetCalcType": "DockRight",
+          "boundsCalcType": "Default",
           "position": 0
         }
       ],
@@ -20465,6 +21011,7 @@
             "ignoreBackground": false
           },
           "offsetCalcType": "DockRight",
+          "boundsCalcType": "Default",
           "position": 0
         }
       ],
@@ -20505,6 +21052,7 @@
             "ignoreBackground": false
           },
           "offsetCalcType": "DockRight",
+          "boundsCalcType": "Default",
           "position": 0
         }
       ],
@@ -20545,6 +21093,7 @@
             "ignoreBackground": false
           },
           "offsetCalcType": "DockRight",
+          "boundsCalcType": "Default",
           "position": 0
         }
       ],
@@ -20586,6 +21135,7 @@
           "ignoreBackground": false
         },
         "offsetCalcType": "Default",
+        "boundsCalcType": "Default",
         "position": 0
       }
     ],
@@ -20632,6 +21182,7 @@
             "ignoreBackground": false
           },
           "offsetCalcType": "Default",
+          "boundsCalcType": "Default",
           "position": 0
         }
       ],
@@ -20671,6 +21222,7 @@
               "ignoreBackground": false
             },
             "offsetCalcType": "Default",
+            "boundsCalcType": "Default",
             "position": 0
           }
         ],
@@ -20711,6 +21263,7 @@
               "ignoreBackground": false
             },
             "offsetCalcType": "DockRight",
+            "boundsCalcType": "Default",
             "position": 0
           }
         ],
@@ -20751,6 +21304,7 @@
               "ignoreBackground": false
             },
             "offsetCalcType": "Default",
+            "boundsCalcType": "Default",
             "position": 0
           }
         ],
@@ -20791,6 +21345,7 @@
               "ignoreBackground": false
             },
             "offsetCalcType": "Default",
+            "boundsCalcType": "Default",
             "position": 0
           }
         ],
@@ -20831,6 +21386,7 @@
               "ignoreBackground": false
             },
             "offsetCalcType": "Default",
+            "boundsCalcType": "Default",
             "position": 0
           }
         ],
@@ -20871,6 +21427,7 @@
               "ignoreBackground": false
             },
             "offsetCalcType": "Default",
+            "boundsCalcType": "Default",
             "position": 0
           }
         ],
@@ -20911,6 +21468,7 @@
               "ignoreBackground": false
             },
             "offsetCalcType": "DockLeft",
+            "boundsCalcType": "Default",
             "position": 0
           }
         ],
@@ -20951,6 +21509,7 @@
               "ignoreBackground": false
             },
             "offsetCalcType": "Default",
+            "boundsCalcType": "Default",
             "position": 0
           }
         ],
@@ -20991,6 +21550,7 @@
               "ignoreBackground": false
             },
             "offsetCalcType": "DockLeft",
+            "boundsCalcType": "Default",
             "position": 0
           }
         ],
@@ -21030,6 +21590,7 @@
                 "ignoreBackground": false
               },
               "offsetCalcType": "DockLeft",
+              "boundsCalcType": "Default",
               "position": 0
             }
           ],
@@ -21070,6 +21631,7 @@
                 "ignoreBackground": false
               },
               "offsetCalcType": "DockRight",
+              "boundsCalcType": "Default",
               "position": 0
             }
           ],
@@ -21110,6 +21672,7 @@
                 "ignoreBackground": false
               },
               "offsetCalcType": "DockLeft",
+              "boundsCalcType": "Default",
               "position": 0
             }
           ],
@@ -21151,6 +21714,7 @@
               "ignoreBackground": false
             },
             "offsetCalcType": "DockRight",
+            "boundsCalcType": "Default",
             "position": 0
           }
         ],
@@ -21191,6 +21755,7 @@
               "ignoreBackground": false
             },
             "offsetCalcType": "DockRight",
+            "boundsCalcType": "Default",
             "position": 0
           }
         ],
@@ -21237,6 +21802,7 @@
                 "ignoreBackground": false
               },
               "offsetCalcType": "DockLeft",
+              "boundsCalcType": "Default",
               "position": 0
             }
           ],
@@ -21277,6 +21843,7 @@
                 "ignoreBackground": false
               },
               "offsetCalcType": "Default",
+              "boundsCalcType": "Default",
               "position": 0
             }
           ],
@@ -21317,6 +21884,7 @@
                 "ignoreBackground": false
               },
               "offsetCalcType": "Default",
+              "boundsCalcType": "Default",
               "position": 0
             }
           ],
@@ -21366,6 +21934,7 @@
             "ignoreBackground": false
           },
           "offsetCalcType": "Default",
+          "boundsCalcType": "Default",
           "position": 0
         },
         {
@@ -21398,6 +21967,7 @@
             "ignoreBackground": false
           },
           "offsetCalcType": "Default",
+          "boundsCalcType": "Default",
           "position": 0
         }
       ],
@@ -21438,6 +22008,7 @@
             "ignoreBackground": false
           },
           "offsetCalcType": "DockRight",
+          "boundsCalcType": "Default",
           "position": 0
         }
       ],
@@ -21478,6 +22049,7 @@
             "ignoreBackground": false
           },
           "offsetCalcType": "Default",
+          "boundsCalcType": "Default",
           "position": 0
         }
       ],
@@ -21518,6 +22090,7 @@
             "ignoreBackground": false
           },
           "offsetCalcType": "Default",
+          "boundsCalcType": "Default",
           "position": 0
         }
       ],
@@ -21558,6 +22131,7 @@
             "ignoreBackground": false
           },
           "offsetCalcType": "Default",
+          "boundsCalcType": "Default",
           "position": 0
         }
       ],
@@ -21598,6 +22172,7 @@
             "ignoreBackground": false
           },
           "offsetCalcType": "Default",
+          "boundsCalcType": "Default",
           "position": 0
         }
       ],
@@ -21638,6 +22213,7 @@
             "ignoreBackground": false
           },
           "offsetCalcType": "DockRight",
+          "boundsCalcType": "Default",
           "position": 0
         }
       ],
@@ -21678,6 +22254,7 @@
             "ignoreBackground": true
           },
           "offsetCalcType": "DockLeft",
+          "boundsCalcType": "Default",
           "position": 0
         }
       ],
@@ -21725,6 +22302,7 @@
             "ignoreBackground": false
           },
           "offsetCalcType": "Default",
+          "boundsCalcType": "Default",
           "position": 0
         }
       ],
@@ -21764,6 +22342,7 @@
               "ignoreBackground": false
             },
             "offsetCalcType": "DockRight",
+            "boundsCalcType": "Default",
             "position": 0
           }
         ],
@@ -21803,6 +22382,7 @@
                 "ignoreBackground": false
               },
               "offsetCalcType": "DockRight",
+              "boundsCalcType": "Default",
               "position": 0
             }
           ],
@@ -21845,6 +22425,7 @@
             "ignoreBackground": false
           },
           "offsetCalcType": "Default",
+          "boundsCalcType": "Default",
           "position": 0
         }
       ],
@@ -21884,6 +22465,7 @@
               "ignoreBackground": false
             },
             "offsetCalcType": "Default",
+            "boundsCalcType": "Default",
             "position": 0
           }
         ],
@@ -21923,6 +22505,7 @@
                 "ignoreBackground": false
               },
               "offsetCalcType": "DockLeft",
+              "boundsCalcType": "Default",
               "position": 0
             }
           ],
@@ -21962,6 +22545,7 @@
                   "ignoreBackground": false
                 },
                 "offsetCalcType": "DockLeft",
+                "boundsCalcType": "Default",
                 "position": 0
               }
             ],
@@ -22002,6 +22586,7 @@
                   "ignoreBackground": false
                 },
                 "offsetCalcType": "DockLeft",
+                "boundsCalcType": "Default",
                 "position": 0
               }
             ],
@@ -22041,6 +22626,7 @@
                     "ignoreBackground": false
                   },
                   "offsetCalcType": "DockLeft",
+                  "boundsCalcType": "Default",
                   "position": 0
                 }
               ],
@@ -22082,6 +22668,7 @@
                   "ignoreBackground": false
                 },
                 "offsetCalcType": "DockLeft",
+                "boundsCalcType": "Default",
                 "position": 0
               }
             ],
@@ -22121,6 +22708,7 @@
                     "ignoreBackground": false
                   },
                   "offsetCalcType": "DockLeft",
+                  "boundsCalcType": "Default",
                   "position": 0
                 }
               ],
@@ -22162,6 +22750,7 @@
                   "ignoreBackground": false
                 },
                 "offsetCalcType": "DockLeft",
+                "boundsCalcType": "Default",
                 "position": 0
               }
             ],
@@ -22201,6 +22790,7 @@
                     "ignoreBackground": false
                   },
                   "offsetCalcType": "DockLeft",
+                  "boundsCalcType": "Default",
                   "position": 0
                 }
               ],
@@ -22244,6 +22834,7 @@
               "ignoreBackground": false
             },
             "offsetCalcType": "DockRight",
+            "boundsCalcType": "Default",
             "position": 0
           }
         ],
@@ -22283,6 +22874,7 @@
                 "ignoreBackground": false
               },
               "offsetCalcType": "DockRight",
+              "boundsCalcType": "Default",
               "position": 0
             }
           ],
@@ -22324,6 +22916,7 @@
               "ignoreBackground": false
             },
             "offsetCalcType": "DockLeft",
+            "boundsCalcType": "Default",
             "position": 0
           }
         ],
@@ -22363,6 +22956,7 @@
                 "ignoreBackground": false
               },
               "offsetCalcType": "DockLeft",
+              "boundsCalcType": "Default",
               "position": 0
             }
           ],
@@ -22404,6 +22998,7 @@
               "ignoreBackground": false
             },
             "offsetCalcType": "DockLeft",
+            "boundsCalcType": "Default",
             "position": 0
           }
         ],
@@ -22443,6 +23038,7 @@
                 "ignoreBackground": false
               },
               "offsetCalcType": "DockLeft",
+              "boundsCalcType": "Default",
               "position": 0
             }
           ],
@@ -22485,6 +23081,7 @@
             "ignoreBackground": false
           },
           "offsetCalcType": "Default",
+          "boundsCalcType": "Default",
           "position": 0
         }
       ],
@@ -22524,6 +23121,7 @@
               "ignoreBackground": false
             },
             "offsetCalcType": "Default",
+            "boundsCalcType": "Default",
             "position": 0
           }
         ],
@@ -22564,6 +23162,7 @@
               "ignoreBackground": false
             },
             "offsetCalcType": "Default",
+            "boundsCalcType": "Default",
             "position": 0
           }
         ],
@@ -22604,6 +23203,7 @@
               "ignoreBackground": false
             },
             "offsetCalcType": "Default",
+            "boundsCalcType": "Default",
             "position": 0
           }
         ],
@@ -22644,6 +23244,7 @@
               "ignoreBackground": false
             },
             "offsetCalcType": "Default",
+            "boundsCalcType": "Default",
             "position": 0
           }
         ],
@@ -22684,6 +23285,7 @@
               "ignoreBackground": false
             },
             "offsetCalcType": "Default",
+            "boundsCalcType": "Default",
             "position": 0
           }
         ],
@@ -22724,6 +23326,7 @@
               "ignoreBackground": false
             },
             "offsetCalcType": "Default",
+            "boundsCalcType": "Default",
             "position": 0
           }
         ],
@@ -22772,6 +23375,7 @@
             "ignoreBackground": false
           },
           "offsetCalcType": "DockLeft",
+          "boundsCalcType": "Default",
           "position": 0
         }
       ],
@@ -22812,6 +23416,7 @@
             "ignoreBackground": false
           },
           "offsetCalcType": "DockLeft",
+          "boundsCalcType": "Default",
           "position": 0
         }
       ],
@@ -22852,6 +23457,7 @@
             "ignoreBackground": false
           },
           "offsetCalcType": "DockLeft",
+          "boundsCalcType": "Default",
           "position": 0
         }
       ],
@@ -22892,6 +23498,7 @@
             "ignoreBackground": false
           },
           "offsetCalcType": "DockLeft",
+          "boundsCalcType": "Default",
           "position": 0
         }
       ],
@@ -22932,6 +23539,7 @@
             "ignoreBackground": false
           },
           "offsetCalcType": "DockLeft",
+          "boundsCalcType": "Default",
           "position": 0
         }
       ],
@@ -22972,6 +23580,7 @@
             "ignoreBackground": false
           },
           "offsetCalcType": "DockLeft",
+          "boundsCalcType": "Default",
           "position": 0
         }
       ],
@@ -23012,6 +23621,7 @@
             "ignoreBackground": false
           },
           "offsetCalcType": "DockLeft",
+          "boundsCalcType": "Default",
           "position": 0
         }
       ],
@@ -23052,6 +23662,7 @@
             "ignoreBackground": false
           },
           "offsetCalcType": "DockLeft",
+          "boundsCalcType": "Default",
           "position": 0
         }
       ],
@@ -23092,6 +23703,7 @@
             "ignoreBackground": false
           },
           "offsetCalcType": "DockLeft",
+          "boundsCalcType": "Default",
           "position": 0
         }
       ],
@@ -23132,6 +23744,7 @@
             "ignoreBackground": false
           },
           "offsetCalcType": "DockLeft",
+          "boundsCalcType": "Default",
           "position": 0
         }
       ],
@@ -23172,6 +23785,7 @@
             "ignoreBackground": false
           },
           "offsetCalcType": "DockLeft",
+          "boundsCalcType": "Default",
           "position": 0
         }
       ],
@@ -23212,6 +23826,7 @@
             "ignoreBackground": false
           },
           "offsetCalcType": "DockLeft",
+          "boundsCalcType": "Default",
           "position": 0
         }
       ],
@@ -23252,6 +23867,7 @@
             "ignoreBackground": false
           },
           "offsetCalcType": "DockLeft",
+          "boundsCalcType": "Default",
           "position": 0
         }
       ],
@@ -23292,6 +23908,7 @@
             "ignoreBackground": false
           },
           "offsetCalcType": "DockLeft",
+          "boundsCalcType": "Default",
           "position": 0
         }
       ],
@@ -23332,6 +23949,7 @@
             "ignoreBackground": false
           },
           "offsetCalcType": "DockLeft",
+          "boundsCalcType": "Default",
           "position": 0
         }
       ],
@@ -23372,6 +23990,7 @@
             "ignoreBackground": false
           },
           "offsetCalcType": "DockRight",
+          "boundsCalcType": "Default",
           "position": 0
         }
       ],
@@ -23412,6 +24031,7 @@
             "ignoreBackground": false
           },
           "offsetCalcType": "DockLeft",
+          "boundsCalcType": "Default",
           "position": 0
         }
       ],
@@ -23452,6 +24072,7 @@
             "ignoreBackground": false
           },
           "offsetCalcType": "DockLeft",
+          "boundsCalcType": "Default",
           "position": 0
         }
       ],
@@ -23492,6 +24113,7 @@
             "ignoreBackground": false
           },
           "offsetCalcType": "DockLeft",
+          "boundsCalcType": "Default",
           "position": 0
         }
       ],
@@ -23532,6 +24154,7 @@
             "ignoreBackground": false
           },
           "offsetCalcType": "DockLeft",
+          "boundsCalcType": "Default",
           "position": 0
         }
       ],
@@ -23572,6 +24195,7 @@
             "ignoreBackground": false
           },
           "offsetCalcType": "DockLeft",
+          "boundsCalcType": "Default",
           "position": 0
         }
       ],
@@ -23612,6 +24236,7 @@
             "ignoreBackground": false
           },
           "offsetCalcType": "DockLeft",
+          "boundsCalcType": "Default",
           "position": 0
         }
       ],
@@ -23652,6 +24277,7 @@
             "ignoreBackground": false
           },
           "offsetCalcType": "DockLeft",
+          "boundsCalcType": "Default",
           "position": 0
         }
       ],
@@ -23692,6 +24318,7 @@
             "ignoreBackground": false
           },
           "offsetCalcType": "DockLeft",
+          "boundsCalcType": "Default",
           "position": 0
         }
       ],
@@ -23732,6 +24359,7 @@
             "ignoreBackground": false
           },
           "offsetCalcType": "DockLeft",
+          "boundsCalcType": "Default",
           "position": 0
         }
       ],
@@ -23772,6 +24400,7 @@
             "ignoreBackground": false
           },
           "offsetCalcType": "DockLeft",
+          "boundsCalcType": "Default",
           "position": 0
         }
       ],
@@ -23819,6 +24448,7 @@
             "ignoreBackground": false
           },
           "offsetCalcType": "DockLeft",
+          "boundsCalcType": "Default",
           "position": 0
         }
       ],
@@ -23858,6 +24488,7 @@
               "ignoreBackground": false
             },
             "offsetCalcType": "DockLeft",
+            "boundsCalcType": "Default",
             "position": 0
           }
         ],
@@ -23898,6 +24529,7 @@
               "ignoreBackground": false
             },
             "offsetCalcType": "Default",
+            "boundsCalcType": "Default",
             "position": 0
           }
         ],
@@ -23937,6 +24569,7 @@
                 "ignoreBackground": false
               },
               "offsetCalcType": "Default",
+              "boundsCalcType": "Default",
               "position": 0
             }
           ],
@@ -23978,6 +24611,7 @@
               "ignoreBackground": false
             },
             "offsetCalcType": "Default",
+            "boundsCalcType": "Default",
             "position": 0
           }
         ],
@@ -24017,6 +24651,7 @@
                 "ignoreBackground": false
               },
               "offsetCalcType": "Default",
+              "boundsCalcType": "Default",
               "position": 0
             }
           ],
@@ -24057,6 +24692,7 @@
                 "ignoreBackground": false
               },
               "offsetCalcType": "Default",
+              "boundsCalcType": "Default",
               "position": 0
             }
           ],
@@ -24097,6 +24733,7 @@
                 "ignoreBackground": false
               },
               "offsetCalcType": "Default",
+              "boundsCalcType": "Default",
               "position": 0
             }
           ],
@@ -24137,6 +24774,7 @@
                 "ignoreBackground": false
               },
               "offsetCalcType": "Default",
+              "boundsCalcType": "Default",
               "position": 0
             }
           ],
@@ -24177,6 +24815,7 @@
                 "ignoreBackground": false
               },
               "offsetCalcType": "Default",
+              "boundsCalcType": "Default",
               "position": 0
             }
           ],
@@ -24217,6 +24856,7 @@
                 "ignoreBackground": false
               },
               "offsetCalcType": "Default",
+              "boundsCalcType": "Default",
               "position": 0
             }
           ],
@@ -24257,6 +24897,7 @@
                 "ignoreBackground": false
               },
               "offsetCalcType": "Default",
+              "boundsCalcType": "Default",
               "position": 0
             }
           ],
@@ -24297,6 +24938,7 @@
                 "ignoreBackground": false
               },
               "offsetCalcType": "Default",
+              "boundsCalcType": "Default",
               "position": 0
             }
           ],
@@ -24337,6 +24979,7 @@
                 "ignoreBackground": false
               },
               "offsetCalcType": "Default",
+              "boundsCalcType": "Default",
               "position": 0
             }
           ],
@@ -24377,6 +25020,7 @@
                 "ignoreBackground": false
               },
               "offsetCalcType": "Default",
+              "boundsCalcType": "Default",
               "position": 0
             }
           ],
@@ -24418,6 +25062,7 @@
               "ignoreBackground": false
             },
             "offsetCalcType": "Default",
+            "boundsCalcType": "Default",
             "position": 0
           }
         ],
@@ -24457,6 +25102,7 @@
                 "ignoreBackground": false
               },
               "offsetCalcType": "Default",
+              "boundsCalcType": "Default",
               "position": 0
             }
           ],
@@ -24497,6 +25143,7 @@
                 "ignoreBackground": false
               },
               "offsetCalcType": "Default",
+              "boundsCalcType": "Default",
               "position": 0
             }
           ],
@@ -24537,6 +25184,7 @@
                 "ignoreBackground": false
               },
               "offsetCalcType": "Default",
+              "boundsCalcType": "Default",
               "position": 0
             }
           ],
@@ -24577,6 +25225,7 @@
                 "ignoreBackground": false
               },
               "offsetCalcType": "Default",
+              "boundsCalcType": "Default",
               "position": 0
             }
           ],
@@ -24617,6 +25266,7 @@
                 "ignoreBackground": false
               },
               "offsetCalcType": "Default",
+              "boundsCalcType": "Default",
               "position": 0
             }
           ],
@@ -24657,6 +25307,7 @@
                 "ignoreBackground": false
               },
               "offsetCalcType": "Default",
+              "boundsCalcType": "Default",
               "position": 0
             }
           ],
@@ -24697,6 +25348,7 @@
                 "ignoreBackground": false
               },
               "offsetCalcType": "Default",
+              "boundsCalcType": "Default",
               "position": 0
             }
           ],
@@ -24738,6 +25390,7 @@
               "ignoreBackground": false
             },
             "offsetCalcType": "Default",
+            "boundsCalcType": "Default",
             "position": 0
           },
           {
@@ -24770,6 +25423,7 @@
               "ignoreBackground": false
             },
             "offsetCalcType": "Default",
+            "boundsCalcType": "Default",
             "position": 0
           }
         ],
@@ -24810,6 +25464,7 @@
               "ignoreBackground": false
             },
             "offsetCalcType": "Default",
+            "boundsCalcType": "Default",
             "position": 0
           }
         ],
@@ -24850,6 +25505,7 @@
               "ignoreBackground": false
             },
             "offsetCalcType": "Default",
+            "boundsCalcType": "Default",
             "position": 0
           }
         ],
@@ -24890,6 +25546,7 @@
               "ignoreBackground": false
             },
             "offsetCalcType": "Default",
+            "boundsCalcType": "Default",
             "position": 0
           }
         ],
@@ -24929,6 +25586,7 @@
                 "ignoreBackground": false
               },
               "offsetCalcType": "Default",
+              "boundsCalcType": "Default",
               "position": 0
             }
           ],
@@ -24969,6 +25627,7 @@
                 "ignoreBackground": false
               },
               "offsetCalcType": "Default",
+              "boundsCalcType": "Default",
               "position": 0
             }
           ],
@@ -25009,6 +25668,7 @@
                 "ignoreBackground": false
               },
               "offsetCalcType": "Default",
+              "boundsCalcType": "Default",
               "position": 0
             }
           ],
@@ -25050,6 +25710,7 @@
               "ignoreBackground": false
             },
             "offsetCalcType": "Default",
+            "boundsCalcType": "Default",
             "position": 0
           },
           {
@@ -25082,6 +25743,7 @@
               "ignoreBackground": false
             },
             "offsetCalcType": "Default",
+            "boundsCalcType": "Default",
             "position": 0
           }
         ],
@@ -25122,6 +25784,7 @@
               "ignoreBackground": false
             },
             "offsetCalcType": "DockRight",
+            "boundsCalcType": "Default",
             "position": 0
           }
         ],
@@ -25161,6 +25824,7 @@
                 "ignoreBackground": false
               },
               "offsetCalcType": "Default",
+              "boundsCalcType": "Default",
               "position": 0
             }
           ],
@@ -25202,6 +25866,7 @@
               "ignoreBackground": false
             },
             "offsetCalcType": "DockRight",
+            "boundsCalcType": "Default",
             "position": 0
           }
         ],
@@ -25241,6 +25906,7 @@
                 "ignoreBackground": false
               },
               "offsetCalcType": "Default",
+              "boundsCalcType": "Default",
               "position": 0
             }
           ],
@@ -25280,6 +25946,7 @@
                   "ignoreBackground": false
                 },
                 "offsetCalcType": "DockRight",
+                "boundsCalcType": "Default",
                 "position": 0
               }
             ],
@@ -25323,6 +25990,7 @@
             "ignoreBackground": false
           },
           "offsetCalcType": "DockLeft",
+          "boundsCalcType": "Default",
           "position": 0
         }
       ],
@@ -25362,6 +26030,7 @@
               "ignoreBackground": false
             },
             "offsetCalcType": "DockLeft",
+            "boundsCalcType": "Default",
             "position": 0
           }
         ],
@@ -25402,6 +26071,7 @@
               "ignoreBackground": false
             },
             "offsetCalcType": "Default",
+            "boundsCalcType": "Default",
             "position": 0
           }
         ],
@@ -25441,6 +26111,7 @@
                 "ignoreBackground": false
               },
               "offsetCalcType": "Default",
+              "boundsCalcType": "Default",
               "position": 0
             }
           ],
@@ -25482,6 +26153,7 @@
               "ignoreBackground": false
             },
             "offsetCalcType": "Default",
+            "boundsCalcType": "Default",
             "position": 0
           }
         ],
@@ -25521,6 +26193,7 @@
                 "ignoreBackground": false
               },
               "offsetCalcType": "Default",
+              "boundsCalcType": "Default",
               "position": 0
             }
           ],
@@ -25563,6 +26236,7 @@
             "ignoreBackground": false
           },
           "offsetCalcType": "DockLeft",
+          "boundsCalcType": "Default",
           "position": 0
         }
       ],
@@ -25602,6 +26276,7 @@
               "ignoreBackground": false
             },
             "offsetCalcType": "Default",
+            "boundsCalcType": "Default",
             "position": 0
           }
         ],
@@ -25641,6 +26316,7 @@
                 "ignoreBackground": false
               },
               "offsetCalcType": "Default",
+              "boundsCalcType": "Default",
               "position": 0
             }
           ],
@@ -25683,6 +26359,7 @@
             "ignoreBackground": false
           },
           "offsetCalcType": "Default",
+          "boundsCalcType": "Default",
           "position": 0
         }
       ],
@@ -25723,6 +26400,7 @@
             "ignoreBackground": false
           },
           "offsetCalcType": "Default",
+          "boundsCalcType": "Default",
           "position": 0
         }
       ],
@@ -25763,6 +26441,7 @@
             "ignoreBackground": false
           },
           "offsetCalcType": "DockLeft",
+          "boundsCalcType": "Default",
           "position": 0
         }
       ],
@@ -25803,6 +26482,7 @@
             "ignoreBackground": false
           },
           "offsetCalcType": "DockLeft",
+          "boundsCalcType": "Default",
           "position": 0
         }
       ],
@@ -25843,6 +26523,7 @@
             "ignoreBackground": false
           },
           "offsetCalcType": "DockLeft",
+          "boundsCalcType": "Default",
           "position": 0
         }
       ],
@@ -25882,6 +26563,7 @@
               "ignoreBackground": false
             },
             "offsetCalcType": "DockRight",
+            "boundsCalcType": "Default",
             "position": 0
           }
         ],
@@ -25921,6 +26603,7 @@
                 "ignoreBackground": false
               },
               "offsetCalcType": "Default",
+              "boundsCalcType": "Default",
               "position": 0
             }
           ],
@@ -25962,6 +26645,7 @@
               "ignoreBackground": false
             },
             "offsetCalcType": "DockRight",
+            "boundsCalcType": "Default",
             "position": 0
           }
         ],
@@ -26001,6 +26685,7 @@
                 "ignoreBackground": false
               },
               "offsetCalcType": "Default",
+              "boundsCalcType": "Default",
               "position": 0
             }
           ],
@@ -26043,6 +26728,7 @@
             "ignoreBackground": false
           },
           "offsetCalcType": "DockLeft",
+          "boundsCalcType": "Default",
           "position": 0
         }
       ],
@@ -26082,6 +26768,7 @@
               "ignoreBackground": false
             },
             "offsetCalcType": "DockLeft",
+            "boundsCalcType": "Default",
             "position": 0
           }
         ],
@@ -26122,6 +26809,7 @@
               "ignoreBackground": false
             },
             "offsetCalcType": "DockLeft",
+            "boundsCalcType": "Default",
             "position": 0
           }
         ],
@@ -26161,6 +26849,7 @@
                 "ignoreBackground": false
               },
               "offsetCalcType": "DockLeft",
+              "boundsCalcType": "Default",
               "position": 0
             }
           ],
@@ -26203,6 +26892,7 @@
             "ignoreBackground": false
           },
           "offsetCalcType": "DockLeft",
+          "boundsCalcType": "Default",
           "position": 0
         },
         {
@@ -26235,6 +26925,7 @@
             "ignoreBackground": false
           },
           "offsetCalcType": "Default",
+          "boundsCalcType": "Default",
           "position": 0
         }
       ],
@@ -26274,6 +26965,7 @@
               "ignoreBackground": false
             },
             "offsetCalcType": "Default",
+            "boundsCalcType": "Default",
             "position": 0
           },
           {
@@ -26306,6 +26998,7 @@
               "ignoreBackground": false
             },
             "offsetCalcType": "Default",
+            "boundsCalcType": "Default",
             "position": 0
           }
         ],
@@ -26347,6 +27040,7 @@
             "ignoreBackground": false
           },
           "offsetCalcType": "DockLeft",
+          "boundsCalcType": "Default",
           "position": 0
         }
       ],
@@ -26386,6 +27080,7 @@
               "ignoreBackground": false
             },
             "offsetCalcType": "DockLeft",
+            "boundsCalcType": "Default",
             "position": 0
           }
         ],
@@ -26425,6 +27120,7 @@
                 "ignoreBackground": false
               },
               "offsetCalcType": "DockLeft",
+              "boundsCalcType": "Default",
               "position": 0
             }
           ],
@@ -26466,6 +27162,7 @@
               "ignoreBackground": false
             },
             "offsetCalcType": "DockLeft",
+            "boundsCalcType": "Default",
             "position": 0
           }
         ],
@@ -26505,6 +27202,7 @@
                 "ignoreBackground": false
               },
               "offsetCalcType": "DockLeft",
+              "boundsCalcType": "Default",
               "position": 0
             }
           ],
@@ -26546,6 +27244,7 @@
               "ignoreBackground": false
             },
             "offsetCalcType": "DockLeft",
+            "boundsCalcType": "Default",
             "position": 0
           }
         ],
@@ -26585,6 +27284,7 @@
                 "ignoreBackground": false
               },
               "offsetCalcType": "DockLeft",
+              "boundsCalcType": "Default",
               "position": 0
             }
           ],
@@ -26625,6 +27325,7 @@
                 "ignoreBackground": false
               },
               "offsetCalcType": "DockLeft",
+              "boundsCalcType": "Default",
               "position": 0
             }
           ],
@@ -26664,6 +27365,7 @@
                   "ignoreBackground": false
                 },
                 "offsetCalcType": "DockLeft",
+                "boundsCalcType": "Default",
                 "position": 0
               }
             ],
@@ -26706,6 +27408,7 @@
               "ignoreBackground": false
             },
             "offsetCalcType": "DockLeft",
+            "boundsCalcType": "Default",
             "position": 0
           }
         ],
@@ -26745,6 +27448,7 @@
                 "ignoreBackground": false
               },
               "offsetCalcType": "DockLeft",
+              "boundsCalcType": "Default",
               "position": 0
             }
           ],
@@ -26786,6 +27490,7 @@
               "ignoreBackground": false
             },
             "offsetCalcType": "DockLeft",
+            "boundsCalcType": "Default",
             "position": 0
           }
         ],
@@ -26825,6 +27530,7 @@
                 "ignoreBackground": false
               },
               "offsetCalcType": "DockLeft",
+              "boundsCalcType": "Default",
               "position": 0
             }
           ],
@@ -26866,6 +27572,7 @@
               "ignoreBackground": false
             },
             "offsetCalcType": "DockLeft",
+            "boundsCalcType": "Default",
             "position": 0
           }
         ],
@@ -26905,6 +27612,7 @@
                 "ignoreBackground": false
               },
               "offsetCalcType": "DockLeft",
+              "boundsCalcType": "Default",
               "position": 0
             }
           ],
@@ -26954,6 +27662,7 @@
             "ignoreBackground": false
           },
           "offsetCalcType": "Default",
+          "boundsCalcType": "Default",
           "position": 0
         }
       ],
@@ -26994,6 +27703,7 @@
             "ignoreBackground": false
           },
           "offsetCalcType": "DockRight",
+          "boundsCalcType": "Default",
           "position": 0
         }
       ],

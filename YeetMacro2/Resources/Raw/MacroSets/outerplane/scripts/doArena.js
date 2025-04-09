@@ -35,7 +35,7 @@ while (macroService.IsRunning) {
 			break;
 		case 'arena.challenge1':
 		case 'arena.matchOpponent':
-			const numTicketsZeroResult2 = macroService.FindPattern(patterns.arena.numTicketsZero)
+			const numTicketsZeroResult2 = macroService.FindPattern(patterns.arena.numTicketsZero2)
 			if (numTicketsZeroResult2.IsSuccess) {
 				return;
 			}
