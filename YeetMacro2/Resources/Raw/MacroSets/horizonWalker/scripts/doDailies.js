@@ -29,6 +29,13 @@ if (settings.doDailies.claimDailyRewards.Value) {
     goToLobby();
 }
 
+// claim tribute twice for sweepEvent
+if (settings.doDailies.claimTribute.Value) {
+    settings.claimTribute.lastRun.Value = date.toISOString();
+    claimTribute();
+    goToLobby();
+}
+
 if (settings.doDailies.sweepEvent.Value) {
     sweepEvent();
     goToLobby();
