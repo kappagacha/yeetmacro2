@@ -31,7 +31,7 @@ if (settings.doDailies.claimDailyRewards.Value) {
 
 // claim tribute twice for sweepEvent
 if (settings.doDailies.claimTribute.Value) {
-    settings.claimTribute.lastRun.Value = date.toISOString();
+    settings.claimTribute.lastRun.Value = new Date().toISOString();
     claimTribute();
     goToLobby();
 }
