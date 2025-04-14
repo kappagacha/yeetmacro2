@@ -63,16 +63,18 @@ function applyPreset(teamSlot) {
 			sleep(1_000);
 		}
 
-		let targetPreset = findTargetPreset(presetRegex);
+		const presetNameList = [];
+		let targetPreset = findTargetPreset(presetRegex, presetNameList);
 		let swipeCount = 0;
 		while (!targetPreset) {
 			macroService.DoSwipe({ X: swipeX, Y: 800 }, { X: swipeX, Y: 300 });
 			sleep(1_000);
-			targetPreset = findTargetPreset(presetRegex);
+			targetPreset = findTargetPreset(presetRegex, presetNameList);
 			swipeCount++;
 
 			if (swipeCount === 5) {
-				throw new Error(`Could not find preset regex: ${presetRegex}`)
+				throw presetNameList;
+				//throw new Error(`Could not find preset regex: ${presetRegex}`)
 			}
 		}
 
@@ -85,7 +87,7 @@ function applyPreset(teamSlot) {
 	macroService.IsRunning && (settings.applyPreset.lastApplied.Value = teamSlot);
 }
 
-function findTargetPreset(presetRegex) {
+function findTargetPreset(presetRegex, presetNameList) {
 	const presetCornerResult = macroService.FindPattern(patterns.battle.teamFormation.preset.corner, { Limit: 10 });
 	const presetNames = presetCornerResult.Points.filter(p => p).map(p => {
 		const presetNamePattern = macroService.ClonePattern(patterns.battle.teamFormation.preset.name, { X: p.X + 13, Y: p.Y + 8, OffsetCalcType: 'None', Path: `battle.teamFormation.preset.name_x${p.X}_y${p.Y}` });
@@ -95,5 +97,6 @@ function findTargetPreset(presetRegex) {
 		};
 	});
 	const targetPreset = presetNames.sort((a, b) => a.point.Y - b.point.Y).find(pn => pn.name.match(presetRegex));
+	presetNameList.push(...presetNames);
 	return targetPreset;
 }
