@@ -145,20 +145,19 @@ public partial class PatternNodeManagerViewModel : NodeManagerViewModel<PatternN
     [RelayCommand]
     private async Task AddPattern(PatternNode patternNode)
     {
-        if (SelectedNode != null)
-        {
-            var name = await _inputService.PromptInput("Please enter pattern name: ");
-            if (string.IsNullOrWhiteSpace(name))
-            {
-                _toastService.Show("Canceled add pattern");
-                return;
-            }
+        if (patternNode == null) return;
 
-            var newPattern = new PatternViewModel() { Name = name, PatternNodeId = patternNode.NodeId, ColorThreshold = new ColorThresholdPropertiesViewModel(), TextMatch = new TextMatchPropertiesViewModel() };
-            patternNode.Patterns.Add(newPattern);
-            _patternRepository.Insert(newPattern);
-            _patternRepository.Save();
+        var name = await _inputService.PromptInput("Please enter pattern name: ");
+        if (string.IsNullOrWhiteSpace(name))
+        {
+            _toastService.Show("Canceled add pattern");
+            return;
         }
+
+        var newPattern = new PatternViewModel() { Name = name, PatternNodeId = patternNode.NodeId, ColorThreshold = new ColorThresholdPropertiesViewModel(), TextMatch = new TextMatchPropertiesViewModel() };
+        patternNode.Patterns.Add(newPattern);
+        _patternRepository.Insert(newPattern);
+        _patternRepository.Save();
     }
 
     [RelayCommand]
