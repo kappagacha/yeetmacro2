@@ -20,7 +20,7 @@ function applyPreset(teamSlot) {
 		return;
 	}
 	
-	const locationToDelimiter = { left: '[<(]', top: '\\*', right: '[>)]', bottom: '=' };
+	const locationToDelimiter = { left: '[<(C]', top: '\\*', right: '[>)]', bottom: '=' };
 	const battleTypeToAbbreviation = { defender: 'DEF', striker: 'STR', ranger: 'RAN', mage: 'MAG', 'healer': 'HLR' };
 
 	for (let [location, delimiter] of Object.entries(locationToDelimiter)) {
