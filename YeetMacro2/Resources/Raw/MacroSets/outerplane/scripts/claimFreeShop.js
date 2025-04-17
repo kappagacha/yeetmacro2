@@ -31,11 +31,11 @@ while (macroService.IsRunning) {
 				logger.info('claimFreeShop: claim Normal');
 				//macroService.PollPattern(patterns.shop.normal, { DoClick: true, PredicatePattern: patterns.shop.normal.selected });
 				//const normalFreeResult = macroService.SwipePollPattern(patterns.shop.free, { MaxSwipes: 5, Start: { X: swipeRightStartX, Y: 500 }, End: { X: swipeRightEndX, Y: 500 } });
-				let normalFreeResult = macroService.PollPattern(patterns.shop.free, { TimeoutMs: 2_500 });
+				let normalFreeResult = macroService.PollPattern(patterns.shop.free, { TimeoutMs: 3_500 });
 				if (normalFreeResult.IsSuccess) {
 					macroService.PollPattern(patterns.shop.free, { DoClick: true, PredicatePattern: patterns.shop.free.ok });
 					macroService.PollPattern(patterns.shop.free.ok, { DoClick: true, InversePredicatePattern: patterns.shop.free.ok });
-					normalFreeResult = macroService.PollPattern(patterns.shop.free, { TimeoutMs: 2_500 });
+					normalFreeResult = macroService.PollPattern(patterns.shop.free, { TimeoutMs: 3_500 });
 				}
 
 				if (macroService.IsRunning) {
@@ -80,12 +80,12 @@ while (macroService.IsRunning) {
 				//	resourceFreeResult = macroService.FindPattern(patterns.shop.resource.free);
 				//}
 
-				let resourceFreeResult = macroService.PollPattern(patterns.shop.free, { TimeoutMs: 2_500 });
+				let resourceFreeResult = macroService.PollPattern(patterns.shop.free, { TimeoutMs: 3_500 });
 				if (resourceFreeResult.IsSuccess) {
 					macroService.PollPattern(patterns.shop.free, { DoClick: true, PredicatePattern: patterns.shop.free.ok });
 					macroService.PollPattern(patterns.shop.free.ok, { DoClick: true, PredicatePattern: patterns.general.tapEmptySpace });
 					macroService.PollPattern(patterns.general.tapEmptySpace, { DoClick: true, PredicatePattern: patterns.titles.shop });
-					resourceFreeResult = macroService.PollPattern(patterns.shop.free, { TimeoutMs: 2_500 });
+					resourceFreeResult = macroService.PollPattern(patterns.shop.free, { TimeoutMs: 3_500 });
 				}
 
 				if (macroService.IsRunning) {
