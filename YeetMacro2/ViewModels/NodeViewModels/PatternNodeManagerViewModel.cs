@@ -193,7 +193,7 @@ public partial class PatternNodeManagerViewModel : NodeManagerViewModel<PatternN
         {
             //_patternRepository.AttachEntities(pattern);     // When called form SettingPattern, pattern is not attached to the repository
             patternNode.Patterns.Remove(pattern);
-            _patternRepository.Delete(pattern);
+            _patternRepository.Delete(pattern.PatternId);
             _patternRepository.Save();
         }
     }
