@@ -20,7 +20,7 @@ function applyPreset(teamSlot) {
 		return;
 	}
 	
-	const locationToDelimiter = { left: '[<(C]', top: '\\*', right: '[>)]', bottom: '=' };
+	const locationToDelimiter = { left: '[<(]', top: '\\*', right: '[>)]', bottom: '=' };
 	const battleTypeToAbbreviation = { defender: 'DEF', striker: 'STR', ranger: 'RAN', mage: 'MAG', 'healer': 'HLR' };
 
 	for (let [location, delimiter] of Object.entries(locationToDelimiter)) {
@@ -91,6 +91,11 @@ function findTargetPreset(presetRegex, presetNameList) {
 	const presetCornerResult = macroService.FindPattern(patterns.battle.teamFormation.preset.corner, { Limit: 10 });
 	const presetNames = presetCornerResult.Points.filter(p => p).map(p => {
 		const presetNamePattern = macroService.ClonePattern(patterns.battle.teamFormation.preset.name, { X: p.X + 13, Y: p.Y + 8, OffsetCalcType: 'None', Path: `battle.teamFormation.preset.name_x${p.X}_y${p.Y}` });
+		let name;
+		for (let i = 0; i < 5 && name; i++) {
+			name = macroService.FindText(presetNamePattern)
+		}
+
 		return {
 			point: { X: p.X, Y: p.Y },
 			name: macroService.FindText(presetNamePattern)
