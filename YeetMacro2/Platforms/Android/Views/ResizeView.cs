@@ -91,7 +91,7 @@ public class ResizeView : RelativeLayout, IOnTouchListener, IShowable
 
         androidView.Clickable = true;
         Clickable = true;
-        InitDisplay(PatternHelper.ScreenResolution);
+        InitDisplay();
 
         DeviceDisplay.MainDisplayInfoChanged += DeviceDisplay_MainDisplayInfoChanged;
     }
@@ -118,11 +118,11 @@ public class ResizeView : RelativeLayout, IOnTouchListener, IShowable
         };
     }
 
-    private void InitDisplay(Size size)
+    private void InitDisplay()
     {
         _density = DeviceDisplay.MainDisplayInfo.Density;
-        _displayWidth = (int)size.Width;
-        _displayHeight = (int)size.Height;
+        _displayWidth = (int)DeviceDisplay.MainDisplayInfo.Width;
+        _displayHeight = (int)DeviceDisplay.MainDisplayInfo.Height;
 
         var isPortrait = DeviceDisplay.Current.MainDisplayInfo.Orientation == DisplayOrientation.Portrait;
 
