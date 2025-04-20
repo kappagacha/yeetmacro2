@@ -92,7 +92,7 @@ function findTargetPreset(presetRegex, presetNameList) {
 	const presetNames = presetCornerResult.Points.filter(p => p).map(p => {
 		const presetNamePattern = macroService.ClonePattern(patterns.battle.teamFormation.preset.name, { X: p.X + 13, Y: p.Y + 8, OffsetCalcType: 'None', Path: `battle.teamFormation.preset.name_x${p.X}_y${p.Y}` });
 		let name;
-		for (let i = 0; i < 5 && name; i++) {
+		for (let i = 0; i < 5 && !name; i++) {
 			name = macroService.FindText(presetNamePattern)
 		}
 
