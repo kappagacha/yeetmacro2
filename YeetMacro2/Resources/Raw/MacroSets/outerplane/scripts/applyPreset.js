@@ -98,7 +98,7 @@ function findTargetPreset(presetRegex, presetNameList) {
 
 		return {
 			point: { X: p.X, Y: p.Y },
-			name: macroService.FindText(presetNamePattern)
+			name: name
 		};
 	});
 	const targetPreset = presetNames.sort((a, b) => a.point.Y - b.point.Y).find(pn => pn.name.match(presetRegex));
