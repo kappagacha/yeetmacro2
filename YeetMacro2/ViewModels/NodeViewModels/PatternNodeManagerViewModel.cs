@@ -256,12 +256,17 @@ public partial class PatternNodeManagerViewModel : NodeManagerViewModel<PatternN
         if (pattern == null) return;
 
         var rect = await _inputService.DrawUserRectangle();
-        if (rect != Rect.Zero)
+        if (rect.IsEmpty) return;
+
+        var topLeft = PatternHelper.TopLeft;
+        if (!topLeft.IsEmpty)   // If top left has value, then assuming it's a capture from physical device
         {
-            pattern.RawBounds = rect;
-            _patternRepository.Update(pattern);
-            _patternRepository.Save();
+            rect = rect.Offset(-topLeft.X, -topLeft.Y);
         }
+
+        pattern.RawBounds = rect;
+        _patternRepository.Update(pattern);
+        _patternRepository.Save();
     }
 
     [RelayCommand]
