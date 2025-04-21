@@ -157,7 +157,7 @@ public partial class DrawControl : ContentView
 
                     //Rect = new Rect(new Point(calcBeginX + topLeft.X + _userStroke.StrokeWidth - padding / 2, calcBeginY + topLeft.Y + _userStroke.StrokeWidth - padding / 2),
                     //                 new Size(calcWidth <= 0 ? 1 : calcWidth, calcHeight <= 0 ? 1 : calcHeight));
-                    Rect = new Rect(new Point(calcBeginX - topLeft.X + _userStroke.StrokeWidth - padding / 2, calcBeginY - topLeft.Y + _userStroke.StrokeWidth - padding / 2),
+                    Rect = new Rect(new Point(calcBeginX + topLeft.X * 2 + _userStroke.StrokeWidth - padding / 2, calcBeginY + topLeft.Y * 2 + _userStroke.StrokeWidth - padding / 2),
                                      new Size(calcWidth <= 0 ? 1 : calcWidth, calcHeight <= 0 ? 1 : calcHeight));
                     _androidScreenService.Close(AndroidWindowView.UserDrawView);
                 }
