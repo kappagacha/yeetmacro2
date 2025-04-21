@@ -217,7 +217,7 @@ public partial class PatternNodeManagerViewModel : NodeManagerViewModel<PatternN
             var topLeft = PatternHelper.TopLeft;
             if (!topLeft.IsEmpty)   // If top left has value, then assuming it's a capture from physical device
             {
-                rect = rect.Offset(-topLeft.X, -topLeft.Y);
+                //rect = rect.Offset(-topLeft.X, -topLeft.Y);
                 pattern.OffsetCalcType = OffsetCalcType.DockLeft;
             }
 
