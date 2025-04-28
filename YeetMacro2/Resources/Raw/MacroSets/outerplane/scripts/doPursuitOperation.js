@@ -4,11 +4,12 @@
 const loopPatterns = [patterns.lobby.level, patterns.titles.adventure, patterns.irregularExtermination.pursuitOperation, patterns.titles.pursuitOperation];
 const daily = dailyManager.GetCurrentDaily();
 const teamSlot = settings.doPursuitOperation.teamSlot.Value;
+const publishToPublic = settings.doPursuitOperation.publishToPublic.Value;
 let targetOperation = settings.doPursuitOperation.targetOperation.Value;
 
-if (daily.doPursuitOperation.done.IsChecked) {
-	return "Script already completed. Uncheck done to override daily flag.";
-}
+//if (daily.doPursuitOperation.done.IsChecked) {
+//	return "Script already completed. Uncheck done to override daily flag.";
+//}
 
 let teamRestored = false;
 let isRotateOperation = targetOperation === 'rotate';
@@ -74,7 +75,16 @@ while (macroService.IsRunning) {
 			if (friendsOrGuildResult.IsSuccess) {
 				macroService.PollPattern(patterns.irregularExtermination.pursuitOperation.friendsOrGuild, { DoClick: true, PredicatePattern: patterns.irregularExtermination.pursuitOperation.ok });
 				macroService.PollPattern(patterns.irregularExtermination.pursuitOperation.ok, { DoClick: true, PredicatePattern: patterns.irregularExtermination.pursuitOperation.selectTeam });
+				sleep(1_000);
 			}
+
+			const publicResult = macroService.FindPattern(patterns.irregularExtermination.pursuitOperation.public);
+			if (publishToPublic && publicResult.IsSuccess) {
+				macroService.PollPattern(patterns.irregularExtermination.pursuitOperation.public, { DoClick: true, PredicatePattern: patterns.irregularExtermination.pursuitOperation.ok });
+				macroService.PollPattern(patterns.irregularExtermination.pursuitOperation.ok, { DoClick: true, PredicatePattern: patterns.irregularExtermination.pursuitOperation.selectTeam });
+				sleep(1_000);
+			}
+
 			while (macroService.IsRunning && !macroService.FindPattern(patterns.irregularExtermination.pursuitOperation[targetOperation]).IsSuccess) {
 				macroService.ClickPattern(patterns.general.back);
 				sleep(1_000);
