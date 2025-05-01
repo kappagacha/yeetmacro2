@@ -39,11 +39,21 @@ function applyPreset(teamSlot) {
 		const battleTypeAbbreviation = battleTypeToAbbreviation[battleType];
 		const gearSet = "..."
 		let primaryStat = "..."
-		if (unitTitleAndName.match(/The.*?Memorizer.*?Caren/ism) || unitTitleAndName.match(/Blazing.*?Fighter.*?Kano/ism)) {
+		if (unitTitleAndName.match(/The.*?Memorizer.*?Caren/ism) || unitTitleAndName.match(/Blazing.*?Fighter.*?Kano/ism) || unitTitleAndName.match(/Honorable.*?Knight/ism)) {
 			primaryStat = 'DEF';
+			delimiter = '#';
+		} else if (unitTitleAndName.match(/Self.*?Delt/ism)) {
+			primaryStat = 'HLT';
+			delimiter = '#';
 		}
 
-		const presetRegex = new RegExp(`\\s?${delimiter}\\s?${battleTypeAbbreviation}\\s?${delimiter}\\s?${gearSet}\\s?${delimiter}\\s?${primaryStat}\\s?`);
+		let strRegex = `\\s?${delimiter}\\s?${battleTypeAbbreviation}\\s?${delimiter}\\s?${gearSet}\\s?${delimiter}\\s?${primaryStat}\\s?`;
+
+		if (unitTitleAndName.match(/Gnosis.*Nell/ism)) {
+			strRegex = '#GN.*NELLA#';
+		}
+
+		const presetRegex = new RegExp(strRegex);
 		const currentPreset = macroService.FindText(patterns.battle.teamFormation.preset.current);
 		//logger.info(unitTitleAndName.replace(/\n/g, ' '));
 		logger.info(`regex: ${presetRegex}    ||   currentPreset: ${currentPreset}`);
