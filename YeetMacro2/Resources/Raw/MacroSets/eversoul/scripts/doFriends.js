@@ -53,7 +53,7 @@ while (macroService.IsRunning) {
 					const swipeResult = macroService.SwipePollPattern(hireTargets, { MaxSwipes: 1, Start: { X: swipeX, Y: swipeYStart }, End: { X: swipeX, Y: swipeYEnd } });
 
 					if (swipeResult.IsSuccess) {
-						const hirePattern = macroService.ClonePattern(patterns.friends.hireSoul.hire, { CenterY: swipeResult.Point.Y, Padding: 25, Path: `friends.hireSoul.hire_y${swipeResult.Point.Y}` });
+						const hirePattern = macroService.ClonePattern(patterns.friends.hireSoul.hire, { CenterY: swipeResult.Point.Y, Padding: 35, Path: `friends.hireSoul.hire_y${swipeResult.Point.Y}` });
 						const hirePatternResult = macroService.FindPattern(hirePattern);
 						if (hirePatternResult.IsSuccess) {
 							macroService.DoClick(hirePatternResult.Point);
