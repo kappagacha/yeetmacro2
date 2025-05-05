@@ -1724,10 +1724,10 @@
       "$patterns": [
         {
           "rawBounds": {
-            "x": 1543.25,
-            "y": 866.25,
-            "width": 108.5,
-            "height": 27.11773681640625
+            "x": 1484.25,
+            "y": 841.25,
+            "width": 198.5,
+            "height": 93.5
           },
           "resolution": {
             "width": 1920,
@@ -1764,10 +1764,10 @@
         "$patterns": [
           {
             "rawBounds": {
-              "x": 1661.25,
-              "y": 160.25,
-              "width": 37.5,
-              "height": 33.5
+              "x": 1657.25,
+              "y": 161.25,
+              "width": 41.5,
+              "height": 42.5
             },
             "resolution": {
               "width": 1920,
@@ -1794,9 +1794,42 @@
             "offsetCalcType": "DockRight",
             "boundsCalcType": "Default",
             "position": 0
+          },
+          {
+            "rawBounds": {
+              "x": 1661.25,
+              "y": 163.25,
+              "width": 35.5,
+              "height": 31.557876586914062
+            },
+            "resolution": {
+              "width": 1920,
+              "height": 1080
+            },
+            "isBoundsPattern": false,
+            "name": "pattern2",
+            "imageData": "/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDAAEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQH/2wBDAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQH/wAARCAAfACMDASIAAhEBAxEB/8QAGwAAAgIDAQAAAAAAAAAAAAAAAAgGBwEEBQn/xAAoEAACAQMEAgEEAwEAAAAAAAABAgMEBREABgcSITETCCJBURQygUP/xAAXAQEBAQEAAAAAAAAAAAAAAAAGBwUE/8QAKhEAAgIBAwMCBQUAAAAAAAAAAQIDESEEBTEAE0EGMhIiM0JhUXGRobH/2gAMAwEAAhEDEQA/APSr6fLjsLclhq9sXaGla91RkWU1HXtURszBfiJPhlV0XH2kk595OqM5x4bu2wLjLc6GOWs29VyM8U8a9hSeCfimwqkY6swZQQQwBbPjS72q+XOyXCmulrqpaStpJFlgnjYh0dSCCCMY8j8af6wfUXtbdvHdfbd4UQqbxFSfxJaExmRbm5KhJIU6SYOSgKszEshcYHgW+Xbp9tnTU6ZDqIHZUlhAFqTQDL5qsggADhsdEn3KXVPKTK6tJ8xBYkEis54rjHIGKvCIW6WVpokjDPI7hUVQSSzEAADOcnI/f+Y0/wDwZxNNDRw7p3Wgp4SgmpKGoGCqKvcTSjyFXBUqOysOhyo9COcJcGUT1jb53NRrSW4SNV2u2VXQCBAOySTAqV+zJI8J5Vf1rr8183ZE20tnzFAnaKvuMJPUr5VqeHqVwAAyu2WVgwAxgk8O76iDUSCCBVIX6sjUVBH2jkEjzR5wLyetLak18pEULSBpCASt2EsZJqwSMAjOf4n983vxvT3augK07tDN8bMn9CyIit1xgYDAjOPOM+fejSDF6hyXYs7MSzMSSWYnJJOR5J96NHzpdKSTcZs37Vzfw/7f9/jp0m16pVRe5rPlVR9aQcBBwDQ4HGBf46q2GjklZVRWdmOFVVJLE/gAA5P69+/XjT1cCfT4sSU+8t6QLFGAKm30EwAwq/8AWoV8dcgNhXQEgq2cEaz9OHDdqvEUO9L10qYKaZjS0jKHQvE5UvKhPUgNG2FKuDnJGMjU75n5VnhWfaG2i1KgX+PW1Yj+FkUYxFTjqCowUy6GP8rgjOd7cvUBKmKOQRKcO95IAAKp5z5PkGs89CNDsEmp1g0mmiMs8YuUkHtxe2yxo3Vj9SWwMjrb3nvyp3nfIuOdj1MVND2+Cvro5EjQRL27x05VkDYVPSOfeSMapnkHhe57JnWrRnr7bPjNWFLvHMf7ibDOyglk6sxHYkj8E6rqyCttVwhudJUSQ1kMqzLNHI4csCTlm7Zbt57Bsgg4OcnT5bD3rQciWR7PfKdXrhAY6kGENDLlCvzKQoVJOwZgFA6nrg/nRHUa+KcnSwSdt2W4yeHcAXbfcTWQfHtz1QIdq3H0yun3UaVdZt0bKNxjVB3lRmUd0GjYHCn2g4cEMCEJW1DA+w/51x/nnRptbrwpGlxq1pKsJTfKWhRm8qjgOFPv0WI9+R50aLMd4ViO1dNVhhRooLHzDGD1Uod79FSxRSDWxqJI43CtEwZQyxsFYfDQIGCPB/Y1/9k=",
+            "variancePct": 20,
+            "horizontalStretchMultiplier": 0,
+            "verticalStretchMultiplier": 0,
+            "textMatch": {
+              "isActive": false,
+              "text": null,
+              "whiteList": null
+            },
+            "colorThreshold": {
+              "isActive": true,
+              "variancePct": 10,
+              "color": "#ffbac0ce",
+              "imageData": "/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDAAIBAQEBAQIBAQECAgICAgQDAgICAgUEBAMEBgUGBgYFBgYGBwkIBgcJBwYGCAsICQoKCgoKBggLDAsKDAkKCgr/wAALCAAfACMBAREA/8QAHwAAAQUBAQEBAQEAAAAAAAAAAAECAwQFBgcICQoL/8QAtRAAAgEDAwIEAwUFBAQAAAF9AQIDAAQRBRIhMUEGE1FhByJxFDKBkaEII0KxwRVS0fAkM2JyggkKFhcYGRolJicoKSo0NTY3ODk6Q0RFRkdISUpTVFVWV1hZWmNkZWZnaGlqc3R1dnd4eXqDhIWGh4iJipKTlJWWl5iZmqKjpKWmp6ipqrKztLW2t7i5usLDxMXGx8jJytLT1NXW19jZ2uHi4+Tl5ufo6erx8vP09fb3+Pn6/9oACAEBAAA/AN7/AIO0fAH/AAUc+AX7U/wd/wCCq/7MXjXxBp/gn4X+H4dKtdX0DUpJf+EQ12W+uTLd3Nm6mFLa/hmtLN5CrxXH2dbW5AWS3Sb7v/4Icf8ABcf4Nf8ABXr4NPpeqRaf4V+NHhXT0fx54DimIjnjysf9q6b5jF5bF3ZQyEtJaySLFKWDwT3H3fX8+P8AwdJ/8F99O8Wadff8E1P2Ffi7qEUUWoato37QGr2uiXFlIZLa4NodAguZtjtEXiuTdmKMxzRm3jSd4pLqFvmD4A/8EoP+DsDwF8GvD3h79nyy+OHgnwa2ni90Lwvpn7QVroEdhHck3LKdObV4Xs5WeV3khkijkWR38xQ+4V/U74s8J+FfHvhXU/Avjrwzp+taJrWnzWGs6Nq1klza39rMhjlt5opAUlidGZGRgVZWIIINfgj8YP8Ag1g/bJ/Zn/4Kr+Avjd/wSW+Nn/CDfDm78QPqsfjK+1RJr/4YbAfPtHgmfzNatpYneGCM7/OWRra+Kxh7uf0D/g5F/wCDkX/hn/8At7/gnp/wT08e/wDFwP3un/Ev4maPc/8AIqdVl0vT5VP/ACEuqzXCn/QuY0P2vc1kf8G3X/Bt1/wz/wD2D/wUL/4KF+Av+LgfutQ+Gnwz1i2/5FTo0WqahEw/5CXRobdh/oXEjj7XtWy/b6ivxB/4ORf+DkX/AIZ//t7/AIJ6f8E9PHv/ABcD97p/xL+Jmj3P/IqdVl0vT5VP/IS6rNcKf9C5jQ/a9zWXl/8AwSK/4I7/AAa/4JF/swaj/wAFwv8AgsV4P1CHVfBen2+seBPhi2jm5uvDsks0UNld3Vs2AdXmuJoEt4JSkdg0izTvHOM2H6X/APBGT/guh+zj/wAFhvAmrW3hnQP+EE+JvhrfN4k+GWo6yt5MlgZQkWoWdx5UX2y2O6NJGEaNBMwSRAslvLP9v1+OP/B07/wXH+Mv7Benab+wT+ypFqHh7x34/wDB661rvxJimEcmi6NNcXNosOmlW3pfSvazhrkhTbRhTDumlWW18/8A+DY7/g3m8K/D3wr4O/4Kifto6Rp+teJda0+01/4N+DGdLm10O1mRZrXW7raSkt86MktvFytorLK2bootl+33izwn4V8e+FdT8C+OvDOn61omtafNYazo2rWSXNrf2syGOW3mikBSWJ0ZkZGBVlYggg1/Ll/wWO/4JEftHf8ABv8A/tHeGP8Agod+xN8af7P8E6h8QLoeBtT0jdb3/gq/la7nttFmjup7htRtm09JIjO5dbhYrmO5iRZEFx93/AH/AIPX/wBi+6+DXh6X9qX9mr4oWHxCGnhPFcHgDSNOu9Ga6UlTLaPd6lDOsUgCyCKRS0Rcx+ZNs85//9k=",
+              "ignoreBackground": false
+            },
+            "offsetCalcType": "Default",
+            "boundsCalcType": "Default",
+            "position": 0
           }
         ],
-        "$isMultiPattern": false,
+        "$isMultiPattern": true,
         "$position": 0,
         "$name": "close",
         "$path": "event.claimAll.close"
@@ -1806,10 +1839,10 @@
       "$patterns": [
         {
           "rawBounds": {
-            "x": 1520.25,
-            "y": 922.25,
-            "width": 48.5,
-            "height": 35.5
+            "x": 1497.25,
+            "y": 904.25,
+            "width": 96.5,
+            "height": 63.5
           },
           "resolution": {
             "width": 1920,
@@ -1929,10 +1962,10 @@
       "$patterns": [
         {
           "rawBounds": {
-            "x": 663.25,
-            "y": 925.25,
-            "width": 28.5,
-            "height": 21.5
+            "x": 473.25,
+            "y": 898.25,
+            "width": 464.5,
+            "height": 88.5
           },
           "resolution": {
             "width": 1920,
