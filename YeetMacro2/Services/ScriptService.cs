@@ -109,6 +109,8 @@ public class ScriptService: IScriptService
         {
             foreach (var script in macroSet.Scripts.Root.Nodes)
             {
+                if (script.Text is null) continue;
+
                 if (script.Text.StartsWith("// @raw-script"))
                 {
                     _engine.Execute(script.Text);
