@@ -49,7 +49,7 @@ function applyPreset(teamSlot) {
 
 		let strRegex = `\\s?${delimiter}\\s?${battleTypeAbbreviation}\\s?${delimiter}\\s?${gearSet}\\s?${delimiter}\\s?${primaryStat}\\s?`;
 
-		if (unitTitleAndName.match(/Gnosis.*Nell/ism)) {
+		if (unitTitleAndName.match(/Gnosis.*Ne[lI][lI]/ism)) {
 			strRegex = '#GN.*NELLA#';
 		}
 
