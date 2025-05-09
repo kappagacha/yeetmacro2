@@ -60,7 +60,7 @@ function selectTeamAndBattle(teamSlot, opts = {}) {
 		macroService.PollPattern(patterns.battle.setup.minBattle, { DoClick: true, PredicatePattern: patterns.battle.setup.numBattles.one });
 
 		numBattles = 1
-		while (Number(numBattles) < targetNumBattles) {
+		while (Number(numBattles) < opts.targetNumBattles) {
 			macroService.ClickPattern(patterns.battle.setup.addBattle)
 			sleep(250)
 			numBattles = macroService.FindText(patterns.battle.setup.numBattles);
