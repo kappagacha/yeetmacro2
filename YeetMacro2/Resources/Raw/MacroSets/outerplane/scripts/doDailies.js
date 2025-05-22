@@ -37,26 +37,6 @@ if (settings.doDailies.doArena.Value) {
     goToLobby();
 }
 
-if (settings.doDailies.claimMailboxExpiring.Value) {
-    claimMailboxExpiring();
-    goToLobby();
-}
-
-if (settings.doDailies.doBountyHunter.Value) {
-    doBountyHunter();
-    goToLobby();
-}
-
-if (settings.doDailies.doBanditChase.Value) {
-    doBanditChase();
-    goToLobby();
-}
-
-if (settings.doDailies.doUpgradeStoneRetrieval.Value) {
-    doUpgradeStoneRetrieval();
-    goToLobby();
-}
-
 if (settings.doDailies.doGuildSecurityArea.Value) {
     doGuildSecurityArea();
     goToLobby();
@@ -77,8 +57,39 @@ if (settings.doDailies.doShop.Value) {
     goToLobby();
 }
 
+if (settings.doDailies.claimMailboxExpiring.Value) {
+    claimMailboxExpiring();
+    goToLobby();
+}
+
 if (settings.doDailies.claimMailboxExpiringStamina.Value) {
     claimMailboxExpiringStamina();
+    goToLobby();
+}
+
+// claim mailbox twice in case anything is missed
+if (settings.doDailies.claimMailboxExpiring.Value) {
+    claimMailboxExpiring();
+    goToLobby();
+}
+
+if (settings.doDailies.claimMailboxExpiringStamina.Value) {
+    claimMailboxExpiringStamina();
+    goToLobby();
+}
+
+if (settings.doDailies.doBountyHunter.Value) {
+    doBountyHunter();
+    goToLobby();
+}
+
+if (settings.doDailies.doBanditChase.Value) {
+    doBanditChase();
+    goToLobby();
+}
+
+if (settings.doDailies.doUpgradeStoneRetrieval.Value) {
+    doUpgradeStoneRetrieval();
     goToLobby();
 }
 

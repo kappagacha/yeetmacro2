@@ -4,7 +4,7 @@ const loopPatterns = [patterns.lobby.level, patterns.titles.adventure, patterns.
 const daily = dailyManager.GetCurrentDaily();
 const teamSlot = settings.doBountyHunter.teamSlot.Value;
 if (daily.doBountyHunter.done.IsChecked) {
-	return "Script already completed. Uncheck done to override daily flag.";
+	return "Script already completed.";
 }
 
 while (macroService.IsRunning) {

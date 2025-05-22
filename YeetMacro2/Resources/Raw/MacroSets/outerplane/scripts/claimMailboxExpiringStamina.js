@@ -3,8 +3,9 @@ const loopPatterns = [patterns.lobby.level, patterns.titles.mailbox];
 let done = false;
 const daily = dailyManager.GetCurrentDaily();
 
-if (daily.claimMailboxExpiringStamina.done.IsChecked) {
-	return "Script already completed. Uncheck done to override daily flag.";
+//if (daily.claimMailboxExpiringStamina.done.IsChecked) {
+if (daily.claimMailboxExpiringStamina.count.Count > 2) {
+	return "Script already completed.";
 }
 
 while (macroService.IsRunning) {
@@ -35,7 +36,7 @@ while (macroService.IsRunning) {
 					const dPatternResult = macroService.FindPattern(dPattern);
 					if (!dPatternResult.IsSuccess) {
 						macroService.PollPoint(p, { PredicatePattern: patterns.general.tapEmptySpace });
-						macroService.PollPattern(patterns.general.tapEmptySpace, { DoClick: true, PredicatePattern: patterns.titles.mailbox });
+						macroService.PollPattern(patterns.general.tapEmptySpace, { DoClick: true, PredicatePattern: patterns.mailbox.receive });
 						sleep(500);
 						done = false;
 						continue;
@@ -44,9 +45,9 @@ while (macroService.IsRunning) {
 					const numberPattern = macroService.ClonePattern(patterns.mailbox.expiration.d, { X: dPatternResult.Point.X - 60, Y: dPatternResult.Point.Y - 15, Width: 50, Path: `patterns.mailbox.expiration.number_text_x${dPatternResult.Point.X - 30}_y${dPatternResult.Point.Y}` });
 					const numberText = macroService.FindText(numberPattern, "1234567890");
 
-					if (numberText == 1 || numberText > 10) {
+					if (numberText == 1 || numberText == 2 || numberText > 10) {
 						macroService.PollPoint(p, { PredicatePattern: patterns.general.tapEmptySpace });
-						macroService.PollPattern(patterns.general.tapEmptySpace, { DoClick: true, PredicatePattern: patterns.titles.mailbox });
+						macroService.PollPattern(patterns.general.tapEmptySpace, { DoClick: true, PredicatePattern: patterns.mailbox.receive });
 						sleep(500);
 						done = false;
 					}
@@ -54,7 +55,8 @@ while (macroService.IsRunning) {
 			}
 
 			if (macroService.IsRunning) {
-				daily.claimMailboxExpiringStamina.done.IsChecked = true;
+				//daily.claimMailboxExpiringStamina.done.IsChecked = true;
+				daily.claimMailboxExpiringStamina.count.Count++;
 			}
 			return;
 	}
