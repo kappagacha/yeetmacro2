@@ -7,8 +7,7 @@ const elementTypeTarget1 = settings.doUpgradeStoneRetrieval.elementTypeTarget1.V
 const elementTypeTarget2 = settings.doUpgradeStoneRetrieval.elementTypeTarget2.Value;
 const elementTypeTarget3 = settings.doUpgradeStoneRetrieval.elementTypeTarget3.Value;
 const elementTypeTarget4 = settings.doUpgradeStoneRetrieval.elementTypeTarget4.Value;
-//if (daily.doUpgradeStoneRetrieval.done.IsChecked) {
-if (daily.doUpgradeStoneRetrieval.count.Count > 2) {
+if (daily.doUpgradeStoneRetrieval.done.IsChecked) {
 	return "Script already completed.";
 }
 
