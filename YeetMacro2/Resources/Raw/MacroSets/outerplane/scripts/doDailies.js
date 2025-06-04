@@ -147,11 +147,6 @@ if (settings.doDailies.doUpkeep.Value) {
     goToLobby();
 }
 
-if (settings.doDailies.claimBossDailyMissions.Value) {
-    claimBossDailyMissions();
-    goToLobby();
-}
-
 if (settings.doDailies.claimDailyMissions.Value) {
     claimDailyMissions();
     goToLobby();

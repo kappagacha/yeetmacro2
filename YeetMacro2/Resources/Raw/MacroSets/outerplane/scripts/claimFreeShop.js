@@ -82,8 +82,12 @@ while (macroService.IsRunning) {
 
 				let resourceFreeResult = macroService.PollPattern(patterns.shop.free, { TimeoutMs: 3_500 });
 				while (resourceFreeResult.IsSuccess) {
-					macroService.PollPattern(patterns.shop.free, { DoClick: true, PredicatePattern: patterns.shop.free.ok });
-					macroService.PollPattern(patterns.shop.free.ok, { DoClick: true, PredicatePattern: patterns.general.tapEmptySpace });
+					//macroService.PollPattern(patterns.shop.free, { DoClick: true, PredicatePattern: patterns.shop.free.ok });
+					//macroService.PollPattern(patterns.shop.free.ok, { DoClick: true, PredicatePattern: patterns.general.tapEmptySpace });
+					//macroService.PollPattern(patterns.general.tapEmptySpace, { DoClick: true, PredicatePattern: patterns.titles.shop });
+
+
+					macroService.PollPattern(patterns.shop.free, { DoClick: true, ClickPattern: patterns.shop.free.ok, PredicatePattern: patterns.general.tapEmptySpace });
 					macroService.PollPattern(patterns.general.tapEmptySpace, { DoClick: true, PredicatePattern: patterns.titles.shop });
 					resourceFreeResult = macroService.PollPattern(patterns.shop.free, { TimeoutMs: 3_500 });
 				}

@@ -12,8 +12,10 @@ const originalDensity = 1.5;	// density the patterns were captured in
 const currentDensity = macroService.GetScreenDensity();
 // scale calculation worked for density 2.0 and 2.7875. no clue if this will work for others
 const scale = currentDensity / originalDensity * 150.0 / 223.0;
-const adExitPattern = originalDensity === currentDensity ? patterns.ad.exit : macroService.ClonePattern(patterns.ad.exit, { Scale: scale });
-const adExitInstallPattern = originalDensity === currentDensity ? patterns.ad.exitInstall : macroService.ClonePattern(patterns.ad.exitInstall, { Scale: scale });
+//const adExitPattern = originalDensity === currentDensity ? patterns.ad.exit : macroService.ClonePattern(patterns.ad.exit, { Scale: scale });
+//const adExitInstallPattern = originalDensity === currentDensity ? patterns.ad.exitInstall : macroService.ClonePattern(patterns.ad.exitInstall, { Scale: scale });
+const adExitPattern = patterns.ad.exit;
+const adExitInstallPattern = patterns.ad.exitInstall;
 
 while (macroService.IsRunning) {
 	const loopResult = macroService.PollPattern(loopPatterns);
