@@ -720,7 +720,7 @@
     "lastRun": {
       "$type": "timestamp",
       "$defaultValue": "0001-01-01T00:00:00+00:00",
-      "$value": "2025-06-04T22:15:44.069+00:00",
+      "$value": "2025-06-04T23:20:47.661+00:00",
       "$position": 0,
       "$name": "lastRun",
       "$path": "claimAntiparticle.lastRun"
@@ -2129,8 +2129,8 @@
     "$path": "applyPreset",
     "lastApplied": {
       "$type": "string",
-      "$defaultValue": "1",
-      "$value": "1",
+      "$defaultValue": null,
+      "$value": null,
       "$position": 10,
       "$name": "lastApplied",
       "$path": "applyPreset.lastApplied"
