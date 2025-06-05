@@ -720,7 +720,7 @@
     "lastRun": {
       "$type": "timestamp",
       "$defaultValue": "0001-01-01T00:00:00+00:00",
-      "$value": "2025-06-04T23:20:47.661+00:00",
+      "$value": "2025-06-05T01:36:48.67+00:00",
       "$position": 0,
       "$name": "lastRun",
       "$path": "claimAntiparticle.lastRun"
@@ -742,7 +742,7 @@
     "lastRun": {
       "$type": "timestamp",
       "$defaultValue": "0001-01-01T00:00:00+00:00",
-      "$value": "2025-04-08T20:46:27.028+00:00",
+      "$value": "2025-06-05T01:37:38.256+00:00",
       "$position": 0,
       "$name": "lastRun",
       "$path": "doFriends.lastRun"
@@ -2129,8 +2129,8 @@
     "$path": "applyPreset",
     "lastApplied": {
       "$type": "string",
-      "$defaultValue": null,
-      "$value": null,
+      "$defaultValue": "1",
+      "$value": "1",
       "$position": 10,
       "$name": "lastApplied",
       "$path": "applyPreset.lastApplied"
@@ -2150,8 +2150,8 @@
         "mutatedWyvre",
         "rotate"
       ],
-      "$defaultValue": "ironStretcher",
-      "$value": "ironStretcher",
+      "$defaultValue": "blockbuster",
+      "$value": "blockbuster",
       "$position": 0,
       "$name": "targetOperation",
       "$path": "doPursuitOperation.targetOperation"
@@ -2186,8 +2186,8 @@
     },
     "lastOperation": {
       "$type": "string",
-      "$defaultValue": "",
-      "$value": "",
+      "$defaultValue": "blockbuster",
+      "$value": "blockbuster",
       "$position": 3,
       "$name": "lastOperation",
       "$path": "doPursuitOperation.lastOperation"

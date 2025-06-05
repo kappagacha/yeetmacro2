@@ -37,7 +37,8 @@ const clickPatterns = [
 	patterns.friends.ok,
 	patterns.login.downloadPatch,
 	settings.goToLobby.userClickPattern.Value,
-	patterns.guild.checkIn.ok
+	patterns.guild.checkIn.ok,
+	patterns.ad.cancel
 ]
 
 while (macroService.IsRunning) {

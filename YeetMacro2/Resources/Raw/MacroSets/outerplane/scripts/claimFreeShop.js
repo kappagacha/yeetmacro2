@@ -108,8 +108,11 @@ while (macroService.IsRunning) {
 
 				let skywardTowerFreeResult = macroService.FindPattern(patterns.shop.free);
 				while (skywardTowerFreeResult.IsSuccess) {
-					macroService.PollPattern(patterns.shop.free, { DoClick: true, PredicatePattern: patterns.shop.free.ok });
-					macroService.PollPattern(patterns.shop.free.ok, { DoClick: true, PredicatePattern: patterns.general.tapEmptySpace });
+					//macroService.PollPattern(patterns.shop.free, { DoClick: true, PredicatePattern: patterns.shop.free.ok });
+					//macroService.PollPattern(patterns.shop.free.ok, { DoClick: true, PredicatePattern: patterns.general.tapEmptySpace });
+					//macroService.PollPattern(patterns.general.tapEmptySpace, { DoClick: true, PredicatePattern: patterns.titles.shop });
+
+					macroService.PollPattern(patterns.shop.free, { DoClick: true, ClickPattern: patterns.shop.free.ok, PredicatePattern: patterns.general.tapEmptySpace });
 					macroService.PollPattern(patterns.general.tapEmptySpace, { DoClick: true, PredicatePattern: patterns.titles.shop });
 					sleep(500);
 					skywardTowerFreeResult = macroService.FindPattern(patterns.shop.resource.free);
@@ -138,8 +141,11 @@ while (macroService.IsRunning) {
 
 				const surveyhubFreeResult = macroService.FindPattern(patterns.shop.free);
 				if (surveyhubFreeResult.IsSuccess) {
-					macroService.PollPattern(patterns.shop.free, { DoClick: true, PredicatePattern: patterns.shop.free.ok });
-					macroService.PollPattern(patterns.shop.free.ok, { DoClick: true, PredicatePattern: patterns.general.tapEmptySpace });
+					//macroService.PollPattern(patterns.shop.free, { DoClick: true, PredicatePattern: patterns.shop.free.ok });
+					//macroService.PollPattern(patterns.shop.free.ok, { DoClick: true, PredicatePattern: patterns.general.tapEmptySpace });
+					//macroService.PollPattern(patterns.general.tapEmptySpace, { DoClick: true, PredicatePattern: patterns.titles.shop });
+
+					macroService.PollPattern(patterns.shop.free, { DoClick: true, ClickPattern: patterns.shop.free.ok, PredicatePattern: patterns.general.tapEmptySpace });
 					macroService.PollPattern(patterns.general.tapEmptySpace, { DoClick: true, PredicatePattern: patterns.titles.shop });
 				}
 				if (macroService.IsRunning) {

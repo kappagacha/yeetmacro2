@@ -42,7 +42,7 @@ function applyPreset(teamSlot) {
 		if (unitTitleAndName.match(/The.*?Memorizer.*?Caren/ism) || unitTitleAndName.match(/Blazing.*?Fighter.*?Kano/ism) || unitTitleAndName.match(/Honorable.*?Knight/ism)) {
 			primaryStat = 'DEF';
 			delimiter = '#';
-		} else if (unitTitleAndName.match(/Self.*?Delt/ism)) {
+		} else if (unitTitleAndName.match(/Self.*?Del/ism)) {
 			primaryStat = 'HLT';
 			delimiter = '#';
 		}
