@@ -78,6 +78,7 @@ while (macroService.IsRunning) {
 				continue;
 			}
 
+			sleep(2_000);
 			const friendsOrGuildResult = macroService.FindPattern(patterns.irregularExtermination.pursuitOperation.friendsOrGuild);
 			if (friendsOrGuildResult.IsSuccess) {
 				macroService.PollPattern(patterns.irregularExtermination.pursuitOperation.friendsOrGuild, { DoClick: true, PredicatePattern: patterns.irregularExtermination.pursuitOperation.ok });
@@ -85,6 +86,7 @@ while (macroService.IsRunning) {
 				sleep(1_000);
 			}
 
+			sleep(2_000);
 			const publicResult = macroService.FindPattern(patterns.irregularExtermination.pursuitOperation.public);
 			if (publishToPublic && publicResult.IsSuccess) {
 				macroService.PollPattern(patterns.irregularExtermination.pursuitOperation.public, { DoClick: true, PredicatePattern: patterns.irregularExtermination.pursuitOperation.ok });
