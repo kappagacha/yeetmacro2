@@ -596,8 +596,8 @@
     },
     "claimEventDailyMissions2": {
       "$type": "boolean",
-      "$defaultValue": false,
-      "$value": false,
+      "$defaultValue": true,
+      "$value": true,
       "$position": 28,
       "$name": "claimEventDailyMissions2",
       "$path": "doDailies.claimEventDailyMissions2"
@@ -720,7 +720,7 @@
     "lastRun": {
       "$type": "timestamp",
       "$defaultValue": "0001-01-01T00:00:00+00:00",
-      "$value": "2025-04-08T20:46:45.072+00:00",
+      "$value": "2025-06-06T01:35:19.813+00:00",
       "$position": 0,
       "$name": "lastRun",
       "$path": "claimAntiparticle.lastRun"
@@ -742,7 +742,7 @@
     "lastRun": {
       "$type": "timestamp",
       "$defaultValue": "0001-01-01T00:00:00+00:00",
-      "$value": "2025-04-08T20:46:27.028+00:00",
+      "$value": "2025-06-06T02:19:55.717+00:00",
       "$position": 0,
       "$name": "lastRun",
       "$path": "doFriends.lastRun"
@@ -1070,8 +1070,8 @@
         "dark",
         "light"
       ],
-      "$defaultValue": "fire",
-      "$value": "fire",
+      "$defaultValue": "water",
+      "$value": "water",
       "$position": 0,
       "$name": "elementTypeTarget1",
       "$path": "doDoppelganger.elementTypeTarget1"
@@ -1106,8 +1106,8 @@
         "dark",
         "light"
       ],
-      "$defaultValue": "earth",
-      "$value": "earth",
+      "$defaultValue": "light",
+      "$value": "light",
       "$position": 0,
       "$name": "elementTypeTarget2",
       "$path": "doDoppelganger.elementTypeTarget2"
@@ -2129,8 +2129,8 @@
     "$path": "applyPreset",
     "lastApplied": {
       "$type": "string",
-      "$defaultValue": "9",
-      "$value": "9",
+      "$defaultValue": null,
+      "$value": null,
       "$position": 10,
       "$name": "lastApplied",
       "$path": "applyPreset.lastApplied"
@@ -2150,8 +2150,8 @@
         "mutatedWyvre",
         "rotate"
       ],
-      "$defaultValue": "ironStretcher",
-      "$value": "ironStretcher",
+      "$defaultValue": "blockbuster",
+      "$value": "blockbuster",
       "$position": 0,
       "$name": "targetOperation",
       "$path": "doPursuitOperation.targetOperation"
@@ -2186,8 +2186,8 @@
     },
     "lastOperation": {
       "$type": "string",
-      "$defaultValue": "",
-      "$value": "",
+      "$defaultValue": "blockbuster",
+      "$value": "blockbuster",
       "$position": 3,
       "$name": "lastOperation",
       "$path": "doPursuitOperation.lastOperation"
