@@ -291,7 +291,8 @@ public partial class TestViewModel : ObservableObject
 
         var displayService = Platform.CurrentActivity.GetSystemService(Context.DisplayService) as DisplayManager;
         var display = displayService.GetDisplay(Display.DefaultDisplay);
-        var height3 = windowManager.CurrentWindowMetrics.Bounds.Height();
+        var width3 = display.GetMode().PhysicalWidth;
+        var height3 = display.GetMode().PhysicalHeight;
 
         var test = windowManager.DefaultDisplay.Rotation;
         if (cutout != null)
@@ -353,8 +354,9 @@ public partial class TestViewModel : ObservableObject
                 $"Rotation5: {rotation5}\n" +
                 $"Rotation6: {rotation6}\n" +
                 $"Top: {top}\nLeft: {left}\nWidth: {width}\nHeight: {height}\n" +
-                $"Width1: {width1}\nHeight1: {height}\n" +
-                $"Width2: {width2}\nHeight2: {height2}\n";
+                $"Width1: {width1}\nHeight1: {height1}\n" +
+                $"Width2: {width2}\nHeight2: {height2}\n" +
+                $"Width3: {width3}\nHeight3: {height3}\n";
         }
         else
         {

@@ -8,9 +8,9 @@ using Android.OS;
 using Org.Opencv.Android;
 using YeetMacro2.ViewModels;
 using YeetMacro2.Platforms.Android.ViewModels;
-using Android.Views;
 using CommunityToolkit.Mvvm.Messaging.Messages;
 using CommunityToolkit.Mvvm.Messaging;
+using YeetMacro2.Platforms.Android;
 
 namespace YeetMacro2;
 
@@ -18,6 +18,7 @@ namespace YeetMacro2;
 public class MainActivity : MauiAppCompatActivity
 {
     readonly EventBroadcastReceiver receiver = new();
+    private CustomOrientationListener _orientationListener;
 
     protected override void OnCreate(Bundle savedInstanceState)
     {
@@ -70,6 +71,10 @@ public class MainActivity : MauiAppCompatActivity
         //    Window?.InsetsController?.Hide(WindowInsets.Type.SystemBars());
         //}
 
+
+        _orientationListener = new CustomOrientationListener(this);
+        _orientationListener.Enable();
+
         base.OnCreate(savedInstanceState);
     }
 
@@ -101,12 +106,14 @@ public class MainActivity : MauiAppCompatActivity
     {
         Console.WriteLine("[*****YeetMacro*****] MainActivity OnResume");
         base.OnResume();
+        _orientationListener?.Enable();
     }
 
     protected override void OnPause()
     {
         Console.WriteLine("[*****YeetMacro*****] MainActivity OnPause");
         base.OnPause();
+        _orientationListener?.Disable();
     }
 
     protected override void OnDestroy()

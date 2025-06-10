@@ -15,12 +15,12 @@ public static class PatternHelper
 {
     private static readonly Dictionary<DisplayRotation, Rect> _rotationToWindowBounds = new ();
     private static readonly Dictionary<DisplayRotation, Size> _rotationToScreenBounds = new ();
-
+    public static DisplayRotation DisplayRotation { get; set; }
     public static Point TopLeft 
     { 
         get 
         {
-            var currentWindowBounds = ResolveWindowBounds(GetRotation());
+            var currentWindowBounds = ResolveWindowBounds();
             return currentWindowBounds.Location;
         }
     }
@@ -28,7 +28,7 @@ public static class PatternHelper
     {
         get
         {
-            var currentWindowBounds = ResolveWindowBounds(GetRotation());
+            var currentWindowBounds = ResolveWindowBounds();
             return currentWindowBounds.Size;
         }
     }
@@ -36,52 +36,32 @@ public static class PatternHelper
     {
         get
         {
-            return ResolveScreenBounds(GetRotation());
+            return ResolveScreenBounds();
         }
     }
 
-    private static DisplayRotation GetRotation()
+    private static Rect ResolveWindowBounds()
     {
-#if ANDROID
-        var rotation = Platform.CurrentActivity.WindowManager.DefaultDisplay.Rotation;
-
-        switch (rotation)
-        {
-            case Android.Views.SurfaceOrientation.Rotation0:
-                return DisplayRotation.Rotation0;
-            case Android.Views.SurfaceOrientation.Rotation90:
-                return DisplayRotation.Rotation90;
-            case Android.Views.SurfaceOrientation.Rotation180:
-                return DisplayRotation.Rotation180;
-            case Android.Views.SurfaceOrientation.Rotation270:
-                return DisplayRotation.Rotation270;
-        }
-#endif
-        return DisplayRotation.Rotation0;
-    }
-
-    private static Rect ResolveWindowBounds(DisplayRotation rotation)
-    {
-        if (!_rotationToWindowBounds.ContainsKey(rotation))
+        if (!_rotationToWindowBounds.ContainsKey(DisplayRotation))
         {
 #if ANDROID
-            _rotationToWindowBounds.Add(rotation, YeetMacro2.Platforms.Android.Services.AndroidScreenService.GetWindowBounds(rotation));
+            _rotationToWindowBounds.Add(DisplayRotation, YeetMacro2.Platforms.Android.Services.AndroidScreenService.GetWindowBounds(DisplayRotation));
 #elif WINDOWS
-            _rotationToWindowBounds.Add(rotation, new Rect(0, 0, DeviceDisplay.MainDisplayInfo.Width, DeviceDisplay.MainDisplayInfo.Height));
+            _rotationToWindowBounds.Add(DisplayRotation, new Rect(0, 0, DeviceDisplay.MainDisplayInfo.Width, DeviceDisplay.MainDisplayInfo.Height));
 #endif
         }
 
-        return _rotationToWindowBounds[rotation];
+        return _rotationToWindowBounds[DisplayRotation];
     }
 
-    private static Size ResolveScreenBounds(DisplayRotation rotation)
+    private static Size ResolveScreenBounds()
     {
-        if (!_rotationToScreenBounds.ContainsKey(rotation))
+        if (!_rotationToScreenBounds.ContainsKey(DisplayRotation))
         {
-            _rotationToScreenBounds.Add(rotation, new Size(DeviceDisplay.MainDisplayInfo.Width, DeviceDisplay.MainDisplayInfo.Height));
+            _rotationToScreenBounds.Add(DisplayRotation, new Size(DeviceDisplay.MainDisplayInfo.Width, DeviceDisplay.MainDisplayInfo.Height));
         }
 
-        return _rotationToScreenBounds[rotation];
+        return _rotationToScreenBounds[DisplayRotation];
     }
 }
 
