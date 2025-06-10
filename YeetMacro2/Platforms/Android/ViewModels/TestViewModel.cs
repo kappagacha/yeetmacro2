@@ -1,4 +1,5 @@
 ﻿using Android.Content;
+using Android.Hardware.Display;
 using Android.Runtime;
 using Android.Util;
 using Android.Views;
@@ -285,7 +286,14 @@ public partial class TestViewModel : ObservableObject
         var insets = decorView?.RootWindowInsets;
         var cutout = insets?.DisplayCutout;
         var windowManager = Platform.CurrentActivity.GetSystemService(Context.WindowService).JavaCast<IWindowManager>();
+        var width2 = windowManager.CurrentWindowMetrics.Bounds.Width();
+        var height2 = windowManager.CurrentWindowMetrics.Bounds.Height();
 
+        var displayService = Platform.CurrentActivity.GetSystemService(Context.DisplayService) as DisplayManager;
+        var display = displayService.GetDisplay(Display.DefaultDisplay);
+        var height3 = windowManager.CurrentWindowMetrics.Bounds.Height();
+
+        var test = windowManager.DefaultDisplay.Rotation;
         if (cutout != null)
         {
             var displayInfo = DeviceDisplay.MainDisplayInfo;
@@ -294,8 +302,11 @@ public partial class TestViewModel : ObservableObject
             var rotation3 = Platform.CurrentActivity?.Display?.Rotation;
             var rotation4 = Platform.CurrentActivity?.Window?.DecorView?.Display?.Rotation;
             var rotation5 = windowManager.DefaultDisplay.Rotation;
+            var rotation6 = display.Rotation;
 
             int top = 0, left = 0;
+            int width1 = (int)displayInfo.Width;
+            int height1 = (int)displayInfo.Height;
             int width = (int)displayInfo.Width;
             int height = (int)displayInfo.Height;
 
@@ -340,7 +351,10 @@ public partial class TestViewModel : ObservableObject
                 $"Rotation3: {rotation3}\n" +
                 $"Rotation4: {rotation4}\n" +
                 $"Rotation5: {rotation5}\n" +
-                $"Top: {top}\nLeft: {left}\nWidth: {width}\nHeight: {height}\n";
+                $"Rotation6: {rotation6}\n" +
+                $"Top: {top}\nLeft: {left}\nWidth: {width}\nHeight: {height}\n" +
+                $"Width1: {width1}\nHeight1: {height}\n" +
+                $"Width2: {width2}\nHeight2: {height2}\n";
         }
         else
         {
