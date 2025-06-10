@@ -11,6 +11,7 @@ using YeetMacro2.Platforms.Android.ViewModels;
 using CommunityToolkit.Mvvm.Messaging.Messages;
 using CommunityToolkit.Mvvm.Messaging;
 using YeetMacro2.Platforms.Android;
+using YeetMacro2.Data.Models;
 
 namespace YeetMacro2;
 
@@ -18,7 +19,6 @@ namespace YeetMacro2;
 public class MainActivity : MauiAppCompatActivity
 {
     readonly EventBroadcastReceiver receiver = new();
-    private CustomOrientationListener _orientationListener;
 
     protected override void OnCreate(Bundle savedInstanceState)
     {
@@ -71,10 +71,6 @@ public class MainActivity : MauiAppCompatActivity
         //    Window?.InsetsController?.Hide(WindowInsets.Type.SystemBars());
         //}
 
-
-        _orientationListener = new CustomOrientationListener(this);
-        _orientationListener.Enable();
-
         base.OnCreate(savedInstanceState);
     }
 
@@ -99,26 +95,34 @@ public class MainActivity : MauiAppCompatActivity
     protected override void OnStart()
     {
         Console.WriteLine("[*****YeetMacro*****] MainActivity OnStart");
+        DeviceDisplay.MainDisplayInfoChanged += DeviceDisplay_MainDisplayInfoChanged;
         base.OnStart();
+    }
+
+    private void DeviceDisplay_MainDisplayInfoChanged(object sender, DisplayInfoChangedEventArgs e)
+    {
+        PatternHelper.DisplayRotation = e.DisplayInfo.Rotation;
+        WeakReferenceMessenger.Default.Send(e);
     }
 
     protected override void OnResume()
     {
         Console.WriteLine("[*****YeetMacro*****] MainActivity OnResume");
+        DeviceDisplay.MainDisplayInfoChanged += DeviceDisplay_MainDisplayInfoChanged;
         base.OnResume();
-        _orientationListener?.Enable();
     }
 
     protected override void OnPause()
     {
         Console.WriteLine("[*****YeetMacro*****] MainActivity OnPause");
+        DeviceDisplay.MainDisplayInfoChanged -= DeviceDisplay_MainDisplayInfoChanged;
         base.OnPause();
-        _orientationListener?.Disable();
     }
 
     protected override void OnDestroy()
     {
         Console.WriteLine("[*****YeetMacro*****] MainActivity OnDestroy");
+        DeviceDisplay.MainDisplayInfoChanged -= DeviceDisplay_MainDisplayInfoChanged;
         base.OnDestroy();
     }
 

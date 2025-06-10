@@ -115,7 +115,7 @@ public class AndroidScreenService : IScreenService
         _accessibilityService = accessibilityService;
         _toastService = toastService;
         _windowManager = _context.GetSystemService(Context.WindowService).JavaCast<IWindowManager>();
-        DeviceDisplay.MainDisplayInfoChanged += DeviceDisplay_MainDisplayInfoChanged;
+        
         //_initialResolution = new Size(DeviceDisplay.MainDisplayInfo.Width, DeviceDisplay.MainDisplayInfo.Height);
         //_density = DeviceDisplay.MainDisplayInfo.Density;
         WeakReferenceMessenger.Default.Register<PropertyChangedMessage<bool>, string>(this, nameof(ForegroundService), (r, propertyChangedMessage) =>
@@ -134,6 +134,11 @@ public class AndroidScreenService : IScreenService
                 Close(AndroidWindowView.StatusPanelView);
                 //CloseOverlayWindow();
             }
+        });
+
+        WeakReferenceMessenger.Default.Register<DisplayInfoChangedEventArgs>(this, (r, e) =>
+        {
+            RefreshActionViewLocation();
         });
     }
 
@@ -494,11 +499,6 @@ public class AndroidScreenService : IScreenService
 
             RefreshActionViewLocation();
         }
-    }
-
-    private void DeviceDisplay_MainDisplayInfoChanged(object sender, DisplayInfoChangedEventArgs e)
-    {
-        RefreshActionViewLocation();
     }
 
     //public void ShowOverlayWindow()
