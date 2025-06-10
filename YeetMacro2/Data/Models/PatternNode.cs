@@ -1,6 +1,4 @@
 ﻿using System.Text.Json.Serialization;
-using YeetMacro2.Services;
-
 namespace YeetMacro2.Data.Models;
 
 public class PatternNode : Node, IParentNode<PatternNode, PatternNode>
@@ -45,7 +43,7 @@ public static class PatternHelper
     private static DisplayRotation GetRotation()
     {
 #if ANDROID
-        var rotation = Platform.CurrentActivity.Display.Rotation;
+        var rotation = Platform.CurrentActivity.WindowManager.DefaultDisplay.Rotation;
         switch (rotation)
         {
             case Android.Views.SurfaceOrientation.Rotation0:
