@@ -304,6 +304,7 @@ public partial class TestViewModel : ObservableObject
             var rotation4 = Platform.CurrentActivity?.Window?.DecorView?.Display?.Rotation;
             var rotation5 = windowManager.DefaultDisplay.Rotation;
             var rotation6 = display.Rotation;
+            var rotation7 = PatternHelper.DisplayRotation;
 
             int top = 0, left = 0;
             int width1 = (int)displayInfo.Width;
@@ -353,6 +354,7 @@ public partial class TestViewModel : ObservableObject
                 $"Rotation4: {rotation4}\n" +
                 $"Rotation5: {rotation5}\n" +
                 $"Rotation6: {rotation6}\n" +
+                $"Rotation7: {rotation7}\n" +
                 $"Top: {top}\nLeft: {left}\nWidth: {width}\nHeight: {height}\n" +
                 $"Width1: {width1}\nHeight1: {height1}\n" +
                 $"Width2: {width2}\nHeight2: {height2}\n" +

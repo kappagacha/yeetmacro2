@@ -27,6 +27,7 @@ public partial class AndriodHomeViewModel : ObservableObject
     
     public bool IsCurrentPackageValid => CurrentPackage == _macroManagerViewModel.SelectedMacroSet?.Package;
     public Size CurrentResolution => PatternHelper.ScreenResolution;
+    public DisplayRotation DisplayRotation => PatternHelper.DisplayRotation;
     public string WidthStatus
     {
         get

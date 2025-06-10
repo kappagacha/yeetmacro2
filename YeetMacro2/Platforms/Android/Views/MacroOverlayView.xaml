@@ -54,6 +54,7 @@
                     </Label.Triggers>
                 </Label>
                 <BoxView WidthRequest="1" Color="{StaticResource Primary}"/>
+                <Label Text="{Binding DisplayRotation}" />
                 <!--<Label Text="{Binding OverlayArea, StringFormat='Overlay Area: {0}'}" TextColor="{StaticResource Primary}" />
                 <BoxView WidthRequest="1" Color="{StaticResource Primary}"/>-->
                 <!--<Label Text="{Binding DisplayCutoutTop, StringFormat='Display Cutout Top: {0}'}" TextColor="{StaticResource Primary}">
