@@ -20,7 +20,7 @@ public static class PatternHelper
     { 
         get 
         {
-            var currentWindowBounds = ResolveWindowBounds((GetRotation()));
+            var currentWindowBounds = ResolveWindowBounds(GetRotation());
             return currentWindowBounds.Location;
         }
     }
@@ -28,7 +28,7 @@ public static class PatternHelper
     {
         get
         {
-            var currentWindowBounds = ResolveWindowBounds((GetRotation()));
+            var currentWindowBounds = ResolveWindowBounds(GetRotation());
             return currentWindowBounds.Size;
         }
     }
@@ -44,6 +44,7 @@ public static class PatternHelper
     {
 #if ANDROID
         var rotation = Platform.CurrentActivity.WindowManager.DefaultDisplay.Rotation;
+
         switch (rotation)
         {
             case Android.Views.SurfaceOrientation.Rotation0:

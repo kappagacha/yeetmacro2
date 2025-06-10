@@ -289,6 +289,9 @@ public partial class TestViewModel : ObservableObject
         {
             var displayInfo = DeviceDisplay.MainDisplayInfo;
             var rotation = displayInfo.Rotation;
+            var rotation2 = Platform.CurrentActivity?.WindowManager?.DefaultDisplay?.Rotation;
+            var rotation3 = Platform.CurrentActivity?.Display?.Rotation;
+            var rotation4 = Platform.CurrentActivity?.Window?.DecorView?.Display?.Rotation;
 
             int top = 0, left = 0;
             int width = (int)displayInfo.Width;
@@ -331,6 +334,9 @@ public partial class TestViewModel : ObservableObject
                 $"SafeInsetRight: {cutout.SafeInsetRight}\n" +
                 $"SafeInsetBottom: {cutout.SafeInsetBottom}\n" +
                 $"Rotation: {rotation}\n" +
+                $"Rotation2: {rotation2}\n" +
+                $"Rotation3: {rotation3}\n" +
+                $"Rotation4: {rotation4}\n" +
                 $"Top: {top}\nLeft: {left}\nWidth: {width}\nHeight: {height}\n";
         }
         else
