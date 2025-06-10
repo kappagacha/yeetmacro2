@@ -284,6 +284,7 @@ public partial class TestViewModel : ObservableObject
         var decorView = Platform.CurrentActivity?.Window?.DecorView;
         var insets = decorView?.RootWindowInsets;
         var cutout = insets?.DisplayCutout;
+        var windowManager = Platform.CurrentActivity.GetSystemService(Context.WindowService).JavaCast<IWindowManager>();
 
         if (cutout != null)
         {
@@ -292,6 +293,7 @@ public partial class TestViewModel : ObservableObject
             var rotation2 = Platform.CurrentActivity?.WindowManager?.DefaultDisplay?.Rotation;
             var rotation3 = Platform.CurrentActivity?.Display?.Rotation;
             var rotation4 = Platform.CurrentActivity?.Window?.DecorView?.Display?.Rotation;
+            var rotation5 = windowManager.DefaultDisplay.Rotation;
 
             int top = 0, left = 0;
             int width = (int)displayInfo.Width;
@@ -337,6 +339,7 @@ public partial class TestViewModel : ObservableObject
                 $"Rotation2: {rotation2}\n" +
                 $"Rotation3: {rotation3}\n" +
                 $"Rotation4: {rotation4}\n" +
+                $"Rotation5: {rotation5}\n" +
                 $"Top: {top}\nLeft: {left}\nWidth: {width}\nHeight: {height}\n";
         }
         else
