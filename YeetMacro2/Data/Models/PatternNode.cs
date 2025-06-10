@@ -14,9 +14,56 @@ public class PatternNode : Node, IParentNode<PatternNode, PatternNode>
 
 public static class PatternHelper
 {
-    public static Point TopLeft { get; set; }
-    public static Size CurrentResolution { get; set; }
-    public static Size ScreenResolution { get; set; }
+    private static readonly Dictionary<DisplayRotation, Rect> _rotationToWindowBounds = new ();
+    private static readonly Dictionary<DisplayRotation, Size> _rotationToScreenBounds = new ();
+
+    public static Point TopLeft 
+    { 
+        get 
+        {
+            var currentWindowBounds = ResolveWindowBounds(DeviceDisplay.MainDisplayInfo.Rotation);
+            return currentWindowBounds.Location;
+        }
+    }
+    public static Size CurrentResolution
+    {
+        get
+        {
+            var currentWindowBounds = ResolveWindowBounds(DeviceDisplay.MainDisplayInfo.Rotation);
+            return currentWindowBounds.Size;
+        }
+    }
+    public static Size ScreenResolution
+    {
+        get
+        {
+            return ResolveScreenBounds(DeviceDisplay.MainDisplayInfo.Rotation);
+        }
+    }
+
+    private static Rect ResolveWindowBounds(DisplayRotation rotation)
+    {
+        if (!_rotationToWindowBounds.ContainsKey(rotation))
+        {
+#if ANDROID
+            _rotationToWindowBounds.Add(rotation, YeetMacro2.Platforms.Android.Services.AndroidScreenService.GetWindowBounds(rotation));
+#elif WINDOWS
+            _rotationToWindowBounds.Add(rotation, new Rect(0, 0, DeviceDisplay.MainDisplayInfo.Width, DeviceDisplay.MainDisplayInfo.Height));
+#endif
+        }
+
+        return _rotationToWindowBounds[rotation];
+    }
+
+    private static Size ResolveScreenBounds(DisplayRotation rotation)
+    {
+        if (!_rotationToScreenBounds.ContainsKey(rotation))
+        {
+            _rotationToScreenBounds.Add(rotation, new Size(DeviceDisplay.MainDisplayInfo.Width, DeviceDisplay.MainDisplayInfo.Height));
+        }
+
+        return _rotationToScreenBounds[rotation];
+    }
 }
 
 public class Pattern: ISortable

@@ -116,7 +116,6 @@ public class AndroidScreenService : IScreenService
         _toastService = toastService;
         _windowManager = _context.GetSystemService(Context.WindowService).JavaCast<IWindowManager>();
         DeviceDisplay.MainDisplayInfoChanged += DeviceDisplay_MainDisplayInfoChanged;
-        ResolveWindowBounds();
         //_initialResolution = new Size(DeviceDisplay.MainDisplayInfo.Width, DeviceDisplay.MainDisplayInfo.Height);
         //_density = DeviceDisplay.MainDisplayInfo.Density;
         WeakReferenceMessenger.Default.Register<PropertyChangedMessage<bool>, string>(this, nameof(ForegroundService), (r, propertyChangedMessage) =>
@@ -500,7 +499,6 @@ public class AndroidScreenService : IScreenService
     private void DeviceDisplay_MainDisplayInfoChanged(object sender, DisplayInfoChangedEventArgs e)
     {
         RefreshActionViewLocation();
-        ResolveWindowBounds();
     }
 
     //public void ShowOverlayWindow()
@@ -819,15 +817,7 @@ public class AndroidScreenService : IScreenService
         return new Point(loc[0], loc[1]);
     }
 
-    public void ResolveWindowBounds()
-    {
-        var windowBounds = GetWindowBounds();
-        PatternHelper.CurrentResolution = windowBounds.Size;
-        PatternHelper.TopLeft = windowBounds.Location;
-        PatternHelper.ScreenResolution = new Size(DeviceDisplay.MainDisplayInfo.Width, DeviceDisplay.MainDisplayInfo.Height);
-    }
-
-    public Rect GetWindowBounds()
+    public static Rect GetWindowBounds(DisplayRotation rotation)
     {
         if (!OperatingSystem.IsAndroidVersionAtLeast(28)) return Rect.FromLTRB(0, 0, DeviceDisplay.MainDisplayInfo.Width, DeviceDisplay.MainDisplayInfo.Height);
 
@@ -838,8 +828,6 @@ public class AndroidScreenService : IScreenService
         if (cutout is null) return Rect.FromLTRB(0, 0, DeviceDisplay.MainDisplayInfo.Width, DeviceDisplay.MainDisplayInfo.Height);
 
         var displayInfo = DeviceDisplay.MainDisplayInfo;
-        var rotation = displayInfo.Rotation;
-
         int top = 0, left = 0;
         int width = (int)displayInfo.Width;
         int height = (int)displayInfo.Height;
