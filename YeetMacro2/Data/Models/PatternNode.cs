@@ -1,4 +1,5 @@
 ﻿using System.Text.Json.Serialization;
+using YeetMacro2.Services;
 
 namespace YeetMacro2.Data.Models;
 
@@ -21,7 +22,7 @@ public static class PatternHelper
     { 
         get 
         {
-            var currentWindowBounds = ResolveWindowBounds(DeviceDisplay.MainDisplayInfo.Rotation);
+            var currentWindowBounds = ResolveWindowBounds((GetRotation()));
             return currentWindowBounds.Location;
         }
     }
@@ -29,7 +30,7 @@ public static class PatternHelper
     {
         get
         {
-            var currentWindowBounds = ResolveWindowBounds(DeviceDisplay.MainDisplayInfo.Rotation);
+            var currentWindowBounds = ResolveWindowBounds((GetRotation()));
             return currentWindowBounds.Size;
         }
     }
@@ -37,8 +38,27 @@ public static class PatternHelper
     {
         get
         {
-            return ResolveScreenBounds(DeviceDisplay.MainDisplayInfo.Rotation);
+            return ResolveScreenBounds(GetRotation());
         }
+    }
+
+    private static DisplayRotation GetRotation()
+    {
+#if ANDROID
+        var rotation = Platform.CurrentActivity.Display.Rotation;
+        switch (rotation)
+        {
+            case Android.Views.SurfaceOrientation.Rotation0:
+                return DisplayRotation.Rotation0;
+            case Android.Views.SurfaceOrientation.Rotation90:
+                return DisplayRotation.Rotation90;
+            case Android.Views.SurfaceOrientation.Rotation180:
+                return DisplayRotation.Rotation180;
+            case Android.Views.SurfaceOrientation.Rotation270:
+                return DisplayRotation.Rotation270;
+        }
+#endif
+        return DisplayRotation.Rotation0;
     }
 
     private static Rect ResolveWindowBounds(DisplayRotation rotation)
