@@ -214,7 +214,7 @@ public partial class PatternNodeManagerViewModel : NodeManagerViewModel<PatternN
             var rect = await _inputService.DrawUserRectangle();
             pattern.ImageData = _screenService.GetCurrentImageData(rect);
 
-            var topLeft = PatternHelper.TopLeft;
+            var topLeft = DisplayHelper.TopLeft;
             if (!topLeft.IsEmpty)   // If top left has value, then assuming it's a capture from physical device
             {
                 rect = rect.Offset(-topLeft.X, -topLeft.Y);
@@ -222,7 +222,7 @@ public partial class PatternNodeManagerViewModel : NodeManagerViewModel<PatternN
             }
 
             pattern.RawBounds = rect;
-            pattern.Resolution = new Size(DeviceDisplay.MainDisplayInfo.Width, DeviceDisplay.MainDisplayInfo.Height);
+            pattern.Resolution = new Size(DisplayHelper.DisplayInfo.Width, DisplayHelper.DisplayInfo.Height);
             pattern.ColorThreshold.IsActive = false;
 
             _patternRepository.Update(pattern, p => p.ColorThreshold);
@@ -258,7 +258,7 @@ public partial class PatternNodeManagerViewModel : NodeManagerViewModel<PatternN
         var rect = await _inputService.DrawUserRectangle();
         if (rect.IsEmpty) return;
 
-        var topLeft = PatternHelper.TopLeft;
+        var topLeft = DisplayHelper.TopLeft;
         if (!topLeft.IsEmpty)   // If top left has value, then assuming it's a capture from physical device
         {
             rect = rect.Offset(-topLeft.X, -topLeft.Y);

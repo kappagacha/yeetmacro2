@@ -291,7 +291,7 @@ public class AndroidScreenService : IScreenService
             var boundsPadding = 4;
             byte[] needleImageData = pattern.ImageData;
             byte[] haystackImageData = null;
-            var currentResolution = PatternHelper.CurrentResolution;
+            var currentResolution = DisplayHelper.CurrentResolution;
             var rect = pattern.Bounds.Offset(opts.Offset);
             //var rect = opts.OverrideRect != Rect.Zero ? opts.OverrideRect : pattern.RawBounds;
 
@@ -310,7 +310,7 @@ public class AndroidScreenService : IScreenService
                 else if (pattern.OffsetCalcType == OffsetCalcType.Default || pattern.OffsetCalcType == OffsetCalcType.Center || 
                          pattern.OffsetCalcType == OffsetCalcType.HorizontalStretchOffset || pattern.OffsetCalcType == OffsetCalcType.VerticalStretchOffset)
                 {
-                    var topLeft = PatternHelper.TopLeft;
+                    var topLeft = DisplayHelper.TopLeft;
                     if (!topLeft.IsEmpty)   // handle off by one due to calculations
                     {
                         var topLeftPadding = 1;
@@ -704,7 +704,7 @@ public class AndroidScreenService : IScreenService
             var selectedMacroSet = ServiceHelper.GetService<MacroManagerViewModel>().SelectedMacroSet;
             var ve = _views[AndroidWindowView.ActionView].VisualElement;
             var ctx = (IMovable)ve.BindingContext;
-            var orientation = DeviceDisplay.Current.MainDisplayInfo.Orientation;
+            var orientation = DisplayHelper.DisplayInfo.Orientation;
             var preferenceKey = $"{selectedMacroSetName}_location_{orientation}";
             var strTargetLocation = Preferences.Default.Get<string>(preferenceKey, null);
             if (strTargetLocation is not null)
@@ -819,15 +819,15 @@ public class AndroidScreenService : IScreenService
 
     public static Rect GetWindowBounds(DisplayRotation rotation)
     {
-        if (!OperatingSystem.IsAndroidVersionAtLeast(28)) return Rect.FromLTRB(0, 0, DeviceDisplay.MainDisplayInfo.Width, DeviceDisplay.MainDisplayInfo.Height);
+        if (!OperatingSystem.IsAndroidVersionAtLeast(28)) return Rect.FromLTRB(0, 0, DisplayHelper.DisplayInfo.Width, DisplayHelper.DisplayInfo.Height);
 
         var decorView = Platform.CurrentActivity?.Window?.DecorView;
         var insets = decorView?.RootWindowInsets;
         var cutout = insets?.DisplayCutout;
 
-        if (cutout is null) return Rect.FromLTRB(0, 0, DeviceDisplay.MainDisplayInfo.Width, DeviceDisplay.MainDisplayInfo.Height);
+        if (cutout is null) return Rect.FromLTRB(0, 0, DisplayHelper.DisplayInfo.Width, DisplayHelper.DisplayInfo.Height);
 
-        var displayInfo = DeviceDisplay.MainDisplayInfo;
+        var displayInfo = DisplayHelper.DisplayInfo;
         int top = 0, left = 0;
         int width = (int)displayInfo.Width;
         int height = (int)displayInfo.Height;

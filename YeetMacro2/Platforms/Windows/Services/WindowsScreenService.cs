@@ -85,7 +85,7 @@ public class WindowsScreenService : IScreenService, IRecorderService
 
     public byte[] GetCurrentImageData()
     {
-        var mdi = DeviceDisplay.Current.MainDisplayInfo;
+        var mdi = DisplayHelper.DisplayInfo;
         // https://nishanc.medium.com/c-screenshot-utility-to-capture-a-portion-of-the-screen-489ddceeee49
         Rectangle rect = new Rectangle(0, 0, (int)mdi.Width, (int)mdi.Height);
         var bmp = new Bitmap(rect.Width, rect.Height, PixelFormat.Format32bppArgb);

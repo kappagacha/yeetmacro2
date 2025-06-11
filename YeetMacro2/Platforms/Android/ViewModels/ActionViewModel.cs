@@ -8,6 +8,7 @@ using System.Text.Json;
 using YeetMacro2.Data.Serialization;
 using CommunityToolkit.Mvvm.Messaging;
 using YeetMacro2.Data.Messaging;
+using YeetMacro2.Data.Models;
 
 namespace YeetMacro2.Platforms.Android.ViewModels;
 
@@ -78,7 +79,7 @@ public partial class ActionViewModel : ObservableObject, IMovable
         var selectedMacroSetName = Preferences.Default.Get<string>(nameof(MacroManagerViewModel.SelectedMacroSet), null);
         if (selectedMacroSetName is not null)
         {
-            var orientation = DeviceDisplay.Current.MainDisplayInfo.Orientation;
+            var orientation = DisplayHelper.DisplayInfo.Orientation;
             var preferenceKey = $"{selectedMacroSetName}_location_{orientation}";
             Preferences.Default.Set(preferenceKey, JsonSerializer.Serialize(Location, _serializationOptions));
         }

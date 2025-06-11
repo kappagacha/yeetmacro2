@@ -11,11 +11,12 @@ public class PatternNode : Node, IParentNode<PatternNode, PatternNode>
     public Pattern Pattern { get => Patterns.FirstOrDefault(); }
 }
 
-public static class PatternHelper
+public static class DisplayHelper
 {
     private static readonly Dictionary<DisplayRotation, Rect> _rotationToWindowBounds = new ();
     private static readonly Dictionary<DisplayRotation, Size> _rotationToScreenBounds = new ();
     public static DisplayRotation DisplayRotation { get; set; }
+    public static DisplayInfo DisplayInfo { get; set; }
     public static Point TopLeft 
     { 
         get 
@@ -47,7 +48,7 @@ public static class PatternHelper
 #if ANDROID
             _rotationToWindowBounds.Add(DisplayRotation, YeetMacro2.Platforms.Android.Services.AndroidScreenService.GetWindowBounds(DisplayRotation));
 #elif WINDOWS
-            _rotationToWindowBounds.Add(DisplayRotation, new Rect(0, 0, DeviceDisplay.MainDisplayInfo.Width, DeviceDisplay.MainDisplayInfo.Height));
+            _rotationToWindowBounds.Add(DisplayRotation, new Rect(0, 0, DisplayInfo.Width, DisplayInfo.Height));
 #endif
         }
 
@@ -58,7 +59,7 @@ public static class PatternHelper
     {
         if (!_rotationToScreenBounds.ContainsKey(DisplayRotation))
         {
-            _rotationToScreenBounds.Add(DisplayRotation, new Size(DeviceDisplay.MainDisplayInfo.Width, DeviceDisplay.MainDisplayInfo.Height));
+            _rotationToScreenBounds.Add(DisplayRotation, new Size(DisplayInfo.Width, DisplayInfo.Height));
         }
 
         return _rotationToScreenBounds[DisplayRotation];
@@ -95,13 +96,13 @@ public class Pattern: ISortable
         {
             var xOffset = 0;
             var yOffset = 0;
-            var topLeft = PatternHelper.TopLeft;
-            var currentResolution = PatternHelper.CurrentResolution;
+            var topLeft = DisplayHelper.TopLeft;
+            var currentResolution = DisplayHelper.CurrentResolution;
 
             switch (OffsetCalcType)
             {
                 case OffsetCalcType.DockLeft:
-                    return PatternHelper.TopLeft;
+                    return DisplayHelper.TopLeft;
                 case OffsetCalcType.Default:
                 case OffsetCalcType.Center:
                     {   // horizontal center handling
@@ -150,14 +151,14 @@ public class Pattern: ISortable
                     {
                         case OffsetCalcType.None:
                         case OffsetCalcType.DockLeft:
-                            return new Rect(RawBounds.Location, new Size(RawBounds.Width + PatternHelper.CurrentResolution.Width - Resolution.Width, RawBounds.Width));
+                            return new Rect(RawBounds.Location, new Size(RawBounds.Width + DisplayHelper.CurrentResolution.Width - Resolution.Width, RawBounds.Width));
                         case OffsetCalcType.DockRight:
-                            return new Rect(RawBounds.Location.Offset(Resolution.Width - PatternHelper.CurrentResolution.Width, 0), new Size(RawBounds.Width + PatternHelper.CurrentResolution.Width - Resolution.Width, RawBounds.Width));
+                            return new Rect(RawBounds.Location.Offset(Resolution.Width - DisplayHelper.CurrentResolution.Width, 0), new Size(RawBounds.Width + DisplayHelper.CurrentResolution.Width - Resolution.Width, RawBounds.Width));
                         default:
-                            return new Rect(RawBounds.Location.Offset((Resolution.Width - PatternHelper.CurrentResolution.Width) / 2.0, 0), new Size(RawBounds.Width + PatternHelper.CurrentResolution.Width - Resolution.Width, RawBounds.Width));
+                            return new Rect(RawBounds.Location.Offset((Resolution.Width - DisplayHelper.CurrentResolution.Width) / 2.0, 0), new Size(RawBounds.Width + DisplayHelper.CurrentResolution.Width - Resolution.Width, RawBounds.Width));
                     }
                 case BoundsCalcType.FillHeight:
-                    return new Rect(RawBounds.Location, new Size(RawBounds.Width, RawBounds.Height + PatternHelper.CurrentResolution.Height - Resolution.Height));
+                    return new Rect(RawBounds.Location, new Size(RawBounds.Width, RawBounds.Height + DisplayHelper.CurrentResolution.Height - Resolution.Height));
             }
         }
     }

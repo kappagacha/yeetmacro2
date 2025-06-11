@@ -49,7 +49,7 @@ public partial class DrawControl : ContentView
 
     public void AddRectangle(Rect rect)
     {
-        var topLeft = PatternHelper.TopLeft;
+        var topLeft = DisplayHelper.TopLeft;
         var location = new SKPoint((float)(rect.X - topLeft.X), (float)(rect.Y - topLeft.Y));
         var size = new SKSize((float)rect.Width, (float)rect.Height);
         var skRect = SKRect.Create(location, size);
@@ -66,7 +66,7 @@ public partial class DrawControl : ContentView
 
     public void AddCircle(Point point)
     {
-        var topLeft = PatternHelper.TopLeft;
+        var topLeft = DisplayHelper.TopLeft;
         _circles.Enqueue((new SKPoint((float)(point.X - topLeft.X), (float)(point.Y - topLeft.Y)), _greenPaint.Clone(), DateTime.Now.AddMilliseconds(_expirationMs)));
         canvasView.InvalidateSurface();
     }

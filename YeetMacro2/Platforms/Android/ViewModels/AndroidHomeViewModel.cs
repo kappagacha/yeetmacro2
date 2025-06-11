@@ -26,15 +26,15 @@ public partial class AndriodHomeViewModel : ObservableObject
     string _currentPackage;
     
     public bool IsCurrentPackageValid => CurrentPackage == _macroManagerViewModel.SelectedMacroSet?.Package;
-    public Size CurrentResolution => PatternHelper.ScreenResolution;
-    public DisplayRotation DisplayRotation => PatternHelper.DisplayRotation;
+    public Size CurrentResolution => DisplayHelper.ScreenResolution;
+    public DisplayRotation DisplayRotation => DisplayHelper.DisplayRotation;
     public string WidthStatus
     {
         get
         {
             if (_macroManagerViewModel.SelectedMacroSet is null) return "Invalid";
-            if (_macroManagerViewModel.SelectedMacroSet.SupportsGreaterWidth && PatternHelper.ScreenResolution.Width > _macroManagerViewModel.SelectedMacroSet.Resolution.Width) return "Acceptable";
-            return PatternHelper.ScreenResolution.Width == _macroManagerViewModel.SelectedMacroSet.Resolution.Width ? "Valid" : "Invalid";
+            if (_macroManagerViewModel.SelectedMacroSet.SupportsGreaterWidth && DisplayHelper.ScreenResolution.Width > _macroManagerViewModel.SelectedMacroSet.Resolution.Width) return "Acceptable";
+            return DisplayHelper.ScreenResolution.Width == _macroManagerViewModel.SelectedMacroSet.Resolution.Width ? "Valid" : "Invalid";
         }
     }
     public string HeightStatus
@@ -42,8 +42,8 @@ public partial class AndriodHomeViewModel : ObservableObject
         get
         {
             if (_macroManagerViewModel.SelectedMacroSet is null) return "Invalid";
-            if (_macroManagerViewModel.SelectedMacroSet.SupportsGreaterHeight && PatternHelper.ScreenResolution.Height > _macroManagerViewModel.SelectedMacroSet.Resolution.Height) return "Acceptable";
-            return PatternHelper.ScreenResolution.Height == _macroManagerViewModel.SelectedMacroSet.Resolution.Height ? "Valid" : "Invalid";
+            if (_macroManagerViewModel.SelectedMacroSet.SupportsGreaterHeight && DisplayHelper.ScreenResolution.Height > _macroManagerViewModel.SelectedMacroSet.Resolution.Height) return "Acceptable";
+            return DisplayHelper.ScreenResolution.Height == _macroManagerViewModel.SelectedMacroSet.Resolution.Height ? "Valid" : "Invalid";
         }
     }
     public MacroManagerViewModel MacroManagerViewModel => _macroManagerViewModel;

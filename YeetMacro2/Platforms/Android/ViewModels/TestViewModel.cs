@@ -304,7 +304,7 @@ public partial class TestViewModel : ObservableObject
             var rotation4 = Platform.CurrentActivity?.Window?.DecorView?.Display?.Rotation;
             var rotation5 = windowManager.DefaultDisplay.Rotation;
             var rotation6 = display.Rotation;
-            var rotation7 = PatternHelper.DisplayRotation;
+            var rotation7 = DisplayHelper.DisplayRotation;
 
             int top = 0, left = 0;
             int width1 = (int)displayInfo.Width;
@@ -410,7 +410,7 @@ public partial class TestViewModel : ObservableObject
             return;
         }
 
-        Resolution = PatternHelper.CurrentResolution.ToString();
+        Resolution = DisplayHelper.CurrentResolution.ToString();
     }
 
     [RelayCommand]
@@ -429,7 +429,7 @@ public partial class TestViewModel : ObservableObject
 
         //CustomResolution = _screenService.CurrentResolution.ToString();
 
-        CustomResolution = PatternHelper.ScreenResolution.ToString();
+        CustomResolution = DisplayHelper.ScreenResolution.ToString();
     }
 
     [RelayCommand]

@@ -78,12 +78,10 @@ public class MacroService
             }
         });
 
-        DeviceDisplay.MainDisplayInfoChanged += DeviceDisplay_MainDisplayInfoChanged;
-    }
-
-    private void DeviceDisplay_MainDisplayInfoChanged(object sender, DisplayInfoChangedEventArgs e)
-    {
-        _pathToOffset.Clear();
+        WeakReferenceMessenger.Default.Register<DisplayInfoChangedEventArgs>(this, (r, e) =>
+        {
+            _pathToOffset.Clear();
+        });
     }
 
     public void Sleep(int ms)
@@ -103,17 +101,17 @@ public class MacroService
 
     public Size GetCurrentResolution()
     {
-        return PatternHelper.CurrentResolution;
+        return DisplayHelper.CurrentResolution;
     }
 
     public double GetScreenDensity()
     {
-        return DeviceDisplay.MainDisplayInfo.Density;
+        return DisplayHelper.DisplayInfo.Density;
     }
 
     public Point GetTopLeft()
     {
-        return PatternHelper.TopLeft;
+        return DisplayHelper.TopLeft;
     }
 
     public PatternNode ClonePattern(PatternNode patternNode, CloneOptions opts)
@@ -319,7 +317,7 @@ public class MacroService
                     {
                         IsBoundsPattern = true,
                         RawBounds = new Rect(point, Size.Zero),
-                        Resolution = PatternHelper.ScreenResolution,
+                        Resolution = DisplayHelper.ScreenResolution,
                         OffsetCalcType = OffsetCalcType.None
                     }
                 ]

@@ -10,7 +10,6 @@ using YeetMacro2.ViewModels;
 using YeetMacro2.Platforms.Android.ViewModels;
 using CommunityToolkit.Mvvm.Messaging.Messages;
 using CommunityToolkit.Mvvm.Messaging;
-using YeetMacro2.Platforms.Android;
 using YeetMacro2.Data.Models;
 
 namespace YeetMacro2;
@@ -96,12 +95,14 @@ public class MainActivity : MauiAppCompatActivity
     {
         Console.WriteLine("[*****YeetMacro*****] MainActivity OnStart");
         DeviceDisplay.MainDisplayInfoChanged += DeviceDisplay_MainDisplayInfoChanged;
+        DeviceDisplay_MainDisplayInfoChanged(null, new DisplayInfoChangedEventArgs(DeviceDisplay.MainDisplayInfo));
         base.OnStart();
     }
 
     private void DeviceDisplay_MainDisplayInfoChanged(object sender, DisplayInfoChangedEventArgs e)
     {
-        PatternHelper.DisplayRotation = e.DisplayInfo.Rotation;
+        DisplayHelper.DisplayRotation = e.DisplayInfo.Rotation;
+        DisplayHelper.DisplayInfo = e.DisplayInfo;
         WeakReferenceMessenger.Default.Send(e);
     }
 

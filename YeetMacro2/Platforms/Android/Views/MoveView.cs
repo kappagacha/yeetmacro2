@@ -3,6 +3,7 @@ using Android.Graphics;
 using Android.Views;
 using Android.Widget;
 using Microsoft.Maui.Platform;
+using YeetMacro2.Data.Models;
 
 namespace YeetMacro2.Platforms.Android.Views;
 
@@ -49,7 +50,7 @@ public class MoveView : LinearLayout, IShowable
 
         var androidView = visualElement.ToPlatform(IPlatformApplication.Current.Application.Handler.MauiContext);
         androidView.SetPadding(0, 0, 0, 0);
-        var density = DeviceDisplay.MainDisplayInfo.Density;
+        var density = DisplayHelper.DisplayInfo.Density;
         _layoutParams.Width = (int)(_visualElement.WidthRequest * density);
         _layoutParams.Height = (int)(_visualElement.HeightRequest * density);
 
@@ -58,35 +59,32 @@ public class MoveView : LinearLayout, IShowable
 
     public void Show()
     {
-        if (_state == FormState.CLOSED)
-        {
-            var movable = (IMovable)_visualElement.BindingContext;
-            _layoutParams.X = (int)movable.Location.X;
-            _layoutParams.Y = (int)movable.Location.Y;
-            _windowManager.AddView(this, _layoutParams);
-            _state = FormState.SHOWING;
-            _closeCompleted = new TaskCompletionSource<bool>();
-        }
+        if (_state == FormState.SHOWING) return;
+
+        var movable = (IMovable)_visualElement.BindingContext;
+        _layoutParams.X = (int)movable.Location.X;
+        _layoutParams.Y = (int)movable.Location.Y;
+        _windowManager.AddView(this, _layoutParams);
+        _state = FormState.SHOWING;
+        _closeCompleted = new TaskCompletionSource<bool>();
     }
 
     public void Close()
     {
-        if (_state == FormState.SHOWING)
-        {
-            _windowManager.RemoveView(this);
-            _state = FormState.CLOSED;
-            _closeCompleted.TrySetResult(true);
-        }
+        if (_state == FormState.CLOSED) return;
+
+        _windowManager.RemoveView(this);
+        _state = FormState.CLOSED;
+        _closeCompleted.TrySetResult(true);
     }
 
     public void CloseCancel()
     {
-        if (_state == FormState.SHOWING)
-        {
-            _windowManager.RemoveView(this);
-            _state = FormState.CLOSED;
-            _closeCompleted.TrySetResult(false);
-        }
+        if (_state == FormState.CLOSED) return;
+
+        _windowManager.RemoveView(this);
+        _state = FormState.CLOSED;
+        _closeCompleted.TrySetResult(false);
     }
 
     public void SyncLocation()

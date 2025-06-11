@@ -58,10 +58,10 @@ public class MediaProjectionService : IRecorderService
     {
         try
         {
-            var screenResolution = PatternHelper.ScreenResolution;
+            var screenResolution = DisplayHelper.ScreenResolution;
             var width = (int)screenResolution.Width;
             var height = (int)screenResolution.Height;
-            var density = (int)DeviceDisplay.MainDisplayInfo.Density;
+            var density = (int)DisplayHelper.DisplayInfo.Density;
 
             // https://github.com/Fate-Grand-Automata/FGA/blob/2a62ab7a456a9913cf0355db81b5a15f13906f27/app/src/main/java/io/github/fate_grand_automata/runner/ScreenshotServiceHolder.kt#L53
             var mediaProjectionManager = (MediaProjectionManager)Platform.CurrentActivity.GetSystemService(Context.MediaProjectionService);
@@ -209,10 +209,10 @@ public class MediaProjectionService : IRecorderService
         if (_isRecording) return;
 
         Start();
-        var screenResolution = PatternHelper.ScreenResolution;
+        var screenResolution = DisplayHelper.ScreenResolution;
         var width = (int)screenResolution.Width;
         var height = (int)screenResolution.Height;
-        var density = (int)DeviceDisplay.MainDisplayInfo.Density;
+        var density = (int)DisplayHelper.DisplayInfo.Density;
         var profile = CamcorderProfile.Get(CamcorderQuality.High);
 
         _mediaRecorder = new MediaRecorder();
