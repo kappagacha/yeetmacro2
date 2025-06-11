@@ -2129,8 +2129,8 @@
     "$path": "applyPreset",
     "lastApplied": {
       "$type": "string",
-      "$defaultValue": null,
-      "$value": null,
+      "$defaultValue": "9",
+      "$value": "9",
       "$position": 10,
       "$name": "lastApplied",
       "$path": "applyPreset.lastApplied"
