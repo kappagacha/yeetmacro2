@@ -77,7 +77,8 @@ function applyPreset(teamSlot) {
 		let targetPreset = findTargetPreset(presetRegex, presetNameList);
 		let swipeCount = 0;
 		while (!targetPreset) {
-			macroService.DoSwipe({ X: swipeX, Y: 800 }, { X: swipeX, Y: 300 });
+			//macroService.DoSwipe({ X: swipeX, Y: 800 }, { X: swipeX, Y: 300 });
+			macroService.DoSwipe({ X: swipeX, Y: 750 }, { X: swipeX, Y: 350 });
 			sleep(1_000);
 			targetPreset = findTargetPreset(presetRegex, presetNameList);
 			swipeCount++;
