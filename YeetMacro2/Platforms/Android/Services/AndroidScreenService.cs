@@ -687,13 +687,13 @@ public class AndroidScreenService : IScreenService
 
         _views[windowView].Show();
 
-        if (windowView == AndroidWindowView.MacroOverlayView)
-        {
-            var ve = _views[windowView].VisualElement;
-            var ctx = ve.BindingContext;
-            ve.BindingContext = null;
-            ve.BindingContext = ctx;
-        }
+        //if (windowView == AndroidWindowView.MacroOverlayView)
+        //{
+        //    var ve = _views[windowView].VisualElement;
+        //    var ctx = ve.BindingContext;
+        //    ve.BindingContext = null;
+        //    ve.BindingContext = ctx;
+        //}
     }
 
     public void RefreshActionViewLocation()

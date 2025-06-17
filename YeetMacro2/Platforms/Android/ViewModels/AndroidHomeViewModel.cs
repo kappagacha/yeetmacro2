@@ -24,28 +24,13 @@ public partial class AndriodHomeViewModel : ObservableObject
     private readonly IToastService _toastService;
     [ObservableProperty, NotifyPropertyChangedFor(nameof(IsCurrentPackageValid))]
     string _currentPackage;
-    
+    [ObservableProperty]
+    Size _currentResolution;
+    [ObservableProperty]
+    DisplayRotation _displayRotation;
+    [ObservableProperty]
+    string _widthStatus = "Invalid", _heightSatus = "Invalid";
     public bool IsCurrentPackageValid => CurrentPackage == _macroManagerViewModel.SelectedMacroSet?.Package;
-    public Size CurrentResolution => DisplayHelper.ScreenResolution;
-    public DisplayRotation DisplayRotation => DisplayHelper.DisplayRotation;
-    public string WidthStatus
-    {
-        get
-        {
-            if (_macroManagerViewModel.SelectedMacroSet is null) return "Invalid";
-            if (_macroManagerViewModel.SelectedMacroSet.SupportsGreaterWidth && DisplayHelper.ScreenResolution.Width > _macroManagerViewModel.SelectedMacroSet.Resolution.Width) return "Acceptable";
-            return DisplayHelper.ScreenResolution.Width == _macroManagerViewModel.SelectedMacroSet.Resolution.Width ? "Valid" : "Invalid";
-        }
-    }
-    public string HeightStatus
-    {
-        get
-        {
-            if (_macroManagerViewModel.SelectedMacroSet is null) return "Invalid";
-            if (_macroManagerViewModel.SelectedMacroSet.SupportsGreaterHeight && DisplayHelper.ScreenResolution.Height > _macroManagerViewModel.SelectedMacroSet.Resolution.Height) return "Acceptable";
-            return DisplayHelper.ScreenResolution.Height == _macroManagerViewModel.SelectedMacroSet.Resolution.Height ? "Valid" : "Invalid";
-        }
-    }
     public MacroManagerViewModel MacroManagerViewModel => _macroManagerViewModel;
     //public string OverlayArea
     //{
@@ -150,6 +135,22 @@ public partial class AndriodHomeViewModel : ObservableObject
         });
 
         ShowStatusPanel = Preferences.Default.Get(nameof(ShowStatusPanel), false);
+
+        WeakReferenceMessenger.Default.Register<DisplayInfoChangedEventArgs>(this, (r, e) =>
+        {
+            CurrentResolution = DisplayHelper.CurrentResolution;
+            DisplayRotation = DisplayHelper.DisplayRotation;
+
+            if (_macroManagerViewModel.SelectedMacroSet is null) WidthStatus = "Invalid";
+            else if (_macroManagerViewModel.SelectedMacroSet.SupportsGreaterWidth && DisplayHelper.ScreenResolution.Width > _macroManagerViewModel.SelectedMacroSet.Resolution.Width) WidthStatus = "Acceptable";
+            else if (DisplayHelper.ScreenResolution.Width == _macroManagerViewModel.SelectedMacroSet.Resolution.Width) WidthStatus = "Valid";
+            else WidthStatus = "Invalid";
+
+            if (_macroManagerViewModel.SelectedMacroSet is null) HeightSatus = "Invalid";
+            else if (_macroManagerViewModel.SelectedMacroSet.SupportsGreaterHeight && DisplayHelper.ScreenResolution.Height > _macroManagerViewModel.SelectedMacroSet.Resolution.Height) HeightSatus = "Acceptable";
+            else if (DisplayHelper.ScreenResolution.Height == _macroManagerViewModel.SelectedMacroSet.Resolution.Height) HeightSatus = "Valid";
+            else HeightSatus = "Invalid";
+        });
     }
 
     private void ShowActionView()
