@@ -13,8 +13,28 @@ let targetOperation = settings.doPursuitOperation.targetOperation.Value;
 
 let teamRestored = false;
 let isRotateOperation = targetOperation === 'rotate';
+let isAutoOperation = targetOperation === 'auto';
 
-const operations = ['ironStretcher', 'irregularQueen', 'blockbuster', 'mutatedWyvre']
+//const operations = ['ironStretcher', 'irregularQueen', 'blockbuster', 'mutatedWyvre'];
+const operations = ['irregularQueen', 'blockbuster', 'mutatedWyvre', 'ironStretcher'];
+let operationToPoints = {
+	irregularQueen: {
+		target: 6000,
+		current: 0
+	},
+	blockbuster: {
+		target: 6000,
+		current: 0
+	},
+	mutatedWyvre: {
+		target: 6000,
+		current: 0
+	},
+	ironStretcher: {
+		target: 6000,
+		current: 0
+	}
+};
 
 goToLobby();
 
@@ -50,8 +70,15 @@ while (macroService.IsRunning) {
 				return;
 			}
 
+			if (isAutoOperation) {
+				operations.forEach(op => operationToPoints[op].current = Number(macroService.FindText(patterns.irregularExtermination.pursuitOperation[op].currentPoints).replace(/[, ]/g, '')));
+				targetOperation = Object.entries(operationToPoints).reduce((targetOperation, [op, { target, current }]) => {
+					if (targetOperation || current > target) return targetOperation;
+					return op;
+				}, null);
+			} 
+
 			if (isRotateOperation) {
-				const operations = ['ironStretcher', 'irregularQueen', 'blockbuster', 'mutatedWyvre']
 				const lastOperationIndex = operations.findIndex(o => o === settings.doPursuitOperation.lastOperation.Value);
 				targetOperation = operations[(lastOperationIndex + 1) % operations.length];
 			}

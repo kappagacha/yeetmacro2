@@ -36,7 +36,7 @@ while (macroService.IsRunning) {
 			}
 			if (macroService.FindPattern(patterns.stamina.playAd.free).IsSuccess) {
 				macroService.PollPattern(patterns.stamina.playAd, { DoClick: true, PredicatePattern: patterns.stamina.playAd.selected });
-				macroService.PollPattern(patterns.stamina.purchase.button, { DoClick: true, ClickPattern: [adExitInstallPattern, adExitPattern, settings.watchAds.userClickPattern.Value], PredicatePattern: patterns.stamina.playAd.rewardTap });
+				macroService.PollPattern(patterns.stamina.purchase.button, { DoClick: true, ClickPattern: [settings.watchAds.userClickPattern.Value, adExitInstallPattern, adExitPattern], PredicatePattern: patterns.stamina.playAd.rewardTap });
 				if (macroService.IsRunning) {
 					daily.watchAds.count.Count++;
 				}

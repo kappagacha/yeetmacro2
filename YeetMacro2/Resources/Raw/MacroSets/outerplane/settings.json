@@ -604,8 +604,8 @@
     },
     "doTerminusIsleExplorationWithSupportPack": {
       "$type": "boolean",
-      "$defaultValue": true,
-      "$value": true,
+      "$defaultValue": false,
+      "$value": false,
       "$position": 29,
       "$name": "doTerminusIsleExplorationWithSupportPack",
       "$path": "doDailies.doTerminusIsleExplorationWithSupportPack"
@@ -720,7 +720,7 @@
     "lastRun": {
       "$type": "timestamp",
       "$defaultValue": "0001-01-01T00:00:00+00:00",
-      "$value": "2025-06-06T01:35:19.813+00:00",
+      "$value": "2025-06-17T18:15:21.471+00:00",
       "$position": 0,
       "$name": "lastRun",
       "$path": "claimAntiparticle.lastRun"
@@ -742,7 +742,7 @@
     "lastRun": {
       "$type": "timestamp",
       "$defaultValue": "0001-01-01T00:00:00+00:00",
-      "$value": "2025-06-06T02:19:55.717+00:00",
+      "$value": "2025-06-17T18:55:30.792+00:00",
       "$position": 0,
       "$name": "lastRun",
       "$path": "doFriends.lastRun"
@@ -2148,7 +2148,8 @@
         "irregularQueen",
         "blockbuster",
         "mutatedWyvre",
-        "rotate"
+        "rotate",
+        "auto"
       ],
       "$defaultValue": "blockbuster",
       "$value": "blockbuster",
