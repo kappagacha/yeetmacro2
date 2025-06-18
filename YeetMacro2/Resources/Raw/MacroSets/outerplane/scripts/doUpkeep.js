@@ -51,7 +51,7 @@ if (settings.doUpkeep.spendStaminaScript.IsEnabled) {
     if (settings.doUpkeep.spendStaminaScript.Value === 'dropRateUp') {
         macroService.PollPattern(patterns.tabs.adventure, { DoClick: true, PredicatePattern: patterns.titles.adventure });
         macroService.PollPattern(patterns.adventure.challenge, { DoClick: true, PredicatePattern: patterns.titles.challenge });
-        const identificationDropRateUpResult = macroService.PollPattern(patterns.adventure.challenge.identification.dropRateUp, { TimeoutMs: 3_500 });
+        const identificationDropRateUpResult = macroService.PollPattern(patterns.challenge.identification.dropRateUp, { TimeoutMs: 3_500 });
         if (identificationDropRateUpResult.IsSuccess) {
             doIdentification();
         } else {
