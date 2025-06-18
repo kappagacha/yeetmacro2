@@ -29,7 +29,7 @@ public partial class AndriodHomeViewModel : ObservableObject
     [ObservableProperty]
     DisplayRotation _displayRotation;
     [ObservableProperty]
-    string _widthStatus = "Invalid", _heightSatus = "Invalid";
+    string _widthStatus = "Invalid", _heightStatus = "Invalid";
     public bool IsCurrentPackageValid => CurrentPackage == _macroManagerViewModel.SelectedMacroSet?.Package;
     public MacroManagerViewModel MacroManagerViewModel => _macroManagerViewModel;
     //public string OverlayArea
@@ -146,10 +146,10 @@ public partial class AndriodHomeViewModel : ObservableObject
             else if (DisplayHelper.ScreenResolution.Width == _macroManagerViewModel.SelectedMacroSet.Resolution.Width) WidthStatus = "Valid";
             else WidthStatus = "Invalid";
 
-            if (_macroManagerViewModel.SelectedMacroSet is null) HeightSatus = "Invalid";
-            else if (_macroManagerViewModel.SelectedMacroSet.SupportsGreaterHeight && DisplayHelper.ScreenResolution.Height > _macroManagerViewModel.SelectedMacroSet.Resolution.Height) HeightSatus = "Acceptable";
-            else if (DisplayHelper.ScreenResolution.Height == _macroManagerViewModel.SelectedMacroSet.Resolution.Height) HeightSatus = "Valid";
-            else HeightSatus = "Invalid";
+            if (_macroManagerViewModel.SelectedMacroSet is null) HeightStatus = "Invalid";
+            else if (_macroManagerViewModel.SelectedMacroSet.SupportsGreaterHeight && DisplayHelper.ScreenResolution.Height > _macroManagerViewModel.SelectedMacroSet.Resolution.Height) HeightStatus = "Acceptable";
+            else if (DisplayHelper.ScreenResolution.Height == _macroManagerViewModel.SelectedMacroSet.Resolution.Height) HeightStatus = "Valid";
+            else HeightStatus = "Invalid";
         });
     }
 
