@@ -4,9 +4,9 @@ let done = false;
 const daily = dailyManager.GetCurrentDaily();
 
 //if (daily.claimMailboxExpiring.done.IsChecked) {
-if (daily.claimMailboxExpiring.count.Count > 2) {
-	return "Script already completed.";
-}
+//if (daily.claimMailboxExpiring.count.Count > 2) {
+//	return "Script already completed.";
+//}
 
 while (macroService.IsRunning) {
 	const loopResult = macroService.PollPattern(loopPatterns);

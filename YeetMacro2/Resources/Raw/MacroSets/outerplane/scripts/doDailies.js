@@ -37,6 +37,11 @@ if (settings.doDailies.doArena.Value) {
     goToLobby();
 }
 
+if (settings.doDailies.doPursuitOperation.Value && daily.doPursuitOperation.count.Count == 0) {
+    doPursuitOperation();
+    goToLobby();
+}
+
 if (settings.doDailies.doGuildSecurityArea.Value) {
     doGuildSecurityArea();
     goToLobby();
@@ -57,23 +62,23 @@ if (settings.doDailies.doShop.Value) {
     goToLobby();
 }
 
-if (settings.doDailies.claimMailboxExpiring.Value) {
+if (settings.doDailies.claimMailboxExpiring.Value && daily.claimMailboxExpiring.count.Count == 0) {
     claimMailboxExpiring();
     goToLobby();
 }
 
-if (settings.doDailies.claimMailboxExpiringStamina.Value) {
+if (settings.doDailies.claimMailboxExpiringStamina.Value && daily.claimMailboxExpiringStamina.count.Count == 0) {
     claimMailboxExpiringStamina();
     goToLobby();
 }
 
 // claim mailbox twice in case anything is missed
-if (settings.doDailies.claimMailboxExpiring.Value) {
+if (settings.doDailies.claimMailboxExpiring.Value && daily.claimMailboxExpiring.count.Count == 1) {
     claimMailboxExpiring();
     goToLobby();
 }
 
-if (settings.doDailies.claimMailboxExpiringStamina.Value) {
+if (settings.doDailies.claimMailboxExpiringStamina.Value && daily.claimMailboxExpiringStamina.count.Count == 1) {
     claimMailboxExpiringStamina();
     goToLobby();
 }
@@ -170,5 +175,10 @@ if (settings.doDailies.sellInventory.Value) {
 
 if (settings.doDailies.claimEventDailyMissions2.Value) {
     claimEventDailyMissions2();
+    goToLobby();
+}
+
+if (settings.doDailies.doPursuitOperation.Value && daily.doPursuitOperation.count.Count == 1) {
+    doPursuitOperation();
     goToLobby();
 }

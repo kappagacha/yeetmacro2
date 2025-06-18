@@ -66,7 +66,8 @@ while (macroService.IsRunning) {
 
 			const zeroOperationsResult = macroService.FindPattern(patterns.irregularExtermination.pursuitOperation.zeroOperations);
 			if (zeroOperationsResult.IsSuccess) {
-				macroService.IsRunning && (daily.doPursuitOperation.done.IsChecked = true);
+				//macroService.IsRunning && (daily.doPursuitOperation.done.IsChecked = true);
+				macroService.IsRunning && daily.doPursuitOperation.count.Count++;
 				return;
 			}
 
@@ -75,8 +76,8 @@ while (macroService.IsRunning) {
 				targetOperation = Object.entries(operationToPoints).reduce((targetOperation, [op, { target, current }]) => {
 					if (targetOperation || current > target) return targetOperation;
 					return op;
-				}, null);
-			} 
+				}, null) || 'ironStretcher';
+			}
 
 			if (isRotateOperation) {
 				const lastOperationIndex = operations.findIndex(o => o === settings.doPursuitOperation.lastOperation.Value);
@@ -105,7 +106,7 @@ while (macroService.IsRunning) {
 				continue;
 			}
 
-			sleep(2_000);
+			sleep(3_000);
 			const friendsOrGuildResult = macroService.FindPattern(patterns.irregularExtermination.pursuitOperation.friendsOrGuild);
 			if (friendsOrGuildResult.IsSuccess) {
 				macroService.PollPattern(patterns.irregularExtermination.pursuitOperation.friendsOrGuild, { DoClick: true, PredicatePattern: patterns.irregularExtermination.pursuitOperation.ok });
@@ -113,7 +114,7 @@ while (macroService.IsRunning) {
 				sleep(1_000);
 			}
 
-			sleep(2_000);
+			sleep(3_000);
 			const publicResult = macroService.FindPattern(patterns.irregularExtermination.pursuitOperation.public);
 			if (publishToPublic && publicResult.IsSuccess) {
 				macroService.PollPattern(patterns.irregularExtermination.pursuitOperation.public, { DoClick: true, PredicatePattern: patterns.irregularExtermination.pursuitOperation.ok });
