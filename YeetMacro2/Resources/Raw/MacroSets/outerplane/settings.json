@@ -396,8 +396,8 @@
     },
     "startTerminusIsleExploration": {
       "$type": "boolean",
-      "$defaultValue": false,
-      "$value": false,
+      "$defaultValue": true,
+      "$value": true,
       "$position": 3,
       "$name": "startTerminusIsleExploration",
       "$path": "doUpkeep.startTerminusIsleExploration"
@@ -428,8 +428,8 @@
     },
     "doTerminusIsleExploration": {
       "$type": "boolean",
-      "$defaultValue": false,
-      "$value": false,
+      "$defaultValue": true,
+      "$value": true,
       "$position": 7,
       "$name": "doTerminusIsleExploration",
       "$path": "doUpkeep.doTerminusIsleExploration"
@@ -448,10 +448,11 @@
         "doEcologyStudy",
         "doIdentification",
         "doSurveyHub",
-        "doSkywardTower"
+        "doSkywardTower",
+        "dropRateUp"
       ],
-      "$defaultValue": "doIdentification",
-      "$value": "doIdentification",
+      "$defaultValue": "dropRateUp",
+      "$value": "dropRateUp",
       "$isEnabled": true,
       "$position": 9,
       "$name": "spendStaminaScript",
@@ -474,7 +475,7 @@
     "lastRun": {
       "$type": "timestamp",
       "$defaultValue": "0001-01-01T00:00:00+00:00",
-      "$value": "2025-06-17T18:15:21.471+00:00",
+      "$value": "2025-06-18T01:54:02.935+00:00",
       "$position": 0,
       "$name": "lastRun",
       "$path": "claimAntiparticle.lastRun"
@@ -496,7 +497,7 @@
     "lastRun": {
       "$type": "timestamp",
       "$defaultValue": "0001-01-01T00:00:00+00:00",
-      "$value": "2025-06-17T18:55:30.792+00:00",
+      "$value": "2025-06-18T02:21:14.097+00:00",
       "$position": 0,
       "$name": "lastRun",
       "$path": "doFriends.lastRun"
@@ -1761,7 +1762,7 @@
     "lastRun": {
       "$type": "timestamp",
       "$defaultValue": "0001-01-01T00:00:00+00:00",
-      "$value": "2024-11-05T13:04:45.023+00:00",
+      "$value": "2025-06-18T02:21:25.961+00:00",
       "$position": 0,
       "$name": "lastRun",
       "$path": "startTerminusIsleExploration.lastRun"
@@ -1883,8 +1884,8 @@
     "$path": "applyPreset",
     "lastApplied": {
       "$type": "string",
-      "$defaultValue": "9",
-      "$value": "9",
+      "$defaultValue": "1",
+      "$value": "1",
       "$position": 10,
       "$name": "lastApplied",
       "$path": "applyPreset.lastApplied"
@@ -1905,8 +1906,8 @@
         "rotate",
         "auto"
       ],
-      "$defaultValue": "blockbuster",
-      "$value": "blockbuster",
+      "$defaultValue": "auto",
+      "$value": "auto",
       "$position": 0,
       "$name": "targetOperation",
       "$path": "doPursuitOperation.targetOperation"
@@ -1941,8 +1942,8 @@
     },
     "lastOperation": {
       "$type": "string",
-      "$defaultValue": "blockbuster",
-      "$value": "blockbuster",
+      "$defaultValue": "mutatedWyvre",
+      "$value": "mutatedWyvre",
       "$position": 3,
       "$name": "lastOperation",
       "$path": "doPursuitOperation.lastOperation"
@@ -2043,8 +2044,8 @@
     },
     "doGuildRaid": {
       "$type": "boolean",
-      "$defaultValue": true,
-      "$value": true,
+      "$defaultValue": false,
+      "$value": false,
       "$position": 11,
       "$name": "doGuildRaid",
       "$path": "doDailies.doGuildRaid"

@@ -48,7 +48,18 @@ if (settings.doUpkeep.doSpecialRequestsStage13.Value && !daily.doSpecialRequests
 }
 
 if (settings.doUpkeep.spendStaminaScript.IsEnabled) {
-    globalThis[settings.doUpkeep.spendStaminaScript.Value]();
+    if (settings.doUpkeep.spendStaminaScript.Value === 'dropRateUp') {
+        macroService.PollPattern(patterns.tabs.adventure, { DoClick: true, PredicatePattern: patterns.titles.adventure });
+        macroService.PollPattern(patterns.adventure.challenge, { DoClick: true, PredicatePattern: patterns.titles.challenge });
+        const identificationDropRateUpResult = macroService.PollPattern(patterns.adventure.challenge.identification.dropRateUp, { TimeoutMs: 3_500 });
+        if (identificationDropRateUpResult.IsSuccess) {
+            doIdentification();
+        } else {
+            doEcologyStudy();
+        }
+    } else {
+        globalThis[settings.doUpkeep.spendStaminaScript.Value]();
+    }
     goToLobby();
 }
 
