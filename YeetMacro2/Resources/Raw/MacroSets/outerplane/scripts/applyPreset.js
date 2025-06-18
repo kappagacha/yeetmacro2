@@ -51,6 +51,8 @@ function applyPreset(teamSlot) {
 
 		if (unitTitleAndName.match(/Gnosis.*Ne[lI][lI]/ism)) {
 			strRegex = '#GN.*NELLA#';
+		} else if (unitTitleAndName.match(/Eter.*T[oa]m[oa]m[ao]/ism)) {
+			strRegex = '#TAMAMO#';
 		}
 
 		const presetRegex = new RegExp(strRegex);

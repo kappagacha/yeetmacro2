@@ -52,7 +52,8 @@ while (macroService.IsRunning) {
 			break;
 		case 'lobby.expedition':
 			logger.info('goToLobby: expedition');
-			const researchAllResult = macroService.PollPattern([patterns.lobby.expedition.researchAll, patterns.lobby.expedition.researchAll.disabled], { ClickPattern: patterns.general.tapEmptySpace } );
+			sleep(1_000);
+			const researchAllResult = macroService.PollPattern([patterns.lobby.expedition.researchAll, patterns.lobby.expedition.researchAll.disabled], { ClickPattern: patterns.general.tapEmptySpace });
 			if (researchAllResult.Path === 'lobby.expedition.researchAll.disabled') {
 				macroService.PollPattern(patterns.lobby.expedition.close, { DoClick: true, ClickPattern: patterns.general.tapEmptySpace, PredicatePattern: patterns.lobby.level });
 				refillStamina(12);
