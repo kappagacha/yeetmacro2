@@ -430,6 +430,16 @@ If you agree, please tap OK then grant Accessibility service permission to YeetM
     }
 
     [RelayCommand]
+    private void UpdateDisplayInfo()
+    {
+        var e = new DisplayInfoChangedEventArgs(DeviceDisplay.MainDisplayInfo);
+        DisplayHelper.DisplayRotation = e.DisplayInfo.Rotation;
+        DisplayHelper.DisplayInfo = e.DisplayInfo;
+        WeakReferenceMessenger.Default.Send(e);
+        _toastService.Show($"Display Updated: {DisplayHelper.DisplayInfo}");
+    }
+
+    [RelayCommand]
     public void Appear()
     {
         IsAppearing = true;

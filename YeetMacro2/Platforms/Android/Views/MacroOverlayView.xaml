@@ -31,30 +31,35 @@
                    FontFamily="MaterialOutlined" Glyph="{x:Static mi:MaterialOutlined.Filter_center_focus}"
                    HorizontalOptions="Center" ToggledColor="{StaticResource Primary}" UntoggledColor="LightGray" />
                 <BoxView WidthRequest="1" Color="{StaticResource Primary}"/>
-                <Label Text="Current Resolution: " />
-                <Label Text="{Binding CurrentResolution.Width}" TextColor="Red">
-                    <Label.Triggers>
-                        <DataTrigger TargetType="Label" Binding="{Binding WidthStatus}" Value="Valid">
-                            <Setter Property="TextColor" Value="{StaticResource Primary}" />
-                        </DataTrigger>
-                        <DataTrigger TargetType="Label" Binding="{Binding WidthStatus}" Value="Acceptable">
-                            <Setter Property="TextColor" Value="Orange" />
-                        </DataTrigger>
-                    </Label.Triggers>
-                </Label>
-                <Label Text="x" />
-                <Label Text="{Binding CurrentResolution.Height}" TextColor="Red">
-                    <Label.Triggers>
-                        <DataTrigger TargetType="Label" Binding="{Binding HeightStatus}" Value="Valid">
-                            <Setter Property="TextColor" Value="{StaticResource Primary}" />
-                        </DataTrigger>
-                        <DataTrigger TargetType="Label" Binding="{Binding HeightStatus}" Value="Acceptable">
-                            <Setter Property="TextColor" Value="Orange" />
-                        </DataTrigger>
-                    </Label.Triggers>
-                </Label>
-                <BoxView WidthRequest="1" Color="{StaticResource Primary}"/>
-                <Label Text="{Binding DisplayRotation}" />
+                <Grid HeightRequest="20">
+                    <HorizontalStackLayout Spacing="5">
+                        <Label Text="Current Resolution: " />
+                        <Label Text="{Binding CurrentResolution.Width}" TextColor="Red">
+                            <Label.Triggers>
+                                <DataTrigger TargetType="Label" Binding="{Binding WidthStatus}" Value="Valid">
+                                    <Setter Property="TextColor" Value="{StaticResource Primary}" />
+                                </DataTrigger>
+                                <DataTrigger TargetType="Label" Binding="{Binding WidthStatus}" Value="Acceptable">
+                                    <Setter Property="TextColor" Value="Orange" />
+                                </DataTrigger>
+                            </Label.Triggers>
+                        </Label>
+                        <Label Text="x" />
+                        <Label Text="{Binding CurrentResolution.Height}" TextColor="Red">
+                            <Label.Triggers>
+                                <DataTrigger TargetType="Label" Binding="{Binding HeightStatus}" Value="Valid">
+                                    <Setter Property="TextColor" Value="{StaticResource Primary}" />
+                                </DataTrigger>
+                                <DataTrigger TargetType="Label" Binding="{Binding HeightStatus}" Value="Acceptable">
+                                    <Setter Property="TextColor" Value="Orange" />
+                                </DataTrigger>
+                            </Label.Triggers>
+                        </Label>
+                        <BoxView WidthRequest="1" Color="{StaticResource Primary}"/>
+                        <Label Text="{Binding DisplayRotation}" />
+                    </HorizontalStackLayout>
+                    <ImageButton Command="{Binding UpdateDisplayInfoCommand}" />
+                </Grid>
                 <!--<Label Text="{Binding OverlayArea, StringFormat='Overlay Area: {0}'}" TextColor="{StaticResource Primary}" />
                 <BoxView WidthRequest="1" Color="{StaticResource Primary}"/>-->
                 <!--<Label Text="{Binding DisplayCutoutTop, StringFormat='Display Cutout Top: {0}'}" TextColor="{StaticResource Primary}">
@@ -90,6 +95,7 @@
                 <v:ToggleImageView IsToggled="{Binding ShowDailyNodeView}"
                                     FontFamily="FASolid" Glyph="{x:Static fa:Solid.CalendarDay}"
                                     HorizontalOptions="Center" ToggledColor="{StaticResource Primary}" UntoggledColor="LightGray" />
+                <BoxView WidthRequest="1" Color="{StaticResource Primary}"/>
                 <v:ToggleImageView IsToggled="{Binding ShowWeeklyNodeView}"
                                     FontFamily="FASolid" Glyph="{x:Static fa:Solid.CalendarWeek}"
                                     HorizontalOptions="Center" ToggledColor="{StaticResource Primary}" UntoggledColor="LightGray" />
