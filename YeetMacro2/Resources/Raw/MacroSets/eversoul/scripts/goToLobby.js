@@ -27,6 +27,7 @@ macroService.PollPattern(patterns.lobby.level, {
 		patterns.login.pressToStart2,
 		patterns.login.skip,
 		patterns.login.newCharacter,
+		patterns.iridescentScenicInstance.expeditionDispatch,
 	]
 });
 if (macroService.IsRunning) {
