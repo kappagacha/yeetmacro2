@@ -940,6 +940,65 @@
       "$path": "sweepEvent.eventStagePattern"
     }
   },
+  "doShop": {
+    "$type": "parent",
+    "$position": 0,
+    "$name": "doShop",
+    "$path": "doShop",
+    "doArtifact": {
+      "$type": "boolean",
+      "$defaultValue": true,
+      "$value": true,
+      "$position": 0,
+      "$name": "doArtifact",
+      "$path": "doShop.doArtifact"
+    },
+    "buyManaCrystalWithGold": {
+      "$type": "boolean",
+      "$defaultValue": false,
+      "$value": false,
+      "$position": 0,
+      "$name": "buyManaCrystalWithGold",
+      "$path": "doShop.buyManaCrystalWithGold"
+    },
+    "buyClassEnhanceWithGold": {
+      "$type": "boolean",
+      "$defaultValue": true,
+      "$value": true,
+      "$position": 0,
+      "$name": "buyClassEnhanceWithGold",
+      "$path": "doShop.buyClassEnhanceWithGold"
+    },
+    "evilSoulShop": {
+      "$type": "parent",
+      "$position": 0,
+      "$name": "evilSoulShop",
+      "$path": "doShop.evilSoulShop",
+      "advancedKeepsakeEnhanceStone": {
+        "$type": "boolean",
+        "$defaultValue": false,
+        "$value": false,
+        "$position": 0,
+        "$name": "advancedKeepsakeEnhanceStone",
+        "$path": "doShop.evilSoulShop.advancedKeepsakeEnhanceStone"
+      }
+    },
+    "town": {
+      "$type": "enabledParent",
+      "$isEnabled": true,
+      "$position": 0,
+      "$name": "town",
+      "$path": "doShop.town",
+      "ashOfProgress": {
+        "$type": "boolean",
+        "$defaultValue": true,
+        "$value": true,
+        "$position": 0,
+        "$name": "ashOfProgress",
+        "$path": "doShop.town.ashOfProgress"
+      }
+    }
+  },
   "doDailies": {
     "$type": "parent",
     "$position": 0,
@@ -1112,65 +1171,14 @@
       "$position": 20,
       "$name": "sweepEvilSoulSubjugation",
       "$path": "doDailies.sweepEvilSoulSubjugation"
-    }
-  },
-  "doShop": {
-    "$type": "parent",
-    "$position": 0,
-    "$name": "doShop",
-    "$path": "doShop",
-    "doArtifact": {
+    },
+    "doIridescentScenicInstance": {
       "$type": "boolean",
       "$defaultValue": true,
       "$value": true,
-      "$position": 0,
-      "$name": "doArtifact",
-      "$path": "doShop.doArtifact"
-    },
-    "buyManaCrystalWithGold": {
-      "$type": "boolean",
-      "$defaultValue": false,
-      "$value": false,
-      "$position": 0,
-      "$name": "buyManaCrystalWithGold",
-      "$path": "doShop.buyManaCrystalWithGold"
-    },
-    "buyClassEnhanceWithGold": {
-      "$type": "boolean",
-      "$defaultValue": true,
-      "$value": true,
-      "$position": 0,
-      "$name": "buyClassEnhanceWithGold",
-      "$path": "doShop.buyClassEnhanceWithGold"
-    },
-    "evilSoulShop": {
-      "$type": "parent",
-      "$position": 0,
-      "$name": "evilSoulShop",
-      "$path": "doShop.evilSoulShop",
-      "advancedKeepsakeEnhanceStone": {
-        "$type": "boolean",
-        "$defaultValue": false,
-        "$value": false,
-        "$position": 0,
-        "$name": "advancedKeepsakeEnhanceStone",
-        "$path": "doShop.evilSoulShop.advancedKeepsakeEnhanceStone"
-      }
-    },
-    "town": {
-      "$type": "enabledParent",
-      "$isEnabled": true,
-      "$position": 0,
-      "$name": "town",
-      "$path": "doShop.town",
-      "ashOfProgress": {
-        "$type": "boolean",
-        "$defaultValue": true,
-        "$value": true,
-        "$position": 0,
-        "$name": "ashOfProgress",
-        "$path": "doShop.town.ashOfProgress"
-      }
+      "$position": 21,
+      "$name": "doIridescentScenicInstance",
+      "$path": "doDailies.doIridescentScenicInstance"
     }
   }
 }
