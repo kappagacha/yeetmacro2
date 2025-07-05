@@ -114,13 +114,18 @@ if (settings.doDailies.sweepEvilSoulSubjugation.Value) {
     goToLobby();
 }
 
+if (settings.doDailies.doOutings.Value) {
+    doOutings();
+    goToLobby();
+}
+
+if (settings.doDailies.doIridescentScenicInstance.Value) {
+    doIridescentScenicInstance();
+    goToLobby();
+}
+
 if (!Object.keys(result).length) {
     result = null;
 } else {
     return result;
-}
-
-if (settings.doDailies.doOutings.Value) {
-    doOutings();
-    goToLobby();
 }

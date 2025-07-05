@@ -86,9 +86,6 @@ while (macroService.IsRunning) {
 	sleep(1_000);
 }
 
-
-setUnicatLevel(575);
-
 function setUnicatLevel(targetLevel) {
 	let currentLevel = getCurrentUnicatLevel();
 	while (macroService.IsRunning && currentLevel !== targetLevel) {
