@@ -2202,5 +2202,69 @@
       "$name": "doPursuitOperation",
       "$path": "doDailies.doPursuitOperation"
     }
+  },
+  "doWeeklyCraft": {
+    "$type": "parent",
+    "$position": 0,
+    "$name": "doWeeklyCraft",
+    "$path": "doWeeklyCraft",
+    "specialEnhancement": {
+      "$type": "parent",
+      "$position": 0,
+      "$name": "specialEnhancement",
+      "$path": "doWeeklyCraft.specialEnhancement",
+      "armorGlunite": {
+        "$type": "boolean",
+        "$defaultValue": true,
+        "$value": true,
+        "$position": 0,
+        "$name": "armorGlunite",
+        "$path": "doWeeklyCraft.specialEnhancement.armorGlunite"
+      },
+      "specialGearEnhancement": {
+        "$type": "parent",
+        "$position": 0,
+        "$name": "specialGearEnhancement",
+        "$path": "doWeeklyCraft.specialEnhancement.specialGearEnhancement",
+        "talisman": {
+          "$type": "boolean",
+          "$defaultValue": true,
+          "$value": true,
+          "$position": 0,
+          "$name": "talisman",
+          "$path": "doWeeklyCraft.specialEnhancement.specialGearEnhancement.talisman"
+        },
+        "gear": {
+          "$type": "boolean",
+          "$defaultValue": true,
+          "$value": true,
+          "$position": 0,
+          "$name": "gear",
+          "$path": "doWeeklyCraft.specialEnhancement.specialGearEnhancement.gear"
+        }
+      },
+      "greaterEnhancement": {
+        "$type": "parent",
+        "$position": 0,
+        "$name": "greaterEnhancement",
+        "$path": "doWeeklyCraft.specialEnhancement.greaterEnhancement",
+        "talisman": {
+          "$type": "boolean",
+          "$defaultValue": false,
+          "$value": false,
+          "$position": 0,
+          "$name": "talisman",
+          "$path": "doWeeklyCraft.specialEnhancement.greaterEnhancement.talisman"
+        },
+        "gear": {
+          "$type": "boolean",
+          "$defaultValue": false,
+          "$value": false,
+          "$position": 0,
+          "$name": "gear",
+          "$path": "doWeeklyCraft.specialEnhancement.greaterEnhancement.gear"
+        }
+      }
+    }
   }
 }

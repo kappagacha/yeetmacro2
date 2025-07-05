@@ -11,7 +11,7 @@ let teamRestored = false;
 goToLobby();
 
 while (macroService.IsRunning) {
-	const loopResult = macroService.PollPattern(loopPatterns);
+	const loopResult = macroService.PollPattern(loopPatterns, { ClickPattern: patterns.adventure.doNotSeeFor3days });
 	switch (loopResult.Path) {
 		case 'lobby.level':
 			if (refillStaminaAmount) {
@@ -55,6 +55,7 @@ while (macroService.IsRunning) {
 					macroService.PollPattern(patterns.battle.battleRecord, { DoClick: true, PredicatePattern: patterns.battle.battleRecord.restoreTeam });
 					macroService.PollPattern(patterns.battle.battleRecord.restoreTeam, { DoClick: true, PredicatePattern: patterns.battle.battleRecord.restoreTeam.ok });
 					macroService.PollPattern(patterns.battle.battleRecord.restoreTeam.ok, { DoClick: true, PredicatePattern: patterns.battle.enter });
+					setChainOrder();
 					teamRestored = true;
 					macroService.IsRunning && (settings.applyPreset.lastApplied.Value = teamSlot);
 				}

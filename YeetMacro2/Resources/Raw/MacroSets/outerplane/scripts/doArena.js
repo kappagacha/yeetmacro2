@@ -7,7 +7,7 @@ const weekly = weeklyManager.GetCurrentWeekly();
 const teamSlot = settings.doArena.teamSlot.Value;
 const cpThresholdIsEnabled = settings.doArena.cpThreshold.IsEnabled;
 const autoDetectCpThreshold = settings.doArena.autoDetectCpThreshold.Value;
-const clickPattern = [patterns.arena.defendReport.close, patterns.arena.newLeague, patterns.arena.tapEmptySpace];
+const clickPattern = [patterns.arena.defendReport.close, patterns.arena.newLeague, patterns.arena.tapEmptySpace, patterns.adventure.doNotSeeFor3days];
 const dayOfWeek = weeklyManager.GetDayOfWeek();
 
 while (macroService.IsRunning) {

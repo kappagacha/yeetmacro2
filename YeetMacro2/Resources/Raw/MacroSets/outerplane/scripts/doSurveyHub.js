@@ -14,7 +14,7 @@ function doSurveyHub(targetNumBattles = 0) {
 
 	let currentStamina;
 	while (macroService.IsRunning) {
-		const loopResult = macroService.PollPattern(loopPatterns);
+		const loopResult = macroService.PollPattern(loopPatterns, { ClickPattern: patterns.adventure.doNotSeeFor3days });
 		switch (loopResult.Path) {
 			case 'lobby.level':
 				logger.info('doSurveyHub: click adventure tab');

@@ -4,7 +4,7 @@ const loopPatterns = [patterns.lobby.level, patterns.titles.adventure, patterns.
 const teamSlot = settings.doSkywardTower.teamSlot.Value;
 
 while (macroService.IsRunning) {
-	const loopResult = macroService.PollPattern(loopPatterns);
+	const loopResult = macroService.PollPattern(loopPatterns, { ClickPattern: patterns.adventure.doNotSeeFor3days });
 	switch (loopResult.Path) {
 		case 'lobby.level':
 			logger.info('doSkywardTower: click adventure tab');

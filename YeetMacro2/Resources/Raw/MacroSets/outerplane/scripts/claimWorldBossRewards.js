@@ -7,7 +7,7 @@ if (daily.claimWorldBossRewards.done.IsChecked) {
 }
 
 while (macroService.IsRunning) {
-	const loopResult = macroService.PollPattern(loopPatterns);
+	const loopResult = macroService.PollPattern(loopPatterns, { ClickPattern: patterns.adventure.doNotSeeFor3days });
 	switch (loopResult.Path) {
 		case 'lobby.level':
 			logger.info('claimWorldBossRewards: click adventure tab');

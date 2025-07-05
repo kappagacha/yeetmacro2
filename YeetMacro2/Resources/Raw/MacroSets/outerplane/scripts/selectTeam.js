@@ -86,3 +86,70 @@ function detectBossType() {
 
 	return detectedElement;
 }
+
+function setChainOrder() {
+	macroService.PollPattern(patterns.battle.chainPreview, { DoClick: true, PredicatePattern: patterns.battle.chainPreview.selected });
+	const chainPreviewResult = { A: {}, B: {}, C: {}, D: {} };
+
+	const chainPositionBasePatterns = [
+		patterns.battle.chainPreview.starterExclusive,
+		patterns.battle.chainPreview.starterExclusive.enabled,
+		patterns.battle.chainPreview.companion,
+		patterns.battle.chainPreview.finisherExclusive,
+		patterns.battle.chainPreview.finisherExclusive.enabled
+	];
+
+	const effectsBasePatterns = [
+		patterns.battle.chainPreview.effects.pctDmg,
+		patterns.battle.chainPreview.effects.cdr
+	];
+
+	const effectToPriority = {
+		pctDmg: 1,
+		cdr: 2
+	};
+
+	while (macroService.IsRunning) {
+		for (let position of Object.keys(chainPreviewResult)) {
+			const rawBounds = patterns.battle.chainPreview[position].Pattern.RawBounds;
+			const cloneOpts = { RawBounds: rawBounds, PathSuffix: `_${position}` };
+			const chainPositionPatterns = chainPositionBasePatterns.map(p => macroService.ClonePattern(p, cloneOpts));
+			const effectPatterns = effectsBasePatterns.map(p => macroService.ClonePattern(p, cloneOpts));
+
+			chainPreviewResult[position].chainEffectPosition = macroService.PollPattern(chainPositionPatterns).Path?.split('.').pop().slice(0, -2);
+			chainPreviewResult[position].effect = macroService.FindPattern(effectPatterns).Path?.split('.').pop().slice(0, -2);
+			chainPreviewResult[position].priority = chainPreviewResult[position].effect ? effectToPriority[chainPreviewResult[position].effect] : 100;
+		}
+
+		let targetStarterExclusive = 'A';
+		let targetFinisherExclusive = 'D';
+		let starterMin = Infinity;
+		let finisherMin = Infinity;
+
+		for (const [key, value] of Object.entries(chainPreviewResult)) {
+			const { chainEffectPosition, priority } = value;
+			if (chainEffectPosition === "starterExclusive" && priority < starterMin) {
+				starterMin = priority;
+				targetStarterExclusive = key;
+			}
+			if (chainEffectPosition === "finisherExclusive" && priority < finisherMin) {
+				finisherMin = priority;
+				targetFinisherExclusive = key;
+			}
+		}
+
+		if (targetStarterExclusive === 'A' && targetFinisherExclusive === 'D') break;
+
+		if (targetStarterExclusive !== 'A') {
+			macroService.ClickPattern(patterns.battle.chainPreview.A);
+			sleep(250);
+			macroService.ClickPattern(patterns.battle.chainPreview[targetStarterExclusive]);
+		}
+
+		if (targetFinisherExclusive !== 'D') {
+			macroService.ClickPattern(patterns.battle.chainPreview.D);
+			sleep(250);
+			macroService.ClickPattern(patterns.battle.chainPreview[targetFinisherExclusive]);
+		}
+	}
+}

@@ -1,5 +1,5 @@
 // @isFavorite
-// @position=-1
+// @position=-10
 // Do weeklies (all checked scripts)
 
 if (settings.doWeeklies.claimWeeklyMissions.Value) {

@@ -15,7 +15,7 @@ if (doRefillStamina) {
 }
 
 while (macroService.IsRunning) {
-	const loopResult = macroService.PollPattern(loopPatterns, { ClickPattern: patterns.arena.defendReport.close });
+	const loopResult = macroService.PollPattern(loopPatterns, { ClickPattern: patterns.adventure.doNotSeeFor3days });
 	switch (loopResult.Path) {
 		case 'lobby.level':
 			logger.info('doSpecialRequests: click adventure tab');

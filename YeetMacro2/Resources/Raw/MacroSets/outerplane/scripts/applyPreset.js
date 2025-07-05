@@ -45,6 +45,9 @@ function applyPreset(teamSlot) {
 		} else if (unitTitleAndName.match(/Self.*?Del/ism)) {
 			primaryStat = 'HLT';
 			delimiter = '#';
+		} else if (unitTitleAndName.match(/Ruin.*T[oa]m[oa]m[ao]/ism)) {
+			primaryStat = 'HLT';
+			gearSet = 'PEN';
 		}
 
 		let strRegex = `\\s?${delimiter}\\s?${battleTypeAbbreviation}\\s?${delimiter}\\s?${gearSet}\\s?${delimiter}\\s?${primaryStat}\\s?`;
@@ -52,7 +55,7 @@ function applyPreset(teamSlot) {
 		if (unitTitleAndName.match(/Gnosis.*Ne[lI][lI]/ism)) {
 			strRegex = '#GN.*NELLA#';
 		} else if (unitTitleAndName.match(/Eter.*T[oa]m[oa]m[ao]/ism)) {
-			strRegex = '#TAMAMO#';
+			strRegex = '#TAMAMOE#';
 		}
 
 		const presetRegex = new RegExp(strRegex);
