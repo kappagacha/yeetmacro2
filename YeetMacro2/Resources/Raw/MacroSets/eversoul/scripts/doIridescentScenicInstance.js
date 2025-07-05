@@ -1,6 +1,6 @@
 ﻿// @position=11
 // do operation eden alliance
-const loopPatterns = [patterns.lobby.level, patterns.titles.adventure, patterns.titles.operationEdenAlliance];
+const loopPatterns = [patterns.lobby.level, patterns.titles.adventure, patterns.titles.iridescentScenicInstance];
 const daily = dailyManager.GetCurrentDaily();
 
 if (daily.doIridescentScenicInstance.done.IsChecked) {
@@ -19,19 +19,17 @@ while (macroService.IsRunning) {
 			macroService.PollPattern(patterns.adventure.tabs.specialMissions, { DoClick: true, PredicatePattern: patterns.iridescentScenicInstance });
 			macroService.PollPattern(patterns.iridescentScenicInstance, { DoClick: true, PredicatePattern: patterns.titles.iridescentScenicInstance });
 			break;
-		case 'titles.operationEdenAlliance':
+		case 'titles.iridescentScenicInstance':
 			const zeroMaxSubjugationLevelResult = macroService.FindPattern(patterns.iridescentScenicInstance.zeroMaxSubjugationLevel);
 			if (zeroMaxSubjugationLevelResult.IsSuccess) {
 				logger.info('doIridescentScenicInstance: do unicat subjugation');
-				const unicatPatterns = ['tofu', 'cheese'].map(u => patterns.iridescentScenicInstance.unicats[u]);
+
+				const unicatPatterns = ['tofu', 'cheese', 'tabby'].map(u => patterns.iridescentScenicInstance.unicats[u]);
 				const unicatResult = macroService.PollPattern(unicatPatterns);
 				const unicat = unicatResult.Path?.split('.').pop();
 				logger.debug(`unicat: ${unicat}`);
-				const unicatToLevel = {
-					tofu: 375,
-					cheese: 375
-				};
-				const targetLevel = unicatToLevel[unicat];
+
+				const targetLevel = settings.doIridescentScenicInstance.targetLevels[unicat].Value;
 				if (!targetLevel) throw new Error(`Could not resolve target level for unicat: ${unicat}`);
 
 				macroService.PollPattern(patterns.iridescentScenicInstance.subjugation, { DoClick: true, PredicatePattern: patterns.iridescentScenicInstance.levelSettings });
@@ -71,14 +69,13 @@ while (macroService.IsRunning) {
 				macroService.PollPattern(patterns.iridescentScenicInstance.expeditionDispatch.max, { DoClick: true, PredicatePattern: patterns.iridescentScenicInstance.expeditionDispatch.zeroSupplies });
 				macroService.PollPattern(patterns.iridescentScenicInstance.expeditionDispatch.start, { DoClick: true, ClickPattern: patterns.iridescentScenicInstance.expeditionDispatch.skip, PredicatePattern: patterns.iridescentScenicInstance.expeditionDispatch.confirm2 });
 				macroService.PollPattern(patterns.iridescentScenicInstance.expeditionDispatch.confirm2, { DoClick: true, ClickPattern: patterns.iridescentScenicInstance.expeditionDispatch.skip, PredicatePattern: patterns.iridescentScenicInstance.expeditionDispatch.zeroSupplies });
+			} else {
+				macroService.PollPattern(patterns.iridescentScenicInstance.expeditionDispatch.max, { DoClick: true, PredicatePattern: patterns.iridescentScenicInstance.expeditionDispatch.zeroSupplies });
+				macroService.PollPattern(patterns.iridescentScenicInstance.expeditionDispatch.start, { DoClick: true, ClickPattern: patterns.iridescentScenicInstance.expeditionDispatch.skip, PredicatePattern: patterns.iridescentScenicInstance.expeditionDispatch.confirm2 });
+				macroService.PollPattern(patterns.iridescentScenicInstance.expeditionDispatch.confirm2, { DoClick: true, ClickPattern: patterns.iridescentScenicInstance.expeditionDispatch.skip, PredicatePattern: patterns.iridescentScenicInstance.expeditionDispatch.zeroSupplies });
 			}
 
-			
-			// TODO get pattern patterns.iridescentScenicInstance.undispatchedExpedition
-			const undispatchedExpeditionResult = macroService.FindPattern(patterns.iridescentScenicInstance.undispatchedExpedition);
-			if (undispatchedExpeditionResult.IsSuccess) {
-				
-			}
+			macroService.PollPattern(patterns.iridescentScenicInstance.expeditionDispatch.exit, { DoClick: true, PredicatePattern: patterns.iridescentScenicInstance.expeditionDispatch });
 
 			if (macroService.IsRunning) {
 				daily.doIridescentScenicInstance.done.IsChecked = true;
