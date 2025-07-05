@@ -51,6 +51,8 @@ public class CloneOptions
     public double Padding { get; set; }
     public double Scale { get; set; } = 1.0;
     public string Path { get; set; }
+    public string PathSuffix { get; set; }
+    public Rect RawBounds { get; set; }
     public OffsetCalcType OffsetCalcType { get; set; } = OffsetCalcType.Default;
 }
 
@@ -59,6 +61,7 @@ public class MacroService
     readonly LogServiceViewModel _logServiceViewModel;
     readonly IScreenService _screenService;
     readonly ConcurrentDictionary<string, Point> _pathToOffset;
+    readonly ConcurrentDictionary<string, PatternNode> _pathToClone;
     readonly Random _random;
     public bool InDebugMode { get; set; }
     public bool IsRunning { get; set; }
@@ -68,6 +71,7 @@ public class MacroService
         _logServiceViewModel = LogServiceViewModel;
         _screenService = screenService;
         _pathToOffset = [];
+        _pathToClone = [];
         _random = new Random();
 
         WeakReferenceMessenger.Default.Register<PropertyChangedMessage<bool>, string>(this, nameof(MacroManagerViewModel), (r, propertyChangedMessage) =>
@@ -116,11 +120,31 @@ public class MacroService
 
     public PatternNode ClonePattern(PatternNode patternNode, CloneOptions opts)
     {
+        var resolvedPath = patternNode.Path;
+        if (!string.IsNullOrEmpty(opts.PathSuffix)) resolvedPath = $"{patternNode.Path}{opts.PathSuffix}";
+        if (!string.IsNullOrEmpty(opts.Path)) resolvedPath = opts.Path;
+
+        if (_pathToClone.ContainsKey(resolvedPath))
+        {
+            return _pathToClone[resolvedPath];
+        }
+
         var clone = PatternNodeManagerViewModel.CloneNode(patternNode);
-        if (!string.IsNullOrEmpty(opts.Path)) clone.Path = opts.Path;
+        clone.Path = resolvedPath;
 
         foreach (var pattern in clone.Patterns)
         {
+            if (opts.OffsetCalcType != OffsetCalcType.Default)
+            {
+                pattern.OffsetCalcType = opts.OffsetCalcType;
+            }
+
+            if (!opts.RawBounds.IsEmpty)
+            {
+                pattern.RawBounds = opts.RawBounds;
+                continue;
+            }
+
             var rect = pattern.RawBounds;
             var size = new Size(
                 (opts.Width == 0 ? rect.Width : opts.Width) + opts.Padding,
@@ -138,10 +162,6 @@ public class MacroService
             var location = new Point(calcX, calcY);
 
             pattern.RawBounds = new Rect(location, size);
-            if (opts.OffsetCalcType != OffsetCalcType.Default)
-            {
-                pattern.OffsetCalcType = opts.OffsetCalcType;
-            }
         }
 
         if (opts.Scale != 1.0)
@@ -150,6 +170,7 @@ public class MacroService
                 p => PatternNodeManagerViewModel.GetScaled(_screenService, p, opts.Scale)).ToList();
         }
 
+        _pathToClone.TryAdd(resolvedPath, clone);
         return clone;
     }
 
