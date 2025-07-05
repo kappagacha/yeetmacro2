@@ -85,6 +85,7 @@ public class MacroService
         WeakReferenceMessenger.Default.Register<DisplayInfoChangedEventArgs>(this, (r, e) =>
         {
             _pathToOffset.Clear();
+            _pathToClone.Clear();
         });
     }
 

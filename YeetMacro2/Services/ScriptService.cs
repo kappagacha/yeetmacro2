@@ -196,7 +196,8 @@ public class JsToDotNetConverter(Engine engine) : DefaultTypeConverter(engine)
 {
     readonly JsonSerializerOptions _jsonOpts = new()
     {
-        Converters = { new JsonStringEnumConverter() }
+        Converters = { new JsonStringEnumConverter() },
+        PropertyNameCaseInsensitive = true
     };
 
     public override object Convert(object value, Type type, IFormatProvider formatProvider)
