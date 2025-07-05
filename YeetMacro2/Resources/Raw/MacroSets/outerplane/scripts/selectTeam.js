@@ -111,7 +111,8 @@ function setChainOrder() {
 
 	while (macroService.IsRunning) {
 		for (let position of Object.keys(chainPreviewResult)) {
-			const rawBounds = patterns.battle.chainPreview[position].Pattern.RawBounds;
+			// $patterns uses snapshot patterns json and the other uses actual C# class PatternNodeViewModel
+			const rawBounds = patterns.battle.chainPreview[position]?.$patterns[0].rawBounds || patterns.battle.chainPreview[position].Pattern.RawBounds;
 			const cloneOpts = { RawBounds: rawBounds, PathSuffix: `_${position}` };
 			const chainPositionPatterns = chainPositionBasePatterns.map(p => macroService.ClonePattern(p, cloneOpts));
 			const effectPatterns = effectsBasePatterns.map(p => macroService.ClonePattern(p, cloneOpts));
