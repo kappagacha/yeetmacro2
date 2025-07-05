@@ -118,7 +118,7 @@ while (macroService.IsRunning) {
 				}
 			}
 
-			let selectTeamResult = macroService.PollPattern([patterns.irregularExtermination.pursuitOperation.selectTeam, patterns.irregularExtermination.pursuitOperation.selectTeam2]);
+			selectTeamResult = macroService.PollPattern([patterns.irregularExtermination.pursuitOperation.selectTeam, patterns.irregularExtermination.pursuitOperation.selectTeam2]);
 			if (selectTeamResult.Path === 'irregularExtermination.pursuitOperation.selectTeam') {
 				const publicResult = macroService.FindPattern(patterns.irregularExtermination.pursuitOperation.public);
 				if (publishToPublic && publicResult.IsSuccess) {
