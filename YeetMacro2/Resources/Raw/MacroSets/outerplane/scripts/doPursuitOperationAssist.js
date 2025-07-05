@@ -45,30 +45,28 @@ while (macroService.IsRunning) {
 			macroService.PollPattern(patterns.irregularExtermination.pursuitOperation.recruiting, { DoClick: true, PredicatePattern: patterns.irregularExtermination.pursuitOperation.recruiting.selected });
 			sleep(1_000);
 			const veryHardResult = macroService.FindPattern(patterns.irregularExtermination.pursuitOperation.recruiting.veryHard);
-			if (veryHardResult.IsSuccess) {
-				const enterPattern = macroService.ClonePattern(patterns.irregularExtermination.pursuitOperation.recruiting.enter, { CenterY: veryHardResult.Point.Y + 5, Padding: 10, Path: `irregularExtermination.pursuitOperation.recruiting.enter_y${veryHardResult.Point.Y}` });
-				macroService.PollPattern(enterPattern, { DoClick: true, PredicatePattern: patterns.irregularExtermination.pursuitOperation.selectTeam });
-				macroService.PollPattern(patterns.irregularExtermination.pursuitOperation.selectTeam, { DoClick: true, PredicatePattern: patterns.battle.enter });
-				selectTeam(teamSlot);
+			if (!veryHardResult.IsSuccess) return;
 
-				if (!teamRestored) {
-					macroService.PollPattern(patterns.battle.battleRecord, { DoClick: true, PredicatePattern: patterns.battle.battleRecord.restoreTeam });
-					macroService.PollPattern(patterns.battle.battleRecord.restoreTeam, { DoClick: true, PredicatePattern: patterns.battle.battleRecord.restoreTeam.ok });
-					macroService.PollPattern(patterns.battle.battleRecord.restoreTeam.ok, { DoClick: true, PredicatePattern: patterns.battle.enter });
-					setChainOrder();
-					teamRestored = true;
-					macroService.IsRunning && (settings.applyPreset.lastApplied.Value = teamSlot);
-				}
+			const enterPattern = macroService.ClonePattern(patterns.irregularExtermination.pursuitOperation.recruiting.enter, { CenterY: veryHardResult.Point.Y + 5, Padding: 10, Path: `irregularExtermination.pursuitOperation.recruiting.enter_y${veryHardResult.Point.Y}` });
+			macroService.PollPattern(enterPattern, { DoClick: true, PredicatePattern: patterns.irregularExtermination.pursuitOperation.selectTeam2 });
+			macroService.PollPattern(patterns.irregularExtermination.pursuitOperation.selectTeam2, { DoClick: true, PredicatePattern: patterns.battle.enter });
+			selectTeam(teamSlot);
 
-				macroService.PollPattern(patterns.battle.enter, { DoClick: true, PredicatePattern: patterns.battle.next });
-				macroService.PollPattern(patterns.battle.next, { DoClick: true, PredicatePattern: patterns.battle.exit });
-				macroService.PollPattern(patterns.battle.exit, { DoClick: true, PredicatePattern: [patterns.irregularExtermination.pursuitOperation.selectTeam, patterns.titles.pursuitOperation] });
-				while (macroService.IsRunning && !macroService.FindPattern(patterns.irregularExtermination.pursuitOperation[targetOperation]).IsSuccess) {
-					macroService.ClickPattern(patterns.general.back);
-					sleep(1_000);
-				}
-			} else {
-				return;
+			if (!teamRestored) {
+				macroService.PollPattern(patterns.battle.battleRecord, { DoClick: true, PredicatePattern: patterns.battle.battleRecord.restoreTeam });
+				macroService.PollPattern(patterns.battle.battleRecord.restoreTeam, { DoClick: true, PredicatePattern: patterns.battle.battleRecord.restoreTeam.ok });
+				macroService.PollPattern(patterns.battle.battleRecord.restoreTeam.ok, { DoClick: true, PredicatePattern: patterns.battle.enter });
+				setChainOrder();
+				teamRestored = true;
+				macroService.IsRunning && (settings.applyPreset.lastApplied.Value = teamSlot);
+			}
+
+			macroService.PollPattern(patterns.battle.enter, { DoClick: true, PredicatePattern: patterns.battle.next });
+			macroService.PollPattern(patterns.battle.next, { DoClick: true, PredicatePattern: patterns.battle.exit });
+			macroService.PollPattern(patterns.battle.exit, { DoClick: true, PredicatePattern: [patterns.irregularExtermination.pursuitOperation.selectTeam2, patterns.titles.pursuitOperation] });
+			while (macroService.IsRunning && !macroService.FindPattern(patterns.irregularExtermination.pursuitOperation[targetOperation]).IsSuccess) {
+				macroService.ClickPattern(patterns.general.back);
+				sleep(1_000);
 			}
 	}
 	sleep(1_000);
