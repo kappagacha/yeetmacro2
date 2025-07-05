@@ -1,6 +1,8 @@
 ﻿// do stage wish
 const loopPatterns = [patterns.lobby.stage, patterns.titles.stage];
 const daily = dailyManager.GetCurrentDaily();
+const priority1 = settings.doStageWish.priority1.Value;
+const priority2 = settings.doStageWish.priority2.Value;
 
 if (daily.doStageWish.done.IsChecked) {
 	return "Script already completed. Uncheck done to override daily flag.";
@@ -34,7 +36,10 @@ while (macroService.IsRunning) {
 			//stageNames.sort((a, b) => a.point.Y - b.point.Y);		// Y ascending
 			stageNames.sort((a, b) => b.point.Y - a.point.Y);		// Y descending
 			//const targetStage = stageNames.find(pn => pn.name.match(/corp|lab/gi));
-			const targetStage = stageNames.find(pn => pn.name.match(/corp/gi)) || stageNames.find(pn => pn.name.match(/lab/gi));
+			//const targetStage = stageNames.find(pn => pn.name.match(/corp/gi)) || stageNames.find(pn => pn.name.match(/lab/gi));
+			const regexPriority1 = new RegExp(priority1, 'gi');
+			const regexPriority2 = new RegExp(priority2, 'gi');
+			const targetStage = stageNames.find(pn => pn.name.match(regexPriority1)) || stageNames.find(pn => pn.name.match(regexPriority2));
 			macroService.PollPoint(targetStage.point, { PredicatePattern: patterns.battle.deploy });
 			macroService.PollPattern(patterns.battle.deploy, { DoClick: true, ClickPattern: patterns.battle.skip, PredicatePattern: patterns.battle.next });
 			macroService.PollPattern(patterns.battle.next, { DoClick: true, PredicatePattern: patterns.battle.exit });

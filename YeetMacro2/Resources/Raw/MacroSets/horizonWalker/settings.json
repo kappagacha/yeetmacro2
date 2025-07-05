@@ -256,5 +256,37 @@
       "$name": "sweepEvent",
       "$path": "doDailies.sweepEvent"
     }
+  },
+  "doStageWish": {
+    "$type": "parent",
+    "$position": 0,
+    "$name": "doStageWish",
+    "$path": "doStageWish",
+    "priority1": {
+      "$type": "option",
+      "$options": [
+        "corp",
+        "lab",
+        "govt"
+      ],
+      "$defaultValue": "lab",
+      "$value": "lab",
+      "$position": 0,
+      "$name": "priority1",
+      "$path": "doStageWish.priority1"
+    },
+    "priority2": {
+      "$type": "option",
+      "$options": [
+        "corp",
+        "lab",
+        "govt"
+      ],
+      "$defaultValue": "corp",
+      "$value": "corp",
+      "$position": 0,
+      "$name": "priority2",
+      "$path": "doStageWish.priority2"
+    }
   }
 }
