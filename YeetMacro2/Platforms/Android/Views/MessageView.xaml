@@ -6,12 +6,21 @@
              x:DataType="pvm:MessageViewModel"
              vm:ViewModelLocator.ViewModelType="{x:Type pvm:MessageViewModel}"
              xmlns:av="clr-namespace:YeetMacro2.Platforms.Android.Views"
+             xmlns:v="clr-namespace:YeetMacro2.Views"
              x:Class="YeetMacro2.Platforms.Android.Views.MessageView"
+             xmlns:mi="clr-namespace:UraniumUI.Icons.MaterialIcons;assembly=UraniumUI.Icons.MaterialIcons"
              BackgroundColor="{AppThemeBinding Light={StaticResource Background}, Dark={StaticResource BackgroundDark}}"
              Padding="10">
-    <ScrollView>
-        <Border Grid.Column="0" Stroke="{StaticResource Primary}" BackgroundColor="Transparent" Padding="3">
-            <Label Text="{Binding Message}" />
-        </Border>
-    </ScrollView>
+    <Grid>
+        <ScrollView>
+            <Border Grid.Column="0" Stroke="{StaticResource Primary}" BackgroundColor="Transparent" Padding="3">
+                <Label Text="{Binding Message}" />
+            </Border>
+        </ScrollView>
+        <v:ImageView FontFamily="MaterialOutlined" Glyph="{x:Static mi:MaterialOutlined.Content_copy}" 
+                     CommandParameter="{Binding Message}"
+                     Command="{Binding BindingContext.CopyMessgeToClipboardCommand, Source={RelativeSource AncestorType={x:Type av:MessageView}}}"
+                     VerticalOptions="End" HorizontalOptions="End"
+                     Margin="10"/>
+    </Grid>
 </ContentView>
