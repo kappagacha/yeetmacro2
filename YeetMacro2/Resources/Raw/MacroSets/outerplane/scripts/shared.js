@@ -17,7 +17,7 @@ function refillStamina(targetStamina) {
 	while (macroService.IsRunning && currentStamina < targetStamina) {
 		macroService.SwipePollPattern(targetMailboxItem, { MaxSwipes: 20, Start: { X: 1400, Y: 900 }, End: { X: 1400, Y: 150 } });
 		const staminaResult = macroService.FindPattern(targetMailboxItem);
-		const recievePattern = macroService.ClonePattern(patterns.mailbox.receive, { CenterY: staminaResult.Point.Y, Height: 60.0 });
+		const recievePattern = macroService.ClonePattern(patterns.mailbox.receive, { CenterY: staminaResult.Point.Y, Height: 60.0, PathSuffix: `_${staminaResult.Point.Y}y` });
 		macroService.PollPattern(recievePattern, { DoClick: true, PredicatePattern: patterns.general.tapEmptySpace });
 		macroService.PollPattern(patterns.general.tapEmptySpace, { DoClick: true, PredicatePattern: patterns.titles.mailbox });
 		sleep(500);
@@ -29,7 +29,7 @@ function refillStamina(targetStamina) {
 
 function getCurrentStaminaValue() {
 	const staminaResult = macroService.PollPattern(patterns.general.stamina);
-	const staminaValue = macroService.ClonePattern(patterns.general.staminaValue, { X: staminaResult.Point.X + 58, Path: `general.stamina_y${staminaResult.Point.Y}`, OffsetCalcType: 'None' })
+	const staminaValue = macroService.ClonePattern(patterns.general.staminaValue, { X: staminaResult.Point.X + 58, PathSuffix: `_y${staminaResult.Point.Y}`, OffsetCalcType: 'None' })
 	const currentStamina = macroService.FindText(staminaValue);
 	return Number(currentStamina);
 }
@@ -86,7 +86,7 @@ function findShopItem(shopItemName) {
 
 		let itemCornerResult = macroService.FindPattern(itemCornerPattern, { Limit: 12 });
 		let textResults = itemCornerResult.Points.filter(p => p.X < resolution.Width - 350).map(p => {
-			const itemTextPattern = macroService.ClonePattern(patterns.shop.itemText, { X: p.X, Y: p.Y, OffsetCalcType: 'None' });
+			const itemTextPattern = macroService.ClonePattern(patterns.shop.itemText, { X: p.X, Y: p.Y, OffsetCalcType: 'None', PathSuffix: `_${p.X}x_${p.Y}y` });
 			return {
 				point: { X: p.X, Y: p.Y },
 				text: macroService.FindText(itemTextPattern)
@@ -122,7 +122,7 @@ function doShopItems(scriptName, shopType, shopItems, isWeekly = false) {
 				Y: findShopItemResult.point.Y + 200,
 				Width: 250,
 				Height: 200,
-				Path: `patterns.shop.resource.${shopType}.${shopItem}.purchase_${findShopItemResult.point.X}x_${findShopItemResult.point.Y}y`,
+				PathSuffix: `_${shopType}_${shopItem}_${findShopItemResult.point.X}x_${findShopItemResult.point.Y}y`,
 				OffsetCalcType: 'None'
 			});
 
