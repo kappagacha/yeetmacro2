@@ -36,6 +36,16 @@ while (macroService.IsRunning) {
 				doExpeditionSweeps();
 			}
 
+			if (!macroService.FindPattern(patterns.visitTown.done).IsSuccess) {
+				macroService.PollPattern(patterns.visitTown.helpReceivedYesterday, { DoClick: true, PredicatePattern: patterns.visitTown.helpReceivedYesterday.selected });
+				doExpeditionSweeps2();
+			}
+
+			if (!macroService.FindPattern(patterns.visitTown.done).IsSuccess) {
+				macroService.PollPattern(patterns.visitTown.like, { DoClick: true, PredicatePattern: patterns.visitTown.like.selected });
+				doExpeditionSweeps2();
+			}
+
 			if (macroService.IsRunning) {
 				daily.doExpeditions.done.IsChecked = true;
 			}
@@ -47,9 +57,25 @@ while (macroService.IsRunning) {
 }
 
 function doExpeditionSweeps() {
+	const recievedHelpResult = macroService.FindPattern(patterns.visitTown.receivedHelp, { Limit: 10 });
+	for (let recievedHelp of recievedHelpResult.Points) {
+		if (macroService.FindPattern(patterns.visitTown.done).IsSuccess) return;
+
+		const visitPattern = macroService.ClonePattern(patterns.visitTown.visit, { X: 1730, CenterY: recievedHelp.Y + 63, Width: 75, Height: 33, Padding: 5, PathSuffix: `_${recievedHelp.Y}y` });
+		const sweepResult = macroService.PollPattern(visitPattern, { DoClick: true, PredicatePattern: [patterns.visitTown.sweep, patterns.visitTown.noSweep] });
+		if (sweepResult.PredicatePath === 'visitTown.sweep') {
+			macroService.PollPattern(patterns.visitTown.sweep, { DoClick: true, PredicatePattern: patterns.visitTown.sweep.confirm });
+			macroService.PollPattern(patterns.visitTown.sweep.confirm, { DoClick: true, PredicatePattern: patterns.titles.visitTown });
+		} else {
+			macroService.PollPattern(patterns.visitTown.cancel, { DoClick: true, PredicatePattern: patterns.titles.visitTown });
+		}
+	}
+}
+
+function doExpeditionSweeps2() {
 	const visitResult = macroService.FindPattern(patterns.visitTown.visit, { Limit: 10 });
 	const helpReceivedArr = visitResult.Points
-		.map(point => macroService.ClonePattern(patterns.visitTown.numHelpReceived, { CenterY: point.Y, Path: `visitTown.numHelpReceived_y${point.Y}` }))
+		.map(point => macroService.ClonePattern(patterns.visitTown.numHelpReceived, { CenterY: point.Y, PathSuffix: `_${point.Y}y` }))
 		.map(pattern => ({ numHelpReceived: macroService.FindText(pattern), centerY: pattern.Pattern.RawBounds.Center.Y }));
 
 	helpReceivedArr.sort((a, b) => a.numHelpReceived - b.numHelpReceived); // prioritize least helped
@@ -57,7 +83,7 @@ function doExpeditionSweeps() {
 	for (const helpReceived of helpReceivedArr) {
 		if (macroService.FindPattern(patterns.visitTown.done).IsSuccess) break;
 
-		const visitPattern = macroService.ClonePattern(patterns.visitTown.visit, { X: 1730, CenterY: helpReceived.centerY, Width: 75, Height: 33, Padding: 5 });
+		const visitPattern = macroService.ClonePattern(patterns.visitTown.visit, { X: 1730, CenterY: helpReceived.centerY, Width: 75, Height: 33, Padding: 5, PathSuffix: `_${helpReceived.centerY}y` });
 		const sweepResult = macroService.PollPattern(visitPattern, { DoClick: true, PredicatePattern: [patterns.visitTown.sweep, patterns.visitTown.noSweep] });
 		if (sweepResult.PredicatePath === 'visitTown.sweep') {
 			macroService.PollPattern(patterns.visitTown.sweep, { DoClick: true, PredicatePattern: patterns.visitTown.sweep.confirm });
