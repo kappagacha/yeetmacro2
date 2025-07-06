@@ -122,7 +122,7 @@ function doShopItems(scriptName, shopType, shopItems, isWeekly = false) {
 				Y: findShopItemResult.point.Y + 200,
 				Width: 250,
 				Height: 200,
-				Path: `patterns.shop.resource.${shopType}.${shopItem}.purchase`,
+				Path: `patterns.shop.resource.${shopType}.${shopItem}.purchase_${findShopItemResult.point.X}x_${findShopItemResult.point.Y}y`,
 				OffsetCalcType: 'None'
 			});
 
