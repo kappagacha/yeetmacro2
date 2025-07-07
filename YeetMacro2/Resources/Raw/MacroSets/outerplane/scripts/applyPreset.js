@@ -37,7 +37,7 @@ function applyPreset(teamSlot) {
 		const battleTypeResult = macroService.PollPattern(battleTypes);
 		const battleType = battleTypeResult.Path?.split('.').pop();
 		const battleTypeAbbreviation = battleTypeToAbbreviation[battleType];
-		const gearSet = "..."
+		let gearSet = "..."
 		let primaryStat = "..."
 		if (unitTitleAndName.match(/The.*?Memorizer.*?Caren/ism) || unitTitleAndName.match(/Blazing.*?Fighter.*?Kano/ism) || unitTitleAndName.match(/Honorable.*?Knight/ism)) {
 			primaryStat = 'DEF';
