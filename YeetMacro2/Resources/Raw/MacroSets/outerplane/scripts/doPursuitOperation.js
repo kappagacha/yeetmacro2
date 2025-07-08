@@ -108,24 +108,18 @@ while (macroService.IsRunning) {
 				continue;
 			}
 
-			let selectTeamResult = macroService.PollPattern([patterns.irregularExtermination.pursuitOperation.selectTeam, patterns.irregularExtermination.pursuitOperation.selectTeam2]);
-			if (selectTeamResult.Path === 'irregularExtermination.pursuitOperation.selectTeam') {
-				const friendsOrGuildResult = macroService.FindPattern(patterns.irregularExtermination.pursuitOperation.friendsOrGuild);
-				if (friendsOrGuildResult.IsSuccess) {
-					macroService.PollPattern(patterns.irregularExtermination.pursuitOperation.friendsOrGuild, { DoClick: true, PredicatePattern: patterns.irregularExtermination.pursuitOperation.ok });
-					macroService.PollPattern(patterns.irregularExtermination.pursuitOperation.ok, { DoClick: true, PredicatePattern: patterns.irregularExtermination.pursuitOperation.selectTeam });
-					sleep(1_000);
-				}
+			let selectTeamResult = macroService.PollPattern([patterns.irregularExtermination.pursuitOperation.friendsOrGuild, patterns.irregularExtermination.pursuitOperation.selectTeam2]);
+			if (selectTeamResult.Path === 'irregularExtermination.pursuitOperation.friendsOrGuild') {
+				macroService.PollPattern(patterns.irregularExtermination.pursuitOperation.friendsOrGuild, { DoClick: true, PredicatePattern: patterns.irregularExtermination.pursuitOperation.ok });
+				macroService.PollPattern(patterns.irregularExtermination.pursuitOperation.ok, { DoClick: true, PredicatePattern: patterns.irregularExtermination.pursuitOperation.selectTeam });
+				sleep(1_000);
 			}
 
-			selectTeamResult = macroService.PollPattern([patterns.irregularExtermination.pursuitOperation.selectTeam, patterns.irregularExtermination.pursuitOperation.selectTeam2]);
-			if (selectTeamResult.Path === 'irregularExtermination.pursuitOperation.selectTeam') {
-				const publicResult = macroService.FindPattern(patterns.irregularExtermination.pursuitOperation.public);
-				if (publishToPublic && publicResult.IsSuccess) {
-					macroService.PollPattern(patterns.irregularExtermination.pursuitOperation.public, { DoClick: true, PredicatePattern: patterns.irregularExtermination.pursuitOperation.ok });
-					macroService.PollPattern(patterns.irregularExtermination.pursuitOperation.ok, { DoClick: true, PredicatePattern: patterns.irregularExtermination.pursuitOperation.selectTeam2 });
-					sleep(1_000);
-				}
+			selectTeamResult = macroService.PollPattern([patterns.irregularExtermination.pursuitOperation.public, patterns.irregularExtermination.pursuitOperation.selectTeam2]);
+			if (publishToPublic && selectTeamResult.Path === 'irregularExtermination.pursuitOperation.public') {
+				macroService.PollPattern(patterns.irregularExtermination.pursuitOperation.public, { DoClick: true, PredicatePattern: patterns.irregularExtermination.pursuitOperation.ok });
+				macroService.PollPattern(patterns.irregularExtermination.pursuitOperation.ok, { DoClick: true, PredicatePattern: patterns.irregularExtermination.pursuitOperation.selectTeam2 });
+				sleep(1_000);
 			}
 
 			while (macroService.IsRunning && !macroService.FindPattern(patterns.irregularExtermination.pursuitOperation[targetOperation]).IsSuccess) {

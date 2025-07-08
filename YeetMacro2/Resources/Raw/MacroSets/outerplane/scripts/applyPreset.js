@@ -101,6 +101,10 @@ function applyPreset(teamSlot) {
 	}
 	
 	macroService.IsRunning && (settings.applyPreset.lastApplied.Value = teamSlot);
+
+	if (!teamSlot) {
+		setChainOrder();
+	}
 }
 
 function findTargetPreset(presetRegex, presetNameList) {
