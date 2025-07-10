@@ -100,7 +100,17 @@ while (macroService.IsRunning) {
 			}
 
 			macroService.PollPattern(patterns.battle.enter, { DoClick: true, PredicatePattern: patterns.battle.next });
-			macroService.PollPattern(patterns.battle.next, { DoClick: true, PredicatePattern: patterns.battle.exit });
+			while (macroService.IsRunning) {
+				const nextResult = macroService.PollPattern(patterns.battle.next, { DoClick: true, PredicatePattern: [patterns.battle.exit, patterns.battle.restore] });
+				// Accidentally hit retry
+				if (nextResult.PredicatePath === 'battle.restore') {
+					macroService.ClickPattern(patterns.general.back);
+					sleep(1_000);
+				} else {
+					break;
+				}
+			}
+
 			const battleExitResult = macroService.PollPattern(patterns.battle.exit, { DoClick: true, PredicatePattern: [patterns.irregularExtermination.pursuitOperation.selectTeam, patterns.irregularExtermination.pursuitOperation.selectTeam2, patterns.irregularExtermination.pursuitOperation[targetOperation]] });
 			macroService.IsRunning && (settings.doPursuitOperation.lastOperation.Value = targetOperation);
 

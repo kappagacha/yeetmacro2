@@ -475,7 +475,7 @@
     "lastRun": {
       "$type": "timestamp",
       "$defaultValue": "0001-01-01T00:00:00+00:00",
-      "$value": "2025-07-01T22:48:30.421+00:00",
+      "$value": "2025-07-10T04:57:09.777+00:00",
       "$position": 0,
       "$name": "lastRun",
       "$path": "claimAntiparticle.lastRun"
@@ -497,7 +497,7 @@
     "lastRun": {
       "$type": "timestamp",
       "$defaultValue": "0001-01-01T00:00:00+00:00",
-      "$value": "2025-07-01T23:35:00.35+00:00",
+      "$value": "2025-07-10T04:56:23.116+00:00",
       "$position": 0,
       "$name": "lastRun",
       "$path": "doFriends.lastRun"
@@ -1884,8 +1884,8 @@
     "$path": "applyPreset",
     "lastApplied": {
       "$type": "string",
-      "$defaultValue": "9",
-      "$value": "9",
+      "$defaultValue": "1",
+      "$value": "1",
       "$position": 10,
       "$name": "lastApplied",
       "$path": "applyPreset.lastApplied"
