@@ -1211,12 +1211,21 @@
       },
       "tabby": {
         "$type": "integer",
-        "$defaultValue": 375,
-        "$value": 375,
+        "$defaultValue": 600,
+        "$value": 600,
         "$position": 0,
         "$increment": 25,
         "$name": "tabby",
         "$path": "doIridescentScenicInstance.targetLevels.tabby"
+      },
+      "choco": {
+        "$type": "integer",
+        "$defaultValue": 550,
+        "$value": 550,
+        "$position": 0,
+        "$increment": 25,
+        "$name": "choco",
+        "$path": "doIridescentScenicInstance.targetLevels.choco"
       }
     }
   }
