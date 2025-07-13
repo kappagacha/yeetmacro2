@@ -921,6 +921,26 @@
       "$position": 0,
       "$name": "userClickPattern",
       "$path": "watchAds.userClickPattern"
+    },
+    "userNoOpPattern": {
+      "$type": "pattern",
+      "$defaultValue": {
+        "$patterns": [],
+        "$isMultiPattern": false,
+        "$position": 0,
+        "$name": null,
+        "$path": null
+      },
+      "$value": {
+        "$patterns": [],
+        "$isMultiPattern": false,
+        "$position": 0,
+        "$name": null,
+        "$path": null
+      },
+      "$position": 0,
+      "$name": "userNoOpPattern",
+      "$path": "watchAds.userNoOpPattern"
     }
   },
   "doWeeklyShop": {
