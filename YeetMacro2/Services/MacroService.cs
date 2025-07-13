@@ -18,6 +18,8 @@ public class PollPatternFindOptions : ClickPatternFindOptions
     public OneOf<PatternNode, PatternNode[]>? ClickPattern { get; set; }
     [JsonIgnore]
     public OneOf<PatternNode, PatternNode[]>? InversePredicatePattern { get; set; }
+    [JsonIgnore]
+    public OneOf<PatternNode, PatternNode[]>? NoOpPattern { get; set; }
     public int InversePredicateChecks { get; set; } = 5;
     public int InversePredicateCheckDelayMs { get; set; } = 100;
     public double PredicateThreshold { get; set; } = 0.0;
@@ -356,6 +358,7 @@ public class MacroService
         var predicatePattern = opts.PredicatePattern;
         var clickPattern = opts.ClickPattern;
         var inversePredicatePattern = opts.InversePredicatePattern;
+        var noOpPattern = opts.NoOpPattern;
         var clickOffsetX = opts.ClickOffset.X;
         var clickOffsetY = opts.ClickOffset.Y;
         var hasTimeout = opts.TimeoutMs > 0;
@@ -371,6 +374,11 @@ public class MacroService
             while (IsRunning)
             {
                 if (hasTimeout && DateTime.Now > timeout) return new FindPatternResult() { IsSuccess = false };
+                if (noOpPattern is not null && this.FindPattern(noOpPattern.Value, opts).IsSuccess)
+                {
+                    Sleep(intervalDelayMs);
+                    continue;
+                }
 
                 var numChecks = 1;
                 FindPatternResult inversePredicateResult = this.FindPattern(inversePredicatePattern.Value, predicateOpts);
@@ -410,6 +418,11 @@ public class MacroService
             while (IsRunning)
             {
                 if (hasTimeout && DateTime.Now > timeout) return new FindPatternResult() { IsSuccess = false };
+                if (noOpPattern is not null && this.FindPattern(noOpPattern.Value, opts).IsSuccess)
+                {
+                    Sleep(intervalDelayMs);
+                    continue;
+                }
 
                 FindPatternResult predicateResult = this.FindPattern(predicatePattern.Value, predicateOpts);
                 if (predicateResult.IsSuccess)
@@ -439,6 +452,11 @@ public class MacroService
             while (IsRunning)
             {
                 if (hasTimeout && DateTime.Now > timeout) return new FindPatternResult() { IsSuccess = false };
+                if (noOpPattern is not null && this.FindPattern(noOpPattern.Value, opts).IsSuccess)
+                {
+                    Sleep(intervalDelayMs);
+                    continue;
+                }
 
                 result = this.FindPattern(oneOfPattern, opts);
                 if (opts.DoClick && result.IsSuccess)

@@ -239,6 +239,7 @@ public class JsToDotNetConverter(Engine engine) : DefaultTypeConverter(engine)
             opts.PredicatePattern = dict.ContainsKey("PredicatePattern") ? (OneOf<PatternNode, PatternNode[]>?)ToOneOfPatternNode(dict["PredicatePattern"]) : null;
             opts.ClickPattern = dict.ContainsKey("ClickPattern") ? (OneOf<PatternNode, PatternNode[]>?)ToOneOfPatternNode(dict["ClickPattern"]) : null;
             opts.InversePredicatePattern = dict.ContainsKey("InversePredicatePattern") ? (OneOf<PatternNode, PatternNode[]>?)ToOneOfPatternNode(dict["InversePredicatePattern"]) : null;
+            opts.NoOpPattern = dict.ContainsKey("NoOpPattern") ? (OneOf<PatternNode, PatternNode[]>?)ToOneOfPatternNode(dict["NoOpPattern"]) : null;
 
             converted = opts;
             return true;
