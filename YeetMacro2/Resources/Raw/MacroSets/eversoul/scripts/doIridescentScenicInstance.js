@@ -39,6 +39,14 @@ while (macroService.IsRunning) {
 				macroService.PollPattern(patterns.battle.start, { DoClick: true, PredicatePattern: patterns.battle.exit });
 				macroService.PollPattern(patterns.battle.exit, { DoClick: true, PredicatePattern: patterns.iridescentScenicInstance.subjugation.battle });
 
+				const rewardAvailableResult = macroService.FindPattern(patterns.iridescentScenicInstance.subjugation.rewardAvailable);
+				if (rewardAvailableResult.IsSuccess) {
+					macroService.PollPattern(patterns.iridescentScenicInstance.subjugation.levelReward, { DoClick: true, PredicatePattern: patterns.iridescentScenicInstance.subjugation.levelReward.receive });
+					macroService.PollPattern(patterns.iridescentScenicInstance.subjugation.levelReward.receive, { DoClick: true, PredicatePattern: patterns.general.tapTheScreen });
+					macroService.PollPattern(patterns.general.tapTheScreen, { DoClick: true, PredicatePattern: patterns.iridescentScenicInstance.subjugation.levelReward.close });
+					macroService.PollPattern(patterns.iridescentScenicInstance.subjugation.levelReward.close, { DoClick: true, PredicatePattern: patterns.iridescentScenicInstance.subjugation.battle });
+				}
+
 				let subjugationResult = macroService.FindPattern(patterns.iridescentScenicInstance.subjugation);
 				while (macroService.IsRunning && !subjugationResult.IsSuccess) {
 					macroService.ClickPattern(patterns.general.back);
