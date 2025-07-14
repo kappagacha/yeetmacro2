@@ -89,7 +89,7 @@ while (macroService.IsRunning) {
 			macroService.PollPattern(patterns.irregularExtermination.pursuitOperation.selectTeam, { DoClick: true, PredicatePattern: patterns.battle.enter });
 			selectTeam(teamSlot);
 
-			if (isRotateOperation || !teamRestored) {
+			if (isRotateOperation || !teamRestored || settings.applyPreset.lastApplied.Value !== teamSlot) {
 				macroService.PollPattern(patterns.battle.battleRecord, { DoClick: true, PredicatePattern: patterns.battle.battleRecord.restoreTeam });
 				macroService.PollPattern(patterns.battle.battleRecord.restoreTeam, { DoClick: true, PredicatePattern: patterns.battle.battleRecord.restoreTeam.ok });
 				macroService.PollPattern(patterns.battle.battleRecord.restoreTeam.ok, { DoClick: true, PredicatePattern: patterns.battle.enter });

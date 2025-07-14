@@ -897,52 +897,6 @@
       "$path": "doDoppelganger.doRefillStamina"
     }
   },
-  "watchAds": {
-    "$type": "parent",
-    "$position": 0,
-    "$name": "watchAds",
-    "$path": "watchAds",
-    "userClickPattern": {
-      "$type": "pattern",
-      "$defaultValue": {
-        "$patterns": [],
-        "$isMultiPattern": false,
-        "$position": 0,
-        "$name": null,
-        "$path": "settings.watchAds.userClickPattern"
-      },
-      "$value": {
-        "$patterns": [],
-        "$isMultiPattern": false,
-        "$position": 0,
-        "$name": null,
-        "$path": "settings.watchAds.userClickPattern"
-      },
-      "$position": 0,
-      "$name": "userClickPattern",
-      "$path": "watchAds.userClickPattern"
-    },
-    "userNoOpPattern": {
-      "$type": "pattern",
-      "$defaultValue": {
-        "$patterns": [],
-        "$isMultiPattern": false,
-        "$position": 0,
-        "$name": null,
-        "$path": null
-      },
-      "$value": {
-        "$patterns": [],
-        "$isMultiPattern": false,
-        "$position": 0,
-        "$name": null,
-        "$path": null
-      },
-      "$position": 0,
-      "$name": "userNoOpPattern",
-      "$path": "watchAds.userNoOpPattern"
-    }
-  },
   "doWeeklyShop": {
     "$type": "parent",
     "$position": 0,
@@ -2285,6 +2239,52 @@
           "$path": "doWeeklyCraft.specialEnhancement.greaterEnhancement.gear"
         }
       }
+    }
+  },
+  "watchAds": {
+    "$type": "parent",
+    "$position": 0,
+    "$name": "watchAds",
+    "$path": "watchAds",
+    "userClickPattern": {
+      "$type": "pattern",
+      "$defaultValue": {
+        "$patterns": [],
+        "$isMultiPattern": false,
+        "$position": 0,
+        "$name": null,
+        "$path": "settings.watchAds.userClickPattern"
+      },
+      "$value": {
+        "$patterns": [],
+        "$isMultiPattern": false,
+        "$position": 0,
+        "$name": null,
+        "$path": "settings.watchAds.userClickPattern"
+      },
+      "$position": 0,
+      "$name": "userClickPattern",
+      "$path": "watchAds.userClickPattern"
+    },
+    "userNoOpPattern": {
+      "$type": "pattern",
+      "$defaultValue": {
+        "$patterns": [],
+        "$isMultiPattern": false,
+        "$position": 0,
+        "$name": null,
+        "$path": "settings.watchAds.userNoOpPattern"
+      },
+      "$value": {
+        "$patterns": [],
+        "$isMultiPattern": false,
+        "$position": 0,
+        "$name": null,
+        "$path": "settings.watchAds.userNoOpPattern"
+      },
+      "$position": 0,
+      "$name": "userNoOpPattern",
+      "$path": "watchAds.userNoOpPattern"
     }
   }
 }
