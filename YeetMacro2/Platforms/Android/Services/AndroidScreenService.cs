@@ -41,6 +41,7 @@ public class AndroidScreenService : IScreenService
 {
     public const int OVERLAY_SERVICE_REQUEST = 0;
     public const int POST_NOTIFICATION_REQUEST = 10;
+    public const int MEDIA_PROJECTION_REQUEST = 20;
     readonly IWindowManager _windowManager;
     readonly ConcurrentDictionary<AndroidWindowView, IShowable> _views = new();
     //FormsView _overlayWindow;
@@ -476,6 +477,13 @@ public class AndroidScreenService : IScreenService
             _context.CheckSelfPermission(global::Android.Manifest.Permission.PostNotifications) != global::Android.Content.PM.Permission.Granted)
         {
             _context.RequestPermissions([global::Android.Manifest.Permission.PostNotifications], POST_NOTIFICATION_REQUEST);
+            return;
+        }
+
+        if (OperatingSystem.IsAndroidVersionAtLeast(34) &&
+            _context.CheckSelfPermission(global::Android.Manifest.Permission.ForegroundServiceMediaProjection) != global::Android.Content.PM.Permission.Granted)
+        {
+            _context.RequestPermissions([global::Android.Manifest.Permission.ForegroundServiceMediaProjection], MEDIA_PROJECTION_REQUEST);
             return;
         }
 
