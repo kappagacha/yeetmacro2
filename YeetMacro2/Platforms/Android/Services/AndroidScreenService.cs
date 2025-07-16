@@ -12,9 +12,9 @@ using YeetMacro2.Platforms.Android.Views;
 using YeetMacro2.Services;
 using YeetMacro2.ViewModels;
 using YeetMacro2.Views;
-using CommunityToolkit.Mvvm.Messaging.Messages;
 using CommunityToolkit.Mvvm.Messaging;
 using static Android.Graphics.Bitmap;
+using Android.Media.Projection;
 
 namespace YeetMacro2.Platforms.Android.Services;
 
@@ -119,16 +119,14 @@ public class AndroidScreenService : IScreenService
         
         //_initialResolution = new Size(DeviceDisplay.MainDisplayInfo.Width, DeviceDisplay.MainDisplayInfo.Height);
         //_density = DeviceDisplay.MainDisplayInfo.Density;
-        WeakReferenceMessenger.Default.Register<PropertyChangedMessage<bool>, string>(this, nameof(ForegroundService), (r, propertyChangedMessage) =>
+        WeakReferenceMessenger.Default.Register<ForegroundService>(this, (r, foregroundService) =>
         {
-            if (propertyChangedMessage.NewValue)    // true means ForegroundService was started
+            if (foregroundService.IsRunning)    // true means ForegroundService was started
             {
                 //ShowOverlayWindow();
             }
             else // Foreground Service Exit action
             {
-                _mediaProjectionService.Stop();
-                _mediaProjectionService.StopRecording();
                 CloseAll();
                 Close(AndroidWindowView.MacroOverlayView);
                 Close(AndroidWindowView.ActionView);
@@ -480,15 +478,16 @@ public class AndroidScreenService : IScreenService
             return;
         }
 
-        if (OperatingSystem.IsAndroidVersionAtLeast(34) &&
-            _context.CheckSelfPermission(global::Android.Manifest.Permission.ForegroundServiceMediaProjection) != global::Android.Content.PM.Permission.Granted)
+        if (_mediaProjectionService.IsInitialized)
         {
-            _context.RequestPermissions([global::Android.Manifest.Permission.ForegroundServiceMediaProjection], MEDIA_PROJECTION_REQUEST);
+            Platform.AppContext.StartForegroundServiceCompat<ForegroundService>();
+        }
+        else
+        {
+            var mediaProjectionManager = (MediaProjectionManager)Platform.CurrentActivity.GetSystemService(Context.MediaProjectionService);
+            Platform.CurrentActivity.StartActivityForResult(mediaProjectionManager.CreateScreenCaptureIntent(), Services.MediaProjectionService.REQUEST_MEDIA_PROJECTION);
             return;
         }
-
-        // Foreground service is requred for projection service
-        _context.StartForegroundServiceCompat<ForegroundService>(); 
     }
 
     public void StopProjectionService()

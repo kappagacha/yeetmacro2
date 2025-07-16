@@ -59,7 +59,15 @@ public static class DisplayHelper
     {
         if (!_rotationToScreenBounds.ContainsKey(DisplayRotation))
         {
-            _rotationToScreenBounds.Add(DisplayRotation, new Size(DisplayInfo.Width, DisplayInfo.Height));
+            var width = DisplayInfo.Width;
+            var height = DisplayInfo.Height;
+            if (DisplayInfo.Rotation == DisplayRotation.Rotation0 && DisplayInfo.Orientation == DisplayOrientation.Portrait)
+            {
+                width = DisplayRotation == DisplayRotation.Rotation0 || DisplayRotation == DisplayRotation.Rotation180 ? DisplayInfo.Width : DisplayInfo.Height;
+                height = DisplayRotation == DisplayRotation.Rotation0 || DisplayRotation == DisplayRotation.Rotation180 ? DisplayInfo.Height : DisplayInfo.Width;
+            }
+           
+            _rotationToScreenBounds.Add(DisplayRotation, new Size(width, height));
         }
 
         return _rotationToScreenBounds[DisplayRotation];

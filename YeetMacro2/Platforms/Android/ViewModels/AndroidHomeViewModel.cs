@@ -74,12 +74,13 @@ public partial class AndriodHomeViewModel : ObservableObject
             }
         });
 
-        WeakReferenceMessenger.Default.Register<PropertyChangedMessage<bool>, string>(this, nameof(ForegroundService), (r, propertyChangedMessage) =>
+        WeakReferenceMessenger.Default.Register<ForegroundService>(this, (r, foregroundService) =>
         {
             if (IsAppearing) return;
 
-            if (propertyChangedMessage.NewValue)
+            if (foregroundService.IsRunning)
             {
+                IsProjectionServiceEnabled = true;
                 ShowActionView();
             }
             else
@@ -90,13 +91,9 @@ public partial class AndriodHomeViewModel : ObservableObject
 
         WeakReferenceMessenger.Default.Register<MediaProjectionService>(this, (r, mediaProjectionService) =>
         {
-            if (mediaProjectionService.IsInitialized)
+            if (!mediaProjectionService.IsInitialized)
             {
-                IsProjectionServiceEnabled = true;
-            }
-            else
-            {
-                IsProjectionServiceEnabled = IsMacroReady = false;
+                Platform.CurrentActivity.StartForegroundServiceCompat<ForegroundService>(ForegroundService.EXIT_ACTION);
             }
         });
 
@@ -208,6 +205,7 @@ public partial class AndriodHomeViewModel : ObservableObject
         else
         {
             _screenService.StopProjectionService();
+            Platform.CurrentActivity.StartForegroundServiceCompat<ForegroundService>(ForegroundService.EXIT_ACTION);            
         }
     }
 
@@ -356,6 +354,7 @@ If you agree, please tap OK then grant Accessibility service permission to YeetM
             if (!IsProjectionServiceEnabled)
             {
                 ToggleIsProjectionServiceEnabled();
+                return;
             }
             if (!IsAccessibilityEnabled)
             {

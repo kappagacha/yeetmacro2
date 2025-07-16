@@ -9,7 +9,6 @@ using static Android.Graphics.Bitmap;
 using YeetMacro2.Services;
 using Rect = Microsoft.Maui.Graphics.Rect;
 using CommunityToolkit.Mvvm.Messaging;
-using CommunityToolkit.Mvvm.Messaging.Messages;
 using YeetMacro2.ViewModels;
 using YeetMacro2.Data.Models;
 
@@ -35,29 +34,34 @@ public class MediaProjectionService : IRecorderService
     {
         _mediaProjectionCallback = new MediaProjectionCallback(this);
 
-        WeakReferenceMessenger.Default.Register<PropertyChangedMessage<bool>, string>(this, nameof(ForegroundService), (r, propertyChangedMessage) =>
+        WeakReferenceMessenger.Default.Register<ForegroundService>(this, (r, foregroundService) =>
         {
-            if (propertyChangedMessage.NewValue && !IsInitialized)
+            if (foregroundService.IsRunning)
             {
-                var mediaProjectionManager = (MediaProjectionManager)Platform.CurrentActivity.GetSystemService(Context.MediaProjectionService);
-                Platform.CurrentActivity.StartActivityForResult(mediaProjectionManager.CreateScreenCaptureIntent(), Services.MediaProjectionService.REQUEST_MEDIA_PROJECTION);
-            }
-            else if (propertyChangedMessage.NewValue)
-            {
-                WeakReferenceMessenger.Default.Send(this);
+                Start();
             }
             else
             {
-                if (_isRecording) StopRecording();
-                else Stop();
+                if (_isRecording) 
+                    StopRecording();
+                Stop();
             }
         });
     }
 
     public void Start()
     {
+        if (_virtualDisplay is not null)
+        {
+            WeakReferenceMessenger.Default.Send(this);
+            return;
+        }
+
         try
         {
+            // TODO: support vertical somehow. Currently hardcoding to horizontal
+            DisplayHelper.DisplayRotation = DisplayRotation.Rotation90;
+
             var screenResolution = DisplayHelper.ScreenResolution;
             var width = (int)screenResolution.Width;
             var height = (int)screenResolution.Height;
@@ -66,14 +70,23 @@ public class MediaProjectionService : IRecorderService
             // https://github.com/Fate-Grand-Automata/FGA/blob/2a62ab7a456a9913cf0355db81b5a15f13906f27/app/src/main/java/io/github/fate_grand_automata/runner/ScreenshotServiceHolder.kt#L53
             var mediaProjectionManager = (MediaProjectionManager)Platform.CurrentActivity.GetSystemService(Context.MediaProjectionService);
             _mediaProjection = mediaProjectionManager.GetMediaProjection(_resultCode, (Intent)_resultData.Clone());
-            MainThread.BeginInvokeOnMainThread(() => _mediaProjection.RegisterCallback(new MediaProjectionCallback(this), null));
+            _mediaProjection.RegisterCallback(_mediaProjectionCallback, null);
             _imageReader = ImageReader.NewInstance(width, height, (ImageFormatType)global::Android.Graphics.Format.Rgba8888, 2);
             _virtualDisplay = _mediaProjection.CreateVirtualDisplay("ScreenCapture", width, height, density, (DisplayFlags)VirtualDisplayFlags.AutoMirror, _imageReader.Surface, null, null);
+
+            // Android 14 does not allow reusing media projection tokens
+            if (OperatingSystem.IsAndroidVersionAtLeast(34))
+            {
+                _resultCode = 0;
+            }
         }
         catch (Exception ex)
         {
             ServiceHelper.GetService<LogServiceViewModel>().LogDebug($"MediaProjectionService Start Exception: {ex.Message}");
             ServiceHelper.GetService<LogServiceViewModel>().LogException(ex);
+
+            Stop();
+            WeakReferenceMessenger.Default.Send(this);
         }
     }
 
@@ -94,16 +107,11 @@ public class MediaProjectionService : IRecorderService
 
         Toast.MakeText(Platform.CurrentActivity, "Media projection initialized...", ToastLength.Short).Show();
         WeakReferenceMessenger.Default.Send(this);
+        Platform.AppContext.StartForegroundServiceCompat<ForegroundService>();
     }
 
     private Bitmap GetBitmap()
     {
-        if (_imageReader is null)
-        {
-            Start();
-            Thread.Sleep(1_000);
-        }
-
         //https://www.tabnine.com/code/java/classes/android.media.Image?snippet=5ce69622e594670004ac3235
         var image = _imageReader.AcquireLatestImage();
         if (image == null) return null;
@@ -122,7 +130,6 @@ public class MediaProjectionService : IRecorderService
 
         return bitmap;
     }
-
 
     public void CallbackStop()
     {
@@ -187,12 +194,6 @@ public class MediaProjectionService : IRecorderService
 
     public void TakeScreenCapture()
     {
-        if (_imageReader is null)
-        {
-            Start();
-            Thread.Sleep(1_000);
-        }
-
         var imageData = GetCurrentImageData();
         var folder = global::Android.OS.Environment.GetExternalStoragePublicDirectory(global::Android.OS.Environment.DirectoryPictures).Path;
         var file = System.IO.Path.Combine(folder, $"{DateTime.Now:screencapture_yyyyMMdd_HHmmss}.jpeg");
@@ -208,7 +209,6 @@ public class MediaProjectionService : IRecorderService
     {
         if (_isRecording) return;
 
-        Start();
         var screenResolution = DisplayHelper.ScreenResolution;
         var width = (int)screenResolution.Width;
         var height = (int)screenResolution.Height;

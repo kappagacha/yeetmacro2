@@ -14,6 +14,7 @@ public class ForegroundService : Service
     public const string FOREGROUND_CHANNEL_ID = "9001";
     public const string EXIT_ACTION = "EXIT";
     public const int SERVICE_RUNNING_NOTIFICATION_ID = 10000;
+    public bool IsRunning = false;
     public ForegroundService()
     {
     }
@@ -28,22 +29,10 @@ public class ForegroundService : Service
         switch (intent.Action)
         {
             case EXIT_ACTION:
+                this.IsRunning = false;
                 StopForeground(StopForegroundFlags.Remove);
-                WeakReferenceMessenger.Default.Unregister<MediaProjectionService>(this);
-                WeakReferenceMessenger.Default.Send(new PropertyChangedMessage<bool>(this, nameof(OnStartCommand), true, false), nameof(ForegroundService));
                 break;
             default:
-                if (!WeakReferenceMessenger.Default.IsRegistered<MediaProjectionService>(this))
-                {
-                    WeakReferenceMessenger.Default.Register<MediaProjectionService>(this, (r, mediaProjectionService) =>
-                    {
-                        if (!mediaProjectionService.IsInitialized)
-                        {
-                            Platform.CurrentActivity.StartForegroundServiceCompat<ForegroundService>(ForegroundService.EXIT_ACTION);
-                        }
-                    });
-                }
-
                 if (OperatingSystem.IsAndroidVersionAtLeast(29))
                 {
                     StartForeground(SERVICE_RUNNING_NOTIFICATION_ID, GenerateNotification(), global::Android.Content.PM.ForegroundService.TypeMediaProjection);
@@ -52,9 +41,11 @@ public class ForegroundService : Service
                 {
                     StartForeground(SERVICE_RUNNING_NOTIFICATION_ID, GenerateNotification());
                 }
-                WeakReferenceMessenger.Default.Send(new PropertyChangedMessage<bool>(this, nameof(OnStartCommand), false, true), nameof(ForegroundService));
+                this.IsRunning = true;
                 break;
         }
+
+        WeakReferenceMessenger.Default.Send(this);
 
         return StartCommandResult.NotSticky;
     }
@@ -121,7 +112,6 @@ public class ForegroundService : Service
 
     public override void OnDestroy()
     {
-        WeakReferenceMessenger.Default.Unregister<MediaProjectionService>(this);
         base.OnDestroy();
     }
 
