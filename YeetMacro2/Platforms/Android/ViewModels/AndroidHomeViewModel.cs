@@ -135,17 +135,17 @@ public partial class AndriodHomeViewModel : ObservableObject
 
         WeakReferenceMessenger.Default.Register<DisplayInfoChangedEventArgs>(this, (r, e) =>
         {
-            CurrentResolution = DisplayHelper.CurrentResolution;
+            CurrentResolution = DisplayHelper.UsableResolution;
             DisplayRotation = DisplayHelper.DisplayRotation;
 
             if (_macroManagerViewModel.SelectedMacroSet is null) WidthStatus = "Invalid";
-            else if (_macroManagerViewModel.SelectedMacroSet.SupportsGreaterWidth && DisplayHelper.ScreenResolution.Width > _macroManagerViewModel.SelectedMacroSet.Resolution.Width) WidthStatus = "Acceptable";
-            else if (DisplayHelper.ScreenResolution.Width == _macroManagerViewModel.SelectedMacroSet.Resolution.Width) WidthStatus = "Valid";
+            else if (_macroManagerViewModel.SelectedMacroSet.SupportsGreaterWidth && DisplayHelper.PhysicalResolution.Width > _macroManagerViewModel.SelectedMacroSet.Resolution.Width) WidthStatus = "Acceptable";
+            else if (DisplayHelper.PhysicalResolution.Width == _macroManagerViewModel.SelectedMacroSet.Resolution.Width) WidthStatus = "Valid";
             else WidthStatus = "Invalid";
 
             if (_macroManagerViewModel.SelectedMacroSet is null) HeightStatus = "Invalid";
-            else if (_macroManagerViewModel.SelectedMacroSet.SupportsGreaterHeight && DisplayHelper.ScreenResolution.Height > _macroManagerViewModel.SelectedMacroSet.Resolution.Height) HeightStatus = "Acceptable";
-            else if (DisplayHelper.ScreenResolution.Height == _macroManagerViewModel.SelectedMacroSet.Resolution.Height) HeightStatus = "Valid";
+            else if (_macroManagerViewModel.SelectedMacroSet.SupportsGreaterHeight && DisplayHelper.PhysicalResolution.Height > _macroManagerViewModel.SelectedMacroSet.Resolution.Height) HeightStatus = "Acceptable";
+            else if (DisplayHelper.PhysicalResolution.Height == _macroManagerViewModel.SelectedMacroSet.Resolution.Height) HeightStatus = "Valid";
             else HeightStatus = "Invalid";
         });
     }

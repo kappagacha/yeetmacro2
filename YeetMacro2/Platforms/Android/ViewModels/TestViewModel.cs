@@ -410,7 +410,7 @@ public partial class TestViewModel : ObservableObject
             return;
         }
 
-        Resolution = DisplayHelper.CurrentResolution.ToString();
+        Resolution = DisplayHelper.UsableResolution.ToString();
     }
 
     [RelayCommand]
@@ -429,7 +429,7 @@ public partial class TestViewModel : ObservableObject
 
         //CustomResolution = _screenService.CurrentResolution.ToString();
 
-        CustomResolution = DisplayHelper.ScreenResolution.ToString();
+        CustomResolution = DisplayHelper.PhysicalResolution.ToString();
     }
 
     [RelayCommand]

@@ -15,6 +15,7 @@ using YeetMacro2.Views;
 using CommunityToolkit.Mvvm.Messaging;
 using static Android.Graphics.Bitmap;
 using Android.Media.Projection;
+using AndroidX.Core.View;
 
 namespace YeetMacro2.Platforms.Android.Services;
 
@@ -87,14 +88,22 @@ public class AndroidScreenService : IScreenService
     {
         get
         {
+            var y = Platform.CurrentActivity?.Window.Attributes;
+            var insets = Platform.CurrentActivity?.Window?.DecorView.RootWindowInsets;
 
-            var activity = Platform.CurrentActivity;
-            var window = activity?.Window;
-            if (window is null) return "Window not found";
+            var x = insets.GetInsets(WindowInsetsCompat.Type.TappableElement());
+            var systemBars = insets.GetInsets(WindowInsetsCompat.Type.SystemBars());
+            var ime = insets.GetInsets(WindowInsetsCompat.Type.Ime());
+            var displayCutout = Platform.CurrentActivity?.Window?.DecorView.RootWindowInsets?.DisplayCutout;
 
-            var rect = new Rect();
-            window.DecorView.GetWindowVisibleDisplayFrame(rect);
-            return $"Top: {rect.Top}\nLeft: {rect.Left}\nRight: {rect.Right}\nBottom: {rect.Bottom}";
+            return "Test";
+            //var activity = Platform.CurrentActivity;
+            //var window = activity?.Window;
+            //if (window is null) return "Window not found";
+
+            //var rect = new Rect();
+            //window.DecorView.GetWindowVisibleDisplayFrame(rect);
+            //return $"Top: {rect.Top}\nLeft: {rect.Left}\nRight: {rect.Right}\nBottom: {rect.Bottom}";
 
             //var rect = new Rect();
             //_overlayWindow.GetGlobalVisibleRect(rect);
@@ -290,7 +299,7 @@ public class AndroidScreenService : IScreenService
             var boundsPadding = 4;
             byte[] needleImageData = pattern.ImageData;
             byte[] haystackImageData = null;
-            var currentResolution = DisplayHelper.CurrentResolution;
+            var currentResolution = DisplayHelper.UsableResolution;
             var rect = pattern.Bounds.Offset(opts.Offset);
             //var rect = opts.OverrideRect != Rect.Zero ? opts.OverrideRect : pattern.RawBounds;
 
@@ -309,14 +318,18 @@ public class AndroidScreenService : IScreenService
                 else if (pattern.OffsetCalcType == OffsetCalcType.Default || pattern.OffsetCalcType == OffsetCalcType.Center || 
                          pattern.OffsetCalcType == OffsetCalcType.HorizontalStretchOffset || pattern.OffsetCalcType == OffsetCalcType.VerticalStretchOffset)
                 {
-                    var topLeft = DisplayHelper.TopLeft;
-                    if (!topLeft.IsEmpty)   // handle off by one due to calculations
-                    {
-                        var topLeftPadding = 1;
-                        haystackImageData = _mediaProjectionService.GetCurrentImageData(
-                            new Rect(rect.Location.Offset(-topLeftPadding, -topLeftPadding),
-                            pattern.RawBounds.Size + new Size(topLeftPadding * 2, topLeftPadding * 2)));
-                    }
+                    var topLeftPadding = 1;
+                    haystackImageData = _mediaProjectionService.GetCurrentImageData(
+                        new Rect(rect.Location.Offset(-topLeftPadding, -topLeftPadding),
+                        pattern.RawBounds.Size + new Size(topLeftPadding * 2, topLeftPadding * 2)));
+                    //var topLeft = DisplayHelper.TopLeft;
+                    //if (!topLeft.IsEmpty)   // handle off by one due to calculations
+                    //{
+                    //    var topLeftPadding = 1;
+                    //    haystackImageData = _mediaProjectionService.GetCurrentImageData(
+                    //        new Rect(rect.Location.Offset(-topLeftPadding, -topLeftPadding),
+                    //        pattern.RawBounds.Size + new Size(topLeftPadding * 2, topLeftPadding * 2)));
+                    //}
                 }
                 
                 haystackImageData ??= pattern.RawBounds != Rect.Zero ?
@@ -826,12 +839,20 @@ public class AndroidScreenService : IScreenService
 
     public static Rect GetWindowBounds(DisplayRotation rotation)
     {
-        if (!OperatingSystem.IsAndroidVersionAtLeast(28)) return Rect.FromLTRB(0, 0, DisplayHelper.DisplayInfo.Width, DisplayHelper.DisplayInfo.Height);
+        if (!OperatingSystem.IsAndroidVersionAtLeast(29)) return Rect.FromLTRB(0, 0, DisplayHelper.DisplayInfo.Width, DisplayHelper.DisplayInfo.Height);
 
-        var decorView = Platform.CurrentActivity?.Window?.DecorView;
-        var insets = decorView?.RootWindowInsets;
-        var cutout = insets?.DisplayCutout;
+        // https://github.com/Fate-Grand-Automata/FGA/blob/master/app/src/main/java/io/github/fate_grand_automata/util/CutoutManager.kt#L53
+        //var cutout = OperatingSystem.IsAndroidVersionAtLeast(30) ? 
+        //    Platform.CurrentActivity?.Display?.Cutout : 
+        //    Platform.CurrentActivity?.Window?.DecorView?.RootWindowInsets?.DisplayCutout;
 
+        //var rect = new global::Android.Graphics.Rect();
+        //Platform.CurrentActivity?.Window?.DecorView?.GetWindowVisibleDisplayFrame(rect);
+        //var frame = Platform.CurrentActivity?.Window?.DecorView?.RootWindowInsets?.Frame;
+
+        // Should get the correct values as long as you start projection service in an orientation
+        // that has the cutout. Otherwise, you get a null cutout
+        var cutout = Platform.CurrentActivity?.Window?.DecorView?.RootWindowInsets?.DisplayCutout;
         if (cutout is null) return Rect.FromLTRB(0, 0, DisplayHelper.DisplayInfo.Width, DisplayHelper.DisplayInfo.Height);
 
         var displayInfo = DisplayHelper.DisplayInfo;
@@ -844,29 +865,29 @@ public class AndroidScreenService : IScreenService
             case DisplayRotation.Rotation0:
                 top = cutout.SafeInsetTop;
                 left = cutout.SafeInsetLeft;
-                width -= cutout.SafeInsetLeft;
-                height -= cutout.SafeInsetTop;
+                width -= cutout.SafeInsetLeft - cutout.SafeInsetRight;
+                height -= cutout.SafeInsetTop - cutout.SafeInsetBottom;
                 break;
 
             case DisplayRotation.Rotation90:
                 top = cutout.SafeInsetRight;
                 left = cutout.SafeInsetTop;
-                width -= cutout.SafeInsetTop;
-                height -= cutout.SafeInsetRight;
+                width -= cutout.SafeInsetTop - cutout.SafeInsetBottom;
+                height -= cutout.SafeInsetLeft - cutout.SafeInsetRight;
                 break;
 
             case DisplayRotation.Rotation180:
                 top = cutout.SafeInsetBottom;
                 left = cutout.SafeInsetRight;
-                width -= cutout.SafeInsetRight;
-                height -= cutout.SafeInsetBottom;
+                width -= cutout.SafeInsetLeft - cutout.SafeInsetRight;
+                height -= cutout.SafeInsetTop - cutout.SafeInsetBottom;
                 break;
 
             case DisplayRotation.Rotation270:
                 top = cutout.SafeInsetLeft;
                 left = cutout.SafeInsetBottom;
-                width -= cutout.SafeInsetBottom;
-                height -= cutout.SafeInsetLeft;
+                width -= cutout.SafeInsetTop - cutout.SafeInsetBottom;
+                height -= cutout.SafeInsetLeft - cutout.SafeInsetRight;
                 break;
         }
 

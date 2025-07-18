@@ -13,51 +13,51 @@ public class PatternNode : Node, IParentNode<PatternNode, PatternNode>
 
 public static class DisplayHelper
 {
-    private static readonly Dictionary<DisplayRotation, Rect> _rotationToWindowBounds = new ();
-    private static readonly Dictionary<DisplayRotation, Size> _rotationToScreenBounds = new ();
+    private static readonly Dictionary<DisplayRotation, Rect> _rotationToUsableBounds = new ();
+    private static readonly Dictionary<DisplayRotation, Size> _rotationToPhysicalBounds = new ();
     public static DisplayRotation DisplayRotation { get; set; }
     public static DisplayInfo DisplayInfo { get; set; }
     public static Point TopLeft 
     { 
         get 
         {
-            var currentWindowBounds = ResolveWindowBounds();
+            var currentWindowBounds = ResolveUsableResolution();
             return currentWindowBounds.Location;
         }
     }
-    public static Size CurrentResolution
+    public static Size UsableResolution
     {
         get
         {
-            var currentWindowBounds = ResolveWindowBounds();
+            var currentWindowBounds = ResolveUsableResolution();
             return currentWindowBounds.Size;
         }
     }
-    public static Size ScreenResolution
+    public static Size PhysicalResolution
     {
         get
         {
-            return ResolveScreenBounds();
+            return ResolvePhysicalBounds();
         }
     }
 
-    private static Rect ResolveWindowBounds()
+    private static Rect ResolveUsableResolution()
     {
-        if (!_rotationToWindowBounds.ContainsKey(DisplayRotation))
+        if (!_rotationToUsableBounds.ContainsKey(DisplayRotation))
         {
 #if ANDROID
-            _rotationToWindowBounds.Add(DisplayRotation, YeetMacro2.Platforms.Android.Services.AndroidScreenService.GetWindowBounds(DisplayRotation));
+            _rotationToUsableBounds.Add(DisplayRotation, YeetMacro2.Platforms.Android.Services.AndroidScreenService.GetWindowBounds(DisplayRotation));
 #elif WINDOWS
-            _rotationToWindowBounds.Add(DisplayRotation, new Rect(0, 0, DisplayInfo.Width, DisplayInfo.Height));
+            _rotationToUsableBounds.Add(DisplayRotation, new Rect(0, 0, DisplayInfo.Width, DisplayInfo.Height));
 #endif
         }
 
-        return _rotationToWindowBounds[DisplayRotation];
+        return _rotationToUsableBounds[DisplayRotation];
     }
 
-    private static Size ResolveScreenBounds()
+    private static Size ResolvePhysicalBounds()
     {
-        if (!_rotationToScreenBounds.ContainsKey(DisplayRotation))
+        if (!_rotationToPhysicalBounds.ContainsKey(DisplayRotation))
         {
             var width = DisplayInfo.Width;
             var height = DisplayInfo.Height;
@@ -67,10 +67,10 @@ public static class DisplayHelper
                 height = DisplayRotation == DisplayRotation.Rotation0 || DisplayRotation == DisplayRotation.Rotation180 ? DisplayInfo.Height : DisplayInfo.Width;
             }
            
-            _rotationToScreenBounds.Add(DisplayRotation, new Size(width, height));
+            _rotationToPhysicalBounds.Add(DisplayRotation, new Size(width, height));
         }
 
-        return _rotationToScreenBounds[DisplayRotation];
+        return _rotationToPhysicalBounds[DisplayRotation];
     }
 }
 
@@ -105,7 +105,9 @@ public class Pattern: ISortable
             var xOffset = 0;
             var yOffset = 0;
             var topLeft = DisplayHelper.TopLeft;
-            var currentResolution = DisplayHelper.CurrentResolution;
+            var usableResolution = DisplayHelper.UsableResolution;
+            var physicalResolution = DisplayHelper.PhysicalResolution;
+            var rightMargin = topLeft.X != 0 ? 0: (int)physicalResolution.Width - (int)usableResolution.Width;
 
             switch (OffsetCalcType)
             {
@@ -114,28 +116,31 @@ public class Pattern: ISortable
                 case OffsetCalcType.Default:
                 case OffsetCalcType.Center:
                     {   // horizontal center handling
-                        var deltaX = currentResolution.Width - Resolution.Width + (topLeft.X * 2);
-                        xOffset = (int)(deltaX / 2);
+                        var deltaX = physicalResolution.Width - Resolution.Width;
+                        //var deltaX = usableResolution.Width - Resolution.Width + (topLeft.X * 2);
+                        xOffset = (int)((deltaX / 2) + (topLeft.X / 2) - (rightMargin / 2));
                     }
                     break;
                 case OffsetCalcType.DockRight:
                     {   // horizontal dock right handling (dock left does not need handling)
                         var right = Resolution.Width - RawBounds.X;
-                        var targetX = currentResolution.Width - right + topLeft.X;
+                        var targetX = physicalResolution.Width - right - rightMargin;
+                        //var targetX = usableResolution.Width - right + topLeft.X;
+                        //var targetX = currentResolution.Width - right + topLeft.X - bottomRightOffset.X;
                         xOffset = (int)(targetX - RawBounds.X);
                     }
                     break;
                 case OffsetCalcType.HorizontalStretchOffset:
                     {
                         // HorizontalStretchMultiplier = targetXOffset / deltaX
-                        var deltaX = currentResolution.Width - Resolution.Width;
+                        var deltaX = physicalResolution.Width - Resolution.Width;
                         xOffset = (int)(deltaX * HorizontalStretchMultiplier) + (int)topLeft.X;
                     }
                     break;
                 case OffsetCalcType.VerticalStretchOffset:
                     {
                         // HorizontalStretchMultiplier = targetYOffset / deltaY
-                        var deltaY = currentResolution.Height - Resolution.Height;
+                        var deltaY = physicalResolution.Height - Resolution.Height;
                         yOffset = (int)(deltaY * VerticalStretchMultiplier) + (int)topLeft.Y;
                     }
                     break;
@@ -159,14 +164,14 @@ public class Pattern: ISortable
                     {
                         case OffsetCalcType.None:
                         case OffsetCalcType.DockLeft:
-                            return new Rect(RawBounds.Location, new Size(RawBounds.Width + DisplayHelper.CurrentResolution.Width - Resolution.Width, RawBounds.Width));
+                            return new Rect(RawBounds.Location, new Size(RawBounds.Width + DisplayHelper.PhysicalResolution.Width - Resolution.Width, RawBounds.Width));
                         case OffsetCalcType.DockRight:
-                            return new Rect(RawBounds.Location.Offset(Resolution.Width - DisplayHelper.CurrentResolution.Width, 0), new Size(RawBounds.Width + DisplayHelper.CurrentResolution.Width - Resolution.Width, RawBounds.Width));
+                            return new Rect(RawBounds.Location.Offset(Resolution.Width - DisplayHelper.PhysicalResolution.Width, 0), new Size(RawBounds.Width + DisplayHelper.PhysicalResolution.Width - Resolution.Width, RawBounds.Width));
                         default:
-                            return new Rect(RawBounds.Location.Offset((Resolution.Width - DisplayHelper.CurrentResolution.Width) / 2.0, 0), new Size(RawBounds.Width + DisplayHelper.CurrentResolution.Width - Resolution.Width, RawBounds.Width));
+                            return new Rect(RawBounds.Location.Offset((Resolution.Width - DisplayHelper.PhysicalResolution.Width) / 2.0, 0), new Size(RawBounds.Width + DisplayHelper.PhysicalResolution.Width - Resolution.Width, RawBounds.Width));
                     }
                 case BoundsCalcType.FillHeight:
-                    return new Rect(RawBounds.Location, new Size(RawBounds.Width, RawBounds.Height + DisplayHelper.CurrentResolution.Height - Resolution.Height));
+                    return new Rect(RawBounds.Location, new Size(RawBounds.Width, RawBounds.Height + DisplayHelper.PhysicalResolution.Height - Resolution.Height));
             }
         }
     }

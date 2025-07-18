@@ -62,9 +62,9 @@ public class MediaProjectionService : IRecorderService
             // TODO: support vertical somehow. Currently hardcoding to horizontal
             DisplayHelper.DisplayRotation = DisplayRotation.Rotation90;
 
-            var screenResolution = DisplayHelper.ScreenResolution;
-            var width = (int)screenResolution.Width;
-            var height = (int)screenResolution.Height;
+            var physicalResolution = DisplayHelper.PhysicalResolution;
+            var width = (int)physicalResolution.Width;
+            var height = (int)physicalResolution.Height;
             var density = (int)DisplayHelper.DisplayInfo.Density;
 
             // https://github.com/Fate-Grand-Automata/FGA/blob/2a62ab7a456a9913cf0355db81b5a15f13906f27/app/src/main/java/io/github/fate_grand_automata/runner/ScreenshotServiceHolder.kt#L53
@@ -209,7 +209,7 @@ public class MediaProjectionService : IRecorderService
     {
         if (_isRecording) return;
 
-        var screenResolution = DisplayHelper.ScreenResolution;
+        var screenResolution = DisplayHelper.PhysicalResolution;
         var width = (int)screenResolution.Width;
         var height = (int)screenResolution.Height;
         var density = (int)DisplayHelper.DisplayInfo.Density;

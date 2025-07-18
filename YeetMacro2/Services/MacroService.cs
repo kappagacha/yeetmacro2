@@ -107,7 +107,7 @@ public class MacroService
 
     public Size GetCurrentResolution()
     {
-        return DisplayHelper.CurrentResolution;
+        return DisplayHelper.PhysicalResolution;
     }
 
     public double GetScreenDensity()
@@ -340,7 +340,7 @@ public class MacroService
                     {
                         IsBoundsPattern = true,
                         RawBounds = new Rect(point, Size.Zero),
-                        Resolution = DisplayHelper.ScreenResolution,
+                        Resolution = DisplayHelper.PhysicalResolution,
                         OffsetCalcType = OffsetCalcType.None
                     }
                 ]
