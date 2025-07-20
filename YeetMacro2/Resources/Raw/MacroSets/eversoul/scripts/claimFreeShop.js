@@ -23,10 +23,6 @@ while (macroService.IsRunning) {
 			//const regularPackSwipeResult = macroService.SwipePollPattern(patterns.cashShop.regularPack, { Start: { X: 100, Y: 650 }, End: { X: 100, Y: 200 } });
 			const regularPackSwipeResult = macroService.PollPattern(patterns.cashShop.regularPack, { SwipePattern: patterns.cashShop.leftPanelSwipe, TimeoutMs: 10_000 });
 
-			if (!swipeResult.IsSuccess) {
-				throw new Error('Unable to find normal summon');
-			}
-
 			if (!regularPackSwipeResult.IsSuccess) {
 				throw new Error('Unable to find regular pack');
 			}
