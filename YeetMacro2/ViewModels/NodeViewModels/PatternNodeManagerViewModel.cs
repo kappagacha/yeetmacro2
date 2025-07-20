@@ -447,7 +447,7 @@ public partial class PatternNodeManagerViewModel : NodeManagerViewModel<PatternN
             await Task.Delay(300);
             _screenService.DoSwipe(pattern);     //one to swipe
             await Task.Delay(300);
-            _screenService.DebugRectangle(pattern.Bounds.Offset(pattern.Offset));
+            _screenService.DrawRectangle(pattern.Bounds.Offset(pattern.Offset));
         });
     }
 }
