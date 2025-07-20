@@ -332,7 +332,6 @@ public class AndroidScreenService : IScreenService
             var boundsPadding = 4;
             byte[] needleImageData = pattern.ImageData;
             byte[] haystackImageData = null;
-            var currentResolution = DisplayHelper.UsableResolution;
             var rect = pattern.Bounds.Offset(opts.Offset);
             //var rect = opts.OverrideRect != Rect.Zero ? opts.OverrideRect : pattern.RawBounds;
 
