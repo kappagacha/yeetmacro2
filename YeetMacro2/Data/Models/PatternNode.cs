@@ -118,7 +118,7 @@ public class Pattern: ISortable
             switch (OffsetCalcType)
             {
                 case OffsetCalcType.DockLeft:
-                    return DisplayHelper.TopLeft;
+                    return topLeft;
                 case OffsetCalcType.Default:
                 case OffsetCalcType.Center:
                     {   // horizontal center handling
