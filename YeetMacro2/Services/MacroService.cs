@@ -537,7 +537,7 @@ public class MacroService
             MainThread.BeginInvokeOnMainThread(() =>
             {
                 _screenService.DebugClear();
-                _screenService.DebugRectangle(pattern.Bounds);
+                _screenService.DebugRectangle(pattern.Bounds.Offset(pattern.Offset));
             });
         }
 

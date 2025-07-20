@@ -204,7 +204,7 @@ public class AndroidScreenService : IScreenService
 
     public void DoSwipe(Pattern pattern)
     {
-        var bounds = pattern.Bounds;
+        var bounds = pattern.Bounds.Offset(pattern.Offset);
         var direction = pattern.SwipeDirection == Data.Models.SwipeDirection.Auto
             ? (bounds.Height > bounds.Width
                 ? Data.Models.SwipeDirection.BottomToTop
