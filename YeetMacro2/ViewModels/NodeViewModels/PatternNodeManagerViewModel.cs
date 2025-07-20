@@ -434,4 +434,17 @@ public partial class PatternNodeManagerViewModel : NodeManagerViewModel<PatternN
             _toastService.Show($"Offset applied to pattern");
         }
     }
+
+    [RelayCommand]
+    private void TestSwipe(Pattern pattern)
+    {
+        if (pattern == null) return;
+
+        MainThread.BeginInvokeOnMainThread(async () =>
+        {
+            _screenService.DoSwipe(pattern);     //one to change focus
+            await Task.Delay(300);
+            _screenService.DoSwipe(pattern);     //one to swipe
+        });
+    }
 }

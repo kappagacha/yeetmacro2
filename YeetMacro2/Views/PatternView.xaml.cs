@@ -38,6 +38,8 @@ public partial class PatternView : ContentView
         BindableProperty.Create(nameof(ApplyPatternTextMatchCommand), typeof(ICommand), typeof(ImageView));
     public static readonly BindableProperty ApplyPatternOffsetCommandProperty =
         BindableProperty.Create(nameof(ApplyPatternOffsetCommand), typeof(ICommand), typeof(ImageView));
+    public static readonly BindableProperty TestSwipeCommandProperty =
+        BindableProperty.Create(nameof(TestSwipeCommand), typeof(ICommand), typeof(ImageView));
 
 
     private static void PatternPropertyChanged(BindableObject bindable, object oldValue, object newValue)
@@ -138,6 +140,12 @@ public partial class PatternView : ContentView
         get { return (ICommand)GetValue(ApplyPatternOffsetCommandProperty); }
         set { SetValue(ApplyPatternOffsetCommandProperty, value); }
     }
+    public ICommand TestSwipeCommand
+    {
+        get { return (ICommand)GetValue(TestSwipeCommandProperty); }
+        set { SetValue(TestSwipeCommandProperty, value); }
+    }
+
     public PatternView()
     {
         InitializeComponent();
@@ -214,6 +222,18 @@ public partial class PatternView : ContentView
         UpdateCanvas(Pattern);
     }
 
+    private async void PatternType_Clicked(object sender, EventArgs e)
+    {
+        var pattern = ((ImageButton)sender).BindingContext as Pattern;
+        var options = Enum.GetValues<PatternType>().Select(oct => oct.ToString()).ToArray();
+        var selectedOption = await ServiceHelper.GetService<IInputService>().SelectOption("Select option", options);
+        if (!String.IsNullOrEmpty(selectedOption) && selectedOption != "cancel" && selectedOption != "ok")
+        {
+            pattern.Type = Enum.Parse<PatternType>(selectedOption);
+            SavePatternCommand.Execute(new object[] { pattern, PatternNode });
+        }
+    }
+
     private async void OffsetCalcType_Clicked(object sender, EventArgs e)
     {
         var pattern = ((ImageButton)sender).BindingContext as Pattern;
@@ -234,6 +254,18 @@ public partial class PatternView : ContentView
         if (!String.IsNullOrEmpty(selectedOption) && selectedOption != "cancel" && selectedOption != "ok")
         {
             pattern.BoundsCalcType = Enum.Parse<BoundsCalcType>(selectedOption);
+            SavePatternCommand.Execute(new object[] { pattern, PatternNode });
+        }
+    }
+
+    private async void SwipeDirection_Clicked(object sender, EventArgs e)
+    {
+        var pattern = ((ImageButton)sender).BindingContext as Pattern;
+        var options = Enum.GetValues<Data.Models.SwipeDirection>().Select(oct => oct.ToString()).ToArray();
+        var selectedOption = await ServiceHelper.GetService<IInputService>().SelectOption("Select option", options);
+        if (!String.IsNullOrEmpty(selectedOption) && selectedOption != "cancel" && selectedOption != "ok")
+        {
+            pattern.SwipeDirection = Enum.Parse<Data.Models.SwipeDirection>(selectedOption);
             SavePatternCommand.Execute(new object[] { pattern, PatternNode });
         }
     }

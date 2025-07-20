@@ -53,6 +53,7 @@ public class AndroidScreenService : IScreenService
     readonly IOcrService _ocrService;
     readonly YeetAccessibilityService _accessibilityService;
     readonly IToastService _toastService;
+    readonly Random _random = new Random();
     //Size _initialResolution;
     //readonly double _density;
     public int UserDrawViewWidth => _views.ContainsKey(AndroidWindowView.UserDrawView) ? ((FormsView)_views[AndroidWindowView.UserDrawView]).MeasuredHeightAndState : -1;
@@ -201,6 +202,38 @@ public class AndroidScreenService : IScreenService
         _accessibilityService.DoClick(point, holdDurationMs);
     }
 
+    public void DoSwipe(Pattern pattern)
+    {
+        var bounds = pattern.Bounds;
+        var direction = pattern.SwipeDirection == Data.Models.SwipeDirection.Auto
+            ? (bounds.Height > bounds.Width
+                ? Data.Models.SwipeDirection.BottomToTop
+                : Data.Models.SwipeDirection.RightToLeft)
+            : pattern.SwipeDirection;
+
+        var center = bounds.Center;
+        var halfWidth = bounds.Width / 2;
+        var halfHeight = bounds.Height / 2;
+
+        var (dx, dy) = direction switch
+        {
+            Data.Models.SwipeDirection.RightToLeft => (halfWidth, 0.0),
+            Data.Models.SwipeDirection.LeftToRight => (-halfWidth, 0.0),
+            Data.Models.SwipeDirection.BottomToTop => (0.0, halfHeight),
+            Data.Models.SwipeDirection.TopToBottom => (0.0, -halfHeight),
+            _ => (0, 0)
+        };
+
+        var variance = 5;
+        var dxVarianceStart = _random.Next(-variance, variance);
+        var dyVarianceStart = _random.Next(-variance, variance);
+        var dxVarianceEnd = _random.Next(-variance, variance);
+        var dyVarianceEnd = _random.Next(-variance, variance);
+        var start = center.Offset(dx + dxVarianceStart, dy + dyVarianceStart);
+        var end = center.Offset(-dx + dxVarianceEnd, -dy + dyVarianceEnd);
+        DoSwipe(start, end);
+    }
+
     public void DoSwipe(Point start, Point end)
     {
         _accessibilityService.DoSwipe(start, end);
@@ -235,7 +268,7 @@ public class AndroidScreenService : IScreenService
 
     public FindPatternResult FindPattern(Pattern pattern, FindOptions opts)
     {
-        if (pattern.IsBoundsPattern)
+        if (pattern.Type == PatternType.Bounds)
         {
             return new FindPatternResult()
             {

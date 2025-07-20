@@ -28,10 +28,37 @@
                     <Entry VerticalOptions="Center" Keyboard="Numeric" Text="{Binding Pattern.VariancePct, Source={Reference thisView}}" />
                 </HorizontalStackLayout>
                 <HorizontalStackLayout Margin="0" Padding="0" IsVisible="{Binding IsToggled, Source={x:Reference generalFlagsToggle}}">
-                    <CheckBox TranslationX="{OnPlatform WinUI=20, Android=10}" VerticalOptions="Center" Margin="0" IsChecked="{Binding PatternNode.IsMultiPattern, Source={Reference thisView}}" />
                     <Label Margin="0" VerticalOptions="Center" Padding="0" Text="MultiPattern" />
-                    <CheckBox TranslationX="{OnPlatform WinUI=20, Android=10}" Margin="0" VerticalOptions="Center" IsChecked="{Binding Pattern.IsBoundsPattern, Source={Reference thisView}}" />
-                    <Label Margin="0" VerticalOptions="Center" Padding="0" Text="BoundsPattern" />
+                    <CheckBox Margin="10,0,0,0" VerticalOptions="Center" IsChecked="{Binding PatternNode.IsMultiPattern, Source={Reference thisView}}" />
+                    <Label VerticalOptions="Center" Padding="0" Text="Type" />
+                    <HorizontalStackLayout>
+                        <Grid Margin="10,0,0,0" Padding="0" VerticalOptions="Center">
+                            <Label Margin="0" Padding="0" Text="{Binding Pattern.Type, Source={Reference thisView}}" VerticalOptions="Center" />
+                            <Border Opacity="0.2" BackgroundColor="Gray">
+                                <Border.StrokeShape>
+                                    <RoundRectangle CornerRadius="10" />
+                                </Border.StrokeShape>
+                                <ImageButton Margin="0" Padding="0" BindingContext="{Binding Pattern, Source={Reference thisView}}" Clicked="PatternType_Clicked" />
+                            </Border>
+                        </Grid>
+                    </HorizontalStackLayout>
+                </HorizontalStackLayout>
+                <HorizontalStackLayout IsVisible="{Binding IsToggled, Source={x:Reference generalFlagsToggle}}">
+                    <Label VerticalOptions="Center" Padding="0" Text="Swipe Direction" />
+                    <HorizontalStackLayout>
+                        <Grid Margin="10,0,0,0" Padding="0" VerticalOptions="Center">
+                            <Label Margin="0" Padding="0" Text="{Binding Pattern.SwipeDirection, Source={Reference thisView}}" VerticalOptions="Center" />
+                            <Border Opacity="0.2" BackgroundColor="Gray">
+                                <Border.StrokeShape>
+                                    <RoundRectangle CornerRadius="10" />
+                                </Border.StrokeShape>
+                                <ImageButton Margin="0" Padding="0" BindingContext="{Binding Pattern, Source={Reference thisView}}" Clicked="SwipeDirection_Clicked" />
+                            </Border>
+                        </Grid>
+                    </HorizontalStackLayout>
+                    <Button Text="Test" Command="{Binding TestSwipeCommand, Source={Reference thisView}}"
+                            CommandParameter="{Binding Pattern, Source={Reference thisView}}">
+                    </Button>
                 </HorizontalStackLayout>
                 <HorizontalStackLayout Margin="0" Padding="0" IsVisible="{Binding IsToggled, Source={x:Reference textMatchToggle}}">
                     <CheckBox TranslationX="{OnPlatform WinUI=20, Android=10}" IsChecked="{Binding Pattern.TextMatch.IsActive, Source={Reference thisView}}" />

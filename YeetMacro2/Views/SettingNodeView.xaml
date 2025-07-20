@@ -306,7 +306,8 @@
                     ApplyColorThresholdCommand="{Binding MacroSet.Patterns.ApplyColorThresholdCommand, Source={Reference thisView}}"
                     TestPatternTextMatchCommand="{Binding MacroSet.Patterns.TestPatternTextMatchCommand, Source={Reference thisView}}"
                     ApplyPatternTextMatchCommand="{Binding MacroSet.Patterns.ApplyPatternTextMatchCommand, Source={Reference thisView}}"
-                    ApplyPatternOffsetCommand="{Binding MacroSet.Patterns.ApplyPatternOffsetCommand, Source={Reference thisView}}" />
+                    ApplyPatternOffsetCommand="{Binding MacroSet.Patterns.ApplyPatternOffsetCommand, Source={Reference thisView}}"
+                    TestSwipeCommand="{Binding MacroSet.Patterns.TestSwipeCommand, Source={Reference thisView}}" />
                 <Label Text="{Binding MacroSet.Settings.SelectedPatternNode.NodeId, StringFormat='NodeId: {0}', Source={Reference thisView}}" HorizontalOptions="End" VerticalOptions="Start" />
             </Grid>
         </Border>

@@ -98,6 +98,8 @@ public class YeetMacroDbContext : DbContext
         modelBuilder.Entity<Pattern>().OwnsOne(p => p.ColorThreshold);
         modelBuilder.Entity<Pattern>().Property(p => p.OffsetCalcType).HasConversion(new EnumToStringConverter<OffsetCalcType>());
         modelBuilder.Entity<Pattern>().Property(p => p.BoundsCalcType).HasConversion(new EnumToStringConverter<BoundsCalcType>());
+        modelBuilder.Entity<Pattern>().Property(p => p.Type).HasConversion(new EnumToStringConverter<PatternType>());
+        modelBuilder.Entity<Pattern>().Property(p => p.SwipeDirection).HasConversion(new EnumToStringConverter<Models.SwipeDirection>());
         modelBuilder.Entity<Pattern>().Ignore(p => p.Offset);
         modelBuilder.Entity<Pattern>().Ignore(p => p.Bounds);
 

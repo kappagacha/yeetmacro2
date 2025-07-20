@@ -47,7 +47,8 @@
                     ApplyColorThresholdCommand="{Binding MacroSet.Patterns.ApplyColorThresholdCommand, Source={Reference thisControl}}"
                     TestPatternTextMatchCommand="{Binding MacroSet.Patterns.TestPatternTextMatchCommand, Source={Reference thisControl}}"
                     ApplyPatternTextMatchCommand="{Binding MacroSet.Patterns.ApplyPatternTextMatchCommand, Source={Reference thisControl}}"
-                    ApplyPatternOffsetCommand="{Binding MacroSet.Patterns.ApplyPatternOffsetCommand, Source={Reference thisControl}}" />
+                    ApplyPatternOffsetCommand="{Binding MacroSet.Patterns.ApplyPatternOffsetCommand, Source={Reference thisControl}}"
+                    TestSwipeCommand="{Binding MacroSet.Patterns.TestSwipeCommand, Source={Reference thisControl}}" />
             </Border>
         </Grid>
     </Grid>

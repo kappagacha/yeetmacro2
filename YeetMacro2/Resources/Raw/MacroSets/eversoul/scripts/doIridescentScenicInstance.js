@@ -24,7 +24,7 @@ while (macroService.IsRunning) {
 			if (zeroMaxSubjugationLevelResult.IsSuccess) {
 				logger.info('doIridescentScenicInstance: do unicat subjugation');
 
-				const unicatPatterns = ['tofu', 'cheese', 'tabby', 'choco'].map(u => patterns.iridescentScenicInstance.unicats[u]);
+				const unicatPatterns = ['tofu', 'cheese', 'tabby', 'choco', 'cookie'].map(u => patterns.iridescentScenicInstance.unicats[u]);
 				const unicatResult = macroService.PollPattern(unicatPatterns);
 				const unicat = unicatResult.Path?.split('.').pop();
 				logger.debug(`unicat: ${unicat}`);

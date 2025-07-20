@@ -93,7 +93,8 @@ while (macroService.IsRunning) {
 			
 			if (settings.doShop.evilSoulShop.advancedKeepsakeEnhanceStone.Value && !daily.doShop.evilSoulShop.advancedKeepsakeEnhanceStone.IsChecked) {
 				logger.info('doShop: evilSoulShop advancedKeepsakeEnhanceStone');
-				const evilSoulShopSwipe = macroService.SwipePollPattern(patterns.shop.evilSoulShop, { Start: { X: 100, Y: 650 }, End: { X: 100, Y: 200 } });
+				//const evilSoulShopSwipe = macroService.SwipePollPattern(patterns.shop.evilSoulShop, { Start: { X: 100, Y: 650 }, End: { X: 100, Y: 200 } });
+				const evilSoulShopSwipe = macroService.PollPattern(patterns.shop.evilSoulShop, { SwipePattern: patterns.shop.leftPanelSwipe, TimeoutMs: 10_000 });
 				if (!evilSoulShopSwipe.IsSuccess) {
 					throw new Error('Unable to find evil soul shop');
 				}

@@ -19,7 +19,9 @@ while (macroService.IsRunning) {
 			break;
 		case 'summon.info':
 			logger.info('claimFreeSummon: normal summon');
-			const swipeResult = macroService.SwipePollPattern(patterns.summon.normal, { Start: { X: 100, Y: 650 }, End: { X: 100, Y: 200 } });
+			//const swipeResult = macroService.SwipePollPattern(patterns.summon.normal, { Start: { X: 100, Y: 650 }, End: { X: 100, Y: 200 } });
+			const swipeResult = macroService.PollPattern(patterns.summon.normal, { SwipePattern: patterns.summon.leftPanelSwipe, TimeoutMs: 10_000 });
+			
 			if (!swipeResult.IsSuccess) {
 				throw new Error('Unable to find normal summon');
 			}
@@ -42,7 +44,9 @@ while (macroService.IsRunning) {
 					sleep(200);
 				}
 
-				const artifactSwipeResult = macroService.SwipePollPattern(patterns.summon.artifact, { Start: { X: 100, Y: 650 }, End: { X: 100, Y: 200 } });
+				//const artifactSwipeResult = macroService.SwipePollPattern(patterns.summon.artifact, { Start: { X: 100, Y: 650 }, End: { X: 100, Y: 200 } });
+				const artifactSwipeResult = macroService.PollPattern(patterns.summon.artifact, { SwipePattern: patterns.summon.leftPanelSwipe, TimeoutMs: 10_000 });
+
 				if (!artifactSwipeResult.IsSuccess) {
 					throw new Error('Unable to find artifact summon');
 				}

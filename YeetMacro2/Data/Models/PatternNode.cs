@@ -80,7 +80,8 @@ public class Pattern: ISortable
     public virtual Size Resolution { get; set; }
     [JsonIgnore]
     public virtual bool IsSelected { get; set; }
-    public virtual bool IsBoundsPattern { get; set; }
+    public virtual PatternType Type { get; set; }
+    public virtual SwipeDirection SwipeDirection { get; set; }
     [JsonIgnore]
     public virtual int PatternId { get; set; }
     [JsonIgnore]
@@ -193,6 +194,13 @@ public class ColorThresholdProperties
     public virtual bool IgnoreBackground { get; set; }
 }
 
+public enum PatternType
+{
+    Normal,
+    Bounds,
+    Swipe
+}
+
 public enum OffsetCalcType
 {
     Default,
@@ -210,4 +218,13 @@ public enum BoundsCalcType
     None,
     FillWidth,
     FillHeight
+}
+
+public enum SwipeDirection
+{
+    Auto,
+    LeftToRight,
+    RightToLeft,
+    TopToBottom,
+    BottomToTop
 }

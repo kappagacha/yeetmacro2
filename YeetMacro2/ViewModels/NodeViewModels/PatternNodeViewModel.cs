@@ -196,12 +196,12 @@ public partial class PatternViewModel : Pattern
         }
     }
 
-    public override bool IsBoundsPattern
+    public override PatternType Type
     {
-        get => base.IsBoundsPattern;
+        get => base.Type;
         set
         {
-            base.IsBoundsPattern = value;
+            base.Type = value;
             OnPropertyChanged();
         }
     }
@@ -262,6 +262,16 @@ public partial class PatternViewModel : Pattern
         set
         {
             base.BoundsCalcType = value;
+            OnPropertyChanged();
+        }
+    }
+
+    public override Data.Models.SwipeDirection SwipeDirection
+    {
+        get => base.SwipeDirection;
+        set
+        {
+            base.SwipeDirection = value;
             OnPropertyChanged();
         }
     }
