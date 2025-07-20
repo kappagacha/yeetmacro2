@@ -107,15 +107,11 @@ public class Pattern: ISortable
             // https://developer.android.com/develop/ui/views/layout/edge-to-edge#enable-edge-to-edge-display
             // Edge to edge display is enabled by default for Android 15 (SDK 35)
             // Even when full screen Eversoul respects offset
-            if (OperatingSystem.IsAndroidVersionAtLeast(35) && DisplayHelper.CurrentMacroSetPackage != "com.kakaogames.eversoul")
-            {
-                return Point.Zero;
-            }
-
+            var isFullScreen = OperatingSystem.IsAndroidVersionAtLeast(35) && DisplayHelper.CurrentMacroSetPackage != "com.kakaogames.eversoul";
             var xOffset = 0;
             var yOffset = 0;
-            var topLeft = DisplayHelper.TopLeft;
-            var usableResolution = DisplayHelper.UsableResolution;
+            var topLeft = isFullScreen ? Point.Zero : DisplayHelper.TopLeft;
+            var usableResolution = isFullScreen ? DisplayHelper.PhysicalResolution : DisplayHelper.UsableResolution;
             var physicalResolution = DisplayHelper.PhysicalResolution;
             var rightMargin = topLeft.X != 0 ? 0: (int)physicalResolution.Width - (int)usableResolution.Width;
 
