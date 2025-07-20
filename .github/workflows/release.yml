@@ -9,6 +9,8 @@ permissions:
 jobs:
   build:
     runs-on: windows-latest
+    env:
+      NEW_VERSION: ${{ github.run_number }}
 
     steps:
       - name: Checkout Repository
@@ -70,15 +72,11 @@ jobs:
       - name: Notify Discord on Success
         if: success()
         run: |
-          curl -H "Content-Type: application/json" \
-               -X POST \
-               -d '{"content": "✅ Workflow completed successfully!"}' \
-               ${{ secrets.DISCORD_WEBHOOK_URL_GENERAL }}
+          $body = '{"content": "✅ *YeetMacro2* app version ' + $env:NEW_VERSION + ' has been published! [View Release](https://github.com/kappagacha/yeetmacro2/releases/tag/latest)"}'
+          Invoke-RestMethod -Uri $env:DISCORD_WEBHOOK_URL_GENERAL -Method Post -ContentType 'application/json' -Body $body
 
       - name: Notify Discord on Failure
         if: failure()
         run: |
-          curl -H "Content-Type: application/json" \
-               -X POST \
-               -d '{"content": "❌ Workflow failed!"}' \
-               ${{ secrets.DISCORD_WEBHOOK_URL_GENERAL }}
+          $body = '{"content": "❌ Failed to publish *YeetMacro2* app version ' + $env:NEW_VERSION + '."}'
+          Invoke-RestMethod -Uri $env:DISCORD_WEBHOOK_URL_GENERAL -Method Post -ContentType 'application/json' -Body $body
