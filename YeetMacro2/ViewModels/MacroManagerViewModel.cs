@@ -535,6 +535,7 @@ public partial class MacroManagerViewModel : ObservableObject
             DefaultLocationX = value.DefaultLocation.X;
             DefaultLocationY = value.DefaultLocation.Y;
             Preferences.Default.Set(nameof(SelectedMacroSet), value.Name);
+            DisplayHelper.CurrentMacroSetPackage = value.Package;
             WeakReferenceMessenger.Default.Send(value);
         }
     }

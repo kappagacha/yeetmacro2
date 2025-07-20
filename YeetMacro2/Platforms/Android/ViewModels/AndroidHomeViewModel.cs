@@ -120,7 +120,6 @@ public partial class AndriodHomeViewModel : ObservableObject
                 {
                     _screenService.CloseAll();
                     _macroManagerViewModel.SelectedMacroSet = matchingMacroSet;
-                    DisplayHelper.CurrentMacroSetPackage = matchingMacroSet.Package;
                 }
             }
 
