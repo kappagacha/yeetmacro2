@@ -1,4 +1,4 @@
-name: Build and Release APK
+﻿name: Build and Release APK
 
 on:
   workflow_dispatch:
@@ -66,3 +66,19 @@ jobs:
           tag_name: "latest"
           files: YeetMacro2/bin/Release/net9.0-android/*-Signed.apk
           #files: YeetMacro2/bin/Release/net8.0-android/com.yeetoverflow.yeetmacro2-Signed.apk
+
+      - name: Notify Discord on Success
+        if: success()
+        run: |
+          curl -H "Content-Type: application/json" \
+               -X POST \
+               -d '{"content": "✅ Workflow completed successfully!"}' \
+               ${{ secrets.DISCORD_WEBHOOK_URL_GENERAL }}
+
+      - name: Notify Discord on Failure
+        if: failure()
+        run: |
+          curl -H "Content-Type: application/json" \
+               -X POST \
+               -d '{"content": "❌ Workflow failed!"}' \
+               ${{ secrets.DISCORD_WEBHOOK_URL_GENERAL }}
