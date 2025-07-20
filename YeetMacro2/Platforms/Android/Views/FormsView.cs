@@ -38,6 +38,11 @@ public class FormsView : RelativeLayout, IShowable
         _layoutParams.Height = WindowManagerLayoutParams.MatchParent;
         SetBackgroundColor(Color.Argb(70, 0, 0, 0));
 
+        if (OperatingSystem.IsAndroidVersionAtLeast(28))
+        {
+            _layoutParams.LayoutInDisplayCutoutMode = LayoutInDisplayCutoutMode.ShortEdges;
+        }
+
         _state = FormState.CLOSED;
 
         _visualElement = visualElement;

@@ -108,13 +108,21 @@ public class ResizeView : RelativeLayout, IOnTouchListener, IShowable
 
     private WindowManagerLayoutParams GenerateLayoutParams()
     {
-        return new WindowManagerLayoutParams
+        var layoutParams = new WindowManagerLayoutParams
         {
             Type = OperatingSystem.IsAndroidVersionAtLeast(26) ? WindowManagerTypes.ApplicationOverlay : WindowManagerTypes.Phone,
             Format = Format.Translucent,
-            Flags = WindowManagerFlags.NotFocusable | WindowManagerFlags.TranslucentNavigation | WindowManagerFlags.LayoutNoLimits,
+            //Flags = WindowManagerFlags.NotFocusable | WindowManagerFlags.TranslucentNavigation | WindowManagerFlags.LayoutNoLimits,
+            Flags = WindowManagerFlags.NotFocusable | WindowManagerFlags.TranslucentNavigation,
             Gravity = GravityFlags.Top | GravityFlags.Left
         };
+
+        if (OperatingSystem.IsAndroidVersionAtLeast(28))
+        {
+            layoutParams.LayoutInDisplayCutoutMode = LayoutInDisplayCutoutMode.ShortEdges;
+        }
+
+        return layoutParams;
     }
 
     private void InitDisplay()

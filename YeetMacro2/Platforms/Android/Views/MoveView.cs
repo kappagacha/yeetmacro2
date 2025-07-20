@@ -44,6 +44,11 @@ public class MoveView : LinearLayout, IShowable
         _layoutParams.Height = WindowManagerLayoutParams.WrapContent;
         _layoutParams.Gravity = GravityFlags.Top | GravityFlags.Left;
 
+        if (OperatingSystem.IsAndroidVersionAtLeast(28))
+        {
+            _layoutParams.LayoutInDisplayCutoutMode = LayoutInDisplayCutoutMode.ShortEdges;
+        }
+
         //SetBackgroundColor(Color.Argb(70, 40, 40, 40));
         _windowManager = windowManager;
         _visualElement = visualElement;

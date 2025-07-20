@@ -35,6 +35,11 @@ public class StaticView : RelativeLayout, IShowable
         _layoutParams.Height = WindowManagerLayoutParams.WrapContent;
         SetBackgroundColor(Color.Argb(90, 0, 0, 0));
 
+        if (OperatingSystem.IsAndroidVersionAtLeast(28))
+        {
+            _layoutParams.LayoutInDisplayCutoutMode = LayoutInDisplayCutoutMode.ShortEdges;
+        }
+
         //https://docs.microsoft.com/en-us/xamarin/xamarin-forms/platform/native-forms
         _visualElement = visualElement;
         _windowManager = windowManager;
