@@ -2,7 +2,6 @@
 // Skip decoy operation
 const loopPatterns = [patterns.lobby.level, patterns.titles.adventure, patterns.titles.decoyOperation];
 const daily = dailyManager.GetCurrentDaily();
-const resolution = macroService.GetCurrentResolution();
 const targetDecoyOperation = settings.sweepDecoyOperation.targetDecoyOperation.Value;
 
 if (daily.sweepDecoyOperation.done.IsChecked) {
@@ -25,8 +24,6 @@ while (macroService.IsRunning) {
 			macroService.PollPattern(patterns.adventure.challenge.decoyOperation[targetDecoyOperation], { DoClick: true, PredicatePattern: [patterns.adventure.challenge.decoyOperation.sweep.disabled, patterns.adventure.challenge.decoyOperation.sweep.enabled] });
 			const sweepResult = macroService.PollPattern([patterns.adventure.challenge.decoyOperation.sweep.disabled, patterns.adventure.challenge.decoyOperation.sweep.enabled]);
 			if (sweepResult.Path === 'adventure.challenge.decoyOperation.sweep.disabled') {
-				const targetX = resolution.Width - 200;
-				//const swipeResult = macroService.SwipePollPattern(patterns.adventure.challenge.decoyOperation.sweepAvailable, { Start: { X: targetX, Y: 200 }, End: { X: targetX, Y: 650 } });
 				const swipeResult = macroService.PollPattern(patterns.adventure.challenge.decoyOperation.sweepAvailable, { SwipePattern: patterns.adventure.challenge.decoyOperation.swipe, TimeouMs: 10_000 });
 				if (!swipeResult.IsSuccess) {
 					throw new Error('Unable to find sweep available');

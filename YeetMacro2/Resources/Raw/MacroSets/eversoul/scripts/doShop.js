@@ -51,9 +51,10 @@ while (macroService.IsRunning) {
 				logger.info('doShop: artifact');
 
 				macroService.PollPattern(patterns.shop.artifact, { DoClick: true, PredicatePattern: patterns.shop.artifact.selected });
-				macroService.DoSwipe({ X: 1600, Y: 850 }, { X: 1600, Y: 300 });
+				
+				macroService.SwipePattern(patterns.shop.swipeDown);
 				sleep(2_000);
-				macroService.DoSwipe({ X: 1600, Y: 850 }, { X: 1600, Y: 300 });
+				macroService.SwipePattern(patterns.shop.swipeDown);
 				sleep(2_000);
 
 				const cost1500Result = macroService.FindPattern(patterns.shop.artifact.cost1500, { Limit: 4 });
@@ -93,7 +94,6 @@ while (macroService.IsRunning) {
 			
 			if (settings.doShop.evilSoulShop.advancedKeepsakeEnhanceStone.Value && !daily.doShop.evilSoulShop.advancedKeepsakeEnhanceStone.IsChecked) {
 				logger.info('doShop: evilSoulShop advancedKeepsakeEnhanceStone');
-				//const evilSoulShopSwipe = macroService.SwipePollPattern(patterns.shop.evilSoulShop, { Start: { X: 100, Y: 650 }, End: { X: 100, Y: 200 } });
 				const evilSoulShopSwipe = macroService.PollPattern(patterns.shop.evilSoulShop, { SwipePattern: patterns.shop.leftPanelSwipe, TimeoutMs: 10_000 });
 				if (!evilSoulShopSwipe.IsSuccess) {
 					throw new Error('Unable to find evil soul shop');

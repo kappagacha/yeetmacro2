@@ -19,9 +19,6 @@ const targetSoul = macroService.ClonePattern(settings.doOutings.targetSoul.Value
 	OffsetCalcType: 'DockLeft'
 });
 
-//const maxSwipes = 5;
-//let swipeCount = 0;
-
 while (macroService.IsRunning) {
 	const loopResult = macroService.PollPattern(loopPatterns);
 	switch (loopResult.Path) {
@@ -39,14 +36,7 @@ while (macroService.IsRunning) {
 		case 'town.outings':
 			logger.info('doOutings: click outing target');
 			sleep(500);
-			//swipeCount = 0;
 			let soulSwipeResult = macroService.PollPattern(targetSoul, { SwipePattern: patterns.town.outings.swipe, TimeoutMs: 15_000 });
-			//while (macroService.IsRunning && !result.IsSuccess && swipeCount < maxSwipes) {
-			//	macroService.DoSwipe({ X: 1080, Y: 800 }, { X: 1080, Y: 250 });
-			//	sleep(500);
-			//	result = macroService.PollPattern(targetSoul, { TimeoutMs: 2_000 });
-			//	swipeCount++;
-			//}
 			if (!soulSwipeResult.IsSuccess) {
 				return 'Unable to find target soul';
 			} 

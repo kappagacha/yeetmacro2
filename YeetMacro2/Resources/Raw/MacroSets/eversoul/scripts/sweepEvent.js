@@ -34,7 +34,6 @@ while (macroService.IsRunning) {
 	switch (loopResult.Path) {
 		case 'lobby.level':
 			logger.info('sweepEvent: click attendance check');
-			//const attendanceCheckSwipeResult = macroService.SwipePollPattern(patterns.lobby.attendanceCheck, { MaxSwipes: 10, Start: { X: lobbySwipeXStart, Y: 300 }, End: { X: lobbySwipeXEnd, Y: 300 }, PollTimeoutMs: 4_000 });
 			const attendanceCheckSwipeResult = macroService.PollPattern(patterns.lobby.attendanceCheck, { SwipePattern: patterns.lobby.attendanceCheck.swipe, TimoutMs: 10_000 });
 			if (!attendanceCheckSwipeResult.IsSuccess) {
 				throw Error('Unable to find pattern: patterns.lobby.attendanceCheck');
@@ -44,7 +43,6 @@ while (macroService.IsRunning) {
 			break;
 		case 'general.back':
 			if (settings.sweepEvent.doEventRaid.Value && !daily.sweepEvent.eventRaid.IsChecked) {
-				//const eventRaidSwipeResult = macroService.SwipePollPattern(eventRaidPattern, { Start: { X: 50, Y: 800 }, End: { X: 50, Y: 500 } });
 				const eventRaidSwipeResult = macroService.PollPattern(eventRaidPattern, { SwipePattern: patterns.event.leftPanelSwipe, TimoutMs: 10_000 });
 				if (!eventRaidSwipeResult.IsSuccess) {
 					throw Error('Unable to find pattern: settings.eventRaid.eventRaidPattern');
@@ -63,7 +61,6 @@ while (macroService.IsRunning) {
 			}
 
 			if (settings.sweepEvent.doEventStage.Value && !daily.sweepEvent.eventStage.IsChecked) {
-				//const eventStageSwipeResult = macroService.SwipePollPattern(eventStagePattern, { Start: { X: 50, Y: 800 }, End: { X: 50, Y: 500 } });
 				const eventStageSwipeResult = macroService.PollPattern(eventStagePattern, { SwipePattern: patterns.event.leftPanelSwipe, TimoutMs: 10_000 });
 				if (!eventStageSwipeResult.IsSuccess) {
 					throw Error('Unable to find pattern: settings.eventRaid.eventStagePattern');
