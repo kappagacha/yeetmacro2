@@ -47,7 +47,7 @@ function applyPreset(teamSlot) {
 			delimiter = '#';
 		} else if (unitTitleAndName.match(/Ruin.*T[oa]m[oa]m[ao]/ism)) {
 			primaryStat = 'HLT';
-			gearSet = 'PEN';
+			delimiter = '#';
 		}
 
 		let strRegex = `\\s?${delimiter}\\s?${battleTypeAbbreviation}\\s?${delimiter}\\s?${gearSet}\\s?${delimiter}\\s?${primaryStat}\\s?`;
