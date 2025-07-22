@@ -2,13 +2,9 @@
 // Shop weekly items
 const loopPatterns = [patterns.lobby.level, patterns.titles.shop];
 const weekly = weeklyManager.GetCurrentWeekly();
-const resolution = macroService.GetCurrentResolution();
 if (weekly.doWeeklyShop.done.IsChecked) {
 	return "Script already completed. Uncheck done to override weekly flag.";
 }
-
-const swipeLeftEndX = resolution.Width - 100;
-const swipeLeftStartX = swipeLeftEndX - 500;
 
 while (macroService.IsRunning) {
 	const loopResult = macroService.PollPattern(loopPatterns);
@@ -73,9 +69,10 @@ while (macroService.IsRunning) {
 			}
 
 			if (!weekly.doWeeklyShop.surveyHub.done.IsChecked) {
-				const surveyHubSwipeResult = macroService.SwipePollPattern(patterns.shop.contents.surveyHub, { MaxSwipes: 5, Start: { X: 350, Y: 800 }, End: { X: 350, Y: 400 } });
+				const surveyHubSwipeResult = macroService.PollPattern(patterns.shop.contents.surveyHub, { SwipePattern: patterns.shop.subTabSwipeDown, TimeoutMs: 7_000 });
+				//const surveyHubSwipeResult = macroService.SwipePollPattern(patterns.shop.contents.surveyHub, { MaxSwipes: 5, Start: { X: 350, Y: 800 }, End: { X: 350, Y: 400 } });
 				if (!surveyHubSwipeResult.IsSuccess) {
-					throw new Error('Unable to find skyward tower');
+					throw new Error('Unable to find survey hub');
 				}
 				macroService.PollPattern(patterns.shop.contents.surveyHub, { DoClick: true, PredicatePattern: patterns.shop.contents.surveyHub.selected });
 
@@ -111,7 +108,11 @@ while (macroService.IsRunning) {
 }
 
 function swipeLeft() {
-	macroService.DoSwipe({ X: swipeLeftStartX, Y: 500 }, { X: swipeLeftEndX, Y: 500 });
+	//const resolution = macroService.GetCurrentResolution();
+	//const swipeLeftEndX = resolution.Width - 100;
+	//const swipeLeftStartX = swipeLeftEndX - 500;
+	//macroService.DoSwipe({ X: swipeLeftStartX, Y: 500 }, { X: swipeLeftEndX, Y: 500 });
+	macroService.SwipePattern(patterns.general.swipeLeft);
 	sleep(1_500);
 }
 

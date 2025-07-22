@@ -70,11 +70,14 @@ function applyPreset(teamSlot) {
 		macroService.PollPattern(patterns.battle.teamFormation.preset, { DoClick: true, PredicatePattern: patterns.battle.teamFormation.preset.presetList });
 		
 		if (currentPreset.toLowerCase() !== 'unused') {
-			macroService.DoSwipe({ X: swipeX, Y: 300 }, { X: swipeX, Y: 800 });
+			macroService.SwipePattern(patterns.battle.teamFormation.preset.swipeUp);
+			//macroService.DoSwipe({ X: swipeX, Y: 300 }, { X: swipeX, Y: 800 });
 			sleep(1_000);
-			macroService.DoSwipe({ X: swipeX, Y: 300 }, { X: swipeX, Y: 800 });
+			macroService.SwipePattern(patterns.battle.teamFormation.preset.swipeUp);
+			//macroService.DoSwipe({ X: swipeX, Y: 300 }, { X: swipeX, Y: 800 });
 			sleep(1_000);
-			macroService.DoSwipe({ X: swipeX, Y: 300 }, { X: swipeX, Y: 800 });
+			macroService.SwipePattern(patterns.battle.teamFormation.preset.swipeUp);
+			//macroService.DoSwipe({ X: swipeX, Y: 300 }, { X: swipeX, Y: 800 });
 			sleep(1_000);
 		}
 
@@ -83,7 +86,8 @@ function applyPreset(teamSlot) {
 		let swipeCount = 0;
 		while (!targetPreset) {
 			//macroService.DoSwipe({ X: swipeX, Y: 800 }, { X: swipeX, Y: 300 });
-			macroService.DoSwipe({ X: swipeX, Y: 750 }, { X: swipeX, Y: 350 });
+			//macroService.DoSwipe({ X: swipeX, Y: 750 }, { X: swipeX, Y: 350 });
+			macroService.SwipePattern(patterns.battle.teamFormation.preset.swipeDown);
 			sleep(1_000);
 			targetPreset = findTargetPreset(presetRegex, presetNameList);
 			swipeCount++;

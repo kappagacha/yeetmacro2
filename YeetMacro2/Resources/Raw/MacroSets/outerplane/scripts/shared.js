@@ -15,7 +15,8 @@ function refillStamina(targetStamina) {
 
 	const targetMailboxItem = patterns.mailbox.stamina;
 	while (macroService.IsRunning && currentStamina < targetStamina) {
-		macroService.SwipePollPattern(targetMailboxItem, { MaxSwipes: 20, Start: { X: 1400, Y: 900 }, End: { X: 1400, Y: 150 } });
+		macroService.PollPattern(targetMailboxItem, { SwipePattern: patterns.mailbox.swipeDown, TimeoutMs: 30_000 });
+		//macroService.SwipePollPattern(targetMailboxItem, { MaxSwipes: 20, Start: { X: 1400, Y: 900 }, End: { X: 1400, Y: 150 } });
 		const staminaResult = macroService.FindPattern(targetMailboxItem);
 		const recievePattern = macroService.ClonePattern(patterns.mailbox.receive, { CenterY: staminaResult.Point.Y, Height: 60.0, PathSuffix: `_${staminaResult.Point.Y}y` });
 		macroService.PollPattern(recievePattern, { DoClick: true, PredicatePattern: patterns.general.tapEmptySpace });
@@ -35,10 +36,6 @@ function getCurrentStaminaValue() {
 }
 
 function findShopItem(shopItemName) {
-	const resolution = macroService.GetCurrentResolution();
-	const swipeStartX = resolution.Width - 500;
-	const swipeEndX = swipeStartX - 800;
-
 	// troublesome characters: t,a,l,i
 	const shopItemNameToRegex = {
 		stamina: /s..m.n/is,
@@ -97,9 +94,14 @@ function findShopItem(shopItemName) {
 
 		findResult = textResults.find(tr => tr.text.match(shopItemNameToRegex[shopItemName]));
 
+		//const resolution = macroService.GetCurrentResolution();
+		//const swipeStartX = resolution.Width - 500;
+		//const swipeEndX = swipeStartX - 800;
+
 		tryCount++;
 		if (!findResult && tryCount % 2 === 0) {	// scan twice before swiping
-			macroService.DoSwipe({ X: swipeStartX, Y: 500 }, { X: swipeEndX, Y: 500 });
+			macroService.SwipePattern(patterns.general.swipeRight);
+			//macroService.DoSwipe({ X: swipeStartX, Y: 500 }, { X: swipeEndX, Y: 500 });
 			sleep(2000);
 		}
 	}

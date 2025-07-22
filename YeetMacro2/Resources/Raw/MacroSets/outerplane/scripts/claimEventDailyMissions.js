@@ -1,8 +1,8 @@
 // @position=17
 // Claim daily event missions
 const loopPatterns = [patterns.lobby.level, patterns.event.close];
-const daily = dailyManager.GetCurrentDaily();
-const resolution = macroService.GetCurrentResolution();
+//const daily = dailyManager.GetCurrentDaily();
+//const resolution = macroService.GetCurrentResolution();
 //const dailyMissionPattern = macroService.ClonePattern(settings.claimEventDailyMissions.dailyMissionPattern.Value, {
 //	X: 90,
 //	Y: 200,
@@ -27,9 +27,10 @@ while (macroService.IsRunning) {
 		case 'event.close':
 			logger.info('claimEventDailyMissions: claim rewards');
 			//macroService.PollPattern(dailyMissionPattern, { DoClick: true, PredicatePattern: patterns.event.daily.info, IntervalDelayMs: 3_000 });
-			const topLeft = macroService.GetTopLeft();
-			const xLocation = topLeft.X + 300 + (resolution.Width - 1920) / 2.0;
-			macroService.SwipePollPattern(patterns.event.daily, { MaxSwipes: 3, Start: { X: xLocation, Y: 800 }, End: { X: xLocation, Y: 280 } });
+			//const topLeft = macroService.GetTopLeft();
+			//const xLocation = topLeft.X + 300 + (resolution.Width - 1920) / 2.0;
+			//macroService.SwipePollPattern(patterns.event.daily, { MaxSwipes: 3, Start: { X: xLocation, Y: 800 }, End: { X: xLocation, Y: 280 } });
+			macroService.PollPattern(patterns.event.daily, { SwipePattern: patterns.event.swipeDown });
 			macroService.PollPattern(patterns.event.daily, { DoClick: true, PredicatePattern: patterns.event.daily.info, IntervalDelayMs: 3_000 });
 			sleep(2_000);
 

@@ -95,7 +95,8 @@ function getCurrentWeatherCondition() {
 function executeBonusOrders() {
 	macroService.PollPattern(patterns.terminusIsle.explorationOrder, { DoClick: true, PredicatePattern: patterns.terminusIsle.explorationOrder.activate });
 	sleep(1_000);
-	macroService.DoSwipe({ X: 1400, Y: 800 }, { X: 1400, Y: 150 });
+	//macroService.DoSwipe({ X: 1400, Y: 800 }, { X: 1400, Y: 150 });
+	macroService.SwipePattern(patterns.terminusIsle.explorationOrder.swipeDown);
 	sleep(1_500);
 	const orderNames = getOrderNames();
 	let isAtLeastOneOrderSelected = false;
@@ -142,7 +143,8 @@ function startExploration() {
 function executeOrderCompleteAllExplorations() {
 	macroService.PollPattern(patterns.terminusIsle.explorationOrder, { DoClick: true, PredicatePattern: patterns.terminusIsle.explorationOrder.activate });
 	sleep(1_000);
-	macroService.DoSwipe({ X: 1400, Y: 800 }, { X: 1400, Y: 150 });
+	//macroService.DoSwipe({ X: 1400, Y: 800 }, { X: 1400, Y: 150 });
+	macroService.SwipePattern(patterns.terminusIsle.explorationOrder.swipeDown);
 	sleep(1_500);
 
 	const orderNames = getOrderNames();

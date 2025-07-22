@@ -2,7 +2,7 @@
 // Claim arena rewards
 const loopPatterns = [patterns.lobby.level, patterns.event.close];
 const daily = dailyManager.GetCurrentDaily();
-const resolution = macroService.GetCurrentResolution();
+//const resolution = macroService.GetCurrentResolution();
 
 if (daily.claimArenaRewards.done.IsChecked) {
 	return "Script already completed. Uncheck done to override daily flag.";
@@ -18,9 +18,10 @@ while (macroService.IsRunning) {
 			break;
 		case 'event.close':
 			logger.info('claimArenaRewards: claim rewards');
-			const topLeft = macroService.GetTopLeft();
-			const xLocation = topLeft.X + 300 + (resolution.Width - 1920) / 2.0;
-			macroService.SwipePollPattern(patterns.event.arenaReward, { MaxSwipes: 5, Start: { X: xLocation, Y: 800 }, End: { X: xLocation, Y: 280 } });
+			//const topLeft = macroService.GetTopLeft();
+			//const xLocation = topLeft.X + 300 + (resolution.Width - 1920) / 2.0;
+			//macroService.SwipePollPattern(patterns.event.arenaReward, { MaxSwipes: 5, Start: { X: xLocation, Y: 800 }, End: { X: xLocation, Y: 280 } });
+			macroService.PollPattern(patterns.event.arenaReward, { SwipePattern: patterns.event.swipeDown });
 			macroService.PollPattern(patterns.event.arenaReward, { DoClick: true, PredicatePattern: patterns.event.arenaReward.utc });
 
 			let notificationResult = macroService.PollPattern(patterns.event.arenaReward.notification, { TimeoutMs: 3_000 });

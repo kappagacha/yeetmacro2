@@ -21,8 +21,7 @@ function selectTeam(targetTeamSlot, opts = {}) {
 		targetTeamSlot = settings.selectTeam[targetTeamSlot].Value;
 	}
 
-	const topLeft = macroService.GetTopLeft();
-	const xLocation = topLeft.X + 90;
+
 	const slots = [1, 2, 3, 4, 5, 6, 7, 8, 9];
 
 	let targetSlotSelectedResult = macroService.FindPattern(patterns.battle.slot[targetTeamSlot].selected);
@@ -34,13 +33,18 @@ function selectTeam(targetTeamSlot, opts = {}) {
 				break;
 			}
 
+			const topLeft = macroService.GetTopLeft();
+			const xLocation = topLeft.X + 90;
+
 			// slot not found so need to swipe
 			const minSlot = Object.entries(slotsResult).reduce((min, [key, val]) => val && key < min ? key : min, 9);
 			const maxSlot = Object.entries(slotsResult).reduce((max, [key, val]) => val && key > max ? key : max, 1);
 			if (targetTeamSlot > maxSlot) {
-				macroService.DoSwipe({ X: xLocation, Y: 400 }, { X: xLocation, Y: 200 });	// scroll down
+				macroService.SwipePattern(patterns.battle.slot.swipeDown);
+				//macroService.DoSwipe({ X: xLocation, Y: 400 }, { X: xLocation, Y: 200 });	// scroll down
 			} else if (targetTeamSlot < minSlot) {
-				macroService.DoSwipe({ X: xLocation, Y: 200 }, { X: xLocation, Y: 400 });	// scroll up
+				macroService.SwipePattern(patterns.battle.slot.swipeUp);
+				//macroService.DoSwipe({ X: xLocation, Y: 200 }, { X: xLocation, Y: 400 });	// scroll up
 			}
 			sleep(2_500);
 		}
