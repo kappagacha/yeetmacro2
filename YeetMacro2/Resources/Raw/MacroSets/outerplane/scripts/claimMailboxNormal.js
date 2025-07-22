@@ -31,7 +31,6 @@ while (macroService.IsRunning) {
 				}
 				if (allStamina) {
 					macroService.SwipePattern(patterns.mailbox.swipeDown);
-					//macroService.DoSwipe({ X: 1400, Y: 800 }, { X: 1400, Y: 150 });
 					sleep(1_500);
 				}
 			}

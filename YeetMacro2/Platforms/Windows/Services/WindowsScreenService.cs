@@ -58,11 +58,6 @@ public class WindowsScreenService : IScreenService, IRecorderService
         throw new NotImplementedException();
     }
 
-    public void DoSwipe(Point start, Point end)
-    {
-        throw new NotImplementedException();
-    }
-
     public void DrawCircle(Point point)
     {
         throw new NotImplementedException();

@@ -45,7 +45,6 @@ function doSurveyHub(targetNumBattles = 0) {
 				if (descendingPriority) {
 					sleep(1000);
 					macroService.PollPattern(patterns.surveyHub.rewardInfo, { SwipePattern: patterns.surveyHub.rewardInfo.swipeDown, TimeoutMs : 15_000 });
-					//macroService.SwipePollPattern(patterns.surveyHub.rewardInfo.rightArrow, { MaxSwipes: 7, Start: { X: xLocation, Y: 800 }, End: { X: xLocation, Y: 280 } });
 					sleep(1000);
 					const rightArrowResult = macroService.PollPattern(patterns.surveyHub.rewardInfo.rightArrow, { Limit: 6 });
 					const minY = rightArrowResult.Points.reduce((minY, p) => (minY = minY < p.Y ? minY : p.Y), 10_000);
@@ -54,10 +53,8 @@ function doSurveyHub(targetNumBattles = 0) {
 					selectTeamResult = macroService.PollPattern(patterns.surveyHub.selectTeam, { DoClick: true, PredicatePattern: [patterns.battle.enter, patterns.battle.restore] });
 				} else {
 					macroService.PollPattern([patterns.surveyHub.rewardInfo.lastLevel, patterns.surveyHub.rewardInfo.zeroOutOfFive, patterns.surveyHub.rewardInfo.lock], { SwipePattern: patterns.surveyHub.rewardInfo.swipeDown, TimeoutMs: 15_000 });
-					//macroService.SwipePollPattern([patterns.surveyHub.rewardInfo.lastLevel, patterns.surveyHub.rewardInfo.zeroOutOfFive, patterns.surveyHub.rewardInfo.lock], { MaxSwipes: 7, Start: { X: xLocation, Y: 800 }, End: { X: xLocation, Y: 280 } });
 					sleep(1000);
 					macroService.PollPattern(patterns.surveyHub.rewardInfo, { SwipePattern: patterns.surveyHub.rewardInfo.swipeUp, TimeoutMs: 15_000 });
-					//macroService.SwipePollPattern(patterns.surveyHub.rewardInfo, { MaxSwipes: 7, Start: { X: xLocation, Y: 280 }, End: { X: xLocation, Y: 800 } });
 					sleep(1000);
 					const rightArrowResult = macroService.PollPattern(patterns.surveyHub.rewardInfo.rightArrow, { Limit: 6 });
 					const maxY = rightArrowResult.Points.reduce((maxY, p) => (maxY = maxY > p.Y ? maxY : p.Y), 0);

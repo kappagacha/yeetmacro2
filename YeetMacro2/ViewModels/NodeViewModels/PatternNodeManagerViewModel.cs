@@ -445,7 +445,7 @@ public partial class PatternNodeManagerViewModel : NodeManagerViewModel<PatternN
             _screenService.DrawClear();
             _screenService.DoClick(pattern.Bounds.Center);  //one to change focus
             await Task.Delay(300);
-            _screenService.DoSwipe(pattern);                //one to swipe
+            _screenService.SwipePattern(pattern);                //one to swipe
             await Task.Delay(300);
             _screenService.DrawRectangle(pattern.Bounds.Offset(pattern.Offset));
         });

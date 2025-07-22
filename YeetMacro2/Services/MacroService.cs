@@ -35,15 +35,6 @@ public class ClickPatternFindOptions : FindOptions
     public Point ClickOffset { get; set; } = Point.Zero;
 }
 
-public class SwipePollPatternFindOptions : FindOptions
-{
-    public int PollTimeoutMs { get; set; } = 2_000;
-    public int SwipeDelayMs { get; set; } = 5_00;
-    public int MaxSwipes { get; set; } = 5;
-    public Point Start { get; set; }
-    public Point End { get; set; }
-}
-
 public class CloneOptions
 {
     public double X { get; set; }
@@ -480,21 +471,6 @@ public class MacroService
         return result;
     }
 
-    public FindPatternResult SwipePollPattern(OneOf<PatternNode, PatternNode[]> oneOfPattern, SwipePollPatternFindOptions opts)
-    {
-        var pollOpts = new PollPatternFindOptions() { TimeoutMs = opts.PollTimeoutMs };
-        var swipeCount = 0;
-        var result = PollPattern(oneOfPattern, pollOpts);
-        while (IsRunning && !result.IsSuccess && swipeCount < opts.MaxSwipes)
-        {
-            DoSwipe(opts.Start, opts.End);
-            Sleep(opts.SwipeDelayMs);
-            result = PollPattern(oneOfPattern, pollOpts);
-            swipeCount++;
-        }
-        return result;
-    }
-
     public void DebugRectangle(Rect rect)
     {
         try
@@ -541,26 +517,7 @@ public class MacroService
             });
         }
 
-        _screenService.DoSwipe(pattern);
-    }
-
-    public void DoSwipe(Point start, Point end)
-    {
-        try
-        {
-            var variance = 5;
-            var xVarianceStart = _random.Next(-variance, variance);
-            var yVarianceStart = _random.Next(-variance, variance);
-            var xVarianceEnd = _random.Next(-variance, variance);
-            var yVarianceEnd = _random.Next(-variance, variance);
-
-            _screenService.DoSwipe(start.Offset(xVarianceStart, yVarianceStart), end.Offset(xVarianceEnd, yVarianceEnd));
-        }
-        catch (Exception ex)
-        {
-            _logServiceViewModel.Debug = $"DoSwipe failed: {ex.Message}";
-            throw;
-        }
+        _screenService.SwipePattern(pattern);
     }
 
     public void Reset()

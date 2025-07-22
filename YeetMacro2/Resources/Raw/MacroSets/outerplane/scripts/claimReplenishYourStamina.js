@@ -28,9 +28,6 @@ while (macroService.IsRunning) {
 			break;
 		case 'event.close':
 			logger.info('claimReplenishYourStamina: claim rewards');
-			//const topLeft = macroService.GetTopLeft();
-			//const xLocation = topLeft.X + 300 + (resolution.Width - 1920) / 2.0;
-			//macroService.SwipePollPattern(patterns.event.replenishYourStamina, { MaxSwipes: 5, Start: { X: xLocation, Y: 800 }, End: { X: xLocation, Y: 280 } });
 			macroService.PollPattern(patterns.event.replenishYourStamina, { SwipePattern: patterns.event.swipeDown });
 			macroService.PollPattern(patterns.event.replenishYourStamina, { DoClick: true, PredicatePattern: patterns.event.replenishYourStamina.utc });
 

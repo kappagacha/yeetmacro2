@@ -16,14 +16,6 @@ while (macroService.IsRunning) {
 			break;
 		case 'titles.shop':
 			logger.info('doWeeklyShop: claim Resource');
-			//const swipeResult = macroService.SwipePollPattern(patterns.shop.resource, { MaxSwipes: 2, Start: { X: 180, Y: 650 }, End: { X: 180, Y: 250 } });
-			//if (!swipeResult.IsSuccess) {
-			//	throw new Error('Unable to find resource shop');
-			//}
-			//sleep(1_000);
-			//const shopResourceResult = macroService.PollPattern(patterns.shop.resource);
-			//const selectedResourcePattern = macroService.ClonePattern(patterns.shop.selected, { CenterY: shopResourceResult.Point.Y, Padding: 20, Path: `patterns.shop.selected_Y${shopResourceResult.Point.Y}` });
-			//macroService.PollPattern(patterns.shop.resource, { DoClick: true, PredicatePattern: selectedResourcePattern });
 			macroService.PollPattern(patterns.shop.resources, { DoClick: true, PredicatePattern: patterns.shop.resources.normal });
 
 			if (!weekly.doWeeklyShop.normal.done.IsChecked) {
@@ -70,7 +62,6 @@ while (macroService.IsRunning) {
 
 			if (!weekly.doWeeklyShop.surveyHub.done.IsChecked) {
 				const surveyHubSwipeResult = macroService.PollPattern(patterns.shop.contents.surveyHub, { SwipePattern: patterns.shop.subTabSwipeDown, TimeoutMs: 7_000 });
-				//const surveyHubSwipeResult = macroService.SwipePollPattern(patterns.shop.contents.surveyHub, { MaxSwipes: 5, Start: { X: 350, Y: 800 }, End: { X: 350, Y: 400 } });
 				if (!surveyHubSwipeResult.IsSuccess) {
 					throw new Error('Unable to find survey hub');
 				}
@@ -83,13 +74,6 @@ while (macroService.IsRunning) {
 			}
 			
 			if (!weekly.doWeeklyShop.guild.done.IsChecked) {
-				//const swipeResult3 = macroService.SwipePollPattern(patterns.shop.shopList, { MaxSwipes: 2, Start: { X: 180, Y: 650 }, End: { X: 180, Y: 250 } });
-				//if (!swipeResult3.IsSuccess) {
-				//	throw new Error('Unable to find shop list');
-				//}
-				//macroService.PollPattern(patterns.shop.shopList, { DoClick: true, PredicatePattern: patterns.shop.shopList.guildShop });
-				//macroService.PollPattern(patterns.shop.shopList.guildShop, { DoClick: true, PredicatePattern: patterns.shop.shopList.guildShop.go });
-				//macroService.PollPattern(patterns.shop.shopList.guildShop.go, { DoClick: true, PredicatePattern: [patterns.guild.shop.weeklyProducts, patterns.guild.shop.weeklyProducts.selected] });
 				goToLobby();
 				macroService.PollPattern(patterns.tabs.guild, { DoClick: true, PredicatePattern: patterns.titles.guild });
 				macroService.PollPattern(patterns.guild.shop, { DoClick: true, PredicatePattern: [patterns.guild.shop.weeklyProducts, patterns.guild.shop.weeklyProducts.selected] });
@@ -108,10 +92,6 @@ while (macroService.IsRunning) {
 }
 
 function swipeLeft() {
-	//const resolution = macroService.GetCurrentResolution();
-	//const swipeLeftEndX = resolution.Width - 100;
-	//const swipeLeftStartX = swipeLeftEndX - 500;
-	//macroService.DoSwipe({ X: swipeLeftStartX, Y: 500 }, { X: swipeLeftEndX, Y: 500 });
 	macroService.SwipePattern(patterns.general.swipeLeft);
 	sleep(1_500);
 }

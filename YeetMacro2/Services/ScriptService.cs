@@ -245,12 +245,6 @@ public class JsToDotNetConverter(Engine engine) : DefaultTypeConverter(engine)
             converted = opts;
             return true;
         }
-        else if (type == typeof(SwipePollPatternFindOptions))
-        {
-            var opts = JsonSerializer.Deserialize<SwipePollPatternFindOptions>(JsonSerializer.Serialize(value));
-            converted = opts;
-            return true;
-        }
         else if (type == typeof(ClickPatternFindOptions))
         {
             var opts = JsonSerializer.Deserialize<ClickPatternFindOptions>(JsonSerializer.Serialize(value));

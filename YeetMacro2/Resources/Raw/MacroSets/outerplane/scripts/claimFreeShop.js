@@ -74,7 +74,6 @@ while (macroService.IsRunning) {
 			macroService.PollPattern(patterns.shop.contents, { DoClick: true, PredicatePattern: patterns.shop.contents.friendshipPoints });
 			if (!daily.claimFreeShop.resource.skywardTower.IsChecked) {
 				logger.info('claimFreeShop: claim Resource Skyward Tower');
-				//const skywardTowerSwipeResult = macroService.SwipePollPattern(patterns.shop.contents.skywardTower, { MaxSwipes: 5, Start: { X: 350, Y: 800 }, End: { X: 350, Y: 400 } });
 				const skywardTowerSwipeResult = macroService.PollPattern(patterns.shop.contents.skywardTower, { SwipePattern: patterns.shop.subTabSwipeDown, TimeoutMs: 7_000 });
 				if (!skywardTowerSwipeResult.IsSuccess) {
 					throw new Error('Unable to find skyward tower');
@@ -99,7 +98,6 @@ while (macroService.IsRunning) {
 
 			if (!daily.claimFreeShop.surveyHub.IsChecked) {
 				logger.info('claimFreeShop: claim Survey Hub');
-				//const surveyHubSwipeResult = macroService.SwipePollPattern(patterns.shop.contents.surveyHub, { MaxSwipes: 5, Start: { X: 350, Y: 800 }, End: { X: 350, Y: 400 } });
 				const surveyHubSwipeResult = macroService.PollPattern(patterns.shop.contents.surveyHub, { SwipePattern: patterns.shop.subTabSwipeDown, TimeoutMs: 7_000 });
 				if (!surveyHubSwipeResult.IsSuccess) {
 					throw new Error('Unable to find skyward tower');

@@ -3,7 +3,6 @@
 //const loopPatterns = [patterns.lobby.level, patterns.event.close];
 const loopPatterns = [patterns.lobby.level, patterns.festival.title];
 const daily = dailyManager.GetCurrentDaily();
-//const resolution = macroService.GetCurrentResolution();
 //const dailyMissionPattern = macroService.ClonePattern(settings.claimEventDailyMissions2.dailyMissionPattern.Value, {
 //	X: 230,
 //	Y: 200,

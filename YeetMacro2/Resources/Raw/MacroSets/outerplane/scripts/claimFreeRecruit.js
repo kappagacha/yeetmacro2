@@ -22,8 +22,6 @@ while (macroService.IsRunning) {
 		case 'titles.recruit':
 			logger.info('claimFreeRecruit: claim recruit');
 			for (let i = 0; i < 2; i++) {
-				
-				//const swipeResult = macroService.SwipePollPattern(patterns.recruit.notification, { Start: { X: 200, Y: 600 }, End: { X: 200, Y: 200 } });
 				const swipeResult = macroService.PollPattern(patterns.recruit.notification, { SwipePattern: patterns.general.leftPanelSwipeDown, TimeoutMs: 5_000 });
 				if (!swipeResult.IsSuccess) {
 					throw new Error('Unable to find notification');

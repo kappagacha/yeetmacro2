@@ -34,7 +34,6 @@ while (macroService.IsRunning) {
 		case 'event.story.enter':
 			logger.info('sweepEventStoryHard: sweep event hard stages');
 			macroService.PollPattern(patterns.event.story.enter, { DoClick: true, InversePredicatePattern: patterns.event.story.enter });
-			//const storyPartSwipeResult = macroService.SwipePollPattern(targetPartPattern, { Start: { X: 1000, Y: 800 }, End: { X: 500, Y: 800 } });
 			const storyPartSwipeResult = macroService.PollPattern(targetPartPattern, { SwipePattern: patterns.general.swipeRight, TimeoutMs: 7_000 });
 
 			if (!storyPartSwipeResult.IsSuccess) {

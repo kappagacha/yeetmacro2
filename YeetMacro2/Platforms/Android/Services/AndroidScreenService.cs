@@ -202,7 +202,7 @@ public class AndroidScreenService : IScreenService
         _accessibilityService.DoClick(point, holdDurationMs);
     }
 
-    public void DoSwipe(Pattern pattern)
+    public void SwipePattern(Pattern pattern)
     {
         var bounds = pattern.Bounds.Offset(pattern.Offset);
         var direction = pattern.SwipeDirection == Data.Models.SwipeDirection.Auto

@@ -3,9 +3,6 @@
 // Apply equipmentPreset
 
 function applyPreset(teamSlot) {
-	const resolution = macroService.GetCurrentResolution();
-	const swipeX = resolution.Width - 300;
-
 	//if (!teamSlot) {
 	//	const slots = [1, 2, 3, 4, 5, 6, 7, 8, 9];
 	//	for (const s of slots) {
@@ -71,13 +68,10 @@ function applyPreset(teamSlot) {
 		
 		if (currentPreset.toLowerCase() !== 'unused') {
 			macroService.SwipePattern(patterns.battle.teamFormation.preset.swipeUp);
-			//macroService.DoSwipe({ X: swipeX, Y: 300 }, { X: swipeX, Y: 800 });
 			sleep(1_000);
 			macroService.SwipePattern(patterns.battle.teamFormation.preset.swipeUp);
-			//macroService.DoSwipe({ X: swipeX, Y: 300 }, { X: swipeX, Y: 800 });
 			sleep(1_000);
 			macroService.SwipePattern(patterns.battle.teamFormation.preset.swipeUp);
-			//macroService.DoSwipe({ X: swipeX, Y: 300 }, { X: swipeX, Y: 800 });
 			sleep(1_000);
 		}
 
@@ -85,8 +79,6 @@ function applyPreset(teamSlot) {
 		let targetPreset = findTargetPreset(presetRegex, presetNameList);
 		let swipeCount = 0;
 		while (!targetPreset) {
-			//macroService.DoSwipe({ X: swipeX, Y: 800 }, { X: swipeX, Y: 300 });
-			//macroService.DoSwipe({ X: swipeX, Y: 750 }, { X: swipeX, Y: 350 });
 			macroService.SwipePattern(patterns.battle.teamFormation.preset.swipeDown);
 			sleep(1_000);
 			targetPreset = findTargetPreset(presetRegex, presetNameList);
