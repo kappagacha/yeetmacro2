@@ -338,33 +338,32 @@ public class AndroidScreenService : IScreenService
             watch.Start();
             try
             {
-                //haystackImageData = pattern.RawBounds != Rect.Zero ?
-                //    await _mediaProjectionService.GetCurrentImageData(pattern.RawBounds.Offset(-topLeft.x, -topLeft.y)) :
+                //haystackImageData = rect != Rect.Zero ?
+                //    await _mediaProjectionService.GetCurrentImageData(rect.Offset(-topLeft.x, -topLeft.y)) :
                 //    await _mediaProjectionService.GetCurrentImageData();
                 if (pattern.TextMatch.IsActive && !String.IsNullOrEmpty(pattern.TextMatch.Text))
                 {
                     haystackImageData = _mediaProjectionService.GetCurrentImageData(
                         new Rect(rect.Location.Offset(-boundsPadding, -boundsPadding),
-                        pattern.RawBounds.Size + new Size(boundsPadding, boundsPadding)));
+                        rect.Size + new Size(boundsPadding, boundsPadding)));
                 }
-                else if (pattern.OffsetCalcType == OffsetCalcType.Default || pattern.OffsetCalcType == OffsetCalcType.Center || 
-                         pattern.OffsetCalcType == OffsetCalcType.HorizontalStretchOffset || pattern.OffsetCalcType == OffsetCalcType.VerticalStretchOffset)
+                else if (pattern.OffsetCalcType == OffsetCalcType.Default || pattern.OffsetCalcType == OffsetCalcType.Center)
                 {
                     var topLeftPadding = 1;
                     haystackImageData = _mediaProjectionService.GetCurrentImageData(
                         new Rect(rect.Location.Offset(-topLeftPadding, -topLeftPadding),
-                        pattern.RawBounds.Size + new Size(topLeftPadding * 2, topLeftPadding * 2)));
+                        rect.Size + new Size(topLeftPadding * 2, topLeftPadding * 2)));
                     //var topLeft = DisplayHelper.TopLeft;
                     //if (!topLeft.IsEmpty)   // handle off by one due to calculations
                     //{
                     //    var topLeftPadding = 1;
                     //    haystackImageData = _mediaProjectionService.GetCurrentImageData(
                     //        new Rect(rect.Location.Offset(-topLeftPadding, -topLeftPadding),
-                    //        pattern.RawBounds.Size + new Size(topLeftPadding * 2, topLeftPadding * 2)));
+                    //        rect.Size + new Size(topLeftPadding * 2, topLeftPadding * 2)));
                     //}
                 }
-                
-                haystackImageData ??= pattern.RawBounds != Rect.Zero ?
+
+                haystackImageData ??= rect != Rect.Zero ?
                        _mediaProjectionService.GetCurrentImageData(rect) :
                        _mediaProjectionService.GetCurrentImageData();
             }

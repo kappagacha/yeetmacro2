@@ -41,7 +41,6 @@ public static class DisplayHelper
             return ResolvePhysicalBounds();
         }
     }
-
     private static Rect ResolveUsableResolution()
     {
         if (!_rotationToUsableBounds.ContainsKey(DisplayRotation))
@@ -90,8 +89,6 @@ public class Pattern: ISortable
     public virtual string Name { get; set; }
     public byte[] ImageData { get; set; }
     public virtual double VariancePct { get; set; } = 20.0;
-    public virtual double HorizontalStretchMultiplier { get; set; }
-    public virtual double VerticalStretchMultiplier { get; set; }
     public virtual TextMatchProperties TextMatch { get; set; }
     public virtual ColorThresholdProperties ColorThreshold { get; set; }
     public virtual OffsetCalcType OffsetCalcType { get; set; } = OffsetCalcType.Default;
@@ -136,20 +133,6 @@ public class Pattern: ISortable
                         xOffset = (int)(targetX - RawBounds.X);
                     }
                     break;
-                case OffsetCalcType.HorizontalStretchOffset:
-                    {
-                        // HorizontalStretchMultiplier = targetXOffset / deltaX
-                        var deltaX = physicalResolution.Width - Resolution.Width;
-                        xOffset = (int)(deltaX * HorizontalStretchMultiplier) + (int)topLeft.X;
-                    }
-                    break;
-                case OffsetCalcType.VerticalStretchOffset:
-                    {
-                        // HorizontalStretchMultiplier = targetYOffset / deltaY
-                        var deltaY = physicalResolution.Height - Resolution.Height;
-                        yOffset = (int)(deltaY * VerticalStretchMultiplier) + (int)topLeft.Y;
-                    }
-                    break;
             }
             return new Point(xOffset, yOffset);
         }
@@ -159,6 +142,7 @@ public class Pattern: ISortable
     {
         get
         {
+            var widthDiff = DisplayHelper.PhysicalResolution.Width - Resolution.Width;
             switch (BoundsCalcType)
             {
                 case BoundsCalcType.Default:
@@ -170,11 +154,11 @@ public class Pattern: ISortable
                     {
                         case OffsetCalcType.None:
                         case OffsetCalcType.DockLeft:
-                            return new Rect(RawBounds.Location, new Size(RawBounds.Width + DisplayHelper.PhysicalResolution.Width - Resolution.Width, RawBounds.Width));
+                            return new Rect(RawBounds.Location, new Size(RawBounds.Width + widthDiff, RawBounds.Height));
                         case OffsetCalcType.DockRight:
-                            return new Rect(RawBounds.Location.Offset(Resolution.Width - DisplayHelper.PhysicalResolution.Width, 0), new Size(RawBounds.Width + DisplayHelper.PhysicalResolution.Width - Resolution.Width, RawBounds.Width));
+                            return new Rect(RawBounds.Location.Offset(-widthDiff, 0), new Size(RawBounds.Width + widthDiff, RawBounds.Height));
                         default:
-                            return new Rect(RawBounds.Location.Offset((Resolution.Width - DisplayHelper.PhysicalResolution.Width) / 2.0, 0), new Size(RawBounds.Width + DisplayHelper.PhysicalResolution.Width - Resolution.Width, RawBounds.Width));
+                            return new Rect(RawBounds.Location.Offset(-widthDiff / 2.0, 0), new Size(RawBounds.Width + widthDiff, RawBounds.Height));
                     }
                 case BoundsCalcType.FillHeight:
                     return new Rect(RawBounds.Location, new Size(RawBounds.Width, RawBounds.Height + DisplayHelper.PhysicalResolution.Height - Resolution.Height));
@@ -212,9 +196,7 @@ public enum OffsetCalcType
     None,
     Center,
     DockLeft,
-    DockRight,
-    HorizontalStretchOffset,
-    VerticalStretchOffset
+    DockRight
 }
 
 public enum BoundsCalcType

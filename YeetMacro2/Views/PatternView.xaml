@@ -154,12 +154,6 @@
                         </Button.CommandParameter>
                     </Button>
                 </HorizontalStackLayout>
-                <HorizontalStackLayout Margin="0" Padding="0" Spacing="5" IsVisible="{Binding IsToggled, Source={x:Reference offsetToggle}}">
-                    <Label Margin="0" VerticalOptions="Center" Padding="0" Text="Horizontal Stretch Multiplier:" />
-                    <Entry Margin="0" VerticalOptions="Center" Keyboard="Numeric" Text="{Binding Pattern.HorizontalStretchMultiplier, Source={Reference thisView}}" />
-                    <Label Margin="0" VerticalOptions="Center" Padding="0" Text="Vertical Stretch Multiplier:" />
-                    <Entry Margin="0" VerticalOptions="Center" Keyboard="Numeric" Text="{Binding Pattern.VerticalStretchMultiplier, Source={Reference thisView}}" />
-                </HorizontalStackLayout>
                 <HorizontalStackLayout IsVisible="{Binding PatternNode.IsMultiPattern, Source={Reference thisView}}">
                     <CollectionView ItemsSource="{Binding PatternNode.Patterns, Source={Reference thisView}}">
                         <CollectionView.ItemTemplate>

@@ -42,7 +42,7 @@ function applyPreset(teamSlot) {
 		} else if (unitTitleAndName.match(/Self.*?Del/ism)) {
 			primaryStat = 'HLT';
 			delimiter = '#';
-		} else if (unitTitleAndName.match(/Ruin.*T[oa]m[oa]m[ao]/ism)) {
+		} else if (unitTitleAndName.match(/Ruin.*T[uoa]m[uoa]m[ao]/ism)) {
 			primaryStat = 'HLT';
 			delimiter = '#';
 		}
@@ -51,7 +51,7 @@ function applyPreset(teamSlot) {
 
 		if (unitTitleAndName.match(/Gnosis.*Ne[lI][lI]/ism)) {
 			strRegex = '#GN.*NELLA#';
-		} else if (unitTitleAndName.match(/Eter.*T[oa]m[oa]m[ao]/ism)) {
+		} else if (unitTitleAndName.match(/Eter.*T[uoa]m[uoa]m[ao]/ism)) {
 			strRegex = '#TAMAMOE#';
 		}
 

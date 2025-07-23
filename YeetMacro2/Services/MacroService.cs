@@ -56,6 +56,7 @@ public class MacroService
     readonly LogServiceViewModel _logServiceViewModel;
     readonly IScreenService _screenService;
     readonly ConcurrentDictionary<string, Point> _pathToOffset;
+    readonly ConcurrentDictionary<string, Rect> _pathToBounds;
     readonly ConcurrentDictionary<string, PatternNode> _pathToClone;
     readonly Random _random;
     public bool InDebugMode { get; set; }
@@ -96,6 +97,16 @@ public class MacroService
         }
 
         return _pathToOffset[path];
+    }
+
+    public Rect CalcBounds(string path, Pattern pattern)
+    {
+        if (!_pathToBounds.ContainsKey(path))
+        {
+            _pathToBounds[path] = pattern.Bounds;
+        }
+
+        return _pathToBounds[path];
     }
 
     public Size GetCurrentResolution()
@@ -208,7 +219,9 @@ public class MacroService
 
                     foreach (var pattern in patternNode.Patterns)
                     {
-                        var offset = CalcOffset($"{patternNode.Path}_{idx}", pattern);
+                        var patternPath = $"{patternNode.Path}_{idx}";
+                        var offset = CalcOffset(patternPath, pattern);
+                        var bounds = CalcBounds(patternPath, pattern);
                         var optsWithOffset = new FindOptions()
                         {
                             Limit = opts.Limit,
@@ -221,7 +234,7 @@ public class MacroService
                             MainThread.BeginInvokeOnMainThread(() =>
                             {
                                 _screenService.DebugClear();
-                                _screenService.DebugRectangle(pattern.Bounds.Offset(offset));
+                                _screenService.DebugRectangle(bounds.Offset(offset));
                             });
                         }
                         Sleep(50);
@@ -251,6 +264,7 @@ public class MacroService
                     if (pattern is null) continue;
 
                     var offset = CalcOffset(patternNode.Path, pattern);
+                    var bounds = CalcBounds(patternNode.Path, pattern);
                     var optsWithOffset = new FindOptions()
                     {
                         Limit = opts.Limit,
@@ -262,7 +276,7 @@ public class MacroService
                     {
                         MainThread.BeginInvokeOnMainThread(() =>
                         {
-                            _screenService.DebugRectangle(pattern.Bounds.Offset(offset));
+                            _screenService.DebugRectangle(bounds.Offset(offset));
                         });
                     }
                     result = _screenService.FindPattern(pattern, optsWithOffset);
@@ -512,8 +526,9 @@ public class MacroService
         {
             MainThread.BeginInvokeOnMainThread(() =>
             {
+                var bounds = CalcBounds(patternNode.Path, pattern);
                 _screenService.DebugClear();
-                _screenService.DebugRectangle(pattern.Bounds.Offset(pattern.Offset));
+                _screenService.DebugRectangle(bounds.Offset(pattern.Offset));
             });
         }
 
@@ -566,9 +581,10 @@ public class MacroService
         var offset = CalcOffset(patternNode.Path, pattern);
         if (InDebugMode)
         {
+            var bounds = CalcBounds(patternNode.Path, pattern);
             MainThread.BeginInvokeOnMainThread(_screenService.DebugClear);
             Sleep(50);
-            MainThread.BeginInvokeOnMainThread(() => _screenService.DebugRectangle(pattern.Bounds.Offset(offset)));
+            MainThread.BeginInvokeOnMainThread(() => _screenService.DebugRectangle(bounds.Offset(offset)));
         }
 
         var currentTry = 0;
