@@ -55,9 +55,9 @@ public class MacroService
 {
     readonly LogServiceViewModel _logServiceViewModel;
     readonly IScreenService _screenService;
-    readonly ConcurrentDictionary<string, Point> _pathToOffset;
-    readonly ConcurrentDictionary<string, Rect> _pathToBounds;
-    readonly ConcurrentDictionary<string, PatternNode> _pathToClone;
+    readonly ConcurrentDictionary<string, Point> _pathToOffset = [];
+    readonly ConcurrentDictionary<string, Rect> _pathToBounds = [];
+    readonly ConcurrentDictionary<string, PatternNode> _pathToClone = [];
     readonly Random _random;
     public bool InDebugMode { get; set; }
     public bool IsRunning { get; set; }
@@ -66,8 +66,6 @@ public class MacroService
     {
         _logServiceViewModel = LogServiceViewModel;
         _screenService = screenService;
-        _pathToOffset = [];
-        _pathToClone = [];
         _random = new Random();
 
         WeakReferenceMessenger.Default.Register<PropertyChangedMessage<bool>, string>(this, nameof(MacroManagerViewModel), (r, propertyChangedMessage) =>
