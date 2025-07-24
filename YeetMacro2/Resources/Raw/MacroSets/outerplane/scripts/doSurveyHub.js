@@ -38,8 +38,6 @@ function doSurveyHub(targetNumBattles = 0) {
 				break;
 			case 'surveyHub.rewardInfo':
 				logger.info('doSurveyHub: find entry');
-				const topLeft = macroService.GetTopLeft();
-				const xLocation = topLeft.X + 1100;
 				let selectTeamResult;
 
 				if (descendingPriority) {
@@ -71,13 +69,6 @@ function doSurveyHub(targetNumBattles = 0) {
 				if (macroService.IsRunning) {
 					daily.doSurveyHub.count.Count += Number(numBattles);
 				}
-
-				//if (!sweepBattle) {
-				//	macroService.PollPattern(patterns.battle.setup.enter.ok, { DoClick: true, PredicatePattern: patterns.battle.exit });
-				//	macroService.PollPattern(patterns.battle.exit, { DoClick: true, PredicatePattern: patterns.general.back });
-				//	macroService.PollPattern(patterns.general.back, { DoClick: true, PredicatePattern: patterns.adventure.surveyHub });
-				//	//macroService.PollPattern(patterns.adventure.surveyHub, { DoClick: true, PredicatePattern: patterns.titles.shop });
-				//}
 
 				//logger.info(`targetNumBattles: ${targetNumBattles}, numBattles: ${numBattles}, doSurveyHub count: ${daily.doSurveyHub.count.Count}, `)
 				if (targetNumBattles && daily.doSurveyHub.count.Count >= targetNumBattles) {
