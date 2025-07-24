@@ -174,10 +174,12 @@ public class MediaProjectionService : IRecorderService
 
     public byte[] GetCurrentImageData(Rect rect)
     {
-        if (rect.X < 0) rect.X = 0;
-        if (rect.Y < 0) rect.Y = 0;
 
         var bitmap = GetBitmap();
+        if (rect.X < 0) rect.X = 0;
+        if (rect.Y < 0) rect.Y = 0;
+        if (rect.Right > bitmap.Width) rect.Right = bitmap.Width;
+        if (rect.Bottom > bitmap.Height) rect.Bottom = bitmap.Height;
         if (bitmap == null) return null;
 
         var newBitmap = Bitmap.CreateBitmap(bitmap, (int)rect.X, (int)rect.Y, (int)rect.Width, (int)rect.Height);
