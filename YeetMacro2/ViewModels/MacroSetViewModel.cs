@@ -19,7 +19,7 @@ public partial class MacroSetViewModel : MacroSet
     SettingNodeManagerViewModel _settings;
     DailyNodeManagerViewModel _dailies;
     WeeklyNodeManagerViewModel _weeklies;
-
+    
     [ObservableProperty]
     [property: JsonIgnore]  // https://stackoverflow.com/questions/74599937/is-there-any-other-way-of-ignoring-a-property-during-json-serialization-instead
     bool _isScriptRunning, _isBusy;
@@ -250,9 +250,41 @@ public partial class MacroSetViewModel : MacroSet
         }
     }
 
+    public override bool IgnoreCutoutInOffsetCalculation
+    {
+        get => base.IgnoreCutoutInOffsetCalculation;
+        set
+        {
+            base.IgnoreCutoutInOffsetCalculation = value;
+            OnPropertyChanged();
+        }
+    }
+
+    public override bool UsePatternsSnapshot
+    {
+        get => base.UsePatternsSnapshot;
+        set
+        {
+            var hasChanged = base.UsePatternsSnapshot != value;
+            base.UsePatternsSnapshot = value;
+            OnPropertyChanged();
+
+            if (IsBusy || !hasChanged) return;
+
+            if (base.UsePatternsSnapshot && _patterns is not null)
+            {
+                _patterns.TakeSnapshot();
+            }
+            else if (_patterns is not null && !_patterns.IsInitialized)
+            {
+                _patterns.ForceInit();
+            }
+        }
+    }
+
     public async Task WaitForInitialization()
     {
-        if (!Patterns.UseSnapshot) await Patterns.WaitForInitialization();
+        if (!UsePatternsSnapshot) await Patterns.WaitForInitialization();
         await Scripts.WaitForInitialization();
         await Settings.WaitForInitialization();
         await Dailies.WaitForInitialization();

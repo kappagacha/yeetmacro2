@@ -121,7 +121,7 @@ public class ScriptService: IScriptService
                 }
             }
 
-            if (macroSet.Patterns.UseSnapshot)
+            if (macroSet.UsePatternsSnapshot)
             {
                 _engine.Execute($"patterns = {macroSet.Patterns.ToJson()};");
             }

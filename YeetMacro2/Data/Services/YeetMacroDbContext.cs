@@ -70,7 +70,7 @@ public class YeetMacroDbContext : DbContext
         modelBuilder.Entity<MacroSet>().HasKey(ms => ms.MacroSetId);
         modelBuilder.Entity<MacroSet>().Property(ms => ms.Resolution).HasConversion(sizeConverter);
         modelBuilder.Entity<MacroSet>().Property(ms => ms.DefaultLocation).HasConversion(pointConverter);
-        modelBuilder.Entity<MacroSet>().Property(ms => ms.WeeklyStartDay).HasConversion(new EnumToStringConverter<DayOfWeek>()); 
+        modelBuilder.Entity<MacroSet>().Property(ms => ms.WeeklyStartDay).HasConversion(new EnumToStringConverter<DayOfWeek>());
 
         modelBuilder.Entity<Node>().HasKey(n => n.NodeId);
         modelBuilder.Entity<Node>().UseTptMappingStrategy();

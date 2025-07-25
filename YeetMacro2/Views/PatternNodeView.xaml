@@ -11,10 +11,10 @@
              x:Name="thisControl">
     <Grid>
         <v:ToggleImageView Text="Using Snapshot" FontFamily="MaterialOutlined" Glyph="{x:Static mi:MaterialOutlined.Screenshot}"
-                           IsToggled="{Binding MacroSet.Patterns.UseSnapshot, Source={Reference thisControl}}" HorizontalOptions="Center" VerticalOptions="Center"
+                           IsToggled="{Binding MacroSet.UsePatternsSnapshot, Source={Reference thisControl}}" HorizontalOptions="Center" VerticalOptions="Center"
                            ToggledColor="{StaticResource Primary}"
-                           IsVisible="{Binding MacroSet.Patterns.UseSnapshot, Source={Reference thisControl}}"/>
-        <Grid ColumnDefinitions="*,3*" IsVisible="{Binding MacroSet.Patterns.UseSnapshot, Converter={conv:InverseBoolConverter}, Source={Reference thisControl}}">
+                           IsVisible="{Binding MacroSet.UsePatternsSnapshot, Source={Reference thisControl}}"/>
+        <Grid ColumnDefinitions="*,3*" IsVisible="{Binding MacroSet.UsePatternsSnapshot, Converter={conv:InverseBoolConverter}, Source={Reference thisControl}}">
             <Border Grid.Column="0" Stroke="{StaticResource Primary}" BackgroundColor="Transparent" Padding="3">
                 <v:NodeView NodeManager="{Binding MacroSet.Patterns, Source={Reference thisControl}}">
                     <v:NodeView.ExtraMenuItemsDataTemplate>
@@ -25,7 +25,7 @@
                                                  CommandParameter="{Binding BindingContext.Name, Source={RelativeSource AncestorType={x:Type v:PatternNodeView}}}" />
                                 <v:ToggleImageView FontFamily="MaterialOutlined" Glyph="{x:Static mi:MaterialOutlined.Screenshot}"
                                                    ToggledColor="{StaticResource Primary}"
-                                                   IsToggled="{Binding MacroSet.Patterns.UseSnapshot, Source={RelativeSource AncestorType={x:Type v:PatternNodeView}}}" />
+                                                   IsToggled="{Binding MacroSet.UsePatternsSnapshot, Source={RelativeSource AncestorType={x:Type v:PatternNodeView}}}" />
                             </VerticalStackLayout>
                         </DataTemplate>
                     </v:NodeView.ExtraMenuItemsDataTemplate>

@@ -34,7 +34,7 @@ public partial class TodoNodeManagerViewModel : NodeManagerViewModel<TodoViewMod
         InitTodoRoot();
     }
 
-    protected override void Init()
+    protected override void Init(Action callback = null)
     {
         // Not doing the normal filling of nodes
     }

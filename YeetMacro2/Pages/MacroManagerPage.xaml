@@ -107,6 +107,14 @@
                                     <ImageButton Margin="0" Padding="0" BindingContext="{Binding SelectedMacroSet}" Clicked="WeeklyDayStart_Clicked" />
                                 </Grid>
                             </HorizontalStackLayout>
+                            <HorizontalStackLayout Margin="0" Padding="0">
+                                <Label Margin="0" VerticalOptions="Center" Padding="0" Text="Ignore Cutout In OffSet Calculation:" />
+                                <CheckBox Margin="5,0,0,0" VerticalOptions="Center" IsChecked="{Binding SelectedMacroSet.IgnoreCutoutInOffsetCalculation}" />
+                            </HorizontalStackLayout>
+                            <HorizontalStackLayout Margin="0" Padding="0">
+                                <Label Margin="0" VerticalOptions="Center" Padding="0" Text="Use Patterns Snapshot:" />
+                                <CheckBox Margin="5,0,0,0" VerticalOptions="Center" IsChecked="{Binding SelectedMacroSet.UsePatternsSnapshot}" />
+                            </HorizontalStackLayout>
                         </VerticalStackLayout>
                         <Grid Grid.Column="1" IsVisible="{Binding ShowMacroSetDescriptionEditor}">
                             <Editor Text="{Binding SelectedMacroSet.Description}" />

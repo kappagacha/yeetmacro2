@@ -75,10 +75,11 @@ public partial class MacroManagerViewModel : ObservableObject
         _mapper = mapper;
         _httpService = httpService;
         // manually instantiating in ServiceRegistrationHelper.AppInitializer to pre initialize MacroSets
-        if (_macroSetRepository == null) return;  
+        if (_macroSetRepository == null) return;
 
         var tempMacroSets = _macroSetRepository.Get(noTracking: true);
-        MacroSets = new ObservableCollection<MacroSetViewModel>(tempMacroSets.Select(ms => _mapper.Map<MacroSetViewModel>(ms)));
+        var mappedMacroSets = tempMacroSets.Select(ms => _mapper.Map<MacroSetViewModel>(ms));
+        MacroSets = new ObservableCollection<MacroSetViewModel>(mappedMacroSets);
 
         if (Preferences.Default.ContainsKey(nameof(SelectedMacroSet)) && MacroSets.Any(ms => ms.Name == Preferences.Default.Get<string>(nameof(SelectedMacroSet), null)))
         {
@@ -203,7 +204,7 @@ public partial class MacroManagerViewModel : ObservableObject
         IsBusy = true;
         await macroSet.WaitForInitialization();
         SelectedMacroSet = null;
-        if (macroSet.Patterns.UseSnapshot)
+        if (macroSet.UsePatternsSnapshot)
         {
             macroSet.Patterns.ForceInit();
             await macroSet.Patterns.WaitForInitialization();
@@ -342,7 +343,7 @@ public partial class MacroManagerViewModel : ObservableObject
     [RelayCommand]
     private async Task UpdateMacroSet(MacroSetViewModel macroSet)
     {
-        IsBusy = true;
+        macroSet.IsBusy = IsBusy = true;
 
         try
         {
@@ -413,7 +414,7 @@ public partial class MacroManagerViewModel : ObservableObject
 
             await macroSet.WaitForInitialization();
 
-            if (pattternJson is not null && macroSet.Patterns.UseSnapshot)
+            if (pattternJson is not null && macroSet.UsePatternsSnapshot)
             {
                 macroSet.Name = targetMacroSet.Name;
                 macroSet.Patterns.TakeSnapshot(pattternJson);
@@ -486,7 +487,8 @@ public partial class MacroManagerViewModel : ObservableObject
 
             _mapper.Map(targetMacroSet, macroSet, opt =>
             {
-                opt.BeforeMap((src, dst) =>     // prevent db id from getting wiped out
+                // prevent db id and macroset level settings from getting wiped out
+                opt.BeforeMap((src, dst) =>
                 {
                     src.MacroSetId = dst.MacroSetId;
                     src.RootScriptNodeId = dst.RootScriptNodeId;
@@ -495,6 +497,8 @@ public partial class MacroManagerViewModel : ObservableObject
                     src.RootDailyNodeId = dst.RootDailyNodeId;
                     src.RootWeeklyNodeId = dst.RootWeeklyNodeId;
                     src.Source = dst.Source;
+                    src.IgnoreCutoutInOffsetCalculation = dst.IgnoreCutoutInOffsetCalculation;
+                    src.UsePatternsSnapshot = dst.UsePatternsSnapshot;
                 });
             });
 
@@ -509,7 +513,75 @@ public partial class MacroManagerViewModel : ObservableObject
         }
         finally
         {
-            IsBusy = false;
+            macroSet.IsBusy = IsBusy = false;
+#if !WINDOWS 
+            Vibration.Default.Vibrate(100);
+#endif
+        }
+    }
+
+    public async Task UpdateMacroSetPatterns(MacroSetViewModel macroSet)
+    {
+        macroSet.IsBusy = IsBusy = true;
+        macroSet.PatternsLastUpdated = null;
+
+        try
+        {
+            MacroSet targetMacroSet;
+            string macroSetJson = null, pattternJson = null;
+            if (macroSet.Source.StartsWith("localAsset:"))
+            {
+                var macroSetName = macroSet.Source[11..];
+                var localMacroSets = ServiceHelper.ListAssets("MacroSets").ToList();
+                if (!localMacroSets.Contains(macroSetName))
+                {
+                    _toastService.Show($"Did not find local MacroSet: {macroSet.Source}");
+                    return;
+                }
+
+                macroSetJson = ServiceHelper.GetAssetContent(Path.Combine("MacroSets", macroSetName, "macroSet.json"));
+                targetMacroSet = JsonSerializer.Deserialize<MacroSet>(macroSetJson, _jsonSerializerOptions);
+                if (!macroSet.PatternsLastUpdated.HasValue || macroSet.PatternsLastUpdated < targetMacroSet.PatternsLastUpdated)
+                {
+                    pattternJson = ServiceHelper.GetAssetContent(Path.Combine("MacroSets", macroSetName, "patterns.json"));
+                }
+            }
+            else // online from public github
+            {
+                var macroSetName = macroSet.Source[7..];
+
+                var commitInfoUrl = $"https://github.com/kappagacha/yeetmacro2/tree-commit-info/{_targetBranch}/YeetMacro2/Resources/Raw/MacroSets/{macroSetName}";
+                var rawUrl = $"https://raw.githubusercontent.com/kappagacha/yeetmacro2/{_targetBranch}/YeetMacro2/Resources/Raw/MacroSets/{macroSetName}";
+                macroSetJson = await _httpService.GetAsync(Path.Combine(rawUrl, "macroSet.json"), new Dictionary<string, string>() { { "Accept", "application/json" } });
+                targetMacroSet = JsonSerializer.Deserialize<MacroSet>(macroSetJson, _jsonSerializerOptions);
+                if (!macroSet.PatternsLastUpdated.HasValue || macroSet.PatternsLastUpdated < targetMacroSet.PatternsLastUpdated)
+                {
+                    pattternJson = await _httpService.GetAsync(Path.Combine(rawUrl, "patterns.json"), new Dictionary<string, string>() { { "Accept", "application/json" } });
+                }
+            }
+
+            if (pattternJson is not null && macroSet.UsePatternsSnapshot)
+            {
+                macroSet.Name = targetMacroSet.Name;
+                macroSet.Patterns.TakeSnapshot(pattternJson);
+            }
+            else if (pattternJson is not null)
+            {
+                macroSet.Patterns.SelectedNode = null;
+                var patterns = PatternNodeManagerViewModel.FromJson(pattternJson);
+                ((PatternNodeViewModel)macroSet.Patterns.Root).ResetDictionary();
+                macroSet.Patterns.Import(patterns);
+                macroSet.Patterns.TakeSnapshot();
+            }
+            _toastService.Show($"Updated MacroSet Patterns: {macroSet.Name}");
+        }
+        catch (Exception ex)
+        {
+            _toastService.Show($"Error Updating MacroSet Patterns: {ex.Message}");
+        }
+        finally
+        {
+            macroSet.IsBusy = IsBusy = false;
 #if !WINDOWS 
             Vibration.Default.Vibrate(100);
 #endif
@@ -535,7 +607,7 @@ public partial class MacroManagerViewModel : ObservableObject
             DefaultLocationX = value.DefaultLocation.X;
             DefaultLocationY = value.DefaultLocation.Y;
             Preferences.Default.Set(nameof(SelectedMacroSet), value.Name);
-            DisplayHelper.CurrentMacroSetPackage = value.Package;
+            DisplayHelper.IgnoreCutoutInOffsetCalculation = value.IgnoreCutoutInOffsetCalculation;
             WeakReferenceMessenger.Default.Send(value);
         }
     }

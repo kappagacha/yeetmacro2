@@ -1,10 +1,12 @@
-﻿using CommunityToolkit.Mvvm.ComponentModel;
+﻿using CommunityToolkit.Maui.Alerts;
+using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using System.Text.Json;
 using System.Windows.Input;
 using YeetMacro2.Data.Models;
 using YeetMacro2.Data.Services;
 using YeetMacro2.Services;
+using static System.Net.Mime.MediaTypeNames;
 
 namespace YeetMacro2.ViewModels.NodeViewModels;
 
@@ -14,8 +16,6 @@ public partial class PatternNodeManagerViewModel : NodeManagerViewModel<PatternN
     readonly IScreenService _screenService;
     [ObservableProperty]
     Pattern _selectedPattern;
-    [ObservableProperty]
-    bool _useSnapshot;
     static PatternNodeManagerViewModel()
     {
     }
@@ -43,12 +43,12 @@ public partial class PatternNodeManagerViewModel : NodeManagerViewModel<PatternN
         //}
     }
 
-    protected override void Init()
+    protected override void Init(Action callback = null)
     {
 #pragma warning disable MVVMTK0034 // Direct field reference to [ObservableProperty] backing field
-        _useSnapshot = Preferences.Default.Get(nameof(UseSnapshot), true);
+        var macroSet = ServiceHelper.GetService<MacroManagerViewModel>().SelectedMacroSet;
 
-        if (!_useSnapshot)
+        if (!macroSet.UsePatternsSnapshot)
         {
             base.Init();
         }
@@ -57,22 +57,16 @@ public partial class PatternNodeManagerViewModel : NodeManagerViewModel<PatternN
 
     public void ForceInit()
     {
-        base.Init();
-    }
-
-    partial void OnUseSnapshotChanged(bool value)
-    {
-        Preferences.Default.Set(nameof(UseSnapshot), UseSnapshot);
-
-        if (!UseSnapshot && !IsInitialized)
+        base.Init(() =>
         {
-            base.Init();
-        }
+            if (this.Root.Nodes.Count != 0) return;
 
-        if (UseSnapshot)
-        {
-            TakeSnapshot();
-        }
+            MainThread.BeginInvokeOnMainThread(async () =>
+            {
+                var macroSetManager = ServiceHelper.GetService<MacroManagerViewModel>();
+                await macroSetManager.UpdateMacroSetPatterns(macroSetManager.SelectedMacroSet);
+            });
+        });
     }
 
     private string GetPatternsSnapshotFile()
@@ -98,7 +92,8 @@ public partial class PatternNodeManagerViewModel : NodeManagerViewModel<PatternN
 
     public override string ToJson()
     {
-        if (UseSnapshot)
+        var macroSet = ServiceHelper.GetService<MacroManagerViewModel>().SelectedMacroSet;
+        if (macroSet.UsePatternsSnapshot)
         {
             return File.ReadAllText(GetPatternsSnapshotFile());
         }

@@ -17,7 +17,7 @@ public static class DisplayHelper
     private static readonly Dictionary<DisplayRotation, Size> _rotationToPhysicalBounds = new ();
     public static DisplayRotation DisplayRotation { get; set; }
     public static DisplayInfo DisplayInfo { get; set; }
-    public static string CurrentMacroSetPackage { get; set; }
+    public static bool IgnoreCutoutInOffsetCalculation { get; set; }
     public static Point TopLeft 
     { 
         get 
@@ -41,6 +41,7 @@ public static class DisplayHelper
             return ResolvePhysicalBounds();
         }
     }
+
     private static Rect ResolveUsableResolution()
     {
         if (!_rotationToUsableBounds.ContainsKey(DisplayRotation))
@@ -101,10 +102,7 @@ public class Pattern: ISortable
     {
         get
         {
-            // https://developer.android.com/develop/ui/views/layout/edge-to-edge#enable-edge-to-edge-display
-            // Edge to edge display is enabled by default for Android 15 (SDK 35)
-            // Even when full screen Eversoul respects offset
-            var isFullScreen = OperatingSystem.IsAndroidVersionAtLeast(35) && DisplayHelper.CurrentMacroSetPackage != "com.kakaogames.eversoul";
+            var isFullScreen = DisplayHelper.IgnoreCutoutInOffsetCalculation;
             var xOffset = 0;
             var yOffset = 0;
             var topLeft = isFullScreen ? Point.Zero : DisplayHelper.TopLeft;

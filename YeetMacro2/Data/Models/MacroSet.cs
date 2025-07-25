@@ -34,4 +34,8 @@ public class MacroSet
     public virtual int DailyResetUtcHour { get; set; }
     public string WeeklyTemplate { get; set; }
     public virtual DayOfWeek WeeklyStartDay { get; set; } = DayOfWeek.Monday;
+    [JsonIgnore]
+    public virtual bool IgnoreCutoutInOffsetCalculation { get; set; }
+    [JsonIgnore]
+    public virtual bool UsePatternsSnapshot { get; set; } = true;
 }

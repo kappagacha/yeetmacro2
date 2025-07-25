@@ -94,7 +94,7 @@ public partial class NodeManagerViewModel<TViewModel, TParent, TChild> : NodeMan
         Init();
     }
 
-    protected virtual void Init()
+    protected virtual void Init(Action callback = null)
     {
         if (_rootNodeId <= 0) return;       // serialization sends -1 rootNodeId
 
@@ -118,6 +118,7 @@ public partial class NodeManagerViewModel<TViewModel, TParent, TChild> : NodeMan
             _initializeCompleted.SetResult();
             sw.Stop();
             Debug.WriteLine($"Loaded {typeof(TParent).Name}: {sw.ElapsedMilliseconds} ms");
+            callback?.Invoke();
         });
     }
 
