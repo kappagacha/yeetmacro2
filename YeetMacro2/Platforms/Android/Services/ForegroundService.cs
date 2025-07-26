@@ -32,13 +32,12 @@ public class ForegroundService : Service
             case EXIT_ACTION:
                 this.IsRunning = false;
                 StopForeground(StopForegroundFlags.Remove);
+                WeakReferenceMessenger.Default.Send(this);
                 break;
             default:
                 Start();
                 break;
         }
-
-        WeakReferenceMessenger.Default.Send(this);
 
         return StartCommandResult.NotSticky;
     }
@@ -112,6 +111,7 @@ public class ForegroundService : Service
             StartForeground(SERVICE_RUNNING_NOTIFICATION_ID, GenerateNotification());
         }
         this.IsRunning = true;
+        WeakReferenceMessenger.Default.Send(this);
     }
 
     public override void OnRebind(Intent intent)
