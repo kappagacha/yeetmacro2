@@ -39,19 +39,21 @@ public class ForegroundService : Service
                 break;
         }
 
-        return StartCommandResult.NotSticky;
+        return StartCommandResult.Sticky;
     }
 
     //https://stackoverflow.com/questions/61079610/how-to-create-a-xamarin-foreground-service
     public Notification GenerateNotification()
     {
-        var intent = new Intent(Platform.CurrentActivity, typeof(MainActivity));
+        var context = Platform.CurrentActivity ?? global::Android.App.Application.Context;
+        
+        var intent = new Intent(context, typeof(MainActivity));
         intent.AddFlags(ActivityFlags.SingleTop);
         intent.PutExtra("Title", "Message");
 
-        var pendingIntent = PendingIntent.GetActivity(Platform.CurrentActivity, 0, intent, PendingIntentFlags.UpdateCurrent | PendingIntentFlags.Immutable);
+        var pendingIntent = PendingIntent.GetActivity(context, 0, intent, PendingIntentFlags.UpdateCurrent | PendingIntentFlags.Immutable);
 
-        var notifBuilder = new NotificationCompat.Builder(Platform.CurrentActivity, FOREGROUND_CHANNEL_ID)
+        var notifBuilder = new NotificationCompat.Builder(context, FOREGROUND_CHANNEL_ID)
             .SetContentTitle("YeetMacro")
             .SetPriority((int)NotificationCompat.PriorityHigh)
             //.SetContentText("Main Text Body")
@@ -72,7 +74,7 @@ public class ForegroundService : Service
             notificationChannel.SetShowBadge(true);
             notificationChannel.SetVibrationPattern([100, 200, 300, 400, 500, 400, 300, 200, 400]);
 
-            if (Platform.CurrentActivity.GetSystemService(Context.NotificationService) is NotificationManager notifManager)
+            if (context.GetSystemService(Context.NotificationService) is NotificationManager notifManager)
             {
                 notifBuilder.SetChannelId(FOREGROUND_CHANNEL_ID);
                 notifManager.CreateNotificationChannel(notificationChannel);
