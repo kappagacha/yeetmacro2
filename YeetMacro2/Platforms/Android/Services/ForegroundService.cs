@@ -22,6 +22,7 @@ public class ForegroundService : Service
     public override void OnCreate()
     {
         base.OnCreate();
+        Start();
     }
 
     public override StartCommandResult OnStartCommand(Intent intent, [GeneratedEnum] StartCommandFlags flags, int startId)
@@ -33,15 +34,7 @@ public class ForegroundService : Service
                 StopForeground(StopForegroundFlags.Remove);
                 break;
             default:
-                if (OperatingSystem.IsAndroidVersionAtLeast(29))
-                {
-                    StartForeground(SERVICE_RUNNING_NOTIFICATION_ID, GenerateNotification(), global::Android.Content.PM.ForegroundService.TypeMediaProjection);
-                }
-                else
-                {
-                    StartForeground(SERVICE_RUNNING_NOTIFICATION_ID, GenerateNotification());
-                }
-                this.IsRunning = true;
+                Start();
                 break;
         }
 
@@ -103,6 +96,22 @@ public class ForegroundService : Service
                                           exitPendingIntent);
         
         return builder.Build();
+    }
+
+
+    void Start()
+    {
+        if (IsRunning) return;
+
+        if (OperatingSystem.IsAndroidVersionAtLeast(29))
+        {
+            StartForeground(SERVICE_RUNNING_NOTIFICATION_ID, GenerateNotification(), global::Android.Content.PM.ForegroundService.TypeMediaProjection);
+        }
+        else
+        {
+            StartForeground(SERVICE_RUNNING_NOTIFICATION_ID, GenerateNotification());
+        }
+        this.IsRunning = true;
     }
 
     public override void OnRebind(Intent intent)
