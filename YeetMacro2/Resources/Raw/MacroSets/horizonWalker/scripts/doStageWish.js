@@ -1,8 +1,9 @@
 ﻿// do stage wish
-const loopPatterns = [patterns.lobby.stage, patterns.titles.stage];
+const loopPatterns = [patterns.phone.battery, patterns.stage.title, patterns.stage.wish.title];
 const daily = dailyManager.GetCurrentDaily();
 const priority1 = settings.doStageWish.priority1.Value;
 const priority2 = settings.doStageWish.priority2.Value;
+const priority3 = ['credit', 'vangaurdExp', 'weaponExp'].find(wish => ![priority1, priority2].includes(wish));
 
 if (daily.doStageWish.done.IsChecked) {
 	return "Script already completed. Uncheck done to override daily flag.";
@@ -11,13 +12,16 @@ if (daily.doStageWish.done.IsChecked) {
 while (macroService.IsRunning) {
 	const loopResult = macroService.PollPattern(loopPatterns);
 	switch (loopResult.Path) {
-		case 'lobby.stage':
+		case 'phone.battery':
 			logger.info('doStageWish: click stage');
-			macroService.ClickPattern(patterns.lobby.stage);
+			macroService.ClickPattern(patterns.stage);
 			break;
-		case 'titles.stage':
+		case 'stage.title':
+			logger.info('doStageWish: click wish');
+			macroService.ClickPattern(patterns.stage.wish);
+			break;
+		case 'stage.wish.title':
 			logger.info('doStageWish: do wish daily mission');
-			macroService.PollPattern(patterns.stage.wish, { DoClick: true, PredicatePattern: patterns.stage.wish.selected });
 
 			const zeroWishesResult = macroService.FindPattern(patterns.stage.wish.zeroWishes);
 			if (zeroWishesResult.IsSuccess) {
@@ -25,26 +29,14 @@ while (macroService.IsRunning) {
 				return;
 			}
 
-			const stageResult = macroService.FindPattern(patterns.stage.wish.stage, { Limit: 7 });
-			const stageNames = stageResult.Points.filter(p => p).map(p => {
-				const stageNamePattern = macroService.ClonePattern(patterns.stage.wish.stage.name, { CenterY: p.Y, OffsetCalcType: 'None', Path: `stage.wish.stage.name_x${p.X}_y${p.Y}` });
-				return {
-					point: { X: p.X, Y: p.Y },
-					name: macroService.FindText(stageNamePattern)
-				};
-			});
-			//stageNames.sort((a, b) => a.point.Y - b.point.Y);		// Y ascending
-			stageNames.sort((a, b) => b.point.Y - a.point.Y);		// Y descending
-			//const targetStage = stageNames.find(pn => pn.name.match(/corp|lab/gi));
-			//const targetStage = stageNames.find(pn => pn.name.match(/corp/gi)) || stageNames.find(pn => pn.name.match(/lab/gi));
-			const regexPriority1 = new RegExp(priority1, 'gi');
-			const regexPriority2 = new RegExp(priority2, 'gi');
-			const targetStage = stageNames.find(pn => pn.name.match(regexPriority1)) || stageNames.find(pn => pn.name.match(regexPriority2));
-			macroService.PollPoint(targetStage.point, { PredicatePattern: patterns.battle.deploy });
+			const wishTargets = [patterns.stage.wish[priority1], patterns.stage.wish[priority2], patterns.stage.wish[priority3]]
+			const wishResult = macroService.PollPattern(wishTargets);
+			const wishTarget = wishResult.Path.split('.').pop();
+			macroService.PollPattern(patterns.stage.wish[wishTarget], { DoClick: true, ClickOffset: { X: -30 }, PredicatePattern: patterns.battle.deploy })
 			macroService.PollPattern(patterns.battle.deploy, { DoClick: true, ClickPattern: patterns.battle.skip, PredicatePattern: patterns.battle.next });
 			macroService.PollPattern(patterns.battle.next, { DoClick: true, PredicatePattern: patterns.battle.exit });
-			macroService.PollPattern(patterns.battle.exit, { DoClick: true, PredicatePattern: patterns.titles.stage });
-
+			macroService.PollPattern(patterns.battle.exit, { DoClick: true, PredicatePattern: patterns.stage.wish.title });
+			break;
 	}
 	sleep(1_000);
 }

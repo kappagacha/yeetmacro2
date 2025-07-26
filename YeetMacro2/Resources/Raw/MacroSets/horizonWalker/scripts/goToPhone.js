@@ -1,13 +1,14 @@
 ﻿// Go to lobby
 logger.info('goToLobby: start');
 
-macroService.PollPattern(patterns.lobby.stage, {
+macroService.PollPattern(patterns.phone.battery, {
 	ClickPattern: [
+		patterns.phone,
 		patterns.general.back,
 		patterns.tribute.close,
-		patterns.mall.back,
-		patterns.phone.back,
-		patterns.schedule.close
+		//patterns.mall.back,
+		//patterns.phone.back,
+		//patterns.schedule.close
 	]
 });
 

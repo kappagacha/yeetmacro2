@@ -1,5 +1,5 @@
 ﻿// do stage bounty
-const loopPatterns = [patterns.lobby.stage, patterns.titles.stage];
+const loopPatterns = [patterns.phone.battery, patterns.stage.title, patterns.stage.bounty.title];
 const daily = dailyManager.GetCurrentDaily();
 const resolution = macroService.GetCurrentResolution();
 
@@ -8,18 +8,20 @@ if (daily.doStageBounty.done.IsChecked) {
 }
 
 const targetBountyPattern = macroService.ClonePattern(settings.doStageBounty.targetBountyPattern.Value, {
-	X: 300,
+	X: 50,
 	Y: 230,
-	Width: resolution.Width - 320,
+	//Width: 1600,
+	Width: resolution.Width - 60,
 	Height: 790,
 	Path: 'settings.doStageBounty.targetBountyPattern',
 	OffsetCalcType: 'DockLeft'
 });
 
 const targetFloorPattern = macroService.ClonePattern(settings.doStageBounty.targetFloorPattern.Value, {
-	X: 200,
+	X: 50,
 	Y: 230,
-	Width: resolution.Width - 220,
+	//Width: 1700,
+	Width: resolution.Width - 60,
 	Height: 790,
 	Path: 'settings.doStageBounty.targetFloorPattern',
 	OffsetCalcType: 'DockLeft'
@@ -28,13 +30,16 @@ const targetFloorPattern = macroService.ClonePattern(settings.doStageBounty.targ
 while (macroService.IsRunning) {
 	const loopResult = macroService.PollPattern(loopPatterns);
 	switch (loopResult.Path) {
-		case 'lobby.stage':
-			logger.info('doStageBounty: click stage');
-			macroService.ClickPattern(patterns.lobby.stage);
+		case 'phone.battery':
+			logger.info('doStageWish: click stage');
+			macroService.ClickPattern(patterns.stage);
 			break;
-		case 'titles.stage':
+		case 'stage.title':
+			logger.info('doStageWish: click bounty');
+			macroService.ClickPattern(patterns.stage.bounty);
+			break;
+		case 'stage.bounty.title':
 			logger.info('doStageBounty: do bounty missions');
-			macroService.PollPattern(patterns.stage.bounty, { DoClick: true, PredicatePattern: patterns.stage.bounty.selected });
 			macroService.PollPattern(targetBountyPattern, { DoClick: true, PredicatePattern: patterns.stage.bounty.floor });
 			const targetFloorPatternResult = macroService.PollPattern(targetFloorPattern, { SwipePattern: patterns.general.swipeRight, TimeoutMs: 7_000 });
 			if (!targetFloorPatternResult.IsSuccess) {
@@ -43,7 +48,7 @@ while (macroService.IsRunning) {
 			macroService.PollPattern(targetFloorPattern, { DoClick: true, PredicatePattern: patterns.battle.deploy });
 			macroService.PollPattern(patterns.battle.deploy, { DoClick: true, ClickPattern: patterns.battle.skip, PredicatePattern: patterns.battle.next });
 			macroService.PollPattern(patterns.battle.next, { DoClick: true, PredicatePattern: patterns.battle.exit });
-			macroService.PollPattern(patterns.battle.exit, { DoClick: true, PredicatePattern: patterns.titles.stage });
+			macroService.PollPattern(patterns.battle.exit, { DoClick: true, PredicatePattern: patterns.stage.bounty.title });
 
 			logger.info('doStageBounty: sweep bounty missions');
 			macroService.PollPattern(targetFloorPattern, { SwipePattern: patterns.general.swipeRight, TimeoutMs: 7_000 });

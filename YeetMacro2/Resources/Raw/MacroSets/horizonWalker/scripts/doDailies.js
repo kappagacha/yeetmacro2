@@ -2,41 +2,41 @@
 // @position=-1
 // Do dailies (all checked scripts)
 
-goToLobby();
+goToPhone();
 
 if (settings.doDailies.claimTribute.Value) {
     claimTribute();
-    goToLobby();
+    goToPhone();
 }
 
 if (settings.doDailies.doDailyShop.Value) {
     doDailyShop();
-    goToLobby();
+    goToPhone();
 }
 
 if (settings.doDailies.doStageWish.Value) {
     doStageWish();
-    goToLobby();
+    goToPhone();
 }
 
 if (settings.doDailies.doStageBounty.Value) {
     doStageBounty();
-    goToLobby();
+    goToPhone();
 }
 
-if (settings.doDailies.claimDailyRewards.Value) {
-    claimDailyRewards();
-    goToLobby();
+if (settings.doDailies.claimDailyChecklist.Value) {
+    claimDailyChecklist();
+    goToPhone();
 }
 
 // claim tribute twice for sweepEvent
 if (settings.doDailies.claimTribute.Value) {
     settings.claimTribute.lastRun.Value = new Date().toISOString();
     claimTribute();
-    goToLobby();
+    goToPhone();
 }
 
 if (settings.doDailies.sweepEvent.Value) {
     sweepEvent();
-    goToLobby();
+    goToPhone();
 }

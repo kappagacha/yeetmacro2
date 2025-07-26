@@ -1,5 +1,5 @@
 ﻿// Claim tribute
-const loopPatterns = [patterns.lobby.stage, patterns.tribute.receive];
+const loopPatterns = [patterns.phone.battery, patterns.tribute.receive];
 const daily = dailyManager.GetCurrentDaily();
 
 const isLastRunWithinHour = (Date.now() - settings.claimTribute.lastRun.Value.ToUnixTimeMilliseconds()) / 3_600_000 < 1;
@@ -11,9 +11,9 @@ if (isLastRunWithinHour && !settings.claimTribute.forceRun.Value) {
 while (macroService.IsRunning) {
 	const loopResult = macroService.PollPattern(loopPatterns);
 	switch (loopResult.Path) {
-		case 'lobby.stage':
+		case 'phone.battery':
 			logger.info('claimTribute: click tribute');
-			macroService.ClickPattern(patterns.lobby.stage, { ClickOffset: { X: -100 } });
+			macroService.ClickPattern(patterns.phone.store, { ClickOffset: { X: -100, Y: 50 } });
 			break;
 		case 'tribute.receive':
 			logger.info('claimTribute: claim tribute');
