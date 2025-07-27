@@ -42,25 +42,27 @@ public class MainActivity : MauiAppCompatActivity
 
         AppDomain.CurrentDomain.UnhandledException += (sender, args) =>
         {
-            Console.WriteLine("[*****YeetMacro*****] CurrentDomain UnhandledException: " + args.ExceptionObject.ToString());
-            if (args.IsTerminating)
-            {
-                ServiceHelper.GetService<YeetAccessibilityService>().Stop();
-            }
+            ServiceHelper.GetService<LogServiceViewModel>().LogDebug("CurrentDomain UnhandledException: " + args.ExceptionObject.ToString());
+            //if (args.IsTerminating)
+            //{
+            //    ServiceHelper.GetService<YeetAccessibilityService>().Stop();
+            //}
             ServiceHelper.GetService<LogServiceViewModel>().LogException(args.ExceptionObject as Exception);
         };
 
         // https://gist.github.com/mattjohnsonpint/7b385b7a2da7059c4a16562bc5ddb3b7
         Android.Runtime.AndroidEnvironment.UnhandledExceptionRaiser += (sender, args) =>
         {
-            Console.WriteLine("[*****YeetMacro*****] UnhandledExceptionRaiser UnhandledException: " + args.Exception.Message);
+            ServiceHelper.GetService<LogServiceViewModel>().LogDebug("UnhandledExceptionRaiser UnhandledException: " + args.Exception.Message);
             ServiceHelper.GetService<LogServiceViewModel>().LogException(args.Exception );
+            args.Handled = true; // Prevent app termination
         };
 
         TaskScheduler.UnobservedTaskException += (sender, args) =>
         {
-            Console.WriteLine("[*****YeetMacro*****] TaskScheduler UnobservedTaskException: " + args.Exception.Message);
+            ServiceHelper.GetService<LogServiceViewModel>().LogDebug("TaskScheduler UnhandledUnobservedTaskExceptionException: " + args.Exception.Message);
             ServiceHelper.GetService<LogServiceViewModel>().LogException(args.Exception);
+            args.SetObserved(); // Mark as observed to prevent termination
         };
 
         // https://stackoverflow.com/questions/74165500/net-maui-how-to-ensure-that-android-platform-specific-code-is-only-executed-on

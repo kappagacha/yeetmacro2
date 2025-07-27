@@ -259,6 +259,7 @@ public class MediaProjectionService : IRecorderService
         }
         public override void OnStop()
         {
+            ServiceHelper.GetService<LogServiceViewModel>().LogInfo("MediaProjectionCallback.OnStop");
             _mediaProjectionService.CallbackStop();
         }
     }
