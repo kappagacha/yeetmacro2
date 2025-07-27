@@ -147,11 +147,9 @@ public class ForegroundService : Service
     {
         ServiceHelper.GetService<LogServiceViewModel>().LogInfo("ForegroundService.OnDestroy Stop");
         ServiceHelper.GetService<LogServiceViewModel>().LogInfo("ForegroundService.OnDestroy IsRunning=" + this.IsRunning);
-        if (this.IsRunning) // if forcibly destroyed
-        {
-            ServiceHelper.GetService<LogServiceViewModel>().LogInfo("ForegroundService.OnDestroy StartForegroundServiceCompat");
-            Platform.AppContext.StartForegroundServiceCompat<ForegroundService>();
-        }
+        // if forcibly destroyed
+        ServiceHelper.GetService<LogServiceViewModel>().LogInfo("ForegroundService.OnDestroy StartForegroundServiceCompat");
+        Platform.AppContext.StartForegroundServiceCompat<ForegroundService>();
         base.OnDestroy();
     }
 
