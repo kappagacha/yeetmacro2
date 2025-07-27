@@ -7,15 +7,15 @@
     "lastRun": {
       "$type": "timestamp",
       "$defaultValue": "0001-01-01T00:00:00+00:00",
-      "$value": "2025-07-26T01:39:38.59+00:00",
+      "$value": "2025-07-27T02:36:30.233+00:00",
       "$position": 0,
       "$name": "lastRun",
       "$path": "claimTribute.lastRun"
     },
     "forceRun": {
       "$type": "boolean",
-      "$defaultValue": true,
-      "$value": true,
+      "$defaultValue": false,
+      "$value": false,
       "$position": 0,
       "$name": "forceRun",
       "$path": "claimTribute.forceRun"

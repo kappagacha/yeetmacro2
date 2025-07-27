@@ -1,7 +1,6 @@
 ﻿// claim daily rewards
-const loopPatterns = [patterns.event.title, patterns.checklist.title];
+const loopPatterns = [patterns.phone.battery, patterns.checklist.title];
 const daily = dailyManager.GetCurrentDaily();
-const resolution = macroService.GetCurrentResolution();
 
 if (daily.claimDailyChecklist.done.IsChecked) {
 	return "Script already completed. Uncheck done to override daily flag.";
@@ -10,7 +9,7 @@ if (daily.claimDailyChecklist.done.IsChecked) {
 while (macroService.IsRunning) {
 	const loopResult = macroService.PollPattern(loopPatterns);
 	switch (loopResult.Path) {
-		case 'event.title':
+		case 'phone.battery':
 			logger.info('claimDailyChecklist: click checklist');
 			macroService.ClickPattern(patterns.phone.checklist);
 			break;

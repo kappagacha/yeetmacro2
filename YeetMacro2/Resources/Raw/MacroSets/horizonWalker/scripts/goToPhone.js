@@ -6,7 +6,7 @@ macroService.PollPattern(patterns.phone.battery, {
 		patterns.phone,
 		patterns.general.back,
 		patterns.tribute.close,
-		//patterns.mall.back,
+		patterns.mall.back,
 		//patterns.phone.back,
 		//patterns.schedule.close
 	]
