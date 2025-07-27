@@ -10,7 +10,7 @@ using YeetMacro2.Services;
 namespace YeetMacro2.ViewModels;
 
 // https://github.com/serilog/serilog/wiki/Developing-a-sink
-public partial class LogServiceViewModel(IRepository<Log> _logRepository, IMapper _mapper, IScreenService _screenService, IToastService _toastService) : ObservableObject
+public partial class LogServiceViewModel(IRepository<Log> _logRepository, IMapper _mapper, IToastService _toastService) : ObservableObject
 {   
     [ObservableProperty]
     string _info, _debug;
@@ -90,7 +90,7 @@ public partial class LogServiceViewModel(IRepository<Log> _logRepository, IMappe
         var screenshotLog = new ScreenCaptureLog()
         {
             Message = message,
-            ScreenCapture = _screenService.GetCurrentImageData(),
+            ScreenCapture = ServiceHelper.GetService<IScreenService>().GetCurrentImageData(),
             Timestamp = DateTime.Now.Ticks
         };
         return screenshotLog;
