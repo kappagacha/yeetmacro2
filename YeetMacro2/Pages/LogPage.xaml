@@ -133,14 +133,7 @@
                 </Label>
                 <ImageButton Margin="0" Padding="0" CommandParameter="{Binding .}" 
                              Command="{Binding BindingContext.SelectLogCommand, Source={RelativeSource AncestorType={x:Type p:LogPage}}}" />
-                <Grid HeightRequest="20" HorizontalOptions="End" IsVisible="{Binding ParentId, Converter={conv:NullToBoolConverter}}">
-                    <v:ToggleImageView FontFamily="MaterialOutlined" Glyph="{x:Static mi:MaterialOutlined.Archive}" IsToggled="{Binding IsArchived}"
-                                ToggledColor="{StaticResource Primary}"
-                                CommandParameter="{Binding .}"
-                                Command="{Binding BindingContext.ToggleLogArchivedCommand, Source={RelativeSource AncestorType={x:Type p:LogPage}}}" />
-                    <v:ImageView FontFamily="MaterialOutlined" Glyph="{x:Static mi:MaterialOutlined.Download}" 
-                                CommandParameter="{Binding .}"
-                                Command="{Binding BindingContext.DownloadScreenCaptureCommand, Source={RelativeSource AncestorType={x:Type p:LogPage}}}" />
+                <Grid HeightRequest="20" HorizontalOptions="End">
                     <v:ImageView FontFamily="MaterialOutlined" Glyph="{x:Static mi:MaterialOutlined.Content_copy}" 
                                 CommandParameter="{Binding .}"
                                 Command="{Binding BindingContext.CopyMessgeToClipboardCommand, Source={RelativeSource AncestorType={x:Type p:LogPage}}}" />

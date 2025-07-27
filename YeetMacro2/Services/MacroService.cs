@@ -537,6 +537,7 @@ public class MacroService
     {
         _pathToOffset.Clear();
         _pathToClone.Clear();
+        _pathToBounds.Clear();
         if (InDebugMode)
         {
             MainThread.BeginInvokeOnMainThread(_screenService.DebugClear);

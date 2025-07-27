@@ -174,6 +174,11 @@ public class WindowsScreenService : IScreenService, IRecorderService
     {
         throw new NotImplementedException();
     }
+
+    public void SwipePattern(Pattern pattern)
+    {
+        throw new NotImplementedException();
+    }
 }
 
 public static class WindowHelper
