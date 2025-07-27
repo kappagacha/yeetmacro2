@@ -3,7 +3,6 @@ using Android.Content;
 using Android.OS;
 using Android.Runtime;
 using AndroidX.Core.App;
-using CommunityToolkit.Mvvm.Messaging.Messages;
 using CommunityToolkit.Mvvm.Messaging;
 using YeetMacro2.Services;
 using YeetMacro2.ViewModels;
@@ -19,29 +18,14 @@ public class ForegroundService : Service
     public bool IsRunning = false;
     public ForegroundService()
     {
-        try
-        {
-            ServiceHelper.GetService<LogServiceViewModel>().LogInfo("ForegroundService Constructor");
-        }
-        catch (Exception ex)
-        {
-            ServiceHelper.GetService<LogServiceViewModel>().LogInfo($"ForegroundService Constructor Error: {ex}");
-        }
+        ServiceHelper.GetService<LogServiceViewModel>().LogInfo("ForegroundService Constructor");
     }
 
     public override void OnCreate()
     {
         base.OnCreate();
 
-        try
-        {
-            ServiceHelper.GetService<LogServiceViewModel>().LogInfo("ForegroundService.OnCreate Start");
-        }
-        catch (Exception ex)
-        {
-            // ServiceHelper might not be available during early startup
-        }
-        
+        ServiceHelper.GetService<LogServiceViewModel>().LogInfo("ForegroundService.OnCreate Start");
         Start();
     }
 
@@ -51,9 +35,7 @@ public class ForegroundService : Service
         switch (intent.Action)
         {
             case EXIT_ACTION:
-                this.IsRunning = false;
-                StopForeground(StopForegroundFlags.Remove);
-                WeakReferenceMessenger.Default.Send(this);
+                Stop();
                 break;
             default:
                 ServiceHelper.GetService<LogServiceViewModel>().LogInfo("ForegroundService.OnStartCommand Start");
@@ -148,6 +130,13 @@ public class ForegroundService : Service
         WeakReferenceMessenger.Default.Send(this);
     }
 
+    void Stop()
+    {
+        this.IsRunning = false;
+        StopForeground(StopForegroundFlags.Remove);
+        WeakReferenceMessenger.Default.Send(this);
+    }
+
     public override void OnRebind(Intent intent)
     {
         ServiceHelper.GetService<LogServiceViewModel>().LogInfo("ForegroundService.OnRebind");
@@ -156,7 +145,8 @@ public class ForegroundService : Service
 
     public override void OnDestroy()
     {
-        ServiceHelper.GetService<LogServiceViewModel>().LogInfo("ForegroundService.OnDestroy");
+        ServiceHelper.GetService<LogServiceViewModel>().LogInfo("ForegroundService.OnDestroy Stop");
+        Stop();
         base.OnDestroy();
     }
 
