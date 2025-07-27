@@ -32,6 +32,7 @@ public class MediaProjectionService : IRecorderService
 
     public MediaProjectionService()
     {
+        ServiceHelper.GetService<LogServiceViewModel>().LogInfo("MediaProjectionService Constructor");
         _mediaProjectionCallback = new MediaProjectionCallback(this);
 
         WeakReferenceMessenger.Default.Register<ForegroundService>(this, (r, foregroundService) =>
@@ -92,6 +93,7 @@ public class MediaProjectionService : IRecorderService
 
     public void Init(global::Android.App.Result resultCode, Intent resultData)
     {
+        ServiceHelper.GetService<LogServiceViewModel>().LogInfo("MediaProjectionService.Init " + resultCode);
         _resultCode = (int)resultCode;
         _resultData = resultData;
 
@@ -142,6 +144,7 @@ public class MediaProjectionService : IRecorderService
 
     public void Stop()
     {
+        ServiceHelper.GetService<LogServiceViewModel>().LogInfo("MediaProjectionService.Stop");
         if (_virtualDisplay == null) return;
 
         _virtualDisplay.Release();

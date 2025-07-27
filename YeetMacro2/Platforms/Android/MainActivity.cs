@@ -75,8 +75,7 @@ public class MainActivity : MauiAppCompatActivity
 
     protected override void OnActivityResult(int requestCode, [GeneratedEnum] Result resultCode, Intent data)
     {
-        //ServiceHelper.GetService<LogServiceViewModel>().LogDebug($"MainActivity.OnActivityResult requestCode: {requestCode}");
-        //ServiceHelper.GetService<LogServiceViewModel>().LogDebug($"MainActivity.OnActivityResult resultCode: {resultCode}");
+        ServiceHelper.GetService<LogServiceViewModel>().LogDebug($"MainActivity.OnActivityResult requestCode: {requestCode}");
         switch (requestCode)
         {
             case Platforms.Android.Services.MediaProjectionService.REQUEST_MEDIA_PROJECTION:
@@ -93,7 +92,7 @@ public class MainActivity : MauiAppCompatActivity
 
     protected override void OnStart()
     {
-        Console.WriteLine("[*****YeetMacro*****] MainActivity OnStart");
+        ServiceHelper.GetService<LogServiceViewModel>().LogDebug($"MainActivity.OnStart");
         DeviceDisplay.MainDisplayInfoChanged += DeviceDisplay_MainDisplayInfoChanged;
         DeviceDisplay_MainDisplayInfoChanged(null, new DisplayInfoChangedEventArgs(DeviceDisplay.MainDisplayInfo));
         base.OnStart();
@@ -108,27 +107,28 @@ public class MainActivity : MauiAppCompatActivity
 
     protected override void OnResume()
     {
-        Console.WriteLine("[*****YeetMacro*****] MainActivity OnResume");
+        ServiceHelper.GetService<LogServiceViewModel>().LogDebug($"MainActivity.OnResume");
         DeviceDisplay.MainDisplayInfoChanged += DeviceDisplay_MainDisplayInfoChanged;
         base.OnResume();
     }
 
     protected override void OnPause()
     {
-        Console.WriteLine("[*****YeetMacro*****] MainActivity OnPause");
+        ServiceHelper.GetService<LogServiceViewModel>().LogDebug($"MainActivity.OnPause");
         DeviceDisplay.MainDisplayInfoChanged -= DeviceDisplay_MainDisplayInfoChanged;
         base.OnPause();
     }
 
     protected override void OnDestroy()
     {
-        Console.WriteLine("[*****YeetMacro*****] MainActivity OnDestroy");
+        ServiceHelper.GetService<LogServiceViewModel>().LogDebug($"MainActivity.OnDestroy");
         DeviceDisplay.MainDisplayInfoChanged -= DeviceDisplay_MainDisplayInfoChanged;
         base.OnDestroy();
     }
 
     public override void OnRequestPermissionsResult(int requestCode, string[] permissions, [GeneratedEnum] Android.Content.PM.Permission[] grantResults)
     {
+        ServiceHelper.GetService<LogServiceViewModel>().LogDebug($"MainActivity.OnRequestPermissionsResult " + requestCode + " " + grantResults); 
         Platform.OnRequestPermissionsResult(requestCode, permissions, grantResults);
         base.OnRequestPermissionsResult(requestCode, permissions, grantResults);
     }

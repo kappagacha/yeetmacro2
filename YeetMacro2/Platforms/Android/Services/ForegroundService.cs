@@ -47,6 +47,7 @@ public class ForegroundService : Service
 
     public override StartCommandResult OnStartCommand(Intent intent, [GeneratedEnum] StartCommandFlags flags, int startId)
     {
+        ServiceHelper.GetService<LogServiceViewModel>().LogInfo("ForegroundService.OnStartCommand " + startId);
         switch (intent.Action)
         {
             case EXIT_ACTION:
@@ -149,16 +150,19 @@ public class ForegroundService : Service
 
     public override void OnRebind(Intent intent)
     {
+        ServiceHelper.GetService<LogServiceViewModel>().LogInfo("ForegroundService.OnRebind");
         base.OnRebind(intent);
     }
 
     public override void OnDestroy()
     {
+        ServiceHelper.GetService<LogServiceViewModel>().LogInfo("ForegroundService.OnDestroy");
         base.OnDestroy();
     }
 
     public override IBinder OnBind(Intent intent)
     {
+        ServiceHelper.GetService<LogServiceViewModel>().LogInfo("ForegroundService.OnBind");
         return null;
     }
 }
