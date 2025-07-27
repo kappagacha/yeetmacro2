@@ -87,7 +87,9 @@ function detectBossType() {
 }
 
 function setChainOrder() {
-	macroService.PollPattern(patterns.battle.chainPreview, { DoClick: true, PredicatePattern: patterns.battle.chainPreview.selected });
+	const chainPreviewPollResult = macroService.PollPattern(patterns.battle.chainPreview, { DoClick: true, PredicatePattern: [patterns.battle.chainPreview.selected, patterns.battle.chainPreview.ownedView] });
+	const isOwnedView = chainPreviewPollResult.PredicatePath === 'battle.chainPreview.ownedView';
+	const clickOffset = isOwnedView ? { X: 863, Y: -60 } : { X: 0, Y: 0 };
 	const chainPreviewResult = { A: {}, B: {}, C: {}, D: {} };
 
 	const chainPositionBasePatterns = [
@@ -112,6 +114,14 @@ function setChainOrder() {
 		for (let position of Object.keys(chainPreviewResult)) {
 			// $patterns uses snapshot patterns json and the other uses actual C# class PatternNodeViewModel
 			const rawBounds = patterns.battle.chainPreview[position]?.Pattern?.RawBounds || patterns.battle.chainPreview[position].$patterns[0].rawBounds;
+			if (isOwnedView) {
+				const xKey = rawBounds.hasOwnProperty('X') ? 'X' : 'x';
+				const yKey = rawBounds.hasOwnProperty('X') ? 'Y' : 'y';
+
+				rawBounds[xKey] += 863;
+				rawBounds[yKey] -= 60;
+			}
+
 			const cloneOpts = { RawBounds: rawBounds, PathSuffix: `_${position}` };
 			const chainPositionPatterns = chainPositionBasePatterns.map(p => macroService.ClonePattern(p, cloneOpts));
 			const effectPatterns = effectsBasePatterns.map(p => macroService.ClonePattern(p, cloneOpts));
@@ -128,11 +138,15 @@ function setChainOrder() {
 
 		for (const [key, value] of Object.entries(chainPreviewResult)) {
 			const { chainEffectPosition, priority } = value;
+
+			// get first highest priority
 			if (chainEffectPosition === "starterExclusive" && priority < starterMin) {
 				starterMin = priority;
 				targetStarterExclusive = key;
 			}
-			if (chainEffectPosition === "finisherExclusive" && priority < finisherMin) {
+
+			// get last hightest priority
+			if (chainEffectPosition === "finisherExclusive" && priority <= finisherMin) {
 				finisherMin = priority;
 				targetFinisherExclusive = key;
 			}
@@ -141,15 +155,15 @@ function setChainOrder() {
 		if (targetStarterExclusive === 'A' && targetFinisherExclusive === 'D') break;
 
 		if (targetStarterExclusive !== 'A') {
-			macroService.ClickPattern(patterns.battle.chainPreview.A);
+			macroService.ClickPattern(patterns.battle.chainPreview.A, { ClickOffset: clickOffset });
 			sleep(250);
-			macroService.ClickPattern(patterns.battle.chainPreview[targetStarterExclusive]);
+			macroService.ClickPattern(patterns.battle.chainPreview[targetStarterExclusive], { ClickOffset: clickOffset });
 		}
 
 		if (targetFinisherExclusive !== 'D') {
-			macroService.ClickPattern(patterns.battle.chainPreview.D);
+			macroService.ClickPattern(patterns.battle.chainPreview.D, { ClickOffset: clickOffset });
 			sleep(250);
-			macroService.ClickPattern(patterns.battle.chainPreview[targetFinisherExclusive]);
+			macroService.ClickPattern(patterns.battle.chainPreview[targetFinisherExclusive], { ClickOffset: clickOffset });
 		}
 	}
 }
