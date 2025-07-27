@@ -58,6 +58,8 @@ while (macroService.IsRunning) {
 
 function doExpeditionSweeps() {
 	const recievedHelpResult = macroService.FindPattern(patterns.visitTown.receivedHelp, { Limit: 10 });
+	if (!recievedHelpResult.IsSuccess) return;
+
 	for (let recievedHelp of recievedHelpResult.Points) {
 		if (macroService.FindPattern(patterns.visitTown.done).IsSuccess) return;
 
