@@ -19,13 +19,29 @@ public class ForegroundService : Service
     public bool IsRunning = false;
     public ForegroundService()
     {
+        try
+        {
+            ServiceHelper.GetService<LogServiceViewModel>().LogInfo("ForegroundService Constructor");
+        }
+        catch (Exception ex)
+        {
+            ServiceHelper.GetService<LogServiceViewModel>().LogInfo($"ForegroundService Constructor Error: {ex}");
+        }
     }
 
     public override void OnCreate()
     {
         base.OnCreate();
 
-        ServiceHelper.GetService<LogServiceViewModel>().LogInfo("ForegroundService.OnCreate Start");
+        try
+        {
+            ServiceHelper.GetService<LogServiceViewModel>().LogInfo("ForegroundService.OnCreate Start");
+        }
+        catch (Exception ex)
+        {
+            // ServiceHelper might not be available during early startup
+        }
+        
         Start();
     }
 
@@ -111,7 +127,14 @@ public class ForegroundService : Service
         
         this.IsRunning = true;
 
-        ServiceHelper.GetService<LogServiceViewModel>().LogInfo("ForegroundService.Start StartForeground");
+        try
+        {
+            ServiceHelper.GetService<LogServiceViewModel>().LogInfo("ForegroundService.Start StartForeground");
+        }
+        catch (Exception ex)
+        {
+            // ServiceHelper might not be available during early startup
+        }
         if (OperatingSystem.IsAndroidVersionAtLeast(29))
         {
             StartForeground(SERVICE_RUNNING_NOTIFICATION_ID, GenerateNotification(), global::Android.Content.PM.ForegroundService.TypeMediaProjection);
