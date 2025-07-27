@@ -78,7 +78,7 @@ function applyPreset(teamSlot) {
 		const presetNameList = [];
 		let targetPreset = findTargetPreset(presetRegex, presetNameList);
 		let swipeCount = 0;
-		while (!targetPreset) {
+		while (macroService.IsRunning && !targetPreset) {
 			macroService.SwipePattern(patterns.battle.teamFormation.preset.swipeDown);
 			sleep(1_000);
 			targetPreset = findTargetPreset(presetRegex, presetNameList);

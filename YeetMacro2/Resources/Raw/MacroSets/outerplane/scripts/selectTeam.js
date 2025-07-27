@@ -113,7 +113,8 @@ function setChainOrder() {
 	while (macroService.IsRunning) {
 		for (let position of Object.keys(chainPreviewResult)) {
 			// $patterns uses snapshot patterns json and the other uses actual C# class PatternNodeViewModel
-			const rawBounds = patterns.battle.chainPreview[position]?.Pattern?.RawBounds || patterns.battle.chainPreview[position].$patterns[0].rawBounds;
+			const originalRawBounds = patterns.battle.chainPreview[position]?.Pattern?.RawBounds || patterns.battle.chainPreview[position].$patterns[0].rawBounds;
+			const rawBounds = { ...originalRawBounds };
 			if (isOwnedView) {
 				const xKey = rawBounds.hasOwnProperty('X') ? 'X' : 'x';
 				const yKey = rawBounds.hasOwnProperty('X') ? 'Y' : 'y';
