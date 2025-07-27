@@ -93,6 +93,7 @@ public partial class AndriodHomeViewModel : ObservableObject
         {
             if (!mediaProjectionService.IsInitialized)
             {
+                ServiceHelper.GetService<LogServiceViewModel>().LogInfo("AndroidHomeViewModel() StartForegroundServiceCompat EXIT_ACTION");
                 Platform.CurrentActivity.StartForegroundServiceCompat<ForegroundService>(ForegroundService.EXIT_ACTION);
             }
         });
@@ -205,6 +206,8 @@ public partial class AndriodHomeViewModel : ObservableObject
         else
         {
             _screenService.StopProjectionService();
+
+            ServiceHelper.GetService<LogServiceViewModel>().LogInfo("AndroidHomeViewModel.ToggleIsProjectionServiceEnabled StartForegroundServiceCompat EXIT_ACTION");
             Platform.CurrentActivity.StartForegroundServiceCompat<ForegroundService>(ForegroundService.EXIT_ACTION);            
         }
     }

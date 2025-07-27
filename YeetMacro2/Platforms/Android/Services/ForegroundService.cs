@@ -5,6 +5,8 @@ using Android.Runtime;
 using AndroidX.Core.App;
 using CommunityToolkit.Mvvm.Messaging.Messages;
 using CommunityToolkit.Mvvm.Messaging;
+using YeetMacro2.Services;
+using YeetMacro2.ViewModels;
 
 namespace YeetMacro2.Platforms.Android.Services;
 
@@ -22,6 +24,8 @@ public class ForegroundService : Service
     public override void OnCreate()
     {
         base.OnCreate();
+
+        ServiceHelper.GetService<LogServiceViewModel>().LogInfo("ForegroundService.OnCreate Start");
         Start();
     }
 
@@ -35,6 +39,7 @@ public class ForegroundService : Service
                 WeakReferenceMessenger.Default.Send(this);
                 break;
             default:
+                ServiceHelper.GetService<LogServiceViewModel>().LogInfo("ForegroundService.OnStartCommand Start");
                 Start();
                 break;
         }
@@ -103,7 +108,10 @@ public class ForegroundService : Service
     void Start()
     {
         if (IsRunning) return;
+        
+        this.IsRunning = true;
 
+        ServiceHelper.GetService<LogServiceViewModel>().LogInfo("ForegroundService.Start StartForeground");
         if (OperatingSystem.IsAndroidVersionAtLeast(29))
         {
             StartForeground(SERVICE_RUNNING_NOTIFICATION_ID, GenerateNotification(), global::Android.Content.PM.ForegroundService.TypeMediaProjection);
@@ -112,7 +120,7 @@ public class ForegroundService : Service
         {
             StartForeground(SERVICE_RUNNING_NOTIFICATION_ID, GenerateNotification());
         }
-        this.IsRunning = true;
+        
         WeakReferenceMessenger.Default.Send(this);
     }
 

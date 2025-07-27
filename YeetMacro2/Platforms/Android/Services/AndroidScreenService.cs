@@ -524,6 +524,7 @@ public class AndroidScreenService : IScreenService
 
         if (_mediaProjectionService.IsInitialized)
         {
+            ServiceHelper.GetService<LogServiceViewModel>().LogInfo("AndroidScreenService.StartProjectionService StartForegroundServiceCompat");
             Platform.AppContext.StartForegroundServiceCompat<ForegroundService>();
         }
         else
@@ -536,6 +537,7 @@ public class AndroidScreenService : IScreenService
 
     public void StopProjectionService()
     {
+        ServiceHelper.GetService<LogServiceViewModel>().LogInfo("AndroidScreenService.StopProjectionService StartForegroundServiceCompat EXIT_ACTION");
         _context.StartForegroundServiceCompat<ForegroundService>(ForegroundService.EXIT_ACTION);
     }
 

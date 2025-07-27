@@ -107,6 +107,7 @@ public class MediaProjectionService : IRecorderService
 
         Toast.MakeText(Platform.CurrentActivity, "Media projection initialized...", ToastLength.Short).Show();
         WeakReferenceMessenger.Default.Send(this);
+        ServiceHelper.GetService<LogServiceViewModel>().LogInfo("MediaProjectionService.Init StartForegroundServiceCompat");
         Platform.AppContext.StartForegroundServiceCompat<ForegroundService>();
     }
 
