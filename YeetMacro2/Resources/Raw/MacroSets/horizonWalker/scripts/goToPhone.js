@@ -1,5 +1,5 @@
 ﻿// Go to lobby
-logger.info('goToLobby: start');
+logger.info('goToPhone: start');
 
 macroService.PollPattern(patterns.phone.battery, {
 	ClickPattern: [
@@ -12,4 +12,4 @@ macroService.PollPattern(patterns.phone.battery, {
 	]
 });
 
-macroService.IsRunning && (logger.info('goToLobby: done'));
+macroService.IsRunning && (logger.info('goToPhone: done'));

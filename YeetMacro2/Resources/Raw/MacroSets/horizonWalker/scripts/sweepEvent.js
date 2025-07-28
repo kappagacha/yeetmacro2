@@ -42,6 +42,7 @@ while (macroService.IsRunning) {
 			while (macroService.IsRunning && deployResult.IsSuccess) {
 				macroService.PollPattern(patterns.battle.sweeping, { DoClick: true, PredicatePattern: patterns.battle.sweeping.confirm });
 				macroService.PollPattern(patterns.battle.sweeping.confirm, { DoClick: true, PredicatePattern: patterns.general.confirm2 });
+				sleep(1_000);
 				macroService.PollPattern(patterns.general.confirm2, { DoClick: true, PredicatePattern: patterns.event.title });
 
 				deployResult = macroService.PollPattern(patterns.battle.deploy, { TimeoutMs: 3_000 });
