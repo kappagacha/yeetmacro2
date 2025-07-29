@@ -1,1 +1,37 @@
-{}
+{
+  "claimTreasureExploration": {
+    "$type": "parent",
+    "$position": 0,
+    "$name": "claimTreasureExploration",
+    "$path": "claimTreasureExploration",
+    "lastRun": {
+      "$type": "timestamp",
+      "$defaultValue": "0001-01-01T00:00:00+00:00",
+      "$value": "0001-01-01T00:00:00+00:00",
+      "$position": 0,
+      "$name": "lastRun",
+      "$path": "claimTreasureExploration.lastRun"
+    }
+  },
+  "doShop": {
+    "$type": "parent",
+    "$position": 0,
+    "$name": "doShop",
+    "$path": "doShop",
+    "event": {
+      "$type": "enabledParent",
+      "$isEnabled": true,
+      "$position": 0,
+      "$name": "event",
+      "$path": "doShop.event",
+      "vacationTicket": {
+        "$type": "boolean",
+        "$defaultValue": true,
+        "$value": true,
+        "$position": 0,
+        "$name": "vacationTicket",
+        "$path": "doShop.event.vacationTicket"
+      }
+    }
+  }
+}

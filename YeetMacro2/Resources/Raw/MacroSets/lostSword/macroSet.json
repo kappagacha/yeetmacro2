@@ -8,12 +8,12 @@
   "supportsGreaterHeight": false,
   "package": "com.wemadeconnect.aos.lostdgl",
   "source": "online:lostSword",
-  "macroSetLastUpdated": "2025-07-26T15:58:54.3661904-05:00",
-  "patternsLastUpdated": "2025-07-26T15:58:54.3678204-05:00",
-  "scriptsLastUpdated": "2025-07-26T15:58:54.3678979-05:00",
-  "settingsLastUpdated": "2025-07-26T15:58:54.3679399-05:00",
-  "dailyTemplateLastUpdated": "2025-07-26T15:58:54.3684235-05:00",
-  "weeklyTemplateLastUpdated": null,
+  "macroSetLastUpdated": "2025-07-28T21:40:07.3416833-05:00",
+  "patternsLastUpdated": "2025-07-28T21:40:07.3423448-05:00",
+  "scriptsLastUpdated": "2025-07-28T21:40:07.3424177-05:00",
+  "settingsLastUpdated": "2025-07-28T21:40:07.3424598-05:00",
+  "dailyTemplateLastUpdated": "2025-07-28T21:40:07.3425112-05:00",
+  "weeklyTemplateLastUpdated": "2025-07-28T21:40:07.3425559-05:00",
   "description": null,
   "dailyResetUtcHour": 0,
   "weeklyStartDay": "Monday",
@@ -23,6 +23,6 @@
     "x": 0,
     "y": 1080
   },
-  "dailyTemplate": "{}",
+  "dailyTemplate": "{\n  \u0022claimFreeSummon\u0022: {\n    \u0022character\u0022: false,\n    \u0022pet\u0022: false,\n    \u0022done\u0022: false,\n    \u0022count\u0022: 0\n  },\n  \u0022claimTreasureExploration\u0022: {\n    \u0022count\u0022: 0\n  },\n  \u0022doShop\u0022: {\n    \u0022freepackage\u0022: false,\n    \u0022event\u0022: {\n      \u0022vacationTicket\u0022: false\n    },\n    \u0022done\u0022: false\n  }\n}",
   "weeklyTemplate": "{}"
 }

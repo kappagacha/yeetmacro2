@@ -25,6 +25,16 @@ while (macroService.IsRunning) {
 				if (macroService.IsRunning) daily.claimFreeSummon.character.IsChecked = true;
 			}
 
+			if (!daily.claimFreeSummon.pet.IsChecked) {
+				logger.info('claimFreeSummon: claim free pet summon');
+				macroService.PollPattern(patterns.summon.petSummon, { SwipePattern: patterns.summon.swipeDown });
+				macroService.PollPattern(patterns.summon.petSummon, { DoClick: true, PredicatePattern: patterns.summon.free });
+				macroService.PollPattern(patterns.summon.free, { DoClick: true, ClickPattern: patterns.summon.skip, PredicatePattern: patterns.summon.viewAll });
+				macroService.PollPattern(patterns.summon.viewAll, { DoClick: true, PredicatePattern: patterns.summon.confirm });
+				macroService.PollPattern(patterns.summon.confirm, { DoClick: true, PredicatePattern: patterns.summon.title });
+
+				if (macroService.IsRunning) daily.claimFreeSummon.pet.IsChecked = true;
+			}
 
 			if (macroService.IsRunning) daily.claimFreeSummon.done.IsChecked = true;
 
