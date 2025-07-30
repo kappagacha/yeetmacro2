@@ -6,6 +6,7 @@ const loopPatterns = [patterns.lobby];
 const clickPatterns = [
 	patterns.summon.exit,
 	patterns.general.itemsAcquired,
+	patterns.general.close
 ]
 
 while (macroService.IsRunning) {

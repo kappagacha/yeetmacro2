@@ -29,7 +29,7 @@ while (macroService.IsRunning) {
 				daily.claimTreasureExploration.count.Count++;
 				settings.claimTreasureExploration.lastRun.Value = new Date().toISOString();
 			}
-			break;
+			return;
 
 	}
 	sleep(1_000);
