@@ -7,7 +7,7 @@
     "lastRun": {
       "$type": "timestamp",
       "$defaultValue": "0001-01-01T00:00:00+00:00",
-      "$value": "2025-07-31T03:46:03.451+00:00",
+      "$value": "2025-08-01T02:22:08.671+00:00",
       "$position": 0,
       "$name": "lastRun",
       "$path": "claimTreasureExploration.lastRun"
@@ -42,10 +42,24 @@
     "lastRun": {
       "$type": "timestamp",
       "$defaultValue": "0001-01-01T00:00:00+00:00",
-      "$value": "2025-07-31T03:53:19.947+00:00",
+      "$value": "2025-08-01T02:28:02.582+00:00",
       "$position": 0,
       "$name": "lastRun",
       "$path": "doColosseum.lastRun"
+    }
+  },
+  "doBossRaid": {
+    "$type": "parent",
+    "$position": 0,
+    "$name": "doBossRaid",
+    "$path": "doBossRaid",
+    "enterOnce": {
+      "$type": "boolean",
+      "$defaultValue": true,
+      "$value": true,
+      "$position": 0,
+      "$name": "enterOnce",
+      "$path": "doBossRaid.enterOnce"
     }
   }
 }

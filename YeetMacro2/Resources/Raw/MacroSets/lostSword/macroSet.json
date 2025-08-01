@@ -8,12 +8,12 @@
   "supportsGreaterHeight": false,
   "package": "com.wemadeconnect.aos.lostdgl",
   "source": "online:lostSword",
-  "macroSetLastUpdated": "2025-07-30T23:35:52.1536336-05:00",
-  "patternsLastUpdated": "2025-07-30T23:35:52.1541218-05:00",
-  "scriptsLastUpdated": "2025-07-30T23:35:52.1542163-05:00",
-  "settingsLastUpdated": "2025-07-30T23:35:52.1542515-05:00",
-  "dailyTemplateLastUpdated": "2025-07-30T23:35:52.1542902-05:00",
-  "weeklyTemplateLastUpdated": "2025-07-30T23:35:52.1543208-05:00",
+  "macroSetLastUpdated": "2025-07-31T23:02:30.2023601-05:00",
+  "patternsLastUpdated": "2025-07-31T23:02:30.2029135-05:00",
+  "scriptsLastUpdated": "2025-07-31T23:02:30.202971-05:00",
+  "settingsLastUpdated": "2025-07-31T23:02:30.2030097-05:00",
+  "dailyTemplateLastUpdated": "2025-07-31T23:02:30.2032609-05:00",
+  "weeklyTemplateLastUpdated": "2025-07-31T23:02:30.203338-05:00",
   "description": null,
   "dailyResetUtcHour": 0,
   "weeklyStartDay": "Monday",
@@ -23,6 +23,6 @@
     "x": 0,
     "y": 1080
   },
-  "dailyTemplate": "{\n  \u0022claimFreeSummon\u0022: {\n    \u0022character\u0022: false,\n    \u0022pet\u0022: false,\n    \u0022done\u0022: false,\n    \u0022count\u0022: 0\n  },\n  \u0022claimTreasureExploration\u0022: {\n    \u0022count\u0022: 0\n  },\n  \u0022doShop\u0022: {\n    \u0022freepackage\u0022: false,\n    \u0022event\u0022: {\n      \u0022vacationTicket\u0022: false\n    },\n    \u0022done\u0022: false\n  },\n  \u0022doColosseum\u0022: {\n    \u0022count\u0022: 0\n  },\n  \u0022claimMailbox\u0022: {\n    \u0022done\u0022: false\n  },\n  \u0022doCharacterChat\u0022: {\n    \u0022done\u0022: false\n  }\n}",
+  "dailyTemplate": "{\n  \u0022claimFreeSummon\u0022: {\n    \u0022character\u0022: false,\n    \u0022pet\u0022: false,\n    \u0022done\u0022: false,\n    \u0022count\u0022: 0\n  },\n  \u0022claimTreasureExploration\u0022: {\n    \u0022count\u0022: 0\n  },\n  \u0022doShop\u0022: {\n    \u0022freepackage\u0022: false,\n    \u0022event\u0022: {\n      \u0022vacationTicket\u0022: false\n    },\n    \u0022done\u0022: false\n  },\n  \u0022doColosseum\u0022: {\n    \u0022count\u0022: 0\n  },\n  \u0022claimMailbox\u0022: {\n    \u0022done\u0022: false\n  },\n  \u0022doCharacterChat\u0022: {\n    \u0022done\u0022: false\n  },\n  \u0022doBossRaid\u0022: {\n    \u0022done\u0022: false,\n    \u0022entered\u0022: false\n  },\n  \u0022doStonehenge\u0022: {\n    \u0022done\u0022: false\n  }\n}",
   "weeklyTemplate": "{}"
 }

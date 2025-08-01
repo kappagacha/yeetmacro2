@@ -11,6 +11,7 @@ while (macroService.IsRunning) {
 	const loopResult = macroService.PollPattern(loopPatterns);
 	switch (loopResult.Path) {
 		case 'lobby':
+			logger.info('doColosseum: click battle');
 			macroService.ClickPattern(patterns.battle);
 			break;
 		case 'battle.title':
