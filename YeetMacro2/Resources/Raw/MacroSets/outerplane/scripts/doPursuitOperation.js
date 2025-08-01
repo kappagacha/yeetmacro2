@@ -118,14 +118,16 @@ while (macroService.IsRunning) {
 				continue;
 			}
 
-			let selectTeamResult = macroService.PollPattern([patterns.irregularExtermination.pursuitOperation.friendsOrGuild, patterns.irregularExtermination.pursuitOperation.selectTeam2]);
+			macroService.PollPattern([patterns.irregularExtermination.pursuitOperation.friendsOrGuild, patterns.irregularExtermination.pursuitOperation.selectTeam2, patterns.irregularExtermination.pursuitOperation.selectTeam]);
+			let selectTeamResult = macroService.FindPattern([patterns.irregularExtermination.pursuitOperation.friendsOrGuild, patterns.irregularExtermination.pursuitOperation.selectTeam2, patterns.irregularExtermination.pursuitOperation.selectTeam]);
 			if (selectTeamResult.Path === 'irregularExtermination.pursuitOperation.friendsOrGuild') {
 				macroService.PollPattern(patterns.irregularExtermination.pursuitOperation.friendsOrGuild, { DoClick: true, PredicatePattern: patterns.irregularExtermination.pursuitOperation.ok });
 				macroService.PollPattern(patterns.irregularExtermination.pursuitOperation.ok, { DoClick: true, PredicatePattern: patterns.irregularExtermination.pursuitOperation.selectTeam });
 				sleep(1_000);
 			}
 
-			selectTeamResult = macroService.PollPattern([patterns.irregularExtermination.pursuitOperation.public, patterns.irregularExtermination.pursuitOperation.selectTeam2]);
+			macroService.PollPattern([patterns.irregularExtermination.pursuitOperation.friendsOrGuild, patterns.irregularExtermination.pursuitOperation.selectTeam2, patterns.irregularExtermination.pursuitOperation.selectTeam]);
+			selectTeamResult = macroService.FindPattern([patterns.irregularExtermination.pursuitOperation.public, patterns.irregularExtermination.pursuitOperation.selectTeam2, patterns.irregularExtermination.pursuitOperation.selectTeam]);
 			if (publishToPublic && selectTeamResult.Path === 'irregularExtermination.pursuitOperation.public') {
 				macroService.PollPattern(patterns.irregularExtermination.pursuitOperation.public, { DoClick: true, PredicatePattern: patterns.irregularExtermination.pursuitOperation.ok });
 				macroService.PollPattern(patterns.irregularExtermination.pursuitOperation.ok, { DoClick: true, PredicatePattern: patterns.irregularExtermination.pursuitOperation.selectTeam2 });
