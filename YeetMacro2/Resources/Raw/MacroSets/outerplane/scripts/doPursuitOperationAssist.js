@@ -48,8 +48,8 @@ while (macroService.IsRunning) {
 			if (!veryHardResult.IsSuccess) return;
 
 			const enterPattern = macroService.ClonePattern(patterns.irregularExtermination.pursuitOperation.recruiting.enter, { CenterY: veryHardResult.Point.Y + 5, Padding: 10, Path: `irregularExtermination.pursuitOperation.recruiting.enter_y${veryHardResult.Point.Y}` });
-			macroService.PollPattern(enterPattern, { DoClick: true, PredicatePattern: patterns.irregularExtermination.pursuitOperation.selectTeam });
-			macroService.PollPattern(patterns.irregularExtermination.pursuitOperation.selectTeam, { DoClick: true, PredicatePattern: patterns.battle.enter });
+			macroService.PollPattern(enterPattern, { DoClick: true, PredicatePattern: [patterns.irregularExtermination.pursuitOperation.selectTeam, patterns.irregularExtermination.pursuitOperation.selectTeam2] });
+			macroService.PollPattern([patterns.irregularExtermination.pursuitOperation.selectTeam, patterns.irregularExtermination.pursuitOperation.selectTeam2], { DoClick: true, PredicatePattern: patterns.battle.enter });
 			selectTeam(teamSlot);
 
 			if (!teamRestored) {
