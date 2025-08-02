@@ -12,13 +12,14 @@ while (macroService.IsRunning) {
 			macroService.ClickPattern(patterns.battle);
 			break;
 		case 'battle.title':
-			logger.info('doColosseum: click stonehenge');
+			logger.info('doStonehenge: click stonehenge');
 			macroService.PollPattern(patterns.battle.dungeon, { DoClick: true, PredicatePattern: patterns.battle.dungeon.selected });
 			macroService.PollPattern(patterns.stonehenge, { DoClick: true, PredicatePattern: patterns.stonehenge.select });
 			break;
 		case 'stonehenge.select':
 			macroService.PollPattern(patterns.stonehenge.select, { DoClick: true, PredicatePattern: patterns.stonehenge.start });
-			macroService.PollPattern(patterns.stonehenge.summonBossAutoUse, { DoClick: true, PredicatePattern: patterns.stonehenge.summonBossAutoUse.checked });
+			macroService.PollPattern(patterns.stonehenge.start, { DoClick: true, PredicatePattern: patterns.stonehenge.summonBossAutoUse });
+			macroService.PollPattern(patterns.stonehenge.summonBossAutoUse, { DoClick: true, InversePredicatePattern: patterns.stonehenge.summonBossAutoUse });
 			sleep(5_000);
 			macroService.PollPattern(patterns.stonehenge.summonBossAutoUse.checked, { DoClick: true, PredicatePattern: patterns.stonehenge.summonBossAutoUse });
 			macroService.PollPattern(patterns.menu, { DoClick: true, PredicatePattern: patterns.menu.close });

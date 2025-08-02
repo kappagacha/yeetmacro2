@@ -1,6 +1,6 @@
 const loopPatterns = [patterns.lobby, patterns.battle.title, patterns.bossRaid];
 const daily = dailyManager.GetCurrentDaily();
-if (daily.doBossRaid.done.IsChecked) {
+if (daily.doGold.done.IsChecked) {
 	return "Script already completed. Uncheck done to override daily flag.";
 }
 
@@ -8,18 +8,19 @@ while (macroService.IsRunning) {
 	const loopResult = macroService.PollPattern(loopPatterns);
 	switch (loopResult.Path) {
 		case 'lobby':
-			logger.info('doBossRaid: click battle');
+			logger.info('doGold: click battle');
 			macroService.ClickPattern(patterns.battle);
 			break;
 		case 'battle.title':
-			logger.info('doBossRaid: click boss raid');
-			macroService.ClickPattern(patterns.battle.bossRaid);
+			logger.info('doGold: click gold');
+			macroService.PollPattern(patterns.battle.dungeon, { DoClick: true, PredicatePattern: patterns.battle.dungeon.selected });
+			macroService.PollPattern(patterns.gold, { DoClick: true, PredicatePattern: patterns.gold.select });
 			break;
 		case 'bossRaid':
-			if (settings.doBossRaid.enterOnce.Value && !daily.doBossRaid.entered.IsChecked) {
-				macroService.PollPattern(patterns.battle.enter, { DoClick: true, PredicatePattern: patterns.general.tapTheScreen });
-				macroService.PollPattern(patterns.general.tapTheScreen, { DoClick: true, PredicatePattern: patterns.bossRaid });
-				if (macroService.IsRunning) daily.doBossRaid.entered.IsChecked = true;
+			if (settings.doGold.startOnce.Value && !daily.doGold.started.IsChecked) {
+				macroService.PollPattern(patterns.gold.select, { DoClick: true, PredicatePattern: patterns.gold.start });
+				macroService.PollPattern(patterns.gold.start, { DoClick: true, PredicatePattern: patterns.gold.select });
+				if (macroService.IsRunning) daily.doGold.started.IsChecked = true;
 			}
 
 			let sweepResult = macroService.PollPattern(patterns.battle.sweep, { DoClick: true, PredicatePattern: [patterns.battle.sweep.confirm, patterns.general.itemsAcquired], TimeoutMs: 3_000 });
@@ -33,7 +34,7 @@ while (macroService.IsRunning) {
 				sweepResult = macroService.PollPattern(patterns.battle.sweep, { DoClick: true, PredicatePattern: [patterns.battle.sweep.confirm, patterns.general.itemsAcquired], TimeoutMs: 3_000 });
 			}
 
-			if (macroService.IsRunning) daily.doBossRaid.done.IsChecked = true;
+			if (macroService.IsRunning) daily.doGold.done.IsChecked = true;
 
 			return;
 	}
