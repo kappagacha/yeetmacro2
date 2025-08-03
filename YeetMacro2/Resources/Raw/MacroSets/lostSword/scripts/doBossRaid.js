@@ -28,8 +28,8 @@ while (macroService.IsRunning) {
 				if (sweepResult.PredicatePath === 'battle.sweep.confirm') {
 					macroService.PollPattern(patterns.battle.sweep.dontAskAgain, { DoClick: true, PredicatePattern: patterns.battle.sweep.dontAskAgain.checked });
 					macroService.PollPattern(patterns.battle.sweep.confirm, { DoClick: true, PredicatePattern: patterns.general.itemsAcquired });
-					macroService.PollPattern(patterns.general.itemsAcquired, { DoClick: true, PredicatePattern: patterns.bossRaid });
 				}
+				macroService.PollPattern(patterns.general.itemsAcquired, { DoClick: true, PredicatePattern: patterns.bossRaid });
 				sweepResult = macroService.PollPattern(patterns.battle.sweep, { DoClick: true, PredicatePattern: [patterns.battle.sweep.confirm, patterns.general.itemsAcquired], TimeoutMs: 3_000 });
 			}
 

@@ -1,6 +1,6 @@
-const loopPatterns = [patterns.lobby, patterns.battle.title, patterns.battle.dungeon.gold.title];
+const loopPatterns = [patterns.lobby, patterns.battle.title, patterns.battle.dungeon.bookOfExperience.title];
 const daily = dailyManager.GetCurrentDaily();
-if (daily.doGold.done.IsChecked) {
+if (daily.doBookOfExperience.done.IsChecked) {
 	return "Script already completed. Uncheck done to override daily flag.";
 }
 
@@ -8,19 +8,19 @@ while (macroService.IsRunning) {
 	const loopResult = macroService.PollPattern(loopPatterns);
 	switch (loopResult.Path) {
 		case 'lobby':
-			logger.info('doGold: click battle');
+			logger.info('doBookOfExperience: click battle');
 			macroService.ClickPattern(patterns.battle);
 			break;
 		case 'battle.title':
-			logger.info('doGold: click gold');
+			logger.info('doBookOfExperience: click book of experience');
 			macroService.PollPattern(patterns.battle.dungeon, { DoClick: true, PredicatePattern: patterns.battle.dungeon.selected });
-			macroService.PollPattern(patterns.battle.dungeon.gold, { DoClick: true, PredicatePattern: patterns.battle.dungeon.select });
+			macroService.PollPattern(patterns.battle.dungeon.bookOfExperience, { DoClick: true, PredicatePattern: patterns.battle.dungeon.select });
 			break;
-		case 'battle.dungeon.gold.title':
-			if (settings.doGold.startOnce.Value && !daily.doGold.started.IsChecked) {
+		case 'battle.dungeon.bookOfExperience.title':
+			if (settings.doBookOfExperience.startOnce.Value && !daily.doBookOfExperience.started.IsChecked) {
 				macroService.PollPattern(patterns.battle.dungeon.select, { DoClick: true, PredicatePattern: patterns.battle.dungeon.start });
 				macroService.PollPattern(patterns.battle.dungeon.start, { DoClick: true, PredicatePattern: patterns.battle.dungeon.select });
-				if (macroService.IsRunning) daily.doGold.started.IsChecked = true;
+				if (macroService.IsRunning) daily.doBookOfExperience.started.IsChecked = true;
 			}
 
 			let sweepResult = macroService.PollPattern(patterns.battle.sweep, { DoClick: true, PredicatePattern: [patterns.battle.sweep.confirm, patterns.general.itemsAcquired], TimeoutMs: 3_000 });
@@ -30,11 +30,11 @@ while (macroService.IsRunning) {
 					macroService.PollPattern(patterns.battle.sweep.dontAskAgain, { DoClick: true, PredicatePattern: patterns.battle.sweep.dontAskAgain.checked });
 					macroService.PollPattern(patterns.battle.sweep.confirm, { DoClick: true, PredicatePattern: patterns.general.itemsAcquired });
 				}
-				macroService.PollPattern(patterns.general.itemsAcquired, { DoClick: true, PredicatePattern: patterns.battle.dungeon.gold.title });
+				macroService.PollPattern(patterns.general.itemsAcquired, { DoClick: true, PredicatePattern: patterns.battle.dungeon.bookOfExperience.title });
 				sweepResult = macroService.PollPattern(patterns.battle.sweep, { DoClick: true, PredicatePattern: [patterns.battle.sweep.confirm, patterns.general.itemsAcquired], TimeoutMs: 3_000 });
 			}
 
-			if (macroService.IsRunning) daily.doGold.done.IsChecked = true;
+			if (macroService.IsRunning) daily.doBookOfExperience.done.IsChecked = true;
 
 			return;
 	}

@@ -17,6 +17,7 @@ while (macroService.IsRunning) {
 				macroService.PollPattern(patterns.shop.product, { DoClick: true, PredicatePattern: patterns.shop.product.selected });
 				macroService.PollPattern(patterns.shop.product.free, { DoClick: true, PredicatePattern: patterns.shop.product.free.free });
 				macroService.PollPattern(patterns.shop.product.free.free, { DoClick: true, PredicatePattern: patterns.general.itemsAcquired });
+				macroService.PollPattern(patterns.general.itemsAcquired, { DoClick: true, InversePredicatePattern: patterns.general.itemsAcquired });
 
 				if (macroService.IsRunning) daily.doShop.freepackage.IsChecked = true;
 			}
@@ -39,8 +40,7 @@ while (macroService.IsRunning) {
 					macroService.PollPoint(shopItemResult.point, { DoClick: true, PredicatePattern: patterns.shop.buy });
 					macroService.PollPattern(patterns.shop.buy.maxButton, { DoClick: true, PredicatePattern: patterns.shop.buy.max });
 					macroService.PollPattern(patterns.shop.buy, { DoClick: true, PredicatePattern: patterns.general.itemsAcquired });
-					macroService.PollPattern(patterns.general.itemsAcquired, { DoClick: true, PredicatePattern: patterns.shop.title });
-
+					macroService.PollPattern(patterns.general.itemsAcquired, { DoClick: true, InversePredicatePattern: patterns.general.itemsAcquired });
 
 					if (macroService.IsRunning) daily.doShop.event.vacationTicket.IsChecked = true;
 				}
