@@ -34,27 +34,12 @@ public class MediaProjectionService : IRecorderService
     {
         ServiceHelper.GetService<LogServiceViewModel>().LogInfo("MediaProjectionService Constructor");
         _mediaProjectionCallback = new MediaProjectionCallback(this);
-
-        WeakReferenceMessenger.Default.Register<ForegroundService>(this, (r, foregroundService) =>
-        {
-            if (foregroundService.IsRunning)
-            {
-                Start();
-            }
-            else
-            {
-                if (_isRecording) 
-                    StopRecording();
-                Stop();
-            }
-        });
     }
 
     public void Start()
     {
         if (_virtualDisplay is not null)
         {
-            WeakReferenceMessenger.Default.Send(this);
             return;
         }
 
@@ -103,12 +88,10 @@ public class MediaProjectionService : IRecorderService
             {
                 Toast.MakeText(Platform.CurrentActivity, "Media projection canceled...", ToastLength.Short).Show();
             }
-            WeakReferenceMessenger.Default.Send(this);
             return;
         }
 
         Toast.MakeText(Platform.CurrentActivity, "Media projection initialized...", ToastLength.Short).Show();
-        WeakReferenceMessenger.Default.Send(this);
         ServiceHelper.GetService<LogServiceViewModel>().LogInfo("MediaProjectionService.Init StartForegroundServiceCompat");
         Platform.AppContext.StartForegroundServiceCompat<ForegroundService>();
     }
@@ -153,8 +136,6 @@ public class MediaProjectionService : IRecorderService
         _imageReader = null;
         _mediaProjection.Stop();
         _mediaProjection = null;
-
-        WeakReferenceMessenger.Default.Send(this);
         //if (Platform.CurrentActivity != null)
         //{
         //    Toast.MakeText(Platform.CurrentActivity, "Media projection stopped...", ToastLength.Short).Show();

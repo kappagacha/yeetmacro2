@@ -89,15 +89,6 @@ public partial class AndriodHomeViewModel : ObservableObject
             }
         });
 
-        WeakReferenceMessenger.Default.Register<MediaProjectionService>(this, (r, mediaProjectionService) =>
-        {
-            if (!mediaProjectionService.IsInitialized)
-            {
-                ServiceHelper.GetService<LogServiceViewModel>().LogInfo("AndroidHomeViewModel() StartForegroundServiceCompat EXIT_ACTION");
-                Platform.CurrentActivity.StartForegroundServiceCompat<ForegroundService>(ForegroundService.EXIT_ACTION);
-            }
-        });
-
         WeakReferenceMessenger.Default.Register<PropertyChangedMessage<bool>, string>(this, nameof(MacroManagerViewModel), (r, propertyChangedMessage) =>
         {
             if (propertyChangedMessage.PropertyName != nameof(MacroManagerViewModel.InDebugMode)) return;
@@ -206,9 +197,6 @@ public partial class AndriodHomeViewModel : ObservableObject
         else
         {
             _screenService.StopProjectionService();
-
-            ServiceHelper.GetService<LogServiceViewModel>().LogInfo("AndroidHomeViewModel.ToggleIsProjectionServiceEnabled StartForegroundServiceCompat EXIT_ACTION");
-            Platform.CurrentActivity.StartForegroundServiceCompat<ForegroundService>(ForegroundService.EXIT_ACTION);            
         }
     }
 

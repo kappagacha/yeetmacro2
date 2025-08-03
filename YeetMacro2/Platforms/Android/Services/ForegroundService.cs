@@ -32,14 +32,18 @@ public class ForegroundService : Service
     public override StartCommandResult OnStartCommand(Intent intent, [GeneratedEnum] StartCommandFlags flags, int startId)
     {
         ServiceHelper.GetService<LogServiceViewModel>().LogInfo("ForegroundService.OnStartCommand " + startId);
+        var mediaProjectionService = ServiceHelper.GetService<MediaProjectionService>();
+
         switch (intent.Action)
         {
             case EXIT_ACTION:
+                mediaProjectionService.Stop();
                 Stop();
                 break;
             default:
                 ServiceHelper.GetService<LogServiceViewModel>().LogInfo("ForegroundService.OnStartCommand Start");
                 Start();
+                if (mediaProjectionService.IsInitialized) mediaProjectionService.Start();
                 break;
         }
 

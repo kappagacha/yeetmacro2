@@ -31,7 +31,6 @@ public partial class ActionViewModel : ObservableObject, IMovable
     readonly IScriptService _scriptService;
     readonly MacroManagerViewModel _macroManagerViewModel;
     readonly IToastService _toastService;
-    readonly MediaProjectionService _mediaProjectionService;
     readonly JsonSerializerOptions _serializationOptions = new()
     {
         PropertyNamingPolicy = JsonNamingPolicy.CamelCase,
@@ -39,13 +38,12 @@ public partial class ActionViewModel : ObservableObject, IMovable
     };
 
     public ActionViewModel(AndroidScreenService screenService, IScriptService scriptService, MacroManagerViewModel macroManagerViewModel, 
-        IToastService toastService, MediaProjectionService mediaProjectionService)
+        IToastService toastService)
     {
         _screenService = screenService;
         _scriptService = scriptService;
         _macroManagerViewModel = macroManagerViewModel;
         _toastService = toastService;
-        _mediaProjectionService = mediaProjectionService;
 
         WeakReferenceMessenger.Default.Register<ScriptEventMessage>(this, (r, scriptEventMessage) =>
         {
