@@ -94,7 +94,7 @@ public class MainActivity : MauiAppCompatActivity
 
     protected override void OnStart()
     {
-        ServiceHelper.GetService<LogServiceViewModel>().LogDebug($"MainActivity.OnStart");
+        //ServiceHelper.GetService<LogServiceViewModel>().LogDebug($"MainActivity.OnStart");
         DeviceDisplay.MainDisplayInfoChanged += DeviceDisplay_MainDisplayInfoChanged;
         DeviceDisplay_MainDisplayInfoChanged(null, new DisplayInfoChangedEventArgs(DeviceDisplay.MainDisplayInfo));
         base.OnStart();
@@ -109,28 +109,28 @@ public class MainActivity : MauiAppCompatActivity
 
     protected override void OnResume()
     {
-        ServiceHelper.GetService<LogServiceViewModel>().LogDebug($"MainActivity.OnResume");
+        //ServiceHelper.GetService<LogServiceViewModel>().LogDebug($"MainActivity.OnResume");
         DeviceDisplay.MainDisplayInfoChanged += DeviceDisplay_MainDisplayInfoChanged;
         base.OnResume();
     }
 
     protected override void OnPause()
     {
-        ServiceHelper.GetService<LogServiceViewModel>().LogDebug($"MainActivity.OnPause");
+        //ServiceHelper.GetService<LogServiceViewModel>().LogDebug($"MainActivity.OnPause");
         DeviceDisplay.MainDisplayInfoChanged -= DeviceDisplay_MainDisplayInfoChanged;
         base.OnPause();
     }
 
     protected override void OnDestroy()
     {
-        ServiceHelper.GetService<LogServiceViewModel>().LogDebug($"MainActivity.OnDestroy");
+        //ServiceHelper.GetService<LogServiceViewModel>().LogDebug($"MainActivity.OnDestroy");
         DeviceDisplay.MainDisplayInfoChanged -= DeviceDisplay_MainDisplayInfoChanged;
         base.OnDestroy();
     }
 
     public override void OnRequestPermissionsResult(int requestCode, string[] permissions, [GeneratedEnum] Android.Content.PM.Permission[] grantResults)
     {
-        ServiceHelper.GetService<LogServiceViewModel>().LogDebug($"MainActivity.OnRequestPermissionsResult " + requestCode + " " + grantResults); 
+        //ServiceHelper.GetService<LogServiceViewModel>().LogDebug($"MainActivity.OnRequestPermissionsResult " + requestCode + " " + grantResults); 
         Platform.OnRequestPermissionsResult(requestCode, permissions, grantResults);
         base.OnRequestPermissionsResult(requestCode, permissions, grantResults);
     }

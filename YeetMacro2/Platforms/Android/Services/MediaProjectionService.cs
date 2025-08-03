@@ -32,7 +32,6 @@ public class MediaProjectionService : IRecorderService
 
     public MediaProjectionService()
     {
-        ServiceHelper.GetService<LogServiceViewModel>().LogInfo("MediaProjectionService Constructor");
         _mediaProjectionCallback = new MediaProjectionCallback(this);
     }
 
@@ -78,7 +77,6 @@ public class MediaProjectionService : IRecorderService
 
     public void Init(global::Android.App.Result resultCode, Intent resultData)
     {
-        ServiceHelper.GetService<LogServiceViewModel>().LogInfo("MediaProjectionService.Init " + resultCode);
         _resultCode = (int)resultCode;
         _resultData = resultData;
 
@@ -92,7 +90,6 @@ public class MediaProjectionService : IRecorderService
         }
 
         Toast.MakeText(Platform.CurrentActivity, "Media projection initialized...", ToastLength.Short).Show();
-        ServiceHelper.GetService<LogServiceViewModel>().LogInfo("MediaProjectionService.Init StartForegroundServiceCompat");
         Platform.AppContext.StartForegroundServiceCompat<ForegroundService>();
     }
 
@@ -127,7 +124,6 @@ public class MediaProjectionService : IRecorderService
 
     public void Stop()
     {
-        ServiceHelper.GetService<LogServiceViewModel>().LogInfo("MediaProjectionService.Stop");
         if (_virtualDisplay == null) return;
 
         _virtualDisplay.Release();
@@ -240,7 +236,6 @@ public class MediaProjectionService : IRecorderService
         }
         public override void OnStop()
         {
-            ServiceHelper.GetService<LogServiceViewModel>().LogInfo("MediaProjectionCallback.OnStop");
             _mediaProjectionService.CallbackStop();
         }
     }

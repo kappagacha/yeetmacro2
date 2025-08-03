@@ -18,20 +18,15 @@ public class ForegroundService : Service
     public bool IsRunning = false;
     public ForegroundService()
     {
-        ServiceHelper.GetService<LogServiceViewModel>().LogInfo("ForegroundService Constructor");
     }
 
     public override void OnCreate()
     {
         base.OnCreate();
-
-        ServiceHelper.GetService<LogServiceViewModel>().LogInfo("ForegroundService.OnCreate Start");
-        Start();
     }
 
     public override StartCommandResult OnStartCommand(Intent intent, [GeneratedEnum] StartCommandFlags flags, int startId)
     {
-        ServiceHelper.GetService<LogServiceViewModel>().LogInfo("ForegroundService.OnStartCommand " + startId);
         var mediaProjectionService = ServiceHelper.GetService<MediaProjectionService>();
 
         switch (intent.Action)
@@ -41,7 +36,6 @@ public class ForegroundService : Service
                 Stop();
                 break;
             default:
-                ServiceHelper.GetService<LogServiceViewModel>().LogInfo("ForegroundService.OnStartCommand Start");
                 Start();
                 if (mediaProjectionService.IsInitialized) mediaProjectionService.Start();
                 break;
@@ -114,14 +108,6 @@ public class ForegroundService : Service
         
         this.IsRunning = true;
 
-        try
-        {
-            ServiceHelper.GetService<LogServiceViewModel>().LogInfo("ForegroundService.Start StartForeground");
-        }
-        catch (Exception ex)
-        {
-            // ServiceHelper might not be available during early startup
-        }
         if (OperatingSystem.IsAndroidVersionAtLeast(29))
         {
             StartForeground(SERVICE_RUNNING_NOTIFICATION_ID, GenerateNotification(), global::Android.Content.PM.ForegroundService.TypeMediaProjection);
@@ -143,23 +129,16 @@ public class ForegroundService : Service
 
     public override void OnRebind(Intent intent)
     {
-        ServiceHelper.GetService<LogServiceViewModel>().LogInfo("ForegroundService.OnRebind");
         base.OnRebind(intent);
     }
 
     public override void OnDestroy()
     {
-        ServiceHelper.GetService<LogServiceViewModel>().LogInfo("ForegroundService.OnDestroy Stop");
-        ServiceHelper.GetService<LogServiceViewModel>().LogInfo("ForegroundService.OnDestroy IsRunning=" + this.IsRunning);
-        // if forcibly destroyed
-        ServiceHelper.GetService<LogServiceViewModel>().LogInfo("ForegroundService.OnDestroy StartForegroundServiceCompat");
-        Platform.AppContext.StartForegroundServiceCompat<ForegroundService>();
         base.OnDestroy();
     }
 
     public override IBinder OnBind(Intent intent)
     {
-        ServiceHelper.GetService<LogServiceViewModel>().LogInfo("ForegroundService.OnBind");
         return null;
     }
 }
