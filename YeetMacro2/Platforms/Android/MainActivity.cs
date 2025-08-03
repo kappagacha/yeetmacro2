@@ -43,10 +43,10 @@ public class MainActivity : MauiAppCompatActivity
         AppDomain.CurrentDomain.UnhandledException += (sender, args) =>
         {
             ServiceHelper.GetService<LogServiceViewModel>().LogDebug("CurrentDomain UnhandledException: " + args.ExceptionObject.ToString());
-            //if (args.IsTerminating)
-            //{
-            //    ServiceHelper.GetService<YeetAccessibilityService>().Stop();
-            //}
+            if (args.IsTerminating)
+            {
+                ServiceHelper.GetService<YeetAccessibilityService>().Stop();
+            }
             ServiceHelper.GetService<LogServiceViewModel>().LogException(args.ExceptionObject as Exception);
         };
 
