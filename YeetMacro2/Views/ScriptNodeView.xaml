@@ -87,7 +87,8 @@
                         <ImageButton Clicked="ScriptEditor_SelectAll" />
                     </Grid>
                     <v:ImageView FontFamily="MaterialOutlined" Glyph="{x:Static mi:MaterialOutlined.Save}"
-                                 Command="{Binding Scripts.SaveCommand}" />
+                                 CommandParameter="{Binding Scripts.SelectedNode}"
+                                 Command="{Binding Scripts.UpdateNodeCommand}" />
                 </HorizontalStackLayout>
             </Grid>
             <Grid Grid.Column="1" RowDefinitions="Auto,*,*" IsVisible="{Binding Scripts.ShowScriptEditor, Converter={conv:InverseBoolConverter}}">

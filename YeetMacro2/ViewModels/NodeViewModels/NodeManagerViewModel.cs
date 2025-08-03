@@ -269,6 +269,13 @@ public partial class NodeManagerViewModel<TViewModel, TParent, TChild> : NodeMan
     }
 
     [RelayCommand]
+    public void UpdateNode(TChild node)
+    {
+        _nodeService.Update(node);
+        _nodeService.Save();
+    }
+
+    [RelayCommand]
     public void CollapseAll()
     {
         Traverse(Root, (node) => node.IsExpanded = false);
