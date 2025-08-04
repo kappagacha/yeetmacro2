@@ -7,7 +7,7 @@
     "lastRun": {
       "$type": "timestamp",
       "$defaultValue": "0001-01-01T00:00:00+00:00",
-      "$value": "2025-08-03T01:38:57.087+00:00",
+      "$value": "2025-08-03T18:59:15.927+00:00",
       "$position": 0,
       "$name": "lastRun",
       "$path": "claimTreasureExploration.lastRun"
@@ -42,7 +42,7 @@
     "lastRun": {
       "$type": "timestamp",
       "$defaultValue": "0001-01-01T00:00:00+00:00",
-      "$value": "2025-08-03T01:51:56.267+00:00",
+      "$value": "2025-08-03T19:12:53.54+00:00",
       "$position": 0,
       "$name": "lastRun",
       "$path": "doColosseum.lastRun"
@@ -88,6 +88,72 @@
       "$position": 0,
       "$name": "startOnce",
       "$path": "doBookOfExperience.startOnce"
+    }
+  },
+  "doElementalStone": {
+    "$type": "parent",
+    "$position": 0,
+    "$name": "doElementalStone",
+    "$path": "doElementalStone",
+    "startOnce": {
+      "$type": "boolean",
+      "$defaultValue": true,
+      "$value": true,
+      "$position": 0,
+      "$name": "startOnce",
+      "$path": "doElementalStone.startOnce"
+    }
+  },
+  "doEvent1": {
+    "$type": "parent",
+    "$position": 0,
+    "$name": "doEvent1",
+    "$path": "doEvent1",
+    "startOnce": {
+      "$type": "boolean",
+      "$defaultValue": true,
+      "$value": true,
+      "$position": 0,
+      "$name": "startOnce",
+      "$path": "doEvent1.startOnce"
+    }
+  },
+  "doGuild": {
+    "$type": "parent",
+    "$position": 0,
+    "$name": "doGuild",
+    "$path": "doGuild",
+    "donate": {
+      "$type": "boolean",
+      "$defaultValue": true,
+      "$value": true,
+      "$position": 0,
+      "$name": "donate",
+      "$path": "doGuild.donate"
+    },
+    "checkIn": {
+      "$type": "boolean",
+      "$defaultValue": true,
+      "$value": true,
+      "$position": 0,
+      "$name": "checkIn",
+      "$path": "doGuild.checkIn"
+    },
+    "investGold": {
+      "$type": "boolean",
+      "$defaultValue": true,
+      "$value": true,
+      "$position": 0,
+      "$name": "investGold",
+      "$path": "doGuild.investGold"
+    },
+    "investGuildCoin": {
+      "$type": "boolean",
+      "$defaultValue": true,
+      "$value": true,
+      "$position": 0,
+      "$name": "investGuildCoin",
+      "$path": "doGuild.investGuildCoin"
     }
   }
 }
