@@ -155,5 +155,139 @@
       "$name": "investGuildCoin",
       "$path": "doGuild.investGuildCoin"
     }
+  },
+  "doDailies": {
+    "$type": "parent",
+    "$position": 0,
+    "$name": "doDailies",
+    "$path": "doDailies",
+    "claimTreasureExploration": {
+      "$type": "boolean",
+      "$defaultValue": true,
+      "$value": true,
+      "$position": 0,
+      "$name": "claimTreasureExploration",
+      "$path": "doDailies.claimTreasureExploration"
+    },
+    "doRoulette": {
+      "$type": "boolean",
+      "$defaultValue": true,
+      "$value": true,
+      "$position": 0,
+      "$name": "doRoulette",
+      "$path": "doDailies.doRoulette"
+    },
+    "claimMailbox": {
+      "$type": "boolean",
+      "$defaultValue": true,
+      "$value": true,
+      "$position": 0,
+      "$name": "claimMailbox",
+      "$path": "doDailies.claimMailbox"
+    },
+    "claimFreeSummon": {
+      "$type": "boolean",
+      "$defaultValue": true,
+      "$value": true,
+      "$position": 0,
+      "$name": "claimFreeSummon",
+      "$path": "doDailies.claimFreeSummon"
+    },
+    "doCharacterChat": {
+      "$type": "boolean",
+      "$defaultValue": true,
+      "$value": true,
+      "$position": 0,
+      "$name": "doCharacterChat",
+      "$path": "doDailies.doCharacterChat"
+    },
+    "doShop": {
+      "$type": "boolean",
+      "$defaultValue": true,
+      "$value": true,
+      "$position": 0,
+      "$name": "doShop",
+      "$path": "doDailies.doShop"
+    },
+    "doGuild": {
+      "$type": "boolean",
+      "$defaultValue": true,
+      "$value": true,
+      "$position": 0,
+      "$name": "doGuild",
+      "$path": "doDailies.doGuild"
+    },
+    "doBossRaid": {
+      "$type": "boolean",
+      "$defaultValue": true,
+      "$value": true,
+      "$position": 0,
+      "$name": "doBossRaid",
+      "$path": "doDailies.doBossRaid"
+    },
+    "doColoseum": {
+      "$type": "boolean",
+      "$defaultValue": true,
+      "$value": true,
+      "$position": 0,
+      "$name": "doColoseum",
+      "$path": "doDailies.doColoseum"
+    },
+    "doStonehenge": {
+      "$type": "boolean",
+      "$defaultValue": true,
+      "$value": true,
+      "$position": 0,
+      "$name": "doStonehenge",
+      "$path": "doDailies.doStonehenge"
+    },
+    "doGold": {
+      "$type": "boolean",
+      "$defaultValue": true,
+      "$value": true,
+      "$position": 0,
+      "$name": "doGold",
+      "$path": "doDailies.doGold"
+    },
+    "doBookOfExperience": {
+      "$type": "boolean",
+      "$defaultValue": true,
+      "$value": true,
+      "$position": 0,
+      "$name": "doBookOfExperience",
+      "$path": "doDailies.doBookOfExperience"
+    },
+    "doElementalStone": {
+      "$type": "boolean",
+      "$defaultValue": true,
+      "$value": true,
+      "$position": 0,
+      "$name": "doElementalStone",
+      "$path": "doDailies.doElementalStone"
+    },
+    "doPartyDungeon": {
+      "$type": "boolean",
+      "$defaultValue": true,
+      "$value": true,
+      "$position": 0,
+      "$name": "doPartyDungeon",
+      "$path": "doDailies.doPartyDungeon"
+    },
+    "doEvent1": {
+      "$type": "boolean",
+      "$defaultValue": true,
+      "$value": true,
+      "$position": 0,
+      "$name": "doEvent1",
+      "$path": "doDailies.doEvent1"
+    },
+    "claimDailyMissions": {
+      "$type": "boolean",
+      "$defaultValue": true,
+      "$value": true,
+      "$position": 0,
+      "$name": "claimDailyMissions",
+      "$path": "doDailies.claimDailyMissions"
+    }
   }
 }

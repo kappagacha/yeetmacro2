@@ -1,3 +1,4 @@
+// @position=8
 const loopPatterns = [patterns.lobby, patterns.battle.title, patterns.bossRaid];
 const daily = dailyManager.GetCurrentDaily();
 if (daily.doBossRaid.done.IsChecked) {

@@ -1,3 +1,4 @@
+// @position=16
 const loopPatterns = [patterns.lobby, patterns.menu.mission.title];
 const daily = dailyManager.GetCurrentDaily();
 if (daily.claimDailyMissions.done.IsChecked) {

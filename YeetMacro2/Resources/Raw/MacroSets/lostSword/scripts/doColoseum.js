@@ -1,11 +1,12 @@
+// @position=9
 const loopPatterns = [patterns.lobby, patterns.battle.title, patterns.colosseum.title];
 const daily = dailyManager.GetCurrentDaily();
 
 const isLastRunWithinHour = (Date.now() - settings.doColosseum.lastRun.Value.ToUnixTimeMilliseconds()) / 3_600_000 < 1;
 
-//if (isLastRunWithinHour && !settings.doColosseum.forceRun.Value) {
-//	return 'Last run was within the hour. Use forceRun setting to override check';
-//}
+if (isLastRunWithinHour && !settings.doColosseum.forceRun.Value) {
+	return 'Last run was within the hour. Use forceRun setting to override check';
+}
 
 while (macroService.IsRunning) {
 	const loopResult = macroService.PollPattern(loopPatterns);

@@ -1,3 +1,4 @@
+// @position=10
 const loopPatterns = [patterns.lobby, patterns.battle.title, patterns.bossRaid, patterns.stonehenge.select];
 const daily = dailyManager.GetCurrentDaily();
 if (daily.doStonehenge.done.IsChecked) {

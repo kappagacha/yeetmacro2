@@ -1,3 +1,4 @@
+// @position=7
 const loopPatterns = [patterns.lobby, patterns.menu.guild.title];
 const daily = dailyManager.GetCurrentDaily();
 if (daily.doGuild.done.IsChecked) {

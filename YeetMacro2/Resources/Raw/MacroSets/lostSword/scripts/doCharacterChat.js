@@ -1,3 +1,4 @@
+// @position=5
 const loopPatterns = [patterns.lobby, patterns.character.title, patterns.character.chat.title, patterns.character.chat.done, patterns.character.chat.chatAvailable, patterns.character.chat.options, patterns.character.chat.chatConsumed];
 const daily = dailyManager.GetCurrentDaily();
 if (daily.doCharacterChat.done.IsChecked) {

@@ -1,3 +1,4 @@
+// @position=14
 const loopPatterns = [patterns.lobby, patterns.battle.title, patterns.battle.party.partyDungeon.title];
 const daily = dailyManager.GetCurrentDaily();
 if (daily.doPartyDungeon.done.IsChecked) {

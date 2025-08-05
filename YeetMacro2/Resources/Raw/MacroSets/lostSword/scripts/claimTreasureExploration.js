@@ -1,3 +1,4 @@
+// @position=1
 const loopPatterns = [patterns.lobby, patterns.treasureExploration.title];
 const daily = dailyManager.GetCurrentDaily();
 

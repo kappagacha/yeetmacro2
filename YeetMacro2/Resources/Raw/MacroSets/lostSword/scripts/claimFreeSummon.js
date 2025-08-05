@@ -1,3 +1,4 @@
+// @position=4
 const loopPatterns = [patterns.lobby, patterns.summon.title];
 const daily = dailyManager.GetCurrentDaily();
 if (daily.claimFreeSummon.done.IsChecked) {

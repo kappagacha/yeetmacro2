@@ -1,3 +1,4 @@
+// @position=15
 const loopPatterns = [patterns.lobby, patterns.battle.title, patterns.battle.select];
 const daily = dailyManager.GetCurrentDaily();
 if (daily.doEvent1.done.IsChecked) {

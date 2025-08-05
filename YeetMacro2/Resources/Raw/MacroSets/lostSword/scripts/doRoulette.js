@@ -1,3 +1,4 @@
+// @position=2
 const loopPatterns = [patterns.lobby, patterns.menu.event.title];
 const daily = dailyManager.GetCurrentDaily();
 if (daily.doRoulette.done.IsChecked) {

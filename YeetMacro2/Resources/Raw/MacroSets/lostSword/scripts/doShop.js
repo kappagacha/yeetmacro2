@@ -1,3 +1,4 @@
+// @position=6
 const loopPatterns = [patterns.lobby, patterns.shop.title];
 const daily = dailyManager.GetCurrentDaily();
 if (daily.doShop.done.IsChecked) {

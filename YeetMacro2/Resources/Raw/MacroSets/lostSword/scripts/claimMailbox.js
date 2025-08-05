@@ -1,3 +1,4 @@
+// @position=3
 const loopPatterns = [patterns.lobby, patterns.menu.mailbox.title];
 const daily = dailyManager.GetCurrentDaily();
 if (daily.claimMailbox.done.IsChecked) {
