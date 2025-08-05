@@ -1,18 +1,4 @@
 {
-  "claimTreasureExploration": {
-    "$type": "parent",
-    "$position": 0,
-    "$name": "claimTreasureExploration",
-    "$path": "claimTreasureExploration",
-    "lastRun": {
-      "$type": "timestamp",
-      "$defaultValue": "0001-01-01T00:00:00+00:00",
-      "$value": "2025-08-03T18:59:15.927+00:00",
-      "$position": 0,
-      "$name": "lastRun",
-      "$path": "claimTreasureExploration.lastRun"
-    }
-  },
   "doShop": {
     "$type": "parent",
     "$position": 0,
@@ -42,10 +28,18 @@
     "lastRun": {
       "$type": "timestamp",
       "$defaultValue": "0001-01-01T00:00:00+00:00",
-      "$value": "2025-08-03T19:12:53.54+00:00",
+      "$value": "2025-08-05T02:06:53.854+00:00",
       "$position": 0,
       "$name": "lastRun",
       "$path": "doColosseum.lastRun"
+    },
+    "forceRun": {
+      "$type": "boolean",
+      "$defaultValue": false,
+      "$value": false,
+      "$position": 0,
+      "$name": "forceRun",
+      "$path": "claimTreasureExploration.forceRun"
     }
   },
   "doBossRaid": {
@@ -288,6 +282,28 @@
       "$position": 0,
       "$name": "claimDailyMissions",
       "$path": "doDailies.claimDailyMissions"
+    }
+  },
+  "claimTreasureExploration": {
+    "$type": "parent",
+    "$position": 0,
+    "$name": "claimTreasureExploration",
+    "$path": "claimTreasureExploration",
+    "lastRun": {
+      "$type": "timestamp",
+      "$defaultValue": "0001-01-01T00:00:00+00:00",
+      "$value": "2025-08-05T01:43:05.1+00:00",
+      "$position": 0,
+      "$name": "lastRun",
+      "$path": "claimTreasureExploration.lastRun"
+    },
+    "forceRun": {
+      "$type": "boolean",
+      "$defaultValue": false,
+      "$value": false,
+      "$position": 0,
+      "$name": "forceRun",
+      "$path": "claimTreasureExploration.forceRun"
     }
   }
 }

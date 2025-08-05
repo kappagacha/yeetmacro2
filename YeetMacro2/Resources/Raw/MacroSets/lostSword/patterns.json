@@ -2495,10 +2495,10 @@
       "$patterns": [
         {
           "rawBounds": {
-            "x": 1593.25,
-            "y": 964.25,
-            "width": 169.5,
-            "height": 69.5
+            "x": 1584.25,
+            "y": 959.25,
+            "width": 226.5,
+            "height": 73.5
           },
           "resolution": {
             "width": 1920,
@@ -4178,7 +4178,40 @@
         }
       },
       "checkIn": {
-        "$patterns": [],
+        "$patterns": [
+          {
+            "rawBounds": {
+              "x": 1063.25,
+              "y": 989.25,
+              "width": 25.5,
+              "height": 24.5
+            },
+            "resolution": {
+              "width": 1920,
+              "height": 1080
+            },
+            "type": "Normal",
+            "swipeDirection": "Auto",
+            "name": "pattern",
+            "imageData": "/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDAAEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQH/2wBDAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQH/wAARCAAYABkDASIAAhEBAxEB/8QAGgAAAgIDAAAAAAAAAAAAAAAAAAgJCgIGB//EACoQAAEEAgIBAwEJAAAAAAAAAAQDBQYHAQIACBIJERMUFRgaV1iUmNXW/8QAGAEAAgMAAAAAAAAAAAAAAAAAAwYBAgT/xAAlEQACAgEDAwQDAAAAAAAAAAABAgMRIQASMQRBkTJRYXEFIqH/2gAMAwEAAhEDEQA/AI461oK7bk0KVquqp5PxwVPhMMi8ZdHYEVfx12+nXPGH3DSI8N9N/g3Xwt4bY38PHOM8wkNEXLEJgwwGX1nM4nLpQ5BtEdZZOwnsJDy4nlIgiDtyjoiKOXlUshFD5EVt0tFFNdd99c55MH6s16TegbLhfS/rzI5HT9M0tXERysxwB2cIlvJpLIRlnwl2fjGFcAh2zkMtvJU0MVX1IfF3V2J+Y0jVRJIqy7edjLalHXOkbUsySWNB2DspT03YtpqWtIpG0O7S9LMA6Aspc9yHxRq2bpKfpu2mGkjp7JBZGwPoNqnlTKqDttrBAvFXi/n3zn60/pLNJGswRBGylgpLbwhFqxNbSSCCVxg1uvSmW3TlmUTMyq9tqIukImQQYTgSxO+EcFphOKWVgifcdZdHZIhPG2ye2im3v47Yz7ZxnHOZ8tN9+4B0Ysn1CovWV2Yvd2ti2W+vohqbCi46yQaBIuSKzbFSV1TkSXZ+PdDV8bH6JIbBt6GU9sYUU1UR23X8PPQf5625+wh/9PyxhYk7SCAayQD2586Av5CJY4mnDRtJGr+htrXzsNk0D75qjkG9R19yo/TvqgO8B7LUDedL1/cBcDY4pclK3PYDPVj4O8sPzYHfo8dJVx2+QiJIFbNayzcuQnsAE0KeaROSUMJol1yrDrHNuv0llHa6k59aevYqqMv0AquTiTGKQOvgnclykstmloCk6RUI1tcgGMP7GRWzsKCYe4nk6aDZ0ROHCX3oXZ/ldvnN/ehoWVjArMI4wdoxdAAhCa9I47NQA3ab7vBclSyz1jKYs2KWrXUlrNrk/XshzsGPTmNPMFbkGV5GVeVz5Y2uhLAGk0p67KuahB6egGmudytktcZzy0b9+TpT+sHq3/IGpv8AW8OHJVjZ4yb8kDWTqIEePpwS36xbRRHArnBz41//2Q==",
+            "variancePct": 20,
+            "textMatch": {
+              "isActive": false,
+              "text": null,
+              "whiteList": null
+            },
+            "colorThreshold": {
+              "isActive": false,
+              "variancePct": 30,
+              "color": null,
+              "imageData": "",
+              "ignoreBackground": false
+            },
+            "offsetCalcType": "Default",
+            "boundsCalcType": "Default",
+            "position": 0
+          }
+        ],
         "$isMultiPattern": false,
         "$position": 0,
         "$name": "checkIn",

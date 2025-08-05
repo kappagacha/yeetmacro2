@@ -14,7 +14,7 @@ while (macroService.IsRunning) {
 			break;
 		case 'battle.title':
 			logger.info('doGold: click gold');
-			macroService.PollPattern(patterns.battle.dungeon, { DoClick: true, PredicatePattern: patterns.battle.selected });
+			macroService.PollPattern(patterns.battle.dungeon, { DoClick: true, PredicatePattern: patterns.battle.dungeon.selected });
 			macroService.PollPattern(patterns.battle.dungeon.gold, { DoClick: true, PredicatePattern: patterns.battle.select });
 			break;
 		case 'battle.select':

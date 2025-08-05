@@ -20,6 +20,7 @@ while (macroService.IsRunning) {
 		case 'menu.guild.title':
 			logger.info('doGuild: donate');
 			if (settings.doGuild.donate.Value && !daily.doGuild.donate.IsChecked) {
+				macroService.PollPattern(patterns.menu.guild.donate, { DoClick: true, PredicatePattern: patterns.menu.guild.donate.close });
 				macroService.PollPattern(patterns.menu.guild.donate.gold, { DoClick: true, PredicatePattern: patterns.general.itemsAcquired });
 				macroService.PollPattern(patterns.general.itemsAcquired, { DoClick: true, PredicatePattern: patterns.menu.guild.donate.close });
 

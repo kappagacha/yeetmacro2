@@ -17,7 +17,7 @@ while (macroService.IsRunning) {
 			}
 			macroService.PollPattern(patterns.menu.mission, { DoClick: true, PredicatePattern: patterns.menu.mission.title });
 			break;
-		case 'menu.mailbox.title':
+		case 'menu.mission.title':
 			logger.info('claimDailyMissions: claim daily missions');
 			macroService.PollPattern(patterns.menu.mission.claimAll, { DoClick: true, PredicatePattern: patterns.general.itemsAcquired });
 			macroService.PollPattern(patterns.general.itemsAcquired, { DoClick: true, PredicatePattern: patterns.menu.mission.title });

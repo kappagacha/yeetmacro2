@@ -8,12 +8,12 @@
   "supportsGreaterHeight": false,
   "package": "com.wemadeconnect.aos.lostdgl",
   "source": "online:lostSword",
-  "macroSetLastUpdated": "2025-08-04T20:41:31.3122413-05:00",
-  "patternsLastUpdated": "2025-08-04T20:41:31.3129493-05:00",
-  "scriptsLastUpdated": "2025-08-04T20:41:31.3131048-05:00",
-  "settingsLastUpdated": "2025-08-04T20:41:31.3131861-05:00",
-  "dailyTemplateLastUpdated": "2025-08-04T20:41:31.3133134-05:00",
-  "weeklyTemplateLastUpdated": "2025-08-04T20:41:31.3133743-05:00",
+  "macroSetLastUpdated": "2025-08-04T21:22:20.6645712-05:00",
+  "patternsLastUpdated": "2025-08-04T21:22:20.66504-05:00",
+  "scriptsLastUpdated": "2025-08-04T21:22:20.665156-05:00",
+  "settingsLastUpdated": "2025-08-04T21:22:20.6652154-05:00",
+  "dailyTemplateLastUpdated": "2025-08-04T21:22:20.6652693-05:00",
+  "weeklyTemplateLastUpdated": "2025-08-04T21:22:20.6653438-05:00",
   "description": null,
   "dailyResetUtcHour": 0,
   "weeklyStartDay": "Monday",
@@ -23,6 +23,6 @@
     "x": 0,
     "y": 1080
   },
-  "dailyTemplate": "{\n  \u0022claimFreeSummon\u0022: {\n    \u0022character\u0022: false,\n    \u0022pet\u0022: false,\n    \u0022done\u0022: false,\n    \u0022count\u0022: 0\n  },\n  \u0022claimTreasureExploration\u0022: {\n    \u0022count\u0022: 0\n  },\n  \u0022doShop\u0022: {\n    \u0022freepackage\u0022: false,\n    \u0022event\u0022: {\n      \u0022vacationTicket\u0022: false\n    },\n    \u0022done\u0022: false\n  },\n  \u0022doColosseum\u0022: {\n    \u0022count\u0022: 0\n  },\n  \u0022claimMailbox\u0022: {\n    \u0022done\u0022: false\n  },\n  \u0022doCharacterChat\u0022: {\n    \u0022done\u0022: false\n  },\n  \u0022doBossRaid\u0022: {\n    \u0022done\u0022: false,\n    \u0022entered\u0022: false\n  },\n  \u0022doStonehenge\u0022: {\n    \u0022done\u0022: false\n  },\n  \u0022doGold\u0022: {\n    \u0022done\u0022: false,\n    \u0022started\u0022: false\n  },\n  \u0022doBookOfExperience\u0022: {\n    \u0022done\u0022: false,\n    \u0022started\u0022: false\n  },\n  \u0022doElementalStone\u0022: {\n    \u0022done\u0022: false,\n    \u0022started\u0022: false\n  },\n  \u0022doPartyDungeon\u0022: {\n    \u0022done\u0022: false\n  },\n  \u0022doEvent1\u0022: {\n    \u0022done\u0022: false,\n    \u0022started\u0022: false\n  }\n}",
+  "dailyTemplate": "{\n  \u0022claimFreeSummon\u0022: {\n    \u0022character\u0022: false,\n    \u0022pet\u0022: false,\n    \u0022done\u0022: false,\n    \u0022count\u0022: 0\n  },\n  \u0022claimTreasureExploration\u0022: {\n    \u0022count\u0022: 0\n  },\n  \u0022doShop\u0022: {\n    \u0022freepackage\u0022: false,\n    \u0022event\u0022: {\n      \u0022vacationTicket\u0022: false\n    },\n    \u0022done\u0022: false\n  },\n  \u0022doColosseum\u0022: {\n    \u0022count\u0022: 0\n  },\n  \u0022claimMailbox\u0022: {\n    \u0022done\u0022: false\n  },\n  \u0022doCharacterChat\u0022: {\n    \u0022done\u0022: false\n  },\n  \u0022doBossRaid\u0022: {\n    \u0022done\u0022: false,\n    \u0022entered\u0022: false\n  },\n  \u0022doStonehenge\u0022: {\n    \u0022done\u0022: false\n  },\n  \u0022doGold\u0022: {\n    \u0022done\u0022: false,\n    \u0022started\u0022: false\n  },\n  \u0022doBookOfExperience\u0022: {\n    \u0022done\u0022: false,\n    \u0022started\u0022: false\n  },\n  \u0022doElementalStone\u0022: {\n    \u0022done\u0022: false,\n    \u0022started\u0022: false\n  },\n  \u0022doPartyDungeon\u0022: {\n    \u0022done\u0022: false\n  },\n  \u0022doEvent1\u0022: {\n    \u0022done\u0022: false,\n    \u0022started\u0022: false\n  },\n  \u0022doRoulette\u0022: {\n    \u0022done\u0022: false\n  },\n  \u0022doGuild\u0022: {\n    \u0022donate\u0022: false,\n    \u0022checkIn\u0022: false,\n    \u0022investGold\u0022: false,\n    \u0022investGuildCoin\u0022: false,\n    \u0022done\u0022: false\n  },\n  \u0022claimDailyMissions\u0022: {\n    \u0022done\u0022: false\n  }\n}",
   "weeklyTemplate": "{}"
 }

@@ -14,7 +14,7 @@ while (macroService.IsRunning) {
 			break;
 		case 'battle.title':
 			logger.info('doElementalStone: elemental stone');
-			macroService.PollPattern(patterns.battle.dungeon, { DoClick: true, PredicatePattern: patterns.battle.selected });
+			macroService.PollPattern(patterns.battle.dungeon, { DoClick: true, PredicatePattern: patterns.battle.dungeon.selected });
 			macroService.PollPattern(patterns.battle.dungeon.elementalStone, { DoClick: true, PredicatePattern: patterns.battle.select });
 			break;
 		case 'battle.select':
