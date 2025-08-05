@@ -38,6 +38,11 @@ while (macroService.IsRunning) {
 				macroService.PollPattern(patterns.stamina.playAd, { DoClick: true, PredicatePattern: patterns.stamina.playAd.selected });
 				macroService.PollPattern(patterns.stamina.purchase.button, {
 					DoClick: true,
+					PredicatePattern: [settings.watchAds.userNoOpPattern.Value, patterns.stamina.playAd.rewardTap, settings.watchAds.userClickPattern.Value, adExitInstallPattern, adExitPattern]
+				});
+				sleep(10_000);
+				macroService.PollPattern(patterns.stamina.purchase.button, {
+					DoClick: true,
 					ClickPattern: [settings.watchAds.userClickPattern.Value, adExitInstallPattern, adExitPattern],
 					PredicatePattern: patterns.stamina.playAd.rewardTap,
 					NoOpPattern: settings.watchAds.userNoOpPattern.Value
