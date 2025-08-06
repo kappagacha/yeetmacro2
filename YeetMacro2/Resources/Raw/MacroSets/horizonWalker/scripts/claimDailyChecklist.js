@@ -15,7 +15,9 @@ while (macroService.IsRunning) {
 			break;
 		case 'checklist.title':
 			logger.info('claimDailyChecklist: redeem all');
+			sleep(1_000);
 			macroService.PollPattern(patterns.checklist.redeemAll, { DoClick: true, PredicatePattern: patterns.general.touchTheScreen });
+			sleep(1_000);
 			macroService.PollPattern(patterns.general.touchTheScreen, { DoClick: true, PredicatePattern: patterns.checklist.title });
 
 			macroService.IsRunning && (daily.claimDailyChecklist.done.IsChecked = true);

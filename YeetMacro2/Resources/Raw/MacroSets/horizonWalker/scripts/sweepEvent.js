@@ -11,7 +11,7 @@ while (macroService.IsRunning) {
 	switch (loopResult.Path) {
 		case 'phone.battery':
 			logger.info('sweepEvent: click event');
-			macroService.ClickPattern(patterns.stage, { ClickOffset: { Y: -400 } });
+			macroService.ClickPattern(patterns.stage, { ClickOffset: { Y: -350 } });
 			break;
 		case 'event.claimAll':
 			logger.info('sweepEvent: click claim all');
