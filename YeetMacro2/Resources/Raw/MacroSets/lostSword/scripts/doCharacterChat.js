@@ -40,7 +40,7 @@ while (macroService.IsRunning) {
 		case 'character.chat.chatConsumed':
 			logger.info('doCharacterChat: chatConsumed so choose new chat');
 			const selectedCharacterResult = macroService.FindPattern(patterns.character.chat.selectedCharacter);
-			macroService.DoClick(selectedCharacterResult.Point.Offset(50, 150));
+			macroService.DoClick(selectedCharacterResult.Point.Offset(100, 150));
 			break;
 
 	}

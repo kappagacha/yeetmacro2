@@ -188,7 +188,7 @@
             "imageData": "",
             "ignoreBackground": false
           },
-          "offsetCalcType": "Default",
+          "offsetCalcType": "DockRight",
           "boundsCalcType": "Default",
           "position": 0
         }
@@ -461,7 +461,7 @@
           "imageData": "",
           "ignoreBackground": false
         },
-        "offsetCalcType": "Default",
+        "offsetCalcType": "DockRight",
         "boundsCalcType": "Default",
         "position": 0
       }
@@ -827,7 +827,7 @@
             "imageData": "/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDAAIBAQEBAQIBAQECAgICAgQDAgICAgUEBAMEBgUGBgYFBgYGBwkIBgcJBwYGCAsICQoKCgoKBggLDAsKDAkKCgr/wAALCAAfACMBAREA/8QAHwAAAQUBAQEBAQEAAAAAAAAAAAECAwQFBgcICQoL/8QAtRAAAgEDAwIEAwUFBAQAAAF9AQIDAAQRBRIhMUEGE1FhByJxFDKBkaEII0KxwRVS0fAkM2JyggkKFhcYGRolJicoKSo0NTY3ODk6Q0RFRkdISUpTVFVWV1hZWmNkZWZnaGlqc3R1dnd4eXqDhIWGh4iJipKTlJWWl5iZmqKjpKWmp6ipqrKztLW2t7i5usLDxMXGx8jJytLT1NXW19jZ2uHi4+Tl5ufo6erx8vP09fb3+Pn6/9oACAEBAAA/AP2c+KX/AAUJ/YF+B3ju++Fvxr/bh+D/AIP8T6X5X9p+HPFPxL0rT7+08yJJo/Nt57hJI98Ukci7lG5XVhkEGs/wn/wU2/4Jt+PfFWmeBfAv/BQb4H61retahDYaNo2k/FjR7m6v7qZxHFbwxR3JeWV3ZUVFBZmYAAk17hRRX8uX/BVjwn4V8e/8Hfen+BfHXhnT9a0TWvjh8LbDWdG1ayS5tb+1msPD8ctvNFICksTozIyMCrKxBBBr9Hv+C/3/AAQB/YM8e/sGfEX9pz9mP9nTwf8ADH4kfDHwfJr9le+ELcaLpl/pmnCa7vrW5sbSI28sr2rXJjlESTtPFao9wsCstdB/wbPf8FAvj78b/wDgjN4w+NX7Rk/jD4n638JPGHiOwtZNPa61rxR4ntbexttXW3zdTs97fM99LawIGjUpHbRYBUux8OP+Dwv/AII/eOPCvifxD4nufih4Ou9A08XGlaF4k8EJLdeJJNkrfZrJtPuLmCOXMaJm7lto908fz7RI0fIf8Rq3/BLL/ogf7QH/AIS2h/8Ay4r84P8AgsJ4i8d+EP8Ag7RbxZ8Lfh1/wmHibS/jB8M7vw54S/teLT/7bv49N0F7ex+1TAx23nSqkXnOCse/cwIBr7//AOCk/gH/AIOQ/wDgsH4EH7Ei/wDBPb4f/s7/AAp8UfZZfGOt+KfizpfiCaeaylkvI45bmwaSaK2kmistsdvYNMJoVLziCSVF/Q//AIJWf8Ez/g1/wSh/ZH039lr4Qa3qGtSvqEmseL/E2pkpJrmszRQxT3Yg3slrFsghjjgQkJHCm95ZTJNJ+MH/AAZG/AH4NeOfjL8c/wBoPxj8PdP1Pxl4A0/w9ZeC9dvUMkmjR6kNWW9aBSdiSypaxRmYL5ixmWNWVJpVf+i6v5gf+Cln/K5J4c/7OA+E/wD6SeHq/p+or8Af+DGP/m6L/uSf/c/X7/V//9k=",
             "ignoreBackground": false
           },
-          "offsetCalcType": "Default",
+          "offsetCalcType": "DockLeft",
           "boundsCalcType": "Default",
           "position": 0
         }
@@ -866,7 +866,7 @@
               "imageData": "/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDAAIBAQEBAQIBAQECAgICAgQDAgICAgUEBAMEBgUGBgYFBgYGBwkIBgcJBwYGCAsICQoKCgoKBggLDAsKDAkKCgr/wAALCAAgACUBAREA/8QAHwAAAQUBAQEBAQEAAAAAAAAAAAECAwQFBgcICQoL/8QAtRAAAgEDAwIEAwUFBAQAAAF9AQIDAAQRBRIhMUEGE1FhByJxFDKBkaEII0KxwRVS0fAkM2JyggkKFhcYGRolJicoKSo0NTY3ODk6Q0RFRkdISUpTVFVWV1hZWmNkZWZnaGlqc3R1dnd4eXqDhIWGh4iJipKTlJWWl5iZmqKjpKWmp6ipqrKztLW2t7i5usLDxMXGx8jJytLT1NXW19jZ2uHi4+Tl5ufo6erx8vP09fb3+Pn6/9oACAEBAAA/AP09/wCCrf8AwWr/AGWP+CPn/CBf8NL+AfiBrn/CxP7U/sT/AIQXSrG58j7B9k87z/tV5bbc/bYtu3fna+duBu+f/H//AAdS/ssfCj4WaJ8dPil/wTt/a/8ADXgnxL9m/wCEc8Y6/wDCOxs9K1X7RA1xb/ZrubU1hn82FHlTYx3orMuVBNfYH/BPT/gp1+xt/wAFQfhZc/FL9kb4n/2v/ZH2WPxT4c1Kze01Xw/c3EAmSC6t3/7aRieJpbeR7edYppfKcj3+ivwB/wCD5z/m13/udv8A3AV+t/8AwTJ8J+FfHv8AwSI/Z88C+OvDOn61omtfs4eE7DWdG1ayS5tb+1m0C1jlt5opAUlidGZGRgVZWIIINfiB/wAGfPizwrZ/8Fd/jh4F+AHibxhF8LdR+F+sX/h7RvFF6i3V1a22v6bHplxqMVsfs730VrdTIXQFUa5uBGQshz6h8X/+DtH9vr4Jf8FNfHv7JVt+x38P/iL4Y8LfGDXvBug+GvC1pqtn4k1zyNQubCwjiuBPdxm5eVYCypZv5p3IiRl1ZPcPCf7d3/B4n408K6Z4x0f/AIJKfA+G01bT4b21h1a9SwukjlQOqzWt14njntpQGAaGVEkRsq6qwIHh/wDwfOf82u/9zt/7gK9Q+Cv/AARQ/wCCl37en/BNv4G2Pif/AILx+MPDPw91b4H6MmlfDnw38KY7C1ttG1DR7Qf2Vey6fqlqdXijtwkG+7Vyy+YcL50gb9H/APgmf/wSs/ZH/wCCUPwavvhB+y14c1B5da1A3vibxf4kniudZ1yRS/kLczxRRJ5UCO0cUMcaRoGkfaZZppJPwQ/4Jp/8rkniP/s4D4sf+kniGv6fq/IH/g61/wCCXH7dn/BSj/hQv/DFPwM/4TT/AIQv/hKf+Em/4qbS9O+x/bP7I+z/APH/AHMHmb/ss/3N23Z82Ny5/R7/AIJ7fC3x38Dv2Bfgf8FPiloX9l+J/B/wf8M6J4j0z7VFP9kv7TSraC4h8yFnjk2Sxuu5GZWxlSQQa9gr8If2Hv8AgjN/wUn+D/8Awct61/wUC+Iv7N/9nfCK7+MHxC1u38W/8Jho82+w1O21lLGb7LFeNdDzGu7cbTFuTzPnC7Wx+71f/9k=",
               "ignoreBackground": false
             },
-            "offsetCalcType": "Default",
+            "offsetCalcType": "DockLeft",
             "boundsCalcType": "Default",
             "position": 0
           }
@@ -906,7 +906,7 @@
               "imageData": "",
               "ignoreBackground": false
             },
-            "offsetCalcType": "Default",
+            "offsetCalcType": "DockLeft",
             "boundsCalcType": "Default",
             "position": 0
           }
@@ -987,7 +987,7 @@
             "imageData": "/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDAAIBAQEBAQIBAQECAgICAgQDAgICAgUEBAMEBgUGBgYFBgYGBwkIBgcJBwYGCAsICQoKCgoKBggLDAsKDAkKCgr/wAALCAAfACUBAREA/8QAHwAAAQUBAQEBAQEAAAAAAAAAAAECAwQFBgcICQoL/8QAtRAAAgEDAwIEAwUFBAQAAAF9AQIDAAQRBRIhMUEGE1FhByJxFDKBkaEII0KxwRVS0fAkM2JyggkKFhcYGRolJicoKSo0NTY3ODk6Q0RFRkdISUpTVFVWV1hZWmNkZWZnaGlqc3R1dnd4eXqDhIWGh4iJipKTlJWWl5iZmqKjpKWmp6ipqrKztLW2t7i5usLDxMXGx8jJytLT1NXW19jZ2uHi4+Tl5ufo6erx8vP09fb3+Pn6/9oACAEBAAA/AL3/AAS//wCDhb/guV/wVm+Pur/s5/s5/DH9lDRdb0XwfceJLq68a6L4mtrV7WG6tLVkRrW/uHMpe8iIBQLtVzuBAB+7/wDjqa/6sA/8vevt/wCE/wDwtP8A4VZ4a/4Xp/wj/wDwm3/CP2X/AAmP/CJ+f/ZX9q+Qn2v7H9o/ffZvO8zyvN+fZt3fNmugor+SL/g1+/a8/wCGLv2+vF/xS/4Zg+MHxZ+3/B/UNK/4Rz4KeCv7e1W236rpU32uW382LZbL5HltJuOHmiXHz5H7vf8AD/T/AKwr/t//APiOP/3dXh//AAc5eM/2uNU/4Jc/Db/goT+yL8VPjh8H7vw7qGn3vjPw1pvi+XwxdWOja3BEm3V7OGZZJL62vv7PthCkjmBru7yrLukj+wP+CI/7eWo/8FHP+CaPw2/aR8Y61p934yOnyaL8QFstRt5pF1mxka3mmnjt44ktJbpEivxbCNBFHfRBdybHb+eH9rX/AIKK/wDBY/8A4KPft5/Gn4p/8E3fix+0fr/w9sPGDW/h7S/gVdeK00yx0ZC9rply9lbOTZy3dvZ/aHDpGZJ2uGCJyi+n/wDBlT/ylN8ff9m/6r/6fNDr+n6uP/aF+CnhX9pT4BeOP2c/HWoahaaJ4/8AB+p+G9ZutJlSO6htb61ktZXhaRHRZQkrFSyOoYAlWHB/mC/YR/4Kh+Kv+CL/AOzB+3D/AMEyfiV421B/HcOoX+j/AAvn8HTva2tp4oWaTQdW1C31KOAXcUqQrZ31v5iIjLpLqHtZpl8z9bv+DSr9jP8A4Zk/4JUab8YPE3h37J4n+NHiC58T3b33hj7Dfw6VGfsem27zOTJd2zRQSX8DkKm3VmMakOZZfnD4Kf8ABnP8ff2a/FVx46/Zz/4La+MPAGt3envYXWs+CvhxdaVdTWrPHI1u8trryO0ReKJyhO0tGhxlRj1D/iHE/wCCpv8A0s4ftAf+A+uf/NJX6nfs9fDjxV8HPgF4H+EXjr4nah421vwr4P0zR9Z8Z6sHF1r91bWscMuoTeZLK/mzujStukkbdIcu5+Y/mB/wVg/4NU/Cv/BS/wDba8R/to+Hv22tQ8A3fi7T9OTXdAvfACazGLq0tIrJZYJVvbUxRNb29vmJ1kYSCV/M2uscf6v+E/CfhXwF4V0zwL4F8M6fouiaLp8Nho2jaTZJbWthawoI4reGKMBIokRVRUUBVVQAABX/2Q==",
             "ignoreBackground": false
           },
-          "offsetCalcType": "Default",
+          "offsetCalcType": "DockLeft",
           "boundsCalcType": "Default",
           "position": 0
         }
@@ -1026,7 +1026,7 @@
               "imageData": "/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDAAIBAQEBAQIBAQECAgICAgQDAgICAgUEBAMEBgUGBgYFBgYGBwkIBgcJBwYGCAsICQoKCgoKBggLDAsKDAkKCgr/wAALCAAjACcBAREA/8QAHwAAAQUBAQEBAQEAAAAAAAAAAAECAwQFBgcICQoL/8QAtRAAAgEDAwIEAwUFBAQAAAF9AQIDAAQRBRIhMUEGE1FhByJxFDKBkaEII0KxwRVS0fAkM2JyggkKFhcYGRolJicoKSo0NTY3ODk6Q0RFRkdISUpTVFVWV1hZWmNkZWZnaGlqc3R1dnd4eXqDhIWGh4iJipKTlJWWl5iZmqKjpKWmp6ipqrKztLW2t7i5usLDxMXGx8jJytLT1NXW19jZ2uHi4+Tl5ufo6erx8vP09fb3+Pn6/9oACAEBAAA/APu39sn/AIOVP2L/ANiv9trWP2APGP7Pnxw8XfELSdQ0qwhtfAHhPTr+PU7rULS1urW3tFfUYp5pWF3FGEEQYyZVQ3BOh/w/0/6wr/t//wDiOP8A93V9P/sU/tef8No/CzUPil/wzB8YPhN9g8QS6V/wjnxr8Ff2Dqtzsggm+1xW/my77ZvP8tZNwy8Mq4+TJ9gor+XL/gqx4s8K+Av+DvvT/HXjrxNp+i6Jovxw+Ft/rOs6tepbWthaw2Hh+SW4mlkISKJEVnZ2IVVUkkAV/Qd/w9i/4JZf9JLP2f8A/wAPJof/AMlVz/7Xv7d//GuP4u/ti/8ABNj4w/B/4lav8NfD95qqX03iD+2dC/4l8cV9qFpM+lz7vtP9n+YYo/MT97LblysbFq8P/wCDdj/gsl8Qv+CvnwC+IHiH496b4P0n4heBfGENve6F4K0a/tbWLRrq1RrG5druecPLJcQakhCS5VbdNyJuVpPH/wDg4n/4OFvj7/wSZ+Pvw/8A2c/2Xfhj4P1rW9a8HzeJPFd14+0W6ubVLWa6e1sUtGtL+3cSh7O/MwkQrta3KMSZAPzh/wCCrHhPwr49/wCDvvT/AAL468M6frWia18cPhbYazo2rWSXNrf2s1h4fjlt5opAUlidGZGRgVZWIIINf0Hf8Onf+CWX/SNP9n//AMM3of8A8i16f8FP2evgF+zX4VuPAv7OfwO8H+ANEu9Qe/utG8FeGbXSrWa6ZI42uHitY0RpSkUSFyNxWNBnCjH88P8AwSd1zTv+CE3/AAcleOv+Cd3jHxzqF94E8e6hH4M0m5Gt3Esayah9m1Hw1dXkMNqqXV9snisHYRRRwSandSLIIVbzND/gk38N9H/4L6f8HBHxe/4KO/FL4Q+H9Q+EXhPzLu88LeLPDFne22pQzWEmi6BY3tlcXMyrcm0tnvpZkE8K3GnsqiPzoSvYf8FZv+CQH/BYvx7/AMF3te/4KRfsXfsh6f4w0TRfGHg/xJ4M1DVvGmi21rf3Wk6ZpQ2TW82o29wIhdWbxsP3bMqkqwBVq+kP+GyP+DyT/pE7+z//AOFHaf8AzV193/8ABL/4l/8ABS74qfALV/EP/BVH9nrwf8NfiFD4wuLfRtC8FXsc9rPowtbRorl2j1C+Ala4e7QjzVO2JPkGdz/AH/B03/wRN/af/wCCjPir4V/tGfsPfBzT/FXjLQdPvfDfja1k8WQ2F1Ppm8XWnPGt9NFaeVBM+ohyrrOzXsI2yohMPv8A/wAG1H/BLz4mf8Ex/wBgy/0D9ozwTp+i/FLx74wu9Y8V2UcFlLdabawgWljp8l9aTzJeRKkUt4mHCxNqcybAwkZ/0Poooor/2Q==",
               "ignoreBackground": false
             },
-            "offsetCalcType": "Default",
+            "offsetCalcType": "DockLeft",
             "boundsCalcType": "Default",
             "position": 0
           }
@@ -1354,7 +1354,7 @@
             "imageData": "",
             "ignoreBackground": false
           },
-          "offsetCalcType": "DockRight",
+          "offsetCalcType": "Default",
           "boundsCalcType": "Default",
           "position": 0
         }
@@ -1960,7 +1960,7 @@
               "imageData": "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",
               "ignoreBackground": false
             },
-            "offsetCalcType": "DockRight",
+            "offsetCalcType": "Default",
             "boundsCalcType": "Default",
             "position": 0
           }
@@ -2000,7 +2000,7 @@
               "imageData": "/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDAAIBAQEBAQIBAQECAgICAgQDAgICAgUEBAMEBgUGBgYFBgYGBwkIBgcJBwYGCAsICQoKCgoKBggLDAsKDAkKCgr/wAALCAAWABkBAREA/8QAHwAAAQUBAQEBAQEAAAAAAAAAAAECAwQFBgcICQoL/8QAtRAAAgEDAwIEAwUFBAQAAAF9AQIDAAQRBRIhMUEGE1FhByJxFDKBkaEII0KxwRVS0fAkM2JyggkKFhcYGRolJicoKSo0NTY3ODk6Q0RFRkdISUpTVFVWV1hZWmNkZWZnaGlqc3R1dnd4eXqDhIWGh4iJipKTlJWWl5iZmqKjpKWmp6ipqrKztLW2t7i5usLDxMXGx8jJytLT1NXW19jZ2uHi4+Tl5ufo6erx8vP09fb3+Pn6/9oACAEBAAA/AP19/wCChf8AwU6/Y2/4JffCy2+KX7XPxP8A7I/tf7VH4W8OabZvd6r4gubeAzPBa26f9s4zPK0VvG9xAss0XmoT5f4C/wCC8n7Bl9+yPbfto/tE3fjD4EeFNW1Aw+FNN+M3hwWGs+KrXyrCUalpGn2kl1PqliRqNv8A6RbLIqje7bUXfXv/AOy/+2t+yP8AtqeFW8Y/softG+D/AB9aQ6fZXuoQ+G9cinutMju0Z7db21B8+xlcRyDybhI5A0UisoZGA9Qr+aHx78Tfin/wST8d/CP/AIJ9/wDBxP8AsZ+H/wBoT4M/D/ztc+CnxC8PpPf39jsit9unWV1cy2kepabBKiW9zpF8keFktnbzLWCxhkNM8XaP8Fv+Cgnhb/gpv/wXA8O/8Ne/AX4oeX4a+EP7R1mlnceE9PsBby4muvC0Vq3kXMW+RZNMmWBreeLV5ooNQuoRKvP+Iv2adY/4KbftHeHPjP8A8G9f/BKv4wfs5ed4gvNUtP2irj4gXnh3RLuwumFlqWyFBJb2P2a5muIkg0i8kb7Ml0gs5OI7b9AP+GN/+DyT/pLF+z//AOE5af8AzKV+p3x++APwa/al+DXiH9nz9oP4e6f4q8G+KtPNlruhamhMdxHkMrBlIeKVHVJI5o2WSKSNJI2R0Vh5/wDBT/gmv+wZ+z5+zBcfsXfDL9lXwenwtvtQe/1XwZrmmjV7XVLppo5vtF5/aBme8lV4oNjzs7ItvAilVhjVfcKK/9k=",
               "ignoreBackground": false
             },
-            "offsetCalcType": "DockRight",
+            "offsetCalcType": "Default",
             "boundsCalcType": "Default",
             "position": 0
           }
@@ -2160,7 +2160,7 @@
               "imageData": "",
               "ignoreBackground": false
             },
-            "offsetCalcType": "Default",
+            "offsetCalcType": "DockRight",
             "boundsCalcType": "Default",
             "position": 0
           }
@@ -2242,7 +2242,7 @@
           "imageData": "",
           "ignoreBackground": false
         },
-        "offsetCalcType": "Default",
+        "offsetCalcType": "DockLeft",
         "boundsCalcType": "Default",
         "position": 0
       }
@@ -2442,7 +2442,7 @@
           "imageData": "",
           "ignoreBackground": false
         },
-        "offsetCalcType": "Default",
+        "offsetCalcType": "DockRight",
         "boundsCalcType": "Default",
         "position": 0
       }
@@ -2561,7 +2561,7 @@
             "imageData": "/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDAAIBAQEBAQIBAQECAgICAgQDAgICAgUEBAMEBgUGBgYFBgYGBwkIBgcJBwYGCAsICQoKCgoKBggLDAsKDAkKCgr/wAALCAAhACIBAREA/8QAHwAAAQUBAQEBAQEAAAAAAAAAAAECAwQFBgcICQoL/8QAtRAAAgEDAwIEAwUFBAQAAAF9AQIDAAQRBRIhMUEGE1FhByJxFDKBkaEII0KxwRVS0fAkM2JyggkKFhcYGRolJicoKSo0NTY3ODk6Q0RFRkdISUpTVFVWV1hZWmNkZWZnaGlqc3R1dnd4eXqDhIWGh4iJipKTlJWWl5iZmqKjpKWmp6ipqrKztLW2t7i5usLDxMXGx8jJytLT1NXW19jZ2uHi4+Tl5ufo6erx8vP09fb3+Pn6/9oACAEBAAA/AP2M/wCCh37Xfir9hD9l/Vf2rdH+BGofEPRPCGoWdz470bQ7949TstAaZY73UrOJbeVLuW1RxcPDK9rF5EU8j3MQj+bA/wCCfv8AwVn/AGDP+CmnhVNY/ZS+Oun6jrcWni71nwJqxFlr+kqEtml86ykO94onuoYWuoPNtTKSiTORX0fRRRX8oX/Bxl/wSj8d/wDBKL9uK0/ap/ZftfEGi/DLx14g/wCEg8G+JNBtItOh8F+JPtM1y2j2stkU+y+R5a3NmdkBEP7uMytZTS13/wDwTR/4O9/2yf2Zv7J+Fv7c/h7/AIXT4JtvItf+Ej81LXxVptsv2WHf9ox5OqeXDFcSbLlUuLiefdLfKoxX9B37If8AwUo/YM/b006C8/ZH/aq8H+NLubT579vD1lqQg1m2tYbgW0lxPplwI7y2iErIoeWFFYSxMpKyIW9wrP8ACfhPwr4C8K6Z4F8C+GdP0XRNF0+Gw0bRtJsktrWwtYUEcVvDFGAkUSIqoqKAqqoAAAr+aH/g6w/4LS+Kv2mPj7q//BOP9nP4gaha/C34f6g1h8SYI9OezbxD4otLqRZreR2ffcWNm8cSohSNHuo5pcTrHZzL84f8E0f+Dbr/AIKOf8FG/wCyfH//AAgX/Cr/AIZah5Fx/wALA8f20lv9us5Pssnm6bY4Fxf77a58+GXEVnN5Tp9rRhiv6Dv+CVn/AAbzfsGf8EsNR034r+DtI1Dx18WLXT5IJviV4scGS1ae3hiul0+zQ+RYxOY5SrES3SR3U0LXUkblT9314f8At5eGf2uPir8Gr39nz9j650/wzrfjrT7jTdX+K+satLBH4J06QxQXN5Zw2ki3d1q/kzyyWUatBbrJbPJPdQlIYbr5w/4Jo/8ABt1/wTj/AOCcn9k+P/8AhAv+FofE3T/IuP8AhYHj+2juPsN5H9lk83TbHBt7DZc23nwy4lvIfNdPtbqcV9/0UUUUUUV//9k=",
             "ignoreBackground": false
           },
-          "offsetCalcType": "Default",
+          "offsetCalcType": "DockRight",
           "boundsCalcType": "Default",
           "position": 0
         }
@@ -2601,7 +2601,7 @@
             "imageData": "",
             "ignoreBackground": false
           },
-          "offsetCalcType": "Default",
+          "offsetCalcType": "DockLeft",
           "boundsCalcType": "Default",
           "position": 0
         }
@@ -2641,7 +2641,7 @@
             "imageData": "",
             "ignoreBackground": false
           },
-          "offsetCalcType": "Default",
+          "offsetCalcType": "DockLeft",
           "boundsCalcType": "Default",
           "position": 0
         }
@@ -2841,7 +2841,7 @@
             "imageData": "",
             "ignoreBackground": false
           },
-          "offsetCalcType": "Default",
+          "offsetCalcType": "DockLeft",
           "boundsCalcType": "Default",
           "position": 0
         }
@@ -2880,7 +2880,7 @@
               "imageData": "",
               "ignoreBackground": false
             },
-            "offsetCalcType": "Default",
+            "offsetCalcType": "DockLeft",
             "boundsCalcType": "Default",
             "position": 0
           }
@@ -2920,7 +2920,7 @@
               "imageData": "",
               "ignoreBackground": false
             },
-            "offsetCalcType": "Default",
+            "offsetCalcType": "DockLeft",
             "boundsCalcType": "Default",
             "position": 0
           }
@@ -2960,7 +2960,7 @@
               "imageData": "",
               "ignoreBackground": false
             },
-            "offsetCalcType": "Default",
+            "offsetCalcType": "DockLeft",
             "boundsCalcType": "Default",
             "position": 0
           }
@@ -3000,7 +3000,7 @@
               "imageData": "",
               "ignoreBackground": false
             },
-            "offsetCalcType": "Default",
+            "offsetCalcType": "DockLeft",
             "boundsCalcType": "Default",
             "position": 0
           }
@@ -3041,7 +3041,7 @@
             "imageData": "",
             "ignoreBackground": false
           },
-          "offsetCalcType": "Default",
+          "offsetCalcType": "DockLeft",
           "boundsCalcType": "Default",
           "position": 0
         }
@@ -3080,7 +3080,7 @@
               "imageData": "",
               "ignoreBackground": false
             },
-            "offsetCalcType": "Default",
+            "offsetCalcType": "DockLeft",
             "boundsCalcType": "Default",
             "position": 0
           }
@@ -3120,7 +3120,7 @@
               "imageData": "",
               "ignoreBackground": false
             },
-            "offsetCalcType": "Default",
+            "offsetCalcType": "DockLeft",
             "boundsCalcType": "Default",
             "position": 0
           }
@@ -3281,7 +3281,7 @@
             "imageData": "",
             "ignoreBackground": false
           },
-          "offsetCalcType": "Default",
+          "offsetCalcType": "DockLeft",
           "boundsCalcType": "Default",
           "position": 0
         }
@@ -3320,7 +3320,7 @@
               "imageData": "",
               "ignoreBackground": false
             },
-            "offsetCalcType": "Default",
+            "offsetCalcType": "DockLeft",
             "boundsCalcType": "Default",
             "position": 0
           }
@@ -3360,7 +3360,7 @@
               "imageData": "",
               "ignoreBackground": false
             },
-            "offsetCalcType": "Default",
+            "offsetCalcType": "DockLeft",
             "boundsCalcType": "Default",
             "position": 0
           }
@@ -3600,7 +3600,7 @@
               "imageData": "",
               "ignoreBackground": false
             },
-            "offsetCalcType": "DockLeft",
+            "offsetCalcType": "Default",
             "boundsCalcType": "Default",
             "position": 0
           }
@@ -4487,7 +4487,7 @@
               "imageData": "",
               "ignoreBackground": false
             },
-            "offsetCalcType": "DockRight",
+            "offsetCalcType": "Default",
             "boundsCalcType": "Default",
             "position": 0
           }
