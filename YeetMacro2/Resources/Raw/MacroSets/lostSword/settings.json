@@ -305,5 +305,27 @@
       "$name": "forceRun",
       "$path": "claimTreasureExploration.forceRun"
     }
+  },
+  "doUpkeep": {
+    "$type": "parent",
+    "$position": 0,
+    "$name": "doUpkeep",
+    "$path": "doUpkeep",
+    "claimTreasureExploration": {
+      "$type": "boolean",
+      "$defaultValue": true,
+      "$value": true,
+      "$position": 0,
+      "$name": "claimTreasureExploration",
+      "$path": "doUpkeep.claimTreasureExploration"
+    },
+    "doColoseum": {
+      "$type": "boolean",
+      "$defaultValue": true,
+      "$value": true,
+      "$position": 0,
+      "$name": "doColoseum",
+      "$path": "doUpkeep.doColoseum"
+    }
   }
 }
