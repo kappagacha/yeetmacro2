@@ -102,6 +102,8 @@ public class Pattern: ISortable
     {
         get
         {
+            if (OffsetCalcType == OffsetCalcType.None) return Point.Zero;
+
             var isFullScreen = DisplayHelper.CutoutCalculationType == CutoutCalculationType.None;
             var xOffset = 0.0;
             var yOffset = 0.0;
