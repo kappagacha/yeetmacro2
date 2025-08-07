@@ -435,9 +435,32 @@ public partial class NodeManagerViewModel<TViewModel, TParent, TChild> : NodeMan
 
         var result = await FolderPicker.Default.PickAsync(defaultFolder, new CancellationToken());
         if (!result.IsSuccessful) return;
-        var targetFile = Path.Combine(result.Folder.Path, $"{name}_{_nodeTypeName}s_{DateTime.Now.ToString("yyyyMMdd_hhmmss")}.json");
+        
+        // Archive existing files that match the pattern
+        var safeName = name.Replace(" ", "_");
+        var filePrefix = $"{safeName}_{_nodeTypeName}s_";
+        var existingFiles = Directory.GetFiles(result.Folder.Path, $"{filePrefix}*.json");
+        
+        if (existingFiles.Length > 0)
+        {
+            var archiveDirectory = Path.Combine(result.Folder.Path, "archive");
+            if (!Directory.Exists(archiveDirectory))
+            {
+                Directory.CreateDirectory(archiveDirectory);
+            }
+
+            foreach (var existingFile in existingFiles)
+            {
+                var fileName = Path.GetFileName(existingFile);
+                var archiveFilePath = Path.Combine(archiveDirectory, fileName);
+                File.Move(existingFile, archiveFilePath);
+            }
+        }
+        
+        // Write new file with timestamp
+        var targetFile = Path.Combine(result.Folder.Path, $"{safeName}_{_nodeTypeName}s_{DateTime.Now.ToString("yyyyMMdd_hhmmss")}.json");
         File.WriteAllText(targetFile, json);
-        _toastService.Show($"Exported {name} {_nodeTypeName} on ${result.Folder.Path}");
+        _toastService.Show($"Exported {name} {_nodeTypeName}s to {result.Folder.Path}");
     }
 
     [RelayCommand]
