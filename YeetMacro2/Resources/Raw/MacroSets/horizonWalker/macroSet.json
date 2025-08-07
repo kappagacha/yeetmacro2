@@ -21,7 +21,7 @@
   "usePatternsSnapshot": false,
   "defaultLocation": {
     "x": 0,
-    "y": 200
+    "y": 1080
   },
   "dailyTemplate": "{\n  \u0022claimTribute\u0022: {\n    \u0022count\u0022: 0\n  },\n  \u0022doStageWish\u0022: {\n    \u0022done\u0022: false\n  },\n  \u0022doStageBounty\u0022: {\n    \u0022done\u0022: false\n  },\n  \u0022doDailyShop\u0022: {\n    \u0022done\u0022: false\n  },\n  \u0022claimDailyChecklist\u0022: {\n    \u0022done\u0022: false\n  },\n  \u0022sweepEvent\u0022: {\n    \u0022done\u0022: false\n  }\n}",
   "weeklyTemplate": "{}"

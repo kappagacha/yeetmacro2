@@ -15,7 +15,7 @@
   "dailyTemplateLastUpdated": "2025-08-05T22:22:05.8511377-05:00",
   "weeklyTemplateLastUpdated": "2025-08-05T22:22:05.8512313-05:00",
   "description": null,
-  "dailyResetUtcHour": 0,
+  "dailyResetUtcHour": 15,
   "weeklyStartDay": "Monday",
   "ignoreCutoutInOffsetCalculation": false,
   "usePatternsSnapshot": false,
