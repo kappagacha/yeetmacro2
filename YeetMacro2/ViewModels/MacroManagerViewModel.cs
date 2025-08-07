@@ -497,7 +497,7 @@ public partial class MacroManagerViewModel : ObservableObject
                     src.RootDailyNodeId = dst.RootDailyNodeId;
                     src.RootWeeklyNodeId = dst.RootWeeklyNodeId;
                     src.Source = dst.Source;
-                    src.IgnoreCutoutInOffsetCalculation = dst.IgnoreCutoutInOffsetCalculation;
+                    src.CutoutCalculationType = dst.CutoutCalculationType;
                     src.UsePatternsSnapshot = dst.UsePatternsSnapshot;
                 });
             });
@@ -607,7 +607,7 @@ public partial class MacroManagerViewModel : ObservableObject
             DefaultLocationX = value.DefaultLocation.X;
             DefaultLocationY = value.DefaultLocation.Y;
             Preferences.Default.Set(nameof(SelectedMacroSet), value.Name);
-            DisplayHelper.IgnoreCutoutInOffsetCalculation = value.IgnoreCutoutInOffsetCalculation;
+            DisplayHelper.CutoutCalculationType = value.CutoutCalculationType;
             WeakReferenceMessenger.Default.Send(value);
         }
     }

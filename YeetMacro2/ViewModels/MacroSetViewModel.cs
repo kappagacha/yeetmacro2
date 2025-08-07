@@ -250,12 +250,12 @@ public partial class MacroSetViewModel : MacroSet
         }
     }
 
-    public override bool IgnoreCutoutInOffsetCalculation
+    public override CutoutCalculationType CutoutCalculationType
     {
-        get => base.IgnoreCutoutInOffsetCalculation;
+        get => base.CutoutCalculationType;
         set
         {
-            base.IgnoreCutoutInOffsetCalculation = value;
+            base.CutoutCalculationType = value;
             OnPropertyChanged();
         }
     }

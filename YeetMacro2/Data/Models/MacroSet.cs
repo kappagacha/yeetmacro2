@@ -35,7 +35,14 @@ public class MacroSet
     public string WeeklyTemplate { get; set; }
     public virtual DayOfWeek WeeklyStartDay { get; set; } = DayOfWeek.Monday;
     [JsonIgnore]
-    public virtual bool IgnoreCutoutInOffsetCalculation { get; set; }
+    public virtual CutoutCalculationType CutoutCalculationType { get; set; } = CutoutCalculationType.Normal;
     [JsonIgnore]
     public virtual bool UsePatternsSnapshot { get; set; } = true;
+}
+
+public enum CutoutCalculationType
+{
+    Normal,
+    Center,
+    None
 }

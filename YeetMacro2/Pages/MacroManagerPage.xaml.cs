@@ -26,4 +26,15 @@ public partial class MacroManagerPage : ContentPage
         var selectedOption = await ServiceHelper.GetService<IInputService>().SelectOption("Select option", options);
         if (!String.IsNullOrEmpty(selectedOption) && selectedOption != "cancel" && selectedOption != "ok") macroSet.WeeklyStartDay = Enum.Parse<DayOfWeek>(selectedOption);
     }
+
+    private async void CutoutCalculationType_Clicked(object sender, EventArgs e)
+    {
+        var macroSet = ((ImageButton)sender).BindingContext as MacroSet;
+        var options = Enum.GetValues<CutoutCalculationType>().Select(oct => oct.ToString()).ToArray();
+        var selectedOption = await ServiceHelper.GetService<IInputService>().SelectOption("Select option", options);
+        if (!String.IsNullOrEmpty(selectedOption) && selectedOption != "cancel" && selectedOption != "ok")
+        {
+            DisplayHelper.CutoutCalculationType = macroSet.CutoutCalculationType = Enum.Parse<CutoutCalculationType>(selectedOption);
+        }
+    }
 }
