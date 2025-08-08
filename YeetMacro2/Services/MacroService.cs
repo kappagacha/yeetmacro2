@@ -398,7 +398,7 @@ public class MacroService
                 }
 
                 var numChecks = 1;
-                FindPatternResult inversePredicateResult = this.FindPattern(inversePredicatePattern.Value, predicateOpts);
+                var inversePredicateResult = this.FindPattern(inversePredicatePattern.Value, predicateOpts);
                 while (IsRunning && !inversePredicateResult.IsSuccess && numChecks < inversePredicateChecks)
                 {
                     inversePredicateResult = this.FindPattern(inversePredicatePattern.Value, predicateOpts);
