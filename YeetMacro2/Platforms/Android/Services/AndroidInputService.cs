@@ -4,9 +4,10 @@ using YeetMacro2.Services;
 using YeetMacro2.ViewModels;
 
 namespace YeetMacro2.Platforms.Android.Services;
-public class AndroidInputService(AndroidScreenService screenService) : IInputService
+public class AndroidInputService(AndroidScreenService screenService, YeetAccessibilityService accessibilityService) : IInputService
 {
     readonly AndroidScreenService _screenService = screenService;
+    readonly YeetAccessibilityService _accessibilityService = accessibilityService;
 
     public async Task<Rect> DrawUserRectangle()
     {
@@ -61,5 +62,12 @@ public class AndroidInputService(AndroidScreenService screenService) : IInputSer
             return viewModel.SelectedOption;
         }
         return null;
+    }
+
+    public void GoBack()
+    {
+        if (_accessibilityService == null || _accessibilityService.HasAccessibilityPermissions) return;
+        
+        _accessibilityService.PerformGlobalAction(global::Android.AccessibilityServices.GlobalAction.Back);
     }
 }

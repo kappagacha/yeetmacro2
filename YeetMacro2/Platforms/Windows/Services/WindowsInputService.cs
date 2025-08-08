@@ -46,4 +46,10 @@ internal class WindowsInputService : IInputService
 
         return result;
     }
+
+    public void GoBack()
+    {
+        // Stub implementation - Windows doesn't have a back button concept
+        // This method is Android-specific functionality
+    }
 }

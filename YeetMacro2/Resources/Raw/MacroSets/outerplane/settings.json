@@ -2409,6 +2409,26 @@
       "$position": 0,
       "$name": "userNoOpPattern",
       "$path": "watchAds.userNoOpPattern"
+    },
+    "goBackPattern": {
+      "$type": "pattern",
+      "$defaultValue": {
+        "$patterns": [],
+        "$isMultiPattern": false,
+        "$position": 0,
+        "$name": null,
+        "$path": "settings.watchAds.goBackPattern"
+      },
+      "$value": {
+        "$patterns": [],
+        "$isMultiPattern": false,
+        "$position": 0,
+        "$name": null,
+        "$path": "settings.watchAds.goBackPattern"
+      },
+      "$position": 0,
+      "$name": "goBackPattern",
+      "$path": "watchAds.goBackPattern"
     }
   }
 }

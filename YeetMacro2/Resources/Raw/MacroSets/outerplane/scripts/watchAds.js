@@ -45,7 +45,8 @@ while (macroService.IsRunning) {
 					DoClick: true,
 					ClickPattern: [settings.watchAds.userClickPattern.Value, adExitInstallPattern, adExitPattern],
 					PredicatePattern: patterns.stamina.playAd.rewardTap,
-					NoOpPattern: settings.watchAds.userNoOpPattern.Value
+					NoOpPattern: settings.watchAds.userNoOpPattern.Value,
+					GoBackPattern: settings.watchAds.goBackPattern.Value
 				});
 				if (macroService.IsRunning) {
 					daily.watchAds.count.Count++;

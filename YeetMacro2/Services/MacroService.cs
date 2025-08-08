@@ -22,6 +22,8 @@ public class PollPatternFindOptions : ClickPatternFindOptions
     public OneOf<PatternNode, PatternNode[]>? InversePredicatePattern { get; set; }
     [JsonIgnore]
     public OneOf<PatternNode, PatternNode[]>? NoOpPattern { get; set; }
+    [JsonIgnore]
+    public OneOf<PatternNode, PatternNode[]>? GoBackPattern { get; set; }
     public int InversePredicateChecks { get; set; } = 5;
     public int InversePredicateCheckDelayMs { get; set; } = 100;
     public double PredicateThreshold { get; set; } = 0.0;
@@ -55,6 +57,7 @@ public class MacroService
 {
     readonly LogServiceViewModel _logServiceViewModel;
     readonly IScreenService _screenService;
+    readonly IInputService _inputService;
     readonly ConcurrentDictionary<string, Point> _pathToOffset = [];
     readonly ConcurrentDictionary<string, Rect> _pathToBounds = [];
     readonly ConcurrentDictionary<string, PatternNode> _pathToClone = [];
@@ -62,10 +65,11 @@ public class MacroService
     public bool InDebugMode { get; set; }
     public bool IsRunning { get; set; }
 
-    public MacroService(LogServiceViewModel LogServiceViewModel, IScreenService screenService)
+    public MacroService(LogServiceViewModel LogServiceViewModel, IScreenService screenService, IInputService inputService)
     {
         _logServiceViewModel = LogServiceViewModel;
         _screenService = screenService;
+        _inputService = inputService;
         _random = new Random();
 
         WeakReferenceMessenger.Default.Register<PropertyChangedMessage<bool>, string>(this, nameof(MacroManagerViewModel), (r, propertyChangedMessage) =>
@@ -365,6 +369,7 @@ public class MacroService
         var intervalDelayMs = opts.SwipePattern is not null && opts.IntervalDelayMs == 1_000 ? 2_000 : opts.IntervalDelayMs;
         var inversePredicatePattern = opts.InversePredicatePattern;
         var noOpPattern = opts.NoOpPattern;
+        var goBackPattern = opts.GoBackPattern;
         var clickOffsetX = opts.ClickOffset.X;
         var clickOffsetY = opts.ClickOffset.Y;
         var hasTimeout = opts.TimeoutMs > 0;
@@ -382,6 +387,12 @@ public class MacroService
                 if (hasTimeout && DateTime.Now > timeout) return new FindPatternResult() { IsSuccess = false };
                 if (noOpPattern is not null && this.FindPattern(noOpPattern.Value, opts).IsSuccess)
                 {
+                    Sleep(intervalDelayMs);
+                    continue;
+                }
+                if (goBackPattern is not null && this.FindPattern(goBackPattern.Value, opts).IsSuccess)
+                {
+                    GoBack();
                     Sleep(intervalDelayMs);
                     continue;
                 }
@@ -430,6 +441,12 @@ public class MacroService
                     Sleep(intervalDelayMs);
                     continue;
                 }
+                if (goBackPattern is not null && this.FindPattern(goBackPattern.Value, opts).IsSuccess)
+                {
+                    GoBack();
+                    Sleep(intervalDelayMs);
+                    continue;
+                }
 
                 FindPatternResult predicateResult = this.FindPattern(predicatePattern.Value, predicateOpts);
                 if (predicateResult.IsSuccess)
@@ -462,6 +479,12 @@ public class MacroService
                 if (hasTimeout && DateTime.Now > timeout) return new FindPatternResult() { IsSuccess = false };
                 if (noOpPattern is not null && this.FindPattern(noOpPattern.Value, opts).IsSuccess)
                 {
+                    Sleep(intervalDelayMs);
+                    continue;
+                }
+                if (goBackPattern is not null && this.FindPattern(goBackPattern.Value, opts).IsSuccess)
+                {
+                    GoBack();
                     Sleep(intervalDelayMs);
                     continue;
                 }
@@ -602,6 +625,11 @@ public class MacroService
         }
         _logServiceViewModel.Debug = $"getText failed {maxTry} times...";
         return String.Empty;
+    }
+
+    public void GoBack()
+    {
+        _inputService.GoBack();
     }
 
 }
