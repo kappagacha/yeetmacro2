@@ -223,4 +223,19 @@ public class YeetAccessibilityService : AccessibilityService
             _logger.LogError(ex, "YeetAccessibilityService BroadcastEnabled Exception");
         }
     }
+
+    public void GoBack()
+    {
+        if (_instance == null) return;
+        
+        try
+        {
+            _logger.LogTrace("YeetAccessibilityService GoBack");
+            _instance.PerformGlobalAction(global::Android.AccessibilityServices.GlobalAction.Back);
+        }
+        catch (Exception ex)
+        {
+            _logger.LogError(ex, "YeetAccessibilityService GoBack Exception");
+        }
+    }
 }

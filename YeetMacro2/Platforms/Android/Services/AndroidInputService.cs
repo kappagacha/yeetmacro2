@@ -66,8 +66,6 @@ public class AndroidInputService(AndroidScreenService screenService, YeetAccessi
 
     public void GoBack()
     {
-        if (_accessibilityService == null || _accessibilityService.HasAccessibilityPermissions) return;
-        
-        _accessibilityService.PerformGlobalAction(global::Android.AccessibilityServices.GlobalAction.Back);
+        _accessibilityService.GoBack();
     }
 }
