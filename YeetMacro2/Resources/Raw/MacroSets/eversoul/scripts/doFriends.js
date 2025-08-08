@@ -51,7 +51,7 @@ while (macroService.IsRunning) {
 					const swipeYStart = cpResult.Point.Y;
 					//const swipeYEnd = cpResult.Point.Y - 800;
 					const swipeHeight = patterns.friends.hireSoul.swipe?.Pattern?.RawBounds?.Height || patterns.friends.hireSoul.swipe.$patterns[0].rawBounds.height;
-					const swipePattern = macroService.ClonePattern(patterns.friends.hireSoul.swipe, { Y: swipeYStart - swipeHeight });
+					const swipePattern = macroService.ClonePattern(patterns.friends.hireSoul.swipe, { Y: swipeYStart - swipeHeight - 5 });
 					const swipeResult = macroService.PollPattern(hireTargets, { SwipePattern: swipePattern, TimeoutMs: 3_000 });
 
 					if (swipeResult.IsSuccess) {
