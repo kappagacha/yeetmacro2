@@ -12,11 +12,35 @@
       "$path": "doShop.event",
       "vacationTicket": {
         "$type": "boolean",
-        "$defaultValue": true,
-        "$value": true,
+        "$defaultValue": false,
+        "$value": false,
         "$position": 0,
         "$name": "vacationTicket",
         "$path": "doShop.event.vacationTicket"
+      },
+      "rouletteTicket": {
+        "$type": "boolean",
+        "$defaultValue": true,
+        "$value": true,
+        "$position": 0,
+        "$name": "rouletteTicket",
+        "$path": "doShop.event.rouletteTicket"
+      },
+      "bossRaidTicket": {
+        "$type": "boolean",
+        "$defaultValue": true,
+        "$value": true,
+        "$position": 0,
+        "$name": "bossRaidTicket",
+        "$path": "doShop.event.bossRaidTicket"
+      },
+      "fireworkTicket": {
+        "$type": "boolean",
+        "$defaultValue": true,
+        "$value": true,
+        "$position": 0,
+        "$name": "fireworkTicket",
+        "$path": "doShop.event.fireworkTicket"
       }
     }
   },
@@ -28,7 +52,7 @@
     "lastRun": {
       "$type": "timestamp",
       "$defaultValue": "0001-01-01T00:00:00+00:00",
-      "$value": "2025-08-06T01:09:34.668+00:00",
+      "$value": "2025-08-08T01:48:09.993+00:00",
       "$position": 0,
       "$name": "lastRun",
       "$path": "doColosseum.lastRun"
@@ -292,7 +316,7 @@
     "lastRun": {
       "$type": "timestamp",
       "$defaultValue": "0001-01-01T00:00:00+00:00",
-      "$value": "2025-08-06T00:47:48.958+00:00",
+      "$value": "2025-08-08T01:37:12.859+00:00",
       "$position": 0,
       "$name": "lastRun",
       "$path": "claimTreasureExploration.lastRun"

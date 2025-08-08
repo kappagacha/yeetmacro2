@@ -25,26 +25,12 @@ while (macroService.IsRunning) {
 
 			if (settings.doShop.event.IsEnabled) {
 				macroService.PollPattern(patterns.shop.event, { DoClick: true, PredicatePattern: patterns.shop.event.selected });
-
-				if (settings.doShop.event.vacationTicket.Value && !daily.doShop.event.vacationTicket.IsChecked) {
-					logger.info('doShop: event.vacationTicket');
-					const shopItemResult = findShopItem('Vacation Ticket');
-					const goldClone = macroService.ClonePattern(patterns.shop.gold, {
-						X: shopItemResult.point.X + 103,
-						Y: shopItemResult.point.Y - 20,
-						Padding: 10,
-						OffsetCalcType: 'None',
-						PathSuffix: `_${shopItemResult.point.X}x_${shopItemResult.point.Y}y`
-					});
-					if (!macroService.FindPattern(goldClone).IsSuccess) throw Error('Did not find gold icon');
-
-					macroService.PollPoint(shopItemResult.point, { DoClick: true, PredicatePattern: patterns.shop.buy });
-					macroService.PollPattern(patterns.shop.buy.maxButton, { DoClick: true, PredicatePattern: patterns.shop.buy.max });
-					macroService.PollPattern(patterns.shop.buy, { DoClick: true, PredicatePattern: patterns.general.itemsAcquired });
-					macroService.PollPattern(patterns.general.itemsAcquired, { DoClick: true, InversePredicatePattern: patterns.general.itemsAcquired });
-
-					if (macroService.IsRunning) daily.doShop.event.vacationTicket.IsChecked = true;
-				}
+				doEventShop({
+					rouletteTicket: 'Roulette Ticket',
+					bossRaidTicket: 'Boss Raid Ticket',
+					vacationTicket: 'Vacation Ticket',
+					fireworkTicket: 'Firework Ticket',
+				});
 			}
 
 			if (macroService.IsRunning) daily.doShop.done.IsChecked = true;
@@ -52,6 +38,37 @@ while (macroService.IsRunning) {
 			return;
 	}
 	sleep(1_000);
+}
+
+function doEventShop(shortItemNameToFullItemName) {
+	for (let [shortItemName, fullItemName] of Object.entries(shortItemNameToFullItemName)) {
+		if (settings.doShop.event[shortItemName].Value && !daily.doShop.event[shortItemName].IsChecked) {
+			logger.info(`doShop: event ${fullItemName}`);
+			const shopItemResult = findShopItem(fullItemName);
+			//const goldClone = macroService.ClonePattern(patterns.shop.gold, {
+			//	X: shopItemResult.point.X + 103,
+			//	Y: shopItemResult.point.Y - 20,
+			//	Padding: 10,
+			//	OffsetCalcType: 'None',
+			//	PathSuffix: `_${shopItemResult.point.X}x_${shopItemResult.point.Y}y`
+			//});
+			//if (!macroService.FindPattern(goldClone).IsSuccess) throw Error('Did not find gold icon');
+
+			macroService.PollPoint(shopItemResult.point, { DoClick: true, PredicatePattern: [patterns.shop.buy, patterns.shop.buy2] });
+			const shopItemPointResult = macroService.FindPattern([patterns.shop.buy, patterns.shop.buy2]);
+
+			if (shopItemPointResult.Path === 'shop.buy') {
+				macroService.PollPattern(patterns.shop.buy.maxButton, { DoClick: true, PredicatePattern: patterns.shop.buy.max });
+				macroService.PollPattern(patterns.shop.buy, { DoClick: true, PredicatePattern: patterns.general.itemsAcquired });
+				macroService.PollPattern(patterns.general.itemsAcquired, { DoClick: true, InversePredicatePattern: patterns.general.itemsAcquired });
+			} else { // shop.buy2
+				macroService.PollPattern(patterns.shop.buy2, { DoClick: true, PredicatePattern: patterns.general.itemsAcquired });
+				macroService.PollPattern(patterns.general.itemsAcquired, { DoClick: true, InversePredicatePattern: patterns.general.itemsAcquired });
+			}
+
+			if (macroService.IsRunning) daily.doShop.event[shortItemName].IsChecked = true;
+		}
+	}
 }
 
 function findShopItem(shopItemName) {
