@@ -251,6 +251,14 @@
       "$position": 0,
       "$name": "sweepEvent",
       "$path": "doDailies.sweepEvent"
+    },
+    "claimInbox": {
+      "$type": "boolean",
+      "$defaultValue": true,
+      "$value": true,
+      "$position": 0,
+      "$name": "claimInbox",
+      "$path": "doDailies.claimInbox"
     }
   },
   "doStageWish": {

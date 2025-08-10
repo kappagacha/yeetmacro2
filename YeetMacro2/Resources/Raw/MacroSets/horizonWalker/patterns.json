@@ -2089,6 +2089,86 @@
       "$position": 0,
       "$name": "checklist",
       "$path": "phone.checklist"
+    },
+    "inbox": {
+      "$patterns": [
+        {
+          "rawBounds": {
+            "x": 1514.25,
+            "y": 986.25,
+            "width": 59.5,
+            "height": 52.5
+          },
+          "resolution": {
+            "width": 1920,
+            "height": 1080
+          },
+          "type": "Normal",
+          "swipeDirection": "Auto",
+          "name": "pattern",
+          "imageData": "/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDAAEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQH/2wBDAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQH/wAARCAA0ADsDASIAAhEBAxEB/8QAHAAAAgIDAQEAAAAAAAAAAAAAAAkKCwYHCAQF/8QAOhAAAQMCBAUDAQQHCQAAAAAAAQIDBAURAAYHIQgJEhMxFEFRIhVCYXEWF0WRodHwJjIzNHKCscHh/8QAGgEAAgMBAQAAAAAAAAAAAAAAAAECBQYDBP/EADARAAECAwYDBwQDAAAAAAAAAAECEQADBCExQVFx8AUSYQYTIjKBkbEUM3LBUqHx/9oADAMBAAIRAxEAPwCKbH7fqGe8CWu4gOAeSgqHVb8bYcPwi8EWh/FHQW4kLO8ShZwaSFP02YtSXXQ4LIDQTFdH95Dg+pYvtb3upLKlNRWMy0GluX7dQq9PhuWIB7cmWyyvc3+6s+x/I4eXqhwLas8LlIyJxCaHTay5Ck0ak1WqxoCi66lKWmpK+puOhCghQcWN0na9iQDjUUMvnK5ipAny5fKZqbeYIUW5ktkQ5w+RTxuWpcgnMKlFdNzlNdbc+trtpjFHSo9SAkrgglNjYEkm1vOMDqPIP1ZY6vQ1upSbX6epMIX+B/lE/wDP88Nf5e3M6ytrfGiae6kyWqDnmlNsU9aal3IqpLzKTHC1LkfQFqU2FKBWN1bgHbDr2JDMppt+O62806hK0ONLS4hSVAKSUqSSkggggg41FPwrhVXKTNlJJSbCErLg2OFAuUkZWf0RBve8YhV1fkda9U/r7Lkp3pJA60sG9v8AQ0Pxxqyt8m/iVp9/SREO9JPUHmnfAGxT22vN/P8ADfxOrV0gFSukAAkk2sAPNyfa2OPOJ/jA0p4b8sSqtmWswFVPtPNxKciQz6hT6Ekp6mQFOKSSbDpA8H6tjhTeA8OQlS5k1cpCQSSVBsMx8aYwb3v3iE9qFy4NftNKXIrOZokGHT46VqU66iSgHti6gOpFvHzjgmZCchS5MNxSFORX3Y61Jv0lbK1NqKbi9iUm34YeRrbxV8SvH1nCrZP01YrMDJMZb6ymKw+zAdiKLlytxZDV1NNHqHUPptcC4ul7NuUKzlzNGYKBU0H7Qo9Xn06bchR9TFkuMukqBIJK0kkgnGVrJUhCgaZM0ySSkTFixagB5eluLH9IFxl0yj0aZJDuoWTkgWvmOke9/E+Of+v/ADFi1otlWkZp0NyZTK1GamQpuUKZDfjOoC0FHoEN3+oKTeyzfY4rqtKun9YuTSpQSBmKkbk+5nMAYse+HVNtHMhH2/R2mgH5tFZ3/o4v+zaQr6kqAIKU4BiQoO+bg23DAiANaMUgWa3ejP7QgDj95Y+YsjViVrbw2F6k1GI47UptOgtL7jjyVCQsp9MthRCloWQO2bX9/OMx5enNMkIls6M8RUlFJzHTHBSmKlUF/ZzRVHUGR3FS9j0pCQSXt+knb2kYToMaoxXYcxlt+O8kpcadQlxCkkEEKQsFJFiRuPfCIOYjyr6Vqg3I1K0XhRaLnaOHJRjQm0U1qRIsSDeJ03UogLUrtE9RPud7Coop1JNNXw4dZ1M/hmCx+UYFg5bJ9W297sjKuODm2ZB0gpZyvphLazNmuqoVEjLphFTbbecStSVhcNDwQQEgAldrmw3OFG6OcKvEfzC9Qms/asyavDyWZTctlNW9SghpaytTbceU42rpKFgDpRbc28nHavA3ygpYqac98Q6nJ9QiOIeiUx5bkxlbjamwAXX3E9O3Uq4aJ2IO2+JF2TcjZayLRolEy5SYdNhRG0tttx2GUGyQALrQhJVsB5J3xzl0lXxFYnV5MqQGKKZBZ2IPj1a178hBHJWlXCLpVw26VVKmZVoUNFRboctEqoiOylb7ghOpUvpDYUkklShdxVr+cQWOIFaTrhqyfH9v80bW8Wq0kW2228YsVNRjbJeYT8Umef3RHTiud17dvrZquSL3z/mn3t+15Vvb4x5O0KJcmXSIlhKEgrASBgAkXBsLzjqLVdZ/pZh69TpGptN3EM59yg64oJbazFR3HFHYJQioR1LUT7AJBJ/AHFiNwxaradVrS7IlCpebqPMq7NAgIcp7UoKkpUiK0FAoA8ixvv7Yrh2XnY7qHmVqbdaUFtrSbKSpJulQPyCLjDqeUhqPmFeuUeo5wz3PYy1QYDzrzMuS2mMEhmQUJPU37doAC+48/OK/gdb9NP7oo5u+ISC4SE2hySSLrzfBbhjYdHByw1HrE3lS0IQXFKCUAdRUTsBa97/Ft8fBXmTLbi1x3KrT1rSSFsrcQogjyClQIv8AIthBPHLzicm6eQajknSWWxVMxMsrirnR3StbKwjoBQoOIZv1b7pUQRtY3Bjn1XmEcSlSrU6sKz1VQZcl18NKfSlKErWVJRZtsCyAQB58e+NBV8dpKaYJaQqcQfGUNypucBVxItucOL4envvOLDiNLp7iB6V+MUeQGlNpT8eBYfwx6+60fDjZ/wB6f54r3aZzK+J2mW7WbZDtrf4kqRvb5CSMbEo/Np4n6cU96tJeCbWs/IJIHz1LA/r488B2kpMZU0e294wnOT6N6XtE6jUhbYyRmUkpNqPUSLEefRP2Ox8Xt8/kcVzGu56tadVD5vn3M5v5/a0r39/zwwlvnL8QDtJn0qoKW+1OiuxXCHb2S62ttVup0fdWfIv74VLmrOb+acyVzMkpkpk1yqTKpIBO/emvKfd+8fK1qPnFRxfiVPXCT3QUOQq5uYfyAZug9HtscQWv0bP9N+/mMIxnGTc5ZlysuY3QarJpyJzQalJYWUB1H1jpVYi4stX78GDFPTfeRqPkRGZ5FaRitSkyJc2RIkvOPvOvOOLccV1KKlrUpRufYk+MeHBgxCb9xf5GGjyp/EfAgwYMGOcSgwYMGCCP/9k=",
+          "variancePct": 20,
+          "textMatch": {
+            "isActive": false,
+            "text": null,
+            "whiteList": null
+          },
+          "colorThreshold": {
+            "isActive": false,
+            "variancePct": 30,
+            "color": null,
+            "imageData": "",
+            "ignoreBackground": false
+          },
+          "offsetCalcType": "Default",
+          "boundsCalcType": "Default",
+          "position": 0
+        }
+      ],
+      "$isMultiPattern": false,
+      "$position": 0,
+      "$name": "inbox",
+      "$path": "phone.inbox",
+      "title": {
+        "$patterns": [
+          {
+            "rawBounds": {
+              "x": 186.25,
+              "y": 36.25,
+              "width": 32.5,
+              "height": 34.5
+            },
+            "resolution": {
+              "width": 1920,
+              "height": 1080
+            },
+            "type": "Normal",
+            "swipeDirection": "Auto",
+            "name": "pattern",
+            "imageData": "/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDAAEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQH/2wBDAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQH/wAARCAAiACADASIAAhEBAxEB/8QAHQAAAgEEAwAAAAAAAAAAAAAAAAgHAQIGCgMFCf/EADMQAAAFAwMBAwoHAAAAAAAAAAECAwQFBgcIABESIQkUMRMiMjhBUXF2sbUjOWF3gcHw/8QAFgEBAQEAAAAAAAAAAAAAAAAAAgQD/8QAKREAAgEDAgQFBQAAAAAAAAAAAQIRABIhAzETQWGxBBQigZEyYnFywv/aAAwDAQACEQMRAD8A1bsZbZxl5L82ytlMuFGsZWM+MW8cpAIqpJAwfOuROJiGEeTYodDAOw+Ou+y6s7DWGyGuTaqBdLPYqkZ5zGNHKwGBVVJHwMYDHOICPt3MPx1l2AXrj2A+czfZpfU65txLGd7Siu4aSRBePlLvRrB4iIiAKtnUs1QWTEQ6hzTOYoiHXr01aFB0Q0eo6ts9LZj5qUE8RhOOHMdbwJrzCOYd9tx6BsP+9222rNbJWaNDYX9n1V7GoWlt2F1brVlARLmHttLyDllTNJQ6pFFAm3zlus+UcOZVByp5FB3FGTBRgBU1vPOYq41XRNhc1cUrg3wt1bSOtHeG066a8/TcBIOn0HJQYoyThd7usVqVBVNvGpmKmnHgUwrm3UDgAi28OQWW9DqKCxQTMATvFt0ZtmaSawKq1jBDAvMAScbbxPOkOwC9cewHzmb7NL6YfMP8z2qv3qhfvbLSPY73Ta2SvXbq6z2NczDWiZsZZaMaHSTcvCCyetPJJHXMRIpt3IH3OcobFEN9xDUj3nyPjrq5VzGQ7an30bHyNdMauLAuFmx3yaLN8g8M0MqkoduKpwQEgGBQSbmAREADRDKNILOeMGj7bYn5ohTxGaMcOJ63g7b7e1NP2y0k7kcyH3eVlFCtLeUYzQKYwiVNJuWUKQpS+iUAAdugAPv1I3Zj/i465zIKhzSLa2QUKQ3UoKBTk5xMAewQEdw/XSIZqZHx2U97Ht1Yun31NNHUDDw5YyRVbLOSnjO9clRO1UVS4qd4DiAHEwcR3DqGstxVy1icd7b39oaQpeSnl7yUi6ptm9YrtEkYlVeMfsCuHRXCqZ1EyneFUEESnPxIYADcQ0xqqPEPqFhaS8EgxkEDAE5wO9II3l0SPVbp4xyZSemBSSj4F+H9jqxP0j/z9DaNGpqR5/qv81xG8R+I/XVNGjRf6T7dxWq7D8DtX//Z",
+            "variancePct": 20,
+            "textMatch": {
+              "isActive": false,
+              "text": null,
+              "whiteList": null
+            },
+            "colorThreshold": {
+              "isActive": false,
+              "variancePct": 30,
+              "color": null,
+              "imageData": "",
+              "ignoreBackground": false
+            },
+            "offsetCalcType": "DockLeft",
+            "boundsCalcType": "Default",
+            "position": 0
+          }
+        ],
+        "$isMultiPattern": false,
+        "$position": 0,
+        "$name": "title",
+        "$path": "phone.inbox.title"
+      }
     }
   },
   "stage": {
