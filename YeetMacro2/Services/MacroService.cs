@@ -6,6 +6,7 @@ using YeetMacro2.Data.Models;
 using YeetMacro2.ViewModels.NodeViewModels;
 using YeetMacro2.ViewModels;
 using System.Collections.Concurrent;
+using SwipeDirection = YeetMacro2.Data.Models.SwipeDirection;
 
 namespace YeetMacro2.Services;
 
@@ -51,6 +52,8 @@ public class CloneOptions
     public string PathSuffix { get; set; }
     public Rect RawBounds { get; set; }
     public OffsetCalcType OffsetCalcType { get; set; } = OffsetCalcType.Default;
+    public BoundsCalcType BoundsCalcType { get; set; } = BoundsCalcType.Default;
+    public SwipeDirection SwipeDirection { get; set; } = SwipeDirection.Auto;
 }
 
 public class MacroService
@@ -142,10 +145,9 @@ public class MacroService
 
         foreach (var pattern in clone.Patterns)
         {
-            if (opts.OffsetCalcType != OffsetCalcType.Default)
-            {
-                pattern.OffsetCalcType = opts.OffsetCalcType;
-            }
+            if (opts.OffsetCalcType != OffsetCalcType.Default) pattern.OffsetCalcType = opts.OffsetCalcType;
+            if (opts.BoundsCalcType != BoundsCalcType.Default) pattern.BoundsCalcType = opts.BoundsCalcType;
+            if (opts.SwipeDirection != SwipeDirection.Auto) pattern.SwipeDirection = opts.SwipeDirection;
 
             if (!opts.RawBounds.IsEmpty)
             {
