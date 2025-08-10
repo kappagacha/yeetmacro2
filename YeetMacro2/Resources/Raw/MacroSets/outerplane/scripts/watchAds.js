@@ -11,7 +11,7 @@ if (daily.watchAds.done.IsChecked || daily.watchAds.count.Count >= 15) {
 const originalDensity = 1.5;	// density the patterns were captured in
 const currentDensity = macroService.GetScreenDensity();
 // scale calculation worked for density 2.0 and 2.7875. no clue if this will work for others
-const scale = currentDensity / originalDensity * 150.0 / 223.0;
+//const scale = currentDensity / originalDensity * 150.0 / 223.0;
 //const adExitPattern = originalDensity === currentDensity ? patterns.ad.exit : macroService.ClonePattern(patterns.ad.exit, { Scale: scale });
 //const adExitInstallPattern = originalDensity === currentDensity ? patterns.ad.exitInstall : macroService.ClonePattern(patterns.ad.exitInstall, { Scale: scale });
 const adExitPattern = patterns.ad.exit;
@@ -38,9 +38,9 @@ while (macroService.IsRunning) {
 				macroService.PollPattern(patterns.stamina.playAd, { DoClick: true, PredicatePattern: patterns.stamina.playAd.selected });
 				macroService.PollPattern(patterns.stamina.purchase.button, {
 					DoClick: true,
-					PredicatePattern: [settings.watchAds.userNoOpPattern.Value, patterns.stamina.playAd.rewardTap, settings.watchAds.userClickPattern.Value, adExitInstallPattern, adExitPattern]
+					PredicatePattern: [settings.watchAds.userNoOpPattern.Value, patterns.stamina.playAd.rewardTap, settings.watchAds.userClickPattern.Value, adExitInstallPattern, adExitPattern, settings.watchAds.goBackPattern.Value]
 				});
-				sleep(10_000);
+				sleep(4_000);
 				macroService.PollPattern(patterns.stamina.purchase.button, {
 					DoClick: true,
 					ClickPattern: [settings.watchAds.userClickPattern.Value, adExitInstallPattern, adExitPattern],
