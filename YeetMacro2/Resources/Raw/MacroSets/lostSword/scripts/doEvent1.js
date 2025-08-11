@@ -21,7 +21,10 @@ while (macroService.IsRunning) {
 			if (settings.doEvent1.startOnce.Value && !daily.doEvent1.started.IsChecked) {
 				logger.info('doEvent1: startOnce');
 				macroService.PollPattern(patterns.battle.select, { DoClick: true, PredicatePattern: patterns.battle.start });
-				macroService.PollPattern(patterns.battle.start, { DoClick: true, PredicatePattern: patterns.battle.select });
+				const startResult = macroService.PollPattern(patterns.battle.start, { DoClick: true, PredicatePattern: [patterns.battle.select, patterns.battle.event.confirm] });
+				if (startResult.PredicatePath === 'battle.event.confirm') {
+					macroService.PollPattern(patterns.battle.event.confirm, { DoClick: true, PredicatePattern: patterns.battle.start });
+				}
 				if (macroService.IsRunning) daily.doEvent1.started.IsChecked = true;
 			}
 

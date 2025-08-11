@@ -4,6 +4,7 @@ logger.info('goToLobby: start');
 
 const loopPatterns = [patterns.lobby];
 const clickPatterns = [
+	patterns.startScreen.tapTheScreen,
 	patterns.summon.exit,
 	patterns.general.itemsAcquired,
 	patterns.general.close
