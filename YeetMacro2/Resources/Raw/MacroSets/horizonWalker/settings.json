@@ -199,6 +199,38 @@
       "$path": "doStageBounty.targetFloorPattern"
     }
   },
+  "doStageWish": {
+    "$type": "parent",
+    "$position": 0,
+    "$name": "doStageWish",
+    "$path": "doStageWish",
+    "priority1": {
+      "$type": "option",
+      "$options": [
+        "credit",
+        "vangaurdExp",
+        "weaponExp"
+      ],
+      "$defaultValue": "vangaurdExp",
+      "$value": "vangaurdExp",
+      "$position": 0,
+      "$name": "priority1",
+      "$path": "doStageWish.priority1"
+    },
+    "priority2": {
+      "$type": "option",
+      "$options": [
+        "credit",
+        "vangaurdExp",
+        "weaponExp"
+      ],
+      "$defaultValue": "credit",
+      "$value": "credit",
+      "$position": 0,
+      "$name": "priority2",
+      "$path": "doStageWish.priority2"
+    }
+  },
   "doDailies": {
     "$type": "parent",
     "$position": 0,
@@ -259,38 +291,6 @@
       "$position": 0,
       "$name": "claimInbox",
       "$path": "doDailies.claimInbox"
-    }
-  },
-  "doStageWish": {
-    "$type": "parent",
-    "$position": 0,
-    "$name": "doStageWish",
-    "$path": "doStageWish",
-    "priority1": {
-      "$type": "option",
-      "$options": [
-        "credit",
-        "vangaurdExp",
-        "weaponExp"
-      ],
-      "$defaultValue": "vangaurdExp",
-      "$value": "vangaurdExp",
-      "$position": 0,
-      "$name": "priority1",
-      "$path": "doStageWish.priority1"
-    },
-    "priority2": {
-      "$type": "option",
-      "$options": [
-        "credit",
-        "vangaurdExp",
-        "weaponExp"
-      ],
-      "$defaultValue": "credit",
-      "$value": "credit",
-      "$position": 0,
-      "$name": "priority2",
-      "$path": "doStageWish.priority2"
     }
   }
 }

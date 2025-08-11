@@ -3,6 +3,8 @@ logger.info('goToPhone: start');
 
 macroService.PollPattern(patterns.phone.battery, {
 	ClickPattern: [
+		patterns.startScreen.touchTheScreen,
+		patterns.notice.close,
 		patterns.phone,
 		patterns.general.back,
 		patterns.tribute.close,
