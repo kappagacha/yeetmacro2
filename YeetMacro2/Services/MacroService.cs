@@ -18,6 +18,8 @@ public class PollPatternFindOptions : ClickPatternFindOptions
     [JsonIgnore]
     public OneOf<PatternNode, PatternNode[]>? ClickPattern { get; set; }
     [JsonIgnore]
+    public OneOf<PatternNode, PatternNode[]>? ClickPredicatePattern { get; set; }
+    [JsonIgnore]
     public PatternNode SwipePattern { get; set; }
     [JsonIgnore]
     public OneOf<PatternNode, PatternNode[]>? InversePredicatePattern { get; set; }
@@ -367,6 +369,7 @@ public class MacroService
         var result = new FindPatternResult() { IsSuccess = false };
         var predicatePattern = opts.PredicatePattern;
         var clickPattern = opts.ClickPattern;
+        var clickPredicatePattern = opts.ClickPredicatePattern;
         var swipePattern = opts.SwipePattern;
         var intervalDelayMs = opts.SwipePattern is not null && opts.IntervalDelayMs == 1_000 ? 2_000 : opts.IntervalDelayMs;
         var inversePredicatePattern = opts.InversePredicatePattern;
@@ -420,7 +423,8 @@ public class MacroService
                     this.DoClick(point.Offset(clickOffsetX, clickOffsetY), opts.HoldDurationMs);
                     Sleep(500);
                 }
-                if (clickPattern is not null) this.ClickPattern(clickPattern.Value, opts);
+                if (clickPredicatePattern is null && clickPattern is not null) this.ClickPattern(clickPattern.Value, opts);
+                if (clickPredicatePattern is not null && clickPattern is not null && this.FindPattern(clickPredicatePattern.Value).IsSuccess) this.ClickPattern(clickPattern.Value, opts);
                 if (swipePattern is not null) this.SwipePattern(swipePattern);
                 Sleep(intervalDelayMs);
             }
@@ -464,7 +468,8 @@ public class MacroService
                     this.DoClick(point.Offset(clickOffsetX, clickOffsetY), opts.HoldDurationMs);
                     Sleep(500);
                 }
-                if (clickPattern is not null) this.ClickPattern(clickPattern.Value, opts);
+                if (clickPredicatePattern is null && clickPattern is not null) this.ClickPattern(clickPattern.Value, opts);
+                if (clickPredicatePattern is not null && clickPattern is not null && this.FindPattern(clickPredicatePattern.Value).IsSuccess) this.ClickPattern(clickPattern.Value, opts);
                 if (swipePattern is not null) this.SwipePattern(swipePattern);
                 Sleep(intervalDelayMs);
             }
@@ -499,7 +504,8 @@ public class MacroService
                     Sleep(500);
                 }
                 if (result.IsSuccess) break;
-                if (clickPattern is not null) this.ClickPattern(clickPattern.Value, opts);
+                if (clickPredicatePattern is null && clickPattern is not null) this.ClickPattern(clickPattern.Value, opts);
+                if (clickPredicatePattern is not null && clickPattern is not null && this.FindPattern(clickPredicatePattern.Value).IsSuccess) this.ClickPattern(clickPattern.Value, opts);
                 if (swipePattern is not null) this.SwipePattern(swipePattern);
                 Sleep(intervalDelayMs);
             }
