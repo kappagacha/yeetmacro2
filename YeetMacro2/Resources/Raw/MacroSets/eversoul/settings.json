@@ -983,6 +983,171 @@
       }
     }
   },
+  "doIridescentScenicInstance": {
+    "$type": "parent",
+    "$position": 0,
+    "$name": "doIridescentScenicInstance",
+    "$path": "doIridescentScenicInstance",
+    "targetLevels": {
+      "$type": "parent",
+      "$position": 0,
+      "$name": "targetLevels",
+      "$path": "doIridescentScenicInstance.targetLevels",
+      "tofu": {
+        "$type": "integer",
+        "$defaultValue": 375,
+        "$value": 375,
+        "$position": 0,
+        "$increment": 25,
+        "$name": "tofu",
+        "$path": "doIridescentScenicInstance.targetLevels.tofu"
+      },
+      "cheese": {
+        "$type": "integer",
+        "$defaultValue": 375,
+        "$value": 375,
+        "$position": 0,
+        "$increment": 25,
+        "$name": "cheese",
+        "$path": "doIridescentScenicInstance.targetLevels.cheese"
+      },
+      "tabby": {
+        "$type": "integer",
+        "$defaultValue": 600,
+        "$value": 600,
+        "$position": 0,
+        "$increment": 25,
+        "$name": "tabby",
+        "$path": "doIridescentScenicInstance.targetLevels.tabby"
+      },
+      "choco": {
+        "$type": "integer",
+        "$defaultValue": 550,
+        "$value": 550,
+        "$position": 0,
+        "$increment": 25,
+        "$name": "choco",
+        "$path": "doIridescentScenicInstance.targetLevels.choco"
+      },
+      "cookie": {
+        "$type": "integer",
+        "$defaultValue": 375,
+        "$value": 375,
+        "$position": 0,
+        "$increment": 25,
+        "$name": "cookie",
+        "$path": "doIridescentScenicInstance.targetLevels.cookie"
+      }
+    }
+  },
+  "doManageTown": {
+    "$type": "parent",
+    "$position": 0,
+    "$name": "doManageTown",
+    "$path": "doManageTown",
+    "bond": {
+      "$type": "parent",
+      "$position": 0,
+      "$name": "bond",
+      "$path": "doManageTown.bond",
+      "targetSoul": {
+        "$type": "pattern",
+        "$defaultValue": {
+          "$patterns": [
+            {
+              "rawBounds": {
+                "x": 931.25,
+                "y": 328.25,
+                "width": 39.5,
+                "height": 32.5
+              },
+              "resolution": {
+                "width": 1920,
+                "height": 1080
+              },
+              "type": "Normal",
+              "swipeDirection": "Auto",
+              "name": "pattern",
+              "imageData": "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",
+              "variancePct": 20,
+              "textMatch": {
+                "isActive": false,
+                "text": null,
+                "whiteList": null
+              },
+              "colorThreshold": {
+                "isActive": false,
+                "variancePct": 10,
+                "color": null,
+                "imageData": "",
+                "ignoreBackground": false
+              },
+              "offsetCalcType": "Default",
+              "boundsCalcType": "Default",
+              "position": 0
+            }
+          ],
+          "$isMultiPattern": false,
+          "$position": 0,
+          "$name": null,
+          "$path": "settings.doManageTown.bond.targetSoul"
+        },
+        "$value": {
+          "$patterns": [
+            {
+              "rawBounds": {
+                "x": 931.25,
+                "y": 328.25,
+                "width": 39.5,
+                "height": 32.5
+              },
+              "resolution": {
+                "width": 1920,
+                "height": 1080
+              },
+              "type": "Normal",
+              "swipeDirection": "Auto",
+              "name": "pattern",
+              "imageData": "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",
+              "variancePct": 20,
+              "textMatch": {
+                "isActive": false,
+                "text": null,
+                "whiteList": null
+              },
+              "colorThreshold": {
+                "isActive": false,
+                "variancePct": 10,
+                "color": null,
+                "imageData": "",
+                "ignoreBackground": false
+              },
+              "offsetCalcType": "Default",
+              "boundsCalcType": "Default",
+              "position": 0
+            }
+          ],
+          "$isMultiPattern": false,
+          "$position": 0,
+          "$name": null,
+          "$path": "settings.doManageTown.bond.targetSoul"
+        },
+        "$position": 0,
+        "$name": "targetSoul",
+        "$path": "doManageTown.bond.targetSoul"
+      },
+      "targetBondLevel": {
+        "$type": "enabledInteger",
+        "$defaultValue": 10,
+        "$value": 10,
+        "$isEnabled": true,
+        "$position": 0,
+        "$increment": 1,
+        "$name": "targetBondLevel",
+        "$path": "doManageTown.bond.targetBondLevel"
+      }
+    }
+  },
   "doDailies": {
     "$type": "parent",
     "$position": 0,
@@ -1046,8 +1211,8 @@
     },
     "doExpeditions": {
       "$type": "boolean",
-      "$defaultValue": true,
-      "$value": true,
+      "$defaultValue": false,
+      "$value": false,
       "$position": 7,
       "$name": "doExpeditions",
       "$path": "doDailies.doExpeditions"
@@ -1142,8 +1307,8 @@
     },
     "doOutings": {
       "$type": "boolean",
-      "$defaultValue": true,
-      "$value": true,
+      "$defaultValue": false,
+      "$value": false,
       "$position": 19,
       "$name": "doOutings",
       "$path": "doDailies.doOutings"
@@ -1163,63 +1328,14 @@
       "$position": 21,
       "$name": "doIridescentScenicInstance",
       "$path": "doDailies.doIridescentScenicInstance"
-    }
-  },
-  "doIridescentScenicInstance": {
-    "$type": "parent",
-    "$position": 0,
-    "$name": "doIridescentScenicInstance",
-    "$path": "doIridescentScenicInstance",
-    "targetLevels": {
-      "$type": "parent",
-      "$position": 0,
-      "$name": "targetLevels",
-      "$path": "doIridescentScenicInstance.targetLevels",
-      "tofu": {
-        "$type": "integer",
-        "$defaultValue": 375,
-        "$value": 375,
-        "$position": 0,
-        "$increment": 25,
-        "$name": "tofu",
-        "$path": "doIridescentScenicInstance.targetLevels.tofu"
-      },
-      "cheese": {
-        "$type": "integer",
-        "$defaultValue": 375,
-        "$value": 375,
-        "$position": 0,
-        "$increment": 25,
-        "$name": "cheese",
-        "$path": "doIridescentScenicInstance.targetLevels.cheese"
-      },
-      "tabby": {
-        "$type": "integer",
-        "$defaultValue": 600,
-        "$value": 600,
-        "$position": 0,
-        "$increment": 25,
-        "$name": "tabby",
-        "$path": "doIridescentScenicInstance.targetLevels.tabby"
-      },
-      "choco": {
-        "$type": "integer",
-        "$defaultValue": 550,
-        "$value": 550,
-        "$position": 0,
-        "$increment": 25,
-        "$name": "choco",
-        "$path": "doIridescentScenicInstance.targetLevels.choco"
-      },
-      "cookie": {
-        "$type": "integer",
-        "$defaultValue": 375,
-        "$value": 375,
-        "$position": 0,
-        "$increment": 25,
-        "$name": "cookie",
-        "$path": "doIridescentScenicInstance.targetLevels.cookie"
-      }
+    },
+    "doManageTown": {
+      "$type": "boolean",
+      "$defaultValue": true,
+      "$value": true,
+      "$position": 22,
+      "$name": "doManageTown",
+      "$path": "doDailies.doManageTown"
     }
   }
 }
