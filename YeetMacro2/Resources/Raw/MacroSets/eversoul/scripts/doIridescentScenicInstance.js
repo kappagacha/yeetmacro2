@@ -68,8 +68,9 @@ while (macroService.IsRunning) {
 					for (let p of pctResult.Points) {
 						if (!macroService.IsRunning || macroService.FindPattern(patterns.iridescentScenicInstance.expeditionDispatch.fiveSoulsSelected).IsSuccess)
 							break;
-						const checkPattern = macroService.ClonePattern(patterns.iridescentScenicInstance.expeditionDispatch.soulSelected, { CenterX: p.X + 110, CenterY: p.Y, Padding: 15, OffsetCalcType: 'None', Path: `iridescentScenicInstance.expeditionDispatch.soulSelected_x${p.X}_${p.Y}` });
-						macroService.PollPoint(p, { DoClick: true, PredicatePattern: checkPattern });
+						const selectedPattern = macroService.ClonePattern(patterns.iridescentScenicInstance.expeditionDispatch.soulSelected, { CenterX: p.X + 110, CenterY: p.Y, Padding: 15, OffsetCalcType: 'None', Path: `iridescentScenicInstance.expeditionDispatch.soulSelected_x${p.X}_${p.Y}` });
+						const notOwnedPattern = macroService.ClonePattern(patterns.iridescentScenicInstance.expeditionDispatch.notOwned, { CenterX: p.X + 40, CenterY: p.Y + 180, Padding: 15, OffsetCalcType: 'None', Path: `iridescentScenicInstance.expeditionDispatch.notOwned_x${p.X}_${p.Y}` });
+						macroService.PollPoint(p, { DoClick: true, PredicatePattern: [selectedPattern, notOwnedPattern] });
 					}
 				}
 
