@@ -119,6 +119,11 @@ if (settings.doDailies.doOutings.Value) {
     goToLobby();
 }
 
+if (settings.doDailies.doManageTown.Value) {
+    doManageTown();
+    goToLobby();
+}
+
 if (settings.doDailies.doIridescentScenicInstance.Value) {
     doIridescentScenicInstance();
     goToLobby();
