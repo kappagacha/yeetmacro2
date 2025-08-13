@@ -360,11 +360,11 @@ public partial class MacroManagerViewModel : ObservableObject
                     return;
                 }
 
-                macroSetJson = ServiceHelper.GetAssetContent(Path.Combine("MacroSets", macroSetName, "macroSet.json"));
+                macroSetJson = await ServiceHelper.GetAssetContentAsync(Path.Combine("MacroSets", macroSetName, "macroSet.json"));
                 targetMacroSet = JsonSerializer.Deserialize<MacroSet>(macroSetJson, _jsonSerializerOptions);
                 if (!macroSet.PatternsLastUpdated.HasValue || macroSet.PatternsLastUpdated < targetMacroSet.PatternsLastUpdated)
                 {
-                    pattternJson = ServiceHelper.GetAssetContent(Path.Combine("MacroSets", macroSetName, "patterns.json"));
+                    pattternJson = await ServiceHelper.GetAssetContentAsync(Path.Combine("MacroSets", macroSetName, "patterns.json"));
                 }
 
                 if (!macroSet.ScriptsLastUpdated.HasValue || macroSet.ScriptsLastUpdated < targetMacroSet.ScriptsLastUpdated)
@@ -372,14 +372,14 @@ public partial class MacroManagerViewModel : ObservableObject
                     var scriptList = ServiceHelper.ListAssets(Path.Combine("MacroSets", macroSetName, "scripts"));
                     foreach (var scriptFile in scriptList)
                     {
-                        var scriptText = ServiceHelper.GetAssetContent(Path.Combine("MacroSets", macroSetName, "scripts", scriptFile));
+                        var scriptText = await ServiceHelper.GetAssetContentAsync(Path.Combine("MacroSets", macroSetName, "scripts", scriptFile));
                         nameToScript.Add(Path.GetFileNameWithoutExtension(scriptFile), scriptText);
                     }
                 }
 
                 if (!macroSet.SettingsLastUpdated.HasValue || macroSet.SettingsLastUpdated < targetMacroSet.SettingsLastUpdated)
                 {
-                    settingJson = ServiceHelper.GetAssetContent(Path.Combine("MacroSets", macroSetName, "settings.json"));
+                    settingJson = await ServiceHelper.GetAssetContentAsync(Path.Combine("MacroSets", macroSetName, "settings.json"));
                 }
             }
             else // online from public github
@@ -539,11 +539,11 @@ public partial class MacroManagerViewModel : ObservableObject
                     return;
                 }
 
-                macroSetJson = ServiceHelper.GetAssetContent(Path.Combine("MacroSets", macroSetName, "macroSet.json"));
+                macroSetJson = await ServiceHelper.GetAssetContentAsync(Path.Combine("MacroSets", macroSetName, "macroSet.json"));
                 targetMacroSet = JsonSerializer.Deserialize<MacroSet>(macroSetJson, _jsonSerializerOptions);
                 if (!macroSet.PatternsLastUpdated.HasValue || macroSet.PatternsLastUpdated < targetMacroSet.PatternsLastUpdated)
                 {
-                    pattternJson = ServiceHelper.GetAssetContent(Path.Combine("MacroSets", macroSetName, "patterns.json"));
+                    pattternJson = await ServiceHelper.GetAssetContentAsync(Path.Combine("MacroSets", macroSetName, "patterns.json"));
                 }
             }
             else // online from public github

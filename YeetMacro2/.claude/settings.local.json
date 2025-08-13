@@ -1,0 +1,9 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(findstr:*)",
+      "Bash(dotnet build:*)"
+    ],
+    "deny": []
+  }
+}

@@ -18,15 +18,15 @@ public static class ServiceHelper
     null;
 #endif
 
-    public static string GetAssetContent(string path)
+    public static async Task<string> GetAssetContentAsync(string path)
     {
-        using var stream = FileSystem.OpenAppPackageFileAsync(path).Result;
+        using var stream = await FileSystem.OpenAppPackageFileAsync(path);
         using var reader = new StreamReader(stream);
-        return reader.ReadToEnd();
+        return await reader.ReadToEndAsync();
     }
 
-    public static Stream GetAssetStream(string path)
+    public static Task<Stream> GetAssetStreamAsync(string path)
     {
-        return FileSystem.OpenAppPackageFileAsync(path).Result;
+        return FileSystem.OpenAppPackageFileAsync(path);
     }
 }
