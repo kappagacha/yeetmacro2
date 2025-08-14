@@ -1,0 +1,13 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(echo $SHELL)",
+      "Bash(echo $TERM)",
+      "Bash(echo $PATH)",
+      "Bash(git --version)",
+      "Bash(env)"
+    ],
+    "deny": [],
+    "ask": []
+  }
+}

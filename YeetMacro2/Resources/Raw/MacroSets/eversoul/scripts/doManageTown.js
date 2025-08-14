@@ -91,7 +91,7 @@ while (macroService.IsRunning) {
 
 			if (!daily.doManageTown.huntingGroundManagement.expeditions.IsChecked) {
 				logger.info('doManageTown: do expeditions');
-				
+
 				macroService.PollPattern(patterns.town.manageTown.huntingGroundManagement.helpReceivedYesterday, { DoClick: true, PredicatePattern: patterns.town.manageTown.huntingGroundManagement.helpReceivedYesterday.selected });
 				doExpeditionSweeps();
 
@@ -118,7 +118,7 @@ while (macroService.IsRunning) {
 				daily.doManageTown.huntingGroundManagement.friends.IsChecked &&
 				daily.doManageTown.huntingGroundManagement.guild.IsChecked &&
 				daily.doManageTown.huntingGroundManagement.expeditions.IsChecked;
-			break;
+			return;
 	}
 
 	sleep(1_000);
