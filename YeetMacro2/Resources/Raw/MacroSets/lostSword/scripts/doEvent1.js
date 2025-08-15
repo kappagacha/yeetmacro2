@@ -30,6 +30,7 @@ while (macroService.IsRunning) {
 
 			let sweepResult = macroService.PollPattern(patterns.battle.sweep, { DoClick: true, PredicatePattern: [patterns.battle.sweep.confirm, patterns.general.itemsAcquired], TimeoutMs: 3_000 });
 
+			logger.info('doEvent1: do sweep');
 			while (sweepResult.IsSuccess) {
 				if (sweepResult.PredicatePath === 'battle.sweep.confirm') {
 					macroService.PollPattern(patterns.battle.sweep.dontAskAgain, { DoClick: true, PredicatePattern: patterns.battle.sweep.dontAskAgain.checked });
