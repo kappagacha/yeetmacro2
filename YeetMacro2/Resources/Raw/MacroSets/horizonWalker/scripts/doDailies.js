@@ -36,6 +36,12 @@ if (settings.doDailies.claimTribute.Value) {
     goToPhone();
 }
 
+
+if (settings.doDailies.claimInbox.Value) {
+    claimInbox();
+    goToPhone();
+}
+
 if (settings.doDailies.sweepEvent.Value) {
     sweepEvent();
     goToPhone();

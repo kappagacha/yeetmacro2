@@ -11,14 +11,18 @@ while (macroService.IsRunning) {
 	switch (loopResult.Path) {
 		case 'phone.battery':
 			logger.info('claimInbox: click inbox');
-			macroService.ClickPattern(patterns.phone.inbox);
+			const notificationResult = macroService.PollPattern(patterns.phone.inbox.notification, { TimeoutMs: 3_000 });
+			if (notificationResult.IsSuccess) {
+				macroService.ClickPattern(patterns.phone.inbox);
+			} else {	// nothing new in inbox
+				return;
+			}
 			break;
 		case 'phone.inbox.title':
-			logger.info('claimInbox: redeem all');
-			//sleep(1_000);
-			//macroService.PollPattern(patterns.checklist.redeemAll, { DoClick: true, PredicatePattern: patterns.general.touchTheScreen });
-			//sleep(1_000);
-			//macroService.PollPattern(patterns.general.touchTheScreen, { DoClick: true, PredicatePattern: patterns.checklist.title });
+			logger.info('claimInbox: claim all');
+			sleep(1_000);
+			macroService.PollPattern(patterns.phone.inbox.claimAll, { DoClick: true, PredicatePattern: patterns.general.touchTheScreen });
+			macroService.PollPattern(patterns.general.touchTheScreen, { DoClick: true, PredicatePattern: patterns.phone.inbox.title });
 
 			macroService.IsRunning && (daily.claimInbox.done.IsChecked = true);
 			return;
