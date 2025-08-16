@@ -161,7 +161,7 @@ function setChainOrder() {
 			macroService.ClickPattern(patterns.battle.chainPreview[targetStarterExclusive], { ClickOffset: clickOffset });
 		}
 
-		if (targetFinisherExclusive !== 'D') {
+		if (targetFinisherExclusive !== 'D' && targetStarterExclusive !== 'D') {
 			macroService.ClickPattern(patterns.battle.chainPreview.D, { ClickOffset: clickOffset });
 			sleep(250);
 			macroService.ClickPattern(patterns.battle.chainPreview[targetFinisherExclusive], { ClickOffset: clickOffset });
