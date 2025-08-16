@@ -22,7 +22,7 @@ while (macroService.IsRunning) {
 		case 'event.schedule':
 			logger.info('sweepEvent: sweep story');
 			macroService.PollPattern(patterns.event.enterStory, { DoClick: true, PredicatePattern: patterns.event.title });
-			macroService.PollPattern(patterns.event.hard, { DoClick: true, PredicatePattern: patterns.event.hard.selected });
+			macroService.PollPattern(patterns.event.hard, { DoClick: true, PredicatePattern: patterns.event.hard.selected, TimeoutMs: 2_500 });
 
 			macroService.SwipePattern(patterns.event.swipeRight);
 			sleep(1_000);
