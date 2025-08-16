@@ -51,11 +51,11 @@ while (macroService.IsRunning) {
 					const swipeYStart = cpResult.Point.Y;
 					//const swipeYEnd = cpResult.Point.Y - 800;
 					const swipeHeight = patterns.friends.hireSoul.swipe?.Pattern?.RawBounds?.Height || patterns.friends.hireSoul.swipe.$patterns[0].rawBounds.height;
-					const swipePattern = macroService.ClonePattern(patterns.friends.hireSoul.swipe, { Y: swipeYStart - swipeHeight - 5 });
+					const swipePattern = macroService.ClonePattern(patterns.friends.hireSoul.swipe, { Y: swipeYStart - swipeHeight, PathSuffix: `_y${swipeYStart}` });
 					const swipeResult = macroService.PollPattern(hireTargets, { SwipePattern: swipePattern, TimeoutMs: 3_000 });
 
 					if (swipeResult.IsSuccess) {
-						const hirePattern = macroService.ClonePattern(patterns.friends.hireSoul.hire, { CenterY: swipeResult.Point.Y, Padding: 35, Path: `friends.hireSoul.hire_y${swipeResult.Point.Y}` });
+						const hirePattern = macroService.ClonePattern(patterns.friends.hireSoul.hire, { CenterY: swipeResult.Point.Y, Padding: 35, PathSuffix: `_y${swipeResult.Point.Y}` });
 						const hirePatternResult = macroService.FindPattern(hirePattern);
 						if (hirePatternResult.IsSuccess) {
 							macroService.DoClick(hirePatternResult.Point);
