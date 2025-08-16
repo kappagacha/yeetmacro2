@@ -24,9 +24,11 @@ while (macroService.IsRunning) {
 			macroService.PollPattern(patterns.operationEdenAlliance, { DoClick: true, PredicatePattern: patterns.titles.operationEdenAlliance });
 			break;
 		case 'titles.operationEdenAlliance':
-			
 			macroService.PollPattern(patterns.operationEdenAlliance.qualifiers, { DoClick: true, PredicatePattern: patterns.operationEdenAlliance.battle });
-			macroService.PollPattern(patterns.operationEdenAlliance.selectMax, { DoClick: true, PredicatePattern: patterns.operationEdenAlliance.dailyOperations.disadvantages.check });
+			macroService.ClickPattern(patterns.operationEdenAlliance.selectMax);
+			sleep(500);
+			macroService.ClickPattern(patterns.operationEdenAlliance.selectMax);
+			//macroService.PollPattern(patterns.operationEdenAlliance.selectMax, { DoClick: true, PredicatePattern: patterns.operationEdenAlliance.dailyOperations.disadvantages.check });
 			macroService.PollPattern(patterns.operationEdenAlliance.battle, { DoClick: true, PredicatePattern: patterns.battle.start });
 			macroService.PollPattern(patterns.battle.start, { DoClick: true, PredicatePattern: patterns.battle.continue });
 			macroService.PollPattern(patterns.battle.continue, { DoClick: true, ClickPattern: patterns.general.tapTheScreen, PredicatePattern: patterns.titles.operationEdenAlliance });
