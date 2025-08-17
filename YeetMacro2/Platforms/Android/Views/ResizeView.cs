@@ -38,7 +38,8 @@ public class ResizeView : RelativeLayout, IOnTouchListener, IShowable, IDisposab
 
     public ResizeView(Context context, IWindowManager windowManager, VisualElement visualElement) : base(context)
     {
-        _context = (MainActivity)context;
+        // Safe cast with null check
+        _context = context as MainActivity;
         _windowManager = windowManager;
         _layoutParamsPortrait = GenerateLayoutParams();
         _layoutParamsLandscape = GenerateLayoutParams();

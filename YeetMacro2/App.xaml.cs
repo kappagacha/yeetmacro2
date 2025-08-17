@@ -9,7 +9,7 @@ public partial class App : Application
         Application.Current.UserAppTheme = AppTheme.Dark;
 	}
 
-    protected override Window CreateWindow(IActivationState? activationState)
+    protected override Window CreateWindow(IActivationState activationState)
     {
         return new Window(new AppShell());
     }

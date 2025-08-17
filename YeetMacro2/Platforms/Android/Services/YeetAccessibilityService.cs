@@ -29,7 +29,7 @@ public class YeetAccessibilityService : AccessibilityService, IDisposable
         try
         {
             _logger.LogTrace("YeetAccessibilityService Init");
-            _context = (MainActivity)Platform.CurrentActivity;
+            _context = Platform.CurrentActivity as MainActivity;
         }
         catch (Exception ex)
         {

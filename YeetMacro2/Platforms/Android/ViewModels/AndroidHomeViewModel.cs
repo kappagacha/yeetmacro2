@@ -54,7 +54,12 @@ public partial class AndriodHomeViewModel : ObservableObject
     public AndriodHomeViewModel(AndroidScreenService screenService, YeetAccessibilityService accessibilityService, 
         MacroManagerViewModel macroManagerViewModel, IToastService toastService)
     {
-        _context = (MainActivity)Platform.CurrentActivity;
+        // Safe cast with fallback
+        _context = Platform.CurrentActivity as MainActivity;
+        if (_context == null)
+        {
+            throw new InvalidOperationException("AndroidHomeViewModel: MainActivity is not available");
+        }
         _screenService = screenService;
         _accessibilityService = accessibilityService;
         _macroManagerViewModel = macroManagerViewModel;

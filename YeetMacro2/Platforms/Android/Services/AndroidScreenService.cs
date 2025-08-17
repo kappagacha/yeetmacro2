@@ -38,7 +38,7 @@ public enum AndroidWindowView
     TestView
 }
 
-public class AndroidScreenService : IScreenService
+public class AndroidScreenService : IScreenService, IDisposable
 {
     public const int OVERLAY_SERVICE_REQUEST = 0;
     public const int POST_NOTIFICATION_REQUEST = 10;
@@ -47,7 +47,7 @@ public class AndroidScreenService : IScreenService
     readonly ConcurrentDictionary<AndroidWindowView, IShowable> _views = new();
     //FormsView _overlayWindow;
     readonly ILogger _logger;
-    readonly MainActivity _context;
+    MainActivity _context; // Removed readonly to allow cleanup in Dispose
     readonly OpenCvService _openCvService;
     readonly MediaProjectionService _mediaProjectionService;
     readonly IOcrService _ocrService;
@@ -119,13 +119,36 @@ public class AndroidScreenService : IScreenService
         YeetAccessibilityService accessibilityService, IToastService toastService)
     {
         _logger = logger;
-        _context = (MainActivity)Platform.CurrentActivity;
+        
+        // Safe cast with null check
+        var currentActivity = Platform.CurrentActivity;
+        if (currentActivity is MainActivity mainActivity)
+        {
+            _context = mainActivity;
+        }
+        else
+        {
+            _logger.LogError("AndroidScreenService: CurrentActivity is not MainActivity or is null");
+            throw new InvalidOperationException("MainActivity is not available");
+        }
+        
         _openCvService = openCvService;
         _mediaProjectionService = mediaProjectionService;
         _ocrService = ocrService;
         _accessibilityService = accessibilityService;
         _toastService = toastService;
-        _windowManager = _context.GetSystemService(Context.WindowService).JavaCast<IWindowManager>();
+        
+        // Safe WindowManager initialization
+        var windowService = _context?.GetSystemService(Context.WindowService);
+        if (windowService != null)
+        {
+            _windowManager = windowService.JavaCast<IWindowManager>();
+        }
+        else
+        {
+            _logger.LogError("AndroidScreenService: Failed to get WindowManager service");
+            throw new InvalidOperationException("WindowManager service is not available");
+        }
         
         //_initialResolution = new Size(DeviceDisplay.MainDisplayInfo.Width, DeviceDisplay.MainDisplayInfo.Height);
         //_density = DeviceDisplay.MainDisplayInfo.Density;
@@ -928,4 +951,109 @@ public class AndroidScreenService : IScreenService
     {
         Close(AndroidWindowView.DrawView);
     }
+
+    #region IDisposable Implementation
+
+    private bool _disposed = false;
+
+    public void Dispose()
+    {
+        Dispose(true);
+        GC.SuppressFinalize(this);
+    }
+
+    protected virtual void Dispose(bool disposing)
+    {
+        if (!_disposed)
+        {
+            if (disposing)
+            {
+                // Dispose all views
+                foreach (var view in _views.Values)
+                {
+                    try
+                    {
+                        if (view is IDisposable disposableView)
+                        {
+                            disposableView.Dispose();
+                        }
+                        else if (view.IsShowing)
+                        {
+                            view.Close();
+                        }
+                    }
+                    catch (Exception ex)
+                    {
+                        _logger?.LogError(ex, "Error disposing view");
+                    }
+                }
+                _views.Clear();
+
+                // Dispose macro set specific views
+                foreach (var view in _macroSetToPatternsView.Values)
+                {
+                    try
+                    {
+                        if (view is IDisposable disposable)
+                            disposable.Dispose();
+                    }
+                    catch { }
+                }
+                _macroSetToPatternsView.Clear();
+
+                foreach (var view in _macroSetToSettingsView.Values)
+                {
+                    try
+                    {
+                        if (view is IDisposable disposable)
+                            disposable.Dispose();
+                    }
+                    catch { }
+                }
+                _macroSetToSettingsView.Clear();
+
+                foreach (var view in _macroSetToScriptsView.Values)
+                {
+                    try
+                    {
+                        if (view is IDisposable disposable)
+                            disposable.Dispose();
+                    }
+                    catch { }
+                }
+                _macroSetToScriptsView.Clear();
+
+                foreach (var view in _macroSetToDailiesView.Values)
+                {
+                    try
+                    {
+                        if (view is IDisposable disposable)
+                            disposable.Dispose();
+                    }
+                    catch { }
+                }
+                _macroSetToDailiesView.Clear();
+
+                foreach (var view in _macroSetToWeekliesView.Values)
+                {
+                    try
+                    {
+                        if (view is IDisposable disposable)
+                            disposable.Dispose();
+                    }
+                    catch { }
+                }
+                _macroSetToWeekliesView.Clear();
+
+                // Unregister message handlers
+                WeakReferenceMessenger.Default.UnregisterAll(this);
+
+                // Clear references
+                _context = null;
+            }
+            _disposed = true;
+        }
+    }
+
+    #endregion
 }

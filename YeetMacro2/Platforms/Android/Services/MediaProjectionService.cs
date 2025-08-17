@@ -17,7 +17,7 @@ namespace YeetMacro2.Platforms.Android.Services;
 //https://github.com/xamarin/monodroid-samples/blob/main/android5.0/ScreenCapture/ScreenCapture/ScreenCaptureFragment.cs
 //https://github.com/Fate-Grand-Automata/FGA/blob/master/app/src/main/java/com/mathewsachin/fategrandautomata/imaging/MediaProjectionScreenshotService.kt
 //https://medium.com/jamesob-com/recording-your-android-screen-7e0e75aae260
-public class MediaProjectionService : IRecorderService
+public class MediaProjectionService : IRecorderService, IDisposable
 {
     MediaProjection _mediaProjection;
     ImageReader _imageReader;
@@ -29,6 +29,8 @@ public class MediaProjectionService : IRecorderService
     bool _isRecording;
     public bool IsInitialized => _resultCode == (int)global::Android.App.Result.Ok;
     MediaProjectionCallback _mediaProjectionCallback;
+    private readonly object _disposeLock = new object();
+    private bool _disposed = false;
 
     public MediaProjectionService()
     {
@@ -143,36 +145,50 @@ public class MediaProjectionService : IRecorderService
         var bitmap = GetBitmap();
         if (bitmap == null) return null;
 
-        MemoryStream ms = new();
-        bitmap.Compress(CompressFormat.Jpeg, 100, ms);
-        bitmap.Dispose();
-        ms.Position = 0;
-        var array = ms.ToArray();
-        ms.Close();
-        ms.Dispose();
-        return array;
+        MemoryStream ms = null;
+        try
+        {
+            ms = new MemoryStream();
+            bitmap.Compress(CompressFormat.Jpeg, 100, ms);
+            ms.Position = 0;
+            return ms.ToArray();
+        }
+        finally
+        {
+            bitmap?.Dispose();
+            ms?.Close();
+            ms?.Dispose();
+        }
     }
 
     public byte[] GetCurrentImageData(Rect rect)
     {
-
         var bitmap = GetBitmap();
+        if (bitmap == null) return null;
+        
+        // Ensure rect is within bitmap bounds
         if (rect.X < 0) rect.X = 0;
         if (rect.Y < 0) rect.Y = 0;
         if (rect.Right > bitmap.Width) rect.Right = bitmap.Width;
         if (rect.Bottom > bitmap.Height) rect.Bottom = bitmap.Height;
-        if (bitmap == null) return null;
 
-        var newBitmap = Bitmap.CreateBitmap(bitmap, (int)rect.X, (int)rect.Y, (int)rect.Width, (int)rect.Height);
-        bitmap.Dispose();
-        MemoryStream ms = new();
-        newBitmap.Compress(CompressFormat.Jpeg, 100, ms);
-        newBitmap.Dispose();
-        ms.Position = 0;
-        var array = ms.ToArray();
-        ms.Close();
-        ms.Dispose();
-        return array;
+        Bitmap newBitmap = null;
+        MemoryStream ms = null;
+        try
+        {
+            newBitmap = Bitmap.CreateBitmap(bitmap, (int)rect.X, (int)rect.Y, (int)rect.Width, (int)rect.Height);
+            ms = new MemoryStream();
+            newBitmap.Compress(CompressFormat.Jpeg, 100, ms);
+            ms.Position = 0;
+            return ms.ToArray();
+        }
+        finally
+        {
+            bitmap?.Dispose();
+            newBitmap?.Dispose();
+            ms?.Close();
+            ms?.Dispose();
+        }
     }
 
     public void TakeScreenCapture()
@@ -236,7 +252,119 @@ public class MediaProjectionService : IRecorderService
         }
         public override void OnStop()
         {
-            _mediaProjectionService.CallbackStop();
+            _mediaProjectionService?.CallbackStop();
         }
     }
+
+    #region IDisposable Implementation
+
+    public void Dispose()
+    {
+        Dispose(true);
+        GC.SuppressFinalize(this);
+    }
+
+    protected virtual void Dispose(bool disposing)
+    {
+        lock (_disposeLock)
+        {
+            if (!_disposed)
+            {
+                if (disposing)
+                {
+                    // Stop recording if in progress
+                    if (_isRecording)
+                    {
+                        try
+                        {
+                            StopRecording();
+                        }
+                        catch { }
+                    }
+
+                    // Clean up screen virtual display
+                    try
+                    {
+                        _screenVirtualDisplay?.Release();
+                        _screenVirtualDisplay?.Dispose();
+                    }
+                    catch { }
+                    finally
+                    {
+                        _screenVirtualDisplay = null;
+                    }
+
+                    // Clean up virtual display
+                    try
+                    {
+                        _virtualDisplay?.Release();
+                        _virtualDisplay?.Dispose();
+                    }
+                    catch { }
+                    finally
+                    {
+                        _virtualDisplay = null;
+                    }
+
+                    // Clean up image reader
+                    try
+                    {
+                        _imageReader?.Close();
+                        _imageReader?.Dispose();
+                    }
+                    catch { }
+                    finally
+                    {
+                        _imageReader = null;
+                    }
+
+                    // Clean up media recorder
+                    try
+                    {
+                        if (_mediaRecorder != null)
+                        {
+                            _mediaRecorder.Release();
+                            _mediaRecorder.Dispose();
+                        }
+                    }
+                    catch { }
+                    finally
+                    {
+                        _mediaRecorder = null;
+                    }
+
+                    // Clean up media projection
+                    try
+                    {
+                        if (_mediaProjection != null)
+                        {
+                            _mediaProjection.UnregisterCallback(_mediaProjectionCallback);
+                            _mediaProjection.Stop();
+                            _mediaProjection.Dispose();
+                        }
+                    }
+                    catch { }
+                    finally
+                    {
+                        _mediaProjection = null;
+                    }
+
+                    // Clear callback reference
+                    _mediaProjectionCallback = null;
+                    
+                    // Clear intent data
+                    _resultData?.Dispose();
+                    _resultData = null;
+                }
+                _disposed = true;
+            }
+        }
+    }
+
+    ~MediaProjectionService()
+    {
+        Dispose(false);
+    }
+
+    #endregion
 }

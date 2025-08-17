@@ -6,7 +6,8 @@
       "Bash(echo $PATH)",
       "Bash(git --version)",
       "Bash(env)",
-      "Bash(dotnet build:*)"
+      "Bash(dotnet build:*)",
+      "Bash(git log:*)"
     ],
     "deny": [],
     "ask": []
