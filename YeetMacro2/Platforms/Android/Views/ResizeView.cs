@@ -8,10 +8,12 @@ using Color = Android.Graphics.Color;
 using Microsoft.Maui.Platform;
 using YeetMacro2.Data.Models;
 using CommunityToolkit.Mvvm.Messaging;
+using Java.Lang;
+using Exception = System.Exception;
 
 namespace YeetMacro2.Platforms.Android.Views;
 
-public class ResizeView : RelativeLayout, IOnTouchListener, IShowable
+public class ResizeView : RelativeLayout, IOnTouchListener, IShowable, IDisposable
 {
     enum FormState { SHOWING, CLOSED };
     private readonly IWindowManager _windowManager;
@@ -22,12 +24,15 @@ public class ResizeView : RelativeLayout, IOnTouchListener, IShowable
     double _density;
     private readonly VisualElement _visualElement;
     private const int MIN_WIDTH = 50, MIN_HEIGHT = 50;
-    private FormState _state;
+    private volatile FormState _state;
     public VisualElement VisualElement => _visualElement;
     TaskCompletionSource<bool> _closeCompleted;
     public Action OnShow { get; set; }
     public Action OnClose { get; set; }
     public bool IsShowing { get => _state == FormState.SHOWING; }
+    private readonly object _stateLock = new object();
+    private bool _disposed = false;
+    private global::Android.Views.View _androidView;
 
     //https://www.linkedin.com/pulse/6-floating-windows-android-keyboard-input-v%C3%A1clav-hodek/
 
@@ -83,25 +88,37 @@ public class ResizeView : RelativeLayout, IOnTouchListener, IShowable
 
         // https://www.andreasnesheim.no/embedding-net-maui-pages-into-your-net-android-ios-application/
         _visualElement = visualElement;
-        var androidView = visualElement.ToPlatform(IPlatformApplication.Current.Application.Handler.MauiContext);
+        _androidView = visualElement.ToPlatform(IPlatformApplication.Current.Application.Handler.MauiContext);
 
-        AddView(androidView, new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MatchParent, ViewGroup.LayoutParams.MatchParent));
+        AddView(_androidView, new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MatchParent, ViewGroup.LayoutParams.MatchParent));
         AddView(_topLeft, topLeftParams);
         AddView(_bottomRight, bottomRightParams);
         AddView(_topRight, topRightParams);
 
-        androidView.Clickable = true;
+        _androidView.Clickable = true;
         Clickable = true;
         InitDisplay();
 
         WeakReferenceMessenger.Default.Register<DisplayInfoChangedEventArgs>(this, (r, e) =>
         {
-            var isPortrait = e.DisplayInfo.Orientation == DisplayOrientation.Portrait;
-            _layoutParams = isPortrait ? _layoutParamsPortrait : _layoutParamsLandscape;
-
-            if (_state == FormState.SHOWING)
+            lock (_stateLock)
             {
-                _windowManager.UpdateViewLayout(this, _layoutParams);
+                if (_disposed) return;
+                
+                var isPortrait = e.DisplayInfo.Orientation == DisplayOrientation.Portrait;
+                _layoutParams = isPortrait ? _layoutParamsPortrait : _layoutParamsLandscape;
+
+                if (_state == FormState.SHOWING)
+                {
+                    try
+                    {
+                        _windowManager?.UpdateViewLayout(this, _layoutParams);
+                    }
+                    catch (Exception ex)
+                    {
+                        System.Diagnostics.Debug.WriteLine($"Exception updating layout on orientation change: {ex.Message}");
+                    }
+                }
             }
         });
     }
@@ -145,9 +162,19 @@ public class ResizeView : RelativeLayout, IOnTouchListener, IShowable
 
         _layoutParams = isPortrait ? _layoutParamsPortrait : _layoutParamsLandscape;
 
-        if (_state == FormState.SHOWING)
+        lock (_stateLock)
         {
-            _windowManager.UpdateViewLayout(this, _layoutParams);
+            if (_state == FormState.SHOWING && !_disposed)
+            {
+                try
+                {
+                    _windowManager?.UpdateViewLayout(this, _layoutParams);
+                }
+                catch (Exception ex)
+                {
+                    System.Diagnostics.Debug.WriteLine($"Exception in InitDisplay: {ex.Message}");
+                }
+            }
         }
     }
 
@@ -168,49 +195,118 @@ public class ResizeView : RelativeLayout, IOnTouchListener, IShowable
 
     public void Show()
     {
-        if (_state == FormState.SHOWING) return;
+        lock (_stateLock)
+        {
+            if (_state == FormState.SHOWING || _disposed) return;
 
-        var isPortrait = DisplayHelper.DisplayInfo.Orientation == DisplayOrientation.Portrait;
-        _layoutParams = isPortrait ? _layoutParamsPortrait : _layoutParamsLandscape;
-        _windowManager.AddView(this, _layoutParams);
-        _closeCompleted = new TaskCompletionSource<bool>();
-        OnShow?.Invoke();
-        _state = FormState.SHOWING;
+            try
+            {
+                var isPortrait = DisplayHelper.DisplayInfo.Orientation == DisplayOrientation.Portrait;
+                _layoutParams = isPortrait ? _layoutParamsPortrait : _layoutParamsLandscape;
+                _windowManager?.AddView(this, _layoutParams);
+                _closeCompleted = new TaskCompletionSource<bool>();
+                OnShow?.Invoke();
+                _state = FormState.SHOWING;
+            }
+            catch (WindowManagerBadTokenException ex)
+            {
+                _state = FormState.CLOSED;
+                System.Diagnostics.Debug.WriteLine($"WindowManager BadTokenException in Show: {ex.Message}");
+            }
+            catch (Exception ex)
+            {
+                _state = FormState.CLOSED;
+                System.Diagnostics.Debug.WriteLine($"Exception in Show: {ex.Message}");
+            }
+        }
     }
 
     public void Close()
     {
-        if (_state == FormState.CLOSED) return;
+        lock (_stateLock)
+        {
+            if (_state == FormState.CLOSED || _disposed) return;
 
-        _windowManager.RemoveView(this);
-        _state = FormState.CLOSED;
-        _closeCompleted.TrySetResult(true);
-        OnClose?.Invoke();
+            try
+            {
+                _windowManager?.RemoveView(this);
+                _state = FormState.CLOSED;
+                _closeCompleted?.TrySetResult(true);
+                OnClose?.Invoke();
+            }
+            catch (IllegalArgumentException)
+            {
+                _state = FormState.CLOSED;
+            }
+            catch (Exception ex)
+            {
+                _state = FormState.CLOSED;
+                System.Diagnostics.Debug.WriteLine($"Exception in Close: {ex.Message}");
+            }
+        }
     }
 
     public void CloseCancel()
     {
-        if (_state == FormState.CLOSED) return;
+        lock (_stateLock)
+        {
+            if (_state == FormState.CLOSED || _disposed) return;
 
-        _windowManager.RemoveView(this);
-        _state = FormState.CLOSED;
-        _closeCompleted.TrySetResult(false);
-        OnClose?.Invoke();
+            try
+            {
+                _windowManager?.RemoveView(this);
+                _state = FormState.CLOSED;
+                _closeCompleted?.TrySetResult(false);
+                OnClose?.Invoke();
+            }
+            catch (IllegalArgumentException)
+            {
+                _state = FormState.CLOSED;
+            }
+            catch (Exception ex)
+            {
+                _state = FormState.CLOSED;
+                System.Diagnostics.Debug.WriteLine($"Exception in CloseCancel: {ex.Message}");
+            }
+        }
     }
 
     private void EnableKeyboard()
     {
-        if (Focusable)
+        lock (_stateLock)
         {
-            _layoutParams.Flags &= ~WindowManagerFlags.NotFocusable;
-            _windowManager.UpdateViewLayout(this, _layoutParams);
+            if (Focusable && !_disposed && _state == FormState.SHOWING)
+            {
+                try
+                {
+                    _layoutParams.Flags &= ~WindowManagerFlags.NotFocusable;
+                    _windowManager?.UpdateViewLayout(this, _layoutParams);
+                }
+                catch (Exception ex)
+                {
+                    System.Diagnostics.Debug.WriteLine($"Exception in EnableKeyboard: {ex.Message}");
+                }
+            }
         }
     }
 
     private void DisableKeyboard()
     {
-        _layoutParams.Flags |= WindowManagerFlags.NotFocusable;
-        _windowManager.UpdateViewLayout(this, _layoutParams);
+        lock (_stateLock)
+        {
+            if (!_disposed && _state == FormState.SHOWING)
+            {
+                try
+                {
+                    _layoutParams.Flags |= WindowManagerFlags.NotFocusable;
+                    _windowManager?.UpdateViewLayout(this, _layoutParams);
+                }
+                catch (Exception ex)
+                {
+                    System.Diagnostics.Debug.WriteLine($"Exception in DisableKeyboard: {ex.Message}");
+                }
+            }
+        }
     }
 
     //https://stackoverflow.com/questions/11172191/android-motionevent-find-out-if-motion-happened-outside-the-view
@@ -223,60 +319,114 @@ public class ResizeView : RelativeLayout, IOnTouchListener, IShowable
 
     public bool OnTouch(global::Android.Views.View v, MotionEvent e)
     {
-        switch (e.Action)
+        if (_disposed) return false;
+        
+        try
         {
-            case MotionEventActions.Down:
-                _x = (int)e.RawX;
-                _y = (int)e.RawY;
-                if (v == _topRight)
-                {
-                    DisableKeyboard();
-                    Close();
-                }
-                break;
-            case MotionEventActions.Move:
-                int nowX = (int)e.RawX;
-                int nowY = (int)e.RawY;
-                int movedX = nowX - _x;
-                int movedY = nowY - _y;
-
-                if (v == _topLeft)
-                {
-                    _x = nowX;
-                    _y = nowY;
-                    _layoutParams.X += movedX;
-                    _layoutParams.Y += movedY;
-                    _windowManager.UpdateViewLayout(this, _layoutParams);
-                }
-                else if (v == _bottomRight)
-                {
-                    //var topLeft = _windowManagerService.GetTopLeft();
-                    var topLeft = (x: 0.0, y: 0.0);
-                    var targetWidth = nowX - _layoutParams.X - topLeft.x;
-                    var targetHeight = nowY - _layoutParams.Y - topLeft.y;
-
-                    if (targetWidth >= MIN_WIDTH && targetWidth <= _displayWidth)
+            switch (e.Action)
+            {
+                case MotionEventActions.Down:
+                    _x = (int)e.RawX;
+                    _y = (int)e.RawY;
+                    if (v == _topRight)
                     {
-                        _layoutParams.Width = (int)targetWidth;
+                        DisableKeyboard();
+                        Close();
                     }
+                    break;
+                case MotionEventActions.Move:
+                    int nowX = (int)e.RawX;
+                    int nowY = (int)e.RawY;
+                    int movedX = nowX - _x;
+                    int movedY = nowY - _y;
 
-                    if (targetHeight >= MIN_HEIGHT && targetHeight <= _displayHeight)
+                    lock (_stateLock)
                     {
-                        _layoutParams.Height = (int)targetHeight;
-                    }
+                        if (_state == FormState.SHOWING && !_disposed)
+                        {
+                            if (v == _topLeft)
+                            {
+                                _x = nowX;
+                                _y = nowY;
+                                _layoutParams.X += movedX;
+                                _layoutParams.Y += movedY;
+                                _windowManager?.UpdateViewLayout(this, _layoutParams);
+                            }
+                            else if (v == _bottomRight)
+                            {
+                                //var topLeft = _windowManagerService.GetTopLeft();
+                                var topLeft = (x: 0.0, y: 0.0);
+                                var targetWidth = nowX - _layoutParams.X - topLeft.x;
+                                var targetHeight = nowY - _layoutParams.Y - topLeft.y;
 
-                    _windowManager.UpdateViewLayout(this, _layoutParams);
-                    _visualElement.Layout(new Microsoft.Maui.Graphics.Rect(0, 0, _layoutParams.Width / _density, _layoutParams.Height / _density));
-                }
-                break;
-            default:
-                break;
+                                if (targetWidth >= MIN_WIDTH && targetWidth <= _displayWidth)
+                                {
+                                    _layoutParams.Width = (int)targetWidth;
+                                }
+
+                                if (targetHeight >= MIN_HEIGHT && targetHeight <= _displayHeight)
+                                {
+                                    _layoutParams.Height = (int)targetHeight;
+                                }
+
+                                _windowManager?.UpdateViewLayout(this, _layoutParams);
+                                _visualElement?.Layout(new Microsoft.Maui.Graphics.Rect(0, 0, _layoutParams.Width / _density, _layoutParams.Height / _density));
+                            }
+                        }
+                    }
+                    break;
+                default:
+                    break;
+            }
+        }
+        catch (Exception ex)
+        {
+            System.Diagnostics.Debug.WriteLine($"Exception in OnTouch: {ex.Message}");
         }
         return false;
     }
 
     public async Task<bool> WaitForClose()
     {
+        if (_closeCompleted == null) return false;
         return await _closeCompleted.Task;
+    }
+
+    protected override void Dispose(bool disposing)
+    {
+        lock (_stateLock)
+        {
+            if (!_disposed)
+            {
+                if (disposing)
+                {
+                    // Ensure we're closed before disposing
+                    if (_state == FormState.SHOWING)
+                    {
+                        try
+                        {
+                            _windowManager?.RemoveView(this);
+                        }
+                        catch { /* Ignore errors during disposal */ }
+                    }
+
+                    // Clean up event handlers
+                    if (_topLeft != null) _topLeft.SetOnTouchListener(null);
+                    if (_bottomRight != null) _bottomRight.SetOnTouchListener(null);
+                    if (_topRight != null) _topRight.SetOnTouchListener(null);
+
+                    // Unregister message handler
+                    WeakReferenceMessenger.Default.Unregister<DisplayInfoChangedEventArgs>(this);
+
+                    // Complete any pending tasks
+                    _closeCompleted?.TrySetCanceled();
+                    
+                    // Clear references
+                    _androidView = null;
+                }
+                _disposed = true;
+            }
+        }
+        base.Dispose(disposing);
     }
 }

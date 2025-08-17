@@ -12,11 +12,12 @@ namespace YeetMacro2.Platforms.Android.Services;
 [Service(Label = "YeetMacro Service", Exported = true, Permission = global::Android.Manifest.Permission.BindAccessibilityService)]
 [IntentFilter(["android.accessibilityservice.AccessibilityService"])]
 [MetaData("android.accessibilityservice", Resource = "@xml/yeetmacro_config")]
-public class YeetAccessibilityService : AccessibilityService
+public class YeetAccessibilityService : AccessibilityService, IDisposable
 {
     readonly ILogger _logger;
     MainActivity _context;
-    private static YeetAccessibilityService _instance;  //https://stackoverflow.com/questions/600207/how-to-check-if-a-service-is-running-on-android
+    private static WeakReference<YeetAccessibilityService> _instanceRef;  // Using WeakReference to prevent memory leaks
+    private bool _disposed = false;
     public YeetAccessibilityService()
     {
         _logger = ServiceHelper.GetService<ILogger<YeetAccessibilityService>>();
@@ -41,14 +42,19 @@ public class YeetAccessibilityService : AccessibilityService
         _logger.LogTrace("YeetAccessibilityService OnCreate");
         Stop();
         Init();
-        _instance = this;
+        _instanceRef = new WeakReference<YeetAccessibilityService>(this);
         BroadcastEnabled();
         base.OnCreate();
     }
 
     public bool HasAccessibilityPermissions
     {
-        get { return _instance != null; }
+        get 
+        { 
+            return _instanceRef != null && 
+                   _instanceRef.TryGetTarget(out var instance) && 
+                   instance != null;
+        }
     }
 
     //https://stackoverflow.com/questions/23504217/how-do-i-get-active-window-that-is-on-foreground
@@ -94,20 +100,25 @@ public class YeetAccessibilityService : AccessibilityService
 
     public void DoClick(Point point, long holdDurationMs = 100)
     {
-        if (_instance == null || point.X < 0.0 || point.Y < 0.0) return;
+        if (!TryGetInstance(out var instance) || point.X < 0.0 || point.Y < 0.0) return;
 
         _logger.LogTrace("YeetAccessibilityService DoClick");
-        GestureDescription.Builder gestureBuilder = new();
-        global::Android.Graphics.Path swipePath = new();
-        swipePath.MoveTo((float)point.X, (float)point.Y);
-        swipePath.Close();
-        var strokeDescription = new GestureDescription.StrokeDescription(swipePath, 0, holdDurationMs);
-        gestureBuilder.AddStroke(strokeDescription);
-        var gesture = gestureBuilder.Build();
+        GestureDescription.Builder gestureBuilder = null;
+        global::Android.Graphics.Path swipePath = null;
+        GestureDescription.StrokeDescription strokeDescription = null;
+        GestureDescription gesture = null;
 
         try
         {
-            _instance.DispatchGesture(gesture, null, null);
+            gestureBuilder = new();
+            swipePath = new();
+            swipePath.MoveTo((float)point.X, (float)point.Y);
+            swipePath.Close();
+            strokeDescription = new GestureDescription.StrokeDescription(swipePath, 0, holdDurationMs);
+            gestureBuilder.AddStroke(strokeDescription);
+            gesture = gestureBuilder.Build();
+            
+            instance.DispatchGesture(gesture, null, null);
         }
         catch (Exception ex)
         {
@@ -115,16 +126,17 @@ public class YeetAccessibilityService : AccessibilityService
         }
         finally
         {
-            gesture.Dispose();
-            strokeDescription.Dispose();
-            swipePath.Dispose();
+            gesture?.Dispose();
+            strokeDescription?.Dispose();
+            swipePath?.Dispose();
+            gestureBuilder?.Dispose();
         }
     }
 
     // https://github.com/Fate-Grand-Automata/FGA/blob/de9c69e10aec990a061c049f0bf3ca3c253d199b/app/src/main/java/com/mathewsachin/fategrandautomata/accessibility/AccessibilityGestures.kt#L61
     public void DoSwipe(Point start, Point end)
     {
-        if (_instance == null)
+        if (!TryGetInstance(out var instance))
         {
             return;
         }
@@ -178,20 +190,35 @@ public class YeetAccessibilityService : AccessibilityService
 
     private void PerformGesture(GestureDescription.StrokeDescription strokeDescription)
     {
-        var gestureBuilder = new GestureDescription.Builder();
-        var gestureDescription = gestureBuilder.AddStroke(strokeDescription).Build();
-        _instance.DispatchGesture(gestureDescription, null, null);
-        gestureDescription.Dispose();
-        gestureBuilder.Dispose();
+        if (!TryGetInstance(out var instance)) return;
+        
+        GestureDescription.Builder gestureBuilder = null;
+        GestureDescription gestureDescription = null;
+        
+        try
+        {
+            gestureBuilder = new GestureDescription.Builder();
+            gestureDescription = gestureBuilder.AddStroke(strokeDescription).Build();
+            instance.DispatchGesture(gestureDescription, null, null);
+        }
+        catch (Exception ex)
+        {
+            _logger.LogError(ex, "YeetAccessibilityService PerformGesture Exception");
+        }
+        finally
+        {
+            gestureDescription?.Dispose();
+            gestureBuilder?.Dispose();
+        }
     }
 
     public void Start()
     {
         _logger.LogTrace("YeetAccessibilityService Start");
-        if (_instance == null)
+        if (!TryGetInstance(out var instance))
         {
             Init();
-            _context.StartActivity(new Intent(Settings.ActionAccessibilitySettings));
+            _context?.StartActivity(new Intent(Settings.ActionAccessibilitySettings));
         }
     }
 
@@ -200,8 +227,11 @@ public class YeetAccessibilityService : AccessibilityService
         try
         {
             _logger.LogTrace("YeetAccessibilityService Stop");
-            _instance?.DisableSelf();
-            _instance = null;
+            if (TryGetInstance(out var instance))
+            {
+                instance.DisableSelf();
+            }
+            _instanceRef = null;
         }
         catch (Exception ex)
         {
@@ -215,7 +245,7 @@ public class YeetAccessibilityService : AccessibilityService
         {
             _logger.LogTrace("YeetAccessibilityService BroadcastEnabled");
             Intent enabledChanged = new("com.yeetoverflow.AccessibilityService.CHANGED");
-            enabledChanged.PutExtra("enabled", _instance != null);
+            enabledChanged.PutExtra("enabled", HasAccessibilityPermissions);
             _context?.SendBroadcast(enabledChanged);
         }
         catch (Exception ex)
@@ -226,16 +256,44 @@ public class YeetAccessibilityService : AccessibilityService
 
     public void GoBack()
     {
-        if (_instance == null) return;
+        if (!TryGetInstance(out var instance)) return;
         
         try
         {
             _logger.LogTrace("YeetAccessibilityService GoBack");
-            _instance.PerformGlobalAction(global::Android.AccessibilityServices.GlobalAction.Back);
+            instance.PerformGlobalAction(global::Android.AccessibilityServices.GlobalAction.Back);
         }
         catch (Exception ex)
         {
             _logger.LogError(ex, "YeetAccessibilityService GoBack Exception");
         }
+    }
+
+    private static bool TryGetInstance(out YeetAccessibilityService instance)
+    {
+        instance = null;
+        return _instanceRef != null && _instanceRef.TryGetTarget(out instance) && instance != null;
+    }
+
+    public override void OnDestroy()
+    {
+        _logger.LogTrace("YeetAccessibilityService OnDestroy");
+        Dispose(true);
+        base.OnDestroy();
+    }
+
+    protected override void Dispose(bool disposing)
+    {
+        if (!_disposed)
+        {
+            if (disposing)
+            {
+                // Dispose managed resources
+                _instanceRef = null;
+                _context = null;
+            }
+            _disposed = true;
+        }
+        base.Dispose(disposing);
     }
 }

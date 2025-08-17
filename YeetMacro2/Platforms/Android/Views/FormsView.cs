@@ -4,20 +4,24 @@ using Android.Widget;
 using Android.Graphics;
 using Color = Android.Graphics.Color;
 using Microsoft.Maui.Platform;
+using Java.Lang;
+using Exception = System.Exception;
 
 namespace YeetMacro2.Platforms.Android.Views;
-public class FormsView : RelativeLayout, IShowable
+public class FormsView : RelativeLayout, IShowable, IDisposable
 {
     enum FormState { SHOWING, CLOSED };
     private readonly IWindowManager _windowManager;
     private readonly WindowManagerLayoutParams _layoutParams;
     private readonly VisualElement _visualElement;
     public VisualElement VisualElement => _visualElement;
-    private FormState _state;
+    private volatile FormState _state;
     private readonly global::Android.Views.View _androidView;
     public bool IsModal { get; set; } = true;
     TaskCompletionSource<bool> _closeCompleted;
     public bool IsShowing { get => _state == FormState.SHOWING; }
+    private readonly object _stateLock = new object();
+    private bool _disposed = false;
 
     //https://www.linkedin.com/pulse/6-floating-windows-android-keyboard-input-v%C3%A1clav-hodek/
     public FormsView(Context context, IWindowManager windowManager, VisualElement visualElement) : base(context)
@@ -86,27 +90,41 @@ public class FormsView : RelativeLayout, IShowable
 
     public void SetIsTouchable(bool touchable)
     {
-        if (touchable)
+        lock (_stateLock)
         {
-            _layoutParams.Flags &= ~WindowManagerFlags.NotTouchable;
-            _layoutParams.Flags &= ~WindowManagerFlags.NotTouchModal;
-            _layoutParams.Flags &= ~WindowManagerFlags.NotFocusable;
-            _layoutParams.Alpha = 1.0f;
-        }
-        else
-        {
-            _layoutParams.Flags |= WindowManagerFlags.NotTouchable;
-            _layoutParams.Flags |= WindowManagerFlags.NotTouchModal;
-            _layoutParams.Flags |= WindowManagerFlags.NotFocusable;
-            //https://medium.com/androiddevelopers/untrusted-touch-events-2c0e0b9c374c#776e
-            //to allow clicking through the window, alpha needs to be 0.8 or below
-            _layoutParams.Alpha = 0.5f;
-        }
+            if (_disposed) return;
+            
+            if (touchable)
+            {
+                _layoutParams.Flags &= ~WindowManagerFlags.NotTouchable;
+                _layoutParams.Flags &= ~WindowManagerFlags.NotTouchModal;
+                _layoutParams.Flags &= ~WindowManagerFlags.NotFocusable;
+                _layoutParams.Alpha = 1.0f;
+            }
+            else
+            {
+                _layoutParams.Flags |= WindowManagerFlags.NotTouchable;
+                _layoutParams.Flags |= WindowManagerFlags.NotTouchModal;
+                _layoutParams.Flags |= WindowManagerFlags.NotFocusable;
+                //https://medium.com/androiddevelopers/untrusted-touch-events-2c0e0b9c374c#776e
+                //to allow clicking through the window, alpha needs to be 0.8 or below
+                _layoutParams.Alpha = 0.5f;
+            }
 
-        if (_state == FormState.SHOWING)
-        {
-            Close();
-            Show();
+            if (_state == FormState.SHOWING)
+            {
+                try
+                {
+                    _windowManager?.UpdateViewLayout(this, _layoutParams);
+                }
+                catch (Exception ex)
+                {
+                    System.Diagnostics.Debug.WriteLine($"Exception updating layout in SetIsTouchable: {ex.Message}");
+                    // Fallback to recreating the view
+                    Close();
+                    Show();
+                }
+            }
         }
     }
 
@@ -120,33 +138,118 @@ public class FormsView : RelativeLayout, IShowable
 
     public void Show()
     {
-        if (_state != FormState.SHOWING)
+        lock (_stateLock)
         {
-            _state = FormState.SHOWING;
-            _windowManager.AddView(this, _layoutParams);
-            _closeCompleted = new TaskCompletionSource<bool>();
+            if (_state != FormState.SHOWING && !_disposed)
+            {
+                try
+                {
+                    _state = FormState.SHOWING;
+                    _windowManager?.AddView(this, _layoutParams);
+                    _closeCompleted = new TaskCompletionSource<bool>();
+                }
+                catch (WindowManagerBadTokenException ex)
+                {
+                    // Activity was destroyed
+                    _state = FormState.CLOSED;
+                    System.Diagnostics.Debug.WriteLine($"WindowManager BadTokenException in Show: {ex.Message}");
+                }
+                catch (Exception ex)
+                {
+                    _state = FormState.CLOSED;
+                    System.Diagnostics.Debug.WriteLine($"Exception in Show: {ex.Message}");
+                }
+            }
         }
     }
 
     public void Close()
     {
-        if (_state == FormState.CLOSED) return;
+        lock (_stateLock)
+        {
+            if (_state == FormState.CLOSED || _disposed) return;
 
-        _windowManager.RemoveView(this);
-        _closeCompleted.SetResult(true);
-        _state = FormState.CLOSED;
+            try
+            {
+                _windowManager?.RemoveView(this);
+                _closeCompleted?.TrySetResult(true);
+                _state = FormState.CLOSED;
+            }
+            catch (IllegalArgumentException)
+            {
+                // View was not attached to window manager
+                _state = FormState.CLOSED;
+            }
+            catch (Exception ex)
+            {
+                _state = FormState.CLOSED;
+                System.Diagnostics.Debug.WriteLine($"Exception in Close: {ex.Message}");
+            }
+        }
     }
 
     public void CloseCancel()
     {
-        _windowManager.RemoveView(this);
-        _state = FormState.CLOSED;
-        _closeCompleted.SetResult(false);
+        lock (_stateLock)
+        {
+            if (_state == FormState.CLOSED || _disposed) return;
+
+            try
+            {
+                _windowManager?.RemoveView(this);
+                _state = FormState.CLOSED;
+                _closeCompleted?.TrySetResult(false);
+            }
+            catch (IllegalArgumentException)
+            {
+                // View was not attached to window manager
+                _state = FormState.CLOSED;
+            }
+            catch (Exception ex)
+            {
+                _state = FormState.CLOSED;
+                System.Diagnostics.Debug.WriteLine($"Exception in CloseCancel: {ex.Message}");
+            }
+        }
     }
 
     //https://stackoverflow.com/questions/12745848/how-to-block-until-an-event-is-fired-in-c-sharp
     public async Task<bool> WaitForClose()
     {
+        if (_closeCompleted == null) return false;
         return await _closeCompleted.Task;
+    }
+
+    protected override void Dispose(bool disposing)
+    {
+        lock (_stateLock)
+        {
+            if (!_disposed)
+            {
+                if (disposing)
+                {
+                    // Ensure we're closed before disposing
+                    if (_state == FormState.SHOWING)
+                    {
+                        try
+                        {
+                            _windowManager?.RemoveView(this);
+                        }
+                        catch { /* Ignore errors during disposal */ }
+                    }
+
+                    // Clean up event handlers
+                    if (_androidView != null)
+                    {
+                        _androidView.Click -= FormsView_Click;
+                    }
+
+                    // Complete any pending tasks
+                    _closeCompleted?.TrySetCanceled();
+                }
+                _disposed = true;
+            }
+        }
+        base.Dispose(disposing);
     }
 }

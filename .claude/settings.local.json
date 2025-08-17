@@ -5,7 +5,8 @@
       "Bash(echo $TERM)",
       "Bash(echo $PATH)",
       "Bash(git --version)",
-      "Bash(env)"
+      "Bash(env)",
+      "Bash(dotnet build:*)"
     ],
     "deny": [],
     "ask": []
