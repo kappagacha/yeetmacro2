@@ -1,7 +1,6 @@
 using SkiaSharp;
 using SkiaSharp.Views.Maui;
 using System.Collections.Concurrent;
-using YeetMacro2.Data.Models;
 using YeetMacro2.Platforms.Android.Services;
 using YeetMacro2.Services;
 
@@ -19,7 +18,6 @@ public partial class DrawControl : ContentView
         Color = SKColors.Green,
         StrokeWidth = 6,
         StrokeCap = SKStrokeCap.Round,
-        TextSize = 60,
         Style = SKPaintStyle.Stroke
     };
     readonly SKPaint _bluePaint = new()
@@ -27,7 +25,6 @@ public partial class DrawControl : ContentView
         Color = SKColors.Blue,
         StrokeWidth = 6,
         StrokeCap = SKStrokeCap.Round,
-        TextSize = 60,
         Style = SKPaintStyle.Stroke
     };
     readonly SKPaint _userStroke = new()
@@ -35,7 +32,6 @@ public partial class DrawControl : ContentView
         Color = SKColors.Red,
         StrokeWidth = 3,
         StrokeCap = SKStrokeCap.Round,
-        TextSize = 60,
         Style = SKPaintStyle.Stroke
     };
     readonly AndroidScreenService _androidScreenService;
