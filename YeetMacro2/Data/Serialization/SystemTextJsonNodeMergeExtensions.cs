@@ -8,7 +8,7 @@ public static class SystemTextJsonMergeExtensions
 {
     /// <summary>
     /// Merges the specified Json Node into the base JsonNode for which this method is called.
-    /// It is null safe and can be easily used with null-check & null coalesce operators for fluent calls.
+    /// It is null safe and can be easily used with null-check &amp; null coalesce operators for fluent calls.
     /// NOTE: JsonNodes are context aware and track their parent relationships therefore to merge the values both JsonNode objects
     ///         specified are mutated. The Base is mutated with new data while the source is mutated to remove reverences to all
     ///         fields so that they can be added to the base.

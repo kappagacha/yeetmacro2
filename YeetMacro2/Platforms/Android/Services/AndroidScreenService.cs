@@ -89,27 +89,7 @@ public class AndroidScreenService : IScreenService, IDisposable
     {
         get
         {
-            var y = Platform.CurrentActivity?.Window.Attributes;
-            var insets = Platform.CurrentActivity?.Window?.DecorView.RootWindowInsets;
-
-            var x = insets.GetInsets(WindowInsetsCompat.Type.TappableElement());
-            var systemBars = insets.GetInsets(WindowInsetsCompat.Type.SystemBars());
-            var ime = insets.GetInsets(WindowInsetsCompat.Type.Ime());
-            var displayCutout = Platform.CurrentActivity?.Window?.DecorView.RootWindowInsets?.DisplayCutout;
-
             return "Test";
-            //var activity = Platform.CurrentActivity;
-            //var window = activity?.Window;
-            //if (window is null) return "Window not found";
-
-            //var rect = new Rect();
-            //window.DecorView.GetWindowVisibleDisplayFrame(rect);
-            //return $"Top: {rect.Top}\nLeft: {rect.Left}\nRight: {rect.Right}\nBottom: {rect.Bottom}";
-
-            //var rect = new Rect();
-            //_overlayWindow.GetGlobalVisibleRect(rect);
-            //return $"Top: {rect.Top}\nLeft: {rect.Left}\nRight: {rect.Right}\nBottom: {rect.Bottom}" + "\n\n" +
-            // $"X: {_overlayWindow.GetX()}\nY: {_overlayWindow.GetY()}\nTop: {_overlayWindow.Top}\nLeft: {_overlayWindow.Left}\nRight: {_overlayWindow.Right}\nBottom: {_overlayWindow.Bottom}";
         }
     }
     public bool CanDrawOverlays => Settings.CanDrawOverlays(_context);

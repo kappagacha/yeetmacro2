@@ -282,6 +282,8 @@ public partial class TestViewModel : ObservableObject
             return;
         }
 
+        if (!OperatingSystem.IsAndroidVersionAtLeast(30)) return;
+        
         var decorView = Platform.CurrentActivity?.Window?.DecorView;
         var insets = decorView?.RootWindowInsets;
         var cutout = insets?.DisplayCutout;
@@ -364,41 +366,6 @@ public partial class TestViewModel : ObservableObject
         {
             CurrentWindowMetrics = "Cutout not resolved";
         }
-
-        //var decorView = Platform.CurrentActivity?.Window?.DecorView;
-        //var insets = decorView.RootWindowInsets;
-        //var cutout = insets?.DisplayCutout;
-        //if (cutout != null)
-        //{
-        //    CurrentWindowMetrics = $"SafeInsetLeft: {cutout.SafeInsetLeft}\nSafeInsetTop: {cutout.SafeInsetTop}\nSafeInsetRight: {cutout.SafeInsetRight}\nSafeInsetBottom: {cutout.SafeInsetBottom}\n";
-        //    CurrentWindowMetrics += $"Rotation{DeviceDisplay.MainDisplayInfo.Rotation}";
-
-        //    if (DeviceDisplay.MainDisplayInfo.Rotation == DisplayRotation.Rotation0)
-        //    {
-        //        CurrentWindowMetrics +=  $"Top: {cutout.SafeInsetTop}\nLeft: {cutout.SafeInsetLeft}\nWidth: {DeviceDisplay.MainDisplayInfo.Width - cutout.SafeInsetLeft}\nHeight: {DeviceDisplay.MainDisplayInfo.Height - cutout.SafeInsetTop}\n";
-        //    }
-        //    else if (DeviceDisplay.MainDisplayInfo.Rotation == DisplayRotation.Rotation90)
-        //    {
-        //        CurrentWindowMetrics += $"Top: {cutout.SafeInsetLeft}\nLeft: {cutout.SafeInsetBottom}\nWidth: {DeviceDisplay.MainDisplayInfo.Width - cutout.SafeInsetBottom}\nHeight: {DeviceDisplay.MainDisplayInfo.Height - cutout.SafeInsetLeft}\n";
-        //    }
-        //    else if (DeviceDisplay.MainDisplayInfo.Rotation == DisplayRotation.Rotation180)
-        //    {
-        //        CurrentWindowMetrics += $"Top: {cutout.SafeInsetBottom}\nLeft: {cutout.SafeInsetRight}\nWidth: {DeviceDisplay.MainDisplayInfo.Width - cutout.SafeInsetRight}\nHeight: {DeviceDisplay.MainDisplayInfo.Height - cutout.SafeInsetBottom}\n";
-        //    }
-        //    else if (DeviceDisplay.MainDisplayInfo.Rotation == DisplayRotation.Rotation270)
-        //    {
-        //        CurrentWindowMetrics += $"Top: {cutout.SafeInsetRight}\nLeft: {cutout.SafeInsetTop}\nWidth: {DeviceDisplay.MainDisplayInfo.Width - cutout.SafeInsetTop}\nHeight: {DeviceDisplay.MainDisplayInfo.Height - cutout.SafeInsetRight}\n";
-        //    }
-        //}
-        //else
-        //{
-        //    CurrentWindowMetrics = "Cutout not resolved";
-        //}
-
-
-        //var windowManager = Platform.CurrentActivity.GetSystemService(Context.WindowService).JavaCast<IWindowManager>();
-        //var wm = windowManager.CurrentWindowMetrics;
-        //CurrentWindowMetrics = $"Width: {wm.Bounds.Width()}\nHeight: {wm.Bounds.Height()}\nWidth: {wm.Bounds.Top}\nHeight: {wm.Bounds.Left}";
     }
 
     [RelayCommand]

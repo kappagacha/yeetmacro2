@@ -200,6 +200,30 @@ public class MediaProjectionService : IRecorderService, IDisposable
         fs.Write(imageData, 0, imageData.Length);
     }
 
+    [System.Runtime.Versioning.SupportedOSPlatform("android31.0")]
+    private void CreateMediaRecorderForApi31()
+    {
+        _mediaRecorder = new MediaRecorder(Platform.CurrentActivity);
+        _mediaRecorder.SetVideoSource(VideoSource.Surface);
+        _mediaRecorder.SetOutputFormat(OutputFormat.Mpeg4);
+        _mediaRecorder.SetVideoEncoder(VideoEncoder.H264);
+        _mediaRecorder.SetVideoEncodingBitRate(10000000); // 10 Mbps
+        _mediaRecorder.SetVideoFrameRate(30);
+    }
+
+    [System.Runtime.Versioning.SupportedOSPlatform("android26.0")]
+    [System.Runtime.Versioning.UnsupportedOSPlatform("android31.0")]
+    private void CreateMediaRecorderLegacy()
+    {
+        _mediaRecorder = new MediaRecorder();
+        _mediaRecorder.SetVideoSource(VideoSource.Surface);
+        var profile = CamcorderProfile.Get(CamcorderQuality.High);
+        _mediaRecorder.SetOutputFormat(profile.FileFormat);
+        _mediaRecorder.SetVideoEncoder(profile.VideoCodec);
+        _mediaRecorder.SetVideoEncodingBitRate(profile.VideoBitRate);
+        _mediaRecorder.SetVideoFrameRate(profile.VideoFrameRate);
+    }
+
     // https://github.com/chinmoyp/screenrecorder/blob/master/app/src/main/java/com/confusedbox/screenrecorder/MainActivity.java
     // https://github.com/android/media-samples/blob/main/ScreenCapture/Application/src/main/java/com/example/android/screencapture/ScreenCaptureFragment.java
     // https://github.com/Fate-Grand-Automata/FGA/blob/master/app/src/main/java/com/mathewsachin/fategrandautomata/imaging/MediaProjectionRecording.kt
@@ -212,14 +236,17 @@ public class MediaProjectionService : IRecorderService, IDisposable
         var width = (int)screenResolution.Width;
         var height = (int)screenResolution.Height;
         var density = (int)DisplayHelper.DisplayInfo.Density;
-        var profile = CamcorderProfile.Get(CamcorderQuality.High);
-
-        _mediaRecorder = new MediaRecorder();
-        _mediaRecorder.SetVideoSource(VideoSource.Surface);
-        _mediaRecorder.SetOutputFormat(profile.FileFormat);
-        _mediaRecorder.SetVideoEncoder(profile.VideoCodec);
-        _mediaRecorder.SetVideoEncodingBitRate(profile.VideoBitRate);
-        _mediaRecorder.SetVideoFrameRate(profile.VideoFrameRate);
+        
+        // Use appropriate API based on Android version
+        if (OperatingSystem.IsAndroidVersionAtLeast(31))
+        {
+            CreateMediaRecorderForApi31();
+        }
+        else
+        {
+            CreateMediaRecorderLegacy();
+        }
+        
         _mediaRecorder.SetVideoSize(width, height);     // weird resolutions will fail on prepare. ex: 1080x2350
         
         var folder = global::Android.OS.Environment.GetExternalStoragePublicDirectory(global::Android.OS.Environment.DirectoryPictures).Path;
