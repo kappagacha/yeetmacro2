@@ -127,8 +127,8 @@ while (macroService.IsRunning) {
 			}
 
 			macroService.PollPattern([patterns.irregularExtermination.pursuitOperation.friendsOrGuild, patterns.irregularExtermination.pursuitOperation.selectTeam2, patterns.irregularExtermination.pursuitOperation.selectTeam]);
-			const friendsOrGuildResult = macroService.PollPattern(patterns.irregularExtermination.pursuitOperation.public, { TimeoutMs: 3_000 });
-			if (publishToPublic && friendsOrGuildResult.IsSuccess) {
+			const publicResult = macroService.PollPattern(patterns.irregularExtermination.pursuitOperation.public, { TimeoutMs: 3_000 });
+			if (publishToPublic && publicResult.IsSuccess) {
 				macroService.PollPattern(patterns.irregularExtermination.pursuitOperation.public, { DoClick: true, PredicatePattern: patterns.irregularExtermination.pursuitOperation.ok });
 				macroService.PollPattern(patterns.irregularExtermination.pursuitOperation.ok, { DoClick: true, PredicatePattern: patterns.irregularExtermination.pursuitOperation.selectTeam2 });
 				sleep(1_000);
