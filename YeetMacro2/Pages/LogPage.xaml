@@ -41,19 +41,19 @@
                                 </DataTrigger>
                             </Label.Triggers>
                         </Label>
-                        <ImageButton Margin="0" Padding="0" CommandParameter="{Binding .}" 
-                                     Command="{Binding BindingContext.SelectLogCommand, Source={RelativeSource AncestorType={x:Type p:LogPage}}}" />
+                        <ImageButton Margin="0" Padding="0" CommandParameter="{Binding .}"
+                                     Command="{Binding SelectLogCommand, Source={RelativeSource AncestorType={x:Type p:LogPage}}, x:DataType=vm:LogServiceViewModel}" />
                     </Grid>
                     <Grid HeightRequest="20" HorizontalOptions="End" IsVisible="{Binding ParentId, Converter={conv:NullToBoolConverter}}">
                         <v:ToggleImageView FontFamily="MaterialOutlined" Glyph="{x:Static mi:MaterialOutlined.Archive}" IsToggled="{Binding IsArchived}"
                                            ToggledColor="{StaticResource Primary}"
                                            CommandParameter="{Binding .}"
-                                           Command="{Binding BindingContext.ToggleLogArchivedCommand, Source={RelativeSource AncestorType={x:Type p:LogPage}}}" />
+                                           Command="{Binding ToggleLogArchivedCommand, Source={RelativeSource AncestorType={x:Type p:LogPage}}, x:DataType=vm:LogServiceViewModel}" />
                     </Grid>
                 </Grid>
                 <Grid Grid.Row="1" Grid.Column="1" IsVisible="{Binding Logs.Count, Converter={conv:NumberToBoolConverter}}">
-                    <CollectionView ItemsSource="{Binding Logs}" IsVisible="{Binding IsToggled, Source={Reference toggleImageView}}"
-                            ItemTemplate="{conv:DynamicTemplateSelector}" />
+                    <CollectionView ItemsSource="{Binding Logs}" ItemTemplate="{conv:DynamicTemplateSelector}" 
+                                    IsVisible="{Binding IsToggled, Source={Reference toggleImageView}, x:DataType=v:ToggleImageView}"/>
                 </Grid>
             </Grid>
         </DataTemplate>
@@ -79,19 +79,19 @@
                                 </DataTrigger>
                             </Label.Triggers>
                         </Label>
-                        <ImageButton Margin="0" Padding="0" CommandParameter="{Binding .}" 
-                                     Command="{Binding BindingContext.SelectLogCommand, Source={RelativeSource AncestorType={x:Type p:LogPage}}}" />
+                        <ImageButton Margin="0" Padding="0" CommandParameter="{Binding .}"
+                                     Command="{Binding SelectLogCommand, Source={RelativeSource AncestorType={x:Type p:LogPage}}, x:DataType=vm:LogServiceViewModel}" />
                     </Grid>
                     <Grid HeightRequest="20" HorizontalOptions="End" IsVisible="{Binding ParentId, Converter={conv:NullToBoolConverter}}">
                         <v:ToggleImageView FontFamily="MaterialOutlined" Glyph="{x:Static mi:MaterialOutlined.Archive}" IsToggled="{Binding IsArchived}"
                                            ToggledColor="{StaticResource Primary}"
                                            CommandParameter="{Binding .}"
-                                           Command="{Binding BindingContext.ToggleLogArchivedCommand, Source={RelativeSource AncestorType={x:Type p:LogPage}}}" />
+                                           Command="{Binding ToggleLogArchivedCommand, Source={RelativeSource AncestorType={x:Type p:LogPage}}, x:DataType=vm:LogServiceViewModel}" />
                     </Grid>
                 </Grid>
                 <Grid Grid.Row="1" Grid.Column="1" IsVisible="{Binding Logs.Count, Converter={conv:NumberToBoolConverter}}">
-                    <CollectionView ItemsSource="{Binding Logs}" IsVisible="{Binding IsToggled, Source={Reference toggleImageView}}"
-                                    ItemTemplate="{conv:DynamicTemplateSelector}" />
+                    <CollectionView ItemsSource="{Binding Logs}" ItemTemplate="{conv:DynamicTemplateSelector}"
+                                    IsVisible="{Binding IsToggled, Source={Reference toggleImageView}, x:DataType=v:ToggleImageView}" />
                 </Grid>
             </Grid>
         </DataTemplate>
@@ -104,21 +104,21 @@
                         </DataTrigger>
                     </Label.Triggers>
                 </Label>
-                <ImageButton Margin="0" Padding="0" CommandParameter="{Binding .}" 
-                             Command="{Binding BindingContext.SelectLogCommand, Source={RelativeSource AncestorType={x:Type p:LogPage}}}" />
+                <ImageButton Margin="0" Padding="0" CommandParameter="{Binding .}"
+                             Command="{Binding SelectLogCommand, Source={RelativeSource AncestorType={x:Type p:LogPage}}, x:DataType=vm:LogServiceViewModel}" />
                 <HorizontalStackLayout HeightRequest="20" HorizontalOptions="End">
                     <v:ImageView FontFamily="MaterialOutlined" Glyph="{x:Static mi:MaterialOutlined.Download}" 
                        CommandParameter="{Binding .}"
-                       Command="{Binding BindingContext.DownloadScreenCaptureCommand, Source={RelativeSource AncestorType={x:Type p:LogPage}}}" />
+                       Command="{Binding DownloadScreenCaptureCommand, Source={RelativeSource AncestorType={x:Type p:LogPage}}, x:DataType=vm:LogServiceViewModel}" />
                     <v:ImageView FontFamily="MaterialOutlined" Glyph="{x:Static mi:MaterialOutlined.Content_copy}" 
                        CommandParameter="{Binding .}"
-                       Command="{Binding BindingContext.CopyMessgeToClipboardCommand, Source={RelativeSource AncestorType={x:Type p:LogPage}}}" />
+                       Command="{Binding CopyMessgeToClipboardCommand, Source={RelativeSource AncestorType={x:Type p:LogPage}}, x:DataType=vm:LogServiceViewModel}" />
                 </HorizontalStackLayout>
                 <Grid HeightRequest="20" HorizontalOptions="End" IsVisible="{Binding ParentId, Converter={conv:NullToBoolConverter}}">
                     <v:ToggleImageView FontFamily="MaterialOutlined" Glyph="{x:Static mi:MaterialOutlined.Archive}" IsToggled="{Binding IsArchived}"
                                            ToggledColor="{StaticResource Primary}"
                                            CommandParameter="{Binding .}"
-                                           Command="{Binding BindingContext.ToggleLogArchivedCommand, Source={RelativeSource AncestorType={x:Type p:LogPage}}}" />
+                                           Command="{Binding ToggleLogArchivedCommand, Source={RelativeSource AncestorType={x:Type p:LogPage}}, x:DataType=vm:LogServiceViewModel}" />
                 </Grid>
             </Grid>
         </DataTemplate>
@@ -131,12 +131,12 @@
                         </DataTrigger>
                     </Label.Triggers>
                 </Label>
-                <ImageButton Margin="0" Padding="0" CommandParameter="{Binding .}" 
-                             Command="{Binding BindingContext.SelectLogCommand, Source={RelativeSource AncestorType={x:Type p:LogPage}}}" />
+                <ImageButton Margin="0" Padding="0" CommandParameter="{Binding .}"
+                             Command="{Binding SelectLogCommand, Source={RelativeSource AncestorType={x:Type p:LogPage}}, x:DataType=vm:LogServiceViewModel}" />
                 <Grid HeightRequest="20" HorizontalOptions="End">
                     <v:ImageView FontFamily="MaterialOutlined" Glyph="{x:Static mi:MaterialOutlined.Content_copy}" 
                                 CommandParameter="{Binding .}"
-                                Command="{Binding BindingContext.CopyMessgeToClipboardCommand, Source={RelativeSource AncestorType={x:Type p:LogPage}}}" />
+                                Command="{Binding CopyMessgeToClipboardCommand, Source={RelativeSource AncestorType={x:Type p:LogPage}}, x:DataType=vm:LogServiceViewModel}" />
                 </Grid>
             </Grid>
         </DataTemplate>

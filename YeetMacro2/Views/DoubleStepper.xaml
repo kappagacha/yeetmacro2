@@ -6,6 +6,7 @@
              xmlns:mct="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
              xmlns:mi="clr-namespace:UraniumUI.Icons.MaterialIcons;assembly=UraniumUI.Icons.MaterialIcons"
              x:Class="YeetMacro2.Views.DoubleStepper"
+             x:DataType="v:DoubleStepper"
              x:Name="thisView">
     <FlexLayout JustifyContent="SpaceBetween">
         <HorizontalStackLayout>
@@ -13,7 +14,7 @@
                 <v:ImageView VerticalOptions="Center" FontFamily="MaterialOutlined" Glyph="{x:Static mi:MaterialOutlined.Remove}" />
                 <ImageButton Clicked="Decrement_Clicked" />
             </Grid>
-            <Entry VerticalOptions="Center" Text="{Binding Value, Source={Reference thisView}}" Keyboard="Numeric">
+            <Entry VerticalOptions="Center" Text="{Binding Value, Source={Reference thisView}, x:DataType=v:DoubleStepper}" Keyboard="Numeric">
                 <Entry.Behaviors>
                     <mct:NumericValidationBehavior Flags="ValidateOnValueChanged">
                         <mct:NumericValidationBehavior.InvalidStyle>
@@ -29,8 +30,8 @@
                 <ImageButton Clicked="Increment_Clicked" />
             </Grid>
         </HorizontalStackLayout>
-        <HorizontalStackLayout IsVisible="{Binding ShowIncrement, Source={Reference thisView}}">
-            <Entry VerticalOptions="Center" Text="{Binding Increment, Source={Reference thisView}}" Keyboard="Numeric">
+        <HorizontalStackLayout IsVisible="{Binding ShowIncrement, Source={Reference thisView}, x:DataType=v:DoubleStepper}">
+            <Entry VerticalOptions="Center" Text="{Binding Increment, Source={Reference thisView}, x:DataType=v:DoubleStepper}" Keyboard="Numeric">
                 <Entry.Behaviors>
                     <mct:NumericValidationBehavior Flags="ValidateOnValueChanged">
                         <mct:NumericValidationBehavior.InvalidStyle>

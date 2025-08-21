@@ -163,7 +163,7 @@ public partial class MacroManagerViewModel : ObservableObject
 
     public async Task AddMacroSet(string[] sources)
     {
-        var source = await Application.Current.MainPage.DisplayActionSheet("Source", "cancel", "ok", sources);
+        var source = await Application.Current.Windows[0].Page.DisplayActionSheet("Source", "cancel", "ok", sources);
         if (string.IsNullOrEmpty(source) || source == "cancel") return;
         IsBusy = true;
         string macroSetName = source;
@@ -199,7 +199,7 @@ public partial class MacroManagerViewModel : ObservableObject
     [RelayCommand]
     public async Task DeleteMacroSet(MacroSetViewModel macroSet)
     {
-        if (!await Application.Current.MainPage.DisplayAlert("Delete Macro Set", "Are you sure?", "Ok", "Cancel")) return;
+        if (!await Application.Current.Windows[0].Page.DisplayAlert("Delete Macro Set", "Are you sure?", "Ok", "Cancel")) return;
 
         IsBusy = true;
         await macroSet.WaitForInitialization();

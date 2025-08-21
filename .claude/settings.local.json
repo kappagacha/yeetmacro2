@@ -7,9 +7,15 @@
       "Bash(git --version)",
       "Bash(env)",
       "Bash(dotnet build:*)",
-      "Bash(git log:*)"
+      "Bash(git log:*)",
+      "Bash(grep:*)",
+      "Bash(sed:*)",
+      "Bash(rm:*)"
     ],
     "deny": [],
-    "ask": []
+    "ask": [],
+    "additionalDirectories": [
+      "C:\\c\\Projects\\yeetmacro2\\YeetMacro2"
+    ]
   }
 }

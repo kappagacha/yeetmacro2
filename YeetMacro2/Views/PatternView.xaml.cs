@@ -175,7 +175,7 @@ public partial class PatternView : ContentView
         }
 
         // https://social.msdn.microsoft.com/Forums/en-US/851f6f9a-d762-405e-9c80-6356c576ccc8/how-can-i-scale-an-skbitmap-to-the-screen-size?forum=xamarinlibraries
-        var resizedBitmap = bitmap.Resize(new SKImageInfo(targetWidth, targetHeight), SKFilterQuality.High);
+        var resizedBitmap = bitmap.Resize(new SKImageInfo(targetWidth, targetHeight), new SKSamplingOptions(SKFilterMode.Linear, SKMipmapMode.Linear));
         canvas.DrawBitmap(resizedBitmap, imageInfo.Width / 2 - resizedBitmap.Width / 2, imageInfo.Height / 2 - resizedBitmap.Height / 2);
 
         if (_lastTouchPoint == SKPoint.Empty) return;

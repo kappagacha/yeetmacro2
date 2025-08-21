@@ -5,146 +5,146 @@
              x:Class="YeetMacro2.Views.ToggleImageView"
              xmlns:v="clr-namespace:YeetMacro2.Views"
              x:Name="thisView">
-    <Grid ColumnSpacing="5" HeightRequest="{Binding ImageHeight, Source={Reference thisView}, TargetNullValue={StaticResource IconHeight}, FallbackValue={StaticResource IconHeight}}">
+    <Grid ColumnSpacing="5" HeightRequest="{Binding ImageHeight, Source={Reference thisView}, x:DataType=v:ToggleImageView, TargetNullValue={StaticResource IconHeight}, FallbackValue={StaticResource IconHeight}}">
         <Grid.Triggers>
-            <DataTrigger TargetType="Grid" Binding="{Binding Text, Source={Reference thisView}, Converter={conv:NullToBoolConverter IsInverse=True}}" Value="True">
+            <DataTrigger TargetType="Grid" Binding="{Binding Text, Source={Reference thisView}, x:DataType=v:ToggleImageView, Converter={conv:NullToBoolConverter IsInverse=True}}" Value="True">
                 <Setter Property="ColumnDefinitions" Value="Auto,*" />
             </DataTrigger>
         </Grid.Triggers>
         <v:ImageView x:Name="imageView" Margin="0" Padding="0"
-                ImageWidth="{Binding ImageWidth, Source={Reference thisView}}"
-                ImageHeight="{Binding ImageHeight, Source={Reference thisView}}"
-                FontFamily="{Binding FontFamily, Source={Reference thisView}}"
-                Glyph="{Binding Glyph, Source={Reference thisView}}"
-                Color="{Binding Color, Source={Reference thisView}}">
+                ImageWidth="{Binding ImageWidth, Source={Reference thisView}, x:DataType=v:ToggleImageView}"
+                ImageHeight="{Binding ImageHeight, Source={Reference thisView}, x:DataType=v:ToggleImageView}"
+                FontFamily="{Binding FontFamily, Source={Reference thisView}, x:DataType=v:ToggleImageView}"
+                Glyph="{Binding Glyph, Source={Reference thisView}, x:DataType=v:ToggleImageView}"
+                Color="{Binding Color, Source={Reference thisView}, x:DataType=v:ToggleImageView}">
             <v:ImageView.Triggers>
                 <MultiTrigger TargetType="v:ImageView">
                     <MultiTrigger.Conditions>
-                        <BindingCondition Binding="{Binding IsToggled, Source={Reference thisView}}" Value="True" />
-                        <BindingCondition Binding="{Binding ToggledFontFamily, Source={Reference thisView}, Converter={conv:NullToBoolConverter IsInverse=True}}" Value="False" />
+                        <BindingCondition Binding="{Binding IsToggled, Source={Reference thisView}, x:DataType=v:ToggleImageView}" Value="True" />
+                        <BindingCondition Binding="{Binding ToggledFontFamily, Source={Reference thisView}, x:DataType=v:ToggleImageView, Converter={conv:NullToBoolConverter IsInverse=True}}" Value="False" />
                     </MultiTrigger.Conditions>
                     <MultiTrigger.Setters>
-                        <Setter Property="FontFamily" Value="{Binding FontFamily, Source={Reference thisView}}" />
+                        <Setter Property="FontFamily" Value="{Binding FontFamily, Source={Reference thisView}, x:DataType=v:ToggleImageView}" />
                     </MultiTrigger.Setters>
                 </MultiTrigger>
                 <MultiTrigger TargetType="v:ImageView">
                     <MultiTrigger.Conditions>
-                        <BindingCondition Binding="{Binding IsToggled, Source={Reference thisView}}" Value="False" />
-                        <BindingCondition Binding="{Binding UntoggledFontFamily, Source={Reference thisView}, Converter={conv:NullToBoolConverter IsInverse=True}}" Value="False" />
+                        <BindingCondition Binding="{Binding IsToggled, Source={Reference thisView}, x:DataType=v:ToggleImageView}" Value="False" />
+                        <BindingCondition Binding="{Binding UntoggledFontFamily, Source={Reference thisView}, x:DataType=v:ToggleImageView, Converter={conv:NullToBoolConverter IsInverse=True}}" Value="False" />
                     </MultiTrigger.Conditions>
                     <MultiTrigger.Setters>
-                        <Setter Property="FontFamily" Value="{Binding FontFamily, Source={Reference thisView}}" />
+                        <Setter Property="FontFamily" Value="{Binding FontFamily, Source={Reference thisView}, x:DataType=v:ToggleImageView}" />
                     </MultiTrigger.Setters>
                 </MultiTrigger>
                 <MultiTrigger TargetType="v:ImageView">
                     <MultiTrigger.Conditions>
-                        <BindingCondition Binding="{Binding IsToggled, Source={Reference thisView}}" Value="True" />
-                        <BindingCondition Binding="{Binding ToggledGlyph, Source={Reference thisView}, Converter={conv:NullToBoolConverter IsInverse=True}}" Value="False" />
+                        <BindingCondition Binding="{Binding IsToggled, Source={Reference thisView}, x:DataType=v:ToggleImageView}" Value="True" />
+                        <BindingCondition Binding="{Binding ToggledGlyph, Source={Reference thisView}, x:DataType=v:ToggleImageView, Converter={conv:NullToBoolConverter IsInverse=True}}" Value="False" />
                     </MultiTrigger.Conditions>
                     <MultiTrigger.Setters>
-                        <Setter Property="Glyph" Value="{Binding Glyph, Source={Reference thisView}}" />
+                        <Setter Property="Glyph" Value="{Binding Glyph, Source={Reference thisView}, x:DataType=v:ToggleImageView}" />
                     </MultiTrigger.Setters>
                 </MultiTrigger>
                 <MultiTrigger TargetType="v:ImageView">
                     <MultiTrigger.Conditions>
-                        <BindingCondition Binding="{Binding IsToggled, Source={Reference thisView}}" Value="False" />
-                        <BindingCondition Binding="{Binding UntoggledGlyph, Source={Reference thisView}, Converter={conv:NullToBoolConverter IsInverse=True}}" Value="False" />
+                        <BindingCondition Binding="{Binding IsToggled, Source={Reference thisView}, x:DataType=v:ToggleImageView}" Value="False" />
+                        <BindingCondition Binding="{Binding UntoggledGlyph, Source={Reference thisView}, x:DataType=v:ToggleImageView, Converter={conv:NullToBoolConverter IsInverse=True}}" Value="False" />
                     </MultiTrigger.Conditions>
                     <MultiTrigger.Setters>
-                        <Setter Property="Glyph" Value="{Binding Glyph, Source={Reference thisView}}" />
+                        <Setter Property="Glyph" Value="{Binding Glyph, Source={Reference thisView}, x:DataType=v:ToggleImageView}" />
                     </MultiTrigger.Setters>
                 </MultiTrigger>
                 <MultiTrigger TargetType="v:ImageView">
                     <MultiTrigger.Conditions>
-                        <BindingCondition Binding="{Binding IsToggled, Source={Reference thisView}}" Value="True" />
-                        <BindingCondition Binding="{Binding ToggledColor, Source={Reference thisView}, Converter={conv:NullToBoolConverter IsInverse=True}}" Value="False" />
+                        <BindingCondition Binding="{Binding IsToggled, Source={Reference thisView}, x:DataType=v:ToggleImageView}" Value="True" />
+                        <BindingCondition Binding="{Binding ToggledColor, Source={Reference thisView}, x:DataType=v:ToggleImageView, Converter={conv:NullToBoolConverter IsInverse=True}}" Value="False" />
                     </MultiTrigger.Conditions>
                     <MultiTrigger.Setters>
-                        <Setter Property="Color" Value="{Binding Color, Source={Reference thisView}}" />
+                        <Setter Property="Color" Value="{Binding Color, Source={Reference thisView}, x:DataType=v:ToggleImageView}" />
                     </MultiTrigger.Setters>
                 </MultiTrigger>
                 <MultiTrigger TargetType="v:ImageView">
                     <MultiTrigger.Conditions>
-                        <BindingCondition Binding="{Binding IsToggled, Source={Reference thisView}}" Value="False" />
-                        <BindingCondition Binding="{Binding UntoggledColor, Source={Reference thisView}, Converter={conv:NullToBoolConverter IsInverse=True}}" Value="False" />
+                        <BindingCondition Binding="{Binding IsToggled, Source={Reference thisView}, x:DataType=v:ToggleImageView}" Value="False" />
+                        <BindingCondition Binding="{Binding UntoggledColor, Source={Reference thisView}, x:DataType=v:ToggleImageView, Converter={conv:NullToBoolConverter IsInverse=True}}" Value="False" />
                     </MultiTrigger.Conditions>
                     <MultiTrigger.Setters>
-                        <Setter Property="Color" Value="{Binding Color, Source={Reference thisView}}" />
+                        <Setter Property="Color" Value="{Binding Color, Source={Reference thisView}, x:DataType=v:ToggleImageView}" />
                     </MultiTrigger.Setters>
                 </MultiTrigger>
                 <MultiTrigger TargetType="v:ImageView">
                     <MultiTrigger.Conditions>
-                        <BindingCondition Binding="{Binding IsToggled, Source={Reference thisView}}" Value="True" />
-                        <BindingCondition Binding="{Binding ToggledFontFamily, Source={Reference thisView}, Converter={conv:NullToBoolConverter IsInverse=True}}" Value="True" />
+                        <BindingCondition Binding="{Binding IsToggled, Source={Reference thisView}, x:DataType=v:ToggleImageView}" Value="True" />
+                        <BindingCondition Binding="{Binding ToggledFontFamily, Source={Reference thisView}, x:DataType=v:ToggleImageView, Converter={conv:NullToBoolConverter IsInverse=True}}" Value="True" />
                     </MultiTrigger.Conditions>
                     <MultiTrigger.Setters>
-                        <Setter Property="FontFamily" Value="{Binding ToggledFontFamily, Source={Reference thisView}}" />
+                        <Setter Property="FontFamily" Value="{Binding ToggledFontFamily, Source={Reference thisView}, x:DataType=v:ToggleImageView}" />
                     </MultiTrigger.Setters>
                 </MultiTrigger>
                 <MultiTrigger TargetType="v:ImageView">
                     <MultiTrigger.Conditions>
-                        <BindingCondition Binding="{Binding IsToggled, Source={Reference thisView}}" Value="False" />
-                        <BindingCondition Binding="{Binding UntoggledFontFamily, Source={Reference thisView}, Converter={conv:NullToBoolConverter IsInverse=True}}" Value="True" />
+                        <BindingCondition Binding="{Binding IsToggled, Source={Reference thisView}, x:DataType=v:ToggleImageView}" Value="False" />
+                        <BindingCondition Binding="{Binding UntoggledFontFamily, Source={Reference thisView}, x:DataType=v:ToggleImageView, Converter={conv:NullToBoolConverter IsInverse=True}}" Value="True" />
                     </MultiTrigger.Conditions>
                     <MultiTrigger.Setters>
-                        <Setter Property="FontFamily" Value="{Binding UntoggledFontFamily, Source={Reference thisView}}" />
+                        <Setter Property="FontFamily" Value="{Binding UntoggledFontFamily, Source={Reference thisView}, x:DataType=v:ToggleImageView}" />
                     </MultiTrigger.Setters>
                 </MultiTrigger>
                 <MultiTrigger TargetType="v:ImageView">
                     <MultiTrigger.Conditions>
-                        <BindingCondition Binding="{Binding IsToggled, Source={Reference thisView}}" Value="True" />
-                        <BindingCondition Binding="{Binding ToggledGlyph, Source={Reference thisView}, Converter={conv:NullToBoolConverter IsInverse=True}}" Value="True" />
+                        <BindingCondition Binding="{Binding IsToggled, Source={Reference thisView}, x:DataType=v:ToggleImageView}" Value="True" />
+                        <BindingCondition Binding="{Binding ToggledGlyph, Source={Reference thisView}, x:DataType=v:ToggleImageView, Converter={conv:NullToBoolConverter IsInverse=True}}" Value="True" />
                     </MultiTrigger.Conditions>
                     <MultiTrigger.Setters>
-                        <Setter Property="Glyph" Value="{Binding ToggledGlyph, Source={Reference thisView}}" />
+                        <Setter Property="Glyph" Value="{Binding ToggledGlyph, Source={Reference thisView}, x:DataType=v:ToggleImageView}" />
                     </MultiTrigger.Setters>
                 </MultiTrigger>
                 <MultiTrigger TargetType="v:ImageView">
                     <MultiTrigger.Conditions>
-                        <BindingCondition Binding="{Binding IsToggled, Source={Reference thisView}}" Value="False" />
-                        <BindingCondition Binding="{Binding UntoggledGlyph, Source={Reference thisView}, Converter={conv:NullToBoolConverter IsInverse=True}}" Value="True" />
+                        <BindingCondition Binding="{Binding IsToggled, Source={Reference thisView}, x:DataType=v:ToggleImageView}" Value="False" />
+                        <BindingCondition Binding="{Binding UntoggledGlyph, Source={Reference thisView}, x:DataType=v:ToggleImageView, Converter={conv:NullToBoolConverter IsInverse=True}}" Value="True" />
                     </MultiTrigger.Conditions>
                     <MultiTrigger.Setters>
-                        <Setter Property="Glyph" Value="{Binding UntoggledGlyph, Source={Reference thisView}}" />
+                        <Setter Property="Glyph" Value="{Binding UntoggledGlyph, Source={Reference thisView}, x:DataType=v:ToggleImageView}" />
                     </MultiTrigger.Setters>
                 </MultiTrigger>
                 <MultiTrigger TargetType="v:ImageView">
                     <MultiTrigger.Conditions>
-                        <BindingCondition Binding="{Binding IsToggled, Source={Reference thisView}}" Value="True" />
-                        <BindingCondition Binding="{Binding ToggledColor, Source={Reference thisView}, Converter={conv:NullToBoolConverter IsInverse=True}}" Value="True" />
+                        <BindingCondition Binding="{Binding IsToggled, Source={Reference thisView}, x:DataType=v:ToggleImageView}" Value="True" />
+                        <BindingCondition Binding="{Binding ToggledColor, Source={Reference thisView}, x:DataType=v:ToggleImageView, Converter={conv:NullToBoolConverter IsInverse=True}}" Value="True" />
                     </MultiTrigger.Conditions>
                     <MultiTrigger.Setters>
-                        <Setter Property="Color" Value="{Binding ToggledColor, Source={Reference thisView}}" />
+                        <Setter Property="Color" Value="{Binding ToggledColor, Source={Reference thisView}, x:DataType=v:ToggleImageView}" />
                     </MultiTrigger.Setters>
                 </MultiTrigger>
                 <MultiTrigger TargetType="v:ImageView">
                     <MultiTrigger.Conditions>
-                        <BindingCondition Binding="{Binding IsToggled, Source={Reference thisView}}" Value="False" />
-                        <BindingCondition Binding="{Binding UntoggledColor, Source={Reference thisView}, Converter={conv:NullToBoolConverter IsInverse=True}}" Value="True" />
+                        <BindingCondition Binding="{Binding IsToggled, Source={Reference thisView}, x:DataType=v:ToggleImageView}" Value="False" />
+                        <BindingCondition Binding="{Binding UntoggledColor, Source={Reference thisView}, x:DataType=v:ToggleImageView, Converter={conv:NullToBoolConverter IsInverse=True}}" Value="True" />
                     </MultiTrigger.Conditions>
                     <MultiTrigger.Setters>
-                        <Setter Property="Color" Value="{Binding UntoggledColor, Source={Reference thisView}}" />
+                        <Setter Property="Color" Value="{Binding UntoggledColor, Source={Reference thisView}, x:DataType=v:ToggleImageView}" />
                     </MultiTrigger.Setters>
                 </MultiTrigger>
             </v:ImageView.Triggers>
         </v:ImageView>
         <Label Grid.Column="1" x:Name="label"
-               IsVisible="{Binding Text, Source={Reference thisView}, Converter={conv:NullToBoolConverter IsInverse=True}}" 
+               IsVisible="{Binding Text, Source={Reference thisView}, x:DataType=v:ToggleImageView, Converter={conv:NullToBoolConverter IsInverse=True}}" 
                VerticalTextAlignment="Center"
-               FontSize="{Binding FontSize, Source={Reference thisView}}"
-               Text="{Binding Text, Source={Reference thisView}}" />
-        <Grid Grid.Column="0" WidthRequest="{Binding ImageWidth, Source={Reference thisView}, TargetNullValue={StaticResource IconWidth}, FallbackValue={StaticResource IconWidth}}">
+               FontSize="{Binding FontSize, Source={Reference thisView}, x:DataType=v:ToggleImageView}"
+               Text="{Binding Text, Source={Reference thisView}, x:DataType=v:ToggleImageView}" />
+        <Grid Grid.Column="0" WidthRequest="{Binding ImageWidth, Source={Reference thisView}, x:DataType=v:ToggleImageView, TargetNullValue={StaticResource IconWidth}, FallbackValue={StaticResource IconWidth}}">
             <ImageButton
                 Padding="0" Margin="0" Clicked="ImageButton_Clicked" 
-                IsVisible="{Binding Command, Source={Reference thisView}, Converter={conv:NullToBoolConverter}}" />
+                IsVisible="{Binding Command, Source={Reference thisView}, x:DataType=v:ToggleImageView, Converter={conv:NullToBoolConverter}}" />
         </Grid>
-        <Grid Grid.Column="1" IsVisible="{Binding IsToggledFromImageOnly, Source={Reference thisView}, Converter={conv:InverseBoolConverter}}">
+        <Grid Grid.Column="1" IsVisible="{Binding IsToggledFromImageOnly, Source={Reference thisView}, x:DataType=v:ToggleImageView, Converter={conv:InverseBoolConverter}}">
             <ImageButton Padding="0" Margin="0" Clicked="ImageButton_Clicked" 
-                     IsVisible="{Binding Command, Source={Reference thisView}, Converter={conv:NullToBoolConverter}}">
+                     IsVisible="{Binding Command, Source={Reference thisView}, x:DataType=v:ToggleImageView, Converter={conv:NullToBoolConverter}}">
             </ImageButton>
         </Grid>
-        <ImageButton Padding="0" Margin="0" Grid.ColumnSpan="2" Command="{Binding Command, Source={Reference thisView}}"
-                     CommandParameter="{Binding CommandParameter, Source={Reference thisView}}"
-                     IsVisible="{Binding Command, Source={Reference thisView}, Converter={conv:NullToBoolConverter IsInverse=True}}" />
+        <ImageButton Padding="0" Margin="0" Grid.ColumnSpan="2" Command="{Binding Command, Source={Reference thisView}, x:DataType=v:ToggleImageView}"
+                     CommandParameter="{Binding CommandParameter, Source={Reference thisView}, x:DataType=v:ToggleImageView}"
+                     IsVisible="{Binding Command, Source={Reference thisView}, x:DataType=v:ToggleImageView, Converter={conv:NullToBoolConverter IsInverse=True}}" />
     </Grid>
 </ContentView>

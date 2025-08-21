@@ -3,11 +3,13 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="YeetMacro2.Views.PatternNodeView"
              xmlns:vm="clr-namespace:YeetMacro2.ViewModels"
+             xmlns:nvm="clr-namespace:YeetMacro2.ViewModels.NodeViewModels"
              xmlns:v="clr-namespace:YeetMacro2.Views"
              xmlns:conv="clr-namespace:YeetMacro2.Converters"
              xmlns:fa="clr-namespace:UraniumUI.Icons.FontAwesome;assembly=UraniumUI.Icons.FontAwesome"
              xmlns:mi="clr-namespace:UraniumUI.Icons.MaterialIcons;assembly=UraniumUI.Icons.MaterialIcons"
              BackgroundColor="{AppThemeBinding Light={StaticResource Background}, Dark={StaticResource BackgroundDark}}"
+             x:DataType="v:PatternNodeView"
              x:Name="thisControl">
     <Grid>
         <v:ToggleImageView Text="Using Snapshot" FontFamily="MaterialOutlined" Glyph="{x:Static mi:MaterialOutlined.Screenshot}"
@@ -18,14 +20,11 @@
             <Border Grid.Column="0" Stroke="{StaticResource Primary}" BackgroundColor="Transparent" Padding="3">
                 <v:NodeView NodeManager="{Binding MacroSet.Patterns, Source={Reference thisControl}}">
                     <v:NodeView.ExtraMenuItemsDataTemplate>
-                        <DataTemplate x:DataType="{x:Null}">
+                        <DataTemplate x:DataType="v:NodeView">
                             <VerticalStackLayout>
-                                <v:ImageView FontFamily="FASolid" Glyph="{x:Static fa:Solid.FileExport}" 
-                                                 Command="{Binding ItemsSource.ExportCommand}"
-                                                 CommandParameter="{Binding BindingContext.Name, Source={RelativeSource AncestorType={x:Type v:PatternNodeView}}}" />
-                                <v:ToggleImageView FontFamily="MaterialOutlined" Glyph="{x:Static mi:MaterialOutlined.Screenshot}"
+                                <v:ToggleImageView x:DataType="v:NodeView" FontFamily="MaterialOutlined" Glyph="{x:Static mi:MaterialOutlined.Screenshot}"
                                                    ToggledColor="{StaticResource Primary}"
-                                                   IsToggled="{Binding MacroSet.UsePatternsSnapshot, Source={RelativeSource AncestorType={x:Type v:PatternNodeView}}}" />
+                                                   IsToggled="{Binding MacroSet.UsePatternsSnapshot, Source={RelativeSource AncestorType={x:Type v:PatternNodeView}}, x:DataType=v:PatternNodeView}" />
                             </VerticalStackLayout>
                         </DataTemplate>
                     </v:NodeView.ExtraMenuItemsDataTemplate>

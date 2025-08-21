@@ -7,6 +7,7 @@
              xmlns:mct="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
              xmlns:fa="clr-namespace:UraniumUI.Icons.FontAwesome;assembly=UraniumUI.Icons.FontAwesome"
              xmlns:mi="clr-namespace:UraniumUI.Icons.MaterialIcons;assembly=UraniumUI.Icons.MaterialIcons"
+             xmlns:m="clr-namespace:YeetMacro2.Data.Models"
              BackgroundColor="{AppThemeBinding Light={StaticResource Background}, Dark={StaticResource BackgroundDark}}"
              x:DataType="vm:MacroSetViewModel"
              x:Class="YeetMacro2.Views.ScriptNodeView"
@@ -21,29 +22,26 @@
                         </DataTemplate>
                     </v:NodeView.ExpanderTemplate>
                     <v:NodeView.ExtraMenuItemsDataTemplate>
-                        <DataTemplate x:DataType="{x:Null}">
+                        <DataTemplate x:DataType="v:NodeView">
                             <VerticalStackLayout>
-                                <!--<v:ImageView FontFamily="FASolid" Glyph="{x:Static fa:Solid.FileExport}" 
-                                                    Command="{Binding ItemsSource.ExportCommand}"
-                                                    CommandParameter="{Binding BindingContext.SelectedMacroSet.Name, Source={RelativeSource AncestorType={x:Type v:ScriptNodeView}}}" />-->
-                                <v:ToggleImageView FontFamily="MaterialOutlined" IsToggled="{Binding MacroSet.Scripts.ShowHiddenScripts, Source={RelativeSource AncestorType={x:Type v:ScriptNodeView}}}"
+                                <v:ToggleImageView FontFamily="MaterialOutlined" IsToggled="{Binding MacroSet.Scripts.ShowHiddenScripts, Source={RelativeSource AncestorType={x:Type v:ScriptNodeView}}, x:DataType=v:ScriptNodeView}"
                                                    UntoggledGlyph="{x:Static mi:MaterialOutlined.Visibility_off}" 
                                                    ToggledGlyph="{x:Static mi:MaterialOutlined.Visibility}" />
-                                <v:ToggleImageView IsVisible="{Binding MacroSet.Scripts.SelectedNode, Source={RelativeSource AncestorType={x:Type v:ScriptNodeView}}, Converter={conv:NullToBoolConverter IsInverse=True}}"
-                                                   IsToggled="{Binding MacroSet.Scripts.SelectedNode.IsFavorite, Source={RelativeSource AncestorType={x:Type v:ScriptNodeView}}}"
+                                <v:ToggleImageView IsVisible="{Binding MacroSet.Scripts.SelectedNode, Source={RelativeSource AncestorType={x:Type v:ScriptNodeView}}, x:DataType=v:ScriptNodeView, Converter={conv:NullToBoolConverter IsInverse=True}}"
+                                                   IsToggled="{Binding MacroSet.Scripts.SelectedNode.IsFavorite, Source={RelativeSource AncestorType={x:Type v:ScriptNodeView}}, x:DataType=v:ScriptNodeView}"
                                                    HorizontalOptions="End" VerticalOptions="Center"
                                                    FontFamily="MaterialOutlined" Glyph="{x:Static mi:MaterialOutlined.Star}" ToggledColor="Yellow" />
                             </VerticalStackLayout>
                         </DataTemplate>
                     </v:NodeView.ExtraMenuItemsDataTemplate>
                     <v:NodeView.ItemTemplate>
-                        <DataTemplate x:DataType="{x:Null}">
+                        <DataTemplate x:DataType="m:ScriptNode">
                             <Grid HeightRequest="20">
                                 <Grid.Triggers>
                                     <MultiTrigger TargetType="Grid">
                                         <MultiTrigger.Conditions>
                                             <BindingCondition Binding="{Binding IsHidden}" Value="True" />
-                                            <BindingCondition Binding="{Binding MacroSet.Scripts.ShowHiddenScripts, Source={RelativeSource AncestorType={x:Type v:ScriptNodeView}}}" Value="False" />
+                                            <BindingCondition Binding="{Binding MacroSet.Scripts.ShowHiddenScripts, Source={RelativeSource AncestorType={x:Type v:ScriptNodeView}}, x:DataType=v:ScriptNodeView}" Value="False" />
                                         </MultiTrigger.Conditions>
                                         <MultiTrigger.Setters>
                                             <Setter Property="IsVisible" Value="False" />
@@ -58,9 +56,9 @@
                                         </DataTrigger>
                                     </Label.Triggers>
                                 </Label>
-                                <ImageButton Margin="0" Padding="0" CommandParameter="{Binding .}" 
-                                             Command="{Binding MacroSet.Scripts.SelectNodeCommand, Source={RelativeSource AncestorType={x:Type v:ScriptNodeView}}}" />
-                                <v:ToggleImageView IsVisible="{Binding IsFavorite}" HorizontalOptions="End" VerticalOptions="Center" ImageHeight="10" ImageWidth="10"
+                                <ImageButton x:DataType="m:ScriptNode" Margin="0" Padding="0" CommandParameter="{Binding .}" 
+                                             Command="{Binding MacroSet.Scripts.SelectNodeCommand, Source={RelativeSource AncestorType={x:Type v:ScriptNodeView}}, x:DataType=v:ScriptNodeView}" />
+                                <v:ToggleImageView x:DataType="m:ScriptNode" IsVisible="{Binding IsFavorite}" HorizontalOptions="End" VerticalOptions="Center" ImageHeight="10" ImageWidth="10"
                                                    FontFamily="MaterialOutlined" Glyph="{x:Static mi:MaterialOutlined.Star}" Color="Yellow" />
                             </Grid>
                         </DataTemplate>
@@ -97,7 +95,7 @@
                             IsVisible="{Binding Scripts.SelectedNode, Converter={conv:NullToBoolConverter IsInverse=True}}">
                     <mct:DockLayout BindingContext="{Binding Scripts.SelectedNode}">
                         <v:ImageView mct:DockLayout.DockPosition="Left" FontFamily="MaterialOutlined" Glyph="{x:Static mi:MaterialOutlined.Info}" />
-                        <Label x:DataType="{x:Null}" Text="{Binding Description}" />
+                        <Label Text="{Binding Description}" />
                     </mct:DockLayout>
                 </Border>
                 <Border  Grid.Row="1" mct:DockLayout.DockPosition="Top" Stroke="{StaticResource Primary}">
@@ -123,12 +121,13 @@
             </Grid>
         </Grid>
         <Grid HorizontalOptions="End" VerticalOptions="End" IsVisible="{Binding Scripts.SelectedNode, Converter={conv:NullToBoolConverter IsInverse=True}}">
-            <v:ImageView IsVisible="{Binding ShowExecuteButton, Source={x:Reference thisControl}}"
+            <v:ImageView
                  ImageHeight="60"
                  ImageWidth="60"
                  FontFamily="MaterialOutlined" Glyph="{x:Static mi:MaterialOutlined.Play_arrow}"
                  Command="{Binding ExecuteScriptCommand}"
-                 CommandParameter="{Binding Scripts.SelectedNode}" />
+                 CommandParameter="{Binding Scripts.SelectedNode}"
+                 IsVisible="{Binding ShowExecuteButton, Source={x:Reference thisControl}, x:DataType=v:ScriptNodeView}" />
         </Grid>
         <HorizontalStackLayout HorizontalOptions="End" VerticalOptions="Start" Margin="0,0,40,0">
             <v:ToggleImageView IsToggled="{Binding Scripts.ShowScriptEditor}" ToggledColor="{StaticResource Primary}"

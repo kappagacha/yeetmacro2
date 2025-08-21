@@ -8,12 +8,12 @@ internal class WindowsInputService : IInputService
 {
     public Task<string> PromptInput(string message, string placeholderInput = "")
     {
-        return Application.Current.MainPage.DisplayPromptAsync("", message, placeholder: placeholderInput);
+        return Application.Current.Windows[0].Page.DisplayPromptAsync("", message, placeholder: placeholderInput);
     }
 
     public Task<string> SelectOption(string message, params string[] options)
     {
-        return Application.Current.MainPage.DisplayActionSheet(message, "cancel", "ok", options);
+        return Application.Current.Windows[0].Page.DisplayActionSheet(message, "cancel", "ok", options);
     }
 
     public async Task<Rect> DrawUserRectangle()

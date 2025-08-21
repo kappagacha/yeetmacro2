@@ -10,6 +10,7 @@
              xmlns:skia="clr-namespace:SkiaSharp.Views.Maui.Controls;assembly=SkiaSharp.Views.Maui.Controls"
              xmlns:mct="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
              x:Class="YeetMacro2.Views.PatternView"
+             x:DataType="v:PatternView"
              x:Name="thisView">
     <Grid Padding="3">
         <skia:SKCanvasView x:Name="canvasView" EnableTouchEvents="True" PaintSurface="OnCanvasViewPaintSurface" Touch="OnCanvasViewTouch" />
@@ -23,139 +24,139 @@
                     <v:ToggleImageView x:Name="offsetToggle" ToggledColor="{StaticResource Primary}" FontFamily="FASolid" Glyph="{x:Static fa:Solid.ArrowRightArrowLeft}" />
                     <v:ToggleImageView x:Name="infoToggle" ToggledColor="{StaticResource Primary}" FontFamily="MaterialOutlined" Glyph="{x:Static mi:MaterialOutlined.Info}" />
                 </HorizontalStackLayout>
-                <HorizontalStackLayout Spacing="5" IsVisible="{Binding IsToggled, Source={x:Reference generalFlagsToggle}}">
+                <HorizontalStackLayout x:DataType="v:ToggleImageView" Spacing="5" IsVisible="{Binding IsToggled, Source={x:Reference generalFlagsToggle}}">
                     <Label VerticalOptions="Center" Padding="0" Text="VariancePct" />
-                    <Entry VerticalOptions="Center" Keyboard="Numeric" Text="{Binding Pattern.VariancePct, Source={Reference thisView}}" />
+                    <Entry VerticalOptions="Center" Keyboard="Numeric" Text="{Binding Pattern.VariancePct, Source={Reference thisView}, x:DataType=v:PatternView}" />
                 </HorizontalStackLayout>
-                <HorizontalStackLayout Margin="0" Padding="0" IsVisible="{Binding IsToggled, Source={x:Reference generalFlagsToggle}}">
+                <HorizontalStackLayout Margin="0" Padding="0" x:DataType="v:ToggleImageView" IsVisible="{Binding IsToggled, Source={x:Reference generalFlagsToggle}}">
                     <Label Margin="0" VerticalOptions="Center" Padding="0" Text="MultiPattern" />
-                    <CheckBox Margin="10,0,0,0" VerticalOptions="Center" IsChecked="{Binding PatternNode.IsMultiPattern, Source={Reference thisView}}" />
+                    <CheckBox Margin="10,0,0,0" VerticalOptions="Center" IsChecked="{Binding PatternNode.IsMultiPattern, Source={Reference thisView}, x:DataType=v:PatternView}" />
                     <Label VerticalOptions="Center" Padding="0" Text="Type" />
                     <HorizontalStackLayout>
                         <Grid Margin="10,0,0,0" Padding="0" VerticalOptions="Center">
-                            <Label Margin="0" Padding="0" Text="{Binding Pattern.Type, Source={Reference thisView}}" VerticalOptions="Center" />
+                            <Label Margin="0" Padding="0" Text="{Binding Pattern.Type, Source={Reference thisView}, x:DataType=v:PatternView}" VerticalOptions="Center" />
                             <Border Opacity="0.2" BackgroundColor="Gray">
                                 <Border.StrokeShape>
                                     <RoundRectangle CornerRadius="10" />
                                 </Border.StrokeShape>
-                                <ImageButton Margin="0" Padding="0" BindingContext="{Binding Pattern, Source={Reference thisView}}" Clicked="PatternType_Clicked" />
+                                <ImageButton Margin="0" Padding="0" BindingContext="{Binding Pattern, Source={Reference thisView}, x:DataType=v:PatternView}" Clicked="PatternType_Clicked" />
                             </Border>
                         </Grid>
                     </HorizontalStackLayout>
                 </HorizontalStackLayout>
-                <HorizontalStackLayout IsVisible="{Binding IsToggled, Source={x:Reference generalFlagsToggle}}">
+                <HorizontalStackLayout x:DataType="v:ToggleImageView" IsVisible="{Binding IsToggled, Source={x:Reference generalFlagsToggle}}">
                     <Label VerticalOptions="Center" Padding="0" Text="Swipe Direction" />
                     <HorizontalStackLayout>
                         <Grid Margin="10,0,0,0" Padding="0" VerticalOptions="Center">
-                            <Label Margin="0" Padding="0" Text="{Binding Pattern.SwipeDirection, Source={Reference thisView}}" VerticalOptions="Center" />
+                            <Label Margin="0" Padding="0" Text="{Binding Pattern.SwipeDirection, Source={Reference thisView}, x:DataType=v:PatternView}" VerticalOptions="Center" />
                             <Border Opacity="0.2" BackgroundColor="Gray">
                                 <Border.StrokeShape>
                                     <RoundRectangle CornerRadius="10" />
                                 </Border.StrokeShape>
-                                <ImageButton Margin="0" Padding="0" BindingContext="{Binding Pattern, Source={Reference thisView}}" Clicked="SwipeDirection_Clicked" />
+                                <ImageButton Margin="0" Padding="0" BindingContext="{Binding Pattern, Source={Reference thisView}, x:DataType=v:PatternView}" Clicked="SwipeDirection_Clicked" />
                             </Border>
                         </Grid>
                     </HorizontalStackLayout>
-                    <Button Text="Test" Command="{Binding TestSwipeCommand, Source={Reference thisView}}"
-                            CommandParameter="{Binding Pattern, Source={Reference thisView}}">
+                    <Button Text="Test" Command="{Binding TestSwipeCommand, Source={Reference thisView}, x:DataType=v:PatternView}"
+                            CommandParameter="{Binding Pattern, Source={Reference thisView}, x:DataType=v:PatternView}">
                     </Button>
                 </HorizontalStackLayout>
-                <HorizontalStackLayout Margin="0" Padding="0" IsVisible="{Binding IsToggled, Source={x:Reference textMatchToggle}}">
-                    <CheckBox TranslationX="{OnPlatform WinUI=20, Android=10}" IsChecked="{Binding Pattern.TextMatch.IsActive, Source={Reference thisView}}" />
+                <HorizontalStackLayout Margin="0" Padding="0" x:DataType="v:ToggleImageView" IsVisible="{Binding IsToggled, Source={x:Reference textMatchToggle}}">
+                    <CheckBox TranslationX="{OnPlatform WinUI=20, Android=10}" IsChecked="{Binding Pattern.TextMatch.IsActive, Source={Reference thisView}, x:DataType=v:PatternView}" />
                     <Label Margin="0" VerticalOptions="Center" Padding="0" Text="TextMatch:" />
-                    <Entry Margin="5,0,0,0" VerticalOptions="Center" Text="{Binding Pattern.TextMatch.Text, Source={Reference thisView}}" />
+                    <Entry Margin="5,0,0,0" VerticalOptions="Center" Text="{Binding Pattern.TextMatch.Text, Source={Reference thisView}, x:DataType=v:PatternView}" />
                     <Label Margin="5,0,0,0" VerticalOptions="Center" Padding="0" Text="Whitelist:" />
-                    <Entry Margin="5,0,0,0" VerticalOptions="Center" Text="{Binding Pattern.TextMatch.WhiteList, Source={Reference thisView}}" />
-                    <Button Text="Test" Command="{Binding TestPatternTextMatchCommand, Source={Reference thisView}}">
+                    <Entry Margin="5,0,0,0" VerticalOptions="Center" Text="{Binding Pattern.TextMatch.WhiteList, Source={Reference thisView}, x:DataType=v:PatternView}" />
+                    <Button Text="Test" Command="{Binding TestPatternTextMatchCommand, Source={Reference thisView}, x:DataType=v:PatternView}">
                         <Button.CommandParameter>
                             <MultiBinding Converter="{conv:PassThroughConverter}">
-                                <Binding Path="Pattern" Source="{Reference thisView}" />
-                                <Binding Path="Text" Source="{Reference xOffset}" />
-                                <Binding Path="Text" Source="{Reference yOffset}" />
-                                <Binding Path="IsChecked" Source="{Reference doTestCalc}" />
+                                <Binding x:DataType="v:PatternView" Path="Pattern" Source="{Reference thisView}" />
+                                <Binding x:DataType="Entry" Path="Text" Source="{Reference xOffset}" />
+                                <Binding x:DataType="Entry" Path="Text" Source="{Reference yOffset}" />
+                                <Binding x:DataType="CheckBox" Path="IsChecked" Source="{Reference doTestCalc}" />
                             </MultiBinding>
                         </Button.CommandParameter>
                     </Button>
-                    <Button Text="Apply" Command="{Binding ApplyPatternTextMatchCommand, Source={Reference thisView}}">
+                    <Button Text="Apply" Command="{Binding ApplyPatternTextMatchCommand, Source={Reference thisView}, x:DataType=v:PatternView}">
                         <Button.CommandParameter>
                             <MultiBinding Converter="{conv:PassThroughConverter}">
-                                <Binding Path="Pattern" Source="{Reference thisView}" />
-                                <Binding Path="Text" Source="{Reference xOffset}" />
-                                <Binding Path="Text" Source="{Reference yOffset}" />
-                                <Binding Path="IsChecked" Source="{Reference doTestCalc}" />
+                                <Binding x:DataType="v:PatternView" Path="Pattern" Source="{Reference thisView}" />
+                                <Binding x:DataType="Entry" Path="Text" Source="{Reference xOffset}" />
+                                <Binding x:DataType="Entry" Path="Text" Source="{Reference yOffset}" />
+                                <Binding x:DataType="CheckBox" Path="IsChecked" Source="{Reference doTestCalc}" />
                             </MultiBinding>
                         </Button.CommandParameter>
                     </Button>
                 </HorizontalStackLayout>
-                <HorizontalStackLayout Margin="0" Padding="0" IsVisible="{Binding IsToggled, Source={x:Reference colorThresholdToggle}}">
-                    <CheckBox TranslationX="{OnPlatform WinUI=20, Android=10}" IsChecked="{Binding Pattern.ColorThreshold.IsActive, Source={Reference thisView}}" CheckedChanged="ColorThresholdIsActive_CheckedChanged" />
+                <HorizontalStackLayout Margin="0" Padding="0" x:DataType="v:ToggleImageView" IsVisible="{Binding IsToggled, Source={x:Reference colorThresholdToggle}}">
+                    <CheckBox TranslationX="{OnPlatform WinUI=20, Android=10}" IsChecked="{Binding Pattern.ColorThreshold.IsActive, Source={Reference thisView}, x:DataType=v:PatternView}" CheckedChanged="ColorThresholdIsActive_CheckedChanged" />
                     <Label Margin="0" VerticalOptions="Center" Padding="0" Text="Color Threshold:" />
                     <v:IntegerStepper x:Name="colorThresholdVariancePct" Value="30" Increment="10" />
                     <Label Margin="0" VerticalOptions="Center" Padding="0" Text="@" />
                     <Entry x:Name="colorThresholdColor" Margin="0,0,0,0" VerticalOptions="Center" IsReadOnly="True" />
-                    <CheckBox TranslationX="{OnPlatform WinUI=20, Android=10}" IsChecked="{Binding Pattern.ColorThreshold.IgnoreBackground, Source={Reference thisView}}" />
+                    <CheckBox TranslationX="{OnPlatform WinUI=20, Android=10}" IsChecked="{Binding Pattern.ColorThreshold.IgnoreBackground, Source={Reference thisView}, x:DataType=v:PatternView}" />
                     <Label Margin="0" VerticalOptions="Center" Padding="0" Text="IgnoreBackground" />
                 </HorizontalStackLayout>
-                <HorizontalStackLayout Margin="0" Padding="0" IsVisible="{Binding IsToggled, Source={x:Reference colorThresholdToggle}}">
+                <HorizontalStackLayout Margin="0" Padding="0" x:DataType="v:ToggleImageView" IsVisible="{Binding IsToggled, Source={x:Reference colorThresholdToggle}}">
                     <skia:SKCanvasView Margin="5,0,0,0" x:Name="colorPickCanvas" PaintSurface="OnColorPickPaintSurface" WidthRequest="20" HeightRequest="20" />
-                    <Button Text="Apply" Command="{Binding ApplyColorThresholdCommand, Source={Reference thisView}}">
+                    <Button Text="Apply" Command="{Binding ApplyColorThresholdCommand, Source={Reference thisView}, x:DataType=v:PatternView}">
                         <Button.CommandParameter>
                             <MultiBinding Converter="{conv:PassThroughConverter}">
-                                <Binding Path="Pattern" Source="{Reference thisView}" />
-                                <Binding Path="Value" Source="{Reference colorThresholdVariancePct}" />
-                                <Binding Path="Text" Source="{Reference colorThresholdColor}" />
-                                <Binding Path="SelectPatternCommand" Source="{Reference thisView}" />
+                                <Binding x:DataType="v:PatternView" Path="Pattern" Source="{Reference thisView}" />
+                                <Binding x:DataType="v:IntegerStepper" Path="Value" Source="{Reference colorThresholdVariancePct}" />
+                                <Binding x:DataType="Entry" Path="Text" Source="{Reference colorThresholdColor}" />
+                                <Binding x:DataType="v:PatternView" Path="SelectPatternCommand" Source="{Reference thisView}" />
                             </MultiBinding>
                         </Button.CommandParameter>
                     </Button>
                 </HorizontalStackLayout>
-                <HorizontalStackLayout Margin="0" Padding="0" IsVisible="{Binding IsToggled, Source={x:Reference offsetToggle}}">
+                <HorizontalStackLayout Margin="0" Padding="0" x:DataType="v:ToggleImageView" IsVisible="{Binding IsToggled, Source={x:Reference offsetToggle}}">
                     <Label VerticalOptions="Center" Padding="0" Text="OffsetCalcType" />
                     <HorizontalStackLayout>
                         <Grid Margin="10,0,0,0" Padding="0" VerticalOptions="Center">
-                            <Label Margin="0" Padding="0" Text="{Binding Pattern.OffsetCalcType, Source={Reference thisView}}" VerticalOptions="Center" />
+                            <Label Margin="0" Padding="0" Text="{Binding Pattern.OffsetCalcType, Source={Reference thisView}, x:DataType=v:PatternView}" VerticalOptions="Center" />
                             <Border Opacity="0.2" BackgroundColor="Gray">
                                 <Border.StrokeShape>
                                     <RoundRectangle CornerRadius="10" />
                                 </Border.StrokeShape>
-                                <ImageButton Margin="0" Padding="0" BindingContext="{Binding Pattern, Source={Reference thisView}}" Clicked="OffsetCalcType_Clicked" />
+                                <ImageButton Margin="0" Padding="0" BindingContext="{Binding Pattern, Source={Reference thisView}, x:DataType=v:PatternView}" Clicked="OffsetCalcType_Clicked" />
                             </Border>
                         </Grid>
                     </HorizontalStackLayout>
                     <Label Margin="10,0,0,0" VerticalOptions="Center" Padding="0" Text="BoundsCalcType" />
                     <HorizontalStackLayout>
                         <Grid Margin="10,0,0,0" Padding="0" VerticalOptions="Center">
-                            <Label Margin="0" Padding="0" Text="{Binding Pattern.BoundsCalcType, Source={Reference thisView}}" VerticalOptions="Center" />
+                            <Label Margin="0" Padding="0" Text="{Binding Pattern.BoundsCalcType, Source={Reference thisView}, x:DataType=v:PatternView}" VerticalOptions="Center" />
                             <Border Opacity="0.2" BackgroundColor="Gray">
                                 <Border.StrokeShape>
                                     <RoundRectangle CornerRadius="10" />
                                 </Border.StrokeShape>
-                                <ImageButton Margin="0" Padding="0" BindingContext="{Binding Pattern, Source={Reference thisView}}" Clicked="BoundsCalcType_Clicked" />
+                                <ImageButton Margin="0" Padding="0" BindingContext="{Binding Pattern, Source={Reference thisView}, x:DataType=v:PatternView}" Clicked="BoundsCalcType_Clicked" />
                             </Border>
                         </Grid>
                     </HorizontalStackLayout>
                     <Label Margin="5,0,0,0" VerticalOptions="Center" Padding="0" Text="Scale:" />
                     <Entry x:Name="scale" Margin="5,0,0,0" VerticalOptions="Center" Keyboard="Numeric" Text="1.0" />
                 </HorizontalStackLayout>
-                <HorizontalStackLayout Spacing="5" VerticalOptions="End" IsVisible="{Binding IsToggled, Source={x:Reference offsetToggle}}">
+                <HorizontalStackLayout Spacing="5" VerticalOptions="End" x:DataType="v:ToggleImageView" IsVisible="{Binding IsToggled, Source={x:Reference offsetToggle}}">
                     <CheckBox TranslationX="{OnPlatform WinUI=20, Android=10}" x:Name="doTestCalc" IsChecked="True" Margin="0,0,0,0" VerticalOptions="Center" />
                     <Label Margin="0,0,0,0" VerticalOptions="Center" Padding="0" Text="TestCalc" />
                     <Label Margin="0" VerticalOptions="Center" Padding="0" Text="XOffset:" />
                     <Entry x:Name="xOffset" VerticalOptions="Center" Keyboard="Numeric" Text="0"  />
                     <Label Margin="0" VerticalOptions="Center" Padding="0" Text="YOffset:" />
                     <Entry x:Name="yOffset" VerticalOptions="Center" Keyboard="Numeric" Text="0" />
-                    <Button Text="Apply" Command="{Binding ApplyPatternOffsetCommand, Source={Reference thisView}}">
+                    <Button Text="Apply" Command="{Binding ApplyPatternOffsetCommand, Source={Reference thisView}, x:DataType=v:PatternView}">
                         <Button.CommandParameter>
                             <MultiBinding Converter="{conv:PassThroughConverter}">
-                                <Binding Path="Pattern" Source="{Reference thisView}" />
-                                <Binding Path="Text" Source="{Reference xOffset}" />
-                                <Binding Path="Text" Source="{Reference yOffset}" />
+                                <Binding x:DataType="v:PatternView" Path="Pattern" Source="{Reference thisView}" />
+                                <Binding x:DataType="Entry" Path="Text" Source="{Reference xOffset}" />
+                                <Binding x:DataType="Entry" Path="Text" Source="{Reference yOffset}" />
                             </MultiBinding>
                         </Button.CommandParameter>
                     </Button>
                 </HorizontalStackLayout>
-                <HorizontalStackLayout IsVisible="{Binding PatternNode.IsMultiPattern, Source={Reference thisView}}">
-                    <CollectionView ItemsSource="{Binding PatternNode.Patterns, Source={Reference thisView}}">
+                <HorizontalStackLayout IsVisible="{Binding PatternNode.IsMultiPattern, Source={Reference thisView}, x:DataType=v:PatternView}">
+                    <CollectionView ItemsSource="{Binding PatternNode.Patterns, Source={Reference thisView}, x:DataType=v:PatternView}">
                         <CollectionView.ItemTemplate>
                             <DataTemplate x:DataType="m:Pattern">
                                 <Grid HeightRequest="20">
@@ -166,7 +167,7 @@
                                             </DataTrigger>
                                         </Label.Triggers>
                                     </Label>
-                                    <ImageButton Command="{Binding SelectPatternCommand, Source={RelativeSource AncestorType={x:Type v:PatternView}}}" CommandParameter="{Binding .}" />
+                                    <ImageButton CommandParameter="{Binding .}" Command="{Binding SelectPatternCommand, Source={RelativeSource AncestorType={x:Type v:PatternView}}, x:DataType=v:PatternView}" />
                                 </Grid>
                             </DataTemplate>
                         </CollectionView.ItemTemplate>
@@ -176,26 +177,26 @@
         </Grid>
         <VerticalStackLayout BackgroundColor="{AppThemeBinding Light={StaticResource Background}, Dark={StaticResource BackgroundDark}}" Opacity="0.8"
                              VerticalOptions="End" HorizontalOptions="End">
-            <HorizontalStackLayout Spacing="5" VerticalOptions="End" HorizontalOptions="End" IsVisible="{Binding IsToggled, Source={x:Reference infoToggle}}">
+            <HorizontalStackLayout Spacing="5" VerticalOptions="End" HorizontalOptions="End" x:DataType="v:ToggleImageView" IsVisible="{Binding IsToggled, Source={x:Reference infoToggle}}">
                 <v:ImageView FontFamily="MaterialOutlined" Glyph="{x:Static mi:MaterialOutlined.Rectangle}" Color="{StaticResource Primary}" />
-                <Label Text="{Binding Pattern.RawBoundsDisplay, Source={Reference thisView}}" />
+                <Label Text="{Binding Pattern.RawBoundsDisplay, Source={Reference thisView}, x:DataType=v:PatternView}" />
             </HorizontalStackLayout>
             <!--<HorizontalStackLayout Spacing="5" VerticalOptions="End" HorizontalOptions="End">
                 <v:ImageView FontFamily="MaterialOutlined" Glyph="{x:Static mi:MaterialOutlined.Image_aspect_ratio}" Color="{StaticResource Primary}" />
                 <Label Text="{Binding Patterns.CurrentResolution}" />
             </HorizontalStackLayout>-->
-            <HorizontalStackLayout Spacing="5" VerticalOptions="End" HorizontalOptions="End" IsVisible="{Binding IsToggled, Source={x:Reference infoToggle}}">
+            <HorizontalStackLayout Spacing="5" VerticalOptions="End" HorizontalOptions="End" x:DataType="v:ToggleImageView" IsVisible="{Binding IsToggled, Source={x:Reference infoToggle}}">
                 <v:ImageView FontFamily="MaterialOutlined" Glyph="{x:Static mi:MaterialOutlined.Image}" Color="{StaticResource Primary}" />
-                <Label Text="{Binding Pattern.Resolution, Source={Reference thisView}}" />
+                <Label Text="{Binding Pattern.Resolution, Source={Reference thisView}, x:DataType=v:PatternView}" />
             </HorizontalStackLayout>
             <HorizontalStackLayout VerticalOptions="End" HorizontalOptions="End">
                 <v:ImageView FontFamily="MaterialOutlined" Glyph="{x:Static mi:MaterialOutlined.Photo_camera_front}" Color="{StaticResource Primary}"
                              Command="{Binding CapturePatternCommand, Source={Reference thisView}}">
                     <v:ImageView.CommandParameter>
                         <MultiBinding Converter="{conv:PassThroughConverter}">
-                            <Binding Path="Pattern" Source="{Reference thisView}" />
-                            <Binding Path="PatternNode" Source="{Reference thisView}" />
-                            <Binding Path="SelectPatternCommand" Source="{Reference thisView}" />
+                            <Binding x:DataType="v:PatternView" Path="Pattern" Source="{Reference thisView}" />
+                            <Binding x:DataType="v:PatternView" Path="PatternNode" Source="{Reference thisView}" />
+                            <Binding x:DataType="v:PatternView" Path="SelectPatternCommand" Source="{Reference thisView}" />
                         </MultiBinding>
                     </v:ImageView.CommandParameter>
                 </v:ImageView>
@@ -206,10 +207,10 @@
                              Command="{Binding ClickPatternCommand, Source={Reference thisView}}">
                     <v:ImageView.CommandParameter>
                         <MultiBinding Converter="{conv:PassThroughConverter}">
-                            <Binding Path="Pattern" Source="{Reference thisView}" />
-                            <Binding Path="Text" Source="{Reference xOffset}" />
-                            <Binding Path="Text" Source="{Reference yOffset}" />
-                            <Binding Path="IsChecked" Source="{Reference doTestCalc}" />
+                            <Binding x:DataType="v:PatternView" Path="Pattern" Source="{Reference thisView}" />
+                            <Binding x:DataType="Entry" Path="Text" Source="{Reference xOffset}" />
+                            <Binding x:DataType="Entry" Path="Text" Source="{Reference yOffset}" />
+                            <Binding x:DataType="CheckBox" Path="IsChecked" Source="{Reference doTestCalc}" />
                         </MultiBinding>
                     </v:ImageView.CommandParameter>
                 </v:ImageView>
@@ -217,11 +218,11 @@
                              Command="{Binding TestPatternCommand, Source={Reference thisView}}">
                     <v:ImageView.CommandParameter>
                         <MultiBinding Converter="{conv:PassThroughConverter}">
-                            <Binding Path="Pattern" Source="{Reference thisView}" />
-                            <Binding Path="Text" Source="{Reference xOffset}" />
-                            <Binding Path="Text" Source="{Reference yOffset}" />
-                            <Binding Path="IsChecked" Source="{Reference doTestCalc}" />
-                            <Binding Path="Text" Source="{Reference scale}" />
+                            <Binding x:DataType="v:PatternView" Path="Pattern" Source="{Reference thisView}" />
+                            <Binding x:DataType="Entry" Path="Text" Source="{Reference xOffset}" />
+                            <Binding x:DataType="Entry" Path="Text" Source="{Reference yOffset}" />
+                            <Binding x:DataType="CheckBox" Path="IsChecked" Source="{Reference doTestCalc}" />
+                            <Binding x:DataType="Entry" Path="Text" Source="{Reference scale}" />
                         </MultiBinding>
                     </v:ImageView.CommandParameter>
                 </v:ImageView>
@@ -234,8 +235,8 @@
                              Command="{Binding DeletePatternCommand, Source={Reference thisView}}">
                     <v:ImageView.CommandParameter>
                         <MultiBinding Converter="{conv:PassThroughConverter}">
-                            <Binding Path="Pattern" Source="{Reference thisView}" />
-                            <Binding Path="PatternNode" Source="{Reference thisView}" />
+                            <Binding x:DataType="v:PatternView" Path="Pattern" Source="{Reference thisView}" />
+                            <Binding x:DataType="v:PatternView" Path="PatternNode" Source="{Reference thisView}" />
                         </MultiBinding>
                     </v:ImageView.CommandParameter>
                 </v:ImageView>
@@ -243,8 +244,8 @@
                              Command="{Binding SavePatternCommand, Source={Reference thisView}}">
                     <v:ImageView.CommandParameter>
                         <MultiBinding Converter="{conv:PassThroughConverter}">
-                            <Binding Path="Pattern" Source="{Reference thisView}" />
-                            <Binding Path="PatternNode" Source="{Reference thisView}" />
+                            <Binding x:DataType="v:PatternView" Path="Pattern" Source="{Reference thisView}" />
+                            <Binding x:DataType="v:PatternView" Path="PatternNode" Source="{Reference thisView}" />
                         </MultiBinding>
                     </v:ImageView.CommandParameter>
                 </v:ImageView>

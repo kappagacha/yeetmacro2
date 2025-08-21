@@ -1,8 +1,9 @@
-﻿
-using System.Collections.Concurrent;
+﻿using System.Collections.Concurrent;
+using Microsoft.Maui.Controls.Xaml;
 
 namespace YeetMacro2.Converters;
 
+[AcceptEmptyServiceProvider]
 public class VirtualDynamicTemplateSelector : VirtualListViewItemTemplateSelector, IMarkupExtension
 //public class DynamicTemplateSelector : DataTemplateSelector, IMarkupExtension
 {

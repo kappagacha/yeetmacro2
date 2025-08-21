@@ -2,27 +2,28 @@
 <ContentView xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:conv="clr-namespace:YeetMacro2.Converters"
+             xmlns:v="clr-namespace:YeetMacro2.Views"
              x:Class="YeetMacro2.Views.ImageView"
              x:Name="thisView">
-    <Grid HeightRequest="{Binding ImageHeight, Source={Reference thisView}, TargetNullValue={StaticResource IconHeight}}"
-          WidthRequest="{Binding ImageWidth, Source={Reference thisView}, TargetNullValue={StaticResource IconWidth}}">
+    <Grid HeightRequest="{Binding ImageHeight, Source={Reference thisView}, x:DataType=v:ImageView, TargetNullValue={StaticResource IconHeight}}"
+          WidthRequest="{Binding ImageWidth, Source={Reference thisView}, x:DataType=v:ImageView, TargetNullValue={StaticResource IconWidth}}">
         <!--<ContentView x:Name="contentView" IsVisible="{OnPlatform Android=true, WinUI=false}" />
         <Image Aspect="Fill" IsVisible="{OnPlatform Android=false, WinUI=true}">
             <Image.Source>
-                <FontImageSource FontFamily="{Binding FontFamily, Source={Reference thisView}}"
-                                 Glyph="{Binding Glyph, Source={Reference thisView}}" 
-                                 Color="{Binding Color, Source={Reference thisView}}" />
+                <FontImageSource FontFamily="{Binding FontFamily, Source={Reference thisView}, x:DataType=v:ImageView}"
+                                 Glyph="{Binding Glyph, Source={Reference thisView}, x:DataType=v:ImageView}" 
+                                 Color="{Binding Color, Source={Reference thisView}, x:DataType=v:ImageView}" />
             </Image.Source>
         </Image>-->
         <Image Aspect="Fill">
             <Image.Source>
-                <FontImageSource FontFamily="{Binding FontFamily, Source={Reference thisView}}"
-                                 Glyph="{Binding Glyph, Source={Reference thisView}}" 
-                                 Color="{Binding Color, Source={Reference thisView}}" />
+                <FontImageSource FontFamily="{Binding FontFamily, Source={Reference thisView}, x:DataType=v:ImageView}"
+                                 Glyph="{Binding Glyph, Source={Reference thisView}, x:DataType=v:ImageView}" 
+                                 Color="{Binding Color, Source={Reference thisView}, x:DataType=v:ImageView}" />
             </Image.Source>
         </Image>
-        <ImageButton Command="{Binding Command, Source={Reference thisView}}"
-                     CommandParameter="{Binding CommandParameter, Source={Reference thisView}}"
-                     IsVisible="{Binding Command, Source={Reference thisView}, Converter={conv:NullToBoolConverter IsInverse=True}}"/>
+        <ImageButton Command="{Binding Command, Source={Reference thisView}, x:DataType=v:ImageView}"
+                     CommandParameter="{Binding CommandParameter, Source={Reference thisView}, x:DataType=v:ImageView}"
+                     IsVisible="{Binding Command, Source={Reference thisView}, x:DataType=v:ImageView, Converter={conv:NullToBoolConverter IsInverse=True}}"/>
     </Grid>
 </ContentView>

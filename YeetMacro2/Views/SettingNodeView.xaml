@@ -26,15 +26,14 @@
                             </Label.Triggers>
                         </Label>
                         <ImageButton Margin="0" Padding="0" CommandParameter="{Binding .}" 
-                            Command="{Binding MacroSet.Settings.SelectNodeCommand, Source={RelativeSource AncestorType={x:Type v:SettingNodeView}}}" />
+                            Command="{Binding MacroSet.Settings.SelectNodeCommand, Source={RelativeSource AncestorType={x:Type v:SettingNodeView}}, x:DataType=v:SettingNodeView}" />
                     </Grid>
                     <ContentPresenter Grid.Column="1" x:Name="contentPresenter" BindingContext="{Binding .}" />
                 </HorizontalStackLayout>
-                <v:ImageView
-                    IsVisible="{Binding MacroSet.Settings.ShowResetButton, Source={RelativeSource AncestorType={x:Type v:SettingNodeView}}}"
+                <v:ImageView CommandParameter="{Binding .}"
                     VerticalOptions="Center" FontFamily="MaterialOutlined" Glyph="{x:Static mi:MaterialOutlined.Refresh}"
-                    Command="{Binding MacroSet.Settings.ResetSettingCommand, Source={RelativeSource AncestorType={x:Type v:SettingNodeView}}}"
-                    CommandParameter="{Binding .}" />
+                    IsVisible="{Binding MacroSet.Settings.ShowResetButton, Source={RelativeSource AncestorType={x:Type v:SettingNodeView}}, x:DataType=v:SettingNodeView}"
+                    Command="{Binding MacroSet.Settings.ResetSettingCommand, Source={RelativeSource AncestorType={x:Type v:SettingNodeView}}, x:DataType=v:SettingNodeView}" />
             </FlexLayout>
         </DataTemplate>
         <DataTemplate x:Key="ParentSettingTemplate" x:DataType="nvm:ParentSettingViewModel">
@@ -59,8 +58,8 @@
                                 </DataTrigger>
                             </Label.Triggers>
                         </Label>
-                        <ImageButton Margin="0" Padding="0" CommandParameter="{Binding .}" 
-                            Command="{Binding NodeManager.SelectNodeCommand, Source={RelativeSource AncestorType={x:Type v:NodeView}}}" />
+                        <ImageButton x:DataType="nvm:ParentSettingViewModel" Margin="0" Padding="0" CommandParameter="{Binding .}"
+                            Command="{Binding NodeManager.SelectNodeCommand, Source={RelativeSource AncestorType={x:Type v:NodeView}}, x:DataType=v:NodeView}" />
                     </Grid>
                 </Grid>
                 <Grid Grid.Row="1" Grid.Column="1" IsVisible="{Binding Nodes.Count, Converter={conv:NumberToBoolConverter}}">
@@ -98,8 +97,8 @@
                                 </DataTrigger>
                             </Label.Triggers>
                         </Label>
-                        <ImageButton Margin="0" Padding="0" CommandParameter="{Binding .}" 
-                            Command="{Binding NodeManager.SelectNodeCommand, Source={RelativeSource AncestorType={x:Type v:NodeView}}}" />
+                        <ImageButton x:DataType="nvm:PatternNodeViewModel" Margin="0" Padding="0" CommandParameter="{Binding .}" 
+                            Command="{Binding NodeManager.SelectNodeCommand, Source={RelativeSource AncestorType={x:Type v:NodeView}}, x:DataType=v:NodeView}" />
                     </Grid>
                 </Grid>
                 <Grid Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="2" IsVisible="{Binding Nodes.Count, Converter={conv:NumberToBoolConverter}}">
@@ -113,7 +112,7 @@
         <DataTemplate x:Key="BooleanSettingTemplate" x:DataType="nvm:BooleanSettingViewModel">
             <v:DataTemplateView DataTemplate="{StaticResource SharedTemplate}">
                 <v:DataTemplateView.ContentTemplate>
-                    <DataTemplate>
+                    <DataTemplate x:DataType="nvm:BooleanSettingViewModel">
                         <CheckBox IsChecked="{Binding Value}" VerticalOptions="Center" />
                     </DataTemplate>
                 </v:DataTemplateView.ContentTemplate>
@@ -126,18 +125,15 @@
                         <HorizontalStackLayout Spacing="5">
                             <Grid>
                                 <Label Margin="0" Padding="0" Text="{Binding Value}" VerticalOptions="Center" />
-                                <ImageButton Margin="0" Padding="0"
-                                    Command="{Binding MacroSet.Settings.SelectOptionCommand, Source={RelativeSource AncestorType={x:Type v:SettingNodeView}}}"
-                                    CommandParameter="{Binding .}" />
+                                <ImageButton x:DataType="m:OptionSetting" Margin="0" Padding="0" CommandParameter="{Binding .}"
+                                    Command="{Binding MacroSet.Settings.SelectOptionCommand, Source={RelativeSource AncestorType={x:Type v:SettingNodeView}}, x:DataType=v:SettingNodeView}" />
                             </Grid>
-                            <v:ImageView
+                            <v:ImageView x:DataType="m:OptionSetting" CommandParameter="{Binding .}"
                                 VerticalOptions="Center" FontFamily="MaterialOutlined" Glyph="{x:Static mi:MaterialOutlined.Edit}"
-                                Command="{Binding MacroSet.Settings.EditOptionCommand, Source={RelativeSource AncestorType={x:Type v:SettingNodeView}}}"
-                                CommandParameter="{Binding .}" />
-                            <v:ImageView
-                                VerticalOptions="Center" FontFamily="MaterialOutlined" Glyph="{x:Static mi:MaterialOutlined.Add}"
-                                Command="{Binding MacroSet.Settings.AddOptionCommand, Source={RelativeSource AncestorType={x:Type v:SettingNodeView}}}"
-                                CommandParameter="{Binding .}" />
+                                Command="{Binding MacroSet.Settings.EditOptionCommand, Source={RelativeSource AncestorType={x:Type v:SettingNodeView}}, x:DataType=v:SettingNodeView}" />
+                            <v:ImageView x:DataType="m:OptionSetting" CommandParameter="{Binding .}"
+                                VerticalOptions="Center" FontFamily="MaterialOutlined" Glyph="{x:Static mi:MaterialOutlined.Add}" 
+                                Command="{Binding MacroSet.Settings.AddOptionCommand, Source={RelativeSource AncestorType={x:Type v:SettingNodeView}}, x:DataType=v:SettingNodeView}"  />
                         </HorizontalStackLayout>
                     </DataTemplate>
                 </v:DataTemplateView.ContentTemplate>
@@ -146,23 +142,20 @@
         <DataTemplate x:Key="EnabledOptionSettingTemplate" x:DataType="nvm:EnabledOptionSettingViewModel">
             <v:DataTemplateView DataTemplate="{StaticResource SharedTemplate}" x:DataType="nvm:EnabledOptionSettingViewModel">
                 <v:DataTemplateView.ContentTemplate>
-                    <DataTemplate>
+                    <DataTemplate x:DataType="nvm:EnabledOptionSettingViewModel">
                         <HorizontalStackLayout Spacing="5">
                             <CheckBox IsChecked="{Binding IsEnabled}" VerticalOptions="Center" />
                             <Grid>
                                 <Label Margin="0" Padding="0" Text="{Binding Value}" VerticalOptions="Center" />
-                                <ImageButton Margin="0" Padding="0"
-                                    Command="{Binding MacroSet.Settings.SelectOptionCommand, Source={RelativeSource AncestorType={x:Type v:SettingNodeView}}}"
-                                    CommandParameter="{Binding .}" />
+                                <ImageButton x:DataType="nvm:EnabledOptionSettingViewModel" Margin="0" Padding="0" CommandParameter="{Binding .}"
+                                    Command="{Binding MacroSet.Settings.SelectOptionCommand, Source={RelativeSource AncestorType={x:Type v:SettingNodeView}}, x:DataType=v:SettingNodeView}" />
                             </Grid>
-                            <v:ImageView
-                                VerticalOptions="Center" FontFamily="MaterialOutlined" Glyph="{x:Static mi:MaterialOutlined.Edit}"
-                                Command="{Binding MacroSet.Settings.EditOptionCommand, Source={RelativeSource AncestorType={x:Type v:SettingNodeView}}}"
-                                CommandParameter="{Binding .}" />
-                            <v:ImageView
-                                VerticalOptions="Center" FontFamily="MaterialOutlined" Glyph="{x:Static mi:MaterialOutlined.Add}"
-                                Command="{Binding MacroSet.Settings.AddOptionCommand, Source={RelativeSource AncestorType={x:Type v:SettingNodeView}}}"
-                                CommandParameter="{Binding .}" />
+                            <v:ImageView x:DataType="nvm:EnabledOptionSettingViewModel"
+                                VerticalOptions="Center" FontFamily="MaterialOutlined" Glyph="{x:Static mi:MaterialOutlined.Edit}" CommandParameter="{Binding .}" 
+                                Command="{Binding MacroSet.Settings.EditOptionCommand, Source={RelativeSource AncestorType={x:Type v:SettingNodeView}}, x:DataType=v:SettingNodeView}" />
+                            <v:ImageView x:DataType="nvm:EnabledOptionSettingViewModel"
+                                VerticalOptions="Center" FontFamily="MaterialOutlined" Glyph="{x:Static mi:MaterialOutlined.Add}" CommandParameter="{Binding .}" 
+                                Command="{Binding MacroSet.Settings.AddOptionCommand, Source={RelativeSource AncestorType={x:Type v:SettingNodeView}}, x:DataType=v:SettingNodeView}"/>
                         </HorizontalStackLayout>
                     </DataTemplate>
                 </v:DataTemplateView.ContentTemplate>
@@ -171,7 +164,7 @@
         <DataTemplate x:Key="StringSettingTemplate" x:DataType="nvm:StringSettingViewModel">
             <v:DataTemplateView DataTemplate="{StaticResource SharedTemplate}">
                 <v:DataTemplateView.ContentTemplate>
-                    <DataTemplate>
+                    <DataTemplate x:DataType="nvm:StringSettingViewModel">
                         <Entry HeightRequest="{Binding Height}" VerticalOptions="Center" Text="{Binding Value}" />
                     </DataTemplate>
                 </v:DataTemplateView.ContentTemplate>
@@ -180,7 +173,7 @@
         <DataTemplate x:Key="EnabledStringSettingTemplate" x:DataType="nvm:EnabledStringSettingViewModel">
             <v:DataTemplateView DataTemplate="{StaticResource SharedTemplate}">
                 <v:DataTemplateView.ContentTemplate>
-                    <DataTemplate>
+                    <DataTemplate x:DataType="nvm:EnabledStringSettingViewModel">
                         <HorizontalStackLayout>
                             <CheckBox IsChecked="{Binding IsEnabled}" VerticalOptions="Center" />
                             <Entry HeightRequest="{Binding Height}" VerticalOptions="Center" Text="{Binding Value}" />
@@ -192,7 +185,7 @@
         <DataTemplate x:Key="IntegerSettingTemplate" x:DataType="nvm:IntegerSettingViewModel">
             <v:DataTemplateView DataTemplate="{StaticResource SharedTemplate}">
                 <v:DataTemplateView.ContentTemplate>
-                    <DataTemplate>
+                    <DataTemplate x:DataType="nvm:IntegerSettingViewModel">
                         <v:IntegerStepper  HeightRequest="{Binding Height}" Value="{Binding Value}" ShowIncrement="True" Increment="{Binding Increment}" />
                     </DataTemplate>
                 </v:DataTemplateView.ContentTemplate>
@@ -201,7 +194,7 @@
         <DataTemplate x:Key="EnabledIntegerSettingTemplate" x:DataType="nvm:EnabledIntegerSettingViewModel">
             <v:DataTemplateView DataTemplate="{StaticResource SharedTemplate}">
                 <v:DataTemplateView.ContentTemplate>
-                    <DataTemplate>
+                    <DataTemplate x:DataType="nvm:EnabledIntegerSettingViewModel">
                         <HorizontalStackLayout>
                             <CheckBox IsChecked="{Binding IsEnabled}" VerticalOptions="Center" />
                             <v:IntegerStepper HeightRequest="{Binding Height}" Value="{Binding Value}" ShowIncrement="True" Increment="{Binding Increment}" />
@@ -213,7 +206,7 @@
         <DataTemplate x:Key="DoubleSettingTemplate" x:DataType="nvm:DoubleSettingViewModel">
             <v:DataTemplateView DataTemplate="{StaticResource SharedTemplate}">
                 <v:DataTemplateView.ContentTemplate>
-                    <DataTemplate>
+                    <DataTemplate x:DataType="nvm:DoubleSettingViewModel">
                         <v:DoubleStepper HeightRequest="{Binding Height}" Value="{Binding Value}" ShowIncrement="True" Increment="{Binding Increment}" />
                     </DataTemplate>
                 </v:DataTemplateView.ContentTemplate>
@@ -222,7 +215,7 @@
         <DataTemplate x:Key="EnabledDoubleSettingTemplate" x:DataType="nvm:EnabledDoubleSettingViewModel">
             <v:DataTemplateView DataTemplate="{StaticResource SharedTemplate}">
                 <v:DataTemplateView.ContentTemplate>
-                    <DataTemplate>
+                    <DataTemplate x:DataType="nvm:EnabledDoubleSettingViewModel">
                         <HorizontalStackLayout>
                             <CheckBox mct:DockLayout.DockPosition="Left" IsChecked="{Binding IsEnabled}" VerticalOptions="Center" />
                             <v:DoubleStepper  HeightRequest="{Binding Height}" Value="{Binding Value}" ShowIncrement="True" Increment="{Binding Increment}" />
@@ -237,7 +230,7 @@
         <DataTemplate x:Key="EnabledPatternSettingTemplate" x:DataType="nvm:EnabledPatternSettingViewModel">
             <v:DataTemplateView DataTemplate="{StaticResource SharedTemplate}">
                 <v:DataTemplateView.ContentTemplate>
-                    <DataTemplate>
+                    <DataTemplate x:DataType="nvm:EnabledPatternSettingViewModel">
                         <CheckBox IsChecked="{Binding IsEnabled}" VerticalOptions="Center" />
                     </DataTemplate>
                 </v:DataTemplateView.ContentTemplate>
@@ -246,7 +239,7 @@
         <DataTemplate x:Key="TimestampSettingTemplate" x:DataType="nvm:TimestampSettingViewModel">
             <v:DataTemplateView DataTemplate="{StaticResource SharedTemplate}">
                 <v:DataTemplateView.ContentTemplate>
-                    <DataTemplate>
+                    <DataTemplate x:DataType="nvm:TimestampSettingViewModel">
                         <Label Margin="0" Padding="0" VerticalOptions="Center" Text="{Binding LocalValue, StringFormat=' {0:MM/dd/yyyy hh:mm tt}'}" />
                     </DataTemplate>
                 </v:DataTemplateView.ContentTemplate>
@@ -255,33 +248,33 @@
     </ContentView.Resources>
     <Grid ColumnDefinitions="*">
         <Grid.Triggers>
-            <DataTrigger TargetType="Grid" Binding="{Binding MacroSet.Settings.SelectedPatternNode, Source={Reference thisView}, Converter={conv:NullToBoolConverter IsInverse=True}}" Value="True">
+            <DataTrigger TargetType="Grid" Binding="{Binding MacroSet.Settings.SelectedPatternNode, x:DataType=v:SettingNodeView, Source={Reference thisView}, Converter={conv:NullToBoolConverter IsInverse=True}}" Value="True">
                 <Setter Property="ColumnDefinitions" Value="*,3*" />
             </DataTrigger>
         </Grid.Triggers>
         <Border Grid.Column="0" Stroke="{StaticResource Primary}" BackgroundColor="Transparent" Padding="3">
-            <v:NodeView NodeManager="{Binding MacroSet.Settings, Source={Reference thisView}}" IsMenuVisible="{Binding SubView, Converter={conv:NullToBoolConverter}, Source={Reference thisView}}"
-                        ItemTemplateSelector="{conv:VirtualDynamicTemplateSelector Root={Binding .,Source={Reference thisView}}}">
+            <v:NodeView NodeManager="{Binding MacroSet.Settings, Source={Reference thisView}, x:DataType=v:SettingNodeView}" IsMenuVisible="{Binding SubView, Source={Reference thisView}, x:DataType=v:SettingNodeView, Converter={conv:NullToBoolConverter}}"
+                        ItemTemplateSelector="{conv:VirtualDynamicTemplateSelector Root={Binding ., Source={Reference thisView}, x:DataType=v:SettingNodeView}}">
                 <v:NodeView.Triggers>
-                    <DataTrigger TargetType="{x:Type v:NodeView}" Binding="{Binding SubView, Converter={conv:NullToBoolConverter IsInverse=True}, Source={Reference thisView}}" Value="True">
-                        <Setter Property="ItemsSource" Value="{Binding SubView.Nodes, Source={Reference thisView}}" />
+                    <DataTrigger TargetType="{x:Type v:NodeView}" Binding="{Binding SubView, Source={Reference thisView}, x:DataType=v:SettingNodeView, Converter={conv:NullToBoolConverter IsInverse=True}}" Value="True">
+                        <Setter Property="ItemsSource" Value="{Binding SubView.Nodes, x:DataType=v:SettingNodeView, Source={Reference thisView}}" />
                     </DataTrigger>
                 </v:NodeView.Triggers>
                 <v:NodeView.ExtraMenuItemsDataTemplate>
-                    <DataTemplate x:DataType="{x:Null}">
+                    <DataTemplate x:DataType="v:NodeView">
                         <VerticalStackLayout>
-                            <v:ImageView IsVisible="{Binding MacroSet.Settings.SelectedNode, Source={RelativeSource AncestorType={x:Type v:SettingNodeView}}, Converter={conv:NullToBoolConverter}}"
+                            <v:ImageView IsVisible="{Binding MacroSet.Settings.SelectedNode, Source={RelativeSource AncestorType={x:Type v:SettingNodeView}}, x:DataType=v:SettingNodeView, Converter={conv:NullToBoolConverter}}"
                                          FontFamily="FASolid" Glyph="{x:Static fa:Solid.FileImport}"
-                                         Command="{Binding  MacroSet.Settings.ImportSettingsCommand, Source={RelativeSource AncestorType={x:Type v:SettingNodeView}}}" />
-                            <v:ImageView IsVisible="{Binding MacroSet.Settings.SelectedNode, Source={RelativeSource AncestorType={x:Type v:SettingNodeView}}, Converter={conv:NullToBoolConverter}}"
+                                         Command="{Binding  MacroSet.Settings.ImportSettingsCommand, Source={RelativeSource AncestorType={x:Type v:SettingNodeView}}, x:DataType=v:SettingNodeView}" />
+                            <v:ImageView IsVisible="{Binding MacroSet.Settings.SelectedNode, Source={RelativeSource AncestorType={x:Type v:SettingNodeView}}, x:DataType=v:SettingNodeView, Converter={conv:NullToBoolConverter}}"
                                          FontFamily="FASolid" Glyph="{x:Static fa:Solid.FileExport}" 
-                                         Command="{Binding  MacroSet.Settings.ExportCommand, Source={RelativeSource AncestorType={x:Type v:SettingNodeView}}}"
-                                         CommandParameter="{Binding MacroSet.Name, Source={RelativeSource AncestorType={x:Type v:SettingNodeView}}}" />
+                                         Command="{Binding  MacroSet.Settings.ExportCommand, Source={RelativeSource AncestorType={x:Type v:SettingNodeView}}, x:DataType=v:SettingNodeView}"
+                                         CommandParameter="{Binding MacroSet.Name, Source={RelativeSource AncestorType={x:Type v:SettingNodeView}}, x:DataType=v:SettingNodeView}" />
                             <Grid>
-                                <v:ToggleImageView FontFamily="MaterialOutlined" Glyph="{x:Static mi:MaterialOutlined.Refresh}" ToggledColor="{StaticResource Primary}" 
-                                                   IsToggled="{Binding MacroSet.Settings.ShowResetButton, Source={RelativeSource AncestorType={x:Type v:SettingNodeView}}}"/>
-                                <v:ToggleImageView FontFamily="FASolid" Glyph="{x:Static fa:Solid.Eye}" ToggledColor="{StaticResource Primary}" 
-                                                   IsToggled="{Binding MacroSet.Settings.ShowResetButton, Source={RelativeSource AncestorType={x:Type v:SettingNodeView}}}"
+                                <v:ToggleImageView x:DataType="v:NodeView" FontFamily="MaterialOutlined" Glyph="{x:Static mi:MaterialOutlined.Refresh}" ToggledColor="{StaticResource Primary}" 
+                                                   IsToggled="{Binding MacroSet.Settings.ShowResetButton, Source={RelativeSource AncestorType={x:Type v:SettingNodeView}}, x:DataType=v:SettingNodeView}"/>
+                                <v:ToggleImageView x:DataType="v:NodeView" FontFamily="FASolid" Glyph="{x:Static fa:Solid.Eye}" ToggledColor="{StaticResource Primary}" 
+                                                   IsToggled="{Binding MacroSet.Settings.ShowResetButton, Source={RelativeSource AncestorType={x:Type v:SettingNodeView}}, x:DataType=v:SettingNodeView}"
                                                    Scale=".5"/>
                             </Grid>
                         </VerticalStackLayout>
@@ -290,9 +283,9 @@
             </v:NodeView>
         </Border>
         <Border Grid.Column="1" Stroke="{StaticResource Primary}" BackgroundColor="Transparent" Padding="3"
-                IsVisible="{Binding MacroSet.Settings.SelectedPatternNode, Source={Reference thisView}, Converter={conv:NullToBoolConverter IsInverse=True}}">
+                IsVisible="{Binding MacroSet.Settings.SelectedPatternNode, Source={Reference thisView}, x:DataType=v:SettingNodeView, Converter={conv:NullToBoolConverter IsInverse=True}}">
             <Grid>
-                <v:PatternView 
+                <v:PatternView x:DataType="v:SettingNodeView"
                     PatternNode="{Binding MacroSet.Settings.SelectedPatternNode, Source={Reference thisView}}"
                     Pattern="{Binding MacroSet.Settings.SelectedPattern, Source={Reference thisView}}"
                     SavePatternCommand="{Binding MacroSet.Patterns.SavePatternCommand, Source={Reference thisView}}"
@@ -308,7 +301,7 @@
                     ApplyPatternTextMatchCommand="{Binding MacroSet.Patterns.ApplyPatternTextMatchCommand, Source={Reference thisView}}"
                     ApplyPatternOffsetCommand="{Binding MacroSet.Patterns.ApplyPatternOffsetCommand, Source={Reference thisView}}"
                     TestSwipeCommand="{Binding MacroSet.Patterns.TestSwipeCommand, Source={Reference thisView}}" />
-                <Label Text="{Binding MacroSet.Settings.SelectedPatternNode.NodeId, StringFormat='NodeId: {0}', Source={Reference thisView}}" HorizontalOptions="End" VerticalOptions="Start" />
+                <Label Text="{Binding MacroSet.Settings.SelectedPatternNode.NodeId, Source={Reference thisView}, x:DataType=v:SettingNodeView, StringFormat='NodeId: {0}'}" HorizontalOptions="End" VerticalOptions="Start" />
             </Grid>
         </Border>
     </Grid>

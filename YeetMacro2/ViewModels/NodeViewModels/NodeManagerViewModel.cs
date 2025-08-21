@@ -26,8 +26,8 @@ public class NodeManagerViewModelFactory(IServiceProvider serviceProvider)
 
 public abstract class NodeManagerViewModel : ObservableObject
 {
-
 }
+
 
 [JsonConverter(typeof(NodeViewModelValueConverter))]
 public partial class NodeManagerViewModel<TViewModel, TParent, TChild> : NodeManagerViewModel

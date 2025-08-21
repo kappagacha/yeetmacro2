@@ -1,7 +1,9 @@
-﻿using System.Collections.Concurrent;
+﻿using Microsoft.Maui.Controls.Xaml;
+using System.Collections.Concurrent;
 
 namespace YeetMacro2.Converters;
 
+[AcceptEmptyServiceProvider]
 public class NullToBoolConverter : IMarkupExtension, IValueConverter
 {
     //Key pattern should be a cartesian product of all available public properties

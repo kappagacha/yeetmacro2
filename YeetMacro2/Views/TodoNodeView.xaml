@@ -5,6 +5,7 @@
              xmlns:v="clr-namespace:YeetMacro2.Views"
              xmlns:vm="clr-namespace:YeetMacro2.ViewModels"
              xmlns:nvm="clr-namespace:YeetMacro2.ViewModels.NodeViewModels"
+             xmlns:m="clr-namespace:YeetMacro2.Data.Models"
              xmlns:mct="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
              xmlns:fa="clr-namespace:UraniumUI.Icons.FontAwesome;assembly=UraniumUI.Icons.FontAwesome"
              xmlns:mi="clr-namespace:UraniumUI.Icons.MaterialIcons;assembly=UraniumUI.Icons.MaterialIcons"
@@ -13,10 +14,10 @@
              x:Class="YeetMacro2.Views.TodoNodeView"
              x:Name="thisView">
     <ContentView.Resources>
-        <DataTemplate x:Key="TodoJsonParentTemplate" x:DataType="{x:Null}">
+        <DataTemplate x:Key="TodoJsonParentTemplate" x:DataType="nvm:TodoJsonParentViewModel">
             <Grid ColumnDefinitions="Auto, *" RowDefinitions="Auto, Auto" ColumnSpacing="5">
                 <Grid WidthRequest="15" />
-                <v:ToggleImageView Grid.Row="0" Grid.Column="0"
+                <v:ToggleImageView Grid.Row="0" Grid.Column="0" x:DataType="nvm:TodoJsonParentViewModel"
                                    IsVisible="{Binding Children.Count, Converter={conv:NumberToBoolConverter}}"
                                    ImageHeight="15"
                                    ImageWidth="15"
@@ -28,21 +29,21 @@
                                    HeightRequest="20" />
                 <Grid Grid.Row="0" Grid.Column="1" HeightRequest="20">
                     <Grid HeightRequest="20">
-                        <Label Text="{Binding Key}" TextColor="{StaticResource Primary}" Margin="0" Padding="0" VerticalOptions="Center" BackgroundColor="Transparent">
+                        <Label x:DataType="nvm:TodoJsonParentViewModel" Text="{Binding Key}" TextColor="{StaticResource Primary}" Margin="0" Padding="0" VerticalOptions="Center" BackgroundColor="Transparent">
                             <Label.Triggers>
-                                <DataTrigger TargetType="Label" Binding="{Binding IsSelected}" Value="True">
+                                <DataTrigger x:DataType="nvm:TodoJsonParentViewModel" TargetType="Label" Binding="{Binding IsSelected}" Value="True">
                                     <Setter Property="BackgroundColor" Value="Blue" />
                                 </DataTrigger>
                             </Label.Triggers>
                         </Label>
                         <ImageButton Margin="0" Padding="0" CommandParameter="{Binding .}" 
-                                     Command="{Binding Todos.SelectJsonElementCommand, Source={RelativeSource AncestorType={x:Type v:TodoNodeView}}}" />
+                                     Command="{Binding Todos.SelectJsonElementCommand, Source={RelativeSource AncestorType={x:Type v:TodoNodeView}}, x:DataType=v:TodoNodeView}" />
                     </Grid>
                 </Grid>
-                <Grid Grid.Row="1" Grid.Column="1" IsVisible="{Binding Children.Count, Converter={conv:NumberToBoolConverter}}">
+                <Grid Grid.Row="1" Grid.Column="1" x:DataType="nvm:TodoJsonParentViewModel" IsVisible="{Binding Children.Count, Converter={conv:NumberToBoolConverter}}">
                     <!--<CollectionView ItemsSource="{Binding Children}" IsVisible="{Binding IsExpanded}"
                                 ItemTemplate="{conv:DynamicTemplateSelector}" />-->
-                    <vlv:VirtualListView Adapter="{Binding Children}" IsVisible="{Binding IsExpanded}"
+                    <vlv:VirtualListView x:DataType="nvm:TodoJsonParentViewModel" Adapter="{Binding Children}" IsVisible="{Binding IsExpanded}"
                                          ItemTemplateSelector="{conv:VirtualDynamicTemplateSelector}"
                                          HeightRequest="{Binding ChildrenHeight}"/>
                 </Grid>
@@ -58,8 +59,8 @@
                             </DataTrigger>
                         </Label.Triggers>
                     </Label>
-                    <ImageButton Margin="0" Padding="0" CommandParameter="{Binding .}" 
-                                 Command="{Binding Todos.SelectJsonElementCommand, Source={RelativeSource AncestorType={x:Type v:TodoNodeView}}}" />
+                    <ImageButton Margin="0" Padding="0" CommandParameter="{Binding .}"
+                                 Command="{Binding Todos.SelectJsonElementCommand, Source={RelativeSource AncestorType={x:Type v:TodoNodeView}}, x:DataType=v:TodoNodeView}" />
                 </Grid>
                 <CheckBox IsChecked="{Binding IsChecked}" VerticalOptions="Center" />
             </HorizontalStackLayout>
@@ -74,8 +75,8 @@
                             </DataTrigger>
                         </Label.Triggers>
                     </Label>
-                    <ImageButton Margin="0" Padding="0" CommandParameter="{Binding .}" 
-                            Command="{Binding Todos.SelectJsonElementCommand, Source={RelativeSource AncestorType={x:Type v:TodoNodeView}}}" />
+                    <ImageButton Margin="0" Padding="0" CommandParameter="{Binding .}"
+                            Command="{Binding Todos.SelectJsonElementCommand, Source={RelativeSource AncestorType={x:Type v:TodoNodeView}}, x:DataType=v:TodoNodeView}" />
                 </Grid>
                 <v:IntegerStepper HeightRequest="{Binding Height}" Value="{Binding Count}" />
             </HorizontalStackLayout>
@@ -83,28 +84,32 @@
     </ContentView.Resources>
     <Border Stroke="{StaticResource Primary}" BackgroundColor="Transparent" Padding="3">
         <Grid>
-            <Grid IsVisible="{Binding SubView, Converter={conv:NullToBoolConverter IsInverse=True}, Source={Reference thisView}}">
+            <Grid IsVisible="{Binding SubView, Source={Reference thisView}, x:DataType=v:TodoNodeView, Converter={conv:NullToBoolConverter IsInverse=True}}">
                 <!--<CollectionView ItemsSource="{Binding SubView.Children, Source={Reference thisView}}"
                                 HorizontalOptions="Fill"  VerticalOptions="Fill"
                                 ItemTemplate="{conv:DynamicTemplateSelector Root={Binding .,Source={Reference thisView}}}" />-->
-                <vlv:VirtualListView Adapter="{Binding SubView.Children, Source={Reference thisView}}"
+                <vlv:VirtualListView Adapter="{Binding SubView.Children, x:DataType=v:TodoNodeView, Source={Reference thisView}}"
                                 HorizontalOptions="Fill"  VerticalOptions="Fill"
-                                ItemTemplateSelector="{conv:VirtualDynamicTemplateSelector Root={Binding .,Source={Reference thisView}}}" />
+                                ItemTemplateSelector="{conv:VirtualDynamicTemplateSelector Root={Binding ., Source={Reference thisView}, x:DataType=v:TodoNodeView}}" />
             </Grid>
-            <Grid ColumnDefinitions="*,3*" IsVisible="{Binding SubView, Converter={conv:NullToBoolConverter}, Source={Reference thisView}}">
-                <v:NodeView Grid.Column="0" NodeManager="{Binding Todos, Source={Reference thisView}}" />
+            <Grid ColumnDefinitions="*,3*" IsVisible="{Binding SubView, Source={Reference thisView}, x:DataType=v:TodoNodeView, Converter={conv:NullToBoolConverter}}">
+                <v:NodeView Grid.Column="0" NodeManager="{Binding Todos, x:DataType=v:TodoNodeView, Source={Reference thisView}}" />
                 <mct:DockLayout Grid.Column="1">
-                    <DatePicker IsVisible="{Binding Todos.SelectedNode, Source={Reference thisView}, Converter={conv:NullToBoolConverter IsInverse=True}}" 
-                                Date="{Binding Todos.SelectedNode.Date, Source={Reference thisView}, Converter={conv:DateOnlyConverter}}" />
+                    <DatePicker IsVisible="{Binding Todos.SelectedNode, x:DataType=v:TodoNodeView, Source={Reference thisView}, Converter={conv:NullToBoolConverter IsInverse=True}}" 
+                                Date="{Binding Todos.SelectedNode.Date, Source={Reference thisView}, x:DataType=v:TodoNodeView, Converter={conv:DateOnlyConverter}}" />
                     <Grid>
                         <!--<CollectionView IsVisible="{Binding Todos.ShowJsonEditor, Source={Reference thisView}, Converter={conv:InverseBoolConverter}}"
                                         x:DataType="{x:Null}" ItemsSource="{Binding Todos.SelectedNode.JsonViewModel.Children, Source={Reference thisView}}"
                                         HorizontalOptions="Fill"  VerticalOptions="Fill" ItemTemplate="{conv:DynamicTemplateSelector}" />-->
-                        <vlv:VirtualListView IsVisible="{Binding Todos.ShowJsonEditor, Source={Reference thisView}, Converter={conv:InverseBoolConverter}}"
+                        <!--<vlv:VirtualListView IsVisible="{Binding Todos.ShowJsonEditor, Source={Reference thisView}, Converter={conv:InverseBoolConverter}}"
                                         x:DataType="{x:Null}" Adapter="{Binding Todos.SelectedNode.JsonViewModel.Children, Source={Reference thisView}}"
-                                        HorizontalOptions="Fill"  VerticalOptions="Fill" ItemTemplateSelector="{conv:VirtualDynamicTemplateSelector}" />
-                        <Grid IsVisible="{Binding Todos.ShowJsonEditor, Source={Reference thisView}}">
-                            <Editor x:Name="dataEditor" x:DataType="{x:Null}" Text="{Binding Todos.SelectedNode.Data, Source={Reference thisView}, Mode=OneWay}" AutoSize="TextChanges" />
+                                        HorizontalOptions="Fill"  VerticalOptions="Fill" ItemTemplateSelector="{conv:VirtualDynamicTemplateSelector}" />-->
+                        <vlv:VirtualListView IsVisible="{Binding Todos.ShowJsonEditor, Source={Reference thisView}, x:DataType=v:TodoNodeView, Converter={conv:InverseBoolConverter}}"
+                                        BindingContext="{Binding Todos.SelectedNode, Source={Reference thisView}, x:DataType=v:TodoNodeView}"
+                                        HorizontalOptions="Fill"  VerticalOptions="Fill" ItemTemplateSelector="{conv:VirtualDynamicTemplateSelector}"
+                                        Adapter="{Binding JsonViewModel.Children, x:DataType=nvm:TodoViewModel}" />
+                        <Grid IsVisible="{Binding Todos.ShowJsonEditor, x:DataType=v:TodoNodeView, Source={Reference thisView}}">
+                            <Editor x:Name="dataEditor" Text="{Binding Todos.SelectedNode.Data, x:DataType=v:TodoNodeView, Source={Reference thisView}, Mode=OneWay}" AutoSize="TextChanges" />
                             <HorizontalStackLayout HorizontalOptions="End" VerticalOptions="End" Margin="0,0,40,0" Spacing="5">
                                 <Grid HorizontalOptions="End" VerticalOptions="End">
                                     <v:ImageView FontFamily="MaterialOutlined" Glyph="{x:Static mi:MaterialOutlined.Select_all}" />
@@ -112,11 +117,11 @@
                                 </Grid>
                                 <v:ImageView 
                                       FontFamily="MaterialOutlined" Glyph="{x:Static mi:MaterialOutlined.Save}" Color="{StaticResource Primary}" 
-                                      Command="{Binding Todos.SaveTodoCommand, Source={Reference thisView}}">
+                                      Command="{Binding Todos.SaveTodoCommand, Source={Reference thisView}, x:DataType=v:TodoNodeView}">
                                     <v:ImageView.CommandParameter>
                                         <MultiBinding Converter="{conv:PassThroughConverter}">
-                                            <Binding Path="Todos.SelectedNode" Source="{Reference thisView}" />
-                                            <Binding Path="Text" Source="{Reference dataEditor}" />
+                                            <Binding x:DataType="v:TodoNodeView" Path="Todos.SelectedNode" Source="{Reference thisView}" />
+                                            <Binding x:DataType="Editor" Path="Text" Source="{Reference dataEditor}" />
                                         </MultiBinding>
                                     </v:ImageView.CommandParameter>
                                 </v:ImageView>
@@ -125,40 +130,40 @@
                     </Grid>
                 </mct:DockLayout>
                 <VerticalStackLayout Grid.ColumnSpan="2" HorizontalOptions="End" VerticalOptions="End">
-                    <VerticalStackLayout IsVisible="{Binding IsToggled, Source={Reference menuToggle}}">
-                        <v:ImageView FontFamily="MaterialOutlined" Glyph="{x:Static mi:MaterialOutlined.Unfold_more_double}" 
+                    <VerticalStackLayout x:DataType="v:ToggleImageView" IsVisible="{Binding IsToggled, Source={Reference menuToggle}}">
+                        <v:ImageView x:DataType="v:TodoNodeView" FontFamily="MaterialOutlined" Glyph="{x:Static mi:MaterialOutlined.Unfold_more_double}" 
                                      Command="{Binding Todos.ExpandAllElementsCommand, Source={Reference thisView}}" />
-                        <v:ImageView FontFamily="MaterialOutlined" Glyph="{x:Static mi:MaterialOutlined.Unfold_less_double}" 
+                        <v:ImageView x:DataType="v:TodoNodeView" FontFamily="MaterialOutlined" Glyph="{x:Static mi:MaterialOutlined.Unfold_less_double}" 
                                      Command="{Binding Todos.CollapseAllElementsCommand, Source={Reference thisView}}" />
-                        <v:ImageView FontFamily="MaterialRegular" Glyph="{x:Static mi:MaterialRegular.Vertical_align_top}"
+                        <v:ImageView x:DataType="v:TodoNodeView" FontFamily="MaterialRegular" Glyph="{x:Static mi:MaterialRegular.Vertical_align_top}"
                                      IsVisible="{Binding Todos.SelectedJsonElement, Source={Reference thisView}, Converter={conv:NullToBoolConverter IsInverse=True}}"
                                      Command="{Binding Todos.MoveElementTopCommand, Source={Reference thisView}}" CommandParameter="{Binding Todos.SelectedJsonElement, Source={Reference thisView}}" />
-                        <v:ImageView FontFamily="FASolid" Glyph="{x:Static fa:Solid.ArrowUp}"
+                        <v:ImageView x:DataType="v:TodoNodeView" FontFamily="FASolid" Glyph="{x:Static fa:Solid.ArrowUp}"
                                      IsVisible="{Binding Todos.SelectedJsonElement, Source={Reference thisView}, Converter={conv:NullToBoolConverter IsInverse=True}}"
                                      Command="{Binding Todos.MoveElementUpCommand, Source={Reference thisView}}" CommandParameter="{Binding Todos.SelectedJsonElement, Source={Reference thisView}}" />
-                        <v:ImageView FontFamily="FASolid" Glyph="{x:Static fa:Solid.ArrowDown}"
+                        <v:ImageView x:DataType="v:TodoNodeView" FontFamily="FASolid" Glyph="{x:Static fa:Solid.ArrowDown}"
                                      IsVisible="{Binding Todos.SelectedJsonElement, Source={Reference thisView}, Converter={conv:NullToBoolConverter IsInverse=True}}"
                                      Command="{Binding Todos.MoveElementDownCommand, Source={Reference thisView}}" CommandParameter="{Binding Todos.SelectedJsonElement, Source={Reference thisView}}" />
-                        <v:ImageView FontFamily="MaterialRegular" Glyph="{x:Static mi:MaterialRegular.Vertical_align_bottom}"
+                        <v:ImageView x:DataType="v:TodoNodeView" FontFamily="MaterialRegular" Glyph="{x:Static mi:MaterialRegular.Vertical_align_bottom}"
                                      IsVisible="{Binding Todos.SelectedJsonElement, Source={Reference thisView}, Converter={conv:NullToBoolConverter IsInverse=True}}"
                                      Command="{Binding Todos.MoveElementBottomCommand, Source={Reference thisView}}" CommandParameter="{Binding Todos.SelectedJsonElement, Source={Reference thisView}}" />
-                        <v:ToggleImageView IsVisible="{Binding Todos.SelectedNode, Source={Reference thisView}, Converter={conv:NullToBoolConverter IsInverse=True}}"
-                                     IsToggled="{Binding Todos.ShowJsonEditor, Source={Reference thisView}}" ToggledColor="{StaticResource Primary}"
+                        <v:ToggleImageView IsVisible="{Binding Todos.SelectedNode, x:DataType=v:TodoNodeView, Source={Reference thisView}, Converter={conv:NullToBoolConverter IsInverse=True}}"
+                                     IsToggled="{Binding Todos.ShowJsonEditor, Source={Reference thisView}, x:DataType=v:TodoNodeView}" ToggledColor="{StaticResource Primary}"
                                      FontFamily="MaterialOutlined" Glyph="{x:Static mi:MaterialOutlined.Edit}" />
                         <v:ImageView FontFamily="FASolid" Glyph="{x:Static fa:Solid.TrashCan}" Color="Red" 
-                                     IsVisible="{Binding Todos.SelectedJsonElement, Source={Reference thisView}, Converter={conv:NullToBoolConverter IsInverse=True}}"
-                                     Command="{Binding Todos.DeleteJsonElementCommand, Source={Reference thisView}}" CommandParameter="{Binding Todos.SelectedJsonElement, Source={Reference thisView}}" />
-                        <v:ImageView FontFamily="FASolid" Glyph="{x:Static fa:Solid.Plus}" Command="{Binding Todos.AddJsonElementCommand, Source={Reference thisView}}" />
+                                     IsVisible="{Binding Todos.SelectedJsonElement, Source={Reference thisView}, x:DataType=v:TodoNodeView, Converter={conv:NullToBoolConverter IsInverse=True}}"
+                                     Command="{Binding Todos.DeleteJsonElementCommand, Source={Reference thisView}, x:DataType=v:TodoNodeView}" CommandParameter="{Binding Todos.SelectedJsonElement, Source={Reference thisView}, x:DataType=v:TodoNodeView}" />
+                        <v:ImageView FontFamily="FASolid" Glyph="{x:Static fa:Solid.Plus}" Command="{Binding Todos.AddJsonElementCommand, Source={Reference thisView}, x:DataType=v:TodoNodeView}" />
                     </VerticalStackLayout>
                     <v:ToggleImageView x:Name="menuToggle" FontFamily="FASolid" Glyph="{x:Static fa:Solid.Bars}" ToggledColor="{StaticResource Primary}" />
                 </VerticalStackLayout>
                 <HorizontalStackLayout Grid.ColumnSpan="2" HorizontalOptions="Start" VerticalOptions="End">
-                    <v:ToggleImageView FontFamily="MaterialOutlined" Glyph="{x:Static mi:MaterialOutlined.Data_object}" IsToggled="{Binding Todos.ShowTemplate, Source={Reference thisView}}"
+                    <v:ToggleImageView FontFamily="MaterialOutlined" Glyph="{x:Static mi:MaterialOutlined.Data_object}" IsToggled="{Binding Todos.ShowTemplate, x:DataType=v:TodoNodeView, Source={Reference thisView}}"
                                        ToggledColor="{StaticResource Primary}" Text="Template" />
                 </HorizontalStackLayout>
             </Grid>
-            <ActivityIndicator Grid.ColumnSpan="2" IsRunning="{Binding IsBusy}" />
-            <Label Text="{Binding Todos.SelectedNode.NodeId, StringFormat='NodeId: {0}', Source={Reference thisView}}" HorizontalOptions="End" VerticalOptions="Start" />
+            <ActivityIndicator Grid.ColumnSpan="2" IsRunning="{Binding Todos.IsBusy, Source={Reference thisView}, x:DataType=v:TodoNodeView}" />
+            <Label Text="{Binding Todos.SelectedNode.NodeId, Source={Reference thisView}, x:DataType=v:TodoNodeView, StringFormat='NodeId: {0}'}" HorizontalOptions="End" VerticalOptions="Start" />
         </Grid>
     </Border>
 </ContentView>

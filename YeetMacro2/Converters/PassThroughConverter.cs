@@ -1,6 +1,9 @@
-﻿using System.Globalization;
+﻿using Microsoft.Maui.Controls.Xaml;
+using System.Globalization;
 
 namespace YeetMacro2.Converters;
+
+[AcceptEmptyServiceProvider]
 public class PassThroughConverter : IMarkupExtension, IMultiValueConverter
 {
     static readonly PassThroughConverter _instance = new();

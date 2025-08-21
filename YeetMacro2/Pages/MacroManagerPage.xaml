@@ -15,7 +15,7 @@
              Title="Macro Manager"
              x:Name="thisPage">
     <ContentPage.Resources>
-        <DataTemplate x:Key="macroTabDataTemplate">
+        <DataTemplate x:Key="macroTabDataTemplate" x:DataType="vm:MacroManagerViewModel">
             <Grid Padding="4">
                 <ScrollView>
                     <Grid ColumnDefinitions="Auto,*" ColumnSpacing="4">
@@ -153,7 +153,7 @@
             <Grid>
                 <HorizontalStackLayout Spacing="10">
                     <Label Text="Macro Set: " Margin="5,0,0,0" FontSize="Body" VerticalOptions="Center" FontAttributes="Bold" />
-                    <Picker ItemsSource="{Binding MacroSets}" ItemDisplayBinding="{Binding Name}" SelectedItem="{Binding SelectedMacroSet}" />
+                    <Picker x:DataType="vm:MacroManagerViewModel" ItemsSource="{Binding MacroSets}" SelectedItem="{Binding SelectedMacroSet}" ItemDisplayBinding="{Binding Name, x:DataType={x:Type vm:MacroSetViewModel}}"/>
                     <v:ImageView FontFamily="FASolid" Glyph="{x:Static fa:Solid.Rotate}" Color="{StaticResource Primary}" 
                                  Command="{Binding UpdateMacroSetCommand}" CommandParameter="{Binding SelectedMacroSet}" 
                                  IsVisible="{Binding SelectedMacroSet, Converter={conv:NullToBoolConverter IsInverse=True}}" />
@@ -185,36 +185,36 @@
             <v:TabItem Header="Macro" ContentDataTemplate="{StaticResource macroTabDataTemplate}" />
             <v:TabItem Header="Patterns">
                 <v:TabItem.ContentDataTemplate>
-                    <DataTemplate>
-                        <v:PatternNodeView MacroSet="{Binding BindingContext.SelectedMacroSet, Source={RelativeSource AncestorType={x:Type p:MacroManagerPage}}}" />
+                    <DataTemplate x:DataType="vm:MacroManagerViewModel">
+                        <v:PatternNodeView MacroSet="{Binding SelectedMacroSet, Source={RelativeSource AncestorType={x:Type p:MacroManagerPage}}, x:DataType=vm:MacroManagerViewModel}" />
                     </DataTemplate>
                 </v:TabItem.ContentDataTemplate>
             </v:TabItem>
             <v:TabItem Header="Settings">
                 <v:TabItem.ContentDataTemplate>
-                    <DataTemplate>
-                        <v:SettingNodeView MacroSet="{Binding BindingContext.SelectedMacroSet, Source={RelativeSource AncestorType={x:Type p:MacroManagerPage}}}" />
+                    <DataTemplate x:DataType="vm:MacroManagerViewModel">
+                        <v:SettingNodeView MacroSet="{Binding SelectedMacroSet, Source={RelativeSource AncestorType={x:Type p:MacroManagerPage}}, x:DataType=vm:MacroManagerViewModel}" />
                     </DataTemplate>
                 </v:TabItem.ContentDataTemplate>
             </v:TabItem>
             <v:TabItem Header="Scripts">
                 <v:TabItem.ContentDataTemplate>
-                    <DataTemplate>
-                        <v:ScriptNodeView MacroSet="{Binding BindingContext.SelectedMacroSet, Source={RelativeSource AncestorType={x:Type p:MacroManagerPage}}}" />
+                    <DataTemplate x:DataType="vm:MacroManagerViewModel">
+                        <v:ScriptNodeView MacroSet="{Binding SelectedMacroSet, Source={RelativeSource AncestorType={x:Type p:MacroManagerPage}}, x:DataType=vm:MacroManagerViewModel}" />
                     </DataTemplate>
                 </v:TabItem.ContentDataTemplate>
             </v:TabItem>
             <v:TabItem Header="Dailies">
                 <v:TabItem.ContentDataTemplate>
-                    <DataTemplate>
-                        <v:TodoNodeView Todos="{Binding BindingContext.SelectedMacroSet.Dailies, Source={RelativeSource AncestorType={x:Type p:MacroManagerPage}}}" />
+                    <DataTemplate x:DataType="vm:MacroManagerViewModel">
+                        <v:TodoNodeView Todos="{Binding SelectedMacroSet.Dailies, Source={RelativeSource AncestorType={x:Type p:MacroManagerPage}}, x:DataType=vm:MacroManagerViewModel}" />
                     </DataTemplate>
                 </v:TabItem.ContentDataTemplate>
             </v:TabItem>
             <v:TabItem Header="Weeklies">
                 <v:TabItem.ContentDataTemplate>
-                    <DataTemplate>
-                        <v:TodoNodeView Todos="{Binding BindingContext.SelectedMacroSet.Weeklies, Source={RelativeSource AncestorType={x:Type p:MacroManagerPage}}}" />
+                    <DataTemplate x:DataType="vm:MacroManagerViewModel">
+                        <v:TodoNodeView Todos="{Binding SelectedMacroSet.Weeklies, Source={RelativeSource AncestorType={x:Type p:MacroManagerPage}}, x:DataType=vm:MacroManagerViewModel}" />
                     </DataTemplate>
                 </v:TabItem.ContentDataTemplate>
             </v:TabItem>

@@ -185,7 +185,7 @@ public partial class LogServiceViewModel(IRepository<Log> _logRepository, IMappe
     [RelayCommand]
     public async Task ClearArchivedLogs()
     {
-        if (!await Application.Current.MainPage.DisplayAlert("Delete All Archived Logs", "Are you sure?", "Ok", "Cancel")) return;
+        if (!await Application.Current.Windows[0].Page.DisplayAlert("Delete All Archived Logs", "Are you sure?", "Ok", "Cancel")) return;
 
         var logs = _logRepository.Get(l => l.ParentId == null && l.IsArchived);
 

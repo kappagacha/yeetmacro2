@@ -1,4 +1,8 @@
-﻿namespace YeetMacro2.Converters;
+﻿using Microsoft.Maui.Controls.Xaml;
+
+namespace YeetMacro2.Converters;
+
+[AcceptEmptyServiceProvider]
 public class DateOnlyConverter : IMarkupExtension, IValueConverter
 {
     static readonly DateOnlyConverter _instance = new();

@@ -1,8 +1,9 @@
-﻿
+﻿using Microsoft.Maui.Controls.Xaml;
 using System.Collections.Concurrent;
 
 namespace YeetMacro2.Converters;
 
+[AcceptEmptyServiceProvider]
 public class DynamicTemplateSelector : DataTemplateSelector, IMarkupExtension
 {
     static readonly DynamicTemplateSelector _instance = new();

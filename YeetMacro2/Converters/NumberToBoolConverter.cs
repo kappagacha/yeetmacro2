@@ -1,4 +1,8 @@
-﻿namespace YeetMacro2.Converters;
+﻿using Microsoft.Maui.Controls.Xaml;
+
+namespace YeetMacro2.Converters;
+
+[AcceptEmptyServiceProvider]
 public class NumberToBoolConverter : IMarkupExtension, IValueConverter
 {
     static readonly NumberToBoolConverter _instance = new();
