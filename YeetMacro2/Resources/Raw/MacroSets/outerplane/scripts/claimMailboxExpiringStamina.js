@@ -26,13 +26,13 @@ while (macroService.IsRunning) {
 
 				done = true;
 				for (const p of receiveResult.Points) {
-					const staminaPattern = macroService.ClonePattern(patterns.mailbox.stamina, { CenterY: p.Y, Height: 50 });
+					const staminaPattern = macroService.ClonePattern(patterns.mailbox.stamina, { CenterY: p.Y, Height: 50, PathSuffix: `_${p.Y}y` });
 					const staminaPatternResult = macroService.FindPattern(staminaPattern);
 					if (!staminaPatternResult.IsSuccess) {	// only stamina
 						continue;
 					}
 
-					const dPattern = macroService.ClonePattern(patterns.mailbox.expiration.d, { CenterX: p.X, CenterY: p.Y - 75, Width: 100, Height: 40, Path: `patterns.mailbox.expiration.d_x${p.X}_y${p.Y - 75}` });
+					const dPattern = macroService.ClonePattern(patterns.mailbox.expiration.d, { CenterX: p.X, CenterY: p.Y - 75, Width: 100, Height: 40, PathSuffix: `_x${p.X}_y${p.Y - 75}` });
 					const dPatternResult = macroService.FindPattern(dPattern);
 					if (!dPatternResult.IsSuccess) {
 						macroService.PollPoint(p, { PredicatePattern: patterns.general.tapEmptySpace });
