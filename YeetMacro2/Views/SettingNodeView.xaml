@@ -58,7 +58,7 @@
                                 </DataTrigger>
                             </Label.Triggers>
                         </Label>
-                        <ImageButton x:DataType="nvm:ParentSettingViewModel" Margin="0" Padding="0" CommandParameter="{Binding .}"
+                        <ImageButton Margin="0" Padding="0" CommandParameter="{Binding .}"
                             Command="{Binding NodeManager.SelectNodeCommand, Source={RelativeSource AncestorType={x:Type v:NodeView}}, x:DataType=v:NodeView}" />
                     </Grid>
                 </Grid>
@@ -97,7 +97,7 @@
                                 </DataTrigger>
                             </Label.Triggers>
                         </Label>
-                        <ImageButton x:DataType="nvm:PatternNodeViewModel" Margin="0" Padding="0" CommandParameter="{Binding .}" 
+                        <ImageButton Margin="0" Padding="0" CommandParameter="{Binding .}" 
                             Command="{Binding NodeManager.SelectNodeCommand, Source={RelativeSource AncestorType={x:Type v:NodeView}}, x:DataType=v:NodeView}" />
                     </Grid>
                 </Grid>
@@ -147,13 +147,13 @@
                             <CheckBox IsChecked="{Binding IsEnabled}" VerticalOptions="Center" />
                             <Grid>
                                 <Label Margin="0" Padding="0" Text="{Binding Value}" VerticalOptions="Center" />
-                                <ImageButton x:DataType="nvm:EnabledOptionSettingViewModel" Margin="0" Padding="0" CommandParameter="{Binding .}"
+                                <ImageButton Margin="0" Padding="0" CommandParameter="{Binding .}"
                                     Command="{Binding MacroSet.Settings.SelectOptionCommand, Source={RelativeSource AncestorType={x:Type v:SettingNodeView}}, x:DataType=v:SettingNodeView}" />
                             </Grid>
-                            <v:ImageView x:DataType="nvm:EnabledOptionSettingViewModel"
+                            <v:ImageView
                                 VerticalOptions="Center" FontFamily="MaterialOutlined" Glyph="{x:Static mi:MaterialOutlined.Edit}" CommandParameter="{Binding .}" 
                                 Command="{Binding MacroSet.Settings.EditOptionCommand, Source={RelativeSource AncestorType={x:Type v:SettingNodeView}}, x:DataType=v:SettingNodeView}" />
-                            <v:ImageView x:DataType="nvm:EnabledOptionSettingViewModel"
+                            <v:ImageView
                                 VerticalOptions="Center" FontFamily="MaterialOutlined" Glyph="{x:Static mi:MaterialOutlined.Add}" CommandParameter="{Binding .}" 
                                 Command="{Binding MacroSet.Settings.AddOptionCommand, Source={RelativeSource AncestorType={x:Type v:SettingNodeView}}, x:DataType=v:SettingNodeView}"/>
                         </HorizontalStackLayout>
