@@ -10,7 +10,7 @@
 		<SingleProject>true</SingleProject>
 		<ImplicitUsings>enable</ImplicitUsings>
     <RestorePackagesWithLockFile>true</RestorePackagesWithLockFile>
-    <NoWarn>$(NoWarn);MVVMTK0050;MVVMTK0045;CS9057</NoWarn>
+    <NoWarn>$(NoWarn);MVVMTK0050;MVVMTK0045;CS9057;XC0045</NoWarn>
     <MauiEnableXamlCBindingWithSourceCompilation>true</MauiEnableXamlCBindingWithSourceCompilation>
     
 		<!-- Display name -->

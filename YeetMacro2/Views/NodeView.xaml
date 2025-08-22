@@ -35,7 +35,7 @@
                             </Label.Triggers>
                         </Label>
                         <ImageButton Margin="0" Padding="0" CommandParameter="{Binding .}" 
-                            Command="{Binding NodeManager.SelectNodeCommand, Source={RelativeSource AncestorType={x:Type v:NodeView}}, x:DataType={x:Null}}" />
+                            Command="{Binding NodeManager.SelectNodeCommand, Source={RelativeSource AncestorType={x:Type v:NodeView}}, x:DataType={x:Type v:NodeView}}" />
                     </Grid>
                 </Grid>
                 <Grid Grid.Row="1" Grid.Column="1" IsVisible="{Binding Nodes.Count, Converter={conv:NumberToBoolConverter}}">
