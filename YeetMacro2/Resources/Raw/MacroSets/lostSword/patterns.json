@@ -3214,10 +3214,10 @@
         "$patterns": [
           {
             "rawBounds": {
-              "x": 756.25,
-              "y": 836.25,
-              "width": 42.5,
-              "height": 37.5
+              "x": 182.25,
+              "y": 833.25,
+              "width": 1579.5,
+              "height": 51.5
             },
             "resolution": {
               "width": 1920,
@@ -3241,7 +3241,7 @@
               "ignoreBackground": false
             },
             "offsetCalcType": "DockLeft",
-            "boundsCalcType": "Default",
+            "boundsCalcType": "FillWidth",
             "position": 0
           }
         ],
@@ -3254,10 +3254,10 @@
         "$patterns": [
           {
             "rawBounds": {
-              "x": 1154.25,
-              "y": 838.25,
-              "width": 34.5,
-              "height": 32.5
+              "x": 174.25,
+              "y": 824.25,
+              "width": 1578.5,
+              "height": 62.5
             },
             "resolution": {
               "width": 1920,
@@ -3281,7 +3281,7 @@
               "ignoreBackground": false
             },
             "offsetCalcType": "DockLeft",
-            "boundsCalcType": "Default",
+            "boundsCalcType": "FillWidth",
             "position": 0
           }
         ],
@@ -3294,10 +3294,10 @@
         "$patterns": [
           {
             "rawBounds": {
-              "x": 1677.25,
-              "y": 837.25,
-              "width": 31.5,
-              "height": 35.5
+              "x": 192.25,
+              "y": 818.25,
+              "width": 1571.5,
+              "height": 75.5
             },
             "resolution": {
               "width": 1920,
@@ -3321,7 +3321,7 @@
               "ignoreBackground": false
             },
             "offsetCalcType": "DockLeft",
-            "boundsCalcType": "Default",
+            "boundsCalcType": "FillHeight",
             "position": 0
           }
         ],
@@ -3816,10 +3816,10 @@
     "$patterns": [
       {
         "rawBounds": {
-          "x": 193.25,
-          "y": 841.25,
-          "width": 34.5,
-          "height": 28.5
+          "x": 153.25,
+          "y": 827.25,
+          "width": 1672.5,
+          "height": 54.5
         },
         "resolution": {
           "width": 1920,
@@ -3843,7 +3843,7 @@
           "ignoreBackground": false
         },
         "offsetCalcType": "DockLeft",
-        "boundsCalcType": "Default",
+        "boundsCalcType": "FillWidth",
         "position": 0
       }
     ],
