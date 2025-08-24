@@ -107,7 +107,7 @@
             </Border>
             <VerticalStackLayout VerticalOptions="End" HorizontalOptions="Start" Spacing="5" Padding="5">
                 <HorizontalStackLayout Spacing="5">
-                    <v:ImageView FontFamily="MaterialOutlined" Glyph="{x:Static ms:MaterialOutlined.Discord}"
+                    <v:ImageView FontFamily="FontAwesomeBrandIcons" Glyph="&#xf392;"
                                  Command="{Binding OpenDiscordLinkCommand}" />
                     <v:ImageView FontFamily="FontAwesomeBrandIcons" Glyph="&#xf09b;"
                                  Command="{Binding OpenGithubLinkCommand}" />
