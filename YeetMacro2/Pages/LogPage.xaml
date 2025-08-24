@@ -158,7 +158,7 @@
             </FlexLayout>
             <ScrollView Grid.Row="2" >
                 <CollectionView ItemsSource="{Binding Logs}" HorizontalOptions="Fill"  VerticalOptions="Fill"
-                        ItemTemplate="{conv:DynamicTemplateSelector Root={Binding .,Source={Reference thisPage}}}" />
+                        ItemTemplate="{conv:DynamicTemplateSelector Root={Binding ., Source={Reference thisPage}}}" />
             </ScrollView>
         </Grid>
     </Grid>
