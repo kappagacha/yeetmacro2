@@ -7,6 +7,7 @@ using Windows.Graphics;
 using Microsoft.Maui.LifecycleEvents;
 using YeetMacro2.Platforms.Windows.ViewModels;
 using YeetMacro2.Platforms.Windows.Services;
+using Microsoft.Extensions.Logging;
 
 namespace YeetMacro2.Platforms;
 
@@ -22,9 +23,11 @@ public static class PlatformServiceRegistrationHelper
 
         mauiAppBuilder.Services.AddYeetMacroData(setup =>
         {
-            setup.EnableSensitiveDataLogging();
             string dbPath = Path.Combine(FileSystem.AppDataDirectory, "yeetmacro.db3");
             setup.UseSqlite($"Filename={dbPath}");
+            
+            // Disable all EF Core logging
+            setup.UseLoggerFactory(LoggerFactory.Create(builder => builder.SetMinimumLevel(LogLevel.None)));
         }, ServiceLifetime.Transient);
 
         // https://github.com/dotnet/maui/discussions/2370

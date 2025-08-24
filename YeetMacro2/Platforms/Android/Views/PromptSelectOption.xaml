@@ -6,38 +6,91 @@
              x:DataType="pvm:PromptSelectOptionViewModel"
              vm:ViewModelLocator.ViewModelType="{x:Type pvm:PromptSelectOptionViewModel}"
              xmlns:av="clr-namespace:YeetMacro2.Platforms.Android.Views"
-             x:Class="YeetMacro2.Platforms.Android.Views.PromptSelectOption">
-    <ScrollView WidthRequest="400">
-        <Grid>
-            <VerticalStackLayout HorizontalOptions="Center" VerticalOptions="Center" Margin="0" Padding="0" MinimumWidthRequest="400">
-                <Label HorizontalOptions="Center" Text="{Binding Message}" FontSize="Title" FontAttributes="Bold" Margin="5"
-                           BackgroundColor="{AppThemeBinding Light={StaticResource Background}, Dark={StaticResource BackgroundDark}}" />
-                <CollectionView Margin="0" WidthRequest="400" ItemsSource="{Binding Options}">
+             x:Class="YeetMacro2.Platforms.Android.Views.PromptSelectOption"
+             x:Name="thisView">
+    <Grid VerticalOptions="End" Margin="10">
+        <Border BackgroundColor="{AppThemeBinding Light={StaticResource Background}, Dark={StaticResource BackgroundDark}}"
+                StrokeShape="RoundRectangle 14"
+                Stroke="{AppThemeBinding Light=#E5E7EB, Dark=#4B5563}"
+                StrokeThickness="0"
+                Shadow="{Shadow Brush=Black, Offset='0,2', Radius=10, Opacity=0.3}">
+            <VerticalStackLayout Spacing="0">
+                <!-- Title/Message -->
+                <Label Text="{Binding Message}" 
+                       FontSize="13"
+                       TextColor="{AppThemeBinding Light=#6B7280, Dark=#9CA3AF}"
+                       HorizontalTextAlignment="Center"
+                       Margin="20,16,20,12">
+                    <Label.Triggers>
+                        <DataTrigger TargetType="Label" Binding="{Binding Message}" Value="{x:Null}">
+                            <Setter Property="IsVisible" Value="False"/>
+                        </DataTrigger>
+                        <DataTrigger TargetType="Label" Binding="{Binding Message}" Value="">
+                            <Setter Property="IsVisible" Value="False"/>
+                        </DataTrigger>
+                    </Label.Triggers>
+                </Label>
+                
+                <BoxView HeightRequest="0.5" 
+                         Color="{AppThemeBinding Light=#E5E7EB, Dark=#4B5563}">
+                    <BoxView.Triggers>
+                        <DataTrigger TargetType="BoxView" Binding="{Binding Message}" Value="{x:Null}">
+                            <Setter Property="IsVisible" Value="False"/>
+                        </DataTrigger>
+                        <DataTrigger TargetType="BoxView" Binding="{Binding Message}" Value="">
+                            <Setter Property="IsVisible" Value="False"/>
+                        </DataTrigger>
+                    </BoxView.Triggers>
+                </BoxView>
+                
+                <!-- Options with scrolling -->
+                <CollectionView ItemsSource="{Binding Options}" 
+                                VerticalOptions="Start"
+                                MaximumHeightRequest="400">
                     <CollectionView.ItemsLayout>
-                        <LinearItemsLayout Orientation="Vertical" ItemSpacing="5" />
+                        <LinearItemsLayout Orientation="Vertical" ItemSpacing="0"/>
                     </CollectionView.ItemsLayout>
                     <CollectionView.ItemTemplate>
-                        <DataTemplate x:DataType="{x:Type x:String}">
-                            <Border Margin="0" Padding="0" BackgroundColor="{AppThemeBinding Light={StaticResource Background}, Dark={StaticResource BackgroundDark}}"
-                                        StrokeThickness="1" StrokeShape="RoundRectangle 10,10,10,10">
-                                <Grid Padding="5,0,5,0">
-                                    <Label Padding="0" Margin="3" Text="{Binding .}" FontSize="Medium" HorizontalTextAlignment="Start" />
-                                    <ImageButton Margin="0" Padding="0" VerticalOptions="Center" CommandParameter="{Binding .}"
-                                             Command="{Binding SelectCommand, Source={RelativeSource AncestorType={x:Type av:PromptSelectOption}}, x:DataType=pvm:PromptSelectOptionViewModel}" />
+                        <DataTemplate x:DataType="x:String">
+                            <Grid>
+                                <Grid HeightRequest="56">
+                                    <Label Text="{Binding .}" 
+                                           FontSize="17"
+                                           TextColor="{AppThemeBinding Light={StaticResource Primary}, Dark={StaticResource Primary}}"
+                                           HorizontalTextAlignment="Center"
+                                           VerticalTextAlignment="Center"/>
+                                    <Button BackgroundColor="Transparent"
+                                            CommandParameter="{Binding .}"
+                                            Command="{Binding ViewModel.SelectCommand, Source={Reference thisView}, x:DataType=av:PromptSelectOption}"/>
                                 </Grid>
-                            </Border>
+                                <BoxView HeightRequest="0.5" 
+                                         Color="{AppThemeBinding Light=#E5E7EB, Dark=#4B5563}"
+                                         VerticalOptions="End"/>
+                            </Grid>
                         </DataTemplate>
                     </CollectionView.ItemTemplate>
                 </CollectionView>
-                <Border Margin="0" Padding="0" StrokeThickness="1" StrokeShape="RoundRectangle 10,10,10,10" BackgroundColor="Red">
-                    <Grid Padding="5,0,5,0">
-                        <Label Padding="0" Margin="3" Text="Cancel" FontSize="Medium" HorizontalTextAlignment="Start" />
-                        <ImageButton Margin="0" Padding="0" VerticalOptions="Center"
-                Command="{Binding CancelCommand}"
-                CommandParameter="{Binding .}"/>
-                    </Grid>
-                </Border>
             </VerticalStackLayout>
-        </Grid>
-    </ScrollView>
+        </Border>
+        
+        <!-- Cancel Button (separate card like iOS style) -->
+        <Border BackgroundColor="{AppThemeBinding Light={StaticResource Background}, Dark={StaticResource BackgroundDark}}"
+                StrokeShape="RoundRectangle 14"
+                Stroke="{AppThemeBinding Light=#E5E7EB, Dark=#4B5563}"
+                StrokeThickness="0"
+                Margin="0,0,0,-66"
+                VerticalOptions="End"
+                Shadow="{Shadow Brush=Black, Offset='0,2', Radius=10, Opacity=0.3}">
+            <Grid HeightRequest="56">
+                <Label Text="Cancel"
+                       FontSize="17"
+                       TextColor="{StaticResource Primary}"
+                       HorizontalTextAlignment="Center"
+                       VerticalTextAlignment="Center"
+                       FontAttributes="Bold"/>
+                <Button BackgroundColor="Transparent"
+                        Command="{Binding CancelCommand}"/>
+            </Grid>
+        </Border>
+    </Grid>
 </ContentView>

@@ -93,7 +93,7 @@
                                 ItemTemplateSelector="{conv:VirtualDynamicTemplateSelector Root={Binding ., Source={Reference thisView}, x:DataType=v:TodoNodeView}}" />
             </Grid>
             <Grid ColumnDefinitions="*,3*" IsVisible="{Binding SubView, Source={Reference thisView}, x:DataType=v:TodoNodeView, Converter={conv:NullToBoolConverter}}">
-                <v:NodeView Grid.Column="0" NodeManager="{Binding Todos, x:DataType=v:TodoNodeView, Source={Reference thisView}}" />
+                <v:TodoCoreNodeView Grid.Column="0" NodeManager="{Binding Todos, x:DataType=v:TodoNodeView, Source={Reference thisView}}" />
                 <mct:DockLayout Grid.Column="1">
                     <DatePicker IsVisible="{Binding Todos.SelectedNode, x:DataType=v:TodoNodeView, Source={Reference thisView}, Converter={conv:NullToBoolConverter IsInverse=True}}" 
                                 Date="{Binding Todos.SelectedNode.Date, Source={Reference thisView}, x:DataType=v:TodoNodeView, Converter={conv:DateOnlyConverter}}" />

@@ -10,7 +10,8 @@
 		<SingleProject>true</SingleProject>
 		<ImplicitUsings>enable</ImplicitUsings>
     <RestorePackagesWithLockFile>true</RestorePackagesWithLockFile>
-    <NoWarn>$(NoWarn);MVVMTK0050;MVVMTK0045;CS9057;XC0045</NoWarn>
+    <NoWarn>$(NoWarn);MVVMTK0050;MVVMTK0045;CS9057;</NoWarn>
+    <MauiEnableXamlCBindingWithSourceCompilation>true</MauiEnableXamlCBindingWithSourceCompilation>
     
 		<!-- Display name -->
 		<ApplicationTitle>YeetMacro2</ApplicationTitle>
@@ -28,17 +29,38 @@
 		<TargetPlatformMinVersion Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'windows'">10.0.17763.0</TargetPlatformMinVersion>
 	</PropertyGroup>
 
-	<PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Debug|net9.0-android|AnyCPU'">
-	  <EmbedAssembliesIntoApk>True</EmbedAssembliesIntoApk>
-	  <AndroidSuppressedWarnings>XA0141</AndroidSuppressedWarnings>
+	<!-- Android-specific optimizations for Debug builds -->
+	<PropertyGroup Condition="'$(Configuration)' == 'Debug' AND $([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'android'">
+		<!-- Embed assemblies to avoid ClassNotFoundException -->
+		<EmbedAssembliesIntoApk>true</EmbedAssembliesIntoApk>
+		
+		<!-- Use Incremental Builds -->
+		<AndroidEnableProfiledAot>false</AndroidEnableProfiledAot>
+		<AndroidEnableMultiDex>true</AndroidEnableMultiDex>
+		<AndroidLinkMode>None</AndroidLinkMode>
+		
+		<!-- Disable unnecessary features for Debug -->
+		<AndroidPackageFormats>apk</AndroidPackageFormats>
+		<AndroidUseAapt2>true</AndroidUseAapt2>
+		<AndroidCreatePackagePerAbi>false</AndroidCreatePackagePerAbi>
+		
+		<!-- Disable R8/ProGuard for Debug to prevent stripping MAUI classes -->
+		<AndroidEnableProguard>false</AndroidEnableProguard>
+		<AndroidDexTool>d8</AndroidDexTool>
+		
+		<!-- Suppress known warnings -->
+		<AndroidSuppressedWarnings>XA0141;XA4304</AndroidSuppressedWarnings>
+		
+		<!-- Ensure MAUI classes are included -->
+		<AndroidIncludeAllNativeLibraries>true</AndroidIncludeAllNativeLibraries>
 	</PropertyGroup>
 
-  <PropertyGroup Condition="'$(Configuration)' == 'Release'">
+  <PropertyGroup Condition="'$(Configuration)' == 'Release' AND $([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'android'">
     <RunAOTCompilation>false</RunAOTCompilation>
     <AndroidEnableProfiledAot>false</AndroidEnableProfiledAot>
     <AndroidSuppressedWarnings>XA0141</AndroidSuppressedWarnings>
   </PropertyGroup>
-  
+
 	<ItemGroup>
 		<!-- App Icon -->
 		<MauiIcon Include="Resources\AppIcon\appicon.svg" ForegroundScale="0.6" Color="#512BD4" TintColor="White" />
@@ -77,6 +99,7 @@
 		<PackageReference Include="UraniumUI.Icons.MaterialIcons" Version="2.12.1" />
     <PackageReference Include="Microsoft.Maui.Controls" Version="9.0.100" />
     <PackageReference Include="Microsoft.Maui.Controls.Compatibility" Version="9.0.100" />
+    <PackageReference Include="UraniumUI.Icons.MaterialSymbols" Version="2.12.1" />
 	</ItemGroup>
 
 	<ItemGroup>
@@ -146,9 +169,6 @@
 	  </Compile>
 	  <Compile Update="Platforms\Android\Views\PromptSelectOption.xaml.cs">
 	    <DependentUpon>PromptSelectOption.xaml</DependentUpon>
-	  </Compile>
-	  <Compile Update="Views\NodeView.xaml.cs">
-	    <DependentUpon>NodeView.xaml</DependentUpon>
 	  </Compile>
 	  <Compile Update="Views\SettingNodeView.xaml.cs">
 	    <DependentUpon>SettingNodeView.xaml</DependentUpon>
@@ -220,9 +240,6 @@
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
 	  <MauiXaml Update="Views\SettingNodeView.xaml">
-	    <Generator>MSBuild:Compile</Generator>
-	  </MauiXaml>
-	  <MauiXaml Update="Views\NodeView.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
 	</ItemGroup>

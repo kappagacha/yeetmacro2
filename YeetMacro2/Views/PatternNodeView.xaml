@@ -18,17 +18,17 @@
                            IsVisible="{Binding MacroSet.UsePatternsSnapshot, Source={Reference thisControl}}"/>
         <Grid ColumnDefinitions="*,3*" IsVisible="{Binding MacroSet.UsePatternsSnapshot, Converter={conv:InverseBoolConverter}, Source={Reference thisControl}}">
             <Border Grid.Column="0" Stroke="{StaticResource Primary}" BackgroundColor="Transparent" Padding="3">
-                <v:NodeView NodeManager="{Binding MacroSet.Patterns, Source={Reference thisControl}}">
-                    <v:NodeView.ExtraMenuItemsDataTemplate>
-                        <DataTemplate x:DataType="v:NodeView">
+                <v:PatternCoreNodeView NodeManager="{Binding MacroSet.Patterns, Source={Reference thisControl}}">
+                    <v:PatternCoreNodeView.ExtraMenuItemsDataTemplate>
+                        <DataTemplate x:DataType="v:PatternCoreNodeView">
                             <VerticalStackLayout>
-                                <v:ToggleImageView x:DataType="v:NodeView" FontFamily="MaterialOutlined" Glyph="{x:Static mi:MaterialOutlined.Screenshot}"
+                                <v:ToggleImageView x:DataType="v:PatternCoreNodeView" FontFamily="MaterialOutlined" Glyph="{x:Static mi:MaterialOutlined.Screenshot}"
                                                    ToggledColor="{StaticResource Primary}"
                                                    IsToggled="{Binding MacroSet.UsePatternsSnapshot, Source={RelativeSource AncestorType={x:Type v:PatternNodeView}}, x:DataType=v:PatternNodeView}" />
                             </VerticalStackLayout>
                         </DataTemplate>
-                    </v:NodeView.ExtraMenuItemsDataTemplate>
-                </v:NodeView>
+                    </v:PatternCoreNodeView.ExtraMenuItemsDataTemplate>
+                </v:PatternCoreNodeView>
             </Border>
             <Border Grid.Column="1" Stroke="{StaticResource Primary}" BackgroundColor="Transparent" Padding="3"
                     IsVisible="{Binding MacroSet.Patterns.SelectedNode, Source={Reference thisControl}, Converter={conv:NullToBoolConverter IsInverse=True}}">

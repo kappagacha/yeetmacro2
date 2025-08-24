@@ -19,7 +19,7 @@
             <Grid>
                 <HorizontalStackLayout Spacing="10">
                     <Label Text="Macro Set: " Margin="5,0,0,0" FontSize="Body" VerticalOptions="Center" FontAttributes="Bold" />
-                    <Picker ItemsSource="{Binding MacroSets}" SelectedItem="{Binding SelectedMacroSet}" ItemDisplayBinding="{Binding Name, x:DataType={x:Type vm:MacroSetViewModel}}"/>
+                    <Picker ItemsSource="{Binding MacroSets}" SelectedItem="{Binding SelectedMacroSet}" ItemDisplayBinding="{Binding Name}"/>
                     <v:ImageView FontFamily="FASolid" Glyph="{x:Static fa:Solid.Rotate}" Color="{StaticResource Primary}" 
                                  Command="{Binding UpdateMacroSetCommand}" CommandParameter="{Binding SelectedMacroSet}" 
                                  IsVisible="{Binding SelectedMacroSet, Converter={conv:NullToBoolConverter IsInverse=True}}" />

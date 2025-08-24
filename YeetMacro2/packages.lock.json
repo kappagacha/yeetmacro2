@@ -200,6 +200,12 @@
         "resolved": "2.12.1",
         "contentHash": "YmO7w5pRTfLndlCsp78NBpnOeXjiFTRxejBS1ND/pct1kfu8zYOh6Pf+67EX1h0zEZYRv64wQ7R5Cn3UJOiqyg=="
       },
+      "UraniumUI.Icons.MaterialSymbols": {
+        "type": "Direct",
+        "requested": "[2.12.1, )",
+        "resolved": "2.12.1",
+        "contentHash": "MQ8a3OCQC2S0kDqdmBLynfNxIYDdOLr+4KsABpldj8bXPzp3C05uJm3jJCog8/QNvNLcboLllonmEAKnOzPhNw=="
+      },
       "Xamarin.OpenCV.Droid": {
         "type": "Direct",
         "requested": "[3.4.2, )",
@@ -1791,6 +1797,12 @@
         "requested": "[2.12.1, )",
         "resolved": "2.12.1",
         "contentHash": "YmO7w5pRTfLndlCsp78NBpnOeXjiFTRxejBS1ND/pct1kfu8zYOh6Pf+67EX1h0zEZYRv64wQ7R5Cn3UJOiqyg=="
+      },
+      "UraniumUI.Icons.MaterialSymbols": {
+        "type": "Direct",
+        "requested": "[2.12.1, )",
+        "resolved": "2.12.1",
+        "contentHash": "MQ8a3OCQC2S0kDqdmBLynfNxIYDdOLr+4KsABpldj8bXPzp3C05uJm3jJCog8/QNvNLcboLllonmEAKnOzPhNw=="
       },
       "AathifMahir.Maui.MauiIcons.Core": {
         "type": "Transitive",

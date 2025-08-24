@@ -37,6 +37,13 @@ public class AndroidInputService(AndroidScreenService screenService, YeetAccessi
     public async Task<string> PromptInput(string message, string placeholderInput = "")
     {
         _screenService.Show(AndroidWindowView.PromptStringInputView);
+
+        // missing permission
+        if (!_screenService.Views.ContainsKey(AndroidWindowView.PromptStringInputView))
+        {
+            return null;
+        }
+
         var viewModel = (PromptStringInputViewModel)_screenService.Views[AndroidWindowView.PromptStringInputView].VisualElement.BindingContext;
         viewModel.Message = message;
         if (!string.IsNullOrWhiteSpace(placeholderInput)) viewModel.Input = placeholderInput;

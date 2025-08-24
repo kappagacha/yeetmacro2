@@ -59,7 +59,7 @@
                             </Label.Triggers>
                         </Label>
                         <ImageButton Margin="0" Padding="0" CommandParameter="{Binding .}"
-                            Command="{Binding NodeManager.SelectNodeCommand, Source={RelativeSource AncestorType={x:Type v:NodeView}}, x:DataType=v:NodeView}" />
+                            Command="{Binding MacroSet.Settings.SelectNodeCommand, Source={RelativeSource AncestorType={x:Type v:SettingNodeView}}, x:DataType=v:SettingNodeView}" />
                     </Grid>
                 </Grid>
                 <Grid Grid.Row="1" Grid.Column="1" IsVisible="{Binding Nodes.Count, Converter={conv:NumberToBoolConverter}}">
@@ -98,7 +98,7 @@
                             </Label.Triggers>
                         </Label>
                         <ImageButton Margin="0" Padding="0" CommandParameter="{Binding .}" 
-                            Command="{Binding NodeManager.SelectNodeCommand, Source={RelativeSource AncestorType={x:Type v:NodeView}}, x:DataType=v:NodeView}" />
+                            Command="{Binding MacroSet.Settings.SelectNodeCommand, Source={RelativeSource AncestorType={x:Type v:SettingNodeView}}, x:DataType=v:SettingNodeView}" />
                     </Grid>
                 </Grid>
                 <Grid Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="2" IsVisible="{Binding Nodes.Count, Converter={conv:NumberToBoolConverter}}">
@@ -253,15 +253,15 @@
             </DataTrigger>
         </Grid.Triggers>
         <Border Grid.Column="0" Stroke="{StaticResource Primary}" BackgroundColor="Transparent" Padding="3">
-            <v:NodeView NodeManager="{Binding MacroSet.Settings, Source={Reference thisView}, x:DataType=v:SettingNodeView}" IsMenuVisible="{Binding SubView, Source={Reference thisView}, x:DataType=v:SettingNodeView, Converter={conv:NullToBoolConverter}}"
+            <v:SettingCoreNodeView NodeManager="{Binding MacroSet.Settings, Source={Reference thisView}, x:DataType=v:SettingNodeView}" IsMenuVisible="{Binding SubView, Source={Reference thisView}, x:DataType=v:SettingNodeView, Converter={conv:NullToBoolConverter}}"
                         ItemTemplateSelector="{conv:VirtualDynamicTemplateSelector Root={Binding ., Source={Reference thisView}, x:DataType=v:SettingNodeView}}">
-                <v:NodeView.Triggers>
-                    <DataTrigger TargetType="{x:Type v:NodeView}" Binding="{Binding SubView, Source={Reference thisView}, x:DataType=v:SettingNodeView, Converter={conv:NullToBoolConverter IsInverse=True}}" Value="True">
+                <v:SettingCoreNodeView.Triggers>
+                    <DataTrigger TargetType="{x:Type v:SettingCoreNodeView}" Binding="{Binding SubView, Source={Reference thisView}, x:DataType=v:SettingNodeView, Converter={conv:NullToBoolConverter IsInverse=True}}" Value="True">
                         <Setter Property="ItemsSource" Value="{Binding SubView.Nodes, x:DataType=v:SettingNodeView, Source={Reference thisView}}" />
                     </DataTrigger>
-                </v:NodeView.Triggers>
-                <v:NodeView.ExtraMenuItemsDataTemplate>
-                    <DataTemplate x:DataType="v:NodeView">
+                </v:SettingCoreNodeView.Triggers>
+                <v:SettingCoreNodeView.ExtraMenuItemsDataTemplate>
+                    <DataTemplate x:DataType="v:SettingCoreNodeView">
                         <VerticalStackLayout>
                             <v:ImageView IsVisible="{Binding MacroSet.Settings.SelectedNode, Source={RelativeSource AncestorType={x:Type v:SettingNodeView}}, x:DataType=v:SettingNodeView, Converter={conv:NullToBoolConverter}}"
                                          FontFamily="FASolid" Glyph="{x:Static fa:Solid.FileImport}"
@@ -271,16 +271,16 @@
                                          Command="{Binding  MacroSet.Settings.ExportCommand, Source={RelativeSource AncestorType={x:Type v:SettingNodeView}}, x:DataType=v:SettingNodeView}"
                                          CommandParameter="{Binding MacroSet.Name, Source={RelativeSource AncestorType={x:Type v:SettingNodeView}}, x:DataType=v:SettingNodeView}" />
                             <Grid>
-                                <v:ToggleImageView x:DataType="v:NodeView" FontFamily="MaterialOutlined" Glyph="{x:Static mi:MaterialOutlined.Refresh}" ToggledColor="{StaticResource Primary}" 
+                                <v:ToggleImageView x:DataType="v:SettingNodeView" FontFamily="MaterialOutlined" Glyph="{x:Static mi:MaterialOutlined.Refresh}" ToggledColor="{StaticResource Primary}" 
                                                    IsToggled="{Binding MacroSet.Settings.ShowResetButton, Source={RelativeSource AncestorType={x:Type v:SettingNodeView}}, x:DataType=v:SettingNodeView}"/>
-                                <v:ToggleImageView x:DataType="v:NodeView" FontFamily="FASolid" Glyph="{x:Static fa:Solid.Eye}" ToggledColor="{StaticResource Primary}" 
+                                <v:ToggleImageView x:DataType="v:SettingNodeView" FontFamily="FASolid" Glyph="{x:Static fa:Solid.Eye}" ToggledColor="{StaticResource Primary}" 
                                                    IsToggled="{Binding MacroSet.Settings.ShowResetButton, Source={RelativeSource AncestorType={x:Type v:SettingNodeView}}, x:DataType=v:SettingNodeView}"
                                                    Scale=".5"/>
                             </Grid>
                         </VerticalStackLayout>
                     </DataTemplate>
-                </v:NodeView.ExtraMenuItemsDataTemplate>
-            </v:NodeView>
+                </v:SettingCoreNodeView.ExtraMenuItemsDataTemplate>
+            </v:SettingCoreNodeView>
         </Border>
         <Border Grid.Column="1" Stroke="{StaticResource Primary}" BackgroundColor="Transparent" Padding="3"
                 IsVisible="{Binding MacroSet.Settings.SelectedPatternNode, Source={Reference thisView}, x:DataType=v:SettingNodeView, Converter={conv:NullToBoolConverter IsInverse=True}}">

@@ -15,7 +15,6 @@ using YeetMacro2.Views;
 using CommunityToolkit.Mvvm.Messaging;
 using static Android.Graphics.Bitmap;
 using Android.Media.Projection;
-using AndroidX.Core.View;
 
 namespace YeetMacro2.Platforms.Android.Services;
 

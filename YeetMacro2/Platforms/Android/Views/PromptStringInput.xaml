@@ -6,33 +6,74 @@
              x:DataType="pvm:PromptStringInputViewModel"
              vm:ViewModelLocator.ViewModelType="{x:Type pvm:PromptStringInputViewModel}"
              x:Class="YeetMacro2.Platforms.Android.Views.PromptStringInput">
-    <Grid>
-        <VerticalStackLayout VerticalOptions="Center" HorizontalOptions="Center">
-            <Label BackgroundColor="{AppThemeBinding Light={StaticResource Background}, Dark={StaticResource BackgroundDark}}" 
-                   Text="{Binding Message}" FontSize="Title" FontAttributes="Bold" Margin="5" />
-            <Border MinimumWidthRequest="400" StrokeThickness="1" StrokeShape="RoundRectangle 10,10,10,10" HorizontalOptions="Start"
-                   BackgroundColor="{AppThemeBinding Light={StaticResource Background}, Dark={StaticResource BackgroundDark}}">
-                <Entry x:Name="inputEntry" Text="{Binding Input}" />
-            </Border>
-            <Border MinimumWidthRequest="400" StrokeThickness="1" StrokeShape="RoundRectangle 10,10,10,10" HorizontalOptions="Start">
-                <Grid BackgroundColor="{AppThemeBinding Light={StaticResource Background}, Dark={StaticResource BackgroundDark}}">
-                    <Border BackgroundColor="Red" HorizontalOptions="Start"
-                            MinimumWidthRequest="100" StrokeThickness="1" StrokeShape="RoundRectangle 10,10,10,10">
-                        <Grid Padding="5,0,5,0">
-                            <Label Padding="0" Margin="3" Text="Cancel" FontSize="Medium" />
-                            <ImageButton Margin="0" Padding="0" Command="{Binding CancelCommand}"/>
-                        </Grid>
-                    </Border>
-                    <Border BackgroundColor="{AppThemeBinding Light={StaticResource Background}, Dark={StaticResource BackgroundDark}}"
-                            HorizontalOptions="End"
-                            MinimumWidthRequest="100" StrokeThickness="1" StrokeShape="RoundRectangle 10,10,10,10">
-                        <Grid Padding="5,0,5,0">
-                            <Label Padding="0" Margin="3" Text="OK" FontSize="Medium" />
-                            <ImageButton Margin="0" Padding="0" Command="{Binding OkCommand}"/>
-                        </Grid>
-                    </Border>
+    <Grid VerticalOptions="Center" HorizontalOptions="Center">
+        <Border BackgroundColor="{AppThemeBinding Light={StaticResource Background}, Dark={StaticResource BackgroundDark}}"
+                StrokeShape="RoundRectangle 14"
+                Stroke="{AppThemeBinding Light=#E5E7EB, Dark=#4B5563}"
+                StrokeThickness="0"
+                Shadow="{Shadow Brush=Black, Offset='0,4', Radius=20, Opacity=0.3}"
+                MinimumWidthRequest="320"
+                MaximumWidthRequest="400">
+            <VerticalStackLayout Spacing="0">
+                <!-- Title/Message -->
+                <Label Text="{Binding Message}" 
+                       FontSize="17"
+                       FontAttributes="Bold"
+                       TextColor="{AppThemeBinding Light=#111827, Dark=#F3F4F6}"
+                       HorizontalTextAlignment="Center"
+                       Margin="20,20,20,8"/>
+                
+                <!-- Input Field -->
+                <Border Margin="20,8,20,20"
+                        BackgroundColor="{AppThemeBinding Light=#F9FAFB, Dark=#1F2937}"
+                        StrokeShape="RoundRectangle 8"
+                        Stroke="{AppThemeBinding Light=#D1D5DB, Dark=#4B5563}"
+                        StrokeThickness="1">
+                    <Entry x:Name="inputEntry" 
+                           Text="{Binding Input}"
+                           BackgroundColor="Transparent"
+                           TextColor="{AppThemeBinding Light=#111827, Dark=#F3F4F6}"
+                           PlaceholderColor="{AppThemeBinding Light=#9CA3AF, Dark=#6B7280}"
+                           FontSize="16"
+                           Margin="12,0"
+                           HeightRequest="44"/>
+                </Border>
+                
+                <!-- Separator -->
+                <BoxView HeightRequest="0.5" 
+                         Color="{AppThemeBinding Light=#E5E7EB, Dark=#4B5563}"/>
+                
+                <!-- Button Row -->
+                <Grid ColumnDefinitions="*,Auto,*" HeightRequest="44">
+                    <!-- Cancel Button -->
+                    <Grid Grid.Column="0">
+                        <Label Text="Cancel"
+                               FontSize="17"
+                               TextColor="{StaticResource Primary}"
+                               HorizontalTextAlignment="Center"
+                               VerticalTextAlignment="Center"/>
+                        <Button BackgroundColor="Transparent"
+                                Command="{Binding CancelCommand}"/>
+                    </Grid>
+                    
+                    <!-- Vertical Separator -->
+                    <BoxView Grid.Column="1" 
+                             WidthRequest="0.5" 
+                             Color="{AppThemeBinding Light=#E5E7EB, Dark=#4B5563}"/>
+                    
+                    <!-- OK Button -->
+                    <Grid Grid.Column="2">
+                        <Label Text="OK"
+                               FontSize="17"
+                               FontAttributes="Bold"
+                               TextColor="{StaticResource Primary}"
+                               HorizontalTextAlignment="Center"
+                               VerticalTextAlignment="Center"/>
+                        <Button BackgroundColor="Transparent"
+                                Command="{Binding OkCommand}"/>
+                    </Grid>
                 </Grid>
-            </Border>
-        </VerticalStackLayout>
+            </VerticalStackLayout>
+        </Border>
     </Grid>
 </ContentView>

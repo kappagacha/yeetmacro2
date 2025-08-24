@@ -27,5 +27,10 @@ public partial class SettingNodeView : ContentView
     public SettingNodeView()
     {
         InitializeComponent();
+        
+        // Register templates with VirtualDynamicTemplateSelector
+        // This ensures templates are available for SettingCoreNodeView
+        var selector = new Converters.VirtualDynamicTemplateSelector();
+        selector.Root = this;
     }
 }

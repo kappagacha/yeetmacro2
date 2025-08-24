@@ -14,7 +14,22 @@ public class VirtualDynamicTemplateSelector : VirtualListViewItemTemplateSelecto
     {
         set
         {
-            var rootObject = (VisualElement)((Binding)value).Source;
+            VisualElement rootObject = null;
+            
+            // Handle both direct object and Binding
+            if (value is Binding binding)
+            {
+                rootObject = (VisualElement)binding.Source;
+            }
+            else if (value is VisualElement visualElement)
+            {
+                rootObject = visualElement;
+            }
+            else
+            {
+                throw new InvalidOperationException($"VirtualDynamicTemplateSelector: Unable to process rootObject of type {value?.GetType()?.FullName ?? "null"}. Expected VisualElement or Binding to VisualElement.");
+            }
+            
             if (!_processedViewType.Contains(rootObject.GetType()))
             {
                 foreach (var resource in rootObject.Resources)
@@ -61,8 +76,14 @@ public class VirtualDynamicTemplateSelector : VirtualListViewItemTemplateSelecto
 
     public override DataTemplate SelectTemplate(object item, int sectionIndex, int itemIndex)
     {
+        if (item == null) return null;
+        
         string typeKey = item.GetType().Name.Replace("ViewModel", "") + "Template";
-        if (!_keyToDataTemplate.ContainsKey(typeKey)) throw new Exception($"VirtualDynamicTemplateSelector: template {typeKey} not found.");
+        
+        if (!_keyToDataTemplate.ContainsKey(typeKey)) 
+        {
+            return null; // Return null instead of throwing to see if it falls back to default
+        }
 
         var dataTemplate = _keyToDataTemplate[typeKey];
         return dataTemplate;
