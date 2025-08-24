@@ -308,4 +308,9 @@ public partial class MacroSetViewModel : MacroSet
             IsScriptRunning = false;
         });
     }
+    
+    public override string ToString()
+    {
+        return Name ?? base.ToString();
+    }
 }
