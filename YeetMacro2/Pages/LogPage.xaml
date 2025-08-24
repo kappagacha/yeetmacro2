@@ -8,7 +8,7 @@
              x:DataType="vm:LogServiceViewModel"
              vm:ViewModelLocator.ViewModelType="{x:Type vm:LogServiceViewModel}"
              xmlns:conv="clr-namespace:YeetMacro2.Converters"
-             xmlns:mi="clr-namespace:UraniumUI.Icons.MaterialIcons;assembly=UraniumUI.Icons.MaterialIcons"
+             xmlns:ms="clr-namespace:UraniumUI.Icons.MaterialSymbols;assembly=UraniumUI.Icons.MaterialSymbols"
              xmlns:p="clr-namespace:YeetMacro2.Pages"
              x:Name="thisPage"
              Title="LogPage">
@@ -22,8 +22,8 @@
                            ImageHeight="15"
                            ImageWidth="15"
                            FontFamily="MaterialOutlined" 
-                           Glyph="{x:Static mi:MaterialOutlined.Keyboard_arrow_right}"
-                           ToggledGlyph="{x:Static mi:MaterialOutlined.Keyboard_arrow_down}"
+                           Glyph="{x:Static ms:MaterialOutlined.Keyboard_arrow_right}"
+                           ToggledGlyph="{x:Static ms:MaterialOutlined.Keyboard_arrow_down}"
                            IsToggledFromImageOnly="True"
                            HeightRequest="20" />
                 <Grid Grid.Row="0" Grid.Column="1" HeightRequest="20">
@@ -45,7 +45,7 @@
                                      Command="{Binding SelectLogCommand, Source={RelativeSource AncestorType={x:Type p:LogPage}}, x:DataType=vm:LogServiceViewModel}" />
                     </Grid>
                     <Grid HeightRequest="20" HorizontalOptions="End" IsVisible="{Binding ParentId, Converter={conv:NullToBoolConverter}}">
-                        <v:ToggleImageView FontFamily="MaterialOutlined" Glyph="{x:Static mi:MaterialOutlined.Archive}" IsToggled="{Binding IsArchived}"
+                        <v:ToggleImageView FontFamily="MaterialOutlined" Glyph="{x:Static ms:MaterialOutlined.Archive}" IsToggled="{Binding IsArchived}"
                                            ToggledColor="{StaticResource Primary}"
                                            CommandParameter="{Binding .}"
                                            Command="{Binding ToggleLogArchivedCommand, Source={RelativeSource AncestorType={x:Type p:LogPage}}, x:DataType=vm:LogServiceViewModel}" />
@@ -66,8 +66,8 @@
                                    ImageHeight="15"
                                    ImageWidth="15"
                                    FontFamily="MaterialOutlined" 
-                                   Glyph="{x:Static mi:MaterialOutlined.Keyboard_arrow_right}"
-                                   ToggledGlyph="{x:Static mi:MaterialOutlined.Keyboard_arrow_down}"
+                                   Glyph="{x:Static ms:MaterialOutlined.Keyboard_arrow_right}"
+                                   ToggledGlyph="{x:Static ms:MaterialOutlined.Keyboard_arrow_down}"
                                    IsToggledFromImageOnly="True"
                                    HeightRequest="20" />
                 <Grid Grid.Row="0" Grid.Column="1" HeightRequest="20">
@@ -83,7 +83,7 @@
                                      Command="{Binding SelectLogCommand, Source={RelativeSource AncestorType={x:Type p:LogPage}}, x:DataType=vm:LogServiceViewModel}" />
                     </Grid>
                     <Grid HeightRequest="20" HorizontalOptions="End" IsVisible="{Binding ParentId, Converter={conv:NullToBoolConverter}}">
-                        <v:ToggleImageView FontFamily="MaterialOutlined" Glyph="{x:Static mi:MaterialOutlined.Archive}" IsToggled="{Binding IsArchived}"
+                        <v:ToggleImageView FontFamily="MaterialOutlined" Glyph="{x:Static ms:MaterialOutlined.Archive}" IsToggled="{Binding IsArchived}"
                                            ToggledColor="{StaticResource Primary}"
                                            CommandParameter="{Binding .}"
                                            Command="{Binding ToggleLogArchivedCommand, Source={RelativeSource AncestorType={x:Type p:LogPage}}, x:DataType=vm:LogServiceViewModel}" />
@@ -107,15 +107,15 @@
                 <ImageButton Margin="0" Padding="0" CommandParameter="{Binding .}"
                              Command="{Binding SelectLogCommand, Source={RelativeSource AncestorType={x:Type p:LogPage}}, x:DataType=vm:LogServiceViewModel}" />
                 <HorizontalStackLayout HeightRequest="20" HorizontalOptions="End">
-                    <v:ImageView FontFamily="MaterialOutlined" Glyph="{x:Static mi:MaterialOutlined.Download}" 
+                    <v:ImageView FontFamily="MaterialOutlined" Glyph="{x:Static ms:MaterialOutlined.Download}" 
                        CommandParameter="{Binding .}"
                        Command="{Binding DownloadScreenCaptureCommand, Source={RelativeSource AncestorType={x:Type p:LogPage}}, x:DataType=vm:LogServiceViewModel}" />
-                    <v:ImageView FontFamily="MaterialOutlined" Glyph="{x:Static mi:MaterialOutlined.Content_copy}" 
+                    <v:ImageView FontFamily="MaterialOutlined" Glyph="{x:Static ms:MaterialOutlined.Content_copy}" 
                        CommandParameter="{Binding .}"
                        Command="{Binding CopyMessgeToClipboardCommand, Source={RelativeSource AncestorType={x:Type p:LogPage}}, x:DataType=vm:LogServiceViewModel}" />
                 </HorizontalStackLayout>
                 <Grid HeightRequest="20" HorizontalOptions="End" IsVisible="{Binding ParentId, Converter={conv:NullToBoolConverter}}">
-                    <v:ToggleImageView FontFamily="MaterialOutlined" Glyph="{x:Static mi:MaterialOutlined.Archive}" IsToggled="{Binding IsArchived}"
+                    <v:ToggleImageView FontFamily="MaterialOutlined" Glyph="{x:Static ms:MaterialOutlined.Archive}" IsToggled="{Binding IsArchived}"
                                            ToggledColor="{StaticResource Primary}"
                                            CommandParameter="{Binding .}"
                                            Command="{Binding ToggleLogArchivedCommand, Source={RelativeSource AncestorType={x:Type p:LogPage}}, x:DataType=vm:LogServiceViewModel}" />
@@ -134,7 +134,7 @@
                 <ImageButton Margin="0" Padding="0" CommandParameter="{Binding .}"
                              Command="{Binding SelectLogCommand, Source={RelativeSource AncestorType={x:Type p:LogPage}}, x:DataType=vm:LogServiceViewModel}" />
                 <Grid HeightRequest="20" HorizontalOptions="End">
-                    <v:ImageView FontFamily="MaterialOutlined" Glyph="{x:Static mi:MaterialOutlined.Content_copy}" 
+                    <v:ImageView FontFamily="MaterialOutlined" Glyph="{x:Static ms:MaterialOutlined.Content_copy}" 
                                 CommandParameter="{Binding .}"
                                 Command="{Binding CopyMessgeToClipboardCommand, Source={RelativeSource AncestorType={x:Type p:LogPage}}, x:DataType=vm:LogServiceViewModel}" />
                 </Grid>

@@ -6,7 +6,7 @@
              xmlns:v="clr-namespace:YeetMacro2.Views"
              xmlns:m="clr-namespace:YeetMacro2.Data.Models"
              xmlns:fa="clr-namespace:UraniumUI.Icons.FontAwesome;assembly=UraniumUI.Icons.FontAwesome"
-             xmlns:mi="clr-namespace:UraniumUI.Icons.MaterialIcons;assembly=UraniumUI.Icons.MaterialIcons"
+             xmlns:ms="clr-namespace:UraniumUI.Icons.MaterialSymbols;assembly=UraniumUI.Icons.MaterialSymbols"
              xmlns:skia="clr-namespace:SkiaSharp.Views.Maui.Controls;assembly=SkiaSharp.Views.Maui.Controls"
              xmlns:mct="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
              x:Class="YeetMacro2.Views.PatternView"
@@ -18,11 +18,11 @@
             <Grid BackgroundColor="{AppThemeBinding Light={StaticResource Background}, Dark={StaticResource BackgroundDark}}" Opacity="0.8" />
             <VerticalStackLayout>
                 <HorizontalStackLayout>
-                    <v:ToggleImageView x:Name="generalFlagsToggle" ToggledColor="{StaticResource Primary}" FontFamily="MaterialOutlined" Glyph="{x:Static mi:MaterialOutlined.Settings}" />
+                    <v:ToggleImageView x:Name="generalFlagsToggle" ToggledColor="{StaticResource Primary}" FontFamily="MaterialOutlined" Glyph="{x:Static ms:MaterialOutlined.Settings}" />
                     <v:ToggleImageView x:Name="textMatchToggle" ToggledColor="{StaticResource Primary}" FontFamily="FASolid" Glyph="{x:Static fa:Solid.SpellCheck}" />
-                    <v:ToggleImageView x:Name="colorThresholdToggle" ToggledColor="{StaticResource Primary}" FontFamily="MaterialOutlined" Glyph="{x:Static mi:MaterialOutlined.Invert_colors}" />
+                    <v:ToggleImageView x:Name="colorThresholdToggle" ToggledColor="{StaticResource Primary}" FontFamily="MaterialOutlined" Glyph="{x:Static ms:MaterialOutlined.Invert_colors}" />
                     <v:ToggleImageView x:Name="offsetToggle" ToggledColor="{StaticResource Primary}" FontFamily="FASolid" Glyph="{x:Static fa:Solid.ArrowRightArrowLeft}" />
-                    <v:ToggleImageView x:Name="infoToggle" ToggledColor="{StaticResource Primary}" FontFamily="MaterialOutlined" Glyph="{x:Static mi:MaterialOutlined.Info}" />
+                    <v:ToggleImageView x:Name="infoToggle" ToggledColor="{StaticResource Primary}" FontFamily="MaterialOutlined" Glyph="{x:Static ms:MaterialOutlined.Info}" />
                 </HorizontalStackLayout>
                 <HorizontalStackLayout x:DataType="v:ToggleImageView" Spacing="5" IsVisible="{Binding IsToggled, Source={x:Reference generalFlagsToggle}}">
                     <Label VerticalOptions="Center" Padding="0" Text="VariancePct" />
@@ -178,19 +178,19 @@
         <VerticalStackLayout BackgroundColor="{AppThemeBinding Light={StaticResource Background}, Dark={StaticResource BackgroundDark}}" Opacity="0.8"
                              VerticalOptions="End" HorizontalOptions="End">
             <HorizontalStackLayout Spacing="5" VerticalOptions="End" HorizontalOptions="End" x:DataType="v:ToggleImageView" IsVisible="{Binding IsToggled, Source={x:Reference infoToggle}}">
-                <v:ImageView FontFamily="MaterialOutlined" Glyph="{x:Static mi:MaterialOutlined.Rectangle}" Color="{StaticResource Primary}" />
+                <v:ImageView FontFamily="MaterialOutlined" Glyph="{x:Static ms:MaterialOutlined.Rectangle}" Color="{StaticResource Primary}" />
                 <Label Text="{Binding Pattern.RawBoundsDisplay, Source={Reference thisView}, x:DataType=v:PatternView}" />
             </HorizontalStackLayout>
             <!--<HorizontalStackLayout Spacing="5" VerticalOptions="End" HorizontalOptions="End">
-                <v:ImageView FontFamily="MaterialOutlined" Glyph="{x:Static mi:MaterialOutlined.Image_aspect_ratio}" Color="{StaticResource Primary}" />
+                <v:ImageView FontFamily="MaterialOutlined" Glyph="{x:Static ms:MaterialOutlined.Image_aspect_ratio}" Color="{StaticResource Primary}" />
                 <Label Text="{Binding Patterns.CurrentResolution}" />
             </HorizontalStackLayout>-->
             <HorizontalStackLayout Spacing="5" VerticalOptions="End" HorizontalOptions="End" x:DataType="v:ToggleImageView" IsVisible="{Binding IsToggled, Source={x:Reference infoToggle}}">
-                <v:ImageView FontFamily="MaterialOutlined" Glyph="{x:Static mi:MaterialOutlined.Image}" Color="{StaticResource Primary}" />
+                <v:ImageView FontFamily="MaterialOutlined" Glyph="{x:Static ms:MaterialOutlined.Image}" Color="{StaticResource Primary}" />
                 <Label Text="{Binding Pattern.Resolution, Source={Reference thisView}, x:DataType=v:PatternView}" />
             </HorizontalStackLayout>
             <HorizontalStackLayout VerticalOptions="End" HorizontalOptions="End">
-                <v:ImageView FontFamily="MaterialOutlined" Glyph="{x:Static mi:MaterialOutlined.Photo_camera_front}" Color="{StaticResource Primary}"
+                <v:ImageView FontFamily="MaterialOutlined" Glyph="{x:Static ms:MaterialOutlined.Photo_camera_front}" Color="{StaticResource Primary}"
                              Command="{Binding CapturePatternCommand, Source={Reference thisView}}">
                     <v:ImageView.CommandParameter>
                         <MultiBinding Converter="{conv:PassThroughConverter}">
@@ -200,7 +200,7 @@
                         </MultiBinding>
                     </v:ImageView.CommandParameter>
                 </v:ImageView>
-                <v:ImageView FontFamily="MaterialRegular" Glyph="{x:Static mi:MaterialRegular.Crop_free}" Color="{StaticResource Primary}"
+                <v:ImageView FontFamily="MaterialSharp" Glyph="{x:Static ms:MaterialSharp.Crop_free}" Color="{StaticResource Primary}"
                              Command="{Binding SetPatternBoundsCommand, Source={Reference thisView}}"
                              CommandParameter="{Binding Pattern, Source={Reference thisView}}" />
                 <v:ImageView FontFamily="FASolid" Glyph="{x:Static fa:Solid.HandPointer}" Color="{StaticResource Primary}"
@@ -240,7 +240,7 @@
                         </MultiBinding>
                     </v:ImageView.CommandParameter>
                 </v:ImageView>
-                <v:ImageView FontFamily="MaterialOutlined" Glyph="{x:Static mi:MaterialOutlined.Save}" Color="{StaticResource Primary}" 
+                <v:ImageView FontFamily="MaterialOutlined" Glyph="{x:Static ms:MaterialOutlined.Save}" Color="{StaticResource Primary}" 
                              Command="{Binding SavePatternCommand, Source={Reference thisView}}">
                     <v:ImageView.CommandParameter>
                         <MultiBinding Converter="{conv:PassThroughConverter}">

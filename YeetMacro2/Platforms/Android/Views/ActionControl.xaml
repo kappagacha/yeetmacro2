@@ -8,7 +8,7 @@
              xmlns:av="clr-namespace:YeetMacro2.Platforms.Android.Views"
              x:DataType="pvm:ActionViewModel"
              vm:ViewModelLocator.ViewModelType="{x:Type pvm:ActionViewModel}"
-             xmlns:mi="clr-namespace:UraniumUI.Icons.MaterialIcons;assembly=UraniumUI.Icons.MaterialIcons"
+             xmlns:ms="clr-namespace:UraniumUI.Icons.MaterialSymbols;assembly=UraniumUI.Icons.MaterialSymbols"
              HeightRequest="50"
              WidthRequest="50"
              x:Class="YeetMacro2.Platforms.Android.Views.ActionControl">
@@ -20,16 +20,16 @@
         </Border.Triggers>
         <Grid>
             <ImageButton Command="{Binding ExecuteCommand}" />
-            <v:ImageView FontFamily="MaterialOutlined" Glyph="{x:Static mi:MaterialOutlined.Play_arrow}" Color="{StaticResource Primary}"
+            <v:ImageView FontFamily="MaterialOutlined" Glyph="{x:Static ms:MaterialOutlined.Play_arrow}" Color="{StaticResource Primary}"
                          Command="{Binding ExecuteCommand}">
                 <v:ImageView.Triggers>
                     <DataTrigger TargetType="{x:Type v:ImageView}" Binding="{Binding State}" Value="{x:Static pvm:ActionState.Running}">
                         <Setter Property="Color" Value="Red" />
-                        <Setter Property="Glyph" Value="{x:Static mi:MaterialOutlined.Stop}" />
+                        <Setter Property="Glyph" Value="{x:Static ms:MaterialOutlined.Stop}" />
                     </DataTrigger>
                     <DataTrigger TargetType="{x:Type v:ImageView}" Binding="{Binding State}" Value="{x:Static pvm:ActionState.Stopped}">
                         <Setter Property="Color" Value="{StaticResource Primary}" />
-                        <Setter Property="Glyph" Value="{x:Static mi:MaterialOutlined.Play_arrow}" />
+                        <Setter Property="Glyph" Value="{x:Static ms:MaterialOutlined.Play_arrow}" />
                     </DataTrigger>
                 </v:ImageView.Triggers>
             </v:ImageView>

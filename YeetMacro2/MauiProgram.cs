@@ -32,7 +32,7 @@ public static class MauiProgram
                 // https://enisn-projects.io/docs/en/uranium/latest/theming/Icons#fontawesome
                 fonts.AddFontAwesomeIconFonts();
                 // https://enisn-projects.io/docs/en/uranium/latest/theming/Icons#material-icons
-                fonts.AddMaterialIconFonts();
+                fonts.AddMaterialSymbolsFonts();
             });
 
 #if DEBUG

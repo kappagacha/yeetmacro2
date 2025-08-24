@@ -7,28 +7,28 @@
              x:DataType="pvm:AndriodHomeViewModel"
              vm:ViewModelLocator.ViewModelType="{x:Type pvm:AndriodHomeViewModel}"
              xmlns:fa="clr-namespace:UraniumUI.Icons.FontAwesome;assembly=UraniumUI.Icons.FontAwesome"
-             xmlns:mi="clr-namespace:UraniumUI.Icons.MaterialIcons;assembly=UraniumUI.Icons.MaterialIcons"
+             xmlns:ms="clr-namespace:UraniumUI.Icons.MaterialSymbols;assembly=UraniumUI.Icons.MaterialSymbols"
              x:Class="YeetMacro2.Platforms.Android.Views.MacroOverlayView"
              HeightRequest="150">
     <Grid Padding="0,30,0,0">
         <VerticalStackLayout>
             <HorizontalStackLayout Spacing="5">
                 <v:ToggleImageView IsToggled="{Binding IsProjectionServiceEnabled}"
-                   FontFamily="MaterialOutlined" Glyph="{x:Static mi:MaterialOutlined.Branding_watermark}" 
+                   FontFamily="MaterialOutlined" Glyph="{x:Static ms:MaterialOutlined.Branding_watermark}" 
                    HorizontalOptions="Center" ToggledColor="{StaticResource Primary}" UntoggledColor="Red"
                    Command="{Binding ToggleIsProjectionServiceEnabledCommand}" />
                 <BoxView WidthRequest="1" Color="{StaticResource Primary}"/>
                 <v:ToggleImageView IsToggled="{Binding IsAccessibilityEnabled}"
-                   FontFamily="MaterialOutlined" Glyph="{x:Static mi:MaterialOutlined.Touch_app}"
+                   FontFamily="MaterialOutlined" Glyph="{x:Static ms:MaterialOutlined.Touch_app}"
                    HorizontalOptions="Center" ToggledColor="{StaticResource Primary}" UntoggledColor="Red"
                    Command="{Binding ToggleIsAccessibilityEnabledCommand}" />
                 <BoxView WidthRequest="1" Color="{StaticResource Primary}"/>
                 <v:ToggleImageView IsToggled="{Binding ShowStatusPanel}"
-                               FontFamily="MaterialOutlined" Glyph="{x:Static mi:MaterialOutlined.Call_to_action}"
+                               FontFamily="MaterialOutlined" Glyph="{x:Static ms:MaterialOutlined.Call_to_action}"
                                HorizontalOptions="Center" ToggledColor="{StaticResource Primary}" UntoggledColor="LightGray" />
                 <BoxView WidthRequest="1" Color="{StaticResource Primary}"/>
                 <v:ToggleImageView IsToggled="{Binding MacroManagerViewModel.InDebugMode}"
-                   FontFamily="MaterialOutlined" Glyph="{x:Static mi:MaterialOutlined.Filter_center_focus}"
+                   FontFamily="MaterialOutlined" Glyph="{x:Static ms:MaterialOutlined.Filter_center_focus}"
                    HorizontalOptions="Center" ToggledColor="{StaticResource Primary}" UntoggledColor="LightGray" />
                 <BoxView WidthRequest="1" Color="{StaticResource Primary}"/>
                 <Grid HeightRequest="20">
@@ -85,11 +85,11 @@
         <VerticalStackLayout HorizontalOptions="End" VerticalOptions="Start">
             <HorizontalStackLayout>
                 <v:ToggleImageView IsToggled="{Binding ShowPatternNodeView}"
-                                   FontFamily="MaterialOutlined" Glyph="{x:Static mi:MaterialOutlined.Image_search}"
+                                   FontFamily="MaterialOutlined" Glyph="{x:Static ms:MaterialOutlined.Image_search}"
                                    HorizontalOptions="Center" ToggledColor="{StaticResource Primary}" UntoggledColor="LightGray" />
                 <BoxView WidthRequest="1" Color="{StaticResource Primary}"/>
                 <v:ToggleImageView IsToggled="{Binding ShowSettingNodeView}"
-                                   FontFamily="MaterialOutlined" Glyph="{x:Static mi:MaterialOutlined.Settings}"
+                                   FontFamily="MaterialOutlined" Glyph="{x:Static ms:MaterialOutlined.Settings}"
                                    HorizontalOptions="Center" ToggledColor="{StaticResource Primary}" UntoggledColor="LightGray" />
                 <BoxView WidthRequest="1" Color="{StaticResource Primary}"/>
                 <v:ToggleImageView IsToggled="{Binding ShowDailyNodeView}"
@@ -101,7 +101,7 @@
                                     HorizontalOptions="Center" ToggledColor="{StaticResource Primary}" UntoggledColor="LightGray" />
                 <BoxView WidthRequest="1" Color="{StaticResource Primary}"/>
                 <v:ToggleImageView IsToggled="{Binding ShowTestView}"
-                                   FontFamily="MaterialOutlined" Glyph="{x:Static mi:MaterialOutlined.Science}"
+                                   FontFamily="MaterialOutlined" Glyph="{x:Static ms:MaterialOutlined.Science}"
                                    HorizontalOptions="Center" ToggledColor="{StaticResource Primary}" UntoggledColor="LightGray" />
                 <BoxView WidthRequest="1" Color="{StaticResource Primary}"/>
                 <v:ImageView FontFamily="FASolid" Glyph="{x:Static fa:Solid.x}" Color="Red"

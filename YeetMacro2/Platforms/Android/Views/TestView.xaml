@@ -7,7 +7,7 @@
              x:DataType="pvm:TestViewModel"
              vm:ViewModelLocator.ViewModelType="{x:Type pvm:TestViewModel}"
              xmlns:fa="clr-namespace:UraniumUI.Icons.FontAwesome;assembly=UraniumUI.Icons.FontAwesome"
-             xmlns:mi="clr-namespace:UraniumUI.Icons.MaterialIcons;assembly=UraniumUI.Icons.MaterialIcons"
+             xmlns:ms="clr-namespace:UraniumUI.Icons.MaterialSymbols;assembly=UraniumUI.Icons.MaterialSymbols"
              x:Class="YeetMacro2.Platforms.Android.Views.TestView"
              HeightRequest="150">
     <ScrollView>
@@ -15,16 +15,16 @@
             <!--<Button Text="Dump Global Ref Table" Command="{Binding DumpGlobalRefTableCommand}" />-->
             <HorizontalStackLayout Spacing="5">
                 <Label VerticalOptions="Center" Text="ImageView Test" />
-                <v:ImageView FontFamily="MaterialOutlined" Glyph="{x:Static mi:MaterialOutlined.Play_arrow}" Color="{StaticResource Primary}"
+                <v:ImageView FontFamily="MaterialOutlined" Glyph="{x:Static ms:MaterialOutlined.Play_arrow}" Color="{StaticResource Primary}"
                              Command="{Binding ToggleImageViewTestCommand}">
                     <v:ImageView.Triggers>
                         <DataTrigger TargetType="{x:Type v:ImageView}" Binding="{Binding IsImageViewTestRunning}" Value="True">
                             <Setter Property="Color" Value="Red" />
-                            <Setter Property="Glyph" Value="{x:Static mi:MaterialOutlined.Stop}" />
+                            <Setter Property="Glyph" Value="{x:Static ms:MaterialOutlined.Stop}" />
                         </DataTrigger>
                         <DataTrigger TargetType="{x:Type v:ImageView}" Binding="{Binding IsImageViewTestRunning}" Value="False">
                             <Setter Property="Color" Value="{StaticResource Primary}" />
-                            <Setter Property="Glyph" Value="{x:Static mi:MaterialOutlined.Play_arrow}" />
+                            <Setter Property="Glyph" Value="{x:Static ms:MaterialOutlined.Play_arrow}" />
                         </DataTrigger>
                     </v:ImageView.Triggers>
                 </v:ImageView>
@@ -44,16 +44,16 @@
             </HorizontalStackLayout>
             <HorizontalStackLayout Spacing="5">
                 <Label VerticalOptions="Center" Text="OpenCV MatchTemplate Test" />
-                <v:ImageView FontFamily="MaterialOutlined" Glyph="{x:Static mi:MaterialOutlined.Play_arrow}" Color="{StaticResource Primary}"
+                <v:ImageView FontFamily="MaterialOutlined" Glyph="{x:Static ms:MaterialOutlined.Play_arrow}" Color="{StaticResource Primary}"
                              Command="{Binding ToggleOpenCVMatchTemplateTestCommand}">
                     <v:ImageView.Triggers>
                         <DataTrigger TargetType="{x:Type v:ImageView}" Binding="{Binding IsOpenCVMatchTemplateTestRunning}" Value="True">
                             <Setter Property="Color" Value="Red" />
-                            <Setter Property="Glyph" Value="{x:Static mi:MaterialOutlined.Stop}" />
+                            <Setter Property="Glyph" Value="{x:Static ms:MaterialOutlined.Stop}" />
                         </DataTrigger>
                         <DataTrigger TargetType="{x:Type v:ImageView}" Binding="{Binding IsOpenCVMatchTemplateTestRunning}" Value="False">
                             <Setter Property="Color" Value="{StaticResource Primary}" />
-                            <Setter Property="Glyph" Value="{x:Static mi:MaterialOutlined.Play_arrow}" />
+                            <Setter Property="Glyph" Value="{x:Static ms:MaterialOutlined.Play_arrow}" />
                         </DataTrigger>
                     </v:ImageView.Triggers>
                 </v:ImageView>
@@ -61,16 +61,16 @@
             </HorizontalStackLayout>
             <HorizontalStackLayout Spacing="5">
                 <Label VerticalOptions="Center" Text="OpenCV CalcColorThreshold Test" />
-                <v:ImageView FontFamily="MaterialOutlined" Glyph="{x:Static mi:MaterialOutlined.Play_arrow}" Color="{StaticResource Primary}"
+                <v:ImageView FontFamily="MaterialOutlined" Glyph="{x:Static ms:MaterialOutlined.Play_arrow}" Color="{StaticResource Primary}"
                              Command="{Binding ToggleOpenCVCalcColorThresholdTestCommand}">
                     <v:ImageView.Triggers>
                         <DataTrigger TargetType="{x:Type v:ImageView}" Binding="{Binding IsOpenCVCalcColorThresholdTestRunning}" Value="True">
                             <Setter Property="Color" Value="Red" />
-                            <Setter Property="Glyph" Value="{x:Static mi:MaterialOutlined.Stop}" />
+                            <Setter Property="Glyph" Value="{x:Static ms:MaterialOutlined.Stop}" />
                         </DataTrigger>
                         <DataTrigger TargetType="{x:Type v:ImageView}" Binding="{Binding IsOpenCVCalcColorThresholdTestRunning}" Value="False">
                             <Setter Property="Color" Value="{StaticResource Primary}" />
-                            <Setter Property="Glyph" Value="{x:Static mi:MaterialOutlined.Play_arrow}" />
+                            <Setter Property="Glyph" Value="{x:Static ms:MaterialOutlined.Play_arrow}" />
                         </DataTrigger>
                     </v:ImageView.Triggers>
                 </v:ImageView>
@@ -78,16 +78,16 @@
             </HorizontalStackLayout>
             <HorizontalStackLayout Spacing="5">
                 <Label VerticalOptions="Center" Text="Media Projection Get Current Image Test" />
-                <v:ImageView FontFamily="MaterialOutlined" Glyph="{x:Static mi:MaterialOutlined.Play_arrow}" Color="{StaticResource Primary}"
+                <v:ImageView FontFamily="MaterialOutlined" Glyph="{x:Static ms:MaterialOutlined.Play_arrow}" Color="{StaticResource Primary}"
                              Command="{Binding ToggleMediaProjectionGetCurrentImageTestCommand}">
                     <v:ImageView.Triggers>
                         <DataTrigger TargetType="{x:Type v:ImageView}" Binding="{Binding IsMediaProjectionGetCurrentImageTestRunning}" Value="True">
                             <Setter Property="Color" Value="Red" />
-                            <Setter Property="Glyph" Value="{x:Static mi:MaterialOutlined.Stop}" />
+                            <Setter Property="Glyph" Value="{x:Static ms:MaterialOutlined.Stop}" />
                         </DataTrigger>
                         <DataTrigger TargetType="{x:Type v:ImageView}" Binding="{Binding IsMediaProjectionGetCurrentImageTestRunning}" Value="False">
                             <Setter Property="Color" Value="{StaticResource Primary}" />
-                            <Setter Property="Glyph" Value="{x:Static mi:MaterialOutlined.Play_arrow}" />
+                            <Setter Property="Glyph" Value="{x:Static ms:MaterialOutlined.Play_arrow}" />
                         </DataTrigger>
                     </v:ImageView.Triggers>
                 </v:ImageView>
@@ -95,16 +95,16 @@
             </HorizontalStackLayout>
             <HorizontalStackLayout Spacing="5">
                 <Label VerticalOptions="Center" Text="Accessibility Service DoClick Test" />
-                <v:ImageView FontFamily="MaterialOutlined" Glyph="{x:Static mi:MaterialOutlined.Play_arrow}" Color="{StaticResource Primary}"
+                <v:ImageView FontFamily="MaterialOutlined" Glyph="{x:Static ms:MaterialOutlined.Play_arrow}" Color="{StaticResource Primary}"
                              Command="{Binding ToggleAccessibilityServiceDoClickTestCommand}">
                     <v:ImageView.Triggers>
                         <DataTrigger TargetType="{x:Type v:ImageView}" Binding="{Binding IsAccessibilityServiceDoClickTestRunning}" Value="True">
                             <Setter Property="Color" Value="Red" />
-                            <Setter Property="Glyph" Value="{x:Static mi:MaterialOutlined.Stop}" />
+                            <Setter Property="Glyph" Value="{x:Static ms:MaterialOutlined.Stop}" />
                         </DataTrigger>
                         <DataTrigger TargetType="{x:Type v:ImageView}" Binding="{Binding IsAccessibilityServiceDoClickTestRunning}" Value="False">
                             <Setter Property="Color" Value="{StaticResource Primary}" />
-                            <Setter Property="Glyph" Value="{x:Static mi:MaterialOutlined.Play_arrow}" />
+                            <Setter Property="Glyph" Value="{x:Static ms:MaterialOutlined.Play_arrow}" />
                         </DataTrigger>
                     </v:ImageView.Triggers>
                 </v:ImageView>
@@ -112,16 +112,16 @@
             </HorizontalStackLayout>
             <HorizontalStackLayout Spacing="5">
                 <Label VerticalOptions="Center" Text="Get Text Test" />
-                <v:ImageView FontFamily="MaterialOutlined" Glyph="{x:Static mi:MaterialOutlined.Play_arrow}" Color="{StaticResource Primary}"
+                <v:ImageView FontFamily="MaterialOutlined" Glyph="{x:Static ms:MaterialOutlined.Play_arrow}" Color="{StaticResource Primary}"
                              Command="{Binding ToggleFindTextTestCommand}">
                     <v:ImageView.Triggers>
                         <DataTrigger TargetType="{x:Type v:ImageView}" Binding="{Binding IsFindTextTestRunning}" Value="True">
                             <Setter Property="Color" Value="Red" />
-                            <Setter Property="Glyph" Value="{x:Static mi:MaterialOutlined.Stop}" />
+                            <Setter Property="Glyph" Value="{x:Static ms:MaterialOutlined.Stop}" />
                         </DataTrigger>
                         <DataTrigger TargetType="{x:Type v:ImageView}" Binding="{Binding IsFindTextTestRunning}" Value="False">
                             <Setter Property="Color" Value="{StaticResource Primary}" />
-                            <Setter Property="Glyph" Value="{x:Static mi:MaterialOutlined.Play_arrow}" />
+                            <Setter Property="Glyph" Value="{x:Static ms:MaterialOutlined.Play_arrow}" />
                         </DataTrigger>
                     </v:ImageView.Triggers>
                 </v:ImageView>
@@ -129,37 +129,37 @@
             </HorizontalStackLayout>
             <HorizontalStackLayout Spacing="5">
                 <Label VerticalOptions="Center" Text="Display Info Resolution" />
-                <v:ImageView FontFamily="MaterialOutlined" Glyph="{x:Static mi:MaterialOutlined.Play_arrow}" Color="{StaticResource Primary}"
+                <v:ImageView FontFamily="MaterialOutlined" Glyph="{x:Static ms:MaterialOutlined.Play_arrow}" Color="{StaticResource Primary}"
                     Command="{Binding ToggleDeviceDisplayResolutionCommand}" />
                 <Label VerticalOptions="Center" Text="{Binding DeviceDisplayResolution}" />
             </HorizontalStackLayout>
             <HorizontalStackLayout Spacing="5">
                 <Label VerticalOptions="Center" Text="Current Window Metrics" />
-                <v:ImageView FontFamily="MaterialOutlined" Glyph="{x:Static mi:MaterialOutlined.Play_arrow}" Color="{StaticResource Primary}"
+                <v:ImageView FontFamily="MaterialOutlined" Glyph="{x:Static ms:MaterialOutlined.Play_arrow}" Color="{StaticResource Primary}"
                     Command="{Binding ToggleCurrentWindowMetricsCommand}" />
                 <Label VerticalOptions="Center" Text="{Binding CurrentWindowMetrics}" />
             </HorizontalStackLayout>
             <HorizontalStackLayout Spacing="5">
                 <Label VerticalOptions="Center" Text="Resolution" />
-                <v:ImageView FontFamily="MaterialOutlined" Glyph="{x:Static mi:MaterialOutlined.Play_arrow}" Color="{StaticResource Primary}"
+                <v:ImageView FontFamily="MaterialOutlined" Glyph="{x:Static ms:MaterialOutlined.Play_arrow}" Color="{StaticResource Primary}"
                     Command="{Binding ToggleResolutionCommand}" />
                 <Label VerticalOptions="Center" Text="{Binding Resolution}" />
             </HorizontalStackLayout>
             <HorizontalStackLayout Spacing="5">
                 <Label VerticalOptions="Center" Text="Calc Resolution" />
-                <v:ImageView FontFamily="MaterialOutlined" Glyph="{x:Static mi:MaterialOutlined.Play_arrow}" Color="{StaticResource Primary}"
+                <v:ImageView FontFamily="MaterialOutlined" Glyph="{x:Static ms:MaterialOutlined.Play_arrow}" Color="{StaticResource Primary}"
                     Command="{Binding ToggleCustomResolutionCommand}" />
                 <Label VerticalOptions="Center" Text="{Binding CustomResolution}" />
             </HorizontalStackLayout>
             <HorizontalStackLayout Spacing="5">
                 <Label VerticalOptions="Center" Text="Top Left" />
-                <v:ImageView FontFamily="MaterialOutlined" Glyph="{x:Static mi:MaterialOutlined.Play_arrow}" Color="{StaticResource Primary}"
+                <v:ImageView FontFamily="MaterialOutlined" Glyph="{x:Static ms:MaterialOutlined.Play_arrow}" Color="{StaticResource Primary}"
                     Command="{Binding ToggleTopLeftCommand}" />
                 <Label VerticalOptions="Center" Text="{Binding TopLeft}" />
             </HorizontalStackLayout>
             <HorizontalStackLayout Spacing="5">
                 <Label VerticalOptions="Center" Text="Test" />
-                <v:ImageView FontFamily="MaterialOutlined" Glyph="{x:Static mi:MaterialOutlined.Play_arrow}" Color="{StaticResource Primary}"
+                <v:ImageView FontFamily="MaterialOutlined" Glyph="{x:Static ms:MaterialOutlined.Play_arrow}" Color="{StaticResource Primary}"
                     Command="{Binding ToggleTestMessageCommand}" />
                 <Label VerticalOptions="Center" Text="{Binding TestMessage}" />
             </HorizontalStackLayout>

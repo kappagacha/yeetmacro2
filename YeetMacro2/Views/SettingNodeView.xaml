@@ -9,7 +9,7 @@
              xmlns:m="clr-namespace:YeetMacro2.Data.Models"
              xmlns:mct="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
              xmlns:fa="clr-namespace:UraniumUI.Icons.FontAwesome;assembly=UraniumUI.Icons.FontAwesome"
-             xmlns:mi="clr-namespace:UraniumUI.Icons.MaterialIcons;assembly=UraniumUI.Icons.MaterialIcons"
+             xmlns:ms="clr-namespace:UraniumUI.Icons.MaterialSymbols;assembly=UraniumUI.Icons.MaterialSymbols"
              xmlns:vlv="clr-namespace:Microsoft.Maui.Controls;assembly=VirtualListView"
              BackgroundColor="{AppThemeBinding Light={StaticResource Background}, Dark={StaticResource BackgroundDark}}"
              x:Name="thisView">
@@ -31,7 +31,7 @@
                     <ContentPresenter Grid.Column="1" x:Name="contentPresenter" BindingContext="{Binding .}" />
                 </HorizontalStackLayout>
                 <v:ImageView CommandParameter="{Binding .}"
-                    VerticalOptions="Center" FontFamily="MaterialOutlined" Glyph="{x:Static mi:MaterialOutlined.Refresh}"
+                    VerticalOptions="Center" FontFamily="MaterialOutlined" Glyph="{x:Static ms:MaterialOutlined.Refresh}"
                     IsVisible="{Binding MacroSet.Settings.ShowResetButton, Source={RelativeSource AncestorType={x:Type v:SettingNodeView}}, x:DataType=v:SettingNodeView}"
                     Command="{Binding MacroSet.Settings.ResetSettingCommand, Source={RelativeSource AncestorType={x:Type v:SettingNodeView}}, x:DataType=v:SettingNodeView}" />
             </FlexLayout>
@@ -44,8 +44,8 @@
                        ImageHeight="15"
                        ImageWidth="15"
                        FontFamily="MaterialOutlined" 
-                       Glyph="{x:Static mi:MaterialOutlined.Keyboard_arrow_right}"
-                       ToggledGlyph="{x:Static mi:MaterialOutlined.Keyboard_arrow_down}"
+                       Glyph="{x:Static ms:MaterialOutlined.Keyboard_arrow_right}"
+                       ToggledGlyph="{x:Static ms:MaterialOutlined.Keyboard_arrow_down}"
                        IsToggled="{Binding IsExpanded}"
                        IsToggledFromImageOnly="True"
                        HeightRequest="20" />
@@ -82,8 +82,8 @@
                        ImageHeight="15"
                        ImageWidth="15"
                        FontFamily="MaterialOutlined" 
-                       Glyph="{x:Static mi:MaterialOutlined.Keyboard_arrow_right}"
-                       ToggledGlyph="{x:Static mi:MaterialOutlined.Keyboard_arrow_down}"
+                       Glyph="{x:Static ms:MaterialOutlined.Keyboard_arrow_right}"
+                       ToggledGlyph="{x:Static ms:MaterialOutlined.Keyboard_arrow_down}"
                        IsToggled="{Binding IsExpanded}"
                        IsToggledFromImageOnly="True"
                        HeightRequest="20" />
@@ -129,10 +129,10 @@
                                     Command="{Binding MacroSet.Settings.SelectOptionCommand, Source={RelativeSource AncestorType={x:Type v:SettingNodeView}}, x:DataType=v:SettingNodeView}" />
                             </Grid>
                             <v:ImageView x:DataType="m:OptionSetting" CommandParameter="{Binding .}"
-                                VerticalOptions="Center" FontFamily="MaterialOutlined" Glyph="{x:Static mi:MaterialOutlined.Edit}"
+                                VerticalOptions="Center" FontFamily="MaterialOutlined" Glyph="{x:Static ms:MaterialOutlined.Edit}"
                                 Command="{Binding MacroSet.Settings.EditOptionCommand, Source={RelativeSource AncestorType={x:Type v:SettingNodeView}}, x:DataType=v:SettingNodeView}" />
                             <v:ImageView x:DataType="m:OptionSetting" CommandParameter="{Binding .}"
-                                VerticalOptions="Center" FontFamily="MaterialOutlined" Glyph="{x:Static mi:MaterialOutlined.Add}" 
+                                VerticalOptions="Center" FontFamily="MaterialOutlined" Glyph="{x:Static ms:MaterialOutlined.Add}" 
                                 Command="{Binding MacroSet.Settings.AddOptionCommand, Source={RelativeSource AncestorType={x:Type v:SettingNodeView}}, x:DataType=v:SettingNodeView}"  />
                         </HorizontalStackLayout>
                     </DataTemplate>
@@ -151,10 +151,10 @@
                                     Command="{Binding MacroSet.Settings.SelectOptionCommand, Source={RelativeSource AncestorType={x:Type v:SettingNodeView}}, x:DataType=v:SettingNodeView}" />
                             </Grid>
                             <v:ImageView
-                                VerticalOptions="Center" FontFamily="MaterialOutlined" Glyph="{x:Static mi:MaterialOutlined.Edit}" CommandParameter="{Binding .}" 
+                                VerticalOptions="Center" FontFamily="MaterialOutlined" Glyph="{x:Static ms:MaterialOutlined.Edit}" CommandParameter="{Binding .}" 
                                 Command="{Binding MacroSet.Settings.EditOptionCommand, Source={RelativeSource AncestorType={x:Type v:SettingNodeView}}, x:DataType=v:SettingNodeView}" />
                             <v:ImageView
-                                VerticalOptions="Center" FontFamily="MaterialOutlined" Glyph="{x:Static mi:MaterialOutlined.Add}" CommandParameter="{Binding .}" 
+                                VerticalOptions="Center" FontFamily="MaterialOutlined" Glyph="{x:Static ms:MaterialOutlined.Add}" CommandParameter="{Binding .}" 
                                 Command="{Binding MacroSet.Settings.AddOptionCommand, Source={RelativeSource AncestorType={x:Type v:SettingNodeView}}, x:DataType=v:SettingNodeView}"/>
                         </HorizontalStackLayout>
                     </DataTemplate>
@@ -271,7 +271,7 @@
                                          Command="{Binding  MacroSet.Settings.ExportCommand, Source={RelativeSource AncestorType={x:Type v:SettingNodeView}}, x:DataType=v:SettingNodeView}"
                                          CommandParameter="{Binding MacroSet.Name, Source={RelativeSource AncestorType={x:Type v:SettingNodeView}}, x:DataType=v:SettingNodeView}" />
                             <Grid>
-                                <v:ToggleImageView x:DataType="v:SettingNodeView" FontFamily="MaterialOutlined" Glyph="{x:Static mi:MaterialOutlined.Refresh}" ToggledColor="{StaticResource Primary}" 
+                                <v:ToggleImageView x:DataType="v:SettingNodeView" FontFamily="MaterialOutlined" Glyph="{x:Static ms:MaterialOutlined.Refresh}" ToggledColor="{StaticResource Primary}" 
                                                    IsToggled="{Binding MacroSet.Settings.ShowResetButton, Source={RelativeSource AncestorType={x:Type v:SettingNodeView}}, x:DataType=v:SettingNodeView}"/>
                                 <v:ToggleImageView x:DataType="v:SettingNodeView" FontFamily="FASolid" Glyph="{x:Static fa:Solid.Eye}" ToggledColor="{StaticResource Primary}" 
                                                    IsToggled="{Binding MacroSet.Settings.ShowResetButton, Source={RelativeSource AncestorType={x:Type v:SettingNodeView}}, x:DataType=v:SettingNodeView}"

@@ -1,0 +1,37 @@
+{
+  "notifications": {
+    "enabled": true,
+    "sound": true
+  },
+  "output": {
+    "style": "concise"
+  },
+  "statusLine": {
+    "enabled": true,
+    "position": "bottom"
+  },
+  "hooks": {
+    "Notification": [
+      {
+        "matcher": "",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "powershell.exe -Command \"Import-Module BurntToast; New-BurntToastNotification -Text 'Claude Code Notification', '$(cat | jq -r '.message' | sed 's/`/``/g; s/\\\\\\\"/``\\\\\\\"/g')'\""
+          }
+        ]
+      }
+    ],
+    "Stop": [
+      {
+        "matcher": "",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "powershell.exe -Command \"Import-Module BurntToast; New-BurntToastNotification -Text 'Claude Code', 'DONE'\""
+          }
+        ]
+      }
+    ]
+  }
+}

@@ -7,12 +7,12 @@
              xmlns:v="clr-namespace:YeetMacro2.Views"
              xmlns:conv="clr-namespace:YeetMacro2.Converters"
              xmlns:fa="clr-namespace:UraniumUI.Icons.FontAwesome;assembly=UraniumUI.Icons.FontAwesome"
-             xmlns:mi="clr-namespace:UraniumUI.Icons.MaterialIcons;assembly=UraniumUI.Icons.MaterialIcons"
+             xmlns:ms="clr-namespace:UraniumUI.Icons.MaterialSymbols;assembly=UraniumUI.Icons.MaterialSymbols"
              BackgroundColor="{AppThemeBinding Light={StaticResource Background}, Dark={StaticResource BackgroundDark}}"
              x:DataType="v:PatternNodeView"
              x:Name="thisControl">
     <Grid>
-        <v:ToggleImageView Text="Using Snapshot" FontFamily="MaterialOutlined" Glyph="{x:Static mi:MaterialOutlined.Screenshot}"
+        <v:ToggleImageView Text="Using Snapshot" FontFamily="MaterialOutlined" Glyph="{x:Static ms:MaterialOutlined.Screenshot}"
                            IsToggled="{Binding MacroSet.UsePatternsSnapshot, Source={Reference thisControl}}" HorizontalOptions="Center" VerticalOptions="Center"
                            ToggledColor="{StaticResource Primary}"
                            IsVisible="{Binding MacroSet.UsePatternsSnapshot, Source={Reference thisControl}}"/>
@@ -22,7 +22,7 @@
                     <v:PatternCoreNodeView.ExtraMenuItemsDataTemplate>
                         <DataTemplate x:DataType="v:PatternCoreNodeView">
                             <VerticalStackLayout>
-                                <v:ToggleImageView x:DataType="v:PatternCoreNodeView" FontFamily="MaterialOutlined" Glyph="{x:Static mi:MaterialOutlined.Screenshot}"
+                                <v:ToggleImageView x:DataType="v:PatternCoreNodeView" FontFamily="MaterialOutlined" Glyph="{x:Static ms:MaterialOutlined.Screenshot}"
                                                    ToggledColor="{StaticResource Primary}"
                                                    IsToggled="{Binding MacroSet.UsePatternsSnapshot, Source={RelativeSource AncestorType={x:Type v:PatternNodeView}}, x:DataType=v:PatternNodeView}" />
                             </VerticalStackLayout>

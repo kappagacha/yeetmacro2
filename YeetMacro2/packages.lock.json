@@ -175,12 +175,6 @@
         "resolved": "2.12.1",
         "contentHash": "THLawVaiccsgwewokMnkOUdOVIvDZY3N+iOOgtGp1ou4pdI/DInAnjTzicylUpKN8u5jDQ5Wa+qXONkvg+9cqQ=="
       },
-      "UraniumUI.Icons.MaterialIcons": {
-        "type": "Direct",
-        "requested": "[2.12.1, )",
-        "resolved": "2.12.1",
-        "contentHash": "YmO7w5pRTfLndlCsp78NBpnOeXjiFTRxejBS1ND/pct1kfu8zYOh6Pf+67EX1h0zEZYRv64wQ7R5Cn3UJOiqyg=="
-      },
       "UraniumUI.Icons.MaterialSymbols": {
         "type": "Direct",
         "requested": "[2.12.1, )",
@@ -1738,12 +1732,6 @@
         "requested": "[2.12.1, )",
         "resolved": "2.12.1",
         "contentHash": "THLawVaiccsgwewokMnkOUdOVIvDZY3N+iOOgtGp1ou4pdI/DInAnjTzicylUpKN8u5jDQ5Wa+qXONkvg+9cqQ=="
-      },
-      "UraniumUI.Icons.MaterialIcons": {
-        "type": "Direct",
-        "requested": "[2.12.1, )",
-        "resolved": "2.12.1",
-        "contentHash": "YmO7w5pRTfLndlCsp78NBpnOeXjiFTRxejBS1ND/pct1kfu8zYOh6Pf+67EX1h0zEZYRv64wQ7R5Cn3UJOiqyg=="
       },
       "UraniumUI.Icons.MaterialSymbols": {
         "type": "Direct",

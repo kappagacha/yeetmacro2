@@ -12,7 +12,7 @@
              x:DataType="{x:Type avm:AndriodHomeViewModel}"
              vm:ViewModelLocator.ViewModelType="{x:Type avm:AndriodHomeViewModel}"
              xmlns:fa="clr-namespace:UraniumUI.Icons.FontAwesome;assembly=UraniumUI.Icons.FontAwesome"
-             xmlns:mi="clr-namespace:UraniumUI.Icons.MaterialIcons;assembly=UraniumUI.Icons.MaterialIcons"
+             xmlns:ms="clr-namespace:UraniumUI.Icons.MaterialSymbols;assembly=UraniumUI.Icons.MaterialSymbols"
              xmlns:icons="http://www.aathifmahir.com/dotnet/2022/maui/icons"
              Title="Home">
     <ContentPage.Resources>
@@ -30,25 +30,25 @@
             <VerticalStackLayout Spacing="10">
                 <Label Text="YeetMacro" HorizontalTextAlignment="Center" FontSize="Title" FontAttributes="Bold" />
                 <v:ToggleImageView IsToggled="{Binding IsProjectionServiceEnabled}"
-                                   FontFamily="MaterialOutlined" Glyph="{x:Static mi:MaterialOutlined.Branding_watermark}" 
+                                   FontFamily="MaterialOutlined" Glyph="{x:Static ms:MaterialOutlined.Branding_watermark}" 
                                    HorizontalOptions="Center" Text="Projection Service" ToggledColor="{StaticResource Primary}" UntoggledColor="Red" 
                                    Command="{Binding ToggleIsProjectionServiceEnabledCommand}" />
                 <v:ToggleImageView IsToggled="{Binding IsAccessibilityEnabled}"
-                                   FontFamily="MaterialOutlined" Glyph="{x:Static mi:MaterialOutlined.Touch_app}"
+                                   FontFamily="MaterialOutlined" Glyph="{x:Static ms:MaterialOutlined.Touch_app}"
                                    HorizontalOptions="Center" Text="Accessibility Service" ToggledColor="{StaticResource Primary}" UntoggledColor="Red"
                                    Command="{Binding ToggleIsAccessibilityEnabledCommand}" />
                 <v:ToggleImageView IsToggled="{Binding IsIgnoringBatteryOptimizations, Mode=OneWay}"
-                                   FontFamily="MaterialOutlined" Glyph="{x:Static mi:MaterialOutlined.Battery_saver}"
+                                   FontFamily="MaterialOutlined" Glyph="{x:Static ms:MaterialOutlined.Battery_saver}"
                                    HorizontalOptions="Center" Text="Disable Battery Optimization" ToggledColor="{StaticResource Primary}" UntoggledColor="LightGray" 
                                    Command="{Binding RequestIgnoreBatteryOptimizationsCommand}" />
                 <v:ToggleImageView IsToggled="{Binding ShowMacroOverlay}"
-                                   FontFamily="MaterialOutlined" Glyph="{x:Static mi:MaterialOutlined.Credit_card}"
+                                   FontFamily="MaterialOutlined" Glyph="{x:Static ms:MaterialOutlined.Credit_card}"
                                    HorizontalOptions="Center" Text="Show Macro Overlay" ToggledColor="{StaticResource Primary}" UntoggledColor="LightGray" />
                 <v:ToggleImageView IsToggled="{Binding ShowPatternNodeView}"
-                                   FontFamily="MaterialOutlined" Glyph="{x:Static mi:MaterialOutlined.Image_search}"
+                                   FontFamily="MaterialOutlined" Glyph="{x:Static ms:MaterialOutlined.Image_search}"
                                    HorizontalOptions="Center" Text="Show Patterns" ToggledColor="{StaticResource Primary}" UntoggledColor="LightGray" />
                 <v:ToggleImageView IsToggled="{Binding ShowSettingNodeView}"
-                                   FontFamily="MaterialOutlined" Glyph="{x:Static mi:MaterialOutlined.Settings}"
+                                   FontFamily="MaterialOutlined" Glyph="{x:Static ms:MaterialOutlined.Settings}"
                                    HorizontalOptions="Center" Text="Show Settings" ToggledColor="{StaticResource Primary}" UntoggledColor="LightGray" />
                 <v:ToggleImageView IsToggled="{Binding ShowDailyNodeView}"
                                     FontFamily="FASolid" Glyph="{x:Static fa:Solid.CalendarDay}"
@@ -57,16 +57,16 @@
                                     FontFamily="FASolid" Glyph="{x:Static fa:Solid.CalendarWeek}"
                                     HorizontalOptions="Center" Text="Show Weeklies" ToggledColor="{StaticResource Primary}" UntoggledColor="LightGray" />
                 <v:ToggleImageView IsToggled="{Binding ShowStatusPanel}"
-                                   FontFamily="MaterialOutlined" Glyph="{x:Static mi:MaterialOutlined.Call_to_action}"
+                                   FontFamily="MaterialOutlined" Glyph="{x:Static ms:MaterialOutlined.Call_to_action}"
                                    HorizontalOptions="Center" Text="Show Status Panel" ToggledColor="{StaticResource Primary}" UntoggledColor="LightGray" />
                 <v:ToggleImageView IsToggled="{Binding MacroManagerViewModel.InDebugMode}"
-                                   FontFamily="MaterialOutlined" Glyph="{x:Static mi:MaterialOutlined.Filter_center_focus}"
+                                   FontFamily="MaterialOutlined" Glyph="{x:Static ms:MaterialOutlined.Filter_center_focus}"
                                    HorizontalOptions="Center" Text="Debug Mode" ToggledColor="{StaticResource Primary}" UntoggledColor="LightGray" />
-                <v:ToggleImageView FontFamily="MaterialOutlined" Glyph="{x:Static mi:MaterialOutlined.Play_circle}"
+                <v:ToggleImageView FontFamily="MaterialOutlined" Glyph="{x:Static ms:MaterialOutlined.Play_circle}"
                                    HorizontalOptions="Center" Text="Reset Action Button Location"
                                    Command="{Binding ResetActionViewLocationCommand}" />
                 <v:ToggleImageView IsToggled="{Binding ShowTestView}"
-                       FontFamily="MaterialOutlined" Glyph="{x:Static mi:MaterialOutlined.Science}"
+                       FontFamily="MaterialOutlined" Glyph="{x:Static ms:MaterialOutlined.Science}"
                        HorizontalOptions="Center" Text="Show Test Panel" ToggledColor="{StaticResource Primary}" UntoggledColor="LightGray" />
             </VerticalStackLayout>
             <Border Margin="10" HorizontalOptions="End" VerticalOptions="End" BackgroundColor="Transparent" 
@@ -86,7 +86,7 @@
                     <HorizontalStackLayout.GestureRecognizers>
                         <TapGestureRecognizer Command="{Binding ToggleIsMacroReadyCommand}" />
                     </HorizontalStackLayout.GestureRecognizers>
-                    <v:ToggleImageView FontFamily="MaterialOutlined" Glyph="{x:Static mi:MaterialOutlined.Play_arrow}" Color="{StaticResource Primary}"
+                    <v:ToggleImageView FontFamily="MaterialOutlined" Glyph="{x:Static ms:MaterialOutlined.Play_arrow}" Color="{StaticResource Primary}"
                                        FontSize="Large"
                                        Command="{Binding ToggleIsMacroReadyCommand}" Text="Start">
                         <v:ToggleImageView.Triggers>
@@ -98,7 +98,7 @@
                                     </MultiBinding>
                                 </DataTrigger.Binding>
                                 <Setter Property="Color" Value="Red" />
-                                <Setter Property="Glyph" Value="{x:Static mi:MaterialOutlined.Stop_circle}" />
+                                <Setter Property="Glyph" Value="{x:Static ms:MaterialOutlined.Stop_circle}" />
                                 <Setter Property="Text" Value="Stop" />
                             </DataTrigger>
                         </v:ToggleImageView.Triggers>
@@ -107,7 +107,7 @@
             </Border>
             <VerticalStackLayout VerticalOptions="End" HorizontalOptions="Start" Spacing="5" Padding="5">
                 <HorizontalStackLayout Spacing="5">
-                    <v:ImageView FontFamily="MaterialOutlined" Glyph="{x:Static mi:MaterialOutlined.Discord}"
+                    <v:ImageView FontFamily="MaterialOutlined" Glyph="{x:Static ms:MaterialOutlined.Discord}"
                                  Command="{Binding OpenDiscordLinkCommand}" />
                     <v:ImageView FontFamily="FontAwesomeBrandIcons" Glyph="&#xf09b;"
                                  Command="{Binding OpenGithubLinkCommand}" />

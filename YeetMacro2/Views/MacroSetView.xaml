@@ -5,7 +5,7 @@
              xmlns:v="clr-namespace:YeetMacro2.Views"
              xmlns:vm="clr-namespace:YeetMacro2.ViewModels"
              xmlns:mct="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
-             xmlns:mi="clr-namespace:UraniumUI.Icons.MaterialIcons;assembly=UraniumUI.Icons.MaterialIcons"
+             xmlns:ms="clr-namespace:UraniumUI.Icons.MaterialSymbols;assembly=UraniumUI.Icons.MaterialSymbols"
              xmlns:conv="clr-namespace:YeetMacro2.Converters"
              x:DataType="vm:MacroManagerViewModel"
              vm:ViewModelLocator.ViewModelType="{x:Type vm:MacroManagerViewModel}"
@@ -47,37 +47,37 @@
                     <HorizontalStackLayout Margin="0" Padding="0">
                         <Label Margin="0" VerticalOptions="Center" Padding="0" Text="MacroSet LastUpdated:" />
                         <Label Margin="5,0,0,0" VerticalOptions="Center" Text="{Binding SelectedMacroSet.MacroSetLastUpdated}" />
-                        <v:ImageView FontFamily="MaterialOutlined" Glyph="{x:Static mi:MaterialOutlined.Backspace}" Color="Red" 
+                        <v:ImageView FontFamily="MaterialOutlined" Glyph="{x:Static ms:MaterialOutlined.Backspace}" Color="Red" 
                          Command="{Binding ClearMacroSetLastUpdatedCommand}" CommandParameter="{Binding SelectedMacroSet}" />
                     </HorizontalStackLayout>
                     <HorizontalStackLayout Margin="0" Padding="0">
                         <Label Margin="0" VerticalOptions="Center" Padding="0" Text="Patterns LastUpdated:" />
                         <Label Margin="5,0,0,0" VerticalOptions="Center" Text="{Binding SelectedMacroSet.PatternsLastUpdated}" />
-                        <v:ImageView FontFamily="MaterialOutlined" Glyph="{x:Static mi:MaterialOutlined.Backspace}" Color="Red" 
+                        <v:ImageView FontFamily="MaterialOutlined" Glyph="{x:Static ms:MaterialOutlined.Backspace}" Color="Red" 
                          Command="{Binding ClearPatternsLastUpdatedCommand}" CommandParameter="{Binding SelectedMacroSet}" />
                     </HorizontalStackLayout>
                     <HorizontalStackLayout Margin="0" Padding="0">
                         <Label Margin="0" VerticalOptions="Center" Padding="0" Text="Scripts LastUpdated:" />
                         <Label Margin="5,0,0,0" VerticalOptions="Center" Text="{Binding SelectedMacroSet.ScriptsLastUpdated}" />
-                        <v:ImageView FontFamily="MaterialOutlined" Glyph="{x:Static mi:MaterialOutlined.Backspace}" Color="Red" 
+                        <v:ImageView FontFamily="MaterialOutlined" Glyph="{x:Static ms:MaterialOutlined.Backspace}" Color="Red" 
                          Command="{Binding ClearScriptsLastUpdatedCommand}" CommandParameter="{Binding SelectedMacroSet}" />
                     </HorizontalStackLayout>
                     <HorizontalStackLayout Margin="0" Padding="0">
                         <Label Margin="0" VerticalOptions="Center" Padding="0" Text="Settings LastUpdated:" />
                         <Label Margin="5,0,0,0" VerticalOptions="Center" Text="{Binding SelectedMacroSet.SettingsLastUpdated}" />
-                        <v:ImageView FontFamily="MaterialOutlined" Glyph="{x:Static mi:MaterialOutlined.Backspace}" Color="Red" 
+                        <v:ImageView FontFamily="MaterialOutlined" Glyph="{x:Static ms:MaterialOutlined.Backspace}" Color="Red" 
                          Command="{Binding ClearSettingsLastUpdatedCommand}" CommandParameter="{Binding SelectedMacroSet}" />
                     </HorizontalStackLayout>
                     <HorizontalStackLayout Margin="0" Padding="0">
                         <Label Margin="0" VerticalOptions="Center" Padding="0" Text="Daily Template LastUpdated:" />
                         <Label Margin="5,0,0,0" VerticalOptions="Center" Text="{Binding SelectedMacroSet.DailyTemplateLastUpdated}" />
-                        <v:ImageView FontFamily="MaterialOutlined" Glyph="{x:Static mi:MaterialOutlined.Backspace}" Color="Red" 
+                        <v:ImageView FontFamily="MaterialOutlined" Glyph="{x:Static ms:MaterialOutlined.Backspace}" Color="Red" 
                          Command="{Binding ClearDailyTemplateLastUpdatedCommand}" CommandParameter="{Binding SelectedMacroSet}" />
                     </HorizontalStackLayout>
                     <HorizontalStackLayout Margin="0" Padding="0">
                         <Label Margin="0" VerticalOptions="Center" Padding="0" Text="WeeklyTemplate LastUpdated:" />
                         <Label Margin="5,0,0,0" VerticalOptions="Center" Text="{Binding SelectedMacroSet.WeeklyTemplateLastUpdated}" />
-                        <v:ImageView FontFamily="MaterialOutlined" Glyph="{x:Static mi:MaterialOutlined.Backspace}" Color="Red" 
+                        <v:ImageView FontFamily="MaterialOutlined" Glyph="{x:Static ms:MaterialOutlined.Backspace}" Color="Red" 
                          Command="{Binding ClearWeeklyTemplateLastUpdatedCommand}" CommandParameter="{Binding SelectedMacroSet}" />
                     </HorizontalStackLayout>
                     <HorizontalStackLayout Margin="0" Padding="0">
@@ -124,19 +124,19 @@
                 </Grid>
                 <HorizontalStackLayout Grid.Column="1" HorizontalOptions="End" VerticalOptions="Start">
                     <v:ToggleImageView IsToggled="{Binding ShowMacroSetDescriptionEditor}" ToggledColor="{StaticResource Primary}"
-                           FontFamily="MaterialOutlined" Glyph="{x:Static mi:MaterialOutlined.Edit}" />
-                    <v:ImageView FontFamily="MaterialOutlined" Glyph="{x:Static mi:MaterialOutlined.Select_all}"
+                           FontFamily="MaterialOutlined" Glyph="{x:Static ms:MaterialOutlined.Edit}" />
+                    <v:ImageView FontFamily="MaterialOutlined" Glyph="{x:Static ms:MaterialOutlined.Select_all}"
                      IsVisible="{Binding ShowExport}">
                         <v:ImageView.GestureRecognizers>
                             <TapGestureRecognizer Tapped="ExportEditor_SelectAll" />
                         </v:ImageView.GestureRecognizers>
                     </v:ImageView>
-                    <v:ImageView FontFamily="MaterialOutlined" Glyph="{x:Static mi:MaterialOutlined.Close}" Color="Red"
+                    <v:ImageView FontFamily="MaterialOutlined" Glyph="{x:Static ms:MaterialOutlined.Close}" Color="Red"
                      IsVisible="{Binding ShowExport}" Command="{Binding CloseExportCommand}" />
                 </HorizontalStackLayout>
             </Grid>
         </ScrollView>
-        <v:ImageView HorizontalOptions="End" VerticalOptions="End" FontFamily="MaterialOutlined" Glyph="{x:Static mi:MaterialOutlined.Save}"
+        <v:ImageView HorizontalOptions="End" VerticalOptions="End" FontFamily="MaterialOutlined" Glyph="{x:Static ms:MaterialOutlined.Save}"
                 Command="{Binding SaveCommand}" CommandParameter="{Binding SelectedMacroSet}" />
         <ActivityIndicator IsRunning="{Binding IsBusy}" />
     </Grid>
