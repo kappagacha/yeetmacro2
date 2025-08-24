@@ -54,20 +54,22 @@
             </Grid.RowDefinitions>
             
             <!-- Tab Headers -->
-            <HorizontalStackLayout Grid.Row="0" Spacing="2" BackgroundColor="{AppThemeBinding Light={StaticResource Background}, Dark={StaticResource BackgroundDark}}">
-                <Button x:Name="MacroSetTabButton" Text="MacroSet" Clicked="OnTabButtonClicked" CommandParameter="MacroSet" 
-                        BackgroundColor="{StaticResource Primary}" TextColor="White" />
-                <Button x:Name="PatternsTabButton" Text="Patterns" Clicked="OnTabButtonClicked" CommandParameter="Patterns" 
-                        BackgroundColor="Transparent" TextColor="{StaticResource Primary}" />
-                <Button x:Name="SettingsTabButton" Text="Settings" Clicked="OnTabButtonClicked" CommandParameter="Settings" 
-                        BackgroundColor="Transparent" TextColor="{StaticResource Primary}" />
-                <Button x:Name="ScriptsTabButton" Text="Scripts" Clicked="OnTabButtonClicked" CommandParameter="Scripts" 
-                        BackgroundColor="Transparent" TextColor="{StaticResource Primary}" />
-                <Button x:Name="DailiesTabButton" Text="Dailies" Clicked="OnTabButtonClicked" CommandParameter="Dailies" 
-                        BackgroundColor="Transparent" TextColor="{StaticResource Primary}" />
-                <Button x:Name="WeekliesTabButton" Text="Weeklies" Clicked="OnTabButtonClicked" CommandParameter="Weeklies" 
-                        BackgroundColor="Transparent" TextColor="{StaticResource Primary}" />
-            </HorizontalStackLayout>
+            <ScrollView Grid.Row="0" Orientation="Horizontal" HorizontalScrollBarVisibility="Never">
+                <HorizontalStackLayout Spacing="2" BackgroundColor="{AppThemeBinding Light={StaticResource Background}, Dark={StaticResource BackgroundDark}}">
+                    <Button x:Name="MacroSetTabButton" Text="MacroSet" Clicked="OnTabButtonClicked" CommandParameter="MacroSet" 
+                            BackgroundColor="{StaticResource Primary}" TextColor="White" Padding="8,5" />
+                    <Button x:Name="PatternsTabButton" Text="Patterns" Clicked="OnTabButtonClicked" CommandParameter="Patterns" 
+                            BackgroundColor="Transparent" TextColor="{StaticResource Primary}" Padding="8,5" />
+                    <Button x:Name="SettingsTabButton" Text="Settings" Clicked="OnTabButtonClicked" CommandParameter="Settings" 
+                            BackgroundColor="Transparent" TextColor="{StaticResource Primary}" Padding="8,5" />
+                    <Button x:Name="ScriptsTabButton" Text="Scripts" Clicked="OnTabButtonClicked" CommandParameter="Scripts" 
+                            BackgroundColor="Transparent" TextColor="{StaticResource Primary}" Padding="8,5" />
+                    <Button x:Name="DailiesTabButton" Text="Dailies" Clicked="OnTabButtonClicked" CommandParameter="Dailies" 
+                            BackgroundColor="Transparent" TextColor="{StaticResource Primary}" Padding="8,5" />
+                    <Button x:Name="WeekliesTabButton" Text="Weeklies" Clicked="OnTabButtonClicked" CommandParameter="Weeklies" 
+                            BackgroundColor="Transparent" TextColor="{StaticResource Primary}" Padding="8,5" />
+                </HorizontalStackLayout>
+            </ScrollView>
             
             <!-- Tab Content -->
             <Grid Grid.Row="1">
