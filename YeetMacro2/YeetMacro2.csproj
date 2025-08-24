@@ -56,9 +56,36 @@
 	</PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)' == 'Release' AND $([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'android'">
-    <RunAOTCompilation>false</RunAOTCompilation>
-    <AndroidEnableProfiledAot>false</AndroidEnableProfiledAot>
-    <AndroidSuppressedWarnings>XA0141</AndroidSuppressedWarnings>
+    <!-- Enable AOT for better performance and smaller APK size -->
+    <RunAOTCompilation>true</RunAOTCompilation>
+    <AndroidEnableProfiledAot>true</AndroidEnableProfiledAot>
+    
+    <!-- Enable R8 for code shrinking and optimization -->
+    <AndroidLinkMode>r8</AndroidLinkMode>
+    <AndroidEnableProguard>true</AndroidEnableProguard>
+    
+    <!-- Optimize APK size -->
+    <AndroidPackageFormats>aab;apk</AndroidPackageFormats>
+    <AndroidUseAapt2>true</AndroidUseAapt2>
+    <AndroidCreatePackagePerAbi>false</AndroidCreatePackagePerAbi>
+    <EmbedAssembliesIntoApk>true</EmbedAssembliesIntoApk>
+    
+    <!-- Enable MultiDex if needed -->
+    <AndroidEnableMultiDex>true</AndroidEnableMultiDex>
+    
+    <!-- Optimize build performance -->
+    <AndroidDexTool>r8</AndroidDexTool>
+    <AndroidLinkTool>r8</AndroidLinkTool>
+    
+    <!-- Suppress known warnings -->
+    <AndroidSuppressedWarnings>XA0141;XA4304</AndroidSuppressedWarnings>
+    
+    <!-- Trimming settings -->
+    <PublishTrimmed>true</PublishTrimmed>
+    <TrimMode>partial</TrimMode>
+    
+    <!-- Custom ProGuard rules -->
+    <ProguardConfiguration>Platforms\Android\proguard-rules.pro</ProguardConfiguration>
   </PropertyGroup>
 
 	<ItemGroup>
@@ -91,10 +118,8 @@
 		<PackageReference Include="Microsoft.Extensions.Http" Version="9.0.8" />
 		<PackageReference Include="Microsoft.Extensions.Logging.Debug" Version="9.0.8" />
 		<PackageReference Include="OneOf" Version="3.0.271" />
-		<PackageReference Include="OpenCvSharp4.Windows" Version="4.11.0.20250507" />
 		<PackageReference Include="Redth.Maui.VirtualListView" Version="0.4.0" />
 		<PackageReference Include="SkiaSharp.Views.Maui.Controls" Version="3.119.0" />
-		<PackageReference Include="System.Drawing.Common" Version="9.0.8" />
 		<PackageReference Include="UraniumUI.Icons.FontAwesome" Version="2.12.1" />
 		<PackageReference Include="UraniumUI.Icons.MaterialIcons" Version="2.12.1" />
     <PackageReference Include="Microsoft.Maui.Controls" Version="9.0.100" />
@@ -269,6 +294,11 @@
     <PackageReference Include="Xamarin.Tesseract">
       <Version>0.3.4</Version>
     </PackageReference>
+  </ItemGroup>
+
+  <ItemGroup Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'windows'">
+    <PackageReference Include="OpenCvSharp4.Windows" Version="4.11.0.20250507" />
+    <PackageReference Include="System.Drawing.Common" Version="9.0.8" />
   </ItemGroup>
 
   <ItemGroup>

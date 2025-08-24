@@ -16,7 +16,7 @@ public class VirtualDynamicTemplateSelector : VirtualListViewItemTemplateSelecto
         {
             VisualElement rootObject = null;
             
-            // Handle both direct object and Binding
+            // Handle direct object, Binding, and TypedBinding
             if (value is Binding binding)
             {
                 rootObject = (VisualElement)binding.Source;
@@ -25,9 +25,33 @@ public class VirtualDynamicTemplateSelector : VirtualListViewItemTemplateSelecto
             {
                 rootObject = visualElement;
             }
+            else if (value?.GetType().FullName?.Contains("TypedBinding") == true)
+            {
+                // In Release mode, bindings are optimized to TypedBinding
+                // We need to get the Source property via reflection
+                var sourceProperty = value.GetType().GetProperty("Source");
+                if (sourceProperty != null)
+                {
+                    var source = sourceProperty.GetValue(value);
+                    rootObject = source as VisualElement;
+                    if (rootObject == null)
+                    {
+                        throw new InvalidOperationException($"VirtualDynamicTemplateSelector: TypedBinding Source is not a VisualElement. Source type: {source?.GetType()?.FullName ?? "null"}");
+                    }
+                }
+                else
+                {
+                    throw new InvalidOperationException($"VirtualDynamicTemplateSelector: Could not find Source property on TypedBinding");
+                }
+            }
             else
             {
-                throw new InvalidOperationException($"VirtualDynamicTemplateSelector: Unable to process rootObject of type {value?.GetType()?.FullName ?? "null"}. Expected VisualElement or Binding to VisualElement.");
+                throw new InvalidOperationException($"VirtualDynamicTemplateSelector: Unable to process rootObject of type {value?.GetType()?.FullName ?? "null"}. Expected VisualElement, Binding, or TypedBinding to VisualElement.");
+            }
+            
+            if (rootObject == null)
+            {
+                throw new InvalidOperationException($"VirtualDynamicTemplateSelector: rootObject is null after extraction from {value?.GetType()?.FullName ?? "null"}");
             }
             
             if (!_processedViewType.Contains(rootObject.GetType()))
