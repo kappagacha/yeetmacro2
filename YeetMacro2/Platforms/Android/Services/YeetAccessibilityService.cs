@@ -288,9 +288,16 @@ public class YeetAccessibilityService : AccessibilityService, IDisposable
         {
             if (disposing)
             {
-                // Dispose managed resources
-                _instanceRef = null;
-                _context = null;
+                try
+                {
+                    // Dispose managed resources
+                    _instanceRef = null;
+                    _context = null;
+                }
+                catch (Exception ex)
+                {
+                    ServiceHelper.LogService?.LogException(ex);
+                }
             }
             _disposed = true;
         }

@@ -299,89 +299,96 @@ public class MediaProjectionService : IRecorderService, IDisposable
             {
                 if (disposing)
                 {
-                    // Stop recording if in progress
-                    if (_isRecording)
+                    try
                     {
+                        // Stop recording if in progress
+                        if (_isRecording)
+                        {
+                            try
+                            {
+                                StopRecording();
+                            }
+                            catch { }
+                        }
+
+                        // Clean up screen virtual display
                         try
                         {
-                            StopRecording();
+                            _screenVirtualDisplay?.Release();
+                            _screenVirtualDisplay?.Dispose();
                         }
                         catch { }
-                    }
-
-                    // Clean up screen virtual display
-                    try
-                    {
-                        _screenVirtualDisplay?.Release();
-                        _screenVirtualDisplay?.Dispose();
-                    }
-                    catch { }
-                    finally
-                    {
-                        _screenVirtualDisplay = null;
-                    }
-
-                    // Clean up virtual display
-                    try
-                    {
-                        _virtualDisplay?.Release();
-                        _virtualDisplay?.Dispose();
-                    }
-                    catch { }
-                    finally
-                    {
-                        _virtualDisplay = null;
-                    }
-
-                    // Clean up image reader
-                    try
-                    {
-                        _imageReader?.Close();
-                        _imageReader?.Dispose();
-                    }
-                    catch { }
-                    finally
-                    {
-                        _imageReader = null;
-                    }
-
-                    // Clean up media recorder
-                    try
-                    {
-                        if (_mediaRecorder != null)
+                        finally
                         {
-                            _mediaRecorder.Release();
-                            _mediaRecorder.Dispose();
+                            _screenVirtualDisplay = null;
                         }
-                    }
-                    catch { }
-                    finally
-                    {
-                        _mediaRecorder = null;
-                    }
 
-                    // Clean up media projection
-                    try
-                    {
-                        if (_mediaProjection != null)
+                        // Clean up virtual display
+                        try
                         {
-                            _mediaProjection.UnregisterCallback(_mediaProjectionCallback);
-                            _mediaProjection.Stop();
-                            _mediaProjection.Dispose();
+                            _virtualDisplay?.Release();
+                            _virtualDisplay?.Dispose();
                         }
-                    }
-                    catch { }
-                    finally
-                    {
-                        _mediaProjection = null;
-                    }
+                        catch { }
+                        finally
+                        {
+                            _virtualDisplay = null;
+                        }
 
-                    // Clear callback reference
-                    _mediaProjectionCallback = null;
-                    
-                    // Clear intent data
-                    _resultData?.Dispose();
-                    _resultData = null;
+                        // Clean up image reader
+                        try
+                        {
+                            _imageReader?.Close();
+                            _imageReader?.Dispose();
+                        }
+                        catch { }
+                        finally
+                        {
+                            _imageReader = null;
+                        }
+
+                        // Clean up media recorder
+                        try
+                        {
+                            if (_mediaRecorder != null)
+                            {
+                                _mediaRecorder.Release();
+                                _mediaRecorder.Dispose();
+                            }
+                        }
+                        catch { }
+                        finally
+                        {
+                            _mediaRecorder = null;
+                        }
+
+                        // Clean up media projection
+                        try
+                        {
+                            if (_mediaProjection != null)
+                            {
+                                _mediaProjection.UnregisterCallback(_mediaProjectionCallback);
+                                _mediaProjection.Stop();
+                                _mediaProjection.Dispose();
+                            }
+                        }
+                        catch { }
+                        finally
+                        {
+                            _mediaProjection = null;
+                        }
+
+                        // Clear callback reference
+                        _mediaProjectionCallback = null;
+                        
+                        // Clear intent data
+                        _resultData?.Dispose();
+                        _resultData = null;
+                    }
+                    catch (Exception ex)
+                    {
+                        ServiceHelper.LogService?.LogException(ex);
+                    }
                 }
                 _disposed = true;
             }

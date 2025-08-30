@@ -1,10 +1,26 @@
-﻿namespace YeetMacro2.Services;
+﻿using YeetMacro2.ViewModels;
+
+namespace YeetMacro2.Services;
 
 // https://stackoverflow.com/questions/72939282/net-maui-dependency-injection-in-platform-specific-code
 public static class ServiceHelper
 {
+    private static LogServiceViewModel _logService;
+    
     public static T GetService<T>() => (T)IPlatformApplication.Current.Services.GetService(typeof(T));
     public static object GetService(Type type) => IPlatformApplication.Current.Services.GetService(type);
+    
+    public static LogServiceViewModel LogService 
+    {
+        get
+        {
+            if (_logService == null)
+            {
+                _logService = GetService<LogServiceViewModel>();
+            }
+            return _logService;
+        }
+    }
 
     public static string[] ListAssets(string folder) => 
 #if WINDOWS10_0_17763_0_OR_GREATER

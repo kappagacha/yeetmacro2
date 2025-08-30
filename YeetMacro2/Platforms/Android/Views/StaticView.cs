@@ -6,6 +6,7 @@ using Color = Android.Graphics.Color;
 using Microsoft.Maui.Platform;
 using Java.Lang;
 using Exception = System.Exception;
+using YeetMacro2.Services;
 
 namespace YeetMacro2.Platforms.Android.Views;
 public class StaticView : RelativeLayout, IShowable, IDisposable
@@ -147,18 +148,25 @@ public class StaticView : RelativeLayout, IShowable, IDisposable
             {
                 if (disposing)
                 {
-                    // Ensure we're closed before disposing
-                    if (_state == FormState.SHOWING)
+                    try
                     {
-                        try
+                        // Ensure we're closed before disposing
+                        if (_state == FormState.SHOWING)
                         {
-                            _windowManager?.RemoveView(this);
+                            try
+                            {
+                                _windowManager?.RemoveView(this);
+                            }
+                            catch { /* Ignore errors during disposal */ }
                         }
-                        catch { /* Ignore errors during disposal */ }
+                        
+                        // Clear references
+                        _androidView = null;
                     }
-                    
-                    // Clear references
-                    _androidView = null;
+                    catch (Exception ex)
+                    {
+                        ServiceHelper.LogService?.LogException(ex);
+                    }
                 }
                 _disposed = true;
             }

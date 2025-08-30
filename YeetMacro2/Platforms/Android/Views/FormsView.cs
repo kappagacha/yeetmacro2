@@ -6,6 +6,7 @@ using Color = Android.Graphics.Color;
 using Microsoft.Maui.Platform;
 using Java.Lang;
 using Exception = System.Exception;
+using YeetMacro2.Services;
 
 namespace YeetMacro2.Platforms.Android.Views;
 public class FormsView : RelativeLayout, IShowable, IDisposable
@@ -228,24 +229,31 @@ public class FormsView : RelativeLayout, IShowable, IDisposable
             {
                 if (disposing)
                 {
-                    // Ensure we're closed before disposing
-                    if (_state == FormState.SHOWING)
+                    try
                     {
-                        try
+                        // Ensure we're closed before disposing
+                        if (_state == FormState.SHOWING)
                         {
-                            _windowManager?.RemoveView(this);
+                            try
+                            {
+                                _windowManager?.RemoveView(this);
+                            }
+                            catch { /* Ignore errors during disposal */ }
                         }
-                        catch { /* Ignore errors during disposal */ }
-                    }
 
-                    // Clean up event handlers
-                    if (_androidView != null)
+                        // Clean up event handlers
+                        if (_androidView != null)
+                        {
+                            _androidView.Click -= FormsView_Click;
+                        }
+
+                        // Complete any pending tasks
+                        _closeCompleted?.TrySetCanceled();
+                    }
+                    catch (Exception ex)
                     {
-                        _androidView.Click -= FormsView_Click;
+                        ServiceHelper.LogService?.LogException(ex);
                     }
-
-                    // Complete any pending tasks
-                    _closeCompleted?.TrySetCanceled();
                 }
                 _disposed = true;
             }

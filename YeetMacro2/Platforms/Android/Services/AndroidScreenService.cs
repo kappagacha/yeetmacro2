@@ -947,88 +947,95 @@ public class AndroidScreenService : IScreenService, IDisposable
         {
             if (disposing)
             {
-                // Dispose all views
-                foreach (var view in _views.Values)
+                try
                 {
-                    try
+                    // Dispose all views
+                    foreach (var view in _views.Values)
                     {
-                        if (view is IDisposable disposableView)
+                        try
                         {
-                            disposableView.Dispose();
+                            if (view is IDisposable disposableView)
+                            {
+                                disposableView.Dispose();
+                            }
+                            else if (view.IsShowing)
+                            {
+                                view.Close();
+                            }
                         }
-                        else if (view.IsShowing)
+                        catch (Exception ex)
                         {
-                            view.Close();
+                            _logger?.LogError(ex, "Error disposing view");
                         }
                     }
-                    catch (Exception ex)
-                    {
-                        _logger?.LogError(ex, "Error disposing view");
-                    }
-                }
-                _views.Clear();
+                    _views.Clear();
 
-                // Dispose macro set specific views
-                foreach (var view in _macroSetToPatternsView.Values)
+                    // Dispose macro set specific views
+                    foreach (var view in _macroSetToPatternsView.Values)
+                    {
+                        try
+                        {
+                            if (view is IDisposable disposable)
+                                disposable.Dispose();
+                        }
+                        catch { }
+                    }
+                    _macroSetToPatternsView.Clear();
+
+                    foreach (var view in _macroSetToSettingsView.Values)
+                    {
+                        try
+                        {
+                            if (view is IDisposable disposable)
+                                disposable.Dispose();
+                        }
+                        catch { }
+                    }
+                    _macroSetToSettingsView.Clear();
+
+                    foreach (var view in _macroSetToScriptsView.Values)
+                    {
+                        try
+                        {
+                            if (view is IDisposable disposable)
+                                disposable.Dispose();
+                        }
+                        catch { }
+                    }
+                    _macroSetToScriptsView.Clear();
+
+                    foreach (var view in _macroSetToDailiesView.Values)
+                    {
+                        try
+                        {
+                            if (view is IDisposable disposable)
+                                disposable.Dispose();
+                        }
+                        catch { }
+                    }
+                    _macroSetToDailiesView.Clear();
+
+                    foreach (var view in _macroSetToWeekliesView.Values)
+                    {
+                        try
+                        {
+                            if (view is IDisposable disposable)
+                                disposable.Dispose();
+                        }
+                        catch { }
+                    }
+                    _macroSetToWeekliesView.Clear();
+
+                    // Unregister message handlers
+                    WeakReferenceMessenger.Default.UnregisterAll(this);
+
+                    // Clear references
+                    _context = null;
+                }
+                catch (Exception ex)
                 {
-                    try
-                    {
-                        if (view is IDisposable disposable)
-                            disposable.Dispose();
-                    }
-                    catch { }
+                    ServiceHelper.LogService?.LogException(ex);
                 }
-                _macroSetToPatternsView.Clear();
-
-                foreach (var view in _macroSetToSettingsView.Values)
-                {
-                    try
-                    {
-                        if (view is IDisposable disposable)
-                            disposable.Dispose();
-                    }
-                    catch { }
-                }
-                _macroSetToSettingsView.Clear();
-
-                foreach (var view in _macroSetToScriptsView.Values)
-                {
-                    try
-                    {
-                        if (view is IDisposable disposable)
-                            disposable.Dispose();
-                    }
-                    catch { }
-                }
-                _macroSetToScriptsView.Clear();
-
-                foreach (var view in _macroSetToDailiesView.Values)
-                {
-                    try
-                    {
-                        if (view is IDisposable disposable)
-                            disposable.Dispose();
-                    }
-                    catch { }
-                }
-                _macroSetToDailiesView.Clear();
-
-                foreach (var view in _macroSetToWeekliesView.Values)
-                {
-                    try
-                    {
-                        if (view is IDisposable disposable)
-                            disposable.Dispose();
-                    }
-                    catch { }
-                }
-                _macroSetToWeekliesView.Clear();
-
-                // Unregister message handlers
-                WeakReferenceMessenger.Default.UnregisterAll(this);
-
-                // Clear references
-                _context = null;
             }
             _disposed = true;
         }

@@ -10,6 +10,7 @@ using YeetMacro2.Data.Models;
 using CommunityToolkit.Mvvm.Messaging;
 using Java.Lang;
 using Exception = System.Exception;
+using YeetMacro2.Services;
 
 namespace YeetMacro2.Platforms.Android.Views;
 
@@ -401,29 +402,36 @@ public class ResizeView : RelativeLayout, IOnTouchListener, IShowable, IDisposab
             {
                 if (disposing)
                 {
-                    // Ensure we're closed before disposing
-                    if (_state == FormState.SHOWING)
+                    try
                     {
-                        try
+                        // Ensure we're closed before disposing
+                        if (_state == FormState.SHOWING)
                         {
-                            _windowManager?.RemoveView(this);
+                            try
+                            {
+                                _windowManager?.RemoveView(this);
+                            }
+                            catch { /* Ignore errors during disposal */ }
                         }
-                        catch { /* Ignore errors during disposal */ }
+
+                        // Clean up event handlers
+                        if (_topLeft != null) _topLeft.SetOnTouchListener(null);
+                        if (_bottomRight != null) _bottomRight.SetOnTouchListener(null);
+                        if (_topRight != null) _topRight.SetOnTouchListener(null);
+
+                        // Unregister message handler
+                        WeakReferenceMessenger.Default.Unregister<DisplayInfoChangedEventArgs>(this);
+
+                        // Complete any pending tasks
+                        _closeCompleted?.TrySetCanceled();
+                        
+                        // Clear references
+                        _androidView = null;
                     }
-
-                    // Clean up event handlers
-                    if (_topLeft != null) _topLeft.SetOnTouchListener(null);
-                    if (_bottomRight != null) _bottomRight.SetOnTouchListener(null);
-                    if (_topRight != null) _topRight.SetOnTouchListener(null);
-
-                    // Unregister message handler
-                    WeakReferenceMessenger.Default.Unregister<DisplayInfoChangedEventArgs>(this);
-
-                    // Complete any pending tasks
-                    _closeCompleted?.TrySetCanceled();
-                    
-                    // Clear references
-                    _androidView = null;
+                    catch (Exception ex)
+                    {
+                        ServiceHelper.LogService?.LogException(ex);
+                    }
                 }
                 _disposed = true;
             }
