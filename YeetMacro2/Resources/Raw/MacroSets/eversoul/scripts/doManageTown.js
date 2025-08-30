@@ -13,6 +13,7 @@ const targetSoul = macroService.ClonePattern(settings.doManageTown.bond.targetSo
 	Width: 1005,
 	Height: 900,
 	Path: 'settings.outings.target',
+	OffsetType: 'DockLeft',
 	BoundsCalcType: 'FillWidth'
 });
 
