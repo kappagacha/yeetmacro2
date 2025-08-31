@@ -27,18 +27,34 @@ public class ForegroundService : Service
 
     public override StartCommandResult OnStartCommand(Intent intent, [GeneratedEnum] StartCommandFlags flags, int startId)
     {
-        var mediaProjectionService = ServiceHelper.GetService<MediaProjectionService>();
-
-        switch (intent.Action)
+        try
         {
-            case EXIT_ACTION:
-                mediaProjectionService.Stop();
-                Stop();
-                break;
-            default:
-                Start();
-                if (mediaProjectionService.IsInitialized) mediaProjectionService.Start();
-                break;
+            var mediaProjectionService = ServiceHelper.GetService<MediaProjectionService>();
+
+            switch (intent?.Action)
+            {
+                case EXIT_ACTION:
+                    mediaProjectionService?.Stop();
+                    Stop();
+                    break;
+                default:
+                    Start();
+                    // Only start media projection if initialized and activity is available
+                    if (mediaProjectionService?.IsInitialized == true && Platform.CurrentActivity != null)
+                    {
+                        mediaProjectionService.Start();
+                    }
+                    else if (mediaProjectionService?.IsInitialized == true)
+                    {
+                        // Log that we can't start in background without activity
+                        ServiceHelper.LogService?.LogDebug("Cannot start MediaProjection in background - CurrentActivity is null");
+                    }
+                    break;
+            }
+        }
+        catch (Exception ex)
+        {
+            ServiceHelper.LogService?.LogException(ex);
         }
 
         return StartCommandResult.Sticky;

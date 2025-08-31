@@ -55,7 +55,15 @@ public class MediaProjectionService : IRecorderService, IDisposable
             var density = (int)DisplayHelper.DisplayInfo.Density;
 
             // https://github.com/Fate-Grand-Automata/FGA/blob/2a62ab7a456a9913cf0355db81b5a15f13906f27/app/src/main/java/io/github/fate_grand_automata/runner/ScreenshotServiceHolder.kt#L53
-            var mediaProjectionManager = (MediaProjectionManager)Platform.CurrentActivity.GetSystemService(Context.MediaProjectionService);
+            var activity = Platform.CurrentActivity;
+            if (activity == null)
+            {
+                ServiceHelper.LogService?.LogDebug("MediaProjectionService Start failed: CurrentActivity is null");
+                Stop();
+                return;
+            }
+            
+            var mediaProjectionManager = (MediaProjectionManager)activity.GetSystemService(Context.MediaProjectionService);
             _mediaProjection = mediaProjectionManager.GetMediaProjection(_resultCode, (Intent)_resultData.Clone());
             _mediaProjection.RegisterCallback(_mediaProjectionCallback, null);
             _imageReader = ImageReader.NewInstance(width, height, (ImageFormatType)global::Android.Graphics.Format.Rgba8888, 2);
@@ -91,29 +99,45 @@ public class MediaProjectionService : IRecorderService, IDisposable
             return;
         }
 
-        Toast.MakeText(Platform.CurrentActivity, "Media projection initialized...", ToastLength.Short).Show();
+        if (Platform.CurrentActivity != null)
+        {
+            Toast.MakeText(Platform.CurrentActivity, "Media projection initialized...", ToastLength.Short).Show();
+        }
         Platform.AppContext.StartForegroundServiceCompat<ForegroundService>();
     }
 
     private Bitmap GetBitmap()
     {
         //https://www.tabnine.com/code/java/classes/android.media.Image?snippet=5ce69622e594670004ac3235
-        var image = _imageReader.AcquireLatestImage();
-        if (image == null) return null;
-        var plane = image.GetPlanes()[0];
-        var buffer = plane.Buffer;
-        var pixelStride = plane.PixelStride;
-        var rowStride = plane.RowStride;
-        var rowPadding = rowStride - pixelStride * image.Width;
-        var bitmap = Bitmap.CreateBitmap(image.Width + rowPadding / pixelStride, image.Height, Bitmap.Config.Argb8888); //Bitmap.Config.ARGB_8888
-        bitmap.CopyPixelsFromBuffer(buffer);
+        lock (_disposeLock)
+        {
+            if (_disposed || _imageReader == null) return null;
+            
+            try
+            {
+                var image = _imageReader.AcquireLatestImage();
+                if (image == null) return null;
+                var plane = image.GetPlanes()[0];
+                var buffer = plane.Buffer;
+                var pixelStride = plane.PixelStride;
+                var rowStride = plane.RowStride;
+                var rowPadding = rowStride - pixelStride * image.Width;
+                var bitmap = Bitmap.CreateBitmap(image.Width + rowPadding / pixelStride, image.Height, Bitmap.Config.Argb8888); //Bitmap.Config.ARGB_8888
+                bitmap.CopyPixelsFromBuffer(buffer);
 
-        buffer.Dispose();
-        plane.Dispose();
-        image.Close();
-        image.Dispose();
+                buffer.Dispose();
+                plane.Dispose();
+                image.Close();
+                image.Dispose();
 
-        return bitmap;
+                return bitmap;
+            }
+            catch (Exception ex)
+            {
+                ServiceHelper.LogService?.LogException(ex);
+                return null;
+            }
+        }
     }
 
     public void CallbackStop()
@@ -193,17 +217,36 @@ public class MediaProjectionService : IRecorderService, IDisposable
 
     public void TakeScreenCapture()
     {
-        var imageData = GetCurrentImageData();
-        var folder = global::Android.OS.Environment.GetExternalStoragePublicDirectory(global::Android.OS.Environment.DirectoryPictures).Path;
-        var file = System.IO.Path.Combine(folder, $"{DateTime.Now:screencapture_yyyyMMdd_HHmmss}.jpeg");
-        using FileStream fs = new(file, FileMode.OpenOrCreate);
-        fs.Write(imageData, 0, imageData.Length);
+        try
+        {
+            var imageData = GetCurrentImageData();
+            if (imageData == null || imageData.Length == 0)
+            {
+                ServiceHelper.LogService?.LogDebug("TakeScreenCapture: No image data available");
+                return;
+            }
+            
+            var folder = global::Android.OS.Environment.GetExternalStoragePublicDirectory(global::Android.OS.Environment.DirectoryPictures).Path;
+            var file = System.IO.Path.Combine(folder, $"{DateTime.Now:screencapture_yyyyMMdd_HHmmss}.jpeg");
+            using FileStream fs = new(file, FileMode.OpenOrCreate);
+            fs.Write(imageData, 0, imageData.Length);
+        }
+        catch (Exception ex)
+        {
+            ServiceHelper.LogService?.LogException(ex);
+        }
     }
 
     [System.Runtime.Versioning.SupportedOSPlatform("android31.0")]
     private void CreateMediaRecorderForApi31()
     {
-        _mediaRecorder = new MediaRecorder(Platform.CurrentActivity);
+        var activity = Platform.CurrentActivity;
+        if (activity == null)
+        {
+            ServiceHelper.LogService?.LogDebug("CreateMediaRecorderForApi31 failed: CurrentActivity is null");
+            throw new InvalidOperationException("CurrentActivity is null");
+        }
+        _mediaRecorder = new MediaRecorder(activity);
         _mediaRecorder.SetVideoSource(VideoSource.Surface);
         _mediaRecorder.SetOutputFormat(OutputFormat.Mpeg4);
         _mediaRecorder.SetVideoEncoder(VideoEncoder.H264);

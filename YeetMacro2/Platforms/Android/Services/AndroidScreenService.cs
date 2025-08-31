@@ -530,8 +530,24 @@ public class AndroidScreenService : IScreenService, IDisposable
         }
         else
         {
-            var mediaProjectionManager = (MediaProjectionManager)Platform.CurrentActivity.GetSystemService(Context.MediaProjectionService);
-            Platform.CurrentActivity.StartActivityForResult(mediaProjectionManager.CreateScreenCaptureIntent(), Services.MediaProjectionService.REQUEST_MEDIA_PROJECTION);
+            var activity = Platform.CurrentActivity;
+            if (activity == null)
+            {
+                ServiceHelper.LogService?.LogDebug("Cannot start projection service - CurrentActivity is null");
+                _toastService?.Show("Cannot start projection service - app must be in foreground");
+                return;
+            }
+            
+            try
+            {
+                var mediaProjectionManager = (MediaProjectionManager)activity.GetSystemService(Context.MediaProjectionService);
+                activity.StartActivityForResult(mediaProjectionManager.CreateScreenCaptureIntent(), Services.MediaProjectionService.REQUEST_MEDIA_PROJECTION);
+            }
+            catch (Exception ex)
+            {
+                ServiceHelper.LogService?.LogException(ex);
+                _toastService?.Show("Failed to start projection service");
+            }
         }
     }
 
