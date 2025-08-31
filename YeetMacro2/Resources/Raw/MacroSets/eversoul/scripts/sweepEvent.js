@@ -2,9 +2,6 @@
 // Skip decoy operation
 const loopPatterns = [patterns.lobby.level, patterns.general.back];
 const daily = dailyManager.GetCurrentDaily();
-const resolution = macroService.GetCurrentResolution();
-const lobbySwipeXStart = resolution.Width - 50;
-const lobbySwipeXEnd = lobbySwipeXStart - 300;
 
 if (daily.sweepEvent.done.IsChecked) {
 	return "Script already completed. Uncheck done to override daily flag.";

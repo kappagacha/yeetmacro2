@@ -81,6 +81,11 @@ if (settings.doDailies.sweepEvent.Value) {
     goToLobby();
 }
 
+if (settings.doDailies.sweepEventMiniGame.Value) {
+    sweepEventMiniGame();
+    goToLobby();
+}
+
 if (settings.doDailies.doOperationEdenAlliance.Value) {
     doOperationEdenAlliance();
     goToLobby();

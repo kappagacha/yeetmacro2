@@ -1148,6 +1148,98 @@
       }
     }
   },
+  "sweepEventMiniGame": {
+    "$type": "parent",
+    "$position": 0,
+    "$name": "sweepEventMiniGame",
+    "$path": "sweepEventMiniGame",
+    "eventRaidPattern": {
+      "$type": "pattern",
+      "$defaultValue": {
+        "$patterns": [
+          {
+            "rawBounds": {
+              "x": 71.25,
+              "y": 679.25,
+              "width": 44.5,
+              "height": 32.5
+            },
+            "resolution": {
+              "width": 1920,
+              "height": 1080
+            },
+            "type": "Normal",
+            "swipeDirection": "Auto",
+            "name": "pattern",
+            "imageData": "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",
+            "variancePct": 20,
+            "textMatch": {
+              "isActive": false,
+              "text": null,
+              "whiteList": null
+            },
+            "colorThreshold": {
+              "isActive": false,
+              "variancePct": 30,
+              "color": null,
+              "imageData": "",
+              "ignoreBackground": false
+            },
+            "offsetCalcType": "Default",
+            "boundsCalcType": "Default",
+            "position": 0
+          }
+        ],
+        "$isMultiPattern": false,
+        "$position": 0,
+        "$name": null,
+        "$path": "settings.sweepEventMiniGame.eventRaidPattern"
+      },
+      "$value": {
+        "$patterns": [
+          {
+            "rawBounds": {
+              "x": 71.25,
+              "y": 679.25,
+              "width": 44.5,
+              "height": 32.5
+            },
+            "resolution": {
+              "width": 1920,
+              "height": 1080
+            },
+            "type": "Normal",
+            "swipeDirection": "Auto",
+            "name": "pattern",
+            "imageData": "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",
+            "variancePct": 20,
+            "textMatch": {
+              "isActive": false,
+              "text": null,
+              "whiteList": null
+            },
+            "colorThreshold": {
+              "isActive": false,
+              "variancePct": 30,
+              "color": null,
+              "imageData": "",
+              "ignoreBackground": false
+            },
+            "offsetCalcType": "Default",
+            "boundsCalcType": "Default",
+            "position": 0
+          }
+        ],
+        "$isMultiPattern": false,
+        "$position": 0,
+        "$name": null,
+        "$path": "settings.sweepEventMiniGame.eventRaidPattern"
+      },
+      "$position": 1,
+      "$name": "eventRaidPattern",
+      "$path": "sweepEventMiniGame.eventRaidPattern"
+    }
+  },
   "doDailies": {
     "$type": "parent",
     "$position": 0,
@@ -1257,11 +1349,19 @@
       "$name": "sweepDimensionalLabyrinth",
       "$path": "doDailies.sweepDimensionalLabyrinth"
     },
-    "sweepEvent": {
+    "sweepEventMiniGame": {
       "$type": "boolean",
       "$defaultValue": false,
       "$value": false,
       "$position": 13,
+      "$name": "sweepEventMiniGame",
+      "$path": "doDailies.sweepEventMiniGame"
+    },
+    "sweepEvent": {
+      "$type": "boolean",
+      "$defaultValue": false,
+      "$value": false,
+      "$position": 14,
       "$name": "sweepEvent",
       "$path": "doDailies.sweepEvent"
     },
@@ -1269,7 +1369,7 @@
       "$type": "boolean",
       "$defaultValue": true,
       "$value": true,
-      "$position": 14,
+      "$position": 15,
       "$name": "doOperationEdenAlliance",
       "$path": "doDailies.doOperationEdenAlliance"
     },
@@ -1277,7 +1377,7 @@
       "$type": "boolean",
       "$defaultValue": true,
       "$value": true,
-      "$position": 15,
+      "$position": 16,
       "$name": "sweepGuildRaid",
       "$path": "doDailies.sweepGuildRaid"
     },
@@ -1285,7 +1385,7 @@
       "$type": "boolean",
       "$defaultValue": false,
       "$value": false,
-      "$position": 16,
+      "$position": 17,
       "$name": "levelSoulOnce",
       "$path": "doDailies.levelSoulOnce"
     },
@@ -1293,7 +1393,7 @@
       "$type": "boolean",
       "$defaultValue": true,
       "$value": true,
-      "$position": 17,
+      "$position": 18,
       "$name": "claimDailyQuests",
       "$path": "doDailies.claimDailyQuests"
     },
@@ -1301,7 +1401,7 @@
       "$type": "boolean",
       "$defaultValue": true,
       "$value": true,
-      "$position": 18,
+      "$position": 19,
       "$name": "doUnlimitedGateOnce",
       "$path": "doDailies.doUnlimitedGateOnce"
     },
@@ -1309,7 +1409,7 @@
       "$type": "boolean",
       "$defaultValue": false,
       "$value": false,
-      "$position": 19,
+      "$position": 20,
       "$name": "doOutings",
       "$path": "doDailies.doOutings"
     },
@@ -1317,7 +1417,7 @@
       "$type": "boolean",
       "$defaultValue": true,
       "$value": true,
-      "$position": 20,
+      "$position": 21,
       "$name": "sweepEvilSoulSubjugation",
       "$path": "doDailies.sweepEvilSoulSubjugation"
     },
@@ -1325,7 +1425,7 @@
       "$type": "boolean",
       "$defaultValue": true,
       "$value": true,
-      "$position": 21,
+      "$position": 22,
       "$name": "doIridescentScenicInstance",
       "$path": "doDailies.doIridescentScenicInstance"
     },
@@ -1333,7 +1433,7 @@
       "$type": "boolean",
       "$defaultValue": true,
       "$value": true,
-      "$position": 22,
+      "$position": 23,
       "$name": "doManageTown",
       "$path": "doDailies.doManageTown"
     }

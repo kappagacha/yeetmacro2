@@ -24,7 +24,11 @@ while (macroService.IsRunning) {
 			macroService.PollPattern(patterns.operationEdenAlliance, { DoClick: true, PredicatePattern: patterns.titles.operationEdenAlliance });
 			break;
 		case 'titles.operationEdenAlliance':
-			macroService.PollPattern(patterns.operationEdenAlliance.qualifiers, { DoClick: true, PredicatePattern: patterns.operationEdenAlliance.battle });
+			const qualifiersResult = macroService.PollPattern(patterns.operationEdenAlliance.qualifiers, { DoClick: true, PredicatePattern: [patterns.operationEdenAlliance.battle, patterns.operationEdenAlliance.qualifiers.over] });
+			if (qualifiersResult.PredicatePath === 'operationEdenAlliance.qualifiers.over') {
+				daily.doOperationEdenAlliance.done.IsChecked = true;
+				return;
+			}
 			macroService.ClickPattern(patterns.operationEdenAlliance.selectMax);
 			sleep(500);
 			macroService.ClickPattern(patterns.operationEdenAlliance.selectMax);
