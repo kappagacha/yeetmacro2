@@ -1153,7 +1153,7 @@
     "$position": 0,
     "$name": "sweepEventMiniGame",
     "$path": "sweepEventMiniGame",
-    "eventRaidPattern": {
+    "miniGamePattern": {
       "$type": "pattern",
       "$defaultValue": {
         "$patterns": [
@@ -1236,8 +1236,8 @@
         "$path": "settings.sweepEventMiniGame.eventRaidPattern"
       },
       "$position": 1,
-      "$name": "eventRaidPattern",
-      "$path": "sweepEventMiniGame.eventRaidPattern"
+      "$name": "miniGamePattern",
+      "$path": "sweepEventMiniGame.miniGamePattern"
     }
   },
   "doDailies": {

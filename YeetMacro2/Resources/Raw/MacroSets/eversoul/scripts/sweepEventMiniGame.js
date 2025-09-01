@@ -35,6 +35,7 @@ while (macroService.IsRunning) {
 				throw Error('Unable to find pattern: settings.sweepEventMiniGame.miniGamePattern');
 			}
 
+			macroService.PollPattern(miniGamePattern, { DoClick: true, PredicatePattern: patterns.event.miniGame });
 			macroService.PollPattern(patterns.event.miniGame, { DoClick: true, PredicatePattern: patterns.event.miniGame.sweep, ClickOffset: { Y: -60 } });
 			macroService.PollPattern(patterns.event.miniGame.sweep, { DoClick: true, PredicatePattern: patterns.event.miniGame.sweep.sweep });
 			macroService.PollPattern(patterns.event.miniGame.sweep.sweep, { DoClick: true, PredicatePattern: patterns.general.tapTheScreen });
