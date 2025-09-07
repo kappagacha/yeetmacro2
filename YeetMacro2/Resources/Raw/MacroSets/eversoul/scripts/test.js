@@ -3,7 +3,8 @@
 	Y: 80,
 	Width: 1005,
 	Height: 900,
-	Path: 'settings.doManageTown.bond.targetSoul',
+	Resolution: { Width: 1920, Height: 1080 },
+	Path: 'test.settings.doManageTown.bond.targetSoul',
 	OffsetType: 'DockLeft',
 	BoundsCalcType: 'FillWidth'
 });

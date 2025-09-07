@@ -53,6 +53,7 @@ public class CloneOptions
     public string Path { get; set; }
     public string PathSuffix { get; set; }
     public Rect RawBounds { get; set; }
+    public Size Resolution { get; set; }
     public OffsetCalcType OffsetCalcType { get; set; } = OffsetCalcType.Default;
     public BoundsCalcType BoundsCalcType { get; set; } = BoundsCalcType.Default;
     public SwipeDirection SwipeDirection { get; set; } = SwipeDirection.Auto;
@@ -155,6 +156,11 @@ public class MacroService
             {
                 pattern.RawBounds = opts.RawBounds;
                 continue;
+            }
+
+            if (!opts.Resolution.IsZero)
+            {
+                pattern.Resolution = opts.Resolution;
             }
 
             var rect = pattern.RawBounds;
