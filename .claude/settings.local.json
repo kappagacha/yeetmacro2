@@ -10,7 +10,16 @@
       "Bash(git log:*)",
       "Bash(grep:*)",
       "Bash(sed:*)",
-      "Bash(rm:*)"
+      "Bash(rm:*)",
+      "Read(/C:\\Projects\\yeetmacro2\\YeetMacro2\\Platforms\\Android\\ViewModels/**)",
+      "Read(/C:\\Projects\\yeetmacro2\\YeetMacro2\\Pages/**)",
+      "Read(/C:\\Projects\\yeetmacro2\\YeetMacro2\\Pages/**)",
+      "Read(/C:\\Projects\\yeetmacro2\\YeetMacro2\\Pages/**)",
+      "Read(/C:\\Projects\\yeetmacro2\\YeetMacro2/**)",
+      "Read(/C:\\Projects\\yeetmacro2\\YeetMacro2\\ViewModels/**)",
+      "Read(/C:\\Projects\\yeetmacro2\\YeetMacro2\\ViewModels/**)",
+      "Read(/C:\\Projects\\yeetmacro2\\YeetMacro2\\ViewModels/**)",
+      "Read(/C:\\Projects\\yeetmacro2\\YeetMacro2\\ViewModels/**)"
     ],
     "deny": [],
     "ask": [],

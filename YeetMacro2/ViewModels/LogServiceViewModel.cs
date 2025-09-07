@@ -280,7 +280,7 @@ public partial class LogServiceViewModel(IRepository<Log> _logRepository, IMappe
     }
 
     [RelayCommand]
-    public async Task CopyMessgeToClipboard(Log log)
+    public async Task CopyMessageToClipboard(Log log)
     {
         await Clipboard.Default.SetTextAsync(log.Message);
         _toastService.Show($"Copied message to clipboard: {log.Message}");
