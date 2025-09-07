@@ -23,7 +23,7 @@
     <ContentPage.Behaviors>
         <mct:EventToCommandBehavior
                 EventName="Appearing"
-                Command="{OnPlatform Android={Binding AppearCommand}}" />
+                Command="{Binding AppearCommand}" />
     </ContentPage.Behaviors>
     <ScrollView>
         <Grid>
