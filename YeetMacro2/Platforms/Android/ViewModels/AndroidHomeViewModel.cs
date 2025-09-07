@@ -438,7 +438,9 @@ If you agree, please tap OK then grant Accessibility service permission to YeetM
     public void Appear()
     {
         IsAppearing = true;
-        IsAccessibilityEnabled = _accessibilityService.HasAccessibilityPermissions;
+        var hasAccessibilityPermissions = _accessibilityService.HasAccessibilityPermissions;
+        ServiceHelper.LogService?.LogDebug($"AndroidHomeViewModel.Appear called - HasAccessibilityPermissions: {hasAccessibilityPermissions}");
+        IsAccessibilityEnabled = hasAccessibilityPermissions;
         IsMacroReady = IsProjectionServiceEnabled && IsAccessibilityEnabled;
         IsAppearing = false;
     }
