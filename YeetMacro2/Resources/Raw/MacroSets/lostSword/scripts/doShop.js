@@ -23,14 +23,30 @@ while (macroService.IsRunning) {
 				if (macroService.IsRunning) daily.doShop.freepackage.IsChecked = true;
 			}
 
-			if (settings.doShop.event.IsEnabled) {
-				macroService.PollPattern(patterns.shop.event, { DoClick: true, PredicatePattern: patterns.shop.event.selected });
-				doEventShop({
+
+			if (settings.doShop.exchangeShop.summerCoin.IsEnabled && !daily.doShop.summerCoin.done.IsChecked) {
+				macroService.PollPattern(patterns.shop.exchangeShop, { DoClick: true, PredicatePattern: patterns.shop.exchangeShop.selected });
+				macroService.PollPattern(patterns.shop.coin, { SwipePattern: patterns.shop.leftPanelSwipeDown })
+				sleep(1_000);
+				findCoinType('Summer');
+				doEventShop(settings.doShop.exchangeShop.summerCoin, daily.doShop.summerCoin, {
 					rouletteTicket: 'Roulette Ticket',
 					bossRaidTicket: 'Boss Raid Ticket',
-					vacationTicket: 'Vacation Ticket',
-					fireworkTicket: 'Firework Ticket',
+					summerTicket: 'Summer Ticket',
 				});
+				if (macroService.IsRunning) daily.doShop.summerCoin.done.IsChecked = true;
+			}
+
+			if (settings.doShop.exchangeShop.fireworkCoin.IsEnabled && !daily.doShop.fireworkCoin.done.IsChecked) {
+				macroService.PollPattern(patterns.shop.exchangeShop, { DoClick: true, PredicatePattern: patterns.shop.exchangeShop.selected });
+				macroService.PollPattern(patterns.shop.coin, { SwipePattern: patterns.shop.leftPanelSwipeDown })
+				sleep(1_000);
+				findCoinType('Firework');
+				doEventShop(settings.doShop.exchangeShop.fireworkCoin, daily.doShop.fireworkCoin, {
+					rouletteTicket: 'Roulette Ticket',
+					bossRaidTicket: 'Boss Raid Ticket',
+				});
+				if (macroService.IsRunning) daily.doShop.fireworkCoin.done.IsChecked = true;
 			}
 
 			if (macroService.IsRunning) daily.doShop.done.IsChecked = true;
@@ -40,9 +56,9 @@ while (macroService.IsRunning) {
 	sleep(1_000);
 }
 
-function doEventShop(shortItemNameToFullItemName) {
+function doEventShop(shopSetting, dailySetting, shortItemNameToFullItemName) {
 	for (let [shortItemName, fullItemName] of Object.entries(shortItemNameToFullItemName)) {
-		if (settings.doShop.event[shortItemName].Value && !daily.doShop.event[shortItemName].IsChecked) {
+		if (shopSetting[shortItemName].Value && !dailySetting[shortItemName].IsChecked) {
 			logger.info(`doShop: event ${fullItemName}`);
 			const shopItemResult = findShopItem(fullItemName);
 			//const goldClone = macroService.ClonePattern(patterns.shop.gold, {
@@ -66,9 +82,26 @@ function doEventShop(shortItemNameToFullItemName) {
 				macroService.PollPattern(patterns.general.itemsAcquired, { DoClick: true, InversePredicatePattern: patterns.general.itemsAcquired });
 			}
 
-			if (macroService.IsRunning) daily.doShop.event[shortItemName].IsChecked = true;
+			if (macroService.IsRunning) dailySetting[shortItemName].IsChecked = true;
 		}
 	}
+}
+
+function findCoinType(targetCoinType) {
+	const coinResult = macroService.FindPattern(patterns.shop.coin, { Limit: 5 });
+	let cointTypeResults = coinResult.Points.map(p => {
+		const cointTypePattern = macroService.ClonePattern(patterns.shop.coin.type, { CenterY: p.Y, OffsetCalcType: 'None', PathSuffix: `_${p.X}x_${p.Y}y` });
+		return {
+			point: { X: p.X, Y: p.Y },
+			text: macroService.FindText(cointTypePattern)
+		};
+	});
+	const targetCoinTypeResult = cointTypeResults.find(ct => ct.text === targetCoinType);
+	if (!targetCoinTypeResult) {
+		throw new Error(`Could not find coin type [${targetCoinType}]`);
+	}
+	const leftPanelSelectedPattern = macroService.ClonePattern(patterns.shop.leftPanelSelected, { CenterY: targetCoinTypeResult.point.Y + 20, Padding: 10, OffsetCalcType: 'None', PathSuffix: `_${targetCoinTypeResult.point.X}x_${targetCoinTypeResult.point.Y}y` });
+	macroService.PollPoint(targetCoinTypeResult.point, { DoClick: true, PredicatePattern: leftPanelSelectedPattern });
 }
 
 function findShopItem(shopItemName) {
