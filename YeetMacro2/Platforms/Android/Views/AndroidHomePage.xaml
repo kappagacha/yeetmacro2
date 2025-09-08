@@ -20,11 +20,6 @@
             <mct:VariableMultiValueConverter x:Key="allTrueMultiValueConverter" ConditionType="All" />
         </ResourceDictionary>
     </ContentPage.Resources>
-    <ContentPage.Behaviors>
-        <mct:EventToCommandBehavior
-                EventName="Appearing"
-                Command="{Binding AppearCommand}" />
-    </ContentPage.Behaviors>
     <ScrollView>
         <Grid>
             <VerticalStackLayout Spacing="10">
