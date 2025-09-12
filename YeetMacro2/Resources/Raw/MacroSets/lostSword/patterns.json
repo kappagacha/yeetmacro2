@@ -4846,7 +4846,7 @@
               "imageData": "",
               "ignoreBackground": false
             },
-            "offsetCalcType": "Default",
+            "offsetCalcType": "DockLeft",
             "boundsCalcType": "Default",
             "position": 0
           }
