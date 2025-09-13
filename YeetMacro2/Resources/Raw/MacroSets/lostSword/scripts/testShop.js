@@ -31,7 +31,7 @@ while (!findResult) {
 
 	findResult = textResults.find(tr => tr.text.match(itemRegex));
 
-	return { shopItemName, findResult, textResults };
+	return { shopItemName, itemRegex, findResult, textResults };
 
 	tryCount++;
 	if (!findResult && tryCount % 2 === 0) {	// scan twice before swiping
