@@ -17,9 +17,9 @@
                 <Label Text="{Binding Message}" />
             </Border>
         </ScrollView>
-        <v:ImageView x:DataType="pvm:MessageViewModel" FontFamily="MaterialOutlined" Glyph="{x:Static ms:MaterialOutlined.Content_copy}" 
+        <v:ImageView x:DataType="pvm:MessageViewModel" FontFamily="MaterialOutlined" Glyph="{x:Static ms:MaterialOutlined.Content_copy}"
                      CommandParameter="{Binding Message}"
-                     Command="{Binding CopyMessgeToClipboardCommand, Source={RelativeSource AncestorType={x:Type av:MessageView}}}"
+                     Command="{Binding CopyMessageToClipboardCommand}"
                      VerticalOptions="End" HorizontalOptions="End"
                      Margin="10"/>
     </Grid>

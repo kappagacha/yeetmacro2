@@ -15,7 +15,7 @@ public partial class MessageViewModel : ObservableObject
     string _message;
 
     [RelayCommand]
-    public async Task CopyMessgeToClipboard(String message)
+    public async Task CopyMessageToClipboard(String message)
     {
         await Clipboard.Default.SetTextAsync(message);
         _toastService.Show($"Copied message to clipboard: {message}");
