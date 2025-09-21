@@ -39,21 +39,16 @@ public class ForegroundService : Service
                     break;
                 default:
                     Start();
-                    // Delay to ensure foreground service is fully established before starting MediaProjection
-                    Task.Run(async () =>
+                    // Only start media projection if initialized and activity is available
+                    if (mediaProjectionService?.IsInitialized == true && Platform.CurrentActivity != null)
                     {
-                        await Task.Delay(100);
-                        // Only start media projection if initialized and activity is available
-                        if (mediaProjectionService?.IsInitialized == true && Platform.CurrentActivity != null)
-                        {
-                            mediaProjectionService.Start();
-                        }
-                        else if (mediaProjectionService?.IsInitialized == true)
-                        {
-                            // Log that we can't start in background without activity
-                            ServiceHelper.LogService?.LogDebug("Cannot start MediaProjection in background - CurrentActivity is null");
-                        }
-                    });
+                        mediaProjectionService.Start();
+                    }
+                    else if (mediaProjectionService?.IsInitialized == true)
+                    {
+                        // Log that we can't start in background without activity
+                        ServiceHelper.LogService?.LogDebug("Cannot start MediaProjection in background - CurrentActivity is null");
+                    }
                     break;
             }
         }
