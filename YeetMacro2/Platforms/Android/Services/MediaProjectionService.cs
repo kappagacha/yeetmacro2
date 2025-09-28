@@ -103,7 +103,16 @@ public class MediaProjectionService : IRecorderService, IDisposable
         {
             Toast.MakeText(Platform.CurrentActivity, "Media projection initialized...", ToastLength.Short).Show();
         }
+
+        // Start the foreground service
         Platform.AppContext.StartForegroundServiceCompat<ForegroundService>();
+
+        // Try to upgrade the service type if it's already running
+        var foregroundService = ServiceHelper.GetService<ForegroundService>();
+        if (foregroundService?.IsRunning == true)
+        {
+            foregroundService.UpgradeToMediaProjection();
+        }
     }
 
     private Bitmap GetBitmap()
