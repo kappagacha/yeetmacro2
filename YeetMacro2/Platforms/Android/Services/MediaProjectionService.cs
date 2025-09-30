@@ -11,6 +11,7 @@ using Rect = Microsoft.Maui.Graphics.Rect;
 using CommunityToolkit.Mvvm.Messaging;
 using YeetMacro2.ViewModels;
 using YeetMacro2.Data.Models;
+using SecurityException = Java.Lang.SecurityException;
 
 namespace YeetMacro2.Platforms.Android.Services;
 
@@ -46,6 +47,15 @@ public class MediaProjectionService : IRecorderService, IDisposable
 
         try
         {
+            // Check if we have a valid projection token
+            if (!IsInitialized)
+            {
+                ServiceHelper.LogService?.LogDebug("MediaProjectionService Start failed: No valid projection token");
+                _resultCode = 0;  // Clear any invalid token
+                WeakReferenceMessenger.Default.Send("MediaProjectionTokenExpired", "MediaProjectionToken");
+                return;
+            }
+
             // TODO: support vertical somehow. Currently hardcoding to horizontal
             DisplayHelper.DisplayRotation = DisplayRotation.Rotation90;
 
@@ -62,7 +72,7 @@ public class MediaProjectionService : IRecorderService, IDisposable
                 Stop();
                 return;
             }
-            
+
             var mediaProjectionManager = (MediaProjectionManager)activity.GetSystemService(Context.MediaProjectionService);
             _mediaProjection = mediaProjectionManager.GetMediaProjection(_resultCode, (Intent)_resultData.Clone());
             _mediaProjection.RegisterCallback(_mediaProjectionCallback, null);
@@ -74,6 +84,14 @@ public class MediaProjectionService : IRecorderService, IDisposable
             {
                 _resultCode = 0;
             }
+        }
+        catch (SecurityException secEx)
+        {
+            // Token is likely expired or invalid
+            ServiceHelper.LogService?.LogDebug($"MediaProjectionService Start SecurityException: Token expired or invalid - {secEx.Message}");
+            _resultCode = 0;  // Clear the invalid token
+            Stop();
+            WeakReferenceMessenger.Default.Send("MediaProjectionTokenExpired", "MediaProjectionToken");
         }
         catch (Exception ex)
         {
@@ -103,7 +121,16 @@ public class MediaProjectionService : IRecorderService, IDisposable
         {
             Toast.MakeText(Platform.CurrentActivity, "Media projection initialized...", ToastLength.Short).Show();
         }
+
+        // Start foreground service - it will detect we have media projection and use the correct type
         Platform.AppContext.StartForegroundServiceCompat<ForegroundService>();
+
+        // If service is already running, upgrade it to use media projection type
+        var foregroundService = ServiceHelper.GetService<ForegroundService>();
+        if (foregroundService?.IsRunning == true)
+        {
+            foregroundService.RestartWithMediaProjection();
+        }
     }
 
     private Bitmap GetBitmap()

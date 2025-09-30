@@ -30,6 +30,7 @@ public class ForegroundService : Service
         try
         {
             var mediaProjectionService = ServiceHelper.GetService<MediaProjectionService>();
+            bool hasMediaProjection = mediaProjectionService?.IsInitialized == true;
 
             switch (intent?.Action)
             {
@@ -38,13 +39,14 @@ public class ForegroundService : Service
                     Stop();
                     break;
                 default:
-                    Start();
+                    // Pass whether we have media projection to Start method
+                    Start(hasMediaProjection);
                     // Only start media projection if initialized and activity is available
-                    if (mediaProjectionService?.IsInitialized == true && Platform.CurrentActivity != null)
+                    if (hasMediaProjection && Platform.CurrentActivity != null)
                     {
                         mediaProjectionService.Start();
                     }
-                    else if (mediaProjectionService?.IsInitialized == true)
+                    else if (hasMediaProjection)
                     {
                         // Log that we can't start in background without activity
                         ServiceHelper.LogService?.LogDebug("Cannot start MediaProjection in background - CurrentActivity is null");
@@ -118,22 +120,61 @@ public class ForegroundService : Service
     }
 
 
-    void Start()
+    void Start(bool hasMediaProjection = false)
     {
         if (IsRunning) return;
-        
+
         this.IsRunning = true;
 
         if (OperatingSystem.IsAndroidVersionAtLeast(29))
         {
-            StartForeground(SERVICE_RUNNING_NOTIFICATION_ID, GenerateNotification(), global::Android.Content.PM.ForegroundService.TypeMediaProjection);
+            // Only use TypeMediaProjection if we have a valid media projection token
+            // On Android 14+, using TypeMediaProjection without a valid token causes SecurityException
+            if (hasMediaProjection)
+            {
+                StartForeground(SERVICE_RUNNING_NOTIFICATION_ID, GenerateNotification(), global::Android.Content.PM.ForegroundService.TypeMediaProjection);
+            }
+            else
+            {
+                // Start with TypeNone when no media projection is available
+                // This allows the service to start without the media projection permission
+                StartForeground(SERVICE_RUNNING_NOTIFICATION_ID, GenerateNotification(), global::Android.Content.PM.ForegroundService.TypeNone);
+            }
         }
         else
         {
             StartForeground(SERVICE_RUNNING_NOTIFICATION_ID, GenerateNotification());
         }
-        
+
         WeakReferenceMessenger.Default.Send(this);
+    }
+
+    public void RestartWithMediaProjection()
+    {
+        if (!IsRunning) return;
+
+        try
+        {
+            // Only restart with media projection type on Android 29+
+            if (OperatingSystem.IsAndroidVersionAtLeast(29))
+            {
+                var mediaProjectionService = ServiceHelper.GetService<MediaProjectionService>();
+                if (mediaProjectionService?.IsInitialized == true)
+                {
+                    // Stop current foreground state
+                    StopForeground(StopForegroundFlags.Remove);
+
+                    // Restart with media projection type
+                    StartForeground(SERVICE_RUNNING_NOTIFICATION_ID, GenerateNotification(), global::Android.Content.PM.ForegroundService.TypeMediaProjection);
+
+                    ServiceHelper.LogService?.LogDebug("Foreground service restarted with MediaProjection type");
+                }
+            }
+        }
+        catch (Exception ex)
+        {
+            ServiceHelper.LogService?.LogException(ex);
+        }
     }
 
     void Stop()
