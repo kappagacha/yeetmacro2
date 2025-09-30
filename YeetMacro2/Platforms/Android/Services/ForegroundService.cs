@@ -121,48 +121,19 @@ public class ForegroundService : Service
     void Start()
     {
         if (IsRunning) return;
-
+        
         this.IsRunning = true;
-
-        // Check if MediaProjection is initialized before using TypeMediaProjection
-        var mediaProjectionService = ServiceHelper.GetService<MediaProjectionService>();
-        bool hasMediaProjection = mediaProjectionService?.IsInitialized == true;
 
         if (OperatingSystem.IsAndroidVersionAtLeast(29))
         {
-            // Only use TypeMediaProjection if we have a valid MediaProjection token
-            if (hasMediaProjection)
-            {
-                StartForeground(SERVICE_RUNNING_NOTIFICATION_ID, GenerateNotification(), global::Android.Content.PM.ForegroundService.TypeMediaProjection);
-            }
-            else
-            {
-                // Start without media projection type first, can be upgraded later
-                StartForeground(SERVICE_RUNNING_NOTIFICATION_ID, GenerateNotification(), global::Android.Content.PM.ForegroundService.TypeNone);
-            }
+            StartForeground(SERVICE_RUNNING_NOTIFICATION_ID, GenerateNotification(), global::Android.Content.PM.ForegroundService.TypeMediaProjection);
         }
         else
         {
             StartForeground(SERVICE_RUNNING_NOTIFICATION_ID, GenerateNotification());
         }
-
+        
         WeakReferenceMessenger.Default.Send(this);
-    }
-
-    public void UpgradeToMediaProjection()
-    {
-        if (!IsRunning) return;
-
-        // Only upgrade if we're on Android 29+ and have media projection initialized
-        if (OperatingSystem.IsAndroidVersionAtLeast(29))
-        {
-            var mediaProjectionService = ServiceHelper.GetService<MediaProjectionService>();
-            if (mediaProjectionService?.IsInitialized == true)
-            {
-                // Re-start foreground with media projection type
-                StartForeground(SERVICE_RUNNING_NOTIFICATION_ID, GenerateNotification(), global::Android.Content.PM.ForegroundService.TypeMediaProjection);
-            }
-        }
     }
 
     void Stop()
