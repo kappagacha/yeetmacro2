@@ -17,10 +17,10 @@ if (settings.doUpkeep.doFriends.Value) {
     goToLobby();
 }
 
-if (settings.doUpkeep.claimReplenishYourStamina.Value) {
-    claimReplenishYourStamina();
-    goToLobby();
-}
+//if (settings.doUpkeep.claimReplenishYourStamina.Value) {
+//    claimReplenishYourStamina();
+//    goToLobby();
+//}
 
 if (settings.doUpkeep.startTerminusIsleExploration.Value) {
     startTerminusIsleExploration();

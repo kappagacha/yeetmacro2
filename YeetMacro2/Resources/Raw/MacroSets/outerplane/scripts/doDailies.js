@@ -12,10 +12,10 @@ if (settings.doDailies.claimGuildBuff.Value) {
     goToLobby();
 }
 
-if (settings.doDailies.claimReplenishYourStamina.Value) {
-    claimReplenishYourStamina();
-    goToLobby();
-}
+//if (settings.doDailies.claimReplenishYourStamina.Value) {
+//    claimReplenishYourStamina();
+//    goToLobby();
+//}
 
 if (settings.doDailies.claimAntiparticle.Value) {
     claimAntiparticle();
@@ -139,11 +139,6 @@ if (settings.doDailies.sweepEventStoryHard2.Value) {
 
 if (settings.doDailies.sweepJointChallenge.Value) {
     sweepJointChallenge();
-    goToLobby();
-}
-
-if (settings.doDailies.doSpecialRequests.Value) {
-    doSpecialRequests();
     goToLobby();
 }
 

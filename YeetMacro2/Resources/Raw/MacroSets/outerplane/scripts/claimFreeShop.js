@@ -25,10 +25,10 @@ while (macroService.IsRunning) {
 			sleep(500);
 			break;
 		case 'titles.shop':
-			macroService.PollPattern(patterns.shop.resources, { DoClick: true, PredicatePattern: patterns.shop.resources.normal });
+			macroService.PollPattern(patterns.shop.resources, { DoClick: true, PredicatePattern: patterns.shop.resources.dailyWeeklyMonthly });
 
-			if (!daily.claimFreeShop.normal.IsChecked) {
-				logger.info('claimFreeShop: claim Normal');
+			if (!daily.claimFreeShop.resource.dailyWeeklyMonthly.IsChecked) {
+				logger.info('claimFreeShop: claim daily/weekly/monthly');
 				let normalFreeResult = macroService.PollPattern(patterns.shop.free, { TimeoutMs: 3_500 });
 				while (normalFreeResult.IsSuccess) {
 					macroService.PollPattern(patterns.shop.free, { DoClick: true, PredicatePattern: patterns.shop.free.ok, TimeoutMs: 3_500 });
@@ -37,43 +37,30 @@ while (macroService.IsRunning) {
 				}
 
 				if (macroService.IsRunning) {
-					daily.claimFreeShop.normal.IsChecked = true;
+					daily.claimFreeShop.resource.dailyWeeklyMonthly.IsChecked = true;
 				}
 			}
 
-			if (!daily.claimFreeShop.resource.normal.IsChecked) {
-				logger.info('claimFreeShop: claim Resource Normal');
+			if (!daily.claimFreeShop.resource.resource.IsChecked) {
+				logger.info('claimFreeShop: claim resource resource');
 				macroService.PollPattern(patterns.shop.resources.resources, { DoClick: true, PredicatePattern: patterns.shop.resources.resources.selected });
 
-				//let resourceFreeResult = macroService.FindPattern(patterns.shop.free);
-				//while (resourceFreeResult.IsSuccess) {
-				//	macroService.PollPattern(patterns.shop.free, { DoClick: true, PredicatePattern: patterns.shop.free.ok });
-				//	macroService.PollPattern(patterns.shop.free.ok, { DoClick: true, PredicatePattern: patterns.general.tapEmptySpace });
-				//	macroService.PollPattern(patterns.general.tapEmptySpace, { DoClick: true, PredicatePattern: patterns.titles.shop });
-				//	sleep(500);
-				//	resourceFreeResult = macroService.FindPattern(patterns.shop.resource.free);
-				//}
 
 				let resourceFreeResult = macroService.PollPattern(patterns.shop.free, { TimeoutMs: 3_500 });
 				while (resourceFreeResult.IsSuccess) {
-					//macroService.PollPattern(patterns.shop.free, { DoClick: true, PredicatePattern: patterns.shop.free.ok });
-					//macroService.PollPattern(patterns.shop.free.ok, { DoClick: true, PredicatePattern: patterns.general.tapEmptySpace });
-					//macroService.PollPattern(patterns.general.tapEmptySpace, { DoClick: true, PredicatePattern: patterns.titles.shop });
-
-
 					macroService.PollPattern(patterns.shop.free, { DoClick: true, ClickPattern: patterns.shop.free.ok, PredicatePattern: patterns.general.tapEmptySpace, TimeoutMs: 3_500 });
 					macroService.PollPattern(patterns.general.tapEmptySpace, { DoClick: true, PredicatePattern: patterns.titles.shop, TimeoutMs: 3_500 });
 					resourceFreeResult = macroService.PollPattern(patterns.shop.free, { TimeoutMs: 3_500 });
 				}
 
 				if (macroService.IsRunning) {
-					daily.claimFreeShop.resource.normal.IsChecked = true;
+					daily.claimFreeShop.resource.resource.IsChecked = true;
 				}
 			}
 
 			macroService.PollPattern(patterns.shop.contents, { DoClick: true, PredicatePattern: patterns.shop.contents.friendshipPoints });
-			if (!daily.claimFreeShop.resource.skywardTower.IsChecked) {
-				logger.info('claimFreeShop: claim Resource Skyward Tower');
+			if (!daily.claimFreeShop.content.skywardTower.IsChecked) {
+				logger.info('claimFreeShop: claim content Skyward Tower');
 				const skywardTowerSwipeResult = macroService.PollPattern(patterns.shop.contents.skywardTower, { SwipePattern: patterns.shop.subTabSwipeDown, TimeoutMs: 7_000 });
 				if (!skywardTowerSwipeResult.IsSuccess) {
 					throw new Error('Unable to find skyward tower');
@@ -82,21 +69,17 @@ while (macroService.IsRunning) {
 
 				let skywardTowerFreeResult = macroService.FindPattern(patterns.shop.free);
 				while (skywardTowerFreeResult.IsSuccess) {
-					//macroService.PollPattern(patterns.shop.free, { DoClick: true, PredicatePattern: patterns.shop.free.ok });
-					//macroService.PollPattern(patterns.shop.free.ok, { DoClick: true, PredicatePattern: patterns.general.tapEmptySpace });
-					//macroService.PollPattern(patterns.general.tapEmptySpace, { DoClick: true, PredicatePattern: patterns.titles.shop });
-
 					macroService.PollPattern(patterns.shop.free, { DoClick: true, ClickPattern: patterns.shop.free.ok, PredicatePattern: patterns.general.tapEmptySpace, TimeoutMs: 3_500 });
 					macroService.PollPattern(patterns.general.tapEmptySpace, { DoClick: true, PredicatePattern: patterns.titles.shop, TimeoutMs: 3_500 });
 					sleep(500);
 					skywardTowerFreeResult = macroService.FindPattern(patterns.shop.resource.free);
 				}
 				if (macroService.IsRunning) {
-					daily.claimFreeShop.resource.skywardTower.IsChecked = true;
+					daily.claimFreeShop.content.skywardTower.IsChecked = true;
 				}
 			}
 
-			if (!daily.claimFreeShop.surveyHub.IsChecked) {
+			if (!daily.claimFreeShop.content.surveyHub.IsChecked) {
 				logger.info('claimFreeShop: claim Survey Hub');
 				const surveyHubSwipeResult = macroService.PollPattern(patterns.shop.contents.surveyHub, { SwipePattern: patterns.shop.subTabSwipeDown, TimeoutMs: 7_000 });
 				if (!surveyHubSwipeResult.IsSuccess) {
@@ -106,15 +89,11 @@ while (macroService.IsRunning) {
 
 				const surveyhubFreeResult = macroService.FindPattern(patterns.shop.free);
 				if (surveyhubFreeResult.IsSuccess) {
-					//macroService.PollPattern(patterns.shop.free, { DoClick: true, PredicatePattern: patterns.shop.free.ok });
-					//macroService.PollPattern(patterns.shop.free.ok, { DoClick: true, PredicatePattern: patterns.general.tapEmptySpace });
-					//macroService.PollPattern(patterns.general.tapEmptySpace, { DoClick: true, PredicatePattern: patterns.titles.shop });
-
 					macroService.PollPattern(patterns.shop.free, { DoClick: true, ClickPattern: patterns.shop.free.ok, PredicatePattern: patterns.general.tapEmptySpace, TimeoutMs: 3_500 });
 					macroService.PollPattern(patterns.general.tapEmptySpace, { DoClick: true, PredicatePattern: patterns.titles.shop, TimeoutMs: 3_500 });
 				}
 				if (macroService.IsRunning) {
-					daily.claimFreeShop.surveyHub.IsChecked = true;
+					daily.claimFreeShop.content.surveyHub.IsChecked = true;
 				}
 			}
 			

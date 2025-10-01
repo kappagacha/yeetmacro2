@@ -24,7 +24,9 @@
       "Read(/C:\\Projects\\yeetmacro2\\YeetMacro2/**)",
       "Read(/C:\\Projects\\yeetmacro2\\YeetMacro2\\Platforms\\Android\\Views/**)",
       "Read(/C:\\Projects\\yeetmacro2\\YeetMacro2\\Platforms\\Android\\Views/**)",
-      "Read(/C:\\Projects\\yeetmacro2\\YeetMacro2\\Platforms\\Android\\Views/**)"
+      "Read(/C:\\Projects\\yeetmacro2\\YeetMacro2\\Platforms\\Android\\Views/**)",
+      "WebFetch(domain:github.com)",
+      "WebSearch"
     ],
     "deny": [],
     "ask": [],
