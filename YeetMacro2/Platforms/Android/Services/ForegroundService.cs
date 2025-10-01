@@ -39,16 +39,25 @@ public class ForegroundService : Service
                     Stop();
                     break;
                 default:
-                    // Pass whether we have media projection to Start method
-                    Start(hasMediaProjection);
-                    // Only start media projection if initialized and activity is available
-                    if (hasMediaProjection && Platform.CurrentActivity != null)
+                    // On Android 35+, we MUST have MediaProjection permission before starting foreground service
+                    // TypeNone is prohibited on API 35+
+                    if (!hasMediaProjection)
+                    {
+                        ServiceHelper.LogService?.LogDebug("Cannot start foreground service without MediaProjection permission on Android 35+");
+                        StopSelf();
+                        return StartCommandResult.NotSticky;
+                    }
+
+                    // Start with media projection type
+                    Start(true);
+
+                    // Start media projection if activity is available
+                    if (Platform.CurrentActivity != null)
                     {
                         mediaProjectionService.Start();
                     }
-                    else if (hasMediaProjection)
+                    else
                     {
-                        // Log that we can't start in background without activity
                         ServiceHelper.LogService?.LogDebug("Cannot start MediaProjection in background - CurrentActivity is null");
                     }
                     break;
@@ -126,20 +135,11 @@ public class ForegroundService : Service
 
         this.IsRunning = true;
 
+        // On Android 29+, we must specify the service type
+        // On Android 35+, TypeNone is prohibited - we must use TypeMediaProjection
         if (OperatingSystem.IsAndroidVersionAtLeast(29))
         {
-            // Only use TypeMediaProjection if we have a valid media projection token
-            // On Android 14+, using TypeMediaProjection without a valid token causes SecurityException
-            if (hasMediaProjection)
-            {
-                StartForeground(SERVICE_RUNNING_NOTIFICATION_ID, GenerateNotification(), global::Android.Content.PM.ForegroundService.TypeMediaProjection);
-            }
-            else
-            {
-                // Start with TypeNone when no media projection is available
-                // This allows the service to start without the media projection permission
-                StartForeground(SERVICE_RUNNING_NOTIFICATION_ID, GenerateNotification(), global::Android.Content.PM.ForegroundService.TypeNone);
-            }
+            StartForeground(SERVICE_RUNNING_NOTIFICATION_ID, GenerateNotification(), global::Android.Content.PM.ForegroundService.TypeMediaProjection);
         }
         else
         {
@@ -147,34 +147,6 @@ public class ForegroundService : Service
         }
 
         WeakReferenceMessenger.Default.Send(this);
-    }
-
-    public void RestartWithMediaProjection()
-    {
-        if (!IsRunning) return;
-
-        try
-        {
-            // Only restart with media projection type on Android 29+
-            if (OperatingSystem.IsAndroidVersionAtLeast(29))
-            {
-                var mediaProjectionService = ServiceHelper.GetService<MediaProjectionService>();
-                if (mediaProjectionService?.IsInitialized == true)
-                {
-                    // Stop current foreground state
-                    StopForeground(StopForegroundFlags.Remove);
-
-                    // Restart with media projection type
-                    StartForeground(SERVICE_RUNNING_NOTIFICATION_ID, GenerateNotification(), global::Android.Content.PM.ForegroundService.TypeMediaProjection);
-
-                    ServiceHelper.LogService?.LogDebug("Foreground service restarted with MediaProjection type");
-                }
-            }
-        }
-        catch (Exception ex)
-        {
-            ServiceHelper.LogService?.LogException(ex);
-        }
     }
 
     void Stop()

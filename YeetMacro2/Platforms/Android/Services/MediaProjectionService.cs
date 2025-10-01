@@ -123,14 +123,8 @@ public class MediaProjectionService : IRecorderService, IDisposable
         }
 
         // Start foreground service - it will detect we have media projection and use the correct type
+        // On Android 35+, the service will only start if MediaProjection is initialized
         Platform.AppContext.StartForegroundServiceCompat<ForegroundService>();
-
-        // If service is already running, upgrade it to use media projection type
-        var foregroundService = ServiceHelper.GetService<ForegroundService>();
-        if (foregroundService?.IsRunning == true)
-        {
-            foregroundService.RestartWithMediaProjection();
-        }
     }
 
     private Bitmap GetBitmap()
