@@ -31,8 +31,11 @@ while (macroService.IsRunning) {
 
 			let notificationResult = macroService.PollPattern(patterns.event.daily.anniversary.notification, { TimeoutMs: 3_000 });
 			while (notificationResult.IsSuccess) {
-				macroService.PollPattern(patterns.event.daily.anniversary.notification, { DoClick: true, PredicatePattern: [patterns.event.ok, patterns.event.confirm], ClickOffset: { X: -40, Y: 40 } });
-				macroService.PollPattern([patterns.event.ok, patterns.event.confirm], { DoClick: true, PredicatePattern: patterns.event.daily.info });
+				//macroService.PollPattern(patterns.event.daily.anniversary.notification, { DoClick: true, PredicatePattern: [patterns.event.ok, patterns.event.confirm], ClickOffset: { X: -40, Y: 40 } });
+				//macroService.PollPattern([patterns.event.ok, patterns.event.confirm], { DoClick: true, PredicatePattern: patterns.event.daily.info });
+				macroService.PollPattern(patterns.event.daily.anniversary.notification, { DoClick: true, PredicatePattern: patterns.general.tapTheScreen, ClickOffset: { X: -40, Y: 40 } });
+				macroService.PollPattern(patterns.general.tapTheScreen, { DoClick: true, PredicatePattern: patterns.event.daily.info });
+
 				notificationResult = macroService.PollPattern(patterns.event.daily.anniversary.notification, { TimeoutMs: 3_000 });
 			}
 			

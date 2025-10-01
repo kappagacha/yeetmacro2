@@ -432,8 +432,8 @@
     "$path": "claimAntiparticle",
     "forceRun": {
       "$type": "boolean",
-      "$defaultValue": true,
-      "$value": true,
+      "$defaultValue": false,
+      "$value": false,
       "$position": 0,
       "$name": "forceRun",
       "$path": "claimAntiparticle.forceRun"
@@ -441,7 +441,7 @@
     "lastRun": {
       "$type": "timestamp",
       "$defaultValue": "0001-01-01T00:00:00+00:00",
-      "$value": "2025-10-01T19:21:15.572+00:00",
+      "$value": "2025-10-01T22:36:07.49+00:00",
       "$position": 0,
       "$name": "lastRun",
       "$path": "claimAntiparticle.lastRun"
@@ -463,7 +463,7 @@
     "lastRun": {
       "$type": "timestamp",
       "$defaultValue": "0001-01-01T00:00:00+00:00",
-      "$value": "2025-10-01T19:19:10.744+00:00",
+      "$value": "2025-10-01T22:58:24.238+00:00",
       "$position": 0,
       "$name": "lastRun",
       "$path": "doFriends.lastRun"
@@ -787,8 +787,8 @@
         "dark",
         "light"
       ],
-      "$defaultValue": "dark",
-      "$value": "dark",
+      "$defaultValue": "water",
+      "$value": "water",
       "$position": 0,
       "$name": "elementTypeTarget1",
       "$path": "doDoppelganger.elementTypeTarget1"
@@ -1824,7 +1824,7 @@
     "lastRun": {
       "$type": "timestamp",
       "$defaultValue": "0001-01-01T00:00:00+00:00",
-      "$value": "2025-10-01T19:20:31.482+00:00",
+      "$value": "2025-10-01T22:40:44.417+00:00",
       "$position": 0,
       "$name": "lastRun",
       "$path": "startTerminusIsleExploration.lastRun"
@@ -2252,8 +2252,8 @@
     },
     "sweepEventStoryHard": {
       "$type": "boolean",
-      "$defaultValue": true,
-      "$value": true,
+      "$defaultValue": false,
+      "$value": false,
       "$position": 21,
       "$name": "sweepEventStoryHard",
       "$path": "doDailies.sweepEventStoryHard"
@@ -2308,8 +2308,8 @@
     },
     "claimEventDailyMissions2": {
       "$type": "boolean",
-      "$defaultValue": false,
-      "$value": false,
+      "$defaultValue": true,
+      "$value": true,
       "$position": 28,
       "$name": "claimEventDailyMissions2",
       "$path": "doDailies.claimEventDailyMissions2"
