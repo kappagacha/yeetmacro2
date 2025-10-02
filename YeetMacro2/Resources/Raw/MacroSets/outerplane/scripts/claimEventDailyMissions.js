@@ -1,4 +1,4 @@
-// @position=17
+	// @position=17
 // Claim daily event missions
 const loopPatterns = [patterns.lobby.level, patterns.event.close];
 const daily = dailyManager.GetCurrentDaily();
@@ -33,20 +33,20 @@ while (macroService.IsRunning) {
 			while (notificationResult.IsSuccess) {
 				//macroService.PollPattern(patterns.event.daily.anniversary.notification, { DoClick: true, PredicatePattern: [patterns.event.ok, patterns.event.confirm], ClickOffset: { X: -40, Y: 40 } });
 				//macroService.PollPattern([patterns.event.ok, patterns.event.confirm], { DoClick: true, PredicatePattern: patterns.event.daily.info });
-				macroService.PollPattern(patterns.event.daily.anniversary.notification, { DoClick: true, PredicatePattern: patterns.general.tapTheScreen, ClickOffset: { X: -40, Y: 40 } });
-				macroService.PollPattern(patterns.general.tapTheScreen, { DoClick: true, PredicatePattern: patterns.event.daily.info });
+				macroService.PollPattern(patterns.event.daily.anniversary.notification, { DoClick: true, PredicatePattern: patterns.general.tapEmptySpace, ClickOffset: { X: -40, Y: 40 } });
+				macroService.PollPattern(patterns.general.tapEmptySpace, { DoClick: true, PredicatePattern: patterns.event.daily.info });
 
 				notificationResult = macroService.PollPattern(patterns.event.daily.anniversary.notification, { TimeoutMs: 3_000 });
 			}
 			
-			const miniGameResult = macroService.PollPattern([patterns.event.rockPaperScissors, patterns.event.drawACapsule, patterns.event.spinTheWheel, patterns.event.tokenExchange]);
-			if (miniGameResult.Path === 'event.rockPaperScissors') {
-				doRockPaperScissors();
-			} else if (miniGameResult.Path === 'event.drawACapsule') {
-				doDrawACapsule();
-			} else if (miniGameResult.Path === 'event.spinTheWheel') {
-				doSpinTheWheel();
-			}
+			//const miniGameResult = macroService.PollPattern([patterns.event.rockPaperScissors, patterns.event.drawACapsule, patterns.event.spinTheWheel, patterns.event.tokenExchange]);
+			//if (miniGameResult.Path === 'event.rockPaperScissors') {
+			//	doRockPaperScissors();
+			//} else if (miniGameResult.Path === 'event.drawACapsule') {
+			//	doDrawACapsule();
+			//} else if (miniGameResult.Path === 'event.spinTheWheel') {
+			//	doSpinTheWheel();
+			//}
 
 			if (macroService.IsRunning) {
 				daily.claimEventDailyMissions.done.IsChecked = true;
