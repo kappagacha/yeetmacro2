@@ -517,9 +517,6 @@
     <MauiAsset Update="Resources\Raw\MacroSets\outerplane\scripts\shared.js">
       <LogicalName>%(RecursiveDir)%(Filename)%(Extension)</LogicalName>
     </MauiAsset>
-    <MauiAsset Update="Resources\Raw\MacroSets\outerplane\scripts\doSpecialRequests.js">
-      <LogicalName>%(RecursiveDir)%(Filename)%(Extension)</LogicalName>
-    </MauiAsset>
     <MauiAsset Update="Resources\Raw\MacroSets\outerplane\scripts\doArena.js">
       <LogicalName>%(RecursiveDir)%(Filename)%(Extension)</LogicalName>
     </MauiAsset>
