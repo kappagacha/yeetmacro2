@@ -2,34 +2,48 @@
 function cleanStatName(stat) {
     if (!stat) return stat;
 
-    // Attack OCR errors (Alleek, Attaek, etc.)
-    if (stat.match(/All?e+[ck]/i) || stat.match(/Att?a[ce]k/i)) {
+    const lowerCaseStat = stat.toLowerCase();
+
+    // Attack OCR errors (Alleek, Attaek, Affeck, etc.)
+    if (stat.match(/A[lft]{1,2}[aef]+[ck]/i)) {
         return 'Attack';
     }
     // Defense OCR errors (Defene', Defence, Defens, etc.)
     if (stat.match(/Defen/i)) {
         return 'Defense';
     }
-    // Health OCR errors (Heellh, Heaith, etc.)
-    if (stat.match(/He[ae]l[lt]h/i)) {
+    // Health OCR errors (Heellh, Heaith, Healln, Healrh, Heann, etc.)
+    if (stat.match(/He[ae][aln][tlrn][hnr]?/i)) {
         return 'Health';
     }
-    // Crit Dmg OCR errors
-    if (stat.includes('Cr') && stat.includes('Dmg')) {
+    // Crit Dmg OCR errors (Cr Dmg, Cm Dmg, cm Dmg, C'n Dmg, etc.)
+    if ((lowerCaseStat.includes('cr') || lowerCaseStat.includes('cm') || lowerCaseStat.includes("c'")) && lowerCaseStat.includes('dmg')) {
         return 'Crit Dmg';
     }
-    // Crit Chance OCR errors (Cm Chan, Cri Chan, Cm Chen, etc.)
-    if ((stat.includes('Cm') || stat.includes('Cri') || stat.includes('Cr')) &&
-        (stat.includes('Chan') || stat.includes('Chen') || stat.includes('Chance'))) {
+    // Crit Chance OCR errors (Cm Chan, Cri Chan, Cm Chen, cm chan, C'n Chan, Cnt Chance, etc.)
+    if ((lowerCaseStat.includes('cm') || lowerCaseStat.includes('cri') || lowerCaseStat.includes('cr') || lowerCaseStat.includes("c'") || lowerCaseStat.includes('cnt')) &&
+        (lowerCaseStat.includes('chan') || lowerCaseStat.includes('chen') || lowerCaseStat.includes('chance'))) {
         return 'Crit Chance';
     }
-    // Effectiveness OCR errors
-    if (stat.includes('Ef') && (stat.includes('v') || stat.includes('ﬁ'))) {
+    // Accuracy OCR errors (Am"racy, Aeeuracy, Accuracy, Acuracy, etc.)
+    if (lowerCaseStat.includes('racy') || lowerCaseStat.includes('ccuracy')) {
+        return 'Accuracy';
+    }
+    // Effectiveness OCR errors (Errecuveness, Effecfiveness, etc.)
+    if (stat.match(/E[rf]+[ert]+[ceo]+[ut]*[vf][ei]*[vn]+[ea]+[sn]+/i)) {
+        return 'Effectiveness';
+    }
+    if (lowerCaseStat.includes('ef') && (lowerCaseStat.includes('v') || stat.includes('ﬁ'))) {
         return 'Effectiveness';
     }
     // Heals when hit OCR errors (Heels when hit, etc.)
     if (stat.match(/He[ae]ls?\s+when\s+hit/i)) {
         return 'Heals when hit';
+    }
+
+    // Speed OCR errors (Speea, etc.)
+    if (stat.match(/Spe+[da]/i)) {
+        return 'Speed';
     }
 
     // Check for exact matches (case insensitive)
@@ -50,15 +64,15 @@ function cleanStatName(stat) {
 }
 
 // Validation function
-function validateItem(item) {
+function validateItem(item, rawItem) {
     const validGrades = ['Legendary', 'Epic'];
     const validTypes = ['Weapon', 'Accessory', 'Helmet', 'Chest Armor', 'Gloves', 'Boots'];
     const validStats = ['Health', 'Speed', 'Attack', 'Defense', 'Crit Chance', 'Crit Dmg',
         'Accuracy', 'Evasion', 'Effectiveness', 'Resilience', 'Penetration', 'Heals when hit'];
 
-    // Helper function to create error with item attached
+    // Helper function to create error with item and rawItem attached
     function createError(message) {
-        return { message, item };
+        return { message, item, rawItem };
     }
 
     // Check item grade
@@ -115,7 +129,7 @@ function validateItem(item) {
 
     // Validate item effect for armor pieces
     const armorTypes = ['Helmet', 'Chest Armor', 'Gloves', 'Boots'];
-    const validEffects = ['Attack Set', 'Defense Set', 'Life Set', 'Critical Hit Set', 'Effectiveness Set', 'Resilience Set', 'Counterattack Set'];
+    const validEffects = ['Attack Set', 'Defense Set', 'Life Set', 'Lifesteal Set', 'Speed Set', 'Critical Hit Set', 'Critical Strike Set', 'Accuracy Set', 'Evasion Set', 'Effectiveness Set', 'Resilience Set', 'Counterattack Set', 'Penetration Set', 'Revenge Set', 'Patience Set', 'Pulverization Set', 'Immunity Set', 'Swiftness Set', 'Weakness Set', 'Augmentation Set'];
     if (armorTypes.includes(item.itemType) && item.itemEffect) {
         if (!validEffects.includes(item.itemEffect)) {
             throw createError(`Unexpected item effect: "${item.itemEffect}". Expected: ${validEffects.join(', ')}`);
@@ -210,31 +224,66 @@ if (item.itemEffect) {
 
     // Fix set name OCR errors
     cleanedEffect = cleanedEffect
-        .replace(/sel/i, 'set')  // Replace sel with set first
-        .replace(/C.umem[fﬂ]l[ae]ck/i, 'Counterattack')  // Handle C°umemflack/C°umemfleck variations
+        .replace(/se[rl]/i, 'set')  // Replace sel/ser with set first
+        .replace(/C.u[a-z]*[lf]?[ae][cf]k/i, 'Counterattack')  // Handle C°umemflack/C°unleraflack/C°umemfleck/etc variations
         .replace(/Counter?attack/i, 'Counterattack')  // Handle normal Counterattack
         .replace(/\bA[lf]?l?[ae]?[ce]?k\b/i, 'Attack')  // Handle Allack, Alleek, etc. (\b is word boundary)
         .replace(/Defen[cs]e*/i, 'Defense')  // Handle Defense/Defence/Defensee OCR errors
+        .replace(/Lifes[lt]ee[lt]/i, 'Lifesteal')  // Handle Lifesleel, Lifesteet, etc.
         .replace(/Life\s*\d*/i, 'Life')  // Handle "Life 5" -> Life
-        .replace(/C[nr]iti?c?a?l?\s*H[it]?/i, 'Critical Hit')  // Handle Critical Hit OCR errors
-        .replace(/Effec[tf]i?veness/i, 'Effectiveness');  // Handle Effectiveness, Effecfiveness OCR errors
+        .replace(/[Ss]peed\s*\d*/i, 'Speed')  // Handle "sPeed 5" -> Speed
+        .replace(/C[nr'i][nit][cti][ei]?[acl]?\s*(?:H[it]?|[Ss]trike)/i, 'Critical Hit')  // Handle Critical Hit/Critical Strike/Cincel strike OCR errors
+        .replace(/A[mc"]+[ua]*r[au]cy/i, 'Accuracy')  // Handle Accuracy OCR errors
+        .replace(/Ev[ae]s[ir°][io°m']+n?/i, 'Evasion')  // Handle Evasr°n, Evesim', Evasion OCR errors
+        .replace(/Effec[tf]i?veness/i, 'Effectiveness')  // Handle Effectiveness, Effecfiveness OCR errors
+        .replace(/Pene[ft][rn][ae][tf][ir°][io°m']+/i, 'Penetration')  // Handle Penefrefim', Penetration OCR errors
+        .replace(/P[ae][tf]ience/i, 'Patience')  // Handle Pafience/Pefience OCR errors
+        .replace(/Pulv[a-z°]*[no]n?/i, 'Pulverization')  // Handle Pulvetlzatl°n/Pulvenzatl°n OCR errors
+        .replace(/Swif[lt]ness/i, 'Swiftness')  // Handle Swiflness OCR errors
+        .replace(/Augmen[lt][ae][lt][mi]n/i, 'Augmentation');  // Handle Augmenlalmn OCR errors
 
     // Normalize to proper capitalization
     cleanedEffect = cleanedEffect.trim();
     if (cleanedEffect.toLowerCase().includes('counterattack')) {
         item.itemEffect = 'Counterattack Set';
+    } else if (cleanedEffect.toLowerCase().includes('revenge')) {
+        item.itemEffect = 'Revenge Set';
+    } else if (cleanedEffect.toLowerCase().includes('patience')) {
+        item.itemEffect = 'Patience Set';
     } else if (cleanedEffect.toLowerCase().includes('attack')) {
         item.itemEffect = 'Attack Set';
     } else if (cleanedEffect.toLowerCase().includes('defense') || cleanedEffect.toLowerCase().includes('defence')) {
         item.itemEffect = 'Defense Set';
+    } else if (cleanedEffect.toLowerCase().includes('lifesteal')) {
+        item.itemEffect = 'Lifesteal Set';
     } else if (cleanedEffect.toLowerCase().includes('life') || cleanedEffect.toLowerCase() === 'life') {
         item.itemEffect = 'Life Set';
+    } else if (cleanedEffect.toLowerCase().includes('speed')) {
+        item.itemEffect = 'Speed Set';
+    } else if (cleanedEffect.toLowerCase().includes('critical strike') || cleanedEffect.toLowerCase().includes('crit strike')) {
+        item.itemEffect = 'Critical Strike Set';
     } else if (cleanedEffect.toLowerCase().includes('critical hit') || cleanedEffect.toLowerCase().includes('crit hit')) {
         item.itemEffect = 'Critical Hit Set';
+    } else if (cleanedEffect.toLowerCase().includes('accuracy')) {
+        item.itemEffect = 'Accuracy Set';
+    } else if (cleanedEffect.toLowerCase().includes('evasion')) {
+        item.itemEffect = 'Evasion Set';
     } else if (cleanedEffect.toLowerCase().includes('effectiveness')) {
         item.itemEffect = 'Effectiveness Set';
     } else if (cleanedEffect.toLowerCase().includes('resilience')) {
         item.itemEffect = 'Resilience Set';
+    } else if (cleanedEffect.toLowerCase().includes('penetration')) {
+        item.itemEffect = 'Penetration Set';
+    } else if (cleanedEffect.toLowerCase().includes('pulverization')) {
+        item.itemEffect = 'Pulverization Set';
+    } else if (cleanedEffect.toLowerCase().includes('immunity')) {
+        item.itemEffect = 'Immunity Set';
+    } else if (cleanedEffect.toLowerCase().includes('swiftness')) {
+        item.itemEffect = 'Swiftness Set';
+    } else if (cleanedEffect.toLowerCase().includes('weakness')) {
+        item.itemEffect = 'Weakness Set';
+    } else if (cleanedEffect.toLowerCase().includes('augmentation')) {
+        item.itemEffect = 'Augmentation Set';
     } else {
         item.itemEffect = cleanedEffect;
     }
@@ -270,6 +319,106 @@ if (item.itemEffect) {
         } else {
             item[valueKey] = parseFloat(cleanedValue);
             item[valueTypeKey] = 'Flat';
+        }
+    }
+});
+
+// Fix percentage-only stats that were incorrectly detected as Flat
+// These stats can ONLY be percentages in the game
+const percentageOnlyStats = ['Crit Chance', 'Crit Dmg', 'Accuracy', 'Evasion', 'Effectiveness', 'Resilience'];
+
+// Max values for percentage stats (max rolls)
+const maxPercentageValues = {
+    'Crit Chance': 18,  // 6 rolls × 3%
+    'Crit Dmg': 24,     // 6 rolls × 4%
+    'Accuracy': 12,     // 6 rolls × 2%
+    'Evasion': 12,      // 6 rolls × 2%
+    'Effectiveness': 16, // 6 rolls × 2.5% (rounded)
+    'Resilience': 16,   // 6 rolls × 2.5% (rounded)
+    'Attack': 24,       // 6 rolls × 4%
+    'Defense': 24,      // 6 rolls × 4%
+    'Health': 18        // 6 rolls × 3%
+};
+
+// Max values for flat stats (reasonable upper bounds)
+const maxFlatValues = {
+    'Health': 438,      // 6 rolls × 73
+    'Attack': 240,      // 6 rolls × 40
+    'Defense': 240,     // 6 rolls × 40
+    'Speed': 18         // 6 rolls × 3
+};
+
+['secondary1', 'secondary2', 'secondary3', 'secondary4'].forEach(key => {
+    const statName = item[key];
+    const valueKey = key + 'Value';
+    const valueTypeKey = key + 'ValueType';
+
+    if (percentageOnlyStats.includes(statName) && item[valueTypeKey] === 'Flat') {
+        // This stat can only be a percentage, OCR failed to detect %
+        // Try to extract likely percentage value from the number
+        let value = item[valueKey];
+        const maxValue = maxPercentageValues[statName] || 25;
+
+        // If value is very large (like 8006, 12006), it's likely OCR garbage
+        if (value > 100) {
+            const valueStr = value.toString();
+
+            // Try first 2 digits (handles 12006 → 12)
+            let candidate = parseInt(valueStr.substring(0, 2));
+            if (candidate <= maxValue) {
+                value = candidate;
+            } else {
+                // Try first digit (handles 8006 → 8)
+                candidate = parseInt(valueStr.substring(0, 1));
+                if (candidate <= maxValue) {
+                    value = candidate;
+                } else {
+                    // Give up, set to 0
+                    value = 0;
+                }
+            }
+        } else if (value > maxValue) {
+            // Value is between 100 and maxValue, try first digit
+            const valueStr = value.toString();
+            const candidate = parseInt(valueStr.substring(0, 1));
+            if (candidate <= maxValue) {
+                value = candidate;
+            } else {
+                value = 0;
+            }
+        }
+
+        item[valueKey] = value;
+        item[valueTypeKey] = 'Pct';
+    } else if (item[valueTypeKey] === 'Flat' && statName) {
+        // Check if flat value is suspiciously large (likely OCR reading "80%" as "8006")
+        let value = item[valueKey];
+        const maxFlat = maxFlatValues[statName];
+
+        if (maxFlat && value > maxFlat) {
+            // Value is too large for flat, likely a percentage OCR error
+            const maxPct = maxPercentageValues[statName];
+            if (maxPct) {
+                const valueStr = value.toString();
+
+                // Try first 2 digits
+                let candidate = parseInt(valueStr.substring(0, 2));
+                if (candidate <= maxPct) {
+                    item[valueKey] = candidate;
+                    item[valueTypeKey] = 'Pct';
+                } else {
+                    // Try first digit
+                    candidate = parseInt(valueStr.substring(0, 1));
+                    if (candidate <= maxPct) {
+                        item[valueKey] = candidate;
+                        item[valueTypeKey] = 'Pct';
+                    } else {
+                        // Set to 0
+                        item[valueKey] = 0;
+                        item[valueTypeKey] = 'Pct';
+                    }
+                }
+            }
         }
     }
 });
@@ -367,6 +516,23 @@ if (armorTypes.includes(item.itemType)) {
         if (!desiredStats.includes('Health')) {
             desiredStats.push('Health');
         }
+    } else if (item.itemEffect === 'Lifesteal Set') {
+        // If it's Lifesteal Set armor, add highest main stat
+        addHighestMainStat(item, desiredStats);
+    } else if (item.itemEffect === 'Accuracy Set') {
+        // If it's Accuracy Set armor, add Accuracy as desired stat
+        if (!desiredStats.includes('Accuracy')) {
+            desiredStats.push('Accuracy');
+        }
+        // Also add highest main stat for Accuracy Set
+        addHighestMainStat(item, desiredStats);
+    } else if (item.itemEffect === 'Evasion Set') {
+        // If it's Evasion Set armor, add Evasion as desired stat
+        if (!desiredStats.includes('Evasion')) {
+            desiredStats.push('Evasion');
+        }
+        // Also add highest main stat for Evasion Set
+        addHighestMainStat(item, desiredStats);
     } else if (item.itemEffect === 'Effectiveness Set') {
         // If it's Effectiveness Set armor, add Effectiveness as desired stat
         if (!desiredStats.includes('Effectiveness')) {
@@ -374,6 +540,16 @@ if (armorTypes.includes(item.itemType)) {
         }
         // Also add highest main stat for Effectiveness Set
         addHighestMainStat(item, desiredStats);
+    } else if (item.itemEffect === 'Revenge Set') {
+        // If it's Revenge Set armor, add Attack as desired stat
+        if (!desiredStats.includes('Attack')) {
+            desiredStats.push('Attack');
+        }
+    } else if (item.itemEffect === 'Patience Set') {
+        // If it's Patience Set armor, add Defense as desired stat
+        if (!desiredStats.includes('Defense')) {
+            desiredStats.push('Defense');
+        }
     } else if (item.itemEffect === 'Resilience Set') {
         // If it's Resilience Set armor, add Resilience as desired stat
         if (!desiredStats.includes('Resilience')) {
@@ -408,7 +584,7 @@ for (let i = 1; i <= 4; i++) {
                 (statName === 'Crit Dmg' || statName === 'Speed' || statName === 'Crit Chance' ||
                     (isAccessory && statName === item.primary1 && statType === 'Pct') ||
                     (isAccessory && ['Attack', 'Defense', 'Health'].includes(statName) && statName !== item.primary1 && statType === 'Pct') ||
-                    (isArmor && ['Attack', 'Defense', 'Health', 'Resilience', 'Effectiveness'].includes(statName) && statType === 'Pct'));
+                    (isArmor && ['Attack', 'Defense', 'Health', 'Accuracy', 'Evasion', 'Resilience', 'Effectiveness'].includes(statName) && statType === 'Pct'));
 
             if (isDesired) {
                 desiredPoints += points;
@@ -421,8 +597,18 @@ item.totalPoints = Math.round(totalPoints * 100) / 100; // Round to 2 decimal pl
 item.desiredPoints = Math.round(desiredPoints * 100) / 100; // Round to 2 decimal places
 item.desiredStats = desiredStats;
 
+// Sanity check: max possible points is 24 (6 rolls × 4 points max per roll for Crit Dmg)
+// If total points exceeds this, there's likely an OCR error in the stat values
+if (item.totalPoints > 24) {
+    throw {
+        message: `Invalid total points: ${item.totalPoints}. Maximum possible is 24 points. This likely indicates OCR errors in stat values.`,
+        item,
+        rawItem
+    };
+}
+
 // Validate the item
-validateItem(item);
+validateItem(item, rawItem);
 
 //return { item, rawItem };
 return item;
