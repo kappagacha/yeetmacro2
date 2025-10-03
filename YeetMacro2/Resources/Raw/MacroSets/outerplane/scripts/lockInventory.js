@@ -30,7 +30,7 @@ const filteredItems = itemResult.Points
 for (const item of filteredItems) {
     if (!macroService.IsRunning) break;
 
-    const selectedPattern = macroService.ClonePattern(patterns.inventory.selected, { CenterX: item.X, CenterY: item.Y, Width: 50, Height: 50, PathSuffix: `_${item.X}x${item.Y}y` });
+    const selectedPattern = macroService.ClonePattern(patterns.inventory.selected, { OffsetCalcType: 'None', CenterX: item.X, CenterY: item.Y, Width: 50, Height: 50, PathSuffix: `_${item.X}x${item.Y}y` });
     macroService.PollPoint({ X: item.X + 60, Y: item.Y - 60 }, { PredicatePattern: selectedPattern });
     sleep(1_000);
 }
