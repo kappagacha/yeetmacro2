@@ -22,7 +22,7 @@ logger.info('goToLobby: start');
 //claimEventDailyMissions
 // => patterns.event.close
 
-const loopPatterns = [patterns.lobby.level, patterns.lobby.expedition, patterns.login.settings];
+const loopPatterns = [patterns.lobby.level, patterns.lobby.expedition, patterns.startScreen.settings];
 const clickPatterns = [
 	patterns.general.back,
 	patterns.battle.setup.enter.ok,
@@ -35,7 +35,7 @@ const clickPatterns = [
 	patterns.general.tapEmptySpace,
 	patterns.general.exitCheckIn,
 	patterns.friends.ok,
-	patterns.login.downloadPatch,
+	//patterns.login.downloadPatch,
 	settings.goToLobby.userClickPattern.Value,
 	patterns.guild.checkIn.ok,
 	patterns.ad.cancel
@@ -47,8 +47,8 @@ while (macroService.IsRunning) {
 		case 'lobby.level':
 			logger.info('goToLobby: done');
 			return;
-		case 'login.settings':
-			macroService.PollPattern(patterns.login.settings, { DoClick: true, ClickOffset: { Y: -100 }, InversePredicatePattern: patterns.login.settings });
+		case 'startScreen.settings':
+			macroService.PollPattern(patterns.startScreen.settings, { DoClick: true, ClickOffset: { X: -200 }, InversePredicatePattern: patterns.startScreen.settings });
 			break;
 		case 'lobby.expedition':
 			logger.info('goToLobby: expedition');
