@@ -4,20 +4,24 @@ function cleanStatName(stat) {
 
     const lowerCaseStat = stat.toLowerCase();
 
-    // Attack OCR errors (Alleek, Attaek, Affeck, etc.)
-    if (stat.match(/A[lft]{1,2}[aef]+[ck]/i)) {
+    // Attack OCR errors (Alleek, Attaek, Affeck, Arreck, Aneck, Affgck, etc.)
+    if (stat.match(/^A[lftrn]{1,2}[aefg]*[ck]/i)) {
         return 'Attack';
     }
     // Defense OCR errors (Defene', Defence, Defens, etc.)
     if (stat.match(/Defen/i)) {
         return 'Defense';
     }
-    // Health OCR errors (Heellh, Heaith, Healln, Healrh, Heann, etc.)
-    if (stat.match(/He[ae][aln][tlrn][hnr]?/i)) {
+    // Health OCR errors (Heellh, Heaith, Healln, Healrh, Heann, Heanh, etc.)
+    if (stat.match(/He[ae][aln][tlrnh][hnr]?/i)) {
         return 'Health';
     }
-    // Crit Dmg OCR errors (Cr Dmg, Cm Dmg, cm Dmg, C'n Dmg, etc.)
-    if ((lowerCaseStat.includes('cr') || lowerCaseStat.includes('cm') || lowerCaseStat.includes("c'")) && lowerCaseStat.includes('dmg')) {
+    // Crit Dmg OCR errors (Cr Dmg, Cm Dmg, cm Dmg, C'n Dmg, Crn Drng, etc.)
+    if ((lowerCaseStat.includes('cr') || lowerCaseStat.includes('cm') || lowerCaseStat.includes("c'")) && (lowerCaseStat.includes('dmg') || lowerCaseStat.includes('drng') || lowerCaseStat.includes('drn') || lowerCaseStat.includes('d') && lowerCaseStat.includes('ng'))) {
+        return 'Crit Dmg';
+    }
+    // Additional Crit Dmg fallback check
+    if (stat.match(/C[rmn]{1,2}\s*D[mrn]{1,2}[gn]{1,2}/i)) {
         return 'Crit Dmg';
     }
     // Crit Chance OCR errors (Cm Chan, Cri Chan, Cm Chen, cm chan, C'n Chan, Cnt Chance, etc.)
@@ -25,15 +29,18 @@ function cleanStatName(stat) {
         (lowerCaseStat.includes('chan') || lowerCaseStat.includes('chen') || lowerCaseStat.includes('chance'))) {
         return 'Crit Chance';
     }
-    // Accuracy OCR errors (Am"racy, Aeeuracy, Accuracy, Acuracy, etc.)
-    if (lowerCaseStat.includes('racy') || lowerCaseStat.includes('ccuracy')) {
+    // Accuracy OCR errors (Am"racy, Aeeuracy, Accuracy, Acuracy, Am"lacy, etc.)
+    if (lowerCaseStat.includes('racy') || lowerCaseStat.includes('lacy') || lowerCaseStat.includes('ccuracy')) {
         return 'Accuracy';
     }
-    // Effectiveness OCR errors (Errecuveness, Effecfiveness, etc.)
+    // Effectiveness OCR errors (Errecuveness, Effecfiveness, Errecrlver'ess, etc.)
     if (stat.match(/E[rf]+[ert]+[ceo]+[ut]*[vf][ei]*[vn]+[ea]+[sn]+/i)) {
         return 'Effectiveness';
     }
     if (lowerCaseStat.includes('ef') && (lowerCaseStat.includes('v') || stat.includes('ﬁ'))) {
+        return 'Effectiveness';
+    }
+    if ((lowerCaseStat.startsWith('err') || lowerCaseStat.startsWith('eff')) && lowerCaseStat.includes('ess')) {
         return 'Effectiveness';
     }
     // Heals when hit OCR errors (Heels when hit, etc.)
@@ -65,7 +72,7 @@ function cleanStatName(stat) {
 
 // Validation function
 function validateItem(item, rawItem) {
-    const validGrades = ['Legendary', 'Epic'];
+    const validGrades = ['Legendary', 'Epic', 'Superior'];
     const validTypes = ['Weapon', 'Accessory', 'Helmet', 'Chest Armor', 'Gloves', 'Boots'];
     const validStats = ['Health', 'Speed', 'Attack', 'Defense', 'Crit Chance', 'Crit Dmg',
         'Accuracy', 'Evasion', 'Effectiveness', 'Resilience', 'Penetration', 'Heals when hit'];
@@ -183,11 +190,11 @@ if (item.itemType) {
     } else if (item.itemType.match(/A[ce]+ss/i)) {
         // Handle any string with "A" followed by c's or e's then "ss" as Accessory
         item.itemType = 'Accessory';
-    } else if (item.itemType.match(/Helm/i)) {
-        // Keep Helmet as is
+    } else if (item.itemType.match(/Hel\s*m/i)) {
+        // Handle Helmet OCR errors (Helmet, Hel met, Helm, etc.)
         item.itemType = 'Helmet';
-    } else if (item.itemType.match(/Che[st].*A[r']?m/i)) {
-        // Handle Chest Armor OCR errors (Chesl A'me', Chest Armor, etc.)
+    } else if (item.itemType.match(/C[hn]e[st][st]?[rt]?\s*A[r']?m/i)) {
+        // Handle Chest Armor OCR errors (Chesl A'me', Chest Armor, Cnesr Armor, etc.)
         item.itemType = 'Chest Armor';
     } else if (item.itemType.match(/Gl[eo]ve/i)) {
         // Handle Gloves OCR errors (Gleves, Gloves, etc.)
@@ -197,12 +204,14 @@ if (item.itemType) {
         item.itemType = 'Boots';
     }
 
-    // Fix common OCR errors in item grade (only Epic and Legendary)
+    // Fix common OCR errors in item grade (Epic, Legendary, Superior)
     if (item.itemGrade) {
         if (item.itemGrade.match(/Epic/i)) {
             item.itemGrade = 'Epic';
         } else if (item.itemGrade.match(/Legend/i)) {
             item.itemGrade = 'Legendary';
+        } else if (item.itemGrade.match(/Superior/i)) {
+            item.itemGrade = 'Superior';
         }
     }
 }
@@ -229,18 +238,21 @@ if (item.itemEffect) {
         .replace(/Counter?attack/i, 'Counterattack')  // Handle normal Counterattack
         .replace(/\bA[lf]?l?[ae]?[ce]?k\b/i, 'Attack')  // Handle Allack, Alleek, etc. (\b is word boundary)
         .replace(/Defen[cs]e*/i, 'Defense')  // Handle Defense/Defence/Defensee OCR errors
-        .replace(/Lifes[lt]ee[lt]/i, 'Lifesteal')  // Handle Lifesleel, Lifesteet, etc.
+        .replace(/Li[frt]es[lrt]e[ae][lt]/i, 'Lifesteal')  // Handle Lifesleel, Lifesteet, Liresreal, Litesteal, etc.
         .replace(/Life\s*\d*/i, 'Life')  // Handle "Life 5" -> Life
         .replace(/[Ss]peed\s*\d*/i, 'Speed')  // Handle "sPeed 5" -> Speed
-        .replace(/C[nr'i][nit][cti][ei]?[acl]?\s*(?:H[it]?|[Ss]trike)/i, 'Critical Hit')  // Handle Critical Hit/Critical Strike/Cincel strike OCR errors
+        .replace(/Critical\s*H["\s]*/i, 'Critical Hit')  // Handle truncated "Critical H"" OCR error
+        .replace(/C[rn'"][rnit][a-z]+\s+[sS][a-z']+e/i, 'Critical Strike')  // Handle Critical Strike/Crnical srrn'e OCR errors
+        .replace(/C[rn'"][ritfn][a-z]+\s+H[it"\s]*/i, 'Critical Hit')  // Handle Critical Hit variations like C'ifical H"
         .replace(/A[mc"]+[ua]*r[au]cy/i, 'Accuracy')  // Handle Accuracy OCR errors
-        .replace(/Ev[ae]s[ir°][io°m']+n?/i, 'Evasion')  // Handle Evasr°n, Evesim', Evasion OCR errors
+        .replace(/Evas.+?n/i, 'Evasion')  // Handle Evasr°n, Evesim', Evasi°n OCR errors
         .replace(/Effec[tf]i?veness/i, 'Effectiveness')  // Handle Effectiveness, Effecfiveness OCR errors
-        .replace(/Pene[ft][rn][ae][tf][ir°][io°m']+/i, 'Penetration')  // Handle Penefrefim', Penetration OCR errors
-        .replace(/P[ae][tf]ience/i, 'Patience')  // Handle Pafience/Pefience OCR errors
-        .replace(/Pulv[a-z°]*[no]n?/i, 'Pulverization')  // Handle Pulvetlzatl°n/Pulvenzatl°n OCR errors
+        .replace(/Pene[a-z'°]+/i, 'Penetration')  // Handle Penefrefim', Penerrerr°n, Penefrafim' OCR errors
+        .replace(/P[aegf][atfgn]?[ief]?[en]nce/i, 'Patience')  // Handle Pafience/Pefience/Pgfience/Panence OCR errors
+        .replace(/Pulv[a-z°]+n/i, 'Pulverization')  // Handle Pulvetlzatl°n/Pulvenzatl°n/Pulveizati°n OCR errors
         .replace(/Swif[lt]ness/i, 'Swiftness')  // Handle Swiflness OCR errors
-        .replace(/Augmen[lt][ae][lt][mi]n/i, 'Augmentation');  // Handle Augmenlalmn OCR errors
+        .replace(/Aug[mn][ea]n[a-z'°]+/i, 'Augmentation')  // Handle Augmenlalmn, Augmenlafim', Augnentatl°n OCR errors
+        .replace(/Immu[nm]+y/i, 'Immunity');  // Handle Immunny OCR errors
 
     // Normalize to proper capitalization
     cleanedEffect = cleanedEffect.trim();
@@ -260,9 +272,9 @@ if (item.itemEffect) {
         item.itemEffect = 'Life Set';
     } else if (cleanedEffect.toLowerCase().includes('speed')) {
         item.itemEffect = 'Speed Set';
-    } else if (cleanedEffect.toLowerCase().includes('critical strike') || cleanedEffect.toLowerCase().includes('crit strike')) {
+    } else if (cleanedEffect.toLowerCase().includes('critical strike') || cleanedEffect.toLowerCase().includes('crit strike') || (cleanedEffect.toLowerCase().includes('crnical') || cleanedEffect.toLowerCase().includes('cnical') || cleanedEffect.toLowerCase().includes('critic')) && (cleanedEffect.toLowerCase().includes('str') || cleanedEffect.toLowerCase().includes('srr'))) {
         item.itemEffect = 'Critical Strike Set';
-    } else if (cleanedEffect.toLowerCase().includes('critical hit') || cleanedEffect.toLowerCase().includes('crit hit')) {
+    } else if (cleanedEffect.toLowerCase().includes('critical hit') || cleanedEffect.toLowerCase().includes('crit hit') || (cleanedEffect.toLowerCase().includes('ifical') && cleanedEffect.toLowerCase().includes('h'))) {
         item.itemEffect = 'Critical Hit Set';
     } else if (cleanedEffect.toLowerCase().includes('accuracy')) {
         item.itemEffect = 'Accuracy Set';
@@ -274,7 +286,7 @@ if (item.itemEffect) {
         item.itemEffect = 'Resilience Set';
     } else if (cleanedEffect.toLowerCase().includes('penetration')) {
         item.itemEffect = 'Penetration Set';
-    } else if (cleanedEffect.toLowerCase().includes('pulverization')) {
+    } else if (cleanedEffect.toLowerCase().includes('pulverization') || cleanedEffect.toLowerCase().includes('pulv')) {
         item.itemEffect = 'Pulverization Set';
     } else if (cleanedEffect.toLowerCase().includes('immunity')) {
         item.itemEffect = 'Immunity Set';
@@ -596,6 +608,22 @@ for (let i = 1; i <= 4; i++) {
 item.totalPoints = Math.round(totalPoints * 100) / 100; // Round to 2 decimal places
 item.desiredPoints = Math.round(desiredPoints * 100) / 100; // Round to 2 decimal places
 item.desiredStats = desiredStats;
+
+// Check if totalPoints or desiredPoints are fractions (not whole numbers)
+if (item.totalPoints % 1 !== 0) {
+    throw {
+        message: `Invalid total points: ${item.totalPoints}. Points must be whole numbers, not fractions. This likely indicates OCR errors in stat values.`,
+        item,
+        rawItem
+    };
+}
+if (item.desiredPoints % 1 !== 0) {
+    throw {
+        message: `Invalid desired points: ${item.desiredPoints}. Points must be whole numbers, not fractions. This likely indicates OCR errors in stat values.`,
+        item,
+        rawItem
+    };
+}
 
 // Sanity check: max possible points is 24 (6 rolls × 4 points max per roll for Crit Dmg)
 // If total points exceeds this, there's likely an OCR error in the stat values
