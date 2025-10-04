@@ -2,9 +2,14 @@ const padding = 5;
 let lastSelectedResult = { Point: { X: 0, Y: 0 } };
 let selectedResult = macroService.PollPattern(patterns.inventory.selected);
 let isFirstIteration = true;
+let firstItemGrade = null;
+let lockedCount = 0;
+let unlockedCount = 0;
+let processedCount = 0;
 
 while ((Math.abs(lastSelectedResult.Point.X - selectedResult.Point.X) > 15 ||
         Math.abs(lastSelectedResult.Point.Y - selectedResult.Point.Y) > 15)) {
+    if (!macroService.IsRunning) break;
 
     const itemResult = macroService.FindPattern(patterns.inventory.item, { Limit: 100 });
     const minY = selectedResult.Point.Y;
@@ -59,32 +64,76 @@ while ((Math.abs(lastSelectedResult.Point.X - selectedResult.Point.X) > 15 ||
         const numRedStars = redStarResult.Points?.map(p => p).length || 0;
 
         const numStars = numYellowStars + numRedStars;
-        if (![0, 6].includes(numStars)) continue;
-
-        const lockedPattern = macroService.ClonePattern(patterns.inventory.item.locked, { OffsetCalcType: 'None', CenterX: item.X + 10, CenterY: item.Y - 80, Width: 50, Height: 50, PathSuffix: `_${item.X}x${item.Y}y` });
-        const lockedResult = macroService.FindPattern(lockedPattern);
-
-        if (lockedResult.IsSuccess && !isLastItem) continue;
+        if (![0, 6].includes(numStars) && !isLastItem) continue;
 
         const selectedPattern = macroService.ClonePattern(patterns.inventory.selected, { OffsetCalcType: 'None', CenterX: item.X, CenterY: item.Y, Width: 50, Height: 50, PathSuffix: `_${item.X}x${item.Y}y` });
         macroService.PollPoint({ X: item.X + 60, Y: item.Y - 60 }, { PredicatePattern: selectedPattern });
         sleep(500);
 
-        if (lockedResult.IsSuccess) continue;
+        if (!isLastItem) {
+            const itemStats = getItemStats();
+            if (!['Legendary', 'Epic'].includes(itemStats.itemGrade)) continue;
 
-        const itemStats = getItemStats();
-        if (!['Legendary', 'Epic'].includes(itemStats.itemGrade)) continue;
-        if (itemStats.desiredPoints >= 5) {
-            // lock the item
-            macroService.PollPattern(patterns.inventory.item.stat.unlocked, { DoClick: true, ClickPattern: patterns.inventory.item.stat.lockToggledMessage, PredicatePattern: patterns.inventory.item.stat.locked });
+            processedCount++;
+
+            // Track the very first item's grade
+            if (firstItemGrade === null) {
+                firstItemGrade = itemStats.itemGrade;
+            }
+
+            // If first item was Legendary and current item is lower grade, stop processing
+            if (firstItemGrade === 'Legendary' && itemStats.itemGrade !== 'Legendary') {
+                macroService.IsRunning = false;
+                break;
+            }
+
+            // Legendary processing (no locked check, requires 6 yellow stars, requires 6+ points)
+            if (itemStats.itemGrade === 'Legendary') {
+                if (numYellowStars !== 6) continue;
+
+                // For weapons, require at least 3 desired stats (out of 4 secondary stats)
+                const numDesiredStats = itemStats.desiredStats.filter(stat =>
+                    [itemStats.secondary1, itemStats.secondary2, itemStats.secondary3, itemStats.secondary4].includes(stat)
+                ).length;
+
+                const shouldLock = itemStats.itemType === 'Weapon'
+                    ? (itemStats.desiredPoints >= 6 && numDesiredStats >= 3)
+                    : (itemStats.desiredPoints >= 6);
+
+                if (shouldLock) {
+                    macroService.PollPattern(patterns.inventory.item.stat.unlocked, { DoClick: true, ClickPattern: patterns.inventory.item.stat.lockToggledMessage, PredicatePattern: patterns.inventory.item.stat.locked });
+                    lockedCount++;
+                } else {
+                    // Unlock if it doesn't meet requirements
+                    macroService.PollPattern(patterns.inventory.item.stat.locked, { DoClick: true, ClickPattern: patterns.inventory.item.stat.lockToggledMessage, PredicatePattern: patterns.inventory.item.stat.unlocked });
+                    unlockedCount++;
+                }
+            }
+            // Epic and other grades processing (check locked, requires 5+ points)
+            else {
+                const lockedPattern = macroService.ClonePattern(patterns.inventory.item.locked, { OffsetCalcType: 'None', CenterX: item.X + 10, CenterY: item.Y - 80, Width: 50, Height: 50, PathSuffix: `_${item.X}x${item.Y}y` });
+                const lockedResult = macroService.FindPattern(lockedPattern);
+                if (lockedResult.IsSuccess) continue;
+
+                if (itemStats.desiredPoints >= 5) {
+                    macroService.PollPattern(patterns.inventory.item.stat.unlocked, { DoClick: true, ClickPattern: patterns.inventory.item.stat.lockToggledMessage, PredicatePattern: patterns.inventory.item.stat.locked });
+                    lockedCount++;
+                }
+            }
         }
 
         sleep(1_000);
     }
 
+    if (!macroService.IsRunning) break;
     isFirstIteration = false;
     lastSelectedResult = selectedResult;
     macroService.SwipePattern(patterns.inventory.swipeDown);
     sleep(2_000);
     selectedResult = macroService.PollPattern(patterns.inventory.selected);
 }
+
+// Display summary
+const searchType = firstItemGrade === 'Legendary' ? 'Legendary' : 'Epic';
+const summary = `Inventory processing complete.\nSearch type: ${searchType}\nProcessed: ${processedCount}\nLocked: ${lockedCount}\nUnlocked: ${unlockedCount}`;
+return summary;

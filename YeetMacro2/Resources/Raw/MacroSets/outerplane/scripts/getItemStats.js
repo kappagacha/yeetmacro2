@@ -4,16 +4,16 @@ function cleanStatName(stat) {
 
     const lowerCaseStat = stat.toLowerCase();
 
-    // Attack OCR errors (Alleek, Attaek, Affeck, Arreck, Aneck, Affgck, etc.)
-    if (stat.match(/^A[lftrn]{1,2}[aefg]*[ck]/i)) {
+    // Attack OCR errors (Alleek, Attaek, Affeck, Arreck, Aneck, Affgck, Assesk, etc.)
+    if (stat.match(/^A[lftrns]{1,2}[aefgs]*[ck]/i)) {
         return 'Attack';
     }
     // Defense OCR errors (Defene', Defence, Defens, etc.)
     if (stat.match(/Defen/i)) {
         return 'Defense';
     }
-    // Health OCR errors (Heellh, Heaith, Healln, Healrh, Heann, Heanh, etc.)
-    if (stat.match(/He[ae][aln][tlrnh][hnr]?/i)) {
+    // Health OCR errors (Heellh, Heaith, Healln, Healrh, Heann, Heanh, Hean'n, Heah'h, etc.)
+    if (stat.match(/He[ae][alnh]['tlrnh]?['hnr]?/i)) {
         return 'Health';
     }
     // Crit Dmg OCR errors (Cr Dmg, Cm Dmg, cm Dmg, C'n Dmg, Crn Drng, etc.)
@@ -29,8 +29,8 @@ function cleanStatName(stat) {
         (lowerCaseStat.includes('chan') || lowerCaseStat.includes('chen') || lowerCaseStat.includes('chance'))) {
         return 'Crit Chance';
     }
-    // Accuracy OCR errors (Am"racy, Aeeuracy, Accuracy, Acuracy, Am"lacy, etc.)
-    if (lowerCaseStat.includes('racy') || lowerCaseStat.includes('lacy') || lowerCaseStat.includes('ccuracy')) {
+    // Accuracy OCR errors (Am"racy, Aeeuracy, Accuracy, Acuracy, Am"lacy, Aeeureey, etc.)
+    if (lowerCaseStat.includes('racy') || lowerCaseStat.includes('lacy') || lowerCaseStat.includes('ccuracy') || lowerCaseStat.includes('ureey') || lowerCaseStat.includes('uracy')) {
         return 'Accuracy';
     }
     // Effectiveness OCR errors (Errecuveness, Effecfiveness, Errecrlver'ess, etc.)
@@ -51,6 +51,11 @@ function cleanStatName(stat) {
     // Speed OCR errors (Speea, etc.)
     if (stat.match(/Spe+[da]/i)) {
         return 'Speed';
+    }
+
+    // Evasion OCR errors (Eveslen, Evesion, Eveeien, etc.)
+    if (stat.match(/Ev[ea][seil]+[eio]*[eno]+n?/i)) {
+        return 'Evasion';
     }
 
     // Check for exact matches (case insensitive)
@@ -173,23 +178,45 @@ const item = { ...rawItem };
 
 // Split and fix item grade and type
 if (item.itemType) {
-    // Split grade and type (e.g., "Epic Weapon" -> grade: "Epic", type: "Weapon")
-    const parts = item.itemType.trim().split(/\s+/);
+    // Remove extra spaces first
+    const cleaned = item.itemType.trim().replace(/\s+/g, ' ');
 
-    if (parts.length >= 2) {
-        item.itemGrade = parts[0];
-        item.itemType = parts.slice(1).join(' ');
+    // Try to match known grades with various OCR errors
+    let grade = '';
+    let type = cleaned;
+
+    if (cleaned.match(/^(Legend[ae]r[yi]|Legen[dt]|Legen[ea]+['y]+|chcndmy)/i)) {
+        grade = 'Legendary';
+        type = cleaned.replace(/^(Legend[ae]r[yi]|Legen[dt]|Legen[ea]+['y]+|chcndmy)\s*/i, '');
+    } else if (cleaned.match(/^Epic/i)) {
+        grade = 'Epic';
+        type = cleaned.replace(/^Epic\s*/i, '');
+    } else if (cleaned.match(/^[Ss]\s*u?\s*perior/i)) {
+        grade = 'Superior';
+        type = cleaned.replace(/^[Ss]\s*u?\s*perior\s*/i, '');
     } else {
-        item.itemGrade = '';
-        item.itemType = parts[0] || '';
+        // Fallback to old logic
+        const parts = cleaned.split(/\s+/);
+        if (parts.length >= 2) {
+            grade = parts[0];
+            type = parts.slice(1).join(' ');
+        } else {
+            grade = '';
+            type = parts[0] || '';
+        }
     }
 
+    item.itemGrade = grade;
+    item.itemType = type;
+
     // Fix common OCR errors in item type
-    if (item.itemType.match(/We[aq]p/i)) {
-        item.itemType = 'Weapon';
-    } else if (item.itemType.match(/A[ce]+ss/i)) {
-        // Handle any string with "A" followed by c's or e's then "ss" as Accessory
+    // Check Accessory first before Exclusive, since accessories can also have "Exclusive" in the name
+    if (item.itemType.match(/A[ce]+ss[eo]ry/i)) {
+        // Handle Accessory OCR errors (Aeecessery, Acccssory, etc.)
         item.itemType = 'Accessory';
+    } else if (item.itemType.match(/We[aeq]+p[eo]n/i) || item.itemType.match(/Exclusive/i)) {
+        // Handle Weapon, Weepen, Weapen, and Exclusive (character-specific weapons)
+        item.itemType = 'Weapon';
     } else if (item.itemType.match(/Hel\s*m/i)) {
         // Handle Helmet OCR errors (Helmet, Hel met, Helm, etc.)
         item.itemType = 'Helmet';
@@ -199,8 +226,8 @@ if (item.itemType) {
     } else if (item.itemType.match(/Gl[eo]ve/i)) {
         // Handle Gloves OCR errors (Gleves, Gloves, etc.)
         item.itemType = 'Gloves';
-    } else if (item.itemType.match(/Boot/i) || item.itemType.match(/[BPp]eel/i)) {
-        // Handle Boots OCR errors (Boots, Beels, peels, etc.)
+    } else if (item.itemType.match(/Boot/i) || item.itemType.match(/[BPp]eel/i) || item.itemType.match(/Beet/i)) {
+        // Handle Boots OCR errors (Boots, Beels, peels, Beets, etc.)
         item.itemType = 'Boots';
     }
 
