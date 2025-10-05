@@ -1,6 +1,6 @@
 // @position=0
 // Claim replenish your stamina
-const popupPatterns = [patterns.lobby.expedition, patterns.general.tapEmptySpace, settings.goToLobby.userClickPattern.Value, patterns.general.exitCheckIn, patterns.general.startMessageClose];
+const popupPatterns = [patterns.lobby.expedition, patterns.general.tapEmptySpace, settings.goToLobby.userClickPattern.Value, patterns.general.exitCheckIn, patterns.lobby.popup.close];
 const loopPatterns = [patterns.lobby.level, patterns.event.close, ...popupPatterns];
 const daily = dailyManager.GetCurrentDaily();
 //const resolution = macroService.GetCurrentResolution();
@@ -18,7 +18,7 @@ while (macroService.IsRunning) {
 		case 'general.tapEmptySpace':
 		case 'settings.goToLobby.userClickPattern':
 		case 'general.exitCheckIn':
-		case 'general.startMessageClose':
+		case 'lobby.popup.close':
 			goToLobby();
 			break;
 		case 'lobby.level':

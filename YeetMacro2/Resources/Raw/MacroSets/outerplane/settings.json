@@ -864,26 +864,18 @@
     "$position": 0,
     "$name": "doWeeklyShop",
     "$path": "doWeeklyShop",
-    "normal": {
+    "resource": {
       "$type": "parent",
       "$position": 0,
-      "$name": "normal",
-      "$path": "doWeeklyShop.normal",
-      "gold": {
-        "$type": "boolean",
-        "$defaultValue": true,
-        "$value": true,
-        "$position": 0,
-        "$name": "gold",
-        "$path": "doWeeklyShop.normal.gold"
-      },
+      "$name": "resource",
+      "$path": "doWeeklyShop.resource",
       "basicSkillManual": {
         "$type": "boolean",
         "$defaultValue": true,
         "$value": true,
         "$position": 0,
         "$name": "basicSkillManual",
-        "$path": "doWeeklyShop.normal.basicSkillManual"
+        "$path": "doWeeklyShop.resource.basicSkillManual"
       },
       "intermediateSkillManual": {
         "$type": "boolean",
@@ -891,7 +883,7 @@
         "$value": true,
         "$position": 0,
         "$name": "intermediateSkillManual",
-        "$path": "doWeeklyShop.normal.intermediateSkillManual"
+        "$path": "doWeeklyShop.resource.intermediateSkillManual"
       }
     },
     "friendshipPoint": {

@@ -1,3 +1,6 @@
+// @isFavorite
+// @position=-20
+
 // Helper function to clean stat names (for both primary and secondary stats)
 function cleanStatName(stat) {
     if (!stat) return stat;
@@ -16,8 +19,8 @@ function cleanStatName(stat) {
     if (stat.match(/He[ae]ls?\s+when\s+h/i)) {
         return 'Heals when hit';
     }
-    // Health OCR errors (Heellh, Heaith, Healln, Healrh, Heann, Heanh, Hean'n, Heah'h, etc.)
-    if (stat.match(/He[ae][alnh]['tlrnh]?['hnr]?/i)) {
+    // Health OCR errors (Heellh, Heaith, Healln, Healrh, Heann, Heanh, Hean'n, Heah'h, Heulrh, etc.)
+    if (stat.match(/He[ae][alnhu]['tlrnh]?['hnr]?/i)) {
         return 'Health';
     }
     // Crit Dmg OCR errors (Cr Dmg, Cm Dmg, cm Dmg, C'n Dmg, Crn Drng, Cm Dme, etc.)
@@ -282,7 +285,7 @@ if (item.itemEffect) {
         .replace(/C[rlni'"][rlni]+[cait]+[al]+\s+[sS][lti'r]+[rlki]+[ke]+e?/i, 'Critical Strike')  // Handle Critical Strike/Crnical srrn'e/Clllcal Sl'lke/Crrrrcal Srrrke OCR errors
         .replace(/C[rn'"][ritfn][a-z]+\s+H[it"\s]*/i, 'Critical Hit')  // Handle Critical Hit variations like C'ifical H"
         .replace(/A[mc"]+[ua]*r[au]cy/i, 'Accuracy')  // Handle Accuracy OCR errors
-        .replace(/Evas.+?n/i, 'Evasion')  // Handle Evasr°n, Evesim', Evasi°n OCR errors
+        .replace(/Ev[ae]s[eisr][a-z°']+/i, 'Evasion')  // Handle Evasr°n, Evesim', Evasi°n, Evesi°n OCR errors
         .replace(/Effec[tf]i?veness/i, 'Effectiveness')  // Handle Effectiveness, Effecfiveness OCR errors
         .replace(/Pene[a-z'°]+/i, 'Penetration')  // Handle Penefrefim', Penerrerr°n, Penefrafim' OCR errors
         .replace(/P[aegfl][atfgnlr]?[ief]?[enrl]+[nc]e/i, 'Patience')  // Handle Pafience/Pefience/Pgfience/Panence/Pallence/Parrence OCR errors
@@ -679,6 +682,6 @@ if (item.totalPoints > 24) {
 // Validate the item
 validateItem(item, rawItem);
 
-// Version: 13
+// Version: 22
 //return { item, rawItem };
 return item;

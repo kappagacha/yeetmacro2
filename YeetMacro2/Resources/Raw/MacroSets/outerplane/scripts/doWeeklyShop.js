@@ -16,14 +16,14 @@ while (macroService.IsRunning) {
 			break;
 		case 'titles.shop':
 			logger.info('doWeeklyShop: claim Resource');
-			macroService.PollPattern(patterns.shop.resources, { DoClick: true, PredicatePattern: patterns.shop.resources.normal });
+			macroService.PollPattern(patterns.shop.resources, { DoClick: true, PredicatePattern: patterns.shop.resources.dailyWeeklyMonthly });
 
-			if (!weekly.doWeeklyShop.normal.done.IsChecked) {
-				doNormalItems();
+			if (!weekly.doWeeklyShop.resource.done.IsChecked) {
+				doResourceItems();
 				swipeLeft();
 				swipeLeft();
 				if (macroService.IsRunning) {
-					weekly.doWeeklyShop.normal.done.IsChecked = true;
+					weekly.doWeeklyShop.resource.done.IsChecked = true;
 				}
 			}
 
@@ -96,10 +96,10 @@ function swipeLeft() {
 	sleep(1_500);
 }
 
-function doNormalItems() {
-	const normalItems = ['basicSkillManual', 'intermediateSkillManual'];
+function doResourceItems() {
+	const resourceItems = ['basicSkillManual', 'intermediateSkillManual'];
 	macroService.PollPattern(patterns.shop.resources.resources, { DoClick: true, PredicatePattern: patterns.shop.resources.resources.selected });
-	doShopItems('doWeeklyShop', 'normal', normalItems, true);
+	doShopItems('doWeeklyShop', 'resource', resourceItems, true);
 }
 
 function doFriendshipItems() {

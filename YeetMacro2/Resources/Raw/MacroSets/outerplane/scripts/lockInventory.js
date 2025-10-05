@@ -1,3 +1,6 @@
+// @isFavorite
+// @position=-20
+
 const padding = 5;
 let lastSelectedResult = { Point: { X: 0, Y: 0 } };
 let selectedResult = macroService.PollPattern(patterns.inventory.selected);

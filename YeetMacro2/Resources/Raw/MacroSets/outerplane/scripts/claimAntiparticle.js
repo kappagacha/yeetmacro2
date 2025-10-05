@@ -1,6 +1,6 @@
 // @position=1
 // Claim anti particle generator rewards
-const popupPatterns = [patterns.lobby.expedition, patterns.general.tapEmptySpace, settings.goToLobby.userClickPattern.Value, patterns.general.exitCheckIn, patterns.general.startMessageClose];
+const popupPatterns = [patterns.lobby.expedition, patterns.general.tapEmptySpace, settings.goToLobby.userClickPattern.Value, patterns.general.exitCheckIn, patterns.lobby.popup.close];
 const loopPatterns = [patterns.lobby.level, patterns.titles.base, ...popupPatterns];
 const daily = dailyManager.GetCurrentDaily();
 
@@ -17,7 +17,7 @@ while (macroService.IsRunning) {
 		case 'general.tapEmptySpace':
 		case 'settings.goToLobby.userClickPattern':
 		case 'general.exitCheckIn':
-		case 'general.startMessageClose':
+		case 'lobby.popup.close':
 			goToLobby();
 			break;
 		case 'lobby.level':

@@ -31,7 +31,7 @@ const clickPatterns = [
 	patterns.event.close,
 	patterns.challenge.specialRequest.sweepAll.cancel,
 	//patterns.lobby.expedition.searchAgain,
-	patterns.general.startMessageClose,
+	patterns.lobby.popup.close,
 	patterns.general.tapEmptySpace,
 	patterns.general.exitCheckIn,
 	patterns.friends.ok,
@@ -46,6 +46,10 @@ while (macroService.IsRunning) {
 	switch (loopResult.Path) {
 		case 'lobby.level':
 			logger.info('goToLobby: done');
+			return;
+		case 'lobby.popup.close':
+			logger.info('goToLobby: close popup');
+			macroService.PollPattern(patterns.lobby.popup.doNotShowAgainToday.unchecked, { DoClick: true, PredicatePattern: patterns.lobby.popup.doNotShowAgainToday.checked });
 			return;
 		case 'startScreen.settings':
 			macroService.PollPattern(patterns.startScreen.settings, { DoClick: true, ClickOffset: { X: -200 }, InversePredicatePattern: patterns.startScreen.settings });
