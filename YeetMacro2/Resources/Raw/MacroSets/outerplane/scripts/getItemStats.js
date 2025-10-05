@@ -12,16 +12,20 @@ function cleanStatName(stat) {
     if (stat.match(/Defen/i)) {
         return 'Defense';
     }
+    // Heals when hit OCR errors (Heels when hit, Heals when h", etc.) - check before Health
+    if (stat.match(/He[ae]ls?\s+when\s+h/i)) {
+        return 'Heals when hit';
+    }
     // Health OCR errors (Heellh, Heaith, Healln, Healrh, Heann, Heanh, Hean'n, Heah'h, etc.)
     if (stat.match(/He[ae][alnh]['tlrnh]?['hnr]?/i)) {
         return 'Health';
     }
-    // Crit Dmg OCR errors (Cr Dmg, Cm Dmg, cm Dmg, C'n Dmg, Crn Drng, etc.)
-    if ((lowerCaseStat.includes('cr') || lowerCaseStat.includes('cm') || lowerCaseStat.includes("c'")) && (lowerCaseStat.includes('dmg') || lowerCaseStat.includes('drng') || lowerCaseStat.includes('drn') || lowerCaseStat.includes('d') && lowerCaseStat.includes('ng'))) {
+    // Crit Dmg OCR errors (Cr Dmg, Cm Dmg, cm Dmg, C'n Dmg, Crn Drng, Cm Dme, etc.)
+    if ((lowerCaseStat.includes('cr') || lowerCaseStat.includes('cm') || lowerCaseStat.includes("c'")) && (lowerCaseStat.includes('dmg') || lowerCaseStat.includes('dme') || lowerCaseStat.includes('drng') || lowerCaseStat.includes('drn') || lowerCaseStat.includes('d') && lowerCaseStat.includes('ng'))) {
         return 'Crit Dmg';
     }
     // Additional Crit Dmg fallback check
-    if (stat.match(/C[rmn]{1,2}\s*D[mrn]{1,2}[gn]{1,2}/i)) {
+    if (stat.match(/C[rmn]{1,2}\s*D[mrn]{1,2}[egn]{1,2}/i)) {
         return 'Crit Dmg';
     }
     // Crit Chance OCR errors (Cm Chan, Cri Chan, Cm Chen, cm chan, C'n Chan, Cnt Chance, etc.)
@@ -33,19 +37,15 @@ function cleanStatName(stat) {
     if (lowerCaseStat.includes('racy') || lowerCaseStat.includes('lacy') || lowerCaseStat.includes('ccuracy') || lowerCaseStat.includes('ureey') || lowerCaseStat.includes('uracy')) {
         return 'Accuracy';
     }
-    // Effectiveness OCR errors (Errecuveness, Effecfiveness, Errecrlver'ess, etc.)
-    if (stat.match(/E[rf]+[ert]+[ceo]+[ut]*[vf][ei]*[vn]+[ea]+[sn]+/i)) {
+    // Effectiveness OCR errors (Errecuveness, Effecfiveness, Errecrlver'ess, Errecuvene", etc.)
+    if (stat.match(/E[rf]+[ert]+[ceo]+[ut]*[vf][ei]*[vn]+[ea]+[sn"]+/i)) {
         return 'Effectiveness';
     }
     if (lowerCaseStat.includes('ef') && (lowerCaseStat.includes('v') || stat.includes('ﬁ'))) {
         return 'Effectiveness';
     }
-    if ((lowerCaseStat.startsWith('err') || lowerCaseStat.startsWith('eff')) && lowerCaseStat.includes('ess')) {
+    if ((lowerCaseStat.startsWith('err') || lowerCaseStat.startsWith('eff')) && (lowerCaseStat.includes('ess') || lowerCaseStat.includes('ene'))) {
         return 'Effectiveness';
-    }
-    // Heals when hit OCR errors (Heels when hit, etc.)
-    if (stat.match(/He[ae]ls?\s+when\s+hit/i)) {
-        return 'Heals when hit';
     }
 
     // Speed OCR errors (Speea, etc.)
@@ -56,6 +56,16 @@ function cleanStatName(stat) {
     // Evasion OCR errors (Eveslen, Evesion, Eveeien, etc.)
     if (stat.match(/Ev[ea][seil]+[eio]*[eno]+n?/i)) {
         return 'Evasion';
+    }
+
+    // Resilience OCR errors (Reelllenee, etc.)
+    if (stat.match(/Re[el]+[il]+[en]+e+/i)) {
+        return 'Resilience';
+    }
+
+    // Penetration OCR errors (Penel'aﬁen, Penetrafim, etc.)
+    if (stat.match(/Pene[lt].+[eto]*n/i) || lowerCaseStat.includes('penel') || lowerCaseStat.includes('penet')) {
+        return 'Penetration';
     }
 
     // Check for exact matches (case insensitive)
@@ -185,9 +195,9 @@ if (item.itemType) {
     let grade = '';
     let type = cleaned;
 
-    if (cleaned.match(/^(Legend[ae]r[yi]|Legen[dt]|Legen[ea]+['y]+|chcndmy)/i)) {
+    if (cleaned.match(/^(Legend[ae]r[yi]|Legen[dt]|Legen[ea]+['yr]+y?|chcndmy)/i)) {
         grade = 'Legendary';
-        type = cleaned.replace(/^(Legend[ae]r[yi]|Legen[dt]|Legen[ea]+['y]+|chcndmy)\s*/i, '');
+        type = cleaned.replace(/^(Legend[ae]r[yi]|Legen[dt]|Legen[ea]+['yr]+y?|chcndmy)\s*/i, '');
     } else if (cleaned.match(/^Epic/i)) {
         grade = 'Epic';
         type = cleaned.replace(/^Epic\s*/i, '');
@@ -269,17 +279,17 @@ if (item.itemEffect) {
         .replace(/Life\s*\d*/i, 'Life')  // Handle "Life 5" -> Life
         .replace(/[Ss]peed\s*\d*/i, 'Speed')  // Handle "sPeed 5" -> Speed
         .replace(/Critical\s*H["\s]*/i, 'Critical Hit')  // Handle truncated "Critical H"" OCR error
-        .replace(/C[rn'"][rnit][a-z]+\s+[sS][a-z']+e/i, 'Critical Strike')  // Handle Critical Strike/Crnical srrn'e OCR errors
+        .replace(/C[rlni'"][rlni]+[cait]+[al]+\s+[sS][lti'r]+[rlki]+[ke]+e?/i, 'Critical Strike')  // Handle Critical Strike/Crnical srrn'e/Clllcal Sl'lke/Crrrrcal Srrrke OCR errors
         .replace(/C[rn'"][ritfn][a-z]+\s+H[it"\s]*/i, 'Critical Hit')  // Handle Critical Hit variations like C'ifical H"
         .replace(/A[mc"]+[ua]*r[au]cy/i, 'Accuracy')  // Handle Accuracy OCR errors
         .replace(/Evas.+?n/i, 'Evasion')  // Handle Evasr°n, Evesim', Evasi°n OCR errors
         .replace(/Effec[tf]i?veness/i, 'Effectiveness')  // Handle Effectiveness, Effecfiveness OCR errors
         .replace(/Pene[a-z'°]+/i, 'Penetration')  // Handle Penefrefim', Penerrerr°n, Penefrafim' OCR errors
-        .replace(/P[aegf][atfgn]?[ief]?[en]nce/i, 'Patience')  // Handle Pafience/Pefience/Pgfience/Panence OCR errors
+        .replace(/P[aegfl][atfgnlr]?[ief]?[enrl]+[nc]e/i, 'Patience')  // Handle Pafience/Pefience/Pgfience/Panence/Pallence/Parrence OCR errors
         .replace(/Pulv[a-z°]+n/i, 'Pulverization')  // Handle Pulvetlzatl°n/Pulvenzatl°n/Pulveizati°n OCR errors
-        .replace(/Swif[lt]ness/i, 'Swiftness')  // Handle Swiflness OCR errors
+        .replace(/Sw[il][lf][lt]?ness/i, 'Swiftness')  // Handle Swiflness, Swlflness OCR errors
         .replace(/Aug[mn][ea]n[a-z'°]+/i, 'Augmentation')  // Handle Augmenlalmn, Augmenlafim', Augnentatl°n OCR errors
-        .replace(/Immu[nm]+y/i, 'Immunity');  // Handle Immunny OCR errors
+        .replace(/[Il]mmu[nm]+y/i, 'Immunity');  // Handle Immunny, lmmunny OCR errors
 
     // Normalize to proper capitalization
     cleanedEffect = cleanedEffect.trim();
@@ -344,11 +354,15 @@ if (item.itemEffect) {
         // Clean the value string first
         let cleanedValue = item[valueKey]
             .replace(/\+(\d+)\+0%/g, '$1%')  // Convert "+12+0%" to "12%"
+            .replace(/\+(\d)(\d)(96|06)$/g, '+$1.$2%')  // Convert "+2596" or "+5006" to "+2.5%" or "+5.0%" (96 or 06 are % symbol OCR errors)
+            .replace(/\+(\d)(\d)\d{2,}$/g, '+$1.$2%')  // Convert other 4+ digit patterns like "+2599" to "+2.5%"
+            .replace(/\+\d*(\d)(\d)40%/g, '+$1$2%')  // Convert "+1240%" to "+20%" (12 and 40 are OCR noise around 20)
+            .replace(/\+(\d+)\s+[04]0%/g, '+$1%')  // Convert "+12 40%" or "+2 0%" to "+12%" or "+2%" (40 is OCR error for 0)
             .replace(/\+/g, '') // Remove remaining plus signs
-            .replace(/(\d{2})\s+0%/g, '$1%')  // Convert "12 0%" to "12%"
+            .replace(/(\d+)\s+[04]0%/g, '$1%')  // Convert "12 40%" or "2 0%" to "12%" or "2%" (without +)
             .replace(/\s+0%/g, '%')  // Remove space and 0 before %
-            .replace(/\s+%/g, '%')    // Remove spaces before %
             .replace(/(\d)\s+(\d)%/g, '$1.$2%') // Convert "2 5%" to "2.5%"
+            .replace(/\s+%/g, '%')    // Remove spaces before %
             .replace(/(\d)\s+(\d)(?!%)/g, '$1$2'); // Remove spaces between digits (non-percentage)
 
         // Check if it's a percentage or flat value
@@ -665,5 +679,6 @@ if (item.totalPoints > 24) {
 // Validate the item
 validateItem(item, rawItem);
 
+// Version: 13
 //return { item, rawItem };
 return item;

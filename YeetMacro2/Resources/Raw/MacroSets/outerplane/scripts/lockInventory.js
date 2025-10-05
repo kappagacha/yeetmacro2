@@ -87,25 +87,29 @@ while ((Math.abs(lastSelectedResult.Point.X - selectedResult.Point.X) > 15 ||
                 break;
             }
 
-            // Legendary processing (no locked check, requires 6 yellow stars, requires 6+ points)
+            // Legendary processing (no locked check, requires 6 yellow stars, requires 6+ points, requires 3+ desired stats)
             if (itemStats.itemGrade === 'Legendary') {
                 if (numYellowStars !== 6) continue;
 
-                // For weapons, require at least 3 desired stats (out of 4 secondary stats)
+                // Require at least 3 desired stats (out of 4 secondary stats) for all Legendary items
                 const numDesiredStats = itemStats.desiredStats.filter(stat =>
                     [itemStats.secondary1, itemStats.secondary2, itemStats.secondary3, itemStats.secondary4].includes(stat)
                 ).length;
 
-                const shouldLock = itemStats.itemType === 'Weapon'
-                    ? (itemStats.desiredPoints >= 6 && numDesiredStats >= 3)
-                    : (itemStats.desiredPoints >= 6);
+                const shouldLock = itemStats.desiredPoints >= 6 && numDesiredStats >= 3;
+                const lockedPattern = macroService.ClonePattern(patterns.inventory.item.locked, { OffsetCalcType: 'None', CenterX: item.X + 10, CenterY: item.Y - 80, Width: 50, Height: 50, PathSuffix: `_${item.X}x${item.Y}y` });
 
                 if (shouldLock) {
-                    macroService.PollPattern(patterns.inventory.item.stat.unlocked, { DoClick: true, ClickPattern: patterns.inventory.item.stat.lockToggledMessage, PredicatePattern: patterns.inventory.item.stat.locked });
+                    //macroService.PollPattern(patterns.inventory.item.stat.unlocked, { DoClick: true, ClickPattern: patterns.inventory.item.stat.lockToggledMessage, PredicatePattern: patterns.inventory.item.stat.locked });
+                    macroService.PollPattern(patterns.inventory.item.stat.unlocked, { DoClick: true, ClickPattern: patterns.inventory.item.stat.lockToggledMessage, PredicatePattern: lockedPattern });
                     lockedCount++;
                 } else {
                     // Unlock if it doesn't meet requirements
-                    macroService.PollPattern(patterns.inventory.item.stat.locked, { DoClick: true, ClickPattern: patterns.inventory.item.stat.lockToggledMessage, PredicatePattern: patterns.inventory.item.stat.unlocked });
+                    //macroService.PollPattern(patterns.inventory.item.stat.locked, { DoClick: true, ClickPattern: patterns.inventory.item.stat.lockToggledMessage, PredicatePattern: patterns.inventory.item.stat.unlocked });
+                    const lockedResult = macroService.FindPattern(lockedPattern);
+                    if (lockedResult.IsSuccess) {
+                        macroService.PollPattern(patterns.inventory.item.stat.locked, { DoClick: true, ClickPattern: patterns.inventory.item.stat.lockToggledMessage, InversePredicatePattern: lockedPattern });
+                    }
                     unlockedCount++;
                 }
             }
@@ -116,7 +120,8 @@ while ((Math.abs(lastSelectedResult.Point.X - selectedResult.Point.X) > 15 ||
                 if (lockedResult.IsSuccess) continue;
 
                 if (itemStats.desiredPoints >= 5) {
-                    macroService.PollPattern(patterns.inventory.item.stat.unlocked, { DoClick: true, ClickPattern: patterns.inventory.item.stat.lockToggledMessage, PredicatePattern: patterns.inventory.item.stat.locked });
+                    //macroService.PollPattern(patterns.inventory.item.stat.unlocked, { DoClick: true, ClickPattern: patterns.inventory.item.stat.lockToggledMessage, PredicatePattern: patterns.inventory.item.stat.locked });//macroService.PollPattern(patterns.inventory.item.stat.unlocked, { DoClick: true, ClickPattern: patterns.inventory.item.stat.lockToggledMessage, PredicatePattern: patterns.inventory.item.stat.locked });
+                    macroService.PollPattern(patterns.inventory.item.stat.unlocked, { DoClick: true, ClickPattern: patterns.inventory.item.stat.lockToggledMessage, PredicatePattern: lockedPattern });
                     lockedCount++;
                 }
             }
