@@ -317,58 +317,82 @@
       "$position": 0,
       "$name": "exchangeShop",
       "$path": "doShop.exchangeShop",
-      "summerCoin": {
+      "eventCoin2": {
         "$type": "enabledParent",
         "$isEnabled": true,
         "$position": 0,
-        "$name": "summerCoin",
-        "$path": "doShop.exchangeShop.summerCoin",
-        "summerTicket": {
-          "$type": "boolean",
-          "$defaultValue": true,
-          "$value": true,
+        "$name": "eventCoin2",
+        "$path": "doShop.exchangeShop.eventCoin2",
+        "eventCoinType": {
+          "$type": "string",
+          "$defaultValue": "Summer",
+          "$value": "Summer",
           "$position": 0,
-          "$name": "summerTicket",
-          "$path": "doShop.exchangeShop.summerCoin.summerTicket"
+          "$name": "eventCoinType",
+          "$path": "doShop.exchangeShop.eventCoin2.eventCoinType"
+        },
+        "eventTicket": {
+          "$type": "boolean",
+          "$defaultValue": false,
+          "$value": false,
+          "$position": 0,
+          "$name": "eventTicket",
+          "$path": "doShop.exchangeShop.eventCoin2.eventTicket"
         },
         "rouletteTicket": {
           "$type": "boolean",
           "$defaultValue": true,
           "$value": true,
-          "$position": 0,
+          "$position": 1,
           "$name": "rouletteTicket",
-          "$path": "doShop.exchangeShop.summerCoin.rouletteTicket"
+          "$path": "doShop.exchangeShop.eventCoin2.rouletteTicket"
         },
         "bossRaidTicket": {
           "$type": "boolean",
           "$defaultValue": true,
           "$value": true,
-          "$position": 0,
+          "$position": 2,
           "$name": "bossRaidTicket",
-          "$path": "doShop.exchangeShop.summerCoin.bossRaidTicket"
+          "$path": "doShop.exchangeShop.eventCoin2.bossRaidTicket"
         }
       },
-      "fireworkCoin": {
+      "eventCoin1": {
         "$type": "enabledParent",
         "$isEnabled": true,
         "$position": 0,
-        "$name": "fireworkCoin",
-        "$path": "doShop.exchangeShop.fireworkCoin",
+        "$name": "eventCoin1",
+        "$path": "doShop.exchangeShop.eventCoin1",
+        "eventCoinType": {
+          "$type": "string",
+          "$defaultValue": "Pumpkin",
+          "$value": "Pumpkin",
+          "$position": 0,
+          "$name": "eventCoinType",
+          "$path": "doShop.exchangeShop.eventCoin1.eventCoinType"
+        },
+        "eventTicket": {
+          "$type": "boolean",
+          "$defaultValue": true,
+          "$value": true,
+          "$position": 1,
+          "$name": "eventTicket",
+          "$path": "doShop.exchangeShop.eventCoin1.eventTicket"
+        },
         "rouletteTicket": {
           "$type": "boolean",
           "$defaultValue": true,
           "$value": true,
-          "$position": 0,
+          "$position": 2,
           "$name": "rouletteTicket",
-          "$path": "doShop.exchangeShop.fireworkCoin.rouletteTicket"
+          "$path": "doShop.exchangeShop.eventCoin1.rouletteTicket"
         },
         "bossRaidTicket": {
           "$type": "boolean",
           "$defaultValue": true,
           "$value": true,
-          "$position": 0,
+          "$position": 3,
           "$name": "bossRaidTicket",
-          "$path": "doShop.exchangeShop.fireworkCoin.bossRaidTicket"
+          "$path": "doShop.exchangeShop.eventCoin1.bossRaidTicket"
         }
       }
     }

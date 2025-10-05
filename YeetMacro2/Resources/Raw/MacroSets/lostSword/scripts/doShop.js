@@ -23,30 +23,32 @@ while (macroService.IsRunning) {
 				if (macroService.IsRunning) daily.doShop.freepackage.IsChecked = true;
 			}
 
-
-			if (settings.doShop.exchangeShop.summerCoin.IsEnabled && !daily.doShop.summerCoin.done.IsChecked) {
+			if (settings.doShop.exchangeShop.eventCoin1.IsEnabled && !daily.doShop.eventCoin1.done.IsChecked) {
 				macroService.PollPattern(patterns.shop.exchangeShop, { DoClick: true, PredicatePattern: patterns.shop.exchangeShop.selected });
-				macroService.PollPattern(patterns.shop.coin, { SwipePattern: patterns.shop.leftPanelSwipeDown })
+				macroService.PollPattern(patterns.shop.coin, { SwipePattern: patterns.shop.leftPanelSwipeDown });
 				sleep(1_000);
-				findCoinType('Summer');
-				doEventShop(settings.doShop.exchangeShop.summerCoin, daily.doShop.summerCoin, {
+				const eventCoinType = settings.doShop.exchangeShop.eventCoin1.eventCoinType.Value;
+				findCoinType(eventCoinType);
+				doEventShop(settings.doShop.exchangeShop.eventCoin1, daily.doShop.eventCoin1, {
 					rouletteTicket: 'Roulette Ticket',
 					bossRaidTicket: 'Boss Raid Ticket',
-					summerTicket: 'Summer Ticket',
+					eventTicket: `${eventCoinType} Ticket`,
 				});
-				if (macroService.IsRunning) daily.doShop.summerCoin.done.IsChecked = true;
+				if (macroService.IsRunning) daily.doShop.eventCoin1.done.IsChecked = true;
 			}
 
-			if (settings.doShop.exchangeShop.fireworkCoin.IsEnabled && !daily.doShop.fireworkCoin.done.IsChecked) {
+			if (settings.doShop.exchangeShop.eventCoin2.IsEnabled && !daily.doShop.eventCoin2.done.IsChecked) {
 				macroService.PollPattern(patterns.shop.exchangeShop, { DoClick: true, PredicatePattern: patterns.shop.exchangeShop.selected });
-				macroService.PollPattern(patterns.shop.coin, { SwipePattern: patterns.shop.leftPanelSwipeDown })
-				sleep(1_000);
-				findCoinType('Firework');
-				doEventShop(settings.doShop.exchangeShop.fireworkCoin, daily.doShop.fireworkCoin, {
+				macroService.PollPattern(patterns.shop.coin, { SwipePattern: patterns.shop.leftPanelSwipeDown });
+				sleep(2_000);
+				const eventCoinType = settings.doShop.exchangeShop.eventCoin2.eventCoinType.Value;
+				findCoinType(eventCoinType);
+				doEventShop(settings.doShop.exchangeShop.eventCoin2, daily.doShop.eventCoin2, {
 					rouletteTicket: 'Roulette Ticket',
 					bossRaidTicket: 'Boss Raid Ticket',
+					eventTicket: `${eventCoinType} Ticket`,
 				});
-				if (macroService.IsRunning) daily.doShop.fireworkCoin.done.IsChecked = true;
+				if (macroService.IsRunning) daily.doShop.eventCoin2.done.IsChecked = true;
 			}
 
 			if (macroService.IsRunning) daily.doShop.done.IsChecked = true;
