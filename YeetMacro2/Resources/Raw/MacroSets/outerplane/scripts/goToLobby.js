@@ -48,8 +48,13 @@ while (macroService.IsRunning) {
 			return;
 		case 'lobby.popup.close':
 			logger.info('goToLobby: close popup');
-			macroService.PollPattern(patterns.lobby.popup.doNotShowAgainToday.unchecked, { DoClick: true, PredicatePattern: patterns.lobby.popup.doNotShowAgainToday.checked });
-			macroService.PollPattern(patterns.lobby.popup.close, { DoClick: true, InversePredicatePattern: patterns.lobby.popup.close });
+			let popupCloseResult = macroService.PollPattern(patterns.lobby.popup.close, { TimeoutMs: 3_000 });
+
+			while (macroService.IsRunning && popupCloseResult.IsSuccess) {
+				macroService.PollPattern(patterns.lobby.popup.doNotShowAgainToday.unchecked, { DoClick: true, PredicatePattern: patterns.lobby.popup.doNotShowAgainToday.checked });
+				macroService.ClickPattern(patterns.lobby.popup.close);
+				popupCloseResult = macroService.PollPattern(patterns.lobby.popup.close, { TimeoutMs: 3_000 });
+			}
 			return;
 		case 'startScreen.settings':
 			macroService.PollPattern(patterns.startScreen.settings, { DoClick: true, ClickOffset: { X: -200 }, InversePredicatePattern: patterns.startScreen.settings });
