@@ -3288,6 +3288,46 @@
           "$position": 0,
           "$name": "return",
           "$path": "battle.party.partyDungeon.return"
+        },
+        "confirm": {
+          "$patterns": [
+            {
+              "rawBounds": {
+                "x": 895.25,
+                "y": 693.25,
+                "width": 42.5,
+                "height": 27.5
+              },
+              "resolution": {
+                "width": 1920,
+                "height": 1080
+              },
+              "type": "Normal",
+              "swipeDirection": "Auto",
+              "name": "pattern",
+              "imageData": "/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDAAEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQH/2wBDAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQH/wAARCAAbACoDASIAAhEBAxEB/8QAGQAAAwEBAQAAAAAAAAAAAAAACAkKAAYH/8QAKBAAAQQDAAECBgMBAAAAAAAABAIDBQYBBwgACRYREhMUFVUhlNQj/8QAGQEAAgMBAAAAAAAAAAAAAAAAAgMAAQUG/8QAJREBAAIBBAEEAgMAAAAAAAAAAQIRIQASMUEDEyJRoQRhQoHh/9oADAMBAAIRAxEAPwC2jxf/AHr3lWuL6rWRAa0/sfcmyS3o3W+ugn3WfvFsujivzk48KyUazEjmmBghAAjOylilX0RsdhhpqTlIs5vccD+zb/qyP+PycXp+Tjrd63/OIVqKQTV60JrHNfyU0/kVpyKDtNxisssOMJcyvF4eUtGUsrUolKfgrPypwnnoyhJanBoZISjwVzTgzl61seHxbpu+MtsYymlJu28Ruu3+/jRxw1d9ZO3wAt3M2XynrSbkRm5NjUJlQnJAaLS83h1ENO2JqPs5Yp7X8MkJjZuaZaWtWPyispz9MnOQ9u9VXwvZlG6w0ZEaqueufaDsTb6eeXIa/wBnx9ozaEPGVdbxMyOw9BZrgrksM3ZpE1n3AAiRioB1LY5Rd+44H9m3/Vkf8fgy9ldCY0Hy9unbVWMHftNTpz/tbDwRTrDFmnTgq1XjiGChEjkjxsxMhSD4rysNlMjLHVnGHfIeSD7SXjVQKlG7aAM38fvnu9V75+30YjJCKQYsWzs5OndfN693s+1dX0mRFiLnsihVGWOShQUXZ7hXoCRMSvPwQoUKVkRCSErzjOEZaaXhWcfDGc587ll5kllogd1p8d9pt5h9lxLrLzLqcLadadRlSHGnEKSttxClJWlWFJznGcZ8nn9NziznHoXmovffT8K9uLae8bPeDJOz3GauBUzGRkPYJGqN4jz441lbMsVIw8lLPzeHnJPOShREENDBNMYQvuHWV51ltzaWtq1bJ46ua92Nd6PXzXZ2QGdMhKnZpOBiinR2lMtjuEAAMOrZbZaQ0peW0NtpThOCNqsScbi0ginzi7KcZOfpsfxoylKHqSiwwsoVGXTtd+ab+tXGeKg9RTjfZu1rRrLpnnNY2d66Zei1MwT5IoTlpia/OLstfXFknOjxqpmvzD561R0k+MNOxUkSJkxJAIIEg1/zeZMJy8ciUasvDkRKROxP8zpsZMWz74b6dKxhfUosoMELGbC4n65i9rtDtjH1isarKl60bLJQlCnIedPOjpVUYU9/1ZzmBNdYZeZbZdlMYyS51EHGdH9q6Z6QpnQOpQ+e6VsOqwMJpOBkTkytvAkx1z8oZZLyhLjR6Ptp4WlPNxr8JXX/ALUI9hkFS15kSWTebwvUiZh4yErElulJiiJttrk7FrF96vcfxiDzdqnDjNddi/vSIuTuhNr8MaqkObd78vb/AJ+epdgshGupvV9LzcKrbI+ekCJlUe1PtGDBfL+dNPKZkIxUsrIEhhkyNBkY9Qpqwr5yf35tS83PZ5HP2yosjY9ssV8fjMNihYjnrfMGWF0DAZ5whwmBFyKh8CmiDFj4b+kSOy8hbabGvN4yP5OyUpR8cd08zVki3dhftty5c8VWjPLSpEt55rpwddvea+M//9k=",
+              "variancePct": 20,
+              "textMatch": {
+                "isActive": false,
+                "text": null,
+                "whiteList": null
+              },
+              "colorThreshold": {
+                "isActive": false,
+                "variancePct": 30,
+                "color": null,
+                "imageData": "",
+                "ignoreBackground": false
+              },
+              "offsetCalcType": "Default",
+              "boundsCalcType": "Default",
+              "position": 0
+            }
+          ],
+          "$isMultiPattern": false,
+          "$position": 0,
+          "$name": "confirm",
+          "$path": "battle.party.partyDungeon.confirm"
         }
       }
     },
