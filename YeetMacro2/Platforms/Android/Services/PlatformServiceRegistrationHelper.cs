@@ -24,6 +24,7 @@ public static class PlatformServiceRegistrationHelper
         mauiAppBuilder.Services.AddSingleton<PromptSelectOptionViewModel>();
         mauiAppBuilder.Services.AddSingleton<MessageViewModel>();
         mauiAppBuilder.Services.AddSingleton<MediaProjectionService>();
+        mauiAppBuilder.Services.AddSingleton<RecorderService>();
         mauiAppBuilder.Services.AddSingleton<YeetAccessibilityService>();
         mauiAppBuilder.Services.AddSingleton<TestViewModel>();
         mauiAppBuilder.Services.AddSingleton<AndroidScreenService>();
@@ -31,7 +32,7 @@ public static class PlatformServiceRegistrationHelper
         //mauiAppBuilder.Services.AddSingleton<IOcrService, OcrService>();
         mauiAppBuilder.Services.AddSingleton<IInputService, AndroidInputService>();
         mauiAppBuilder.Services.AddSingleton<IScreenService>(sp => sp.GetRequiredService<AndroidScreenService>());
-        mauiAppBuilder.Services.AddSingleton<IRecorderService>(sp => sp.GetRequiredService<MediaProjectionService>());
+        mauiAppBuilder.Services.AddSingleton<IRecorderService>(sp => sp.GetRequiredService<RecorderService>());
 
         return mauiAppBuilder;
     }

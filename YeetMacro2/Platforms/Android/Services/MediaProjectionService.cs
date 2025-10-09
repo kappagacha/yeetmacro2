@@ -18,16 +18,14 @@ namespace YeetMacro2.Platforms.Android.Services;
 //https://github.com/xamarin/monodroid-samples/blob/main/android5.0/ScreenCapture/ScreenCapture/ScreenCaptureFragment.cs
 //https://github.com/Fate-Grand-Automata/FGA/blob/master/app/src/main/java/com/mathewsachin/fategrandautomata/imaging/MediaProjectionScreenshotService.kt
 //https://medium.com/jamesob-com/recording-your-android-screen-7e0e75aae260
-public class MediaProjectionService : IRecorderService, IDisposable
+public class MediaProjectionService : IDisposable
 {
     MediaProjection _mediaProjection;
     ImageReader _imageReader;
-    VirtualDisplay _virtualDisplay, _screenVirtualDisplay;
-    MediaRecorder _mediaRecorder;
+    VirtualDisplay _virtualDisplay;
     Intent _resultData;
     int _resultCode;
     public const int REQUEST_MEDIA_PROJECTION = 1;
-    bool _isRecording;
     public bool IsInitialized => _resultCode == (int)global::Android.App.Result.Ok;
     MediaProjectionCallback _mediaProjectionCallback;
     private readonly object _disposeLock = new object();
@@ -258,81 +256,6 @@ public class MediaProjectionService : IRecorderService, IDisposable
         }
     }
 
-    [System.Runtime.Versioning.SupportedOSPlatform("android31.0")]
-    private void CreateMediaRecorderForApi31()
-    {
-        var activity = Platform.CurrentActivity;
-        if (activity == null)
-        {
-            ServiceHelper.LogService?.LogDebug("CreateMediaRecorderForApi31 failed: CurrentActivity is null");
-            throw new InvalidOperationException("CurrentActivity is null");
-        }
-        _mediaRecorder = new MediaRecorder(activity);
-        _mediaRecorder.SetVideoSource(VideoSource.Surface);
-        _mediaRecorder.SetOutputFormat(OutputFormat.Mpeg4);
-        _mediaRecorder.SetVideoEncoder(VideoEncoder.H264);
-        _mediaRecorder.SetVideoEncodingBitRate(10000000); // 10 Mbps
-        _mediaRecorder.SetVideoFrameRate(30);
-    }
-
-    [System.Runtime.Versioning.SupportedOSPlatform("android26.0")]
-    [System.Runtime.Versioning.UnsupportedOSPlatform("android31.0")]
-    private void CreateMediaRecorderLegacy()
-    {
-        _mediaRecorder = new MediaRecorder();
-        _mediaRecorder.SetVideoSource(VideoSource.Surface);
-        var profile = CamcorderProfile.Get(CamcorderQuality.High);
-        _mediaRecorder.SetOutputFormat(profile.FileFormat);
-        _mediaRecorder.SetVideoEncoder(profile.VideoCodec);
-        _mediaRecorder.SetVideoEncodingBitRate(profile.VideoBitRate);
-        _mediaRecorder.SetVideoFrameRate(profile.VideoFrameRate);
-    }
-
-    // https://github.com/chinmoyp/screenrecorder/blob/master/app/src/main/java/com/confusedbox/screenrecorder/MainActivity.java
-    // https://github.com/android/media-samples/blob/main/ScreenCapture/Application/src/main/java/com/example/android/screencapture/ScreenCaptureFragment.java
-    // https://github.com/Fate-Grand-Automata/FGA/blob/master/app/src/main/java/com/mathewsachin/fategrandautomata/imaging/MediaProjectionRecording.kt
-    // https://github.com/Fate-Grand-Automata/FGA/blob/6d6b5f190817574f2d07f04f124b677c39b09634/app/src/main/java/com/mathewsachin/fategrandautomata/imaging/MediaProjectionScreenshotService.kt
-    public void StartRecording()
-    {
-        if (_isRecording) return;
-
-        var screenResolution = DisplayHelper.PhysicalResolution;
-        var width = (int)screenResolution.Width;
-        var height = (int)screenResolution.Height;
-        var density = (int)DisplayHelper.DisplayInfo.Density;
-        
-        // Use appropriate API based on Android version
-        if (OperatingSystem.IsAndroidVersionAtLeast(31))
-        {
-            CreateMediaRecorderForApi31();
-        }
-        else
-        {
-            CreateMediaRecorderLegacy();
-        }
-        
-        _mediaRecorder.SetVideoSize(width, height);     // weird resolutions will fail on prepare. ex: 1080x2350
-        
-        var folder = global::Android.OS.Environment.GetExternalStoragePublicDirectory(global::Android.OS.Environment.DirectoryPictures).Path;
-        var file = System.IO.Path.Combine(folder, $"{DateTime.Now:yyyyMMdd_HHmmss}.mp4");
-        _mediaRecorder.SetOutputFile(file);
-        _mediaRecorder.Prepare();
-        _mediaRecorder.Start();
-        _screenVirtualDisplay = _mediaProjection.CreateVirtualDisplay("ScreenRecord", width, height, density, (DisplayFlags)VirtualDisplayFlags.AutoMirror, _mediaRecorder.Surface, null, null);
-        _isRecording = true;
-    }
-    public void StopRecording()
-    {
-        if (!_isRecording) return;
-
-        _isRecording = false;
-        _screenVirtualDisplay.Release();
-        _screenVirtualDisplay.Dispose();
-        _mediaRecorder.Stop();
-        _mediaRecorder.Release();
-        _mediaRecorder.Dispose();
-        Stop();
-    }
 
     private class MediaProjectionCallback : MediaProjection.Callback
     {
@@ -365,28 +288,6 @@ public class MediaProjectionService : IRecorderService, IDisposable
                 {
                     try
                     {
-                        // Stop recording if in progress
-                        if (_isRecording)
-                        {
-                            try
-                            {
-                                StopRecording();
-                            }
-                            catch { }
-                        }
-
-                        // Clean up screen virtual display
-                        try
-                        {
-                            _screenVirtualDisplay?.Release();
-                            _screenVirtualDisplay?.Dispose();
-                        }
-                        catch { }
-                        finally
-                        {
-                            _screenVirtualDisplay = null;
-                        }
-
                         // Clean up virtual display
                         try
                         {
@@ -411,21 +312,6 @@ public class MediaProjectionService : IRecorderService, IDisposable
                             _imageReader = null;
                         }
 
-                        // Clean up media recorder
-                        try
-                        {
-                            if (_mediaRecorder != null)
-                            {
-                                _mediaRecorder.Release();
-                                _mediaRecorder.Dispose();
-                            }
-                        }
-                        catch { }
-                        finally
-                        {
-                            _mediaRecorder = null;
-                        }
-
                         // Clean up media projection
                         try
                         {
@@ -444,7 +330,7 @@ public class MediaProjectionService : IRecorderService, IDisposable
 
                         // Clear callback reference
                         _mediaProjectionCallback = null;
-                        
+
                         // Clear intent data
                         _resultData?.Dispose();
                         _resultData = null;

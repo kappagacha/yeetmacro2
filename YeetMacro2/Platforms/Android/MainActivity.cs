@@ -82,6 +82,9 @@ public class MainActivity : MauiAppCompatActivity
             case Platforms.Android.Services.MediaProjectionService.REQUEST_MEDIA_PROJECTION:
                 ServiceHelper.GetService<MediaProjectionService>().Init(resultCode, data);
                 break;
+            case Platforms.Android.Services.RecorderService.REQUEST_MEDIA_PROJECTION:
+                ServiceHelper.GetService<RecorderService>().Init(resultCode, data);
+                break;
             case AndriodHomeViewModel.REQUEST_IGNORE_BATTERY_OPTIMIZATIONS:
                 ServiceHelper.GetService<AndriodHomeViewModel>().InvokeOnPropertyChanged(nameof(AndriodHomeViewModel.IsIgnoringBatteryOptimizations));
                 break;

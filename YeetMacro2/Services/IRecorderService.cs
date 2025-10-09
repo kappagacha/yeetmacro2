@@ -2,6 +2,6 @@
 
 public interface IRecorderService
 {
-    void StartRecording();
+    Task StartRecording();
     void StopRecording();
 }
