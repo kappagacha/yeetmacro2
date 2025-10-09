@@ -37,7 +37,7 @@ while (macroService.IsRunning) {
 					if (!dPatternResult.IsSuccess) {
 						macroService.PollPoint(p, { PredicatePattern: patterns.general.tapEmptySpace });
 						macroService.PollPattern(patterns.general.tapEmptySpace, { DoClick: true, PredicatePattern: patterns.mailbox.receive });
-						sleep(500);
+						sleep(2_000);
 						done = false;
 						continue;
 					}
@@ -48,7 +48,7 @@ while (macroService.IsRunning) {
 					if (numberText == 1 || numberText == 2 || numberText > 10) {
 						macroService.PollPoint(p, { PredicatePattern: patterns.general.tapEmptySpace });
 						macroService.PollPattern(patterns.general.tapEmptySpace, { DoClick: true, PredicatePattern: patterns.mailbox.receive });
-						sleep(500);
+						sleep(2_000);
 						done = false;
 					}
 				}
