@@ -8,6 +8,15 @@ if (daily.sweepEventStoryHard.done.IsChecked) {
 	return "Script already completed. Uncheck done to override daily flag.";
 }
 
+const targetEventPattern = macroService.ClonePattern(settings.sweepEventStoryHard.targetEventPattern.Value, {
+	X: 80,
+	Y: 215,
+	Width: resolution.Width - 100,
+	Height: 785,
+	Path: 'settings.sweepEventStoryHard.targetEventPattern',
+	OffsetCalcType: 'DockLeft'
+});
+
 const targetPartPattern = macroService.ClonePattern(settings.sweepEventStoryHard.targetPartPattern.Value, {
 	X: 80,
 	Y: 215,
@@ -18,7 +27,7 @@ const targetPartPattern = macroService.ClonePattern(settings.sweepEventStoryHard
 });
 
 while (macroService.IsRunning) {
-	const loopResult = macroService.PollPattern(loopPatterns, { ClickPattern: patterns.adventure.doNotSeeFor3days });
+	const loopResult = macroService.PollPattern(loopPatterns, { ClickPattern: [targetEventPattern, patterns.adventure.doNotSeeFor3days] });
 	switch (loopResult.Path) {
 		case 'lobby.level':
 			refillStamina(80);

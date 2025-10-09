@@ -1484,6 +1484,26 @@
     "$position": 0,
     "$name": "sweepEventStoryHard",
     "$path": "sweepEventStoryHard",
+    "targetEventPattern": {
+      "$type": "pattern",
+      "$defaultValue": {
+        "$patterns": [],
+        "$isMultiPattern": false,
+        "$position": 0,
+        "$name": null,
+        "$path": null
+      },
+      "$value": {
+        "$patterns": [],
+        "$isMultiPattern": false,
+        "$position": 0,
+        "$name": null,
+        "$path": null
+      },
+      "$position": 0,
+      "$name": "targetEventPattern",
+      "$path": "sweepEventStoryHard.targetEventPattern"
+    },
     "targetPartPattern": {
       "$type": "pattern",
       "$defaultValue": {
@@ -1566,7 +1586,7 @@
         "$name": null,
         "$path": "settings.sweepEventStoryHard.targetPartPattern"
       },
-      "$position": 0,
+      "$position": 1,
       "$name": "targetPartPattern",
       "$path": "sweepEventStoryHard.targetPartPattern"
     },
@@ -1586,7 +1606,7 @@
       ],
       "$defaultValue": "8",
       "$value": "8",
-      "$position": 0,
+      "$position": 2,
       "$name": "teamSlot",
       "$path": "sweepEventStoryHard.teamSlot"
     }
@@ -1841,6 +1861,26 @@
     "$position": 0,
     "$name": "sweepEventStoryHard2",
     "$path": "sweepEventStoryHard2",
+    "targetEventPattern": {
+      "$type": "pattern",
+      "$defaultValue": {
+        "$patterns": [],
+        "$isMultiPattern": false,
+        "$position": 0,
+        "$name": null,
+        "$path": null
+      },
+      "$value": {
+        "$patterns": [],
+        "$isMultiPattern": false,
+        "$position": 0,
+        "$name": null,
+        "$path": null
+      },
+      "$position": 0,
+      "$name": "targetEventPattern",
+      "$path": "sweepEventStoryHard.targetEventPattern"
+    },
     "targetPartPattern": {
       "$type": "pattern",
       "$defaultValue": {
@@ -1923,7 +1963,7 @@
         "$name": null,
         "$path": "settings.sweepEventStoryHard2.targetPartPattern"
       },
-      "$position": 0,
+      "$position": 1,
       "$name": "targetPartPattern",
       "$path": "sweepEventStoryHard2.targetPartPattern"
     },
@@ -1943,7 +1983,7 @@
       ],
       "$defaultValue": "8",
       "$value": "8",
-      "$position": 0,
+      "$position": 2,
       "$name": "teamSlot",
       "$path": "sweepEventStoryHard2.teamSlot"
     }
