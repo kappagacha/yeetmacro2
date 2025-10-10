@@ -281,9 +281,10 @@ public class GenericNodeView<TNode, TNodeViewModel> : ContentView
         
         menuItemsStack.Children.Add(pasteGrid);
 
-        AddMenuItem(menuItemsStack, MaterialOutlined.Content_paste_off, "NodeManager.ClearCopyNodeCommand",
-            "NodeManager.HasCopyClipboard", false);
-        
+        var clearCopyView = CreateImageView(MaterialOutlined.Content_paste_off, "NodeManager.ClearCopyNodeCommand");
+        clearCopyView.SetBinding(ImageView.IsVisibleProperty, new Binding("NodeManager.HasCopyClipboard"));
+        menuItemsStack.Children.Add(clearCopyView);
+
         // Delete
         var deleteView = CreateImageView(Solid.TrashCan, "NodeManager.DeleteNodeCommand", "FASolid");
         deleteView.Color = Colors.Red;
