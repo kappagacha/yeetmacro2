@@ -8,13 +8,14 @@
              xmlns:av="clr-namespace:YeetMacro2.Platforms.Android.Views"
              x:Class="YeetMacro2.Platforms.Android.Views.PromptSelectOption"
              x:Name="thisView">
-    <Grid VerticalOptions="Center" Margin="10">
+    <Grid VerticalOptions="Center" HorizontalOptions="Center" Margin="10">
         <Border BackgroundColor="{AppThemeBinding Light={StaticResource Background}, Dark={StaticResource BackgroundDark}}"
                 StrokeShape="RoundRectangle 14"
                 Stroke="{AppThemeBinding Light=#E5E7EB, Dark=#4B5563}"
                 StrokeThickness="0"
+                WidthRequest="300"
                 Shadow="{Shadow Brush=Black, Offset='0,2', Radius=10, Opacity=0.3}">
-            <VerticalStackLayout Spacing="0">
+            <VerticalStackLayout Spacing="0" VerticalOptions="Start">
                 <!-- Title/Message -->
                 <Label Text="{Binding Message}" 
                        FontSize="13"
