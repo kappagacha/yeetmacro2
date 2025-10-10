@@ -16,6 +16,8 @@ public partial class TodoNodeManagerViewModel : NodeManagerViewModel<TodoViewMod
     TodoJsonParentViewModel _currentSubViewModel;
     [ObservableProperty]
     TodoJsonElementViewModel _selectedJsonElement;
+    [ObservableProperty]
+    Color _saveButtonColor = Color.FromArgb("#52D681"); // Primary color
     string _targetSubViewName;
 
     readonly IRepository<TodoNode> _todoRepository;
@@ -72,7 +74,12 @@ public partial class TodoNodeManagerViewModel : NodeManagerViewModel<TodoViewMod
         var targetDate = ResolveTargetDate(0);
         var todo = ResolveTodo(targetDate);
 
-        SelectedNode = todo;
+        // Don't change SelectedNode if ShowTemplate is true (viewing Root/template)
+        if (!ShowTemplate)
+        {
+            SelectedNode = todo;
+        }
+
         var targetJsonViewModel = ((TodoViewModel)todo).JsonViewModel;
         if (targetJsonViewModel is null) return;
 
@@ -114,10 +121,16 @@ public partial class TodoNodeManagerViewModel : NodeManagerViewModel<TodoViewMod
                 todo.JsonViewModel = TodoJsonParentViewModel.Load(stringValue, todo);
                 ResolveCurrentSubViewModel();
                 SaveTodo(todo);
+
+                // Reset to original color on success
+                SaveButtonColor = Color.FromArgb("#52D681"); // Primary color
             }
             catch (Exception ex)
             {
                 _toastService.Show($"Error saving daily: {ex.Message}");
+
+                // Set to red on failure
+                SaveButtonColor = Colors.Red;
             }
         }
     }

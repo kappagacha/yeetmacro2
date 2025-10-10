@@ -115,8 +115,9 @@
                                     <v:ImageView FontFamily="MaterialOutlined" Glyph="{x:Static ms:MaterialOutlined.Select_all}" />
                                     <ImageButton Clicked="JsonText_SelectAll" />
                                 </Grid>
-                                <v:ImageView 
-                                      FontFamily="MaterialOutlined" Glyph="{x:Static ms:MaterialOutlined.Save}" Color="{StaticResource Primary}" 
+                                <v:ImageView
+                                      FontFamily="MaterialOutlined" Glyph="{x:Static ms:MaterialOutlined.Save}"
+                                      Color="{Binding Todos.SaveButtonColor, Source={Reference thisView}, x:DataType=v:TodoNodeView}"
                                       Command="{Binding Todos.SaveTodoCommand, Source={Reference thisView}, x:DataType=v:TodoNodeView}">
                                     <v:ImageView.CommandParameter>
                                         <MultiBinding Converter="{conv:PassThroughConverter}">
