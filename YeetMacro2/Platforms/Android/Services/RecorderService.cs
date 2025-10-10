@@ -177,27 +177,71 @@ public class RecorderService : IRecorderService, IDisposable
     {
         if (!_isRecording) return;
 
+        _isRecording = false;
+
+        // Clean up virtual display
         try
         {
-            _isRecording = false;
             _virtualDisplay?.Release();
             _virtualDisplay?.Dispose();
-            _virtualDisplay = null;
-            _mediaRecorder?.Stop();
-            _mediaRecorder?.Release();
-            _mediaRecorder?.Dispose();
-            _mediaRecorder = null;
-            _mediaProjection?.Stop();
-            _mediaProjection?.Dispose();
-            _mediaProjection = null;
-
-            ServiceHelper.LogService?.LogDebug("RecorderService recording stopped");
         }
         catch (Exception ex)
         {
-            ServiceHelper.LogService?.LogDebug($"RecorderService StopRecording Exception: {ex.Message}");
-            ServiceHelper.LogService?.LogException(ex);
+            ServiceHelper.LogService?.LogDebug($"RecorderService StopRecording: Error releasing virtual display - {ex.Message}");
         }
+        finally
+        {
+            _virtualDisplay = null;
+        }
+
+        // Clean up media recorder
+        try
+        {
+            _mediaRecorder?.Stop();
+        }
+        catch (Exception ex)
+        {
+            ServiceHelper.LogService?.LogDebug($"RecorderService StopRecording: Error stopping media recorder - {ex.Message}");
+        }
+
+        try
+        {
+            _mediaRecorder?.Release();
+            _mediaRecorder?.Dispose();
+        }
+        catch (Exception ex)
+        {
+            ServiceHelper.LogService?.LogDebug($"RecorderService StopRecording: Error releasing media recorder - {ex.Message}");
+        }
+        finally
+        {
+            _mediaRecorder = null;
+        }
+
+        // Clean up media projection
+        try
+        {
+            _mediaProjection?.Stop();
+        }
+        catch (Exception ex)
+        {
+            ServiceHelper.LogService?.LogDebug($"RecorderService StopRecording: Error stopping media projection - {ex.Message}");
+        }
+
+        try
+        {
+            _mediaProjection?.Dispose();
+        }
+        catch (Exception ex)
+        {
+            ServiceHelper.LogService?.LogDebug($"RecorderService StopRecording: Error disposing media projection - {ex.Message}");
+        }
+        finally
+        {
+            _mediaProjection = null;
+        }
+
+        ServiceHelper.LogService?.LogDebug("RecorderService recording stopped");
     }
 
     private void CallbackStop()
