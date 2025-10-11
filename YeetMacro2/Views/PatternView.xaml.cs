@@ -22,6 +22,8 @@ public partial class PatternView : ContentView
         BindableProperty.Create(nameof(CapturePatternCommand), typeof(ICommand), typeof(ImageView));
     public static readonly BindableProperty SetPatternBoundsCommandProperty =
         BindableProperty.Create(nameof(SetPatternBoundsCommand), typeof(ICommand), typeof(ImageView));
+    public static readonly BindableProperty NormalizePatternCommandProperty =
+        BindableProperty.Create(nameof(NormalizePatternCommand), typeof(ICommand), typeof(ImageView));
     public static readonly BindableProperty ClickPatternCommandProperty =
         BindableProperty.Create(nameof(ClickPatternCommand), typeof(ICommand), typeof(ImageView));
     public static readonly BindableProperty TestPatternCommandProperty =
@@ -99,6 +101,11 @@ public partial class PatternView : ContentView
     {
         get { return (ICommand)GetValue(SetPatternBoundsCommandProperty); }
         set { SetValue(SetPatternBoundsCommandProperty, value); }
+    }
+    public ICommand NormalizePatternCommand
+    {
+        get { return (ICommand)GetValue(NormalizePatternCommandProperty); }
+        set { SetValue(NormalizePatternCommandProperty, value); }
     }
     public ICommand ClickPatternCommand
     {

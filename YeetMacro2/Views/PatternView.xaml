@@ -203,6 +203,9 @@
                 <v:ImageView FontFamily="MaterialSharp" Glyph="{x:Static ms:MaterialSharp.Crop_free}" Color="{StaticResource Primary}"
                              Command="{Binding SetPatternBoundsCommand, Source={Reference thisView}}"
                              CommandParameter="{Binding Pattern, Source={Reference thisView}}" />
+                <v:ImageView FontFamily="MaterialOutlined" Glyph="{x:Static ms:MaterialOutlined.Straighten}" Color="{StaticResource Primary}"
+                             Command="{Binding NormalizePatternCommand, Source={Reference thisView}}"
+                             CommandParameter="{Binding Pattern, Source={Reference thisView}}" />
                 <v:ImageView FontFamily="FASolid" Glyph="{x:Static fa:Solid.HandPointer}" Color="{StaticResource Primary}"
                              Command="{Binding ClickPatternCommand, Source={Reference thisView}}">
                     <v:ImageView.CommandParameter>

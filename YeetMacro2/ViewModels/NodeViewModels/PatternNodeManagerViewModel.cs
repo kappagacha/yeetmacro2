@@ -445,4 +445,73 @@ public partial class PatternNodeManagerViewModel : NodeManagerViewModel<PatternN
             _screenService.DrawRectangle(pattern.Bounds.Offset(pattern.Offset));
         });
     }
+
+    [RelayCommand]
+    private void NormalizePattern(Pattern pattern)
+    {
+        if (pattern == null) return;
+
+        var targetResolution = new Size(1920, 1080);
+
+        // If already at target resolution, nothing to do
+        if (pattern.Resolution == targetResolution)
+        {
+            _toastService.Show("Pattern is already normalized to 1920x1080");
+            return;
+        }
+
+        var currentResolution = pattern.Resolution;
+        var widthDiff = currentResolution.Width - targetResolution.Width;
+        var heightDiff = currentResolution.Height - targetResolution.Height;
+
+        Rect newRawBounds;
+
+        switch (pattern.OffsetCalcType)
+        {
+            case OffsetCalcType.DockLeft:
+                // DockLeft: RawBounds stay the same (anchored to top-left)
+                newRawBounds = pattern.RawBounds;
+                break;
+
+            case OffsetCalcType.DockRight:
+                // DockRight: Move RawBounds to maintain the same space on the right
+                // If current resolution is wider than target, move left (subtract widthDiff)
+                // If current resolution is narrower than target, move right (add widthDiff)
+                newRawBounds = new Rect(
+                    pattern.RawBounds.X - widthDiff,
+                    pattern.RawBounds.Y,
+                    pattern.RawBounds.Width,
+                    pattern.RawBounds.Height
+                );
+                break;
+
+            case OffsetCalcType.Center:
+            case OffsetCalcType.Default:
+                // Center: Offset by half of the width difference
+                // Similar to PatternNode.cs line 126: xOffset = deltaX / 2
+                // When converting FROM current TO target, we need to adjust RawBounds.X by half the difference
+                newRawBounds = new Rect(
+                    pattern.RawBounds.X - (widthDiff / 2.0),
+                    pattern.RawBounds.Y,
+                    pattern.RawBounds.Width,
+                    pattern.RawBounds.Height
+                );
+                break;
+
+            case OffsetCalcType.None:
+            default:
+                // For None or other types, keep bounds the same
+                newRawBounds = pattern.RawBounds;
+                break;
+        }
+
+        // Update the pattern
+        pattern.RawBounds = newRawBounds;
+        pattern.Resolution = targetResolution;
+
+        _patternRepository.Update(pattern);
+        _patternRepository.Save();
+
+        _toastService.Show($"Pattern normalized to 1920x1080 (OffsetCalcType: {pattern.OffsetCalcType})");
+    }
 }

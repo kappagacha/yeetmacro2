@@ -173,6 +173,7 @@ public partial class PatternViewModel : Pattern
         {
             base.RawBounds = value;
             OnPropertyChanged();
+            OnPropertyChanged(nameof(Bounds));
         }
     }
 

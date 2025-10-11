@@ -39,6 +39,7 @@
                     SelectPatternCommand="{Binding MacroSet.Patterns.SelectPatternCommand, Source={Reference thisControl}}"
                     CapturePatternCommand="{Binding MacroSet.Patterns.CapturePatternCommand, Source={Reference thisControl}}"
                     SetPatternBoundsCommand="{Binding MacroSet.Patterns.SetPatternBoundsCommand, Source={Reference thisControl}}"
+                    NormalizePatternCommand="{Binding MacroSet.Patterns.NormalizePatternCommand, Source={Reference thisControl}}"
                     ClickPatternCommand="{Binding MacroSet.Patterns.ClickPatternCommand, Source={Reference thisControl}}"
                     TestPatternCommand="{Binding MacroSet.Patterns.TestPatternCommand, Source={Reference thisControl}}"
                     AddPatternCommand="{Binding MacroSet.Patterns.AddPatternCommand, Source={Reference thisControl}}"
