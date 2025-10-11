@@ -233,8 +233,28 @@ public class JsToDotNetConverter(Engine engine) : DefaultTypeConverter(engine)
         }
         else if (type == typeof(PollPatternFindOptions))
         {
-            var opts = JsonSerializer.Deserialize<PollPatternFindOptions>(JsonSerializer.Serialize(value));
             var dict = value as IDictionary<string, object>;
+
+            // Extract Callback before serialization to avoid serialization errors
+            Func<JsValue, JsValue[], JsValue> callback = null;
+            if (dict.ContainsKey("Callback"))
+            {
+                callback = dict["Callback"] as Func<JsValue, JsValue[], JsValue>;
+            }
+
+            // Create a filtered dictionary without Callback for serialization
+            var filteredDict = new Dictionary<string, object>();
+            foreach (var kvp in dict)
+            {
+                if (kvp.Key != "Callback" && kvp.Key != "PredicatePattern" && kvp.Key != "ClickPattern" &&
+                    kvp.Key != "ClickPredicatePattern" && kvp.Key != "SwipePattern" &&
+                    kvp.Key != "InversePredicatePattern" && kvp.Key != "NoOpPattern" && kvp.Key != "GoBackPattern")
+                {
+                    filteredDict[kvp.Key] = kvp.Value;
+                }
+            }
+
+            var opts = JsonSerializer.Deserialize<PollPatternFindOptions>(JsonSerializer.Serialize(filteredDict));
 
             opts.PredicatePattern = dict.ContainsKey("PredicatePattern") ? (OneOf<PatternNode, PatternNode[]>?)ToOneOfPatternNode(dict["PredicatePattern"]) : null;
             opts.ClickPattern = dict.ContainsKey("ClickPattern") ? (OneOf<PatternNode, PatternNode[]>?)ToOneOfPatternNode(dict["ClickPattern"]) : null;
@@ -243,6 +263,9 @@ public class JsToDotNetConverter(Engine engine) : DefaultTypeConverter(engine)
             opts.InversePredicatePattern = dict.ContainsKey("InversePredicatePattern") ? (OneOf<PatternNode, PatternNode[]>?)ToOneOfPatternNode(dict["InversePredicatePattern"]) : null;
             opts.NoOpPattern = dict.ContainsKey("NoOpPattern") ? (OneOf<PatternNode, PatternNode[]>?)ToOneOfPatternNode(dict["NoOpPattern"]) : null;
             opts.GoBackPattern = dict.ContainsKey("GoBackPattern") ? (OneOf<PatternNode, PatternNode[]>?)ToOneOfPatternNode(dict["GoBackPattern"]) : null;
+
+            // Set Callback directly without serialization
+            opts.Callback = callback;
 
             converted = opts;
             return true;

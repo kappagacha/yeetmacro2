@@ -7,6 +7,7 @@ using YeetMacro2.ViewModels.NodeViewModels;
 using YeetMacro2.ViewModels;
 using System.Collections.Concurrent;
 using SwipeDirection = YeetMacro2.Data.Models.SwipeDirection;
+using Jint.Native;
 
 namespace YeetMacro2.Services;
 
@@ -33,6 +34,8 @@ public class PollPatternFindOptions : ClickPatternFindOptions
     public bool DoClick { get; set; }
     public long HoldDurationMs { get; set; } = 100;
     public double TimeoutMs { get; set; } = 0.0;
+    [JsonIgnore]
+    public Func<JsValue, JsValue[], JsValue> Callback { get; set; }
 }
 
 public class ClickPatternFindOptions : FindOptions
@@ -395,6 +398,8 @@ public class MacroService
 
             while (IsRunning)
             {
+                opts.Callback(null, null);
+
                 if (hasTimeout && DateTime.Now > timeout) return new FindPatternResult() { IsSuccess = false };
                 if (noOpPattern is not null && this.FindPattern(noOpPattern.Value, opts).IsSuccess)
                 {
@@ -447,6 +452,7 @@ public class MacroService
             var successResult = new FindPatternResult() { IsSuccess = false };
             while (IsRunning)
             {
+                opts.Callback(null, null);
                 if (hasTimeout && DateTime.Now > timeout) return new FindPatternResult() { IsSuccess = false };
                 if (noOpPattern is not null && this.FindPattern(noOpPattern.Value, opts).IsSuccess)
                 {
@@ -489,6 +495,7 @@ public class MacroService
         {
             while (IsRunning)
             {
+                opts.Callback(null, null);
                 if (hasTimeout && DateTime.Now > timeout) return new FindPatternResult() { IsSuccess = false };
                 if (noOpPattern is not null && this.FindPattern(noOpPattern.Value, opts).IsSuccess)
                 {
