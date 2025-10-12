@@ -135,6 +135,11 @@ public class RecorderService : IRecorderService, IDisposable
             var height = (int)physicalResolution.Height;
             var density = (int)DisplayHelper.DisplayInfo.Density;
 
+            // Start foreground service before getting media projection
+            // This is required on newer Android versions to keep MediaProjection alive
+            Platform.AppContext.StartForegroundServiceCompat<RecorderForegroundService>();
+            ServiceHelper.LogService?.LogDebug("RecorderService: Started RecorderForegroundService");
+
             // Get media projection
             _mediaProjection = mediaProjectionManager.GetMediaProjection(_resultCode, (Intent)_resultData.Clone());
             _mediaProjection.RegisterCallback(_mediaProjectionCallback, null);
@@ -331,6 +336,19 @@ public class RecorderService : IRecorderService, IDisposable
         {
             _mediaProjection = null;
             _isStoppingFromCallback = false; // Reset flag
+        }
+
+        // Stop the recorder foreground service
+        try
+        {
+            var exitIntent = new Intent(Platform.AppContext, typeof(RecorderForegroundService));
+            exitIntent.SetAction(RecorderForegroundService.EXIT_ACTION);
+            Platform.AppContext.StartService(exitIntent);
+            ServiceHelper.LogService?.LogDebug("RecorderService: Stopped RecorderForegroundService");
+        }
+        catch (Exception ex)
+        {
+            ServiceHelper.LogService?.LogDebug($"RecorderService: Error stopping RecorderForegroundService - {ex.Message}");
         }
 
         ServiceHelper.LogService?.LogDebug("RecorderService: Recording stopped completely");
