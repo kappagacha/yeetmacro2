@@ -2,6 +2,7 @@
 
 public interface IRecorderService
 {
+    bool IsInitialized { get; }
     Task StartRecording();
     void StopRecording();
 }

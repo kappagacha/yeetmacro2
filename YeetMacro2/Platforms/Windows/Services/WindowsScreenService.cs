@@ -160,7 +160,9 @@ public class WindowsScreenService : IScreenService, IRecorderService
         throw new NotImplementedException();
     }
 
-    public void StartRecording()
+    public bool IsInitialized => false;
+
+    public Task StartRecording()
     {
         throw new NotImplementedException();
     }
