@@ -398,7 +398,7 @@ public class MacroService
 
             while (IsRunning)
             {
-                opts.Callback(null, null);
+                opts.Callback?.Invoke(null, null);
 
                 if (hasTimeout && DateTime.Now > timeout) return new FindPatternResult() { IsSuccess = false };
                 if (noOpPattern is not null && this.FindPattern(noOpPattern.Value, opts).IsSuccess)
@@ -452,7 +452,7 @@ public class MacroService
             var successResult = new FindPatternResult() { IsSuccess = false };
             while (IsRunning)
             {
-                opts.Callback(null, null);
+                opts.Callback?.Invoke(null, null);
                 if (hasTimeout && DateTime.Now > timeout) return new FindPatternResult() { IsSuccess = false };
                 if (noOpPattern is not null && this.FindPattern(noOpPattern.Value, opts).IsSuccess)
                 {
@@ -495,7 +495,7 @@ public class MacroService
         {
             while (IsRunning)
             {
-                opts.Callback(null, null);
+                opts.Callback?.Invoke(null, null);
                 if (hasTimeout && DateTime.Now > timeout) return new FindPatternResult() { IsSuccess = false };
                 if (noOpPattern is not null && this.FindPattern(noOpPattern.Value, opts).IsSuccess)
                 {

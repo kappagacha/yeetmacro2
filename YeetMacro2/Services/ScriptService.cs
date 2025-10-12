@@ -256,13 +256,26 @@ public class JsToDotNetConverter(Engine engine) : DefaultTypeConverter(engine)
 
             var opts = JsonSerializer.Deserialize<PollPatternFindOptions>(JsonSerializer.Serialize(filteredDict));
 
-            opts.PredicatePattern = dict.ContainsKey("PredicatePattern") ? (OneOf<PatternNode, PatternNode[]>?)ToOneOfPatternNode(dict["PredicatePattern"]) : null;
-            opts.ClickPattern = dict.ContainsKey("ClickPattern") ? (OneOf<PatternNode, PatternNode[]>?)ToOneOfPatternNode(dict["ClickPattern"]) : null;
-            opts.ClickPredicatePattern = dict.ContainsKey("ClickPredicatePattern") ? (OneOf<PatternNode, PatternNode[]>?)ToOneOfPatternNode(dict["ClickPredicatePattern"]) : null;
-            opts.SwipePattern = dict.ContainsKey("SwipePattern") ? ToOneOfPatternNode(dict["SwipePattern"]).AsT0 : null;
-            opts.InversePredicatePattern = dict.ContainsKey("InversePredicatePattern") ? (OneOf<PatternNode, PatternNode[]>?)ToOneOfPatternNode(dict["InversePredicatePattern"]) : null;
-            opts.NoOpPattern = dict.ContainsKey("NoOpPattern") ? (OneOf<PatternNode, PatternNode[]>?)ToOneOfPatternNode(dict["NoOpPattern"]) : null;
-            opts.GoBackPattern = dict.ContainsKey("GoBackPattern") ? (OneOf<PatternNode, PatternNode[]>?)ToOneOfPatternNode(dict["GoBackPattern"]) : null;
+            if (dict.ContainsKey("PredicatePattern"))
+                opts.PredicatePattern = (OneOf<PatternNode, PatternNode[]>?)ToOneOfPatternNode(dict["PredicatePattern"]);
+
+            if (dict.ContainsKey("ClickPattern"))
+                opts.ClickPattern = (OneOf<PatternNode, PatternNode[]>?)ToOneOfPatternNode(dict["ClickPattern"]);
+
+            if (dict.ContainsKey("ClickPredicatePattern"))
+                opts.ClickPredicatePattern = (OneOf<PatternNode, PatternNode[]>?)ToOneOfPatternNode(dict["ClickPredicatePattern"]);
+
+            if (dict.ContainsKey("SwipePattern"))
+                opts.SwipePattern = ToOneOfPatternNode(dict["SwipePattern"]).AsT0;
+
+            if (dict.ContainsKey("InversePredicatePattern"))
+                opts.InversePredicatePattern = (OneOf<PatternNode, PatternNode[]>?)ToOneOfPatternNode(dict["InversePredicatePattern"]);
+
+            if (dict.ContainsKey("NoOpPattern"))
+                opts.NoOpPattern = (OneOf<PatternNode, PatternNode[]>?)ToOneOfPatternNode(dict["NoOpPattern"]);
+
+            if (dict.ContainsKey("GoBackPattern"))
+                opts.GoBackPattern = (OneOf<PatternNode, PatternNode[]>?)ToOneOfPatternNode(dict["GoBackPattern"]);
 
             // Set Callback directly without serialization
             opts.Callback = callback;
