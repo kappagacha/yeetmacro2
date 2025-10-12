@@ -8,12 +8,12 @@
   "supportsGreaterHeight": false,
   "package": "com.GentleManiac.HorizonWalkerGoogle",
   "source": "online:horizonWalker",
-  "macroSetLastUpdated": "2025-10-07T20:47:47.35086-05:00",
-  "patternsLastUpdated": "2025-10-07T20:47:47.3515186-05:00",
-  "scriptsLastUpdated": "2025-10-07T20:47:47.3515862-05:00",
-  "settingsLastUpdated": "2025-10-07T20:47:47.3516166-05:00",
-  "dailyTemplateLastUpdated": "2025-10-07T20:47:47.351785-05:00",
-  "weeklyTemplateLastUpdated": "2025-10-07T20:47:47.3518658-05:00",
+  "macroSetLastUpdated": "2025-10-12T18:36:43.1549839-05:00",
+  "patternsLastUpdated": "2025-10-12T18:36:43.1566318-05:00",
+  "scriptsLastUpdated": "2025-10-12T18:36:43.1567489-05:00",
+  "settingsLastUpdated": "2025-10-12T18:36:43.1567812-05:00",
+  "dailyTemplateLastUpdated": "2025-10-12T18:36:43.1568119-05:00",
+  "weeklyTemplateLastUpdated": "2025-10-12T18:36:43.1568383-05:00",
   "description": null,
   "dailyResetUtcHour": 1,
   "weeklyStartDay": "Monday",
@@ -24,5 +24,5 @@
     "y": 1080
   },
   "dailyTemplate": "{\n  \u0022claimTribute\u0022: {\n    \u0022count\u0022: 0\n  },\n  \u0022doStageWish\u0022: {\n    \u0022done\u0022: false\n  },\n  \u0022doStageBounty\u0022: {\n    \u0022done\u0022: false\n  },\n  \u0022doDailyShop\u0022: {\n    \u0022done\u0022: false\n  },\n  \u0022claimDailyChecklist\u0022: {\n    \u0022done\u0022: false\n  },\n  \u0022sweepEvent\u0022: {\n    \u0022done\u0022: false\n  },\n  \u0022claimInbox\u0022: {\n    \u0022done\u0022: false\n  }\n}",
-  "weeklyTemplate": "{}"
+  "weeklyTemplate": "{\n  \u0022doRiftExplore\u0022: {\n    \u0022fire\u0022: false,\n    \u0022frost\u0022: false,\n    \u0022nightmare\u0022: false,\n    \u0022everchange\u0022: false,\n    \u0022done\u0022: false,\n    \u0022bloodPit\u0022: false\n  }\n}"
 }
