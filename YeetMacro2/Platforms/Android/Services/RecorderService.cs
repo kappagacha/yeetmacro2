@@ -21,6 +21,7 @@ public class RecorderService : IRecorderService, IDisposable
     int _resultCode;
     bool _isRecording;
     bool _recorderStarted; // Track if MediaRecorder.Start() was successfully called
+    bool _isStoppingFromCallback; // Track if we're stopping due to MediaProjection callback
     public const int REQUEST_MEDIA_PROJECTION = 3;
     public bool IsInitialized => _resultCode == (int)global::Android.App.Result.Ok;
     MediaProjectionCallback _mediaProjectionCallback;
@@ -165,6 +166,7 @@ public class RecorderService : IRecorderService, IDisposable
 
             _virtualDisplay = _mediaProjection.CreateVirtualDisplay("ScreenRecord", width, height, density, (DisplayFlags)VirtualDisplayFlags.AutoMirror, _mediaRecorder.Surface, null, null);
             ServiceHelper.LogService?.LogDebug("RecorderService: VirtualDisplay created");
+
             _isRecording = true;
 
             // Android 14 does not allow reusing media projection tokens
@@ -173,7 +175,7 @@ public class RecorderService : IRecorderService, IDisposable
                 _resultCode = 0;
             }
 
-            ServiceHelper.LogService?.LogDebug("RecorderService recording started");
+            ServiceHelper.LogService?.LogDebug($"RecorderService recording started - MediaProjection valid: {_mediaProjection != null}, VirtualDisplay valid: {_virtualDisplay != null}");
         }
         catch (Exception ex)
         {
@@ -185,7 +187,7 @@ public class RecorderService : IRecorderService, IDisposable
 
     public void StopRecording()
     {
-        ServiceHelper.LogService?.LogDebug($"RecorderService StopRecording called: _isRecording={_isRecording}, _recorderStarted={_recorderStarted}, _mediaRecorder={(_mediaRecorder != null ? "not null" : "null")}");
+        ServiceHelper.LogService?.LogDebug($"RecorderService StopRecording called: _isRecording={_isRecording}, _recorderStarted={_recorderStarted}, _mediaRecorder={(_mediaRecorder != null ? "not null" : "null")}, _isStoppingFromCallback={_isStoppingFromCallback}");
 
         if (!_isRecording)
         {
@@ -272,19 +274,43 @@ public class RecorderService : IRecorderService, IDisposable
         }
 
         // Clean up media projection
+        // Unregister callback first to prevent recursive calls
         try
         {
-            if (_mediaProjection != null)
+            if (_mediaProjection != null && _mediaProjectionCallback != null)
             {
-                ServiceHelper.LogService?.LogDebug("RecorderService: Stopping media projection");
-                _mediaProjection.Stop();
-                ServiceHelper.LogService?.LogDebug("RecorderService: Media projection stopped successfully");
+                ServiceHelper.LogService?.LogDebug("RecorderService: Unregistering MediaProjection callback");
+                _mediaProjection.UnregisterCallback(_mediaProjectionCallback);
+                ServiceHelper.LogService?.LogDebug("RecorderService: MediaProjection callback unregistered successfully");
             }
         }
         catch (Exception ex)
         {
-            ServiceHelper.LogService?.LogDebug($"RecorderService StopRecording: Error stopping media projection - {ex.Message}");
+            ServiceHelper.LogService?.LogDebug($"RecorderService StopRecording: Error unregistering callback - {ex.Message}");
             ServiceHelper.LogService?.LogException(ex);
+        }
+
+        // Only stop media projection if we're not being called from the callback
+        if (!_isStoppingFromCallback)
+        {
+            try
+            {
+                if (_mediaProjection != null)
+                {
+                    ServiceHelper.LogService?.LogDebug("RecorderService: Stopping media projection");
+                    _mediaProjection.Stop();
+                    ServiceHelper.LogService?.LogDebug("RecorderService: Media projection stopped successfully");
+                }
+            }
+            catch (Exception ex)
+            {
+                ServiceHelper.LogService?.LogDebug($"RecorderService StopRecording: Error stopping media projection - {ex.Message}");
+                ServiceHelper.LogService?.LogException(ex);
+            }
+        }
+        else
+        {
+            ServiceHelper.LogService?.LogDebug("RecorderService: Skipping media projection Stop() call - already stopped by callback");
         }
 
         try
@@ -304,6 +330,7 @@ public class RecorderService : IRecorderService, IDisposable
         finally
         {
             _mediaProjection = null;
+            _isStoppingFromCallback = false; // Reset flag
         }
 
         ServiceHelper.LogService?.LogDebug("RecorderService: Recording stopped completely");
@@ -313,6 +340,7 @@ public class RecorderService : IRecorderService, IDisposable
     {
         ServiceHelper.LogService?.LogDebug($"RecorderService: MediaProjection callback stopped - Current state: _isRecording={_isRecording}, _recorderStarted={_recorderStarted}");
         _resultCode = 0;
+        _isStoppingFromCallback = true; // Set flag to prevent calling Stop() on MediaProjection
         StopRecording();
     }
 

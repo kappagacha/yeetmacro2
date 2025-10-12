@@ -43,7 +43,6 @@ public class ForegroundService : Service
                     // TypeNone is prohibited on API 35+
                     if (!hasMediaProjection)
                     {
-                        ServiceHelper.LogService?.LogDebug("Cannot start foreground service without MediaProjection permission on Android 35+");
                         StopSelf();
                         return StartCommandResult.NotSticky;
                     }
