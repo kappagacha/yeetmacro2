@@ -155,6 +155,8 @@
                 <Button Text="Clear Archive Logs" FontAttributes="Bold" TextColor="White" BackgroundColor="Red" Command="{Binding ClearArchivedLogsCommand}"/>
                 <Button Text="Load Logs" FontAttributes="Bold" Command="{Binding LoadLogsCommand}"/>
                 <Button Text="Clear Logs" FontAttributes="Bold" TextColor="White" BackgroundColor="Red" Command="{Binding ClearLogsCommand}"/>
+                <Button Text="Export to Clipboard" FontAttributes="Bold" Command="{Binding ExportAllLogsToClipboardCommand}"/>
+                <Button Text="Export to File" FontAttributes="Bold" Command="{Binding ExportAllLogsToFileCommand}"/>
             </FlexLayout>
             <ScrollView Grid.Row="2" >
                 <CollectionView ItemsSource="{Binding Logs}" HorizontalOptions="Fill"  VerticalOptions="Fill"

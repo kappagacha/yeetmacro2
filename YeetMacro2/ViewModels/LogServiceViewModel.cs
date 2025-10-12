@@ -285,6 +285,91 @@ public partial class LogServiceViewModel(IRepository<Log> _logRepository, IMappe
         await Clipboard.Default.SetTextAsync(log.Message);
         _toastService.Show($"Copied message to clipboard: {log.Message}");
     }
+
+    [RelayCommand]
+    public async Task ExportAllLogsToClipboard()
+    {
+        var allLogs = CollectAllLogMessages();
+        await Clipboard.Default.SetTextAsync(allLogs);
+        _toastService.Show("Exported all logs to clipboard");
+    }
+
+    [RelayCommand]
+    public async Task ExportAllLogsToFile()
+    {
+#if ANDROID
+        // https://stackoverflow.com/questions/75880663/maui-on-android-listing-folder-contents-of-an-sd-card-and-writing-in-it
+        if (OperatingSystem.IsAndroidVersionAtLeast(30) && !Android.OS.Environment.IsExternalStorageManager)
+        {
+            var intent = new Android.Content.Intent();
+            intent.SetAction(Android.Provider.Settings.ActionManageAppAllFilesAccessPermission);
+            Android.Net.Uri uri = Android.Net.Uri.FromParts("package", Platform.CurrentActivity.PackageName, null);
+            intent.SetData(uri);
+            Platform.CurrentActivity.StartActivity(intent);
+            return;
+        }
+        else if (!OperatingSystem.IsAndroidVersionAtLeast(30) && await Permissions.RequestAsync<Permissions.StorageWrite>() != PermissionStatus.Granted)
+        {
+            return;
+        }
+#endif
+
+        var defaultFolder = Environment.GetFolderPath(Environment.SpecialFolder.Desktop);
+
+#if ANDROID
+        defaultFolder = Android.OS.Environment.GetExternalStoragePublicDirectory(Android.OS.Environment.DirectoryDocuments).AbsolutePath;
+#endif
+
+        var allLogs = CollectAllLogMessages();
+        var fileName = $"logs_{DateTime.Now:yyyyMMdd_HHmmss}.txt";
+
+        using var stream = new MemoryStream(System.Text.Encoding.UTF8.GetBytes(allLogs));
+
+        var fileSaverResult = await FileSaver.Default.SaveAsync(defaultFolder, fileName, stream);
+        if (fileSaverResult.IsSuccessful)
+        {
+            _toastService.Show($"Exported logs to {fileName}");
+        }
+        else
+        {
+            _toastService.Show($"Failed to export logs: {fileSaverResult.Exception.Message}");
+        }
+    }
+
+    private string CollectAllLogMessages()
+    {
+        var logMessages = new System.Text.StringBuilder();
+        var sortedLogs = Logs.OrderBy(l => l.Timestamp).ToList();
+        foreach (var log in sortedLogs)
+        {
+            AppendLogMessage(logMessages, log, 0);
+        }
+        return logMessages.ToString();
+    }
+
+    private void AppendLogMessage(System.Text.StringBuilder sb, Log log, int indent)
+    {
+        var indentString = new string(' ', indent * 2);
+        var timestamp = new DateTime(log.Timestamp);
+        sb.AppendLine($"{indentString}[{timestamp:yyyy-MM-dd HH:mm:ss}] {log.Message}");
+
+        if (log is ExceptionLog exLog && exLog.Logs?.Count > 0)
+        {
+            var sortedSubLogs = exLog.Logs.OrderBy(l => l.Timestamp).ToList();
+            foreach (var subLog in sortedSubLogs)
+            {
+                AppendLogMessage(sb, subLog, indent + 1);
+            }
+        }
+        else if (log is ScriptLog sLog && sLog.Logs?.Count > 0)
+        {
+            var sortedSubLogs = sLog.Logs.OrderBy(l => l.Timestamp).ToList();
+            foreach (var subLog in sortedSubLogs)
+            {
+                AppendLogMessage(sb, subLog, indent + 1);
+            }
+        }
+    }
 }
 
 [ObservableObject]
