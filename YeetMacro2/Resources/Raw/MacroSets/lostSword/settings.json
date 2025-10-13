@@ -7,7 +7,7 @@
     "lastRun": {
       "$type": "timestamp",
       "$defaultValue": "0001-01-01T00:00:00+00:00",
-      "$value": "2025-08-13T04:12:40.02+00:00",
+      "$value": "2025-10-13T03:43:12.686+00:00",
       "$position": 0,
       "$name": "lastRun",
       "$path": "doColosseum.lastRun"
@@ -198,13 +198,13 @@
       "$name": "doBossRaid",
       "$path": "doDailies.doBossRaid"
     },
-    "doColoseum": {
+    "doColosseum": {
       "$type": "boolean",
       "$defaultValue": true,
       "$value": true,
       "$position": 0,
-      "$name": "doColoseum",
-      "$path": "doDailies.doColoseum"
+      "$name": "doColosseum",
+      "$path": "doDailies.doColosseum"
     },
     "doStonehenge": {
       "$type": "boolean",
@@ -271,7 +271,7 @@
     "lastRun": {
       "$type": "timestamp",
       "$defaultValue": "0001-01-01T00:00:00+00:00",
-      "$value": "2025-08-13T04:00:35.796+00:00",
+      "$value": "2025-10-13T03:40:23.88+00:00",
       "$position": 0,
       "$name": "lastRun",
       "$path": "claimTreasureExploration.lastRun"

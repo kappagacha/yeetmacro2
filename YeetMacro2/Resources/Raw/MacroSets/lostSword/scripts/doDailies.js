@@ -44,8 +44,8 @@ if (settings.doDailies.doBossRaid.Value) {
     goToLobby();
 }
 
-if (settings.doDailies.doColoseum.Value) {
-    doColoseum();
+if (settings.doDailies.doColosseum.Value) {
+    doColosseum();
     goToLobby();
 }
 
