@@ -13652,6 +13652,46 @@
           "$name": "current",
           "$path": "event.eventStage.currency.current"
         },
+        "gold": {
+          "$patterns": [
+            {
+              "rawBounds": {
+                "x": 1742.25,
+                "y": 661.25,
+                "width": 137.5,
+                "height": 223.5
+              },
+              "resolution": {
+                "width": 1920,
+                "height": 1080
+              },
+              "type": "Normal",
+              "swipeDirection": "Auto",
+              "name": "pattern",
+              "imageData": "/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDAAEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQH/2wBDAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQH/wAARCAAXABgDASIAAhEBAxEB/8QAGQABAQEAAwAAAAAAAAAAAAAAAAgGBAcK/8QAJRAAAgMAAgICAgIDAAAAAAAAAQMCBAUGEQAHEhMUIQgjFVGB/8QAGQEAAgMBAAAAAAAAAAAAAAAAAwUEBwgJ/8QAIxEAAwACAQQCAwEAAAAAAAAAAQIDBBEhAAUSE0FRIjEycf/aAAwDAQACEQMRAD8A9SHtShav53C/X1Lcv8e5FW0M/mkNGjTb/jbFXJZXvaXH9/YW5K6JvRMKyadn5/k/3RCz8DE8Cjnyv8W51xbmy8LcwtjMbbXhOs1rVHW0ESV+NTsrnGaguUu5kyXMRMO/j/qTuV/yHkmpV1ON8e5R7HTY17uNou4qivalj3s9y0W1aR0bdGUAtjJAlX3A/Cfxl10TnaPvXY1NzPyT695xmpvCRns6FTNhl0SD+xbanSa2HQEj1BMyOuiO/OFz9xolhmSxmTHhG+PCV89VouPPFGGkLhDj5NDjxnFUDeJf0jhgx613PtVmQqzjdCtSwRR4WWgpRpEkmYegZiD5MpZmQqSNUt6d1N/2ZSjU2W8Wx+XYhlT51kYW1T0sviWoiR7ybNqvBC0WRSNRiqzU15zZYWuMR84kvJ4sc6y35m3RqtXQq8kDXaNvIEc+1dtSiFwvvs1RXfatJmpbAywyUp/TCE5GA6DxfDN7MFc5OG3uaruQ9rlEVipEopASKTQg+Iq1aEEA0YLskt23ub03Gk4SCqFRYez6JJajbHJChRvSgEktvUpewveVfhHHtHZcQo/Z9dSH4zmJZqW/n+LB8K8fmVtcAGz7AA7MmR/R86J9VfyG0N8a2NqPpi4qc9PLVRqX1Mjntl8rguPfNqWMFx4+gLMTFHUZRnIGXjx4fD7bjV7NfKcMan3Hf46BgIsmtoSP7YNogkEjY2d2HLDxxi2f1gsjJ4kk8aKLrjQIIYkg7G9H4HW7uexzMlbJTEBMkSEZ/wBZPXUwBH/pABJA6H7P7ePHiAom+UDcD+i3HA4GmHH+7+fvqYmNIqNArwDwF/ZCknlT8/Wh1//Z",
+              "variancePct": 20,
+              "textMatch": {
+                "isActive": false,
+                "text": null,
+                "whiteList": null
+              },
+              "colorThreshold": {
+                "isActive": false,
+                "variancePct": 30,
+                "color": null,
+                "imageData": "",
+                "ignoreBackground": false
+              },
+              "offsetCalcType": "DockRight",
+              "boundsCalcType": "Default",
+              "position": 0
+            }
+          ],
+          "$isMultiPattern": false,
+          "$position": 0,
+          "$name": "gold",
+          "$path": "event.eventStage.currency.gold"
+        },
         "amount": {
           "$patterns": [
             {
@@ -13778,10 +13818,10 @@
       "$patterns": [
         {
           "rawBounds": {
-            "x": 1360.25,
-            "y": 735.25,
-            "width": 59.5,
-            "height": 30.5
+            "x": 1171.25,
+            "y": 681.25,
+            "width": 707,
+            "height": 202.5
           },
           "resolution": {
             "width": 1920,
@@ -13798,10 +13838,10 @@
             "whiteList": null
           },
           "colorThreshold": {
-            "isActive": false,
+            "isActive": true,
             "variancePct": 30,
-            "color": null,
-            "imageData": "",
+            "color": "#fffffef8",
+            "imageData": "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",
             "ignoreBackground": false
           },
           "offsetCalcType": "DockRight",

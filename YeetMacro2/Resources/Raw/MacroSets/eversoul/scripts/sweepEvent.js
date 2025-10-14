@@ -68,13 +68,17 @@ while (macroService.IsRunning) {
 
 				macroService.PollPattern(patterns.event.eventStage.firstStage.play, { DoClick: true, PredicatePattern: patterns.event.eventStage.firstStage.selected });
 
-				macroService.PollPattern(patterns.event.eventStage.currency, { DoClick: true, PredicatePattern: patterns.event.eventStage.currency.current });
+
+				let goldResult = macroService.FindPattern(patterns.event.eventStage.currency.gold);
+				macroService.PollPattern(patterns.event.eventStage.currency, { DoClick: true, ClickOffset: { X: goldResult.IsSuccess ? -150 : 0 }, PredicatePattern: patterns.event.eventStage.currency.current });
+
 				const firstStageCurrencyAmount = macroService.FindText(patterns.event.eventStage.currency.amount).replace(/[,.]/g, '');
 				macroService.PollPattern(patterns.event.eventStage.currency.current, { DoClick: true, PredicatePattern: patterns.general.back, ClickOffset: { X: -200 } });
 
 				macroService.PollPattern(patterns.event.eventStage.secondStage.play, { DoClick: true, PredicatePattern: patterns.event.eventStage.secondStage.selected });
 
-				macroService.PollPattern(patterns.event.eventStage.currency, { DoClick: true, PredicatePattern: patterns.event.eventStage.currency.current });
+				goldResult = macroService.FindPattern(patterns.event.eventStage.currency.gold);
+				macroService.PollPattern(patterns.event.eventStage.currency, { DoClick: true, ClickOffset: { X: goldResult.IsSuccess ? -150 : 0 }, PredicatePattern: patterns.event.eventStage.currency.current });
 				const secondStageCurrencyAmount = macroService.FindText(patterns.event.eventStage.currency.amount).replace(/[,.]/g, '');
 				macroService.PollPattern(patterns.event.eventStage.currency.current, { DoClick: true, PredicatePattern: patterns.general.back, ClickOffset: { X: -200 } });
 
