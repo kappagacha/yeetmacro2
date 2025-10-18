@@ -7,17 +7,22 @@ function doSurveyHub(targetNumBattles = 0) {
 	const daily = dailyManager.GetCurrentDaily();
 	const teamSlot = settings.doSurveyHub.teamSlot.Value;
 	const descendingPriority = settings.doSurveyHub.descendingPriority.Value;
+	let currentStaminaValue;
 
 	if (targetNumBattles && daily.doSurveyHub.count.Count >= targetNumBattles) {
 		return;
 	}
 
-	let currentStamina;
 	while (macroService.IsRunning) {
 		const loopResult = macroService.PollPattern(loopPatterns, { ClickPattern: patterns.adventure.doNotSeeFor3days });
 		switch (loopResult.Path) {
 			case 'lobby.level':
 				logger.info('doSurveyHub: click adventure tab');
+
+				currentStaminaValue = getCurrentStaminaValue();
+				if (currentStaminaValue < 10) {
+					return;
+				}
 				macroService.ClickPattern(patterns.tabs.adventure);
 				sleep(500);
 				break;
@@ -25,10 +30,6 @@ function doSurveyHub(targetNumBattles = 0) {
 				logger.info('doSurveyHub: go to survey hub');
 				macroService.PollPattern(patterns.adventure.adventure, { DoClick: true, PredicatePattern: patterns.adventure.surveyHub });
 				sleep(500);
-				currentStamina = macroService.FindText(patterns.general.staminaValue);
-				if (currentStamina < 10) {
-					return;
-				}
 				macroService.PollPattern(patterns.adventure.surveyHub, { DoClick: true, PredicatePattern: patterns.titles.shop });
 				sleep(500);
 				break;
@@ -38,6 +39,11 @@ function doSurveyHub(targetNumBattles = 0) {
 				break;
 			case 'surveyHub.rewardInfo':
 				logger.info('doSurveyHub: find entry');
+				currentStaminaValue = getCurrentStaminaValue();
+				if (currentStaminaValue < 10) {
+					return;
+				}
+
 				let selectTeamResult;
 
 				if (descendingPriority) {
@@ -46,7 +52,7 @@ function doSurveyHub(targetNumBattles = 0) {
 					sleep(1000);
 					const rightArrowResult = macroService.PollPattern(patterns.surveyHub.rewardInfo.rightArrow, { Limit: 6 });
 					const minY = rightArrowResult.Points.reduce((minY, p) => (minY = minY < p.Y ? minY : p.Y), 10_000);
-					const topRightArrow = macroService.ClonePattern(patterns.surveyHub.rewardInfo.rightArrow, { CenterY: minY, Height: 60.0 });
+					const topRightArrow = macroService.ClonePattern(patterns.surveyHub.rewardInfo.rightArrow, { CenterY: minY, Height: 60.0, PathSuffix: `_${minY}y` });
 					macroService.PollPattern(topRightArrow, { DoClick: true, PredicatePattern: patterns.surveyHub.selectTeam });
 					selectTeamResult = macroService.PollPattern(patterns.surveyHub.selectTeam, { DoClick: true, PredicatePattern: [patterns.battle.enter, patterns.battle.restore] });
 				} else {
@@ -56,7 +62,7 @@ function doSurveyHub(targetNumBattles = 0) {
 					sleep(1000);
 					const rightArrowResult = macroService.PollPattern(patterns.surveyHub.rewardInfo.rightArrow, { Limit: 6 });
 					const maxY = rightArrowResult.Points.reduce((maxY, p) => (maxY = maxY > p.Y ? maxY : p.Y), 0);
-					const bottomRightArrow = macroService.ClonePattern(patterns.surveyHub.rewardInfo.rightArrow, { CenterY: maxY, Height: 60.0 });
+					const bottomRightArrow = macroService.ClonePattern(patterns.surveyHub.rewardInfo.rightArrow, { CenterY: maxY, Height: 60.0, PathSuffix: `_${maxY}y` });
 					macroService.PollPattern(bottomRightArrow, { DoClick: true, PredicatePattern: patterns.surveyHub.selectTeam });
 					selectTeamResult = macroService.PollPattern(patterns.surveyHub.selectTeam, { DoClick: true, PredicatePattern: [patterns.battle.enter, patterns.battle.restore] });
 				}
@@ -76,8 +82,8 @@ function doSurveyHub(targetNumBattles = 0) {
 				}
 
 				sleep(500);
-				currentStamina = macroService.FindText(patterns.general.staminaValue);
-				if (currentStamina < 10) {
+				currentStaminaValue = getCurrentStaminaValue();
+				if (currentStaminaValue < 10) {
 					return;
 				}
 
