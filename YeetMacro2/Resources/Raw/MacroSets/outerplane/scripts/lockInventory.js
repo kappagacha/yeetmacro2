@@ -67,7 +67,12 @@ outerLoop: while ((Math.abs(lastSelectedResult.Point.X - selectedResult.Point.X)
         const numRedStars = redStarResult.Points?.map(p => p).length || 0;
 
         const numStars = numYellowStars + numRedStars;
-        if (![0, 6].includes(numStars) && !isLastItem) continue;
+
+        // If number of stars is not 6, stop processing
+        if (numStars !== 6) {
+            macroService.IsRunning = false;
+            break;
+        }
 
         const selectedPattern = macroService.ClonePattern(patterns.inventory.selected, { OffsetCalcType: 'None', CenterX: item.X, CenterY: item.Y, Width: 50, Height: 50, PathSuffix: `_${item.X}x${item.Y}y` });
         macroService.PollPoint({ X: item.X + 60, Y: item.Y - 60 }, { PredicatePattern: selectedPattern });
@@ -134,18 +139,8 @@ outerLoop: while ((Math.abs(lastSelectedResult.Point.X - selectedResult.Point.X)
                 // unlock the forth stat
                 macroService.PollPattern(patterns.inventory.enhance, { DoClick: true, PredicatePattern: patterns.titles.improveGear });
                 macroService.PollPattern(patterns.inventory.improveGear.reforge, { DoClick: true, PredicatePattern: patterns.inventory.improveGear.reforge.reforge });
-                let redStarResult = macroService.FindPattern(patterns.inventory.improveGear.reforge.redStar);
-                while (!redStarResult.IsSuccess) {
-                    macroService.ClickPattern(patterns.inventory.improveGear.reforge.reforge);
-                    sleep(4_000);
-                    redStarResult = macroService.FindPattern(patterns.inventory.improveGear.reforge.redStar);
-                }
-
-                let improveGearTitleResult = macroService.FindPattern(patterns.titles.improveGear);
-                while (improveGearTitleResult.IsSuccess) {
-                    macroService.ClickPattern(patterns.general.back);
-                    improveGearTitleResult = macroService.FindPattern(patterns.titles.improveGear);
-                }
+                macroService.PollPattern(patterns.inventory.improveGear.reforge.reforge, { DoClick: true, IntervalDelayMs: 4_000, PrimaryClickInversePredicatePattern: patterns.inventory.improveGear.reforge.redStar, PredicatePattern: patterns.inventory.improveGear.reforge.redStar });
+                macroService.PollPattern(patterns.general.back, { DoClick: true, PrimaryClickPredicatePattern: patterns.titles.improveGear, PredicatePattern: patterns.titles.inventory });
 
                 // start the outer while loop over
                 selectedResult = macroService.PollPattern(patterns.inventory.selected);

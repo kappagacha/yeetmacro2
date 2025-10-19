@@ -19,8 +19,8 @@ function cleanStatName(stat) {
     if (stat.match(/He[ae]ls?\s+when\s+h/i)) {
         return 'Heals when hit';
     }
-    // Health OCR errors (Heellh, Heaith, Healln, Healrh, Heann, Heanh, Hean'n, Heah'h, Heulrh, Heglln, etc.)
-    if (stat.match(/He[aeg][alnhu]['tlrng]?['hnr]?/i)) {
+    // Health OCR errors (Heellh, Heaith, Healln, Healrh, Heann, Heanh, Hean'n, Heah'h, Heulrh, Heglln, HeeItn, etc.)
+    if (stat.match(/He[aeg][alnhue][Iltrng']*[thrnl']*/i) || lowerCaseStat.startsWith('hee') && (lowerCaseStat.includes('itn') || lowerCaseStat.includes('ltn'))) {
         return 'Health';
     }
     // Crit Dmg OCR errors (Cr Dmg, Cm Dmg, cm Dmg, C'n Dmg, Crn Drng, Cm Dme, etc.)
@@ -31,13 +31,13 @@ function cleanStatName(stat) {
     if (stat.match(/C[rmn]{1,2}\s*D[mrn]{1,2}[egn]{1,2}/i)) {
         return 'Crit Dmg';
     }
-    // Crit Chance OCR errors (Cm Chan, Cri Chan, Cm Chen, cm chan, C'n Chan, Cnt Chance, etc.)
-    if ((lowerCaseStat.includes('cm') || lowerCaseStat.includes('cri') || lowerCaseStat.includes('cr') || lowerCaseStat.includes("c'") || lowerCaseStat.includes('cnt')) &&
+    // Crit Chance OCR errors (Cm Chan, Cri Chan, Cm Chen, cm chan, C'n Chan, Cnt Chance, Ctlt Chance, etc.)
+    if ((lowerCaseStat.includes('cm') || lowerCaseStat.includes('cri') || lowerCaseStat.includes('cr') || lowerCaseStat.includes("c'") || lowerCaseStat.includes('cnt') || lowerCaseStat.includes('ctl') || lowerCaseStat.includes('tlt')) &&
         (lowerCaseStat.includes('chan') || lowerCaseStat.includes('chen') || lowerCaseStat.includes('chance'))) {
         return 'Crit Chance';
     }
-    // Accuracy OCR errors (Am"racy, Aeeuracy, Accuracy, Acuracy, Am"lacy, Aeeureey, etc.)
-    if (lowerCaseStat.includes('racy') || lowerCaseStat.includes('lacy') || lowerCaseStat.includes('ccuracy') || lowerCaseStat.includes('ureey') || lowerCaseStat.includes('uracy')) {
+    // Accuracy OCR errors (Am"racy, Aeeuracy, Accuracy, Acuracy, Am"lacy, Aeeureey, Am"may, etc.)
+    if (lowerCaseStat.includes('racy') || lowerCaseStat.includes('lacy') || lowerCaseStat.includes('ccuracy') || lowerCaseStat.includes('ureey') || lowerCaseStat.includes('uracy') || (lowerCaseStat.startsWith('am') && (lowerCaseStat.includes('ay') || lowerCaseStat.includes('may')))) {
         return 'Accuracy';
     }
     // Effectiveness OCR errors (Errecuveness, Effecfiveness, Errecrlver'ess, Errecuvene", etc.)
@@ -239,8 +239,8 @@ if (item.itemType) {
     } else if (item.itemType.match(/Gl[eo]ve/i)) {
         // Handle Gloves OCR errors (Gleves, Gloves, etc.)
         item.itemType = 'Gloves';
-    } else if (item.itemType.match(/Boot/i) || item.itemType.match(/Bool/i) || item.itemType.match(/[BPp]eel/i) || item.itemType.match(/Beet/i)) {
-        // Handle Boots OCR errors (Boots, Bools, Beels, peels, Beets, etc.)
+    } else if (item.itemType.match(/Boot/i) || item.itemType.match(/Bool/i) || item.itemType.match(/[BPp]eel/i) || item.itemType.match(/Beet/i) || item.itemType.match(/Bo[oe][rtse]s/i)) {
+        // Handle Boots OCR errors (Boots, Bools, Beels, peels, Beets, Boors, Boers, Botes, etc.)
         item.itemType = 'Boots';
     }
 
@@ -265,8 +265,8 @@ if (item.itemEffect) {
     // Remove parentheses and everything inside them first
     let cleanedEffect = item.itemEffect.split('(')[0].trim();
 
-    // Remove quotes and apostrophes
-    cleanedEffect = cleanedEffect.replace(/["']+/g, '');
+    // Remove quotes and apostrophes (including Unicode variants)
+    cleanedEffect = cleanedEffect.replace(/["\u0022'\u0027\u2018\u2019\u201C\u201D`\u0060´\u00B4]+/g, '');
 
     // Replace ligatures with normal characters
     cleanedEffect = cleanedEffect.replace(/\uFB01/g, 'fi').replace(/\uFB02/g, 'fl');
@@ -276,21 +276,21 @@ if (item.itemEffect) {
         .replace(/se[rl]/i, 'set')  // Replace sel/ser with set first
         .replace(/C.u[a-z]*[lf]?[ae][cf]k/i, 'Counterattack')  // Handle C°umemflack/C°unleraflack/C°umemfleck/etc variations
         .replace(/Counter?attack/i, 'Counterattack')  // Handle normal Counterattack
-        .replace(/\bA[lfr]?[lr]?[aeg]?[ceg]?k\b/i, 'Attack')  // Handle Allack, Alleek, Allgck, Arrack, etc. (\b is word boundary)
+        .replace(/\bA[lfr]?[lr]?[aeg]?[cegx]?k\b/i, 'Attack')  // Handle Allack, Alleek, Allgck, Arrack, Aflxk, etc. (\b is word boundary)
         .replace(/Defen[cs]e*/i, 'Defense')  // Handle Defense/Defence/Defensee OCR errors
         .replace(/Li[frt]es[lrt]e[ae][lt]/i, 'Lifesteal')  // Handle Lifesleel, Lifesteet, Liresreal, Litesteal, etc.
         .replace(/Life\s*\d*/i, 'Life')  // Handle "Life 5" -> Life
         .replace(/[Ss]peed\s*\d*/i, 'Speed')  // Handle "sPeed 5" -> Speed
         .replace(/Critical\s*H["\s]*/i, 'Critical Hit')  // Handle truncated "Critical H"" OCR error
         .replace(/C[rlnif'"][rlnif]+[cait]+[agl]+\s+[sS][lti'r]+[rlki]+[ke]+e?/i, 'Critical Strike')  // Handle Critical Strike/Crnical srrn'e/Clllcal Sl'lke/Clfical Sllke/Cificgl Sl'ike/Crrrrcal Srrrke OCR errors
-        .replace(/C[rn'"][ritfnl]+[a-z]*\s+H[it"\s]*/i, 'Critical Hit')  // Handle Critical Hit variations like C'ifical H", C'lllcel H"
+        .replace(/C[rn']?[a-z]+\s+H[it"\s]*/i, 'Critical Hit')  // Handle Critical Hit variations like C'ifical H", C'lllcel H", C'lficel H", C'ific'n H", Cificn H"
         .replace(/A[mc"]+[ua]*[rml][au]?cy/i, 'Accuracy')  // Handle Accuracy, Accumcy, Acculacy, Accurcy OCR errors
         .replace(/Ev[ae]s[eilsr][a-z°'lm]+/i, 'Evasion')  // Handle Evasr°n, Evesim', Evasi°n, Evesi°n, Evaslm' OCR errors
         .replace(/E[rf]+[ert]+[ceo]+[utrl]*[vfl][ei]*[vn]+[ea]+[sn"]+/i, 'Effectiveness')  // Handle Effectiveness, Effecfiveness, Errecrlveness, Errecuveness OCR errors
         .replace(/Pene[a-z'°]+/i, 'Penetration')  // Handle Penefrefim', Penerrerr°n, Penefrafim' OCR errors
         .replace(/P[aegfl][atfgnlr]?[ief]?[enrl]+[nc]e/i, 'Patience')  // Handle Pafience/Pefience/Pgfience/Panence/Pallence/Parrence OCR errors
         .replace(/Pulv[a-z°]+n/i, 'Pulverization')  // Handle Pulvetlzatl°n/Pulvenzatl°n/Pulveizati°n OCR errors
-        .replace(/Sw[il][lf][lt]?ness/i, 'Swiftness')  // Handle Swiflness, Swlflness OCR errors
+        .replace(/Sw[il][lft][lt]?ness/i, 'Swiftness')  // Handle Swiflness, Swlflness, Swittness OCR errors
         .replace(/Aug[mn][ea]n[a-z'°]+/i, 'Augmentation')  // Handle Augmenlalmn, Augmenlafim', Augnentatl°n OCR errors
         .replace(/[Il]mmu[nm'u]+[ry]+/i, 'Immunity');  // Handle Immunny, lmmunny, lmmu'ury OCR errors
 
@@ -314,7 +314,7 @@ if (item.itemEffect) {
         item.itemEffect = 'Speed Set';
     } else if (cleanedEffect.toLowerCase().includes('critical strike') || cleanedEffect.toLowerCase().includes('crit strike') || (cleanedEffect.toLowerCase().includes('crnical') || cleanedEffect.toLowerCase().includes('cnical') || cleanedEffect.toLowerCase().includes('lfical') || cleanedEffect.toLowerCase().includes('cfical') || cleanedEffect.toLowerCase().includes('cificgl') || cleanedEffect.toLowerCase().includes('critic')) && (cleanedEffect.toLowerCase().includes('str') || cleanedEffect.toLowerCase().includes('srr') || cleanedEffect.toLowerCase().includes('sll') || cleanedEffect.toLowerCase().includes('sl'))) {
         item.itemEffect = 'Critical Strike Set';
-    } else if (cleanedEffect.toLowerCase().includes('critical hit') || cleanedEffect.toLowerCase().includes('crit hit') || (cleanedEffect.toLowerCase().includes('ifical') && cleanedEffect.toLowerCase().includes('h')) || (cleanedEffect.toLowerCase().includes('lllcel') && cleanedEffect.toLowerCase().includes('h'))) {
+    } else if (cleanedEffect.toLowerCase().includes('critical hit') || cleanedEffect.toLowerCase().includes('crit hit') || (cleanedEffect.toLowerCase().includes('ifical') && cleanedEffect.toLowerCase().includes('h')) || (cleanedEffect.toLowerCase().includes('lllcel') && cleanedEffect.toLowerCase().includes('h')) || (cleanedEffect.toLowerCase().includes('lficel') && cleanedEffect.toLowerCase().includes('h')) || (cleanedEffect.toLowerCase().includes('ificn') && cleanedEffect.toLowerCase().includes('h')) || (cleanedEffect.toLowerCase().match(/c.ific.n\s+h/i))) {
         item.itemEffect = 'Critical Hit Set';
     } else if (cleanedEffect.toLowerCase().includes('accuracy')) {
         item.itemEffect = 'Accuracy Set';
@@ -712,6 +712,6 @@ if (item.totalPoints > 24) {
 // Validate the item
 validateItem(item, rawItem);
 
-// Version: 29
+// Version: 45 - Fixed pattern to properly handle "Boers" OCR variant of "Boots"
 //return { item, rawItem };
 return item;
