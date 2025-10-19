@@ -247,7 +247,8 @@ public class JsToDotNetConverter(Engine engine) : DefaultTypeConverter(engine)
             foreach (var kvp in dict)
             {
                 if (kvp.Key != "Callback" && kvp.Key != "PredicatePattern" && kvp.Key != "ClickPattern" &&
-                    kvp.Key != "ClickPredicatePattern" && kvp.Key != "SwipePattern" &&
+                    kvp.Key != "ClickPredicatePattern" && kvp.Key != "PrimaryClickPredicatePattern" &&
+                    kvp.Key != "PrimaryClickInversePredicatePattern" && kvp.Key != "SwipePattern" &&
                     kvp.Key != "InversePredicatePattern" && kvp.Key != "NoOpPattern" && kvp.Key != "GoBackPattern")
                 {
                     filteredDict[kvp.Key] = kvp.Value;
@@ -264,6 +265,12 @@ public class JsToDotNetConverter(Engine engine) : DefaultTypeConverter(engine)
 
             if (dict.ContainsKey("ClickPredicatePattern"))
                 opts.ClickPredicatePattern = (OneOf<PatternNode, PatternNode[]>?)ToOneOfPatternNode(dict["ClickPredicatePattern"]);
+
+            if (dict.ContainsKey("PrimaryClickPredicatePattern"))
+                opts.PrimaryClickPredicatePattern = (OneOf<PatternNode, PatternNode[]>?)ToOneOfPatternNode(dict["PrimaryClickPredicatePattern"]);
+
+            if (dict.ContainsKey("PrimaryClickInversePredicatePattern"))
+                opts.PrimaryClickInversePredicatePattern = (OneOf<PatternNode, PatternNode[]>?)ToOneOfPatternNode(dict["PrimaryClickInversePredicatePattern"]);
 
             if (dict.ContainsKey("SwipePattern"))
                 opts.SwipePattern = ToOneOfPatternNode(dict["SwipePattern"]).AsT0;

@@ -21,6 +21,10 @@ public class PollPatternFindOptions : ClickPatternFindOptions
     [JsonIgnore]
     public OneOf<PatternNode, PatternNode[]>? ClickPredicatePattern { get; set; }
     [JsonIgnore]
+    public OneOf<PatternNode, PatternNode[]>? PrimaryClickPredicatePattern { get; set; }
+    [JsonIgnore]
+    public OneOf<PatternNode, PatternNode[]>? PrimaryClickInversePredicatePattern { get; set; }
+    [JsonIgnore]
     public PatternNode SwipePattern { get; set; }
     [JsonIgnore]
     public OneOf<PatternNode, PatternNode[]>? InversePredicatePattern { get; set; }
@@ -379,6 +383,8 @@ public class MacroService
         var predicatePattern = opts.PredicatePattern;
         var clickPattern = opts.ClickPattern;
         var clickPredicatePattern = opts.ClickPredicatePattern;
+        var primaryClickPredicatePattern = opts.PrimaryClickPredicatePattern;
+        var primaryClickInversePredicatePattern = opts.PrimaryClickInversePredicatePattern;
         var swipePattern = opts.SwipePattern;
         var intervalDelayMs = opts.SwipePattern is not null && opts.IntervalDelayMs == 1_000 ? 2_000 : opts.IntervalDelayMs;
         var inversePredicatePattern = opts.InversePredicatePattern;
@@ -427,7 +433,10 @@ public class MacroService
                     break;
                 }
                 result = this.FindPattern(oneOfPattern, opts);
-                if (opts.DoClick && result.IsSuccess)
+                var shouldClickPrimary = opts.DoClick && result.IsSuccess &&
+                    (primaryClickPredicatePattern is null || this.FindPattern(primaryClickPredicatePattern.Value).IsSuccess) &&
+                    (primaryClickInversePredicatePattern is null || !this.FindPattern(primaryClickInversePredicatePattern.Value).IsSuccess);
+                if (shouldClickPrimary)
                 {
                     successResult = result;
                     var point = result.Point;
@@ -473,7 +482,10 @@ public class MacroService
                     break;
                 }
                 result = this.FindPattern(oneOfPattern, opts);
-                if (opts.DoClick && result.IsSuccess)
+                var shouldClickPrimary = opts.DoClick && result.IsSuccess &&
+                    (primaryClickPredicatePattern is null || this.FindPattern(primaryClickPredicatePattern.Value).IsSuccess) &&
+                    (primaryClickInversePredicatePattern is null || !this.FindPattern(primaryClickInversePredicatePattern.Value).IsSuccess);
+                if (shouldClickPrimary)
                 {
                     successResult = result;
                     var point = result.Point;
@@ -510,7 +522,10 @@ public class MacroService
                 }
 
                 result = this.FindPattern(oneOfPattern, opts);
-                if (opts.DoClick && result.IsSuccess)
+                var shouldClickPrimary = opts.DoClick && result.IsSuccess &&
+                    (primaryClickPredicatePattern is null || this.FindPattern(primaryClickPredicatePattern.Value).IsSuccess) &&
+                    (primaryClickInversePredicatePattern is null || !this.FindPattern(primaryClickInversePredicatePattern.Value).IsSuccess);
+                if (shouldClickPrimary)
                 {
                     var point = result.Point;
                     this.DoClick(point.Offset(clickOffsetX, clickOffsetY), opts.HoldDurationMs);
