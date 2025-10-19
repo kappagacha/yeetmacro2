@@ -57,7 +57,7 @@ while (macroService.IsRunning) {
 			macroService.PollPattern(patterns.stage.riftExplore.region, { DoClick: true, PredicatePattern: patterns.battle.deploy });
 			macroService.PollPattern(patterns.battle.deploy, { DoClick: true, ClickPattern: patterns.battle.skip, PredicatePattern: patterns.battle.next });
 			let nextResult = macroService.PollPattern(patterns.battle.next, { DoClick: true, PredicatePattern: patterns.battle.nextFloor });
-			while (macroService.IsRunning && nextResult.PredicatePattern === 'battle.nextFloor') {
+			while (macroService.IsRunning && nextResult.PredicatePath === 'battle.nextFloor') {
 				macroService.PollPattern(patterns.battle.nextFloor, { DoClick: true, ClickPattern: patterns.battle.skip, PredicatePattern: patterns.battle.next });
 				nextResult = macroService.PollPattern(patterns.battle.next, { DoClick: true, PredicatePattern: [patterns.battle.nextFloor, patterns.battle.complete] });
 			}
