@@ -198,14 +198,6 @@
       "$name": "doBossRaid",
       "$path": "doDailies.doBossRaid"
     },
-    "doColosseum": {
-      "$type": "boolean",
-      "$defaultValue": true,
-      "$value": true,
-      "$position": 0,
-      "$name": "doColosseum",
-      "$path": "doDailies.doColosseum"
-    },
     "doStonehenge": {
       "$type": "boolean",
       "$defaultValue": true,
@@ -261,6 +253,14 @@
       "$position": 0,
       "$name": "claimDailyMissions",
       "$path": "doDailies.claimDailyMissions"
+    },
+    "doColosseum": {
+      "$type": "boolean",
+      "$defaultValue": true,
+      "$value": true,
+      "$position": 0,
+      "$name": "doColosseum",
+      "$path": "doDailies.doColosseum"
     }
   },
   "claimTreasureExploration": {
