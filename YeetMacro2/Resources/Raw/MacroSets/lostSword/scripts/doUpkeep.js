@@ -8,8 +8,8 @@ if (settings.doUpkeep.claimTreasureExploration.Value) {
     goToLobby();
 }
 
-if (settings.doUpkeep.doColoseum.Value) {
-    doColoseum();
+if (settings.doUpkeep.doColosseum.Value) {
+    doColosseum();
     goToLobby();
 }
 
