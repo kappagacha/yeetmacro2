@@ -2,6 +2,11 @@
 // @position=0
 const loopPatterns = [patterns.lobby, patterns.battle.title, patterns.labyrinth.title, patterns.labyrinth.complete];
 
+const weekly = weeklyManager.GetCurrentWeekly();
+if (weekly.doLabyrinth.done.IsChecked) {
+	return "Script already completed. Uncheck done to override weekly flag.";
+}
+
 while (macroService.IsRunning) {
 	const loopResult = macroService.PollPattern(loopPatterns);
 	switch (loopResult.Path) {
@@ -17,6 +22,8 @@ while (macroService.IsRunning) {
 			doLabyrinthNode();
 			break;
 		case 'labyrinth.complete':
+			if (macroService.IsRunning) weekly.doLabyrinth.done.IsChecked = true;
+
 			return "Labyrinth complete";
 	}
 	sleep(1_000);
@@ -43,8 +50,6 @@ function doLabyrinthNode() {
 	const bigNodeLabelResult = macroService.FindPattern(bigNodeLabelPattern);
 	const minotaurosKingPattern = macroService.ClonePattern(patterns.labyrinth.minotaurosKing, minotaurosKingCloneOptions);
 	const minotaurosKingResult = macroService.FindPattern(minotaurosKingPattern);
-	// TODO: handle last node
-
 
 	let nodeResult;
 	if (minotaurosKingResult.IsSuccess) {

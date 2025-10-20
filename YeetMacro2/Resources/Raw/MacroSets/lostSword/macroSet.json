@@ -8,12 +8,12 @@
   "supportsGreaterHeight": false,
   "package": "com.wemadeconnect.aos.lostdgl",
   "source": "online:lostSword",
-  "macroSetLastUpdated": "2025-10-19T17:31:20.739941-05:00",
-  "patternsLastUpdated": "2025-10-19T17:31:20.741483-05:00",
-  "scriptsLastUpdated": "2025-10-19T17:31:20.7415738-05:00",
-  "settingsLastUpdated": "2025-10-19T17:31:20.7416124-05:00",
-  "dailyTemplateLastUpdated": "2025-10-19T17:31:20.7418149-05:00",
-  "weeklyTemplateLastUpdated": "2025-10-19T17:31:20.7418929-05:00",
+  "macroSetLastUpdated": "2025-10-19T22:18:14.7547271-05:00",
+  "patternsLastUpdated": "2025-10-19T22:18:14.7554316-05:00",
+  "scriptsLastUpdated": "2025-10-19T22:18:14.7555192-05:00",
+  "settingsLastUpdated": "2025-10-19T22:18:14.7555659-05:00",
+  "dailyTemplateLastUpdated": "2025-10-19T22:18:14.7556093-05:00",
+  "weeklyTemplateLastUpdated": "2025-10-19T22:18:14.7556474-05:00",
   "description": null,
   "dailyResetUtcHour": 15,
   "weeklyStartDay": "Monday",
@@ -24,5 +24,5 @@
     "y": 1080
   },
   "dailyTemplate": "{\n  \u0022claimFreeSummon\u0022: {\n    \u0022character\u0022: false,\n    \u0022pet\u0022: false,\n    \u0022done\u0022: false,\n    \u0022count\u0022: 0\n  },\n  \u0022claimTreasureExploration\u0022: {\n    \u0022count\u0022: 0\n  },\n  \u0022doShop\u0022: {\n    \u0022freepackage\u0022: false,\n    \u0022done\u0022: false,\n    \u0022eventCoin1\u0022: {\n      \u0022eventTicket\u0022: false,\n      \u0022bossRaidTicket\u0022: false,\n      \u0022rouletteTicket\u0022: false,\n      \u0022done\u0022: false\n    },\n    \u0022eventCoin2\u0022: {\n      \u0022eventTicket\u0022: false,\n      \u0022bossRaidTicket\u0022: false,\n      \u0022rouletteTicket\u0022: false,\n      \u0022done\u0022: false\n    }\n  },\n  \u0022doColosseum\u0022: {\n    \u0022count\u0022: 0\n  },\n  \u0022claimMailbox\u0022: {\n    \u0022done\u0022: false\n  },\n  \u0022doCharacterChat\u0022: {\n    \u0022done\u0022: false\n  },\n  \u0022doBossRaid\u0022: {\n    \u0022done\u0022: false,\n    \u0022entered\u0022: false\n  },\n  \u0022doStonehenge\u0022: {\n    \u0022done\u0022: false\n  },\n  \u0022doGold\u0022: {\n    \u0022done\u0022: false,\n    \u0022started\u0022: false\n  },\n  \u0022doBookOfExperience\u0022: {\n    \u0022done\u0022: false,\n    \u0022started\u0022: false\n  },\n  \u0022doElementalStone\u0022: {\n    \u0022done\u0022: false,\n    \u0022started\u0022: false\n  },\n  \u0022doPartyDungeon\u0022: {\n    \u0022done\u0022: false\n  },\n  \u0022doEvent1\u0022: {\n    \u0022done\u0022: false,\n    \u0022started\u0022: false\n  },\n  \u0022doRoulette\u0022: {\n    \u0022done\u0022: false\n  },\n  \u0022doGuild\u0022: {\n    \u0022donate\u0022: false,\n    \u0022checkIn\u0022: false,\n    \u0022investGold\u0022: false,\n    \u0022investGuildCoin\u0022: false,\n    \u0022done\u0022: false\n  },\n  \u0022claimDailyMissions\u0022: {\n    \u0022done\u0022: false\n  }\n}",
-  "weeklyTemplate": "{}"
+  "weeklyTemplate": "{\n  \u0022doLabyrinth\u0022: {\n    \u0022done\u0022: false\n  },\n  \u0022doGuildAvalon\u0022: {\n    \u0022isiel\u0022: false,\n    \u0022elaia\u0022: false,\n    \u0022sacredTitania\u0022: false,\n    \u0022camelot\u0022: false,\n    \u0022mercia\u0022: false,\n    \u0022tintagel\u0022: false,\n    \u0022done\u0022: false\n  }\n}"
 }
