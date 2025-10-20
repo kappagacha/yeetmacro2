@@ -271,7 +271,7 @@
     "lastRun": {
       "$type": "timestamp",
       "$defaultValue": "0001-01-01T00:00:00+00:00",
-      "$value": "2025-10-13T03:40:23.88+00:00",
+      "$value": "2025-10-20T03:20:10.896+00:00",
       "$position": 0,
       "$name": "lastRun",
       "$path": "claimTreasureExploration.lastRun"
@@ -298,13 +298,13 @@
       "$name": "claimTreasureExploration",
       "$path": "doUpkeep.claimTreasureExploration"
     },
-    "doColoseum": {
+    "doColosseum": {
       "$type": "boolean",
       "$defaultValue": true,
       "$value": true,
       "$position": 0,
-      "$name": "doColoseum",
-      "$path": "doUpkeep.doColoseum"
+      "$name": "doColosseum",
+      "$path": "doUpkeep.doColosseum"
     }
   },
   "doShop": {
