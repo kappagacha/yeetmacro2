@@ -21,8 +21,10 @@ while (macroService.IsRunning) {
 			
 			while (!done) {
 				macroService.PollPattern(patterns.mailbox.normal, { DoClick: true, PredicatePattern: patterns.mailbox.normal.selected });
-				macroService.PollPattern(patterns.mailbox.receive);
+				//macroService.PollPattern(patterns.mailbox.receive);
+				sleep(3_000);
 				const receiveResult = macroService.FindPattern(patterns.mailbox.receive, { Limit: 10 });
+				if (!receiveResult.IsSuccess) break;
 
 				done = true;
 				for (const p of receiveResult.Points) {
