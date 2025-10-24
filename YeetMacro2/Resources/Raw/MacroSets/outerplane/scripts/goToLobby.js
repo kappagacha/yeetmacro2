@@ -18,7 +18,7 @@ logger.info('goToLobby: start');
 //watchAds
 // => patterns.stamina.cancel
 //doSpecialRequests
-// => patterns.challenge.specialRequest.sweepAll.cancel
+// => patterns.challenge.sweepAll.cancel
 //claimEventDailyMissions
 // => patterns.event.close
 
@@ -29,7 +29,7 @@ const clickPatterns = [
 	patterns.battle.exit,
 	patterns.stamina.cancel,
 	patterns.event.close,
-	patterns.challenge.specialRequest.sweepAll.cancel,
+	patterns.challenge.sweepAll.cancel,
 	//patterns.lobby.expedition.searchAgain,
 	patterns.general.tapEmptySpace,
 	patterns.general.exitCheckIn,

@@ -32,19 +32,25 @@ while (macroService.IsRunning) {
 
 			if (!daily.doSpecialRequestsStage13.identification.IsChecked) {
 				logger.info('doSpecialRequestsStage13: doIdentification');
-				macroService.PollPattern(patterns.challenge.identification, { DoClick: true, PredicatePattern: patterns.challenge.enter });
+
+				macroService.PollPattern(patterns.challenge.sweepAll, { DoClick: true, PredicatePattern: patterns.challenge.sweepAll.title });
+				macroService.PollPattern(patterns.challenge.sweepAll.identification, { DoClick: true, PredicatePattern: patterns.challenge.sweepAll.identification.selected });
+
 				const done = sweepAllStage13();
 
 				if (macroService.IsRunning && done) {
 					daily.doSpecialRequestsStage13.identification.IsChecked = true;
 				}
 
-				macroService.PollPattern(patterns.general.back, { DoClick: true, ClickPattern: patterns.challenge.specialRequest.sweepAll.cancel, PredicatePattern: patterns.titles.challenge });
+				macroService.PollPattern(patterns.general.back, { DoClick: true, PredicatePattern: patterns.challenge.sweepAll.title });
 			}
 
 			if (!daily.doSpecialRequestsStage13.ecologyStudy.IsChecked) {
 				logger.info('doSpecialRequestsStage13: doEcologyStudy');
-				macroService.PollPattern(patterns.challenge.ecologyStudy, { DoClick: true, PredicatePattern: patterns.challenge.enter });
+
+				macroService.PollPattern(patterns.challenge.sweepAll, { DoClick: true, PredicatePattern: patterns.challenge.sweepAll.title });
+				macroService.PollPattern(patterns.challenge.sweepAll.ecologyStudy, { DoClick: true, PredicatePattern: patterns.challenge.sweepAll.ecologyStudy.selected });
+
 				const done = sweepAllStage13();
 
 				if (macroService.IsRunning && done) {
@@ -61,13 +67,10 @@ while (macroService.IsRunning) {
 }
 
 function sweepAllStage13() {
-	macroService.PollPattern(patterns.challenge.specialRequest.sweepAll, { DoClick: true, PredicatePattern: patterns.challenge.specialRequest.sweepAll.sweep });
-
-	const stage13AllPattern = macroService.ClonePattern(patterns.challenge.specialRequest.stage._13, { Height: 600, Path: 'challenge.specialRequest.stage._13_all' });
-	let stage13AllResult = macroService.FindPattern(stage13AllPattern);
+	let stage13AllResult = macroService.FindPattern(patterns.challenge.sweepAll.specialRequest.stage._13);
 	while (macroService.IsRunning && stage13AllResult.IsSuccess) {
-		const staminaSlashResult = macroService.PollPattern(patterns.challenge.specialRequest.staminaSlash);
-		const staminaPattern = macroService.ClonePattern(patterns.challenge.specialRequest.currentStamina, { X: staminaSlashResult.Point.X - 72, OffsetCalcType: 'None', Path: `challenge.specialRequest.currentStamina_${staminaSlashResult.Point.X}` });
+		const staminaSlashResult = macroService.PollPattern(patterns.challenge.sweepAll.specialRequest.staminaSlash);
+		const staminaPattern = macroService.ClonePattern(patterns.challenge.sweepAll.specialRequest.currentStamina, { X: staminaSlashResult.Point.X - 71, OffsetCalcType: 'None', PathSuffix: `_${staminaSlashResult.Point.X}` });
 		const staminaText = macroService.FindText(staminaPattern, '0123456789');
 		const currentStamina = parseInt(staminaText);
 		const maxRuns = parseInt(currentStamina / 16);
@@ -77,11 +80,11 @@ function sweepAllStage13() {
 		if (!maxRuns) return false;
 
 		let numRuns = 0;
-		let stageResult = macroService.FindPattern(patterns.challenge.specialRequest.stage, { Limit: 10 });
+		let stageResult = macroService.FindPattern(patterns.challenge.sweepAll.specialRequest.stage, { Limit: 10 });
 
-		for (let p of stageResult.Points) {
-			const stage13Pattern = macroService.ClonePattern(patterns.challenge.specialRequest.stage._13, { CenterY: p.Y - 3, Padding: 10, Path: `patterns.challenge.specialRequest.stage._13_y${p.Y}` });
-			const stagecheckPattern = macroService.ClonePattern(patterns.challenge.specialRequest.stage.check, { CenterY: p.Y, Padding: 10, Path: `patterns.challenge.specialRequest.stage.check_y${p.Y}` });
+		for (let p of stageResult.Points.sort((a, b) => b.Y - a.Y)) {
+			const stage13Pattern = macroService.ClonePattern(patterns.challenge.sweepAll.specialRequest.stage._13, { CenterY: p.Y - 3, Height: 30, Padding: 10, PathSuffix: `_y${p.Y}` });
+			const stagecheckPattern = macroService.ClonePattern(patterns.challenge.sweepAll.specialRequest.stage.check, { CenterY: p.Y - 25, Padding: 5, PathSuffix: `_y${p.Y}` });
 			const stage13Result = macroService.FindPattern(stage13Pattern);
 
 			if (stage13Result.IsSuccess && numRuns < maxRuns) {
@@ -92,11 +95,11 @@ function sweepAllStage13() {
 			}
 		}
 		
-		macroService.PollPattern(patterns.challenge.specialRequest.sweepAll.sweep, { DoClick: true, PredicatePattern: patterns.challenge.specialRequest.sweepAll.ok });
-		macroService.PollPattern(patterns.challenge.specialRequest.sweepAll.ok, { DoClick: true, PredicatePattern: patterns.challenge.specialRequest.sweepAll.sweep });
+		macroService.PollPattern(patterns.challenge.sweepAll.sweep, { DoClick: true, PredicatePattern: patterns.challenge.sweepAll.sweep.ok });
+		macroService.PollPattern(patterns.challenge.sweepAll.sweep.ok, { DoClick: true, PredicatePattern: patterns.challenge.sweepAll.sweep });
 		sleep(1_000);
-		stage13AllResult = macroService.FindPattern(stage13AllPattern);
+		stage13AllResult = macroService.FindPattern(patterns.challenge.sweepAll.specialRequest.stage._13);
 	}
 
-	return !macroService.FindPattern(stage13AllPattern).IsSuccess;
+	return !macroService.FindPattern(patterns.challenge.sweepAll.specialRequest.stage._13).IsSuccess;
 }

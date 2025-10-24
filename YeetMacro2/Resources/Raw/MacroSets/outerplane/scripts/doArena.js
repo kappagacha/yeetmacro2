@@ -10,7 +10,6 @@ const autoDetectCpThreshold = settings.doArena.autoDetectCpThreshold.Value;
 const clickPattern = [patterns.arena.defendReport.close, patterns.arena.newLeague, patterns.arena.tapEmptySpace, patterns.adventure.doNotSeeFor3days];
 const dayOfWeek = weeklyManager.GetDayOfWeek();
 
-if (daily.doArena.count.Count > 30) return "Limiting arena battles to 30";
 while (macroService.IsRunning) {
 	const loopResult = macroService.PollPattern(loopPatterns, { ClickPattern: clickPattern });
 	switch (loopResult.Path) {
@@ -114,7 +113,6 @@ while (macroService.IsRunning) {
 				//macroService.PollPattern(patterns.arena.auto.disabled, { DoClick: true, PredicatePattern: patterns.arena.matchResult });
 				if (macroService.IsRunning) daily.doArena.count.Count++;
 				macroService.PollPattern(patterns.prompt.ok, { DoClick: true, ClickPattern: [patterns.arena.tapEmptySpace, patterns.arena.defendReport.close], PredicatePattern: patterns.titles.arena });
-				if (daily.doArena.count.Count > 30) return "Limiting arena battles to 30";
 			}
 			break;
 	}
