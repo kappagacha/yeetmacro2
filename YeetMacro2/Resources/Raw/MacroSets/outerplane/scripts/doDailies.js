@@ -168,6 +168,11 @@ if (settings.doDailies.sellInventory.Value) {
     goToLobby();
 }
 
+if (settings.doDailies.claimEventDailyFireworks.Value) {
+    claimEventDailyFireworks();
+    goToLobby();
+}
+
 if (settings.doDailies.claimEventDailyMissions2.Value) {
     claimEventDailyMissions2();
     goToLobby();

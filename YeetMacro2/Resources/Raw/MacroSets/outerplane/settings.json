@@ -1977,260 +1977,6 @@
       "$path": "doPursuitOperation.lastOperation"
     }
   },
-  "doDailies": {
-    "$type": "parent",
-    "$position": 0,
-    "$name": "doDailies",
-    "$path": "doDailies",
-    "claimGuildBuff": {
-      "$type": "boolean",
-      "$defaultValue": true,
-      "$value": true,
-      "$position": 0,
-      "$name": "claimGuildBuff",
-      "$path": "doDailies.claimGuildBuff"
-    },
-    "claimReplenishYourStamina": {
-      "$type": "boolean",
-      "$defaultValue": true,
-      "$value": true,
-      "$position": 1,
-      "$name": "claimReplenishYourStamina",
-      "$path": "doDailies.claimReplenishYourStamina"
-    },
-    "claimAntiparticle": {
-      "$type": "boolean",
-      "$defaultValue": true,
-      "$value": true,
-      "$position": 2,
-      "$name": "claimAntiparticle",
-      "$path": "doDailies.claimAntiparticle"
-    },
-    "claimFreeShop": {
-      "$type": "boolean",
-      "$defaultValue": true,
-      "$value": true,
-      "$position": 3,
-      "$name": "claimFreeShop",
-      "$path": "doDailies.claimFreeShop"
-    },
-    "claimFreeRecruit": {
-      "$type": "boolean",
-      "$defaultValue": true,
-      "$value": true,
-      "$position": 4,
-      "$name": "claimFreeRecruit",
-      "$path": "doDailies.claimFreeRecruit"
-    },
-    "doArena": {
-      "$type": "boolean",
-      "$defaultValue": true,
-      "$value": true,
-      "$position": 5,
-      "$name": "doArena",
-      "$path": "doDailies.doArena"
-    },
-    "claimMailboxExpiring": {
-      "$type": "boolean",
-      "$defaultValue": true,
-      "$value": true,
-      "$position": 6,
-      "$name": "claimMailboxExpiring",
-      "$path": "doDailies.claimMailboxExpiring"
-    },
-    "doBountyHunter": {
-      "$type": "boolean",
-      "$defaultValue": true,
-      "$value": true,
-      "$position": 7,
-      "$name": "doBountyHunter",
-      "$path": "doDailies.doBountyHunter"
-    },
-    "doBanditChase": {
-      "$type": "boolean",
-      "$defaultValue": true,
-      "$value": true,
-      "$position": 8,
-      "$name": "doBanditChase",
-      "$path": "doDailies.doBanditChase"
-    },
-    "doUpgradeStoneRetrieval": {
-      "$type": "boolean",
-      "$defaultValue": true,
-      "$value": true,
-      "$position": 9,
-      "$name": "doUpgradeStoneRetrieval",
-      "$path": "doDailies.doUpgradeStoneRetrieval"
-    },
-    "doGuildSecurityArea": {
-      "$type": "boolean",
-      "$defaultValue": true,
-      "$value": true,
-      "$position": 10,
-      "$name": "doGuildSecurityArea",
-      "$path": "doDailies.doGuildSecurityArea"
-    },
-    "doGuildRaid": {
-      "$type": "boolean",
-      "$defaultValue": false,
-      "$value": false,
-      "$position": 11,
-      "$name": "doGuildRaid",
-      "$path": "doDailies.doGuildRaid"
-    },
-    "watchAds": {
-      "$type": "boolean",
-      "$defaultValue": true,
-      "$value": true,
-      "$position": 12,
-      "$name": "watchAds",
-      "$path": "doDailies.watchAds"
-    },
-    "doShop": {
-      "$type": "boolean",
-      "$defaultValue": true,
-      "$value": true,
-      "$position": 13,
-      "$name": "doShop",
-      "$path": "doDailies.doShop"
-    },
-    "claimMailboxExpiringStamina": {
-      "$type": "boolean",
-      "$defaultValue": true,
-      "$value": true,
-      "$position": 14,
-      "$name": "claimMailboxExpiringStamina",
-      "$path": "doDailies.claimMailboxExpiringStamina"
-    },
-    "doDoppelganger": {
-      "$type": "boolean",
-      "$defaultValue": true,
-      "$value": true,
-      "$position": 15,
-      "$name": "doDoppelganger",
-      "$path": "doDailies.doDoppelganger"
-    },
-    "doSpecialRequests": {
-      "$type": "boolean",
-      "$defaultValue": false,
-      "$value": false,
-      "$position": 16,
-      "$name": "doSpecialRequests",
-      "$path": "doDailies.doSpecialRequests"
-    },
-    "doSurveyHub": {
-      "$type": "boolean",
-      "$defaultValue": true,
-      "$value": true,
-      "$position": 17,
-      "$name": "doSurveyHub",
-      "$path": "doDailies.doSurveyHub"
-    },
-    "doInfiniteCorridor": {
-      "$type": "boolean",
-      "$defaultValue": true,
-      "$value": true,
-      "$position": 18,
-      "$name": "doInfiniteCorridor",
-      "$path": "doDailies.doInfiniteCorridor"
-    },
-    "claimWorldBossRewards": {
-      "$type": "boolean",
-      "$defaultValue": true,
-      "$value": true,
-      "$position": 19,
-      "$name": "claimWorldBossRewards",
-      "$path": "doDailies.claimWorldBossRewards"
-    },
-    "sweepJointChallenge": {
-      "$type": "boolean",
-      "$defaultValue": false,
-      "$value": false,
-      "$position": 20,
-      "$name": "sweepJointChallenge",
-      "$path": "doDailies.sweepJointChallenge"
-    },
-    "sweepEventStoryHard": {
-      "$type": "boolean",
-      "$defaultValue": true,
-      "$value": true,
-      "$position": 21,
-      "$name": "sweepEventStoryHard",
-      "$path": "doDailies.sweepEventStoryHard"
-    },
-    "sweepEventStoryHard2": {
-      "$type": "boolean",
-      "$defaultValue": false,
-      "$value": false,
-      "$position": 22,
-      "$name": "sweepEventStoryHard2",
-      "$path": "doDailies.sweepEventStoryHard2"
-    },
-    "doUpkeep": {
-      "$type": "boolean",
-      "$defaultValue": true,
-      "$value": true,
-      "$position": 23,
-      "$name": "doUpkeep",
-      "$path": "doDailies.doUpkeep"
-    },
-    "claimDailyMissions": {
-      "$type": "boolean",
-      "$defaultValue": true,
-      "$value": true,
-      "$position": 24,
-      "$name": "claimDailyMissions",
-      "$path": "doDailies.claimDailyMissions"
-    },
-    "claimBossDailyMissions": {
-      "$type": "boolean",
-      "$defaultValue": false,
-      "$value": false,
-      "$position": 25,
-      "$name": "claimBossDailyMissions",
-      "$path": "doDailies.claimBossDailyMissions"
-    },
-    "claimEventDailyMissions": {
-      "$type": "boolean",
-      "$defaultValue": false,
-      "$value": false,
-      "$position": 26,
-      "$name": "claimEventDailyMissions",
-      "$path": "doDailies.claimEventDailyMissions"
-    },
-    "sellInventory": {
-      "$type": "boolean",
-      "$defaultValue": true,
-      "$value": true,
-      "$position": 27,
-      "$name": "sellInventory",
-      "$path": "doDailies.sellInventory"
-    },
-    "claimEventDailyMissions2": {
-      "$type": "boolean",
-      "$defaultValue": true,
-      "$value": true,
-      "$position": 28,
-      "$name": "claimEventDailyMissions2",
-      "$path": "doDailies.claimEventDailyMissions2"
-    },
-    "doTerminusIsleExplorationWithSupportPack": {
-      "$type": "boolean",
-      "$defaultValue": false,
-      "$value": false,
-      "$position": 29,
-      "$name": "doTerminusIsleExplorationWithSupportPack",
-      "$path": "doDailies.doTerminusIsleExplorationWithSupportPack"
-    },
-    "doPursuitOperation": {
-      "$type": "boolean",
-      "$defaultValue": true,
-      "$value": true,
-      "$position": 30,
-      "$name": "doPursuitOperation",
-      "$path": "doDailies.doPursuitOperation"
-    }
-  },
   "doWeeklyCraft": {
     "$type": "parent",
     "$position": 0,
@@ -3011,6 +2757,268 @@
       "$position": 2,
       "$name": "teamSlot",
       "$path": "sweepEventStoryHard.teamSlot"
+    }
+  },
+  "doDailies": {
+    "$type": "parent",
+    "$position": 0,
+    "$name": "doDailies",
+    "$path": "doDailies",
+    "claimGuildBuff": {
+      "$type": "boolean",
+      "$defaultValue": true,
+      "$value": true,
+      "$position": 0,
+      "$name": "claimGuildBuff",
+      "$path": "doDailies.claimGuildBuff"
+    },
+    "claimReplenishYourStamina": {
+      "$type": "boolean",
+      "$defaultValue": true,
+      "$value": true,
+      "$position": 1,
+      "$name": "claimReplenishYourStamina",
+      "$path": "doDailies.claimReplenishYourStamina"
+    },
+    "claimAntiparticle": {
+      "$type": "boolean",
+      "$defaultValue": true,
+      "$value": true,
+      "$position": 2,
+      "$name": "claimAntiparticle",
+      "$path": "doDailies.claimAntiparticle"
+    },
+    "claimFreeShop": {
+      "$type": "boolean",
+      "$defaultValue": true,
+      "$value": true,
+      "$position": 3,
+      "$name": "claimFreeShop",
+      "$path": "doDailies.claimFreeShop"
+    },
+    "claimFreeRecruit": {
+      "$type": "boolean",
+      "$defaultValue": true,
+      "$value": true,
+      "$position": 4,
+      "$name": "claimFreeRecruit",
+      "$path": "doDailies.claimFreeRecruit"
+    },
+    "doArena": {
+      "$type": "boolean",
+      "$defaultValue": true,
+      "$value": true,
+      "$position": 5,
+      "$name": "doArena",
+      "$path": "doDailies.doArena"
+    },
+    "claimMailboxExpiring": {
+      "$type": "boolean",
+      "$defaultValue": true,
+      "$value": true,
+      "$position": 6,
+      "$name": "claimMailboxExpiring",
+      "$path": "doDailies.claimMailboxExpiring"
+    },
+    "doBountyHunter": {
+      "$type": "boolean",
+      "$defaultValue": true,
+      "$value": true,
+      "$position": 7,
+      "$name": "doBountyHunter",
+      "$path": "doDailies.doBountyHunter"
+    },
+    "doBanditChase": {
+      "$type": "boolean",
+      "$defaultValue": true,
+      "$value": true,
+      "$position": 8,
+      "$name": "doBanditChase",
+      "$path": "doDailies.doBanditChase"
+    },
+    "doUpgradeStoneRetrieval": {
+      "$type": "boolean",
+      "$defaultValue": true,
+      "$value": true,
+      "$position": 9,
+      "$name": "doUpgradeStoneRetrieval",
+      "$path": "doDailies.doUpgradeStoneRetrieval"
+    },
+    "doGuildSecurityArea": {
+      "$type": "boolean",
+      "$defaultValue": true,
+      "$value": true,
+      "$position": 10,
+      "$name": "doGuildSecurityArea",
+      "$path": "doDailies.doGuildSecurityArea"
+    },
+    "doGuildRaid": {
+      "$type": "boolean",
+      "$defaultValue": false,
+      "$value": false,
+      "$position": 11,
+      "$name": "doGuildRaid",
+      "$path": "doDailies.doGuildRaid"
+    },
+    "watchAds": {
+      "$type": "boolean",
+      "$defaultValue": true,
+      "$value": true,
+      "$position": 12,
+      "$name": "watchAds",
+      "$path": "doDailies.watchAds"
+    },
+    "doShop": {
+      "$type": "boolean",
+      "$defaultValue": true,
+      "$value": true,
+      "$position": 13,
+      "$name": "doShop",
+      "$path": "doDailies.doShop"
+    },
+    "claimMailboxExpiringStamina": {
+      "$type": "boolean",
+      "$defaultValue": true,
+      "$value": true,
+      "$position": 14,
+      "$name": "claimMailboxExpiringStamina",
+      "$path": "doDailies.claimMailboxExpiringStamina"
+    },
+    "doDoppelganger": {
+      "$type": "boolean",
+      "$defaultValue": true,
+      "$value": true,
+      "$position": 15,
+      "$name": "doDoppelganger",
+      "$path": "doDailies.doDoppelganger"
+    },
+    "doSpecialRequests": {
+      "$type": "boolean",
+      "$defaultValue": false,
+      "$value": false,
+      "$position": 16,
+      "$name": "doSpecialRequests",
+      "$path": "doDailies.doSpecialRequests"
+    },
+    "doSurveyHub": {
+      "$type": "boolean",
+      "$defaultValue": true,
+      "$value": true,
+      "$position": 17,
+      "$name": "doSurveyHub",
+      "$path": "doDailies.doSurveyHub"
+    },
+    "doInfiniteCorridor": {
+      "$type": "boolean",
+      "$defaultValue": true,
+      "$value": true,
+      "$position": 18,
+      "$name": "doInfiniteCorridor",
+      "$path": "doDailies.doInfiniteCorridor"
+    },
+    "claimWorldBossRewards": {
+      "$type": "boolean",
+      "$defaultValue": true,
+      "$value": true,
+      "$position": 19,
+      "$name": "claimWorldBossRewards",
+      "$path": "doDailies.claimWorldBossRewards"
+    },
+    "sweepJointChallenge": {
+      "$type": "boolean",
+      "$defaultValue": false,
+      "$value": false,
+      "$position": 20,
+      "$name": "sweepJointChallenge",
+      "$path": "doDailies.sweepJointChallenge"
+    },
+    "sweepEventStoryHard": {
+      "$type": "boolean",
+      "$defaultValue": true,
+      "$value": true,
+      "$position": 21,
+      "$name": "sweepEventStoryHard",
+      "$path": "doDailies.sweepEventStoryHard"
+    },
+    "sweepEventStoryHard2": {
+      "$type": "boolean",
+      "$defaultValue": false,
+      "$value": false,
+      "$position": 22,
+      "$name": "sweepEventStoryHard2",
+      "$path": "doDailies.sweepEventStoryHard2"
+    },
+    "doUpkeep": {
+      "$type": "boolean",
+      "$defaultValue": true,
+      "$value": true,
+      "$position": 23,
+      "$name": "doUpkeep",
+      "$path": "doDailies.doUpkeep"
+    },
+    "claimDailyMissions": {
+      "$type": "boolean",
+      "$defaultValue": true,
+      "$value": true,
+      "$position": 24,
+      "$name": "claimDailyMissions",
+      "$path": "doDailies.claimDailyMissions"
+    },
+    "claimBossDailyMissions": {
+      "$type": "boolean",
+      "$defaultValue": false,
+      "$value": false,
+      "$position": 25,
+      "$name": "claimBossDailyMissions",
+      "$path": "doDailies.claimBossDailyMissions"
+    },
+    "claimEventDailyMissions": {
+      "$type": "boolean",
+      "$defaultValue": false,
+      "$value": false,
+      "$position": 26,
+      "$name": "claimEventDailyMissions",
+      "$path": "doDailies.claimEventDailyMissions"
+    },
+    "sellInventory": {
+      "$type": "boolean",
+      "$defaultValue": true,
+      "$value": true,
+      "$position": 27,
+      "$name": "sellInventory",
+      "$path": "doDailies.sellInventory"
+    },
+    "claimEventDailyMissions2": {
+      "$type": "boolean",
+      "$defaultValue": true,
+      "$value": true,
+      "$position": 28,
+      "$name": "claimEventDailyMissions2",
+      "$path": "doDailies.claimEventDailyMissions2"
+    },
+    "doTerminusIsleExplorationWithSupportPack": {
+      "$type": "boolean",
+      "$defaultValue": false,
+      "$value": false,
+      "$position": 29,
+      "$name": "doTerminusIsleExplorationWithSupportPack",
+      "$path": "doDailies.doTerminusIsleExplorationWithSupportPack"
+    },
+    "doPursuitOperation": {
+      "$type": "boolean",
+      "$defaultValue": true,
+      "$value": true,
+      "$position": 30,
+      "$name": "doPursuitOperation",
+      "$path": "doDailies.doPursuitOperation"
+    },
+    "claimEventDailyFireworks": {
+      "$type": "boolean",
+      "$defaultValue": true,
+      "$value": true,
+      "$position": 31,
+      "$name": "claimEventDailyFireworks",
+      "$path": "doDailies.claimEventDailyFireworks"
     }
   }
 }
