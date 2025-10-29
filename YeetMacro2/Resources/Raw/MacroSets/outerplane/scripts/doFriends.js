@@ -1,6 +1,6 @@
 // @position=4
 // Receive and present friend hearts
-const popupPatterns = [patterns.lobby.expedition, patterns.general.tapEmptySpace, settings.goToLobby.userClickPattern.Value, patterns.general.exitCheckIn, patterns.lobby.popup.close];
+const popupPatterns = [patterns.lobby.expedition, patterns.general.tapEmptySpace, settings.goToLobby.userClickPattern.Value, patterns.general.exitCheckIn, patterns.lobby.popup.doNotShowAgainToday];
 const loopPatterns = [patterns.lobby.level, patterns.titles.friends, ...popupPatterns];
 const daily = dailyManager.GetCurrentDaily();
 
@@ -17,7 +17,7 @@ while (macroService.IsRunning) {
 		case 'general.tapEmptySpace':
 		case 'settings.goToLobby.userClickPattern':
 		case 'general.exitCheckIn':
-		case 'lobby.popup.close':
+		case 'lobby.popup.doNotShowAgainToday':
 			goToLobby();
 			break;
 		case 'lobby.level':
