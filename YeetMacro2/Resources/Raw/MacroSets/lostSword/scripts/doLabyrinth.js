@@ -55,7 +55,7 @@ function doLabyrinthNode() {
 	if (minotaurosKingResult.IsSuccess) {
 		macroService.PollPattern(minotaurosKingPattern, { DoClick: true, ClickOffset: { X: -50, Y: -50 }, PredicatePattern: patterns.labyrinth.minotaurosKing.start });
 		macroService.PollPattern(patterns.labyrinth.minotaurosKing.start, { DoClick: true, PredicatePattern: patterns.general.tapTheScreen });
-		macroService.PollPattern(patterns.general.tapTheScreen, { DoClick: true, PredicatePattern: patterns.labyrinth.complete });
+		nodeResult = macroService.PollPattern(patterns.general.tapTheScreen, { DoClick: true, PredicatePattern: patterns.labyrinth.complete });
 	} else if (bigNodeLabelResult.IsSuccess) {
 		logger.info('doLabyrinth: handle big node');
 		const bigLabelPoint = { X: bigNodeLabelResult.Point.X, Y: bigNodeLabelResult.Point.Y - 150 };
