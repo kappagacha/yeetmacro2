@@ -22,7 +22,7 @@ logger.info('goToLobby: start');
 //claimEventDailyMissions
 // => patterns.event.close
 
-const loopPatterns = [patterns.lobby.level, patterns.lobby.expedition, patterns.startScreen.settings, patterns.lobby.popup.close];
+const loopPatterns = [patterns.lobby.level, patterns.lobby.expedition, patterns.startScreen.settings, patterns.lobby.popup.doNotShowAgainToday];
 const clickPatterns = [
 	patterns.general.back,
 	patterns.battle.setup.enter.ok,
@@ -46,14 +46,13 @@ while (macroService.IsRunning) {
 		case 'lobby.level':
 			logger.info('goToLobby: done');
 			return;
-		case 'lobby.popup.close':
+		case 'lobby.popup.doNotShowAgainToday':
 			logger.info('goToLobby: close popup');
-			let popupCloseResult = macroService.PollPattern(patterns.lobby.popup.close, { TimeoutMs: 3_000 });
+			let doNotShowAgainTodayResult = macroService.PollPattern(patterns.lobby.popup.doNotShowAgainToday, { TimeoutMs: 3_000 });
 
-			while (macroService.IsRunning && popupCloseResult.IsSuccess) {
-				macroService.PollPattern(patterns.lobby.popup.doNotShowAgainToday.unchecked, { DoClick: true, PredicatePattern: patterns.lobby.popup.doNotShowAgainToday.checked });
-				macroService.ClickPattern(patterns.lobby.popup.close);
-				popupCloseResult = macroService.PollPattern(patterns.lobby.popup.close, { TimeoutMs: 3_000 });
+			while (macroService.IsRunning && doNotShowAgainTodayResult.IsSuccess) {
+				macroService.ClickPattern(patterns.lobby.popup.doNotShowAgainToday.unchecked);
+				doNotShowAgainTodayResult = macroService.PollPattern(patterns.lobby.popup.doNotShowAgainToday, { TimeoutMs: 3_000 });
 			}
 			return;
 		case 'startScreen.settings':

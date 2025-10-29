@@ -19,7 +19,8 @@ while (macroService.IsRunning) {
 			logger.info('sweepJointChallenge: click joint challenge');
 			const jointChallengeResult = macroService.FindPattern([patterns.adventure.jointChallenge, patterns.adventure.jointChallenge.locked]);
 			if (jointChallengeResult.Path === 'adventure.jointChallenge.locked') {
-				settings.doDailies.sweepJointChallenge.Value = false;
+				if (macroService.IsRunning) daily.sweepJointChallenge.done.IsChecked = true;
+
 				return;
 			}
 
