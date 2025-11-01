@@ -31,9 +31,10 @@ while (macroService.IsRunning) {
 				macroService.IsRunning && (weekly.doWeeklyCraft.specialEnhancement.armorGlunite.IsChecked = true);
 			}
 
-			macroService.PollPattern(patterns.base.katesWorkshop.craftConsumable.specialEnhancement.specialGearEnhancement, { DoClick: true, PredicatePattern: patterns.base.katesWorkshop.craftConsumable.specialEnhancement.specialGearEnhancement.selected });
 			if (settings.doWeeklyCraft.specialEnhancement.specialGearEnhancement.talisman.Value && !weekly.doWeeklyCraft.specialEnhancement.specialGearEnhancement.talisman.IsChecked) {
-				macroService.PollPattern(patterns.base.katesWorkshop.talisman, { DoClick: true, PredicatePattern: patterns.base.katesWorkshop.talisman.selected });
+				macroService.PollPattern(patterns.base.katesWorkshop.craftConsumable.specialEnhancement.specialGearEnhancement, { SwipePattern: patterns.base.katesWorkshop.tabsSwipeRight });
+				macroService.PollPattern(patterns.base.katesWorkshop.craftConsumable.specialEnhancement.specialGearEnhancement, { DoClick: true, PredicatePattern: patterns.base.katesWorkshop.craftConsumable.specialEnhancement.specialGearEnhancement.selected });
+				//macroService.PollPattern(patterns.base.katesWorkshop.talisman, { DoClick: true, PredicatePattern: patterns.base.katesWorkshop.talisman.selected });
 				for (let i = 0; i < 4; i++) {
 					macroService.PollPattern(patterns.base.katesWorkshop.craft, { DoClick: true, PredicatePattern: patterns.general.tapEmptySpace });
 					macroService.PollPattern(patterns.general.tapEmptySpace, { DoClick: true, PredicatePattern: [patterns.base.katesWorkshop.craft, patterns.base.katesWorkshop.craft.disabled] });
@@ -41,8 +42,11 @@ while (macroService.IsRunning) {
 				macroService.IsRunning && (weekly.doWeeklyCraft.specialEnhancement.specialGearEnhancement.talisman.IsChecked = true);
 			}
 
+			
 			if (settings.doWeeklyCraft.specialEnhancement.specialGearEnhancement.gear.Value && !weekly.doWeeklyCraft.specialEnhancement.specialGearEnhancement.gear.IsChecked) {
-				macroService.PollPattern(patterns.base.katesWorkshop.gear, { DoClick: true, PredicatePattern: patterns.base.katesWorkshop.gear.selected });
+				macroService.PollPattern(patterns.base.katesWorkshop.craftConsumable.specialEnhancement.memoryStone, { SwipePattern: patterns.base.katesWorkshop.tabsSwipeRight });
+				macroService.PollPattern(patterns.base.katesWorkshop.craftConsumable.specialEnhancement.memoryStone, { DoClick: true, PredicatePattern: patterns.base.katesWorkshop.craftConsumable.specialEnhancement.memoryStone.selected });
+				//macroService.PollPattern(patterns.base.katesWorkshop.gear, { DoClick: true, PredicatePattern: patterns.base.katesWorkshop.gear.selected });
 				for (let i = 0; i < 4; i++) {
 					macroService.PollPattern(patterns.base.katesWorkshop.craft, { DoClick: true, PredicatePattern: patterns.general.tapEmptySpace });
 					macroService.PollPattern(patterns.general.tapEmptySpace, { DoClick: true, PredicatePattern: [patterns.base.katesWorkshop.craft, patterns.base.katesWorkshop.craft.disabled] });
@@ -50,16 +54,20 @@ while (macroService.IsRunning) {
 				macroService.IsRunning && (weekly.doWeeklyCraft.specialEnhancement.specialGearEnhancement.gear.IsChecked = true);
 			}
 
-			macroService.PollPattern(patterns.base.katesWorkshop.craftConsumable.specialEnhancement.greaterEnhancement, { DoClick: true, PredicatePattern: patterns.base.katesWorkshop.craftConsumable.specialEnhancement.greaterEnhancement.selected });
 
 			if (settings.doWeeklyCraft.specialEnhancement.greaterEnhancement.talisman.Value && !weekly.doWeeklyCraft.specialEnhancement.greaterEnhancement.talisman.IsChecked) {
+				macroService.PollPattern(patterns.base.katesWorkshop.craftConsumable.specialEnhancement.greaterEnhancement, { SwipePattern: patterns.base.katesWorkshop.tabsSwipeRight });
+				macroService.PollPattern(patterns.base.katesWorkshop.craftConsumable.specialEnhancement.greaterEnhancement, { DoClick: true, PredicatePattern: patterns.base.katesWorkshop.craftConsumable.specialEnhancement.greaterEnhancement.selected });
 				macroService.PollPattern(patterns.base.katesWorkshop.talisman, { DoClick: true, PredicatePattern: patterns.base.katesWorkshop.talisman.selected });
 				macroService.PollPattern(patterns.base.katesWorkshop.craft, { DoClick: true, PredicatePattern: patterns.general.tapEmptySpace });
 				macroService.PollPattern(patterns.general.tapEmptySpace, { DoClick: true, PredicatePattern: [patterns.base.katesWorkshop.craft, patterns.base.katesWorkshop.craft.disabled] });
 				macroService.IsRunning && (weekly.doWeeklyCraft.specialEnhancement.greaterEnhancement.talisman.IsChecked = true);
 			}
+
 			
 			if (settings.doWeeklyCraft.specialEnhancement.greaterEnhancement.gear.Value && !weekly.doWeeklyCraft.specialEnhancement.greaterEnhancement.gear.IsChecked) {
+				macroService.PollPattern(patterns.base.katesWorkshop.craftConsumable.specialEnhancement.greaterEnhancement2, { SwipePattern: patterns.base.katesWorkshop.tabsSwipeRight });
+				macroService.PollPattern(patterns.base.katesWorkshop.craftConsumable.specialEnhancement.greaterEnhancement2, { DoClick: true, PredicatePattern: patterns.base.katesWorkshop.craftConsumable.specialEnhancement.greaterEnhancement2.selected });
 				macroService.PollPattern(patterns.base.katesWorkshop.gear, { DoClick: true, PredicatePattern: patterns.base.katesWorkshop.gear.selected });
 				macroService.PollPattern(patterns.base.katesWorkshop.craft, { DoClick: true, PredicatePattern: patterns.general.tapEmptySpace });
 				macroService.PollPattern(patterns.general.tapEmptySpace, { DoClick: true, PredicatePattern: [patterns.base.katesWorkshop.craft, patterns.base.katesWorkshop.craft.disabled] });
