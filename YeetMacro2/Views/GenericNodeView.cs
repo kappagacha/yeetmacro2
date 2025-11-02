@@ -212,51 +212,127 @@ public class GenericNodeView<TNode, TNodeViewModel> : ContentView
         var menuGrid = new Grid
         {
             VerticalOptions = LayoutOptions.End,
-            HorizontalOptions = LayoutOptions.End
+            HorizontalOptions = LayoutOptions.End,
+            ColumnDefinitions = new ColumnDefinitionCollection
+            {
+                new ColumnDefinition { Width = GridLength.Auto },
+                new ColumnDefinition { Width = GridLength.Auto },
+                new ColumnDefinition { Width = GridLength.Auto }
+            }
         };
         menuGrid.SetBinding(Grid.BindingContextProperty, new Binding(".", source: this));
         menuGrid.SetBinding(Grid.IsVisibleProperty, new Binding("IsMenuVisible", source: this));
 
-        var menuStack = new VerticalStackLayout();
+        // Hide/show menu toggle button (column 0)
+        var hideMenuToggle = new ToggleImageView
+        {
+            FontFamily = "MaterialOutlined",
+            Glyph = MaterialOutlined.Chevron_right,
+            ToggledGlyph = MaterialOutlined.Chevron_left,
+            VerticalOptions = LayoutOptions.End,
+            ImageWidth = 15,
+            ImageHeight = 15,
+            WidthRequest = 15,
+            Margin = new Thickness(0, 0, 0, 7.5)
+        };
+        hideMenuToggle.ToggledColor = Application.Current.Resources["Primary"] as Color;
+        menuGrid.Add(hideMenuToggle, 0, 0);
 
-        // Menu toggle button
-        var menuToggle = new ToggleImageView
+        // Left menu stack for move, expand, collapse, sort operations
+        var leftMenuStack = new Grid
+        {
+            RowDefinitions = new RowDefinitionCollection
+            {
+                new RowDefinition { Height = GridLength.Star },
+                new RowDefinition { Height = GridLength.Auto }
+            }
+        };
+
+        // Left menu items container
+        var leftMenuItemsStack = new VerticalStackLayout
+        {
+            VerticalOptions = LayoutOptions.End
+        };
+
+        // Left menu toggle button
+        var leftMenuToggle = new ToggleImageView
+        {
+            FontFamily = "MaterialOutlined",
+            Glyph = MaterialOutlined.Open_with
+        };
+        leftMenuToggle.ToggledColor = Application.Current.Resources["Primary"] as Color;
+
+        leftMenuItemsStack.SetBinding(VerticalStackLayout.IsVisibleProperty, new Binding(
+            "IsToggled",
+            source: leftMenuToggle));
+
+        // Add expand/collapse operations
+        AddMenuItem(leftMenuItemsStack, MaterialOutlined.Unfold_more_double, "NodeManager.ExpandAllCommand",
+            "NodeManager.IsList", true);
+        AddMenuItem(leftMenuItemsStack, MaterialOutlined.Unfold_less_double, "NodeManager.CollapseAllCommand",
+            "NodeManager.IsList", true);
+
+        // Move operations
+        AddMenuItem(leftMenuItemsStack, MaterialSharp.Vertical_align_top, "NodeManager.MoveNodeTopCommand",
+            "NodeManager.SelectedNode", true, "NodeManager.SelectedNode");
+        AddMenuItem(leftMenuItemsStack, Solid.ArrowUp, "NodeManager.MoveNodeUpCommand",
+            "NodeManager.SelectedNode", true, "NodeManager.SelectedNode", "FASolid");
+        AddMenuItem(leftMenuItemsStack, Solid.ArrowDown, "NodeManager.MoveNodeDownCommand",
+            "NodeManager.SelectedNode", true, "NodeManager.SelectedNode", "FASolid");
+        AddMenuItem(leftMenuItemsStack, MaterialSharp.Vertical_align_bottom, "NodeManager.MoveNodeBottomCommand",
+            "NodeManager.SelectedNode", true, "NodeManager.SelectedNode");
+
+        // Sort
+        AddMenuItem(leftMenuItemsStack, MaterialOutlined.Sort, "NodeManager.RefreshCollectionsCommand",
+            "NodeManager.IsList", false);
+
+        leftMenuStack.Add(leftMenuItemsStack, 0, 0);
+        leftMenuStack.Add(leftMenuToggle, 0, 1);
+
+        // Bind left menu stack visibility to hideMenuToggle (hide when toggled)
+        leftMenuStack.SetBinding(Grid.IsVisibleProperty, new Binding(
+            "IsToggled",
+            source: hideMenuToggle,
+            converter: new InverseBoolConverter()));
+
+        menuGrid.Add(leftMenuStack, 1, 0);
+
+        // Right menu stack for other operations
+        var rightMenuStack = new Grid
+        {
+            RowDefinitions = new RowDefinitionCollection
+            {
+                new RowDefinition { Height = GridLength.Star },
+                new RowDefinition { Height = GridLength.Auto }
+            }
+        };
+
+        // Right menu items container
+        var rightMenuItemsStack = new VerticalStackLayout
+        {
+            VerticalOptions = LayoutOptions.End
+        };
+
+        // Right menu toggle button
+        var rightMenuToggle = new ToggleImageView
         {
             FontFamily = "FASolid",
             Glyph = Solid.Bars
         };
-        menuToggle.ToggledColor = Application.Current.Resources["Primary"] as Color;
+        rightMenuToggle.ToggledColor = Application.Current.Resources["Primary"] as Color;
 
-        // Menu items container
-        var menuItemsStack = new VerticalStackLayout();
-        menuItemsStack.SetBinding(VerticalStackLayout.IsVisibleProperty, new Binding(
+        rightMenuItemsStack.SetBinding(VerticalStackLayout.IsVisibleProperty, new Binding(
             "IsToggled",
-            source: menuToggle));
+            source: rightMenuToggle));
 
         // Extra menu items placeholder
         _extraMenuItemsContentView = new ContentView();
-        menuItemsStack.Children.Add(_extraMenuItemsContentView);
+        rightMenuItemsStack.Children.Add(_extraMenuItemsContentView);
 
-        // Add all menu items
-        AddMenuItem(menuItemsStack, MaterialOutlined.Unfold_more_double, "NodeManager.ExpandAllCommand", 
-            "NodeManager.IsList", true);
-        AddMenuItem(menuItemsStack, MaterialOutlined.Unfold_less_double, "NodeManager.CollapseAllCommand",
-            "NodeManager.IsList", true);
-        
-        // Move operations
-        AddMenuItem(menuItemsStack, MaterialSharp.Vertical_align_top, "NodeManager.MoveNodeTopCommand",
-            "NodeManager.SelectedNode", true, "NodeManager.SelectedNode");
-        AddMenuItem(menuItemsStack, Solid.ArrowUp, "NodeManager.MoveNodeUpCommand",
-            "NodeManager.SelectedNode", true, "NodeManager.SelectedNode", "FASolid");
-        AddMenuItem(menuItemsStack, Solid.ArrowDown, "NodeManager.MoveNodeDownCommand",
-            "NodeManager.SelectedNode", true, "NodeManager.SelectedNode", "FASolid");
-        AddMenuItem(menuItemsStack, MaterialSharp.Vertical_align_bottom, "NodeManager.MoveNodeBottomCommand",
-            "NodeManager.SelectedNode", true, "NodeManager.SelectedNode");
-        
         // Edit operations
-        AddMenuItem(menuItemsStack, Solid.Pencil, "NodeManager.RenameNodeCommand",
+        AddMenuItem(rightMenuItemsStack, Solid.Pencil, "NodeManager.RenameNodeCommand",
             "NodeManager.SelectedNode", true, "NodeManager.SelectedNode", "FASolid");
-        
+
         // Copy/Paste operations
         var copyGrid = new Grid();
         copyGrid.SetBinding(Grid.IsVisibleProperty, new Binding(
@@ -264,26 +340,26 @@ public class GenericNodeView<TNode, TNodeViewModel> : ContentView
             converter: new InverseBoolConverter()));
         AddMenuItem(copyGrid, MaterialOutlined.Content_copy, "NodeManager.CopyNodeCommand",
             "NodeManager.SelectedNode", true, "NodeManager.SelectedNode");
-        menuItemsStack.Children.Add(copyGrid);
+        rightMenuItemsStack.Children.Add(copyGrid);
 
         var pasteGrid = new Grid();
         pasteGrid.SetBinding(Grid.IsVisibleProperty, new Binding("NodeManager.HasCopyClipboard"));
-        
+
         var pasteParent = CreateImageView(MaterialOutlined.Content_paste, "NodeManager.PasteNodeCommand");
         pasteParent.SetBinding(ImageView.IsVisibleProperty, new Binding("NodeManager.SelectedNode.IsParentNode"));
         pasteGrid.Children.Add(pasteParent);
-        
+
         var pasteNormal = CreateImageView(MaterialOutlined.Content_paste, "NodeManager.PasteNodeCommand");
         pasteNormal.SetBinding(ImageView.IsVisibleProperty, new Binding(
             "NodeManager.SelectedNode",
             converter: new NullToBoolConverter { IsInverse = true }));
         pasteGrid.Children.Add(pasteNormal);
-        
-        menuItemsStack.Children.Add(pasteGrid);
+
+        rightMenuItemsStack.Children.Add(pasteGrid);
 
         var clearCopyView = CreateImageView(MaterialOutlined.Content_paste_off, "NodeManager.ClearCopyNodeCommand");
         clearCopyView.SetBinding(ImageView.IsVisibleProperty, new Binding("NodeManager.HasCopyClipboard"));
-        menuItemsStack.Children.Add(clearCopyView);
+        rightMenuItemsStack.Children.Add(clearCopyView);
 
         // Delete
         var deleteView = CreateImageView(Solid.TrashCan, "NodeManager.DeleteNodeCommand", "FASolid");
@@ -292,21 +368,24 @@ public class GenericNodeView<TNode, TNodeViewModel> : ContentView
             "NodeManager.SelectedNode",
             converter: new NullToBoolConverter { IsInverse = true }));
         deleteView.SetBinding(ImageView.CommandParameterProperty, new Binding("NodeManager.SelectedNode"));
-        menuItemsStack.Children.Add(deleteView);
-        
+        rightMenuItemsStack.Children.Add(deleteView);
+
         // Add
         var addView = CreateImageView(Solid.Plus, "NodeManager.AddNodeCommand", "FASolid");
         addView.SetBinding(ImageView.IsVisibleProperty, new Binding("NodeManager.SelectedNode.IsParentNode"));
-        menuItemsStack.Children.Add(addView);
-        
-        // Sort
-        AddMenuItem(menuItemsStack, MaterialOutlined.Sort, "NodeManager.RefreshCollectionsCommand",
-            "NodeManager.IsList", false);
+        rightMenuItemsStack.Children.Add(addView);
 
-        menuStack.Children.Add(menuItemsStack);
-        menuStack.Children.Add(menuToggle);
-        
-        menuGrid.Children.Add(menuStack);
+        rightMenuStack.Add(rightMenuItemsStack, 0, 0);
+        rightMenuStack.Add(rightMenuToggle, 0, 1);
+
+        // Bind right menu stack visibility to hideMenuToggle (hide when toggled)
+        rightMenuStack.SetBinding(Grid.IsVisibleProperty, new Binding(
+            "IsToggled",
+            source: hideMenuToggle,
+            converter: new InverseBoolConverter()));
+
+        menuGrid.Add(rightMenuStack, 2, 0);
+
         return menuGrid;
     }
 

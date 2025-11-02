@@ -294,6 +294,7 @@ public partial class NodeManagerViewModel<TViewModel, TParent, TChild> : NodeMan
         for (int i = 0; i < parent.Nodes.Count; i++)
         {
             parent.Nodes[i].Position = i;
+            _nodeService.Update(parent.Nodes[i]);
         }
 
         if (node.Position == 0) return;
@@ -303,9 +304,11 @@ public partial class NodeManagerViewModel<TViewModel, TParent, TChild> : NodeMan
             if (child.Position < node.Position)
             {
                 child.Position++;
+                _nodeService.Update(child);
             }
         }
         node.Position = 0;
+        _nodeService.Update(node);
         _nodeService.Save();
 
         ((NodeObservableCollection<TViewModel, TChild>)parent.Nodes).OnCollectionReset();
@@ -318,13 +321,16 @@ public partial class NodeManagerViewModel<TViewModel, TParent, TChild> : NodeMan
         for (int i = 0; i < parent.Nodes.Count; i++)
         {
             parent.Nodes[i].Position = i;
+            _nodeService.Update(parent.Nodes[i]);
         }
 
         if (node.Position == 0) return;
 
         var nodeAbove = parent.Nodes.First(n => n.Position == node.Position - 1);
         nodeAbove.Position++;
+        _nodeService.Update(nodeAbove);
         node.Position--;
+        _nodeService.Update(node);
         _nodeService.Save();
 
         ((NodeObservableCollection<TViewModel, TChild>)parent.Nodes).OnCollectionReset();
@@ -337,13 +343,16 @@ public partial class NodeManagerViewModel<TViewModel, TParent, TChild> : NodeMan
         for (int i = 0; i < parent.Nodes.Count; i++)
         {
             parent.Nodes[i].Position = i;
+            _nodeService.Update(parent.Nodes[i]);
         }
 
         if (node.Position == parent.Nodes.Count - 1) return;
 
         var nodeBelow = parent.Nodes.First(n => n.Position == node.Position + 1);
         nodeBelow.Position--;
+        _nodeService.Update(nodeBelow);
         node.Position++;
+        _nodeService.Update(node);
         _nodeService.Save();
 
         ((NodeObservableCollection<TViewModel, TChild>)parent.Nodes).OnCollectionReset();
@@ -356,6 +365,7 @@ public partial class NodeManagerViewModel<TViewModel, TParent, TChild> : NodeMan
         for (int i = 0; i < parent.Nodes.Count; i++)
         {
             parent.Nodes[i].Position = i;
+            _nodeService.Update(parent.Nodes[i]);
         }
 
         if (node.Position == parent.Nodes.Count - 1) return;
@@ -365,9 +375,11 @@ public partial class NodeManagerViewModel<TViewModel, TParent, TChild> : NodeMan
             if (child.Position > node.Position)
             {
                 child.Position--;
+                _nodeService.Update(child);
             }
         }
         node.Position = parent.Nodes.Count - 1;
+        _nodeService.Update(node);
         _nodeService.Save();
 
         ((NodeObservableCollection<TViewModel, TChild>)parent.Nodes).OnCollectionReset();
