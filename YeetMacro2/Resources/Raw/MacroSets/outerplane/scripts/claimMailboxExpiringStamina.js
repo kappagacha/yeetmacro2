@@ -34,7 +34,7 @@ while (macroService.IsRunning) {
 						continue;
 					}
 
-					const dPattern = macroService.ClonePattern(patterns.mailbox.expiration.d, { CenterX: p.X, CenterY: p.Y - 75, Width: 100, Height: 40, PathSuffix: `_x${p.X}_y${p.Y - 75}` });
+					const dPattern = macroService.ClonePattern(patterns.mailbox.expiration.d, { CenterX: p.X, CenterY: p.Y - 75, Width: 110, Height: 40, PathSuffix: `_x${p.X}_y${p.Y - 75}` });
 					const dPatternResult = macroService.FindPattern(dPattern);
 					if (!dPatternResult.IsSuccess) {
 						macroService.PollPoint(p, { PredicatePattern: patterns.general.tapEmptySpace });
@@ -44,7 +44,7 @@ while (macroService.IsRunning) {
 						continue;
 					}
 
-					const numberPattern = macroService.ClonePattern(patterns.mailbox.expiration.d, { X: dPatternResult.Point.X - 58, Y: dPatternResult.Point.Y - 10, Width: 50, Path: `patterns.mailbox.expiration.number_text_x${dPatternResult.Point.X - 30}_y${dPatternResult.Point.Y}` });
+					const numberPattern = macroService.ClonePattern(patterns.mailbox.expiration.d, { X: dPatternResult.Point.X - 58, Y: dPatternResult.Point.Y - 10, Width: 50, Height: 31, Path: `patterns.mailbox.expiration.number_text_x${dPatternResult.Point.X - 30}_y${dPatternResult.Point.Y}` });
 					const numberText = macroService.FindText(numberPattern, "1234567890");
 
 					if (numberText == 1 || numberText == 2 || numberText > 10) {

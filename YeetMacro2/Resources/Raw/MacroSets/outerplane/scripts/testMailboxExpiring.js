@@ -1,7 +1,7 @@
 // @position=9999
 // Test mailbox expirations
 const loopPatterns = [patterns.lobby.level, patterns.titles.mailbox];
-
+let dNum = 0;
 while (macroService.IsRunning) {
 	const loopResult = macroService.PollPattern(loopPatterns);
 	switch (loopResult.Path) {
@@ -16,16 +16,11 @@ while (macroService.IsRunning) {
 			sleep(1000);
 			const receiveResult = macroService.FindPattern(patterns.mailbox.receive, { Limit: 10 });
 			const expirations = receiveResult.Points.map(p => {
-				const dPattern = macroService.ClonePattern(patterns.mailbox.expiration.d, { CenterX: p.X, CenterY: p.Y - 75, Width: 100, Height: 40, PathSuffix: `_x${p.X}_y${p.Y - 75}` });
-				const dPatternResult = macroService.FindPattern(dPattern);
-				if (!dPatternResult.IsSuccess) {
-					return { p, message: "could not find d" };
-				}
-
-				const numberPattern = macroService.ClonePattern(patterns.mailbox.expiration.d, { X: dPatternResult.Point.X - 58, Y: dPatternResult.Point.Y - 10, Width: 50, Path: `patterns.mailbox.expiration.number_text_x${dPatternResult.Point.X - 30}_y${dPatternResult.Point.Y}` });
+				const dPattern = macroService.ClonePattern(patterns.mailbox.expiration.d, { CenterX: p.X, CenterY: p.Y - 75, Width: 110, Height: 40, PathSuffix: `_x${p.X}_y${p.Y - 75}` });
+				const dPatternResult = macroService.PollPattern(dPattern);
+				const numberPattern = macroService.ClonePattern(patterns.mailbox.expiration.d, { X: dPatternResult.Point.X - 58, Y: dPatternResult.Point.Y - 10, Width: 50, Height: 31, Path: `patterns.mailbox.expiration.number_text_x${dPatternResult.Point.X - 30}_y${dPatternResult.Point.Y}` });
 				const numberText = macroService.FindText(numberPattern, "1234567890");
 
-				//macroService.PollPattern(numberPattern, { PredicatePattern: patterns.lobby.level });
 				return {
 					p,
 					numberText: numberText
