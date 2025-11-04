@@ -31,6 +31,7 @@ public abstract class Node: ISortable
     public virtual int Height { get; }
     [JsonIgnore]
     public virtual int NodesHeight { get; }
+    public virtual string[] Tags { get; set; } = [];
 }
 
 public interface IParentNode

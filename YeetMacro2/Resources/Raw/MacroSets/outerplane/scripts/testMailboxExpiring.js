@@ -1,5 +1,5 @@
 // @position=9999
-// Test mailbox expirations
+// @tags=test
 const loopPatterns = [patterns.lobby.level, patterns.titles.mailbox];
 let dNum = 0;
 while (macroService.IsRunning) {

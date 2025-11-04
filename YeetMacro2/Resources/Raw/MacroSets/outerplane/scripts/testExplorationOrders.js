@@ -1,5 +1,5 @@
 // @position=9999
-// Test exploration orders
+// @tags=test
 
 const cornerResult = macroService.FindPattern(patterns.terminusIsle.explorationOrder.corner, { Limit: 5 });
 const orderNames = cornerResult.Points.filter(p => p).map(p => {

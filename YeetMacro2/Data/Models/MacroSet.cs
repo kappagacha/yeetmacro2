@@ -38,6 +38,7 @@ public class MacroSet
     public virtual CutoutCalculationType CutoutCalculationType { get; set; } = CutoutCalculationType.Normal;
     [JsonIgnore]
     public virtual bool UsePatternsSnapshot { get; set; } = true;
+    public virtual ICollection<NodeTag> Tags { get; set; } = [];
 }
 
 public enum CutoutCalculationType

@@ -29,6 +29,7 @@ public partial class MacroManagerViewModel : ObservableObject
     readonly NodeManagerViewModelFactory _nodeViewModelManagerFactory;
     readonly IMapper _mapper;
     readonly IHttpService _httpService;
+    readonly IServiceProvider _serviceProvider;
     [ObservableProperty]
     ICollection<MacroSetViewModel> _macroSets;
     [ObservableProperty]
@@ -62,7 +63,8 @@ public partial class MacroManagerViewModel : ObservableObject
         INodeService<TodoNode, TodoNode> todoNodeService,
         IScriptService scriptService,
         IMapper mapper,
-        IHttpService httpService)
+        IHttpService httpService,
+        IServiceProvider serviceProvider)
     {
         _logger = logger;
         _macroSetRepository = macroSetRepository;
@@ -74,6 +76,7 @@ public partial class MacroManagerViewModel : ObservableObject
         _todoNodeService = todoNodeService;
         _mapper = mapper;
         _httpService = httpService;
+        _serviceProvider = serviceProvider;
         // manually instantiating in ServiceRegistrationHelper.AppInitializer to pre initialize MacroSets
         if (_macroSetRepository == null) return;
 
@@ -170,7 +173,7 @@ public partial class MacroManagerViewModel : ObservableObject
         if (source.StartsWith("localAsset:")) macroSetName = source[11..];
         else if (source.StartsWith("online:")) macroSetName = source[7..];
 
-        var macroSet = new MacroSetViewModel(_nodeViewModelManagerFactory, _scriptService) { Name = macroSetName, Source = source };
+        var macroSet = new MacroSetViewModel(_nodeViewModelManagerFactory, _scriptService, _serviceProvider) { Name = macroSetName, Source = source };
 
         var rootPattern = _mapper.Map<PatternNodeViewModel>(_patternNodeService.GetRoot(0));
         macroSet.RootPatternNodeId = rootPattern.NodeId;
@@ -441,6 +444,19 @@ public partial class MacroManagerViewModel : ObservableObject
                     {
                         position = int.Parse(positionMatch.Groups[1].Value);
                     }
+
+                    // Extract tags from @tags=tag1,tag2,tag3
+                    string[] tags = [];
+                    Match tagsMatch = TagsRegex().Match(scriptKvp.Value);
+                    if (tagsMatch.Success)
+                    {
+                        tags = tagsMatch.Groups[1].Value
+                            .Split(',', StringSplitOptions.RemoveEmptyEntries)
+                            .Select(t => t.Trim())
+                            .Where(t => !string.IsNullOrWhiteSpace(t))
+                            .ToArray();
+                    }
+
                     var script = new ScriptNode()
                     {
                         Name = scriptKvp.Key,
@@ -449,7 +465,8 @@ public partial class MacroManagerViewModel : ObservableObject
                         ParentId = macroSet.Scripts.Root.NodeId,
                         IsHidden = scriptKvp.Key.StartsWith('_'),
                         IsFavorite = scriptKvp.Value.Contains("@isFavorite"),
-                        Position = position
+                        Position = position,
+                        Tags = tags
                     };
 
                     scripts.Root.Nodes.Add(script);
@@ -674,4 +691,7 @@ public partial class MacroManagerViewModel : ObservableObject
 
     [GeneratedRegex(@"@position=(-?\d+)")]
     private static partial Regex PositionRegex();
+
+    [GeneratedRegex(@"@tags=([^\r\n]+)")]
+    private static partial Regex TagsRegex();
 }

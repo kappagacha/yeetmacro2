@@ -253,7 +253,9 @@
             </DataTrigger>
         </Grid.Triggers>
         <Border Grid.Column="0" Stroke="{StaticResource Primary}" BackgroundColor="Transparent" Padding="3">
-            <v:SettingCoreNodeView NodeManager="{Binding MacroSet.Settings, Source={Reference thisView}, x:DataType=v:SettingNodeView}" IsMenuVisible="{Binding SubView, Source={Reference thisView}, x:DataType=v:SettingNodeView, Converter={conv:NullToBoolConverter}}"
+            <v:SettingCoreNodeView NodeManager="{Binding MacroSet.Settings, Source={Reference thisView}, x:DataType=v:SettingNodeView}"
+                        MacroSet="{Binding MacroSet, Source={Reference thisView}, x:DataType=v:SettingNodeView}"
+                        IsMenuVisible="{Binding SubView, Source={Reference thisView}, x:DataType=v:SettingNodeView, Converter={conv:NullToBoolConverter}}"
                         ItemTemplateSelector="{conv:VirtualDynamicTemplateSelector Root={Binding ., Source={Reference thisView}, x:DataType=v:SettingNodeView}}">
                 <v:SettingCoreNodeView.Triggers>
                     <DataTrigger TargetType="{x:Type v:SettingCoreNodeView}" Binding="{Binding SubView, Source={Reference thisView}, x:DataType=v:SettingNodeView, Converter={conv:NullToBoolConverter IsInverse=True}}" Value="True">

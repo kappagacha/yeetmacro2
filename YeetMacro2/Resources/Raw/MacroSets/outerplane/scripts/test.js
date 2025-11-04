@@ -1,3 +1,5 @@
+// @tags=test
+
 sleep(1_000);
 macroService.GoBack();
 sleep(1_000);

@@ -11,6 +11,7 @@ public partial class MacroManagerPage : ContentPage
     private bool _scriptsTabLoaded = false;
     private bool _dailiesTabLoaded = false;
     private bool _weekliesTabLoaded = false;
+    private bool _tagsTabLoaded = false;
 
 	public MacroManagerPage()
 	{
@@ -35,7 +36,9 @@ public partial class MacroManagerPage : ContentPage
         DailiesTabButton.TextColor = (Color)Application.Current.Resources["Primary"];
         WeekliesTabButton.BackgroundColor = Colors.Transparent;
         WeekliesTabButton.TextColor = (Color)Application.Current.Resources["Primary"];
-        
+        TagsTabButton.BackgroundColor = Colors.Transparent;
+        TagsTabButton.TextColor = (Color)Application.Current.Resources["Primary"];
+
         // Hide all tab contents
         MacroSetTabContent.IsVisible = false;
         PatternsTabContent.IsVisible = false;
@@ -43,6 +46,7 @@ public partial class MacroManagerPage : ContentPage
         ScriptsTabContent.IsVisible = false;
         DailiesTabContent.IsVisible = false;
         WeekliesTabContent.IsVisible = false;
+        TagsTabContent.IsVisible = false;
         
         // Show selected tab and update button state
         switch (tabName)
@@ -121,6 +125,20 @@ public partial class MacroManagerPage : ContentPage
                 WeekliesTabContent.IsVisible = true;
                 WeekliesTabButton.BackgroundColor = (Color)Application.Current.Resources["Primary"];
                 WeekliesTabButton.TextColor = Colors.White;
+                break;
+            case "Tags":
+                if (!_tagsTabLoaded)
+                {
+                    var viewModel = ServiceHelper.GetService<MacroManagerViewModel>();
+                    var tagsView = new TagManagementView();
+                    // Only use binding, don't set BindingContext directly
+                    tagsView.SetBinding(TagManagementView.BindingContextProperty, new Binding("SelectedMacroSet.TagManager", source: viewModel));
+                    TagsTabContent.Content = tagsView;
+                    _tagsTabLoaded = true;
+                }
+                TagsTabContent.IsVisible = true;
+                TagsTabButton.BackgroundColor = (Color)Application.Current.Resources["Primary"];
+                TagsTabButton.TextColor = Colors.White;
                 break;
         }
     }

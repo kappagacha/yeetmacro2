@@ -1,4 +1,5 @@
 // @isFavorite
+// @tags=favorites
 // @position=-100
 // Do upkeep (all checked scripts)
 

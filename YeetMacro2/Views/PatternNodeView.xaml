@@ -18,7 +18,8 @@
                            IsVisible="{Binding MacroSet.UsePatternsSnapshot, Source={Reference thisControl}}"/>
         <Grid ColumnDefinitions="*,3*" IsVisible="{Binding MacroSet.UsePatternsSnapshot, Converter={conv:InverseBoolConverter}, Source={Reference thisControl}}">
             <Border Grid.Column="0" Stroke="{StaticResource Primary}" BackgroundColor="Transparent" Padding="3">
-                <v:PatternCoreNodeView NodeManager="{Binding MacroSet.Patterns, Source={Reference thisControl}}">
+                <v:PatternCoreNodeView NodeManager="{Binding MacroSet.Patterns, Source={Reference thisControl}}"
+                                       MacroSet="{Binding MacroSet, Source={Reference thisControl}}">
                     <v:PatternCoreNodeView.ExtraMenuItemsDataTemplate>
                         <DataTemplate x:DataType="v:PatternCoreNodeView">
                             <VerticalStackLayout>

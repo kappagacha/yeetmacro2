@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentView xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:vm="clr-namespace:YeetMacro2.ViewModels"
+             xmlns:v="clr-namespace:YeetMacro2.Views"
+             xmlns:m="clr-namespace:YeetMacro2.Data.Models"
+             xmlns:ms="clr-namespace:UraniumUI.Icons.MaterialSymbols;assembly=UraniumUI.Icons.MaterialSymbols"
+             xmlns:fa="clr-namespace:UraniumUI.Icons.FontAwesome;assembly=UraniumUI.Icons.FontAwesome"
+             x:Class="YeetMacro2.Views.TagManagementView"
+             x:DataType="vm:TagManagerViewModel">
+    <Grid RowDefinitions="Auto,*">
+        <!-- Header with Add button -->
+        <HorizontalStackLayout Grid.Row="0" Padding="10" Spacing="10">
+            <Label Text="Tags" FontSize="20" FontAttributes="Bold" VerticalOptions="Center"/>
+            <v:ImageView FontFamily="FASolid"
+                        Glyph="{x:Static fa:Solid.Plus}"
+                        Command="{Binding AddTagCommand}"
+                        Color="{StaticResource Primary}"/>
+        </HorizontalStackLayout>
+
+        <!-- Tags List -->
+        <ScrollView Grid.Row="1">
+            <CollectionView ItemsSource="{Binding Tags}"
+                           SelectedItem="{Binding SelectedTag}"
+                           SelectionMode="Single">
+                <CollectionView.ItemTemplate>
+                    <DataTemplate>
+                        <Grid Padding="10,5" ColumnDefinitions="Auto,*,Auto,Auto,Auto" ColumnSpacing="10">
+                            <!-- Tag Icon Preview -->
+                            <v:ImageView Grid.Column="0"
+                                        FontFamily="{Binding FontFamily, x:DataType=m:NodeTag}"
+                                        Glyph="{Binding Glyph, x:DataType=m:NodeTag}"
+                                        ImageWidth="24"
+                                        ImageHeight="24"/>
+
+                            <!-- Tag Details -->
+                            <VerticalStackLayout Grid.Column="1" VerticalOptions="Center">
+                                <Label Text="{Binding Name, x:DataType=m:NodeTag}" FontSize="14" FontAttributes="Bold"/>
+                                <Label FontSize="12" TextColor="Gray">
+                                    <Label.FormattedText>
+                                        <FormattedString>
+                                            <Span Text="{Binding FontFamily, x:DataType=m:NodeTag}"/>
+                                            <Span Text=" - "/>
+                                            <Span Text="{Binding Glyph, x:DataType=m:NodeTag}"/>
+                                        </FormattedString>
+                                    </Label.FormattedText>
+                                </Label>
+                            </VerticalStackLayout>
+
+                            <!-- Move Up -->
+                            <v:ImageView Grid.Column="2"
+                                        FontFamily="FASolid"
+                                        Glyph="{x:Static fa:Solid.ArrowUp}"
+                                        Command="{Binding Source={RelativeSource AncestorType={x:Type vm:TagManagerViewModel}}, Path=MoveTagUpCommand, x:DataType=vm:TagManagerViewModel}"
+                                        CommandParameter="{Binding ., x:DataType=m:NodeTag}"
+                                        ImageWidth="20"
+                                        ImageHeight="20"/>
+
+                            <!-- Move Down -->
+                            <v:ImageView Grid.Column="3"
+                                        FontFamily="FASolid"
+                                        Glyph="{x:Static fa:Solid.ArrowDown}"
+                                        Command="{Binding Source={RelativeSource AncestorType={x:Type vm:TagManagerViewModel}}, Path=MoveTagDownCommand, x:DataType=vm:TagManagerViewModel}"
+                                        CommandParameter="{Binding ., x:DataType=m:NodeTag}"
+                                        ImageWidth="20"
+                                        ImageHeight="20"/>
+
+                            <!-- Delete -->
+                            <v:ImageView Grid.Column="4"
+                                        FontFamily="FASolid"
+                                        Glyph="{x:Static fa:Solid.TrashCan}"
+                                        Command="{Binding Source={RelativeSource AncestorType={x:Type vm:TagManagerViewModel}}, Path=DeleteTagCommand, x:DataType=vm:TagManagerViewModel}"
+                                        CommandParameter="{Binding ., x:DataType=m:NodeTag}"
+                                        Color="Red"
+                                        ImageWidth="20"
+                                        ImageHeight="20"/>
+                        </Grid>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+            </CollectionView>
+        </ScrollView>
+    </Grid>
+</ContentView>

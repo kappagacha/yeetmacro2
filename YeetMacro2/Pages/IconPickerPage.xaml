@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:vm="clr-namespace:YeetMacro2.ViewModels"
+             xmlns:v="clr-namespace:YeetMacro2.Views"
+             xmlns:conv="clr-namespace:YeetMacro2.Converters"
+             x:Class="YeetMacro2.Pages.IconPickerPage"
+             x:DataType="vm:IconPickerViewModel"
+             Title="Select Icon">
+    <Grid RowDefinitions="Auto,*,Auto" Padding="10">
+        <!-- Search Box -->
+        <Entry Grid.Row="0"
+               Placeholder="Search icons (searches all font families)..."
+               Text="{Binding SearchText}"
+               Margin="0,0,0,10"/>
+
+        <!-- Icon Grid -->
+        <ScrollView Grid.Row="1">
+            <CollectionView ItemsSource="{Binding FilteredIcons}"
+                           SelectionMode="Single"
+                           SelectedItem="{Binding SelectedIcon}">
+                <CollectionView.ItemsLayout>
+                    <GridItemsLayout Orientation="Vertical" Span="4" />
+                </CollectionView.ItemsLayout>
+                <CollectionView.ItemTemplate>
+                    <DataTemplate x:DataType="vm:IconItem">
+                        <Border Stroke="{StaticResource Primary}"
+                               StrokeThickness="1"
+                               Padding="10"
+                               Margin="5"
+                               BackgroundColor="{Binding IsSelected, Converter={conv:TagSelectedBackgroundConverter}}">
+                            <Border.GestureRecognizers>
+                                <TapGestureRecognizer Command="{Binding SelectCommand}"/>
+                            </Border.GestureRecognizers>
+                            <VerticalStackLayout HorizontalOptions="Center" Spacing="2">
+                                <v:ImageView FontFamily="{Binding FontFamily}"
+                                            Glyph="{Binding Glyph}"
+                                            ImageWidth="32"
+                                            ImageHeight="32"
+                                            HorizontalOptions="Center"/>
+                                <Label Text="{Binding FieldName}"
+                                      FontSize="9"
+                                      HorizontalOptions="Center"
+                                      LineBreakMode="TailTruncation"
+                                      MaxLines="2"/>
+                                <Label Text="{Binding FontFamily}"
+                                      FontSize="8"
+                                      TextColor="Gray"
+                                      HorizontalOptions="Center"/>
+                            </VerticalStackLayout>
+                        </Border>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+            </CollectionView>
+        </ScrollView>
+
+        <!-- Action Buttons -->
+        <HorizontalStackLayout Grid.Row="2" HorizontalOptions="End" Spacing="10" Margin="0,10,0,0">
+            <Button Text="Cancel" Command="{Binding CancelCommand}"/>
+            <Button Text="Select" Command="{Binding ConfirmCommand}"/>
+        </HorizontalStackLayout>
+    </Grid>
+</ContentPage>

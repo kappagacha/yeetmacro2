@@ -15,7 +15,7 @@
     <Grid>
         <Grid ColumnDefinitions="*,3*">
             <Border Grid.Column="0" Stroke="{StaticResource Primary}" BackgroundColor="Transparent" Padding="3">
-                <v:ScriptCoreNodeView x:Name="scriptCoreNodeView" NodeManager="{Binding Scripts}">
+                <v:ScriptCoreNodeView x:Name="scriptCoreNodeView" NodeManager="{Binding Scripts}" MacroSet="{Binding .}">
                     <v:ScriptCoreNodeView.ExpanderTemplate>
                         <DataTemplate>
                             <Grid />
@@ -48,6 +48,16 @@
                                             <Setter Property="HeightRequest" Value="0" />
                                         </MultiTrigger.Setters>
                                     </MultiTrigger>
+                                    <DataTrigger TargetType="Grid" Value="False">
+                                        <DataTrigger.Binding>
+                                            <MultiBinding Converter="{conv:TagFilterVisibilityConverter}">
+                                                <Binding Path="NodeManager.IsFilterActive" Source="{Reference scriptCoreNodeView}" />
+                                                <Binding Path="Tags" />
+                                                <Binding Path="NodeManager.SelectedFilterTags" Source="{Reference scriptCoreNodeView}" />
+                                            </MultiBinding>
+                                        </DataTrigger.Binding>
+                                        <Setter Property="IsVisible" Value="False" />
+                                    </DataTrigger>
                                 </Grid.Triggers>
                                 <Label Text="{Binding Name}" TextColor="{StaticResource Primary}" Margin="0" Padding="0" VerticalOptions="Center" BackgroundColor="Transparent">
                                     <Label.Triggers>

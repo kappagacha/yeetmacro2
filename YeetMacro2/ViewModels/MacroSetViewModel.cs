@@ -1,6 +1,7 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using CommunityToolkit.Mvvm.Messaging;
+using Microsoft.Extensions.DependencyInjection;
 using System.Text.Json.Serialization;
 using YeetMacro2.Data.Messaging;
 using YeetMacro2.Data.Models;
@@ -14,20 +15,23 @@ public partial class MacroSetViewModel : MacroSet
 {
     readonly NodeManagerViewModelFactory _nodeViewModelManagerFactory;
     readonly IScriptService _scriptService;
+    readonly IServiceProvider _serviceProvider;
     PatternNodeManagerViewModel _patterns;
     ScriptNodeManagerViewModel _scripts;
     SettingNodeManagerViewModel _settings;
     DailyNodeManagerViewModel _dailies;
     WeeklyNodeManagerViewModel _weeklies;
-    
+    TagManagerViewModel _tagManager;
+
     [ObservableProperty]
     [property: JsonIgnore]  // https://stackoverflow.com/questions/74599937/is-there-any-other-way-of-ignoring-a-property-during-json-serialization-instead
     bool _isScriptRunning, _isBusy;
 
-    public MacroSetViewModel(NodeManagerViewModelFactory nodeViewModelManagerFactory, IScriptService scriptService)
+    public MacroSetViewModel(NodeManagerViewModelFactory nodeViewModelManagerFactory, IScriptService scriptService, IServiceProvider serviceProvider)
     {
         _nodeViewModelManagerFactory = nodeViewModelManagerFactory;
         _scriptService = scriptService;
+        _serviceProvider = serviceProvider;
     }
 
     [JsonIgnore]
@@ -97,6 +101,36 @@ public partial class MacroSetViewModel : MacroSet
             }
 
             return _weeklies;
+        }
+    }
+
+    [JsonIgnore]
+    public TagManagerViewModel TagManager
+    {
+        get
+        {
+            if (_tagManager == null)
+            {
+                _tagManager = ActivatorUtilities.CreateInstance<TagManagerViewModel>(_serviceProvider, MacroSetId, Tags);
+            }
+
+            return _tagManager;
+        }
+    }
+
+    public override ICollection<NodeTag> Tags
+    {
+        get => base.Tags;
+        set
+        {
+            base.Tags = value;
+            OnPropertyChanged();
+
+            // If TagManager is already initialized and we're setting new tags (e.g., from import), sync them
+            if (_tagManager != null && value != null)
+            {
+                _tagManager.ImportTags(value);
+            }
         }
     }
 

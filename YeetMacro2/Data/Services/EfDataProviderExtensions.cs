@@ -11,6 +11,7 @@ public static class EfDataProviderExtensions
         // registering open generic types is so clean
         services.AddTransient(typeof(IRepository<>), typeof(YeetMacroEfRepository<>));
         services.AddTransient(typeof(INodeService<,>), typeof(NodeService<,>));
+        services.AddTransient<INodeTagService, NodeTagService>();
 
         //services.AddTransient<IRepository<MacroSet>, EfRepository<YeetMacroDbContext, MacroSet>>();
         //services.AddTransient<IRepository<PatternNode>, EfRepository<YeetMacroDbContext, PatternNode>>();

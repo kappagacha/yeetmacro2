@@ -14,6 +14,7 @@ public class ModelProfile : Profile
         CreateMap<MacroSet, MacroSetViewModel>()
             .ForCtorParam("nodeViewModelManagerFactory", o => o.MapFrom(ms => ServiceHelper.GetService<NodeManagerViewModelFactory>()))
             .ForCtorParam("scriptService", o => o.MapFrom(ms => ServiceHelper.GetService<IScriptService>()))
+            .ForCtorParam("serviceProvider", o => o.MapFrom(ms => ServiceHelper.GetService<IServiceProvider>()))
             .ReverseMap();
 
         CreateMap<PatternNode, PatternNodeViewModel>().ReverseMap();

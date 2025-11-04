@@ -1,4 +1,5 @@
 // @position=-1
+// @tags=weeklies
 // Do weekly craft
 const loopPatterns = [patterns.lobby.level, patterns.titles.base, patterns.titles.katesWorkshop];
 const weekly = weeklyManager.GetCurrentWeekly();

@@ -53,6 +53,13 @@ public partial class NodeManagerViewModel<TViewModel, TParent, TChild> : NodeMan
     [ObservableProperty, NotifyPropertyChangedFor(nameof(HasCopyClipboard))]
     TChild _copyClipboard;
 
+    // Tag filtering
+    [ObservableProperty]
+    private System.Collections.ObjectModel.ObservableCollection<string> _selectedFilterTags = new();
+
+    [ObservableProperty]
+    private bool _isFilterActive;
+
     public bool HasCopyClipboard => CopyClipboard != null;
 
     public static readonly JsonSerializerOptions _defaultJsonSerializerOptions = new()
@@ -91,7 +98,57 @@ public partial class NodeManagerViewModel<TViewModel, TParent, TChild> : NodeMan
         _toastService = toastService;
         _initializeCompleted = new TaskCompletionSource();
 
+        // Load filter state from preferences
+        LoadFilterState();
+
+        // Save filter state when it changes and auto-enable filter when tags are selected
+        SelectedFilterTags.CollectionChanged += (s, e) =>
+        {
+            // Automatically enable filter if tags are selected
+            IsFilterActive = SelectedFilterTags.Count > 0;
+            SaveFilterState();
+        };
+        PropertyChanged += (s, e) =>
+        {
+            if (e.PropertyName == nameof(IsFilterActive))
+            {
+                SaveFilterState();
+            }
+        };
+
         Init();
+    }
+
+    private string GetFilterPreferenceKey() => $"{typeof(TChild).Name}_FilterTags_{_rootNodeId}";
+    private string GetFilterActivePreferenceKey() => $"{typeof(TChild).Name}_FilterActive_{_rootNodeId}";
+
+    private void LoadFilterState()
+    {
+        var filterTagsJson = Preferences.Default.Get(GetFilterPreferenceKey(), string.Empty);
+        if (!string.IsNullOrEmpty(filterTagsJson))
+        {
+            try
+            {
+                var tags = JsonSerializer.Deserialize<List<string>>(filterTagsJson);
+                if (tags != null)
+                {
+                    foreach (var tag in tags)
+                    {
+                        SelectedFilterTags.Add(tag);
+                    }
+                }
+            }
+            catch { }
+        }
+
+        IsFilterActive = Preferences.Default.Get(GetFilterActivePreferenceKey(), false);
+    }
+
+    private void SaveFilterState()
+    {
+        var filterTagsJson = JsonSerializer.Serialize(SelectedFilterTags.ToList());
+        Preferences.Default.Set(GetFilterPreferenceKey(), filterTagsJson);
+        Preferences.Default.Set(GetFilterActivePreferenceKey(), IsFilterActive);
     }
 
     protected virtual void Init(Action callback = null)

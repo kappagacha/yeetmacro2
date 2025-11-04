@@ -1,4 +1,5 @@
 // @isFavorite
+// @tags=favorites,weeklies
 // @position=-10
 // Do weeklies (all checked scripts)
 

@@ -1,5 +1,5 @@
 // @position=9999
-// Apply equipmentPreset
+// @tags=test
 
 let teamSlot;
 if (!teamSlot) {

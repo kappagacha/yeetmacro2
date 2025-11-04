@@ -35,6 +35,7 @@ public class YeetMacroDbContext : DbContext
     public DbSet<ExceptionLog> ExceptionLogs { get; set; }
     public DbSet<ScreenCaptureLog> ScreenCaptureLogs { get; set; }
     public DbSet<ScriptLog> ScriptLogs { get; set; }
+    public DbSet<NodeTag> NodeTags { get; set; }
 
     public YeetMacroDbContext()
     {
@@ -67,10 +68,17 @@ public class YeetMacroDbContext : DbContext
             p => JsonSerializer.Serialize(p, serializationOptions),
             p => JsonSerializer.Deserialize<Point>(p, serializationOptions));
 
+        var stringArrayConverter = new ValueConverter<string[], string>(
+            arr => JsonSerializer.Serialize(arr, serializationOptions),
+            arr => JsonSerializer.Deserialize<string[]>(arr, serializationOptions));
+
         modelBuilder.Entity<MacroSet>().HasKey(ms => ms.MacroSetId);
         modelBuilder.Entity<MacroSet>().Property(ms => ms.Resolution).HasConversion(sizeConverter);
         modelBuilder.Entity<MacroSet>().Property(ms => ms.DefaultLocation).HasConversion(pointConverter);
         modelBuilder.Entity<MacroSet>().Property(ms => ms.WeeklyStartDay).HasConversion(new EnumToStringConverter<DayOfWeek>());
+        modelBuilder.Entity<MacroSet>().HasMany(ms => ms.Tags).WithOne().HasForeignKey(nt => nt.MacroSetId).OnDelete(DeleteBehavior.Cascade);
+
+        modelBuilder.Entity<NodeTag>().HasKey(nt => nt.TagId);
 
         modelBuilder.Entity<Node>().HasKey(n => n.NodeId);
         modelBuilder.Entity<Node>().UseTptMappingStrategy();
@@ -78,6 +86,7 @@ public class YeetMacroDbContext : DbContext
         modelBuilder.Entity<Node>().Ignore(n => n.IsExpanded);
         modelBuilder.Entity<Node>().Ignore(n => n.Height);
         modelBuilder.Entity<Node>().Ignore(n => n.NodesHeight);
+        modelBuilder.Entity<Node>().Property(n => n.Tags).HasConversion(stringArrayConverter);
         modelBuilder.Entity<NodeClosure>().HasKey(nc => nc.ClosureId);
         modelBuilder.Entity<NodeClosure>().HasOne(nc => nc.Ancestor).WithMany().HasForeignKey(n => n.AncestorId);
         modelBuilder.Entity<NodeClosure>().HasOne(nc => nc.Descendant).WithMany().HasForeignKey(n => n.DescendantId);

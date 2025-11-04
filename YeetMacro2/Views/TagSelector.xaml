@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentView xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:v="clr-namespace:YeetMacro2.Views"
+             xmlns:m="clr-namespace:YeetMacro2.Data.Models"
+             xmlns:conv="clr-namespace:YeetMacro2.Converters"
+             x:Class="YeetMacro2.Views.TagSelector"
+             x:Name="thisView">
+    <Grid>
+        <!-- Horizontal layout (default) -->
+        <ScrollView Orientation="Horizontal" HorizontalScrollBarVisibility="Never">
+            <ScrollView.Triggers>
+                <DataTrigger TargetType="ScrollView" Binding="{Binding IsVertical, Source={Reference thisView}}" Value="True">
+                    <Setter Property="IsVisible" Value="False"/>
+                </DataTrigger>
+            </ScrollView.Triggers>
+            <HorizontalStackLayout BindableLayout.ItemsSource="{Binding TagSelectorItems, Source={Reference thisView}, x:DataType=v:TagSelector}" Spacing="5">
+                <BindableLayout.ItemTemplate>
+                    <DataTemplate x:DataType="v:TagSelectorItem">
+                        <Border Stroke="{StaticResource Primary}"
+                                StrokeThickness="2"
+                                Padding="5,2"
+                                BackgroundColor="{Binding IsSelected, Converter={conv:TagSelectedBackgroundConverter}}">
+                            <Border.GestureRecognizers>
+                                <TapGestureRecognizer Command="{Binding Source={Reference thisView}, Path=ToggleTagCommand, x:DataType=v:TagSelector}"
+                                                    CommandParameter="{Binding .}"/>
+                            </Border.GestureRecognizers>
+                            <HorizontalStackLayout Spacing="5">
+                                <v:ImageView FontFamily="{Binding Tag.FontFamily}"
+                                            Glyph="{Binding Tag.Glyph}"
+                                            ImageWidth="16"
+                                            ImageHeight="16"/>
+                                <Label Text="{Binding Tag.Name}" FontSize="12" VerticalOptions="Center"/>
+                            </HorizontalStackLayout>
+                        </Border>
+                    </DataTemplate>
+                </BindableLayout.ItemTemplate>
+            </HorizontalStackLayout>
+        </ScrollView>
+
+        <!-- Vertical layout -->
+        <ScrollView Orientation="Vertical" VerticalScrollBarVisibility="Never" IsVisible="False">
+            <ScrollView.Triggers>
+                <DataTrigger TargetType="ScrollView" Binding="{Binding IsVertical, Source={Reference thisView}}" Value="True">
+                    <Setter Property="IsVisible" Value="True"/>
+                </DataTrigger>
+            </ScrollView.Triggers>
+            <VerticalStackLayout BindableLayout.ItemsSource="{Binding TagSelectorItems, Source={Reference thisView}, x:DataType=v:TagSelector}" Spacing="3">
+                <BindableLayout.ItemTemplate>
+                    <DataTemplate x:DataType="v:TagSelectorItem">
+                        <Border Stroke="{StaticResource Primary}"
+                                StrokeThickness="2"
+                                Padding="5,2"
+                                BackgroundColor="{Binding IsSelected, Converter={conv:TagSelectedBackgroundConverter}}">
+                            <Border.GestureRecognizers>
+                                <TapGestureRecognizer Command="{Binding Source={Reference thisView}, Path=ToggleTagCommand, x:DataType=v:TagSelector}"
+                                                    CommandParameter="{Binding .}"/>
+                            </Border.GestureRecognizers>
+                            <HorizontalStackLayout Spacing="5">
+                                <v:ImageView FontFamily="{Binding Tag.FontFamily}"
+                                            Glyph="{Binding Tag.Glyph}"
+                                            ImageWidth="16"
+                                            ImageHeight="16"/>
+                                <Label Text="{Binding Tag.Name}" FontSize="12" VerticalOptions="Center"/>
+                            </HorizontalStackLayout>
+                        </Border>
+                    </DataTemplate>
+                </BindableLayout.ItemTemplate>
+            </VerticalStackLayout>
+        </ScrollView>
+    </Grid>
+</ContentView>

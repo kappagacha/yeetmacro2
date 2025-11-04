@@ -1,4 +1,5 @@
 // @position=-1
+// @tags=weeklies
 // Shop weekly items
 const loopPatterns = [patterns.lobby.level, patterns.titles.shop];
 const weekly = weeklyManager.GetCurrentWeekly();

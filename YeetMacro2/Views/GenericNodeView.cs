@@ -1,4 +1,5 @@
 using YeetMacro2.Data.Models;
+using YeetMacro2.ViewModels;
 using YeetMacro2.ViewModels.NodeViewModels;
 using YeetMacro2.Converters;
 using UraniumUI.Icons.FontAwesome;
@@ -26,7 +27,7 @@ public class GenericNodeView<TNode, TNodeViewModel> : ContentView
     {
         var grid = new Grid();
 
-        // Main content grid
+        // Main content grid with just the ListView
         var contentGrid = new Grid();
         contentGrid.SetBinding(Grid.IsVisibleProperty, new Binding(
             "NodeManager.ShowExport",
@@ -37,7 +38,7 @@ public class GenericNodeView<TNode, TNodeViewModel> : ContentView
         _mainListView = CreateMainListView();
         contentGrid.Children.Add(_mainListView);
 
-        // Create menu
+        // Create menu - filter menu is now part of this
         var menuGrid = CreateMenuGrid();
         contentGrid.Children.Add(menuGrid);
 
@@ -56,6 +57,182 @@ public class GenericNodeView<TNode, TNodeViewModel> : ContentView
         grid.Children.Add(_activityIndicator);
 
         return grid;
+    }
+
+    private Grid CreateFilterMenuStack(ToggleImageView hideMenuToggle)
+    {
+        var filterMenuStack = new Grid
+        {
+            RowDefinitions = new RowDefinitionCollection
+            {
+                new RowDefinition { Height = GridLength.Star },
+                new RowDefinition { Height = GridLength.Auto }
+            }
+        };
+
+        // Filter menu items container
+        var filterMenuItemsStack = new VerticalStackLayout
+        {
+            VerticalOptions = LayoutOptions.End
+        };
+
+        // Container for tag selector with fallback message
+        var filterContainer = new Grid();
+
+        // Tag filter selector - vertical layout
+        var filterTagSelector = new TagSelector
+        {
+            Padding = new Thickness(5),
+            IsVertical = true
+        };
+
+        // Bind directly to MacroSet.TagManager.Tags
+        filterTagSelector.SetBinding(TagSelector.AvailableTagsProperty, new Binding("MacroSet.TagManager.Tags", source: this));
+        filterTagSelector.SetBinding(TagSelector.NodeTagsProperty, new Binding("NodeManager.SelectedFilterTags", source: this));
+        filterContainer.Children.Add(filterTagSelector);
+
+        // Message when no tags are available
+        var noTagsLabel = new Label
+        {
+            Text = "No tags available",
+            VerticalOptions = LayoutOptions.Center,
+            HorizontalTextAlignment = TextAlignment.Center,
+            TextColor = Colors.Gray,
+            FontSize = 10,
+            Padding = new Thickness(5)
+        };
+
+        // Bind to MacroSet.TagManager.Tags.Count
+        var noTagsBinding = new Binding("MacroSet.TagManager.Tags.Count", source: this);
+        noTagsBinding.Converter = new Converters.NumberToBoolConverter { IsInverse = true };
+        noTagsLabel.SetBinding(Label.IsVisibleProperty, noTagsBinding);
+
+        filterContainer.Children.Add(noTagsLabel);
+
+        filterMenuItemsStack.Children.Add(filterContainer);
+
+        // Filter menu toggle button (just the icon)
+        var filterToggleIcon = new ToggleImageView
+        {
+            FontFamily = "MaterialOutlined",
+            Glyph = MaterialOutlined.Filter_alt
+        };
+        filterToggleIcon.ToggledColor = Application.Current.Resources["Primary"] as Color;
+
+        // Bind filter menu items visibility to toggle
+        filterMenuItemsStack.SetBinding(VerticalStackLayout.IsVisibleProperty, new Binding(
+            "IsToggled",
+            source: filterToggleIcon));
+
+        filterMenuStack.Add(filterMenuItemsStack, 0, 0);
+        filterMenuStack.Add(filterToggleIcon, 0, 1);
+
+        // Bind filter menu stack visibility to hideMenuToggle (hide when toggled)
+        filterMenuStack.SetBinding(Grid.IsVisibleProperty, new Binding(
+            "IsToggled",
+            source: hideMenuToggle,
+            converter: new InverseBoolConverter()));
+
+        return filterMenuStack;
+    }
+
+    private Grid CreateTagAssignmentMenuStack(ToggleImageView hideMenuToggle)
+    {
+        var tagAssignmentMenuStack = new Grid
+        {
+            RowDefinitions = new RowDefinitionCollection
+            {
+                new RowDefinition { Height = GridLength.Star },
+                new RowDefinition { Height = GridLength.Auto }
+            }
+        };
+
+        // Tag assignment menu items container
+        var tagAssignmentMenuItemsStack = new VerticalStackLayout
+        {
+            VerticalOptions = LayoutOptions.End
+        };
+
+        // Container for tag selector with fallback message
+        var tagAssignmentContainer = new Grid();
+
+        // Tag selector - vertical layout for assigning tags to selected node
+        var tagAssignmentSelector = new TagSelector
+        {
+            Padding = new Thickness(5),
+            IsVertical = true
+        };
+
+        // Bind to MacroSet tags
+        tagAssignmentSelector.SetBinding(TagSelector.AvailableTagsProperty, new Binding("MacroSet.TagManager.Tags", source: this));
+
+        // Bind to selected node's tags with TwoWay mode
+        tagAssignmentSelector.SetBinding(TagSelector.NodeTagsProperty, new Binding("NodeManager.SelectedNode.Tags", source: this, mode: BindingMode.TwoWay));
+
+        // Create command to save selected node when tags change
+        tagAssignmentSelector.TagChangedCommand = new Command(() =>
+        {
+            dynamic nodeManager = NodeManager;
+            if (nodeManager?.SelectedNode != null)
+            {
+                // Update the selected node's Tags property from the TagSelector
+                nodeManager.SelectedNode.Tags = tagAssignmentSelector.NodeTags as string[];
+                nodeManager.UpdateNodeCommand?.Execute(nodeManager.SelectedNode);
+                // Refresh collections to update filter UI
+                nodeManager.RefreshCollectionsCommand?.Execute(null);
+            }
+        });
+
+        tagAssignmentContainer.Children.Add(tagAssignmentSelector);
+
+        // Message when no tags are available
+        var noTagsLabel = new Label
+        {
+            Text = "No tags available",
+            VerticalOptions = LayoutOptions.Center,
+            HorizontalTextAlignment = TextAlignment.Center,
+            TextColor = Colors.Gray,
+            FontSize = 10,
+            Padding = new Thickness(5)
+        };
+
+        // Bind to MacroSet.TagManager.Tags.Count
+        var noTagsBinding = new Binding("MacroSet.TagManager.Tags.Count", source: this);
+        noTagsBinding.Converter = new Converters.NumberToBoolConverter { IsInverse = true };
+        noTagsLabel.SetBinding(Label.IsVisibleProperty, noTagsBinding);
+
+        tagAssignmentContainer.Children.Add(noTagsLabel);
+
+        tagAssignmentMenuItemsStack.Children.Add(tagAssignmentContainer);
+
+        // Tag assignment menu toggle button (tag icon)
+        var tagAssignmentToggleIcon = new ToggleImageView
+        {
+            FontFamily = "MaterialOutlined",
+            Glyph = MaterialOutlined.Sell  // Tag icon
+        };
+        tagAssignmentToggleIcon.ToggledColor = Application.Current.Resources["Primary"] as Color;
+
+        // Bind tag assignment menu items visibility to toggle
+        tagAssignmentMenuItemsStack.SetBinding(VerticalStackLayout.IsVisibleProperty, new Binding(
+            "IsToggled",
+            source: tagAssignmentToggleIcon));
+
+        tagAssignmentMenuStack.Add(tagAssignmentMenuItemsStack, 0, 0);
+        tagAssignmentMenuStack.Add(tagAssignmentToggleIcon, 0, 1);
+
+        // Bind tag assignment menu stack visibility to both hideMenuToggle and SelectedNode
+        // Only show when menu is visible AND a node is selected
+        var multiBinding = new MultiBinding
+        {
+            Converter = new Converters.AllTrueConverter()
+        };
+        multiBinding.Bindings.Add(new Binding("IsToggled", source: hideMenuToggle, converter: new InverseBoolConverter()));
+        multiBinding.Bindings.Add(new Binding("NodeManager.SelectedNode", source: this, converter: new NullToBoolConverter { IsInverse = true }));
+
+        tagAssignmentMenuStack.SetBinding(Grid.IsVisibleProperty, multiBinding);
+
+        return tagAssignmentMenuStack;
     }
 
     private VirtualListView CreateMainListView()
@@ -120,7 +297,8 @@ public class GenericNodeView<TNode, TNodeViewModel> : ContentView
                 RowDefinitions = new RowDefinitionCollection
                 {
                     new RowDefinition { Height = GridLength.Auto },
-                    new RowDefinition { Height = GridLength.Auto }
+                    new RowDefinition { Height = GridLength.Auto },
+                    new RowDefinition { Height = GridLength.Auto }  // Tags row
                 },
                 ColumnSpacing = 5
             };
@@ -199,9 +377,31 @@ public class GenericNodeView<TNode, TNodeViewModel> : ContentView
             subListView.SetBinding(VirtualListView.AdapterProperty, new Binding("Nodes"));
             subListView.SetBinding(VirtualListView.IsVisibleProperty, new Binding("IsExpanded"));
             subListView.SetBinding(VirtualListView.HeightRequestProperty, new Binding("NodesHeight"));
-            
+
             subNodesGrid.Children.Add(subListView);
-            grid.Add(subNodesGrid, 1, 1);
+            grid.Add(subNodesGrid, 1, 2);
+
+            // Add filter trigger
+            var filterTrigger = new DataTrigger(typeof(Grid))
+            {
+                Binding = new MultiBinding
+                {
+                    Bindings =
+                    {
+                        new Binding("NodeManager.IsFilterActive", source: parentView),
+                        new Binding("Tags"),
+                        new Binding("NodeManager.SelectedFilterTags", source: parentView)
+                    },
+                    Converter = new Converters.TagFilterVisibilityConverter()
+                },
+                Value = false
+            };
+            filterTrigger.Setters.Add(new Setter
+            {
+                Property = Grid.IsVisibleProperty,
+                Value = false
+            });
+            grid.Triggers.Add(filterTrigger);
 
             return grid;
         });
@@ -215,9 +415,11 @@ public class GenericNodeView<TNode, TNodeViewModel> : ContentView
             HorizontalOptions = LayoutOptions.End,
             ColumnDefinitions = new ColumnDefinitionCollection
             {
-                new ColumnDefinition { Width = GridLength.Auto },
-                new ColumnDefinition { Width = GridLength.Auto },
-                new ColumnDefinition { Width = GridLength.Auto }
+                new ColumnDefinition { Width = GridLength.Auto },  // Hide/show toggle
+                new ColumnDefinition { Width = GridLength.Auto },  // Position menu
+                new ColumnDefinition { Width = GridLength.Auto },  // Tag assignment menu
+                new ColumnDefinition { Width = GridLength.Auto },  // Filter menu
+                new ColumnDefinition { Width = GridLength.Auto }   // Main menu
             }
         };
         menuGrid.SetBinding(Grid.BindingContextProperty, new Binding(".", source: this));
@@ -238,8 +440,8 @@ public class GenericNodeView<TNode, TNodeViewModel> : ContentView
         hideMenuToggle.ToggledColor = Application.Current.Resources["Primary"] as Color;
         menuGrid.Add(hideMenuToggle, 0, 0);
 
-        // Left menu stack for move, expand, collapse, sort operations
-        var leftMenuStack = new Grid
+        // Position menu stack for move, expand, collapse, sort operations
+        var positionMenuStack = new Grid
         {
             RowDefinitions = new RowDefinitionCollection
             {
@@ -248,57 +450,57 @@ public class GenericNodeView<TNode, TNodeViewModel> : ContentView
             }
         };
 
-        // Left menu items container
-        var leftMenuItemsStack = new VerticalStackLayout
+        // Position menu items container
+        var positionMenuItemsStack = new VerticalStackLayout
         {
             VerticalOptions = LayoutOptions.End
         };
 
-        // Left menu toggle button
-        var leftMenuToggle = new ToggleImageView
+        // Position menu toggle button
+        var positionMenuToggle = new ToggleImageView
         {
             FontFamily = "MaterialOutlined",
             Glyph = MaterialOutlined.Open_with
         };
-        leftMenuToggle.ToggledColor = Application.Current.Resources["Primary"] as Color;
+        positionMenuToggle.ToggledColor = Application.Current.Resources["Primary"] as Color;
 
-        leftMenuItemsStack.SetBinding(VerticalStackLayout.IsVisibleProperty, new Binding(
+        positionMenuItemsStack.SetBinding(VerticalStackLayout.IsVisibleProperty, new Binding(
             "IsToggled",
-            source: leftMenuToggle));
+            source: positionMenuToggle));
 
         // Add expand/collapse operations
-        AddMenuItem(leftMenuItemsStack, MaterialOutlined.Unfold_more_double, "NodeManager.ExpandAllCommand",
+        AddMenuItem(positionMenuItemsStack, MaterialOutlined.Unfold_more_double, "NodeManager.ExpandAllCommand",
             "NodeManager.IsList", true);
-        AddMenuItem(leftMenuItemsStack, MaterialOutlined.Unfold_less_double, "NodeManager.CollapseAllCommand",
+        AddMenuItem(positionMenuItemsStack, MaterialOutlined.Unfold_less_double, "NodeManager.CollapseAllCommand",
             "NodeManager.IsList", true);
 
         // Move operations
-        AddMenuItem(leftMenuItemsStack, MaterialSharp.Vertical_align_top, "NodeManager.MoveNodeTopCommand",
+        AddMenuItem(positionMenuItemsStack, MaterialSharp.Vertical_align_top, "NodeManager.MoveNodeTopCommand",
             "NodeManager.SelectedNode", true, "NodeManager.SelectedNode");
-        AddMenuItem(leftMenuItemsStack, Solid.ArrowUp, "NodeManager.MoveNodeUpCommand",
+        AddMenuItem(positionMenuItemsStack, Solid.ArrowUp, "NodeManager.MoveNodeUpCommand",
             "NodeManager.SelectedNode", true, "NodeManager.SelectedNode", "FASolid");
-        AddMenuItem(leftMenuItemsStack, Solid.ArrowDown, "NodeManager.MoveNodeDownCommand",
+        AddMenuItem(positionMenuItemsStack, Solid.ArrowDown, "NodeManager.MoveNodeDownCommand",
             "NodeManager.SelectedNode", true, "NodeManager.SelectedNode", "FASolid");
-        AddMenuItem(leftMenuItemsStack, MaterialSharp.Vertical_align_bottom, "NodeManager.MoveNodeBottomCommand",
+        AddMenuItem(positionMenuItemsStack, MaterialSharp.Vertical_align_bottom, "NodeManager.MoveNodeBottomCommand",
             "NodeManager.SelectedNode", true, "NodeManager.SelectedNode");
 
         // Sort
-        AddMenuItem(leftMenuItemsStack, MaterialOutlined.Sort, "NodeManager.RefreshCollectionsCommand",
+        AddMenuItem(positionMenuItemsStack, MaterialOutlined.Sort, "NodeManager.RefreshCollectionsCommand",
             "NodeManager.IsList", false);
 
-        leftMenuStack.Add(leftMenuItemsStack, 0, 0);
-        leftMenuStack.Add(leftMenuToggle, 0, 1);
+        positionMenuStack.Add(positionMenuItemsStack, 0, 0);
+        positionMenuStack.Add(positionMenuToggle, 0, 1);
 
-        // Bind left menu stack visibility to hideMenuToggle (hide when toggled)
-        leftMenuStack.SetBinding(Grid.IsVisibleProperty, new Binding(
+        // Bind position menu stack visibility to hideMenuToggle (hide when toggled)
+        positionMenuStack.SetBinding(Grid.IsVisibleProperty, new Binding(
             "IsToggled",
             source: hideMenuToggle,
             converter: new InverseBoolConverter()));
 
-        menuGrid.Add(leftMenuStack, 1, 0);
+        menuGrid.Add(positionMenuStack, 1, 0);
 
-        // Right menu stack for other operations
-        var rightMenuStack = new Grid
+        // Main menu stack for edit, copy/paste, add/delete operations
+        var mainMenuStack = new Grid
         {
             RowDefinitions = new RowDefinitionCollection
             {
@@ -307,30 +509,30 @@ public class GenericNodeView<TNode, TNodeViewModel> : ContentView
             }
         };
 
-        // Right menu items container
-        var rightMenuItemsStack = new VerticalStackLayout
+        // Main menu items container
+        var mainMenuItemsStack = new VerticalStackLayout
         {
             VerticalOptions = LayoutOptions.End
         };
 
-        // Right menu toggle button
-        var rightMenuToggle = new ToggleImageView
+        // Main menu toggle button
+        var mainMenuToggle = new ToggleImageView
         {
             FontFamily = "FASolid",
             Glyph = Solid.Bars
         };
-        rightMenuToggle.ToggledColor = Application.Current.Resources["Primary"] as Color;
+        mainMenuToggle.ToggledColor = Application.Current.Resources["Primary"] as Color;
 
-        rightMenuItemsStack.SetBinding(VerticalStackLayout.IsVisibleProperty, new Binding(
+        mainMenuItemsStack.SetBinding(VerticalStackLayout.IsVisibleProperty, new Binding(
             "IsToggled",
-            source: rightMenuToggle));
+            source: mainMenuToggle));
 
         // Extra menu items placeholder
         _extraMenuItemsContentView = new ContentView();
-        rightMenuItemsStack.Children.Add(_extraMenuItemsContentView);
+        mainMenuItemsStack.Children.Add(_extraMenuItemsContentView);
 
         // Edit operations
-        AddMenuItem(rightMenuItemsStack, Solid.Pencil, "NodeManager.RenameNodeCommand",
+        AddMenuItem(mainMenuItemsStack, Solid.Pencil, "NodeManager.RenameNodeCommand",
             "NodeManager.SelectedNode", true, "NodeManager.SelectedNode", "FASolid");
 
         // Copy/Paste operations
@@ -340,7 +542,7 @@ public class GenericNodeView<TNode, TNodeViewModel> : ContentView
             converter: new InverseBoolConverter()));
         AddMenuItem(copyGrid, MaterialOutlined.Content_copy, "NodeManager.CopyNodeCommand",
             "NodeManager.SelectedNode", true, "NodeManager.SelectedNode");
-        rightMenuItemsStack.Children.Add(copyGrid);
+        mainMenuItemsStack.Children.Add(copyGrid);
 
         var pasteGrid = new Grid();
         pasteGrid.SetBinding(Grid.IsVisibleProperty, new Binding("NodeManager.HasCopyClipboard"));
@@ -355,11 +557,11 @@ public class GenericNodeView<TNode, TNodeViewModel> : ContentView
             converter: new NullToBoolConverter { IsInverse = true }));
         pasteGrid.Children.Add(pasteNormal);
 
-        rightMenuItemsStack.Children.Add(pasteGrid);
+        mainMenuItemsStack.Children.Add(pasteGrid);
 
         var clearCopyView = CreateImageView(MaterialOutlined.Content_paste_off, "NodeManager.ClearCopyNodeCommand");
         clearCopyView.SetBinding(ImageView.IsVisibleProperty, new Binding("NodeManager.HasCopyClipboard"));
-        rightMenuItemsStack.Children.Add(clearCopyView);
+        mainMenuItemsStack.Children.Add(clearCopyView);
 
         // Delete
         var deleteView = CreateImageView(Solid.TrashCan, "NodeManager.DeleteNodeCommand", "FASolid");
@@ -368,23 +570,31 @@ public class GenericNodeView<TNode, TNodeViewModel> : ContentView
             "NodeManager.SelectedNode",
             converter: new NullToBoolConverter { IsInverse = true }));
         deleteView.SetBinding(ImageView.CommandParameterProperty, new Binding("NodeManager.SelectedNode"));
-        rightMenuItemsStack.Children.Add(deleteView);
+        mainMenuItemsStack.Children.Add(deleteView);
 
         // Add
         var addView = CreateImageView(Solid.Plus, "NodeManager.AddNodeCommand", "FASolid");
         addView.SetBinding(ImageView.IsVisibleProperty, new Binding("NodeManager.SelectedNode.IsParentNode"));
-        rightMenuItemsStack.Children.Add(addView);
+        mainMenuItemsStack.Children.Add(addView);
 
-        rightMenuStack.Add(rightMenuItemsStack, 0, 0);
-        rightMenuStack.Add(rightMenuToggle, 0, 1);
+        mainMenuStack.Add(mainMenuItemsStack, 0, 0);
+        mainMenuStack.Add(mainMenuToggle, 0, 1);
 
-        // Bind right menu stack visibility to hideMenuToggle (hide when toggled)
-        rightMenuStack.SetBinding(Grid.IsVisibleProperty, new Binding(
+        // Bind main menu stack visibility to hideMenuToggle (hide when toggled)
+        mainMenuStack.SetBinding(Grid.IsVisibleProperty, new Binding(
             "IsToggled",
             source: hideMenuToggle,
             converter: new InverseBoolConverter()));
 
-        menuGrid.Add(rightMenuStack, 2, 0);
+        // Tag assignment menu stack
+        var tagAssignmentMenuStack = CreateTagAssignmentMenuStack(hideMenuToggle);
+        menuGrid.Add(tagAssignmentMenuStack, 2, 0);
+
+        // Filter menu stack
+        var filterMenuStack = CreateFilterMenuStack(hideMenuToggle);
+        menuGrid.Add(filterMenuStack, 3, 0);
+
+        menuGrid.Add(mainMenuStack, 4, 0);
 
         return menuGrid;
     }
@@ -476,6 +686,15 @@ public class GenericNodeView<TNode, TNodeViewModel> : ContentView
     {
         get => (TNodeViewModel)GetValue(NodeManagerProperty);
         set => SetValue(NodeManagerProperty, value);
+    }
+
+    public static readonly BindableProperty MacroSetProperty = BindableProperty.Create(
+        nameof(MacroSet), typeof(MacroSetViewModel), typeof(GenericNodeView<TNode, TNodeViewModel>), null);
+
+    public MacroSetViewModel MacroSet
+    {
+        get => (MacroSetViewModel)GetValue(MacroSetProperty);
+        set => SetValue(MacroSetProperty, value);
     }
 
     public static readonly BindableProperty ItemsSourceProperty = BindableProperty.Create(
