@@ -463,8 +463,6 @@ public partial class MacroManagerViewModel : ObservableObject
                         Text = scriptKvp.Value,
                         RootId = macroSet.Scripts.Root.NodeId,
                         ParentId = macroSet.Scripts.Root.NodeId,
-                        IsHidden = scriptKvp.Key.StartsWith('_'),
-                        IsFavorite = scriptKvp.Value.Contains("@isFavorite"),
                         Position = position,
                         Tags = tags
                     };

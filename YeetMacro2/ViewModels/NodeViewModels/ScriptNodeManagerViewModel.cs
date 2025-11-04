@@ -10,7 +10,7 @@ namespace YeetMacro2.ViewModels.NodeViewModels;
 public partial class ScriptNodeManagerViewModel : NodeManagerViewModel<ScriptNodeViewModel, ScriptNode, ScriptNode>
 {
     [ObservableProperty]
-    bool _showScriptEditor, _showHiddenScripts;
+    bool _showScriptEditor;
 
     public ScriptNodeManagerViewModel(
         int rootNodeId,
@@ -21,8 +21,6 @@ public partial class ScriptNodeManagerViewModel : NodeManagerViewModel<ScriptNod
     {
         IsList = true;
         PropertyChanged += ScriptNodeManagerViewModel_PropertyChanged;
-
-        ShowHiddenScripts = Preferences.Default.Get(nameof(ShowHiddenScripts), false);
     }
 
     private void ScriptNodeManagerViewModel_PropertyChanged(object sender, PropertyChangedEventArgs e)
@@ -33,15 +31,9 @@ public partial class ScriptNodeManagerViewModel : NodeManagerViewModel<ScriptNod
         }
     }
 
-    partial void OnShowHiddenScriptsChanged(bool value)
-    {
-        Preferences.Default.Set(nameof(ShowHiddenScripts), ShowHiddenScripts);
-    }
-
     public static void MergeSettings(ScriptNode source, ScriptNode dest)
     {
-        dest.IsHidden = source.IsHidden;
-        dest.IsFavorite = source.IsFavorite;
+        dest.Tags = source.Tags;
 
         foreach (var childSource in source.Nodes)
         {

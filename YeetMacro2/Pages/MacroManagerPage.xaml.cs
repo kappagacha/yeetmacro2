@@ -89,8 +89,7 @@ public partial class MacroManagerPage : ContentPage
                 {
                     var viewModel = ServiceHelper.GetService<MacroManagerViewModel>();
                     var scriptsView = new ScriptNodeView();
-                    scriptsView.BindingContext = viewModel;
-                    scriptsView.SetBinding(ScriptNodeView.MacroSetProperty, new Binding("SelectedMacroSet"));
+                    scriptsView.SetBinding(ScriptNodeView.MacroSetProperty, new Binding("SelectedMacroSet") { Source = viewModel });
                     ScriptsTabContent.Content = scriptsView;
                     _scriptsTabLoaded = true;
                 }

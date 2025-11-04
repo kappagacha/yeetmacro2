@@ -57,26 +57,6 @@ public partial class ScriptNodeViewModel : ScriptNode
         }
     }
 
-    public override bool IsHidden
-    {
-        get => base.IsHidden;
-        set
-        {
-            base.IsHidden = value;
-            OnPropertyChanged();
-        }
-    }
-
-    public override bool IsFavorite
-    {
-        get => base.IsFavorite;
-        set
-        {
-            base.IsFavorite = value;
-            OnPropertyChanged();
-        }
-    }
-
     public override int Position
     {
         get => base.Position;

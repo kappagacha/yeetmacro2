@@ -128,8 +128,9 @@ public partial class TagSelector : ContentView
         var tagSet = nodeTags?.ToHashSet() ?? new HashSet<string>();
         foreach (var item in _tagSelectorItems)
         {
-            var tagKey = $"{item.Tag.FontFamily}-{item.Tag.Glyph}";
-            item.IsSelected = tagSet.Contains(tagKey);
+            // Use tag name instead of FontFamily-Glyph
+            var tagName = item.Tag.Name;
+            item.IsSelected = tagSet.Contains(tagName);
         }
     }
 
@@ -139,19 +140,19 @@ public partial class TagSelector : ContentView
 
         item.IsSelected = !item.IsSelected;
 
-        // Update NodeTags (array or ObservableCollection)
-        var tagKey = $"{item.Tag.FontFamily}-{item.Tag.Glyph}";
+        // Use tag name instead of FontFamily-Glyph
+        var tagName = item.Tag.Name;
 
         if (_boundObservableCollection != null)
         {
             // Working with ObservableCollection
-            if (item.IsSelected && !_boundObservableCollection.Contains(tagKey))
+            if (item.IsSelected && !_boundObservableCollection.Contains(tagName))
             {
-                _boundObservableCollection.Add(tagKey);
+                _boundObservableCollection.Add(tagName);
             }
-            else if (!item.IsSelected && _boundObservableCollection.Contains(tagKey))
+            else if (!item.IsSelected && _boundObservableCollection.Contains(tagName))
             {
-                _boundObservableCollection.Remove(tagKey);
+                _boundObservableCollection.Remove(tagName);
             }
         }
         else
@@ -159,13 +160,13 @@ public partial class TagSelector : ContentView
             // Working with string array
             var currentTags = (NodeTags as string[])?.ToList() ?? new List<string>();
 
-            if (item.IsSelected && !currentTags.Contains(tagKey))
+            if (item.IsSelected && !currentTags.Contains(tagName))
             {
-                currentTags.Add(tagKey);
+                currentTags.Add(tagName);
             }
-            else if (!item.IsSelected && currentTags.Contains(tagKey))
+            else if (!item.IsSelected && currentTags.Contains(tagName))
             {
-                currentTags.Remove(tagKey);
+                currentTags.Remove(tagName);
             }
 
             NodeTags = currentTags.ToArray();
