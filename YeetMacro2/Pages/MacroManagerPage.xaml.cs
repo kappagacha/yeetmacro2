@@ -61,8 +61,7 @@ public partial class MacroManagerPage : ContentPage
                 {
                     var viewModel = ServiceHelper.GetService<MacroManagerViewModel>();
                     var patternsView = new PatternNodeView();
-                    patternsView.BindingContext = viewModel;
-                    patternsView.SetBinding(PatternNodeView.MacroSetProperty, new Binding("SelectedMacroSet"));
+                    patternsView.SetBinding(PatternNodeView.MacroSetProperty, new Binding("SelectedMacroSet") { Source = viewModel });
                     PatternsTabContent.Content = patternsView;
                     _patternsTabLoaded = true;
                 }
@@ -75,8 +74,7 @@ public partial class MacroManagerPage : ContentPage
                 {
                     var viewModel = ServiceHelper.GetService<MacroManagerViewModel>();
                     var settingsView = new SettingNodeView();
-                    settingsView.BindingContext = viewModel;
-                    settingsView.SetBinding(SettingNodeView.MacroSetProperty, new Binding("SelectedMacroSet"));
+                    settingsView.SetBinding(SettingNodeView.MacroSetProperty, new Binding("SelectedMacroSet") { Source = viewModel });
                     SettingsTabContent.Content = settingsView;
                     _settingsTabLoaded = true;
                 }
@@ -102,8 +100,7 @@ public partial class MacroManagerPage : ContentPage
                 {
                     var viewModel = ServiceHelper.GetService<MacroManagerViewModel>();
                     var dailiesView = new TodoNodeView();
-                    dailiesView.BindingContext = viewModel;
-                    dailiesView.SetBinding(TodoNodeView.TodosProperty, new Binding("SelectedMacroSet.Dailies"));
+                    dailiesView.SetBinding(TodoNodeView.TodosProperty, new Binding("SelectedMacroSet.Dailies") { Source = viewModel });
                     DailiesTabContent.Content = dailiesView;
                     _dailiesTabLoaded = true;
                 }
@@ -116,8 +113,7 @@ public partial class MacroManagerPage : ContentPage
                 {
                     var viewModel = ServiceHelper.GetService<MacroManagerViewModel>();
                     var weekliesView = new TodoNodeView();
-                    weekliesView.BindingContext = viewModel;
-                    weekliesView.SetBinding(TodoNodeView.TodosProperty, new Binding("SelectedMacroSet.Weeklies"));
+                    weekliesView.SetBinding(TodoNodeView.TodosProperty, new Binding("SelectedMacroSet.Weeklies") { Source = viewModel });
                     WeekliesTabContent.Content = weekliesView;
                     _weekliesTabLoaded = true;
                 }

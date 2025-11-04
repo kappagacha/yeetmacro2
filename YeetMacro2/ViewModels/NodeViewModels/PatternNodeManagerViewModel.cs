@@ -48,7 +48,7 @@ public partial class PatternNodeManagerViewModel : NodeManagerViewModel<PatternN
 #pragma warning disable MVVMTK0034 // Direct field reference to [ObservableProperty] backing field
         var macroSet = ServiceHelper.GetService<MacroManagerViewModel>().SelectedMacroSet;
 
-        if (macroSet?.UsePatternsSnapshot ?? false)
+        if (!macroSet?.UsePatternsSnapshot ?? false)
         {
             base.Init();
         }
