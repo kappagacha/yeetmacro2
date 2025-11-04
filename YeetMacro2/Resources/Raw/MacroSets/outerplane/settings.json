@@ -1,6 +1,7 @@
 {
   "doArena": {
     "$type": "parent",
+    "$tags": [],
     "$position": 0,
     "$name": "doArena",
     "$path": "doArena",
@@ -18,6 +19,7 @@
         "8",
         "9"
       ],
+      "$tags": [],
       "$defaultValue": "1",
       "$value": "1",
       "$position": 0,
@@ -26,6 +28,7 @@
     },
     "cpThreshold": {
       "$type": "enabledInteger",
+      "$tags": [],
       "$defaultValue": 120000,
       "$value": 120000,
       "$isEnabled": true,
@@ -36,6 +39,7 @@
     },
     "autoDetectCpThreshold": {
       "$type": "boolean",
+      "$tags": [],
       "$defaultValue": false,
       "$value": false,
       "$position": 0,
@@ -44,6 +48,7 @@
     },
     "skipMemorialMatch": {
       "$type": "boolean",
+      "$tags": [],
       "$defaultValue": true,
       "$value": true,
       "$position": 0,
@@ -53,6 +58,7 @@
   },
   "doBountyHunter": {
     "$type": "parent",
+    "$tags": [],
     "$position": 0,
     "$name": "doBountyHunter",
     "$path": "doBountyHunter",
@@ -71,6 +77,7 @@
         "9",
         "RecommendedElement"
       ],
+      "$tags": [],
       "$defaultValue": "2",
       "$value": "2",
       "$position": 0,
@@ -80,6 +87,7 @@
   },
   "doUpgradeStoneRetrieval": {
     "$type": "parent",
+    "$tags": [],
     "$position": 0,
     "$name": "doUpgradeStoneRetrieval",
     "$path": "doUpgradeStoneRetrieval",
@@ -98,6 +106,7 @@
         "9",
         "RecommendedElement"
       ],
+      "$tags": [],
       "$defaultValue": "2",
       "$value": "2",
       "$position": 0,
@@ -113,6 +122,7 @@
         "light",
         "dark"
       ],
+      "$tags": [],
       "$defaultValue": "light",
       "$value": "light",
       "$position": 0,
@@ -128,6 +138,7 @@
         "light",
         "dark"
       ],
+      "$tags": [],
       "$defaultValue": "dark",
       "$value": "dark",
       "$position": 0,
@@ -143,6 +154,7 @@
         "light",
         "dark"
       ],
+      "$tags": [],
       "$defaultValue": "fire",
       "$value": "fire",
       "$position": 0,
@@ -158,6 +170,7 @@
         "light",
         "dark"
       ],
+      "$tags": [],
       "$defaultValue": "water",
       "$value": "water",
       "$position": 0,
@@ -167,6 +180,7 @@
   },
   "doBanditChase": {
     "$type": "parent",
+    "$tags": [],
     "$position": 0,
     "$name": "doBanditChase",
     "$path": "doBanditChase",
@@ -185,6 +199,7 @@
         "9",
         "RecommendedElement"
       ],
+      "$tags": [],
       "$defaultValue": "2",
       "$value": "2",
       "$position": 0,
@@ -194,6 +209,7 @@
   },
   "doGuildSecurityArea": {
     "$type": "parent",
+    "$tags": [],
     "$position": 0,
     "$name": "doGuildSecurityArea",
     "$path": "doGuildSecurityArea",
@@ -212,6 +228,7 @@
         "9",
         "RecommendedElement"
       ],
+      "$tags": [],
       "$defaultValue": "RecommendedElement",
       "$value": "RecommendedElement",
       "$position": 0,
@@ -227,6 +244,7 @@
         "light",
         "dark"
       ],
+      "$tags": [],
       "$defaultValue": "earth",
       "$value": "earth",
       "$position": 0,
@@ -242,6 +260,7 @@
         "light",
         "dark"
       ],
+      "$tags": [],
       "$defaultValue": "water",
       "$value": "water",
       "$position": 0,
@@ -251,6 +270,7 @@
   },
   "doEcologyStudy": {
     "$type": "parent",
+    "$tags": [],
     "$position": 0,
     "$name": "doEcologyStudy",
     "$path": "doEcologyStudy",
@@ -268,6 +288,7 @@
         "8",
         "9"
       ],
+      "$tags": [],
       "$defaultValue": "2",
       "$value": "2",
       "$position": 0,
@@ -283,6 +304,7 @@
         "sacreedGuardian",
         "grandCalamari"
       ],
+      "$tags": [],
       "$defaultValue": "sacreedGuardian",
       "$value": "sacreedGuardian",
       "$position": 0,
@@ -292,6 +314,7 @@
   },
   "doIdentification": {
     "$type": "parent",
+    "$tags": [],
     "$position": 0,
     "$name": "doIdentification",
     "$path": "doIdentification",
@@ -309,6 +332,7 @@
         "8",
         "9"
       ],
+      "$tags": [],
       "$defaultValue": "2",
       "$value": "2",
       "$position": 0,
@@ -324,6 +348,7 @@
         "arsNova",
         "amadeus"
       ],
+      "$tags": [],
       "$defaultValue": "blazingKnightMeteos",
       "$value": "blazingKnightMeteos",
       "$position": 0,
@@ -333,11 +358,13 @@
   },
   "doUpkeep": {
     "$type": "parent",
+    "$tags": [],
     "$position": 0,
     "$name": "doUpkeep",
     "$path": "doUpkeep",
     "claimGuildBuff": {
       "$type": "boolean",
+      "$tags": [],
       "$defaultValue": true,
       "$value": true,
       "$position": 0,
@@ -346,6 +373,7 @@
     },
     "doFriends": {
       "$type": "boolean",
+      "$tags": [],
       "$defaultValue": true,
       "$value": true,
       "$position": 1,
@@ -354,6 +382,7 @@
     },
     "claimReplenishYourStamina": {
       "$type": "boolean",
+      "$tags": [],
       "$defaultValue": true,
       "$value": true,
       "$position": 2,
@@ -362,6 +391,7 @@
     },
     "startTerminusIsleExploration": {
       "$type": "boolean",
+      "$tags": [],
       "$defaultValue": true,
       "$value": true,
       "$position": 3,
@@ -370,6 +400,7 @@
     },
     "claimAntiparticle": {
       "$type": "boolean",
+      "$tags": [],
       "$defaultValue": true,
       "$value": true,
       "$position": 4,
@@ -378,6 +409,7 @@
     },
     "doArena": {
       "$type": "boolean",
+      "$tags": [],
       "$defaultValue": true,
       "$value": true,
       "$position": 5,
@@ -386,6 +418,7 @@
     },
     "claimArenaRewards": {
       "$type": "boolean",
+      "$tags": [],
       "$defaultValue": true,
       "$value": true,
       "$position": 6,
@@ -394,6 +427,7 @@
     },
     "doTerminusIsleExploration": {
       "$type": "boolean",
+      "$tags": [],
       "$defaultValue": true,
       "$value": true,
       "$position": 7,
@@ -402,6 +436,7 @@
     },
     "doSpecialRequestsStage13": {
       "$type": "boolean",
+      "$tags": [],
       "$defaultValue": false,
       "$value": false,
       "$position": 8,
@@ -417,6 +452,7 @@
         "doSkywardTower",
         "dropRateUp"
       ],
+      "$tags": [],
       "$defaultValue": "dropRateUp",
       "$value": "dropRateUp",
       "$isEnabled": true,
@@ -427,11 +463,13 @@
   },
   "claimAntiparticle": {
     "$type": "parent",
+    "$tags": [],
     "$position": 0,
     "$name": "claimAntiparticle",
     "$path": "claimAntiparticle",
     "forceRun": {
       "$type": "boolean",
+      "$tags": [],
       "$defaultValue": false,
       "$value": false,
       "$position": 0,
@@ -440,6 +478,7 @@
     },
     "lastRun": {
       "$type": "timestamp",
+      "$tags": [],
       "$defaultValue": "0001-01-01T00:00:00+00:00",
       "$value": "2025-10-23T22:30:25.173+00:00",
       "$position": 0,
@@ -449,11 +488,13 @@
   },
   "doFriends": {
     "$type": "parent",
+    "$tags": [],
     "$position": 0,
     "$name": "doFriends",
     "$path": "doFriends",
     "forceRun": {
       "$type": "boolean",
+      "$tags": [],
       "$defaultValue": false,
       "$value": false,
       "$position": 0,
@@ -462,6 +503,7 @@
     },
     "lastRun": {
       "$type": "timestamp",
+      "$tags": [],
       "$defaultValue": "0001-01-01T00:00:00+00:00",
       "$value": "2025-10-03T18:36:49.205+00:00",
       "$position": 0,
@@ -471,6 +513,7 @@
   },
   "doGuildRaid": {
     "$type": "parent",
+    "$tags": [],
     "$position": 0,
     "$name": "doGuildRaid",
     "$path": "doGuildRaid",
@@ -489,6 +532,7 @@
         "9",
         "RecommendedElement"
       ],
+      "$tags": [],
       "$defaultValue": "1",
       "$value": "1",
       "$position": 0,
@@ -502,6 +546,7 @@
         "2",
         "3"
       ],
+      "$tags": [],
       "$defaultValue": "3",
       "$value": "3",
       "$position": 0,
@@ -523,6 +568,7 @@
         "9",
         "RecommendedElement"
       ],
+      "$tags": [],
       "$defaultValue": "7",
       "$value": "7",
       "$position": 0,
@@ -536,6 +582,7 @@
         "2",
         "3"
       ],
+      "$tags": [],
       "$defaultValue": "3",
       "$value": "3",
       "$position": 0,
@@ -545,6 +592,7 @@
   },
   "doSurveyHub": {
     "$type": "parent",
+    "$tags": [],
     "$position": 0,
     "$name": "doSurveyHub",
     "$path": "doSurveyHub",
@@ -562,6 +610,7 @@
         "8",
         "9"
       ],
+      "$tags": [],
       "$defaultValue": "2",
       "$value": "2",
       "$position": 0,
@@ -570,6 +619,7 @@
     },
     "descendingPriority": {
       "$type": "boolean",
+      "$tags": [],
       "$defaultValue": false,
       "$value": false,
       "$position": 0,
@@ -579,6 +629,7 @@
   },
   "doInfiniteCorridor": {
     "$type": "parent",
+    "$tags": [],
     "$position": 0,
     "$name": "doInfiniteCorridor",
     "$path": "doInfiniteCorridor",
@@ -596,6 +647,7 @@
         "8",
         "9"
       ],
+      "$tags": [],
       "$defaultValue": "1",
       "$value": "1",
       "$position": 0,
@@ -610,6 +662,7 @@
         "glunite",
         "reforgeCatalyst"
       ],
+      "$tags": [],
       "$defaultValue": "talisman2",
       "$value": "talisman2",
       "$position": 0,
@@ -619,12 +672,15 @@
   },
   "claimEventDailyMissions": {
     "$type": "parent",
+    "$tags": [],
     "$position": 0,
     "$name": "claimEventDailyMissions",
     "$path": "claimEventDailyMissions",
     "dailyMissionPattern": {
       "$type": "pattern",
+      "$tags": [],
       "$defaultValue": {
+        "$tags": [],
         "$patterns": [
           {
             "rawBounds": {
@@ -697,6 +753,7 @@
         "$path": "settings.claimEventDailyMissions.dailyMissionPattern"
       },
       "$value": {
+        "$tags": [],
         "$patterns": [
           {
             "rawBounds": {
@@ -775,6 +832,7 @@
   },
   "doDoppelganger": {
     "$type": "parent",
+    "$tags": [],
     "$position": 0,
     "$name": "doDoppelganger",
     "$path": "doDoppelganger",
@@ -787,6 +845,7 @@
         "dark",
         "light"
       ],
+      "$tags": [],
       "$defaultValue": "water",
       "$value": "water",
       "$position": 0,
@@ -808,6 +867,7 @@
         "9",
         "RecommendedElement"
       ],
+      "$tags": [],
       "$defaultValue": "2",
       "$value": "2",
       "$position": 0,
@@ -823,6 +883,7 @@
         "dark",
         "light"
       ],
+      "$tags": [],
       "$defaultValue": "water",
       "$value": "water",
       "$position": 0,
@@ -844,6 +905,7 @@
         "9",
         "RecommendedElement"
       ],
+      "$tags": [],
       "$defaultValue": "2",
       "$value": "2",
       "$position": 0,
@@ -852,6 +914,7 @@
     },
     "doRefillStamina": {
       "$type": "boolean",
+      "$tags": [],
       "$defaultValue": false,
       "$value": false,
       "$position": 0,
@@ -861,16 +924,19 @@
   },
   "doWeeklyShop": {
     "$type": "parent",
+    "$tags": [],
     "$position": 0,
     "$name": "doWeeklyShop",
     "$path": "doWeeklyShop",
     "resource": {
       "$type": "parent",
+      "$tags": [],
       "$position": 0,
       "$name": "resource",
       "$path": "doWeeklyShop.resource",
       "basicSkillManual": {
         "$type": "boolean",
+        "$tags": [],
         "$defaultValue": true,
         "$value": true,
         "$position": 0,
@@ -879,6 +945,7 @@
       },
       "intermediateSkillManual": {
         "$type": "boolean",
+        "$tags": [],
         "$defaultValue": true,
         "$value": true,
         "$position": 0,
@@ -888,11 +955,13 @@
     },
     "friendshipPoint": {
       "$type": "parent",
+      "$tags": [],
       "$position": 1,
       "$name": "friendshipPoint",
       "$path": "doWeeklyShop.friendshipPoint",
       "upgradeStoneSelectionChest": {
         "$type": "boolean",
+        "$tags": [],
         "$defaultValue": true,
         "$value": true,
         "$position": 0,
@@ -901,6 +970,7 @@
       },
       "lowStarHeroPieceTicket": {
         "$type": "boolean",
+        "$tags": [],
         "$defaultValue": true,
         "$value": true,
         "$position": 0,
@@ -909,6 +979,7 @@
       },
       "threeStarHeroPieceTicket": {
         "$type": "boolean",
+        "$tags": [],
         "$defaultValue": true,
         "$value": true,
         "$position": 0,
@@ -918,11 +989,13 @@
     },
     "arena": {
       "$type": "parent",
+      "$tags": [],
       "$position": 2,
       "$name": "arena",
       "$path": "doWeeklyShop.arena",
       "basicSkillManual": {
         "$type": "boolean",
+        "$tags": [],
         "$defaultValue": true,
         "$value": true,
         "$position": 0,
@@ -931,6 +1004,7 @@
       },
       "professionalSkillManual": {
         "$type": "boolean",
+        "$tags": [],
         "$defaultValue": true,
         "$value": true,
         "$position": 0,
@@ -939,6 +1013,7 @@
       },
       "intermediateSkillManual": {
         "$type": "boolean",
+        "$tags": [],
         "$defaultValue": true,
         "$value": true,
         "$position": 0,
@@ -948,11 +1023,13 @@
     },
     "starMemory": {
       "$type": "parent",
+      "$tags": [],
       "$position": 3,
       "$name": "starMemory",
       "$path": "doWeeklyShop.starMemory",
       "professionalSkillManual": {
         "$type": "boolean",
+        "$tags": [],
         "$defaultValue": false,
         "$value": false,
         "$position": 0,
@@ -961,6 +1038,7 @@
       },
       "intermediateSkillManual": {
         "$type": "boolean",
+        "$tags": [],
         "$defaultValue": true,
         "$value": true,
         "$position": 0,
@@ -970,11 +1048,13 @@
     },
     "jointChallenge": {
       "$type": "parent",
+      "$tags": [],
       "$position": 4,
       "$name": "jointChallenge",
       "$path": "doWeeklyShop.jointChallenge",
       "specialRecruitmentTicket": {
         "$type": "boolean",
+        "$tags": [],
         "$defaultValue": true,
         "$value": true,
         "$position": 0,
@@ -983,6 +1063,7 @@
       },
       "stage3GemChest": {
         "$type": "boolean",
+        "$tags": [],
         "$defaultValue": true,
         "$value": true,
         "$position": 0,
@@ -991,6 +1072,7 @@
       },
       "gold": {
         "$type": "boolean",
+        "$tags": [],
         "$defaultValue": true,
         "$value": true,
         "$position": 0,
@@ -1000,11 +1082,13 @@
     },
     "surveyHub": {
       "$type": "parent",
+      "$tags": [],
       "$position": 5,
       "$name": "surveyHub",
       "$path": "doWeeklyShop.surveyHub",
       "30pctEpicAbrasive": {
         "$type": "boolean",
+        "$tags": [],
         "$defaultValue": false,
         "$value": false,
         "$position": 0,
@@ -1013,6 +1097,7 @@
       },
       "epicReforgeCatalyst": {
         "$type": "boolean",
+        "$tags": [],
         "$defaultValue": false,
         "$value": false,
         "$position": 1,
@@ -1021,6 +1106,7 @@
       },
       "superiorQualityPresentChest": {
         "$type": "boolean",
+        "$tags": [],
         "$defaultValue": false,
         "$value": false,
         "$position": 6,
@@ -1029,6 +1115,7 @@
       },
       "basicSkillManual": {
         "$type": "boolean",
+        "$tags": [],
         "$defaultValue": false,
         "$value": false,
         "$position": 7,
@@ -1037,6 +1124,7 @@
       },
       "10pctLegendaryAbrasive": {
         "$type": "boolean",
+        "$tags": [],
         "$defaultValue": false,
         "$value": false,
         "$position": 8,
@@ -1045,6 +1133,7 @@
       },
       "stage2RandomGemChest": {
         "$type": "boolean",
+        "$tags": [],
         "$defaultValue": false,
         "$value": false,
         "$position": 9,
@@ -1053,6 +1142,7 @@
       },
       "intermediateSkillManual": {
         "$type": "boolean",
+        "$tags": [],
         "$defaultValue": true,
         "$value": true,
         "$position": 10,
@@ -1061,6 +1151,7 @@
       },
       "legendaryReforgeCatalyst": {
         "$type": "boolean",
+        "$tags": [],
         "$defaultValue": false,
         "$value": false,
         "$position": 11,
@@ -1069,6 +1160,7 @@
       },
       "professionalSkillManual": {
         "$type": "boolean",
+        "$tags": [],
         "$defaultValue": true,
         "$value": true,
         "$position": 12,
@@ -1077,6 +1169,7 @@
       },
       "refinedGlunite": {
         "$type": "boolean",
+        "$tags": [],
         "$defaultValue": false,
         "$value": false,
         "$position": 13,
@@ -1085,6 +1178,7 @@
       },
       "epicQualityPresentChest": {
         "$type": "boolean",
+        "$tags": [],
         "$defaultValue": false,
         "$value": false,
         "$position": 14,
@@ -1094,11 +1188,13 @@
     },
     "guild": {
       "$type": "parent",
+      "$tags": [],
       "$position": 6,
       "$name": "guild",
       "$path": "doWeeklyShop.guild",
       "gold": {
         "$type": "boolean",
+        "$tags": [],
         "$defaultValue": true,
         "$value": true,
         "$position": 0,
@@ -1107,6 +1203,7 @@
       },
       "basicSkillManual": {
         "$type": "boolean",
+        "$tags": [],
         "$defaultValue": true,
         "$value": true,
         "$position": 1,
@@ -1115,6 +1212,7 @@
       },
       "professionalSkillManual": {
         "$type": "boolean",
+        "$tags": [],
         "$defaultValue": true,
         "$value": true,
         "$position": 2,
@@ -1123,6 +1221,7 @@
       },
       "intermediateSkillManual": {
         "$type": "boolean",
+        "$tags": [],
         "$defaultValue": true,
         "$value": true,
         "$position": 3,
@@ -1133,11 +1232,13 @@
   },
   "sellInventory": {
     "$type": "parent",
+    "$tags": [],
     "$position": 0,
     "$name": "sellInventory",
     "$path": "sellInventory",
     "forceRun": {
       "$type": "boolean",
+      "$tags": [],
       "$defaultValue": true,
       "$value": true,
       "$position": 0,
@@ -1147,11 +1248,13 @@
   },
   "doWeeklies": {
     "$type": "parent",
+    "$tags": [],
     "$position": 0,
     "$name": "doWeeklies",
     "$path": "doWeeklies",
     "claimWeeklyMissions": {
       "$type": "boolean",
+      "$tags": [],
       "$defaultValue": true,
       "$value": true,
       "$position": 0,
@@ -1160,6 +1263,7 @@
     },
     "doWeeklyCraft": {
       "$type": "boolean",
+      "$tags": [],
       "$defaultValue": true,
       "$value": true,
       "$position": 1,
@@ -1168,6 +1272,7 @@
     },
     "doWeeklyShop": {
       "$type": "boolean",
+      "$tags": [],
       "$defaultValue": true,
       "$value": true,
       "$position": 2,
@@ -1177,17 +1282,20 @@
   },
   "doShop": {
     "$type": "parent",
+    "$tags": [],
     "$position": 0,
     "$name": "doShop",
     "$path": "doShop",
     "friendshipPoint": {
       "$type": "enabledParent",
+      "$tags": [],
       "$isEnabled": true,
       "$position": 0,
       "$name": "friendshipPoint",
       "$path": "doShop.friendshipPoint",
       "gold": {
         "$type": "boolean",
+        "$tags": [],
         "$defaultValue": true,
         "$value": true,
         "$position": 0,
@@ -1196,6 +1304,7 @@
       },
       "arenaTicket": {
         "$type": "boolean",
+        "$tags": [],
         "$defaultValue": true,
         "$value": true,
         "$position": 0,
@@ -1204,6 +1313,7 @@
       },
       "hammer": {
         "$type": "boolean",
+        "$tags": [],
         "$defaultValue": false,
         "$value": false,
         "$position": 0,
@@ -1212,6 +1322,7 @@
       },
       "stoneFragment": {
         "$type": "boolean",
+        "$tags": [],
         "$defaultValue": false,
         "$value": false,
         "$position": 0,
@@ -1220,6 +1331,7 @@
       },
       "stonePiece": {
         "$type": "boolean",
+        "$tags": [],
         "$defaultValue": true,
         "$value": true,
         "$position": 0,
@@ -1228,6 +1340,7 @@
       },
       "stamina": {
         "$type": "boolean",
+        "$tags": [],
         "$defaultValue": true,
         "$value": true,
         "$position": 0,
@@ -1237,12 +1350,14 @@
     },
     "arena": {
       "$type": "enabledParent",
+      "$tags": [],
       "$isEnabled": true,
       "$position": 1,
       "$name": "arena",
       "$path": "doShop.arena",
       "gold": {
         "$type": "boolean",
+        "$tags": [],
         "$defaultValue": true,
         "$value": true,
         "$position": 0,
@@ -1251,6 +1366,7 @@
       },
       "stamina": {
         "$type": "boolean",
+        "$tags": [],
         "$defaultValue": true,
         "$value": true,
         "$position": 0,
@@ -1260,12 +1376,14 @@
     },
     "jointChallenge": {
       "$type": "enabledParent",
+      "$tags": [],
       "$isEnabled": true,
       "$position": 2,
       "$name": "jointChallenge",
       "$path": "doShop.jointChallenge",
       "stamina": {
         "$type": "boolean",
+        "$tags": [],
         "$defaultValue": true,
         "$value": true,
         "$position": 0,
@@ -1275,12 +1393,14 @@
     },
     "festival": {
       "$type": "enabledParent",
+      "$tags": [],
       "$isEnabled": false,
       "$position": 3,
       "$name": "festival",
       "$path": "doShop.festival",
       "stamina": {
         "$type": "boolean",
+        "$tags": [],
         "$defaultValue": true,
         "$value": true,
         "$position": 0,
@@ -1289,6 +1409,7 @@
       },
       "gold": {
         "$type": "boolean",
+        "$tags": [],
         "$defaultValue": true,
         "$value": true,
         "$position": 0,
@@ -1299,6 +1420,7 @@
   },
   "doSkywardTower": {
     "$type": "parent",
+    "$tags": [],
     "$position": 0,
     "$name": "doSkywardTower",
     "$path": "doSkywardTower",
@@ -1316,6 +1438,7 @@
         "8",
         "9"
       ],
+      "$tags": [],
       "$defaultValue": "1",
       "$value": "1",
       "$position": 0,
@@ -1325,12 +1448,15 @@
   },
   "goToLobby": {
     "$type": "parent",
+    "$tags": [],
     "$position": 0,
     "$name": "goToLobby",
     "$path": "goToLobby",
     "userClickPattern": {
       "$type": "pattern",
+      "$tags": [],
       "$defaultValue": {
+        "$tags": [],
         "$patterns": [
           {
             "rawBounds": {
@@ -1403,6 +1529,7 @@
         "$path": "settings.goToLobby.userClickPattern"
       },
       "$value": {
+        "$tags": [],
         "$patterns": [
           {
             "rawBounds": {
@@ -1481,6 +1608,7 @@
   },
   "sweepJointChallenge": {
     "$type": "parent",
+    "$tags": [],
     "$position": 0,
     "$name": "sweepJointChallenge",
     "$path": "sweepJointChallenge",
@@ -1491,6 +1619,7 @@
         "hard",
         "veryHard"
       ],
+      "$tags": [],
       "$defaultValue": "veryHard",
       "$value": "veryHard",
       "$position": 0,
@@ -1500,6 +1629,7 @@
   },
   "selectTeam": {
     "$type": "parent",
+    "$tags": [],
     "$position": 0,
     "$name": "selectTeam",
     "$path": "selectTeam",
@@ -1517,6 +1647,7 @@
         "8",
         "9"
       ],
+      "$tags": [],
       "$defaultValue": "3",
       "$value": "3",
       "$position": 0,
@@ -1537,6 +1668,7 @@
         "8",
         "9"
       ],
+      "$tags": [],
       "$defaultValue": "4",
       "$value": "4",
       "$position": 0,
@@ -1557,6 +1689,7 @@
         "8",
         "9"
       ],
+      "$tags": [],
       "$defaultValue": "5",
       "$value": "5",
       "$position": 0,
@@ -1577,6 +1710,7 @@
         "8",
         "9"
       ],
+      "$tags": [],
       "$defaultValue": "6",
       "$value": "6",
       "$position": 0,
@@ -1597,6 +1731,7 @@
         "8",
         "9"
       ],
+      "$tags": [],
       "$defaultValue": "7",
       "$value": "7",
       "$position": 0,
@@ -1606,12 +1741,15 @@
   },
   "claimEventDailyMissions2": {
     "$type": "parent",
+    "$tags": [],
     "$position": 0,
     "$name": "claimEventDailyMissions2",
     "$path": "claimEventDailyMissions2",
     "dailyMissionPattern": {
       "$type": "pattern",
+      "$tags": [],
       "$defaultValue": {
+        "$tags": [],
         "$patterns": [
           {
             "rawBounds": {
@@ -1652,6 +1790,7 @@
         "$path": "settings.claimEventDailyMissions2.dailyMissionPattern"
       },
       "$value": {
+        "$tags": [],
         "$patterns": [
           {
             "rawBounds": {
@@ -1698,11 +1837,13 @@
   },
   "startTerminusIsleExploration": {
     "$type": "parent",
+    "$tags": [],
     "$position": 0,
     "$name": "startTerminusIsleExploration",
     "$path": "startTerminusIsleExploration",
     "lastRun": {
       "$type": "timestamp",
+      "$tags": [],
       "$defaultValue": "0001-01-01T00:00:00+00:00",
       "$value": "2025-10-01T19:20:31.482+00:00",
       "$position": 0,
@@ -1712,11 +1853,13 @@
   },
   "doTerminusIsleExploration": {
     "$type": "parent",
+    "$tags": [],
     "$position": 0,
     "$name": "doTerminusIsleExploration",
     "$path": "doTerminusIsleExploration",
     "forceRun": {
       "$type": "boolean",
+      "$tags": [],
       "$defaultValue": false,
       "$value": false,
       "$position": 0,
@@ -1726,12 +1869,15 @@
   },
   "sweepEventStoryHard2": {
     "$type": "parent",
+    "$tags": [],
     "$position": 0,
     "$name": "sweepEventStoryHard2",
     "$path": "sweepEventStoryHard2",
     "targetPartPattern": {
       "$type": "pattern",
+      "$tags": [],
       "$defaultValue": {
+        "$tags": [],
         "$patterns": [
           {
             "rawBounds": {
@@ -1772,6 +1918,7 @@
         "$path": "settings.sweepEventStoryHard2.targetPartPattern"
       },
       "$value": {
+        "$tags": [],
         "$patterns": [
           {
             "rawBounds": {
@@ -1829,6 +1976,7 @@
         "8",
         "9"
       ],
+      "$tags": [],
       "$defaultValue": "8",
       "$value": "8",
       "$position": 0,
@@ -1837,7 +1985,9 @@
     },
     "targetEventPattern": {
       "$type": "pattern",
+      "$tags": [],
       "$defaultValue": {
+        "$tags": [],
         "$patterns": [],
         "$isMultiPattern": false,
         "$position": 0,
@@ -1845,6 +1995,7 @@
         "$path": "settings.sweepEventStoryHard2.targetEventPattern"
       },
       "$value": {
+        "$tags": [],
         "$patterns": [],
         "$isMultiPattern": false,
         "$position": 0,
@@ -1858,6 +2009,7 @@
   },
   "doPursuitOperationAssist": {
     "$type": "parent",
+    "$tags": [],
     "$position": 0,
     "$name": "doPursuitOperationAssist",
     "$path": "doPursuitOperationAssist",
@@ -1869,6 +2021,7 @@
         "blockbuster",
         "mutatedWyvre"
       ],
+      "$tags": [],
       "$defaultValue": "irregularQueen",
       "$value": "irregularQueen",
       "$position": 0,
@@ -1889,6 +2042,7 @@
         "8",
         "9"
       ],
+      "$tags": [],
       "$defaultValue": "9",
       "$value": "9",
       "$position": 0,
@@ -1897,6 +2051,7 @@
     },
     "refillStaminaAmount": {
       "$type": "integer",
+      "$tags": [],
       "$defaultValue": 50,
       "$value": 50,
       "$position": 0,
@@ -1907,11 +2062,13 @@
   },
   "applyPreset": {
     "$type": "parent",
+    "$tags": [],
     "$position": 0,
     "$name": "applyPreset",
     "$path": "applyPreset",
     "lastApplied": {
       "$type": "string",
+      "$tags": [],
       "$defaultValue": "1",
       "$value": "1",
       "$position": 10,
@@ -1921,6 +2078,7 @@
   },
   "doPursuitOperation": {
     "$type": "parent",
+    "$tags": [],
     "$position": 0,
     "$name": "doPursuitOperation",
     "$path": "doPursuitOperation",
@@ -1934,6 +2092,7 @@
         "rotate",
         "auto"
       ],
+      "$tags": [],
       "$defaultValue": "auto",
       "$value": "auto",
       "$position": 0,
@@ -1954,6 +2113,7 @@
         "8",
         "9"
       ],
+      "$tags": [],
       "$defaultValue": "9",
       "$value": "9",
       "$position": 1,
@@ -1962,6 +2122,7 @@
     },
     "publishToPublic": {
       "$type": "boolean",
+      "$tags": [],
       "$defaultValue": true,
       "$value": true,
       "$position": 2,
@@ -1970,6 +2131,7 @@
     },
     "lastOperation": {
       "$type": "string",
+      "$tags": [],
       "$defaultValue": "irregularQueen",
       "$value": "irregularQueen",
       "$position": 3,
@@ -1979,16 +2141,19 @@
   },
   "doWeeklyCraft": {
     "$type": "parent",
+    "$tags": [],
     "$position": 0,
     "$name": "doWeeklyCraft",
     "$path": "doWeeklyCraft",
     "specialEnhancement": {
       "$type": "parent",
+      "$tags": [],
       "$position": 0,
       "$name": "specialEnhancement",
       "$path": "doWeeklyCraft.specialEnhancement",
       "armorGlunite": {
         "$type": "boolean",
+        "$tags": [],
         "$defaultValue": true,
         "$value": true,
         "$position": 0,
@@ -1997,11 +2162,13 @@
       },
       "specialGearEnhancement": {
         "$type": "parent",
+        "$tags": [],
         "$position": 0,
         "$name": "specialGearEnhancement",
         "$path": "doWeeklyCraft.specialEnhancement.specialGearEnhancement",
         "talisman": {
           "$type": "boolean",
+          "$tags": [],
           "$defaultValue": true,
           "$value": true,
           "$position": 0,
@@ -2010,6 +2177,7 @@
         },
         "gear": {
           "$type": "boolean",
+          "$tags": [],
           "$defaultValue": true,
           "$value": true,
           "$position": 0,
@@ -2019,11 +2187,13 @@
       },
       "greaterEnhancement": {
         "$type": "parent",
+        "$tags": [],
         "$position": 0,
         "$name": "greaterEnhancement",
         "$path": "doWeeklyCraft.specialEnhancement.greaterEnhancement",
         "talisman": {
           "$type": "boolean",
+          "$tags": [],
           "$defaultValue": false,
           "$value": false,
           "$position": 0,
@@ -2032,6 +2202,7 @@
         },
         "gear": {
           "$type": "boolean",
+          "$tags": [],
           "$defaultValue": false,
           "$value": false,
           "$position": 0,
@@ -2043,12 +2214,15 @@
   },
   "watchAds": {
     "$type": "parent",
+    "$tags": [],
     "$position": 0,
     "$name": "watchAds",
     "$path": "watchAds",
     "userClickPattern": {
       "$type": "pattern",
+      "$tags": [],
       "$defaultValue": {
+        "$tags": [],
         "$patterns": [
           {
             "rawBounds": {
@@ -2185,6 +2359,7 @@
         "$path": "settings.watchAds.userClickPattern"
       },
       "$value": {
+        "$tags": [],
         "$patterns": [
           {
             "rawBounds": {
@@ -2326,7 +2501,9 @@
     },
     "userNoOpPattern": {
       "$type": "pattern",
+      "$tags": [],
       "$defaultValue": {
+        "$tags": [],
         "$patterns": [
           {
             "rawBounds": {
@@ -2367,6 +2544,7 @@
         "$path": "settings.watchAds.userNoOpPattern"
       },
       "$value": {
+        "$tags": [],
         "$patterns": [
           {
             "rawBounds": {
@@ -2412,7 +2590,9 @@
     },
     "goBackPattern": {
       "$type": "pattern",
+      "$tags": [],
       "$defaultValue": {
+        "$tags": [],
         "$patterns": [
           {
             "rawBounds": {
@@ -2485,6 +2665,7 @@
         "$path": "settings.watchAds.goBackPattern"
       },
       "$value": {
+        "$tags": [],
         "$patterns": [
           {
             "rawBounds": {
@@ -2563,12 +2744,15 @@
   },
   "sweepEventStoryHard": {
     "$type": "parent",
+    "$tags": [],
     "$position": 0,
     "$name": "sweepEventStoryHard",
     "$path": "sweepEventStoryHard",
     "targetEventPattern": {
       "$type": "pattern",
+      "$tags": [],
       "$defaultValue": {
+        "$tags": [],
         "$patterns": [
           {
             "rawBounds": {
@@ -2609,6 +2793,7 @@
         "$path": "settings.sweepEventStoryHard.targetEventPattern"
       },
       "$value": {
+        "$tags": [],
         "$patterns": [
           {
             "rawBounds": {
@@ -2654,7 +2839,9 @@
     },
     "targetPartPattern": {
       "$type": "pattern",
+      "$tags": [],
       "$defaultValue": {
+        "$tags": [],
         "$patterns": [
           {
             "rawBounds": {
@@ -2695,6 +2882,7 @@
         "$path": "settings.sweepEventStoryHard.targetPartPattern"
       },
       "$value": {
+        "$tags": [],
         "$patterns": [
           {
             "rawBounds": {
@@ -2752,6 +2940,7 @@
         "8",
         "9"
       ],
+      "$tags": [],
       "$defaultValue": "8",
       "$value": "8",
       "$position": 2,
@@ -2761,11 +2950,13 @@
   },
   "doDailies": {
     "$type": "parent",
+    "$tags": [],
     "$position": 0,
     "$name": "doDailies",
     "$path": "doDailies",
     "claimGuildBuff": {
       "$type": "boolean",
+      "$tags": [],
       "$defaultValue": true,
       "$value": true,
       "$position": 0,
@@ -2774,6 +2965,7 @@
     },
     "claimReplenishYourStamina": {
       "$type": "boolean",
+      "$tags": [],
       "$defaultValue": true,
       "$value": true,
       "$position": 1,
@@ -2782,6 +2974,7 @@
     },
     "claimAntiparticle": {
       "$type": "boolean",
+      "$tags": [],
       "$defaultValue": true,
       "$value": true,
       "$position": 2,
@@ -2790,6 +2983,7 @@
     },
     "claimFreeShop": {
       "$type": "boolean",
+      "$tags": [],
       "$defaultValue": true,
       "$value": true,
       "$position": 3,
@@ -2798,6 +2992,7 @@
     },
     "claimFreeRecruit": {
       "$type": "boolean",
+      "$tags": [],
       "$defaultValue": true,
       "$value": true,
       "$position": 4,
@@ -2806,6 +3001,7 @@
     },
     "doArena": {
       "$type": "boolean",
+      "$tags": [],
       "$defaultValue": true,
       "$value": true,
       "$position": 5,
@@ -2814,6 +3010,7 @@
     },
     "claimMailboxExpiring": {
       "$type": "boolean",
+      "$tags": [],
       "$defaultValue": true,
       "$value": true,
       "$position": 6,
@@ -2822,6 +3019,7 @@
     },
     "doBountyHunter": {
       "$type": "boolean",
+      "$tags": [],
       "$defaultValue": true,
       "$value": true,
       "$position": 7,
@@ -2830,6 +3028,7 @@
     },
     "doBanditChase": {
       "$type": "boolean",
+      "$tags": [],
       "$defaultValue": true,
       "$value": true,
       "$position": 8,
@@ -2838,6 +3037,7 @@
     },
     "doUpgradeStoneRetrieval": {
       "$type": "boolean",
+      "$tags": [],
       "$defaultValue": true,
       "$value": true,
       "$position": 9,
@@ -2846,6 +3046,7 @@
     },
     "doGuildSecurityArea": {
       "$type": "boolean",
+      "$tags": [],
       "$defaultValue": true,
       "$value": true,
       "$position": 10,
@@ -2854,6 +3055,7 @@
     },
     "doGuildRaid": {
       "$type": "boolean",
+      "$tags": [],
       "$defaultValue": false,
       "$value": false,
       "$position": 11,
@@ -2862,6 +3064,7 @@
     },
     "watchAds": {
       "$type": "boolean",
+      "$tags": [],
       "$defaultValue": true,
       "$value": true,
       "$position": 12,
@@ -2870,6 +3073,7 @@
     },
     "doShop": {
       "$type": "boolean",
+      "$tags": [],
       "$defaultValue": true,
       "$value": true,
       "$position": 13,
@@ -2878,6 +3082,7 @@
     },
     "claimMailboxExpiringStamina": {
       "$type": "boolean",
+      "$tags": [],
       "$defaultValue": true,
       "$value": true,
       "$position": 14,
@@ -2886,6 +3091,7 @@
     },
     "doDoppelganger": {
       "$type": "boolean",
+      "$tags": [],
       "$defaultValue": true,
       "$value": true,
       "$position": 15,
@@ -2894,6 +3100,7 @@
     },
     "doSpecialRequests": {
       "$type": "boolean",
+      "$tags": [],
       "$defaultValue": false,
       "$value": false,
       "$position": 16,
@@ -2902,6 +3109,7 @@
     },
     "doSurveyHub": {
       "$type": "boolean",
+      "$tags": [],
       "$defaultValue": true,
       "$value": true,
       "$position": 17,
@@ -2910,6 +3118,7 @@
     },
     "doInfiniteCorridor": {
       "$type": "boolean",
+      "$tags": [],
       "$defaultValue": true,
       "$value": true,
       "$position": 18,
@@ -2918,6 +3127,7 @@
     },
     "claimWorldBossRewards": {
       "$type": "boolean",
+      "$tags": [],
       "$defaultValue": true,
       "$value": true,
       "$position": 19,
@@ -2926,6 +3136,7 @@
     },
     "sweepJointChallenge": {
       "$type": "boolean",
+      "$tags": [],
       "$defaultValue": false,
       "$value": false,
       "$position": 20,
@@ -2934,6 +3145,7 @@
     },
     "sweepEventStoryHard": {
       "$type": "boolean",
+      "$tags": [],
       "$defaultValue": true,
       "$value": true,
       "$position": 21,
@@ -2942,6 +3154,7 @@
     },
     "sweepEventStoryHard2": {
       "$type": "boolean",
+      "$tags": [],
       "$defaultValue": false,
       "$value": false,
       "$position": 22,
@@ -2950,6 +3163,7 @@
     },
     "doUpkeep": {
       "$type": "boolean",
+      "$tags": [],
       "$defaultValue": true,
       "$value": true,
       "$position": 23,
@@ -2958,6 +3172,7 @@
     },
     "claimDailyMissions": {
       "$type": "boolean",
+      "$tags": [],
       "$defaultValue": true,
       "$value": true,
       "$position": 24,
@@ -2966,6 +3181,7 @@
     },
     "claimBossDailyMissions": {
       "$type": "boolean",
+      "$tags": [],
       "$defaultValue": false,
       "$value": false,
       "$position": 25,
@@ -2974,6 +3190,7 @@
     },
     "claimEventDailyMissions": {
       "$type": "boolean",
+      "$tags": [],
       "$defaultValue": false,
       "$value": false,
       "$position": 26,
@@ -2982,6 +3199,7 @@
     },
     "sellInventory": {
       "$type": "boolean",
+      "$tags": [],
       "$defaultValue": true,
       "$value": true,
       "$position": 27,
@@ -2990,6 +3208,7 @@
     },
     "claimEventDailyMissions2": {
       "$type": "boolean",
+      "$tags": [],
       "$defaultValue": true,
       "$value": true,
       "$position": 28,
@@ -2998,6 +3217,7 @@
     },
     "doTerminusIsleExplorationWithSupportPack": {
       "$type": "boolean",
+      "$tags": [],
       "$defaultValue": false,
       "$value": false,
       "$position": 29,
@@ -3006,6 +3226,7 @@
     },
     "doPursuitOperation": {
       "$type": "boolean",
+      "$tags": [],
       "$defaultValue": true,
       "$value": true,
       "$position": 30,
@@ -3014,6 +3235,7 @@
     },
     "claimEventDailyFireworks": {
       "$type": "boolean",
+      "$tags": [],
       "$defaultValue": true,
       "$value": true,
       "$position": 31,

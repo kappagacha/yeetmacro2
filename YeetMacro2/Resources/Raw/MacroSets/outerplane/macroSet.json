@@ -1,4 +1,30 @@
 {
+  "tags": [
+    {
+      "name": "favorites",
+      "fontFamily": "MaterialOutlined",
+      "glyph": "\uE87D",
+      "position": 0
+    },
+    {
+      "name": "dailies",
+      "fontFamily": "FASolid",
+      "glyph": "\uF783",
+      "position": 1
+    },
+    {
+      "name": "weeklies",
+      "fontFamily": "FASolid",
+      "glyph": "\uF784",
+      "position": 2
+    },
+    {
+      "name": "test",
+      "fontFamily": "MaterialOutlined",
+      "glyph": "\uEA4B",
+      "position": 3
+    }
+  ],
   "name": "Outerplane",
   "resolution": {
     "width": 1920,
@@ -8,12 +34,12 @@
   "supportsGreaterHeight": false,
   "package": "com.smilegate.outerplane.stove.google",
   "source": "online:outerplane",
-  "macroSetLastUpdated": "2025-11-02T18:18:02.061444-06:00",
-  "patternsLastUpdated": "2025-11-02T18:18:02.062509-06:00",
-  "scriptsLastUpdated": "2025-11-02T18:18:02.0626197-06:00",
-  "settingsLastUpdated": "2025-11-02T18:18:02.062698-06:00",
-  "dailyTemplateLastUpdated": "2025-11-02T18:18:02.062779-06:00",
-  "weeklyTemplateLastUpdated": "2025-11-02T18:18:02.0628559-06:00",
+  "macroSetLastUpdated": "2025-11-03T23:29:14.2426857-06:00",
+  "patternsLastUpdated": "2025-11-03T23:29:14.243046-06:00",
+  "scriptsLastUpdated": "2025-11-03T23:29:14.2433321-06:00",
+  "settingsLastUpdated": "2025-11-03T23:29:14.2435411-06:00",
+  "dailyTemplateLastUpdated": "2025-11-03T23:29:14.2437524-06:00",
+  "weeklyTemplateLastUpdated": "2025-11-03T23:29:14.2440007-06:00",
   "description": "Requirement: Settings =\u003E Graphics =\u003E Resolution =\u003E High",
   "dailyResetUtcHour": 0,
   "weeklyStartDay": "Monday",
