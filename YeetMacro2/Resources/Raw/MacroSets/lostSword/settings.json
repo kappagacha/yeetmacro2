@@ -1,11 +1,13 @@
 {
   "doColosseum": {
     "$type": "parent",
+    "$tags": [],
     "$position": 0,
     "$name": "doColosseum",
     "$path": "doColosseum",
     "lastRun": {
       "$type": "timestamp",
+      "$tags": [],
       "$defaultValue": "0001-01-01T00:00:00+00:00",
       "$value": "2025-10-13T03:43:12.686+00:00",
       "$position": 0,
@@ -14,6 +16,7 @@
     },
     "forceRun": {
       "$type": "boolean",
+      "$tags": [],
       "$defaultValue": false,
       "$value": false,
       "$position": 0,
@@ -23,11 +26,13 @@
   },
   "doBossRaid": {
     "$type": "parent",
+    "$tags": [],
     "$position": 0,
     "$name": "doBossRaid",
     "$path": "doBossRaid",
     "enterOnce": {
       "$type": "boolean",
+      "$tags": [],
       "$defaultValue": true,
       "$value": true,
       "$position": 0,
@@ -37,11 +42,13 @@
   },
   "doGold": {
     "$type": "parent",
+    "$tags": [],
     "$position": 0,
     "$name": "doGold",
     "$path": "doGold",
     "startOnce": {
       "$type": "boolean",
+      "$tags": [],
       "$defaultValue": true,
       "$value": true,
       "$position": 0,
@@ -51,11 +58,13 @@
   },
   "doBookOfExperience": {
     "$type": "parent",
+    "$tags": [],
     "$position": 0,
     "$name": "doBookOfExperience",
     "$path": "doBookOfExperience",
     "startOnce": {
       "$type": "boolean",
+      "$tags": [],
       "$defaultValue": true,
       "$value": true,
       "$position": 0,
@@ -65,11 +74,13 @@
   },
   "doElementalStone": {
     "$type": "parent",
+    "$tags": [],
     "$position": 0,
     "$name": "doElementalStone",
     "$path": "doElementalStone",
     "startOnce": {
       "$type": "boolean",
+      "$tags": [],
       "$defaultValue": true,
       "$value": true,
       "$position": 0,
@@ -79,11 +90,13 @@
   },
   "doEvent1": {
     "$type": "parent",
+    "$tags": [],
     "$position": 0,
     "$name": "doEvent1",
     "$path": "doEvent1",
     "startOnce": {
       "$type": "boolean",
+      "$tags": [],
       "$defaultValue": true,
       "$value": true,
       "$position": 0,
@@ -93,11 +106,13 @@
   },
   "doGuild": {
     "$type": "parent",
+    "$tags": [],
     "$position": 0,
     "$name": "doGuild",
     "$path": "doGuild",
     "donate": {
       "$type": "boolean",
+      "$tags": [],
       "$defaultValue": true,
       "$value": true,
       "$position": 0,
@@ -106,6 +121,7 @@
     },
     "checkIn": {
       "$type": "boolean",
+      "$tags": [],
       "$defaultValue": true,
       "$value": true,
       "$position": 0,
@@ -114,6 +130,7 @@
     },
     "investGold": {
       "$type": "boolean",
+      "$tags": [],
       "$defaultValue": true,
       "$value": true,
       "$position": 0,
@@ -122,6 +139,7 @@
     },
     "investGuildCoin": {
       "$type": "boolean",
+      "$tags": [],
       "$defaultValue": true,
       "$value": true,
       "$position": 0,
@@ -131,11 +149,13 @@
   },
   "doDailies": {
     "$type": "parent",
+    "$tags": [],
     "$position": 0,
     "$name": "doDailies",
     "$path": "doDailies",
     "claimTreasureExploration": {
       "$type": "boolean",
+      "$tags": [],
       "$defaultValue": true,
       "$value": true,
       "$position": 0,
@@ -144,6 +164,7 @@
     },
     "doRoulette": {
       "$type": "boolean",
+      "$tags": [],
       "$defaultValue": true,
       "$value": true,
       "$position": 0,
@@ -152,6 +173,7 @@
     },
     "claimMailbox": {
       "$type": "boolean",
+      "$tags": [],
       "$defaultValue": true,
       "$value": true,
       "$position": 0,
@@ -160,6 +182,7 @@
     },
     "claimFreeSummon": {
       "$type": "boolean",
+      "$tags": [],
       "$defaultValue": true,
       "$value": true,
       "$position": 0,
@@ -168,6 +191,7 @@
     },
     "doCharacterChat": {
       "$type": "boolean",
+      "$tags": [],
       "$defaultValue": true,
       "$value": true,
       "$position": 0,
@@ -176,6 +200,7 @@
     },
     "doShop": {
       "$type": "boolean",
+      "$tags": [],
       "$defaultValue": true,
       "$value": true,
       "$position": 0,
@@ -184,6 +209,7 @@
     },
     "doGuild": {
       "$type": "boolean",
+      "$tags": [],
       "$defaultValue": true,
       "$value": true,
       "$position": 0,
@@ -192,6 +218,7 @@
     },
     "doBossRaid": {
       "$type": "boolean",
+      "$tags": [],
       "$defaultValue": true,
       "$value": true,
       "$position": 0,
@@ -200,6 +227,7 @@
     },
     "doStonehenge": {
       "$type": "boolean",
+      "$tags": [],
       "$defaultValue": true,
       "$value": true,
       "$position": 0,
@@ -208,6 +236,7 @@
     },
     "doGold": {
       "$type": "boolean",
+      "$tags": [],
       "$defaultValue": true,
       "$value": true,
       "$position": 0,
@@ -216,6 +245,7 @@
     },
     "doBookOfExperience": {
       "$type": "boolean",
+      "$tags": [],
       "$defaultValue": true,
       "$value": true,
       "$position": 0,
@@ -224,6 +254,7 @@
     },
     "doElementalStone": {
       "$type": "boolean",
+      "$tags": [],
       "$defaultValue": true,
       "$value": true,
       "$position": 0,
@@ -232,6 +263,7 @@
     },
     "doPartyDungeon": {
       "$type": "boolean",
+      "$tags": [],
       "$defaultValue": true,
       "$value": true,
       "$position": 0,
@@ -240,6 +272,7 @@
     },
     "doEvent1": {
       "$type": "boolean",
+      "$tags": [],
       "$defaultValue": true,
       "$value": true,
       "$position": 0,
@@ -248,6 +281,7 @@
     },
     "claimDailyMissions": {
       "$type": "boolean",
+      "$tags": [],
       "$defaultValue": true,
       "$value": true,
       "$position": 0,
@@ -256,6 +290,7 @@
     },
     "doColosseum": {
       "$type": "boolean",
+      "$tags": [],
       "$defaultValue": true,
       "$value": true,
       "$position": 0,
@@ -265,11 +300,13 @@
   },
   "claimTreasureExploration": {
     "$type": "parent",
+    "$tags": [],
     "$position": 0,
     "$name": "claimTreasureExploration",
     "$path": "claimTreasureExploration",
     "lastRun": {
       "$type": "timestamp",
+      "$tags": [],
       "$defaultValue": "0001-01-01T00:00:00+00:00",
       "$value": "2025-10-20T03:20:10.896+00:00",
       "$position": 0,
@@ -278,6 +315,7 @@
     },
     "forceRun": {
       "$type": "boolean",
+      "$tags": [],
       "$defaultValue": false,
       "$value": false,
       "$position": 0,
@@ -287,11 +325,13 @@
   },
   "doUpkeep": {
     "$type": "parent",
+    "$tags": [],
     "$position": 0,
     "$name": "doUpkeep",
     "$path": "doUpkeep",
     "claimTreasureExploration": {
       "$type": "boolean",
+      "$tags": [],
       "$defaultValue": true,
       "$value": true,
       "$position": 0,
@@ -300,6 +340,7 @@
     },
     "doColosseum": {
       "$type": "boolean",
+      "$tags": [],
       "$defaultValue": true,
       "$value": true,
       "$position": 0,
@@ -309,22 +350,26 @@
   },
   "doShop": {
     "$type": "parent",
+    "$tags": [],
     "$position": 0,
     "$name": "doShop",
     "$path": "doShop",
     "exchangeShop": {
       "$type": "parent",
+      "$tags": [],
       "$position": 0,
       "$name": "exchangeShop",
       "$path": "doShop.exchangeShop",
       "eventCoin2": {
         "$type": "enabledParent",
+        "$tags": [],
         "$isEnabled": true,
         "$position": 0,
         "$name": "eventCoin2",
         "$path": "doShop.exchangeShop.eventCoin2",
         "eventCoinType": {
           "$type": "string",
+          "$tags": [],
           "$defaultValue": "Summer",
           "$value": "Summer",
           "$position": 0,
@@ -333,6 +378,7 @@
         },
         "eventTicket": {
           "$type": "boolean",
+          "$tags": [],
           "$defaultValue": false,
           "$value": false,
           "$position": 0,
@@ -341,6 +387,7 @@
         },
         "rouletteTicket": {
           "$type": "boolean",
+          "$tags": [],
           "$defaultValue": true,
           "$value": true,
           "$position": 1,
@@ -349,6 +396,7 @@
         },
         "bossRaidTicket": {
           "$type": "boolean",
+          "$tags": [],
           "$defaultValue": true,
           "$value": true,
           "$position": 2,
@@ -358,12 +406,14 @@
       },
       "eventCoin1": {
         "$type": "enabledParent",
+        "$tags": [],
         "$isEnabled": true,
         "$position": 0,
         "$name": "eventCoin1",
         "$path": "doShop.exchangeShop.eventCoin1",
         "eventCoinType": {
           "$type": "string",
+          "$tags": [],
           "$defaultValue": "Pumpkin",
           "$value": "Pumpkin",
           "$position": 0,
@@ -372,6 +422,7 @@
         },
         "eventTicket": {
           "$type": "boolean",
+          "$tags": [],
           "$defaultValue": true,
           "$value": true,
           "$position": 1,
@@ -380,6 +431,7 @@
         },
         "rouletteTicket": {
           "$type": "boolean",
+          "$tags": [],
           "$defaultValue": true,
           "$value": true,
           "$position": 2,
@@ -388,6 +440,7 @@
         },
         "bossRaidTicket": {
           "$type": "boolean",
+          "$tags": [],
           "$defaultValue": true,
           "$value": true,
           "$position": 3,

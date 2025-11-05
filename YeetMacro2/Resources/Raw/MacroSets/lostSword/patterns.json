@@ -1,5 +1,6 @@
 {
   "summon": {
+    "$tags": [],
     "$patterns": [
       {
         "rawBounds": {
@@ -39,6 +40,7 @@
     "$name": "summon",
     "$path": "summon",
     "swipeDown": {
+      "$tags": [],
       "$patterns": [
         {
           "rawBounds": {
@@ -79,6 +81,7 @@
       "$path": "summon.swipeDown"
     },
     "characterSummon": {
+      "$tags": [],
       "$patterns": [
         {
           "rawBounds": {
@@ -119,6 +122,7 @@
       "$path": "summon.characterSummon"
     },
     "petSummon": {
+      "$tags": [],
       "$patterns": [
         {
           "rawBounds": {
@@ -159,6 +163,7 @@
       "$path": "summon.petSummon"
     },
     "viewAll": {
+      "$tags": [],
       "$patterns": [
         {
           "rawBounds": {
@@ -199,6 +204,7 @@
       "$path": "summon.viewAll"
     },
     "confirm": {
+      "$tags": [],
       "$patterns": [
         {
           "rawBounds": {
@@ -239,6 +245,7 @@
       "$path": "summon.confirm"
     },
     "title": {
+      "$tags": [],
       "$patterns": [
         {
           "rawBounds": {
@@ -279,6 +286,7 @@
       "$path": "summon.title"
     },
     "exit": {
+      "$tags": [],
       "$patterns": [
         {
           "rawBounds": {
@@ -319,6 +327,7 @@
       "$path": "summon.exit"
     },
     "skip": {
+      "$tags": [],
       "$patterns": [
         {
           "rawBounds": {
@@ -391,6 +400,7 @@
       "$path": "summon.skip"
     },
     "free": {
+      "$tags": [],
       "$patterns": [
         {
           "rawBounds": {
@@ -432,12 +442,14 @@
     }
   },
   "colosseum": {
+    "$tags": [],
     "$patterns": [],
     "$isMultiPattern": false,
     "$position": 0,
     "$name": "colosseum",
     "$path": "colosseum",
     "title": {
+      "$tags": [],
       "$patterns": [
         {
           "rawBounds": {
@@ -478,6 +490,7 @@
       "$path": "colosseum.title"
     },
     "zeroTickets": {
+      "$tags": [],
       "$patterns": [
         {
           "rawBounds": {
@@ -518,6 +531,7 @@
       "$path": "colosseum.zeroTickets"
     },
     "challenge": {
+      "$tags": [],
       "$patterns": [
         {
           "rawBounds": {
@@ -559,6 +573,7 @@
     }
   },
   "lobby": {
+    "$tags": [],
     "$patterns": [
       {
         "rawBounds": {
@@ -599,6 +614,7 @@
     "$path": "lobby"
   },
   "character": {
+    "$tags": [],
     "$patterns": [
       {
         "rawBounds": {
@@ -638,6 +654,7 @@
     "$name": "character",
     "$path": "character",
     "title": {
+      "$tags": [],
       "$patterns": [
         {
           "rawBounds": {
@@ -678,6 +695,7 @@
       "$path": "character.title"
     },
     "chat": {
+      "$tags": [],
       "$patterns": [
         {
           "rawBounds": {
@@ -717,6 +735,7 @@
       "$name": "chat",
       "$path": "character.chat",
       "title": {
+        "$tags": [],
         "$patterns": [
           {
             "rawBounds": {
@@ -757,6 +776,7 @@
         "$path": "character.chat.title"
       },
       "chatCount": {
+        "$tags": [],
         "$patterns": [
           {
             "rawBounds": {
@@ -797,6 +817,7 @@
         "$path": "character.chat.chatCount"
       },
       "chat": {
+        "$tags": [],
         "$patterns": [
           {
             "rawBounds": {
@@ -837,6 +858,7 @@
         "$path": "character.chat.chat"
       },
       "circleTop": {
+        "$tags": [],
         "$patterns": [
           {
             "rawBounds": {
@@ -877,6 +899,7 @@
         "$path": "character.chat.circleTop"
       },
       "log": {
+        "$tags": [],
         "$patterns": [
           {
             "rawBounds": {
@@ -917,6 +940,7 @@
         "$path": "character.chat.log"
       },
       "selectedCharacter": {
+        "$tags": [],
         "$patterns": [
           {
             "rawBounds": {
@@ -957,6 +981,7 @@
         "$path": "character.chat.selectedCharacter"
       },
       "chatConsumed": {
+        "$tags": [],
         "$patterns": [
           {
             "rawBounds": {
@@ -997,6 +1022,7 @@
         "$path": "character.chat.chatConsumed"
       },
       "chatAvailable": {
+        "$tags": [],
         "$patterns": [
           {
             "rawBounds": {
@@ -1037,6 +1063,7 @@
         "$path": "character.chat.chatAvailable"
       },
       "next": {
+        "$tags": [],
         "$patterns": [
           {
             "rawBounds": {
@@ -1077,6 +1104,7 @@
         "$path": "character.chat.next"
       },
       "options": {
+        "$tags": [],
         "$patterns": [
           {
             "rawBounds": {
@@ -1117,6 +1145,7 @@
         "$path": "character.chat.options"
       },
       "done": {
+        "$tags": [],
         "$patterns": [
           {
             "rawBounds": {
@@ -1159,6 +1188,7 @@
     }
   },
   "bossRaid": {
+    "$tags": [],
     "$patterns": [
       {
         "rawBounds": {
@@ -1199,6 +1229,7 @@
     "$path": "bossRaid"
   },
   "menu": {
+    "$tags": [],
     "$patterns": [
       {
         "rawBounds": {
@@ -1238,6 +1269,7 @@
     "$name": "menu",
     "$path": "menu",
     "mailbox": {
+      "$tags": [],
       "$patterns": [
         {
           "rawBounds": {
@@ -1277,6 +1309,7 @@
       "$name": "mailbox",
       "$path": "menu.mailbox",
       "title": {
+        "$tags": [],
         "$patterns": [
           {
             "rawBounds": {
@@ -1317,6 +1350,7 @@
         "$path": "menu.mailbox.title"
       },
       "notification": {
+        "$tags": [],
         "$patterns": [
           {
             "rawBounds": {
@@ -1357,6 +1391,7 @@
         "$path": "menu.mailbox.notification"
       },
       "claimAll": {
+        "$tags": [],
         "$patterns": [
           {
             "rawBounds": {
@@ -1398,6 +1433,7 @@
       }
     },
     "close": {
+      "$tags": [],
       "$patterns": [
         {
           "rawBounds": {
@@ -1438,6 +1474,7 @@
       "$path": "menu.close"
     },
     "return": {
+      "$tags": [],
       "$patterns": [
         {
           "rawBounds": {
@@ -1478,6 +1515,7 @@
       "$path": "menu.return"
     },
     "event": {
+      "$tags": [],
       "$patterns": [
         {
           "rawBounds": {
@@ -1517,6 +1555,7 @@
       "$name": "event",
       "$path": "menu.event",
       "notification": {
+        "$tags": [],
         "$patterns": [
           {
             "rawBounds": {
@@ -1557,6 +1596,7 @@
         "$path": "menu.event.notification"
       },
       "title": {
+        "$tags": [],
         "$patterns": [
           {
             "rawBounds": {
@@ -1597,12 +1637,14 @@
         "$path": "menu.event.title"
       },
       "roulette": {
+        "$tags": [],
         "$patterns": [],
         "$isMultiPattern": false,
         "$position": 0,
         "$name": "roulette",
         "$path": "menu.event.roulette",
         "push": {
+          "$tags": [],
           "$patterns": [
             {
               "rawBounds": {
@@ -1645,6 +1687,7 @@
       }
     },
     "guild": {
+      "$tags": [],
       "$patterns": [
         {
           "rawBounds": {
@@ -1684,6 +1727,7 @@
       "$name": "guild",
       "$path": "menu.guild",
       "notification": {
+        "$tags": [],
         "$patterns": [
           {
             "rawBounds": {
@@ -1724,6 +1768,7 @@
         "$path": "menu.guild.notification"
       },
       "title": {
+        "$tags": [],
         "$patterns": [
           {
             "rawBounds": {
@@ -1764,6 +1809,7 @@
         "$path": "menu.guild.title"
       },
       "donate": {
+        "$tags": [],
         "$patterns": [
           {
             "rawBounds": {
@@ -1803,6 +1849,7 @@
         "$name": "donate",
         "$path": "menu.guild.donate",
         "gold": {
+          "$tags": [],
           "$patterns": [
             {
               "rawBounds": {
@@ -1843,6 +1890,7 @@
           "$path": "menu.guild.donate.gold"
         },
         "fairyQueenToken": {
+          "$tags": [],
           "$patterns": [
             {
               "rawBounds": {
@@ -1883,6 +1931,7 @@
           "$path": "menu.guild.donate.fairyQueenToken"
         },
         "close": {
+          "$tags": [],
           "$patterns": [
             {
               "rawBounds": {
@@ -1924,6 +1973,7 @@
         }
       },
       "checkIn": {
+        "$tags": [],
         "$patterns": [
           {
             "rawBounds": {
@@ -1964,6 +2014,7 @@
         "$path": "menu.guild.checkIn"
       },
       "claimReward": {
+        "$tags": [],
         "$patterns": [
           {
             "rawBounds": {
@@ -2004,6 +2055,7 @@
         "$path": "menu.guild.claimReward"
       },
       "investGold": {
+        "$tags": [],
         "$patterns": [
           {
             "rawBounds": {
@@ -2044,6 +2096,7 @@
         "$path": "menu.guild.investGold"
       },
       "investGuildCoin": {
+        "$tags": [],
         "$patterns": [
           {
             "rawBounds": {
@@ -2085,6 +2138,7 @@
       }
     },
     "mission": {
+      "$tags": [],
       "$patterns": [
         {
           "rawBounds": {
@@ -2124,6 +2178,7 @@
       "$name": "mission",
       "$path": "menu.mission",
       "notification": {
+        "$tags": [],
         "$patterns": [
           {
             "rawBounds": {
@@ -2164,6 +2219,7 @@
         "$path": "menu.mission.notification"
       },
       "title": {
+        "$tags": [],
         "$patterns": [
           {
             "rawBounds": {
@@ -2204,6 +2260,7 @@
         "$path": "menu.mission.title"
       },
       "claimAll": {
+        "$tags": [],
         "$patterns": [
           {
             "rawBounds": {
@@ -2246,12 +2303,14 @@
     }
   },
   "startScreen": {
+    "$tags": [],
     "$patterns": [],
     "$isMultiPattern": false,
     "$position": 0,
     "$name": "startScreen",
     "$path": "startScreen",
     "tapTheScreen": {
+      "$tags": [],
       "$patterns": [
         {
           "rawBounds": {
@@ -2293,6 +2352,7 @@
     }
   },
   "stonehenge": {
+    "$tags": [],
     "$patterns": [
       {
         "rawBounds": {
@@ -2332,6 +2392,7 @@
     "$name": "stonehenge",
     "$path": "stonehenge",
     "select": {
+      "$tags": [],
       "$patterns": [
         {
           "rawBounds": {
@@ -2372,6 +2433,7 @@
       "$path": "stonehenge.select"
     },
     "start": {
+      "$tags": [],
       "$patterns": [
         {
           "rawBounds": {
@@ -2412,6 +2474,7 @@
       "$path": "stonehenge.start"
     },
     "summonBossAutoUse": {
+      "$tags": [],
       "$patterns": [
         {
           "rawBounds": {
@@ -2451,6 +2514,7 @@
       "$name": "summonBossAutoUse",
       "$path": "stonehenge.summonBossAutoUse",
       "checked": {
+        "$tags": [],
         "$patterns": [
           {
             "rawBounds": {
@@ -2493,12 +2557,14 @@
     }
   },
   "shop": {
+    "$tags": [],
     "$patterns": [],
     "$isMultiPattern": false,
     "$position": 0,
     "$name": "shop",
     "$path": "shop",
     "title": {
+      "$tags": [],
       "$patterns": [
         {
           "rawBounds": {
@@ -2539,6 +2605,7 @@
       "$path": "shop.title"
     },
     "lowerRightCorner": {
+      "$tags": [],
       "$patterns": [
         {
           "rawBounds": {
@@ -2579,6 +2646,7 @@
       "$path": "shop.lowerRightCorner"
     },
     "itemText": {
+      "$tags": [],
       "$patterns": [
         {
           "rawBounds": {
@@ -2619,6 +2687,7 @@
       "$path": "shop.itemText"
     },
     "gold": {
+      "$tags": [],
       "$patterns": [
         {
           "rawBounds": {
@@ -2659,6 +2728,7 @@
       "$path": "shop.gold"
     },
     "buy": {
+      "$tags": [],
       "$patterns": [
         {
           "rawBounds": {
@@ -2698,6 +2768,7 @@
       "$name": "buy",
       "$path": "shop.buy",
       "maxButton": {
+        "$tags": [],
         "$patterns": [
           {
             "rawBounds": {
@@ -2738,6 +2809,7 @@
         "$path": "shop.buy.maxButton"
       },
       "max": {
+        "$tags": [],
         "$patterns": [
           {
             "rawBounds": {
@@ -2779,6 +2851,7 @@
       }
     },
     "product": {
+      "$tags": [],
       "$patterns": [
         {
           "rawBounds": {
@@ -2818,6 +2891,7 @@
       "$name": "product",
       "$path": "shop.product",
       "selected": {
+        "$tags": [],
         "$patterns": [
           {
             "rawBounds": {
@@ -2858,6 +2932,7 @@
         "$path": "shop.product.selected"
       },
       "free": {
+        "$tags": [],
         "$patterns": [
           {
             "rawBounds": {
@@ -2897,6 +2972,7 @@
         "$name": "free",
         "$path": "shop.product.free",
         "free": {
+          "$tags": [],
           "$patterns": [
             {
               "rawBounds": {
@@ -2939,6 +3015,7 @@
       }
     },
     "event": {
+      "$tags": [],
       "$patterns": [
         {
           "rawBounds": {
@@ -2978,6 +3055,7 @@
       "$name": "event",
       "$path": "shop.event",
       "selected": {
+        "$tags": [],
         "$patterns": [
           {
             "rawBounds": {
@@ -3019,6 +3097,7 @@
       }
     },
     "buy2": {
+      "$tags": [],
       "$patterns": [
         {
           "rawBounds": {
@@ -3059,6 +3138,7 @@
       "$path": "shop.buy2"
     },
     "exchangeShop": {
+      "$tags": [],
       "$patterns": [
         {
           "rawBounds": {
@@ -3098,6 +3178,7 @@
       "$name": "exchangeShop",
       "$path": "shop.exchangeShop",
       "selected": {
+        "$tags": [],
         "$patterns": [
           {
             "rawBounds": {
@@ -3139,6 +3220,7 @@
       }
     },
     "leftPanelSwipeDown": {
+      "$tags": [],
       "$patterns": [
         {
           "rawBounds": {
@@ -3179,6 +3261,7 @@
       "$path": "shop.leftPanelSwipeDown"
     },
     "coin": {
+      "$tags": [],
       "$patterns": [
         {
           "rawBounds": {
@@ -3218,6 +3301,7 @@
       "$name": "coin",
       "$path": "shop.coin",
       "type": {
+        "$tags": [],
         "$patterns": [
           {
             "rawBounds": {
@@ -3259,6 +3343,7 @@
       }
     },
     "leftPanelSelected": {
+      "$tags": [],
       "$patterns": [
         {
           "rawBounds": {
@@ -3300,6 +3385,7 @@
     }
   },
   "treasureExploration": {
+    "$tags": [],
     "$patterns": [
       {
         "rawBounds": {
@@ -3371,6 +3457,7 @@
     "$name": "treasureExploration",
     "$path": "treasureExploration",
     "title": {
+      "$tags": [],
       "$patterns": [
         {
           "rawBounds": {
@@ -3411,6 +3498,7 @@
       "$path": "treasureExploration.title"
     },
     "quickExpedition": {
+      "$tags": [],
       "$patterns": [
         {
           "rawBounds": {
@@ -3450,6 +3538,7 @@
       "$name": "quickExpedition",
       "$path": "treasureExploration.quickExpedition",
       "notification": {
+        "$tags": [],
         "$patterns": [
           {
             "rawBounds": {
@@ -3490,6 +3579,7 @@
         "$path": "treasureExploration.quickExpedition.notification"
       },
       "title": {
+        "$tags": [],
         "$patterns": [
           {
             "rawBounds": {
@@ -3530,6 +3620,7 @@
         "$path": "treasureExploration.quickExpedition.title"
       },
       "goOnExpedition": {
+        "$tags": [],
         "$patterns": [
           {
             "rawBounds": {
@@ -3571,6 +3662,7 @@
       }
     },
     "acquireTreasure": {
+      "$tags": [],
       "$patterns": [
         {
           "rawBounds": {
@@ -3612,12 +3704,14 @@
     }
   },
   "general": {
+    "$tags": [],
     "$patterns": [],
     "$isMultiPattern": false,
     "$position": 0,
     "$name": "general",
     "$path": "general",
     "itemsAcquired": {
+      "$tags": [],
       "$patterns": [
         {
           "rawBounds": {
@@ -3658,6 +3752,7 @@
       "$path": "general.itemsAcquired"
     },
     "swipeRight": {
+      "$tags": [],
       "$patterns": [
         {
           "rawBounds": {
@@ -3698,6 +3793,7 @@
       "$path": "general.swipeRight"
     },
     "tapTheScreen": {
+      "$tags": [],
       "$patterns": [
         {
           "rawBounds": {
@@ -3738,6 +3834,7 @@
       "$path": "general.tapTheScreen"
     },
     "close": {
+      "$tags": [],
       "$patterns": [
         {
           "rawBounds": {
@@ -3778,6 +3875,7 @@
       "$path": "general.close"
     },
     "dontAskAgainCheckbox": {
+      "$tags": [],
       "$patterns": [
         {
           "rawBounds": {
@@ -3817,6 +3915,7 @@
       "$name": "dontAskAgainCheckbox",
       "$path": "general.dontAskAgainCheckbox",
       "checked": {
+        "$tags": [],
         "$patterns": [
           {
             "rawBounds": {
@@ -3858,6 +3957,7 @@
       }
     },
     "warning": {
+      "$tags": [],
       "$patterns": [
         {
           "rawBounds": {
@@ -3898,6 +3998,7 @@
       "$path": "general.warning"
     },
     "confirm": {
+      "$tags": [],
       "$patterns": [
         {
           "rawBounds": {
@@ -3939,6 +4040,7 @@
     }
   },
   "test": {
+    "$tags": [],
     "$patterns": [
       {
         "rawBounds": {
@@ -3979,12 +4081,14 @@
     "$path": "test"
   },
   "labyrinth": {
+    "$tags": [],
     "$patterns": [],
     "$isMultiPattern": false,
     "$position": 0,
     "$name": "labyrinth",
     "$path": "labyrinth",
     "title": {
+      "$tags": [],
       "$patterns": [
         {
           "rawBounds": {
@@ -4025,6 +4129,7 @@
       "$path": "labyrinth.title"
     },
     "current": {
+      "$tags": [],
       "$patterns": [
         {
           "rawBounds": {
@@ -4065,6 +4170,7 @@
       "$path": "labyrinth.current"
     },
     "sweep": {
+      "$tags": [],
       "$patterns": [
         {
           "rawBounds": {
@@ -4105,6 +4211,7 @@
       "$path": "labyrinth.sweep"
     },
     "bigNodeLabel": {
+      "$tags": [],
       "$patterns": [
         {
           "rawBounds": {
@@ -4145,6 +4252,7 @@
       "$path": "labyrinth.bigNodeLabel"
     },
     "select": {
+      "$tags": [],
       "$patterns": [
         {
           "rawBounds": {
@@ -4184,6 +4292,7 @@
       "$name": "select",
       "$path": "labyrinth.select",
       "gold": {
+        "$tags": [],
         "$patterns": [
           {
             "rawBounds": {
@@ -4256,6 +4365,7 @@
         "$path": "labyrinth.select.gold"
       },
       "card1": {
+        "$tags": [],
         "$patterns": [
           {
             "rawBounds": {
@@ -4296,6 +4406,7 @@
         "$path": "labyrinth.select.card1"
       },
       "card2": {
+        "$tags": [],
         "$patterns": [
           {
             "rawBounds": {
@@ -4336,6 +4447,7 @@
         "$path": "labyrinth.select.card2"
       },
       "card3": {
+        "$tags": [],
         "$patterns": [
           {
             "rawBounds": {
@@ -4376,6 +4488,7 @@
         "$path": "labyrinth.select.card3"
       },
       "purple": {
+        "$tags": [],
         "$patterns": [
           {
             "rawBounds": {
@@ -4449,6 +4562,7 @@
       }
     },
     "swipeLeft": {
+      "$tags": [],
       "$patterns": [
         {
           "rawBounds": {
@@ -4489,12 +4603,14 @@
       "$path": "labyrinth.swipeLeft"
     },
     "smallNode": {
+      "$tags": [],
       "$patterns": [],
       "$isMultiPattern": false,
       "$position": 0,
       "$name": "smallNode",
       "$path": "labyrinth.smallNode",
       "monster": {
+        "$tags": [],
         "$patterns": [
           {
             "rawBounds": {
@@ -4535,6 +4651,7 @@
         "$path": "labyrinth.smallNode.monster"
       },
       "treasureChest": {
+        "$tags": [],
         "$patterns": [
           {
             "rawBounds": {
@@ -4575,6 +4692,7 @@
         "$path": "labyrinth.smallNode.treasureChest"
       },
       "question": {
+        "$tags": [],
         "$patterns": [
           {
             "rawBounds": {
@@ -4615,6 +4733,7 @@
         "$path": "labyrinth.smallNode.question"
       },
       "heal": {
+        "$tags": [],
         "$patterns": [
           {
             "rawBounds": {
@@ -4655,6 +4774,7 @@
         "$path": "labyrinth.smallNode.heal"
       },
       "demon": {
+        "$tags": [],
         "$patterns": [
           {
             "rawBounds": {
@@ -4695,6 +4815,7 @@
         "$path": "labyrinth.smallNode.demon"
       },
       "revive": {
+        "$tags": [],
         "$patterns": [
           {
             "rawBounds": {
@@ -4736,6 +4857,7 @@
       }
     },
     "minotaurosKing": {
+      "$tags": [],
       "$patterns": [
         {
           "rawBounds": {
@@ -4775,6 +4897,7 @@
       "$name": "minotaurosKing",
       "$path": "labyrinth.minotaurosKing",
       "start": {
+        "$tags": [],
         "$patterns": [
           {
             "rawBounds": {
@@ -4816,6 +4939,7 @@
       }
     },
     "complete": {
+      "$tags": [],
       "$patterns": [
         {
           "rawBounds": {
@@ -4857,6 +4981,7 @@
     }
   },
   "battle": {
+    "$tags": [],
     "$patterns": [
       {
         "rawBounds": {
@@ -4896,6 +5021,7 @@
     "$name": "battle",
     "$path": "battle",
     "title": {
+      "$tags": [],
       "$patterns": [
         {
           "rawBounds": {
@@ -4936,6 +5062,7 @@
       "$path": "battle.title"
     },
     "enter": {
+      "$tags": [],
       "$patterns": [
         {
           "rawBounds": {
@@ -4976,6 +5103,7 @@
       "$path": "battle.enter"
     },
     "sweep": {
+      "$tags": [],
       "$patterns": [
         {
           "rawBounds": {
@@ -5015,6 +5143,7 @@
       "$name": "sweep",
       "$path": "battle.sweep",
       "confirm": {
+        "$tags": [],
         "$patterns": [
           {
             "rawBounds": {
@@ -5055,6 +5184,7 @@
         "$path": "battle.sweep.confirm"
       },
       "dontAskAgain": {
+        "$tags": [],
         "$patterns": [
           {
             "rawBounds": {
@@ -5094,6 +5224,7 @@
         "$name": "dontAskAgain",
         "$path": "battle.sweep.dontAskAgain",
         "checked": {
+          "$tags": [],
           "$patterns": [
             {
               "rawBounds": {
@@ -5136,6 +5267,7 @@
       }
     },
     "select": {
+      "$tags": [],
       "$patterns": [
         {
           "rawBounds": {
@@ -5176,6 +5308,7 @@
       "$path": "battle.select"
     },
     "start": {
+      "$tags": [],
       "$patterns": [
         {
           "rawBounds": {
@@ -5216,6 +5349,7 @@
       "$path": "battle.start"
     },
     "bossRaid": {
+      "$tags": [],
       "$patterns": [
         {
           "rawBounds": {
@@ -5256,6 +5390,7 @@
       "$path": "battle.bossRaid"
     },
     "colosseum": {
+      "$tags": [],
       "$patterns": [
         {
           "rawBounds": {
@@ -5296,6 +5431,7 @@
       "$path": "battle.colosseum"
     },
     "dungeon": {
+      "$tags": [],
       "$patterns": [
         {
           "rawBounds": {
@@ -5335,6 +5471,7 @@
       "$name": "dungeon",
       "$path": "battle.dungeon",
       "selected": {
+        "$tags": [],
         "$patterns": [
           {
             "rawBounds": {
@@ -5375,6 +5512,7 @@
         "$path": "battle.dungeon.selected"
       },
       "gold": {
+        "$tags": [],
         "$patterns": [
           {
             "rawBounds": {
@@ -5415,6 +5553,7 @@
         "$path": "battle.dungeon.gold"
       },
       "bookOfExperience": {
+        "$tags": [],
         "$patterns": [
           {
             "rawBounds": {
@@ -5455,6 +5594,7 @@
         "$path": "battle.dungeon.bookOfExperience"
       },
       "elementalStone": {
+        "$tags": [],
         "$patterns": [
           {
             "rawBounds": {
@@ -5496,6 +5636,7 @@
       }
     },
     "party": {
+      "$tags": [],
       "$patterns": [
         {
           "rawBounds": {
@@ -5535,6 +5676,7 @@
       "$name": "party",
       "$path": "battle.party",
       "selected": {
+        "$tags": [],
         "$patterns": [
           {
             "rawBounds": {
@@ -5575,6 +5717,7 @@
         "$path": "battle.party.selected"
       },
       "partyDungeon": {
+        "$tags": [],
         "$patterns": [
           {
             "rawBounds": {
@@ -5614,6 +5757,7 @@
         "$name": "partyDungeon",
         "$path": "battle.party.partyDungeon",
         "startMatchmaking": {
+          "$tags": [],
           "$patterns": [
             {
               "rawBounds": {
@@ -5654,6 +5798,7 @@
           "$path": "battle.party.partyDungeon.startMatchmaking"
         },
         "title": {
+          "$tags": [],
           "$patterns": [
             {
               "rawBounds": {
@@ -5694,6 +5839,7 @@
           "$path": "battle.party.partyDungeon.title"
         },
         "return": {
+          "$tags": [],
           "$patterns": [
             {
               "rawBounds": {
@@ -5734,6 +5880,7 @@
           "$path": "battle.party.partyDungeon.return"
         },
         "confirm": {
+          "$tags": [],
           "$patterns": [
             {
               "rawBounds": {
@@ -5776,6 +5923,7 @@
       }
     },
     "skip": {
+      "$tags": [],
       "$patterns": [
         {
           "rawBounds": {
@@ -5816,6 +5964,7 @@
       "$path": "battle.skip"
     },
     "event": {
+      "$tags": [],
       "$patterns": [
         {
           "rawBounds": {
@@ -5855,6 +6004,7 @@
       "$name": "event",
       "$path": "battle.event",
       "selected": {
+        "$tags": [],
         "$patterns": [
           {
             "rawBounds": {
@@ -5895,13 +6045,14 @@
         "$path": "battle.event.selected"
       },
       "event1": {
+        "$tags": [],
         "$patterns": [
           {
             "rawBounds": {
-              "x": 109.25,
-              "y": 976.25,
-              "width": 47.5,
-              "height": 16.5
+              "x": 467.25,
+              "y": 973.25,
+              "width": 27.5,
+              "height": 32.5
             },
             "resolution": {
               "width": 1920,
@@ -5910,7 +6061,7 @@
             "type": "Normal",
             "swipeDirection": "Auto",
             "name": "pattern",
-            "imageData": "/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDAAEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQH/2wBDAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQH/wAARCAAQAC8DASIAAhEBAxEB/8QAGwAAAQQDAAAAAAAAAAAAAAAABgACAwcEBQr/xAAiEAACAwADAAEFAQAAAAAAAAACAwEEBQYREhMABxQVMSH/xAAXAQEAAwAAAAAAAAAAAAAAAAACAwcI/8QAIREBAAICAgICAwAAAAAAAAAAAQIRITESQQAiA1ETMmH/2gAMAwEAAhEDEQA/AOavhWXTZyni9HdmtYpaG3l0rObL3pc6tdu1VWIhtZqjrFAGRJiXSJuCUmMg2ZPccjPMx2c6zqnE4z05ms7Cx96vY0jtLtL07EVYdNmwaXxfx8++bXSJsAhW5JgZAUjfDEUafK8LS3dWtiZufsUb9yzbVfuMJFO0qwwV1s2nctNKzCzUuPhjqSgnSpUwz6KN/bxT2eUTW5TWt5l7V0eQZKlJ22W9TTCNBeGPmxj1kUSqr0HHbXaeMTXJyFkZlH1axZ61x0ly9sMXW7orUSsV9574v5Yy5ylAPcBIZSgqxc5zJ+0iNVqzMemAZdsDWhyAeR2GzD2E1Qt8Cko+YmAshgokT9RESMzBQMSfsUZ/oaaFNZMNWNuxEHJAcSEmkOxHqBnsSKSmI/sHP9xCrWb/AJu2XkhSYGBdZj4i8mI9iIz5a0hmZEYgZDuOgOY66TPwKRQVX5NC1Mx8dqwpgLBhBPZgmGCRdxJfGZEUifmQmZ6OE2C0QwcZSbZDVodZ0hrcsYn9ZvFlKdNcYFQ6AlL+FKMm81BqvLG+2GVl8j5IjI5NUrOp7SnU6Ghp6VzLqVNZtazGQcnXtVRemzohXomEQyB/IiBiDIZ+m4wcZxJ5Tf3uPTuMx21KYUm3LmbWHatXWoOhSZSk1wsaada0yL1OxE/qQisxBGUtCFt1rjIsuaxTahrMLRlCVLaBCxZsL/BElwqZiR9t9/F2HmCMT/7gcq41p2qNrL86JaqA3uQoWLatarya7Vp1dGslnlRWa9U6BvqvgIWz9pZiBX4j2MjgU0MinpcW1vNWabey8lIW5BY/HJ4w4t/tgqcGrqOjHXn/2Q==",
+            "imageData": "/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDAAEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQH/2wBDAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQH/wAARCAAgABsDASIAAhEBAxEB/8QAGQABAAIDAAAAAAAAAAAAAAAACQcIAQQK/8QAKBAAAQUAAQQCAgEFAAAAAAAABAECAwUGBwgREhMUIQAiCRYXI0FR/8QAFwEAAwEAAAAAAAAAAAAAAAAAAAMGAv/EACYRAAICAgEDAwUBAAAAAAAAAAECAwQFERIGEyEAQVEUFTFhcSL/2gAMAwEAAhEDEQA/AOdTjTinYctbSmx+bUBLzRNtG1SXRza+EwiqqbG7cK2cpvrQg+ACQYFJVZBIbMPFNPAx8ksUxXXSN1IZawkrpeEtgSbBCKQ46rCC0lcrDlL9Ppsc4da1TpmOBmQuCMt5Fex4r7KMZp4LiI64AfZw878MWzlNIaLynx/KrmK9Z5ov6tq/eEJH2RJpCWOlGYMO1UlWT0r4q5URFervq/5u4d501+JxGqhiziVWXJEq7Cgzx49dMZnQHH/GKLrJLNzTCXSSywymPgjk8nitgWSRZbDMZPqCDO1sZhYsU8dnFS3m+6G3GyvWtxQSduasXH+0sxERNXJUoz97R4G+CpwDHkvkD23+AfHxv9b159vVIbvpR5/o8ff8hbPHLksznq8c4iw1V5ViyzSEm1wQteJTwHE3UZpU1rC0eMusGFSWIgaQuExjBpa5vjqPJfI+RzlRFc6ON8kauVEVytkVqq9Fcq/sq/f4vGs3W95Z/jp0uz1lxFb6E25AHujXAVdYhIVfyzTChjRiVgIYUawMZXvc+KCF0sUEntmlle9kpAuDEVVWQ+Pz/wBoyN8jE/4jX+ad2onZE+k7J9KiKnb8f0xk8llIcqcpHSFqhmbeMIp98V+NWKsSytYcSyM0krnmwTaGMdpDyBxIoTiVBJZQ25PJO/jQA9hv8/31OnTaZnW868baHkO/JzeOy2ibsbHRKPJPFBJjRC9PUiMFHGLnlZaXlRXVE8AQ0hkzDnsGRSFiciDcg81/x2ch7TRa/aZbQaPSm+uMu8bV7MNt4yppQ6+v+IPX6AGGF8gZLqseQkGukUuk+UY+NgtFYEkf8qxtXJAxXvbGr/1HjVkETXKqPe9rUVGNRUc5yuX6XuiK3t9ZaKGMjVIl90scf+QQZzGtSRERqumlVyJ+qeTXKiL38lVPr6VuU6ar5e/HkXyOYpzRVPo1ejcFJRGZu/KS0cTTO0jdsOrStGRBGVjDgsTmQAAAw3yJfZ8+B4APx/f36frjvMdMHLfDnJPB3Cm4qS6jchX14FQ2NhcE2WXtnQ1wFbaiZ2/fUaxtRRX9JU3zRzFkbMUqTTFPEthvYB1rn7jP2ljRW7oKm2pzi6y0qzWTRGVtkDPIMfXlxSRecRQZUco5ET/2imjexVVW9/zbz66m30lBU4tpY+jNuqwXORUcrxLJ98SaPBTtANHkZLEep8kCBkNnhdGQrXtkY5rXIkMuI6FsdLLn+prmS/vefRpZDOVj67+4NoMzX3L3XVhWLZZ/P6GqPKo0sIqQ8we0fKQfXkymhVJziakGeg7XQ9q2Ht5rqFcy4tpSr05chl4ZYOMNm9M0LIJa0oarDNYlWJu8kCKkheQo9Ea0C3KtAkelM1mUQQlm8iJWYglzpmVdnShiQPG//9k=",
             "variancePct": 20,
             "textMatch": {
               "isActive": false,
@@ -5918,10 +6069,10 @@
               "whiteList": null
             },
             "colorThreshold": {
-              "isActive": false,
+              "isActive": true,
               "variancePct": 30,
-              "color": null,
-              "imageData": "",
+              "color": "#ff9d8d7e",
+              "imageData": "/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDAAIBAQEBAQIBAQECAgICAgQDAgICAgUEBAMEBgUGBgYFBgYGBwkIBgcJBwYGCAsICQoKCgoKBggLDAsKDAkKCgr/wAALCAAgABsBAREA/8QAHwAAAQUBAQEBAQEAAAAAAAAAAAECAwQFBgcICQoL/8QAtRAAAgEDAwIEAwUFBAQAAAF9AQIDAAQRBRIhMUEGE1FhByJxFDKBkaEII0KxwRVS0fAkM2JyggkKFhcYGRolJicoKSo0NTY3ODk6Q0RFRkdISUpTVFVWV1hZWmNkZWZnaGlqc3R1dnd4eXqDhIWGh4iJipKTlJWWl5iZmqKjpKWmp6ipqrKztLW2t7i5usLDxMXGx8jJytLT1NXW19jZ2uHi4+Tl5ufo6erx8vP09fb3+Pn6/9oACAEBAAA/AP2c/b1/bW+Fn/BO39k7xX+2L8a9A8Qap4Y8H/Yf7TsfC1rBPfy/a7+3sY/KSeaGNsS3MZbdIuFDEZICn5wuf+Dmj/ghza+FbLxjL+3dp5tL/ULmyghj8Ea+90skCQO7SWq2BnhiIuYwk0iLHKyzLGztBMEPAH/ByF/wSv8Ajp8ZfAf7Pn7LXxL8YfFXxl4/8YWuhWGheDfhxqscmnRyh2l1O6bUILVFsbZI2kneNpJI4w0nlMiSMn3fXzh/wWH8J+FfGn/BKD9pLR/GPhnT9WtIfgf4nv4bXU7JJ40urXTLi6tbgK4IEsNxDFNG4+ZJIkdSGUEfhh/wb5f8EAv2Hf8AgrZ+wLrXxr/aH8Q/EDw/4n8N/GDVtETU/AuvW1v9usBpWjTwwzx3lrcx/upZrllaJY2P2lxIZAsQj6D9lz9lz4E/sXf8HnOhfs0fs0eBv+Ea8E+GvtX9iaJ/ad1efZvtHw7lupv311LLM+6aeV/mc43YGFAA/o+r5g/4LP6Z+0d4o/4JgfF/4bfsl/C3/hM/Hvjnw/B4P0jw99naTzodZvbfSryXIkjWLybS8uJ/PkdYYfJ82b91G4P4gfAr/gml/wAHen7Gfwi8I/Cb9ma98QaT4YsvtGq2fhPSPij4ceHQbmTVobiS0mS7uhG/mS6Zb3Jjiaa3MOoXMRIN9qVu/wA4ftR/EH/gtH+xL/wUu8Df8FJv+ClfwD8YWfjLwN4w0JNS8W6Z4dsdB07xTHFH550o6zolsLG8luNPE9pI4a4kFurwSBktzCn9Zvwn+KXgT44/Czw18a/hbrv9qeGPGHh+y1vw5qf2WWD7XYXcCT283lzKkke+KRG2uqsucMAQRXQUVx/7Qvib4NeC/gF448Y/tGW2nzfD3SfB+p3vjuHVtJN/avo0VrI96s1qschuYjbrKGhCOXXK7Wzg/hD4T8af8HL3xD8K6Z4v/wCCI37L+ofBz9lC70+EfA/wHq0HgaO6g0ZEEYvpv7X/ANMeW+lWXUGkmeYyNel1nuUZZ5P/2Q==",
               "ignoreBackground": false
             },
             "offsetCalcType": "DockLeft",
@@ -5935,6 +6086,7 @@
         "$path": "battle.event.event1"
       },
       "confirm": {
+        "$tags": [],
         "$patterns": [
           {
             "rawBounds": {
@@ -5975,6 +6127,7 @@
         "$path": "battle.event.confirm"
       },
       "alreadyCleared": {
+        "$tags": [],
         "$patterns": [
           {
             "rawBounds": {
@@ -6016,6 +6169,7 @@
       }
     },
     "labyrinth": {
+      "$tags": [],
       "$patterns": [
         {
           "rawBounds": {
@@ -6056,6 +6210,7 @@
       "$path": "battle.labyrinth"
     },
     "guild": {
+      "$tags": [],
       "$patterns": [
         {
           "rawBounds": {
@@ -6095,6 +6250,7 @@
       "$name": "guild",
       "$path": "battle.guild",
       "selected": {
+        "$tags": [],
         "$patterns": [
           {
             "rawBounds": {
@@ -6135,6 +6291,7 @@
         "$path": "battle.guild.selected"
       },
       "avalon": {
+        "$tags": [],
         "$patterns": [
           {
             "rawBounds": {
@@ -6174,6 +6331,7 @@
         "$name": "avalon",
         "$path": "battle.guild.avalon",
         "title": {
+          "$tags": [],
           "$patterns": [
             {
               "rawBounds": {
@@ -6214,6 +6372,7 @@
           "$path": "battle.guild.avalon.title"
         },
         "isiel": {
+          "$tags": [],
           "$patterns": [
             {
               "rawBounds": {
@@ -6254,6 +6413,7 @@
           "$path": "battle.guild.avalon.isiel"
         },
         "elaia": {
+          "$tags": [],
           "$patterns": [
             {
               "rawBounds": {
@@ -6294,6 +6454,7 @@
           "$path": "battle.guild.avalon.elaia"
         },
         "sacredTitania": {
+          "$tags": [],
           "$patterns": [
             {
               "rawBounds": {
@@ -6334,6 +6495,7 @@
           "$path": "battle.guild.avalon.sacredTitania"
         },
         "camelot": {
+          "$tags": [],
           "$patterns": [
             {
               "rawBounds": {
@@ -6374,6 +6536,7 @@
           "$path": "battle.guild.avalon.camelot"
         },
         "mercia": {
+          "$tags": [],
           "$patterns": [
             {
               "rawBounds": {
@@ -6414,6 +6577,7 @@
           "$path": "battle.guild.avalon.mercia"
         },
         "tintagel": {
+          "$tags": [],
           "$patterns": [
             {
               "rawBounds": {
@@ -6454,6 +6618,7 @@
           "$path": "battle.guild.avalon.tintagel"
         },
         "enter": {
+          "$tags": [],
           "$patterns": [
             {
               "rawBounds": {
@@ -6494,6 +6659,7 @@
           "$path": "battle.guild.avalon.enter"
         },
         "challenge": {
+          "$tags": [],
           "$patterns": [
             {
               "rawBounds": {
@@ -6533,6 +6699,7 @@
           "$name": "challenge",
           "$path": "battle.guild.avalon.challenge",
           "confirm": {
+            "$tags": [],
             "$patterns": [
               {
                 "rawBounds": {
