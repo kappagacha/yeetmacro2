@@ -1,4 +1,4 @@
-// @isFavorite
+// @tags=favorites
 // @position=1000
 // Watches all ads in a loop
 

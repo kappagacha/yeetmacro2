@@ -1,4 +1,5 @@
 // Do terminus isle exploration
+// @tags=favorites
 const loopPatterns = [patterns.lobby.level, patterns.titles.adventure, patterns.terminusIsle.stage]
 const daily = dailyManager.GetCurrentDaily();
 

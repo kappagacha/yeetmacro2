@@ -1,4 +1,4 @@
-// @isFavorite
+// @tags=inventory
 // @position=-20
 
 const padding = 5;

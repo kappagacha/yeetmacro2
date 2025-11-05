@@ -1,3 +1,4 @@
+// @tags=favorites
 // Claim world boss rewards
 const loopPatterns = [patterns.lobby.level, patterns.titles.adventure, patterns.titles.worldBoss];
 const daily = dailyManager.GetCurrentDaily();

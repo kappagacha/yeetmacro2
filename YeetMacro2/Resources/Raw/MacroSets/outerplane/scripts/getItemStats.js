@@ -1,4 +1,4 @@
-// @isFavorite
+// @tags=inventory
 // @position=-20
 
 // Helper function to clean stat names (for both primary and secondary stats)
@@ -198,9 +198,9 @@ if (item.itemType) {
     let grade = '';
     let type = cleaned;
 
-    if (cleaned.match(/^(Legend[ae]r[yi]|Legen[dt]|Legen[ea]+['yr]+y?|chcndmy)/i)) {
+    if (cleaned.match(/^(Legend[ae]r[yi]|Legen[dt]|Legen[ea]+['yr]+y?|Lee+ne+ry|chcndmy)/i)) {
         grade = 'Legendary';
-        type = cleaned.replace(/^(Legend[ae]r[yi]|Legen[dt]|Legen[ea]+['yr]+y?|chcndmy)\s*/i, '');
+        type = cleaned.replace(/^(Legend[ae]r[yi]|Legen[dt]|Legen[ea]+['yr]+y?|Lee+ne+ry|chcndmy)\s*/i, '');
     } else if (cleaned.match(/^Epic/i)) {
         grade = 'Epic';
         type = cleaned.replace(/^Epic\s*/i, '');
@@ -712,6 +712,7 @@ if (item.totalPoints > 24) {
 // Validate the item
 validateItem(item, rawItem);
 
+// Version: 46 - Added "Leeeneery" OCR error pattern for "Legendary"
 // Version: 45 - Fixed pattern to properly handle "Boers" OCR variant of "Boots"
 //return { item, rawItem };
 return item;

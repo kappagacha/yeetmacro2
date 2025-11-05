@@ -22,7 +22,7 @@
       "name": "test",
       "fontFamily": "MaterialOutlined",
       "glyph": "\uEA4B",
-      "position": 3
+      "position": 4
     }
   ],
   "name": "Outerplane",
@@ -34,12 +34,12 @@
   "supportsGreaterHeight": false,
   "package": "com.smilegate.outerplane.stove.google",
   "source": "online:outerplane",
-  "macroSetLastUpdated": "2025-11-04T16:59:33.2985432-06:00",
-  "patternsLastUpdated": "2025-11-04T16:59:33.2990378-06:00",
-  "scriptsLastUpdated": "2025-11-04T16:59:33.2993582-06:00",
-  "settingsLastUpdated": "2025-11-04T16:59:33.2994411-06:00",
-  "dailyTemplateLastUpdated": "2025-11-04T16:59:33.2995181-06:00",
-  "weeklyTemplateLastUpdated": "2025-11-04T16:59:33.2995882-06:00",
+  "macroSetLastUpdated": "2025-11-04T22:32:15.1501478-06:00",
+  "patternsLastUpdated": "2025-11-04T22:32:15.1511324-06:00",
+  "scriptsLastUpdated": "2025-11-04T22:32:15.151232-06:00",
+  "settingsLastUpdated": "2025-11-04T22:32:15.1512829-06:00",
+  "dailyTemplateLastUpdated": "2025-11-04T22:32:15.1513339-06:00",
+  "weeklyTemplateLastUpdated": "2025-11-04T22:32:15.1513775-06:00",
   "description": "Requirement: Settings =\u003E Graphics =\u003E Resolution =\u003E High",
   "dailyResetUtcHour": 0,
   "weeklyStartDay": "Monday",

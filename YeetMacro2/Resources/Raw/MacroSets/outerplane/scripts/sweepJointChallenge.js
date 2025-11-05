@@ -1,4 +1,5 @@
-// Claim world boss rewards
+// @tags=favorites
+// Sweep joint challenge
 const loopPatterns = [patterns.lobby.level, patterns.titles.adventure, patterns.titles.jointChallenge];
 const daily = dailyManager.GetCurrentDaily();
 const jointChallengeLevel = settings.sweepJointChallenge.jointChallengeLevel.Value;
@@ -17,7 +18,7 @@ while (macroService.IsRunning) {
 			break;
 		case 'titles.adventure':
 			logger.info('sweepJointChallenge: click joint challenge');
-			const jointChallengeResult = macroService.FindPattern([patterns.adventure.jointChallenge, patterns.adventure.jointChallenge.locked]);
+			const jointChallengeResult = macroService.FindPattern([patterns.adventure.jointChallenge.locked, patterns.adventure.jointChallenge]);
 			if (jointChallengeResult.Path === 'adventure.jointChallenge.locked') {
 				if (macroService.IsRunning) daily.sweepJointChallenge.done.IsChecked = true;
 

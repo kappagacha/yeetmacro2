@@ -1,3 +1,4 @@
+// @tags=favorites
 // @position=20
 // Start terminus isle exploration
 const loopPatterns = [patterns.lobby.level, patterns.titles.adventure, patterns.terminusIsle.stage]
