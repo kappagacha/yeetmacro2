@@ -33,8 +33,6 @@ public partial class ScriptNodeManagerViewModel : NodeManagerViewModel<ScriptNod
 
     public static void MergeSettings(ScriptNode source, ScriptNode dest)
     {
-        dest.Tags = source.Tags;
-
         foreach (var childSource in source.Nodes)
         {
             // Not supporting duplicate names

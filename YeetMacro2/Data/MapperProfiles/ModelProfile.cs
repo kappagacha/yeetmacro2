@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using System.Collections.ObjectModel;
 using System.Text.Json;
 using System.Text.Json.Nodes;
 using YeetMacro2.Data.Models;
@@ -15,6 +16,8 @@ public class ModelProfile : Profile
             .ForCtorParam("nodeViewModelManagerFactory", o => o.MapFrom(ms => ServiceHelper.GetService<NodeManagerViewModelFactory>()))
             .ForCtorParam("scriptService", o => o.MapFrom(ms => ServiceHelper.GetService<IScriptService>()))
             .ForCtorParam("serviceProvider", o => o.MapFrom(ms => ServiceHelper.GetService<IServiceProvider>()))
+            .ForMember(dest => dest.Tags, opt => opt.MapFrom(src =>
+                src.Tags != null ? new ObservableCollection<NodeTag>(src.Tags) : new ObservableCollection<NodeTag>()))
             .ReverseMap();
 
         CreateMap<PatternNode, PatternNodeViewModel>().ReverseMap();

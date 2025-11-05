@@ -86,8 +86,8 @@ public class GenericNodeView<TNode, TNodeViewModel> : ContentView
             IsVertical = true
         };
 
-        // Bind directly to MacroSet.TagManager.Tags
-        filterTagSelector.SetBinding(TagSelector.AvailableTagsProperty, new Binding("MacroSet.TagManager.Tags", source: this));
+        // Bind directly to MacroSet.Tags
+        filterTagSelector.SetBinding(TagSelector.AvailableTagsProperty, new Binding("MacroSet.Tags", source: this));
         filterTagSelector.SetBinding(TagSelector.NodeTagsProperty, new Binding("NodeManager.SelectedFilterTags", source: this));
         filterContainer.Children.Add(filterTagSelector);
 
@@ -102,8 +102,8 @@ public class GenericNodeView<TNode, TNodeViewModel> : ContentView
             Padding = new Thickness(5)
         };
 
-        // Bind to MacroSet.TagManager.Tags.Count
-        var noTagsBinding = new Binding("MacroSet.TagManager.Tags.Count", source: this);
+        // Bind to MacroSet.Tags.Count
+        var noTagsBinding = new Binding("MacroSet.Tags.Count", source: this);
         noTagsBinding.Converter = new Converters.NumberToBoolConverter { IsInverse = true };
         noTagsLabel.SetBinding(Label.IsVisibleProperty, noTagsBinding);
 
@@ -164,7 +164,7 @@ public class GenericNodeView<TNode, TNodeViewModel> : ContentView
         };
 
         // Bind to MacroSet tags
-        tagAssignmentSelector.SetBinding(TagSelector.AvailableTagsProperty, new Binding("MacroSet.TagManager.Tags", source: this));
+        tagAssignmentSelector.SetBinding(TagSelector.AvailableTagsProperty, new Binding("MacroSet.Tags", source: this));
 
         // Bind to selected node's tags with TwoWay mode
         tagAssignmentSelector.SetBinding(TagSelector.NodeTagsProperty, new Binding("NodeManager.SelectedNode.Tags", source: this, mode: BindingMode.TwoWay));
@@ -196,8 +196,8 @@ public class GenericNodeView<TNode, TNodeViewModel> : ContentView
             Padding = new Thickness(5)
         };
 
-        // Bind to MacroSet.TagManager.Tags.Count
-        var noTagsBinding = new Binding("MacroSet.TagManager.Tags.Count", source: this);
+        // Bind to MacroSet.Tags.Count
+        var noTagsBinding = new Binding("MacroSet.Tags.Count", source: this);
         noTagsBinding.Converter = new Converters.NumberToBoolConverter { IsInverse = true };
         noTagsLabel.SetBinding(Label.IsVisibleProperty, noTagsBinding);
 

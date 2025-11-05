@@ -59,7 +59,7 @@ public partial class TagDisplayView : ContentView
         if (Tags == null || Tags.Length == 0 || MacroSet == null)
             return;
 
-        var macroSetTags = MacroSet.TagManager?.Tags;
+        var macroSetTags = MacroSet.Tags;
         if (macroSetTags == null)
             return;
 

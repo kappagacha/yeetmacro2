@@ -2,6 +2,7 @@
 using CommunityToolkit.Mvvm.Input;
 using CommunityToolkit.Mvvm.Messaging;
 using Microsoft.Extensions.DependencyInjection;
+using System.Collections.ObjectModel;
 using System.Text.Json.Serialization;
 using YeetMacro2.Data.Messaging;
 using YeetMacro2.Data.Models;
@@ -111,7 +112,7 @@ public partial class MacroSetViewModel : MacroSet
         {
             if (_tagManager == null)
             {
-                _tagManager = ActivatorUtilities.CreateInstance<TagManagerViewModel>(_serviceProvider, MacroSetId, Tags);
+                _tagManager = ActivatorUtilities.CreateInstance<TagManagerViewModel>(_serviceProvider, MacroSetId, this);
             }
 
             return _tagManager;
@@ -123,14 +124,16 @@ public partial class MacroSetViewModel : MacroSet
         get => base.Tags;
         set
         {
-            base.Tags = value;
-            OnPropertyChanged();
-
-            // If TagManager is already initialized and we're setting new tags (e.g., from import), sync them
-            if (_tagManager != null && value != null)
+            // Always ensure Tags is an ObservableCollection
+            if (value != null && value is not ObservableCollection<NodeTag>)
             {
-                _tagManager.ImportTags(value);
+                base.Tags = new ObservableCollection<NodeTag>(value);
             }
+            else
+            {
+                base.Tags = value ?? new ObservableCollection<NodeTag>();
+            }
+            OnPropertyChanged();
         }
     }
 

@@ -20,7 +20,7 @@
 
         <!-- Tags List -->
         <ScrollView Grid.Row="1">
-            <CollectionView ItemsSource="{Binding Tags}"
+            <CollectionView ItemsSource="{Binding MacroSet.Tags}"
                            SelectedItem="{Binding SelectedTag}"
                            SelectionMode="Single">
                 <CollectionView.ItemTemplate>

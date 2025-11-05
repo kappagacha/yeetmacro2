@@ -13,74 +13,51 @@ public partial class TagManagerViewModel : ObservableObject
     private readonly INodeTagService _nodeTagService;
     private readonly IInputService _inputService;
     private readonly IToastService _toastService;
-    private readonly ICollection<NodeTag> _macroSetTags;
 
     [ObservableProperty]
     private NodeTag _selectedTag;
 
-    public ObservableCollection<NodeTag> Tags { get; }
+    public MacroSetViewModel MacroSet { get; }
 
     public TagManagerViewModel(
         int macroSetId,
-        ICollection<NodeTag> macroSetTags,
+        MacroSetViewModel macroSet,
         INodeTagService nodeTagService,
         IInputService inputService,
         IToastService toastService)
     {
         _macroSetId = macroSetId;
-        _macroSetTags = macroSetTags;
+        MacroSet = macroSet;
         _nodeTagService = nodeTagService;
         _inputService = inputService;
         _toastService = toastService;
-
-        // Load tags from database
-        var tagsFromDb = _nodeTagService.GetTagsForMacroSet(macroSetId).ToList();
-
-        // Clear and repopulate the MacroSet.Tags collection
-        _macroSetTags.Clear();
-        foreach (var tag in tagsFromDb)
-        {
-            _macroSetTags.Add(tag);
-        }
-
-        // Create ObservableCollection that wraps the MacroSet.Tags collection
-        Tags = new ObservableCollection<NodeTag>(_macroSetTags);
-
-        // Keep the collections in sync
-        Tags.CollectionChanged += (s, e) =>
-        {
-            if (e.NewItems != null)
-            {
-                foreach (NodeTag item in e.NewItems)
-                {
-                    if (!_macroSetTags.Contains(item))
-                        _macroSetTags.Add(item);
-                }
-            }
-            if (e.OldItems != null)
-            {
-                foreach (NodeTag item in e.OldItems)
-                {
-                    _macroSetTags.Remove(item);
-                }
-            }
-        };
     }
 
-    public void ImportTags(IEnumerable<NodeTag> importedTags)
+    public void ImportTags(IEnumerable<NodeTag> tagsToImport)
     {
-        // Clear existing tags from database
+        // Delete existing tags from database
         var existingTags = _nodeTagService.GetTagsForMacroSet(_macroSetId).ToList();
         foreach (var tag in existingTags)
         {
             _nodeTagService.Delete(tag.TagId);
         }
 
-        // Clear existing tags from collections
-        Tags.Clear();
+        // Ensure Tags is an ObservableCollection
+        ObservableCollection<NodeTag> tags;
+        if (MacroSet.Tags == null || MacroSet.Tags is not ObservableCollection<NodeTag>)
+        {
+            tags = new ObservableCollection<NodeTag>();
+            MacroSet.Tags = tags;
+        }
+        else
+        {
+            tags = MacroSet.Tags as ObservableCollection<NodeTag>;
+        }
 
-        // Add imported tags
-        foreach (var tag in importedTags.OrderBy(t => t.Position))
+        // Clear and repopulate the collection
+        tags.Clear();
+
+        foreach (var tag in tagsToImport.OrderBy(t => t.Position))
         {
             var newTag = new NodeTag
             {
@@ -91,7 +68,7 @@ public partial class TagManagerViewModel : ObservableObject
                 Position = tag.Position
             };
             _nodeTagService.Insert(newTag);
-            Tags.Add(newTag);
+            tags.Add(newTag);
         }
         _nodeTagService.Save();
     }
@@ -120,17 +97,19 @@ public partial class TagManagerViewModel : ObservableObject
             return;
         }
 
+        var tags = MacroSet.Tags as ObservableCollection<NodeTag>;
         var newTag = new NodeTag
         {
             MacroSetId = _macroSetId,
             Name = name,
             FontFamily = iconPicker.SelectedFontFamilyResult,
             Glyph = iconPicker.SelectedGlyph,
-            Position = Tags.Count
+            Position = tags.Count
         };
 
         _nodeTagService.Insert(newTag);
-        Tags.Add(newTag);
+        _nodeTagService.Save();
+        tags.Add(newTag);
         _toastService.Show($"Added tag: {name}");
     }
 
@@ -140,14 +119,17 @@ public partial class TagManagerViewModel : ObservableObject
         if (tag == null) return;
 
         var confirm = await _inputService.SelectOption(
-            $"Delete tag {tag.FontFamily}-{tag.Glyph}?",
+            $"Delete tag {tag.Name}?",
             new[] { "Yes", "No" });
 
         if (confirm != "Yes") return;
 
         _nodeTagService.Delete(tag.TagId);
-        Tags.Remove(tag);
-        _toastService.Show($"Deleted tag: {tag.FontFamily}-{tag.Glyph}");
+        _nodeTagService.Save();
+
+        var tags = MacroSet.Tags as ObservableCollection<NodeTag>;
+        tags.Remove(tag);
+        _toastService.Show($"Deleted tag: {tag.Name}");
     }
 
     [RelayCommand]
@@ -155,17 +137,19 @@ public partial class TagManagerViewModel : ObservableObject
     {
         if (tag == null || tag.Position == 0) return;
 
-        var index = Tags.IndexOf(tag);
+        var tags = MacroSet.Tags as ObservableCollection<NodeTag>;
+        var index = tags.IndexOf(tag);
         if (index <= 0) return;
 
-        var tagAbove = Tags[index - 1];
+        var tagAbove = tags[index - 1];
         tagAbove.Position++;
         tag.Position--;
 
         _nodeTagService.Update(tagAbove);
         _nodeTagService.Update(tag);
+        _nodeTagService.Save();
 
-        Tags.Move(index, index - 1);
+        tags.Move(index, index - 1);
         _toastService.Show("Moved tag up");
     }
 
@@ -174,17 +158,19 @@ public partial class TagManagerViewModel : ObservableObject
     {
         if (tag == null) return;
 
-        var index = Tags.IndexOf(tag);
-        if (index < 0 || index >= Tags.Count - 1) return;
+        var tags = MacroSet.Tags as ObservableCollection<NodeTag>;
+        var index = tags.IndexOf(tag);
+        if (index < 0 || index >= tags.Count - 1) return;
 
-        var tagBelow = Tags[index + 1];
+        var tagBelow = tags[index + 1];
         tagBelow.Position--;
         tag.Position++;
 
         _nodeTagService.Update(tagBelow);
         _nodeTagService.Update(tag);
+        _nodeTagService.Save();
 
-        Tags.Move(index, index + 1);
+        tags.Move(index, index + 1);
         _toastService.Show("Moved tag down");
     }
 }
