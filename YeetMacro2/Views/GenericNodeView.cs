@@ -438,6 +438,20 @@ public class GenericNodeView<TNode, TNodeViewModel> : ContentView
             Margin = new Thickness(0, 0, 0, 7.5)
         };
         hideMenuToggle.ToggledColor = Application.Current.Resources["Primary"] as Color;
+
+        // Load persisted state
+        var hideMenuKey = $"GenericNodeView_HideMenu_{typeof(TNode).Name}";
+        hideMenuToggle.IsToggled = Preferences.Default.Get(hideMenuKey, false);
+
+        // Persist state when toggled
+        hideMenuToggle.PropertyChanged += (s, e) =>
+        {
+            if (e.PropertyName == nameof(ToggleImageView.IsToggled))
+            {
+                Preferences.Default.Set(hideMenuKey, hideMenuToggle.IsToggled);
+            }
+        };
+
         menuGrid.Add(hideMenuToggle, 0, 0);
 
         // Position menu stack for move, expand, collapse, sort operations
