@@ -69,7 +69,14 @@ public partial class TagManagerViewModel : ObservableObject
 
     public void ImportTags(IEnumerable<NodeTag> importedTags)
     {
-        // Clear existing tags
+        // Clear existing tags from database
+        var existingTags = _nodeTagService.GetTagsForMacroSet(_macroSetId).ToList();
+        foreach (var tag in existingTags)
+        {
+            _nodeTagService.Delete(tag.TagId);
+        }
+
+        // Clear existing tags from collections
         Tags.Clear();
 
         // Add imported tags
@@ -78,6 +85,7 @@ public partial class TagManagerViewModel : ObservableObject
             var newTag = new NodeTag
             {
                 MacroSetId = _macroSetId,
+                Name = tag.Name,
                 FontFamily = tag.FontFamily,
                 Glyph = tag.Glyph,
                 Position = tag.Position
