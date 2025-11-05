@@ -22,6 +22,9 @@ public static class DisplayHelper
     { 
         get 
         {
+            if (DisplayHelper.CutoutCalculationType == CutoutCalculationType.None)
+                return Point.Zero;
+
             var currentWindowBounds = ResolveUsableResolution();
             return currentWindowBounds.Location;
         }
@@ -107,7 +110,7 @@ public class Pattern: ISortable
             var isFullScreen = DisplayHelper.CutoutCalculationType == CutoutCalculationType.None;
             var xOffset = 0.0;
             var yOffset = 0.0;
-            var topLeft = isFullScreen ? Point.Zero : DisplayHelper.TopLeft;
+            var topLeft = DisplayHelper.TopLeft;
             var usableResolution = isFullScreen ? DisplayHelper.PhysicalResolution : DisplayHelper.UsableResolution;
             var physicalResolution = DisplayHelper.PhysicalResolution;
             var rightMargin = topLeft.X != 0 ? 0: (int)physicalResolution.Width - (int)usableResolution.Width;
