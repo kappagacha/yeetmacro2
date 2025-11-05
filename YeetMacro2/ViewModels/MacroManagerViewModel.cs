@@ -500,6 +500,9 @@ public partial class MacroManagerViewModel : ObservableObject
                 macroSet.Weeklies.UpdateCurrentWeeklyTemplate();
             }
 
+            // Store tags before mapping to handle them separately
+            var tagsToImport = targetMacroSet.Tags?.ToList();
+
             _mapper.Map(targetMacroSet, macroSet, opt =>
             {
                 // prevent db id and macroset level settings from getting wiped out
@@ -514,11 +517,21 @@ public partial class MacroManagerViewModel : ObservableObject
                     src.Source = dst.Source;
                     src.CutoutCalculationType = dst.CutoutCalculationType;
                     src.UsePatternsSnapshot = dst.UsePatternsSnapshot;
+
+                    // Clear tags from both source and destination to prevent mapper from touching them
+                    src.Tags = [];
+                    dst.Tags.Clear();
                 });
             });
 
             _macroSetRepository.Update(macroSet);
             _macroSetRepository.Save();
+
+            // Import tags through TagManager if available and if there are tags to import
+            if (tagsToImport != null && tagsToImport.Count > 0 && macroSet.TagManager != null)
+            {
+                macroSet.TagManager.ImportTags(tagsToImport);
+            }
             OnSelectedMacroSetChanged(macroSet);
             _toastService.Show($"Updated MacroSet: {macroSet.Name}");
         }
