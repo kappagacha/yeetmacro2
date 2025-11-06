@@ -17,7 +17,7 @@ while (macroService.IsRunning) {
 			break;
 		case 'titles.adventure':
 			logger.info('claimWorldBossRewards: click world boss');
-			const worldBossResult = macroService.FindPattern([patterns.adventure.worldBoss, patterns.adventure.worldBoss.locked]);
+			const worldBossResult = macroService.FindPattern([patterns.adventure.worldBoss.locked, patterns.adventure.worldBoss]);
 			if (worldBossResult.Path === 'adventure.worldBoss.locked') return;
 
 			const worldBossNotificationResult = macroService.PollPattern(patterns.adventure.worldBoss.notification, { TimeoutMs: 3_000 });

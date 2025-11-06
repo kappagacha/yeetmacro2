@@ -1,4 +1,4 @@
-// @isFavorite
+// @tags=favorites
 // @position=-1
 // Auto or sweep doppelganger
 const loopPatterns = [patterns.lobby.level, patterns.titles.adventure, patterns.titles.challenge, patterns.titles.doppelganger];

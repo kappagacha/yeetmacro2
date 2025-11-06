@@ -1,4 +1,3 @@
-// @isFavorite
 // @tags=favorites
 // @position=-99
 // Do dailies (all checked scripts)
