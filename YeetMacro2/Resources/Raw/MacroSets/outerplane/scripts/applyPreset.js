@@ -39,7 +39,7 @@ function applyPreset(teamSlot) {
 		if (unitTitleAndName.match(/The.*?Memorizer.*?Caren/ism) || unitTitleAndName.match(/Blazing.*?Fighter.*?Kano/ism) || unitTitleAndName.match(/Honorable.*?Knight/ism)) {
 			primaryStat = 'DEF';
 			delimiter = '#';
-		} else if (unitTitleAndName.match(/Self.*?Del/ism) || unitTitleAndName.match(/Ruin.*T[uoa]m[uoa]m[ao]/ism) || unitTitleAndName.match(/Gnosis.*Viella/ism)) {
+		} else if (unitTitleAndName.match(/Self.*?Del/ism) || unitTitleAndName.match(/Ruin.*T[uoa]m[uoa]m[ao]/ism) || unitTitleAndName.match(/Gnosis.*Viella.*/ism)) {
 			primaryStat = 'HLT';
 			delimiter = '#';
 		}
