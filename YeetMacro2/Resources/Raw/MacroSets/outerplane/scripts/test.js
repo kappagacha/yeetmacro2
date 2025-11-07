@@ -1,12 +1,7 @@
 // @tags=test
 
-sleep(1_000);
-macroService.GoBack();
-sleep(1_000);
-macroService.GoBack();
-
-//const unitTitleAndName = macroService.FindText(patterns.battle.teamFormation.unitTitleAndName);
-//return unitTitleAndName;
+const unitTitleAndName = macroService.FindText(patterns.battle.teamFormation.unitTitleAndName);
+return unitTitleAndName;
 
 //sleep(2000);
 //const operations = ['irregularQueen', 'blockbuster', 'mutatedWyvre', 'ironStretcher'];
