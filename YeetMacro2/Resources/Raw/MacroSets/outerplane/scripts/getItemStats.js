@@ -19,8 +19,8 @@ function cleanStatName(stat) {
     if (stat.match(/He[ae]ls?\s+when\s+h/i)) {
         return 'Heals when hit';
     }
-    // Health OCR errors (Heellh, Heaith, Healln, Healrh, Heann, Heanh, Hean'n, Heah'h, Heulrh, Heglln, HeeItn, etc.)
-    if (stat.match(/He[aeg][alnhue][Iltrng']*[thrnl']*/i) || lowerCaseStat.startsWith('hee') && (lowerCaseStat.includes('itn') || lowerCaseStat.includes('ltn'))) {
+    // Health OCR errors (Heellh, Heaith, Healln, Healrh, Hearrh, Heurrh, Heann, Heanh, Hean'n, Heah'h, Heulrh, Heglln, HeeItn, etc.)
+    if (stat.match(/He[aegu][alnhuer][Iltrng'u]*[thrnlr']*/i) || lowerCaseStat.startsWith('hee') && (lowerCaseStat.includes('itn') || lowerCaseStat.includes('ltn'))) {
         return 'Health';
     }
     // Crit Dmg OCR errors (Cr Dmg, Cm Dmg, cm Dmg, C'n Dmg, Crn Drng, Cm Dme, etc.)
@@ -230,8 +230,8 @@ if (item.itemType) {
     } else if (item.itemType.match(/We[aeq]+p[eo]n/i) || item.itemType.match(/Exclusive/i)) {
         // Handle Weapon, Weepen, Weapen, and Exclusive (character-specific weapons)
         item.itemType = 'Weapon';
-    } else if (item.itemType.match(/Hel\s*m/i)) {
-        // Handle Helmet OCR errors (Helmet, Hel met, Helm, etc.)
+    } else if (item.itemType.match(/Hel\s*m/i) || item.itemType.match(/Her\s*mer/i)) {
+        // Handle Helmet OCR errors (Helmet, Hel met, Helm, Her mer, etc.)
         item.itemType = 'Helmet';
     } else if (item.itemType.match(/C[hn]e[st][stl]?[rtl]?\s*A[r']?m/i) || item.itemType.match(/Cheer\s*Armor/i)) {
         // Handle Chest Armor OCR errors (Chesl A'me', Chest Armor, Cnesr Armor, Cheer Armor, Chesl Armor, etc.)
@@ -282,7 +282,7 @@ if (item.itemEffect) {
         .replace(/Life\s*\d*/i, 'Life')  // Handle "Life 5" -> Life
         .replace(/[Ss]peed\s*\d*/i, 'Speed')  // Handle "sPeed 5" -> Speed
         .replace(/Critical\s*H["\s]*/i, 'Critical Hit')  // Handle truncated "Critical H"" OCR error
-        .replace(/C[rlnif'"][rlnif]+[cait]+[agl]+\s+[sS][lti'r]+[rlki]+[ke]+e?/i, 'Critical Strike')  // Handle Critical Strike/Crnical srrn'e/Clllcal Sl'lke/Clfical Sllke/Cificgl Sl'ike/Crrrrcal Srrrke OCR errors
+        .replace(/C[rlnif'"]+[rlnifcal]+[cait]*[aglrce]*\s+[sS][lti'r]+[rlki]+[ke]+e?/i, 'Critical Strike')  // Handle Critical Strike/Crnical srrn'e/Clllcal Sl'lke/Clfical Sllke/Cificgl Sl'ike/Crrrrcal Srrrke/Crrrrcar Srrrke/Cnlcel Strike OCR errors
         .replace(/C[rn']?[a-z]+\s+H[it"\s]*/i, 'Critical Hit')  // Handle Critical Hit variations like C'ifical H", C'lllcel H", C'lficel H", C'ific'n H", Cificn H"
         .replace(/A[mc"]+[ua]*[rml][au]?cy/i, 'Accuracy')  // Handle Accuracy, Accumcy, Acculacy, Accurcy OCR errors
         .replace(/Ev[ae]s[eilsr][a-z°'lm]+/i, 'Evasion')  // Handle Evasr°n, Evesim', Evasi°n, Evesi°n, Evaslm' OCR errors
@@ -712,7 +712,6 @@ if (item.totalPoints > 24) {
 // Validate the item
 validateItem(item, rawItem);
 
-// Version: 46 - Added "Leeeneery" OCR error pattern for "Legendary"
-// Version: 45 - Fixed pattern to properly handle "Boers" OCR variant of "Boots"
+// Version: 48 - Added "Cnlcel Strike" OCR error for "Critical Strike", "Heurrh" for "Health"
 //return { item, rawItem };
 return item;

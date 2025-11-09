@@ -2963,6 +2963,24 @@
       "$name": "claimGuildBuff",
       "$path": "doDailies.claimGuildBuff"
     },
+    "claimCoinExchange": {
+      "$type": "boolean",
+      "$tags": [],
+      "$defaultValue": false,
+      "$value": false,
+      "$position": 0,
+      "$name": "claimCoinExchange",
+      "$path": "doDailies.claimCoinExchange"
+    },
+    "claimCoinExchange": {
+      "$type": "boolean",
+      "$tags": [],
+      "$defaultValue": false,
+      "$value": false,
+      "$position": 0,
+      "$name": "claimCoinExchange",
+      "$path": "doDailies.claimCoinExchange"
+    },
     "claimReplenishYourStamina": {
       "$type": "boolean",
       "$tags": [],
@@ -3236,8 +3254,8 @@
     "claimEventDailyFireworks": {
       "$type": "boolean",
       "$tags": [],
-      "$defaultValue": false,
-      "$value": false,
+      "$defaultValue": true,
+      "$value": true,
       "$position": 31,
       "$name": "claimEventDailyFireworks",
       "$path": "doDailies.claimEventDailyFireworks"

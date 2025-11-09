@@ -178,6 +178,11 @@ if (settings.doDailies.claimEventDailyMissions2.Value) {
     goToLobby();
 }
 
+if (settings.doDailies.claimCoinExchange.Value) {
+    claimCoinExchange();
+    goToLobby();
+}
+
 if (settings.doDailies.doPursuitOperation.Value && daily.doPursuitOperation.count.Count == 1) {
     doPursuitOperation();
     goToLobby();
