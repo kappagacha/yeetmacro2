@@ -19,8 +19,8 @@ function cleanStatName(stat) {
     if (stat.match(/He[ae]ls?\s+when\s+h/i)) {
         return 'Heals when hit';
     }
-    // Health OCR errors (Heellh, Heaith, Healln, Healrh, Hearrh, Heurrh, Heann, Heanh, Hean'n, Heah'h, Heulrh, Heglln, HeeItn, etc.)
-    if (stat.match(/He[aegu][alnhuer][Iltrng'u]*[thrnlr']*/i) || lowerCaseStat.startsWith('hee') && (lowerCaseStat.includes('itn') || lowerCaseStat.includes('ltn'))) {
+    // Health OCR errors (Heellh, Heaith, Healln, Healrh, Hearrh, Heurrh, Heann, Heanh, Hean'n, Heah'h, Heulrh, Heglln, HeeItn, HeaItn, etc.)
+    if (stat.match(/He[aegu][alnhuer][Iltrng'u]*[thrnlr']*/i) || (lowerCaseStat.startsWith('hee') || lowerCaseStat.startsWith('hea')) && (lowerCaseStat.includes('itn') || lowerCaseStat.includes('ltn'))) {
         return 'Health';
     }
     // Crit Dmg OCR errors (Cr Dmg, Cm Dmg, cm Dmg, C'n Dmg, Crn Drng, Cm Dme, etc.)
@@ -31,13 +31,13 @@ function cleanStatName(stat) {
     if (stat.match(/C[rmn]{1,2}\s*D[mrn]{1,2}[egn]{1,2}/i)) {
         return 'Crit Dmg';
     }
-    // Crit Chance OCR errors (Cm Chan, Cri Chan, Cm Chen, cm chan, C'n Chan, Cnt Chance, Ctlt Chance, etc.)
-    if ((lowerCaseStat.includes('cm') || lowerCaseStat.includes('cri') || lowerCaseStat.includes('cr') || lowerCaseStat.includes("c'") || lowerCaseStat.includes('cnt') || lowerCaseStat.includes('ctl') || lowerCaseStat.includes('tlt')) &&
+    // Crit Chance OCR errors (Cm Chan, Cri Chan, Cm Chen, cm chan, C'n Chan, Cnt Chance, Ctlt Chance, Ct" Chance, etc.)
+    if ((lowerCaseStat.includes('cm') || lowerCaseStat.includes('cri') || lowerCaseStat.includes('cr') || lowerCaseStat.includes("c'") || lowerCaseStat.includes('cnt') || lowerCaseStat.includes('ctl') || lowerCaseStat.includes('tlt') || lowerCaseStat.includes('ct')) &&
         (lowerCaseStat.includes('chan') || lowerCaseStat.includes('chen') || lowerCaseStat.includes('chance'))) {
         return 'Crit Chance';
     }
-    // Accuracy OCR errors (Am"racy, Aeeuracy, Accuracy, Acuracy, Am"lacy, Aeeureey, Am"may, etc.)
-    if (lowerCaseStat.includes('racy') || lowerCaseStat.includes('lacy') || lowerCaseStat.includes('ccuracy') || lowerCaseStat.includes('ureey') || lowerCaseStat.includes('uracy') || (lowerCaseStat.startsWith('am') && (lowerCaseStat.includes('ay') || lowerCaseStat.includes('may')))) {
+    // Accuracy OCR errors (Am"racy, Aeeuracy, Accuracy, Acuracy, Am"lacy, Aeeureey, Am"may, Amluraey, etc.)
+    if (lowerCaseStat.includes('racy') || lowerCaseStat.includes('lacy') || lowerCaseStat.includes('ccuracy') || lowerCaseStat.includes('ureey') || lowerCaseStat.includes('uracy') || lowerCaseStat.includes('luraey') || (lowerCaseStat.startsWith('am') && (lowerCaseStat.includes('ay') || lowerCaseStat.includes('may')))) {
         return 'Accuracy';
     }
     // Effectiveness OCR errors (Errecuveness, Effecfiveness, Errecrlver'ess, Errecuvene", etc.)
@@ -284,7 +284,7 @@ if (item.itemEffect) {
         .replace(/Critical\s*H["\s]*/i, 'Critical Hit')  // Handle truncated "Critical H"" OCR error
         .replace(/C[rlnif'"]+[rlnifcal]+[cait]*[aglrce]*\s+[sS][lti'r]+[rlki]+[ke]+e?/i, 'Critical Strike')  // Handle Critical Strike/Crnical srrn'e/Clllcal Sl'lke/Clfical Sllke/Cificgl Sl'ike/Crrrrcal Srrrke/Crrrrcar Srrrke/Cnlcel Strike OCR errors
         .replace(/C[rn']?[a-z]+\s+H[it"\s]*/i, 'Critical Hit')  // Handle Critical Hit variations like C'ifical H", C'lllcel H", C'lficel H", C'ific'n H", Cificn H"
-        .replace(/A[mc"]+[ua]*[rml][au]?cy/i, 'Accuracy')  // Handle Accuracy, Accumcy, Acculacy, Accurcy OCR errors
+        .replace(/A[mc"]+[ua]*[rml][au]?[ce][ya]?cy/i, 'Accuracy')  // Handle Accuracy, Accumcy, Acculacy, Accurcy, Accurecy OCR errors
         .replace(/Ev[ae]s[eilsr][a-z°'lm]+/i, 'Evasion')  // Handle Evasr°n, Evesim', Evasi°n, Evesi°n, Evaslm' OCR errors
         .replace(/E[rf]+[ert]+[ceo]+[utrl]*[vfl][ei]*[vn]+[ea]+[sn"]+/i, 'Effectiveness')  // Handle Effectiveness, Effecfiveness, Errecrlveness, Errecuveness OCR errors
         .replace(/Pene[a-z'°]+/i, 'Penetration')  // Handle Penefrefim', Penerrerr°n, Penefrafim' OCR errors
@@ -712,6 +712,6 @@ if (item.totalPoints > 24) {
 // Validate the item
 validateItem(item, rawItem);
 
-// Version: 48 - Added "Cnlcel Strike" OCR error for "Critical Strike", "Heurrh" for "Health"
+// Version: 48 - Added "Cnlcel Strike" for "Critical Strike", "Heurrh" for "Health", "Amluraey/Accurecy" for "Accuracy", "Ct\" Chance" for "Crit Chance"
 //return { item, rawItem };
 return item;

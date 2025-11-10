@@ -81,16 +81,6 @@ outerLoop: while ((Math.abs(lastSelectedResult.Point.X - selectedResult.Point.X)
         if (isLastItem) continue;
 
         let itemStats = getItemStats();
-        if (itemStats.desiredPoints < 5) {  // double check
-            itemStats = getItemStats();
-        }
-        if (itemStats.desiredPoints < 5) {  // triple check
-            itemStats = getItemStats();
-        }
-
-        if (!['Legendary', 'Epic'].includes(itemStats.itemGrade)) continue;
-
-        processedCount++;
 
         // Track the very first item's grade
         if (firstItemGrade === null) {
@@ -102,6 +92,17 @@ outerLoop: while ((Math.abs(lastSelectedResult.Point.X - selectedResult.Point.X)
             macroService.IsRunning = false;
             break;
         }
+
+        if (itemStats.desiredPoints < 5) {  // double check
+            itemStats = getItemStats();
+        }
+        if (itemStats.desiredPoints < 5) {  // triple check
+            itemStats = getItemStats();
+        }
+
+        if (!['Legendary', 'Epic'].includes(itemStats.itemGrade)) continue;
+
+        processedCount++;
 
         // Legendary processing (no locked check, requires 6 yellow stars, requires 6+ points, requires 3+ desired stats)
         if (itemStats.itemGrade === 'Legendary') {
