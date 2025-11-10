@@ -38,7 +38,13 @@ while (macroService.IsRunning) {
 
 				notificationResult = macroService.PollPattern(patterns.event.daily.anniversary.notification, { TimeoutMs: 3_000 });
 			}
-			
+
+			const coinExchangeResult = macroService.PollPattern([patterns.event.daily.coinExchange.coin]);
+
+			if (coinExchangeResult.Path === 'event.daily.coinExchange.coin') {
+				doCoinExchange();
+			}
+
 			//const miniGameResult = macroService.PollPattern([patterns.event.rockPaperScissors, patterns.event.drawACapsule, patterns.event.spinTheWheel, patterns.event.tokenExchange]);
 			//if (miniGameResult.Path === 'event.rockPaperScissors') {
 			//	doRockPaperScissors();
@@ -55,6 +61,20 @@ while (macroService.IsRunning) {
 			return;
 	}
 	sleep(1_000);
+}
+
+function doCoinExchange() {
+	macroService.PollPattern(patterns.event.daily.coinExchange.coin, { DoClick: true, PredicatePattern: patterns.event.daily.coinExchange.getCoins });
+	sleep(2_000);
+
+	let notificationResult = macroService.PollPattern(patterns.event.coinExchangeShop.exchange, { TimeoutMs: 3_000 });
+	while (notificationResult.IsSuccess) {
+		macroService.PollPattern(patterns.event.coinExchangeShop.exchange, { DoClick: true, PredicatePattern: patterns.general.tapEmptySpace });
+		sleep(1_000);
+		macroService.PollPattern(patterns.general.tapEmptySpace, { DoClick: true, PredicatePattern: patterns.event.coinExchangeShop.getCoins });
+
+		notificationResult = macroService.PollPattern(patterns.event.coinExchangeShop.exchange, { TimeoutMs: 3_000 });
+	}
 }
 
 function doRockPaperScissors() {

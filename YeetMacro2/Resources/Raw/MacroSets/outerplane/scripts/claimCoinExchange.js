@@ -24,7 +24,7 @@ while (macroService.IsRunning) {
 			while (notificationResult.IsSuccess) {
 				macroService.PollPattern(patterns.event.coinExchangeShop.exchange, { DoClick: true, PredicatePattern: patterns.general.tapEmptySpace });
 				sleep(1_000);
-				macroService.PollPattern(patterns.general.tapEmptySpace, { DoClick: true, PredicatePattern: patterns.event.coinExchangeShop.timeLeft });
+				macroService.PollPattern(patterns.general.tapEmptySpace, { DoClick: true, PredicatePattern: patterns.event.coinExchangeShop.getCoins });
 
 				notificationResult = macroService.PollPattern(patterns.event.coinExchangeShop.exchange, { TimeoutMs: 3_000 });
 			}

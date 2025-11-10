@@ -81,7 +81,7 @@ function applyPreset(teamSlot) {
 			targetPreset = findTargetPreset(presetRegex, presetNameList);
 			swipeCount++;
 
-			if (swipeCount === 5) {
+			if (macroService.IsRunning && swipeCount === 5) {
 				throw presetNameList;
 				//throw new Error(`Could not find preset regex: ${presetRegex}`)
 			}
