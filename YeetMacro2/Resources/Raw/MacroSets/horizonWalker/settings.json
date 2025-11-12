@@ -1,11 +1,13 @@
 {
   "claimTribute": {
     "$type": "parent",
+    "$tags": [],
     "$position": 0,
     "$name": "claimTribute",
     "$path": "claimTribute",
     "lastRun": {
       "$type": "timestamp",
+      "$tags": [],
       "$defaultValue": "0001-01-01T00:00:00+00:00",
       "$value": "2025-07-30T01:41:40.412+00:00",
       "$position": 0,
@@ -14,6 +16,7 @@
     },
     "forceRun": {
       "$type": "boolean",
+      "$tags": [],
       "$defaultValue": false,
       "$value": false,
       "$position": 0,
@@ -23,12 +26,15 @@
   },
   "doStageBounty": {
     "$type": "parent",
+    "$tags": [],
     "$position": 0,
     "$name": "doStageBounty",
     "$path": "doStageBounty",
     "targetBountyPattern": {
       "$type": "pattern",
+      "$tags": [],
       "$defaultValue": {
+        "$tags": [],
         "$patterns": [
           {
             "rawBounds": {
@@ -69,6 +75,7 @@
         "$path": "settings.doStageBounty.targetBountyPattern"
       },
       "$value": {
+        "$tags": [],
         "$patterns": [
           {
             "rawBounds": {
@@ -114,7 +121,9 @@
     },
     "targetFloorPattern": {
       "$type": "pattern",
+      "$tags": [],
       "$defaultValue": {
+        "$tags": [],
         "$patterns": [
           {
             "rawBounds": {
@@ -155,6 +164,7 @@
         "$path": "settings.doStageBounty.targetFloorPattern"
       },
       "$value": {
+        "$tags": [],
         "$patterns": [
           {
             "rawBounds": {
@@ -201,6 +211,7 @@
   },
   "doStageWish": {
     "$type": "parent",
+    "$tags": [],
     "$position": 0,
     "$name": "doStageWish",
     "$path": "doStageWish",
@@ -211,6 +222,7 @@
         "vangaurdExp",
         "weaponExp"
       ],
+      "$tags": [],
       "$defaultValue": "vangaurdExp",
       "$value": "vangaurdExp",
       "$position": 0,
@@ -224,6 +236,7 @@
         "vangaurdExp",
         "weaponExp"
       ],
+      "$tags": [],
       "$defaultValue": "credit",
       "$value": "credit",
       "$position": 0,
@@ -233,11 +246,13 @@
   },
   "doDailies": {
     "$type": "parent",
+    "$tags": [],
     "$position": 0,
     "$name": "doDailies",
     "$path": "doDailies",
     "claimTribute": {
       "$type": "boolean",
+      "$tags": [],
       "$defaultValue": true,
       "$value": true,
       "$position": 0,
@@ -246,6 +261,7 @@
     },
     "doDailyShop": {
       "$type": "boolean",
+      "$tags": [],
       "$defaultValue": true,
       "$value": true,
       "$position": 0,
@@ -254,6 +270,7 @@
     },
     "doStageWish": {
       "$type": "boolean",
+      "$tags": [],
       "$defaultValue": true,
       "$value": true,
       "$position": 0,
@@ -262,6 +279,7 @@
     },
     "doStageBounty": {
       "$type": "boolean",
+      "$tags": [],
       "$defaultValue": true,
       "$value": true,
       "$position": 0,
@@ -270,6 +288,7 @@
     },
     "claimDailyChecklist": {
       "$type": "boolean",
+      "$tags": [],
       "$defaultValue": true,
       "$value": true,
       "$position": 0,
@@ -278,6 +297,7 @@
     },
     "sweepEvent": {
       "$type": "boolean",
+      "$tags": [],
       "$defaultValue": true,
       "$value": true,
       "$position": 0,
@@ -286,6 +306,7 @@
     },
     "claimInbox": {
       "$type": "boolean",
+      "$tags": [],
       "$defaultValue": true,
       "$value": true,
       "$position": 0,

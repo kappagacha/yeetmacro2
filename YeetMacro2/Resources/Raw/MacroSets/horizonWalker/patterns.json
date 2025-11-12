@@ -1,11 +1,13 @@
 {
   "tribute": {
+    "$tags": [],
     "$patterns": [],
     "$isMultiPattern": false,
     "$position": 0,
     "$name": "tribute",
     "$path": "tribute",
     "receive": {
+      "$tags": [],
       "$patterns": [
         {
           "rawBounds": {
@@ -46,6 +48,7 @@
       "$path": "tribute.receive"
     },
     "close": {
+      "$tags": [],
       "$patterns": [
         {
           "rawBounds": {
@@ -87,12 +90,14 @@
     }
   },
   "general": {
+    "$tags": [],
     "$patterns": [],
     "$isMultiPattern": false,
     "$position": 0,
     "$name": "general",
     "$path": "general",
     "levelUp": {
+      "$tags": [],
       "$patterns": [
         {
           "rawBounds": {
@@ -165,6 +170,7 @@
       "$path": "general.levelUp"
     },
     "confirm": {
+      "$tags": [],
       "$patterns": [
         {
           "rawBounds": {
@@ -205,6 +211,7 @@
       "$path": "general.confirm"
     },
     "confirm2": {
+      "$tags": [],
       "$patterns": [
         {
           "rawBounds": {
@@ -245,6 +252,7 @@
       "$path": "general.confirm2"
     },
     "swipeRight": {
+      "$tags": [],
       "$patterns": [
         {
           "rawBounds": {
@@ -285,6 +293,7 @@
       "$path": "general.swipeRight"
     },
     "touchTheScreen": {
+      "$tags": [],
       "$patterns": [
         {
           "rawBounds": {
@@ -357,6 +366,7 @@
       "$path": "general.touchTheScreen"
     },
     "back": {
+      "$tags": [],
       "$patterns": [
         {
           "rawBounds": {
@@ -430,6 +440,7 @@
     }
   },
   "mall": {
+    "$tags": [],
     "$patterns": [
       {
         "rawBounds": {
@@ -469,6 +480,7 @@
     "$name": "mall",
     "$path": "mall",
     "dailyLimited": {
+      "$tags": [],
       "$patterns": [
         {
           "rawBounds": {
@@ -508,6 +520,7 @@
       "$name": "dailyLimited",
       "$path": "mall.dailyLimited",
       "selected": {
+        "$tags": [],
         "$patterns": [
           {
             "rawBounds": {
@@ -548,6 +561,7 @@
         "$path": "mall.dailyLimited.selected"
       },
       "brilliantGiftBox": {
+        "$tags": [],
         "$patterns": [
           {
             "rawBounds": {
@@ -588,6 +602,7 @@
         "$path": "mall.dailyLimited.brilliantGiftBox"
       },
       "luxuriousGiftBox": {
+        "$tags": [],
         "$patterns": [
           {
             "rawBounds": {
@@ -628,6 +643,7 @@
         "$path": "mall.dailyLimited.luxuriousGiftBox"
       },
       "giftBox": {
+        "$tags": [],
         "$patterns": [
           {
             "rawBounds": {
@@ -669,6 +685,7 @@
       }
     },
     "purchase": {
+      "$tags": [],
       "$patterns": [
         {
           "rawBounds": {
@@ -708,6 +725,7 @@
       "$name": "purchase",
       "$path": "mall.purchase",
       "confirm": {
+        "$tags": [],
         "$patterns": [
           {
             "rawBounds": {
@@ -749,6 +767,7 @@
       }
     },
     "sliderEnd": {
+      "$tags": [],
       "$patterns": [
         {
           "rawBounds": {
@@ -789,6 +808,7 @@
       "$path": "mall.sliderEnd"
     },
     "cashShop": {
+      "$tags": [],
       "$patterns": [
         {
           "rawBounds": {
@@ -828,6 +848,7 @@
       "$name": "cashShop",
       "$path": "mall.cashShop",
       "selected": {
+        "$tags": [],
         "$patterns": [
           {
             "rawBounds": {
@@ -868,6 +889,7 @@
         "$path": "mall.cashShop.selected"
       },
       "fairyNetSupportFund": {
+        "$tags": [],
         "$patterns": [
           {
             "rawBounds": {
@@ -909,6 +931,7 @@
       }
     },
     "back": {
+      "$tags": [],
       "$patterns": [
         {
           "rawBounds": {
@@ -950,6 +973,7 @@
     }
   },
   "checklist": {
+    "$tags": [],
     "$patterns": [
       {
         "rawBounds": {
@@ -989,6 +1013,7 @@
     "$name": "checklist",
     "$path": "checklist",
     "title": {
+      "$tags": [],
       "$patterns": [
         {
           "rawBounds": {
@@ -1029,6 +1054,7 @@
       "$path": "checklist.title"
     },
     "redeemAll": {
+      "$tags": [],
       "$patterns": [
         {
           "rawBounds": {
@@ -1070,6 +1096,7 @@
     }
   },
   "phone": {
+    "$tags": [],
     "$patterns": [
       {
         "rawBounds": {
@@ -1109,6 +1136,7 @@
     "$name": "phone",
     "$path": "phone",
     "battery": {
+      "$tags": [],
       "$patterns": [
         {
           "rawBounds": {
@@ -1149,6 +1177,7 @@
       "$path": "phone.battery"
     },
     "store": {
+      "$tags": [],
       "$patterns": [
         {
           "rawBounds": {
@@ -1189,6 +1218,7 @@
       "$path": "phone.store"
     },
     "checklist": {
+      "$tags": [],
       "$patterns": [
         {
           "rawBounds": {
@@ -1229,6 +1259,7 @@
       "$path": "phone.checklist"
     },
     "inbox": {
+      "$tags": [],
       "$patterns": [
         {
           "rawBounds": {
@@ -1268,6 +1299,7 @@
       "$name": "inbox",
       "$path": "phone.inbox",
       "title": {
+        "$tags": [],
         "$patterns": [
           {
             "rawBounds": {
@@ -1308,6 +1340,7 @@
         "$path": "phone.inbox.title"
       },
       "claimAll": {
+        "$tags": [],
         "$patterns": [
           {
             "rawBounds": {
@@ -1348,6 +1381,7 @@
         "$path": "phone.inbox.claimAll"
       },
       "notification": {
+        "$tags": [],
         "$patterns": [
           {
             "rawBounds": {
@@ -1390,12 +1424,14 @@
     }
   },
   "event": {
+    "$tags": [],
     "$patterns": [],
     "$isMultiPattern": false,
     "$position": 0,
     "$name": "event",
     "$path": "event",
     "claimAll": {
+      "$tags": [],
       "$patterns": [
         {
           "rawBounds": {
@@ -1467,6 +1503,7 @@
       "$name": "claimAll",
       "$path": "event.claimAll",
       "close": {
+        "$tags": [],
         "$patterns": [
           {
             "rawBounds": {
@@ -1572,6 +1609,7 @@
       }
     },
     "stage": {
+      "$tags": [],
       "$patterns": [
         {
           "rawBounds": {
@@ -1612,6 +1650,7 @@
       "$path": "event.stage"
     },
     "star": {
+      "$tags": [],
       "$patterns": [
         {
           "rawBounds": {
@@ -1652,6 +1691,7 @@
       "$path": "event.star"
     },
     "schedule": {
+      "$tags": [],
       "$patterns": [
         {
           "rawBounds": {
@@ -1691,6 +1731,7 @@
       "$name": "schedule",
       "$path": "event.schedule",
       "close": {
+        "$tags": [],
         "$patterns": [
           {
             "rawBounds": {
@@ -1731,6 +1772,7 @@
         "$path": "event.schedule.close"
       },
       "claimAll": {
+        "$tags": [],
         "$patterns": [
           {
             "rawBounds": {
@@ -1804,6 +1846,7 @@
       }
     },
     "title": {
+      "$tags": [],
       "$patterns": [
         {
           "rawBounds": {
@@ -1844,6 +1887,7 @@
       "$path": "event.title"
     },
     "hard": {
+      "$tags": [],
       "$patterns": [
         {
           "rawBounds": {
@@ -1883,6 +1927,7 @@
       "$name": "hard",
       "$path": "event.hard",
       "selected": {
+        "$tags": [],
         "$patterns": [
           {
             "rawBounds": {
@@ -1924,6 +1969,7 @@
       }
     },
     "swipeRight": {
+      "$tags": [],
       "$patterns": [
         {
           "rawBounds": {
@@ -1964,6 +2010,7 @@
       "$path": "event.swipeRight"
     },
     "swipeLeft": {
+      "$tags": [],
       "$patterns": [
         {
           "rawBounds": {
@@ -2004,6 +2051,7 @@
       "$path": "event.swipeLeft"
     },
     "enterStory": {
+      "$tags": [],
       "$patterns": [
         {
           "rawBounds": {
@@ -2044,6 +2092,7 @@
       "$path": "event.enterStory"
     },
     "back": {
+      "$tags": [],
       "$patterns": [
         {
           "rawBounds": {
@@ -2084,6 +2133,7 @@
       "$path": "event.back"
     },
     "eventStory": {
+      "$tags": [],
       "$patterns": [
         {
           "rawBounds": {
@@ -2125,12 +2175,14 @@
     }
   },
   "notice": {
+    "$tags": [],
     "$patterns": [],
     "$isMultiPattern": false,
     "$position": 0,
     "$name": "notice",
     "$path": "notice",
     "close": {
+      "$tags": [],
       "$patterns": [
         {
           "rawBounds": {
@@ -2171,6 +2223,7 @@
       "$path": "notice.close"
     },
     "dontRemindMeToday": {
+      "$tags": [],
       "$patterns": [
         {
           "rawBounds": {
@@ -2210,6 +2263,7 @@
       "$name": "dontRemindMeToday",
       "$path": "notice.dontRemindMeToday",
       "checked": {
+        "$tags": [],
         "$patterns": [
           {
             "rawBounds": {
@@ -2249,15 +2303,107 @@
         "$name": "checked",
         "$path": "notice.dontRemindMeToday.checked"
       }
+    },
+    "attendance": {
+      "$tags": [],
+      "$patterns": [],
+      "$isMultiPattern": false,
+      "$position": 0,
+      "$name": "attendance",
+      "$path": "notice.attendance",
+      "close": {
+        "$tags": [],
+        "$patterns": [
+          {
+            "rawBounds": {
+              "x": 1701.25,
+              "y": 139.25,
+              "width": 37.5,
+              "height": 46.5
+            },
+            "resolution": {
+              "width": 1920,
+              "height": 1080
+            },
+            "type": "Normal",
+            "swipeDirection": "Auto",
+            "name": "pattern",
+            "imageData": "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",
+            "variancePct": 20,
+            "textMatch": {
+              "isActive": false,
+              "text": null,
+              "whiteList": null
+            },
+            "colorThreshold": {
+              "isActive": true,
+              "variancePct": 30,
+              "color": "#ffa2a8b6",
+              "imageData": "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",
+              "ignoreBackground": false
+            },
+            "offsetCalcType": "Default",
+            "boundsCalcType": "Default",
+            "position": 0
+          }
+        ],
+        "$isMultiPattern": false,
+        "$position": 0,
+        "$name": "close",
+        "$path": "notice.attendance.close"
+      },
+      "claimAll": {
+        "$tags": [],
+        "$patterns": [
+          {
+            "rawBounds": {
+              "x": 1566.25,
+              "y": 868.25,
+              "width": 37.5,
+              "height": 34
+            },
+            "resolution": {
+              "width": 1920,
+              "height": 1080
+            },
+            "type": "Normal",
+            "swipeDirection": "Auto",
+            "name": "pattern",
+            "imageData": "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",
+            "variancePct": 20,
+            "textMatch": {
+              "isActive": false,
+              "text": null,
+              "whiteList": null
+            },
+            "colorThreshold": {
+              "isActive": true,
+              "variancePct": 30,
+              "color": "#fffaf7f1",
+              "imageData": "/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDAAIBAQEBAQIBAQECAgICAgQDAgICAgUEBAMEBgUGBgYFBgYGBwkIBgcJBwYGCAsICQoKCgoKBggLDAsKDAkKCgr/wAALCAAiACUBAREA/8QAHwAAAQUBAQEBAQEAAAAAAAAAAAECAwQFBgcICQoL/8QAtRAAAgEDAwIEAwUFBAQAAAF9AQIDAAQRBRIhMUEGE1FhByJxFDKBkaEII0KxwRVS0fAkM2JyggkKFhcYGRolJicoKSo0NTY3ODk6Q0RFRkdISUpTVFVWV1hZWmNkZWZnaGlqc3R1dnd4eXqDhIWGh4iJipKTlJWWl5iZmqKjpKWmp6ipqrKztLW2t7i5usLDxMXGx8jJytLT1NXW19jZ2uHi4+Tl5ufo6erx8vP09fb3+Pn6/9oACAEBAAA/AP38ooooor+UL4pf8F89Y0f/AIOIL7/gp/8ADbxB4g1D4Zaf4gi8LR6Imp3lwmqeB4o0s5xb20z2ez7Rtl1aGzm2Rw30sbyh2jd2/q9r+YH/AINxP+UWX/BTj/s3+P8A9Mfiqv0A/wCDKn/lFl4+/wCzgNV/9Meh19P/APBxH+3TrH7An/BKj4g/EfwH4z/sPxt4t8jwf4DvUW8WZL+/LCeW3mtGRrW5g0+O/uoZ2dFSa2j++xWN/wAMfhP+1P8A8ElvDH/Bsn4x/Ye8Y/HbUJvjx4q8YT+NYfC83w/udSk0nX4tRt7W1FldPBBa2sUulWUSzTi6eWOO+vdomJFm37Xf8Gy/7a3/AA2j/wAEj/AP9oaB9g1f4TY+HGr+Ta+VbXP9l2lr9jmhzNKz7tPnsfNdvLzcC42xrHsz+QH/AAbif8osv+CnH/Zv8f8A6Y/FVfoB/wAGVP8Ayiy8ff8AZwGq/wDpj0Ot/wD4L0f8Ey/+Cgn/AAVj/bi+An7O3hnw9/Z/7Lnh7ytX+I/i2z8XW9lNHfy3MyXgNrJLK1xcxafbxx2UgsnWObU5xJJ5UkvlfcH/AA6d/wCCWX/SNP8AZ/8A/DN6H/8AItfD/wDwR5/4JkftY/8ABJT/AIKr/tAfD7wF+zz9s/Zc+KnkXfhDx5b6xYGbRZrUS3djYvBPqr3xtoUv7/T3maCaaeaC1mxFE8rDwD/gin/wRm/4KT/skfsC/t1fBT9oT9m//hH/ABP8ZPg+mifDfTP+Ew0e7/te/GleIIDD5lteSR2/72+tV3TtGv73OcKxX6//AODX79gr9rH/AIJ2/sC+L/gp+2L8Kf8AhD/E+qfGDUNbsdM/t2w1DzbCTStKgSbzLGeaNcy2067SwYbMkAFSf0foooor/9k=",
+              "ignoreBackground": false
+            },
+            "offsetCalcType": "Default",
+            "boundsCalcType": "Default",
+            "position": 0
+          }
+        ],
+        "$isMultiPattern": false,
+        "$position": 0,
+        "$name": "claimAll",
+        "$path": "notice.attendance.claimAll"
+      }
     }
   },
   "startScreen": {
+    "$tags": [],
     "$patterns": [],
     "$isMultiPattern": true,
     "$position": 0,
     "$name": "startScreen",
     "$path": "startScreen",
     "settings": {
+      "$tags": [],
       "$patterns": [
         {
           "rawBounds": {
@@ -2299,6 +2445,7 @@
     }
   },
   "stage": {
+    "$tags": [],
     "$patterns": [
       {
         "rawBounds": {
@@ -2338,6 +2485,7 @@
     "$name": "stage",
     "$path": "stage",
     "title": {
+      "$tags": [],
       "$patterns": [
         {
           "rawBounds": {
@@ -2378,6 +2526,7 @@
       "$path": "stage.title"
     },
     "wish": {
+      "$tags": [],
       "$patterns": [
         {
           "rawBounds": {
@@ -2417,6 +2566,7 @@
       "$name": "wish",
       "$path": "stage.wish",
       "zeroWishes": {
+        "$tags": [],
         "$patterns": [
           {
             "rawBounds": {
@@ -2457,6 +2607,7 @@
         "$path": "stage.wish.zeroWishes"
       },
       "title": {
+        "$tags": [],
         "$patterns": [
           {
             "rawBounds": {
@@ -2497,6 +2648,7 @@
         "$path": "stage.wish.title"
       },
       "weaponExp": {
+        "$tags": [],
         "$patterns": [
           {
             "rawBounds": {
@@ -2537,6 +2689,7 @@
         "$path": "stage.wish.weaponExp"
       },
       "vangaurdExp": {
+        "$tags": [],
         "$patterns": [
           {
             "rawBounds": {
@@ -2577,6 +2730,7 @@
         "$path": "stage.wish.vangaurdExp"
       },
       "credit": {
+        "$tags": [],
         "$patterns": [
           {
             "rawBounds": {
@@ -2618,6 +2772,7 @@
       }
     },
     "bounty": {
+      "$tags": [],
       "$patterns": [
         {
           "rawBounds": {
@@ -2657,6 +2812,7 @@
       "$name": "bounty",
       "$path": "stage.bounty",
       "sweep": {
+        "$tags": [],
         "$patterns": [
           {
             "rawBounds": {
@@ -2696,6 +2852,7 @@
         "$name": "sweep",
         "$path": "stage.bounty.sweep",
         "confirm": {
+          "$tags": [],
           "$patterns": [
             {
               "rawBounds": {
@@ -2737,6 +2894,7 @@
         }
       },
       "floor": {
+        "$tags": [],
         "$patterns": [
           {
             "rawBounds": {
@@ -2777,6 +2935,7 @@
         "$path": "stage.bounty.floor"
       },
       "title": {
+        "$tags": [],
         "$patterns": [
           {
             "rawBounds": {
@@ -2818,6 +2977,7 @@
       }
     },
     "riftExplore": {
+      "$tags": [],
       "$patterns": [
         {
           "rawBounds": {
@@ -2857,6 +3017,7 @@
       "$name": "riftExplore",
       "$path": "stage.riftExplore",
       "title": {
+        "$tags": [],
         "$patterns": [
           {
             "rawBounds": {
@@ -2897,6 +3058,7 @@
         "$path": "stage.riftExplore.title"
       },
       "bloodPit": {
+        "$tags": [],
         "$patterns": [
           {
             "rawBounds": {
@@ -2937,6 +3099,7 @@
         "$path": "stage.riftExplore.bloodPit"
       },
       "fire": {
+        "$tags": [],
         "$patterns": [
           {
             "rawBounds": {
@@ -2977,6 +3140,7 @@
         "$path": "stage.riftExplore.fire"
       },
       "frost": {
+        "$tags": [],
         "$patterns": [
           {
             "rawBounds": {
@@ -3017,6 +3181,7 @@
         "$path": "stage.riftExplore.frost"
       },
       "nightmare": {
+        "$tags": [],
         "$patterns": [
           {
             "rawBounds": {
@@ -3057,6 +3222,7 @@
         "$path": "stage.riftExplore.nightmare"
       },
       "floorList": {
+        "$tags": [],
         "$patterns": [
           {
             "rawBounds": {
@@ -3097,6 +3263,7 @@
         "$path": "stage.riftExplore.floorList"
       },
       "region": {
+        "$tags": [],
         "$patterns": [
           {
             "rawBounds": {
@@ -3137,6 +3304,7 @@
         "$path": "stage.riftExplore.region"
       },
       "everchange": {
+        "$tags": [],
         "$patterns": [
           {
             "rawBounds": {
@@ -3176,6 +3344,7 @@
         "$name": "everchange",
         "$path": "stage.riftExplore.everchange",
         "title": {
+          "$tags": [],
           "$patterns": [
             {
               "rawBounds": {
@@ -3219,12 +3388,14 @@
     }
   },
   "battle": {
+    "$tags": [],
     "$patterns": [],
     "$isMultiPattern": false,
     "$position": 0,
     "$name": "battle",
     "$path": "battle",
     "deploy": {
+      "$tags": [],
       "$patterns": [
         {
           "rawBounds": {
@@ -3265,6 +3436,7 @@
       "$path": "battle.deploy"
     },
     "skip": {
+      "$tags": [],
       "$patterns": [
         {
           "rawBounds": {
@@ -3305,6 +3477,7 @@
       "$path": "battle.skip"
     },
     "next": {
+      "$tags": [],
       "$patterns": [
         {
           "rawBounds": {
@@ -3345,6 +3518,7 @@
       "$path": "battle.next"
     },
     "exit": {
+      "$tags": [],
       "$patterns": [
         {
           "rawBounds": {
@@ -3385,6 +3559,7 @@
       "$path": "battle.exit"
     },
     "sweeping": {
+      "$tags": [],
       "$patterns": [
         {
           "rawBounds": {
@@ -3424,6 +3599,7 @@
       "$name": "sweeping",
       "$path": "battle.sweeping",
       "confirm": {
+        "$tags": [],
         "$patterns": [
           {
             "rawBounds": {
@@ -3465,6 +3641,7 @@
       }
     },
     "concedeX": {
+      "$tags": [],
       "$patterns": [
         {
           "rawBounds": {
@@ -3505,6 +3682,7 @@
       "$path": "battle.concedeX"
     },
     "nextFloor": {
+      "$tags": [],
       "$patterns": [
         {
           "rawBounds": {
@@ -3545,6 +3723,7 @@
       "$path": "battle.nextFloor"
     },
     "complete": {
+      "$tags": [],
       "$patterns": [
         {
           "rawBounds": {
