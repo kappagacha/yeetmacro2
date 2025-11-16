@@ -1,4 +1,4 @@
-// @isFavorite
+// @tags=favorites
 // @position=-1
 // Do pursuit operation
 const loopPatterns = [patterns.lobby.level, patterns.titles.adventure, patterns.irregularExtermination.pursuitOperation, patterns.titles.pursuitOperation];
@@ -52,6 +52,14 @@ while (macroService.IsRunning) {
 			sleep(500);
 			break;
 		case 'irregularExtermination.pursuitOperation':
+			const pointExchangeNotificationResult = macroService.PollPattern(patterns.irregularExtermination.pursuitOperation.pointExchange.notification, { TimeoutMs: 1_000 });
+			if (pointExchangeNotificationResult.IsSuccess) {
+				macroService.PollPattern(patterns.irregularExtermination.pursuitOperation.pointExchange, { DoClick: true, PredicatePattern: patterns.irregularExtermination.pursuitOperation.pointExchange.receiveAll });
+				macroService.PollPattern(patterns.irregularExtermination.pursuitOperation.pointExchange.receiveAll, { DoClick: true, PredicatePattern: patterns.general.tapEmptySpace });
+				macroService.PollPattern(patterns.general.tapEmptySpace, { DoClick: true, PredicatePattern: patterns.general.back });
+				macroService.PollPattern(patterns.general.back, { DoClick: true, PredicatePattern: patterns.irregularExtermination.pursuitOperation, PrimaryClickPredicatePattern: patterns.irregularExtermination.pursuitOperation.pointExchange.receiveAll });
+			}
+
 			logger.info('doPursuitOperation: click move');
 			macroService.ClickPattern(patterns.irregularExtermination.pursuitOperation.move);
 			sleep(500);

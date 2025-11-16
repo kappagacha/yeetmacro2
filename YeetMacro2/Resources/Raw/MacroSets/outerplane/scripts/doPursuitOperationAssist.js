@@ -1,4 +1,4 @@
-// @isFavorite
+// @tags=favorites
 // @position=-1
 // Do pursuit operation assist
 const loopPatterns = [patterns.lobby.level, patterns.titles.adventure, patterns.irregularExtermination.pursuitOperation, patterns.titles.pursuitOperation];
