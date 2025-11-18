@@ -67,7 +67,9 @@ function teamSelectBonus() {
 
 	const bonusCharacters = [];
 	const battleTypes = ['striker', 'mage', 'ranger', 'healer', 'defender'];
-	for (let bonusPoint of bonusResult.Points) {
+	const sortedBonusPoints = bonusResult.Points.map(p => p).sort((a, b) => a.X - b.X);
+
+	for (let bonusPoint of sortedBonusPoints) {
 		const cloneOpts = { X: bonusPoint.X + 95, Y: bonusPoint.Y + 30, Width: 40, Height: 40, PathSuffix: `_${bonusPoint.X}x_${bonusPoint.Y}y`, OffsetCalcType: 'None' };
 		const battleTypePatterns = battleTypes.map(bt => macroService.ClonePattern(patterns.battle.battleType[bt], cloneOpts));
 		const battleTypeResult = macroService.PollPattern(battleTypePatterns);
@@ -99,9 +101,11 @@ function teamSelectBonus() {
 		}
 	}
 
-	// Place bonus characters first
-	for (let [location, bonusChar] of Object.entries(locationsToBonusCharacters)) {
-		if (bonusChar) {
+	// Place bonus characters first in the order they appear in sortedBonusPoints
+	for (let bonusChar of bonusCharacters) {
+		// Find which location this bonusChar is assigned to
+		const location = Object.keys(locationsToBonusCharacters).find(loc => locationsToBonusCharacters[loc] === bonusChar);
+		if (location) {
 			macroService.PollPoint(bonusChar.point, { DoClick: true, PredicatePattern: patterns.battle.teamFormation[location].add });
 			macroService.PollPattern(patterns.battle.teamFormation[location].add, { DoClick: true, InversePredicatePattern: patterns.battle.teamFormation[location].add });
 		}

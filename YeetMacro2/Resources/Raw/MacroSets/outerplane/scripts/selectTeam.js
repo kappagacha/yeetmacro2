@@ -89,6 +89,7 @@ function detectBossType() {
 function setChainOrder() {
 	const chainPreviewPollResult = macroService.PollPattern(patterns.battle.chainPreview, { DoClick: true, PredicatePattern: [patterns.battle.chainPreview.selected, patterns.battle.chainPreview.ownedView] });
 	const isOwnedView = chainPreviewPollResult.PredicatePath === 'battle.chainPreview.ownedView';
+	logger.info(`setChainOrder isOwnedView ${isOwnedView}`);
 	const clickOffset = isOwnedView ? { X: 863, Y: -60 } : { X: 0, Y: 0 };
 	const chainPreviewResult = { A: {}, B: {}, C: {}, D: {} };
 
