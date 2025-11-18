@@ -2135,8 +2135,8 @@
     "lastApplied": {
       "$type": "string",
       "$tags": [],
-      "$defaultValue": "1",
-      "$value": "1",
+      "$defaultValue": null,
+      "$value": null,
       "$position": 10,
       "$name": "lastApplied",
       "$path": "applyPreset.lastApplied"
@@ -3241,6 +3241,34 @@
       "$position": 31,
       "$name": "claimEventDailyFireworks",
       "$path": "doDailies.claimEventDailyFireworks"
+    }
+  },
+  "doEventStory": {
+    "$type": "parent",
+    "$tags": [],
+    "$position": 0,
+    "$name": "doEventStory",
+    "$path": "doEventStory",
+    "teamSlot": {
+      "$type": "option",
+      "$options": [
+        "Current",
+        "1",
+        "2",
+        "3",
+        "4",
+        "5",
+        "6",
+        "7",
+        "8",
+        "9"
+      ],
+      "$tags": [],
+      "$defaultValue": "8",
+      "$value": "8",
+      "$position": 0,
+      "$name": "teamSlot",
+      "$path": "doEventStory.teamSlot"
     }
   }
 }

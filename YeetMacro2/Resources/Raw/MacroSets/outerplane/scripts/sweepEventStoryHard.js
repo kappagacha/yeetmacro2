@@ -1,4 +1,4 @@
-// @tags=favorites
+// @tags=favorites,event
 // Sweep event story hard
 const loopPatterns = [patterns.lobby.level, patterns.titles.adventure, patterns.event.story.enter];
 const daily = dailyManager.GetCurrentDaily();
