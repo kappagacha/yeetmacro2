@@ -89,7 +89,7 @@ function detectBossType() {
 function setChainOrder() {
 	const chainPreviewPollResult = macroService.PollPattern(patterns.battle.chainPreview, { DoClick: true, PredicatePattern: [patterns.battle.chainPreview.selected, patterns.battle.chainPreview.ownedView] });
 	const isOwnedView = chainPreviewPollResult.PredicatePath === 'battle.chainPreview.ownedView';
-	logger.info(`setChainOrder isOwnedView ${isOwnedView}`);
+
 	const clickOffset = isOwnedView ? { X: 863, Y: -60 } : { X: 0, Y: 0 };
 	const chainPreviewResult = { A: {}, B: {}, C: {}, D: {} };
 
@@ -115,13 +115,14 @@ function setChainOrder() {
 		for (let position of Object.keys(chainPreviewResult)) {
 			// $patterns uses snapshot patterns json and the other uses actual C# class PatternNodeViewModel
 			const originalRawBounds = patterns.battle.chainPreview[position]?.Pattern?.RawBounds || patterns.battle.chainPreview[position].$patterns[0].rawBounds;
-			const rawBounds = { ...originalRawBounds };
+			let rawBounds = { ...originalRawBounds };
 			if (isOwnedView) {
-				const xKey = rawBounds.hasOwnProperty('X') ? 'X' : 'x';
-				const yKey = rawBounds.hasOwnProperty('X') ? 'Y' : 'y';
-
-				rawBounds[xKey] += 863;
-				rawBounds[yKey] -= 60;
+				rawBounds = {
+					X: (rawBounds.X ?? rawBounds.x) + 863,
+					Y: (rawBounds.Y ?? rawBounds.y) - 60,
+					Width: rawBounds.Width ?? rawBounds.width,
+					Height: rawBounds.Height ?? rawBounds.height
+				};
 			}
 
 			const cloneOpts = { RawBounds: rawBounds, PathSuffix: `_${position}` };

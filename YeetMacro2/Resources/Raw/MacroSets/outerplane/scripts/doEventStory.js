@@ -115,7 +115,7 @@ function teamSelectBonus() {
 	let charactersPlaced = bonusCharacters.length;
 	for (let [location, bonusChar] of Object.entries(locationsToBonusCharacters)) {
 		if (!bonusChar) {
-			const cloneOpts = { X: 70 + (charactersPlaced * 150), Y: 880, Width: 1700, Height: 120, PathSuffix: '_all', OffsetCalcType: 'None', BoundsCalcType: 'FillWidth' };
+			const cloneOpts = { X: 70 + (charactersPlaced * 160), Y: 880, Width: 1700, Height: 120, PathSuffix: '_all', OffsetCalcType: 'None', BoundsCalcType: 'FillWidth' };
 			// Find preferred battle types for this location (in order of priority)
 			const preferredBattleTypesForLocation = [];
 			for (let [battleType, locations] of Object.entries(battleTypePreferences)) {
