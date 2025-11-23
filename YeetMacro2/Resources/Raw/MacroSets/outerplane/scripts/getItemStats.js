@@ -224,11 +224,11 @@ if (item.itemType) {
 
     // Fix common OCR errors in item type
     // Check Accessory first before Exclusive, since accessories can also have "Exclusive" in the name
-    if (item.itemType.match(/A[ce]+ss[eo]ry/i)) {
-        // Handle Accessory OCR errors (Aeecessery, Acccssory, etc.)
+    if (item.itemType.match(/A[cs]+[es]+[sc]+[eo]*ry/i)) {
+        // Handle Accessory OCR errors (Aeecessery, Acccssory, Assessery, etc.)
         item.itemType = 'Accessory';
-    } else if (item.itemType.match(/We[aeq]+p[eo]n/i) || item.itemType.match(/Exclusive/i)) {
-        // Handle Weapon, Weepen, Weapen, and Exclusive (character-specific weapons)
+    } else if (item.itemType.match(/We[aeq]+p[eo]n/i) || item.itemType.match(/Weepo/i) || item.itemType.match(/Exclusive/i)) {
+        // Handle Weapon, Weepen, Weapen, Weepo, and Exclusive (character-specific weapons)
         item.itemType = 'Weapon';
     } else if (item.itemType.match(/Hel\s*m/i) || item.itemType.match(/Her\s*mer/i)) {
         // Handle Helmet OCR errors (Helmet, Hel met, Helm, Her mer, etc.)
@@ -284,7 +284,7 @@ if (item.itemEffect) {
         .replace(/Critical\s*H["\s]*/i, 'Critical Hit')  // Handle truncated "Critical H"" OCR error
         .replace(/C[rlnif'"]+[rlnifcal]+[cait]*[aglrce]*\s+[sS][lti'r]+[rlki]+[ke]+e?/i, 'Critical Strike')  // Handle Critical Strike/Crnical srrn'e/Clllcal Sl'lke/Clfical Sllke/Cificgl Sl'ike/Crrrrcal Srrrke/Crrrrcar Srrrke/Cnlcel Strike OCR errors
         .replace(/C[rn']?[a-z]+\s+H[it"\s]*/i, 'Critical Hit')  // Handle Critical Hit variations like C'ifical H", C'lllcel H", C'lficel H", C'ific'n H", Cificn H"
-        .replace(/A[mc"]+[ua]*[rml][au]?[ce][ya]?cy/i, 'Accuracy')  // Handle Accuracy, Accumcy, Acculacy, Accurcy, Accurecy OCR errors
+        .replace(/A[mc"]+[ua]*[rml]*[au]?[rc"'][ya]?cy/i, 'Accuracy')  // Handle Accuracy, Accumcy, Acculacy, Accurcy, Accur"cy, Accurecy OCR errors
         .replace(/Ev[ae]s[eilsr][a-z°'lm]+/i, 'Evasion')  // Handle Evasr°n, Evesim', Evasi°n, Evesi°n, Evaslm' OCR errors
         .replace(/E[rf]+[ert]+[ceo]+[utrl]*[vfl][ei]*[vn]+[ea]+[sn"]+/i, 'Effectiveness')  // Handle Effectiveness, Effecfiveness, Errecrlveness, Errecuveness OCR errors
         .replace(/Pene[a-z'°]+/i, 'Penetration')  // Handle Penefrefim', Penerrerr°n, Penefrafim' OCR errors
@@ -292,7 +292,7 @@ if (item.itemEffect) {
         .replace(/Pulv[a-z°]+n/i, 'Pulverization')  // Handle Pulvetlzatl°n/Pulvenzatl°n/Pulveizati°n OCR errors
         .replace(/Sw[il][lft][lt]?ness/i, 'Swiftness')  // Handle Swiflness, Swlflness, Swittness OCR errors
         .replace(/Aug[mn][ea]n[a-z'°]+/i, 'Augmentation')  // Handle Augmenlalmn, Augmenlafim', Augnentatl°n OCR errors
-        .replace(/[Il]mmu[nm'u]+[ry]+/i, 'Immunity');  // Handle Immunny, lmmunny, lmmu'ury OCR errors
+        .replace(/[Il]mmu[nm'uly]+[ry]*y?/i, 'Immunity');  // Handle Immunny, lmmunny, lmmu'ury, lmmumly OCR errors
 
     // Normalize to proper capitalization
     cleanedEffect = cleanedEffect.trim();
@@ -712,6 +712,6 @@ if (item.totalPoints > 24) {
 // Validate the item
 validateItem(item, rawItem);
 
-// Version: 48 - Added "Cnlcel Strike" for "Critical Strike", "Heurrh" for "Health", "Amluraey/Accurecy" for "Accuracy", "Ct\" Chance" for "Crit Chance"
+// Version: 53 - Fixed "lmmumly" pattern for "Immunity" in item effects
 //return { item, rawItem };
 return item;
