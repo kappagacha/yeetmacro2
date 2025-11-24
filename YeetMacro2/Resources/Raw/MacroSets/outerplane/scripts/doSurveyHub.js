@@ -39,8 +39,10 @@ function doSurveyHub(targetNumBattles = 0) {
 				break;
 			case 'surveyHub.rewardInfo':
 				logger.info('doSurveyHub: find entry');
+				sleep(500);
 				currentStaminaValue = getCurrentStaminaValue();
 				if (currentStaminaValue < 10) {
+					logger.info(`doSurveyHub: before entry currentStaminaValue ${currentStaminaValue}`);
 					return;
 				}
 
@@ -84,6 +86,7 @@ function doSurveyHub(targetNumBattles = 0) {
 				sleep(500);
 				currentStaminaValue = getCurrentStaminaValue();
 				if (currentStaminaValue < 10) {
+					logger.info(`doSurveyHub: after entry currentStaminaValue ${currentStaminaValue}`);
 					return;
 				}
 

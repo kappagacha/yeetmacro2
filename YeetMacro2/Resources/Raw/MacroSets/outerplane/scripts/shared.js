@@ -3,7 +3,7 @@
 
 function refillStamina(targetStamina) {
 	goToLobby();
-	let currentStamina = macroService.FindText(patterns.lobby.staminaValue);
+	let currentStamina = getCurrentStaminaValue();
 	logger.info(`refillStamina to ${targetStamina}. current stamina is ${currentStamina}`);
 	if (currentStamina >= targetStamina) {
 		return;
