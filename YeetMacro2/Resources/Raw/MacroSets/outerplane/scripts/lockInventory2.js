@@ -137,6 +137,7 @@ outerLoop: while ((Math.abs(lastSelectedResult.Point.X - selectedResult.Point.X)
                 macroService.PollPattern(patterns.general.back, { DoClick: true, PrimaryClickPredicatePattern: patterns.titles.improveGear, PredicatePattern: patterns.titles.inventory });
 
                 // start the outer while loop over
+                lastSelectedResult = { Point: { X: 0, Y: 0 } };
                 selectedResult = macroService.PollPattern(patterns.inventory.selected);
                 isFirstIteration = true;
                 continue outerLoop;
