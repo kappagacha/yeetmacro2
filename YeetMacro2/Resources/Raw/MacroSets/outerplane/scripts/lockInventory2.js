@@ -80,7 +80,7 @@ outerLoop: while ((Math.abs(lastSelectedResult.Point.X - selectedResult.Point.X)
 
         if (isLastItem) continue;
 
-        let itemStats = getItemStats();
+        let itemStats = getItemStats2();
 
         // Track the very first item's grade
         if (firstItemGrade === null) {
@@ -91,13 +91,6 @@ outerLoop: while ((Math.abs(lastSelectedResult.Point.X - selectedResult.Point.X)
         if (itemStats.itemGrade !== firstItemGrade) {
             macroService.IsRunning = false;
             break;
-        }
-
-        if (itemStats.desiredPoints < 5) {  // double check
-            itemStats = getItemStats();
-        }
-        if (itemStats.desiredPoints < 5) {  // triple check
-            itemStats = getItemStats();
         }
 
         if (!['legendary', 'epic'].includes(itemStats.itemGrade)) continue;

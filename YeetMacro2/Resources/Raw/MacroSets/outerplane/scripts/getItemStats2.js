@@ -73,7 +73,7 @@ for (let i = 1; i <= 4; i++) {
 	const percentWidth = patterns.inventory.item.stat2.percent?.Pattern?.RawBounds?.Width || patterns.inventory.item.stat2.percent.$patterns[0].rawBounds.width;
 	const plusHeight = patterns.inventory.item.stat2.plus?.Pattern?.RawBounds?.Height || patterns.inventory.item.stat2.plus.$patterns[0].rawBounds.height;
 	const valueBounds = {
-		X: plusResult.Point.X + (plusWidth / 2.0) + 3,
+		X: plusResult.Point.X + (plusWidth / 2.0) + 4,
 		Y: plusResult.Point.Y - (plusHeight / 2.0) - 2,
 		Height: plusHeight + 4,
 		Width: isPct ?
