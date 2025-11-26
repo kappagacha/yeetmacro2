@@ -81,6 +81,9 @@ for (let i = 1; i <= 4; i++) {
 			(secondaryCloneOpts.RawBounds.X + secondaryCloneOpts.RawBounds.Width - plusResult.Point.X - (plusWidth / 2.0) - 5)
 	}
 	item[`secondary${i}Value`] = macroService.FindTextWithBounds(valueBounds, '.0123456789');
+	if (!item[`secondary${i}Value`] || item[`secondary${i}Value`].trim() === '') {
+		throw { message: `Failed to read secondary${i}Value from OCR`, item, valueBounds };
+	}
 
 	const secondaryPatterns = itemStatTypePatterns.map(p => macroService.ClonePattern(p, secondaryCloneOpts));
 	item[`secondary${i}`] = macroService.PollPattern(secondaryPatterns).Path?.split('.').pop()?.split('_')[0];
