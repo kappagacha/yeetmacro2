@@ -635,7 +635,12 @@ public class AndroidScreenService : IScreenService, IDisposable
                     _views.TryAdd(windowView, macroOverlayView);
                     break;
                 case AndroidWindowView.ActionView:
-                    var actionView = new MoveView(_context, _windowManager, new ActionControl());
+                    //var actionView = new MoveView(_context, _windowManager, new ActionControl());
+                    var actionView = new StaticView(_context, _windowManager, new ActionControl() { WidthRequest = 20, HeightRequest = 20 });
+                    actionView.SetUpLayoutParameters(lp =>
+                    {
+                        lp.Gravity = GravityFlags.Bottom | GravityFlags.Left;
+                    });
                     _views.TryAdd(windowView, actionView);
                     break;
                 case AndroidWindowView.PatternNodeView:
