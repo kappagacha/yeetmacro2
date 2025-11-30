@@ -771,27 +771,27 @@ public class AndroidScreenService : IScreenService, IDisposable
 
     public void RefreshActionViewLocation()
     {
-        var selectedMacroSetName = Preferences.Default.Get<string>(nameof(MacroManagerViewModel.SelectedMacroSet), null);
-        if (selectedMacroSetName is not null && _views.ContainsKey(AndroidWindowView.ActionView))
-        {
-            var selectedMacroSet = ServiceHelper.GetService<MacroManagerViewModel>().SelectedMacroSet;
-            var ve = _views[AndroidWindowView.ActionView].VisualElement;
-            var ctx = (IMovable)ve.BindingContext;
-            var orientation = DisplayHelper.DisplayInfo.Orientation;
-            var preferenceKey = $"{selectedMacroSetName}_location_{orientation}";
-            var strTargetLocation = Preferences.Default.Get<string>(preferenceKey, null);
-            if (strTargetLocation is not null)
-            {
-                var targetLocation = JsonSerializer.Deserialize<Point>(strTargetLocation, _serializationOptions);
-                ctx.Location = targetLocation;
-            }
-            else
-            {
-                ctx.Location = selectedMacroSet.DefaultLocation;
-            }
-            var moveView = (MoveView)_views[AndroidWindowView.ActionView];
-            moveView.SyncLocation();
-        }
+        //var selectedMacroSetName = Preferences.Default.Get<string>(nameof(MacroManagerViewModel.SelectedMacroSet), null);
+        //if (selectedMacroSetName is not null && _views.ContainsKey(AndroidWindowView.ActionView))
+        //{
+        //    var selectedMacroSet = ServiceHelper.GetService<MacroManagerViewModel>().SelectedMacroSet;
+        //    var ve = _views[AndroidWindowView.ActionView].VisualElement;
+        //    var ctx = (IMovable)ve.BindingContext;
+        //    var orientation = DisplayHelper.DisplayInfo.Orientation;
+        //    var preferenceKey = $"{selectedMacroSetName}_location_{orientation}";
+        //    var strTargetLocation = Preferences.Default.Get<string>(preferenceKey, null);
+        //    if (strTargetLocation is not null)
+        //    {
+        //        var targetLocation = JsonSerializer.Deserialize<Point>(strTargetLocation, _serializationOptions);
+        //        ctx.Location = targetLocation;
+        //    }
+        //    else
+        //    {
+        //        ctx.Location = selectedMacroSet.DefaultLocation;
+        //    }
+        //    var moveView = (MoveView)_views[AndroidWindowView.ActionView];
+        //    moveView.SyncLocation();
+        //}
     }
 
     // Except action view, overlay and status panel

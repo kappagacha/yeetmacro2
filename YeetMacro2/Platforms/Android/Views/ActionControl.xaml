@@ -12,7 +12,7 @@
              HeightRequest="50"
              WidthRequest="50"
              x:Class="YeetMacro2.Platforms.Android.Views.ActionControl">
-    <Border StrokeShape="RoundRectangle 10" Stroke="{StaticResource Primary}" BackgroundColor="{StaticResource BackgroundDark}">
+    <Border StrokeShape="RoundRectangle 2" Stroke="{StaticResource Primary}" BackgroundColor="{StaticResource BackgroundDark}">
         <Border.Triggers>
             <DataTrigger TargetType="{x:Type Border}" Binding="{Binding State}" Value="{x:Static pvm:ActionState.Running}">
                 <Setter Property="Stroke" Value="Red" />
