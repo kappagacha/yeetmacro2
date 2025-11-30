@@ -22,7 +22,7 @@ function refillStamina(targetStamina) {
 		macroService.PollPattern(recievePattern, { DoClick: true, PredicatePattern: patterns.general.tapEmptySpace });
 		macroService.PollPattern(patterns.general.tapEmptySpace, { DoClick: true, PredicatePattern: patterns.titles.mailbox });
 		sleep(500);
-		currentStamina = macroService.FindText(patterns.general.staminaValue);
+		currentStamina = getCurrentStaminaValue();
 		logger.info(`refillStamina to ${targetStamina}. current stamina is ${currentStamina}`);
 	}
 	goToLobby();
