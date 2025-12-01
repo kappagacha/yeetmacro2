@@ -55,7 +55,8 @@ for (let i = 1; i <= 4; i++) {
 			Width: secondaryRawBounds.Width ?? secondaryRawBounds.width,
 			Height: secondaryRawBounds.Height ?? secondaryRawBounds.height
 		}
-	};
+    };
+    return secondaryCloneOpts;
 	const plusPattern = macroService.ClonePattern(patterns.inventory.item.stat2.plus, secondaryCloneOpts);
 	const plusResult = macroService.FindPattern(plusPattern);
 	if (!plusResult.IsSuccess) {
