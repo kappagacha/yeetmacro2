@@ -82,7 +82,7 @@ for (let i = 1; i <= 4; i++) {
     }
 
     if (i === 2) {
-        return { isPct, valueBounds };
+        return { rawBoundsX: secondaryCloneOpts.RawBounds.X, rawBoundsWidth: secondaryCloneOpts.RawBounds.Width, plusX: plusResult.Point.X, plusWidth, isPct, valueBounds };
     }
 
 	item[`secondary${i}Value`] = macroService.FindTextWithBounds(valueBounds, '.0123456789');
