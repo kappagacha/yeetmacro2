@@ -66,9 +66,6 @@ for (let i = 1; i <= 4; i++) {
 
 	const percentPattern = macroService.ClonePattern(patterns.inventory.item.stat2.percent, secondaryCloneOpts);
     const percentResult = macroService.FindPattern(percentPattern);
-    if (i === 2) {
-        return { percentResult, secondaryCloneOpts };
-    }
 	const isPct = percentResult.IsSuccess;
 	item[`secondary${i}ValueType`] = isPct ? 'pct' : 'flat';
 
@@ -82,7 +79,12 @@ for (let i = 1; i <= 4; i++) {
 		Width: isPct ?
 			(percentResult.Point.X - plusResult.Point.X - (plusWidth / 2.0) - (percentWidth / 2.0) - 5) :
 			(secondaryCloneOpts.RawBounds.X + secondaryCloneOpts.RawBounds.Width - plusResult.Point.X - (plusWidth / 2.0))
-	}
+    }
+
+    if (i === 2) {
+        return { isPct, valueBounds };
+    }
+
 	item[`secondary${i}Value`] = macroService.FindTextWithBounds(valueBounds, '.0123456789');
 	if (!item[`secondary${i}Value`] || item[`secondary${i}Value`].trim() === '') {
 		throw { message: `Failed to read secondary${i}Value from OCR`, item, valueBounds };
