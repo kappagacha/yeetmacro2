@@ -56,7 +56,6 @@ for (let i = 1; i <= 4; i++) {
 			Height: secondaryRawBounds.Height ?? secondaryRawBounds.height
 		}
     };
-    return secondaryCloneOpts;
 	const plusPattern = macroService.ClonePattern(patterns.inventory.item.stat2.plus, secondaryCloneOpts);
 	const plusResult = macroService.FindPattern(plusPattern);
 	if (!plusResult.IsSuccess) {
@@ -66,7 +65,10 @@ for (let i = 1; i <= 4; i++) {
 	}
 
 	const percentPattern = macroService.ClonePattern(patterns.inventory.item.stat2.percent, secondaryCloneOpts);
-	const percentResult = macroService.FindPattern(percentPattern);
+    const percentResult = macroService.FindPattern(percentPattern);
+    if (i === 2) {
+        return { percentResult, secondaryCloneOpts };
+    }
 	const isPct = percentResult.IsSuccess;
 	item[`secondary${i}ValueType`] = isPct ? 'pct' : 'flat';
 
