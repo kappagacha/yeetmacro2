@@ -636,7 +636,7 @@ public class AndroidScreenService : IScreenService, IDisposable
                     break;
                 case AndroidWindowView.ActionView:
                     //var actionView = new MoveView(_context, _windowManager, new ActionControl());
-                    var actionView = new StaticView(_context, _windowManager, new ActionControl() { WidthRequest = 20, HeightRequest = 20 });
+                    var actionView = new StaticView(_context, _windowManager, new ActionControl() { WidthRequest = 30, HeightRequest = 30 });
                     actionView.SetUpLayoutParameters(lp =>
                     {
                         lp.Gravity = GravityFlags.Bottom | GravityFlags.Left;
