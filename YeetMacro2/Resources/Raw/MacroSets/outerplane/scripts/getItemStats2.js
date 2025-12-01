@@ -1,6 +1,7 @@
 // @tags=inventory
 // @position=-20
 
+const topLeft = macroService.GetTopLeft();
 const item = { totalPoints: 0, desiredPoints: 0, desiredStats: [] };
 const itemGradePatterns = ['legendary', 'epic','superior'].map(ig => patterns.inventory.item.stat2.grade[ig]);
 const itemTypePatterns = ['weapon', 'accessory', 'helmet', 'chestArmor', 'gloves', 'boots'].map(it => patterns.inventory.item.stat2.type[it]);
@@ -78,12 +79,12 @@ for (let i = 1; i <= 4; i++) {
 		Height: plusHeight + 4,
 		Width: isPct ?
 			(percentResult.Point.X - plusResult.Point.X - (plusWidth / 2.0) - (percentWidth / 2.0) - 5) :
-			(secondaryCloneOpts.RawBounds.X + secondaryCloneOpts.RawBounds.Width - plusResult.Point.X - (plusWidth / 2.0))
+            (secondaryCloneOpts.RawBounds.X + secondaryCloneOpts.RawBounds.Width - plusResult.Point.X - (plusWidth / 2.0)) + topLeft.X
     }
 
-    if (i === 2) {
-        return { rawBoundsX: secondaryCloneOpts.RawBounds.X, rawBoundsWidth: secondaryCloneOpts.RawBounds.Width, plusX: plusResult.Point.X, plusWidth, isPct, valueBounds };
-    }
+    //if (i === 2) {
+    //    return { rawBoundsX: secondaryCloneOpts.RawBounds.X, rawBoundsWidth: secondaryCloneOpts.RawBounds.Width, plusX: plusResult.Point.X, plusWidth, isPct, valueBounds };
+    //}
 
 	item[`secondary${i}Value`] = macroService.FindTextWithBounds(valueBounds, '.0123456789');
 	if (!item[`secondary${i}Value`] || item[`secondary${i}Value`].trim() === '') {
