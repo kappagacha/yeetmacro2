@@ -363,7 +363,7 @@
       "eventCoin2": {
         "$type": "enabledParent",
         "$tags": [],
-        "$isEnabled": true,
+        "$isEnabled": false,
         "$position": 0,
         "$name": "eventCoin2",
         "$path": "doShop.exchangeShop.eventCoin2",
@@ -414,8 +414,8 @@
         "eventCoinType": {
           "$type": "string",
           "$tags": [],
-          "$defaultValue": "Pumpkin",
-          "$value": "Pumpkin",
+          "$defaultValue": "Maple",
+          "$value": "Maple",
           "$position": 0,
           "$name": "eventCoinType",
           "$path": "doShop.exchangeShop.eventCoin1.eventCoinType"
