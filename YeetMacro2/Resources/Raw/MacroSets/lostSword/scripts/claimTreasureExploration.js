@@ -19,8 +19,8 @@ while (macroService.IsRunning) {
 
 			const quickExpeditionNotificationResult = macroService.FindPattern(patterns.treasureExploration.quickExpedition.notification);
 			if (quickExpeditionNotificationResult.IsSuccess) {
-				macroService.PollPattern(patterns.treasureExploration.quickExpedition, { DoClick: true, PredicatePattern: patterns.treasureExploration.quickExpedition.title });
-				macroService.PollPattern(patterns.treasureExploration.quickExpedition.goOnExpedition, { DoClick: true, ClickPattern: patterns.general.itemsAcquired, PredicatePattern: patterns.treasureExploration.quickExpedition });
+				macroService.PollPattern(patterns.treasureExploration.quickExpedition, { DoClick: true, PredicatePattern: [patterns.treasureExploration.quickExpedition.title, patterns.lobby], Callback: handlePopups });
+				macroService.PollPattern(patterns.treasureExploration.quickExpedition.goOnExpedition, { DoClick: true, ClickPattern: patterns.general.itemsAcquired, PredicatePattern: [patterns.treasureExploration.quickExpedition, patterns.lobby] });
 			}
 
 			logger.info('claimTreasureExploration: acquireTreasure');

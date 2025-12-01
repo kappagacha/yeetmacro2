@@ -20,9 +20,9 @@ while (macroService.IsRunning) {
 	sleep(1_000);
 }
 
-//function handlePopups() {
-//	const popupPatterns = [...clickPatterns];
-//	if (macroService.FindPattern(popupPatterns).IsSuccess) {
-//		goToLobb();
-//	}
-//}
+function handlePopups() {
+	const popupPatterns = [...clickPatterns];
+	if (macroService.FindPattern(popupPatterns).IsSuccess) {
+		goToLobby();
+	}
+}
