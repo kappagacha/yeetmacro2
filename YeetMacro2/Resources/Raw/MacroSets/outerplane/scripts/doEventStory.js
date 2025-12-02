@@ -28,7 +28,7 @@ while (macroService.IsRunning) {
 				macroService.PollPattern(patterns.event.story.notice.doNotShowStoryForADay.unselected, { DoClick: true, PredicatePattern: patterns.event.story.notice.doNotShowStoryForADay.selected });
 			}
 
-			macroService.PollPattern(patterns.event.story.notice.ok, { DoClick: true, PredicatePattern: patterns.event.story.nextStage });
+			macroService.PollPattern(patterns.event.story.notice.ok, { DoClick: true, ClickPattern: patterns.event.story.next, PredicatePattern: patterns.event.story.nextStage });
 			macroService.PollPattern(patterns.event.story.nextStage, { DoClick: true, PredicatePattern: patterns.battle.enter });	
 			break;
 		case 'battle.enter':
