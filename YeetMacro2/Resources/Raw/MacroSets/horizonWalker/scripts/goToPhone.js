@@ -20,7 +20,7 @@ while (macroService.IsRunning) {
 			macroService.PollPattern(patterns.notice.dontRemindMeToday, { DoClick: true, PredicatePattern: patterns.notice.dontRemindMeToday.checked });
 			macroService.PollPattern(patterns.notice.close, { DoClick: true, PredicatePattern: [patterns.phone, patterns.phone.battery] });
 			return;
-		case 'notice.attendance..close':
+		case 'notice.attendance.close':
 			logger.info('goToPhone: close attendance notice');
 			macroService.PollPattern(patterns.notice.attendance.claimAll, { DoClick: true, PredicatePattern: patterns.general.touchTheScreen });
 			macroService.PollPattern(patterns.general.touchTheScreen, { DoClick: true, PredicatePattern: patterns.notice.attendance.close });
