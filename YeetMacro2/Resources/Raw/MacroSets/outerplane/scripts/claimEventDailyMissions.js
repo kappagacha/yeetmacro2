@@ -1,4 +1,5 @@
-	// @position=17
+// @position=17
+// @tags=dailies
 // Claim daily event missions
 const loopPatterns = [patterns.lobby.level, patterns.event.close];
 const daily = dailyManager.GetCurrentDaily();
@@ -39,10 +40,12 @@ while (macroService.IsRunning) {
 				notificationResult = macroService.PollPattern(patterns.event.daily.anniversary.notification, { TimeoutMs: 3_000 });
 			}
 
-			const coinExchangeResult = macroService.PollPattern([patterns.event.daily.coinExchange.coin]);
+			const coinExchangeResult = macroService.PollPattern([patterns.event.daily.coinExchange.coin, patterns.event.roulette]);
 
 			if (coinExchangeResult.Path === 'event.daily.coinExchange.coin') {
 				doCoinExchange();
+			} else if (coinExchangeResult.Path === 'event.roulette') {
+				doRoulette();
 			}
 
 			//const miniGameResult = macroService.PollPattern([patterns.event.rockPaperScissors, patterns.event.drawACapsule, patterns.event.spinTheWheel, patterns.event.tokenExchange]);
@@ -74,6 +77,22 @@ function doCoinExchange() {
 		macroService.PollPattern(patterns.general.tapEmptySpace, { DoClick: true, PredicatePattern: patterns.event.coinExchangeShop.getCoins });
 
 		notificationResult = macroService.PollPattern(patterns.event.coinExchangeShop.exchange, { TimeoutMs: 3_000 });
+	}
+}
+
+function doRoulette() {
+	macroService.PollPattern(patterns.event.roulette, { DoClick: true, PredicatePattern: patterns.event.coinsHeld });
+	sleep(2_000);
+	let numCoins = macroService.FindText(patterns.event.numCoins)?.replace(/[^0-9]/g, '');
+	while (macroService.IsRunning && !numCoins) {
+		sleep(200);
+		numCoins = macroService.FindText(patterns.event.numCoins)?.replace(/[^0-9]/g, '');
+	}
+
+	while (macroService.IsRunning && numCoins > 0) {
+		macroService.PollPattern(patterns.event.roulette.start, { DoClick: true, ClickOffset: { Y: 300 }, PredicatePattern: patterns.general.tapEmptySpace });
+		macroService.PollPattern(patterns.general.tapEmptySpace, { DoClick: true, PredicatePattern: patterns.event.coinsHeld });
+		numCoins = macroService.FindText(patterns.event.numCoins)?.replace(/[^0-9]/g, '');
 	}
 }
 

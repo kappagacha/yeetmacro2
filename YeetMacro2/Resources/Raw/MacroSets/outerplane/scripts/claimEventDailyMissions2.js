@@ -1,4 +1,5 @@
 // @position=17
+// @tags=dailies
 // Claim daily event missions
 //const loopPatterns = [patterns.lobby.level, patterns.event.close];
 const loopPatterns = [patterns.lobby.level, patterns.festival.title];

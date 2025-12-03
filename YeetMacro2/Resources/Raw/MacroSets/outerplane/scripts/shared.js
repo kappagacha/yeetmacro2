@@ -31,7 +31,12 @@ function refillStamina(targetStamina) {
 function getCurrentStaminaValue() {
 	const staminaResult = macroService.PollPattern(patterns.general.stamina);
 	const staminaValue = macroService.ClonePattern(patterns.general.staminaValue, { X: staminaResult.Point.X + 40, PathSuffix: `_y${staminaResult.Point.Y}`, OffsetCalcType: 'None' })
-	const currentStamina = macroService.FindText(staminaValue);
+	let currentStamina = macroService.FindText(staminaValue);
+
+	for (let i = 0; i < 30 && !currentStamina; i++) {
+		sleep(100);
+		currentStamina = macroService.FindText(staminaValue);
+	}
 	return Number(currentStamina);
 }
 
