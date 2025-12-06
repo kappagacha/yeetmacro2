@@ -82,10 +82,6 @@ for (let i = 1; i <= 4; i++) {
             (secondaryCloneOpts.RawBounds.X + secondaryCloneOpts.RawBounds.Width - plusResult.Point.X - (plusWidth / 2.0)) + topLeft.X
     }
 
-    //if (i === 2) {
-    //    return { rawBoundsX: secondaryCloneOpts.RawBounds.X, rawBoundsWidth: secondaryCloneOpts.RawBounds.Width, plusX: plusResult.Point.X, plusWidth, isPct, valueBounds };
-    //}
-
 	item[`secondary${i}Value`] = macroService.FindTextWithBounds(valueBounds, '.0123456789');
 	if (!item[`secondary${i}Value`] || item[`secondary${i}Value`].trim() === '') {
 		throw { message: `Failed to read secondary${i}Value from OCR`, item, valueBounds };
@@ -96,7 +92,7 @@ for (let i = 1; i <= 4; i++) {
 }
 
 const armorItemTypes = ['helmet', 'chestArmor', 'gloves', 'boots'];
-if (armorItemTypes.includes(item.itemType)) {
+if (['legendary', 'epic'].includes(item.itemGrade) && armorItemTypes.includes(item.itemType)) {
 	const armorSets = ['attack', 'defense', 'life', 'lifesteal', 'speed', 'criticalHit', 'criticalStrike', 'accuracy',
 		'evasion', 'effectiveness', 'resilience', 'counterattack', 'penetration', 'revenge', 'patience',
 		'pulverization', 'immunity', 'swiftness', 'weakness', 'augmentation'];
