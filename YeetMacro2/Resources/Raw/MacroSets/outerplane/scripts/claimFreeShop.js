@@ -43,7 +43,7 @@ while (macroService.IsRunning) {
 
 			if (!daily.claimFreeShop.resource.resource.IsChecked) {
 				logger.info('claimFreeShop: claim resource resource');
-				macroService.PollPattern(patterns.shop.resources.resources, { DoClick: true, PredicatePattern: patterns.shop.resources.resources.selected });
+				macroService.PollPattern(patterns.shop.resources.general, { DoClick: true, PredicatePattern: patterns.shop.resources.general.selected });
 
 
 				let resourceFreeResult = macroService.PollPattern(patterns.shop.free, { TimeoutMs: 3_500 });
