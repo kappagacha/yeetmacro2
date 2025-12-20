@@ -517,7 +517,7 @@
     "$position": 0,
     "$name": "doGuildRaid",
     "$path": "doGuildRaid",
-    "teamSlot1": {
+    "teamSlot": {
       "$type": "option",
       "$options": [
         "Current",
@@ -533,61 +533,11 @@
         "RecommendedElement"
       ],
       "$tags": [],
-      "$defaultValue": "1",
-      "$value": "1",
+      "$defaultValue": "9",
+      "$value": "9",
       "$position": 0,
-      "$name": "teamSlot1",
-      "$path": "doGuildRaid.teamSlot1"
-    },
-    "targetStage1": {
-      "$type": "option",
-      "$options": [
-        "1",
-        "2",
-        "3"
-      ],
-      "$tags": [],
-      "$defaultValue": "3",
-      "$value": "3",
-      "$position": 0,
-      "$name": "targetStage1",
-      "$path": "doGuildRaid.targetStage1"
-    },
-    "teamSlot2": {
-      "$type": "option",
-      "$options": [
-        "Current",
-        "1",
-        "2",
-        "3",
-        "4",
-        "5",
-        "6",
-        "7",
-        "8",
-        "9",
-        "RecommendedElement"
-      ],
-      "$tags": [],
-      "$defaultValue": "7",
-      "$value": "7",
-      "$position": 0,
-      "$name": "teamSlot2",
-      "$path": "doGuildRaid.teamSlot2"
-    },
-    "targetStage2": {
-      "$type": "option",
-      "$options": [
-        "1",
-        "2",
-        "3"
-      ],
-      "$tags": [],
-      "$defaultValue": "3",
-      "$value": "3",
-      "$position": 0,
-      "$name": "targetStage2",
-      "$path": "doGuildRaid.targetStage2"
+      "$name": "teamSlot",
+      "$path": "doGuildRaid.teamSlot"
     }
   },
   "doSurveyHub": {

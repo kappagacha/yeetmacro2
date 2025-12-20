@@ -2,17 +2,14 @@
 // Auto guild raid
 const loopPatterns = [patterns.lobby.level, patterns.titles.guildBoard, patterns.titles.guildRaid, patterns.titles.guild];
 const daily = dailyManager.GetCurrentDaily();
-const teamSlot1 = settings.doGuildRaid.teamSlot1.Value;
-const targetStage1 = settings.doGuildRaid.targetStage1.Value;
-const teamSlot2 = settings.doGuildRaid.teamSlot2.Value;
-const targetStage2 = settings.doGuildRaid.targetStage2.Value;
+const teamSlot = settings.doGuildRaid.teamSlot.Value;
 
 if (daily.doGuildRaid.done.IsChecked) {
 	return "Script already completed. Uncheck done to override daily flag.";
 }
 
 while (macroService.IsRunning) {
-	const loopResult = macroService.PollPattern(loopPatterns, { ClickPattern: patterns.general.tapEmptySpace });
+	const loopResult = macroService.PollPattern(loopPatterns, { ClickPattern: [patterns.general.tapEmptySpace, patterns.guild.raid.ok] });
 	switch (loopResult.Path) {
 		case 'lobby.level':
 			logger.info('doGuildRaid: click guild tab');
@@ -34,39 +31,38 @@ while (macroService.IsRunning) {
 			macroService.ClickPattern(patterns.guild.raid.move);
 			break;
 		case 'titles.guildRaid':
-			macroService.PollPattern(patterns.guild.raid.stageRight);
-			//const stageRightResult = macroService.PollPattern(patterns.guild.raid.stageRight, { TimeoutMs: 5_000 });
-			//if (!stageRightResult.IsSuccess) {	// guild raid is not live
-			//	if (macroService.IsRunning) {
-			//		daily.doGuildRaid.done.IsChecked = true;
-			//	}
-			//	return;
-			//}
-
-			logger.info(`doGuildRaid: target stage first team`);
-			macroService.PollPattern(patterns.guild.raid[`stage${targetStage1}`], { ClickPattern: patterns.guild.raid.stageRight });
 			macroService.PollPattern(patterns.guild.raid.selectTeam, { DoClick: true, PredicatePattern: patterns.battle.enter });
-			selectTeam(teamSlot1, { applyPreset: true });
-			macroService.PollPattern(patterns.battle.enter, { DoClick: true, ClickPattern: [patterns.guild.raid.enterBattle, patterns.battle.setup.auto], PredicatePattern: patterns.battle.exit });
-			macroService.PollPattern(patterns.battle.exit, { DoClick: true, ClickPattern: [patterns.guild.raid.battleRecordExit, patterns.general.tapEmptySpace], PredicatePattern: patterns.titles.guildRaid });
-			sleep(1000);
+			selectTeam(teamSlot);
+			setChainOrder();
+			macroService.PollPattern(patterns.guild.raid.battleRecord, { DoClick: true, PredicatePattern: patterns.guild.raid.battleRecord.restoreTeam });
 
-			logger.info(`doGuildRaid: target stage second team`);
-			macroService.PollPattern(patterns.guild.raid[`stage${targetStage2}`], { ClickPattern: patterns.guild.raid.stageRight });
-			macroService.PollPattern(patterns.guild.raid.selectTeam, { DoClick: true, PredicatePattern: patterns.battle.enter });
-			selectTeam(teamSlot2, { applyPreset: true });
-			macroService.PollPattern(patterns.battle.enter, { DoClick: true, ClickPattern: [patterns.guild.raid.enterBattle, patterns.battle.setup.auto], PredicatePattern: patterns.battle.exit });
-			macroService.PollPattern(patterns.battle.exit, { DoClick: true, ClickPattern: [patterns.guild.raid.battleRecordExit, patterns.general.tapEmptySpace], PredicatePattern: patterns.titles.guildRaid });
+			if (!daily.doGuildRaid.battle1.IsChecked) {
+				macroService.PollPattern(patterns.guild.raid.battleRecord.record1, { DoClick: true, PredicatePattern: patterns.guild.raid.battleRecord.record1.selected });
+				macroService.PollPattern(patterns.guild.raid.battleRecord.restoreTeam, { DoClick: true, PredicatePattern: patterns.guild.raid.battleRecord.restoreTeam.ok });
+				macroService.PollPattern(patterns.guild.raid.battleRecord.restoreTeam.ok, { DoClick: true, PredicatePattern: patterns.guild.raid.battleRecord });
+				macroService.PollPattern(patterns.battle.enter, { DoClick: true, PredicatePattern: patterns.guild.raid.enterBattle });
+				macroService.PollPattern(patterns.guild.raid.enterBattle, { DoClick: true, PredicatePattern: patterns.guild.raid.exitBattle });
+				macroService.PollPattern(patterns.guild.raid.exitBattle, { DoClick: true, ClickPattern: [patterns.general.tapEmptySpace, patterns.guild.raid.ok], PredicatePattern: patterns.titles.guildRaid });
+				macroService.PollPattern(patterns.guild.raid.selectTeam, { DoClick: true, PredicatePattern: patterns.battle.enter });
+				selectTeam(teamSlot);
+				setChainOrder();
+				macroService.PollPattern(patterns.guild.raid.battleRecord, { DoClick: true, PredicatePattern: patterns.guild.raid.battleRecord.restoreTeam });
 
-			const raidRewardNotificationResult = macroService.PollPattern(patterns.guild.raid.reward.notification, { TimeoutMs: 1_500 });
-			if (raidRewardNotificationResult.IsSuccess) {
-				macroService.PollPattern(patterns.guild.raid.reward.notification, { DoClick: true, PredicatePattern: patterns.general.tapEmptySpace });
-				macroService.PollPattern(patterns.general.tapEmptySpace, { DoClick: true, PredicatePattern: patterns.titles.guildRaid });
+				if (macroService.IsRunning) daily.doGuildRaid.battle1.IsChecked = true;
 			}
 
-			if (macroService.IsRunning) {
-				daily.doGuildRaid.done.IsChecked = true;
+			if (!daily.doGuildRaid.battle2.IsChecked) {
+				macroService.PollPattern(patterns.guild.raid.battleRecord.record2, { DoClick: true, PredicatePattern: patterns.guild.raid.battleRecord.record2.selected });
+				macroService.PollPattern(patterns.guild.raid.battleRecord.restoreTeam, { DoClick: true, PredicatePattern: patterns.guild.raid.battleRecord.restoreTeam.ok });
+				macroService.PollPattern(patterns.guild.raid.battleRecord.restoreTeam.ok, { DoClick: true, PredicatePattern: patterns.guild.raid.battleRecord });
+				macroService.PollPattern(patterns.battle.enter, { DoClick: true, PredicatePattern: patterns.guild.raid.enterBattle });
+				macroService.PollPattern(patterns.guild.raid.enterBattle, { DoClick: true, PredicatePattern: patterns.guild.raid.exitBattle });
+				macroService.PollPattern(patterns.guild.raid.exitBattle, { DoClick: true, ClickPattern: [patterns.general.tapEmptySpace, patterns.guild.raid.ok], PredicatePattern: patterns.titles.guildRaid });
+
+				if (macroService.IsRunning) daily.doGuildRaid.battle2.IsChecked = true;
 			}
+
+			if (macroService.IsRunning) daily.doGuildRaid.done.IsChecked = true;
 			return;
 	}
 	sleep(1_000);
