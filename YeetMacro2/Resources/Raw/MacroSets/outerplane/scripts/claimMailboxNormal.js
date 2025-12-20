@@ -1,4 +1,5 @@
 // Claim non stamina mailbox normal items
+// @tags=mailbox
 const loopPatterns = [patterns.lobby.level, patterns.titles.mailbox];
 let allStamina = true;
 
