@@ -99,7 +99,7 @@ function swipeLeft() {
 
 function doResourceItems() {
 	const resourceItems = ['basicSkillManual', 'intermediateSkillManual'];
-	macroService.PollPattern(patterns.shop.resources.resources, { DoClick: true, PredicatePattern: patterns.shop.resources.resources.selected });
+	macroService.PollPattern(patterns.shop.resources.general, { DoClick: true, PredicatePattern: patterns.shop.resources.general.selected });
 	doShopItems('doWeeklyShop', 'resource', resourceItems, true);
 }
 
