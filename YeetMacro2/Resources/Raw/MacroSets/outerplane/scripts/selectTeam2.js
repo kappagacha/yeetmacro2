@@ -2,21 +2,9 @@
 
 
 const topLeft = macroService.GetTopLeft();
-const bossTypePatterns = ['grandCalamari', 'unidentifiedChimera', 'schwartz', 'amadeus'].map(bt => patterns.battle.boss[bt]);;
+const bossTypePatterns = ['grandCalamari', 'unidentifiedChimera', 'schwartz', 'amadeus', 'masterlessGuardian', 'epsilon', 'anubisGuardian'].map(bt => patterns.battle.boss[bt]);;
 const bossTypeResult = macroService.PollPattern(bossTypePatterns);
 const bossType = bossTypeResult.Path?.split('.').pop();
-logger.debug(`bossType: ${bossType}`);
-const specialBossTypes = ['grandCalamari'];
-
-// use element advantage for non special boss types
-if (!specialBossTypes.includes(bossType)) {
-    selectTeam("RecommendedElement");
-    applyPreset();
-    setChainOrder();
-    return;
-}
-
-selectTeam(9);
 const bossTypeToTeam = {
     grandCalamari: {
         left: {
@@ -35,6 +23,16 @@ const bossTypeToTeam = {
     }
 };
 
+logger.debug(`bossType: ${bossType}`);
+// use element advantage for non special boss types
+if (!bossTypeToTeam[bossType]) {
+    selectTeam("RecommendedElement");
+    applyPreset();
+    setChainOrder();
+    return;
+}
+
+selectTeam(9);
 const characterToFilter = {
     akari: {
         element: 'light',
