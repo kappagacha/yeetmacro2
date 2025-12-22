@@ -21,6 +21,9 @@ public partial class TagSelector : ContentView
     public static readonly BindableProperty TagChangedCommandProperty =
         BindableProperty.Create(nameof(TagChangedCommand), typeof(ICommand), typeof(TagSelector), null);
 
+    public static readonly BindableProperty IsSingleSelectProperty =
+        BindableProperty.Create(nameof(IsSingleSelect), typeof(bool), typeof(TagSelector), false);
+
     private ObservableCollection<TagSelectorItem> _tagSelectorItems = new();
     private ObservableCollection<string> _boundObservableCollection;
 
@@ -52,6 +55,12 @@ public partial class TagSelector : ContentView
     {
         get => (ICommand)GetValue(TagChangedCommandProperty);
         set => SetValue(TagChangedCommandProperty, value);
+    }
+
+    public bool IsSingleSelect
+    {
+        get => (bool)GetValue(IsSingleSelectProperty);
+        set => SetValue(IsSingleSelectProperty, value);
     }
 
     public ObservableCollection<TagSelectorItem> TagSelectorItems => _tagSelectorItems;
@@ -138,7 +147,31 @@ public partial class TagSelector : ContentView
     {
         if (item == null) return;
 
-        item.IsSelected = !item.IsSelected;
+        var wasSelected = item.IsSelected;
+
+        // In single-select mode, deselect all other items first
+        if (IsSingleSelect && !wasSelected)
+        {
+            foreach (var otherItem in _tagSelectorItems)
+            {
+                if (otherItem != item && otherItem.IsSelected)
+                {
+                    otherItem.IsSelected = false;
+                }
+            }
+
+            // Clear the collection/array
+            if (_boundObservableCollection != null)
+            {
+                _boundObservableCollection.Clear();
+            }
+            else
+            {
+                NodeTags = Array.Empty<string>();
+            }
+        }
+
+        item.IsSelected = !wasSelected;
 
         // Use tag name instead of FontFamily-Glyph
         var tagName = item.Tag.Name;

@@ -1,34 +1,24 @@
 {
-  "notifications": {
-    "enabled": true,
-    "sound": true
-  },
-  "output": {
-    "style": "concise"
-  },
-  "statusLine": {
-    "enabled": true,
-    "position": "bottom"
-  },
+  "$schema": "https://json.schemastore.org/claude-code-settings.json",
   "hooks": {
-    "Notification": [
-      {
-        "matcher": "",
-        "hooks": [
-          {
-            "type": "command",
-            "command": "powershell.exe -Command \"Import-Module BurntToast; New-BurntToastNotification -Text 'Claude Code Notification', '$(cat | jq -r '.message' | sed 's/`/``/g; s/\\\\\\\"/``\\\\\\\"/g')'\""
-          }
-        ]
-      }
-    ],
     "Stop": [
       {
         "matcher": "",
         "hooks": [
           {
             "type": "command",
-            "command": "powershell.exe -Command \"Import-Module BurntToast; New-BurntToastNotification -Text 'Claude Code', 'DONE'\""
+            "command": "powershell.exe -NoProfile -Command \"Import-Module BurntToast; New-BurntToastNotification -Text 'Claude Code', 'Response complete'\""
+          }
+        ]
+      }
+    ],
+    "PreToolUse": [
+      {
+        "matcher": "^(?!Read|Grep|Glob|WebSearch|WebFetch|Task).*",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "powershell.exe -NoProfile -Command \"Import-Module BurntToast; New-BurntToastNotification -Text 'Claude Code', 'Executing tool'\""
           }
         ]
       }

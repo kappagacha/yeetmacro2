@@ -79,11 +79,12 @@ public class GenericNodeView<TNode, TNodeViewModel> : ContentView
         // Container for tag selector with fallback message
         var filterContainer = new Grid();
 
-        // Tag filter selector - vertical layout
+        // Tag filter selector - vertical layout, single-select mode
         var filterTagSelector = new TagSelector
         {
             Padding = new Thickness(5),
-            IsVertical = true
+            IsVertical = true,
+            IsSingleSelect = true
         };
 
         // Bind directly to MacroSet.Tags
