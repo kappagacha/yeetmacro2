@@ -2085,8 +2085,8 @@
     "lastApplied": {
       "$type": "string",
       "$tags": [],
-      "$defaultValue": "9",
-      "$value": "9",
+      "$defaultValue": null,
+      "$value": null,
       "$position": 10,
       "$name": "lastApplied",
       "$path": "applyPreset.lastApplied"

@@ -2,7 +2,7 @@
 // @tags=favorites
 // Apply equipmentPreset
 
-function applyPreset(teamSlot) {
+function applyPreset(teamSlot, opts = {}) {
 	//if (!teamSlot) {
 	//	const slots = [1, 2, 3, 4, 5, 6, 7, 8, 9];
 	//	for (const s of slots) {
@@ -51,6 +51,8 @@ function applyPreset(teamSlot) {
 		} else if (unitTitleAndName.match(/Eter.*T[uoa]m[uoa]m[ao]/ism)) {
 			strRegex = '#TAMAMOE#';
 		}
+
+		if (opts.presetOverride?.[location]) strRegex = opts.presetOverride[location];
 
 		const presetRegex = new RegExp(strRegex);
 		const currentPreset = macroService.FindText(patterns.battle.teamFormation.preset.current);
