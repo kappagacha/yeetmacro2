@@ -2,7 +2,7 @@
 
 
 const topLeft = macroService.GetTopLeft();
-const bossTypePatterns = ['grandCalamari', 'unidentifiedChimera', 'schwartz', 'amadeus', 'masterlessGuardian', 'epsilon', 'anubisGuardian'].map(bt => patterns.battle.boss[bt]);;
+const bossTypePatterns = ['grandCalamari', 'unidentifiedChimera', 'schwartz', 'amadeus', 'masterlessGuardian', 'epsilon', 'anubisGuardian', 'tyrantToddler', 'ziggsaron', 'vladiMax'].map(bt => patterns.battle.boss[bt]);;
 const bossTypeResult = macroService.PollPattern(bossTypePatterns);
 const bossType = bossTypeResult.Path?.split('.').pop();
 const bossTypeToTeam = {
@@ -20,7 +20,18 @@ const bossTypeToTeam = {
         bottom: {
             name: 'regina'
         },
-    }
+    },
+    vladiMax: {
+        top: {
+            name: 'tamamoEternity'
+        },
+        //left: undefined,
+        bottom: {
+            name: 'marian',
+            presetOverride: '#GN NELLA'
+        },
+        //bottom: undefined
+    },
 };
 
 logger.debug(`bossType: ${bossType}`);
@@ -48,6 +59,14 @@ const characterToFilter = {
     },
     regina: {
         element: 'light',
+        battleType: 'mage'
+    },
+    tamamoEternity: {
+        element: 'earth',
+        battleType: 'mage'
+    },
+    marian: {
+        element: 'water',
         battleType: 'mage'
     },
 };
