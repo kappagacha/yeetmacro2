@@ -21,6 +21,10 @@ function applyPreset(teamSlot, opts = {}) {
 	const battleTypeToAbbreviation = { defender: 'DEF', striker: 'STR', ranger: 'RAN', mage: 'MAG', 'healer': 'HLR' };
 
 	for (let [location, delimiter] of Object.entries(locationToDelimiter)) {
+		if (macroService.FindPattern(patterns.battle.teamFormation[location].empty).IsSuccess) {
+			continue;
+		}
+
 		if (macroService.FindPattern(patterns.battle.teamFormation[location].remove).IsSuccess) {
 			macroService.PollPattern(patterns.battle.teamFormation[location].remove, { DoClick: true, ClickOffset: { X: -100 }, InversePredicatePattern: patterns.battle.teamFormation[location].remove });
 		}
@@ -104,6 +108,8 @@ function applyPreset(teamSlot, opts = {}) {
 
 function findTargetPreset(presetRegex, presetNameList) {
 	const presetCornerResult = macroService.FindPattern(patterns.battle.teamFormation.preset.corner, { Limit: 10 });
+	if (!presetCornerResult.IsSuccess) return null;
+
 	const presetNames = presetCornerResult.Points.filter(p => p).map(p => {
 		const presetNamePattern = macroService.ClonePattern(patterns.battle.teamFormation.preset.name, { X: p.X + 13, Y: p.Y + 8, OffsetCalcType: 'None', Path: `battle.teamFormation.preset.name_x${p.X}_y${p.Y}` });
 		let name;

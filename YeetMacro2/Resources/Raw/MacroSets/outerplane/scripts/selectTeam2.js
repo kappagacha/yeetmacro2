@@ -2,9 +2,10 @@
 
 
 const topLeft = macroService.GetTopLeft();
-const bossTypePatterns = ['grandCalamari', 'unidentifiedChimera', 'schwartz', 'amadeus', 'masterlessGuardian', 'epsilon', 'anubisGuardian', 'tyrantToddler', 'ziggsaron', 'vladiMax'].map(bt => patterns.battle.boss[bt]);;
+const bossTypePatterns = ['grandCalamari', 'unidentifiedChimera', 'schwartz', 'amadeus', 'masterlessGuardian', 'epsilon', 'anubisGuardian', 'tyrantToddler', 'ziggsaron', 'vladiMax', 'glicys'].map(bt => patterns.battle.boss[bt]);;
 const bossTypeResult = macroService.PollPattern(bossTypePatterns);
-const bossType = bossTypeResult.Path?.split('.').pop();
+//const bossType = bossTypeResult.Path?.split('.').pop();
+const bossType = 'vladiMax';
 const bossTypeToTeam = {
     grandCalamari: {
         left: {
@@ -22,15 +23,29 @@ const bossTypeToTeam = {
         },
     },
     vladiMax: {
+        left: undefined,
         top: {
             name: 'tamamoEternity'
         },
-        //left: undefined,
+        right: undefined,
         bottom: {
             name: 'marian',
             presetOverride: '#GN NELLA'
         },
-        //bottom: undefined
+    },
+    glicys: {
+        left: {
+            name: 'monadEva'
+        },
+        top: {
+            name: 'rey'
+        },
+        right: {
+            name: 'delta'
+        },
+        bottom: {
+            name: 'ame'
+        },
     },
 };
 
@@ -69,6 +84,18 @@ const characterToFilter = {
         element: 'water',
         battleType: 'mage'
     },
+    delta: {
+        element: 'earth',
+        battleType: 'striker'
+    },
+    rey: {
+        element: 'earth',
+        battleType: 'striker'
+    },
+    ame: {
+        element: 'earth',
+        battleType: 'mage'
+    },
 };
 
 const locationToCharacterCloneOpts = {
@@ -85,8 +112,8 @@ const presetOverride = {};
 
 for ([location, character] of Object.entries(team)) {
     if (!character) {
-        macroService.PollPattern(patterns.battle.teamFormation[location], { DoClick: true, PredicatePattern: patterns.battle.teamFormation[location].remove });
-        macroService.PollPattern(patterns.battle.teamFormation[location].remove, { DoClick: true, InversePredicatePattern: patterns.battle.teamFormation[location].remove, PrimaryClickInversePredicatePattern: patterns.battle.teamFormation[location].remove });
+        macroService.PollPattern(patterns.battle.teamFormation[location], { DoClick: true, PredicatePattern: [patterns.battle.teamFormation[location].remove, patterns.battle.teamFormation[location].empty] });
+        macroService.PollPattern(patterns.battle.teamFormation[location].remove, { DoClick: true, PredicatePattern: patterns.battle.teamFormation[location].empty });
         continue;
     }
 
@@ -116,8 +143,8 @@ for ([location, character] of Object.entries(team)) {
     macroService.PollPattern(patterns.battle.characterFilter.ok, { DoClick: true, PredicatePattern: [patterns.battle.characterFilter, patterns.battle.characterFilter.applied] });
     const allCharacterCloneOpts = { X: 70, Y: 880, Width: 1700, Height: 130, PathSuffix: '_all', OffsetCalcType: 'None', BoundsCalcType: 'FillWidth' };
     const allCharacterPattern = macroService.ClonePattern(patterns.battle.character[character.name], allCharacterCloneOpts);
-    macroService.PollPattern(patterns.battle.teamFormation[location], { DoClick: true, PredicatePattern: [patterns.battle.teamFormation[location].remove, patterns.battle.teamFormation[location].add], PrimaryClickInversePredicatePattern: patterns.battle.teamFormation[location].remove });
-    macroService.PollPattern(allCharacterPattern, { DoClick: true, PredicatePattern: characterPattern });
+    macroService.PollPattern(patterns.battle.teamFormation[location], { DoClick: true, PredicatePattern: [patterns.battle.teamFormation[location].remove, patterns.battle.teamFormation[location].add, patterns.battle.teamFormation[location].empty], PrimaryClickInversePredicatePattern: patterns.battle.teamFormation[location].remove });
+    macroService.PollPattern(allCharacterPattern, { DoClick: true, ClickPattern: patterns.battle.teamFormation[location].add, PredicatePattern: characterPattern });
 }
 
 applyPreset(undefined, { presetOverride });

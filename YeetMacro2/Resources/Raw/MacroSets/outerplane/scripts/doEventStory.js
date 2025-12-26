@@ -54,8 +54,8 @@ function teamUnselectAll() {
 	const locations = ['top', 'left', 'right', 'bottom'];
 	macroService.PollPattern(patterns.battle.owned, { DoClick: true, PredicatePattern: patterns.battle.owned.filter });
 	for (let location of locations) {
-		macroService.PollPattern(patterns.battle.teamFormation[location], { DoClick: true, PredicatePattern: patterns.battle.teamFormation[location].remove });
-		macroService.PollPattern(patterns.battle.teamFormation[location].remove, { DoClick: true, InversePredicatePattern: patterns.battle.teamFormation[location].remove, PrimaryClickInversePredicatePattern: patterns.battle.teamFormation[location].remove });
+		macroService.PollPattern(patterns.battle.teamFormation[location], { DoClick: true, PredicatePattern: [patterns.battle.teamFormation[location].remove, patterns.battle.teamFormation[location].empty] });
+		macroService.PollPattern(patterns.battle.teamFormation[location].remove, { DoClick: true, PredicatePattern: patterns.battle.teamFormation[location].empty });
 	}
 }
 
