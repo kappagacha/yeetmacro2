@@ -2,10 +2,9 @@
 
 
 const topLeft = macroService.GetTopLeft();
-const bossTypePatterns = ['grandCalamari', 'unidentifiedChimera', 'schwartz', 'amadeus', 'masterlessGuardian', 'epsilon', 'anubisGuardian', 'tyrantToddler', 'ziggsaron', 'vladiMax', 'glicys'].map(bt => patterns.battle.boss[bt]);;
+const bossTypePatterns = ['grandCalamari', 'unidentifiedChimera', 'schwartz', 'amadeus', 'masterlessGuardian', 'epsilon', 'anubisGuardian', 'tyrantToddler', 'ziggsaron', 'vladiMax', 'glicys', 'arsNova', 'ksai', 'forestKing'].map(bt => patterns.battle.boss[bt]);;
 const bossTypeResult = macroService.PollPattern(bossTypePatterns);
-//const bossType = bossTypeResult.Path?.split('.').pop();
-const bossType = 'vladiMax';
+const bossType = bossTypeResult.Path?.split('.').pop();
 const bossTypeToTeam = {
     grandCalamari: {
         left: {
@@ -45,6 +44,35 @@ const bossTypeToTeam = {
         },
         bottom: {
             name: 'ame'
+        },
+    },
+    ksai: {
+        left: {
+            name: 'sterope',
+            presetOverride: '>DEF>CTR>HLT'
+        },
+        top: {
+            name: 'tamara'
+        },
+        right: {
+            name: 'caren'
+        },
+        bottom: {
+            name: 'summerRegina'
+        },
+    },
+    forestKing: {
+        left: {
+            name: 'stella'
+        },
+        top: {
+            name: 'mysticSageAme'
+        },
+        right: {
+            name: 'monadEva'
+        },
+        bottom: {
+            name: 'regina'
         },
     },
 };
@@ -95,6 +123,26 @@ const characterToFilter = {
     ame: {
         element: 'earth',
         battleType: 'mage'
+    },
+    sterope: {
+        element: 'dark',
+        battleType: 'defender'
+    },
+    tamara: {
+        element: 'water',
+        battleType: 'ranger'
+    },
+    caren: {
+        element: 'water',
+        battleType: 'defender'
+    },
+    summerRegina: {
+        element: 'water',
+        battleType: 'striker'
+    },
+    stella: {
+        element: 'light',
+        battleType: 'ranger'
     },
 };
 
