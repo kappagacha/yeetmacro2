@@ -21,7 +21,7 @@ function applyPreset(teamSlot, opts = {}) {
 	const battleTypeToAbbreviation = { defender: 'DEF', striker: 'STR', ranger: 'RAN', mage: 'MAG', 'healer': 'HLR' };
 
 	for (let [location, delimiter] of Object.entries(locationToDelimiter)) {
-		if (macroService.FindPattern(patterns.battle.teamFormation[location].empty).IsSuccess) {
+		if (!macroService.FindPattern(patterns.battle.teamFormation[location].occupied).IsSuccess) {
 			continue;
 		}
 

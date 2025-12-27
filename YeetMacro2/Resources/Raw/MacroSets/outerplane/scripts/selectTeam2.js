@@ -159,9 +159,10 @@ let lastElementFilter, lastElementBattleType;
 const presetOverride = {};
 
 for ([location, character] of Object.entries(team)) {
-    if (!character) {
-        macroService.PollPattern(patterns.battle.teamFormation[location], { DoClick: true, PredicatePattern: [patterns.battle.teamFormation[location].remove, patterns.battle.teamFormation[location].empty] });
-        macroService.PollPattern(patterns.battle.teamFormation[location].remove, { DoClick: true, PredicatePattern: patterns.battle.teamFormation[location].empty });
+    const isOccupied = macroService.FindPattern(patterns.battle.teamFormation[location].occupied).IsSuccess;
+    if (!character && isOccupied) {        
+        macroService.PollPattern(patterns.battle.teamFormation[location], { DoClick: true, PredicatePattern: patterns.battle.teamFormation[location].remove });
+        macroService.PollPattern(patterns.battle.teamFormation[location].remove, { DoClick: true, InversePredicatePattern: patterns.battle.teamFormation[location].remove });
         continue;
     }
 
@@ -191,7 +192,9 @@ for ([location, character] of Object.entries(team)) {
     macroService.PollPattern(patterns.battle.characterFilter.ok, { DoClick: true, PredicatePattern: [patterns.battle.characterFilter, patterns.battle.characterFilter.applied] });
     const allCharacterCloneOpts = { X: 70, Y: 880, Width: 1700, Height: 130, PathSuffix: '_all', OffsetCalcType: 'None', BoundsCalcType: 'FillWidth' };
     const allCharacterPattern = macroService.ClonePattern(patterns.battle.character[character.name], allCharacterCloneOpts);
-    macroService.PollPattern(patterns.battle.teamFormation[location], { DoClick: true, PredicatePattern: [patterns.battle.teamFormation[location].remove, patterns.battle.teamFormation[location].add, patterns.battle.teamFormation[location].empty], PrimaryClickInversePredicatePattern: patterns.battle.teamFormation[location].remove });
+    if (isOccupied) {
+        macroService.PollPattern(patterns.battle.teamFormation[location], { DoClick: true, PredicatePattern: [patterns.battle.teamFormation[location].remove, patterns.battle.teamFormation[location].add], PrimaryClickInversePredicatePattern: patterns.battle.teamFormation[location].remove });
+    }
     macroService.PollPattern(allCharacterPattern, { DoClick: true, ClickPattern: patterns.battle.teamFormation[location].add, PredicatePattern: characterPattern });
 }
 
