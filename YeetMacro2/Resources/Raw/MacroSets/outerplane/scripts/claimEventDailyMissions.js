@@ -40,7 +40,7 @@ while (macroService.IsRunning) {
 				notificationResult = macroService.PollPattern(patterns.event.daily.anniversary.notification, { TimeoutMs: 3_000 });
 			}
 
-			const coinExchangeResult = macroService.PollPattern([patterns.event.daily.coinExchange.coin, patterns.event.roulette, patterns.event.rockPaperScissors]);
+			const coinExchangeResult = macroService.PollPattern([patterns.event.daily.coinExchange.coin, patterns.event.roulette, patterns.event.rockPaperScissors, patterns.event.drawACapsule], { SwipePattern: patterns.event.swipeDown });
 
 			if (coinExchangeResult.Path === 'event.daily.coinExchange.coin') {
 				doCoinExchange();
@@ -48,6 +48,8 @@ while (macroService.IsRunning) {
 				doRoulette();
 			} else if (coinExchangeResult.Path === 'event.rockPaperScissors') {
 				doRockPaperScissors();
+			} else if (coinExchangeResult.Path === 'event.drawACapsule') {
+				doDrawACapsule();
 			}
 
 			//const miniGameResult = macroService.PollPattern([patterns.event.rockPaperScissors, patterns.event.drawACapsule, patterns.event.spinTheWheel, patterns.event.tokenExchange]);
@@ -118,7 +120,7 @@ function doRockPaperScissors() {
 }
 
 function doDrawACapsule() {
-	macroService.PollPattern(patterns.event.drawACapsule, { DoClick: true, PredicatePattern: patterns.event.coinsOwned });
+	macroService.PollPattern(patterns.event.drawACapsule, { DoClick: true, PredicatePattern: patterns.event.coinsHeld });
 	sleep(2_000);
 	let numCoins = macroService.FindText(patterns.event.numCoins)?.replace(/[^0-9]/g, '');
 	while (macroService.IsRunning && !numCoins) {
@@ -127,8 +129,9 @@ function doDrawACapsule() {
 	}
 
 	while (macroService.IsRunning && numCoins > 0) {
-		macroService.PollPattern(patterns.event.drawACapsule.draw, { DoClick: true, PredicatePattern: patterns.event.confirm });
-		macroService.PollPattern(patterns.event.confirm, { DoClick: true, PredicatePattern: patterns.event.coinInfo });
+		macroService.PollPattern(patterns.event.drawACapsule.draw, { DoClick: true, PredicatePattern: patterns.event.drawACapsule.ok });
+		macroService.PollPattern(patterns.event.drawACapsule.ok, { DoClick: true, PredicatePattern: patterns.general.tapEmptySpace });
+		macroService.PollPattern(patterns.general.tapEmptySpace, { DoClick: true, PredicatePattern: patterns.event.coinsHeld });
 		numCoins = macroService.FindText(patterns.event.numCoins)?.replace(/[^0-9]/g, '');
 	}
 }
