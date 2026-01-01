@@ -2,7 +2,7 @@
 
 
 const topLeft = macroService.GetTopLeft();
-const bossTypePatterns = ['grandCalamari', 'unidentifiedChimera', 'schwartz', 'amadeus', 'masterlessGuardian', 'epsilon', 'anubisGuardian', 'tyrantToddler', 'ziggsaron', 'vladiMax', 'glicys', 'arsNova', 'ksai', 'forestKing'].map(bt => patterns.battle.boss[bt]);;
+const bossTypePatterns = ['grandCalamari', 'unidentifiedChimera', 'schwartz', 'amadeus', 'masterlessGuardian', 'epsilon', 'anubisGuardian', 'tyrantToddler', 'ziggsaron', 'vladiMax', 'glicys', 'arsNova', 'ksai', 'forestKing', 'dekRilAndMekRil', 'archdemonShadow', 'meteos'].map(bt => patterns.battle.boss[bt]);;
 const bossTypeResult = macroService.PollPattern(bossTypePatterns);
 const bossType = bossTypeResult.Path?.split('.').pop();
 const bossTypeToTeam = {
@@ -18,7 +18,7 @@ const bossTypeToTeam = {
             name: 'monadEva'
         },
         bottom: {
-            name: 'regina'
+            name: 'demiurgeLuna'
         },
     },
     vladiMax: {
@@ -99,6 +99,10 @@ const characterToFilter = {
     monadEva: {
         element: 'light',
         battleType: 'healer'
+    },
+    demiurgeLuna: {
+        element: 'light',
+        battleType: 'mage'
     },
     regina: {
         element: 'light',
