@@ -105,12 +105,14 @@ function setChainOrder() {
 
 	const effectsBasePatterns = [
 		patterns.battle.chainPreview.effects.pctDmg,
-		patterns.battle.chainPreview.effects.cdr
+		patterns.battle.chainPreview.effects.cdr,
+		patterns.battle.chainPreview.effects.weaknessGuage
 	];
 
 	const effectToPriority = {
 		pctDmg: 1,
-		cdr: 2
+		cdr: 2,
+		weaknessGuage: 3
 	};
 
 	while (macroService.IsRunning) {

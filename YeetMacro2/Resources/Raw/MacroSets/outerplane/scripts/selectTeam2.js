@@ -2,7 +2,12 @@
 
 
 const topLeft = macroService.GetTopLeft();
-const bossTypePatterns = ['grandCalamari', 'unidentifiedChimera', 'schwartz', 'amadeus', 'masterlessGuardian', 'epsilon', 'anubisGuardian', 'tyrantToddler', 'ziggsaron', 'vladiMax', 'glicys', 'arsNova', 'ksai', 'forestKing', 'dekRilAndMekRil', 'archdemonShadow', 'meteos'].map(bt => patterns.battle.boss[bt]);;
+const bossTypePatterns = [
+    'grandCalamari', 'unidentifiedChimera', 'schwartz', 'amadeus', 'masterlessGuardian',
+    'epsilon', 'anubisGuardian', 'tyrantToddler', 'ziggsaron', 'vladiMax', 'glicys',
+    'arsNova', 'ksai', 'forestKing', 'dekRilAndMekRil', 'archdemonShadow', 'meteos',
+    'gustav']
+    .map(bt => patterns.battle.boss[bt]);;
 const bossTypeResult = macroService.PollPattern(bossTypePatterns);
 const bossType = bossTypeResult.Path?.split('.').pop();
 const bossTypeToTeam = {
@@ -52,7 +57,8 @@ const bossTypeToTeam = {
             presetOverride: '>DEF>CTR>HLT'
         },
         top: {
-            name: 'tamara'
+            name: 'tamara',
+            presetOverride: '#RAN#EFF#ATK'
         },
         right: {
             name: 'caren'
@@ -72,7 +78,21 @@ const bossTypeToTeam = {
             name: 'monadEva'
         },
         bottom: {
-            name: 'regina'
+            name: 'demiurgeLuna'
+        },
+    },
+    gustav: {
+        left: {
+            name: 'gnosisViella'
+        },
+        top: {
+            name: 'demiurgeLuna'
+        },
+        right: {
+            name: 'nella'
+        },
+        bottom: {
+            name: 'monadEva'
         },
     },
 };
@@ -138,7 +158,7 @@ const characterToFilter = {
     },
     caren: {
         element: 'water',
-        battleType: 'defender'
+        battleType: 'striker'
     },
     summerRegina: {
         element: 'water',
@@ -148,6 +168,14 @@ const characterToFilter = {
         element: 'light',
         battleType: 'ranger'
     },
+    gnosisViella: {
+        element: 'dark',
+        battleType: 'striker'
+    },
+    nella: {
+        element: 'dark',
+        battleType: 'healer'
+    }
 };
 
 const locationToCharacterCloneOpts = {
@@ -196,9 +224,11 @@ for ([location, character] of Object.entries(team)) {
     macroService.PollPattern(patterns.battle.characterFilter.ok, { DoClick: true, PredicatePattern: [patterns.battle.characterFilter, patterns.battle.characterFilter.applied] });
     const allCharacterCloneOpts = { X: 70, Y: 880, Width: 1700, Height: 130, PathSuffix: '_all', OffsetCalcType: 'None', BoundsCalcType: 'FillWidth' };
     const allCharacterPattern = macroService.ClonePattern(patterns.battle.character[character.name], allCharacterCloneOpts);
+    logger.info('after allCharacterPattern');
     if (isOccupied) {
         macroService.PollPattern(patterns.battle.teamFormation[location], { DoClick: true, PredicatePattern: [patterns.battle.teamFormation[location].remove, patterns.battle.teamFormation[location].add], PrimaryClickInversePredicatePattern: patterns.battle.teamFormation[location].remove });
     }
+    logger.info('after isOccupied');
     macroService.PollPattern(allCharacterPattern, { DoClick: true, ClickPattern: patterns.battle.teamFormation[location].add, PredicatePattern: characterPattern });
 }
 
