@@ -45,14 +45,14 @@ while (macroService.IsRunning) {
 			if (!targetFloorPatternResult.IsSuccess) {
 				throw Error('Could not find target floor pattern');
 			}
-			macroService.PollPattern(targetFloorPattern, { DoClick: true, PredicatePattern: patterns.battle.deploy });
+			macroService.PollPattern(targetFloorPattern, { DoClick: true, ClickPattern: patterns.heroList.close, PredicatePattern: patterns.battle.deploy });
 			macroService.PollPattern(patterns.battle.deploy, { DoClick: true, ClickPattern: patterns.battle.skip, PredicatePattern: patterns.battle.next });
 			macroService.PollPattern(patterns.battle.next, { DoClick: true, PredicatePattern: patterns.battle.exit });
 			macroService.PollPattern(patterns.battle.exit, { DoClick: true, PredicatePattern: patterns.stage.bounty.title });
 
 			logger.info('doStageBounty: sweep bounty missions');
 			macroService.PollPattern(targetFloorPattern, { SwipePattern: patterns.general.swipeRight, TimeoutMs: 7_000 });
-			macroService.PollPattern(targetFloorPattern, { DoClick: true, PredicatePattern: patterns.battle.deploy });
+			macroService.PollPattern(targetFloorPattern, { DoClick: true, ClickPattern: patterns.heroList.close, PredicatePattern: patterns.battle.deploy });
 			for (let i = 0; i < 2; i++) {
 				macroService.PollPattern(patterns.stage.bounty.sweep, { DoClick: true, PredicatePattern: patterns.stage.bounty.sweep.confirm });
 				macroService.PollPattern(patterns.stage.bounty.sweep.confirm, { DoClick: true, PredicatePattern: patterns.general.confirm2 });

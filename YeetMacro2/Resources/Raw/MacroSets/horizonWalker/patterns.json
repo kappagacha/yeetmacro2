@@ -3763,5 +3763,54 @@
       "$name": "complete",
       "$path": "battle.complete"
     }
+  },
+  "heroList": {
+    "$tags": [],
+    "$patterns": [],
+    "$isMultiPattern": false,
+    "$position": 0,
+    "$name": "heroList",
+    "$path": "heroList",
+    "close": {
+      "$tags": [],
+      "$patterns": [
+        {
+          "rawBounds": {
+            "x": 1011.25,
+            "y": 971.25,
+            "width": 44.5,
+            "height": 40.5
+          },
+          "resolution": {
+            "width": 1920,
+            "height": 1080
+          },
+          "type": "Normal",
+          "swipeDirection": "Auto",
+          "name": "pattern",
+          "imageData": "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",
+          "variancePct": 20,
+          "textMatch": {
+            "isActive": false,
+            "text": null,
+            "whiteList": null
+          },
+          "colorThreshold": {
+            "isActive": false,
+            "variancePct": 30,
+            "color": null,
+            "imageData": "",
+            "ignoreBackground": false
+          },
+          "offsetCalcType": "DockRight",
+          "boundsCalcType": "Default",
+          "position": 0
+        }
+      ],
+      "$isMultiPattern": false,
+      "$position": 0,
+      "$name": "close",
+      "$path": "heroList.close"
+    }
   }
 }
