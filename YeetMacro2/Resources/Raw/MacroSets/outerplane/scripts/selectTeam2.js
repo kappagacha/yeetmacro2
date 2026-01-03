@@ -6,7 +6,7 @@ const bossTypePatterns = [
     'grandCalamari', 'unidentifiedChimera', 'schwartz', 'amadeus', 'masterlessGuardian',
     'epsilon', 'anubisGuardian', 'tyrantToddler', 'ziggsaron', 'vladiMax', 'glicys',
     'arsNova', 'ksai', 'forestKing', 'dekRilAndMekRil', 'archdemonShadow', 'meteos',
-    'gustav']
+    'gustav', 'sacreedGuardian']
     .map(bt => patterns.battle.boss[bt]);;
 const bossTypeResult = macroService.PollPattern(bossTypePatterns);
 const bossType = bossTypeResult.Path?.split('.').pop();
@@ -95,6 +95,22 @@ const bossTypeToTeam = {
             name: 'monadEva'
         },
     },
+    sacreedGuardian: {
+        left: {
+            name: 'demiurgeVlada',
+            presetOverride: '#RAN#EFF#ATK'
+        },
+        top: {
+            name: 'demiurgeAstei'
+        },
+        right: {
+            name: 'maxwell',
+            presetOverride: '#MAG#PEN#ATK'
+        },
+        bottom: {
+            name: 'iota'
+        },
+    },
 };
 
 logger.debug(`bossType: ${bossType}`);
@@ -180,6 +196,22 @@ const characterToFilter = {
 
         element: 'earth',
         battleType: 'ranger'
+    },
+    demiurgeVlada: {
+        element: 'dark',
+        battleType: 'ranger'
+    },
+    demiurgeAstei: {
+        element: 'dark',
+        battleType: 'mage'
+    },
+    maxwell: {
+        element: 'dark',
+        battleType: 'mage'
+    },
+    iota: {
+        element: 'dark',
+        battleType: 'mage'
     }
 };
 
