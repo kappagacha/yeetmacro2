@@ -56,7 +56,7 @@ function teamUnselectAll() {
 	for (let location of locations) {
 		const isOccupied = macroService.FindPattern(patterns.battle.teamFormation[location].occupied).IsSuccess;
 		if (!isOccupied) continue;
-		macroService.PollPattern(patterns.battle.teamFormation[location], { DoClick: true, PredicatePattern: patterns.battle.teamFormation[location].remove });
+		macroService.PollPattern(patterns.battle.teamFormation[location], { DoClick: true, PredicatePattern: patterns.battle.teamFormation[location].remove, PrimaryClickInversePredicatePattern: patterns.battle.teamFormation[location].remove });
 		macroService.PollPattern(patterns.battle.teamFormation[location].remove, { DoClick: true, InversePredicatePattern: patterns.battle.teamFormation[location].remove });
 	}
 }
