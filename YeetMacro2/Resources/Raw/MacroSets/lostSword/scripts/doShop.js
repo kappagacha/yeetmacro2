@@ -94,10 +94,10 @@ function findCoinType(targetCoinType) {
 	const coinResult = macroService.FindPattern(patterns.shop.coin, { Limit: 5 });
 	let cointTypeResults = coinResult.Points.map(p => {
 		const coinTypeBounds = {
-			X: 112 + topLeft.X,
+			X: 100 + topLeft.X,
 			Y: p.Y - 19,
 			Height: 40.5,
-			Width: p.X - 35 - 112 - topLeft.X
+			Width: p.X - 35 - 100 - topLeft.X
 		};
 
 		//while (macroService.IsRunning) {
