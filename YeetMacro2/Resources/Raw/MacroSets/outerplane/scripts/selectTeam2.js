@@ -39,16 +39,16 @@ const bossTypeToTeam = {
     },
     glicys: {
         left: {
-            name: 'monadEva'
-        },
-        top: {
-            name: 'rey'
-        },
-        right: {
             name: 'delta'
         },
+        top: {
+            name: 'ryu'
+        },
+        right: {
+            name: 'monadEva'
+        },
         bottom: {
-            name: 'ame'
+            name: 'rey'
         },
     },
     ksai: {
@@ -175,6 +175,11 @@ const characterToFilter = {
     nella: {
         element: 'dark',
         battleType: 'healer'
+    },
+    ryu: {
+
+        element: 'earth',
+        battleType: 'ranger'
     }
 };
 
