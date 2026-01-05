@@ -6,7 +6,7 @@ const bossTypePatterns = [
     'grandCalamari', 'unidentifiedChimera', 'schwartz', 'amadeus', 'masterlessGuardian',
     'epsilon', 'anubisGuardian', 'tyrantToddler', 'ziggsaron', 'vladiMax', 'glicys',
     'arsNova', 'ksai', 'forestKing', 'dekRilAndMekRil', 'archdemonShadow', 'meteos',
-    'gustav', 'sacreedGuardian']
+    'gustav', 'sacreedGuardian', 'assaultSuit']
     .map(bt => patterns.battle.boss[bt]);;
 const bossTypeResult = macroService.PollPattern(bossTypePatterns);
 const bossType = bossTypeResult.Path?.split('.').pop();
@@ -111,6 +111,20 @@ const bossTypeToTeam = {
             name: 'iota'
         },
     },
+    assaultSuit: {
+        left: {
+            name: 'mene'
+        },
+        top: {
+            name: 'ryu'
+        },
+        right: {
+            name: 'delta'
+        },
+        bottom: {
+            name: 'rey'
+        },
+    },
 };
 
 logger.debug(`bossType: ${bossType}`);
@@ -212,6 +226,10 @@ const characterToFilter = {
     iota: {
         element: 'dark',
         battleType: 'mage'
+    },
+    mene: {
+        element: 'water',
+        battleType: 'healer'
     }
 };
 
