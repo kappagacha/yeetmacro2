@@ -24,7 +24,7 @@ while (macroService.IsRunning) {
 					if (staminaPatternResult.IsSuccess) {
 						continue;
 					}
-					macroService.PollPoint(p, { PredicatePattern: patterns.general.tapEmptySpace });
+					macroService.PollPoint(p, { PredicatePattern: patterns.general.tapEmptySpace, IntervalDelayMs: 3_000 });
 					macroService.PollPattern(patterns.general.tapEmptySpace, { DoClick: true, PredicatePattern: patterns.titles.mailbox });
 					sleep(500);
 					allStamina = false;

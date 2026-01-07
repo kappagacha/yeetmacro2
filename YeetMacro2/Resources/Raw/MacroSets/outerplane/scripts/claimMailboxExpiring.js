@@ -38,7 +38,7 @@ while (macroService.IsRunning) {
 					const dPattern = macroService.ClonePattern(patterns.mailbox.expiration.d, { CenterX: p.X, CenterY: p.Y - 75, Width: 110, Height: 40, PathSuffix: `_x${p.X}_y${p.Y - 75}` });
 					const dPatternResult = macroService.FindPattern(dPattern);
 					if (!dPatternResult.IsSuccess) {
-						macroService.PollPoint(p, { PredicatePattern: patterns.general.tapEmptySpace });
+						macroService.PollPoint(p, { PredicatePattern: patterns.general.tapEmptySpace, IntervalDelayMs: 3_000 });
 						macroService.PollPattern(patterns.general.tapEmptySpace, { DoClick: true, PredicatePattern: patterns.mailbox.receive });
 						sleep(2_000);
 						done = false;
@@ -49,7 +49,7 @@ while (macroService.IsRunning) {
 					const numberText = macroService.FindText(numberPattern, "1234567890");
 
 					if (numberText == 1 || numberText == 2 || numberText > 10) {
-						macroService.PollPoint(p, { PredicatePattern: patterns.general.tapEmptySpace });
+						macroService.PollPoint(p, { PredicatePattern: patterns.general.tapEmptySpace, IntervalDelayMs: 3_000 });
 						macroService.PollPattern(patterns.general.tapEmptySpace, { DoClick: true, PredicatePattern: patterns.mailbox.receive });
 						sleep(2_000);
 						done = false;
