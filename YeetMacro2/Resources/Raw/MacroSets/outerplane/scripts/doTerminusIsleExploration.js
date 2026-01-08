@@ -44,6 +44,8 @@ while (macroService.IsRunning) {
 			sleep(1_000);
 			doMoonlitFangBoss();
 
+			sleep(1_000);
+			claimFinalStageReward();
 			if (macroService.IsRunning) {
 				daily.doTerminusIsleExploration.done.IsChecked = true;
 			}
@@ -125,12 +127,14 @@ function doEnhancedDeadlyCreature() {
 		macroService.PollPattern(patterns.terminusIsle.prompt.heroDeployment, { DoClick: true, PredicatePattern: patterns.battle.enter });
 		//selectTeam('RecommendedElement', { applyPreset: true });
 		selectTeam2();
+		macroService.PollPattern(patterns.general.back, { DoClick: true, PrimaryClickInversePredicatePattern: patterns.battle.enter, PredicatePattern: patterns.battle.enter });
 		macroService.PollPattern(patterns.battle.enter, { DoClick: true, PredicatePattern: patterns.battle.exit });
 		const exitResult = macroService.PollPattern(patterns.battle.exit, { DoClick: true, PredicatePattern: [patterns.general.tapEmptySpace, patterns.terminusIsle.prompt.heroDeployment] });
 		// if another attempt is needed
 		if (exitResult.PredicatePath === 'terminusIsle.prompt.heroDeployment') {
 			macroService.PollPattern(patterns.terminusIsle.prompt.heroDeployment, { DoClick: true, PredicatePattern: patterns.battle.enter });
 			selectTeam2();
+			macroService.PollPattern(patterns.general.back, { DoClick: true, PrimaryClickInversePredicatePattern: patterns.battle.enter, PredicatePattern: patterns.battle.enter });
 			//selectTeam('RecommendedElement', { applyPreset: true });
 			macroService.PollPattern(patterns.battle.enter, { DoClick: true, PredicatePattern: patterns.battle.exit });
 			macroService.PollPattern(patterns.battle.exit, { DoClick: true, PredicatePattern: patterns.general.tapEmptySpace });
@@ -151,5 +155,15 @@ function doMoonlitFangBoss() {
 		macroService.PollPattern(patterns.general.tapEmptySpace, { DoClick: true, PredicatePattern: patterns.terminusIsle.stage });
 
 		moonlitFangBossResult = macroService.PollPattern(patterns.terminusIsle.moonlitFangBoss, { TimeoutMs: 3_000 });
+	}
+}
+
+function claimFinalStageReward() {
+	let finalStageRewardResult = macroService.PollPattern(patterns.terminusIsle.finalStageReward, { TimeoutMs: 3_000 });
+	if (finalStageRewardResult.IsSuccess) {
+		macroService.PollPattern(patterns.terminusIsle.finalStageReward, { DoClick: true, PredicatePattern: patterns.terminusIsle.finalStageReward.ok, });
+		macroService.PollPattern(patterns.terminusIsle.finalStageReward.ok, { DoClick: true, PredicatePattern: patterns.terminusIsle.finalStageReward.retry });
+		macroService.PollPattern(patterns.terminusIsle.finalStageReward.retry, { DoClick: true, PredicatePattern: patterns.general.tapEmptySpace });
+		macroService.PollPattern(patterns.general.tapEmptySpace, { DoClick: true, PredicatePattern: patterns.terminusIsle.stage });
 	}
 }
