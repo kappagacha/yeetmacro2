@@ -27,7 +27,7 @@ while (macroService.IsRunning) {
 				macroService.PollPattern(patterns.shop.exchangeShop, { DoClick: true, PredicatePattern: patterns.shop.exchangeShop.selected });
 				macroService.PollPattern(patterns.shop.coin, { SwipePattern: patterns.shop.leftPanelSwipeDown });
 				macroService.SwipePattern(patterns.shop.leftPanelSwipeDown);
-				sleep(1_000);
+				sleep(2_000);
 				const eventCoinType = settings.doShop.exchangeShop.eventCoin1.eventCoinType.Value;
 				findCoinType(eventCoinType);
 				doEventShop(settings.doShop.exchangeShop.eventCoin1, daily.doShop.eventCoin1, {
@@ -42,8 +42,8 @@ while (macroService.IsRunning) {
 				macroService.PollPattern(patterns.shop.exchangeShop, { DoClick: true, PredicatePattern: patterns.shop.exchangeShop.selected });
 				macroService.PollPattern(patterns.shop.coin, { SwipePattern: patterns.shop.leftPanelSwipeDown });
 				macroService.SwipePattern(patterns.shop.leftPanelSwipeDown);
-
 				sleep(2_000);
+
 				const eventCoinType = settings.doShop.exchangeShop.eventCoin2.eventCoinType.Value;
 				findCoinType(eventCoinType);
 				doEventShop(settings.doShop.exchangeShop.eventCoin2, daily.doShop.eventCoin2, {

@@ -46,6 +46,7 @@ while (macroService.IsRunning) {
 
 			sleep(1_000);
 			claimFinalStageReward();
+
 			if (macroService.IsRunning) {
 				daily.doTerminusIsleExploration.done.IsChecked = true;
 			}
