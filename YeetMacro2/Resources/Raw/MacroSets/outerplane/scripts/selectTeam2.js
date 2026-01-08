@@ -7,7 +7,7 @@ const bossTypePatterns = [
     'epsilon', 'anubisGuardian', 'tyrantToddler', 'ziggsaron', 'vladiMax', 'glicys',
     'arsNova', 'ksai', 'forestKing', 'dekRilAndMekRil', 'archdemonShadow', 'meteos',
     'gustav', 'sacreedGuardian', 'assaultSuit']
-    .map(bt => patterns.battle.boss[bt]);;
+    .map(bt => patterns.battle.boss[bt]);
 const bossTypeResult = macroService.PollPattern(bossTypePatterns);
 const bossType = bossTypeResult.Path?.split('.').pop();
 const bossTypeToTeam = {
@@ -53,12 +53,11 @@ const bossTypeToTeam = {
     },
     ksai: {
         left: {
-            name: 'sterope',
-            presetOverride: '>DEF>CTR>HLT'
-        },
-        top: {
             name: 'tamara',
             presetOverride: '#RAN#EFF#ATK'
+        },
+        top: {
+            name: 'fortuna'
         },
         right: {
             name: 'caren'
@@ -83,7 +82,7 @@ const bossTypeToTeam = {
     },
     gustav: {
         left: {
-            name: 'gnosisViella'
+            name: 'monadEva'
         },
         top: {
             name: 'demiurgeLuna'
@@ -92,7 +91,7 @@ const bossTypeToTeam = {
             name: 'nella'
         },
         bottom: {
-            name: 'monadEva'
+            name: 'gnosisViella'
         },
     },
     sacreedGuardian: {
@@ -230,6 +229,10 @@ const characterToFilter = {
     mene: {
         element: 'water',
         battleType: 'healer'
+    },
+    fortuna: {
+        element: 'water',
+        battleType: 'mage'
     }
 };
 
