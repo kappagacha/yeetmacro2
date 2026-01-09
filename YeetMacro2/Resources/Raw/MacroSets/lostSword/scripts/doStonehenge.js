@@ -1,5 +1,5 @@
 // @position=10
-const loopPatterns = [patterns.lobby, patterns.battle.title, patterns.bossRaid, patterns.stonehenge.select];
+const loopPatterns = [patterns.lobby, patterns.battle.title, patterns.stonehenge.select];
 const daily = dailyManager.GetCurrentDaily();
 if (daily.doStonehenge.done.IsChecked) {
 	return "Script already completed. Uncheck done to override daily flag.";

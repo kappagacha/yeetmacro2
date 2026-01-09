@@ -9,7 +9,7 @@
       "$type": "timestamp",
       "$tags": [],
       "$defaultValue": "0001-01-01T00:00:00+00:00",
-      "$value": "2025-10-13T03:43:12.686+00:00",
+      "$value": "2026-01-09T05:28:38.59+00:00",
       "$position": 0,
       "$name": "lastRun",
       "$path": "doColosseum.lastRun"
@@ -308,7 +308,7 @@
       "$type": "timestamp",
       "$tags": [],
       "$defaultValue": "0001-01-01T00:00:00+00:00",
-      "$value": "2025-10-20T03:20:10.896+00:00",
+      "$value": "2026-01-09T05:20:03.393+00:00",
       "$position": 0,
       "$name": "lastRun",
       "$path": "claimTreasureExploration.lastRun"

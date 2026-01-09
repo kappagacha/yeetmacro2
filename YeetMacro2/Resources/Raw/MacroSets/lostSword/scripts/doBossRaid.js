@@ -1,5 +1,5 @@
 // @position=8
-const loopPatterns = [patterns.lobby, patterns.battle.title, patterns.bossRaid];
+const loopPatterns = [patterns.lobby, patterns.battle.title, patterns.battle.sweep];
 const daily = dailyManager.GetCurrentDaily();
 if (daily.doBossRaid.done.IsChecked) {
 	return "Script already completed. Uncheck done to override daily flag.";
@@ -16,10 +16,10 @@ while (macroService.IsRunning) {
 			logger.info('doBossRaid: click boss raid');
 			macroService.ClickPattern(patterns.battle.bossRaid);
 			break;
-		case 'bossRaid':
+		case 'battle.sweep':
 			if (settings.doBossRaid.enterOnce.Value && !daily.doBossRaid.entered.IsChecked) {
 				macroService.PollPattern(patterns.battle.enter, { DoClick: true, PredicatePattern: patterns.general.tapTheScreen });
-				macroService.PollPattern(patterns.general.tapTheScreen, { DoClick: true, PredicatePattern: patterns.bossRaid });
+				macroService.PollPattern(patterns.general.tapTheScreen, { DoClick: true, PredicatePattern: patterns.battle.enter });
 				if (macroService.IsRunning) daily.doBossRaid.entered.IsChecked = true;
 			}
 
