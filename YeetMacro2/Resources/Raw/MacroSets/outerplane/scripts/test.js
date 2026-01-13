@@ -7,8 +7,8 @@ const slashPattern = macroService.ClonePattern(patterns.arena.ticket.slash, { X:
 const slashResult = macroService.PollPattern(slashPattern);
 const valueBounds = {
 	X: ticketResult.Point.X + 60,
-	Y: slashResult.Point.Y - 9,
-	Height: slashPattern.Height + 5,
+	Y: ticketResult.Point.Y - 5,
+	Height: slashPattern.Height + 10,
 	Width: slashResult.Point.X - ticketResult.Point.X - 70
 };
 while (macroService.IsRunning) {
