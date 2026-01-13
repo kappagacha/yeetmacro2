@@ -135,5 +135,5 @@ function getArenaTicketCount() {
 	//	sleep(1_000);
 	//}
 
-	return Number(macroService.FindTextWithBounds(valueBounds));
+	return Number(macroService.FindTextWithBounds(valueBounds, '0123456789'));
 }
