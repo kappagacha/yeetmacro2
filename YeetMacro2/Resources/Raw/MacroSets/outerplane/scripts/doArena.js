@@ -126,8 +126,8 @@ function getArenaTicketCount() {
 	const slashResult = macroService.PollPattern(slashPattern);
 	const valueBounds = {
 		X: ticketResult.Point.X + 60,
-		Y: slashResult.Point.Y - 9,
-		Height: slashPattern.Height + 5,
+		Y: ticketResult.Point.Y - 3,
+		Height: 20,
 		Width: slashResult.Point.X - ticketResult.Point.X - 70
 	};
 	//while (macroService.IsRunning) {
