@@ -65,6 +65,10 @@ while (macroService.IsRunning) {
 			if (settings.doShop.jointChallenge.IsEnabled && !daily.doShop.jointChallenge.done.IsChecked) {
 				const jointChallengeItems = ['stamina'];
 				macroService.PollPattern(patterns.shop.contents.event, { DoClick: true, PredicatePattern: patterns.shop.contents.event.selected });
+				const jointChallengeSwipeResult = macroService.PollPattern(patterns.shop.contents.event.jointChallenge, { SwipePattern: patterns.shop.subsubTabSwipeRight, TimeoutMs: 4_000 });
+				if (!jointChallengeSwipeResult.IsSuccess) {
+					throw new Error('Unable to find joint challenge');
+				}
 				macroService.PollPattern(patterns.shop.contents.event.jointChallenge, { DoClick: true, PredicatePattern: patterns.shop.contents.event.jointChallenge.selected });
 				doShopItems('doShop', 'jointChallenge', jointChallengeItems);
 
