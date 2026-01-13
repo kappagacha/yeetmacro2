@@ -9,6 +9,7 @@ const cpThresholdIsEnabled = settings.doArena.cpThreshold.IsEnabled;
 const autoDetectCpThreshold = settings.doArena.autoDetectCpThreshold.Value;
 const clickPattern = [patterns.arena.defendReport.close, patterns.arena.newLeague, patterns.arena.tapEmptySpace, patterns.adventure.doNotSeeFor3days];
 const dayOfWeek = weeklyManager.GetDayOfWeek();
+let numTickets;
 
 while (macroService.IsRunning) {
 	const loopResult = macroService.PollPattern(loopPatterns, { ClickPattern: clickPattern });
@@ -26,8 +27,8 @@ while (macroService.IsRunning) {
 		case 'arena.calculationsInProgress':
 			return;
 		case 'titles.arena':
-			const numTicketsZeroResult1 = macroService.FindPattern(patterns.arena.numTicketsZero)
-			if (numTicketsZeroResult1.IsSuccess) {
+			numTickets = getArenaTicketCount()();
+			if (!numTickets) {
 				return;
 			} else {
 				macroService.ClickPattern(patterns.arena.arena);
@@ -35,8 +36,8 @@ while (macroService.IsRunning) {
 			break;
 		case 'arena.challenge1':
 		case 'arena.matchOpponent':
-			const numTicketsZeroResult2 = macroService.FindPattern(patterns.arena.numTicketsZero2)
-			if (numTicketsZeroResult2.IsSuccess) {
+			numTickets = getArenaTicketCount()();
+			if (!numTickets) {
 				return;
 			}
 
@@ -117,4 +118,22 @@ while (macroService.IsRunning) {
 			break;
 	}
 	sleep(1_000);
+}
+
+function getArenaTicketCount() {
+	const ticketResult = macroService.PollPattern(patterns.arena.ticket);
+	const slashPattern = macroService.ClonePattern(patterns.arena.ticket.slash, { X: ticketResult.Point.X + 60, Width: 100, Padding: 5, PathSuffix: `_x${ticketResult.Point.X}`, OffsetCalcType: 'None' });
+	const slashResult = macroService.PollPattern(slashPattern);
+	const valueBounds = {
+		X: ticketResult.Point.X + 60,
+		Y: slashResult.Point.Y - 9,
+		Height: slashPattern.Height + 5,
+		Width: slashResult.Point.X - ticketResult.Point.X - 70
+	};
+	//while (macroService.IsRunning) {
+	//	macroService.DebugRectangle(valueBounds);
+	//	sleep(1_000);
+	//}
+
+	return { value: macroService.FindTextWithBounds(valueBounds) };
 }
