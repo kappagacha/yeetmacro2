@@ -27,7 +27,7 @@ while (macroService.IsRunning) {
 		case 'arena.calculationsInProgress':
 			return;
 		case 'titles.arena':
-			numTickets = getArenaTicketCount()();
+			numTickets = getArenaTicketCount();
 			if (!numTickets) {
 				return;
 			} else {
@@ -36,7 +36,7 @@ while (macroService.IsRunning) {
 			break;
 		case 'arena.challenge1':
 		case 'arena.matchOpponent':
-			numTickets = getArenaTicketCount()();
+			numTickets = getArenaTicketCount();
 			if (!numTickets) {
 				return;
 			}
@@ -135,5 +135,5 @@ function getArenaTicketCount() {
 	//	sleep(1_000);
 	//}
 
-	return { value: macroService.FindTextWithBounds(valueBounds) };
+	return Number(macroService.FindTextWithBounds(valueBounds));
 }
