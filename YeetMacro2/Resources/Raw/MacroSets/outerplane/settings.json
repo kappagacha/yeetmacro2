@@ -3064,8 +3064,8 @@
     "claimFreeShop": {
       "$type": "boolean",
       "$tags": [],
-      "$defaultValue": false,
-      "$value": false,
+      "$defaultValue": true,
+      "$value": true,
       "$position": 3,
       "$name": "claimFreeShop",
       "$path": "doDailies.claimFreeShop"
