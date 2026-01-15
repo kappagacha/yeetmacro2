@@ -128,7 +128,7 @@ function getArenaTicketCount() {
 		X: ticketResult.Point.X + 60,
 		Y: ticketResult.Point.Y - 3,
 		Height: 20,
-		Width: slashResult.Point.X - ticketResult.Point.X - 70
+		Width: slashResult.Point.X - ticketResult.Point.X - 69
 	};
 	//while (macroService.IsRunning) {
 	//	macroService.DebugRectangle(valueBounds);
