@@ -267,13 +267,14 @@ public partial class PatternNodeManagerViewModel : NodeManagerViewModel<PatternN
     [RelayCommand]
     private void TestPattern(object[] values)
     {
-        if (values.Length != 5) return;
+        if (values.Length != 6) return;
 
         if (values[0] is Pattern pattern &&
             values[1] is string strXOffset &&
             values[2] is string strYOffset &&
             values[3] is bool doTestCalc &&
-            values[4] is string inputScale)
+            values[4] is string inputScale &&
+            values[5] is string inputLimit)
         {
             if (double.TryParse(inputScale, out double scale) && scale != 1.0)
             {
@@ -283,7 +284,7 @@ public partial class PatternNodeManagerViewModel : NodeManagerViewModel<PatternN
             // Usage of Task.Run and MainThread.BeginInvokeOnMainThread is needed because of AndroidOcrService
             Task.Run(() =>
             {
-                var opts = new FindOptions() { Limit = 10 };
+                var opts = new FindOptions() { Limit = int.TryParse(inputLimit, out int limit) ? limit : 10 };
                 if (doTestCalc) opts.Offset = pattern.Offset;
                 if (int.TryParse(strXOffset, out int xOffset)) opts.Offset = opts.Offset.Offset(xOffset, 0);
                 if (int.TryParse(strYOffset, out int yOffset)) opts.Offset = opts.Offset.Offset(0, yOffset);

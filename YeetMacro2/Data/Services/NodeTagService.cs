@@ -36,7 +36,6 @@ public class NodeTagService(IRepository<NodeTag> tagRepository) : INodeTagServic
     public void Update(NodeTag tag)
     {
         _tagRepository.Update(tag);
-        _tagRepository.Save();
     }
 
     public void Delete(int tagId)
