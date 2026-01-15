@@ -2,6 +2,7 @@
 using Microsoft.EntityFrameworkCore;
 using System.Linq.Expressions;
 using System.Reflection;
+using DbUpdateConcurrencyException = Microsoft.EntityFrameworkCore.DbUpdateConcurrencyException;
 
 namespace YeetMacro2.Data.Services;
 
@@ -107,12 +108,45 @@ public class EfRepository<TContext, TEntity>(TContext context) : IRepository<TEn
 
     public virtual void Update(TEntity entityToUpdate, Expression<Func<TEntity, object>> updateReferenceExpression = null)
     {
+        var entityType = context.Model.FindEntityType(typeof(TEntity));
+        var primaryKey = entityType?.FindPrimaryKey();
         var entry = context.Entry(entityToUpdate);
+
+        // Log entity info for debugging
+        var entityInfo = new System.Text.StringBuilder();
+        entityInfo.Append("Updating " + typeof(TEntity).Name);
+
+        var keyValues = new List<object>();
+        if (primaryKey != null)
+        {
+            foreach (var property in primaryKey.Properties)
+            {
+                var value = property.GetGetter().GetClrValue(entityToUpdate);
+                keyValues.Add(value);
+                entityInfo.Append($", {property.Name}={value}");
+            }
+        }
+
+        entityInfo.Append($", State={entry.State}");
+
         if (entry.State == EntityState.Detached)
         {
+            if (primaryKey != null)
+            {
+                var trackedEntity = dbSet.Find(keyValues.ToArray());
+                if (trackedEntity != null)
+                {
+                    var trackedEntry = context.Entry(trackedEntity);
+                    entityInfo.Append($", Detached tracked entity (State={trackedEntry.State}, ReferenceEquals={ReferenceEquals(trackedEntity, entityToUpdate)})");
+                    System.Diagnostics.Debug.WriteLine(entityInfo.ToString());
+                    trackedEntry.State = EntityState.Detached;
+                }
+            }
+
             context.Attach(entityToUpdate);
-        } 
-        
+            entry = context.Entry(entityToUpdate);
+        }
+
         if (entry.State != EntityState.Added)
         {
             entry.State = EntityState.Modified;
@@ -124,10 +158,64 @@ public class EfRepository<TContext, TEntity>(TContext context) : IRepository<TEn
             var updateRefrenceEntry = context.Entry(updateReferenceValue);
             updateRefrenceEntry.State = EntityState.Modified;
         }
+
+        System.Diagnostics.Debug.WriteLine(entityInfo.ToString());
     }
 
     public virtual void Save()
     {
-        context.SaveChanges();
+        try
+        {
+            context.SaveChanges();
+        }
+        catch (DbUpdateConcurrencyException ex)
+        {
+            var details = new System.Text.StringBuilder();
+            details.AppendLine("DbUpdateConcurrencyException for " + typeof(TEntity).Name + ":");
+
+            foreach (var entry in ex.Entries)
+            {
+                details.AppendLine("  Entity: " + entry.Entity.GetType().Name);
+                details.AppendLine("  State: " + entry.State);
+
+                // Get primary key info
+                var primaryKey = entry.Metadata.FindPrimaryKey();
+                if (primaryKey != null)
+                {
+                    var keyParts = new System.Collections.Generic.List<string>();
+                    foreach (var pkProp in primaryKey.Properties)
+                    {
+                        var propEntry = entry.Properties.FirstOrDefault(p => p.Metadata.Name == pkProp.Name);
+                        if (propEntry != null)
+                        {
+                            keyParts.Add(pkProp.Name + "=" + propEntry.CurrentValue);
+                        }
+                    }
+                    details.AppendLine("  PrimaryKey: " + string.Join(", ", keyParts));
+                }
+
+                // Get database values
+                var databaseEntry = entry.GetDatabaseValues();
+                if (databaseEntry != null)
+                {
+                    details.AppendLine("  Database values:");
+                    foreach (var prop in entry.Properties)
+                    {
+                        var dbValue = databaseEntry.GetValue<object>(prop.Metadata.Name);
+                        details.AppendLine("    " + prop.Metadata.Name + "=" + dbValue);
+                    }
+                }
+
+                details.AppendLine("  Current values:");
+                foreach (var prop in entry.Properties)
+                {
+                    details.AppendLine("    " + prop.Metadata.Name + "=" + prop.CurrentValue);
+                }
+            }
+
+            var newEx = new InvalidOperationException(details.ToString(), ex);
+            System.Diagnostics.Debug.WriteLine(details.ToString());
+            throw newEx;
+        }
     }
 }
