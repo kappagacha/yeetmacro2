@@ -14,7 +14,10 @@ outerLoop: while ((Math.abs(lastSelectedResult.Point.X - selectedResult.Point.X)
         Math.abs(lastSelectedResult.Point.Y - selectedResult.Point.Y) > 15)) {
     if (!macroService.IsRunning) break;
 
-    const itemResult = macroService.FindPattern(patterns.inventory.item, { Limit: 100 });
+    const itemResultLegendary = macroService.FindPattern(patterns.inventory.item.corner.legendary, { Limit: 100 });
+    const itemResultEpic = macroService.FindPattern(patterns.inventory.item.corner.epic, { Limit: 100 });
+    // the points will be in the middles instead of the expected lower left corner so subtracting X by 70
+    const itemResultPoints = [...(itemResultLegendary.Points ?? []), ...(itemResultEpic.Points ?? [])].map(p => ({ X: p.X - 70, Y: p.Y }));
     const minY = selectedResult.Point.Y;
     const selectedRowMinX = selectedResult.Point.X;
 
@@ -36,7 +39,7 @@ outerLoop: while ((Math.abs(lastSelectedResult.Point.X - selectedResult.Point.X)
 
     // All items matching patterns.inventory.item are unselected items
     // Filter out the selected item duplicate and items before it
-    const itemsAfterSelected = itemResult.Points
+    const itemsAfterSelected = itemResultPoints
         .filter(p => !isSelectedItem(p) && isAfterSelected(p))
         .sort((a, b) => {
             // First sort by Y (row), then by X (column)
