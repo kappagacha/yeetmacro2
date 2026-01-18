@@ -85,13 +85,13 @@ const bossTypeToTeam = {
             name: 'monadEva'
         },
         top: {
-            name: 'demiurgeLuna'
+            name: 'mysticSageAme'
         },
         right: {
-            name: 'nella'
+            name: 'demiurgeDrakan'
         },
         bottom: {
-            name: 'gnosisViella'
+            name: 'rey'
         },
     },
     sacreedGuardian: {
@@ -233,7 +233,15 @@ const characterToFilter = {
     fortuna: {
         element: 'water',
         battleType: 'mage'
-    }
+    },
+    demiurgeDrakan: {
+        element: 'light',
+        battleType: 'defender'
+    },
+    gnosisNella: {
+        element: 'light',
+        battleType: 'mage'
+    },
 };
 
 const locationToCharacterCloneOpts = {
