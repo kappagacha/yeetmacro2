@@ -10,7 +10,7 @@ namespace YeetMacro2.ViewModels;
 public partial class TagManagerViewModel : ObservableObject
 {
     private readonly int _macroSetId;
-    private readonly INodeTagService _nodeTagService;
+    private readonly IRepository<MacroSet> _macroSetRepository;
     private readonly IInputService _inputService;
     private readonly IToastService _toastService;
 
@@ -22,55 +22,17 @@ public partial class TagManagerViewModel : ObservableObject
     public TagManagerViewModel(
         int macroSetId,
         MacroSetViewModel macroSet,
-        INodeTagService nodeTagService,
+        IRepository<MacroSet> macroSetRepository,
         IInputService inputService,
         IToastService toastService)
     {
         _macroSetId = macroSetId;
         MacroSet = macroSet;
-        _nodeTagService = nodeTagService;
+        _macroSetRepository = macroSetRepository;
         _inputService = inputService;
         _toastService = toastService;
-    }
-
-    public void ImportTags(IEnumerable<NodeTag> tagsToImport)
-    {
-        // Delete existing tags from database
-        var existingTags = _nodeTagService.GetTagsForMacroSet(_macroSetId).ToList();
-        foreach (var tag in existingTags)
-        {
-            _nodeTagService.Delete(tag.TagId);
-        }
-
-        // Ensure Tags is an ObservableCollection
-        ObservableCollection<NodeTag> tags;
-        if (MacroSet.Tags == null || MacroSet.Tags is not ObservableCollection<NodeTag>)
-        {
-            tags = new ObservableCollection<NodeTag>();
-            MacroSet.Tags = tags;
-        }
-        else
-        {
-            tags = MacroSet.Tags as ObservableCollection<NodeTag>;
-        }
-
-        // Clear and repopulate the collection
-        tags.Clear();
-
-        foreach (var tag in tagsToImport.OrderBy(t => t.Position))
-        {
-            var newTag = new NodeTag
-            {
-                MacroSetId = _macroSetId,
-                Name = tag.Name,
-                FontFamily = tag.FontFamily,
-                Glyph = tag.Glyph,
-                Position = tag.Position
-            };
-            _nodeTagService.Insert(newTag);
-            tags.Add(newTag);
-        }
-        _nodeTagService.Save();
+        // force track macroSet
+        _macroSetRepository.Update(macroSet);
     }
 
     [RelayCommand]
@@ -107,10 +69,10 @@ public partial class TagManagerViewModel : ObservableObject
             Position = tags.Count
         };
 
-        _nodeTagService.Insert(newTag);
-        _nodeTagService.Save();
         tags.Add(newTag);
         _toastService.Show($"Added tag: {name}");
+        _macroSetRepository.Update(MacroSet);
+        _macroSetRepository.Save();
     }
 
     [RelayCommand]
@@ -124,11 +86,12 @@ public partial class TagManagerViewModel : ObservableObject
 
         if (confirm != "Yes") return;
 
-        _nodeTagService.Delete(tag.TagId);
-        _nodeTagService.Save();
-
         var tags = MacroSet.Tags as ObservableCollection<NodeTag>;
         tags.Remove(tag);
+
+        _macroSetRepository.Update(MacroSet);
+        _macroSetRepository.Save();
+
         _toastService.Show($"Deleted tag: {tag.Name}");
     }
 
@@ -145,11 +108,10 @@ public partial class TagManagerViewModel : ObservableObject
         tagAbove.Position++;
         tag.Position--;
 
-        _nodeTagService.Update(tagAbove);
-        _nodeTagService.Update(tag);
-        _nodeTagService.Save();
-
         tags.Move(index, index - 1);
+
+        _macroSetRepository.Update(MacroSet);
+        _macroSetRepository.Save();
         _toastService.Show("Moved tag up");
     }
 
@@ -165,12 +127,11 @@ public partial class TagManagerViewModel : ObservableObject
         var tagBelow = tags[index + 1];
         tagBelow.Position--;
         tag.Position++;
-
-        _nodeTagService.Update(tagBelow);
-        _nodeTagService.Update(tag);
-        _nodeTagService.Save();
-
         tags.Move(index, index + 1);
+
+        _macroSetRepository.Update(MacroSet);
+        _macroSetRepository.Save();
+
         _toastService.Show("Moved tag down");
     }
 }

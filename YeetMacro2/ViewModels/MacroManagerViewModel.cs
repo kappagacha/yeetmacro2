@@ -347,7 +347,8 @@ public partial class MacroManagerViewModel : ObservableObject
     private async Task UpdateMacroSet(MacroSetViewModel macroSet)
     {
         macroSet.IsBusy = IsBusy = true;
-
+        // force track macroSet
+        _macroSetRepository.Update(macroSet);
         try
         {
             MacroSet targetMacroSet;
@@ -500,14 +501,12 @@ public partial class MacroManagerViewModel : ObservableObject
                 macroSet.Weeklies.UpdateCurrentWeeklyTemplate();
             }
 
-            // Handle tags manually to avoid EF tracking issues
-            var tagsToImport = targetMacroSet.Tags?.ToList();
-
             _mapper.Map(targetMacroSet, macroSet, opt =>
             {
                 // prevent db id and macroset level settings from getting wiped out
                 opt.BeforeMap((src, dst) =>
                 {
+                    macroSet.Tags.Clear();
                     src.MacroSetId = dst.MacroSetId;
                     src.RootScriptNodeId = dst.RootScriptNodeId;
                     src.RootPatternNodeId = dst.RootPatternNodeId;
@@ -522,12 +521,6 @@ public partial class MacroManagerViewModel : ObservableObject
 
             _macroSetRepository.Update(macroSet);
             _macroSetRepository.Save();
-
-            // Import tags through TagManager if there are tags to import
-            if (tagsToImport != null && tagsToImport.Count > 0)
-            {
-                macroSet.TagManager.ImportTags(tagsToImport);
-            }
 
             OnSelectedMacroSetChanged(macroSet);
             _toastService.Show($"Updated MacroSet: {macroSet.Name}");
