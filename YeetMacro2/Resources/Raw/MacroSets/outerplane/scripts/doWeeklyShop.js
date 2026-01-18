@@ -127,6 +127,10 @@ function doStarMemoryItems() {
 function doJointChallengeItems() {
 	const jointChallengeItems = ['specialRecruitmentTicket', 'stage3GemChest', 'gold'];
 	macroService.PollPattern(patterns.shop.contents.event, { DoClick: true, PredicatePattern: patterns.shop.contents.event.selected });
+	const jointChallengeSwipeResult = macroService.PollPattern(patterns.shop.contents.event.jointChallenge, { SwipePattern: patterns.shop.subsubTabSwipeRight, TimeoutMs: 4_000 });
+	if (!jointChallengeSwipeResult.IsSuccess) {
+		throw new Error('Unable to find joint challenge');
+	}
 	macroService.PollPattern(patterns.shop.contents.event.jointChallenge, { DoClick: true, PredicatePattern: patterns.shop.contents.event.jointChallenge.selected });
 
 	doShopItems('doWeeklyShop', 'jointChallenge', jointChallengeItems, true);
