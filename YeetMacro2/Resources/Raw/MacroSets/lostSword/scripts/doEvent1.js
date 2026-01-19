@@ -40,6 +40,14 @@ while (macroService.IsRunning) {
 				sweepResult = macroService.PollPattern(patterns.battle.sweep, { DoClick: true, PredicatePattern: [patterns.battle.sweep.confirm, patterns.general.itemsAcquired], TimeoutMs: 3_000 });
 			}
 
+			sweepResult = macroService.PollPattern(patterns.battle.sweep2, { DoClick: true, PredicatePattern: patterns.general.itemsAcquired, TimeoutMs: 3_000 });
+
+			logger.info('doEvent1: do sweep2');
+			while (sweepResult.IsSuccess) {
+				macroService.PollPattern(patterns.general.itemsAcquired, { DoClick: true, PredicatePattern: [patterns.battle.select, patterns.battle.start] });
+				sweepResult = macroService.PollPattern(patterns.battle.sweep2, { DoClick: true, PredicatePattern: patterns.general.itemsAcquired, TimeoutMs: 3_000 });
+			}
+
 			if (macroService.IsRunning) daily.doEvent1.done.IsChecked = true;
 
 			return;
