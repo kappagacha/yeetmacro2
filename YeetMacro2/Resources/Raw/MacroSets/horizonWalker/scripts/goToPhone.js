@@ -10,7 +10,7 @@ const clickPatterns = [
 ]
 
 while (macroService.IsRunning) {
-	const loopResult = macroService.PollPattern(loopPatterns, { ClickPattern: clickPatterns });
+	const loopResult = macroService.PollPattern(loopPatterns, { ClickPattern: clickPatterns, Callback: handlePopups });
 	switch (loopResult.Path) {
 		case 'startScreen.settings':
 			macroService.PollPattern(patterns.startScreen.settings, { DoClick: true, ClickOffset: { X: -200 }, InversePredicatePattern: patterns.startScreen.settings });
