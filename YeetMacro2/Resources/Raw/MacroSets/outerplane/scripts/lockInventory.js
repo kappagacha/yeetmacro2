@@ -14,7 +14,10 @@ outerLoop: while ((Math.abs(lastSelectedResult.Point.X - selectedResult.Point.X)
         Math.abs(lastSelectedResult.Point.Y - selectedResult.Point.Y) > 15)) {
     if (!macroService.IsRunning) break;
 
-    const itemResult = macroService.FindPattern(patterns.inventory.item, { Limit: 100 });
+    const itemResultLegendary = macroService.FindPattern(patterns.inventory.item.corner.legendary, { Limit: 100 });
+    const itemResultEpic = macroService.FindPattern(patterns.inventory.item.corner.epic, { Limit: 100 });
+    // the points will be in the middles instead of the expected lower left corner so subtracting X by 70
+    const itemResultPoints = [...(itemResultLegendary.Points ?? []), ...(itemResultEpic.Points ?? [])].map(p => ({ X: p.X - 70, Y: p.Y }));
     const minY = selectedResult.Point.Y;
     const selectedRowMinX = selectedResult.Point.X;
 
@@ -36,7 +39,7 @@ outerLoop: while ((Math.abs(lastSelectedResult.Point.X - selectedResult.Point.X)
 
     // All items matching patterns.inventory.item are unselected items
     // Filter out the selected item duplicate and items before it
-    const itemsAfterSelected = itemResult.Points
+    const itemsAfterSelected = itemResultPoints
         .filter(p => !isSelectedItem(p) && isAfterSelected(p))
         .sort((a, b) => {
             // First sort by Y (row), then by X (column)
@@ -80,7 +83,7 @@ outerLoop: while ((Math.abs(lastSelectedResult.Point.X - selectedResult.Point.X)
 
         if (isLastItem) continue;
 
-        let itemStats = getItemStats();
+        let itemStats = getItemStats2();
 
         // Track the very first item's grade
         if (firstItemGrade === null) {
@@ -93,19 +96,12 @@ outerLoop: while ((Math.abs(lastSelectedResult.Point.X - selectedResult.Point.X)
             break;
         }
 
-        if (itemStats.desiredPoints < 5) {  // double check
-            itemStats = getItemStats();
-        }
-        if (itemStats.desiredPoints < 5) {  // triple check
-            itemStats = getItemStats();
-        }
-
-        if (!['Legendary', 'Epic'].includes(itemStats.itemGrade)) continue;
+        if (!['legendary', 'epic'].includes(itemStats.itemGrade)) continue;
 
         processedCount++;
 
         // Legendary processing (no locked check, requires 6 yellow stars, requires 6+ points, requires 3+ desired stats)
-        if (itemStats.itemGrade === 'Legendary') {
+        if (itemStats.itemGrade === 'legendary') {
             if (numYellowStars !== 6) continue;
 
             // Require at least 3 desired stats (out of 4 secondary stats) for all Legendary items
@@ -144,6 +140,7 @@ outerLoop: while ((Math.abs(lastSelectedResult.Point.X - selectedResult.Point.X)
                 macroService.PollPattern(patterns.general.back, { DoClick: true, PrimaryClickPredicatePattern: patterns.titles.improveGear, PredicatePattern: patterns.titles.inventory });
 
                 // start the outer while loop over
+                lastSelectedResult = { Point: { X: 0, Y: 0 } };
                 selectedResult = macroService.PollPattern(patterns.inventory.selected);
                 isFirstIteration = true;
                 continue outerLoop;
@@ -172,6 +169,6 @@ outerLoop: while ((Math.abs(lastSelectedResult.Point.X - selectedResult.Point.X)
 }
 
 // Display summary
-const searchType = firstItemGrade === 'Legendary' ? 'Legendary' : 'Epic';
+const searchType = firstItemGrade === 'legendary' ? 'Legendary' : 'Epic';
 const summary = `Inventory processing complete.\nSearch type: ${searchType}\nProcessed: ${processedCount}\nLocked: ${lockedCount}\nUnlocked: ${unlockedCount}`;
 return summary;

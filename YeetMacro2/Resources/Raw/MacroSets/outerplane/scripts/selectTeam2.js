@@ -258,9 +258,11 @@ const presetOverride = {};
 
 for ([location, character] of Object.entries(team)) {
     const isOccupied = macroService.FindPattern(patterns.battle.teamFormation[location].occupied).IsSuccess;
-    if (!character && isOccupied) {        
+    if (!character && isOccupied) {
         macroService.PollPattern(patterns.battle.teamFormation[location], { DoClick: true, PredicatePattern: patterns.battle.teamFormation[location].remove, PrimaryClickInversePredicatePattern: patterns.battle.teamFormation[location].remove });
         macroService.PollPattern(patterns.battle.teamFormation[location].remove, { DoClick: true, InversePredicatePattern: patterns.battle.teamFormation[location].remove });
+        continue;
+    } else if (!character) {
         continue;
     }
 
