@@ -1,5 +1,4 @@
-// @position=8
-// Auto or sweep bandit chase
+// @tags=weeklies
 const loopPatterns = [patterns.lobby.level, patterns.adventure.adventureLicense.title, patterns.adventure.adventureLicense.weeklyConquest.selected, patterns.titles.adventure];
 
 
@@ -35,7 +34,16 @@ while (macroService.IsRunning) {
 			}
 			macroService.PollPoint(incompleteWanted, { DoClick: true, PredicatePattern: patterns.adventure.adventureLicense.weeklyConquest.heroDeployment });
 			macroService.PollPattern(patterns.adventure.adventureLicense.weeklyConquest.heroDeployment, { DoClick: true, PredicatePattern: patterns.battle.enter });
-			selectTeam2();
+			try {
+
+				selectTeam2();
+			} catch (err) {
+				if (err.message.includes('Could not find')) {
+					return err.message;
+				}
+				throw err;
+			}
+
 			macroService.PollPattern(patterns.general.back, { DoClick: true, PrimaryClickInversePredicatePattern: patterns.battle.enter, PredicatePattern: patterns.battle.enter });
 			macroService.PollPattern(patterns.battle.enter, { DoClick: true, PredicatePattern: patterns.adventure.adventureLicense.weeklyConquest.next });
 			macroService.PollPattern(patterns.adventure.adventureLicense.weeklyConquest.next, { DoClick: true, PredicatePattern: patterns.adventure.adventureLicense.weeklyConquest.exit });
@@ -43,6 +51,14 @@ while (macroService.IsRunning) {
 	}
 	sleep(1_000);
 }
+
+//const wantedResults = macroService.FindPattern(patterns.adventure.adventureLicense.weeklyConquest.wanted, { Limit: 4 });
+//for (const p of wantedResults.Points.sort((a, b) => a.X - b.X)) {
+//	const completedPattern = macroService.ClonePattern(patterns.adventure.adventureLicense.weeklyConquest.completed,
+//		{ CenterX: p.X - 10, CenterY: p.Y - 130, Height: 120, Width: 270, PathSuffix: `_${p.X}x` });
+//	macroService.PollPattern(completedPattern, { PredicatePattern: patterns.lobby.level });
+//	break;
+//}
 
 function findIncompleteWanted() {
 	const wantedResults = macroService.FindPattern(patterns.adventure.adventureLicense.weeklyConquest.wanted, { Limit: 4 });
@@ -54,3 +70,4 @@ function findIncompleteWanted() {
 		}
 	}
 }
+
