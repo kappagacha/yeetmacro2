@@ -10,6 +10,11 @@ const bossTypePatterns = [
     .map(bt => patterns.battle.boss[bt]);
 const bossTypeResult = macroService.PollPattern(bossTypePatterns);
 const bossType = bossTypeResult.Path?.split('.').pop();
+
+if (bossType === 'gustav') {
+    throw new Error('Gustav detected.');
+}
+
 const bossTypeToTeam = {
     grandCalamari: {
         left: {
