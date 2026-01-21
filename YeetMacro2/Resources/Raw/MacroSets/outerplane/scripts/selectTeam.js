@@ -87,12 +87,10 @@ function detectBossType() {
 }
 
 function setChainOrder() {
-	const chainPreviewPollResult = macroService.PollPattern(patterns.battle.chainPreview, { DoClick: true, PredicatePattern: [patterns.battle.chainPreview.selected, patterns.battle.chainPreview.ownedView] });
+	macroService.PollPattern(patterns.general.back, { DoClick: true, PrimaryClickInversePredicatePattern: [patterns.battle.chainPreview, patterns.battle.chainPreview.selected], PredicatePattern: [patterns.battle.chainPreview, patterns.battle.chainPreview.selected] });
+	macroService.PollPattern(patterns.battle.chainPreview, { DoClick: true, PredicatePattern: patterns.battle.chainPreview.selected });
 	if (macroService.FindPattern(patterns.battle.chainPreview.missingSlots).IsSuccess) return;
 
-	const isOwnedView = chainPreviewPollResult.PredicatePath === 'battle.chainPreview.ownedView';
-
-	const clickOffset = isOwnedView ? { X: 863, Y: -60 } : { X: 0, Y: 0 };
 	const chainPreviewResult = { A: {}, B: {}, C: {}, D: {} };
 
 	const chainPositionBasePatterns = [
@@ -120,15 +118,6 @@ function setChainOrder() {
 			// $patterns uses snapshot patterns json and the other uses actual C# class PatternNodeViewModel
 			const originalRawBounds = patterns.battle.chainPreview[position]?.Pattern?.RawBounds || patterns.battle.chainPreview[position].$patterns[0].rawBounds;
 			let rawBounds = { ...originalRawBounds };
-			if (isOwnedView) {
-				rawBounds = {
-					X: (rawBounds.X ?? rawBounds.x) + 863,
-					Y: (rawBounds.Y ?? rawBounds.y) - 60,
-					Width: rawBounds.Width ?? rawBounds.width,
-					Height: rawBounds.Height ?? rawBounds.height
-				};
-			}
-
 			const cloneOpts = { RawBounds: rawBounds, PathSuffix: `_${position}` };
 			const chainPositionPatterns = chainPositionBasePatterns.map(p => macroService.ClonePattern(p, cloneOpts));
 			const effectPatterns = effectsBasePatterns.map(p => macroService.ClonePattern(p, cloneOpts));
@@ -162,15 +151,15 @@ function setChainOrder() {
 		if (targetStarterExclusive === 'A' && targetFinisherExclusive === 'D') break;
 
 		if (targetStarterExclusive !== 'A') {
-			macroService.ClickPattern(patterns.battle.chainPreview.A, { ClickOffset: clickOffset });
+			macroService.ClickPattern(patterns.battle.chainPreview.A);
 			sleep(250);
-			macroService.ClickPattern(patterns.battle.chainPreview[targetStarterExclusive], { ClickOffset: clickOffset });
+			macroService.ClickPattern(patterns.battle.chainPreview[targetStarterExclusive]);
 		}
 
 		if (targetFinisherExclusive !== 'D' && targetStarterExclusive !== 'D') {
-			macroService.ClickPattern(patterns.battle.chainPreview.D, { ClickOffset: clickOffset });
+			macroService.ClickPattern(patterns.battle.chainPreview.D);
 			sleep(250);
-			macroService.ClickPattern(patterns.battle.chainPreview[targetFinisherExclusive], { ClickOffset: clickOffset });
+			macroService.ClickPattern(patterns.battle.chainPreview[targetFinisherExclusive]);
 		}
 	}
 }
