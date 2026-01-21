@@ -36,8 +36,12 @@ while (macroService.IsRunning) {
 			if (!daily.doEventStory.isTeamResolved.IsChecked) {
 				selectTeam(teamSlot);
 				teamUnselectAll();
-				teamSelectBonus();
-				applyPreset();
+				const locationsToBonusCharacters = teamSelectBonus();
+				if (locationsToBonusCharacters['right'].battleType === 'mage') {
+					applyPreset(undefined, { presetOverride: { right: '#MAG#PEN#ATK' } });
+				} else {
+					applyPreset();
+				}
 				daily.doEventStory.isTeamResolved.IsChecked = true;
 			}
 			macroService.PollPattern(patterns.general.back, { DoClick: true, PrimaryClickInversePredicatePattern: patterns.battle.enter, PredicatePattern: patterns.battle.enter });
@@ -84,7 +88,7 @@ function teamSelectBonus() {
 	// Battle type preferences for locations
 	const battleTypePreferences = {
 		striker: ['top', 'bottom'],
-		mage: ['bottom', 'top', 'left'],
+		mage: ['bottom', 'top', 'left', 'right'],
 		healer: ['left', 'right'],
 		defender: ['right'],
 		ranger: ['left', 'top', 'bottom']
@@ -135,4 +139,6 @@ function teamSelectBonus() {
 			charactersPlaced++;
 		}
 	}
+
+	return locationsToBonusCharacters;
 }
