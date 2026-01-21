@@ -24,7 +24,7 @@ while (macroService.IsRunning) {
 			let incompleteWanted = findIncompleteWanted();
 
 			if (!incompleteWanted) {
-				macroService.SwipePattern(patterns.general.swipeRight);
+				macroService.SwipePattern(patterns.adventure.adventureLicense.weeklyConquest.swipeRight);
 				sleep(3_500);
 				incompleteWanted = findIncompleteWanted();
 			}
@@ -65,7 +65,7 @@ function findIncompleteWanted() {
 	for (const p of wantedResults.Points.sort((a, b) => a.X - b.X)) {
 		const completedPattern = macroService.ClonePattern(patterns.adventure.adventureLicense.weeklyConquest.completed,
 			{ CenterX: p.X - 10, CenterY: p.Y - 130, Height: 130, Width: 280, PathSuffix: `_${p.X}x`, OffsetCalcType: 'None' });
-		if (!macroService.FindPattern(completedPattern).IsSuccess) {
+		if (!macroService.PollPattern(completedPattern, { TimeoutMs: 2_500 }).IsSuccess) {
 			return p;
 		}
 	}
