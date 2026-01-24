@@ -7,16 +7,12 @@ const teamSlot = settings.doPursuitOperation.teamSlot.Value;
 const publishToPublic = settings.doPursuitOperation.publishToPublic.Value;
 let targetOperation = settings.doPursuitOperation.targetOperation.Value;
 
-//if (daily.doPursuitOperation.done.IsChecked) {
-//	return "Script already completed. Uncheck done to override daily flag.";
-//}
-
 let teamRestored = false;
 let isRotateOperation = targetOperation === 'rotate';
 let isAutoOperation = targetOperation === 'auto';
 
-//const operations = ['ironStretcher', 'irregularQueen', 'blockbuster', 'mutatedWyvre'];
 const operations = ['irregularQueen', 'blockbuster', 'mutatedWyvre', 'ironStretcher'];
+const defaultOperation = 'irregularQueen';
 let operationToPoints = {
 	irregularQueen: {
 		target: 6000,
@@ -76,7 +72,6 @@ while (macroService.IsRunning) {
 
 			const zeroOperationsResult = macroService.FindPattern(patterns.irregularExtermination.pursuitOperation.zeroOperations);
 			if (zeroOperationsResult.IsSuccess) {
-				//macroService.IsRunning && (daily.doPursuitOperation.done.IsChecked = true);
 				macroService.IsRunning && daily.doPursuitOperation.count.Count++;
 				return;
 			}
@@ -86,7 +81,7 @@ while (macroService.IsRunning) {
 				targetOperation = Object.entries(operationToPoints).reduce((targetOperation, [op, { target, current }]) => {
 					if (targetOperation || current > target) return targetOperation;
 					return op;
-				}, null) || 'ironStretcher';
+				}, null) || defaultOperation;
 			}
 
 			if (isRotateOperation) {

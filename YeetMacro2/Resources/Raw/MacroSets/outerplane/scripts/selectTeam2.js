@@ -83,7 +83,7 @@ const alternateLightTeam = {
         name: 'drakhan'
     },
     right: {
-        name: 'demiurgeDrakhan'
+        name: 'gnosisNella'
     },
     bottom: {
         name: 'regina'
