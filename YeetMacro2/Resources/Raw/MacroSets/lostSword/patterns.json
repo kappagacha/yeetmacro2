@@ -6694,9 +6694,41 @@
           "offsetCalcType": "DockRight",
           "boundsCalcType": "Default",
           "position": 0
+        },
+        {
+          "rawBounds": {
+            "x": 1325.25,
+            "y": 960.25,
+            "width": 235.5,
+            "height": 70.5
+          },
+          "resolution": {
+            "width": 1920,
+            "height": 1080
+          },
+          "type": "Normal",
+          "swipeDirection": "Auto",
+          "name": "pattern2",
+          "imageData": "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",
+          "variancePct": 20,
+          "textMatch": {
+            "isActive": false,
+            "text": null,
+            "whiteList": null
+          },
+          "colorThreshold": {
+            "isActive": false,
+            "variancePct": 30,
+            "color": null,
+            "imageData": "",
+            "ignoreBackground": false
+          },
+          "offsetCalcType": "Default",
+          "boundsCalcType": "Default",
+          "position": 0
         }
       ],
-      "$isMultiPattern": false,
+      "$isMultiPattern": true,
       "$position": 0,
       "$name": "sweep2",
       "$path": "battle.sweep2"
