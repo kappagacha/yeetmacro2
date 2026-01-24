@@ -139,8 +139,9 @@ function selectOption() {
 	let optionsResult = macroService.PollPattern(patterns.character.chat.next, { DoClick: true, ClickOffset: { Y: -60 }, PredicatePattern: patterns.character.chat.options });
 
 	while (macroService.IsRunning && optionsResult.IsSuccess) {
-		macroService.PollPattern(patterns.character.chat.options);
 		optionsResult = macroService.FindPattern(patterns.character.chat.options, { Limit: 3 });
+		if (!optionsResult.IsSuccess) break;
+
 		const optionNumber = Math.floor(Math.random() * optionsResult.Points.length);
 		const optionPoint = optionsResult.Points[optionNumber];
 		macroService.DoClick(optionPoint);
