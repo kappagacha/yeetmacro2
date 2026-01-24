@@ -488,7 +488,7 @@ for ([location, character] of Object.entries(team)) {
     const filter = characterToFilter[character.name];
     const characterCloneOpst = locationToCharacterCloneOpts[location];
     const characterPattern = macroService.ClonePattern(patterns.battle.character[character.name], characterCloneOpst);
-    const characterPatternResult = macroService.FindPattern(characterPattern);
+    const characterPatternResult = macroService.PollPattern(characterPattern, { TimeoutMs: 500 });
 
     if (character.presetOverride) presetOverride[location] = character.presetOverride;
     if (characterPatternResult.IsSuccess) continue;
