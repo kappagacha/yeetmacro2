@@ -14,6 +14,7 @@ const bossTypePatterns = [
     ].map(bt => patterns.battle.boss[bt]);
 const bossTypeResult = macroService.PollPattern(bossTypePatterns);
 const bossType = bossTypeResult.Path?.split('.').pop();
+logger.info(`selectTeam2: bossType ${bossType}`);
 
 // irregularCrawler => fire
 // irregularRunner => earth
@@ -220,14 +221,16 @@ const bossTypeToTeam = {
     },
     irregularBlade: {
         left: {
-            name: 'valentine'
+            //name: 'valentine'
+            name: 'bryn'
         },
         top: {
             name: 'maxie'
         },
         right: {
-            name: 'bryn',
-            presetOverride: '#MAG#PEN#ATK'
+            //name: 'bryn',
+            //presetOverride: '#MAG#PEN#ATK'
+            name: 'astei',
         },
         bottom: {
             name: 'eternal'
@@ -461,6 +464,10 @@ const characterToFilter = {
         element: 'light',
         battleType: 'healer'
     },
+    astie: {
+        element: 'fire',
+        battleType: 'healer'
+    },
 };
 
 const locationToCharacterCloneOpts = {
@@ -511,11 +518,10 @@ for ([location, character] of Object.entries(team)) {
     macroService.PollPattern(patterns.battle.characterFilter.ok, { DoClick: true, PredicatePattern: [patterns.battle.characterFilter, patterns.battle.characterFilter.applied] });
     const allCharacterCloneOpts = { X: 70, Y: 880, Width: 1700, Height: 130, PathSuffix: '_all', OffsetCalcType: 'None', BoundsCalcType: 'FillWidth' };
     const allCharacterPattern = macroService.ClonePattern(patterns.battle.character[character.name], allCharacterCloneOpts);
-    logger.info('after allCharacterPattern');
     if (isOccupied) {
         macroService.PollPattern(patterns.battle.teamFormation[location], { DoClick: true, PredicatePattern: [patterns.battle.teamFormation[location].remove, patterns.battle.teamFormation[location].add], PrimaryClickInversePredicatePattern: patterns.battle.teamFormation[location].remove });
     }
-    logger.info('after isOccupied');
+
     const allCharacterResult = macroService.PollPattern(allCharacterPattern, { DoClick: true, ClickPattern: patterns.battle.teamFormation[location].add, PredicatePattern: characterPattern, TimeoutMs: 3_000 });
     if (!allCharacterResult.IsSuccess) {
         throw new Error(`Could not find ${character.name}`);
