@@ -3379,5 +3379,21 @@
       "$name": "debugBounds",
       "$path": "test.debugBounds"
     }
+  },
+  "selectTeam2": {
+    "$type": "parent",
+    "$tags": [],
+    "$position": 0,
+    "$name": "selectTeam2",
+    "$path": "selectTeam2",
+    "useAlternateTeams": {
+      "$type": "boolean",
+      "$tags": [],
+      "$defaultValue": true,
+      "$value": true,
+      "$position": 0,
+      "$name": "useAlternateTeams",
+      "$path": "selectTeam2.useAlternateTeams"
+    }
   }
 }

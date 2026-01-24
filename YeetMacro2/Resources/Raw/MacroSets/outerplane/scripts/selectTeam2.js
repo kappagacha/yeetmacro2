@@ -6,14 +6,103 @@ const bossTypePatterns = [
     'grandCalamari', 'unidentifiedChimera', 'schwartz', 'amadeus', 'masterlessGuardian',
     'epsilon', 'anubisGuardian', 'tyrantToddler', 'ziggsaron', 'vladiMax', 'glicys',
     'arsNova', 'ksai', 'forestKing', 'dekRilAndMekRil', 'archdemonShadow', 'meteos',
-    'gustav', 'sacreedGuardian', 'assaultSuit']
-    .map(bt => patterns.battle.boss[bt]);
+    'gustav', 'sacreedGuardian', 'assaultSuit',
+    // irregular extermination project => infiltration operation
+    'irregularCrawler', 'irregularRunner', 'irregularSpike', 'irregularScythe',
+    'irregularMachineGun', 'irregularBlade', 'blockbuster', 'ironStretcher', 'mutatedWyvre',
+    'irregularQueen'
+    ].map(bt => patterns.battle.boss[bt]);
 const bossTypeResult = macroService.PollPattern(bossTypePatterns);
 const bossType = bossTypeResult.Path?.split('.').pop();
+
+// irregularCrawler => fire
+// irregularRunner => earth
+// irregularSpike => dark
+// irregularScythe => earth
+// irregularMachineGun => fire
+// irregularBlade => earth
+// blockbuster => water
+// ironStretcher => fire
+// mutatedWyvre => light
 
 if (bossType === 'gustav') {
     throw new Error('Gustav detected.');
 }
+
+const alternateEarthTeam = {
+    left: {
+        name: 'notia'
+    },
+    top: {
+        name: 'fran'
+    },
+    right: {
+        name: 'kappa'
+    },
+    bottom: {
+        name: 'ame'
+    },
+};
+
+const alternateWaterTeam = {
+    left: {
+        name: 'mene'
+    },
+    top: {
+        name: 'fortuna'
+    },
+    right: {
+        name: 'summerEmber'
+    },
+    bottom: {
+        name: 'beth'
+    },
+};
+
+const alternateFireTeam = {
+    left: {
+        name: 'christmasDianne'
+    },
+    top: {
+        name: 'iris'
+    },
+    right: {
+        name: 'kanon'
+    },
+    bottom: {
+        name: 'vlada'
+    },
+};
+
+const alternateLightTeam = {
+    left: {
+        name: 'faenen'
+    },
+    top: {
+        name: 'drakhan'
+    },
+    right: {
+        name: 'demiurgeDrakhan'
+    },
+    bottom: {
+        name: 'regina'
+    },
+};
+
+const alternateDarkTeam = {
+    left: {
+        name: 'nella'
+    },
+    top: {
+        name: 'maxwell'
+    },
+    right: {
+        name: 'omegaNadja'
+    },
+    bottom: {
+        name: 'iota'
+    },
+};
 
 const bossTypeToTeam = {
     grandCalamari: {
@@ -129,7 +218,60 @@ const bossTypeToTeam = {
             name: 'rey'
         },
     },
+    irregularBlade: {
+        left: {
+            name: 'valentine'
+        },
+        top: {
+            name: 'maxie'
+        },
+        right: {
+            name: 'bryn',
+            presetOverride: '#MAG#PEN#ATK'
+        },
+        bottom: {
+            name: 'eternal'
+        },
+    },
+    mutatedWyvre: {
+        left: {
+            name: 'dianne'
+        },
+        top: {
+            name: 'demiurgeAstei'
+        },
+        right: {
+            name: 'caren'
+        },
+        bottom: {
+            name: 'gnosisViella'
+        },
+    },
+    irregularQueen: {
+        left: {
+            name: 'monadEva'
+        },
+        top: {
+            name: 'mysticSageAme'
+        },
+        right: {
+            name: 'demiurgeDrakhan'
+        },
+        bottom: {
+            name: 'demiurgeLuna'
+        },
+    },
 };
+
+if (settings.selectTeam2.useAlternateTeams.Value) {
+    bossTypeToTeam.irregularCrawler = alternateWaterTeam;
+    bossTypeToTeam.irregularRunner = alternateFireTeam;
+    bossTypeToTeam.irregularSpike = alternateLightTeam;
+    bossTypeToTeam.irregularScythe = alternateFireTeam;
+    bossTypeToTeam.irregularMachineGun = alternateWaterTeam;
+    bossTypeToTeam.blockbuster = alternateEarthTeam;
+    bossTypeToTeam.ironStretcher = alternateWaterTeam;
+}
 
 logger.debug(`bossType: ${bossType}`);
 // use element advantage for non special boss types
@@ -239,13 +381,85 @@ const characterToFilter = {
         element: 'water',
         battleType: 'mage'
     },
-    demiurgeDrakan: {
+    demiurgeDrakhan: {
         element: 'light',
         battleType: 'defender'
     },
     gnosisNella: {
         element: 'light',
         battleType: 'mage'
+    },
+    valentine: {
+        element: 'fire',
+        battleType: 'ranger'
+    },
+    maxie: {
+        element: 'fire',
+        battleType: 'ranger'
+    },
+    bryn: {
+        element: 'fire',
+        battleType: 'mage'
+    },
+    eternal: {
+        element: 'fire',
+        battleType: 'mage'
+    },
+    notia: {
+        element: 'earth',
+        battleType: 'ranger'
+    },
+    fran: {
+        element: 'earth',
+        battleType: 'ranger'
+    },
+    kappa: {
+        element: 'earth',
+        battleType: 'defender'
+    },
+    ame: {
+        element: 'earth',
+        battleType: 'mage'
+    },
+    christmasDianne: {
+        element: 'fire',
+        battleType: 'ranger'
+    },
+    iris: {
+        element: 'fire',
+        battleType: 'mage'
+    },
+    kanon: {
+        element: 'fire',
+        battleType: 'striker'
+    },
+    vlada: {
+        element: 'fire',
+        battleType: 'striker'
+    },
+    summerEmber: {
+        element: 'water',
+        battleType: 'defender'
+    },
+    beth: {
+        element: 'water',
+        battleType: 'striker'
+    },
+    dianne: {
+        element: 'light',
+        battleType: 'healer'
+    },
+    drakhan: {
+        element: 'light',
+        battleType: 'striker'
+    },
+    omegaNadja: {
+        element: 'dark',
+        battleType: 'defender'
+    },
+    faenen: {
+        element: 'light',
+        battleType: 'healer'
     },
 };
 
