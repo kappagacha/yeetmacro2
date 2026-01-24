@@ -3361,7 +3361,8 @@
       "$type": "option",
       "$options": [
         "arenaTicketCount",
-        "currentStaminaValue"
+        "currentStaminaValue",
+        "bossType"
       ],
       "$tags": [],
       "$defaultValue": "currentStaminaValue",

@@ -38,5 +38,18 @@ if (settings.test.type.Value === 'arenaTicketCount') {
 		currentStamina = macroService.FindText(staminaValue);
 	}
 	return { currentStamina };
+} else if (settings.test.type.Value === 'bossType') {
+	const bossTypePatterns = [
+		'grandCalamari', 'unidentifiedChimera', 'schwartz', 'amadeus', 'masterlessGuardian',
+		'epsilon', 'anubisGuardian', 'tyrantToddler', 'ziggsaron', 'vladiMax', 'glicys',
+		'arsNova', 'ksai', 'forestKing', 'dekRilAndMekRil', 'archdemonShadow', 'meteos',
+		'gustav', 'sacreedGuardian', 'assaultSuit',
+		// irregular extermination project => infiltration operation
+		'irregularCrawler', 'irregularRunner', 'irregularSpike', 'irregularScythe',
+		'irregularMachineGun', 'irregularBlade', 'blockbuster', 'ironStretcher', 'mutatedWyvre',
+		'irregularQueen'
+	].map(bt => patterns.battle.boss[bt]);
+	const bossTypeResult = macroService.PollPattern(bossTypePatterns);
+	const bossType = bossTypeResult.Path?.split('.').pop();
+	return bossType;
 }
-
