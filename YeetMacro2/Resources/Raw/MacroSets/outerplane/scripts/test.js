@@ -32,11 +32,6 @@ if (settings.test.type.Value === 'arenaTicketCount') {
 			sleep(1_000);
 		}
 	}
-
-	for (let i = 0; i < 30 && !currentStamina; i++) {
-		sleep(100);
-		currentStamina = macroService.FindText(staminaValue);
-	}
 	return { currentStamina };
 } else if (settings.test.type.Value === 'bossType') {
 	const bossTypePatterns = [
@@ -51,5 +46,19 @@ if (settings.test.type.Value === 'arenaTicketCount') {
 	].map(bt => patterns.battle.boss[bt]);
 	const bossTypeResult = macroService.PollPattern(bossTypePatterns);
 	const bossType = bossTypeResult.Path?.split('.').pop();
-	return bossType;
+	return { bossType };
+} else if (settings.test.type.Value === 'sweepAllStamina') {
+	const staminaSlashResult = macroService.PollPattern(patterns.challenge.sweepAll.specialRequest.staminaSlash);
+	const staminaPattern = macroService.ClonePattern(patterns.challenge.sweepAll.specialRequest.currentStamina, { X: staminaSlashResult.Point.X - 71, OffsetCalcType: 'None', PathSuffix: `_${staminaSlashResult.Point.X}` });
+	let staminaText = macroService.FindText(staminaPattern, '0123456789');
+
+	if (settings.test.debugBounds.Value) {
+		while (macroService.IsRunning) {
+			macroService.FindPattern(staminaPattern);
+			sleep(1_000);
+		}
+	}
+	return { staminaText };
 }
+
+
