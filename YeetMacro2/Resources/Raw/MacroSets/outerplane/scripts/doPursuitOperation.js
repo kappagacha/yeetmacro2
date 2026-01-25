@@ -6,6 +6,7 @@ const daily = dailyManager.GetCurrentDaily();
 const teamSlot = settings.doPursuitOperation.teamSlot.Value;
 const publishToPublic = settings.doPursuitOperation.publishToPublic.Value;
 let targetOperation = settings.doPursuitOperation.targetOperation.Value;
+const isIrregularExterminationComplete = settings.doPursuitOperation.isIrregularExterminationComplete.Value;
 
 let teamRestored = false;
 let isRotateOperation = targetOperation === 'rotate';
@@ -13,21 +14,22 @@ let isAutoOperation = targetOperation === 'auto';
 
 const operations = ['irregularQueen', 'blockbuster', 'mutatedWyvre', 'ironStretcher'];
 const defaultOperation = 'irregularQueen';
+const targetPoints = isIrregularExterminationComplete ? 8000 : 6000;
 let operationToPoints = {
 	irregularQueen: {
-		target: 6000,
+		target: targetPoints,
 		current: 0
 	},
 	blockbuster: {
-		target: 6000,
+		target: targetPoints,
 		current: 0
 	},
 	mutatedWyvre: {
-		target: 6000,
+		target: targetPoints,
 		current: 0
 	},
 	ironStretcher: {
-		target: 6000,
+		target: targetPoints,
 		current: 0
 	}
 };

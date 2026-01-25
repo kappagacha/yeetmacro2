@@ -2115,6 +2115,15 @@
       "$name": "targetOperation",
       "$path": "doPursuitOperation.targetOperation"
     },
+    "isIrregularExterminationComplete": {
+      "$type": "boolean",
+      "$tags": [],
+      "$defaultValue": false,
+      "$value": false,
+      "$position": 0,
+      "$name": "isIrregularExterminationComplete",
+      "$path": "doPursuitOperation.isIrregularExterminationComplete"
+    },
     "teamSlot": {
       "$type": "option",
       "$options": [
