@@ -42,6 +42,21 @@ while (macroService.IsRunning) {
 			sleep(500);
 			break;
 		case 'event.story.enter':
+			logger.info('sweepEventStoryHard: claim rewards');
+			let moveNotification = macroService.PollPattern(patterns.event.move.notification, { TimeoutMs: 2_000 });
+			if (moveNotification.IsSuccess) {
+				macroService.PollPattern(patterns.event.move, { DoClick: true, PredicatePattern: patterns.event.move.close });
+
+				let notificationResult = macroService.PollPattern(patterns.event.move.recieve, { TimeoutMs: 3_000 });
+				while (notificationResult.IsSuccess) {
+					macroService.PollPattern(patterns.event.move.recieve, { DoClick: true, PredicatePattern: patterns.general.tapEmptySpace });
+					macroService.PollPattern(patterns.general.tapEmptySpace, { DoClick: true, PredicatePattern: patterns.event.move.close });
+					notificationResult = macroService.PollPattern(patterns.event.move.recieve, { TimeoutMs: 3_000 });
+				}
+
+				macroService.PollPattern(patterns.event.move.close, { DoClick: true, PredicatePattern: patterns.event.story.enter });
+			}
+
 			logger.info('sweepEventStoryHard: sweep event hard stages');
 			macroService.PollPattern(patterns.event.story.enter, { DoClick: true, InversePredicatePattern: patterns.event.story.enter });
 			const storyPartSwipeResult = macroService.PollPattern(targetPartPattern, { SwipePattern: patterns.general.swipeRight, TimeoutMs: 7_000 });

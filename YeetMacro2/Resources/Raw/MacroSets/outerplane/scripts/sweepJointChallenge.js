@@ -29,6 +29,21 @@ while (macroService.IsRunning) {
 			sleep(500);
 			break;
 		case 'titles.jointChallenge':
+			logger.info('sweepJointChallenge: claim rewards');
+			let eventMissionNotification = macroService.PollPattern(patterns.jointChallenge.eventMission.notification, { TimeoutMs: 2_000 });
+			if (eventMissionNotification.IsSuccess) {
+				macroService.PollPattern(patterns.jointChallenge.eventMission.notification, { DoClick: true, PredicatePattern: patterns.event.move.close });
+
+				let notificationResult = macroService.PollPattern(patterns.event.move.recieve, { TimeoutMs: 3_000 });
+				while (notificationResult.IsSuccess) {
+					macroService.PollPattern(patterns.event.move.recieve, { DoClick: true, PredicatePattern: patterns.general.tapEmptySpace });
+					macroService.PollPattern(patterns.general.tapEmptySpace, { DoClick: true, PredicatePattern: patterns.event.move.close });
+					notificationResult = macroService.PollPattern(patterns.event.move.recieve, { TimeoutMs: 3_000 });
+				}
+
+				macroService.PollPattern(patterns.event.move.close, { DoClick: true, PredicatePattern: patterns.titles.jointChallenge });
+			}
+
 			logger.info('sweepJointChallenge: sweep joint challenge');
 			macroService.PollPattern(patterns.jointChallenge[jointChallengeLevel], { DoClick: true, PredicatePattern: patterns.battle.setup.auto });
 			macroService.PollPattern(patterns.battle.setup.auto, { DoClick: true, PredicatePattern: patterns.battle.setup.sweep });
