@@ -49,7 +49,7 @@ if (settings.test.type.Value === 'arenaTicketCount') {
 	return { bossType };
 } else if (settings.test.type.Value === 'sweepAllStamina') {
 	const staminaSlashResult = macroService.PollPattern(patterns.challenge.sweepAll.specialRequest.staminaSlash);
-	const staminaPattern = macroService.ClonePattern(patterns.challenge.sweepAll.specialRequest.currentStamina, { X: staminaSlashResult.Point.X - 71, OffsetCalcType: 'None', PathSuffix: `_${staminaSlashResult.Point.X}` });
+	const staminaPattern = macroService.ClonePattern(patterns.challenge.sweepAll.specialRequest.currentStamina, { X: staminaSlashResult.Point.X - 69, OffsetCalcType: 'None', PathSuffix: `_${staminaSlashResult.Point.X}` });
 	let staminaText = macroService.FindText(staminaPattern, '0123456789');
 
 	if (settings.test.debugBounds.Value) {

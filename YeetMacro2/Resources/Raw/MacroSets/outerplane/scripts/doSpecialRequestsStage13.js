@@ -70,7 +70,7 @@ function sweepAllStage13() {
 	let stage13AllResult = macroService.FindPattern(patterns.challenge.sweepAll.specialRequest.stage._13);
 	while (macroService.IsRunning && stage13AllResult.IsSuccess) {
 		const staminaSlashResult = macroService.PollPattern(patterns.challenge.sweepAll.specialRequest.staminaSlash);
-		const staminaPattern = macroService.ClonePattern(patterns.challenge.sweepAll.specialRequest.currentStamina, { X: staminaSlashResult.Point.X - 71, OffsetCalcType: 'None', PathSuffix: `_${staminaSlashResult.Point.X}` });
+		const staminaPattern = macroService.ClonePattern(patterns.challenge.sweepAll.specialRequest.currentStamina, { X: staminaSlashResult.Point.X - 69, OffsetCalcType: 'None', PathSuffix: `_${staminaSlashResult.Point.X}` });
 		const staminaText = macroService.FindText(staminaPattern, '0123456789');
 		const currentStamina = parseInt(staminaText);
 		const maxRuns = parseInt(currentStamina / 16);
@@ -82,7 +82,7 @@ function sweepAllStage13() {
 		let numRuns = 0;
 		let stageResult = macroService.FindPattern(patterns.challenge.sweepAll.specialRequest.stage, { Limit: 10 });
 
-		for (let p of stageResult.Points.sort((a, b) => b.Y - a.Y)) {
+		for (let p of stageResult.Points.sort((a, b) => a.Y - b.Y)) {
 			const stage13Pattern = macroService.ClonePattern(patterns.challenge.sweepAll.specialRequest.stage._13, { CenterY: p.Y - 3, Height: 30, Padding: 10, PathSuffix: `_y${p.Y}` });
 			const stagecheckPattern = macroService.ClonePattern(patterns.challenge.sweepAll.specialRequest.stage.check, { CenterY: p.Y - 25, Padding: 5, PathSuffix: `_y${p.Y}` });
 			const stage13Result = macroService.FindPattern(stage13Pattern);
