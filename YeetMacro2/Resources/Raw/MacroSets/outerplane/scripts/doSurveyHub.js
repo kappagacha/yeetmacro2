@@ -3,7 +3,7 @@
 // Spend remaining stamina on survey hub
 
 function doSurveyHub(targetNumBattles = 0) {
-	const loopPatterns = [patterns.lobby.level, patterns.titles.adventure, patterns.surveyHub.rewardInfo, patterns.titles.shop];
+	const loopPatterns = [patterns.lobby.level, patterns.surveyHub.rewardInfo, patterns.titles.adventurerShop, patterns.titles.adventure];
 	const daily = dailyManager.GetCurrentDaily();
 	const teamSlot = settings.doSurveyHub.teamSlot.Value;
 	const descendingPriority = settings.doSurveyHub.descendingPriority.Value;
@@ -27,13 +27,11 @@ function doSurveyHub(targetNumBattles = 0) {
 				sleep(500);
 				break;
 			case 'titles.adventure':
-				logger.info('doSurveyHub: go to survey hub');
-				macroService.PollPattern(patterns.adventure.adventure, { DoClick: true, PredicatePattern: patterns.adventure.surveyHub });
-				sleep(500);
-				macroService.PollPattern(patterns.adventure.surveyHub, { DoClick: true, PredicatePattern: patterns.titles.shop });
+				logger.info('doSurveyHub: click surveyHub');
+				macroService.ClickPattern(patterns.adventure.surveyHub);
 				sleep(500);
 				break;
-			case 'titles.shop':
+			case 'titles.adventurerShop':
 				logger.info('doSurveyHub: click placesToEarnPoints');
 				macroService.ClickPattern(patterns.surveyHub.placesToEarnPoints);
 				break;

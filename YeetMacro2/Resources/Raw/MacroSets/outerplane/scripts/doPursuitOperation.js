@@ -6,30 +6,28 @@ const daily = dailyManager.GetCurrentDaily();
 const teamSlot = settings.doPursuitOperation.teamSlot.Value;
 const publishToPublic = settings.doPursuitOperation.publishToPublic.Value;
 let targetOperation = settings.doPursuitOperation.targetOperation.Value;
-const isIrregularExterminationComplete = settings.doPursuitOperation.isIrregularExterminationComplete.Value;
 
 let teamRestored = false;
 let isRotateOperation = targetOperation === 'rotate';
 let isAutoOperation = targetOperation === 'auto';
 
-const operations = ['irregularQueen', 'blockbuster', 'mutatedWyvre', 'ironStretcher'];
+const operations = ['blockbuster', 'mutatedWyvre', 'ironStretcher', 'irregularQueen'];
 const defaultOperation = 'irregularQueen';
-const targetPoints = isIrregularExterminationComplete ? 8000 : 6000;
 let operationToPoints = {
 	irregularQueen: {
-		target: targetPoints,
+		target: 6000,
 		current: 0
 	},
 	blockbuster: {
-		target: targetPoints,
+		target: 6000,
 		current: 0
 	},
 	mutatedWyvre: {
-		target: targetPoints,
+		target: 6000,
 		current: 0
 	},
 	ironStretcher: {
-		target: targetPoints,
+		target: 6000,
 		current: 0
 	}
 };
@@ -56,6 +54,14 @@ while (macroService.IsRunning) {
 				macroService.PollPattern(patterns.irregularExtermination.pursuitOperation.pointExchange.receiveAll, { DoClick: true, PredicatePattern: patterns.general.tapEmptySpace });
 				macroService.PollPattern(patterns.general.tapEmptySpace, { DoClick: true, PredicatePattern: patterns.general.back });
 				macroService.PollPattern(patterns.general.back, { DoClick: true, PredicatePattern: patterns.irregularExtermination.pursuitOperation, PrimaryClickPredicatePattern: patterns.irregularExtermination.pursuitOperation.pointExchange.receiveAll });
+			}
+
+			const infiltrationOperationCompleteResult = macroService.PollPattern(patterns.irregularExtermination.infiltrationOperationComplete, { TimeoutMs: 1_000 });
+			if (infiltrationOperationCompleteResult.IsSuccess) {
+				operationToPoints.irregularQueen.target = 8000;
+				operationToPoints.blockbuster.target = 8000;
+				operationToPoints.mutatedWyvre.target = 8000;
+				operationToPoints.ironStretcher.target = 8000;
 			}
 
 			logger.info('doPursuitOperation: click move');
@@ -85,6 +91,7 @@ while (macroService.IsRunning) {
 					return op;
 				}, null) || defaultOperation;
 			}
+
 
 			if (isRotateOperation) {
 				const lastOperationIndex = operations.findIndex(o => o === settings.doPursuitOperation.lastOperation.Value);

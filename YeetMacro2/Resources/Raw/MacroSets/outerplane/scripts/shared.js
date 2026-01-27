@@ -137,7 +137,7 @@ function doShopItems(scriptName, shopType, shopItems, isWeekly = false) {
 			}
 			//macroService.PollPattern(patterns.shop.resource.ok, { DoClick: true, PredicatePattern: patterns.general.tapEmptySpace });
 			macroService.PollPattern(patterns.shop.resource.ok, { DoClick: true, PredicatePattern: patterns.general.tapEmptySpace, TimeoutMs: 3_500 });
-			macroService.PollPattern(patterns.general.tapEmptySpace, { DoClick: true, PredicatePattern: patterns.titles.shop });
+			macroService.PollPattern(patterns.general.tapEmptySpace, { DoClick: true, PredicatePattern: patterns.titles.adventurerShop });
 			if (macroService.IsRunning) {
 				todo[scriptName][shopType][shopItem].IsChecked = true;
 			}
