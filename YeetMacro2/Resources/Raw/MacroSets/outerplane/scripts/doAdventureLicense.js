@@ -65,7 +65,7 @@ function findIncompleteWanted() {
 	const wantedResults = macroService.FindPattern(patterns.adventure.adventureLicense.weeklyConquest.wanted, { Limit: 4 });
 	for (const p of wantedResults.Points.sort((a, b) => a.X - b.X)) {
 		const completedPattern = macroService.ClonePattern(patterns.adventure.adventureLicense.weeklyConquest.completed,
-			{ CenterX: p.X - 10, CenterY: p.Y - 130, Height: 130, Width: 280, PathSuffix: `_${p.X}x`, OffsetCalcType: 'None' });
+			{ CenterX: p.X - 60, CenterY: p.Y - 130, Height: 230, Width: 280, PathSuffix: `_${p.X}x`, OffsetCalcType: 'None' });
 		if (!macroService.PollPattern(completedPattern, { TimeoutMs: 2_500 }).IsSuccess) {
 			return p;
 		}
