@@ -2,9 +2,12 @@
 const loopPatterns = [patterns.lobby.level, patterns.titles.adventure, patterns.monadGate.selectEntryRoute,
 	patterns.monadGate.heroDeployment, patterns.monadGate.currentLocation, patterns.monadGate.nodes.heroDeployment,
 	patterns.monadGate.relics.greenCard, patterns.monadGate.relics.redCard, patterns.monadGate.relics.blueCard,
-	patterns.monadGate.event.selectedOption, patterns.monadGate.completed];
+	patterns.monadGate.event.selectedOption, patterns.monadGate.event.heroGrowth, patterns.monadGate.completed,
+	patterns.event.story.notice.doNotShowStoryForADay];
 const clickPatterns = [patterns.adventure.doNotSeeFor3days, patterns.monadGate.gateEntryDevice, patterns.event.story.skip,
 	patterns.monadGate.relics, patterns.monadGate.exit, patterns.monadGate.tapEmptySpace, patterns.general.tapEmptySpace];
+// 1 - right, 2 - top, 3 - bottom, 4 - left
+const lightTeam = ['demiurgeDrakhan', 'mysticSageAme', 'demiurgeLuna', 'monadEva'];
 
 while (macroService.IsRunning) {
 	const loopResult = macroService.PollPattern(loopPatterns, { ClickPattern: clickPatterns });
@@ -28,8 +31,6 @@ while (macroService.IsRunning) {
 			macroService.PollPattern(patterns.monadGate.heroDeployment.filter.element.light, { DoClick: true, PredicatePattern: patterns.monadGate.heroDeployment.filter.element.light.selected });
 			macroService.PollPattern(patterns.battle.characterFilter.ok, { DoClick: true, PredicatePattern: [patterns.monadGate.heroDeployment.filter, patterns.monadGate.heroDeployment.filter.applied] });
 
-			// 1 - right, 2 - top, 3 - bottom, 4 - left
-			const lightTeam = ['demiurgeDrakhan', 'mysticSageAme', 'demiurgeLuna', 'monadEva'];
 			for (let character of lightTeam) {
 				logger.info(`doMonadGate: selecting ${character}`);
 				const ownedHeroesCloneOpts = { X: 60, Y: 180, Width: 640, Height: 740, PathSuffix: '_ownedHeroes', OffsetCalcType: 'None', BoundsCalcType: 'FillWidth' };
@@ -45,15 +46,24 @@ while (macroService.IsRunning) {
 			macroService.PollPattern(patterns.monadGate.heroDeployment.relicSettings.startExploration.ok, { DoClick: true, PredicatePattern: patterns.monadGate.currentLocation });
 			break;
 		case 'monadGate.currentLocation':
-			logger.info('doMonadGate: click on a node');
 			macroService.ClickPattern(patterns.monadGate.currentLocation);
-			sleep(1_000);
+			sleep(500);
+
+			logger.info('doMonadGate: find next');
+			const nextResult = macroService.PollPattern(patterns.monadGate.next);
+
+			logger.info('doMonadGate: click on a node');
 			const colors = ['green', 'red', 'blue', 'yellow'];
-			for (let color of colors) {
-				const colorResult = macroService.FindPattern(patterns.monadGate.nodes[color]);
+
+			colorLoop: for (let color of colors) {
+				const colorResult = macroService.FindPattern(patterns.monadGate.nodes[color], { Limit: 10 });
 				if (colorResult.IsSuccess) {
-					macroService.ClickPattern(patterns.monadGate.nodes[color], { ClickOffset: { Y: -20 } });
-					break;
+					for (let p of colorResult.Points) {
+						if (p.X > nextResult.Point.X - 250) {
+							macroService.DoClick(p.Offset(0, -30));
+							break colorLoop;
+						}
+					}
 				}
 			}
 			break;
@@ -62,13 +72,6 @@ while (macroService.IsRunning) {
 			macroService.PollPattern(patterns.event.story.notice.doNotShowStoryForADay.unselected, { DoClick: true, PredicatePattern: patterns.event.story.notice.doNotShowStoryForADay.selected });
 			macroService.PollPattern(patterns.event.story.notice.ok, { DoClick: true, PredicatePattern: patterns.monadGate.exit });
 			macroService.PollPattern(patterns.monadGate.exit, { DoClick: true, ClickPattern: patterns.general.tapEmptySpace, PredicatePattern: patterns.monadGate.currentLocation });
-			break;
-		case 'monadGate.newBonds':
-			logger.info('doMonadGate: new bonds');
-			macroService.PollPattern(patterns.monadGate.next2, { DoClick: true, PredicatePattern: patterns.monadGate.tapEmptySpace });
-			macroService.PollPattern(patterns.monadGate.tapEmptySpace, { DoClick: true, PredicatePattern: patterns.monadGate.currentLocation });
-
-
 			break;
 		case 'monadGate.relics.greenCard':
 		case 'monadGate.relics.blueCard':
@@ -86,6 +89,7 @@ while (macroService.IsRunning) {
 				hardening: 30,			// Lv.1 Increase Defence by 50%
 				acceleration: 200,		// Lv.1 Increase Speed by 10%
 				analysis: 0,			// Lv.1 Increase Accuracy by 50%
+				alacrity: 0,			// Lv.1 Increase Evasion by 50%
 			};
 
 			if (greenCardResult.IsSuccess) {
@@ -94,6 +98,7 @@ while (macroService.IsRunning) {
 					const cardPattern = Object.keys(greenRelicTypeToPoints).map(c => macroService.ClonePattern(patterns.monadGate.relics.greenCard[c], {
 						PathSuffix: `_x${Math.trunc(p.X)}`,
 						RawBounds: rect,
+						OffsetCalcType: 'None',
 					}));
 					const relic = macroService.PollPattern(cardPattern).Path?.split('.').pop()?.split('_')[0];
 
@@ -113,6 +118,7 @@ while (macroService.IsRunning) {
 					const cardPattern = Object.keys(blueRelicTypeToPoints).map(c => macroService.ClonePattern(patterns.monadGate.relics.blueCard[c], {
 						PathSuffix: `_x${Math.trunc(p.X)}`,
 						RawBounds: rect,
+						OffsetCalcType: 'None',
 					}));
 					const relic = macroService.PollPattern(cardPattern).Path?.split('.').pop()?.split('_')[0];
 
@@ -125,9 +131,9 @@ while (macroService.IsRunning) {
 				advent: 1000,				// Lv.2 On death has a 30% chance to revive
 				strategist: 10,				// Lv.1 Always take Elemental Advantage when attacking, but reduces Damage by 50%
 				asteiExclusiveRelic: 0,		// Lv.1 At the start of the turn, reecover the Caster's Health by 20% and Action Points by 20
+				chainSystemLightII: -1_000,	// Lv.1 Reduce Light Speed by 50%, increase Water Damage by 100%
 				chainSystemLightIV: -1_000,	// Lv.1 Reduce Light Speed by 50%, increase Dark Damage by 100%
 				reverseThinking: -100_000,		// Lv.1 Increase Damage to the target with Non-Advantageous Element by 100% reduces Damage to the target with Advantageous Element by 100%
-
 			};
 			if (redCardResult.IsSuccess) {
 				for (const p of redCardResult.Points.sort((a, b) => a.X - b.X)) {
@@ -135,6 +141,7 @@ while (macroService.IsRunning) {
 					const cardPattern = Object.keys(redRelicTypeToPoints).map(c => macroService.ClonePattern(patterns.monadGate.relics.redCard[c], {
 						PathSuffix: `_x${Math.trunc(p.X)}`,
 						RawBounds: rect,
+						OffsetCalcType: 'None',
 					}));
 					const relic = macroService.PollPattern(cardPattern).Path?.split('.').pop()?.split('_')[0];
 
@@ -155,12 +162,23 @@ while (macroService.IsRunning) {
 			macroService.PollPattern(patterns.battle.exit, { DoClick: true, PredicatePattern: [patterns.monadGate.tapEmptySpace, patterns.general.tapEmptySpace] });
 			macroService.PollPattern([patterns.monadGate.tapEmptySpace, patterns.general.tapEmptySpace], { DoClick: true, PredicatePattern: patterns.monadGate.currentLocation });
 			break;
+		case 'monadGate.event.heroGrowth':
+			logger.info('doMonadGate: handle hero Growth');
+			for (let character of lightTeam) {
+				logger.info(`doMonadGate: selecting ${character}`);
+				const heroGrowthCloneOpts = { X: 620, Y: 280, Width: 690, Height: 1080, PathSuffix: '_heroGrowth', OffsetCalcType: 'None', BoundsCalcType: 'FillWidth' };
+				const heroGrowthPattern = macroService.ClonePattern(patterns.battle.character[character], heroGrowthCloneOpts);				
+				macroService.PollPattern(heroGrowthPattern, { DoClick: true, InversePredicatePattern: heroGrowthPattern });
+			}
+			macroService.PollPattern(patterns.monadGate.event.heroGrowth, { DoClick: true, PredicatePattern: patterns.monadGate.tapEmptySpace });
+			macroService.PollPattern(patterns.monadGate.tapEmptySpace, { DoClick: true, PredicatePattern: patterns.monadGate.currentLocation });
+			break;
 		case 'monadGate.event.selectedOption':
 			logger.info('doMonadGate: randomly select option');
 			sleep(1_000);
 			const unselectedOptionsResult = macroService.FindPattern(patterns.monadGate.event.options, { Limit: 5 });
 			let randomNumber = 0;
-			let currentLocationResult = macroService.FindPattern(patterns.monadGate.currentLocation);
+			let currentLocationResult = macroService.FindPattern([patterns.monadGate.currentLocation, patterns.monadGate.event.heroGrowth]);
 
 			while (!currentLocationResult.IsSuccess) {
 				randomNumber = macroService.Random(0, (unselectedOptionsResult.Points?.length ?? 0) + 1);
@@ -171,7 +189,7 @@ while (macroService.IsRunning) {
 				}
 				macroService.ClickPattern([patterns.monadGate.next2, patterns.monadGate.tapEmptySpace, patterns.general.tapEmptySpace]);
 				sleep(200);
-				currentLocationResult = macroService.FindPattern(patterns.monadGate.currentLocation);
+				currentLocationResult = macroService.FindPattern([patterns.monadGate.currentLocation, patterns.monadGate.event.heroGrowth]);
 			}
 			break;
 		case 'monadGate.completed':
@@ -186,7 +204,7 @@ while (macroService.IsRunning) {
 				macroService.PollPattern(patterns.general.tapEmptySpace, { DoClick: true, PredicatePattern: patterns.monadGate.move.close });
 				macroService.PollPattern(patterns.monadGate.move.receive, { DoClick: true, PredicatePattern: patterns.general.tapEmptySpace });
 				macroService.PollPattern(patterns.general.tapEmptySpace, { DoClick: true, PredicatePattern: patterns.monadGate.move.close });
-				macroService.PollPattern(patterns.monadGate.move.closee, { DoClick: true, PredicatePattern: patterns.monadGate.gateEntryDevice });
+				macroService.PollPattern(patterns.monadGate.move.close, { DoClick: true, PredicatePattern: patterns.monadGate.gateEntryDevice });
 			}
 			return;
 
