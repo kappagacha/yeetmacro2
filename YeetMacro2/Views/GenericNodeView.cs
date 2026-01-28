@@ -452,8 +452,8 @@ public class GenericNodeView<TNode, TNodeViewModel> : ContentView
         filterButton.SetBinding(ImageView.CommandParameterProperty, new Binding("MacroSet", source: this));
         buttonsStack.Add(filterButton);
 
-        // Edit actions button (using ellipsis icon)
-        var editButton = CreateImageView(Solid.EllipsisVertical, "NodeManager.ShowEditActionsCommand", "FASolid");
+        // Edit actions button
+        var editButton = CreateImageView(MaterialOutlined.Edit, "NodeManager.ShowEditActionsCommand");
         buttonsStack.Add(editButton);
 
         menuGrid.Add(buttonsStack, 0, 0);
