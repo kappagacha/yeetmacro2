@@ -1,6 +1,7 @@
 ﻿using System.Diagnostics;
 using System.Text.Json;
 using System.Text.Json.Nodes;
+using YeetMacro2.Models;
 using YeetMacro2.Services;
 
 namespace YeetMacro2.Platforms.Windows.Services;
@@ -14,6 +15,20 @@ internal class WindowsInputService : IInputService
     public Task<string> SelectOption(string message, params string[] options)
     {
         return Application.Current.Windows[0].Page.DisplayActionSheet(message, "cancel", "ok", options);
+    }
+
+    public async Task<string> SelectOption(string message, params SelectOption[] options)
+    {
+        var optionTexts = options.Select(o => o.Text).ToArray();
+        var selectedText = await SelectOption(message, optionTexts);
+
+        // Find the matching SelectOption to return
+        if (selectedText != null)
+        {
+            var matchedOption = options.FirstOrDefault(o => o.Text == selectedText);
+            return matchedOption?.Text ?? selectedText;
+        }
+        return null;
     }
 
     public async Task<Rect> DrawUserRectangle()

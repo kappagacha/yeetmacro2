@@ -1,4 +1,5 @@
-﻿using YeetMacro2.Platforms.Android.ViewModels;
+﻿using YeetMacro2.Models;
+using YeetMacro2.Platforms.Android.ViewModels;
 using YeetMacro2.Platforms.Android.Views;
 using YeetMacro2.Services;
 using YeetMacro2.ViewModels;
@@ -57,11 +58,16 @@ public class AndroidInputService(AndroidScreenService screenService, YeetAccessi
 
     public async Task<string> SelectOption(string message, params string[] options)
     {
+        // Convert string options to SelectOption without icons
+        var selectOptions = options.Select(o => new SelectOption(o)).ToArray();
+        return await SelectOption(message, selectOptions);
+    }
+
+    public async Task<string> SelectOption(string message, params SelectOption[] options)
+    {
         _screenService.Show(AndroidWindowView.PromptSelectOptionView);
         var viewModel = (PromptSelectOptionViewModel)_screenService.Views[AndroidWindowView.PromptSelectOptionView].VisualElement.BindingContext;
         viewModel.Message = message;
-        // Needs x:DataType="{x:Type x:String}" in DataTemplate
-        // https://stackoverflow.com/questions/75283345/collectionview-working-in-debug-but-not-in-release-in-net-maui
         viewModel.Options = options;
         var formsView = (FormsView)_screenService.Views[AndroidWindowView.PromptSelectOptionView];
         if (await formsView.WaitForClose())

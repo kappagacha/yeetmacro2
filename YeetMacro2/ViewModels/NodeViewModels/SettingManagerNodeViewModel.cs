@@ -111,7 +111,7 @@ public partial class SettingNodeManagerViewModel : NodeManagerViewModel<ParentSe
     {
         if (setting is OptionSetting optionSetting)
         {
-            var selectedOption = await _inputService.SelectOption("Select option", [.. optionSetting.Options]);
+            var selectedOption = await _inputService.SelectOption("Select option", optionSetting.Options.ToArray());
             if (String.IsNullOrEmpty(selectedOption) || selectedOption == "ok" || selectedOption == "cancel") return;
 
             optionSetting.Value = selectedOption;

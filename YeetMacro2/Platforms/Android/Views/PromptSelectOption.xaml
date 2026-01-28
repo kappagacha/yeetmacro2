@@ -3,6 +3,7 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:pvm="clr-namespace:YeetMacro2.Platforms.Android.ViewModels"
              xmlns:vm="clr-namespace:YeetMacro2.ViewModels"
+             xmlns:models="clr-namespace:YeetMacro2.Models"
              x:DataType="pvm:PromptSelectOptionViewModel"
              vm:ViewModelLocator.ViewModelType="{x:Type pvm:PromptSelectOptionViewModel}"
              xmlns:av="clr-namespace:YeetMacro2.Platforms.Android.Views"
@@ -45,26 +46,35 @@
                 </BoxView>
                 
                 <!-- Options with scrolling -->
-                <CollectionView ItemsSource="{Binding Options}" 
+                <CollectionView ItemsSource="{Binding Options}"
                                 VerticalOptions="Start"
                                 MaximumHeightRequest="400">
                     <CollectionView.ItemsLayout>
                         <LinearItemsLayout Orientation="Vertical" ItemSpacing="0"/>
                     </CollectionView.ItemsLayout>
                     <CollectionView.ItemTemplate>
-                        <DataTemplate x:DataType="x:String">
+                        <DataTemplate x:DataType="models:SelectOption">
                             <Grid>
                                 <Grid HeightRequest="56">
-                                    <Label Text="{Binding .}" 
+                                    <!-- Icon (if present) -->
+                                    <Label IsVisible="{Binding FontFamily, Converter={StaticResource NotNullConverter}}"
+                                           FontFamily="{Binding FontFamily}"
+                                           Text="{Binding Glyph}"
+                                           FontSize="20"
+                                           TextColor="{AppThemeBinding Light={StaticResource Primary}, Dark={StaticResource Primary}}"
+                                           VerticalTextAlignment="Center"
+                                           Margin="20,0,0,0"/>
+                                    <!-- Option text -->
+                                    <Label Text="{Binding Text}"
                                            FontSize="17"
                                            TextColor="{AppThemeBinding Light={StaticResource Primary}, Dark={StaticResource Primary}}"
-                                           HorizontalTextAlignment="Center"
-                                           VerticalTextAlignment="Center"/>
+                                           VerticalTextAlignment="Center"
+                                           HorizontalTextAlignment="Center"/>
                                     <Button BackgroundColor="Transparent"
-                                            CommandParameter="{Binding .}"
+                                            CommandParameter="{Binding Text}"
                                             Command="{Binding ViewModel.SelectCommand, Source={Reference thisView}, x:DataType=av:PromptSelectOption}"/>
                                 </Grid>
-                                <BoxView HeightRequest="0.5" 
+                                <BoxView HeightRequest="0.5"
                                          Color="{AppThemeBinding Light=#E5E7EB, Dark=#4B5563}"
                                          VerticalOptions="End"/>
                             </Grid>

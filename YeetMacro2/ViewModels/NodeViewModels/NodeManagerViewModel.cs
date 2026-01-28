@@ -6,10 +6,13 @@ using System.Diagnostics;
 using System.Reflection;
 using System.Text.Json;
 using System.Text.Json.Serialization;
+using UraniumUI.Icons.FontAwesome;
+using UraniumUI.Icons.MaterialSymbols;
 using YeetMacro2.Data.Models;
 using YeetMacro2.Data.Serialization;
 using YeetMacro2.Data.Services;
 using YeetMacro2.Services;
+using YeetMacro2.Models;
 
 namespace YeetMacro2.ViewModels.NodeViewModels;
 
@@ -599,6 +602,153 @@ public partial class NodeManagerViewModel<TViewModel, TParent, TChild> : NodeMan
     public void RefreshCollections()
     {
         RefreshCollections(Root);
+    }
+
+    [RelayCommand]
+    public async Task ShowPositionActions()
+    {
+        var options = new List<SelectOption>
+        {
+            new SelectOption("Expand All", "MaterialOutlined", MaterialOutlined.Unfold_more_double),
+            new SelectOption("Collapse All", "MaterialOutlined", MaterialOutlined.Unfold_less_double),
+            new SelectOption("Move Top", "MaterialSharp", MaterialSharp.Vertical_align_top),
+            new SelectOption("Move Up", "FASolid", Solid.ArrowUp),
+            new SelectOption("Move Down", "FASolid", Solid.ArrowDown),
+            new SelectOption("Move Bottom", "MaterialSharp", MaterialSharp.Vertical_align_bottom),
+            new SelectOption("Sort/Refresh", "MaterialOutlined", MaterialOutlined.Sort)
+        };
+
+        var selected = await _inputService.SelectOption("Position Actions", options.ToArray());
+        if (string.IsNullOrEmpty(selected)) return;
+
+        switch (selected)
+        {
+            case "Expand All":
+                ExpandAllCommand.Execute(null);
+                break;
+            case "Collapse All":
+                CollapseAllCommand.Execute(null);
+                break;
+            case "Move Top":
+                MoveNodeTopCommand.Execute(SelectedNode);
+                break;
+            case "Move Up":
+                MoveNodeUpCommand.Execute(SelectedNode);
+                break;
+            case "Move Down":
+                MoveNodeDownCommand.Execute(SelectedNode);
+                break;
+            case "Move Bottom":
+                MoveNodeBottomCommand.Execute(SelectedNode);
+                break;
+            case "Sort/Refresh":
+                RefreshCollectionsCommand.Execute(null);
+                break;
+        }
+    }
+
+    [RelayCommand]
+    public async Task ShowEditActions()
+    {
+        var options = new List<SelectOption>
+        {
+            new SelectOption("Rename", "FASolid", Solid.Pencil),
+            new SelectOption("Copy", "MaterialOutlined", MaterialOutlined.Content_copy),
+            new SelectOption("Paste", "MaterialOutlined", MaterialOutlined.Content_paste),
+            new SelectOption("Clear Copy", "MaterialOutlined", MaterialOutlined.Content_paste_off),
+            new SelectOption("Delete", "FASolid", Solid.TrashCan),
+            new SelectOption("Add", "FASolid", Solid.Plus)
+        };
+
+        var selected = await _inputService.SelectOption("Edit Actions", options.ToArray());
+        if (string.IsNullOrEmpty(selected)) return;
+
+        switch (selected)
+        {
+            case "Rename":
+                await RenameNodeCommand.ExecuteAsync(SelectedNode);
+                break;
+            case "Copy":
+                CopyNodeCommand.Execute(SelectedNode);
+                break;
+            case "Paste":
+                PasteNodeCommand.Execute(null);
+                break;
+            case "Clear Copy":
+                ClearCopyNodeCommand.Execute(null);
+                break;
+            case "Delete":
+                DeleteNodeCommand.Execute(SelectedNode);
+                break;
+            case "Add":
+                await AddNodeCommand.ExecuteAsync(null);
+                break;
+        }
+    }
+
+    [RelayCommand]
+    public async Task ShowFilterActions(MacroSetViewModel macroSet)
+    {
+        if (macroSet?.Tags == null || macroSet.Tags.Count == 0)
+        {
+            _toastService.Show("No tags available");
+            return;
+        }
+
+        var options = macroSet.Tags.Select(t => new SelectOption(t.Name, t.FontFamily, t.Glyph)).ToList();
+        options.Add(new SelectOption("Clear Filter", "FASolid", Solid.TrashCan));
+
+        var currentFilter = SelectedFilterTags.Count > 0 ? SelectedFilterTags[0] : "None";
+        var selected = await _inputService.SelectOption($"Filter: {currentFilter}", [.. options]);
+
+        if (string.IsNullOrEmpty(selected) || selected == "cancel") return;
+
+        if (selected == "Clear Filter")
+        {
+            SelectedFilterTags.Clear();
+        }
+        else
+        {
+            SelectedFilterTags.Clear();
+            SelectedFilterTags.Add(selected);
+        }
+    }
+
+    [RelayCommand]
+    public async Task ShowTagActions(MacroSetViewModel macroSet)
+    {
+        if (SelectedNode == null)
+        {
+            _toastService.Show("No node selected");
+            return;
+        }
+
+        if (macroSet?.Tags == null || macroSet.Tags.Count == 0)
+        {
+            _toastService.Show("No tags available");
+            return;
+        }
+
+        var options = macroSet.Tags.Select(t => new SelectOption(t.Name, t.FontFamily, t.Glyph)).ToList();
+
+        var appliedTags = SelectedNode.Tags != null ? string.Join(", ", SelectedNode.Tags) : "None";
+        var selected = await _inputService.SelectOption($"Tags: {appliedTags}", [.. options]);
+
+        if (string.IsNullOrEmpty(selected) || selected == "cancel") return;
+
+        var currentTags = SelectedNode.Tags?.ToList() ?? new List<string>();
+        if (currentTags.Contains(selected))
+        {
+            currentTags.Remove(selected);
+        }
+        else
+        {
+            currentTags.Add(selected);
+        }
+
+        SelectedNode.Tags = currentTags.ToArray();
+        UpdateNodeCommand.Execute(SelectedNode);
+        RefreshCollectionsCommand.Execute(null);
     }
 
     public void RefreshCollections(IParentNode<TParent, TChild> node)

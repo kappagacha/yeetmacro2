@@ -1,5 +1,6 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
+using YeetMacro2.Models;
 using YeetMacro2.Platforms.Android.Services;
 
 namespace YeetMacro2.Platforms.Android.ViewModels;
@@ -9,7 +10,7 @@ public partial class PromptSelectOptionViewModel(AndroidScreenService screenServ
     [ObservableProperty]
     string _message = "Please select option";
     [ObservableProperty]
-    IEnumerable<string> _options;
+    object _options;
     [ObservableProperty]
     string _selectedOption;
 
