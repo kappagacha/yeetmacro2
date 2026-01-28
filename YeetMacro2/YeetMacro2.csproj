@@ -433,9 +433,6 @@
     <MauiAsset Update="Resources\Raw\MacroSets\outerplane\scripts\claimFreeRecruit.js">
       <LogicalName>%(RecursiveDir)%(Filename)%(Extension)</LogicalName>
     </MauiAsset>
-    <MauiAsset Update="Resources\Raw\MacroSets\outerplane\scripts\claimFreeShop.js">
-      <LogicalName>%(RecursiveDir)%(Filename)%(Extension)</LogicalName>
-    </MauiAsset>
     <MauiAsset Update="Resources\Raw\MacroSets\outerplane\scripts\shared.js">
       <LogicalName>%(RecursiveDir)%(Filename)%(Extension)</LogicalName>
     </MauiAsset>
