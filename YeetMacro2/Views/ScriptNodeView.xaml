@@ -27,10 +27,11 @@
                                 <Grid.Triggers>
                                     <DataTrigger TargetType="Grid" Value="False">
                                         <DataTrigger.Binding>
-                                            <MultiBinding Converter="{conv:TagFilterVisibilityConverter}">
-                                                <Binding Path="NodeManager.IsFilterActive" Source="{Reference scriptCoreNodeView}" x:DataType="v:ScriptCoreNodeView" />
+                                            <MultiBinding Converter="{conv:NodeFilterVisibilityConverter}">
                                                 <Binding Path="Tags" />
                                                 <Binding Path="NodeManager.SelectedFilterTags" Source="{Reference scriptCoreNodeView}" x:DataType="v:ScriptCoreNodeView" />
+                                                <Binding Path="NodeManager.NameFilter" Source="{Reference scriptCoreNodeView}" x:DataType="v:ScriptCoreNodeView" />
+                                                <Binding Path="Name" />
                                             </MultiBinding>
                                         </DataTrigger.Binding>
                                         <Setter Property="IsVisible" Value="False" />

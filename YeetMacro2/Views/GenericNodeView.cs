@@ -371,18 +371,19 @@ public class GenericNodeView<TNode, TNodeViewModel> : ContentView
             subNodesGrid.Children.Add(subListView);
             grid.Add(subNodesGrid, 1, 2);
 
-            // Add filter trigger (tags only)
+            // Add filter trigger (tags and name)
             var filterTrigger = new DataTrigger(typeof(Grid))
             {
                 Binding = new MultiBinding
                 {
                     Bindings =
                     {
-                        new Binding("NodeManager.IsFilterActive", source: parentView),
                         new Binding("Tags"),
-                        new Binding("NodeManager.SelectedFilterTags", source: parentView)
+                        new Binding("NodeManager.SelectedFilterTags", source: parentView),
+                        new Binding("NodeManager.NameFilter", source: parentView),
+                        new Binding("Name")
                     },
-                    Converter = new Converters.TagFilterVisibilityConverter()
+                    Converter = new Converters.NodeFilterVisibilityConverter()
                 },
                 Value = false
             };
@@ -441,6 +442,10 @@ public class GenericNodeView<TNode, TNodeViewModel> : ContentView
         var tagButton = CreateImageView(MaterialOutlined.Sell, "NodeManager.ShowTagActionsCommand");
         tagButton.SetBinding(ImageView.CommandParameterProperty, new Binding("MacroSet", source: this));
         buttonsStack.Add(tagButton);
+
+        // Filter by name button
+        var nameFilterButton = CreateImageView(MaterialOutlined.Search, "NodeManager.FilterByNameCommand");
+        buttonsStack.Add(nameFilterButton);
 
         // Filter button
         var filterButton = CreateImageView(MaterialOutlined.Filter_alt, "NodeManager.ShowFilterActionsCommand");

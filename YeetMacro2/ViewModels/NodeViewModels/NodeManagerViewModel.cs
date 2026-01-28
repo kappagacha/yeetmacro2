@@ -61,7 +61,7 @@ public partial class NodeManagerViewModel<TViewModel, TParent, TChild> : NodeMan
     private System.Collections.ObjectModel.ObservableCollection<string> _selectedFilterTags = new();
 
     [ObservableProperty]
-    private bool _isFilterActive;
+    private string _nameFilter = string.Empty;
 
     public bool HasCopyClipboard => CopyClipboard != null;
 
@@ -107,16 +107,7 @@ public partial class NodeManagerViewModel<TViewModel, TParent, TChild> : NodeMan
         // Save filter state when it changes and auto-enable filter when tags are selected
         SelectedFilterTags.CollectionChanged += (s, e) =>
         {
-            // Automatically enable filter if tags are selected
-            IsFilterActive = SelectedFilterTags.Count > 0;
             SaveFilterState();
-        };
-        PropertyChanged += (s, e) =>
-        {
-            if (e.PropertyName == nameof(IsFilterActive))
-            {
-                SaveFilterState();
-            }
         };
 
         Init();
@@ -143,15 +134,12 @@ public partial class NodeManagerViewModel<TViewModel, TParent, TChild> : NodeMan
             }
             catch { }
         }
-
-        IsFilterActive = Preferences.Default.Get(GetFilterActivePreferenceKey(), false);
     }
 
     private void SaveFilterState()
     {
         var filterTagsJson = JsonSerializer.Serialize(SelectedFilterTags.ToList());
         Preferences.Default.Set(GetFilterPreferenceKey(), filterTagsJson);
-        Preferences.Default.Set(GetFilterActivePreferenceKey(), IsFilterActive);
     }
 
     protected virtual void Init(Action callback = null)
@@ -696,7 +684,7 @@ public partial class NodeManagerViewModel<TViewModel, TParent, TChild> : NodeMan
         }
 
         var options = macroSet.Tags.Select(t => new SelectOption(t.Name, t.FontFamily, t.Glyph)).ToList();
-        options.Add(new SelectOption("Clear Filter", "FASolid", Solid.TrashCan));
+        options.Insert(0, (new SelectOption("Clear Filter", "FASolid", Solid.TrashCan)));
 
         var currentFilter = SelectedFilterTags.Count > 0 ? SelectedFilterTags[0] : "None";
         var selected = await _inputService.SelectOption($"Filter: {currentFilter}", [.. options]);
@@ -712,6 +700,8 @@ public partial class NodeManagerViewModel<TViewModel, TParent, TChild> : NodeMan
             SelectedFilterTags.Clear();
             SelectedFilterTags.Add(selected);
         }
+
+        RefreshCollectionsCommand.Execute(null);
     }
 
     [RelayCommand]
@@ -748,6 +738,21 @@ public partial class NodeManagerViewModel<TViewModel, TParent, TChild> : NodeMan
 
         SelectedNode.Tags = currentTags.ToArray();
         UpdateNodeCommand.Execute(SelectedNode);
+        RefreshCollectionsCommand.Execute(null);
+    }
+
+    [RelayCommand]
+    public async Task FilterByName()
+    {
+        var name = await _inputService.PromptInput("Filter by name:", NameFilter);
+        if (string.IsNullOrWhiteSpace(name))
+        {
+            NameFilter = string.Empty;
+        }
+        else
+        {
+            NameFilter = name;
+        }
         RefreshCollectionsCommand.Execute(null);
     }
 
