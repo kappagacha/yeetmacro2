@@ -8,6 +8,7 @@
              vm:ViewModelLocator.ViewModelType="{x:Type pvm:PromptSelectOptionViewModel}"
              xmlns:av="clr-namespace:YeetMacro2.Platforms.Android.Views"
              x:Class="YeetMacro2.Platforms.Android.Views.PromptSelectOption"
+             xmlns:conv="clr-namespace:YeetMacro2.Converters"
              x:Name="thisView">
     <Grid VerticalOptions="Center" HorizontalOptions="Center" Margin="10">
         <Border BackgroundColor="{AppThemeBinding Light={StaticResource Background}, Dark={StaticResource BackgroundDark}}"
@@ -57,7 +58,7 @@
                             <Grid>
                                 <Grid HeightRequest="56">
                                     <!-- Icon (if present) -->
-                                    <Label IsVisible="{Binding FontFamily, Converter={StaticResource NotNullConverter}}"
+                                    <Label IsVisible="{Binding FontFamily, Converter={conv:NullToBoolConverter IsInverse=True}}"
                                            FontFamily="{Binding FontFamily}"
                                            Text="{Binding Glyph}"
                                            FontSize="20"

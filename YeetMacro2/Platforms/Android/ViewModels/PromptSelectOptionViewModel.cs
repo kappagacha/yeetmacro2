@@ -10,7 +10,7 @@ public partial class PromptSelectOptionViewModel(AndroidScreenService screenServ
     [ObservableProperty]
     string _message = "Please select option";
     [ObservableProperty]
-    object _options;
+    IEnumerable<SelectOption> _options;
     [ObservableProperty]
     string _selectedOption;
 
