@@ -22,11 +22,6 @@ if (settings.doDailies.claimAntiparticle.Value) {
     goToLobby();
 }
 
-if (settings.doDailies.claimFreeShop.Value) {
-    claimFreeShop();
-    goToLobby();
-}
-
 if (settings.doDailies.claimFreeRecruit.Value) {
     claimFreeRecruit();
     goToLobby();

@@ -1823,27 +1823,6 @@
     "$position": 0,
     "$name": "sweepEventStoryHard2",
     "$path": "sweepEventStoryHard2",
-    "teamSlot": {
-      "$type": "option",
-      "$options": [
-        "Current",
-        "1",
-        "2",
-        "3",
-        "4",
-        "5",
-        "6",
-        "7",
-        "8",
-        "9"
-      ],
-      "$tags": [],
-      "$defaultValue": "2",
-      "$value": "2",
-      "$position": 0,
-      "$name": "teamSlot",
-      "$path": "sweepEventStoryHard2.teamSlot"
-    },
     "targetEventPattern": {
       "$type": "pattern",
       "$tags": [],
@@ -1929,7 +1908,7 @@
         "$name": null,
         "$path": "settings.sweepEventStoryHard2.targetEventPattern"
       },
-      "$position": 1,
+      "$position": 0,
       "$name": "targetEventPattern",
       "$path": "sweepEventStoryHard2.targetEventPattern"
     },
@@ -2018,9 +1997,30 @@
         "$name": null,
         "$path": "settings.sweepEventStoryHard2.targetPartPattern"
       },
-      "$position": 2,
+      "$position": 1,
       "$name": "targetPartPattern",
       "$path": "sweepEventStoryHard2.targetPartPattern"
+    },
+    "teamSlot": {
+      "$type": "option",
+      "$options": [
+        "Current",
+        "1",
+        "2",
+        "3",
+        "4",
+        "5",
+        "6",
+        "7",
+        "8",
+        "9"
+      ],
+      "$tags": [],
+      "$defaultValue": "2",
+      "$value": "2",
+      "$position": 2,
+      "$name": "teamSlot",
+      "$path": "sweepEventStoryHard2.teamSlot"
     }
   },
   "doPursuitOperationAssist": {
@@ -2980,15 +2980,6 @@
       "$name": "claimGuildBuff",
       "$path": "doDailies.claimGuildBuff"
     },
-    "claimReplenishYourStamina": {
-      "$type": "boolean",
-      "$tags": [],
-      "$defaultValue": true,
-      "$value": true,
-      "$position": 1,
-      "$name": "claimReplenishYourStamina",
-      "$path": "doDailies.claimReplenishYourStamina"
-    },
     "claimAntiparticle": {
       "$type": "boolean",
       "$tags": [],
@@ -2997,15 +2988,6 @@
       "$position": 2,
       "$name": "claimAntiparticle",
       "$path": "doDailies.claimAntiparticle"
-    },
-    "claimFreeShop": {
-      "$type": "boolean",
-      "$tags": [],
-      "$defaultValue": false,
-      "$value": false,
-      "$position": 3,
-      "$name": "claimFreeShop",
-      "$path": "doDailies.claimFreeShop"
     },
     "claimFreeRecruit": {
       "$type": "boolean",
@@ -3115,15 +3097,6 @@
       "$name": "doDoppelganger",
       "$path": "doDailies.doDoppelganger"
     },
-    "doSpecialRequests": {
-      "$type": "boolean",
-      "$tags": [],
-      "$defaultValue": false,
-      "$value": false,
-      "$position": 16,
-      "$name": "doSpecialRequests",
-      "$path": "doDailies.doSpecialRequests"
-    },
     "doSurveyHub": {
       "$type": "boolean",
       "$tags": [],
@@ -3195,15 +3168,6 @@
       "$position": 24,
       "$name": "claimDailyMissions",
       "$path": "doDailies.claimDailyMissions"
-    },
-    "claimBossDailyMissions": {
-      "$type": "boolean",
-      "$tags": [],
-      "$defaultValue": false,
-      "$value": false,
-      "$position": 25,
-      "$name": "claimBossDailyMissions",
-      "$path": "doDailies.claimBossDailyMissions"
     },
     "claimEventDailyMissions": {
       "$type": "boolean",
