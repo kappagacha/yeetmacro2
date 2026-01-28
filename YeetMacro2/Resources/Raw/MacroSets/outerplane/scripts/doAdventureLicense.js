@@ -21,6 +21,7 @@ while (macroService.IsRunning) {
 			macroService.PollPattern(patterns.adventure.adventureLicense.weeklyConquest, { DoClick: true, PredicatePattern: patterns.adventure.adventureLicense.weeklyConquest.selected });
 
 			macroService.PollPattern(patterns.adventure.adventureLicense.weeklyConquest.wanted);
+			sleep(1_000);
 			let incompleteWanted = findIncompleteWanted();
 
 			if (!incompleteWanted) {
