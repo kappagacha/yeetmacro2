@@ -121,7 +121,7 @@ function doShopItems(scriptName, shopType, shopItems, isWeekly = false) {
 			logger.info(`${scriptName}: purchase shopItem ${shopItem}`);
 
 			const findShopItemResult = findShopItem(shopItem);
-			const shopItemPurchasePattern = macroService.ClonePattern(patterns.shop.resource.purchase, {
+			const shopItemPurchasePattern = macroService.ClonePattern(patterns.shop.purchase, {
 				X: findShopItemResult.point.X + 100,
 				Y: findShopItemResult.point.Y + 200,
 				Width: 250,
@@ -130,14 +130,13 @@ function doShopItems(scriptName, shopType, shopItems, isWeekly = false) {
 				OffsetCalcType: 'None'
 			});
 
-			macroService.PollPattern(shopItemPurchasePattern, { DoClick: true, PredicatePattern: patterns.shop.resource.ok });
-			const maxSliderResult = macroService.FindPattern(patterns.shop.resource.maxSlider);
-			if (maxSliderResult.IsSuccess) {
-				macroService.PollPattern(patterns.shop.resource.maxSlider, { DoClick: true, InversePredicatePattern: patterns.shop.resource.maxSlider });
+			macroService.PollPattern(shopItemPurchasePattern, { DoClick: true, PredicatePattern: patterns.shop.purchase.ok });
+			const maxResult = macroService.FindPattern(patterns.shop.purchase.max);
+			if (maxResult.IsSuccess) {
+				macroService.PollPattern(patterns.shop.purchase.max, { DoClick: true, PredicatePattern: patterns.shop.purchase.sliderMax });
 			}
-			//macroService.PollPattern(patterns.shop.resource.ok, { DoClick: true, PredicatePattern: patterns.general.tapEmptySpace });
-			macroService.PollPattern(patterns.shop.resource.ok, { DoClick: true, PredicatePattern: patterns.general.tapEmptySpace, TimeoutMs: 3_500 });
-			macroService.PollPattern(patterns.general.tapEmptySpace, { DoClick: true, PredicatePattern: patterns.titles.adventurerShop });
+			macroService.PollPattern(patterns.shop.purchase.ok, { DoClick: true, PredicatePattern: patterns.general.tapEmptySpace, TimeoutMs: 3_500 });
+			macroService.PollPattern(patterns.general.tapEmptySpace, { DoClick: true, PredicatePattern: [patterns.titles.adventurerShop, patterns.titles.shop] });
 			if (macroService.IsRunning) {
 				todo[scriptName][shopType][shopItem].IsChecked = true;
 			}
