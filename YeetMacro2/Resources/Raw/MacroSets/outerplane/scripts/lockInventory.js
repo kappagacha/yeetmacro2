@@ -83,7 +83,7 @@ outerLoop: while ((Math.abs(lastSelectedResult.Point.X - selectedResult.Point.X)
 
         if (isLastItem) continue;
 
-        let itemStats = getItemStats2();
+        let itemStats = getItemStats();
 
         // Track the very first item's grade
         if (firstItemGrade === null) {
