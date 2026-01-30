@@ -78,11 +78,6 @@ if (settings.doDailies.sweepAll.Value) {
     goToLobby();
 }
 
-if (settings.doDailies.doDoppelganger.Value) {
-    doDoppelganger();
-    goToLobby();
-}
-
 if (settings.doDailies.doSurveyHub.Value) {
     refillStamina(30);
     goToLobby();
