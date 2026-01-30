@@ -37,9 +37,7 @@ function doEcologyStudy(targetNumBattles = 0) {
 				}
 				selectTeamAndBattle(teamSlot, { targetNumBattles });
 
-				if (macroService.IsRunning) {
-					daily.doEcologyStudy.count.Count++;
-				}
+				if (macroService.IsRunning) daily.doEcologyStudy.count.Count++;
 				return;
 		}
 		sleep(1_000);

@@ -12,11 +12,6 @@ if (settings.doDailies.claimGuildBuff.Value) {
     goToLobby();
 }
 
-//if (settings.doDailies.claimReplenishYourStamina.Value) {
-//    claimReplenishYourStamina();
-//    goToLobby();
-//}
-
 if (settings.doDailies.claimAntiparticle.Value) {
     claimAntiparticle();
     goToLobby();

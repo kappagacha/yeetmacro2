@@ -37,9 +37,7 @@ function doIdentification(targetNumBattles = 0) {
 				}
 				selectTeamAndBattle(teamSlot, { targetNumBattles });
 
-				if (macroService.IsRunning) {
-					daily.doIdentification.count.Count++;
-				}
+				if (macroService.IsRunning) daily.doIdentification.count.Count++;
 				return;
 		}
 		sleep(1_000);

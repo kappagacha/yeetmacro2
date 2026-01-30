@@ -47,11 +47,17 @@ if (settings.doUpkeep.spendStaminaScript.IsEnabled) {
     if (settings.doUpkeep.spendStaminaScript.Value === 'dropRateUp') {
         macroService.PollPattern(patterns.tabs.adventure, { DoClick: true, PredicatePattern: patterns.titles.adventure });
         macroService.PollPattern(patterns.adventure.challenge, { DoClick: true, PredicatePattern: patterns.titles.challenge });
-        const identificationDropRateUpResult = macroService.PollPattern(patterns.challenge.identification.dropRateUp, { TimeoutMs: 3_500 });
-        if (identificationDropRateUpResult.IsSuccess) {
-            doIdentification();
-        } else {
+
+        const ecologyStudyDropRateUpResult = macroService.FindPattern(patterns.challenge.ecologyStudy.dropRateUp);
+        if (ecologyStudyDropRateUpResult.IsSuccess) {
             doEcologyStudy();
+        } else {
+            const identificationDropRateUpResult = macroService.FindPattern(patterns.challenge.identification.dropRateUp);
+            if (identificationDropRateUpResult.IsSuccess) {
+                doIdentification();
+            } else {    // default action
+                globalThis[settings.doUpkeep.specialRequestPreference.Value]();
+            }
         }
     } else {
         globalThis[settings.doUpkeep.spendStaminaScript.Value]();
