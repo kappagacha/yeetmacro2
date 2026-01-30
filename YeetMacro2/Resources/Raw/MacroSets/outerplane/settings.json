@@ -1,8 +1,79 @@
 {
-  "doArena": {
+  "sweepAll": {
     "$type": "parent",
     "$tags": [],
     "$position": 0,
+    "$name": "sweepAll",
+    "$path": "sweepAll",
+    "elementTypeTarget1": {
+      "$type": "option",
+      "$options": [
+        "earth",
+        "water",
+        "fire",
+        "light",
+        "dark"
+      ],
+      "$tags": [],
+      "$defaultValue": "dark",
+      "$value": "dark",
+      "$position": 0,
+      "$name": "elementTypeTarget1",
+      "$path": "sweepAll.elementTypeTarget1"
+    },
+    "elementTypeTarget2": {
+      "$type": "option",
+      "$options": [
+        "earth",
+        "water",
+        "fire",
+        "light",
+        "dark"
+      ],
+      "$tags": [],
+      "$defaultValue": "water",
+      "$value": "water",
+      "$position": 0,
+      "$name": "elementTypeTarget2",
+      "$path": "sweepAll.elementTypeTarget2"
+    },
+    "elementTypeTarget3": {
+      "$type": "option",
+      "$options": [
+        "earth",
+        "water",
+        "fire",
+        "light",
+        "dark"
+      ],
+      "$tags": [],
+      "$defaultValue": "earth",
+      "$value": "earth",
+      "$position": 0,
+      "$name": "elementTypeTarget3",
+      "$path": "sweepAll.elementTypeTarget3"
+    },
+    "elementTypeTarget4": {
+      "$type": "option",
+      "$options": [
+        "earth",
+        "water",
+        "fire",
+        "light",
+        "dark"
+      ],
+      "$tags": [],
+      "$defaultValue": "fire",
+      "$value": "fire",
+      "$position": 0,
+      "$name": "elementTypeTarget4",
+      "$path": "sweepAll.elementTypeTarget4"
+    }
+  },
+  "doArena": {
+    "$type": "parent",
+    "$tags": [],
+    "$position": 1,
     "$name": "doArena",
     "$path": "doArena",
     "teamSlot": {
@@ -56,161 +127,10 @@
       "$path": "doArena.skipMemorialMatch"
     }
   },
-  "doBountyHunter": {
-    "$type": "parent",
-    "$tags": [],
-    "$position": 0,
-    "$name": "doBountyHunter",
-    "$path": "doBountyHunter",
-    "teamSlot": {
-      "$type": "option",
-      "$options": [
-        "Current",
-        "1",
-        "2",
-        "3",
-        "4",
-        "5",
-        "6",
-        "7",
-        "8",
-        "9",
-        "RecommendedElement"
-      ],
-      "$tags": [],
-      "$defaultValue": "2",
-      "$value": "2",
-      "$position": 0,
-      "$name": "teamSlot",
-      "$path": "doBountyHunter.teamSlot"
-    }
-  },
-  "doUpgradeStoneRetrieval": {
-    "$type": "parent",
-    "$tags": [],
-    "$position": 0,
-    "$name": "doUpgradeStoneRetrieval",
-    "$path": "doUpgradeStoneRetrieval",
-    "teamSlot": {
-      "$type": "option",
-      "$options": [
-        "Current",
-        "1",
-        "2",
-        "3",
-        "4",
-        "5",
-        "6",
-        "7",
-        "8",
-        "9",
-        "RecommendedElement"
-      ],
-      "$tags": [],
-      "$defaultValue": "2",
-      "$value": "2",
-      "$position": 0,
-      "$name": "teamSlot",
-      "$path": "doUpgradeStoneRetrieval.teamSlot"
-    },
-    "elementTypeTarget1": {
-      "$type": "option",
-      "$options": [
-        "earth",
-        "water",
-        "fire",
-        "light",
-        "dark"
-      ],
-      "$tags": [],
-      "$defaultValue": "dark",
-      "$value": "dark",
-      "$position": 0,
-      "$name": "elementTypeTarget1",
-      "$path": "doUpgradeStoneRetrieval.elementTypeTarget1"
-    },
-    "elementTypeTarget2": {
-      "$type": "option",
-      "$options": [
-        "earth",
-        "water",
-        "fire",
-        "light",
-        "dark"
-      ],
-      "$tags": [],
-      "$defaultValue": "water",
-      "$value": "water",
-      "$position": 0,
-      "$name": "elementTypeTarget2",
-      "$path": "doUpgradeStoneRetrieval.elementTypeTarget2"
-    },
-    "elementTypeTarget3": {
-      "$type": "option",
-      "$options": [
-        "earth",
-        "water",
-        "fire",
-        "light",
-        "dark"
-      ],
-      "$tags": [],
-      "$defaultValue": "earth",
-      "$value": "earth",
-      "$position": 0,
-      "$name": "elementTypeTarget3",
-      "$path": "doUpgradeStoneRetrieval.elementTypeTarget3"
-    },
-    "elementTypeTarget4": {
-      "$type": "option",
-      "$options": [
-        "earth",
-        "water",
-        "fire",
-        "light",
-        "dark"
-      ],
-      "$tags": [],
-      "$defaultValue": "fire",
-      "$value": "fire",
-      "$position": 0,
-      "$name": "elementTypeTarget4",
-      "$path": "doUpgradeStoneRetrieval.elementTypeTarget4"
-    }
-  },
-  "doBanditChase": {
-    "$type": "parent",
-    "$tags": [],
-    "$position": 0,
-    "$name": "doBanditChase",
-    "$path": "doBanditChase",
-    "teamSlot": {
-      "$type": "option",
-      "$options": [
-        "Current",
-        "1",
-        "2",
-        "3",
-        "4",
-        "5",
-        "6",
-        "7",
-        "8",
-        "9",
-        "RecommendedElement"
-      ],
-      "$tags": [],
-      "$defaultValue": "2",
-      "$value": "2",
-      "$position": 0,
-      "$name": "teamSlot",
-      "$path": "doBanditChase.teamSlot"
-    }
-  },
   "doGuildSecurityArea": {
     "$type": "parent",
     "$tags": [],
-    "$position": 0,
+    "$position": 5,
     "$name": "doGuildSecurityArea",
     "$path": "doGuildSecurityArea",
     "teamSlot": {
@@ -271,7 +191,7 @@
   "doEcologyStudy": {
     "$type": "parent",
     "$tags": [],
-    "$position": 0,
+    "$position": 6,
     "$name": "doEcologyStudy",
     "$path": "doEcologyStudy",
     "teamSlot": {
@@ -315,7 +235,7 @@
   "doIdentification": {
     "$type": "parent",
     "$tags": [],
-    "$position": 0,
+    "$position": 7,
     "$name": "doIdentification",
     "$path": "doIdentification",
     "teamSlot": {
@@ -359,7 +279,7 @@
   "doUpkeep": {
     "$type": "parent",
     "$tags": [],
-    "$position": 0,
+    "$position": 8,
     "$name": "doUpkeep",
     "$path": "doUpkeep",
     "claimGuildBuff": {
@@ -380,21 +300,12 @@
       "$name": "doFriends",
       "$path": "doUpkeep.doFriends"
     },
-    "claimReplenishYourStamina": {
-      "$type": "boolean",
-      "$tags": [],
-      "$defaultValue": true,
-      "$value": true,
-      "$position": 2,
-      "$name": "claimReplenishYourStamina",
-      "$path": "doUpkeep.claimReplenishYourStamina"
-    },
     "startTerminusIsleExploration": {
       "$type": "boolean",
       "$tags": [],
       "$defaultValue": true,
       "$value": true,
-      "$position": 3,
+      "$position": 2,
       "$name": "startTerminusIsleExploration",
       "$path": "doUpkeep.startTerminusIsleExploration"
     },
@@ -403,7 +314,7 @@
       "$tags": [],
       "$defaultValue": true,
       "$value": true,
-      "$position": 4,
+      "$position": 3,
       "$name": "claimAntiparticle",
       "$path": "doUpkeep.claimAntiparticle"
     },
@@ -412,7 +323,7 @@
       "$tags": [],
       "$defaultValue": true,
       "$value": true,
-      "$position": 5,
+      "$position": 4,
       "$name": "doArena",
       "$path": "doUpkeep.doArena"
     },
@@ -421,7 +332,7 @@
       "$tags": [],
       "$defaultValue": false,
       "$value": false,
-      "$position": 6,
+      "$position": 5,
       "$name": "claimArenaRewards",
       "$path": "doUpkeep.claimArenaRewards"
     },
@@ -430,7 +341,7 @@
       "$tags": [],
       "$defaultValue": true,
       "$value": true,
-      "$position": 7,
+      "$position": 6,
       "$name": "doTerminusIsleExploration",
       "$path": "doUpkeep.doTerminusIsleExploration"
     },
@@ -439,7 +350,7 @@
       "$tags": [],
       "$defaultValue": true,
       "$value": true,
-      "$position": 8,
+      "$position": 7,
       "$name": "doSpecialRequestsStage13",
       "$path": "doUpkeep.doSpecialRequestsStage13"
     },
@@ -456,15 +367,28 @@
       "$defaultValue": "dropRateUp",
       "$value": "dropRateUp",
       "$isEnabled": true,
-      "$position": 9,
+      "$position": 8,
       "$name": "spendStaminaScript",
       "$path": "doUpkeep.spendStaminaScript"
+    },
+    "specialRequestPreference": {
+      "$type": "option",
+      "$options": [
+        "doEcologyStudy",
+        "doIdentification"
+      ],
+      "$tags": [],
+      "$defaultValue": "doIdentification",
+      "$value": "doIdentification",
+      "$position": 9,
+      "$name": "specialRequestPreference",
+      "$path": "doUpkeep.specialRequestPreference"
     }
   },
   "claimAntiparticle": {
     "$type": "parent",
     "$tags": [],
-    "$position": 0,
+    "$position": 9,
     "$name": "claimAntiparticle",
     "$path": "claimAntiparticle",
     "forceRun": {
@@ -489,7 +413,7 @@
   "doFriends": {
     "$type": "parent",
     "$tags": [],
-    "$position": 0,
+    "$position": 10,
     "$name": "doFriends",
     "$path": "doFriends",
     "forceRun": {
@@ -514,7 +438,7 @@
   "doGuildRaid": {
     "$type": "parent",
     "$tags": [],
-    "$position": 0,
+    "$position": 11,
     "$name": "doGuildRaid",
     "$path": "doGuildRaid",
     "teamSlot": {
@@ -543,7 +467,7 @@
   "doSurveyHub": {
     "$type": "parent",
     "$tags": [],
-    "$position": 0,
+    "$position": 12,
     "$name": "doSurveyHub",
     "$path": "doSurveyHub",
     "teamSlot": {
@@ -580,7 +504,7 @@
   "doInfiniteCorridor": {
     "$type": "parent",
     "$tags": [],
-    "$position": 0,
+    "$position": 13,
     "$name": "doInfiniteCorridor",
     "$path": "doInfiniteCorridor",
     "teamSlot": {
@@ -623,7 +547,7 @@
   "claimEventDailyMissions": {
     "$type": "parent",
     "$tags": [],
-    "$position": 0,
+    "$position": 14,
     "$name": "claimEventDailyMissions",
     "$path": "claimEventDailyMissions",
     "dailyMissionPattern": {
@@ -783,7 +707,7 @@
   "doDoppelganger": {
     "$type": "parent",
     "$tags": [],
-    "$position": 0,
+    "$position": 15,
     "$name": "doDoppelganger",
     "$path": "doDoppelganger",
     "elementTypeTarget1": {
@@ -875,7 +799,7 @@
   "doWeeklyShop": {
     "$type": "parent",
     "$tags": [],
-    "$position": 0,
+    "$position": 16,
     "$name": "doWeeklyShop",
     "$path": "doWeeklyShop",
     "resource": {
@@ -1183,7 +1107,7 @@
   "sellInventory": {
     "$type": "parent",
     "$tags": [],
-    "$position": 0,
+    "$position": 17,
     "$name": "sellInventory",
     "$path": "sellInventory",
     "forceRun": {
@@ -1199,7 +1123,7 @@
   "doWeeklies": {
     "$type": "parent",
     "$tags": [],
-    "$position": 0,
+    "$position": 18,
     "$name": "doWeeklies",
     "$path": "doWeeklies",
     "claimWeeklyMissions": {
@@ -1233,7 +1157,7 @@
   "doShop": {
     "$type": "parent",
     "$tags": [],
-    "$position": 0,
+    "$position": 19,
     "$name": "doShop",
     "$path": "doShop",
     "friendshipPoint": {
@@ -1371,7 +1295,7 @@
   "doSkywardTower": {
     "$type": "parent",
     "$tags": [],
-    "$position": 0,
+    "$position": 20,
     "$name": "doSkywardTower",
     "$path": "doSkywardTower",
     "teamSlot": {
@@ -1399,7 +1323,7 @@
   "goToLobby": {
     "$type": "parent",
     "$tags": [],
-    "$position": 0,
+    "$position": 21,
     "$name": "goToLobby",
     "$path": "goToLobby",
     "userClickPattern": {
@@ -1559,7 +1483,7 @@
   "sweepJointChallenge": {
     "$type": "parent",
     "$tags": [],
-    "$position": 0,
+    "$position": 22,
     "$name": "sweepJointChallenge",
     "$path": "sweepJointChallenge",
     "jointChallengeLevel": {
@@ -1580,7 +1504,7 @@
   "selectTeam": {
     "$type": "parent",
     "$tags": [],
-    "$position": 0,
+    "$position": 23,
     "$name": "selectTeam",
     "$path": "selectTeam",
     "earth": {
@@ -1692,7 +1616,7 @@
   "claimEventDailyMissions2": {
     "$type": "parent",
     "$tags": [],
-    "$position": 0,
+    "$position": 24,
     "$name": "claimEventDailyMissions2",
     "$path": "claimEventDailyMissions2",
     "dailyMissionPattern": {
@@ -1788,7 +1712,7 @@
   "startTerminusIsleExploration": {
     "$type": "parent",
     "$tags": [],
-    "$position": 0,
+    "$position": 25,
     "$name": "startTerminusIsleExploration",
     "$path": "startTerminusIsleExploration",
     "lastRun": {
@@ -1804,7 +1728,7 @@
   "doTerminusIsleExploration": {
     "$type": "parent",
     "$tags": [],
-    "$position": 0,
+    "$position": 26,
     "$name": "doTerminusIsleExploration",
     "$path": "doTerminusIsleExploration",
     "forceRun": {
@@ -1820,7 +1744,7 @@
   "sweepEventStoryHard2": {
     "$type": "parent",
     "$tags": [],
-    "$position": 0,
+    "$position": 27,
     "$name": "sweepEventStoryHard2",
     "$path": "sweepEventStoryHard2",
     "targetEventPattern": {
@@ -2026,7 +1950,7 @@
   "doPursuitOperationAssist": {
     "$type": "parent",
     "$tags": [],
-    "$position": 0,
+    "$position": 28,
     "$name": "doPursuitOperationAssist",
     "$path": "doPursuitOperationAssist",
     "targetOperation": {
@@ -2079,7 +2003,7 @@
   "applyPreset": {
     "$type": "parent",
     "$tags": [],
-    "$position": 0,
+    "$position": 29,
     "$name": "applyPreset",
     "$path": "applyPreset",
     "lastApplied": {
@@ -2095,7 +2019,7 @@
   "doWeeklyCraft": {
     "$type": "parent",
     "$tags": [],
-    "$position": 0,
+    "$position": 30,
     "$name": "doWeeklyCraft",
     "$path": "doWeeklyCraft",
     "specialEnhancement": {
@@ -2168,7 +2092,7 @@
   "watchAds": {
     "$type": "parent",
     "$tags": [],
-    "$position": 0,
+    "$position": 31,
     "$name": "watchAds",
     "$path": "watchAds",
     "userClickPattern": {
@@ -2762,7 +2686,7 @@
   "sweepEventStoryHard": {
     "$type": "parent",
     "$tags": [],
-    "$position": 0,
+    "$position": 32,
     "$name": "sweepEventStoryHard",
     "$path": "sweepEventStoryHard",
     "targetEventPattern": {
@@ -2968,7 +2892,7 @@
   "doDailies": {
     "$type": "parent",
     "$tags": [],
-    "$position": 0,
+    "$position": 33,
     "$name": "doDailies",
     "$path": "doDailies",
     "claimGuildBuff": {
@@ -3227,7 +3151,7 @@
   "doEventStory": {
     "$type": "parent",
     "$tags": [],
-    "$position": 0,
+    "$position": 34,
     "$name": "doEventStory",
     "$path": "doEventStory",
     "teamSlot": {
@@ -3255,7 +3179,7 @@
   "test": {
     "$type": "parent",
     "$tags": [],
-    "$position": 0,
+    "$position": 35,
     "$name": "test",
     "$path": "test",
     "type": {
@@ -3267,8 +3191,8 @@
         "sweepAllStamina"
       ],
       "$tags": [],
-      "$defaultValue": "sweepAllStamina",
-      "$value": "sweepAllStamina",
+      "$defaultValue": "currentStaminaValue",
+      "$value": "currentStaminaValue",
       "$position": 0,
       "$name": "type",
       "$path": "test.type"
@@ -3286,7 +3210,7 @@
   "selectTeam2": {
     "$type": "parent",
     "$tags": [],
-    "$position": 0,
+    "$position": 36,
     "$name": "selectTeam2",
     "$path": "selectTeam2",
     "useAlternateTeams": {
@@ -3302,7 +3226,7 @@
   "doPursuitOperation": {
     "$type": "parent",
     "$tags": [],
-    "$position": 0,
+    "$position": 37,
     "$name": "doPursuitOperation",
     "$path": "doPursuitOperation",
     "targetOperation": {

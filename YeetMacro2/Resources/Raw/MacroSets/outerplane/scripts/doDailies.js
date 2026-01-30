@@ -63,28 +63,18 @@ if (settings.doDailies.claimMailboxExpiringStamina.Value && daily.claimMailboxEx
 }
 
 // claim mailbox twice in case anything is missed
-if (settings.doDailies.claimMailboxExpiring.Value && daily.claimMailboxExpiring.count.Count == 1) {
-    claimMailboxExpiring();
-    goToLobby();
-}
+//if (settings.doDailies.claimMailboxExpiring.Value && daily.claimMailboxExpiring.count.Count == 1) {
+//    claimMailboxExpiring();
+//    goToLobby();
+//}
 
-if (settings.doDailies.claimMailboxExpiringStamina.Value && daily.claimMailboxExpiringStamina.count.Count == 1) {
-    claimMailboxExpiringStamina();
-    goToLobby();
-}
+//if (settings.doDailies.claimMailboxExpiringStamina.Value && daily.claimMailboxExpiringStamina.count.Count == 1) {
+//    claimMailboxExpiringStamina();
+//    goToLobby();
+//}
 
-if (settings.doDailies.doBountyHunter.Value) {
-    doBountyHunter();
-    goToLobby();
-}
-
-if (settings.doDailies.doBanditChase.Value) {
-    doBanditChase();
-    goToLobby();
-}
-
-if (settings.doDailies.doUpgradeStoneRetrieval.Value) {
-    doUpgradeStoneRetrieval();
+if (settings.doDailies.sweepAll.Value) {
+    sweepAll();
     goToLobby();
 }
 
@@ -141,12 +131,6 @@ if (settings.doDailies.claimDailyMissions.Value) {
     claimDailyMissions();
     goToLobby();
 }
-
-// replaced with milaege singles
-//if (settings.doDailies.claimBossDailyMissions.Value) {
-//    claimBossDailyMissions();
-//    goToLobby();
-//}
 
 if (settings.doDailies.claimEventDailyMissions.Value) {
     claimEventDailyMissions();

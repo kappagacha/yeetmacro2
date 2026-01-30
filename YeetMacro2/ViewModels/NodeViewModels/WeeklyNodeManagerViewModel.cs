@@ -70,6 +70,7 @@ public partial class WeeklyNodeManagerViewModel(
         return targetDate;
     }
 
+    // https://learn.microsoft.com/en-us/dotnet/api/system.dayofweek?view=net-10.0
     public DayOfWeek GetDayOfWeek()
     {
         var utcNow = DateTime.UtcNow;
