@@ -2812,6 +2812,15 @@
       "$name": "claimGuildBuff",
       "$path": "doDailies.claimGuildBuff"
     },
+    "sweepAll": {
+      "$type": "boolean",
+      "$tags": [],
+      "$defaultValue": true,
+      "$value": true,
+      "$position": 0,
+      "$name": "sweepAll",
+      "$path": "doDailies.sweepAll"
+    },
     "claimAntiparticle": {
       "$type": "boolean",
       "$tags": [],
