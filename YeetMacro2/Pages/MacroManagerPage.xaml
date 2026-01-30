@@ -33,7 +33,7 @@
                              Command="{Binding AddOnlineMacroSetCommand}" />
                     </Grid>
                     <Grid IsVisible="{Binding SelectedMacroSet, Converter={conv:NullToBoolConverter IsInverse=True}}">
-                        <v:ImageView FontFamily="FASolid" Glyph="{x:Static fa:Solid.FileExport}" Color="{StaticResource Primary}" 
+                        <v:ImageView FontFamily="FASolid" Glyph="{x:Static fa:Solid.Upload}" Color="{StaticResource Primary}" 
                              Command="{Binding ExportMacroSetCommand}" CommandParameter="{Binding SelectedMacroSet}" 
                              IsVisible="{Binding IsExportEnabled}" />
                     </Grid>

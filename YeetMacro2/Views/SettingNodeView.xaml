@@ -265,11 +265,9 @@
                 <v:SettingCoreNodeView.ExtraMenuItemsDataTemplate>
                     <DataTemplate x:DataType="v:SettingCoreNodeView">
                         <VerticalStackLayout>
-                            <v:ImageView IsVisible="{Binding MacroSet.Settings.SelectedNode, Source={RelativeSource AncestorType={x:Type v:SettingNodeView}}, x:DataType=v:SettingNodeView, Converter={conv:NullToBoolConverter}}"
-                                         FontFamily="FASolid" Glyph="{x:Static fa:Solid.FileImport}"
+                            <v:ImageView FontFamily="FASolid" Glyph="{x:Static fa:Solid.Download}"
                                          Command="{Binding  MacroSet.Settings.ImportSettingsCommand, Source={RelativeSource AncestorType={x:Type v:SettingNodeView}}, x:DataType=v:SettingNodeView}" />
-                            <v:ImageView IsVisible="{Binding MacroSet.Settings.SelectedNode, Source={RelativeSource AncestorType={x:Type v:SettingNodeView}}, x:DataType=v:SettingNodeView, Converter={conv:NullToBoolConverter}}"
-                                         FontFamily="FASolid" Glyph="{x:Static fa:Solid.FileExport}" 
+                            <v:ImageView FontFamily="FASolid" Glyph="{x:Static fa:Solid.Upload}"
                                          Command="{Binding  MacroSet.Settings.ExportCommand, Source={RelativeSource AncestorType={x:Type v:SettingNodeView}}, x:DataType=v:SettingNodeView}"
                                          CommandParameter="{Binding MacroSet.Name, Source={RelativeSource AncestorType={x:Type v:SettingNodeView}}, x:DataType=v:SettingNodeView}" />
                             <Grid>

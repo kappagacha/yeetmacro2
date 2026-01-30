@@ -434,6 +434,9 @@ public class GenericNodeView<TNode, TNodeViewModel> : ContentView
             "IsToggled",
             source: menuToggle));
 
+        // Extra menu items (from XAML ExtraMenuItemsDataTemplate)
+        buttonsStack.Children.Add(_extraMenuItemsContentView);
+
         // Position actions button
         var positionButton = CreateImageView(MaterialOutlined.Open_with, "NodeManager.ShowPositionActionsCommand");
         buttonsStack.Add(positionButton);
