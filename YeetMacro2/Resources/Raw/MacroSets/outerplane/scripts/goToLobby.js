@@ -37,8 +37,9 @@ const clickPatterns = [
 	//patterns.login.downloadPatch,
 	settings.goToLobby.userClickPattern.Value,
 	patterns.guild.checkIn.ok,
-	patterns.ad.cancel
-]
+	patterns.ad.cancel,
+	patterns.lobby.menu.close,
+];
 
 while (macroService.IsRunning) {
 	const loopResult = macroService.PollPattern(loopPatterns, { ClickPattern: clickPatterns });
