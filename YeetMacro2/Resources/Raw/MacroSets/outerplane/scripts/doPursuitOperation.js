@@ -14,10 +14,6 @@ let isAutoOperation = targetOperation === 'auto';
 const operations = ['blockbuster', 'mutatedWyvre', 'ironStretcher', 'irregularQueen'];
 const defaultOperation = 'irregularQueen';
 let operationToPoints = {
-	irregularQueen: {
-		target: 6000,
-		current: 0
-	},
 	blockbuster: {
 		target: 6000,
 		current: 0
@@ -29,7 +25,11 @@ let operationToPoints = {
 	ironStretcher: {
 		target: 6000,
 		current: 0
-	}
+	},
+	irregularQueen: {
+		target: 6000,
+		current: 0
+	},
 };
 
 goToLobby();
@@ -85,13 +85,18 @@ while (macroService.IsRunning) {
 			}
 
 			if (isAutoOperation) {
-				operations.forEach(op => operationToPoints[op].current = Number(macroService.FindText(patterns.irregularExtermination.pursuitOperation[op].currentPoints).replace(/[, ]/g, '')));
-				targetOperation = Object.entries(operationToPoints).reduce((targetOperation, [op, { target, current }]) => {
-					if (targetOperation || current > target) return targetOperation;
-					return op;
-				}, null) || defaultOperation;
+				operations.forEach(op => {
+					operationToPoints[op].cellRewardUp = macroService.FindPattern(patterns.irregularExtermination.pursuitOperation[op].cellRewardUp).IsSuccess;
+					operationToPoints[op].current = Number(macroService.FindText(patterns.irregularExtermination.pursuitOperation[op].currentPoints).replace(/[, ]/g, ''));
+				});
+				targetOperation = Object.entries(operationToPoints).reduce((acc, [op, { target, current, cellRewardUp }]) => {
+					// Priority 1: reward available on incomplete operation
+					if (cellRewardUp && current < target) return { priority: 1, op };
+					// Priority 2: incomplete (only if no priority 1 found)
+					if (current < target && (!acc || acc.priority === 2)) return { priority: 2, op };
+					return acc;
+				}, null)?.op ?? defaultOperation;
 			}
-
 
 			if (isRotateOperation) {
 				const lastOperationIndex = operations.findIndex(o => o === settings.doPursuitOperation.lastOperation.Value);
