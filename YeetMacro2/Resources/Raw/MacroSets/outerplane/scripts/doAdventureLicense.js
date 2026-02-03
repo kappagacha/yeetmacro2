@@ -49,6 +49,7 @@ while (macroService.IsRunning) {
 			macroService.PollPattern(patterns.battle.enter, { DoClick: true, PredicatePattern: patterns.adventure.adventureLicense.weeklyConquest.next });
 			macroService.PollPattern(patterns.adventure.adventureLicense.weeklyConquest.next, { DoClick: true, PredicatePattern: patterns.adventure.adventureLicense.weeklyConquest.exit });
 			macroService.PollPattern(patterns.adventure.adventureLicense.weeklyConquest.exit, { DoClick: true, ClickPattern: patterns.adventure.adventureLicense.weeklyConquest.ok, PredicatePattern: patterns.adventure.adventureLicense.weeklyConquest.selected });
+			sleep(3_000);
 	}
 	sleep(1_000);
 }
@@ -65,7 +66,7 @@ function findIncompleteWanted() {
 	const wantedResults = macroService.FindPattern(patterns.adventure.adventureLicense.weeklyConquest.wanted, { Limit: 4 });
 	for (const p of wantedResults.Points.sort((a, b) => a.X - b.X)) {
 		const completedPattern = macroService.ClonePattern(patterns.adventure.adventureLicense.weeklyConquest.completed,
-			{ CenterX: p.X - 60, CenterY: p.Y - 130, Height: 230, Width: 280, PathSuffix: `_${p.X}x`, OffsetCalcType: 'None' });
+			{ CenterX: p.X - 60, CenterY: p.Y - 150, Height: 270, Width: 280, PathSuffix: `_${p.X}x`, OffsetCalcType: 'None' });
 		if (!macroService.PollPattern(completedPattern, { TimeoutMs: 2_500 }).IsSuccess) {
 			return p;
 		}
