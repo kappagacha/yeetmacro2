@@ -2,10 +2,12 @@
 const loopPatterns = [patterns.lobby.level, patterns.titles.adventure, patterns.monadGate.selectEntryRoute,
 	patterns.monadGate.heroDeployment, patterns.monadGate.currentLocation, patterns.monadGate.nodes.heroDeployment,
 	patterns.monadGate.relics.greenCard, patterns.monadGate.relics.redCard, patterns.monadGate.relics.blueCard,
-	patterns.monadGate.event.selectedOption, patterns.monadGate.event.heroGrowth, patterns.monadGate.completed,
+	patterns.monadGate.event.options, patterns.monadGate.event.heroGrowth, patterns.monadGate.completed,
 	patterns.event.story.notice.doNotShowStoryForADay];
 const clickPatterns = [patterns.adventure.doNotSeeFor3days, patterns.monadGate.gateEntryDevice, patterns.event.story.skip,
-	patterns.monadGate.relics, patterns.monadGate.exit, patterns.monadGate.tapEmptySpace, patterns.general.tapEmptySpace];
+	patterns.monadGate.relics, patterns.monadGate.exit, patterns.monadGate.tapEmptySpace, patterns.general.tapEmptySpace,
+	patterns.monadGate.next2
+];
 // 1 - right, 2 - top, 3 - bottom, 4 - left
 const lightTeam = ['demiurgeDrakhan', 'mysticSageAme', 'demiurgeLuna', 'monadEva'];
 
@@ -90,6 +92,7 @@ while (macroService.IsRunning) {
 				acceleration: 200,		// Lv.1 Increase Speed by 10%
 				analysis: 0,			// Lv.1 Increase Accuracy by 50%
 				alacrity: 0,			// Lv.1 Increase Evasion by 50%
+				rupture: 210,			// Lv.1 When Critical Hit does not trigger, increase Damage by 40%
 			};
 
 			if (greenCardResult.IsSuccess) {
@@ -128,12 +131,14 @@ while (macroService.IsRunning) {
 
 			const redCardResult = macroService.FindPattern(patterns.monadGate.relics.redCard, { Limit: 3 });
 			const redRelicTypeToPoints = {
-				advent: 1000,				// Lv.2 On death has a 30% chance to revive
+				advent: 1_000,				// Lv.2 On death has a 30% chance to revive
 				strategist: 10,				// Lv.1 Always take Elemental Advantage when attacking, but reduces Damage by 50%
 				asteiExclusiveRelic: 0,		// Lv.1 At the start of the turn, reecover the Caster's Health by 20% and Action Points by 20
+				evaExclusiveRelic: 0,		// Lv.1 Upon using Ultimate Skill, revives all allies for 1 turn
 				chainSystemLightII: -1_000,	// Lv.1 Reduce Light Speed by 50%, increase Water Damage by 100%
 				chainSystemLightIV: -1_000,	// Lv.1 Reduce Light Speed by 50%, increase Dark Damage by 100%
-				reverseThinking: -100_000,		// Lv.1 Increase Damage to the target with Non-Advantageous Element by 100% reduces Damage to the target with Advantageous Element by 100%
+				reverseThinking: -100_000,	// Lv.1 Increase Damage to the target with Non-Advantageous Element by 100% reduces Damage to the target with Advantageous Element by 100%
+				protection: 400,			// Lv.1 Upon using Burst Skill, Grants a Barrier to all allies for 2 turns (equal to 15% of the target's Max Health)
 			};
 			if (redCardResult.IsSuccess) {
 				for (const p of redCardResult.Points.sort((a, b) => a.X - b.X)) {
@@ -173,14 +178,14 @@ while (macroService.IsRunning) {
 			macroService.PollPattern(patterns.monadGate.event.heroGrowth, { DoClick: true, PredicatePattern: patterns.monadGate.tapEmptySpace });
 			macroService.PollPattern(patterns.monadGate.tapEmptySpace, { DoClick: true, PredicatePattern: patterns.monadGate.currentLocation });
 			break;
-		case 'monadGate.event.selectedOption':
+		case 'monadGate.event.options':
 			logger.info('doMonadGate: randomly select option');
 			sleep(1_000);
 			const unselectedOptionsResult = macroService.FindPattern(patterns.monadGate.event.options, { Limit: 5 });
 			let randomNumber = 0;
 			let currentLocationResult = macroService.FindPattern([patterns.monadGate.currentLocation, patterns.monadGate.event.heroGrowth]);
 
-			while (!currentLocationResult.IsSuccess) {
+			while (macroService.IsRunning && !currentLocationResult.IsSuccess) {
 				randomNumber = macroService.Random(0, (unselectedOptionsResult.Points?.length ?? 0) + 1);
 				if (randomNumber === 0) {
 					macroService.ClickPattern(patterns.monadGate.event.selectedOption);
