@@ -89,13 +89,26 @@ while (macroService.IsRunning) {
 					operationToPoints[op].cellRewardUp = macroService.FindPattern(patterns.irregularExtermination.pursuitOperation[op].cellRewardUp).IsSuccess;
 					operationToPoints[op].current = Number(macroService.FindText(patterns.irregularExtermination.pursuitOperation[op].currentPoints).replace(/[, ]/g, ''));
 				});
-				targetOperation = Object.entries(operationToPoints).reduce((acc, [op, { target, current, cellRewardUp }]) => {
-					// Priority 1: reward available on incomplete operation
-					if (cellRewardUp && current < target) return { priority: 1, op };
-					// Priority 2: incomplete (only if no priority 1 found)
-					if (current < target && (!acc || acc.priority === 2)) return { priority: 2, op };
-					return acc;
-				}, null)?.op ?? defaultOperation;
+
+				// If all operations meet target, use default
+				const allComplete = operations.every(op => operationToPoints[op].current >= operationToPoints[op].target);
+				if (allComplete) {
+					targetOperation = defaultOperation;
+				} else {
+					targetOperation = Object.entries(operationToPoints).reduce((acc, [op, { target, current, cellRewardUp }]) => {
+						// Priority 1: reward available on incomplete operation
+						if (cellRewardUp && current < target) {
+							if (!acc || acc.priority > 1 || (acc.priority === 1 && acc.current > current)) return { priority: 1, op, current };
+							return acc;
+						}
+						// Priority 2: incomplete (only if no priority 1 found)
+						if (current < target) {
+							if (!acc || acc.priority === 2 && acc.current > current) return { priority: 2, op, current };
+							return acc;
+						}
+						return acc;
+					}, null).op;
+				}
 			}
 
 			if (isRotateOperation) {
