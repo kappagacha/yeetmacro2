@@ -10,7 +10,9 @@ const bossTypePatterns = [
     // irregular extermination project => infiltration operation
     'irregularCrawler', 'irregularRunner', 'irregularSpike', 'irregularScythe',
     'irregularMachineGun', 'irregularBlade', 'blockbuster', 'ironStretcher', 'mutatedWyvre',
-    'irregularQueen'
+    'irregularQueen',
+    // guild raid
+    'lightDelta', 'darkAstralGuardian'
     ].map(bt => patterns.battle.boss[bt]);
 const bossTypeResult = macroService.PollPattern(bossTypePatterns);
 const bossType = bossTypeResult.Path?.split('.').pop();
