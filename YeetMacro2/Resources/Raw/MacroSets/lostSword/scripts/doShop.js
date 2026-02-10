@@ -118,7 +118,7 @@ function findCoinType(targetCoinType) {
 	if (!targetCoinTypeResult) {
 		throw new Error(`Could not find coin type [${targetCoinType}]`);
 	}
-	const leftPanelSelectedPattern = macroService.ClonePattern(patterns.shop.leftPanelSelected, { CenterY: targetCoinTypeResult.point.Y + 20, Padding: 10, PathSuffix: `_${targetCoinTypeResult.point.X}x_${targetCoinTypeResult.point.Y}y` });
+	const leftPanelSelectedPattern = macroService.ClonePattern(patterns.shop.leftPanelSelected, { CenterY: targetCoinTypeResult.point.Y + 20, Padding: 20, PathSuffix: `_${targetCoinTypeResult.point.X}x_${targetCoinTypeResult.point.Y}y` });
 	macroService.PollPoint(targetCoinTypeResult.point, { DoClick: true, PredicatePattern: leftPanelSelectedPattern });
 }
 
