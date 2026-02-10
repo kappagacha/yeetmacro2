@@ -28,27 +28,27 @@ while (macroService.IsRunning) {
 				break;
 			}
 
-			if (!daily.doShop.free.adventurerShop.goldOrConsumables.IsChecked) {
-				macroService.PollPattern(patterns.tabs.shop, { DoClick: true, PredicatePattern: patterns.shop.adventurer.move });
-				macroService.PollPattern(patterns.shop.adventurer.move, { DoClick: true, PredicatePattern: patterns.titles.adventurerShop });
+			//if (!daily.doShop.free.adventurerShop.goldOrConsumables.IsChecked) {
+			//	macroService.PollPattern(patterns.tabs.shop, { DoClick: true, PredicatePattern: patterns.shop.adventurer.move });
+			//	macroService.PollPattern(patterns.shop.adventurer.move, { DoClick: true, PredicatePattern: patterns.titles.adventurerShop });
 
-				const goldOrConsumablesResult = macroService.PollPattern(patterns.shop.adventurer.goldOrConsumables, { SwipePattern: patterns.shop.mainTabSwipeDown, TimeoutMs: 7_000 });
-				if (!goldOrConsumablesResult.IsSuccess) {
-					throw new Error('Unable to find skyward Gold/Consumables');
-				}
-				macroService.PollPattern(patterns.shop.adventurer.goldOrConsumables, { DoClick: true, PredicatePattern: patterns.shop.adventurer.goldOrConsumables.selected });
+			//	const goldOrConsumablesResult = macroService.PollPattern(patterns.shop.adventurer.goldOrConsumables, { SwipePattern: patterns.shop.mainTabSwipeDown, TimeoutMs: 7_000 });
+			//	if (!goldOrConsumablesResult.IsSuccess) {
+			//		throw new Error('Unable to find skyward Gold/Consumables');
+			//	}
+			//	macroService.PollPattern(patterns.shop.adventurer.goldOrConsumables, { DoClick: true, PredicatePattern: patterns.shop.adventurer.goldOrConsumables.selected });
 
-				let goldOrConsumablesFreeResult = macroService.PollPattern(patterns.shop.free, { TimeoutMs: 3_500 });
-				while (goldOrConsumablesFreeResult.IsSuccess) {
-					macroService.PollPattern(patterns.shop.free, { DoClick: true, PredicatePattern: patterns.general.tapEmptySpace, TimeoutMs: 3_500 });
-					macroService.PollPattern(patterns.general.tapEmptySpace, { DoClick: true, InversePredicatePattern: patterns.general.tapEmptySpace, TimeoutMs: 3_500 });
-					goldOrConsumablesFreeResult = macroService.PollPattern(patterns.shop.free, { TimeoutMs: 3_500 });
-				}
+			//	let goldOrConsumablesFreeResult = macroService.PollPattern(patterns.shop.free, { TimeoutMs: 3_500 });
+			//	while (goldOrConsumablesFreeResult.IsSuccess) {
+			//		macroService.PollPattern(patterns.shop.free, { DoClick: true, PredicatePattern: patterns.general.tapEmptySpace, TimeoutMs: 3_500 });
+			//		macroService.PollPattern(patterns.general.tapEmptySpace, { DoClick: true, InversePredicatePattern: patterns.general.tapEmptySpace, TimeoutMs: 3_500 });
+			//		goldOrConsumablesFreeResult = macroService.PollPattern(patterns.shop.free, { TimeoutMs: 3_500 });
+			//	}
 
-				daily.doShop.free.adventurerShop.goldOrConsumables.IsChecked = true;
-				goToLobby();
-				break;
-			}
+			//	daily.doShop.free.adventurerShop.goldOrConsumables.IsChecked = true;
+			//	goToLobby();
+			//	break;
+			//}
 
 			logger.info('doShop: go to adventurerShop');
 			macroService.PollPattern(patterns.tabs.shop, { DoClick: true, PredicatePattern: patterns.shop.adventurer.move });
