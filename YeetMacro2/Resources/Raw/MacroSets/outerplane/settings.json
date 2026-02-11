@@ -3099,8 +3099,8 @@
         "sweepAllStamina"
       ],
       "$tags": [],
-      "$defaultValue": "sweepAllStamina",
-      "$value": "sweepAllStamina",
+      "$defaultValue": "currentStaminaValue",
+      "$value": "currentStaminaValue",
       "$position": 0,
       "$name": "type",
       "$path": "test.type"
