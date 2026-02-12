@@ -86,7 +86,7 @@ function detectBossType() {
 	return detectedElement;
 }
 
-function setChainOrder() {
+function setChainOrder(opts = { effectToPriority: {} }) {
 	macroService.PollPattern(patterns.general.back, { DoClick: true, PrimaryClickInversePredicatePattern: [patterns.battle.chainPreview, patterns.battle.chainPreview.selected], PredicatePattern: [patterns.battle.chainPreview, patterns.battle.chainPreview.selected] });
 	macroService.PollPattern(patterns.battle.chainPreview, { DoClick: true, PredicatePattern: patterns.battle.chainPreview.selected });
 	if (macroService.FindPattern(patterns.battle.chainPreview.missingSlots).IsSuccess) return;
@@ -104,13 +104,16 @@ function setChainOrder() {
 	const effectsBasePatterns = [
 		patterns.battle.chainPreview.effects.pctDmg,
 		patterns.battle.chainPreview.effects.cdr,
-		patterns.battle.chainPreview.effects.weaknessGuage
+		patterns.battle.chainPreview.effects.weaknessGuage,
+		patterns.battle.chainPreview.effects.cursed,
 	];
 
 	const effectToPriority = {
 		pctDmg: 1,
 		cdr: 2,
-		weaknessGuage: 3
+		weaknessGuage: 3,
+		cursed: 4,
+		...opts.effectToPriority,
 	};
 
 	while (macroService.IsRunning) {

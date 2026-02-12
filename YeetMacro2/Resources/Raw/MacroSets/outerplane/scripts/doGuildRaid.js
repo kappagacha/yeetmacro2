@@ -50,7 +50,7 @@ while (macroService.IsRunning) {
 				macroService.PollPattern(patterns.guild.raid.battleRecord.restoreTeam.ok, { DoClick: true, PredicatePattern: patterns.guild.raid.battleRecord });
 				macroService.PollPattern(patterns.battle.teamFormation, { DoClick: true, PredicatePattern: patterns.battle.teamFormation.selected });
 				setChainOrder();
-				macroService.PollPattern(patterns.battle.enter, { DoClick: true, PredicatePattern: patterns.guild.raid.exitBattle });
+				macroService.PollPattern(patterns.battle.enter, { DoClick: true, ClickPattern: patterns.guild.raid.enterBattle, PredicatePattern: patterns.guild.raid.exitBattle });
 				macroService.PollPattern(patterns.guild.raid.exitBattle, { DoClick: true, ClickPattern: [patterns.general.tapEmptySpace, patterns.guild.raid.ok], PredicatePattern: patterns.titles.guildRaid });
 				//macroService.PollPattern(patterns.guild.raid[selectKey], { DoClick: true, PredicatePattern: patterns.battle.enter });
 
