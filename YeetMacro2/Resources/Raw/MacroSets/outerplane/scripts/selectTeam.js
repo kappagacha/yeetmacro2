@@ -113,7 +113,7 @@ function setChainOrder(opts = { effectToPriority: {} }) {
 		cdr: 2,
 		weaknessGuage: 3,
 		cursed: 4,
-		...opts.effectToPriority,
+		...(opts?.effectToPriority ?? {}),
 	};
 
 	while (macroService.IsRunning) {
