@@ -86,7 +86,7 @@ function detectBossType() {
 	return detectedElement;
 }
 
-function setChainOrder(opts = { effectToPriority: {} }) {
+function setChainOrder(opts = {}) {
 	macroService.PollPattern(patterns.general.back, { DoClick: true, PrimaryClickInversePredicatePattern: [patterns.battle.chainPreview, patterns.battle.chainPreview.selected], PredicatePattern: [patterns.battle.chainPreview, patterns.battle.chainPreview.selected] });
 	macroService.PollPattern(patterns.battle.chainPreview, { DoClick: true, PredicatePattern: patterns.battle.chainPreview.selected });
 	if (macroService.FindPattern(patterns.battle.chainPreview.missingSlots).IsSuccess) return;
