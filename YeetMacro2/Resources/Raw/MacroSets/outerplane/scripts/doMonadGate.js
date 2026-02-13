@@ -90,9 +90,10 @@ while (macroService.IsRunning) {
 				effectiveness: 10,		// Lv.1 Increase Effectiveness by 50%
 				hardening: 30,			// Lv.1 Increase Defence by 50%
 				acceleration: 200,		// Lv.1 Increase Speed by 10%
-				analysis: 0,			// Lv.1 Increase Accuracy by 50%
-				alacrity: 0,			// Lv.1 Increase Evasion by 50%
+				analysis: 300,			// Lv.1 Damage Dealt +30%
+				//alacrity: 0,			// Lv.1 Increase Evasion by 50%
 				rupture: 210,			// Lv.1 When Critical Hit does not trigger, increase Damage by 40%
+				sturdy: 15,				// Lv.1 Damage Taken Decrease -5%
 			};
 
 			if (greenCardResult.IsSuccess) {
