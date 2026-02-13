@@ -10,7 +10,7 @@
              x:Class="YeetMacro2.Platforms.Android.Views.PromptSelectOption"
              xmlns:conv="clr-namespace:YeetMacro2.Converters"
              x:Name="thisView">
-    <Grid VerticalOptions="Center" HorizontalOptions="Center" Margin="10">
+    <Grid VerticalOptions="Fill" HorizontalOptions="Fill" Margin="20,20,20,40">
         <Border BackgroundColor="{AppThemeBinding Light={StaticResource Background}, Dark={StaticResource BackgroundDark}}"
                 StrokeShape="RoundRectangle 14"
                 Stroke="{AppThemeBinding Light=#E5E7EB, Dark=#4B5563}"
@@ -49,7 +49,7 @@
                 <!-- Options with scrolling -->
                 <CollectionView ItemsSource="{Binding Options}"
                                 VerticalOptions="Start"
-                                MaximumHeightRequest="400">
+                                MaximumHeightRequest="350">
                     <CollectionView.ItemsLayout>
                         <LinearItemsLayout Orientation="Vertical" ItemSpacing="0"/>
                     </CollectionView.ItemsLayout>
