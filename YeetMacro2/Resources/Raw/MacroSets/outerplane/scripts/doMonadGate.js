@@ -3,7 +3,7 @@ const loopPatterns = [patterns.lobby.level, patterns.titles.adventure, patterns.
 	patterns.monadGate.heroDeployment, patterns.monadGate.currentLocation, patterns.monadGate.nodes.heroDeployment,
 	patterns.monadGate.relics.greenCard, patterns.monadGate.relics.redCard, patterns.monadGate.relics.blueCard,
 	patterns.monadGate.event.options, patterns.monadGate.event.heroGrowth, patterns.monadGate.completed,
-	patterns.event.story.notice.doNotShowStoryForADay];
+	patterns.event.story.notice.doNotShowStoryForADay, patterns.battle.enter];
 const clickPatterns = [patterns.adventure.doNotSeeFor3days, patterns.monadGate.gateEntryDevice, patterns.event.story.skip,
 	patterns.monadGate.relics, patterns.monadGate.exit, patterns.monadGate.tapEmptySpace, patterns.general.tapEmptySpace,
 	patterns.monadGate.next2
@@ -162,11 +162,12 @@ while (macroService.IsRunning) {
 			macroService.PollPattern(patterns.monadGate.relics.ok, { DoClick: true, PredicatePattern: patterns.monadGate.currentLocation });
 			break;
 		case 'monadGate.nodes.heroDeployment':
+		case 'battle.enter':
 			logger.info('doMonadGate: node hero deployment');
 			macroService.PollPattern(patterns.monadGate.nodes.heroDeployment, { DoClick: true, PredicatePattern: patterns.battle.enter });
 			macroService.PollPattern(patterns.battle.enter, { DoClick: true, PredicatePattern: patterns.battle.exit });
-			macroService.PollPattern(patterns.battle.exit, { DoClick: true, PredicatePattern: [patterns.monadGate.tapEmptySpace, patterns.general.tapEmptySpace] });
-			macroService.PollPattern([patterns.monadGate.tapEmptySpace, patterns.general.tapEmptySpace], { DoClick: true, PredicatePattern: patterns.monadGate.currentLocation });
+			macroService.PollPattern(patterns.battle.exit, { DoClick: true, PredicatePattern: [patterns.monadGate.next2, patterns.monadGate.tapEmptySpace, patterns.general.tapEmptySpace] });
+			macroService.PollPattern([patterns.monadGate.next2, patterns.monadGate.tapEmptySpace, patterns.general.tapEmptySpace], { DoClick: true, PredicatePattern: patterns.monadGate.currentLocation });
 			break;
 		case 'monadGate.event.heroGrowth':
 			logger.info('doMonadGate: handle hero Growth');
@@ -184,7 +185,7 @@ while (macroService.IsRunning) {
 			sleep(1_000);
 			const unselectedOptionsResult = macroService.FindPattern(patterns.monadGate.event.options, { Limit: 5 });
 			let randomNumber = 0;
-			let currentLocationResult = macroService.FindPattern([patterns.monadGate.currentLocation, patterns.monadGate.event.heroGrowth]);
+			let currentLocationResult = macroService.FindPattern([patterns.monadGate.currentLocation, patterns.monadGate.event.heroGrowth, patterns.battle.enter]);
 
 			while (macroService.IsRunning && !currentLocationResult.IsSuccess) {
 				randomNumber = macroService.Random(0, (unselectedOptionsResult.Points?.length ?? 0) + 1);
@@ -195,7 +196,7 @@ while (macroService.IsRunning) {
 				}
 				macroService.ClickPattern([patterns.monadGate.next2, patterns.monadGate.tapEmptySpace, patterns.general.tapEmptySpace]);
 				sleep(200);
-				currentLocationResult = macroService.FindPattern([patterns.monadGate.currentLocation, patterns.monadGate.event.heroGrowth]);
+				currentLocationResult = macroService.FindPattern([patterns.monadGate.currentLocation, patterns.monadGate.event.heroGrowth, patterns.battle.enter]);
 			}
 			break;
 		case 'monadGate.completed':
