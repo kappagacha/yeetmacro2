@@ -1,7 +1,7 @@
 // @position=-1
 // @tags=weeklies
 // Shop weekly items
-const loopPatterns = [patterns.lobby.level, patterns.titles.adventurerShop];
+const loopPatterns = [patterns.lobby.level, patterns.titles.adventurerShop, patterns.shop.premium.title];
 const weekly = weeklyManager.GetCurrentWeekly();
 if (weekly.doWeeklyShop.done.IsChecked) {
 	return "Script already completed. Uncheck done to override weekly flag.";
@@ -17,6 +17,7 @@ while (macroService.IsRunning) {
 			sleep(500);
 			break;
 		case 'titles.adventurerShop':
+		case 'shop.premium.title':
 			if (!weekly.doWeeklyShop.friendshipPoint.done.IsChecked) {
 				macroService.PollPattern(patterns.shop.adventurer.friendshipPoint, { DoClick: true, PredicatePattern: patterns.shop.adventurer.friendshipPoint.selected });
 				doFriendshipItems();
@@ -32,12 +33,6 @@ while (macroService.IsRunning) {
 				swipeLeft();
 				swipeLeft();
 				if (macroService.IsRunning) weekly.doWeeklyShop.arena.done.IsChecked = true;
-			}
-
-			if (!weekly.doWeeklyShop.starMemory.done.IsChecked) {
-				macroService.PollPattern(patterns.shop.adventurer.starMemory, { DoClick: true, PredicatePattern: patterns.shop.adventurer.starMemory.selected });
-				doStarMemoryItems();
-				if (macroService.IsRunning) weekly.doWeeklyShop.starMemory.done.IsChecked = true;
 			}
 
 			if (!weekly.doWeeklyShop.jointChallenge.done.IsChecked) {
@@ -58,16 +53,31 @@ while (macroService.IsRunning) {
 				if (macroService.IsRunning) weekly.doWeeklyShop.surveyHub.done.IsChecked = true;
 			}
 
+			if (!weekly.doWeeklyShop.starMemory.done.IsChecked) {
+				goToLobby();
+				macroService.PollPattern(patterns.tabs.shop, { DoClick: true, PredicatePattern: patterns.shop.premium.move });
+				macroService.PollPattern(patterns.shop.premium.move, { DoClick: true, PredicatePattern: patterns.shop.premium.title });
+				macroService.PollPattern(patterns.shop.premium.normal, { DoClick: true, PredicatePattern: patterns.shop.premium.normal.selected });
+				macroService.PollPattern(patterns.shop.premium.normal.starMemory, { DoClick: true, PredicatePattern: patterns.shop.premium.normal.starMemory.selected });
+				doStarMemoryItems();
+
+				if (macroService.IsRunning) weekly.doWeeklyShop.starMemory.done.IsChecked = true;
+				goToLobby();
+			}
+
 			if (!weekly.doWeeklyShop.resource.done.IsChecked) {
-				const goldOrConsumablesResult = macroService.PollPattern(patterns.shop.adventurer.goldOrConsumables, { SwipePattern: patterns.shop.mainTabSwipeDown, TimeoutMs: 7_000 });
-				if (!goldOrConsumablesResult.IsSuccess) {
-					throw new Error('Unable to find skyward Gold/Consumables');
-				}
-				macroService.PollPattern(patterns.shop.adventurer.goldOrConsumables, { DoClick: true, PredicatePattern: patterns.shop.adventurer.goldOrConsumables.selected });
+				goToLobby();
+				macroService.PollPattern(patterns.tabs.shop, { DoClick: true, PredicatePattern: patterns.shop.premium.move });
+				macroService.PollPattern(patterns.shop.premium.move, { DoClick: true, PredicatePattern: patterns.shop.premium.title });
+				macroService.PollPattern(patterns.shop.premium.normal, { DoClick: true, PredicatePattern: patterns.shop.premium.normal.selected });
+				macroService.PollPattern(patterns.shop.premium.normal.goldOrConsumables, { DoClick: true, PredicatePattern: patterns.shop.premium.normal.goldOrConsumables.selected });
 
 				doResourceItems();
 				if (macroService.IsRunning) weekly.doWeeklyShop.resource.done.IsChecked = true;
+				goToLobby();
 			}
+
+
 
 			if (!weekly.doWeeklyShop.guild.done.IsChecked) {
 				goToLobby();

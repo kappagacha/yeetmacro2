@@ -5,7 +5,7 @@ const topLeft = macroService.GetTopLeft();
 const item = { totalPoints: 0, desiredPoints: 0, desiredStats: [] };
 const itemGradePatterns = ['legendary', 'epic','superior'].map(ig => patterns.inventory.item.stat2.grade[ig]);
 const itemTypePatterns = ['weapon', 'accessory', 'helmet', 'chestArmor', 'gloves', 'boots'].map(it => patterns.inventory.item.stat2.type[it]);
-const itemStatTypePatterns = ['health', 'speed', 'attack', 'defence', 'critChance', 'critDmg', 'accuracy', 'evasion', 'effectiveness', 'resilience', 'penetration', 'healsWhenHit'].map(ist => patterns.inventory.item.stat2.statType[ist]);
+const itemStatTypePatterns = ['health', 'speed', 'attack', 'defence', 'critChance', 'critDmg', 'dmgIncrease', 'dmgReduction', 'effectiveness', 'resilience', 'penetration', 'healsWhenHit'].map(ist => patterns.inventory.item.stat2.statType[ist]);
 item.itemGrade = macroService.PollPattern(itemGradePatterns).Path?.split('.').pop();
 item.itemType = macroService.PollPattern(itemTypePatterns).Path?.split('.').pop();
 
@@ -93,8 +93,8 @@ for (let i = 1; i <= 4; i++) {
 
 const armorItemTypes = ['helmet', 'chestArmor', 'gloves', 'boots'];
 if (['legendary', 'epic'].includes(item.itemGrade) && armorItemTypes.includes(item.itemType)) {
-	const armorSets = ['attack', 'defense', 'life', 'lifesteal', 'speed', 'criticalHit', 'criticalStrike', 'accuracy',
-		'evasion', 'effectiveness', 'resilience', 'counterattack', 'penetration', 'revenge', 'patience',
+    const armorSets = ['attack', 'defense', 'life', 'lifesteal', 'speed', 'criticalHit', 'criticalStrike', 'dmgIncrease',
+		'dmgReduction', 'effectiveness', 'resilience', 'counterattack', 'penetration', 'revenge', 'patience',
 		'pulverization', 'immunity', 'swiftness', 'weakness', 'augmentation'];
 	const armorSetPatterns = armorSets.map(as => patterns.inventory.item.stat2.sets[as]);
 	item.itemEffect = macroService.PollPattern(armorSetPatterns).Path?.split('.').pop();
@@ -110,7 +110,7 @@ function validateItem(item) {
     const validGrades = ['legendary', 'epic', 'superior'];
     const validTypes = ['weapon', 'accessory', 'helmet', 'chestArmor', 'gloves', 'boots'];
     const validStats = ['health', 'speed', 'attack', 'defence', 'critChance', 'critDmg',
-        'accuracy', 'evasion', 'effectiveness', 'resilience', 'penetration', 'healsWhenHit'];
+        'dmgIncrease', 'dmgReduction', 'effectiveness', 'resilience', 'penetration', 'healsWhenHit'];
 
     // Helper function to create error with item attached
     function createError(message) {
@@ -155,7 +155,7 @@ function validateItem(item) {
 
     // Validate item effect for armor pieces
     const armorTypes = ['helmet', 'chestArmor', 'gloves', 'boots'];
-    const validEffects = ['attack', 'defense', 'life', 'lifesteal', 'speed', 'criticalHit', 'criticalStrike', 'accuracy', 'evasion', 'effectiveness', 'resilience', 'counterattack', 'penetration', 'revenge', 'patience', 'pulverization', 'immunity', 'swiftness', 'weakness', 'augmentation'];
+    const validEffects = ['attack', 'defense', 'life', 'lifesteal', 'speed', 'criticalHit', 'criticalStrike', 'dmgIncrease', 'dmgReduction', 'effectiveness', 'resilience', 'counterattack', 'penetration', 'revenge', 'patience', 'pulverization', 'immunity', 'swiftness', 'weakness', 'augmentation'];
     if (armorTypes.includes(item.itemType) && item.itemEffect) {
         if (!validEffects.includes(item.itemEffect)) {
             throw createError(`Unexpected item effect: "${item.itemEffect}". Expected: ${validEffects.join(', ')}`);
@@ -179,8 +179,8 @@ function calculatePoints(item) {
         'defence_pct': 1 / 4,
         'critChance_pct': 1 / 3,
         'critDmg_pct': 1 / 4,
-        'accuracy_pct': 1 / 2,
-        'evasion_pct': 1 / 2,
+        'dmgIncrease_pct': 1 / 2,
+        'dmgReduction_pct': 1 / 2.4,
         'effectiveness_pct': 1 / 2.5,
         'resilience_pct': 1 / 2.5
     };
@@ -188,7 +188,7 @@ function calculatePoints(item) {
     // Calculate points for each secondary stat
     let totalPoints = 0;
     let desiredPoints = 0;
-    let desiredStats = ['critDmg', 'speed', 'critChance'];
+    let desiredStats = ['critDmg', 'speed', 'critChance', 'dmgIncrease'];
 
     // Add primary1 stat as desired stat for Accessories only (if not already in list)
     if (item.itemType === 'accessory' && item.primary1 && !desiredStats.includes(item.primary1)) {
@@ -238,17 +238,17 @@ function calculatePoints(item) {
         } else if (item.itemEffect === 'lifesteal') {
             // If it's Lifesteal Set armor, add highest main stat
             addHighestMainStat(item, desiredStats);
-        } else if (item.itemEffect === 'accuracy') {
-            // If it's Accuracy Set armor, add Accuracy as desired stat
-            if (!desiredStats.includes('accuracy')) {
-                desiredStats.push('accuracy');
-            }
-            // Also add highest main stat for Accuracy Set
-            addHighestMainStat(item, desiredStats);
+        //} else if (item.itemEffect === 'accuracy') {
+        //    // If it's Accuracy Set armor, add Accuracy as desired stat
+        //    if (!desiredStats.includes('dmgIncrease')) {
+        //        desiredStats.push('accuracy');
+        //    }
+        //    // Also add highest main stat for Accuracy Set
+        //    addHighestMainStat(item, desiredStats);
         } else if (item.itemEffect === 'evasion') {
             // If it's Evasion Set armor, add Evasion as desired stat
-            if (!desiredStats.includes('evasion')) {
-                desiredStats.push('evasion');
+            if (!desiredStats.includes('dmgReduction')) {
+                desiredStats.push('dmgReduction');
             }
             // Also add highest main stat for Evasion Set
             addHighestMainStat(item, desiredStats);
@@ -303,7 +303,7 @@ function calculatePoints(item) {
                     (statName === 'critDmg' || statName === 'speed' || statName === 'critChance' ||
                         (isAccessory && statName === item.primary1 && statType === 'pct') ||
                         (isAccessory && ['attack', 'defence', 'health'].includes(statName) && statName !== item.primary1 && statType === 'pct') ||
-                        (isArmor && ['attack', 'defence', 'health', 'accuracy', 'evasion', 'resilience', 'effectiveness'].includes(statName) && statType === 'pct'));
+                    (isArmor && ['attack', 'defence', 'health', 'dmgIncrease', 'dmgReduction', 'resilience', 'effectiveness'].includes(statName) && statType === 'pct'));
 
                 if (isDesired) {
                     desiredPoints += points;
@@ -342,7 +342,7 @@ function calculatePoints(item) {
 
 // Helper function to find and add highest main stat
 function addHighestMainStat(item, desiredStats) {
-    const mainStats = ['attack', 'defence', 'health'];
+    const mainStats = ['attack', 'defence', 'health', 'dmgIncrease'];
     let highestMainStat = null;
     let highestMainStatValue = 0;
 
