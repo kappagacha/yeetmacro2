@@ -300,7 +300,7 @@ function calculatePoints(item) {
                 const isArmor = ['helmet', 'chestArmor', 'gloves', 'boots'].includes(item.itemType);
 
                 const isDesired = desiredStats.includes(statName) &&
-                    (statName === 'critDmg' || statName === 'speed' || statName === 'critChance' ||
+                    (statName === 'critDmg' || statName === 'speed' || statName === 'critChance' || statName === 'dmgIncrease' ||
                         (isAccessory && statName === item.primary1 && statType === 'pct') ||
                         (isAccessory && ['attack', 'defence', 'health'].includes(statName) && statName !== item.primary1 && statType === 'pct') ||
                     (isArmor && ['attack', 'defence', 'health', 'dmgIncrease', 'dmgReduction', 'resilience', 'effectiveness'].includes(statName) && statType === 'pct'));
