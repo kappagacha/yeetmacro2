@@ -93,8 +93,8 @@ for (let i = 1; i <= 4; i++) {
 
 const armorItemTypes = ['helmet', 'chestArmor', 'gloves', 'boots'];
 if (['legendary', 'epic'].includes(item.itemGrade) && armorItemTypes.includes(item.itemType)) {
-    const armorSets = ['attack', 'defense', 'life', 'lifesteal', 'speed', 'criticalHit', 'criticalStrike', 'dmgIncrease',
-		'dmgReduction', 'effectiveness', 'resilience', 'counterattack', 'penetration', 'revenge', 'patience',
+    const armorSets = ['attack', 'defense', 'life', 'lifesteal', 'speed', 'criticalHit', 'criticalStrike', 'accuracy', //'dmgIncrease',
+		/*'dmgReduction'*/ 'evasion', 'effectiveness', 'resilience', 'counterattack', 'penetration', 'revenge', 'patience',
 		'pulverization', 'immunity', 'swiftness', 'weakness', 'augmentation'];
 	const armorSetPatterns = armorSets.map(as => patterns.inventory.item.stat2.sets[as]);
 	item.itemEffect = macroService.PollPattern(armorSetPatterns).Path?.split('.').pop();
@@ -155,7 +155,8 @@ function validateItem(item) {
 
     // Validate item effect for armor pieces
     const armorTypes = ['helmet', 'chestArmor', 'gloves', 'boots'];
-    const validEffects = ['attack', 'defense', 'life', 'lifesteal', 'speed', 'criticalHit', 'criticalStrike', 'dmgIncrease', 'dmgReduction', 'effectiveness', 'resilience', 'counterattack', 'penetration', 'revenge', 'patience', 'pulverization', 'immunity', 'swiftness', 'weakness', 'augmentation'];
+    //const validEffects = ['attack', 'defense', 'life', 'lifesteal', 'speed', 'criticalHit', 'criticalStrike', 'dmgIncrease', 'dmgReduction', 'effectiveness', 'resilience', 'counterattack', 'penetration', 'revenge', 'patience', 'pulverization', 'immunity', 'swiftness', 'weakness', 'augmentation'];
+    const validEffects = ['attack', 'defense', 'life', 'lifesteal', 'speed', 'criticalHit', 'criticalStrike', 'accuracy', 'evasion', 'effectiveness', 'resilience', 'counterattack', 'penetration', 'revenge', 'patience', 'pulverization', 'immunity', 'swiftness', 'weakness', 'augmentation'];
     if (armorTypes.includes(item.itemType) && item.itemEffect) {
         if (!validEffects.includes(item.itemEffect)) {
             throw createError(`Unexpected item effect: "${item.itemEffect}". Expected: ${validEffects.join(', ')}`);
