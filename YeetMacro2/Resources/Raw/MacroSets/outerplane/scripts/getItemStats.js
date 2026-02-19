@@ -5,7 +5,7 @@ const topLeft = macroService.GetTopLeft();
 const item = { totalPoints: 0, desiredPoints: 0, desiredStats: [] };
 const itemGradePatterns = ['legendary', 'epic','superior'].map(ig => patterns.inventory.item.stat2.grade[ig]);
 const itemTypePatterns = ['weapon', 'accessory', 'helmet', 'chestArmor', 'gloves', 'boots'].map(it => patterns.inventory.item.stat2.type[it]);
-const itemStatTypePatterns = ['health', 'speed', 'attack', 'defence', 'critChance', 'critDmg', 'dmgIncrease', 'dmgReduction', 'effectiveness', 'resilience', 'penetration', 'healsWhenHit'].map(ist => patterns.inventory.item.stat2.statType[ist]);
+const itemStatTypePatterns = ['health', 'speed', 'attack', 'defence', 'critChance', 'critDmg', 'dmgIncrease', 'dmgReduction', 'effectiveness', 'resilience', 'penetration', 'critDmgReduction'].map(ist => patterns.inventory.item.stat2.statType[ist]);
 item.itemGrade = macroService.PollPattern(itemGradePatterns).Path?.split('.').pop();
 item.itemType = macroService.PollPattern(itemTypePatterns).Path?.split('.').pop();
 
@@ -110,7 +110,7 @@ function validateItem(item) {
     const validGrades = ['legendary', 'epic', 'superior'];
     const validTypes = ['weapon', 'accessory', 'helmet', 'chestArmor', 'gloves', 'boots'];
     const validStats = ['health', 'speed', 'attack', 'defence', 'critChance', 'critDmg',
-        'dmgIncrease', 'dmgReduction', 'effectiveness', 'resilience', 'penetration', 'healsWhenHit'];
+        'dmgIncrease', 'dmgReduction', 'effectiveness', 'resilience', 'penetration', 'critDmgReduction'];
 
     // Helper function to create error with item attached
     function createError(message) {
