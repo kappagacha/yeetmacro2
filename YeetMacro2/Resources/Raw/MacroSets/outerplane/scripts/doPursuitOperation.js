@@ -6,6 +6,7 @@ const daily = dailyManager.GetCurrentDaily();
 const teamSlot = settings.doPursuitOperation.teamSlot.Value;
 const publishToPublic = settings.doPursuitOperation.publishToPublic.Value;
 let targetOperation = settings.doPursuitOperation.targetOperation.Value;
+let lastOperation;
 
 let teamRestored = false;
 let isRotateOperation = targetOperation === 'rotate';
@@ -116,7 +117,10 @@ while (macroService.IsRunning) {
 				targetOperation = operations[(lastOperationIndex + 1) % operations.length];
 			}
 
+			if (lastOperation != targetOperation) teamRestored = false;
+
 			macroService.PollPattern(patterns.irregularExtermination.pursuitOperation[targetOperation], { DoClick: true, PredicatePattern: patterns.irregularExtermination.pursuitOperation.createOperation });
+			lastOperation = targetOperation;
 			macroService.PollPattern(patterns.irregularExtermination.pursuitOperation.createOperation, { DoClick: true, PredicatePattern: patterns.irregularExtermination.pursuitOperation.selectTeam });
 			macroService.PollPattern(patterns.irregularExtermination.pursuitOperation.selectTeam, { DoClick: true, PredicatePattern: patterns.battle.enter });
 			selectTeam(teamSlot);
