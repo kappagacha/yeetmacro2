@@ -925,8 +925,8 @@
       "intermediateSkillManual": {
         "$type": "boolean",
         "$tags": [],
-        "$defaultValue": false,
-        "$value": false,
+        "$defaultValue": true,
+        "$value": true,
         "$position": 10,
         "$name": "intermediateSkillManual",
         "$path": "doWeeklyShop.surveyHub.intermediateSkillManual"
@@ -943,8 +943,8 @@
       "professionalSkillManual": {
         "$type": "boolean",
         "$tags": [],
-        "$defaultValue": false,
-        "$value": false,
+        "$defaultValue": true,
+        "$value": true,
         "$position": 12,
         "$name": "professionalSkillManual",
         "$path": "doWeeklyShop.surveyHub.professionalSkillManual"
@@ -3099,8 +3099,8 @@
         "sweepAllStamina"
       ],
       "$tags": [],
-      "$defaultValue": "currentStaminaValue",
-      "$value": "currentStaminaValue",
+      "$defaultValue": "sweepAllStamina",
+      "$value": "sweepAllStamina",
       "$position": 0,
       "$name": "type",
       "$path": "test.type"
