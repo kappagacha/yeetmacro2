@@ -188,7 +188,7 @@ const bossTypeToTeam = {
             name: 'gnosisNella'
         },
         bottom: {
-            name: 'rey'
+            name: 'monadIota'
         },
     },
     sacreedGuardian: {
@@ -469,6 +469,10 @@ const characterToFilter = {
     astie: {
         element: 'fire',
         battleType: 'healer'
+    },
+    monadIota: {
+        element: 'dark',
+        battleType: 'ranger'
     },
 };
 
