@@ -404,7 +404,7 @@
       "$type": "timestamp",
       "$tags": [],
       "$defaultValue": "0001-01-01T00:00:00+00:00",
-      "$value": "2026-01-27T18:26:12.002+00:00",
+      "$value": "2026-02-24T18:03:11.072+00:00",
       "$position": 0,
       "$name": "lastRun",
       "$path": "claimAntiparticle.lastRun"
@@ -429,7 +429,7 @@
       "$type": "timestamp",
       "$tags": [],
       "$defaultValue": "0001-01-01T00:00:00+00:00",
-      "$value": "2026-01-27T18:39:56.276+00:00",
+      "$value": "2026-02-24T18:19:14.786+00:00",
       "$position": 0,
       "$name": "lastRun",
       "$path": "doFriends.lastRun"
@@ -1627,7 +1627,7 @@
       "$type": "timestamp",
       "$tags": [],
       "$defaultValue": "0001-01-01T00:00:00+00:00",
-      "$value": "2026-01-27T05:05:30.233+00:00",
+      "$value": "2026-02-24T18:19:29.924+00:00",
       "$position": 0,
       "$name": "lastRun",
       "$path": "startTerminusIsleExploration.lastRun"
@@ -2790,8 +2790,8 @@
         "9"
       ],
       "$tags": [],
-      "$defaultValue": "8",
-      "$value": "8",
+      "$defaultValue": "2",
+      "$value": "2",
       "$position": 2,
       "$name": "teamSlot",
       "$path": "sweepEventStoryHard.teamSlot"
@@ -3022,8 +3022,8 @@
     "claimEventDailyMissions2": {
       "$type": "boolean",
       "$tags": [],
-      "$defaultValue": false,
-      "$value": false,
+      "$defaultValue": true,
+      "$value": true,
       "$position": 28,
       "$name": "claimEventDailyMissions2",
       "$path": "doDailies.claimEventDailyMissions2"
@@ -3077,8 +3077,8 @@
         "9"
       ],
       "$tags": [],
-      "$defaultValue": "8",
-      "$value": "8",
+      "$defaultValue": "2",
+      "$value": "2",
       "$position": 0,
       "$name": "teamSlot",
       "$path": "doEventStory.teamSlot"
@@ -3099,8 +3099,8 @@
         "sweepAllStamina"
       ],
       "$tags": [],
-      "$defaultValue": "currentStaminaValue",
-      "$value": "currentStaminaValue",
+      "$defaultValue": "arenaTicketCount",
+      "$value": "arenaTicketCount",
       "$position": 0,
       "$name": "type",
       "$path": "test.type"
@@ -3108,8 +3108,8 @@
     "debugBounds": {
       "$type": "boolean",
       "$tags": [],
-      "$defaultValue": false,
-      "$value": false,
+      "$defaultValue": true,
+      "$value": true,
       "$position": 0,
       "$name": "debugBounds",
       "$path": "test.debugBounds"
@@ -3187,8 +3187,8 @@
     "lastOperation": {
       "$type": "string",
       "$tags": [],
-      "$defaultValue": "ironStretcher",
-      "$value": "ironStretcher",
+      "$defaultValue": "blockbuster",
+      "$value": "blockbuster",
       "$position": 3,
       "$name": "lastOperation",
       "$path": "doPursuitOperation.lastOperation"

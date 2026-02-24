@@ -122,13 +122,13 @@ while (macroService.IsRunning) {
 
 function getArenaTicketCount() {
 	const ticketResult = macroService.PollPattern(patterns.arena.ticket);
-	const slashPattern = macroService.ClonePattern(patterns.arena.ticket.slash, { X: ticketResult.Point.X + 60, Width: 100, Padding: 5, PathSuffix: `_x${ticketResult.Point.X}`, OffsetCalcType: 'None' });
+	const slashPattern = macroService.ClonePattern(patterns.arena.ticket.slash, { X: ticketResult.Point.X + 60, Y: 35, Height: 100, Width: 100, Padding: 5, PathSuffix: `_x${ticketResult.Point.X}`, OffsetCalcType: 'None' });
 	const slashResult = macroService.PollPattern(slashPattern);
 	const valueBounds = {
 		X: ticketResult.Point.X + 60,
 		Y: ticketResult.Point.Y - 3,
 		Height: 20,
-		Width: slashResult.Point.X - ticketResult.Point.X - 69
+		Width: slashResult.Point.X - ticketResult.Point.X - 67
 	};
 	//while (macroService.IsRunning) {
 	//	macroService.DebugRectangle(valueBounds);

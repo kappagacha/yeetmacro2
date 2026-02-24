@@ -5,25 +5,25 @@
 
 if (settings.test.type.Value === 'arenaTicketCount') {
 	const ticketResult = macroService.PollPattern(patterns.arena.ticket);
-	const slashPattern = macroService.ClonePattern(patterns.arena.ticket.slash, { X: ticketResult.Point.X + 60, Width: 100, Padding: 5, PathSuffix: `_x${ticketResult.Point.X}`, OffsetCalcType: 'None' });
+	const slashPattern = macroService.ClonePattern(patterns.arena.ticket.slash, { X: ticketResult.Point.X + 60, Y: 35, Height: 100, Width: 100, Padding: 5, PathSuffix: `_x${ticketResult.Point.X}`, OffsetCalcType: 'None' });
 	const slashResult = macroService.PollPattern(slashPattern);
 	const valueBounds = {
 		X: ticketResult.Point.X + 60,
 		Y: ticketResult.Point.Y - 3,
 		Height: 20,
-		Width: slashResult.Point.X - ticketResult.Point.X - 70
+		Width: slashResult.Point.X - ticketResult.Point.X - 67
 	};
 	while (macroService.IsRunning) {
 		macroService.DebugRectangle(valueBounds);
 		sleep(1_000);
 	}
 
-	arenaTicketCount = macroService.FindTextWithBounds(valueBounds);
+	arenaTicketCount = macroService.FindTextWithBounds(valueBounds, '0123456789');
 
 	return { arenaTicketCount };
 } else if (settings.test.type.Value === 'currentStaminaValue') {
 	const staminaResult = macroService.PollPattern(patterns.general.stamina);
-	const staminaValue = macroService.ClonePattern(patterns.general.staminaValue, { X: staminaResult.Point.X + 25, PathSuffix: `_x${staminaResult.Point.X}`, OffsetCalcType: 'None' });
+	const staminaValue = macroService.ClonePattern(patterns.general.staminaValue, { X: staminaResult.Point.X + 24, Y: staminaResult.Point.Y - 10, PathSuffix: `_x${staminaResult.Point.X}`, OffsetCalcType: 'None' });
 	let currentStamina = macroService.FindText(staminaValue);
 
 	if (settings.test.debugBounds.Value) {
