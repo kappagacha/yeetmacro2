@@ -474,6 +474,10 @@ const characterToFilter = {
         element: 'dark',
         battleType: 'ranger'
     },
+    astei: {
+        element: 'fire',
+        battleType: 'healer'
+    },
 };
 
 const locationToCharacterCloneOpts = {
@@ -499,6 +503,9 @@ for ([location, character] of Object.entries(team)) {
     }
 
     const filter = characterToFilter[character.name];
+    if (!filter)
+        throw new Error(`Filter was not found for ${character.name}`);
+
     const characterCloneOpst = locationToCharacterCloneOpts[location];
     const characterPattern = macroService.ClonePattern(patterns.battle.character[character.name], characterCloneOpst);
     const characterPatternResult = macroService.PollPattern(characterPattern, { TimeoutMs: 500 });
