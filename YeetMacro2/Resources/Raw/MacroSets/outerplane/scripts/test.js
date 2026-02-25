@@ -9,16 +9,16 @@ if (settings.test.type.Value === 'arenaTicketCount') {
 	const slashResult = macroService.PollPattern(slashPattern);
 	const valueBounds = {
 		X: ticketResult.Point.X + 60,
-		Y: ticketResult.Point.Y - 3,
-		Height: 20,
-		Width: slashResult.Point.X - ticketResult.Point.X - 67
+		Y: ticketResult.Point.Y - 6,
+		Height: 26,
+		Width: slashResult.Point.X - ticketResult.Point.X - 60
 	};
 	while (macroService.IsRunning) {
 		macroService.DebugRectangle(valueBounds);
 		sleep(1_000);
 	}
 
-	arenaTicketCount = macroService.FindTextWithBounds(valueBounds, '0123456789');
+	arenaTicketCount = macroService.FindTextWithBounds(valueBounds, '0123456789').slice(0, -1);
 
 	return { arenaTicketCount };
 } else if (settings.test.type.Value === 'currentStaminaValue') {

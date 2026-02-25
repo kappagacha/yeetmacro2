@@ -126,14 +126,14 @@ function getArenaTicketCount() {
 	const slashResult = macroService.PollPattern(slashPattern);
 	const valueBounds = {
 		X: ticketResult.Point.X + 60,
-		Y: ticketResult.Point.Y - 3,
-		Height: 20,
-		Width: slashResult.Point.X - ticketResult.Point.X - 67
+		Y: ticketResult.Point.Y - 6,
+		Height: 26,
+		Width: slashResult.Point.X - ticketResult.Point.X - 63
 	};
 	//while (macroService.IsRunning) {
 	//	macroService.DebugRectangle(valueBounds);
 	//	sleep(1_000);
 	//}
 
-	return Number(macroService.FindTextWithBounds(valueBounds, '0123456789'));
+	return Number(macroService.FindTextWithBounds(valueBounds, '0123456789').slice(0, -1));
 }
