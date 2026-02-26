@@ -246,7 +246,8 @@ const bossTypeToTeam = {
             name: 'demiurgeAstei'
         },
         right: {
-            name: 'caren'
+            name: 'maxwell',
+            presetOverride: '#MAG#PEN#ATK'
         },
         bottom: {
             name: 'gnosisViella'
