@@ -125,7 +125,7 @@ while (macroService.IsRunning) {
 
 			const sweepResult = macroService.PollPattern(patterns.irregularExtermination.pursuitOperation.sweep, { DoClick: true, PredicatePattern: [patterns.irregularExtermination.pursuitOperation.sweep.mustBattlePrompt, patterns.irregularExtermination.pursuitOperation.sweep.ok] });
 			if (sweepResult.PredicatePath === 'irregularExtermination.pursuitOperation.sweep.ok') {
-				macroService.PollPattern(patterns.irregularExtermination.pursuitOperation.sweep.ok, { DoClick: true, PredicatePattern: patterns.titles.pursuitOperation });
+				macroService.PollPattern(patterns.irregularExtermination.pursuitOperation.sweep.ok, { DoClick: true, InversePredicatePattern: patterns.irregularExtermination.pursuitOperation.sweep.ok });
 				break;
 			}
 			macroService.PollPattern(patterns.irregularExtermination.pursuitOperation.selectTeam, { DoClick: true, PredicatePattern: patterns.battle.enter });
