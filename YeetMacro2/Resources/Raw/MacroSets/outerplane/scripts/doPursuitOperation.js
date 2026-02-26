@@ -122,7 +122,14 @@ while (macroService.IsRunning) {
 			macroService.PollPattern(patterns.irregularExtermination.pursuitOperation[targetOperation], { DoClick: true, PredicatePattern: patterns.irregularExtermination.pursuitOperation.createOperation });
 			lastOperation = targetOperation;
 			macroService.PollPattern(patterns.irregularExtermination.pursuitOperation.createOperation, { DoClick: true, PredicatePattern: patterns.irregularExtermination.pursuitOperation.selectTeam });
+
+			const sweepResult = macroService.PollPattern(patterns.irregularExtermination.pursuitOperation.auto, { DoClick: true, PredicatePattern: [patterns.irregularExtermination.pursuitOperation.auto.mustBattlePrompt, patterns.irregularExtermination.pursuitOperation.auto.ok] });
+			if (sweepResult.PredicatePath === 'irregularExtermination.pursuitOperation.auto.ok') {
+				macroService.PollPattern(patterns.irregularExtermination.pursuitOperation.auto.ok, { DoClick: true, PredicatePattern: patterns.titles.pursuitOperation });
+				break;
+			}
 			macroService.PollPattern(patterns.irregularExtermination.pursuitOperation.selectTeam, { DoClick: true, PredicatePattern: patterns.battle.enter });
+
 			selectTeam(teamSlot);
 
 			if (isRotateOperation || !teamRestored || settings.applyPreset.lastApplied.Value !== teamSlot) {
