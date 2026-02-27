@@ -1,0 +1,180 @@
+// @tags=favorites
+// This onw will be for challenge skyward tower
+
+const topLeft = macroService.GetTopLeft();
+const bossTypePatterns = [
+    'glicys', // hard 34
+].map(bt => patterns.battle.boss[bt]);
+const bossTypeResult = macroService.FindPattern(bossTypePatterns);
+const bossType = bossTypeResult.Path?.split('.').pop();
+logger.info(`selectTeam3: bossType ${bossType}`);
+
+const idealTeam = {
+    left: { name: 'monadIota' },            // dark ranger
+    top: { name: 'mysticSageAme' },         // light ranger 
+    right: { name: 'monadEva' },            // light healer
+    bottom: { name: 'demiurgeLuna' },
+    // light mage
+};
+const chainOrderOpts = { effectToPriority: {} };
+const findPatternOpts = { OverrideBounds: { X: 185, Y: 340, Width: 180, Height: 135 }, OverrideOffsetCalcType: 'DockLeft' };
+const no_mages = macroService.FindPattern(patterns.battle.conditions.no_mages, findPatternOpts).IsSuccess;
+const atLeastOne_twoStar = macroService.FindPattern(patterns.battle.conditions.atLeastOne_twoStar, findPatternOpts).IsSuccess;
+const no_light = macroService.FindPattern(patterns.battle.conditions.no_light, findPatternOpts).IsSuccess;
+const no_dark = macroService.FindPattern(patterns.battle.conditions.no_dark, findPatternOpts).IsSuccess;
+
+if (no_mages) {
+    // no demiurgeLuna
+    idealTeam.bottom = { name: 'gnosisDahlia' };
+}
+
+
+if (atLeastOne_twoStar && no_light) {
+    // only monadIota remains
+    idealTeam.top = { name: 'gnosisViella' };
+    idealTeam.right = { name: 'nella' };
+    idealTeam.bottom = { name: 'vera' };
+}
+else if (atLeastOne_twoStar) {
+    // go with healer faenen
+    idealTeam.right = { name: 'faenen' };
+}
+
+
+//if (no_light && no_dark) {
+//    logger.info('mode: no_light && no_dark');
+//    idealTeam.left = { name: 'mene' };
+//    idealTeam.top = { name: 'rey' };
+//    idealTeam.right = { name: 'tamamo' };
+//    idealTeam.bottom = { name: 'summerRegina' };
+//    chainOrderOpts.effectToPriority.cdr = 0;
+//}
+if (no_light && no_dark && bossType === 'glicys') {
+    logger.info('mode: no_light && no_dark glicys');
+    idealTeam.left = { name: 'viella' };
+    idealTeam.top = { name: 'notia' };
+    idealTeam.right = { name: 'delta' };
+    idealTeam.bottom = { name: 'rey' };
+    chainOrderOpts.effectToPriority.cdr = 0;
+}
+
+
+selectTeam(9);
+const characterToFilter = {
+    akari: { element: 'light', battleType: 'ranger' },
+    mysticSageAme: { element: 'light', battleType: 'ranger' },
+    monadEva: { element: 'light', battleType: 'healer' },
+    demiurgeLuna: { element: 'light', battleType: 'mage' },
+    regina: { element: 'light', battleType: 'mage' },
+    tamamoEternity: { element: 'earth', battleType: 'mage' },
+    marian: { element: 'water', battleType: 'mage' },
+    delta: { element: 'earth', battleType: 'striker' },
+    rey: { element: 'earth', battleType: 'striker' },
+    ame: { element: 'earth', battleType: 'mage' },
+    sterope: { element: 'dark', battleType: 'defender' },
+    tamara: { element: 'water', battleType: 'ranger' },
+    caren: { element: 'water', battleType: 'striker' },
+    summerRegina: { element: 'water', battleType: 'striker' },
+    stella: { element: 'light', battleType: 'ranger' },
+    gnosisViella: { element: 'dark', battleType: 'striker' },
+    nella: { element: 'dark', battleType: 'healer' },
+    ryu: { element: 'earth', battleType: 'ranger' },
+    demiurgeVlada: { element: 'dark', battleType: 'ranger' },
+    demiurgeAstei: { element: 'dark', battleType: 'mage' },
+    maxwell: { element: 'dark', battleType: 'mage' },
+    iota: { element: 'dark', battleType: 'mage' },
+    mene: { element: 'water', battleType: 'healer' },
+    fortuna: { element: 'water', battleType: 'mage' },
+    demiurgeDrakhan: { element: 'light', battleType: 'defender' },
+    gnosisNella: { element: 'light', battleType: 'mage' },
+    valentine: { element: 'fire', battleType: 'ranger' },
+    maxie: { element: 'fire', battleType: 'ranger' },
+    bryn: { element: 'fire', battleType: 'mage' },
+    eternal: { element: 'fire', battleType: 'mage' },
+    notia: { element: 'earth', battleType: 'ranger' },
+    fran: { element: 'earth', battleType: 'ranger' },
+    kappa: { element: 'earth', battleType: 'defender' },
+    christmasDianne: { element: 'fire', battleType: 'ranger' },
+    iris: { element: 'fire', battleType: 'mage' },
+    kanon: { element: 'fire', battleType: 'striker' },
+    vlada: { element: 'fire', battleType: 'striker' },
+    summerEmber: { element: 'water', battleType: 'defender' },
+    beth: { element: 'water', battleType: 'striker' },
+    dianne: { element: 'light', battleType: 'healer' },
+    drakhan: { element: 'light', battleType: 'striker' },
+    omegaNadja: { element: 'dark', battleType: 'defender' },
+    faenen: { element: 'light', battleType: 'healer' },
+    astie: { element: 'fire', battleType: 'healer' },
+    monadIota: { element: 'dark', battleType: 'ranger' },
+    astei: { element: 'fire', battleType: 'healer' },
+    gnosisDahlia: { element: 'dark', battleType: 'striker' },
+    tamamo: { element: 'fire', battleType: 'mage' },
+    viella: { element: 'earth', battleType: 'healer' },
+    vera: { element: 'dark', battleType: 'striker' },
+};
+
+const locationToCharacterCloneOpts = {
+    left: { X: topLeft.X + 371.25, Y: 466.25, Width: 161.5, Height: 164.5, PathSuffix: '_left', OffsetCalcType: 'None' },
+    top: { X: topLeft.X + 551.25, Y: 311.25, Width: 161.5, Height: 164.5, PathSuffix: '_top', OffsetCalcType: 'None' },
+    right: { X: topLeft.X + 736.25, Y: 466.25, Width: 161.5, Height: 164.5, PathSuffix: '_right', OffsetCalcType: 'None' },
+    bottom: { X: topLeft.X + 551.25, Y: 635.25, Width: 161.5, Height: 164.5, PathSuffix: '_bottom', OffsetCalcType: 'None' },
+};
+
+macroService.PollPattern(patterns.battle.owned, { DoClick: true, PredicatePattern: [patterns.battle.characterFilter, patterns.battle.characterFilter.applied] });
+//const team = bossTypeToTeam[bossType];
+const team = idealTeam;
+
+let lastElementFilter, lastElementBattleType;
+const presetOverride = {};
+
+for ([location, character] of Object.entries(team)) {
+    const isOccupied = macroService.FindPattern(patterns.battle.teamFormation[location].occupied).IsSuccess;
+    if (!character && isOccupied) {
+        macroService.PollPattern(patterns.battle.teamFormation[location], { DoClick: true, PredicatePattern: patterns.battle.teamFormation[location].remove, PrimaryClickInversePredicatePattern: patterns.battle.teamFormation[location].remove });
+        macroService.PollPattern(patterns.battle.teamFormation[location].remove, { DoClick: true, InversePredicatePattern: patterns.battle.teamFormation[location].remove });
+        continue;
+    } else if (!character) {
+        continue;
+    }
+
+    const filter = characterToFilter[character.name];
+    if (!filter)
+        throw new Error(`Filter was not found for ${character.name}`);
+
+    const characterCloneOpst = locationToCharacterCloneOpts[location];
+    const characterPattern = macroService.ClonePattern(patterns.battle.character[character.name], characterCloneOpst);
+    const characterPatternResult = macroService.PollPattern(characterPattern, { TimeoutMs: 500 });
+
+    if (character.presetOverride) presetOverride[location] = character.presetOverride;
+    if (characterPatternResult.IsSuccess) continue;
+
+    macroService.PollPattern([patterns.battle.characterFilter, patterns.battle.characterFilter.applied], { DoClick: true, PredicatePattern: patterns.battle.characterFilter.ok });
+    macroService.PollPattern(patterns.battle.characterFilter.battleType, { SwipePattern: patterns.battle.characterFilter.swipeDown });
+
+    if (lastElementFilter != filter.element) {
+        macroService.PollPattern(patterns.battle.characterFilter.element.all, { DoClick: true, PredicatePattern: patterns.battle.characterFilter.element.all.selected });
+        macroService.PollPattern(patterns.battle.characterFilter.element[filter.element], { DoClick: true, PredicatePattern: patterns.battle.characterFilter.element[filter.element].selected });
+        lastElementFilter = filter.element;
+    }
+
+    if (lastElementBattleType != filter.battleType) {
+        macroService.PollPattern(patterns.battle.characterFilter.battleType.all, { DoClick: true, PredicatePattern: patterns.battle.characterFilter.battleType.all.selected });
+        macroService.PollPattern(patterns.battle.characterFilter.battleType[filter.battleType], { DoClick: true, PredicatePattern: patterns.battle.characterFilter.battleType[filter.battleType].selected });
+        lastElementBattleType = filter.battleType;
+    }
+
+    macroService.PollPattern(patterns.battle.characterFilter.ok, { DoClick: true, PredicatePattern: [patterns.battle.characterFilter, patterns.battle.characterFilter.applied] });
+    const allCharacterCloneOpts = { X: 70, Y: 880, Width: 1700, Height: 130, PathSuffix: '_all', OffsetCalcType: 'None', BoundsCalcType: 'FillWidth' };
+    const allCharacterPattern = macroService.ClonePattern(patterns.battle.character[character.name], allCharacterCloneOpts);
+    if (isOccupied) {
+        macroService.PollPattern(patterns.battle.teamFormation[location], { DoClick: true, PredicatePattern: [patterns.battle.teamFormation[location].remove, patterns.battle.teamFormation[location].add], PrimaryClickInversePredicatePattern: patterns.battle.teamFormation[location].remove });
+    }
+
+    const allCharacterResult = macroService.PollPattern(allCharacterPattern, { DoClick: true, ClickPattern: patterns.battle.teamFormation[location].add, PredicatePattern: characterPattern, TimeoutMs: 3_000 });
+    if (!allCharacterResult.IsSuccess) {
+        throw new Error(`Could not find ${character.name}`);
+    }
+}
+
+applyPreset(undefined, { presetOverride });
+setChainOrder(chainOrderOpts);
