@@ -152,29 +152,34 @@ public class Pattern: ISortable
     [JsonIgnore]
     public Rect Bounds
     {
-        get
+        get => CalculateBounds(RawBounds, OffsetCalcType.None);
+    }
+
+    public Rect OverrideBounds(Rect rect, OffsetCalcType overrideOffsetCalcType = OffsetCalcType.None) => CalculateBounds(rect, overrideOffsetCalcType);
+
+    private Rect CalculateBounds(Rect rect, OffsetCalcType overrideOffsetCalcType = OffsetCalcType.None)
+    {
+        var widthDiff = DisplayHelper.PhysicalResolution.Width - Resolution.Width;
+        var offsetCalcType = overrideOffsetCalcType != OffsetCalcType.None ? overrideOffsetCalcType : OffsetCalcType;
+        switch (BoundsCalcType)
         {
-            var widthDiff = DisplayHelper.PhysicalResolution.Width - Resolution.Width;
-            switch (BoundsCalcType)
-            {
-                case BoundsCalcType.Default:
-                case BoundsCalcType.None:
-                default:
-                    return RawBounds;
-                case BoundsCalcType.FillWidth:
-                    switch (OffsetCalcType)
-                    {
-                        case OffsetCalcType.None:
-                        case OffsetCalcType.DockLeft:
-                            return new Rect(RawBounds.Location, new Size(RawBounds.Width + widthDiff, RawBounds.Height));
-                        case OffsetCalcType.DockRight:
-                            return new Rect(RawBounds.Location.Offset(-widthDiff, 0), new Size(RawBounds.Width + widthDiff, RawBounds.Height));
-                        default:
-                            return new Rect(RawBounds.Location.Offset(-widthDiff / 2.0, 0), new Size(RawBounds.Width + widthDiff, RawBounds.Height));
-                    }
-                case BoundsCalcType.FillHeight:
-                    return new Rect(RawBounds.Location, new Size(RawBounds.Width, RawBounds.Height + DisplayHelper.PhysicalResolution.Height - Resolution.Height));
-            }
+            case BoundsCalcType.Default:
+            case BoundsCalcType.None:
+            default:
+                return rect;
+            case BoundsCalcType.FillWidth:
+                switch (offsetCalcType)
+                {
+                    case OffsetCalcType.None:
+                    case OffsetCalcType.DockLeft:
+                        return new Rect(rect.Location, new Size(rect.Width + widthDiff, rect.Height));
+                    case OffsetCalcType.DockRight:
+                        return new Rect(rect.Location.Offset(-widthDiff, 0), new Size(rect.Width + widthDiff, rect.Height));
+                    default:
+                        return new Rect(rect.Location.Offset(-widthDiff / 2.0, 0), new Size(rect.Width + widthDiff, rect.Height));
+                }
+            case BoundsCalcType.FillHeight:
+                return new Rect(rect.Location, new Size(rect.Width, rect.Height + DisplayHelper.PhysicalResolution.Height - Resolution.Height));
         }
     }
 }

@@ -18,7 +18,8 @@ public class FindOptions
     public double VariancePct { get; set; }
     public double Scale { get; set; }
     public Point Offset { get; set; } = Point.Zero;
-    //public Rect OverrideRect { get; set; }
+    public Rect OverrideBounds { get; set; }
+    public OffsetCalcType OverrideOffsetCalcType { get; set; } = OffsetCalcType.None;
 }
 
 public class TextFindOptions

@@ -334,8 +334,10 @@ public class AndroidScreenService : IScreenService, IDisposable
             var boundsPadding = 4;
             byte[] needleImageData = pattern.ImageData;
             byte[] haystackImageData = null;
-            var rect = pattern.Bounds.Offset(opts.Offset);
-            //var rect = opts.OverrideRect != Rect.Zero ? opts.OverrideRect : pattern.RawBounds;
+            //var rect = pattern.Bounds.Offset(opts.Offset);
+            var rect = opts.OverrideBounds != Rect.Zero || opts.OverrideOffsetCalcType != OffsetCalcType.None ? 
+                pattern.OverrideBounds(opts.OverrideBounds, opts.OverrideOffsetCalcType) : pattern.Bounds;
+            rect = rect.Offset(opts.Offset);
 
             watch.Start();
             try

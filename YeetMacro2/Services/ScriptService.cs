@@ -298,7 +298,7 @@ public class JsToDotNetConverter(Engine engine) : DefaultTypeConverter(engine)
         }
         else if (type == typeof(FindOptions))
         {
-            var opts = JsonSerializer.Deserialize<FindOptions>(JsonSerializer.Serialize(value));
+            var opts = JsonSerializer.Deserialize<FindOptions>(JsonSerializer.Serialize(value, _jsonOpts), _jsonOpts);
             converted = opts;
             return true;
         }

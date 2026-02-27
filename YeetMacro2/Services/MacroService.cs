@@ -245,7 +245,9 @@ public class MacroService
                         {
                             Limit = opts.Limit,
                             VariancePct = opts.VariancePct,
-                            Offset = opts.Offset.Offset(offset.X, offset.Y)
+                            Offset = opts.Offset.Offset(offset.X, offset.Y),
+                            OverrideBounds = opts.OverrideBounds,
+                            OverrideOffsetCalcType = opts.OverrideOffsetCalcType
                         };
 
                         if (InDebugMode && pattern.RawBounds != Rect.Zero)
@@ -288,7 +290,9 @@ public class MacroService
                     {
                         Limit = opts.Limit,
                         VariancePct = opts.VariancePct,
-                        Offset = opts.Offset.Offset(offset.X, offset.Y)
+                        Offset = opts.Offset.Offset(offset.X, offset.Y),
+                        OverrideBounds = opts.OverrideBounds,
+                        OverrideOffsetCalcType = opts.OverrideOffsetCalcType
                     };
 
                     if (InDebugMode && pattern.RawBounds != Rect.Zero)
