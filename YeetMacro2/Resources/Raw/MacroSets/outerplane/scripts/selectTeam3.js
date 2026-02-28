@@ -3,43 +3,93 @@
 
 const topLeft = macroService.GetTopLeft();
 const bossTypePatterns = [
-    'glicys', // hard 34
+    'glicys',               // hard 34
+    'darkDemiurgeVlada',    // very hard 10
+    'darkEliza',            // very hard 12
+    'fireTamamo',           // very hard 13
+    'lightStella',          // very hard 15
+    'waterLaplace',         // very hard 17
+    'darkIota',             // very hard 20
 ].map(bt => patterns.battle.boss[bt]);
 const bossTypeResult = macroService.FindPattern(bossTypePatterns);
 const bossType = bossTypeResult.Path?.split('.').pop();
 logger.info(`selectTeam3: bossType ${bossType}`);
 
 const idealTeam = {
-    left: { name: 'monadIota' },            // dark ranger
-    top: { name: 'mysticSageAme' },         // light ranger 
-    right: { name: 'monadEva' },            // light healer
-    bottom: { name: 'demiurgeLuna' },
+    //left: { name: 'monadIota' },            // dark ranger
+    left: { name: 'gnosisNella' },          // light mage    -> starter pct damage
+    top: { name: 'mysticSageAme' },         // light ranger  -> dps + slight pct damage with autos
+    right: { name: 'monadEva' },            // light healer  -> double dual attack + healer
+    bottom: { name: 'demiurgeStella' },     // light striker -> ender pct damage
+    //bottom: { name: 'demiurgeLuna' },
     // light mage
 };
 const chainOrderOpts = { effectToPriority: {} };
 const findPatternOpts = { OverrideBounds: { X: 185, Y: 340, Width: 180, Height: 135 }, OverrideOffsetCalcType: 'DockLeft' };
+
+const all_water = macroService.FindPattern(patterns.battle.conditions.all_water, findPatternOpts).IsSuccess;
+const all_light = macroService.FindPattern(patterns.battle.conditions.all_light, findPatternOpts).IsSuccess;
+
+const no_ranger = macroService.FindPattern(patterns.battle.conditions.no_ranger, findPatternOpts).IsSuccess;
+// need the scond pattern for no_healers
+const no_healers = macroService.FindPattern(patterns.battle.conditions.no_healers, findPatternOpts).IsSuccess;
+//const no_defenders = macroService.FindPattern(patterns.battle.conditions.no_defenders, findPatternOpts).IsSuccess;
+// need the second pattern for no_mages
 const no_mages = macroService.FindPattern(patterns.battle.conditions.no_mages, findPatternOpts).IsSuccess;
-const atLeastOne_twoStar = macroService.FindPattern(patterns.battle.conditions.atLeastOne_twoStar, findPatternOpts).IsSuccess;
+const no_strikers = macroService.FindPattern(patterns.battle.conditions.no_strikers, findPatternOpts).IsSuccess;
+
 const no_light = macroService.FindPattern(patterns.battle.conditions.no_light, findPatternOpts).IsSuccess;
-const no_dark = macroService.FindPattern(patterns.battle.conditions.no_dark, findPatternOpts).IsSuccess;
+//const no_dark = macroService.FindPattern(patterns.battle.conditions.no_dark, findPatternOpts).IsSuccess;
+//const no_earth = macroService.FindPattern(patterns.battle.conditions.no_earth, findPatternOpts).IsSuccess;
+
+const atLeastOne_twoStar = macroService.FindPattern(patterns.battle.conditions.atLeastOne_twoStar, findPatternOpts).IsSuccess;
+//const atLeastOne_ranger = macroService.FindPattern(patterns.battle.conditions.atLeastOne_ranger, findPatternOpts).IsSuccess;
+//const atLeastOne_striker = macroService.FindPattern(patterns.battle.conditions.atLeastOne_striker, findPatternOpts).IsSuccess;
+//const atLeastOne_healer = macroService.FindPattern(patterns.battle.conditions.atLeastOne_healer, findPatternOpts).IsSuccess;
+
+//const atLeastOne_light = macroService.FindPattern(patterns.battle.conditions.atLeastOne_light, findPatternOpts).IsSuccess;
+const atLeastOne_earth = macroService.FindPattern(patterns.battle.conditions.atLeastOne_earth, findPatternOpts).IsSuccess;
+const atLeastOne_dark = macroService.FindPattern(patterns.battle.conditions.atLeastOne_dark, findPatternOpts).IsSuccess;
 
 if (no_mages) {
     // no demiurgeLuna
-    idealTeam.bottom = { name: 'gnosisDahlia' };
+    idealTeam.left = { name: 'monadEva' };
+    idealTeam.right = { name: 'demiurgeDrakhan' };
 }
 
-
-if (atLeastOne_twoStar && no_light) {
-    // only monadIota remains
-    idealTeam.top = { name: 'gnosisViella' };
-    idealTeam.right = { name: 'nella' };
-    idealTeam.bottom = { name: 'vera' };
+if (no_strikers) {
+    idealTeam.bottom = { name: 'gnosisNella' };
+    idealTeam.left = { name: 'monadIota' };
 }
-else if (atLeastOne_twoStar) {
+
+if (atLeastOne_dark) {
+    idealTeam.left = { name: 'monadIota' };
+}
+
+//if (atLeastOne_twoStar && no_light) {
+//    // only monadIota remains
+//    idealTeam.top = { name: 'gnosisViella' };
+//    idealTeam.right = { name: 'nella' };
+//    idealTeam.bottom = { name: 'vera' };
+//}
+//else if (atLeastOne_twoStar) {
+if (atLeastOne_twoStar) {
     // go with healer faenen
     idealTeam.right = { name: 'faenen' };
 }
 
+if (atLeastOne_earth && bossType == 'fireTamamo') { 
+    idealTeam.left = { name: 'viella' };
+    idealTeam.top = { name: 'summerRegina' };
+    idealTeam.right = { name: 'summerEmber' };
+    idealTeam.bottom = { name: 'tamara' };
+} else if (atLeastOne_earth) {
+    idealTeam.top = { name: 'delta' };
+}
+
+if (no_healers) {
+    idealTeam.right = { name: 'demiurgeDrakhan' };
+}
 
 //if (no_light && no_dark) {
 //    logger.info('mode: no_light && no_dark');
@@ -49,6 +99,7 @@ else if (atLeastOne_twoStar) {
 //    idealTeam.bottom = { name: 'summerRegina' };
 //    chainOrderOpts.effectToPriority.cdr = 0;
 //}
+//if (no_light && no_dark && bossType === 'glicys') {
 if (no_light && no_dark && bossType === 'glicys') {
     logger.info('mode: no_light && no_dark glicys');
     idealTeam.left = { name: 'viella' };
@@ -58,6 +109,31 @@ if (no_light && no_dark && bossType === 'glicys') {
     chainOrderOpts.effectToPriority.cdr = 0;
 }
 
+if (all_water && no_ranger) {
+    idealTeam.left = { name: 'mene' };
+    idealTeam.top = { name: 'summerRegina' };
+    idealTeam.right = { name: 'summerEmber' };
+    idealTeam.bottom = { name: 'caren' };
+}
+
+if (bossType === 'darkDemiurgeVlada' || bossType === 'darkEliza' || bossType === 'waterLaplace') {
+    idealTeam.left = { name: 'monadIota' };
+    idealTeam.top = { name: 'gnosisViella' };
+    idealTeam.bottom = { name: 'demiurgeLuna' };
+}
+
+if (bossType === 'lightStella') {
+    idealTeam.left = { name: 'nella' };
+    idealTeam.top = { name: 'gnosisViella' };
+    idealTeam.bottom = { name: 'demiurgeLuna' };
+}
+
+if (bossType === 'darkIota') {
+    idealTeam.left = { name: 'iota' };
+    idealTeam.top = { name: 'akari' };
+    idealTeam.right = { name: 'monadEva' },
+    idealTeam.bottom = { name: 'demiurgeLuna' };
+}
 
 selectTeam(9);
 const characterToFilter = {
@@ -111,6 +187,7 @@ const characterToFilter = {
     tamamo: { element: 'fire', battleType: 'mage' },
     viella: { element: 'earth', battleType: 'healer' },
     vera: { element: 'dark', battleType: 'striker' },
+    demiurgeStella: { element: 'light', battleType: 'striker' },
 };
 
 const locationToCharacterCloneOpts = {
