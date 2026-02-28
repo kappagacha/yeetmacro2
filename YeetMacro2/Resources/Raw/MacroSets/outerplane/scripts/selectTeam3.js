@@ -5,7 +5,7 @@ const topLeft = macroService.GetTopLeft();
 const bossTypePatterns = [
     'glicys',               // hard 34
     'darkDemiurgeVladaHard',// hard 35
-    'darkDemiurgeVlada',    // very hard 10
+    'darkDemiurgeVladaVeryHard',    // very hard 10
     'darkEliza',            // very hard 12
     'fireTamamo',           // very hard 13
     'lightStella',          // very hard 15
@@ -107,7 +107,7 @@ if (all_water && no_ranger) {
     idealTeam.bottom = { name: 'caren' };
 }
 
-if (bossType === 'darkDemiurgeVlada' || bossType === 'darkEliza' || bossType === 'waterLaplace') {
+if (bossType === 'darkDemiurgeVladaVeryHard' || bossType === 'darkEliza' || bossType === 'waterLaplace') {
     idealTeam.left = { name: 'monadIota' };
     idealTeam.top = { name: 'gnosisViella' };
     idealTeam.bottom = { name: 'demiurgeLuna' };
