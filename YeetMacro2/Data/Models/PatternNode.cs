@@ -103,51 +103,53 @@ public class Pattern: ISortable
     [JsonIgnore]
     public Point Offset
     {
-        get
+        get => CalcOffset(OffsetCalcType);
+    }
+
+    public Point CalcOffset(OffsetCalcType offsetCalcType)
+    {
+        if (offsetCalcType == OffsetCalcType.None) return Point.Zero;
+
+        var isFullScreen = DisplayHelper.CutoutCalculationType == CutoutCalculationType.None;
+        var xOffset = 0.0;
+        var yOffset = 0.0;
+        var topLeft = DisplayHelper.TopLeft;
+        var usableResolution = isFullScreen ? DisplayHelper.PhysicalResolution : DisplayHelper.UsableResolution;
+        var physicalResolution = DisplayHelper.PhysicalResolution;
+        var rightMargin = topLeft.X != 0 ? 0: (int)physicalResolution.Width - (int)usableResolution.Width;
+
+        switch (offsetCalcType)
         {
-            if (OffsetCalcType == OffsetCalcType.None) return Point.Zero;
-
-            var isFullScreen = DisplayHelper.CutoutCalculationType == CutoutCalculationType.None;
-            var xOffset = 0.0;
-            var yOffset = 0.0;
-            var topLeft = DisplayHelper.TopLeft;
-            var usableResolution = isFullScreen ? DisplayHelper.PhysicalResolution : DisplayHelper.UsableResolution;
-            var physicalResolution = DisplayHelper.PhysicalResolution;
-            var rightMargin = topLeft.X != 0 ? 0: (int)physicalResolution.Width - (int)usableResolution.Width;
-
-            switch (OffsetCalcType)
-            {
-                case OffsetCalcType.DockLeft:
-                    xOffset = topLeft.X;
-                    yOffset = topLeft.Y;
-                    break;
-                case OffsetCalcType.Default:
-                case OffsetCalcType.Center:
-                    {   // horizontal center handling
-                        var deltaX = physicalResolution.Width - Resolution.Width;
-                        //var deltaX = usableResolution.Width - Resolution.Width + (topLeft.X * 2);
-                        xOffset = (int)((deltaX / 2) + (topLeft.X / 2) - (rightMargin / 2));
-                    }
-                    break;
-                case OffsetCalcType.DockRight:
-                    {   // horizontal dock right handling (dock left does not need handling)
-                        var right = Resolution.Width - RawBounds.X;
-                        var targetX = physicalResolution.Width - right - rightMargin;
-                        //var targetX = usableResolution.Width - right + topLeft.X;
-                        //var targetX = currentResolution.Width - right + topLeft.X - bottomRightOffset.X;
-                        xOffset = (int)(targetX - RawBounds.X);
-                    }
-                    break;
-            }
-
-            if (DisplayHelper.CutoutCalculationType == CutoutCalculationType.Center)
-            {
-                var halfOfX = topLeft.X / 2;
-                xOffset -= halfOfX;
-            }
-
-            return new Point(xOffset, yOffset);
+            case OffsetCalcType.DockLeft:
+                xOffset = topLeft.X;
+                yOffset = topLeft.Y;
+                break;
+            case OffsetCalcType.Default:
+            case OffsetCalcType.Center:
+                {   // horizontal center handling
+                    var deltaX = physicalResolution.Width - Resolution.Width;
+                    //var deltaX = usableResolution.Width - Resolution.Width + (topLeft.X * 2);
+                    xOffset = (int)((deltaX / 2) + (topLeft.X / 2) - (rightMargin / 2));
+                }
+                break;
+            case OffsetCalcType.DockRight:
+                {   // horizontal dock right handling (dock left does not need handling)
+                    var right = Resolution.Width - RawBounds.X;
+                    var targetX = physicalResolution.Width - right - rightMargin;
+                    //var targetX = usableResolution.Width - right + topLeft.X;
+                    //var targetX = currentResolution.Width - right + topLeft.X - bottomRightOffset.X;
+                    xOffset = (int)(targetX - RawBounds.X);
+                }
+                break;
         }
+
+        if (DisplayHelper.CutoutCalculationType == CutoutCalculationType.Center)
+        {
+            var halfOfX = topLeft.X / 2;
+            xOffset -= halfOfX;
+        }
+
+        return new Point(xOffset, yOffset);
     }
     [JsonIgnore]
     public Rect Bounds

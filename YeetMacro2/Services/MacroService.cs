@@ -104,21 +104,35 @@ public class MacroService
         Thread.Sleep(ms);
     }
 
-    public Point CalcOffset(string path, Pattern pattern)
+    public Point CalcOffset(string path, Pattern pattern, OffsetCalcType overrideOffsetCalcType = OffsetCalcType.None)
     {
         if (!_pathToOffset.ContainsKey(path))
         {
-            _pathToOffset[path] = pattern.Offset;
+            if (overrideOffsetCalcType != OffsetCalcType.None)
+            {
+                _pathToOffset[path] = pattern.CalcOffset(overrideOffsetCalcType);
+            }
+            else
+            {
+                _pathToOffset[path] = pattern.Offset;
+            }
         }
 
         return _pathToOffset[path];
     }
 
-    public Rect CalcBounds(string path, Pattern pattern)
+    public Rect CalcBounds(string path, Pattern pattern, Rect overrideBounds = default, OffsetCalcType overrideOffsetCalcType = OffsetCalcType.None)
     {
         if (!_pathToBounds.ContainsKey(path))
         {
-            _pathToBounds[path] = pattern.Bounds;
+            if (overrideBounds != Rect.Zero)
+            {
+                _pathToBounds[path] = pattern.OverrideBounds(overrideBounds, overrideOffsetCalcType);
+            }
+            else
+            {
+                _pathToBounds[path] = pattern.Bounds;
+            }
         }
 
         return _pathToBounds[path];
@@ -239,8 +253,8 @@ public class MacroService
                     foreach (var pattern in patternNode.Patterns)
                     {
                         var patternPath = $"{patternNode.Path}_{idx}";
-                        var offset = CalcOffset(patternPath, pattern);
-                        var bounds = CalcBounds(patternPath, pattern);
+                        var offset = CalcOffset(patternPath, pattern, opts.OverrideOffsetCalcType);
+                        var bounds = CalcBounds(patternPath, pattern, opts.OverrideBounds, opts.OverrideOffsetCalcType);
                         var optsWithOffset = new FindOptions()
                         {
                             Limit = opts.Limit,
@@ -284,8 +298,8 @@ public class MacroService
                     var pattern = patternNode.Patterns.FirstOrDefault();
                     if (pattern is null) continue;
 
-                    var offset = CalcOffset(patternNode.Path, pattern);
-                    var bounds = CalcBounds(patternNode.Path, pattern);
+                    var offset = CalcOffset(patternNode.Path, pattern, opts.OverrideOffsetCalcType);
+                    var bounds = CalcBounds(patternNode.Path, pattern, opts.OverrideBounds, opts.OverrideOffsetCalcType);
                     var optsWithOffset = new FindOptions()
                     {
                         Limit = opts.Limit,
