@@ -31,7 +31,7 @@ const findPatternOpts = { OverrideBounds: { X: 185, Y: 340, Width: 180, Height: 
 const all_water = macroService.FindPattern(patterns.battle.conditions.all_water, findPatternOpts).IsSuccess;
 const all_light = macroService.FindPattern(patterns.battle.conditions.all_light, findPatternOpts).IsSuccess;
 
-const no_ranger = macroService.FindPattern(patterns.battle.conditions.no_ranger, findPatternOpts).IsSuccess;
+const no_rangers = macroService.FindPattern(patterns.battle.conditions.no_rangers, findPatternOpts).IsSuccess;
 const no_healers = macroService.FindPattern(patterns.battle.conditions.no_healers, findPatternOpts).IsSuccess;
 //const no_defenders = macroService.FindPattern(patterns.battle.conditions.no_defenders, findPatternOpts).IsSuccess;
 const no_mages = macroService.FindPattern(patterns.battle.conditions.no_mages, findPatternOpts).IsSuccess;
@@ -79,7 +79,7 @@ if (atLeastOne_twoStar && no_light) {
 }
 
 if (no_mages && atLeastOne_twoStar) {
-    idealTeam.left = { name: 'faenen' };
+    idealTeam.right = { name: 'faenen' };
     idealTeam.bottom = { name: 'gnosisDahlia' };
 } else if (no_mages) {
     idealTeam.bottom = { name: 'gnosisDahlia' };
