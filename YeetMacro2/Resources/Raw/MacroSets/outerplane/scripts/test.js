@@ -60,5 +60,3 @@ if (settings.test.type.Value === 'arenaTicketCount') {
 	}
 	return { staminaText };
 }
-
-
