@@ -5,6 +5,7 @@ const topLeft = macroService.GetTopLeft();
 const bossTypePatterns = [
     'glicys',               // hard 34
     'darkDemiurgeVladaHard',// hard 35
+    'shichifujasShadow',    // hard 37
     'darkDemiurgeVladaVeryHard',    // very hard 10
     'darkEliza',            // very hard 12
     'fireTamamo',           // very hard 13
@@ -118,6 +119,15 @@ if (all_water && no_ranger) {
 //    idealTeam.top = { name: 'gnosisViella' };
 //    idealTeam.bottom = { name: 'demiurgeLuna' };
 //}
+
+if (bossType === 'shichifujasShadow' && atLeastOne_twoStar) {
+    idealTeam.left = { name: 'gnosisNella' };
+    idealTeam.right = { name: 'faenen' };
+    idealTeam.bottom = { name: 'demiurgeStella' };
+} else if (bossType === 'shichifujasShadow') {
+    idealTeam.left = { name: 'gnosisNella' };
+    idealTeam.bottom = { name: 'demiurgeStella' };
+}
 
 if (bossType === 'lightStella') {
     idealTeam.left = { name: 'nella' };
