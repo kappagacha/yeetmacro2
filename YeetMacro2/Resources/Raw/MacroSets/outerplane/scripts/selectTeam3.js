@@ -107,7 +107,7 @@ if (no_light && no_dark && bossType === 'glicys') {
     chainOrderOpts.effectToPriority.cdr = 0;
 }
 
-if (all_water && no_ranger) {
+if (all_water && no_rangers) {
     idealTeam.left = { name: 'mene' };
     idealTeam.top = { name: 'summerRegina' };
     idealTeam.right = { name: 'summerEmber' };

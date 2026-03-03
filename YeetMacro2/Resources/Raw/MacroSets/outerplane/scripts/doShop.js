@@ -12,8 +12,7 @@ while (macroService.IsRunning) {
 	switch (loopResult.Path) {
 		case 'lobby.level':
 			if (!daily.doShop.free.premiumShop.normal.daily.IsChecked) {
-				macroService.PollPattern(patterns.tabs.shop, { DoClick: true, PredicatePattern: patterns.shop.premium.move });
-				macroService.PollPattern(patterns.shop.premium.move, { DoClick: true, PredicatePattern: patterns.shop.premium.title });
+				macroService.PollPattern(patterns.tabs.shop, { DoClick: true, ClickPattern: patterns.shop.premium.move, PredicatePattern: patterns.shop.premium.title });
 				macroService.PollPattern(patterns.shop.premium.normal, { DoClick: true, PredicatePattern: patterns.shop.premium.normal.selected });
 
 				let normalFreeResult = macroService.PollPattern(patterns.shop.free, { TimeoutMs: 3_500 });
@@ -51,8 +50,7 @@ while (macroService.IsRunning) {
 			//}
 
 			logger.info('doShop: go to adventurerShop');
-			macroService.PollPattern(patterns.tabs.shop, { DoClick: true, PredicatePattern: patterns.shop.adventurer.move });
-			macroService.PollPattern(patterns.shop.adventurer.move, { DoClick: true, PredicatePattern: patterns.titles.adventurerShop });
+			macroService.PollPattern(patterns.tabs.shop, { DoClick: true, ClickPattern: patterns.shop.adventurer.move, PredicatePattern: patterns.titles.adventurerShop });
 			sleep(500);
 			break;
 		case 'titles.adventurerShop':			
