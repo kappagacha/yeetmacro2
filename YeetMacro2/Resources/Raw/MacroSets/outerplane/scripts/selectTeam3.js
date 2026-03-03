@@ -49,6 +49,7 @@ const atLeastOne_twoStar = macroService.FindPattern(patterns.battle.conditions.a
 
 //const atLeastOne_light = macroService.FindPattern(patterns.battle.conditions.atLeastOne_light, findPatternOpts).IsSuccess;
 const atLeastOne_earth = macroService.FindPattern(patterns.battle.conditions.atLeastOne_earth, findPatternOpts).IsSuccess;
+const atLeastOne_fire = macroService.FindPattern(patterns.battle.conditions.atLeastOne_fire, findPatternOpts).IsSuccess;
 //const atLeastOne_dark = macroService.FindPattern(patterns.battle.conditions.atLeastOne_dark, findPatternOpts).IsSuccess;
 
 
@@ -86,6 +87,10 @@ if (no_mages && atLeastOne_twoStar) {
     idealTeam.bottom = { name: 'gnosisDahlia' };
 }
 
+if (atLeastOne_fire) {
+    idealTeam.bottom = { name: 'bryn' };
+}
+
 if (atLeastOne_earth && bossType == 'fireTamamo') { 
     idealTeam.left = { name: 'viella' };
     idealTeam.top = { name: 'summerRegina' };
@@ -105,7 +110,13 @@ if (no_light && no_dark && bossType === 'glicys') {
     idealTeam.right = { name: 'delta' };
     idealTeam.bottom = { name: 'rey' };
     chainOrderOpts.effectToPriority.cdr = 0;
+} else if (no_light) {
+    idealTeam.top = { name: 'demiurgeAstei' };
+    idealTeam.right = { name: 'nella' };
+    idealTeam.bottom = { name: 'gnosisDahlia' };
 }
+
+
 
 if (all_water && no_rangers) {
     idealTeam.left = { name: 'mene' };
