@@ -67,7 +67,7 @@ if (no_rangers) {
     idealTeam.right = { name: 'demiurgeDrahkan' };
 }
 
-if (no_dark) {
+if (no_dark || all_light) {
     idealTeam.left = { name: 'gnosisNella' };
 }
 
