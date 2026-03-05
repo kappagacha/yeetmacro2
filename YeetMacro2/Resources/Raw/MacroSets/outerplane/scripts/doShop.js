@@ -12,6 +12,7 @@ while (macroService.IsRunning) {
 	switch (loopResult.Path) {
 		case 'lobby.level':
 			if (!daily.doShop.free.premiumShop.normal.daily.IsChecked) {
+				logger.info('doShop: go to premium shop');
 				macroService.PollPattern(patterns.tabs.shop, { DoClick: true, ClickPattern: patterns.shop.premium.move, PredicatePattern: patterns.shop.premium.title });
 				macroService.PollPattern(patterns.shop.premium.normal, { DoClick: true, PredicatePattern: patterns.shop.premium.normal.selected });
 
