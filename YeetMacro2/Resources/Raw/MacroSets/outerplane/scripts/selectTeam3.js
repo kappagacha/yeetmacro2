@@ -52,15 +52,16 @@ const atLeastOne_earth = macroService.FindPattern(patterns.battle.conditions.atL
 const atLeastOne_fire = macroService.FindPattern(patterns.battle.conditions.atLeastOne_fire, findPatternOpts).IsSuccess;
 //const atLeastOne_dark = macroService.FindPattern(patterns.battle.conditions.atLeastOne_dark, findPatternOpts).IsSuccess;
 
+// *****single conditions*****
+if (atLeastOne_twoStar) {
+    idealTeam.right = { name: 'faenen' };
+}
 
-//if (no_strikers) {
-//    idealTeam.bottom = { name: 'gnosisNella' };
-//    idealTeam.left = { name: 'monadIota' };
-//}
-
-//if (atLeastOne_dark) {
-//    idealTeam.left = { name: 'monadIota' };
-//}
+if (no_light) {
+    idealTeam.top = { name: 'demiurgeAstei' };
+    idealTeam.right = { name: 'nella' };
+    idealTeam.bottom = { name: 'gnosisDahlia' };
+}
 
 if (no_rangers) {
     idealTeam.left = { name: 'gnosisNella' };
@@ -72,23 +73,27 @@ if (no_dark || all_light) {
     idealTeam.left = { name: 'gnosisNella' };
 }
 
-if (atLeastOne_twoStar && no_light) {
-    idealTeam.top = { name: 'demiurgeAstei' };
-    idealTeam.right = { name: 'nella' };
-    idealTeam.bottom = { name: 'vera' };
-} else if (atLeastOne_twoStar) {
-    idealTeam.right = { name: 'faenen' };
+if (atLeastOne_fire) {
+    idealTeam.bottom = { name: 'bryn' };
 }
+
+if (atLeastOne_earth) {
+    idealTeam.bottom = { name: 'delta' };
+}
+
+if (no_mages) {
+    idealTeam.bottom = { name: 'gnosisDahlia' };
+}
+
+if (no_healers) {
+    idealTeam.right = { name: 'demiurgeDrakhan' };
+}
+
+// *****multi condition or boss type*****
 
 if (no_mages && atLeastOne_twoStar) {
     idealTeam.right = { name: 'faenen' };
     idealTeam.bottom = { name: 'gnosisDahlia' };
-} else if (no_mages) {
-    idealTeam.bottom = { name: 'gnosisDahlia' };
-}
-
-if (atLeastOne_fire) {
-    idealTeam.bottom = { name: 'bryn' };
 }
 
 if (atLeastOne_earth && bossType == 'fireTamamo') { 
@@ -96,13 +101,7 @@ if (atLeastOne_earth && bossType == 'fireTamamo') {
     idealTeam.top = { name: 'summerRegina' };
     idealTeam.right = { name: 'summerEmber' };
     idealTeam.bottom = { name: 'tamara' };
-} else if (atLeastOne_earth) {
-    idealTeam.bottom = { name: 'delta' };
-}
-
-if (no_healers) {
-    idealTeam.right = { name: 'demiurgeDrakhan' };
-}
+} 
 
 if (no_light && no_dark && bossType === 'glicys') {
     idealTeam.left = { name: 'viella' };
@@ -110,13 +109,13 @@ if (no_light && no_dark && bossType === 'glicys') {
     idealTeam.right = { name: 'delta' };
     idealTeam.bottom = { name: 'rey' };
     chainOrderOpts.effectToPriority.cdr = 0;
-} else if (no_light) {
-    idealTeam.top = { name: 'demiurgeAstei' };
-    idealTeam.right = { name: 'nella' };
-    idealTeam.bottom = { name: 'gnosisDahlia' };
 }
 
-
+if (atLeastOne_twoStar && no_light) {
+    idealTeam.top = { name: 'demiurgeAstei' };
+    idealTeam.right = { name: 'nella' };
+    idealTeam.bottom = { name: 'vera' };
+}
 
 if (all_water && no_rangers) {
     idealTeam.left = { name: 'mene' };
@@ -124,12 +123,6 @@ if (all_water && no_rangers) {
     idealTeam.right = { name: 'summerEmber' };
     idealTeam.bottom = { name: 'caren' };
 }
-
-//if (bossType === 'darkDemiurgeVladaVeryHard' || bossType === 'darkEliza' || bossType === 'waterLaplace') {
-//    idealTeam.left = { name: 'monadIota' };
-//    idealTeam.top = { name: 'gnosisViella' };
-//    idealTeam.bottom = { name: 'demiurgeLuna' };
-//}
 
 if (bossType === 'shichifujasShadow' && atLeastOne_twoStar) {
     idealTeam.left = { name: 'gnosisNella' };
@@ -159,7 +152,6 @@ if (bossType === 'darkDemiurgeVladaHard') {
     idealTeam.right = { name: 'monadEva' };
     idealTeam.bottom = { name: 'marian', presetOverride: '#GN NELLA' };
 }
-
 
 selectTeam(9);
 const characterToFilter = {
