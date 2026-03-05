@@ -91,11 +91,6 @@ if (no_healers) {
 
 // *****multi condition or boss type*****
 
-if (no_mages && atLeastOne_twoStar) {
-    idealTeam.right = { name: 'faenen' };
-    idealTeam.bottom = { name: 'gnosisDahlia' };
-}
-
 if (atLeastOne_earth && bossType == 'fireTamamo') { 
     idealTeam.left = { name: 'viella' };
     idealTeam.top = { name: 'summerRegina' };
@@ -112,6 +107,7 @@ if (no_light && no_dark && bossType === 'glicys') {
 }
 
 if (atLeastOne_twoStar && no_light) {
+    idealTeam.left = { name: 'monadIota' };
     idealTeam.top = { name: 'demiurgeAstei' };
     idealTeam.right = { name: 'nella' };
     idealTeam.bottom = { name: 'vera' };
