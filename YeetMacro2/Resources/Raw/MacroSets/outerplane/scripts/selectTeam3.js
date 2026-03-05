@@ -121,12 +121,14 @@ if (all_water && no_rangers) {
 }
 
 if (bossType === 'shichifujasShadow' && atLeastOne_twoStar) {
+    idealTeam.top = { name: 'delta' };
     idealTeam.left = { name: 'gnosisNella' };
     idealTeam.right = { name: 'faenen' };
-    idealTeam.bottom = { name: 'demiurgeStella' };
+    idealTeam.bottom = { name: 'kanon' };
 } else if (bossType === 'shichifujasShadow') {
+    idealTeam.top = { name: 'delta' };
     idealTeam.left = { name: 'gnosisNella' };
-    idealTeam.bottom = { name: 'demiurgeStella' };
+    idealTeam.bottom = { name: 'kanon' };
 }
 
 if (bossType === 'lightStella') {
