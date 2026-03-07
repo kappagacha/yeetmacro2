@@ -132,7 +132,7 @@ outerLoop: while ((Math.abs(lastSelectedResult.Point.X - selectedResult.Point.X)
             const lockedResult = macroService.FindPattern(lockedPattern);
             if (lockedResult.IsSuccess) continue;
 
-            if (numRedStars === 0 && itemStats.desiredPoints >= 5) {
+            if (numRedStars === 0 && itemStats.desiredPoints >= 6) {
                 // unlock the forth stat
                 macroService.PollPattern(patterns.inventory.enhance, { DoClick: true, PredicatePattern: patterns.titles.improveGear });
                 macroService.PollPattern(patterns.inventory.improveGear.reforge, { DoClick: true, PredicatePattern: patterns.inventory.improveGear.reforge.reforge });
@@ -151,7 +151,7 @@ outerLoop: while ((Math.abs(lastSelectedResult.Point.X - selectedResult.Point.X)
                 [itemStats.secondary1, itemStats.secondary2, itemStats.secondary3, itemStats.secondary4].includes(stat)
             ).length;
 
-            if (itemStats.desiredPoints >= 7 && numDesiredStats >= 3) {
+            if (itemStats.desiredPoints >= 8 && numDesiredStats >= 3) {
                 macroService.PollPattern(patterns.inventory.item.stat.unlocked, { DoClick: true, ClickPattern: patterns.inventory.item.stat.lockToggledMessage, PredicatePattern: lockedPattern });
                 lockedCount++;
             }
