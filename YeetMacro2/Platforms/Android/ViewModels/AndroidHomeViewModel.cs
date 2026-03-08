@@ -442,4 +442,23 @@ If you agree, please tap OK then grant Accessibility service permission to YeetM
         IsMacroReady = IsProjectionServiceEnabled && IsAccessibilityEnabled;
         IsAppearing = false;
     }
+
+    [RelayCommand]
+    private async Task CheckOverlayPermissionOnStartup()
+    {
+        if (!_screenService.CanDrawOverlays)
+        {
+            var result = await Application.Current.Windows[0].Page.DisplayAlert(
+                "Overlay Permission",
+                "YeetMacro needs permission to display overlays for macro automation features. Grant now?",
+                "Grant Now",
+                "Skip");
+
+            if (result)
+            {
+                var intent = new Intent(global::Android.Provider.Settings.ActionManageOverlayPermission, global::Android.Net.Uri.Parse("package:" + AppInfo.PackageName));
+                _context.StartActivityForResult(intent, AndroidScreenService.OVERLAY_SERVICE_REQUEST);
+            }
+        }
+    }
 }

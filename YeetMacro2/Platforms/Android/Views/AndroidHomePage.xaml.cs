@@ -15,6 +15,7 @@ public partial class AndroidHomePage : ContentPage
 		if (BindingContext is AndriodHomeViewModel viewModel)
 		{
 			viewModel.AppearCommand.Execute(null);
+			viewModel.CheckOverlayPermissionOnStartupCommand.Execute(null);
 		}
 	}
 }
