@@ -109,7 +109,7 @@ outerLoop: while ((Math.abs(lastSelectedResult.Point.X - selectedResult.Point.X)
                 [itemStats.secondary1, itemStats.secondary2, itemStats.secondary3, itemStats.secondary4].includes(stat)
             ).length;
 
-            const shouldLock = itemStats.desiredPoints >= 6 && numDesiredStats >= 3;
+            const shouldLock = itemStats.desiredPoints >= 7 && numDesiredStats >= 3;
             const lockedPattern = macroService.ClonePattern(patterns.inventory.item.locked, { OffsetCalcType: 'None', CenterX: item.X + 10, CenterY: item.Y - 80, Width: 50, Height: 50, PathSuffix: `_${item.X}x${item.Y}y` });
 
             if (shouldLock) {
