@@ -10,7 +10,7 @@
              x:Class="YeetMacro2.Platforms.Android.Views.PromptSelectOption"
              xmlns:conv="clr-namespace:YeetMacro2.Converters"
              x:Name="thisView">
-    <Grid RowDefinitions="*, Auto" VerticalOptions="Fill" HorizontalOptions="Center" Margin="20,20,20,40">
+    <Grid RowDefinitions="*, Auto" VerticalOptions="Fill" HorizontalOptions="Center" Padding="15">
         <!-- Main Content -->
         <Border Grid.Row="0"
                 BackgroundColor="{AppThemeBinding Light={StaticResource Background}, Dark={StaticResource BackgroundDark}}"
@@ -18,6 +18,7 @@
                 Stroke="{AppThemeBinding Light=#E5E7EB, Dark=#4B5563}"
                 StrokeThickness="0"
                 WidthRequest="300"
+                VerticalOptions="Fill"
                 Shadow="{Shadow Brush=Black, Offset='0,2', Radius=10, Opacity=0.3}">
             <Grid RowDefinitions="Auto, Auto, *">
                 <!-- Title/Message -->
@@ -26,7 +27,7 @@
                        FontSize="13"
                        TextColor="{AppThemeBinding Light=#6B7280, Dark=#9CA3AF}"
                        HorizontalTextAlignment="Center"
-                       Margin="20,16,20,12">
+                       Margin="10">
                     <Label.Triggers>
                         <DataTrigger TargetType="Label" Binding="{Binding Message}" Value="{x:Null}">
                             <Setter Property="IsVisible" Value="False"/>
@@ -54,14 +55,14 @@
                 <!-- Options with scrolling - fills remaining space -->
                 <CollectionView Grid.Row="2"
                                 ItemsSource="{Binding Options}"
-                                VerticalOptions="FillAndExpand">
+                                VerticalOptions="Fill">
                     <CollectionView.ItemsLayout>
                         <LinearItemsLayout Orientation="Vertical" ItemSpacing="0"/>
                     </CollectionView.ItemsLayout>
                     <CollectionView.ItemTemplate>
                         <DataTemplate x:DataType="models:SelectOption">
                             <Grid>
-                                <Grid HeightRequest="56">
+                                <Grid HeightRequest="40">
                                     <!-- Icon (if present) -->
                                     <Label IsVisible="{Binding FontFamily, Converter={conv:NullToBoolConverter IsInverse=True}}"
                                            FontFamily="{Binding FontFamily}"
@@ -100,7 +101,7 @@
                 Margin="0,8,0,0"
                 VerticalOptions="End"
                 Shadow="{Shadow Brush=Black, Offset='0,2', Radius=10, Opacity=0.3}">
-            <Grid HeightRequest="56">
+            <Grid HeightRequest="40">
                 <Label Text="Cancel"
                        FontSize="17"
                        TextColor="{StaticResource Primary}"
