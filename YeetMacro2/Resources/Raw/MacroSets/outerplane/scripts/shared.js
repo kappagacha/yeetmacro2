@@ -50,7 +50,7 @@ function findShopItem(shopItemName) {
 		clearTicket: /c.e.r.*icke/is,
 		arenaTicket: /aren.*icke/is,
 		hammer: /h[au]mmer/is,
-		stoneFragment: /s.*ne.*fr[au]g/is,
+		stoneFragment: /s.*ne.*fr.g/is,
 		stonePiece: /s.*ne.*piece/is,
 		basicSkillManual: /basic.*m.nu/is,
 		intermediateSkillManual: /.n.er.*m/is,
