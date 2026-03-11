@@ -43,6 +43,7 @@ const no_dark = macroService.FindPattern(patterns.battle.conditions.no_dark, fin
 //const no_earth = macroService.FindPattern(patterns.battle.conditions.no_earth, findPatternOpts).IsSuccess;
 
 const atLeastOne_twoStar = macroService.FindPattern(patterns.battle.conditions.atLeastOne_twoStar, findPatternOpts).IsSuccess;
+//const atLeastOne_threeStar = macroService.FindPattern(patterns.battle.conditions.atLeastOne_threeStar, findPatternOpts).IsSuccess;
 //const atLeastOne_ranger = macroService.FindPattern(patterns.battle.conditions.atLeastOne_ranger, findPatternOpts).IsSuccess;
 //const atLeastOne_striker = macroService.FindPattern(patterns.battle.conditions.atLeastOne_striker, findPatternOpts).IsSuccess;
 //const atLeastOne_healer = macroService.FindPattern(patterns.battle.conditions.atLeastOne_healer, findPatternOpts).IsSuccess;
