@@ -312,8 +312,8 @@
     "claimAntiparticle": {
       "$type": "boolean",
       "$tags": [],
-      "$defaultValue": true,
-      "$value": true,
+      "$defaultValue": false,
+      "$value": false,
       "$position": 3,
       "$name": "claimAntiparticle",
       "$path": "doUpkeep.claimAntiparticle"
@@ -429,7 +429,7 @@
       "$type": "timestamp",
       "$tags": [],
       "$defaultValue": "0001-01-01T00:00:00+00:00",
-      "$value": "2026-02-24T18:19:14.786+00:00",
+      "$value": "2026-03-12T18:29:13.975+00:00",
       "$position": 0,
       "$name": "lastRun",
       "$path": "doFriends.lastRun"
@@ -1917,8 +1917,8 @@
     "lastApplied": {
       "$type": "string",
       "$tags": [],
-      "$defaultValue": null,
-      "$value": null,
+      "$defaultValue": "9",
+      "$value": "9",
       "$position": 10,
       "$name": "lastApplied",
       "$path": "applyPreset.lastApplied"
@@ -2824,8 +2824,8 @@
     "claimAntiparticle": {
       "$type": "boolean",
       "$tags": [],
-      "$defaultValue": true,
-      "$value": true,
+      "$defaultValue": false,
+      "$value": false,
       "$position": 2,
       "$name": "claimAntiparticle",
       "$path": "doDailies.claimAntiparticle"
