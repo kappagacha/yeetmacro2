@@ -57,7 +57,7 @@ while (macroService.IsRunning) {
 			macroService.PollPattern(patterns.event.story.incompleteHard, { DoClick: true, PredicatePattern: patterns.event.story.selectTeam });
 			break;
 		case 'event.story.retry':
-			acroService.PollPattern(patterns.event.story.exit2, { DoClick: true, PredicatePattern: patterns.event.story.rewardNotification });
+			macroService.PollPattern(patterns.event.story.exit2, { DoClick: true, PredicatePattern: patterns.event.story.rewardNotification });
 			macroService.PollPattern(patterns.event.story.rewardNotification, { DoClick: true, PredicatePattern: patterns.general.tapEmptySpace });
 			macroService.PollPattern(patterns.general.tapEmptySpace, { DoClick: true, PredicatePattern: patterns.general.back });
 			return 'doEventStory complete';
