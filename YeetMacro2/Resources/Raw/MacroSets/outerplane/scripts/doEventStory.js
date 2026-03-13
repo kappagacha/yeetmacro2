@@ -1,9 +1,9 @@
 // @tags=event
 // Sweep event story hard
-const loopPatterns = [patterns.lobby.level, patterns.titles.adventure, patterns.event.story.notice.doNotShowStoryForADay, patterns.battle.enter, patterns.event.story.retry];
+const loopPatterns = [patterns.lobby.level, patterns.titles.adventure, patterns.event.story.notice.doNotShowStoryForADay, patterns.battle.enter, patterns.event.story.retry, patterns.event.story.exit];
 const teamSlot = settings.doEventStory.teamSlot.Value;
 const daily = dailyManager.GetCurrentDaily();
-const clickPatterns = [patterns.event.story.rewardEnter, patterns.event.story.enter2, patterns.event.story.skip, patterns.event.story.next, patterns.event.story.nextStage];
+const clickPatterns = [patterns.event.story.rewardEnter, patterns.event.story.enter2, patterns.event.story.skip, patterns.event.story.next, patterns.event.story.nextStage, patterns.event.story.selectTeam];
 
 while (macroService.IsRunning) {
 	const loopResult = macroService.PollPattern(loopPatterns, { ClickPattern: clickPatterns });
@@ -37,7 +37,7 @@ while (macroService.IsRunning) {
 				selectTeam(teamSlot);
 				teamUnselectAll();
 				const locationsToBonusCharacters = teamSelectBonus();
-				if (locationsToBonusCharacters['right'].battleType === 'mage') {
+				if (locationsToBonusCharacters['right']?.battleType === 'mage') {
 					applyPreset(undefined, { presetOverride: { right: '#MAG#PEN#ATK' } });
 				} else {
 					applyPreset();
@@ -47,8 +47,19 @@ while (macroService.IsRunning) {
 			macroService.PollPattern(patterns.general.back, { DoClick: true, PrimaryClickInversePredicatePattern: patterns.battle.enter, PredicatePattern: patterns.battle.enter });
 			macroService.PollPattern(patterns.battle.enter, { DoClick: true, PredicatePattern: [patterns.event.story.skip, patterns.event.story.next] });
 			break;
+		case 'event.story.selectTeam':
+			break;
+		case 'event.story.exit':
+			macroService.PollPattern(patterns.event.story.exit, { DoClick: true, PredicatePattern: patterns.event.story.rewardNotification });
+			macroService.PollPattern(patterns.event.story.rewardNotification, { DoClick: true, PredicatePattern: patterns.general.tapEmptySpace });
+			macroService.PollPattern(patterns.general.tapEmptySpace, { DoClick: true, PredicatePattern: patterns.general.back });
+			macroService.PollPattern(patterns.general.back, { DoClick: true, PrimaryClickInversePredicatePattern: patterns.event.story.title, PredicatePattern: patterns.event.story.title });
+			macroService.PollPattern(patterns.event.story.incompleteHard, { DoClick: true, PredicatePattern: patterns.event.story.selectTeam });
+			break;
 		case 'event.story.retry':
-			logger.info('doEventStory: done');
+			acroService.PollPattern(patterns.event.story.exit2, { DoClick: true, PredicatePattern: patterns.event.story.rewardNotification });
+			macroService.PollPattern(patterns.event.story.rewardNotification, { DoClick: true, PredicatePattern: patterns.general.tapEmptySpace });
+			macroService.PollPattern(patterns.general.tapEmptySpace, { DoClick: true, PredicatePattern: patterns.general.back });
 			return 'doEventStory complete';
 	}
 	sleep(1_000);
