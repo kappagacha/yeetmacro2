@@ -27,13 +27,13 @@ while (macroService.IsRunning) {
 
 				const specialRewardNotificationResult = macroService.PollPattern(patterns.tabs.base.claimRewards.specialReward.notification, { TimeoutMs: 2_000 });
 				if (specialRewardNotificationResult.IsSuccess) {
-					macroService.PollPattern(patterns.tabs.base.claimRewards.specialReward, { PredicatePattern: patterns.tabs.base.claimRewards.specialReward.free });
-					macroService.PollPattern(patterns.tabs.base.claimRewards.specialReward.free, { PredicatePattern: patterns.general.tapEmptySpace });
-					macroService.PollPattern(patterns.general.tapEmptySpace, { PredicatePattern: patterns.tabs.base.claimRewards.receiveReward });
+					macroService.PollPattern(patterns.tabs.base.claimRewards.specialReward, { DoClick: true, PredicatePattern: patterns.tabs.base.claimRewards.specialReward.free });
+					macroService.PollPattern(patterns.tabs.base.claimRewards.specialReward.free, { DoClick: true, PredicatePattern: patterns.general.tapEmptySpace });
+					macroService.PollPattern(patterns.general.tapEmptySpace, { DoClick: true, PredicatePattern: patterns.tabs.base.claimRewards.receiveReward });
 				}
 
-				macroService.PollPattern(patterns.tabs.base.claimRewards.receiveReward, { PredicatePattern: patterns.general.tapEmptySpace });
-				macroService.PollPattern(patterns.general.tapEmptySpace, { PredicatePattern: patterns.lobby.level });
+				macroService.PollPattern(patterns.tabs.base.claimRewards.receiveReward, { DoClick: true, PredicatePattern: patterns.general.tapEmptySpace });
+				macroService.PollPattern(patterns.general.tapEmptySpace, { DoClick: true, PredicatePattern: patterns.lobby.level });
 
 				if (macroService.IsRunning) {
 					daily.claimAntiparticle.count.Count++;
@@ -57,17 +57,17 @@ while (macroService.IsRunning) {
 
 			const baseSpecialRewardNotificationResult = macroService.PollPattern(patterns.base.antiparticle.specialReward.notification, { TimeoutMs: 2_000 });
 			if (baseSpecialRewardNotificationResult.IsSuccess) {
-				macroService.PollPattern(patterns.base.antiparticle.specialReward, { PredicatePattern: patterns.base.antiparticle.specialReward.free });
-				macroService.PollPattern(patterns.base.antiparticle.specialReward.free, { PredicatePattern: patterns.general.tapEmptySpace });
-				macroService.PollPattern(patterns.general.tapEmptySpace, { PredicatePattern: [patterns.base.antiparticle.receiveReward, patterns.base.antiparticle.receiveReward.disabled] });
+				macroService.PollPattern(patterns.base.antiparticle.specialReward, { DoClick: true, PredicatePattern: patterns.base.antiparticle.specialReward.free });
+				macroService.PollPattern(patterns.base.antiparticle.specialReward.free, { DoClick: true, PredicatePattern: patterns.general.tapEmptySpace });
+				macroService.PollPattern(patterns.general.tapEmptySpace, { DoClick: true, PredicatePattern: [patterns.base.antiparticle.receiveReward, patterns.base.antiparticle.receiveReward.disabled] });
 			}
 
 			if (antiParticleResult.PredicatePath === 'base.antiparticle.receiveReward.disabled') {
 				return;
 			}
 
-			macroService.PollPattern(patterns.base.antiparticle.receiveReward, { PredicatePattern: patterns.general.tapEmptySpace });
-			macroService.PollPattern(patterns.general.tapEmptySpace, { PredicatePattern: patterns.base.antiparticle.receiveReward.disabled });
+			macroService.PollPattern(patterns.base.antiparticle.receiveReward, { DoClick: true, PredicatePattern: patterns.general.tapEmptySpace });
+			macroService.PollPattern(patterns.general.tapEmptySpace, { DoClick: true, PredicatePattern: patterns.base.antiparticle.receiveReward.disabled });
 
 			if (macroService.IsRunning) {
 				daily.claimAntiparticle.count.Count++;
