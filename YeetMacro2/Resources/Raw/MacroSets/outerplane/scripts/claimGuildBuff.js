@@ -1,6 +1,6 @@
 // @position=5
 // Claims guild buff
-const popupPatterns = [patterns.lobby.expedition, patterns.general.tapEmptySpace, settings.goToLobby.userClickPattern.Value, patterns.general.exitCheckIn, patterns.lobby.popup.doNotShowAgainToday];
+const popupPatterns = [patterns.general.tapEmptySpace, settings.goToLobby.userClickPattern.Value, patterns.general.exitCheckIn, patterns.lobby.popup.doNotShowAgainToday];
 const loopPatterns = [patterns.lobby.level, patterns.titles.guildHallOfHonor, patterns.titles.guild, ...popupPatterns];
 
 const daily = dailyManager.GetCurrentDaily();
@@ -12,7 +12,6 @@ if (daily.claimGuildBuff.done.IsChecked) {
 while (macroService.IsRunning) {
 	const loopResult = macroService.PollPattern(loopPatterns, { ClickPattern: [patterns.general.tapEmptySpace, patterns.guild.checkIn.ok, patterns.guild.raid.startMessage, patterns.guild.raid.endMessage.ok] });
 	switch (loopResult.Path) {
-		case 'lobby.expedition':
 		case 'general.tapEmptySpace':
 		case 'settings.goToLobby.userClickPattern':
 		case 'general.exitCheckIn':

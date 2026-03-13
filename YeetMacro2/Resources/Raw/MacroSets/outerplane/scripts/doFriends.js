@@ -1,6 +1,6 @@
 // @position=4
 // Receive and present friend hearts
-const popupPatterns = [patterns.lobby.expedition, patterns.general.tapEmptySpace, settings.goToLobby.userClickPattern.Value, patterns.general.exitCheckIn, patterns.lobby.popup.doNotShowAgainToday];
+const popupPatterns = [patterns.general.tapEmptySpace, settings.goToLobby.userClickPattern.Value, patterns.general.exitCheckIn, patterns.lobby.popup.doNotShowAgainToday];
 const loopPatterns = [patterns.lobby.level, patterns.titles.friends, ...popupPatterns];
 const daily = dailyManager.GetCurrentDaily();
 
@@ -13,7 +13,6 @@ if (isLastRunWithinHour && !settings.doFriends.forceRun.Value) {
 while (macroService.IsRunning) {
 	const loopResult = macroService.PollPattern(loopPatterns, { ClickPattern: patterns.friends.ok });
 	switch (loopResult.Path) {
-		case 'lobby.expedition':
 		case 'general.tapEmptySpace':
 		case 'settings.goToLobby.userClickPattern':
 		case 'general.exitCheckIn':

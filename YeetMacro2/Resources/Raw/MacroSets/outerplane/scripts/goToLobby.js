@@ -30,7 +30,6 @@ const clickPatterns = [
 	patterns.stamina.cancel,
 	patterns.event.close,
 	patterns.challenge.sweepAll.cancel,
-	//patterns.lobby.expedition.searchAgain,
 	patterns.general.tapEmptySpace,
 	patterns.general.exitCheckIn,
 	patterns.friends.ok,

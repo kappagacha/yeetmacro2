@@ -1,6 +1,6 @@
 // @position=1
 // Claim anti particle generator rewards
-const popupPatterns = [patterns.lobby.expedition, patterns.general.tapEmptySpace, settings.goToLobby.userClickPattern.Value, patterns.general.exitCheckIn, patterns.lobby.popup.doNotShowAgainToday];
+const popupPatterns = [patterns.general.tapEmptySpace, settings.goToLobby.userClickPattern.Value, patterns.general.exitCheckIn, patterns.lobby.popup.doNotShowAgainToday];
 const loopPatterns = [patterns.lobby.level, patterns.titles.base, ...popupPatterns];
 const daily = dailyManager.GetCurrentDaily();
 
@@ -13,7 +13,6 @@ if (isLastRunWithinHour && !settings.claimAntiparticle.forceRun.Value) {
 while (macroService.IsRunning) {
 	const loopResult = macroService.PollPattern(loopPatterns, { ClickPattern: patterns.arena.defendReport.close });
 	switch (loopResult.Path) {
-		case 'lobby.expedition':
 		case 'general.tapEmptySpace':
 		case 'settings.goToLobby.userClickPattern':
 		case 'general.exitCheckIn':
@@ -54,31 +53,22 @@ while (macroService.IsRunning) {
 			break;
 		case 'titles.base':
 			logger.info('claimAntiparticle: claim antiparticle');
+			const antiParticleResult = macroService.PollPattern(patterns.base.antiparticle, { DoClick: true, PredicatePattern: [patterns.base.antiparticle.receiveReward, patterns.base.antiparticle.receiveReward.disabled] });
 
-			macroService.PollPattern(patterns.base.antiparticle.claimRewards, { DoClick: true, PredicatePattern: patterns.base.antiparticle.claimRewards.receiveReward });
-
-			const specialRewardNotificationResult = macroService.PollPattern(patterns.tabs.base.claimRewards.specialReward.notification, { TimeoutMs: 2_000 });
-			if (specialRewardNotificationResult.IsSuccess) {
-				macroService.PollPattern(patterns.tabs.base.claimRewards.specialReward, { PredicatePattern: patterns.tabs.base.claimRewards.specialReward.free });
-				macroService.PollPattern(patterns.tabs.base.claimRewards.specialReward.free, { PredicatePattern: patterns.general.tapEmptySpace });
-				macroService.PollPattern(patterns.general.tapEmptySpace, { PredicatePattern: patterns.tabs.base.claimRewards.receiveReward });
+			const baseSpecialRewardNotificationResult = macroService.PollPattern(patterns.base.antiparticle.specialReward.notification, { TimeoutMs: 2_000 });
+			if (baseSpecialRewardNotificationResult.IsSuccess) {
+				macroService.PollPattern(patterns.base.antiparticle.specialReward, { PredicatePattern: patterns.base.antiparticle.specialReward.free });
+				macroService.PollPattern(patterns.base.antiparticle.specialReward.free, { PredicatePattern: patterns.general.tapEmptySpace });
+				macroService.PollPattern(patterns.general.tapEmptySpace, { PredicatePattern: [patterns.base.antiparticle.receiveReward, patterns.base.antiparticle.receiveReward.disabled] });
 			}
 
-			macroService.PollPattern(patterns.tabs.base.claimRewards.receiveReward, { PredicatePattern: patterns.general.tapEmptySpace });
-			macroService.PollPattern(patterns.general.tapEmptySpace, { PredicatePattern: patterns.lobby.level });
-
-			if (macroService.IsRunning) {
-				daily.claimAntiparticle.count.Count++;
-				settings.claimAntiparticle.lastRun.Value = new Date().toISOString();
+			if (antiParticleResult.PredicatePath === 'base.antiparticle.receiveReward.disabled') {
+				return;
 			}
-			return;
 
-			//const antiparticleResult = macroService.PollPattern(patterns.base.antiparticle, { DoClick: true, PredicatePattern: [patterns.base.antiparticle.receiveReward, patterns.base.antiparticle.receiveReward.disabled] });
-			//if (antiparticleResult.PredicatePath === 'base.antiparticle.receiveReward') {
-			//	macroService.PollPattern(patterns.base.antiparticle.receiveReward, { DoClick: true, PredicatePattern: patterns.general.tapEmptySpace });
-			//	macroService.PollPattern(patterns.general.tapEmptySpace, { DoClick: true, PredicatePattern: patterns.general.back });
-			//}
-			
+			macroService.PollPattern(patterns.base.antiparticle.receiveReward, { PredicatePattern: patterns.general.tapEmptySpace });
+			macroService.PollPattern(patterns.general.tapEmptySpace, { PredicatePattern: patterns.base.antiparticle.receiveReward.disabled });
+
 			if (macroService.IsRunning) {
 				daily.claimAntiparticle.count.Count++;
 				settings.claimAntiparticle.lastRun.Value = new Date().toISOString();
