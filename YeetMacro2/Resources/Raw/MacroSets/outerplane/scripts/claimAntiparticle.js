@@ -22,17 +22,24 @@ while (macroService.IsRunning) {
 			break;
 		case 'lobby.level':
 			logger.info('claimAntiparticle: click base tab');
+			const claimRewardsResult = macroService.FindPattern(patterns.tabs.base.claimRewards);
+			if (claimRewardsResult.IsSuccess) {
+				macroService.PollPattern(patterns.tabs.base.claimRewards, { DoClick: true, PredicatePattern: patterns.tabs.base.claimRewards.receiveReward });
 
-			const obtainAntiParticleResult = macroService.PollPattern(patterns.lobby.obtainAntiParticle, { DoClick: true, PredicatePattern: patterns.lobby.obtainAntiParticle.receiveReward, TimeoutMs: 3_000 });
-			if (obtainAntiParticleResult.IsSuccess) {
-				macroService.PollPattern(patterns.lobby.obtainAntiParticle.receiveReward, { DoClick: true, PredicatePattern: patterns.general.tapEmptySpace });
-				macroService.PollPattern(patterns.general.tapEmptySpace, { DoClick: true, PredicatePattern: patterns.lobby.level });
+				const specialRewardNotificationResult = macroService.PollPattern(patterns.tabs.base.claimRewards.specialReward.notification, { TimeoutMs: 2_000 });
+				if (specialRewardNotificationResult.IsSuccess) {
+					macroService.PollPattern(patterns.tabs.base.claimRewards.specialReward, { PredicatePattern: patterns.tabs.base.claimRewards.specialReward.free });
+					macroService.PollPattern(patterns.tabs.base.claimRewards.specialReward.free, { PredicatePattern: patterns.general.tapEmptySpace });
+					macroService.PollPattern(patterns.general.tapEmptySpace, { PredicatePattern: patterns.tabs.base.claimRewards.receiveReward });
+				}
+
+				macroService.PollPattern(patterns.tabs.base.claimRewards.receiveReward, { PredicatePattern: patterns.general.tapEmptySpace });
+				macroService.PollPattern(patterns.general.tapEmptySpace, { PredicatePattern: patterns.lobby.level });
 
 				if (macroService.IsRunning) {
 					daily.claimAntiparticle.count.Count++;
 					settings.claimAntiparticle.lastRun.Value = new Date().toISOString();
 				}
-
 				return;
 			}
 
@@ -47,11 +54,30 @@ while (macroService.IsRunning) {
 			break;
 		case 'titles.base':
 			logger.info('claimAntiparticle: claim antiparticle');
-			const antiparticleResult = macroService.PollPattern(patterns.base.antiparticle, { DoClick: true, PredicatePattern: [patterns.base.antiparticle.receiveReward, patterns.base.antiparticle.receiveReward.disabled] });
-			if (antiparticleResult.PredicatePath === 'base.antiparticle.receiveReward') {
-				macroService.PollPattern(patterns.base.antiparticle.receiveReward, { DoClick: true, PredicatePattern: patterns.general.tapEmptySpace });
-				macroService.PollPattern(patterns.general.tapEmptySpace, { DoClick: true, PredicatePattern: patterns.general.back });
+
+			macroService.PollPattern(patterns.base.antiparticle.claimRewards, { DoClick: true, PredicatePattern: patterns.base.antiparticle.claimRewards.receiveReward });
+
+			const specialRewardNotificationResult = macroService.PollPattern(patterns.tabs.base.claimRewards.specialReward.notification, { TimeoutMs: 2_000 });
+			if (specialRewardNotificationResult.IsSuccess) {
+				macroService.PollPattern(patterns.tabs.base.claimRewards.specialReward, { PredicatePattern: patterns.tabs.base.claimRewards.specialReward.free });
+				macroService.PollPattern(patterns.tabs.base.claimRewards.specialReward.free, { PredicatePattern: patterns.general.tapEmptySpace });
+				macroService.PollPattern(patterns.general.tapEmptySpace, { PredicatePattern: patterns.tabs.base.claimRewards.receiveReward });
 			}
+
+			macroService.PollPattern(patterns.tabs.base.claimRewards.receiveReward, { PredicatePattern: patterns.general.tapEmptySpace });
+			macroService.PollPattern(patterns.general.tapEmptySpace, { PredicatePattern: patterns.lobby.level });
+
+			if (macroService.IsRunning) {
+				daily.claimAntiparticle.count.Count++;
+				settings.claimAntiparticle.lastRun.Value = new Date().toISOString();
+			}
+			return;
+
+			//const antiparticleResult = macroService.PollPattern(patterns.base.antiparticle, { DoClick: true, PredicatePattern: [patterns.base.antiparticle.receiveReward, patterns.base.antiparticle.receiveReward.disabled] });
+			//if (antiparticleResult.PredicatePath === 'base.antiparticle.receiveReward') {
+			//	macroService.PollPattern(patterns.base.antiparticle.receiveReward, { DoClick: true, PredicatePattern: patterns.general.tapEmptySpace });
+			//	macroService.PollPattern(patterns.general.tapEmptySpace, { DoClick: true, PredicatePattern: patterns.general.back });
+			//}
 			
 			if (macroService.IsRunning) {
 				daily.claimAntiparticle.count.Count++;
