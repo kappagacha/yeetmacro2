@@ -130,10 +130,6 @@ function getArenaTicketCount() {
 		Height: 26,
 		Width: slashResult.Point.X - ticketResult.Point.X - 63
 	};
-	//while (macroService.IsRunning) {
-	//	macroService.DebugRectangle(valueBounds);
-	//	sleep(1_000);
-	//}
 
 	return Number(macroService.FindTextWithBounds(valueBounds, '0123456789').slice(0, -1));
 }

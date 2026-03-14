@@ -51,10 +51,13 @@ while (macroService.IsRunning) {
 		case 'irregularExtermination.pursuitOperation':
 			const pointExchangeNotificationResult = macroService.PollPattern(patterns.irregularExtermination.pursuitOperation.pointExchange.notification, { TimeoutMs: 1_000 });
 			if (pointExchangeNotificationResult.IsSuccess) {
-				macroService.PollPattern(patterns.irregularExtermination.pursuitOperation.pointExchange, { DoClick: true, PredicatePattern: patterns.irregularExtermination.pursuitOperation.pointExchange.receiveAll });
-				macroService.PollPattern(patterns.irregularExtermination.pursuitOperation.pointExchange.receiveAll, { DoClick: true, PredicatePattern: patterns.general.tapEmptySpace });
-				macroService.PollPattern(patterns.general.tapEmptySpace, { DoClick: true, PredicatePattern: patterns.general.back });
-				macroService.PollPattern(patterns.general.back, { DoClick: true, PredicatePattern: patterns.irregularExtermination.pursuitOperation, PrimaryClickPredicatePattern: patterns.irregularExtermination.pursuitOperation.pointExchange.receiveAll });
+				const pointExchangeResult = macroService.PollPattern(patterns.irregularExtermination.pursuitOperation.pointExchange, { DoClick: true, PredicatePattern: [patterns.irregularExtermination.pursuitOperation.pointExchange.receiveAll, patterns.irregularExtermination.pursuitOperation.pointExchange.receiveAll.disabled] });
+
+				if (pointExchangeResult.PredicatePath === 'irregularExtermination.pursuitOperation.pointExchange.receiveAll') {
+					macroService.PollPattern(patterns.irregularExtermination.pursuitOperation.pointExchange.receiveAll, { DoClick: true, PredicatePattern: patterns.general.tapEmptySpace });
+					macroService.PollPattern(patterns.general.tapEmptySpace, { DoClick: true, PredicatePattern: patterns.general.back });
+					macroService.PollPattern(patterns.general.back, { DoClick: true, PredicatePattern: patterns.irregularExtermination.pursuitOperation, PrimaryClickPredicatePattern: patterns.irregularExtermination.pursuitOperation.pointExchange.receiveAll });
+				}
 			}
 
 			const infiltrationOperationCompleteResult = macroService.PollPattern(patterns.irregularExtermination.infiltrationOperationComplete, { TimeoutMs: 1_000 });

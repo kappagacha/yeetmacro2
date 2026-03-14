@@ -11,24 +11,31 @@ if (settings.test.type.Value === 'arenaTicketCount') {
 		X: ticketResult.Point.X + 60,
 		Y: ticketResult.Point.Y - 6,
 		Height: 26,
-		Width: slashResult.Point.X - ticketResult.Point.X - 60
+		Width: slashResult.Point.X - ticketResult.Point.X - 63
 	};
 	while (macroService.IsRunning) {
 		macroService.DebugRectangle(valueBounds);
 		sleep(1_000);
 	}
 
-	arenaTicketCount = macroService.FindTextWithBounds(valueBounds, '0123456789').slice(0, -1);
+	//arenaTicketCount = macroService.FindTextWithBounds(valueBounds, '0123456789').slice(0, -1);
+	const arenaTicketCount = macroService.FindTextWithBounds(valueBounds, '0123456789');
 
 	return { arenaTicketCount };
 } else if (settings.test.type.Value === 'currentStaminaValue') {
 	const staminaResult = macroService.PollPattern(patterns.general.stamina);
-	const staminaValue = macroService.ClonePattern(patterns.general.staminaValue, { X: staminaResult.Point.X + 24, Y: staminaResult.Point.Y - 10, PathSuffix: `_x${staminaResult.Point.X}`, OffsetCalcType: 'None' });
-	let currentStamina = macroService.FindText(staminaValue);
-
+	const slashPattern = macroService.ClonePattern(patterns.general.stamina.slash, { X: staminaResult.Point.X + 50, Y: staminaResult.Point.Y - 10, Height: 40, Width: 60, Padding: 5, PathSuffix: `_x${staminaResult.Point.X}`, OffsetCalcType: 'None' });
+	const slashResult = macroService.PollPattern(slashPattern);
+	const valueBounds = {
+		X: staminaResult.Point.X + 25,
+		Y: staminaResult.Point.Y - 10,
+		Height: 26,
+		Width: slashResult.Point.X - staminaResult.Point.X - 25
+	};
+	const currentStamina = macroService.FindTextWithBounds(valueBounds, '0123456789');
 	if (settings.test.debugBounds.Value) {
 		while (macroService.IsRunning) {
-			macroService.FindPattern(staminaValue);
+			macroService.DebugRectangle(valueBounds);
 			sleep(1_000);
 		}
 	}
