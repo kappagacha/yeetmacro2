@@ -30,6 +30,19 @@ while (macroService.IsRunning) {
 			// 2 runs because doSpecialRequest will do 1 run
 			// 5 stages * 16 stamina * 2 runs = 160 * 2 (ecology study and identification) = 320 stamina
 
+			if (!daily.doSpecialRequestsStage13.ecologyStudy.IsChecked) {
+				logger.info('doSpecialRequestsStage13: doEcologyStudy');
+
+				macroService.PollPattern(patterns.challenge.sweepAll, { DoClick: true, PredicatePattern: patterns.challenge.sweepAll.title });
+				macroService.PollPattern(patterns.challenge.sweepAll.ecologyStudy, { DoClick: true, PredicatePattern: patterns.challenge.sweepAll.ecologyStudy.selected });
+
+				const done = sweepAllStage13();
+
+				if (macroService.IsRunning && done) {
+					daily.doSpecialRequestsStage13.ecologyStudy.IsChecked = true;
+				}
+			}
+
 			if (!daily.doSpecialRequestsStage13.identification.IsChecked) {
 				logger.info('doSpecialRequestsStage13: doIdentification');
 
@@ -43,19 +56,6 @@ while (macroService.IsRunning) {
 				}
 
 				macroService.PollPattern(patterns.general.back, { DoClick: true, PredicatePattern: patterns.challenge.sweepAll.title });
-			}
-
-			if (!daily.doSpecialRequestsStage13.ecologyStudy.IsChecked) {
-				logger.info('doSpecialRequestsStage13: doEcologyStudy');
-
-				macroService.PollPattern(patterns.challenge.sweepAll, { DoClick: true, PredicatePattern: patterns.challenge.sweepAll.title });
-				macroService.PollPattern(patterns.challenge.sweepAll.ecologyStudy, { DoClick: true, PredicatePattern: patterns.challenge.sweepAll.ecologyStudy.selected });
-
-				const done = sweepAllStage13();
-
-				if (macroService.IsRunning && done) {
-					daily.doSpecialRequestsStage13.ecologyStudy.IsChecked = true;
-				}
 			}
 
 			if (macroService.IsRunning) {
