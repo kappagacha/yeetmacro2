@@ -34,7 +34,8 @@ public enum AndroidWindowView
     StatusPanelView,
     MacroOverlayView,
     MessageView,
-    TestView
+    TestView,
+    ImagePreviewView
 }
 
 public class AndroidScreenService : IScreenService, IDisposable
@@ -345,7 +346,7 @@ public class AndroidScreenService : IScreenService, IDisposable
                 //haystackImageData = rect != Rect.Zero ?
                 //    await _mediaProjectionService.GetCurrentImageData(rect.Offset(-topLeft.x, -topLeft.y)) :
                 //    await _mediaProjectionService.GetCurrentImageData();
-                if (pattern.TextMatch.IsActive && !String.IsNullOrEmpty(pattern.TextMatch.Text))
+                if (pattern.TextMatch is not null && pattern.TextMatch.IsActive && !String.IsNullOrEmpty(pattern.TextMatch.Text))
                 {
                     haystackImageData = _mediaProjectionService.GetCurrentImageData(
                         new Rect(rect.Location.Offset(-boundsPadding, -boundsPadding),
@@ -383,7 +384,7 @@ public class AndroidScreenService : IScreenService, IDisposable
                 return [];
             }
 
-            if (pattern.ColorThreshold.IsActive)
+            if (pattern.ColorThreshold is not null && pattern.ColorThreshold.IsActive)
             {
                 needleImageData = pattern.ColorThreshold.ImageData; // OpenCvHelper.CalcColorThreshold(pattern.ImageData, pattern.ColorThreshold);
                 haystackImageData = _openCvService.CalcColorThreshold(haystackImageData, pattern.ColorThreshold);
@@ -398,7 +399,7 @@ public class AndroidScreenService : IScreenService, IDisposable
             if (pattern.VariancePct != 0.0) threshold = 1 - pattern.VariancePct / 100;
             if ((opts?.VariancePct ?? 0.0) != 0.0) threshold = opts.VariancePct;
 
-            if (pattern.TextMatch.IsActive && !String.IsNullOrEmpty(pattern.TextMatch.Text))
+            if (pattern.TextMatch is not null && pattern.TextMatch.IsActive && !String.IsNullOrEmpty(pattern.TextMatch.Text))
             {
                 var text = _ocrService.FindText(haystackImageData, pattern.TextMatch.WhiteList);
                 var textPoints = new List<Point>();
@@ -431,7 +432,7 @@ public class AndroidScreenService : IScreenService, IDisposable
             //    fs.Write(needleImageData, 0, needleImageData.Length);
             //}
 
-            var points = _openCvService.GetPointsWithMatchTemplate(haystackImageData, needleImageData, opts?.Limit ?? 1, threshold, pattern.ColorThreshold.IgnoreBackground);
+            var points = _openCvService.GetPointsWithMatchTemplate(haystackImageData, needleImageData, opts?.Limit ?? 1, threshold, pattern.ColorThreshold?.IgnoreBackground ?? false);
             if (pattern.RawBounds != Rect.Zero)
             {
                 var newPoints = new List<Point>();
@@ -510,6 +511,14 @@ public class AndroidScreenService : IScreenService, IDisposable
         Show(AndroidWindowView.MessageView);
         var viewModel = (MessageViewModel)_views[AndroidWindowView.MessageView].VisualElement.BindingContext;
         viewModel.Message = message;
+    }
+
+    public void ShowImage(PatternNode patternNode)
+    {
+        Show(AndroidWindowView.ImagePreviewView);
+        var viewModel = (ImagePreviewViewModel)_views[AndroidWindowView.ImagePreviewView].VisualElement.BindingContext;
+        viewModel.ImageData = patternNode.Pattern.ImageData;
+        viewModel.ImageInfo = $"{patternNode.Name} - Size: {patternNode.Pattern.ImageData?.Length ?? 0} bytes";
     }
 
     public void ScreenCapture()
@@ -744,6 +753,10 @@ public class AndroidScreenService : IScreenService, IDisposable
                 case AndroidWindowView.MessageView:
                     var messageView = new ResizeView(_context, _windowManager, new MessageView());
                     _views.TryAdd(windowView, messageView);
+                    break;
+                case AndroidWindowView.ImagePreviewView:
+                    var imagePreviewView = new ResizeView(_context, _windowManager, new ImagePreviewView());
+                    _views.TryAdd(windowView, imagePreviewView);
                     break;
                 case AndroidWindowView.TestView:
                     var testView = new ResizeView(_context, _windowManager, new TestView())

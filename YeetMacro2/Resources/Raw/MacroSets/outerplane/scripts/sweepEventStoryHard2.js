@@ -42,19 +42,15 @@ while (macroService.IsRunning) {
 			sleep(500);
 			break;
 		case 'event.story.enter':
-			logger.info('sweepEventStoryHard: claim rewards');
-			let moveNotification = macroService.PollPattern(patterns.event.move.notification, { TimeoutMs: 2_000 });
-			if (moveNotification.IsSuccess) {
-				macroService.PollPattern(patterns.event.move, { DoClick: true, PredicatePattern: patterns.event.move.close });
+			logger.info('sweepEventStoryHard2: claim rewards');
+			const done = handleEventShop();
+			macroService.PollPattern(patterns.general.back, { DoClick: true, PrimaryClickPredicatePattern: patterns.titles.adventurerShop, PredicatePattern: patterns.event.story.enter });
 
-				let notificationResult = macroService.PollPattern(patterns.event.move.recieve, { TimeoutMs: 3_000 });
-				while (notificationResult.IsSuccess) {
-					macroService.PollPattern(patterns.event.move.recieve, { DoClick: true, PredicatePattern: patterns.general.tapEmptySpace });
-					macroService.PollPattern(patterns.general.tapEmptySpace, { DoClick: true, PredicatePattern: patterns.event.move.close });
-					notificationResult = macroService.PollPattern(patterns.event.move.recieve, { TimeoutMs: 3_000 });
-				}
+			handleRewards();
 
-				macroService.PollPattern(patterns.event.move.close, { DoClick: true, PredicatePattern: patterns.event.story.enter });
+			if (done) {
+				settings.dailies.sweepEventStoryHard2.Value = false;
+				return;
 			}
 
 			logger.info('sweepEventStoryHard2: sweep event hard stages');
@@ -75,4 +71,70 @@ while (macroService.IsRunning) {
 			return;
 	}
 	sleep(1_000);
+}
+
+// if return true, the this shop is complete
+function handleEventShop() {
+	let staminaResult = macroService.PollPattern(patterns.general.stamina);
+	const currency1Bounds = {
+		X: staminaResult.Point.X + 230,
+		Y: staminaResult.Point.Y - 17,
+		Height: 36,
+		Width: 30
+	};
+	const currency1Pattern = macroService.CapturePatternWithBounds(currency1Bounds);
+
+	macroService.PollPattern(patterns.event.story.eventShop, { DoClick: true, PredicatePattern: patterns.titles.adventurerShop })
+	staminaResult = macroService.PollPattern(patterns.general.stamina);
+	const shopCurrencyBounds = {
+		X: staminaResult.Point.X + 220,
+		Y: staminaResult.Point.Y - 17,
+		Height: 32,
+		Width: 30,
+		Padding: 20,
+		OffsetCalcType: 'None',
+	};
+	const currency1BoundedPattern = macroService.ClonePattern(currency1Pattern, shopCurrencyBounds);
+	const currencyResult = macroService.PollPattern(currency1BoundedPattern, { TimeoutMs: 3_000 });
+	if (!currencyResult.IsSuccess) {
+		throw new Error('Could not find specific currency');
+	}
+
+	let purchaseResult = macroService.PollPattern(patterns.shop.purchase1, { TimeoutMs: 3_000 });
+	while (purchaseResult.IsSuccess) {
+		macroService.PollPattern(patterns.shop.purchase1, { DoClick: true, PredicatePattern: patterns.shop.purchase.ok });
+		const maxResult = macroService.FindPattern(patterns.shop.purchase.max);
+		if (maxResult.IsSuccess) {
+			const maxResult = macroService.PollPattern(patterns.shop.purchase.max, { DoClick: true, PredicatePattern: patterns.shop.purchase.sliderMax, TimeoutMs: 2_000 });
+			if (!maxResult.IsSuccess) {
+				macroService.PollPattern(patterns.shop.purchase1.cancel, { DoClick: true, PredicatePattern: [patterns.shop.purchase1, patterns.shop.purchase1.disabled] });
+				purchaseResult = { IsSuccess: false };
+				continue;
+			}
+		}
+		const okResult = macroService.PollPattern(patterns.shop.purchase.ok, { DoClick: true, PredicatePattern: patterns.general.tapEmptySpace, TimeoutMs: 3_500 });
+		if (!okResult.IsSuccess) break;
+
+		macroService.PollPattern(patterns.general.tapEmptySpace, { DoClick: true, PredicatePattern: [patterns.titles.adventurerShop, patterns.titles.shop, patterns.shop.premium.title] });
+		purchaseResult = macroService.PollPattern(patterns.shop.purchase1, { TimeoutMs: 3_000 });
+	}
+
+	purchaseResult = macroService.PollPattern([patterns.shop.purchase1, patterns.shop.purchase1.disabled]);
+	return purchaseResult.Path === 'shop.purchase1.disabled';
+}
+
+function handleRewards() {
+	let moveNotification = macroService.PollPattern(patterns.event.move.notification, { TimeoutMs: 2_000 });
+	if (moveNotification.IsSuccess) {
+		macroService.PollPattern(patterns.event.move, { DoClick: true, PredicatePattern: patterns.event.move.close });
+
+		let notificationResult = macroService.PollPattern(patterns.event.move.recieve, { TimeoutMs: 3_000 });
+		while (notificationResult.IsSuccess) {
+			macroService.PollPattern(patterns.event.move.recieve, { DoClick: true, PredicatePattern: patterns.general.tapEmptySpace });
+			macroService.PollPattern(patterns.general.tapEmptySpace, { DoClick: true, PredicatePattern: patterns.event.move.close });
+			notificationResult = macroService.PollPattern(patterns.event.move.recieve, { TimeoutMs: 3_000 });
+		}
+
+		macroService.PollPattern(patterns.event.move.close, { DoClick: true, PredicatePattern: patterns.event.story.enter });
+	}
 }

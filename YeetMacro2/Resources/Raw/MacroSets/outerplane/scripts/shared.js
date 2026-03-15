@@ -46,7 +46,7 @@ function getCurrentStaminaValue() {
 		X: staminaResult.Point.X + 25,
 		Y: staminaResult.Point.Y - 10,
 		Height: 26,
-		Width: slashResult.Point.X - staminaResult.Point.X - 25
+		Width: slashResult.Point.X - staminaResult.Point.X - 22
 	};
 	const currentStamina = macroService.FindTextWithBounds(valueBounds, '0123456789').slice(0, -1);
 	return Number(currentStamina);

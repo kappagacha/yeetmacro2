@@ -1,13 +1,13 @@
-﻿using CommunityToolkit.Mvvm.Messaging.Messages;
-using CommunityToolkit.Mvvm.Messaging;
+﻿using CommunityToolkit.Mvvm.Messaging;
+using CommunityToolkit.Mvvm.Messaging.Messages;
+using Jint.Native;
 using OneOf;
+using System.Collections.Concurrent;
 using System.Text.Json.Serialization;
 using YeetMacro2.Data.Models;
-using YeetMacro2.ViewModels.NodeViewModels;
 using YeetMacro2.ViewModels;
-using System.Collections.Concurrent;
+using YeetMacro2.ViewModels.NodeViewModels;
 using SwipeDirection = YeetMacro2.Data.Models.SwipeDirection;
-using Jint.Native;
 
 namespace YeetMacro2.Services;
 
@@ -679,6 +679,34 @@ public class MacroService
         }
         _logServiceViewModel.Debug = $"getText failed {maxTry} times...";
         return String.Empty;
+    }
+
+    public void PreviewPattern(PatternNode patternNode)
+    {
+        MainThread.BeginInvokeOnMainThread(() =>
+        {
+            _screenService.ShowImage(patternNode);
+        });
+    }
+
+    public PatternNode CapturePattern(PatternNode patternNode)
+    {
+        if (patternNode.Pattern is null) return null;
+        var bounds = patternNode.Pattern.Bounds;
+        return CapturePatternWithBounds(bounds);
+    }
+
+    public PatternNode CapturePatternWithBounds(Rect bounds)
+    {
+        var guid = Guid.NewGuid().ToString();
+        var patternNode = new PatternNode() { Name = guid, Path = guid };
+        var pattern = new Pattern();
+        patternNode.Patterns.Add(pattern);
+        MainThread.InvokeOnMainThreadAsync(() =>
+        {
+            pattern.ImageData = _screenService.GetCurrentImageData(bounds);
+        }).GetAwaiter().GetResult();
+        return patternNode;
     }
 
     public void GoBack()

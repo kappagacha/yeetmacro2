@@ -23,6 +23,7 @@ public static class PlatformServiceRegistrationHelper
         mauiAppBuilder.Services.AddSingleton<PromptStringInputViewModel>();
         mauiAppBuilder.Services.AddSingleton<PromptSelectOptionViewModel>();
         mauiAppBuilder.Services.AddSingleton<MessageViewModel>();
+        mauiAppBuilder.Services.AddSingleton<ImagePreviewViewModel>();
         mauiAppBuilder.Services.AddSingleton<MediaProjectionService>();
         mauiAppBuilder.Services.AddSingleton<RecorderService>();
         mauiAppBuilder.Services.AddSingleton<YeetAccessibilityService>();
