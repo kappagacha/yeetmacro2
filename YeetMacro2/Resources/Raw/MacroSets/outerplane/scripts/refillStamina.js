@@ -17,7 +17,7 @@ function refillStamina(targetStamina) {
 		const chestToStaminaConversionRate = 6;
 		const targetNumChests = Math.ceil(diffStamina / chestToStaminaConversionRate);
 		macroService.PollPattern(patterns.tabs.inventory, { DoClick: true, PredicatePattern: patterns.titles.inventory });
-		macroService.PollPattern(patterns.inventory.consumables, { DoClick: true, PredicatePattern: patterns.inventory.consumables.selected });
+		macroService.PollPattern(patterns.inventory.consumables, { DoClick: true, PredicatePattern: patterns.inventory.consumables.use });
 		const chestResult = macroService.FindPattern(patterns.inventory.consumables.chest, { Limit: 10 });
 		if (!chestResult.IsSuccess) return new Error('Could not find chest pattern');
 
