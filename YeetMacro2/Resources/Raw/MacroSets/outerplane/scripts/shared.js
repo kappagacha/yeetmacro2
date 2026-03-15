@@ -1,33 +1,5 @@
 // @raw-script
 // @position=1000
-
-function refillStamina(targetStamina) {
-	goToLobby();
-	let currentStamina = getCurrentStaminaValue();
-	logger.info(`refillStamina to ${targetStamina}. current stamina is ${currentStamina}`);
-	if (currentStamina >= targetStamina) {
-		return;
-	}
-
-	macroService.PollPattern(patterns.lobby.mailbox, { DoClick: true, PredicatePattern: patterns.titles.mailbox });
-	macroService.PollPattern(patterns.mailbox.normal, { DoClick: true, PredicatePattern: patterns.mailbox.normal.selected });
-	//macroService.PollPattern(patterns.mailbox.product, { DoClick: true, PredicatePattern: patterns.mailbox.product.selected });
-	sleep(1000);
-
-	const targetMailboxItem = patterns.mailbox.stamina;
-	while (macroService.IsRunning && currentStamina < targetStamina) {
-		macroService.PollPattern(targetMailboxItem, { SwipePattern: patterns.mailbox.swipeDown, TimeoutMs: 30_000 });
-		const staminaResult = macroService.FindPattern(targetMailboxItem);
-		const recievePattern = macroService.ClonePattern(patterns.mailbox.receive, { CenterY: staminaResult.Point.Y, Height: 60.0, PathSuffix: `_${staminaResult.Point.Y}y` });
-		macroService.PollPattern(recievePattern, { DoClick: true, PredicatePattern: patterns.general.tapEmptySpace });
-		macroService.PollPattern(patterns.general.tapEmptySpace, { DoClick: true, PredicatePattern: patterns.titles.mailbox });
-		sleep(500);
-		currentStamina = getCurrentStaminaValue();
-		logger.info(`refillStamina to ${targetStamina}. current stamina is ${currentStamina}`);
-	}
-	goToLobby();
-}
-
 function getCurrentStaminaValue() {
 	//const staminaResult = macroService.PollPattern(patterns.general.stamina);
 	//const staminaValue = macroService.ClonePattern(patterns.general.staminaValue, { X: staminaResult.Point.X + 24, Y: staminaResult.Point.Y - 10, PathSuffix: `_x${staminaResult.Point.X}`, OffsetCalcType: 'None' });
@@ -153,57 +125,5 @@ function doShopItems(scriptName, shopType, shopItems, isWeekly = false) {
 				todo[scriptName][shopType][shopItem].IsChecked = true;
 			}
 		}
-	}
-}
-
-function refillStamina2(targetStamina) {
-	goToLobby();
-
-	let currentStamina = getCurrentStaminaValue();
-	logger.info(`refillStamina to ${targetStamina}. current stamina is ${currentStamina}`);
-	if (currentStamina >= targetStamina) {
-		return;
-	}
-
-	while (macroService.IsRunning && currentStamina < targetStamina) {
-		const diffStamina = targetStamina - currentStamina;
-		const chestToStaminaConversionRate = 6;
-		const targetNumChests = Math.ceil(diffStamina / chestToStaminaConversionRate);
-		macroService.PollPattern(patterns.tabs.inventory, { DoClick: true, PredicatePattern: patterns.titles.inventory });
-		macroService.PollPattern(patterns.inventory.consumables, { DoClick: true, PredicatePattern: patterns.inventory.consumables.selected });
-		const chestResult = macroService.FindPattern(patterns.inventory.consumables.chest, { Limit: 10 });
-		if (!chestResult.IsSuccess) return new Error('Could not find chest pattern');
-
-		const lastChestPoint = chestResult.Points.reduce((lastChest, p) => {
-			const yDiff = p.Y - lastChest.Y;
-
-			// If p is significantly lower (more than 5 pixels), choose p
-			if (yDiff > 5) {
-				return p;
-			}
-			// If p is significantly higher (more than 5 pixels), keep lastChest
-			if (yDiff < -5) {
-				return lastChest;
-			}
-			// Y values are within 5 pixels - find rightmost
-			if (p.X >= lastChest.X) {
-				return p;
-			}
-			return lastChest;
-		});
-		macroService.PollPoint(lastChestPoint, { PredicatePattern: patterns.inventory.consumables.chest.adventurer });
-		macroService.PollPattern(patterns.inventory.consumables.use, { DoClick: true, PredicatePattern: patterns.inventory.consumables.use.ok });
-		macroService.PollPattern(patterns.inventory.consumables.use.min, { DoClick: true, PredicatePattern: patterns.inventory.consumables.use.sliderMin });
-
-		let currentAmount = macroService.FindText(patterns.inventory.consumables.use.currentAmount);
-		while (macroService.IsRunning && currentAmount <= targetNumChests) {
-			macroService.ClickPattern(patterns.inventory.consumables.use.plus);
-			sleep(100);
-			currentAmount = macroService.FindText(patterns.inventory.consumables.use.currentAmount);
-		}
-		macroService.PollPattern(patterns.inventory.consumables.use.ok, { DoClick: true, PredicatePattern: patterns.general.tapEmptySpace });
-		macroService.PollPattern(patterns.general.tapEmptySpace, { DoClick: true, PredicatePattern: patterns.titles.inventory });
-		sleep(200);
-		currentStamina = getCurrentStaminaValue();
 	}
 }

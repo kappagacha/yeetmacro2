@@ -130,7 +130,7 @@
   "doGuildSecurityArea": {
     "$type": "parent",
     "$tags": [],
-    "$position": 5,
+    "$position": 2,
     "$name": "doGuildSecurityArea",
     "$path": "doGuildSecurityArea",
     "teamSlot": {
@@ -191,7 +191,7 @@
   "doEcologyStudy": {
     "$type": "parent",
     "$tags": [],
-    "$position": 6,
+    "$position": 3,
     "$name": "doEcologyStudy",
     "$path": "doEcologyStudy",
     "teamSlot": {
@@ -235,7 +235,7 @@
   "doIdentification": {
     "$type": "parent",
     "$tags": [],
-    "$position": 7,
+    "$position": 4,
     "$name": "doIdentification",
     "$path": "doIdentification",
     "teamSlot": {
@@ -279,7 +279,7 @@
   "doUpkeep": {
     "$type": "parent",
     "$tags": [],
-    "$position": 8,
+    "$position": 5,
     "$name": "doUpkeep",
     "$path": "doUpkeep",
     "claimGuildBuff": {
@@ -388,7 +388,7 @@
   "claimAntiparticle": {
     "$type": "parent",
     "$tags": [],
-    "$position": 9,
+    "$position": 6,
     "$name": "claimAntiparticle",
     "$path": "claimAntiparticle",
     "forceRun": {
@@ -413,7 +413,7 @@
   "doFriends": {
     "$type": "parent",
     "$tags": [],
-    "$position": 10,
+    "$position": 7,
     "$name": "doFriends",
     "$path": "doFriends",
     "forceRun": {
@@ -438,7 +438,7 @@
   "doGuildRaid": {
     "$type": "parent",
     "$tags": [],
-    "$position": 11,
+    "$position": 8,
     "$name": "doGuildRaid",
     "$path": "doGuildRaid",
     "teamSlot": {
@@ -467,7 +467,7 @@
   "doSurveyHub": {
     "$type": "parent",
     "$tags": [],
-    "$position": 12,
+    "$position": 9,
     "$name": "doSurveyHub",
     "$path": "doSurveyHub",
     "teamSlot": {
@@ -504,7 +504,7 @@
   "doInfiniteCorridor": {
     "$type": "parent",
     "$tags": [],
-    "$position": 13,
+    "$position": 10,
     "$name": "doInfiniteCorridor",
     "$path": "doInfiniteCorridor",
     "teamSlot": {
@@ -547,7 +547,7 @@
   "claimEventDailyMissions": {
     "$type": "parent",
     "$tags": [],
-    "$position": 14,
+    "$position": 11,
     "$name": "claimEventDailyMissions",
     "$path": "claimEventDailyMissions",
     "dailyMissionPattern": {
@@ -707,7 +707,7 @@
   "doWeeklyShop": {
     "$type": "parent",
     "$tags": [],
-    "$position": 16,
+    "$position": 12,
     "$name": "doWeeklyShop",
     "$path": "doWeeklyShop",
     "resource": {
@@ -1015,7 +1015,7 @@
   "sellInventory": {
     "$type": "parent",
     "$tags": [],
-    "$position": 17,
+    "$position": 13,
     "$name": "sellInventory",
     "$path": "sellInventory",
     "forceRun": {
@@ -1031,7 +1031,7 @@
   "doWeeklies": {
     "$type": "parent",
     "$tags": [],
-    "$position": 18,
+    "$position": 14,
     "$name": "doWeeklies",
     "$path": "doWeeklies",
     "claimWeeklyMissions": {
@@ -1065,7 +1065,7 @@
   "doShop": {
     "$type": "parent",
     "$tags": [],
-    "$position": 19,
+    "$position": 15,
     "$name": "doShop",
     "$path": "doShop",
     "friendshipPoint": {
@@ -1203,7 +1203,7 @@
   "doSkywardTower": {
     "$type": "parent",
     "$tags": [],
-    "$position": 20,
+    "$position": 16,
     "$name": "doSkywardTower",
     "$path": "doSkywardTower",
     "teamSlot": {
@@ -1231,7 +1231,7 @@
   "goToLobby": {
     "$type": "parent",
     "$tags": [],
-    "$position": 21,
+    "$position": 17,
     "$name": "goToLobby",
     "$path": "goToLobby",
     "userClickPattern": {
@@ -1391,7 +1391,7 @@
   "sweepJointChallenge": {
     "$type": "parent",
     "$tags": [],
-    "$position": 22,
+    "$position": 18,
     "$name": "sweepJointChallenge",
     "$path": "sweepJointChallenge",
     "jointChallengeLevel": {
@@ -1412,7 +1412,7 @@
   "selectTeam": {
     "$type": "parent",
     "$tags": [],
-    "$position": 23,
+    "$position": 19,
     "$name": "selectTeam",
     "$path": "selectTeam",
     "earth": {
@@ -1524,7 +1524,7 @@
   "claimEventDailyMissions2": {
     "$type": "parent",
     "$tags": [],
-    "$position": 24,
+    "$position": 20,
     "$name": "claimEventDailyMissions2",
     "$path": "claimEventDailyMissions2",
     "dailyMissionPattern": {
@@ -1620,7 +1620,7 @@
   "startTerminusIsleExploration": {
     "$type": "parent",
     "$tags": [],
-    "$position": 25,
+    "$position": 21,
     "$name": "startTerminusIsleExploration",
     "$path": "startTerminusIsleExploration",
     "lastRun": {
@@ -1636,7 +1636,7 @@
   "doTerminusIsleExploration": {
     "$type": "parent",
     "$tags": [],
-    "$position": 26,
+    "$position": 22,
     "$name": "doTerminusIsleExploration",
     "$path": "doTerminusIsleExploration",
     "forceRun": {
@@ -1652,7 +1652,7 @@
   "sweepEventStoryHard2": {
     "$type": "parent",
     "$tags": [],
-    "$position": 27,
+    "$position": 23,
     "$name": "sweepEventStoryHard2",
     "$path": "sweepEventStoryHard2",
     "targetEventPattern": {
@@ -1858,7 +1858,7 @@
   "doPursuitOperationAssist": {
     "$type": "parent",
     "$tags": [],
-    "$position": 28,
+    "$position": 24,
     "$name": "doPursuitOperationAssist",
     "$path": "doPursuitOperationAssist",
     "targetOperation": {
@@ -1911,7 +1911,7 @@
   "applyPreset": {
     "$type": "parent",
     "$tags": [],
-    "$position": 29,
+    "$position": 25,
     "$name": "applyPreset",
     "$path": "applyPreset",
     "lastApplied": {
@@ -1927,7 +1927,7 @@
   "doWeeklyCraft": {
     "$type": "parent",
     "$tags": [],
-    "$position": 30,
+    "$position": 26,
     "$name": "doWeeklyCraft",
     "$path": "doWeeklyCraft",
     "specialEnhancement": {
@@ -2000,7 +2000,7 @@
   "watchAds": {
     "$type": "parent",
     "$tags": [],
-    "$position": 31,
+    "$position": 27,
     "$name": "watchAds",
     "$path": "watchAds",
     "userClickPattern": {
@@ -2594,7 +2594,7 @@
   "sweepEventStoryHard": {
     "$type": "parent",
     "$tags": [],
-    "$position": 32,
+    "$position": 28,
     "$name": "sweepEventStoryHard",
     "$path": "sweepEventStoryHard",
     "targetEventPattern": {
@@ -2800,7 +2800,7 @@
   "doDailies": {
     "$type": "parent",
     "$tags": [],
-    "$position": 33,
+    "$position": 29,
     "$name": "doDailies",
     "$path": "doDailies",
     "claimGuildBuff": {
@@ -3059,7 +3059,7 @@
   "doEventStory": {
     "$type": "parent",
     "$tags": [],
-    "$position": 34,
+    "$position": 30,
     "$name": "doEventStory",
     "$path": "doEventStory",
     "teamSlot": {
@@ -3087,7 +3087,7 @@
   "test": {
     "$type": "parent",
     "$tags": [],
-    "$position": 35,
+    "$position": 31,
     "$name": "test",
     "$path": "test",
     "type": {
@@ -3118,7 +3118,7 @@
   "selectTeam2": {
     "$type": "parent",
     "$tags": [],
-    "$position": 36,
+    "$position": 32,
     "$name": "selectTeam2",
     "$path": "selectTeam2",
     "useAlternateTeams": {
@@ -3134,7 +3134,7 @@
   "doPursuitOperation": {
     "$type": "parent",
     "$tags": [],
-    "$position": 37,
+    "$position": 33,
     "$name": "doPursuitOperation",
     "$path": "doPursuitOperation",
     "targetOperation": {
@@ -3192,6 +3192,23 @@
       "$position": 3,
       "$name": "lastOperation",
       "$path": "doPursuitOperation.lastOperation"
+    }
+  },
+  "refillStamina": {
+    "$type": "parent",
+    "$tags": [],
+    "$position": 34,
+    "$name": "refillStamina",
+    "$path": "refillStamina",
+    "targetStamina": {
+      "$type": "integer",
+      "$tags": [],
+      "$defaultValue": 100,
+      "$value": 100,
+      "$position": 0,
+      "$increment": 50,
+      "$name": "targetStamina",
+      "$path": "refillStamina.targetStamina"
     }
   }
 }
