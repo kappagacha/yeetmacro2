@@ -21,24 +21,14 @@ function refillStamina(targetStamina) {
 		const chestResult = macroService.FindPattern(patterns.inventory.consumables.chest, { Limit: 10 });
 		if (!chestResult.IsSuccess) return new Error('Could not find chest pattern');
 
-		const lastChestPoint = chestResult.Points.reduce((lastChest, p) => {
-			const yDiff = p.Y - lastChest.Y;
-
-			// If p is significantly lower (more than 5 pixels), choose p
-			if (yDiff > 5) {
-				return p;
-			}
-			// If p is significantly higher (more than 5 pixels), keep lastChest
-			if (yDiff < -5) {
-				return lastChest;
-			}
-			// Y values are within 5 pixels - find rightmost
-			if (p.X >= lastChest.X) {
-				return p;
-			}
-			return lastChest;
+		// Sort points by Y (top first), then X (left first)
+		const sortedPoints = [...chestResult.Points].sort((a, b) => {
+			const yDiff = a.Y - b.Y;
+			if (Math.abs(yDiff) > 5) return yDiff;
+			return a.X - b.X;
 		});
-		macroService.PollPoint(lastChestPoint, { PredicatePattern: patterns.inventory.consumables.chest.adventurer });
+		const chestPoint = sortedPoints.at(settings.refillStamina.chestIndex.Value ?? -1);
+		macroService.PollPoint(chestPoint, { PredicatePattern: patterns.inventory.consumables.chest.adventurer });
 		macroService.PollPattern(patterns.inventory.consumables.use, { DoClick: true, PredicatePattern: patterns.inventory.consumables.use.ok });
 		macroService.PollPattern(patterns.inventory.consumables.use.min, { DoClick: true, PredicatePattern: patterns.inventory.consumables.use.sliderMin });
 

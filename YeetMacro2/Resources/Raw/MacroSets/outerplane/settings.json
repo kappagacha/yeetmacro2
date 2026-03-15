@@ -3209,6 +3209,16 @@
       "$increment": 50,
       "$name": "targetStamina",
       "$path": "refillStamina.targetStamina"
+    },
+    "chestIndex": {
+      "$type": "integer",
+      "$tags": [],
+      "$defaultValue": -2,
+      "$value": -2,
+      "$position": 0,
+      "$increment": 1,
+      "$name": "chestIndex",
+      "$path": "refillStamina.chestIndex"
     }
   }
 }
