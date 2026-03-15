@@ -47,6 +47,7 @@ const atLeastOne_twoStar = macroService.FindPattern(patterns.battle.conditions.a
 //const atLeastOne_ranger = macroService.FindPattern(patterns.battle.conditions.atLeastOne_ranger, findPatternOpts).IsSuccess;
 //const atLeastOne_striker = macroService.FindPattern(patterns.battle.conditions.atLeastOne_striker, findPatternOpts).IsSuccess;
 //const atLeastOne_healer = macroService.FindPattern(patterns.battle.conditions.atLeastOne_healer, findPatternOpts).IsSuccess;
+const atLeastOne_defender = macroService.FindPattern(patterns.battle.conditions.atLeastOne_defender, findPatternOpts).IsSuccess;
 
 //const atLeastOne_light = macroService.FindPattern(patterns.battle.conditions.atLeastOne_light, findPatternOpts).IsSuccess;
 const atLeastOne_earth = macroService.FindPattern(patterns.battle.conditions.atLeastOne_earth, findPatternOpts).IsSuccess;
@@ -80,6 +81,11 @@ if (atLeastOne_fire) {
 
 if (atLeastOne_earth) {
     idealTeam.bottom = { name: 'delta' };
+}
+
+if (atLeastOne_defender) {
+    idealTeam.left = { name: 'monadIota' };
+    idealTeam.right = { name: 'demiurgeDrakhan' };
 }
 
 if (no_mages) {
