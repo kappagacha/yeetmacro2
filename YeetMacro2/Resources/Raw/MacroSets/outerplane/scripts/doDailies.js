@@ -118,6 +118,12 @@ if (settings.doDailies.sweepJointChallenge.Value) {
 }
 
 if (settings.doDailies.doUpkeep.Value) {
+    if (!daily.doUpkeep.refillStamina.IsChecked) {
+        refillStamina2(800);
+        daily.doUpkeep.refillStamina.IsChecked = true;
+        goToLobby();
+    }
+
     doUpkeep();
     goToLobby();
 }
