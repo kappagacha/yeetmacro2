@@ -45,7 +45,7 @@ const no_dark = macroService.FindPattern(patterns.battle.conditions.no_dark, fin
 const atLeastOne_twoStar = macroService.FindPattern(patterns.battle.conditions.atLeastOne_twoStar, findPatternOpts).IsSuccess;
 //const atLeastOne_threeStar = macroService.FindPattern(patterns.battle.conditions.atLeastOne_threeStar, findPatternOpts).IsSuccess;
 //const atLeastOne_ranger = macroService.FindPattern(patterns.battle.conditions.atLeastOne_ranger, findPatternOpts).IsSuccess;
-//const atLeastOne_striker = macroService.FindPattern(patterns.battle.conditions.atLeastOne_striker, findPatternOpts).IsSuccess;
+const atLeastOne_striker = macroService.FindPattern(patterns.battle.conditions.atLeastOne_striker, findPatternOpts).IsSuccess;
 //const atLeastOne_healer = macroService.FindPattern(patterns.battle.conditions.atLeastOne_healer, findPatternOpts).IsSuccess;
 const atLeastOne_defender = macroService.FindPattern(patterns.battle.conditions.atLeastOne_defender, findPatternOpts).IsSuccess;
 
@@ -66,8 +66,8 @@ if (no_light) {
 }
 
 if (no_rangers) {
-    idealTeam.left = { name: 'gnosisNella' };
-    idealTeam.top = { name: 'monadEva' };
+    idealTeam.left = { name: 'monadEva' };
+    idealTeam.top = { name: 'gnosisNella' };
     idealTeam.right = { name: 'demiurgeDrahkan' };
 }
 
@@ -84,7 +84,7 @@ if (atLeastOne_earth) {
 }
 
 if (atLeastOne_defender) {
-    idealTeam.left = { name: 'monadIota' };
+    idealTeam.left = { name: 'monadEva' };
     idealTeam.right = { name: 'demiurgeDrakhan' };
 }
 
@@ -94,6 +94,10 @@ if (no_mages) {
 
 if (no_healers) {
     idealTeam.right = { name: 'demiurgeDrakhan' };
+}
+
+if (atLeastOne_striker) {
+    idealTeam.bottom = { name: 'gnosisDahlia' };
 }
 
 // *****multi condition or boss type*****
