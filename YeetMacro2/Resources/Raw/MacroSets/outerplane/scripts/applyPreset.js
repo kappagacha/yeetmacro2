@@ -1,5 +1,5 @@
 // @raw-script
-// @tags=favorites,event
+// @tags=favorites,event,weeklies
 // Apply equipmentPreset
 
 function applyPreset(teamSlot, opts = {}) {

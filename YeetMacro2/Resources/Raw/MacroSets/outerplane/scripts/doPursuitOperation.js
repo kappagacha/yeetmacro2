@@ -55,9 +55,11 @@ while (macroService.IsRunning) {
 
 				if (pointExchangeResult.PredicatePath === 'irregularExtermination.pursuitOperation.pointExchange.receiveAll') {
 					logger.info('doPursuitOperation: enabled receive all detected');
-					macroService.PollPattern(patterns.irregularExtermination.pursuitOperation.pointExchange.receiveAll, { DoClick: true, PredicatePattern: patterns.general.tapEmptySpace });
-					macroService.PollPattern(patterns.general.tapEmptySpace, { DoClick: true, PredicatePattern: patterns.general.back });
-					macroService.PollPattern(patterns.general.back, { DoClick: true, PredicatePattern: patterns.irregularExtermination.pursuitOperation, PrimaryClickPredicatePattern: patterns.irregularExtermination.pursuitOperation.pointExchange.receiveAll });
+					macroService.PollPattern(patterns.irregularExtermination.pursuitOperation.pointExchange.receiveAll, { DoClick: true, PredicatePattern: [patterns.general.tapEmptySpace, patterns.irregularExtermination.pursuitOperation.pointExchange.receiveAll.disabled] });
+					sleep(500);
+					macroService.PollPattern(patterns.general.tapEmptySpace, { DoClick: true, PredicatePattern: [patterns.general.back, patterns.irregularExtermination.pursuitOperation.pointExchange.receiveAll.disabled] });
+					sleep(500);
+					macroService.PollPattern(patterns.general.back, { DoClick: true, PredicatePattern: patterns.irregularExtermination.pursuitOperation, PrimaryClickPredicatePattern: [patterns.irregularExtermination.pursuitOperation.pointExchange.receiveAll, patterns.irregularExtermination.pursuitOperation.pointExchange.receiveAll.disabled] });
 				}
 			}
 

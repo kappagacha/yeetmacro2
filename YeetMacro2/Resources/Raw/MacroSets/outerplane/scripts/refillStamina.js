@@ -1,5 +1,5 @@
 // @raw-script
-// @tags=favorites
+// @tags=favorites,weeklies
 function refillStamina(targetStamina) {
 
 	if (!targetStamina) targetStamina = settings.refillStamina.targetStamina.Value;
