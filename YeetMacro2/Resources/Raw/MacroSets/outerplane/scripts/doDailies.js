@@ -119,7 +119,7 @@ if (settings.doDailies.sweepJointChallenge.Value) {
 
 if (settings.doDailies.doUpkeep.Value) {
     if (!daily.doUpkeep.refillStamina.IsChecked) {
-        refillStamina(800);
+        refillStamina(850);
         daily.doUpkeep.refillStamina.IsChecked = true;
         goToLobby();
     }
