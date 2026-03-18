@@ -98,6 +98,7 @@ while (macroService.IsRunning) {
 				generalSturdy1: 15,			// Lv.1 DMG Reduction 5%
 				generalAccuracy1: 10,		// Lv.1 Increases Effectiveness by 75%
 				generalWeakPoint1: 300,		// Lv.1 Increases CRIT Chance by 10%
+				generalReinforce1: 150,		// Lv.1 Increses DEF by 20%
 			};
 
 			if (greenCardResult.IsSuccess) {
@@ -132,6 +133,8 @@ while (macroService.IsRunning) {
 				generalCriticalStrike2: 350,		// Lv.1 Increases Critical Damage 90%
 				generalResistance2: 50,				// Lv.1 Increase Resilience by 150%
 				generalComboTechnique: 100,			// Lv.1 When scoring a critical hit, has a 10% chance to reduce cooldown by 1 turn
+				generalSelfSacrifice: 0,			// Lv.1 Increases CRIT DMG by 100%, but when landing a cirtical hit, also deal damage to self equal to 15% of max HP
+				generalReinforce2: 100,				// Lv.1 Increases DEF by 40%
 
 				esephExploitWeaknessPetrified: 50,	// Lv.1 When attacking Petrified enemy, Critical Hit Chance +30%
 				esephExploitWeaknessShocked: 55,	// Lv.1 When attacking Shocked enemy, Critical Hit Chance +30%
@@ -142,10 +145,14 @@ while (macroService.IsRunning) {
 				esephStrikeFrozen: 160,				// Lv.1 Basic Attacks have a 10% chance to inflict Frozen for 1 turn
 				esephStrikePetrified: 150,			// Lv.1 Basic Attacks have a 10% chance to inflict Petrified for 1 turn
 
+				esephUltimateFrozen: 160,			// Lv.1 Using Ultimate has 10% chance to inflict Frozen on target for 1 turn
+				esephUltimatePetrified: 150,		// Lv.1 Using Ultimate has 10% chance to inflict Petrified on target for 1 turn
 				esephUltimateShocked: 155,			// Lv.1 Using Ultimate has 10% chance to inflict Stunned on target for 1 turn
 
 				esephDecisiveBlowShocked: 105,		// Lv.1 Damage to Stunned target +100%
 				esephDecisiveBlowPetrified: 100,	// Lv.1 Damage to Petrified target +100%
+
+				esephGnosisVielaExclusive: 0,		// Lv.1 Using Ultimate has 50% chance to inflict Stunned for 1 turn
 			};
 			if (blueCardResult.IsSuccess) {
 				for (const p of blueCardResult.Points.sort((a, b) => a.X - b.X)) {
