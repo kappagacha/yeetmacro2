@@ -93,7 +93,11 @@ while (macroService.IsRunning) {
 				analysis: 300,			// Lv.1 Damage Dealt +30%
 				//alacrity: 0,			// Lv.1 Increase Evasion by 50%
 				rupture: 210,			// Lv.1 When Critical Hit does not trigger, increase Damage by 40%
-				sturdy: 15,				// Lv.1 Damage Taken Decrease -5%
+				//sturdy: 15,				// Lv.1 Damage Taken Decrease -5%
+
+				generalSturdy1: 15,			// Lv.1 DMG Reduction 5%
+				generalAccuracy1: 10,		// Lv.1 Increases Effectiveness by 75%
+				generalWeakPoint1: 300,		// Lv.1 Increases CRIT Chance by 10%
 			};
 
 			if (greenCardResult.IsSuccess) {
@@ -115,6 +119,33 @@ while (macroService.IsRunning) {
 				fortuneFavorsTheBrave: 200,			// Lv.1 Slightly increase damage proportional to the number of granted buffs
 				unstoppableMomentum: 100,			// Lv.1 Slightly increase damage proportional to the number of granted debuffs
 				finalBattle: 1000,					// Lv.1 At the start of the turn, has a low chance to reset Caster's cooldown
+
+				generalEnhancement: 400,			// Lv.1 Recovers 20 AP at the start of the turn
+				generalDestruction: 100,			// Lv.1 AOE Attack WG Damage +30%
+				generalSturdy2: 50,					// Lv.1 Increase HP by 40%
+				generalCollapse: 100,				// Lv.1 Increases WG damage of Single-Target attacks by 30%
+				generalHeavyStrike: 300,			// Lv.1 Recovers 10 CP when landing a critical hit
+				generalAnalysis2: 350,				// Lv.1 Damage Increases 30%
+				generalQuickAttack: 100,			// Lv.1 Increases Priority by 5% when hit
+				generalStrongArm2: 340,				// Lv.1 Increases ATK by 40%
+				generalAccuracy2: 30,				// Lv.1 Increases Effectiveness by 150%
+				generalCriticalStrike2: 350,		// Lv.1 Increases Critical Damage 90%
+				generalResistance2: 50,				// Lv.1 Increase Resilience by 150%
+				generalComboTechnique: 100,			// Lv.1 When scoring a critical hit, has a 10% chance to reduce cooldown by 1 turn
+
+				esephExploitWeaknessPetrified: 50,	// Lv.1 When attacking Petrified enemy, Critical Hit Chance +30%
+				esephExploitWeaknessShocked: 55,	// Lv.1 When attacking Shocked enemy, Critical Hit Chance +30%
+
+				esephStartFrozen: 0,				// Lv.1 Upon entering battle, 10% chance ot inflict Frozen to all enemies for 1 turn
+
+				esephStrikeShocked: 155,			// Lv.1 Basic Attacks have a 10% chance to inflict Stunned for 1 turn
+				esephStrikeFrozen: 160,				// Lv.1 Basic Attacks have a 10% chance to inflict Frozen for 1 turn
+				esephStrikePetrified: 150,			// Lv.1 Basic Attacks have a 10% chance to inflict Petrified for 1 turn
+
+				esephUltimateShocked: 155,			// Lv.1 Using Ultimate has 10% chance to inflict Stunned on target for 1 turn
+
+				esephDecisiveBlowShocked: 105,		// Lv.1 Damage to Stunned target +100%
+				esephDecisiveBlowPetrified: 100,	// Lv.1 Damage to Petrified target +100%
 			};
 			if (blueCardResult.IsSuccess) {
 				for (const p of blueCardResult.Points.sort((a, b) => a.X - b.X)) {
@@ -140,6 +171,23 @@ while (macroService.IsRunning) {
 				chainSystemLightIV: -1_000,	// Lv.1 Reduce Light Speed by 50%, increase Dark Damage by 100%
 				reverseThinking: -100_000,	// Lv.1 Increase Damage to the target with Non-Advantageous Element by 100% reduces Damage to the target with Advantageous Element by 100%
 				protection: 400,			// Lv.1 Upon using Burst Skill, Grants a Barrier to all allies for 2 turns (equal to 15% of the target's Max Health)
+
+				esephDecisiveBlowPetrified: 400,	// Lv.1 Damage to Petrified target +100%
+				esephDecisiveBlowFrozen: 420,		// Lv.1 Damage to Frozen target +100%
+
+				esephStrikeFrozen: 470,				// Lv.1 Basic Attacks have a 10% chance to inflict Frozen for 1 turn
+
+				esephUltimatePetrified: 450,		// Lv.1 Using Ultimate has 10% chance to inflict Petrified on the target for 1 turn
+				esephUltimateFrozen: 470,			// Lv.1 Using Ultimate has 10% chance to inflict Frozen on the target for 1 turn
+
+
+				
+				esephStartFrozen: 10,				// Lv.1 Upon entering battle, 10% chance to inflict frozen to all enemies for 1 turn
+
+				esephExploitWeaknessFrozen: 320,	// Lv.1 When attacking Frozen enemy, Critical Hit Chance +30%
+
+				esephGnosisVielaExclusive: 0,		// Lv.1 Using Ultimate has 50% chance to inflict Stunned for 1 turn
+
 			};
 			if (redCardResult.IsSuccess) {
 				for (const p of redCardResult.Points.sort((a, b) => a.X - b.X)) {
