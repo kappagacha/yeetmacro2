@@ -125,6 +125,24 @@
       "$position": 0,
       "$name": "skipMemorialMatch",
       "$path": "doArena.skipMemorialMatch"
+    },
+    "forceRun": {
+      "$type": "boolean",
+      "$tags": [],
+      "$defaultValue": false,
+      "$value": false,
+      "$position": 0,
+      "$name": "forceRun",
+      "$path": "claimAntiparticle.forceRun"
+    },
+    "lastRun": {
+      "$type": "timestamp",
+      "$tags": [],
+      "$defaultValue": "0001-01-01T00:00:00+00:00",
+      "$value": "2026-03-21T04:04:04.497+00:00",
+      "$position": 0,
+      "$name": "lastRun",
+      "$path": "claimAntiparticle.lastRun"
     }
   },
   "doGuildSecurityArea": {
@@ -404,7 +422,7 @@
       "$type": "timestamp",
       "$tags": [],
       "$defaultValue": "0001-01-01T00:00:00+00:00",
-      "$value": "2026-03-13T18:43:22.708+00:00",
+      "$value": "2026-03-16T01:09:25.265+00:00",
       "$position": 0,
       "$name": "lastRun",
       "$path": "claimAntiparticle.lastRun"
@@ -1917,8 +1935,8 @@
     "lastApplied": {
       "$type": "string",
       "$tags": [],
-      "$defaultValue": null,
-      "$value": null,
+      "$defaultValue": "1",
+      "$value": "1",
       "$position": 10,
       "$name": "lastApplied",
       "$path": "applyPreset.lastApplied"

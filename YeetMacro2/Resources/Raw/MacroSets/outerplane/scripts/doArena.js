@@ -11,6 +11,12 @@ const clickPattern = [patterns.arena.defendReport.close, patterns.arena.newLeagu
 const dayOfWeek = weeklyManager.GetDayOfWeek();
 let numTickets;
 
+const isLastRunWithinHour = (Date.now() - settings.doArena.lastRun.Value.ToUnixTimeMilliseconds()) / 3_600_000 < 1;
+
+if (isLastRunWithinHour && !settings.doArena.forceRun.Value) {
+	return 'Last run was within the hour. Use forceRun setting to override check';
+}
+
 while (macroService.IsRunning) {
 	const loopResult = macroService.PollPattern(loopPatterns, { ClickPattern: clickPattern });
 	switch (loopResult.Path) {
@@ -29,6 +35,7 @@ while (macroService.IsRunning) {
 		case 'titles.arena':
 			numTickets = getArenaTicketCount();
 			if (!numTickets) {
+				settings.doArena.lastRun.Value = new Date().toISOString();
 				return;
 			} else {
 				macroService.ClickPattern(patterns.arena.arena);
@@ -38,6 +45,7 @@ while (macroService.IsRunning) {
 		case 'arena.matchOpponent':
 			numTickets = getArenaTicketCount();
 			if (!numTickets) {
+				settings.doArena.lastRun.Value = new Date().toISOString();
 				return;
 			}
 
