@@ -49,7 +49,7 @@ while (macroService.IsRunning) {
 			handleRewards();
 
 			if (done) {
-				settings.dailies.sweepEventStoryHard2.Value = false;
+				settings.doDailies.sweepEventStoryHard2.Value = false;
 				return;
 			}
 
