@@ -6,12 +6,13 @@ function doIdentification(targetNumBattles = 0) {
 	const daily = dailyManager.GetCurrentDaily();
 	const teamSlot = settings.doIdentification.teamSlot.Value;
 	const identification = settings.doIdentification.targetIdentification.Value;
+	let currentStaminaValue;
 
 	while (macroService.IsRunning) {
 		const loopResult = macroService.PollPattern(loopPatterns, { ClickPattern: patterns.adventure.doNotSeeFor3days });
 		switch (loopResult.Path) {
 			case 'lobby.level':
-				const currentStaminaValue = getCurrentStaminaValue();
+				currentStaminaValue = getCurrentStaminaValue();
 				if (currentStaminaValue < 12) {
 					return;
 				}
@@ -26,7 +27,7 @@ function doIdentification(targetNumBattles = 0) {
 				sleep(500);
 				break;
 			case 'titles.challenge':
-				const currentStaminaValue = getCurrentStaminaValue();
+				currentStaminaValue = getCurrentStaminaValue();
 				if (currentStaminaValue < 12) {
 					return;
 				}
