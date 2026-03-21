@@ -84,7 +84,8 @@ function handleEventShop() {
 	};
 	const currency1Pattern = macroService.CapturePatternWithBounds(currency1Bounds);
 
-	macroService.PollPattern(patterns.event.story.eventShop, { DoClick: true, PredicatePattern: patterns.titles.adventurerShop })
+	macroService.PollPattern(patterns.event.story.eventShop, { DoClick: true, PredicatePattern: patterns.titles.adventurerShop });
+	sleep(500);
 	staminaResult = macroService.PollPattern(patterns.general.stamina);
 	const shopCurrencyBounds = {
 		X: staminaResult.Point.X + 220,
@@ -95,9 +96,23 @@ function handleEventShop() {
 		OffsetCalcType: 'None',
 	};
 	const currency1BoundedPattern = macroService.ClonePattern(currency1Pattern, shopCurrencyBounds);
-	const currencyResult = macroService.PollPattern(currency1BoundedPattern, { TimeoutMs: 3_000 });
+	let currencyResult = macroService.FindPattern(currency1BoundedPattern);
 	if (!currencyResult.IsSuccess) {
-		throw new Error('Could not find specific currency');
+		const subTabShopResult = macroService.FindPattern(patterns.shop.subTabShop, { Limit: 5 });
+		if (!subTabShopResult.IsSuccess) {
+			throw new Error('Could not find shop(s)');
+		}
+
+		for (const p of subTabShopResult.Points) {
+			macroService.DoClick(p);
+			sleep(500);
+			currencyResult = macroService.FindPattern(currency1BoundedPattern);
+			if (currencyResult.IsSuccess) break;
+		}
+
+		if (!currencyResult.IsSuccess) {
+			throw new Error('Could not find target currency');
+		}
 	}
 
 	let purchaseResult = macroService.PollPattern(patterns.shop.purchase1, { TimeoutMs: 3_000 });

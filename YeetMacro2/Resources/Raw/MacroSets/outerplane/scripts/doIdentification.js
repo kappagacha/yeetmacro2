@@ -26,6 +26,11 @@ function doIdentification(targetNumBattles = 0) {
 				sleep(500);
 				break;
 			case 'titles.challenge':
+				const currentStaminaValue = getCurrentStaminaValue();
+				if (currentStaminaValue < 12) {
+					return;
+				}
+
 				logger.info(`doIdentification: ${identification}`);
 				macroService.PollPattern(patterns.challenge.identification, { DoClick: true, PredicatePattern: patterns.challenge.enter });
 				macroService.PollPattern(patterns.challenge.identification[identification].stars, { DoClick: true, PredicatePattern: patterns.challenge.identification[identification] });

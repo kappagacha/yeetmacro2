@@ -26,6 +26,11 @@ function doEcologyStudy(targetNumBattles = 0) {
 				sleep(500);
 				break;
 			case 'titles.challenge':
+				const currentStaminaValue = getCurrentStaminaValue();
+				if (currentStaminaValue < 12) {
+					return;
+				}
+
 				logger.info(`doEcologyStudy: ${ecologyStudy}`);
 				macroService.PollPattern(patterns.challenge.ecologyStudy, { DoClick: true, PredicatePattern: patterns.challenge.enter });
 				macroService.PollPattern(patterns.challenge.ecologyStudy[ecologyStudy].stars, { DoClick: true, PredicatePattern: patterns.challenge.ecologyStudy[ecologyStudy] });
