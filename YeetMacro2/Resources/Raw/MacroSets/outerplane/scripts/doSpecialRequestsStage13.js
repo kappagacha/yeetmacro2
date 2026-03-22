@@ -83,7 +83,8 @@ while (macroService.IsRunning) {
 }
 
 function sweepAllStage13(stageCategory, keyToBossType) {
-	let stage13AllResult = macroService.FindPattern(patterns.challenge.sweepAll.specialRequest.stage._13);
+	//let stage13AllResult = macroService.FindPattern(patterns.challenge.sweepAll.specialRequest.stage._13);
+	let stage13AllResult = macroService.PollPattern(patterns.challenge.sweepAll.specialRequest.stage._13, { TimeoutMs: 1_000 });
 	const maxStageRun = 3;
 
 	while (macroService.IsRunning && stage13AllResult.IsSuccess) {
@@ -128,10 +129,11 @@ function sweepAllStage13(stageCategory, keyToBossType) {
 		}
 		
 		sleep(1_000);
-		stage13AllResult = macroService.FindPattern(patterns.challenge.sweepAll.specialRequest.stage._13);
+		stage13AllResult = macroService.PollPattern(patterns.challenge.sweepAll.specialRequest.stage._13, { TimeoutMs: 1_000 });
 	}
 
-	return !macroService.FindPattern(patterns.challenge.sweepAll.specialRequest.stage._13).IsSuccess;
+	//return !macroService.FindPattern(patterns.challenge.sweepAll.specialRequest.stage._13).IsSuccess;
+	return !macroService.PollPattern(patterns.challenge.sweepAll.specialRequest.stage._13, { TimeoutMs: 1_000 }).IsSuccess;
 }
 
 function pointToIndex(point) {
