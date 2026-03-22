@@ -84,7 +84,7 @@ while (macroService.IsRunning) {
 
 function sweepAllStage13(stageCategory, keyToBossType) {
 	let stage13AllResult = macroService.FindPattern(patterns.challenge.sweepAll.specialRequest.stage._13);
-	const maxStageRun = 6;	// TODO: change to 3
+	const maxStageRun = 3;
 
 	while (macroService.IsRunning && stage13AllResult.IsSuccess) {
 		const staminaSlashResult = macroService.PollPattern(patterns.challenge.sweepAll.specialRequest.staminaSlash);
