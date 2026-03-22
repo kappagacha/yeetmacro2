@@ -121,7 +121,8 @@ if (settings.doDailies.sweepJointChallenge.Value) {
 
 if (settings.doDailies.doUpkeep.Value) {
     if (!daily.doUpkeep.refillStamina.IsChecked) {
-        refillStamina(850);
+        // 5 stages * 16 stamina * 3 runs = 240 * 2 (ecology study and identification) = 480 stamina
+        refillStamina(480);
         daily.doUpkeep.refillStamina.IsChecked = true;
         goToLobby();
     }
