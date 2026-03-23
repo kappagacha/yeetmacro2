@@ -100,7 +100,7 @@ function sweepAllStage13(stageCategory, keyToBossType) {
 		if (!maxRuns) return false;
 
 		let numRuns = 0;
-		let stageResult = macroService.FindPattern(patterns.challenge.sweepAll.specialRequest.stage, { Limit: 10 });
+		let stageResult = macroService.PollPattern(patterns.challenge.sweepAll.specialRequest.stage, { Limit: 10 });
 		const bossTypesChecked = [];
 
 		for (let p of stageResult.Points.sort((a, b) => a.Y - b.Y)) {
