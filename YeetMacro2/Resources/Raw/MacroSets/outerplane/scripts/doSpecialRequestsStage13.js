@@ -83,9 +83,10 @@ while (macroService.IsRunning) {
 }
 
 function sweepAllStage13(stageCategory, keyToBossType) {
+	const doneTarget = daily.doSpecialRequestsStage13.doneTarget.IsChecked;
 	//let stage13AllResult = macroService.FindPattern(patterns.challenge.sweepAll.specialRequest.stage._13);
 	let stage13AllResult = macroService.PollPattern(patterns.challenge.sweepAll.specialRequest.stage._13, { TimeoutMs: 1_000 });
-	const maxStageRun = 3;
+	const maxStageRun = doneTarget ? 6 : 3;
 
 	while (macroService.IsRunning && stage13AllResult.IsSuccess) {
 		const staminaSlashResult = macroService.PollPattern(patterns.challenge.sweepAll.specialRequest.staminaSlash);
@@ -119,7 +120,11 @@ function sweepAllStage13(stageCategory, keyToBossType) {
 		}
 
 		// there are available runs but maxStageRun has been reached for all bossTypes
-		if (!bossTypesChecked.length) return true;
+		if (!bossTypesChecked.length) {
+			daily.doSpecialRequestsStage13[stageCategory].doneTarget.IsChecked = true;
+			daily.doSpecialRequestsStage13.doneTarget.IsChecked = daily.doSpecialRequestsStage13.ecologyStudy.doneTarget.IsChecked && daily.doSpecialRequestsStage13.identification.doneTarget.IsChecked;
+			return false;
+		}
 
 		macroService.PollPattern(patterns.challenge.sweepAll.sweep, { DoClick: true, PredicatePattern: patterns.challenge.sweepAll.sweep.ok });
 		macroService.PollPattern(patterns.challenge.sweepAll.sweep.ok, { DoClick: true, PredicatePattern: patterns.challenge.sweepAll.sweep });

@@ -133,7 +133,7 @@
       "$value": false,
       "$position": 0,
       "$name": "forceRun",
-      "$path": "claimAntiparticle.forceRun"
+      "$path": "doArena.forceRun"
     },
     "lastRun": {
       "$type": "timestamp",
@@ -142,7 +142,7 @@
       "$value": "2026-03-21T04:04:04.497+00:00",
       "$position": 0,
       "$name": "lastRun",
-      "$path": "claimAntiparticle.lastRun"
+      "$path": "doArena.lastRun"
     }
   },
   "doGuildSecurityArea": {

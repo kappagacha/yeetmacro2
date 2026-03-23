@@ -121,8 +121,13 @@ if (settings.doDailies.sweepJointChallenge.Value) {
 
 if (settings.doDailies.doUpkeep.Value) {
     if (!daily.doUpkeep.refillStamina.IsChecked) {
+        const ecologyRunsLeft = getRunsLeft('ecologyStudy');
+        const identificationRunsLeft = getRunsLeft('identification');
+        const totalRunsLeft = ecologyRunsLeft + identificationRunsLeft;
+        const targetStamina = totalRunsLeft * 16;
         // 5 stages * 16 stamina * 3 runs = 240 * 2 (ecology study and identification) = 480 stamina
-        refillStamina(480);
+        refillStamina(targetStamina);
+
         daily.doUpkeep.refillStamina.IsChecked = true;
         goToLobby();
     }
@@ -159,4 +164,30 @@ if (settings.doDailies.claimEventDailyMissions2.Value) {
 if (settings.doDailies.doPursuitOperation.Value && daily.doPursuitOperation.count.Count == 1) {
     doPursuitOperation();
     goToLobby();
+}
+
+function getRunsLeft(stageCategory) {
+    const ecologyStudyKeyToBossType = {
+        0: 'masterlessGuardian',
+        1: 'tyrantToddler',
+        2: 'unidentifiedChimera',
+        3: 'sacreedGuardian',
+        4: 'grandCalamari'
+    };
+    const identificationKeyToBossType = {
+        0: 'dekRilAndMekRil',
+        1: 'glicys',
+        2: 'blazingKnightMeteos',
+        3: 'arsNova',
+        4: 'amadeus'
+    };
+    const maxStageRun = 3;
+    const keyToBossType = stageCategory === 'ecologyStudy'
+        ? ecologyStudyKeyToBossType
+        : identificationKeyToBossType;
+
+    return Object.values(keyToBossType).reduce((total, bossType) => {
+        return total + Math.max(0, maxStageRun -
+            daily.doSpecialRequestsStage13[stageCategory][bossType].Count);
+    }, 0);
 }
