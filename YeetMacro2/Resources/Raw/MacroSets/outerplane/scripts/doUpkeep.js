@@ -43,12 +43,17 @@ if (settings.doUpkeep.doSpecialRequestsStage13.Value && !daily.doSpecialRequests
     goToLobby();
 }
 
+if (settings.doUpkeep.doSpecialRequestsStage13.Value && !daily.doSpecialRequestsStage13.doneTarget.IsChecked) {
+    doSpecialRequestsStage13();
+    goToLobby();
+}
+
 if (settings.doUpkeep.doSpecialRequestsStage13.Value && daily.doSpecialRequestsStage13.doneTarget.IsChecked && !daily.doSpecialRequestsStage13.done.IsChecked) {
     doSpecialRequestsStage13();
     goToLobby();
 }
 
-if (settings.doUpkeep.spendStaminaScript.IsEnabled) {
+if (settings.doUpkeep.spendStaminaScript.IsEnabled && daily.doSpecialRequestsStage13.done.IsChecked) {
     if (settings.doUpkeep.spendStaminaScript.Value === 'dropRateUp') {
         macroService.PollPattern(patterns.tabs.adventure, { DoClick: true, PredicatePattern: patterns.titles.adventure });
         macroService.PollPattern(patterns.adventure.challenge, { DoClick: true, PredicatePattern: patterns.titles.challenge });
