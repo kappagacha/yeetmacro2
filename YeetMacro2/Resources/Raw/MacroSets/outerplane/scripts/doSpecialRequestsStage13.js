@@ -85,6 +85,7 @@ while (macroService.IsRunning) {
 function sweepAllStage13(stageCategory, keyToBossType) {
 	const doneTarget = daily.doSpecialRequestsStage13.doneTarget.IsChecked;
 	//let stage13AllResult = macroService.FindPattern(patterns.challenge.sweepAll.specialRequest.stage._13);
+	macroService.PollPattern(patterns.challenge.sweepAll.specialRequest.stage);
 	let stage13AllResult = macroService.PollPattern(patterns.challenge.sweepAll.specialRequest.stage._13, { TimeoutMs: 1_000 });
 	const maxStageRun = doneTarget ? 6 : 3;
 
@@ -134,6 +135,7 @@ function sweepAllStage13(stageCategory, keyToBossType) {
 		}
 		
 		sleep(1_000);
+		macroService.PollPattern(patterns.challenge.sweepAll.specialRequest.stage);
 		stage13AllResult = macroService.PollPattern(patterns.challenge.sweepAll.specialRequest.stage._13, { TimeoutMs: 1_000 });
 	}
 
