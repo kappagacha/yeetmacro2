@@ -33,7 +33,7 @@ while (macroService.IsRunning) {
 				}
 
 				macroService.PollPattern(patterns.tabs.base.claimRewards.receiveReward, { DoClick: true, PredicatePattern: patterns.general.tapEmptySpace });
-				macroService.PollPattern(patterns.general.tapEmptySpace, { DoClick: true, PredicatePattern: patterns.lobby.level });
+				macroService.PollPattern(patterns.general.tapEmptySpace, { DoClick: true, PredicatePattern: patterns.tabs.base.claimRewards.receiveReward.disabled });
 
 				if (macroService.IsRunning) {
 					daily.claimAntiparticle.count.Count++;
