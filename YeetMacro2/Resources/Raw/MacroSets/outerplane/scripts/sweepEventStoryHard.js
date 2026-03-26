@@ -32,6 +32,7 @@ while (macroService.IsRunning) {
 	switch (loopResult.Path) {
 		case 'lobby.level':
 			refillStamina(80);
+			goToLobby();
 			logger.info('sweepEventStoryHard: click adventure tab');
 			macroService.ClickPattern(patterns.tabs.adventure);
 			sleep(500);
@@ -43,10 +44,10 @@ while (macroService.IsRunning) {
 			break;
 		case 'event.story.enter':
 			logger.info('sweepEventStoryHard: claim rewards');
+			handleRewards();
+
 			const done = handleEventShop();
 			macroService.PollPattern(patterns.general.back, { DoClick: true, PrimaryClickPredicatePattern: patterns.titles.adventurerShop, PredicatePattern: patterns.event.story.enter });
-
-			handleRewards();
 
 			if (done) {
 				settings.doDailies.sweepEventStoryHard.Value = false;
@@ -97,7 +98,8 @@ function handleEventShop() {
 	};
 	const currency1BoundedPattern = macroService.ClonePattern(currency1Pattern, shopCurrencyBounds);
 	let currencyResult = macroService.FindPattern(currency1BoundedPattern);
-	if (!currencyResult.IsSuccess) {
+	let jointChallengeSelectedResult = macroService.FindPattern(patterns.shop.adventurer.event.jointChallenge.selected);
+	if (!currencyResult.IsSuccess || jointChallengeSelectedResult.IsSuccess) {
 		const subTabShopResult = macroService.FindPattern(patterns.shop.subTabShop, { Limit: 5 });
 		if (!subTabShopResult.IsSuccess) {
 			throw new Error('Could not find shop(s)');
@@ -107,7 +109,8 @@ function handleEventShop() {
 			macroService.DoClick(p);
 			sleep(500);
 			currencyResult = macroService.FindPattern(currency1BoundedPattern);
-			if (currencyResult.IsSuccess) break;
+			jointChallengeSelectedResult = macroService.FindPattern(patterns.shop.adventurer.event.jointChallenge.selected);
+			if (currencyResult.IsSuccess && !jointChallengeSelectedResult.IsSuccess) break;
 		}
 
 		if (!currencyResult.IsSuccess) {
