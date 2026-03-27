@@ -1935,8 +1935,8 @@
     "lastApplied": {
       "$type": "string",
       "$tags": [],
-      "$defaultValue": "9",
-      "$value": "9",
+      "$defaultValue": null,
+      "$value": null,
       "$position": 10,
       "$name": "lastApplied",
       "$path": "applyPreset.lastApplied"
@@ -3231,8 +3231,8 @@
     "chestIndex": {
       "$type": "integer",
       "$tags": [],
-      "$defaultValue": -2,
-      "$value": -2,
+      "$defaultValue": -1,
+      "$value": -1,
       "$position": 0,
       "$increment": 1,
       "$name": "chestIndex",
