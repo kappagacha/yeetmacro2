@@ -40,7 +40,7 @@ while (macroService.IsRunning) {
 					settings.claimAntiparticle.lastRun.Value = new Date().toISOString();
 				}
 
-				macroService.PollPattern(patterns.tabs.base.claimRewards.receiveReward.disabled, { DoClick: true, ClickOffset: { X: 300 }, PredicatePattern: patterns.lobby.level });
+				macroService.PollPattern(patterns.tabs.base.claimRewards.receiveReward.disabled, { DoClick: true, ClickOffset: { X: 600 }, PredicatePattern: patterns.lobby.level });
 				return;
 			}
 
