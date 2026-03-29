@@ -138,6 +138,7 @@ while (macroService.IsRunning) {
 				generalSelfSacrifice: 0,			// Lv.1 Increases CRIT DMG by 100%, but when landing a cirtical hit, also deal damage to self equal to 15% of max HP
 				generalReinforce2: 100,				// Lv.1 Increases DEF by 40%
 				generalWeakPoint2: 300,				// Lv.1 Increase CRIT Chance by 20%
+				generalAcceleration2: 300,			// Lv.1 Increase SPD by 20%
 
 				esephExploitWeaknessPetrified: 50,	// Lv.1 When attacking Petrified enemy, Critical Hit Chance +30%
 				esephExploitWeaknessShocked: 55,	// Lv.1 When attacking Shocked enemy, Critical Hit Chance +30%
@@ -192,7 +193,8 @@ while (macroService.IsRunning) {
 				esephUltimateFrozen: 470,			// Lv.1 Using Ultimate has 10% chance to inflict Frozen on the target for 1 turn
 
 				
-				esephStartFrozen: 10,				// Lv.1 Upon entering battle, 10% chance to inflict frozen to all enemies for 1 turn
+				esephStartFrozen: 10,				// Lv.1 Upon entering battle, 10% chance to inflict Frozen to all enemies for 1 turn
+				esephStartShocked: 20,				// Lv.1 Upon entering battle, 10% chance to inflict Stunned to all enemies for 1 turn
 
 				esephExploitWeaknessFrozen: 320,	// Lv.1 When attacking Frozen enemy, Critical Hit Chance +30%
 
