@@ -99,6 +99,8 @@ while (macroService.IsRunning) {
 				generalAccuracy1: 10,		// Lv.1 Increases Effectiveness by 75%
 				generalWeakPoint1: 300,		// Lv.1 Increases CRIT Chance by 10%
 				generalReinforce1: 150,		// Lv.1 Increses DEF by 20%
+				generalCriticalStrike1: 200,		// Lv.1 Increses Critical Damage by 45%
+				generalResistance1: 0,		// Lv.1 Increase Resilience by 75%
 			};
 
 			if (greenCardResult.IsSuccess) {
@@ -135,6 +137,7 @@ while (macroService.IsRunning) {
 				generalComboTechnique: 100,			// Lv.1 When scoring a critical hit, has a 10% chance to reduce cooldown by 1 turn
 				generalSelfSacrifice: 0,			// Lv.1 Increases CRIT DMG by 100%, but when landing a cirtical hit, also deal damage to self equal to 15% of max HP
 				generalReinforce2: 100,				// Lv.1 Increases DEF by 40%
+				generalWeakPoint2: 300,				// Lv.1 Increase CRIT Chance by 20%
 
 				esephExploitWeaknessPetrified: 50,	// Lv.1 When attacking Petrified enemy, Critical Hit Chance +30%
 				esephExploitWeaknessShocked: 55,	// Lv.1 When attacking Shocked enemy, Critical Hit Chance +30%
@@ -185,8 +188,8 @@ while (macroService.IsRunning) {
 				esephStrikeFrozen: 470,				// Lv.1 Basic Attacks have a 10% chance to inflict Frozen for 1 turn
 
 				esephUltimatePetrified: 450,		// Lv.1 Using Ultimate has 10% chance to inflict Petrified on the target for 1 turn
+				esephUltimateShocked: 460,			// Lv.1 Using Ultimate has 10% chance to inflict Stunned on the target for 1 turn
 				esephUltimateFrozen: 470,			// Lv.1 Using Ultimate has 10% chance to inflict Frozen on the target for 1 turn
-
 
 				
 				esephStartFrozen: 10,				// Lv.1 Upon entering battle, 10% chance to inflict frozen to all enemies for 1 turn
