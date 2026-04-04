@@ -31,6 +31,7 @@ while (macroService.IsRunning) {
 			break;
 		case 'titles.friends':
 			logger.info('doFriends: recieve all and present');
+			macroService.PollPattern(patterns.friends.friendList, { DoClick: true, PredicatePattern: patterns.friends.friendList.selected });
 			macroService.ClickPattern(patterns.friends.receiveAndPresent);
 
 			if (macroService.IsRunning) {
@@ -40,4 +41,63 @@ while (macroService.IsRunning) {
 			return;
 	}
 	sleep(1_000);
+}
+
+function manageFriends() {
+	macroService.PollPattern(patterns.friends.friendList, { DoClick: true, PredicatePattern: patterns.friends.friendList.selected });
+	macroService.PollPattern(patterns.friends.friendList.sortByLastLogin, { DoClick: true, PredicatePattern: patterns.friends.friendList.sortByLastLogin.desc });
+
+	const daysResult = macroService.FindPattern(patterns.friends.friendList.day, { Limit: 5 });
+	if (daysResult.IsSuccess) {
+		for (const p of daysResult.Points.sort((a, b) => a.Y - b.Y)) {
+			const dayBounds = { X: p.X - 27, Y: p.Y - 15, Width: 30, Height: 30 };
+			const numDays = parseInt(macroService.FindTextWithBounds(dayBounds, "1234567890").slice(0, -1));
+
+			if (numDays > 2) {
+				macroService.PollPoint(p, { DoClick: true, PredicatePattern: patterns.friends.friendList.delete });
+				macroService.PollPattern(patterns.friends.friendList.delete, { DoClick: true, PredicatePattern: patterns.friends.friendList.delete.ok });
+				macroService.PollPattern(patterns.friends.friendList.delete.ok, { DoClick: true, PredicatePattern: patterns.friends.friendList.delete });
+				macroService.PollPattern(patterns.friends.friendList.delete.cancel, { DoClick: true, PredicatePattern: patterns.titles.friends });
+			};
+		}
+	}
+
+	let numFriends = parseInt(macroService.FindText(patterns.friends.numFriends).split('/')[0]);
+	if (numFriends < 50) {
+		macroService.PollPattern(patterns.friends.sentRequests, { DoClick: true, PredicatePattern: patterns.friends.sentRequests.selected });
+
+		let cancelRequestResult = macroService.PollPattern(patterns.friends.sentRequests.cancelRequest, { TimeoutMs: 2_000 });
+		while (macroService.IsRunning && cancelRequestResult.IsSuccess) {
+			macroService.ClickPattern(patterns.friends.sentRequests.cancelRequest);
+			cancelRequestResult = macroService.PollPattern(patterns.friends.sentRequests.cancelRequest, { TimeoutMs: 2_000 });
+		}
+
+		macroService.PollPattern(patterns.friends.receivedRequests, { DoClick: true, PredicatePattern: patterns.friends.receivedRequests.selected });
+		let approveRequestResult = macroService.PollPattern(patterns.friends.receivedRequests.approve, { TimeoutMs: 2_000 });
+		while (macroService.IsRunning && approveRequestResult.IsSuccess) {
+			macroService.ClickPattern(patterns.friends.receivedRequests.approve);
+			approveRequestResult = macroService.PollPattern(patterns.friends.receivedRequests.approve, { TimeoutMs: 2_000 });
+		}
+
+		macroService.PollPattern(patterns.friends.findFriend, { DoClick: true, PredicatePattern: patterns.friends.findFriend.selected });
+		let numFriendRequest = 0;
+		const requestFriendResult = macroService.FindPattern(patterns.friends.findFriend.requestFriend, { Limit: 5 });
+		if (requestFriendResult.IsSuccess) {
+			for (const p of requestFriendResult.Points) {
+				const noticeOkResult = macroService.FindPattern(patterns.friends.findFriend.noticeOk);
+				if (noticeOkResult.IsSuccess) {
+					numFriendRequest--;
+					macroService.PollPattern(patterns.friends.findFriend.noticeOk, { DoClick: true, InversePredicatePattern: patterns.friends.findFriend.noticeOk });
+				}
+
+				if (numFriendRequest > (50 - numFriends)) break;
+				macroService.DoClick(p);
+				sleep(100);
+				macroService.DoClick(p);
+				numFriendRequest++;
+				sleep(1_000);
+			}
+		}
+	}
+	
 }
