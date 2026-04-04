@@ -3,6 +3,7 @@
 const popupPatterns = [patterns.general.tapEmptySpace, settings.goToLobby.userClickPattern.Value, patterns.general.exitCheckIn, patterns.lobby.popup.doNotShowAgainToday];
 const loopPatterns = [patterns.lobby.level, patterns.titles.friends, ...popupPatterns];
 const daily = dailyManager.GetCurrentDaily();
+const dayOfWeek = weeklyManager.GetDayOfWeek();
 
 const isLastRunWithinHour = (Date.now() - settings.doFriends.lastRun.Value.ToUnixTimeMilliseconds()) / 3_600_000 < 1;
 
@@ -34,6 +35,12 @@ while (macroService.IsRunning) {
 			macroService.PollPattern(patterns.friends.friendList, { DoClick: true, PredicatePattern: patterns.friends.friendList.selected });
 			macroService.ClickPattern(patterns.friends.receiveAndPresent);
 
+			// Sunday and Thrusday
+			if ((dayOfWeek === 0 || dayOfWeek === 4) && !daily.doFriends.refreshFriends.IsChecked) {
+				refreshFriends();
+				daily.doFriends.refreshFriends.IsChecked = true;
+			}
+
 			if (macroService.IsRunning) {
 				daily.doFriends.count.Count++;
 				settings.doFriends.lastRun.Value = new Date().toISOString();
@@ -43,8 +50,7 @@ while (macroService.IsRunning) {
 	sleep(1_000);
 }
 
-// How often should friends be managed?
-function manageFriends() {
+function refreshFriends() {
 	macroService.PollPattern(patterns.friends.friendList, { DoClick: true, PredicatePattern: patterns.friends.friendList.selected });
 	macroService.PollPattern(patterns.friends.friendList.sortByLastLogin, { DoClick: true, PredicatePattern: patterns.friends.friendList.sortByLastLogin.desc });
 
@@ -97,7 +103,7 @@ function manageFriends() {
 					macroService.PollPattern(patterns.friends.findFriend.noticeOk, { DoClick: true, InversePredicatePattern: patterns.friends.findFriend.noticeOk });
 				}
 
-				if (numFriendRequest > (50 - numFriends)) break;
+				if (numFriendRequest >= (50 - numFriends)) break;
 				macroService.DoClick(p);
 				sleep(100);
 				macroService.DoClick(p);
@@ -106,5 +112,4 @@ function manageFriends() {
 			}
 		}
 	}
-	
 }
