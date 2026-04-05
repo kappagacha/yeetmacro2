@@ -50,8 +50,8 @@
       "eventDailyFireworks": {
         "$type": "boolean",
         "$tags": [],
-        "$defaultValue": true,
-        "$value": true,
+        "$defaultValue": false,
+        "$value": false,
         "$position": 0,
         "$name": "eventDailyFireworks",
         "$path": "doDailies.claim.eventDailyFireworks"
@@ -186,8 +186,8 @@
     "sweepEventStoryHard": {
       "$type": "boolean",
       "$tags": [],
-      "$defaultValue": true,
-      "$value": true,
+      "$defaultValue": false,
+      "$value": false,
       "$position": 21,
       "$name": "sweepEventStoryHard",
       "$path": "doDailies.sweepEventStoryHard"
@@ -238,21 +238,120 @@
       "$path": "doDailies.doPursuitOperation"
     }
   },
+  "doSpecialRequest": {
+    "$type": "parent",
+    "$tags": [],
+    "$position": 0,
+    "$name": "doSpecialRequest",
+    "$path": "doSpecialRequest",
+    "type": {
+      "$type": "option",
+      "$options": [
+        "ecologyStudy",
+        "identification"
+      ],
+      "$tags": [],
+      "$defaultValue": "ecologyStudy",
+      "$value": "ecologyStudy",
+      "$position": 0,
+      "$name": "type",
+      "$path": "doSpecialRequest.type"
+    },
+    "ecologyStudy": {
+      "$type": "parent",
+      "$tags": [],
+      "$position": 1,
+      "$name": "ecologyStudy",
+      "$path": "doSpecialRequest.ecologyStudy",
+      "teamSlot": {
+        "$type": "option",
+        "$options": [
+          "Current",
+          "1",
+          "2",
+          "3",
+          "4",
+          "5",
+          "6",
+          "7",
+          "8",
+          "9"
+        ],
+        "$tags": [],
+        "$defaultValue": "2",
+        "$value": "2",
+        "$position": 0,
+        "$name": "teamSlot",
+        "$path": "doSpecialRequest.ecologyStudy.teamSlot"
+      },
+      "target": {
+        "$type": "option",
+        "$options": [
+          "masterlessGuardian",
+          "tyrantToddler",
+          "unidentifiedChimera",
+          "sacreedGuardian",
+          "grandCalamari"
+        ],
+        "$tags": [],
+        "$defaultValue": "tyrantToddler",
+        "$value": "tyrantToddler",
+        "$position": 0,
+        "$name": "target",
+        "$path": "doSpecialRequest.ecologyStudy.target"
+      }
+    },
+    "identification": {
+      "$type": "parent",
+      "$tags": [],
+      "$position": 2,
+      "$name": "identification",
+      "$path": "doSpecialRequest.identification",
+      "teamSlot": {
+        "$type": "option",
+        "$options": [
+          "Current",
+          "1",
+          "2",
+          "3",
+          "4",
+          "5",
+          "6",
+          "7",
+          "8",
+          "9"
+        ],
+        "$tags": [],
+        "$defaultValue": "2",
+        "$value": "2",
+        "$position": 0,
+        "$name": "teamSlot",
+        "$path": "doSpecialRequest.identification.teamSlot"
+      },
+      "target": {
+        "$type": "option",
+        "$options": [
+          "dekRilAndMekRil",
+          "glicys",
+          "blazingKnightMeteos",
+          "arsNova",
+          "amadeus"
+        ],
+        "$tags": [],
+        "$defaultValue": "dekRilAndMekRil",
+        "$value": "dekRilAndMekRil",
+        "$position": 0,
+        "$name": "target",
+        "$path": "doSpecialRequest.identification.target"
+      }
+    }
+  },
   "doUpkeep": {
     "$type": "parent",
     "$tags": [],
     "$position": 1,
     "$name": "doUpkeep",
     "$path": "doUpkeep",
-    "claimGuildBuff": {
-      "$type": "boolean",
-      "$tags": [],
-      "$defaultValue": true,
-      "$value": true,
-      "$position": 0,
-      "$name": "claimGuildBuff",
-      "$path": "doUpkeep.claimGuildBuff"
-    },
     "claim": {
       "$type": "parent",
       "$tags": [],
@@ -276,6 +375,15 @@
         "$position": 0,
         "$name": "arenaRewards",
         "$path": "doUpkeep.claim.arenaRewards"
+      },
+      "guildBuff": {
+        "$type": "boolean",
+        "$tags": [],
+        "$defaultValue": true,
+        "$value": true,
+        "$position": 0,
+        "$name": "guildBuff",
+        "$path": "doUpkeep.guildBuff"
       }
     },
     "doFriends": {
@@ -473,7 +581,7 @@
         "$type": "timestamp",
         "$tags": [],
         "$defaultValue": "0001-01-01T00:00:00+00:00",
-        "$value": "2026-03-24T16:33:59.655+00:00",
+        "$value": "2026-04-05T00:47:12.356+00:00",
         "$position": 0,
         "$name": "lastRun",
         "$path": "claim.antiparticle.lastRun"
@@ -549,7 +657,7 @@
       "$type": "timestamp",
       "$tags": [],
       "$defaultValue": "0001-01-01T00:00:00+00:00",
-      "$value": "0001-01-01T00:00:00+00:00",
+      "$value": "2026-04-05T01:32:03.475+00:00",
       "$position": 0,
       "$name": "lastRun",
       "$path": "doArena.lastRun"
@@ -616,94 +724,6 @@
       "$path": "doGuildSecurityArea.elementTypeTarget2"
     }
   },
-  "doEcologyStudy": {
-    "$type": "parent",
-    "$tags": [],
-    "$position": 6,
-    "$name": "doEcologyStudy",
-    "$path": "doEcologyStudy",
-    "teamSlot": {
-      "$type": "option",
-      "$options": [
-        "Current",
-        "1",
-        "2",
-        "3",
-        "4",
-        "5",
-        "6",
-        "7",
-        "8",
-        "9"
-      ],
-      "$tags": [],
-      "$defaultValue": "2",
-      "$value": "2",
-      "$position": 0,
-      "$name": "teamSlot",
-      "$path": "doEcologyStudy.teamSlot"
-    },
-    "targetEcologyStudy": {
-      "$type": "option",
-      "$options": [
-        "masterlessGuardian",
-        "tyrantToddler",
-        "unidentifiedChimera",
-        "sacreedGuardian",
-        "grandCalamari"
-      ],
-      "$tags": [],
-      "$defaultValue": "tyrantToddler",
-      "$value": "tyrantToddler",
-      "$position": 0,
-      "$name": "targetEcologyStudy",
-      "$path": "doEcologyStudy.targetEcologyStudy"
-    }
-  },
-  "doIdentification": {
-    "$type": "parent",
-    "$tags": [],
-    "$position": 7,
-    "$name": "doIdentification",
-    "$path": "doIdentification",
-    "teamSlot": {
-      "$type": "option",
-      "$options": [
-        "Current",
-        "1",
-        "2",
-        "3",
-        "4",
-        "5",
-        "6",
-        "7",
-        "8",
-        "9"
-      ],
-      "$tags": [],
-      "$defaultValue": "2",
-      "$value": "2",
-      "$position": 0,
-      "$name": "teamSlot",
-      "$path": "doIdentification.teamSlot"
-    },
-    "targetIdentification": {
-      "$type": "option",
-      "$options": [
-        "dekRilAndMekRil",
-        "glicys",
-        "blazingKnightMeteos",
-        "arsNova",
-        "amadeus"
-      ],
-      "$tags": [],
-      "$defaultValue": "dekRilAndMekRil",
-      "$value": "dekRilAndMekRil",
-      "$position": 0,
-      "$name": "targetIdentification",
-      "$path": "doIdentification.targetIdentification"
-    }
-  },
   "doFriends": {
     "$type": "parent",
     "$tags": [],
@@ -723,7 +743,7 @@
       "$type": "timestamp",
       "$tags": [],
       "$defaultValue": "0001-01-01T00:00:00+00:00",
-      "$value": "2026-03-24T17:01:49.113+00:00",
+      "$value": "2026-04-05T01:27:05.084+00:00",
       "$position": 0,
       "$name": "lastRun",
       "$path": "doFriends.lastRun"
@@ -1665,7 +1685,7 @@
       "$type": "timestamp",
       "$tags": [],
       "$defaultValue": "0001-01-01T00:00:00+00:00",
-      "$value": "2026-02-24T18:19:29.924+00:00",
+      "$value": "2026-04-05T01:27:20.251+00:00",
       "$position": 0,
       "$name": "lastRun",
       "$path": "startTerminusIsleExploration.lastRun"
@@ -1955,8 +1975,8 @@
     "lastApplied": {
       "$type": "string",
       "$tags": [],
-      "$defaultValue": null,
-      "$value": null,
+      "$defaultValue": "9",
+      "$value": "9",
       "$position": 10,
       "$name": "lastApplied",
       "$path": "applyPreset.lastApplied"
@@ -2966,8 +2986,8 @@
     "lastOperation": {
       "$type": "string",
       "$tags": [],
-      "$defaultValue": "blockbuster",
-      "$value": "blockbuster",
+      "$defaultValue": "irregularQueen",
+      "$value": "irregularQueen",
       "$position": 3,
       "$name": "lastOperation",
       "$path": "doPursuitOperation.lastOperation"
