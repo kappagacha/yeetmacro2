@@ -38,22 +38,22 @@ if (settings.doUpkeep.claim.arenaRewards.Value) {
     goToLobby();
 }
 
-if (settings.doUpkeep.doSpecialRequestsStage13.Value && !daily.doSpecialRequestsStage13.done.IsChecked) {
-    doSpecialRequestsStage13();
+if (settings.doUpkeep.doSpecialRequestStage13.Value && !daily.doSpecialRequest.stage13.done.IsChecked) {
+    doSpecialRequestStage13();
     goToLobby();
 }
 
-if (settings.doUpkeep.doSpecialRequestsStage13.Value && !daily.doSpecialRequestsStage13.doneTarget.IsChecked) {
-    doSpecialRequestsStage13();
+if (settings.doUpkeep.doSpecialRequestStage13.Value && !daily.doSpecialRequest.stage13.doneTarget.IsChecked) {
+    doSpecialRequestStage13();
     goToLobby();
 }
 
-if (settings.doUpkeep.doSpecialRequestsStage13.Value && daily.doSpecialRequestsStage13.doneTarget.IsChecked && !daily.doSpecialRequestsStage13.done.IsChecked) {
-    doSpecialRequestsStage13();
+if (settings.doUpkeep.doSpecialRequestStage13.Value && daily.doSpecialRequest.stage13.doneTarget.IsChecked && !daily.doSpecialRequest.stage13.done.IsChecked) {
+    doSpecialRequestStage13();
     goToLobby();
 }
 
-if (settings.doUpkeep.spendStaminaScript.IsEnabled && daily.doSpecialRequestsStage13.done.IsChecked) {
+if (settings.doUpkeep.spendStaminaScript.IsEnabled && daily.doSpecialRequest.stage13.done.IsChecked) {
     if (settings.doUpkeep.spendStaminaScript.Value === 'dropRateUp') {
         macroService.PollPattern(patterns.tabs.adventure, { DoClick: true, PredicatePattern: patterns.titles.adventure });
         macroService.PollPattern(patterns.adventure.challenge, { DoClick: true, PredicatePattern: patterns.titles.challenge });

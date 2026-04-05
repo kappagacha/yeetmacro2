@@ -28,7 +28,7 @@ if (settings.doDailies.doArena.Value) {
 }
 
 if (settings.doDailies.doPursuitOperation.Value && daily.doPursuitOperation.count.Count == 0) {
-    doPursuitOperation();
+    doPursuitOperation('normal');
     goToLobby();
 }
 
@@ -146,7 +146,7 @@ if (settings.doDailies.claim.eventDailyMissions2.Value) {
 }
 
 if (settings.doDailies.doPursuitOperation.Value && daily.doPursuitOperation.count.Count == 1) {
-    doPursuitOperation();
+    doPursuitOperation('normal');
     goToLobby();
 }
 
@@ -177,6 +177,6 @@ function getRunsLeft(stageCategory) {
 
     return Object.values(keyToBossType).reduce((total, bossType) => {
         return total + Math.max(0, maxStageRun -
-            daily.doSpecialRequestsStage13[stageCategory][bossType].Count);
+            daily.doSpecialRequest.stage13[stageCategory][bossType].Count);
     }, 0);
 }
