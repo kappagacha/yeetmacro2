@@ -1,5 +1,7 @@
 // @raw-script
-function sweepEventStoryHardPrime(number) {
+// @tags=event
+
+function sweepEventStoryHard(number) {
 	const loopPatterns = [patterns.lobby.level, patterns.titles.adventure, patterns.event.story.enter];
 	const daily = dailyManager.GetCurrentDaily();
 	const resolution = macroService.GetCurrentResolution();

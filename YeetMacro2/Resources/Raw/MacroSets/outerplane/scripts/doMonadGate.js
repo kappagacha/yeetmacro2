@@ -186,6 +186,7 @@ while (macroService.IsRunning) {
 				esephDecisiveBlowPetrified: 400,	// Lv.1 Damage to Petrified target +100%
 				esephDecisiveBlowFrozen: 420,		// Lv.1 Damage to Frozen target +100%
 
+				esephStrikeShocked: 460,			// Lv.1 Basic Attacks have a 10% chance to inflict Stunned for 1 turn
 				esephStrikeFrozen: 470,				// Lv.1 Basic Attacks have a 10% chance to inflict Frozen for 1 turn
 
 				esephUltimatePetrified: 450,		// Lv.1 Using Ultimate has 10% chance to inflict Petrified on the target for 1 turn

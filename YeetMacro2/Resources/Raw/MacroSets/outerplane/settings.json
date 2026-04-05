@@ -383,7 +383,7 @@
         "$value": true,
         "$position": 0,
         "$name": "guildBuff",
-        "$path": "doUpkeep.guildBuff"
+        "$path": "doUpkeep.claim.guildBuff"
       }
     },
     "doFriends": {
