@@ -23,7 +23,7 @@ if (settings.doUpkeep.startTerminusIsleExploration.Value) {
     goToLobby();
 }
 
-if (settings.doUpkeep.claimAntiparticle.Value) {
+if (settings.doUpkeep.claim.antiparticle.Value) {
     claimAntiparticle();
     goToLobby();
 }
@@ -33,7 +33,7 @@ if (settings.doUpkeep.doArena.Value) {
     goToLobby();
 }
 
-if (settings.doUpkeep.claimArenaRewards.Value) {
+if (settings.doUpkeep.claim.arenaRewards.Value) {
     claimArenaRewards();
     goToLobby();
 }

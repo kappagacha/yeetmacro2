@@ -7,17 +7,17 @@ settings.applyPreset.lastApplied.IsEnabled = true;
 
 goToLobby();
 
-if (settings.doDailies.claimGuildBuff.Value) {
+if (settings.doDailies.claim.guildBuff.Value) {
     claimGuildBuff();
     goToLobby();
 }
 
-if (settings.doDailies.claimAntiparticle.Value) {
+if (settings.doDailies.claim.antiparticle.Value) {
     claimAntiparticle();
     goToLobby();
 }
 
-if (settings.doDailies.claimFreeRecruit.Value) {
+if (settings.doDailies.claim.freeRecruit.Value) {
     claimFreeRecruit();
     goToLobby();
 }
@@ -54,26 +54,10 @@ if (settings.doDailies.doShop.Value) {
     goToLobby();
 }
 
-if (settings.doDailies.claimMailboxExpiring.Value && daily.claimMailboxExpiring.count.Count == 0) {
-    claimMailboxExpiring();
+if (settings.doDailies.claim.mailboxExpiring.Value) {
+    claim('mailboxExpiring');
     goToLobby();
 }
-
-if (settings.doDailies.claimMailboxExpiringStamina.Value && daily.claimMailboxExpiringStamina.count.Count == 0) {
-    claimMailboxExpiringStamina();
-    goToLobby();
-}
-
-// claim mailbox twice in case anything is missed
-//if (settings.doDailies.claimMailboxExpiring.Value && daily.claimMailboxExpiring.count.Count == 1) {
-//    claimMailboxExpiring();
-//    goToLobby();
-//}
-
-//if (settings.doDailies.claimMailboxExpiringStamina.Value && daily.claimMailboxExpiringStamina.count.Count == 1) {
-//    claimMailboxExpiringStamina();
-//    goToLobby();
-//}
 
 if (settings.doDailies.sweepAll.Value) {
     sweepAll();
@@ -99,7 +83,7 @@ if (settings.doDailies.doInfiniteCorridor.Value) {
     goToLobby();
 }
 
-if (settings.doDailies.claimWorldBossRewards.Value) {
+if (settings.doDailies.claim.worldBossRewards.Value) {
     claimWorldBossRewards();
     goToLobby();
 }
@@ -136,12 +120,12 @@ if (settings.doDailies.doUpkeep.Value) {
     goToLobby();
 }
 
-if (settings.doDailies.claimDailyMissions.Value) {
+if (settings.doDailies.claim.dailyMissions.Value) {
     claimDailyMissions();
     goToLobby();
 }
 
-if (settings.doDailies.claimEventDailyMissions.Value) {
+if (settings.doDailies.claim.eventDailyMissions.Value) {
     claimEventDailyMissions();
     goToLobby();
 }
@@ -151,18 +135,23 @@ if (settings.doDailies.sellInventory.Value) {
     goToLobby();
 }
 
-if (settings.doDailies.claimEventDailyFireworks.Value) {
+if (settings.doDailies.claim.eventDailyFireworks.Value) {
     claimEventDailyFireworks();
     goToLobby();
 }
 
-if (settings.doDailies.claimEventDailyMissions2.Value) {
+if (settings.doDailies.claim.eventDailyMissions2.Value) {
     claimEventDailyMissions2();
     goToLobby();
 }
 
 if (settings.doDailies.doPursuitOperation.Value && daily.doPursuitOperation.count.Count == 1) {
     doPursuitOperation();
+    goToLobby();
+}
+
+if (settings.doDailies.claim.coinExchange.Value) {
+    claimCoinExchange();
     goToLobby();
 }
 

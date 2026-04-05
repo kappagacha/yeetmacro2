@@ -3,7 +3,7 @@
 const loopPatterns = [patterns.lobby.level, patterns.titles.adventure, patterns.titles.worldBoss];
 const daily = dailyManager.GetCurrentDaily();
 
-if (daily.claimWorldBossRewards.done.IsChecked) {
+if (daily.claim.worldBossRewards.done.IsChecked) {
 	return "Script already completed. Uncheck done to override daily flag.";
 }
 
@@ -50,7 +50,7 @@ while (macroService.IsRunning) {
 			}
 
 			if (macroService.IsRunning) {
-				daily.claimWorldBossRewards.done.IsChecked = true;
+				daily.claim.worldBossRewards.done.IsChecked = true;
 			}
 			return;
 	}
