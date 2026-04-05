@@ -1,3 +1,4 @@
+// @raw-script
 // @tags=favorites
 // @position=-1
 // Do pursuit operation (normal or assist mode)
