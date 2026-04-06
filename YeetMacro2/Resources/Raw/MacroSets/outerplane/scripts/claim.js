@@ -1,4 +1,5 @@
 // @raw-script
+// @tags=favorites
 // @position=1
 
 function claim(type = '') {

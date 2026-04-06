@@ -2866,20 +2866,33 @@
       "$path": "test.debugBounds"
     }
   },
-  "selectTeam2": {
+  "selectTeamSpecial": {
     "$type": "parent",
     "$tags": [],
     "$position": 32,
-    "$name": "selectTeam2",
-    "$path": "selectTeam2",
+    "$name": "selectTeamSpecial",
+    "$path": "selectTeamSpecial",
+    "type": {
+      "$type": "option",
+      "$options": [
+        "general",
+        "tower"
+      ],
+      "$tags": [],
+      "$defaultValue": "general",
+      "$value": "general",
+      "$position": 0,
+      "$name": "type",
+      "$path": "selectTeamSpecial.type"
+    },
     "useAlternateTeams": {
       "$type": "boolean",
       "$tags": [],
       "$defaultValue": true,
       "$value": true,
-      "$position": 0,
+      "$position": 1,
       "$name": "useAlternateTeams",
-      "$path": "selectTeam2.useAlternateTeams"
+      "$path": "selectTeamSpecial.useAlternateTeams"
     }
   },
   "doPursuitOperation": {
@@ -2983,8 +2996,8 @@
     "lastOperation": {
       "$type": "string",
       "$tags": [],
-      "$defaultValue": "irregularQueen",
-      "$value": "irregularQueen",
+      "$defaultValue": "ironStretcher",
+      "$value": "ironStretcher",
       "$position": 5,
       "$name": "lastOperation",
       "$path": "doPursuitOperation.lastOperation"

@@ -37,7 +37,7 @@ while (macroService.IsRunning) {
 			macroService.PollPattern(patterns.adventure.adventureLicense.weeklyConquest.heroDeployment, { DoClick: true, PredicatePattern: patterns.battle.enter });
 
 			try {
-				selectTeam2();
+				selectTeamGeneral();
 			} catch (err) {
 				if (err.message.includes('Could not find')) {
 					return err.message;

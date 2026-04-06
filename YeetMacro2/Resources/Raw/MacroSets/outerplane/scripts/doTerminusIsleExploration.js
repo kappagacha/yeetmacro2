@@ -127,14 +127,14 @@ function doEnhancedDeadlyCreature() {
 		macroService.PollPattern(patterns.terminusIsle.warning, { DoClick: true, PredicatePattern: patterns.terminusIsle.prompt.heroDeployment, });
 		macroService.PollPattern(patterns.terminusIsle.prompt.heroDeployment, { DoClick: true, PredicatePattern: patterns.battle.enter });
 		//selectTeam('RecommendedElement', { applyPreset: true });
-		selectTeam2();
+		selectTeamGeneral();
 		macroService.PollPattern(patterns.general.back, { DoClick: true, PrimaryClickInversePredicatePattern: patterns.battle.enter, PredicatePattern: patterns.battle.enter });
 		macroService.PollPattern(patterns.battle.enter, { DoClick: true, PredicatePattern: patterns.battle.exit });
 		const exitResult = macroService.PollPattern(patterns.battle.exit, { DoClick: true, PredicatePattern: [patterns.general.tapEmptySpace, patterns.terminusIsle.prompt.heroDeployment] });
 		// if another attempt is needed
 		if (exitResult.PredicatePath === 'terminusIsle.prompt.heroDeployment') {
 			macroService.PollPattern(patterns.terminusIsle.prompt.heroDeployment, { DoClick: true, PredicatePattern: patterns.battle.enter });
-			selectTeam2();
+			selectTeamGeneral();
 			macroService.PollPattern(patterns.general.back, { DoClick: true, PrimaryClickInversePredicatePattern: patterns.battle.enter, PredicatePattern: patterns.battle.enter });
 			//selectTeam('RecommendedElement', { applyPreset: true });
 			macroService.PollPattern(patterns.battle.enter, { DoClick: true, PredicatePattern: patterns.battle.exit });

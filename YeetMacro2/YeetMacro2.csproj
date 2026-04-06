@@ -135,8 +135,6 @@
 	  <None Remove="Platforms\Android\Resources\xml\yeetmacro_config.xml" />
 	  <None Remove="Resources\Fonts\OpenSans-Medium.ttf" />
 	  <None Remove="Resources\Images\appicon2.svg" />
-	  <None Remove="Resources\Raw\MacroSets\outerplane\scripts\testApplyPreset.js" />
-	  <None Remove="Resources\Raw\MacroSets\outerplane\scripts\testExplorationOrders.js" />
 	  <None Remove="Resources\Splash\splash.svg" />
 	</ItemGroup>
 
@@ -300,12 +298,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <MauiAsset Update="Resources\Raw\MacroSets\outerplane\scripts\doSpecialRequestsStage13.js">
-      <LogicalName>%(RecursiveDir)%(Filename)%(Extension)</LogicalName>
-    </MauiAsset>
-    <MauiAsset Update="Resources\Raw\MacroSets\outerplane\scripts\testApplyPreset.js">
-      <LogicalName>%(RecursiveDir)%(Filename)%(Extension)</LogicalName>
-    </MauiAsset>
     <MauiAsset Update="Resources\Raw\MacroSets\outerplane\scripts\doTerminusIsleExploration.js">
       <LogicalName>%(RecursiveDir)%(Filename)%(Extension)</LogicalName>
     </MauiAsset>
@@ -318,16 +310,7 @@
     <MauiAsset Update="Resources\Raw\MacroSets\outerplane\scripts\doSkywardTower.js">
       <LogicalName>%(RecursiveDir)%(Filename)%(Extension)</LogicalName>
     </MauiAsset>
-    <MauiAsset Update="Resources\Raw\MacroSets\outerplane\scripts\testMailboxExpiring.js">
-      <LogicalName>%(RecursiveDir)%(Filename)%(Extension)</LogicalName>
-    </MauiAsset>
     <MauiAsset Update="Resources\Raw\MacroSets\outerplane\scripts\doShop.js">
-      <LogicalName>%(RecursiveDir)%(Filename)%(Extension)</LogicalName>
-    </MauiAsset>
-    <MauiAsset Update="Resources\Raw\MacroSets\outerplane\scripts\testExplorationOrders.js">
-      <LogicalName>%(RecursiveDir)%(Filename)%(Extension)</LogicalName>
-    </MauiAsset>
-    <MauiAsset Update="Resources\Raw\MacroSets\outerplane\scripts\testShop.js">
       <LogicalName>%(RecursiveDir)%(Filename)%(Extension)</LogicalName>
     </MauiAsset>
     <MauiAsset Update="Resources\Raw\MacroSets\outerplane\scripts\startTerminusIsleExploration.js">
