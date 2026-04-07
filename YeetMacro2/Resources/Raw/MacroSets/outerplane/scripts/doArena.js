@@ -1,7 +1,7 @@
 // @position=6
 // Battle in arena until out of arena tickets
 // Will prioritize Memorial Match
-const loopPatterns = [patterns.lobby.level, patterns.titles.adventure, patterns.arena.calculationsInProgress, patterns.arena.challenge1, patterns.arena.matchOpponent, patterns.titles.arena];
+const loopPatterns = [patterns.lobby.level, patterns.titles.adventure, patterns.arena.calculationsInProgress, patterns.arena.challenge1, patterns.arena.matchOpponent, patterns.arena.matchOpponent.selected, patterns.titles.arena];
 const daily = dailyManager.GetCurrentDaily();
 const weekly = weeklyManager.GetCurrentWeekly();
 const teamSlot = settings.doArena.teamSlot.Value;
@@ -43,6 +43,7 @@ while (macroService.IsRunning) {
 			break;
 		case 'arena.challenge1':
 		case 'arena.matchOpponent':
+		case 'arena.matchOpponent.selected':
 			numTickets = getArenaTicketCount();
 			if (!numTickets) {
 				settings.doArena.lastRun.Value = new Date().toISOString();
