@@ -88,13 +88,13 @@ if (settings.doDailies.claim.worldBossRewards.Value) {
     goToLobby();
 }
 
-if (settings.doDailies.sweepEventStoryHard.Value) {
-    sweepEventStoryHard(1);
+if (settings.doDailies.doEvent.storyHard1.Value) {
+    doEvent('storyHard1');
     goToLobby();
 }
 
-if (settings.doDailies.sweepEventStoryHard2.Value) {
-    sweepEventStoryHard(2);
+if (settings.doDailies.doEvent.storyHard2.Value) {
+    doEvent('storyHard2');
     goToLobby();
 }
 
