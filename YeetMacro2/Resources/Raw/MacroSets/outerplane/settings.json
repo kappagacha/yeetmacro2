@@ -828,10 +828,24 @@
     "$position": 0,
     "$name": "doTerminusIsle",
     "$path": "doTerminusIsle",
+    "type": {
+      "$type": "option",
+      "$options": [
+        "start",
+        "normal",
+        "withSupportPack"
+      ],
+      "$tags": [],
+      "$defaultValue": "normal",
+      "$value": "normal",
+      "$position": 0,
+      "$name": "type",
+      "$path": "doTerminusIsle.type"
+    },
     "start": {
       "$type": "parent",
       "$tags": [],
-      "$position": 0,
+      "$position": 1,
       "$name": "start",
       "$path": "doTerminusIsle.start",
       "lastRun": {
@@ -849,7 +863,7 @@
       "$tags": [],
       "$defaultValue": false,
       "$value": false,
-      "$position": 0,
+      "$position": 2,
       "$name": "forceRun",
       "$path": "doTerminusIsle.forceRun"
     }
@@ -928,15 +942,6 @@
       "$name": "doFriends",
       "$path": "doUpkeep.doFriends"
     },
-    "startTerminusIsleExploration": {
-      "$type": "boolean",
-      "$tags": [],
-      "$defaultValue": true,
-      "$value": true,
-      "$position": 2,
-      "$name": "startTerminusIsleExploration",
-      "$path": "doUpkeep.startTerminusIsleExploration"
-    },
     "doArena": {
       "$type": "boolean",
       "$tags": [],
@@ -945,15 +950,6 @@
       "$position": 4,
       "$name": "doArena",
       "$path": "doUpkeep.doArena"
-    },
-    "doTerminusIsleExploration": {
-      "$type": "boolean",
-      "$tags": [],
-      "$defaultValue": true,
-      "$value": true,
-      "$position": 6,
-      "$name": "doTerminusIsleExploration",
-      "$path": "doUpkeep.doTerminusIsleExploration"
     },
     "doSpecialRequestStage13": {
       "$type": "boolean",
