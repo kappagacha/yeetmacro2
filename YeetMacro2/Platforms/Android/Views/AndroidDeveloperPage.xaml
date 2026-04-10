@@ -14,6 +14,7 @@
         </HorizontalStackLayout>
         <Button Text="Copy Database" Command="{Binding CopyDbCommand}" />
         <Button Text="Delete Database" Command="{Binding DeleteDbCommand}" />
+        <Button Text="Create MacroSet" Command="{Binding CreateMacroSetCommand}" />
         <Button Text="Throw Exception" Command="{Binding ThrowExceptionCommand}" />
         <Button Text="Exit" Command="{Binding ExitCommand}" />
     </VerticalStackLayout>

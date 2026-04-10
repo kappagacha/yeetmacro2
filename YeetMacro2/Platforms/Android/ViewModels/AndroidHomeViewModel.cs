@@ -380,6 +380,12 @@ If you agree, please tap OK then grant Accessibility service permission to YeetM
     }
 
     [RelayCommand]
+    private async Task CreateMacroSet()
+    {
+        await _macroManagerViewModel.CreateEmptyMacroSetFromDialogCommand.ExecuteAsync(null);
+    }
+
+    [RelayCommand]
     // https://stackoverflow.com/questions/39256501/check-if-battery-optimization-is-enabled-or-not-for-an-app
     public void RequestIgnoreBatteryOptimizations()
     {

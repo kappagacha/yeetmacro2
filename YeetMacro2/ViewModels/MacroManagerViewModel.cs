@@ -168,11 +168,19 @@ public partial class MacroManagerViewModel : ObservableObject
     {
         var source = await Application.Current.Windows[0].Page.DisplayActionSheet("Source", "cancel", "ok", sources);
         if (string.IsNullOrEmpty(source) || source == "cancel") return;
-        IsBusy = true;
         string macroSetName = source;
         if (source.StartsWith("localAsset:")) macroSetName = source[11..];
         else if (source.StartsWith("online:")) macroSetName = source[7..];
 
+        var macroSet = await CreateEmptyMacroSet(macroSetName, source);
+        await UpdateMacroSet(macroSet);
+        _toastService.Show($"Added MacroSet: {macroSet.Name}");
+    }
+
+    [RelayCommand]
+    public async Task<MacroSetViewModel> CreateEmptyMacroSet(string macroSetName, string source)
+    {
+        IsBusy = true;
         var macroSet = new MacroSetViewModel(_nodeViewModelManagerFactory, _scriptService, _serviceProvider) { Name = macroSetName, Source = source };
 
         var rootPattern = _mapper.Map<PatternNodeViewModel>(_patternNodeService.GetRoot(0));
@@ -194,9 +202,19 @@ public partial class MacroManagerViewModel : ObservableObject
         _macroSetRepository.Insert(macroSet);
         _macroSetRepository.Save();
         SelectedMacroSet = macroSet;
-        await UpdateMacroSet(macroSet);
         IsBusy = false;
-        _toastService.Show($"Added MacroSet: {macroSet.Name}");
+        return macroSet;
+    }
+
+    [RelayCommand]
+    public async Task CreateEmptyMacroSetFromDialog()
+    {
+        var macroSetName = await Application.Current.Windows[0].Page.DisplayPromptAsync("Create MacroSet", "Enter MacroSet name:", "Create", "Cancel", "NewMacroSet", 100);
+        if (string.IsNullOrWhiteSpace(macroSetName)) return;
+
+        var source = $"manual:{macroSetName}";
+        var macroSet = await CreateEmptyMacroSet(macroSetName, source);
+        _toastService.Show($"Created MacroSet: {macroSet.Name}");
     } 
 
     [RelayCommand]
