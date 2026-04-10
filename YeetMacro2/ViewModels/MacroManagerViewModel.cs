@@ -172,13 +172,12 @@ public partial class MacroManagerViewModel : ObservableObject
         if (source.StartsWith("localAsset:")) macroSetName = source[11..];
         else if (source.StartsWith("online:")) macroSetName = source[7..];
 
-        var macroSet = await CreateEmptyMacroSet(macroSetName, source);
+        var macroSet = await CreateEmptyMacroSetInternal(macroSetName, source);
         await UpdateMacroSet(macroSet);
         _toastService.Show($"Added MacroSet: {macroSet.Name}");
     }
 
-    [RelayCommand]
-    public async Task<MacroSetViewModel> CreateEmptyMacroSet(string macroSetName, string source)
+    private async Task<MacroSetViewModel> CreateEmptyMacroSetInternal(string macroSetName, string source)
     {
         IsBusy = true;
         var macroSet = new MacroSetViewModel(_nodeViewModelManagerFactory, _scriptService, _serviceProvider) { Name = macroSetName, Source = source };
@@ -213,7 +212,7 @@ public partial class MacroManagerViewModel : ObservableObject
         if (string.IsNullOrWhiteSpace(macroSetName)) return;
 
         var source = $"manual:{macroSetName}";
-        var macroSet = await CreateEmptyMacroSet(macroSetName, source);
+        var macroSet = await CreateEmptyMacroSetInternal(macroSetName, source);
         _toastService.Show($"Created MacroSet: {macroSet.Name}");
     } 
 
