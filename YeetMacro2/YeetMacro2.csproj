@@ -298,9 +298,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <MauiAsset Update="Resources\Raw\MacroSets\outerplane\scripts\doTerminusIsleExploration.js">
-      <LogicalName>%(RecursiveDir)%(Filename)%(Extension)</LogicalName>
-    </MauiAsset>
     <MauiAsset Update="Resources\Raw\MacroSets\outerplane\scripts\sweepJointChallenge.js">
       <LogicalName>%(RecursiveDir)%(Filename)%(Extension)</LogicalName>
     </MauiAsset>
@@ -308,9 +305,6 @@
       <LogicalName>%(RecursiveDir)%(Filename)%(Extension)</LogicalName>
     </MauiAsset>
     <MauiAsset Update="Resources\Raw\MacroSets\outerplane\scripts\doShop.js">
-      <LogicalName>%(RecursiveDir)%(Filename)%(Extension)</LogicalName>
-    </MauiAsset>
-    <MauiAsset Update="Resources\Raw\MacroSets\outerplane\scripts\startTerminusIsleExploration.js">
       <LogicalName>%(RecursiveDir)%(Filename)%(Extension)</LogicalName>
     </MauiAsset>
     <MauiAsset Update="Resources\Raw\MacroSets\outerplane\scripts\doWeeklies.js">

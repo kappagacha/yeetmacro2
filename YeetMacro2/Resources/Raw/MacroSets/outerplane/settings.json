@@ -706,6 +706,22 @@
         "$path": "doDailies.doEvent.storyHard2"
       }
     },
+    "doTerminusIsle": {
+      "$type": "parent",
+      "$tags": [],
+      "$position": 0,
+      "$name": "doTerminusIsle",
+      "$path": "doDailies.doTerminusIsle",
+      "withSupportPack": {
+        "$type": "boolean",
+        "$tags": [],
+        "$defaultValue": true,
+        "$value": true,
+        "$position": 0,
+        "$name": "withSupportPack",
+        "$path": "doDailies.doTerminusIsle.withSupportPack"
+      }
+    },
     "doArena": {
       "$type": "boolean",
       "$tags": [],
@@ -796,15 +812,6 @@
       "$name": "sellInventory",
       "$path": "doDailies.sellInventory"
     },
-    "doTerminusIsleExplorationWithSupportPack": {
-      "$type": "boolean",
-      "$tags": [],
-      "$defaultValue": false,
-      "$value": false,
-      "$position": 29,
-      "$name": "doTerminusIsleExplorationWithSupportPack",
-      "$path": "doDailies.doTerminusIsleExplorationWithSupportPack"
-    },
     "doPursuitOperation": {
       "$type": "boolean",
       "$tags": [],
@@ -813,6 +820,38 @@
       "$position": 30,
       "$name": "doPursuitOperation",
       "$path": "doDailies.doPursuitOperation"
+    }
+  },
+  "doTerminusIsle": {
+    "$type": "parent",
+    "$tags": [],
+    "$position": 0,
+    "$name": "doTerminusIsle",
+    "$path": "doTerminusIsle",
+    "start": {
+      "$type": "parent",
+      "$tags": [],
+      "$position": 0,
+      "$name": "start",
+      "$path": "doTerminusIsle.start",
+      "lastRun": {
+        "$type": "timestamp",
+        "$tags": [],
+        "$defaultValue": "0001-01-01T00:00:00+00:00",
+        "$value": "2026-04-07T12:48:45.84+00:00",
+        "$position": 0,
+        "$name": "lastRun",
+        "$path": "doTerminusIsle.start.lastRun"
+      }
+    },
+    "forceRun": {
+      "$type": "boolean",
+      "$tags": [],
+      "$defaultValue": false,
+      "$value": false,
+      "$position": 0,
+      "$name": "forceRun",
+      "$path": "doTerminusIsle.forceRun"
     }
   },
   "doUpkeep": {
@@ -853,6 +892,31 @@
         "$position": 0,
         "$name": "guildBuff",
         "$path": "doUpkeep.claim.guildBuff"
+      }
+    },
+    "doTerminusIsle": {
+      "$type": "parent",
+      "$tags": [],
+      "$position": 0,
+      "$name": "doTerminusIsle",
+      "$path": "doUpkeep.doTerminusIsle",
+      "start": {
+        "$type": "boolean",
+        "$tags": [],
+        "$defaultValue": true,
+        "$value": true,
+        "$position": 0,
+        "$name": "start",
+        "$path": "doUpkeep.doTerminusIsle.start"
+      },
+      "normal": {
+        "$type": "boolean",
+        "$tags": [],
+        "$defaultValue": true,
+        "$value": true,
+        "$position": 0,
+        "$name": "normal",
+        "$path": "doUpkeep.doTerminusIsle.normal"
       }
     },
     "doFriends": {
@@ -2142,38 +2206,6 @@
       "$position": 0,
       "$name": "dark",
       "$path": "selectTeam.dark"
-    }
-  },
-  "startTerminusIsleExploration": {
-    "$type": "parent",
-    "$tags": [],
-    "$position": 22,
-    "$name": "startTerminusIsleExploration",
-    "$path": "startTerminusIsleExploration",
-    "lastRun": {
-      "$type": "timestamp",
-      "$tags": [],
-      "$defaultValue": "0001-01-01T00:00:00+00:00",
-      "$value": "2026-04-07T12:48:45.84+00:00",
-      "$position": 0,
-      "$name": "lastRun",
-      "$path": "startTerminusIsleExploration.lastRun"
-    }
-  },
-  "doTerminusIsleExploration": {
-    "$type": "parent",
-    "$tags": [],
-    "$position": 23,
-    "$name": "doTerminusIsleExploration",
-    "$path": "doTerminusIsleExploration",
-    "forceRun": {
-      "$type": "boolean",
-      "$tags": [],
-      "$defaultValue": false,
-      "$value": false,
-      "$position": 0,
-      "$name": "forceRun",
-      "$path": "doTerminusIsleExploration.forceRun"
     }
   },
   "applyPreset": {
