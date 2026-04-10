@@ -47,7 +47,7 @@ function doSpecialRequest(type, targetNumBattles = 0) {
 
 				logger.info(`doSpecialRequest: ${logPrefix} - ${target}`);
 				macroService.PollPattern(patterns.challenge[type], { DoClick: true, PredicatePattern: patterns.challenge.enter });
-				macroService.PollPattern(patterns.challenge[type][target].stars, { DoClick: true, PredicatePattern: patterns.challenge[patternPrefix][target] });
+				macroService.PollPattern(patterns.challenge[type][target].stars, { DoClick: true, PredicatePattern: patterns.challenge[type][target] });
 				macroService.PollPattern(patterns.challenge.enter, { DoClick: true, PredicatePattern: patterns.challenge.threeStars });
 				clickBottomThreeStars();
 				const teamsSetupResult = macroService.PollPattern(patterns.challenge.teamsSetup, { DoClick: true, PredicatePattern: [patterns.battle.enter, patterns.battle.restore] });
