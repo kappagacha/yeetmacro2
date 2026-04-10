@@ -71,10 +71,10 @@ if (settings.doDailies.doSurveyHub.Value) {
     goToLobby();
 }
 
-if (settings.doDailies.doTerminusIsleExplorationWithSupportPack.Value) {
+if (settings.doDailies.doTerminusIsle.withSupportPack.Value) {
     refillStamina(40);
     goToLobby();
-    doTerminusIsleExplorationWithSupportPack();
+    doTerminusIsle('withSupportPack');
     goToLobby();
 }
 

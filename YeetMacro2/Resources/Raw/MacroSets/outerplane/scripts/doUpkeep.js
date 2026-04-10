@@ -18,8 +18,8 @@ if (settings.doUpkeep.doFriends.Value) {
     goToLobby();
 }
 
-if (settings.doUpkeep.startTerminusIsleExploration.Value) {
-    startTerminusIsleExploration();
+if (settings.doUpkeep.doTerminusIsle.start.Value) {
+    doTerminusIsle('start');
     goToLobby();
 }
 
@@ -75,7 +75,7 @@ if (settings.doUpkeep.spendStaminaScript.IsEnabled && daily.doSpecialRequest.sta
     goToLobby();
 }
 
-if (settings.doUpkeep.doTerminusIsleExploration.Value && !daily.doTerminusIsleExploration.done.IsChecked) {
-    doTerminusIsleExploration();
+if (settings.doUpkeep.doTerminusIsle.normal.Value && !daily.doTerminusIsle.done.IsChecked) {
+    doTerminusIsle('normal');
     return;
 }

@@ -143,11 +143,12 @@ while (macroService.IsRunning) {
 				esephExploitWeaknessPetrified: 50,	// Lv.1 When attacking Petrified enemy, Critical Hit Chance +30%
 				esephExploitWeaknessShocked: 55,	// Lv.1 When attacking Shocked enemy, Critical Hit Chance +30%
 
-				esephStartFrozen: 0,				// Lv.1 Upon entering battle, 10% chance ot inflict Frozen to all enemies for 1 turn
+				esephStartShocked: 0,				// Lv.1 Upon entering battle, 10% chance ot inflict Shocked to all enemies for 1 turn
+				esephStartFrozen: 10,				// Lv.1 Upon entering battle, 10% chance ot inflict Frozen to all enemies for 1 turn
 
+				esephStrikePetrified: 150,			// Lv.1 Basic Attacks have a 10% chance to inflict Petrified for 1 turn
 				esephStrikeShocked: 155,			// Lv.1 Basic Attacks have a 10% chance to inflict Stunned for 1 turn
 				esephStrikeFrozen: 160,				// Lv.1 Basic Attacks have a 10% chance to inflict Frozen for 1 turn
-				esephStrikePetrified: 150,			// Lv.1 Basic Attacks have a 10% chance to inflict Petrified for 1 turn
 
 				esephUltimateFrozen: 160,			// Lv.1 Using Ultimate has 10% chance to inflict Frozen on target for 1 turn
 				esephUltimatePetrified: 150,		// Lv.1 Using Ultimate has 10% chance to inflict Petrified on target for 1 turn
