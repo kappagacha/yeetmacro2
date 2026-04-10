@@ -306,7 +306,7 @@ function doExplorations(skipHeroDeployment) {
 			DoClick: true, ClickOffset: { X: -25, Y: -25 }, PredicatePattern: [
 				patterns.terminusIsle.prompt.next,
 				patterns.terminusIsle.prompt.treasureChestFound,
-				patterns.terminusIle.prompt.explorationFailed,
+				patterns.terminusIsle.prompt.explorationFailed,
 				patterns.terminusIsle.prompt.heroDeployment
 			]
 		});
@@ -317,32 +317,32 @@ function doExplorations(skipHeroDeployment) {
 				sleep(3_000);
 				logger.screenCapture(`Title: ${title}`);
 				const randomOption = macroService.Random(1, 3);
-				const optionResult = macroService.PollPattern(patterns.terminusIle.prompt.options[randomOption], { DoClick: true, ClickPattern: patterns.terminusIsle.prompt.next, PredicatePattern: [patterns.general.tapEmptySpace, patterns.terminusIsle.prompt.heroDeployment] });
+				const optionResult = macroService.PollPattern(patterns.terminusIsle.prompt.options[randomOption], { DoClick: true, ClickPattern: patterns.terminusIsle.prompt.next, PredicatePattern: [patterns.general.tapEmptySpace, patterns.terminusIsle.prompt.heroDeployment] });
 
 				if (optionResult.PredicatePath === 'terminusIsle.prompt.heroDeployment') {
 					deployHeroes(skipHeroDeployment);
 					sleep(1000);
 					logger.screenCapture(`Title: ${title} => option ${randomOption}`);
-					macroService.PollPattern(patterns.general.tapEmptySpace, { DoClick: true, PredicatePattern: patterns.terminusIle.stage });
+					macroService.PollPattern(patterns.general.tapEmptySpace, { DoClick: true, PredicatePattern: patterns.terminusIsle.stage });
 				} else {
 					sleep(1000);
 					logger.screenCapture(`Title: ${title} => option ${randomOption}`);
-					macroService.PollPattern(patterns.general.tapEmptySpace, { DoClick: true, PredicatePattern: patterns.terminusIle.stage });
+					macroService.PollPattern(patterns.general.tapEmptySpace, { DoClick: true, PredicatePattern: patterns.terminusIsle.stage });
 				}
 				break;
 			case 'terminusIsle.prompt.treasureChestFound':
 				const randomChest = macroService.Random(1, 3);
-				macroService.PollPattern(patterns.terminusIle.prompt.treasureChestFound[randomChest], { DoClick: true, PredicatePattern: patterns.terminusIle.prompt.treasureChestFound.open });
-				macroService.PollPattern(patterns.terminusIle.prompt.treasureChestFound.open, { DoClick: true, PredicatePattern: patterns.general.tapEmptySpace });
-				macroService.PollPattern(patterns.general.tapEmptySpace, { DoClick: true, PredicatePattern: patterns.terminusIle.stage });
+				macroService.PollPattern(patterns.terminusIsle.prompt.treasureChestFound[randomChest], { DoClick: true, PredicatePattern: patterns.terminusIsle.prompt.treasureChestFound.open });
+				macroService.PollPattern(patterns.terminusIsle.prompt.treasureChestFound.open, { DoClick: true, PredicatePattern: patterns.general.tapEmptySpace });
+				macroService.PollPattern(patterns.general.tapEmptySpace, { DoClick: true, PredicatePattern: patterns.terminusIsle.stage });
 				break;
 			case 'terminusIsle.prompt.explorationFailed':
-				macroService.PollPattern(patterns.terminusIle.prompt.explorationFailed.ok, { DoClick: true, PredicatePattern: patterns.general.tapEmptySpace });
-				macroService.PollPattern(patterns.general.tapEmptySpace, { DoClick: true, PredicatePattern: patterns.terminusIle.stage });
+				macroService.PollPattern(patterns.terminusIsle.prompt.explorationFailed.ok, { DoClick: true, PredicatePattern: patterns.general.tapEmptySpace });
+				macroService.PollPattern(patterns.general.tapEmptySpace, { DoClick: true, PredicatePattern: patterns.terminusIsle.stage });
 				break;
 			case 'terminusIsle.prompt.heroDeployment':
 				deployHeroes(skipHeroDeployment);
-				macroService.PollPattern(patterns.general.tapEmptySpace, { DoClick: true, PredicatePattern: patterns.terminusIle.stage });
+				macroService.PollPattern(patterns.general.tapEmptySpace, { DoClick: true, PredicatePattern: patterns.terminusIsle.stage });
 				break;
 		}
 	}
@@ -350,68 +350,68 @@ function doExplorations(skipHeroDeployment) {
 
 function deployHeroes(skipHeroDeployment) {
 	if (!skipHeroDeployment) {
-		const skipResult = macroService.FindPattern(patterns.terminusIle.prompt.heroDeployment.skip);
+		const skipResult = macroService.FindPattern(patterns.terminusIsle.prompt.heroDeployment.skip);
 		if (skipResult.IsSuccess) {
-			macroService.PollPattern(patterns.terminusIle.prompt.heroDeployment.skip, { DoClick: true, ClickPattern: patterns.terminusIle.prompt.next, PredicatePattern: patterns.general.tapEmptySpace });
+			macroService.PollPattern(patterns.terminusIsle.prompt.heroDeployment.skip, { DoClick: true, ClickPattern: patterns.terminusIsle.prompt.next, PredicatePattern: patterns.general.tapEmptySpace });
 			return;
 		}
 
-		macroService.PollPattern(patterns.terminusIle.prompt.heroDeployment, { DoClick: true, PredicatePattern: patterns.battle.enter });
-		const recommendedElementPatterns = ['earth', 'water', 'fire', 'light', 'dark'].map(el => patterns.terminusIle.prompt.heroDeployment.recommendedElement[el]);
+		macroService.PollPattern(patterns.terminusIsle.prompt.heroDeployment, { DoClick: true, PredicatePattern: patterns.battle.enter });
+		const recommendedElementPatterns = ['earth', 'water', 'fire', 'light', 'dark'].map(el => patterns.terminusIsle.prompt.heroDeployment.recommendedElement[el]);
 		const recommendedElementResult = macroService.PollPattern(recommendedElementPatterns);
 		const recommendedElement = recommendedElementResult.Path?.split('.').pop();
 		selectTeam(recommendedElement, { applyPreset: true });
 		macroService.PollPattern(patterns.battle.enter, { DoClick: true, PredicatePattern: patterns.battle.exit });
-		macroService.PollPattern(patterns.battle.exit, { DoClick: true, ClickPattern: patterns.terminusIle.prompt.next, PredicatePattern: patterns.general.tapEmptySpace });
+		macroService.PollPattern(patterns.battle.exit, { DoClick: true, ClickPattern: patterns.terminusIsle.prompt.next, PredicatePattern: patterns.general.tapEmptySpace });
 	} else {
-		macroService.PollPattern(patterns.terminusIle.prompt.heroDeployment.skip, { DoClick: true, ClickPattern: patterns.terminusIle.prompt.next, PredicatePattern: patterns.general.tapEmptySpace });
+		macroService.PollPattern(patterns.terminusIsle.prompt.heroDeployment.skip, { DoClick: true, ClickPattern: patterns.terminusIsle.prompt.next, PredicatePattern: patterns.general.tapEmptySpace });
 	}
 }
 
 function doEnhancedDeadlyCreature(isWithSupportPack) {
-	let warningResult = macroService.PollPattern(patterns.terminusIle.warning, { TimeoutMs: 3_000 });
+	let warningResult = macroService.PollPattern(patterns.terminusIsle.warning, { TimeoutMs: 3_000 });
 	if (warningResult.IsSuccess) {
 		if (isWithSupportPack) {
 			executeOrderBaseArtilleryFire();
 		}
-		macroService.PollPattern(patterns.terminusIle.warning, { DoClick: true, PredicatePattern: patterns.terminusIle.prompt.heroDeployment, });
-		macroService.PollPattern(patterns.terminusIle.prompt.heroDeployment, { DoClick: true, PredicatePattern: patterns.battle.enter });
+		macroService.PollPattern(patterns.terminusIsle.warning, { DoClick: true, PredicatePattern: patterns.terminusIsle.prompt.heroDeployment, });
+		macroService.PollPattern(patterns.terminusIsle.prompt.heroDeployment, { DoClick: true, PredicatePattern: patterns.battle.enter });
 		selectTeam(isWithSupportPack ? 'RecommendedElement' : (detectBossType() === 'light' ? 'dark' : 'light'), { applyPreset: true });
 		macroService.PollPattern(patterns.general.back, { DoClick: true, PrimaryClickInversePredicatePattern: patterns.battle.enter, PredicatePattern: patterns.battle.enter });
 		macroService.PollPattern(patterns.battle.enter, { DoClick: true, PredicatePattern: patterns.battle.exit });
-		const exitResult = macroService.PollPattern(patterns.battle.exit, { DoClick: true, PredicatePattern: [patterns.general.tapEmptySpace, patterns.terminusIle.prompt.heroDeployment] });
-		if (exitResult.PredicatePath === 'terminusIle.prompt.heroDeployment') {
-			macroService.PollPattern(patterns.terminusIle.prompt.heroDeployment, { DoClick: true, PredicatePattern: patterns.battle.enter });
+		const exitResult = macroService.PollPattern(patterns.battle.exit, { DoClick: true, PredicatePattern: [patterns.general.tapEmptySpace, patterns.terminusIsle.prompt.heroDeployment] });
+		if (exitResult.PredicatePath === 'terminusIsle.prompt.heroDeployment') {
+			macroService.PollPattern(patterns.terminusIsle.prompt.heroDeployment, { DoClick: true, PredicatePattern: patterns.battle.enter });
 			selectTeam(isWithSupportPack ? 'RecommendedElement' : (detectBossType() === 'light' ? 'dark' : 'light'), { applyPreset: true });
 			macroService.PollPattern(patterns.general.back, { DoClick: true, PrimaryClickInversePredicatePattern: patterns.battle.enter, PredicatePattern: patterns.battle.enter });
 			macroService.PollPattern(patterns.battle.enter, { DoClick: true, PredicatePattern: patterns.battle.exit });
 			macroService.PollPattern(patterns.battle.exit, { DoClick: true, PredicatePattern: patterns.general.tapEmptySpace });
 		}
-		macroService.PollPattern(patterns.general.tapEmptySpace, { DoClick: true, PredicatePattern: patterns.terminusIle.stage });
+		macroService.PollPattern(patterns.general.tapEmptySpace, { DoClick: true, PredicatePattern: patterns.terminusIsle.stage });
 	}
 }
 
 function doMoonlitFangBoss() {
-	let moonlitFangBossResult = macroService.PollPattern(patterns.terminusIle.moonlitFangBoss, { TimeoutMs: 3_000 });
+	let moonlitFangBossResult = macroService.PollPattern(patterns.terminusIsle.moonlitFangBoss, { TimeoutMs: 3_000 });
 	while (moonlitFangBossResult.IsSuccess) {
-		macroService.PollPattern(patterns.terminusIle.moonlitFangBoss, { DoClick: true, PredicatePattern: patterns.terminusIle.prompt.heroDeployment, });
-		macroService.PollPattern(patterns.terminusIle.prompt.heroDeployment, { DoClick: true, PredicatePattern: patterns.battle.enter });
+		macroService.PollPattern(patterns.terminusIsle.moonlitFangBoss, { DoClick: true, PredicatePattern: patterns.terminusIsle.prompt.heroDeployment, });
+		macroService.PollPattern(patterns.terminusIsle.prompt.heroDeployment, { DoClick: true, PredicatePattern: patterns.battle.enter });
 		const bossType = detectBossType();
 		selectTeam(bossType === 'light' ? 'dark' : 'light', { applyPreset: true });
 		macroService.PollPattern(patterns.battle.enter, { DoClick: true, PredicatePattern: patterns.battle.exit });
 		macroService.PollPattern(patterns.battle.exit, { DoClick: true, PredicatePattern: patterns.general.tapEmptySpace });
-		macroService.PollPattern(patterns.general.tapEmptySpace, { DoClick: true, PredicatePattern: patterns.terminusIle.stage });
+		macroService.PollPattern(patterns.general.tapEmptySpace, { DoClick: true, PredicatePattern: patterns.terminusIsle.stage });
 
-		moonlitFangBossResult = macroService.PollPattern(patterns.terminusIle.moonlitFangBoss, { TimeoutMs: 3_000 });
+		moonlitFangBossResult = macroService.PollPattern(patterns.terminusIsle.moonlitFangBoss, { TimeoutMs: 3_000 });
 	}
 }
 
 function claimFinalStageReward() {
-	let finalStageRewardResult = macroService.PollPattern(patterns.terminusIle.finalStageReward, { TimeoutMs: 3_000 });
+	let finalStageRewardResult = macroService.PollPattern(patterns.terminusIsle.finalStageReward, { TimeoutMs: 3_000 });
 	if (finalStageRewardResult.IsSuccess) {
-		macroService.PollPattern(patterns.terminusIle.finalStageReward, { DoClick: true, PredicatePattern: patterns.terminusIle.finalStageReward.ok, });
-		macroService.PollPattern(patterns.terminusIle.finalStageReward.ok, { DoClick: true, PredicatePattern: patterns.terminusIle.finalStageReward.retry });
-		macroService.PollPattern(patterns.terminusIle.finalStageReward.retry, { DoClick: true, PredicatePattern: patterns.general.tapEmptySpace });
-		macroService.PollPattern(patterns.general.tapEmptySpace, { DoClick: true, PredicatePattern: patterns.terminusIle.stage });
+		macroService.PollPattern(patterns.terminusIsle.finalStageReward, { DoClick: true, PredicatePattern: patterns.terminusIsle.finalStageReward.ok, });
+		macroService.PollPattern(patterns.terminusIsle.finalStageReward.ok, { DoClick: true, PredicatePattern: patterns.terminusIsle.finalStageReward.retry });
+		macroService.PollPattern(patterns.terminusIsle.finalStageReward.retry, { DoClick: true, PredicatePattern: patterns.general.tapEmptySpace });
+		macroService.PollPattern(patterns.general.tapEmptySpace, { DoClick: true, PredicatePattern: patterns.terminusIsle.stage });
 	}
 }
