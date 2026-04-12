@@ -35,8 +35,17 @@ public partial class StatusPanelViewModel(IRecorderService recorderService, IToa
         {
             if (value)
             {
-                _recorderService.StartRecording();
-                _toastService.Show("Started Recording...");
+                var success = await _recorderService.StartRecording();
+                if (success)
+                {
+                    _toastService.Show("Started Recording...");
+                }
+                else
+                {
+                    _toastService.Show("Failed to start recording");
+                    IsRecording = false;
+                    OnPropertyChanged(nameof(IsRecording));
+                }
             }
             else
             {

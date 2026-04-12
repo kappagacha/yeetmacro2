@@ -9,15 +9,15 @@ using YeetMacro2.Services;
 namespace YeetMacro2.Platforms.Android.Activities;
 
 [Activity(
-    Name = "com.yeetoverflow.ProjectionRequestActivity",
+    Name = "com.yeetoverflow.RecorderRequestActivity",
     Theme = "@android:style/Theme.Translucent.NoTitleBar",
     ExcludeFromRecents = true,
     NoHistory = true,
     Exported = false
 )]
-public class ProjectionRequestActivity : Activity
+public class RecorderRequestActivity : Activity
 {
-    private const int REQUEST_MEDIA_PROJECTION = 1;
+    private const int REQUEST_MEDIA_PROJECTION = 3;
 
     protected override void OnCreate(global::Android.OS.Bundle savedInstanceState)
     {
@@ -63,12 +63,11 @@ public class ProjectionRequestActivity : Activity
         {
             if (resultCode == global::Android.App.Result.Ok && data != null)
             {
-                // Initialize MediaProjectionService with result
-                var projectionService = ServiceHelper.GetService<MediaProjectionService>();
-                projectionService?.Init(resultCode, data);
+                // Initialize RecorderService with result
+                var recorderService = ServiceHelper.GetService<RecorderService>();
+                recorderService?.Init(resultCode, data);
 
-                // Start ForegroundService (it will detect MediaProjection is ready)
-                Platform.AppContext.StartForegroundServiceCompat<ForegroundService>();
+                // Start foreground service will be triggered by RecorderService.Init()
             }
 
             // Always finish - whether granted or denied

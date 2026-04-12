@@ -129,6 +129,10 @@ public class RecorderForegroundService : Service
             StartForeground(SERVICE_RUNNING_NOTIFICATION_ID, GenerateNotification());
         }
 
+        // Signal RecorderService that foreground service is ready
+        var recorderService = ServiceHelper.GetService<IRecorderService>() as RecorderService;
+        recorderService?.SetForegroundServiceReady();
+
         WeakReferenceMessenger.Default.Send(this);
     }
 

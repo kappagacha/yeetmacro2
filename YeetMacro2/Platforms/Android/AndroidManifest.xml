@@ -16,6 +16,16 @@
 				  android:finishOnTaskLaunch="true"
 				  android:stateNotNeeded="true"
 				  android:configChanges="screenSize|orientation|uiMode|screenLayout|smallestScreenSize|density" />
+		<activity android:name="com.yeetoverflow.RecorderRequestActivity"
+				  android:theme="@android:style/Theme.Translucent.NoTitleBar"
+				  android:excludeFromRecents="true"
+				  android:noHistory="true"
+				  android:exported="false"
+				  android:launchMode="singleTask"
+				  android:taskAffinity=""
+				  android:finishOnTaskLaunch="true"
+				  android:stateNotNeeded="true"
+				  android:configChanges="screenSize|orientation|uiMode|screenLayout|smallestScreenSize|density" />
   </application>
 	<uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
 	<uses-permission android:name="android.permission.INTERNET" />

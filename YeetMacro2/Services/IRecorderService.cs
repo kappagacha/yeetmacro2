@@ -3,6 +3,7 @@
 public interface IRecorderService
 {
     bool IsInitialized { get; }
-    Task StartRecording();
+    Task<bool> StartRecording();
     void StopRecording();
+    void SetForegroundServiceReady();
 }

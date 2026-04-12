@@ -27,6 +27,8 @@ public class RecorderService : IRecorderService, IDisposable
     MediaProjectionCallback _mediaProjectionCallback;
     private readonly object _disposeLock = new object();
     private bool _disposed = false;
+    private TaskCompletionSource<bool> _permissionCompletionSource;
+    private TaskCompletionSource<bool> _foregroundServiceReadySource;
 
     public RecorderService()
     {
@@ -41,10 +43,12 @@ public class RecorderService : IRecorderService, IDisposable
         if (resultCode != global::Android.App.Result.Ok)
         {
             ServiceHelper.LogService?.LogDebug("RecorderService Init: Result not OK");
+            _permissionCompletionSource?.TrySetResult(false);
             return;
         }
 
         ServiceHelper.LogService?.LogDebug("RecorderService initialized");
+        _permissionCompletionSource?.TrySetResult(true);
         _ = StartRecording();
     }
 
@@ -78,9 +82,9 @@ public class RecorderService : IRecorderService, IDisposable
         _mediaRecorder.SetVideoFrameRate(profile.VideoFrameRate);
     }
 
-    public async Task StartRecording()
+    public async Task<bool> StartRecording()
     {
-        if (_isRecording) return;
+        if (_isRecording) return true;
 
         try
         {
@@ -94,8 +98,39 @@ public class RecorderService : IRecorderService, IDisposable
                     if (status != PermissionStatus.Granted)
                     {
                         ServiceHelper.LogService?.LogDebug("RecorderService StartRecording failed: Storage write permission not granted");
-                        return;
+                        return false;
                     }
+                }
+            }
+
+            // Request media projection permission if not initialized
+            if (!IsInitialized)
+            {
+                _permissionCompletionSource = new TaskCompletionSource<bool>();
+
+                try
+                {
+                    // Launch transparent activity for permission request
+                    var intent = new global::Android.Content.Intent(Platform.AppContext, typeof(Activities.RecorderRequestActivity));
+                    intent.AddFlags(global::Android.Content.ActivityFlags.NewTask);
+                    Platform.AppContext.StartActivity(intent);
+                    ServiceHelper.LogService?.LogDebug("RecorderService requesting media projection permission via RecorderRequestActivity");
+
+                    // Wait for user response
+                    var result = await _permissionCompletionSource.Task;
+                    _permissionCompletionSource = null;
+                    if (!result)
+                    {
+                        ServiceHelper.LogService?.LogDebug("RecorderService: User denied media projection permission");
+                        return false;
+                    }
+                }
+                catch (Exception ex)
+                {
+                    ServiceHelper.LogService?.LogDebug($"RecorderService StartRecording failed to request media projection: {ex.Message}");
+                    ServiceHelper.LogService?.LogException(ex);
+                    _permissionCompletionSource = null;
+                    return false;
                 }
             }
 
@@ -104,32 +139,11 @@ public class RecorderService : IRecorderService, IDisposable
             if (activity == null)
             {
                 ServiceHelper.LogService?.LogDebug("RecorderService StartRecording failed: CurrentActivity is null");
-                return;
+                return false;
             }
 
             // Get media projection manager
             var mediaProjectionManager = (MediaProjectionManager)activity.GetSystemService(Context.MediaProjectionService);
-
-            // Request media projection permission if not initialized
-            if (!IsInitialized)
-            {
-                try
-                {
-                    activity.StartActivityForResult(mediaProjectionManager.CreateScreenCaptureIntent(), REQUEST_MEDIA_PROJECTION);
-                    ServiceHelper.LogService?.LogDebug("RecorderService requesting media projection permission");
-                    return; // Exit and wait for Init to be called via OnActivityResult
-                }
-                catch (Exception ex)
-                {
-                    ServiceHelper.LogService?.LogDebug($"RecorderService StartRecording failed to request media projection: {ex.Message}");
-                    ServiceHelper.LogService?.LogException(ex);
-                    return;
-                }
-            }
-
-            // TODO: support vertical somehow. Currently hardcoding to horizontal
-            DisplayHelper.DisplayRotation = DisplayRotation.Rotation90;
-
             var physicalResolution = DisplayHelper.PhysicalResolution;
             var width = (int)physicalResolution.Width;
             var height = (int)physicalResolution.Height;
@@ -137,8 +151,19 @@ public class RecorderService : IRecorderService, IDisposable
 
             // Start foreground service before getting media projection
             // This is required on newer Android versions to keep MediaProjection alive
+            _foregroundServiceReadySource = new TaskCompletionSource<bool>();
             Platform.AppContext.StartForegroundServiceCompat<RecorderForegroundService>();
             ServiceHelper.LogService?.LogDebug("RecorderService: Started RecorderForegroundService");
+
+            // Wait for foreground service to be ready before proceeding
+            var foregroundReady = await _foregroundServiceReadySource.Task;
+            _foregroundServiceReadySource = null;
+            if (!foregroundReady)
+            {
+                ServiceHelper.LogService?.LogDebug("RecorderService: Foreground service failed to start");
+                return false;
+            }
+            ServiceHelper.LogService?.LogDebug("RecorderService: Foreground service is ready");
 
             // Get media projection
             _mediaProjection = mediaProjectionManager.GetMediaProjection(_resultCode, (Intent)_resultData.Clone());
@@ -181,13 +206,20 @@ public class RecorderService : IRecorderService, IDisposable
             }
 
             ServiceHelper.LogService?.LogDebug($"RecorderService recording started - MediaProjection valid: {_mediaProjection != null}, VirtualDisplay valid: {_virtualDisplay != null}");
+            return true;
         }
         catch (Exception ex)
         {
             ServiceHelper.LogService?.LogDebug($"RecorderService StartRecording Exception: {ex.Message}");
             ServiceHelper.LogService?.LogException(ex);
             StopRecording();
+            return false;
         }
+    }
+
+    public void SetForegroundServiceReady()
+    {
+        _foregroundServiceReadySource?.TrySetResult(true);
     }
 
     public void StopRecording()
