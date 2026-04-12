@@ -224,7 +224,7 @@ function sweepEventStoryHard(number) {
 				macroService.PollPattern(patterns.general.back, { DoClick: true, PrimaryClickPredicatePattern: patterns.titles.adventurerShop, PredicatePattern: patterns.event.story.enter });
 
 				if (done) {
-					settings.doDailies[settingPrefix].Value = false;
+					settings.doDailies.doEvent[settingPrefix].Value = false;
 					return;
 				}
 
