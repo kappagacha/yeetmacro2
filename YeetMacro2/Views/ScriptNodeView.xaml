@@ -187,24 +187,22 @@
                                FontFamily="MaterialOutlined" Glyph="{x:Static ms:MaterialOutlined.Edit}" />
         </HorizontalStackLayout>
 
-        <!-- Execute button (landscape: top-right below toggle, portrait: bottom-right of content) -->
-        <Grid Grid.Column="1" Grid.Row="0" Grid.ColumnSpan="1" HorizontalOptions="End" VerticalOptions="End" IsVisible="{Binding Scripts.SelectedNode, Converter={conv:NullToBoolConverter IsInverse=True}}">
+        <!-- Execute button (bottom-right over content) -->
+        <Grid Grid.Column="1" Grid.Row="0" Grid.RowSpan="2" Grid.ColumnSpan="1" HorizontalOptions="End" VerticalOptions="End" IsVisible="{Binding Scripts.SelectedNode, Converter={conv:NullToBoolConverter IsInverse=True}}">
             <Grid.Triggers>
                 <DataTrigger TargetType="Grid" Binding="{Binding DisplayOrientation, Source={Reference thisControl}, x:DataType=v:ScriptNodeView}" Value="Portrait">
                     <Setter Property="Grid.Column" Value="0" />
                     <Setter Property="Grid.Row" Value="0" />
                     <Setter Property="Grid.ColumnSpan" Value="2" />
-                    <Setter Property="HorizontalOptions" Value="End" />
-                    <Setter Property="VerticalOptions" Value="End" />
-                    <Setter Property="Margin" Value="0,0,55,0" />
+                    <Setter Property="Grid.RowSpan" Value="2" />
+                    <Setter Property="Margin" Value="0,0,20,20" />
                 </DataTrigger>
                 <DataTrigger TargetType="Grid" Binding="{Binding DisplayOrientation, Source={Reference thisControl}, x:DataType=v:ScriptNodeView}" Value="Landscape">
                     <Setter Property="Grid.Column" Value="1" />
                     <Setter Property="Grid.Row" Value="0" />
                     <Setter Property="Grid.ColumnSpan" Value="1" />
-                    <Setter Property="HorizontalOptions" Value="End" />
-                    <Setter Property="VerticalOptions" Value="End" />
-                    <Setter Property="Margin" Value="0,0,40,0" />
+                    <Setter Property="Grid.RowSpan" Value="2" />
+                    <Setter Property="Margin" Value="0,0,10,10" />
                 </DataTrigger>
             </Grid.Triggers>
             <v:ImageView
