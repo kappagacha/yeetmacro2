@@ -27,9 +27,9 @@ public class MediaProjectionService : IDisposable
     int _resultCode;
     public const int REQUEST_MEDIA_PROJECTION = 1;
     public bool IsInitialized => _resultCode == (int)global::Android.App.Result.Ok;
-    public DisplayRotation CapturedOrientation => _capturedOrientation;
+    public DisplayOrientation CapturedOrientation => _capturedOrientation;
     MediaProjectionCallback _mediaProjectionCallback;
-    private DisplayRotation _capturedOrientation = DisplayRotation.Rotation0;
+    private DisplayOrientation _capturedOrientation = DisplayOrientation.Portrait;
     private readonly object _disposeLock = new object();
     private bool _disposed = false;
     private TaskCompletionSource<bool> _orientationChangeCompletionSource;
@@ -49,7 +49,7 @@ public class MediaProjectionService : IDisposable
         _orientationChangeCompletionSource = new TaskCompletionSource<bool>();
 
         ServiceHelper.LogService?.LogDebug(
-            $"Orientation changed from {_capturedOrientation} to {DisplayHelper.DisplayRotation} - requesting new MediaProjection token"
+            $"Orientation changed from {_capturedOrientation} to {DisplayHelper.DisplayInfo.Orientation} - requesting new MediaProjection token"
         );
 
         // Stop current projection
@@ -87,15 +87,19 @@ public class MediaProjectionService : IDisposable
             var width = (int)physicalResolution.Width;
             var height = (int)physicalResolution.Height;
             var density = (int)DisplayHelper.DisplayInfo.Density;
-
+            
             var macroSet = ServiceHelper.GetService<MacroManagerViewModel>().SelectedMacroSet;
             if (macroSet is not null && macroSet.Resolution != Size.Zero)
             {
-                var isLandscape = macroSet.Resolution.Width > macroSet.Resolution.Height;
-                if (isLandscape && width < height)
+                var targetOrientation = macroSet.Resolution.Width > macroSet.Resolution.Height
+                    ? DisplayOrientation.Landscape
+                    : DisplayOrientation.Portrait;
+
+                if ((targetOrientation == DisplayOrientation.Landscape && width < height) ||
+                    (targetOrientation == DisplayOrientation.Portrait && width > height))
                 {
-                    width = (int)physicalResolution.Height;
-                    height = (int)physicalResolution.Width;
+                    (width, height) = (height, width);
+                    _capturedOrientation = targetOrientation;
                 }
             }
 
@@ -156,7 +160,7 @@ public class MediaProjectionService : IDisposable
         }
 
         // Track the orientation at token creation time
-        _capturedOrientation = DisplayHelper.DisplayRotation;
+        _capturedOrientation = DisplayHelper.DisplayInfo.Orientation;
 
         if (Platform.CurrentActivity != null)
         {
@@ -231,14 +235,14 @@ public class MediaProjectionService : IDisposable
 
     public bool IsOrientationMismatch()
     {
-        return _capturedOrientation != DisplayHelper.DisplayRotation;
+        return _capturedOrientation != DisplayHelper.DisplayInfo.Orientation;
     }
 
     public void ClearForReRequest()
     {
         _resultCode = 0;
         _resultData = null;
-        _capturedOrientation = DisplayRotation.Rotation0;
+        _capturedOrientation = DisplayOrientation.Portrait;
     }
 
     private void RequestNewProjectionToken()
