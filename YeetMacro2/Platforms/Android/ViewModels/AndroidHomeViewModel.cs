@@ -30,6 +30,8 @@ public partial class AndriodHomeViewModel : ObservableObject
     DisplayRotation _displayRotation;
     [ObservableProperty]
     string _widthStatus = "Invalid", _heightStatus = "Invalid";
+    [ObservableProperty]
+    string _displayOrientation = "Landscape";
     public bool IsCurrentPackageValid => CurrentPackage == _macroManagerViewModel.SelectedMacroSet?.Package;
     public MacroManagerViewModel MacroManagerViewModel => _macroManagerViewModel;
     //public string OverlayArea
@@ -134,6 +136,7 @@ public partial class AndriodHomeViewModel : ObservableObject
         {
             CurrentResolution = DisplayHelper.UsableResolution;
             DisplayRotation = DisplayHelper.DisplayRotation;
+            DisplayOrientation = e.DisplayInfo.Orientation.ToString();
 
             if (_macroManagerViewModel.SelectedMacroSet is null) WidthStatus = "Invalid";
             else if (_macroManagerViewModel.SelectedMacroSet.SupportsGreaterWidth && DisplayHelper.PhysicalResolution.Width > _macroManagerViewModel.SelectedMacroSet.Resolution.Width) WidthStatus = "Acceptable";
@@ -145,6 +148,9 @@ public partial class AndriodHomeViewModel : ObservableObject
             else if (DisplayHelper.PhysicalResolution.Height == _macroManagerViewModel.SelectedMacroSet.Resolution.Height) HeightStatus = "Valid";
             else HeightStatus = "Invalid";
         });
+
+        // Initialize with current orientation
+        DisplayOrientation = DeviceDisplay.MainDisplayInfo.Orientation.ToString();
     }
 
     private void ShowActionView()
@@ -250,10 +256,23 @@ If you agree, please tap OK then grant Accessibility service permission to YeetM
         _screenService.Close(AndroidWindowView.MacroOverlayView);
     }
 
-    partial void OnShowPatternNodeViewChanged(bool value)
+    async partial void OnShowPatternNodeViewChanged(bool value)
     {
         if (value)
         {
+            // Check for orientation mismatch and wait for resolution
+            var projectionService = ServiceHelper.GetService<MediaProjectionService>();
+            if (projectionService != null)
+            {
+                var orientationHandled = await projectionService.HandleOrientationChangeAsync();
+                if (!orientationHandled)
+                {
+                    _toastService.Show("Screen capture permission required for pattern editing");
+                    ShowPatternNodeView = false;
+                    return;
+                }
+            }
+
             _screenService.Show(AndroidWindowView.PatternNodeView);
         }
         else

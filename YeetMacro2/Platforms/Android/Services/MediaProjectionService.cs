@@ -27,13 +27,42 @@ public class MediaProjectionService : IDisposable
     int _resultCode;
     public const int REQUEST_MEDIA_PROJECTION = 1;
     public bool IsInitialized => _resultCode == (int)global::Android.App.Result.Ok;
+    public DisplayRotation CapturedOrientation => _capturedOrientation;
     MediaProjectionCallback _mediaProjectionCallback;
+    private DisplayRotation _capturedOrientation = DisplayRotation.Rotation0;
     private readonly object _disposeLock = new object();
     private bool _disposed = false;
+    private TaskCompletionSource<bool> _orientationChangeCompletionSource;
 
     public MediaProjectionService()
     {
         _mediaProjectionCallback = new MediaProjectionCallback(this);
+    }
+
+    public async Task<bool> HandleOrientationChangeAsync()
+    {
+        if (!IsOrientationMismatch())
+        {
+            return true; // No mismatch, all good
+        }
+
+        _orientationChangeCompletionSource = new TaskCompletionSource<bool>();
+
+        ServiceHelper.LogService?.LogDebug(
+            $"Orientation changed from {_capturedOrientation} to {DisplayHelper.DisplayRotation} - requesting new MediaProjection token"
+        );
+
+        // Stop current projection
+        Stop();
+        ClearForReRequest();
+
+        // Request new token via transparent activity
+        RequestNewProjectionToken();
+
+        // Wait for user response
+        var result = await _orientationChangeCompletionSource.Task;
+        _orientationChangeCompletionSource = null;
+        return result;
     }
 
     public void Start()
@@ -54,13 +83,21 @@ public class MediaProjectionService : IDisposable
                 return;
             }
 
-            // TODO: support vertical somehow. Currently hardcoding to horizontal
-            DisplayHelper.DisplayRotation = DisplayRotation.Rotation90;
-
             var physicalResolution = DisplayHelper.PhysicalResolution;
             var width = (int)physicalResolution.Width;
             var height = (int)physicalResolution.Height;
             var density = (int)DisplayHelper.DisplayInfo.Density;
+
+            var macroSet = ServiceHelper.GetService<MacroManagerViewModel>().SelectedMacroSet;
+            if (macroSet is not null && macroSet.Resolution != Size.Zero)
+            {
+                var isLandscape = macroSet.Resolution.Width > macroSet.Resolution.Height;
+                if (isLandscape && width < height)
+                {
+                    width = (int)physicalResolution.Height;
+                    height = (int)physicalResolution.Width;
+                }
+            }
 
             // https://github.com/Fate-Grand-Automata/FGA/blob/2a62ab7a456a9913cf0355db81b5a15f13906f27/app/src/main/java/io/github/fate_grand_automata/runner/ScreenshotServiceHolder.kt#L53
             var activity = Platform.CurrentActivity;
@@ -112,13 +149,22 @@ public class MediaProjectionService : IDisposable
             {
                 Toast.MakeText(Platform.CurrentActivity, "Media projection canceled...", ToastLength.Short).Show();
             }
+
+            // Set completion result if waiting for orientation change
+            _orientationChangeCompletionSource?.TrySetResult(false);
             return;
         }
+
+        // Track the orientation at token creation time
+        _capturedOrientation = DisplayHelper.DisplayRotation;
 
         if (Platform.CurrentActivity != null)
         {
             Toast.MakeText(Platform.CurrentActivity, "Media projection initialized...", ToastLength.Short).Show();
         }
+
+        // Set completion result if waiting for orientation change
+        _orientationChangeCompletionSource?.TrySetResult(true);
 
         // Start foreground service - it will detect we have media projection and use the correct type
         // On Android 35+, the service will only start if MediaProjection is initialized
@@ -181,6 +227,26 @@ public class MediaProjectionService : IDisposable
         //{
         //    Toast.MakeText(Platform.CurrentActivity, "Media projection stopped...", ToastLength.Short).Show();
         //}
+    }
+
+    public bool IsOrientationMismatch()
+    {
+        return _capturedOrientation != DisplayHelper.DisplayRotation;
+    }
+
+    public void ClearForReRequest()
+    {
+        _resultCode = 0;
+        _resultData = null;
+        _capturedOrientation = DisplayRotation.Rotation0;
+    }
+
+    private void RequestNewProjectionToken()
+    {
+        var intent = new global::Android.Content.Intent(Platform.AppContext, typeof(Activities.ProjectionRequestActivity));
+        intent.AddFlags(global::Android.Content.ActivityFlags.NewTask);
+        intent.PutExtra("orientation_change", true);
+        Platform.AppContext.StartActivity(intent);
     }
 
     public byte[] GetCurrentImageData()

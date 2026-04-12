@@ -336,6 +336,17 @@ public partial class MacroSetViewModel : MacroSet
 
         await WaitForInitialization();
 
+        // Ensure projection is ready (checks orientation mismatch)
+        var screenService = _serviceProvider.GetService<IScreenService>();
+        if (screenService != null)
+        {
+            var projectionReady = await screenService.EnsureProjectionReadyAsync();
+            if (!projectionReady)
+            {
+                return; // User denied permission
+            }
+        }
+
         await Task.Run(() =>
         {
             Console.WriteLine($"[*****YeetMacro*****] MacroManagerViewModel ExecuteScript");

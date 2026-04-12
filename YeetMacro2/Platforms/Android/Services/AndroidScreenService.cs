@@ -14,7 +14,6 @@ using YeetMacro2.ViewModels;
 using YeetMacro2.Views;
 using CommunityToolkit.Mvvm.Messaging;
 using static Android.Graphics.Bitmap;
-using Android.Media.Projection;
 
 namespace YeetMacro2.Platforms.Android.Services;
 
@@ -327,6 +326,11 @@ public class AndroidScreenService : IScreenService, IDisposable
         return array;
     }
 
+    public async Task<bool> EnsureProjectionReadyAsync()
+    {
+        return await _mediaProjectionService.HandleOrientationChangeAsync();
+    }
+
     public List<Point> GetMatches(Pattern pattern, FindOptions opts)
     {
         try
@@ -541,24 +545,10 @@ public class AndroidScreenService : IScreenService, IDisposable
         }
         else
         {
-            var activity = Platform.CurrentActivity;
-            if (activity == null)
-            {
-                ServiceHelper.LogService?.LogDebug("Cannot start projection service - CurrentActivity is null");
-                _toastService?.Show("Cannot start projection service - app must be in foreground");
-                return;
-            }
-            
-            try
-            {
-                var mediaProjectionManager = (MediaProjectionManager)activity.GetSystemService(Context.MediaProjectionService);
-                activity.StartActivityForResult(mediaProjectionManager.CreateScreenCaptureIntent(), Services.MediaProjectionService.REQUEST_MEDIA_PROJECTION);
-            }
-            catch (Exception ex)
-            {
-                ServiceHelper.LogService?.LogException(ex);
-                _toastService?.Show("Failed to start projection service");
-            }
+            // Launch transparent activity for permission request
+            var intent = new global::Android.Content.Intent(Platform.AppContext, typeof(Platforms.Android.Activities.ProjectionRequestActivity));
+            intent.AddFlags(global::Android.Content.ActivityFlags.NewTask);
+            Platform.AppContext.StartActivity(intent);
         }
     }
 

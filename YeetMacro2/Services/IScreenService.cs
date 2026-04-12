@@ -52,4 +52,5 @@ public interface IScreenService
     void ShowMessage(string message);
     void ShowImage(PatternNode patternNode);
     byte[] ScaleImageData(byte[] data, double scale);
+    Task<bool> EnsureProjectionReadyAsync();
 }

@@ -79,9 +79,6 @@ public class MainActivity : MauiAppCompatActivity
     {
         switch (requestCode)
         {
-            case Platforms.Android.Services.MediaProjectionService.REQUEST_MEDIA_PROJECTION:
-                ServiceHelper.GetService<MediaProjectionService>().Init(resultCode, data);
-                break;
             case Platforms.Android.Services.RecorderService.REQUEST_MEDIA_PROJECTION:
                 ServiceHelper.GetService<RecorderService>().Init(resultCode, data);
                 break;

@@ -11,46 +11,78 @@
              BackgroundColor="{AppThemeBinding Light={StaticResource Background}, Dark={StaticResource BackgroundDark}}"
              x:DataType="v:PatternNodeView"
              x:Name="thisControl">
-    <Grid>
-        <v:ToggleImageView Text="Using Snapshot" FontFamily="MaterialOutlined" Glyph="{x:Static ms:MaterialOutlined.Screenshot}"
+    <Grid RowDefinitions="*,*">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="3*" />
+        </Grid.ColumnDefinitions>
+
+        <!-- Node tree (left in landscape, bottom in portrait) -->
+        <Border Grid.Column="0" Grid.Row="1" Stroke="{StaticResource Primary}" BackgroundColor="Transparent" Padding="3" VerticalOptions="Fill" MinimumHeightRequest="100">
+            <Border.Triggers>
+                <DataTrigger TargetType="Border" Binding="{Binding DisplayOrientation, Source={Reference thisControl}, x:DataType=v:PatternNodeView}" Value="Portrait">
+                    <Setter Property="Grid.Column" Value="0" />
+                    <Setter Property="Grid.Row" Value="1" />
+                    <Setter Property="Grid.ColumnSpan" Value="2" />
+                </DataTrigger>
+                <DataTrigger TargetType="Border" Binding="{Binding DisplayOrientation, Source={Reference thisControl}, x:DataType=v:PatternNodeView}" Value="Landscape">
+                    <Setter Property="Grid.Column" Value="0" />
+                    <Setter Property="Grid.Row" Value="0" />
+                    <Setter Property="Grid.RowSpan" Value="2" />
+                </DataTrigger>
+            </Border.Triggers>
+            <v:PatternCoreNodeView NodeManager="{Binding MacroSet.Patterns, Source={Reference thisControl}}"
+                                   MacroSet="{Binding MacroSet, Source={Reference thisControl}}">
+                <v:PatternCoreNodeView.ExtraMenuItemsDataTemplate>
+                    <DataTemplate x:DataType="v:PatternCoreNodeView">
+                        <VerticalStackLayout>
+                            <v:ToggleImageView x:DataType="v:PatternCoreNodeView" FontFamily="MaterialOutlined" Glyph="{x:Static ms:MaterialOutlined.Screenshot}"
+                                               ToggledColor="{StaticResource Primary}"
+                                               IsToggled="{Binding MacroSet.UsePatternsSnapshot, Source={RelativeSource AncestorType={x:Type v:PatternNodeView}}, x:DataType=v:PatternNodeView}" />
+                        </VerticalStackLayout>
+                    </DataTemplate>
+                </v:PatternCoreNodeView.ExtraMenuItemsDataTemplate>
+            </v:PatternCoreNodeView>
+        </Border>
+
+        <!-- Content area (right in landscape, overlays toggle in portrait) -->
+        <Border Grid.Column="1" Grid.Row="0" Grid.ColumnSpan="1" Stroke="{StaticResource Primary}" BackgroundColor="Transparent" Padding="3" VerticalOptions="Fill"
+                IsVisible="{Binding MacroSet.Patterns.SelectedNode, Source={Reference thisControl}, Converter={conv:NullToBoolConverter IsInverse=True}}">
+            <Border.Triggers>
+                <DataTrigger TargetType="Border" Binding="{Binding DisplayOrientation, Source={Reference thisControl}, x:DataType=v:PatternNodeView}" Value="Portrait">
+                    <Setter Property="Grid.Column" Value="0" />
+                    <Setter Property="Grid.Row" Value="0" />
+                    <Setter Property="Grid.ColumnSpan" Value="2" />
+                </DataTrigger>
+                <DataTrigger TargetType="Border" Binding="{Binding DisplayOrientation, Source={Reference thisControl}, x:DataType=v:PatternNodeView}" Value="Landscape">
+                    <Setter Property="Grid.Column" Value="1" />
+                    <Setter Property="Grid.Row" Value="0" />
+                    <Setter Property="Grid.ColumnSpan" Value="1" />
+                    <Setter Property="Grid.RowSpan" Value="2" />
+                </DataTrigger>
+            </Border.Triggers>
+            <v:PatternView VerticalOptions="Fill"
+                PatternNode="{Binding MacroSet.Patterns.SelectedNode, Source={Reference thisControl}}"
+                Pattern="{Binding MacroSet.Patterns.SelectedPattern, Source={Reference thisControl}}"
+                SavePatternCommand="{Binding MacroSet.Patterns.SavePatternCommand, Source={Reference thisControl}}"
+                SelectPatternCommand="{Binding MacroSet.Patterns.SelectPatternCommand, Source={Reference thisControl}}"
+                CapturePatternCommand="{Binding MacroSet.Patterns.CapturePatternCommand, Source={Reference thisControl}}"
+                SetPatternBoundsCommand="{Binding MacroSet.Patterns.SetPatternBoundsCommand, Source={Reference thisControl}}"
+                NormalizePatternCommand="{Binding MacroSet.Patterns.NormalizePatternCommand, Source={Reference thisControl}}"
+                ClickPatternCommand="{Binding MacroSet.Patterns.ClickPatternCommand, Source={Reference thisControl}}"
+                TestPatternCommand="{Binding MacroSet.Patterns.TestPatternCommand, Source={Reference thisControl}}"
+                AddPatternCommand="{Binding MacroSet.Patterns.AddPatternCommand, Source={Reference thisControl}}"
+                DeletePatternCommand="{Binding MacroSet.Patterns.DeletePatternCommand, Source={Reference thisControl}}"
+                ApplyColorThresholdCommand="{Binding MacroSet.Patterns.ApplyColorThresholdCommand, Source={Reference thisControl}}"
+                TestPatternTextMatchCommand="{Binding MacroSet.Patterns.TestPatternTextMatchCommand, Source={Reference thisControl}}"
+                ApplyPatternTextMatchCommand="{Binding MacroSet.Patterns.ApplyPatternTextMatchCommand, Source={Reference thisControl}}"
+                ApplyPatternOffsetCommand="{Binding MacroSet.Patterns.ApplyPatternOffsetCommand, Source={Reference thisControl}}"
+                TestSwipeCommand="{Binding MacroSet.Patterns.TestSwipeCommand, Source={Reference thisControl}}" />
+        </Border>
+
+        <v:ToggleImageView Grid.Row="0" Grid.ColumnSpan="2" Text="Using Snapshot" FontFamily="MaterialOutlined" Glyph="{x:Static ms:MaterialOutlined.Screenshot}"
                            IsToggled="{Binding MacroSet.UsePatternsSnapshot, Source={Reference thisControl}}" HorizontalOptions="Center" VerticalOptions="Center"
                            ToggledColor="{StaticResource Primary}"
                            IsVisible="{Binding MacroSet.UsePatternsSnapshot, Source={Reference thisControl}}"/>
-        <Grid ColumnDefinitions="*,3*" IsVisible="{Binding MacroSet.UsePatternsSnapshot, Converter={conv:InverseBoolConverter}, Source={Reference thisControl}}">
-            <Border Grid.Column="0" Stroke="{StaticResource Primary}" BackgroundColor="Transparent" Padding="3">
-                <v:PatternCoreNodeView NodeManager="{Binding MacroSet.Patterns, Source={Reference thisControl}}"
-                                       MacroSet="{Binding MacroSet, Source={Reference thisControl}}">
-                    <v:PatternCoreNodeView.ExtraMenuItemsDataTemplate>
-                        <DataTemplate x:DataType="v:PatternCoreNodeView">
-                            <VerticalStackLayout>
-                                <v:ToggleImageView x:DataType="v:PatternCoreNodeView" FontFamily="MaterialOutlined" Glyph="{x:Static ms:MaterialOutlined.Screenshot}"
-                                                   ToggledColor="{StaticResource Primary}"
-                                                   IsToggled="{Binding MacroSet.UsePatternsSnapshot, Source={RelativeSource AncestorType={x:Type v:PatternNodeView}}, x:DataType=v:PatternNodeView}" />
-                            </VerticalStackLayout>
-                        </DataTemplate>
-                    </v:PatternCoreNodeView.ExtraMenuItemsDataTemplate>
-                </v:PatternCoreNodeView>
-            </Border>
-            <Border Grid.Column="1" Stroke="{StaticResource Primary}" BackgroundColor="Transparent" Padding="3"
-                    IsVisible="{Binding MacroSet.Patterns.SelectedNode, Source={Reference thisControl}, Converter={conv:NullToBoolConverter IsInverse=True}}">
-                <v:PatternView 
-                    PatternNode="{Binding MacroSet.Patterns.SelectedNode, Source={Reference thisControl}}"
-                    Pattern="{Binding MacroSet.Patterns.SelectedPattern, Source={Reference thisControl}}"
-                    SavePatternCommand="{Binding MacroSet.Patterns.SavePatternCommand, Source={Reference thisControl}}"
-                    SelectPatternCommand="{Binding MacroSet.Patterns.SelectPatternCommand, Source={Reference thisControl}}"
-                    CapturePatternCommand="{Binding MacroSet.Patterns.CapturePatternCommand, Source={Reference thisControl}}"
-                    SetPatternBoundsCommand="{Binding MacroSet.Patterns.SetPatternBoundsCommand, Source={Reference thisControl}}"
-                    NormalizePatternCommand="{Binding MacroSet.Patterns.NormalizePatternCommand, Source={Reference thisControl}}"
-                    ClickPatternCommand="{Binding MacroSet.Patterns.ClickPatternCommand, Source={Reference thisControl}}"
-                    TestPatternCommand="{Binding MacroSet.Patterns.TestPatternCommand, Source={Reference thisControl}}"
-                    AddPatternCommand="{Binding MacroSet.Patterns.AddPatternCommand, Source={Reference thisControl}}"
-                    DeletePatternCommand="{Binding MacroSet.Patterns.DeletePatternCommand, Source={Reference thisControl}}"
-                    ApplyColorThresholdCommand="{Binding MacroSet.Patterns.ApplyColorThresholdCommand, Source={Reference thisControl}}"
-                    TestPatternTextMatchCommand="{Binding MacroSet.Patterns.TestPatternTextMatchCommand, Source={Reference thisControl}}"
-                    ApplyPatternTextMatchCommand="{Binding MacroSet.Patterns.ApplyPatternTextMatchCommand, Source={Reference thisControl}}"
-                    ApplyPatternOffsetCommand="{Binding MacroSet.Patterns.ApplyPatternOffsetCommand, Source={Reference thisControl}}"
-                    TestSwipeCommand="{Binding MacroSet.Patterns.TestSwipeCommand, Source={Reference thisControl}}" />
-            </Border>
-        </Grid>
     </Grid>
 </ContentView>

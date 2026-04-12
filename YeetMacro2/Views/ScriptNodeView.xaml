@@ -12,21 +12,38 @@
              x:DataType="vm:MacroSetViewModel"
              x:Class="YeetMacro2.Views.ScriptNodeView"
              x:Name="thisControl">
-    <Grid>
-        <Grid ColumnDefinitions="*,3*">
-            <Border Grid.Column="0" Stroke="{StaticResource Primary}" BackgroundColor="Transparent" Padding="3">
-                <v:ScriptCoreNodeView x:Name="scriptCoreNodeView" MacroSet="{Binding MacroSet, Source={Reference thisControl}, x:DataType=v:ScriptNodeView}" NodeManager="{Binding MacroSet.Scripts, Source={Reference thisControl}, x:DataType=v:ScriptNodeView}">
-                    <v:ScriptCoreNodeView.ExpanderTemplate>
-                        <DataTemplate>
-                            <Grid />
-                        </DataTemplate>
-                    </v:ScriptCoreNodeView.ExpanderTemplate>
-                    <v:ScriptCoreNodeView.ItemTemplate>
-                        <DataTemplate x:DataType="m:ScriptNode">
-                            <Grid HeightRequest="20">
-                                <Grid.Triggers>
-                                    <DataTrigger TargetType="Grid" Value="False">
-                                        <DataTrigger.Binding>
+    <Grid RowDefinitions="*,*">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="3*" />
+        </Grid.ColumnDefinitions>
+
+        <!-- Node tree (left in landscape, bottom in portrait) -->
+        <Border Grid.Column="0" Grid.Row="1" Stroke="{StaticResource Primary}" BackgroundColor="Transparent" Padding="3" VerticalOptions="Fill" MinimumHeightRequest="100">
+            <Border.Triggers>
+                <DataTrigger TargetType="Border" Binding="{Binding DisplayOrientation, Source={Reference thisControl}, x:DataType=v:ScriptNodeView}" Value="Portrait">
+                    <Setter Property="Grid.Column" Value="0" />
+                    <Setter Property="Grid.Row" Value="1" />
+                    <Setter Property="Grid.ColumnSpan" Value="2" />
+                </DataTrigger>
+                <DataTrigger TargetType="Border" Binding="{Binding DisplayOrientation, Source={Reference thisControl}, x:DataType=v:ScriptNodeView}" Value="Landscape">
+                    <Setter Property="Grid.Column" Value="0" />
+                    <Setter Property="Grid.Row" Value="0" />
+                    <Setter Property="Grid.RowSpan" Value="2" />
+                </DataTrigger>
+            </Border.Triggers>
+            <v:ScriptCoreNodeView x:Name="scriptCoreNodeView" MacroSet="{Binding MacroSet, Source={Reference thisControl}, x:DataType=v:ScriptNodeView}" NodeManager="{Binding MacroSet.Scripts, Source={Reference thisControl}, x:DataType=v:ScriptNodeView}">
+                <v:ScriptCoreNodeView.ExpanderTemplate>
+                    <DataTemplate>
+                        <Grid />
+                    </DataTemplate>
+                </v:ScriptCoreNodeView.ExpanderTemplate>
+                <v:ScriptCoreNodeView.ItemTemplate>
+                    <DataTemplate x:DataType="m:ScriptNode">
+                        <Grid HeightRequest="20">
+                            <Grid.Triggers>
+                                <DataTrigger TargetType="Grid" Value="False">
+                                    <DataTrigger.Binding>
                                             <MultiBinding Converter="{conv:NodeFilterVisibilityConverter}">
                                                 <Binding Path="Tags" />
                                                 <Binding Path="NodeManager.SelectedFilterTags" Source="{Reference scriptCoreNodeView}" x:DataType="v:ScriptCoreNodeView" />
@@ -37,77 +54,159 @@
                                         <Setter Property="IsVisible" Value="False" />
                                         <Setter Property="HeightRequest" Value="0" />
                                     </DataTrigger>
-                                </Grid.Triggers>
-                                <Label Text="{Binding Name}" TextColor="{StaticResource Primary}" Margin="0" Padding="0" VerticalOptions="Center" BackgroundColor="Transparent">
-                                    <Label.Triggers>
-                                        <DataTrigger TargetType="Label" Binding="{Binding IsSelected}" Value="True">
-                                            <Setter Property="BackgroundColor" Value="Blue" />
-                                        </DataTrigger>
-                                    </Label.Triggers>
-                                </Label>
-                                <ImageButton Margin="0" Padding="0" CommandParameter="{Binding .}" 
-                                             Command="{Binding NodeManager.SelectNodeCommand, Source={Reference scriptCoreNodeView}, x:DataType=v:ScriptCoreNodeView}" />
-                            </Grid>
-                        </DataTemplate>
-                    </v:ScriptCoreNodeView.ItemTemplate>
-                </v:ScriptCoreNodeView>
-            </Border>
-            <Grid Grid.Column="1"  BackgroundColor="Transparent" Padding="3" IsVisible="{Binding Scripts.ShowScriptEditor}">
-                <mct:DockLayout IsVisible="{Binding Scripts.SelectedNode, Converter={conv:NullToBoolConverter IsInverse=True}}">
-                    <HorizontalStackLayout Spacing="5" mct:DockLayout.DockPosition="Top" HeightRequest="35">
-                        <Label Text="Position:" VerticalOptions="Center" />
-                        <v:IntegerStepper Value="{Binding Scripts.SelectedNode.Position}" />
-                    </HorizontalStackLayout>
-                    <Border Stroke="{StaticResource Primary}" BackgroundColor="Transparent" Padding="3">
-                        <Editor x:Name="scriptEditor" Text="{Binding Scripts.SelectedNode.Text}" IsSpellCheckEnabled="False" />
-                    </Border>
-                </mct:DockLayout>
-                <HorizontalStackLayout HorizontalOptions="End" VerticalOptions="End" Margin="0,0,55,0">
-                    <Grid>
-                        <v:ImageView FontFamily="MaterialOutlined" Glyph="{x:Static ms:MaterialOutlined.Content_paste}" />
-                        <ImageButton Clicked="ScriptEditor_LoadFromFile" />
-                    </Grid>
-                    <Grid>
-                        <v:ImageView FontFamily="MaterialOutlined" Glyph="{x:Static ms:MaterialOutlined.Select_all}" />
-                        <ImageButton Clicked="ScriptEditor_SelectAll" />
-                    </Grid>
-                    <v:ImageView FontFamily="MaterialOutlined" Glyph="{x:Static ms:MaterialOutlined.Save}"
-                                 CommandParameter="{Binding Scripts.SelectedNode}"
-                                 Command="{Binding Scripts.UpdateNodeCommand}" />
-                </HorizontalStackLayout>
-            </Grid>
-            <Grid Grid.Column="1" RowDefinitions="Auto,*,*" IsVisible="{Binding Scripts.ShowScriptEditor, Converter={conv:InverseBoolConverter}}">
-                <Border Grid.Row="0" Stroke="{StaticResource Primary}" 
-                            BackgroundColor="Transparent" Padding="3"
-                            IsVisible="{Binding Scripts.SelectedNode, Converter={conv:NullToBoolConverter IsInverse=True}}">
-                    <mct:DockLayout BindingContext="{Binding Scripts.SelectedNode}">
-                        <v:ImageView mct:DockLayout.DockPosition="Left" FontFamily="MaterialOutlined" Glyph="{x:Static ms:MaterialOutlined.Info}" />
-                        <Label Text="{Binding Description}" />
-                    </mct:DockLayout>
-                </Border>
-                <Border  Grid.Row="1" mct:DockLayout.DockPosition="Top" Stroke="{StaticResource Primary}">
-                    <mct:DockLayout>
-                        <v:ImageView mct:DockLayout.DockPosition="Left" FontFamily="MaterialSharp" Glyph="{x:Static ms:MaterialSharp.Settings}" />
-                        <!--<v:SettingNodeView MacroSet="{Binding BindingContext, Source={Reference thisControl}}" IsSubView="True"  />-->
-                        <ContentPresenter x:Name="settingsContentPresenter" />
-                    </mct:DockLayout>
-                </Border>
-                <Border  Grid.Row="2" Stroke="{StaticResource Primary}">
-                    <mct:DockLayout>
-                        <v:ImageView mct:DockLayout.DockPosition="Left" FontFamily="FARegular" Glyph="{x:Static fa:Regular.CalendarCheck}" />
-                        <Grid>
-                            <ContentPresenter x:Name="dailiesContentPresenter" />
-                            <ContentPresenter x:Name="weekliesContentPresenter" />
+                            </Grid.Triggers>
+                            <Label Text="{Binding Name}" TextColor="{StaticResource Primary}" Margin="0" Padding="0" VerticalOptions="Center" BackgroundColor="Transparent">
+                                <Label.Triggers>
+                                    <DataTrigger TargetType="Label" Binding="{Binding IsSelected}" Value="True">
+                                        <Setter Property="BackgroundColor" Value="Blue" />
+                                    </DataTrigger>
+                                </Label.Triggers>
+                            </Label>
+                            <ImageButton Margin="0" Padding="0" CommandParameter="{Binding .}"
+                                         Command="{Binding NodeManager.SelectNodeCommand, Source={Reference scriptCoreNodeView}, x:DataType=v:ScriptCoreNodeView}" />
                         </Grid>
-                        <!--<Grid>
-                            <v:WeeklyNodeView MacroSet="{Binding BindingContext, Source={Reference thisControl}}" IsSubView="True" IsVisible="{Binding Weeklies.CurrentSubViewModel.Children.Count, Converter={conv:NumberToBoolConverter}}" />
-                            <v:DailyNodeView MacroSet="{Binding BindingContext, Source={Reference thisControl}}" IsSubView="True" IsVisible="{Binding Dailies.CurrentSubViewModel.Children.Count, Converter={conv:NumberToBoolConverter}}"/>
-                        </Grid>-->
-                    </mct:DockLayout>
+                    </DataTemplate>
+                </v:ScriptCoreNodeView.ItemTemplate>
+            </v:ScriptCoreNodeView>
+        </Border>
+
+        <!-- Script editor (landscape: right, portrait: overlays content area) -->
+        <Grid Grid.Column="1" Grid.Row="0" Grid.ColumnSpan="1" BackgroundColor="Transparent" Padding="3" VerticalOptions="Fill" IsVisible="{Binding Scripts.ShowScriptEditor}">
+            <Grid.Triggers>
+                <DataTrigger TargetType="Grid" Binding="{Binding DisplayOrientation, Source={Reference thisControl}, x:DataType=v:ScriptNodeView}" Value="Portrait">
+                    <Setter Property="Grid.Column" Value="0" />
+                    <Setter Property="Grid.Row" Value="0" />
+                    <Setter Property="Grid.ColumnSpan" Value="2" />
+                </DataTrigger>
+                <DataTrigger TargetType="Grid" Binding="{Binding DisplayOrientation, Source={Reference thisControl}, x:DataType=v:ScriptNodeView}" Value="Landscape">
+                    <Setter Property="Grid.Column" Value="1" />
+                    <Setter Property="Grid.Row" Value="0" />
+                    <Setter Property="Grid.ColumnSpan" Value="1" />
+                    <Setter Property="Grid.RowSpan" Value="2" />
+                </DataTrigger>
+            </Grid.Triggers>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*" />
+                <RowDefinition Height="Auto" />
+            </Grid.RowDefinitions>
+
+            <!-- Editor content -->
+            <mct:DockLayout Grid.Row="0" IsVisible="{Binding Scripts.SelectedNode, Converter={conv:NullToBoolConverter IsInverse=True}}">
+                <HorizontalStackLayout Spacing="5" mct:DockLayout.DockPosition="Top" HeightRequest="35">
+                    <Label Text="Position:" VerticalOptions="Center" />
+                    <v:IntegerStepper Value="{Binding Scripts.SelectedNode.Position}" />
+                </HorizontalStackLayout>
+                <Border Stroke="{StaticResource Primary}" BackgroundColor="Transparent" Padding="3">
+                    <Editor x:Name="scriptEditor" Text="{Binding Scripts.SelectedNode.Text}" IsSpellCheckEnabled="False" />
                 </Border>
-            </Grid>
+            </mct:DockLayout>
+
+            <!-- Editor toolbar (bottom of editor section) -->
+            <HorizontalStackLayout Grid.Row="1" HorizontalOptions="End" VerticalOptions="End" Margin="0,0,130,0">
+                <HorizontalStackLayout.Triggers>
+                    <DataTrigger TargetType="HorizontalStackLayout" Binding="{Binding DisplayOrientation, Source={Reference thisControl}, x:DataType=v:ScriptNodeView}" Value="Portrait">
+                        <Setter Property="Margin" Value="0,0,130,0" />
+                    </DataTrigger>
+                    <DataTrigger TargetType="HorizontalStackLayout" Binding="{Binding DisplayOrientation, Source={Reference thisControl}, x:DataType=v:ScriptNodeView}" Value="Landscape">
+                        <Setter Property="Margin" Value="0,0,55,0" />
+                    </DataTrigger>
+                </HorizontalStackLayout.Triggers>
+                <Grid>
+                    <v:ImageView FontFamily="MaterialOutlined" Glyph="{x:Static ms:MaterialOutlined.Content_paste}" />
+                    <ImageButton Clicked="ScriptEditor_LoadFromFile" />
+                </Grid>
+                <Grid>
+                    <v:ImageView FontFamily="MaterialOutlined" Glyph="{x:Static ms:MaterialOutlined.Select_all}" />
+                    <ImageButton Clicked="ScriptEditor_SelectAll" />
+                </Grid>
+                <v:ImageView FontFamily="MaterialOutlined" Glyph="{x:Static ms:MaterialOutlined.Save}"
+                             CommandParameter="{Binding Scripts.SelectedNode}"
+                             Command="{Binding Scripts.UpdateNodeCommand}" />
+            </HorizontalStackLayout>
         </Grid>
-        <Grid HorizontalOptions="End" VerticalOptions="End" IsVisible="{Binding Scripts.SelectedNode, Converter={conv:NullToBoolConverter IsInverse=True}}">
+
+        <!-- Settings/Dailies/Weeklies section (landscape: right bottom, portrait: overlays content area) -->
+        <Grid Grid.Column="1" Grid.Row="0" Grid.ColumnSpan="1" RowDefinitions="Auto,*,*" VerticalOptions="Fill" IsVisible="{Binding Scripts.ShowScriptEditor, Converter={conv:InverseBoolConverter}}">
+            <Grid.Triggers>
+                <DataTrigger TargetType="Grid" Binding="{Binding DisplayOrientation, Source={Reference thisControl}, x:DataType=v:ScriptNodeView}" Value="Portrait">
+                    <Setter Property="Grid.Column" Value="0" />
+                    <Setter Property="Grid.Row" Value="0" />
+                    <Setter Property="Grid.ColumnSpan" Value="2" />
+                </DataTrigger>
+                <DataTrigger TargetType="Grid" Binding="{Binding DisplayOrientation, Source={Reference thisControl}, x:DataType=v:ScriptNodeView}" Value="Landscape">
+                    <Setter Property="Grid.Column" Value="1" />
+                    <Setter Property="Grid.Row" Value="0" />
+                    <Setter Property="Grid.ColumnSpan" Value="1" />
+                    <Setter Property="Grid.RowSpan" Value="2" />
+                </DataTrigger>
+            </Grid.Triggers>
+            <Border Grid.Row="0" Stroke="{StaticResource Primary}"
+                        BackgroundColor="Transparent" Padding="3"
+                        IsVisible="{Binding Scripts.SelectedNode, Converter={conv:NullToBoolConverter IsInverse=True}}">
+                <mct:DockLayout BindingContext="{Binding Scripts.SelectedNode}">
+                    <v:ImageView mct:DockLayout.DockPosition="Left" FontFamily="MaterialOutlined" Glyph="{x:Static ms:MaterialOutlined.Info}" />
+                    <Label Text="{Binding Description}" />
+                </mct:DockLayout>
+            </Border>
+            <Border  Grid.Row="1" mct:DockLayout.DockPosition="Top" Stroke="{StaticResource Primary}">
+                <mct:DockLayout>
+                    <v:ImageView mct:DockLayout.DockPosition="Left" FontFamily="MaterialSharp" Glyph="{x:Static ms:MaterialSharp.Settings}" />
+                    <ContentPresenter x:Name="settingsContentPresenter" />
+                </mct:DockLayout>
+            </Border>
+            <Border  Grid.Row="2" Stroke="{StaticResource Primary}">
+                <mct:DockLayout>
+                    <v:ImageView mct:DockLayout.DockPosition="Left" FontFamily="FARegular" Glyph="{x:Static fa:Regular.CalendarCheck}" />
+                    <Grid>
+                        <ContentPresenter x:Name="dailiesContentPresenter" />
+                        <ContentPresenter x:Name="weekliesContentPresenter" />
+                    </Grid>
+                </mct:DockLayout>
+            </Border>
+        </Grid>
+
+        <!-- Editor toggle (landscape: top-right, portrait: top-right) -->
+        <HorizontalStackLayout Grid.Column="1" Grid.Row="0" Grid.ColumnSpan="1" HorizontalOptions="End" VerticalOptions="Start" Margin="0,0,40,0">
+            <HorizontalStackLayout.Triggers>
+                <DataTrigger TargetType="HorizontalStackLayout" Binding="{Binding DisplayOrientation, Source={Reference thisControl}, x:DataType=v:ScriptNodeView}" Value="Portrait">
+                    <Setter Property="Grid.Column" Value="0" />
+                    <Setter Property="Grid.Row" Value="0" />
+                    <Setter Property="Grid.ColumnSpan" Value="2" />
+                    <Setter Property="HorizontalOptions" Value="End" />
+                    <Setter Property="Margin" Value="0,0,40,0" />
+                </DataTrigger>
+                <DataTrigger TargetType="HorizontalStackLayout" Binding="{Binding DisplayOrientation, Source={Reference thisControl}, x:DataType=v:ScriptNodeView}" Value="Landscape">
+                    <Setter Property="Grid.Column" Value="1" />
+                    <Setter Property="Grid.Row" Value="0" />
+                    <Setter Property="Grid.ColumnSpan" Value="1" />
+                    <Setter Property="HorizontalOptions" Value="End" />
+                    <Setter Property="Margin" Value="0,0,40,0" />
+                </DataTrigger>
+            </HorizontalStackLayout.Triggers>
+            <v:ToggleImageView IsToggled="{Binding Scripts.ShowScriptEditor}" ToggledColor="{StaticResource Primary}"
+                               FontFamily="MaterialOutlined" Glyph="{x:Static ms:MaterialOutlined.Edit}" />
+        </HorizontalStackLayout>
+
+        <!-- Execute button (landscape: top-right below toggle, portrait: bottom-right of content) -->
+        <Grid Grid.Column="1" Grid.Row="0" Grid.ColumnSpan="1" HorizontalOptions="End" VerticalOptions="End" IsVisible="{Binding Scripts.SelectedNode, Converter={conv:NullToBoolConverter IsInverse=True}}">
+            <Grid.Triggers>
+                <DataTrigger TargetType="Grid" Binding="{Binding DisplayOrientation, Source={Reference thisControl}, x:DataType=v:ScriptNodeView}" Value="Portrait">
+                    <Setter Property="Grid.Column" Value="0" />
+                    <Setter Property="Grid.Row" Value="0" />
+                    <Setter Property="Grid.ColumnSpan" Value="2" />
+                    <Setter Property="HorizontalOptions" Value="End" />
+                    <Setter Property="VerticalOptions" Value="End" />
+                    <Setter Property="Margin" Value="0,0,55,0" />
+                </DataTrigger>
+                <DataTrigger TargetType="Grid" Binding="{Binding DisplayOrientation, Source={Reference thisControl}, x:DataType=v:ScriptNodeView}" Value="Landscape">
+                    <Setter Property="Grid.Column" Value="1" />
+                    <Setter Property="Grid.Row" Value="0" />
+                    <Setter Property="Grid.ColumnSpan" Value="1" />
+                    <Setter Property="HorizontalOptions" Value="End" />
+                    <Setter Property="VerticalOptions" Value="End" />
+                    <Setter Property="Margin" Value="0,0,40,0" />
+                </DataTrigger>
+            </Grid.Triggers>
             <v:ImageView
                  ImageHeight="60"
                  ImageWidth="60"
@@ -116,10 +215,7 @@
                  CommandParameter="{Binding Scripts.SelectedNode}"
                  IsVisible="{Binding ShowExecuteButton, Source={x:Reference thisControl}, x:DataType=v:ScriptNodeView}" />
         </Grid>
-        <HorizontalStackLayout HorizontalOptions="End" VerticalOptions="Start" Margin="0,0,40,0">
-            <v:ToggleImageView IsToggled="{Binding Scripts.ShowScriptEditor}" ToggledColor="{StaticResource Primary}"
-                               FontFamily="MaterialOutlined" Glyph="{x:Static ms:MaterialOutlined.Edit}" />
-        </HorizontalStackLayout>
-        <ActivityIndicator IsRunning="{Binding IsBusy}" />
+
+        <ActivityIndicator Grid.RowSpan="2" Grid.ColumnSpan="2" IsRunning="{Binding IsBusy}" />
     </Grid>
 </ContentView>

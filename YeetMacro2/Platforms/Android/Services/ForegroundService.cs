@@ -5,7 +5,6 @@ using Android.Runtime;
 using AndroidX.Core.App;
 using CommunityToolkit.Mvvm.Messaging;
 using YeetMacro2.Services;
-using YeetMacro2.ViewModels;
 
 namespace YeetMacro2.Platforms.Android.Services;
 
