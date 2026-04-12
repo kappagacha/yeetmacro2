@@ -376,13 +376,13 @@ function doEnhancedDeadlyCreature(isWithSupportPack) {
 		}
 		macroService.PollPattern(patterns.terminusIsle.warning, { DoClick: true, PredicatePattern: patterns.terminusIsle.prompt.heroDeployment, });
 		macroService.PollPattern(patterns.terminusIsle.prompt.heroDeployment, { DoClick: true, PredicatePattern: patterns.battle.enter });
-		selectTeam(isWithSupportPack ? 'RecommendedElement' : (detectBossType() === 'light' ? 'dark' : 'light'), { applyPreset: true });
+		selectTeamGeneral();
 		macroService.PollPattern(patterns.general.back, { DoClick: true, PrimaryClickInversePredicatePattern: patterns.battle.enter, PredicatePattern: patterns.battle.enter });
 		macroService.PollPattern(patterns.battle.enter, { DoClick: true, PredicatePattern: patterns.battle.exit });
 		const exitResult = macroService.PollPattern(patterns.battle.exit, { DoClick: true, PredicatePattern: [patterns.general.tapEmptySpace, patterns.terminusIsle.prompt.heroDeployment] });
 		if (exitResult.PredicatePath === 'terminusIsle.prompt.heroDeployment') {
 			macroService.PollPattern(patterns.terminusIsle.prompt.heroDeployment, { DoClick: true, PredicatePattern: patterns.battle.enter });
-			selectTeam(isWithSupportPack ? 'RecommendedElement' : (detectBossType() === 'light' ? 'dark' : 'light'), { applyPreset: true });
+			selectTeamGeneral();
 			macroService.PollPattern(patterns.general.back, { DoClick: true, PrimaryClickInversePredicatePattern: patterns.battle.enter, PredicatePattern: patterns.battle.enter });
 			macroService.PollPattern(patterns.battle.enter, { DoClick: true, PredicatePattern: patterns.battle.exit });
 			macroService.PollPattern(patterns.battle.exit, { DoClick: true, PredicatePattern: patterns.general.tapEmptySpace });
