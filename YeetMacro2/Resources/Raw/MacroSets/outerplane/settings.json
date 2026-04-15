@@ -413,7 +413,7 @@
         "$value": "1",
         "$position": 0,
         "$name": "shopNumber",
-        "$path": "doEvent.storyHard1.shopNumber"
+        "$path": "doEvent.storyHard2.shopNumber"
       },
       "targetEventPattern": {
         "$type": "pattern",
