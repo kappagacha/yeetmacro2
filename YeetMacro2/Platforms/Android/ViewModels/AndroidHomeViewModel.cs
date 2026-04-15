@@ -199,11 +199,11 @@ public partial class AndriodHomeViewModel : ObservableObject
     }
 
     [RelayCommand]
-    private void ToggleIsProjectionServiceEnabled()
+    private async Task ToggleIsProjectionServiceEnabled()
     {
         if (!IsProjectionServiceEnabled)
         {
-            _screenService.StartProjectionService();
+            await _screenService.StartProjectionService();
         }
         else
         {

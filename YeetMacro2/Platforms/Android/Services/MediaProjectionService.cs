@@ -32,7 +32,8 @@ public class MediaProjectionService : IDisposable
     private DisplayOrientation _capturedOrientation = DisplayOrientation.Portrait;
     private readonly object _disposeLock = new object();
     private bool _disposed = false;
-    private TaskCompletionSource<bool> _orientationChangeCompletionSource;
+    private TaskCompletionSource<bool>? _foregroundServiceReadySource;
+    private TaskCompletionSource<bool>? _permissionRequestCompletionSource;
 
     public MediaProjectionService()
     {
@@ -46,26 +47,21 @@ public class MediaProjectionService : IDisposable
             return true; // No mismatch, all good
         }
 
-        _orientationChangeCompletionSource = new TaskCompletionSource<bool>();
-
         ServiceHelper.LogService?.LogDebug(
             $"Orientation changed from {_capturedOrientation} to {DisplayHelper.DisplayInfo.Orientation} - requesting new MediaProjection token"
         );
 
-        // Stop current projection
+        // Stop current projection and clear state
         Stop();
         ClearForReRequest();
 
-        // Request new token via transparent activity
-        RequestNewProjectionToken();
+        // Start will handle the permission request
+        await Start();
 
-        // Wait for user response
-        var result = await _orientationChangeCompletionSource.Task;
-        _orientationChangeCompletionSource = null;
-        return result;
+        return IsInitialized;
     }
 
-    public void Start()
+    public async Task Start()
     {
         if (_virtualDisplay is not null)
         {
@@ -74,13 +70,35 @@ public class MediaProjectionService : IDisposable
 
         try
         {
-            // Check if we have a valid projection token
+            // Request MediaProjection permission if not initialized
             if (!IsInitialized)
             {
-                ServiceHelper.LogService?.LogDebug("MediaProjectionService Start failed: No valid projection token");
-                _resultCode = 0;  // Clear any invalid token
-                WeakReferenceMessenger.Default.Send("MediaProjectionTokenExpired", "MediaProjectionToken");
-                return;
+                _permissionRequestCompletionSource = new TaskCompletionSource<bool>();
+
+                try
+                {
+                    // Launch transparent activity for permission request
+                    var intent = new global::Android.Content.Intent(Platform.AppContext, typeof(Activities.ProjectionRequestActivity));
+                    intent.AddFlags(global::Android.Content.ActivityFlags.NewTask);
+                    Platform.AppContext.StartActivity(intent);
+                    ServiceHelper.LogService?.LogDebug("MediaProjectionService: Requesting MediaProjection permission via ProjectionRequestActivity");
+
+                    // Wait for user response
+                    var result = await _permissionRequestCompletionSource.Task;
+                    _permissionRequestCompletionSource = null;
+                    if (!result)
+                    {
+                        ServiceHelper.LogService?.LogDebug("MediaProjectionService Start failed: User denied MediaProjection permission");
+                        return;
+                    }
+                }
+                catch (Exception ex)
+                {
+                    ServiceHelper.LogService?.LogDebug($"MediaProjectionService Start failed to request MediaProjection: {ex.Message}");
+                    ServiceHelper.LogService?.LogException(ex);
+                    _permissionRequestCompletionSource = null;
+                    return;
+                }
             }
 
             var physicalResolution = DisplayHelper.PhysicalResolution;
@@ -102,6 +120,22 @@ public class MediaProjectionService : IDisposable
                     _capturedOrientation = targetOrientation;
                 }
             }
+
+            // Start foreground service and wait for it to be ready
+            _foregroundServiceReadySource = new TaskCompletionSource<bool>();
+            Platform.AppContext.StartForegroundServiceCompat<ForegroundService>();
+            ServiceHelper.LogService?.LogDebug("MediaProjectionService: Started ForegroundService");
+
+            // Wait for foreground service to signal it's ready before proceeding
+            var foregroundReady = await _foregroundServiceReadySource.Task;
+            _foregroundServiceReadySource = null;
+            if (!foregroundReady)
+            {
+                ServiceHelper.LogService?.LogDebug("MediaProjectionService Start failed: Foreground service failed to start");
+                Stop();
+                return;
+            }
+            ServiceHelper.LogService?.LogDebug("MediaProjectionService: Foreground service is ready");
 
             // https://github.com/Fate-Grand-Automata/FGA/blob/2a62ab7a456a9913cf0355db81b5a15f13906f27/app/src/main/java/io/github/fate_grand_automata/runner/ScreenshotServiceHolder.kt#L53
             var activity = Platform.CurrentActivity;
@@ -154,8 +188,8 @@ public class MediaProjectionService : IDisposable
                 Toast.MakeText(Platform.CurrentActivity, "Media projection canceled...", ToastLength.Short).Show();
             }
 
-            // Set completion result if waiting for orientation change
-            _orientationChangeCompletionSource?.TrySetResult(false);
+            // Set completion result if waiting for permission request
+            _permissionRequestCompletionSource?.TrySetResult(false);
             return;
         }
 
@@ -167,12 +201,10 @@ public class MediaProjectionService : IDisposable
             Toast.MakeText(Platform.CurrentActivity, "Media projection initialized...", ToastLength.Short).Show();
         }
 
-        // Set completion result if waiting for orientation change
-        _orientationChangeCompletionSource?.TrySetResult(true);
+        // Set completion result if waiting for permission request
+        _permissionRequestCompletionSource?.TrySetResult(true);
 
-        // Start foreground service - it will detect we have media projection and use the correct type
-        // On Android 35+, the service will only start if MediaProjection is initialized
-        Platform.AppContext.StartForegroundServiceCompat<ForegroundService>();
+        // Don't start foreground service here - it will be started when Start() is called
     }
 
     private Bitmap GetBitmap()
@@ -217,6 +249,11 @@ public class MediaProjectionService : IDisposable
         Stop();
     }
 
+    public void SetForegroundServiceReady()
+    {
+        _foregroundServiceReadySource?.TrySetResult(true);
+    }
+
     public void Stop()
     {
         if (_virtualDisplay == null) return;
@@ -243,14 +280,6 @@ public class MediaProjectionService : IDisposable
         _resultCode = 0;
         _resultData = null;
         _capturedOrientation = DisplayOrientation.Portrait;
-    }
-
-    private void RequestNewProjectionToken()
-    {
-        var intent = new global::Android.Content.Intent(Platform.AppContext, typeof(Activities.ProjectionRequestActivity));
-        intent.AddFlags(global::Android.Content.ActivityFlags.NewTask);
-        intent.PutExtra("orientation_change", true);
-        Platform.AppContext.StartActivity(intent);
     }
 
     public byte[] GetCurrentImageData()

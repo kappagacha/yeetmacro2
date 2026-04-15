@@ -55,7 +55,7 @@ public class ProjectionRequestActivity : Activity
         StartActivityForResult(intent, REQUEST_MEDIA_PROJECTION);
     }
 
-    protected override void OnActivityResult(int requestCode, [GeneratedEnum] global::Android.App.Result resultCode, global::Android.Content.Intent data)
+    protected override async void OnActivityResult(int requestCode, [GeneratedEnum] global::Android.App.Result resultCode, global::Android.Content.Intent data)
     {
         base.OnActivityResult(requestCode, resultCode, data);
 
@@ -66,9 +66,6 @@ public class ProjectionRequestActivity : Activity
                 // Initialize MediaProjectionService with result
                 var projectionService = ServiceHelper.GetService<MediaProjectionService>();
                 projectionService?.Init(resultCode, data);
-
-                // Start ForegroundService (it will detect MediaProjection is ready)
-                Platform.AppContext.StartForegroundServiceCompat<ForegroundService>();
             }
 
             // Always finish - whether granted or denied

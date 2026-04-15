@@ -49,15 +49,8 @@ public class ForegroundService : Service
                     // Start with media projection type
                     Start(true);
 
-                    // Start media projection if activity is available
-                    if (Platform.CurrentActivity != null)
-                    {
-                        mediaProjectionService.Start();
-                    }
-                    else
-                    {
-                        ServiceHelper.LogService?.LogDebug("Cannot start MediaProjection in background - CurrentActivity is null");
-                    }
+                    // Signal MediaProjectionService that foreground service is ready
+                    mediaProjectionService?.SetForegroundServiceReady();
                     break;
             }
         }

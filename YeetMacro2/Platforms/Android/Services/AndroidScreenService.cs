@@ -530,7 +530,7 @@ public class AndroidScreenService : IScreenService, IDisposable
         _mediaProjectionService.TakeScreenCapture();
     }
 
-    public void StartProjectionService()
+    public async Task StartProjectionService()
     {
         if (OperatingSystem.IsAndroidVersionAtLeast(33) &&
             _context.CheckSelfPermission(global::Android.Manifest.Permission.PostNotifications) != global::Android.Content.PM.Permission.Granted)
@@ -539,17 +539,7 @@ public class AndroidScreenService : IScreenService, IDisposable
             return;
         }
 
-        if (_mediaProjectionService.IsInitialized)
-        {
-            Platform.AppContext.StartForegroundServiceCompat<ForegroundService>();
-        }
-        else
-        {
-            // Launch transparent activity for permission request
-            var intent = new global::Android.Content.Intent(Platform.AppContext, typeof(Platforms.Android.Activities.ProjectionRequestActivity));
-            intent.AddFlags(global::Android.Content.ActivityFlags.NewTask);
-            Platform.AppContext.StartActivity(intent);
-        }
+        await _mediaProjectionService.Start();
     }
 
     public void StopProjectionService()
