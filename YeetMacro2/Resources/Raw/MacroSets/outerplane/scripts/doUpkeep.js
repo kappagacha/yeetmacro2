@@ -28,8 +28,8 @@ if (settings.doUpkeep.claim.antiparticle.Value) {
     goToLobby();
 }
 
-if (settings.doUpkeep.doArena.Value) {
-    doArena();
+if (settings.doUpkeep.doArena.standard.Value) {
+    doArenaStandard();
     goToLobby();
 }
 

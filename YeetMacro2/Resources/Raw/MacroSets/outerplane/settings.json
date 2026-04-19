@@ -595,6 +595,52 @@
       }
     }
   },
+  "doTerminusIsle": {
+    "$type": "parent",
+    "$tags": [],
+    "$position": 0,
+    "$name": "doTerminusIsle",
+    "$path": "doTerminusIsle",
+    "type": {
+      "$type": "option",
+      "$options": [
+        "start",
+        "normal",
+        "withSupportPack"
+      ],
+      "$tags": [],
+      "$defaultValue": "normal",
+      "$value": "normal",
+      "$position": 0,
+      "$name": "type",
+      "$path": "doTerminusIsle.type"
+    },
+    "start": {
+      "$type": "parent",
+      "$tags": [],
+      "$position": 1,
+      "$name": "start",
+      "$path": "doTerminusIsle.start",
+      "lastRun": {
+        "$type": "timestamp",
+        "$tags": [],
+        "$defaultValue": "0001-01-01T00:00:00+00:00",
+        "$value": "2026-04-07T12:48:45.84+00:00",
+        "$position": 0,
+        "$name": "lastRun",
+        "$path": "doTerminusIsle.start.lastRun"
+      }
+    },
+    "forceRun": {
+      "$type": "boolean",
+      "$tags": [],
+      "$defaultValue": false,
+      "$value": false,
+      "$position": 2,
+      "$name": "forceRun",
+      "$path": "doTerminusIsle.forceRun"
+    }
+  },
   "doDailies": {
     "$type": "parent",
     "$tags": [],
@@ -749,13 +795,29 @@
       }
     },
     "doArena": {
-      "$type": "boolean",
+      "$type": "parent",
       "$tags": [],
-      "$defaultValue": true,
-      "$value": true,
-      "$position": 5,
+      "$position": 0,
       "$name": "doArena",
-      "$path": "doDailies.doArena"
+      "$path": "doDailies.doArena",
+      "standard": {
+        "$type": "boolean",
+        "$tags": [],
+        "$defaultValue": true,
+        "$value": true,
+        "$position": 0,
+        "$name": "standard",
+        "$path": "doDailies.doArena.standard"
+      },
+      "realTime": {
+        "$type": "boolean",
+        "$tags": [],
+        "$defaultValue": false,
+        "$value": false,
+        "$position": 0,
+        "$name": "realTime",
+        "$path": "doDailies.doArena.realTime"
+      }
     },
     "doGuildSecurityArea": {
       "$type": "boolean",
@@ -848,52 +910,6 @@
       "$path": "doDailies.doPursuitOperation"
     }
   },
-  "doTerminusIsle": {
-    "$type": "parent",
-    "$tags": [],
-    "$position": 0,
-    "$name": "doTerminusIsle",
-    "$path": "doTerminusIsle",
-    "type": {
-      "$type": "option",
-      "$options": [
-        "start",
-        "normal",
-        "withSupportPack"
-      ],
-      "$tags": [],
-      "$defaultValue": "normal",
-      "$value": "normal",
-      "$position": 0,
-      "$name": "type",
-      "$path": "doTerminusIsle.type"
-    },
-    "start": {
-      "$type": "parent",
-      "$tags": [],
-      "$position": 1,
-      "$name": "start",
-      "$path": "doTerminusIsle.start",
-      "lastRun": {
-        "$type": "timestamp",
-        "$tags": [],
-        "$defaultValue": "0001-01-01T00:00:00+00:00",
-        "$value": "2026-04-07T12:48:45.84+00:00",
-        "$position": 0,
-        "$name": "lastRun",
-        "$path": "doTerminusIsle.start.lastRun"
-      }
-    },
-    "forceRun": {
-      "$type": "boolean",
-      "$tags": [],
-      "$defaultValue": false,
-      "$value": false,
-      "$position": 2,
-      "$name": "forceRun",
-      "$path": "doTerminusIsle.forceRun"
-    }
-  },
   "doUpkeep": {
     "$type": "parent",
     "$tags": [],
@@ -959,6 +975,22 @@
         "$path": "doUpkeep.doTerminusIsle.normal"
       }
     },
+    "doArena": {
+      "$type": "parent",
+      "$tags": [],
+      "$position": 0,
+      "$name": "doArena",
+      "$path": "doUpkeep.doArena",
+      "standard": {
+        "$type": "boolean",
+        "$tags": [],
+        "$defaultValue": true,
+        "$value": true,
+        "$position": 0,
+        "$name": "standard",
+        "$path": "doUpkeep.doArena.standard"
+      }
+    },
     "doFriends": {
       "$type": "boolean",
       "$tags": [],
@@ -967,15 +999,6 @@
       "$position": 1,
       "$name": "doFriends",
       "$path": "doUpkeep.doFriends"
-    },
-    "doArena": {
-      "$type": "boolean",
-      "$tags": [],
-      "$defaultValue": true,
-      "$value": true,
-      "$position": 4,
-      "$name": "doArena",
-      "$path": "doUpkeep.doArena"
     },
     "doSpecialRequestStage13": {
       "$type": "boolean",
@@ -1149,73 +1172,93 @@
     "$position": 4,
     "$name": "doArena",
     "$path": "doArena",
-    "teamSlot": {
+    "type": {
       "$type": "option",
       "$options": [
-        "Current",
-        "1",
-        "2",
-        "3",
-        "4",
-        "5",
-        "6",
-        "7",
-        "8",
-        "9"
+        "standard",
+        "realTime"
       ],
       "$tags": [],
-      "$defaultValue": "1",
-      "$value": "1",
+      "$defaultValue": "realTime",
+      "$value": "realTime",
       "$position": 0,
-      "$name": "teamSlot",
-      "$path": "doArena.teamSlot"
+      "$name": "type",
+      "$path": "doArena.type"
     },
-    "cpThreshold": {
-      "$type": "enabledInteger",
+    "standard": {
+      "$type": "parent",
       "$tags": [],
-      "$defaultValue": 120000,
-      "$value": 120000,
-      "$isEnabled": true,
-      "$position": 0,
-      "$increment": 100,
-      "$name": "cpThreshold",
-      "$path": "doArena.cpThreshold"
-    },
-    "autoDetectCpThreshold": {
-      "$type": "boolean",
-      "$tags": [],
-      "$defaultValue": false,
-      "$value": false,
-      "$position": 0,
-      "$name": "autoDetectCpThreshold",
-      "$path": "doArena.autoDetectCpThreshold"
-    },
-    "skipMemorialMatch": {
-      "$type": "boolean",
-      "$tags": [],
-      "$defaultValue": true,
-      "$value": true,
-      "$position": 0,
-      "$name": "skipMemorialMatch",
-      "$path": "doArena.skipMemorialMatch"
-    },
-    "forceRun": {
-      "$type": "boolean",
-      "$tags": [],
-      "$defaultValue": false,
-      "$value": false,
-      "$position": 0,
-      "$name": "forceRun",
-      "$path": "doArena.forceRun"
-    },
-    "lastRun": {
-      "$type": "timestamp",
-      "$tags": [],
-      "$defaultValue": "0001-01-01T00:00:00+00:00",
-      "$value": "2026-04-07T13:03:55.118+00:00",
-      "$position": 0,
-      "$name": "lastRun",
-      "$path": "doArena.lastRun"
+      "$position": 1,
+      "$name": "standard",
+      "$path": "doArena.standard",
+      "teamSlot": {
+        "$type": "option",
+        "$options": [
+          "Current",
+          "1",
+          "2",
+          "3",
+          "4",
+          "5",
+          "6",
+          "7",
+          "8",
+          "9"
+        ],
+        "$tags": [],
+        "$defaultValue": "1",
+        "$value": "1",
+        "$position": 0,
+        "$name": "teamSlot",
+        "$path": "doArena.standard.teamSlot"
+      },
+      "cpThreshold": {
+        "$type": "enabledInteger",
+        "$tags": [],
+        "$defaultValue": 120000,
+        "$value": 120000,
+        "$isEnabled": true,
+        "$position": 0,
+        "$increment": 100,
+        "$name": "cpThreshold",
+        "$path": "doArena.standard.cpThreshold"
+      },
+      "autoDetectCpThreshold": {
+        "$type": "boolean",
+        "$tags": [],
+        "$defaultValue": false,
+        "$value": false,
+        "$position": 0,
+        "$name": "autoDetectCpThreshold",
+        "$path": "doArena.standard.autoDetectCpThreshold"
+      },
+      "skipMemorialMatch": {
+        "$type": "boolean",
+        "$tags": [],
+        "$defaultValue": true,
+        "$value": true,
+        "$position": 0,
+        "$name": "skipMemorialMatch",
+        "$path": "doArena.standard.skipMemorialMatch"
+      },
+      "forceRun": {
+        "$type": "boolean",
+        "$tags": [],
+        "$defaultValue": false,
+        "$value": false,
+        "$position": 0,
+        "$name": "forceRun",
+        "$path": "doArena.standard.forceRun"
+      },
+      "lastRun": {
+        "$type": "timestamp",
+        "$tags": [],
+        "$defaultValue": "0001-01-01T00:00:00+00:00",
+        "$value": "2026-04-07T13:03:55.118+00:00",
+        "$position": 0,
+        "$name": "lastRun",
+        "$path": "doArena.standard.lastRun"
+      }
     }
   },
   "doGuildSecurityArea": {

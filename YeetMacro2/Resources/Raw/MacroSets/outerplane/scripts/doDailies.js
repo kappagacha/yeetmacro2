@@ -22,8 +22,13 @@ if (settings.doDailies.claim.freeRecruit.Value) {
     goToLobby();
 }
 
-if (settings.doDailies.doArena.Value) {
-    doArena();
+if (settings.doDailies.doArena.standard.Value) {
+    doArenaStandard();
+    goToLobby();
+}
+
+if (settings.doDailies.doArena.realTime.Value) {
+    doArenaRealTime();
     goToLobby();
 }
 
