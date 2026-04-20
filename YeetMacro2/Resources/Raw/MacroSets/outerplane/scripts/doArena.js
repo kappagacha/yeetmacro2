@@ -157,9 +157,9 @@ function doArenaStandard() {
 }
 
 function doArenaRealTime() {
-	const loopPatterns = [patterns.lobby.level, patterns.titles.adventure, patterns.titles.arena, patterns.arena.realTime.startMatch, patterns.arena.realTime.mastersLeague.preBan, patterns.arena.matchResult];
+	const loopPatterns = [patterns.lobby.level, patterns.titles.adventure, patterns.titles.arena, patterns.arena.realTime.mastersLeague.preBan, patterns.arena.realTime.tacticsLeague.pause, patterns.arena.matchResult];
 	const daily = dailyManager.GetCurrentDaily();
-	const clickPattern = [patterns.arena.defendReport.close, patterns.arena.newLeague, patterns.arena.tapEmptySpace, patterns.adventure.doNotSeeFor3days];
+	const clickPattern = [patterns.arena.realTime.mastersLeague.startMatch, patterns.arena.realTime.tacticsLeague.battlePrep, patterns.arena.realTime.tacticsLeague.startMatch, patterns.arena.newLeague, patterns.adventure.doNotSeeFor3days, patterns.arena.realTime.retryMatching.ok];
 
 	if (daily.doArena.realTime.done.IsChecked) {
 		return "Script already completed.";
@@ -190,6 +190,13 @@ function doArenaRealTime() {
 				macroService.PollPattern(patterns.arena.realTime.mastersLeague.preBan.select, { DoClick: true, PredicatePattern: patterns.arena.realTime.back });
 				macroService.PollPattern(patterns.arena.realTime.back, { DoClick: true, PredicatePattern: patterns.arena.realTime.back.ok });
 				macroService.PollPattern(patterns.arena.realTime.back.ok, { DoClick: true, PredicatePattern: patterns.arena.matchResult });
+				daily.doArena.realTime.count.Count++;
+				break;
+			case 'arena.realTime.tacticsLeague.pause':
+				// handle tactic's league
+				macroService.PollPattern(patterns.arena.realTime.tacticsLeague.pause, { DoClick: true, PredicatePattern: patterns.arena.realTime.tacticsLeague.giveUp });
+				macroService.PollPattern(patterns.arena.realTime.tacticsLeague.giveUp, { DoClick: true, PredicatePattern: patterns.arena.realTime.tacticsLeague.giveUp.ok });
+				macroService.PollPattern(patterns.arena.realTime.tacticsLeague.giveUp.ok, { DoClick: true, PredicatePattern: patterns.arena.matchResult });
 				daily.doArena.realTime.count.Count++;
 				break;
 			case 'arena.matchResult':
