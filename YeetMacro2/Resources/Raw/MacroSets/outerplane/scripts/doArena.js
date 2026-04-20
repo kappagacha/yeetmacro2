@@ -181,9 +181,6 @@ function doArenaRealTime() {
 			case 'titles.arena':
 				macroService.ClickPattern(patterns.arena.realTime);
 				break;
-			case 'arena.realTime.startMatch':
-				macroService.ClickPattern(patterns.arena.realTime.startMatch);
-				break;
 			case 'arena.realTime.mastersLeague.preBan':
 				// handle master's league
 				macroService.PollPattern([patterns.arena.realTime.mastersLeague.preBan.monadEva, patterns.arena.realTime.mastersLeague.preBan.demiurgeVlada], { DoClick: true, PredicatePattern: patterns.arena.realTime.mastersLeague.preBan.select });
@@ -194,14 +191,18 @@ function doArenaRealTime() {
 				break;
 			case 'arena.realTime.tacticsLeague.pause':
 				// handle tactic's league
-				macroService.PollPattern(patterns.arena.realTime.tacticsLeague.pause, { DoClick: true, PredicatePattern: patterns.arena.realTime.tacticsLeague.giveUp });
-				macroService.PollPattern(patterns.arena.realTime.tacticsLeague.giveUp, { DoClick: true, PredicatePattern: patterns.arena.realTime.tacticsLeague.giveUp.ok });
+				macroService.PollPattern(patterns.arena.realTime.tacticsLeague.pause, { DoClick: true, PredicatePattern: [patterns.arena.realTime.tacticsLeague.giveUp, patterns.arena.matchResult] });
+				macroService.PollPattern(patterns.arena.realTime.tacticsLeague.giveUp, { DoClick: true, PredicatePattern: [patterns.arena.realTime.tacticsLeague.giveUp.ok, patterns.arena.matchResult] });
 				macroService.PollPattern(patterns.arena.realTime.tacticsLeague.giveUp.ok, { DoClick: true, PredicatePattern: patterns.arena.matchResult });
 				daily.doArena.realTime.count.Count++;
 				break;
 			case 'arena.matchResult':
 				if (daily.doArena.realTime.count.Count >= 3) {
-					macroService.PollPattern(patterns.arena.realTime.matchResultOk, { DoClick: true, PredicatePattern: patterns.arena.realTime.startMatch });
+					macroService.PollPattern(patterns.arena.realTime.matchResultOk, {
+						DoClick: true,
+						ClickPattern: patterns.arena.realTime.matchResultOk.tapEmptySpace,
+						PredicatePattern: [patterns.arena.realTime.mastersLeague.startMatch, patterns.arena.realTime.tacticsLeague.startMatch]
+					});
 					daily.doArena.realTime.done.IsChecked = true;
 					return;
 				}
