@@ -55,7 +55,7 @@ if (settings.doDailies.watchAds.Value) {
 if (settings.doDailies.doShop.Value) {
     doShop();
     // after getting arena tickets, reset doArena lastRun so it can run again
-    settings.doArena.lastRun.Value = null;
+    settings.doArena.standard.lastRun.Value = null;
     goToLobby();
 }
 
