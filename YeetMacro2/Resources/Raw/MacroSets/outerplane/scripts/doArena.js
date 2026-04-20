@@ -133,7 +133,7 @@ function doArenaStandard() {
 					macroService.PollPattern(patterns.arena.enter, { DoClick: true, PredicatePattern: patterns.arena.matchResult });
 					//macroService.PollPattern(patterns.arena.enter, { DoClick: true, PredicatePattern: patterns.arena.auto.disabled });
 					//macroService.PollPattern(patterns.arena.auto.disabled, { DoClick: true, PredicatePattern: patterns.arena.matchResult });
-					if (macroService.IsRunning) daily.doArena.count.Count++;
+					if (macroService.IsRunning) daily.doArena.standard.count.Count++;
 					macroService.PollPattern(patterns.prompt.ok, { DoClick: true, ClickPattern: [patterns.arena.tapEmptySpace, patterns.arena.defendReport.close], PredicatePattern: patterns.titles.arena });
 				}
 				break;
