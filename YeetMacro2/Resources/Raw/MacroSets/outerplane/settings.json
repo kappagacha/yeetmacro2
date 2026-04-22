@@ -1046,69 +1046,20 @@
     "$position": 2,
     "$name": "sweepAll",
     "$path": "sweepAll",
-    "elementTypeTarget1": {
+    "arkRaidTarget": {
       "$type": "option",
       "$options": [
-        "earth",
-        "water",
-        "fire",
-        "light",
-        "dark"
+        "blacksmith",
+        "affinity",
+        "gem",
+        "skill"
       ],
       "$tags": [],
-      "$defaultValue": "dark",
-      "$value": "dark",
+      "$defaultValue": "skill",
+      "$value": "skill",
       "$position": 0,
-      "$name": "elementTypeTarget1",
-      "$path": "sweepAll.elementTypeTarget1"
-    },
-    "elementTypeTarget2": {
-      "$type": "option",
-      "$options": [
-        "earth",
-        "water",
-        "fire",
-        "light",
-        "dark"
-      ],
-      "$tags": [],
-      "$defaultValue": "water",
-      "$value": "water",
-      "$position": 0,
-      "$name": "elementTypeTarget2",
-      "$path": "sweepAll.elementTypeTarget2"
-    },
-    "elementTypeTarget3": {
-      "$type": "option",
-      "$options": [
-        "earth",
-        "water",
-        "fire",
-        "light",
-        "dark"
-      ],
-      "$tags": [],
-      "$defaultValue": "earth",
-      "$value": "earth",
-      "$position": 0,
-      "$name": "elementTypeTarget3",
-      "$path": "sweepAll.elementTypeTarget3"
-    },
-    "elementTypeTarget4": {
-      "$type": "option",
-      "$options": [
-        "earth",
-        "water",
-        "fire",
-        "light",
-        "dark"
-      ],
-      "$tags": [],
-      "$defaultValue": "fire",
-      "$value": "fire",
-      "$position": 0,
-      "$name": "elementTypeTarget4",
-      "$path": "sweepAll.elementTypeTarget4"
+      "$name": "arkRaidTarget",
+      "$path": "sweepAll.arkRaidTarget"
     }
   },
   "claim": {
