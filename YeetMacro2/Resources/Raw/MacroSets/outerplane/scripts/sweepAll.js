@@ -36,7 +36,7 @@ while (macroService.IsRunning) {
 				if (macroService.IsRunning) daily.sweepAll.storyHard.IsChecked = true;
 			}
 
-			if (macroService.IsRunning) daily.sweepAll.done.IsChecked = daily.sweepAll.storyHard.IsChecked && daily.sweepAll.resourceDungeon.IsChecked;
+			if (macroService.IsRunning) daily.sweepAll.done.IsChecked = daily.sweepAll.storyHard.IsChecked && daily.sweepAll.arkRaid.IsChecked;
 			return;
 	}
 	sleep(1_000);
