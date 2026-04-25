@@ -44,6 +44,12 @@ while (macroService.IsRunning) {
 				macroService.PollPattern(patterns.event.move.close, { DoClick: true, PredicatePattern: patterns.titles.jointChallenge });
 			}
 
+			let achievementRewardNotification = macroService.PollPattern(patterns.jointChallenge.achievementReward.notification, { TimeoutMs: 2_000 });
+			if (achievementRewardNotification.IsSuccess) {
+				macroService.PollPattern(patterns.jointChallenge.achievementReward.notification, { DoClick: true, PredicatePattern: patterns.general.tapEmptySpace });
+				macroService.PollPattern(patterns.general.tapEmptySpace, { DoClick: true, PredicatePattern: patterns.titles.jointChallenge });
+			}
+
 			logger.info('sweepJointChallenge: sweep joint challenge');
 			macroService.PollPattern(patterns.jointChallenge[jointChallengeLevel], { DoClick: true, PredicatePattern: patterns.battle.setup.auto });
 			macroService.PollPattern(patterns.battle.setup.auto, { DoClick: true, PredicatePattern: patterns.battle.setup.sweep });
