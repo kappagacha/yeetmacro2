@@ -2955,8 +2955,8 @@
         "tower"
       ],
       "$tags": [],
-      "$defaultValue": "general",
-      "$value": "general",
+      "$defaultValue": "tower",
+      "$value": "tower",
       "$position": 0,
       "$name": "type",
       "$path": "selectTeamSpecial.type"
