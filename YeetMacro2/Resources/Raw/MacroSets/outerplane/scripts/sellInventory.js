@@ -25,6 +25,7 @@ while (macroService.IsRunning) {
 			sellLowStarEpic(doDismantle);
 
 			if (macroService.IsRunning) {
+				if (doDismantle) weekly.sellInventory.doDismantleOnce.IsChecked = true;
 				daily.sellInventory.done.IsChecked = true;
 			}
 			return;
