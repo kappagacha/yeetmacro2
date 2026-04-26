@@ -181,6 +181,7 @@ function selectTeamTower() {
 	const atLeastOne_earth = macroService.FindPattern(patterns.battle.conditions.atLeastOne_earth, findPatternOpts).IsSuccess;
 	const atLeastOne_fire = macroService.FindPattern(patterns.battle.conditions.atLeastOne_fire, findPatternOpts).IsSuccess;
 	//const atLeastOne_dark = macroService.FindPattern(patterns.battle.conditions.atLeastOne_dark, findPatternOpts).IsSuccess;
+	const atLeastOne_water = macroService.FindPattern(patterns.battle.conditions.atLeastOne_water, findPatternOpts).IsSuccess;
 
 	if (atLeastOne_twoStar) {
 		idealTeam.right = { name: 'faenen' };
@@ -203,6 +204,9 @@ function selectTeamTower() {
 	}
 	if (atLeastOne_earth) {
 		idealTeam.bottom = { name: 'delta' };
+	}
+	if (atLeastOne_water) {
+		idealTeam.bottom = { name: 'tamara' };
 	}
 	if (atLeastOne_defender) {
 		idealTeam.left = { name: 'monadEva' };

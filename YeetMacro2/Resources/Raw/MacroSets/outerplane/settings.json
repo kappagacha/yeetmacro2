@@ -1085,8 +1085,8 @@
         "mailboxProduct"
       ],
       "$tags": [],
-      "$defaultValue": "arenaRewards",
-      "$value": "arenaRewards",
+      "$defaultValue": "mailboxProduct",
+      "$value": "mailboxProduct",
       "$position": 0,
       "$name": "type",
       "$path": "claim.type"
