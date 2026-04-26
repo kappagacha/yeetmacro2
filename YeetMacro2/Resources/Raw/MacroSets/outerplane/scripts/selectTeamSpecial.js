@@ -387,7 +387,7 @@ function applyTeamConfiguration(team, chainOrderOpts = {}) {
 			macroService.PollPattern(patterns.battle.teamFormation[location], { DoClick: true, PredicatePattern: [patterns.battle.teamFormation[location].remove, patterns.battle.teamFormation[location].add], PrimaryClickInversePredicatePattern: patterns.battle.teamFormation[location].remove });
 		}
 
-		const allCharacterResult = macroService.PollPattern(allCharacterPattern, { DoClick: true, ClickPattern: patterns.battle.teamFormation[location].add, PredicatePattern: characterPattern, TimeoutMs: 3_000 });
+		const allCharacterResult = macroService.PollPattern(allCharacterPattern, { DoClick: true, ClickPattern: [patterns.battle.teamFormation[location].add, patterns.battle.teamFormation[location].remove], PredicatePattern: characterPattern, TimeoutMs: 3_000 });
 		if (!allCharacterResult.IsSuccess) {
 			throw new Error(`Could not find ${character.name}`);
 		}
