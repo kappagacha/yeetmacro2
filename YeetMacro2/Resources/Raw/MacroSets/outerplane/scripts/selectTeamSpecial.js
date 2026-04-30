@@ -143,6 +143,7 @@ function selectTeamTower() {
 		'lightStella',          // very hard 15
 		'waterLaplace',         // very hard 17
 		'darkIota',             // very hard 20
+		'darkSigma',             // very hard 20
 	].map(bt => patterns.battle.boss[bt]);
 	const bossTypeResult = macroService.FindPattern(bossTypePatterns);
 	const bossType = bossTypeResult.Path?.split('.').pop();
@@ -273,6 +274,9 @@ function selectTeamTower() {
 		idealTeam.right = { name: 'monadEva' };
 		idealTeam.bottom = { name: 'marian', presetOverride: '#GN NELLA' };
 	}
+	if (bossType === 'darkSigma') {
+		idealTeam.bottom = { name: 'roxie' };
+	}
 
 	applyTeamConfiguration(idealTeam, chainOrderOpts);
 }
@@ -333,6 +337,7 @@ function applyTeamConfiguration(team, chainOrderOpts = {}) {
 		viella: { element: 'earth', battleType: 'healer' },
 		vera: { element: 'dark', battleType: 'striker' },
 		demiurgeStella: { element: 'light', battleType: 'striker' },
+		roxie: { element: 'water', battleType: 'mage' },
 	};
 
 	const locationToCharacterCloneOpts = {
