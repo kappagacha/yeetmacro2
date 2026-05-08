@@ -1082,11 +1082,12 @@
         "guildBuff",
         "mailboxExpiring",
         "mailboxNormal",
-        "mailboxProduct"
+        "mailboxProduct",
+        "worldBossRewards"
       ],
       "$tags": [],
-      "$defaultValue": "mailboxProduct",
-      "$value": "mailboxProduct",
+      "$defaultValue": "worldBossRewards",
+      "$value": "worldBossRewards",
       "$position": 0,
       "$name": "type",
       "$path": "claim.type"
