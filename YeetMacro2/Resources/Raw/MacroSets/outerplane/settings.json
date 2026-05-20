@@ -1086,8 +1086,8 @@
         "worldBossRewards"
       ],
       "$tags": [],
-      "$defaultValue": "worldBossRewards",
-      "$value": "worldBossRewards",
+      "$defaultValue": "eventDailyMissions2",
+      "$value": "eventDailyMissions2",
       "$position": 0,
       "$name": "type",
       "$path": "claim.type"
@@ -2956,8 +2956,8 @@
         "tower"
       ],
       "$tags": [],
-      "$defaultValue": "tower",
-      "$value": "tower",
+      "$defaultValue": "general",
+      "$value": "general",
       "$position": 0,
       "$name": "type",
       "$path": "selectTeamSpecial.type"
@@ -2965,8 +2965,8 @@
     "useAlternateTeams": {
       "$type": "boolean",
       "$tags": [],
-      "$defaultValue": true,
-      "$value": true,
+      "$defaultValue": false,
+      "$value": false,
       "$position": 1,
       "$name": "useAlternateTeams",
       "$path": "selectTeamSpecial.useAlternateTeams"
