@@ -1086,8 +1086,8 @@
         "worldBossRewards"
       ],
       "$tags": [],
-      "$defaultValue": "eventDailyMissions2",
-      "$value": "eventDailyMissions2",
+      "$defaultValue": "worldBossRewards",
+      "$value": "worldBossRewards",
       "$position": 0,
       "$name": "type",
       "$path": "claim.type"
@@ -2924,11 +2924,12 @@
         "applyPreset",
         "explorationOrders",
         "mailboxExpiring",
-        "shop"
+        "shop",
+        "unitTitleAndName"
       ],
       "$tags": [],
-      "$defaultValue": "currentStaminaValue",
-      "$value": "currentStaminaValue",
+      "$defaultValue": "unitTitleAndName",
+      "$value": "unitTitleAndName",
       "$position": 0,
       "$name": "type",
       "$path": "test.type"
@@ -2956,8 +2957,8 @@
         "tower"
       ],
       "$tags": [],
-      "$defaultValue": "general",
-      "$value": "general",
+      "$defaultValue": "tower",
+      "$value": "tower",
       "$position": 0,
       "$name": "type",
       "$path": "selectTeamSpecial.type"
@@ -2965,8 +2966,8 @@
     "useAlternateTeams": {
       "$type": "boolean",
       "$tags": [],
-      "$defaultValue": false,
-      "$value": false,
+      "$defaultValue": true,
+      "$value": true,
       "$position": 1,
       "$name": "useAlternateTeams",
       "$path": "selectTeamSpecial.useAlternateTeams"

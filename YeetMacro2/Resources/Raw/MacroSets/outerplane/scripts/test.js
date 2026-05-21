@@ -162,4 +162,7 @@ if (settings.test.type.Value === 'arenaTicketCount') {
 	});
 
 	return textResults;
+} else if (settings.test.type.Value === 'unitTitleAndName') {
+	const unitTitleAndName = macroService.FindText(patterns.battle.teamFormation.unitTitleAndName);
+	return unitTitleAndName;
 }
