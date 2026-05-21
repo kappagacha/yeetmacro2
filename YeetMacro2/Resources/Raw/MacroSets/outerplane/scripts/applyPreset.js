@@ -40,10 +40,12 @@ function applyPreset(teamSlot, opts = {}) {
 		const battleTypeAbbreviation = battleTypeToAbbreviation[battleType];
 		let gearSet = "..."
 		let primaryStat = "..."
-		if (unitTitleAndName.match(/The.*?Memorizer.*?Caren/ism) || unitTitleAndName.match(/Blazing.*?Fighter.*?Kano/ism) || unitTitleAndName.match(/Honorable.*?Knight/ism)) {
+		if (unitTitleAndName.match(/The.*?Memorizer.*?Caren/ism) || unitTitleAndName.match(/Blazing.*?Fighter.*?Kano/ism) ||
+			unitTitleAndName.match(/Honorable.*?Knight/ism) || unitTitleAndName.match(/Gnosis.*?Domine.*/ism)) {
 			primaryStat = 'DEF';
 			delimiter = '#';
-		} else if (unitTitleAndName.match(/Self.*?Del/ism) || unitTitleAndName.match(/Ruin.*T[uoa]m[uoa]m[ao]/ism) || unitTitleAndName.match(/Gnosis.*?Vie[lI][lI]a.*/ism)) {
+		} else if (unitTitleAndName.match(/Self.*?Del/ism) || unitTitleAndName.match(/Ruin.*?T[uoa]m[uoa]m[ao]/ism) ||
+			unitTitleAndName.match(/Gnosis.*?Vie[lI][lI]a.*/ism) || unitTitleAndName.match(/.*?Rush.*?sk.di.*/ism)) {
 			primaryStat = 'HLT';
 			delimiter = '#';
 		}
