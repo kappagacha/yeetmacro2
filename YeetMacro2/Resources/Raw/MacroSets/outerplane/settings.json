@@ -910,6 +910,26 @@
       "$path": "doDailies.doPursuitOperation"
     }
   },
+  "doMonadGate": {
+    "$type": "parent",
+    "$tags": [],
+    "$position": 0,
+    "$name": "doMonadGate",
+    "$path": "doMonadGate",
+    "type": {
+      "$type": "option",
+      "$options": [
+        "normal",
+        "dimensionalSingularity"
+      ],
+      "$tags": [],
+      "$defaultValue": "normal",
+      "$value": "normal",
+      "$position": 0,
+      "$name": "type",
+      "$path": "doMonadGate.type"
+    }
+  },
   "doUpkeep": {
     "$type": "parent",
     "$tags": [],
@@ -1738,32 +1758,114 @@
     "$position": 15,
     "$name": "doWeeklies",
     "$path": "doWeeklies",
-    "claimWeeklyMissions": {
-      "$type": "boolean",
+    "type": {
+      "$type": "option",
+      "$options": [
+        "weeklies",
+        "claimWeeklyMissions",
+        "craft",
+        "shop",
+        "adventureLicence",
+        "monadGate"
+      ],
       "$tags": [],
-      "$defaultValue": true,
-      "$value": true,
+      "$defaultValue": "weeklies",
+      "$value": "weeklies",
       "$position": 0,
-      "$name": "claimWeeklyMissions",
-      "$path": "doWeeklies.claimWeeklyMissions"
+      "$name": "type",
+      "$path": "doWeeklies.type"
     },
-    "doWeeklyCraft": {
+    "craft": {
+      "$type": "enabledParent",
+      "$tags": [],
+      "$isEnabled": true,
+      "$position": 0,
+      "$name": "craft",
+      "$path": "doWeeklies.craft",
+      "specialEnhancement": {
+        "$type": "parent",
+        "$tags": [],
+        "$position": 0,
+        "$name": "specialEnhancement",
+        "$path": "doWeeklyCraft.specialEnhancement",
+        "armorGlunite": {
+          "$type": "boolean",
+          "$tags": [],
+          "$defaultValue": true,
+          "$value": true,
+          "$position": 0,
+          "$name": "armorGlunite",
+          "$path": "doWeeklyCraft.specialEnhancement.armorGlunite"
+        },
+        "specialGearEnhancement": {
+          "$type": "parent",
+          "$tags": [],
+          "$position": 0,
+          "$name": "specialGearEnhancement",
+          "$path": "doWeeklyCraft.specialEnhancement.specialGearEnhancement",
+          "talisman": {
+            "$type": "boolean",
+            "$tags": [],
+            "$defaultValue": true,
+            "$value": true,
+            "$position": 0,
+            "$name": "talisman",
+            "$path": "doWeeklyCraft.specialEnhancement.specialGearEnhancement.talisman"
+          },
+          "gear": {
+            "$type": "boolean",
+            "$tags": [],
+            "$defaultValue": true,
+            "$value": true,
+            "$position": 0,
+            "$name": "gear",
+            "$path": "doWeeklyCraft.specialEnhancement.specialGearEnhancement.gear"
+          }
+        },
+        "greaterEnhancement": {
+          "$type": "parent",
+          "$tags": [],
+          "$position": 0,
+          "$name": "greaterEnhancement",
+          "$path": "doWeeklyCraft.specialEnhancement.greaterEnhancement",
+          "talisman": {
+            "$type": "boolean",
+            "$tags": [],
+            "$defaultValue": false,
+            "$value": false,
+            "$position": 0,
+            "$name": "talisman",
+            "$path": "doWeeklyCraft.specialEnhancement.greaterEnhancement.talisman"
+          },
+          "gear": {
+            "$type": "boolean",
+            "$tags": [],
+            "$defaultValue": false,
+            "$value": false,
+            "$position": 0,
+            "$name": "gear",
+            "$path": "doWeeklyCraft.specialEnhancement.greaterEnhancement.gear"
+          }
+        }
+      }
+    },
+    "claimMissions": {
       "$type": "boolean",
       "$tags": [],
       "$defaultValue": true,
       "$value": true,
       "$position": 1,
-      "$name": "doWeeklyCraft",
-      "$path": "doWeeklies.doWeeklyCraft"
+      "$name": "claimMissions",
+      "$path": "doWeeklies.claimMissions"
     },
-    "doWeeklyShop": {
+    "shop": {
       "$type": "boolean",
       "$tags": [],
       "$defaultValue": true,
       "$value": true,
-      "$position": 2,
-      "$name": "doWeeklyShop",
-      "$path": "doWeeklies.doWeeklyShop"
+      "$position": 3,
+      "$name": "shop",
+      "$path": "doWeeklies.shop"
     }
   },
   "doShop": {
@@ -2239,79 +2341,6 @@
       "$position": 10,
       "$name": "lastApplied",
       "$path": "applyPreset.lastApplied"
-    }
-  },
-  "doWeeklyCraft": {
-    "$type": "parent",
-    "$tags": [],
-    "$position": 27,
-    "$name": "doWeeklyCraft",
-    "$path": "doWeeklyCraft",
-    "specialEnhancement": {
-      "$type": "parent",
-      "$tags": [],
-      "$position": 0,
-      "$name": "specialEnhancement",
-      "$path": "doWeeklyCraft.specialEnhancement",
-      "armorGlunite": {
-        "$type": "boolean",
-        "$tags": [],
-        "$defaultValue": true,
-        "$value": true,
-        "$position": 0,
-        "$name": "armorGlunite",
-        "$path": "doWeeklyCraft.specialEnhancement.armorGlunite"
-      },
-      "specialGearEnhancement": {
-        "$type": "parent",
-        "$tags": [],
-        "$position": 0,
-        "$name": "specialGearEnhancement",
-        "$path": "doWeeklyCraft.specialEnhancement.specialGearEnhancement",
-        "talisman": {
-          "$type": "boolean",
-          "$tags": [],
-          "$defaultValue": true,
-          "$value": true,
-          "$position": 0,
-          "$name": "talisman",
-          "$path": "doWeeklyCraft.specialEnhancement.specialGearEnhancement.talisman"
-        },
-        "gear": {
-          "$type": "boolean",
-          "$tags": [],
-          "$defaultValue": true,
-          "$value": true,
-          "$position": 0,
-          "$name": "gear",
-          "$path": "doWeeklyCraft.specialEnhancement.specialGearEnhancement.gear"
-        }
-      },
-      "greaterEnhancement": {
-        "$type": "parent",
-        "$tags": [],
-        "$position": 0,
-        "$name": "greaterEnhancement",
-        "$path": "doWeeklyCraft.specialEnhancement.greaterEnhancement",
-        "talisman": {
-          "$type": "boolean",
-          "$tags": [],
-          "$defaultValue": false,
-          "$value": false,
-          "$position": 0,
-          "$name": "talisman",
-          "$path": "doWeeklyCraft.specialEnhancement.greaterEnhancement.talisman"
-        },
-        "gear": {
-          "$type": "boolean",
-          "$tags": [],
-          "$defaultValue": false,
-          "$value": false,
-          "$position": 0,
-          "$name": "gear",
-          "$path": "doWeeklyCraft.specialEnhancement.greaterEnhancement.gear"
-        }
-      }
     }
   },
   "watchAds": {
