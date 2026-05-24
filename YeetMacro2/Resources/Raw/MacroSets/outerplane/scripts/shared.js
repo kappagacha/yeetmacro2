@@ -268,29 +268,58 @@ function doShopItems(scriptName, shopType, shopItems, isWeekly = false) {
 	const daily = dailyManager.GetCurrentDaily();
 	const todo = isWeekly ? weekly : daily;
 
-	for (const shopItem of shopItems) {
-		if (settings[scriptName][shopType][shopItem].Value && !todo[scriptName][shopType][shopItem].IsChecked) {
-			logger.info(`${scriptName}: purchase shopItem ${shopItem}`);
+	if (isWeekly) {
+		for (const shopItem of shopItems) {
+			if (settings.doWeeklies.shop[shopType][shopItem].Value && !todo.doWeeklies.shop[shopType][shopItem].IsChecked) {
+				logger.info(`${scriptName}: purchase shopItem ${shopItem}`);
 
-			const findShopItemResult = findShopItem(shopItem);
-			const shopItemPurchasePattern = macroService.ClonePattern(patterns.shop.purchase, {
-				X: findShopItemResult.point.X + 100,
-				Y: findShopItemResult.point.Y + 200,
-				Width: 250,
-				Height: 200,
-				PathSuffix: `_${shopType}_${shopItem}_${findShopItemResult.point.X}x_${findShopItemResult.point.Y}y`,
-				OffsetCalcType: 'None'
-			});
+				const findShopItemResult = findShopItem(shopItem);
+				const shopItemPurchasePattern = macroService.ClonePattern(patterns.shop.purchase, {
+					X: findShopItemResult.point.X + 100,
+					Y: findShopItemResult.point.Y + 200,
+					Width: 250,
+					Height: 200,
+					PathSuffix: `_${shopType}_${shopItem}_${findShopItemResult.point.X}x_${findShopItemResult.point.Y}y`,
+					OffsetCalcType: 'None'
+				});
 
-			macroService.PollPattern(shopItemPurchasePattern, { DoClick: true, PredicatePattern: patterns.shop.purchase.ok });
-			const maxResult = macroService.FindPattern(patterns.shop.purchase.max);
-			if (maxResult.IsSuccess) {
-				macroService.PollPattern(patterns.shop.purchase.max, { DoClick: true, PredicatePattern: patterns.shop.purchase.sliderMax });
+				macroService.PollPattern(shopItemPurchasePattern, { DoClick: true, PredicatePattern: patterns.shop.purchase.ok });
+				const maxResult = macroService.FindPattern(patterns.shop.purchase.max);
+				if (maxResult.IsSuccess) {
+					macroService.PollPattern(patterns.shop.purchase.max, { DoClick: true, PredicatePattern: patterns.shop.purchase.sliderMax });
+				}
+				macroService.PollPattern(patterns.shop.purchase.ok, { DoClick: true, PredicatePattern: patterns.general.tapEmptySpace, TimeoutMs: 3_500 });
+				macroService.PollPattern(patterns.general.tapEmptySpace, { DoClick: true, PredicatePattern: [patterns.titles.adventurerShop, patterns.titles.shop, patterns.shop.premium.title] });
+				if (macroService.IsRunning) {
+					todo.doWeeklies.shop[shopType][shopItem].IsChecked = true;
+				}
 			}
-			macroService.PollPattern(patterns.shop.purchase.ok, { DoClick: true, PredicatePattern: patterns.general.tapEmptySpace, TimeoutMs: 3_500 });
-			macroService.PollPattern(patterns.general.tapEmptySpace, { DoClick: true, PredicatePattern: [patterns.titles.adventurerShop, patterns.titles.shop, patterns.shop.premium.title] });
-			if (macroService.IsRunning) {
-				todo[scriptName][shopType][shopItem].IsChecked = true;
+		}
+	} else {
+		for (const shopItem of shopItems) {
+			if (settings[scriptName][shopType][shopItem].Value && !todo[scriptName][shopType][shopItem].IsChecked) {
+				logger.info(`${scriptName}: purchase shopItem ${shopItem}`);
+
+				const findShopItemResult = findShopItem(shopItem);
+				const shopItemPurchasePattern = macroService.ClonePattern(patterns.shop.purchase, {
+					X: findShopItemResult.point.X + 100,
+					Y: findShopItemResult.point.Y + 200,
+					Width: 250,
+					Height: 200,
+					PathSuffix: `_${shopType}_${shopItem}_${findShopItemResult.point.X}x_${findShopItemResult.point.Y}y`,
+					OffsetCalcType: 'None'
+				});
+
+				macroService.PollPattern(shopItemPurchasePattern, { DoClick: true, PredicatePattern: patterns.shop.purchase.ok });
+				const maxResult = macroService.FindPattern(patterns.shop.purchase.max);
+				if (maxResult.IsSuccess) {
+					macroService.PollPattern(patterns.shop.purchase.max, { DoClick: true, PredicatePattern: patterns.shop.purchase.sliderMax });
+				}
+				macroService.PollPattern(patterns.shop.purchase.ok, { DoClick: true, PredicatePattern: patterns.general.tapEmptySpace, TimeoutMs: 3_500 });
+				macroService.PollPattern(patterns.general.tapEmptySpace, { DoClick: true, PredicatePattern: [patterns.titles.adventurerShop, patterns.titles.shop, patterns.shop.premium.title] });
+				if (macroService.IsRunning) {
+					todo[scriptName][shopType][shopItem].IsChecked = true;
+				}
 			}
 		}
 	}

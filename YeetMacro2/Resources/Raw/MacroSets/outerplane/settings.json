@@ -1428,314 +1428,6 @@
       "$path": "doInfiniteCorridor.targetReward"
     }
   },
-  "doWeeklyShop": {
-    "$type": "parent",
-    "$tags": [],
-    "$position": 13,
-    "$name": "doWeeklyShop",
-    "$path": "doWeeklyShop",
-    "resource": {
-      "$type": "parent",
-      "$tags": [],
-      "$position": 0,
-      "$name": "resource",
-      "$path": "doWeeklyShop.resource",
-      "basicSkillManual": {
-        "$type": "boolean",
-        "$tags": [],
-        "$defaultValue": true,
-        "$value": true,
-        "$position": 0,
-        "$name": "basicSkillManual",
-        "$path": "doWeeklyShop.resource.basicSkillManual"
-      },
-      "intermediateSkillManual": {
-        "$type": "boolean",
-        "$tags": [],
-        "$defaultValue": true,
-        "$value": true,
-        "$position": 0,
-        "$name": "intermediateSkillManual",
-        "$path": "doWeeklyShop.resource.intermediateSkillManual"
-      }
-    },
-    "friendshipPoint": {
-      "$type": "parent",
-      "$tags": [],
-      "$position": 1,
-      "$name": "friendshipPoint",
-      "$path": "doWeeklyShop.friendshipPoint",
-      "upgradeStoneSelectionChest": {
-        "$type": "boolean",
-        "$tags": [],
-        "$defaultValue": true,
-        "$value": true,
-        "$position": 0,
-        "$name": "upgradeStoneSelectionChest",
-        "$path": "doWeeklyShop.friendshipPoint.upgradeStoneSelectionChest"
-      },
-      "lowStarHeroPieceTicket": {
-        "$type": "boolean",
-        "$tags": [],
-        "$defaultValue": true,
-        "$value": true,
-        "$position": 0,
-        "$name": "lowStarHeroPieceTicket",
-        "$path": "doWeeklyShop.friendshipPoint.lowStarHeroPieceTicket"
-      },
-      "threeStarHeroPieceTicket": {
-        "$type": "boolean",
-        "$tags": [],
-        "$defaultValue": true,
-        "$value": true,
-        "$position": 0,
-        "$name": "threeStarHeroPieceTicket",
-        "$path": "doWeeklyShop.friendshipPoint.threeStarHeroPieceTicket"
-      }
-    },
-    "arena": {
-      "$type": "parent",
-      "$tags": [],
-      "$position": 2,
-      "$name": "arena",
-      "$path": "doWeeklyShop.arena",
-      "basicSkillManual": {
-        "$type": "boolean",
-        "$tags": [],
-        "$defaultValue": true,
-        "$value": true,
-        "$position": 0,
-        "$name": "basicSkillManual",
-        "$path": "doWeeklyShop.arena.basicSkillManual"
-      },
-      "professionalSkillManual": {
-        "$type": "boolean",
-        "$tags": [],
-        "$defaultValue": true,
-        "$value": true,
-        "$position": 0,
-        "$name": "professionalSkillManual",
-        "$path": "doWeeklyShop.arena.professionalSkillManual"
-      },
-      "intermediateSkillManual": {
-        "$type": "boolean",
-        "$tags": [],
-        "$defaultValue": true,
-        "$value": true,
-        "$position": 0,
-        "$name": "intermediateSkillManual",
-        "$path": "doWeeklyShop.arena.intermediateSkillManual"
-      }
-    },
-    "starMemory": {
-      "$type": "parent",
-      "$tags": [],
-      "$position": 3,
-      "$name": "starMemory",
-      "$path": "doWeeklyShop.starMemory",
-      "professionalSkillManual": {
-        "$type": "boolean",
-        "$tags": [],
-        "$defaultValue": false,
-        "$value": false,
-        "$position": 0,
-        "$name": "professionalSkillManual",
-        "$path": "doWeeklyShop.starMemory.professionalSkillManual"
-      },
-      "intermediateSkillManual": {
-        "$type": "boolean",
-        "$tags": [],
-        "$defaultValue": true,
-        "$value": true,
-        "$position": 0,
-        "$name": "intermediateSkillManual",
-        "$path": "doWeeklyShop.starMemory.intermediateSkillManual"
-      }
-    },
-    "jointChallenge": {
-      "$type": "parent",
-      "$tags": [],
-      "$position": 4,
-      "$name": "jointChallenge",
-      "$path": "doWeeklyShop.jointChallenge",
-      "specialRecruitmentTicket": {
-        "$type": "boolean",
-        "$tags": [],
-        "$defaultValue": true,
-        "$value": true,
-        "$position": 0,
-        "$name": "specialRecruitmentTicket",
-        "$path": "doWeeklyShop.jointChallenge.specialRecruitmentTicket"
-      },
-      "stage3GemChest": {
-        "$type": "boolean",
-        "$tags": [],
-        "$defaultValue": true,
-        "$value": true,
-        "$position": 0,
-        "$name": "stage3GemChest",
-        "$path": "doWeeklyShop.jointChallenge.stage3GemChest"
-      },
-      "gold": {
-        "$type": "boolean",
-        "$tags": [],
-        "$defaultValue": true,
-        "$value": true,
-        "$position": 0,
-        "$name": "gold",
-        "$path": "doWeeklyShop.jointChallenge.gold"
-      }
-    },
-    "surveyHub": {
-      "$type": "parent",
-      "$tags": [],
-      "$position": 5,
-      "$name": "surveyHub",
-      "$path": "doWeeklyShop.surveyHub",
-      "30pctEpicAbrasive": {
-        "$type": "boolean",
-        "$tags": [],
-        "$defaultValue": false,
-        "$value": false,
-        "$position": 0,
-        "$name": "30pctEpicAbrasive",
-        "$path": "doWeeklyShop.surveyHub.30pctEpicAbrasive"
-      },
-      "epicReforgeCatalyst": {
-        "$type": "boolean",
-        "$tags": [],
-        "$defaultValue": false,
-        "$value": false,
-        "$position": 1,
-        "$name": "epicReforgeCatalyst",
-        "$path": "doWeeklyShop.surveyHub.epicReforgeCatalyst"
-      },
-      "superiorQualityPresentChest": {
-        "$type": "boolean",
-        "$tags": [],
-        "$defaultValue": false,
-        "$value": false,
-        "$position": 6,
-        "$name": "superiorQualityPresentChest",
-        "$path": "doWeeklyShop.surveyHub.superiorQualityPresentChest"
-      },
-      "basicSkillManual": {
-        "$type": "boolean",
-        "$tags": [],
-        "$defaultValue": false,
-        "$value": false,
-        "$position": 7,
-        "$name": "basicSkillManual",
-        "$path": "doWeeklyShop.surveyHub.basicSkillManual"
-      },
-      "10pctLegendaryAbrasive": {
-        "$type": "boolean",
-        "$tags": [],
-        "$defaultValue": false,
-        "$value": false,
-        "$position": 8,
-        "$name": "10pctLegendaryAbrasive",
-        "$path": "doWeeklyShop.surveyHub.10pctLegendaryAbrasive"
-      },
-      "stage2RandomGemChest": {
-        "$type": "boolean",
-        "$tags": [],
-        "$defaultValue": false,
-        "$value": false,
-        "$position": 9,
-        "$name": "stage2RandomGemChest",
-        "$path": "doWeeklyShop.surveyHub.stage2RandomGemChest"
-      },
-      "intermediateSkillManual": {
-        "$type": "boolean",
-        "$tags": [],
-        "$defaultValue": false,
-        "$value": false,
-        "$position": 10,
-        "$name": "intermediateSkillManual",
-        "$path": "doWeeklyShop.surveyHub.intermediateSkillManual"
-      },
-      "legendaryReforgeCatalyst": {
-        "$type": "boolean",
-        "$tags": [],
-        "$defaultValue": false,
-        "$value": false,
-        "$position": 11,
-        "$name": "legendaryReforgeCatalyst",
-        "$path": "doWeeklyShop.surveyHub.legendaryReforgeCatalyst"
-      },
-      "professionalSkillManual": {
-        "$type": "boolean",
-        "$tags": [],
-        "$defaultValue": false,
-        "$value": false,
-        "$position": 12,
-        "$name": "professionalSkillManual",
-        "$path": "doWeeklyShop.surveyHub.professionalSkillManual"
-      },
-      "refinedGlunite": {
-        "$type": "boolean",
-        "$tags": [],
-        "$defaultValue": false,
-        "$value": false,
-        "$position": 13,
-        "$name": "refinedGlunite",
-        "$path": "doWeeklyShop.surveyHub.refinedGlunite"
-      },
-      "epicQualityPresentChest": {
-        "$type": "boolean",
-        "$tags": [],
-        "$defaultValue": false,
-        "$value": false,
-        "$position": 14,
-        "$name": "epicQualityPresentChest",
-        "$path": "doWeeklyShop.surveyHub.epicQualityPresentChest"
-      }
-    },
-    "guild": {
-      "$type": "parent",
-      "$tags": [],
-      "$position": 6,
-      "$name": "guild",
-      "$path": "doWeeklyShop.guild",
-      "gold": {
-        "$type": "boolean",
-        "$tags": [],
-        "$defaultValue": true,
-        "$value": true,
-        "$position": 0,
-        "$name": "gold",
-        "$path": "doWeeklyShop.guild.gold"
-      },
-      "basicSkillManual": {
-        "$type": "boolean",
-        "$tags": [],
-        "$defaultValue": true,
-        "$value": true,
-        "$position": 1,
-        "$name": "basicSkillManual",
-        "$path": "doWeeklyShop.guild.basicSkillManual"
-      },
-      "professionalSkillManual": {
-        "$type": "boolean",
-        "$tags": [],
-        "$defaultValue": true,
-        "$value": true,
-        "$position": 2,
-        "$name": "professionalSkillManual",
-        "$path": "doWeeklyShop.guild.professionalSkillManual"
-      },
-      "intermediateSkillManual": {
-        "$type": "boolean",
-        "$tags": [],
-        "$defaultValue": true,
-        "$value": true,
-        "$position": 3,
-        "$name": "intermediateSkillManual",
-        "$path": "doWeeklyShop.guild.intermediateSkillManual"
-      }
-    }
-  },
   "sellInventory": {
     "$type": "parent",
     "$tags": [],
@@ -1787,7 +1479,7 @@
         "$tags": [],
         "$position": 0,
         "$name": "specialEnhancement",
-        "$path": "doWeeklyCraft.specialEnhancement",
+        "$path": "doWeeklies.craft.specialEnhancement",
         "armorGlunite": {
           "$type": "boolean",
           "$tags": [],
@@ -1795,14 +1487,14 @@
           "$value": true,
           "$position": 0,
           "$name": "armorGlunite",
-          "$path": "doWeeklyCraft.specialEnhancement.armorGlunite"
+          "$path": "doWeeklies.craft.specialEnhancement.armorGlunite"
         },
         "specialGearEnhancement": {
           "$type": "parent",
           "$tags": [],
           "$position": 0,
           "$name": "specialGearEnhancement",
-          "$path": "doWeeklyCraft.specialEnhancement.specialGearEnhancement",
+          "$path": "doWeeklies.craft.specialEnhancement.specialGearEnhancement",
           "talisman": {
             "$type": "boolean",
             "$tags": [],
@@ -1810,7 +1502,7 @@
             "$value": true,
             "$position": 0,
             "$name": "talisman",
-            "$path": "doWeeklyCraft.specialEnhancement.specialGearEnhancement.talisman"
+            "$path": "doWeeklies.craft.specialEnhancement.specialGearEnhancement.talisman"
           },
           "gear": {
             "$type": "boolean",
@@ -1819,7 +1511,7 @@
             "$value": true,
             "$position": 0,
             "$name": "gear",
-            "$path": "doWeeklyCraft.specialEnhancement.specialGearEnhancement.gear"
+            "$path": "doWeeklies.craft.specialEnhancement.specialGearEnhancement.gear"
           }
         },
         "greaterEnhancement": {
@@ -1827,7 +1519,7 @@
           "$tags": [],
           "$position": 0,
           "$name": "greaterEnhancement",
-          "$path": "doWeeklyCraft.specialEnhancement.greaterEnhancement",
+          "$path": "doWeeklies.craft.specialEnhancement.greaterEnhancement",
           "talisman": {
             "$type": "boolean",
             "$tags": [],
@@ -1835,7 +1527,7 @@
             "$value": false,
             "$position": 0,
             "$name": "talisman",
-            "$path": "doWeeklyCraft.specialEnhancement.greaterEnhancement.talisman"
+            "$path": "doWeeklies.craft.specialEnhancement.greaterEnhancement.talisman"
           },
           "gear": {
             "$type": "boolean",
@@ -1844,7 +1536,7 @@
             "$value": false,
             "$position": 0,
             "$name": "gear",
-            "$path": "doWeeklyCraft.specialEnhancement.greaterEnhancement.gear"
+            "$path": "doWeeklies.craft.specialEnhancement.greaterEnhancement.gear"
           }
         }
       }
@@ -1859,13 +1551,313 @@
       "$path": "doWeeklies.claimMissions"
     },
     "shop": {
-      "$type": "boolean",
+      "$type": "enabledParent",
       "$tags": [],
-      "$defaultValue": true,
-      "$value": true,
+      "$isEnabled": true,
       "$position": 3,
       "$name": "shop",
-      "$path": "doWeeklies.shop"
+      "$path": "doWeeklies.shop",
+      "resource": {
+        "$type": "parent",
+        "$tags": [],
+        "$position": 0,
+        "$name": "resource",
+        "$path": "doWeeklyShop.resource",
+        "basicSkillManual": {
+          "$type": "boolean",
+          "$tags": [],
+          "$defaultValue": true,
+          "$value": true,
+          "$position": 0,
+          "$name": "basicSkillManual",
+          "$path": "doWeeklyShop.resource.basicSkillManual"
+        },
+        "intermediateSkillManual": {
+          "$type": "boolean",
+          "$tags": [],
+          "$defaultValue": true,
+          "$value": true,
+          "$position": 0,
+          "$name": "intermediateSkillManual",
+          "$path": "doWeeklyShop.resource.intermediateSkillManual"
+        }
+      },
+      "friendshipPoint": {
+        "$type": "parent",
+        "$tags": [],
+        "$position": 1,
+        "$name": "friendshipPoint",
+        "$path": "doWeeklyShop.friendshipPoint",
+        "upgradeStoneSelectionChest": {
+          "$type": "boolean",
+          "$tags": [],
+          "$defaultValue": true,
+          "$value": true,
+          "$position": 0,
+          "$name": "upgradeStoneSelectionChest",
+          "$path": "doWeeklyShop.friendshipPoint.upgradeStoneSelectionChest"
+        },
+        "lowStarHeroPieceTicket": {
+          "$type": "boolean",
+          "$tags": [],
+          "$defaultValue": true,
+          "$value": true,
+          "$position": 0,
+          "$name": "lowStarHeroPieceTicket",
+          "$path": "doWeeklyShop.friendshipPoint.lowStarHeroPieceTicket"
+        },
+        "threeStarHeroPieceTicket": {
+          "$type": "boolean",
+          "$tags": [],
+          "$defaultValue": true,
+          "$value": true,
+          "$position": 0,
+          "$name": "threeStarHeroPieceTicket",
+          "$path": "doWeeklyShop.friendshipPoint.threeStarHeroPieceTicket"
+        }
+      },
+      "arena": {
+        "$type": "parent",
+        "$tags": [],
+        "$position": 2,
+        "$name": "arena",
+        "$path": "doWeeklyShop.arena",
+        "basicSkillManual": {
+          "$type": "boolean",
+          "$tags": [],
+          "$defaultValue": true,
+          "$value": true,
+          "$position": 0,
+          "$name": "basicSkillManual",
+          "$path": "doWeeklyShop.arena.basicSkillManual"
+        },
+        "professionalSkillManual": {
+          "$type": "boolean",
+          "$tags": [],
+          "$defaultValue": true,
+          "$value": true,
+          "$position": 0,
+          "$name": "professionalSkillManual",
+          "$path": "doWeeklyShop.arena.professionalSkillManual"
+        },
+        "intermediateSkillManual": {
+          "$type": "boolean",
+          "$tags": [],
+          "$defaultValue": true,
+          "$value": true,
+          "$position": 0,
+          "$name": "intermediateSkillManual",
+          "$path": "doWeeklyShop.arena.intermediateSkillManual"
+        }
+      },
+      "starMemory": {
+        "$type": "parent",
+        "$tags": [],
+        "$position": 3,
+        "$name": "starMemory",
+        "$path": "doWeeklyShop.starMemory",
+        "professionalSkillManual": {
+          "$type": "boolean",
+          "$tags": [],
+          "$defaultValue": false,
+          "$value": false,
+          "$position": 0,
+          "$name": "professionalSkillManual",
+          "$path": "doWeeklyShop.starMemory.professionalSkillManual"
+        },
+        "intermediateSkillManual": {
+          "$type": "boolean",
+          "$tags": [],
+          "$defaultValue": true,
+          "$value": true,
+          "$position": 0,
+          "$name": "intermediateSkillManual",
+          "$path": "doWeeklyShop.starMemory.intermediateSkillManual"
+        }
+      },
+      "jointChallenge": {
+        "$type": "parent",
+        "$tags": [],
+        "$position": 4,
+        "$name": "jointChallenge",
+        "$path": "doWeeklyShop.jointChallenge",
+        "specialRecruitmentTicket": {
+          "$type": "boolean",
+          "$tags": [],
+          "$defaultValue": true,
+          "$value": true,
+          "$position": 0,
+          "$name": "specialRecruitmentTicket",
+          "$path": "doWeeklyShop.jointChallenge.specialRecruitmentTicket"
+        },
+        "stage3GemChest": {
+          "$type": "boolean",
+          "$tags": [],
+          "$defaultValue": true,
+          "$value": true,
+          "$position": 0,
+          "$name": "stage3GemChest",
+          "$path": "doWeeklyShop.jointChallenge.stage3GemChest"
+        },
+        "gold": {
+          "$type": "boolean",
+          "$tags": [],
+          "$defaultValue": true,
+          "$value": true,
+          "$position": 0,
+          "$name": "gold",
+          "$path": "doWeeklyShop.jointChallenge.gold"
+        }
+      },
+      "surveyHub": {
+        "$type": "parent",
+        "$tags": [],
+        "$position": 5,
+        "$name": "surveyHub",
+        "$path": "doWeeklyShop.surveyHub",
+        "30pctEpicAbrasive": {
+          "$type": "boolean",
+          "$tags": [],
+          "$defaultValue": false,
+          "$value": false,
+          "$position": 0,
+          "$name": "30pctEpicAbrasive",
+          "$path": "doWeeklyShop.surveyHub.30pctEpicAbrasive"
+        },
+        "epicReforgeCatalyst": {
+          "$type": "boolean",
+          "$tags": [],
+          "$defaultValue": false,
+          "$value": false,
+          "$position": 1,
+          "$name": "epicReforgeCatalyst",
+          "$path": "doWeeklyShop.surveyHub.epicReforgeCatalyst"
+        },
+        "superiorQualityPresentChest": {
+          "$type": "boolean",
+          "$tags": [],
+          "$defaultValue": false,
+          "$value": false,
+          "$position": 6,
+          "$name": "superiorQualityPresentChest",
+          "$path": "doWeeklyShop.surveyHub.superiorQualityPresentChest"
+        },
+        "basicSkillManual": {
+          "$type": "boolean",
+          "$tags": [],
+          "$defaultValue": false,
+          "$value": false,
+          "$position": 7,
+          "$name": "basicSkillManual",
+          "$path": "doWeeklyShop.surveyHub.basicSkillManual"
+        },
+        "10pctLegendaryAbrasive": {
+          "$type": "boolean",
+          "$tags": [],
+          "$defaultValue": false,
+          "$value": false,
+          "$position": 8,
+          "$name": "10pctLegendaryAbrasive",
+          "$path": "doWeeklyShop.surveyHub.10pctLegendaryAbrasive"
+        },
+        "stage2RandomGemChest": {
+          "$type": "boolean",
+          "$tags": [],
+          "$defaultValue": false,
+          "$value": false,
+          "$position": 9,
+          "$name": "stage2RandomGemChest",
+          "$path": "doWeeklyShop.surveyHub.stage2RandomGemChest"
+        },
+        "intermediateSkillManual": {
+          "$type": "boolean",
+          "$tags": [],
+          "$defaultValue": false,
+          "$value": false,
+          "$position": 10,
+          "$name": "intermediateSkillManual",
+          "$path": "doWeeklyShop.surveyHub.intermediateSkillManual"
+        },
+        "legendaryReforgeCatalyst": {
+          "$type": "boolean",
+          "$tags": [],
+          "$defaultValue": false,
+          "$value": false,
+          "$position": 11,
+          "$name": "legendaryReforgeCatalyst",
+          "$path": "doWeeklyShop.surveyHub.legendaryReforgeCatalyst"
+        },
+        "professionalSkillManual": {
+          "$type": "boolean",
+          "$tags": [],
+          "$defaultValue": false,
+          "$value": false,
+          "$position": 12,
+          "$name": "professionalSkillManual",
+          "$path": "doWeeklyShop.surveyHub.professionalSkillManual"
+        },
+        "refinedGlunite": {
+          "$type": "boolean",
+          "$tags": [],
+          "$defaultValue": false,
+          "$value": false,
+          "$position": 13,
+          "$name": "refinedGlunite",
+          "$path": "doWeeklyShop.surveyHub.refinedGlunite"
+        },
+        "epicQualityPresentChest": {
+          "$type": "boolean",
+          "$tags": [],
+          "$defaultValue": false,
+          "$value": false,
+          "$position": 14,
+          "$name": "epicQualityPresentChest",
+          "$path": "doWeeklyShop.surveyHub.epicQualityPresentChest"
+        }
+      },
+      "guild": {
+        "$type": "parent",
+        "$tags": [],
+        "$position": 6,
+        "$name": "guild",
+        "$path": "doWeeklyShop.guild",
+        "gold": {
+          "$type": "boolean",
+          "$tags": [],
+          "$defaultValue": true,
+          "$value": true,
+          "$position": 0,
+          "$name": "gold",
+          "$path": "doWeeklyShop.guild.gold"
+        },
+        "basicSkillManual": {
+          "$type": "boolean",
+          "$tags": [],
+          "$defaultValue": true,
+          "$value": true,
+          "$position": 1,
+          "$name": "basicSkillManual",
+          "$path": "doWeeklyShop.guild.basicSkillManual"
+        },
+        "professionalSkillManual": {
+          "$type": "boolean",
+          "$tags": [],
+          "$defaultValue": true,
+          "$value": true,
+          "$position": 2,
+          "$name": "professionalSkillManual",
+          "$path": "doWeeklyShop.guild.professionalSkillManual"
+        },
+        "intermediateSkillManual": {
+          "$type": "boolean",
+          "$tags": [],
+          "$defaultValue": true,
+          "$value": true,
+          "$position": 3,
+          "$name": "intermediateSkillManual",
+          "$path": "doWeeklyShop.guild.intermediateSkillManual"
+        }
+      }
     }
   },
   "doShop": {
