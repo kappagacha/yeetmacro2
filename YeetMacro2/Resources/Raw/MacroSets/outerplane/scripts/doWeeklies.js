@@ -12,7 +12,7 @@ function doWeeklies(type = '') {
 				goToLobby();
 			}
 
-			if (settings.doWeeklies.craft.Value) {
+			if (settings.doWeeklies.craft.IsEnabled) {
 				doWeeklyCraft();
 				goToLobby();
 			}
