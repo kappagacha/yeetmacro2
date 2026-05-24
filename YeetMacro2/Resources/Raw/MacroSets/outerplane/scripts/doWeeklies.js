@@ -3,7 +3,7 @@
 // @position=-1
 
 function doWeeklies(type = '') {
-	if (!type) type = settings.weeklies.type.Value;
+	if (!type) type = settings.doWeeklies.type.Value;
 
 	switch (type) {
 		case 'weeklies':
