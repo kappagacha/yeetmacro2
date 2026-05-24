@@ -2,7 +2,7 @@
 // @tags=weeklies
 // @position=-1
 
-function weeklies(type = '') {
+function doWeeklies(type = '') {
 	if (!type) type = settings.weeklies.type.Value;
 
 	switch (type) {
