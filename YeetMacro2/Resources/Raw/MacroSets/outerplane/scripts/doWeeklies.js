@@ -8,7 +8,7 @@ function weeklies(type = '') {
 	switch (type) {
 		case 'weeklies':
 			if (settings.doWeeklies.claimMissions.Value) {
-				claimWeeklyMissions();
+				doClaimWeeklyMissions();
 				goToLobby();
 			}
 
