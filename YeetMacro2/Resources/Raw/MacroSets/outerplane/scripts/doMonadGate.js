@@ -15,7 +15,7 @@ function doMonadGate(type = '') {
 }
 
 function doNormalObservation() {
-	const loopPatterns = [patterns.lobby.level, patterns.titles.adventure, patterns.monadGate.singularityRepair,
+	const loopPatterns = [patterns.lobby.level, patterns.titles.adventure, patterns.monadGate.singularityRepel,
 		patterns.monadGate.selectEntryRoute,
 		patterns.monadGate.heroDeployment, patterns.monadGate.currentLocation, patterns.monadGate.nodes.heroDeployment,
 		patterns.monadGate.relics.greenCard, patterns.monadGate.relics.redCard, patterns.monadGate.relics.blueCard,
@@ -41,7 +41,7 @@ function doNormalObservation() {
 				macroService.ClickPattern(patterns.adventure.monadGate);
 				sleep(500);
 				break;
-			case 'monadGate.singularityRepair':
+			case 'monadGate.singularityRepel':
 				logger.info('doDimensionalSingularity: click switch to normal observation mode');
 				macroService.ClickPattern(patterns.monadGate.switch);
 				sleep(500);
