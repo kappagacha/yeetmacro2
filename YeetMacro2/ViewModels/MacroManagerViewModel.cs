@@ -421,7 +421,8 @@ public partial class MacroManagerViewModel : ObservableObject
                 {
                     var strScripts = await _httpService.GetAsync(Path.Combine(commitInfoUrl, "scripts"), new Dictionary<string, string>() { { "Accept", "application/json" } });
                     var jsonScripts = JsonSerializer.Deserialize<JsonObject>(strScripts);
-                    foreach (var script in jsonScripts)
+                    var scriptEntries = jsonScripts["entries"].AsObject();
+                    foreach (var script in scriptEntries)
                     {
                         var scriptText = await _httpService.GetAsync(Path.Combine(rawUrl, "scripts", script.Key), new Dictionary<string, string>() { { "Accept", "application/json" } });
                         nameToScript.Add(Path.GetFileNameWithoutExtension(script.Key), scriptText);
