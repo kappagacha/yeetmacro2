@@ -160,7 +160,8 @@ public partial class MacroManagerViewModel : ObservableObject
         var macroSetsUrl = $"https://github.com/kappagacha/yeetmacro2/tree-commit-info/{_targetBranch}/YeetMacro2/Resources/Raw/MacroSets";
         var strMacroSets = await _httpService.GetAsync(macroSetsUrl, new Dictionary<string, string>() { { "Accept", "application/json" } });
         var jsonMacroSets = JsonSerializer.Deserialize<JsonObject>(strMacroSets);
-        var sources = jsonMacroSets.Select(ms => $"online:{ms.Key}").ToArray();
+        var entries = jsonMacroSets["entries"].AsObject();
+        var sources = entries.Select(ms => $"online:{ms.Key}").ToArray();
         await AddMacroSet(sources);
     }
 
