@@ -157,7 +157,7 @@ function doWeeklyCraft() {
 function doWeeklyShop() {
 	const loopPatterns = [patterns.lobby.level, patterns.titles.adventurerShop, patterns.shop.premium.title];
 	const weekly = weeklyManager.GetCurrentWeekly();
-	if (weekly.doWeeklyShop.done.IsChecked) {
+	if (weekly.doWeeklies.shop.done.IsChecked) {
 		return "Script already completed. Uncheck done to override weekly flag.";
 	}
 
@@ -172,24 +172,24 @@ function doWeeklyShop() {
 				break;
 			case 'titles.adventurerShop':
 			case 'shop.premium.title':
-				if (!weekly.doWeeklyShop.friendshipPoint.done.IsChecked) {
+				if (!weekly.doWeeklies.shop.friendshipPoint.done.IsChecked) {
 					macroService.PollPattern(patterns.shop.adventurer.friendshipPoint, { DoClick: true, PredicatePattern: patterns.shop.adventurer.friendshipPoint.selected });
 					doFriendshipItems();
 					swipeLeft();
 					swipeLeft();
-					if (macroService.IsRunning) weekly.doWeeklyShop.friendshipPoint.done.IsChecked = true;
+					if (macroService.IsRunning) weekly.doWeeklies.shop.friendshipPoint.done.IsChecked = true;
 				}
 
-				if (!weekly.doWeeklyShop.arena.done.IsChecked) {
+				if (!weekly.doWeeklies.shop.arena.done.IsChecked) {
 					macroService.PollPattern(patterns.shop.adventurer.arena, { DoClick: true, PredicatePattern: patterns.shop.adventurer.arena.selected });
 					macroService.PollPattern(patterns.shop.adventurer.arena.arena, { DoClick: true, PredicatePattern: patterns.shop.adventurer.arena.arena.selected });
 					doArenaItems();
 					swipeLeft();
 					swipeLeft();
-					if (macroService.IsRunning) weekly.doWeeklyShop.arena.done.IsChecked = true;
+					if (macroService.IsRunning) weekly.doWeeklies.shop.arena.done.IsChecked = true;
 				}
 
-				if (!weekly.doWeeklyShop.jointChallenge.done.IsChecked) {
+				if (!weekly.doWeeklies.shop.jointChallenge.done.IsChecked) {
 					macroService.PollPattern(patterns.shop.adventurer.event, { DoClick: true, PredicatePattern: patterns.shop.adventurer.event.selected });
 					const jointChallengeSwipeResult = macroService.PollPattern(patterns.shop.adventurer.event.jointChallenge, { SwipePattern: patterns.shop.subsubTabSwipeRight, TimeoutMs: 6_000 });
 					if (!jointChallengeSwipeResult.IsSuccess) {
@@ -197,46 +197,46 @@ function doWeeklyShop() {
 					}
 					macroService.PollPattern(patterns.shop.adventurer.event.jointChallenge, { DoClick: true, PredicatePattern: patterns.shop.adventurer.event.jointChallenge.selected });
 					doJointChallengeItems();
-					if (macroService.IsRunning) weekly.doWeeklyShop.jointChallenge.done.IsChecked = true;
+					if (macroService.IsRunning) weekly.doWeeklies.shop.jointChallenge.done.IsChecked = true;
 				}
 
-				if (!weekly.doWeeklyShop.surveyHub.done.IsChecked) {
+				if (!weekly.doWeeklies.shop.surveyHub.done.IsChecked) {
 					macroService.PollPattern(patterns.shop.adventurer.surveyHub, { DoClick: true, PredicatePattern: patterns.shop.adventurer.surveyHub.selected });
 					doSurveyHubItems();
-					if (macroService.IsRunning) weekly.doWeeklyShop.surveyHub.done.IsChecked = true;
+					if (macroService.IsRunning) weekly.doWeeklies.shop.surveyHub.done.IsChecked = true;
 				}
 
-				if (!weekly.doWeeklyShop.starMemory.done.IsChecked) {
+				if (!weekly.doWeeklies.shop.starMemory.done.IsChecked) {
 					goToLobby();
 					macroService.PollPattern(patterns.tabs.shop, { DoClick: true, PredicatePattern: patterns.shop.premium.move });
 					macroService.PollPattern(patterns.shop.premium.move, { DoClick: true, PredicatePattern: patterns.shop.premium.title });
 					macroService.PollPattern(patterns.shop.premium.normal, { DoClick: true, PredicatePattern: patterns.shop.premium.normal.selected });
 					macroService.PollPattern(patterns.shop.premium.normal.starMemory, { DoClick: true, PredicatePattern: patterns.shop.premium.normal.starMemory.selected });
 					doStarMemoryItems();
-					if (macroService.IsRunning) weekly.doWeeklyShop.starMemory.done.IsChecked = true;
+					if (macroService.IsRunning) weekly.doWeeklies.shop.starMemory.done.IsChecked = true;
 					goToLobby();
 				}
 
-				if (!weekly.doWeeklyShop.resource.done.IsChecked) {
+				if (!weekly.doWeeklies.shop.resource.done.IsChecked) {
 					goToLobby();
 					macroService.PollPattern(patterns.tabs.shop, { DoClick: true, PredicatePattern: patterns.shop.premium.move });
 					macroService.PollPattern(patterns.shop.premium.move, { DoClick: true, PredicatePattern: patterns.shop.premium.title });
 					macroService.PollPattern(patterns.shop.premium.normal, { DoClick: true, PredicatePattern: patterns.shop.premium.normal.selected });
 					macroService.PollPattern(patterns.shop.premium.normal.goldOrConsumables, { DoClick: true, PredicatePattern: patterns.shop.premium.normal.goldOrConsumables.selected });
 					doResourceItems();
-					if (macroService.IsRunning) weekly.doWeeklyShop.resource.done.IsChecked = true;
+					if (macroService.IsRunning) weekly.doWeeklies.shop.resource.done.IsChecked = true;
 					goToLobby();
 				}
 
-				if (!weekly.doWeeklyShop.guild.done.IsChecked) {
+				if (!weekly.doWeeklies.shop.guild.done.IsChecked) {
 					goToLobby();
 					macroService.PollPattern(patterns.tabs.guild, { DoClick: true, PredicatePattern: patterns.titles.guild });
 					macroService.PollPattern(patterns.guild.shop, { DoClick: true, PredicatePattern: [patterns.guild.shop.weeklyProducts, patterns.guild.shop.weeklyProducts.selected] });
 					doGuildItems();
-					if (macroService.IsRunning) weekly.doWeeklyShop.guild.done.IsChecked = true;
+					if (macroService.IsRunning) weekly.doWeeklies.shop.guild.done.IsChecked = true;
 				}
 
-				if (macroService.IsRunning) weekly.doWeeklyShop.done.IsChecked = true;
+				if (macroService.IsRunning) weekly.doWeeklies.shop.done.IsChecked = true;
 				return;
 		}
 		sleep(1_000);

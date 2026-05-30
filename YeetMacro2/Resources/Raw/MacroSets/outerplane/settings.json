@@ -1461,8 +1461,8 @@
         "monadGate"
       ],
       "$tags": [],
-      "$defaultValue": "weeklies",
-      "$value": "weeklies",
+      "$defaultValue": "shop",
+      "$value": "shop",
       "$position": 0,
       "$name": "type",
       "$path": "doWeeklies.type"
@@ -1562,7 +1562,7 @@
         "$tags": [],
         "$position": 0,
         "$name": "resource",
-        "$path": "doWeeklyShop.resource",
+        "$path": "doWeeklies.shop.resource",
         "basicSkillManual": {
           "$type": "boolean",
           "$tags": [],
@@ -1570,7 +1570,7 @@
           "$value": true,
           "$position": 0,
           "$name": "basicSkillManual",
-          "$path": "doWeeklyShop.resource.basicSkillManual"
+          "$path": "doWeeklies.shop.resource.basicSkillManual"
         },
         "intermediateSkillManual": {
           "$type": "boolean",
@@ -1579,7 +1579,7 @@
           "$value": true,
           "$position": 0,
           "$name": "intermediateSkillManual",
-          "$path": "doWeeklyShop.resource.intermediateSkillManual"
+          "$path": "doWeeklies.shop.resource.intermediateSkillManual"
         }
       },
       "friendshipPoint": {
@@ -1587,15 +1587,15 @@
         "$tags": [],
         "$position": 1,
         "$name": "friendshipPoint",
-        "$path": "doWeeklyShop.friendshipPoint",
+        "$path": "doWeeklies.shop.friendshipPoint",
         "upgradeStoneSelectionChest": {
           "$type": "boolean",
           "$tags": [],
-          "$defaultValue": true,
-          "$value": true,
+          "$defaultValue": false,
+          "$value": false,
           "$position": 0,
           "$name": "upgradeStoneSelectionChest",
-          "$path": "doWeeklyShop.friendshipPoint.upgradeStoneSelectionChest"
+          "$path": "doWeeklies.shop.friendshipPoint.upgradeStoneSelectionChest"
         },
         "lowStarHeroPieceTicket": {
           "$type": "boolean",
@@ -1604,7 +1604,7 @@
           "$value": true,
           "$position": 0,
           "$name": "lowStarHeroPieceTicket",
-          "$path": "doWeeklyShop.friendshipPoint.lowStarHeroPieceTicket"
+          "$path": "doWeeklies.shop.friendshipPoint.lowStarHeroPieceTicket"
         },
         "threeStarHeroPieceTicket": {
           "$type": "boolean",
@@ -1613,7 +1613,7 @@
           "$value": true,
           "$position": 0,
           "$name": "threeStarHeroPieceTicket",
-          "$path": "doWeeklyShop.friendshipPoint.threeStarHeroPieceTicket"
+          "$path": "doWeeklies.shop.friendshipPoint.threeStarHeroPieceTicket"
         }
       },
       "arena": {
@@ -1621,15 +1621,15 @@
         "$tags": [],
         "$position": 2,
         "$name": "arena",
-        "$path": "doWeeklyShop.arena",
+        "$path": "doWeeklies.shop.arena",
         "basicSkillManual": {
           "$type": "boolean",
           "$tags": [],
-          "$defaultValue": true,
-          "$value": true,
+          "$defaultValue": false,
+          "$value": false,
           "$position": 0,
           "$name": "basicSkillManual",
-          "$path": "doWeeklyShop.arena.basicSkillManual"
+          "$path": "doWeeklies.shop.arena.basicSkillManual"
         },
         "professionalSkillManual": {
           "$type": "boolean",
@@ -1638,16 +1638,16 @@
           "$value": true,
           "$position": 0,
           "$name": "professionalSkillManual",
-          "$path": "doWeeklyShop.arena.professionalSkillManual"
+          "$path": "doWeeklies.shop.arena.professionalSkillManual"
         },
         "intermediateSkillManual": {
           "$type": "boolean",
           "$tags": [],
-          "$defaultValue": true,
-          "$value": true,
+          "$defaultValue": false,
+          "$value": false,
           "$position": 0,
           "$name": "intermediateSkillManual",
-          "$path": "doWeeklyShop.arena.intermediateSkillManual"
+          "$path": "doWeeklies.shop.arena.intermediateSkillManual"
         }
       },
       "starMemory": {
@@ -1655,7 +1655,7 @@
         "$tags": [],
         "$position": 3,
         "$name": "starMemory",
-        "$path": "doWeeklyShop.starMemory",
+        "$path": "doWeeklies.shop.starMemory",
         "professionalSkillManual": {
           "$type": "boolean",
           "$tags": [],
@@ -1663,7 +1663,7 @@
           "$value": false,
           "$position": 0,
           "$name": "professionalSkillManual",
-          "$path": "doWeeklyShop.starMemory.professionalSkillManual"
+          "$path": "doWeeklies.shop.starMemory.professionalSkillManual"
         },
         "intermediateSkillManual": {
           "$type": "boolean",
@@ -1672,7 +1672,7 @@
           "$value": true,
           "$position": 0,
           "$name": "intermediateSkillManual",
-          "$path": "doWeeklyShop.starMemory.intermediateSkillManual"
+          "$path": "doWeeklies.shop.starMemory.intermediateSkillManual"
         }
       },
       "jointChallenge": {
@@ -1680,7 +1680,7 @@
         "$tags": [],
         "$position": 4,
         "$name": "jointChallenge",
-        "$path": "doWeeklyShop.jointChallenge",
+        "$path": "doWeeklies.shop.jointChallenge",
         "specialRecruitmentTicket": {
           "$type": "boolean",
           "$tags": [],
@@ -1688,7 +1688,7 @@
           "$value": true,
           "$position": 0,
           "$name": "specialRecruitmentTicket",
-          "$path": "doWeeklyShop.jointChallenge.specialRecruitmentTicket"
+          "$path": "doWeeklies.shop.jointChallenge.specialRecruitmentTicket"
         },
         "stage3GemChest": {
           "$type": "boolean",
@@ -1697,7 +1697,7 @@
           "$value": true,
           "$position": 0,
           "$name": "stage3GemChest",
-          "$path": "doWeeklyShop.jointChallenge.stage3GemChest"
+          "$path": "doWeeklies.shop.jointChallenge.stage3GemChest"
         },
         "gold": {
           "$type": "boolean",
@@ -1706,7 +1706,7 @@
           "$value": true,
           "$position": 0,
           "$name": "gold",
-          "$path": "doWeeklyShop.jointChallenge.gold"
+          "$path": "doWeeklies.shop.jointChallenge.gold"
         }
       },
       "surveyHub": {
@@ -1714,7 +1714,7 @@
         "$tags": [],
         "$position": 5,
         "$name": "surveyHub",
-        "$path": "doWeeklyShop.surveyHub",
+        "$path": "doWeeklies.shop.surveyHub",
         "30pctEpicAbrasive": {
           "$type": "boolean",
           "$tags": [],
@@ -1722,7 +1722,7 @@
           "$value": false,
           "$position": 0,
           "$name": "30pctEpicAbrasive",
-          "$path": "doWeeklyShop.surveyHub.30pctEpicAbrasive"
+          "$path": "doWeeklies.shop.surveyHub.30pctEpicAbrasive"
         },
         "epicReforgeCatalyst": {
           "$type": "boolean",
@@ -1731,7 +1731,7 @@
           "$value": false,
           "$position": 1,
           "$name": "epicReforgeCatalyst",
-          "$path": "doWeeklyShop.surveyHub.epicReforgeCatalyst"
+          "$path": "doWeeklies.shop.surveyHub.epicReforgeCatalyst"
         },
         "superiorQualityPresentChest": {
           "$type": "boolean",
@@ -1740,7 +1740,7 @@
           "$value": false,
           "$position": 6,
           "$name": "superiorQualityPresentChest",
-          "$path": "doWeeklyShop.surveyHub.superiorQualityPresentChest"
+          "$path": "doWeeklies.shop.surveyHub.superiorQualityPresentChest"
         },
         "basicSkillManual": {
           "$type": "boolean",
@@ -1749,7 +1749,7 @@
           "$value": false,
           "$position": 7,
           "$name": "basicSkillManual",
-          "$path": "doWeeklyShop.surveyHub.basicSkillManual"
+          "$path": "doWeeklies.shop.surveyHub.basicSkillManual"
         },
         "10pctLegendaryAbrasive": {
           "$type": "boolean",
@@ -1758,7 +1758,7 @@
           "$value": false,
           "$position": 8,
           "$name": "10pctLegendaryAbrasive",
-          "$path": "doWeeklyShop.surveyHub.10pctLegendaryAbrasive"
+          "$path": "doWeeklies.shop.surveyHub.10pctLegendaryAbrasive"
         },
         "stage2RandomGemChest": {
           "$type": "boolean",
@@ -1767,7 +1767,7 @@
           "$value": false,
           "$position": 9,
           "$name": "stage2RandomGemChest",
-          "$path": "doWeeklyShop.surveyHub.stage2RandomGemChest"
+          "$path": "doWeeklies.shop.surveyHub.stage2RandomGemChest"
         },
         "intermediateSkillManual": {
           "$type": "boolean",
@@ -1776,7 +1776,7 @@
           "$value": false,
           "$position": 10,
           "$name": "intermediateSkillManual",
-          "$path": "doWeeklyShop.surveyHub.intermediateSkillManual"
+          "$path": "doWeeklies.shop.surveyHub.intermediateSkillManual"
         },
         "legendaryReforgeCatalyst": {
           "$type": "boolean",
@@ -1785,7 +1785,7 @@
           "$value": false,
           "$position": 11,
           "$name": "legendaryReforgeCatalyst",
-          "$path": "doWeeklyShop.surveyHub.legendaryReforgeCatalyst"
+          "$path": "doWeeklies.shop.surveyHub.legendaryReforgeCatalyst"
         },
         "professionalSkillManual": {
           "$type": "boolean",
@@ -1794,7 +1794,7 @@
           "$value": false,
           "$position": 12,
           "$name": "professionalSkillManual",
-          "$path": "doWeeklyShop.surveyHub.professionalSkillManual"
+          "$path": "doWeeklies.shop.surveyHub.professionalSkillManual"
         },
         "refinedGlunite": {
           "$type": "boolean",
@@ -1803,7 +1803,7 @@
           "$value": false,
           "$position": 13,
           "$name": "refinedGlunite",
-          "$path": "doWeeklyShop.surveyHub.refinedGlunite"
+          "$path": "doWeeklies.shop.surveyHub.refinedGlunite"
         },
         "epicQualityPresentChest": {
           "$type": "boolean",
@@ -1812,7 +1812,7 @@
           "$value": false,
           "$position": 14,
           "$name": "epicQualityPresentChest",
-          "$path": "doWeeklyShop.surveyHub.epicQualityPresentChest"
+          "$path": "doWeeklies.shop.surveyHub.epicQualityPresentChest"
         }
       },
       "guild": {
@@ -1820,7 +1820,7 @@
         "$tags": [],
         "$position": 6,
         "$name": "guild",
-        "$path": "doWeeklyShop.guild",
+        "$path": "doWeeklies.shop.guild",
         "gold": {
           "$type": "boolean",
           "$tags": [],
@@ -1828,7 +1828,7 @@
           "$value": true,
           "$position": 0,
           "$name": "gold",
-          "$path": "doWeeklyShop.guild.gold"
+          "$path": "doWeeklies.shop.guild.gold"
         },
         "basicSkillManual": {
           "$type": "boolean",
@@ -1837,7 +1837,7 @@
           "$value": true,
           "$position": 1,
           "$name": "basicSkillManual",
-          "$path": "doWeeklyShop.guild.basicSkillManual"
+          "$path": "doWeeklies.shop.guild.basicSkillManual"
         },
         "professionalSkillManual": {
           "$type": "boolean",
@@ -1846,7 +1846,7 @@
           "$value": true,
           "$position": 2,
           "$name": "professionalSkillManual",
-          "$path": "doWeeklyShop.guild.professionalSkillManual"
+          "$path": "doWeeklies.shop.guild.professionalSkillManual"
         },
         "intermediateSkillManual": {
           "$type": "boolean",
@@ -1855,7 +1855,7 @@
           "$value": true,
           "$position": 3,
           "$name": "intermediateSkillManual",
-          "$path": "doWeeklyShop.guild.intermediateSkillManual"
+          "$path": "doWeeklies.shop.guild.intermediateSkillManual"
         }
       }
     }
