@@ -36,8 +36,8 @@ function selectTeamGeneral() {
 	}
 
 	const alternateEarthTeam = { left: { name: 'notia' }, top: { name: 'fran' }, right: { name: 'kappa' }, bottom: { name: 'ame' } };
-	const alternateWaterTeam = { left: { name: 'mene' }, top: { name: 'fortuna' }, right: { name: 'summerEmber' }, bottom: { name: 'beth' } };
-	const alternateFireTeam = { left: { name: 'christmasDianne' }, top: { name: 'iris' }, right: { name: 'kanon' }, bottom: { name: 'vlada' } };
+	const alternateWaterTeam = { left: { name: 'mene' }, top: { name: 'fortuna' }, right: { name: 'veronica' }, bottom: { name: 'beth' } };
+	const alternateFireTeam = { left: { name: 'christmasDianne' }, top: { name: 'iris' }, right: { name: 'ember' }, bottom: { name: 'vlada' } };
 	const alternateLightTeam = { left: { name: 'faenen' }, top: { name: 'drakhan' }, right: { name: 'gnosisNella' }, bottom: { name: 'regina' } };
 	const alternateDarkTeam = { left: { name: 'nella' }, top: { name: 'maxwell' }, right: { name: 'omegaNadja' }, bottom: { name: 'iota' } };
 
@@ -338,6 +338,8 @@ function applyTeamConfiguration(team, chainOrderOpts = {}) {
 		vera: { element: 'dark', battleType: 'striker' },
 		demiurgeStella: { element: 'light', battleType: 'striker' },
 		roxie: { element: 'water', battleType: 'mage' },
+		ember: { element: 'fire', battleType: 'defender' },
+		veronica: { element: 'water', battleType: 'defender' },
 	};
 
 	const locationToCharacterCloneOpts = {
