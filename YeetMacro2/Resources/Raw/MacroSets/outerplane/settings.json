@@ -923,8 +923,8 @@
         "dimensionalSingularity"
       ],
       "$tags": [],
-      "$defaultValue": "normal",
-      "$value": "normal",
+      "$defaultValue": "dimensionalSingularity",
+      "$value": "dimensionalSingularity",
       "$position": 0,
       "$name": "type",
       "$path": "doMonadGate.type"

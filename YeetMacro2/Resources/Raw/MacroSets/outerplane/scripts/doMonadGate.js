@@ -320,6 +320,7 @@ function doDimensionalSingularity() {
 				macroService.PollPattern(patterns.battle.lineupRecord.restoreTeam.ok, { DoClick: true, PredicatePattern: patterns.battle.lineupRecord });
 				macroService.PollPattern(patterns.battle.enter, { DoClick: true, PredicatePattern: patterns.battle.saveAndExit });
 				macroService.PollPattern(patterns.battle.saveAndExit, { DoClick: true, PredicatePattern: patterns.battle.saveAndExit.confirm });
+				macroService.PollPattern(patterns.battle.saveAndExit.confirm, { DoClick: true, PredicatePattern: patterns.general.tapEmptySpace });
 				macroService.PollPattern(patterns.general.tapEmptySpace, { DoClick: true, PredicatePattern: patterns.monadGate.singularityRepel.teamsSetup });
 				break;
 		}
