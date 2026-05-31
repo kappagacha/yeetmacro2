@@ -2987,8 +2987,8 @@
     "useAlternateTeams": {
       "$type": "boolean",
       "$tags": [],
-      "$defaultValue": true,
-      "$value": true,
+      "$defaultValue": false,
+      "$value": false,
       "$position": 1,
       "$name": "useAlternateTeams",
       "$path": "selectTeamSpecial.useAlternateTeams"

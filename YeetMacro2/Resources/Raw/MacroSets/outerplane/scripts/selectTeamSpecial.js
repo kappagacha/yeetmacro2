@@ -171,6 +171,7 @@ function selectTeamTower() {
 	const no_dark = macroService.FindPattern(patterns.battle.conditions.no_dark, findPatternOpts).IsSuccess;
 	//const no_earth = macroService.FindPattern(patterns.battle.conditions.no_earth, findPatternOpts).IsSuccess;
 
+	const atLeastOne_oneStar = macroService.FindPattern(patterns.battle.conditions.atLeastOne_oneStar, findPatternOpts).IsSuccess;
 	const atLeastOne_twoStar = macroService.FindPattern(patterns.battle.conditions.atLeastOne_twoStar, findPatternOpts).IsSuccess;
 	//const atLeastOne_threeStar = macroService.FindPattern(patterns.battle.conditions.atLeastOne_threeStar, findPatternOpts).IsSuccess;
 	//const atLeastOne_ranger = macroService.FindPattern(patterns.battle.conditions.atLeastOne_ranger, findPatternOpts).IsSuccess;
@@ -184,6 +185,9 @@ function selectTeamTower() {
 	//const atLeastOne_dark = macroService.FindPattern(patterns.battle.conditions.atLeastOne_dark, findPatternOpts).IsSuccess;
 	const atLeastOne_water = macroService.FindPattern(patterns.battle.conditions.atLeastOne_water, findPatternOpts).IsSuccess;
 
+	if (atLeastOne_oneStar) {
+		idealTeam.right = { name: 'claire' };
+	}
 	if (atLeastOne_twoStar) {
 		idealTeam.right = { name: 'faenen' };
 	}
@@ -227,6 +231,12 @@ function selectTeamTower() {
 		idealTeam.top = { name: 'summerRegina' };
 		idealTeam.right = { name: 'summerEmber' };
 		idealTeam.bottom = { name: 'tamara' };
+	}
+	if (atLeastOne_fire && bossType == 'fireTamamo') {
+		idealTeam.left = { name: 'nella' };
+		idealTeam.top = { name: 'gnosisDomine' };
+		idealTeam.right = { name: 'monadEva' };
+		idealTeam.bottom = { name: 'midnightRushSkadi' };
 	}
 	if (no_light && no_dark && bossType === 'glicys') {
 		idealTeam.left = { name: 'viella' };
@@ -340,6 +350,9 @@ function applyTeamConfiguration(team, chainOrderOpts = {}) {
 		roxie: { element: 'water', battleType: 'mage' },
 		ember: { element: 'fire', battleType: 'defender' },
 		veronica: { element: 'water', battleType: 'defender' },
+		claire: { element: 'fire', battleType: 'healer' },
+		gnosisDomine: { element: 'dark', battleType: 'mage' },
+		midnightRushSkadi: { element: 'fire', battleType: 'striker' },
 	};
 
 	const locationToCharacterCloneOpts = {
