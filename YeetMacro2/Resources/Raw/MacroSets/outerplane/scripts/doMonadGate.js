@@ -287,8 +287,12 @@ function doNormalObservation() {
 }
 
 function doDimensionalSingularity() {
-	const loopPatterns = [patterns.lobby.level, patterns.titles.adventure, patterns.monadGate.gateEntryDevice, patterns.battle.enter];
+	const daily = dailyManager.GetCurrentDaily();
+	const loopPatterns = [patterns.lobby.level, patterns.titles.adventure, patterns.monadGate.gateEntryDevice, patterns.battle.enter, patterns.monadGate.singularityRepel.observation];
 	const clickPatterns = [patterns.monadGate.singularityRepel, patterns.general.tapEmptySpace, patterns.monadGate.singularityRepel.teamsSetup];
+	if (daily.doMonadGate.singularityRepel.IsChecked) {
+		return "Script already completed. Uncheck done to override daily flag.";
+	}
 
 	while (macroService.IsRunning) {
 		const loopResult = macroService.PollPattern(loopPatterns, { ClickPattern: clickPatterns });
@@ -323,6 +327,9 @@ function doDimensionalSingularity() {
 				macroService.PollPattern(patterns.battle.saveAndExit.confirm, { DoClick: true, PredicatePattern: patterns.general.tapEmptySpace });
 				macroService.PollPattern(patterns.general.tapEmptySpace, { DoClick: true, PredicatePattern: patterns.monadGate.singularityRepel.teamsSetup });
 				break;
+			case 'monadGate.singularityRepel.observation':
+				if (macroService.IsRunning) daily.doMonadGate.singularityRepel.IsChecked = true;
+				return;
 		}
 		sleep(1_000);
 	}
