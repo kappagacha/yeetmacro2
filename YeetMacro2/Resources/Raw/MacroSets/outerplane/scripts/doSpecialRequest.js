@@ -205,7 +205,7 @@ function doSpecialRequestStage13() {
 				return false;
 			}
 
-			macroService.PollPattern(patterns.challenge.sweepAll.sweep, { DoClick: true, PredicatePattern: patterns.challenge.sweepAll.sweep.ok });
+			macroService.PollPattern(patterns.challenge.sweepAll.sweepx1, { DoClick: true, PredicatePattern: patterns.challenge.sweepAll.sweep.ok });
 			macroService.PollPattern(patterns.challenge.sweepAll.sweep.ok, { DoClick: true, PredicatePattern: patterns.challenge.sweepAll.sweep });
 
 			for (const bossType of bossTypesChecked) {
