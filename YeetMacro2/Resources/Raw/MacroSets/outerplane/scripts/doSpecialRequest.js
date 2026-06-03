@@ -206,7 +206,7 @@ function doSpecialRequestStage13() {
 			}
 
 			macroService.PollPattern(patterns.challenge.sweepAll.sweepx1, { DoClick: true, PredicatePattern: patterns.challenge.sweepAll.sweep.ok });
-			macroService.PollPattern(patterns.challenge.sweepAll.sweep.ok, { DoClick: true, PredicatePattern: patterns.challenge.sweepAll.sweep });
+			macroService.PollPattern(patterns.challenge.sweepAll.sweep.ok, { DoClick: true, PredicatePattern: patterns.challenge.sweepAll.sweepx1 });
 
 			for (const bossType of bossTypesChecked) {
 				daily.doSpecialRequest.stage13[stageCategory][bossType].Count++;
