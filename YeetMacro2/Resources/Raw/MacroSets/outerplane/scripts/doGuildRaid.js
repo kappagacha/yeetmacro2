@@ -54,6 +54,13 @@ while (macroService.IsRunning) {
 				macroService.PollPattern(patterns.guild.raid.exitBattle, { DoClick: true, ClickPattern: [patterns.general.tapEmptySpace, patterns.guild.raid.ok], PredicatePattern: patterns.titles.guildRaid });
 				//macroService.PollPattern(patterns.guild.raid[selectKey], { DoClick: true, PredicatePattern: patterns.battle.enter });
 
+				let notificationResult = macroService.PollPattern(patterns.guild.raid.reward.notification, { TimeoutMs: 3_000 });
+				while (notificationResult.IsSuccess) {
+					macroService.PollPattern(patterns.guild.raid.reward.notification, { DoClick: true, PredicatePattern: patterns.general.tapEmptySpace, ClickOffset: { X: -40, Y: 40 } });
+					macroService.PollPattern(patterns.general.tapEmptySpace, { DoClick: true, PredicatePattern: patterns.guild.raid.selectTeam });
+					notificationResult = macroService.PollPattern(patterns.guild.raid.reward.notification, { TimeoutMs: 3_000 });
+				}
+
 				if (macroService.IsRunning) daily.doGuildRaid[battleKey].IsChecked = true;
 			}
 
