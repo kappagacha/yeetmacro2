@@ -1,0 +1,134 @@
+// @raw-script
+// @tags=favorites
+
+function doGuild(type = '') {
+	if (!type) type = settings.doGuild.type.Value;
+
+	switch (type) {
+		case 'raid':
+			doGuildRaid();
+			break;
+		case 'securityArea':
+			doGuildSecurityArea();
+			break;
+	}
+}
+
+function doGuildRaid() {
+	const loopPatterns = [patterns.lobby.level, patterns.titles.guildBoard, patterns.titles.guildRaid, patterns.titles.guild];
+	const daily = dailyManager.GetCurrentDaily();
+	const teamSlot = settings.doGuild.raid.teamSlot.Value;
+
+	if (daily.doGuild.raid.done.IsChecked) {
+		return "Script already completed. Uncheck done to override daily flag.";
+	}
+
+	while (macroService.IsRunning) {
+		const loopResult = macroService.PollPattern(loopPatterns, { ClickPattern: [patterns.general.tapEmptySpace, patterns.guild.raid.ok] });
+		switch (loopResult.Path) {
+			case 'lobby.level':
+				logger.info('doGuildRaid: click guild tab');
+				const guildNotificationResult = macroService.PollPattern(patterns.tabs.guild.notification, { TimeoutMs: 1_500 });
+				if (guildNotificationResult.IsSuccess) {
+					macroService.ClickPattern(patterns.tabs.guild);
+				} else {
+					return;
+				}
+				sleep(500);
+				break;
+			case 'titles.guild':
+				logger.info('doGuildRaid: click board');
+				macroService.ClickPattern(patterns.guild.board);
+				sleep(500);
+				break;
+			case 'titles.guildBoard':
+				logger.info('doGuildRaid: click raid move');
+				macroService.ClickPattern(patterns.guild.raid.move);
+				break;
+			case 'titles.guildRaid':
+				const selectTeamResult = macroService.PollPattern([patterns.guild.raid.selectTeam, patterns.guild.raid.selectTeam1, patterns.guild.raid.selectTeam2]);
+				const isPhase1 = selectTeamResult.Path === 'guild.raid.selectTeam1' || selectTeamResult.Path === 'guild.raid.selectTeam2';
+
+				for (const battleNum of [1, 2]) {
+					const battleKey = `battle${battleNum}`;
+					const recordKey = isPhase1 ? 'record1' : `record${battleNum}`;
+					const selectKey = isPhase1 ? `selectTeam${battleNum}` : 'selectTeam';
+					if (daily.doGuild.raid[battleKey].IsChecked) continue;
+
+					logger.info(`doGuildRaid: battle ${battleNum}`);
+					macroService.PollPattern(patterns.guild.raid[selectKey], { DoClick: true, ClickPattern: [patterns.general.tapEmptySpace, patterns.guild.raid.ok], PredicatePattern: patterns.battle.enter });
+					selectTeam(teamSlot);
+					macroService.PollPattern(patterns.guild.raid.battleRecord, { DoClick: true, PredicatePattern: patterns.guild.raid.battleRecord.restoreTeam });
+					macroService.PollPattern(patterns.guild.raid.battleRecord[recordKey], { DoClick: true, PredicatePattern: patterns.guild.raid.battleRecord[recordKey].selected });
+					macroService.PollPattern(patterns.guild.raid.battleRecord.restoreTeam, { DoClick: true, PredicatePattern: patterns.guild.raid.battleRecord.restoreTeam.ok });
+					macroService.PollPattern(patterns.guild.raid.battleRecord.restoreTeam.ok, { DoClick: true, PredicatePattern: patterns.guild.raid.battleRecord });
+					macroService.PollPattern(patterns.battle.teamFormation, { DoClick: true, PredicatePattern: patterns.battle.teamFormation.selected });
+					setChainOrder();
+					macroService.PollPattern(patterns.battle.enter, { DoClick: true, ClickPattern: patterns.guild.raid.enterBattle, PredicatePattern: patterns.guild.raid.exitBattle });
+					macroService.PollPattern(patterns.guild.raid.exitBattle, { DoClick: true, ClickPattern: [patterns.general.tapEmptySpace, patterns.guild.raid.ok], PredicatePattern: patterns.titles.guildRaid });
+
+					let notificationResult = macroService.PollPattern(patterns.guild.raid.reward.notification, { TimeoutMs: 3_000 });
+					while (notificationResult.IsSuccess) {
+						macroService.PollPattern(patterns.guild.raid.reward.notification, { DoClick: true, PredicatePattern: patterns.general.tapEmptySpace, ClickOffset: { X: -40, Y: 40 } });
+						macroService.PollPattern(patterns.general.tapEmptySpace, { DoClick: true, PredicatePattern: patterns.guild.raid.selectTeam });
+						notificationResult = macroService.PollPattern(patterns.guild.raid.reward.notification, { TimeoutMs: 3_000 });
+					}
+
+					if (macroService.IsRunning) daily.doGuild.raid[battleKey].IsChecked = true;
+				}
+
+				if (macroService.IsRunning) daily.doGuild.raid.done.IsChecked = true;
+				return;
+		}
+		sleep(1_000);
+	}
+}
+
+function doGuildSecurityArea() {
+	const loopPatterns = [patterns.lobby.level, patterns.titles.guildBoard, patterns.titles.guild];
+	const daily = dailyManager.GetCurrentDaily();
+	const teamSlot = settings.doGuild.securityArea.teamSlot.Value;
+	const elementTypeTarget1 = settings.doGuild.securityArea.elementTypeTarget1.Value;
+	const elementTypeTarget2 = settings.doGuild.securityArea.elementTypeTarget2.Value;
+
+	if (daily.doGuild.securityArea.IsChecked) {
+		return "Script already completed. Uncheck done to override daily flag.";
+	}
+
+	while (macroService.IsRunning) {
+		const loopResult = macroService.PollPattern(loopPatterns, { ClickPattern: [patterns.general.tapEmptySpace, patterns.guild.checkIn.ok, patterns.guild.raid.startMessage, patterns.guild.raid.endMessage.ok] });
+		switch (loopResult.Path) {
+			case 'lobby.level':
+				logger.info('doGuildSecurityArea: click guild tab');
+				macroService.ClickPattern(patterns.tabs.guild);
+				sleep(500);
+				break;
+			case 'titles.guild':
+				logger.info('doGuildSecurityArea: click board');
+				macroService.ClickPattern(patterns.guild.board);
+				sleep(500);
+				break;
+			case 'titles.guildBoard':
+				logger.info('doGuildSecurityArea: click security area move');
+				const targetElementTypes = [elementTypeTarget1, elementTypeTarget2].map(ett => patterns.guild.securityArea[ett]);
+				macroService.PollPattern(patterns.guild.securityArea.move, { DoClick: true, PredicatePattern: targetElementTypes });
+				const elementTypeResult = macroService.PollPattern(targetElementTypes);
+				const elementType = elementTypeResult.Path.split('.').pop();
+				logger.info(`doGuildSecurityArea elementType: ${elementType}`);
+				macroService.PollPattern(patterns.guild.securityArea[elementType], { DoClick: true, PredicatePattern: patterns.battle.enter });
+
+				const recommendedElement = {
+					earth: 'fire',
+					water: 'earth',
+					fire: 'water'
+				};
+				selectTeamAndBattle(teamSlot === 'RecommendedElement' ? recommendedElement[elementType] : teamSlot, { applyPreset: true });
+
+				if (macroService.IsRunning) {
+					daily.doGuild.securityArea.IsChecked = true;
+				}
+				return;
+		}
+		sleep(1_000);
+	}
+}

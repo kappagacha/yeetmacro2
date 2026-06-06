@@ -37,12 +37,12 @@ if (settings.doDailies.doPursuitOperation.Value && daily.doPursuitOperation.coun
     goToLobby();
 }
 
-if (settings.doDailies.doGuildSecurityArea.Value) {
+if (settings.doDailies.doGuild.securityArea.Value) {
     doGuildSecurityArea();
     goToLobby();
 }
 
-if (settings.doDailies.doGuildRaid.Value) {
+if (settings.doDailies.doGuild.raid.Value) {
     doGuildRaid();
     goToLobby();
 }
