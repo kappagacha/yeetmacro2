@@ -24,7 +24,7 @@ function doGuildRaid() {
 	}
 
 	while (macroService.IsRunning) {
-		const loopResult = macroService.PollPattern(loopPatterns, { ClickPattern: [patterns.general.tapEmptySpace, patterns.guild.raid.ok] });
+		const loopResult = macroService.PollPattern(loopPatterns, { ClickPattern: [patterns.general.tapEmptySpace, patterns.guild.raid.ok, patterns.guild.raid.doNotShowAgain, patterns.guild.raid.doNotShowAgain.ok] });
 		switch (loopResult.Path) {
 			case 'lobby.level':
 				logger.info('doGuildRaid: click guild tab');

@@ -1047,6 +1047,43 @@
       }
     }
   },
+  "doInventory": {
+    "$type": "parent",
+    "$tags": [],
+    "$position": 0,
+    "$name": "doInventory",
+    "$path": "doInventory",
+    "type": {
+      "$type": "option",
+      "$options": [
+        "lock",
+        "sell",
+        "getItemStats"
+      ],
+      "$tags": [],
+      "$defaultValue": "lock",
+      "$value": "lock",
+      "$position": 0,
+      "$name": "type",
+      "$path": "doInventory.type"
+    },
+    "sell": {
+      "$type": "parent",
+      "$tags": [],
+      "$position": 0,
+      "$name": "sell",
+      "$path": "doInventory.sell",
+      "forceRun": {
+        "$type": "boolean",
+        "$tags": [],
+        "$defaultValue": false,
+        "$value": false,
+        "$position": 0,
+        "$name": "forceRun",
+        "$path": "doInventory.sell.forceRun"
+      }
+    }
+  },
   "doUpkeep": {
     "$type": "parent",
     "$tags": [],
