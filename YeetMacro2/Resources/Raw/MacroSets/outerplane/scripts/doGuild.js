@@ -16,15 +16,16 @@ function doGuild(type = '') {
 
 function doGuildRaid() {
 	const loopPatterns = [patterns.lobby.level, patterns.titles.guildBoard, patterns.titles.guildRaid, patterns.titles.guild];
+	const clickPatterns = [patterns.general.tapEmptySpace, patterns.guild.raid.ok, patterns.guild.raid.doNotShowAgain, patterns.guild.raid.doNotShowAgain.ok];
 	const daily = dailyManager.GetCurrentDaily();
 	const teamSlot = settings.doGuild.raid.teamSlot.Value;
-
+	
 	if (daily.doGuild.raid.done.IsChecked) {
 		return "Script already completed. Uncheck done to override daily flag.";
 	}
 
 	while (macroService.IsRunning) {
-		const loopResult = macroService.PollPattern(loopPatterns, { ClickPattern: [patterns.general.tapEmptySpace, patterns.guild.raid.ok, patterns.guild.raid.doNotShowAgain, patterns.guild.raid.doNotShowAgain.ok] });
+		const loopResult = macroService.PollPattern(loopPatterns, { ClickPattern: clickPatterns });
 		switch (loopResult.Path) {
 			case 'lobby.level':
 				logger.info('doGuildRaid: click guild tab');
@@ -46,7 +47,7 @@ function doGuildRaid() {
 				macroService.ClickPattern(patterns.guild.raid.move);
 				break;
 			case 'titles.guildRaid':
-				const selectTeamResult = macroService.PollPattern([patterns.guild.raid.selectTeam, patterns.guild.raid.selectTeam1, patterns.guild.raid.selectTeam2]);
+				const selectTeamResult = macroService.PollPattern([patterns.guild.raid.selectTeam, patterns.guild.raid.selectTeam1, patterns.guild.raid.selectTeam2], { ClickPattern: clickPatterns });
 				const isPhase1 = selectTeamResult.Path === 'guild.raid.selectTeam1' || selectTeamResult.Path === 'guild.raid.selectTeam2';
 
 				for (const battleNum of [1, 2]) {
