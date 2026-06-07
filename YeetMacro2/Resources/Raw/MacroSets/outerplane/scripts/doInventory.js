@@ -171,7 +171,7 @@ function sellInventory() {
 	const weekly = weeklyManager.GetCurrentWeekly();
 	const doDismantle = !weekly.doInventory.sell.doDismantleOnce.IsChecked;
 
-	if (daily.doIventory.sell.IsChecked && !settings.doInventory.sell.forceRun.Value) {
+	if (daily.doInventory.sell.IsChecked && !settings.doInventory.sell.forceRun.Value) {
 		return "Script already completed. Uncheck done to override daily flag.";
 	}
 
@@ -190,7 +190,7 @@ function sellInventory() {
 
 				if (macroService.IsRunning) {
 					if (doDismantle) weekly.doInventory.sell.doDismantleOnce.IsChecked = true;
-					daily.doIventory.sell.IsChecked = true;
+					daily.doInventory.sell.IsChecked = true;
 				}
 				return;
 		}
