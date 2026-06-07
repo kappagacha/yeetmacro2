@@ -169,6 +169,7 @@ function doNormalObservation() {
 					esephUltimateShocked: 155,
 					esephDecisiveBlowShocked: 105,
 					esephDecisiveBlowPetrified: 100,
+					esephGnosisVielaExclusive: 0,
 				};
 				if (blueCardResult.IsSuccess) {
 					for (const p of blueCardResult.Points.sort((a, b) => a.X - b.X)) {
