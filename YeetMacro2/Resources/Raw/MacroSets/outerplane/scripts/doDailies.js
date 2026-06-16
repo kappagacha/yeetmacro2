@@ -103,6 +103,11 @@ if (settings.doDailies.doEvent.storyHard2.Value) {
     goToLobby();
 }
 
+if (settings.doDailies.doEvent.storyHard3.Value) {
+    doEvent('storyHard3');
+    goToLobby();
+}
+
 if (settings.doDailies.sweepJointChallenge.Value) {
     sweepJointChallenge();
     goToLobby();
