@@ -315,6 +315,17 @@ function doDimensionalSingularity() {
 				break;
 			case 'battle.enter':
 				logger.info('doDimensionalSingularity: do dimensional singularity');
+				const bossTypes = ['harshna'].map(bt => patterns.monadGate.singularityRepel.bossTypes[bt]);
+				const bossTypeResult = macroService.PollPattern(bossTypes);
+				const bossType = bossTypeResult.Path?.split('.').pop();
+
+				const currentRanks = ['sssPlusPlus'].map(cr => patterns.monadGate.singularityRepel.currentRank[cr]);
+				const currentRankResult = macroService.PollPattern(currentRanks);
+				const currentRank = currentRankResult.Path?.split('.').pop();
+
+				if (currentRank !== 'sssPlusPlus' && [].includes(bossType)) {
+					throw Error("Need to try to beat the boss");
+				}
 
 				if (macroService.FindPattern(patterns.monadGate.singularityRepel.zeroAttemptsLeft).IsSuccess)
 					return;

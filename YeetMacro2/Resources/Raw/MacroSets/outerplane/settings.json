@@ -874,8 +874,8 @@
         "dimensionalSingularity"
       ],
       "$tags": [],
-      "$defaultValue": "normal",
-      "$value": "normal",
+      "$defaultValue": "dimensionalSingularity",
+      "$value": "dimensionalSingularity",
       "$position": 0,
       "$name": "type",
       "$path": "doMonadGate.type"
@@ -1091,6 +1091,22 @@
         "$position": 0,
         "$name": "raid",
         "$path": "doDailies.doGuild.raid"
+      }
+    },
+    "doMonadGate": {
+      "$type": "parent",
+      "$tags": [],
+      "$position": 0,
+      "$name": "doMonadGate",
+      "$path": "doDailies.doMonadGate",
+      "dimensionalSingularity": {
+        "$type": "boolean",
+        "$tags": [],
+        "$defaultValue": false,
+        "$value": false,
+        "$position": 0,
+        "$name": "dimensionalSingularity",
+        "$path": "doDailies.doMonadGate.dimensionalSingularity"
       }
     },
     "watchAds": {

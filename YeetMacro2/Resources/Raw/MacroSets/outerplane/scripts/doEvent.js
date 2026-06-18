@@ -131,19 +131,21 @@ function sweepEventStoryHard(number) {
 		let currencyResult = macroService.FindPattern(currencyBoundedPattern);
 		let jointChallengeSelectedResult = macroService.FindPattern(patterns.shop.adventurer.event.jointChallenge.selected);
 		if (!currencyResult.IsSuccess || jointChallengeSelectedResult.IsSuccess) {
-			const subTabShopResult = macroService.FindPattern(patterns.shop.subTabShop, { Limit: 5 });
-			if (!subTabShopResult.IsSuccess) {
-				throw new Error('Could not find shop(s)');
-			}
+			outer: for (const i = 0; i < 3; i++) {
+				const subTabShopResult = macroService.FindPattern(patterns.shop.subTabShop, { Limit: 5 });
+				if (!subTabShopResult.IsSuccess) {
+					throw new Error('Could not find shop(s)');
+				}
 
-			for (const p of subTabShopResult.Points) {
-				macroService.DoClick(p);
-				sleep(500);
-				currencyResult = macroService.FindPattern(currencyBoundedPattern);
-				jointChallengeSelectedResult = macroService.FindPattern(patterns.shop.adventurer.event.jointChallenge.selected);
-				if (currencyResult.IsSuccess && !jointChallengeSelectedResult.IsSuccess) break;
+				for (const p of subTabShopResult.Points) {
+					macroService.DoClick(p);
+					sleep(1_000);
+					currencyResult = macroService.FindPattern(currencyBoundedPattern);
+					jointChallengeSelectedResult = macroService.FindPattern(patterns.shop.adventurer.event.jointChallenge.selected);
+					if (currencyResult.IsSuccess && !jointChallengeSelectedResult.IsSuccess) break outer;
+				}
 			}
-
+			
 			if (!currencyResult.IsSuccess) {
 				throw new Error('Could not find target currency');
 			}

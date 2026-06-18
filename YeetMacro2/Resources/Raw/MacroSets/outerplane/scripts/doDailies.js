@@ -165,6 +165,11 @@ if (settings.doDailies.claim.coinExchange.Value) {
     goToLobby();
 }
 
+if (settings.doDailies.doMonadGate.dimensionalSingularity.Value) {
+    doDimensionalSingularity();
+    goToLobby();
+}
+
 function getRunsLeft(stageCategory) {
     const ecologyStudyKeyToBossType = {
         0: 'masterlessGuardian',
