@@ -471,12 +471,13 @@ function claimFreeRecruit() {
 		switch (loopResult.Path) {
 			case 'lobby.level':
 				logger.info('claimFreeRecruit: click recruit tab');
-				const recruitNotificationResult = macroService.PollPattern(patterns.tabs.recruit.notification, { TimeoutMs: 2_000 });
-				if (recruitNotificationResult.IsSuccess) {
-					macroService.ClickPattern(patterns.tabs.recruit);
-				} else {	// already claimed
-					return;
-				}
+				//const recruitNotificationResult = macroService.PollPattern(patterns.tabs.recruit.notification, { TimeoutMs: 2_000 });
+				//if (recruitNotificationResult.IsSuccess) {
+				//	macroService.ClickPattern(patterns.tabs.recruit);
+				//} else {	// already claimed
+				//	return;
+				//}
+				macroService.ClickPattern(patterns.tabs.recruit);
 				sleep(500);
 				break;
 			case 'titles.recruit':

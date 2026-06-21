@@ -315,7 +315,7 @@ function doDimensionalSingularity() {
 				break;
 			case 'battle.enter':
 				logger.info('doDimensionalSingularity: do dimensional singularity');
-				const bossTypes = ['harshna'].map(bt => patterns.monadGate.singularityRepel.bossTypes[bt]);
+				const bossTypes = ['harshna', 'ksai'].map(bt => patterns.monadGate.singularityRepel.bossTypes[bt]);
 				const bossTypeResult = macroService.PollPattern(bossTypes);
 				const bossType = bossTypeResult.Path?.split('.').pop();
 

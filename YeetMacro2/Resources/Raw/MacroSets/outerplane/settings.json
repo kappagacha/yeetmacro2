@@ -881,6 +881,153 @@
       "$path": "doMonadGate.type"
     }
   },
+  "doGuild": {
+    "$type": "parent",
+    "$tags": [],
+    "$position": 0,
+    "$name": "doGuild",
+    "$path": "doGuild",
+    "type": {
+      "$type": "option",
+      "$options": [
+        "raid",
+        "securityArea"
+      ],
+      "$tags": [],
+      "$defaultValue": "raid",
+      "$value": "raid",
+      "$position": 0,
+      "$name": "type",
+      "$path": "doGuild.type"
+    },
+    "raid": {
+      "$type": "parent",
+      "$tags": [],
+      "$position": 1,
+      "$name": "raid",
+      "$path": "doGuild.raid",
+      "teamSlot": {
+        "$type": "option",
+        "$options": [
+          "Current",
+          "1",
+          "2",
+          "3",
+          "4",
+          "5",
+          "6",
+          "7",
+          "8",
+          "9",
+          "RecommendedElement"
+        ],
+        "$tags": [],
+        "$defaultValue": "9",
+        "$value": "9",
+        "$position": 0,
+        "$name": "teamSlot",
+        "$path": "doGuild.raid.teamSlot"
+      }
+    },
+    "securityArea": {
+      "$type": "parent",
+      "$tags": [],
+      "$position": 2,
+      "$name": "securityArea",
+      "$path": "doGuild.securityArea",
+      "teamSlot": {
+        "$type": "option",
+        "$options": [
+          "Current",
+          "1",
+          "2",
+          "3",
+          "4",
+          "5",
+          "6",
+          "7",
+          "8",
+          "9",
+          "RecommendedElement"
+        ],
+        "$tags": [],
+        "$defaultValue": "RecommendedElement",
+        "$value": "RecommendedElement",
+        "$position": 0,
+        "$name": "teamSlot",
+        "$path": "doGuild.securityArea.teamSlot"
+      },
+      "elementTypeTarget1": {
+        "$type": "option",
+        "$options": [
+          "earth",
+          "water",
+          "fire",
+          "light",
+          "dark"
+        ],
+        "$tags": [],
+        "$defaultValue": "earth",
+        "$value": "earth",
+        "$position": 0,
+        "$name": "elementTypeTarget1",
+        "$path": "doGuild.securityArea.elementTypeTarget1"
+      },
+      "elementTypeTarget2": {
+        "$type": "option",
+        "$options": [
+          "earth",
+          "water",
+          "fire",
+          "light",
+          "dark"
+        ],
+        "$tags": [],
+        "$defaultValue": "water",
+        "$value": "water",
+        "$position": 0,
+        "$name": "elementTypeTarget2",
+        "$path": "doGuild.securityArea.elementTypeTarget2"
+      }
+    }
+  },
+  "doInventory": {
+    "$type": "parent",
+    "$tags": [],
+    "$position": 0,
+    "$name": "doInventory",
+    "$path": "doInventory",
+    "type": {
+      "$type": "option",
+      "$options": [
+        "lock",
+        "sell",
+        "getItemStats"
+      ],
+      "$tags": [],
+      "$defaultValue": "lock",
+      "$value": "lock",
+      "$position": 0,
+      "$name": "type",
+      "$path": "doInventory.type"
+    },
+    "sell": {
+      "$type": "parent",
+      "$tags": [],
+      "$position": 0,
+      "$name": "sell",
+      "$path": "doInventory.sell",
+      "forceRun": {
+        "$type": "boolean",
+        "$tags": [],
+        "$defaultValue": false,
+        "$value": false,
+        "$position": 0,
+        "$name": "forceRun",
+        "$path": "doInventory.sell.forceRun"
+      }
+    }
+  },
   "doDailies": {
     "$type": "parent",
     "$tags": [],
@@ -1180,153 +1327,6 @@
       "$position": 30,
       "$name": "doPursuitOperation",
       "$path": "doDailies.doPursuitOperation"
-    }
-  },
-  "doGuild": {
-    "$type": "parent",
-    "$tags": [],
-    "$position": 0,
-    "$name": "doGuild",
-    "$path": "doGuild",
-    "type": {
-      "$type": "option",
-      "$options": [
-        "raid",
-        "securityArea"
-      ],
-      "$tags": [],
-      "$defaultValue": "raid",
-      "$value": "raid",
-      "$position": 0,
-      "$name": "type",
-      "$path": "doGuild.type"
-    },
-    "raid": {
-      "$type": "parent",
-      "$tags": [],
-      "$position": 1,
-      "$name": "raid",
-      "$path": "doGuild.raid",
-      "teamSlot": {
-        "$type": "option",
-        "$options": [
-          "Current",
-          "1",
-          "2",
-          "3",
-          "4",
-          "5",
-          "6",
-          "7",
-          "8",
-          "9",
-          "RecommendedElement"
-        ],
-        "$tags": [],
-        "$defaultValue": "9",
-        "$value": "9",
-        "$position": 0,
-        "$name": "teamSlot",
-        "$path": "doGuild.raid.teamSlot"
-      }
-    },
-    "securityArea": {
-      "$type": "parent",
-      "$tags": [],
-      "$position": 2,
-      "$name": "securityArea",
-      "$path": "doGuild.securityArea",
-      "teamSlot": {
-        "$type": "option",
-        "$options": [
-          "Current",
-          "1",
-          "2",
-          "3",
-          "4",
-          "5",
-          "6",
-          "7",
-          "8",
-          "9",
-          "RecommendedElement"
-        ],
-        "$tags": [],
-        "$defaultValue": "RecommendedElement",
-        "$value": "RecommendedElement",
-        "$position": 0,
-        "$name": "teamSlot",
-        "$path": "doGuild.securityArea.teamSlot"
-      },
-      "elementTypeTarget1": {
-        "$type": "option",
-        "$options": [
-          "earth",
-          "water",
-          "fire",
-          "light",
-          "dark"
-        ],
-        "$tags": [],
-        "$defaultValue": "earth",
-        "$value": "earth",
-        "$position": 0,
-        "$name": "elementTypeTarget1",
-        "$path": "doGuild.securityArea.elementTypeTarget1"
-      },
-      "elementTypeTarget2": {
-        "$type": "option",
-        "$options": [
-          "earth",
-          "water",
-          "fire",
-          "light",
-          "dark"
-        ],
-        "$tags": [],
-        "$defaultValue": "water",
-        "$value": "water",
-        "$position": 0,
-        "$name": "elementTypeTarget2",
-        "$path": "doGuild.securityArea.elementTypeTarget2"
-      }
-    }
-  },
-  "doInventory": {
-    "$type": "parent",
-    "$tags": [],
-    "$position": 0,
-    "$name": "doInventory",
-    "$path": "doInventory",
-    "type": {
-      "$type": "option",
-      "$options": [
-        "lock",
-        "sell",
-        "getItemStats"
-      ],
-      "$tags": [],
-      "$defaultValue": "lock",
-      "$value": "lock",
-      "$position": 0,
-      "$name": "type",
-      "$path": "doInventory.type"
-    },
-    "sell": {
-      "$type": "parent",
-      "$tags": [],
-      "$position": 0,
-      "$name": "sell",
-      "$path": "doInventory.sell",
-      "forceRun": {
-        "$type": "boolean",
-        "$tags": [],
-        "$defaultValue": false,
-        "$value": false,
-        "$position": 0,
-        "$name": "forceRun",
-        "$path": "doInventory.sell.forceRun"
-      }
     }
   },
   "doUpkeep": {
