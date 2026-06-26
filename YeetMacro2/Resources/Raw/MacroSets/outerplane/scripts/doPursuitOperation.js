@@ -160,7 +160,12 @@ function doPursuitOperation(mode) {
 					macroService.IsRunning && (settings.applyPreset.lastApplied.Value = teamSlot);
 				}
 
-				macroService.PollPattern(patterns.battle.enter, { DoClick: true, PredicatePattern: patterns.battle.next });
+				const enterResult = macroService.PollPattern(patterns.battle.enter, { DoClick: true, PredicatePattern: [patterns.battle.auto, patterns.battle.next] });
+				if (enterResult.PredicatePath === 'battle.auto') {
+					macroService.PollPattern(patterns.battle.auto, { InversePredicatePattern: patterns.battle.auto });
+					macroService.PollPattern(patterns.battle.enter, { DoClick: true, PredicatePattern: patterns.battle.next });
+				}
+
 				while (macroService.IsRunning) {
 					const nextResult = macroService.PollPattern(patterns.battle.next, { DoClick: true, PredicatePattern: [patterns.battle.exit, patterns.battle.restore] });
 					if (nextResult.PredicatePath === 'battle.restore') {

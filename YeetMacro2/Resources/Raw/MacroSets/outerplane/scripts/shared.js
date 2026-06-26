@@ -69,7 +69,12 @@ function selectTeamAndBattle(teamSlot, opts = {}) {
 	}
 
 	if (autoResult.PredicatePath === 'battle.setup.enter') {
-		macroService.PollPattern(patterns.battle.setup.enter, { DoClick: true, PredicatePattern: patterns.battle.setup.enter.ok });
+		const enterResult = macroService.PollPattern(patterns.battle.setup.enter, { DoClick: true, PredicatePattern: [patterns.battle.auto, patterns.battle.setup.enter.ok] });
+		if (enterResult.PredicatePath === 'battle.auto') {
+			macroService.PollPattern(patterns.battle.auto, { InversePredicatePattern: patterns.battle.auto });
+			macroService.PollPattern(patterns.battle.setup.enter, { DoClick: true, PredicatePattern: patterns.battle.setup.enter.ok });
+		}
+
 		return numBattles;
 	}
 

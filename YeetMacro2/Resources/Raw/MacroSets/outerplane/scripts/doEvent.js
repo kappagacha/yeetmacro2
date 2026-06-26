@@ -131,8 +131,8 @@ function sweepEventStoryHard(number) {
 		let currencyResult = macroService.FindPattern(currencyBoundedPattern);
 		let jointChallengeSelectedResult = macroService.FindPattern(patterns.shop.adventurer.event.jointChallenge.selected);
 		if (!currencyResult.IsSuccess || jointChallengeSelectedResult.IsSuccess) {
-			outer: for (let i = 0; i < 3; i++) {
-				const subTabShopResult = macroService.FindPattern(patterns.shop.subTabShop, { Limit: 5 });
+			outer: for (subTabShopPattern of [patterns.shop.subTabShop, patterns.shop.subTabShop2]) {
+				const subTabShopResult = macroService.FindPattern(subTabShopPattern, { Limit: 5 });
 				if (!subTabShopResult.IsSuccess) {
 					throw new Error('Could not find shop(s)');
 				}
