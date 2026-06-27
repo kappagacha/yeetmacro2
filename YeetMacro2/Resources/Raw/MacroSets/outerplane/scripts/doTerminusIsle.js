@@ -361,7 +361,11 @@ function deployHeroes(skipHeroDeployment) {
 		const recommendedElementResult = macroService.PollPattern(recommendedElementPatterns);
 		const recommendedElement = recommendedElementResult.Path?.split('.').pop();
 		selectTeam(recommendedElement, { applyPreset: true });
-		macroService.PollPattern(patterns.battle.enter, { DoClick: true, PredicatePattern: patterns.battle.exit });
+		const enterResult = macroService.PollPattern(patterns.battle.enter, { DoClick: true, PredicatePattern: [patterns.battle.auto, patterns.battle.exit] });
+		if (enterResult.PredicatePath === 'battle.auto') {
+			macroService.PollPattern(patterns.battle.auto, { DoClick: true, InversePredicatePattern: patterns.battle.auto });
+			macroService.PollPattern(patterns.battle.enter, { DoClick: true, PredicatePattern: patterns.battle.exit });
+		}
 		macroService.PollPattern(patterns.battle.exit, { DoClick: true, ClickPattern: patterns.terminusIsle.prompt.next, PredicatePattern: patterns.general.tapEmptySpace });
 	} else {
 		macroService.PollPattern(patterns.terminusIsle.prompt.heroDeployment.skip, { DoClick: true, ClickPattern: patterns.terminusIsle.prompt.next, PredicatePattern: patterns.general.tapEmptySpace });
@@ -378,13 +382,23 @@ function doEnhancedDeadlyCreature(isWithSupportPack) {
 		macroService.PollPattern(patterns.terminusIsle.prompt.heroDeployment, { DoClick: true, PredicatePattern: patterns.battle.enter });
 		selectTeamGeneral();
 		macroService.PollPattern(patterns.general.back, { DoClick: true, PrimaryClickInversePredicatePattern: patterns.battle.enter, PredicatePattern: patterns.battle.enter });
-		macroService.PollPattern(patterns.battle.enter, { DoClick: true, PredicatePattern: patterns.battle.exit });
+
+		const enterResult = macroService.PollPattern(patterns.battle.enter, { DoClick: true, PredicatePattern: [patterns.battle.auto, patterns.battle.exit] });
+		if (enterResult.PredicatePath === 'battle.auto') {
+			macroService.PollPattern(patterns.battle.auto, { DoClick: true, InversePredicatePattern: patterns.battle.auto });
+			macroService.PollPattern(patterns.battle.enter, { DoClick: true, PredicatePattern: patterns.battle.exit });
+		}
+
 		const exitResult = macroService.PollPattern(patterns.battle.exit, { DoClick: true, PredicatePattern: [patterns.general.tapEmptySpace, patterns.terminusIsle.prompt.heroDeployment] });
 		if (exitResult.PredicatePath === 'terminusIsle.prompt.heroDeployment') {
 			macroService.PollPattern(patterns.terminusIsle.prompt.heroDeployment, { DoClick: true, PredicatePattern: patterns.battle.enter });
 			selectTeamGeneral();
 			macroService.PollPattern(patterns.general.back, { DoClick: true, PrimaryClickInversePredicatePattern: patterns.battle.enter, PredicatePattern: patterns.battle.enter });
-			macroService.PollPattern(patterns.battle.enter, { DoClick: true, PredicatePattern: patterns.battle.exit });
+			const enterResult = macroService.PollPattern(patterns.battle.enter, { DoClick: true, PredicatePattern: [patterns.battle.auto, patterns.battle.exit] });
+			if (enterResult.PredicatePath === 'battle.auto') {
+				macroService.PollPattern(patterns.battle.auto, { DoClick: true, InversePredicatePattern: patterns.battle.auto });
+				macroService.PollPattern(patterns.battle.enter, { DoClick: true, PredicatePattern: patterns.battle.exit });
+			}
 			macroService.PollPattern(patterns.battle.exit, { DoClick: true, PredicatePattern: patterns.general.tapEmptySpace });
 		}
 		macroService.PollPattern(patterns.general.tapEmptySpace, { DoClick: true, PredicatePattern: patterns.terminusIsle.stage });
@@ -398,7 +412,11 @@ function doMoonlitFangBoss() {
 		macroService.PollPattern(patterns.terminusIsle.prompt.heroDeployment, { DoClick: true, PredicatePattern: patterns.battle.enter });
 		const bossType = detectBossType();
 		selectTeam(bossType === 'light' ? 'dark' : 'light', { applyPreset: true });
-		macroService.PollPattern(patterns.battle.enter, { DoClick: true, PredicatePattern: patterns.battle.exit });
+		const enterResult = macroService.PollPattern(patterns.battle.enter, { DoClick: true, PredicatePattern: [patterns.battle.auto, patterns.battle.exit] });
+		if (enterResult.PredicatePath === 'battle.auto') {
+			macroService.PollPattern(patterns.battle.auto, { DoClick: true, InversePredicatePattern: patterns.battle.auto });
+			macroService.PollPattern(patterns.battle.enter, { DoClick: true, PredicatePattern: patterns.battle.exit });
+		}
 		macroService.PollPattern(patterns.battle.exit, { DoClick: true, PredicatePattern: patterns.general.tapEmptySpace });
 		macroService.PollPattern(patterns.general.tapEmptySpace, { DoClick: true, PredicatePattern: patterns.terminusIsle.stage });
 

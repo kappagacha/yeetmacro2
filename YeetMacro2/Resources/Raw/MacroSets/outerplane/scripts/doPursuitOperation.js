@@ -162,7 +162,7 @@ function doPursuitOperation(mode) {
 
 				const enterResult = macroService.PollPattern(patterns.battle.enter, { DoClick: true, PredicatePattern: [patterns.battle.auto, patterns.battle.next] });
 				if (enterResult.PredicatePath === 'battle.auto') {
-					macroService.PollPattern(patterns.battle.auto, { InversePredicatePattern: patterns.battle.auto });
+					macroService.PollPattern(patterns.battle.auto, { DoClick: true, InversePredicatePattern: patterns.battle.auto });
 					macroService.PollPattern(patterns.battle.enter, { DoClick: true, PredicatePattern: patterns.battle.next });
 				}
 
