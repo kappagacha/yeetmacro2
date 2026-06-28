@@ -170,7 +170,11 @@ if (settings.test.type.Value === 'arenaTicketCount') {
 	const numDaysDetected = {}
 	for (const p of daysResult.Points.sort((a, b) => a.Y - b.Y)) {
 		const dayBounds = { X: p.X - 27, Y: p.Y - 15, Width: 30, Height: 30 };
-		const numDays = parseInt(macroService.FindTextWithBounds(dayBounds, "1234567890").slice(0, -1));
+		let text = macroService.FindTextWithBounds(dayBounds, "1234567890");
+		if (text.length > 1) {
+			text = text.slice(0, -1)
+		}
+		const numDays = parseInt(text);
 		numDaysDetected[p.Y] = numDays
 	}
 	return numDaysDetected;
