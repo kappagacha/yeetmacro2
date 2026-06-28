@@ -3260,8 +3260,8 @@
         "friendsLastLogin2"
       ],
       "$tags": [],
-      "$defaultValue": "friendsLastLogin",
-      "$value": "friendsLastLogin",
+      "$defaultValue": "friendsLastLogin2",
+      "$value": "friendsLastLogin2",
       "$position": 0,
       "$name": "type",
       "$path": "test.type"
