@@ -3255,11 +3255,12 @@
         "explorationOrders",
         "mailboxExpiring",
         "shop",
-        "unitTitleAndName"
+        "unitTitleAndName",
+        "friendsLastLogin"
       ],
       "$tags": [],
-      "$defaultValue": "unitTitleAndName",
-      "$value": "unitTitleAndName",
+      "$defaultValue": "friendsLastLogin",
+      "$value": "friendsLastLogin",
       "$position": 0,
       "$name": "type",
       "$path": "test.type"

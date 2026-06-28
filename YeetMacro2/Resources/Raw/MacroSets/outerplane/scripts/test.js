@@ -165,4 +165,13 @@ if (settings.test.type.Value === 'arenaTicketCount') {
 } else if (settings.test.type.Value === 'unitTitleAndName') {
 	const unitTitleAndName = macroService.FindText(patterns.battle.teamFormation.unitTitleAndName);
 	return unitTitleAndName;
+} else if (settings.test.type.Value === 'friendsLastLogin') {
+	const daysResult = macroService.FindPattern(patterns.friends.friendList.day, { Limit: 5 });
+	const numDaysDetected = {}
+	for (const p of daysResult.Points.sort((a, b) => a.Y - b.Y)) {
+		const dayBounds = { X: p.X - 27, Y: p.Y - 15, Width: 30, Height: 30 };
+		const numDays = parseInt(macroService.FindTextWithBounds(dayBounds, "1234567890").slice(0, -1));
+		numDaysDetected[p.Y] = numDays
+	}
+	return numDaysDetected;
 }
