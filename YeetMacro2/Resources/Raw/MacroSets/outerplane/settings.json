@@ -3256,7 +3256,8 @@
         "mailboxExpiring",
         "shop",
         "unitTitleAndName",
-        "friendsLastLogin"
+        "friendsLastLogin",
+        "friendsLastLogin2"
       ],
       "$tags": [],
       "$defaultValue": "friendsLastLogin",
