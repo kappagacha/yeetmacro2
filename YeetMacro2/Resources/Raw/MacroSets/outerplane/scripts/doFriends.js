@@ -55,8 +55,13 @@ function refreshFriends() {
 	macroService.PollPattern(patterns.friends.friendList.sortByLastLogin, { DoClick: true, PredicatePattern: patterns.friends.friendList.sortByLastLogin.desc });
 
 	// delete friends who haven't logged in for 5 days
-	const daysResult = macroService.FindPattern(patterns.friends.friendList.day, { Limit: 5 });
-	if (daysResult.IsSuccess) {
+	let hasExpiredFriend = true;
+
+	while (hasExpiredFriend) {
+		let daysResult = macroService.FindPattern(patterns.friends.friendList.day, { Limit: 5 });
+		if (!daysResult.IsSuccess) break;
+
+		hasExpiredFriend = false;
 		for (const p of daysResult.Points.sort((a, b) => a.Y - b.Y)) {
 			const dayBounds = { X: p.X - 27, Y: p.Y - 15, Width: 30, Height: 30 };
 			let text = macroService.FindTextWithBounds(dayBounds, "1234567890");
@@ -70,6 +75,9 @@ function refreshFriends() {
 				macroService.PollPattern(patterns.friends.friendList.delete, { DoClick: true, PredicatePattern: patterns.friends.friendList.delete.ok });
 				macroService.PollPattern(patterns.friends.friendList.delete.ok, { DoClick: true, PredicatePattern: patterns.friends.friendList.delete });
 				macroService.PollPattern(patterns.friends.friendList.delete.cancel, { DoClick: true, PredicatePattern: patterns.titles.friends });
+				hasExpiredFriend = true;
+				sleep(2_000);
+				break;
 			};
 		}
 	}
