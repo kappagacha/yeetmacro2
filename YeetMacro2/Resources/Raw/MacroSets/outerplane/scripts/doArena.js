@@ -159,7 +159,7 @@ function doArenaStandard() {
 function doArenaRealTime() {
 	const loopPatterns = [patterns.lobby.level, patterns.titles.adventure, patterns.arena.calculationsInProgress, patterns.titles.arena, patterns.arena.realTime.mastersLeague.preBan, patterns.arena.realTime.tacticsLeague.pause, patterns.arena.matchResult];
 	const daily = dailyManager.GetCurrentDaily();
-	const clickPattern = [patterns.arena.realTime.mastersLeague.startMatch, patterns.arena.realTime.tacticsLeague.battlePrep, patterns.arena.realTime.tacticsLeague.startMatch, patterns.arena.newLeague, patterns.adventure.doNotSeeFor3days, patterns.arena.realTime.retryMatching.ok];
+	const clickPattern = [patterns.arena.realTime.mastersLeague.startMatch, patterns.arena.realTime.tacticsLeague.battlePrep, patterns.arena.realTime.tacticsLeague.startMatch, patterns.arena.newLeague, patterns.adventure.doNotSeeFor3days, patterns.arena.realTime.retryMatching.ok, patterns.general.tapEmptySpace];
 
 	if (daily.doArena.realTime.done.IsChecked) {
 		return "Script already completed.";
