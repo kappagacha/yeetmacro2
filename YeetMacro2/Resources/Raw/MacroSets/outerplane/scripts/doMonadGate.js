@@ -319,13 +319,21 @@ function doDimensionalSingularity() {
 				const bossTypeResult = macroService.PollPattern(bossTypes);
 				const bossType = bossTypeResult.Path?.split('.').pop();
 
-				const currentRanks = ['sssPlusPlus'].map(cr => patterns.monadGate.singularityRepel.currentRank[cr]);
-				const currentRankResult = macroService.PollPattern(currentRanks);
-				const currentRank = currentRankResult.Path?.split('.').pop();
-
-				if (currentRank !== 'sssPlusPlus' && [].includes(bossType)) {
+				if (!FindPattern(patterns.monadGate.singularityRepel.currentRank.sssPlusPlus)) {
 					throw Error("Need to try to beat the boss");
 				}
+
+				//const currentRanks = ['sssPlusPlus'].map(cr => patterns.monadGate.singularityRepel.currentRank[cr]);
+				//const currentRankResult = macroService.PollPattern(currentRanks);
+				//const currentRank = currentRankResult.Path?.split('.').pop();
+
+				//if (currentRank !== 'sssPlusPlus') {
+				//	throw Error("Need to try to beat the boss");
+				//}
+
+				//if (currentRank !== 'sssPlusPlus' && [].includes(bossType)) {
+				//	throw Error("Need to try to beat the boss");
+				//}
 
 				if (macroService.FindPattern(patterns.monadGate.singularityRepel.zeroAttemptsLeft).IsSuccess)
 					return;
