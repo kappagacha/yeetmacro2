@@ -66,7 +66,7 @@ function refreshFriends() {
 			const dayBounds = { X: p.X - 27, Y: p.Y - 15, Width: 30, Height: 30 };
 			let text = macroService.FindTextWithBounds(dayBounds, "1234567890");
 			if (text.length > 1) {
-				text = text.slice(0, -1)
+				text = text[0]
 			}
 			const numDays = parseInt(text);
 
