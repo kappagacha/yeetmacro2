@@ -185,8 +185,8 @@ function sellInventory() {
 				break;
 			case 'titles.inventory':
 				logger.info('sellInventory: go to survey hub');
-				sellNormalAndSuperior(doDismantle);
-				sellLowStarEpic(doDismantle);
+				sellNormalSuperiorAndEpic(doDismantle);
+				//sellLowStarEpic(doDismantle);
 
 				if (macroService.IsRunning) {
 					if (doDismantle) weekly.doInventory.sell.doDismantleOnce.IsChecked = true;
@@ -197,13 +197,14 @@ function sellInventory() {
 		sleep(1_000);
 	}
 
-	function sellNormalAndSuperior(doDismantle) {
+	function sellNormalSuperiorAndEpic(doDismantle) {
 		const action = doDismantle ? 'dismantle' : 'sell';
 
 		macroService.PollPattern(patterns.inventory[action], { DoClick: true, PredicatePattern: patterns.inventory.sell.auto });
 		macroService.PollPattern(patterns.inventory.sell.auto, { DoClick: true, PredicatePattern: patterns.inventory.sell.auto.apply });
 		macroService.PollPattern(patterns.inventory.sell.auto.grade.normal.disabled, { DoClick: true, PredicatePattern: patterns.inventory.sell.auto.grade.normal.enabled });
 		macroService.PollPattern(patterns.inventory.sell.auto.grade.superior.disabled, { DoClick: true, PredicatePattern: patterns.inventory.sell.auto.grade.superior.enabled });
+		macroService.PollPattern(patterns.inventory.filter.grade.epic.disabled, { DoClick: true, PredicatePattern: patterns.inventory.filter.grade.epic.enabled });
 
 		const sellResult = macroService.PollPattern(patterns.inventory.sell.auto.apply, { DoClick: true, PredicatePattern: [patterns.inventory[action].enabled, patterns.inventory[action].disabled] });
 		if (sellResult.PredicatePath === `inventory.${action}.disabled`) {
