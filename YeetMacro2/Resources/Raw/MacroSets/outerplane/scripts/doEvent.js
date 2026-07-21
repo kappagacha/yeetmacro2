@@ -82,7 +82,7 @@ function sweepEventStoryHard(number) {
 					throw Error(`Unable to find pattern: settings.doEvent.${settingPrefix}.targetPartPattern`);
 				}
 
-				macroService.PollPattern(targetPartPattern, { DoClick: true, PredicatePattern: patterns.event.story.selectTeam });
+				macroService.PollPattern(targetPartPattern, { DoClick: true, ClickPattern: patterns.event.story.chapter3, PredicatePattern: patterns.event.story.selectTeam });
 				macroService.PollPattern(patterns.event.story.selectTeam, { DoClick: true, PredicatePattern: patterns.battle.enter });
 				selectTeam(teamSlot);
 				teamUnselectAll();
