@@ -829,8 +829,8 @@
         "withSupportPack"
       ],
       "$tags": [],
-      "$defaultValue": "start",
-      "$value": "start",
+      "$defaultValue": "normal",
+      "$value": "normal",
       "$position": 0,
       "$name": "type",
       "$path": "doTerminusIsle.type"
@@ -2637,8 +2637,8 @@
     "lastApplied": {
       "$type": "string",
       "$tags": [],
-      "$defaultValue": "1",
-      "$value": "1",
+      "$defaultValue": null,
+      "$value": null,
       "$position": 10,
       "$name": "lastApplied",
       "$path": "applyPreset.lastApplied"
