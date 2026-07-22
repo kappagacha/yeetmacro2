@@ -15,6 +15,7 @@ function selectTeamSpecial(type = '') {
 }
 
 function selectTeamGeneral() {
+	const findPatternOpts = { OverrideBounds: { X: 1160, Y: 315, Width: 180, Height: 175 }, OverrideOffsetCalcType: 'DockRight' };
 	const bossTypePatterns = [
 		'grandCalamari', 'unidentifiedChimera', 'schwartz', 'amadeus', 'masterlessGuardian',
 		'epsilon', 'anubisGuardian', 'tyrantToddler', 'ziggsaron', 'vladiMax', 'glicys',
@@ -27,7 +28,7 @@ function selectTeamGeneral() {
 		// guild raid
 		'lightDelta', 'darkAstralGuardian'
 	].map(bt => patterns.battle.boss[bt]);
-	const bossTypeResult = macroService.PollPattern(bossTypePatterns);
+	const bossTypeResult = macroService.PollPattern(bossTypePatterns, findPatternOpts);
 	const bossType = bossTypeResult.Path?.split('.').pop();
 	logger.info(`selectTeamGeneral: bossType ${bossType}`);
 
