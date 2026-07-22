@@ -1,15 +1,16 @@
-﻿using YeetMacro2.Data.Models;
-using Jint;
-using System.Dynamic;
-using Jint.Runtime.Interop;
-using System.Text.Json;
-using YeetMacro2.ViewModels.NodeViewModels;
-using YeetMacro2.ViewModels;
-using OneOf;
+﻿using Jint;
 using Jint.Native;
 using Jint.Runtime;
+using Jint.Runtime.Interop;
+using OneOf;
+using System.Dynamic;
+using System.Reflection;
+using System.Text.Json;
 using System.Text.Json.Nodes;
 using System.Text.Json.Serialization;
+using YeetMacro2.Data.Models;
+using YeetMacro2.ViewModels;
+using YeetMacro2.ViewModels.NodeViewModels;
 
 namespace YeetMacro2.Services;
 
@@ -255,7 +256,7 @@ public class JsToDotNetConverter(Engine engine) : DefaultTypeConverter(engine)
                 }
             }
 
-            var opts = JsonSerializer.Deserialize<PollPatternFindOptions>(JsonSerializer.Serialize(filteredDict));
+            var opts = JsonSerializer.Deserialize<PollPatternFindOptions>(JsonSerializer.Serialize(filteredDict), _jsonOpts);
 
             if (dict.ContainsKey("PredicatePattern"))
                 opts.PredicatePattern = (OneOf<PatternNode, PatternNode[]>?)ToOneOfPatternNode(dict["PredicatePattern"]);

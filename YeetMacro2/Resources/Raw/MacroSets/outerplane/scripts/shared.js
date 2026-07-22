@@ -85,8 +85,9 @@ function selectTeamAndBattle(teamSlot, opts = {}) {
 }
 
 function detectBossType() {
+	const findPatternOpts = { OverrideBounds: { X: 1160, Y: 315, Width: 180, Height: 175 }, OverrideOffsetCalcType: 'DockRight' };
 	const bossElements = ['earth', 'water', 'fire', 'light', 'dark'].map(el => patterns.battle.bossType[el]);
-	const bossElementsResult = macroService.PollPattern(bossElements);
+	const bossElementsResult = macroService.PollPattern(bossElements, findPatternOpts);
 	const detectedElement = bossElementsResult.Path?.split('.').pop();
 
 	return detectedElement;

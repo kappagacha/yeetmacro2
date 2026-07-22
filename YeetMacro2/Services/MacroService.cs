@@ -628,6 +628,8 @@ public class MacroService
 
     public string FindTextWithBounds(Rect bounds, string whiteList = "")
     {
+        if (bounds.Size.Width < 1 || bounds.Size.Height < 1) return String.Empty;
+
         if (InDebugMode)
         {
             MainThread.BeginInvokeOnMainThread(_screenService.DebugClear);
