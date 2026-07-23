@@ -3257,11 +3257,12 @@
         "shop",
         "unitTitleAndName",
         "friendsLastLogin",
-        "friendsLastLogin2"
+        "friendsLastLogin2",
+        "pusuitOperationPoints"
       ],
       "$tags": [],
-      "$defaultValue": "friendsLastLogin2",
-      "$value": "friendsLastLogin2",
+      "$defaultValue": "pusuitOperationPoints",
+      "$value": "pusuitOperationPoints",
       "$position": 0,
       "$name": "type",
       "$path": "test.type"

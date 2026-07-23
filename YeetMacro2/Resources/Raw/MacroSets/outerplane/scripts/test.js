@@ -196,4 +196,17 @@ if (settings.test.type.Value === 'arenaTicketCount') {
 		numDaysDetected[p.Y] = numDays
 	}
 	return numDaysDetected;
+} else if (settings.test.type.Value === 'pusuitOperationPoints') {
+	const operations = ['blockbuster', 'mutatedWyvre', 'ironStretcher', 'irregularQueen'];
+	let operationToPoints = {
+		blockbuster: { target: 6000, current: 0 },
+		mutatedWyvre: { target: 6000, current: 0 },
+		ironStretcher: { target: 6000, current: 0 },
+		irregularQueen: { target: 6000, current: 0 },
+	};
+	operations.forEach(op => {
+		operationToPoints[op].cellRewardUp = macroService.FindPattern(patterns.irregularExtermination.pursuitOperation[op].cellRewardUp).IsSuccess;
+		operationToPoints[op].current = Number(macroService.FindText(patterns.irregularExtermination.pursuitOperation[op].currentPoints).replace(/[, ]/g, ''));
+	});
+	return operationToPoints;
 }

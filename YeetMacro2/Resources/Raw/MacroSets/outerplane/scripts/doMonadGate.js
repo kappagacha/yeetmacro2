@@ -289,8 +289,8 @@ function doNormalObservation() {
 
 function doDimensionalSingularity() {
 	const daily = dailyManager.GetCurrentDaily();
-	const loopPatterns = [patterns.lobby.level, patterns.titles.adventure, patterns.monadGate.gateEntryDevice, patterns.battle.enter, patterns.monadGate.singularityRepel.observation];
-	const clickPatterns = [patterns.monadGate.singularityRepel, patterns.general.tapEmptySpace, patterns.monadGate.singularityRepel.teamsSetup];
+	const loopPatterns = [patterns.lobby.level, patterns.titles.adventure, patterns.monadGate.gateEntryDevice, patterns.monadGate.singularityRepel.teamsSetup, patterns.battle.enter, patterns.monadGate.singularityRepel.observation];
+	const clickPatterns = [patterns.monadGate.singularityRepel, patterns.general.tapEmptySpace];
 	if (daily.doMonadGate.singularityRepel.IsChecked) {
 		return "Script already completed. Uncheck done to override daily flag.";
 	}
@@ -313,15 +313,19 @@ function doDimensionalSingularity() {
 				macroService.ClickPattern(patterns.monadGate.switch);
 				sleep(500);
 				break;
-			case 'battle.enter':
-				logger.info('doDimensionalSingularity: do dimensional singularity');
-				const bossTypes = ['harshna', 'ksai'].map(bt => patterns.monadGate.singularityRepel.bossTypes[bt]);
-				const bossTypeResult = macroService.PollPattern(bossTypes);
-				const bossType = bossTypeResult.Path?.split('.').pop();
-
-				if (!FindPattern(patterns.monadGate.singularityRepel.currentRank.sssPlusPlus)) {
+			case 'monadGate.singularityRepel.teamsSetup':
+				if (!macroService.FindPattern(patterns.monadGate.singularityRepel.currentRank.sssPlusPlus).IsSuccess) {
 					throw Error("Need to try to beat the boss");
 				}
+				macroService.ClickPattern(patterns.monadGate.singularityRepel.teamsSetup);
+				break;
+			case 'battle.enter':
+				logger.info('doDimensionalSingularity: do dimensional singularity');
+				//const bossTypes = ['harshna', 'ksai'].map(bt => patterns.monadGate.singularityRepel.bossTypes[bt]);
+				//const bossTypeResult = macroService.PollPattern(bossTypes);
+				//const bossType = bossTypeResult.Path?.split('.').pop();
+
+
 
 				//const currentRanks = ['sssPlusPlus'].map(cr => patterns.monadGate.singularityRepel.currentRank[cr]);
 				//const currentRankResult = macroService.PollPattern(currentRanks);
