@@ -32,6 +32,13 @@ public partial class AndriodHomeViewModel : ObservableObject
     string _widthStatus = "Invalid", _heightStatus = "Invalid";
     [ObservableProperty]
     string _displayOrientation = "Landscape";
+    [ObservableProperty]
+    string _capturedOrientation = "Portrait";
+    [ObservableProperty, NotifyPropertyChangedFor(nameof(CapturedResolution))]
+    int _capturedWidth;
+    [ObservableProperty, NotifyPropertyChangedFor(nameof(CapturedResolution))]
+    int _capturedHeight;
+    public string CapturedResolution => $"{CapturedWidth}x{CapturedHeight}";
     public bool IsCurrentPackageValid => CurrentPackage == _macroManagerViewModel.SelectedMacroSet?.Package;
     public MacroManagerViewModel MacroManagerViewModel => _macroManagerViewModel;
     //public string OverlayArea
@@ -138,6 +145,11 @@ public partial class AndriodHomeViewModel : ObservableObject
             DisplayRotation = DisplayHelper.DisplayRotation;
             DisplayOrientation = e.DisplayInfo.Orientation.ToString();
 
+            var projectionService = ServiceHelper.GetService<MediaProjectionService>();
+            CapturedOrientation = projectionService?.CapturedOrientation.ToString() ?? "Unknown";
+            CapturedWidth = projectionService?.CapturedWidth ?? 0;
+            CapturedHeight = projectionService?.CapturedHeight ?? 0;
+
             if (_macroManagerViewModel.SelectedMacroSet is null) WidthStatus = "Invalid";
             else if (_macroManagerViewModel.SelectedMacroSet.SupportsGreaterWidth && DisplayHelper.PhysicalResolution.Width > _macroManagerViewModel.SelectedMacroSet.Resolution.Width) WidthStatus = "Acceptable";
             else if (DisplayHelper.PhysicalResolution.Width == _macroManagerViewModel.SelectedMacroSet.Resolution.Width) WidthStatus = "Valid";
@@ -151,6 +163,11 @@ public partial class AndriodHomeViewModel : ObservableObject
 
         // Initialize with current orientation
         DisplayOrientation = DeviceDisplay.MainDisplayInfo.Orientation.ToString();
+
+        var projectionServiceInit = ServiceHelper.GetService<MediaProjectionService>();
+        CapturedOrientation = projectionServiceInit?.CapturedOrientation.ToString() ?? "Unknown";
+        CapturedWidth = projectionServiceInit?.CapturedWidth ?? 0;
+        CapturedHeight = projectionServiceInit?.CapturedHeight ?? 0;
     }
 
     private void ShowActionView()

@@ -30,6 +30,10 @@ public class MediaProjectionService : IDisposable
     public DisplayOrientation CapturedOrientation => _capturedOrientation;
     MediaProjectionCallback _mediaProjectionCallback;
     private DisplayOrientation _capturedOrientation = DisplayOrientation.Portrait;
+    private int _capturedWidth;
+    private int _capturedHeight;
+    public int CapturedWidth => _capturedWidth;
+    public int CapturedHeight => _capturedHeight;
     private readonly object _disposeLock = new object();
     private bool _disposed = false;
     private TaskCompletionSource<bool>? _foregroundServiceReadySource;
@@ -120,6 +124,9 @@ public class MediaProjectionService : IDisposable
                     _capturedOrientation = targetOrientation;
                 }
             }
+
+            _capturedWidth = width;
+            _capturedHeight = height;
 
             // Start foreground service and wait for it to be ready
             _foregroundServiceReadySource = new TaskCompletionSource<bool>();
@@ -280,6 +287,8 @@ public class MediaProjectionService : IDisposable
         _resultCode = 0;
         _resultData = null;
         _capturedOrientation = DisplayOrientation.Portrait;
+        _capturedWidth = 0;
+        _capturedHeight = 0;
     }
 
     public byte[] GetCurrentImageData()

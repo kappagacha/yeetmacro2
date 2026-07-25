@@ -77,6 +77,10 @@
                         </Label>
                         <BoxView WidthRequest="1" Color="{StaticResource Primary}"/>
                         <Label Text="{Binding DisplayRotation}" />
+                        <BoxView WidthRequest="1" Color="{StaticResource Primary}"/>
+                        <Label Text="{Binding CapturedOrientation}" />
+                        <BoxView WidthRequest="1" Color="{StaticResource Primary}"/>
+                        <Label Text="{Binding CapturedResolution}" />
                     </HorizontalStackLayout>
                     <ImageButton Command="{Binding UpdateDisplayInfoCommand}" />
                 </Grid>
