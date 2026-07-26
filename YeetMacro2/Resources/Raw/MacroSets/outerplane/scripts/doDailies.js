@@ -69,22 +69,10 @@ if (settings.doDailies.sweepAll.Value) {
     goToLobby();
 }
 
-if (settings.doDailies.doSurveyHub.Value) {
-    refillStamina(30);
-    goToLobby();
-    doSurveyHub(3);
-    goToLobby();
-}
-
 if (settings.doDailies.doTerminusIsle.withSupportPack.Value) {
     refillStamina(40);
     goToLobby();
     doTerminusIsle('withSupportPack');
-    goToLobby();
-}
-
-if (settings.doDailies.doInfiniteCorridor.Value) {
-    doInfiniteCorridor();
     goToLobby();
 }
 
