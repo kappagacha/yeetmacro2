@@ -314,9 +314,9 @@ function doDimensionalSingularity() {
 				sleep(500);
 				break;
 			case 'monadGate.singularityRepel.teamsSetup':
-				if (!macroService.FindPattern(patterns.monadGate.singularityRepel.currentRank.sssPlusPlus).IsSuccess) {
-					throw Error("Need to try to beat the boss");
-				}
+				//if (!macroService.FindPattern(patterns.monadGate.singularityRepel.currentRank.sssPlusPlus).IsSuccess) {
+				//	throw Error("Need to try to beat the boss");
+				//}
 				macroService.ClickPattern(patterns.monadGate.singularityRepel.teamsSetup);
 				break;
 			case 'battle.enter':
