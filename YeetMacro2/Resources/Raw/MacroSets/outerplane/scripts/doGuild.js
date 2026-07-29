@@ -70,8 +70,8 @@ function doGuildRaid() {
 
 					let notificationResult = macroService.PollPattern(patterns.guild.raid.reward.notification, { TimeoutMs: 3_000 });
 					while (notificationResult.IsSuccess) {
-						macroService.PollPattern(patterns.guild.raid.reward.notification, { DoClick: true, PredicatePattern: patterns.general.tapEmptySpace, ClickOffset: { X: -40, Y: 40 } });
-						macroService.PollPattern(patterns.general.tapEmptySpace, { DoClick: true, PredicatePattern: patterns.guild.raid.selectTeam });
+						macroService.PollPattern(patterns.guild.raid.reward.notification, { DoClick: true, ClickPattern: [patterns.guild.raid.doNotShowAgain, patterns.guild.raid.doNotShowAgain.ok], PredicatePattern: patterns.general.tapEmptySpace, ClickOffset: { X: -40, Y: 40 } });
+						macroService.PollPattern(patterns.general.tapEmptySpace, { DoClick: true, PredicatePattern: [patterns.guild.raid.selectTeam, patterns.guild.raid.selectTeam1, patterns.guild.raid.selectTeam2] });
 						notificationResult = macroService.PollPattern(patterns.guild.raid.reward.notification, { TimeoutMs: 3_000 });
 					}
 

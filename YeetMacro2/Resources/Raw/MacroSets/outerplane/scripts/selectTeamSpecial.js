@@ -32,10 +32,6 @@ function selectTeamGeneral() {
 	const bossType = bossTypeResult.Path?.split('.').pop();
 	logger.info(`selectTeamGeneral: bossType ${bossType}`);
 
-	if (bossType === 'gustav') {
-		throw new Error('Gustav detected.');
-	}
-
 	const alternateEarthTeam = { left: { name: 'notia' }, top: { name: 'fran' }, right: { name: 'kappa' }, bottom: { name: 'ame' } };
 	const alternateWaterTeam = { left: { name: 'mene' }, top: { name: 'fortuna' }, right: { name: 'veronica' }, bottom: { name: 'beth' } };
 	const alternateFireTeam = { left: { name: 'christmasDianne' }, top: { name: 'iris' }, right: { name: 'ember' }, bottom: { name: 'vlada' } };
@@ -74,9 +70,9 @@ function selectTeamGeneral() {
 			bottom: { name: 'demiurgeLuna' },
 		},
 		gustav: {
-			left: { name: 'monadEva' },
-			top: { name: 'mysticSageAme' },
-			right: { name: 'gnosisNella' },
+			left: { name: 'nella' },
+			top: { name: 'gnosisDahlia' },
+			right: { name: 'gnosisViella' },
 			bottom: { name: 'monadIota' },
 		},
 		sacreedGuardian: {
@@ -131,6 +127,9 @@ function selectTeamGeneral() {
 	}
 
 	applyTeamConfiguration(bossTypeToTeam[bossType]);
+	if (bossType === 'gustav') {
+		throw new Error('Gustav detected.');
+	}
 }
 
 function selectTeamTower() {
