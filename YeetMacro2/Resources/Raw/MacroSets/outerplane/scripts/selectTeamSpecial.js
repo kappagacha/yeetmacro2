@@ -356,10 +356,10 @@ function applyTeamConfiguration(team, chainOrderOpts = {}) {
 	};
 
 	const locationToCharacterCloneOpts = {
-		left: { X: topLeft.X + 371.25, Y: 466.25, Width: 161.5, Height: 164.5, PathSuffix: '_left', OffsetCalcType: 'None' },
-		top: { X: topLeft.X + 551.25, Y: 311.25, Width: 161.5, Height: 164.5, PathSuffix: '_top', OffsetCalcType: 'None' },
-		right: { X: topLeft.X + 736.25, Y: 466.25, Width: 161.5, Height: 164.5, PathSuffix: '_right', OffsetCalcType: 'None' },
-		bottom: { X: topLeft.X + 551.25, Y: 635.25, Width: 161.5, Height: 164.5, PathSuffix: '_bottom', OffsetCalcType: 'None' },
+		left: { X: topLeft.X + 340, Y: 450, Width: 190, Height: 190, PathSuffix: '_left', OffsetCalcType: 'None' },
+		top: { X: topLeft.X + 520, Y: 280, Width: 190, Height: 190, PathSuffix: '_top', OffsetCalcType: 'None' },
+		right: { X: topLeft.X + 700, Y: 450, Width: 190, Height: 190, PathSuffix: '_right', OffsetCalcType: 'None' },
+		bottom: { X: topLeft.X + 520, Y: 630, Width: 190, Height: 190, PathSuffix: '_bottom', OffsetCalcType: 'None' },
 	};
 
 	selectTeam(9);
