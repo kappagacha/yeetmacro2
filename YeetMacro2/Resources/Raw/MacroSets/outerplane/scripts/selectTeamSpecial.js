@@ -133,6 +133,7 @@ function selectTeamGeneral() {
 }
 
 function selectTeamTower() {
+	const bossFindPatternOpts = { OverrideBounds: { X: 1160, Y: 315, Width: 180, Height: 175 }, OverrideOffsetCalcType: 'DockRight' };
 	const bossTypePatterns = [
 		'glicys',               // hard 34
 		'darkDemiurgeVladaHard',// hard 35
@@ -145,7 +146,7 @@ function selectTeamTower() {
 		'darkIota',             // very hard 20
 		'darkSigma',             // very hard 20
 	].map(bt => patterns.battle.boss[bt]);
-	const bossTypeResult = macroService.FindPattern(bossTypePatterns);
+	const bossTypeResult = macroService.FindPattern(bossTypePatterns, bossFindPatternOpts);
 	const bossType = bossTypeResult.Path?.split('.').pop();
 	logger.info(`selectTeamTower: bossType ${bossType}`);
 
@@ -156,7 +157,7 @@ function selectTeamTower() {
 		bottom: { name: 'demiurgeLuna' },
 	};
 	const chainOrderOpts = { effectToPriority: {} };
-	const findPatternOpts = { OverrideBounds: { X: 185, Y: 340, Width: 180, Height: 135 }, OverrideOffsetCalcType: 'DockLeft' };
+	const findPatternOpts = { OverrideBounds: { X: 160, Y: 345, Width: 190, Height: 150 }, OverrideOffsetCalcType: 'DockLeft' };
 
 	const all_water = macroService.FindPattern(patterns.battle.conditions.all_water, findPatternOpts).IsSuccess;
 	const all_light = macroService.FindPattern(patterns.battle.conditions.all_light, findPatternOpts).IsSuccess;

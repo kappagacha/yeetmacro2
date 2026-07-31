@@ -3192,8 +3192,8 @@
         "tower"
       ],
       "$tags": [],
-      "$defaultValue": "general",
-      "$value": "general",
+      "$defaultValue": "tower",
+      "$value": "tower",
       "$position": 0,
       "$name": "type",
       "$path": "selectTeamSpecial.type"
@@ -3201,8 +3201,8 @@
     "useAlternateTeams": {
       "$type": "boolean",
       "$tags": [],
-      "$defaultValue": false,
-      "$value": false,
+      "$defaultValue": true,
+      "$value": true,
       "$position": 1,
       "$name": "useAlternateTeams",
       "$path": "selectTeamSpecial.useAlternateTeams"
@@ -3325,8 +3325,8 @@
     "targetStamina": {
       "$type": "integer",
       "$tags": [],
-      "$defaultValue": 100,
-      "$value": 100,
+      "$defaultValue": 150,
+      "$value": 150,
       "$position": 0,
       "$increment": 50,
       "$name": "targetStamina",
