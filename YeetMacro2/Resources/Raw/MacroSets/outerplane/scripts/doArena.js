@@ -191,7 +191,9 @@ function doArenaRealTime() {
 				let preBanSelectResult = macroService.PollPattern(patterns.arena.realTime.mastersLeague.preBan.select, { DoClick: true, PredicatePattern: [patterns.arena.realTime.back, patterns.arena.matchResult] });
 				if (preBanSelectResult.PredicatePattern === 'arena.matchResult') break;
 
-				macroService.PollPattern(patterns.arena.realTime.back, { DoClick: true, PredicatePattern: patterns.arena.realTime.back.ok });
+				let realTimeBackResult = macroService.PollPattern(patterns.arena.realTime.back, { DoClick: true, PredicatePattern: [patterns.arena.realTime.back.ok, patterns.arena.matchResult] });
+				if (realTimeBackResult.PredicatePattern === 'arena.matchResult') break;
+				
 				macroService.PollPattern(patterns.arena.realTime.back.ok, { DoClick: true, PredicatePattern: patterns.arena.matchResult });
 				daily.doArena.realTime.count.Count++;
 				break;
