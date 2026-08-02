@@ -3160,11 +3160,13 @@
         "unitTitleAndName",
         "friendsLastLogin",
         "friendsLastLogin2",
-        "pusuitOperationPoints"
+        "pusuitOperationPoints",
+        "shopCurrency",
+        "shopCurrency2"
       ],
       "$tags": [],
-      "$defaultValue": "pusuitOperationPoints",
-      "$value": "pusuitOperationPoints",
+      "$defaultValue": "shopCurrency2",
+      "$value": "shopCurrency2",
       "$position": 0,
       "$name": "type",
       "$path": "test.type"

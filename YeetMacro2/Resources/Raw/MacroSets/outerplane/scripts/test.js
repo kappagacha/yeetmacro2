@@ -209,4 +209,26 @@ if (settings.test.type.Value === 'arenaTicketCount') {
 		operationToPoints[op].current = Number(macroService.FindText(patterns.irregularExtermination.pursuitOperation[op].currentPoints).replace(/[, ]/g, ''));
 	});
 	return operationToPoints;
+} else if (settings.test.type.Value === 'shopCurrency1') {
+	let xOffset = 230;
+	let staminaResult = macroService.PollPattern(patterns.general.stamina);
+	const currencyBounds = {
+		X: staminaResult.Point.X + xOffset,
+		Y: staminaResult.Point.Y - 17,
+		Height: 36,
+		Width: 30
+	};
+	const currencyPattern = macroService.CapturePatternWithBounds(currencyBounds);
+	macroService.PreviewPattern(currencyPattern);
+} else if (settings.test.type.Value === 'shopCurrency2') {
+	let xOffset = 440;
+	let staminaResult = macroService.PollPattern(patterns.general.stamina);
+	const currencyBounds = {
+		X: staminaResult.Point.X + xOffset,
+		Y: staminaResult.Point.Y - 17,
+		Height: 36,
+		Width: 30
+	};
+	const currencyPattern = macroService.CapturePatternWithBounds(currencyBounds);
+	macroService.PreviewPattern(currencyPattern);
 }
