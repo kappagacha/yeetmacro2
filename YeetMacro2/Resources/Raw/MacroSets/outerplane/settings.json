@@ -1529,11 +1529,12 @@
       "$type": "option",
       "$options": [
         "standard",
-        "realTime"
+        "tactics",
+        "masters"
       ],
       "$tags": [],
-      "$defaultValue": "standard",
-      "$value": "standard",
+      "$defaultValue": "masters",
+      "$value": "masters",
       "$position": 0,
       "$name": "type",
       "$path": "doArena.type"
