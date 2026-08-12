@@ -123,8 +123,8 @@
         "storyHard3"
       ],
       "$tags": [],
-      "$defaultValue": "storyHard1",
-      "$value": "storyHard1",
+      "$defaultValue": "story",
+      "$value": "story",
       "$position": 0,
       "$name": "type",
       "$path": "doEvent.type"

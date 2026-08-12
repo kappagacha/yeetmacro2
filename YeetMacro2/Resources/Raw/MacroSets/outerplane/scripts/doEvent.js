@@ -243,14 +243,16 @@ function doEventStory() {
 				break;
 			case 'event.story.exit':
 				macroService.PollPattern(patterns.event.story.exit, { DoClick: true, PredicatePattern: patterns.event.story.rewardNotification });
-				macroService.PollPattern(patterns.event.story.rewardNotification, { DoClick: true, PredicatePattern: patterns.general.tapEmptySpace });
+				macroService.PollPattern(patterns.event.story.rewardNotification, { DoClick: true, PredicatePattern: patterns.event.story.rewardNotification.popup });
+				macroService.PollPattern(patterns.event.story.rewardNotification.popup, { DoClick: true, PredicatePattern: patterns.general.tapEmptySpace });
 				macroService.PollPattern(patterns.general.tapEmptySpace, { DoClick: true, PredicatePattern: patterns.general.back });
 				macroService.PollPattern(patterns.general.back, { DoClick: true, PrimaryClickInversePredicatePattern: patterns.event.story.title, PredicatePattern: patterns.event.story.title });
 				macroService.PollPattern(patterns.event.story.incompleteHard, { DoClick: true, PredicatePattern: patterns.event.story.selectTeam });
 				break;
 			case 'event.story.retry':
 				macroService.PollPattern(patterns.event.story.exit2, { DoClick: true, PredicatePattern: patterns.event.story.rewardNotification });
-				macroService.PollPattern(patterns.event.story.rewardNotification, { DoClick: true, PredicatePattern: patterns.general.tapEmptySpace });
+				macroService.PollPattern(patterns.event.story.rewardNotification, { DoClick: true, PredicatePattern: patterns.event.story.rewardNotification.popup });
+				macroService.PollPattern(patterns.event.story.rewardNotification.popup, { DoClick: true, PredicatePattern: patterns.general.tapEmptySpace });
 				macroService.PollPattern(patterns.general.tapEmptySpace, { DoClick: true, PredicatePattern: patterns.general.back });
 				return 'doEventStory complete';
 		}
