@@ -1673,8 +1673,8 @@
         "monadGate"
       ],
       "$tags": [],
-      "$defaultValue": "monadGate",
-      "$value": "monadGate",
+      "$defaultValue": "adventureLicence",
+      "$value": "adventureLicence",
       "$position": 0,
       "$name": "type",
       "$path": "doWeeklies.type"

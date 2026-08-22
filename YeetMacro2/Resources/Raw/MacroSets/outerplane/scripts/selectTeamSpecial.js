@@ -53,7 +53,7 @@ function selectTeamGeneral() {
 		},
 		glicys: {
 			left: { name: 'delta' },
-			top: { name: 'ryu' },
+			top: { name: 'heatwaveCopDelta' },
 			right: { name: 'monadEva' },
 			bottom: { name: 'rey' },
 		},
@@ -354,6 +354,7 @@ function applyTeamConfiguration(team, chainOrderOpts = {}) {
 		claire: { element: 'fire', battleType: 'healer' },
 		gnosisDomine: { element: 'dark', battleType: 'mage' },
 		midnightRushSkadi: { element: 'fire', battleType: 'striker' },
+		heatwaveCopDelta: { element: 'earth', battleType: 'ranger' },
 	};
 
 	const locationToCharacterCloneOpts = {
