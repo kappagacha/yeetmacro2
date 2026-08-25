@@ -845,7 +845,7 @@
         "$type": "timestamp",
         "$tags": [],
         "$defaultValue": "0001-01-01T00:00:00+00:00",
-        "$value": "2026-07-21T16:18:23.025+00:00",
+        "$value": "2026-08-25T14:55:49.378+00:00",
         "$position": 0,
         "$name": "lastRun",
         "$path": "doTerminusIsle.start.lastRun"
@@ -854,8 +854,8 @@
     "forceRun": {
       "$type": "boolean",
       "$tags": [],
-      "$defaultValue": false,
-      "$value": false,
+      "$defaultValue": true,
+      "$value": true,
       "$position": 2,
       "$name": "forceRun",
       "$path": "doTerminusIsle.forceRun"
@@ -2540,8 +2540,8 @@
     "lastApplied": {
       "$type": "string",
       "$tags": [],
-      "$defaultValue": null,
-      "$value": null,
+      "$defaultValue": "7",
+      "$value": "7",
       "$position": 10,
       "$name": "lastApplied",
       "$path": "applyPreset.lastApplied"
