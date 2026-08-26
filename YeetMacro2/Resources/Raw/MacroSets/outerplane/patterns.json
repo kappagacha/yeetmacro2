@@ -377,10 +377,10 @@
         "$patterns": [
           {
             "rawBounds": {
-              "x": 173.25,
-              "y": 971.25,
-              "width": 72.5,
-              "height": 35.5
+              "x": 143.25,
+              "y": 962.25,
+              "width": 122.5,
+              "height": 74.5
             },
             "resolution": {
               "width": 1920,
