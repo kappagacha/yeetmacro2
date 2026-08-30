@@ -198,9 +198,6 @@ public class MediaProjectionService : IDisposable
             return;
         }
 
-        // Track the orientation at token creation time
-        _capturedOrientation = DisplayHelper.DisplayInfo.Orientation;
-
         if (Platform.CurrentActivity != null)
         {
             Toast.MakeText(Platform.CurrentActivity, "Media projection initialized...", ToastLength.Short).Show();
@@ -284,7 +281,6 @@ public class MediaProjectionService : IDisposable
     {
         _resultCode = 0;
         _resultData = null;
-        _capturedOrientation = DisplayOrientation.Portrait;
         _capturedWidth = 0;
         _capturedHeight = 0;
     }

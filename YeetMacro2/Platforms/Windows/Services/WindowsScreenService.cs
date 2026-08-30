@@ -186,6 +186,21 @@ public class WindowsScreenService : IScreenService, IRecorderService
     {
         throw new NotImplementedException();
     }
+
+    public Task<bool> EnsureProjectionReadyAsync()
+    {
+        throw new NotImplementedException();
+    }
+
+    Task<bool> IRecorderService.StartRecording()
+    {
+        throw new NotImplementedException();
+    }
+
+    public void SetForegroundServiceReady()
+    {
+        throw new NotImplementedException();
+    }
 }
 
 public static class WindowHelper
