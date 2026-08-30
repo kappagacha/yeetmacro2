@@ -27,9 +27,8 @@ public class MediaProjectionService : IDisposable
     int _resultCode;
     public const int REQUEST_MEDIA_PROJECTION = 1;
     public bool IsInitialized => _resultCode == (int)global::Android.App.Result.Ok;
-    public DisplayOrientation CapturedOrientation => _capturedOrientation;
+    public DisplayOrientation CapturedOrientation => _capturedWidth > _capturedHeight ? DisplayOrientation.Landscape : DisplayOrientation.Portrait;
     MediaProjectionCallback _mediaProjectionCallback;
-    private DisplayOrientation _capturedOrientation = DisplayOrientation.Portrait;
     private int _capturedWidth;
     private int _capturedHeight;
     public int CapturedWidth => _capturedWidth;
@@ -52,7 +51,7 @@ public class MediaProjectionService : IDisposable
         }
 
         ServiceHelper.LogService?.LogDebug(
-            $"Orientation changed from {_capturedOrientation} to {DisplayHelper.DisplayInfo.Orientation} - requesting new MediaProjection token"
+            $"Orientation changed from {CapturedOrientation} to {DisplayHelper.DisplayInfo.Orientation} - requesting new MediaProjection token"
         );
 
         // Stop current projection and clear state
@@ -121,7 +120,6 @@ public class MediaProjectionService : IDisposable
                     (targetOrientation == DisplayOrientation.Portrait && width > height))
                 {
                     (width, height) = (height, width);
-                    _capturedOrientation = targetOrientation;
                 }
             }
 
@@ -279,7 +277,7 @@ public class MediaProjectionService : IDisposable
 
     public bool IsOrientationMismatch()
     {
-        return _capturedOrientation != DisplayHelper.DisplayInfo.Orientation;
+        return CapturedOrientation != DisplayHelper.DisplayInfo.Orientation;
     }
 
     public void ClearForReRequest()
