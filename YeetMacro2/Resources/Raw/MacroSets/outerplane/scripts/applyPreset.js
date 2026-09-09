@@ -45,7 +45,7 @@ function applyPreset(teamSlot, opts = {}) {
 			primaryStat = 'DEF';
 			delimiter = '#';
 		} else if (unitTitleAndName.match(/Self.*?Del/ism) || unitTitleAndName.match(/Ruin.*?T[uoa]m[uoa]m[ao]/ism) ||
-			unitTitleAndName.match(/Gnosis.*?Vie[lI][lI]a.*/ism) || unitTitleAndName.match(/.*?Rush.*?sk.di.*/ism)) {
+			unitTitleAndName.match(/Gnosis.*?Vie[lI][lI]a.*/ism) || unitTitleAndName.match(/.*?Midnight.*?Rush.*/ism)) {
 			primaryStat = 'HLT';
 			delimiter = '#';
 		}
