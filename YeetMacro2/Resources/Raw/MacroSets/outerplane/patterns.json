@@ -39105,10 +39105,10 @@
       "$patterns": [
         {
           "rawBounds": {
-            "x": 1571.25,
-            "y": 893.25,
-            "width": 224,
-            "height": 151.5
+            "x": 1554.25,
+            "y": 885.25,
+            "width": 322.5,
+            "height": 167.5
           },
           "resolution": {
             "width": 1920,
