@@ -191,7 +191,7 @@ function doWeeklyShop() {
 
 				if (!weekly.doWeeklies.shop.jointChallenge.done.IsChecked) {
 					macroService.PollPattern(patterns.shop.adventurer.event, { DoClick: true, PredicatePattern: patterns.shop.adventurer.event.selected });
-					const jointChallengeSwipeResult = macroService.PollPattern(patterns.shop.adventurer.event.jointChallenge, { SwipePattern: patterns.shop.subsubTabSwipeRight, TimeoutMs: 6_000 });
+					const jointChallengeSwipeResult = macroService.PollPattern([patterns.shop.adventurer.event.jointChallenge, patterns.shop.adventurer.event.jointChallenge.selected], { SwipePattern: patterns.shop.subsubTabSwipeRight, TimeoutMs: 6_000 });
 					if (!jointChallengeSwipeResult.IsSuccess) {
 						throw new Error('Unable to find joint challenge');
 					}
