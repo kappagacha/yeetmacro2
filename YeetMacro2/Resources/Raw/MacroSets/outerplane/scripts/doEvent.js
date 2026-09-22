@@ -134,7 +134,7 @@ function sweepEventStoryHard(number) {
 			outer: for (subTabShopPattern of [patterns.shop.subTabShop, patterns.shop.subTabShop2]) {
 				const subTabShopResult = macroService.FindPattern(subTabShopPattern, { Limit: 5 });
 				if (!subTabShopResult.IsSuccess) {
-					throw new Error('Could not find shop(s)');
+					continue;
 				}
 
 				for (let p of subTabShopResult.Points) {
