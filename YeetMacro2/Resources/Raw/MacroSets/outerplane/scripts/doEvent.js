@@ -128,7 +128,7 @@ function sweepEventStoryHard(number) {
 		};
 
 		const currencyBoundedPattern = macroService.ClonePattern(currencyPattern, shopCurrencyBounds);
-		let currencyResult = macroService.FindPattern(currencyBoundedPattern);
+		let currencyResult = macroService.PollPattern(currencyBoundedPattern, { TimeoutMs: 3_000 });
 		let jointChallengeSelectedResult = macroService.FindPattern(patterns.shop.adventurer.event.jointChallenge.selected);
 		if (!currencyResult.IsSuccess || jointChallengeSelectedResult.IsSuccess) {
 			outer: for (subTabShopPattern of [patterns.shop.subTabShop, patterns.shop.subTabShop2]) {
@@ -140,7 +140,7 @@ function sweepEventStoryHard(number) {
 				for (let p of subTabShopResult.Points) {
 					macroService.DoClick(p);
 					sleep(1_000);
-					currencyResult = macroService.FindPattern(currencyBoundedPattern);
+					currencyResult = macroService.PollPattern(currencyBoundedPattern, { TimeoutMs: 3_000 });
 					jointChallengeSelectedResult = macroService.FindPattern(patterns.shop.adventurer.event.jointChallenge.selected);
 					if (currencyResult.IsSuccess && !jointChallengeSelectedResult.IsSuccess) break outer;
 				}
