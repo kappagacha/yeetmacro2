@@ -18,11 +18,6 @@ if (settings.doUpkeep.doFriends.Value) {
     goToLobby();
 }
 
-if (settings.doUpkeep.doTerminusIsle.start.Value) {
-    doTerminusIsle('start');
-    goToLobby();
-}
-
 if (settings.doUpkeep.claim.antiparticle.Value) {
     claimAntiparticle();
     goToLobby();
@@ -73,9 +68,4 @@ if (settings.doUpkeep.spendStaminaScript.IsEnabled && daily.doSpecialRequest.sta
         globalThis[settings.doUpkeep.spendStaminaScript.Value]();
     }
     goToLobby();
-}
-
-if (settings.doUpkeep.doTerminusIsle.normal.Value && !daily.doTerminusIsle.done.IsChecked) {
-    doTerminusIsle('normal');
-    return;
 }

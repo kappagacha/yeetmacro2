@@ -65,11 +65,9 @@ function doTerminusIsleNormal() {
 		return "Script already completed. Uncheck done to override daily flag.";
 	}
 
-	// Exploration takes 4 hours
-	const isTerminusIsleReady = (Date.now() - settings.doTerminusIsle.start.lastRun.Value.ToUnixTimeMilliseconds()) / 3_600_000 > 4;
-	if (!isTerminusIsleReady && !settings.doTerminusIsle.forceRun.Value) {
-		return 'startTerminusIsleExploration was ran less than 4 hours ago. Use forceRun setting to override check';
-	}
+	refillStamina(30);
+	goToLobby();
+
 
 	while (macroService.IsRunning) {
 		const loopResult = macroService.PollPattern(loopPatterns, { ClickPattern: patterns.adventure.doNotSeeFor3days });
@@ -86,6 +84,21 @@ function doTerminusIsleNormal() {
 				break;
 			case 'terminusIsle.stage':
 				logger.info('doTerminusIsle: do explorations');
+
+				if (!daily.doTerminusIsle.start.IsChecked) {
+					logger.info('doTerminusIsle: start exploration');
+					const formExplorationTeamResult = macroService.PollPattern(patterns.terminusIsle.formExplorationTeam, { DoClick: true, PredicatePattern: [patterns.terminusIsle.formExplorationTeam.autoFormation, patterns.terminusIsle.zeroExplorationChances] });
+					if (formExplorationTeamResult.PredicatePath === 'terminusIsle.zeroExplorationChances') {
+						return;
+					}
+					macroService.PollPattern(patterns.terminusIsle.formExplorationTeam.autoFormation, { DoClick: true, PredicatePattern: patterns.terminusIsle.formExplorationTeam.startExploration });
+					macroService.PollPattern(patterns.terminusIsle.formExplorationTeam.startExploration, { DoClick: true, PredicatePattern: patterns.terminusIsle.stage });
+
+					if (macroService.IsRunning) {
+						daily.doTerminusIsle.start.IsChecked = true;
+					}
+				}
+
 				const terminusIsleResult = macroService.PollPattern([patterns.terminusIsle.confirm, patterns.terminusIsle.inProgress], { TimeoutMs: 3_000 });
 				if (terminusIsleResult.Path === 'terminusIsle.inProgress') {
 					return;

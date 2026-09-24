@@ -69,6 +69,11 @@ if (settings.doDailies.sweepAll.Value) {
     goToLobby();
 }
 
+if (settings.doDailies.doTerminusIsle.normal.Value && !daily.doTerminusIsle.done.IsChecked) {
+    doTerminusIsle('normal');
+    return;
+}
+
 if (settings.doDailies.doTerminusIsle.withSupportPack.Value) {
     refillStamina(40);
     goToLobby();
