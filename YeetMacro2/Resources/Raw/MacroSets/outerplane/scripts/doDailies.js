@@ -71,7 +71,7 @@ if (settings.doDailies.sweepAll.Value) {
 
 if (settings.doDailies.doTerminusIsle.normal.Value && !daily.doTerminusIsle.done.IsChecked) {
     doTerminusIsle('normal');
-    return;
+    goToLobby();
 }
 
 if (settings.doDailies.doTerminusIsle.withSupportPack.Value) {
