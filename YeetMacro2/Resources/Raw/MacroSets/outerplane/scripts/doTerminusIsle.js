@@ -99,10 +99,12 @@ function doTerminusIsleNormal() {
 					}
 				}
 
-				const terminusIsleResult = macroService.PollPattern([patterns.terminusIsle.confirm, patterns.terminusIsle.inProgress], { TimeoutMs: 3_000 });
-				if (terminusIsleResult.Path === 'terminusIsle.inProgress') {
-					return;
-				}
+				macroService.PollPattern(patterns.terminusIsle.confirm);
+
+				//const terminusIsleResult = macroService.PollPattern([patterns.terminusIsle.confirm, patterns.terminusIsle.inProgress], { TimeoutMs: 3_000 });
+				//if (terminusIsleResult.Path === 'terminusIsle.inProgress') {
+				//	return;
+				//}
 
 				doExplorations(false);
 
