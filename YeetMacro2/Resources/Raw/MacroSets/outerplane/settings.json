@@ -1480,8 +1480,8 @@
         "worldBossRewards"
       ],
       "$tags": [],
-      "$defaultValue": "claimFreeRecruit",
-      "$value": "claimFreeRecruit",
+      "$defaultValue": "eventDailyMissions2",
+      "$value": "eventDailyMissions2",
       "$position": 0,
       "$name": "type",
       "$path": "claim.type"

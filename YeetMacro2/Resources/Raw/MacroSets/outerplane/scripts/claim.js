@@ -410,7 +410,7 @@ function claimEventDailyMissions() {
 
 function claimEventDailyMissions2() {
 	//const loopPatterns = [patterns.lobby.level, patterns.event.close];
-	const loopPatterns = [patterns.lobby.level, patterns.festival.title];
+	const loopPatterns = [patterns.lobby.level, patterns.festival.title, patterns.event.close, patterns.event.bingo];
 	const daily = dailyManager.GetCurrentDaily();
 
 	if (daily.claim.eventDailyMissions2.done.IsChecked) {
@@ -424,11 +424,21 @@ function claimEventDailyMissions2() {
 		const loopResult = macroService.PollPattern(loopPatterns, { ClickPattern: patterns.general.tapEmptySpace });
 		switch (loopResult.Path) {
 			case 'lobby.level':
+				//logger.info('claimEventDailyMissions2: click event');
+				//macroService.ClickPattern(patterns.festival);
+				//sleep(500);
 				logger.info('claimEventDailyMissions2: click event');
-				macroService.ClickPattern(patterns.festival);
+				macroService.PollPattern(patterns.lobby.event, { DoClick: true, ClickOffset: { Y: -30 }, PredicatePattern: patterns.event.close });
 				sleep(500);
 				break;
-			case 'festival.title':
+			case 'event.close':
+				logger.info('claimEventDailyMissions: claim rewards');
+				macroService.PollPattern(patterns.event.bingo.tab, { SwipePattern: patterns.event.swipeDown });
+				macroService.PollPattern(patterns.event.bingo.tab, { DoClick: true, PredicatePattern: patterns.event.bingo.move });
+				macroService.PollPattern(patterns.event.bingo.move, { DoClick: true, PredicatePattern: patterns.event.bingo  });
+				break;
+			//case 'festival.title':
+			case 'event.bingo':
 				//let demiurgeContractNotificationResult = macroService.PollPattern(patterns.festival.demiurgeContract.notification, { TimeoutMs: 3_000 });
 				//while (demiurgeContractNotificationResult.IsSuccess) {
 				//	macroService.PollPattern(patterns.festival.demiurgeContract.notification, { DoClick: true, PredicatePattern: patterns.general.tapEmptySpace, ClickOffset: { X: -20, Y: 20 } });
@@ -436,11 +446,13 @@ function claimEventDailyMissions2() {
 				//	demiurgeContractNotificationResult = macroService.PollPattern(patterns.festival.demiurgeContract.notification, { TimeoutMs: 3_000 });
 				//}
 
-				macroService.PollPattern(patterns.festival.festivalBingo, { DoClick: true, PredicatePattern: patterns.festival.festivalBingo.selected });
+				//macroService.PollPattern(patterns.festival.festivalBingo, { DoClick: true, PredicatePattern: patterns.festival.festivalBingo.selected });
 				let festivalBingoNotificationResult = macroService.PollPattern(patterns.festival.festivalBingo.notification, { TimeoutMs: 3_000 });
 				while (festivalBingoNotificationResult.IsSuccess) {
 					macroService.PollPattern(patterns.festival.festivalBingo.notification, { DoClick: true, PredicatePattern: patterns.general.tapEmptySpace, ClickOffset: { X: -40, Y: 40 } });
-					macroService.PollPattern(patterns.general.tapEmptySpace, { DoClick: true, PredicatePattern: patterns.festival.title });
+					//macroService.PollPattern(patterns.general.tapEmptySpace, { DoClick: true, PredicatePattern: patterns.festival.title });
+					macroService.PollPattern(patterns.general.tapEmptySpace, { DoClick: true, PredicatePattern: patterns.event.bingo });
+					
 					festivalBingoNotificationResult = macroService.PollPattern(patterns.festival.festivalBingo.notification, { TimeoutMs: 3_000 });
 				}
 
