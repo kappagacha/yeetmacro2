@@ -2518,6 +2518,47 @@
           "$name": "ok",
           "$path": "guild.raid.doNotShowAgain.ok"
         }
+      },
+      "inactive": {
+        "$tags": [],
+        "$patterns": [
+          {
+            "rawBounds": {
+              "x": 1320.25,
+              "y": 589.25,
+              "width": 58.6153564453125,
+              "height": 34.5
+            },
+            "resolution": {
+              "width": 1920,
+              "height": 1080
+            },
+            "type": "Normal",
+            "swipeDirection": "Auto",
+            "name": "pattern",
+            "imageData": "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",
+            "variancePct": 20,
+            "textMatch": {
+              "isActive": false,
+              "text": null,
+              "whiteList": null
+            },
+            "colorThreshold": {
+              "isActive": false,
+              "variancePct": 30,
+              "color": null,
+              "imageData": "",
+              "ignoreBackground": false
+            },
+            "offsetCalcType": "Default",
+            "boundsCalcType": "Default",
+            "position": 0
+          }
+        ],
+        "$isMultiPattern": false,
+        "$position": 0,
+        "$name": "inactive",
+        "$path": "guild.raid.inactive"
       }
     }
   },

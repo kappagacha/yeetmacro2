@@ -16,7 +16,7 @@ function doGuild(type = '') {
 
 function doGuildRaid() {
 	const loopPatterns = [patterns.lobby.level, patterns.titles.guildBoard, patterns.titles.guildRaid, patterns.titles.guild];
-	const clickPatterns = [patterns.general.tapEmptySpace, patterns.guild.raid.ok, patterns.guild.raid.doNotShowAgain, patterns.guild.raid.doNotShowAgain.ok];
+	const clickPatterns = [patterns.general.tapEmptySpace, patterns.guild.raid.ok, patterns.guild.raid.doNotShowAgain, patterns.guild.raid.doNotShowAgain.ok, patterns.guild.checkIn.ok];
 	const daily = dailyManager.GetCurrentDaily();
 	const teamSlot = settings.doGuild.raid.teamSlot.Value;
 	
@@ -44,6 +44,10 @@ function doGuildRaid() {
 				break;
 			case 'titles.guildBoard':
 				logger.info('doGuildRaid: click raid move');
+				const inactiveResult = macroService.FindPattern(patterns.guild.raid.inactive);
+				if (inactiveResult.IsSuccess) {
+					return;
+				}
 				macroService.ClickPattern(patterns.guild.raid.move);
 				break;
 			case 'titles.guildRaid':
