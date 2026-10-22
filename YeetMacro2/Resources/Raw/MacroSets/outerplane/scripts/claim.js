@@ -547,7 +547,7 @@ function claimGuildBuff() {
 					return;
 				}
 
-				const receiveGuildBuffAndAreaSweepResult = macroService.PollPattern(patterns.lobby.guildBuffPlusAreaSweep, { DoClick: true, PredicatePattern: patterns.general.tapEmptySpace, TimeoutMs: 3_000 });
+				const receiveGuildBuffAndAreaSweepResult = macroService.PollPattern(patterns.lobby.guildBuffPlusAreaSweep, { DoClick: true, PredicatePattern: patterns.lobby.receiveGuildBuff.message, TimeoutMs: 3_000 });
 				if (receiveGuildBuffAndAreaSweepResult.IsSuccess) {
 					macroService.PollPattern(patterns.general.tapEmptySpace, { DoClick: true, PredicatePattern: patterns.lobby.receiveGuildBuff.message });
 					macroService.PollPattern(patterns.lobby.receiveGuildBuff.message, { DoClick: true, PredicatePattern: patterns.lobby.level });
