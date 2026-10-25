@@ -364,7 +364,7 @@ function doAdventureLicense() {
 }
 
 function claimWeeklyDimensionalSingularity() {
-	const loopPatterns = [patterns.lobby.level, patterns.titles.mission];
+	const loopPatterns = [patterns.lobby.level, patterns.event.close];
 	const weekly = weeklyManager.GetCurrentWeekly();
 	if (weekly.doWeeklies.dimensionalSingularity.IsChecked) {
 		return "Script already completed. Uncheck done to override weekly flag.";
@@ -374,8 +374,8 @@ function claimWeeklyDimensionalSingularity() {
 		const loopResult = macroService.PollPattern(loopPatterns);
 		switch (loopResult.Path) {
 			case 'lobby.level':
-				logger.info('claimWeeklyDimensionalSingularity: click mission');
-				macroService.ClickPattern(patterns.tabs.mission);
+				logger.info('claimWeeklyDimensionalSingularity: click event');
+				macroService.PollPattern(patterns.lobby.event, { DoClick: true, ClickOffset: { Y: -30 }, PredicatePattern: patterns.event.close });
 				sleep(500);
 				break;
 			case 'event.close':
