@@ -1663,11 +1663,12 @@
         "craft",
         "shop",
         "adventureLicence",
-        "monadGate"
+        "monadGate",
+        "dimensionalSingularity"
       ],
       "$tags": [],
-      "$defaultValue": "monadGate",
-      "$value": "monadGate",
+      "$defaultValue": "dimensionalSingularity",
+      "$value": "dimensionalSingularity",
       "$position": 0,
       "$name": "type",
       "$path": "doWeeklies.type"
@@ -1676,7 +1677,7 @@
       "$type": "enabledParent",
       "$tags": [],
       "$isEnabled": true,
-      "$position": 0,
+      "$position": 1,
       "$name": "craft",
       "$path": "doWeeklies.craft",
       "specialEnhancement": {
@@ -1751,7 +1752,7 @@
       "$tags": [],
       "$defaultValue": true,
       "$value": true,
-      "$position": 1,
+      "$position": 2,
       "$name": "claimMissions",
       "$path": "doWeeklies.claimMissions"
     },
@@ -2063,6 +2064,15 @@
           "$path": "doWeeklies.shop.guild.intermediateSkillManual"
         }
       }
+    },
+    "dimensionalSingularity": {
+      "$type": "boolean",
+      "$tags": [],
+      "$defaultValue": true,
+      "$value": true,
+      "$position": 4,
+      "$name": "dimensionalSingularity",
+      "$path": "doWeeklies.dimensionalSingularity"
     }
   },
   "doShop": {

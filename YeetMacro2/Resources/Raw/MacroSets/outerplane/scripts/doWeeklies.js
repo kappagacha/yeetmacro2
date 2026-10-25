@@ -21,6 +21,11 @@ function doWeeklies(type = '') {
 				doWeeklyShop();
 				goToLobby();
 			}
+
+			if (settings.doWeeklies.dimensionalSingularity.IsEnabled) {
+				doWeeklyShop();
+				goToLobby();
+			}
 			break;
 		case 'claimWeeklyMissions':
 			doClaimWeeklyMissions();
@@ -36,6 +41,9 @@ function doWeeklies(type = '') {
 			break;
 		case 'monadGate':
 			doNormalObservation();
+			break;
+		case 'dimensionalSingularity':
+			claimWeeklyDimensionalSingularity();
 			break;
 	}
 }
