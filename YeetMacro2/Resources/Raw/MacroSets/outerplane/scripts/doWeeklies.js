@@ -354,3 +354,40 @@ function doAdventureLicense() {
 		}
 	}
 }
+
+function claimWeeklyDimensionalSingularity() {
+	const loopPatterns = [patterns.lobby.level, patterns.titles.mission];
+	const weekly = weeklyManager.GetCurrentWeekly();
+	if (weekly.doWeeklies.dimensionalSingularity.IsChecked) {
+		return "Script already completed. Uncheck done to override weekly flag.";
+	}
+
+	while (macroService.IsRunning) {
+		const loopResult = macroService.PollPattern(loopPatterns);
+		switch (loopResult.Path) {
+			case 'lobby.level':
+				logger.info('claimWeeklyDimensionalSingularity: click mission');
+				macroService.ClickPattern(patterns.tabs.mission);
+				sleep(500);
+				break;
+			case 'event.close':
+				logger.info('claimWeeklyDimensionalSingularity: claim rewards');
+				macroService.PollPattern(patterns.event.dimensionalSingularity, { SwipePattern: patterns.event.swipeDown });
+				macroService.PollPattern(patterns.event.dimensionalSingularity, { DoClick: true, PredicatePattern: patterns.event.dimensionalSingularity.recieveAll, IntervalDelayMs: 3_000 });
+				sleep(2_000);
+
+				macroService.PollPattern(patterns.event.dimensionalSingularity.recieveAll, { DoClick: true, PredicatePattern: patterns.general.tapEmptySpace });
+				macroService.PollPattern(patterns.general.tapEmptySpace, { DoClick: true, PredicatePattern: patterns.event.dimensionalSingularity });
+				macroService.PollPattern(patterns.event.dimensionalSingularity.recieve, { DoClick: true, PredicatePattern: patterns.general.tapEmptySpace });
+				macroService.PollPattern(patterns.general.tapEmptySpace, { DoClick: true, PredicatePattern: patterns.event.dimensionalSingularity });
+
+				if (macroService.IsRunning) {
+					weekly.doWeeklies.dimensionalSingularity.IsChecked = true;
+				}
+
+				return;
+		}
+		sleep(1_000);
+	}
+}
+
