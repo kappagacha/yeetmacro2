@@ -3166,7 +3166,8 @@
         "friendsLastLogin2",
         "pusuitOperationPoints",
         "shopCurrency",
-        "shopCurrency2"
+        "shopCurrency2",
+        "battleConditions"
       ],
       "$tags": [],
       "$defaultValue": "unitTitleAndName",

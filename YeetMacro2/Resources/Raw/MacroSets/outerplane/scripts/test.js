@@ -231,4 +231,35 @@ if (settings.test.type.Value === 'arenaTicketCount') {
 	};
 	const currencyPattern = macroService.CapturePatternWithBounds(currencyBounds);
 	macroService.PreviewPattern(currencyPattern);
+} else if (settings.test.type.Value === 'battleConditions') {
+	const battleConditions = {
+		all_water: macroService.FindPattern(patterns.battle.conditions.all_water, findPatternOpts).IsSuccess,
+		all_light: macroService.FindPattern(patterns.battle.conditions.all_light, findPatternOpts).IsSuccess,
+
+		no_rangers: macroService.FindPattern(patterns.battle.conditions.no_rangers, findPatternOpts).IsSuccess,
+		no_healers: macroService.FindPattern(patterns.battle.conditions.no_healers, findPatternOpts).IsSuccess,
+		no_defenders: macroService.FindPattern(patterns.battle.conditions.no_defenders, findPatternOpts).IsSuccess,
+		no_mages: macroService.FindPattern(patterns.battle.conditions.no_mages, findPatternOpts).IsSuccess,
+		no_strikers: macroService.FindPattern(patterns.battle.conditions.no_strikers, findPatternOpts).IsSuccess,
+
+		no_light: macroService.FindPattern(patterns.battle.conditions.no_light, findPatternOpts).IsSuccess,
+		no_dark: macroService.FindPattern(patterns.battle.conditions.no_dark, findPatternOpts).IsSuccess,
+		no_earth: macroService.FindPattern(patterns.battle.conditions.no_earth, findPatternOpts).IsSuccess,
+
+		atLeastOne_oneStar: macroService.FindPattern(patterns.battle.conditions.atLeastOne_oneStar, findPatternOpts).IsSuccess,
+		atLeastOne_twoStar: macroService.FindPattern(patterns.battle.conditions.atLeastOne_twoStar, findPatternOpts).IsSuccess,
+		atLeastOne_threeStar: macroService.FindPattern(patterns.battle.conditions.atLeastOne_threeStar, findPatternOpts).IsSuccess,
+		atLeastOne_ranger: macroService.FindPattern(patterns.battle.conditions.atLeastOne_ranger, findPatternOpts).IsSuccess,
+		atLeastOne_striker: macroService.FindPattern(patterns.battle.conditions.atLeastOne_striker, findPatternOpts).IsSuccess,
+		atLeastOne_healer: macroService.FindPattern(patterns.battle.conditions.atLeastOne_healer, findPatternOpts).IsSuccess,
+		atLeastOne_defender: macroService.FindPattern(patterns.battle.conditions.atLeastOne_defender, findPatternOpts).IsSuccess,
+
+		atLeastOne_light: macroService.FindPattern(patterns.battle.conditions.atLeastOne_light, findPatternOpts).IsSuccess,
+		atLeastOne_earth: macroService.FindPattern(patterns.battle.conditions.atLeastOne_earth, findPatternOpts).IsSuccess,
+		atLeastOne_fire: macroService.FindPattern(patterns.battle.conditions.atLeastOne_fire, findPatternOpts).IsSuccess,
+		atLeastOne_dark: macroService.FindPattern(patterns.battle.conditions.atLeastOne_dark, findPatternOpts).IsSuccess,
+		atLeastOne_water: macroService.FindPattern(patterns.battle.conditions.atLeastOne_water, findPatternOpts).IsSuccess
+	};
+
+	return battleConditions;
 }
