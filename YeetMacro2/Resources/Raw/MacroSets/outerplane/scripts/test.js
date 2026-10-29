@@ -232,6 +232,7 @@ if (settings.test.type.Value === 'arenaTicketCount') {
 	const currencyPattern = macroService.CapturePatternWithBounds(currencyBounds);
 	macroService.PreviewPattern(currencyPattern);
 } else if (settings.test.type.Value === 'battleConditions') {
+	const findPatternOpts = { OverrideBounds: { X: 160, Y: 345, Width: 190, Height: 150 }, OverrideOffsetCalcType: 'DockLeft' };
 	const battleConditions = {
 		all_water: macroService.FindPattern(patterns.battle.conditions.all_water, findPatternOpts).IsSuccess,
 		all_light: macroService.FindPattern(patterns.battle.conditions.all_light, findPatternOpts).IsSuccess,
