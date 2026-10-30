@@ -227,6 +227,10 @@ function selectTeamTower() {
 	if (atLeastOne_striker) {
 		idealTeam.bottom = { name: 'gnosisDahlia' };
 	}
+	if (atLeastOne_twoStar && no_healers) {
+		idealTeam.right = { name: 'demiurgeDrakhan' };
+		idealTeam.bottom = { name: 'vera' };
+	}
 	if (atLeastOne_earth && bossType == 'fireTamamo') {
 		idealTeam.left = { name: 'viella' };
 		idealTeam.top = { name: 'summerRegina' };
