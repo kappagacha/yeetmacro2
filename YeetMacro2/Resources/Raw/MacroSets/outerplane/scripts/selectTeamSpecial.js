@@ -186,8 +186,8 @@ function selectTeamTower() {
 	//const atLeastOne_dark = macroService.FindPattern(patterns.battle.conditions.atLeastOne_dark, findPatternOpts).IsSuccess;
 	const atLeastOne_water = macroService.FindPattern(patterns.battle.conditions.atLeastOne_water, findPatternOpts).IsSuccess;
 
-	if (atLeastOne_twoStar) {
-		atLeastOne_oneStar = false;
+	if (atLeastOne_oneStar) {
+		atLeastOne_oneStar = atLeastOne_twoStar = false;
 	}
 
 	if (atLeastOne_threeStar) {
