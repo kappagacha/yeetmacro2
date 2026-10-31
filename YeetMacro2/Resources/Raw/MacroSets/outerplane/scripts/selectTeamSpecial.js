@@ -172,9 +172,9 @@ function selectTeamTower() {
 	const no_dark = macroService.FindPattern(patterns.battle.conditions.no_dark, findPatternOpts).IsSuccess;
 	//const no_earth = macroService.FindPattern(patterns.battle.conditions.no_earth, findPatternOpts).IsSuccess;
 
-	const atLeastOne_oneStar = macroService.FindPattern(patterns.battle.conditions.atLeastOne_oneStar, findPatternOpts).IsSuccess;
-	const atLeastOne_twoStar = macroService.FindPattern(patterns.battle.conditions.atLeastOne_twoStar, findPatternOpts).IsSuccess;
-	//const atLeastOne_threeStar = macroService.FindPattern(patterns.battle.conditions.atLeastOne_threeStar, findPatternOpts).IsSuccess;
+	let atLeastOne_oneStar = macroService.FindPattern(patterns.battle.conditions.atLeastOne_oneStar, findPatternOpts).IsSuccess;
+	let atLeastOne_twoStar = macroService.FindPattern(patterns.battle.conditions.atLeastOne_twoStar, findPatternOpts).IsSuccess;
+	const atLeastOne_threeStar = macroService.FindPattern(patterns.battle.conditions.atLeastOne_threeStar, findPatternOpts).IsSuccess;
 	//const atLeastOne_ranger = macroService.FindPattern(patterns.battle.conditions.atLeastOne_ranger, findPatternOpts).IsSuccess;
 	const atLeastOne_striker = macroService.FindPattern(patterns.battle.conditions.atLeastOne_striker, findPatternOpts).IsSuccess;
 	//const atLeastOne_healer = macroService.FindPattern(patterns.battle.conditions.atLeastOne_healer, findPatternOpts).IsSuccess;
@@ -185,6 +185,15 @@ function selectTeamTower() {
 	const atLeastOne_fire = macroService.FindPattern(patterns.battle.conditions.atLeastOne_fire, findPatternOpts).IsSuccess;
 	//const atLeastOne_dark = macroService.FindPattern(patterns.battle.conditions.atLeastOne_dark, findPatternOpts).IsSuccess;
 	const atLeastOne_water = macroService.FindPattern(patterns.battle.conditions.atLeastOne_water, findPatternOpts).IsSuccess;
+
+	if (atLeastOne_twoStar) {
+		atLeastOne_oneStar = false;
+	}
+
+	if (atLeastOne_threeStar) {
+		atLeastOne_oneStar = atLeastOne_twoStar = false;
+	}
+
 
 	if (atLeastOne_oneStar) {
 		idealTeam.right = { name: 'claire' };
