@@ -2032,10 +2032,10 @@
         "$patterns": [
           {
             "rawBounds": {
-              "x": 1330.25,
-              "y": 942.25,
-              "width": 56,
-              "height": 27.5
+              "x": 1282.25,
+              "y": 926.25,
+              "width": 173.5,
+              "height": 102.5
             },
             "resolution": {
               "width": 1920,
