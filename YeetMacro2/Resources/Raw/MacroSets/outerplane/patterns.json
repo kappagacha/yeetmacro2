@@ -33952,10 +33952,10 @@
           "$patterns": [
             {
               "rawBounds": {
-                "x": 1092.25,
-                "y": 764.25,
-                "width": 50.5,
-                "height": 29.5
+                "x": 1032.25,
+                "y": 732.25,
+                "width": 182,
+                "height": 117.5
               },
               "resolution": {
                 "width": 1920,
