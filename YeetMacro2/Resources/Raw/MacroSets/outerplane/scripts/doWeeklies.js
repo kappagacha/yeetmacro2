@@ -23,7 +23,7 @@ function doWeeklies(type = '') {
 			}
 
 			if (settings.doWeeklies.dimensionalSingularity.IsEnabled) {
-				doWeeklyShop();
+				claimWeeklyDimensionalSingularity();
 				goToLobby();
 			}
 			break;
