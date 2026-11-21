@@ -22,7 +22,7 @@ function doWeeklies(type = '') {
 				goToLobby();
 			}
 
-			if (settings.doWeeklies.dimensionalSingularity.IsEnabled) {
+			if (settings.doWeeklies.dimensionalSingularity.Value) {
 				claimWeeklyDimensionalSingularity();
 				goToLobby();
 			}
