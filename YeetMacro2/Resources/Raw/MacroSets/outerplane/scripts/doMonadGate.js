@@ -339,8 +339,8 @@ function doDimensionalSingularity() {
 				//	throw Error("Need to try to beat the boss");
 				//}
 
-				if (macroService.FindPattern(patterns.monadGate.singularityRepel.zeroAttemptsLeft).IsSuccess)
-					return;
+				//if (macroService.FindPattern(patterns.monadGate.singularityRepel.zeroAttemptsLeft).IsSuccess)
+				//	return;
 
 				selectTeam(9);
 				macroService.PollPattern(patterns.battle.lineupRecord, { DoClick: true, PredicatePattern: patterns.battle.lineupRecord.restoreTeam });
@@ -349,7 +349,8 @@ function doDimensionalSingularity() {
 				macroService.PollPattern(patterns.battle.enter, { DoClick: true, PredicatePattern: patterns.battle.exit });
 				macroService.PollPattern(patterns.battle.exit, { DoClick: true, PredicatePattern: patterns.general.tapEmptySpace });
 				macroService.PollPattern(patterns.general.tapEmptySpace, { DoClick: true, PredicatePattern: patterns.monadGate.singularityRepel.teamsSetup });
-				break;
+				if (macroService.IsRunning) daily.doMonadGate.singularityRepel.IsChecked = true;
+				return;
 			case 'monadGate.singularityRepel.observation':
 				if (macroService.IsRunning) daily.doMonadGate.singularityRepel.IsChecked = true;
 				return;
